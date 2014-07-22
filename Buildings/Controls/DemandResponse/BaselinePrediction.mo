@@ -44,7 +44,8 @@ block BaselinePrediction "Block that computes the baseline consumption"
     "Consumed electrical energy"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}}),
         iconTransformation(extent={{-140,-20},{-100,20}})));
-  Modelica.Blocks.Interfaces.RealOutput PPre(unit="W")
+
+  discrete Modelica.Blocks.Interfaces.RealOutput PPre(unit="W")
     "Predicted power consumption for the current time interval"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 
@@ -58,7 +59,7 @@ block BaselinePrediction "Block that computes the baseline consumption"
     "If true, this day remains an event day until midnight"
     annotation (Placement(transformation(extent={{-140,70},{-100,30}})));
 
-  Real adj(unit="1") "Load adjustment factor";
+  discrete Real adj(unit="1") "Load adjustment factor";
 protected
   parameter Modelica.SIunits.Time samplePeriod=86400/nSam
     "Sample period of the component";
@@ -73,11 +74,12 @@ protected
     "Number of samples used for the day of adjustment";
   parameter Modelica.SIunits.Time dt = 86400/nSam
     "Length of one sampling interval";
-  Modelica.SIunits.Power PAve "Average power over the past interval";
+  discrete Modelica.SIunits.Power PAve "Average power over the past interval";
   Boolean sampleTrigger "True, if sample time instant";
 
-  output Modelica.SIunits.Energy ELast "Energy at the last sample";
-  output Modelica.SIunits.Time tLast "Time at which last sample occured";
+  discrete output Modelica.SIunits.Energy ELast "Energy at the last sample";
+  discrete output Modelica.SIunits.Time tLast
+    "Time at which last sample occured";
   output Integer iSam "Index for power of the current sampling interval";
 
   discrete output Modelica.SIunits.Power P[Buildings.Controls.Types.nDayTypes,nSam,nHis]
@@ -99,19 +101,19 @@ protected
   Boolean _isEventDay
     "Flag, switched to true when block gets an isEvenDay=true signal, and remaining true until midnight";
 
-  Modelica.SIunits.Energy EActAve "Actual energy over the day off period";
-
-  Modelica.SIunits.Energy EHisAve
+  discrete Modelica.SIunits.Energy EActAve
+    "Actual energy over the day off period";
+  discrete Modelica.SIunits.Energy EHisAve
     "Actual load over the day off period, summed over all time intervals";
 
-  Modelica.SIunits.Power PPreHis[Buildings.Controls.Types.nDayTypes, nSam]
+  discrete Modelica.SIunits.Power PPreHis[Buildings.Controls.Types.nDayTypes, nSam]
     "Predicted power consumptions for all day off time intervals";
   Boolean PPreHisSet[Buildings.Controls.Types.nDayTypes, nSam](each start=false, each fixed=true)
     "Flag, true if a value in PPreHis has been set for that element";
 
   Real intTOut(unit="K.s", start=0, fixed=true)
     "Time integral of outside temperature";
-  Real intTOutLast(unit="K.s")
+  discrete Real intTOutLast(unit="K.s")
     "Last sampled value of time integral of outside temperature";
 
   Integer idxSam "Index to access iSam";
