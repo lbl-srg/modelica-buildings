@@ -58,12 +58,6 @@ protected
 
   output Integer retVal "Return value from CFD";
 
-  parameter Boolean ideSurNam[nSur - 1](fixed=false)
-    "Flag, used to tag identical surface names";
-  parameter Boolean ideSenNam[max(0, nSen - 1)](fixed=false)
-    "Flag, used to tag identical sensor names";
-  parameter Boolean idePorNam[max(0, nPorts - 1)](fixed=false)
-    "Flag, used to tag identical port names";
   ///////////////////////////////////////////////////////////////////////////
   // Function that sends the parameters of the model from Modelica to CFD
   function sendParameters
@@ -261,63 +255,6 @@ end if;
   assertStringsAreUnique(descriptiveName="ports",
                          n=nPorts,
                          names=portName);
-
-//  if nSur > 1 then
-    for i in 1:nSur - 1 loop
-      ideSurNam[i] = if nSur > 1 then Modelica.Math.BooleanVectors.anyTrue(
-        Modelica.Utilities.Strings.isEqual(surIde[i].name, surIde[:].name))
-    else false;
-//      ideSurNam[i] = Modelica.Math.BooleanVectors.anyTrue({
-//        Modelica.Utilities.Strings.isEqual(surIde[i].name, surIde[j].name) for
-//        j in i + 1:nSur});
-    end for;
-    //Fixme:
-//     assert(not Modelica.Math.BooleanVectors.anyTrue(ideSurNam[:]), "For the CFD interface, all surfaces must have a name that is unique within each room.
-//   The following surface names are used more than once in the room model:" +
-//       returnNonUniqueStrings(
-//       nSur,
-//       ideSurNam,
-//       surIde[:].name));
-//  else
- //   ideSurNam = fill(false, max(0, nSur - 1));
-  //end if;
-
-  // -- Check sensors
-  // Loop over all names to verify that they are unique
-  if nSen > 1 then
-    for i in 1:nSen - 1 loop
-      ideSenNam[i] = Modelica.Math.BooleanVectors.anyTrue({
-        Modelica.Utilities.Strings.isEqual(sensorName[i], sensorName[j]) for j in
-            i + 1:nSen});
-    end for;
-
-    assert(not Modelica.Math.BooleanVectors.anyTrue(ideSenNam), "For the CFD interface, all sensors must have a name that is unique within each room.
- The following sensor names are used more than once in the room model:" +
-      returnNonUniqueStrings(
-      nSen,
-      ideSenNam,
-      sensorName));
-  else
-    ideSenNam = fill(false, max(0, nSen - 1));
-  end if;
-
-  // -- Check ports
-  if nPorts > 1 then
-    for i in 1:nPorts - 1 loop
-      idePorNam[i] = Modelica.Math.BooleanVectors.anyTrue({
-        Modelica.Utilities.Strings.isEqual(portName[i], portName[j]) for j in i
-         + 1:nPorts});
-    end for;
-
-    assert(not Modelica.Math.BooleanVectors.anyTrue(idePorNam), "For the CFD interface, all ports must have a name that is unique within each room.
-  The following port names are used more than once in the room model:" +
-      returnNonUniqueStrings(
-      nPorts,
-      idePorNam,
-      portName));
-  else
-    idePorNam = fill(false, max(0, nPorts - 1));
-  end if;
 
   // Send parameters to the CFD interface
   sendParameters(
