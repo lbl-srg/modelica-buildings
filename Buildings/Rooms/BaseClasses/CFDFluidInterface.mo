@@ -5,9 +5,6 @@ model CFDFluidInterface
    final energyDynamics = Modelica.Fluid.Types.Dynamics.FixedInitial,
    massDynamics = Modelica.Fluid.Types.Dynamics.DynamicFreeInitial);
 
-  parameter String cfdFilNam "CFD input file name" annotation (Dialog(
-        __Dymola_loadSelector(caption=
-            "Select CFD input file")));
   parameter Integer nPorts(final min=2)=0 "Number of ports"
     annotation(Evaluate=true, Dialog(connectorSizing=true, tab="General",group="Ports"));
   parameter Modelica.SIunits.Density rho_start
