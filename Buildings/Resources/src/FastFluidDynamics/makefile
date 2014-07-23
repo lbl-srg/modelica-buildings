@@ -2,23 +2,21 @@
 # LINUX OPERATING SYSTEMS
 #######################################################
 SHELL = /bin/sh
-
-# Makefile to compile FFD DLL
-# Michael Wetter (MWetter@lbl.gov) August 2, 2013
+ARCH = $(shell getconf LONG_BIT)
+# Makefile to compile Python interface
+# Michael Wetter (MWetter@lbl.gov) October 24, 2012
 
 
 # Directory where executable will be copied to
-
-BINDIR = ../../bin/
+BINDIR = ../../Library/linux$(ARCH)
 
 #######################################################
 ## Compilation flags
 CC = cc
 
 #Note that Dymola use 32bit compiler, so generated executable only support 32bit loaded library
-CC_FLAGS_32 = -Wall -I/usr/include/python2.7 -lpython2.7 -lm -m32  
-
-
+CC_FLAGS_32 = -Wall -lm -m32  
+CC_FLAGS_64 = -Wall -lm -m64
 
 SRCS = advection.c boundary.c chen_zero_equ_model.c cosimulation.c \
        data_writer.c diffusion.c ffd.c ffd_data_reader.c ffd_dll.c geometry.c initialization.c \
@@ -30,14 +28,14 @@ OBJS = advection.o boundary.o chen_zero_equ_model.o cosimulation.o \
        interpolation.o parameter_reader.o projection.o sci_reader.o solver.o solver_gs.o \
        solver_tdma.o timing.o utility.o
 
-LIB = FFD-DLL.so
+LIB = libffd.so
 LIBS = -lpthread
 
 # Note that -fPIC is recommended on Linux according to the Modelica specification
 
 all: clean
-	$(CC) $(CC_FLAGS_32) -fPIC -c $(SRCS)
-	$(CC) -m32 -shared -fPIC -Wl,-soname,$(LIB) -o $(LIB) $(OBJS) $(LIBS) -lc 
+	$(CC) $(CC_FLAGS_$(ARCH)) -fPIC -c $(SRCS)
+	$(CC) -m$(ARCH) -shared -fPIC -Wl,-soname,$(LIB) -o $(LIB) $(OBJS) $(LIBS) -lc 
 	mv $(LIB) $(BINDIR)
 	@echo "==== library generated in $(BINDIR)"
 
