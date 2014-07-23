@@ -28,7 +28,7 @@ model CFD
 
   parameter String sensorName[:] = {""}
     "Names of sensors as declared in the CFD input file";
-  parameter String portName[nPorts]
+  parameter String portName[nPorts] = {"port_" + String(i) for i in 1:nPorts}
     "Names of fluid ports as declared in the CFD input file";
   parameter String cfdFilNam "CFD input file name" annotation (Dialog(
         __Dymola_loadSelector(caption=
