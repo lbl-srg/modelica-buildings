@@ -42,5 +42,6 @@ equation
   </html>"),
     __Dymola_Commands(file=
           "modelica://Buildings/Resources/Scripts/Dymola/Fluid/SolarCollectors/Controls/BaseClasses/Examples/GCritCalc.mos"
-        "Simulate and Plot"));
+        "Simulate and Plot"),
+   experiment(StopTime=100.0));
 end GCritCalc;
