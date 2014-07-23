@@ -156,10 +156,35 @@ int cfdStartCosimulation(char *cfdFilNam, char **name, double *A, double *til,
   | Get a handle to the DLL module.
   ****************************************************************************/
 #ifdef _MSC_VER //Windows
-  hinstLib = LoadLibrary(TEXT("Resources/bin/FFD-DLL.dll")); 
-#else //Linux
-  hinstLib = dlopen("Resources/bin/FFD-DLL.so", RTLD_LAZY);
+
+#if _WIN64
+  hinstLib = LoadLibrary(TEXT("Resources/Library/win64/ffd.dll")); 
+#elif _WIN32
+  hinstLib = LoadLibrary(TEXT("Resources/Library/win32/ffd.dll"));
+#else
+    printf("Failed to detect 32 or 64 bit in cfdStartCosimulation.c.\n");
+    return 1;
 #endif
+
+#elif __linux__ //Linux
+#if UINTPTR_MAX == 0xffffffff
+/* 32-bit */
+  hinstLib = dlopen("Resources/Library/linux32/libffd.so", RTLD_LAZY);
+#elif UINTPTR_MAX == 0xffffffffffffffff
+/* 64-bit */
+  hinstLib = dlopen("Resources/Library/linux64/libffd.so", RTLD_LAZY);
+#else
+    printf("Failed to detect 32 or 64 bit in cfdStartCosimulation.c.\n");
+    return 1;
+#endif
+
+#else /* Neither MSC nor Linux */
+
+    printf("Unsupported operating system in cfdStartCosimulation.c.\n");
+    return 1;
+
+#endif
+
 
   // If the handle is valid, try to get the function address.
   if(hinstLib!=NULL) {
