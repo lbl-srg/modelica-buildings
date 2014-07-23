@@ -391,7 +391,7 @@ int write_cosim_data(PARA_DATA *para, REAL **var) {
     }
 
     for(j=0; j<para->bc->nb_Xi; j++) {
-      para->bc->velPortMean[i] = abs(para->bc->velPortMean[i]) + SMALL;
+      para->bc->velPortMean[i] = fabs(para->bc->velPortMean[i]) + SMALL;
       para->cosim->ffd->XiPor[id][j] = para->bc->XiPortMean[i][j] 
                                       / para->bc->velPortMean[i];
 
@@ -404,7 +404,7 @@ int write_cosim_data(PARA_DATA *para, REAL **var) {
     | Assign the C
     -------------------------------------------------------------------------*/
     for(j=0; j<para->bc->nb_C; j++) {
-      para->bc->velPortMean[i] = abs(para->bc->velPortMean[i]) + SMALL;
+      para->bc->velPortMean[i] = fabs(para->bc->velPortMean[i]) + SMALL;
       para->cosim->ffd->CPor[id][j] = para->bc->CPortMean[i][j]
                                     / para->bc->velPortMean[i]; 
       sprintf(msg, "\t\t%s: C[%d]=%f",
