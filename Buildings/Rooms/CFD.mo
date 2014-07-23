@@ -53,7 +53,7 @@ protected
 
   Modelica.Blocks.Sources.Constant conSha[nConExtWin](final k=uSha_fixed) if
        haveShade "Constant signal for shade"
-    annotation (Placement(transformation(extent={{-260,168},{-240,188}})));
+    annotation (Placement(transformation(extent={{-260,170},{-240,190}})));
 
 initial equation
   startTime = time; // fixme: don't mix equations with graphical modeling
@@ -82,33 +82,33 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(conSha.y, conExtWin.uSha) annotation (Line(
-      points={{-239,178},{328,178},{328,62},{281,62}},
+      points={{-239,180},{328,180},{328,62},{281,62}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(conSha.y, bouConExtWin.uSha) annotation (Line(
-      points={{-239,178},{328,178},{328,64},{351,64}},
+      points={{-239,180},{328,180},{328,64},{351,64}},
       color={0,0,127},
       pattern=LinePattern.None,
       smooth=Smooth.None));
   connect(conSha.y, conExtWinRad.uSha) annotation (Line(
-      points={{-239,178},{442,178},{442,-42},{310.2,-42},{310.2,-25.6}},
+      points={{-239,180},{420,180},{420,-42},{310.2,-42},{310.2,-25.6}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(irRadGai.uSha,conSha.y)
                              annotation (Line(
-      points={{-100.833,-22.5},{-90,-22.5},{-90,178},{-239,178}},
+      points={{-100.833,-22.5},{-112,-22.5},{-112,180},{-239,180}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(conSha.y, radTem.uSha) annotation (Line(
-      points={{-239,178},{-90,178},{-90,-64},{-100.833,-64},{-100.833,-62.5}},
+      points={{-239,180},{-112,180},{-112,-62},{-100.833,-62},{-100.833,-62.5}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(conSha.y, shaSig.u) annotation (Line(
-      points={{-239,178},{-228,178},{-228,160},{-222,160}},
+      points={{-239,180},{-228,180},{-228,160},{-222,160}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(air.uSha,conSha.y)  annotation (Line(
-      points={{39.6,-120},{28,-120},{28,178},{-239,178}},
+      points={{39.6,-120},{28,-120},{28,180},{-239,180}},
       color={0,0,127},
       smooth=Smooth.None));
   annotation (
