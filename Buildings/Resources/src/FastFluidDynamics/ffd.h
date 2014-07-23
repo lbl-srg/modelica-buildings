@@ -53,10 +53,10 @@
 #include "initialization.h"
 #endif
 
-#ifndef _VISUALIZATION_H
-#define _VISUALIZATION_H
-#include "visualization.h"
-#endif
+//#ifndef _VISUALIZATION_H
+//#define _VISUALIZATION_H
+//#include "visualization.h"
+//#endif
 
 //static PARA_DATA para;
 ///////////////////////////////////////////////////////////////////////////////

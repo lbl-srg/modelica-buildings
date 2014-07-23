@@ -43,11 +43,11 @@ Override the definition in glut.h with that in stdlib.h.
 Place the stdlib.h line above the glut.h line in the code.
 -----------------------------------------------------------------------------*/
 
-#ifdef _MSC_VER // Windows
-#include "glut.h"
-#else // Linux
-#include <GL/glut.h>
-#endif
+//#ifdef _MSC_VER // Windows
+//#include "glut.h"
+//#else // Linux
+//#include <GL/glut.h>
+//#endif
 
 #define IX(i,j,k) ((i)+(IMAX)*(j)+(IJMAX)*(k))
 #define FOR_EACH_CELL for(i=1; i<=imax; i++) { for(j=1; j<=jmax; j++) { for(k=1; k<=kmax; k++) {

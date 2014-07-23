@@ -73,8 +73,8 @@ goto missing
 
 ::Source Files and Header Files setting
 
-  set SourceFile=advection.c;boundary.c;chen_zero_equ_model.c;cosimulation.c;data_writer.c;diffusion.c;ffd.c;ffd_data_reader.c;ffd_dll.c;geometry.c;initialization.c;interpolation.c;parameter_reader.c;projection.c;sci_reader.c;solver.c;solver_gs.c;solver_tdma.c;timing.c;utility.c;visualization.c
-  set HeaderFile=advection.h;boundary.h;chen_zero_equ_model.h;cosimulation.h;data_structure.h;data_writer.h;diffusion.h;ffd.h;ffd_data_reader.h;ffd_dll.h;geometry.h;initialization.h;interpolation.h;modelica_ffd_common.h;parameter_reader.h;projection.h;sci_reader.h;solver.h;solver_gs.h;solver_tdma.h;timing.h;utility.h;visualization.h
+  set SourceFile=advection.c;boundary.c;chen_zero_equ_model.c;cosimulation.c;data_writer.c;diffusion.c;ffd.c;ffd_data_reader.c;ffd_dll.c;geometry.c;initialization.c;interpolation.c;parameter_reader.c;projection.c;sci_reader.c;solver.c;solver_gs.c;solver_tdma.c;timing.c;utility.c;
+  set HeaderFile=advection.h;boundary.h;chen_zero_equ_model.h;cosimulation.h;data_structure.h;data_writer.h;diffusion.h;ffd.h;ffd_data_reader.h;ffd_dll.h;geometry.h;initialization.h;interpolation.h;modelica_ffd_common.h;parameter_reader.h;projection.h;sci_reader.h;solver.h;solver_gs.h;solver_tdma.h;timing.h;utility.h
 
 ::-------------------------------------------------------------------
 ::Conditional PropertyGroup for Debug Mode and Release Mode
