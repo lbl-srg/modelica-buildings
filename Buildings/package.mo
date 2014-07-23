@@ -191,7 +191,17 @@ have been <b style=\"color:blue\">improved</b> in a
 <b style=\"color:blue\">non-backward compatible</b> way:
 </p>
 <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
- <tr><td colspan=\"2\"><b>Buildings.Fluid</b>
+<tr><td colspan=\"2\"><b>Buildings.Examples</b>
+   </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Examples.VAVReheat.Controls.IntegerSum
+   </td>
+   <td valign=\"top\">Removed block as it is not used in any model.
+                      Models that require an integer sum can use
+                      <code>Modelica.Blocks.MathInteger.Sum</code>.
+   </td>
+</tr>
+<tr><td colspan=\"2\"><b>Buildings.Fluid</b>
     </td>
 </tr>
 <tr><td valign=\"top\">Buildings.Fluid.HeatExchangers.DryCoilDiscretized<br/>
@@ -212,6 +222,7 @@ have been <b style=\"color:blue\">improved</b> in a
 
     </td>
 </tr>
+
 <tr><td valign=\"top\">Buildings.Fluid.HeatExchangers.BaseClasses.DuctManifoldFixedResistance
     </td>
     <td valign=\"top\">Reformulated flow splitter in the model to reduce
