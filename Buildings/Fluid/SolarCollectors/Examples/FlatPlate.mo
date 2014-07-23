@@ -103,5 +103,5 @@ equation
     </html>"),
     __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/SolarCollectors/Examples/FlatPlate.mos"
         "Simulate and Plot"),
-    Icon(graphics));
+    experiment(StopTime=86400.0));
 end FlatPlate;

@@ -76,6 +76,7 @@ equation
             -100},{100,100}}), graphics), __Dymola_Commands(file=
           "modelica://Buildings/Resources/Scripts/Dymola/Fluid/Storage/Examples/StratifiedEnhancedInternalHex.mos"
         "Simulate and Plot"),
+experiment(StopTime=30000.0),
 Documentation(info="<html>
 <p>
 This model provides an example of how the 

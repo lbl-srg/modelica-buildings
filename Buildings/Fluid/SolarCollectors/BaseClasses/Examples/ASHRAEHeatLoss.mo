@@ -76,5 +76,5 @@ equation
     __Dymola_Commands(file=
           "modelica://Buildings/Resources/Scripts/Dymola/Fluid/SolarCollectors/BaseClasses/Examples/ASHRAEHeatLoss.mos"
         "Simulate and Plot"),
-    Icon(graphics));
+        experiment(StopTime=100.0));
 end ASHRAEHeatLoss;
