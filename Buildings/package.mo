@@ -201,6 +201,11 @@ have been <b style=\"color:blue\">improved</b> in a
                       <code>Modelica.Blocks.MathInteger.Sum</code>.
    </td>
 </tr>
+<tr><td valign=\"top\">Buildings.Examples.VAVReheat.Controls.UnoccupiedOn
+   </td>
+   <td valign=\"top\">Removed block as it is not used in any model.
+   </td>
+</tr>
 <tr><td colspan=\"2\"><b>Buildings.Fluid</b>
     </td>
 </tr>

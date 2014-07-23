@@ -7,7 +7,6 @@ PreCoolingStarter
 RoomTemperatureSetpoint
 RoomVAV
 State
-UnoccupiedOn
 DuctStaticPressureSetpoint
 CoolingCoilTemperatureSetpoint
 MixedAirTemperatureSetpoint
