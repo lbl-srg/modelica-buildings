@@ -26,15 +26,7 @@ geom.dy 0.1 // Length delta_y of one cell in y-direction for uniform grid only
 geom.dz 0.1 // Length delta_z of one cell in z-direction for uniform grid only
 geom.uniform 1 // Only for generating grid by FFD. 1: uniform grid; 0: non-uniform grid 
 
-outp.cal_mean 1 // 1: Calculate mean value; 0: False
-outp.v_ref 0.1 // Reference velocity for visualization
-outp.Temp_ref 10 // Reference temperature for visualizations
-outp.v_length 1 // Change of velocity vector length in demo window
-outp.i_N 1 // Number of grids plotted in x direction
-outp.j_N 1 // Number of grids plotted in y direction
-outp.winx 600 // Resolution of screen at x direction in pixel
-outp.winy 600 // Resolution of screen at y direction in pixel
-outp.version RUN // DEMO, DEBUG, RUN
+outp.version RUN // DEBUG, RUN
 
 prob.nu 0.000016 // Kinematic viscosity
 prob.rho 1.1774 // Density
