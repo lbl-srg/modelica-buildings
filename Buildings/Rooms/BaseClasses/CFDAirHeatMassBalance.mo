@@ -78,11 +78,7 @@ protected
   parameter Real Xi_outflow_fixed[nPorts*Medium.nXi](fixed=false)
     "Species concentration of the fluid that flows into the HVAC system used for yFixed"
     annotation (Dialog(group="Outputs if activateInterface=false"));
-  parameter Real C_outflow_fixed[nPorts*max(1, Medium.nC)]=if Medium.nC == 0
-       then fill(0, nPorts) else cat(
-      1,
-      C_start[i]
-      for i in 1:Medium.nC)
+  parameter Real C_outflow_fixed[nPorts*Medium.nC](fixed=false)
     "Trace substances of the fluid that flows into the HVAC system used for yFixed"
     annotation (Dialog(group="Outputs if activateInterface=false"));
 
@@ -392,6 +388,12 @@ initial equation
   for i in 1:nPorts loop
     for j in 1:Medium.nXi loop
       Xi_outflow_fixed[(i - 1)*Medium.nXi + j] = X_start[j];
+    end for;
+  end for;
+
+  for i in 1:nPorts loop
+    for j in 1:Medium.nC loop
+      C_outflow_fixed[(i - 1)*Medium.nC + j] = C_start[j];
     end for;
   end for;
 
@@ -834,10 +836,20 @@ Buildings.Rooms.UsersGuide.CFD</a>.
 <ul>
 <li>
 December 31, 2013, by Wangda Zuo:<br/>
-- Corrected the connections. cfd.u should always be connected to Q_flow_out and cfd.y to T_in.
-- Added unit [W] for total convective sensible heat before it is input into component cfd.  
-- Enabled transfer of C and X information.
-- Added initial value of shade.
+<ul>
+<li>
+Corrected the connections. cfd.u should always be connected to Q_flow_out and cfd.y to T_in.
+</li>
+<li>
+Added unit [W] for total convective sensible heat before it is input into component cfd.  
+</li>
+<li>
+Enabled transfer of C and X information.
+</li>
+<li>
+Added initial value of shade.
+</li>
+</ul>
 <li>
 July 17, 2013, by Michael Wetter:<br/>
 First implementation.
