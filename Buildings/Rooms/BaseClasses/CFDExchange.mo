@@ -190,25 +190,28 @@ protected
     end for;
   end returnNonUniqueStrings;
 
-  /*
   // This function does not work because Dymola 2014 has problems with
   // handling strings in an algorithm section
   function assertStringsAreUnique
-    input String descriptiveName 
+    input String descriptiveName
       "Descriptive name of what is tested, such as 'sensor' or 'ports'";
     input Integer n(min=2) "Number of strings";
     input String names[n] "Names";
-  protected 
-    Boolean ideNam[n-1] 
+  protected
+    Boolean ideNam[n-1]
       "Flag that is set to true if the name is used more than once";
 
-  algorithm 
+  algorithm
       // Loop over all names to verify that they are unique
     if n > 1 then
       for i in 1:n-1 loop
-        ideNam[i] = Modelica.Math.BooleanVectors.anyTrue(
-          {Modelica.Utilities.Strings.isEqual(names[i], names[j]) for j in i+1:n});
-      end for;
+        for j in i+1:n loop
+          ideNam[i] := Modelica.Utilities.Strings.isEqual(names[i], names[j]);
+          if ideNam[i] then
+            break;
+          end if;
+        end for; // j
+      end for; // i
 
       assert( not Modelica.Math.BooleanVectors.anyTrue(ideNam),
       "For the CFD interface, all " + descriptiveName +
@@ -217,11 +220,10 @@ protected
         + descriptiveName + " names are used more than once in the room model:" +
       returnNonUniqueStrings(n, ideNam, names));
     else
-      ideNam = fill(false, max(0, n - 1));
+      ideNam :=fill(false, max(0, n - 1));
     end if;
-    annotation(Inline=true);
+   annotation(Inline=true);
   end assertStringsAreUnique;
-*/
 
 initial equation
   // Diagnostics output
@@ -249,7 +251,7 @@ end if;
   // Assert that the surface, sensor and ports have a name,
   // and that that name is unique.
   // Otherwise, stop with an error.
-  /*
+
   assertStringsAreUnique(descriptiveName="surface",
                          n=nSur,
                          names={surIde[i].name for i in 1:nSur});
@@ -259,7 +261,7 @@ end if;
   assertStringsAreUnique(descriptiveName="ports",
                          n=nPorts,
                          names=portName);
-*/
+
 //  if nSur > 1 then
     for i in 1:nSur - 1 loop
       ideSurNam[i] = if nSur > 1 then Modelica.Math.BooleanVectors.anyTrue(
