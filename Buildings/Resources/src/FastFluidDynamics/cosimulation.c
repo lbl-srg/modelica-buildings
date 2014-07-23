@@ -567,7 +567,7 @@ int compare_boundary_names(PARA_DATA *para) {
     | Stop if name is not found 
     -------------------------------------------------------------------------*/
     if(flag!=0) {
-      sprintf(msg, "compare_boundary_names(): Could not find"
+      sprintf(msg, "compare_boundary_names(): Could not find "
         "the Modelica fluid port boundary \"%s\" in FFD.", name3[i]);
       ffd_log(msg, FFD_ERROR);
       return 1;
