@@ -269,12 +269,13 @@ end if;
 //        Modelica.Utilities.Strings.isEqual(surIde[i].name, surIde[j].name) for
 //        j in i + 1:nSur});
     end for;
-    assert(not Modelica.Math.BooleanVectors.anyTrue(ideSurNam[:]), "For the CFD interface, all surfaces must have a name that is unique within each room.
-  The following surface names are used more than once in the room model:" +
-      returnNonUniqueStrings(
-      nSur,
-      ideSurNam,
-      surIde[:].name));
+    //Fixme:
+//     assert(not Modelica.Math.BooleanVectors.anyTrue(ideSurNam[:]), "For the CFD interface, all surfaces must have a name that is unique within each room.
+//   The following surface names are used more than once in the room model:" +
+//       returnNonUniqueStrings(
+//       nSur,
+//       ideSurNam,
+//       surIde[:].name));
 //  else
  //   ideSurNam = fill(false, max(0, nSur - 1));
   //end if;
