@@ -32,7 +32,7 @@ model WindowWithoutShade
         azi={Buildings.HeatTransfer.Types.Azimuth.E,Buildings.HeatTransfer.Types.Azimuth.W},
         boundaryCondition={Buildings.Rooms.Types.CFDBoundaryConditions.Temperature,
             Buildings.Rooms.Types.CFDBoundaryConditions.Temperature}),
-      cfdFilNam="modelica://Resources/Data/Rooms/FFD/WindowWithoutShade.ffd",
+      cfdFilNam="modelica://Buildings/Resources/Data/Rooms/FFD/WindowWithoutShade.ffd",
       T_start=283.15,
       uSha_fixed={0,0}));
 
