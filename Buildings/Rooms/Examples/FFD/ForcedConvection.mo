@@ -19,7 +19,8 @@ model ForcedConvection "Ventilation with forced convection in an empty room"
       portName={"Inlet","Outlet"},
       cfdFilNam="modelica://Buildings/Resources/Data/Rooms/FFD/ForcedConvection.ffd",
       samplePeriod=6,
-      linearizeRadiation=true),
+      linearizeRadiation=true,
+      massDynamics=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial),
       nSurBou=6);
   HeatTransfer.Sources.FixedTemperature TWal[nSurBou](each T=283.15)
     "Temperature of other walls"
