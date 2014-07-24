@@ -46,7 +46,7 @@ model MixedConvection "Tutorial for Mixed Convection case"
     linearizeRadiation = false,
     useCFD = true,
     sensorName = {"Occupied zone air temperature", "Velocity"},
-    cfdFilNam = "Resources/Data/Rooms/FFD/Tutorial/MixedConvection.ffd",
+    cfdFilNam = "modelica://Buildings/Resources/Data/Rooms/FFD/Tutorial/MixedConvection.ffd",
     nConExt = nConExt,
     nConExtWin = nConExtWin,
     nConPar = nConPar,
@@ -56,7 +56,6 @@ model MixedConvection "Tutorial for Mixed Convection case"
     portName={"Inlet","Outlet"},
     samplePeriod = 6)
   annotation (Placement(transformation(extent={{80,-38},{120,2}})));
-
   HeatTransfer.Sources.FixedTemperature TOthWal[nSurBou-1](each T=283.15)
     "Temperature for other walls"          annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
@@ -249,7 +248,7 @@ surBou(
   linearizeRadiation = false,
   useCFD = true,
   sensorName = {\"Occupied zone air temperature\", \"Velocity\"},
-  cfdFilNam = \"Resources/Data/Rooms/FFD/Tutorial/MixedConvection.ffd\",
+  cfdFilNam = \"modelica://Buildings/Resources/Data/Rooms/FFD/Tutorial/MixedConvection.ffd\",
   nConExt = nConExt,
   nConExtWin = nConExtWin,
   nConPar = nConPar,

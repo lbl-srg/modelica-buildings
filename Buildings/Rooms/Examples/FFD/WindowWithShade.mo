@@ -32,12 +32,12 @@ model WindowWithShade
         azi={Buildings.HeatTransfer.Types.Azimuth.E,Buildings.HeatTransfer.Types.Azimuth.W},
         boundaryCondition={Buildings.Rooms.Types.CFDBoundaryConditions.Temperature,
             Buildings.Rooms.Types.CFDBoundaryConditions.Temperature}),
-      cfdFilNam="Resources/Data/Rooms/FFD/WindowWithShade.ffd",
-      linearizeRadiation=false,
       uSha_fixed={0.5,0.5},
+      samplePeriod=10,
       T_start=283.15,
-      samplePeriod=10));
-
+      linearizeRadiation=true,
+      cfdFilNam=
+          "modelica://Buildings/Resources/Data/Rooms/FFD/WindowWithShade.ffd"));
   parameter HeatTransfer.Data.OpaqueConstructions.Insulation100Concrete200 matLayExt
     "Construction material for exterior walls"
     annotation (Placement(transformation(extent={{-60,140},{-40,160}})));
