@@ -51,7 +51,7 @@ model NaturalConvection "Tutorial for Natural Convection case"
    linearizeRadiation = false,
    useCFD = true,
    sensorName = {"Occupied zone air temperature", "Velocity"},
-   cfdFilNam = "Resources/Data/Rooms/FFD/Tutorial/NaturalConvection.ffd",
+   cfdFilNam = "modelica://Buildings/Resources/Data/Rooms/FFD/Tutorial/NaturalConvection.ffd",
    nConExt = nConExt,
    nConExtWin = nConExtWin,
    nConPar = nConPar,
@@ -90,7 +90,6 @@ equation
       points={{21,-30},{30,-30},{30,-30},{40,-30},{40,-30},{58,-30}},
       color={0,0,127},
       smooth=Smooth.None));
-
   connect(TEasWal.port, roo.surf_surBou[1])
     annotation (Line(
       points={{120,-70},{76.2,-70},{76.2,-52}},
@@ -101,7 +100,6 @@ equation
       points={{120,-110},{76.2,-110},{76.2,-52}},
       color={191,0,0},
       smooth=Smooth.None));
-
   connect(fixedHeatFlow[1].port, roo.surf_surBou[3])
     annotation (Line(
       points={{46,-92},{76.2,-92},{76.2,-52}},
@@ -274,7 +272,7 @@ surBou(
  linearizeRadiation = false,
  useCFD = true,
  sensorName = {\"Occupied zone air temperature\", \"Velocity\"},
- cfdFilNam = \"Resources/Data/Rooms/FFD/Tutorial/NaturalConvection.ffd\",
+ cfdFilNam = \"modelica://Buildings/Resources/Data/Rooms/FFD/Tutorial/NaturalConvection.ffd\",
  nConExt = nConExt,
  nConExtWin = nConExtWin,
  nConPar = nConPar,
