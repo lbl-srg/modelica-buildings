@@ -3,7 +3,7 @@ model CFD
   "Model of a room in which the air is computed using Computational Fluid Dynamics (CFD)"
   extends Buildings.Rooms.BaseClasses.RoomHeatMassBalance(
   redeclare BaseClasses.CFDAirHeatMassBalance air(
-    final cfdFilNam = cfdFilNam,
+    final cfdFilNam = Buildings.BoundaryConditions.WeatherData.BaseClasses.getAbsolutePath(cfdFilNam),
     final useCFD=useCFD,
     final samplePeriod=samplePeriod,
     final startTime=startTime,
@@ -14,18 +14,14 @@ model CFD
     final uSha_fixed=uSha_fixed),
     final energyDynamics = Modelica.Fluid.Types.Dynamics.FixedInitial,
     massDynamics = Modelica.Fluid.Types.Dynamics.FixedInitial);
-
   parameter Boolean useCFD = true
     "Set to false to deactivate the CFD computation and use instead yFixed as output"
     annotation(Evaluate = true);
-
   parameter Modelica.SIunits.Time samplePeriod(min=100*Modelica.Constants.eps)
     "Sample period of component"
     annotation(Dialog(group = "Sampling"));
-
   parameter Real uSha_fixed[nConExtWin] = zeros(nConExtWin)
     "Constant control signal for the shading device (0: unshaded; 1: fully shaded)";
-
   parameter String sensorName[:] = {""}
     "Names of sensors as declared in the CFD input file";
   parameter String portName[nPorts] = {"port_" + String(i) for i in 1:nPorts}
@@ -37,12 +33,10 @@ model CFD
        haveSensor "Sensor for output from CFD"
     annotation (Placement(transformation(
      extent={{460,110},{480,130}}), iconTransformation(extent={{200,110},{220, 130}})));
-
 protected
   BaseClasses.CFDHeatGain heaGai(final AFlo=AFlo)
     "Model to convert internal heat gains"
     annotation (Placement(transformation(extent={{-220,90},{-200,110}})));
-
 protected
   final parameter Boolean haveSensor = Modelica.Utilities.Strings.length(sensorName[1]) > 0
     "Flag, true if the model has at least one sensor";
@@ -50,11 +44,9 @@ protected
     "Number of sensors that are connected to CFD output";
  parameter Modelica.SIunits.Time startTime(fixed=false)
     "First sample time instant.";
-
   Modelica.Blocks.Sources.Constant conSha[nConExtWin](final k=uSha_fixed) if
        haveShade "Constant signal for shade"
     annotation (Placement(transformation(extent={{-260,170},{-240,190}})));
-
 initial equation
   startTime = time; // fixme: don't mix equations with graphical modeling
 
@@ -71,7 +63,6 @@ equation
       points={{39,-135},{-14,-135},{-14,-92},{-190,-92},{-190,100},{-198,100}},
       color={0,0,127},
       smooth=Smooth.None));
-
   connect(air.QLat_flow, heaGai.QLat_flow) annotation (Line(
       points={{39,-138},{-18,-138},{-18,-94},{-194,-94},{-194,94},{-198,94},{
           -198,94}},
