@@ -17,11 +17,10 @@ model ForcedConvection "Ventilation with forced convection in an empty room"
         each boundaryCondition= Buildings.Rooms.Types.CFDBoundaryConditions.Temperature),
       nPorts=2,
       portName={"Inlet","Outlet"},
-      cfdFilNam="Resources/Data/Rooms/FFD/ForcedConvection.ffd",
+      cfdFilNam="modelica://Buildings/Resources/Data/Rooms/FFD/ForcedConvection.ffd",
       samplePeriod=6,
       linearizeRadiation=true),
       nSurBou=6);
-
   HeatTransfer.Sources.FixedTemperature TWal[nSurBou](each T=283.15)
     "Temperature of other walls"
                                annotation (Placement(transformation(
@@ -43,7 +42,6 @@ equation
       color={191,0,0},
       smooth=Smooth.None));
   end for;
-
     connect(bounIn.ports[1], roo.ports[1]) annotation (Line(
       points={{20,30},{51,30}},
       color={0,127,255},
