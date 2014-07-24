@@ -35,7 +35,8 @@ LIBS = -lpthread
 
 all: clean
 	$(CC) $(CC_FLAGS_$(ARCH)) -fPIC -c $(SRCS)
-	$(CC) -m$(ARCH) -shared -fPIC -Wl,-soname,$(LIB) -o $(LIB) $(OBJS) $(LIBS) -lc 
+	$(CC) -m$(ARCH) -shared -fPIC -Wl,-soname,$(LIB) -o $(LIB) $(OBJS) $(LIBS) -lc
+	rm -f $(OBJS)
 	mv $(LIB) $(BINDIR)
 	@echo "==== library generated in $(BINDIR)"
 
