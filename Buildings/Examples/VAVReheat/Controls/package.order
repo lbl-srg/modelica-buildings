@@ -1,12 +1,14 @@
 ControlBus
 Economizer
 FanVFD
+IntegerSum
 ModeSelector
 OperationModes
 PreCoolingStarter
 RoomTemperatureSetpoint
 RoomVAV
 State
+UnoccupiedOn
 DuctStaticPressureSetpoint
 CoolingCoilTemperatureSetpoint
 MixedAirTemperatureSetpoint
