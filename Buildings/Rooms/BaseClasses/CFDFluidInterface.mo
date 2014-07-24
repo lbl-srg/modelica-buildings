@@ -5,7 +5,7 @@ model CFDFluidInterface
    final energyDynamics = Modelica.Fluid.Types.Dynamics.FixedInitial,
    massDynamics = Modelica.Fluid.Types.Dynamics.DynamicFreeInitial);
 
-  parameter Integer nPorts(final min=2)=0 "Number of ports"
+  parameter Integer nPorts(min=0)=0 "Number of ports"
     annotation(Evaluate=true, Dialog(connectorSizing=true, tab="General",group="Ports"));
   parameter Modelica.SIunits.Density rho_start
     "Density, used to compute fluid mass";
@@ -192,6 +192,12 @@ the block that communicates with the CFD program.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+July 24, 2014, by Wangda Zuo and Michael Wetter:<br/>
+Changed minimum attribute for <code>nPorts</code> from <i>2</i> to <i>0</i>
+as the FFD code uses atmospheric pressure and hence does not use the pressure 
+of the fluid connector.
+</li>
 <li>
 January 25, 2014, by Wangda Zuo:<br/>
 Added unit for mass flow rate.
