@@ -3,7 +3,7 @@ model CFD
   "Model of a room in which the air is computed using Computational Fluid Dynamics (CFD)"
   extends Buildings.Rooms.BaseClasses.RoomHeatMassBalance(
   redeclare BaseClasses.CFDAirHeatMassBalance air(
-    final cfdFilNam = Buildings.BoundaryConditions.WeatherData.BaseClasses.getAbsolutePath(cfdFilNam),
+    final cfdFilNam = cfdFilNam,
     final useCFD=useCFD,
     final samplePeriod=samplePeriod,
     final startTime=startTime,
