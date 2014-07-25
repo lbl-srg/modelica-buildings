@@ -141,7 +141,7 @@ The temperature of floor is fixed at 30 degC and the temperature on other walls 
 The supply air temperature is fixed at 10 degC. 
 </p>
 <p>
-Figure (a) shows the schematic of FFD simulation and Figure (b) shows the velocity vectors and temperature on the X-Z plane at Y = 0.5m simulated by the FFD. 
+Figure (a) shows the schematic of FFD simulation and Figure (b) shows the velocity vectors and temperature on the X-Z plane at <i>Y = 0.5</i> m simulated by the FFD. 
 </p>
 <p align=\"center\">
 <img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Rooms/Examples/FFD/Tutorial/MixedConvectionSchematic.png\" border=\"1\"/>
