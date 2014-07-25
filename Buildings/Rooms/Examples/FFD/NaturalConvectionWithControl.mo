@@ -1,12 +1,15 @@
 within Buildings.Rooms.Examples.FFD;
 model NaturalConvectionWithControl
   "A case of natural convection with feedback loop control"
-  extends Buildings.Rooms.Examples.FFD.Tutorial.NaturalConvection(                matLayRoo(
-                                            material= {Buildings.HeatTransfer.Data.Solids.Concrete(x=0.0001)}), roo(
+  extends Buildings.Rooms.Examples.FFD.Tutorial.NaturalConvection(
+    matLayRoo(
+      material= {Buildings.HeatTransfer.Data.Solids.Concrete(x=0.0001)}),
+      roo(
         nPorts=0,
-      useCFD=true,
-      samplePeriod=30,
-      massDynamics=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial));
+        useCFD=true,
+        samplePeriod=30,
+        massDynamics=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial));
+
   HeatTransfer.Sources.PrescribedHeatFlow preHeatFlo
     annotation (Placement(transformation(extent={{30,-8},{50,12}})));
   Controls.Continuous.LimPID conPID(
@@ -14,17 +17,18 @@ model NaturalConvectionWithControl
     controllerType=Modelica.Blocks.Types.SimpleController.PI,
     Ti=120,
     yMax=1,
-    k=0.001)                       annotation (Placement(transformation(
+    k=0.001)
+    annotation (Placement(transformation(
         extent={{-10,10},{10,-10}},
         rotation=180,
         origin={50,50})));
-  Modelica.Blocks.Sources.Constant TSet(k=275.15) "set temperature "
+  Modelica.Blocks.Sources.Constant TSet(k=275.15) "Temperature set point"
     annotation (Placement(transformation(
         extent={{-10,10},{10,-10}},
         rotation=180,
         origin={90,50})));
 initial equation
-  roo.air.yCFD[1]=273.15;
+  roo.air.yCFD[1]=273.15; // fixme: revise, this should not be needed here.
 
 equation
   connect(roo.yCFD[1], conPID.u_m) annotation (Line(
@@ -51,31 +55,31 @@ equation
         "Simulate and plot"),
    Documentation(info="<html>
 <p>
-This model tests the coupled simulation of 
+This model tests the coupled simulation of
 <a href=\"modelica://Buildings.Rooms.CFD\">
 Buildings.Rooms.CFD</a>
 with the FFD program by simulating natural convection in an empty room with a PI controller and a heater to maintain the temperature at room center to be 2 degC.
 </p>
 <p>
-The configuration of the simulation is the same as 
+The configuration of the simulation is the same as
 <a href=\"modelica://Buildings.Rooms.Examples.FFD.Tutorial.NaturalConvection\">
-Buildings.Rooms.Examples.FFD.Tutorial.NaturalConvection</a>, except that a heater with PI controller is added to maintain the desired room temperature. 
+Buildings.Rooms.Examples.FFD.Tutorial.NaturalConvection</a>, except that a heater with PI controller is added to maintain the desired room temperature.
 </p>
 <p>
 The temperature at the central room is sent to the PI controller as measured temperature. Based on the difference of set temperature and measured temperaure PI
 controller sends signal to the heater to yield the heat flow.
-The heat flow is then injected into the room through the heat port as convective heat flow. 
+The heat flow is then injected into the room through the heat port as convective heat flow.
 After receving the heat flow from Modelica, the FFD uniformly distributes it into the space.
 </p>
 <p>
-Figure (a) shows the velocity vectors and temperature contour [degC] on the X-Z plane at <i>Y = 0.5</i> m simulated by the FFD. 
+Figure (a) shows the velocity vectors and temperature contour [degC] on the X-Z plane at <i>Y = 0.5</i> m simulated by the FFD.
 </p>
 <p align=\"center\">
 <img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Rooms/Examples/FFD/NaturalConvectionWithControl.png\" border=\"1\"/>
 </p>
 <p align=\"center\">
 Figure (a)
-</p> 
+</p>
 <p align=\"left\">
 </html>", revisions="<html>
 <ul>

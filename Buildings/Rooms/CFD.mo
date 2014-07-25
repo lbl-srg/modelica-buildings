@@ -130,22 +130,19 @@ equation
           textString="surface")}),
     Documentation(info="<html>
 <p>
-Room model that the air is computed by the CFD program through the coupled simulation.
-Currently, the supported CFD program is:
+Room model that computes the room air flow using computational fluid dynamics (CFD). The CFD simulation is coupled to the thermal simulation of the room
+and, through the fluid port, to the air conditioning system.
 </p>
-<ul>
-<li>
-Fast Fluid Dynamics (FFD) programs <a href=\"#ZUO2010\">(Zuo 2010)</a>. 
-</li>
-</ul>
 <p>
-See 
+Currently, the supported CFD program is the
+Fast Fluid Dynamics (FFD) programs <a href=\"#ZUO2010\">(Zuo 2010)</a>.
+See
 <a href=\"modelica://Buildings.Rooms.UsersGuide.CFD\">Buildings.Rooms.UsersGuide.CFD</a>
 for detailed explanations.
 </p>
 <h4>References</h4>
 <p>
-<a NAME=\"ZUO2010\"/> 
+<a NAME=\"ZUO2010\"/>
 Wangda Zuo. <a href=\"http://docs.lib.purdue.edu/dissertations/AAI3413824/\">
 Advanced simulations of air distributions in buildings</a>.
 Ph.D. Thesis, School of Mechanical Engineering, Purdue University, 2010.

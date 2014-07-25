@@ -15,10 +15,14 @@ model WindowWithoutShade
         name={"North Wall","South Wall","Floor","Ceiling"},
         each A=1,
         layers={matLayExt,matLayExt,matLayExt,matLayExt},
-        til={Buildings.HeatTransfer.Types.Tilt.Wall,Buildings.HeatTransfer.Types.Tilt.Wall,
-            Buildings.HeatTransfer.Types.Tilt.Floor,Buildings.HeatTransfer.Types.Tilt.Ceiling},
-        boundaryCondition={Buildings.Rooms.Types.CFDBoundaryConditions.Temperature,
-            Buildings.Rooms.Types.CFDBoundaryConditions.Temperature,Buildings.Rooms.Types.CFDBoundaryConditions.Temperature,
+        til={Buildings.HeatTransfer.Types.Tilt.Wall,
+            Buildings.HeatTransfer.Types.Tilt.Wall,
+            Buildings.HeatTransfer.Types.Tilt.Floor,
+            Buildings.HeatTransfer.Types.Tilt.Ceiling},
+        boundaryCondition={
+            Buildings.Rooms.Types.CFDBoundaryConditions.Temperature,
+            Buildings.Rooms.Types.CFDBoundaryConditions.Temperature,
+            Buildings.Rooms.Types.CFDBoundaryConditions.Temperature,
             Buildings.Rooms.Types.CFDBoundaryConditions.Temperature}),
       datConExtWin(
         name={"East Wall","West Wall"},
@@ -28,13 +32,18 @@ model WindowWithoutShade
         each wWin=1,
         each hWin=0.5,
         each fFra=0.2,
-        til={Buildings.HeatTransfer.Types.Tilt.Wall,Buildings.HeatTransfer.Types.Tilt.Wall},
-        azi={Buildings.HeatTransfer.Types.Azimuth.E,Buildings.HeatTransfer.Types.Azimuth.W},
-        boundaryCondition={Buildings.Rooms.Types.CFDBoundaryConditions.Temperature,
+        til={
+            Buildings.HeatTransfer.Types.Tilt.Wall,
+            Buildings.HeatTransfer.Types.Tilt.Wall},
+        azi={
+            Buildings.HeatTransfer.Types.Azimuth.E,
+            Buildings.HeatTransfer.Types.Azimuth.W},
+        boundaryCondition={
+            Buildings.Rooms.Types.CFDBoundaryConditions.Temperature,
             Buildings.Rooms.Types.CFDBoundaryConditions.Temperature}),
       cfdFilNam="modelica://Buildings/Resources/Data/Rooms/FFD/WindowWithoutShade.ffd",
       T_start=283.15,
-      uSha_fixed={0,0}));
+      uSha_fixed={0, 0}));
 
   parameter HeatTransfer.Data.OpaqueConstructions.Insulation100Concrete200 matLayExt
     "Construction material for exterior walls"
@@ -52,15 +61,16 @@ model WindowWithoutShade
         "Simulate and plot"),
     Documentation(info="<html>
 <p>
-This model tests the coupled simulation of 
+This model tests the coupled simulation of
 <a href=\"modelica://Buildings.Rooms.CFD\">
 Buildings.Rooms.CFD</a>
-with the FFD program by simulating the natural convection in a room with only exterior walls and windows.
+with the FFD program by simulating natural convection in a room with only exterior walls and windows.
 </p>
 <p>
-Figure (a) shows the schematic of FFD simulation. 
-The walls are exposed to the ambient environment. 
-Both the wall and window are well insulated and the initial temperature of wall and windows is 20 degC.
+Figure (a) shows the schematic of FFD simulation.
+The walls are exposed to the ambient environment.
+Both the wall and window are well insulated and the initial temperature of the walls and the window
+is <i>20</i>&circ;C.
 </p>
 <p align=\"center\">
 <img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Rooms/Examples/FFD/WindowWithoutShadeSchematic.png\" border=\"1\"/>
@@ -68,7 +78,8 @@ Both the wall and window are well insulated and the initial temperature of wall 
 <p align=\"center\">
 Figure (a)
 </p>
-Figure (b) shows the velocity vectors and temperature contour [degC] on the X-Z plane at <i>Y = 0.5</i> m simulated by the FFD.
+Figure (b) shows the velocity vectors and temperature contour in degree Celsius
+on the X-Z plane at <i>Y = 0.5</i> m as simulated by the FFD.
 <p align=\"center\">
 <img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Rooms/Examples/FFD/WindowWithoutShade.png\" border=\"1\"/>
 </p>

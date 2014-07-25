@@ -12,14 +12,20 @@ model RoomOnlyExteriorWallNoWindow
         name={"East Wall","West Wall","North Wall","South Wall","Floor","Ceiling"},
         layers={matLayRoo,matLayRoo,matLayRoo,matLayRoo,matLayRoo,matLayRoo},
         each A=1*1,
-        til={Buildings.HeatTransfer.Types.Tilt.Wall,Buildings.HeatTransfer.Types.Tilt.Wall,
-            Buildings.HeatTransfer.Types.Tilt.Wall,Buildings.HeatTransfer.Types.Tilt.Wall,
-            Buildings.HeatTransfer.Types.Tilt.Floor,Buildings.HeatTransfer.Types.Tilt.Ceiling},
-        boundaryCondition={Buildings.Rooms.Types.CFDBoundaryConditions.Temperature,
-            Buildings.Rooms.Types.CFDBoundaryConditions.Temperature,Buildings.Rooms.Types.CFDBoundaryConditions.Temperature,
-            Buildings.Rooms.Types.CFDBoundaryConditions.Temperature,Buildings.Rooms.Types.CFDBoundaryConditions.Temperature,
+        til={Buildings.HeatTransfer.Types.Tilt.Wall,
+            Buildings.HeatTransfer.Types.Tilt.Wall,
+            Buildings.HeatTransfer.Types.Tilt.Wall,
+            Buildings.HeatTransfer.Types.Tilt.Wall,
+            Buildings.HeatTransfer.Types.Tilt.Floor,
+            Buildings.HeatTransfer.Types.Tilt.Ceiling},
+        boundaryCondition={
+            Buildings.Rooms.Types.CFDBoundaryConditions.Temperature,
+            Buildings.Rooms.Types.CFDBoundaryConditions.Temperature,
+            Buildings.Rooms.Types.CFDBoundaryConditions.Temperature,
+            Buildings.Rooms.Types.CFDBoundaryConditions.Temperature,
+            Buildings.Rooms.Types.CFDBoundaryConditions.Temperature,
             Buildings.Rooms.Types.CFDBoundaryConditions.Temperature}),
-      samplePeriod=30));
+        samplePeriod=30));
 
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
@@ -29,18 +35,19 @@ model RoomOnlyExteriorWallNoWindow
         "Simulate and plot"),
     Documentation(info="<html>
 <p>
-This model tests the coupled simulation of 
+This model tests the coupled simulation of
 <a href=\"modelica://Buildings.Rooms.CFD\">
 Buildings.Rooms.CFD</a>
 with the FFD program by simulating the natural convection in an empty room with only exterior walls and without windows.
 </p>
 <p>
 Figure (a) shows the schematic of the FFD simulation.
-The room is 1 meter in length, width and height.
-The walls are exposed to the ambient environment (cold winter night in Chicago in this case) and the insulation is emtremely poor.
-At t=0s, the temperature of walls are 20 degC and temperature of air is 30 degC.
-All temperature drops quickly due to the heat loss. 
-Two sensors are placed in the room center (0.5m, 0.5m, 0.5m) that measure the temperature and the velocity. 
+The room is <i>1</i> meter in length, width and height.
+The walls are exposed to the ambient environment (cold winter night in Chicago) and the insulation is very poor.
+The initial values are for the temperatures of the walls <i>20</i>&circ;C and for temperature of the air <i>30</i>&circ;C.
+All temperature drop quickly due to the heat loss.
+Two sensors are placed in the room center at (<i>0.5</i> m, <i>0.5</i> m, <i>0.5</i> m)
+that measure the temperature and the velocity.
 </p>
 <p align=\"center\">
 <img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Rooms/Examples/FFD/OnlyWallSchematic.png\" border=\"1\"/>
@@ -49,8 +56,8 @@ Two sensors are placed in the room center (0.5m, 0.5m, 0.5m) that measure the te
 Figure (a)
 </p>
 <p>
-Figure (b) shows the velocity vectors and temperature contour [degC] on the X-Z plane at <i>Y = 0.5</i> m simulated by the FFD.
-In the cold mid-night of Chicago, the temperature of ceiling is the lowest and the temperature of ground floor is the highest. 
+Figure (b) shows the velocity vectors and temperature contours in degree Celsius on the X-Z plane at <i>Y = 0.5</i> m as simulated by the FFD.
+In the cold mid-night of Chicago, the temperature of the ceiling is the lowest and the temperature of the ground floor is the highest.
 </p>
 <p align=\"center\">
 <img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Rooms/Examples/FFD/RoomOnlyExteriorWallNoWindow.png\" border=\"1\"/>
