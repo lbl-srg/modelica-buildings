@@ -37,7 +37,7 @@ block CFDExchange "Block that exchanges data with the CFD code"
 
   Modelica.Blocks.Interfaces.RealInput u[nWri] "Inputs to CFD"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
-  Modelica.Blocks.Interfaces.RealOutput y[nRea](start=yFixed)
+  Modelica.Blocks.Interfaces.RealOutput y[nRea](start=yFixed, fixed=true)
     "Outputs received from CFD"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 
@@ -325,7 +325,6 @@ algorithm
         yFixed=yFixed,
         nY=size(y, 1),
         verbose=verbose);
-
     else
       simTimRea := time;
       y := yFixed;

@@ -5,7 +5,7 @@ model CFDFluidInterface
    final energyDynamics = Modelica.Fluid.Types.Dynamics.FixedInitial,
    massDynamics = Modelica.Fluid.Types.Dynamics.DynamicFreeInitial);
 
-  parameter Integer nPorts(final min=2)=0 "Number of ports"
+  parameter Integer nPorts(min=0)=0 "Number of ports"
     annotation(Evaluate=true, Dialog(connectorSizing=true, tab="General",group="Ports"));
   parameter Modelica.SIunits.Density rho_start
     "Density, used to compute fluid mass";
@@ -87,8 +87,6 @@ protected
   Modelica.Blocks.Interfaces.RealInput C_outflow_internal[max(nPorts, nPorts*Medium.nC)](
   each min=0) "Trace substances if m_flow < 0";
 
-  parameter Boolean initialize_p = not Medium.singleState
-    "= true to set up initial equations for pressure";
   Modelica.SIunits.MassFlowRate[Medium.nXi] mbXi_flow
     "Substance mass flows across boundaries";
   Modelica.SIunits.MassFlowRate ports_mXi_flow[nPorts,Medium.nXi];
@@ -98,14 +96,10 @@ initial equation
   //assert(nPorts >= 2, "The CFD model requires at least two fluid connections.");
 
   if massDynamics == Modelica.Fluid.Types.Dynamics.FixedInitial then
-    if initialize_p then
-      p = p_start;
-    end if;
+    p = p_start;
   else
     if massDynamics == Modelica.Fluid.Types.Dynamics.SteadyStateInitial then
-      if initialize_p then
-        der(p) = 0;
-      end if;
+      der(p) = 0;
     end if;
   end if;
 
@@ -192,6 +186,20 @@ the block that communicates with the CFD program.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+July 24, 2014, by Wangda Zuo and Michael Wetter:<br/>
+Removed the parameter <code>initialize_p</code>. This parameter
+is used in <code>.Media</code> as equations are obtained from
+<code>BaseProperties</code>.
+This implementation does not use <code>Medium.BaseProperties</code>
+and hence this parameter is not needed.
+</li>
+<li>
+July 24, 2014, by Wangda Zuo and Michael Wetter:<br/>
+Changed minimum attribute for <code>nPorts</code> from <i>2</i> to <i>0</i>
+as the FFD code uses atmospheric pressure and hence does not use the pressure 
+of the fluid connector.
+</li>
 <li>
 January 25, 2014, by Wangda Zuo:<br/>
 Added unit for mass flow rate.

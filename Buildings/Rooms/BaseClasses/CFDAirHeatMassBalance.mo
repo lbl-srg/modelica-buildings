@@ -175,6 +175,7 @@ protected
 
   CFDFluidInterface fluInt(
     redeclare final package Medium = Medium,
+    final massDynamics=massDynamics,
     final nPorts=nPorts,
     final V=V,
     final p_start=p_start,

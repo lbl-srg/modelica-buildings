@@ -3988,6 +3988,8 @@ The following people have directly contributed to the implementation of the Buil
 </li>
 <li>Roman Ilk, University of Applied Sciences Technikum Wien, Austria
 </li>
+<li>Dan Li, University of Miami, Florida, USA
+</li>
 <li>Thierry S. Nouidui, Lawrence Berkeley National Laboratory, USA
 </li>
 <li>Markus Nurschinger, University of Applied Sciences Technikum Wien, Austria
@@ -3998,7 +4000,11 @@ The following people have directly contributed to the implementation of the Buil
 </li>
 <li>Kaustubh Phalak, Lawrence Berkeley National Laboratory, USA
 </li>
+<li>Thomas Sevilla, University of Miami, Florida, USA
+</li>
 <li>Martin Sj&ouml;lund, Link&ouml;ping University, Sweden
+</li>
+<li>Wei Tian, University of Miami, Florida, USA
 </li>
 <li>Armin Teskeredzic, Mechanical Engineering Faculty Sarajevo and GIZ, Bosnia and Herzegovina
 </li>
@@ -4012,7 +4018,7 @@ The following people have directly contributed to the implementation of the Buil
 </li>
 <li>Michael Wetter, Lawrence Berkeley National Laboratory, USA
 </li>
-<li>Wangda Zuo, Lawrence Berkeley National Laboratory, USA
+<li>Wangda Zuo, University of Miami, Florida, USA
 </li>
 </ul>
 </html>

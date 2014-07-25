@@ -19,7 +19,8 @@ model ForcedConvection "Ventilation with forced convection in an empty room"
       portName={"Inlet","Outlet"},
       cfdFilNam="modelica://Buildings/Resources/Data/Rooms/FFD/ForcedConvection.ffd",
       samplePeriod=6,
-      linearizeRadiation=true),
+      linearizeRadiation=true,
+      massDynamics=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial),
       nSurBou=6);
   HeatTransfer.Sources.FixedTemperature TWal[nSurBou](each T=283.15)
     "Temperature of other walls"
@@ -51,18 +52,16 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   annotation (
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{200,
-            200}}),     graphics),
-    __Dymola_Commands(file=
-          "modelica://Buildings/Resources/Scripts/Dymola/Rooms/Examples/FFD/ForcedConvection.mos"
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{200,200}})),
+    __Dymola_Commands(file= "modelica://Buildings/Resources/Scripts/Dymola/Rooms/Examples/FFD/ForcedConvection.mos"
         "Simulate and plot"),
     Documentation(info="<html>
 <p>
-This model tests the coupled simulation of 
+This model tests the coupled simulation of
 <a href=\"modelica://Buildings.Rooms.CFD\">
 Buildings.Rooms.CFD</a>
 with the FFD program by simulating the ventilation with forced convection in an empty room.
-Figure (a) shows the schematic of the FFD simulation and Figure (b) shows streamlines and contour of horizontal velocity U simulated by the FFD. 
+Figure (a) shows the schematic of the FFD simulation and Figure (b) shows streamlines and contours of the horizontal velocity U as simulated by the FFD.
 </p>
 <p align=\"center\">
 <img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Rooms/Examples/FFD/ConvectionSchematic.png\" border=\"1\"/>

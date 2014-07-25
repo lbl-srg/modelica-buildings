@@ -8,17 +8,22 @@ model RoomOnlySurfaceBoundary
       surBou(
         name={"East Wall","West Wall","North Wall","South Wall","Floor","Ceiling"},
         each A=1*1,
-        til={Buildings.HeatTransfer.Types.Tilt.Wall,Buildings.HeatTransfer.Types.Tilt.Wall,
-            Buildings.HeatTransfer.Types.Tilt.Wall,Buildings.HeatTransfer.Types.Tilt.Wall,
-            Buildings.HeatTransfer.Types.Tilt.Floor,Buildings.HeatTransfer.Types.Tilt.Ceiling},
+        til={Buildings.HeatTransfer.Types.Tilt.Wall,
+            Buildings.HeatTransfer.Types.Tilt.Wall,
+            Buildings.HeatTransfer.Types.Tilt.Wall,
+            Buildings.HeatTransfer.Types.Tilt.Wall,
+            Buildings.HeatTransfer.Types.Tilt.Floor,
+            Buildings.HeatTransfer.Types.Tilt.Ceiling},
         each absIR=1e-5,
         each absSol=1e-5,
-        boundaryCondition={Buildings.Rooms.Types.CFDBoundaryConditions.Temperature,
-            Buildings.Rooms.Types.CFDBoundaryConditions.Temperature,Buildings.Rooms.Types.CFDBoundaryConditions.HeatFlowRate,
+        boundaryCondition={
+            Buildings.Rooms.Types.CFDBoundaryConditions.Temperature,
+            Buildings.Rooms.Types.CFDBoundaryConditions.Temperature,
+            Buildings.Rooms.Types.CFDBoundaryConditions.HeatFlowRate,
             Buildings.Rooms.Types.CFDBoundaryConditions.HeatFlowRate,
             Buildings.Rooms.Types.CFDBoundaryConditions.HeatFlowRate,
             Buildings.Rooms.Types.CFDBoundaryConditions.HeatFlowRate})),
-      nSurBou=6);
+        nSurBou=6);
 
   Buildings.HeatTransfer.Sources.FixedTemperature TWesWal(each T=283.15)
     "Boundary condition for the west wall" annotation (Placement(transformation(
@@ -28,8 +33,9 @@ model RoomOnlySurfaceBoundary
 
   HeatTransfer.Sources.FixedHeatFlow fixedHeatFlow[nSurBou - 2](each Q_flow=0)
     annotation (Placement(transformation(extent={{6,-24},{26,-4}})));
-  HeatTransfer.Sources.FixedTemperature           TEasWal(each T=313.15)
-    "Temperature of east wall"            annotation (Placement(transformation(
+  HeatTransfer.Sources.FixedTemperature TEasWal(each T=313.15)
+    "Temperature of the east wall"
+    annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=0,
         origin={110,10})));
@@ -58,25 +64,25 @@ equation
         "Simulate and plot"),
     Documentation(info="<html>
 <p>
-This model tests the coupled simulation of 
+This model tests the coupled simulation of
 <a href=\"modelica://Buildings.Rooms.CFD\">
 Buildings.Rooms.CFD</a>
-with the FFD program by simulating the natural convection in an empty room with only surface boundaries. 
+with the FFD program by simulating the natural convection in an empty room with only surface boundaries.
 It is also used to test the adiabatic boundary conditon in the FFD code.
 </p>
 <p>
-Figure (a) shows the schematic of the FFD simulation. 
-The following conditions are applied at Modelica side:
+Figure (a) shows the schematic of the FFD simulation.
+The following conditions are applied in the Modelica model:
 </p>
 <ul>
 <li>
-East Wall: Fixed temperature at 40 degC, 
+East Wall: Fixed temperature at <i>40</i>&circ;C,
 </li>
 <li>
-West Wall: Fixed temperature at 10 degC,
+West Wall: Fixed temperature at <i>10</i>&circ;C,
 </li>
 <li>
-North &amp; South Wall, Ceiling, Floor: Fixed heat flux at 0 W/m2. 
+North and South Wall, Ceiling, Floor: Fixed heat flux at <i>0</i> W/m<sup>2</sup>.
 </li>
 </ul>
 <p align=\"center\">
@@ -86,7 +92,8 @@ North &amp; South Wall, Ceiling, Floor: Fixed heat flux at 0 W/m2.
 Figure (a)
 </p>
 <p>
-Figure (b) shows the velocity vectors and temperature contour [degC] on the X-Z plane at Y = 0.5m simulated by the FFD.
+Figure (b) shows the velocity vectors and temperature contours in degree Celsius
+on the X-Z plane at <i>Y = 0.5</i> m as simulated by the FFD.
 </p>
 <p align=\"center\">
 <img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Rooms/Examples/FFD/RoomOnlySurfaceBoundary.png\" border=\"1\"/>
