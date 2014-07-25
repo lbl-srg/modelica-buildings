@@ -23,7 +23,8 @@ model MixedConvection "Tutorial for Mixed Convection case"
   inner Modelica.Fluid.System system(T_ambient=283.15)
     annotation (Placement(transformation(extent={{-40,-100},{-20,-80}})));
   parameter HeatTransfer.Data.OpaqueConstructions.Generic matLayRoo(final nLay=1,
-      material={HeatTransfer.Data.Solids.Concrete(x=0.0001)})
+    material={HeatTransfer.Data.Solids.Steel(x=0.001)},
+    roughness_a=Buildings.HeatTransfer.Types.SurfaceRoughness.Smooth)
     "Construction material for roof"
     annotation (Placement(transformation(extent={{60,82},{80,102}})));
   BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam="modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos",
@@ -265,8 +266,9 @@ Buildings.Rooms.CFD roo(
 Edit <code>matLayRoo</code> as below:
 </p>
 <pre>
-parameter Buildings.HeatTransfer.Data.OpaqueConstructions.Generic matLayRoo(
-  final nLay=1, material={HeatTransfer.Data.Solids.Concrete(x=0.0001)});
+parameter HeatTransfer.Data.OpaqueConstructions.Generic matLayRoo(
+final nLay=1, material={HeatTransfer.Data.Solids.Steel(x=0.001)},
+roughness_a=Buildings.HeatTransfer.Types.SurfaceRoughness.Smooth);
 </pre>
 </li>
 <li>
@@ -393,5 +395,6 @@ First implementation.
 </ul>
 </html>"),    __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Rooms/Examples/FFD/Tutorial/MixedConvection.mos"
         "Simulate and plot"),
-    Diagram(coordinateSystem(extent={{-80,-160},{200,120}}, preserveAspectRatio=false)));
+    Diagram(coordinateSystem(extent={{-80,-160},{200,120}}, preserveAspectRatio=false),
+        graphics));
 end MixedConvection;
