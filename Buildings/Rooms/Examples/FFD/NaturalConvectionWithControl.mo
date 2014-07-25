@@ -5,7 +5,8 @@ model NaturalConvectionWithControl
                                             material= {Buildings.HeatTransfer.Data.Solids.Concrete(x=0.0001)}), roo(
         nPorts=0,
       useCFD=true,
-      samplePeriod=30));
+      samplePeriod=30,
+      massDynamics=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial));
   HeatTransfer.Sources.PrescribedHeatFlow preHeatFlo
     annotation (Placement(transformation(extent={{30,-8},{50,12}})));
   Controls.Continuous.LimPID conPID(
@@ -56,7 +57,7 @@ Buildings.Rooms.CFD</a>
 with the FFD program by simulating natural convection in an empty room with a PI controller and a heater to maintain the temperature at room center to be 2 degC.
 </p>
 <p>
-Configuration of the simulation is the same as 
+The configuration of the simulation is the same as 
 <a href=\"modelica://Buildings.Rooms.Examples.FFD.Tutorial.NaturalConvection\">
 Buildings.Rooms.Examples.FFD.Tutorial.NaturalConvection</a>, except that a heater with PI controller is added to maintain the desired room temperature. 
 </p>
@@ -67,7 +68,7 @@ The heat flow is then injected into the room through the heat port as convective
 After receving the heat flow from Modelica, the FFD uniformly distributes it into the space.
 </p>
 <p>
-Figure (a) shows the velocity vectors and temperature contour [degC] on the X-Z plane at Y = 0.5m simulated by the FFD 
+Figure (a) shows the velocity vectors and temperature contour [degC] on the X-Z plane at <i>Y = 0.5</i> m simulated by the FFD. 
 </p>
 <p align=\"center\">
 <img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Rooms/Examples/FFD/NaturalConvectionWithControl.png\" border=\"1\"/>
