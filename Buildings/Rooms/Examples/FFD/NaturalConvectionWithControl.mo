@@ -8,7 +8,7 @@ model NaturalConvectionWithControl
         nPorts=0,
         useCFD=true,
         samplePeriod=30,
-        massDynamics=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial));
+      massDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial));
 
   HeatTransfer.Sources.PrescribedHeatFlow preHeatFlo
     annotation (Placement(transformation(extent={{30,-8},{50,12}})));
@@ -27,9 +27,6 @@ model NaturalConvectionWithControl
         extent={{-10,10},{10,-10}},
         rotation=180,
         origin={90,50})));
-initial equation
-  roo.air.yCFD[1]=273.15; // fixme: revise, this should not be needed here.
-
 equation
   connect(roo.yCFD[1], conPID.u_m) annotation (Line(
       points={{101,-26.5},{106,-26.5},{106,20},{50,20},{50,38}},
@@ -83,6 +80,11 @@ Figure (a)
 <p align=\"left\">
 </html>", revisions="<html>
 <ul>
+<li>
+July 25, 2014 by Wangda Zuo and Michael Wetter:<br/>
+Removed the <code>initial equation</code> section as the assignment of
+<code>roo.air.yCFD[1]</code> is done in the base class.
+</li>
 <li>
 May 7, 2014, by Wei Tian:<br/>
 First implementation.
