@@ -67,7 +67,7 @@ Two sensors are placed in the room center (0.5m, 0.5m, 0.5m) that measure the te
 Figure (a)
 </p>
 <p>
-Figure (b) shows the velocity vectors and temperature contour [degC] on the X-Z plane at Y = 0.5m simulated by the FFD. 
+Figure (b) shows the velocity vectors and temperature contour [degC] on the X-Z plane at <i>Y = 0.5</i> m simulated by the FFD. 
 </p>
 <p align=\"center\">
 <img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Rooms/Examples/FFD/RoomOnlyConstructionBoundary.png\" border=\"1\"/>

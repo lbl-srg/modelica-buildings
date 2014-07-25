@@ -168,7 +168,7 @@ North &amp; South wall, Ceiling, Floor: Fixed heat flux at 0 W/m2.
 Figure (a)
 </p>
 <p>
-Figure (b) shows the velocity vectors and temperature contour [degC] on the X-Z plane at Y = 0.5m simulated by the FFD.
+Figure (b) shows the velocity vectors and temperature contour [degC] on the X-Z plane at <i>Y = 0.5</i> m simulated by the FFD.
 </p>
 <p align=\"center\">
 <img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Rooms/Examples/FFD/Tutorial/NaturalConvection.png\" border=\"1\"/>

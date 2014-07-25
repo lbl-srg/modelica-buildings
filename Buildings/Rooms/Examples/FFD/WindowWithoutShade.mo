@@ -68,7 +68,7 @@ Both the wall and window are well insulated and the initial temperature of wall 
 <p align=\"center\">
 Figure (a)
 </p>
-Figure (b) shows the velocity vectors and temperature contour [degC] on the X-Z plane at Y = 0.5m simulated by the FFD.
+Figure (b) shows the velocity vectors and temperature contour [degC] on the X-Z plane at <i>Y = 0.5</i> m simulated by the FFD.
 <p align=\"center\">
 <img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Rooms/Examples/FFD/WindowWithoutShade.png\" border=\"1\"/>
 </p>
