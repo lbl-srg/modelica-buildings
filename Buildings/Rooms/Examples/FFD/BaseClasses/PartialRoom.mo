@@ -5,7 +5,8 @@ partial model PartialRoom "Partial model for a room"
   inner Modelica.Fluid.System system(T_ambient=283.15)
     annotation (Placement(transformation(extent={{-80,-40},{-60,-20}})));
   parameter Buildings.HeatTransfer.Data.OpaqueConstructions.Generic matLayRoo(
-      final nLay=1, material={HeatTransfer.Data.Solids.Concrete(x=0.0001)})
+      final nLay=1, material={HeatTransfer.Data.Solids.Steel(x=0.001)},
+    roughness_a=Buildings.HeatTransfer.Types.SurfaceRoughness.Smooth)
     "Construction material for roof"
     annotation (Placement(transformation(extent={{20,140},{40,160}})));
   parameter Integer nConExtWin=0 "Number of constructions with a window";

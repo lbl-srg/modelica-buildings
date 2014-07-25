@@ -258,7 +258,7 @@ end if;
 
   // Send parameters to the CFD interface
   sendParameters(
-    cfdFilNam=cfdFilNam,
+    cfdFilNam=Buildings.BoundaryConditions.WeatherData.BaseClasses.getAbsolutePath(cfdFilNam),
     name=surIde[:].name,
     A=surIde[:].A,
     til=surIde[:].til,

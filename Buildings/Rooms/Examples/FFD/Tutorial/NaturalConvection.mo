@@ -24,7 +24,8 @@ model NaturalConvection "Tutorial for Natural Convection case"
     annotation (Placement(transformation(extent={{-60,
             -120},{-40,-100}})));
   parameter HeatTransfer.Data.OpaqueConstructions.Generic matLayRoo(final nLay=
-        1, material={HeatTransfer.Data.Solids.Concrete(x=0.0001)})
+        1, material={HeatTransfer.Data.Solids.Steel(x=0.001)},
+    roughness_a=Buildings.HeatTransfer.Types.SurfaceRoughness.Smooth)
     "Construction material for roof"
     annotation (Placement(transformation(extent={{-20,42},{0,62}})));
   BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam="modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos",
@@ -289,11 +290,9 @@ surBou(
 Edit <code>matLayRoo</code> as below:
 </p>
 <pre>
-parameter Buildings.HeatTransfer.Data.OpaqueConstructions.Generic matLayRoo(
-  final nLay=1,
-  material={HeatTransfer.Data.Solids.Concrete(x=0.0001)});
-  // fixme: Let's discuss this. It does not make sense to model a concrete
-  //        layer of 0.1 millimeter thickness.
+parameter HeatTransfer.Data.OpaqueConstructions.Generic matLayRoo(
+final nLay=1, material={HeatTransfer.Data.Solids.Steel(x=0.001)},
+roughness_a=Buildings.HeatTransfer.Types.SurfaceRoughness.Smooth);
 </pre>
 </li>
 <li>
@@ -399,7 +398,7 @@ Reduction of numerical viscosity in FFD model.</a><br/>
 Journal of Engineering Applications of Computational Fluid Mechanics, 6(2), p. 234-247.
 </p>
 </html>"),
-    __Dymola_Commands(file=     "modelica://Buildings/Resources/Scripts/Dymola/Rooms/Examples/FFD/Tutorial/NaturalConvection.mos"
+    __Dymola_Commands(file =    "modelica://Buildings/Resources/Scripts/Dymola/Rooms/Examples/FFD/Tutorial/NaturalConvection.mos"
         "Simulate and plot"),
     Diagram(coordinateSystem(extent={{-100,-180},{240,100}},
           preserveAspectRatio=false)));
