@@ -48,6 +48,11 @@ First implementation.
       k=0.12,
       d=540,
       c=1210) "Plywood (k=0.12)";
+  record Steel =    Buildings.HeatTransfer.Data.Solids.Generic (
+      k=50.2,
+      d=7850,
+      c=450,
+      steadyState=true) "Steel (k=50.2)";
   annotation (
 Documentation(
 info="<html>
