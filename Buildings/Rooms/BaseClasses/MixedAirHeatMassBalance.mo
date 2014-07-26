@@ -2,6 +2,7 @@ within Buildings.Rooms.BaseClasses;
 model MixedAirHeatMassBalance
   "Heat and mass balance of the air, assuming completely mixed air"
   extends Buildings.Rooms.BaseClasses.PartialAirHeatMassBalance(nPorts=1);
+  extends Buildings.Fluid.Interfaces.LumpedVolumeDeclarations;
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal(min=0)
     "Nominal mass flow rate"
     annotation(Dialog(group = "Nominal condition"));

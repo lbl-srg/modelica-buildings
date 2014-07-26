@@ -1,10 +1,21 @@
 within Buildings.Rooms.BaseClasses;
 model CFDFluidInterface
  extends Buildings.BaseClasses.BaseIcon;
- extends Buildings.Fluid.Interfaces.LumpedVolumeDeclarations(
-   final energyDynamics = Modelica.Fluid.Types.Dynamics.FixedInitial,
-   massDynamics = Modelica.Fluid.Types.Dynamics.DynamicFreeInitial);
 
+   replaceable package Medium =
+    Modelica.Media.Interfaces.PartialMedium "Medium in the component"
+      annotation (choicesAllMatching = true);
+
+  // Assumptions
+  parameter Modelica.Fluid.Types.Dynamics massDynamics=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial
+    "Formulation of mass balance"
+    annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Equations"));
+  // Initialization
+  parameter Medium.AbsolutePressure p_start = Medium.p_default
+    "Start value of pressure"
+    annotation(Dialog(tab = "Initialization"));
+
+  // Parameters for the model
   parameter Integer nPorts(min=0)=0 "Number of ports"
     annotation(Evaluate=true, Dialog(connectorSizing=true, tab="General",group="Ports"));
   parameter Modelica.SIunits.Density rho_start
@@ -14,7 +25,7 @@ model CFDFluidInterface
     "Initial mass of air inside the room.";
 
   Modelica.Blocks.Interfaces.RealInput T_outflow[nPorts](
-  each start=T_start,
+  each start=Medium.T_default,
   each nominal=300,
   each unit="K",
   each displayUnit="degC") "Temperature if m_flow < 0"
@@ -44,7 +55,7 @@ model CFDFluidInterface
     annotation (Placement(transformation(extent={{100,30},{120,50}})));
 
   Modelica.Blocks.Interfaces.RealOutput T_inflow[nPorts](
-  each start=T_start,
+  each start=Medium.T_default,
   each min=200,
   each max=373.15,
   each nominal=300,

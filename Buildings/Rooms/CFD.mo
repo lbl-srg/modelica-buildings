@@ -3,6 +3,7 @@ model CFD
   "Model of a room in which the air is computed using Computational Fluid Dynamics (CFD)"
   extends Buildings.Rooms.BaseClasses.RoomHeatMassBalance(
   redeclare BaseClasses.CFDAirHeatMassBalance air(
+    final massDynamics = massDynamics,
     final cfdFilNam = cfdFilNam,
     final useCFD=useCFD,
     final samplePeriod=samplePeriod,
@@ -11,9 +12,18 @@ model CFD
     final nSen=nSen,
     final sensorName=sensorName,
     final portName=portName,
-    final uSha_fixed=uSha_fixed),
-    final energyDynamics = Modelica.Fluid.Types.Dynamics.FixedInitial,
-    massDynamics = Modelica.Fluid.Types.Dynamics.FixedInitial);
+    final uSha_fixed=uSha_fixed,
+    final p_start=p_start));
+
+  // Assumptions
+  parameter Modelica.Fluid.Types.Dynamics massDynamics=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial
+    "Formulation of mass balance"
+    annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Equations"));
+  // Initialization
+  parameter Medium.AbsolutePressure p_start = Medium.p_default
+    "Start value of pressure"
+    annotation(Dialog(tab = "Initialization"));
+
   parameter Boolean useCFD = true
     "Set to false to deactivate the CFD computation and use instead yFixed as output"
     annotation(Evaluate = true);

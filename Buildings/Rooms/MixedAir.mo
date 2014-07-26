@@ -2,10 +2,13 @@ within Buildings.Rooms;
 model MixedAir "Model of a room in which the air is completely mixed"
   extends Buildings.Rooms.BaseClasses.RoomHeatMassBalance(
   redeclare Buildings.Rooms.BaseClasses.MixedAirHeatMassBalance air(
+    final energyDynamics=energyDynamics,
+    final massDynamics = massDynamics,
     final m_flow_nominal=m_flow_nominal,
     final homotopyInitialization=homotopyInitialization,
     final conMod=intConMod,
     final hFixed=hIntFixed));
+  extends Buildings.Fluid.Interfaces.LumpedVolumeDeclarations;
 
 protected
   Buildings.Rooms.BaseClasses.MixedAirHeatGain heaGai(

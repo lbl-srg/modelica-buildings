@@ -44,7 +44,6 @@ model WindowWithShade
             Buildings.Rooms.Types.CFDBoundaryConditions.Temperature}),
         uSha_fixed={0.5,0.5},
         samplePeriod=10,
-        T_start=283.15,
         linearizeRadiation=true,
         cfdFilNam="modelica://Buildings/Resources/Data/Rooms/FFD/WindowWithShade.ffd"));
 

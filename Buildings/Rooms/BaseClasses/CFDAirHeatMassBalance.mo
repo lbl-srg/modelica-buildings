@@ -1,8 +1,20 @@
 within Buildings.Rooms.BaseClasses;
 model CFDAirHeatMassBalance
   "Heat and mass balance of the air based on computational fluid dynamics"
-  extends Buildings.Rooms.BaseClasses.PartialAirHeatMassBalance(energyDynamics=
-        Modelica.Fluid.Types.Dynamics.FixedInitial, massDynamics=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial);
+  extends Buildings.Rooms.BaseClasses.PartialAirHeatMassBalance;
+
+  replaceable package Medium =
+    Modelica.Media.Interfaces.PartialMedium "Medium in the component"
+      annotation (choicesAllMatching = true);
+
+  // Assumptions
+  parameter Modelica.Fluid.Types.Dynamics massDynamics
+    "Formulation of mass balance"
+    annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Equations"));
+  // Initialization
+  parameter Medium.AbsolutePressure p_start "Start value of pressure"
+    annotation(Dialog(tab = "Initialization"));
+
   parameter String cfdFilNam "CFD input file name"
     annotation (Dialog(__Dymola_loadSelector(caption="Select CFD input file")));
   parameter Boolean useCFD=true
@@ -48,7 +60,8 @@ model CFDAirHeatMassBalance
     annotation (Placement(transformation(extent={{-40,180},{-20,200}})));
 
   Modelica.Blocks.Interfaces.RealOutput yCFD[nSen] if haveSensor
-    "Sensor for output from CFD" annotation (Placement(transformation(
+    "Sensor for output from CFD"
+    annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=270,
         origin={180,-250})));
@@ -68,10 +81,10 @@ protected
   parameter Modelica.SIunits.Temperature TRooAve_fixed=Medium.T_default
     "Average room air temperature used for yFixed"
     annotation (Dialog(group="Outputs if activateInterface=false"));
-  parameter Modelica.SIunits.Temperature TSha_fixed[NConExtWin]=fill(T_start,
+  parameter Modelica.SIunits.Temperature TSha_fixed[NConExtWin]=fill(Medium.T_default,
       NConExtWin) "Shade temperature used for yFixed"
     annotation (Dialog(group="Outputs if activateInterface=false"));
-  parameter Modelica.SIunits.Temperature T_outflow_fixed[nPorts]=fill(T_start,
+  parameter Modelica.SIunits.Temperature T_outflow_fixed[nPorts]=fill(Medium.T_default,
       nPorts)
     "Temperature of the fluid that flows into the HVAC system used for yFixed"
     annotation (Dialog(group="Outputs if activateInterface=false"));
@@ -84,9 +97,9 @@ protected
 
    parameter Modelica.SIunits.Density rho_start=Medium.density(
    Medium.setState_pTX(
-     T=T_start,
+     T=Medium.T_default,
      p=p_start,
-     X=X_start[1:Medium.nXi])) "Density, used to compute fluid mass";
+     X=Medium.X_default)) "Density, used to compute fluid mass";
 
   final parameter CFDSurfaceIdentifier surIde[kSurBou + nSurBou]=
       assignSurfaceIdentifier(
@@ -179,10 +192,6 @@ protected
     final nPorts=nPorts,
     final V=V,
     final p_start=p_start,
-    final T_start=T_start,
-    final X_start=X_start,
-    final C_start=C_start,
-    final C_nominal=C_nominal,
     rho_start=rho_start) "Fluid interface"
     annotation (Placement(transformation(extent={{10,-198},{-10,-178}})));
 
@@ -388,19 +397,19 @@ public
 initial equation
   for i in 1:nPorts loop
     for j in 1:Medium.nXi loop
-      Xi_outflow_fixed[(i - 1)*Medium.nXi + j] = X_start[j];
+      Xi_outflow_fixed[(i - 1)*Medium.nXi + j] = Medium.X_default[j];
     end for;
   end for;
 
   for i in 1:nPorts loop
     for j in 1:Medium.nC loop
-      C_outflow_fixed[(i - 1)*Medium.nC + j] = C_start[j];
+      C_outflow_fixed[(i - 1)*Medium.nC + j] = 0;
     end for;
   end for;
 
   // Assignment of uStart
   for i in 1:kUSha loop
-    uStart[i] = T_start;
+    uStart[i] = Medium.T_default;
   end for;
   if haveShade then
     for i in 1:nConExtWin loop
@@ -413,12 +422,12 @@ initial equation
   uStart[kFluIntP + 1] = p_start;
   for i in 1:nPorts loop
     uStart[kFluIntM_flow + i] = 0;
-    uStart[kFluIntT_inflow + i] = T_start;
+    uStart[kFluIntT_inflow + i] = Medium.T_default;
     for j in 1:Medium.nXi loop
-      uStart[kFluIntXi_inflow + (i - 1)*Medium.nXi + j] = X_start[j];
+      uStart[kFluIntXi_inflow + (i - 1)*Medium.nXi + j] = Medium.X_default[j];
     end for;
     for j in 1:Medium.nC loop
-      uStart[kFluIntC_inflow + (i - 1)*Medium.nC + j] = C_start[j];
+      uStart[kFluIntC_inflow + (i - 1)*Medium.nC + j] = 0;
     end for;
   end for;
 

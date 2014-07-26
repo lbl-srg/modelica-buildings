@@ -1,7 +1,11 @@
 within Buildings.Rooms.BaseClasses;
 partial model RoomHeatMassBalance "Base model for a room"
-  extends Buildings.Fluid.Interfaces.LumpedVolumeDeclarations;
   extends Buildings.Rooms.BaseClasses.ConstructionRecords;
+
+  replaceable package Medium =
+    Modelica.Media.Interfaces.PartialMedium "Medium in the component"
+      annotation (choicesAllMatching = true);
+
   parameter Integer nPorts=0 "Number of ports" annotation (Evaluate=true,
       Dialog(
       connectorSizing=true,
@@ -20,6 +24,7 @@ partial model RoomHeatMassBalance "Base model for a room"
   final parameter Modelica.SIunits.Volume V=AFlo*hRoo "Volume";
   parameter Modelica.SIunits.Area AFlo "Floor area";
   parameter Modelica.SIunits.Length hRoo "Average room height";
+
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heaPorAir
     "Heat port to air volume" annotation (Placement(transformation(extent={{-270,30},
             {-250,50}}),   iconTransformation(extent={{-20,-10},{0,10}})));
@@ -40,15 +45,16 @@ partial model RoomHeatMassBalance "Base model for a room"
     "Heat conduction through exterior construction that have no window"
     annotation (Placement(transformation(extent={{288,100},{242,146}})));
   Constructions.ConstructionWithWindow conExtWin[NConExtWin](
-    A=datConExtWin.A,
-    til=datConExtWin.til,
+    final A=datConExtWin.A,
+    final til=datConExtWin.til,
     final layers={datConExtWin[i].layers for i in 1:NConExtWin},
-    steadyStateInitial=datConExtWin.steadyStateInitial,
-    T_a_start=datConExtWin.T_a_start,
-    T_b_start=datConExtWin.T_b_start,
-    AWin=datConExtWin.AWin,
-    fFra=datConExtWin.fFra,
-    glaSys=datConExtWin.glaSys) if haveConExtWin
+    final steadyStateInitial=datConExtWin.steadyStateInitial,
+    final T_a_start=datConExtWin.T_a_start,
+    final T_b_start=datConExtWin.T_b_start,
+    final AWin=datConExtWin.AWin,
+    final fFra=datConExtWin.fFra,
+    final glaSys=datConExtWin.glaSys,
+    each final homotopyInitialization=homotopyInitialization) if haveConExtWin
     "Heat conduction through exterior construction that have a window"
     annotation (Placement(transformation(extent={{280,44},{250,74}})));
   Constructions.Construction conPar[NConPar](
@@ -89,7 +95,7 @@ partial model RoomHeatMassBalance "Base model for a room"
           Buildings.HeatTransfer.Types.ExteriorConvection.Fixed)));
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal(min=0) = V*1.2/3600
     "Nominal mass flow rate" annotation (Dialog(group="Nominal condition"));
-  parameter Boolean homotopyInitialization "= true, use homotopy method"
+  parameter Boolean homotopyInitialization = true "= true, use homotopy method"
     annotation(Evaluate=true, Dialog(tab="Advanced"));
   ////////////////////////////////////////////////////////////////////////
   // Models for boundary conditions
@@ -150,8 +156,6 @@ partial model RoomHeatMassBalance "Base model for a room"
   replaceable BaseClasses.PartialAirHeatMassBalance air
    constrainedby BaseClasses.PartialAirHeatMassBalance(
         redeclare final package Medium = Medium,
-        final energyDynamics=energyDynamics,
-        final massDynamics=massDynamics,
         nPorts=nPorts,
         final nConExt=nConExt,
         final nConExtWin=nConExtWin,
@@ -164,12 +168,7 @@ partial model RoomHeatMassBalance "Base model for a room"
         final datConBou=datConBou,
         final surBou=surBou,
         final haveShade=haveShade,
-        final V=V,
-        final p_start=p_start,
-        final T_start=T_start,
-        final X_start=X_start,
-        final C_start=C_start,
-        final C_nominal=C_nominal) "Convective heat and mass balance of air"
+        final V=V) "Convective heat and mass balance of air"
     annotation (Placement(transformation(extent={{40,-142},{64,-118}})));
 
   Buildings.Rooms.BaseClasses.SolarRadiationExchange solRadExc(
@@ -218,7 +217,8 @@ partial model RoomHeatMassBalance "Base model for a room"
     final datConPar = datConPar,
     final datConBou = datConBou,
     final surBou = surBou,
-    final linearizeRadiation = linearizeRadiation)
+    final linearizeRadiation = linearizeRadiation,
+    final homotopyInitialization = homotopyInitialization)
     "Infrared radiative heat exchange"
     annotation (Placement(transformation(extent={{-100,0},{-80,20}})));
 
@@ -243,7 +243,8 @@ partial model RoomHeatMassBalance "Base model for a room"
     final absIR_glass={(datConExtWin[i].glaSys.glass[datConExtWin[i].glaSys.nLay].absIR_b) for i in 1:NConExtWin},
     final tauIR_air=tauIRSha_air,
     final tauIR_glass=tauIRSha_glass,
-    each final linearize = linearizeRadiation) if
+    each final linearize = linearizeRadiation,
+    final homotopyInitialization=homotopyInitialization) if
        haveShade "Radiation model for room-side window shade"
     annotation (Placement(transformation(extent={{-60,90},{-40,110}})));
 
@@ -350,13 +351,12 @@ equation
       pattern=LinePattern.None,
       smooth=Smooth.None));
   connect(conExtWin.JInSha_a, bouConExtWin.JOutSha) annotation (Line(
-      points={{280.5,51},{286,51},{286,52},{292,52},{292,50},{292,50},{292,49},{
-          351.5,49}},
+      points={{280.5,51},{286,51},{286,52},{292,52},{292,49},{351.5,49}},
       color={0,0,0},
       pattern=LinePattern.None,
       smooth=Smooth.None));
   connect(bouConExtWin.JInSha, conExtWin.JOutSha_a) annotation (Line(
-      points={{351.5,51},{290,51},{290,50},{290,50},{290,49},{280.5,49}},
+      points={{351.5,51},{290,51},{290,49},{280.5,49}},
       color={0,0,0},
       pattern=LinePattern.None,
       smooth=Smooth.None));
@@ -366,11 +366,11 @@ equation
       pattern=LinePattern.None,
       smooth=Smooth.None));
   connect(conExt.opa_a, bouConExt.opa_a) annotation (Line(
-      points={{288,138.333},{314,138.333},{334,138.333},{334,139},{352,139}},
+      points={{288,138.333},{334,138.333},{334,139},{352,139}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(weaBus, bouConExtWin.weaBus) annotation (Line(
-      points={{180,160},{400,160},{400,120},{400,120},{400,60.05},{378.15,60.05}},
+      points={{180,160},{400,160},{400,60.05},{378.15,60.05}},
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None));
@@ -385,15 +385,15 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(bouConExtWin.inc, conExtWinRad.incAng) annotation (Line(
-      points={{382.5,68},{390,68},{390,-16},{390,-16},{390,-15},{321.5,-15}},
+      points={{382.5,68},{390,68},{390,-15},{321.5,-15}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(bouConExtWin.HDir, conExtWinRad.HDir) annotation (Line(
-      points={{382.5,65},{388,65},{388,-10},{386,-10},{386,-10},{321.5,-10}},
+      points={{382.5,65},{388,65},{388,-10},{321.5,-10}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(bouConExtWin.HDif, conExtWinRad.HDif) annotation (Line(
-      points={{382.5,62},{392,62},{392,-6},{392,-6},{392,-6},{321.5,-6}},
+      points={{382.5,62},{392,62},{392,-6},{321.5,-6}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(conExtWin.QAbsSha_flow, conExtWinRad.QAbsGlaSha_flow) annotation (
@@ -529,8 +529,7 @@ equation
       color={191,0,0},
       smooth=Smooth.None));
   connect(conExtWin.fra_b, radTem.conExtWinFra) annotation (Line(
-      points={{249.9,46},{160,46},{160,4},{160,4},{160,60},{-60,60},{-60,-70},{
-          -79.9167,-70}},
+      points={{249.9,46},{160,46},{160,60},{-60,60},{-60,-70},{-79.9167,-70}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(conPar.opa_a, radTem.conPar_a) annotation (Line(
@@ -567,7 +566,7 @@ equation
 
   connect(radTem.TRad, radiationAdapter.TRad) annotation (Line(
       points={{-100.417,-77.6667},{-144,-77.6667},{-144,-78},{-186,-78},{-186,
-          130},{-182,130},{-182,130}},
+          130},{-182,130}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(radiationAdapter.rad, heaPorRad)
@@ -798,6 +797,10 @@ for detailed explanations.
 </p>
 </html>",   revisions="<html>
 <ul>
+<li>
+July 25, 2014, by Michael Wetter:<br/>
+Propagated parameter <code>homotopyInitialization</code>.
+</li>
 <li>
 August 1, 2013, by Michael Wetter:<br/>
 Introduced this model as a partial base class because the latent heat gains

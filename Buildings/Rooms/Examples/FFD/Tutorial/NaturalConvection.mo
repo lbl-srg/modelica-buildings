@@ -46,7 +46,6 @@ model NaturalConvection "Tutorial for Natural Convection case"
        Buildings.Rooms.Types.CFDBoundaryConditions.HeatFlowRate,
        Buildings.Rooms.Types.CFDBoundaryConditions.HeatFlowRate,
        Buildings.Rooms.Types.CFDBoundaryConditions.HeatFlowRate}),
-   lat = 0.012787839282646,
    AFlo = 1*1,
    hRoo = 1,
    linearizeRadiation = false,
@@ -59,7 +58,8 @@ model NaturalConvection "Tutorial for Natural Convection case"
    nConBou = nConBou,
    nSurBou = nSurBou,
    samplePeriod = 60,
-   T_start=273.15)
+    lat=0.012787839282646,
+    massDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
   annotation (Placement(transformation(extent={{60,-58},{100,-18}})));
   HeatTransfer.Sources.FixedHeatFlow fixedHeatFlow[nSurBou - 2](each Q_flow=0)
     annotation (Placement(transformation(extent={{26,-102},
@@ -88,7 +88,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(multiplex3_1.y, roo.qGai_flow) annotation (Line(
-      points={{21,-30},{30,-30},{30,-30},{40,-30},{40,-30},{58,-30}},
+      points={{21,-30},{58,-30}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(TEasWal.port, roo.surf_surBou[1])
@@ -144,7 +144,7 @@ To get a Rayleigh number of <i>1E5</i>, the flow properties are manually set as
 acceleration due to gravity <i>g<sub>z</sub>=-0.01</i> m/s<sup>2</sup>,
 thermal expansion coefficient <i>&beta;=3e-3</i> K<sup>-1</sup>,
 kinematic viscosity <i>&nu;=1.5e-5</i> m<sup>2</sup>/s,
-thermal diffusivity <i>&alpha;=2e-5</i> m<sup>2</sup>/s,
+thermal diffusivity <i>&alpha;=2e-5</i> m<sup>2</sup>/s, and
 characteristic length <i>L=1</i> m.
 </p>
 <p>

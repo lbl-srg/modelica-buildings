@@ -2,7 +2,10 @@ within Buildings.Rooms.BaseClasses;
 partial model PartialAirHeatMassBalance
   "Partial model for heat and mass balance of the air"
   extends Buildings.Rooms.BaseClasses.ConstructionRecords;
-  extends Buildings.Fluid.Interfaces.LumpedVolumeDeclarations;
+
+  replaceable package Medium =
+    Modelica.Media.Interfaces.PartialMedium "Medium in the component"
+      annotation (choicesAllMatching = true);
   // Port definitions
   parameter Integer nPorts=0 "Number of ports"
     annotation(Evaluate=true, Dialog(connectorSizing=true, tab="General",group="Ports"));

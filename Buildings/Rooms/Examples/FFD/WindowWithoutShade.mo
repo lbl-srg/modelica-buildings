@@ -42,7 +42,6 @@ model WindowWithoutShade
             Buildings.Rooms.Types.CFDBoundaryConditions.Temperature,
             Buildings.Rooms.Types.CFDBoundaryConditions.Temperature}),
       cfdFilNam="modelica://Buildings/Resources/Data/Rooms/FFD/WindowWithoutShade.ffd",
-      T_start=283.15,
       uSha_fixed={0, 0}));
 
   parameter HeatTransfer.Data.OpaqueConstructions.Insulation100Concrete200 matLayExt
