@@ -14,7 +14,8 @@ model RoomOnlyConstructionBoundary
         boundaryCondition={Buildings.Rooms.Types.CFDBoundaryConditions.Temperature,
             Buildings.Rooms.Types.CFDBoundaryConditions.Temperature,Buildings.Rooms.Types.CFDBoundaryConditions.Temperature,
             Buildings.Rooms.Types.CFDBoundaryConditions.Temperature,Buildings.Rooms.Types.CFDBoundaryConditions.Temperature,
-            Buildings.Rooms.Types.CFDBoundaryConditions.Temperature})),
+            Buildings.Rooms.Types.CFDBoundaryConditions.Temperature}),
+        homotopyInitialization=false),
       nConBou=6);
 
   Buildings.HeatTransfer.Sources.FixedTemperature TWalRes[nConBou - 1](
