@@ -150,11 +150,12 @@ equation
     der(p) = p_start*(sum(ports.m_flow))/m_start;
   end if;
 
-  // Connection of input signals to ports
+  // Connection of input signals to ports.
+  // Connect pressures.
   for i in 1:nPorts loop
     ports[i].p = p;
   end for;
-
+  // Connect enthalpy, mass fraction and trace substances.
   for i in 1:nPorts loop
     ports[i].h_outflow = Medium.specificEnthalpy_pTX(
        p=p,
@@ -164,7 +165,7 @@ equation
     ports[i].C_outflow  = C_outflow_internal[ (i-1)*Medium.nC +1:i*Medium.nC];
   end for;
 
-  // Connection of ports to output signals
+  // Connection of ports to output signals.
    for i in 1:nPorts loop
      m_flow[i] = ports[i].m_flow;
      T_inflow[i] = Medium.temperature(Medium.setState_phX(
@@ -194,6 +195,24 @@ equation
 <p>
 This model is used to connect the fluid port with
 the block that communicates with the CFD program.
+</p>
+<p>
+This model also implements the pressure balance of the medium, as the
+FFD implementation uses a constant pressure that is independent of the
+pressure of the Modelica model.
+If the parameter <code>massDynamics == Modelica.Fluid.Types.Dynamics.SteadyState</code>,
+then there is a steady-state mass balance and the pressure of the room
+is an algebraic variable.
+Otherwise, the time derivative of the pressure is
+</p>
+<p align=\"center\" style=\"font-style:italic;\">
+dp&frasl;dt = p_<sub>start</sub> &nbsp; &sum; m&#775;<sub>i</sub> &frasl; m<sub>start</sub>,
+</p>
+<p>
+where 
+<i>p_<sub>start</sub></i> is the initial pressure,
+<i>&sum; m&#775;<sub>i</sub></i> is the sum of the mass flow rates over all ports, and
+<i>m<sub>start</sub></i> is the initial mass of the room.
 </p>
 </html>", revisions="<html>
 <ul>

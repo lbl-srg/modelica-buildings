@@ -593,6 +593,22 @@ this model requires declaring names for the fluid ports
 This parameter is an array of strings. The same strings must be used
 in the CFD input file when declaring the inlet and outlet boundary conditions.
 </li>
+<li>
+The control signal of window shades is a constant rather than an input.
+Its value cannot be changed during the simulation as the FFD implemementation 
+does not support moving areas for the boundary conditions.
+</li>
+<li>
+The initial conditions for temperature, mass fraction and trace substances
+are declared in the CFD input file rather than in Modelica.
+In Modelica, an initial value for the pressure can be defined. This is used
+for a pressure balance of the room volume, and is implemented in
+<a href=\"modelica://Buildings.Rooms.BaseClasses.CFDFluidInterface\">
+Buildings.Rooms.BaseClasses.CFDFluidInterface</a>.
+However, the FFD implementation uses
+a constant pressure during the whole simulation and does not use the pressure
+of the Modelica model.
+</li>
 </ul>
 A description of the model assumptions and the implemention and validation of this room model can be found in <a href=\"#ZuoEtAl2014\">Zuo et al. (2014)</a>.
 <-- +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
