@@ -22,6 +22,9 @@ model GasConvection
 
   parameter Modelica.SIunits.Temperature T0 = 293.15
     "Temperature used to compute thermophysical properties";
+  parameter Boolean homotopyInitialization = true "= true, use homotopy method"
+    annotation(Evaluate=true, Dialog(tab="Advanced"));
+
   Modelica.SIunits.CoefficientOfHeatTransfer hCon(min=0, start=3)
     "Convective heat transfer coefficient";
   Modelica.SIunits.HeatFlux q_flow "Convective heat flux";
@@ -51,12 +54,9 @@ protected
     "Convective heat transfer coefficient";
   parameter Real Nu0(fixed=false, min=0) "Nusselt number";
   parameter Real Ra0(fixed=false, min=0) "Rayleigh number";
-  parameter Boolean homotopyInitialization = true "= true, use homotopy method"
-    annotation(Evaluate=true, Dialog(tab="Advanced"));
 
 initial equation
   assert(isVertical or isHorizontal, "Only vertical and horizontal windows are implemented.");
-initial equation
   // Computations that are used in the linearized model only
   Ra0 = Buildings.HeatTransfer.Convection.Functions.HeatFlux.rayleigh(
     x=gas.x,

@@ -17,6 +17,8 @@ model ConstructionWithWindow
   parameter Boolean linearizeRadiation = true
     "Set to true to linearize emissive power"
     annotation (Dialog(group="Glazing system"));
+  parameter Boolean homotopyInitialization = true "= true, use homotopy method"
+    annotation(Evaluate=true, Dialog(tab="Advanced"));
 
  replaceable parameter HeatTransfer.Data.GlazingSystems.Generic glaSys
     "Material properties of glazing system"
@@ -28,7 +30,8 @@ model ConstructionWithWindow
     final A=AWin,
     final fFra=fFra,
     final linearize = linearizeRadiation,
-    final til=til) "Window model"
+    final til=til,
+    final homotopyInitialization=homotopyInitialization) "Window model"
     annotation (Placement(transformation(extent={{-114,-184},{112,42}})));
 
   HeatTransfer.Interfaces.RadiosityOutflow JOutUns_a
@@ -376,6 +379,10 @@ equation
 defaultComponentName="conWin",
 Documentation(revisions="<html>
 <ul>
+<li>
+July 25, 2014, by Michael Wetter:<br/>
+Propagated parameter <code>homotopyInitialization</code>.
+</li>
 <li>
 May 30, 2014, by Michael Wetter:<br/>
 Removed undesirable annotation <code>Evaluate=true</code>.

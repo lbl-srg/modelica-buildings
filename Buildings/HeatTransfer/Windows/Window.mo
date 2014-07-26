@@ -11,6 +11,8 @@ model Window "Model for a window"
   final parameter Modelica.SIunits.Area AGla = A-AFra "Glass area";
   parameter Boolean linearize=false "Set to true to linearize emissive power";
   parameter Modelica.SIunits.Angle til(displayUnit="deg") "Surface tilt";
+  parameter Boolean homotopyInitialization = true "= true, use homotopy method"
+    annotation(Evaluate=true, Dialog(tab="Advanced"));
 
   Interfaces.RadiosityOutflow JOutUns_a
     "Outgoing radiosity that connects to unshaded part of glass at exterior side"
@@ -42,14 +44,18 @@ model Window "Model for a window"
     final glaSys=glaSys,
     final A=AGla,
     final til=til,
-    final linearize=linearize) "Model for unshaded center of glass"
+    final linearize=linearize,
+    final homotopyInitialization=homotopyInitialization)
+    "Model for unshaded center of glass"
     annotation (Placement(transformation(extent={{-10,10},{10,30}})));
 
   Buildings.HeatTransfer.Windows.BaseClasses.CenterOfGlass glaSha(
     final glaSys=glaSys,
     final A=AGla,
     final til=til,
-    final linearize=linearize) if haveShade "Model for shaded center of glass"
+    final linearize=linearize,
+    final homotopyInitialization=homotopyInitialization) if
+       haveShade "Model for shaded center of glass"
     annotation (Placement(transformation(extent={{-10,-30},{10,-10}})));
 
   Modelica.Thermal.HeatTransfer.Components.ThermalConductor frame(G=AFra*
@@ -460,6 +466,10 @@ Validation of the window model of the Modelica Buildings library.</a>
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+July 25, 2014, by Michael Wetter:<br/>
+Propagated parameter <code>homotopyInitialization</code>.
+</li>
 <li>
 May 30, 2014, by Michael Wetter:<br/>
 Removed undesirable annotation <code>Evaluate=true</code>.
