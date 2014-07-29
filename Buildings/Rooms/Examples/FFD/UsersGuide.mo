@@ -47,13 +47,27 @@ with the <code>Buildings</code> library.
 If you want to compile the files yourself, proceed as follows:
 <ul>
 <li>
-On Windows:
+On Windows, method 1:
 <ol>
 <li>
 Go to <code>Buildings/Resources/src/FastFluidDynamics/</code>
 </li>
 <li>
-Run <code>compile.bat</code>
+Run <code>compile.bat</code> as administrator
+</li>
+</ol>
+</li>
+<li>
+On Windows, method 2:
+<ol>
+<li>
+Open cmd.
+</li>
+<li>
+Change to the directory <code>Buildings/Resources/src/FastFluidDynamics/</code>
+</li>
+<li>
+type <code>compile.bat</code>
 </li>
 </ol>
 </li>
@@ -72,5 +86,10 @@ Type <code>make all</code>
 </ol>
 </li>
 </ul>
+<p>
+please note to make use you have the right of executing the <code>compile.bat</code> when using method 2 on Windows.
+To check the availability right click the file and choose <code>Properties</code>. Go to <code>Security</code> tab and edit if you don't have the 
+access to execute the file.
+</p>
 </html>"));
 end UsersGuide;
