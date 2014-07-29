@@ -126,7 +126,12 @@ equation
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None));
-  annotation (Documentation(info="<html>
+  annotation (Diagram(coordinateSystem(extent={{-100,-180},{240,100}},
+          preserveAspectRatio=false)),
+          __Dymola_Commands(file =    "modelica://Buildings/Resources/Scripts/Dymola/Rooms/Examples/FFD/Tutorial/NaturalConvection.mos"
+        "Simulate and plot"),
+        experiment(StopTime=120),
+       Documentation(info="<html>
 <p>
 This tutorial gives step by step instructions for building and simulating a natural convection model. The model tests the coupled simulation of
 <a href=\"modelica://Buildings.Rooms.CFD\">
@@ -397,9 +402,5 @@ Wangda Zuo, Mingang Jin, Qingyan Chen, 2011<br/></a>
 Reduction of numerical viscosity in FFD model.</a><br/>
 Journal of Engineering Applications of Computational Fluid Mechanics, 6(2), p. 234-247.
 </p>
-</html>"),
-    __Dymola_Commands(file =    "modelica://Buildings/Resources/Scripts/Dymola/Rooms/Examples/FFD/Tutorial/NaturalConvection.mos"
-        "Simulate and plot"),
-    Diagram(coordinateSystem(extent={{-100,-180},{240,100}},
-          preserveAspectRatio=false)));
+</html>"));
 end NaturalConvection;

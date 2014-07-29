@@ -393,7 +393,9 @@ June 27, 2014, by Wei Tian, Thomas Sevilla, Wangda Zuo:<br/>
 First implementation.
 </li>
 </ul>
-</html>"),    __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Rooms/Examples/FFD/Tutorial/MixedConvection.mos"
+</html>"),
+    experiment(StopTime=12),
+    __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Rooms/Examples/FFD/Tutorial/MixedConvection.mos"
         "Simulate and plot"),
     Diagram(coordinateSystem(extent={{-80,-160},{200,120}}, preserveAspectRatio=false),
         graphics));
