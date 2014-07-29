@@ -8,6 +8,7 @@ model NaturalConvectionWithControl
         nPorts=0,
         useCFD=true,
         samplePeriod=30,
+        cfdFilNam = "modelica://Buildings/Resources/Data/Rooms/FFD/NaturalConvectionWithControl.ffd",
         massDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial));
 
   HeatTransfer.Sources.PrescribedHeatFlow preHeatFlo
@@ -50,6 +51,7 @@ equation
     __Dymola_Commands(file=
           "modelica://Buildings/Resources/Scripts/Dymola/Rooms/Examples/FFD/NaturalConvectionWithControl.mos"
         "Simulate and plot"),
+   experiment(StopTime=120),
    Documentation(info="<html>
 <p>
 This model tests the coupled simulation of

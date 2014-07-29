@@ -33,6 +33,7 @@ model RoomOnlyExteriorWallNoWindow
     __Dymola_Commands(file=
           "modelica://Buildings/Resources/Scripts/Dymola/Rooms/Examples/FFD/RoomOnlyExteriorWallNoWindow.mos"
         "Simulate and plot"),
+    experiment(StopTime=120),
     Documentation(info="<html>
 <p>
 This model tests the coupled simulation of
