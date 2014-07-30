@@ -4,9 +4,7 @@ model ConstantEffectiveness
   extends Modelica.Icons.Example;
 
  package Medium1 = Buildings.Media.ConstantPropertyLiquidWater;
-   "Medium model for water";
- package Medium2 = Buildings.Media.Air
-   "Medium model for air";
+ package Medium2 = Buildings.Media.GasesPTDecoupled.MoistAirUnsaturated;
   Buildings.Fluid.Sources.Boundary_pT sin_2(
     redeclare package Medium = Medium2,
     use_p_in=true,
@@ -54,7 +52,7 @@ model ConstantEffectiveness
     nPorts=1)             annotation (Placement(transformation(extent={{-60,36},
             {-40,56}}, rotation=0)));
   Buildings.Fluid.HeatExchangers.ConstantEffectiveness hex(
-    redeclare package Medium1 = Medium1, 
+    redeclare package Medium1 = Medium1,
     redeclare package Medium2 = Medium2,
     show_T=true,
     m1_flow_nominal=5,
