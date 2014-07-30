@@ -1,7 +1,14 @@
 within Buildings.Fluid.Movers.Examples;
 model FlowMachineParallel_y "Two flow machines in parallel"
   extends Modelica.Icons.Example;
-  package Medium = Buildings.Media.ConstantPropertyLiquidWater;
+  // fixme. Revisit when Dymola 2015 is available.
+  // The medium has been changed from
+  // Buildings.Media.Water to
+  // Buildings.Media.GasesPTDecoupled.MoistAirUnsaturated because
+  // Buildings.Media.Water and Buildings.Media.Air cause in
+  // Dymola 2014 FD01 a division by zero. This is due to the
+  // bug https://github.com/iea-annex60/modelica-annex60/issues/53
+  package Medium = Buildings.Media.GasesPTDecoupled.MoistAirUnsaturated "Medium model";
 
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal=
      1 "Nominal mass flow rate";
@@ -43,7 +50,7 @@ model FlowMachineParallel_y "Two flow machines in parallel"
   Modelica.Blocks.Sources.Constant const2(k=1) "Constant source"
     annotation (Placement(transformation(extent={{0,30},{20,50}})));
 
-  parameter Modelica.SIunits.Density rho_nominal=1000
+  parameter Modelica.SIunits.Density rho_nominal=1.2
     "Density, used to compute fluid mass";
   inner Modelica.Fluid.System system
     annotation (Placement(transformation(extent={{120,-80},{140,-60}})));
