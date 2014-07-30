@@ -9,6 +9,7 @@ partial block HumidityRatioVaporPressure
     annotation (Dialog(enable = not use_p_in));
   Modelica.Blocks.Interfaces.RealInput p_in(final quantity="Pressure",
                                          final unit="Pa",
+                                         displayUnit="Pa",
                                          min = 0) if  use_p_in
     "Atmospheric Pressure"
     annotation (Placement(transformation(extent={{-140,40},{-100,80}},

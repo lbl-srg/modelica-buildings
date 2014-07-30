@@ -39,21 +39,16 @@ block WetBul_pTX
     unit="1",
     nominal=0.01) "Water vapor mass fraction at wet bulb temperature"
   annotation (Placement(transformation(extent={{100,-10},{120,10}},rotation=0)));
-
-protected
-  constant Modelica.SIunits.SpecificHeatCapacity cpAir=1006
-    "Specific heat capacity of air";
-  constant Modelica.SIunits.SpecificHeatCapacity cpSte=1860
-    "Specific heat capacity of water vapor";
-  constant Modelica.SIunits.SpecificEnthalpy h_fg = 2501014.5
-    "Specific heat capacity of water vapor";
 equation
   XWetBul   = Buildings.Utilities.Psychrometrics.Functions.X_pSatpphi(
       pSat=   Buildings.Utilities.Psychrometrics.Functions.saturationPressureLiquid(TWetBul),
       p=     p,
       phi=   1);
-  TWetBul = (TDryBul * ((1-XDryBul) * cpAir + XDryBul * cpSte) + (XDryBul-XWetBul) * h_fg)/
-            ( (1-XWetBul)*cpAir + XWetBul * cpSte);
+  TWetBul = (TDryBul * ((1-XDryBul) * Buildings.Utilities.Psychrometrics.Constants.cpAir +
+             XDryBul * Buildings.Utilities.Psychrometrics.Constants.cpSte) +
+             (XDryBul-XWetBul) * Buildings.Utilities.Psychrometrics.Constants.h_fg)/
+              ( (1-XWetBul)*Buildings.Utilities.Psychrometrics.Constants.cpAir +
+              XWetBul * Buildings.Utilities.Psychrometrics.Constants.cpSte);
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,
             100}})),

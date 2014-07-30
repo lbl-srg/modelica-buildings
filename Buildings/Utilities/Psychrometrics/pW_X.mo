@@ -2,8 +2,8 @@ within Buildings.Utilities.Psychrometrics;
 block pW_X "Water vapor pressure for given humidity ratio"
   extends
     Buildings.Utilities.Psychrometrics.BaseClasses.HumidityRatioVaporPressure;
-  Modelica.Blocks.Interfaces.RealInput X_w(min=0, max=1, nominal=0.01)
-    "Species concentration at dry bulb temperature"
+  Modelica.Blocks.Interfaces.RealInput X_w(min=0, max=0.99999, nominal=0.01)
+    "Water concentration at dry bulb temperature"
     annotation (Placement(transformation(extent={{-120,-10},{-100,10}},rotation=
            0), iconTransformation(extent={{-120,-10},{-100,10}})));
   Modelica.Blocks.Interfaces.RealOutput p_w(final quantity="Pressure",

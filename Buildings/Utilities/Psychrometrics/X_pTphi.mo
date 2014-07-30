@@ -3,8 +3,8 @@ block X_pTphi
   "Return steam mass fraction as a function of relative humidity phi and temperature T"
   extends
     Buildings.Utilities.Psychrometrics.BaseClasses.HumidityRatioVaporPressure;
-  package Medium = Buildings.Media.PerfectGases.MoistAirUnsaturated
-    "Medium model";
+
+  package Medium = Buildings.Media.Air "Medium model";
 
 public
   Modelica.Blocks.Interfaces.RealInput T(final unit="K",
@@ -18,12 +18,12 @@ public
     "Steam mass fraction"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 protected
-  constant Real k = 0.621964713077499 "Ratio of molar masses";
-  Modelica.SIunits.AbsolutePressure psat "Saturation pressure";
+  Modelica.SIunits.AbsolutePressure pSat "Saturation pressure";
  parameter Integer i_w(min=1, fixed=false) "Index for water substance";
  parameter Integer i_nw(min=1, fixed=false) "Index for non-water substance";
  parameter Boolean found(fixed=false) "Flag, used for error checking";
 initial algorithm
+  assert(Medium.nX==2, "The implementation is only valid if Medium.nX=2.");
   found:=false;
   i_w :=1;
     for i in 1:Medium.nXi loop
@@ -37,9 +37,9 @@ initial algorithm
   i_nw := if i_w == 1 then 2 else 1;
   assert(found, "Did not find medium species 'water' in the medium model. Change medium model.");
 algorithm
-  psat := Buildings.Media.PerfectGases.MoistAirUnsaturated.saturationPressure(T);
+  pSat := Buildings.Media.PerfectGases.MoistAirUnsaturated.saturationPressure(T);
   X[i_w] := Buildings.Utilities.Psychrometrics.Functions.X_pSatpphi(
-     pSat=psat, p=p_in_internal, phi=phi);
+     pSat=pSat, p=p_in_internal, phi=phi);
   //sum(X[:]) = 1; // The formulation with a sum in an equation section leads to a nonlinear equation system
   X[i_nw] := 1 - X[i_w];
   annotation (Documentation(info="<html>
@@ -55,8 +55,12 @@ and the value provided by the input connector is used instead.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>July 24, 2014 by Michael Wetter:<br/>
+Added <code>assert</code> to verify that <code>Medium.nX==2</code>
+as the implementation is only valid for such media.
+</li>
 <li>April 26, 2013 by Michael Wetter:<br/>
-Set the medium model to <code>Buildings.Media.PerfectGases.MoistAirUnsaturated</code>.
+Set the medium model to <code>Buildings.Media.Air</code>.
 This was required to allow a pedantic model check in Dymola 2014.
 </li>
 <li>August 21, 2012 by Michael Wetter:<br/>
