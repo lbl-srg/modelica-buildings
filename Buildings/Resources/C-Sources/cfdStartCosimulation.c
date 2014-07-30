@@ -56,7 +56,7 @@ int cfdStartCosimulation(char *cfdFilNam, char **name, double *A, double *til,
   typedef int (*MYPROC)(CosimulationData *);
   MYPROC ProcAdd;
 
-  printf("Start to allocate memory for data exchange.\n");
+  ModelicaMessage("Start to allocate memory for data exchange.\n");
 
   cosim = (CosimulationData *) malloc(sizeof(CosimulationData));
   cosim->para = (ParameterSharedData *) malloc(sizeof(ParameterSharedData));  
@@ -88,16 +88,20 @@ int cfdStartCosimulation(char *cfdFilNam, char **name, double *A, double *til,
   for(i=0; i<nSur; i++) { 
     cosim->para->name[i] = (char *)malloc(sizeof(char) *(strlen(name[i])+1));
     strcpy(cosim->para->name[i], name[i]);
-    printf("Boundary name:%s\n", cosim->para->name[i]);
-
+    sprintf(msg, "Boundary name:%s\n", cosim->para->name[i]);
+    ModelicaMessage(msg);
+	
     cosim->para->are[i] = (REAL) A[i];
-    printf("\tA->Area:%f->%f [m2]\n", A[i], cosim->para->are[i]);
-
+    sprintf(msg, "\tA->Area:%f->%f [m2]\n", A[i], cosim->para->are[i]);
+    ModelicaMessage(msg);
+	
     cosim->para->til[i] = (REAL) til[i];
-    printf("\tTilt->Tilt:%f->%f [deg]\n", til[i], cosim->para->til[i]);
-
+    sprintf(msg, "\tTilt->Tilt:%f->%f [deg]\n", til[i], cosim->para->til[i]);
+    ModelicaMessage(msg);
+	
     cosim->para->bouCon[i] = bouCon[i];
-    printf("\tbouCon->bouCon:%d->%d \n\n", bouCon[i], cosim->para->bouCon[i]);
+    sprintf(msg, "\tbouCon->bouCon:%d->%d \n\n", bouCon[i], cosim->para->bouCon[i]);
+	ModelicaMessage(msg);
   }
 
   cosim->para->portName = (char**) malloc(nPorts*sizeof(char *));
@@ -105,7 +109,8 @@ int cfdStartCosimulation(char *cfdFilNam, char **name, double *A, double *til,
   for(i=0; i<nPorts; i++) {
     cosim->para->portName[i] = (char *)malloc(sizeof(char)*(strlen(portName[i])+1));
     strcpy(cosim->para->portName[i], portName[i]);
-    printf("Boundary name:%s\n", cosim->para->portName[i]);
+    sprintf(msg, "Boundary name:%s\n", cosim->para->portName[i]);
+	ModelicaMessage(msg);
   }
 
   if(haveSensor) {
@@ -114,7 +119,8 @@ int cfdStartCosimulation(char *cfdFilNam, char **name, double *A, double *til,
     for(i=0; i<nSen; i++) {
       cosim->para->sensorName[i] = (char *)malloc(sizeof(char)*(strlen(sensorName[i])+1));
       strcpy(cosim->para->sensorName[i], sensorName[i]);
-      printf("Sensor Name:%s\n", cosim->para->sensorName[i]);
+      sprintf(msg, "Sensor Name:%s\n", cosim->para->sensorName[i]);
+	  ModelicaMessage(msg);
     }
   }
 
@@ -150,7 +156,7 @@ int cfdStartCosimulation(char *cfdFilNam, char **name, double *A, double *til,
   if(haveShade==1) cosim->ffd->TSha = (REAL *) malloc(nConExtWin*sizeof(REAL));
   cosim->ffd->TPor = (REAL *) malloc(nPorts*sizeof(REAL));
   
-  printf("Allocated memory for coupled simulation data.\n");
+  ModelicaMessage("Allocated memory for coupled simulation data.\n");
 
   /****************************************************************************
   | Get a handle to the DLL module.
@@ -162,7 +168,7 @@ int cfdStartCosimulation(char *cfdFilNam, char **name, double *A, double *til,
 #elif _WIN32
   hinstLib = LoadLibrary(TEXT("Resources/Library/win32/ffd.dll"));
 #else
-    printf("Failed to detect 32 or 64 bit in cfdStartCosimulation.c.\n");
+    ModelicaMessage("Failed to detect 32 or 64 bit in cfdStartCosimulation.c.\n");
     return 1;
 #endif
 
@@ -174,13 +180,13 @@ int cfdStartCosimulation(char *cfdFilNam, char **name, double *A, double *til,
 /* 64-bit */
   hinstLib = dlopen("Resources/Library/linux64/libffd.so", RTLD_LAZY);
 #else
-    printf("Failed to detect 32 or 64 bit in cfdStartCosimulation.c.\n");
+    ModelicaMessage("Failed to detect 32 or 64 bit in cfdStartCosimulation.c.\n");
     return 1;
 #endif
 
 #else /* Neither MSC nor Linux */
 
-    printf("Unsupported operating system in cfdStartCosimulation.c.\n");
+    ModelicaMessage("Unsupported operating system in cfdStartCosimulation.c.\n");
     return 1;
 
 #endif
@@ -195,7 +201,7 @@ int cfdStartCosimulation(char *cfdFilNam, char **name, double *A, double *til,
 #endif
   }
   else {
-    printf("instantiate(): Could not find dll handle.\n");
+    ModelicaMessage("instantiate(): Could not find dll handle.\n");
     return 1;
   }
 
@@ -205,7 +211,7 @@ int cfdStartCosimulation(char *cfdFilNam, char **name, double *A, double *til,
     ProcAdd(cosim); 
   }
   else{
-    printf("instantiate(): Could not find dll function address.\n");
+    ModelicaMessage("instantiate(): Could not find dll function address.\n");
     return 1;
   }
 
