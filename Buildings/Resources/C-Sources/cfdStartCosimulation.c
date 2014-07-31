@@ -101,7 +101,7 @@ int cfdStartCosimulation(char *cfdFilNam, char **name, double *A, double *til,
 	
     cosim->para->bouCon[i] = bouCon[i];
     sprintf(msg, "\tbouCon->bouCon:%d->%d \n\n", bouCon[i], cosim->para->bouCon[i]);
-	ModelicaMessage(msg);
+    ModelicaMessage(msg);
   }
 
   cosim->para->portName = (char**) malloc(nPorts*sizeof(char *));
@@ -110,7 +110,7 @@ int cfdStartCosimulation(char *cfdFilNam, char **name, double *A, double *til,
     cosim->para->portName[i] = (char *)malloc(sizeof(char)*(strlen(portName[i])+1));
     strcpy(cosim->para->portName[i], portName[i]);
     sprintf(msg, "Boundary name:%s\n", cosim->para->portName[i]);
-	ModelicaMessage(msg);
+    ModelicaMessage(msg);
   }
 
   if(haveSensor) {
@@ -120,7 +120,7 @@ int cfdStartCosimulation(char *cfdFilNam, char **name, double *A, double *til,
       cosim->para->sensorName[i] = (char *)malloc(sizeof(char)*(strlen(sensorName[i])+1));
       strcpy(cosim->para->sensorName[i], sensorName[i]);
       sprintf(msg, "Sensor Name:%s\n", cosim->para->sensorName[i]);
-	  ModelicaMessage(msg);
+      ModelicaMessage(msg);
     }
   }
 
