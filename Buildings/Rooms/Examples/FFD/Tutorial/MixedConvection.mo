@@ -332,7 +332,6 @@ Use a 20 X 20 X 20 stretched grid.
 </li>
 <li>
 Set the time step size of the FFD to <i>0.1</i> seconds.
-// fixme: verify whether 0.1 seconds is correct.
 </li>
 <li>
 Generate the input files, which have by default the names
