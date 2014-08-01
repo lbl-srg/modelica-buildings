@@ -7,7 +7,6 @@ model CFD
     final cfdFilNam = cfdFilNam,
     final useCFD=useCFD,
     final samplePeriod=samplePeriod,
-    final startTime=startTime,
     final haveSensor=haveSensor,
     final nSen=nSen,
     final sensorName=sensorName,
@@ -52,13 +51,9 @@ protected
     "Flag, true if the model has at least one sensor";
   final parameter Integer nSen(min=0) = size(sensorName, 1)
     "Number of sensors that are connected to CFD output";
- parameter Modelica.SIunits.Time startTime(fixed=false)
-    "First sample time instant.";
   Modelica.Blocks.Sources.Constant conSha[nConExtWin](final k=uSha_fixed) if
        haveShade "Constant signal for shade"
     annotation (Placement(transformation(extent={{-260,170},{-240,190}})));
-initial equation
-  startTime = time; // fixme: don't mix equations with graphical modeling
 
 equation
   connect(qGai_flow, heaGai.qGai_flow) annotation (Line(
