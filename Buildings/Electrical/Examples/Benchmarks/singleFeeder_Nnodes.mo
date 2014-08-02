@@ -11,9 +11,10 @@ model singleFeeder_Nnodes
      5,5;
      6,6]
     "Matrix that represents the connections of the PVs to the nodes in the feeder";
-  Buildings.Electrical.AC.ThreePhasesUnbalanced.Lines.NetworkN network(redeclare
-      Buildings.Electrical.Transmission.Benchmark.BenchmarkGrids.SingleFeeder_10nodes
-                                                                                            grid)
+  Buildings.Electrical.AC.ThreePhasesUnbalanced.Lines.NetworkN network(
+      redeclare
+      Buildings.Electrical.Transmission.Benchmarks.BenchmarkGrids.SingleFeeder_10nodes
+      grid)
     annotation (Placement(transformation(extent={{-50,-10},{-30,10}})));
   Buildings.Electrical.AC.ThreePhasesUnbalanced.Loads.ResistiveLoadP_N           load[Nload](
     each P_nominal=1000,
@@ -48,12 +49,36 @@ model singleFeeder_Nnodes
         rotation=180,
         origin={90,-30})));
 protected
-  parameter Boolean Phase1[Nload] = Buildings.Electrical.Transmission.Benchmark.Utilities.PluggedPhaseSequence(N=Nload,first=1,Mod=3);
-  parameter Boolean Phase2[Nload] = Buildings.Electrical.Transmission.Benchmark.Utilities.PluggedPhaseSequence(N=Nload,first=2,Mod=3);
-  parameter Boolean Phase3[Nload] = Buildings.Electrical.Transmission.Benchmark.Utilities.PluggedPhaseSequence(N=Nload,first=3,Mod=3);
-  parameter Boolean Phase1_pv[Npv] = Buildings.Electrical.Transmission.Benchmark.Utilities.PluggedPhaseSequence(N=Npv,first=1,Mod=3);
-  parameter Boolean Phase2_pv[Npv] = Buildings.Electrical.Transmission.Benchmark.Utilities.PluggedPhaseSequence(N=Npv,first=2,Mod=3);
-  parameter Boolean Phase3_pv[Npv] = Buildings.Electrical.Transmission.Benchmark.Utilities.PluggedPhaseSequence(N=Npv,first=3,Mod=3);
+  parameter Boolean Phase1[Nload]=
+      Buildings.Electrical.Transmission.Benchmarks.Utilities.PluggedPhaseSequence(
+      N=Nload,
+      first=1,
+      Mod=3);
+  parameter Boolean Phase2[Nload]=
+      Buildings.Electrical.Transmission.Benchmarks.Utilities.PluggedPhaseSequence(
+      N=Nload,
+      first=2,
+      Mod=3);
+  parameter Boolean Phase3[Nload]=
+      Buildings.Electrical.Transmission.Benchmarks.Utilities.PluggedPhaseSequence(
+      N=Nload,
+      first=3,
+      Mod=3);
+  parameter Boolean Phase1_pv[Npv]=
+      Buildings.Electrical.Transmission.Benchmarks.Utilities.PluggedPhaseSequence(
+      N=Npv,
+      first=1,
+      Mod=3);
+  parameter Boolean Phase2_pv[Npv]=
+      Buildings.Electrical.Transmission.Benchmarks.Utilities.PluggedPhaseSequence(
+      N=Npv,
+      first=2,
+      Mod=3);
+  parameter Boolean Phase3_pv[Npv]=
+      Buildings.Electrical.Transmission.Benchmarks.Utilities.PluggedPhaseSequence(
+      N=Npv,
+      first=3,
+      Mod=3);
 equation
 
   // Connections for the buildings loads

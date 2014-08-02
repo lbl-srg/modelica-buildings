@@ -9,7 +9,7 @@ model singleFeeder_20
         extent={{10,-10},{-10,10}},
         rotation=180,
         origin={-48,0})));
-  Transmission.Benchmark.DataReader.DataSeries dataSeries(factorPV=0.0)
+  Transmission.Benchmarks.DataReader.DataSeries dataSeries(factorPV=0.0)
     annotation (Placement(transformation(extent={{60,-10},{40,10}})));
   singleFeeder_20nodes feeder
     annotation (Placement(transformation(extent={{-22,-20},{18,20}})));
