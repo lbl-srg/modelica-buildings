@@ -27,7 +27,8 @@ model MassFraction "Test model for the mass fraction sensor"
     redeclare package Medium = Medium,
     V=1,
     nPorts=3,
-    m_flow_nominal=10) "Volume"
+    m_flow_nominal=10,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial) "Volume"
     annotation (Placement(transformation(extent={{0,10},{20,30}})));
   Buildings.Fluid.FixedResistances.FixedResistanceDpM dp(
     redeclare package Medium = Medium,

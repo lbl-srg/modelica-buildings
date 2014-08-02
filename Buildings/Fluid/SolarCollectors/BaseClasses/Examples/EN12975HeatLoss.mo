@@ -76,5 +76,5 @@ equation
     __Dymola_Commands(file=
           "modelica://Buildings/Resources/Scripts/Dymola/Fluid/SolarCollectors/BaseClasses/Examples/EN12975HeatLoss.mos"
         "Simulate and Plot"),
-    Icon(graphics));
+        experiment(StopTime=100.0));
 end EN12975HeatLoss;

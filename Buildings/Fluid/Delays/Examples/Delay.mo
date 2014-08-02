@@ -1,6 +1,6 @@
 within Buildings.Fluid.Delays.Examples;
 model Delay
-  extends Modelica.Icons.Example; 
+  extends Modelica.Icons.Example;
 // We set X_default to a small enough value to avoid saturation at the medium temperature
 // that is used in this model.
  package Medium = Buildings.Media.GasesPTDecoupled.MoistAirUnsaturated(X_default={0.001, 0.999});
@@ -39,8 +39,10 @@ model Delay
           rotation=0)));
   Buildings.Fluid.Delays.DelayFirstOrder del(         m_flow_nominal=5, redeclare
       package Medium = Medium,
-    T_start=283.15,
-    nPorts=2)
+    nPorts=2,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    T_start=283.15)
+    "Fluid volume that is a first order approximation of the transport delay"
     annotation (Placement(transformation(extent={{-2,6},{18,26}},  rotation=0)));
   inner Modelica.Fluid.System system
     annotation (Placement(transformation(extent={{-100,-100},{-80,-80}})));
@@ -69,5 +71,6 @@ equation
             -100},{100,100}}),
                         graphics),
 experiment(StopTime=300),
-__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Delays/Examples/Delay.mos" "Simulate and plot"));
+__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Delays/Examples/Delay.mos"
+        "Simulate and plot"));
 end Delay;

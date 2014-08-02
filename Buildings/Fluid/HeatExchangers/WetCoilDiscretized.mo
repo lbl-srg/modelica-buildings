@@ -37,6 +37,10 @@ Modelica.Media.Air.MoistAir</a>.
 </html>", revisions="<html>
 <ul>
 <li>
+June 29, 2014, by Michael Wetter:<br/>
+Removed parameter <code>dl</code> which is no longer needed.
+</li>
+<li>
 December 13, 2013, by Michael Wetter:<br/>
 Corrected wrong connection 
 <code>connect(hexReg[nReg].port_b1, pipMan_b.port_b)</code>

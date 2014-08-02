@@ -72,6 +72,16 @@ heat transfer coefficient for interior (room-side facing) surfaces.
   For example, for a construction that is a floor, use
  <code>Buildings.HeatTransfer.Types.Tilt.Floor</code>.
 </p>
+<p>
+Note that a ceiling has a tilt of <i>0</i>, and also the solar collector models
+in 
+<a href=\"Buildings.Fluid.SolarCollectors\">Buildings.Fluid.SolarCollectors</a>
+require a tilt of <i>0</i> if they are facing straight upwards.
+This is correct because
+the solar irradiation on a ceiling construction is on the other-side surface,
+which faces upwards toward the sky. Hence, a construction is considered
+a ceiling from the view point of a person standing inside a room. 
+</p>
 </html>",
   revisions="<html>
 <ul>

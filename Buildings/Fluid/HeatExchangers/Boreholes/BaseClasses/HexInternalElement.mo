@@ -56,14 +56,20 @@ model HexInternalElement "Internal part of a borehole"
 
   Modelica.Thermal.HeatTransfer.Components.HeatCapacitor capFil1(
     final C=Co_fil/2,
-    T(final start=TFil_start)) "Heat capacity of the filling material" annotation (
+    T(final start=TFil_start,
+      fixed=(energyDynamics == Modelica.Fluid.Types.Dynamics.FixedInitial)),
+    der_T(fixed=(energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyStateInitial)))
+    "Heat capacity of the filling material"  annotation (
       Placement(transformation(
         extent={{-90,36},{-70,16}},
         rotation=0,
         origin={72,2})));
   Modelica.Thermal.HeatTransfer.Components.HeatCapacitor capFil2(
     final C=Co_fil/2,
-    T(final start=TFil_start)) "Heat capacity of the filling material" annotation (
+    T(final start=TFil_start,
+      fixed=(energyDynamics == Modelica.Fluid.Types.Dynamics.FixedInitial)),
+    der_T(fixed=(energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyStateInitial)))
+    "Heat capacity of the filling material" annotation (
       Placement(transformation(
         extent={{-90,-36},{-70,-16}},
         rotation=0,
@@ -276,6 +282,11 @@ International Journal Of Energy Research, 35:312&ndash;320, 2011.
 </html>", revisions="<html>
 <p>
 <ul>
+<li>
+June 18, 2014, by Michael Wetter:<br/>
+Added initialization for temperatures and derivatives of <code>capFil1</code>
+and <code>capFil2</code> to avoid a warning during translation.
+</li>
 <li>
 February 14, 2014, by Michael Wetter:<br/>
 Removed unused parameters <code>B0</code> and <code>B1</code>.

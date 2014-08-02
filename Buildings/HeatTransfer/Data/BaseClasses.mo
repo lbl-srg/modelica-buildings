@@ -22,7 +22,7 @@ package BaseClasses "Base classes for package Data"
       annotation (Dialog(tab="Advanced"));
     parameter Real piMat=if steadyState then piRef else x*sqrt(c*d)/sqrt(k)
       "Ratio x/sqrt(alpha)"
-      annotation(Evaluate=true, Dialog(tab="Advanced"));
+      annotation(Dialog(tab="Advanced"));
     parameter Real nStaReal(min=0) = nStaRef*piMat/piRef
       "Number of states as a real number"
       annotation (Dialog(tab="Advanced"));
@@ -64,6 +64,10 @@ and ceilings of different surface area.
 </html>",
   revisions="<html>
 <ul>
+<li>
+May 30, 2014, by Michael Wetter:<br/>
+Removed undesirable annotation <code>Evaluate=true</code>.
+</li>
 <li>
 June 3 2010, by Michael Wetter:<br/>
 Implemented adaptive computation of number of states based on a reference construction of <i>0.2 m</i> concrete.

@@ -10,8 +10,7 @@ model TraceSubstancesFlowSource
 
   parameter Modelica.SIunits.MassFlowRate m_flow = 0
     "Fixed mass flow rate going out of the fluid port"
-    annotation (Evaluate = true,
-                Dialog(enable = not use_m_flow_in));
+    annotation (Dialog(enable = not use_m_flow_in));
   Modelica.Blocks.Interfaces.RealInput m_flow_in if
        use_m_flow_in "Prescribed mass flow rate for extra property"
     annotation (Placement(transformation(extent={{-141,-20},{-101,20}},
@@ -23,8 +22,7 @@ protected
   parameter Medium.ExtraProperty C_in_internal[Medium.nC](
        each fixed=false,
        quantity=Medium.extraPropertiesNames) "Boundary trace substances"
-    annotation (Evaluate=true,
-                Dialog(enable = Medium.nC > 0));
+    annotation (Dialog(enable = Medium.nC > 0));
 initial algorithm
   for i in 1:Medium.nC loop
     if ( Modelica.Utilities.Strings.isEqual(string1=Medium.extraPropertiesNames[i],
@@ -63,6 +61,10 @@ made small compared to the room volume if the medium that leaves this
 component has a carbon dioxide concentration of <i>1</i>.
 </html>", revisions="<html>
 <ul>
+<li>
+May 29, 2014, by Michael Wetter:<br/>
+Removed undesirable annotation <code>Evaluate=true</code>.
+</li>
 <li>
 September 10, 2013, by Michael Wetter:<br/>
 Added missing <code>each</code> in declaration of 

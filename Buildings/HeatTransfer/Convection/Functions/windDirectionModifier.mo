@@ -1,13 +1,17 @@
 within Buildings.HeatTransfer.Convection.Functions;
 function windDirectionModifier
   "Wind direction modifier that is used to compute the wind-driven convective heat transfer coefficient"
+  extends Modelica.Icons.Function;
+
   input Modelica.SIunits.Angle azi "Surface azimuth";
   input Modelica.SIunits.Angle dir(min=0, max=2*Modelica.Constants.pi)
     "Wind direction (0=wind from North)";
   output Real W "Wind direction modifier";
 protected
-  constant Modelica.SIunits.Angle lee = Modelica.SIunits.Conversions.from_deg(100);
-  constant Real cosLee = Modelica.Math.cos(lee);
+  constant Modelica.SIunits.Angle lee = Modelica.SIunits.Conversions.from_deg(100)
+    "Angle at which the transition occurs";
+  constant Real cosLee = Modelica.Math.cos(lee)
+    "Cosine of the angle at which the transition occurs";
 algorithm
 // The wind direction is defined in TMY3 as dir=0 if from North, and 0 <= dir < 2*pi
 // Hence, we subtract pi to redefine dir=0 as wind coming from the south.

@@ -11,7 +11,7 @@ block ReaderTMY3 "Reader for TMY3 weather data"
     annotation (Evaluate=true, Dialog(group="Data source"));
   parameter Modelica.SIunits.Pressure pAtm=101325
     "Atmospheric pressure (used if pAtmSou=Parameter)"
-    annotation (Evaluate=true, Dialog(group="Data source"));
+    annotation (Dialog(group="Data source"));
   Modelica.Blocks.Interfaces.RealInput pAtm_in(
     final quantity="Pressure",
     final unit="Pa",
@@ -27,7 +27,7 @@ block ReaderTMY3 "Reader for TMY3 weather data"
     final quantity="Height",
     final unit="m",
     displayUnit="m") = 20000 "Ceiling height (used if ceiHei=Parameter)"
-    annotation (Evaluate=true, Dialog(group="Data source"));
+    annotation (Dialog(group="Data source"));
   Modelica.Blocks.Interfaces.RealInput ceiHei_in(
     final quantity="Height",
     final unit="m",
@@ -43,7 +43,7 @@ block ReaderTMY3 "Reader for TMY3 weather data"
     min=0,
     max=1,
     unit="1") = 0.5 "Total sky cover (used if totSkyCov=Parameter)"
-    annotation (Evaluate=true, Dialog(group="Data source"));
+    annotation (Dialog(group="Data source"));
   Modelica.Blocks.Interfaces.RealInput totSkyCov_in(
     min=0,
     max=1,
@@ -58,7 +58,7 @@ block ReaderTMY3 "Reader for TMY3 weather data"
     min=0,
     max=1,
     unit="1") = 0.5 "Opaque sky cover (used if opaSkyCov=Parameter)"
-    annotation (Evaluate=true, Dialog(group="Data source"));
+    annotation (Dialog(group="Data source"));
   Modelica.Blocks.Interfaces.RealInput opaSkyCov_in(
     min=0,
     max=1,
@@ -73,7 +73,7 @@ block ReaderTMY3 "Reader for TMY3 weather data"
     annotation (Evaluate=true, Dialog(group="Data source"));
   parameter Modelica.SIunits.Temperature TDryBul(displayUnit="degC") = 293.15
     "Dry bulb temperature (used if TDryBul=Parameter)"
-    annotation (Evaluate=true, Dialog(group="Data source"));
+    annotation (Dialog(group="Data source"));
   Modelica.Blocks.Interfaces.RealInput TDryBul_in(
     final quantity="ThermodynamicTemperature",
     final unit="K",
@@ -87,7 +87,7 @@ block ReaderTMY3 "Reader for TMY3 weather data"
     annotation (Evaluate=true, Dialog(group="Data source"));
   parameter Modelica.SIunits.Temperature TDewPoi(displayUnit="degC") = 283.15
     "Dew point temperature (used if TDewPoi=Parameter)"
-    annotation (Evaluate=true, Dialog(group="Data source"));
+    annotation (Dialog(group="Data source"));
   Modelica.Blocks.Interfaces.RealInput TDewPoi_in(
     final quantity="ThermodynamicTemperature",
     final unit="K",
@@ -102,7 +102,7 @@ block ReaderTMY3 "Reader for TMY3 weather data"
     min=0,
     max=1,
     unit="1") = 0.5 "Relative humidity (used if relHum=Parameter)"
-    annotation (Evaluate=true, Dialog(group="Data source"));
+    annotation (Dialog(group="Data source"));
   Modelica.Blocks.Interfaces.RealInput relHum_in(
     min=0,
     max=1,
@@ -116,7 +116,7 @@ block ReaderTMY3 "Reader for TMY3 weather data"
     "Wind speed" annotation (Evaluate=true, Dialog(group="Data source"));
   parameter Modelica.SIunits.Velocity winSpe(min=0) = 1
     "Wind speed (used if winSpe=Parameter)"
-    annotation (Evaluate=true, Dialog(group="Data source"));
+    annotation (Dialog(group="Data source"));
   Modelica.Blocks.Interfaces.RealInput winSpe_in(
     final quantity="Velocity",
     final unit="m/s",
@@ -130,7 +130,7 @@ block ReaderTMY3 "Reader for TMY3 weather data"
     "Wind direction" annotation (Evaluate=true, Dialog(group="Data source"));
   parameter Modelica.SIunits.Angle winDir=1.0
     "Wind direction (used if winDir=Parameter)"
-    annotation (Evaluate=true, Dialog(group="Data source"));
+    annotation (Dialog(group="Data source"));
   Modelica.Blocks.Interfaces.RealInput winDir_in(
     final quantity="Angle",
     final unit="rad",
@@ -144,7 +144,7 @@ block ReaderTMY3 "Reader for TMY3 weather data"
     "Infrared horizontal radiation" annotation (Evaluate=true, Dialog(group="Data source"));
   parameter Modelica.SIunits.HeatFlux HInfHor=0.0
     "Infrared horizontal radiation (used if HInfHorSou=Parameter)"
-    annotation (Evaluate=true, Dialog(group="Data source"));
+    annotation (Dialog(group="Data source"));
   Modelica.Blocks.Interfaces.RealInput HInfHor_in(
     final quantity="RadiantEnergyFluenceRate",
     final unit="W/m2") if (HInfHorSou == Buildings.BoundaryConditions.Types.DataSource.Input)
@@ -1192,6 +1192,10 @@ Technical Report, NREL/TP-581-43156, revised May 2008.
 </html>
 ", revisions="<html>
 <ul>
+<li>
+May 30, 2014, by Michael Wetter:<br/>
+Removed undesirable annotation <code>Evaluate=true</code>.
+</li>
 <li>
 May 5, 2013, by Thierry S. Nouidui:<br/>
 Added the option to use a constant, an input signal or the weather file as the source

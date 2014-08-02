@@ -208,7 +208,7 @@ A typical model application is as follows: Suppose a large room has a radiant sl
 with the same pipe spacing and pipe length. Then, rather than using two instances of
 <a href=\"Buildings.Fluid.HeatExchangers.RadiantSlabs.SingleCircuitSlab\">
 Buildings.Fluid.HeatExchangers.RadiantSlabs.SingleCircuitSlab</a>,
-this system can be modelled using one instance of this model in order to reduce computing effort.
+this system can be modeled using one instance of this model in order to reduce computing effort.
 See 
 <a href=\"modelica://Buildings.Fluid.HeatExchangers.RadiantSlabs.Examples.SingleCircuitMultipleCircuit\">
 Buildings.Fluid.HeatExchangers.RadiantSlabs.Examples.SingleCircuitMultipleCircuit</a> for an example

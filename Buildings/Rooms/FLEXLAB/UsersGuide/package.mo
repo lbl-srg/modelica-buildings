@@ -170,7 +170,7 @@ package UsersGuide "User's Guide"
   <li>Length of tube in each radiant slab model in the examples is based on the numbers
   in drawing M3.02. These numbers may include tube  running to/from the manifold,
   instead of only the tube in the slab itself. Worth determining?</li>
-  <li>The heat conduction through the steel beams is not explicitely modelled. 
+  <li>The heat conduction through the steel beams is not explicitely modeled. 
   During model calibration, an effective heat conductivity would need to be identified.
   </li>
   </ul>

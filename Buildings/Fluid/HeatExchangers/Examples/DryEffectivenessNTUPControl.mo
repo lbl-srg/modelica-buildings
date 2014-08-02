@@ -131,8 +131,22 @@ equation
 experiment(StopTime=3600),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/Examples/DryEffectivenessNTUPControl.mos"
         "Simulate and plot"),
-    Documentation(revisions="<html>
+Documentation(info="<html>
+<p>
+This model demonstrates the use of
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.DryEffectivenessNTU\">
+Buildings.Fluid.HeatExchangers.DryEffectivenessNTU</a>.
+The valve on the water-side is regulated to track a setpoint temperature
+for the air outlet.
+</p>
+</html>",
+revisions="<html>
 <ul>
+<li>
+July 3, 2014, by Michael Wetter:<br/>
+Changed pressure sink to mass flow rate sink to avoid an overdetermined
+by consistent set of initial conditions.
+</li>
 <li>
 March 1, 2013, by Michael Wetter:<br/>
 Added nominal pressure drop for valve as

@@ -9,7 +9,7 @@ model TwoPortHeatMassExchanger
 
   parameter Modelica.SIunits.Time tau = 30
     "Time constant at nominal flow (if energyDynamics <> SteadyState)"
-     annotation (Evaluate=true, Dialog(tab = "Dynamics", group="Nominal condition"));
+     annotation (Dialog(tab = "Dynamics", group="Nominal condition"));
 
   // Advanced
   parameter Boolean homotopyInitialization = true "= true, use homotopy method"
@@ -80,12 +80,12 @@ initial algorithm
   assert((energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState) or
           tau > Modelica.Constants.eps,
 "The parameter tau, or the volume of the model from which tau may be derived, is unreasonably small.
- Set energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState to model steady-state.
+ You need to set energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState to model steady-state.
  Received tau = " + String(tau) + "\n");
   assert((massDynamics == Modelica.Fluid.Types.Dynamics.SteadyState) or
           tau > Modelica.Constants.eps,
 "The parameter tau, or the volume of the model from which tau may be derived, is unreasonably small.          
- Set massDynamics == Modelica.Fluid.Types.Dynamics.SteadyState to model steady-state.
+ You need to set massDynamics == Modelica.Fluid.Types.Dynamics.SteadyState to model steady-state.
  Received tau = " + String(tau) + "\n");
 
 equation
@@ -151,6 +151,11 @@ Modelica.Fluid.Examples.HeatExchanger.BaseClasses.BasicHX
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+May 28, 2014, by Michael Wetter:<br/>
+Removed <code>annotation(Evaluate=true)</code> for parameter <code>tau</code>.
+This is needed to allow changing the time constant after translation.
+</li>
 <li>
 November 12, 2013, by Michael Wetter:<br/>
 Removed <code>import Modelica.Constants</code> statement.

@@ -9,6 +9,8 @@ DryEffectivenessNTUPControl
 HeaterCoolerPrescribed
 WetCoilCounterFlowMassFlow
 WetCoilCounterFlowPControl
-WetCoilDiscretized
+WetCoilDiscretizedPerfectGases
+WetCoilDiscretizedGasesPTDecoupled
+WetCoilDiscretizedGasesConstantDensity
 WetCoilDiscretizedPControl
 BaseClasses

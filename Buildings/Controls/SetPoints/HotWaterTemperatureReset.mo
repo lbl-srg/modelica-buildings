@@ -19,8 +19,7 @@ block HotWaterTemperatureReset
     annotation(Evaluate=true, HideResult=true);
   parameter Modelica.SIunits.Temperature TRoo = 293.15
     "Fixed value of room temperature set point"
-    annotation (Evaluate = true,
-                Dialog(enable = not use_TRoo_in));
+    annotation(Dialog(enable = not use_TRoo_in));
   parameter Modelica.SIunits.TemperatureDifference dTOutHeaBal(displayUnit="K") = 8
     "Offset for heating curve";
   Modelica.Blocks.Interfaces.RealInput TRoo_in(final quantity="ThermodynamicTemperature",
@@ -86,6 +85,10 @@ shift the heating curve.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+May 29, 2014, by Michael Wetter:<br/>
+Removed undesirable annotation <code>Evaluate=true</code>.
+</li>
 <li>
 February 13, 2013, by Michael Wetter:<br/>
 Corrected error that led to wrong results if the room air temperature is

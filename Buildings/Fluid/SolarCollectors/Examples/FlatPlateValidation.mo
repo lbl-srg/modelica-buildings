@@ -112,5 +112,5 @@ equation
     </html>"),
     __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/SolarCollectors/Examples/FlatPlateValidation.mos"
         "Simulate and Plot"),
-    Icon(graphics));
+    experiment(StopTime=86400.0));
 end FlatPlateValidation;
