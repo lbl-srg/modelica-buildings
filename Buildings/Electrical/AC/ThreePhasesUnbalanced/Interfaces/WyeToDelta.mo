@@ -39,9 +39,11 @@ equation
           smooth=Smooth.None,
           thickness=0.5)}),
     Documentation(revisions="<html>
+<ul>
 <li>
 June 5, 2014, by Marco Bonvini:<br/>
 Added model.
 </li>
+</ul>
 </html>"));
 end WyeToDelta;
