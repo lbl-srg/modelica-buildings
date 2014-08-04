@@ -60,7 +60,7 @@ changes depending on the type of load.
 <p>
 where the subscripts indicates a
 </p>
-<p>
+
 <ul>
 <li><i>R</i> - purely resistive load</li>
 <li><i>L</i> - purely inductive load</li>
@@ -68,18 +68,17 @@ where the subscripts indicates a
 <li><i>RL</i> - resistive inductive load</li>
 <li><i>RC</i> - resistive capacitive load</li>
 </ul>
-</p>
 
 <h4>Dynamic phasorial representation</h4>
 <p>
-More details about the dynamic phasorial representation can be found in <a href=\"#Stankovi1999\">Stankovi Et Al. 1999</a>.
+More details about the dynamic phasorial representation can be found in <a href=\"#Stankovic1999\">Stankovic Et Al. 1999</a>.
 </p>
 
 <h4>References</h4>
 <p>
-<a NAME=\"Stankovi1999\"/>
-A.M. Stankovi, B.C. Lesieutre, T. Aydin.<br/>
-<a href=\"http://www.ece.neu.edu/faculty/stankovic/Jour_papers/pwrs299im.pdf\">
+<a NAME=\"Stankovic1999\"></a>
+A.M. Stankovic, B.C. Lesieutre, T. Aydin.<br/>
+<a href=\"http://www.ece.neu.edu/faculty/stankovic/Jour_papers/pwrs299im.pdf\"></a>
 <i>IEEE Transactions on Power Systems</i>, 14(1), Feb. 1999, pp. 9-14.<br/>
 </p>
 
