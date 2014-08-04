@@ -10,5 +10,5 @@ equation
   annotation (Icon(graphics={Text(
           extent={{-82,96},{82,-84}},
           lineColor={0,0,255},
-          textString="state")}),           Diagram(graphics));
+          textString="state")}));
 end State;

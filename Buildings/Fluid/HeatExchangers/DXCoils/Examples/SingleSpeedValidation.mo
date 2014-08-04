@@ -31,7 +31,9 @@ model SingleSpeedValidation
     dp_nominal=dp_nominal,
     datCoi=datCoi,
     T_start=datCoi.sta[1].nomVal.TEvaIn_nominal,
-    from_dp=true) "Single speed DX coil"
+    from_dp=true,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+    "Single speed DX coil"
     annotation (Placement(transformation(extent={{-10,0},{10,20}})));
 
   Data.Generic.DXCoil

@@ -7,7 +7,7 @@ model CenterOfGlass "Model for center of glass of a window construction"
 
   parameter Buildings.HeatTransfer.Data.GlazingSystems.Generic glaSys
     "Glazing system"
-    annotation (Evaluate=true, HideResult=true, choicesAllMatching=true, Placement(transformation(extent={{60,60},
+    annotation (HideResult=true, choicesAllMatching=true, Placement(transformation(extent={{60,60},
             {80,80}})));
 
   Modelica.Blocks.Interfaces.RealInput u
@@ -197,6 +197,10 @@ Buildings.HeatTransfer.Windows.ExteriorHeatTransfer</a>, and
 Buildings.HeatTransfer.Windows.InteriorHeatTransfer</a>
 </html>", revisions="<html>
 <ul>
+<li>
+May 30, 2014, by Michael Wetter:<br/>
+Removed undesirable annotation <code>Evaluate=true</code>.
+</li>
 <li>
 July 9 2012, by Wangda Zuo:<br/>
 Fixed a bug in the parameter assignment of the instance <code>glass</code>.

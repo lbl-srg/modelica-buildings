@@ -1,31 +1,34 @@
 within Buildings.Electrical.AC.ThreePhasesUnbalanced.Conversion;
-model ACACTransformerYD
+model ACACTransformerDD
   extends
-    Buildings.Electrical.AC.ThreePhasesUnbalanced.Conversion.BaseClasses.PartialConverterYD(
+    Buildings.Electrical.AC.ThreePhasesUnbalanced.Conversion.BaseClasses.PartialConverterDD(
     redeclare Buildings.Electrical.AC.OnePhase.Conversion.ACACTransformer conv1(
-      VHigh=VHigh/sqrt(3),
       XoverR=XoverR,
       Zperc=Zperc,
       ground_1=ground_1,
       ground_2=ground_2,
       VABase=VABase/3,
-      VLow=VLow/sqrt(3)),
+      VHigh=VHigh,
+      VLow=VLow,
+      phi_1=0.5235987755983),
     redeclare Buildings.Electrical.AC.OnePhase.Conversion.ACACTransformer conv2(
-      VHigh=VHigh/sqrt(3),
       XoverR=XoverR,
       Zperc=Zperc,
       ground_1=ground_1,
       ground_2=ground_2,
       VABase=VABase/3,
-      VLow=VLow/sqrt(3)),
+      VHigh=VHigh,
+      VLow=VLow,
+      phi_1=-1.5707963267949),
     redeclare Buildings.Electrical.AC.OnePhase.Conversion.ACACTransformer conv3(
-      VHigh=VHigh/sqrt(3),
       XoverR=XoverR,
       Zperc=Zperc,
       ground_1=ground_1,
       ground_2=ground_2,
       VABase=VABase/3,
-      VLow=VLow/sqrt(3)));
+      VHigh=VHigh,
+      VLow=VLow,
+      phi_1=2.6179938779915));
   parameter Modelica.SIunits.Voltage VHigh
     "Rms voltage on side 1 of the transformer (primary side)";
   parameter Modelica.SIunits.Voltage VLow
@@ -202,26 +205,13 @@ equation
           lineColor={0,120,120},
           textString="L"),
         Line(
-          points={{-40,20},{-40,0},{-54,-14}},
+          points={{-50,-8},{-30,22},{-10,-8},{-50,-8}},
           color={0,120,120},
           smooth=Smooth.None,
           thickness=0.5),
         Line(
-          points={{-40,0},{-26,-14}},
+          points={{40,-8},{60,22},{80,-8},{40,-8}},
           color={0,120,120},
           smooth=Smooth.None,
-          thickness=0.5),
-        Line(
-          points={{40,-10},{60,20},{80,-10},{40,-10}},
-          color={0,120,120},
-          smooth=Smooth.None,
-          thickness=0.5)}),
-    Documentation(revisions="<html>
-<ul>
-<li>
-June 6, 2014, by Marco Bonvini:<br/>
-First implementation.
-</li>
-</ul>
-</html>"));
-end ACACTransformerYD;
+          thickness=0.5)}));
+end ACACTransformerDD;

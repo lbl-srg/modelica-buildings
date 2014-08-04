@@ -3,7 +3,7 @@ partial model ValveParameters "Model with parameters for valves"
 
   parameter Buildings.Fluid.Types.CvTypes CvData=Buildings.Fluid.Types.CvTypes.OpPoint
     "Selection of flow coefficient"
-   annotation(Evaluate=true, Dialog(group = "Flow Coefficient"));
+   annotation(Dialog(group = "Flow Coefficient"));
   parameter Real Kv(
     fixed= if CvData==Buildings.Fluid.Types.CvTypes.Kv then true else false)
     "Kv (metric) flow coefficient [m3/h/(bar)^(1/2)]"
@@ -17,7 +17,7 @@ partial model ValveParameters "Model with parameters for valves"
   parameter Modelica.SIunits.Area Av(
     fixed= if CvData==Buildings.Fluid.Types.CvTypes.Av then true else false)
     "Av (metric) flow coefficient"
-   annotation(Evaluate=true, Dialog(group = "Flow Coefficient",
+   annotation(Dialog(group = "Flow Coefficient",
                      enable = (CvData==Buildings.Fluid.Types.CvTypes.Av)));
 
   parameter Real deltaM = 0.02
@@ -116,6 +116,10 @@ then specifying a value for <code>dpValve_nominal</code> is a syntax error.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+May 29, 2014, by Michael Wetter:<br/>
+Removed undesirable annotation <code>Evaluate=true</code>.
+</li>
 <li>
 March 25, 2013, by Michael Wetter:<br/>
 Removed stray backslash in write statement.

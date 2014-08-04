@@ -33,10 +33,14 @@ equation
       i[2] = -homotopy(actual= (v[2]*P - v[1]*Q)/(V_nominal^2), simplified=0.0);
     else
       //PhaseSystem.phasePowers_vi(terminal.v, terminal.i) = PhaseSystem.phasePowers(P, Q);
-      i[1] = -homotopy(actual=(v[2]*Q + v[1]*P)/(v[1]^2 + v[2]^2),
-                       simplified=(v[2]*Q + v[1]*P)/(V_nominal^2));
-      i[2] = -homotopy(actual=(v[2]*P - v[1]*Q)/(v[1]^2 + v[2]^2),
-                       simplified=(v[2]*P - v[1]*Q)/(V_nominal^2));
+      if initMode == Buildings.Electrical.Types.InitMode.zero_current then
+        i[1] = -homotopy(actual=(v[2]*Q + v[1]*P)/(v[1]^2 + v[2]^2), simplified=0.0);
+        i[2] = -homotopy(actual=(v[2]*P - v[1]*Q)/(v[1]^2 + v[2]^2), simplified=0.0);
+      else
+        i[1] = -homotopy(actual=(v[2]*Q + v[1]*P)/(v[1]^2 + v[2]^2), simplified=(v[2]*Q + v[1]*P)/(V_nominal^2));
+        i[2] = -homotopy(actual=(v[2]*P - v[1]*Q)/(v[1]^2 + v[2]^2), simplified=(v[2]*P - v[1]*Q)/(V_nominal^2));
+      end if;
+
     end if;
 
     Y = {0, 0};
@@ -92,8 +96,8 @@ A parameter or input to the model is the real power <i>P</i>, and a parameter
 is the power factor <i>pf=cos(&phi;)</i>.
 In this model, current leads voltage, as is the case for a capacitor bank.
 For an inductive load, use
-<a href=\"modelica://Buildings.Electrical.AC.OnePhase.Loads.InductiveLoadP\">
-Buildings.Electrical.AC.OnePhase.Loads.InductiveLoadP</a>.</p>
+<a href=\"modelica://Buildings.Electrical.AC.Loads.InductorResistor\">
+Buildings.Electrical.AC.Loads.InductorResistor</a>.</p>
 <p>
 The model computes the phase angle of the power <i>&phi;</i>
 and assigns the complex power <i>S = -P/pf &ang; &phi;</i>.

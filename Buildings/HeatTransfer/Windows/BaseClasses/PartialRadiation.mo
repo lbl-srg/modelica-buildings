@@ -26,7 +26,7 @@ partial block PartialRadiation
     final rhoShaSol_a=rhoShaSol_a,
     final rhoShaSol_b=rhoShaSol_b)
     "Optical properties of window for different irradiation angles" annotation (
-     Evaluate=true, Placement(transformation(extent={{60,20},{80,40}})));
+     Placement(transformation(extent={{60,20},{80,40}})));
   Modelica.Blocks.Interfaces.RealInput uSha(min=0, max=1) if haveShade
     "Control signal for shading (0: unshaded; 1: fully shaded)" annotation (
       Placement(transformation(

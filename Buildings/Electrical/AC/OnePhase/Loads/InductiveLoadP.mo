@@ -6,6 +6,7 @@ model InductiveLoadP "Model of an inductive and resistive load"
     V_nominal=120);
 initial equation
   if mode == Buildings.Electrical.Types.Assumption.FixedZ_dynamic then
+    // psi = Z[2]*{P_nominal/V_nominal, 0}/omega;
     // Steady state initialization
     der(psi) = zeros(PhaseSystem.n);
   end if;
@@ -32,10 +33,13 @@ equation
       i[2] = -homotopy(actual= (v[2]*P - v[1]*Q)/(V_nominal^2), simplified=  0.0);
     else
       //PhaseSystem.phasePowers_vi(terminal.v, terminal.i) = PhaseSystem.phasePowers(P, Q);
-      i[1] = -homotopy(actual=  (v[2]*Q + v[1]*P)/(v[1]^2 + v[2]^2),
-                       simplified= (v[2]*Q + v[1]*P)/(V_nominal^2));
-      i[2] = -homotopy(actual=  (v[2]*P - v[1]*Q)/(v[1]^2 + v[2]^2),
-                       simplified= (v[2]*P - v[1]*Q)/(V_nominal^2));
+      if initMode == Buildings.Electrical.Types.InitMode.zero_current then
+        i[1] = -homotopy(actual=  (v[2]*Q + v[1]*P)/(v[1]^2 + v[2]^2), simplified= 0.0);
+        i[2] = -homotopy(actual=  (v[2]*P - v[1]*Q)/(v[1]^2 + v[2]^2), simplified= 0.0);
+      else
+        i[1] = -homotopy(actual=  (v[2]*Q + v[1]*P)/(v[1]^2 + v[2]^2), simplified= (v[2]*Q + v[1]*P)/(V_nominal^2));
+        i[2] = -homotopy(actual=  (v[2]*P - v[1]*Q)/(v[1]^2 + v[2]^2), simplified= (v[2]*P - v[1]*Q)/(V_nominal^2));
+      end if;
     end if;
 
     Z = {0,0};
@@ -94,8 +98,8 @@ A parameter or input to the model is the real power <i>P</i>, and a parameter
 is the power factor <i>pf=cos(&phi;)</i>.
 In this model, current lags voltage, as is the case for an inductive motor.
 For a capacitive load, use
-<a href=\"modelica://Buildings.Electrical.AC.OnePhase.Loads.CapacitiveLoadP\">
-Buildings.Electrical.AC.OnePhase.Loads.CapacitiveLoadP</a>.
+<a href=\"modelica://Buildings.Electrical.AC.Loads.CapacitorResistor\">
+Buildings.Electrical.AC.Loads.SinglePhase.CapacitorResistor</a>.
 </p>
 <p>
 The model computes the phase angle of the power <i>&phi;</i>
@@ -107,6 +111,11 @@ where <i>i<sup>*</sup></i> is the complex conjugate of the current.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>June 17, 2014, by Marco Bonvini:<br/>
+Adde parameter <code>initMode</code> that can be used to 
+select the assumption to be used during initialization phase
+by the homotopy operator.
+</li>
 <li>
 January 2, 2012, by Michael Wetter:<br/>
 First implementation.

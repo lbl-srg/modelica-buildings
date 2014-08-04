@@ -6,11 +6,10 @@ record DXCoil
     annotation (Evaluate = true,
                 Dialog(enable = not sinStaOpe));
   parameter Real minSpeRat( min=0,max=1)=0.2 "Minimum speed ratio"
-    annotation (Evaluate = true,
-                Dialog(enable = not sinStaOpe));
+    annotation (Dialog(enable = not sinStaOpe));
   final parameter Boolean sinStaOpe = nSta == 1
     "The data record is used for single speed operation"
-    annotation(Evaluate=true, HideResult=true);
+    annotation(HideResult=true);
 
   parameter
     Buildings.Fluid.HeatExchangers.DXCoils.Data.Generic.BaseClasses.Stage         sta[nSta]
@@ -109,6 +108,10 @@ a quadratic function.
 </html>",
 revisions="<html>
 <ul>
+<li>
+May 30, 2014, by Michael Wetter:<br/>
+Removed undesirable annotation <code>Evaluate=true</code>.
+</li>
 <li>
 September 25, 2012 by Michael Wetter:<br/>
 Added documentation.

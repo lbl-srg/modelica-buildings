@@ -19,6 +19,11 @@ model PartialLoad
         enable = mode <> Buildings.Electrical.Types.Assumption.VariableZ_P_input));
   parameter Modelica.SIunits.Voltage V_nominal(min=0, start=110)
     "Nominal voltage (V_nominal >= 0)"  annotation(Evaluate=true, Dialog(group="Nominal conditions", enable = (mode==Buildings.Electrical.Types.Assumptionm.FixedZ_dynamic or linear)));
+  parameter Buildings.Electrical.Types.InitMode initMode(
+  min=Buildings.Electrical.Types.InitMode.zero_current,
+  max=Buildings.Electrical.Types.InitMode.linearized) = Buildings.Electrical.Types.InitMode.zero_current
+    "Initialization mode for homotopy operator"  annotation(Dialog(tab = "Initialization"));
+
   Modelica.SIunits.Voltage v[:](start = PhaseSystem.phaseVoltages(V_nominal)) = terminal.v
     "Voltage vector";
   Modelica.SIunits.Current i[:](start = PhaseSystem.phaseCurrents(0.0)) = terminal.i
@@ -94,9 +99,14 @@ equation
     P = P_nominal*load;
   end if;
 
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}}), graphics), Documentation(revisions="<html>
+  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
+            {100,100}}),       graphics), Documentation(revisions="<html>
 <ul>
+<li>June 17, 2014, by Marco Bonvini:<br/>
+Adde parameter <code>initMode</code> that can be used to 
+select the assumption to be used during initialization phase
+by the homotopy operator.
+</li>
 <li>
 May 15, 2014, by Marco Bonvini:<br/>
 Created documentation and revised model.
@@ -192,5 +202,7 @@ A linearized model will not consume the nominal power if the voltage
 at the terminal differs from the nominal voltage.
 </p>
 
-</html>"));
+</html>"),
+    Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
+        graphics));
 end PartialLoad;

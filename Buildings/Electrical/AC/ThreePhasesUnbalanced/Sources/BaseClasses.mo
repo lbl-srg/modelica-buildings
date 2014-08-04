@@ -44,7 +44,7 @@ package BaseClasses
   model UnbalancedPV
     extends Buildings.Electrical.Interfaces.PartialPluggableUnbalanced;
     extends Buildings.Electrical.Interfaces.PartialPvBase;
-    extends Buildings.Electrical.Interfaces.PartialRenewableAcDc;
+    extends Buildings.Electrical.Interfaces.PartialAcDcParameters;
     extends
       Buildings.Electrical.AC.ThreePhasesUnbalanced.Sources.BaseClasses.PartialSource;
     replaceable OnePhase.Sources.PVSimple pv_phase2(
@@ -213,7 +213,7 @@ package BaseClasses
 
   model UnbalancedWindTurbine
     extends Buildings.Electrical.Interfaces.PartialPluggableUnbalanced;
-    extends Buildings.Electrical.Interfaces.PartialRenewableAcDc;
+    extends Buildings.Electrical.Interfaces.PartialAcDcParameters;
     extends Buildings.Electrical.Interfaces.PartialWindTurbineBase;
     extends
       Buildings.Electrical.AC.ThreePhasesUnbalanced.Sources.BaseClasses.PartialSource;

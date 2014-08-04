@@ -1,8 +1,10 @@
 ACACConverter
 ACACTransformer
-ACACTransformerYD
+ACACTransformerStepDownYD
+ACACTransformerStepUpYD
 ACACTransformerStepDownDY
 ACACTransformerStepUpDY
+ACACTransformerDD
 ACACTransformerFull
 ACDCConverter
 BaseClasses

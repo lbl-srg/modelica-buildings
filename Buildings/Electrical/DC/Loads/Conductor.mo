@@ -24,7 +24,12 @@ equation
   else
     // Full nonlinear version of the model
     // PhaseSystem.activePower(terminal.v, terminal.i) + P = 0;
-    i[1] = - homotopy(actual= P/(v[1] - v[2]),  simplified= P*(2/V_nominal - (v[1]-v[2])/V_nominal^2));
+    if initMode == Buildings.Electrical.Types.InitMode.zero_current then
+      i[1] = - homotopy(actual= P/(v[1] - v[2]),  simplified= 0);
+    else
+      i[1] = - homotopy(actual= P/(v[1] - v[2]),  simplified= P*(2/V_nominal - (v[1]-v[2])/V_nominal^2));
+    end if;
+
   end if;
 
   // Since the connector is a two conductor, the sum of the currents at the terminal
@@ -125,6 +130,11 @@ The points are at <i>0.8 V<sub>nom</sub></i> and <i>1.2 V<sub>nom</sub></i>.
 
 </html>", revisions="<html>
 <ul>
+<li>June 17, 2014, by Marco Bonvini:<br/>
+Adde parameter <code>initMode</code> that can be used to 
+select the assumption to be used during initialization phase
+by the homotopy operator.
+</li>
 <li>
 February 1, 2013, by Thierry S. Nouidui:<br/>
 First implementation.

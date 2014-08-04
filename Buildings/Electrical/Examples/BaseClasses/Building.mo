@@ -33,8 +33,8 @@ model Building
 
   parameter Modelica.SIunits.Power P_nominal
     "Nominal power consumption of the building";
-  Modelica.Blocks.Interfaces.RealInput G
-    "Total solar irradiation per unit area" annotation (Placement(
+  Modelica.Blocks.Interfaces.RealInput G "Total solar irradiation per unit area"
+                                            annotation (Placement(
         transformation(
         extent={{-20,-20},{20,20}},
         rotation=180,

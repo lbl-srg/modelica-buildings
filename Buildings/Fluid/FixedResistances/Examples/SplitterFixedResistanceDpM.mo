@@ -8,7 +8,8 @@ model SplitterFixedResistanceDpM
     m_flow_nominal={1,2,3},
     dh={1,2,3},
     redeclare package Medium = Medium,
-    dp_nominal(displayUnit="Pa") = {5,10,15}) "Splitter"
+    dp_nominal(displayUnit="Pa") = {5,10,15},
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial) "Splitter"
     annotation (Placement(transformation(extent={{-16,-10},{4,10}}, rotation=0)));
   Buildings.Fluid.Sources.Boundary_pT bou1(             redeclare package
       Medium = Medium, T=273.15 + 10,
@@ -68,5 +69,6 @@ equation
             -100},{100,100}}),
                       graphics),
 experiment(StopTime=1.0),
-__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/FixedResistances/Examples/SplitterFixedResistanceDpM.mos" "Simulate and plot"));
+__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/FixedResistances/Examples/SplitterFixedResistanceDpM.mos"
+        "Simulate and plot"));
 end SplitterFixedResistanceDpM;

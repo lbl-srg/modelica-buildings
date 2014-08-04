@@ -16,10 +16,16 @@ model ACACTransformer "AC AC transformer for single phase systems"
   parameter Real XoverR
     "Ratio between the complex and real components of the impedance (XL/R)";
   parameter Real Zperc "Short circuit impedance";
-  Modelica.SIunits.Efficiency eta "Efficiency of the transformer";
-  Modelica.SIunits.Power LossPower[2] "Loss power";
   parameter Boolean ground_1 = false "Connect side 1 of converter to ground" annotation(Evaluate=true,Dialog(tab = "Ground", group="side 1"));
   parameter Boolean ground_2 = true "Connect side 2 of converter to ground" annotation(Evaluate=true, Dialog(tab = "Ground", group="side 2"));
+  parameter Modelica.SIunits.Angle phi_1 = 0
+    "Angle of the voltage side 1 at initialization"
+     annotation(Evaluate=true,Dialog(tab = "Initialization"));
+  parameter Modelica.SIunits.Angle phi_2 = phi_1
+    "Angle of the voltage side 2 at initialization"
+     annotation(Evaluate=true, Dialog(tab = "Initialization"));
+  Modelica.SIunits.Efficiency eta "Efficiency of the transformer";
+  Modelica.SIunits.Power LossPower[2] "Loss power";
 protected
   Real N = VHigh/VLow "Winding ratio";
   Modelica.SIunits.Current IHigh = VABase/VHigh
@@ -34,9 +40,9 @@ protected
   Modelica.SIunits.Impedance Z1[2] = {Zp*cos(atan(XoverR)), Zp*sin(atan(XoverR))};
   Modelica.SIunits.Impedance Zs = VLow/IscLow "Impedance of the secondary side";
   Modelica.SIunits.Impedance Z2[2] = {Zs*cos(atan(XoverR)), Zs*sin(atan(XoverR))};
-  Modelica.SIunits.Voltage V1[2](start = PhaseSystem_n.phaseVoltages(VHigh))
+  Modelica.SIunits.Voltage V1[2](start = PhaseSystem_n.phaseVoltages(VHigh, phi_1))
     "Voltage at the winding - primary side";
-  Modelica.SIunits.Voltage V2[2](start = PhaseSystem_p.phaseVoltages(VLow))
+  Modelica.SIunits.Voltage V2[2](start = PhaseSystem_p.phaseVoltages(VLow, phi_2))
     "Voltage at the winding - secondary side";
   Modelica.SIunits.Power P_p[2] = PhaseSystem_p.phasePowers_vi(terminal_p.v, terminal_p.i);
   Modelica.SIunits.Power P_n[2] = PhaseSystem_n.phasePowers_vi(terminal_n.v, terminal_n.i);
@@ -260,6 +266,10 @@ Modelica.Electrical.QuasiStationary.SinglePhase.Utilities.IdealACDCConverter</a>
 </p>
 </html>", revisions="<html>
 <ul>
+<li>June 17, 2014, by Marco Bonvini:<br/>
+Adde parameter <code>phi_1</code> and <code>phi_2</code> that are
+used during initialization to specify the angle of the voltage phasor.
+</li>
 <li>
 June 9, 2014, by Marco Bonvini:<br/>
 Revised implementation and added <code>stateSelect</code> statement to use

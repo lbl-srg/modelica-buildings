@@ -5,7 +5,7 @@ model InfraredRadiationExchange
   parameter Boolean linearizeRadiation
     "Set to true to linearize emissive power";
   parameter Boolean homotopyInitialization=true "= true, use homotopy method"
-    annotation (Evaluate=true,Dialog(tab="Advanced"));
+    annotation (Evaluate=true, Dialog(tab="Advanced"));
   HeatTransfer.Interfaces.RadiosityInflow JInConExtWin[NConExtWin] if
       haveConExtWin
     "Incoming radiosity that connects to non-frame part of the window"
@@ -66,7 +66,7 @@ protected
     "Temperature used to linearize radiative heat transfer";
   final parameter Real T03(
     min=0,
-    unit="K3") = T0^3 "3rd power of temperature T0" annotation (Evaluate=true);
+    unit="K3") = T0^3 "3rd power of temperature T0";
   Modelica.SIunits.HeatFlowRate sumEBal "Sum of energy balance, should be zero";
 initial equation
   // The next loops build the array epsOpa, AOpa and kOpa that simplify
@@ -364,6 +364,10 @@ The view factor from surface <i>i</i> to <i>j</i> is approximated as
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+May 30, 2014, by Michael Wetter:<br/>
+Removed undesirable annotation <code>Evaluate=true</code>.
+</li>
 <li>
 June 27, 2013, by Michael Wetter:<br/>
 Changed model because the outflowing radiosity has been changed to be a non-negative quantity.

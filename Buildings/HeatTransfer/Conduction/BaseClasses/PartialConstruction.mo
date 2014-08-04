@@ -5,7 +5,7 @@ model PartialConstruction "Partial model for multi-layer constructions"
 
   replaceable parameter Buildings.HeatTransfer.Data.OpaqueConstructions.Generic
     layers "Construction definition from Data.OpaqueConstructions"
-    annotation (Evaluate=true, choicesAllMatching=true, Placement(transformation(extent={{60,60},
+    annotation (choicesAllMatching=true, Placement(transformation(extent={{60,60},
             {80,80}})));
 
   final parameter Integer nLay(min=1, fixed=true) = layers.nLay
@@ -29,6 +29,10 @@ model PartialConstruction "Partial model for multi-layer constructions"
 Partial model for constructions and multi-layer heat conductors.
 </html>", revisions="<html>
 <ul>
+<li>
+May 30, 2014, by Michael Wetter:<br/>
+Removed undesirable annotation <code>Evaluate=true</code>.
+</li>
 <li>
 March 6 2010, by Michael Wetter:<br/>
 First implementation.

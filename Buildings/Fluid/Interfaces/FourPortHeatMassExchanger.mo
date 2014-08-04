@@ -10,9 +10,9 @@ model FourPortHeatMassExchanger
      final computeFlowResistance1=true, final computeFlowResistance2=true);
 
   parameter Modelica.SIunits.Time tau1 = 30 "Time constant at nominal flow"
-     annotation (Evaluate=true, Dialog(tab = "Dynamics", group="Nominal condition"));
+     annotation (Dialog(tab = "Dynamics", group="Nominal condition"));
   parameter Modelica.SIunits.Time tau2 = 30 "Time constant at nominal flow"
-     annotation (Evaluate=true, Dialog(tab = "Dynamics", group="Nominal condition"));
+     annotation (Dialog(tab = "Dynamics", group="Nominal condition"));
 
   // Advanced
   parameter Boolean homotopyInitialization = true "= true, use homotopy method"
@@ -158,6 +158,30 @@ protected
   parameter Modelica.SIunits.SpecificEnthalpy h2_outflow_start = Medium2.specificEnthalpy(sta2_start)
     "Start value for outflowing enthalpy";
 
+initial algorithm
+  // Check for tau1
+  assert((energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState) or
+          tau1 > Modelica.Constants.eps,
+"The parameter tau1, or the volume of the model from which tau may be derived, is unreasonably small.
+ You need to set energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState to model steady-state.
+ Received tau1 = " + String(tau1) + "\n");
+  assert((massDynamics == Modelica.Fluid.Types.Dynamics.SteadyState) or
+          tau1 > Modelica.Constants.eps,
+"The parameter tau1, or the volume of the model from which tau may be derived, is unreasonably small.          
+ You need to set massDynamics == Modelica.Fluid.Types.Dynamics.SteadyState to model steady-state.
+ Received tau1 = " + String(tau1) + "\n");
+
+ // Check for tau2
+  assert((energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState) or
+          tau2 > Modelica.Constants.eps,
+"The parameter tau2, or the volume of the model from which tau may be derived, is unreasonably small.
+ You need to set energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState to model steady-state.
+ Received tau2 = " + String(tau2) + "\n");
+  assert((massDynamics == Modelica.Fluid.Types.Dynamics.SteadyState) or
+          tau2 > Modelica.Constants.eps,
+"The parameter tau2, or the volume of the model from which tau may be derived, is unreasonably small.          
+ You need to set massDynamics == Modelica.Fluid.Types.Dynamics.SteadyState to model steady-state.
+ Received tau2 = " + String(tau2) + "\n");
 equation
   connect(vol1.ports[2], port_b1) annotation (Line(
       points={{2,70},{20,70},{20,60},{100,60}},
@@ -213,6 +237,12 @@ Modelica.Fluid.HeatExchangers.BasicHX</a>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+May 28, 2014, by Michael Wetter:<br/>
+Removed <code>annotation(Evaluate=true)</code> for parameters <code>tau1</code>
+and <code>tau2</code>.
+This is needed to allow changing the time constant after translation.
+</li>
 <li>
 November 12, 2013, by Michael Wetter:<br/>
 Removed <code>import Modelica.Constants</code> statement.

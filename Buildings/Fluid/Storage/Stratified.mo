@@ -16,7 +16,7 @@ model Stratified "Model of a stratified tank for thermal energy storage"
 
   ////////////////////////////////////////////////////////////////////
   // Assumptions
-  parameter Types.Dynamics energyDynamics=system.energyDynamics
+  parameter Types.Dynamics energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial
     "Formulation of energy balance"
     annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Equations"));
   parameter Types.Dynamics massDynamics=energyDynamics
@@ -238,6 +238,11 @@ Buildings.Fluid.Storage.StratifiedEnhanced</a>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+June 18, 2014, by Michael Wetter:<br/>
+Changed the default value for the energy balance initialization to avoid
+a dependency on the global <code>system</code> declaration.
+</li>
 <li>
 July 29, 2011, by Michael Wetter:<br/>
 Removed <code>use_T_start</code> and <code>h_start</code>.
