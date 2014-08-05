@@ -56,7 +56,7 @@ int cfdStartCosimulation(char *cfdFilNam, char **name, double *A, double *til,
   typedef int (*MYPROC)(CosimulationData *);
   MYPROC ProcAdd;
 
-  printf("Start to allocate memory for data exchange.\n");
+  //  printf("Start to allocate memory for data exchange.\n");
 
   cosim = (CosimulationData *) malloc(sizeof(CosimulationData));
   cosim->para = (ParameterSharedData *) malloc(sizeof(ParameterSharedData));  
@@ -88,16 +88,16 @@ int cfdStartCosimulation(char *cfdFilNam, char **name, double *A, double *til,
   for(i=0; i<nSur; i++) { 
     cosim->para->name[i] = (char *)malloc(sizeof(char) *(strlen(name[i])+1));
     strcpy(cosim->para->name[i], name[i]);
-    printf("Boundary name:%s\n", cosim->para->name[i]);
+    //    printf("Boundary name:%s\n", cosim->para->name[i]);
 
     cosim->para->are[i] = (REAL) A[i];
-    printf("\tA->Area:%f->%f [m2]\n", A[i], cosim->para->are[i]);
+    //    printf("\tA->Area:%f->%f [m2]\n", A[i], cosim->para->are[i]);
 
     cosim->para->til[i] = (REAL) til[i];
-    printf("\tTilt->Tilt:%f->%f [deg]\n", til[i], cosim->para->til[i]);
+    //    printf("\tTilt->Tilt:%f->%f [deg]\n", til[i], cosim->para->til[i]);
 
     cosim->para->bouCon[i] = bouCon[i];
-    printf("\tbouCon->bouCon:%d->%d \n\n", bouCon[i], cosim->para->bouCon[i]);
+    //    printf("\tbouCon->bouCon:%d->%d \n\n", bouCon[i], cosim->para->bouCon[i]);
   }
 
   cosim->para->portName = (char**) malloc(nPorts*sizeof(char *));
@@ -105,7 +105,7 @@ int cfdStartCosimulation(char *cfdFilNam, char **name, double *A, double *til,
   for(i=0; i<nPorts; i++) {
     cosim->para->portName[i] = (char *)malloc(sizeof(char)*(strlen(portName[i])+1));
     strcpy(cosim->para->portName[i], portName[i]);
-    printf("Boundary name:%s\n", cosim->para->portName[i]);
+    //    printf("Boundary name:%s\n", cosim->para->portName[i]);
   }
 
   if(haveSensor) {
@@ -114,7 +114,7 @@ int cfdStartCosimulation(char *cfdFilNam, char **name, double *A, double *til,
     for(i=0; i<nSen; i++) {
       cosim->para->sensorName[i] = (char *)malloc(sizeof(char)*(strlen(sensorName[i])+1));
       strcpy(cosim->para->sensorName[i], sensorName[i]);
-      printf("Sensor Name:%s\n", cosim->para->sensorName[i]);
+      //      printf("Sensor Name:%s\n", cosim->para->sensorName[i]);
     }
   }
 
@@ -150,7 +150,7 @@ int cfdStartCosimulation(char *cfdFilNam, char **name, double *A, double *til,
   if(haveShade==1) cosim->ffd->TSha = (REAL *) malloc(nConExtWin*sizeof(REAL));
   cosim->ffd->TPor = (REAL *) malloc(nPorts*sizeof(REAL));
   
-  printf("Allocated memory for coupled simulation data.\n");
+  //  printf("Allocated memory for coupled simulation data.\n");
 
   /****************************************************************************
   | Get a handle to the DLL module.
