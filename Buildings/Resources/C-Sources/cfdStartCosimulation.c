@@ -162,8 +162,7 @@ int cfdStartCosimulation(char *cfdFilNam, char **name, double *A, double *til,
 #elif _WIN32
   hinstLib = LoadLibrary(TEXT("Resources/Library/win32/ffd.dll"));
 #else
-    printf("Failed to detect 32 or 64 bit in cfdStartCosimulation.c.\n");
-    return 1;
+    ModelicaError("Error: Failed to detect 32 or 64 bit in cfdStartCosimulation.c.\n");
 #endif
 
 #elif __linux__ //Linux
@@ -174,17 +173,12 @@ int cfdStartCosimulation(char *cfdFilNam, char **name, double *A, double *til,
 /* 64-bit */
   hinstLib = dlopen("Resources/Library/linux64/libffd.so", RTLD_LAZY);
 #else
-    printf("Failed to detect 32 or 64 bit in cfdStartCosimulation.c.\n");
-    return 1;
+    ModelicaError("Failed to detect 32 or 64 bit in cfdStartCosimulation.c.\n");
 #endif
 
 #else /* Neither MSC nor Linux */
-
-    printf("Unsupported operating system in cfdStartCosimulation.c.\n");
-    return 1;
-
+    ModelicaError("Error: Unsupported operating system in cfdStartCosimulation.c.\n");
 #endif
-
 
   // If the handle is valid, try to get the function address.
   if(hinstLib!=NULL) {
@@ -195,8 +189,7 @@ int cfdStartCosimulation(char *cfdFilNam, char **name, double *A, double *til,
 #endif
   }
   else {
-    printf("instantiate(): Could not find dll handle.\n");
-    return 1;
+    ModelicaError("Error: Could not find dll handle in cfdStartCosimulation.c.\n");
   }
 
   // If the function address is valid, call the function.
@@ -205,8 +198,7 @@ int cfdStartCosimulation(char *cfdFilNam, char **name, double *A, double *til,
     ProcAdd(cosim); 
   }
   else{
-    printf("instantiate(): Could not find dll function address.\n");
-    return 1;
+    ModelicaError("Error: Could not find dll function address in cfdStartCosimulation.c.\n");
   }
 
   return 0;
