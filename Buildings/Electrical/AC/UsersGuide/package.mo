@@ -2,6 +2,7 @@ within Buildings.Electrical.AC;
 package UsersGuide "User's Guide"
   extends Modelica.Icons.Information;
 
+
     annotation (preferredView="info",
 Documentation(info="<html>
 <p>
@@ -59,7 +60,7 @@ changes depending on the type of load.
 <p>
 where the subscripts indicates a
 </p>
-<p>
+
 <ul>
 <li><i>R</i> - purely resistive load</li>
 <li><i>L</i> - purely inductive load</li>
@@ -67,7 +68,6 @@ where the subscripts indicates a
 <li><i>RL</i> - resistive inductive load</li>
 <li><i>RC</i> - resistive capacitive load</li>
 </ul>
-</p>
 
 <h4>Dynamic phasorial representation</h4>
 <p>
@@ -79,7 +79,7 @@ More details about the dynamic phasorial representation can be found in <a href=
 <a NAME=\"Stankovi1999\"/>
 A.M. Stankovi, B.C. Lesieutre, T. Aydin.<br/>
 <a href=\"http://www.ece.neu.edu/faculty/stankovic/Jour_papers/pwrs299im.pdf\">
-<i>IEEE Transactions on Power Systems</i>, 14(1), Feb. 1999, pp. 9-14.<br/>
+<i>IEEE Transactions on Power Systems</i>, 14(1), Feb. 1999, pp. 9-14.</a><br/>
 </p>
 
 
