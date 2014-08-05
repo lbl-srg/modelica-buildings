@@ -2,13 +2,12 @@ within Buildings.Electrical.AC.OnePhase.Sources;
 model PVSimpleOriented "Simple PV model with orientation"
   extends Buildings.Electrical.Interfaces.PartialAcDcParameters;
   extends Buildings.Electrical.Interfaces.PartialPVOriented(redeclare package
-      PhaseSystem = Buildings.Electrical.PhaseSystems.OnePhase, redeclare
-      Interfaces.Terminal_p terminal, redeclare
+      PhaseSystem = Buildings.Electrical.PhaseSystems.OnePhase,
+      V_nominal = 110,
+      redeclare Interfaces.Terminal_p terminal, redeclare
       Buildings.Electrical.AC.OnePhase.Sources.PVSimple panel(pf=pf, eta_DCAC=eta_DCAC,
       V_nominal=V_nominal,
       linear=linear));
-  parameter Modelica.SIunits.Voltage V_nominal=110
-    "Nominal voltage (V_nominal >= 0)";
   parameter Boolean linear=false
     "If =true introduce a linearization in the load";
   annotation (

@@ -7,23 +7,23 @@ model VariableImpedance "Test with a variable impedance"
     R=0,
     inductive=true,
     L=1/(2*Modelica.Constants.pi*50),
-    useVariableL=true,
-    Lmin=1/(2*Modelica.Constants.pi*50),
-    Lmax=2/(2*Modelica.Constants.pi*50))
+    use_L_in=true,
+    LMin=1/(2*Modelica.Constants.pi*50),
+    LMax=2/(2*Modelica.Constants.pi*50))
     annotation (Placement(transformation(extent={{-20,-60},{0,-40}})));
   Buildings.Electrical.AC.OnePhase.Loads.Impedance Z_C(
     R=0,
     inductive=false,
     C=1/(2*Modelica.Constants.pi*50),
-    useVariableC=true,
-    Cmin=1/(2*Modelica.Constants.pi*50),
-    Cmax=2/(2*Modelica.Constants.pi*50))
+    use_C_in=true,
+    CMin=1/(2*Modelica.Constants.pi*50),
+    CMax=2/(2*Modelica.Constants.pi*50))
     annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
   Buildings.Electrical.AC.OnePhase.Loads.Impedance Z_R(
     R=1,
-    Rmin=1,
-    Rmax=2,
-    useVariableR=true,
+    RMin=1,
+    RMax=2,
+    use_R_in=true,
     L=0)
     annotation (Placement(transformation(extent={{-20,40},{0,60}})));
   Modelica.Blocks.Sources.Ramp load(duration=0.5, startTime=0.2,

@@ -4,17 +4,16 @@ model PVSimple
   extends Buildings.Electrical.Interfaces.PartialAcDcParameters;
   extends Buildings.Electrical.Interfaces.PartialPV(redeclare package
       PhaseSystem = Buildings.Electrical.PhaseSystems.OnePhase, redeclare
-      Interfaces.Terminal_p terminal);
-
+      Interfaces.Terminal_p terminal,
+      V_nominal = 110);
+  parameter Boolean linear=false
+    "If =true introduce a linearization in the load";
   Modelica.Blocks.Math.Gain gain_DCAC(k=eta_DCAC) annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=180,
         origin={12,0})));
-  parameter Modelica.SIunits.Voltage V_nominal=110
-    "Nominal voltage (V_nominal >= 0)";
-  parameter Boolean linear=false
-    "If =true introduce a linearization in the load";
+
 protected
   replaceable Buildings.Electrical.AC.OnePhase.Loads.CapacitiveLoadP load(mode=Buildings.Electrical.Types.Assumption.VariableZ_P_input,
       pf=pf,
