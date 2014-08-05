@@ -17,16 +17,16 @@ equation
 
   // Inductance of each line
   if inductive then
-    X = omega*L_;
+    X = omega*L_internal;
   else
-    X = -1/(omega*C_);
+    X = -1/(omega*C_internal);
   end if;
 
   // Ohm's law
   if star then
-    terminal.v = {{R_,-X}*terminal.i, {X,R_}*terminal.i};
+    terminal.v = {{R_internal,-X}*terminal.i, {X,R_internal}*terminal.i};
   else
-    terminal.v = {{R_/3,-X/3}*terminal.i, {X/3,R_/3}*terminal.i};
+    terminal.v = {{R_internal/3,-X/3}*terminal.i, {X/3,R_internal/3}*terminal.i};
   end if;
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
             {100,100}}), graphics={Rectangle(extent={{-100,100},{100,-100}},
