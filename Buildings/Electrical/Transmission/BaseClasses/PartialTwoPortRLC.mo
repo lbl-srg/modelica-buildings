@@ -1,6 +1,6 @@
 within Buildings.Electrical.Transmission.BaseClasses;
 partial model PartialTwoPortRLC
-  "Partial model of a RLC element that link two electric connectors"
+  "Partial model of an RLC element that links two electrical connectors"
   extends Interfaces.PartialTwoPort;
   extends Modelica.Electrical.Analog.Interfaces.ConditionalHeatPort(T = T_ref);
   parameter Modelica.SIunits.Resistance R(start=1)
@@ -18,9 +18,11 @@ equation
   Connections.branch(terminal_p.theta, terminal_n.theta);
   terminal_p.theta = terminal_n.theta;
 
-  assert(R_actual>=0, "The value of R_actual must be positive, check reference and actual temperatures");
+  assert(R_actual>=0,
+   "The value of R_actual must be positive, check reference and actual temperatures");
 
-  R_actual = R*(M + Modelica.SIunits.Conversions.to_degC(T_heatPort))/(M + Modelica.SIunits.Conversions.to_degC(T_ref));
+  R_actual = R*(M + Modelica.SIunits.Conversions.to_degC(T_heatPort))/
+    (M + Modelica.SIunits.Conversions.to_degC(T_ref));
   LossPower = 0;
 
   annotation (Diagram(graphics={
@@ -103,18 +105,19 @@ Added User's guide.
 </ul>
 </html>", info="<html>
 <p>
-Partial model of a resistance that link two generalized electric connectors.
+Partial model of a resistance that links two generalized electrical connectors.
 </p>
 <p>
-The model computes a resistance <i>R(T)</i> that vary depending on the temperature <i>T</i> as
+The model computes a resistance <i>R(T)</i> that varies depending on the temperature <i>T</i> as
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
-R(T) = R<sub>ref</sub> (M + T)/(M + T<sub>ref</sub>)
+R(T) = R<sub>ref</sub> (M + T)/(M + T<sub>ref</sub>),
 </p>
 <p>
-where the resistance <i>R<sub>ref</sub></i> is the reference value of the resistance, <i>M</i> is the
- temperature coefficient of the cable material, and <i>T<sub>ref</sub></i> is the referemnce temperature.
-The temperature <i>T</i> can be the temperature of the heat port if <code>useHeatPort = true</code>.
+where the resistance <i>R<sub>ref</sub></i> is the reference value of the resistance, 
+<i>M</i> is the temperature coefficient of the cable material, and 
+<i>T<sub>ref</sub></i> is the reference temperature.
+The temperature <i>T</i> is the temperature of the heat port if <code>useHeatPort = true</code>.
 </p>
 <p>
 The impedance <i>L</i> and the capacity <i>C</i> do not vary with respect to the temperature

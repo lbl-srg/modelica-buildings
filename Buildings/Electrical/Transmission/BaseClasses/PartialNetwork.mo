@@ -1,18 +1,17 @@
 within Buildings.Electrical.Transmission.BaseClasses;
 partial model PartialNetwork "Partial model that represent an electric network"
   replaceable parameter Buildings.Electrical.Transmission.Grids.PartialGrid grid
-    "Record that describe the grid (number of nodes, links, connections, etc.)"
+    "Record that describe the grid with the number of nodes, links, connections, etc."
     annotation (choicesAllMatching=true);
   replaceable Buildings.Electrical.Interfaces.BaseTerminal terminal[grid.Nnodes]
     "Electric terminals for each node of the network"
     annotation (Placement(transformation(extent={{90,-10},{110,10}})));
-  replaceable Buildings.Electrical.Transmission.BaseClasses.PartialBaseLine lines[grid.Nlinks]
-    (
+  replaceable Buildings.Electrical.Transmission.BaseClasses.PartialBaseLine lines[grid.Nlinks](
     each mode=Types.CableMode.commercial,
     l=grid.L[:, 1],
     each P_nominal=1000,
     each V_nominal=120)
-    "Array of line models. Each line connect two nodes of the grid";
+    "Array of line models, each line connecting two nodes of the grid";
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
             {100,100}}), graphics={
         Rectangle(
@@ -102,16 +101,18 @@ Added User's guide.
 </ul>
 </html>", info="<html>
 <p>
-This partial model represents a generalized electric network.
+This partial model represents a generalized electrical network.
 </p>
 <p>
-The model has three main components. The <code>grid</code> is a parameter of type
+The model has three main components. The parameter <code>grid</code> declares the type
 <a href=\"modelica://Buildings.Electrical.Transmission.Grids.PartialGrid\">
 Buildings.Electrical.Transmission.Grids.PartialGrid</a>
-that contains the information about the topology of the network (e.g., number of nodes, 
-how they are connected, length of each connection). The <code>terminal[...]</code> is 
+that contains the information about the topology of the network, such as
+the number of nodes, 
+how they are connected, and the length of each connection. 
+The parameter <code>terminal[...]</code> declares
 an array of generalized electric connectors that are associated to each node of the grid.
-The <code>lines[...]</code> is an array of 
+The parameter <code>lines[...]</code> is an array of type
 <a href=\"modelica://Buildings.Electrical.Transmission.Base.PartialBaseLine\">
 Buildings.Electrical.Transmission.Base.PartialBaseLine</a> that represent the cables
 in the grid.

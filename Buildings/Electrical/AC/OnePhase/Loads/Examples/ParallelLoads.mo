@@ -1,9 +1,8 @@
 within Buildings.Electrical.AC.OnePhase.Loads.Examples;
 model ParallelLoads
   "Example that illustrates the use of the load models at constant voltage"
-  import Buildings;
   extends Modelica.Icons.Example;
-  Buildings.Electrical.AC.OnePhase.Loads.InductiveLoadP varRL(              mode=
+  Buildings.Electrical.AC.OnePhase.Loads.InductiveLoadP varRL(mode=
         Buildings.Electrical.Types.Assumption.VariableZ_P_input, P_nominal=-1e3)
     "Variable inductor and resistor"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},

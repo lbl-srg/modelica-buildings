@@ -1,7 +1,7 @@
 within Buildings.Electrical.Transmission.MediumVoltageCables;
 record Annealed_Al_350 "Annealed Al cable - kcmil 350"
-  extends Buildings.Electrical.Transmission.MediumVoltageCables.Cable(
-    material=Materials.Material.Al,
+  extends Buildings.Electrical.Transmission.MediumVoltageCables.Generic(
+    material=Types.Material.Al,
     size="350",
     Rdc=0.165682e-3,
     Tref=298.15,

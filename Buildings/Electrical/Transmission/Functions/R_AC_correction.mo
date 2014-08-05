@@ -2,11 +2,11 @@ within Buildings.Electrical.Transmission.Functions;
 function R_AC_correction
   "This function computes the correction factor of the DC resistance for AC systems at 60 Hz"
   input String size "Size of the commercial cable (AWG or kcmil)";
-  input Buildings.Electrical.Transmission.Materials.Material material
+  input Buildings.Electrical.Transmission.Types.Material material
     "Material of the cable";
   output Real correction "Correction factor";
 algorithm
-  if material == Buildings.Electrical.Transmission.Materials.Material.Al then
+  if material == Buildings.Electrical.Transmission.Types.Material.Al then
     if size == "1/0" then
       correction := 1.0;
     elseif size == "2/0" then
@@ -49,7 +49,7 @@ algorithm
       correction := 1.0;
     end if;
 
-  elseif material == Buildings.Electrical.Transmission.Materials.Material.Cu then
+  elseif material == Buildings.Electrical.Transmission.Types.Material.Cu then
     if size == "1/0" then
       correction := 1.0;
     elseif size == "2/0" then
@@ -92,6 +92,9 @@ algorithm
       correction := 1.0;
     end if;
   else
+    // fixme: use an assertion with AssertionLevel.warning. This way, a tool can report
+    // the message to the appropriate logger.
+    // See Buildings.Electrical.Transmission.Functions.selectCable_low()
     Modelica.Utilities.Streams.print("Warning: the material is not available " +
         String(material) + ". No correction applied.");
     correction := 1.0;
@@ -106,7 +109,7 @@ Added User's guide.
 </html>", info="<html>
 <p>
 This function computes a correction factor for adapting the DC resistance
-of when working with AC voltages. The correction factor assumes <i>f = 60 Hz</i>.
+when working with AC voltages. The correction factor assumes <i>f = 60 Hz</i>.
 </p>
 <p>
 The correction is based on the type of cabel (AWG or kcmil) and the material.

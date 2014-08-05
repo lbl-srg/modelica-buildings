@@ -1,5 +1,5 @@
 within Buildings.Electrical.Transmission.LowVoltageCables;
-record Cable "Low Voltage Cable Type"
+record Generic "Data record for a generic low voltage cable"
   extends Modelica.Icons.MaterialProperty;
   extends Buildings.Electrical.Transmission.BaseClasses.BaseCable(
     final size="",
@@ -8,4 +8,4 @@ record Cable "Low Voltage Cable Type"
     final D=0.0,
     final GMR=0.0,
     final GMD=0.0);
-end Cable;
+end Generic;

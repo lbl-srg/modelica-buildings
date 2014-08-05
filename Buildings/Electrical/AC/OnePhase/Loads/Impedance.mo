@@ -33,7 +33,9 @@ equation
           lineColor={0,120,120},
           textString="%name")}),
           Documentation(info="<html>
-<p>
+          <p>
+          fixme: This info section is not correct.
+          
 Model of a resistive load. It may be used to model a load that has
 a power factor of one.
 </p>

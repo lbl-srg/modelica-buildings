@@ -10,13 +10,15 @@ model DataSeries_v2 "Benchmark data"
     columns=2:34,
     fileName=fName_buildings,
     extrapolation=Modelica.Blocks.Types.Extrapolation.Periodic)
-    annotation (Placement(transformation(extent={{-40,-40},{-20,-20}})));
+    annotation (Placement(transformation(extent={{-40,-50},{-20,-30}})));
   Modelica.Blocks.Interfaces.RealOutput bldg[33]
-    "Connector of Real output signals" annotation (Placement(transformation(
-          extent={{90,-40},{110,-20}}), iconTransformation(extent={{80,-50},{100,
+    "fixme: update comment to something more descriptive. Connector of Real output signals"
+                                                                                            annotation (Placement(transformation(
+          extent={{100,-50},{120,-30}}),iconTransformation(extent={{80,-50},{100,
             -30}})));
 equation
-
+  // fixme: Don't mix graphical modeling with equations (see style guide).
+  // Use a constant gain of -1 instead of this loop.
   for i in 1:33 loop
     bldg[i] = -node_loads.y[i];
   end for;

@@ -3,7 +3,7 @@ function selectCable_med "This function is used to automatically select the
     type of cable for medium voltages"
   input Modelica.SIunits.Power P_nominal "Rated power";
   input Modelica.SIunits.Voltage V_nominal "Rated voltage";
-  output Buildings.Electrical.Transmission.MediumVoltageCables.Cable cable "Cable";
+  output Buildings.Electrical.Transmission.MediumVoltageCables.Generic cable "Cable";
 protected
   parameter Real safety_factor = 1.2;
   Modelica.SIunits.Current I_nominal = safety_factor*P_nominal/V_nominal
@@ -32,9 +32,13 @@ algorithm
         cable := Al1000;
   elseif I_nominal >= Al1000.Amp and I_nominal < Al1500.Amp then
         cable := Al1500;
-  else  Modelica.Utilities.Streams.print("Warning: Function <selectCable_med>\nCable autosizing does not support a current of " +
-        String(I_nominal) + " A.
-  The selected cable will be undersized.");
+  else
+    assert(I_nominal < Al1500.Amp,
+"Warning: In function Buildings.Electrical.Transmission.Functions.selectCable_med,
+  cable autosizing does not support a current of " + String(I_nominal) + " [A].
+  The selected cable will be undersized.",
+  level=AssertionLevel.warning);
+
         cable := Al10;
   end if;
 annotation(Inline = true, Documentation(revisions="<html>
@@ -51,17 +55,17 @@ transmission line.
 </p>
 <p>
 The function takes as inputs the nominal voltage <i>V<sub>nominal</sub></i> and the 
-nominal power <i>P<sub>nominal</sub></i> computes the maximum current current that
+nominal power <i>P<sub>nominal</sub></i>. It computes the maximum current current that
 can flow through the cable as
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
-I<sub>MAX</sub> = S<sub>F</sub> P<sub>nominal</sub> / V<sub>nominal</sub>
+I<sub>MAX</sub> = S<sub>F</sub> P<sub>nominal</sub> / V<sub>nominal</sub>,
 </p>
 <p>
-where <i>S<sub>F</sub></i> is the safety factor. By default the safety factor is equal to 1.2.
+where <i>S<sub>F</sub></i> is the safety factor. By default the safety factor is equal to <i>1.2</i>.
 </p>
 <p>
-Once I<sub>MAX</sub> is known the function selects the smallest cable that has an ampacity
+Using <i>I<sub>MAX</sub></i>, the function selects the smallest cable that has an ampacity
 higher than I<sub>MAX</sub>. The cables are selected from
 <a href=\"modelica://Buildings.Electrical.Transmission.MediumVoltageCables\">
 Buildings.Electrical.Transmission.MediumVoltageCables</a>.

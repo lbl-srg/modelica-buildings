@@ -38,8 +38,8 @@ R(T) = R (1 + &alpha; (T - T<sub>ref</sub>),
 </p>
 <p>
 where the resistance <i>R</i> is the reference value of the resistance, <i>&alpha;</i> is the
-linear temperature coefficient, and <i>T<sub>ref</sub></i> is the referemnce temperature.
-The temperature <i>T</i> can be the temperature of the heat port if <code>useHeatPort = true</code>.
+linear temperature coefficient, and <i>T<sub>ref</sub></i> is the reference temperature.
+The temperature <i>T</i> is the temperature of the heat port if <code>useHeatPort = true</code>.
 </p>
 </html>
 ",

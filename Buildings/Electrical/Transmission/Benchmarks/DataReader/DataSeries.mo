@@ -1,10 +1,12 @@
 within Buildings.Electrical.Transmission.Benchmarks.DataReader;
 model DataSeries "Benchmark power data for buildings load and PV panels"
+  // fixme: add info and revision section
   parameter Real factorB = 1.0
     "Multiply the power consumed by buildings by this factor";
   parameter Real factorPV = 1.0
     "Multiply the power produced by the PV panels by this factor";
   //parameter String fileName_PV = "modelica://Buildings/Resources/Data/Electrical/Benchmark/pvload.mat";
+  // fixme: add comments to all parameters
   parameter String fileName_PV = "modelica://Buildings/Resources/Data/Electrical/Benchmark/pvload_hot.mat";
   //parameter String fileName_buildings = "modelica://Buildings/Resources/Data/Electrical/Benchmark/hhload.mat";
   parameter String fileName_buildings = "modelica://Buildings/Resources/Data/Electrical/Benchmark/hhload_hot.mat";

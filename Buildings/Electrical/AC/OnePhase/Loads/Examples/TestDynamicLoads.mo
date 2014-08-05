@@ -40,6 +40,8 @@ equation
             100}}), graphics),
     Documentation(info="<html>
 <p>
+fixme: This info section is for a different model.
+
 This model illustrates the use of the load models.
 The first two lines are inductive loads, followed by two capacitive loads and a resistive load.
 At time equal to <i>1</i> second, all loads consume the same actual power as specified by the

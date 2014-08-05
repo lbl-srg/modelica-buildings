@@ -22,7 +22,7 @@ equation
     // Electric charge
     q = Y[2]*{v[1], v[2]}/omega;
 
-    // Dynamic of the system
+    // Dynamics of the system
     der(q) + omega*j(q) + Y[1]*v = i;
 
   else
@@ -109,11 +109,6 @@ where <i>i<sup>*</sup></i> is the complex conjugate of the current.
 </html>",
       revisions="<html>
 <ul>
-<li>June 17, 2014, by Marco Bonvini:<br/>
-Adde parameter <code>initMode</code> that can be used to 
-select the assumption to be used during initialization phase
-by the homotopy operator.
-</li>
 <li>
 January 2, 2012, by Michael Wetter:<br/>
 First implementation.

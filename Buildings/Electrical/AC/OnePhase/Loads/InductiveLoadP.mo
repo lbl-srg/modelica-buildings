@@ -19,7 +19,7 @@ equation
     Z[1] = -pf*(V_nominal^2)/(P_nominal/pf);
     Z[2] = -sqrt(1-pf^2)*(V_nominal^2)/(P_nominal/pf);
 
-    // Dynamic of the system
+    // Dynamics of the system
     der(psi) + omega*j(psi) + Z[1]*i = v;
 
     // Magnetic flux

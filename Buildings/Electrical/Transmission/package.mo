@@ -23,14 +23,20 @@ annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100}
         color={0,0,0},
         smooth=Smooth.None)}), Documentation(info="<html>
 <p>
-This package contains partial models of cables that can be used
-to represent a generic line in a electric grid. The package contains 
-several functions and records to parametrize the cables either using 
-commercial or default values.
+This package contains cables that can be used
+to represent a line in a electric grid. The package contains
+several functions and records to parametrize cables either using
+default values or values from commercial cables.
 </p>
 <p>
-The package contains also a generalized model to represent an 
-electric network.
+The packages
+<a href=\"modelica://Buildings.Electrical.Transmission.Grids\">
+Buildings.Electrical.Transmission.Grids</a>
+and
+<a href=\"modelica://Buildings.Electrical.Transmission.Benchmarks\">
+Buildings.Electrical.Transmission.Benchmarks</a>
+contain models of
+electrical networks.
 </p>
 </html>", revisions="<html>
 <ul>

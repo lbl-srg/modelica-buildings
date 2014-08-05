@@ -51,5 +51,12 @@ equation
             {{-100,-100},{100,100}}), graphics),
     __Dymola_Commands(file=
           "modelica://Buildings/Resources/Scripts/Dymola/Electrical/AC/OnePhase/Loads/Examples/ThreePhases.mos"
-        "Simulate and plot"));
+        "Simulate and plot"),
+    Documentation(info="<html>
+fixme: info section is missing
+
+</html>", revisions="<html>
+fixme: revision section is missing
+
+</html>"));
 end ThreePhases;
