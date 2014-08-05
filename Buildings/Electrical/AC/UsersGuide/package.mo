@@ -13,26 +13,33 @@ models alternate current electrical systems.
 
 <h4>Modeling assumptions</h4>
 <p>
-The AC models that are part of the library have the ability to use two use two different
-assumptions. The first assumption is that the frequency is modeled as quasi-stationary, 
-assuming a perfect sine wave with no higher harmonics. Voltages and currents are considered as 
-sine waves and just their amplitudes and phase shifts are taken into account during the analysis.
-With such an assumptions the electric quantities can be represented with phasors, e.g., vectors
-with a given length and angle. Such a mathematical representation is used to describes the sine waves.
+The package <a href=\"modelica://Buildings.Electrical.AC\">Buildings.Electrical.AC</a> contains 
+component models for AC systems. The mathematics that describes AC systems is contained in the package
+<a href=\"modelica://Buildings.Electrical.PhaseSystems.OnePhase\">Buildings.Electrical.PhaseSystems.OnePhase</a>, 
+in which n = 2 and m = 1. The AC models that are part of the library can use two different assumptions.
 </p>
 <p>
-The second assumption that is introduced in the library is the so called dynamic phasorial representation.
-The basic idea behind the dynamic phasorial representation is to account for dynamic variations of the amplitude
-and the angle of the phasors. WIth such an approach is possible to analyze faster dynamics without
-directly representing all the electromagnetic effects and performing a continuous time simulation using first
-principle models. 
+The first assumption is that the frequency is modeled as quasi-stationary, assuming a perfect sine 
+wave with no higher harmonics. Voltages and currents are considered as sine waves and just their 
+amplitudes and phase shifts are taken into account during the analysis. 
+With such an assumption, electric quantities can be represented with a phasor, i.e., a vector 
+in the complex plane.
+</p>
+<p>
+The second assumption is the so-called dynamic phasorial representation. The basic idea of the 
+dynamic phasorial representation is to account for dynamic variations of the amplitude and 
+the angle of the pha- sors. With such an approach, it is possible to analyze faster dynamics 
+without directly representing all the electromagnetic effects and high-order harmonics 
+(for more details <a href=\"#Stankovic1999\">Stankovic Et Al. 1999</a>, and
+<a href=\"#Stankovic2000\">Stankovic A.M. and Aydin T.</a>).
 </p>
 
 <h4>Phasorial representation</h4>
 <p>
-The models contained in this package use the phasorial representation of voltages, currents and powers.
-Each of the electric quantities is represented by a complex number that internally is represented as a vector
-with two components. Those vectors can be represented in the so called Argand plane where on the x-axis
+Both the quasi-stationary and the dynamic phasors represent electric
+quantities such as voltages and currents using phasors.
+The phasors are described by complex numbers that internally are represented as a vector
+with two components. The vectors can be represented in the so called Argand plane where on the x-axis
 are represented Real numbers while on the y-axis imaginary numbers.  
 </p>
 <p>
@@ -69,17 +76,18 @@ where the subscripts indicates a
 <li><i>RC</i> - resistive capacitive load</li>
 </ul>
 
-<h4>Dynamic phasorial representation</h4>
-<p>
-More details about the dynamic phasorial representation can be found in <a href=\"#Stankovi1999\">Stankovi Et Al. 1999</a>.
-</p>
-
 <h4>References</h4>
 <p>
-<a NAME=\"Stankovi1999\"/>
-A.M. Stankovi, B.C. Lesieutre, T. Aydin.<br/>
+<a NAME=\"Stankovic1999\"/>
+A.M. Stankovic, B.C. Lesieutre, T. Aydin; Modeling and analysis of single-pahse
+induction machines with dynamic phasors<br/>
 <a href=\"http://www.ece.neu.edu/faculty/stankovic/Jour_papers/pwrs299im.pdf\">
 <i>IEEE Transactions on Power Systems</i>, 14(1), Feb. 1999, pp. 9-14.</a><br/>
+<a NAME=\"Stankovic2000\"/>
+A.M. Stankovic, T. Aydin; Analysis of asymmetrical faults in power systems using 
+dynamic phasors<br/>
+<a href=\"http://www.ece.neu.edu/faculty/stankovic/Jour_papers/pwrs299im.pdf\">
+<i>IEEE Transactions on Power Systems</i>, 15(3), 2000, pp. 1062-1068 .</a><br/>
 </p>
 
 
