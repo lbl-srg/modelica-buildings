@@ -33,20 +33,36 @@ equation
           lineColor={0,120,120},
           textString="%name")}),
           Documentation(info="<html>
-          <p>
-          fixme: This info section is not correct.
-          
-Model of a resistive load. It may be used to model a load that has
-a power factor of one.
+<p>        
+Model of an impedance. This model can be used to represent any type
+of resistive, inductive or capacitive load.
+</p>
+<h4>N.B.</h4>
+<p>        
+The power consumed by the impedance model will drecrease if its voltage
+decreases.
 </p>
 <p>
-The model computes the power as
-<i>P = real(v &sdot; i<sup>*</sup>)</i>,
-where <i>i<sup>*</sup></i> is the complex conjugate of the current.
-Complex voltage and complex current are related as <i>v = R &nbsp; i</i>.
+The model of the impedance is the following
+</p>
+
+<p align=\"center\" style=\"font-style:italic;\">
+V = Z i
+</p>
+
+<p>
+where <i>Z = R + jX</i> is the impedance. The value of the resistance <i>R</i> and the
+reactance <i>X</i> depend on the type of impedance. Different types of impedances
+can be selected using the boolean flags <code>inductive</code>, <code>use_R_in</code>,
+<code>use_L_in</code>, and <code>use_C_in</code>. See 
+<a href=\"modelica://Buildings.Electrical.Interfaces.PartialImpedance\">
+Buildings.Electrical.Interfaces.PartialImpedance</a> for more details.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>August 5, 2014, by Marco Bonvini:<br/>
+Revised documentation.
+</li>
 <li>
 January 2, 2012, by Michael Wetter:<br/>
 First implementation.
