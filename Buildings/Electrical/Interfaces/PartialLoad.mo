@@ -28,7 +28,7 @@ model PartialLoad
     "Voltage vector";
   Modelica.SIunits.Current i[:](start = PhaseSystem.phaseCurrents(0.0)) = terminal.i
     "Current vector";
-  Modelica.SIunits.Power S[PhaseSystem.n] = PhaseSystem.phasePowers_vi(v, i)
+  Modelica.SIunits.Power S[PhaseSystem.n] = PhaseSystem.phasePowers_vi(v, -i)
     "Phase powers";
   Modelica.SIunits.Power P
     "Power of the load (negative if consumed, positive if fed into the electrical grid)";
