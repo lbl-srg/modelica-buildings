@@ -5,8 +5,8 @@ model AC_IEEE34
     modelMode=Buildings.Electrical.Types.Assumption.FixedZ_steady_state,
     use_C=false)
     annotation (Placement(transformation(extent={{-20,0},{0,20}})));
-  Loads.InductiveLoadP load[33](
-      each P_nominal=1000,
+  Loads.Inductive load[33](
+    each P_nominal=1000,
     each pf=0.8,
     each mode=Buildings.Electrical.Types.Assumption.VariableZ_P_input,
     each V_nominal=220,
@@ -21,7 +21,7 @@ model AC_IEEE34
         origin={30,10})));
   Transmission.Benchmarks.DataSeries dataSeries(factorB=4.0)
     annotation (Placement(transformation(extent={{80,30},{60,50}})));
-  Loads.CapacitiveLoadP PVloads[16](
+  Loads.Capacitive PVloads[16](
     each pf=0.9,
     each mode=Buildings.Electrical.Types.Assumption.VariableZ_P_input,
     each V_nominal=220,
@@ -40,14 +40,14 @@ equation
       smooth=Smooth.None));
   for i in 1:33 loop
     connect(dataSeries.bldg[i], load[i].Pow) annotation (Line(
-      points={{61,36},{50,36},{50,30},{40,30}},
+      points={{59,36},{50,36},{50,30},{40,30}},
       color={0,0,127},
       smooth=Smooth.None));
   end for;
 
   for i in 1:16 loop
     connect(dataSeries.pv[i], PVloads[i].Pow) annotation (Line(
-      points={{61,44},{50,44},{50,50},{40,50}},
+      points={{59,44},{50,44},{50,50},{40,50}},
       color={0,0,127},
       smooth=Smooth.None));
   end for;

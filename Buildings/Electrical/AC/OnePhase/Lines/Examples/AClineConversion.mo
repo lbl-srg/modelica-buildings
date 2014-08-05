@@ -6,8 +6,7 @@ model AClineConversion
     Phi=0,
     V=380)
     annotation (Placement(transformation(extent={{-100,-10},{-80,10}})));
-  Loads.InductiveLoadP
-                 load1(
+  Loads.Inductive load1(
     V_nominal=220,
     mode=Types.Assumption.FixedZ_dynamic,
     P_nominal=-1500,

@@ -17,20 +17,18 @@ model ParallelResistors
     height=2000,
     offset=-1000)
     annotation (Placement(transformation(extent={{40,0},{20,20}})));
-  Buildings.Electrical.AC.OnePhase.Loads.ResistiveLoadP
-                       R(
+  Buildings.Electrical.AC.OnePhase.Loads.Resistive R(
     mode=Buildings.Electrical.Types.Assumption.VariableZ_P_input,
     V_nominal=220,
-    P_nominal=-1e3) "Resistive load"
-    annotation (Placement(transformation(extent={{-10,-10},{10,10}},
+    P_nominal=-1e3) "Resistive load" annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-22,10})));
-  Buildings.Electrical.AC.OnePhase.Loads.ResistiveLoadP
-                       R1(
+  Buildings.Electrical.AC.OnePhase.Loads.Resistive R1(
     mode=Buildings.Electrical.Types.Assumption.FixedZ_steady_state,
     V_nominal=220,
-    P_nominal=-1e3) "Resistive load"
-    annotation (Placement(transformation(extent={{-10,-10},{10,10}},
+    P_nominal=-1e3) "Resistive load" annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-22,-10})));
 equation

@@ -13,9 +13,8 @@ model ACACConverter "Test model AC to AC converter"
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-60,10})));
-  Buildings.Electrical.AC.OnePhase.Loads.InductiveLoadP
-                                             load(
-                      mode=Buildings.Electrical.Types.Assumption.VariableZ_P_input,
+  Buildings.Electrical.AC.OnePhase.Loads.Inductive load(
+    mode=Buildings.Electrical.Types.Assumption.VariableZ_P_input,
     P_nominal=-1000,
     V_nominal=110)
     annotation (Placement(transformation(extent={{24,0},{44,20}})));

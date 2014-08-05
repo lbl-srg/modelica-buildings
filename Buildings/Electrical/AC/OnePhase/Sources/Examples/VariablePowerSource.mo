@@ -9,7 +9,7 @@ model VariablePowerSource
     amplitude=100,
     freqHz=0.05)
     annotation (Placement(transformation(extent={{-92,-10},{-72,10}})));
-  Buildings.Electrical.AC.OnePhase.Loads.InductiveLoadP RL(mode=Types.Assumption.VariableZ_y_input,
+  Buildings.Electrical.AC.OnePhase.Loads.Inductive RL(mode=Types.Assumption.VariableZ_y_input,
       P_nominal=-300)
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
   Buildings.Electrical.AC.OnePhase.Sources.Grid grid(f=60, V=110)

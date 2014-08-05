@@ -1,5 +1,5 @@
 within Buildings.Electrical.AC.OnePhase.Loads;
-model ResistiveLoadP "Model of a resistive load"
+model Resistive "Model of a resistive load"
   extends Buildings.Electrical.Interfaces.PartialLoad(
     redeclare package PhaseSystem = PhaseSystems.OnePhase,
     redeclare Interfaces.Terminal_n terminal,
@@ -65,4 +65,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end ResistiveLoadP;
+end Resistive;

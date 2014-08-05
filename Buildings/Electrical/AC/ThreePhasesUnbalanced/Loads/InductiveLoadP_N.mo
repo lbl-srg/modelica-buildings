@@ -1,9 +1,9 @@
 within Buildings.Electrical.AC.ThreePhasesUnbalanced.Loads;
 model InductiveLoadP_N
   extends BaseClasses.PartialLoadN(
-  redeclare Buildings.Electrical.AC.OnePhase.Loads.InductiveLoadP load1(pf=pf),
-  redeclare Buildings.Electrical.AC.OnePhase.Loads.InductiveLoadP load2(pf=pf),
-  redeclare Buildings.Electrical.AC.OnePhase.Loads.InductiveLoadP load3(pf=pf));
+    redeclare Buildings.Electrical.AC.OnePhase.Loads.Inductive load1(pf=pf),
+    redeclare Buildings.Electrical.AC.OnePhase.Loads.Inductive load2(pf=pf),
+    redeclare Buildings.Electrical.AC.OnePhase.Loads.Inductive load3(pf=pf));
   parameter Real pf(min=0, max=1) = 0.8 "Power factor"  annotation(Dialog(group="Nominal conditions"));
   annotation (Icon(graphics={
         Rectangle(

@@ -1,5 +1,5 @@
 within Buildings.Electrical.AC.OnePhase.Loads;
-model CapacitiveLoadP "Model of a capacitive and resistive load"
+model Capacitive "Model of a capacitive and resistive load"
   extends Buildings.Electrical.Interfaces.PartialCapacitiveLoad(
     redeclare package PhaseSystem = PhaseSystems.OnePhase,
     redeclare Interfaces.Terminal_n terminal,
@@ -115,4 +115,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end CapacitiveLoadP;
+end Capacitive;

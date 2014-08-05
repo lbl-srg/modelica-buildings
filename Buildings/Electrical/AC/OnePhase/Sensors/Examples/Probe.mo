@@ -2,7 +2,7 @@ within Buildings.Electrical.AC.OnePhase.Sensors.Examples;
 model Probe "Example model for a probe"
   import Buildings;
   extends Modelica.Icons.Example;
-  Buildings.Electrical.AC.OnePhase.Loads.CapacitiveLoadP loaRC(
+  Buildings.Electrical.AC.OnePhase.Loads.Capacitive loaRC(
     V_nominal=120,
     P_nominal=-100,
     mode=Buildings.Electrical.Types.Assumption.FixedZ_steady_state)
@@ -20,7 +20,7 @@ model Probe "Example model for a probe"
   Buildings.Electrical.AC.OnePhase.Lines.TwoPortResistance res2(
                                                                R=0.05)
     annotation (Placement(transformation(extent={{-26,-70},{-6,-50}})));
-  Buildings.Electrical.AC.OnePhase.Loads.InductiveLoadP loaRL(
+  Buildings.Electrical.AC.OnePhase.Loads.Inductive loaRL(
     V_nominal=120,
     P_nominal=-100,
     mode=Buildings.Electrical.Types.Assumption.FixedZ_steady_state)

@@ -142,20 +142,25 @@ equation
         points={{-60,10},{-36,10},{-36,40},{-10,40}},
         color={0,120,120},
         smooth=Smooth.None));
-    connect(y_R, load1.y_R) annotation (Line(
+    if use_R_in then
+      connect(y_R, load1.y_R) annotation (Line(
       points={{-40,100},{-40,60},{-4,60},{-4,50}},
       color={0,0,127},
       smooth=Smooth.None));
-    connect(y_C, load1.y_C) annotation (Line(
+    end if;
+    if use_C_in then
+      connect(y_C, load1.y_C) annotation (Line(
       points={{8.88178e-16,100},{8.88178e-16,75},{0,75},{0,50}},
       color={0,0,127},
       smooth=Smooth.None));
-    connect(y_L, load1.y_L) annotation (Line(
+    end if;
+    if use_L_in then
+      connect(y_L, load1.y_L) annotation (Line(
       points={{40,100},{40,60},{4,60},{4,50}},
       color={0,0,127},
       smooth=Smooth.None));
+    end if;
   end if;
-
   // Conditional connections to load 2
   if PlugPhase2 then
     connect(wyeToWyeGround.wyeg.phase[2], load2.terminal) annotation (Line(
@@ -167,18 +172,24 @@ equation
         points={{-60,10},{-36,10},{-36,0},{-10,0}},
         color={0,120,120},
         smooth=Smooth.None));
-    connect(y_R, load2.y_R) annotation (Line(
+    if use_R_in then
+      connect(y_R, load2.y_R) annotation (Line(
       points={{-40,100},{-40,20},{-4,20},{-4,10}},
       color={0,0,127},
       smooth=Smooth.None));
-    connect(y_L, load2.y_L) annotation (Line(
+    end if;
+    if use_L_in then
+      connect(y_L, load2.y_L) annotation (Line(
       points={{40,100},{40,10},{4,10}},
       color={0,0,127},
       smooth=Smooth.None));
-    connect(y_C, load2.y_C) annotation (Line(
+    end if;
+    if use_C_in then
+      connect(y_C, load2.y_C) annotation (Line(
         points={{0,100},{0,70},{-20,70},{-20,24},{0,24},{0,10}},
         color={0,0,127},
         smooth=Smooth.None));
+    end if;
   end if;
 
   // Conditional connections to load 3
@@ -192,18 +203,24 @@ equation
         points={{-60,10},{-36,10},{-36,-40},{-10,-40}},
         color={0,120,120},
         smooth=Smooth.None));
-    connect(y_R, load3.y_R) annotation (Line(
+    if use_R_in then
+      connect(y_R, load3.y_R) annotation (Line(
       points={{-40,100},{-40,-20},{-4,-20},{-4,-30}},
       color={0,0,127},
       smooth=Smooth.None));
-    connect(y_C, load3.y_C) annotation (Line(
+    end if;
+    if use_C_in then
+      connect(y_C, load3.y_C) annotation (Line(
         points={{0,100},{0,70},{-20,70},{-20,-16},{0,-16},{0,-30}},
         color={0,0,127},
         smooth=Smooth.None));
-    connect(y_L, load3.y_L) annotation (Line(
+    end if;
+    if use_L_in then
+      connect(y_L, load3.y_L) annotation (Line(
         points={{40,100},{40,-20},{4,-20},{4,-30}},
         color={0,0,127},
         smooth=Smooth.None));
+    end if;
   end if;
 
   connect(terminal_p, wyeToDelta.wye) annotation (Line(

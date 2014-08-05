@@ -1,11 +1,11 @@
 within Buildings.Electrical.AC.ThreePhasesUnbalanced.Loads;
 model InductiveLoadP
   extends BaseClasses.PartialLoad(
-  redeclare Buildings.Electrical.AC.OnePhase.Loads.InductiveLoadP load1(pf=pf,
+    redeclare Buildings.Electrical.AC.OnePhase.Loads.Inductive load1(pf=pf,
         use_pf_in=use_pf_in),
-  redeclare Buildings.Electrical.AC.OnePhase.Loads.InductiveLoadP load2(pf=pf,
+    redeclare Buildings.Electrical.AC.OnePhase.Loads.Inductive load2(pf=pf,
         use_pf_in=use_pf_in),
-  redeclare Buildings.Electrical.AC.OnePhase.Loads.InductiveLoadP load3(pf=pf,
+    redeclare Buildings.Electrical.AC.OnePhase.Loads.Inductive load3(pf=pf,
         use_pf_in=use_pf_in));
   parameter Boolean use_pf_in = false "If true the pf is defined by an input"
     annotation(Dialog(group="Modelling assumption"));

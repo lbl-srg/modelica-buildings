@@ -25,13 +25,11 @@ model ACACTransformerFull
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-70,50})));
-  Buildings.Electrical.AC.OnePhase.Loads.InductiveLoadP
-                                             load(
-                      mode=Buildings.Electrical.Types.Assumption.VariableZ_P_input,
+  Buildings.Electrical.AC.OnePhase.Loads.Inductive load(
+    mode=Buildings.Electrical.Types.Assumption.VariableZ_P_input,
     P_nominal=-2000,
     V_nominal=110,
-    pf=0.8)
-    annotation (Placement(transformation(extent={{10,40},{30,60}})));
+    pf=0.8) annotation (Placement(transformation(extent={{10,40},{30,60}})));
   Modelica.Blocks.Sources.Ramp ramp(
     duration=0.5,
     startTime=0.3,

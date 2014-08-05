@@ -8,8 +8,8 @@ model AC_InHomeGrid
     modelMode=Buildings.Electrical.Types.Assumption.FixedZ_steady_state,
     use_C=false)
     annotation (Placement(transformation(extent={{-20,0},{0,20}})));
-  Loads.ResistiveLoadP load[20](
-      each P_nominal=1000,
+  Loads.Resistive load[20](
+    each P_nominal=1000,
     each V_nominal=230,
     each linear=false,
     each mode=Buildings.Electrical.Types.Assumption.VariableZ_P_input)

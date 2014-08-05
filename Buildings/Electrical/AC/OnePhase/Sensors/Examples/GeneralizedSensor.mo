@@ -5,8 +5,7 @@ model GeneralizedSensor "Example model for generalized sensor"
   Buildings.Electrical.AC.OnePhase.Sensors.GeneralizedSensor
                                                           sen
     annotation (Placement(transformation(extent={{0,0},{20,20}})));
-  Buildings.Electrical.AC.OnePhase.Loads.CapacitiveLoadP
-                                                      loa(
+  Buildings.Electrical.AC.OnePhase.Loads.Capacitive loa(
     mode=Buildings.Electrical.Types.Assumption.FixedZ_dynamic,
     V_nominal=120,
     P_nominal=-100) "Constant load"

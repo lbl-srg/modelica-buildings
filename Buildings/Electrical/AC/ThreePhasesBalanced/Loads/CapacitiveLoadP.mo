@@ -1,6 +1,6 @@
 within Buildings.Electrical.AC.ThreePhasesBalanced.Loads;
 model CapacitiveLoadP "Model of a capacitive and resistive load"
-  extends Buildings.Electrical.AC.OnePhase.Loads.CapacitiveLoadP(redeclare
+  extends Buildings.Electrical.AC.OnePhase.Loads.Capacitive(     redeclare
       Interfaces.Terminal_n terminal, V_nominal=380);
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}),      graphics={

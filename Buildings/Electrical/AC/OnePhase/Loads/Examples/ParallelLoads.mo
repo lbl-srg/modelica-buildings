@@ -2,10 +2,10 @@ within Buildings.Electrical.AC.OnePhase.Loads.Examples;
 model ParallelLoads
   "Example that illustrates the use of the load models at constant voltage"
   extends Modelica.Icons.Example;
-  Buildings.Electrical.AC.OnePhase.Loads.InductiveLoadP varRL(mode=
-        Buildings.Electrical.Types.Assumption.VariableZ_P_input, P_nominal=-1e3)
-    "Variable inductor and resistor"
-    annotation (Placement(transformation(extent={{-10,-10},{10,10}},
+  Buildings.Electrical.AC.OnePhase.Loads.Inductive varRL(mode=Buildings.Electrical.Types.Assumption.VariableZ_P_input,
+      P_nominal=-1e3) "Variable inductor and resistor" annotation (Placement(
+        transformation(
+        extent={{-10,-10},{10,10}},
         rotation=0,
         origin={10,50})));
   Buildings.Electrical.AC.OnePhase.Sources.FixedVoltage
@@ -16,29 +16,29 @@ model ParallelLoads
         origin={-70,10})));
   Modelica.Blocks.Sources.Ramp load_y(duration=0.5, startTime=0.2)
     annotation (Placement(transformation(extent={{60,0},{40,20}})));
-  Buildings.Electrical.AC.OnePhase.Loads.InductiveLoadP
-                               RL(P_nominal=-1e3)
-    "Constant inductor and resistor"
-    annotation (Placement(transformation(extent={{-10,-10},{10,10}},
+  Buildings.Electrical.AC.OnePhase.Loads.Inductive RL(P_nominal=-1e3)
+    "Constant inductor and resistor" annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
         rotation=0,
         origin={10,30})));
-  Buildings.Electrical.AC.OnePhase.Loads.CapacitiveLoadP varRC(              mode=
-        Buildings.Electrical.Types.Assumption.VariableZ_y_input, P_nominal=-1e3)
-    "Variable conductor and resistor"
-    annotation (Placement(transformation(extent={{-10,-10},{10,10}},
+  Buildings.Electrical.AC.OnePhase.Loads.Capacitive varRC(mode=Buildings.Electrical.Types.Assumption.VariableZ_y_input,
+      P_nominal=-1e3) "Variable conductor and resistor" annotation (Placement(
+        transformation(
+        extent={{-10,-10},{10,10}},
         rotation=0,
         origin={10,10})));
-  Buildings.Electrical.AC.OnePhase.Loads.CapacitiveLoadP
-                                RC(               mode=Buildings.Electrical.Types.Assumption.FixedZ_steady_state,
-      P_nominal=-1e3) "Constant conductor and resistor"
-    annotation (Placement(transformation(extent={{-10,-10},{10,10}},
+  Buildings.Electrical.AC.OnePhase.Loads.Capacitive RC(mode=Buildings.Electrical.Types.Assumption.FixedZ_steady_state,
+      P_nominal=-1e3) "Constant conductor and resistor" annotation (Placement(
+        transformation(
+        extent={{-10,-10},{10,10}},
         rotation=0,
         origin={10,-10})));
-  Buildings.Electrical.AC.OnePhase.Loads.ResistiveLoadP
-                       R(P_nominal=-1e3, linear=true,
+  Buildings.Electrical.AC.OnePhase.Loads.Resistive R(
+    P_nominal=-1e3,
+    linear=true,
     mode=Buildings.Electrical.Types.Assumption.FixedZ_steady_state)
-    "Resistive load"
-    annotation (Placement(transformation(extent={{-10,-10},{10,10}},
+    "Resistive load" annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
         rotation=0,
         origin={10,-30})));
   Modelica.Blocks.Sources.Ramp load_P(

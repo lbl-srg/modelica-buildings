@@ -8,15 +8,16 @@ model GeneratorLoadGrid "Generator with a load and grid connection"
     V=220,
     Phi=0.5235987755983)
     annotation (Placement(transformation(extent={{0,40},{20,60}})));
-  Sources.Generator                sou(f=60, Phi=0.17453292519943) "Gas turbine"
-                    annotation (Placement(transformation(
+  Sources.Generator                sou(f=60, Phi=0.17453292519943)
+    "Gas turbine"   annotation (Placement(transformation(
         extent={{-10,10},{10,-10}},
         rotation=0,
         origin={-30,-10})));
-  Loads.InductiveLoadP                               res(P_nominal=5e3,
+  Buildings.Electrical.AC.OnePhase.Loads.Inductive res(
+    P_nominal=5e3,
     mode=Buildings.Electrical.Types.Assumption.FixedZ_steady_state,
-    V_nominal=220) "Resistance"
-    annotation (Placement(transformation(extent={{-10,-10},{10,10}},
+    V_nominal=220) "Resistance" annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
         rotation=0,
         origin={30,-10})));
   Modelica.Blocks.Sources.Ramp ramp(

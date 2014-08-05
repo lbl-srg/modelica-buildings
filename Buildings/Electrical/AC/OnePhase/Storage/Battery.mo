@@ -31,8 +31,7 @@ protected
     etaCha=etaCha,
     etaDis=etaDis) "Charge model"
     annotation (Placement(transformation(extent={{40,50},{60,70}})));
-  Buildings.Electrical.AC.OnePhase.Loads.ResistiveLoadP
-                                          bat(
+  Buildings.Electrical.AC.OnePhase.Loads.Resistive bat(
     P_nominal=0,
     mode=Buildings.Electrical.Types.Assumption.VariableZ_P_input,
     V_nominal=V_nominal,

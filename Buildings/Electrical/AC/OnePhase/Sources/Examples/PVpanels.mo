@@ -1,7 +1,7 @@
 within Buildings.Electrical.AC.OnePhase.Sources.Examples;
 model PVpanels
   extends Modelica.Icons.Example;
-  Buildings.Electrical.AC.OnePhase.Loads.InductiveLoadP RL(mode=Types.Assumption.VariableZ_y_input,
+  Buildings.Electrical.AC.OnePhase.Loads.Inductive RL(mode=Types.Assumption.VariableZ_y_input,
       P_nominal=-2000)
     annotation (Placement(transformation(extent={{20,-50},{40,-30}})));
   Buildings.Electrical.AC.OnePhase.Sources.Grid grid(f=60, V=110)

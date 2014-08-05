@@ -1,6 +1,6 @@
 within Buildings.Electrical.AC.ThreePhasesBalanced.Loads;
 model InductiveLoadP "Model of an inductive and resistive load"
-  extends Buildings.Electrical.AC.OnePhase.Loads.InductiveLoadP(redeclare
+  extends Buildings.Electrical.AC.OnePhase.Loads.Inductive(     redeclare
       Interfaces.Terminal_n terminal, V_nominal=380);
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}),

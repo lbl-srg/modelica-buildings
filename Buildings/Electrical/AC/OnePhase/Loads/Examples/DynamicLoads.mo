@@ -8,8 +8,7 @@ model DynamicLoads "Example that illustrates the use of dynamic loads"
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-70,10})));
-  Buildings.Electrical.AC.OnePhase.Loads.CapacitiveLoadP
-                                             dynRC(
+  Buildings.Electrical.AC.OnePhase.Loads.Capacitive dynRC(
     pf=0.8,
     V_nominal=220,
     P_nominal=-2000,
@@ -17,8 +16,7 @@ model DynamicLoads "Example that illustrates the use of dynamic loads"
     annotation (Placement(transformation(extent={{0,-20},{20,0}})));
   Buildings.Electrical.AC.OnePhase.Lines.TwoPortResistance line(R=0.1)
     annotation (Placement(transformation(extent={{-40,0},{-20,20}})));
-  Buildings.Electrical.AC.OnePhase.Loads.InductiveLoadP
-                                             dynRL(
+  Buildings.Electrical.AC.OnePhase.Loads.Inductive dynRL(
     pf=0.8,
     V_nominal=220,
     P_nominal=-2000,

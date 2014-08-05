@@ -3,7 +3,7 @@ model ACSimpleGrid
   extends Modelica.Icons.Example;
   Network network
     annotation (Placement(transformation(extent={{-20,0},{0,20}})));
-  Loads.InductiveLoadP load(P_nominal=2500, mode=Types.Assumption.VariableZ_P_input)
+  Loads.Inductive load(P_nominal=2500, mode=Types.Assumption.VariableZ_P_input)
     annotation (Placement(transformation(extent={{20,20},{40,40}})));
   Sources.FixedVoltage source(
     f=50,

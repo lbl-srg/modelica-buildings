@@ -1,5 +1,6 @@
 within Buildings.Electrical.AC.ThreePhasesUnbalanced.Sensors.BaseClasses;
-model GeneralizedProbe "Partial model of a generalized three phases probe"
+partial model GeneralizedProbe
+  "Partial model of a generalized three phases probe"
   extends Icons.GeneralizedProbe;
   parameter Modelica.SIunits.Voltage V_nominal(min=0, start=480) = 480
     "RMS Nominal voltage (V_nominal >= 0)";

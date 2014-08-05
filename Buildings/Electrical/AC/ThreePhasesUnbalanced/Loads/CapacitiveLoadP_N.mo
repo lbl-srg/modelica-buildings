@@ -1,9 +1,9 @@
 within Buildings.Electrical.AC.ThreePhasesUnbalanced.Loads;
 model CapacitiveLoadP_N
   extends BaseClasses.PartialLoadN(
-  redeclare Buildings.Electrical.AC.OnePhase.Loads.CapacitiveLoadP load1(pf=pf),
-  redeclare Buildings.Electrical.AC.OnePhase.Loads.CapacitiveLoadP load2(pf=pf),
-  redeclare Buildings.Electrical.AC.OnePhase.Loads.CapacitiveLoadP load3(pf=pf));
+    redeclare Buildings.Electrical.AC.OnePhase.Loads.Capacitive load1(pf=pf),
+    redeclare Buildings.Electrical.AC.OnePhase.Loads.Capacitive load2(pf=pf),
+    redeclare Buildings.Electrical.AC.OnePhase.Loads.Capacitive load3(pf=pf));
   parameter Real pf(min=0, max=1) = 0.8 "Power factor"  annotation(Dialog(group="Nominal conditions"));
   annotation (Icon(graphics={
         Rectangle(

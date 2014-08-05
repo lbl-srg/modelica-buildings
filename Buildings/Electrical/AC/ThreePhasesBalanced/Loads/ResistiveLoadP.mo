@@ -1,6 +1,6 @@
 within Buildings.Electrical.AC.ThreePhasesBalanced.Loads;
 model ResistiveLoadP "Model of a resistive load"
-  extends Buildings.Electrical.AC.OnePhase.Loads.ResistiveLoadP(redeclare
+  extends Buildings.Electrical.AC.OnePhase.Loads.Resistive(     redeclare
       Interfaces.Terminal_n terminal, V_nominal=380);
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
             {100,100}}), graphics={Rectangle(extent={{-100,100},{100,-100}},

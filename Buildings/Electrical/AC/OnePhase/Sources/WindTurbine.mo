@@ -8,8 +8,9 @@ model WindTurbine
     annotation (Dialog(group="AC-Conversion"));
   parameter Real eta_DCAC(min=0, max=1) = 0.9 "Efficiency of DC/AC conversion"
     annotation (Dialog(group="AC-Conversion"));
-  replaceable Buildings.Electrical.AC.OnePhase.Loads.CapacitiveLoadP load(mode=Buildings.Electrical.Types.Assumption.VariableZ_P_input,
-      pf=pf) annotation (Placement(transformation(extent={{12,-10},{32,10}})));
+  replaceable Buildings.Electrical.AC.OnePhase.Loads.Capacitive load(mode=
+        Buildings.Electrical.Types.Assumption.VariableZ_P_input, pf=pf)
+    annotation (Placement(transformation(extent={{12,-10},{32,10}})));
   Modelica.Blocks.Math.Gain gain_DCAC(k=eta_DCAC) annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
