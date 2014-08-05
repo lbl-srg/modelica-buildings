@@ -4,7 +4,8 @@ model TwoPortRL
   //extends Modelica.Electrical.Analog.Interfaces.ConditionalHeatPort(T = T_ref);
   parameter Modelica.SIunits.Resistance R(start=1)
     "Resistance at temperature T_ref" annotation(Evaluate=true);
-  parameter Modelica.SIunits.Temperature T_ref = 298.15 "Reference temperature" annotation(Evaluate=true);
+  parameter Modelica.SIunits.Temperature T_ref = 298.15 "Reference temperature"
+                                                                                annotation(Evaluate=true);
   parameter Modelica.SIunits.Temperature M = 507.65
     "Temperature constant (R_actual = R*(M + T_heatPort)/(M + T_ref))" annotation(Evaluate=true);
   parameter Modelica.SIunits.Capacitance C(start=0) "Capacity";

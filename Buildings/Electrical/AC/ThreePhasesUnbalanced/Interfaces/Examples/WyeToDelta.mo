@@ -15,8 +15,8 @@ model WyeToDelta
     PlugPhase1=true,
     PlugPhase2=true)
     annotation (Placement(transformation(extent={{40,0},{60,20}})));
-  Buildings.Electrical.AC.ThreePhasesUnbalanced.Sensors.ProbeWye probe_Y(PerUnit
-      =false, V_nominal=480)
+  Buildings.Electrical.AC.ThreePhasesUnbalanced.Sensors.ProbeWye probe_Y(PerUnit=
+       false, V_nominal=480)
     annotation (Placement(transformation(extent={{-50,20},{-30,40}})));
   Buildings.Electrical.AC.ThreePhasesUnbalanced.Sensors.ProbeWye probeD(PerUnit=
         false, V_nominal=480)

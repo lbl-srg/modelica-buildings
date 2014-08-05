@@ -6,8 +6,8 @@ package Examples "Package with example models"
 annotation (preferredView="info", Documentation(info="<html>
 <p>
 This package contains examples for the use of models that can be found in
-<a href=\"modelica://Buildings.Electrical.AC.AC1ph.Sensors\">
-Buildings.Electrical.AC.AC1ph.Sensors</a>.
+<a href=\"modelica://Buildings.Electrical.AC.OnePhase.Sensors\">
+Buildings.Electrical.AC.OnePhase.Sensors</a>.
 </p>
 </html>"));
 end Examples;

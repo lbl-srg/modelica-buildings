@@ -10,7 +10,8 @@ model ACDCConverter "AC DC converter"
   // fixme: add example. Consider adding a constant loss therm for
   // parasitic losses
   parameter Real conversionFactor "Ratio of DC voltage / QS rms voltage";
-  parameter Real eta(min=0, max=1) "Converter efficiency, pLoss = (1-eta) * pDC";
+  parameter Real eta(min=0, max=1)
+    "Converter efficiency, pLoss = (1-eta) * pDC";
   Modelica.SIunits.Power LossPower "Loss power";
   parameter Boolean ground_AC = false "Connect AC side of converter to ground" annotation(Evaluate=true, Dialog(tab = "Ground", group="AC side"));
   parameter Boolean ground_DC = true "Connect DC side of converter to ground" annotation(Evaluate=true, Dialog(tab = "Ground", group="DC side"));
