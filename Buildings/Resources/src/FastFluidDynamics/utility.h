@@ -29,11 +29,6 @@
 #include "geometry.h"
 #endif
 
-#ifndef _MODELICAUTILITIES_H
-#define _MODELICAUTILITIES_H
-#include "ModelicaUtilities.h"
-#endif
-
 
 FILE *file_log;
 
