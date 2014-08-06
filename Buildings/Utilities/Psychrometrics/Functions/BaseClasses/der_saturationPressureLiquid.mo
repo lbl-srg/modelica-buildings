@@ -4,11 +4,11 @@ function der_saturationPressureLiquid
   extends Modelica.Icons.Function;
   input Modelica.SIunits.Temperature Tsat "Saturation temperature";
   input Real dTsat(unit="K/s") "Saturation temperature derivative";
-  output Real psat_der(unit="Pa/s") "Saturation pressure";
+  output Real psat_der(unit="Pa/s") "Differential of saturation pressure";
 
 algorithm
   psat_der:=611.657*Modelica.Math.exp(17.2799 - 4102.99
-            /(Tsat - 35.719))*4102.99*dTsat/(Tsat - 35.719)/(Tsat - 35.719);
+            /(Tsat - 35.719))*4102.99*dTsat/(Tsat - 35.719)^2;
 
   annotation(Inline=false,
     smoothOrder=5,

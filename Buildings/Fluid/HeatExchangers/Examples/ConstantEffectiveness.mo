@@ -5,8 +5,8 @@ model ConstantEffectiveness
 
  package Medium1 = Buildings.Media.ConstantPropertyLiquidWater;
  package Medium2 = Buildings.Media.GasesPTDecoupled.MoistAirUnsaturated;
-  Buildings.Fluid.Sources.Boundary_pT sin_2(                       redeclare
-      package Medium = Medium2,
+  Buildings.Fluid.Sources.Boundary_pT sin_2(
+    redeclare package Medium = Medium2,
     use_p_in=true,
     nPorts=1,
     T=273.15 + 10,
@@ -19,8 +19,8 @@ model ConstantEffectiveness
     startTime=50)
                  annotation (Placement(transformation(extent={{-20,-50},{0,-30}},
           rotation=0)));
-  Buildings.Fluid.Sources.Boundary_pT sou_2(                       redeclare
-      package Medium = Medium2, T=273.15 + 5,
+  Buildings.Fluid.Sources.Boundary_pT sou_2(
+    redeclare package Medium = Medium2, T=273.15 + 5,
     use_p_in=true,
     use_T_in=true,
     nPorts=1)             annotation (Placement(transformation(extent={{40,-70},
@@ -37,8 +37,8 @@ model ConstantEffectiveness
     Modelica.Blocks.Sources.Constant POut(k=101325)
       annotation (Placement(transformation(extent={{-100,-2},{-80,18}},
           rotation=0)));
-  Buildings.Fluid.Sources.Boundary_pT sin_1(                       redeclare
-      package Medium = Medium1,
+  Buildings.Fluid.Sources.Boundary_pT sin_1(
+    redeclare package Medium = Medium1,
     use_p_in=true,
     nPorts=1,
     p=300000,
@@ -51,9 +51,9 @@ model ConstantEffectiveness
     use_T_in=true,
     nPorts=1)             annotation (Placement(transformation(extent={{-60,36},
             {-40,56}}, rotation=0)));
-  Buildings.Fluid.HeatExchangers.ConstantEffectiveness hex(redeclare package
-      Medium1 =
-        Medium1, redeclare package Medium2 = Medium2,
+  Buildings.Fluid.HeatExchangers.ConstantEffectiveness hex(
+    redeclare package Medium1 = Medium1,
+    redeclare package Medium2 = Medium2,
     show_T=true,
     m1_flow_nominal=5,
     m2_flow_nominal=5,

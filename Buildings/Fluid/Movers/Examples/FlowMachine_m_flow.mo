@@ -7,11 +7,13 @@ model FlowMachine_m_flow
     redeclare Buildings.Fluid.Movers.FlowMachine_m_flow floMacSta(
       redeclare package Medium = Medium,
       m_flow_nominal=m_flow_nominal,
-      filteredSpeed=false),
+      filteredSpeed=false,
+      energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial),
     redeclare Buildings.Fluid.Movers.FlowMachine_m_flow floMacDyn(
       redeclare package Medium = Medium,
       m_flow_nominal=m_flow_nominal,
-      filteredSpeed=false));
+      filteredSpeed=false,
+      energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial));
 
 equation
   connect(gain.y, floMacSta.m_flow_in) annotation (Line(
