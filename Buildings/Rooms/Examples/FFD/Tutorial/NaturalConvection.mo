@@ -38,7 +38,7 @@ model NaturalConvection "Tutorial for Natural Convection case"
    each A=1*1,
    til={Buildings.HeatTransfer.Types.Tilt.Wall,Buildings.HeatTransfer.Types.Tilt.Wall,
         Buildings.HeatTransfer.Types.Tilt.Wall,Buildings.HeatTransfer.Types.Tilt.Wall,
-        Buildings.HeatTransfer.Types.Tilt.Floor,Buildings.HeatTransfer.Types.Tilt.Ceiling},
+        Buildings.HeatTransfer.Types.Tilt.Ceiling,Buildings.HeatTransfer.Types.Tilt.Floor},
    each absIR=1e-5,
    each absSol=1e-5,
    boundaryCondition={Buildings.Rooms.Types.CFDBoundaryConditions.Temperature,
@@ -127,7 +127,7 @@ equation
       thickness=0.5,
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(extent={{-100,-180},{240,100}},
-          preserveAspectRatio=false)),
+          preserveAspectRatio=false), graphics),
           __Dymola_Commands(file =    "modelica://Buildings/Resources/Scripts/Dymola/Rooms/Examples/FFD/Tutorial/NaturalConvection.mos"
         "Simulate and plot"),
         experiment(StopTime=120),
