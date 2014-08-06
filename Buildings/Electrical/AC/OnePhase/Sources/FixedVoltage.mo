@@ -5,7 +5,7 @@ model FixedVoltage "Fixed 1 phase AC voltage source"
       terminal);
   parameter Modelica.SIunits.Frequency f(start=60) = 60
     "Frequency of the source";
-  parameter Modelica.SIunits.Voltage V(start=220) = 110
+  parameter Modelica.SIunits.Voltage V(start=120) = 120
     "RMS voltage of the source";
   parameter Modelica.SIunits.Angle Phi(start=0) = 0 "Phase shift of the source";
   Modelica.SIunits.Angle thetaRel;

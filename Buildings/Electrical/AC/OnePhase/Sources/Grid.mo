@@ -34,9 +34,11 @@ equation
   defaultComponentName="gri",
     Documentation(info="<html>
 <p>
-Model that can be used to connect to the electrical grid supply.
+Model that can be used to represent the electrical grid supply.
 </p>
 <p>
+The model has an output connector named <code>P</code> that
+contains information about the power supplied by the grid to the network.
 The convention is that <code>P.real</code> is positive if real power is
 consumed from the grid, and negative if it is fed into the grid.
 </p>
@@ -47,6 +49,10 @@ In US households, this is <i>120</i> Volts.
 </html>",
  revisions="<html>
 <ul>
+<li>
+August 5, 2014, by Marco Bonvini:<br/>
+Revised documentation.
+</li>
 <li>
 January 2, 2012, by Michael Wetter:<br/>
 First implementation.

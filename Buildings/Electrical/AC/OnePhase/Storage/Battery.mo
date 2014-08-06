@@ -138,11 +138,9 @@ Simple model of a battery.
 </p>
 <p>
 This model takes as an input the power that should be stored in the battery (if <i>P &gt; 0</i>)
-or that should be extracted from the battery.
-The model computes a fictitious conductance <i>G</i> such that
-<i>P = u &nbsp; i</i> and <i>i = u &nbsp; G,</i> where
-<i>u</i> is the voltage difference across the pins and
-<i>i</i> is the current at the positive pin.
+or that should be extracted from the battery. This model has a one phase AC connector
+and takes into account the efficiency of the conversion 
+between DC and AC <i>&eta;<sub>DCAC</sub></i>.
 </p>
 <p>
 The output connector <code>SOC</code> is the state of charge of the battery.
@@ -156,6 +154,10 @@ and that the state of charge remains between zero and one.
 </html>",
         revisions="<html>
 <ul>
+<li>
+August 5, 2014, by Marco Bonvini:<br/>
+Revised documentation.
+</li>
 <li>
 January 8, 2013, by Michael Wetter:<br/>
 First implementation.

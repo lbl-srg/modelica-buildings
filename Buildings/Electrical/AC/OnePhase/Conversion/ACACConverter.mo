@@ -7,12 +7,10 @@ model ACACConverter "AC AC converter single phase systems"
           PhaseSystem_n, i[:](start = zeros(PhaseSystem_n.n), stateSelect = StateSelect.prefer)),
     redeclare Interfaces.Terminal_p terminal_p(redeclare package PhaseSystem =
           PhaseSystem_p, i[:](start = zeros(PhaseSystem_p.n), stateSelect = StateSelect.prefer)));
-  // fixme: add example. Consider adding a constant loss therm for
-  // parasitic losses
   parameter Real conversionFactor
     "Ratio of QS rms voltage on side 2 / QS rms voltage on side 1";
   parameter Real eta(min=0, max=1)
-    "Converter efficiency, pLoss = (1-eta) * 'abs'(v2QS)";
+    "Converter efficiency, pLoss = (1-eta) * Ptr";
   Modelica.SIunits.Power LossPower[2] "Loss power";
   parameter Boolean ground_1 = false "Connect side 1 of converter to ground" annotation(Evaluate=true,Dialog(tab = "Ground", group="side 1"));
   parameter Boolean ground_2 = true "Connect side 2 of converter to ground" annotation(Evaluate=true, Dialog(tab = "Ground", group="side 2"));
@@ -24,15 +22,7 @@ equation
   // Ideal transformation
   terminal_p.v = conversionFactor*terminal_n.v;
 
-  /* Easier way to look at the next expression 
-  if P_p[1]<=0 then
-    terminal_p.i[1] = terminal_n.i[1]/conversionFactor/(eta-2);
-    terminal_p.i[2] = terminal_n.i[2]/conversionFactor/(eta-2);
-  else
-    terminal_p.i[1] = terminal_n.i[1]/conversionFactor*(eta-2);
-    terminal_p.i[2] = terminal_n.i[2]/conversionFactor*(eta-2);
-  end if;
-  */
+  // Power loss term
   terminal_p.i[1] = terminal_n.i[1]/conversionFactor*Buildings.Utilities.Math.Functions.spliceFunction(eta-2, 1/(eta-2), P_p[1], deltax=0.1);
   terminal_p.i[2] = terminal_n.i[2]/conversionFactor*Buildings.Utilities.Math.Functions.spliceFunction(eta-2, 1/(eta-2), P_p[1], deltax=0.1);
   LossPower = P_p + P_n;
@@ -125,14 +115,32 @@ equation
           smooth=Smooth.Bezier)}),
     Documentation(info="<html>
 <p>
-This is an AC AC converter, based on a power balance between both QS circuit sides.
-The paramater <i>conversionFactor</i> defines the ratio between averaged the QS rms voltages.
-The loss of the converter is proportional to the power transmitted at the second circuit side.
+This is an AC AC converter, based on a power balance between both circuit sides.
+The paramater <i>conversionFactor</i> defines the ratio between the RMS voltages
+</p>
+
+<p align=\"center\" style=\"font-style:italic;\">
+V<sub>2</sub> = conversionFactor * V<sub>1</sub>
+</p>
+
+<p>
+where <i>V<sub>1</sub></i> and <i>V<sub>2</sub></i> are the RMS voltages
+at the primary and secondary sides of the transformer (connector N and P 
+respectively).
+</p>
+
+<p>
+The loss of the converter is proportional to the power transmitted.
 The parameter <code>eps</code> is the efficiency of the transfer.
 The loss is computed as
-<i>P<sub>loss</sub> = (1-&eta;) |P<sub>DC</sub>|</i>,
-where <i>|P<sub>DC</sub>|</i> is the power transmitted on the second circuit side.
-Furthermore, reactive power on both QS side are set to 0.
+</p>
+<p align=\"center\" style=\"font-style:italic;\">
+P<sub>loss</sub> = (1-&eta;) P<sub>tr</sub>
+</p>
+<p>
+where <i>P<sub>tr</sub></i> is the power transmitted. The model is bi-directional
+and the power can flow from both the primary to the secondary and vice-versa.
+Furthermore, reactive power on both side are set to 0.
 </p>
 <h4>Note:</h4>
 <p>
@@ -142,6 +150,10 @@ Modelica.Electrical.QuasiStationary.SinglePhase.Utilities.IdealACDCConverter</a>
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+August 5, 2014, by Marco Bonvini:<br/>
+Revised documentation.
+</li>
 <li>
 June 9, 2014, by Marco Bonvini:<br/>
 Revised implementation and added <code>stateSelect</code> statement to use

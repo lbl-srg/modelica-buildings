@@ -1,5 +1,5 @@
 within Buildings.Electrical.AC.OnePhase.Sources;
-model WindTurbine
+model WindTurbine "Simple wind turbine model"
   import Buildings;
   extends Buildings.Electrical.Interfaces.PartialWindTurbine(redeclare package
       PhaseSystem = Buildings.Electrical.PhaseSystems.OnePhase, redeclare
@@ -65,5 +65,10 @@ Below and above these wind speeds, the generated power is zero.
 <p align=\"center\">
 <img alt=\"alt-image\" src=\"modelica://Buildings/Resources/Images/Electrical/DC/Sources/WindTurbine_Table.png\"/>
 </p>
+</html>", revisions="<html>
+<li>
+August 5, 2014, by Marco Bonvini:<br/>
+Revised documentation.
+</li>
 </html>"));
 end WindTurbine;

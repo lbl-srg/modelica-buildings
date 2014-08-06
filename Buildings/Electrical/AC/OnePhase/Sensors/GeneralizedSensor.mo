@@ -55,6 +55,10 @@ The two components of the power <i>S</i> are the active and reactive power.
 </html>", revisions="<html>
 <ul>
 <li>
+August 5, 2014, by Marco Bonvini:<br/>
+Revised documentation.
+</li>
+<li>
 July 24, 2013, by Michael Wetter:<br/>
 First implementation.
 </li>

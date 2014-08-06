@@ -1,5 +1,5 @@
 within Buildings.Electrical.AC.OnePhase.Conversion;
-model ACACTransformer "AC AC transformer for single phase systems"
+model ACACTransformer "AC AC transformer simplified equivalent circuit"
   extends Buildings.Electrical.Interfaces.PartialConversion(
     redeclare package PhaseSystem_p = PhaseSystems.OnePhase,
     redeclare package PhaseSystem_n = PhaseSystems.OnePhase,
@@ -51,7 +51,6 @@ protected
   Modelica.SIunits.Power Sn = sqrt(P_n[1]^2 + P_n[2]^2)
     "Apparent power terminal n";
 equation
-  //assert(sqrt(P_p[1]^2 + P_p[2]^2) <= VABase*1.01,"The load power of transformer is higher than VABase");
 
   // Efficiency
   eta = Buildings.Utilities.Math.Functions.smoothMin(
@@ -249,23 +248,31 @@ equation
           textString="L")}),
     Documentation(info="<html>
 <p>
-This is an AC AC converter, based on a power balance between both QS circuit sides.
-The paramater <i>conversionFactor</i> defines the ratio between averaged the QS rms voltages.
-The loss of the converter is proportional to the power transmitted at the second circuit side.
-The parameter <code>eps</code> is the efficiency of the transfer.
-The loss is computed as
-<i>P<sub>loss</sub> = (1-&eta;) |P<sub>DC</sub>|</i>,
-where <i>|P<sub>DC</sub>|</i> is the power transmitted on the second circuit side.
-Furthermore, reactive power on both QS side are set to 0.
+This is a simplified equivalent transformer model.
+The model accounts for winding joule losses and leakage reactances 
+that are represented by a serie of a resistance <i>R</i> and an
+inductance <i>L</i>. The resistance and the inductance represent both the 
+effects of the secondary and primary side of the transformer.
 </p>
-<h4>Note:</h4>
 <p>
-This model is derived from 
-<a href=\"modelica://Modelica.Electrical.QuasiStationary.SinglePhase.Utilities.IdealACDCConverter\">
-Modelica.Electrical.QuasiStationary.SinglePhase.Utilities.IdealACDCConverter</a>.
+The model is parametrized using the following parameters
+</p>
+<ul>
+<li><code>Vhigh</code> - RMS voltage at primary side,</li>
+<li><code>Vlow</code> - RMS voltage at secondary side,</li>
+<li><code>VAbase</code> - apparent nominal power of the transformer,</li>
+<li><code>XoverR</code> - ratio between reactance and resistance, and</li>
+<li><code>Zperc</code> - the short circuit impedance.</li>
+</ul>
+<p>
+The model given the nominal conditions computes the values of teh resistance and the inductance.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+August 5, 2014, by Marco Bonvini:<br/>
+Revised documentation.
+</li>
 <li>June 17, 2014, by Marco Bonvini:<br/>
 Adde parameter <code>phi_1</code> and <code>phi_2</code> that are
 used during initialization to specify the angle of the voltage phasor.

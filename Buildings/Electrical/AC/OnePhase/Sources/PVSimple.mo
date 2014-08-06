@@ -1,5 +1,5 @@
 within Buildings.Electrical.AC.OnePhase.Sources;
-model PVSimple
+model PVSimple "Simple PV model"
   import Buildings;
   extends Buildings.Electrical.Interfaces.PartialAcDcParameters;
   extends Buildings.Electrical.Interfaces.PartialPV(redeclare package
@@ -61,5 +61,10 @@ The model takes into account the location and the orientation of the PV panel, s
 This active power is equal to <i>P</i>, while the reactive power is equal to <i>Q = P &nbsp; tan(acos(pf)) </i>
 where <i>pf</i> is the power factor.
 </p>
+</html>", revisions="<html>
+<li>
+August 5, 2014, by Marco Bonvini:<br/>
+Revised documentation.
+</li>
 </html>"));
 end PVSimple;

@@ -31,6 +31,10 @@ model PVSimpleOriented "Simple PV model with orientation"
     Documentation(revisions="<html>
 <ul>
 <li>
+August 5, 2014, by Marco Bonvini:<br/>
+Revised documentation.
+</li>
+<li>
 October 31, 2013, by Marco Bonvini:<br/>
 First implementation.
 </li>

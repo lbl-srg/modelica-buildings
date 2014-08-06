@@ -1,6 +1,5 @@
 within Buildings.Electrical.AC.OnePhase.Conversion;
-model ACACTransformerFull
-  "AC AC transformer for single phase systems with impedances on both primary and secondary side"
+model ACACTransformerFull "AC AC transformer detailed equivalent circuit"
   extends Buildings.Electrical.Interfaces.PartialConversion(
     redeclare package PhaseSystem_p = PhaseSystems.OnePhase,
     redeclare package PhaseSystem_n = PhaseSystems.OnePhase,
@@ -9,9 +8,9 @@ model ACACTransformerFull
     redeclare Interfaces.Terminal_p terminal_p(redeclare package PhaseSystem =
           PhaseSystem_p, i[:](start = zeros(PhaseSystem_p.n), stateSelect = StateSelect.prefer)));
   parameter Modelica.SIunits.Voltage VHigh
-    "Rms voltage on side 1 of the transformer (primary side)";
+    "RMS voltage on side 1 of the transformer (primary side)";
   parameter Modelica.SIunits.Voltage VLow
-    "Rms voltage on side 2 of the transformer (secondary side)";
+    "RMS voltage on side 2 of the transformer (secondary side)";
   parameter Modelica.SIunits.ApparentPower VABase
     "Nominal power of the transformer";
   parameter Modelica.SIunits.Frequency f(start=60) "Nominal frequency";
@@ -366,23 +365,41 @@ equation
           textString="Lm")}),
     Documentation(info="<html>
 <p>
-This is an AC AC converter, based on a power balance between both QS circuit sides.
-The paramater <i>conversionFactor</i> defines the ratio between averaged the QS rms voltages.
-The loss of the converter is proportional to the power transmitted at the second circuit side.
-The parameter <code>eps</code> is the efficiency of the transfer.
-The loss is computed as
-<i>P<sub>loss</sub> = (1-&eta;) |P<sub>DC</sub>|</i>,
-where <i>|P<sub>DC</sub>|</i> is the power transmitted on the second circuit side.
-Furthermore, reactive power on both QS side are set to 0.
+This is a detailed transformer model that takes into accounts the winding joule losses, 
+and the leakage reactances on both primary and secondary side. The model also describe
+the core or iron losses and the losses due to magnetization effects.
 </p>
-<h4>Note:</h4>
 <p>
-This model is derived from 
-<a href=\"modelica://Modelica.Electrical.QuasiStationary.SinglePhase.Utilities.IdealACDCConverter\">
-Modelica.Electrical.QuasiStationary.SinglePhase.Utilities.IdealACDCConverter</a>.
+The losses are represented by a series of resistances <i>R<sub>1</sub></i>, <i>R<sub>2</sub></i>,
+<i>R<sub>m</sub></i> and inductances <i>L<sub>1</sub></i>, <i>L<sub>2</sub></i>, and 
+<i>L<sub>m</sub></i>.
+</p>
+<p>
+The model is parametrized using the following parameters
+</p>
+<ul>
+<li><code>Vhigh</code> - RMS voltage at primary side,</li>
+<li><code>Vlow</code> - RMS voltage at secondary side,</li>
+<li><code>VAbase</code> - apparent nominal power of the transformer,</li>
+<li><code>f</code> - frequency,</li>
+<li><code>R_1, L_1</code> - resistance and inductance at primary side (per unit),</li>
+<li><code>R_2, L_2</code> - resistance and inductance at secondary side (per unit), and</li>
+<li><code>R_m, L_m</code> - resistance and inductance for magnetization effects (per unit).</li>
+</ul>
+<p>
+The model given the nominal conditions computes the values of the nominal impedances
+at both primary and secondary side. Given these values the per unit values are transformed into
+the actual values of the resistances and inductancs.
+</p>
+<p>
+The magnetization losses can be enabled or disabled using the boolean flag <code>magEffects</code>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+August 5, 2014, by Marco Bonvini:<br/>
+Revised documentation.
+</li>
 <li>June 17, 2014, by Marco Bonvini:<br/>
 Adde parameter <code>phi_1</code> and <code>phi_2</code> that are
 used during initialization to specify the angle of the voltage phasor.

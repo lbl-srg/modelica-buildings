@@ -1,7 +1,5 @@
 within Buildings.Electrical.AC.OnePhase.Sources;
 model Generator "Model of a generator"
-  // Because the turbine produces power, we use the variable capacitor instead of
-  // the inductor as a base class. fixme: check if this is correct
   extends Buildings.Electrical.Interfaces.PartialSource(redeclare package
       PhaseSystem = PhaseSystems.OnePhase, redeclare Interfaces.Terminal_p
       terminal);
@@ -68,7 +66,8 @@ equation
           extent={{-100,-100},{100,100}}), graphics),
     Documentation(info="<html>
 <p>
-Model of an inductive generator.
+Model of a generator that produces the real power
+<code>P</code> with a given phase shift <code>Phi</code>.
 </p>
 <p>
 This model must be used with 
@@ -82,6 +81,10 @@ angle of the voltage.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+August 5, 2014, by Marco Bonvini:<br/>
+Revised documentation.
+</li>
 <li>
 January 4, 2012, by Michael Wetter:<br/>
 First implementation.

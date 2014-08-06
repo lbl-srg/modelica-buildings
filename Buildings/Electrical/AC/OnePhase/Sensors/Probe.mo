@@ -1,5 +1,5 @@
 within Buildings.Electrical.AC.OnePhase.Sensors;
-model Probe "Model of a probe that measures voltage magnitude and angle"
+model Probe "Model of a probe that measures RMS voltage and angle"
   extends Icons.GeneralizedProbe;
   parameter Modelica.SIunits.Voltage V_nominal(min=0, start=120) = 120
     "Nominal voltage (V_nominal >= 0)";
@@ -41,8 +41,15 @@ equation
 This model represents a probe that measures the RMS voltage and the angle
 of the voltage phasor (in degrees) at a given point.
 </p>
+<p>
+Given a reference voltage the model computes also the voltage in per unit.
+</p>
 </html>", revisions="<html>
 <ul>
+<li>
+August 5, 2014, by Marco Bonvini:<br/>
+Revised documentation.
+</li>
 <li>
 June 6, 2014, by Marco Bonvini:<br/>
 First implementation.
