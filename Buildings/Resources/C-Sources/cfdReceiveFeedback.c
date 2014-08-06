@@ -32,7 +32,7 @@ int cfdReceiveFeedback( ) {
     flag = 0;
   }
   else {
-    ModelicaMessage("stopFFD(): Could not stop the FFD simulation in required time.\n");
+    ModelicaError("Error: Could not stop the FFD simulation in required time.\n");
     flag = 1;
   }
 

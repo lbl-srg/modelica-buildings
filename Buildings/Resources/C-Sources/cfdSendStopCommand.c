@@ -19,8 +19,13 @@
 ///\return No return needed
 ///////////////////////////////////////////////////////////////////////////////
 void cfdSendStopCommand( ) {
+  int verbose = 0;
+
   cosim->para->flag = 0;
-  sprintf(msg, "sendStopCommand( ): Set cosim->para->flag = %d\n", 
+  
+  if(verbose==1) {
+    sprintf(msg, "sendStopCommand( ): Set cosim->para->flag = %d\n", 
          cosim->para->flag);
-  ModelicaMessage(msg);
+    ModelicaMessage(msg);
+  }
 } // End of cfdSendStopCommand 

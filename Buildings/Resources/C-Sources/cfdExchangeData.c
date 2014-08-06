@@ -29,8 +29,6 @@ int cfdExchangeData(double t0, double dt, double *u, int nU, int nY,
                  double *t1, double *y) {
   int i, j, k;
   int verbose = 0;
-  sprintf(msg,"---------------------------------------------------\n");
-  ModelicaMessage(msg);
 
   /*--------------------------------------------------------------------------
   | Write data to CFD
@@ -42,9 +40,7 @@ int cfdExchangeData(double t0, double dt, double *u, int nU, int nY,
   // If previous data hasn't been read, wait
   while(cosim->modelica->flag==1) {
     if(cosim->para->ffdError==1) {
-      sprintf(msg,"CFD exited with error");
-      ModelicaMessage(msg);
-      return -1;
+      ModelicaError("Error: CFD exited with error");
     }
     else {
       if(verbose==1) {
@@ -55,21 +51,15 @@ int cfdExchangeData(double t0, double dt, double *u, int nU, int nY,
       Sleep(1000);
     }
   }
-
-  if(verbose==1) {
-    sprintf(msg, "cfdExchangeData(): Start to write data");
-    ModelicaMessage(msg);
-  }
   
   cosim->modelica->t = (REAL) t0;
   cosim->modelica->dt = (REAL) dt;
 
-
-  sprintf(msg, "cfdExchangeData(): write data at %f with dt=%f\n", 
-         cosim->modelica->t, cosim->modelica->dt);
-  ModelicaMessage(msg);
-
   if(verbose==1) {
+    ModelicaMessage("cfdExchangeData(): Start to write data");
+    sprintf(msg, "cfdExchangeData(): write data at %f with dt=%f\n", 
+         cosim->modelica->t, cosim->modelica->dt);
+    ModelicaMessage(msg);
     sprintf(msg,"cfdExchangeData(): number of input variables nU=%d\n", nU);
     ModelicaMessage(msg);
     sprintf(msg,"cfdExchangeData(): number of output variables nY=%d\n", nY);
@@ -97,7 +87,8 @@ int cfdExchangeData(double t0, double dt, double *u, int nU, int nY,
         sprintf(msg, "shaConSig[%d] = %f, shaAbsRad[%d] = %f\n", 
                j, cosim->modelica->shaConSig[j],
                j, cosim->modelica->shaAbsRad[j]);
-        ModelicaMessage(msg);}
+        ModelicaMessage(msg);
+      }
     }
     i = i + 2*cosim->para->nConExtWin;
   }
@@ -143,7 +134,7 @@ int cfdExchangeData(double t0, double dt, double *u, int nU, int nY,
       if(verbose==1) {
         sprintf(msg, "XiPor[%d][%d] = %f\n", j, k, cosim->modelica->XiPor[j][k]);
         ModelicaMessage(msg);
-        }
+      }
     }
 
   i = i + cosim->para->nPorts*cosim->para->nXi;
@@ -165,17 +156,13 @@ int cfdExchangeData(double t0, double dt, double *u, int nU, int nY,
   /****************************************************************************
   | Copy data from CFD
   ****************************************************************************/
-  if(verbose==1) {
-    sprintf(msg, "Start to get cosim-ffd->flag.\n");
-    ModelicaMessage(msg);
-  }
+  if(verbose==1)
+    ModelicaMessage("Start to get cosim-ffd->flag.\n");
 
   // If the data is not ready or not updated, check again
   while(cosim->ffd->flag!=1) {
     if(cosim->para->ffdError==1) {
-      sprintf(msg, "CFD exited with error");
-      ModelicaMessage(msg);
-      return -1;
+      ModelicaError("Error: CFD exited with error");
     }
     else
       Sleep(1000);
@@ -185,55 +172,71 @@ int cfdExchangeData(double t0, double dt, double *u, int nU, int nY,
     sprintf(msg, "Start to get CFD Data: cosim->ffd->flag = %f\n", cosim->ffd->flag);
     ModelicaMessage(msg);
   }
+
   // Get the temperature/heat flux for solid surface
   for(i=0; i<cosim->para->nSur; i++) {
     y[i] = cosim->ffd->temHea[i];
-    sprintf(msg, "y[%d]=%f\n", i, y[i]);
-    ModelicaMessage(msg);
+    if(verbose==1) {
+      sprintf(msg, "y[%d]=%f\n", i, y[i]);
+      ModelicaMessage(msg);
+    }
   }
 
   // Get the averaged room temperature
   y[i] = cosim->ffd->TRoo;
-  sprintf(msg, "y[%d]=%f\n", i, y[i]);
-  ModelicaMessage(msg);
+  if(verbose==1) {
+    sprintf(msg, "y[%d]=%f\n", i, y[i]);
+    ModelicaMessage(msg);
+  }
   i++;
 
   // Get the temperature of shading device if there is a shading device
   if(cosim->para->sha==1) {
     for(j=0; j<cosim->para->nConExtWin; i++, j++) {
       y[i] = cosim->ffd->TSha[j];
-      sprintf(msg, "y[%d]=%f\n", i, y[i]);
-      ModelicaMessage(msg);
+      if(verbose==1) {
+        sprintf(msg, "y[%d]=%f\n", i, y[i]);
+        ModelicaMessage(msg);
+      }
     }
   }
 
   // Get the temperature fluid at the fluid ports
   for(j=0; j<cosim->para->nPorts; i++, j++) {
     y[i] = cosim->ffd->TPor[j];
-    sprintf(msg, "y[%d]=%f\n", i, y[i]);
-    ModelicaMessage(msg);
+    if(verbose==1) {
+      sprintf(msg, "y[%d]=%f\n", i, y[i]);
+      ModelicaMessage(msg);
+    }
   }
 
   // Get the mass fraction at fluid ports
   for(j=0; j<cosim->para->nPorts; j++)
     for(k=0; k<cosim->para->nXi; k++, i++) {
-       y[i] = cosim->ffd->XiPor[j][k];
-       sprintf(msg, "y[%d]=%f\n", i, y[i]);
-       ModelicaMessage(msg);
+      y[i] = cosim->ffd->XiPor[j][k];
+      if(verbose==1) {
+        sprintf(msg, "y[%d]=%f\n", i, y[i]);
+        ModelicaMessage(msg);
+      }
     }
+
   // Get the trace substance at fluid ports
   for(j=0; j<cosim->para->nPorts; j++)
     for(k=0; k<cosim->para->nC; k++, i++) {
-       y[i] = cosim->ffd->CPor[j][k];
-       sprintf(msg, "y[%d]=%f\n", i, y[i]);
-       ModelicaMessage(msg);
+      y[i] = cosim->ffd->CPor[j][k];
+      if(verbose==1) {
+        sprintf(msg, "y[%d]=%f\n", i, y[i]);
+        ModelicaMessage(msg);
+      }
     }
 
   // Get the sensor data
   for(j=0; j<cosim->para->nSen; j++, i++) {
     y[i] = cosim->ffd->senVal[j];
-    sprintf(msg, "y[%d]=%f\n", i, y[i]);
-    ModelicaMessage(msg);
+    if(verbose==1) {
+      sprintf(msg, "y[%d]=%f\n", i, y[i]);
+      ModelicaMessage(msg);
+    }
   }
 
   if(verbose==1) {
@@ -245,8 +248,6 @@ int cfdExchangeData(double t0, double dt, double *u, int nU, int nY,
 
   // Update the data status
   cosim->ffd->flag = 0;
-
   *t1 = cosim->ffd->t;
-
   return 0;
 } // End of cfdExchangeData()
