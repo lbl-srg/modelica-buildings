@@ -1,5 +1,5 @@
 within Buildings.Electrical.AC.OnePhase.Lines;
-model TwoPortResistance
+model TwoPortResistance "Model of a resistance with two electrical ports"
   extends
     Buildings.Electrical.Transmission.BaseClasses.PartialTwoPortResistance(
     redeclare package PhaseSystem_p = PhaseSystems.OnePhase,

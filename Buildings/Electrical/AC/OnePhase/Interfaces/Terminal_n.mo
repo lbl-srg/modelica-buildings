@@ -1,10 +1,10 @@
 within Buildings.Electrical.AC.OnePhase.Interfaces;
-connector Terminal_n "AC1ph terminal ('negative')"
+connector Terminal_n "Terminal n for AC one phase systems"
   extends Buildings.Electrical.Interfaces.Terminal(redeclare replaceable
       package PhaseSystem = Buildings.Electrical.PhaseSystems.OnePhase);
   annotation (defaultComponentName = "term_p",
   Documentation(info="<html>
-<p>Electric connector with a vector of 'pin's, positive.</p>
+<p>Electric connector for AC one phase systems.</p>
 </html>
 "),
   Icon(coordinateSystem(

@@ -1,5 +1,5 @@
 within Buildings.Electrical.AC.OnePhase.Sources;
-model FixedVoltage "Fixed 1 phase AC voltage source"
+model FixedVoltage "Fixed single phase AC voltage source"
   extends Buildings.Electrical.Interfaces.PartialSource(redeclare package
       PhaseSystem = PhaseSystems.OnePhase, redeclare Interfaces.Terminal_p
       terminal);

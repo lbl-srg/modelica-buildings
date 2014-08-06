@@ -3,7 +3,8 @@ package Interfaces "Package with interfaces for one phase AC systems"
   extends Modelica.Icons.InterfacesPackage;
 
 
-annotation (Documentation(info="<html>
+
+  annotation (Documentation(info="<html>
 <p>
 This package contains connectors that are used by the models in the 
 <a href=\"modelica://Buildings.Electrical.AC.OnePhase\">Buildings.Electrical.AC.OnePhase</a> package.

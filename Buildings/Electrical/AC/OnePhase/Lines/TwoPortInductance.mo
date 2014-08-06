@@ -1,5 +1,6 @@
 within Buildings.Electrical.AC.OnePhase.Lines;
 model TwoPortInductance
+  "Model of an inductive element with two electrical ports"
   extends
     Buildings.Electrical.Transmission.BaseClasses.PartialTwoPortInductance(
     redeclare package PhaseSystem_p = PhaseSystems.OnePhase,

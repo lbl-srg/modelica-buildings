@@ -1,5 +1,5 @@
 within Buildings.Electrical.AC.OnePhase.Lines;
-model Line
+model Line "Model of an electrical line"
   extends Buildings.Electrical.Transmission.BaseClasses.PartialLine(
     redeclare package PhaseSystem_p = PhaseSystems.OnePhase,
     redeclare package PhaseSystem_n = PhaseSystems.OnePhase,

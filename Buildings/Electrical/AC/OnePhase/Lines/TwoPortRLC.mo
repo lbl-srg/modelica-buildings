@@ -1,5 +1,5 @@
 within Buildings.Electrical.AC.OnePhase.Lines;
-model TwoPortRLC
+model TwoPortRLC "Model of an RLC element with two electrical ports"
   extends Buildings.Electrical.Transmission.BaseClasses.PartialTwoPortRLC(
     redeclare package PhaseSystem_p = PhaseSystems.OnePhase,
     redeclare package PhaseSystem_n = PhaseSystems.OnePhase,
