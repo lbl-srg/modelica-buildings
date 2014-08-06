@@ -1,30 +1,31 @@
 within Buildings.Electrical.AC.OnePhase.Loads.Examples;
-model VariableImpedance "Test with a variable impedance"
+model VariableImpedance
+  "Example that illustrates how using variable impedances"
   extends Modelica.Icons.Example;
-  Buildings.Electrical.AC.OnePhase.Sources.FixedVoltage V(f=60, V=110)
+  Buildings.Electrical.AC.OnePhase.Sources.FixedVoltage V "Voltage source"
            annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
   Buildings.Electrical.AC.OnePhase.Loads.Impedance Z_L(
     R=0,
     inductive=true,
-    L=1/(2*Modelica.Constants.pi*50),
+    L=1/(2*Modelica.Constants.pi*60),
     use_L_in=true,
-    LMin=1/(2*Modelica.Constants.pi*50),
-    LMax=2/(2*Modelica.Constants.pi*50))
+    LMin=1/(2*Modelica.Constants.pi*60),
+    LMax=2/(2*Modelica.Constants.pi*60)) "Impedance with variable L"
     annotation (Placement(transformation(extent={{-20,-60},{0,-40}})));
   Buildings.Electrical.AC.OnePhase.Loads.Impedance Z_C(
     R=0,
     inductive=false,
-    C=1/(2*Modelica.Constants.pi*50),
+    C=1/(2*Modelica.Constants.pi*60),
     use_C_in=true,
-    CMin=1/(2*Modelica.Constants.pi*50),
-    CMax=2/(2*Modelica.Constants.pi*50))
+    CMin=1/(2*Modelica.Constants.pi*60),
+    CMax=2/(2*Modelica.Constants.pi*60)) "Impedance with variable C"
     annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
   Buildings.Electrical.AC.OnePhase.Loads.Impedance Z_R(
     R=1,
     RMin=1,
     RMax=2,
     use_R_in=true,
-    L=0)
+    L=0) "Impedance with variable R"
     annotation (Placement(transformation(extent={{-20,40},{0,60}})));
   Modelica.Blocks.Sources.Ramp load(duration=0.5, startTime=0.2,
     height=1,
@@ -62,11 +63,13 @@ equation
   Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
             100}}),            graphics),
     __Dymola_Commands(file=
-          "modelica://Buildings/Resources/Scripts/Dymola/Electrical/AC/OnePhase/Loads/Examples/TestImpedance.mos"
+          "modelica://Buildings/Resources/Scripts/Dymola/Electrical/AC/OnePhase/Loads/Examples/TestVariableImpedance.mos"
         "Simulate and plot"),
     Documentation(info="<html>
-fixme: info section is missing
-
+<p>
+This model shows how to vary the resistance, 
+capacitance or inductance of an impedance model.
+</p>
 </html>", revisions="<html>
 fixme: revision section is missing
 

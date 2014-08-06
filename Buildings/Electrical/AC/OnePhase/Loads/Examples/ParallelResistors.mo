@@ -1,33 +1,26 @@
 within Buildings.Electrical.AC.OnePhase.Loads.Examples;
 model ParallelResistors
   "Example that illustrates the use of the load models at constant voltage"
-  import Buildings;
-  // fixme: In the whole package,
-  //   1. remove all "import Buildings; statements
-  //   2. add comments to all instances of models, parameters, ...
-  //   3. Correct indentations.
   extends Modelica.Icons.Example;
   Buildings.Electrical.AC.OnePhase.Sources.FixedVoltage
-                                                     source(f=60, V=110)
-    "Voltage source"        annotation (Placement(transformation(
+    source "Voltage source" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-70,10})));
   Modelica.Blocks.Sources.Ramp load(duration=0.5, startTime=0.2,
-    height=2000,
-    offset=-1000)
+    height=2400,
+    offset=-1200)
     annotation (Placement(transformation(extent={{40,0},{20,20}})));
   Buildings.Electrical.AC.OnePhase.Loads.Resistive R(
     mode=Buildings.Electrical.Types.Assumption.VariableZ_P_input,
-    V_nominal=220,
-    P_nominal=-1e3) "Resistive load" annotation (Placement(transformation(
+    P_nominal=-1e3) "Variable resistive load"
+                                     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-22,10})));
   Buildings.Electrical.AC.OnePhase.Loads.Resistive R1(
-    mode=Buildings.Electrical.Types.Assumption.FixedZ_steady_state,
-    V_nominal=220,
-    P_nominal=-1e3) "Resistive load" annotation (Placement(transformation(
+    mode=Buildings.Electrical.Types.Assumption.FixedZ_steady_state, P_nominal=-1.2e3)
+    "Fixed resistive load"           annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-22,-10})));
@@ -51,14 +44,12 @@ equation
                     graphics),
     Documentation(info="<html>
 <p>
-fixme: This info section is for a different model.
-
-This model illustrates the use of the load models.
-The first two lines are inductive loads, followed by two capacitive loads and a resistive load.
-At time equal to <i>1</i> second, all loads consume the same actual power as specified by the
-nominal condition. Between <i>t = 0...1</i>, the power is increased from zero to one.
-Consequently, the power factor is highest at <i>t=0</i> but decreases to its nominal value
-at <i>t=1</i> second.
+This model compares two resistive loads. Model <code>R</code> consumes/produce
+a variable amount of power, while model <code>R1</code> consumes a fixed power.
+</p>
+<p>
+At time <i>t=0</i> <code>R</code> and <code>R1</code> consumes the same amount of power
+while at <i>t=1</i> <code>R</code> produces the same power consumed by <code>R1</code>.
 </p>
 </html>",
     revisions="<html>

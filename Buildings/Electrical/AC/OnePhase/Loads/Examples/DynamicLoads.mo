@@ -3,24 +3,23 @@ model DynamicLoads "Example that illustrates the use of dynamic loads"
   import Buildings;
   extends Modelica.Icons.Example;
   Buildings.Electrical.AC.OnePhase.Sources.FixedVoltage
-                                                     source(f=60, V=110)
-    "Voltage source"        annotation (Placement(transformation(
+                                                     source "Voltage source"
+                            annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-70,10})));
   Buildings.Electrical.AC.OnePhase.Loads.Capacitive dynRC(
     pf=0.8,
-    V_nominal=220,
-    P_nominal=-2000,
-    mode=Buildings.Electrical.Types.Assumption.FixedZ_dynamic)
+    mode=Buildings.Electrical.Types.Assumption.FixedZ_dynamic,
+    P_nominal=-1200) "Dynamic RC load"
     annotation (Placement(transformation(extent={{0,-20},{20,0}})));
   Buildings.Electrical.AC.OnePhase.Lines.TwoPortResistance line(R=0.1)
+    "Line resistance"
     annotation (Placement(transformation(extent={{-40,0},{-20,20}})));
   Buildings.Electrical.AC.OnePhase.Loads.Inductive dynRL(
     pf=0.8,
-    V_nominal=220,
-    P_nominal=-2000,
-    mode=Buildings.Electrical.Types.Assumption.FixedZ_dynamic)
+    mode=Buildings.Electrical.Types.Assumption.FixedZ_dynamic,
+    P_nominal=-1200) "Dynamic RL load"
     annotation (Placement(transformation(extent={{0,10},{20,30}})));
 equation
   connect(source.terminal, line.terminal_n) annotation (Line(
@@ -40,14 +39,17 @@ equation
             100}}), graphics),
     Documentation(info="<html>
 <p>
-fixme: This info section is for a different model.
-
-This model illustrates the use of the load models.
-The first two lines are inductive loads, followed by two capacitive loads and a resistive load.
-At time equal to <i>1</i> second, all loads consume the same actual power as specified by the
-nominal condition. Between <i>t = 0...1</i>, the power is increased from zero to one.
-Consequently, the power factor is highest at <i>t=0</i> but decreases to its nominal value
-at <i>t=1</i> second.
+This model compares two dynamic load models that use the dynamic
+phasors.
+</p>
+<p>
+The loads at nominla conditions should consume an active power equal
+to 1.2 kW. Because of the line resistance the voltage at the load is 
+attenuated and they consume less power.
+</p>
+<p>
+As expected the real part of the current vector drawn by the loads are
+the same while the complex parts have opposite signs.
 </p>
 </html>",
     revisions="<html>
