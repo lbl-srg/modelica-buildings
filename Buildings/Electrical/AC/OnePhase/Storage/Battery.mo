@@ -40,7 +40,7 @@ protected
 public
   Modelica.Blocks.Math.Gain gain(k=-1)
     annotation (Placement(transformation(extent={{22,10},{42,30}})));
-  parameter Modelica.SIunits.Voltage V_nominal = 110
+  parameter Modelica.SIunits.Voltage V_nominal = 120
     "Nominal voltage (V_nominal >= 0)";
 public
   Modelica.Blocks.Math.Gain acdc_conversion(k=eta_DCAC)

@@ -35,5 +35,16 @@ equation
           Text(
             extent={{-140,80},{140,40}},
             lineColor={0,120,120},
-          textString="%name")}));
+          textString="%name")}),
+    Documentation(info="<html>
+<p>
+This model represents an inductance that connect two AC one phase interfaces. This model can be used
+to represent a single phase cable in a AC grid.
+</p>
+<p>
+The model represents the lumped inductance as shown in the figure below.
+<p align=\"center\">
+<img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Electrical/AC/OnePhase/Lines/twoPortL.png\"/>
+</p>
+</html>"));
 end TwoPortInductance;

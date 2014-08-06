@@ -5,7 +5,7 @@ model PVSimple "Simple PV model"
   extends Buildings.Electrical.Interfaces.PartialPV(redeclare package
       PhaseSystem = Buildings.Electrical.PhaseSystems.OnePhase, redeclare
       Interfaces.Terminal_p terminal,
-      V_nominal = 110);
+      V_nominal = 120);
   parameter Boolean linear=false
     "If =true introduce a linearization in the load";
   Modelica.Blocks.Math.Gain gain_DCAC(k=eta_DCAC) annotation (Placement(

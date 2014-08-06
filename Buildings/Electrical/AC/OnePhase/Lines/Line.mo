@@ -1,6 +1,7 @@
 within Buildings.Electrical.AC.OnePhase.Lines;
 model Line "Model of an electrical line"
   extends Buildings.Electrical.Transmission.BaseClasses.PartialLine(
+    V_nominal = 120,
     redeclare package PhaseSystem_p = PhaseSystems.OnePhase,
     redeclare package PhaseSystem_n = PhaseSystems.OnePhase,
     redeclare Interfaces.Terminal_n terminal_n(redeclare package PhaseSystem =
@@ -67,5 +68,14 @@ equation
         Line(
           points={{96,0},{60,0}},
           color={0,0,0},
-          smooth=Smooth.None)}));
+          smooth=Smooth.None)}),
+    Documentation(info="<html>
+<p>
+This model represents an AC single phase cable. The model is based on 
+<a href=\"Buildings.Electrical.AC.OnePhase.Lines.TwoPortRLC\">
+Buildings.Electrical.AC.OnePhase.Lines.TwoPortRLC</a>
+and provides functionalities to parametrize the values of <i>R</i>, <i>L</i> and <i>C</i> either
+using commercial cables or using default values.
+</p>
+</html>"));
 end Line;

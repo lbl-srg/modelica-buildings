@@ -21,5 +21,17 @@ equation
           Text(
             extent={{-140,80},{140,40}},
             lineColor={0,120,120},
-          textString="%name")}));
+          textString="%name")}),
+    Documentation(info="<html>
+<p>
+This model represents a resistance that connect two AC one phase interfaces. This model can be used
+to represent a single phase cable in a AC grid.
+</p>
+<p>
+The model represents the lumped resistance as shown in the figure below.
+</p>
+<p align=\"center\">
+<img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Electrical/AC/OnePhase/Lines/twoPortR.png\"/>
+</p>
+</html>"));
 end TwoPortResistance;

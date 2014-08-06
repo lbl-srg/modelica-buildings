@@ -1,6 +1,7 @@
 within Buildings.Electrical.AC.OnePhase.Lines;
 model TwoPortRLC "Model of an RLC element with two electrical ports"
   extends Buildings.Electrical.Transmission.BaseClasses.PartialTwoPortRLC(
+    V_nominal = 120,
     redeclare package PhaseSystem_p = PhaseSystems.OnePhase,
     redeclare package PhaseSystem_n = PhaseSystems.OnePhase,
     redeclare Interfaces.Terminal_n terminal_n(redeclare package PhaseSystem =
@@ -49,5 +50,25 @@ equation
           Text(
             extent={{-140,80},{140,40}},
             lineColor={0,120,120},
-          textString="%name")}));
+          textString="%name")}),
+    Documentation(info="<html>
+<p>
+This model represents a series of two resistive-inductive impedances and a capacitance
+that connect two AC single phase interfaces.
+This model can be used to represent a cable in a AC grid.
+</p>
+<p>
+The model represents the lumped resistances and capacity (T-model) as shown in the figure below.
+</p>
+<p align=\"center\">
+<img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Electrical/AC/OnePhase/Lines/twoPortRLC.png\"/>
+</p>
+<p>
+As can be seen in the figure, the resistance <i>R</i> and the inductance <i>L</i> are split in two halves
+and the capacitance is located in the center.
+The capacitance in the center is optional and can be selected using the
+boolean flag <code>use_C = true</code>. The model is either dynamic or static depending on the
+presence of the capacitive effect.
+</p>
+</html>"));
 end TwoPortRLC;

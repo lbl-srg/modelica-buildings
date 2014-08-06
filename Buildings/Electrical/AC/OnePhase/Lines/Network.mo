@@ -25,5 +25,20 @@ equation
   annotation (Icon(graphics={             Line(
           points={{-92,-60},{-72,-20},{-52,-60},{-32,-100},{-12,-60}},
           color={0,0,0},
-          smooth=Smooth.Bezier)}));
+          smooth=Smooth.Bezier)}), Documentation(info="<html>
+<p>
+This model represents a generalized electrical AC single phase network.
+</p>
+<p>
+Look at <a href=\"modelica://Buildings.Electrical.Transmission.BaseClasses.PartialNetwork\">
+Buildings.Electrical.Transmission.BaseClasses.PartialNetwork</a>
+for information about the network model.
+</p>
+<p>
+Look at <a href=\"modelica://Buildings.Electrical.Transmission.Grids.PartialGrid\">
+Buildings.Electrical.Transmission.Grids.PartialGrid</a>
+for more information about the topology of the network, such as
+the number of nodes, how they are connected, and the length of each connection.
+</p>
+</html>"));
 end Network;
