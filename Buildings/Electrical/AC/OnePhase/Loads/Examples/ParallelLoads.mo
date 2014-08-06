@@ -105,6 +105,10 @@ consume up to 1kW.
     revisions="<html>
 <ul>
 <li>
+August 5, 2014, by Marco Bonvini:<br/>
+Revised model and documentation.
+</li>
+<li>
 January 3, 2013, by Michael Wetter:<br/>
 First implementation.
 </li>

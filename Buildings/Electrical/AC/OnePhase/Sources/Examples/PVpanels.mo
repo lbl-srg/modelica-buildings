@@ -82,5 +82,11 @@ equation
             -100},{100,100}}), graphics),
     __Dymola_Commands(file=
           "modelica://Buildings/Resources/Scripts/Dymola/Electrical/AC/OnePhase/Sources/Examples/PVpanels.mos"
-        "Simulate and plot"));
+        "Simulate and plot"),
+    Documentation(revisions="<html>
+<li>
+August 5, 2014, by Marco Bonvini:<br/>
+Revised model and documentation.
+</li>
+</html>"));
 end PVpanels;

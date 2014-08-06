@@ -68,6 +68,10 @@ This example illustrates the use of the probe model.
 revisions="<html>
 <ul>
 <li>
+August 5, 2014, by Marco Bonvini:<br/>
+Revised model and documentation.
+</li>
+<li>
 June 6, 2014, by Marco Bonvini:<br/>
 First implementation.
 </li>

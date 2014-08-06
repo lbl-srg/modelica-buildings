@@ -55,6 +55,10 @@ the same while the complex parts have opposite signs.
     revisions="<html>
 <ul>
 <li>
+August 5, 2014, by Marco Bonvini:<br/>
+Revised model and documentation.
+</li>
+<li>
 January 3, 2013, by Michael Wetter:<br/>
 First implementation.
 </li>

@@ -36,6 +36,10 @@ This example illustrates the use of the generalized sensor.
 revisions="<html>
 <ul>
 <li>
+August 5, 2014, by Marco Bonvini:<br/>
+Revised model and documentation.
+</li>
+<li>
 July 24, 2013, by Michael Wetter:<br/>
 First implementation.
 </li>

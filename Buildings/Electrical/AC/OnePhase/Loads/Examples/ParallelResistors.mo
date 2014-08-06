@@ -55,6 +55,10 @@ while at <i>t=1</i> <code>R</code> produces the same power consumed by <code>R1<
     revisions="<html>
 <ul>
 <li>
+August 5, 2014, by Marco Bonvini:<br/>
+Revised model and documentation.
+</li>
+<li>
 January 3, 2013, by Michael Wetter:<br/>
 First implementation.
 </li>

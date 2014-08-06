@@ -51,5 +51,11 @@ equation
     experiment(StopTime=21, Tolerance=1e-05),
     __Dymola_Commands(file=
           "modelica://Buildings/Resources/Scripts/Dymola/Electrical/AC/OnePhase/Sources/Examples/VariablePowerSource.mos"
-        "Simulate and plot"));
+        "Simulate and plot"),
+    Documentation(revisions="<html>
+<li>
+August 5, 2014, by Marco Bonvini:<br/>
+Revised model and documentation.
+</li>
+</html>"));
 end VariablePowerSource;

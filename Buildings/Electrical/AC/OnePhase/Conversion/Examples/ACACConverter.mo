@@ -47,6 +47,10 @@ This model illustrates the use of a model that converts AC voltage to AC voltage
       revisions="<html>
 <ul>
 <li>
+August 5, 2014, by Marco Bonvini:<br/>
+Revised model and documentation.
+</li>
+<li>
 January 29, 2013, by Thierry S. Nouidui:<br/>
 First implementation.
 </li>

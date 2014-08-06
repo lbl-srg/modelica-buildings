@@ -71,7 +71,9 @@ This model shows how to vary the resistance,
 capacitance or inductance of an impedance model.
 </p>
 </html>", revisions="<html>
-fixme: revision section is missing
-
+<li>
+August 5, 2014, by Marco Bonvini:<br/>
+Revised model and documentation.
+</li>
 </html>"));
 end VariableImpedance;
