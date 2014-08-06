@@ -1,10 +1,10 @@
 within Buildings.Electrical.AC.OnePhase.Conversion.Examples;
-model ACDCConverter "Test model AC to DC converter"
-  import Buildings;
+model ACDCConverter
+  "This example illustrates how to use the AC/DC converter model"
   extends Modelica.Icons.Example;
 
-  Buildings.Electrical.DC.Loads.Resistor    res(R=1, V_nominal=55)
-                                                          annotation (Placement(
+  Buildings.Electrical.DC.Loads.Resistor    res(R=1, V_nominal=60)
+    "Resistive load"                                      annotation (Placement(
         transformation(
         extent={{10,-10},{-10,10}},
         rotation=180,
@@ -14,18 +14,16 @@ model ACDCConverter "Test model AC to DC converter"
     eta=0.9,
     ground_AC=false,
     ground_DC=true,
-    conversionFactor=120/60)
+    conversionFactor=60/120) "AC/DC transformer"
     annotation (Placement(transformation(extent={{-10,0},{10,20}})));
   Buildings.Electrical.AC.OnePhase.Sources.FixedVoltage sou(
-    f=60,
-    V=110,
-    definiteReference=true)                                                  annotation (Placement(transformation(
+    definiteReference=true) "Voltage source"                                 annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-62,10})));
   Buildings.Electrical.DC.Loads.Conductor   load(mode=Buildings.Electrical.Types.Assumption.VariableZ_P_input,
     P_nominal=-200,
-    V_nominal=55)                                         annotation (Placement(
+    V_nominal=60) "Variable resistive load"               annotation (Placement(
         transformation(
         extent={{10,-10},{-10,10}},
         rotation=180,
@@ -34,7 +32,7 @@ model ACDCConverter "Test model AC to DC converter"
     duration=0.5,
     startTime=0.2,
     offset=-200,
-    height=5200)
+    height=5200) "Variable load profile"
     annotation (Placement(transformation(extent={{90,-20},{70,0}})));
 equation
   connect(sou.terminal, conversion.terminal_n) annotation (Line(

@@ -1,19 +1,19 @@
 within Buildings.Electrical.AC.OnePhase.Sensors.Examples;
-model GeneralizedSensor "Example model for generalized sensor"
-  import Buildings;
+model GeneralizedSensor
+  "This example illustrates how to use the generalized sensor model"
   extends Modelica.Icons.Example;
   Buildings.Electrical.AC.OnePhase.Sensors.GeneralizedSensor
                                                           sen
+    "Sensor that measures V, I, and S"
     annotation (Placement(transformation(extent={{0,0},{20,20}})));
   Buildings.Electrical.AC.OnePhase.Loads.Capacitive loa(
     mode=Buildings.Electrical.Types.Assumption.FixedZ_dynamic,
-    V_nominal=120,
     P_nominal=-100) "Constant load"
     annotation (Placement(transformation(extent={{40,0},{60,20}})));
-  Buildings.Electrical.AC.OnePhase.Sources.FixedVoltage sou(V=120)
-    "Voltage source"
+  Buildings.Electrical.AC.OnePhase.Sources.FixedVoltage sou "Voltage source"
     annotation (Placement(transformation(extent={{-60,0},{-40,20}})));
   Buildings.Electrical.AC.OnePhase.Lines.TwoPortResistance res(R=0.05)
+    "Line resistance"
     annotation (Placement(transformation(extent={{-32,0},{-12,20}})));
 equation
   connect(sen.terminal_p, loa.terminal)

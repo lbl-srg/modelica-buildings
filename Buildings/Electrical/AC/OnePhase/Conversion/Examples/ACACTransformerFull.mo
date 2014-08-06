@@ -1,76 +1,70 @@
 within Buildings.Electrical.AC.OnePhase.Conversion.Examples;
 model ACACTransformerFull
-  "Test model AC to AC trasformer with full representation"
-  import Buildings;
+  "This example illustrates how to use the AC/AC transformer model"
   extends Modelica.Icons.Example;
   Buildings.Electrical.AC.OnePhase.Conversion.ACACTransformerFull
                                                               tra_load(
-    VHigh=220,
-    VLow=110,
     R1=0.0001,
     L1=0.0001,
     R2=0.0001,
     L2=0.0001,
-    f=60,
     VABase=4000,
     magEffects=true,
     Rm=10,
-    Lm=10)
+    Lm=10,
+    VHigh=120,
+    VLow=60) "Transformer with load"
     annotation (Placement(transformation(extent={{-18,40},{2,60}})));
   Buildings.Electrical.AC.OnePhase.Sources.FixedVoltage                 sou(
-    f=60,
-    definiteReference=true,
-    V=220,
-    Phi=0)                annotation (Placement(transformation(
+    definiteReference=true) "Voltage source"
+                          annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-70,50})));
   Buildings.Electrical.AC.OnePhase.Loads.Inductive load(
     mode=Buildings.Electrical.Types.Assumption.VariableZ_P_input,
     P_nominal=-2000,
-    V_nominal=110,
-    pf=0.8) annotation (Placement(transformation(extent={{10,40},{30,60}})));
+    pf=0.8,
+    V_nominal=60) "Load model"
+            annotation (Placement(transformation(extent={{10,40},{30,60}})));
   Modelica.Blocks.Sources.Ramp ramp(
     duration=0.5,
     startTime=0.3,
     offset=0,
-    height=-4000*0.8)
+    height=-4000*0.8) "Load power consumption profile"
     annotation (Placement(transformation(extent={{70,40},{50,60}})));
   Buildings.Electrical.AC.OnePhase.Conversion.ACACTransformerFull
                                                               tra_cc(
-    VHigh=220,
     VABase=4000,
-    VLow=110,
     R1=0.01,
     L1=0.01,
     R2=0.01,
     L2=0.01,
-    f=60,
     magEffects=false,
     Rm=100,
-    Lm=100)
+    Lm=100,
+    VHigh=120,
+    VLow=60) "Transformer with short circuit connection"
     annotation (Placement(transformation(extent={{-16,0},{4,20}})));
   Buildings.Electrical.AC.OnePhase.Loads.Impedance shortCircuit(R=1e-8)
+    "Short circuit"
     annotation (Placement(transformation(extent={{10,0},{30,20}})));
   Buildings.Electrical.AC.OnePhase.Conversion.ACACTransformerFull
                                                               tra_void(
-    VHigh=220,
     VABase=4000,
-    VLow=110,
     R1=0.01,
     L1=0.01,
     R2=0.01,
     L2=0.01,
-    f=60,
     magEffects=false,
     Rm=100,
-    Lm=100)
+    Lm=100,
+    VHigh=120,
+    VLow=60) "Transformer with open connection"
     annotation (Placement(transformation(extent={{-16,-30},{4,-10}})));
   Buildings.Electrical.AC.OnePhase.Sources.FixedVoltage                 sou1(
-    f=60,
-    definiteReference=true,
-    V=220,
-    Phi=0)                annotation (Placement(transformation(
+    definiteReference=true) "Voltage source for short circuit and open tests "
+                          annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-70,10})));

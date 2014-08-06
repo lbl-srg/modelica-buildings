@@ -1,32 +1,33 @@
 within Buildings.Electrical.AC.OnePhase.Sensors.Examples;
-model Probe "Example model for a probe"
-  import Buildings;
+model Probe "This example illustrates how to use the probe model"
   extends Modelica.Icons.Example;
   Buildings.Electrical.AC.OnePhase.Loads.Capacitive loaRC(
-    V_nominal=120,
     P_nominal=-100,
     mode=Buildings.Electrical.Types.Assumption.FixedZ_steady_state)
     "Constant load"
-    annotation (Placement(transformation(extent={{8,0},{28,20}})));
-  Buildings.Electrical.AC.OnePhase.Sources.FixedVoltage sou(V=120)
-    "Voltage source"
+    annotation (Placement(transformation(extent={{10,0},{30,20}})));
+  Buildings.Electrical.AC.OnePhase.Sources.FixedVoltage sou "Voltage source"
     annotation (Placement(transformation(extent={{-60,-30},{-40,-10}})));
   Buildings.Electrical.AC.OnePhase.Lines.TwoPortResistance res1(R=0.05)
+    "First line resistance"
     annotation (Placement(transformation(extent={{-26,0},{-6,20}})));
   Buildings.Electrical.AC.OnePhase.Sensors.Probe probe_source
+    "Probe that measures at the voltage source"
     annotation (Placement(transformation(extent={{-50,30},{-30,50}})));
   Buildings.Electrical.AC.OnePhase.Sensors.Probe probe_loadRC
+    "Probe that measures at the RC load"
     annotation (Placement(transformation(extent={{-10,30},{10,50}})));
   Buildings.Electrical.AC.OnePhase.Lines.TwoPortResistance res2(
                                                                R=0.05)
+    "Second line resistance"
     annotation (Placement(transformation(extent={{-26,-70},{-6,-50}})));
   Buildings.Electrical.AC.OnePhase.Loads.Inductive loaRL(
-    V_nominal=120,
     P_nominal=-100,
     mode=Buildings.Electrical.Types.Assumption.FixedZ_steady_state)
     "Constant load"
     annotation (Placement(transformation(extent={{10,-70},{30,-50}})));
   Buildings.Electrical.AC.OnePhase.Sensors.Probe probe_loadRL
+    "Probe that measures at the RL load"
     annotation (Placement(transformation(extent={{-10,-28},{10,-8}})));
 equation
   connect(sou.terminal, res1.terminal_n) annotation (Line(
@@ -34,7 +35,7 @@ equation
       color={0,120,120},
       smooth=Smooth.None));
   connect(res1.terminal_p, loaRC.terminal) annotation (Line(
-      points={{-6,10},{8,10}},
+      points={{-6,10},{10,10}},
       color={0,120,120},
       smooth=Smooth.None));
   connect(sou.terminal, probe_source.term) annotation (Line(
@@ -42,7 +43,7 @@ equation
       color={0,120,120},
       smooth=Smooth.None));
   connect(loaRC.terminal, probe_loadRC.term) annotation (Line(
-      points={{8,10},{6.66134e-16,10},{6.66134e-16,31}},
+      points={{10,10},{6.66134e-16,10},{6.66134e-16,31}},
       color={0,120,120},
       smooth=Smooth.None));
   connect(sou.terminal, res2.terminal_n) annotation (Line(

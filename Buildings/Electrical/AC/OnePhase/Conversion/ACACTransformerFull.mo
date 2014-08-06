@@ -13,7 +13,7 @@ model ACACTransformerFull "AC AC transformer detailed equivalent circuit"
     "RMS voltage on side 2 of the transformer (secondary side)";
   parameter Modelica.SIunits.ApparentPower VABase
     "Nominal power of the transformer";
-  parameter Modelica.SIunits.Frequency f(start=60) "Nominal frequency";
+  parameter Modelica.SIunits.Frequency f(start=60) = 60 "Nominal frequency";
   parameter Buildings.Electrical.Types.PerUnit R1(min=0)
     "Resistance on side 1 of the transformer (pu)";
   parameter Buildings.Electrical.Types.PerUnit L1(min=0)

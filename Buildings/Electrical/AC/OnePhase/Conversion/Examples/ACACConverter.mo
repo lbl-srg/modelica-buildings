@@ -1,28 +1,27 @@
 within Buildings.Electrical.AC.OnePhase.Conversion.Examples;
-model ACACConverter "Test model AC to AC converter"
-  import Buildings;
+model ACACConverter
+  "This example illustrates how to use the AC/AC converter model"
   extends Modelica.Icons.Example;
   Buildings.Electrical.AC.OnePhase.Conversion.ACACConverter
-    conACAC(                      eta=0.9, conversionFactor=110/220)
+    conACAC(                      eta=0.9, conversionFactor=60/120)
+    "ACAC transformer"
     annotation (Placement(transformation(extent={{-10,0},{10,20}})));
   Buildings.Electrical.AC.OnePhase.Sources.FixedVoltage                 sou(
-    f=60,
-    definiteReference=true,
-    V=220,
-    Phi=0)                annotation (Placement(transformation(
+    definiteReference=true) "Voltage source"
+                          annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-60,10})));
   Buildings.Electrical.AC.OnePhase.Loads.Inductive load(
     mode=Buildings.Electrical.Types.Assumption.VariableZ_P_input,
     P_nominal=-1000,
-    V_nominal=110)
+    V_nominal=60) "Load model"
     annotation (Placement(transformation(extent={{24,0},{44,20}})));
   Modelica.Blocks.Sources.Ramp ramp(
     duration=0.5,
     startTime=0.3,
     height=2000,
-    offset=-1000)
+    offset=-1000) "Power consumed by the model"
     annotation (Placement(transformation(extent={{80,0},{60,20}})));
 equation
   connect(sou.terminal, conACAC.terminal_n) annotation (Line(

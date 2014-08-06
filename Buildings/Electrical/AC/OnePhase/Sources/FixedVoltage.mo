@@ -53,7 +53,6 @@ equation
                else {255,255,255}),
           smooth=Smooth.Bezier)}),
       Documentation(info="<html>
-
 <p>
 This is a constant voltage source, specifying the complex voltage by the RMS voltage and the phase shift.
 </p>

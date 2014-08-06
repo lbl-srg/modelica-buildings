@@ -1,18 +1,21 @@
 within Buildings.Electrical.AC.OnePhase.Sources.Examples;
 model VariablePowerSource
+  "This example illustrates how using a variable power source"
   extends Modelica.Icons.Example;
-  Buildings.Electrical.AC.OnePhase.Sources.Generator generator(      Phi(displayUnit="deg") = 0.26179938779915, f=60)
+  Buildings.Electrical.AC.OnePhase.Sources.Generator generator(      Phi(displayUnit="deg") = 0.26179938779915)
+    "AC generator model"
     annotation (Placement(transformation(extent={{-50,-10},{-30,10}})));
   Modelica.Blocks.Sources.Sine generation(
     offset=200,
     startTime=1,
     amplitude=100,
-    freqHz=0.05)
+    freqHz=0.05) "Generated power"
     annotation (Placement(transformation(extent={{-92,-10},{-72,10}})));
   Buildings.Electrical.AC.OnePhase.Loads.Inductive RL(mode=Types.Assumption.VariableZ_y_input,
-      P_nominal=-300)
+      P_nominal=-300) "Load model"
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
-  Buildings.Electrical.AC.OnePhase.Sources.Grid grid(f=60, V=110)
+  Buildings.Electrical.AC.OnePhase.Sources.Grid grid
+    "AC one phase electrical grid"
            annotation (Placement(transformation(extent={{-20,40},{0,60}})));
   Modelica.Blocks.Sources.Trapezoid load(
     rising=2,
@@ -21,7 +24,7 @@ model VariablePowerSource
     period=10,
     startTime=1,
     amplitude=0.8,
-    offset=0.2)
+    offset=0.2) "Power consumption profile"
     annotation (Placement(transformation(extent={{80,-10},{60,10}})));
 equation
   connect(generation.y, generator.P) annotation (Line(
