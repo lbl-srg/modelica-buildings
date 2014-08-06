@@ -127,7 +127,7 @@ equation
       thickness=0.5,
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(extent={{-100,-180},{240,100}},
-          preserveAspectRatio=false), graphics),
+          preserveAspectRatio=false)),
           __Dymola_Commands(file =    "modelica://Buildings/Resources/Scripts/Dymola/Rooms/Examples/FFD/Tutorial/NaturalConvection.mos"
         "Simulate and plot"),
         experiment(StopTime=120),
