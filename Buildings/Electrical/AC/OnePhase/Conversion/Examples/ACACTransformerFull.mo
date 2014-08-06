@@ -99,8 +99,16 @@ equation
     __Dymola_experimentSetupOutput,
     Documentation(info="<html>
 <p>
-This model illustrates the use of a model that converts AC voltage to AC voltage.
+This example illustrates the use of a AC/AC transformer model
+that include losses at the primary, secondary side and magnetization
+effects.
+The example shows three different configurations
 </p>
+<ul>
+<li>with load connected,</li>
+<li>without load connected, and</li>
+<li>short circuit connection.</li>
+</ul>
 </html>",
       revisions="<html>
 <ul>

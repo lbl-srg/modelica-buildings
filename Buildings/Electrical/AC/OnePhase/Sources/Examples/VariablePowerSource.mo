@@ -57,5 +57,10 @@ equation
 August 5, 2014, by Marco Bonvini:<br/>
 Revised model and documentation.
 </li>
+</html>", info="<html>
+<p>
+This example shows how to use a variable generator model. The model has to be used
+together with a voltage source generator.
+</p> 
 </html>"));
 end VariablePowerSource;

@@ -41,7 +41,9 @@ equation
     __Dymola_experimentSetupOutput,
     Documentation(info="<html>
 <p>
-This model illustrates the use of a model that converts AC voltage to AC voltage.
+This example illustrates the use of a model that converts AC voltage to AC voltage
+converter model. This model assumes a linear loss when trasmitting the power
+from one side to the other of the transformer.
 </p>
 </html>",
       revisions="<html>

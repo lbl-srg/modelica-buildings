@@ -88,5 +88,12 @@ equation
 August 5, 2014, by Marco Bonvini:<br/>
 Revised model and documentation.
 </li>
+</html>", info="<html>
+<p>
+This example shows how to use a simple PV model without orientation
+as well a PV model with orientation. The power produced by the PV is
+partially consumed by the load whil ethe remaining part is fed into
+the grid.
+</p> 
 </html>"));
 end PVpanels;
