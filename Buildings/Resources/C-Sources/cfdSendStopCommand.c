@@ -20,6 +20,4 @@
 ///////////////////////////////////////////////////////////////////////////////
 void cfdSendStopCommand( ) {
   cosim->para->flag = 0;
-  printf("sendStopCommand( ): Set cosim->para->flag = %d\n", 
-         cosim->para->flag);
 } // End of cfdSendStopCommand 
