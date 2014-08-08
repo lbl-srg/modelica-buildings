@@ -23,17 +23,26 @@ int cfdReceiveFeedback( ) {
   
   // Wait for the feedback from FFD
   while(cosim->para->flag==0 && i<imax) {
-    Sleep(10000);
-    i++;
+    if(cosim->para->ffdError==1) {
+      ModelicaError(cosim->ffd->msg);
+    }
+    else {
+      Sleep(10000);
+      i++;
+    }
   }
   
   if(i<imax) {
-    printf("Successfully stopped the FFD simulation.\n");
-    flag = 0;
+    if(cosim->para->ffdError==1) {
+      ModelicaError(cosim->ffd->msg);
+    }
+    else {
+      ModelicaMessage("Successfully stopped the FFD simulation.\n");
+      flag = 0;
+    }
   }
   else {
-    printf("stopFFD(): Could not stop the FFD simulation in required time.\n");
-    flag = 1;
+    ModelicaError("Error: Can not stop the FFD simulation in required time.\n");
   }
 
   free(cosim->para);
