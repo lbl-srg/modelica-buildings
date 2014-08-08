@@ -57,6 +57,7 @@ REAL check_residual(PARA_DATA *para, REAL **var, REAL *x) {
 ///\return 0 if no error occurred
 ///////////////////////////////////////////////////////////////////////////////
 void ffd_log(char *message, FFD_MSG_TYPE msg_type) {
+  char mymsg[400]; 
   if(msg_type==FFD_NEW) {
     if((file_log=fopen("ffd.log","w+"))==NULL) {
         fprintf(stderr, "Error: Cannot open log file.\n");
@@ -70,12 +71,10 @@ void ffd_log(char *message, FFD_MSG_TYPE msg_type) {
 
   switch(msg_type) {
     case FFD_WARNING:
-      fprintf(file_log, "WARNING in %s\n", message);
-      fprintf(stderr, "FFD: WARNING in %s\n", message);
-      break;
     case FFD_ERROR:
       fprintf(file_log, "ERROR in %s\n", message);
-      fprintf(stderr, "FFD: ERROR in %s\n", message);
+      sprintf(mymsg, "ERROR in FFD: %s\n", message);
+      modelicaError(mymsg);
       break;
     // Normal log
     default:
