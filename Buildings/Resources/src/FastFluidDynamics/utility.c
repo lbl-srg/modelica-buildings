@@ -57,24 +57,44 @@ REAL check_residual(PARA_DATA *para, REAL **var, REAL *x) {
 ///\return 0 if no error occurred
 ///////////////////////////////////////////////////////////////////////////////
 void ffd_log(char *message, FFD_MSG_TYPE msg_type) {
+<<<<<<< HEAD
   char mymsg[400]; 
+=======
+  char *ModelicaOutput;
+  ModelicaOutput=(char *)malloc(1000*sizeof(char));
+>>>>>>> upstream/ffd_miami
   if(msg_type==FFD_NEW) {
     if((file_log=fopen("ffd.log","w+"))==NULL) {
         fprintf(stderr, "Error: Cannot open log file.\n");
+		//ModelicaError("Error: Cannot open log file.\n");		
         exit(1);
     }
   }
   else if((file_log=fopen("ffd.log","a+"))==NULL) {
     fprintf(stderr,"Error: Cannot open log file.\n");
+	//ModelicaError("Error: Cannot open log file.\n");
     exit(1);
   }
 
   switch(msg_type) {
     case FFD_WARNING:
+<<<<<<< HEAD
     case FFD_ERROR:
       fprintf(file_log, "ERROR in %s\n", message);
       sprintf(mymsg, "ERROR in FFD: %s\n", message);
       modelicaError(mymsg);
+=======
+      fprintf(file_log, "WARNING in %s\n", message);
+      fprintf(stderr, "FFD: WARNING in %s\n", message);
+	  //sprintf(ModelicaOutput, "FFD: WARNING in %s\n", message);
+	  //ModelicaError(ModelicaOutput);
+      break;
+    case FFD_ERROR:
+      fprintf(file_log, "ERROR in %s\n", message);
+      fprintf(stderr, "FFD: ERROR in %s\n", message);
+	  //sprintf(ModelicaOutput, "FFD: ERROR in %s\n", message);
+	  //ModelicaError(ModelicaOutput);
+>>>>>>> upstream/ffd_miami
       break;
     // Normal log
     default:

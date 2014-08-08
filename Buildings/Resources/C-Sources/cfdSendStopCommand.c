@@ -19,5 +19,16 @@
 ///\return No return needed
 ///////////////////////////////////////////////////////////////////////////////
 void cfdSendStopCommand( ) {
+  int verbose = 0;
+
   cosim->para->flag = 0;
+<<<<<<< HEAD
+=======
+  
+  if(verbose==1) {
+    sprintf(msg, "sendStopCommand( ): Set cosim->para->flag = %d\n", 
+         cosim->para->flag);
+    ModelicaMessage(msg);
+  }
+>>>>>>> upstream/ffd_miami
 } // End of cfdSendStopCommand 

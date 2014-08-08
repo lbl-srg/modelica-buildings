@@ -332,7 +332,6 @@ Use a 20 X 20 X 20 stretched grid.
 </li>
 <li>
 Set the time step size of the FFD to <i>0.1</i> seconds.
-// fixme: verify whether 0.1 seconds is correct.
 </li>
 <li>
 Generate the input files, which have by default the names
@@ -393,7 +392,9 @@ June 27, 2014, by Wei Tian, Thomas Sevilla, Wangda Zuo:<br/>
 First implementation.
 </li>
 </ul>
-</html>"),    __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Rooms/Examples/FFD/Tutorial/MixedConvection.mos"
+</html>"),
+    experiment(StopTime=12),
+    __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Rooms/Examples/FFD/Tutorial/MixedConvection.mos"
         "Simulate and plot"),
     Diagram(coordinateSystem(extent={{-80,-160},{200,120}}, preserveAspectRatio=false),
         graphics));

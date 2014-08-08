@@ -33,6 +33,7 @@ int cfdReceiveFeedback( ) {
   }
   
   if(i<imax) {
+<<<<<<< HEAD
     if(cosim->para->ffdError==1) {
       ModelicaError(cosim->ffd->msg);
     }
@@ -43,6 +44,14 @@ int cfdReceiveFeedback( ) {
   }
   else {
     ModelicaError("Error: Can not stop the FFD simulation in required time.\n");
+=======
+    ModelicaMessage("Successfully stopped the FFD simulation.\n");
+    flag = 0;
+  }
+  else {
+    ModelicaError("Error: Could not stop the FFD simulation in required time.\n");
+    flag = 1;
+>>>>>>> upstream/ffd_miami
   }
 
   free(cosim->para);

@@ -31,4 +31,4 @@
 #pragma comment(lib, "user32.lib")
 
 CosimulationData *cosim;
-
+char msg[1000];
