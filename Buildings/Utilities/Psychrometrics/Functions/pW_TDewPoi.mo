@@ -1,7 +1,7 @@
 within Buildings.Utilities.Psychrometrics.Functions;
 function pW_TDewPoi
   "Function to compute the water vapor partial pressure for a given dew point temperature of moist air"
-
+  extends Modelica.Icons.Function;
   input Modelica.SIunits.Temperature T(min=100) "Dew point temperature";
   output Modelica.SIunits.Pressure p_w(displayUnit="Pa", min=100)
     "Water vapor partial pressure";
@@ -23,9 +23,9 @@ Dew point temperature calculation for moist air above freezing temperature.
 </p>
 <p>
 The correlation used in this model is valid for dew point temperatures between 
-<code>0 degC</code> and <code>200 degC</code>. It is the correlation from 2005
+<i>0</i>&deg;C and <i>200</i>&deg;C. It is the correlation from 2005
 ASHRAE Handbook, p. 6.2. In an earlier version of this model, the equation from
-Peppers has been used, but this equation yielded about 15 Kelvin lower dew point 
+Peppers has been used, but this equation yielded about <i>15</i> Kelvin lower dew point 
 temperatures.
 </p>
 </html>", revisions="<html>

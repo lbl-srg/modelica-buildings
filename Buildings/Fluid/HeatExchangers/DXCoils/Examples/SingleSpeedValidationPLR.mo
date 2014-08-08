@@ -33,7 +33,9 @@ model SingleSpeedValidationPLR
     T_start=datCoi.sta[1].nomVal.TEvaIn_nominal,
     from_dp=true,
     computeReevaporation=true,
-    eva(m(start=0))) "Single speed DX coil"
+    eva(m(start=0)),
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+    "Single speed DX coil"
     annotation (Placement(transformation(extent={{-10,0},{10,20}})));
 
   Modelica.Blocks.Routing.Multiplex2 mux "Converts in an array"

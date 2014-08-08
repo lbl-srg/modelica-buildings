@@ -5,7 +5,10 @@ model StaticFourPortHeatMassExchanger
   extends Buildings.Fluid.Interfaces.FourPortFlowResistanceParameters(
    final computeFlowResistance1=(dp1_nominal > Modelica.Constants.eps),
    final computeFlowResistance2=(dp2_nominal > Modelica.Constants.eps));
-  import Modelica.Constants;
+
+  parameter Boolean homotopyInitialization = true "= true, use homotopy method"
+    annotation(Evaluate=true, Dialog(tab="Advanced"));
+
   input Modelica.SIunits.HeatFlowRate Q1_flow
     "Heat transfered into the medium 1";
   input Medium1.MassFlowRate mWat1_flow
@@ -105,6 +108,15 @@ or instantiates this model sets <code>mWat<i>N</i>_flow = 0</code>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+November 13, 2013 by Michael Wetter:<br/>
+Added parameter <code>homotopyInitialization</code> as
+it has been removed in the base class.
+</li>
+<li>
+November 13, 2013, by Michael Wetter:<br/>
+Removed <code>import Modelica.Constants;</code> statement.
+</li>
 <li>
 October 8, 2013, by Michael Wetter:<br/>
 Removed parameter <code>show_V_flow</code>.

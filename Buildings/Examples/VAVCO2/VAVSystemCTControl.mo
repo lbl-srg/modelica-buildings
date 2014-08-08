@@ -82,13 +82,17 @@ Fluid.Actuators.Dampers.MixingBox mixBox(
     redeclare package Medium = Medium,
     pressure(final V_flow={0,11.08,14.9}, dp={1508,743,100}),
     dynamicBalance=true,
-    r_N(start=0))
+    r_N(start=0),
+    init=Modelica.Blocks.Types.Init.InitialState,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     annotation (Placement(transformation(extent={{122,-18},{138,-2}})));
   Fluid.Movers.FlowMachine_y fan56(
     redeclare package Medium = Medium,
     pressure(final V_flow={2.676,11.05}, dp={600,100}),
     dynamicBalance=true,
-    r_N(start=0))
+    r_N(start=0),
+    init=Modelica.Blocks.Types.Init.InitialState,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     annotation (Placement(transformation(extent={{138,-78},{122,-62}})));
   Modelica.Blocks.Sources.Trapezoid
                                 pSet(
@@ -107,7 +111,7 @@ equation
       thickness=0.5));
   connect(roo.p_rel, conSupFan.u_m)
                               annotation (Line(
-      points={{312.6,-17.3333},{320,-17.3333},{320,60},{50,60},{50,78}},
+      points={{312.6,-23.0769},{320,-23.0769},{320,60},{50,60},{50,78}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(yDam.y, mixBox.y) annotation (Line(
@@ -115,7 +119,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(roo.p, PAtm.y) annotation (Line(
-      points={{201.32,12.5333},{72,12.5333},{-50,12.5333},{-50,-40},{-59,-40}},
+      points={{201.32,11.3846},{-50,11.3846},{-50,-40},{-59,-40}},
       color={255,0,0},
       smooth=Smooth.None,
       thickness=0.5));
@@ -133,7 +137,7 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(res33.port_b, roo.port_aSup) annotation (Line(
-      points={{180,-10},{192,-10},{192,-9.86667},{206,-9.86667}},
+      points={{180,-10},{192,-10},{192,-14.4615},{206,-14.4615}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(bouIn.ports[1], mixBox.port_Out) annotation (Line(
@@ -153,7 +157,7 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(fan56.port_a, roo.port_bExh) annotation (Line(
-      points={{138,-70},{157,-70},{157,-69.6},{206,-69.6}},
+      points={{138,-70},{157,-70},{157,-83.3846},{206,-83.3846}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(pSet.y, conSupFan.u_s) annotation (Line(
@@ -168,8 +172,8 @@ equation
       points={{61,90},{110,90},{110,-48},{130,-48},{130,-60.4}},
       color={0,0,127},
       smooth=Smooth.None));
-   annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
-            -100},{350,150}})),
+   annotation (Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-100,
+            -100},{350,150}}), graphics),
 Documentation(info="<html>
 <p>
 This examples demonstrates the implementation of CO<sub>2</sub> control

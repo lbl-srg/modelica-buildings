@@ -32,10 +32,7 @@ The flow paths are discretized into <code>nEle</code> elements.
 Each element is modeled by an instance of
 <a href=\"modelica://Buildings.Fluid.HeatExchangers.BaseClasses.HexElement\">
 Buildings.Fluid.HeatExchangers.BaseClasses.HexElement</a>.
-Each element has a state variable for the metal. Depending
-on the value of the boolean parameters <code>steadyState_1</code> and
-<code>steadyState_2</code>, the fluid states are modeled dynamically or in steady
-state.
+Each element has a state variable for the metal.
 </p>
 <p>
 The convective heat transfer coefficients can, for each fluid individually, be 

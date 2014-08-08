@@ -3,85 +3,90 @@ model Occupancy "Model for occupancy"
 
   Modelica.Blocks.Sources.CombiTimeTable office1(
     extrapolation=Modelica.Blocks.Types.Extrapolation.Periodic,
+    smoothness=Modelica.Blocks.Types.Smoothness.ConstantSegments,
     tableOnFile=false,
-    table=[0.0,0.0; 8*3600,0;
-           8*3600,2; 9*3600,2;
-           9*3600,3; 12*3600,3;
-           12*3600, 2; 13*3600,2;
-           13*3600,6; 15*3600,6;
-           15*3600,3; 16*3600,3;
-           16*3600,4; 18*3600,4;
-    18*3600,0; 24*3600,0]) "Office with double occupancy"
+    table=[-6*3600,0.0;
+            8*3600,2;
+            9*3600,3;
+            12*3600, 2;
+            13*3600,6;
+            15*3600,3;
+            16*3600,4;
+            18*3600,0]) "Office with double occupancy"
     annotation (extent=[-60,10; -40,30]);
 
   Modelica.Blocks.Sources.CombiTimeTable office2(
     extrapolation=Modelica.Blocks.Types.Extrapolation.Periodic,
+    smoothness=Modelica.Blocks.Types.Smoothness.ConstantSegments,
     tableOnFile=false,
-    table=[0.0,0.0; 8*3600,0;
-           8*3600,2; 9*3600,2;
-           9*3600,3; 12*3600,3;
-           12*3600, 2; 13*3600,2;
-           13*3600,5; 15*3600,5;
-           15*3600,3; 16*3600,3;
-           16*3600,6; 18*3600,6;
-    18*3600,0; 24*3600,0]) "Office with double occupancy"
+    table=[-6*3600,0.0;
+            8*3600,2;
+            9*3600,3;
+            12*3600, 2;
+            13*3600,5;
+            15*3600,3;
+            16*3600,6;
+            18*3600,0]) "Office with double occupancy"
     annotation (extent=[-60,-30; -40,-10]);
 
   Modelica.Blocks.Sources.CombiTimeTable cla1(
     extrapolation=Modelica.Blocks.Types.Extrapolation.Periodic,
+    smoothness=Modelica.Blocks.Types.Smoothness.ConstantSegments,
     tableOnFile=false,
-    table=[0.0,0.0; 8*3600,0;
-           8*3600,25; 9*3600,25;
-           9*3600,20; 10*3600,20;
-           10*3600,30; 12*3600,30;
-           12*3600, 0; 13*3600,0;
-           13*3600,30; 15*3600,30;
-           15*3600,40; 16*3600,40;
-           16*3600,20; 18*3600,20;
-    18*3600,0; 24*3600,0]) "Class room"
+    table=[-6*3600,0.0;
+            8*3600,25;
+            9*3600,20;
+            10*3600,30;
+            12*3600, 0;
+            13*3600,30;
+            15*3600,40;
+            16*3600,20;
+            18*3600,0]) "Class room"
     annotation (extent=[-60,80; -40,100]);
 
   Modelica.Blocks.Sources.CombiTimeTable cla2(
     extrapolation=Modelica.Blocks.Types.Extrapolation.Periodic,
+    smoothness=Modelica.Blocks.Types.Smoothness.ConstantSegments,
     tableOnFile=false,
-    table=[0.0,0.0; 8*3600,0;
-           8*3600,20; 9*3600,20;
-           9*3600,10; 10*3600,10;
-           10*3600,20; 11*3600,20;
-           11*3600,15; 12*3600,15;
-           12*3600, 0; 13*3600,0;
-           13*3600,30; 15*3600,30;
-           15*3600,20; 16*3600,20;
-           16*3600,25; 18*3600,25;
-    18*3600,0; 24*3600,0]) "Class room"
+    table=[-6*3600,0.0;
+            8*3600,20;
+            9*3600,10;
+            10*3600,20;
+            11*3600,15;
+            12*3600, 0;
+            13*3600,30;
+            15*3600,20;
+            16*3600,25;
+            18*3600,0]) "Class room"
     annotation (extent=[-60,50; -40,70]);
 
   Modelica.Blocks.Sources.CombiTimeTable smaRoo1(
     extrapolation=Modelica.Blocks.Types.Extrapolation.Periodic,
+    smoothness=Modelica.Blocks.Types.Smoothness.ConstantSegments,
     tableOnFile=false,
-    table=[0.0,0.0; 8*3600,0;
-    8*3600,0.4; 9*3600,0.4;
-    9*3600,1; 10*3600,1;
-    10*3600,0.4; 12*3600,0.4;
-    12*3600,1; 13*3600,1;
-           13*3600,0.5; 14*3600,0.5;
-           14*3600,1.0; 16*3600,1.0;
-           16*3600,0.5; 18*3600,0.5;
-    18*3600,0; 24*3600,0]) "Small rooms"
+    table=[-6*3600,0.0;
+            8*3600,0.4;
+            9*3600,1;
+            12*3600,1;
+            13*3600,0.5;
+            14*3600,1.0;
+            16*3600,0.5;
+            18*3600,0]) "Small rooms"
     annotation (extent=[-60,-70; -40,-50]);
 
   Modelica.Blocks.Sources.CombiTimeTable smaRoo2(
     extrapolation=Modelica.Blocks.Types.Extrapolation.Periodic,
+    smoothness=Modelica.Blocks.Types.Smoothness.ConstantSegments,
     tableOnFile=false,
-    table=[0.0,0.0; 8*3600,0;
-    8*3600,0.4; 9*3600,0.4;
-    9*3600,1; 10*3600,1;
-    10*3600,0.4; 12*3600,0.4;
-    12*3600,1; 13*3600,1;
-           13*3600,0.3; 14*3600,0.3;
-           14*3600,0.4; 16*3600,0.4;
-           16*3600,0.2; 18*3600,0.2;
-    18*3600,0; 24*3600,0]) "Small rooms"
+    table=[-6*3600,0.0;
+            8*3600,0.4;
+            9*3600,1;
+            10*3600,0.4;
+            12*3600,1;
+            13*3600,0.3;
+            14*3600,0.4;
+            16*3600,0.2;
+            18*3600,0]) "Small rooms"
     annotation (extent=[-60,-100; -40,-80]);
 
   Modelica.Blocks.Interfaces.RealOutput y1[2]

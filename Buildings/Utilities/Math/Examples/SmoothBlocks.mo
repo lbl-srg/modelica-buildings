@@ -58,6 +58,10 @@ by smooth functions.
 </html>", revisions="<html>
 <ul>
 <li>
+November 12, 2013, by Michael Wetter:<br/>
+Added missing parameter value for <code>sine1.freqHz</code>.
+</li>
+<li>
 August 15, 2008, by Michael Wetter:<br/>
 First implementation.
 </li>

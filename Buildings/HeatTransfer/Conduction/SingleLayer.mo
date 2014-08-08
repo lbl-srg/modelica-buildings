@@ -20,7 +20,7 @@ model SingleLayer "Model for single layer heat conductance"
     "Definition of specific internal energy (enthalpy in solids)!";
   replaceable parameter Data.BaseClasses.Material material
     "Material from Data.Solids, Data.SolidsPCM or Data.Resistances"
-    annotation (Evaluate=true, choicesAllMatching=true, Placement(transformation(extent={{60,60},
+    annotation (choicesAllMatching=true, Placement(transformation(extent={{60,60},
             {80,80}})));
 
   parameter Boolean steadyStateInitial=false
@@ -263,6 +263,10 @@ Buildings.HeatTransfer.Conduction.MultiLayer</a> instead of this model.
 </html>",
 revisions="<html>
 <ul>
+<li>
+May 30, 2014, by Michael Wetter:<br/>
+Removed undesirable annotation <code>Evaluate=true</code>.
+</li>
 <li>
 January 22, 2013, by Armin Teskeredzic:<br/>
 Implementation of phase-change materials based on enthalpy-linearisation method.

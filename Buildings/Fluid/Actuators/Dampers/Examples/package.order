@@ -1,5 +1,4 @@
 Damper
-VAVBoxExponential
-MixingBoxMinimumFlow
 MixingBox
-
+MixingBoxMinimumFlow
+VAVBoxExponential

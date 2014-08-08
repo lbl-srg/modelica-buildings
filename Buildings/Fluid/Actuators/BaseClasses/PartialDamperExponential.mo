@@ -119,7 +119,7 @@ models.
 <p>
 For a description of the opening characteristics and typical parameter values, see the damper model
 <a href=\"modelica://Buildings.Fluid.Actuators.Dampers.Exponential\">
-Buildings.Fluid.Actuators.Dampers.Exponential</a>.
+Exponential</a>.
 </p>
 </html>",
 revisions="<html>

@@ -63,7 +63,8 @@ model ClosedLoop
     m1_flow_nominal=m_flow_nominal*1000*15/4200/10,
     m2_flow_nominal=m_flow_nominal,
     dp2_nominal=0,
-    dp1_nominal=0) "Cooling coil"
+    dp1_nominal=0,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial) "Cooling coil"
     annotation (Placement(transformation(extent={{210,-36},{190,-56}})));
   Buildings.Fluid.FixedResistances.FixedResistanceDpM dpSupDuc(
     m_flow_nominal=m_flow_nominal,
@@ -82,14 +83,15 @@ model ClosedLoop
     redeclare package Medium = MediumA,
     tau=60,
     dynamicBalance=true,
-    pressure(V_flow={0, m_flow_nominal/1.2*2}, dp={850,0})) "Supply air fan"
+    pressure(V_flow={0, m_flow_nominal/1.2*2}, dp={850,0}),
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial) "Supply air fan"
     annotation (Placement(transformation(extent={{300,-50},{320,-30}})));
   Buildings.Fluid.Movers.FlowMachine_y fanRet(
     redeclare package Medium = MediumA,
     tau=60,
     dynamicBalance=true,
-    pressure(V_flow=m_flow_nominal/1.2*{0, 2}, dp=1.5*110*{2,0}))
-    "Return air fan"
+    pressure(V_flow=m_flow_nominal/1.2*{0, 2}, dp=1.5*110*{2,0}),
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial) "Return air fan"
     annotation (Placement(transformation(extent={{310,110},{290,130}})));
   Buildings.Fluid.Sources.FixedBoundary sinHea(
     redeclare package Medium = MediumW,
@@ -292,7 +294,9 @@ model ClosedLoop
     dp_nominal(displayUnit="Pa") = {10,10,10},
     from_dp=false,
     dynamicBalance=true,
-    linearized=true) "Splitter for room return"
+    linearized=true,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+    "Splitter for room return"
     annotation (Placement(transformation(extent={{600,130},{620,110}})));
   Buildings.Fluid.FixedResistances.SplitterFixedResistanceDpM splRetSou(
     redeclare package Medium = MediumA,
@@ -301,7 +305,9 @@ model ClosedLoop
     dp_nominal(displayUnit="Pa") = {10,10,10},
     from_dp=false,
     dynamicBalance=true,
-    linearized=true) "Splitter for room return"
+    linearized=true,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+    "Splitter for room return"
     annotation (Placement(transformation(extent={{738,130},{758,110}})));
   Buildings.Fluid.FixedResistances.SplitterFixedResistanceDpM splRetEas(
     redeclare package Medium = MediumA,
@@ -310,7 +316,9 @@ model ClosedLoop
     dp_nominal(displayUnit="Pa") = {10,10,10},
     from_dp=false,
     dynamicBalance=true,
-    linearized=true) "Splitter for room return"
+    linearized=true,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+    "Splitter for room return"
     annotation (Placement(transformation(extent={{874,130},{894,110}})));
   Buildings.Fluid.FixedResistances.SplitterFixedResistanceDpM splRetNor(
     redeclare package Medium = MediumA,
@@ -318,14 +326,18 @@ model ClosedLoop
     dp_nominal(displayUnit="Pa") = {10,10,10},
     from_dp=false,
     dynamicBalance=true,
-    linearized=true) "Splitter for room return"
+    linearized=true,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+    "Splitter for room return"
     annotation (Placement(transformation(extent={{1014,130},{1034,110}})));
   Buildings.Fluid.FixedResistances.SplitterFixedResistanceDpM splSupRoo1(
     redeclare package Medium = MediumA,
     m_flow_nominal={m_flow_nominal,m_flow_nominal - m0_flow_cor,m0_flow_cor},
     dp_nominal(displayUnit="Pa") = {10,10,10},
     from_dp=true,
-    linearized=true) "Splitter for room supply"
+    linearized=true,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+    "Splitter for room supply"
     annotation (Placement(transformation(extent={{574,-30},{594,-50}})));
   Buildings.Fluid.FixedResistances.SplitterFixedResistanceDpM splSupSou(
     redeclare package Medium = MediumA,
@@ -333,7 +345,9 @@ model ClosedLoop
         m0_flow_eas + m0_flow_nor + m0_flow_wes,m0_flow_sou},
     dp_nominal(displayUnit="Pa") = {10,10,10},
     from_dp=true,
-    linearized=true) "Splitter for room supply"
+    linearized=true,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+    "Splitter for room supply"
     annotation (Placement(transformation(extent={{714,-30},{734,-50}})));
   Buildings.Fluid.FixedResistances.SplitterFixedResistanceDpM splSupEas(
     redeclare package Medium = MediumA,
@@ -341,14 +355,18 @@ model ClosedLoop
         m0_flow_wes,m0_flow_eas},
     dp_nominal(displayUnit="Pa") = {10,10,10},
     from_dp=true,
-    linearized=true) "Splitter for room supply"
+    linearized=true,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+    "Splitter for room supply"
     annotation (Placement(transformation(extent={{850,-30},{870,-50}})));
   Buildings.Fluid.FixedResistances.SplitterFixedResistanceDpM splSupNor(
     redeclare package Medium = MediumA,
     m_flow_nominal={m0_flow_nor + m0_flow_wes,m0_flow_wes,m0_flow_nor},
     dp_nominal(displayUnit="Pa") = {10,10,10},
     from_dp=true,
-    linearized=true) "Splitter for room supply"
+    linearized=true,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+    "Splitter for room supply"
     annotation (Placement(transformation(extent={{990,-30},{1010,-50}})));
   Controls.CoolingCoilTemperatureSetpoint TSetCoo "Setpoint for cooling coil"
     annotation (Placement(transformation(extent={{-50,-210},{-30,-190}})));
@@ -927,8 +945,8 @@ equation
       smooth=Smooth.None,
       pattern=LinePattern.Dash));
   annotation (
-    Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-400,-400},{1400,
-            600}}),      graphics),
+    Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-400,-400},{
+            1400,600}}), graphics),
     Documentation(info="<html>
 <p>
 This model consist of an HVAC system, a building envelope model and a model

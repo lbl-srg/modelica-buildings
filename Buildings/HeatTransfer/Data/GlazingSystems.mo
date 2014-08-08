@@ -15,13 +15,13 @@ package GlazingSystems
 
     parameter Glasses.Generic glass[nLay]
       "Layer by layer declaration of glass layers, starting from outside to room-side"
-      annotation (choicesAllMatching=true, Evaluate=true, Placement(transformation(extent={{60,60},{80,80}})));
+      annotation (choicesAllMatching=true, Placement(transformation(extent={{60,60},{80,80}})));
     parameter Gases.Generic gas[nLay-1]
       "Layer by layer declaration of glass layers, starting from outside to room-side"
-      annotation (choicesAllMatching=true, Evaluate=true, Placement(transformation(extent={{60,20},
+      annotation (choicesAllMatching=true, Placement(transformation(extent={{60,20},
               {80,40}})));
     parameter Shades.Generic shade "Shade"
-      annotation (choicesAllMatching=true, Evaluate=true,
+      annotation (choicesAllMatching=true,
       Dialog(enable=haveInteriorShade or haveExteriorShade));
     parameter Modelica.SIunits.CoefficientOfHeatTransfer UFra
       "U-value of frame";
@@ -38,6 +38,10 @@ Generic record that implements thermophysical properties for glazing systems.
 </html>",
   revisions="<html>
 <ul>
+<li>
+May 30, 2014, by Michael Wetter:<br/>
+Removed undesirable annotation <code>Evaluate=true</code>.
+</li>
 <li>
 July 15, 2013, by Michael Wetter:<br/>
 Removed parameter <code>windowHasShade</code> which is redundant with <code>haveShade</code>.

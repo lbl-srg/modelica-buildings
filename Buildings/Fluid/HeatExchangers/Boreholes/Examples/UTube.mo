@@ -12,6 +12,7 @@ model UTube "Model that tests the borehole model"
     redeclare each parameter
       Buildings.HeatTransfer.Data.BoreholeFillings.Bentonite matFil,
     redeclare parameter Buildings.HeatTransfer.Data.Soil.Sandstone matSoi,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     TExt0_start=283.15,
     TFil0_start=283.15) "Borehole heat exchanger"
     annotation (Placement(transformation(extent={{-16,-36},{16,-4}},rotation=0)));

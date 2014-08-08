@@ -31,19 +31,15 @@ extends Buildings.BaseClasses.BaseIcon;
     Dialog(group="Conditional inputs"));
 
   parameter Modelica.SIunits.Velocity vAir= 0.05 "Fixed value for air velocity"
-     annotation (Evaluate = true,
-                Dialog(enable = not use_vAir_in, group="Conditional inputs"));
+     annotation (Dialog(enable = not use_vAir_in, group="Conditional inputs"));
   parameter Modelica.SIunits.HeatFlux M = 60 "Fixed value for metabolic rate"
-     annotation (Evaluate = true,
-                Dialog(enable = not use_M_in, group="Conditional inputs"));
-  parameter Real ICl
+     annotation (Dialog(enable = not use_M_in, group="Conditional inputs"));
+  parameter Real ICl = 0.7
     "Fixed value for clothing insulation in units of clo (summer=0.5; winter=0.9)"
-     annotation (Evaluate = true,
-                Dialog(enable = not use_ICl_in, group="Conditional inputs"));
+     annotation (Dialog(enable = not use_ICl_in, group="Conditional inputs"));
   parameter Modelica.SIunits.Pressure pAir = 101325
     "Fixed value for air pressure"
-     annotation (Evaluate = true,
-                Dialog(enable = not use_pAir_in, group="Conditional inputs"));
+     annotation (Dialog(enable = not use_pAir_in, group="Conditional inputs"));
 
   Modelica.Blocks.Interfaces.RealInput TAir(final quantity="ThermodynamicTemperature",
                                           final unit = "K", displayUnit = "degC")
@@ -367,6 +363,11 @@ http://me.hku.hk/msc-courses/MEBS6006/index.html</a>
 </ul>
 </html>", revisions="<html>
 <ul>
+<li>
+May 30, 2014, by Michael Wetter:<br/>
+Removed undesirable annotation <code>Evaluate=true</code>.
+Added default value for <code>ICl</code>.
+</li>
 <li><i>October 9, 2013</i>, by Michael Wetter:<br/>
 Corrected use of conditional connector.
 </li>

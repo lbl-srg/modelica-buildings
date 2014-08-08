@@ -40,7 +40,8 @@ model SpaceCooling "Space cooling with DX coils"
     "Cooling load of coil, taking into account economizer, and increased due to latent heat removal";
 
   Fluid.Movers.FlowMachine_m_flow fan(redeclare package Medium = Medium,
-      m_flow_nominal=mA_flow_nominal) "Supply air fan"
+      m_flow_nominal=mA_flow_nominal,
+    dynamicBalance=false) "Supply air fan"
     annotation (Placement(transformation(extent={{100,-74},{120,-54}})));
   Fluid.HeatExchangers.ConstantEffectiveness hex(redeclare package Medium1 =
         Medium, redeclare package Medium2 = Medium,
@@ -81,7 +82,8 @@ model SpaceCooling "Space cooling with DX coils"
   Buildings.Fluid.HeatExchangers.DXCoils.SingleSpeed sinSpeDX(
     redeclare package Medium = Medium,
     datCoi=datCoi,
-    dp_nominal=400)
+    dp_nominal=400,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     annotation (Placement(transformation(extent={{-2,-74},{18,-54}})));
 
   SimpleRoom rooSinSpe(
@@ -94,7 +96,8 @@ model SpaceCooling "Space cooling with DX coils"
           rotation=0, extent={{120,40},{140,60}})));
   Fluid.Movers.FlowMachine_m_flow fan1(
                                       redeclare package Medium = Medium,
-      m_flow_nominal=mA_flow_nominal) "Supply air fan"
+      m_flow_nominal=mA_flow_nominal,
+    dynamicBalance=false) "Supply air fan"
     annotation (Placement(transformation(extent={{100,-174},{120,-154}})));
   Fluid.HeatExchangers.ConstantEffectiveness hex1(
     redeclare package Medium1 =
@@ -118,7 +121,9 @@ model SpaceCooling "Space cooling with DX coils"
   Buildings.Fluid.HeatExchangers.DXCoils.MultiStage mulStaDX(
     redeclare package Medium = Medium,
     dp_nominal=400,
-    datCoi=datCoiMulSpe) "Multi-speed DX coil"
+    datCoi=datCoiMulSpe,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+    "Multi-speed DX coil"
     annotation (Placement(transformation(extent={{-2,-174},{18,-154}})));
   SimpleRoom rooMulSpe(
     redeclare package Medium = Medium,
@@ -181,7 +186,8 @@ model SpaceCooling "Space cooling with DX coils"
           rotation=0, extent={{240,40},{260,60}})));
   Fluid.Movers.FlowMachine_m_flow fan2(
                                       redeclare package Medium = Medium,
-      m_flow_nominal=mA_flow_nominal) "Supply air fan"
+      m_flow_nominal=mA_flow_nominal,
+    dynamicBalance=false) "Supply air fan"
     annotation (Placement(transformation(extent={{98,-250},{118,-230}})));
   Fluid.Sensors.TemperatureTwoPort senTemSupAir2(
                                                 redeclare package Medium =
@@ -192,7 +198,9 @@ model SpaceCooling "Space cooling with DX coils"
     redeclare package Medium = Medium,
     dp_nominal=400,
     datCoi=datCoiMulSpe,
-    minSpeRat=0.2) "Variable-speed DX coil"
+    minSpeRat=0.2,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+    "Variable-speed DX coil"
     annotation (Placement(transformation(extent={{-4,-250},{16,-230}})));
   Fluid.Sensors.TemperatureTwoPort senTemHXEvaOut2(
                                                redeclare package Medium =
@@ -280,7 +288,8 @@ public
       redeclare package Medium = Medium,
       m_flow_nominal=mA_flow_nominal,
       V=V,
-      nPorts=2)
+      nPorts=2,
+      energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
       annotation (Placement(transformation(extent={{-10,-20},{10,0}})));
     Modelica.Thermal.HeatTransfer.Components.ThermalConductor theCon(G=10000/30)
       "Thermal conductance with the ambient"
@@ -618,9 +627,9 @@ equation
       smooth=Smooth.None));
   connect(conVarSpe.u_m, rooVarSpe.TRoo) annotation (Line(
       points={{-50,-222},{-50,-280},{280,-280},{280,52.3077},{260.933,52.3077}},
-
       color={0,0,127},
       smooth=Smooth.None));
+
   connect(conVarSpe.y, varSpeDX.speRat) annotation (Line(
       points={{-39,-210},{-20,-210},{-20,-232},{-5,-232}},
       color={0,0,127},

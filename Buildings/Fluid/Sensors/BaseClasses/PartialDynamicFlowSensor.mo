@@ -3,7 +3,7 @@ partial model PartialDynamicFlowSensor
   "Partial component to model sensors that measure flow properties using a dynamic model"
   extends PartialFlowSensor;
   parameter Modelica.SIunits.Time tau(min=0) = 1
-    "Time constant at nominal flow rate" annotation (Evaluate=true);
+    "Time constant at nominal flow rate";
   parameter Modelica.Blocks.Types.Init initType = Modelica.Blocks.Types.Init.InitialState
     "Type of initialization (InitialState and InitialOutput are identical)"
   annotation(Evaluate=true, Dialog(group="Initialization"));
@@ -43,6 +43,10 @@ improving the numerical efficiency.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+May 29, 2014, by Michael Wetter:<br/>
+Removed undesirable annotation <code>Evaluate=true</code>.
+</li>
 <li>
 March 29, 2013, by Michael Wetter:<br/>
 Changed the parameter <code>initType</code> to

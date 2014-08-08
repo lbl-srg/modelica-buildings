@@ -11,14 +11,61 @@ block ReaderTMY3 "Reader for TMY3 weather data"
     annotation (Evaluate=true, Dialog(group="Data source"));
   parameter Modelica.SIunits.Pressure pAtm=101325
     "Atmospheric pressure (used if pAtmSou=Parameter)"
-    annotation (Evaluate=true, Dialog(group="Data source"));
+    annotation (Dialog(group="Data source"));
   Modelica.Blocks.Interfaces.RealInput pAtm_in(
     final quantity="Pressure",
     final unit="Pa",
     displayUnit="Pa") if (pAtmSou == Buildings.BoundaryConditions.Types.DataSource.Input)
     "Input pressure"
-    annotation (Placement(transformation(extent={{-240,180},{-200,220}}),
-        iconTransformation(extent={{-240,180},{-200,220}})));
+    annotation (Placement(transformation(extent={{-240,254},{-200,294}}),
+        iconTransformation(extent={{-240,254},{-200,294}})));
+  //--------------------------------------------------------------
+  // Ceiling height
+  parameter Buildings.BoundaryConditions.Types.DataSource ceiHeiSou=Buildings.BoundaryConditions.Types.DataSource.File
+    "Ceiling height" annotation (Evaluate=true, Dialog(group="Data source"));
+  parameter Real ceiHei(
+    final quantity="Height",
+    final unit="m",
+    displayUnit="m") = 20000 "Ceiling height (used if ceiHei=Parameter)"
+    annotation (Dialog(group="Data source"));
+  Modelica.Blocks.Interfaces.RealInput ceiHei_in(
+    final quantity="Height",
+    final unit="m",
+    displayUnit="m") if (ceiHeiSou == Buildings.BoundaryConditions.Types.DataSource.Input)
+    "Input ceiling height"
+    annotation (Placement(transformation(extent={{-242,24},{-202,64}}),
+        iconTransformation(extent={{-242,24},{-202,64}})));
+  //--------------------------------------------------------------
+  // Total sky cover
+  parameter Buildings.BoundaryConditions.Types.DataSource totSkyCovSou=Buildings.BoundaryConditions.Types.DataSource.File
+    "Total sky cover" annotation (Evaluate=true, Dialog(group="Data source"));
+  parameter Real totSkyCov(
+    min=0,
+    max=1,
+    unit="1") = 0.5 "Total sky cover (used if totSkyCov=Parameter)"
+    annotation (Dialog(group="Data source"));
+  Modelica.Blocks.Interfaces.RealInput totSkyCov_in(
+    min=0,
+    max=1,
+    unit="1") if (totSkyCovSou == Buildings.BoundaryConditions.Types.DataSource.Input)
+    "Input total sky cover"
+    annotation (Placement(transformation(extent={{-240,-20},{-200,20}}),
+        iconTransformation(extent={{-240,-20},{-200,20}})));
+  // Opaque sky cover
+  parameter Buildings.BoundaryConditions.Types.DataSource opaSkyCovSou=Buildings.BoundaryConditions.Types.DataSource.File
+    "Opaque sky cover" annotation (Evaluate=true, Dialog(group="Data source"));
+  parameter Real opaSkyCov(
+    min=0,
+    max=1,
+    unit="1") = 0.5 "Opaque sky cover (used if opaSkyCov=Parameter)"
+    annotation (Dialog(group="Data source"));
+  Modelica.Blocks.Interfaces.RealInput opaSkyCov_in(
+    min=0,
+    max=1,
+    unit="1") if (opaSkyCovSou == Buildings.BoundaryConditions.Types.DataSource.Input)
+    "Input opaque sky cover"
+    annotation (Placement(transformation(extent={{-240,70},{-200,110}}),
+        iconTransformation(extent={{-240,70},{-200,110}})));
   //--------------------------------------------------------------
   // Dry bulb temperature
   parameter Buildings.BoundaryConditions.Types.DataSource TDryBulSou=Buildings.BoundaryConditions.Types.DataSource.File
@@ -26,13 +73,27 @@ block ReaderTMY3 "Reader for TMY3 weather data"
     annotation (Evaluate=true, Dialog(group="Data source"));
   parameter Modelica.SIunits.Temperature TDryBul(displayUnit="degC") = 293.15
     "Dry bulb temperature (used if TDryBul=Parameter)"
-    annotation (Evaluate=true, Dialog(group="Data source"));
+    annotation (Dialog(group="Data source"));
   Modelica.Blocks.Interfaces.RealInput TDryBul_in(
     final quantity="ThermodynamicTemperature",
     final unit="K",
     displayUnit="degC") if (TDryBulSou == Buildings.BoundaryConditions.Types.DataSource.Input)
     "Input dry bulb temperature"
-    annotation (Placement(transformation(extent={{-240,120},{-200,160}})));
+    annotation (Placement(transformation(extent={{-240,160},{-200,200}})));
+  //--------------------------------------------------------------
+  // Dew point temperature
+  parameter Buildings.BoundaryConditions.Types.DataSource TDewPoiSou=Buildings.BoundaryConditions.Types.DataSource.File
+    "Dew point temperature"
+    annotation (Evaluate=true, Dialog(group="Data source"));
+  parameter Modelica.SIunits.Temperature TDewPoi(displayUnit="degC") = 283.15
+    "Dew point temperature (used if TDewPoi=Parameter)"
+    annotation (Dialog(group="Data source"));
+  Modelica.Blocks.Interfaces.RealInput TDewPoi_in(
+    final quantity="ThermodynamicTemperature",
+    final unit="K",
+    displayUnit="degC") if (TDewPoiSou == Buildings.BoundaryConditions.Types.DataSource.Input)
+    "Input dew point temperature"
+    annotation (Placement(transformation(extent={{-240,204},{-200,244}})));
   //--------------------------------------------------------------
   // Relative humidity
   parameter Buildings.BoundaryConditions.Types.DataSource relHumSou=Buildings.BoundaryConditions.Types.DataSource.File
@@ -41,62 +102,74 @@ block ReaderTMY3 "Reader for TMY3 weather data"
     min=0,
     max=1,
     unit="1") = 0.5 "Relative humidity (used if relHum=Parameter)"
-    annotation (Evaluate=true, Dialog(group="Data source"));
+    annotation (Dialog(group="Data source"));
   Modelica.Blocks.Interfaces.RealInput relHum_in(
     min=0,
     max=1,
     unit="1") if (relHumSou == Buildings.BoundaryConditions.Types.DataSource.Input)
     "Input relative humidity"
-    annotation (Placement(transformation(extent={{-240,60},{-200,100}}),
-        iconTransformation(extent={{-240,60},{-200,100}})));
+    annotation (Placement(transformation(extent={{-240,118},{-200,158}}),
+        iconTransformation(extent={{-240,118},{-200,158}})));
   //--------------------------------------------------------------
   // Wind speed
   parameter Buildings.BoundaryConditions.Types.DataSource winSpeSou=Buildings.BoundaryConditions.Types.DataSource.File
     "Wind speed" annotation (Evaluate=true, Dialog(group="Data source"));
   parameter Modelica.SIunits.Velocity winSpe(min=0) = 1
     "Wind speed (used if winSpe=Parameter)"
-    annotation (Evaluate=true, Dialog(group="Data source"));
+    annotation (Dialog(group="Data source"));
   Modelica.Blocks.Interfaces.RealInput winSpe_in(
     final quantity="Velocity",
     final unit="m/s",
     min=0) if (winSpeSou == Buildings.BoundaryConditions.Types.DataSource.Input)
     "Input wind speed"
-    annotation (Placement(transformation(extent={{-240,0},{-200,40}}),
-        iconTransformation(extent={{-240,0},{-200,40}})));
+    annotation (Placement(transformation(extent={{-240,-60},{-200,-20}}),
+        iconTransformation(extent={{-240,-60},{-200,-20}})));
   //--------------------------------------------------------------
   // Wind direction
   parameter Buildings.BoundaryConditions.Types.DataSource winDirSou=Buildings.BoundaryConditions.Types.DataSource.File
     "Wind direction" annotation (Evaluate=true, Dialog(group="Data source"));
   parameter Modelica.SIunits.Angle winDir=1.0
     "Wind direction (used if winDir=Parameter)"
-    annotation (Evaluate=true, Dialog(group="Data source"));
+    annotation (Dialog(group="Data source"));
   Modelica.Blocks.Interfaces.RealInput winDir_in(
     final quantity="Angle",
     final unit="rad",
     displayUnit="deg") if (winDirSou == Buildings.BoundaryConditions.Types.DataSource.Input)
     "Input wind direction"
-    annotation (Placement(transformation(extent={{-240,-60},{-200,-20}}),
-        iconTransformation(extent={{-240,-60},{-200,-20}})));
+    annotation (Placement(transformation(extent={{-240,-102},{-200,-62}}),
+        iconTransformation(extent={{-240,-102},{-200,-62}})));
+  //--------------------------------------------------------------
+  // Infrared horizontal radiation
+  parameter Buildings.BoundaryConditions.Types.DataSource HInfHorSou=Buildings.BoundaryConditions.Types.DataSource.File
+    "Infrared horizontal radiation" annotation (Evaluate=true, Dialog(group="Data source"));
+  parameter Modelica.SIunits.HeatFlux HInfHor=0.0
+    "Infrared horizontal radiation (used if HInfHorSou=Parameter)"
+    annotation (Dialog(group="Data source"));
+  Modelica.Blocks.Interfaces.RealInput HInfHor_in(
+    final quantity="RadiantEnergyFluenceRate",
+    final unit="W/m2") if (HInfHorSou == Buildings.BoundaryConditions.Types.DataSource.Input)
+    "Input infrared horizontal radiation"
+    annotation (Placement(transformation(extent={{-240,-146},{-200,-106}}),
+        iconTransformation(extent={{-240,-146},{-200,-106}})));
 
-     parameter Buildings.BoundaryConditions.Types.RadiationDataSource HSou=Buildings.BoundaryConditions.Types.RadiationDataSource.File
-    "Radiation"
+   parameter Buildings.BoundaryConditions.Types.RadiationDataSource HSou=Buildings.BoundaryConditions.Types.RadiationDataSource.File
+    "Global, diffuse, and direct normal radiation"
      annotation (Evaluate=true, Dialog(group="Data source"));
-
   //--------------------------------------------------------------
   // Global horizontal radiation
   Modelica.Blocks.Interfaces.RealInput HGloHor_in(
     final quantity="RadiantEnergyFluenceRate",
     final unit="W/m2") if (HSou == Buildings.BoundaryConditions.Types.RadiationDataSource.Input_HGloHor_HDifHor or HSou == Buildings.BoundaryConditions.Types.RadiationDataSource.Input_HDirNor_HGloHor)
     "Input global horizontal radiation"
-    annotation (Placement(transformation(extent={{-240,-120},{-200,-80}}),
-        iconTransformation(extent={{-240,-120},{-200,-80}})));
+    annotation (Placement(transformation(extent={{-240,-192},{-200,-152}}),
+        iconTransformation(extent={{-240,-192},{-200,-152}})));
   //--------------------------------------------------------------
   // Diffuse horizontal radiation
   Modelica.Blocks.Interfaces.RealInput HDifHor_in(
     final quantity="RadiantEnergyFluenceRate",
     final unit="W/m2") if (HSou == Buildings.BoundaryConditions.Types.RadiationDataSource.Input_HGloHor_HDifHor or HSou == Buildings.BoundaryConditions.Types.RadiationDataSource.Input_HDirNor_HDifHor)
     "Input diffuse horizontal radiation"
-    annotation (Placement(transformation(extent={{-240,-180},{-200,-140}}),
+    annotation (Placement(transformation(extent={{-240,-238},{-200,-198}}),
         iconTransformation(extent={{-240,-172},{-200,-132}})));
   //--------------------------------------------------------------
   // Direct normal radiation
@@ -104,7 +177,7 @@ block ReaderTMY3 "Reader for TMY3 weather data"
       final unit="W/m2") if
                           (HSou == Buildings.BoundaryConditions.Types.RadiationDataSource.Input_HDirNor_HDifHor or HSou == Buildings.BoundaryConditions.Types.RadiationDataSource.Input_HDirNor_HGloHor)
     "Input direct normal radiation"
-    annotation (Placement(transformation(extent={{-240,-240},{-200,-200}}),
+    annotation (Placement(transformation(extent={{-240,-282},{-200,-242}}),
         iconTransformation(extent={{-240,-220},{-200,-180}})));
 
   parameter String filNam="" "Name of weather data file" annotation (Dialog(
@@ -157,7 +230,7 @@ protected
   BaseClasses.CheckSkyCover cheTotSkyCov "Check the total sky cover"
     annotation (Placement(transformation(extent={{160,-40},{180,-20}})));
   BaseClasses.CheckSkyCover cheOpaSkyCov "Check the opaque sky cover"
-    annotation (Placement(transformation(extent={{160,-160},{180,-140}})));
+    annotation (Placement(transformation(extent={{162,-160},{182,-140}})));
   BaseClasses.CheckRadiation cheGloHorRad
     "Check the global horizontal radiation"
     annotation (Placement(transformation(extent={{160,160},{180,180}})));
@@ -209,7 +282,23 @@ protected
     final quantity="Pressure",
     final unit="Pa",
     displayUnit="bar") "Needed to connect to conditional connector";
+  Modelica.Blocks.Interfaces.RealInput ceiHei_in_internal(
+    final quantity="Height",
+    final unit="m",
+    displayUnit="m") "Needed to connect to conditional connector";
+  Modelica.Blocks.Interfaces.RealInput totSkyCov_in_internal(
+    final quantity="1",
+    min=0,
+    max=1) "Needed to connect to conditional connector";
+  Modelica.Blocks.Interfaces.RealInput opaSkyCov_in_internal(
+    final quantity="1",
+    min=0,
+    max=1) "Needed to connect to conditional connector";
   Modelica.Blocks.Interfaces.RealInput TDryBul_in_internal(
+    final quantity="ThermodynamicTemperature",
+    final unit="K",
+    displayUnit="degC") "Needed to connect to conditional connector";
+  Modelica.Blocks.Interfaces.RealInput TDewPoi_in_internal(
     final quantity="ThermodynamicTemperature",
     final unit="K",
     displayUnit="degC") "Needed to connect to conditional connector";
@@ -231,6 +320,9 @@ protected
     final quantity="RadiantEnergyFluenceRate",
     final unit="W/m2") "Needed to connect to conditional connector";
   Modelica.Blocks.Interfaces.RealInput HDirNor_in_internal(
+    final quantity="RadiantEnergyFluenceRate",
+    final unit="W/m2") "Needed to connect to conditional connector";
+  Modelica.Blocks.Interfaces.RealInput HInfHor_in_internal(
     final quantity="RadiantEnergyFluenceRate",
     final unit="W/m2") "Needed to connect to conditional connector";
 
@@ -288,6 +380,47 @@ equation
     connect(pAtm_in, pAtm_in_internal);
   end if;
   connect(pAtm_in_internal, chePre.PIn);
+  //---------------------------------------------------------------------------
+  // Select ceiling height connector
+  if ceiHeiSou == Buildings.BoundaryConditions.Types.DataSource.Parameter then
+    ceiHei_in_internal = ceiHei;
+  elseif ceiHeiSou == Buildings.BoundaryConditions.Types.DataSource.Input then
+    connect(ceiHei_in, ceiHei_in_internal);
+  else
+    connect(datRea.y[16], ceiHei_in_internal);
+  end if;
+   connect(ceiHei_in_internal, cheCeiHei.ceiHeiIn);
+
+  //---------------------------------------------------------------------------
+  // Select total sky cover connector
+  if totSkyCovSou == Buildings.BoundaryConditions.Types.DataSource.Parameter then
+    totSkyCov_in_internal = totSkyCov;
+  elseif totSkyCovSou == Buildings.BoundaryConditions.Types.DataSource.Input then
+    connect(totSkyCov_in, totSkyCov_in_internal);
+  else
+    connect(datRea.y[13], totSkyCov_in_internal);
+  end if;
+  connect(totSkyCov_in_internal, cheTotSkyCov.nIn);
+  //---------------------------------------------------------------------------
+  // Select opaque sky cover connector
+  if opaSkyCovSou == Buildings.BoundaryConditions.Types.DataSource.Parameter then
+    opaSkyCov_in_internal = opaSkyCov;
+  elseif opaSkyCovSou == Buildings.BoundaryConditions.Types.DataSource.Input then
+    connect(opaSkyCov_in, opaSkyCov_in_internal);
+  else
+    connect(datRea.y[14], opaSkyCov_in_internal);
+  end if;
+  connect(opaSkyCov_in_internal, cheOpaSkyCov.nIn);
+  //---------------------------------------------------------------------------
+  // Select dew point temperature connector
+  if TDewPoiSou == Buildings.BoundaryConditions.Types.DataSource.Parameter then
+    TDewPoi_in_internal = TDewPoi;
+  elseif TDewPoiSou == Buildings.BoundaryConditions.Types.DataSource.Input then
+    connect(TDewPoi_in, TDewPoi_in_internal);
+  else
+    connect(conTDewPoi.y, TDewPoi_in_internal);
+  end if;
+  connect(TDewPoi_in_internal, cheTemDewPoi.TIn);
   //---------------------------------------------------------------------------
   // Select dry bulb temperature connector
   if TDryBulSou == Buildings.BoundaryConditions.Types.DataSource.Parameter then
@@ -369,6 +502,17 @@ equation
   end if;
   connect(HDirNor_in_internal, cheDirNorRad.HIn);
 
+  //---------------------------------------------------------------------------
+  // Select infrared radiation connector
+  if HInfHorSou == Buildings.BoundaryConditions.Types.DataSource.Parameter then
+    HInfHor_in_internal = HInfHor;
+  elseif HInfHorSou == Buildings.BoundaryConditions.Types.DataSource.Input then
+    connect(HInfHor_in, HInfHor_in_internal);
+  else
+    connect(conHorRad.HOut, HInfHor_in_internal);
+  end if;
+  connect(HInfHor_in_internal, cheHorRad.HIn);
+
   connect(chePre.POut, weaBus.pAtm) annotation (Line(
       points={{181,70},{220,70},{220,5.55112e-16},{304,5.55112e-16}},
       color={0,0,127},
@@ -384,7 +528,7 @@ equation
       index=1,
       extent={{6,3},{6,3}}));
   connect(cheOpaSkyCov.nOut, weaBus.nOpa) annotation (Line(
-      points={{181,-150},{220,-150},{220,5.55112e-16},{304,5.55112e-16}},
+      points={{183,-150},{220,-150},{220,5.55112e-016},{304,5.55112e-016}},
       color={0,0,127},
       smooth=Smooth.None), Text(
       string="%second",
@@ -440,7 +584,7 @@ equation
       index=1,
       extent={{6,3},{6,3}}));
   connect(cheOpaSkyCov.nOut, TBlaSky.nOpa) annotation (Line(
-      points={{181,-150},{220,-150},{220,-213},{238,-213}},
+      points={{183,-150},{220,-150},{220,-213},{238,-213}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(cheHorRad.HOut, TBlaSky.radHorIR) annotation (Line(
@@ -511,18 +655,6 @@ equation
       string="%second",
       index=1,
       extent={{6,3},{6,3}}));
-  connect(datRea.y[13], cheTotSkyCov.nIn) annotation (Line(
-      points={{-59,-30},{158,-30}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(datRea.y[14], cheOpaSkyCov.nIn) annotation (Line(
-      points={{-59,-29.92},{20,-29.92},{20,-150},{158,-150}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(datRea.y[16], cheCeiHei.ceiHeiIn) annotation (Line(
-      points={{-59,-29.76},{20,-29.76},{20,-110},{158,-110}},
-      color={0,0,127},
-      smooth=Smooth.None));
   connect(datRea.y[11], conWinDir.u) annotation (Line(
       points={{-59,-30.16},{20,-30.16},{20,-270},{118,-270}},
       color={0,0,127},
@@ -545,10 +677,6 @@ equation
       smooth=Smooth.None));
   connect(datRea.y[2], conTDewPoi.u) annotation (Line(
       points={{-59,-30.88},{20,-30.88},{20,-230},{118,-230}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(conTDewPoi.y, cheTemDewPoi.TIn) annotation (Line(
-      points={{141,-230},{158,-230}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(cheTemDewPoi.TOut, weaBus.TDewPoi) annotation (Line(
@@ -593,12 +721,11 @@ equation
       index=1,
       extent={{6,3},{6,3}}));
   connect(decAng.decAng, zenAng.decAng)
-                                     annotation (Line(
+                                  annotation (Line(
       points={{-119,-210},{-82,-210},{-82,-210.6}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(solHouAng.solHouAng, zenAng.solHouAng)
-                                              annotation (Line(
+  connect(solHouAng.solHouAng, zenAng.solHouAng)                                              annotation (Line(
       points={{-119,-240},{-100,-240},{-100,-220.8},{-82,-220.8}},
       color={0,0,127},
       smooth=Smooth.None));
@@ -606,7 +733,6 @@ equation
       points={{-142,-240},{-154,-240},{-154,-172},{-20,-172},{-20,-130},{-59,-130}},
       color={0,0,127},
       smooth=Smooth.None));
-
   connect(decAng.nDay, simTim.y) annotation (Line(
       points={{-142,-210},{-150,-210},{-150,-180},{0,-180},{0,6.10623e-16},{
           -159,6.10623e-16}},
@@ -832,19 +958,35 @@ or using data from an input connector for the following variables:
 The atmospheric pressure,
 </li>
 <li>
+the ceiling height,
+</li>
+<li>
+the total sky cover pressure,
+</li>
+<li>
+the opaque sky cover pressure,
+</li>
+<li>
 the dry bulb temperature,
 </li>
 <li>
-the relative humidity
+the dew point temperature,
+</li>
+<li>
+the relative humidity,
 </li>
 <li>
 the wind direction,
 </li>
 <li>
-the wind speed, and
+the wind speed,
 </li>
 <li>
-the global horizontal radiation, direct normal and diffuse horizontal radiation.
+the global horizontal radiation, direct normal and diffuse horizontal radiation,
+and
+</li>
+<li>
+the infrared horizontal radiation.
 </li>
 </ul>
 <p>
@@ -1051,6 +1193,16 @@ Technical Report, NREL/TP-581-43156, revised May 2008.
 ", revisions="<html>
 <ul>
 <li>
+May 30, 2014, by Michael Wetter:<br/>
+Removed undesirable annotation <code>Evaluate=true</code>.
+</li>
+<li>
+May 5, 2013, by Thierry S. Nouidui:<br/>
+Added the option to use a constant, an input signal or the weather file as the source
+for the ceiling height, the total sky cover, the opaque sky cover, the dew point temperature, 
+and the infrared horizontal radiation <code>HInfHor</code>.
+</li>
+<li>
 October 8, 2013, by Michael Wetter:<br/>
 Improved the algorithm that determines the absolute path of the file.
 Now weather files are searched in the path specified, and if not found, the urls
@@ -1138,6 +1290,7 @@ First implementation.
 </li>
 </ul>
 </html>"),
-    Diagram(coordinateSystem(preserveAspectRatio=true,extent={{-200,-300},{300,
-            300}})));
+    Diagram(coordinateSystem(preserveAspectRatio=false,
+                                                      extent={{-200,-300},{300,300}}),
+        graphics));
 end ReaderTMY3;

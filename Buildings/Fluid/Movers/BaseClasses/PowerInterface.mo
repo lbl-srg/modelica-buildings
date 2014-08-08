@@ -54,11 +54,9 @@ protected
   parameter Modelica.SIunits.VolumeFlowRate delta_V_flow = 1E-3*V_flow_max
     "Factor used for setting heat input into medium to zero at very small flows";
   final parameter Real motDer[size(motorEfficiency.r_V, 1)](each fixed=false)
-    "Coefficients for polynomial of pressure vs. flow rate"
-    annotation (Evaluate=true);
+    "Coefficients for polynomial of pressure vs. flow rate";
   final parameter Real hydDer[size(hydraulicEfficiency.r_V,1)](each fixed=false)
-    "Coefficients for polynomial of pressure vs. flow rate"
-    annotation (Evaluate=true);
+    "Coefficients for polynomial of pressure vs. flow rate";
 
   Modelica.SIunits.HeatFlowRate QThe_flow
     "Heat input from fan or pump to medium";
@@ -132,6 +130,10 @@ to properly guard against division by zero.
 </html>",
       revisions="<html>
 <ul>
+<li>
+May 29, 2014, by Michael Wetter:<br/>
+Removed undesirable annotation <code>Evaluate=true</code>.
+</li>
 <li>
 September 17, 2013, by Michael Wetter:<br/>
 Added missing <code>each</code> keyword in declaration of parameters

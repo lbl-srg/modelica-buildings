@@ -10,7 +10,7 @@ block BooleanReplicator "Boolean signal replicator"
     annotation (Placement(transformation(extent={{100,-10},{120,10}},
             rotation=0)));
 equation
-  y = fill(u, nout);
+  y = Buildings.Utilities.Math.Functions.booleanReplicator(u=u, nout=nout);
   annotation (
     defaultComponentName="booRep",
     Window(
@@ -40,6 +40,10 @@ This block replicates the boolean input signal to an array of <code>nout</code> 
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+November 28, 2013, by Marcus Fuchs:<br/>
+Changed block to use Functions.booleanReplicator.
+</li>
 <li>
 July 27, 2012, by Kaustubh Phalak:<br/>
 First implementation.

@@ -10,10 +10,10 @@ model OpaqueSurface "Model for an opaque surface"
 protected
   final parameter Real T03(
     min=0,
-    final unit="K3") = T0^3 "3rd power of temperature T0" annotation (Evaluate=true);
+    final unit="K3") = T0^3 "3rd power of temperature T0";
   final parameter Real T04(
     min=0,
-    final unit="K4") = T0^4 "4th power of temperature T0" annotation (Evaluate=true);
+    final unit="K4") = T0^4 "4th power of temperature T0";
   Real T4(
     min=1E8,
     start=293.15^4,
@@ -61,6 +61,10 @@ equation
 Model for the emissive power of an opaque surface. 
 </html>", revisions="<html>
 <ul>
+<li>
+May 30, 2014, by Michael Wetter:<br/>
+Removed undesirable annotation <code>Evaluate=true</code>.
+</li>
 <li>
 June 27, 2013, by Michael Wetter:<br/>
 Changed model because the outflowing radiosity has been changed to be a non-negative quantity.

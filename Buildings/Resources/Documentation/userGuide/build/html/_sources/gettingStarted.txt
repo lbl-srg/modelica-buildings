@@ -8,7 +8,11 @@ Getting Started
 
 Literature for Users
 --------------------
-We recommend new users of Modelica to study the books by Michael Tiller [Til2001]_ and Peter Fritzson ([Fri2011]_ and [Fri2004]_), and the tutorials that are listed at https://www.modelica.org/publications.
+The following books are useful for new users to get started:
+
+* The online book with interactive examples of Michael Tiller at http://book.xogeny.com/.
+* The books by Michael Tiller [Til2001]_ and Peter Fritzson ([Fri2011]_ and [Fri2004]_).
+* The tutorials that are listed at https://www.modelica.org/publications.
 
 Although the `Modelica Language Tutorial <https://www.modelica.org/documents/ModelicaTutorial14.pdf>`_ is for an older version (Modelica 1.4), it is still instructive and relevant to understand the concepts of the language.
 

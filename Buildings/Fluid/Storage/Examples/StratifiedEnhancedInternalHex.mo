@@ -46,10 +46,10 @@ model StratifiedEnhancedInternalHex
     Q_flow_nominal=0.278*4200*20,
     mHex_flow_nominal=0.278,
     hTan=1.746,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial,
     hHex_a=0.995,
     energyDynamicsHex=Modelica.Fluid.Types.Dynamics.FixedInitial,
     hHex_b=0.1,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     TTan_nominal=293.15,
     THex_nominal=323.15) "Tank with heat exchanger"
     annotation (Placement(transformation(extent={{-22,-6},{12,26}})));
@@ -76,6 +76,7 @@ equation
             -100},{100,100}}), graphics), __Dymola_Commands(file=
           "modelica://Buildings/Resources/Scripts/Dymola/Fluid/Storage/Examples/StratifiedEnhancedInternalHex.mos"
         "Simulate and Plot"),
+experiment(StopTime=30000.0),
 Documentation(info="<html>
 <p>
 This model provides an example of how the 

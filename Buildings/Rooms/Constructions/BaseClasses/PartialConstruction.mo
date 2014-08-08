@@ -10,7 +10,7 @@ partial model PartialConstruction
   replaceable parameter Buildings.HeatTransfer.Data.OpaqueConstructions.Generic
     layers "Material properties of opaque construction"
     annotation(Dialog(group="Opaque construction"),
-               Evaluate=true, choicesAllMatching=true, Placement(transformation(extent={{146,258},
+               choicesAllMatching=true, Placement(transformation(extent={{146,258},
             {166,278}})));
 
   parameter Modelica.SIunits.Angle til "Surface tilt";
@@ -106,6 +106,10 @@ Buildings.HeatTransfer.Types.Tilt</a>
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+May 30, 2014, by Michael Wetter:<br/>
+Removed undesirable annotation <code>Evaluate=true</code>.
+</li>
 <li>
 December 14, 2010, by Michael Wetter:<br/>
 First implementation.

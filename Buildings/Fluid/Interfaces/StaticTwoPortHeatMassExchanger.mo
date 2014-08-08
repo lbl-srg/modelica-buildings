@@ -6,13 +6,13 @@ model StaticTwoPortHeatMassExchanger
   extends Buildings.Fluid.Interfaces.TwoPortFlowResistanceParameters(
     final computeFlowResistance=(abs(dp_nominal) > Modelica.Constants.eps));
 
+  parameter Boolean homotopyInitialization = true "= true, use homotopy method"
+    annotation(Evaluate=true, Dialog(tab="Advanced"));
+
   // Model inputs
   input Modelica.SIunits.HeatFlowRate Q_flow "Heat transfered into the medium";
   input Modelica.SIunits.MassFlowRate mWat_flow
     "Moisture mass flow rate added to the medium";
-
-  parameter Boolean homotopyInitialization = true "= true, use homotopy method"
-    annotation(Evaluate=true, Dialog(tab="Advanced"));
 
   // Models for conservation equations and pressure drop
   Buildings.Fluid.Interfaces.StaticTwoPortConservationEquation vol(
@@ -63,8 +63,7 @@ equation
   connect(vol.XiOut, XiOut);
   connect(vol.COut, COut);
   connect(port_a,preDro. port_a) annotation (Line(
-      points={{-100,0},{-80,0},{-80,0},{-70,0},{-70,
-          0},{-50,0}},
+      points={{-100,0},{-50,0}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(preDro.port_b, vol.port_a) annotation (Line(
@@ -129,6 +128,11 @@ or instantiates this model sets <code>mWat_flow = 0</code>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+November 13, 2013 by Michael Wetter:<br/>
+Added parameter <code>homotopyInitialization</code> as
+it has been removed in the base class.
+</li>
 <li>
 October 8, 2013 by Michael Wetter:<br/>
 Removed propagation of <code>show_V_flow</code>

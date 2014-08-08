@@ -8,7 +8,7 @@ model MixingVolumeHeatConduction "Test model for heat transfer to volume"
   Modelica.Thermal.HeatTransfer.Sensors.HeatFlowSensor heaFlo
     "Heat flow sensor"
     annotation (Placement(transformation(extent={{0,20},{20,40}})));
-  Modelica.Thermal.HeatTransfer.Sources.FixedTemperature TAmb(T=293.15)
+  Buildings.HeatTransfer.Sources.FixedTemperature TAmb(T=293.15)
     "Ambient temperature"
     annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
   Modelica.Fluid.Sources.MassFlowSource_T sou(

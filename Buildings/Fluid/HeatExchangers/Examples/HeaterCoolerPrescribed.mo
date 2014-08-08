@@ -4,10 +4,13 @@ model HeaterCoolerPrescribed "Model that demonstrates the ideal heater model"
 
   package Medium = Buildings.Media.GasesConstantDensity.SimpleAir;
 
-  inner Modelica.Fluid.System system(m_flow_start=0, energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState)
+  inner Modelica.Fluid.System system(
+     m_flow_start=0,
+     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState)
+    "System wide declarations"
     annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
-  parameter Modelica.SIunits.MassFlowRate m_flow_nominal=
-     3000/1000/20 "Nominal mass flow rate";
+  parameter Modelica.SIunits.MassFlowRate
+    m_flow_nominal=3000/1000/20 "Nominal mass flow rate";
 
   Buildings.Fluid.Sources.Boundary_pT sin(
     redeclare package Medium = Medium,
@@ -26,8 +29,9 @@ model HeaterCoolerPrescribed "Model that demonstrates the ideal heater model"
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState)
     "Steady-state model of the heater"
     annotation (Placement(transformation(extent={{0,90},{20,110}})));
-  Buildings.Fluid.Sensors.TemperatureTwoPort senTem1(redeclare package Medium
-      = Medium, m_flow_nominal=m_flow_nominal) "Temperature sensor"
+  Buildings.Fluid.Sensors.TemperatureTwoPort senTem1(
+    redeclare package Medium = Medium,
+    m_flow_nominal=m_flow_nominal) "Temperature sensor"
     annotation (Placement(transformation(extent={{40,90},{60,110}})));
   Modelica.Blocks.Sources.TimeTable TSet(table=[0, 273.15 + 20; 120, 273.15 +
         20; 120, 273.15 + 30; 1200, 273.15 + 30]) "Setpoint"
@@ -46,8 +50,8 @@ model HeaterCoolerPrescribed "Model that demonstrates the ideal heater model"
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyStateInitial)
     "Dynamic model of the heater"
     annotation (Placement(transformation(extent={{0,-20},{20,0}})));
-  Buildings.Fluid.Sensors.TemperatureTwoPort senTem2(redeclare package Medium
-      = Medium, m_flow_nominal=m_flow_nominal) "Temperature sensor"
+  Buildings.Fluid.Sensors.TemperatureTwoPort senTem2(redeclare package Medium =
+        Medium, m_flow_nominal=m_flow_nominal) "Temperature sensor"
     annotation (Placement(transformation(extent={{40,-20},{60,0}})));
   Buildings.Controls.Continuous.LimPID con2(
     controllerType=Modelica.Blocks.Types.SimpleController.PI,
@@ -55,7 +59,7 @@ model HeaterCoolerPrescribed "Model that demonstrates the ideal heater model"
     Ti=10,
     k=0.1) "Controller"
     annotation (Placement(transformation(extent={{40,30},{60,50}})));
-  Sources.MassFlowSource_T                 sou(
+  Sources.MassFlowSource_T sou(
     redeclare package Medium = Medium,
     use_T_in=false,
     nPorts=2,

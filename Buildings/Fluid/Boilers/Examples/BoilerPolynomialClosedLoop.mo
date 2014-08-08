@@ -17,9 +17,10 @@ model BoilerPolynomialClosedLoop "Boiler with closed loop control"
     Q_flow_nominal=Q_flow_nominal,
     redeclare package Medium = Medium,
     dp_nominal=20000,
-    T_start=293.15,
     m_flow_nominal=m_flow_nominal,
-    fue=Buildings.Fluid.Data.Fuels.HeatingOilLowerHeatingValue()) "Boiler"
+    fue=Buildings.Fluid.Data.Fuels.HeatingOilLowerHeatingValue(),
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    T_start=293.15) "Boiler"
     annotation (Placement(transformation(extent={{40,-110},{20,-90}})));
   Modelica.Blocks.Logical.OnOffController onOffController(bandwidth=20)
     annotation (Placement(transformation(extent={{-130,-80},{-110,-60}})));
@@ -111,7 +112,9 @@ model BoilerPolynomialClosedLoop "Boiler with closed loop control"
     nPorts=2,
     redeclare package Medium = Medium,
     m_flow_nominal=2*m_flow_nominal,
-    V=1) annotation (Placement(transformation(extent={{40,162},{60,182}})));
+    V=1,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+         annotation (Placement(transformation(extent={{40,162},{60,182}})));
   Modelica.Thermal.HeatTransfer.Components.ThermalConductor thermalConductor(G=0.1
         *Q_flow_nominal/(40 - 20))
     annotation (Placement(transformation(extent={{-80,162},{-60,182}})));

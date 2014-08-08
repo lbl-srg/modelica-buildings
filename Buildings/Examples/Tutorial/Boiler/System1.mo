@@ -9,6 +9,7 @@ model System1
     annotation (Placement(transformation(extent={{60,-80},{80,-60}})));
   Fluid.MixingVolumes.MixingVolume vol(
     redeclare package Medium = MediumA,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     m_flow_nominal=mA_flow_nominal,
     V=V)
     annotation (Placement(transformation(extent={{60,20},{80,40}})));
@@ -31,12 +32,10 @@ model System1
     annotation (Placement(transformation(extent={{60,50},{80,70}})));
   Modelica.Blocks.Sources.CombiTimeTable timTab(
       extrapolation=Modelica.Blocks.Types.Extrapolation.Periodic,
-      table=[      0, 0;
-              8*3600, 0;
+      smoothness=Modelica.Blocks.Types.Smoothness.ConstantSegments,
+      table=[-6*3600, 0;
               8*3600, QRooInt_flow;
-             18*3600, QRooInt_flow;
-             18*3600, 0;
-             24*3600, 0]) "Time table for internal heat gain"
+             18*3600, 0]) "Time table for internal heat gain"
     annotation (Placement(transformation(extent={{-20,70},{0,90}})));
 equation
   connect(TOut.port, theCon.port_a) annotation (Line(
@@ -198,23 +197,25 @@ and set its name to <code>timTab</code>.
 We set the table parameters to
 </p>
 <pre>
-Modelica.Blocks.Sources.CombiTimeTable timTab(
-      extrapolation=Modelica.Blocks.Types.Extrapolation.Periodic, 
-      table=[      0, 0; 
-              8*3600, 0; 
-              8*3600, QRooInt_flow; 
-             18*3600, QRooInt_flow; 
-             18*3600, 0; 
-             24*3600, 0]) \"Time table for internal heat gain\";
+  Modelica.Blocks.Sources.CombiTimeTable timTab(
+      extrapolation=Modelica.Blocks.Types.Extrapolation.Periodic,
+      smoothness=Modelica.Blocks.Types.Smoothness.ConstantSegments,
+      table=[-6*3600, 0;
+              8*3600, QRooInt_flow;
+             18*3600, 0]) \"Time table for internal heat gain\";
 </pre>
 <p>
-Note that we set that the output is a periodic signal by configuring 
+Note that we set the output to be a periodic signal by configuring 
 <code>
 extrapolation=Modelica.Blocks.Types.Extrapolation.Periodic.
 </code>
-The documentation of <a href=\"modelica://Modelica.Blocks.Sources.CombiTimeTable\">
-Modelica.Blocks.Sources.CombiTimeTable</a>
-explains why we added two values for 8am and 6pm.
+The first time stamp is <i>-6*3600</i> seconds in order to create
+a table that has a periodicity of one day.
+We also set the interpolation of the data to using
+piece-wise constant segments.
+See the documentation of <a href=\"modelica://Modelica.Blocks.Sources.CombiTimeTable\">
+Modelica.Blocks.Sources.CombiTimeTable</a> for the various options
+of this time table.
 </p>
 </li>
 <li>

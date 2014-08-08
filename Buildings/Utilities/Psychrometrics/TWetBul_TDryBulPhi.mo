@@ -4,8 +4,7 @@ block TWetBul_TDryBulPhi
   extends Modelica.Blocks.Icons.Block;
   replaceable package Medium =
     Modelica.Media.Interfaces.PartialCondensingGases "Medium model"
-                                                            annotation (
-      choicesAllMatching = true);
+    annotation (choicesAllMatching = true);
 
   parameter Boolean approximateWetBulb=false
     "Set to true to approximate wet bulb temperature" annotation (Evaluate=true);
@@ -22,12 +21,11 @@ block TWetBul_TDryBulPhi
     annotation (Placement(transformation(extent={{-120,-10},{-100,10}},
           rotation=0)));
 
-  Modelica.Blocks.Interfaces.RealInput p(  final quantity="Pressure",
-                                           final unit="Pa",
-                                           min = 0) "Pressure"
+  Modelica.Blocks.Interfaces.RealInput p(final quantity="Pressure",
+                                         final unit="Pa",
+                                         min = 0) "Pressure"
     annotation (Placement(transformation(extent={{-120,-90},{-100,-70}},
-                                                                       rotation=
-           0)));
+                          rotation=0)));
 
   Modelica.Blocks.Interfaces.RealOutput TWetBul(
     start=293,
@@ -37,23 +35,12 @@ block TWetBul_TDryBulPhi
     annotation (Placement(transformation(extent={{100,-10},{120,10}},rotation=0)));
 
 protected
-  constant Modelica.Media.IdealGases.Common.DataRecord dryair = Modelica.Media.IdealGases.Common.SingleGasesData.Air;
-  constant Modelica.Media.IdealGases.Common.DataRecord steam = Modelica.Media.IdealGases.Common.SingleGasesData.H2O;
-  constant Real k_mair =  steam.MM/dryair.MM "ratio of molar weights";
   Modelica.SIunits.Conversions.NonSIunits.Temperature_degC TDryBul_degC
     "Dry bulb temperature in degree Celsius";
   Real rh_per(min=0) "Relative humidity in percentage";
   Modelica.SIunits.MassFraction XiDryBul
     "Water vapor mass fraction at dry bulb state";
   Modelica.SIunits.MassFraction XiSat "Water vapor mass fraction at saturation";
-  constant Modelica.SIunits.SpecificHeatCapacity cpAir=
-     Buildings.Media.PerfectGases.Common.SingleGasData.Air.cp
-    "Specific heat capacity of air";
-  constant Modelica.SIunits.SpecificHeatCapacity cpSte=
-     Buildings.Media.PerfectGases.Common.SingleGasData.H2O.cp
-    "Specific heat capacity of water vapor";
-  constant Modelica.SIunits.SpecificEnthalpy h_fg = 2501014.5
-    "Specific heat capacity of water vapor";
 equation
   if approximateWetBulb then
     TDryBul_degC = TDryBul - 273.15;
@@ -66,16 +53,20 @@ equation
     XiSat    = 0;
     XiDryBul = 0;
   else
-    XiSat   = Buildings.Utilities.Psychrometrics.Functions.X_pSatpphi(
-      pSat=   Medium.saturationPressureLiquid(Tsat=TWetBul),
+    XiSat  = Buildings.Utilities.Psychrometrics.Functions.X_pSatpphi(
+      pSat=  Buildings.Utilities.Psychrometrics.Functions.saturationPressureLiquid(TWetBul),
       p=     p,
       phi=   1);
     XiDryBul =Buildings.Utilities.Psychrometrics.Functions.X_pSatpphi(
-      p=p,
-      pSat=Medium.saturationPressureLiquid(Tsat=TDryBul),
-      phi=phi);
-    TWetBul = (TDryBul * ((1-XiDryBul) * cpAir + XiDryBul * cpSte) + (XiDryBul-XiSat) * h_fg)/
-            ( (1-XiSat)*cpAir + XiSat * cpSte);
+      p=     p,
+      pSat=  Buildings.Utilities.Psychrometrics.Functions.saturationPressureLiquid(TDryBul),
+      phi=   phi);
+    TWetBul = (TDryBul * ((1-XiDryBul) *
+               Buildings.Utilities.Psychrometrics.Constants.cpAir + XiDryBul *
+               Buildings.Utilities.Psychrometrics.Constants.cpSte) + (XiDryBul-XiSat) *
+               Buildings.Utilities.Psychrometrics.Constants.h_fg)/
+            ( (1-XiSat)*Buildings.Utilities.Psychrometrics.Constants.cpAir + XiSat *
+            Buildings.Utilities.Psychrometrics.Constants.cpSte);
     TDryBul_degC = 0;
     rh_per       = 0;
   end if;
@@ -144,7 +135,7 @@ Otherwise, the model will introduce one nonlinear equation.
 </p>
 <p>
 The approximation by Stull is valid for a relative humidity of <i>5%</i> to <i>99%</i>,
-a temperature range from <i>-20&circ;C</i> to <i>50&circ;C</i> 
+a temperature range from <i>-20</i>&deg;C to <i>50</i>&deg;C 
 and standard sea level pressure. 
 For this range of data, the approximation error is <i>-1</i> Kelvin to <i>+0.65</i> Kelvin,
 with a mean error of less than <i>0.3</i> Kelvin.
@@ -168,6 +159,14 @@ DOI: 10.1175/JAMC-D-11-0143.1
 ",
 revisions="<html>
 <ul>
+<li>
+November 20, 2013 by Michael Wetter:<br/>
+Updated model to use
+<code>Buildings.Utilities.Psychrometrics.Functions.saturationPressure()</code>
+and
+<code>Buildings.Utilities.Psychrometrics.Functions.saturationPressureLiquid()</code>
+as these functions have been moved from the medium to the psychrometrics package.
+</li>
 <li>
 October 1, 2012 by Michael Wetter:<br/>
 First implementation.

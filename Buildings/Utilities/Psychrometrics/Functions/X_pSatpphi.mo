@@ -1,5 +1,6 @@
 within Buildings.Utilities.Psychrometrics.Functions;
 function X_pSatpphi "Humidity ratio for given water vapor pressure"
+  extends Modelica.Icons.Function;
   input Modelica.SIunits.AbsolutePressure pSat "Saturation pressure";
   input Modelica.SIunits.Pressure p "Pressure of the fluid";
   input Real phi(min=0, max=1) "Relative humidity";

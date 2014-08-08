@@ -4,9 +4,7 @@ model DryCoilCounterFlowPControl
   extends Modelica.Icons.Example;
   package Medium1 = Buildings.Media.ConstantPropertyLiquidWater;
   package Medium2 = Buildings.Media.PerfectGases.MoistAirUnsaturated;
-  //package Medium2 = Buildings.Media.GasesPTDecoupled.MoistAir;
-  //package Medium2 = Buildings.Media.GasesPTDecoupled.MoistAirUnsaturated;
-  //package Medium2 = Buildings.Media.GasesConstantDensity.MoistAir;
+
   parameter Modelica.SIunits.Temperature T_a1_nominal=5 + 273.15;
   parameter Modelica.SIunits.Temperature T_b1_nominal=10 + 273.15;
   parameter Modelica.SIunits.Temperature T_a2_nominal=30 + 273.15;
@@ -86,7 +84,9 @@ model DryCoilCounterFlowPControl
         T_b1_nominal,
         T_a2_nominal,
         T_b2_nominal),
-    show_T=true)             annotation (Placement(transformation(extent={{60,
+    show_T=true,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+                             annotation (Placement(transformation(extent={{60,
             16},{80,36}}, rotation=0)));
   inner Modelica.Fluid.System system
     annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
@@ -176,12 +176,25 @@ equation
 experiment(StopTime=3600),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/Examples/DryCoilCounterFlowPControl.mos"
         "Simulate and plot"),
-    Documentation(revisions="<html>
+Documentation(info="<html>
+<p>
+This model demonstrates the use of
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.DryCoilCounterFlow\">
+Buildings.Fluid.HeatExchangers.DryCoilCounterFlow</a>.
+The valve on the water-side is regulated to track a setpoint temperature
+for the air outlet.
+</p>
+</html>",
+revisions="<html>
 <ul>
 <li>
 March 1, 2013, by Michael Wetter:<br/>
 Added nominal pressure drop for valve as
 this parameter no longer has a default value.
+</li>
+<li>
+May 27, 2010, by Michael Wetter:<br/>
+First implementation.
 </li>
 </ul>
 </html>"));
