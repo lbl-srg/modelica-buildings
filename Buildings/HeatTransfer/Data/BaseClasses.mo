@@ -17,16 +17,6 @@ package BaseClasses "Base classes for package Data"
     parameter Boolean steadyState= (c == 0 or d == 0)
       "Flag, if true, then material is computed using steady-state heat conduction"
       annotation(Evaluate=true);
-    parameter Real piRef=331.4
-      "Ratio x/sqrt(alpha) for reference material of 0.2 m concrete"
-      annotation (Dialog(tab="Advanced"));
-    parameter Real piMat=if steadyState then piRef else x*sqrt(c*d)/sqrt(k)
-      "Ratio x/sqrt(alpha)"
-      annotation(Dialog(tab="Advanced"));
-    parameter Real nStaReal(min=0) = nStaRef*piMat/piRef
-      "Number of states as a real number"
-      annotation (Dialog(tab="Advanced"));
-
     parameter Modelica.SIunits.Temperature TSol
       "Solidus temperature, used only for PCM."
       annotation (Dialog(group="Properties for phase change material"));
@@ -39,10 +29,17 @@ package BaseClasses "Base classes for package Data"
 
     constant Boolean ensureMonotonicity = false
       "Set to true to force derivatives dT/du to be monotone";
-
     constant Boolean phasechange = false
       "Flag, true if the material is a phase change material"
           annotation (Dialog(group="Properties for phase change material"));
+
+  protected
+    parameter Real piRef=331.4
+      "Ratio x/sqrt(alpha) for reference material of 0.2 m concrete";
+    parameter Real piMat=if steadyState then piRef else x*sqrt(c*d)/sqrt(k)
+      "Ratio x/sqrt(alpha)";
+    parameter Real nStaReal(min=0) = nStaRef*piMat/piRef
+      "Number of states as a real number";
 
     annotation (preferredView="info",
     Documentation(info="<html>
@@ -61,9 +58,24 @@ will be defined in the model of the construction that uses this material.
 This allows use of the same material in walls, floors
 and ceilings of different surface area.
 </p>
+<p>
+To increase the number of state variables for a material that has
+transient heat conduction, either increase the value of the parameter
+<code>nStaRef</code>, or directly set the number of state variables by
+overwritting the default computation of the parameter
+<code>nSta</code>.
+</p>
 </html>",
   revisions="<html>
 <ul>
+<li>
+August 7, 2014, by Michael Wetter:<br/>
+Changed the parameters <code>piMat</code>, <code>piRef</code> and 
+<code>nStaReal</code> from public to protected
+as users should change <code>nSta</code> or <code>nStaRef</code> rather
+than these parameters.
+Expanded the documentation.
+</li>
 <li>
 May 30, 2014, by Michael Wetter:<br/>
 Removed undesirable annotation <code>Evaluate=true</code>.

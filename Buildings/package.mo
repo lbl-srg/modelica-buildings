@@ -240,6 +240,7 @@ have been <b style=\"color:blue\">improved</b> in a
                        For Dymola, the conversion script will automatically
                        update existing models.
     </td>
+</tr>
 <tr><td valign=\"top\">Buildings.Fluid.HeatExchangers.BaseClasses.CoilRegister
     </td>
     <td valign=\"top\">Replaced the parameters <code>energyDynamics1</code>
@@ -252,6 +253,20 @@ have been <b style=\"color:blue\">improved</b> in a
                        update existing models.
     </td>
 </tr>
+<tr><td colspan=\"2\"><b>Buildings.HeatTransfer</b>
+    </td>
+</tr> 
+<tr><td valign=\"top\">Buildings.HeatTransfer.Data.Solids<br/>
+                       Buildings.HeatTransfer.Data.SolidsPCM<br/>
+                       Buildings.HeatTransfer.Data.BaseClasses.Material
+    </td>
+    <td valign=\"top\">Changed the parameters <code>piMat</code>, <code>piRef</code>
+                       and <code>nStaReal</code> from public to protected
+                       as users should change <code>nSta</code> or 
+                       <code>nStaRef</code> rather than these parameters.
+    </td>
+</tr>    
+    
 </table>
 <!-- Errors that have been fixed -->
 <p>
