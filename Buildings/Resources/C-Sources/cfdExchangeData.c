@@ -27,7 +27,7 @@
 ///////////////////////////////////////////////////////////////////////////////
 int cfdExchangeData(double t0, double dt, double *u, int nU, int nY,
                  double *t1, double *y) {
-  int i, j, k, imax = 10000;
+  int i, j, k;
   int verbose = 0;
 
   /*--------------------------------------------------------------------------
