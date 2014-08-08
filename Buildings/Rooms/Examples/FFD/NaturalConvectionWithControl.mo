@@ -2,12 +2,12 @@ within Buildings.Rooms.Examples.FFD;
 model NaturalConvectionWithControl
   "A case of natural convection with feedback loop control"
   extends Buildings.Rooms.Examples.FFD.Tutorial.NaturalConvection(
-    matLayRoo(
-      material= {Buildings.HeatTransfer.Data.Solids.Concrete(x=0.0001)}),
+    matLayRoo(material={HeatTransfer.Data.Solids.Steel(x=0.001)}),
       roo(
         nPorts=0,
         useCFD=true,
         samplePeriod=30,
+        cfdFilNam = "modelica://Buildings/Resources/Data/Rooms/FFD/NaturalConvectionWithControl.ffd",
         massDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial));
 
   HeatTransfer.Sources.PrescribedHeatFlow preHeatFlo
@@ -50,6 +50,7 @@ equation
     __Dymola_Commands(file=
           "modelica://Buildings/Resources/Scripts/Dymola/Rooms/Examples/FFD/NaturalConvectionWithControl.mos"
         "Simulate and plot"),
+   experiment(StopTime=60),
    Documentation(info="<html>
 <p>
 This model tests the coupled simulation of

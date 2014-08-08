@@ -50,6 +50,7 @@ equation
     __Dymola_Commands(file=
           "modelica://Buildings/Resources/Scripts/Dymola/Rooms/Examples/FFD/RoomOnlyConstructionBoundary.mos"
         "Simulate and plot"),
+    experiment(StopTime=120),
     Documentation(info="<html>
 <p>
 This model tests the copuled simulation of

@@ -63,6 +63,7 @@ model WindowWithShade
     __Dymola_Commands(file=
           "modelica://Buildings/Resources/Scripts/Dymola/Rooms/Examples/FFD/WindowWithShade.mos"
         "Simulate and plot"),
+    experiment(StopTime=20),
     Documentation(info="<html>
 <p>
 This model tests the cosimulation of

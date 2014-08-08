@@ -62,6 +62,7 @@ equation
     __Dymola_Commands(file=
           "modelica://Buildings/Resources/Scripts/Dymola/Rooms/Examples/FFD/RoomOnlySurfaceBoundary.mos"
         "Simulate and plot"),
+    experiment(StopTime=120),
     Documentation(info="<html>
 <p>
 This model tests the coupled simulation of

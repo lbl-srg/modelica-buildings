@@ -28,11 +28,11 @@ int cfdReceiveFeedback( ) {
   }
   
   if(i<imax) {
-    printf("Successfully stopped the FFD simulation.\n");
+    ModelicaMessage("Successfully stopped the FFD simulation.\n");
     flag = 0;
   }
   else {
-    printf("stopFFD(): Could not stop the FFD simulation in required time.\n");
+    ModelicaError("Error: Could not stop the FFD simulation in required time.\n");
     flag = 1;
   }
 

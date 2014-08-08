@@ -23,9 +23,6 @@ model CFDAirHeatMassBalance
 
   parameter Modelica.SIunits.Time samplePeriod(min=100*Modelica.Constants.eps)
     "Sample period of component" annotation (Dialog(group="Sampling"));
-  parameter Modelica.SIunits.Time startTime
-    "First sample time instant. fixme: this should be at first step."
-    annotation (Dialog(group="Sampling"));
 
   parameter Boolean haveSensor
     "Flag, true if the model has at least one sensor";
@@ -68,6 +65,9 @@ model CFDAirHeatMassBalance
 
   // Values that are used for uStart
 protected
+   parameter Modelica.SIunits.Time startTime(fixed=false)
+    "First sample time instant.";
+
   parameter Real uStart[kFluIntC_inflow + Medium.nC*nPorts](fixed=false)
     "Values used for uStart in CFDExchange";
 
@@ -395,6 +395,8 @@ public
   to_W QTotCon_flow_W
     annotation (Placement(transformation(extent={{-140,-60},{-120,-40}})));
 initial equation
+   startTime = time;
+
   for i in 1:nPorts loop
     for j in 1:Medium.nXi loop
       Xi_outflow_fixed[(i - 1)*Medium.nXi + j] = Medium.X_default[j];
