@@ -44,31 +44,31 @@ protected
     "Flow coefficient for fully open valve in SI units, Kv=m_flow/sqrt(dp) [kg/s/(Pa)^(1/2)]"
   annotation(Dialog(group = "Flow Coefficient",
                     enable = (CvData==Buildings.Fluid.Types.CvTypes.OpPoint)));
-initial algorithm
+initial equation
   if  CvData == Buildings.Fluid.Types.CvTypes.OpPoint then
-    Kv_SI :=           m_flow_nominal/sqrt(dpValve_nominal);
-    Kv    :=           Kv_SI/(rhoStd/3600/sqrt(1E5));
-    Cv    :=           Kv_SI/(rhoStd*0.0631/1000/sqrt(6895));
-    Av    :=           Kv_SI/sqrt(rhoStd);
+    Kv_SI =           m_flow_nominal/sqrt(dpValve_nominal);
+    Kv    =           Kv_SI/(rhoStd/3600/sqrt(1E5));
+    Cv    =           Kv_SI/(rhoStd*0.0631/1000/sqrt(6895));
+    Av    =           Kv_SI/sqrt(rhoStd);
   elseif CvData == Buildings.Fluid.Types.CvTypes.Kv then
-    Kv_SI :=           Kv*rhoStd/3600/sqrt(1E5)
+    Kv_SI =           Kv*rhoStd/3600/sqrt(1E5)
       "Unit conversion m3/(h*sqrt(bar)) to kg/(s*sqrt(Pa))";
-    Cv    :=           Kv_SI/(rhoStd*0.0631/1000/sqrt(6895));
-    Av    :=           Kv_SI/sqrt(rhoStd);
-    dpValve_nominal := (m_flow_nominal/Kv_SI)^2;
+    Cv    =           Kv_SI/(rhoStd*0.0631/1000/sqrt(6895));
+    Av    =           Kv_SI/sqrt(rhoStd);
+    dpValve_nominal =  (m_flow_nominal/Kv_SI)^2;
   elseif CvData == Buildings.Fluid.Types.CvTypes.Cv then
-    Kv_SI :=           Cv*rhoStd*0.0631/1000/sqrt(6895)
+    Kv_SI =           Cv*rhoStd*0.0631/1000/sqrt(6895)
       "Unit conversion USG/(min*sqrt(psi)) to kg/(s*sqrt(Pa))";
-    Kv    :=           Kv_SI/(rhoStd/3600/sqrt(1E5));
-    Av    :=           Kv_SI/sqrt(rhoStd);
-    dpValve_nominal := (m_flow_nominal/Kv_SI)^2;
+    Kv    =           Kv_SI/(rhoStd/3600/sqrt(1E5));
+    Av    =           Kv_SI/sqrt(rhoStd);
+    dpValve_nominal =  (m_flow_nominal/Kv_SI)^2;
   else
     assert(CvData == Buildings.Fluid.Types.CvTypes.Av, "Invalid value for CvData.
 Obtained CvData = " + String(CvData) + ".");
-    Kv_SI :=           Av*sqrt(rhoStd);
-    Kv    :=           Kv_SI/(rhoStd/3600/sqrt(1E5));
-    Cv    :=           Kv_SI/(rhoStd*0.0631/1000/sqrt(6895));
-    dpValve_nominal := (m_flow_nominal/Kv_SI)^2;
+    Kv_SI =           Av*sqrt(rhoStd);
+    Kv    =           Kv_SI/(rhoStd/3600/sqrt(1E5));
+    Cv    =           Kv_SI/(rhoStd*0.0631/1000/sqrt(6895));
+    dpValve_nominal =  (m_flow_nominal/Kv_SI)^2;
   end if;
 
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
@@ -116,6 +116,12 @@ then specifying a value for <code>dpValve_nominal</code> is a syntax error.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+August 8, 2014, by Michael Wetter:<br/>
+Changed the <code>initial algorithm</code> to an <code>initial equation</code>
+section. Otherwise, OpenModelica attempts to solve for the parameter
+values using numerical iteration, and fails in doing so.
+</li>
 <li>
 May 29, 2014, by Michael Wetter:<br/>
 Removed undesirable annotation <code>Evaluate=true</code>.
