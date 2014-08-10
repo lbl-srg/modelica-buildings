@@ -39,24 +39,11 @@ int cfdExchangeData(double t0, double dt, double *u, int nU, int nY,
   --------------------------------------------------------------------------*/
   // If previous data hasn't been read, wait
   while(cosim->modelica->flag==1) {
-<<<<<<< HEAD
     if(cosim->para->ffdError==1) 
       ModelicaError(cosim->ffd->msg);
     else 
-=======
-    if(cosim->para->ffdError==1) {
-      ModelicaError("Error: CFD exited with error");
-    }
-    else {
-      if(verbose==1) {
-        sprintf(msg, "cfdExchangeData(): Waiting for the CFD to read my data.\n");
-        ModelicaMessage(msg);
-      }
-    
->>>>>>> upstream/ffd_miami
       Sleep(1000);
   }
-<<<<<<< HEAD
 
   cosim->modelica->t = (REAL) t0;
   cosim->modelica->dt = (REAL) dt;
@@ -70,126 +57,38 @@ int cfdExchangeData(double t0, double dt, double *u, int nU, int nY,
     for(j=0; j<cosim->para->nConExtWin; j++) {
       cosim->modelica->shaConSig[j] = (REAL) u[i+j];
       cosim->modelica->shaAbsRad[j] = (REAL) u[i+j+cosim->para->nConExtWin];
-=======
-  
-  cosim->modelica->t = (REAL) t0;
-  cosim->modelica->dt = (REAL) dt;
-
-  if(verbose==1) {
-    ModelicaMessage("cfdExchangeData(): Start to write data");
-    sprintf(msg, "cfdExchangeData(): write data at %f with dt=%f\n", 
-         cosim->modelica->t, cosim->modelica->dt);
-    ModelicaMessage(msg);
-    sprintf(msg,"cfdExchangeData(): number of input variables nU=%d\n", nU);
-    ModelicaMessage(msg);
-    sprintf(msg,"cfdExchangeData(): number of output variables nY=%d\n", nY);
-    ModelicaMessage(msg);
-  }
-
-  // Copy the Modelica data to shared memory
-  for(i=0; i<cosim->para->nSur; i++) {
-    cosim->modelica->temHea[i] = (REAL) u[i];
-    if(verbose==1) {
-      sprintf(msg, "temHea[%d] = %f\n", i, cosim->modelica->temHea[i]);
-      ModelicaMessage(msg);  
-    }       
-  }
-
-  if(cosim->para->sha==1) {
-    if(verbose==1) {
-      sprintf(msg, "Set shade conditions for %d windows\n", cosim->para->nConExtWin);
-      ModelicaMessage(msg);
-    }
-    for(j=0; j<cosim->para->nConExtWin; j++) {
-      cosim->modelica->shaConSig[j] = (REAL) u[i+j];
-      cosim->modelica->shaAbsRad[j] = (REAL) u[i+j+cosim->para->nConExtWin];
-      if(verbose==1) {
-        sprintf(msg, "shaConSig[%d] = %f, shaAbsRad[%d] = %f\n", 
-               j, cosim->modelica->shaConSig[j],
-               j, cosim->modelica->shaAbsRad[j]);
-        ModelicaMessage(msg);
-      }
->>>>>>> upstream/ffd_miami
     }
     i = i + 2*cosim->para->nConExtWin;
   }
 
   cosim->modelica->sensibleHeat = (REAL) u[i]; 
-<<<<<<< HEAD
   i++;
   
   cosim->modelica->latentHeat = (REAL) u[i];
   i++;
 
   cosim->modelica->p = (REAL) u[i];
-=======
-  if(verbose==1) {
-    sprintf(msg, "sensibleHeat = %f\n", cosim->modelica->sensibleHeat);
-    ModelicaMessage(msg);
-  }
-  i++;
-  
-  cosim->modelica->latentHeat = (REAL) u[i];
-  if(verbose==1) {
-    sprintf(msg, "latentHeat = %f\n", cosim->modelica->latentHeat);
-    ModelicaMessage(msg);
-  }
-  i++;
-
-  cosim->modelica->p = (REAL) u[i];
-  if(verbose==1) {
-    sprintf(msg, "p = %f\n", cosim->modelica->p);
-    ModelicaMessage(msg);
-  }
->>>>>>> upstream/ffd_miami
   i++;
  
   for(j=0; j<cosim->para->nPorts; j++) {
     cosim->modelica->mFloRatPor[j] = (REAL) u[i+j];
-<<<<<<< HEAD
     cosim->modelica->TPor[j] = (REAL) u[i+j+cosim->para->nPorts];
-=======
-    if(verbose==1) {
-      sprintf(msg,"mFloRatPor[%d] = %f\n", j, cosim->modelica->mFloRatPor[j]);
-      ModelicaMessage(msg);
-    }
-    cosim->modelica->TPor[j] = (REAL) u[i+j+cosim->para->nPorts];
-    if(verbose==1) {
-      sprintf(msg, "TPor[%d] = %f\n", j, cosim->modelica->TPor[j]);
-      ModelicaMessage(msg);
-    }
->>>>>>> upstream/ffd_miami
   }
 
   i = i + 2*cosim->para->nPorts;
   for(j=0; j<cosim->para->nPorts; j++)
     for(k=0; k<cosim->para->nXi; k++) {
       cosim->modelica->XiPor[j][k] = (REAL) u[i+j*cosim->para->nXi+k];
-<<<<<<< HEAD
-=======
-      if(verbose==1) {
-        sprintf(msg, "XiPor[%d][%d] = %f\n", j, k, cosim->modelica->XiPor[j][k]);
-        ModelicaMessage(msg);
-      }
->>>>>>> upstream/ffd_miami
     }
 
   i = i + cosim->para->nPorts*cosim->para->nXi;
   for(j=0; j<cosim->para->nPorts; j++)
     for(k=0; k<cosim->para->nC; k++) {
       cosim->modelica->CPor[j][k] = (REAL) u[i+j*cosim->para->nC+k];
-<<<<<<< HEAD
-=======
-      if(verbose==1) {
-        sprintf(msg, "CPor[%d][%d] = %f\n", j, k, cosim->modelica->CPor[j][k]);
-        ModelicaMessage(msg);
-      }
->>>>>>> upstream/ffd_miami
     }
   
   // Set the flag to new data
   cosim->modelica->flag = 1;
-<<<<<<< HEAD
 
   /****************************************************************************
   | Copy data from CFD
@@ -205,127 +104,45 @@ int cfdExchangeData(double t0, double dt, double *u, int nU, int nY,
   // Get the temperature/heat flux for solid surface
   for(i=0; i<cosim->para->nSur; i++) {
     y[i] = cosim->ffd->temHea[i];
-=======
-  if(verbose==1) {
-    sprintf(msg, "cosim->modelica->flag = %d\n", cosim->modelica->flag);
-    ModelicaMessage(msg);
-  }
-  /****************************************************************************
-  | Copy data from CFD
-  ****************************************************************************/
-  if(verbose==1)
-    ModelicaMessage("Start to get cosim-ffd->flag.\n");
-
-  // If the data is not ready or not updated, check again
-  while(cosim->ffd->flag!=1) {
-    if(cosim->para->ffdError==1) {
-      ModelicaError("Error: CFD exited with error");
-    }
-    else
-      Sleep(1000);
-  }
-
-  if(verbose==1) {
-    sprintf(msg, "Start to get CFD Data: cosim->ffd->flag = %f\n", cosim->ffd->flag);
-    ModelicaMessage(msg);
-  }
-
-  // Get the temperature/heat flux for solid surface
-  for(i=0; i<cosim->para->nSur; i++) {
-    y[i] = cosim->ffd->temHea[i];
-    if(verbose==1) {
-      sprintf(msg, "y[%d]=%f\n", i, y[i]);
-      ModelicaMessage(msg);
-    }
->>>>>>> upstream/ffd_miami
   }
 
   // Get the averaged room temperature
   y[i] = cosim->ffd->TRoo;
-<<<<<<< HEAD
-=======
-  if(verbose==1) {
-    sprintf(msg, "y[%d]=%f\n", i, y[i]);
-    ModelicaMessage(msg);
-  }
->>>>>>> upstream/ffd_miami
   i++;
 
   // Get the temperature of shading device if there is a shading device
   if(cosim->para->sha==1) {
     for(j=0; j<cosim->para->nConExtWin; i++, j++) {
       y[i] = cosim->ffd->TSha[j];
-<<<<<<< HEAD
-=======
-      if(verbose==1) {
-        sprintf(msg, "y[%d]=%f\n", i, y[i]);
-        ModelicaMessage(msg);
-      }
->>>>>>> upstream/ffd_miami
     }
   }
 
   // Get the temperature fluid at the fluid ports
   for(j=0; j<cosim->para->nPorts; i++, j++) {
     y[i] = cosim->ffd->TPor[j];
-<<<<<<< HEAD
-=======
-    if(verbose==1) {
-      sprintf(msg, "y[%d]=%f\n", i, y[i]);
-      ModelicaMessage(msg);
-    }
->>>>>>> upstream/ffd_miami
   }
 
   // Get the mass fraction at fluid ports
   for(j=0; j<cosim->para->nPorts; j++)
     for(k=0; k<cosim->para->nXi; k++, i++) {
-<<<<<<< HEAD
        y[i] = cosim->ffd->XiPor[j][k];
-=======
-      y[i] = cosim->ffd->XiPor[j][k];
-      if(verbose==1) {
-        sprintf(msg, "y[%d]=%f\n", i, y[i]);
-        ModelicaMessage(msg);
-      }
->>>>>>> upstream/ffd_miami
     }
 
   // Get the trace substance at fluid ports
   for(j=0; j<cosim->para->nPorts; j++)
     for(k=0; k<cosim->para->nC; k++, i++) {
-<<<<<<< HEAD
        y[i] = cosim->ffd->CPor[j][k];
-=======
-      y[i] = cosim->ffd->CPor[j][k];
-      if(verbose==1) {
-        sprintf(msg, "y[%d]=%f\n", i, y[i]);
-        ModelicaMessage(msg);
-      }
->>>>>>> upstream/ffd_miami
     }
 
   // Get the sensor data
   for(j=0; j<cosim->para->nSen; j++, i++) {
     y[i] = cosim->ffd->senVal[j];
-<<<<<<< HEAD
-=======
-    if(verbose==1) {
-      sprintf(msg, "y[%d]=%f\n", i, y[i]);
-      ModelicaMessage(msg);
-    }
-  }
-
-  if(verbose==1) {
-    sprintf(msg, "\n CFD: \t\ttime=%f, status=%d\n", cosim->ffd->t, cosim->ffd->flag);
-    ModelicaMessage(msg);
-    sprintf(msg, "Modelica: \ttime=%f, status=%d\n", cosim->modelica->t, cosim->modelica->flag);
-    ModelicaMessage(msg);
->>>>>>> upstream/ffd_miami
   }
 
   // Update the data status
   cosim->ffd->flag = 0;
+
   *t1 = cosim->ffd->t;
+
   return 0;
 } // End of cfdExchangeData()
