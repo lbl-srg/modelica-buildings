@@ -180,7 +180,15 @@ have been <b style=\"color:blue\">improved</b> in a
                     had a different value for the <code>min</code> attribute, which is not valid
                     in Modelica.
     </td>
-</tr>
+    </tr>
+    <tr>
+    <td valign=\"top\">Buildings.Fluid.HeatExchangers.BaseClasses.CoilRegister<br/>
+                       Buildings.Fluid.HeatExchangers.BaseClasses.DuctManifoldDistributor  
+    </td>
+    <td valign=\"top\">Reformulated the multiple iterators in the <code>sum</code> function
+                       as this language construct is not supported in OpenModelica.    
+    </td>
+    </tr>
 <tr><td colspan=\"2\"><b>xxx</b>
     </td>
 </tr>

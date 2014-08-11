@@ -36,8 +36,8 @@ model CoilRegister "Register for a heat exchanger"
     constrainedby Buildings.Fluid.HeatExchangers.BaseClasses.PartialHexElement(
     redeclare each package Medium1 = Medium1,
     redeclare each package Medium2 = Medium2,
-    initialize_p1 = {(i == 1 and j == 1 and initialize_p1) for i in 1:nPipSeg, j in 1:nPipPar},
-    initialize_p2 = {(i == 1 and j == 1 and initialize_p2) for i in 1:nPipSeg, j in 1:nPipPar},
+    initialize_p1 = {{(i == 1 and j == 1 and initialize_p1) for i in 1:nPipSeg} for j in 1:nPipPar},
+    initialize_p2 = {{(i == 1 and j == 1 and initialize_p2) for i in 1:nPipSeg} for j in 1:nPipPar},
     each allowFlowReversal1=allowFlowReversal1,
     each allowFlowReversal2=allowFlowReversal2,
     each tau1=tau1/nPipSeg,
@@ -132,8 +132,10 @@ protected
     "Gain medium-side 2 to take discretization into account"
     annotation (Placement(transformation(extent={{24,-76},{12,-62}}, rotation=0)));
 equation
-  Q1_flow = sum(ele[i,j].Q1_flow for i in 1:nPipPar, j in 1:nPipSeg);
-  Q2_flow = sum(ele[i,j].Q2_flow for i in 1:nPipPar, j in 1:nPipSeg);
+  // As OpenModelica does not support multiple iterators as of August 2014, we
+  // use here two sum(.) functions
+  Q1_flow = sum(sum(ele[i,j].Q1_flow for i in 1:nPipPar) for j in 1:nPipSeg);
+  Q2_flow = sum(sum(ele[i,j].Q2_flow for i in 1:nPipPar) for j in 1:nPipSeg);
   for i in 1:nPipPar loop
     connect(ele[i,1].port_a1,       port_a1[i])
        annotation (Line(points={{-10,36},{-68,36},{-68,60},{-100,60}}, color={0,
@@ -184,6 +186,11 @@ between the fluid volumes and the solid in each heat exchanger element.
 </html>",
 revisions="<html>
 <ul>
+<li>
+August 10, 2014, by Michael Wetter:<br/>
+Reformulated the multiple iterators in the <code>sum</code> function
+as this language construct is not supported in OpenModelica.
+</li>
 <li>
 July 3, 2014, by Michael Wetter:<br/>
 Added parameters <code>initialize_p1</code> and <code>initialize_p2</code>.
