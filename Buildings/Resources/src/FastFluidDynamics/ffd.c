@@ -378,9 +378,6 @@ int ffd(int cosimulation) {
   free_data(var);
   free_index(BINDEX);
 
-  //// End the simulation
-  //if(para.outp->version==DEBUG || para.outp->version==DEMO) {}//getchar();
-
   // Inform Modelica the stopping command has been received 
   if(para.solv->cosimulation==1) {
     para.cosim->para->flag = 2; 
@@ -389,3 +386,18 @@ int ffd(int cosimulation) {
 
   return 0;
 } // End of ffd( )
+
+///////////////////////////////////////////////////////////////////////////////
+/// Write error message to Modelica
+///
+///\para msg Pointer to message to be written.
+///
+///\return no return
+///////////////////////////////////////////////////////////////////////////////
+void modelicaError(char *msg) {
+  strcpy(para.cosim->ffd->msg, msg);
+  // Write the command to stop the cosimulation
+  para.cosim->para->flag = 2;
+  // Indicate there is an error
+  para.cosim->para->ffdError = 1;
+} // End of modelicaMsg

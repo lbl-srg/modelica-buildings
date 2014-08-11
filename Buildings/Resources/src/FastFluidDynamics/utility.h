@@ -24,6 +24,11 @@
 #include "data_structure.h"
 #endif
 
+#ifndef _FFD_H
+#define _FFD_H
+#include "ffd.h"
+#endif
+
 #ifndef _GEOMETRY_H
 #define _GEOMETRY_H
 #include "geometry.h"

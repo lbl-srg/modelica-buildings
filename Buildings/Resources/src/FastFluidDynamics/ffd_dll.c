@@ -29,7 +29,7 @@ int ffd_dll(CosimulationData *cosim) {
     pthread_t thread1;
 #endif
 
-  printf("ffd_dll():Start to launch FFD\n");
+  //printf("ffd_dll():Start to launch FFD\n");
 
 // Windows
 #ifdef _MSC_VER
@@ -41,7 +41,7 @@ int ffd_dll(CosimulationData *cosim) {
   pthread_create(&thread1, NULL, foo, (void *)cosim);
 #endif
 
-  printf("ffd_dll(): Launched FFD simulation.\n");
+  //printf("ffd_dll(): Launched FFD simulation.\n");
   return 0;
 } // End of ffd_dll()
 

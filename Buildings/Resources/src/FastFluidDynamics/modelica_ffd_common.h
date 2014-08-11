@@ -14,7 +14,7 @@
 #define REAL double
 typedef struct {
   int flag; // Flag for coupled simulation: 0-> Stop; 1->Continue
-  int ffdError; // 1: FFD exits with an error
+  int ffdError; // 0: FFD had no error;
   int nSur; // Number of surfaces
   int nSen; // Number of sensors
   int nConExtWin; // Number of exterior construction with windows
@@ -66,6 +66,7 @@ typedef struct {
              // First Medium.nXi elements are for port 1
   REAL **CPor; // CPor[nPorts][medium.nC]: the trace substances of medium at the port
   REAL *senVal; // senVal[nSen]: value of sensor data
+  char *msg; // Message to be passed to Modelica
 }ffdSharedData;
 
 typedef struct{
