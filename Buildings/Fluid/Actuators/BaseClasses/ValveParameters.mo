@@ -27,7 +27,7 @@ partial model ValveParameters "Model with parameters for valves"
     "Nominal mass flow rate"
     annotation(Dialog(group = "Nominal condition"));
   parameter Modelica.SIunits.Pressure dpValve_nominal(displayUnit="Pa",
-                                                      min=Modelica.Constants.small,
+                                                      min=0,
                                                       fixed= if CvData==Buildings.Fluid.Types.CvTypes.OpPoint then true else false)
     "Nominal pressure drop of fully open valve, used if CvData=Buildings.Fluid.Types.CvTypes.OpPoint"
     annotation(Dialog(group="Nominal condition",
@@ -116,6 +116,15 @@ then specifying a value for <code>dpValve_nominal</code> is a syntax error.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+August 12, 2014, by Michael Wetter:<br/>
+Changed attribute <code>min</code> of <code>dpValve_nominal</code>
+to <code>0</code>.
+This is needed as for example in 
+<a href=\"modelica://Buildings.Fluid.Actuators.Valves.Examples.TwoWayValveTable\">
+Buildings.Fluid.Actuators.Valves.Examples.TwoWayValveTable</a>,
+<code>dpValve_nominal=0</code>.
+</li>
 <li>
 August 8, 2014, by Michael Wetter:<br/>
 Changed the <code>initial algorithm</code> to an <code>initial equation</code>
