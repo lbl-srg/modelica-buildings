@@ -38,7 +38,7 @@ model TwoWayValveTable
           rotation=0)));
     inner Modelica.Fluid.System system
     annotation (Placement(transformation(extent={{-90,70},{-70,90}})));
-  Data.Generic datVal(
+  parameter Data.Generic datVal(
     y={0,0.1667,0.3333,0.5,0.6667,1},
     phi={0, 0.19, 0.35, 0.45, 0.5, 0.65}/0.65) "Valve characteristics"
     annotation (Placement(transformation(extent={{60,60},{80,80}})));
@@ -140,6 +140,13 @@ without taking into account the travel time of the actuator.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+August 12, 2014 by Michael Wetter:<br/>
+Added <code>parameter</code> keyword to <code>datVal</code>,
+as this is needed to asssign <code>datVal</code> to a parameter
+in the instance <code>valTab</code>.
+This also avoids an error in OpenModelica.
+</li>
 <li>
 April 2, 2014 by Michael Wetter:<br/>
 First implementation.

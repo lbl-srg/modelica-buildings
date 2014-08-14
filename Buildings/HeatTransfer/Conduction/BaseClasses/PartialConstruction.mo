@@ -10,7 +10,7 @@ model PartialConstruction "Partial model for multi-layer constructions"
 
   final parameter Integer nLay(min=1, fixed=true) = layers.nLay
     "Number of layers";
-  final parameter Integer nSta[nLay](min=1)={layers.material[i].nSta for i in 1:nLay}
+  final parameter Integer nSta[nLay](each min=1)={layers.material[i].nSta for i in 1:nLay}
     "Number of states"  annotation(Evaluate=true);
   parameter Boolean steadyStateInitial=false
     "=true initializes dT(0)/dt=0, false initializes T(0) at fixed temperature using T_a_start and T_b_start"
@@ -29,6 +29,11 @@ model PartialConstruction "Partial model for multi-layer constructions"
 Partial model for constructions and multi-layer heat conductors.
 </html>", revisions="<html>
 <ul>
+<li>
+August 12, 2014, by Michael Wetter:<br/>
+Added missing <code>each</code> keyword in <code>min</code>
+attribute of <code>nSta</code>.
+</li>
 <li>
 May 30, 2014, by Michael Wetter:<br/>
 Removed undesirable annotation <code>Evaluate=true</code>.

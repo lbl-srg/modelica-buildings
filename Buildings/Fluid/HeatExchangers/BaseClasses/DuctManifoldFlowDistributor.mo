@@ -23,9 +23,11 @@ equation
       inStream(port_a.C_outflow)  = port_b[i, j].C_outflow;
     end for;
   end for;
-  port_a.h_outflow  = sum(inStream(port_b[i, j].h_outflow) for i in 1:nPipPar, j in 1:nPipSeg)/nPipPar/nPipSeg;
-  port_a.Xi_outflow = sum(inStream(port_b[i, j].Xi_outflow) for i in 1:nPipPar, j in 1:nPipSeg)/nPipPar/nPipSeg;
-  port_a.C_outflow  = sum(inStream(port_b[i, j].C_outflow) for i in 1:nPipPar, j in 1:nPipSeg)/nPipPar/nPipSeg;
+  // As OpenModelica does not support multiple iterators as of August 2014, we
+  // use here two sum(.) functions
+  port_a.h_outflow  = sum(sum(inStream(port_b[i, j].h_outflow) for i in 1:nPipPar) for j in 1:nPipSeg)/nPipPar/nPipSeg;
+  port_a.Xi_outflow = sum(sum(inStream(port_b[i, j].Xi_outflow) for i in 1:nPipPar) for j in 1:nPipSeg)/nPipPar/nPipSeg;
+  port_a.C_outflow  = sum(sum(inStream(port_b[i, j].C_outflow) for i in 1:nPipPar) for j in 1:nPipSeg)/nPipPar/nPipSeg;
 
 annotation (Diagram(coordinateSystem(preserveAspectRatio=true,  extent={{-100,
             -100},{100,100}}),
@@ -51,6 +53,11 @@ what you are doing.
 </html>",
 revisions="<html>
 <ul>
+<li>
+August 10, 2014, by Michael Wetter:<br/>
+Reformulated the multiple iterators in the <code>sum</code> function
+as this language construct is not supported in OpenModelica.
+</li>
 <li>
 June 29, 2014, by Michael Wetter:<br/>
 First implementation.

@@ -167,14 +167,28 @@ have been <b style=\"color:blue\">improved</b> in a
 <b style=\"color:blue\">backward compatible</b> way:
 </p>
 <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
-<tr><td colspan=\"2\"><b>xxx</b>
+<tr><td colspan=\"2\"><b>Buildings.Fluid</b>
     </td>
 </tr>
-<tr><td valign=\"top\">xxx
+<tr><td valign=\"top\">Buildings.Fluid.HeatExchangers.DryCoilDiscretized
     </td>
-    <td valign=\"top\">xxx.
+    <td valign=\"top\">Removed parameter <code>m1_flow_nominal</code>, as this parameter is already
+                    declared in its base class
+                    <a href=\"modelica://Buildings.Fluid.Interfaces.PartialFourPortInterface\">
+                    Buildings.Fluid.Interfaces.PartialFourPortInterface</a>.
+                    This change avoids an error in OpenModelica as the two declarations
+                    had a different value for the <code>min</code> attribute, which is not valid
+                    in Modelica.
     </td>
-</tr>
+    </tr>
+    <tr>
+    <td valign=\"top\">Buildings.Fluid.HeatExchangers.BaseClasses.CoilRegister<br/>
+                       Buildings.Fluid.HeatExchangers.BaseClasses.DuctManifoldDistributor  
+    </td>
+    <td valign=\"top\">Reformulated the multiple iterators in the <code>sum</code> function
+                       as this language construct is not supported in OpenModelica.    
+    </td>
+    </tr>
 <tr><td colspan=\"2\"><b>xxx</b>
     </td>
 </tr>
