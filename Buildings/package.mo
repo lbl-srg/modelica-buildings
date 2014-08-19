@@ -205,6 +205,17 @@ have been <b style=\"color:blue\">improved</b> in a
 <b style=\"color:blue\">non-backward compatible</b> way:
 </p>
 <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+<tr><td colspan=\"2\"><b>Buildings.Airflow</b>
+   </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Airflow.Multizone.ZonalFlow_ACS<br/>
+                       Buildings.Airflow.Multizone.ZonalFlow_m_flow
+   </td>
+   <td valign=\"top\">Removed parameter <code>forceErrorControlOnFlow</code> as it was not used.
+                       For Dymola, the conversion script will automatically
+                       update existing models.
+   </td>
+</tr>
 <tr><td colspan=\"2\"><b>Buildings.Examples</b>
    </td>
 </tr>
