@@ -2,7 +2,7 @@ within Buildings.HeatTransfer.Conduction;
 model MultiLayer
   "Model for heat conductance through a solid with multiple material layers"
   extends Buildings.HeatTransfer.Conduction.BaseClasses.PartialConductor(
-   final R=sum(lay[i].R for i in 1:nLay));
+   final R=RTot);
   Modelica.SIunits.Temperature T[sum(nSta)](each nominal = 300)
     "Temperature at the states";
   Modelica.SIunits.HeatFlowRate Q_flow[sum(nSta)+nLay]
@@ -18,13 +18,14 @@ protected
    each steadyStateInitial = steadyStateInitial) "Material layer"
     annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
 
-protected
-  parameter Modelica.SIunits.Temperature _T_a_start[nLay]=
-    { T_b_start+(T_a_start-T_b_start) * 1/R * sum(lay[k].R for k in i:nLay) for i in 1:nLay}
+  final parameter Modelica.SIunits.Temperature _T_a_start[nLay]=
+    { T_b_start+(T_a_start-T_b_start) * 1/R * sum(layers.material[k].R for k in i:nLay) for i in 1:nLay}
     "Initial temperature at port_a of respective layer, used if steadyStateInitial = false";
-  parameter Modelica.SIunits.Temperature _T_b_start[nLay]=
-    { T_a_start+(T_b_start-T_a_start) * 1/R * sum(lay[k].R for k in 1:i) for i in 1:nLay}
+  final parameter Modelica.SIunits.Temperature _T_b_start[nLay]=
+    { T_a_start+(T_b_start-T_a_start) * 1/R * sum(layers.material[k].R for k in 1:i) for i in 1:nLay}
     "Initial temperature at port_b of respective layer, used if steadyStateInitial = false";
+  final parameter Modelica.SIunits.ThermalResistance RTot = sum(layers.material[i].R for i in 1:nLay)
+    "Total thermal resistance of the construction";
 equation
   // This section assigns the temperatures and heat flow rates of the layer models to
   // an array that makes plotting the results easier.
@@ -137,6 +138,11 @@ and the temperature state.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+August 12, 2014, by Michael Wetter:<br/>
+Reformulated the protected elements and the model instantiation to avoid
+a warning in the OpenModelica parser.
+</li>
 <li>
 March 1, 2013, by Michael Wetter:<br/>
 Removed <code>initial equation</code> section and assigned the protected parameters

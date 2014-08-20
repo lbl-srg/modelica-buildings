@@ -6,6 +6,7 @@ model TwoWayTable "Two way valve with linear flow characteristics"
   parameter Data.Generic flowCharacteristics "Table with flow characteristics"
     annotation (choicesAllMatching=true, Placement(transformation(extent={{-80,
             60},{-60,80}})));
+
   // Since the flow model Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow computes
   // 1/k^2, the flowCharacteristics.phi[1] must not be zero.
   // We therefore set a lower bound.
@@ -23,8 +24,8 @@ protected
 
 initial equation
   assert(flowCharacteristics.y[1] == 0, "flowCharateristics.y[1] must be 0.");
-  assert(flowCharacteristics.y[end] == 1, "flowCharateristics.y[end] must be 1.");
-  assert(flowCharacteristics.phi[end] == 1, "flowCharateristics.phi[end] must be 1.");
+  assert(flowCharacteristics.y[size(flowCharacteristics.y, 1)] == 1, "flowCharateristics.y[end] must be 1.");
+  assert(flowCharacteristics.phi[size(flowCharacteristics.phi, 1)] == 1, "flowCharateristics.phi[end] must be 1.");
 
   // Assert that the sequences are strictly monotonic increasing
   assert(Buildings.Utilities.Math.Functions.isMonotonic(
@@ -125,6 +126,11 @@ Buildings.Fluid.Actuators.Valves.Examples.TwoWayValveTable</a>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+August 12, 2014, by Michael Wetter:<br/>
+Removed the <code>end</code> keyword when accessing array elements,
+as this language construct caused an error in OpenModelica.
+</li>
 <li>
 April 4, 2014, by Michael Wetter:<br/>
 Moved the assignment of the flow function <code>phi</code>
