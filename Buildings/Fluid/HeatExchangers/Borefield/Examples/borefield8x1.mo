@@ -41,11 +41,11 @@ model borefield8x1
     annotation (Placement(transformation(extent={{38,-50},{58,-30}})));
   Movers.FlowMachine_m_flow pum(
     redeclare package Medium = Medium,
-    m_flow_nominal=bfData.gen.m_flow_nominal_bh,
     dynamicBalance=false,
-    T_start=bfData.gen.T_start)
+    T_start=bfData.gen.T_start,
+    m_flow_nominal=bfData.m_flow_nominal)
     annotation (Placement(transformation(extent={{-16,22},{-36,2}})));
-  Modelica.Blocks.Sources.Constant mFlo(k=bfData.gen.m_flow_nominal_bh)
+  Modelica.Blocks.Sources.Constant mFlo(k=bfData.m_flow_nominal)
     annotation (Placement(transformation(extent={{-60,-18},{-48,-6}})));
 equation
   connect(load.y, hea.u) annotation (Line(
