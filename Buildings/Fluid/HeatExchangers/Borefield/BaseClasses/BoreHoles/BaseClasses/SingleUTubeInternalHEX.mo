@@ -56,14 +56,19 @@ model SingleUTubeInternalHEX
         origin={20,2})));
 
   Modelica.Thermal.HeatTransfer.Components.HeatCapacitor capFil1(C=Co_fil/2*scaSeg, T(
-        start=TFil_start)) "Heat capacity of the filling material" annotation (
+        start=TFil_start, fixed=(energyDynamics == Modelica.Fluid.Types.Dynamics.FixedInitial)),
+        der_T(fixed=(energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyStateInitial)))
+    "Heat capacity of the filling material"
+                                         annotation (
       Placement(transformation(
         extent={{-90,36},{-70,16}},
         rotation=0,
         origin={80,0})));
 
   Modelica.Thermal.HeatTransfer.Components.HeatCapacitor capFil2(C=Co_fil/2*scaSeg, T(
-        start=TFil_start)) "Heat capacity of the filling material" annotation (
+        start=TFil_start, fixed=(energyDynamics == Modelica.Fluid.Types.Dynamics.FixedInitial)),
+        der_T(fixed=(energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyStateInitial)))
+    "Heat capacity of the filling material"                                                                                        annotation (
       Placement(transformation(
         extent={{-90,-36},{-70,-16}},
         rotation=0,
@@ -216,16 +221,76 @@ equation
           fillColor={0,0,255},
           fillPattern=FillPattern.Solid)}),
     Documentation(info="<html>
-<p>Model for the heat transfer between the fluid and within the borehole filling. This model computes the dynamic response of the fluid in the tubes, and the heat transfer between the fluid and the borehole filling, and the heat storage within the fluid and the borehole filling. </p>
-<p>This model computes the different thermal resistances present in a single-U-tube borehole using the method of Bauer et al. [1] and computing explicitely the <i>fluid-to-ground</i> thermal resistance <i>Rb</i> and the <i>grout-to-grout </i>resistance <i>Ra</i> as defined by Hellstroem [2] using the multipole method (BaseClasses.singleUTubeResistances). The convection resistance is calculated using the Dittus-Boelter correlation (see BaseClasses.convectionResistance).</p>
-<p>The following figure shows the thermal network set up by Bauer et al. [1]</p>
-<p><img src=\"modelica://DaPModels/Borefield/Boreholes/BaseClasses/Documentation/Bauer_singleUTube_small.PNG\"/></p>
-<p><h4>References</h4></p>
-<p>[1] G. Hellstr&ouml;m. <i>Ground heat storage: thermal analyses of duct storage systems (Theory)</i>. Dep. of Mathematical Physics, University of Lund, Sweden, 1991.</p>
-<p>[2] D. Bauer, W. Heidemann, H. M&uuml;ller-Steinhagen, and H.-J. G. Diersch. <i>Thermal resistance and capacity models for borehole heat exchangers</i>. INTERNATIONAL JOURNAL OF ENERGY RESEARCH, 35:312&ndash;320, 2010.</p>
+<p>
+Model for the heat transfer between the fluid and within the borehole filling. 
+This model computes the dynamic response of the fluid in the tubes, 
+the heat transfer between the fluid and the borehole filling, 
+and the heat storage within the fluid and the borehole filling.
+</p>
+<p>
+This model computes the different thermal resistances present 
+in a single-U-tube borehole using the method of Bauer et al. (2011) 
+and computing explicitely the fluid-to-ground thermal resistance 
+<i>R<sub>b</sub></i> and the 
+grout-to-grout resistance
+<i>R<sub>a</sub></i> as defined by Hellstroem (1991)
+using the multipole method.
+The multipole method is implemented in
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.Boreholes.BaseClasses.singleUTubeResistances\">
+Buildings.Fluid.HeatExchangers.Boreholes.BaseClasses.singleUTubeResistances</a>. 
+The convection resistance is calculated using the 
+Dittus-Boelter correlation
+as implemented in
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.Boreholes.BaseClasses.convectionResistance\">
+Buildings.Fluid.HeatExchangers.Boreholes.BaseClasses.convectionResistance</a>. 
+</p>
+<p>
+The figure below shows the thermal network set up by Bauer et al. (2010).
+</p>
+<p align=\"center\">
+<img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Fluid/HeatExchangers/Boreholes/BaseClasses/Bauer_singleUTube.png\"/>
+</p>
+<h4>References</h4>
+<p>
+G. Hellstr&ouml;m. 
+<i>Ground heat storage: thermal analyses of duct storage systems (Theory)</i>. 
+Dept. of Mathematical Physics, University of Lund, Sweden, 1991.
+</p>
+<p>
+D. Bauer, W. Heidemann, H. M&uuml;ller-Steinhagen, and H.-J. G. Diersch.
+<i>
+<a href=\"http://dx.doi.org/10.1002/er.1689\">
+Thermal resistance and capacity models for borehole heat exchangers
+</a>
+</i>.
+International Journal Of Energy Research, 35:312&ndash;320, 2011.
+</p>
 </html>", revisions="<html>
-<p><ul>
-<li>January 2014, Damien Picard,<br/><i>First implementation.</i></li>
-</ul></p>
-</html>"));
+<p>
+<ul>
+<li>
+June 18, 2014, by Michael Wetter:<br/>
+Added initialization for temperatures and derivatives of <code>capFil1</code>
+and <code>capFil2</code> to avoid a warning during translation.
+</li>
+<li>
+February 14, 2014, by Michael Wetter:<br/>
+Removed unused parameters <code>B0</code> and <code>B1</code>.
+</li>
+<li>
+January 24, 2014, by Michael Wetter:<br/>
+Revised implementation, added comments, replaced 
+<code>HeatTransfer.Windows.BaseClasses.ThermalConductor</code>
+with resistance models from the Modelica Standard Library.
+</li>
+<li>
+January 23, 2014, by Damien Picard:<br/>
+First implementation.
+</li>
+</ul>
+</p>
+</html>"),
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
+            100,100}}), graphics));
+
 end SingleUTubeInternalHEX;

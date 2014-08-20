@@ -106,6 +106,23 @@ algorithm
     test := ((1/Rgg + 1/2/Rgb)^(-1) > 0);
     i := i + 1;
   end while;
+  assert(test,
+  "Maximum number of iterations exceeded. Check the borehole geometry.
+  The tubes may be too close to the borehole wall.
+  Input to the function 
+  Buildings.Fluid.HeatExchangers.Boreholes.BaseClasses.singleUTubeResistances
+  is
+           hSeg = " + String(hSeg) + " m
+           rBor = " + String(rBor) + " m
+           rTub = " + String(rTub) + " m
+           eTub = " + String(eTub) + " m
+           kSoi = " + String(kSoi) + " W/m/K
+           kFil = " + String(kFil) + " W/m/K
+           kTub = " + String(kTub) + " W/m/K
+  Computed x    = " + String(x) + " K/W
+           Rgb  = " + String(Rgb) + " K/W
+           Rgg  = " + String(Rgg) + " K/W");
+
   //Conduction resistance in grout from pipe wall to capacity in grout
   RCondGro := x*Rg + RCondPipe;
 
@@ -167,6 +184,10 @@ International Journal Of Energy Research, 35:312&ndash;320, 2010.</p>
 </html>", revisions="<html>
 <p>
 <ul>
+<li>
+February 14, 2014 by Michael Wetter:<br/>
+Added an assert statement to test for non-physical values.
+</li>
 <li>
 February 12, 2014, by Damien Picard:<br/>
 Remove the flow dependency of the resistances, as this function calculates the conduction resistances only.
