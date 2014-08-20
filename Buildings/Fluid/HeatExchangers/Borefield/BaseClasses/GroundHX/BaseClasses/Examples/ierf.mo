@@ -6,7 +6,7 @@ model ierf
   Real y_ierf;
 
 algorithm
-  y_ierf := ierf(u=time*lim);
+  y_ierf := BaseClasses.ierf(u=time*lim);
 
         annotation (Documentation(info="<html>
         <p>Test implementation of ierf function.</p>

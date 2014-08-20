@@ -9,7 +9,7 @@ algorithm
   if time < 0.00785 then
     int := 0;
   else
-    int := integrandBf_bt(D=100, rBor=0.1, u=time*lim, nbBh=2, cooBh={{0,0},{1,1}});
+    int := BaseClasses.integrandBf_bt(D=100, rBor=0.1, u=time*lim, nbBh=2, cooBh={{0,0},{1,1}});
   end if;
   annotation (experiment(
       StopTime=1,

@@ -20,22 +20,24 @@ function saveAggregationMatrix
   output Modelica.SIunits.Temperature TWallSteSta
     "Quasi steady state temperature";
 
-  output Real[1,gen.tBre_d + 1] TResSho;
-  output String sha;
+  output Real[1,gen.tBre_d + 1] TResSho
+    "Short term response temperature vector of the borefield obtained calling the model IDEAS.Fluid.HeatExchangers.GroundHeatExchangers.Borefield.BaseClasses.BoreHoles.Examples.SingleBoreHoleSerStepLoadScript";
+  output String sha "pseudo SHA code (unique code) of the record soi and gen";
 
-  output Boolean existShoTerRes;
+  output Boolean existShoTerRes
+    "True if the short term response has already been calculated and stored in the simulation folder";
 
-  output Boolean existAgg;
-  output Boolean writeTWallSteSta;
-  output Boolean writeAgg;
-  output Real q_max_out;
+  output Boolean existAgg
+    "True if the aggregation matrix has already been calculated and stored in the simulation folder";
+  output Boolean writeTWallSteSta
+    "True if the variable TWallSteSta is written in the simulation folder";
+  output Boolean writeAgg
+    "True if the aggregation matrix is written in the simulation folder";
 
 protected
-  String pathSave;
-  String dir;
+  String pathSave "path of the saving folder";
   Real[1,1] mat;
 algorithm
-  q_max_out := q_max;
   // --------------- Generate SHA-code and path
   sha := shaBorefieldRecords(
     soiPath=Modelica.Utilities.Strings.replace(
@@ -49,23 +51,10 @@ algorithm
       "\\",
       "/"));
 
-  if Modelica.Utilities.Files.exist("C:") then
-    dir := "C://.BfData";
-  elseif Modelica.Utilities.Files.exist("/tmp") then
-    dir := "/tmp/.BfData";
-  else
-    dir := "";
-    assert(false, "\n
-************************************************************************************************************************ \n 
-You do not have the writing permission on the C: or home/ folder. Change the variable dir in
-Buildings.Fluid.HeatExchangers.Borefield.BaseClasses.Scripts.saveAggregationMatrix to 
-write the temperory file at a different location. \n
-************************************************************************************************************************ \n ");
-  end if;
+ //creation of a folder .BfData in the simulation folder
+  Modelica.Utilities.Files.createDirectory(".BfData");
 
-  Modelica.Utilities.Files.createDirectory(dir);
-
-  pathSave := dir + "/" + sha;
+  pathSave := ".BfData/" + sha;
 
   // --------------- Check if the short term response (TResSho) needs to be calculated or loaded
   if not Modelica.Utilities.Files.exist(pathSave + "ShoTermData.mat") then

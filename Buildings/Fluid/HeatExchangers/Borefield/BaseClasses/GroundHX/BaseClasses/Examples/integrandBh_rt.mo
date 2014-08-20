@@ -10,7 +10,7 @@ algorithm
   if time < 0.007 then
     int := 0;
   else
-    int := integrandBh_rt(
+    int := BaseClasses.integrandBh_rt(
       r=0.055,
       D=100,
       u=time*lim);
