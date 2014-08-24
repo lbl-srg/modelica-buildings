@@ -77,5 +77,12 @@ Buildings.Electrical.AC.OnePhase.Lines.TwoPortRLC</a>
 and provides functionalities to parametrize the values of <i>R</i>, <i>L</i> and <i>C</i> either
 using commercial cables or using default values.
 </p>
+</html>", revisions="<html>
+<ul>
+<li>
+August 24, 2014, by Marco Bonvini:<br/>
+Revised documentation.
+</li>
+</ul>
 </html>"));
 end Line;

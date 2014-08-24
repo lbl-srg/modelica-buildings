@@ -84,10 +84,12 @@ equation
           "modelica://Buildings/Resources/Scripts/Dymola/Electrical/AC/OnePhase/Sources/Examples/PVpanels.mos"
         "Simulate and plot"),
     Documentation(revisions="<html>
+<ul>
 <li>
 August 5, 2014, by Marco Bonvini:<br/>
 Revised model and documentation.
 </li>
+</ul>
 </html>", info="<html>
 <p>
 This example shows how to use a simple PV model without orientation

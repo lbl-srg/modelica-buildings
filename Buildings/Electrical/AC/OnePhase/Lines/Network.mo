@@ -40,5 +40,12 @@ Buildings.Electrical.Transmission.Grids.PartialGrid</a>
 for more information about the topology of the network, such as
 the number of nodes, how they are connected, and the length of each connection.
 </p>
+</html>", revisions="<html>
+<ul>
+<li>
+August 24, 2014, by Marco Bonvini:<br/>
+Revised documentation.
+</li>
+</ul>
 </html>"));
 end Network;

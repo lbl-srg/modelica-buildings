@@ -123,6 +123,6 @@ First implementation.
 </ul>
 </html>"),
     __Dymola_Commands(file=
-          "modelica://Buildings/Resources/Scripts/Dymola/Electrical/AC/OnePhase/Conversion/Examples/ACACTrasformer.mos"
+          "modelica://Buildings/Resources/Scripts/Dymola/Electrical/AC/OnePhase/Conversion/Examples/ACACTrasformerFull.mos"
         "Simulate and plot"));
 end ACACTransformerFull;

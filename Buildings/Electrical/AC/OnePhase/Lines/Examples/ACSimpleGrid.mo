@@ -1,36 +1,76 @@
 within Buildings.Electrical.AC.OnePhase.Lines.Examples;
-model ACSimpleGrid
+model ACSimpleGrid "Test model for a network model"
   extends Modelica.Icons.Example;
-  Network network
-    annotation (Placement(transformation(extent={{-20,0},{0,20}})));
+  Network network(redeclare
+      Buildings.Electrical.Transmission.Grids.TestGrid2Nodes grid)
+    "Network model that represents the connection between the source and the load"
+    annotation (Placement(transformation(extent={{20,-10},{0,10}})));
   Loads.Inductive load(P_nominal=2500, mode=Types.Assumption.VariableZ_P_input)
-    annotation (Placement(transformation(extent={{20,20},{40,40}})));
-  Sources.FixedVoltage source(
-    f=50,
-    V=220,
-    Phi=0.26179938779915) annotation (Placement(transformation(
-        extent={{-10,-10},{10,10}},
+    "Load connected to the network"
+    annotation (Placement(transformation(extent={{-28,10},{-48,30}})));
+  Sources.FixedVoltage E "Voltage source" annotation (Placement(transformation(
+        extent={{10,-10},{-10,10}},
         rotation=180,
-        origin={30,10})));
-  Modelica.Blocks.Sources.Ramp ramp(
+        origin={-70,0})));
+  Modelica.Blocks.Sources.Ramp load_inputs(
     height=5000,
     duration=2,
     offset=-2000,
-    startTime=0.5)
-    annotation (Placement(transformation(extent={{80,20},{60,40}})));
+    startTime=0.5) "Input signal for the power consumption of the loads"
+    annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
 equation
   connect(load.terminal, network.terminal[2]) annotation (Line(
-      points={{20,30},{10,30},{10,10},{0,10}},
+      points={{-28,20},{-20,20},{-20,4.44089e-16},{-4.44089e-16,4.44089e-16}},
       color={0,120,120},
       smooth=Smooth.None));
-  connect(source.terminal, network.terminal[1]) annotation (Line(
-      points={{20,10},{4.44089e-16,10}},
+  connect(E.terminal, network.terminal[1]) annotation (Line(
+      points={{-60,-8.88178e-16},{-56,-8.88178e-16},{-56,4.44089e-16},{-4.44089e-16,
+          4.44089e-16}},
       color={0,120,120},
       smooth=Smooth.None));
-  connect(ramp.y, load.Pow) annotation (Line(
-      points={{59,30},{40,30}},
+  connect(load_inputs.y, load.Pow) annotation (Line(
+      points={{-59,30},{-54,30},{-54,20},{-48,20}},
       color={0,0,127},
       smooth=Smooth.None));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}}), graphics));
+  annotation (experiment(StopTime=1.0, Tolerance=1e-06),
+  Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
+            -100},{100,100}}), graphics),
+__Dymola_Commands(file=
+          "modelica://Buildings/Resources/Scripts/Dymola/Electrical/AC/OnePhase/Lines/Examples/ACSimpleGrid.mos"
+        "Simulate and plot"),
+Documentation(revisions="<html>
+<ul>
+<li>
+August 24, 2014, by Marco Bonvini:<br/>
+Documentation and example revised.
+</li>
+</ul>
+</html>", info="<html>
+<p>
+This example demonstrates how to use a network model to connect
+a source to a load. In this simple case the network has two nodes 
+that are connected by a commercial line cable.
+</p>
+<p>
+At the beginning of the simulation the load consumes power while at the
+and it produces power. The voltage at the load at the beginning is lower
+that the nominal RMS voltage (120 V) while at the end of the simulation is higher.
+The voltage drop and increase are due to the presence of the cable between
+the source and the load.
+</p>
+<p>
+The details of the network are
+</p>
+<ul>
+<li>cable of type <code>LowVoltageCable.Cu35</code>,</li>
+<li>length of 200 m
+</ul>
+<p>
+The picture below describes the grid topology.
+</p>
+<p align=\"center\">
+<img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Electrical/Transmission/Grids/testGrid2Nodes.png\"/>
+</p>
+</html>"));
+
 end ACSimpleGrid;

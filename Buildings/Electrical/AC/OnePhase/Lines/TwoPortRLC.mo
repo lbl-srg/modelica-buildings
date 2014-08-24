@@ -70,5 +70,12 @@ The capacitance in the center is optional and can be selected using the
 boolean flag <code>use_C = true</code>. The model is either dynamic or static depending on the
 presence of the capacitive effect.
 </p>
+</html>", revisions="<html>
+<ul>
+<li>
+August 5, 2014, by Marco Bonvini:<br/>
+Revised model and documentation.
+</li>
+</ul>
 </html>"));
 end TwoPortRLC;

@@ -33,5 +33,12 @@ The model represents the lumped resistance as shown in the figure below.
 <p align=\"center\">
 <img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Electrical/AC/OnePhase/Lines/twoPortR.png\"/>
 </p>
+</html>", revisions="<html>
+<ul>
+<li>
+August 5, 2014, by Marco Bonvini:<br/>
+Revised model and documentation.
+</li>
+</ul>
 </html>"));
 end TwoPortResistance;

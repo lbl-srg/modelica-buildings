@@ -53,10 +53,12 @@ equation
           "modelica://Buildings/Resources/Scripts/Dymola/Electrical/AC/OnePhase/Sources/Examples/VariablePowerSource.mos"
         "Simulate and plot"),
     Documentation(revisions="<html>
+<ul>
 <li>
 August 5, 2014, by Marco Bonvini:<br/>
 Revised model and documentation.
 </li>
+</ul>
 </html>", info="<html>
 <p>
 This example shows how to use a variable generator model. The model has to be used
