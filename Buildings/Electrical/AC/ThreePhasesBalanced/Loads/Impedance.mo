@@ -117,18 +117,24 @@ equation
           smooth=Smooth.None)}),
           Documentation(info="<html>
 <p>
-Model of a load that is characterized by its resistance, 
-inductance or capacitance.
+Model of a three phases balanced impedance.
 </p>
 <p>
 If <code>inductive=true</code>, then the
 inductance is a parameter, otherwise
 the capacitance is a parameter.
-The parameter <code>star</code> is used to 
-configure the model as a star or triangle circuit.
+</p>
+<p>
+The boolean parameter <code>star</code> is used to 
+select which configuration is used to connect the impedance:
+star or triangle.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+August 24, 2014, by Marco Bonvini:<br/>
+Revised documentation.
+</li>
 <li>
 January 2, 2012, by Michael Wetter:<br/>
 First implementation.

@@ -1,7 +1,7 @@
 within Buildings.Electrical.AC.ThreePhasesBalanced.Loads;
-model ResistiveLoadP "Model of a resistive load"
+model Resistive "Model of a resistive load"
   extends Buildings.Electrical.AC.OnePhase.Loads.Resistive(     redeclare
-      Interfaces.Terminal_n terminal, V_nominal=380);
+      Interfaces.Terminal_n terminal, V_nominal=480);
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
             {100,100}}), graphics={Rectangle(extent={{-100,100},{100,-100}},
             lineColor={255,255,255}),
@@ -71,17 +71,16 @@ model ResistiveLoadP "Model of a resistive load"
           smooth=Smooth.None)}),
           Documentation(info="<html>
 <p>
-Model of a resistive load. It may be used to model a load that has
-a power factor of one.
-</p>
-<p>
-The model computes the power as
-<i>P = real(v &sdot; i<sup>*</sup>)</i>,
-where <i>i<sup>*</sup></i> is the complex conjugate of the current.
-Complex voltage and complex current are related as <i>v = R &nbsp; i</i>.
+Model of a resistive load. See 
+<a href=\"modelica://Buildings.Electrical.AC.OnePhase.Loads.Resistive\">
+Buildings.Electrical.AC.OnePhase.Loads.Resistive</a> for more information.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+August 24, 2014, by Marco Bonvini:<br/>
+Revised documentation.
+</li>
 <li>
 January 2, 2012, by Michael Wetter:<br/>
 First implementation.
@@ -90,4 +89,4 @@ First implementation.
 </html>"),
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
             100}}), graphics));
-end ResistiveLoadP;
+end Resistive;

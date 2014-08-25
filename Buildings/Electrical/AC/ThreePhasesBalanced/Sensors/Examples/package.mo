@@ -1,5 +1,5 @@
 within Buildings.Electrical.AC.ThreePhasesBalanced.Sensors;
-package Examples "Collection of models that illustrate model use and test models"
+package Examples "Package with example models"
   extends Modelica.Icons.ExamplesPackage;
 
 
@@ -9,5 +9,12 @@ This package contains examples for the use of models that can be found in
 <a href=\"modelica://Buildings.Electrical.AC.AC3ph.Sensors\">
 Buildings.Electrical.AC.AC3ph.Sensors</a>.
 </p>
+</html>", revisions="<html>
+<ul>
+<li>
+August 24, 2014, by Marco Bonvini:<br/>
+Revised User's guide.
+</li>
+</ul>
 </html>"));
 end Examples;

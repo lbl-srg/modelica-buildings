@@ -24,5 +24,12 @@ annotation (Icon(graphics={
 <p>
 This package contains models for transmission lines and electrical networks. 
 </p>
+</html>", revisions="<html>
+<ul>
+<li>
+August 24, 2014, by Marco Bonvini:<br/>
+Revised User's guide.
+</li>
+</ul>
 </html>"));
 end Lines;

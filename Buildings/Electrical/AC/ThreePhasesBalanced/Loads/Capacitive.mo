@@ -1,7 +1,7 @@
 within Buildings.Electrical.AC.ThreePhasesBalanced.Loads;
-model CapacitiveLoadP "Model of a capacitive and resistive load"
+model Capacitive "Model of a capacitive and resistive load"
   extends Buildings.Electrical.AC.OnePhase.Loads.Capacitive(     redeclare
-      Interfaces.Terminal_n terminal, V_nominal=380);
+      Interfaces.Terminal_n terminal, V_nominal=480);
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}),      graphics={
         Rectangle(
@@ -106,30 +106,21 @@ model CapacitiveLoadP "Model of a capacitive and resistive load"
           origin={10,-52},
           rotation=180)}),       Documentation(info="<html>
 <p>
-Model of a capacitive load. It may be used to model a bank of capacitors.
-</p>
-<p>
-A parameter or input to the model is the real power <i>P</i>, and a parameter
-is the power factor <i>pf=cos(&phi;)</i>.
-In this model, current leads voltage, as is the case for a capacitor bank.
-For an inductive load, use
-<a href=\"modelica://Buildings.Electrical.AC.Loads.InductorResistor\">
-Buildings.Electrical.AC.Loads.InductorResistor</a>.</p>
-<p>
-The model computes the phase angle of the power <i>&phi;</i>
-and assigns the complex power <i>S = -P/pf &ang; &phi;</i>.
-The relation between complex power, complex voltage and complex current is computed
-as 
-<i>S = v &sdot; i<sup>*</sup></i>,
-where <i>i<sup>*</sup></i> is the complex conjugate of the current.
+Model of a capacitive load. See 
+<a href=\"modelica://Buildings.Electrical.AC.OnePhase.Loads.Capacitive\">
+Buildings.Electrical.AC.OnePhase.Loads.Capacitive</a> for more information.
 </p>
 </html>",
       revisions="<html>
 <ul>
+<li>
+August 24, 2014, by Marco Bonvini:<br/>
+Revised documentation.
+</li>
 <li>
 January 2, 2012, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
 </html>"));
-end CapacitiveLoadP;
+end Capacitive;

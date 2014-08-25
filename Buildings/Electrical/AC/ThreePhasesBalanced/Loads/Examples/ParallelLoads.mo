@@ -6,11 +6,9 @@ model ParallelLoads
     V=380,
     Phi=0)
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
-  ResistiveLoadP
-        R(P_nominal=6000, V_nominal=380)
+  Resistive R(P_nominal=6000, V_nominal=380)
     annotation (Placement(transformation(extent={{-20,70},{0,90}})));
-  InductiveLoadP
-         RL(
+  Inductive RL(
     mode=Types.Assumption.FixedZ_steady_state,
     P_nominal=5000,
     pf=0.8,
@@ -18,27 +16,24 @@ model ParallelLoads
     annotation (Placement(transformation(extent={{-20,16},{0,36}})));
   Modelica.Blocks.Sources.Ramp load(duration=0.5, startTime=0.2)
     annotation (Placement(transformation(extent={{60,-24},{40,-4}})));
-  InductiveLoadP
-         varRL(
+  Inductive varRL(
     mode=Types.Assumption.VariableZ_y_input,
     P_nominal=8000,
     pf=0.9,
     V_nominal=380)
     annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
-  CapacitiveLoadP
-         varRC(
+  Capacitive varRC(
     mode=Types.Assumption.VariableZ_y_input,
     P_nominal=10000,
     pf=0.8,
     V_nominal=380)
     annotation (Placement(transformation(extent={{-20,-40},{0,-20}})));
-  InductiveLoadP
-         dynRL(
+  Inductive dynRL(
     mode=Types.Assumption.FixedZ_dynamic,
     P_nominal=2000,
     V_nominal=380)
     annotation (Placement(transformation(extent={{-20,-70},{0,-50}})));
-  InductiveLoadP Load(
+  Inductive Load(
     P_nominal=5000,
     pf=0.8,
     V_nominal=380,

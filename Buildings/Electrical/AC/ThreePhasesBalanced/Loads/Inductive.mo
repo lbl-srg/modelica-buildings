@@ -1,7 +1,7 @@
 within Buildings.Electrical.AC.ThreePhasesBalanced.Loads;
-model InductiveLoadP "Model of an inductive and resistive load"
+model Inductive "Model of an inductive and resistive load"
   extends Buildings.Electrical.AC.OnePhase.Loads.Inductive(     redeclare
-      Interfaces.Terminal_n terminal, V_nominal=380);
+      Interfaces.Terminal_n terminal, V_nominal=480);
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}),
                          graphics={
@@ -114,30 +114,20 @@ model InductiveLoadP "Model of an inductive and resistive load"
           extent={{-100,-100},{100,100}}), graphics),
     Documentation(info="<html>
 <p>
-Model of an inductive load. It may be used to model an inductive motor.
-</p>
-<p>
-A parameter or input to the model is the real power <i>P</i>, and a parameter
-is the power factor <i>pf=cos(&phi;)</i>.
-In this model, current lags voltage, as is the case for an inductive motor.
-For a capacitive load, use
-<a href=\"modelica://Buildings.Electrical.AC.Loads.CapacitorResistor\">
-Buildings.Electrical.AC.Loads.SinglePhase.CapacitorResistor</a>.
-</p>
-<p>
-The model computes the phase angle of the power <i>&phi;</i>
-and assigns the complex power <i>S = -P/pf &ang; &phi;</i>.
-The relation between complex power, complex voltage and complex current is computed
-as 
-<i>S = v &sdot; i<sup>*</sup></i>,
-where <i>i<sup>*</sup></i> is the complex conjugate of the current.
+Model of an inductive load. See 
+<a href=\"modelica://Buildings.Electrical.AC.OnePhase.Loads.Inductive\">
+Buildings.Electrical.AC.OnePhase.Loads.Inductive</a> for more information.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+August 24, 2014, by Marco Bonvini:<br/>
+Revised documentation.
+</li>
 <li>
 January 2, 2012, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
 </html>"));
-end InductiveLoadP;
+end Inductive;
