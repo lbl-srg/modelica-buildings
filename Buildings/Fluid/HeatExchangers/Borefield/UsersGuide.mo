@@ -8,6 +8,44 @@ This package contains a borefield model. The model is able to simulate any arbit
 An aggregation method is used to speed up the calculations. 
 </p>
 
+<h4>How to use the model</h4>
+<p>
+The following paragrahs briefly describe how to use the model 
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.Borefield.MultipleBoreHoles\">Buildings.Fluid.HeatExchangers.Borefield.MultipleBoreHoles</a>.
+</p>
+<p>
+All the parameter values of the model are contained in the record called <i>BfData</i>. This record is composed of three subrecords, 
+namely <i>soi</i> (containing the ground thermal charachteristics), <i>fill</i> (containing the grout thermal charachteristics), 
+and <i>gen</i> (containing all others parameters). The record structures and default values are in the package: 
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.Boreholes.Data.Records\">Buildings.Fluid.HeatExchangers.Boreholes.Data.Records</a>.
+Examples of <i>soi</i>, <i>fill</i> and <i>gen</i> records 
+can be found in
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.Boreholes.Data.SoilData\">Buildings.Fluid.HeatExchangers.Boreholes.Data.SoilData</a>,
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.Boreholes.Data.FillingData\">Buildings.Fluid.HeatExchangers.Boreholes.Data.FillingData</a> and 
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.Boreholes.Data.GeneralData\">Buildings.Fluid.HeatExchangers.Boreholes.Data.GeneralData</a>
+, respectively.
+</p>
+
+<p>
+In order to use the model with the desired parameters, create and save in your own library a new <i>BfData</i> record as an extension 
+of <a href=\"modelica://Buildings.Fluid.HeatExchangers.Boreholes.Data.Records.BorefieldData\">Buildings.Fluid.HeatExchangers.Boreholes.Data.Records.BorefieldData</a>. 
+This records call the subrecords <i>soi</i>, <i>fill</i> and <i>gen</i>. 
+Create and save also these subrecords if they do not exist yet with the right parameter values.
+<b>Do not use modifiers for the records</b> as the model computes a SHA-code of the records and compare it with the 
+SHA-code of a previous simulation. This enable the user to avoid the re-computation of the short-term-response 
+and the aggregation matrix if this has already be done by a previous simulation.
+</p>
+
+<p>
+Now that you have created your own <i>BfData</i> record, you can run your model containing a borefield using this <i>BfData</i> record. 
+At the initialization of the first simulation, you will receive an error message, asking you to paste a command in the command window 
+of the simulation tab. Pasting the command and pressing <i>enter</i> will call a script which computes the short-term response of the 
+borefield for the given parameters and save it in a folder <i>current folder/.bfData</i>. Once this is done, you can run your model. 
+For any future simulations using the same record <i>BfData</i>, you will not need to call this initialization script anymore.
+<b>Do not forget to adapt the parameter <i>lenSim</i></b>. <i>lenSim</i> should be equal or bigger than the simulation length. This parameter
+is used to define the number and size and the aggregation cells.
+</p>
+
 <h4>Model description</h4>
 <p>A detailed description of the model can be
 found in
@@ -183,44 +221,6 @@ Finally, the aggregated load has to be updated at each time step <i>n</i>. This 
 </p>
 with <span style=\"text-decoration: overline\">Q</span><sub>v(p,q)</sub><sup>(n)</sup> the average load in the aggregation cell <i>(p,q)</i> 
 at time <i>nh</i> and <i>r<sub>q</sub></i> the cell width at the <i>q</i> aggregation level.
-
-
-<h4>Users Guide</h4>
-<p>
-The following paragrahs briefly describe how to use the model.
-</p>
-<p>
-All the parameter values of the model are contained in the record called <i>BfData</i>. This record is composed of three subrecords, 
-namely <i>soi</i> (containing the ground thermal charachteristics), <i>fill</i> (containing the grout thermal charachteristics), 
-and <i>gen</i> (containing all others parameters). The record structures and default values are in the package: 
-<a href=\"modelica://Buildings.Fluid.HeatExchangers.Boreholes.Data.Records\">Buildings.Fluid.HeatExchangers.Boreholes.Data.Records</a>.
-Examples of <i>soi</i>, <i>fill</i> and <i>gen</i> records 
-can be found in
-<a href=\"modelica://Buildings.Fluid.HeatExchangers.Boreholes.Data.SoilData\">Buildings.Fluid.HeatExchangers.Boreholes.Data.SoilData</a>,
-<a href=\"modelica://Buildings.Fluid.HeatExchangers.Boreholes.Data.FillingData\">Buildings.Fluid.HeatExchangers.Boreholes.Data.FillingData</a> and 
-<a href=\"modelica://Buildings.Fluid.HeatExchangers.Boreholes.Data.GeneralData\">Buildings.Fluid.HeatExchangers.Boreholes.Data.GeneralData</a>
-, respectively.
-</p>
-
-<p>
-In order to use the model with the desired parameters, create and save in your own library a new <i>BfData</i> record as an extension 
-of <a href=\"modelica://Buildings.Fluid.HeatExchangers.Boreholes.Data.Records.BorefieldData\">Buildings.Fluid.HeatExchangers.Boreholes.Data.Records.BorefieldData</a>. 
-This records call the subrecords <i>soi</i>, <i>fill</i> and <i>gen</i>. 
-Create and save also these subrecords if they do not exist yet with the right parameter values.
-<b>Do not use modifiers for the records</b> as the model computes a SHA-code of the records and compare it with the 
-SHA-code of a previous simulation. This enable the user to avoid the re-computation of the short-term-response 
-and the aggregation matrix if this has already be done by a previous simulation.
-</p>
-
-<p>
-Now that you have created your own <i>BfData</i> record, you can run your model containing a borefield using this <i>BfData</i> record. 
-At the initialization of the first simulation, you will receive an error message, asking you to paste a command in the command window 
-of the simulation tab. Pasting the command and pressing <i>enter</i> will call a script which computes the short-term response of the 
-borefield for the given parameters and save it in a folder <i>current folder/.bfData</i>. Once this is done, you can run your model. 
-For any future simulations using the same record <i>BfData</i>, you will not need to call this initialization script anymore.
-<b>Do not forget to adapt the parameter <i>lenSim</i></b>. <i>lenSim</i> should be equal or bigger than the simulation length. This parameter
-is used to define the number and size and the aggregation cells.
-</p>
 
 
 <h4>References</h4>

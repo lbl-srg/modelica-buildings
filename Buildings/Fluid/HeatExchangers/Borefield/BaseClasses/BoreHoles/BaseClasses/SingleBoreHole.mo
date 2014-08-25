@@ -150,59 +150,28 @@ no ground water flow.
 </p>
 <p>
 The far-field temperature, i.e., the temperature at the radius 
-<i>r<sub>ext</sub></i>, is computed using a power-series solution
-to a line-source heat transfer problem. This temperature boundary condition
-is updated every <i>t<sub>sample</sub></i> seconds.
+<i>r<sub>ext</sub></i>, is kept constant because this model is only use to compute the short-term
+temperature response of the borehole.
 </p>
-<p>
-The initial far-field temperature <i>T<sub>ext,start</sub></i>, which
-is the temperature of the soil at a radius <i>r<sub>ext</sub></i>,
-is computed 
-as a function of the depth <i>z &gt; 0</i>. 
-For a depth between <i>0 &le; z &le; z<sub>0</sub></i>, the temperature
-is set to <i>T<sub>ext,0,start</sub></i>. 
-The value of <i>z<sub>0</sub></i> is a parameter with a default of 10 meters.
-However, there is large variability in the depth where the undisturbed soil temperature
-starts.
-For a depth of <i>z<sub>0</sub> &le; z &le; h<sub>bor</sub></i>,
-the temperature is computed as
-</p>
-<p align=\"center\" style=\"font-style:italic;\">
-  T<sup>i</sup><sub>ext,start</sub> = T<sub>ext,0,start</sub> + (z<sup>i</sup> - z<sub>0</sub>)  dT &frasl; dz
-</p>
-with <i>i &isin; {1, ..., n<sub>ver</sub>}</i>,
-where the temperature gradient <i>dT &frasl; dz &ge; 0</i> is a parameter.
-As with <i>z<sub>0</sub></i>, there is large variability in 
-<i>dT &frasl; dz &ge; 0</i>. The default value is set to <i>1</i> Kelvin per 100 meters.
-For the temperature of the grout, the same equations are applied, with
-<i>T<sub>ext,0,start</sub></i> replaced with
-<i>T<sub>fil,0,start</sub></i>, and 
-<i>T<sup>i</sup><sub>ext,start</sub></i> replaced with
-<i>T<sup>i</sup><sub>fil,start</sub></i>. 
-The default setting uses the same temperature for the soil and the filling material.
-</p>
+
 <h4>Implementation</h4>
 <p>
 Each horizontal layer is modeled using an instance of
-<a href=\"modelica://Buildings.Fluid.HeatExchangers.Boreholes.BaseClasses.BoreholeSegment\">
-Buildings.HeatExchangers.Fluid.Boreholes.BaseClasses.BoreholeSegment</a>.
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.Borefield.BaseClasses.BoreHoles.BaseClasses.BoreHoleSegmentFourPort\">
+Buildings.Fluid.HeatExchangers.Borefield.BaseClasses.BoreHoles.BaseClasses.BoreHoleSegmentFourPort</a>.
 This model is composed of the model
-<a href=\"modelica://Buildings.Fluid.HeatExchangers.Boreholes.BaseClasses.HexInternalElement\">
-Buildings.Fluid.HeatExchangers.Boreholes.BaseClasses.HexInternalElement</a> which computes
-the heat transfer in the pipes and the borehole filling,
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.Borefield.BaseClasses.BoreHoles.BaseClasses.SingleUTubeInternalHEX\">
+Buildings.Fluid.HeatExchangers.Borefield.BaseClasses.BoreHoles.BaseClasses.SingleUTubeInternalHEX</a> which computes
+the heat transfer in the pipes and the borehole filling, and
 of the model
-<a href=\"modelica://Buildings.HeatTransfer.Conduction.SingleLayerCylinder\">
-Buildings.HeatTransfer.Conduction.SingleLayerCylinder</a> which computes
-the heat transfer in the soil, and
-of the model
-<a href=\"modelica://Buildings.Fluid.HeatExchangers.Boreholes.BaseClasses.TemperatureBoundaryCondition\">
-Buildings.Fluid.HeatExchangers.Boreholes.BaseClasses.TemperatureBoundaryCondition</a> which computes
-the far-field temperature boundary condition.
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.Borefield.BaseClasses.BoreHoles.BaseClasses.CylindricalGroundLayer\">
+Buildings.Fluid.HeatExchangers.Borefield.BaseClasses.BoreHoles.BaseClasses.CylindricalGroundLayer</a> which computes
+the heat transfer in the soil.
 </p>
 </html>", revisions="<html>
 <ul>
 <li>
-August 2011, by Pierre Vigouroux:<br>
+July 2014, by Damien Picard:<br>
 First implementation.
 </li>
 </ul>

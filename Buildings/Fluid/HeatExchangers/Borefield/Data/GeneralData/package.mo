@@ -6,7 +6,7 @@ extends Modelica.Icons.Package;
 
 
   annotation (Documentation(info="<html>
- <p>Library of Geometrical Borefield Data.</p>
+ <p>Library of General Borefield Data.</p>
 </html>",
         revisions="<html>
 <ul>

@@ -1,6 +1,6 @@
 within Buildings.Fluid.HeatExchangers.Borefield.Examples;
 model borefield8x8_accurate
-  "Model of a borefield in a 8x8 boreholes line configuration and a constant heat injection rate"
+  "Model of a borefield in a 8x8 boreholes square configuration and a constant heat injection rate"
 
   extends Modelica.Icons.Example;
 
@@ -81,5 +81,14 @@ equation
             {100,100}}),
                     graphics),
     experiment(StopTime=1.7e+006, __Dymola_NumberOfIntervals=100),
-    __Dymola_experimentSetupOutput);
+    __Dymola_experimentSetupOutput,
+    Documentation(info="<html>
+</html>", revisions="<html>
+<ul>
+<li>
+July 2014, by Damien Picard:<br>
+First implementation.
+</li>
+</ul>
+</html>"));
 end borefield8x8_accurate;

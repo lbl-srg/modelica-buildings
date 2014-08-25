@@ -19,4 +19,14 @@ algorithm
     end for;
   end for;
   deltaTWall := R_ss*q_sum;
+
+    annotation (Documentation(info="<html>
+</html>", revisions="<html>
+<ul>
+<li>
+July 2014, by Damien Picard:<br>
+First implementation.
+</li>
+</ul>
+</html>"));
 end deltaTWall;

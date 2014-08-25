@@ -153,27 +153,23 @@ This model combines three models, each simulating a different aspect
 of a borehole heat exchanger. 
 </p>
 <p>
-The instance <code>pipFil</code> computes the heat transfer in the pipes and the filling material. 
+The instance <code>intHEX</code> computes the heat transfer in the pipes and the filling material. 
 This computation is done using the model
-<a href=\"modelica://Buildings.Fluid.Boreholes.BaseClasses.HexInternalElement\">
-Buildings.Fluid.Boreholes.BaseClasses.HexInternalElement</a>.
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.Borefield.BaseClasses.BoreHoles.BaseClasses.SingleUTubeInternalHEX\">
+Buildings.Fluid.HeatExchangers.Borefield.BaseClasses.BoreHoles.BaseClasses.SingleUTubeInternalHEX</a>.
 </p>
 <p>
-The instance <code>soi</code> computes transient and steady state heat transfer in the soil using a vertical cylinder.
-The computation is done using the model <a href=\"modelica://Buildings.HeatTransfer.Conduction.SingleLayerCylinder\">
-Buildings.HeatTransfer.Conduction.SingleLayerCylinder</a>.
+The instance <code>soiLay</code> computes transient and steady state heat transfer in the soil using a vertical cylinder.
+The computation is done using the model <a href=\"modelica://Buildings.Fluid.HeatExchangers.Borefield.BaseClasses.BoreHoles.BaseClasses.CylindricalGroundLayer\">
+Buildings.Fluid.HeatExchangers.Borefield.BaseClasses.BoreHoles.BaseClasses.CylindricalGroundLayer</a>.
 </p>
 <p>
-The model <code>TBouCon</code> computes the far-field temperature boundary condition, i.e., the temperature at the outer
-surface of the above cylindrical heat transfer computation.
-The computation is done using the model
-<a href=\"modelica://Buildings.Fluid.Boreholes.BaseClasses.TemperatureBoundaryCondition\">
-Buildings.Fluid.Boreholes.BaseClasses.TemperatureBoundaryCondition</a>.
+The model <code>TBouCon</code> is a constant temperature equal to the initial ground temperature.</a>.
 </p>
 </html>", revisions="<html>
 <ul>
 <li>
-July 28 2011, by Pierre Vigouroux:<br>
+July 2014, by Damien Picard:<br>
 First implementation.
 </li>
 </ul>

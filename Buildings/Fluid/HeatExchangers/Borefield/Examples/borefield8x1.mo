@@ -81,5 +81,14 @@ equation
             {100,100}}),
                     graphics),
     experiment(StopTime=1.7e+006, __Dymola_NumberOfIntervals=100),
-    __Dymola_experimentSetupOutput);
+    __Dymola_experimentSetupOutput,
+    Documentation(info="<html>
+</html>", revisions="<html>
+<ul>
+<li>
+July 2014, by Damien Picard:<br>
+First implementation.
+</li>
+</ul>
+</html>"));
 end borefield8x1;

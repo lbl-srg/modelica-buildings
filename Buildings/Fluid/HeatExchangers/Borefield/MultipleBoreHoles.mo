@@ -1,11 +1,6 @@
-within Buildings.Fluid.HeatExchangers.Borefield;
+﻿within Buildings.Fluid.HeatExchangers.Borefield;
 model MultipleBoreHoles
   "Calculates the average fluid temperature T_fts of the borefield for a given (time dependent) load Q_flow"
-
-  // FIXME:
-  //  1) make it possible to run model without pre-compilation of g-function (short term)
-  //  2) make it possible to run model with full pre-compilation of g-fuction (short and long term)
-  //  3) Make the enthalpy a differentiable function (look at if statement)
 
   // Medium in borefield
   extends Buildings.Fluid.Interfaces.PartialTwoPortInterface(
@@ -20,7 +15,9 @@ model MultipleBoreHoles
 
   // General parameters of borefield
   replaceable parameter Borefield.Data.Records.BorefieldData bfData
-    constrainedby Data.Records.BorefieldData annotation (choicesAllMatching=true,
+    constrainedby Data.Records.BorefieldData
+    "record containing all the parameters of the borefield model"
+    annotation (choicesAllMatching=true,
       Placement(transformation(extent={{-90,-88},{-70,-68}})));
 
   parameter Boolean homotopyInitialization=true "= true, use homotopy method";
@@ -35,25 +32,25 @@ model MultipleBoreHoles
 
   Modelica.SIunits.Temperature TWall "average borehole wall temperature";
 
-  Modelica.Blocks.Sources.RealExpression RealExpression(y=TWall)
+  Modelica.Blocks.Sources.RealExpression TWall_val(y=TWall)
     annotation (Placement(transformation(extent={{-80,-54},{-58,-34}})));
 
   Modelica.SIunits.Power Q_flow
     "thermal power extracted or injected in the borefield";
 
-  Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature fixedTemperature
+  Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature TWallBou
+    "Borehole wall temperature"
     annotation (Placement(transformation(extent={{-44,-54},{-24,-34}})));
 
   // Parameters for the aggregation technic
 protected
-  final parameter Integer p_max=5;
+  final parameter Integer p_max=5
+    "number of aggregation cells within one aggregation level";
   final parameter Integer q_max=
       Borefield.BaseClasses.Aggregation.BaseClasses.nbOfLevelAgg(n_max=integer(
       lenSim/bfData.gen.tStep), p_max=p_max) "number of aggregation levels";
   final parameter Real[q_max,p_max] kappaMat(fixed=false)
     "transient thermal resistance of each aggregation cells";
-  //load the aggregation matrix from file
-  //calculate the aggregation matrix
   final parameter Integer[q_max] rArr(fixed=false)
     "width of aggregation cell for each level";
   final parameter Integer[q_max,p_max] nuMat(fixed=false)
@@ -167,15 +164,16 @@ algorithm
   end when;
 
 equation
-  connect(RealExpression.y, fixedTemperature.T) annotation (Line(
+  connect(TWall_val.y, TWallBou.T) annotation (Line(
       points={{-56.9,-44},{-46,-44}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(fixedTemperature.port, intHEX.port) annotation (Line(
+  connect(TWallBou.port, intHEX.port) annotation (Line(
       points={{-24,-44},{-20,-44},{-20,-12},{-10,-12},{-10,-11.1818},{-8.81818,
           -11.1818}},
       color={191,0,0},
       smooth=Smooth.None));
+
   connect(intHEX.port_b1, intHEX.port_a2) annotation (Line(
       points={{-4.09091,-23.1818},{-4.09091,-30},{10.0909,-30},{10.0909,
           -23.1818}},
@@ -262,5 +260,44 @@ equation
           fillPattern=FillPattern.Forward)}),
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
             100,100}}),
-                    graphics));
+                    graphics),
+                    Documentation(info="<html>
+  <p>The proposed model is a so-called hybrid step-response
+model (HSRM). This type of model uses the
+borefield’s temperature response to a step load input.
+An arbitrary load can always be approximated by a superposition
+of step loads. The borefield’s response to
+the load is then calculated by superposition of the step responses
+using the linearity property of the heat diffusion
+equation. The most famous example of HSRM
+for borefields is probably the <i>g-function</i> of Eskilson
+(1987). The major challenge of this approach is to obtain a
+HSRM which is valid for both minute-based and year-based
+simulations. To tackle this problem, a HSRM
+has been implemented. A long-term response model
+is implemented in order to take into account
+the interactions between the boreholes and the
+temperature evolution of the surrounding ground. A
+short-term response model is implemented to
+describe the transient heat flux in the borehole heat exchanger to the surrounding
+ground. The step-response of each model is then calculated and merged into one
+in order to achieve both short- and long-term
+accuracy. Finally an aggregation method is implemented to speed up the calculation.
+However, the aggregation method calculates the temperature for discrete time step. In order to avoid
+abrut temperature changes, the aggregation method is used to calculate the average borehole wall
+temperature instead of the average fluid temperature. The calculated borehole wall temperature is then
+connected to the dynamic model of the borehole heat exchanger.</p>
+<p>More detailed documentation can be found in 
+<a href=\"modelica://Buildings/Resources/Images/Fluid/HeatExchangers/Borefield/UsersGuide/2014-10thModelicaConference-Picard.pdf\">Picard (2014)</a>.
+and in 
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.Borefield.UsersGuide\">Buildings.Fluid.HeatExchangers.Borefield.UsersGuide</a>.
+</p>
+</html>", revisions="<html>
+<ul>
+<li>
+July 2014, by Damien Picard:<br>
+First implementation.
+</li>
+</ul>
+</html>"));
 end MultipleBoreHoles;
