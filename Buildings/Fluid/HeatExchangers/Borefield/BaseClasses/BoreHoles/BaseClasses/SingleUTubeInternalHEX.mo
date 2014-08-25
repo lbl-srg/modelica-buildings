@@ -19,13 +19,13 @@ model SingleUTubeInternalHEX
       final prescribedHeatFlowRate=false,
       final allowFlowReversal=allowFlowReversal1,
       final m_flow_small=m1_flow_small,
-      V=gen.volOneLegSeg),
+      V=gen.volOneLegSeg*scaSeg),
     redeclare Buildings.Fluid.MixingVolumes.MixingVolume vol2(
       final energyDynamics=energyDynamics,
       final massDynamics=massDynamics,
       final prescribedHeatFlowRate=false,
       final m_flow_small=m2_flow_small,
-      V=gen.volOneLegSeg));
+      V=gen.volOneLegSeg*scaSeg));
 
   parameter Modelica.SIunits.Temperature TFil_start=gen.TFil0_start
     "Initial temperature of the filling material"
@@ -292,5 +292,4 @@ First implementation.
 </html>"),
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
             100,100}}), graphics));
-
 end SingleUTubeInternalHEX;

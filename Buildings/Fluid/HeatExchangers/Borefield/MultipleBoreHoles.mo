@@ -107,13 +107,12 @@ public
     X2_start=X_start,
     C2_start=C_start,
     C2_nominal=C_nominal,
-    vol1(V=bfData.gen.volOneLegSeg*bfData.gen.nVer*bfData.gen.nbBh),
-    vol2(V=bfData.gen.volOneLegSeg*bfData.gen.nVer*bfData.gen.nbBh),
     final scaSeg=bfData.gen.nbBh*bfData.gen.nVer)
     "Internal part of the borehole including the pipes and the filling material"
     annotation (Placement(transformation(extent={{-12,13},{12,-13}},
         rotation=270,
         origin={3,-10})));
+
 initial algorithm
   // Initialisation of the internal energy (zeros) and the load vector. Load vector have the same lenght as the number of aggregated pulse and cover lenSim
   U := 0;
