@@ -23,11 +23,15 @@ Block to compute the water vapor pressure for a given dew point temperature.
 </p>
 <p>
 The correlation used in this model is valid for dew point temperatures between 
-<code>0 degC</code> and <code>200 degC</code>. It is the correlation from 2005
-ASHRAE Handbook, p. 6.2. In an earlier version of this model, the equation from
-Peppers has been used, but this equation yielded about 15 Kelvin lower dew point 
-temperatures.
-</p>
+<i>0</i>&deg;C and <i>30</i>&deg;C. It is an approximation to the correlation from 2005
+ASHRAE Handbook, p. 6.2, which is valid in a wider range of temperatures and implemented
+in
+<a href=\"modelica://Buildings.Utilities.Psychrometrics.Functions.pW_TDewPoi\">
+Buildings.Utilities.Psychrometrics.Functions.pW_TDewPoi</a>.
+The approximation error of this simplified function is below 5% for a 
+temperature of <i>0</i>&deg;C to <i>30</i>&deg;C.
+The benefit of this simpler function is that it can be inverted analytically,
+whereas the other function requires a numerical solution.
 </html>", revisions="<html>
 <ul>
 <li>

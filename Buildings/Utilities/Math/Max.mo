@@ -6,7 +6,7 @@ equation
 annotation (defaultComponentName="max",
 Documentation(info="<html>
 <p>
-Outputs the minimum of the vector.
+Outputs the maximum of the vector.
 </p>
 </html>",
 revisions="<html>

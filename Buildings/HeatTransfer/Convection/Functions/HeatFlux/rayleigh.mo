@@ -1,5 +1,6 @@
 within Buildings.HeatTransfer.Convection.Functions.HeatFlux;
 function rayleigh "Rayleigh number with smooth transition to lower limit"
+  extends Modelica.Icons.Function;
  input Modelica.SIunits.Length x "Layer thickness";
  input Modelica.SIunits.Density rho "Mass density";
  input Modelica.SIunits.SpecificHeatCapacity c_p "Specific heat capacity";
