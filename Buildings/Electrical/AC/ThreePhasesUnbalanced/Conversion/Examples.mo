@@ -1,7 +1,8 @@
 within Buildings.Electrical.AC.ThreePhasesUnbalanced.Conversion;
-package Examples
+package Examples "Package with example models"
   extends Modelica.Icons.ExamplesPackage;
   model WyeDeltaTransformer
+
     Sources.FixedVoltage source(
       f=60,
       Phi=0,
@@ -64,6 +65,7 @@ First implementation.
   end WyeDeltaTransformer;
 
   model DeltaWyeTransformer
+
     Sources.FixedVoltage source(
       f=60,
       Phi=0,
@@ -149,6 +151,7 @@ First implementation.
   end DeltaWyeTransformer;
 
   model DeltaWyeTransformerStepUp
+
     Sources.FixedVoltage source(
       f=60,
       Phi=0,
@@ -211,6 +214,7 @@ First implementation.
   end DeltaWyeTransformerStepUp;
 
   model DeltaWyeTransformerStepUp_2
+
     Sources.FixedVoltage source(
       f=60,
       Phi=0,
@@ -296,4 +300,18 @@ First implementation.
 </html>"), Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
               -100},{100,100}}), graphics));
   end DeltaWyeTransformerStepUp_2;
+  annotation (Documentation(info="<html>
+<p>
+This package contains examples for the use of models that can be found in
+<a href=\"modelica://Buildings.Electrical.AC.ThreePhasesUnbalanced.Conversion\">
+Buildings.Electrical.AC.ThreePhasesUnbalanced.Conversion</a>.
+</p>
+</html>", revisions="<html>
+<ul>
+<li>
+August 25, 2014, by Marco Bonvini:<br/>
+Revised documentation.
+</li>
+</ul>
+</html>"));
 end Examples;

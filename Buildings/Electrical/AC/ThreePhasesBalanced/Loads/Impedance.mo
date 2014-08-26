@@ -127,7 +127,11 @@ the capacitance is a parameter.
 <p>
 The boolean parameter <code>star</code> is used to 
 select which configuration is used to connect the impedance:
-star or triangle.
+star or triangle. By default the impedance is assumed to be connected 
+with a start configuration. When the connection type changes between
+<code>star</code> and <code>triangle</code> the value of the impedance
+is recomputed in order to maintain the same nominal power
+consumption.
 </p>
 </html>", revisions="<html>
 <ul>

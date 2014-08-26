@@ -1,6 +1,13 @@
 within Buildings.Electrical.AC.ThreePhasesUnbalanced;
-package Lines 
+package Lines "Package with transmission line models for three phases unbalanced AC systems"
   extends Modelica.Icons.Package;
+
+
+
+
+
+
+
 
 
 annotation (Icon(graphics={
@@ -20,5 +27,12 @@ annotation (Icon(graphics={
       Line(
         points={{56,-12},{30,-12}},
         color={0,0,0},
-        smooth=Smooth.None)}));
+        smooth=Smooth.None)}), Documentation(revisions="<html>
+<ul>
+<li>
+August 25, 2014, by Marco Bonvini:<br/>
+Revised documentation.
+</li>
+</ul>
+</html>"));
 end Lines;
