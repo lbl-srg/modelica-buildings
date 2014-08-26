@@ -26,5 +26,27 @@ equation
           smooth=Smooth.Bezier),          Line(
           points={{-78,-60},{-58,-20},{-38,-60},{-18,-100},{2,-60}},
           color={215,215,215},
-          smooth=Smooth.Bezier)}));
+          smooth=Smooth.Bezier)}), Documentation(revisions="<html>
+<ul>
+<li>
+August 25, 2014, by Marco Bonvini:<br/>
+Revised documentation.
+</li>
+</ul>
+</html>", info="<html>
+<p>
+This model represents a generalized electrical AC three phases balanced network.
+</p>
+<p>
+Look at <a href=\"modelica://Buildings.Electrical.Transmission.BaseClasses.PartialNetwork\">
+Buildings.Electrical.Transmission.BaseClasses.PartialNetwork</a>
+for information about the network model.
+</p>
+<p>
+Look at <a href=\"modelica://Buildings.Electrical.Transmission.Grids.PartialGrid\">
+Buildings.Electrical.Transmission.Grids.PartialGrid</a>
+for more information about the topology of the network, such as
+the number of nodes, how they are connected, and the length of each connection.
+</p>
+</html>"));
 end Network;

@@ -4,7 +4,7 @@ model PVSimpleOriented "Simple PV model with orientation"
   extends Buildings.Electrical.Interfaces.PartialPVOriented(redeclare package
       PhaseSystem = Buildings.Electrical.PhaseSystems.OnePhase,
       V_nominal = 120,
-      redeclare Interfaces.Terminal_p terminal, redeclare
+      redeclare Interfaces.Terminal_p terminal, redeclare replaceable
       Buildings.Electrical.AC.OnePhase.Sources.PVSimple panel(pf=pf, eta_DCAC=eta_DCAC,
       V_nominal=V_nominal,
       linear=linear));

@@ -25,8 +25,7 @@ model AClineConversion
     voltageLevel=Types.VoltageLevel.Low,
     commercialCable_low=Transmission.LowVoltageCables.Cu50())
     annotation (Placement(transformation(extent={{-6,0},{14,20}})));
-  Loads.InductiveLoadP
-               loadRL(
+  Loads.Inductive loadRL(
     P_nominal=5000,
     mode=Types.Assumption.FixedZ_steady_state,
     V_nominal=220)
@@ -39,14 +38,12 @@ model AClineConversion
     voltageLevel=Types.VoltageLevel.Low,
     commercialCable_low=Transmission.LowVoltageCables.Cu50())
     annotation (Placement(transformation(extent={{24,0},{44,20}})));
-  Loads.InductiveLoadP
-               loadRL1(
+  Loads.Inductive loadRL1(
     P_nominal=5000,
     V_nominal=380,
     mode=Types.Assumption.FixedZ_steady_state)
     annotation (Placement(transformation(extent={{60,0},{80,20}})));
-  Loads.CapacitiveLoadP
-               loadRC(
+  Loads.Capacitive loadRC(
     P_nominal=5000,
     V_nominal=380,
     mode=Types.Assumption.FixedZ_steady_state)

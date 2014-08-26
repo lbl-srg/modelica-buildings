@@ -18,8 +18,8 @@ model ACACConverter
     offset=-2000,
     height=4000)
     annotation (Placement(transformation(extent={{80,0},{60,20}})));
-  Buildings.Electrical.AC.ThreePhasesBalanced.Loads.CapacitiveLoadP
-    inductiveLoadP(P_nominal=2000, mode=Buildings.Electrical.Types.Assumption.VariableZ_P_input)
+  Buildings.Electrical.AC.ThreePhasesBalanced.Loads.Capacitive inductiveLoadP(
+      P_nominal=2000, mode=Buildings.Electrical.Types.Assumption.VariableZ_P_input)
     annotation (Placement(transformation(extent={{26,0},{46,20}})));
 equation
   connect(V.terminal, tra.terminal_n)        annotation (Line(

@@ -1,10 +1,11 @@
 within Buildings.Electrical.AC.ThreePhasesBalanced.Lines;
-model Line
+model Line "Model of an electrical line"
   extends Buildings.Electrical.Transmission.BaseClasses.PartialLine(
     redeclare package PhaseSystem_p = PhaseSystems.OnePhase,
     redeclare package PhaseSystem_n = PhaseSystems.OnePhase,
     redeclare Interfaces.Terminal_n terminal_n,
-    redeclare Interfaces.Terminal_p terminal_p);
+    redeclare Interfaces.Terminal_p terminal_p,
+    V_nominal = 480);
 protected
   replaceable TwoPortRLC lineRLC(
     useHeatPort=true,
@@ -63,5 +64,27 @@ equation
         Line(
           points={{96,0},{60,0}},
           color={0,0,0},
-          smooth=Smooth.None)}));
+          smooth=Smooth.None)}),
+    Documentation(revisions="<html>
+<ul>
+<li>
+August 25, 2014, by Marco Bonvini:<br/>
+Revised documentation.
+</li>
+</ul>
+</html>", info="<html>
+<p>
+This model represents a cable for three phases balanced AC systems. The model is based on 
+<a href=\"modelica://Buildings.Electrical.AC.ThreePhasesBalanced.Lines.TwoPortRLC\">
+Buildings.Electrical.AC.ThreePhasesBalanced.Lines.TwoPortRLC</a>
+and provides functionalities to parametrize the values of <i>R</i>, <i>L</i> and <i>C</i> either
+using commercial cables or using default values.
+</p>
+<p>
+See model
+<a href=\"modelica://Buildings.Electrical.AC.OnePhase.Lines.Line\">
+Buildings.Electrical.AC.OnePhase.Lines.Line</a> for more 
+information.
+</p>
+</html>"));
 end Line;

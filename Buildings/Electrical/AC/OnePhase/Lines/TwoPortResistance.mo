@@ -12,7 +12,9 @@ equation
 
   terminal_p.v - terminal_n.v = terminal_p.i*diagonal(ones(PhaseSystem_p.n)*R_actual);
 
-  annotation (Diagram(graphics={
+  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
+            -100},{100,100}}),
+                      graphics={
           Rectangle(extent={{-70,30},{70,-30}}, lineColor={0,0,0}),
           Line(points={{-90,0},{-70,0}}, color={0,0,0}),
           Line(points={{70,0},{90,0}}, color={0,0,0})}),     Icon(

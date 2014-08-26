@@ -1,6 +1,5 @@
 within Buildings.Electrical.AC.ThreePhasesBalanced.Sensors;
 model GeneralizedSensor "Sensor for power, voltage and current"
-
   extends Buildings.Electrical.Icons.GeneralizedSensor;
   extends Buildings.Electrical.Interfaces.PartialTwoPort(
     redeclare package PhaseSystem_p = PhaseSystems.OnePhase,
@@ -55,6 +54,10 @@ The two components of the power <i>S</i> are the active and reactive power.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+August 25, 2014, by Marco Bonvini:<br/>
+revised documentation.
+</li>
 <li>
 July 24, 2013, by Michael Wetter:<br/>
 First implementation.

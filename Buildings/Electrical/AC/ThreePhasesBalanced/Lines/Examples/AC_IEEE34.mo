@@ -4,7 +4,7 @@ model AC_IEEE34
   Lines.Network network(redeclare Transmission.Grids.IEEE_34_AL120
                                                             grid)
     annotation (Placement(transformation(extent={{-20,0},{0,20}})));
-  Loads.ResistiveLoadP load[33](each P_nominal=2500)
+  Loads.Resistive load[33](each P_nominal=2500)
     annotation (Placement(transformation(extent={{20,20},{40,40}})));
   Sources.FixedVoltage source(
     f=50,

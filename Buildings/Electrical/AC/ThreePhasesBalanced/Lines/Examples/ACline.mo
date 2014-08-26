@@ -6,11 +6,10 @@ model ACline
     f=60,
     V=15000)
     annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
-  Loads.InductiveLoadP
-               load_1(                mode=Types.Assumption.FixedZ_steady_state,
+  Loads.Inductive load_1(
+    mode=Types.Assumption.FixedZ_steady_state,
     P_nominal=155000,
-    V_nominal=15000)                  annotation (Placement(
-        transformation(
+    V_nominal=15000) annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={50,70})));
@@ -32,11 +31,10 @@ model ACline
     f=60,
     V=15000)
     annotation (Placement(transformation(extent={{-80,0},{-60,20}})));
-  Loads.InductiveLoadP load_2(
+  Loads.Inductive load_2(
     mode=Types.Assumption.FixedZ_steady_state,
     P_nominal=155000,
-    V_nominal=15000)                  annotation (Placement(
-        transformation(
+    V_nominal=15000) annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={50,10})));

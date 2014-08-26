@@ -9,8 +9,10 @@ model Grid "Electrical grid"
             -110},{10,-90}}), iconTransformation(extent={{-10,-110},{10,-90}})));
   parameter Modelica.SIunits.Frequency f(start=60) = 60
     "Frequency of the source";
-  parameter Modelica.SIunits.Voltage V(start=120) = 120;
-  parameter Modelica.SIunits.Angle Phi(start=0) = 0;
+  parameter Modelica.SIunits.Voltage V(start=120) = 120
+    "RMS voltage of the source";
+  parameter Modelica.SIunits.Angle Phi(start=0) = 0
+    "Phase shift angle of the source";
   replaceable Buildings.Electrical.AC.OnePhase.Sources.FixedVoltage sou(
     potentialReference=true,
     definiteReference=true,

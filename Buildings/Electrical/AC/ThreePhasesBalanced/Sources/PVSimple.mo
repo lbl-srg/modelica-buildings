@@ -1,8 +1,25 @@
 within Buildings.Electrical.AC.ThreePhasesBalanced.Sources;
-model PVSimple
-  import Buildings;
+model PVSimple "Model of a simple PV panel"
   extends Buildings.Electrical.AC.OnePhase.Sources.PVSimple(
-    redeclare Interfaces.Terminal_p terminal,
-    redeclare Loads.CapacitiveLoadP load);
+    redeclare Interfaces.Terminal_p terminal, redeclare
+      Buildings.Electrical.AC.ThreePhasesBalanced.Loads.Capacitive load,
+      V_nominal = 480);
 
+  annotation (Documentation(revisions="<html>
+<ul>
+<li>
+August 24, 2014, by Marco Bonvini:<br/>
+Revised documentation.
+</li>
+</ul>
+</html>", info="<html>
+<p>
+Model of a simple photovoltaic array.
+</p>
+<p>
+See <a href=\"modelica://Buildings.Electrical.AC.OnePhase.Sources.PVSimple\">
+Buildings.Electrical.AC.OnePhase.Sources.PVSimple</a> for
+more information.
+</p>
+</html>"));
 end PVSimple;

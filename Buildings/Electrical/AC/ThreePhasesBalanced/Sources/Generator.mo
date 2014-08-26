@@ -1,7 +1,5 @@
 within Buildings.Electrical.AC.ThreePhasesBalanced.Sources;
 model Generator "Model of a generator"
-  // Because the turbine produces power, we use the variable capacitor instead of
-  // the inductor as a base class. fixme: check if this is correct
   extends Buildings.Electrical.AC.OnePhase.Sources.Generator(redeclare
       Interfaces.Terminal_p terminal);
   annotation (Documentation(info="<html>
@@ -9,17 +7,16 @@ model Generator "Model of a generator"
 Model of an inductive generator.
 </p>
 <p>
-This model must be used with 
-<a href=\"modelica://Buildings.Electrical.AC.Sources.Grid\">
-Buildings.Electrical.AC.Sources.Grid</a>
-or with a voltage source from the package
-<a href=\"modelica://Modelica.Electrical.QuasiStationary.SinglePhase.Sources\">
-Modelica.Electrical.QuasiStationary.SinglePhase.Sources</a>.
-Otherwise, there will be no equation that defines the phase
-angle of the voltage.
+See <a href=\"modelica://Buildings.Electrical.AC.OnePhase.Sources.Generator\">
+Buildings.Electrical.AC.OnePhase.Sources.Generator</a> for
+more information.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+August 24, 2014, by Marco Bonvini:<br/>
+Revised documentation.
+</li>
 <li>
 January 4, 2012, by Michael Wetter:<br/>
 First implementation.

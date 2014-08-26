@@ -12,5 +12,12 @@ annotation (Documentation(info="<html>
 This package contains models for thre phases balanced AC/AC 
 trasformers and AC/DC converters.
 </p>
+</html>", revisions="<html>
+<ul>
+<li>
+August 24, 2014, by Marco Bonvini:<br/>
+Revised User's guide.
+</li>
+</ul>
 </html>"));
 end Conversion;

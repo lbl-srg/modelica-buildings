@@ -265,7 +265,7 @@ The model is parametrized using the following parameters
 <li><code>Zperc</code> - the short circuit impedance.</li>
 </ul>
 <p>
-The model given the nominal conditions computes the values of teh resistance and the inductance.
+The model given the nominal conditions computes the values of the resistance and the inductance.
 </p>
 </html>", revisions="<html>
 <ul>
