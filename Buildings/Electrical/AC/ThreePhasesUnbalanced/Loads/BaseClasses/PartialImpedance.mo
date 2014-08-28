@@ -1,15 +1,15 @@
 within Buildings.Electrical.AC.ThreePhasesUnbalanced.Loads.BaseClasses;
 partial model PartialImpedance
-  import Buildings;
+  "Partial model of a three phases unbalanced impedance"
   extends Buildings.Electrical.Interfaces.PartialPluggableUnbalanced;
   Buildings.Electrical.AC.ThreePhasesUnbalanced.Interfaces.Terminal_n
-                       terminal_p
-    annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
+  terminal_p "Electrical connector"
+             annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
 
   replaceable Buildings.Electrical.AC.OnePhase.Loads.Impedance
                                                 load1(
-    redeclare package PhaseSystem = PhaseSystems.OnePhase,
-    redeclare Electrical.AC.OnePhase.Interfaces.Terminal_n terminal,
+    redeclare package PhaseSystem = Buildings.Electrical.PhaseSystems.OnePhase,
+    redeclare Buildings.Electrical.AC.OnePhase.Interfaces.Terminal_n terminal,
     inductive=inductive,
     R=R,
     L=L,
@@ -22,12 +22,12 @@ partial model PartialImpedance
     CMax=CMax,
     use_L_in=use_L_in,
     LMin=LMin,
-    LMax=LMax) if PlugPhase1
+    LMax=LMax) if PlugPhase1 "Load 1"
     annotation (Placement(transformation(extent={{-10,30},{10,50}})));
   replaceable Buildings.Electrical.AC.OnePhase.Loads.Impedance
                                                 load2(
-    redeclare package PhaseSystem = PhaseSystems.OnePhase,
-    redeclare Electrical.AC.OnePhase.Interfaces.Terminal_n terminal,
+    redeclare package PhaseSystem = Buildings.Electrical.PhaseSystems.OnePhase,
+    redeclare Buildings.Electrical.AC.OnePhase.Interfaces.Terminal_n terminal,
     inductive=inductive,
     R=R,
     L=L,
@@ -40,12 +40,12 @@ partial model PartialImpedance
     CMax=CMax,
     use_L_in=use_L_in,
     LMin=LMin,
-    LMax=LMax) if PlugPhase2
+    LMax=LMax) if PlugPhase2 "Load 2"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   replaceable Buildings.Electrical.AC.OnePhase.Loads.Impedance
                                                 load3(
-    redeclare package PhaseSystem = PhaseSystems.OnePhase,
-    redeclare Electrical.AC.OnePhase.Interfaces.Terminal_n terminal,
+    redeclare package PhaseSystem = Buildings.Electrical.PhaseSystems.OnePhase,
+    redeclare Buildings.Electrical.AC.OnePhase.Interfaces.Terminal_n terminal,
     inductive=inductive,
     R=R,
     L=L,
@@ -58,7 +58,7 @@ partial model PartialImpedance
     CMax=CMax,
     use_L_in=use_L_in,
     LMin=LMin,
-    LMax=LMax) if PlugPhase3
+    LMax=LMax) if PlugPhase3 "Load 3"
     annotation (Placement(transformation(extent={{-10,-50},{10,-30}})));
   parameter Buildings.Electrical.Types.LoadConnection loadConn=
     Buildings.Electrical.Types.LoadConnection.wye_to_wyeg
@@ -105,19 +105,19 @@ partial model PartialImpedance
     annotation(Evaluate=true, Dialog(enable = use_L_in, tab = "Variable load", group="Inductance"));
 
   Modelica.Blocks.Interfaces.RealInput y_R(min=0, max=1) if use_R_in
-    "Input that sepecify variable R"
+    "Input that sepecifies variable R"
     annotation (Placement(transformation(
         extent={{-20,-20},{20,20}},
         rotation=270,
         origin={-40,100})));
   Modelica.Blocks.Interfaces.RealInput y_C(min=0, max=1) if use_C_in
-    "Input that sepecify variable C"
+    "Input that sepecifies variable C"
     annotation (Placement(transformation(
         extent={{-20,-20},{20,20}},
         rotation=270,
         origin={0,100})));
   Modelica.Blocks.Interfaces.RealInput y_L(min=0, max=1) if use_L_in
-    "Input that sepecify variable L"
+    "Input that sepecifies variable L"
     annotation (Placement(transformation(
         extent={{-20,-20},{20,20}},
         rotation=270,
@@ -125,9 +125,11 @@ partial model PartialImpedance
 
   Buildings.Electrical.AC.ThreePhasesUnbalanced.Interfaces.WyeToDelta
     wyeToDelta if (loadConn == Buildings.Electrical.Types.LoadConnection.wye_to_delta)
+    "Wye to delta load connection"
     annotation (Placement(transformation(extent={{-80,0},{-60,20}})));
   Buildings.Electrical.AC.ThreePhasesUnbalanced.Interfaces.WyeToWyeGround
     wyeToWyeGround if (loadConn == Buildings.Electrical.Types.LoadConnection.wye_to_wyeg)
+    "Wye to grounded wye connection"
     annotation (Placement(transformation(extent={{-80,-20},{-60,0}})));
 equation
 
@@ -231,7 +233,42 @@ equation
       points={{-100,0},{-86,0},{-86,-10},{-80,-10}},
       color={0,120,120},
       smooth=Smooth.None));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
-            {100,100}}),       graphics), Icon(coordinateSystem(
-          preserveAspectRatio=false, extent={{-100,-100},{100,100}}), graphics));
+  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
+            -100},{100,100}}), graphics), Icon(coordinateSystem(
+          preserveAspectRatio=false, extent={{-100,-100},{100,100}}), graphics),
+    Documentation(info="<html>
+<p>
+This model represents a partial interface for a three phases AC
+unbalanced impedance.
+</p>
+<p>
+The model can be configured in order to represent different type of 
+impedances as well as configurations.
+</p>
+<p>
+The model has three impedances that can be either connected in Y or
+Delta configuration. The parameter <code>loadConn</code> can be used for
+such a purpose. The Boolean parameter <code>inductive</code> can be selected
+to specify the type of impedance.
+</p>
+<p>
+The impedances on each phase can be removed using the boolean flags 
+<code>plugPhase1</code>, <code>plugPhase2</code>, and <code>plugPhase3</code>.
+These parameters can be used to generate unbalanced loads.
+</p>
+<p>
+The values of the impedances are computed starting from the parameters <code>R</code>,
+<code>L</code>, and <code>C</code>. Depending on the values of the boolean flag
+<code>inductive</code> some of these parameters may be disabled. There are additional
+flags <code>use_R_in</code>, <code>use_L_in</code>, and <code>use_C_in</code> that can 
+be used to specify time varying impedances.
+</p>
+</html>", revisions="<html>
+<ul>
+<li>
+August 27, 2014, by Marco Bonvini:<br/>
+Revised documentation.
+</li>
+</ul>
+</html>"));
 end PartialImpedance;

@@ -1,5 +1,5 @@
 within Buildings.Electrical.AC.ThreePhasesUnbalanced.Conversion;
-model ACACTransformerDD
+model ACACTransformerDD "AC AC transformer simplified equivalent circuit (DD)"
   extends
     Buildings.Electrical.AC.ThreePhasesUnbalanced.Conversion.BaseClasses.PartialConverterDD(
     redeclare Buildings.Electrical.AC.OnePhase.Conversion.ACACTransformer conv1(
@@ -213,5 +213,22 @@ equation
           points={{40,-8},{60,22},{80,-8},{40,-8}},
           color={0,120,120},
           smooth=Smooth.None,
-          thickness=0.5)}));
+          thickness=0.5)}),
+    Documentation(info="<html>
+<p>
+This is a simplified equivalent transformer model with Delta-Delta connection.
+</p>
+<h4>Note:</h4>
+<p>
+This model reuses the same components as
+<a href=\"modelica://Buildings.Electrical.AC.ThreePhasesUnbalanced.Conversion.ACACTransformer\">
+Buildings.Electrical.AC.ThreePhasesUnbalanced.Conversion.ACACTransformer</a>.
+</p>
+<p>
+See
+<a href=\"modelica://Buildings.Electrical.AC.ThreePhasesUnbalanced.Conversion.BaseClasses.PartialConverterDD\">
+Buildings.Electrical.AC.ThreePhasesUnbalanced.Conversion.BaseClasses.PartialConverterDD</a> for
+details on the connections.
+</p>
+</html>"));
 end ACACTransformerDD;

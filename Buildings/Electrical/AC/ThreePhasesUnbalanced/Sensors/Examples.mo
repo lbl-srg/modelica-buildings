@@ -7,7 +7,7 @@ package Examples "Package with example models"
       f=60,
       V=480,
       Phi=0) annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
-    Loads.ResistiveLoadP load(P_nominal=10000, V_nominal=480)
+    Loads.Resistive load(P_nominal=10000, V_nominal=480)
       annotation (Placement(transformation(extent={{20,20},{40,40}})));
     ProbeWye probeWye(V_nominal=480)
       annotation (Placement(transformation(extent={{-46,48},{-26,68}})));

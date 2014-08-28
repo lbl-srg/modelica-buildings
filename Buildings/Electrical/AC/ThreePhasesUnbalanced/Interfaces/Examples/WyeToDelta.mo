@@ -7,7 +7,7 @@ model WyeToDelta
     f=60,
     V=480,
     Phi=0) annotation (Placement(transformation(extent={{-80,0},{-60,20}})));
-  Buildings.Electrical.AC.ThreePhasesUnbalanced.Loads.ResistiveLoadP load_D(
+  Buildings.Electrical.AC.ThreePhasesUnbalanced.Loads.Resistive load_D(
     P_nominal=-1000,
     V_nominal=480,
     loadConn=Buildings.Electrical.Types.LoadConnection.wye_to_wyeg,
@@ -21,7 +21,7 @@ model WyeToDelta
   Buildings.Electrical.AC.ThreePhasesUnbalanced.Sensors.ProbeWye probeD(PerUnit=
         false, V_nominal=480)
     annotation (Placement(transformation(extent={{-10,20},{10,40}})));
-  Buildings.Electrical.AC.ThreePhasesUnbalanced.Loads.ResistiveLoadP load_Y(
+  Buildings.Electrical.AC.ThreePhasesUnbalanced.Loads.Resistive load_Y(
     P_nominal=-1000,
     V_nominal=480,
     loadConn=Buildings.Electrical.Types.LoadConnection.wye_to_wyeg,

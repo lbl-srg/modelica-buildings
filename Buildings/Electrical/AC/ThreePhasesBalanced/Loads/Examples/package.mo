@@ -3,8 +3,6 @@ package Examples "Package with example models"
   extends Modelica.Icons.ExamplesPackage;
 
 
-
-
   annotation (Documentation(revisions="<html>
 <ul>
 <li>

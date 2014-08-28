@@ -3,10 +3,6 @@ package Conversion "Package with trasformers and converter models for three phas
   extends Modelica.Icons.Package;
 
 
-
-
-
-
 annotation (Documentation(info="<html>
 <p>
 This package contains models for thre phases balanced AC/AC 

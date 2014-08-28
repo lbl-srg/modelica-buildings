@@ -14,7 +14,7 @@ package Examples "Package with example models"
       Zperc=sqrt(0.01^2 + 0.06^2),
       VABase=6000000)
       annotation (Placement(transformation(extent={{-20,20},{0,40}})));
-    Loads.InductiveLoadP load(
+    Loads.Inductive load(
       loadConn=Buildings.Electrical.Types.LoadConnection.wye_to_wyeg,
       pf=0.9,
       P_nominal=-1800e3,
@@ -77,7 +77,7 @@ First implementation.
       Zperc=sqrt(0.01^2 + 0.06^2),
       VABase=6000000)
       annotation (Placement(transformation(extent={{-20,20},{0,40}})));
-    Loads.InductiveLoadP load(
+    Loads.Inductive load(
       loadConn=Buildings.Electrical.Types.LoadConnection.wye_to_wyeg,
       pf=0.9,
       P_nominal=-1800e3,
@@ -163,7 +163,7 @@ First implementation.
       VABase=6000000,
       VLow=24900)
       annotation (Placement(transformation(extent={{-20,20},{0,40}})));
-    Loads.InductiveLoadP load(
+    Loads.Inductive load(
       loadConn=Buildings.Electrical.Types.LoadConnection.wye_to_wyeg,
       pf=0.9,
       P_nominal=-1800e3,
@@ -227,7 +227,7 @@ First implementation.
       VABase=6000000,
       VLow=24900)
       annotation (Placement(transformation(extent={{-20,20},{0,40}})));
-    Loads.InductiveLoadP load(
+    Loads.Inductive load(
       loadConn=Buildings.Electrical.Types.LoadConnection.wye_to_wyeg,
       pf=0.9,
       P_nominal=-1800e3,

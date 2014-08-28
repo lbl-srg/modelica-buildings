@@ -1,6 +1,6 @@
 within Buildings.Electrical.Utilities.Examples;
 model TestVoltageCTRL
-  "This test check the correctness of the voltage controller model"
+  "This test check the correctness of the voltage control function"
   extends Modelica.Icons.Example;
   parameter Modelica.SIunits.Voltage V_nominal = 220
     "Nominal voltage of the node to be controlled";
@@ -16,4 +16,12 @@ model TestVoltageCTRL
                                                 Vctrl(V_nominal=V_nominal, Vthresh=Vthresh, Tdelay=Tdelay);
 equation
   Vctrl.V = 230 + 220*(0.12)*sin(2*Modelica.Constants.pi*time/1000);
+  annotation (Documentation(revisions="<html>
+<ul>
+<li>
+Aug 28, 2014, by Marco Bonvini:<br/>
+Added documentation.
+</li>
+</ul>
+</html>"));
 end TestVoltageCTRL;

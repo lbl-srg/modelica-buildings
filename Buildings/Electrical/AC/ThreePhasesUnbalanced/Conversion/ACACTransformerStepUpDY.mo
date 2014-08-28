@@ -1,5 +1,6 @@
 within Buildings.Electrical.AC.ThreePhasesUnbalanced.Conversion;
 model ACACTransformerStepUpDY
+  "AC AC transformer simplified equivalent circuit (DY step up)"
   extends
     Buildings.Electrical.AC.ThreePhasesUnbalanced.Conversion.BaseClasses.PartialConverterStepUpDY(
     redeclare Buildings.Electrical.AC.OnePhase.Conversion.ACACTransformer conv1(
@@ -236,5 +237,22 @@ June 6, 2014, by Marco Bonvini:<br/>
 First implementation.
 </li>
 </ul>
+</html>", info="<html>
+<p>
+This is a simplified equivalent transformer model with Delta-Y connection
+(voltage step up).
+</p>
+<h4>Note:</h4>
+<p>
+This model reuses the same components as
+<a href=\"modelica://Buildings.Electrical.AC.ThreePhasesUnbalanced.Conversion.ACACTransformer\">
+Buildings.Electrical.AC.ThreePhasesUnbalanced.Conversion.ACACTransformer</a>.
+</p>
+<p>
+See
+<a href=\"modelica://Buildings.Electrical.AC.ThreePhasesUnbalanced.Conversion.BaseClasses.PartialConverterStepUpDY\">
+Buildings.Electrical.AC.ThreePhasesUnbalanced.Conversion.BaseClasses.PartialConverterStepUpDY</a> for
+details on the connections.
+</p>
 </html>"));
 end ACACTransformerStepUpDY;

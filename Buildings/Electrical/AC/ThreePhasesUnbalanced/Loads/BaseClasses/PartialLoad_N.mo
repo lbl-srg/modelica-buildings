@@ -1,19 +1,19 @@
 within Buildings.Electrical.AC.ThreePhasesUnbalanced.Loads.BaseClasses;
-partial model PartialLoadN
-  import Buildings;
+partial model PartialLoad_N
+  "Partial model of a three phases unbalanced load with neutral cable"
   extends Buildings.Electrical.Interfaces.PartialPluggableUnbalanced;
   parameter Boolean linear = false
-    "If =true introduce a linearization in the load"                                                    annotation(Dialog(group="Modelling assumption"));
+    "If =true introduce a linearization in the load" annotation(Dialog(group="Modelling assumption"));
   parameter Buildings.Electrical.Types.Assumption mode(
     min=Buildings.Electrical.Types.Assumption.FixedZ_steady_state,
-    max=Buildings.Electrical.Types.Assumption.VariableZ_y_input)=Buildings.Electrical.Types.Assumption.FixedZ_steady_state
-    "Parameters that specifies the mode of the load (e.g., steady state, dynamic, prescribed power consumption, etc.)"
-                                                                                                        annotation(Dialog(group="Modelling assumption"));
+    max=Buildings.Electrical.Types.Assumption.VariableZ_y_input)=
+    Buildings.Electrical.Types.Assumption.FixedZ_steady_state "Parameters that specifies the mode of the load (e.g., steady state, 
+    dynamic, prescribed power consumption, etc.)" annotation(Dialog(group="Modelling assumption"));
 
   parameter Modelica.SIunits.Power P_nominal(start=0)
     "Nominal power (negative if consumed, positive if generated)"  annotation(Dialog(group="Nominal conditions",
         enable = mode <> Assumption.VariableZ_P_input));
-  parameter Modelica.SIunits.Voltage V_nominal(min=0, start=220)
+  parameter Modelica.SIunits.Voltage V_nominal(min=0, start = 480) = 480
     "Nominal voltage (V_nominal >= 0)"  annotation(Dialog(group="Nominal conditions", enable = (mode==Assumptionm.FixedZ_dynamic or linear)));
 
   parameter Boolean VoltageCTRL = false "This flag enables the voltage control"
@@ -26,33 +26,38 @@ partial model PartialLoadN
         enable = VoltageCTRL));
   Buildings.Electrical.AC.ThreePhasesUnbalanced.Interfaces.Terminal4_n
                        terminal_p
+    "Connector for three phases unbalanced systems with neutral cable"
     annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
 
-  replaceable Electrical.Interfaces.PartialLoad load1(
-    redeclare package PhaseSystem = PhaseSystems.OnePhase,
-    redeclare Electrical.AC.OnePhase.Interfaces.Terminal_n terminal,
+  replaceable Buildings.Electrical.Interfaces.PartialLoad load1(
+    redeclare package PhaseSystem = Buildings.Electrical.PhaseSystems.OnePhase,
+    redeclare Buildings.Electrical.AC.OnePhase.Interfaces.Terminal_n terminal,
     P_nominal=P_nominal,
-    V_nominal=V_nominal,
     linear=linear,
-    mode=mode) if PlugPhase1
+    mode=mode,
+    V_nominal=V_nominal/sqrt(3)) if
+                  PlugPhase1 "Load 1"
     annotation (Placement(transformation(extent={{-10,40},{10,60}})));
-  replaceable Electrical.Interfaces.PartialLoad load2(
-    redeclare package PhaseSystem = PhaseSystems.OnePhase,
-    redeclare Electrical.AC.OnePhase.Interfaces.Terminal_n terminal,
+  replaceable Buildings.Electrical.Interfaces.PartialLoad load2(
+    redeclare package PhaseSystem = Buildings.Electrical.PhaseSystems.OnePhase,
+    redeclare Buildings.Electrical.AC.OnePhase.Interfaces.Terminal_n terminal,
     P_nominal=P_nominal,
-    V_nominal=V_nominal,
     linear=linear,
-    mode=mode) if PlugPhase2
+    mode=mode,
+    V_nominal=V_nominal/sqrt(3)) if
+                  PlugPhase2 "Load 2"
     annotation (Placement(transformation(extent={{-10,-30},{10,-10}})));
-  replaceable Electrical.Interfaces.PartialLoad load3(
-    redeclare package PhaseSystem = PhaseSystems.OnePhase,
-    redeclare Electrical.AC.OnePhase.Interfaces.Terminal_n terminal,
+  replaceable Buildings.Electrical.Interfaces.PartialLoad load3(
+    redeclare package PhaseSystem = Buildings.Electrical.PhaseSystems.OnePhase,
+    redeclare Buildings.Electrical.AC.OnePhase.Interfaces.Terminal_n terminal,
     P_nominal=P_nominal,
-    V_nominal=V_nominal,
     linear=linear,
-    mode=mode) if PlugPhase3
+    mode=mode,
+    V_nominal=V_nominal/sqrt(3)) if
+                  PlugPhase3 "Load 3"
     annotation (Placement(transformation(extent={{-10,-98},{10,-78}})));
-  Modelica.Blocks.Interfaces.RealInput y1 if  PlugPhase1 and mode==Buildings.Electrical.Types.Assumption.VariableZ_y_input
+  Modelica.Blocks.Interfaces.RealInput y1 if  PlugPhase1 and
+    mode == Buildings.Electrical.Types.Assumption.VariableZ_y_input
     "Fraction of the nominal power consumed"                       annotation (Placement(transformation(
         extent={{-20,-20},{20,20}},
         rotation=180,
@@ -60,8 +65,8 @@ partial model PartialLoadN
         extent={{-20,-20},{20,20}},
         rotation=180,
         origin={100,60})));
-  Modelica.Blocks.Interfaces.RealInput Pow1(unit="W") if
-                                                        PlugPhase1 and mode==Buildings.Electrical.Types.Assumption.VariableZ_P_input
+  Modelica.Blocks.Interfaces.RealInput Pow1(unit="W") if PlugPhase1 and
+    mode == Buildings.Electrical.Types.Assumption.VariableZ_P_input
     "Power consumed"                       annotation (Placement(transformation(
         extent={{-20,-20},{20,20}},
         rotation=180,
@@ -69,8 +74,8 @@ partial model PartialLoadN
         extent={{-20,-20},{20,20}},
         rotation=180,
         origin={100,60})));
-  Modelica.Blocks.Interfaces.RealInput y2 if
-                                            PlugPhase2 and mode==Buildings.Electrical.Types.Assumption.VariableZ_y_input
+  Modelica.Blocks.Interfaces.RealInput y2 if PlugPhase2 and
+    mode == Buildings.Electrical.Types.Assumption.VariableZ_y_input
     "Fraction of the nominal power consumed"                       annotation (Placement(transformation(
         extent={{-20,-20},{20,20}},
         rotation=180,
@@ -78,8 +83,8 @@ partial model PartialLoadN
         extent={{-20,-20},{20,20}},
         rotation=180,
         origin={100,0})));
-  Modelica.Blocks.Interfaces.RealInput Pow2(unit="W") if
-                                                        PlugPhase2 and mode==Buildings.Electrical.Types.Assumption.VariableZ_P_input
+  Modelica.Blocks.Interfaces.RealInput Pow2(unit="W") if PlugPhase2 and
+    mode == Buildings.Electrical.Types.Assumption.VariableZ_P_input
     "Power consumed"                       annotation (Placement(transformation(
         extent={{-20,-20},{20,20}},
         rotation=180,
@@ -87,8 +92,8 @@ partial model PartialLoadN
         extent={{-20,-20},{20,20}},
         rotation=180,
         origin={100,0})));
-  Modelica.Blocks.Interfaces.RealInput y3 if
-                                            PlugPhase3 and mode==Buildings.Electrical.Types.Assumption.VariableZ_y_input
+  Modelica.Blocks.Interfaces.RealInput y3 if PlugPhase3 and
+    mode == Buildings.Electrical.Types.Assumption.VariableZ_y_input
     "Fraction of the nominal power consumed"                       annotation (Placement(transformation(
         extent={{-20,-20},{20,20}},
         rotation=180,
@@ -97,8 +102,8 @@ partial model PartialLoadN
         extent={{-20,-20},{20,20}},
         rotation=180,
         origin={100,-60})));
-  Modelica.Blocks.Interfaces.RealInput Pow3(unit="W") if
-                                                        PlugPhase3 and mode==Buildings.Electrical.Types.Assumption.VariableZ_P_input
+  Modelica.Blocks.Interfaces.RealInput Pow3(unit="W") if PlugPhase3 and
+    mode == Buildings.Electrical.Types.Assumption.VariableZ_P_input
     "Power consumed"                       annotation (Placement(transformation(
         extent={{-20,-20},{20,20}},
         rotation=180,
@@ -109,36 +114,43 @@ partial model PartialLoadN
         origin={100,-60})));
   Buildings.Electrical.AC.ThreePhasesUnbalanced.Interfaces.Connection3to4_n
                              connection3to4
+    "Connection from three phases + neutral to three phases"
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
   Buildings.Electrical.Utilities.VoltageControl vCTRL_1(
-    redeclare package PhaseSystem = PhaseSystems.OnePhase,
-    redeclare Buildings.Electrical.AC.OnePhase.Interfaces.Terminal_n
-      terminal,
-    V_nominal=V_nominal,
+    redeclare package PhaseSystem = Buildings.Electrical.PhaseSystems.OnePhase,
+    redeclare Buildings.Electrical.AC.OnePhase.Interfaces.Terminal_n terminal,
     Vthresh=Vthresh,
-    Tdelay=Tdelay) if PlugPhase1 and VoltageCTRL
+    Tdelay=Tdelay,
+    V_nominal=V_nominal/sqrt(3)) if
+                      PlugPhase1 and VoltageCTRL
+    "Voltage controller for load 1"
     annotation (Placement(transformation(extent={{10,80},{30,100}})));
   Modelica.Blocks.Math.Product cmd1 if PlugPhase1 and VoltageCTRL
+    "Block that impose voltage ctrl"
     annotation (Placement(transformation(extent={{56,56},{36,76}})));
   Buildings.Electrical.Utilities.VoltageControl vCTRL_2(
-    redeclare package PhaseSystem = PhaseSystems.OnePhase,
-    redeclare Buildings.Electrical.AC.OnePhase.Interfaces.Terminal_n
-      terminal,
-    V_nominal=V_nominal,
+    redeclare package PhaseSystem = Buildings.Electrical.PhaseSystems.OnePhase,
+    redeclare Buildings.Electrical.AC.OnePhase.Interfaces.Terminal_n terminal,
     Vthresh=Vthresh,
-    Tdelay=Tdelay) if PlugPhase2 and VoltageCTRL
+    Tdelay=Tdelay,
+    V_nominal=V_nominal/sqrt(3)) if
+                      PlugPhase2 and VoltageCTRL
+    "Voltage controller for load 2"
     annotation (Placement(transformation(extent={{10,10},{30,30}})));
   Modelica.Blocks.Math.Product cmd2 if PlugPhase2 and VoltageCTRL
+    "Block that impose voltage ctrl"
     annotation (Placement(transformation(extent={{56,-16},{36,4}})));
   Buildings.Electrical.Utilities.VoltageControl vCTRL_3(
-    redeclare package PhaseSystem = PhaseSystems.OnePhase,
-    redeclare Buildings.Electrical.AC.OnePhase.Interfaces.Terminal_n
-      terminal,
-    V_nominal=V_nominal,
+    redeclare package PhaseSystem = Buildings.Electrical.PhaseSystems.OnePhase,
+    redeclare Buildings.Electrical.AC.OnePhase.Interfaces.Terminal_n terminal,
     Vthresh=Vthresh,
-    Tdelay=Tdelay) if PlugPhase3 and VoltageCTRL
+    Tdelay=Tdelay,
+    V_nominal=V_nominal/sqrt(3)) if
+                      PlugPhase3 and VoltageCTRL
+    "Voltage controller for load 3"
     annotation (Placement(transformation(extent={{10,-60},{30,-40}})));
   Modelica.Blocks.Math.Product cmd3 if PlugPhase3 and VoltageCTRL
+    "Block that impose voltage ctrl"
     annotation (Placement(transformation(extent={{56,-80},{36,-60}})));
 equation
 
@@ -320,5 +332,31 @@ equation
 
     annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}), graphics), Icon(coordinateSystem(
-          preserveAspectRatio=false, extent={{-100,-100},{100,100}}), graphics));
-end PartialLoadN;
+          preserveAspectRatio=false, extent={{-100,-100},{100,100}}), graphics),
+    Documentation(info="<html>
+<p>
+This model represents a partial interface for a three phases AC unbalanced
+load with neutral cable. The current in the neutral cable is computed from the
+algebraic sum of the currents in the three loads.
+</p>
+<p>
+The loads on each phase can be removed using the boolean flags 
+<code>plugPhase1</code>, <code>plugPhase2</code>, and <code>plugPhase3</code>.
+These parameters can be used to generate unbalanced loads.
+</p>
+<p>
+Each load model has the option to be controlled by a voltage controller.
+When enabled, the voltage controller unplug the load for a certain amount of
+time if the voltage exceeds a given threshold. Mode information about the
+voltage controller can be found 
+<a href=\"modelica://Buildings.Electrical.Utilities.VoltageControl\">here</a>.
+</p>
+</html>", revisions="<html>
+<ul>
+<li>
+August 27, 2014, by Marco Bonvini:<br/>
+Revised documentation.
+</li>
+</ul>
+</html>"));
+end PartialLoad_N;

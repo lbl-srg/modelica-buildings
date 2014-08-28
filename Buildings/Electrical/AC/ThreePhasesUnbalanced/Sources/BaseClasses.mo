@@ -2,12 +2,14 @@ within Buildings.Electrical.AC.ThreePhasesUnbalanced.Sources;
 package BaseClasses "Package with base class models"
   extends Modelica.Icons.BasesPackage;
   partial model PartialSource
-
+    "Partial model for a three phases AC unbalanced voltage source"
     Interfaces.Connection3to4_p connection3to4
+      "Connection between three to four AC connectors"
       annotation (Placement(transformation(extent={{40,-10},{60,10}})));
-    OnePhase.Basics.Ground ground
+    OnePhase.Basics.Ground ground "Ground reference"
       annotation (Placement(transformation(extent={{10,-60},{30,-40}})));
     Interfaces.Terminal_p terminal
+      "Connector for three phases unbalanced systems"
       annotation (Placement(transformation(extent={{90,-10},{110,10}})));
   equation
     Connections.branch(connection3to4.terminal4.phase[1].theta, connection3to4.terminal4.phase[4].theta);
@@ -25,13 +27,29 @@ package BaseClasses "Package with base class models"
         points={{20,-40},{20,0},{40,0}},
         color={0,120,120},
         smooth=Smooth.None));
+    annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
+              -100},{100,100}}), graphics), Documentation(info="<html>
+<p>
+This model is a partial class extended by three phases unbalanced
+voltage sources.
+</p>
+</html>", revisions="<html>
+<ul>
+<li>
+August 27, 2014, by Marco Bonvini:<br/>
+Revised documentation.
+</li>
+</ul>
+</html>"));
   end PartialSource;
 
-  partial model PartialSourceN
+  partial model PartialSource_N "Partial model for a three phases AC unbalanced voltage source 
+  with neutral cable"
 
-    OnePhase.Basics.Ground ground
+    OnePhase.Basics.Ground ground "Ground reference"
       annotation (Placement(transformation(extent={{10,-60},{30,-40}})));
     Interfaces.Terminal4_p terminal
+      "Connector for three phases unbalanced systems with neutral cable"
       annotation (Placement(transformation(extent={{90,-10},{110,10}})));
   equation
 
@@ -39,34 +57,61 @@ package BaseClasses "Package with base class models"
         points={{20,-40},{20,0},{100,0}},
         color={0,120,120},
         smooth=Smooth.None));
-  end PartialSourceN;
+    annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{
+              -100,-100},{100,100}}), graphics), Documentation(info="<html>
+<p>
+This model is a partial class extended by three phases unbalanced
+voltage sources that have neutral cable.
+</p>
+<p>
+The neutral cable is connected to the ground element.
+</p>
+</html>", revisions="<html>
+<ul>
+<li>
+August 27, 2014, by Marco Bonvini:<br/>
+Revised documentation.
+</li>
+</ul>
+</html>"));
+  end PartialSource_N;
 
-  model UnbalancedPV
+  model UnbalancedPV "Partial model for an unbalanced PV source"
     extends Buildings.Electrical.Interfaces.PartialPluggableUnbalanced;
     extends Buildings.Electrical.Interfaces.PartialPvBase;
     extends Buildings.Electrical.Interfaces.PartialAcDcParameters;
     extends
       Buildings.Electrical.AC.ThreePhasesUnbalanced.Sources.BaseClasses.PartialSource;
+    parameter Modelica.SIunits.Voltage V_nominal(min=0, start=480) = 480
+      "Nominal voltage (V_nominal >= 0)"
+       annotation(Dialog(group="Nominal conditions"));
+
     replaceable OnePhase.Sources.PVSimple pv_phase2(
       pf=pf,
       eta_DCAC=eta_DCAC,
       A=A,
       fAct=fAct,
-      eta=eta) if PlugPhase2
+      eta=eta,
+      V_nominal=V_nominal/sqrt(3)) if
+                  PlugPhase2 "PV phase 2"
       annotation (Placement(transformation(extent={{-20,-10},{-40,10}})));
     replaceable OnePhase.Sources.PVSimple pv_phase3(
       pf=pf,
       eta_DCAC=eta_DCAC,
       A=A,
       fAct=fAct,
-      eta=eta) if PlugPhase3
+      eta=eta,
+      V_nominal=V_nominal/sqrt(3)) if
+                  PlugPhase3 "PV phase 3"
       annotation (Placement(transformation(extent={{-20,-60},{-40,-40}})));
     replaceable OnePhase.Sources.PVSimple pv_phase1(
       pf=pf,
       eta_DCAC=eta_DCAC,
       A=A,
       fAct=fAct,
-      eta=eta) if PlugPhase1
+      eta=eta,
+      V_nominal=V_nominal/sqrt(3)) if
+                  PlugPhase1 "PV phase 1"
       annotation (Placement(transformation(extent={{-18,40},{-38,60}})));
   protected
     Modelica.Blocks.Interfaces.RealOutput G_int
@@ -208,13 +253,32 @@ package BaseClasses "Package with base class models"
             smooth=Smooth.None,
             fillColor={6,13,150},
             fillPattern=FillPattern.Solid,
-            pattern=LinePattern.None)}));
+            pattern=LinePattern.None)}),
+      Documentation(info="<html>
+<p>
+This model is a partial class extended by three phases unbalanced
+PV power sources.
+</p>
+<p>
+The model has boolean parameters <code>plugPhase1</code>, <code>plugPhase2</code>,
+and <code>plugPhase3</code> that can be used to connect the PV in an 
+unbalanced configuration.
+</p>
+</html>", revisions="<html>
+<ul>
+<li>
+August 27, 2014, by Marco Bonvini:<br/>
+Revised documentation.
+</li>
+</ul>
+</html>"));
   end UnbalancedPV;
 
   model UnbalancedWindTurbine
+    "Partial model for an unbalanced wind power source"
     extends Buildings.Electrical.Interfaces.PartialPluggableUnbalanced;
     extends Buildings.Electrical.Interfaces.PartialAcDcParameters;
-    extends Buildings.Electrical.Interfaces.PartialWindTurbineBase;
+    extends Buildings.Electrical.Interfaces.PartialWindTurbineBase(V_nominal = 480);
     extends
       Buildings.Electrical.AC.ThreePhasesUnbalanced.Sources.BaseClasses.PartialSource;
     replaceable OnePhase.Sources.WindTurbine
@@ -228,8 +292,9 @@ package BaseClasses "Package with base class models"
       tableOnFile=tableOnFile,
       table=table,
       tableName=tableName,
-      fileName=fileName) if
-                  PlugPhase2
+      fileName=fileName,
+      V_nominal=V_nominal/sqrt(3)) if
+                  PlugPhase2 "Wind turbine phase 2"
       annotation (Placement(transformation(extent={{-20,-10},{-40,10}})));
     replaceable OnePhase.Sources.WindTurbine
                                           wt_phase3(
@@ -242,8 +307,9 @@ package BaseClasses "Package with base class models"
       tableOnFile=tableOnFile,
       table=table,
       tableName=tableName,
-      fileName=fileName) if
-                  PlugPhase3
+      fileName=fileName,
+      V_nominal=V_nominal/sqrt(3)) if
+                  PlugPhase3 "Wind turbine phase 3"
       annotation (Placement(transformation(extent={{-20,-60},{-40,-40}})));
     replaceable OnePhase.Sources.WindTurbine
                                           wt_phase1(
@@ -256,8 +322,9 @@ package BaseClasses "Package with base class models"
       tableOnFile=tableOnFile,
       table=table,
       tableName=tableName,
-      fileName=fileName) if
-                  PlugPhase1
+      fileName=fileName,
+      V_nominal=V_nominal/sqrt(3)) if
+                  PlugPhase1 "Wind turbine phase 1"
       annotation (Placement(transformation(extent={{-18,40},{-38,60}})));
 
   public
@@ -386,7 +453,25 @@ package BaseClasses "Package with base class models"
             extent={{38,50},{50,38}},
             lineColor={0,0,0},
             fillColor={222,222,222},
-            fillPattern=FillPattern.Solid)}));
+            fillPattern=FillPattern.Solid)}),
+      Documentation(info="<html>
+<p>
+This model is a partial class extended by three phases unbalanced
+wind turbine power sources.
+</p>
+<p>
+The model has boolean parameters <code>plugPhase1</code>, <code>plugPhase2</code>,
+and <code>plugPhase3</code> that can be used to connect the wind turbines in an 
+unbalanced configuration.
+</p>
+</html>", revisions="<html>
+<ul>
+<li>
+August 27, 2014, by Marco Bonvini:<br/>
+Revised documentation.
+</li>
+</ul>
+</html>"));
   end UnbalancedWindTurbine;
   annotation (Documentation(info="<html>
 <p>

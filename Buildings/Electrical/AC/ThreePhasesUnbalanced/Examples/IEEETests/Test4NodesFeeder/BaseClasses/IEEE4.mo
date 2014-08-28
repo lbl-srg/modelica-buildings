@@ -72,8 +72,7 @@ partial model IEEE4 "Base model of the IEEE 4 nodes test feeder"
     Z33=L2*(if line2_use_Z_y then Z33_y else Z33_d),
     V_nominal=VLL_side2)
     annotation (Placement(transformation(extent={{12,0},{32,20}})));
-  Buildings.Electrical.AC.ThreePhasesUnbalanced.Loads.InductiveLoadP
-    loadRL(
+  Buildings.Electrical.AC.ThreePhasesUnbalanced.Loads.Inductive loadRL(
     pf=0.9,
     P_nominal=-1800e3,
     V_nominal=VLL_side2,

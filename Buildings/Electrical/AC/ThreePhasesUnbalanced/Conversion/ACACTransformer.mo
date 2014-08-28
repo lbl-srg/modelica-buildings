@@ -1,7 +1,7 @@
 within Buildings.Electrical.AC.ThreePhasesUnbalanced.Conversion;
-model ACACTransformer
+model ACACTransformer "AC AC transformer simplified equivalent circuit (YY)"
   extends
-    Buildings.Electrical.AC.ThreePhasesUnbalanced.Conversion.BaseClasses.PartialConverter(
+    Buildings.Electrical.AC.ThreePhasesUnbalanced.Conversion.BaseClasses.PartialConverterYY(
     redeclare Buildings.Electrical.AC.OnePhase.Conversion.ACACTransformer conv1(
       VHigh=VHigh/sqrt(3),
       VLow=VLow/sqrt(3),
@@ -203,5 +203,39 @@ equation
         Text(
           extent={{-20,60},{-4,48}},
           lineColor={0,120,120},
-          textString="L")}));
+          textString="L")}),
+    Documentation(info="<html>
+<p>
+This is a simplified equivalent transformer model.
+The model accounts for winding joule losses and leakage reactances 
+that are represented by a serie of a resistance <i>R</i> and an
+inductance <i>L</i>. The resistance and the inductance represent both the 
+effects of the secondary and primary side of the transformer.
+</p>
+<p>
+The model is parametrized using the following parameters
+</p>
+<ul>
+<li><code>Vhigh</code> - RMS voltage at primary side,</li>
+<li><code>Vlow</code> - RMS voltage at secondary side,</li>
+<li><code>VAbase</code> - apparent nominal power of the transformer,</li>
+<li><code>XoverR</code> - ratio between reactance and resistance, and</li>
+<li><code>Zperc</code> - the short circuit impedance.</li>
+</ul>
+<p>
+The model given the nominal conditions computes the values of the resistance and the inductance.
+</p>
+<h4>Note:</h4>
+<p>
+This model reuses models from
+<a href=\"modelica://Buildings.Electrical.AC.OnePhase.Conversion.ACACTrasformer\">
+Buildings.Electrical.AC.OnePhase.Conversion.ACACTrasformer</a>.
+</p>
+<p>
+See
+<a href=\"modelica://Buildings.Electrical.AC.ThreePhasesUnbalanced.Conversion.BaseClasses.PartialConverterYY\">
+Buildings.Electrical.AC.ThreePhasesUnbalanced.Conversion.BaseClasses.PartialConverterYY</a> for
+details on the connections.
+</p>
+</html>"));
 end ACACTransformer;

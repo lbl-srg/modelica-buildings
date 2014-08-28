@@ -1,7 +1,7 @@
 within Buildings.Electrical.AC.ThreePhasesUnbalanced.Conversion;
-model ACACTransformerFull
+model ACACTransformerFull "AC AC transformer detailed equivalent circuit (YY)"
   extends
-    Buildings.Electrical.AC.ThreePhasesUnbalanced.Conversion.BaseClasses.PartialConverter(
+    Buildings.Electrical.AC.ThreePhasesUnbalanced.Conversion.BaseClasses.PartialConverterYY(
     redeclare Buildings.Electrical.AC.OnePhase.Conversion.ACACTransformerFull conv1(
       VHigh=VHigh/sqrt(3),
       VLow=VLow/sqrt(3),
@@ -216,5 +216,49 @@ model ACACTransformerFull
         Text(
           extent={{-20,60},{-4,48}},
           lineColor={0,120,120},
-          textString="L")}));
+          textString="L")}),
+    Documentation(info="<html>
+<p>
+This is a detailed transformer model that takes into accounts the winding joule losses, 
+and the leakage reactances on both primary and secondary side. The model also describe
+the core or iron losses and the losses due to magnetization effects.
+</p>
+<p>
+The losses are represented by a series of resistances <i>R<sub>1</sub></i>, <i>R<sub>2</sub></i>,
+<i>R<sub>m</sub></i> and inductances <i>L<sub>1</sub></i>, <i>L<sub>2</sub></i>, and 
+<i>L<sub>m</sub></i>.
+</p>
+<p>
+The model is parametrized using the following parameters
+</p>
+<ul>
+<li><code>Vhigh</code> - RMS voltage at primary side,</li>
+<li><code>Vlow</code> - RMS voltage at secondary side,</li>
+<li><code>VAbase</code> - apparent nominal power of the transformer,</li>
+<li><code>f</code> - frequency,</li>
+<li><code>R_1, L_1</code> - resistance and inductance at primary side (per unit),</li>
+<li><code>R_2, L_2</code> - resistance and inductance at secondary side (per unit), and</li>
+<li><code>R_m, L_m</code> - resistance and inductance for magnetization effects (per unit).</li>
+</ul>
+<p>
+The model given the nominal conditions computes the values of the nominal impedances
+at both primary and secondary side. Given these values the per unit values are transformed into
+the actual values of the resistances and inductancs.
+</p>
+<p>
+The magnetization losses can be enabled or disabled using the boolean flag <code>magEffects</code>.
+</p>
+<h4>Note:</h4>
+<p>
+This model reuses models from
+<a href=\"modelica://Buildings.Electrical.AC.OnePhase.Conversion.ACACTrasformerFull\">
+Buildings.Electrical.AC.OnePhase.Conversion.ACACTrasformerFull</a>.
+</p>
+<p>
+See
+<a href=\"modelica://Buildings.Electrical.AC.ThreePhasesUnbalanced.Conversion.BaseClasses.PartialConverterYY\">
+Buildings.Electrical.AC.ThreePhasesUnbalanced.Conversion.BaseClasses.PartialConverterYY</a> for
+details on the connections.
+</p>
+</html>"));
 end ACACTransformerFull;

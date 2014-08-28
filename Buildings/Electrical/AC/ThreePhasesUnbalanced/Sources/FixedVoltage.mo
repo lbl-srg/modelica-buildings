@@ -1,10 +1,12 @@
 within Buildings.Electrical.AC.ThreePhasesUnbalanced.Sources;
-model FixedVoltage
+model FixedVoltage "Fixed voltage source"
   extends
     Buildings.Electrical.AC.ThreePhasesUnbalanced.Sources.BaseClasses.PartialSource;
-  parameter Modelica.SIunits.Frequency f(start=50) "Frequency of the source";
-  parameter Modelica.SIunits.Voltage V(start=220) "RMS voltage of the source";
-  parameter Modelica.SIunits.Angle Phi(start=0) "Phase shift of the source";
+  parameter Modelica.SIunits.Frequency f(start=60) = 60
+    "Frequency of the source";
+  parameter Modelica.SIunits.Voltage V(start=480) = 480
+    "RMS voltage of the source";
+  parameter Modelica.SIunits.Angle Phi(start=0) = 0 "Phase shift of the source";
   parameter Boolean potentialReference = true "Serve as potential root"
      annotation (Evaluate=true, Dialog(group="Reference Parameters"));
   parameter Boolean definiteReference = false "Serve as definite root"
@@ -16,7 +18,7 @@ model FixedVoltage
     potentialReference={potentialReference, potentialReference, potentialReference},
     definiteReference={definiteReference, false, false},
     Phi={Phi,Phi - angle120,Phi + angle120},
-    each V=V/sqrt(3))
+    each V=V/sqrt(3)) "Voltage sources on the three phases"
              annotation (Placement(transformation(extent={{-30,-10},{-10,10}})));
 equation
 
@@ -55,5 +57,18 @@ equation
         Text(
           extent={{-120,100},{120,60}},
           lineColor={0,120,120},
-          textString="%name = %V")}));
+          textString="%name = %V")}),
+    Documentation(info="<html>
+<p>
+This is a constant voltage source, specifying the complex voltage 
+by the RMS voltage and the phase shift.
+</p>
+</html>", revisions="<html>
+<ul>
+<li>
+August 27, 2014, by Marco Bonvini:<br/>
+Revised documentation.
+</li>
+</ul>
+</html>"));
 end FixedVoltage;

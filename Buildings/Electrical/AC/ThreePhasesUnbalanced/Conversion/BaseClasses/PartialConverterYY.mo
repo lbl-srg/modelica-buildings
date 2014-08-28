@@ -1,39 +1,49 @@
 within Buildings.Electrical.AC.ThreePhasesUnbalanced.Conversion.BaseClasses;
-partial model PartialConverter
-  import Buildings;
-
+partial model PartialConverterYY "Model of a transformer with Y connection primary side and Y 
+  connection secondary side"
   replaceable Buildings.Electrical.Interfaces.PartialConversion
                                     conv1(
-    redeclare package PhaseSystem_p = Electrical.PhaseSystems.OnePhase,
-    redeclare package PhaseSystem_n = Electrical.PhaseSystems.OnePhase,
+    redeclare package PhaseSystem_p =
+        Buildings.Electrical.PhaseSystems.OnePhase,
+    redeclare package PhaseSystem_n =
+        Buildings.Electrical.PhaseSystems.OnePhase,
     redeclare Electrical.AC.OnePhase.Interfaces.Terminal_n terminal_n,
     redeclare Electrical.AC.OnePhase.Interfaces.Terminal_p terminal_p)
+    "Trasformer phase 1"
     annotation (Placement(transformation(extent={{-10,42},{10,62}})));
   replaceable Buildings.Electrical.Interfaces.PartialConversion
                                     conv2(
-    redeclare package PhaseSystem_p = Electrical.PhaseSystems.OnePhase,
-    redeclare package PhaseSystem_n = Electrical.PhaseSystems.OnePhase,
+    redeclare package PhaseSystem_p =
+        Buildings.Electrical.PhaseSystems.OnePhase,
+    redeclare package PhaseSystem_n =
+        Buildings.Electrical.PhaseSystems.OnePhase,
     redeclare Electrical.AC.OnePhase.Interfaces.Terminal_n terminal_n,
     redeclare Electrical.AC.OnePhase.Interfaces.Terminal_p terminal_p)
+    "Trasformer phase 2"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   replaceable Buildings.Electrical.Interfaces.PartialConversion
                                     conv3(
-    redeclare package PhaseSystem_p = Electrical.PhaseSystems.OnePhase,
-    redeclare package PhaseSystem_n = Electrical.PhaseSystems.OnePhase,
+    redeclare package PhaseSystem_p =
+        Buildings.Electrical.PhaseSystems.OnePhase,
+    redeclare package PhaseSystem_n =
+        Buildings.Electrical.PhaseSystems.OnePhase,
     redeclare Electrical.AC.OnePhase.Interfaces.Terminal_n terminal_n,
     redeclare Electrical.AC.OnePhase.Interfaces.Terminal_p terminal_p)
+    "Trasformer phase 3"
     annotation (Placement(transformation(extent={{-10,-70},{10,-50}})));
-  Interfaces.Terminal_n terminal_n
+  Interfaces.Terminal_n terminal_n "Electrical connector side N"
     annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
-  Interfaces.Terminal_p terminal_p
+  Interfaces.Terminal_p terminal_p "Electrical connector side P"
     annotation (Placement(transformation(extent={{90,-10},{110,10}})));
   Interfaces.Connection3to4_n connection3to4_n
+    "Conversion between 3 to 4 connectors"
     annotation (Placement(transformation(extent={{-60,-10},{-80,10}})));
   Interfaces.Connection3to4_p connection3to4_p
+    "Conversion between 3 to 4 connectors"
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
-  OnePhase.Basics.Ground ground_n
+  OnePhase.Basics.Ground ground_n "Ground reference"
     annotation (Placement(transformation(extent={{-70,-90},{-50,-70}})));
-  OnePhase.Basics.Ground ground_p
+  OnePhase.Basics.Ground ground_p "Ground reference"
     annotation (Placement(transformation(extent={{50,-90},{70,-70}})));
 equation
 
@@ -90,5 +100,24 @@ equation
       color={0,120,120},
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}}), graphics), Icon(graphics));
-end PartialConverter;
+            -100},{100,100}}), graphics), Icon(graphics),
+    Documentation(revisions="<html>
+<ul>
+<li>
+August 27, 2014, by Marco Bonvini:<br/>
+Revised documentation.
+</li>
+</ul>
+</html>", info="<html>
+<p>
+Partial model that represents a three phases unbalanced
+trasformer with Y connection on both primary and secondary side.
+</p>
+<p>
+The image belod describe the connection of the windings.
+</p>
+<p align=\"center\">
+<img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Electrical/AC/ThreePhasesUnbalanced/Conversion/BaseClasses/YY.png\"/>
+</p>
+</html>"));
+end PartialConverterYY;

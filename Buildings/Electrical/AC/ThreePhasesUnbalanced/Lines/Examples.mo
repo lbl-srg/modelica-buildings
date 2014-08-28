@@ -17,7 +17,7 @@ package Examples "Package with example models"
       commercialCable_low=
           Buildings.Electrical.Transmission.LowVoltageCables.PvcAl70())
       annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
-    Loads.InductiveLoadP inductiveLoadP(
+    Loads.Inductive inductiveLoadP(
       mode=Buildings.Electrical.Types.Assumption.FixedZ_steady_state,
       V_nominal=380,
       P_nominal=-4000)
@@ -53,7 +53,7 @@ package Examples "Package with example models"
       Z22={0,0},
       Z33={0,0})
       annotation (Placement(transformation(extent={{-34,0},{-14,20}})));
-    Loads.ResistiveLoadP load(
+    Loads.Resistive load(
       P_nominal=-5000,
       V_nominal=380,
       loadConn=Buildings.Electrical.Types.LoadConnection.wye_to_delta,
@@ -81,13 +81,13 @@ package Examples "Package with example models"
         Buildings.Electrical.Transmission.Benchmarks.BenchmarkGrids.GridInHome_AL70
         grid)
       annotation (Placement(transformation(extent={{-20,0},{0,20}})));
-    Loads.ResistiveLoadP load[20](
+    Loads.Resistive load[20](
       each P_nominal=1000,
       each mode=Buildings.Electrical.Types.Assumption.VariableZ_P_input,
       each V_nominal=230,
-      PlugPhase1 = Phase1,
-      PlugPhase2 = Phase2,
-      PlugPhase3 = Phase3,
+      PlugPhase1=Phase1,
+      PlugPhase2=Phase2,
+      PlugPhase3=Phase3,
       each linear=linear)
       annotation (Placement(transformation(extent={{20,26},{40,46}})));
     Sources.FixedVoltage source(
@@ -148,20 +148,19 @@ package Examples "Package with example models"
         Buildings.Electrical.Transmission.Benchmarks.BenchmarkGrids.GridInHome_AL70
         grid)
       annotation (Placement(transformation(extent={{-20,0},{0,20}})));
-    Loads.ResistiveLoadP_N
-                         load[20](
+    Loads.Resistive_N load[20](
       each P_nominal=1000,
       each mode=Buildings.Electrical.Types.Assumption.VariableZ_P_input,
       each V_nominal=230,
-      PlugPhase1 = Phase1,
-      PlugPhase2 = Phase2,
-      PlugPhase3 = Phase3,
+      PlugPhase1=Phase1,
+      PlugPhase2=Phase2,
+      PlugPhase3=Phase3,
       each linear=linear)
       annotation (Placement(transformation(extent={{20,26},{40,46}})));
-    Sources.FixedVoltageN source(
+    Sources.FixedVoltage_N source(
       f=50,
       Phi=0,
-      V=230)                annotation (Placement(transformation(
+      V=230) annotation (Placement(transformation(
           extent={{-10,-10},{10,10}},
           rotation=180,
           origin={30,10})));
@@ -220,20 +219,19 @@ package Examples "Package with example models"
                     redeclare
         Buildings.Electrical.Transmission.Grids.IEEE_34_AL120 grid)
       annotation (Placement(transformation(extent={{-20,0},{0,20}})));
-    Loads.ResistiveLoadP_N
-                         load[33](
+    Loads.Resistive_N load[33](
       each P_nominal=1000,
       each mode=Buildings.Electrical.Types.Assumption.VariableZ_P_input,
       each V_nominal=230,
-      PlugPhase1 = Phase1,
-      PlugPhase2 = Phase2,
-      PlugPhase3 = Phase3,
+      PlugPhase1=Phase1,
+      PlugPhase2=Phase2,
+      PlugPhase3=Phase3,
       each linear=linear)
       annotation (Placement(transformation(extent={{20,26},{40,46}})));
-    Sources.FixedVoltageN source(
+    Sources.FixedVoltage_N source(
       f=50,
       Phi=0,
-      V=230)                annotation (Placement(transformation(
+      V=230) annotation (Placement(transformation(
           extent={{-10,-10},{10,10}},
           rotation=180,
           origin={30,10})));

@@ -1,17 +1,20 @@
 within Buildings.Electrical.AC.ThreePhasesUnbalanced.Sources;
 model Grid "Electrical grid"
-
+  parameter Modelica.SIunits.Frequency f(start = 60) = 60
+    "Frequency of the source";
+  parameter Modelica.SIunits.Voltage V(start = 480) = 480
+    "RMS voltage of the source";
+  parameter Modelica.SIunits.Angle Phi(start = 0) = 0
+    "Phase shift of the source";
   Buildings.Electrical.AC.Interfaces.PowerOutput P[3]
     "Power consumed from grid if negative, or fed to grid if positive"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
   Buildings.Electrical.AC.ThreePhasesUnbalanced.Interfaces.Terminal_p terminal
-                                                               annotation (Placement(transformation(extent={{-10,
+    "Connector for three phases unbalanced systems"            annotation (Placement(transformation(extent={{-10,
             -110},{10,-90}}), iconTransformation(extent={{-10,-10},{10,10}},
         rotation=90,
         origin={0,-100})));
-  parameter Modelica.SIunits.Frequency f(start=50) "Frequency of the source";
-  parameter Modelica.SIunits.Voltage V(start=220);
-  parameter Modelica.SIunits.Angle Phi(start=0);
+
   Buildings.Electrical.AC.ThreePhasesUnbalanced.Sources.FixedVoltage sou(
     potentialReference=true,
     definiteReference=true,
@@ -37,22 +40,26 @@ equation
   defaultComponentName="gri",
     Documentation(info="<html>
 <p>
-Model that can be used to connect to the electrical grid supply.
+Model that can be used to represent the electrical grid supply.
 </p>
 <p>
-The convention is that <code>P.real</code> is positive if real power is
+The model has an output connector named <code>P[3]</code> that
+contains information about the power supplied by the grid to the network.
+The convention is that <code>P[i].real</code> is positive if real power is
 consumed from the grid, and negative if it is fed into the grid.
+The connector has size equal to three because each element
+of the vector refers to a single phase.
 </p>
 <p>
 The parameter <code>V</code> is the root means square of the voltage.
-In US households, this is <i>120</i> Volts.
+In US, a typical value <i>480</i> Volts.
 </p>
 </html>",
  revisions="<html>
 <ul>
 <li>
-January 2, 2012, by Michael Wetter:<br/>
-First implementation.
+August 27, 2014, by Marco Bonvini:<br/>
+Revised documentation.
 </li>
 </ul>
 </html>"),

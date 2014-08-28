@@ -12,5 +12,12 @@ package AC "Package for electrical systems in which the frequency is modeled as 
 <p>
 Package with models for alternating current (AC) systems.
 </p>
+</html>", revisions="<html>
+<ul>
+<li>
+August 27, 2014, by Marco Bonvini:<br/>
+Added documentation.
+</li>
+</ul>
 </html>"));
 end AC;

@@ -1,6 +1,6 @@
 within Buildings.Electrical.AC.ThreePhasesUnbalanced.Loads;
-model ResistiveLoadP_N
-  extends BaseClasses.PartialLoadN(
+model Resistive "Model of a resistive load"
+  extends BaseClasses.PartialLoad(
     redeclare Buildings.Electrical.AC.OnePhase.Loads.Resistive load1,
     redeclare Buildings.Electrical.AC.OnePhase.Loads.Resistive load2,
     redeclare Buildings.Electrical.AC.OnePhase.Loads.Resistive load3);
@@ -75,5 +75,29 @@ equation
         Line(
           points={{34,-50},{54,-50}},
           color={0,0,0},
-          smooth=Smooth.None)}));
-end ResistiveLoadP_N;
+          smooth=Smooth.None)}), Documentation(revisions="<html>
+<ul>
+<li>
+August 27, 2014, by Marco Bonvini:<br/>
+Revised documentation.
+</li>
+</ul>
+</html>", info="<html>
+<p>
+This model represents a three phases unbalanced resistive load.
+The model extends from 
+<a href=\"modelica://Buildings.Electrical.AC.ThreePhasesUnbalanced.Loads.BaseClasses.PartialLoad\">
+Buildings.Electrical.AC.ThreePhasesUnbalanced.Loads.BaseClasses.PartialLoad</a>
+and uses the load model from the package
+<a href=\"modelica://Buildings.Electrical.AC.OnePhase.Loads\">
+Buildings.Electrical.AC.OnePhase.Loads</a>. The model is able to provide detailed
+information about the actual voltages, currents and powers on each phase.
+</p>
+<p>
+For more information see <a href=\"modelica://Buildings.Electrical.AC.ThreePhasesUnbalanced.Loads.BaseClasses.PartialLoad\">
+Buildings.Electrical.AC.ThreePhasesUnbalanced.Loads.BaseClasses.PartialLoad</a> and 
+<a href=\"modelica://Buildings.Electrical.AC.OnePhase.Loads.Resistive\">
+Buildings.Electrical.AC.OnePhase.Loads.Resistive</a>.
+</p>
+</html>"));
+end Resistive;

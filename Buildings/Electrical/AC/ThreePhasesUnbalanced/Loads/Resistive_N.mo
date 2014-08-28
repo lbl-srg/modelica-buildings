@@ -1,6 +1,6 @@
 within Buildings.Electrical.AC.ThreePhasesUnbalanced.Loads;
-model ResistiveLoadP
-  extends BaseClasses.PartialLoad(
+model Resistive_N "Model of a resistive load with neutral cable"
+  extends BaseClasses.PartialLoad_N(
     redeclare Buildings.Electrical.AC.OnePhase.Loads.Resistive load1,
     redeclare Buildings.Electrical.AC.OnePhase.Loads.Resistive load2,
     redeclare Buildings.Electrical.AC.OnePhase.Loads.Resistive load3);
@@ -75,5 +75,34 @@ equation
         Line(
           points={{34,-50},{54,-50}},
           color={0,0,0},
-          smooth=Smooth.None)}));
-end ResistiveLoadP;
+          smooth=Smooth.None)}), Documentation(revisions="<html>
+<ul>
+<li>
+August 27, 2014, by Marco Bonvini:<br/>
+Revised documentation.
+</li>
+</ul>
+</html>", info="<html>
+<p>
+This model represents a three phases unbalanced resistive load.
+The model extends from 
+<a href=\"modelica://Buildings.Electrical.AC.ThreePhasesUnbalanced.Loads.BaseClasses.PartialLoad_N\">
+Buildings.Electrical.AC.ThreePhasesUnbalanced.Loads.BaseClasses.PartialLoad_N</a>
+and uses the load model from the package
+<a href=\"modelica://Buildings.Electrical.AC.OnePhase.Loads\">
+Buildings.Electrical.AC.OnePhase.Loads</a>. The model is able to provide detailed
+information about the actual voltages, currents and powers on each phase.
+</p>
+<p>
+This model has a connector with four cable and it does represent the neutral cable.
+The current in the neutral cable is computed as the algebraic sum of the currents
+of the loads.
+</p>
+<p>
+For more information see <a href=\"modelica://Buildings.Electrical.AC.ThreePhasesUnbalanced.Loads.BaseClasses.PartialLoad_N\">
+Buildings.Electrical.AC.ThreePhasesUnbalanced.Loads.BaseClasses.PartialLoad_N</a> and 
+<a href=\"modelica://Buildings.Electrical.AC.OnePhase.Loads.Resistive\">
+Buildings.Electrical.AC.OnePhase.Loads.Resistive</a>.
+</p>
+</html>"));
+end Resistive_N;

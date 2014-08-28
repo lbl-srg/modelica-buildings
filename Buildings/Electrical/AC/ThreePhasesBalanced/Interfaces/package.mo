@@ -3,7 +3,6 @@ package Interfaces "Package interfaces for three phases balanced AC systems"
   extends Modelica.Icons.InterfacesPackage;
 
 
-
 annotation (Documentation(info="<html>
 <p>
 This package contains connectors that are used by the models in the 

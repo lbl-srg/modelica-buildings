@@ -1,11 +1,10 @@
 within Buildings.Electrical.AC.ThreePhasesUnbalanced.Loads.Examples;
 model ResistiveLoadCtrl
   extends Modelica.Icons.Example;
-  Sources.FixedVoltageN Vsource(
+  Sources.FixedVoltage_N Vsource(
     f=50,
     Phi=0,
-    V=110)
-    annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
+    V=110) annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
   Modelica.Blocks.Sources.Sine sine(
     freqHz=0.1,
     amplitude=4500,
@@ -13,7 +12,7 @@ model ResistiveLoadCtrl
                annotation (Placement(transformation(extent={{60,10},{40,30}})));
   Modelica.Blocks.Sources.Constant const(k=0)
     annotation (Placement(transformation(extent={{90,-10},{70,10}})));
-  ResistiveLoadP_N load_ctrl(
+  Resistive_N load_ctrl(
     mode=Buildings.Electrical.Types.Assumption.VariableZ_P_input,
     PlugPhase1=true,
     PlugPhase2=true,
@@ -21,8 +20,7 @@ model ResistiveLoadCtrl
     VoltageCTRL=true,
     Vthresh=0.1,
     V_nominal=110,
-    Tdelay=2)
-    annotation (Placement(transformation(extent={{-8,-10},{12,10}})));
+    Tdelay=2) annotation (Placement(transformation(extent={{-8,-10},{12,10}})));
   Lines.LineN line_ctrl(
     l=100,
     P_nominal=5000,
@@ -31,7 +29,7 @@ model ResistiveLoadCtrl
     voltageLevel=Buildings.Electrical.Types.VoltageLevel.Low,
     commercialCable_low=Buildings.Electrical.Transmission.LowVoltageCables.Cu25())
             annotation (Placement(transformation(extent={{-46,-10},{-26,10}})));
-  ResistiveLoadP_N load(
+  Resistive_N load(
     mode=Buildings.Electrical.Types.Assumption.VariableZ_P_input,
     PlugPhase1=true,
     PlugPhase2=true,

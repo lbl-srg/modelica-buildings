@@ -3,12 +3,6 @@ package Lines "Package with line models for three phases balanced AC systems"
   extends Modelica.Icons.Package;
 
 
-
-
-
-
-
-
   annotation (Icon(graphics={
       Ellipse(
         extent={{44,6},{20,-30}},

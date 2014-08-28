@@ -12,7 +12,7 @@ model ResistiveLoad
     offset=50) annotation (Placement(transformation(extent={{20,40},{40,60}})));
   Modelica.Blocks.Sources.Constant const(k=0)
     annotation (Placement(transformation(extent={{20,70},{40,90}})));
-  ResistiveLoadP resistiveLoadP(
+  Resistive resistiveLoadP(
     mode=Buildings.Electrical.Types.Assumption.VariableZ_P_input,
     PlugPhase1=true,
     PlugPhase2=true,

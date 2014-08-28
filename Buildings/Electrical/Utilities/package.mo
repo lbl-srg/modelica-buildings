@@ -2,11 +2,19 @@ within Buildings.Electrical;
 package Utilities "Package with models and functions that are used by other models"
   extends Modelica.Icons.Package;
 
+
 annotation (
 preferredView="info", Documentation(info="<html>
 <p>
 This package contains utility models and functions.
 </p>
+</html>", revisions="<html>
+<ul>
+<li>
+Aug 28, 2014, by Marco Bonvini:<br/>
+Added documentation.
+</li>
+</ul>
 </html>"),
 Icon(coordinateSystem(extent={{-100.0,-100.0},{100.0,100.0}}), graphics={
     Polygon(

@@ -72,5 +72,4 @@ The picture below describes the grid topology.
 <img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Electrical/Transmission/Grids/testGrid2Nodes.png\"/>
 </p>
 </html>"));
-
 end ACSimpleGrid;

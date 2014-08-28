@@ -1,5 +1,5 @@
 within Buildings.Electrical.AC.ThreePhasesUnbalanced.Sources;
-model PVsimpleOriented
+model PVsimpleOriented "Simple PV source with orientation"
   extends
     Buildings.Electrical.AC.ThreePhasesUnbalanced.Sources.BaseClasses.UnbalancedPV(
     redeclare Buildings.Electrical.AC.OnePhase.Sources.PVSimple pv_phase1,
@@ -56,5 +56,24 @@ equation
       smooth=Smooth.None));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
             {100,100}}), graphics), Diagram(coordinateSystem(
-          preserveAspectRatio=false, extent={{-100,-100},{100,100}}), graphics));
+          preserveAspectRatio=false, extent={{-100,-100},{100,100}}), graphics),
+    Documentation(revisions="<html>
+<ul>
+<li>
+August 27, 2014, by Marco Bonvini:<br/>
+Revised documentation.
+</li>
+</ul>
+</html>", info="<html>
+<p>
+Simple PV model with orientation for three phases unbalanced systems.
+</p>
+<p>
+For more information see 
+<a href=\"modelica://Buildings.Electrical.AC.OnePhase.Sources.PVSimpleOriented\">
+Buildings.Electrical.AC.OnePhase.Sources.PVSimpleOriented</a>, and
+<a href=\"modelica://Buildings.Electrical.AC.ThreePhasesUnbalanced.Sources.BaseClasses.UnbalancedPV\">
+Buildings.Electrical.AC.ThreePhasesUnbalanced.Sources.BaseClasses.UnbalancedPV</a>.
+</p>
+</html>"));
 end PVsimpleOriented;
