@@ -284,12 +284,17 @@ The following <b style=\"color:red\">critical errors</b> have been fixed (i.e., 
 that can lead to wrong simulation results):
 </p>
 <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
-<tr><td colspan=\"2\"><b>xxx</b>
+<tr><td colspan=\"2\"><b>Buildings.Fluid</b>
     </td>
 </tr>
-<tr><td valign=\"top\">xxx
+<tr><td valign=\"top\">Buildings.Fluid.Storage.Stratified<br/>
+                       Buildings.Fluid.Storage.StratifiedEnhanced<br/>
+                       Buildings.Fluid.Storage.StratifiedEnhancedInternalHex
     </td>
-    <td valign=\"top\">xxx.
+    <td valign=\"top\">Replaced the use of <code>Medium.lambda_const</code> with
+                       <code>Medium.thermalConductivity(sta_default)</code> as
+                       <code>lambda_const</code> is not declared for all media.
+                       This avoids a translation error if certain media are used.
     </td>
 </tr>
 </table>
