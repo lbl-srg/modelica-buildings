@@ -3,7 +3,7 @@ model HANaturalCylinder
   "Calculates an hA value for natural convection around a cylinder"
   extends Modelica.Blocks.Icons.Block;
   replaceable package Medium = Modelica.Media.Interfaces.PartialMedium
-    "Partial medium model to be replaced with specific medium";
+    "Medium inside the tank";
   parameter Modelica.SIunits.Diameter ChaLen
     "Characteristic length of the cylinder";
 
@@ -59,6 +59,8 @@ protected
   constant Modelica.SIunits.Acceleration g= Modelica.Constants.g_n
     "Acceleration due to gravity";
 
+  Medium.ThermodynamicState state
+    "Thermodynamic state of the fluid around the cylinder";
   Real Ra "Rayleigh number";
   Real Pr "Prandlt number";
   Real Nusselt "Nusselt number";
@@ -109,13 +111,13 @@ initial equation
   A = hA_nominal / h_nominal;
 equation
   // Fluid properties
+  state = Medium.setState_pTX(
+             p=  Medium.p_default,
+             T=  0.5*(TSur+TFlu),
+             X=  Medium.X_default);
   mu = Buildings.Fluid.HeatExchangers.BaseClasses.dynamicViscosityWater(
         T=  0.5 * (TSur+TFlu));
-  rho = Medium.density(
-        Medium.setState_pTX(
-          p=  Medium.p_default,
-          T=  0.5*(TSur+TFlu),
-          X=  Medium.X_default));
+  rho = Medium.density(state);
   Pr = Buildings.Fluid.HeatExchangers.BaseClasses.prandtlNumberWater(
           T=  0.5*(TSur+TFlu));
 
@@ -126,11 +128,7 @@ equation
   Gr = Modelica.Constants.g_n * B * (TSur - TFlu)*ChaLen^3/nu^2;
   Ra = Gr*Pr;
   // Convection coefficient
-  k = Medium.thermalConductivity(
-    Medium.setState_pTX(
-    p=  Medium.p_default,
-    T=  0.5*(TFlu+TSur),
-    X=  Medium.X_default));
+  k = Medium.thermalConductivity(state);
   Nusselt = nusselt(k=k, Pr=Pr, Ra=Ra);
   h = Nusselt * k/ChaLen;
   hA = h*A;
@@ -173,7 +171,11 @@ equation
             DeWitt, John Wiley and Sons, 1996
             </p>
             </html>", revisions="<html>
-<ul>
+            <ul>
+<li>
+August 29, 2014 by Michael Wetter:<br/>
+Refactored function calls for medium properties.
+</li>            
 <li>
 May 10, 2013 by Michael Wetter:<br/>
 Revised implementation to use <code>hA_nominal</code> as a parameter, and compute the 

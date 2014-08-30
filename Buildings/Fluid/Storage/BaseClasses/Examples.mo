@@ -15,7 +15,7 @@ package Examples "Examples for BaseClasses models"
       m_flow_nominal=3000/20/4200,
       volHexFlu=0.0004,
       dExtHex=0.01905,
-      redeclare package Medium = Medium,
+      redeclare package MediumTan = Medium,
       redeclare package MediumHex = Medium,
       dp_nominal=10000,
       energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,

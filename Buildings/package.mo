@@ -296,6 +296,13 @@ that can lead to wrong simulation results):
                        <code>lambda_const</code> is not declared for all media.
                        This avoids a translation error if certain media are used.
     </td>
+</tr><tr><td valign=\"top\">Buildings.Fluid.Storage.StratifiedEnhancedInternalHex
+    </td>
+    <td valign=\"top\">Corrected issue
+                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/271\">#271</a>
+                       which led to a compilation error if the heat exchanger 
+                       and the tank had different media.
+    </td>
 </tr>
 </table>
 <!-- Uncritical errors -->

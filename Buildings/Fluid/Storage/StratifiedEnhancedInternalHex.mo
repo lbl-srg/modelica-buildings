@@ -109,7 +109,7 @@ model StratifiedEnhancedInternalHex
     final THex_nominal=THex_nominal,
     final r_nominal=r_nominal,
     final dExtHex=dExtHex,
-    redeclare final package Medium = Medium,
+    redeclare final package MediumTan = Medium,
     redeclare final package MediumHex = MediumHex,
     final dp_nominal=dpHex_nominal,
     final m_flow_nominal=mHex_flow_nominal,
@@ -238,6 +238,12 @@ The model requires at least 4 fluid segments. Hence, set <code>nSeg</code> to 4 
 </html>",
 revisions = "<html>
 <ul>
+<li>
+August 29, 2014 by Michael Wetter:<br/>
+Corrected issue <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/271\">#271</a>
+which led to a compilation error if the heat exchanger and the tank
+had different media.
+</li> 
 <li>
 April 18, 2014 by Michael Wetter:<br/>
 Added missing ceiling function in computation of <code>botHexSeg</code>.
