@@ -145,7 +145,8 @@ protected
     Modelica.Constants.pi * (0.8*dExtHex)^2/4 *lHex
     "Volume of the heat exchanger";
 
-  final parameter Integer nSegHexTan = abs(segHex_a-segHex_b) + 1
+  final parameter Integer nSegHexTan=
+    if segHex_a > segHex_b then segHex_a-segHex_b + 1 else segHex_b-segHex_a + 1
     "Number of tank segments the heat exchanger resides in";
 
   final parameter Integer nSegHex = nSegHexTan*hexSegMult
@@ -238,6 +239,12 @@ The model requires at least 4 fluid segments. Hence, set <code>nSeg</code> to 4 
 </html>",
 revisions = "<html>
 <ul>
+<li>
+September 2, 2014 by Michael Wetter:<br/>
+Replaced the <code>abs()</code> function in the assignment of the parameter
+<code>nSegHexTan</code> as the return value of <code>abs()</code> 
+is a <code>Real</code> which causes a type error during model check.
+</li>
 <li>
 August 29, 2014 by Michael Wetter:<br/>
 Corrected issue <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/271\">#271</a>

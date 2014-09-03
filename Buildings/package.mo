@@ -189,6 +189,14 @@ have been <b style=\"color:blue\">improved</b> in a
                        as this language construct is not supported in OpenModelica.    
     </td>
     </tr>
+    <tr>
+    <td valign=\"top\">Buildings.Fluid.Storage.StratifiedEnhancedInternalHex
+    </td>
+    <td valign=\"top\">Replaced the <code>abs()</code> function in the assignment of the parameter
+                       <code>nSegHexTan</code> as the return value of <code>abs()</code> 
+                       is a <code>Real</code> which causes a type error during model check.
+    </td>
+    </tr>
 <tr><td colspan=\"2\"><b>xxx</b>
     </td>
 </tr>
