@@ -347,7 +347,7 @@ int source_diff(PARA_DATA *para, REAL **var, int var_type, int index) {
         b[IX(i,j,k)] += var[VZS][IX(i,j,k)]; 
         break;
       case TEMP: 
-        b[IX(i,j,k)] += var[TEMPS][IX(i,j,k)];
+        b[IX(i,j,k)] += var[TEMPS][IX(i,j,k)]/(para->prob->rho*para->prob->Cp);
         break;
       case C1:
       case C2:
