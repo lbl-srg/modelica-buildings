@@ -287,6 +287,12 @@ that can lead to wrong simulation results):
 <tr><td colspan=\"2\"><b>Buildings.Fluid</b>
     </td>
 </tr>
+<tr><td valign=\"top\">Buildings.Fluid.Data.Pipes
+    </td>
+    <td valign=\"top\">Corrected wrong entries for inner and outer diameter
+                       of PEX pipes.
+    </td>
+</tr>
 <tr><td valign=\"top\">Buildings.Fluid.Storage.Stratified<br/>
                        Buildings.Fluid.Storage.StratifiedEnhanced<br/>
                        Buildings.Fluid.Storage.StratifiedEnhancedInternalHex
@@ -302,6 +308,17 @@ that can lead to wrong simulation results):
                        <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/271\">#271</a>
                        which led to a compilation error if the heat exchanger 
                        and the tank had different media.
+    </td>
+</tr>
+<tr><td colspan=\"2\"><b>Buildings.Rooms</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Rooms.FLEXLAB.Rooms.Examples.TestBedX3WithRadiantFloor<br/>
+                            Buildings.Rooms.FLEXLAB.Rooms.Examples.X3AWithRadiantFloor<br/>
+                            Buildings.Rooms.FLEXLAB.Rooms.Examples.X3BWithRadiantFloor
+    </td>
+    <td valign=\"top\">Corrected wrong entries for inner and outer diameter
+                       of PEX pipes.
     </td>
 </tr>
 </table>
