@@ -24,8 +24,7 @@ equation
             fillPattern=FillPattern.Solid,
           origin={0,3.55271e-15},
           rotation=180),
-          Line(points={{-6.85214e-44,-8.39117e-60},{12,1.46953e-15}},
-                                       color={0,0,0},
+          Line(points={{0,0},{12,0}},  color={0,0,0},
           origin={-80,0},
           rotation=180),
         Text(
@@ -37,29 +36,31 @@ equation
 Model of an impedance. This model can be used to represent any type
 of resistive, inductive or capacitive load.
 </p>
-<h4>N.B.</h4>
 <p>        
-The power consumed by the impedance model will drecrease if its voltage
+Note that the power consumed by the impedance model will drecrease if its voltage
 decreases.
 </p>
 <p>
-The model of the impedance is the following
+The model of the impedance is
 </p>
 
 <p align=\"center\" style=\"font-style:italic;\">
-V = Z i
+V = Z i,
 </p>
 
 <p>
-where <i>Z = R + jX</i> is the impedance. The value of the resistance <i>R</i> and the
+where <i>Z = R + j X</i> is the impedance. The value of the resistance <i>R</i> and the
 reactance <i>X</i> depend on the type of impedance. Different types of impedances
-can be selected using the boolean flags <code>inductive</code>, <code>use_R_in</code>,
+can be selected using the boolean parameters <code>inductive</code>, <code>use_R_in</code>,
 <code>use_L_in</code>, and <code>use_C_in</code>. See 
 <a href=\"modelica://Buildings.Electrical.Interfaces.PartialImpedance\">
 Buildings.Electrical.Interfaces.PartialImpedance</a> for more details.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>September 4, 2014, by Michael Wetter:<br/>
+Revised documentation.
+</li>
 <li>August 5, 2014, by Marco Bonvini:<br/>
 Revised documentation.
 </li>

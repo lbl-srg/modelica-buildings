@@ -190,7 +190,7 @@ source acts like a utilizer).
 <p>
 The model has a Boolean parameter <code>linear</code> that by default is equal to <code>False</code>. 
 When the power consumption of the load is imposed, this introduces
-a nonlinear relationship between the voltage and the current of the load. This flag is used to 
+a nonlinear equation between the voltage and the current of the load. This flag is used to 
 select between a linearized version 
 of the equations or the original nonlinear ones.<br/>
 When the linearized version of the model is used, the parameter <code>V_nominal</code> has to 
