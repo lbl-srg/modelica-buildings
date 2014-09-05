@@ -73,7 +73,9 @@ equation
       points={{5,20},{12,20},{12,60},{38,60}},
       color={0,0,127},
       smooth=Smooth.None));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
+  annotation (
+defaultComponentName="bat",
+Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}), graphics), Icon(coordinateSystem(
           preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
         graphics={
@@ -133,7 +135,6 @@ equation
           lineColor={0,0,255},
           textString="%name")}),
     Documentation(
-defaultComponentName="bat",
 info="<html>
 <p>
 Simple model of a battery.
