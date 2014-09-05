@@ -28,10 +28,6 @@ protected
     final predictionModel=predictionModel) "Model that computes the base line"
     annotation (Placement(transformation(extent={{-12,-10},{8,10}})));
 equation
-  connect(basLin.typeOfDay, typeOfDay) annotation (Line(
-      points={{-14,10},{-60,10},{-60,80},{-110,80}},
-      color={0,127,0},
-      smooth=Smooth.None));
   connect(isEventDay, basLin.isEventDay) annotation (Line(
       points={{-110,40},{-64,40},{-64,5},{-14,5}},
       color={255,0,255},
@@ -47,6 +43,10 @@ equation
   connect(basLin.PPre[1], PPre) annotation (Line(
       points={{9,0},{40,0},{40,-80},{110,-80}},
       color={0,0,127},
+      smooth=Smooth.None));
+  connect(basLin.typeOfDay[1], typeOfDay) annotation (Line(
+      points={{-14,10},{-60,10},{-60,80},{-110,80}},
+      color={0,127,0},
       smooth=Smooth.None));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
             {100,100}}),

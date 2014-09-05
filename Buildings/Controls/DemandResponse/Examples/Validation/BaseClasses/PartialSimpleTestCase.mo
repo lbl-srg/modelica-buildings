@@ -17,13 +17,13 @@ partial model PartialSimpleTestCase
   Sources.DayType dayType "Outputs the type of the day"
     annotation (Placement(transformation(extent={{-40,0},{-20,20}})));
 equation
-  connect(dayType.y, baseLoad.typeOfDay) annotation (Line(
-      points={{-19,10},{38,10}},
-      color={0,127,0},
-      smooth=Smooth.None));
   connect(baseLoad.isEventDay, tri.y) annotation (Line(
       points={{38,5},{0,5},{0,50},{-19,50}},
       color={255,0,255},
+      smooth=Smooth.None));
+  connect(baseLoad.typeOfDay[1], dayType.y) annotation (Line(
+      points={{38,10},{-19,10}},
+      color={0,127,0},
       smooth=Smooth.None));
   annotation (
   Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
