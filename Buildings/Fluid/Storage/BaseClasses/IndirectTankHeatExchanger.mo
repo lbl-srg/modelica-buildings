@@ -4,10 +4,14 @@ model IndirectTankHeatExchanger
 
   replaceable package MediumHex = Modelica.Media.Interfaces.PartialMedium
     "Heat transfer fluid flowing through the heat exchanger";
+  replaceable package MediumTan = Modelica.Media.Interfaces.PartialMedium
+    "Heat transfer fluid inside the tank";
 
   extends Buildings.Fluid.Interfaces.TwoPortFlowResistanceParameters;
-  extends Buildings.Fluid.Interfaces.LumpedVolumeDeclarations;
+  extends Buildings.Fluid.Interfaces.LumpedVolumeDeclarations(
+      redeclare final package Medium = MediumHex);
   extends Buildings.Fluid.Interfaces.PartialTwoPortInterface(
+    redeclare final package Medium = MediumHex,
     showDesignFlowDirection=false,
     final show_T=false);
 
@@ -52,7 +56,7 @@ model IndirectTankHeatExchanger
         iconTransformation(extent={{-10,-108},{10,-88}})));
 
   FixedResistances.FixedResistanceDpM res(
-    redeclare final package Medium = Medium,
+    redeclare final package Medium = MediumHex,
     final dp_nominal=dp_nominal,
     final m_flow_nominal=m_flow_nominal,
     final allowFlowReversal=allowFlowReversal,
@@ -280,6 +284,13 @@ equation
           </html>",
           revisions = "<html>
           <ul>
+          <li>
+          August 29, 2014, by Michael Wetter:<br/>
+          Introduced <code>MediumTan</code> for the tank medium, and assigned <code>Medium</code>
+          to be equal to <code>MediumHex</code>.
+          This is to correct issue <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/271\">
+          #271</a>.
+          </li>
           <li>
           June 18, 2014, by Michael Wetter:<br/>
           Set initial equations for <code>cap</code>, and renamed this instance from

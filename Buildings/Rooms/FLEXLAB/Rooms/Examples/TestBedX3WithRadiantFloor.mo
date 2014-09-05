@@ -212,7 +212,7 @@ model TestBedX3WithRadiantFloor
         c=1100,
         d=2400)}) "Construction of the slab"
     annotation (Placement(transformation(extent={{-266,-280},{-246,-260}})));
-  parameter Buildings.Fluid.Data.Pipes.PEX_RADTEST pipe(dOut=0.015875, dIn=0.01905)
+  parameter Buildings.Fluid.Data.Pipes.PEX_RADTEST pipe(dIn=0.015875, dOut=0.01905)
     annotation (Placement(transformation(extent={{-266,-258},{-246,-238}})));
 
   Modelica.Blocks.Sources.CombiTimeTable TNei(    tableOnFile=false, table=[0,293.15;
@@ -932,6 +932,7 @@ equation
             -300},{300,300}}), graphics), __Dymola_Commands(file=
           "modelica://Buildings/Resources/Scripts/Dymola/Rooms/FLEXLAB/Rooms/Examples/TestBedX3WithRadiantFloor.mos"
         "Simulate and Plot"),
+        experiment(StopTime=864000.0),
         Documentation(info="<html>
         <p>
         This example models demonstrates how the <a href=\"modelica://Buildings.Rooms.FLEXLAB.Rooms.X3A\">
@@ -975,6 +976,9 @@ equation
         </html>",
         revisions="<html>
         <ul>
+        <li>September 2, 2014, by Michael Wetter:<br/>
+        Corrected wrong pipe diameter.
+        </li>
         <li>June 30, 2014, by Michael Wetter:<br/>
         Specified equations to be used to compute the initial conditions.</li>    
         <li>October 11, 2013, by Michael Wetter:<br/>

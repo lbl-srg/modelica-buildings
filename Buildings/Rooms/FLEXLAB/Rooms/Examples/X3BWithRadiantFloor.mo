@@ -68,7 +68,7 @@ model X3BWithRadiantFloor "Example model showing a use of X3B"
         c=1100,
         d=2400)}) "Construction of the slab"
     annotation (Placement(transformation(extent={{-196,-196},{-176,-176}})));
-  parameter Buildings.Fluid.Data.Pipes.PEX_RADTEST pipe(dOut=0.015875, dIn=0.01905)
+  parameter Buildings.Fluid.Data.Pipes.PEX_RADTEST pipe(dIn=0.015875, dOut=0.01905)
     annotation (Placement(transformation(extent={{-196,-174},{-176,-154}})));
 
   Buildings.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam=
@@ -517,6 +517,9 @@ equation
           </html>",
           revisions = "<html>
           <ul>
+          <li>September 2, 2014, by Michael Wetter:<br/>
+          Corrected wrong pipe diameter.
+          </li>
           <li>June 30, 2014, by Michael Wetter:<br/>
           Specified equations to be used to compute the initial conditions.</li>
           <li>October 11, 2013, by Michael Wetter:<br/>
@@ -526,5 +529,6 @@ equation
           </ul>
           </html>"),
      __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Rooms/FLEXLAB/Rooms/Examples/X3BWithRadiantFloor.mos"
-        "Simulate and Plot"));
+        "Simulate and Plot"),
+     experiment(StopTime=864000.0));
 end X3BWithRadiantFloor;

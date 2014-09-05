@@ -167,14 +167,36 @@ have been <b style=\"color:blue\">improved</b> in a
 <b style=\"color:blue\">backward compatible</b> way:
 </p>
 <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
-<tr><td colspan=\"2\"><b>xxx</b>
+<tr><td colspan=\"2\"><b>Buildings.Fluid</b>
     </td>
 </tr>
-<tr><td valign=\"top\">xxx
+<tr><td valign=\"top\">Buildings.Fluid.HeatExchangers.DryCoilDiscretized
     </td>
-    <td valign=\"top\">xxx.
+    <td valign=\"top\">Removed parameter <code>m1_flow_nominal</code>, as this parameter is already
+                    declared in its base class
+                    <a href=\"modelica://Buildings.Fluid.Interfaces.PartialFourPortInterface\">
+                    Buildings.Fluid.Interfaces.PartialFourPortInterface</a>.
+                    This change avoids an error in OpenModelica as the two declarations
+                    had a different value for the <code>min</code> attribute, which is not valid
+                    in Modelica.
     </td>
-</tr>
+    </tr>
+    <tr>
+    <td valign=\"top\">Buildings.Fluid.HeatExchangers.BaseClasses.CoilRegister<br/>
+                       Buildings.Fluid.HeatExchangers.BaseClasses.DuctManifoldDistributor  
+    </td>
+    <td valign=\"top\">Reformulated the multiple iterators in the <code>sum</code> function
+                       as this language construct is not supported in OpenModelica.    
+    </td>
+    </tr>
+    <tr>
+    <td valign=\"top\">Buildings.Fluid.Storage.StratifiedEnhancedInternalHex
+    </td>
+    <td valign=\"top\">Replaced the <code>abs()</code> function in the assignment of the parameter
+                       <code>nSegHexTan</code> as the return value of <code>abs()</code> 
+                       is a <code>Real</code> which causes a type error during model check.
+    </td>
+    </tr>
 <tr><td colspan=\"2\"><b>xxx</b>
     </td>
 </tr>
@@ -191,7 +213,33 @@ have been <b style=\"color:blue\">improved</b> in a
 <b style=\"color:blue\">non-backward compatible</b> way:
 </p>
 <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
- <tr><td colspan=\"2\"><b>Buildings.Fluid</b>
+<tr><td colspan=\"2\"><b>Buildings.Airflow</b>
+   </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Airflow.Multizone.ZonalFlow_ACS<br/>
+                       Buildings.Airflow.Multizone.ZonalFlow_m_flow
+   </td>
+   <td valign=\"top\">Removed parameter <code>forceErrorControlOnFlow</code> as it was not used.
+                       For Dymola, the conversion script will automatically
+                       update existing models.
+   </td>
+</tr>
+<tr><td colspan=\"2\"><b>Buildings.Examples</b>
+   </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Examples.VAVReheat.Controls.IntegerSum
+   </td>
+   <td valign=\"top\">Removed block as it is not used in any model.
+                      Models that require an integer sum can use
+                      <code>Modelica.Blocks.MathInteger.Sum</code>.
+   </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Examples.VAVReheat.Controls.UnoccupiedOn
+   </td>
+   <td valign=\"top\">Removed block as it is not used in any model.
+   </td>
+</tr>
+<tr><td colspan=\"2\"><b>Buildings.Fluid</b>
     </td>
 </tr>
 <tr><td valign=\"top\">Buildings.Fluid.HeatExchangers.DryCoilDiscretized<br/>
@@ -212,6 +260,7 @@ have been <b style=\"color:blue\">improved</b> in a
 
     </td>
 </tr>
+
 <tr><td valign=\"top\">Buildings.Fluid.HeatExchangers.BaseClasses.DuctManifoldFixedResistance
     </td>
     <td valign=\"top\">Reformulated flow splitter in the model to reduce
@@ -243,12 +292,41 @@ The following <b style=\"color:red\">critical errors</b> have been fixed (i.e., 
 that can lead to wrong simulation results):
 </p>
 <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
-<tr><td colspan=\"2\"><b>xxx</b>
+<tr><td colspan=\"2\"><b>Buildings.Fluid</b>
     </td>
 </tr>
-<tr><td valign=\"top\">xxx
+<tr><td valign=\"top\">Buildings.Fluid.Data.Pipes
     </td>
-    <td valign=\"top\">xxx.
+    <td valign=\"top\">Corrected wrong entries for inner and outer diameter
+                       of PEX pipes.
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Fluid.Storage.Stratified<br/>
+                       Buildings.Fluid.Storage.StratifiedEnhanced<br/>
+                       Buildings.Fluid.Storage.StratifiedEnhancedInternalHex
+    </td>
+    <td valign=\"top\">Replaced the use of <code>Medium.lambda_const</code> with
+                       <code>Medium.thermalConductivity(sta_default)</code> as
+                       <code>lambda_const</code> is not declared for all media.
+                       This avoids a translation error if certain media are used.
+    </td>
+</tr><tr><td valign=\"top\">Buildings.Fluid.Storage.StratifiedEnhancedInternalHex
+    </td>
+    <td valign=\"top\">Corrected issue
+                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/271\">#271</a>
+                       which led to a compilation error if the heat exchanger 
+                       and the tank had different media.
+    </td>
+</tr>
+<tr><td colspan=\"2\"><b>Buildings.Rooms</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Rooms.FLEXLAB.Rooms.Examples.TestBedX3WithRadiantFloor<br/>
+                            Buildings.Rooms.FLEXLAB.Rooms.Examples.X3AWithRadiantFloor<br/>
+                            Buildings.Rooms.FLEXLAB.Rooms.Examples.X3BWithRadiantFloor
+    </td>
+    <td valign=\"top\">Corrected wrong entries for inner and outer diameter
+                       of PEX pipes.
     </td>
 </tr>
 </table>
@@ -259,12 +337,12 @@ that do <b style=\"color:red\">not</b> lead to wrong simulation results, e.g.,
 units are wrong or errors in documentation):
 </p>
 <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
-<tr><td colspan=\"2\"><b>xxx</b>
+<tr><td colspan=\"2\"><b>Buildings.Fluid</b>
     </td>
 </tr>
-<tr><td valign=\"top\">xxx
+<tr><td valign=\"top\">Buildings.Fluid.FixedResistances.FixedResistanceDpM
     </td>
-    <td valign=\"top\">xxx.
+    <td valign=\"top\">Corrected error in documentation of computation of <code>k</code>.
     </td>
 </tr>
 </table>
@@ -4315,8 +4393,8 @@ version="1.7",
 versionBuild=0,
 versionDate="2014-06-19",
 dateModified = "2014-06-19",
-uses(Modelica(version="3.2.1")),
-uses(Modelica_StateGraph2(version="2.0.2")),
+uses(Modelica(version="3.2.1"),
+     Modelica_StateGraph2(version="2.0.2")),
 conversion(
  from(version="1.6",
       script="modelica://Buildings/Resources/Scripts/Dymola/ConvertBuildings_from_1.6_to_1.7.mos"),

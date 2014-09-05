@@ -30,6 +30,7 @@ equation
             -100},{100,100}}), graphics), __Dymola_Commands(file=
           "modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/BaseClasses/Examples/HACoilInside.mos"
         "Simulate and Plot"),
+        experiment(StopTime=15.0),
         Documentation(info="<html>
         <p>
         Test model for <a href=\"modelica://Buildings.Fluid.HeatExchangers.BaseClasses.HACoilInside\">

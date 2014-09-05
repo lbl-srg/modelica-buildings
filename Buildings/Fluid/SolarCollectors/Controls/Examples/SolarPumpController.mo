@@ -28,6 +28,7 @@ equation
   annotation (Diagram(graphics), __Dymola_Commands(file=
     "modelica://Buildings/Resources/Scripts/Dymola/Fluid/SolarCollectors/Controls/Examples/SolarPumpController.mos"
         "Simulate and Plot"),
+    experiment(StopTime=86400.0),
     Documentation(info="<html>
       <p>
         This model illustrates the use of the 

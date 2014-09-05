@@ -217,6 +217,9 @@ equation
     __Dymola_Commands(file=
           "modelica://Buildings/Resources/Scripts/Dymola/Examples/ChillerPlant/BaseClasses/Controls/Examples/ChillerSetPointControl.mos"
         "Simulate and plot"),
+    experiment(
+      StopTime=86400,
+      Tolerance=1e-06),
     Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,
             100}})),
     Documentation(revisions="<html>

@@ -101,5 +101,5 @@ equation
     </html>"),
     __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/SolarCollectors/BaseClasses/Examples/EN12975SolarGain.mos"
         "Simulate and Plot"),
-    Icon(graphics));
+        experiment(StopTime=86400.0));
 end EN12975SolarGain;

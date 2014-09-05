@@ -181,6 +181,7 @@ equation
             -100},{100,100}}), graphics),
                       __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/SolarCollectors/Examples/FlatPlateWithTank.mos"
         "Simulate and Plot"),
+        experiment(StopTime=86400.0),
         Documentation(info="<html>
           <p>
             This example shows how several different models can be combined to create

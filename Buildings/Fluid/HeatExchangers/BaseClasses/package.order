@@ -1,6 +1,7 @@
 CoilHeader
 CoilRegister
 DuctManifoldFixedResistance
+DuctManifoldFlowDistributor
 DuctManifoldNoResistance
 HACoilInside
 HADryCoil
@@ -9,7 +10,6 @@ HexElementLatent
 HexElementSensible
 MassExchange
 PartialDuctManifold
-DuctManifoldFlowDistributor
 PartialDuctPipeManifold
 PartialEffectiveness
 PartialHexElement
