@@ -203,7 +203,7 @@ algorithm
         end if;
       end if;
     end if;
-    // Initialized the energy consumed since the last sampling
+    // Initialize the energy consumed since the last sampling.
     ELast := ECon;
     intTOutLast :=intTOut;
     tLast := time;
@@ -311,7 +311,7 @@ obtained using a regression of the past <i>n<sub>his</sub></i> days.
 <p>
 If a day is an event day, then any hour of this day after the event signal
 is received is excluded from the baseline computation.
-Storing history terms for the base line resumes at midnight.
+Storing history terms for the baseline resumes at midnight.
 </p>
 <p>
 If no history term is present for the current time interval and
