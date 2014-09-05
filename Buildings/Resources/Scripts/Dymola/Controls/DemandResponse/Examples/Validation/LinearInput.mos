@@ -1,6 +1,6 @@
 simulateModel("Buildings.Controls.DemandResponse.Examples.Validation.LinearInput", stopTime=5270400, method="dassl", resultFile="DR_LinearInput");
 createPlot(id=2, position={160, 65, 753, 593}, 
-y={"PCon.y", "baseLoad.PPre"}, 
+y={"PCon.y", "baseLoad.PPre[1]"}, 
 range={0.0, 5270400.0, -0.5, 1.5}, grid=true, filename="DR_LinearInput.mat", leftTitleType=1, bottomTitleType=1, colors={{0,0,255}, {255,0,0}});
 createPlot(id=2, position={160, 65, 753, 193}, 
 y={"baseLoad.typeOfDay", "baseLoad.isEventDay"}, 

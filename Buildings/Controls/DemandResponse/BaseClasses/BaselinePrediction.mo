@@ -40,12 +40,12 @@ equation
       points={{-14,6.66134e-16},{-62,6.66134e-16},{-62,-50},{-120,-50}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(basLin.PPre, PPre) annotation (Line(
-      points={{9,6.66134e-16},{56,6.66134e-16},{56,-80},{110,-80}},
-      color={0,0,127},
-      smooth=Smooth.None));
   connect(TOut, basLin.TOut) annotation (Line(
       points={{-120,-90},{-40,-90},{-40,-6},{-14,-6}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(basLin.PPre[1], PPre) annotation (Line(
+      points={{9,0},{40,0},{40,-80},{110,-80}},
       color={0,0,127},
       smooth=Smooth.None));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
@@ -86,6 +86,7 @@ First implementation.
 </li>
 </ul>
 </html>"),
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
-            100}}), graphics));
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
+            100,100}}),
+                    graphics));
 end BaselinePrediction;

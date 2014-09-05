@@ -29,10 +29,6 @@ equation
       points={{-69,-14},{-62,-14}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(baseLoad.PPre, err.u1) annotation (Line(
-      points={{61,0},{64,0},{64,-24},{68,-24}},
-      color={0,0,127},
-      smooth=Smooth.None));
   connect(TOut.y, TSam.u) annotation (Line(
       points={{-71,-80},{-62,-80}},
       color={0,0,127},
@@ -59,6 +55,10 @@ equation
       smooth=Smooth.None));
   connect(to_degC.y, PCon.u2) annotation (Line(
       points={{1,-60},{12,-60},{12,-40},{-70,-40},{-70,-26},{-62,-26}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(baseLoad.PPre[1], err.u1) annotation (Line(
+      points={{61,0},{64,0},{64,-24},{68,-24}},
       color={0,0,127},
       smooth=Smooth.None));
   annotation (

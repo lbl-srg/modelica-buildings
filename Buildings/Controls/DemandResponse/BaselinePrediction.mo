@@ -2,8 +2,11 @@ within Buildings.Controls.DemandResponse;
 block BaselinePrediction "Block that computes the baseline consumption"
   extends Modelica.Blocks.Icons.DiscreteBlock;
 
-  parameter Integer nSam = 24
+  parameter Integer nSam(min=1) = 24
     "Number of intervals in a day for which baseline is computed";
+
+  parameter Integer nPre(min=1) = 1
+    "Number of intervals for which future load need to be predicted (set to one to only predict current time, or to nSam to predict one day)";
 
   parameter Integer nHis(min=1) = 10 "Number of history terms to be stored";
 
@@ -40,13 +43,18 @@ block BaselinePrediction "Block that computes the baseline consumption"
     annotation (Placement(transformation(extent={{-140,-80},{-100,-40}}),
         iconTransformation(extent={{-140,-80},{-100,-40}})));
 
+  Modelica.Blocks.Interfaces.RealInput TOutFut[nPre-1](each unit="K")
+    "Future outside air temperatures"
+    annotation (Placement(transformation(extent={{-140,-80},{-100,-40}}),
+        iconTransformation(extent={{-150,-80},{-110,-40}})));
+
   Modelica.Blocks.Interfaces.RealInput ECon(unit="J", nominal=1E5)
     "Consumed electrical energy"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}}),
         iconTransformation(extent={{-140,-20},{-100,20}})));
 
-  discrete Modelica.Blocks.Interfaces.RealOutput PPre(unit="W")
-    "Predicted power consumption for the current time interval"
+  discrete Modelica.Blocks.Interfaces.RealOutput PPre[nPre](each unit="W")
+    "Predicted power consumptions (first element is for current time"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 
   Buildings.Controls.Interfaces.DayTypeInput typeOfDay(
@@ -80,7 +88,7 @@ protected
   discrete output Modelica.SIunits.Energy ELast "Energy at the last sample";
   discrete output Modelica.SIunits.Time tLast
     "Time at which last sample occured";
-  output Integer iSam "Index for power of the current sampling interval";
+  output Integer[nPre] iSam "Index for power of the current sampling interval";
 
   discrete output Modelica.SIunits.Power P[Buildings.Controls.Types.nDayTypes,nSam,nHis]
     "Baseline power consumption";
@@ -116,7 +124,7 @@ protected
   discrete Real intTOutLast(unit="K.s")
     "Last sampled value of time integral of outside temperature";
 
-  Integer idxSam "Index to access iSam";
+  Integer idxSam "Index to access iSam[1]";
 
   function incrementIndex
     input Integer i "Counter";
@@ -140,7 +148,9 @@ protected
   end getIndex;
 
 initial equation
-  iSam = 1;
+  for i in 1:nPre loop
+    iSam[i] = i;
+  end for;
 
   P = zeros(
     Buildings.Controls.Types.nDayTypes,
@@ -180,14 +190,14 @@ equation
 algorithm
   when sampleTrigger then
     // Set flag for event day.
-    _isEventDay :=if pre(_isEventDay) and (not iSam == 1) then true else isEventDay;
+    _isEventDay :=if pre(_isEventDay) and (not iSam[1] == 1) then true else isEventDay;
 
     // fixme: accessing an array element with an enumeration
     //        is not valid Modelica.
 
     // Update the history terms with the average power of the time interval,
     // unless we have an event day.
-    idxSam :=getIndex(iSam - 1, nSam);
+    idxSam :=getIndex(iSam[1] - 1, nSam);
     if (not _isEventDay) or (not pre(_isEventDay)) then
       if (time - tLast) > 1E-5 then
         // Update iHis, which points to where the last interval's power
@@ -211,20 +221,20 @@ algorithm
     // Compute the baseline prediction for the current hour,
     // with k being equal to the number of stored history terms.
     // If in a later implementation, we want more terms into the future, then
-    // a loop should be added over for i = iSam...upper_bound, whereas
+    // a loop should be added over for i = iSam[1]...upper_bound, whereas
     // the loop needs to wrap around nSam.
     if predictionModel == Buildings.Controls.DemandResponse.Types.PredictionModel.Average then
-      PPre :=Buildings.Controls.DemandResponse.BaseClasses.average(
-          P={P[typeOfDay, iSam, i] for i in 1:nHis},
-          k=if historyComplete[typeOfDay, iSam] then nHis else iHis[typeOfDay, iSam]);
+      PPre[1] :=Buildings.Controls.DemandResponse.BaseClasses.average(
+                  P={P[typeOfDay, iSam[1], i] for i in 1:nHis},
+                  k=if historyComplete[typeOfDay, iSam[1]] then nHis else iHis[typeOfDay, iSam[1]]);
     elseif predictionModel == Buildings.Controls.DemandResponse.Types.PredictionModel.WeatherRegression then
-      PPre :=Buildings.Controls.DemandResponse.BaseClasses.weatherRegression(
-          TCur=TOut,
-          T={T[typeOfDay, iSam, i] for i in 1:nHis},
-          P={P[typeOfDay, iSam, i] for i in 1:nHis},
-          k=if historyComplete[typeOfDay, iSam] then nHis else iHis[typeOfDay, iSam]);
+      PPre[1] :=Buildings.Controls.DemandResponse.BaseClasses.weatherRegression(
+                  TCur=TOut,
+                  T={T[typeOfDay, iSam[1], i] for i in 1:nHis},
+                  P={P[typeOfDay, iSam[1], i] for i in 1:nHis},
+                  k=if historyComplete[typeOfDay, iSam[1]] then nHis else iHis[typeOfDay, iSam[1]]);
     else
-      PPre:= 0;
+      PPre[1]:= 0;
       assert(false, "Wrong value for prediction model.");
     end if;
 
@@ -234,10 +244,10 @@ algorithm
 
         // Store the predicted power consumption. This variable is stored
         // to avoid having to compute the average or weather regression multiple times.
-        PPreHis[typeOfDay,    getIndex(idxSam+1, nSam)] :=  PPre;
+        PPreHis[typeOfDay,    getIndex(idxSam+1, nSam)] :=  PPre[1];
 
-        // If iHis == 0, then there is no history yet and hence PPre is 0.
-        PPreHisSet[typeOfDay, getIndex(idxSam+1, nSam)] :=  (iHis[typeOfDay, iSam] > 0);
+        // If iHis == 0, then there is no history yet and hence PPre[1] is 0.
+        PPreHisSet[typeOfDay, getIndex(idxSam+1, nSam)] :=  (iHis[typeOfDay, iSam[1]] > 0);
       end if;
       // Compute average historical load.
       // This is a running sum over the past nHis days for the time window from iDayOf_start to iDayOf_end.
@@ -245,7 +255,7 @@ algorithm
       EHisAve := 0;
       EActAve := 0;
       for i in iDayOf_start:iDayOf_end-1 loop
-        if Modelica.Math.BooleanVectors.allTrue({PPreHisSet[typeOfDay, getIndex(iSam+i, nSam)] for i in iDayOf_start:iDayOf_end-1}) then
+        if Modelica.Math.BooleanVectors.allTrue({PPreHisSet[typeOfDay, getIndex(iSam[1]+i, nSam)] for i in iDayOf_start:iDayOf_end-1}) then
            EHisAve := EHisAve + dt*PPreHis[typeOfDay, getIndex(idxSam+i+1, nSam)];
            EActAve := EActAve + dt*P[typeOfDay,       getIndex(idxSam+i+1, nSam), iHis[typeOfDay, getIndex(idxSam+i+1, nSam)]];
         else
@@ -260,17 +270,19 @@ algorithm
       else
         adj := 1;
       end if;
-      PPre :=PPre*adj;
+      PPre[1] :=PPre[1]*adj;
     else
       EActAve := 0;
       EHisAve := 0;
-      PPreHis[typeOfDay, getIndex(iSam, nSam)] := 0;
-      PPreHisSet[typeOfDay, getIndex(iSam, nSam)] :=  false;
+      PPreHis[typeOfDay, getIndex(iSam[1], nSam)] := 0;
+      PPreHisSet[typeOfDay, getIndex(iSam[1], nSam)] :=  false;
       adj := 1;
     end if;
 
     // Update iSam
-    iSam   := incrementIndex(iSam, nSam);
+    for i in 1:nPre loop
+      iSam[i]   := incrementIndex(iSam[i], nSam);
+    end for;
 
   end when;
   annotation (Icon(coordinateSystem(preserveAspectRatio=false,
@@ -316,7 +328,7 @@ Storing history terms for the baseline resumes at midnight.
 <p>
 If no history term is present for the current time interval and
 the current type of day, then the predicted power consumption
-<code>PPre</code> will be zero.
+<code>PPre[:]</code> will be zero.
 </p>
 <h4>Day-of adjustment</h4>
 <p>
