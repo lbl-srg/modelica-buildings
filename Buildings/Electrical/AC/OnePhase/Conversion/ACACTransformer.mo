@@ -3,10 +3,14 @@ model ACACTransformer "AC AC transformer simplified equivalent circuit"
   extends Buildings.Electrical.Interfaces.PartialConversion(
     redeclare package PhaseSystem_p = PhaseSystems.OnePhase,
     redeclare package PhaseSystem_n = PhaseSystems.OnePhase,
-    redeclare Interfaces.Terminal_n terminal_n(redeclare package PhaseSystem =
-          PhaseSystem_n, i[:](start = zeros(PhaseSystem_n.n), stateSelect = StateSelect.prefer)),
-    redeclare Interfaces.Terminal_p terminal_p(redeclare package PhaseSystem =
-          PhaseSystem_p, i[:](start = zeros(PhaseSystem_p.n), stateSelect = StateSelect.prefer)));
+    redeclare Interfaces.Terminal_n terminal_n(
+      redeclare package PhaseSystem = PhaseSystem_n,
+      i[:](start = zeros(PhaseSystem_n.n),
+      each stateSelect = StateSelect.prefer)),
+    redeclare Interfaces.Terminal_p terminal_p(
+      redeclare package PhaseSystem = PhaseSystem_p,
+      i[:](start = zeros(PhaseSystem_p.n),
+      each stateSelect = StateSelect.prefer)));
   parameter Modelica.SIunits.Voltage VHigh
     "Rms voltage on side 1 of the transformer (primary side)";
   parameter Modelica.SIunits.Voltage VLow
@@ -16,15 +20,19 @@ model ACACTransformer "AC AC transformer simplified equivalent circuit"
   parameter Real XoverR
     "Ratio between the complex and real components of the impedance (XL/R)";
   parameter Real Zperc "Short circuit impedance";
-  parameter Boolean ground_1 = false "Connect side 1 of converter to ground" annotation(Evaluate=true,Dialog(tab = "Ground", group="side 1"));
-  parameter Boolean ground_2 = true "Connect side 2 of converter to ground" annotation(Evaluate=true, Dialog(tab = "Ground", group="side 2"));
+  parameter Boolean ground_1 = false
+    "If true, connect side 1 of converter to ground"
+    annotation(Evaluate=true,Dialog(tab = "Ground", group="side 1"));
+  parameter Boolean ground_2 = true
+    "If true, connect side 2 of converter to ground"
+    annotation(Evaluate=true, Dialog(tab = "Ground", group="side 2"));
   parameter Modelica.SIunits.Angle phi_1 = 0
     "Angle of the voltage side 1 at initialization"
      annotation(Evaluate=true,Dialog(tab = "Initialization"));
   parameter Modelica.SIunits.Angle phi_2 = phi_1
     "Angle of the voltage side 2 at initialization"
      annotation(Evaluate=true, Dialog(tab = "Initialization"));
-  Modelica.SIunits.Efficiency eta "Efficiency of the transformer";
+  Modelica.SIunits.Efficiency eta "Efficiency";
   Modelica.SIunits.Power LossPower[2] "Loss power";
 protected
   Real N = VHigh/VLow "Winding ratio";
@@ -37,6 +45,8 @@ protected
   Modelica.SIunits.Current IscLow = ILow/Zperc
     "Short circuit current on secondary side";
   Modelica.SIunits.Impedance Zp = VHigh/IscHigh "Impedance of the primary side";
+  // fixme: add missing documentation to Z1, Z2, P_p and P_n.
+  // Also check the other transformers to make sure all variables have documentations.
   Modelica.SIunits.Impedance Z1[2] = {Zp*cos(atan(XoverR)), Zp*sin(atan(XoverR))};
   Modelica.SIunits.Impedance Zs = VLow/IscLow "Impedance of the secondary side";
   Modelica.SIunits.Impedance Z2[2] = {Zs*cos(atan(XoverR)), Zs*sin(atan(XoverR))};
@@ -50,8 +60,8 @@ protected
     "Apparent power terminal p";
   Modelica.SIunits.Power Sn = sqrt(P_n[1]^2 + P_n[2]^2)
     "Apparent power terminal n";
-equation
 
+equation
   // Efficiency
   eta = Buildings.Utilities.Math.Functions.smoothMin(
         x1=  sqrt(P_p[1]^2 + P_p[2]^2) / (sqrt(P_n[1]^2 + P_n[2]^2) + 1e-6),
@@ -81,7 +91,9 @@ equation
     Connections.root(terminal_p.theta);
   end if;
 
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
+  annotation (
+defaultComponentName="traACAC",
+  Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}),
                       graphics), Icon(coordinateSystem(preserveAspectRatio=false,
           extent={{-100,-100},{100,100}}),
@@ -245,7 +257,14 @@ equation
         Text(
           extent={{-20,60},{-4,48}},
           lineColor={0,120,120},
-          textString="L")}),
+          textString="L"),
+        Text(
+          extent={{-98,-42},{-80,-36}},
+          lineColor={0,0,0},
+          lineThickness=0.5,
+          textString="fixme: All converters and transformers
+have a white angle symbol. Make this
+in a color that is visible.")}),
     Documentation(info="<html>
 <p>
 This is a simplified equivalent transformer model.
@@ -258,17 +277,21 @@ effects of the secondary and primary side of the transformer.
 The model is parametrized using the following parameters
 </p>
 <ul>
-<li><code>Vhigh</code> - RMS voltage at primary side,</li>
-<li><code>Vlow</code> - RMS voltage at secondary side,</li>
-<li><code>VAbase</code> - apparent nominal power of the transformer,</li>
+<li><code>VHigh</code> - RMS voltage at primary side,</li>
+<li><code>VLow</code> - RMS voltage at secondary side,</li>
+<li><code>VABase</code> - apparent nominal power of the transformer,</li>
 <li><code>XoverR</code> - ratio between reactance and resistance, and</li>
 <li><code>Zperc</code> - the short circuit impedance.</li>
 </ul>
 <p>
-The model given the nominal conditions computes the values of the resistance and the inductance.
+Given the nominal conditions,the model computes the values of the resistance and the inductance.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+September 4, 2014, by Michael Wetter:<br/>
+Revised model.
+</li>
 <li>
 August 5, 2014, by Marco Bonvini:<br/>
 Revised documentation.

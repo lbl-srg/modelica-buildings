@@ -3,27 +3,27 @@ model ACDCConverter
   "This example illustrates how to use the AC/DC converter model"
   extends Modelica.Icons.Example;
 
-  Buildings.Electrical.DC.Loads.Resistor    res(R=1, V_nominal=60)
-    "Resistive load"                                      annotation (Placement(
+  Buildings.Electrical.DC.Loads.Resistor res(R=1, V_nominal=60)
+    "Resistive load" annotation (Placement(
         transformation(
         extent={{10,-10},{-10,10}},
         rotation=180,
         origin={50,10})));
-  Buildings.Electrical.AC.OnePhase.Conversion.ACDCConverter
-                                                         conversion(
+  Buildings.Electrical.AC.OnePhase.Conversion.ACDCConverter conversion(
     eta=0.9,
     ground_AC=false,
     ground_DC=true,
     conversionFactor=60/120) "AC/DC transformer"
     annotation (Placement(transformation(extent={{-10,0},{10,20}})));
   Buildings.Electrical.AC.OnePhase.Sources.FixedVoltage sou(
-    definiteReference=true) "Voltage source"                                 annotation (Placement(transformation(
+    definiteReference=true) "Voltage source" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-62,10})));
-  Buildings.Electrical.DC.Loads.Conductor   load(mode=Buildings.Electrical.Types.Assumption.VariableZ_P_input,
+  Buildings.Electrical.DC.Loads.Conductor load(mode=Buildings.Electrical.Types.Assumption.VariableZ_P_input,
     P_nominal=-200,
-    V_nominal=60) "Variable resistive load"               annotation (Placement(
+    V_nominal=60) "Variable resistive load"
+    annotation (Placement(
         transformation(
         extent={{10,-10},{-10,10}},
         rotation=180,
@@ -56,9 +56,8 @@ equation
     __Dymola_experimentSetupOutput,
     Documentation(info="<html>
 <p>
-This example illustrates the use of a model that converts AC voltage to DC voltage
-converter model. This model assumes a linear loss when trasmitting the power
-from one side to the other of the transformer.
+This example illustrates the use of a model that converts AC voltage to DC voltage.
+The transformer model assumes a linear loss when transmitting the power.
 </p>
 </html>",
       revisions="<html>

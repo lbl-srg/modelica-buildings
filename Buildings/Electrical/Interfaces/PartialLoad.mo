@@ -6,11 +6,12 @@ model PartialLoad
       Buildings.Electrical.PhaseSystems.PartialPhaseSystem constrainedby
     Buildings.Electrical.PhaseSystems.PartialPhaseSystem "Phase system"
     annotation (choicesAllMatching=true);
-  parameter Boolean linear = false "If true, the load model is linearized"
+  parameter Boolean linearized = false "If true, the load model is linearized"
     annotation(Evaluate=true,Dialog(group="Modelling assumption"));
   parameter Buildings.Electrical.Types.Assumption mode(
     min=Buildings.Electrical.Types.Assumption.FixedZ_steady_state,
-    max=Buildings.Electrical.Types.Assumption.VariableZ_y_input)=Buildings.Electrical.Types.Assumption.FixedZ_steady_state
+    max=Buildings.Electrical.Types.Assumption.VariableZ_y_input)=
+      Buildings.Electrical.Types.Assumption.FixedZ_steady_state
     "Parameter that specifies the type of load model (e.g., steady state, dynamic, prescribed power consumption, etc.)"
     annotation(Evaluate=true,Dialog(group="Modelling assumption"));
   parameter Modelica.SIunits.Power P_nominal
@@ -18,7 +19,11 @@ model PartialLoad
     annotation(Evaluate=true,Dialog(group="Nominal conditions",
         enable = mode <> Buildings.Electrical.Types.Assumption.VariableZ_P_input));
   parameter Modelica.SIunits.Voltage V_nominal(min=0, start=110)
-    "Nominal voltage (V_nominal >= 0)"  annotation(Evaluate=true, Dialog(group="Nominal conditions", enable = (mode==Buildings.Electrical.Types.Assumptionm.FixedZ_dynamic or linear)));
+    "Nominal voltage (V_nominal >= 0)"
+    annotation (
+      Evaluate=true,
+      Dialog(group="Nominal conditions",
+      enable = (mode==Buildings.Electrical.Types.Assumptionm.FixedZ_dynamic or linearized)));
   parameter Buildings.Electrical.Types.InitMode initMode(
   min=Buildings.Electrical.Types.InitMode.zero_current,
   max=Buildings.Electrical.Types.InitMode.linearized) = Buildings.Electrical.Types.InitMode.zero_current
@@ -33,7 +38,8 @@ model PartialLoad
   Modelica.SIunits.Power P
     "Power of the load (negative if consumed, positive if fed into the electrical grid)";
 
-  Modelica.Blocks.Interfaces.RealInput y(min=0, max=1, unit="1") if (mode == Buildings.Electrical.Types.Assumption.VariableZ_y_input)
+  Modelica.Blocks.Interfaces.RealInput y(min=0, max=1, unit="1") if
+       (mode == Buildings.Electrical.Types.Assumption.VariableZ_y_input)
     "Fraction of the nominal power consumed" annotation (Placement(transformation(
         extent={{-20,-20},{20,20}},
         rotation=180,
@@ -41,7 +47,8 @@ model PartialLoad
         extent={{-20,-20},{20,20}},
         rotation=180,
         origin={100,0})));
-  Modelica.Blocks.Interfaces.RealInput Pow(unit="W") if (mode == Buildings.Electrical.Types.Assumption.VariableZ_P_input)
+  Modelica.Blocks.Interfaces.RealInput Pow(unit="W") if
+       (mode == Buildings.Electrical.Types.Assumption.VariableZ_P_input)
     "Power consumed" annotation (Placement(transformation(
         extent={{-20,-20},{20,20}},
         rotation=180,
@@ -102,6 +109,11 @@ equation
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
             {100,100}}),       graphics), Documentation(revisions="<html>
 <ul>
+<li>September 4, 2014, by Michael Wetter:<br/>
+Changed the parameter from <code>linear</code> to <code>linearized</code>
+because <code>Buildings.Fluid</code> also uses <code>linearized</code>.
+This change has been done to use a consistent naming across the library.
+</li>
 <li>June 17, 2014, by Marco Bonvini:<br/>
 Adde parameter <code>initMode</code> that can be used to 
 select the assumption to be used during initialization phase
@@ -188,7 +200,7 @@ source acts like a utilizer).
 
 <h4>Linearized models</h4>
 <p>
-The model has a Boolean parameter <code>linear</code> that by default is equal to <code>False</code>. 
+The model has a Boolean parameter <code>linearized</code> that by default is equal to <code>false</code>. 
 When the power consumption of the load is imposed, this introduces
 a nonlinear equation between the voltage and the current of the load. This flag is used to 
 select between a linearized version 

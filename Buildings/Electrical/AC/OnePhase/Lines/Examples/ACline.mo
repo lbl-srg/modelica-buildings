@@ -118,7 +118,7 @@ a source to a load that uses commercial cable information.
 </p>
 <p>
 The model has four different loads. The load <code>sc_load</code> represents
-a short circuit <i>R=0</i>. The current that flows thorugh the load depends 
+a short circuit <i>R=0</i>. The current that flows through the load depends 
 on the impedance of the line.
 </p>
 <p>

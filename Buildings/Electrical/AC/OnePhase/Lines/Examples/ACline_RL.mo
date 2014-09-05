@@ -74,15 +74,15 @@ a source to a load.
 <p>
 The model has three loads <code>load_sc_1</code>, <code>load_sc_2</code>, 
 and <code>load_sc_3</code> representing short circuits <i>R=0</i>.
-The current that flows thorugh the load depends on the impedance of the line.
+The current that flows through the load depends on the impedance of the line.
 </p>
 <p>
 Each load is connected to the source with different configurations,
 however the equivalent impedance between each load and the source is the same.
 Since the equivalent impedances are the same, each load draw the same current.
 </p>
-<h4>N.B.</h4>
 <p>
+<b>Note:</b>
 The line model <code>RL_3</code> is the same as <code>RL_2</code> but it uses
 dynamic phasors.
 </p>

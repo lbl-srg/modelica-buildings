@@ -2,8 +2,7 @@ within Buildings.Electrical.AC.OnePhase.Sensors.Examples;
 model GeneralizedSensor
   "This example illustrates how to use the generalized sensor model"
   extends Modelica.Icons.Example;
-  Buildings.Electrical.AC.OnePhase.Sensors.GeneralizedSensor
-                                                          sen
+  Buildings.Electrical.AC.OnePhase.Sensors.GeneralizedSensor sen
     "Sensor that measures V, I, and S"
     annotation (Placement(transformation(extent={{0,0},{20,20}})));
   Buildings.Electrical.AC.OnePhase.Loads.Capacitive loa(

@@ -1,7 +1,7 @@
 within Buildings.Electrical.AC.OnePhase.Lines.Examples;
 model ACline_R "Test model for a single phase resistive line"
   extends Modelica.Icons.Example;
-  Sources.FixedVoltage E(      definiteReference=true) "Voltage source"
+  Sources.FixedVoltage E(definiteReference=true) "Voltage source"
     annotation (Placement(transformation(extent={{-100,-10},{-80,10}})));
   Loads.Impedance R1(R=10) "Resistive load 1"
     annotation (Placement(transformation(extent={{0,0},{20,20}})));
@@ -84,7 +84,7 @@ a source to a load.
 </p>
 <p>
 The model has four different loads. The load <code>sc_load</code> represents
-a short circuit <i>R=0</i>. The current that flows thorugh the load depends 
+a short circuit <i>R=0</i>. The current that flows through the load depends 
 on the resistance of the line.
 </p>
 <p>

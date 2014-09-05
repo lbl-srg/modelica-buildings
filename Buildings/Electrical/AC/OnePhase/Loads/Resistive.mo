@@ -6,7 +6,7 @@ model Resistive "Model of a resistive load"
     V_nominal=120);
 equation
 
-  if linear then
+  if linearized then
     i[1] = -homotopy(actual=  v[1]*P/V_nominal^2, simplified=0.0);
     i[2] = -homotopy(actual=  v[2]*P/V_nominal^2, simplified=0.0);
   else

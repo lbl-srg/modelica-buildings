@@ -9,9 +9,9 @@ model ACACTransformer
     VHigh=120,
     VLow=60) "Transformer with load"
     annotation (Placement(transformation(extent={{-18,40},{2,60}})));
-  Buildings.Electrical.AC.OnePhase.Sources.FixedVoltage                 sou(
+  Buildings.Electrical.AC.OnePhase.Sources.FixedVoltage sou(
     definiteReference=true) "Voulate source"
-                          annotation (Placement(transformation(
+      annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-70,50})));
@@ -20,7 +20,7 @@ model ACACTransformer
     P_nominal=-2000,
     pf=0.8,
     V_nominal=60)
-            annotation (Placement(transformation(extent={{10,40},{30,60}})));
+    annotation (Placement(transformation(extent={{10,40},{30,60}})));
   Modelica.Blocks.Sources.Ramp ramp(
     duration=0.5,
     startTime=0.3,
@@ -44,7 +44,7 @@ model ACACTransformer
     VHigh=120,
     VLow=60) "Transformer with secondary not connected"
     annotation (Placement(transformation(extent={{-16,-30},{4,-10}})));
-  Buildings.Electrical.AC.OnePhase.Sources.FixedVoltage                 sou1(
+  Buildings.Electrical.AC.OnePhase.Sources.FixedVoltage sou1(
     definiteReference=true) "Voltage source for open and short circuit tests"
                           annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
@@ -81,8 +81,8 @@ equation
     __Dymola_experimentSetupOutput,
     Documentation(info="<html>
 <p>
-This example illustrates the use of a AC/AC transformer model.
-The example shows three different configurations
+This example illustrates the use of a the AC/AC transformer model.
+The example shows three different configurations:
 </p>
 <ul>
 <li>with load connected,</li>
@@ -103,6 +103,6 @@ First implementation.
 </ul>
 </html>"),
     __Dymola_Commands(file=
-          "modelica://Buildings/Resources/Scripts/Dymola/Electrical/AC/OnePhase/Conversion/Examples/ACACTrasformer.mos"
+          "modelica://Buildings/Resources/Scripts/Dymola/Electrical/AC/OnePhase/Conversion/Examples/ACACTransformer.mos"
         "Simulate and plot"));
 end ACACTransformer;

@@ -4,12 +4,18 @@ model Line "Model of an electrical line"
     V_nominal = 120,
     redeclare package PhaseSystem_p = PhaseSystems.OnePhase,
     redeclare package PhaseSystem_n = PhaseSystems.OnePhase,
-    redeclare Interfaces.Terminal_n terminal_n(redeclare package PhaseSystem =
-          PhaseSystem_n),
-    redeclare Interfaces.Terminal_p terminal_p(redeclare package PhaseSystem =
-          PhaseSystem_p),
+    redeclare Interfaces.Terminal_n terminal_n(
+      redeclare package PhaseSystem = PhaseSystem_n),
+    redeclare Interfaces.Terminal_p terminal_p(
+      redeclare package PhaseSystem = PhaseSystem_p),
     final voltageLevel=Types.VoltageLevel.Low,
-    final commercialCable_med=Buildings.Electrical.Transmission.Functions.selectCable_med(P_nominal, V_nominal));
+    final commercialCable_med=
+      Buildings.Electrical.Transmission.Functions.selectCable_med(P_nominal, V_nominal));
+  // fixme: Does this need to be replaceable if it is a protected instance?
+  // If is it indeed replaceable, you may want to use something like
+  // ... constrainedby TwoPortRL(mode=modelMode, M=M, ....)
+  // to make sure that these parameters are also assigned in the
+  // redeclared model.
 protected
   replaceable TwoPortRL line(
     useHeatPort=true,
@@ -35,7 +41,9 @@ equation
       color={0,120,120},
       smooth=Smooth.None));
 
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
+  annotation (
+defaultComponentName="lin",
+Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}), graphics), Icon(graphics={
         Ellipse(
           extent={{-70,10},{-50,-10}},
@@ -69,7 +77,8 @@ equation
           points={{96,0},{60,0}},
           color={0,0,0},
           smooth=Smooth.None)}),
-    Documentation(info="<html>
+    Documentation(
+info="<html>
 <p>
 This model represents an AC single phase cable. The model is based on 
 <a href=\"Buildings.Electrical.AC.OnePhase.Lines.TwoPortRLC\">

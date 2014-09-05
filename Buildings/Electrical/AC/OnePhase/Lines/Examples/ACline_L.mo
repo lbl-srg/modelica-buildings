@@ -86,7 +86,7 @@ a source to a load.
 </p>
 <p>
 The model has four different loads. The load <code>sc_load</code> represents
-a short circuit <i>R=0</i>. The current that flows thorugh the load depends 
+a short circuit <i>R=0</i>. The current that flows through the load depends 
 on the inductance of the line.
 </p>
 <p>

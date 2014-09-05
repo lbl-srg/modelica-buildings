@@ -28,7 +28,7 @@ equation
   else
 
     // Use the power specified by the parameter or inputs
-    if linear then
+    if linearized then
       i[1] = -homotopy(actual= (v[2]*Q + v[1]*P)/(V_nominal^2), simplified=0.0);
       i[2] = -homotopy(actual= (v[2]*P - v[1]*Q)/(V_nominal^2), simplified=0.0);
     else

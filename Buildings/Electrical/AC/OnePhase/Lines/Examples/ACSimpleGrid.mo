@@ -54,17 +54,14 @@ that are connected by a commercial line cable.
 <p>
 At the beginning of the simulation the load consumes power while at the
 and it produces power. The voltage at the load at the beginning is lower
-that the nominal RMS voltage (120 V) while at the end of the simulation is higher.
+that the nominal RMS voltage (120 V) while at the end of the simulation it is higher.
 The voltage drop and increase are due to the presence of the cable between
 the source and the load.
 </p>
 <p>
-The details of the network are
+The network uses cables of the type <code>LowVoltageCable.Cu35</code> with
+a length of <i>200</i> m.
 </p>
-<ul>
-<li>cable of type <code>LowVoltageCable.Cu35</code>,</li>
-<li>length of 200 m
-</ul>
 <p>
 The picture below describes the grid topology.
 </p>
