@@ -224,22 +224,28 @@ algorithm
     // a loop should be added over for i = iSam[1]...upper_bound, whereas
     // the loop needs to wrap around nSam.
     if predictionModel == Buildings.Controls.DemandResponse.Types.PredictionModel.Average then
-      PPre[1] :=Buildings.Controls.DemandResponse.BaseClasses.average(
-                  P={P[typeOfDay[1], iSam[1], i] for i in 1:nHis},
-                  k=if historyComplete[typeOfDay[1], iSam[1]] then nHis else iHis[typeOfDay[1], iSam[1]]);
+      for m in 1:nPre loop
+        // Note that as this branch does not use TOutFut, at every time step, computations
+        // are repeated because PPre[m] = pre(PPre[m+1]). This could be improved
+        // in future versions.
+        PPre[m] :=Buildings.Controls.DemandResponse.BaseClasses.average(
+                    P={P[typeOfDay[m], iSam[m], i] for i in 1:nHis},
+                    k=if historyComplete[typeOfDay[m], iSam[m]] then nHis else iHis[typeOfDay[m], iSam[m]]);
+      end for;
     elseif predictionModel == Buildings.Controls.DemandResponse.Types.PredictionModel.WeatherRegression then
-      PPre[1] :=Buildings.Controls.DemandResponse.BaseClasses.weatherRegression(
-                  TCur=TOut,
-                  T={T[typeOfDay[1], iSam[1], i] for i in 1:nHis},
-                  P={P[typeOfDay[1], iSam[1], i] for i in 1:nHis},
-                  k=if historyComplete[typeOfDay[1], iSam[1]] then nHis else iHis[typeOfDay[1], iSam[1]]);
+      for m in 1:nPre loop
+        PPre[m] :=Buildings.Controls.DemandResponse.BaseClasses.weatherRegression(
+                    TCur=if m == 1 then TOut else TOutFut[m-1],
+                    T={T[typeOfDay[m], iSam[m], i] for i in 1:nHis},
+                    P={P[typeOfDay[m], iSam[m], i] for i in 1:nHis},
+                    k=if historyComplete[typeOfDay[m], iSam[m]] then nHis else iHis[typeOfDay[m], iSam[m]]);
+      end for;
     else
-      PPre[1]:= 0;
+      PPre:= zeros(nPre);
       assert(false, "Wrong value for prediction model.");
     end if;
 
     if use_dayOfAdj then
-
       if (not _isEventDay) or (not pre(_isEventDay)) then
 
         // Store the predicted power consumption. This variable is stored
@@ -273,7 +279,9 @@ algorithm
       else
         adj := 1;
       end if;
-      PPre[1] :=PPre[1]*adj;
+      // Apply the load adjustment factor to all predicted loads, not only to the
+      // predicted load of the current time step.
+      PPre[:] :=PPre[:]*adj;
     else
       EActAve := 0;
       EHisAve := 0;
