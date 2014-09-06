@@ -17,13 +17,16 @@ model LinearInput
   Modelica.Blocks.Math.UnitConversions.To_degC to_degC
     annotation (Placement(transformation(extent={{-20,-70},{0,-50}})));
   Modelica.Blocks.Math.Add err(k2=-1) "Prediction error"
-    annotation (Placement(transformation(extent={{70,-40},{90,-20}})));
+    annotation (Placement(transformation(extent={{90,-40},{110,-20}})));
   Modelica.Blocks.Discrete.Sampler TSam(samplePeriod=tSample)
     "Sampler to turn TOut into a piece-wise constant signal. This makes it easier to verify the results"
     annotation (Placement(transformation(extent={{-60,-90},{-40,-70}})));
   Modelica.Blocks.Continuous.Integrator integrator
     "Integrator to compute energy from power"
     annotation (Placement(transformation(extent={{0,-30},{20,-10}})));
+  Modelica.Blocks.Sources.RealExpression TOutFut[nPre - 1](each y=293.15) if
+       nPre > 1 "Prediction of future outside temperatures"
+    annotation (Placement(transformation(extent={{32,-30},{52,-10}})));
 equation
   connect(POffSet.y, PCon.u1) annotation (Line(
       points={{-69,-14},{-62,-14}},
@@ -34,7 +37,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(TSam.y, baseLoad.TOut) annotation (Line(
-      points={{-39,-80},{32,-80},{32,-6},{38,-6}},
+      points={{-39,-80},{28,-80},{28,-6},{58,-6}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(PCon.y, integrator.u) annotation (Line(
@@ -42,11 +45,11 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(integrator.y, baseLoad.ECon) annotation (Line(
-      points={{21,-20},{24,-20},{24,0},{38,0}},
+      points={{21,-20},{24,-20},{24,0},{58,0}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(err.u2, PCon.y) annotation (Line(
-      points={{68,-36},{-28,-36},{-28,-20},{-39,-20}},
+      points={{88,-36},{-28,-36},{-28,-20},{-39,-20}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(to_degC.u, TSam.y) annotation (Line(
@@ -58,7 +61,11 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(baseLoad.PPre[1], err.u1) annotation (Line(
-      points={{61,0},{64,0},{64,-24},{68,-24}},
+      points={{81,0},{84,0},{84,-24},{88,-24}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(TOutFut.y, baseLoad.TOutFut) annotation (Line(
+      points={{53,-20},{54,-20},{54,-10},{58,-10}},
       color={0,0,127},
       smooth=Smooth.None));
   annotation (
@@ -93,5 +100,6 @@ First implementation.
 </ul>
 </html>"),
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
-            100,100}}), graphics));
+            120,100}}), graphics),
+    Icon(coordinateSystem(extent={{-100,-100},{120,100}})));
 end LinearInput;

@@ -22,12 +22,15 @@ model SineInput
     annotation (Placement(transformation(extent={{0,-90},{20,-70}})));
   Modelica.Blocks.Continuous.Integrator integrator
     "Integrator to compute energy from power"
-    annotation (Placement(transformation(extent={{0,-40},{20,-20}})));
-  Modelica.Blocks.Sources.RealExpression realExpression(y=if (dayType.y ==
-        Buildings.Controls.Types.Day.WorkingDay) then 0 else 1)
+    annotation (Placement(transformation(extent={{-8,-10},{12,10}})));
+  Modelica.Blocks.Sources.RealExpression realExpression(
+    y=if (dayType[1].y == Buildings.Controls.Types.Day.WorkingDay) then 0 else 1)
     annotation (Placement(transformation(extent={{-100,-18},{-80,2}})));
   Modelica.Blocks.Math.Add PCon "Consumed power"
     annotation (Placement(transformation(extent={{-68,-40},{-48,-20}})));
+  Modelica.Blocks.Sources.RealExpression TOutFut[nPre - 1](each y=293.15) if
+       nPre > 1 "Prediction of future outside temperatures"
+    annotation (Placement(transformation(extent={{32,-30},{52,-10}})));
 equation
   connect(add.u2, TOffSet.y) annotation (Line(
       points={{-2,-86},{-59,-86}},
@@ -38,15 +41,15 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(add.y, baseLoad.TOut) annotation (Line(
-      points={{21,-80},{32,-80},{32,-6},{38,-6}},
+      points={{21,-80},{26,-80},{26,-6},{58,-6}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(P.y, integrator.u) annotation (Line(
-      points={{-19,-30},{-2,-30}},
+      points={{-19,-30},{-12,-30},{-12,0},{-10,0}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(integrator.y, baseLoad.ECon) annotation (Line(
-      points={{21,-30},{26,-30},{26,8.88178e-16},{38,8.88178e-16}},
+      points={{13,0},{26,0},{26,8.88178e-16},{58,8.88178e-16}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(gain.u, P.y) annotation (Line(
@@ -63,6 +66,10 @@ equation
       smooth=Smooth.None));
   connect(PCon.y, P.u) annotation (Line(
       points={{-47,-30},{-42,-30}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(TOutFut.y, baseLoad.TOutFut) annotation (Line(
+      points={{53,-20},{54,-20},{54,-10},{58,-10}},
       color={0,0,127},
       smooth=Smooth.None));
   annotation (

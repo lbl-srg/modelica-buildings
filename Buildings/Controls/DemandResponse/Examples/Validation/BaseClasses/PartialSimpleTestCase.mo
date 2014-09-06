@@ -5,25 +5,29 @@ partial model PartialSimpleTestCase
   // fixme: scaling factor for easier debugging
   parameter Modelica.SIunits.Time tPeriod = 24*3600 "Period";
   parameter Modelica.SIunits.Time tSample = 3600 "Sampling period";
+  parameter Integer nPre(min=1) = 12 "Number of time steps to predict";
   BaselinePrediction baseLoad(
-      use_dayOfAdj=false, predictionModel=Buildings.Controls.DemandResponse.Types.PredictionModel.Average)
+      final nPre=nPre,
+      use_dayOfAdj=false,
+      predictionModel=Buildings.Controls.DemandResponse.Types.PredictionModel.Average)
     "Baseload prediction"
-    annotation (Placement(transformation(extent={{40,-10},{60,10}})));
-  Modelica.Blocks.Sources.BooleanPulse  tri(
+    annotation (Placement(transformation(extent={{60,-10},{80,10}})));
+  Modelica.Blocks.Sources.BooleanPulse tri(
     width=4/24*100/7,
     period=7*tPeriod,
     startTime=1.5*tPeriod) "Sample trigger"
-    annotation (Placement(transformation(extent={{-40,40},{-20,60}})));
-  Sources.DayType dayType "Outputs the type of the day"
-    annotation (Placement(transformation(extent={{-40,0},{-20,20}})));
+    annotation (Placement(transformation(extent={{-40,70},{-20,90}})));
+  Sources.DayType dayType[nPre]
+    "Outputs the type of the day for each hour where load is to be predicted"
+    annotation (Placement(transformation(extent={{-40,30},{-20,50}})));
 equation
-  connect(baseLoad.isEventDay, tri.y) annotation (Line(
-      points={{38,5},{0,5},{0,50},{-19,50}},
-      color={255,0,255},
-      smooth=Smooth.None));
-  connect(baseLoad.typeOfDay[1], dayType.y) annotation (Line(
-      points={{38,10},{-19,10}},
+  connect(dayType.y, baseLoad.typeOfDay) annotation (Line(
+      points={{-19,40},{40,40},{40,10},{58,10}},
       color={0,127,0},
+      smooth=Smooth.None));
+  connect(tri.y, baseLoad.isEventDay) annotation (Line(
+      points={{-19,80},{44,80},{44,5},{58,5}},
+      color={255,0,255},
       smooth=Smooth.None));
   annotation (
   Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
