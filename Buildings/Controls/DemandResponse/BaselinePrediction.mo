@@ -156,6 +156,8 @@ initial equation
     Buildings.Controls.Types.nDayTypes,
     nSam,
     nHis);
+  PPre = zeros(nPre);
+
   T = zeros(size(T,1), size(T,2), size(T,3));
 
   EActAve    = 0;
