@@ -353,7 +353,7 @@ If the parameter <code>use_dayOfAdj = true</code>, then the
 day-of adjustment is computed. (Some literature call this
 morning-of adjustment, but we call it day-of adjustment because
 the adjustment can also be in the afternoon if the peak is
-in the late afternoon hours).
+in the late afternoon hours.)
 The day-of adjustment can be used with any of the above baseline computations.
 The parameters <code>dayOfAdj_start</code> and <code>dayOfAdj_end</code>
 determine the time window during which the day-of adjustment is computed.
