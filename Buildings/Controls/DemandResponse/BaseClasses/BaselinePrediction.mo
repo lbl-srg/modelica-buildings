@@ -2,7 +2,7 @@ within Buildings.Controls.DemandResponse.BaseClasses;
 block BaselinePrediction "Predicts the baseline consumption"
   extends Buildings.Controls.DemandResponse.BaseClasses.PartialDemandResponse;
 
-  parameter Buildings.Controls.DemandResponse.Types.PredictionModel
+  parameter Buildings.Controls.Predictors.Types.PredictionModel
     predictionModel "Load prediction model";
 
   parameter Integer nHis(min=1) = 10 "Number of history terms to be stored";
@@ -22,16 +22,15 @@ block BaselinePrediction "Predicts the baseline consumption"
     annotation (Placement(transformation(extent={{-120,50},{-100,30}}),
         iconTransformation(extent={{-120,50},{-100,30}})));
 protected
-  Buildings.Controls.DemandResponse.BaselinePrediction basLin(
+  Buildings.Controls.Predictors.ElectricalLoad basLin(
     final nSam=nSam,
     final nHis=nHis,
     final predictionModel=predictionModel) "Model that computes the base line"
     annotation (Placement(transformation(extent={{-12,-10},{8,10}})));
+  Modelica.Blocks.Logical.Not stoHis
+    "Boolean signal to set whether history should be stored"
+    annotation (Placement(transformation(extent={{-88,-4},{-68,16}})));
 equation
-  connect(isEventDay, basLin.isEventDay) annotation (Line(
-      points={{-110,40},{-64,40},{-64,5},{-14,5}},
-      color={255,0,255},
-      smooth=Smooth.None));
   connect(basLin.ECon, ECon) annotation (Line(
       points={{-14,6.66134e-16},{-62,6.66134e-16},{-62,-50},{-120,-50}},
       color={0,0,127},
@@ -47,6 +46,14 @@ equation
   connect(basLin.typeOfDay[1], typeOfDay) annotation (Line(
       points={{-14,10},{-60,10},{-60,80},{-110,80}},
       color={0,127,0},
+      smooth=Smooth.None));
+  connect(stoHis.u, isEventDay) annotation (Line(
+      points={{-90,6},{-96,6},{-96,40},{-110,40}},
+      color={255,0,255},
+      smooth=Smooth.None));
+  connect(stoHis.y, basLin.storeHistory) annotation (Line(
+      points={{-67,6},{-40,6},{-40,5},{-14,5}},
+      color={255,0,255},
       smooth=Smooth.None));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
             {100,100}}),
@@ -86,7 +93,6 @@ First implementation.
 </li>
 </ul>
 </html>"),
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
-            100,100}}),
-                    graphics));
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
+            100}}), graphics));
 end BaselinePrediction;

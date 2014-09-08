@@ -8,7 +8,7 @@ model ClientLBNL90
   Client clientAverage(
     tSample=tSample,
     tPeriod=24*3600,
-    predictionModel=Buildings.Controls.DemandResponse.Types.PredictionModel.Average)
+    predictionModel=Buildings.Controls.Predictors.Types.PredictionModel.Average)
     "Demand response client"
     annotation (Placement(transformation(extent={{8,40},{28,60}})));
   Sources.DayType dayType "Outputs the type of the day"
@@ -32,7 +32,7 @@ model ClientLBNL90
   Client clientWeather(
     tSample=tSample,
     tPeriod=24*3600,
-    predictionModel=Buildings.Controls.DemandResponse.Types.PredictionModel.WeatherRegression)
+    predictionModel=Buildings.Controls.Predictors.Types.PredictionModel.WeatherRegression)
     "Demand response client with weather regression model"
     annotation (Placement(transformation(extent={{8,-20},{28,0}})));
   Modelica.Blocks.Math.Add errorWeather(k2=-1)

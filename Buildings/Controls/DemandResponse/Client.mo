@@ -8,9 +8,10 @@ model Client "Demand response client"
   parameter Integer nHis(min=1) = 10
     "Number of history terms to be stored for baseline computation";
 
-  parameter Buildings.Controls.DemandResponse.Types.PredictionModel
-    predictionModel = Types.PredictionModel.WeatherRegression
-    "Load prediction model";
+  parameter Buildings.Controls.Predictors.Types.PredictionModel
+    predictionModel = 
+      Buildings.Controls.Predictors.Types.PredictionModel.WeatherRegression
+      "Load prediction model";
 
   final parameter Integer nSam = integer((tPeriod+1E-4*tSample)/tSample)
     "Number of samples in a day";
@@ -179,7 +180,8 @@ equation
       points={{19,42},{-60,42},{-60,-80},{-110,-80}},
       color={0,0,127},
       smooth=Smooth.None));
-  annotation (                                 Diagram(coordinateSystem(
+  annotation (
+  Diagram(coordinateSystem(
           preserveAspectRatio=false, extent={{-100,-100},{100,100}}), graphics),
       experiment(StopTime=7200),
     Icon(graphics={                      Text(
@@ -202,7 +204,7 @@ in the current sampling interval, i.e., generally in the next 1 hour or the
 next 15 minutes.
 </p>
 <p>
-The baseload prediction is computed in
+The baseline prediction is computed in
 <a href=\"modelica://Buildings.Controls.DemandResponse.BaseClasses.BaselineComputation\">
 Buildings.Controls.DemandResponse.BaseClasses.BaselineComputation</a>.
 </html>", revisions="<html>
