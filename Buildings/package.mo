@@ -189,6 +189,14 @@ have been <b style=\"color:blue\">improved</b> in a
                        as this language construct is not supported in OpenModelica.    
     </td>
     </tr>
+    <tr>
+    <td valign=\"top\">Buildings.Fluid.Storage.StratifiedEnhancedInternalHex
+    </td>
+    <td valign=\"top\">Replaced the <code>abs()</code> function in the assignment of the parameter
+                       <code>nSegHexTan</code> as the return value of <code>abs()</code> 
+                       is a <code>Real</code> which causes a type error during model check.
+    </td>
+    </tr>
 <tr><td colspan=\"2\"><b>xxx</b>
     </td>
 </tr>
@@ -284,12 +292,41 @@ The following <b style=\"color:red\">critical errors</b> have been fixed (i.e., 
 that can lead to wrong simulation results):
 </p>
 <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
-<tr><td colspan=\"2\"><b>xxx</b>
+<tr><td colspan=\"2\"><b>Buildings.Fluid</b>
     </td>
 </tr>
-<tr><td valign=\"top\">xxx
+<tr><td valign=\"top\">Buildings.Fluid.Data.Pipes
     </td>
-    <td valign=\"top\">xxx.
+    <td valign=\"top\">Corrected wrong entries for inner and outer diameter
+                       of PEX pipes.
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Fluid.Storage.Stratified<br/>
+                       Buildings.Fluid.Storage.StratifiedEnhanced<br/>
+                       Buildings.Fluid.Storage.StratifiedEnhancedInternalHex
+    </td>
+    <td valign=\"top\">Replaced the use of <code>Medium.lambda_const</code> with
+                       <code>Medium.thermalConductivity(sta_default)</code> as
+                       <code>lambda_const</code> is not declared for all media.
+                       This avoids a translation error if certain media are used.
+    </td>
+</tr><tr><td valign=\"top\">Buildings.Fluid.Storage.StratifiedEnhancedInternalHex
+    </td>
+    <td valign=\"top\">Corrected issue
+                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/271\">#271</a>
+                       which led to a compilation error if the heat exchanger 
+                       and the tank had different media.
+    </td>
+</tr>
+<tr><td colspan=\"2\"><b>Buildings.Rooms</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Rooms.FLEXLAB.Rooms.Examples.TestBedX3WithRadiantFloor<br/>
+                            Buildings.Rooms.FLEXLAB.Rooms.Examples.X3AWithRadiantFloor<br/>
+                            Buildings.Rooms.FLEXLAB.Rooms.Examples.X3BWithRadiantFloor
+    </td>
+    <td valign=\"top\">Corrected wrong entries for inner and outer diameter
+                       of PEX pipes.
     </td>
 </tr>
 </table>

@@ -27,8 +27,7 @@ package ConstantPropertyLiquidWater "Package with model for liquid water with co
 This medium model is identical to 
 <a href=\"modelica://Modelica.Media.Water.ConstantPropertyLiquidWater\">
 Modelica.Media.Water.ConstantPropertyLiquidWater</a>, except for the following
-points:<br/>clear
-
+points:<br/>
 <ul>
 <li>
 It allows computing a compressibility of the medium.

@@ -17,7 +17,8 @@ model Buoyancy
     "Heat flow rate from segment i+1 to i";
 protected
    parameter Medium.ThermodynamicState sta_default = Medium.setState_pTX(T=Medium.T_default,
-         p=Medium.p_default, X=Medium.X_default[1:Medium.nXi]);
+         p=Medium.p_default, X=Medium.X_default[1:Medium.nXi])
+    "Medium state at default properties";
    parameter Modelica.SIunits.Density rho_default=Medium.density(sta_default)
     "Density, used to compute fluid mass";
    parameter Modelica.SIunits.SpecificHeatCapacity cp_default=Medium.specificHeatCapacityCp(sta_default)
