@@ -18,14 +18,19 @@ protected
    each steadyStateInitial = steadyStateInitial) "Material layer"
     annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
 
-  final parameter Modelica.SIunits.Temperature _T_a_start[nLay]=
-    { T_b_start+(T_a_start-T_b_start) * 1/R * sum(layers.material[k].R for k in i:nLay) for i in 1:nLay}
+  final parameter Modelica.SIunits.Temperature _T_a_start[nLay](each fixed=false)
     "Initial temperature at port_a of respective layer, used if steadyStateInitial = false";
-  final parameter Modelica.SIunits.Temperature _T_b_start[nLay]=
-    { T_a_start+(T_b_start-T_a_start) * 1/R * sum(layers.material[k].R for k in 1:i) for i in 1:nLay}
+  final parameter Modelica.SIunits.Temperature _T_b_start[nLay](each fixed=false)
     "Initial temperature at port_b of respective layer, used if steadyStateInitial = false";
-  final parameter Modelica.SIunits.ThermalResistance RTot = sum(layers.material[i].R for i in 1:nLay)
+  final parameter Modelica.SIunits.ThermalResistance RTot(fixed=false)
     "Total thermal resistance of the construction";
+
+initial equation
+  _T_a_start = { T_b_start+(T_a_start-T_b_start) * 1/R *
+    sum(layers.material[k].R for k in i:nLay) for i in 1:nLay};
+  _T_b_start = { T_a_start+(T_b_start-T_a_start) * 1/R *
+    sum(layers.material[k].R for k in 1:i) for i in 1:nLay};
+  RTot = sum(layers.material[i].R for i in 1:nLay);
 equation
   // This section assigns the temperatures and heat flow rates of the layer models to
   // an array that makes plotting the results easier.
@@ -138,6 +143,11 @@ and the temperature state.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+September 9, 2014, by Michael Wetter:<br/>
+Reverted change from March 1 2013 as this causes an error during model check
+in Dymola 2015 FD01 beta1.
+</li>
 <li>
 August 12, 2014, by Michael Wetter:<br/>
 Reformulated the protected elements and the model instantiation to avoid

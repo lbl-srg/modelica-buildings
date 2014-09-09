@@ -197,6 +197,19 @@ have been <b style=\"color:blue\">improved</b> in a
                        is a <code>Real</code> which causes a type error during model check.
     </td>
     </tr>
+<tr><td colspan=\"2\"><b>Buildings.HeatTransfer</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.HeatTransfer.Conduction.MultiLayer
+    </td>
+    <td valign=\"top\">Changed the assignment of <code>_T_a_start</code>,        
+                       <code>_T_b_start</code> and <code>RTot</code> to be 
+                       in the initial equation section as opposed to 
+                       the parameter declaration. 
+                       This is needed to avoid an error during model check 
+                       and translation in Dymola 2015 FD01 beta1.
+    </td>
+</tr>
 <tr><td colspan=\"2\"><b>xxx</b>
     </td>
 </tr>
@@ -204,8 +217,7 @@ have been <b style=\"color:blue\">improved</b> in a
     </td>
     <td valign=\"top\">xxx.
     </td>
-</tr>
-</table>
+</tr></table>
 <!-- Non-backward compatible changes to existing components -->
 <p>
 The following <b style=\"color:blue\">existing components</b>
