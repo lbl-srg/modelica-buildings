@@ -3,7 +3,7 @@ model PartialConstruction "Partial model for multi-layer constructions"
   extends Buildings.BaseClasses.BaseIcon;
   parameter Modelica.SIunits.Area A "Heat transfer area";
 
-  parameter Buildings.HeatTransfer.Data.OpaqueConstructions.Generic
+  replaceable parameter Buildings.HeatTransfer.Data.OpaqueConstructions.Generic
     layers "Construction definition from Data.OpaqueConstructions"
     annotation (choicesAllMatching=true, Placement(transformation(extent={{60,60},
             {80,80}})));
