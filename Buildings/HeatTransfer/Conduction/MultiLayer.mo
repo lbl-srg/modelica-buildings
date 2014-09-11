@@ -10,9 +10,9 @@ model MultiLayer
   extends Buildings.HeatTransfer.Conduction.BaseClasses.PartialConstruction;
 
 protected
-  Buildings.HeatTransfer.Conduction.SingleLayer[nLay] lay(
+  Buildings.HeatTransfer.Conduction.SingleLayer[layers.nLay] lay(
    each final A=A,
-   material = layers.material,
+   material = {layers.material[i] for i in 1:layers.nLay},
    T_a_start = _T_a_start,
    T_b_start = _T_b_start,
    each steadyStateInitial = steadyStateInitial) "Material layer"
@@ -135,7 +135,32 @@ The construction material is defined by a record of the package
 Buildings.HeatTransfer.Data.OpaqueConstructions</a>.
 This record allows specifying materials that store energy, and material
 that are a thermal conductor only with no heat storage.
+To assign the material properties to this model, do the following:
 </p>
+<ol>
+<li>
+Create an instance of a record of 
+<a href=\"modelica://Buildings.HeatTransfer.Data.OpaqueConstructions\">
+Buildings.HeatTransfer.Data.OpaqueConstructions</a>, for example
+by dragging the record into the schematic model editor.
+</li>
+<li>
+Make sure the instance has the attribute <code>parameter</code>, which may not be
+assigned automatically when you drop the model in a graphical editor. For
+example, an instanciation may look like
+<pre>
+ parameter Data.OpaqueConstructions.Insulation100Concrete200 layers 
+   \"Material layers of construction\"
+   annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
+</pre>
+</li>
+<li>
+Assign the instance of the material to the instance of the heat transfer 
+model as shown in 
+<a href=\"modelica://Buildings.HeatTransfer.Examples.ConductorMultiLayer\">
+Buildings.HeatTransfer.Examples.ConductorMultiLayer</a>.
+</li>
+</ol>
 <p>
 To obtain the surface temperature of the construction, use <code>port_a.T</code> (or <code>port_b.T</code>)
 and not the variable <code>T[1]</code> because there is a thermal resistance between the surface
