@@ -38,11 +38,14 @@ record ConstructionRecords "Data records for construction data"
 
   // Dummy constructions to assign values to parameters.
   // The actual assignments will be overwritten by models that extend this model.
-protected
-  parameter Buildings.HeatTransfer.Data.OpaqueConstructions.Brick120 dummyCon
-    "Dummy construction to assign a parameter to the instance";
+  // Note that parameters in records cannot be protected. However, we set the
+  // annotation HideResult=true to avoid that they show up in the output file.
+  parameter HeatTransfer.Data.OpaqueConstructions.Brick120 dummyCon
+    "Dummy construction to assign a parameter to the instance"
+    annotation (HideResult=true);
   parameter Buildings.HeatTransfer.Data.GlazingSystems.SingleClear3 dummyGlaSys
-    "Dummy construction to assign a parameter to the instance";
+    "Dummy construction to assign a parameter to the instance"
+    annotation (HideResult=true);
   annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-200,-200},
             {100,100}})),       Icon(coordinateSystem(preserveAspectRatio=true,
           extent={{-200,-200},{100,100}})),
