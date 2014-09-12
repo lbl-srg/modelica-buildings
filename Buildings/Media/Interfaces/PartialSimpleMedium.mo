@@ -25,8 +25,8 @@ partial package PartialSimpleMedium
   constant FluidConstants[nS] fluidConstants "fluid constants";
 
   redeclare record extends ThermodynamicState "Thermodynamic state"
-    AbsolutePressure p "Absolute pressure of medium";
-    Temperature T "Temperature of medium";
+    AbsolutePressure p(start=p_default) "Absolute pressure of medium";
+    Temperature T(start=T_default) "Temperature of medium";
   end ThermodynamicState;
 
   // Compressibility of water (used to break algebraic loops)
@@ -255,6 +255,14 @@ be differentiated in order to obtain <code>T</code> as a state. This resulted
 in some cases in large coupled systems of equations that can be avoided
 if the <code>stateSelect</code> is not set to <code>StateSelect.prefer</code>
 for steady-state models.
+</li>
+<li>
+September 12, 2014, by Michael Wetter:<br/>
+Set <code>T(start=T_default)</code> and <code>p(start=p_default)</code> in the
+<code>ThermodynamicState</code> record. Setting the start value for
+<code>T</code> is required to avoid an error due to conflicting start values
+when checking <a href=\"modelica://Buildings.Examples.VAVReheat.ClosedLoop\">
+Buildings.Examples.VAVReheat.ClosedLoop</a> in pedantic mode.
 </li>
 <li>
 August 3, 2011, by Michael Wetter:<br/>

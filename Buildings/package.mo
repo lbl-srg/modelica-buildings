@@ -242,6 +242,24 @@ have been <b style=\"color:blue\">improved</b> in a
                        and translation in Dymola 2015 FD01 beta1.
     </td>
 </tr>
+
+<tr><td colspan=\"2\"><b>Buildings.Media</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Media.Interfaces.PartialSimpleIdealGasMedium<br/>
+	               Buildings.Media.Interfaces.PartialSimpleMedium
+    </td>
+    <td valign=\"top\">Set <code>T(start=T_default)</code> and 
+                       <code>p(start=p_default)</code> in the
+                       <code>ThermodynamicState</code> record. Setting the start value for
+                       <code>T</code> is required to avoid an error due to 
+                       conflicting start values when checking 
+                       <a href=\"modelica://Buildings.Examples.VAVReheat.ClosedLoop\">
+                       Buildings.Examples.VAVReheat.ClosedLoop</a> in pedantic mode.
+    </td>
+</tr>
+
+
 <tr><td colspan=\"2\"><b>xxx</b>
     </td>
 </tr>
