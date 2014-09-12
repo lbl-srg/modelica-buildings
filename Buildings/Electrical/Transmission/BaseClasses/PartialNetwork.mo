@@ -3,7 +3,7 @@ partial model PartialNetwork "Partial model that represent an electric network"
   replaceable parameter Buildings.Electrical.Transmission.Grids.PartialGrid grid
     "Record that describe the grid with the number of nodes, links, connections, etc."
     annotation (choicesAllMatching=true);
-  replaceable Buildings.Electrical.Interfaces.BaseTerminal terminal[grid.Nnodes]
+  replaceable Buildings.Electrical.Interfaces.BaseTerminal terminal[grid.nNodes]
     "Electric terminals for each node of the network"
     annotation (Placement(transformation(extent={{90,-10},{110,10}})));
   replaceable Buildings.Electrical.Transmission.BaseClasses.PartialBaseLine lines[grid.Nlinks](

@@ -1,7 +1,7 @@
 within Buildings.Electrical.Transmission.Benchmarks.BenchmarkGrids;
 record GridInHome_AL70 "Simplified grid for benchmarking (AL70)"
   extends Buildings.Electrical.Transmission.Grids.PartialGrid(
-    Nnodes=21,
+    nNodes=21,
     Nlinks=20,
     L=16.0*ones(Nlinks,1),
     FromTo=[[1,2];   [2,3];   [3,4];   [4,5];   [5,6];   [6,7];   [7,8];   [8,9];   [9,10];  [10,11];

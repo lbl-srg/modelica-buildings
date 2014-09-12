@@ -6,14 +6,14 @@ model Network "Three phases balanced AC network"
     redeclare Lines.Line lines(
     commercialCable_low=grid.cables,
     commercialCable_med=grid.cables));
-    Modelica.SIunits.Voltage Vabs[grid.Nnodes] "RMS voltage of the grid nodes";
+    Modelica.SIunits.Voltage Vabs[grid.nNodes] "RMS voltage of the grid nodes";
 equation
   for i in 1:grid.Nlinks loop
     connect(lines[i].terminal_p, terminal[grid.FromTo[i,1]]);
     connect(lines[i].terminal_n, terminal[grid.FromTo[i,2]]);
   end for;
 
-  for i in 1:grid.Nnodes loop
+  for i in 1:grid.nNodes loop
     Vabs[i] = Buildings.Electrical.PhaseSystems.OnePhase.systemVoltage(terminal[i].v);
   end for;
 

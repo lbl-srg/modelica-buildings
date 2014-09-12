@@ -1,7 +1,7 @@
 within Buildings.Electrical.Transmission.Benchmarks.BenchmarkGrids;
 record IEEE_34 "IEEE 34 Bus Grid District 1 (AL120,AL70,Al35) - freestanding"
   extends Buildings.Electrical.Transmission.Grids.PartialGrid(
-    Nnodes=34,
+    nNodes=34,
     Nlinks=33,
     L=[48;16;16;40;32;16;16;16;16;16;16;32;32;16;32;32;32;48;48;32;32;16;16;16;
         16;16;32;32;16;32;16;16;16],

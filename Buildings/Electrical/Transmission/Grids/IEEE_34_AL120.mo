@@ -1,7 +1,7 @@
 within Buildings.Electrical.Transmission.Grids;
 record IEEE_34_AL120 "Grid model inspired to the IEEE 34 Node test feeder"
   extends Buildings.Electrical.Transmission.Grids.PartialGrid(
-    Nnodes=34,
+    nNodes=34,
     Nlinks=33,
     L=[48;16;16;40;32;16;16;16;16;16;16;32;32;16;32;32;32;48;48;32;32;16;16;16;
         16;16;32;32;16;32;16;16;16],

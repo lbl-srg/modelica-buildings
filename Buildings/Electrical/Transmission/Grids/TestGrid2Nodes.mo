@@ -1,7 +1,7 @@
 within Buildings.Electrical.Transmission.Grids;
 record TestGrid2Nodes "Simple model of a grid with 2 nodes and 1 link"
   extends Buildings.Electrical.Transmission.Grids.PartialGrid(
-    Nnodes=2,
+    nNodes=2,
     Nlinks=1,
     FromTo=[[1,2]],
     L=[200],

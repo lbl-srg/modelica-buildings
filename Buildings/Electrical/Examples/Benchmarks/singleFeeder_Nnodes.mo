@@ -1,5 +1,5 @@
 within Buildings.Electrical.Examples.Benchmarks;
-model singleFeeder_Nnodes
+model singleFeeder_nNodes
   "Base class that represents a single feeder with N nodes"
   parameter Boolean linear = false
     "This boolean flags allow to linearize the models";
@@ -255,4 +255,4 @@ equation
           lineColor={0,0,0},
           lineThickness=1,
           fillPattern=FillPattern.Solid)}));
-end singleFeeder_Nnodes;
+end singleFeeder_nNodes;

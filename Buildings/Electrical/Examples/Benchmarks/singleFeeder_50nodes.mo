@@ -1,6 +1,6 @@
 within Buildings.Electrical.Examples.Benchmarks;
 model singleFeeder_50nodes
-  extends Buildings.Electrical.Examples.Benchmarks.singleFeeder_Nnodes(
+  extends Buildings.Electrical.Examples.Benchmarks.singleFeeder_nNodes(
     N=50,
     Nload=49,
     Npv=17,
