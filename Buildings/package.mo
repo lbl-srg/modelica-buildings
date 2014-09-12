@@ -183,17 +183,17 @@ have been <b style=\"color:blue\">improved</b> in a
     </tr>
     <tr>
     <td valign=\"top\">Buildings.Fluid.HeatExchangers.BaseClasses.CoilRegister<br/>
-                       Buildings.Fluid.HeatExchangers.BaseClasses.DuctManifoldDistributor  
+                       Buildings.Fluid.HeatExchangers.BaseClasses.DuctManifoldDistributor
     </td>
     <td valign=\"top\">Reformulated the multiple iterators in the <code>sum</code> function
-                       as this language construct is not supported in OpenModelica.    
+                       as this language construct is not supported in OpenModelica.
     </td>
     </tr>
     <tr>
     <td valign=\"top\">Buildings.Fluid.Storage.StratifiedEnhancedInternalHex
     </td>
     <td valign=\"top\">Replaced the <code>abs()</code> function in the assignment of the parameter
-                       <code>nSegHexTan</code> as the return value of <code>abs()</code> 
+                       <code>nSegHexTan</code> as the return value of <code>abs()</code>
                        is a <code>Real</code> which causes a type error during model check.
     </td>
     </tr>
@@ -202,11 +202,11 @@ have been <b style=\"color:blue\">improved</b> in a
 </tr>
 <tr><td valign=\"top\">Buildings.HeatTransfer.Conduction.MultiLayer
     </td>
-    <td valign=\"top\">Changed the assignment of <code>_T_a_start</code>,        
-                       <code>_T_b_start</code> and <code>RTot</code> to be 
-                       in the initial equation section as opposed to 
-                       the parameter declaration. 
-                       This is needed to avoid an error during model check 
+    <td valign=\"top\">Changed the assignment of <code>_T_a_start</code>,
+                       <code>_T_b_start</code> and <code>RTot</code> to be
+                       in the initial equation section as opposed to
+                       the parameter declaration.
+                       This is needed to avoid an error during model check
                        and translation in Dymola 2015 FD01 beta1.
     </td>
 </tr>
@@ -326,7 +326,7 @@ that can lead to wrong simulation results):
     </td>
     <td valign=\"top\">Corrected issue
                        <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/271\">#271</a>
-                       which led to a compilation error if the heat exchanger 
+                       which led to a compilation error if the heat exchanger
                        and the tank had different media.
     </td>
 </tr>
