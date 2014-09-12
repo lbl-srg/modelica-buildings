@@ -15,7 +15,7 @@ model ExteriorWall "Test model for an exterior wall without a window"
 
   Buildings.Rooms.Constructions.Construction conExt[1](
     A=conPar[:].A,
-    layers={conPar[1].layers},
+    layers=conPar[:].layers,
     til={Buildings.HeatTransfer.Types.Tilt.Wall})
     "Construction of an exterior wall without a window"
     annotation (Placement(transformation(extent={{0,-64},{60,-4}})));
@@ -95,7 +95,7 @@ to be parameters does not imply that the whole record has the variability of a p
 </li>
 <li>
 March 7, 2012, by Michael Wetter:<br/>
-Updated example to use new data model 
+Updated example to use new data model
 <a href=\"modelica://Buildings.Rooms.BaseClasses.ParameterConstruction\">
 Buildings.Rooms.BaseClasses.ParameterConstruction</a>
 in model for boundary conditions.
