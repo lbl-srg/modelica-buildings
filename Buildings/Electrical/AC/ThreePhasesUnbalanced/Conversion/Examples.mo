@@ -20,13 +20,13 @@ package Examples "Package with example models"
       P_nominal=-1800e3,
       V_nominal=4160)
       annotation (Placement(transformation(extent={{40,20},{60,40}})));
-    Sensors.ProbeWye probe_Y_1(PerUnit=false, V_nominal=12470)
+    Sensors.ProbeWye probe_Y_1(perUnit=false, V_nominal=12470)
       annotation (Placement(transformation(extent={{-50,60},{-30,80}})));
-    Sensors.ProbeDelta probe_D_1(PerUnit=false, V_nominal=12470)
+    Sensors.ProbeDelta probe_D_1(perUnit=false, V_nominal=12470)
       annotation (Placement(transformation(extent={{-50,0},{-30,-20}})));
-    Sensors.ProbeDelta probe_D_2(PerUnit=false, V_nominal=4160)
+    Sensors.ProbeDelta probe_D_2(perUnit=false, V_nominal=4160)
       annotation (Placement(transformation(extent={{10,0},{30,-20}})));
-    Sensors.ProbeWye probe_Y_2(PerUnit=false, V_nominal=4160)
+    Sensors.ProbeWye probe_Y_2(perUnit=false, V_nominal=4160)
       annotation (Placement(transformation(extent={{10,60},{30,80}})));
   equation
     connect(source.terminal, transformer.terminal_n) annotation (Line(
@@ -83,13 +83,13 @@ First implementation.
       P_nominal=-1800e3,
       V_nominal=4160)
       annotation (Placement(transformation(extent={{60,20},{80,40}})));
-    Sensors.ProbeWye probe_Y_1(PerUnit=false, V_nominal=12470)
+    Sensors.ProbeWye probe_Y_1(perUnit=false, V_nominal=12470)
       annotation (Placement(transformation(extent={{-50,60},{-30,80}})));
-    Sensors.ProbeDelta probe_D_1(PerUnit=false, V_nominal=12470)
+    Sensors.ProbeDelta probe_D_1(perUnit=false, V_nominal=12470)
       annotation (Placement(transformation(extent={{-50,0},{-30,-20}})));
-    Sensors.ProbeDelta probe_D_2(PerUnit=false, V_nominal=4160)
+    Sensors.ProbeDelta probe_D_2(perUnit=false, V_nominal=4160)
       annotation (Placement(transformation(extent={{10,0},{30,-20}})));
-    Sensors.ProbeWye probe_Y_2(PerUnit=false, V_nominal=4160)
+    Sensors.ProbeWye probe_Y_2(perUnit=false, V_nominal=4160)
       annotation (Placement(transformation(extent={{10,60},{30,80}})));
     Lines.TwoPortMatrixRL line1(
       Z11={0,0},
@@ -169,13 +169,13 @@ First implementation.
       P_nominal=-1800e3,
       V_nominal=24900)
       annotation (Placement(transformation(extent={{40,20},{60,40}})));
-    Sensors.ProbeWye probe_Y_1(PerUnit=false, V_nominal=12470)
+    Sensors.ProbeWye probe_Y_1(perUnit=false, V_nominal=12470)
       annotation (Placement(transformation(extent={{-50,60},{-30,80}})));
-    Sensors.ProbeDelta probe_D_1(PerUnit=false, V_nominal=12470)
+    Sensors.ProbeDelta probe_D_1(perUnit=false, V_nominal=12470)
       annotation (Placement(transformation(extent={{-50,0},{-30,-20}})));
-    Sensors.ProbeDelta probe_D_2(PerUnit=false, V_nominal=24900)
+    Sensors.ProbeDelta probe_D_2(perUnit=false, V_nominal=24900)
       annotation (Placement(transformation(extent={{10,0},{30,-20}})));
-    Sensors.ProbeWye probe_Y_2(PerUnit=false, V_nominal=24900)
+    Sensors.ProbeWye probe_Y_2(perUnit=false, V_nominal=24900)
       annotation (Placement(transformation(extent={{10,60},{30,80}})));
   equation
     connect(source.terminal, transformer.terminal_n) annotation (Line(
@@ -233,13 +233,13 @@ First implementation.
       P_nominal=-1800e3,
       V_nominal=24900)
       annotation (Placement(transformation(extent={{60,20},{80,40}})));
-    Sensors.ProbeWye probe_Y_1(PerUnit=false, V_nominal=12470)
+    Sensors.ProbeWye probe_Y_1(perUnit=false, V_nominal=12470)
       annotation (Placement(transformation(extent={{-50,60},{-30,80}})));
-    Sensors.ProbeDelta probe_D_1(PerUnit=false, V_nominal=12470)
+    Sensors.ProbeDelta probe_D_1(perUnit=false, V_nominal=12470)
       annotation (Placement(transformation(extent={{-50,0},{-30,-20}})));
-    Sensors.ProbeDelta probe_D_2(PerUnit=false, V_nominal=24900)
+    Sensors.ProbeDelta probe_D_2(perUnit=false, V_nominal=24900)
       annotation (Placement(transformation(extent={{10,0},{30,-20}})));
-    Sensors.ProbeWye probe_Y_2(PerUnit=false, V_nominal=24900)
+    Sensors.ProbeWye probe_Y_2(perUnit=false, V_nominal=24900)
       annotation (Placement(transformation(extent={{10,60},{30,80}})));
     Lines.TwoPortMatrixRL line1(
       Z11={0.1,0.01},

@@ -4,7 +4,7 @@ partial model GeneralizedProbe
   extends Icons.GeneralizedProbe;
   parameter Modelica.SIunits.Voltage V_nominal(min=0, start=480) = 480
     "RMS Nominal voltage (V_nominal >= 0)";
-  parameter Boolean PerUnit = true "This flag display voltage in p.u.";
+  parameter Boolean perUnit = true "This flag display voltage in p.u.";
   Buildings.Electrical.AC.ThreePhasesUnbalanced.Interfaces.Terminal_n term
     "Electrical connector"                                                                        annotation (
       Placement(transformation(

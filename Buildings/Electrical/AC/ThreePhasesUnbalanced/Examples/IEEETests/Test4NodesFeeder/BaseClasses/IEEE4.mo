@@ -81,19 +81,19 @@ partial model IEEE4 "Base model of the IEEE 4 nodes test feeder"
     annotation (Placement(transformation(extent={{54,0},{74,20}})));
   replaceable
     Buildings.Electrical.AC.ThreePhasesUnbalanced.Sensors.BaseClasses.GeneralizedProbe
-    node1(PerUnit=false, V_nominal=VLL_side1)
+    node1(perUnit=false, V_nominal=VLL_side1)
     annotation (Placement(transformation(extent={{-84,28},{-64,48}})));
   replaceable
     Buildings.Electrical.AC.ThreePhasesUnbalanced.Sensors.BaseClasses.GeneralizedProbe
-    node2(PerUnit=false, V_nominal=VLL_side1)
+    node2(perUnit=false, V_nominal=VLL_side1)
     annotation (Placement(transformation(extent={{-52,28},{-32,48}})));
   replaceable
     Buildings.Electrical.AC.ThreePhasesUnbalanced.Sensors.BaseClasses.GeneralizedProbe
-    node3(PerUnit=false, V_nominal=VLL_side2)
+    node3(perUnit=false, V_nominal=VLL_side2)
               annotation (Placement(transformation(extent={{-4,28},{16,48}})));
   replaceable
     Buildings.Electrical.AC.ThreePhasesUnbalanced.Sensors.BaseClasses.GeneralizedProbe
-    node4(PerUnit=false, V_nominal=VLL_side2)
+    node4(perUnit=false, V_nominal=VLL_side2)
               annotation (Placement(transformation(extent={{28,28},{48,48}})));
 
 protected

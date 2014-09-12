@@ -10,7 +10,7 @@ model ProbeWye
 equation
   for i in 1:3 loop
       theta[i] = (180.0/Modelica.Constants.pi)*Buildings.Electrical.PhaseSystems.OnePhase.phase(wyeToWyeGround.wyeg.phase[i].v);
-      if PerUnit then
+      if perUnit then
         V[i] = Buildings.Electrical.PhaseSystems.OnePhase.systemVoltage(wyeToWyeGround.wyeg.phase[i].v)/(V_nominal/sqrt(3));
       else
         V[i] = Buildings.Electrical.PhaseSystems.OnePhase.systemVoltage(wyeToWyeGround.wyeg.phase[i].v);
