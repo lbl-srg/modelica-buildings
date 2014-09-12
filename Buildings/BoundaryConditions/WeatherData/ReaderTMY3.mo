@@ -663,10 +663,6 @@ equation
       points={{-59,169.25},{20,169.25},{20,250},{118,250}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(conHorRad.HOut, cheHorRad.HIn) annotation (Line(
-      points={{141,250},{158,250}},
-      color={0,0,127},
-      smooth=Smooth.None));
   connect(cheTemDryBul.TOut, TBlaSky.TDryBul) annotation (Line(
       points={{181,-190},{220,-190},{220,-202},{238,-202}},
       color={0,0,127},
@@ -1192,6 +1188,10 @@ Technical Report, NREL/TP-581-43156, revised May 2008.
 </html>
 ", revisions="<html>
 <ul>
+<li>
+September 12, 2014, by Michael Wetter:<br/>
+Removed redundant connection <code>connect(conHorRad.HOut, cheHorRad.HIn);</code>.
+</li>
 <li>
 May 30, 2014, by Michael Wetter:<br/>
 Removed undesirable annotation <code>Evaluate=true</code>.
