@@ -189,6 +189,15 @@ have been <b style=\"color:blue\">improved</b> in a
                        as this language construct is not supported in OpenModelica.
     </td>
     </tr>
+
+    <tr>
+    <td valign=\"top\">Buildings.Fluid.HeatExchangers.RadiantSlabs.SingleCircuitSlab
+    </td>
+    <td valign=\"top\">Set start value for <code>hPip(fluid(T))</code> to avoid
+                       a warning about conflicting start values.
+    </td>
+    </tr>
+
     <tr>
     <td valign=\"top\">Buildings.Fluid.Storage.StratifiedEnhancedInternalHex
     </td>
