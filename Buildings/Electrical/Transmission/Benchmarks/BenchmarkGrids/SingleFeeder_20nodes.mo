@@ -3,11 +3,11 @@ record SingleFeeder_20nodes
   "Grid with single feder and 20 nodes for benchmark (19 nodes for the loads)"
   extends Buildings.Electrical.Transmission.Grids.PartialGrid(
     nNodes = 20,
-    Nlinks = nNodes-1,
-    L = Utilities.LineFeederLengths(Nlinks, 200, 16),
-    FromTo = Utilities.LineFeederConnections(Nlinks),
+    nLinks = nNodes-1,
+    L = Utilities.LineFeederLengths(nLinks, 200, 16),
+    FromTo = Utilities.LineFeederConnections(nLinks),
     cables = Utilities.LineFeederCables(
-             Nlinks,
+             nLinks,
              Buildings.Electrical.Transmission.LowVoltageCables.PvcAl120(),
              Buildings.Electrical.Transmission.LowVoltageCables.PvcAl70()));
 

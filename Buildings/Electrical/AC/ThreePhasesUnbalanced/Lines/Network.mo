@@ -8,7 +8,7 @@ model Network
     Modelica.SIunits.Voltage Vabs[3,grid.nNodes]
     "RMS voltage of the grid nodes";
 equation
-  for i in 1:grid.Nlinks loop
+  for i in 1:grid.nLinks loop
     connect(lines[i].terminal_p, terminal[grid.FromTo[i,1]]);
     connect(lines[i].terminal_n, terminal[grid.FromTo[i,2]]);
   end for;

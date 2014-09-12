@@ -3,7 +3,7 @@ record IEEE_34_weak
   "IEEE 34 Bus Grid District 1 (AL50,AL35,Al25) - freestanding"
   extends Buildings.Electrical.Transmission.Grids.PartialGrid(
     nNodes=34,
-    Nlinks=33,
+    nLinks=33,
     L=[48;16;16;40;32;16;16;16;16;16;16;32;32;16;32;32;32;48;48;32;32;16;16;16;
         16;16;32;32;16;32;16;16;16],
     FromTo=[[1,2]; [2,3]; [3,4]; [4,5]; [4,6]; [6,7]; [7,8]; [9,26]; [10,26]; [
