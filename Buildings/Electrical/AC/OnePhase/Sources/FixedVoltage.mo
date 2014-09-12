@@ -1,14 +1,18 @@
 within Buildings.Electrical.AC.OnePhase.Sources;
 model FixedVoltage "Fixed single phase AC voltage source"
-  extends Buildings.Electrical.Interfaces.PartialSource(redeclare package
-      PhaseSystem = PhaseSystems.OnePhase, redeclare Interfaces.Terminal_p
-      terminal);
+  extends Buildings.Electrical.Interfaces.PartialSource(
+    redeclare package PhaseSystem = PhaseSystems.OnePhase,
+    redeclare Interfaces.Terminal_p terminal);
+    // fixme: This model requires a unit test to be added
   parameter Modelica.SIunits.Frequency f(start=60) = 60
     "Frequency of the source";
   parameter Modelica.SIunits.Voltage V(start=120) = 120
     "RMS voltage of the source";
-  parameter Modelica.SIunits.Angle Phi(start=0) = 0 "Phase shift of the source";
-  Modelica.SIunits.Angle thetaRel;
+  parameter Modelica.SIunits.Angle Phi(start=0) = 0
+    "fixme: phi must be lower case as it is a variable, not a class. Phase shift of the source";
+protected
+  Modelica.SIunits.Angle thetaRel
+    "Absolute angle of rotating system as offset to thetaRef";
 equation
   if Connections.isRoot(terminal.theta) then
     PhaseSystem.thetaRef(terminal.theta) =  2*Modelica.Constants.pi*f*time;
@@ -16,7 +20,9 @@ equation
   thetaRel = PhaseSystem.thetaRel(terminal.theta);
   terminal.v = PhaseSystem.phaseVoltages(V, thetaRel + Phi);
 
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
+  annotation (
+    defaultComponentName="fixVol",
+    Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}),
                    graphics={
         Ellipse(
@@ -54,8 +60,20 @@ equation
           smooth=Smooth.Bezier)}),
       Documentation(info="<html>
 <p>
-This is a constant voltage source, specifying the complex voltage by the RMS voltage and the phase shift.
+This is a constant voltage source. The complex voltage is specified by the RMS voltage and the phase shift.
 </p>
+</html>",
+ revisions="<html>
+ <ul>
+<li>
+September 4, 2014, by Michael Wetter:<br/>
+Revised documentation.
+</li>
+<li>
+August 5, 2014, by Marco Bonvini:<br/>
+First implementation.
+</li>
+</ul>
 </html>"),
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
             100,100}}),

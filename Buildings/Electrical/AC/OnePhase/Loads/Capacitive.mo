@@ -28,11 +28,10 @@ equation
   else
 
     // Use the power specified by the parameter or inputs
-    if linear then
+    if linearized then
       i[1] = -homotopy(actual= (v[2]*Q + v[1]*P)/(V_nominal^2), simplified=0.0);
       i[2] = -homotopy(actual= (v[2]*P - v[1]*Q)/(V_nominal^2), simplified=0.0);
     else
-      //PhaseSystem.phasePowers_vi(terminal.v, terminal.i) = PhaseSystem.phasePowers(P, Q);
       if initMode == Buildings.Electrical.Types.InitMode.zero_current then
         i[1] = -homotopy(actual=(v[2]*Q + v[1]*P)/(v[1]^2 + v[2]^2), simplified=0.0);
         i[2] = -homotopy(actual=(v[2]*P - v[1]*Q)/(v[1]^2 + v[2]^2), simplified=0.0);
@@ -69,7 +68,7 @@ equation
                                          color={0,0,0},
           origin={-2,0},
           rotation=180),
-          Line(points={{-26,-3.18398e-15},{6.85214e-44,8.39117e-60}},
+          Line(points={{-26,-3.18398e-15},{0,0}},
                                          color={0,0,0},
           origin={48,0},
           rotation=180),
@@ -99,15 +98,15 @@ S = P + jQ = V &sdot; i<sup>*</sup>
 </p>
 <p>
 where <i>V</i> is the voltage phasor and <i>i<sup>*</sup></i> is the complex 
-conjugate of the current phasor. the voltage and current phasors are shifted
+conjugate of the current phasor. The voltage and current phasors are shifted
 by an angle <i>&phi;</i>.
 </p>
 
 <p>
 The load model takes as input the power consumed by the inductive load and
 the power factor <i>pf=cos(&phi;)</i>. The power
-can be either fixed using the parameter <code>P_nominal</code>, otherwise
-it's possible to specify a variable power using the inputs <code>y</code> or
+can be either fixed using the parameter <code>P_nominal</code>, or
+it is possible to specify a variable power using the inputs <code>y</code> or
 <code>Pow</code>.
 
 The power factor can be either specified by the parameter <code>pf</code>
@@ -126,17 +125,17 @@ power <i>Q</i> is computed as
 </p>
 
 <p align=\"center\" style=\"font-style:italic;\">
-Q = - P  tan(arccos(pf))
+Q = - P  tan(arccos(pf)).
 </p>
 
 <p>
 The equations of the model can be rewritten as
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
-i<sub>1</sub> = (P V<sub>1</sub> + Q V<sub>2</sub>)/(V<sub>1</sub><sup>2</sup> + V<sub>2</sub><sup>2</sup>)
+i<sub>1</sub> = (P V<sub>1</sub> + Q V<sub>2</sub>)/(V<sub>1</sub><sup>2</sup> + V<sub>2</sub><sup>2</sup>),
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
-i<sub>2</sub> = (P V<sub>2</sub> - Q V<sub>1</sub>)/(V<sub>1</sub><sup>2</sup> + V<sub>2</sub><sup>2</sup>)
+i<sub>2</sub> = (P V<sub>2</sub> - Q V<sub>1</sub>)/(V<sub>1</sub><sup>2</sup> + V<sub>2</sub><sup>2</sup>),
 </p>
 
 <p>
@@ -152,6 +151,8 @@ When multiple loads are connected in a grid through cables that cause voltage dr
 the dimension of the system of nonlinear equations increases linearly with the number of loads.
 This nonlinear system of equations introduces challenges during the initialization, 
 as Newton solvers may diverge if initialized far from a solution, as well during the simulation.
+In this situation, the model can be parameterized to use a linear approximation
+as discussed in the next section.
 </p>
 
 <h4>Linearized model</h4>
@@ -164,10 +165,10 @@ voltage can generate events that increase the simulation time. For these reasons
 linearized model assumes a voltage that is equal to the nominal value
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
-i<sub>1</sub> = (P V<sub>1</sub> + Q V<sub>2</sub>)/V<sub>RMS</sub><sup>2</sup>
+i<sub>1</sub> = (P V<sub>1</sub> + Q V<sub>2</sub>)/V<sub>RMS</sub><sup>2</sup>,
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
-i<sub>2</sub> = (P V<sub>2</sub> - Q V<sub>1</sub>)/V<sub>RMS</sub><sup>2</sup>
+i<sub>2</sub> = (P V<sub>2</sub> - Q V<sub>1</sub>)/V<sub>RMS</sub><sup>2</sup>,
 </p>
 <p>
 where <i>V<sub>RMS</sub></i> is the Root Mean Square voltage os the AC system.
@@ -180,9 +181,9 @@ active and reactive powers.
 <p>
 The initialization problem can be simplified using the homotopy operator. The homotopy operator 
 uses two different types of equations to compute the value of a variable: the actual one
- and a simplified one. The actual equation is the one used during the normal operation. 
+and a simplified one. The actual equation is the one used during the normal operation. 
 During initialization, the simplified equation is first solved and then slowly replaced 
-with the actual equation to compute the initial val- ues for the nonlinear systems of 
+with the actual equation to compute the initial values for the nonlinear systems of 
 equations. The load model uses the homotopy operator, with the linearized model being used 
 as the simplified equation. This numerical expedient has proven useful when simulating models 
 with more than ten connected loads.
@@ -196,7 +197,10 @@ The choices are between a null current or the linearized model.
 
 </html>",
       revisions="<html>
-<ul>
+      <ul>
+<li>September 4, 2014, by Michael Wetter:<br/>
+Revised documentation.
+</li>
 <li>August 5, 2014, by Marco Bonvini:<br/>
 Revised documentation.
 </li>

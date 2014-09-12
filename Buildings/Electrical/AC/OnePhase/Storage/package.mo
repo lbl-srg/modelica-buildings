@@ -1,11 +1,11 @@
 within Buildings.Electrical.AC.OnePhase;
-package Storage "Package with models for AC/DC electrical storage"
+package Storage "Package with models for electrical storage with a AC one phase connector"
   extends Modelica.Icons.Package;
 
 
 annotation (Documentation(info="<html>
 <p>
-This package contains models for AC storage elements.
+This package contains models for storage elements with an AC one phase connector.
 </p>
 </html>", revisions="<html>
 <ul>

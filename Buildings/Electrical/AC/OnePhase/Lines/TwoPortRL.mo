@@ -5,17 +5,19 @@ model TwoPortRL
     V_nominal = 120,
     redeclare package PhaseSystem_p = PhaseSystems.OnePhase,
     redeclare package PhaseSystem_n = PhaseSystems.OnePhase,
-    redeclare Interfaces.Terminal_n terminal_n(redeclare package PhaseSystem =
-          PhaseSystem_n),
-    redeclare Interfaces.Terminal_p terminal_p(redeclare package PhaseSystem =
-          PhaseSystem_p),
+    redeclare Interfaces.Terminal_n terminal_n(
+      redeclare package PhaseSystem = PhaseSystem_n),
+    redeclare Interfaces.Terminal_p terminal_p(
+      redeclare package PhaseSystem = PhaseSystem_p),
     final C=0);
+  // fixme: documentation missing for mode
   parameter Buildings.Electrical.Types.Assumption mode(
     min=Buildings.Electrical.Types.Assumption.FixedZ_steady_state,
-    max=Buildings.Electrical.Types.Assumption.FixedZ_dynamic)=Buildings.Electrical.Types.Assumption.FixedZ_steady_state
+    max=Buildings.Electrical.Types.Assumption.FixedZ_dynamic)=
+      Buildings.Electrical.Types.Assumption.FixedZ_steady_state
     annotation(Evaluate=true,Dialog(group="Modelling assumption"));
 protected
-  Modelica.SIunits.AngularVelocity omega;
+  Modelica.SIunits.AngularVelocity omega "Angular velocity";
 equation
 
   omega = der(PhaseSystem_p.thetaRef(terminal_p.theta));
@@ -23,16 +25,21 @@ equation
   terminal_p.i = - terminal_n.i;
 
   if mode==Buildings.Electrical.Types.Assumption.FixedZ_dynamic then
-    // Dynamic of the system
-    der(L*terminal_p.i) + L*omega*PhaseSystem_p.j(terminal_p.i) + terminal_p.i*diagonal(ones(PhaseSystem_p.n)*R_actual) = terminal_p.v - terminal_n.v;
+    // Dynamics of the system
+    der(L*terminal_p.i) + L*omega*PhaseSystem_p.j(terminal_p.i) +
+      terminal_p.i*diagonal(ones(PhaseSystem_p.n)*R_actual)
+       = terminal_p.v - terminal_n.v;
 
   else
     // steady state relationship
-    L*omega*PhaseSystem_p.j(terminal_p.i) + terminal_p.i*diagonal(ones(PhaseSystem_p.n)*R_actual) = terminal_p.v - terminal_n.v;
-
+    L*omega*PhaseSystem_p.j(terminal_p.i) +
+      terminal_p.i*diagonal(ones(PhaseSystem_p.n)*R_actual)
+      = terminal_p.v - terminal_n.v;
   end if;
 
-  annotation (Diagram(graphics={
+  annotation (
+defaultComponentName="res",
+Diagram(graphics={
           Rectangle(extent={{-70,30},{70,-30}}, lineColor={0,0,0}),
           Line(points={{-90,0},{-70,0}}, color={0,0,0}),
           Line(points={{70,0},{90,0}}, color={0,0,0})}),     Icon(

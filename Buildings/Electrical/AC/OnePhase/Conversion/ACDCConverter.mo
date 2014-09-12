@@ -16,6 +16,7 @@ model ACDCConverter "AC DC converter"
 protected
   PhaseSystem_p.Current i_dc "DC current";
   PhaseSystem_p.Voltage v_dc "DC voltage";
+  // documentation missing below
   Modelica.SIunits.Power P_p[2] = PhaseSystem_p.phasePowers_vi(terminal_p.v, terminal_p.i);
   Modelica.SIunits.Power P_n[2] = PhaseSystem_n.phasePowers_vi(terminal_n.v, terminal_n.i);
 equation
@@ -41,7 +42,9 @@ equation
   v_dc = terminal_p.v[2];
   sum(terminal_p.i) + i_dc = 0;
 
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
+  annotation (
+defaultComponentName="conACDC",
+Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}),
                       graphics), Icon(coordinateSystem(preserveAspectRatio=false,
           extent={{-100,-100},{100,100}}),
@@ -111,15 +114,23 @@ equation
           points={{-102,-16},{-114,-24},{-118,-42}},
           color=DynamicSelect({0,120,120}, if ground_AC then {0,120,120} else {
               255,255,255}),
-          smooth=Smooth.Bezier)}),
+          smooth=Smooth.Bezier),
+        Text(
+          extent={{-98,-42},{-80,-36}},
+          lineColor={0,0,0},
+          lineThickness=0.5,
+          textString="fixme: All converters and transformers
+have a white angle symbol. Make this
+in a color that is visible.")}),
     Documentation(info="<html>
 <p>
 This is an AC/DC converter, based on a power balance between both circuit sides.
 The paramater <i>conversionFactor</i> defines the ratio between the RMS voltages
+as
 </p>
 
 <p align=\"center\" style=\"font-style:italic;\">
-V<sub>DC</sub> = conversionFactor * V<sub>AC</sub>
+V<sub>DC</sub> = conversionFactor V<sub>AC</sub>,
 </p>
 
 <p>
@@ -129,7 +140,7 @@ is the RMS voltage at the primary side of the transformer.
 
 <p>
 The loss of the converter is proportional to the power transmitted.
-The parameter <code>eps</code> is the efficiency of the transfer.
+The parameter <code>eta</code> is the efficiency of the transfer.
 The loss is computed as
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
@@ -148,6 +159,10 @@ Modelica.Electrical.QuasiStationary.SinglePhase.Utilities.IdealACDCConverter</a>
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+September 4, 2014, by Michael Wetter:<br/>
+Revised model.
+</li>
 <li>
 August 5, 2014, by Marco Bonvini:<br/>
 Revised documentation.

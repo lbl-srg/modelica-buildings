@@ -1,12 +1,16 @@
 within Buildings.Electrical.AC.OnePhase.Conversion;
-model ACACTransformerFull "AC AC transformer detailed equivalent circuit"
+model ACACTransformerFull "AC AC transformer with detailed equivalent circuit"
   extends Buildings.Electrical.Interfaces.PartialConversion(
     redeclare package PhaseSystem_p = PhaseSystems.OnePhase,
     redeclare package PhaseSystem_n = PhaseSystems.OnePhase,
-    redeclare Interfaces.Terminal_n terminal_n(redeclare package PhaseSystem =
-          PhaseSystem_n, i[:](start = zeros(PhaseSystem_n.n), stateSelect = StateSelect.prefer)),
-    redeclare Interfaces.Terminal_p terminal_p(redeclare package PhaseSystem =
-          PhaseSystem_p, i[:](start = zeros(PhaseSystem_p.n), stateSelect = StateSelect.prefer)));
+    redeclare Interfaces.Terminal_n terminal_n(
+      redeclare package PhaseSystem = PhaseSystem_n,
+      i[:](start = zeros(PhaseSystem_n.n),
+      each stateSelect = StateSelect.prefer)),
+    redeclare Interfaces.Terminal_p terminal_p(
+      redeclare package PhaseSystem = PhaseSystem_p,
+      i[:](start = zeros(PhaseSystem_p.n),
+      each stateSelect = StateSelect.prefer)));
   parameter Modelica.SIunits.Voltage VHigh
     "RMS voltage on side 1 of the transformer (primary side)";
   parameter Modelica.SIunits.Voltage VLow
@@ -23,7 +27,7 @@ model ACACTransformerFull "AC AC transformer detailed equivalent circuit"
   parameter Buildings.Electrical.Types.PerUnit L2(min=0)
     "Inductance on side 2 of the transformer (pu)";
   parameter Boolean magEffects = false
-    "If =true introduce magnetization effects"
+    "If true, introduce magnetization effects"
     annotation(Evaluate=true, Dialog(group="Magnetization"));
   parameter Buildings.Electrical.Types.PerUnit Rm(min=0)
     "Magnetization resistance (pu)" annotation(Evaluate=true, Dialog(group="Magnetization", enable = magEffects));
@@ -37,7 +41,7 @@ model ACACTransformerFull "AC AC transformer detailed equivalent circuit"
   parameter Modelica.SIunits.Angle phi_2 = phi_1
     "Angle of the voltage side 2 at initialization"
      annotation(Evaluate=true, Dialog(tab = "Initialization"));
-  Modelica.SIunits.Efficiency eta "Efficiency of the transformer";
+  Modelica.SIunits.Efficiency eta "Efficiency";
   Modelica.SIunits.Power LossPower[2] "Loss power";
 protected
   parameter Modelica.SIunits.AngularVelocity omega_n = 2*Modelica.Constants.pi*f;
@@ -65,7 +69,8 @@ protected
   Modelica.SIunits.AngularVelocity omega "Angular velocity";
   Modelica.SIunits.Current Im[2] "Magnetization current";
 equation
-  assert(sqrt(P_p[1]^2 + P_p[2]^2) <= VABase*1.01,"The load power of transformer is higher than VABase");
+  assert(sqrt(P_p[1]^2 + P_p[2]^2) <= VABase*1.01,
+    "The load power of the transformer is higher than VABase");
 
   // Angular velocity
   omega = der(PhaseSystem_p.thetaRef(terminal_p.theta));
@@ -111,7 +116,9 @@ equation
     Connections.root(terminal_p.theta);
   end if;
 
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
+  annotation (
+defaultComponentName="traACAC",
+Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}),
                       graphics), Icon(coordinateSystem(preserveAspectRatio=false,
           extent={{-100,-100},{100,100}}),
@@ -362,7 +369,14 @@ equation
         Text(
           extent={{-70,-8},{-54,-20}},
           lineColor={0,120,120},
-          textString="Lm")}),
+          textString="Lm"),
+        Text(
+          extent={{-98,-42},{-80,-36}},
+          lineColor={0,0,0},
+          lineThickness=0.5,
+          textString="fixme: All converters and transformers
+have a white angle symbol. Make this
+in a color that is visible.")}),
     Documentation(info="<html>
 <p>
 This is a detailed transformer model that takes into accounts the winding joule losses, 
@@ -378,24 +392,28 @@ The losses are represented by a series of resistances <i>R<sub>1</sub></i>, <i>R
 The model is parametrized using the following parameters
 </p>
 <ul>
-<li><code>Vhigh</code> - RMS voltage at primary side,</li>
-<li><code>Vlow</code> - RMS voltage at secondary side,</li>
-<li><code>VAbase</code> - apparent nominal power of the transformer,</li>
+<li><code>VHigh</code> - RMS voltage at primary side,</li>
+<li><code>VLow</code> - RMS voltage at secondary side,</li>
+<li><code>VABase</code> - apparent nominal power of the transformer,</li>
 <li><code>f</code> - frequency,</li>
 <li><code>R_1, L_1</code> - resistance and inductance at primary side (per unit),</li>
 <li><code>R_2, L_2</code> - resistance and inductance at secondary side (per unit), and</li>
 <li><code>R_m, L_m</code> - resistance and inductance for magnetization effects (per unit).</li>
 </ul>
 <p>
-The model given the nominal conditions computes the values of the nominal impedances
-at both primary and secondary side. Given these values the per unit values are transformed into
-the actual values of the resistances and inductancs.
+Given the nominal conditions, the model computes the values of the nominal impedances
+at both primary and secondary side. Given these values, the per unit values are transformed into
+the actual values of the resistances and inductances.
 </p>
 <p>
 The magnetization losses can be enabled or disabled using the boolean flag <code>magEffects</code>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+September 4, 2014, by Michael Wetter:<br/>
+Revised model.
+</li>
 <li>
 August 5, 2014, by Marco Bonvini:<br/>
 Revised documentation.

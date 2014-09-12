@@ -3,20 +3,30 @@ model ACACConverter "AC AC converter single phase systems"
   extends Buildings.Electrical.Interfaces.PartialConversion(
     redeclare package PhaseSystem_p = PhaseSystems.OnePhase,
     redeclare package PhaseSystem_n = PhaseSystems.OnePhase,
-    redeclare Interfaces.Terminal_n terminal_n(redeclare package PhaseSystem =
-          PhaseSystem_n, i[:](start = zeros(PhaseSystem_n.n), stateSelect = StateSelect.prefer)),
-    redeclare Interfaces.Terminal_p terminal_p(redeclare package PhaseSystem =
-          PhaseSystem_p, i[:](start = zeros(PhaseSystem_p.n), stateSelect = StateSelect.prefer)));
+    redeclare Interfaces.Terminal_n terminal_n(
+      redeclare package PhaseSystem = PhaseSystem_n,
+      i[:](start = zeros(PhaseSystem_n.n),
+      each stateSelect = StateSelect.prefer)),
+    redeclare Interfaces.Terminal_p terminal_p(
+      redeclare package PhaseSystem = PhaseSystem_p,
+      i[:](start = zeros(PhaseSystem_p.n),
+      each stateSelect = StateSelect.prefer)));
   parameter Real conversionFactor
     "Ratio of QS rms voltage on side 2 / QS rms voltage on side 1";
   parameter Real eta(min=0, max=1)
     "Converter efficiency, pLoss = (1-eta) * Ptr";
+  parameter Boolean ground_1 = false
+    "If true, connect side 1 of converter to ground"
+     annotation(Evaluate=true,Dialog(tab = "Ground", group="side 1"));
+  parameter Boolean ground_2 = true
+    "If true, connect side 2 of converter to ground"
+    annotation(Evaluate=true, Dialog(tab = "Ground", group="side 2"));
   Modelica.SIunits.Power LossPower[2] "Loss power";
-  parameter Boolean ground_1 = false "Connect side 1 of converter to ground" annotation(Evaluate=true,Dialog(tab = "Ground", group="side 1"));
-  parameter Boolean ground_2 = true "Connect side 2 of converter to ground" annotation(Evaluate=true, Dialog(tab = "Ground", group="side 2"));
 protected
-  Modelica.SIunits.Power P_p[2] = PhaseSystem_p.phasePowers_vi(terminal_p.v, terminal_p.i);
-  Modelica.SIunits.Power P_n[2] = PhaseSystem_n.phasePowers_vi(terminal_n.v, terminal_n.i);
+  Modelica.SIunits.Power P_p[2] = PhaseSystem_p.phasePowers_vi(terminal_p.v, terminal_p.i)
+    "Power transmitted at pin p";
+  Modelica.SIunits.Power P_n[2] = PhaseSystem_n.phasePowers_vi(terminal_n.v, terminal_n.i)
+    "Power transmitted at pin n";
 equation
 
   // Ideal transformation
@@ -37,7 +47,9 @@ equation
     Connections.root(terminal_p.theta);
   end if;
 
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
+  annotation (
+defaultComponentName="conACAC",
+  Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}),
                       graphics), Icon(coordinateSystem(preserveAspectRatio=false,
           extent={{-100,-100},{100,100}}),
@@ -112,35 +124,43 @@ equation
           points={{102,-16},{114,-24},{118,-42}},
           color=DynamicSelect({0,120,120}, if ground_2 then {0,120,120} else {
               255,255,255}),
-          smooth=Smooth.Bezier)}),
+          smooth=Smooth.Bezier),
+        Text(
+          extent={{-108,-52},{-90,-46}},
+          lineColor={0,0,0},
+          lineThickness=0.5,
+          textString="fixme: All converters and transformers
+have a white angle symbol. Make this
+in a color that is visible.")}),
     Documentation(info="<html>
 <p>
-This is an AC AC converter, based on a power balance between both circuit sides.
+This is an AC/AC converter, based on a power balance between both circuit sides.
 The paramater <i>conversionFactor</i> defines the ratio between the RMS voltages
+as
 </p>
 
 <p align=\"center\" style=\"font-style:italic;\">
-V<sub>2</sub> = conversionFactor * V<sub>1</sub>
+V<sub>2</sub> = conversionFactor  V<sub>1</sub>
 </p>
 
 <p>
 where <i>V<sub>1</sub></i> and <i>V<sub>2</sub></i> are the RMS voltages
-at the primary and secondary sides of the transformer (connector N and P 
-respectively).
+at the primary and secondary sides of the transformer, i.e., the 
+connector N and P, respectively.
 </p>
 
 <p>
 The loss of the converter is proportional to the power transmitted.
-The parameter <code>eps</code> is the efficiency of the transfer.
+The parameter <code>eta</code> is the efficiency of the transfer.
 The loss is computed as
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
-P<sub>loss</sub> = (1-&eta;) P<sub>tr</sub>
+P<sub>loss</sub> = (1-&eta;) P<sub>tr</sub>,
 </p>
 <p>
 where <i>P<sub>tr</sub></i> is the power transmitted. The model is bi-directional
 and the power can flow from both the primary to the secondary and vice-versa.
-Furthermore, reactive power on both side are set to 0.
+Furthermore, reactive power on both side are set to zero.
 </p>
 <h4>Note:</h4>
 <p>
@@ -150,6 +170,10 @@ Modelica.Electrical.QuasiStationary.SinglePhase.Utilities.IdealACDCConverter</a>
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+September 4, 2014, by Michael Wetter:<br/>
+Revised model.
+</li>
 <li>
 August 5, 2014, by Marco Bonvini:<br/>
 Revised documentation.

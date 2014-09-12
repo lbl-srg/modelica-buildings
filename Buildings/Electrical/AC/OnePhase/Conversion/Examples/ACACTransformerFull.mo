@@ -99,10 +99,10 @@ equation
     __Dymola_experimentSetupOutput,
     Documentation(info="<html>
 <p>
-This example illustrates the use of a AC/AC transformer model
-that include losses at the primary, secondary side and magnetization
+This example illustrates the use of a the AC/AC transformer model
+that includes losses at the primary and secondary side and magnetization
 effects.
-The example shows three different configurations
+The example shows three different configurations:
 </p>
 <ul>
 <li>with load connected,</li>
@@ -123,6 +123,6 @@ First implementation.
 </ul>
 </html>"),
     __Dymola_Commands(file=
-          "modelica://Buildings/Resources/Scripts/Dymola/Electrical/AC/OnePhase/Conversion/Examples/ACACTrasformerFull.mos"
+          "modelica://Buildings/Resources/Scripts/Dymola/Electrical/AC/OnePhase/Conversion/Examples/ACACTransformerFull.mos"
         "Simulate and plot"));
 end ACACTransformerFull;

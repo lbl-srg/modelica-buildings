@@ -3,9 +3,11 @@ model Network "Single phase AC network"
   extends Buildings.Electrical.Transmission.BaseClasses.PartialNetwork(
     redeclare Interfaces.Terminal_p terminal,
     redeclare replaceable Transmission.Grids.TestGrid2Nodes grid,
-    redeclare Line lines(commercialCable_low=grid.cables, each use_C=use_C, each modelMode=modelMode));
-  parameter Boolean use_C = false
-    "Select if choosing the capacitive effect of the cable or not"
+    redeclare Line lines(
+      commercialCable_low=grid.cables,
+      each use_C=use_C,
+      each modelMode=modelMode));
+  parameter Boolean use_C = false "If true, model the cable capacity"
     annotation(Dialog(tab="Model", group="Assumptions"));
   parameter Buildings.Electrical.Types.Assumption modelMode=Types.Assumption.FixedZ_steady_state
     "Select between steady state and dynamic model"
@@ -22,7 +24,9 @@ equation
     Vabs[i] = Buildings.Electrical.PhaseSystems.OnePhase.systemVoltage(terminal[i].v);
   end for;
 
-  annotation (Icon(graphics={             Line(
+  annotation (
+    defaultComponentName="net",
+Icon(graphics={             Line(
           points={{-92,-60},{-72,-20},{-52,-60},{-32,-100},{-12,-60}},
           color={0,0,0},
           smooth=Smooth.Bezier)}), Documentation(info="<html>

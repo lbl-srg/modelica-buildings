@@ -4,14 +4,17 @@ model TwoPortRLC "Model of an RLC element with two electrical ports"
     V_nominal = 120,
     redeclare package PhaseSystem_p = PhaseSystems.OnePhase,
     redeclare package PhaseSystem_n = PhaseSystems.OnePhase,
-    redeclare Interfaces.Terminal_n terminal_n(redeclare package PhaseSystem =
-          PhaseSystem_n),
-    redeclare Interfaces.Terminal_p terminal_p(redeclare package PhaseSystem =
-          PhaseSystem_p));
+    redeclare Interfaces.Terminal_n terminal_n(
+      redeclare package PhaseSystem = PhaseSystem_n),
+    redeclare Interfaces.Terminal_p terminal_p(
+      redeclare package PhaseSystem = PhaseSystem_p));
+  // fixme: documentation missing for mode
   parameter Buildings.Electrical.Types.Assumption mode(
     min=Buildings.Electrical.Types.Assumption.FixedZ_steady_state,
-    max=Buildings.Electrical.Types.Assumption.FixedZ_dynamic)=Buildings.Electrical.Types.Assumption.FixedZ_steady_state
+    max=Buildings.Electrical.Types.Assumption.FixedZ_dynamic)=
+     Buildings.Electrical.Types.Assumption.FixedZ_steady_state
     annotation(Evaluate=true,Dialog(group="Modelling assumption"));
+  // fixme: These protected variables all require a documentation
 protected
   Modelica.SIunits.Voltage Vc[2](start = {V_nominal,0});
   Modelica.SIunits.Current Ic[2];
@@ -29,7 +32,7 @@ equation
 
   if C > 0 then
     if mode == Buildings.Electrical.Types.Assumption.FixedZ_dynamic then
-      // Dynamic of the system
+      // Dynamics of the system
       C*der(Vc) + omega*C*Buildings.Electrical.PhaseSystems.OnePhase.j(Vc) = Ic;
     else
       // steady state relationship
@@ -41,7 +44,9 @@ equation
     Vc = (terminal_p.v + terminal_n.v)/2;
   end if;
 
-  annotation (Diagram(graphics={
+  annotation (
+  defaultComponentName="res",
+Diagram(graphics={
           Rectangle(extent={{-70,30},{70,-30}}, lineColor={0,0,0}),
           Line(points={{-90,0},{-70,0}}, color={0,0,0}),
           Line(points={{70,0},{90,0}}, color={0,0,0})}),     Icon(
@@ -58,7 +63,7 @@ that connect two AC single phase interfaces.
 This model can be used to represent a cable in a AC grid.
 </p>
 <p>
-The model represents the lumped resistances and capacity (T-model) as shown in the figure below.
+The model represents the lumped resistances and capacity, as a T-model, as shown in the figure below.
 </p>
 <p align=\"center\">
 <img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Electrical/AC/OnePhase/Lines/twoPortRLC.png\"/>
@@ -66,8 +71,9 @@ The model represents the lumped resistances and capacity (T-model) as shown in t
 <p>
 As can be seen in the figure, the resistance <i>R</i> and the inductance <i>L</i> are split in two halves
 and the capacitance is located in the center.
-The capacitance in the center is optional and can be selected using the
-boolean flag <code>use_C = true</code>. The model is either dynamic or static depending on the
+The capacitance in the center is optional. If it is not present, set the
+parameter <code>C=0</code>.
+The model is either dynamic or static depending on the
 presence of the capacitive effect.
 </p>
 </html>", revisions="<html>

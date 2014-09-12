@@ -1,11 +1,7 @@
 within Buildings.Electrical.AC.OnePhase.Sources;
 model Grid "Electrical grid"
-
-  Buildings.Electrical.AC.Interfaces.PowerOutput P
-    "Power consumed from grid if negative, or fed to grid if positive"
-    annotation (Placement(transformation(extent={{100,-10},{120,10}})));
   replaceable Buildings.Electrical.AC.OnePhase.Interfaces.Terminal_p terminal
-                                                               annotation (Placement(transformation(extent={{-10,
+    annotation (Placement(transformation(extent={{-10,
             -110},{10,-90}}), iconTransformation(extent={{-10,-110},{10,-90}})));
   parameter Modelica.SIunits.Frequency f(start=60) = 60
     "Frequency of the source";
@@ -13,12 +9,15 @@ model Grid "Electrical grid"
     "RMS voltage of the source";
   parameter Modelica.SIunits.Angle Phi(start=0) = 0
     "Phase shift angle of the source";
+  Buildings.Electrical.AC.Interfaces.PowerOutput P
+    "Power consumed from grid if negative, or fed to grid if positive"
+    annotation (Placement(transformation(extent={{100,-10},{120,10}})));
   replaceable Buildings.Electrical.AC.OnePhase.Sources.FixedVoltage sou(
     potentialReference=true,
     definiteReference=true,
-    f=f,
-    V=V,
-    Phi=Phi) "Voltage source"
+    final f=f,
+    final V=V,
+    final Phi=Phi) "Voltage source"
      annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=0,
@@ -46,7 +45,8 @@ consumed from the grid, and negative if it is fed into the grid.
 </p>
 <p>
 The parameter <code>V</code> is the root means square of the voltage.
-In US households, this is <i>120</i> Volts.
+In US households, this is <i>120</i> Volts at <i>60</i> Hz,
+in Europe it is <i>230</i> Volts at <i>50</i> Hz.
 </p>
 </html>",
  revisions="<html>

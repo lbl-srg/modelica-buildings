@@ -2,8 +2,8 @@ within Buildings.Electrical.AC.OnePhase.Sensors.Examples;
 model Probe "This example illustrates how to use the probe model"
   extends Modelica.Icons.Example;
   Buildings.Electrical.AC.OnePhase.Loads.Capacitive loaRC(
-    mode=Buildings.Electrical.Types.Assumption.FixedZ_steady_state, P_nominal=-10000)
-    "Constant load"
+    mode=Buildings.Electrical.Types.Assumption.FixedZ_steady_state,
+    P_nominal=-10000) "Constant load"
     annotation (Placement(transformation(extent={{10,0},{30,20}})));
   Buildings.Electrical.AC.OnePhase.Sources.FixedVoltage sou "Voltage source"
     annotation (Placement(transformation(extent={{-60,-30},{-40,-10}})));

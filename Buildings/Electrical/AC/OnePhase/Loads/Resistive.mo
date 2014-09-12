@@ -6,17 +6,18 @@ model Resistive "Model of a resistive load"
     V_nominal=120);
 equation
 
-  if linear then
+  if linearized then
     i[1] = -homotopy(actual=  v[1]*P/V_nominal^2, simplified=0.0);
     i[2] = -homotopy(actual=  v[2]*P/V_nominal^2, simplified=0.0);
   else
-    //PhaseSystem.phasePowers_vi(terminal.v, terminal.i) = PhaseSystem.phasePowers(P, 0.0);
     if initMode == Buildings.Electrical.Types.InitMode.zero_current then
       i[1] = -homotopy(actual= v[1]*P/(v[1]^2 + v[2]^2),  simplified= 0.0);
       i[2] = -homotopy(actual= v[2]*P/(v[1]^2 + v[2]^2),  simplified= 0.0);
     else
-      i[1] = -homotopy(actual= v[1]*P/(v[1]^2 + v[2]^2),  simplified= v[1]*P/V_nominal^2);
-      i[2] = -homotopy(actual= v[2]*P/(v[1]^2 + v[2]^2),  simplified= v[2]*P/V_nominal^2);
+      i[1] = -homotopy(actual= v[1]*P/(v[1]^2 + v[2]^2),
+                       simplified= v[1]*P/V_nominal^2);
+      i[2] = -homotopy(actual= v[2]*P/(v[1]^2 + v[2]^2),
+                       simplified= v[2]*P/V_nominal^2);
     end if;
   end if;
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
@@ -53,9 +54,10 @@ conjugate of the current phasor.
 </p>
 
 <p>
-The load model takes as input the power consumed by the load. The power
-can be either fixed using the parameter <code>P_nominal</code>, otherwise
-it's possible to specify a variable power using the inputs <code>y</code> or
+The load model takes as input the power consumed by the inductive load and
+the power factor <i>pf=cos(&phi;)</i>. The power
+can be either fixed using the parameter <code>P_nominal</code>, or
+it is possible to specify a variable power using the inputs <code>y</code> or
 <code>Pow</code>. The different modes can be selected with the parameter
 <code>mode</code>, see <a href=\"modelica://Buildings.Electrical.Interfaces.PartialLoad\">
 Buildings.Electrical.Interfaces.PartialLoad</a> for more information.
@@ -65,10 +67,10 @@ Buildings.Electrical.Interfaces.PartialLoad</a> for more information.
 The equations of the model can be rewritten as
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
-i<sub>1</sub> = (P V<sub>1</sub> + Q V<sub>2</sub>)/(V<sub>1</sub><sup>2</sup> + V<sub>2</sub><sup>2</sup>)
+i<sub>1</sub> = (P V<sub>1</sub> + Q V<sub>2</sub>)/(V<sub>1</sub><sup>2</sup> + V<sub>2</sub><sup>2</sup>),
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
-i<sub>2</sub> = (P V<sub>2</sub> - Q V<sub>1</sub>)/(V<sub>1</sub><sup>2</sup> + V<sub>2</sub><sup>2</sup>)
+i<sub>2</sub> = (P V<sub>2</sub> - Q V<sub>1</sub>)/(V<sub>1</sub><sup>2</sup> + V<sub>2</sub><sup>2</sup>),
 </p>
 
 <p>
@@ -77,9 +79,9 @@ are the real and imaginary parts of the current and voltage phasors.
 </p>
 
 <p>
-Since the model represents a load with power factor of one, the complex
+Since the model represents a load with a power factor of one, the complex
 power is <i>Q = 0</i>. This leads to the following equations where 
-ther are nonlinear equations that relate the current to the voltage
+there are nonlinear equations that relate the current to the voltage
 </p>
 
 <p align=\"center\" style=\"font-style:italic;\">
@@ -90,7 +92,7 @@ i<sub>2</sub> = P V<sub>2</sub>/(V<sub>1</sub><sup>2</sup> + V<sub>2</sub><sup>2
 </p>
 
 <p>
-The nonlinearity is due to the fact that the load consumes the power specified by the variable <i>P</i>
+The non-linearity is due to the fact that the load consumes the power specified by the variable <i>P</i>,
 irrespectively of the voltage of the load. The figure below shows the relationship
 between the real part of the current phasor and the real and imaginary voltages of the load.
 </p>
@@ -103,6 +105,8 @@ When multiple loads are connected in a grid through cables that cause voltage dr
 the dimension of the system of nonlinear equations increases linearly with the number of loads.
 This nonlinear system of equations introduces challenges during the initialization, 
 as Newton solvers may diverge if initialized far from a solution, as well during the simulation.
+In this situation, the model can be parameterized to use a linear approximation
+as discussed in the next section.
 </p>
 
 <h4>Linearized model</h4>
@@ -110,7 +114,7 @@ as Newton solvers may diverge if initialized far from a solution, as well during
 Given the constraints and the two-dimensional nature of the problem, it is difficult to 
 find a linearized version of the AC load model. A solution could be to divide the voltage 
 domain into sectors, and for each sector compute the best linear approximation. 
-However the selection of the proper approximation depending on the value of the 
+However, the selection of the proper approximation depending on the value of the 
 voltage can generate events that increase the simulation time. For these reasons, the 
 linearized model assumes a voltage that is equal to the nominal value
 </p>
@@ -121,7 +125,7 @@ i<sub>1</sub> = P V<sub>1</sub>/V<sub>RMS</sub><sup>2</sup>
 i<sub>2</sub> = P V<sub>2</sub>/V<sub>RMS</sub><sup>2</sup>
 </p>
 <p>
-where <i>V<sub>RMS</sub></i> is the Root Mean Square voltage os the AC system.
+where <i>V<sub>RMS</sub></i> is the Root Mean Square voltage of the AC system.
 Even though this linearized version of the load model introduces an approximation 
 error in the current, it satisfies the contraints related to the ratio of the 
 active and reactive powers.
@@ -139,7 +143,7 @@ The initialization problem can be simplified using the homotopy operator. The ho
 uses two different types of equations to compute the value of a variable: the actual one
  and a simplified one. The actual equation is the one used during the normal operation. 
 During initialization, the simplified equation is first solved and then slowly replaced 
-with the actual equation to compute the initial val- ues for the nonlinear systems of 
+with the actual equation to compute the initial values for the nonlinear system of 
 equations. The load model uses the homotopy operator, with the linearized model being used 
 as the simplified equation. This numerical expedient has proven useful when simulating models 
 with more than ten connected loads.
@@ -152,11 +156,14 @@ The choices are between a null current or the linearized model.
 
 </html>", revisions="<html>
 <ul>
+<li>September 4, 2014, by Michael Wetter:<br/>
+Revised documentation.
+</li>
 <li>August 5, 2014, by Marco Bonvini:<br/>
 Revised documentation.
 </li>
 <li>June 17, 2014, by Marco Bonvini:<br/>
-Adde parameter <code>initMode</code> that can be used to 
+Added parameter <code>initMode</code> that can be used to 
 select the assumption to be used during initialization phase
 by the homotopy operator.
 </li>

@@ -1,7 +1,8 @@
 within Buildings.Electrical.AC.OnePhase.Storage;
 model Battery "Simple model of a battery"
- import Buildings;
  extends Buildings.Electrical.Interfaces.PartialAcDcParameters;
+ // fixme: This model requires a unit test. The test must be in this
+ // package or in a top-level package.
  parameter Real etaCha(min=0, max=1, unit="1") = 0.9
     "Efficiency during charging";
  parameter Real etaDis(min=0, max=1, unit="1") = 0.9
@@ -9,7 +10,12 @@ model Battery "Simple model of a battery"
  parameter Real SOC_start=0.1 "Initial charge";
  parameter Modelica.SIunits.Energy EMax(min=0, displayUnit="kWh")
     "Maximum available charge";
-  Modelica.Blocks.Interfaces.RealInput P(unit="W")
+  parameter Modelica.SIunits.Voltage V_nominal = 120
+    "Nominal voltage (V_nominal >= 0)";
+  parameter Boolean linearized=false
+    "If =true introduce a linearization in the load";
+
+ Modelica.Blocks.Interfaces.RealInput P(unit="W")
     "Power stored in battery (if positive), or extracted from battery (if negative)"
     annotation (Placement(transformation(extent={{-20,-20},{20,20}},
         rotation=270,
@@ -20,33 +26,27 @@ model Battery "Simple model of a battery"
   Modelica.Blocks.Interfaces.RealOutput SOC "State of charge"
     annotation (Placement(transformation(extent={{100,50},{120,70}})));
   Buildings.Electrical.AC.OnePhase.Interfaces.Terminal_p
-                                             terminal(redeclare package
-      PhaseSystem = Buildings.Electrical.PhaseSystems.OnePhase)
-    "Generalized terminal"
+     terminal(redeclare package PhaseSystem =
+        Buildings.Electrical.PhaseSystems.OnePhase) "Generalized terminal"
     annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
 protected
   Buildings.Electrical.DC.Storage.BaseClasses.Charge cha(
-    EMax=EMax,
-    SOC_start=SOC_start,
-    etaCha=etaCha,
-    etaDis=etaDis) "Charge model"
+    final EMax=EMax,
+    final SOC_start=SOC_start,
+    final etaCha=etaCha,
+    final etaDis=etaDis) "Charge model"
     annotation (Placement(transformation(extent={{40,50},{60,70}})));
   Buildings.Electrical.AC.OnePhase.Loads.Resistive bat(
-    P_nominal=0,
-    mode=Buildings.Electrical.Types.Assumption.VariableZ_P_input,
-    V_nominal=V_nominal,
-    linear=linear) "Power exchanged with battery pack"
+    final P_nominal=0,
+    final mode=Buildings.Electrical.Types.Assumption.VariableZ_P_input,
+    final V_nominal=V_nominal,
+    final linearized=linearized) "Power exchanged with battery pack"
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
-public
-  Modelica.Blocks.Math.Gain gain(k=-1)
+  Modelica.Blocks.Math.Gain gain(final k=-1)
     annotation (Placement(transformation(extent={{22,10},{42,30}})));
-  parameter Modelica.SIunits.Voltage V_nominal = 120
-    "Nominal voltage (V_nominal >= 0)";
-public
-  Modelica.Blocks.Math.Gain acdc_conversion(k=eta_DCAC)
+
+  Modelica.Blocks.Math.Gain acdc_conversion(final k=eta_DCAC)
     annotation (Placement(transformation(extent={{-16,10},{4,30}})));
-  parameter Boolean linear=false
-    "If =true introduce a linearization in the load";
 equation
   connect(cha.SOC, SOC)    annotation (Line(
       points={{61,60},{110,60}},
@@ -73,7 +73,9 @@ equation
       points={{5,20},{12,20},{12,60},{38,60}},
       color={0,0,127},
       smooth=Smooth.None));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
+  annotation (
+defaultComponentName="bat",
+Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}), graphics), Icon(coordinateSystem(
           preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
         graphics={
@@ -132,13 +134,14 @@ equation
           extent={{44,154},{134,112}},
           lineColor={0,0,255},
           textString="%name")}),
-    Documentation(info="<html>
+    Documentation(
+info="<html>
 <p>
 Simple model of a battery.
 </p>
 <p>
-This model takes as an input the power that should be stored in the battery (if <i>P &gt; 0</i>)
-or that should be extracted from the battery. This model has a one phase AC connector
+This model takes as an input the power to be stored in the battery (if <i>P &gt; 0</i>)
+or to be extracted from the battery. This model has a one phase AC connector
 and takes into account the efficiency of the conversion 
 between DC and AC <i>&eta;<sub>DCAC</sub></i>.
 </p>
@@ -154,6 +157,10 @@ and that the state of charge remains between zero and one.
 </html>",
         revisions="<html>
 <ul>
+<li>
+September 4, 2014, by Michael Wetter:<br/>
+Revised model.
+</li>
 <li>
 August 5, 2014, by Marco Bonvini:<br/>
 Revised documentation.

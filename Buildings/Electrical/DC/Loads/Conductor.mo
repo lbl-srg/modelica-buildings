@@ -10,7 +10,7 @@ equation
 
   absDV = abs(terminal.v[1]-terminal.v[2]);
 
-  if linear then
+  if linearized then
 
     // Linearized version of the model
     if absDV <= (8/9)*V_nominal then

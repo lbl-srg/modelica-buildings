@@ -1,6 +1,7 @@
 within Buildings.Electrical.AC.OnePhase.Sources.Examples;
-model PVpanels "This example illustrates how to use a PV panel model"
+model PVpanels "This example illustrates how to use PV panel models"
   extends Modelica.Icons.Example;
+  // fixme: Rename PVpanels to PVPanels for the .mo and .mos file
   Buildings.Electrical.AC.OnePhase.Loads.Inductive RL(mode=Types.Assumption.VariableZ_y_input,
       P_nominal=-2000) "Load taht consumes the power generted by the PVs"
     annotation (Placement(transformation(extent={{20,-50},{40,-30}})));
@@ -8,17 +9,17 @@ model PVpanels "This example illustrates how to use a PV panel model"
            annotation (Placement(transformation(extent={{-60,-20},{-40,0}})));
   Modelica.Blocks.Sources.Constant  load(k=0.5) "Load consumption"
     annotation (Placement(transformation(extent={{78,-50},{58,-30}})));
-  BoundaryConditions.SolarIrradiation.DiffusePerez           HDifTil(
+  BoundaryConditions.SolarIrradiation.DiffusePerez HDifTil(
     til=0.34906585039887,
     lat=0.65798912800186,
     azi=-0.78539816339745) "Diffuse irradiation on tilted surface"
     annotation (Placement(transformation(extent={{-52,72},{-32,92}})));
-  BoundaryConditions.SolarIrradiation.DirectTiltedSurface           HDirTil(
+  BoundaryConditions.SolarIrradiation.DirectTiltedSurface HDirTil(
     til=0.34906585039887,
     lat=0.65798912800186,
     azi=-0.78539816339745) "Direct irradiation on tilted surface"
     annotation (Placement(transformation(extent={{-52,32},{-32,52}})));
-  BoundaryConditions.WeatherData.ReaderTMY3           weaDat(
+  BoundaryConditions.WeatherData.ReaderTMY3 weaDat(
       computeWetBulbTemperature=false, filNam="modelica://Buildings/Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos")
     annotation (Placement(transformation(extent={{-100,72},{-80,92}})));
   Modelica.Blocks.Math.Add G "Total irradiation on tilted surface"
@@ -94,7 +95,7 @@ Revised model and documentation.
 <p>
 This example shows how to use a simple PV model without orientation
 as well a PV model with orientation. The power produced by the PV is
-partially consumed by the load whil ethe remaining part is fed into
+partially consumed by the load while the remaining part is fed into
 the grid.
 </p> 
 </html>"));

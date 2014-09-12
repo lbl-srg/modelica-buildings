@@ -11,21 +11,27 @@ model PartialPVOriented "Base model of a PV system with orientation"
     annotation(Evaluate=true,Dialog(group="Orientation"));
   parameter Modelica.SIunits.Angle lat "Latitude"
     annotation(Evaluate=true,Dialog(group="Orientation"));
-  parameter Modelica.SIunits.Angle azi "Surface Azimith"
+  parameter Modelica.SIunits.Angle azi "Surface azimuth"
     annotation(Evaluate=true,Dialog(group="Orientation"));
   parameter Modelica.SIunits.Voltage V_nominal(min=0, start=110)
-    "Nominal voltage (V_nominal >= 0)"  annotation(Evaluate=true, Dialog(group="Nominal conditions"));
+    "Nominal voltage (V_nominal >= 0)"
+    annotation(Evaluate=true, Dialog(group="Nominal conditions"));
 
   replaceable Buildings.Electrical.Interfaces.Terminal terminal(
     redeclare final package PhaseSystem = PhaseSystem) "Generalized terminal"
     annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
 
-  replaceable PartialPV panel(
+  replaceable PartialPV panel constrainedby PartialPV(
     redeclare final package PhaseSystem = PhaseSystem,
     final A=A,
     final fAct=fAct,
-    final eta=eta) "PV panel model" annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
+    final eta=eta) "PV panel"
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 
+  BoundaryConditions.WeatherData.Bus weaBus "Weather data" annotation (
+     Placement(transformation(extent={{-10,80},{10,100}}), iconTransformation(
+          extent={{-10,80},{10,100}})));
+protected
   BoundaryConditions.SolarIrradiation.DiffusePerez HDifTil(
     final til=til,
     final lat=lat,
@@ -42,9 +48,6 @@ model PartialPVOriented "Base model of a PV system with orientation"
         rotation=90,
         origin={0,30})));
 
-  BoundaryConditions.WeatherData.Bus weaBus "Bus with weather data" annotation (
-     Placement(transformation(extent={{-10,80},{10,100}}), iconTransformation(
-          extent={{-10,80},{10,100}})));
 equation
   connect(panel.P, P) annotation (Line(
       points={{11,7},{60,7},{60,70},{110,70}},
@@ -162,7 +165,11 @@ equation
         extent={{-100,-100},{100,100}},
         grid={1,1}), graphics),
     Documentation(revisions="<html>
-<ul>
+    <ul>
+<li>
+September 4, 2014, by Michael Wetter:<br/>
+Revised model, changed some instances to be protected.
+</li>
 <li>
 October 31, 2013, by Marco Bonvini:<br/>
 First implementation.
