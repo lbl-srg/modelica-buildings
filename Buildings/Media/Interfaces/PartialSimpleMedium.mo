@@ -4,7 +4,7 @@ partial package PartialSimpleMedium
 
   extends Modelica.Media.Interfaces.PartialPureSubstance(
         ThermoStates=Buildings.Media.Interfaces.Choices.IndependentVariables.pT,
-        final singleState=constantDensity,
+        final singleState=true,
         reference_p=p0,
         p_default=p0);
 
@@ -29,18 +29,13 @@ partial package PartialSimpleMedium
     Temperature T(start=T_default) "Temperature of medium";
   end ThermodynamicState;
 
-  // Compressibility of water (used to break algebraic loops)
-  constant Real kappa_const(unit="1/Pa") = 0
-    "Compressibility factor at constant temperature";
   constant Modelica.SIunits.AbsolutePressure p0 = 3E5
-    "Reference pressure for compressibility and default medium pressure";
+    "Reference pressure for default medium pressure";
 
-protected
-  constant Boolean constantDensity = (kappa_const <= 1E-20)
-    "Flag, true if density is modeled as a constant";
-
-public
-  redeclare replaceable model extends BaseProperties
+  redeclare replaceable model extends BaseProperties(T(stateSelect=if
+          preferredMediumStates then StateSelect.prefer else StateSelect.default),
+      p(stateSelect=if preferredMediumStates then StateSelect.prefer else
+          StateSelect.default)) "Base properties"
   equation
         assert(T >= T_min and T <= T_max, "
 Temperature T (= "   + String(T) + " K) is not
@@ -53,8 +48,7 @@ required from medium model \""   + mediumName + "\".
     h = specificEnthalpy_pTX(p,T,X);
     u = cv_const*(T-T0);
     // original equation d = d_const;
-    d = if constantDensity then d_const else d_const * (1+kappa_const*(p-p0));
-   // d = d_const * (1+kT*(T-T0)/T0); "this gives large coupled equations"
+    d = d_const;
     R = 0;
     MM = MM_const;
     state.T = T;
@@ -155,7 +149,7 @@ quantities are assumed to be constant.
   redeclare function extends density "Return density"
 
   algorithm
-    d := if constantDensity then d_const else d_const * (1+kappa_const*(state.p-p0));
+    d := d_const;
   end density;
 
   redeclare function extends specificEnthalpy "Return specific enthalpy"
@@ -223,20 +217,41 @@ quantities are assumed to be constant.
   end density_phX;
 
   annotation (Documentation(info="<html>
-This medium model is identical to 
+<p>
+This medium model is almost identical to 
 <a href=\"modelica://Modelica.Media.Interfaces.PartialSimpleMedium\">
-Modelica.Media.Interfaces.PartialSimpleMedium</a>, but it allows
-to define a compressibility of the medium.
-This helps breaking algebraic loops, but the system gets stiff.
-The compressibility is defined by the constant <code>kappa_const</code>.
-If <code>kappa_const=0</code>, then the density is constant. Otherwise,
-the density is
-<pre>
-  rho(p) = rho(p0) * ( 1 + kappa_const * (p-p0))
-</pre>
-
+Modelica.Media.Interfaces.PartialSimpleMedium</a>.
+However, it had to be introduced to allow setting the start attribute
+for the <code>ThermodynamicState</code>. This is required to avoid
+an error if
+<a href=\"modelica://Buildings.Examples.VAVReheat.ClosedLoop\">
+Buildings.Examples.VAVReheat.ClosedLoop</a>
+is translated in the pedantic mode.
+</p>
 </html>", revisions="<html>
 <ul>
+<li>
+September 12, 2014, by Michael Wetter:<br/>
+Removed option to model water as a compressible medium as
+this option was not useful.<br/>
+Added again<pre>
+BaseProperties(
+    T(stateSelect=if preferredMediumStates then StateSelect.prefer else
+                       StateSelect.default),
+    p(stateSelect=if preferredMediumStates then StateSelect.prefer else
+                       StateSelect.default))
+</pre>
+as this leads to a different state selection in the Annex 60 test case
+with shorter computing time.<br/>
+Introduced the attributes
+<code>T(start=T_default)</code> and 
+<code>p(start=p_default)</code> in the
+<code>ThermodynamicState</code> record. Setting the start value for
+<code>T</code> is required to avoid an error due to 
+conflicting start values when translating
+<a href=\"modelica://Buildings.Examples.VAVReheat.ClosedLoop\">
+Buildings.Examples.VAVReheat.ClosedLoop</a> in pedantic mode.
+</li>
 <li>
 September 16, 2010, by Michael Wetter:<br/>
 Removed the <code>stateSelect</code> assignment in <pre>

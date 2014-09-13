@@ -247,13 +247,13 @@ have been <b style=\"color:blue\">improved</b> in a
     </td>
 </tr>
 <tr><td valign=\"top\">Buildings.Media.Interfaces.PartialSimpleIdealGasMedium<br/>
-	               Buildings.Media.Interfaces.PartialSimpleMedium
+                       Buildings.Media.Interfaces.PartialSimpleMedium
     </td>
     <td valign=\"top\">Set <code>T(start=T_default)</code> and 
                        <code>p(start=p_default)</code> in the
                        <code>ThermodynamicState</code> record. Setting the start value for
                        <code>T</code> is required to avoid an error due to 
-                       conflicting start values when checking 
+                       conflicting start values when translating 
                        <a href=\"modelica://Buildings.Examples.VAVReheat.ClosedLoop\">
                        Buildings.Examples.VAVReheat.ClosedLoop</a> in pedantic mode.
     </td>
@@ -346,6 +346,13 @@ have been <b style=\"color:blue\">improved</b> in a
                        is already contained in <code>energyDynamics</code>.<br/>
                        For Dymola, the conversion script will automatically
                        update existing models.
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Media.ConstantPropertyLiquidWater<br/>
+                       Buildings.Media.Interfaces.PartialSimpleMedium
+    </td>
+    <td valign=\"top\">Removed option to model water as a compressible medium as
+                       this option was not useful.
     </td>
 </tr>
 </table>
