@@ -192,7 +192,6 @@ have been <b style=\"color:blue\">improved</b> in a
     </td>
     </tr>
 
-
 <tr><td valign=\"top\">Buildings.Fluid.HeatExchangers.DryCoilDiscretized
     </td>
     <td valign=\"top\">Removed parameter <code>m1_flow_nominal</code>, as this parameter is already
@@ -218,6 +217,16 @@ have been <b style=\"color:blue\">improved</b> in a
     </td>
     <td valign=\"top\">Set start value for <code>hPip(fluid(T))</code> to avoid
                        a warning about conflicting start values.
+    </td>
+    </tr>
+
+
+    <tr>
+    <td valign=\"top\">Buildings.Fluid.SolarCollectors.ASHRAE93<br/>
+                       Buildings.Fluid.SolarCollectors.EN12975
+    </td>
+    <td valign=\"top\">Reformulated the model to avoid an translation error
+                       if glycol is used..
     </td>
     </tr>
 
