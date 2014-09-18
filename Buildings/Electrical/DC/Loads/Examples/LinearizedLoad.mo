@@ -7,7 +7,7 @@ model LinearizedLoad "Example model to check the linearized load model"
   Real deltaV = LinearLoad.V_nominal - sen_lin.V
     "Voltage distance between nominal condition and actual voltage";
   Buildings.Electrical.DC.Loads.Conductor NonlinearLoad(
-    linear=false,
+    linearized=false,
     mode=Buildings.Electrical.Types.Assumption.VariableZ_P_input,
     V_nominal=100,
     P_nominal=0) "Resistor"
@@ -23,7 +23,7 @@ model LinearizedLoad "Example model to check the linearized load model"
   Buildings.Electrical.DC.Loads.Conductor LinearLoad(
     mode=Buildings.Electrical.Types.Assumption.VariableZ_P_input,
     V_nominal=100,
-    linear=true,
+    linearized=true,
     P_nominal=0) "Resistor"
     annotation (Placement(transformation(extent={{30,20},{50,40}})));
   Sensors.GeneralizedSensor sen_lin

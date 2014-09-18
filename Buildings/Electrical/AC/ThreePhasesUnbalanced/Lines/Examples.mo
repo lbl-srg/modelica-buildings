@@ -76,7 +76,7 @@ package Examples "Package with example models"
 
   model AC_InHomeGrid
     extends Modelica.Icons.Example;
-    parameter Boolean linear = false;
+    parameter Boolean linearized = false;
     Network network(redeclare
         Buildings.Electrical.Transmission.Benchmarks.BenchmarkGrids.GridInHome_AL70
         grid)
@@ -88,7 +88,7 @@ package Examples "Package with example models"
       PlugPhase1=Phase1,
       PlugPhase2=Phase2,
       PlugPhase3=Phase3,
-      each linear=linear)
+      each linearized=linearized)
       annotation (Placement(transformation(extent={{20,26},{40,46}})));
     Sources.FixedVoltage source(
       f=50,
@@ -143,7 +143,7 @@ package Examples "Package with example models"
 
   model AC_InHomeGridN
     extends Modelica.Icons.Example;
-    parameter Boolean linear = false;
+    parameter Boolean linearized = false;
     NetworkN network(redeclare
         Buildings.Electrical.Transmission.Benchmarks.BenchmarkGrids.GridInHome_AL70
         grid)
@@ -155,7 +155,7 @@ package Examples "Package with example models"
       PlugPhase1=Phase1,
       PlugPhase2=Phase2,
       PlugPhase3=Phase3,
-      each linear=linear)
+      each linearized=linearized)
       annotation (Placement(transformation(extent={{20,26},{40,46}})));
     Sources.FixedVoltage_N source(
       f=50,
@@ -214,7 +214,7 @@ package Examples "Package with example models"
 
   model AC_IEEE34_GridN
     extends Modelica.Icons.Example;
-    parameter Boolean linear = false;
+    parameter Boolean linearized = false;
     NetworkN network(
                     redeclare
         Buildings.Electrical.Transmission.Grids.IEEE_34_AL120 grid)
@@ -226,7 +226,7 @@ package Examples "Package with example models"
       PlugPhase1=Phase1,
       PlugPhase2=Phase2,
       PlugPhase3=Phase3,
-      each linear=linear)
+      each linearized=linearized)
       annotation (Placement(transformation(extent={{20,26},{40,46}})));
     Sources.FixedVoltage_N source(
       f=50,

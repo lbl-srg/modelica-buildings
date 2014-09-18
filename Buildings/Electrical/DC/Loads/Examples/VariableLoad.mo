@@ -3,7 +3,7 @@ model VariableLoad "Example using variable loads models"
   extends Modelica.Icons.Example;
   Conductor loa1(
     V_nominal=12,
-    linear=false,
+    linearized=false,
     P_nominal=-50) "Load"
     annotation (Placement(transformation(extent={{40,40},{60,60}})));
   Sources.ConstantVoltage sou(V=12) "Voltage source"

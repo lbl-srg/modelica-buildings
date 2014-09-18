@@ -5,14 +5,14 @@ model Building
     pf=0.95,
     eta_DCAC=0.9,
     V_nominal=V_building_n,
-    linear=linear)
+    linearized=linearized)
     annotation (Placement(transformation(extent={{0,20},{20,40}})));
-  AC.OnePhase.Loads.InductiveLoadP building(
+  AC.OnePhase.Loads.Inductive      building(
     pf=pf,
     V_nominal=V_building_n,
     mode=Buildings.Electrical.Types.Assumption.VariableZ_y_input,
     P_nominal=-P_nominal,
-    linear=linear)          annotation (Placement(transformation(
+    linearized=linearized)  annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={10,-30})));
@@ -33,8 +33,8 @@ model Building
 
   parameter Modelica.SIunits.Power P_nominal
     "Nominal power consumption of the building";
-  Modelica.Blocks.Interfaces.RealInput G "Total solar irradiation per unit area"
-                                            annotation (Placement(
+  Modelica.Blocks.Interfaces.RealInput G
+    "Total solar irradiation per unit area" annotation (Placement(
         transformation(
         extent={{-20,-20},{20,20}},
         rotation=180,
@@ -50,7 +50,7 @@ model Building
     offset=0.65)
     annotation (Placement(transformation(extent={{80,-40},{60,-20}})));
   parameter Modelica.SIunits.Time startTime=0 "Offset for load schedule";
-  parameter Boolean linear=false
+  parameter Boolean linearized=false
     "If =true introduce a linearization in the load";
 equation
   connect(node, trasformer.terminal_n) annotation (Line(

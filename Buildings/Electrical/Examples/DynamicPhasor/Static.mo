@@ -36,7 +36,7 @@ model Static "Example that illustrates the use of static loads"
     l=200,
     commercialCable_low=Buildings.Electrical.Transmission.LowVoltageCables.Cu50())
     annotation (Placement(transformation(extent={{0,0},{20,20}})));
-  Buildings.Electrical.AC.OnePhase.Loads.InductiveLoadP Load3(
+  Buildings.Electrical.AC.OnePhase.Loads.Inductive Load3(
     pf=0.8,
     V_nominal=220,
     mode=Buildings.Electrical.Types.Assumption.VariableZ_y_input,

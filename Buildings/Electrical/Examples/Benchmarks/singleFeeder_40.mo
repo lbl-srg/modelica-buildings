@@ -2,7 +2,7 @@ within Buildings.Electrical.Examples.Benchmarks;
 model singleFeeder_40
   extends Modelica.Icons.Example;
 
-  AC.ThreePhasesUnbalanced.Sources.FixedVoltageN                      source(
+  AC.ThreePhasesUnbalanced.Sources.FixedVoltage_N                      source(
     f=50,
     Phi=0,
     V=230)                annotation (Placement(transformation(

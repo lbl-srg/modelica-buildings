@@ -2,7 +2,7 @@ within Buildings.Electrical.AC.ThreePhasesUnbalanced.Loads.BaseClasses;
 partial model PartialLoad_N
   "Partial model of a three phases unbalanced load with neutral cable"
   extends Buildings.Electrical.Interfaces.PartialPluggableUnbalanced;
-  parameter Boolean linear = false
+  parameter Boolean linearized = false
     "If =true introduce a linearization in the load" annotation(Dialog(group="Modelling assumption"));
   parameter Buildings.Electrical.Types.Assumption mode(
     min=Buildings.Electrical.Types.Assumption.FixedZ_steady_state,
@@ -33,7 +33,7 @@ partial model PartialLoad_N
     redeclare package PhaseSystem = Buildings.Electrical.PhaseSystems.OnePhase,
     redeclare Buildings.Electrical.AC.OnePhase.Interfaces.Terminal_n terminal,
     P_nominal=P_nominal,
-    linear=linear,
+    linearized=linearized,
     mode=mode,
     V_nominal=V_nominal/sqrt(3)) if
                   PlugPhase1 "Load 1"
@@ -42,7 +42,7 @@ partial model PartialLoad_N
     redeclare package PhaseSystem = Buildings.Electrical.PhaseSystems.OnePhase,
     redeclare Buildings.Electrical.AC.OnePhase.Interfaces.Terminal_n terminal,
     P_nominal=P_nominal,
-    linear=linear,
+    linearized=linearized,
     mode=mode,
     V_nominal=V_nominal/sqrt(3)) if
                   PlugPhase2 "Load 2"
@@ -51,7 +51,7 @@ partial model PartialLoad_N
     redeclare package PhaseSystem = Buildings.Electrical.PhaseSystems.OnePhase,
     redeclare Buildings.Electrical.AC.OnePhase.Interfaces.Terminal_n terminal,
     P_nominal=P_nominal,
-    linear=linear,
+    linearized=linearized,
     mode=mode,
     V_nominal=V_nominal/sqrt(3)) if
                   PlugPhase3 "Load 3"

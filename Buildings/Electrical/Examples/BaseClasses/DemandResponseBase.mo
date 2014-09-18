@@ -34,7 +34,7 @@ partial model DemandResponseBase
     A=1000,
     startTime=0,
     P_nominal=P1,
-    linear=linear)   annotation (Placement(transformation(
+    linearized=linearized)   annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=0,
         origin={-36,30})));
@@ -42,7 +42,7 @@ partial model DemandResponseBase
     P_nominal=P2,
     startTime=-3600,
     A=800,
-    linear=linear)
+    linearized=linearized)
            annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=0,
@@ -51,7 +51,7 @@ partial model DemandResponseBase
     startTime=-1800,
     P_nominal=P3,
     A=1000,
-    linear=linear)
+    linearized=linearized)
            annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=0,
@@ -59,12 +59,12 @@ partial model DemandResponseBase
   AC.OnePhase.Storage.Battery
                      battery(EMax=Ebatt, SOC_start=0.5,
     V_nominal=15000,
-    linear=linear)
+    linearized=linearized)
     annotation (Placement(transformation(extent={{54,-10},{74,10}})));
   Modelica.Blocks.Sources.RealExpression SolarRadiation(y=600*sin(2*Modelica.Constants.pi
         *time/(2*24*3600))^8)
     annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
-  parameter Boolean linear=false
+  parameter Boolean linearized=false
     "If =true introduce a linearization in the load";
 equation
   der(E) = -grid.S[1];

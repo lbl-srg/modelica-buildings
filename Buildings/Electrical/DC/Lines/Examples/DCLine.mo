@@ -31,17 +31,17 @@ model DCLine "Example model to test the DC lines"
     annotation (Placement(transformation(extent={{-90,-20},{-70,0}})));
   Loads.Conductor load1(              mode=Types.Assumption.VariableZ_y_input,
     V_nominal=50,
-    linear=false,
+    linearized=false,
     P_nominal=-50)
     annotation (Placement(transformation(extent={{40,0},{60,20}})));
   Loads.Conductor load2(
     V_nominal=50,
-    linear=false,
+    linearized=false,
     P_nominal=-150)
     annotation (Placement(transformation(extent={{40,-20},{60,0}})));
   Loads.Conductor load3(
     V_nominal=50,
-    linear=false,
+    linearized=false,
     P_nominal=-200)
     annotation (Placement(transformation(extent={{40,-40},{60,-20}})));
   Modelica.Blocks.Sources.Ramp varLoad(

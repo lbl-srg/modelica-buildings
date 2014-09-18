@@ -40,19 +40,19 @@ model DCLines
     annotation (Placement(transformation(extent={{-100,50},{-80,70}})));
   Loads.Conductor load1(              mode=Types.Assumption.VariableZ_y_input,
     V_nominal=50,
-    linear=linearLoads,
+    linearized=linearLoads,
     P_nominal=-150)
     annotation (Placement(transformation(extent={{30,70},{50,90}})));
   Loads.Conductor load2(
     V_nominal=50,
     mode=Types.Assumption.VariableZ_y_input,
-    linear=linearLoads,
+    linearized=linearLoads,
     P_nominal=-120)
     annotation (Placement(transformation(extent={{30,50},{50,70}})));
   Loads.Conductor load3(
     V_nominal=50,
     mode=Types.Assumption.VariableZ_y_input,
-    linear=linearLoads,
+    linearized=linearLoads,
     P_nominal=-200)
     annotation (Placement(transformation(extent={{30,30},{50,50}})));
   Modelica.Blocks.Sources.Trapezoid
@@ -68,7 +68,7 @@ model DCLines
   Loads.Conductor load4(
     V_nominal=50,
     mode=Types.Assumption.VariableZ_y_input,
-    linear=linearLoads,
+    linearized=linearLoads,
     P_nominal=-120)
     annotation (Placement(transformation(extent={{30,12},{50,32}})));
   Line line3(
@@ -129,7 +129,7 @@ model DCLines
   Loads.Conductor load5(
     V_nominal=50,
     mode=Types.Assumption.VariableZ_y_input,
-    linear=linearLoads,
+    linearized=linearLoads,
     P_nominal=-200)
     annotation (Placement(transformation(extent={{30,-10},{50,10}})));
   Modelica.Blocks.Sources.Trapezoid
@@ -145,7 +145,7 @@ model DCLines
   Loads.Conductor load6(
     V_nominal=50,
     mode=Types.Assumption.VariableZ_y_input,
-    linear=linearLoads,
+    linearized=linearLoads,
     P_nominal=-120)
     annotation (Placement(transformation(extent={{30,-28},{50,-8}})));
   Line line7(
@@ -178,7 +178,7 @@ model DCLines
   Loads.Conductor load7(
     V_nominal=50,
     mode=Types.Assumption.VariableZ_y_input,
-    linear=linearLoads,
+    linearized=linearLoads,
     P_nominal=-200)
     annotation (Placement(transformation(extent={{30,-50},{50,-30}})));
   Modelica.Blocks.Sources.Trapezoid
@@ -194,7 +194,7 @@ model DCLines
   Loads.Conductor load8(
     V_nominal=50,
     mode=Types.Assumption.VariableZ_y_input,
-    linear=linearLoads,
+    linearized=linearLoads,
     P_nominal=-120)
     annotation (Placement(transformation(extent={{30,-68},{50,-48}})));
   Line line10(
@@ -227,7 +227,7 @@ model DCLines
   Loads.Conductor load9(
     V_nominal=50,
     mode=Types.Assumption.VariableZ_y_input,
-    linear=linearLoads,
+    linearized=linearLoads,
     P_nominal=-200)
     annotation (Placement(transformation(extent={{30,-90},{50,-70}})));
   Modelica.Blocks.Sources.Trapezoid
@@ -243,7 +243,7 @@ model DCLines
   Loads.Conductor load10(
     V_nominal=50,
     mode=Types.Assumption.VariableZ_y_input,
-    linear=linearLoads,
+    linearized=linearLoads,
     P_nominal=-120)
     annotation (Placement(transformation(extent={{30,-108},{50,-88}})));
   Line line13(

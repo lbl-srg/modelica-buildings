@@ -4,7 +4,7 @@ partial model PartialLoad "Partial model of a three phases load"
   parameter Buildings.Electrical.Types.LoadConnection loadConn=
     Buildings.Electrical.Types.LoadConnection.wye_to_wyeg
     "Type of load connection (Yg or D)";
-  parameter Boolean linear = false
+  parameter Boolean linearized = false
     "If =true introduce a linearization in the load" annotation(Dialog(group="Modelling assumption"));
   parameter Buildings.Electrical.Types.Assumption mode(
     min=Buildings.Electrical.Types.Assumption.FixedZ_steady_state,
@@ -22,7 +22,7 @@ partial model PartialLoad "Partial model of a three phases load"
     redeclare Buildings.Electrical.AC.OnePhase.Interfaces.Terminal_n terminal,
     P_nominal=P_nominal,
     V_nominal=(if loadConn == Buildings.Electrical.Types.LoadConnection.wye_to_wyeg then V_nominal else V_nominal/sqrt(3)),
-    linear=linear,
+    linearized=linearized,
     mode=mode) if PlugPhase1 "Load 1"
     annotation (Placement(transformation(extent={{-10,30},{10,50}})));
   replaceable Buildings.Electrical.Interfaces.PartialLoad load2(
@@ -30,7 +30,7 @@ partial model PartialLoad "Partial model of a three phases load"
     redeclare Buildings.Electrical.AC.OnePhase.Interfaces.Terminal_n terminal,
     P_nominal=P_nominal,
     V_nominal=(if loadConn == Buildings.Electrical.Types.LoadConnection.wye_to_wyeg then V_nominal else V_nominal/sqrt(3)),
-    linear=linear,
+    linearized=linearized,
     mode=mode) if PlugPhase2 "Load 2"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   replaceable Buildings.Electrical.Interfaces.PartialLoad load3(
@@ -38,7 +38,7 @@ partial model PartialLoad "Partial model of a three phases load"
     redeclare Buildings.Electrical.AC.OnePhase.Interfaces.Terminal_n terminal,
     P_nominal=P_nominal,
     V_nominal=(if loadConn == Buildings.Electrical.Types.LoadConnection.wye_to_wyeg then V_nominal else V_nominal/sqrt(3)),
-    linear=linear,
+    linearized=linearized,
     mode=mode) if PlugPhase3 "Load 3"
     annotation (Placement(transformation(extent={{-10,-50},{10,-30}})));
   parameter Modelica.SIunits.Power P_nominal(start=0)

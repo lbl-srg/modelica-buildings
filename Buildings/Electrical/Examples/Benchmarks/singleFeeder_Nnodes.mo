@@ -1,7 +1,7 @@
 within Buildings.Electrical.Examples.Benchmarks;
 model singleFeeder_nNodes
   "Base class that represents a single feeder with N nodes"
-  parameter Boolean linear = false
+  parameter Boolean linearized = false
     "This boolean flags allow to linearize the models";
   parameter Integer N = 10 "Number of nodes of the feeder";
   parameter Integer Nload = N-1 "Number of loads connected to the feeder";
@@ -16,20 +16,20 @@ model singleFeeder_nNodes
       Buildings.Electrical.Transmission.Benchmarks.BenchmarkGrids.SingleFeeder_10nodes
       grid)
     annotation (Placement(transformation(extent={{-50,-10},{-30,10}})));
-  Buildings.Electrical.AC.ThreePhasesUnbalanced.Loads.ResistiveLoadP_N           load[Nload](
+  Buildings.Electrical.AC.ThreePhasesUnbalanced.Loads.Resistive_N           load[Nload](
     each P_nominal=1000,
     each mode=Buildings.Electrical.Types.Assumption.VariableZ_P_input,
     each V_nominal=230,
     PlugPhase1 = Phase1,
     PlugPhase2 = Phase2,
     PlugPhase3 = Phase3,
-    each linear=linear)
+    each linearized=linearized)
     annotation (Placement(transformation(extent={{10,-40},{30,-20}})));
-  Buildings.Electrical.AC.ThreePhasesUnbalanced.Loads.ResistiveLoadP_N           pv_loads[Npv](
+  Buildings.Electrical.AC.ThreePhasesUnbalanced.Loads.Resistive_N           pv_loads[Npv](
     each P_nominal=1000,
     each mode=Buildings.Electrical.Types.Assumption.VariableZ_P_input,
     each V_nominal=230,
-    each linear=linear,
+    each linearized=linearized,
     PlugPhase1=Phase1_pv,
     PlugPhase2=Phase2_pv,
     PlugPhase3=Phase3_pv)

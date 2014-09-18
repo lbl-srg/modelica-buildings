@@ -1,6 +1,6 @@
 within Buildings.Electrical.Examples;
 model DemandResponseCtrl
-  extends Buildings.Electrical.Examples.BaseClasses.DemandResponseBase(linear = false);
+  extends Buildings.Electrical.Examples.BaseClasses.DemandResponseBase(linearized = false);
   Modelica.Blocks.Interfaces.RealInput Pstore(nominal=5000)
     "Power stored in battery (if positive), or extracted from battery (if negative)"
     annotation (Placement(transformation(extent={{8,56},{48,96}})));

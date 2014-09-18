@@ -1,7 +1,7 @@
 within Buildings.Electrical.Examples.Benchmarks;
 model IEEE34_balanced
   extends Modelica.Icons.Example;
-  parameter Boolean linear = false
+  parameter Boolean linearized = false
     "This boolean flags allow to linearize the models";
   parameter Modelica.SIunits.Voltage V_nominal = 230;
   parameter Real Vth = 0.05;
@@ -13,16 +13,16 @@ model IEEE34_balanced
       redeclare
       Buildings.Electrical.Transmission.Benchmarks.BenchmarkGrids.IEEE_34 grid)
     annotation (Placement(transformation(extent={{-50,-10},{-30,10}})));
-  AC.ThreePhasesBalanced.Loads.ResistiveLoadP                          load[33](
+  AC.ThreePhasesBalanced.Loads.Resistive                          load[33](
     each P_nominal=1000,
     each mode=Buildings.Electrical.Types.Assumption.VariableZ_P_input,
-    each linear=linear,
+    each linearized=linearized,
     each V_nominal=V_nominal)
     annotation (Placement(transformation(extent={{10,-56},{30,-36}})));
-  AC.ThreePhasesBalanced.Loads.ResistiveLoadP                          pv_loads[11](
+  AC.ThreePhasesBalanced.Loads.Resistive                          pv_loads[11](
     each P_nominal=1000,
     each mode=Buildings.Electrical.Types.Assumption.VariableZ_P_input,
-    each linear=linear,
+    each linearized=linearized,
     each V_nominal=V_nominal)
     annotation (Placement(transformation(extent={{10,30},{30,50}})));
   AC.ThreePhasesBalanced.Sources.FixedVoltage                         source(

@@ -8,7 +8,7 @@ model Dynamic "Example that illustrates the use of dynamic loads"
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-90,10})));
-  Buildings.Electrical.AC.OnePhase.Loads.InductiveLoadP
+  Buildings.Electrical.AC.OnePhase.Loads.Inductive
                                              Load1(
     pf=0.8,
     V_nominal=220,
@@ -24,7 +24,7 @@ model Dynamic "Example that illustrates the use of dynamic loads"
     V_nominal=220,
     P_nominal=180e3)
     annotation (Placement(transformation(extent={{-70,0},{-50,20}})));
-  Buildings.Electrical.AC.OnePhase.Loads.CapacitiveLoadP
+  Buildings.Electrical.AC.OnePhase.Loads.Capacitive
                                              Load2(
     pf=0.8,
     V_nominal=220,
@@ -45,7 +45,7 @@ model Dynamic "Example that illustrates the use of dynamic loads"
     V_nominal=220,
     P_nominal=50e3)
     annotation (Placement(transformation(extent={{0,0},{20,20}})));
-  Buildings.Electrical.AC.OnePhase.Loads.InductiveLoadP Load3(
+  Buildings.Electrical.AC.OnePhase.Loads.Inductive Load3(
     pf=0.8,
     V_nominal=220,
     mode=Buildings.Electrical.Types.Assumption.VariableZ_y_input,

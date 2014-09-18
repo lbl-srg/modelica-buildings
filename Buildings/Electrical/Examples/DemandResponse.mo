@@ -8,7 +8,7 @@ model DemandResponse
     line2,
     line3,
     battery,
-    linear = false);
+    linearized = false);
   Modelica.Blocks.Sources.Constant const
     annotation (Placement(transformation(extent={{40,60},{60,80}})));
 equation

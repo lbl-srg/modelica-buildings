@@ -1,7 +1,7 @@
 within Buildings.Electrical.Examples.Benchmarks;
 model IEEE34
   extends Modelica.Icons.Example;
-  parameter Boolean linear = false
+  parameter Boolean linearized = false
     "This boolean flags allow to linearize the models";
   parameter Boolean VoltageCTRL = true
     "This flag enables the voltage control for the PV loads";
@@ -19,19 +19,19 @@ model IEEE34
       Buildings.Electrical.Transmission.Benchmarks.BenchmarkGrids.IEEE_34_weak
       grid)
     annotation (Placement(transformation(extent={{-50,-10},{-30,10}})));
-  Buildings.Electrical.AC.ThreePhasesUnbalanced.Loads.ResistiveLoadP_N load[33](
+  Buildings.Electrical.AC.ThreePhasesUnbalanced.Loads.Resistive_N load[33](
     each P_nominal=1000,
     each mode=Buildings.Electrical.Types.Assumption.VariableZ_P_input,
     PlugPhase1 = Phase1,
     PlugPhase2 = Phase2,
     PlugPhase3 = Phase3,
-    each linear=linear,
+    each linearized=linearized,
     each V_nominal=V_nominal)
     annotation (Placement(transformation(extent={{10,-56},{30,-36}})));
-  Buildings.Electrical.AC.ThreePhasesUnbalanced.Loads.ResistiveLoadP_N pv_loads[11](
+  Buildings.Electrical.AC.ThreePhasesUnbalanced.Loads.Resistive_N pv_loads[11](
     each P_nominal=1000,
     each mode=Buildings.Electrical.Types.Assumption.VariableZ_P_input,
-    each linear=linear,
+    each linearized=linearized,
     PlugPhase1 = Phase1_pv,
     PlugPhase2 = Phase2_pv,
     PlugPhase3 = Phase3_pv,
@@ -40,7 +40,7 @@ model IEEE34
     each Vthresh=Vth,
     each Tdelay=Tdelay)
     annotation (Placement(transformation(extent={{10,30},{30,50}})));
-  Buildings.Electrical.AC.ThreePhasesUnbalanced.Sources.FixedVoltageN source(
+  Buildings.Electrical.AC.ThreePhasesUnbalanced.Sources.FixedVoltage_N source(
     Phi=0,
     V=V_nominal,
     f=50)                 annotation (Placement(transformation(

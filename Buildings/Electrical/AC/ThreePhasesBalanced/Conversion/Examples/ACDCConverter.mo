@@ -19,7 +19,7 @@ model ACDCConverter "Example model for 3phase AC to DC converter"
     annotation (Placement(transformation(extent={{80,0},{60,20}})));
   Buildings.Electrical.DC.Loads.Conductor    loadRL(
       P_nominal=12000,
-    linear=false,
+    linearized=false,
     mode=Buildings.Electrical.Types.Assumption.VariableZ_y_input)
     annotation (Placement(transformation(extent={{20,0},{40,20}})));
 equation
