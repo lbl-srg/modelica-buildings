@@ -8,14 +8,6 @@ model PVSimple "Simple PV model"
     V_nominal = 120);
   parameter Boolean linearized=false
     "If =true, introduce a linearization in the load";
-protected
-  Modelica.Blocks.Math.Gain gain_DCAC(final k=eta_DCAC) annotation (Placement(
-        transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=180,
-        origin={12,0})));
-
-  // fixme: why is this replaceable? Is this really needed for a protected instance?
   replaceable Buildings.Electrical.AC.OnePhase.Loads.Capacitive load(
     mode=Buildings.Electrical.Types.Assumption.VariableZ_P_input,
     final pf=pf,
@@ -23,6 +15,12 @@ protected
     final P_nominal=0,
     final linearized=linearized)
     annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
+protected
+  Modelica.Blocks.Math.Gain gain_DCAC(final k=eta_DCAC) annotation (Placement(
+        transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=180,
+        origin={12,0})));
 equation
   connect(load.terminal, terminal) annotation (Line(
       points={{-40,0},{-100,0}},

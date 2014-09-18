@@ -1,13 +1,13 @@
 within Buildings.Electrical.DC.Lines;
 model TwoPortResistance "Model of a two port DC resistance"
-  extends Buildings.Electrical.Transmission.BaseClasses.PartialTwoPortResistance(
+  extends
+    Buildings.Electrical.Transmission.BaseClasses.PartialTwoPortResistance(
     redeclare package PhaseSystem_p = PhaseSystems.TwoConductor,
     redeclare package PhaseSystem_n = PhaseSystems.TwoConductor,
     redeclare Interfaces.Terminal_n terminal_n(
       redeclare package PhaseSystem = PhaseSystem_n),
     redeclare Interfaces.Terminal_p terminal_p(
       redeclare package PhaseSystem = PhaseSystem_p));
-      // fixme: this model requires a unit test to be added.
 equation
   // Voltage drop on the resistance lumped on connection between terminals
   // p.v[1] and n.v[1]

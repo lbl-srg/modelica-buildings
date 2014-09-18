@@ -8,11 +8,11 @@ partial model PartialLine "Partial cable line dispersion model"
       PhaseSystem_p.systemVoltage(terminal_p.v),
       PhaseSystem_n.systemVoltage(terminal_n.v),
       1.0) "Percentage of voltage losses across the line";
-          // fixme: all parameters need to have a comment
 protected
-  parameter Integer n_ = size(terminal_n.i,1);
-  parameter Real nominal_i_ = P_nominal / V_nominal;
-  parameter Real nominal_v_ = V_nominal;
+  parameter Integer n_ = size(terminal_n.i,1) "Number of cables";
+  parameter Real nominal_i_ = P_nominal / V_nominal
+    "Nominal current flowing through the line";
+  parameter Real nominal_v_ = V_nominal "Nominal voltage of the line";
 
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}), graphics), Icon(coordinateSystem(

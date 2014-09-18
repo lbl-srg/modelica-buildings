@@ -1,6 +1,5 @@
 within Buildings.Electrical.Interfaces;
-model PartialLoad
-  "Partial model for a generic load fixme: Rename model as it is not a partial model. It has as many eqns and vars"
+model PartialLoad "Partial model for a generic load"
   import Buildings.Electrical.Types.Assumption;
   replaceable package PhaseSystem =
       Buildings.Electrical.PhaseSystems.PartialPhaseSystem constrainedby

@@ -18,20 +18,20 @@ model ACACTransformerFull "AC AC transformer with detailed equivalent circuit"
   parameter Modelica.SIunits.ApparentPower VABase
     "Nominal power of the transformer";
   parameter Modelica.SIunits.Frequency f(start=60) = 60 "Nominal frequency";
-  parameter Buildings.Electrical.Types.perUnit R1(min=0)
+  parameter Buildings.Electrical.Types.PerUnit R1(min=0)
     "Resistance on side 1 of the transformer (pu)";
-  parameter Buildings.Electrical.Types.perUnit L1(min=0)
+  parameter Buildings.Electrical.Types.PerUnit L1(min=0)
     "Inductance on side 1 of the transformer (pu)";
-  parameter Buildings.Electrical.Types.perUnit R2(min=0)
+  parameter Buildings.Electrical.Types.PerUnit R2(min=0)
     "Resistance on side 2 of the transformer (pu)";
-  parameter Buildings.Electrical.Types.perUnit L2(min=0)
+  parameter Buildings.Electrical.Types.PerUnit L2(min=0)
     "Inductance on side 2 of the transformer (pu)";
   parameter Boolean magEffects = false
     "If true, introduce magnetization effects"
     annotation(Evaluate=true, Dialog(group="Magnetization"));
-  parameter Buildings.Electrical.Types.perUnit Rm(min=0)
+  parameter Buildings.Electrical.Types.PerUnit Rm(min=0)
     "Magnetization resistance (pu)" annotation(Evaluate=true, Dialog(group="Magnetization", enable = magEffects));
-  parameter Buildings.Electrical.Types.perUnit Lm(min=0)
+  parameter Buildings.Electrical.Types.PerUnit Lm(min=0)
     "Magnetization inductance (pu)" annotation(Evaluate=true, Dialog(group="Magnetization", enable = magEffects));
   parameter Boolean ground_1 = false "Connect side 1 of converter to ground" annotation(Evaluate=true,Dialog(tab = "Ground", group="side 1"));
   parameter Boolean ground_2 = true "Connect side 2 of converter to ground" annotation(Evaluate=true, Dialog(tab = "Ground", group="side 2"));

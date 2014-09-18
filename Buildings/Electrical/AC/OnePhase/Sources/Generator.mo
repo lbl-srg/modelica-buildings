@@ -17,7 +17,6 @@ model Generator "Model of a generator"
         extent={{-20,-20},{20,20}},
         rotation=0,
         origin={-100,0})));
-
 protected
   Modelica.SIunits.Angle thetaRel
     "Absolute angle of rotating system as offset to thetaRef";

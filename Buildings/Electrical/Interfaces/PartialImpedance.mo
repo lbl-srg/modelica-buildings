@@ -1,6 +1,5 @@
 within Buildings.Electrical.Interfaces;
-model PartialImpedance
-  "Partial model representing a generalized impedance fixme: Rename model as it is not a partial model. It has as many eqns and vars"
+model PartialImpedance "Partial model representing a generalized impedance"
   extends Buildings.Electrical.Interfaces.PartialLoad(
     final linearized = false,
     final mode=Buildings.Electrical.Types.Assumption.FixedZ_steady_state,
@@ -18,7 +17,7 @@ model PartialImpedance
     annotation (Dialog(enable=inductive and (not use_L_in)));
   parameter Modelica.SIunits.Capacitance C(start=0,min=0) = 0 "Capacitance"
   annotation (Dialog(enable=(not inductive) and (not use_C_in)));
-  parameter Boolean use_R_in = false "if true, R is specified by an input"
+  parameter Boolean use_R_in = false "If true, R is specified by an input"
      annotation(Evaluate=true, Dialog(tab = "Variable load", group="Resistance"));
   parameter Modelica.SIunits.Resistance RMin(start = R, min=Modelica.Constants.eps) = 1e-4
     "Minimum value of the resistance"
@@ -26,7 +25,7 @@ model PartialImpedance
   parameter Modelica.SIunits.Resistance RMax(start = R, min=Modelica.Constants.eps) = 1e2
     "Maximum value of the resistance"
     annotation(Evaluate=true, Dialog(enable = use_R_in, tab = "Variable load", group="Resistance"));
-  parameter Boolean use_C_in = false "if true, C is specified by an input"
+  parameter Boolean use_C_in = false "If true, C is specified by an input"
     annotation(Evaluate=true, Dialog(tab = "Variable load", group="Capacitance"));
   parameter Modelica.SIunits.Capacitance CMin(start = C, min=Modelica.Constants.eps) = 1e-4
     "Minimum value of the capacitance"
@@ -34,7 +33,7 @@ model PartialImpedance
   parameter Modelica.SIunits.Capacitance CMax(start = C, min=Modelica.Constants.eps) = 1e2
     "Maximum value of the capacitance"
     annotation(Evaluate=true, Dialog(enable = use_C_in, tab = "Variable load", group="Capacitance"));
-  parameter Boolean use_L_in = false "if true, L is specified by an input"
+  parameter Boolean use_L_in = false "If true, L is specified by an input"
      annotation(Evaluate=true, Dialog(tab = "Variable load", group="Inductance"));
   parameter Modelica.SIunits.Inductance LMin(start = L, min=Modelica.Constants.eps) = 1e-4
     "Minimum value of the inductance"
@@ -85,7 +84,7 @@ equation
   connect(y_C, y_C_internal);
   connect(y_L, y_L_internal);
 
-  // default assignment when connectors are conditionally removed
+  // Default assignment when connectors are conditionally removed
   if not use_R_in then
     y_R_internal = 0;
   end if;
