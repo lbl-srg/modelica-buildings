@@ -77,7 +77,8 @@ the weakest (i.e., the one that causes the higher losses) of the three IEEE-34 n
 used in this benchmark.
 </p>
 <p><img alt=\"alt-image\" src=\"modelica://Buildings/Resources/Images/Electrical/Transmission/Grids/IEEE_34.png\"/></p>
-</html>", revisions="<html>
+</html>",
+        revisions="<html>
 <ul>
 <li>
 Sept 19 2014 by Marco Bonvini:</br>

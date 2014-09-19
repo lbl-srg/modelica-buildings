@@ -11,7 +11,7 @@ model IEEE34_balanced
   Modelica.SIunits.Power Q;
   AC.ThreePhasesBalanced.Lines.Network                         network(
       redeclare
-      Buildings.Electrical.Transmission.Benchmarks.BenchmarkGrids.IEEE_34 grid)
+      Buildings.Electrical.Transmission.Benchmarks.Grids.IEEE_34_strong grid)
     annotation (Placement(transformation(extent={{-50,-10},{-30,10}})));
   AC.ThreePhasesBalanced.Loads.Resistive                          load[33](
     each P_nominal=1000,

@@ -6,7 +6,7 @@ model singleFeeder_10nodes
     Npv=3,
     connMatrix=[1,1; 5,5; 6,6],
     network(redeclare
-        Buildings.Electrical.Transmission.Benchmarks.BenchmarkGrids.SingleFeeder_10nodes
+        Buildings.Electrical.Transmission.Benchmarks.Grids.SingleFeeder_10nodes_Al70
         grid));
 
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,

@@ -13,7 +13,7 @@ model singleFeeder_nNodes
     "Matrix that represents the connections of the PVs to the nodes in the feeder";
   Buildings.Electrical.AC.ThreePhasesUnbalanced.Lines.NetworkN network(
       redeclare
-      Buildings.Electrical.Transmission.Benchmarks.BenchmarkGrids.SingleFeeder_10nodes
+      Buildings.Electrical.Transmission.Benchmarks.Grids.SingleFeeder_10nodes_Al70
       grid)
     annotation (Placement(transformation(extent={{-50,-10},{-30,10}})));
   Buildings.Electrical.AC.ThreePhasesUnbalanced.Loads.Resistive_N           load[Nload](
@@ -50,32 +50,32 @@ model singleFeeder_nNodes
         origin={90,-30})));
 protected
   parameter Boolean Phase1[Nload]=
-      Buildings.Electrical.Transmission.Benchmarks.Utilities.PluggedPhaseSequence(
+      Buildings.Electrical.Transmission.Benchmarks.Utilities.pluggedPhaseSequence(
       N=Nload,
       first=1,
       Mod=3);
   parameter Boolean Phase2[Nload]=
-      Buildings.Electrical.Transmission.Benchmarks.Utilities.PluggedPhaseSequence(
+      Buildings.Electrical.Transmission.Benchmarks.Utilities.pluggedPhaseSequence(
       N=Nload,
       first=2,
       Mod=3);
   parameter Boolean Phase3[Nload]=
-      Buildings.Electrical.Transmission.Benchmarks.Utilities.PluggedPhaseSequence(
+      Buildings.Electrical.Transmission.Benchmarks.Utilities.pluggedPhaseSequence(
       N=Nload,
       first=3,
       Mod=3);
   parameter Boolean Phase1_pv[Npv]=
-      Buildings.Electrical.Transmission.Benchmarks.Utilities.PluggedPhaseSequence(
+      Buildings.Electrical.Transmission.Benchmarks.Utilities.pluggedPhaseSequence(
       N=Npv,
       first=1,
       Mod=3);
   parameter Boolean Phase2_pv[Npv]=
-      Buildings.Electrical.Transmission.Benchmarks.Utilities.PluggedPhaseSequence(
+      Buildings.Electrical.Transmission.Benchmarks.Utilities.pluggedPhaseSequence(
       N=Npv,
       first=2,
       Mod=3);
   parameter Boolean Phase3_pv[Npv]=
-      Buildings.Electrical.Transmission.Benchmarks.Utilities.PluggedPhaseSequence(
+      Buildings.Electrical.Transmission.Benchmarks.Utilities.pluggedPhaseSequence(
       N=Npv,
       first=3,
       Mod=3);

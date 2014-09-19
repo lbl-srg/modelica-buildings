@@ -15,8 +15,7 @@ model IEEE34
   Modelica.SIunits.Energy E(start = 0);
 
   Buildings.Electrical.AC.ThreePhasesUnbalanced.Lines.NetworkN network(
-      redeclare
-      Buildings.Electrical.Transmission.Benchmarks.BenchmarkGrids.IEEE_34_weak
+      redeclare Buildings.Electrical.Transmission.Benchmarks.Grids.IEEE_34_weak
       grid)
     annotation (Placement(transformation(extent={{-50,-10},{-30,10}})));
   Buildings.Electrical.AC.ThreePhasesUnbalanced.Loads.Resistive_N load[33](
@@ -74,17 +73,17 @@ protected
   /* Scheme that shows how the phases are plugged */
   /*                                    1     2     3     4     5     6    7    8     9     10   11    12    13    14   15    16   17    18    19   20   21     22    23    24   25    26   27    28   29    30    31    32    33  */
   final parameter Boolean Phase1[33]=
-      Buildings.Electrical.Transmission.Benchmarks.Utilities.PluggedPhaseSequence(
+      Buildings.Electrical.Transmission.Benchmarks.Utilities.pluggedPhaseSequence(
       N=33,
       first=1,
       Mod=3);
   final parameter Boolean Phase2[33]=
-      Buildings.Electrical.Transmission.Benchmarks.Utilities.PluggedPhaseSequence(
+      Buildings.Electrical.Transmission.Benchmarks.Utilities.pluggedPhaseSequence(
       N=33,
       first=2,
       Mod=3);
   final parameter Boolean Phase3[33]=
-      Buildings.Electrical.Transmission.Benchmarks.Utilities.PluggedPhaseSequence(
+      Buildings.Electrical.Transmission.Benchmarks.Utilities.pluggedPhaseSequence(
       N=33,
       first=3,
       Mod=3);
@@ -96,19 +95,19 @@ protected
   //parameter Boolean Phase3_pv[11] = Buildings.Electrical.Transmission.Benchmark.Utilities.PluggedPhaseSequence(N=11,first=3,Mod=3);
 
   parameter Boolean Phase1_pv[11]=
-      Buildings.Electrical.Transmission.Benchmarks.Utilities.PluggedPhaseFromRndSeq(
+      Buildings.Electrical.Transmission.Benchmarks.Utilities.pluggedPhaseFromRndSeq(
       N=11,
       min=0.0,
       max=1/3,
       val=vals);
   parameter Boolean Phase2_pv[11]=
-      Buildings.Electrical.Transmission.Benchmarks.Utilities.PluggedPhaseFromRndSeq(
+      Buildings.Electrical.Transmission.Benchmarks.Utilities.pluggedPhaseFromRndSeq(
       N=11,
       min=1/3,
       max=2/3,
       val=vals);
   parameter Boolean Phase3_pv[11]=
-      Buildings.Electrical.Transmission.Benchmarks.Utilities.PluggedPhaseFromRndSeq(
+      Buildings.Electrical.Transmission.Benchmarks.Utilities.pluggedPhaseFromRndSeq(
       N=11,
       min=2/3,
       max=1.0,
