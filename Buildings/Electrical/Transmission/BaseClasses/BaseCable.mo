@@ -31,5 +31,9 @@ Added User's guide.
 This record contains all the properties that are specified for a commercial
 cable.
 </p>
+<p>
+The record contains both the characteristics that can be specified for a 
+low voltage or a medium voltage cable.
+</p>
 </html>"));
 end BaseCable;
