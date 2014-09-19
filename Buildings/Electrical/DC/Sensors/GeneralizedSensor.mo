@@ -28,10 +28,6 @@ model GeneralizedSensor "Sensor for power, voltage and current"
         extent={{-10,-10},{10,10}},
         rotation=270,
         origin={60,-90})));
-  // fixme: Wouldn't it make more sense to declare S as a scalar for DC
-  //        systems? It seems odd to have a vector with two components,
-  //        where we know that one component is always zero.
-  //        I suggest that this is changed to ...RealOutput S(...)
   Modelica.Blocks.Interfaces.RealOutput P(each final quantity="Power", each final
             unit="W") "Power" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
