@@ -4,12 +4,12 @@ function selectVoltageLevel
   input Modelica.SIunits.Voltage V "Nominal voltage";
   output Buildings.Electrical.Types.VoltageLevel level "Type of voltage level";
 algorithm
-  if V<=0 then
-    // fixme: use an assertion with AssertionLevel.warning. This way, a tool can report
-    // the message to the appropriate logger.
-    // See Buildings.Electrical.Transmission.Functions.selectCable_low()
-    Modelica.Utilities.Streams.print("Error: the nominal voltage should be positive " +
-        String(V) + " A. The voltage level cannot be choose, selected Low as default.");
+  if V <= 0 then
+    assert(V > 0,
+     "In function Buildings.Electrical.Transmission.Functions.selectVoltageLevel,
+      does not support a voltage of " + String(V) + " [V].
+      The selected voltage level will be assumed to be low.",
+      level=  AssertionLevel.warning);
     level := Buildings.Electrical.Types.VoltageLevel.Low;
   elseif V <= 1000 then
     level := Buildings.Electrical.Types.VoltageLevel.Low;
@@ -20,6 +20,10 @@ algorithm
   end if;
 annotation(Inline = true, Documentation(revisions="<html>
 <ul>
+<li>
+Sept 19, 2014, by Marco Bonvini:<br/>
+Added warning instead of print.
+</li>
 <li>
 June 3, 2014, by Marco Bonvini:<br/>
 Added User's guide.

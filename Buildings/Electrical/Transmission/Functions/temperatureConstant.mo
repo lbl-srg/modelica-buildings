@@ -28,16 +28,22 @@ algorithm
   elseif material == Buildings.Electrical.Transmission.Types.Material.Cu then
     M := 234.5 + 273.15;
   else
-    // fixme: use an assertion with AssertionLevel.warning. This way, a tool can report
-    // the message to the appropriate logger.
-    // See Buildings.Electrical.Transmission.Functions.selectCable_low()
-    Modelica.Utilities.Streams.print("Warning: the material is not known, missing the temperature constant " +
-        String(material) + " A. The material cannot be choose, selected Copper as default.");
+    assert(material <> Buildings.Electrical.Transmission.Types.Material.Al and
+           material <> Buildings.Electrical.Transmission.Types.Material.Cu,
+    "In function Buildings.Electrical.Transmission.Functions.temperatureConstant,
+    does not support material " + String(material) + ".
+    The selected cable has the temperature constant of Copper.",
+    level=  AssertionLevel.warning);
+
     M := 234.5 + 273.15;
   end if;
 
 annotation(Inline = true, Documentation(revisions="<html>
 <ul>
+<li>
+Sept 19, 2014, by Marco Bonvini:<br/>
+Added warning instead of print.
+</li>
 <li>
 June 3, 2014, by Marco Bonvini:<br/>
 Added User's guide.

@@ -92,15 +92,21 @@ algorithm
       correction := 1.0;
     end if;
   else
-    // fixme: use an assertion with AssertionLevel.warning. This way, a tool can report
-    // the message to the appropriate logger.
-    // See Buildings.Electrical.Transmission.Functions.selectCable_low()
-    Modelica.Utilities.Streams.print("Warning: the material is not available " +
-        String(material) + ". No correction applied.");
+    assert(material <> Buildings.Electrical.Transmission.Types.Material.Al and
+           material <> Buildings.Electrical.Transmission.Types.Material.Cu,
+    "In function Buildings.Electrical.Transmission.Functions.R_AC_Correction,
+    does not support material " + String(material) + ".
+    The selected cable has the R_AC_Correction of the Copper.",
+    level=  AssertionLevel.warning);
+
     correction := 1.0;
   end if;
 annotation(Inline = true, Documentation(revisions="<html>
 <ul>
+<li>
+Sept 19, 2014, by Marco Bonvini:<br/>
+Added warning instead of print.
+</li>
 <li>
 June 3, 2014, by Marco Bonvini:<br/>
 Added User's guide.

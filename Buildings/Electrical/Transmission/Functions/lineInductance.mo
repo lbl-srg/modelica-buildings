@@ -24,15 +24,21 @@ algorithm
   elseif level == Buildings.Electrical.Types.VoltageLevel.High then
     L := l*2e-7*log(GMD/GMR);
   else
-    // fixme: use an assertion with AssertionLevel.warning. This way, a tool can report
-    // the message to the appropriate logger.
-    // See Buildings.Electrical.Transmission.Functions.selectCable_low()
-    Modelica.Utilities.Streams.print("Warning: the voltage level does not match one of the three available: Low, Medium or High " +
-        String(level) + ". A Low level has been choose as default.");
+    assert(level <> Buildings.Electrical.Types.VoltageLevel.Low and
+           level <> Buildings.Electrical.Types.VoltageLevel.Medium and
+           level <> Buildings.Electrical.Types.VoltageLevel.High,
+    "In function Buildings.Electrical.Transmission.Functions.lineInductance,
+    does not support a voltage level of " + String(level) + ".
+    The selected cable have a characteristic resistance of a low voltage cable",
+    level=  AssertionLevel.warning);
   end if;
 
 annotation(Inline = true, Documentation(revisions="<html>
 <ul>
+<li>
+Sept 19, 2014, by Marco Bonvini:<br/>
+Added warning instead of print.
+</li>
 <li>
 June 3, 2014, by Marco Bonvini:<br/>
 Added User's guide.

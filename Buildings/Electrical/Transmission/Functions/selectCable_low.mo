@@ -42,6 +42,10 @@ algorithm
 annotation(Inline = true, Documentation(revisions="<html>
 <ul>
 <li>
+Sept 19, 2014, by Marco Bonvini:<br/>
+Added warning instead of print.
+</li>
+<li>
 June 3, 2014, by Marco Bonvini:<br/>
 Added User's guide.
 </li>
