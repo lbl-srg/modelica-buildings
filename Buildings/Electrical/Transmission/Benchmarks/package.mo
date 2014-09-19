@@ -14,5 +14,12 @@ This package contains models and data for benchmarks.
 <p>
 This part of the library is under construction.
 </p>
+</html>", revisions="<html>
+<ul>
+<li>
+Sept 19 2014 by Marco Bonvini:</br>
+Added documentation
+</li>
+</ul>
 </html>"));
 end Benchmarks;

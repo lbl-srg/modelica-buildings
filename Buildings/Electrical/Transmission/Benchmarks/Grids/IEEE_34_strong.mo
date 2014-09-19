@@ -1,5 +1,6 @@
 within Buildings.Electrical.Transmission.Benchmarks.Grids;
-record IEEE_34 "IEEE 34 Bus Grid District 1 (AL120,AL70,Al35) - freestanding"
+record IEEE_34_strong
+  "IEEE 34 Bus Grid District 1 (AL120,AL70,Al35) - freestanding"
   extends Buildings.Electrical.Transmission.Grids.PartialGrid(
     nNodes=34,
     nLinks=33,
@@ -63,8 +64,25 @@ record IEEE_34 "IEEE 34 Bus Grid District 1 (AL120,AL70,Al35) - freestanding"
     
    */
   annotation (Documentation(info="<html>
-<p>Schematic of the IEEE-34 grid.
-fixme: Explain the difference between the three IEEE 34 grids.</p>
+<p>
+Schematic of the IEEE-34 grid.
+</p>
+<p>
+The grid uses three type of cables to connect the nodes of the network.
+In the image below the different cables are identified by different thicknesses.
+</p>
+<p>
+This grid model uses the following cables (AL120,AL70,Al35) and it can be considered 
+the strongest (i.e., the one that causes the smaller losses) of the three IEEE-34 networks 
+used in this benchmark.
+</p>
 <p><img alt=\"alt-image\" src=\"modelica://Buildings/Resources/Images/Electrical/Transmission/Grids/IEEE_34.png\"/></p>
+</html>", revisions="<html>
+<ul>
+<li>
+Sept 19 2014 by Marco Bonvini:</br>
+Added documentation
+</li>
+</ul>
 </html>"));
-end IEEE_34;
+end IEEE_34_strong;

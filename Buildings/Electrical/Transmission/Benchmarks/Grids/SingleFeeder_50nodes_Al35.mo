@@ -12,5 +12,12 @@ record SingleFeeder_50nodes_Al35
              Buildings.Electrical.Transmission.LowVoltageCables.PvcAl35()));
 
   annotation (Documentation(info="<html>
+</html>", revisions="<html>
+<ul>
+<li>
+Sept 19 2014 by Marco Bonvini:</br>
+Added documentation
+</li>
+</ul>
 </html>"));
 end SingleFeeder_50nodes_Al35;
