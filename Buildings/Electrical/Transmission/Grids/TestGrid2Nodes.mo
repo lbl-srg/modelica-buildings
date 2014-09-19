@@ -4,7 +4,7 @@ record TestGrid2Nodes "Simple model of a grid with 2 nodes and 1 link"
     nNodes=2,
     nLinks=1,
     fromTo=[[1,2]],
-    L=[200],
+    l=[200],
     cables={LowVoltageCables.Cu35()});
   annotation (Documentation(info="<html>
 <p>

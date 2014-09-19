@@ -4,7 +4,7 @@ record SingleFeeder_30nodes
   extends Buildings.Electrical.Transmission.Grids.PartialGrid(
     nNodes = 30,
     nLinks = nNodes-1,
-    L = Utilities.LineFeederLengths(nLinks, 200, 16),
+    l = Utilities.LineFeederLengths(nLinks, 200, 16),
     fromTo = Utilities.LineFeederConnections(nLinks),
     cables = Utilities.LineFeederCables(
              nLinks,

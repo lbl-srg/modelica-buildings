@@ -3,7 +3,7 @@ record GridInHome_AL70 "Simplified grid for benchmarking (AL70)"
   extends Buildings.Electrical.Transmission.Grids.PartialGrid(
     nNodes=21,
     nLinks=20,
-    L=16.0*ones(nLinks,1),
+    l = 16.0*ones(nLinks,1),
     fromTo=[[1,2];   [2,3];   [3,4];   [4,5];   [5,6];   [6,7];   [7,8];   [8,9];   [9,10];  [10,11];
             [11,12]; [12,13]; [13,14]; [14,15]; [15,16]; [16,17]; [17,18]; [18,19]; [19,20]; [20,21]],
     cables={LowVoltageCables.PvcAl70(),LowVoltageCables.PvcAl70(),

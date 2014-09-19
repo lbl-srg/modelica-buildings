@@ -8,7 +8,7 @@ partial model PartialNetwork "Partial model that represent an electric network"
     annotation (Placement(transformation(extent={{90,-10},{110,10}})));
   replaceable Buildings.Electrical.Transmission.BaseClasses.PartialBaseLine lines[grid.nLinks](
     each mode=Buildings.Electrical.Types.CableMode.commercial,
-    l=grid.L[:, 1],
+    l=grid.l[:, 1],
     each P_nominal=1000,
     each V_nominal=120)
     "Array of line models, each line connecting two nodes of the grid";
