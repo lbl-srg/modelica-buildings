@@ -41,21 +41,23 @@ model FlatPlateWithTank
    tan(
     nSeg=4,
     redeclare package Medium = Medium,
-    hTan=1,
+    hTan=1.8,
     m_flow_nominal=0.1,
     VTan=1.5,
     dIns=0.07,
     redeclare package MediumHex = Medium_2,
     CHex=200,
     dExtHex=0.01905,
-    hexTopHeight=0.9,
-    hexBotHeight=0.65,
+    hHex_a=0.9,
+    hHex_b=0.65,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     Q_flow_nominal=3000,
     mHex_flow_nominal=3000/20/4200,
     T_start=293.15,
     TTan_nominal=293.15,
-    THex_nominal=323.15) "Storage tank model"
+    THex_nominal=323.15,
+    energyDynamicsHex=Modelica.Fluid.Types.Dynamics.FixedInitial)
+    "Storage tank model"
     annotation (Placement(transformation(
       extent={{-15,-15},{15,15}},
       rotation=0,
@@ -92,7 +94,9 @@ model FlatPlateWithTank
       rotation=0,
       origin={70,-32})));
   Buildings.Fluid.Movers.FlowMachine_m_flow pum(redeclare package Medium =
-    Medium_2, m_flow_nominal=0.1) "Pump forcing circulation through the system"
+    Medium_2, m_flow_nominal=0.1,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
+    dynamicBalance=false) "Pump forcing circulation through the system"
     annotation (Placement(transformation(
       extent={{-10,-10},{10,10}},
       rotation=90,
@@ -149,11 +153,11 @@ equation
       points={{-50,-16},{-50,-46},{-66,-46}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(exp.port_a, tan.port_b1) annotation (Line(
+  connect(exp.port_a, tan.portHex_b) annotation (Line(
       points={{-66,-46},{-4,-46},{-4,-45},{12,-45}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(TOut.port_b, tan.port_a1) annotation (Line(
+  connect(TOut.port_b, tan.portHex_a) annotation (Line(
       points={{50,56},{60,56},{60,-16},{8,-16},{8,-38.7},{12,-38.7}},
       color={0,127,255},
       smooth=Smooth.None));
@@ -177,6 +181,7 @@ equation
             -100},{100,100}}), graphics),
                       __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/SolarCollectors/Examples/FlatPlateWithTank.mos"
         "Simulate and Plot"),
+        experiment(StopTime=86400.0),
         Documentation(info="<html>
           <p>
             This example shows how several different models can be combined to create
@@ -229,6 +234,10 @@ equation
       </html>",
       revisions="<html>
       <ul>
+          <li>
+            April 18, 2014, by Michael Wetter:<br/>
+            Updated model to use the revised tank and increased the tank height.
+          </li>      
           <li>
             March 25, 2014, by Michael Wetter:<br/>
             Updated model with new expansion vessel.

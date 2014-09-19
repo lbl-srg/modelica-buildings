@@ -26,6 +26,7 @@ model System2
     annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
   Fluid.MixingVolumes.MixingVolume vol(
     redeclare package Medium = MediumA,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     m_flow_nominal=mA_flow_nominal,
     V=V)
     annotation (Placement(transformation(extent={{60,20},{80,40}})));
@@ -48,17 +49,16 @@ model System2
     annotation (Placement(transformation(extent={{60,50},{80,70}})));
   Modelica.Blocks.Sources.CombiTimeTable timTab(
       extrapolation=Modelica.Blocks.Types.Extrapolation.Periodic,
-      table=[      0, 0;
-              8*3600, 0;
+      smoothness=Modelica.Blocks.Types.Smoothness.ConstantSegments,
+      table=[-6*3600, 0;
               8*3600, QRooInt_flow;
-             18*3600, QRooInt_flow;
-             18*3600, 0;
-             24*3600, 0]) "Time table for internal heat gain"
+             18*3600, 0]) "Time table for internal heat gain"
     annotation (Placement(transformation(extent={{-20,70},{0,90}})));
 
 //-------------------------Step 5: Radiator Model-------------------------//
  Buildings.Fluid.HeatExchangers.Radiators.RadiatorEN442_2 rad(
     redeclare package Medium = MediumW,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     Q_flow_nominal=Q_flow_nominal,
     T_a_nominal=TRadSup_nominal,
     T_b_nominal=TRadRet_nominal) "Radiator"
@@ -83,13 +83,15 @@ model System2
         origin={-40,30})));
 
 //------------------------Step 5: Pump for radiator-----------------------//
-  Buildings.Fluid.Movers.FlowMachine_m_flow pumRad(
-      m_flow_nominal=mRad_flow_nominal,
-      redeclare package Medium = MediumW) "Pump for radiator"
-                        annotation (Placement(transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=90,
-        origin={-50,-70})));
+Buildings.Fluid.Movers.FlowMachine_m_flow pumRad(
+    redeclare package Medium = MediumW,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    m_flow_nominal=mRad_flow_nominal) "Pump for radiator"
+      annotation (Placement(transformation(
+      extent={{-10,-10},{10,10}},
+      rotation=90,
+      origin={-50,-70})));
+
 //------------------------------------------------------------------------//
 
   Fluid.Sources.FixedBoundary sou(
@@ -206,7 +208,7 @@ Since this model uses water as the medium, we declared the water medium model
 at the top-level of the model by adding the lines
 </p>
 <pre>
-  replaceable package MediumW = 
+  replaceable package MediumW =
       Buildings.Media.ConstantPropertyLiquidWater \"Medium model\";
 </pre>
 </li>
@@ -219,13 +221,13 @@ Buildings.Fluid.Movers.FlowMachine_m_flow</a>
 (instance <code>pumRad</code> for the pump that serves the radiators),
 <a href=\"modelica://Buildings.Fluid.Sensors.TemperatureTwoPort\">
 Buildings.Fluid.Sensors.TemperatureTwoPort</a>
-(instance <code>temSup</code>), 
+(instance <code>temSup</code>),
 <a href=\"modelica://Buildings.Fluid.HeatExchangers.Radiators.RadiatorEN442_2\">
 Buildings.Fluid.HeatExchangers.Radiators.RadiatorEN442_2</a>
 (instance <code>rad</code>), and
 <a href=\"modelica://Buildings.Fluid.Sources.FixedBoundary\">
 Buildings.Fluid.Sources.FixedBoundary</a>
-(instance <code>sou</code> and <code>sin</code> for the sink and source 
+(instance <code>sou</code> and <code>sin</code> for the sink and source
 reservoirs, which will later be replace by the boiler loop).
 </p>
 <p>
@@ -233,19 +235,19 @@ In all of these instances, we set the medium model to <code>MediumW</code>.
 We also made an instance of the model
 Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor
 (instance <code>temRoo</code>) to measure the room temperature.
-We connected the model as shown in the figure below. 
+We connected the model as shown in the figure below.
 </p>
 <p align=\"center\">
 <img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Examples/Tutorial/Boiler/System2Connections.png\" border=\"1\"/>
 </p>
 <p>
 Note that there are two connections from the
-radiator to the room volume: 
-One connection is for the convective heat flow rate, and the other is for the 
+radiator to the room volume:
+One connection is for the convective heat flow rate, and the other is for the
 radiative heat flow rate. For simplicity, we assumed that the air and radiative
 temperature of the room are equal.
 Furthermore, we simplified the model by using only one radiator instead of multiple
-radiators, although this radiator will be quite large as it needs to provide a 
+radiators, although this radiator will be quite large as it needs to provide a
 heat flow rate of <i>20</i> kW.
 </p>
 </li>
@@ -253,7 +255,7 @@ heat flow rate of <i>20</i> kW.
 <p>
 Next, we computed the design mass flow rate for the radiator.
 According to the schematic drawing, the radiator should have at
-the design conditions a supply water temperature of 
+the design conditions a supply water temperature of
 <i>50</i>&deg;C and a return water temperature of
 <i>40</i>&deg;C.
 Thus, we define the radiator mass flow rate as
@@ -261,11 +263,11 @@ Thus, we define the radiator mass flow rate as
 <pre>
   parameter Modelica.SIunits.HeatFlowRate Q_flow_nominal = 20000
     \"Nominal heat flow rate of radiator\";
-  parameter Modelica.SIunits.Temperature TRadSup_nominal = 273.15+50 
+  parameter Modelica.SIunits.Temperature TRadSup_nominal = 273.15+50
     \"Radiator nominal supply water temperature\";
-  parameter Modelica.SIunits.Temperature TRadRet_nominal = 273.15+40 
+  parameter Modelica.SIunits.Temperature TRadRet_nominal = 273.15+40
     \"Radiator nominal return water temperature\";
-  parameter Modelica.SIunits.MassFlowRate mRad_flow_nominal = 
+  parameter Modelica.SIunits.MassFlowRate mRad_flow_nominal =
     Q_flow_nominal/4200/(TRadSup_nominal-TRadRet_nominal)
     \"Radiator nominal mass flow rate\";
 </pre>
@@ -281,6 +283,7 @@ We configured the parameters of the radiator model as
 <pre>
   Buildings.Fluid.HeatExchangers.Radiators.RadiatorEN442_2 rad(
     redeclare package Medium = MediumW,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     Q_flow_nominal=Q_flow_nominal,
     T_a_nominal=TRadSup_nominal,
     T_b_nominal=TRadRet_nominal) \"Radiator\";
@@ -290,16 +293,18 @@ We configured the parameters of the pump model as
 </p>
 <pre>
   Buildings.Fluid.Movers.FlowMachine_m_flow pumRad(
-    m_flow_nominal=mRad_flow_nominal) 
+    redeclare package Medium = MediumW,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    m_flow_nominal=mRad_flow_nominal)
     \"Pump for radiator\";
 </pre>
 </li>
 <li>
 <p>
-To enable the pump when the room temperature is below 
+To enable the pump when the room temperature is below
 <i>19</i>&deg;C and to switch it off when the room temperature
-is below 
-<i>21</i>&deg;C, 
+is below
+<i>21</i>&deg;C,
 we implemented the control blocks as shown in the figure below.
 </p>
 <p align=\"center\">
@@ -309,12 +314,12 @@ we implemented the control blocks as shown in the figure below.
 In this control sequence, the first block is a hysteresis element,
 which is modeled by
 <a href=\"modelica://Modelica.Blocks.Logical.Hysteresis\">
-Modelica.Blocks.Logical.Hysteresis</a>. 
+Modelica.Blocks.Logical.Hysteresis</a>.
 It is configured as
 </p>
 <pre>
   Modelica.Blocks.Logical.Hysteresis hysPum(
-    uLow=273.15 + 19, 
+    uLow=273.15 + 19,
     uHigh=273.15 + 21)
     \"Pump hysteresis\";
 </pre>
@@ -337,13 +342,13 @@ We set the parameters of the boolean to real converter as
 </p>
 <pre>
   Modelica.Blocks.Math.BooleanToReal booToReaRad(
-        realTrue=mRad_flow_nominal, 
+        realTrue=mRad_flow_nominal,
         realFalse=0) \"Radiator pump signal\";
 </pre>
 <p>
 For numerical reasons, in particular in large system models, it is recommended to
 continuously change the mass flow rate, as opposed to having a step change.
-Therefore, 
+Therefore,
 in the instance <code>pumRad</code>, we leave the parameter
 <code>filteredSpeed</code> at its default value <code>true</code>.
 This will approximate a continuous change in mass flow rate when the
@@ -372,7 +377,7 @@ time lag that is caused by the thermal capacity of the radiator.
 <!-- Notes -->
 <h4>Notes</h4>
 <p>
-For a more realistic model of a room, the model 
+For a more realistic model of a room, the model
 <a href=\"modelica://Buildings.Rooms.MixedAir\">
 Buildings.Rooms.MixedAir</a>
 could have been used.

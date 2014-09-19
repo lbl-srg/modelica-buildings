@@ -4,10 +4,14 @@ model IndirectTankHeatExchanger
 
   replaceable package MediumHex = Modelica.Media.Interfaces.PartialMedium
     "Heat transfer fluid flowing through the heat exchanger";
+  replaceable package MediumTan = Modelica.Media.Interfaces.PartialMedium
+    "Heat transfer fluid inside the tank";
 
   extends Buildings.Fluid.Interfaces.TwoPortFlowResistanceParameters;
-  extends Buildings.Fluid.Interfaces.LumpedVolumeDeclarations;
+  extends Buildings.Fluid.Interfaces.LumpedVolumeDeclarations(
+      redeclare final package Medium = MediumHex);
   extends Buildings.Fluid.Interfaces.PartialTwoPortInterface(
+    redeclare final package Medium = MediumHex,
     showDesignFlowDirection=false,
     final show_T=false);
 
@@ -52,7 +56,7 @@ model IndirectTankHeatExchanger
         iconTransformation(extent={{-10,-108},{10,-88}})));
 
   FixedResistances.FixedResistanceDpM res(
-    redeclare final package Medium = Medium,
+    redeclare final package Medium = MediumHex,
     final dp_nominal=dp_nominal,
     final m_flow_nominal=m_flow_nominal,
     final allowFlowReversal=allowFlowReversal,
@@ -75,9 +79,13 @@ model IndirectTankHeatExchanger
     each C_start=C_start,
     each C_nominal=C_nominal) "Heat exchanger fluid"
     annotation (Placement(transformation(extent={{-32,-40},{-12,-20}})));
-  Modelica.Thermal.HeatTransfer.Components.HeatCapacitor Cap[nSeg](each C=CHex/
-        nSeg, T(each start=T_start)) if
-       not (energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState)
+  Modelica.Thermal.HeatTransfer.Components.HeatCapacitor cap[nSeg](each C=CHex/
+        nSeg,
+        T(each start=T_start,
+          each fixed=(energyDynamics == Modelica.Fluid.Types.Dynamics.FixedInitial)),
+        der_T(
+          each fixed=(energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyStateInitial))) if
+        not (energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState)
     "Thermal mass of the heat exchanger"
     annotation (Placement(transformation(extent={{-6,6},{14,26}})));
 protected
@@ -147,11 +155,11 @@ equation
       points={{4.44089e-16,-150},{88,-150},{88,2},{40,2}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(vol[1].ports[1],senMasFlo. port_b) annotation (Line(
+  connect(vol[1].ports[1],senMasFlo.port_b) annotation (Line(
       points={{-24,-40},{-24,-50},{-60,-50}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(Cap.port,HexToTan. solid) annotation (Line(
+  connect(cap.port,HexToTan.solid) annotation (Line(
       points={{4,6},{4,2},{20,2}},
       color={191,0,0},
       smooth=Smooth.None));
@@ -276,6 +284,20 @@ equation
           </html>",
           revisions = "<html>
           <ul>
+          <li>
+          August 29, 2014, by Michael Wetter:<br/>
+          Introduced <code>MediumTan</code> for the tank medium, and assigned <code>Medium</code>
+          to be equal to <code>MediumHex</code>.
+          This is to correct issue <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/271\">
+          #271</a>.
+          </li>
+          <li>
+          June 18, 2014, by Michael Wetter:<br/>
+          Set initial equations for <code>cap</code>, and renamed this instance from
+          <code>Cap</code> to <code>cap</code>.
+          This was done to avoid a warning during translation, and to comply with
+          the coding convention.
+          </li>
           <li>
           October 8, 2013, by Michael Wetter:<br/>
           Removed parameter <code>show_V_flow</code>.

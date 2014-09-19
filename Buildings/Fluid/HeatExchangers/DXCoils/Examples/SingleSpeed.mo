@@ -37,7 +37,9 @@ model SingleSpeed "Test model for single speed DX coil"
     datCoi=datCoi,
     T_start=datCoi.sta[1].nomVal.TEvaIn_nominal,
     show_T=true,
-    from_dp=true) "Single speed DX coil"
+    from_dp=true,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+    "Single speed DX coil"
     annotation (Placement(transformation(extent={{-10,0},{10,20}})));
 
   Modelica.Blocks.Sources.Ramp p(

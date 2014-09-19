@@ -18,6 +18,10 @@ model ExteriorWallWithWindow "Test model for an exterior wall with a window"
     haveInteriorShade=false) "Record for glazing system"
     annotation (Placement(transformation(extent={{-120,60},{-100,80}})));
 
+  parameter HeatTransfer.Data.OpaqueConstructions.Insulation100Concrete200 extConMat
+    "Record for material layers"
+    annotation (Placement(transformation(extent={{-160,60},{-140,80}})));
+
   parameter Buildings.Rooms.BaseClasses.ParameterConstructionWithWindow conPar(
     til=Buildings.HeatTransfer.Types.Tilt.Wall,
     azi=0,
@@ -27,10 +31,6 @@ model ExteriorWallWithWindow "Test model for an exterior wall with a window"
     hWin=hWin,
     wWin=wWin) "Data for construction with window"
     annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
-
-  parameter HeatTransfer.Data.OpaqueConstructions.Insulation100Concrete200 extConMat
-    "Record for material layers"
-    annotation (Placement(transformation(extent={{-160,60},{-140,80}})));
 
   ConstructionWithWindow conExt[1](
     layers={conPar.layers},
@@ -45,7 +45,7 @@ model ExteriorWallWithWindow "Test model for an exterior wall with a window"
     bouConExt(
     nCon=1,
     linearizeRadiation = linearizeRadiation,
-    conMod=Buildings.HeatTransfer.Types.InteriorConvection.Fixed,
+    conMod=Buildings.HeatTransfer.Types.ExteriorConvection.Fixed,
     lat=0.73268921998722,
     conPar={conPar})
     "Exterior boundary conditions for constructions with a window"
@@ -282,6 +282,11 @@ This model tests the exterior constructions with windows.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+April 29, 2013, by Michael Wetter:<br/>
+Corrected wrong assignment of parameter in instance <code>bouConExt(conMod=...)</code>
+which was set to an interior instead of an exterior convection model.
+</li>
 <li>
 June 12, 2013, by Michael Wetter:<br/>
 Redesigned model to separate convection from radiation, which is

@@ -69,8 +69,8 @@ protected
         L=length/nSeg,
         K=pipe.roughness),
     redeclare each final package Medium = Medium,
-    each final A=Modelica.Constants.pi*pipe.dIn*length/nSeg)
-    "Liquid side convective heat transfer"
+    each final A=Modelica.Constants.pi*pipe.dIn*length/nSeg,
+    each fluid(T(start=T_c_start))) "Liquid side convective heat transfer"
     annotation (Placement(transformation(extent={{-30,-60},{-10,-40}})));
   Modelica.Blocks.Sources.RealExpression mFlu_flow[nSeg](each y=m_flow)
     "Input signal for mass flow rate"
@@ -334,6 +334,11 @@ plane with the pipes and the construction surfaces, <code>con_a</code> and <code
 ",
 revisions="<html>
 <ul>
+<li>
+September 12, 2014, by Michael Wetter:<br/>
+Set start value for <code>hPip(fluid(T))</code> to avoid
+a warning about conflicting start values in Dymola 2015 FD01.
+</li>
 <li>
 February 27, 2013, by Michael Wetter:<br/>
 Fixed bug in the assignment of the fictitious thermal resistance by replacing

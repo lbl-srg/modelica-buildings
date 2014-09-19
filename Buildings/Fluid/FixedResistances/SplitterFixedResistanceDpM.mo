@@ -85,8 +85,8 @@ defaultComponentName="spl",
     Documentation(info="<html>
 <p>
 Model of a flow splitter or mixer with a fixed resistance in each flow leg.
-In each flow lag, a pressure drop can be modelled, and at the fluid junction,
-a mixing volume can be modelled.
+In each flow lag, a pressure drop can be modeled, and at the fluid junction,
+a mixing volume can be modeled.
 </p>
 <p>
 The pressure drop is implemented using the model
@@ -109,11 +109,11 @@ The negative values indicate that at the nominal conditions, fluid is leaving th
 <img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Fluid/FixedResistances/SplitterFixedResistanceDpM.png\"/>
 </p>
 <p>
-Optionally, at the fluid junction, a control volume can be modelled. 
+Optionally, at the fluid junction, a control volume can be modeled. 
 This is implemented using the model
 <a href=\"modelica://Buildings.Fluid.Delays.DelayFirstOrder\">
 Buildings.Fluid.Delays.DelayFirstOrder</a>.
-The fluid volume is modelled if
+The fluid volume is modeled if
 <code>dynamicBalance=true</code>, and it is removed if
 <code>dynamicBalance=false</code>.
 The control volume has the size

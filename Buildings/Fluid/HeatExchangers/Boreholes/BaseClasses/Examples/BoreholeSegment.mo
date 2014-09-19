@@ -23,6 +23,7 @@ model BoreholeSegment
     hSeg=10,
     xC=0.05,
     redeclare Buildings.HeatTransfer.Data.Soil.Concrete matSoi,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyStateInitial,
     TFil_start=283.15,
     TExt_start=283.15) "Borehole segment"
     annotation (Placement(transformation(extent={{-13,-13},{13,13}},
@@ -49,7 +50,7 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(seg.port_b1, seg.port_a2) annotation (Line(
-      points={{18.8,-14},{14.9,-14},{14.9,-14},{11,-14},{11,-14},{3.2,-14}},
+      points={{18.8,-14},{3.2,-14}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(seg.port_b2, sin_2.ports[1]) annotation (Line(

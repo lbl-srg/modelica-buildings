@@ -24,15 +24,18 @@ model System7
   parameter Modelica.SIunits.MassFlowRate mBoi_flow_nominal=
     Q_flow_nominal/4200/(TBoiSup_nominal-TBoiRet_min)
     "Boiler nominal mass flow rate";
+//------------------------------------------------------------------------------//
 
+//----------------Radiator loop: Three-way valve: mass flow rate----------------//
   parameter Modelica.SIunits.MassFlowRate mRadVal_flow_nominal=
     Q_flow_nominal/4200/(TBoiSup_nominal-TRadRet_nominal)
-    "Boiler nominal mass flow rate";
+    "Radiator nominal mass flow rate";
 
   inner Modelica.Fluid.System system
     annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
   Buildings.Fluid.MixingVolumes.MixingVolume vol(
     redeclare package Medium = MediumA,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     m_flow_nominal=mA_flow_nominal,
     V=V)
     annotation (Placement(transformation(extent={{60,20},{80,40}})));
@@ -52,22 +55,21 @@ model System7
     annotation (Placement(transformation(extent={{60,50},{80,70}})));
   Modelica.Blocks.Sources.CombiTimeTable timTab(
       extrapolation=Modelica.Blocks.Types.Extrapolation.Periodic,
-      table=[      0, 0;
-              8*3600, 0;
+      smoothness=Modelica.Blocks.Types.Smoothness.ConstantSegments,
+      table=[-6*3600, 0;
               8*3600, QRooInt_flow;
-             18*3600, QRooInt_flow;
-             18*3600, 0;
-             24*3600, 0]) "Time table for internal heat gain"
+             18*3600, 0]) "Time table for internal heat gain"
     annotation (Placement(transformation(extent={{-20,70},{0,90}})));
   Buildings.Fluid.HeatExchangers.Radiators.RadiatorEN442_2 rad(
     redeclare package Medium = MediumW,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     Q_flow_nominal=Q_flow_nominal,
     T_a_nominal=TRadSup_nominal,
     T_b_nominal=TRadRet_nominal) "Radiator"
     annotation (Placement(transformation(extent={{0,-20},{20,0}})));
   Buildings.Fluid.Sensors.TemperatureTwoPort temSup(redeclare package Medium = MediumW,
       m_flow_nominal=mRad_flow_nominal) "Supply water temperature"
-                                          annotation (Placement(transformation(
+      annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={-50,-40})));
@@ -77,14 +79,18 @@ model System7
         rotation=0,
         origin={-40,30})));
   Buildings.Fluid.Movers.FlowMachine_m_flow pumRad(
-      m_flow_nominal=mRad_flow_nominal,
-      redeclare package Medium = MediumW) "Pump for radiator"
-                        annotation (Placement(transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=90,
-        origin={-50,-70})));
+    redeclare package Medium = MediumW,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    m_flow_nominal=mRad_flow_nominal) "Pump for radiator"
+      annotation (Placement(transformation(
+      extent={{-10,-10},{10,10}},
+      rotation=90,
+      origin={-50,-70})));
+
+//----------------------------------------------------------------------------//
   Buildings.Fluid.FixedResistances.SplitterFixedResistanceDpM mix(
     redeclare package Medium =MediumW,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     m_flow_nominal={mRadVal_flow_nominal,
                    -mRad_flow_nominal,
                    mRad_flow_nominal-mRadVal_flow_nominal},
@@ -95,6 +101,7 @@ model System7
         origin={-50,-110})));
   Buildings.Fluid.FixedResistances.SplitterFixedResistanceDpM spl(
     redeclare package Medium = MediumW,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     m_flow_nominal={mBoi_flow_nominal,
                    -mRadVal_flow_nominal,
                    -mBoi_flow_nominal},
@@ -105,8 +112,8 @@ model System7
         origin={-50,-190})));
 
   Buildings.Fluid.FixedResistances.SplitterFixedResistanceDpM spl2(redeclare
-      package Medium =
-               MediumW,
+      package Medium=MediumW,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     dp_nominal={0,0,0},
     m_flow_nominal={mRad_flow_nominal,-mRadVal_flow_nominal,-mRad_flow_nominal +
         mRadVal_flow_nominal})
@@ -115,53 +122,64 @@ model System7
         rotation=270,
         origin={60,-110})));
   Buildings.Fluid.FixedResistances.SplitterFixedResistanceDpM mix2(redeclare
-      package Medium =
-               MediumW,
-    m_flow_nominal={mRadVal_flow_nominal,-mBoi_flow_nominal,mBoi_flow_nominal},
-    dp_nominal={0,-200,0}) "Mixer"
+      package Medium=MediumW,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    dp_nominal={0,-200,0},
+    m_flow_nominal={mRadVal_flow_nominal,-mBoi_flow_nominal,mBoi_flow_nominal}) "Mixer"
                         annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=270,
         origin={60,-190})));
-
   Buildings.Fluid.FixedResistances.SplitterFixedResistanceDpM spl4(redeclare
-      package Medium =
-               MediumW,
+      package Medium=MediumW,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     m_flow_nominal=mRadVal_flow_nominal*{1,-1,-1},
     dp_nominal=200*{1,-1,-1}) "Splitter for radiator loop valve bypass"
                         annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=270,
         origin={60,-150})));
+//----------------------------------------------------------------------------//
+
   Buildings.Fluid.Movers.FlowMachine_m_flow pumBoi(
       redeclare package Medium = MediumW,
+      energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
       m_flow_nominal=mBoi_flow_nominal) "Pump for boiler"
                         annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={-50,-280})));
+//----------------------------------------------------------------------------//
+
   Buildings.Fluid.Boilers.BoilerPolynomial boi(
     redeclare package Medium = MediumW,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     m_flow_nominal=mBoi_flow_nominal,
     dp_nominal=2000,
     Q_flow_nominal=Q_flow_nominal,
     fue=Buildings.Fluid.Data.Fuels.HeatingOilLowerHeatingValue()) "Boiler"
     annotation (Placement(transformation(extent={{20,-320},{0,-300}})));
+//----------------------------------------------------------------------------//
+
   Buildings.Fluid.Actuators.Valves.ThreeWayEqualPercentageLinear valRad(
     redeclare package Medium = MediumW,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     m_flow_nominal=mRadVal_flow_nominal,
     l={0.01,0.01},
-    dpValve_nominal=6000) "Three-way valve"
+    dpValve_nominal=6000) "Three-way valve for radiator loop"
                         annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={-50,-150})));
+//----------------------------------------------------------------------------//
+
   Buildings.Fluid.Sources.FixedBoundary preSou(redeclare package Medium = MediumW,
       nPorts=1)
     "Source for pressure and to account for thermal expansion of water"
     annotation (Placement(transformation(extent={{92,-320},{72,-300}})));
   Buildings.Fluid.Actuators.Valves.ThreeWayEqualPercentageLinear valBoi(
     redeclare package Medium = MediumW,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     m_flow_nominal=mBoi_flow_nominal,
     l={0.01,0.01},
     dpValve_nominal=6000) "Three-way valve for boiler"
@@ -176,14 +194,17 @@ model System7
         rotation=270,
         origin={60,-280})));
   Buildings.Fluid.FixedResistances.SplitterFixedResistanceDpM spl1(redeclare
-      package Medium =
-               MediumW,
+      package Medium=MediumW,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     m_flow_nominal={mBoi_flow_nominal,-mBoi_flow_nominal,-mBoi_flow_nominal},
     dp_nominal={0,0,-200}) "Splitter"
                         annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={-50,-250})));
+
+//------------------------------------------------------------------------------------//
+
   Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor senTOut
     "Outdoor temperature sensor"
     annotation (Placement(transformation(extent={{-318,20},{-298,40}})));
@@ -572,7 +593,7 @@ This part of the system model changes the implementation of the control in
 <a href=\"modelica://Buildings.Examples.Tutorial.Boiler.System6\">
 Buildings.Examples.Tutorial.Boiler.System6</a>
 to use a state machine to switch the pumps and the boiler on and off.
-State machines provide an alternate way to implement discrete event, 
+State machines provide an alternate way to implement discrete event,
 reactive and hybrid systems.
 The state machine that is implemented in this model is shown in
 the figure below.
@@ -603,14 +624,14 @@ and called it
 We implemented the state machine using blocks from the library
 <a href=\"modelica://Modelica_StateGraph2\">
 Modelica_StateGraph2</a>.
-How to use these blocks is explained in the 
-user's guide of the 
+How to use these blocks is explained in the
+user's guide of the
 <a href=\"modelica://Modelica_StateGraph2\">
 Modelica_StateGraph2</a>
 library.
 </p>
 <p>
-The figure below shows the state machine. 
+The figure below shows the state machine.
 The oval icons are states, and the black bars
 are transitions. The transitions are enabled when their input signal is true.
 The red numbers to the right of the transition indicate the delay in seconds.
@@ -624,10 +645,10 @@ for a transition to fire.
 In our implementation, the state <code>allOff</code> is the initial state,
 indicated by its black arrow.
 The transition <code>T1</code> is used to switch the pumps on.
-Once the pumps are on, transition <code>T2</code> may fire, which 
+Once the pumps are on, transition <code>T2</code> may fire, which
 would switch the boiler on.
 Hence, the boiler can only be on when the pumps are on.
-From the state <code>boilerOn</code>, the only next step can be to 
+From the state <code>boilerOn</code>, the only next step can be to
 transition to the state <code>pumpsOn</code>.
 Once this state has been reached (and hence the boiler is off),
 the pumps can be switched off when transition <code>T4</code> fires.

@@ -34,25 +34,24 @@ model EN12975HeatLoss "Example showing the use of EN12975HeatLoss"
     G_nominal=per.G_nominal,
     dT_nominal=per.dT_nominal,
     A_c=per.A,
-    y_intercept=per.y_intercept) "Heat loss model using EN12975 calculations"
-    annotation (Placement(transformation(extent={{62,20},{82,40}})));
-  inner Modelica.Fluid.System system
-    annotation (Placement(transformation(extent={{60,60},{80,80}})));
+    y_intercept=per.y_intercept,
+    cp_default=4186) "Heat loss model using EN12975 calculations"
+    annotation (Placement(transformation(extent={{60,20},{80,40}})));
 equation
   connect(TEnv.y, heaLos.TEnv) annotation (Line(
-      points={{-59,70},{-20,70},{-20,36},{60,36}},
+      points={{-59,70},{-20,70},{-20,36},{58,36}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(T3.y, heaLos.TFlu[3]) annotation (Line(
-      points={{-59,30},{-20,30},{-20,25.3333},{60,25.3333}},
+      points={{-59,30},{-20,30},{-20,25.3333},{58,25.3333}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(T2.y, heaLos.TFlu[2]) annotation (Line(
-      points={{-59,-10},{-20,-10},{-20,24},{60,24}},
+      points={{-59,-10},{-20,-10},{-20,24},{58,24}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(T1.y, heaLos.TFlu[1]) annotation (Line(
-      points={{-59,-50},{-14,-50},{-14,22.6667},{60,22.6667}},
+      points={{-59,-50},{-14,-50},{-14,22.6667},{58,22.6667}},
       color={0,0,127},
       smooth=Smooth.None));
   annotation (
@@ -76,5 +75,5 @@ equation
     __Dymola_Commands(file=
           "modelica://Buildings/Resources/Scripts/Dymola/Fluid/SolarCollectors/BaseClasses/Examples/EN12975HeatLoss.mos"
         "Simulate and Plot"),
-    Icon(graphics));
+        experiment(StopTime=100.0));
 end EN12975HeatLoss;

@@ -10,7 +10,7 @@ model HeaterCoolerPrescribed "Heater or cooler with prescribed heat flow rate"
     annotation (Placement(transformation(
           extent={{-140,40},{-100,80}}, rotation=0)));
 protected
-  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow preHea
+  Buildings.HeatTransfer.Sources.PrescribedHeatFlow preHea
     "Prescribed heat flow"
     annotation (Placement(transformation(extent={{-40,50},{-20,70}})));
   Modelica.Blocks.Math.Gain gai(k=Q_flow_nominal) "Gain"

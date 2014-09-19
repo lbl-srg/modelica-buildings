@@ -62,7 +62,7 @@ model Evaporation
     "Total moisture mass flow rate into the air stream"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 
-  Modelica.SIunits.Mass m(start=0, nominal=-5000*1400/2257E3)
+  Modelica.SIunits.Mass m(nominal=-5000*1400/2257E3, start=0, fixed=true)
     "Mass of water that accumulated on the coil";
 
   Modelica.SIunits.MassFlowRate mEva_flow(max=0)
@@ -548,6 +548,11 @@ Florida Solar Energy Center, Technical Report FSEC-CR-1537-05, January 2006.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+June 18, 2014 by Michael Wetter:<br/>
+Added <code>fixed=true</code> for start value of <code>m</code> 
+to avoid a warning during translation.
+</li>
 <li>
 August 21, 2012 by Michael Wetter:<br/>
 First implementation. 

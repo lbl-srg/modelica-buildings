@@ -26,7 +26,8 @@ extends Buildings.Fluid.SolarCollectors.BaseClasses.PartialSolarCollector(final 
     redeclare package Medium = Medium,
     final G_nominal=per.G_nominal,
     final dT_nominal=per.dT_nominal,
-    final m_flow_nominal=per.mperA_flow_nominal*per.A)
+    final m_flow_nominal=per.mperA_flow_nominal*per.A,
+    final cp_default=cp_default)
     "Calculates the heat lost to the surroundings using the EN12975 standard calculations"
            annotation (Placement(transformation(extent={{-20,6},{0,26}})));
 

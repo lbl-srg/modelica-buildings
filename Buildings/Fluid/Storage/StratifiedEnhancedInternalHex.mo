@@ -4,25 +4,24 @@ model StratifiedEnhancedInternalHex
   extends StratifiedEnhanced;
 
   replaceable package MediumHex =
-      Modelica.Media.Interfaces.PartialMedium
-    "Medium in the heat exchanger loop"
+      Modelica.Media.Interfaces.PartialMedium "Medium in the heat exchanger"
     annotation(Dialog(tab="General", group="Heat exchanger"));
 
-  parameter Modelica.SIunits.Height hexTopHeight
-    "Height of the top of the heat exchanger"
+  parameter Modelica.SIunits.Height hHex_a
+    "Height of portHex_a of the heat exchanger, measured from tank bottom"
     annotation(Dialog(tab="General", group="Heat exchanger"));
 
-  parameter Modelica.SIunits.Height hexBotHeight
-    "Height of the bottom of the heat exchanger"
+  parameter Modelica.SIunits.Height hHex_b
+    "Height of portHex_b of the heat exchanger, measured from tank bottom"
     annotation(Dialog(tab="General", group="Heat exchanger"));
 
-  parameter Integer hexSegMult = 2
+  parameter Integer hexSegMult(min=1) = 2
     "Number of heat exchanger segments in each tank segment"
     annotation(Dialog(tab="General", group="Heat exchanger"));
 
-  parameter Modelica.SIunits.HeatCapacity CHex = 25.163
-    "Capacitance of the heat exchanger"
-    annotation(Dialog(tab="General", group="Heat exchanger"));
+  parameter Modelica.SIunits.Diameter dExtHex = 0.025
+    "Exterior diameter of the heat exchanger pipe"
+    annotation(Dialog(group="Heat exchanger"));
 
   parameter Modelica.SIunits.HeatFlowRate Q_flow_nominal
     "Heat transfer at nominal conditions"
@@ -41,35 +40,18 @@ model StratifiedEnhancedInternalHex
     "Nominal mass flow rate through the heat exchanger"
     annotation(Dialog(group="Heat exchanger"));
 
-  parameter Modelica.SIunits.Diameter dExtHex = 0.025
-    "Exterior diameter of the heat exchanger pipe"
-    annotation(Dialog(group="Heat exchanger"));
-
   parameter Modelica.SIunits.Pressure dpHex_nominal(displayUnit="Pa") = 2500
     "Pressure drop across the heat exchanger at nominal conditions"
     annotation(Dialog(group="Heat exchanger"));
 
-  parameter Modelica.Fluid.Types.Dynamics energyDynamicsHex=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial
-    "Formulation of energy balance"
-    annotation(Evaluate=true, Dialog(tab = "Dynamics heat exchanger", group="Equations"));
-  parameter Modelica.Fluid.Types.Dynamics massDynamicsHex=energyDynamicsHex
-    "Formulation of mass balance"
-    annotation(Evaluate=true, Dialog(tab = "Dynamics heat exchanger", group="Equations"));
-
-  parameter Integer topHexSeg = integer(ceil(hexTopHeight/segHeight))
-    "Segment the top of the heat exchanger is located in"
-    annotation(Evaluate=true);
-
-  parameter Integer botHexSeg = integer(hexBotHeight/segHeight)
-    "Segment the bottom of the heat exchanger is located in"
-    annotation(Evaluate=true);
-
   parameter Boolean computeFlowResistance=true
     "=true, compute flow resistance. Set to false to assume no friction"
     annotation (Dialog(tab="Flow resistance heat exchanger"));
+
   parameter Boolean from_dp=false
     "= true, use m_flow = f(dp) else dp = f(m_flow)"
     annotation (Dialog(tab="Flow resistance heat exchanger"));
+
   parameter Boolean linearizeFlowResistance=false
     "= true, use linear relation between m_flow and dp for any flow rate"
     annotation (Dialog(tab="Flow resistance heat exchanger"));
@@ -78,12 +60,43 @@ model StratifiedEnhancedInternalHex
     "Fraction of nominal flow rate where flow transitions to laminar"
     annotation (Dialog(tab="Flow resistance heat exchanger"));
 
-  Modelica.Fluid.Interfaces.FluidPort_a port_a1(
-    redeclare package Medium =MediumHex) "Heat exchanger inlet"
+  parameter Modelica.Fluid.Types.Dynamics energyDynamicsHex=
+    Modelica.Fluid.Types.Dynamics.DynamicFreeInitial
+    "Formulation of energy balance"
+    annotation(Evaluate=true, Dialog(tab = "Dynamics heat exchanger", group="Equations"));
+  parameter Modelica.Fluid.Types.Dynamics massDynamicsHex=
+    energyDynamicsHex "Formulation of mass balance"
+    annotation(Evaluate=true, Dialog(tab = "Dynamics heat exchanger", group="Equations"));
+
+  parameter Modelica.SIunits.Length lHex=
+    rTan*abs(segHex_a-segHex_b)*Modelica.Constants.pi
+    "Approximate length of the heat exchanger"
+     annotation(Dialog(tab = "Dynamics heat exchanger", group="Equations"));
+
+  parameter Modelica.SIunits.Area ACroHex=
+    (dExtHex^2-(0.8*dExtHex)^2)*Modelica.Constants.pi/4
+    "Cross sectional area of the heat exchanger"
+    annotation(Dialog(tab = "Dynamics heat exchanger", group="Equations"));
+
+  parameter Modelica.SIunits.SpecificHeatCapacity cHex=490
+    "Specific heat capacity of the heat exchanger material"
+    annotation(Dialog(tab = "Dynamics heat exchanger", group="Equations"));
+
+  parameter Modelica.SIunits.Density dHex=8000
+    "Density of the heat exchanger material"
+    annotation(Dialog(tab = "Dynamics heat exchanger", group="Equations"));
+
+  parameter Modelica.SIunits.HeatCapacity CHex=
+    ACroHex*lHex*dHex*cHex
+    "Capacitance of the heat exchanger without the fluid"
+    annotation(Dialog(tab = "Dynamics heat exchanger", group="Equations"));
+
+  Modelica.Fluid.Interfaces.FluidPort_a portHex_a(
+    redeclare final package Medium =MediumHex) "Heat exchanger inlet"
    annotation (Placement(transformation(extent={{-110,-48},{-90,-28}}),
                    iconTransformation(extent={{-110,-48},{-90,-28}})));
-  Modelica.Fluid.Interfaces.FluidPort_b port_b1(
-     redeclare package Medium = MediumHex) "Heat exchanger outlet"
+  Modelica.Fluid.Interfaces.FluidPort_b portHex_b(
+     redeclare final package Medium = MediumHex) "Heat exchanger outlet"
    annotation (Placement(transformation(extent={{-110,-90},{-90,-70}}),
         iconTransformation(extent={{-110,-90},{-90,-70}})));
 
@@ -96,7 +109,7 @@ model StratifiedEnhancedInternalHex
     final THex_nominal=THex_nominal,
     final r_nominal=r_nominal,
     final dExtHex=dExtHex,
-    redeclare final package Medium = Medium,
+    redeclare final package MediumTan = Medium,
     redeclare final package MediumHex = MediumHex,
     final dp_nominal=dpHex_nominal,
     final m_flow_nominal=mHex_flow_nominal,
@@ -105,42 +118,63 @@ model StratifiedEnhancedInternalHex
     m_flow_small=1e-4*abs(mHex_flow_nominal),
     final computeFlowResistance=computeFlowResistance,
     from_dp=from_dp,
-    linearizeFlowResistance=linearizeFlowResistance,
-    deltaM=deltaM) "Heat exchanger inside the tank"
-                                     annotation (Placement(
+    final linearizeFlowResistance=linearizeFlowResistance,
+    final deltaM=deltaM) "Heat exchanger inside the tank"
+     annotation (Placement(
         transformation(
         extent={{-10,-15},{10,15}},
         rotation=180,
         origin={-87,32})));
 
 protected
-  parameter Modelica.SIunits.Height segHeight = hTan/nSeg
+  final parameter Integer segHex_a = nSeg-integer(hHex_a/segHeight)
+    "Tank segment in which port a1 of the heat exchanger is located in"
+    annotation(Evaluate=true, Dialog(group="Heat exchanger"));
+
+  final parameter Integer segHex_b = nSeg-integer(hHex_b/segHeight)
+    "Tank segment in which port b1 of the heat exchanger is located in"
+    annotation(Evaluate=true, Dialog(group="Heat exchanger"));
+
+  final parameter Modelica.SIunits.Height segHeight = hTan/nSeg
     "Height of each tank segment (relative to bottom of same segment)";
 
-  parameter Modelica.SIunits.Volume volHexFlu = 0.25 * Modelica.Constants.pi * dExtHex
+  final parameter Modelica.SIunits.Length dHHex = abs(hHex_a-hHex_b)
+    "Vertical distance between the heat exchanger inlet and outlet";
+
+  final parameter Modelica.SIunits.Volume volHexFlu=
+    Modelica.Constants.pi * (0.8*dExtHex)^2/4 *lHex
     "Volume of the heat exchanger";
 
-  parameter Integer nSegHex = (topHexSeg - botHexSeg + 1)*hexSegMult
-    "Number of segments in the heat exchanger";
-
-  parameter Integer nSegHexTan = topHexSeg - botHexSeg + 1
+  final parameter Integer nSegHexTan=
+    if segHex_a > segHex_b then segHex_a-segHex_b + 1 else segHex_b-segHex_a + 1
     "Number of tank segments the heat exchanger resides in";
 
+  final parameter Integer nSegHex = nSegHexTan*hexSegMult
+    "Number of heat exchanger segments";
+initial equation
+  assert(hHex_a >= 0 and hHex_a <= hTan,
+    "The parameter hHex_a is outside its valid range.");
+
+  assert(hHex_b >= 0 and hHex_b <= hTan,
+    "The parameter hHex_b is outside its valid range.");
+
+  assert(dHHex > 0,
+    "The parameters hHex_a and hHex_b must not be equal.");
 equation
    for j in 1:nSegHexTan loop
      for i in 1:hexSegMult loop
-     connect(indTanHex.port[(j-1)*hexSegMult+i], heaPorVol[nSeg-j+1])
-      annotation (Line(
+       connect(indTanHex.port[(j-1)*hexSegMult+i], heaPorVol[segHex_a+j-1])
+        annotation (Line(
        points={{-87,41.8},{-20,41.8},{-20,-2.22045e-16},{0,-2.22045e-16}},
        color={191,0,0},
        smooth=Smooth.None));
      end for;
    end for;
-  connect(port_a1, indTanHex.port_a) annotation (Line(
+  connect(portHex_a, indTanHex.port_a) annotation (Line(
       points={{-100,-38},{-74,-38},{-74,32},{-77,32}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(indTanHex.port_b, port_b1) annotation (Line(
+  connect(indTanHex.port_b, portHex_b) annotation (Line(
       points={{-97,32},{-100,32},{-100,20},{-76,20},{-76,-80},{-100,-80}},
       color={0,127,255},
       smooth=Smooth.None));
@@ -187,39 +221,71 @@ equation
           fillPattern=FillPattern.Solid)}),
               Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}), graphics),
-            defaultComponentName = "tan",
-            Documentation(info = "<html>
-            This model is an extension of 
-            <a href=\"Buildings.Fluid.Storage.StratifiedEnhanced\">Buildings.Fluid.Storage.StratifiedEnhanced</a>.<br/>
-            <p>
-            The modifications consist of adding a heat exchanger 
-            (<a href=\"Buildings.Fluid.Storage.BaseClasses.IndirectTankHeatExchanger\">
-            Buildings.Fluid.Storage.BaseClasses.IndirectTankHeatExchanger</a>) and fluid ports to connect to the heat exchanger.
-            The modifications allow to run a fluid through the tank causing heat transfer to the stored fluid. 
-            A typical example is a storage tank in a solar hot water system.
-            </p>
-            <p>
-            The heat exchanger model assumes flow through the inside of a helical coil heat exchanger, 
-            and stagnant fluid on the outside. Parameters are used to describe the 
-            heat transfer on the inside of the heat exchanger at nominal conditions, and 
-            geometry of the outside of the heat exchanger. This information is used to compute 
-            an <i>hA</i>-value for each side of the coil. Convection calculations are then performed to identify heat transfer 
-            between the heat transfer fluid and the fluid in the tank.
-            </p>
-            <p>
-            Default values describing the heat exchanger are taken from the documentation for a Vitocell 100-B, 300 L tank.
-            </p>
-            </html>",
-            revisions = "<html>
-            <ul>
-            <li>
-            May 10, 2013 by Michael Wetter:<br/>
-            Removed <code>m_flow_nominal_tank</code> which was not used.
-            </li>
-            <li>
-            January 29, 2013 by Peter Grant:<br/>
-            First implementation.
-            </li>
-            </ul>
-            </html>"));
+defaultComponentName = "tan",
+Documentation(info = "<html>
+<p>
+This is a model of a stratified storage tank for thermal energy storage with built-in heat exchanger.
+</p>
+<p>
+See the 
+<a href=\"modelica://Buildings.Fluid.Storage.UsersGuide\">
+Buildings.Fluid.Storage.UsersGuide</a>
+for more information.
+</p>
+<h4>Limitations</h4>
+<p>
+The model requires at least 4 fluid segments. Hence, set <code>nSeg</code> to 4 or higher.
+</p>
+</html>",
+revisions = "<html>
+<ul>
+<li>
+September 2, 2014 by Michael Wetter:<br/>
+Replaced the <code>abs()</code> function in the assignment of the parameter
+<code>nSegHexTan</code> as the return value of <code>abs()</code> 
+is a <code>Real</code> which causes a type error during model check.
+</li>
+<li>
+August 29, 2014 by Michael Wetter:<br/>
+Corrected issue <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/271\">#271</a>
+which led to a compilation error if the heat exchanger and the tank
+had different media.
+</li> 
+<li>
+April 18, 2014 by Michael Wetter:<br/>
+Added missing ceiling function in computation of <code>botHexSeg</code>.
+Without this function, this parameter can take on zero, which is wrong
+because the Modelica uses one-based arrays.
+
+Revised the model as the old version required the port<sub>a</sub>
+of the heat exchanger to be located higher than port<sub>b</sub>. 
+This makes sense if the heat exchanger is used to heat up the tank, 
+but not if it is used to cool down a tank, such as in a cooling plant.
+The following parameters were changed:
+<ol>
+<li>Changed <code>hexTopHeight</code> to <code>hHex_a</code>.</li>
+<li>Changed <code>hexBotHeight</code> to <code>hHex_b</code>.</li>
+<li>Changed <code>topHexSeg</code> to <code>segHex_a</code>,
+ and made it protected as this is deduced from <code>hHex_a</code>.</li>
+<li>Changed <code>botHexSeg</code> to <code>segHex_b</code>,
+ and made it protected as this is deduced from <code>hHex_b</code>.</li>
+</ol>
+The names of the following ports have been changed:
+<ol>
+<li>Changed <code>port_a1</code> to <code>portHex_a</code>.</li>
+<li>Changed <code>port_b1</code> to <code>portHex_b</code>.</li>
+</ol>
+The conversion script should update old instances of 
+this model automatically in Dymola for all of the above changes.
+</li>
+<li>
+May 10, 2013 by Michael Wetter:<br/>
+Removed <code>m_flow_nominal_tank</code> which was not used.
+</li>
+<li>
+January 29, 2013 by Peter Grant:<br/>
+First implementation.
+</li>
+</ul>
+</html>"));
 end StratifiedEnhancedInternalHex;

@@ -154,6 +154,7 @@ model TwoRoomsWithStorage
     m_flow_nominal=mBoi_flow_nominal,
     fue=Buildings.Fluid.Data.Fuels.HeatingOilLowerHeatingValue(),
     dp_nominal=3000 + 2000,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     T_start=293.15) "Boiler"
     annotation (Placement(transformation(extent={{2,-130},{22,-110}})));
   inner Modelica.Fluid.System system
@@ -214,12 +215,14 @@ model TwoRoomsWithStorage
   Fluid.HeatExchangers.Radiators.RadiatorEN442_2 rad1(
     redeclare package Medium = Medium,
     Q_flow_nominal=scaFacRad*Q_flow_nominal/nRoo,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     T_a_nominal=323.15,
     T_b_nominal=313.15) "Radiator"
     annotation (Placement(transformation(extent={{392,390},{412,410}})));
   Fluid.HeatExchangers.Radiators.RadiatorEN442_2 rad2(
     redeclare package Medium = Medium,
     Q_flow_nominal=scaFacRad*Q_flow_nominal/nRoo,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     T_a_nominal=323.15,
     T_b_nominal=313.15) "Radiator"
     annotation (Placement(transformation(extent={{392,118},{412,138}})));
@@ -455,7 +458,9 @@ model TwoRoomsWithStorage
   Fluid.FixedResistances.SplitterFixedResistanceDpM splVal(
     dp_nominal={dpPip_nominal,0,0},
     m_flow_nominal=mRad_flow_nominal*{1,-1,-1},
-    redeclare package Medium = Medium) "Flow splitter" annotation (Placement(
+    redeclare package Medium = Medium,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyStateInitial)
+    "Flow splitter"                                    annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=270,
@@ -463,14 +468,18 @@ model TwoRoomsWithStorage
   Fluid.FixedResistances.SplitterFixedResistanceDpM splVal1(
     m_flow_nominal=mRad_flow_nominal*{1,-1,-1},
     redeclare package Medium = Medium,
-    dp_nominal={0,0,0}) "Flow splitter" annotation (Placement(transformation(
+    dp_nominal={0,0,0},
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyStateInitial)
+    "Flow splitter"                     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={220,128})));
   Fluid.FixedResistances.SplitterFixedResistanceDpM splVal2(
     m_flow_nominal=mRad_flow_nominal*{1,-1,-1},
     redeclare package Medium = Medium,
-    dp_nominal={0,0,0}) "Flow splitter" annotation (Placement(transformation(
+    dp_nominal={0,0,0},
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyStateInitial)
+    "Flow splitter"                     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={260,100})));
@@ -487,7 +496,9 @@ model TwoRoomsWithStorage
     Q_flow_nominal=-3000,
     redeclare package Medium = MediumA,
     m_flow_nominal=2*VRoo*1.2*0.37/3600,
-    dp_nominal=0) "Coil for mechanical cooling"
+    dp_nominal=0,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+    "Coil for mechanical cooling"
     annotation (Placement(transformation(extent={{240,500},{260,520}})));
   Modelica.Blocks.Logical.LessThreshold lesThrTRoo(threshold=18 + 273.15)
     "Test to block boiler if room air temperature is sufficiently high"
@@ -773,7 +784,7 @@ equation
       color={191,0,0},
       smooth=Smooth.None));
   connect(roo1.ports[1], dpFac1.port_b) annotation (Line(
-      points={{358.333,474},{340,474}},
+      points={{361,471.333},{350,471.333},{350,474},{340,474}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(dpFac1.port_a, hex.port_a2) annotation (Line(
@@ -781,7 +792,7 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(dpFac4.port_b, roo2.ports[1]) annotation (Line(
-      points={{340,216},{370.333,216}},
+      points={{340,216},{356,216},{356,213.333},{373,213.333}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(dpFac4.port_a, hex.port_a2) annotation (Line(
@@ -1096,12 +1107,14 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(coo.port_b, roo1.ports[3]) annotation (Line(
-      points={{260,510},{338,510},{338,486},{350,486},{350,474},{363.667,474}},
+      points={{260,510},{338,510},{338,486},{350,486},{350,476.667},{361,
+          476.667}},
       color={0,127,255},
       smooth=Smooth.None));
 
   connect(coo.port_b, roo2.ports[3]) annotation (Line(
-      points={{260,510},{282,510},{282,228},{360,228},{360,216},{375.667,216}},
+      points={{260,510},{282,510},{282,228},{360,228},{360,218.667},{373,
+          218.667}},
       color={0,127,255},
       smooth=Smooth.None));
 

@@ -54,14 +54,14 @@ def _setEnvironmentVariables(var, value):
         os.environ[var] = value
 
 def _runUnitTests():
-    import buildingspy.development.unittest as u
+    import buildingspy.development.regressiontest as u
     ut = u.Tester()
     ut.batchMode(batch)
 #    ut.setNumberOfThreads(1)
 #    ut.deleteTemporaryDirectories(False)
 #    ut.useExistingResults(['/tmp/tmp-Buildings-0-fagmeZ'])
 #    #print ut.getDataDictionary()
-#    ut.setSinglePackage("Buildings.Controls.Continuous.Examples")
+#    ut.setSinglePackage("Buildings.Examples")
     retVal = ut.run()
     exit(retVal)
 

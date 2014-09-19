@@ -28,8 +28,7 @@ model FlowMachineSeries_y "Two flow machines in series"
       p=Medium.p_default,
       X=Medium.X_default) "Start state";
   parameter Modelica.SIunits.Density rho_nominal=Medium.density(
-     state_start) "Density, used to compute fluid mass"
-                                           annotation (Evaluate=true);
+     state_start) "Density, used to compute fluid mass";
   inner Modelica.Fluid.System system
     annotation (Placement(transformation(extent={{120,-80},{140,-60}})));
   Buildings.Fluid.Movers.FlowMachine_y floMac2(
@@ -85,6 +84,10 @@ but the pressure drop of the pump <code>floMac1.dp</code> is positive, which mea
 However, <code>flowMac2.dp</code> is always negative, as this pump has a constant control input of 1.
 </html>", revisions="<html>
 <ul>
+<li>
+May 29, 2014, by Michael Wetter:<br/>
+Removed undesirable annotation <code>Evaluate=true</code>.
+</li>
 <li>
 February 14, 2012, by Michael Wetter:<br/>
 Added filter for start-up and shut-down transient.

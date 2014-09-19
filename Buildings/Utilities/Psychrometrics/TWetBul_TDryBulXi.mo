@@ -2,6 +2,7 @@ within Buildings.Utilities.Psychrometrics;
 block TWetBul_TDryBulXi
   "Model to compute the wet bulb temperature based on mass fraction"
   extends Modelica.Blocks.Icons.Block;
+
   replaceable package Medium =
     Modelica.Media.Interfaces.PartialCondensingGases "Medium model"
                                                             annotation (
@@ -35,9 +36,6 @@ block TWetBul_TDryBulXi
           rotation=0)));
 
 protected
-  constant Modelica.Media.IdealGases.Common.DataRecord dryair = Modelica.Media.IdealGases.Common.SingleGasesData.Air;
-  constant Modelica.Media.IdealGases.Common.DataRecord steam = Modelica.Media.IdealGases.Common.SingleGasesData.H2O;
-  constant Real k_mair =  steam.MM/dryair.MM "ratio of molar weights";
   Modelica.SIunits.Conversions.NonSIunits.Temperature_degC TDryBul_degC
     "Dry bulb temperature in degree Celsius";
   Real rh_per(min=0) "Relative humidity in percentage";
@@ -48,14 +46,6 @@ protected
 
  parameter Integer iWat(fixed=false)
     "Index of water in medium composition vector";
-  constant Modelica.SIunits.SpecificHeatCapacity cpAir=
-     Buildings.Media.PerfectGases.Common.SingleGasData.Air.cp
-    "Specific heat capacity of air";
-  constant Modelica.SIunits.SpecificHeatCapacity cpSte=
-     Buildings.Media.PerfectGases.Common.SingleGasData.H2O.cp
-    "Specific heat capacity of water vapor";
-  constant Modelica.SIunits.SpecificEnthalpy h_fg = 2501014.5
-    "Specific heat capacity of water vapor";
 initial algorithm
   iWat:=-1;
     for i in 1:Medium.nX loop
@@ -69,7 +59,12 @@ initial algorithm
 equation
   if approximateWetBulb then
     TDryBul_degC = TDryBul - 273.15;
-    rh_per       = 100 * p/min(Medium.saturationPressure(TDryBul),0.999*p)*Xi[iWat]/(Xi[iWat] + k_mair*(1-Xi[iWat]));
+    rh_per       = 100 * p/
+      Buildings.Utilities.Math.Functions.smoothMin(
+         x1=Buildings.Utilities.Psychrometrics.Functions.saturationPressure(TDryBul),
+         x2=0.999*p,
+         deltaX=1E-4)*Xi[iWat]/(Xi[iWat] +
+         Buildings.Utilities.Psychrometrics.Constants.k_mair*(1-Xi[iWat]));
     TWetBul      = 273.15 + TDryBul_degC
        * Modelica.Math.atan(0.151977 * sqrt(rh_per + 8.313659))
        + Modelica.Math.atan(TDryBul_degC + rh_per)
@@ -77,12 +72,16 @@ equation
        + 0.00391838 * rh_per^(1.5) * Modelica.Math.atan( 0.023101 * rh_per)  - 4.686035;
     XiSat = 0;
   else
-    XiSat   = Buildings.Utilities.Psychrometrics.Functions.X_pSatpphi(
-      pSat=   Medium.saturationPressureLiquid(Tsat=TWetBul),
+    XiSat  = Buildings.Utilities.Psychrometrics.Functions.X_pSatpphi(
+      pSat=  Buildings.Utilities.Psychrometrics.Functions.saturationPressureLiquid(TWetBul),
       p=     p,
       phi=   1);
-    TWetBul = (TDryBul * ((1-Xi[iWat]) * cpAir + Xi[iWat] * cpSte) + (Xi[iWat]-XiSat) * h_fg)/
-            ( (1-XiSat)*cpAir + XiSat * cpSte);
+    TWetBul = (TDryBul *
+                ((1-Xi[iWat]) * Buildings.Utilities.Psychrometrics.Constants.cpAir +
+                Xi[iWat] * Buildings.Utilities.Psychrometrics.Constants.cpSte) +
+                (Xi[iWat]-XiSat) * Buildings.Utilities.Psychrometrics.Constants.h_fg)/
+            ( (1-XiSat)*Buildings.Utilities.Psychrometrics.Constants.cpAir +
+            XiSat * Buildings.Utilities.Psychrometrics.Constants.cpSte);
     TDryBul_degC = 0;
     rh_per       = 0;
   end if;
@@ -179,6 +178,21 @@ DOI: 10.1175/JAMC-D-11-0143.1
 ",
 revisions="<html>
 <ul>
+<li>
+July 24, 2014 by Michael Wetter:<br/>
+Revised computation of <code>rh_per</code> to use
+<a href=\"modelica://Buildings.Utilities.Math.Functions.smoothMin\">
+Buildings.Utilities.Math.Functions.smoothMin</a> rather
+than <code>min</code>.
+</li>
+<li>
+November 20, 2013 by Michael Wetter:<br/>
+Updated model to use
+<code>Buildings.Utilities.Psychrometrics.Functions.saturationPressure()</code>
+and
+<code>Buildings.Utilities.Psychrometrics.Functions.saturationPressureLiquid()</code>
+as these functions have been moved from the medium to the psychrometrics package.
+</li>
 <li>
 September 10, 2013 by Michael Wetter:<br/>
 Added start value and nominal value for <code>XiSat</code> as this is an iteration

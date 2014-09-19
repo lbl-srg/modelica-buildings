@@ -3,7 +3,7 @@ partial model ValveParameters "Model with parameters for valves"
 
   parameter Buildings.Fluid.Types.CvTypes CvData=Buildings.Fluid.Types.CvTypes.OpPoint
     "Selection of flow coefficient"
-   annotation(Evaluate=true, Dialog(group = "Flow Coefficient"));
+   annotation(Dialog(group = "Flow Coefficient"));
   parameter Real Kv(
     fixed= if CvData==Buildings.Fluid.Types.CvTypes.Kv then true else false)
     "Kv (metric) flow coefficient [m3/h/(bar)^(1/2)]"
@@ -17,7 +17,7 @@ partial model ValveParameters "Model with parameters for valves"
   parameter Modelica.SIunits.Area Av(
     fixed= if CvData==Buildings.Fluid.Types.CvTypes.Av then true else false)
     "Av (metric) flow coefficient"
-   annotation(Evaluate=true, Dialog(group = "Flow Coefficient",
+   annotation(Dialog(group = "Flow Coefficient",
                      enable = (CvData==Buildings.Fluid.Types.CvTypes.Av)));
 
   parameter Real deltaM = 0.02
@@ -27,7 +27,7 @@ partial model ValveParameters "Model with parameters for valves"
     "Nominal mass flow rate"
     annotation(Dialog(group = "Nominal condition"));
   parameter Modelica.SIunits.Pressure dpValve_nominal(displayUnit="Pa",
-                                                      min=Modelica.Constants.small,
+                                                      min=0,
                                                       fixed= if CvData==Buildings.Fluid.Types.CvTypes.OpPoint then true else false)
     "Nominal pressure drop of fully open valve, used if CvData=Buildings.Fluid.Types.CvTypes.OpPoint"
     annotation(Dialog(group="Nominal condition",
@@ -44,31 +44,31 @@ protected
     "Flow coefficient for fully open valve in SI units, Kv=m_flow/sqrt(dp) [kg/s/(Pa)^(1/2)]"
   annotation(Dialog(group = "Flow Coefficient",
                     enable = (CvData==Buildings.Fluid.Types.CvTypes.OpPoint)));
-initial algorithm
+initial equation
   if  CvData == Buildings.Fluid.Types.CvTypes.OpPoint then
-    Kv_SI :=           m_flow_nominal/sqrt(dpValve_nominal);
-    Kv    :=           Kv_SI/(rhoStd/3600/sqrt(1E5));
-    Cv    :=           Kv_SI/(rhoStd*0.0631/1000/sqrt(6895));
-    Av    :=           Kv_SI/sqrt(rhoStd);
+    Kv_SI =           m_flow_nominal/sqrt(dpValve_nominal);
+    Kv    =           Kv_SI/(rhoStd/3600/sqrt(1E5));
+    Cv    =           Kv_SI/(rhoStd*0.0631/1000/sqrt(6895));
+    Av    =           Kv_SI/sqrt(rhoStd);
   elseif CvData == Buildings.Fluid.Types.CvTypes.Kv then
-    Kv_SI :=           Kv*rhoStd/3600/sqrt(1E5)
+    Kv_SI =           Kv*rhoStd/3600/sqrt(1E5)
       "Unit conversion m3/(h*sqrt(bar)) to kg/(s*sqrt(Pa))";
-    Cv    :=           Kv_SI/(rhoStd*0.0631/1000/sqrt(6895));
-    Av    :=           Kv_SI/sqrt(rhoStd);
-    dpValve_nominal := (m_flow_nominal/Kv_SI)^2;
+    Cv    =           Kv_SI/(rhoStd*0.0631/1000/sqrt(6895));
+    Av    =           Kv_SI/sqrt(rhoStd);
+    dpValve_nominal =  (m_flow_nominal/Kv_SI)^2;
   elseif CvData == Buildings.Fluid.Types.CvTypes.Cv then
-    Kv_SI :=           Cv*rhoStd*0.0631/1000/sqrt(6895)
+    Kv_SI =           Cv*rhoStd*0.0631/1000/sqrt(6895)
       "Unit conversion USG/(min*sqrt(psi)) to kg/(s*sqrt(Pa))";
-    Kv    :=           Kv_SI/(rhoStd/3600/sqrt(1E5));
-    Av    :=           Kv_SI/sqrt(rhoStd);
-    dpValve_nominal := (m_flow_nominal/Kv_SI)^2;
+    Kv    =           Kv_SI/(rhoStd/3600/sqrt(1E5));
+    Av    =           Kv_SI/sqrt(rhoStd);
+    dpValve_nominal =  (m_flow_nominal/Kv_SI)^2;
   else
     assert(CvData == Buildings.Fluid.Types.CvTypes.Av, "Invalid value for CvData.
 Obtained CvData = " + String(CvData) + ".");
-    Kv_SI :=           Av*sqrt(rhoStd);
-    Kv    :=           Kv_SI/(rhoStd/3600/sqrt(1E5));
-    Cv    :=           Kv_SI/(rhoStd*0.0631/1000/sqrt(6895));
-    dpValve_nominal := (m_flow_nominal/Kv_SI)^2;
+    Kv_SI =           Av*sqrt(rhoStd);
+    Kv    =           Kv_SI/(rhoStd/3600/sqrt(1E5));
+    Cv    =           Kv_SI/(rhoStd*0.0631/1000/sqrt(6895));
+    dpValve_nominal =  (m_flow_nominal/Kv_SI)^2;
   end if;
 
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
@@ -116,6 +116,25 @@ then specifying a value for <code>dpValve_nominal</code> is a syntax error.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+August 12, 2014, by Michael Wetter:<br/>
+Changed attribute <code>min</code> of <code>dpValve_nominal</code>
+to <code>0</code>.
+This is needed as for example in 
+<a href=\"modelica://Buildings.Fluid.Actuators.Valves.Examples.TwoWayValveTable\">
+Buildings.Fluid.Actuators.Valves.Examples.TwoWayValveTable</a>,
+<code>dpValve_nominal=0</code>.
+</li>
+<li>
+August 8, 2014, by Michael Wetter:<br/>
+Changed the <code>initial algorithm</code> to an <code>initial equation</code>
+section. Otherwise, OpenModelica attempts to solve for the parameter
+values using numerical iteration, and fails in doing so.
+</li>
+<li>
+May 29, 2014, by Michael Wetter:<br/>
+Removed undesirable annotation <code>Evaluate=true</code>.
+</li>
 <li>
 March 25, 2013, by Michael Wetter:<br/>
 Removed stray backslash in write statement.

@@ -63,7 +63,8 @@ model ClosedLoop
     m1_flow_nominal=m_flow_nominal*1000*15/4200/10,
     m2_flow_nominal=m_flow_nominal,
     dp2_nominal=0,
-    dp1_nominal=0) "Cooling coil"
+    dp1_nominal=0,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial) "Cooling coil"
     annotation (Placement(transformation(extent={{210,-36},{190,-56}})));
   Buildings.Fluid.FixedResistances.FixedResistanceDpM dpSupDuc(
     m_flow_nominal=m_flow_nominal,
@@ -82,15 +83,15 @@ model ClosedLoop
     redeclare package Medium = MediumA,
     tau=60,
     dynamicBalance=true,
-    per(pressure(V_flow={0, m_flow_nominal/1.2*2}, dp={850,0})))
-    "Supply air fan"
+    per(pressure(V_flow={0, m_flow_nominal/1.2*2}, dp={850,0})),
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial) "Supply air fan"
     annotation (Placement(transformation(extent={{300,-50},{320,-30}})));
   Buildings.Fluid.Movers.FlowMachine_y fanRet(
     redeclare package Medium = MediumA,
     tau=60,
     dynamicBalance=true,
-    per(pressure(V_flow=m_flow_nominal/1.2*{0, 2}, dp=1.5*110*{2,0})))
-    "Return air fan"
+    per(pressure(V_flow=m_flow_nominal/1.2*{0, 2}, dp=1.5*110*{2,0})),
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial) "Return air fan"
     annotation (Placement(transformation(extent={{310,110},{290,130}})));
   Buildings.Fluid.Sources.FixedBoundary sinHea(
     redeclare package Medium = MediumW,
@@ -293,7 +294,9 @@ model ClosedLoop
     dp_nominal(displayUnit="Pa") = {10,10,10},
     from_dp=false,
     dynamicBalance=true,
-    linearized=true) "Splitter for room return"
+    linearized=true,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+    "Splitter for room return"
     annotation (Placement(transformation(extent={{600,130},{620,110}})));
   Buildings.Fluid.FixedResistances.SplitterFixedResistanceDpM splRetSou(
     redeclare package Medium = MediumA,
@@ -302,7 +305,9 @@ model ClosedLoop
     dp_nominal(displayUnit="Pa") = {10,10,10},
     from_dp=false,
     dynamicBalance=true,
-    linearized=true) "Splitter for room return"
+    linearized=true,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+    "Splitter for room return"
     annotation (Placement(transformation(extent={{738,130},{758,110}})));
   Buildings.Fluid.FixedResistances.SplitterFixedResistanceDpM splRetEas(
     redeclare package Medium = MediumA,
@@ -311,7 +316,9 @@ model ClosedLoop
     dp_nominal(displayUnit="Pa") = {10,10,10},
     from_dp=false,
     dynamicBalance=true,
-    linearized=true) "Splitter for room return"
+    linearized=true,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+    "Splitter for room return"
     annotation (Placement(transformation(extent={{874,130},{894,110}})));
   Buildings.Fluid.FixedResistances.SplitterFixedResistanceDpM splRetNor(
     redeclare package Medium = MediumA,
@@ -319,14 +326,18 @@ model ClosedLoop
     dp_nominal(displayUnit="Pa") = {10,10,10},
     from_dp=false,
     dynamicBalance=true,
-    linearized=true) "Splitter for room return"
+    linearized=true,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+    "Splitter for room return"
     annotation (Placement(transformation(extent={{1014,130},{1034,110}})));
   Buildings.Fluid.FixedResistances.SplitterFixedResistanceDpM splSupRoo1(
     redeclare package Medium = MediumA,
     m_flow_nominal={m_flow_nominal,m_flow_nominal - m0_flow_cor,m0_flow_cor},
     dp_nominal(displayUnit="Pa") = {10,10,10},
     from_dp=true,
-    linearized=true) "Splitter for room supply"
+    linearized=true,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+    "Splitter for room supply"
     annotation (Placement(transformation(extent={{574,-30},{594,-50}})));
   Buildings.Fluid.FixedResistances.SplitterFixedResistanceDpM splSupSou(
     redeclare package Medium = MediumA,
@@ -334,7 +345,9 @@ model ClosedLoop
         m0_flow_eas + m0_flow_nor + m0_flow_wes,m0_flow_sou},
     dp_nominal(displayUnit="Pa") = {10,10,10},
     from_dp=true,
-    linearized=true) "Splitter for room supply"
+    linearized=true,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+    "Splitter for room supply"
     annotation (Placement(transformation(extent={{714,-30},{734,-50}})));
   Buildings.Fluid.FixedResistances.SplitterFixedResistanceDpM splSupEas(
     redeclare package Medium = MediumA,
@@ -342,14 +355,18 @@ model ClosedLoop
         m0_flow_wes,m0_flow_eas},
     dp_nominal(displayUnit="Pa") = {10,10,10},
     from_dp=true,
-    linearized=true) "Splitter for room supply"
+    linearized=true,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+    "Splitter for room supply"
     annotation (Placement(transformation(extent={{850,-30},{870,-50}})));
   Buildings.Fluid.FixedResistances.SplitterFixedResistanceDpM splSupNor(
     redeclare package Medium = MediumA,
     m_flow_nominal={m0_flow_nor + m0_flow_wes,m0_flow_wes,m0_flow_nor},
     dp_nominal(displayUnit="Pa") = {10,10,10},
     from_dp=true,
-    linearized=true) "Splitter for room supply"
+    linearized=true,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+    "Splitter for room supply"
     annotation (Placement(transformation(extent={{990,-30},{1010,-50}})));
   Controls.CoolingCoilTemperatureSetpoint TSetCoo "Setpoint for cooling coil"
     annotation (Placement(transformation(extent={{-50,-210},{-30,-190}})));
@@ -928,8 +945,8 @@ equation
       smooth=Smooth.None,
       pattern=LinePattern.Dash));
   annotation (
-    Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-400,-400},{1400,
-            600}}),      graphics),
+    Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-400,-400},{
+            1400,600}}), graphics),
     Documentation(info="<html>
 <p>
 This model consist of an HVAC system, a building envelope model and a model
@@ -937,45 +954,45 @@ for air flow through building leakage and through open doors based
 on wind pressure and flow imbalance of the HVAC system.
 </p>
 <p>
-The HVAC system is a variable air volume (VAV) flow system with economizer 
-and a heating and cooling coil in the air handler unit. There is also a 
-reheat coil and an air damper in each of the five zone inlet branches. 
+The HVAC system is a variable air volume (VAV) flow system with economizer
+and a heating and cooling coil in the air handler unit. There is also a
+reheat coil and an air damper in each of the five zone inlet branches.
 The figure below shows the schematic diagram of the HVAC system
 </p>
 <p align=\"center\">
 <img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Examples/VAVReheat/vavSchematics.png\" border=\"1\"/>
 </p>
 <p>
-The control is an implementation of the control sequence 
-<i>VAV 2A2-21232</i> of the Sequences of Operation for 
-Common HVAC Systems (ASHRAE, 2006). In this control sequence, the 
-supply fan speed is regulated based on the duct static pressure. 
-The return fan controller tracks the supply fan air flow rate 
-reduced by a fixed offset. The duct static pressure is adjusted 
-so that at least one VAV damper is 90% open. The economizer dampers 
-are modulated to track the setpoint for the mixed air dry bulb temperature. 
-Priority is given to maintain a minimum outside air volume flow rate. 
-In each zone, the VAV damper is adjusted to meet the room temperature 
-setpoint for cooling, or fully opened during heating. 
-The room temperature setpoint for heating is tracked by varying 
-the water flow rate through the reheat coil. There is also a 
-finite state machine that transitions the mode of operation of 
-the HVAC system between the modes 
+The control is an implementation of the control sequence
+<i>VAV 2A2-21232</i> of the Sequences of Operation for
+Common HVAC Systems (ASHRAE, 2006). In this control sequence, the
+supply fan speed is regulated based on the duct static pressure.
+The return fan controller tracks the supply fan air flow rate
+reduced by a fixed offset. The duct static pressure is adjusted
+so that at least one VAV damper is 90% open. The economizer dampers
+are modulated to track the setpoint for the mixed air dry bulb temperature.
+Priority is given to maintain a minimum outside air volume flow rate.
+In each zone, the VAV damper is adjusted to meet the room temperature
+setpoint for cooling, or fully opened during heating.
+The room temperature setpoint for heating is tracked by varying
+the water flow rate through the reheat coil. There is also a
+finite state machine that transitions the mode of operation of
+the HVAC system between the modes
 <i>occupied</i>, <i>unoccupied off</i>, <i>unoccupied night set back</i>,
-<i>unoccupied warm-up</i> and <i>unoccupied pre-cool</i>. 
-In the VAV model, all air flows are computed based on the 
-duct static pressure distribution and the performance curves of the fans. 
-Local loop control is implemented using proportional and proportional-integral 
-controllers, while the supervisory control is implemented 
+<i>unoccupied warm-up</i> and <i>unoccupied pre-cool</i>.
+In the VAV model, all air flows are computed based on the
+duct static pressure distribution and the performance curves of the fans.
+Local loop control is implemented using proportional and proportional-integral
+controllers, while the supervisory control is implemented
 using a finite state machine.
 </p>
 <p>
-To model the heat transfer through the building envelope, 
+To model the heat transfer through the building envelope,
 a model of five interconnected rooms is used.
-The five room model is representative of one floor of the 
-new construction medium office building for Chicago, IL, 
-as described in the set of DOE Commercial Building Benchmarks 
-(Deru et al, 2009). There are four perimeter zones and one core zone. 
+The five room model is representative of one floor of the
+new construction medium office building for Chicago, IL,
+as described in the set of DOE Commercial Building Benchmarks
+(Deru et al, 2009). There are four perimeter zones and one core zone.
 The envelope thermal properties meet ASHRAE Standard 90.1-2004.
 The thermal room model computes transient heat conduction through
 walls, floors and ceilings and long-wave radiative heat exchange between
@@ -983,7 +1000,7 @@ surfaces. The convective heat transfer coefficient is computed based
 on the temperature difference between the surface and the room air.
 There is also a layer-by-layer short-wave radiation,
 long-wave radiation, convection and conduction heat transfer model for the
-windows. The model is similar to the 
+windows. The model is similar to the
 Window 5 model and described in TARCOG 2006.
 </p>
 <p>

@@ -84,6 +84,7 @@ equation
   annotation (__Dymola_Commands(file=
     "modelica://Buildings/Resources/Scripts/Dymola/Fluid/SolarCollectors/Examples/Tubular.mos"
         "Simulate and Plot"),
+    experiment(StopTime=86400.0),
     Documentation(info="<html>
       <p>
         This example models a tubular solar thermal collector. It uses the 

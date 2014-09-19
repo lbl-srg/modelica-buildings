@@ -111,7 +111,7 @@ model MixedAir "Model of a room in which the air is completely mixed"
     "Control signal for the shading device (removed if no shade is present)"
     annotation (Placement(transformation(extent={{-300,160},{-260,200}}),
         iconTransformation(extent={{-240,140},{-200,180}})));
-  Modelica.Blocks.Interfaces.RealInput qGai_flow[3](unit="W/m2")
+  Modelica.Blocks.Interfaces.RealInput qGai_flow[3](each unit="W/m2")
     "Radiant, convective and latent heat input into room (positive if heat gain)"
     annotation (Placement(transformation(extent={{-300,80},{-260,120}})));
   // Reassign the tilt since a construction that is declared as a ceiling of the

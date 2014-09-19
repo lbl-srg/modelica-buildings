@@ -66,8 +66,7 @@ protected
     "Approach temperature for free convection";
 
   final parameter Real fanRelPowDer[size(fanRelPow.r_V,1)](fixed=false)
-    "Coefficients for fan relative power consumption as a function of control signal"
-    annotation (Evaluate=true);
+    "Coefficients for fan relative power consumption as a function of control signal";
 
   Medium.ThermodynamicState staA "Medium properties in port_a";
   Medium.ThermodynamicState staB "Medium properties in port_b";
@@ -255,6 +254,10 @@ control law to compute the input signal <code>y</code>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+May 30, 2014, by Michael Wetter:<br/>
+Removed undesirable annotation <code>Evaluate=true</code>.
+</li>
 <li>
 October 9, 2013, by Michael Wetter:<br/>
 Simplified the implementation for the situation if 

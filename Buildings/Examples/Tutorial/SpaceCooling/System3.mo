@@ -14,7 +14,8 @@ model System3
     redeclare package Medium = MediumA,
     m_flow_nominal=mA_flow_nominal,
     V=V,
-    nPorts=2)
+    nPorts=2,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyStateInitial)
     annotation (Placement(transformation(extent={{60,20},{80,40}})));
   Modelica.Thermal.HeatTransfer.Components.ThermalConductor theCon(G=10000/30)
     "Thermal conductance with the ambient"
@@ -69,9 +70,9 @@ model System3
   Modelica.Thermal.HeatTransfer.Sources.FixedHeatFlow preHea(Q_flow=
         QRooInt_flow) "Prescribed heat flow"
     annotation (Placement(transformation(extent={{20,70},{40,90}})));
-  Fluid.Movers.FlowMachine_m_flow fan(
-      redeclare package Medium = MediumA,
-      m_flow_nominal=mA_flow_nominal) "Supply air fan"
+  Fluid.Movers.FlowMachine_m_flow fan(redeclare package Medium = MediumA,
+      m_flow_nominal=mA_flow_nominal,
+    dynamicBalance=false) "Supply air fan"
     annotation (Placement(transformation(extent={{40,-30},{60,-10}})));
   Fluid.HeatExchangers.ConstantEffectiveness hex(redeclare package Medium1 =
         MediumA, redeclare package Medium2 = MediumA,
@@ -93,7 +94,9 @@ model System3
         T_a2=TWSup_nominal,
         T_b2=TWRet_nominal),
     dp2_nominal=200,
-    show_T=true) "Cooling coil"                                annotation (Placement(
+    show_T=true,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial) "Cooling coil"
+                                                               annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=180,
@@ -252,14 +255,14 @@ equation
 This part of the system model modifies
 <a href=\"modelica://Buildings.Examples.Tutorial.SpaceCooling.System2\">
 Buildings.Examples.Tutorial.SpaceCooling.System2</a>
-to use the actual outside temperature for a summer day, 
+to use the actual outside temperature for a summer day,
 and it adds closed loop control.
 The closed loop control measures the room temperature and switches
 the chilled water flow rate on or off.
 </p>
 <h4>Implementation</h4>
 <p>
-This section describes how we modified 
+This section describes how we modified
 <a href=\"modelica://Buildings.Examples.Tutorial.SpaceCooling.System2\">
 Buildings.Examples.Tutorial.SpaceCooling.System2</a>
 to build this model.
@@ -267,7 +270,7 @@ to build this model.
 <ol>
 <li>
 <p>
-The first step was to copy the model 
+The first step was to copy the model
 <a href=\"modelica://Buildings.Examples.Tutorial.SpaceCooling.System2\">
 Buildings.Examples.Tutorial.SpaceCooling.System2</a>.
 </p>
@@ -275,7 +278,7 @@ Buildings.Examples.Tutorial.SpaceCooling.System2</a>.
 <li>
 <p>
 Next, we changed in <code>weaDat</code> the parameter that determines
-whether the outside dry bulb temperature is used from the weather data file 
+whether the outside dry bulb temperature is used from the weather data file
 or set to a constant value. This can be accomplished in the GUI of the weather data reader
 as follows:
 <p align=\"center\">
@@ -325,8 +328,8 @@ we needed to add a conversion block. We therefore replaced the instance
 <code>mWat_flow</code> from a constant block to the block
 <a href=\"modelica://Modelica.Blocks.Math.BooleanToReal\">
 Modelica.Blocks.Math.BooleanToReal</a>.
-Because the cooling control has a reverse action, i.e., 
-if the measured value exceeds the set point, the system should switch 
+Because the cooling control has a reverse action, i.e.,
+if the measured value exceeds the set point, the system should switch
 on instead of off, we configured the parameters of the conversion block
 as follow:
 </p>
@@ -341,9 +344,9 @@ is above the set point, and <i>0</i> otherwise.
 </li>
 </ol>
 <p>
-This completes building the model shown in the figure on 
+This completes building the model shown in the figure on
 <a href=\"modelica://Buildings.Examples.Tutorial.SpaceCooling\">
-Buildings.Examples.Tutorial.SpaceCooling</a>. 
+Buildings.Examples.Tutorial.SpaceCooling</a>.
 When simulating the model, the response shown below should be seen.
 <p align=\"center\">
 <img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Examples/Tutorial/SpaceCooling/System3TemperaturesClosedLoop.png\" border=\"1\"/>

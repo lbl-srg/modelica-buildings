@@ -8,8 +8,7 @@ partial model Outside
   parameter Medium.ExtraProperty C[Medium.nC](
        quantity=Medium.extraPropertiesNames)=fill(0, Medium.nC)
     "Fixed values of trace substances"
-    annotation (Evaluate=true,
-                Dialog(enable = (not use_C_in) and Medium.nC > 0));
+    annotation (Dialog(enable = (not use_C_in) and Medium.nC > 0));
   Modelica.Blocks.Interfaces.RealInput C_in[Medium.nC] if use_C_in
     "Prescribed boundary trace substances"
     annotation (Placement(transformation(extent={{-140,-100},{-100,-60}},
@@ -105,6 +104,10 @@ with exception of boundary pressure, do not have an effect.
 </html>",
 revisions="<html>
 <ul>
+<li>
+May 30, 2014, by Michael Wetter:<br/>
+Removed undesirable annotation <code>Evaluate=true</code>.
+</li>
 <li>
 October 26, 2011 by Michael Wetter:<br/>
 Introduced new base class to allow implementation of wind pressure for natural ventilation.

@@ -36,11 +36,9 @@ protected
   parameter Modelica.SIunits.VolumeFlowRate delta_V_flow = 1E-3*V_flow_max
     "Factor used for setting heat input into medium to zero at very small flows";
   final parameter Real motDer[size(per.motorEfficiency.r_V, 1)](each fixed=false)
-    "Coefficients for polynomial of pressure vs. flow rate"
-    annotation (Evaluate=true);
+    "Coefficients for polynomial of pressure vs. flow rate";
   final parameter Real hydDer[size(per.hydraulicEfficiency.r_V,1)](each fixed=false)
-    "Coefficients for polynomial of pressure vs. flow rate"
-    annotation (Evaluate=true);
+    "Coefficients for polynomial of pressure vs. flow rate";
 
   Modelica.SIunits.HeatFlowRate QThe_flow
     "Heat input from fan or pump to medium";
@@ -100,7 +98,7 @@ equation
             graphics),
     Documentation(info="<html>
 <p>This is an interface that implements the functions to compute the power draw and the
-heat dissipation of fans and pumps. It is used by the model 
+heat dissipation of fans and pumps. It is used by the model
 <a href=\"modelica://Buildings.Fluid.Movers.BaseClasses.FlowMachineInterface\">
 Buildings.Fluid.Movers.BaseClasses.FlowMachineInterface</a>.
 </p>
@@ -115,8 +113,12 @@ to properly guard against division by zero.
       revisions="<html>
 <ul>
 <li>
+May 29, 2014, by Michael Wetter:<br/>
+Removed undesirable annotation <code>Evaluate=true</code>.
+</li>
+<li>
 April 21, 2014, by Filip Jorisson and Michael Wetter:<br/>
-Changed model to use 
+Changed model to use
 <a href=\"modelica://Buildings.Fluid.Movers.Data.Generic\">
 Buildings.Fluid.Movers.Data.Generic</a>.
 </li>
@@ -141,7 +143,7 @@ Renamed protected parameters for consistency with the naming conventions.
     Changed model so that it is based on total pressure in Pascals instead of the pump head in meters.
     This change is needed if the device is used with air as a medium. The original formulation in Modelica.Fluid
     converts head to pressure using the density medium.d. Therefore, for fans, head would be converted to pressure
-    using the density of air. However, for fans, manufacturers typically publish the head in 
+    using the density of air. However, for fans, manufacturers typically publish the head in
     millimeters water (mmH20). Therefore, to avoid confusion and to make this model applicable for any medium,
     the model has been changed to use total pressure in Pascals instead of head in meters.
 </li>

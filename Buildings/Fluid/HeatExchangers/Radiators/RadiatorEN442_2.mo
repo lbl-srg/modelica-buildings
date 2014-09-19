@@ -33,10 +33,10 @@ model RadiatorEN442_2 "Dynamic radiator for space heating"
   parameter Real n = 1.24 "Exponent for heat transfer";
   parameter Modelica.SIunits.Volume VWat = 5.8E-6*abs(Q_flow_nominal)
     "Water volume of radiator"
-    annotation(Evaluate=true, Dialog(tab = "Dynamics", enable = not (energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState)));
+    annotation(Dialog(tab = "Dynamics", enable = not (energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState)));
   parameter Modelica.SIunits.Mass mDry = 0.0263*abs(Q_flow_nominal)
     "Dry mass of radiator that will be lumped to water heat capacity"
-    annotation(Evaluate=true, Dialog(tab = "Dynamics", enable = not (energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState)));
+    annotation(Dialog(tab = "Dynamics", enable = not (energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState)));
   parameter Boolean homotopyInitialization = true "= true, use homotopy method"
     annotation(Evaluate=true, Dialog(tab="Advanced"));
 
@@ -364,6 +364,10 @@ with one plate of water carying fluid, and a height of 0.42 meters.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+May 29, 2014, by Michael Wetter:<br/>
+Removed undesirable annotation <code>Evaluate=true</code>.
+</li>
 <li>
 October 8, 2013 by Michael Wetter:<br/>
 Removed conditional statement in the declaration of the parameter

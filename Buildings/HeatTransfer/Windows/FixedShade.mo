@@ -2,8 +2,7 @@ within Buildings.HeatTransfer.Windows;
 model FixedShade "Model for exterior shade due to overhang and/or side fin"
   extends HeatTransfer.Windows.BaseClasses.ShadeInterface_weatherBus;
   parameter Buildings.Rooms.BaseClasses.ParameterConstructionWithWindow conPar
-    "Construction parameters"
-    annotation (Evaluate=true);
+    "Construction parameters";
 
   parameter Modelica.SIunits.Angle lat "Latitude";
   parameter Modelica.SIunits.Angle azi(displayUnit="deg")
@@ -272,6 +271,10 @@ Buildings.HeatTransfer.Windows.BaseClasses.Overhang</a>.
 </html>",
 revisions="<html>
 <ul>
+<li>
+May 30, 2014, by Michael Wetter:<br/>
+Removed undesirable annotation <code>Evaluate=true</code>.
+</li>
 <li>
 July 7, 2012, by Michael Wetter:<br/>
 Renamed model from <code>Shade</code> to <code>FixedShade</code> because

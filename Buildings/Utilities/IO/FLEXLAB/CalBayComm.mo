@@ -6,9 +6,16 @@ model CalBayComm
   parameter Modelica.SIunits.Time samplePeriod = 30
     "Sample period for communication";
 
-  Modelica.Blocks.Sources.CombiTimeTable setPoint(tableOnFile=false, table=[0,12;
-        119,12; 119,6; 239,6; 239,8; 359,8; 359,9; 479,9; 479,10; 599,10; 599,12])
-    "Setpoint for lights"
+  Modelica.Blocks.Sources.CombiTimeTable setPoint(
+    tableOnFile=false,
+    extrapolation=Modelica.Blocks.Types.Extrapolation.Periodic,
+    smoothness=Modelica.Blocks.Types.Smoothness.ConstantSegments,
+    table=[ -1,12;
+           119,6;
+           239,8;
+           359,9;
+           479,10;
+           599,12]) "Setpoint for lights"
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
 
   Utilities.IO.Python27.Real_Real calBay(
@@ -123,8 +130,14 @@ equation
             </html>",
             revisions = "<html>
             <ul>
-            <li>Sep 9, 2013 by Peter Grant:<br/>
-            First implementation.</li>
+            <li>
+            April 30, 2014, by Michael Wetter:<br/>
+            Updated time table for MSL 3.2.1.
+            </li>
+            <li>
+            Sep 9, 2013 by Peter Grant:<br/>
+            First implementation.
+            </li>
             </ul>
             </html>"));
 end CalBayComm;

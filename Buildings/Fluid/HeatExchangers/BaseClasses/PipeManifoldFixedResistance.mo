@@ -4,9 +4,10 @@ model PipeManifoldFixedResistance
   extends PartialPipeManifold;
 
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal
-    "Mass flow rate at port_a"                                 annotation(Dialog(group = "Nominal Condition"));
+    "Mass flow rate at port_a"
+    annotation(Dialog(group = "Nominal Condition"));
   parameter Modelica.SIunits.Pressure dp_nominal(min=0) "Pressure"
-                                              annotation(Dialog(group = "Nominal Condition"));
+     annotation(Dialog(group = "Nominal Condition"));
 
   parameter Boolean use_dh = false "Set to true to specify hydraulic diameter"
        annotation(Evaluate=true, Dialog(enable = not linearized));
@@ -25,40 +26,65 @@ model PipeManifoldFixedResistance
     "= true, use m_flow = f(dp) else dp = f(m_flow)"
     annotation (Evaluate=true, Dialog(tab="Advanced"));
 
-  Fluid.FixedResistances.FixedResistanceDpM[nPipPar] fixRes(
-    redeclare each package Medium = Medium,
-    each m_flow_nominal=m_flow_nominal/nPipPar,
-    each m_flow(start=mStart_flow_a),
-    each dp_nominal=dp_nominal,
-    each dh=dh,
-    each from_dp=from_dp,
-    each deltaM=deltaM,
-    each ReC=ReC,
-    each use_dh=use_dh,
-    each linearized=linearized) "Fixed resistance for each duct"
-    annotation (Placement(transformation(extent={{-10,-10},{10,10}}, rotation=0)));
+  Fluid.FixedResistances.FixedResistanceDpM fixRes(
+    redeclare package Medium = Medium,
+    m_flow_nominal=m_flow_nominal,
+    dp_nominal=dp_nominal,
+    dh=dh,
+    from_dp=from_dp,
+    deltaM=deltaM,
+    ReC=ReC,
+    use_dh=use_dh,
+    linearized=linearized) "Fixed resistance for each duct"
+    annotation (Placement(transformation(extent={{-40,-10},{-20,10}},rotation=0)));
+protected
+  PipeManifoldFlowDistributor floDis(
+    redeclare package Medium = Medium,
+    nPipPar=nPipPar,
+    mStart_flow_a=mStart_flow_a,
+    allowFlowReversal=allowFlowReversal)
+    "Mass flow distributor to the individual pipes"
+    annotation (Placement(transformation(extent={{40,-10},{60,10}})));
 equation
-  for i in 1:nPipPar loop
-    connect(port_a, fixRes[i].port_a) annotation (Line(points={{-100,
-            5.55112e-016},{-56,5.55112e-016},{-56,6.10623e-016},{-10,
-            6.10623e-016}}, color={0,127,255}));
-    connect(fixRes[i].port_b, port_b[i]) annotation (Line(points={{10,
-            6.10623e-016},{52,6.10623e-016},{52,5.55112e-016},{100,5.55112e-016}},
-          color={0,127,255}));
-  end for;
-annotation (Diagram(graphics),
+  connect(fixRes.port_b, floDis.port_a) annotation (Line(
+      points={{-20,0},{40,0}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(floDis.port_b, port_b) annotation (Line(
+      points={{60,0},{100,0}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(fixRes.port_a, port_a) annotation (Line(
+      points={{-40,0},{-100,0}},
+      color={0,127,255},
+      smooth=Smooth.None));
+annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
+            -100},{100,100}}),
+                    graphics),
 Documentation(info="<html>
 <p>
 Pipe manifold with a fixed flow resistance.
 </p>
 <p>
-This model causes the flow to be distributed equally
-into each flow path by using a fixed flow resistance
-for each flow path.
+This model is composed of a pressure drop calculation, and
+a flow distributor. The flow distributor distributes the
+mass flow rate equally to each instance of <code>port_b</code>,
+without having to compute a pressure drop in each flow leg.
+</p>
+<p>
+<b>Note:</b> It is important that there is an equal pressure drop
+in each flow leg between this model, and the model that collects the flows.
+Otherwise, no solution may exist, and therefore the simulation may
+stop with an error.
 </p>
 </html>",
 revisions="<html>
 <ul>
+<li>
+June 29, 2014, by Michael Wetter:<br/>
+Added model that distributes the mass flow rate equally to each
+instance of <code>port_b</code>.
+</li>
 <li>
 September 10, 2008, by Michael Wetter:<br/>
 Added additional parameters.

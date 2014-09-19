@@ -1,7 +1,10 @@
 DewPointTemperature
 HumidityRatioPressure
 MassFraction_pTphi
-TotalAirDryAir
+SaturationPressure
+SaturationPressureLiquid
+SublimationPressureIce
 TWetBul_TDryBulPhi
 TWetBul_TDryBulXi
+TotalAirDryAir
 WetBul_pTX

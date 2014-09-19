@@ -22,9 +22,9 @@ helpDir=LIBHOME + os.path.sep + 'help'
 
 files = [ f for f in listdir(helpDir) if f.endswith(".html") ]
 
-replacements = {'</HEAD>':
+replacements = {'</head>':
                '<link rel=\"stylesheet\" type=\"text/css\" charset=\"utf-8\" media=\"all\" href=\"../Resources/www/modelicaDoc.css\">\n</HEAD>', 
-               '<BODY><P>':
+               '<body>':
                '<body>\n<!-- --- header ------ -->\n<div class="headerStyle">\n<img src="../Resources/www/lbl-logo.png" alt="LBL logo"/>\n</div>\n<div class="headerLinks">\n<ul><li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt; <a href="Buildings.html">Modelica</a></li></ul>\n</div>\n<!-- --- end header -- -->\n',
 
                'file:////opt/dymola/Modelica/Library/Modelica 3.2/help':
@@ -33,7 +33,7 @@ replacements = {'</HEAD>':
                '../../msl',
                '/home/mwetter/proj/ldrd/bie/modeling/github/lbl-srg/modelica-buildings/Buildings':
                '..',
-               '<PRE></pre>':'', '<pre></PRE>':''}
+               '<pre></pre>':''}
 for fil in files:
     filNam = helpDir + os.path.sep + fil
     filObj=open(filNam, 'r')

@@ -108,8 +108,8 @@ model MixedAirFreeResponse "Free response of room model"
         rotation=0,
         origin={150,-50})));
   HeatTransfer.Conduction.MultiLayer conOut[nSurBou](
-    redeclare Buildings.HeatTransfer.Data.OpaqueConstructions.Brick120 layers,
-    each A=6*4) "Construction that is modeled outside of room"
+    each A=6*4, each layers=matLayPar)
+    "Construction that is modeled outside of room"
     annotation (Placement(transformation(extent={{100,-60},{120,-40}})));
 
   Fluid.Sources.FixedBoundary boundary(
@@ -117,6 +117,7 @@ model MixedAirFreeResponse "Free response of room model"
     redeclare package Medium = MediumA,
     T=293.15) "Boundary condition"
     annotation (Placement(transformation(extent={{0,0},{20,20}})));
+
 equation
   connect(qRadGai_flow.y, multiplex3_1.u1[1])  annotation (Line(
       points={{-39,90},{-32,90},{-32,57},{-22,57}},
@@ -175,6 +176,11 @@ This model illustrates the use of the room model
 Buildings.Rooms.MixedAir</a>.
 </html>", revisions="<html>
 <ul>
+<li>
+September 11, 2014, by Michael Wetter:<br/>
+Changed assignment of <code>layers</code> in <code>conOut</code>
+as <code>layers</code> is no longer replaceable.
+</li>
 <li>
 May 1, 2013, by Michael Wetter:<br/>
 Declared the parameter record to be a parameter, as declaring its elements
