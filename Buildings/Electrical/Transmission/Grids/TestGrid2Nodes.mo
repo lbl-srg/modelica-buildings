@@ -3,7 +3,7 @@ record TestGrid2Nodes "Simple model of a grid with 2 nodes and 1 link"
   extends Buildings.Electrical.Transmission.Grids.PartialGrid(
     nNodes=2,
     nLinks=1,
-    FromTo=[[1,2]],
+    fromTo=[[1,2]],
     L=[200],
     cables={LowVoltageCables.Cu35()});
   annotation (Documentation(info="<html>

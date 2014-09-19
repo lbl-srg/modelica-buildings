@@ -5,7 +5,7 @@ record SingleFeeder_40nodes_Al120
     nNodes = 40,
     nLinks = nNodes-1,
     L = Utilities.LineFeederLengths(nLinks, 200, 16),
-    FromTo = Utilities.LineFeederConnections(nLinks),
+    fromTo = Utilities.LineFeederConnections(nLinks),
     cables = Utilities.LineFeederCables(
              nLinks,
              Buildings.Electrical.Transmission.LowVoltageCables.PvcAl120(),

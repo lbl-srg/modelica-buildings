@@ -4,11 +4,11 @@ record PartialGrid "Partial model that represents a generalized grid"
   // fixme: The following renaming needs to be done.
   // nNodes -> nNodes (use camel case, and lower case as it is an instance, not a class name)
   // nLinks -> nLinks
-  // FromTo -> fromTo (lower case as it is an instance and not a class name)
+  // fromTo -> fromTo (lower case as it is an instance and not a class name)
   // L      -> l  (see also Buildings.Electrical.DC.Lines.Line, which uses l and not L)
   parameter Integer nNodes "Number of nodes of the grid";
   parameter Integer nLinks "Number of links connecting the nodes";
-  parameter Integer FromTo[nLinks,2]
+  parameter Integer fromTo[nLinks,2]
     "Indexes [i,1]->[i,2] of the nodes connected by link i";
   parameter Modelica.SIunits.Length L[nLinks,1](each min=0)
     "Length of the cable";

@@ -16,8 +16,8 @@ model Network "Single phase AC network"
   Modelica.SIunits.Voltage Vabs[grid.nNodes] "RMS voltage of the grid nodes";
 equation
   for i in 1:grid.nLinks loop
-    connect(lines[i].terminal_p, terminal[grid.FromTo[i,1]]);
-    connect(lines[i].terminal_n, terminal[grid.FromTo[i,2]]);
+    connect(lines[i].terminal_p, terminal[grid.fromTo[i,1]]);
+    connect(lines[i].terminal_n, terminal[grid.fromTo[i,2]]);
   end for;
 
   for i in 1:grid.nNodes loop

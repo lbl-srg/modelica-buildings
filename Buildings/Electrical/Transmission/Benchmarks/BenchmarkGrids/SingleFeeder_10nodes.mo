@@ -5,7 +5,7 @@ record SingleFeeder_10nodes
     nNodes = 10,
     nLinks = nNodes-1,
     L = Utilities.LineFeederLengths(nLinks, 200, 16),
-    FromTo = Utilities.LineFeederConnections(nLinks),
+    fromTo = Utilities.LineFeederConnections(nLinks),
     cables = Utilities.LineFeederCables(nLinks,
              Buildings.Electrical.Transmission.LowVoltageCables.PvcAl120(),
              Buildings.Electrical.Transmission.LowVoltageCables.PvcAl70()));
