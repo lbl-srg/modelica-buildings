@@ -5,9 +5,9 @@ function PluggedPhaseSequence
   input Integer first = 1 "Position of the first element to be True";
   input Integer Mod = 3 "Period of the sequence";
   output Boolean flags[N]
-    "vector of boolean representing if the phases are connected or not";
+    "Vector of boolean representing if the phases are connected or not";
 protected
-  Integer j;
+  Integer j "Iteration variable";
 algorithm
 
   for i in 1:N loop

@@ -6,9 +6,9 @@ function PluggedPhaseFromRndSeq
   input Real max = 1 "Boundaires to consider";
   input Real val[N] "Sequence or random numbers provided";
   output Boolean flags[N]
-    "vector of boolean representing if the phases are connected or not";
+    "Vector of boolean representing if the phases are connected or not";
 protected
-  Integer j;
+  Integer j "Iteration variable";
 algorithm
 
   for i in 1:N loop
