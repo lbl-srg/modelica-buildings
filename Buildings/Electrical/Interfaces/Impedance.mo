@@ -1,6 +1,6 @@
 within Buildings.Electrical.Interfaces;
-model PartialImpedance "Partial model representing a generalized impedance"
-  extends Buildings.Electrical.Interfaces.PartialLoad(
+model Impedance "Partial model representing a generalized impedance"
+  extends Buildings.Electrical.Interfaces.Load(
     final linearized = false,
     final mode=Buildings.Electrical.Types.Assumption.FixedZ_steady_state,
     final P_nominal(fixed = true)=0,
@@ -165,4 +165,4 @@ Created documentation.
 </li>
 </ul>
 </html>"));
-end PartialImpedance;
+end Impedance;

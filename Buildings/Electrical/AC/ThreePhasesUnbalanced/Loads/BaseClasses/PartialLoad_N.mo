@@ -29,8 +29,9 @@ partial model PartialLoad_N
     "Connector for three phases unbalanced systems with neutral cable"
     annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
 
-  replaceable Buildings.Electrical.Interfaces.PartialLoad load1(
+  replaceable Buildings.Electrical.Interfaces.Load load1(
     redeclare package PhaseSystem = Buildings.Electrical.PhaseSystems.OnePhase,
+
     redeclare Buildings.Electrical.AC.OnePhase.Interfaces.Terminal_n terminal,
     P_nominal=P_nominal,
     linearized=linearized,
@@ -38,8 +39,9 @@ partial model PartialLoad_N
     V_nominal=V_nominal/sqrt(3)) if
                   PlugPhase1 "Load 1"
     annotation (Placement(transformation(extent={{-10,40},{10,60}})));
-  replaceable Buildings.Electrical.Interfaces.PartialLoad load2(
+  replaceable Buildings.Electrical.Interfaces.Load load2(
     redeclare package PhaseSystem = Buildings.Electrical.PhaseSystems.OnePhase,
+
     redeclare Buildings.Electrical.AC.OnePhase.Interfaces.Terminal_n terminal,
     P_nominal=P_nominal,
     linearized=linearized,
@@ -47,8 +49,9 @@ partial model PartialLoad_N
     V_nominal=V_nominal/sqrt(3)) if
                   PlugPhase2 "Load 2"
     annotation (Placement(transformation(extent={{-10,-30},{10,-10}})));
-  replaceable Buildings.Electrical.Interfaces.PartialLoad load3(
+  replaceable Buildings.Electrical.Interfaces.Load load3(
     redeclare package PhaseSystem = Buildings.Electrical.PhaseSystems.OnePhase,
+
     redeclare Buildings.Electrical.AC.OnePhase.Interfaces.Terminal_n terminal,
     P_nominal=P_nominal,
     linearized=linearized,

@@ -1,6 +1,6 @@
 within Buildings.Electrical.AC.OnePhase.Loads;
 model Impedance "Model of a generic impedance"
-  extends Buildings.Electrical.Interfaces.PartialImpedance(
+  extends Buildings.Electrical.Interfaces.Impedance(
     redeclare package PhaseSystem = PhaseSystems.OnePhase,
     redeclare Interfaces.Terminal_n terminal);
 protected

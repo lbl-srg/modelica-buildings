@@ -1,6 +1,6 @@
 within Buildings.Electrical.DC.Sources;
 model ConstantVoltage "Model of a constant DC voltage source"
-  extends Buildings.Electrical.Interfaces.PartialSource(
+  extends Buildings.Electrical.Interfaces.Source(
     redeclare package PhaseSystem = PhaseSystems.TwoConductor,
     redeclare Interfaces.Terminal_p terminal,
     final potentialReference=true,

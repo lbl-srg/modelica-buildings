@@ -1,11 +1,11 @@
 BaseTerminal
 Terminal
 Ground
-PartialLoad
-PartialImpedance
-PartialInductiveLoad
-PartialCapacitiveLoad
-PartialSource
+Load
+Impedance
+InductiveLoad
+CapacitiveLoad
+Source
 PartialBaseTwoPort
 PartialTwoPort
 PartialConversion

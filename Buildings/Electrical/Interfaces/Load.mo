@@ -1,5 +1,5 @@
 within Buildings.Electrical.Interfaces;
-model PartialLoad "Partial model for a generic load"
+model Load "Partial model for a generic load"
   import Buildings.Electrical.Types.Assumption;
   replaceable package PhaseSystem =
       Buildings.Electrical.PhaseSystems.PartialPhaseSystem constrainedby
@@ -216,4 +216,4 @@ at the terminal differs from the nominal voltage.
 </html>"),
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
         graphics));
-end PartialLoad;
+end Load;

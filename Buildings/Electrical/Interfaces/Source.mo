@@ -1,5 +1,5 @@
 within Buildings.Electrical.Interfaces;
-model PartialSource "Partial model of a generic source."
+model Source "Partial model of a generic source."
   replaceable package PhaseSystem =
       Buildings.Electrical.PhaseSystems.OnePhase constrainedby
     Buildings.Electrical.PhaseSystems.PartialPhaseSystem "Phase system"
@@ -63,4 +63,4 @@ Balanced Models in Modelica 3.0 for Increased Model Quality</a>.<br/>
 Proc. of the 7th Modelica Conference, Bielefeld, Germany, March 2008.
 </p>
 </html>"));
-end PartialSource;
+end Source;

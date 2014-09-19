@@ -1,6 +1,6 @@
 within Buildings.Electrical.AC.OnePhase.Loads;
 model Inductive "Model of an inductive and resistive load"
-  extends Buildings.Electrical.Interfaces.PartialInductiveLoad(
+  extends Buildings.Electrical.Interfaces.InductiveLoad(
     redeclare package PhaseSystem = PhaseSystems.OnePhase,
     redeclare Interfaces.Terminal_n terminal,
     V_nominal=120);

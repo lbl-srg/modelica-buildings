@@ -1,6 +1,6 @@
 within Buildings.Electrical.AC.OnePhase.Loads;
 model Resistive "Model of a resistive load"
-  extends Buildings.Electrical.Interfaces.PartialLoad(
+  extends Buildings.Electrical.Interfaces.Load(
     redeclare package PhaseSystem = PhaseSystems.OnePhase,
     redeclare Interfaces.Terminal_n terminal,
     V_nominal=120);

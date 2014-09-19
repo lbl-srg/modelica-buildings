@@ -1,6 +1,6 @@
 within Buildings.Electrical.AC.OnePhase.Sources;
 model Generator "Model of a generator"
-  extends Buildings.Electrical.Interfaces.PartialSource(
+  extends Buildings.Electrical.Interfaces.Source(
     redeclare package PhaseSystem = PhaseSystems.OnePhase,
     redeclare Interfaces.Terminal_p terminal);
   parameter Modelica.SIunits.Frequency f(start=60) = 60

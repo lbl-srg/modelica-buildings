@@ -1,6 +1,6 @@
 within Buildings.Electrical.Interfaces;
-partial model PartialInductiveLoad "Partial model of an inductive load"
-  extends PartialLoad;
+partial model InductiveLoad "Partial model of an inductive load"
+  extends Load;
   parameter Boolean use_pf_in = false "If true the pf is defined by an input"
     annotation(Dialog(group="Modelling assumption"));
   parameter Real pf(min=0, max=1) = 0.8 "Power factor"
@@ -66,4 +66,4 @@ Q = P  tan(arccos(pf))
 </p>
 </html>"), Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
             {100,100}}),graphics));
-end PartialInductiveLoad;
+end InductiveLoad;

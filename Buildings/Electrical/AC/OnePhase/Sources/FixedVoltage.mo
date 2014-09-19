@@ -1,6 +1,6 @@
 within Buildings.Electrical.AC.OnePhase.Sources;
 model FixedVoltage "Fixed single phase AC voltage source"
-  extends Buildings.Electrical.Interfaces.PartialSource(
+  extends Buildings.Electrical.Interfaces.Source(
     redeclare package PhaseSystem = PhaseSystems.OnePhase,
     redeclare Interfaces.Terminal_p terminal);
     // fixme: This model requires a unit test to be added

@@ -1,6 +1,6 @@
 within Buildings.Electrical.AC.ThreePhasesBalanced.Loads;
 model Impedance "Model of a resistive load"
-  extends Buildings.Electrical.Interfaces.PartialImpedance(
+  extends Buildings.Electrical.Interfaces.Impedance(
     redeclare package PhaseSystem = PhaseSystems.OnePhase,
     redeclare Interfaces.Terminal_n terminal);
 

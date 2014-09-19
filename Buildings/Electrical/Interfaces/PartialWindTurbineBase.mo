@@ -13,7 +13,8 @@ partial model PartialWindTurbineBase
   parameter Modelica.SIunits.Height hRef = 10
     "Reference height for wind measurement"
     annotation (Dialog(group="Wind correction"));
- parameter Real nWin(min=0) = 0.4 "Height exponent for wind profile calculation"
+ parameter Real nWin(min=0) = 0.4
+    "Height exponent for wind profile calculation"
    annotation (Dialog(group="Wind correction"));
 
   parameter Boolean tableOnFile=false

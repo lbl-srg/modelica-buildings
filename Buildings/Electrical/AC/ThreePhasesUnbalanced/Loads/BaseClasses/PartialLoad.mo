@@ -17,27 +17,33 @@ partial model PartialLoad "Partial model of a three phases load"
     "Connector for three phases unbalanced systems without neutral cable"
     annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
 
-  replaceable Buildings.Electrical.Interfaces.PartialLoad load1(
+  replaceable Buildings.Electrical.Interfaces.Load load1(
     redeclare package PhaseSystem = Buildings.Electrical.PhaseSystems.OnePhase,
+
     redeclare Buildings.Electrical.AC.OnePhase.Interfaces.Terminal_n terminal,
     P_nominal=P_nominal,
-    V_nominal=(if loadConn == Buildings.Electrical.Types.LoadConnection.wye_to_wyeg then V_nominal else V_nominal/sqrt(3)),
+    V_nominal=(if loadConn == Buildings.Electrical.Types.LoadConnection.wye_to_wyeg
+         then V_nominal else V_nominal/sqrt(3)),
     linearized=linearized,
     mode=mode) if PlugPhase1 "Load 1"
     annotation (Placement(transformation(extent={{-10,30},{10,50}})));
-  replaceable Buildings.Electrical.Interfaces.PartialLoad load2(
+  replaceable Buildings.Electrical.Interfaces.Load load2(
     redeclare package PhaseSystem = Buildings.Electrical.PhaseSystems.OnePhase,
+
     redeclare Buildings.Electrical.AC.OnePhase.Interfaces.Terminal_n terminal,
     P_nominal=P_nominal,
-    V_nominal=(if loadConn == Buildings.Electrical.Types.LoadConnection.wye_to_wyeg then V_nominal else V_nominal/sqrt(3)),
+    V_nominal=(if loadConn == Buildings.Electrical.Types.LoadConnection.wye_to_wyeg
+         then V_nominal else V_nominal/sqrt(3)),
     linearized=linearized,
     mode=mode) if PlugPhase2 "Load 2"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
-  replaceable Buildings.Electrical.Interfaces.PartialLoad load3(
+  replaceable Buildings.Electrical.Interfaces.Load load3(
     redeclare package PhaseSystem = Buildings.Electrical.PhaseSystems.OnePhase,
+
     redeclare Buildings.Electrical.AC.OnePhase.Interfaces.Terminal_n terminal,
     P_nominal=P_nominal,
-    V_nominal=(if loadConn == Buildings.Electrical.Types.LoadConnection.wye_to_wyeg then V_nominal else V_nominal/sqrt(3)),
+    V_nominal=(if loadConn == Buildings.Electrical.Types.LoadConnection.wye_to_wyeg
+         then V_nominal else V_nominal/sqrt(3)),
     linearized=linearized,
     mode=mode) if PlugPhase3 "Load 3"
     annotation (Placement(transformation(extent={{-10,-50},{10,-30}})));

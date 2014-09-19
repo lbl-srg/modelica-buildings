@@ -1,6 +1,6 @@
 within Buildings.Electrical.DC.Loads;
 model Resistor "Ideal linear electrical resistor"
-  extends Buildings.Electrical.Interfaces.PartialLoad(
+  extends Buildings.Electrical.Interfaces.Load(
     redeclare package PhaseSystem = PhaseSystems.TwoConductor,
     redeclare Interfaces.Terminal_n terminal,
     final mode=Buildings.Electrical.Types.Assumption.FixedZ_steady_state,
