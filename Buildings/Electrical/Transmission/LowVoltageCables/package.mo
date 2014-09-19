@@ -2,14 +2,27 @@ within Buildings.Electrical.Transmission;
 package LowVoltageCables "Package of low voltage electricity cables used in distribution grid"
   extends Modelica.Icons.MaterialPropertiesPackage;
 
-// fixme: all cables need an info section. Please also add a revision section.
-// See for example Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR
-// The info section should also explain the difference between a cable with and
-// without the extension _ECM
-//
-// Also, if a cable has a diameter, then you need to set it to the parameter d.
-// Maybe it is cleaner to make a record that only has the data members that are
-// actually used by the cables of the respective packages.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 annotation (Documentation(info="<html>
 <p>

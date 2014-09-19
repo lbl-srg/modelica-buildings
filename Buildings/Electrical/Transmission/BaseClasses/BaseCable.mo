@@ -18,7 +18,7 @@ record BaseCable "Record that contains the properties of a generic cable"
   parameter Modelica.SIunits.Length D "Outer diameter";
   parameter Modelica.SIunits.Length GMR "Geometrical Mean Radius of the cable";
   parameter Modelica.SIunits.Length GMD
-    "Geometrical mean diameter of the cable";
+    "Geometrical Mean Diameter of the cable";
   annotation (Documentation(revisions="<html>
 <ul>
 <li>

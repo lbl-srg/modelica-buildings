@@ -6,11 +6,6 @@ package Benchmarks "This package contains different models and data for benchmar
   extends Modelica.Icons.UnderConstruction;
 
 
-
-
-
-
-
 annotation (Documentation(info="<html>
 <p>
 This package contains models and data for benchmarks.
