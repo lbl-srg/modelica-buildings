@@ -1,8 +1,7 @@
 within Buildings.Electrical.AC.OnePhase.Storage;
 model Battery "Simple model of a battery"
+  import Buildings;
  extends Buildings.Electrical.Interfaces.PartialAcDcParameters;
- // fixme: This model requires a unit test. The test must be in this
- // package or in a top-level package.
  parameter Real etaCha(min=0, max=1, unit="1") = 0.9
     "Efficiency during charging";
  parameter Real etaDis(min=0, max=1, unit="1") = 0.9
@@ -45,8 +44,21 @@ protected
   Modelica.Blocks.Math.Gain gain(final k=-1)
     annotation (Placement(transformation(extent={{22,10},{42,30}})));
 
-  Modelica.Blocks.Math.Gain acdc_conversion(final k=eta_DCAC)
-    annotation (Placement(transformation(extent={{-16,10},{4,30}})));
+  Modelica.Blocks.Math.Gain acdc_con_dis(final k=2 - eta_DCAC)
+    annotation (Placement(transformation(extent={{-68,10},{-48,30}})));
+public
+  Buildings.Utilities.Math.Splice spl(deltax=1e-2)
+    "Splice function that attributes the losses due to AC/DC conversion"
+    annotation (Placement(transformation(extent={{-36,30},{-16,50}})));
+  Modelica.Blocks.Sources.RealExpression ac_loss_charge
+    "AC/DC losses during the charge cycle"
+    annotation (Placement(transformation(extent={{-74,-48},{-54,-28}})));
+  Modelica.Blocks.Sources.RealExpression ac_loss_discharge
+    "AC/DC losses during the discharge cycle"
+    annotation (Placement(transformation(extent={{-64,-74},{-44,-54}})));
+protected
+  Modelica.Blocks.Math.Gain acdc_con_cha(final k=eta_DCAC)
+    annotation (Placement(transformation(extent={{-68,50},{-48,70}})));
 equation
   connect(cha.SOC, SOC)    annotation (Line(
       points={{61,60},{110,60}},
@@ -61,22 +73,38 @@ equation
       points={{40,0},{-100,0}},
       color={0,120,120},
       smooth=Smooth.None));
-  connect(P, acdc_conversion.u) annotation (Line(
-      points={{8.88178e-16,108},{0,108},{0,58},{-40,58},{-40,20},{-18,20}},
+  connect(P, acdc_con_dis.u) annotation (Line(
+      points={{8.88178e-16,108},{0,108},{0,80},{-80,80},{-80,20},{-70,20}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(acdc_conversion.y, gain.u) annotation (Line(
-      points={{5,20},{20,20}},
+  connect(P, acdc_con_cha.u) annotation (Line(
+      points={{8.88178e-16,108},{8.88178e-16,80},{-80,80},{-80,60},{-70,60}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(acdc_conversion.y, cha.P) annotation (Line(
-      points={{5,20},{12,20},{12,60},{38,60}},
+  connect(acdc_con_cha.y, spl.u1) annotation (Line(
+      points={{-47,60},{-42,60},{-42,46},{-38,46}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(acdc_con_dis.y, spl.u2) annotation (Line(
+      points={{-47,20},{-42,20},{-42,34},{-38,34}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(P, spl.x) annotation (Line(
+      points={{8.88178e-16,108},{8.88178e-16,80},{-80,80},{-80,40},{-38,40}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(spl.y, gain.u) annotation (Line(
+      points={{-15,40},{0,40},{0,20},{20,20}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(spl.y, cha.P) annotation (Line(
+      points={{-15,40},{0,40},{0,60},{38,60}},
       color={0,0,127},
       smooth=Smooth.None));
   annotation (
 defaultComponentName="bat",
-Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}}), graphics), Icon(coordinateSystem(
+Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
+                               graphics), Icon(coordinateSystem(
           preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
         graphics={
         Polygon(
@@ -157,6 +185,13 @@ and that the state of charge remains between zero and one.
 </html>",
         revisions="<html>
 <ul>
+<li>
+September 4, 2014, by Michael Wetter:<br/>
+Corrected problem, the losses due to AC/DC conversion have to
+affect both during the charge and the discharge. The input P is the 
+power that is taken, due to conversions the actual power drain
+from the battery is higher.
+</li>
 <li>
 September 4, 2014, by Michael Wetter:<br/>
 Revised model.
