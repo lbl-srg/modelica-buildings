@@ -10,11 +10,11 @@ model TwoPortRL
     redeclare Interfaces.Terminal_p terminal_p(
       redeclare package PhaseSystem = PhaseSystem_p),
     final C=0);
-  // fixme: documentation missing for mode
   parameter Buildings.Electrical.Types.Assumption mode(
     min=Buildings.Electrical.Types.Assumption.FixedZ_steady_state,
     max=Buildings.Electrical.Types.Assumption.FixedZ_dynamic)=
       Buildings.Electrical.Types.Assumption.FixedZ_steady_state
+    "Parameter that specifies the type model (e.g., steady state, dynamic, prescribed power consumption, etc.)"
     annotation(Evaluate=true,Dialog(group="Modelling assumption"));
 protected
   Modelica.SIunits.AngularVelocity omega "Angular velocity";

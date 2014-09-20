@@ -8,17 +8,19 @@ model TwoPortRLC "Model of an RLC element with two electrical ports"
       redeclare package PhaseSystem = PhaseSystem_n),
     redeclare Interfaces.Terminal_p terminal_p(
       redeclare package PhaseSystem = PhaseSystem_p));
-  // fixme: documentation missing for mode
   parameter Buildings.Electrical.Types.Assumption mode(
     min=Buildings.Electrical.Types.Assumption.FixedZ_steady_state,
     max=Buildings.Electrical.Types.Assumption.FixedZ_dynamic)=
      Buildings.Electrical.Types.Assumption.FixedZ_steady_state
+    "Parameter that specifies the type of model (e.g., steady state, dynamic, prescribed power consumption, etc.)"
     annotation(Evaluate=true,Dialog(group="Modelling assumption"));
-  // fixme: These protected variables all require a documentation
 protected
-  Modelica.SIunits.Voltage Vc[2](start = {V_nominal,0});
-  Modelica.SIunits.Current Ic[2];
-  Modelica.SIunits.AngularVelocity omega;
+  Modelica.SIunits.Voltage Vc[2](start = {V_nominal,0})
+    "Voltage of the Capacitance located in the middle of the line";
+  Modelica.SIunits.Current Ic[2]
+    "Currenbt of the capacitance located in the middle of the line";
+  Modelica.SIunits.AngularVelocity omega
+    "Frequency of the quasi-stationary sine waves";
 equation
 
   omega = der(PhaseSystem_p.thetaRef(terminal_p.theta));
