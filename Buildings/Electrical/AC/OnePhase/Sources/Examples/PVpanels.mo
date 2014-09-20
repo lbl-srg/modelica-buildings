@@ -1,7 +1,6 @@
 within Buildings.Electrical.AC.OnePhase.Sources.Examples;
-model PVpanels "This example illustrates how to use PV panel models"
+model PVPanels "This example illustrates how to use PV panel models"
   extends Modelica.Icons.Example;
-  // fixme: Rename PVpanels to PVPanels for the .mo and .mos file
   Buildings.Electrical.AC.OnePhase.Loads.Inductive RL(mode=Types.Assumption.VariableZ_y_input,
       P_nominal=-2000) "Load taht consumes the power generted by the PVs"
     annotation (Placement(transformation(extent={{20,-50},{40,-30}})));
@@ -82,7 +81,7 @@ equation
   Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}), graphics),
     __Dymola_Commands(file=
-          "modelica://Buildings/Resources/Scripts/Dymola/Electrical/AC/OnePhase/Sources/Examples/PVpanels.mos"
+          "modelica://Buildings/Resources/Scripts/Dymola/Electrical/AC/OnePhase/Sources/Examples/PVPanels.mos"
         "Simulate and plot"),
     Documentation(revisions="<html>
 <ul>
@@ -99,4 +98,4 @@ partially consumed by the load while the remaining part is fed into
 the grid.
 </p> 
 </html>"));
-end PVpanels;
+end PVPanels;
