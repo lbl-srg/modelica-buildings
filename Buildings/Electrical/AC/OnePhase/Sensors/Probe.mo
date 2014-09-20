@@ -12,16 +12,11 @@ model Probe "Model of a probe that measures RMS voltage and angle"
   Modelica.Blocks.Interfaces.RealOutput V(unit="1") "Voltage in per unit" annotation (Placement(
         transformation(extent={{60,20},{80,40}}), iconTransformation(extent={{60,
             20},{80,40}})));
-  // fixme: Never ever use degree!!! It will cause a unit error somewhere if
-  // we mix degree and rad. Always use rad. You must use
-  // unit="rad", displayUnit="deg".
-  // I did not change it because I want to make sure you catch and correct
-  // all occurences of this.
-  Modelica.Blocks.Interfaces.RealOutput theta(unit="deg") "Angle" annotation (Placement(
+  Modelica.Blocks.Interfaces.RealOutput theta(unit="rad", displayUnit="deg") "Angle" annotation (Placement(
         transformation(extent={{60,-40},{80,-20}}), iconTransformation(extent={{60,
             -40},{80,-20}})));
 equation
-  theta = (180.0/Modelica.Constants.pi)*Buildings.Electrical.PhaseSystems.OnePhase.phase(term.v);
+  theta = Buildings.Electrical.PhaseSystems.OnePhase.phase(term.v);
   if perUnit then
     V = Buildings.Electrical.PhaseSystems.OnePhase.systemVoltage(term.v)/V_nominal;
   else

@@ -14,7 +14,7 @@ partial model GeneralizedProbe
   Modelica.Blocks.Interfaces.RealOutput V[3](unit="1") "Voltage in per unit" annotation (Placement(
         transformation(extent={{60,20},{80,40}}), iconTransformation(extent={{60,
             20},{80,40}})));
-  Modelica.Blocks.Interfaces.RealOutput theta[3](unit="deg") "Angle" annotation (Placement(
+  Modelica.Blocks.Interfaces.RealOutput theta[3](unit="rad", displayUnit="deg") "Angle" annotation (Placement(
         transformation(extent={{60,-40},{80,-20}}), iconTransformation(extent={{60,
             -40},{80,-20}})));
   annotation (Icon(graphics={      Text(
