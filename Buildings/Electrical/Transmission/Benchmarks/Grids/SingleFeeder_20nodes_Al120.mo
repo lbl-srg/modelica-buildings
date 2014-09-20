@@ -23,7 +23,7 @@ The type of the cables is AL120.
         revisions="<html>
 <ul>
 <li>
-Sept 19 2014 by Marco Bonvini:</br>
+Sept 19 2014 by Marco Bonvini:
 Added documentation
 </li>
 </ul>

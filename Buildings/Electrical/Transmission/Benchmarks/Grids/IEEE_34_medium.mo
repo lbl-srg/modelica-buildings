@@ -81,7 +81,7 @@ of the three IEEE-34 networks used in this benchmark.
         revisions="<html>
 <ul>
 <li>
-Sept 19 2014 by Marco Bonvini:</br>
+Sept 19 2014 by Marco Bonvini:
 Added documentation
 </li>
 </ul>

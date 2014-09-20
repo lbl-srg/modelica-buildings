@@ -23,7 +23,7 @@ package Grids "Package that contains grid models used for the benchmark"
   annotation (Documentation(revisions="<html>
 <ul>
 <li>
-Sept 19 2014 by Marco Bonvini:</br>
+Sept 19 2014 by Marco Bonvini:
 Added documentation
 </li>
 </ul>

@@ -59,7 +59,7 @@ represent a typical distribution feeder.</p>
 </html>", revisions="<html>
 <ul>
 <li>
-June 3, 2014, by Marco Bonvini:<br/>
+June 3, 2014, by Marco Bonvini:
 Added User's guide.
 </li>
 </ul>

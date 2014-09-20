@@ -9,7 +9,7 @@ extends Modelica.Icons.Package;
   annotation (Documentation(revisions="<html>
 <ul>
 <li>
-Sept 19 2014 by Marco Bonvini:</br>
+Sept 19 2014 by Marco Bonvini:
 Added documentation
 </li>
 </ul>
