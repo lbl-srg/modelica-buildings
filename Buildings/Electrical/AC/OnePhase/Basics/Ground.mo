@@ -3,7 +3,9 @@ model Ground "Ground connection"
   extends Buildings.Electrical.Interfaces.Ground(
     redeclare package PhaseSystem = PhaseSystems.OnePhase,
     redeclare Interfaces.Terminal_n terminal);
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
+  annotation (
+    defaultComponentName="gnd",
+    Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
             {100,100}}), graphics={
         Line(
           points={{0,90},{0,0}},
