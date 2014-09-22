@@ -11,20 +11,14 @@ model Line "Model of an electrical line"
     final voltageLevel=Types.VoltageLevel.Low,
     final commercialCable_med=
       Buildings.Electrical.Transmission.Functions.selectCable_med(P_nominal, V_nominal));
-  // fixme: Does this need to be replaceable if it is a protected instance?
-  // If is it indeed replaceable, you may want to use something like
-  // ... constrainedby TwoPortRL(mode=modelMode, M=M, ....)
-  // to make sure that these parameters are also assigned in the
-  // redeclared model.
 protected
-  replaceable TwoPortRL line(
+  replaceable TwoPortRL line(R=R/3,L=L/3) constrainedby
+    Buildings.Electrical.Transmission.BaseClasses.PartialTwoPortRLC(
     useHeatPort=true,
     mode=modelMode,
     M=M,
     T_ref=T_ref,
-    V_nominal=V_nominal,
-    R=R/3,
-    L=L/3)
+    V_nominal=V_nominal) "Model of the line"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 
 equation

@@ -1,5 +1,6 @@
 within Buildings.Electrical.AC.OnePhase.Sources;
 model Grid "Electrical grid"
+
   replaceable Buildings.Electrical.AC.OnePhase.Interfaces.Terminal_p terminal
     annotation (Placement(transformation(extent={{-10,
             -110},{10,-90}}), iconTransformation(extent={{-10,-110},{10,-90}})));
@@ -7,7 +8,7 @@ model Grid "Electrical grid"
     "Frequency of the source";
   parameter Modelica.SIunits.Voltage V(start=120) = 120
     "RMS voltage of the source";
-  parameter Modelica.SIunits.Angle Phi(start=0) = 0
+  parameter Modelica.SIunits.Angle phiSou(start=0) = 0
     "Phase shift angle of the source";
   Buildings.Electrical.AC.Interfaces.PowerOutput P
     "Power consumed from grid if negative, or fed to grid if positive"
@@ -17,7 +18,7 @@ model Grid "Electrical grid"
     definiteReference=true,
     final f=f,
     final V=V,
-    final Phi=Phi) "Voltage source"
+    final phiSou=phiSou) "Voltage source"
      annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=0,

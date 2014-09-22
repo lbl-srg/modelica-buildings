@@ -5,7 +5,7 @@ model Generator "Model of a generator"
     redeclare Interfaces.Terminal_p terminal);
   parameter Modelica.SIunits.Frequency f(start=60) = 60
     "Frequency of the source";
-  parameter Modelica.SIunits.Angle phi_gen(start=0) = 0
+  parameter Modelica.SIunits.Angle phiGen(start=0) = 0
     "Phase shift of the source";
   Modelica.SIunits.Current I "value of current";
   Modelica.Blocks.Interfaces.RealInput P
@@ -27,7 +27,7 @@ equation
 
   thetaRel = PhaseSystem.thetaRel(terminal.theta);
 
-  terminal.i = PhaseSystem.phaseCurrents(I, thetaRel+phi_gen);
+  terminal.i = PhaseSystem.phaseCurrents(I, thetaRel+phiGen);
   0 = PhaseSystem.activePower(terminal.v, terminal.i) + P;
 
   annotation (

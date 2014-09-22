@@ -6,7 +6,7 @@ model FixedVoltageSource
       P_nominal=-300, mode=Buildings.Electrical.Types.Assumption.FixedZ_steady_state)
     "Load model"
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
-  FixedVoltage                                  grid(Phi=0.34906585039887)
+  FixedVoltage                                  grid(phiSou=0.34906585039887)
     "AC one phase electrical grid"
            annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
   Sensors.Probe sen "Probe that measures the voltage at the load"

@@ -7,8 +7,8 @@ model FixedVoltage "Fixed single phase AC voltage source"
     "Frequency of the source";
   parameter Modelica.SIunits.Voltage V(start=120) = 120
     "RMS voltage of the source";
-  parameter Modelica.SIunits.Angle Phi(start=0) = 0
-    "fixme: phi must be lower case as it is a variable, not a class. Phase shift of the source";
+  parameter Modelica.SIunits.Angle phiSou(start=0) = 0
+    "Phase shift of the source";
 protected
   Modelica.SIunits.Angle thetaRel
     "Absolute angle of rotating system as offset to thetaRef";
@@ -17,7 +17,7 @@ equation
     PhaseSystem.thetaRef(terminal.theta) =  2*Modelica.Constants.pi*f*time;
   end if;
   thetaRel = PhaseSystem.thetaRel(terminal.theta);
-  terminal.v = PhaseSystem.phaseVoltages(V, thetaRel + Phi);
+  terminal.v = PhaseSystem.phaseVoltages(V, thetaRel + phiSou);
 
   annotation (
     defaultComponentName="fixVol",

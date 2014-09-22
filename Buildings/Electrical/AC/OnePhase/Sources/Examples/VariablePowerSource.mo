@@ -2,7 +2,7 @@ within Buildings.Electrical.AC.OnePhase.Sources.Examples;
 model VariablePowerSource
   "This example illustrates how using a variable power source"
   extends Modelica.Icons.Example;
-  Buildings.Electrical.AC.OnePhase.Sources.Generator generator(      phi_gen(displayUnit="deg") = 0.26179938779915)
+  Buildings.Electrical.AC.OnePhase.Sources.Generator generator(      phiGen(displayUnit="deg") = 0.26179938779915)
     "AC generator model"
     annotation (Placement(transformation(extent={{-50,-10},{-30,10}})));
   Modelica.Blocks.Sources.Sine generation(

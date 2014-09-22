@@ -1,36 +1,14 @@
 within Buildings.Electrical.AC.ThreePhasesBalanced.Lines;
 model Line "Model of an electrical line"
-  extends Buildings.Electrical.Transmission.BaseClasses.PartialLine(
-    redeclare package PhaseSystem_p = PhaseSystems.OnePhase,
-    redeclare package PhaseSystem_n = PhaseSystems.OnePhase,
+  extends Buildings.Electrical.AC.OnePhase.Lines.Line(
     redeclare Interfaces.Terminal_n terminal_n,
     redeclare Interfaces.Terminal_p terminal_p,
-    V_nominal = 480);
-protected
-  replaceable TwoPortRLC lineRLC(
-    useHeatPort=true,
+    V_nominal = 480,
+    redeclare TwoPortRLC line(
     R=R,
     L=L,
-    mode = modelMode,
-    M=M,
-    C=C,
-    T_ref=T_ref,
-    V_nominal=V_nominal)
-    annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
+    C=C));
 
-equation
-  connect(lineRLC.terminal_n, terminal_n) annotation (Line(
-      points={{-10,0},{-100,0}},
-      color={0,120,120},
-      smooth=Smooth.None));
-  connect(lineRLC.terminal_p, terminal_p) annotation (Line(
-      points={{10,0},{100,0}},
-      color={0,120,120},
-      smooth=Smooth.None));
-  connect(cableTemp.port, lineRLC.heatPort) annotation (Line(
-      points={{-40,22},{-32,22},{-32,-16},{0,-16},{0,-10}},
-      color={191,0,0},
-      smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-100,
             -100},{100,100}}), graphics), Icon(graphics={
         Ellipse(
