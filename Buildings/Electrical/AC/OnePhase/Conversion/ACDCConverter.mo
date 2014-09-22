@@ -16,9 +16,10 @@ model ACDCConverter "AC DC converter"
 protected
   PhaseSystem_p.Current i_dc "DC current";
   PhaseSystem_p.Voltage v_dc "DC voltage";
-  // documentation missing below
-  Modelica.SIunits.Power P_p[2] = PhaseSystem_p.phasePowers_vi(terminal_p.v, terminal_p.i);
-  Modelica.SIunits.Power P_n[2] = PhaseSystem_n.phasePowers_vi(terminal_n.v, terminal_n.i);
+  Modelica.SIunits.Power P_p[2] = PhaseSystem_p.phasePowers_vi(terminal_p.v, terminal_p.i)
+    "Power transmitted at pin p (secondary)";
+  Modelica.SIunits.Power P_n[2] = PhaseSystem_n.phasePowers_vi(terminal_n.v, terminal_n.i)
+    "Power transmitted at pin n (primary)";
 equation
   //voltage relation
   v_p = v_n*conversionFactor;

@@ -44,18 +44,22 @@ protected
     "Short circuit current on primary side";
   Modelica.SIunits.Current IscLow = ILow/Zperc
     "Short circuit current on secondary side";
-  Modelica.SIunits.Impedance Zp = VHigh/IscHigh "Impedance of the primary side";
-  // fixme: add missing documentation to Z1, Z2, P_p and P_n.
-  // Also check the other transformers to make sure all variables have documentations.
-  Modelica.SIunits.Impedance Z1[2] = {Zp*cos(atan(XoverR)), Zp*sin(atan(XoverR))};
-  Modelica.SIunits.Impedance Zs = VLow/IscLow "Impedance of the secondary side";
-  Modelica.SIunits.Impedance Z2[2] = {Zs*cos(atan(XoverR)), Zs*sin(atan(XoverR))};
+  Modelica.SIunits.Impedance Zp = VHigh/IscHigh
+    "Impedance of the primary side (module)";
+  Modelica.SIunits.Impedance Z1[2] = {Zp*cos(atan(XoverR)), Zp*sin(atan(XoverR))}
+    "Impedance of the primary side of the transformer";
+  Modelica.SIunits.Impedance Zs = VLow/IscLow
+    "Impedance of the secondary side (module)";
+  Modelica.SIunits.Impedance Z2[2] = {Zs*cos(atan(XoverR)), Zs*sin(atan(XoverR))}
+    "Impedance of the secondary side of the transformer";
   Modelica.SIunits.Voltage V1[2](start = PhaseSystem_n.phaseVoltages(VHigh, phi_1))
     "Voltage at the winding - primary side";
   Modelica.SIunits.Voltage V2[2](start = PhaseSystem_p.phaseVoltages(VLow, phi_2))
     "Voltage at the winding - secondary side";
-  Modelica.SIunits.Power P_p[2] = PhaseSystem_p.phasePowers_vi(terminal_p.v, terminal_p.i);
-  Modelica.SIunits.Power P_n[2] = PhaseSystem_n.phasePowers_vi(terminal_n.v, terminal_n.i);
+  Modelica.SIunits.Power P_p[2] = PhaseSystem_p.phasePowers_vi(terminal_p.v, terminal_p.i)
+    "Power transmitted at pin p (secondary)";
+  Modelica.SIunits.Power P_n[2] = PhaseSystem_n.phasePowers_vi(terminal_n.v, terminal_n.i)
+    "Power transmitted at pin n (primary)";
   Modelica.SIunits.Power Sp = sqrt(P_p[1]^2 + P_p[2]^2)
     "Apparent power terminal p";
   Modelica.SIunits.Power Sn = sqrt(P_n[1]^2 + P_n[2]^2)
