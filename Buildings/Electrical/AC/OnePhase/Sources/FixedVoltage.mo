@@ -3,7 +3,6 @@ model FixedVoltage "Fixed single phase AC voltage source"
   extends Buildings.Electrical.Interfaces.Source(
     redeclare package PhaseSystem = PhaseSystems.OnePhase,
     redeclare Interfaces.Terminal_p terminal);
-    // fixme: This model requires a unit test to be added
   parameter Modelica.SIunits.Frequency f(start=60) = 60
     "Frequency of the source";
   parameter Modelica.SIunits.Voltage V(start=120) = 120

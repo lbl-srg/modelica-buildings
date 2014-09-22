@@ -2,8 +2,8 @@ within Buildings.Electrical.AC.OnePhase.Sources;
 model WindTurbine "Simple wind turbine model"
   extends Buildings.Electrical.Interfaces.PartialWindTurbine(
     redeclare package PhaseSystem = Buildings.Electrical.PhaseSystems.OnePhase,
-    redeclare Interfaces.Terminal_p terminal);
-    // fixme: This model requires a unit test to be added
+    redeclare Interfaces.Terminal_p terminal,
+    V_nominal = 120);
 
   parameter Real pf(min=0, max=1) = 0.9 "Power factor"
     annotation (Dialog(group="AC-Conversion"));
