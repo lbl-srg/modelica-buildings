@@ -79,49 +79,42 @@ Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
           lineColor={0,0,255},
           textString="%eta"),
         Line(
-          points={{100,-100},{100,-12}},
-          color=DynamicSelect({0,0,255}, if ground_DC then {0,0,255} else {
-              255,255,255}),
+          points=DynamicSelect({{100,-100},{100,-12}}, if ground_DC then {{100,-100},{100,-12}}
+            else {{100,-100},{100,-100}}),
+          color={0,0,255},
           smooth=Smooth.None),
         Line(
-          points={{80,-100},{120,-100}},
-          color=DynamicSelect({0,0,255}, if ground_DC then {0,0,255} else {
-              255,255,255}),
+          points=DynamicSelect({{80,-100},{120,-100}}, if ground_DC then {{80,-100},{120,-100}}
+            else {{80,-100},{80,-100}}),
+          color={0,0,255},
           smooth=Smooth.None),
         Line(
-          points={{88,-106},{112,-106}},
-          color=DynamicSelect({0,0,255}, if ground_DC then {0,0,255} else {
-              255,255,255}),
+          points=DynamicSelect({{88,-106},{112,-106}}, if ground_DC then {{88,-106},{112,-106}}
+            else {{88,-106},{88,-106}}),
+          color={0,0,255},
           smooth=Smooth.None),
         Line(
-          points={{94,-112},{108,-112}},
-          color=DynamicSelect({0,0,255}, if ground_DC then {0,0,255} else {
-              255,255,255}),
+          points=DynamicSelect({{94,-112},{108,-112}}, if ground_DC then {{94,-112},{108,-112}}
+            else {{94,-112},{94,-112}}),
+          color={0,0,255},
           smooth=Smooth.None),
         Line(
-          points={{-80,-40},{-120,-40}},
-          color=DynamicSelect({0,120,120}, if ground_AC then {0,120,120} else {
-              255,255,255}),
+          points=DynamicSelect({{-80,-40},{-120,-40}}, if ground_AC then {{-80,-40},{-120,-40}}
+           else {{-80,-40}, {-80,-40}}),
+          color={0,120,120},
           smooth=Smooth.None,
           thickness=0.5),
         Line(
-          points={{-80,-40},{-106,-14}},
-          color=DynamicSelect({0,120,120}, if ground_AC then {0,120,120} else {
-              255,255,255}),
+          points=DynamicSelect({{-80,-40},{-106,-14}}, if ground_AC then {{-80,-40},{-106,-14}}
+            else {{-80,-40},{-80,-40}}),
+          color={0,120,120},
           smooth=Smooth.None,
           thickness=0.5),
         Line(
-          points={{-102,-16},{-114,-24},{-118,-42}},
-          color=DynamicSelect({0,120,120}, if ground_AC then {0,120,120} else {
-              255,255,255}),
-          smooth=Smooth.Bezier),
-        Text(
-          extent={{-98,-42},{-80,-36}},
-          lineColor={0,0,0},
-          lineThickness=0.5,
-          textString="fixme: All converters and transformers
-have a white angle symbol. Make this
-in a color that is visible.")}),
+          points=DynamicSelect({{-102,-16},{-114,-24},{-118,-42}}, if ground_AC then {{-102,-16},{-114,-24},{-118,-42}}
+            else {{-102,-16},{-102,-16}}),
+          color={0,120,120},
+          smooth=Smooth.Bezier)}),
     Documentation(info="<html>
 <p>
 This is an AC/DC converter, based on a power balance between both circuit sides.

@@ -52,21 +52,21 @@ equation
           lineColor={0,120,120},
           textString="%name"),
         Line(
-          points={{-20,-128},{20,-128}},
-          color=DynamicSelect({0,120,120}, if definiteReference then {0,120,120}
-               else {255,255,255}),
+          points=DynamicSelect({{-20,-128},{20,-128}}, if definiteReference then {{-20,-128},{20,-128}}
+               else {{-20,-128},{-20,-128}}),
+          color={0,120,120},
           smooth=Smooth.None,
           thickness=0.5),
         Line(
-          points={{-20,-128},{6,-102}},
-          color=DynamicSelect({0,120,120}, if definiteReference then {0,120,120}
-               else {255,255,255}),
+          points=DynamicSelect({{-20,-128},{6,-102}}, if definiteReference then {{-20,-128},{6,-102}}
+               else {{-20,-128},{-20,-128}}),
+          color={0,120,120},
           smooth=Smooth.None,
           thickness=0.5),
         Line(
-          points={{2,-104},{14,-112},{18,-130}},
-          color=DynamicSelect({0,120,120}, if definiteReference then {0,120,120}
-               else {255,255,255}),
+          points=DynamicSelect({{2,-104},{14,-112},{18,-130}}, if definiteReference then {{2,-104},{14,-112},{18,-130}}
+               else {{2,-104},{2,-104}}),
+          color={0,120,120},
           smooth=Smooth.Bezier)}),
                                  Diagram(coordinateSystem(preserveAspectRatio=false,
           extent={{-100,-100},{100,100}}), graphics),

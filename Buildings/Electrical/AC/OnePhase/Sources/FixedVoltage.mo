@@ -42,21 +42,21 @@ equation
           color={0,0,0},
           smooth=Smooth.None),
         Line(
-          points={{-20,-90},{20,-90}},
-          color=DynamicSelect({0,120,120}, if definiteReference then {0,120,120}
-               else {255,255,255}),
+          points=DynamicSelect({{-20,-90},{20,-90}}, if definiteReference then {{-20,-90},{20,-90}}
+               else {{-20,-90},{-20,-90}}),
+          color={0,120,120},
           smooth=Smooth.None,
           thickness=0.5),
         Line(
-          points={{-20,-90},{6,-64}},
-          color=DynamicSelect({0,120,120}, if definiteReference then {0,120,120}
-               else {255,255,255}),
+          points=DynamicSelect({{-20,-90},{6,-64}}, if definiteReference then {{-20,-90},{6,-64}}
+               else {{-20,-90},{-20,-90}}),
+          color={0,120,120},
           smooth=Smooth.None,
           thickness=0.5),
         Line(
-          points={{2,-66},{14,-74},{18,-92}},
-          color=DynamicSelect({0,120,120}, if definiteReference then {0,120,120}
-               else {255,255,255}),
+          points=DynamicSelect({{2,-66},{14,-74},{18,-92}}, if definiteReference then {{2,-66},{14,-74},{18,-92}}
+               else {{2,-66},{2,-66}}),
+          color={0,120,120},
           smooth=Smooth.Bezier)}),
       Documentation(info="<html>
 <p>

@@ -144,38 +144,38 @@ Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
           lineColor={0,120,120},
           textString="2"),
         Line(
-          points={{-80,-40},{-120,-40}},
-          color=DynamicSelect({0,120,120}, if ground_1 then {0,120,120} else {
-              255,255,255}),
+          points=DynamicSelect({{-80,-40},{-120,-40}}, if ground_1 then {{-80,-40},{-120,-40}}
+           else {{-80,-40}, {-80,-40}}),
+          color={0,120,120},
           smooth=Smooth.None,
           thickness=0.5),
         Line(
-          points={{-80,-40},{-106,-14}},
-          color=DynamicSelect({0,120,120}, if ground_1 then {0,120,120} else {255,
-              255,255}),
+          points=DynamicSelect({{-80,-40},{-106,-14}}, if ground_1 then {{-80,-40},{-106,-14}}
+            else {{-80,-40},{-80,-40}}),
+          color={0,120,120},
           smooth=Smooth.None,
           thickness=0.5),
         Line(
-          points={{-102,-16},{-114,-24},{-118,-42}},
-          color=DynamicSelect({0,120,120}, if ground_1 then {0,120,120} else {
-              255,255,255}),
+          points=DynamicSelect({{-102,-16},{-114,-24},{-118,-42}}, if ground_1 then {{-102,-16},{-114,-24},{-118,-42}}
+            else {{-102,-16},{-102,-16}}),
+          color={0,120,120},
           smooth=Smooth.Bezier),
         Line(
-          points={{80,-40},{120,-40}},
-          color=DynamicSelect({0,120,120}, if ground_2 then {0,120,120} else {
-              255,255,255}),
+          points=DynamicSelect({{80,-40},{120,-40}}, if ground_2 then {{80,-40},{120,-40}}
+            else {{80,-40},{80,-40}}),
+          color={0,120,120},
           smooth=Smooth.None,
           thickness=0.5),
         Line(
-          points={{80,-40},{106,-14}},
-          color=DynamicSelect({0,120,120}, if ground_2 then {0,120,120} else {
-              255,255,255}),
+          points=DynamicSelect({{80,-40},{106,-14}}, if ground_2 then {{80,-40},{106,-14}}
+            else {{80,-40},{80,-40}}),
+          color={0,120,120},
           smooth=Smooth.None,
           thickness=0.5),
         Line(
-          points={{102,-16},{114,-24},{118,-42}},
-          color=DynamicSelect({0,120,120}, if ground_2 then {0,120,120} else {
-              255,255,255}),
+          points=DynamicSelect({{102,-16},{114,-24},{118,-42}}, if ground_2 then {{102,-16},{114,-24},{118,-42}}
+            else {{102,-16},{102,-16}}),
+          color={0,120,120},
           smooth=Smooth.Bezier),
         Line(
           points={{-100,40},{-94,40},{-92,44},{-88,36},{-84,44},{-80,36},{-76,44},
@@ -369,14 +369,7 @@ Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
         Text(
           extent={{-70,-8},{-54,-20}},
           lineColor={0,120,120},
-          textString="Lm"),
-        Text(
-          extent={{-98,-42},{-80,-36}},
-          lineColor={0,0,0},
-          lineThickness=0.5,
-          textString="fixme: All converters and transformers
-have a white angle symbol. Make this
-in a color that is visible.")}),
+          textString="Lm")}),
     Documentation(info="<html>
 <p>
 This is a detailed transformer model that takes into accounts the winding joule losses, 
