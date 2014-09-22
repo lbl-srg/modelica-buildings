@@ -10,8 +10,9 @@ model Impedance "Model of a resistive load"
       choice=false "Triangle",
       __Dymola_radioButtons=true));
 protected
-  Modelica.SIunits.AngularVelocity omega;
-  Modelica.SIunits.Reactance X(start = 1);
+  Modelica.SIunits.AngularVelocity omega
+    "Frequency of the quasi-stationary sine waves";
+  Modelica.SIunits.Reactance X(start = 1) "Complex component of the impedance";
 equation
   omega = der(PhaseSystem.thetaRef(terminal.theta));
 
@@ -28,7 +29,9 @@ equation
   else
     terminal.v = {{R_internal/3,-X/3}*terminal.i, {X/3,R_internal/3}*terminal.i};
   end if;
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
+  annotation (
+  defaultComponentName="loa",
+  Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
             {100,100}}), graphics={Rectangle(extent={{-100,100},{100,-100}},
             lineColor={255,255,255}),
           Rectangle(
@@ -127,8 +130,8 @@ the capacitance is a parameter.
 <p>
 The boolean parameter <code>star</code> is used to 
 select which configuration is used to connect the impedance:
-star or triangle. By default the impedance is assumed to be connected 
-with a start configuration. When the connection type changes between
+star (Y) or triangle (D). By default the impedance is assumed to be connected 
+with a star configuration. When the connection type changes between
 <code>star</code> and <code>triangle</code> the value of the impedance
 is recomputed in order to maintain the same nominal power
 consumption.

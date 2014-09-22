@@ -1,79 +1,94 @@
 within Buildings.Electrical.AC.ThreePhasesBalanced.Loads.Examples;
-model ParallelLoads
+model ParallelLoads "Example that illustrates the use of the load models"
   extends Modelica.Icons.Example;
   Sources.FixedVoltage E "Voltage source"
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
-  Resistive R(P_nominal=-6000)
-    annotation (Placement(transformation(extent={{-20,70},{0,90}})));
-  Inductive RL(
-    mode=Types.Assumption.FixedZ_steady_state,
-    pf=0.8,
-    P_nominal=-5000)
-    annotation (Placement(transformation(extent={{-20,16},{0,36}})));
-  Modelica.Blocks.Sources.Ramp load(duration=0.5, startTime=0.2)
-    annotation (Placement(transformation(extent={{60,-30},{40,-10}})));
-  Inductive varRL(
-    mode=Types.Assumption.VariableZ_y_input,
-    pf=0.9,
-    P_nominal=-8000)
-    annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
-  Capacitive varRC(
-    mode=Types.Assumption.VariableZ_y_input,
-    pf=0.8,
-    P_nominal=-10000)
-    annotation (Placement(transformation(extent={{-20,-40},{0,-20}})));
-  Inductive dynRL(
-    mode=Types.Assumption.FixedZ_dynamic, P_nominal=-2000)
-    annotation (Placement(transformation(extent={{-20,-70},{0,-50}})));
-  Inductive Load(
-    pf=0.8,
-    mode=Types.Assumption.VariableZ_P_input,
-    P_nominal=-5000)
+  Resistive R(P_nominal=-2000) "Resistive load"
     annotation (Placement(transformation(extent={{-20,40},{0,60}})));
+  Inductive RL_pf(
+    pf=0.8,
+    P_nominal=-2000,
+    use_pf_in=true) "Inductive load with variable power factor"
+    annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
+  Modelica.Blocks.Sources.Ramp load(              startTime=0.2, duration=0.3)
+    "Power signal profile"
+    annotation (Placement(transformation(extent={{60,-50},{40,-30}})));
+  Inductive varRL_y(mode=Types.Assumption.VariableZ_y_input, P_nominal=-2000)
+    "Inductive load with y as input"
+    annotation (Placement(transformation(extent={{-20,-36},{0,-16}})));
+  Capacitive varRC_y(mode=Types.Assumption.VariableZ_y_input, P_nominal=-2000)
+    "Capacitive load with y as input"
+    annotation (Placement(transformation(extent={{-20,-60},{0,-40}})));
+  Inductive varRL_P(pf=0.8, mode=Types.Assumption.VariableZ_P_input)
+    "Inductive load with P as input"
+    annotation (Placement(transformation(extent={{-20,14},{0,34}})));
   Modelica.Blocks.Sources.Ramp pow(
-    duration=0.5,
     startTime=0.2,
-    height=5000,
-    offset=-2500)
-    annotation (Placement(transformation(extent={{60,40},{40,60}})));
+    duration=0.3,
+    height=4000,
+    offset=-2000) "Power consumption profile"
+    annotation (Placement(transformation(extent={{60,14},{40,34}})));
+  Modelica.Blocks.Sources.Ramp pf(
+    height=0.2,
+    duration=0.2,
+    offset=0.8,
+    startTime=0.7) "Power factor profile"
+    annotation (Placement(transformation(extent={{60,-20},{40,0}})));
 equation
   connect(E.terminal, R.terminal) annotation (Line(
-      points={{-60,6.66134e-16},{-40,6.66134e-16},{-40,80},{-20,80}},
+      points={{-60,4.44089e-16},{-40,4.44089e-16},{-40,50},{-20,50}},
       color={0,120,120},
       smooth=Smooth.None));
-  connect(E.terminal, RL.terminal) annotation (Line(
-      points={{-60,6.66134e-16},{-40,6.66134e-16},{-40,26},{-20,26}},
+  connect(E.terminal, RL_pf.terminal) annotation (Line(
+      points={{-60,4.44089e-16},{-40,4.44089e-16},{-40,0},{-20,0}},
       color={0,120,120},
       smooth=Smooth.None));
-  connect(E.terminal, varRL.terminal) annotation (Line(
-      points={{-60,6.66134e-16},{-20,4.44089e-16}},
+  connect(E.terminal, varRL_y.terminal) annotation (Line(
+      points={{-60,4.44089e-16},{-40,4.44089e-16},{-40,-26},{-20,-26}},
       color={0,120,120},
       smooth=Smooth.None));
-  connect(E.terminal, varRC.terminal) annotation (Line(
-      points={{-60,6.66134e-16},{-40,6.66134e-16},{-40,-30},{-20,-30}},
+  connect(E.terminal, varRC_y.terminal) annotation (Line(
+      points={{-60,4.44089e-16},{-40,4.44089e-16},{-40,-50},{-20,-50}},
       color={0,120,120},
       smooth=Smooth.None));
-  connect(load.y, varRL.y) annotation (Line(
-      points={{39,-20},{20,-20},{20,8.88178e-16},{4.44089e-16,8.88178e-16}},
+  connect(load.y, varRL_y.y) annotation (Line(
+      points={{39,-40},{20,-40},{20,-26},{4.44089e-16,-26}},
       color={0,0,127},
       smooth=Smooth.None));
 
-  connect(load.y, varRC.y) annotation (Line(
-      points={{39,-20},{20,-20},{20,-30},{4.44089e-16,-30}},
+  connect(load.y, varRC_y.y) annotation (Line(
+      points={{39,-40},{20,-40},{20,-50},{4.44089e-16,-50}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(E.terminal, dynRL.terminal) annotation (Line(
-      points={{-60,6.66134e-16},{-40,6.66134e-16},{-40,-60},{-20,-60}},
+  connect(E.terminal, varRL_P.terminal) annotation (Line(
+      points={{-60,4.44089e-16},{-40,4.44089e-16},{-40,24},{-20,24}},
       color={0,120,120},
       smooth=Smooth.None));
-  connect(E.terminal, Load.terminal) annotation (Line(
-      points={{-60,0},{-40,0},{-40,50},{-20,50}},
-      color={0,120,120},
+  connect(pow.y, varRL_P.Pow) annotation (Line(
+      points={{39,24},{4.44089e-16,24}},
+      color={0,0,127},
       smooth=Smooth.None));
-  connect(pow.y, Load.Pow) annotation (Line(
-      points={{39,50},{4.44089e-16,50}},
+  connect(pf.y, RL_pf.pf_in) annotation (Line(
+      points={{39,-10},{30,-10},{30,6},{4.44089e-16,6}},
       color={0,0,127},
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}}),        graphics));
+            -100},{100,100}}),        graphics),
+    Documentation(revisions="<html>
+<ul>
+<li>
+September 22, 2014 by Marco Bonvini:<br/>
+Added documentation and revised the example.
+</li>
+</ul>
+</html>", info="<html>
+<p>
+This model illustrates the use of the three phases unbalanced load models.
+</p>
+</html>"),
+    experiment(Tolerance=1e-05, __Dymola_Algorithm="Radau", StopTime=1.0),
+    __Dymola_Commands(file=
+          "modelica://Buildings/Resources/Scripts/Dymola/Electrical/AC/ThreePhasesBalanced/Loads/Examples/ParallelLoads.mos"
+        "Simulate and plot"),
+    __Dymola_experimentSetupOutput);
 end ParallelLoads;

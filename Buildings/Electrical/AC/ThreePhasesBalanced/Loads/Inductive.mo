@@ -2,7 +2,9 @@ within Buildings.Electrical.AC.ThreePhasesBalanced.Loads;
 model Inductive "Model of an inductive and resistive load"
   extends Buildings.Electrical.AC.OnePhase.Loads.Inductive(     redeclare
       Interfaces.Terminal_n terminal, V_nominal=480);
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
+  annotation (
+  defaultComponentName="loa",
+  Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}),
                          graphics={
         Rectangle(
