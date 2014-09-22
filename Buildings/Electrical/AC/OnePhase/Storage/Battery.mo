@@ -1,6 +1,5 @@
 within Buildings.Electrical.AC.OnePhase.Storage;
 model Battery "Simple model of a battery"
-  import Buildings;
  extends Buildings.Electrical.Interfaces.PartialAcDcParameters;
  parameter Real etaCha(min=0, max=1, unit="1") = 0.9
     "Efficiency during charging";
@@ -42,22 +41,18 @@ protected
     final linearized=linearized) "Power exchanged with battery pack"
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
   Modelica.Blocks.Math.Gain gain(final k=-1)
+    "Gain that invert sign of the power (P<0 -> the load is consumed)"
     annotation (Placement(transformation(extent={{22,10},{42,30}})));
 
-  Modelica.Blocks.Math.Gain acdc_con_dis(final k=2 - eta_DCAC)
+  Modelica.Blocks.Math.Gain acdc_con_dis(final k = 2 - eta_DCAC)
+    "Losses when P < 0"
     annotation (Placement(transformation(extent={{-68,10},{-48,30}})));
 public
   Buildings.Utilities.Math.Splice spl(deltax=1e-2)
     "Splice function that attributes the losses due to AC/DC conversion"
     annotation (Placement(transformation(extent={{-36,30},{-16,50}})));
-  Modelica.Blocks.Sources.RealExpression ac_loss_charge
-    "AC/DC losses during the charge cycle"
-    annotation (Placement(transformation(extent={{-74,-48},{-54,-28}})));
-  Modelica.Blocks.Sources.RealExpression ac_loss_discharge
-    "AC/DC losses during the discharge cycle"
-    annotation (Placement(transformation(extent={{-64,-74},{-44,-54}})));
 protected
-  Modelica.Blocks.Math.Gain acdc_con_cha(final k=eta_DCAC)
+  Modelica.Blocks.Math.Gain acdc_con_cha(final k=eta_DCAC) "Losses when P > 0"
     annotation (Placement(transformation(extent={{-68,50},{-48,70}})));
 equation
   connect(cha.SOC, SOC)    annotation (Line(

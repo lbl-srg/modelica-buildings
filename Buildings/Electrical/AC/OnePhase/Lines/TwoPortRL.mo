@@ -17,7 +17,8 @@ model TwoPortRL
     "Parameter that specifies the type model (e.g., steady state, dynamic, prescribed power consumption, etc.)"
     annotation(Evaluate=true,Dialog(group="Modelling assumption"));
 protected
-  Modelica.SIunits.AngularVelocity omega "Angular velocity";
+  Modelica.SIunits.AngularVelocity omega
+    "Frequency of the quasi-stationary sine waves";
 equation
 
   omega = der(PhaseSystem_p.thetaRef(terminal_p.theta));

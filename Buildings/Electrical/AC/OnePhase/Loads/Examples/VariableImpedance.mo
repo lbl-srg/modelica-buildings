@@ -29,7 +29,7 @@ model VariableImpedance
     annotation (Placement(transformation(extent={{-20,40},{0,60}})));
   Modelica.Blocks.Sources.Ramp load(duration=0.5, startTime=0.2,
     height=1,
-    offset=0)
+    offset=0) "Input signal for the loads"
     annotation (Placement(transformation(extent={{60,-10},{40,10}})));
 equation
   connect(V.terminal, Z_L.terminal) annotation (Line(

@@ -19,7 +19,7 @@ model ACACTransformer
     mode=Buildings.Electrical.Types.Assumption.VariableZ_P_input,
     P_nominal=-2000,
     pf=0.8,
-    V_nominal=60)
+    V_nominal=60) "Load model"
     annotation (Placement(transformation(extent={{10,40},{30,60}})));
   Modelica.Blocks.Sources.Ramp ramp(
     duration=0.5,

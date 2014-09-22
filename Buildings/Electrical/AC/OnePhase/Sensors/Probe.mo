@@ -9,10 +9,13 @@ model Probe "Model of a probe that measures RMS voltage and angle"
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={0,-90})));
-  Modelica.Blocks.Interfaces.RealOutput V(unit="1") "Voltage in per unit" annotation (Placement(
+  Modelica.Blocks.Interfaces.RealOutput V(unit="1")
+    "Voltage phasor magnitude in per unit"                                                 annotation (Placement(
         transformation(extent={{60,20},{80,40}}), iconTransformation(extent={{60,
             20},{80,40}})));
-  Modelica.Blocks.Interfaces.RealOutput theta(unit="rad", displayUnit="deg") "Angle" annotation (Placement(
+  Modelica.Blocks.Interfaces.RealOutput theta(unit="rad", displayUnit="deg")
+    "Voltage phasor angle"
+                         annotation (Placement(
         transformation(extent={{60,-40},{80,-20}}), iconTransformation(extent={{60,
             -40},{80,-20}})));
 equation

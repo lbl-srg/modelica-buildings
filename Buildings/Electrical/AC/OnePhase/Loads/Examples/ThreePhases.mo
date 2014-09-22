@@ -25,7 +25,7 @@ model ThreePhases
   Buildings.Electrical.AC.OnePhase.Loads.Impedance Zc(
     inductive=true,
     L=1/(2*Modelica.Constants.pi*60),
-    R=12) "Impedance phase AB"
+    R=12) "Impedance phase C"
     annotation (Placement(transformation(extent={{20,-40},{40,-20}})));
 equation
   connect(Va.terminal, Za.terminal) annotation (Line(

@@ -17,6 +17,7 @@ model ParallelLoads
         rotation=0,
         origin={-70,10})));
   Modelica.Blocks.Sources.Ramp load_y(duration=0.5, startTime=0.2)
+    "Input signal for RC load"
     annotation (Placement(transformation(extent={{60,0},{40,20}})));
   Buildings.Electrical.AC.OnePhase.Loads.Inductive RL(
     P_nominal=-1e3,
@@ -51,7 +52,7 @@ model ParallelLoads
     startTime=0.2,
     duration=0.5,
     height=-2000,
-    offset=1000)
+    offset=1000) "Power signal for load varRL"
     annotation (Placement(transformation(extent={{60,40},{40,60}})));
 equation
   connect(source.terminal, varRL.terminal)  annotation (Line(

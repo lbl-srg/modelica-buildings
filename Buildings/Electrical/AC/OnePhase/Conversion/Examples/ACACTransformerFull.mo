@@ -62,7 +62,7 @@ model ACACTransformerFull
     VHigh=120,
     VLow=60) "Transformer with open connection"
     annotation (Placement(transformation(extent={{-16,-30},{4,-10}})));
-  Buildings.Electrical.AC.OnePhase.Sources.FixedVoltage                 sou1(
+  Buildings.Electrical.AC.OnePhase.Sources.FixedVoltage sou1(
     definiteReference=true) "Voltage source for short circuit and open tests "
                           annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},

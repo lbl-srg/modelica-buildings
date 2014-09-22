@@ -1,8 +1,8 @@
 within Buildings.Electrical.AC.OnePhase.Lines.Examples;
 model ACline_RL "Test model for a single phase inductive-resistive line"
   extends Modelica.Icons.Example;
-  parameter Real Rbase = 10;
-  parameter Real Lbase = Rbase/2/Modelica.Constants.pi/60;
+  parameter Modelica.SIunits.Resistance Rbase = 10;
+  parameter Modelica.SIunits.Inductance Lbase = Rbase/2/Modelica.Constants.pi/60;
   Sources.FixedVoltage E(      definiteReference=true) "Voltage source"
     annotation (Placement(transformation(extent={{-100,-10},{-80,10}})));
   Loads.Impedance load_sc_1(R=0) "Short circuit 1"

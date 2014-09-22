@@ -1,6 +1,5 @@
 within Buildings.Electrical.AC.OnePhase.Loads.Examples;
 model DynamicLoads "Example that illustrates the use of dynamic loads"
-  import Buildings;
   extends Modelica.Icons.Example;
   Buildings.Electrical.AC.OnePhase.Sources.FixedVoltage
                                                      source "Voltage source"

@@ -13,10 +13,11 @@ model PVSimple "Simple PV model"
     final pf=pf,
     final V_nominal=V_nominal,
     final P_nominal=0,
-    final linearized=linearized)
+    final linearized=linearized) "Load model"
     annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
 protected
-  Modelica.Blocks.Math.Gain gain_DCAC(final k=eta_DCAC) annotation (Placement(
+  Modelica.Blocks.Math.Gain gain_DCAC(final k=eta_DCAC)
+    "Gain that represents the DCAC conversion losses"                                                     annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=180,

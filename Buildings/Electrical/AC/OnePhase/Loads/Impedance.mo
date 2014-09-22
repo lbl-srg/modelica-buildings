@@ -4,8 +4,9 @@ model Impedance "Model of a generic impedance"
     redeclare package PhaseSystem = PhaseSystems.OnePhase,
     redeclare Interfaces.Terminal_n terminal);
 protected
-  Modelica.SIunits.AngularVelocity omega;
-  Modelica.SIunits.Reactance X(start = 1);
+  Modelica.SIunits.AngularVelocity omega
+    "Frequency of the quasi-stationary sine waves";
+  Modelica.SIunits.Reactance X(start = 1) "Complex component of the impedance";
 equation
   omega = der(PhaseSystem.thetaRef(terminal.theta));
   if inductive then

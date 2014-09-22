@@ -9,7 +9,7 @@ model ParallelResistors
         origin={-70,10})));
   Modelica.Blocks.Sources.Ramp load(duration=0.5, startTime=0.2,
     height=2400,
-    offset=-1200)
+    offset=-1200) "Power signal for load R"
     annotation (Placement(transformation(extent={{40,0},{20,20}})));
   Buildings.Electrical.AC.OnePhase.Loads.Resistive R(
     mode=Buildings.Electrical.Types.Assumption.VariableZ_P_input,

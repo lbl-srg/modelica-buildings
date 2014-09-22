@@ -11,7 +11,7 @@ model WindTurbine "Simple wind turbine model"
     annotation (Dialog(group="AC-Conversion"));
   replaceable Buildings.Electrical.AC.OnePhase.Loads.Capacitive load(
     final mode=Buildings.Electrical.Types.Assumption.VariableZ_P_input,
-    final pf=pf)
+    final pf=pf) "Load model"
     annotation (Placement(transformation(extent={{12,-10},{32,10}})));
 protected
   Modelica.Blocks.Math.Gain gain_DCAC(final k=eta_DCAC) annotation (Placement(
