@@ -20,7 +20,9 @@ equation
                        simplified= v[2]*P/V_nominal^2);
     end if;
   end if;
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
+  annotation (
+    defaultComponentName="loa",
+    Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
             {100,100}}), graphics={Rectangle(extent={{-100,100},{100,-100}},
             lineColor={255,255,255}),
           Rectangle(

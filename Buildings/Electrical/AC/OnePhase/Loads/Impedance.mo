@@ -9,13 +9,17 @@ protected
   Modelica.SIunits.Reactance X(start = 1) "Complex component of the impedance";
 equation
   omega = der(PhaseSystem.thetaRef(terminal.theta));
+
   if inductive then
     X = omega*L_internal;
   else
     X = -1/(omega*C_internal);
   end if;
+
   terminal.v = {{R_internal,-X}*terminal.i, {X,R_internal}*terminal.i};
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
+  annotation (
+    defaultComponentName="imp",
+    Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
             {100,100}}), graphics={Rectangle(extent={{-100,100},{100,-100}},
             lineColor={255,255,255}),
           Rectangle(

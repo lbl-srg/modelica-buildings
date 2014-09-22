@@ -47,7 +47,9 @@ equation
 
   end if;
 
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
+  annotation (
+    defaultComponentName="loa",
+    Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}),      graphics={
         Rectangle(
           extent={{-80,40},{80,-40}},
