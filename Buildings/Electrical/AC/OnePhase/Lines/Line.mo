@@ -42,7 +42,7 @@ equation
       smooth=Smooth.None));
 
   annotation (
-defaultComponentName="lin",
+defaultComponentName="line",
 Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}), graphics), Icon(graphics={
         Ellipse(

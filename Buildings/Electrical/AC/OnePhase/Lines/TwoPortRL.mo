@@ -38,7 +38,7 @@ equation
   end if;
 
   annotation (
-defaultComponentName="res",
+defaultComponentName="lineRL",
 Diagram(graphics={
           Rectangle(extent={{-70,30},{70,-30}}, lineColor={0,0,0}),
           Line(points={{-90,0},{-70,0}}, color={0,0,0}),
