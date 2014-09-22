@@ -10,7 +10,7 @@ model GeneralizedSensor "Sensor for power, voltage and current"
       redeclare package PhaseSystem = PhaseSystem_p));
   Modelica.Blocks.Interfaces.RealOutput V(final quantity="ElectricPotential",
                                           final unit="V")=
-      Buildings.Electrical.PhaseSystems.TwoConductor.systemVoltage(terminal_n.v)
+      Buildings.Electrical.PhaseSystems.OnePhase.systemVoltage(terminal_n.v)
     "Voltage"
       annotation (Placement(
         transformation(
@@ -22,7 +22,7 @@ model GeneralizedSensor "Sensor for power, voltage and current"
         origin={0,-90})));
   Modelica.Blocks.Interfaces.RealOutput I(final quantity="ElectricCurrent",
                                           final unit="A")=
-    Buildings.Electrical.PhaseSystems.TwoConductor.systemCurrent(terminal_n.i)
+    Buildings.Electrical.PhaseSystems.OnePhase.systemCurrent(terminal_n.i)
     "Current"
     annotation (Placement(
         transformation(
@@ -35,7 +35,7 @@ model GeneralizedSensor "Sensor for power, voltage and current"
   Modelica.Blocks.Interfaces.RealOutput S[PhaseSystems.OnePhase.n](
                                           each final quantity="Power",
                                           each final unit="W")=
-     Buildings.Electrical.PhaseSystems.TwoConductor.phasePowers_vi(v=terminal_n.v, i=terminal_n.i)
+     Buildings.Electrical.PhaseSystems.OnePhase.phasePowers_vi(v=terminal_n.v, i=terminal_n.i)
     "Phase powers"
      annotation (Placement(
         transformation(
@@ -58,6 +58,10 @@ The two components of the power <i>S</i> are the active and reactive power.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+September 22, 2014, by Marco Bonvini:<br/>
+Fixed bug. The model was referencing to the wrong PhaseSystem.
+</li>
 <li>September 4, 2014, by Michael Wetter:<br/>
 Revised model, changed <code>equation</code> section to
 avoid mixing graphical and textual modeling.

@@ -38,9 +38,9 @@ model GeneralizedSensor "Sensor for power, voltage and current"
         origin={-60,-90})));
 equation
 
-  V = Buildings.Electrical.PhaseSystems.TwoConductor.systemVoltage(terminal_n.v);
-  I = Buildings.Electrical.PhaseSystems.TwoConductor.systemCurrent(terminal_n.i);
-  S = Buildings.Electrical.PhaseSystems.TwoConductor.phasePowers_vi(v=terminal_n.v, i=terminal_n.i);
+  V = Buildings.Electrical.PhaseSystems.OnePhase.systemVoltage(terminal_n.v);
+  I = Buildings.Electrical.PhaseSystems.OnePhase.systemCurrent(terminal_n.i);
+  S = Buildings.Electrical.PhaseSystems.OnePhase.phasePowers_vi(v=terminal_n.v, i=terminal_n.i);
 
   connect(terminal_n, terminal_p) annotation (Line(
       points={{-100,0},{2,0},{2,0},{100,0}},
@@ -54,6 +54,10 @@ The two components of the power <i>S</i> are the active and reactive power.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+September 22, 2014, by Marco Bonvini:<br/>
+Fixed bug. The model was referencing to the wrong PhaseSystem.
+</li>
 <li>
 August 25, 2014, by Marco Bonvini:<br/>
 revised documentation.
