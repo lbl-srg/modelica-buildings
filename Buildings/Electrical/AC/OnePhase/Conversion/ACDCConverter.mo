@@ -79,41 +79,34 @@ Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
           extent={{-100,-100},{100,-132}},
           lineColor={0,0,255},
           textString="%eta"),
-        Line(
-          points=DynamicSelect({{100,-100},{100,-12}}, if ground_DC then {{100,-100},{100,-12}}
-            else {{100,-100},{100,-100}}),
+        Line(visible = ground_DC == true,
+          points={{100,-100},{100,-12}},
           color={0,0,255},
           smooth=Smooth.None),
-        Line(
-          points=DynamicSelect({{80,-100},{120,-100}}, if ground_DC then {{80,-100},{120,-100}}
-            else {{80,-100},{80,-100}}),
+        Line(visible = ground_DC == true,
+          points={{80,-100},{120,-100}},
           color={0,0,255},
           smooth=Smooth.None),
-        Line(
-          points=DynamicSelect({{88,-106},{112,-106}}, if ground_DC then {{88,-106},{112,-106}}
-            else {{88,-106},{88,-106}}),
+        Line(visible = ground_DC == true,
+          points={{88,-106},{112,-106}},
           color={0,0,255},
           smooth=Smooth.None),
-        Line(
-          points=DynamicSelect({{94,-112},{108,-112}}, if ground_DC then {{94,-112},{108,-112}}
-            else {{94,-112},{94,-112}}),
+        Line(visible = ground_DC == true,
+          points={{94,-112},{108,-112}},
           color={0,0,255},
           smooth=Smooth.None),
-        Line(
-          points=DynamicSelect({{-80,-40},{-120,-40}}, if ground_AC then {{-80,-40},{-120,-40}}
-           else {{-80,-40}, {-80,-40}}),
+        Line(visible = ground_AC == true,
+          points={{-80,-40},{-120,-40}},
           color={0,120,120},
           smooth=Smooth.None,
           thickness=0.5),
-        Line(
-          points=DynamicSelect({{-80,-40},{-106,-14}}, if ground_AC then {{-80,-40},{-106,-14}}
-            else {{-80,-40},{-80,-40}}),
+        Line(visible = ground_AC == true,
+          points={{-80,-40},{-106,-14}},
           color={0,120,120},
           smooth=Smooth.None,
           thickness=0.5),
-        Line(
-          points=DynamicSelect({{-102,-16},{-114,-24},{-118,-42}}, if ground_AC then {{-102,-16},{-114,-24},{-118,-42}}
-            else {{-102,-16},{-102,-16}}),
+        Line(visible = ground_AC == true,
+          points={{-102,-16},{-114,-24},{-118,-42}},
           color={0,120,120},
           smooth=Smooth.Bezier)}),
     Documentation(info="<html>

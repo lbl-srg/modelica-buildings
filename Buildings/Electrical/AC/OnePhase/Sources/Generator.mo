@@ -51,21 +51,18 @@ equation
           extent={{-120,130},{120,100}},
           lineColor={0,120,120},
           textString="%name"),
-        Line(
-          points=DynamicSelect({{-20,-128},{20,-128}}, if definiteReference then {{-20,-128},{20,-128}}
-               else {{-20,-128},{-20,-128}}),
+        Line(visible = definiteReference == true,
+          points={{-20,-128},{20,-128}},
           color={0,120,120},
           smooth=Smooth.None,
           thickness=0.5),
-        Line(
-          points=DynamicSelect({{-20,-128},{6,-102}}, if definiteReference then {{-20,-128},{6,-102}}
-               else {{-20,-128},{-20,-128}}),
+        Line(visible = definiteReference == true,
+          points={{-20,-128},{6,-102}},
           color={0,120,120},
           smooth=Smooth.None,
           thickness=0.5),
-        Line(
-          points=DynamicSelect({{2,-104},{14,-112},{18,-130}}, if definiteReference then {{2,-104},{14,-112},{18,-130}}
-               else {{2,-104},{2,-104}}),
+        Line(visible = definiteReference == true,
+          points={{2,-104},{14,-112},{18,-130}},
           color={0,120,120},
           smooth=Smooth.Bezier)}),
                                  Diagram(coordinateSystem(preserveAspectRatio=false,

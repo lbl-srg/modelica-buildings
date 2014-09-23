@@ -122,38 +122,32 @@ equation
           extent={{70,60},{130,20}},
           lineColor={0,120,120},
           textString="2"),
-        Line(
-          points=DynamicSelect({{-80,-40},{-120,-40}}, if ground_1 then {{-80,-40},{-120,-40}}
-           else {{-80,-40}, {-80,-40}}),
+        Line(visible = ground_1 == true,
+          points={{-80,-40},{-120,-40}},
           color={0,120,120},
           smooth=Smooth.None,
           thickness=0.5),
-        Line(
-          points=DynamicSelect({{-80,-40},{-106,-14}}, if ground_1 then {{-80,-40},{-106,-14}}
-            else {{-80,-40},{-80,-40}}),
+        Line(visible = ground_1 == true,
+          points={{-80,-40},{-106,-14}},
           color={0,120,120},
           smooth=Smooth.None,
           thickness=0.5),
-        Line(
-          points=DynamicSelect({{-102,-16},{-114,-24},{-118,-42}}, if ground_1 then {{-102,-16},{-114,-24},{-118,-42}}
-            else {{-102,-16},{-102,-16}}),
+        Line(visible = ground_1 == true,
+          points={{-102,-16},{-114,-24},{-118,-42}},
           color={0,120,120},
           smooth=Smooth.Bezier),
-        Line(
-          points=DynamicSelect({{80,-40},{120,-40}}, if ground_2 then {{80,-40},{120,-40}}
-            else {{80,-40},{80,-40}}),
+        Line(visible = ground_2 == true,
+          points={{80,-40},{120,-40}},
           color={0,120,120},
           smooth=Smooth.None,
           thickness=0.5),
-        Line(
-          points=DynamicSelect({{80,-40},{106,-14}}, if ground_2 then {{80,-40},{106,-14}}
-            else {{80,-40},{80,-40}}),
+        Line(visible = ground_2 == true,
+          points={{80,-40},{106,-14}},
           color={0,120,120},
           smooth=Smooth.None,
           thickness=0.5),
-        Line(
-          points=DynamicSelect({{102,-16},{114,-24},{118,-42}}, if ground_2 then {{102,-16},{114,-24},{118,-42}}
-            else {{102,-16},{102,-16}}),
+        Line(visible = ground_2 == true,
+          points={{102,-16},{114,-24},{118,-42}},
           color={0,120,120},
           smooth=Smooth.Bezier),
         Line(
