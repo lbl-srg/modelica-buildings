@@ -29,13 +29,15 @@ partial model PartialBaseLine "Partial cable line dispersion model"
   parameter Buildings.Electrical.Transmission.LowVoltageCables.Generic commercialCable_low=
       Functions.selectCable_low(P_nominal, V_nominal)
     "List of low voltage commercial cables"
-    annotation(Evaluate=true, Dialog(tab="Tech. specification", group="Manual mode", enable = mode == Buildings.Electrical.Types.CableMode.commercial),
+    annotation(Evaluate=true, Dialog(tab="Tech. specification", group="Manual mode",
+    enable = mode == Buildings.Electrical.Types.CableMode.commercial and voltageLevel == Buildings.Electrical.Types.VoltageLevel.Low),
                choicesAllMatching = true);
 
   parameter Buildings.Electrical.Transmission.MediumVoltageCables.Generic commercialCable_med=
       Functions.selectCable_med(P_nominal, V_nominal)
     "List of medium voltage commercial cables"
-    annotation(Evaluate=true, Dialog(tab="Tech. specification", group="Manual mode", enable = mode == Buildings.Electrical.Types.CableMode.commercial),
+    annotation(Evaluate=true, Dialog(tab="Tech. specification", group="Manual mode",
+    enable = mode == Buildings.Electrical.Types.CableMode.commercial and voltageLevel == Buildings.Electrical.Types.VoltageLevel.Medium),
                choicesAllMatching = true);
 
   final parameter Modelica.SIunits.Temperature T_ref=

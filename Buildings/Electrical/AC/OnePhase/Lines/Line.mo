@@ -8,8 +8,8 @@ model Line "Model of an electrical line"
       redeclare package PhaseSystem = PhaseSystem_n),
     redeclare Interfaces.Terminal_p terminal_p(
       redeclare package PhaseSystem = PhaseSystem_p),
-    final voltageLevel=Types.VoltageLevel.Low,
-    final commercialCable_med=
+    voltageLevel=Types.VoltageLevel.Low,
+    commercialCable_med=
       Buildings.Electrical.Transmission.Functions.selectCable_med(P_nominal, V_nominal));
 protected
   replaceable TwoPortRL line(R=R/3,L=L/3) constrainedby
