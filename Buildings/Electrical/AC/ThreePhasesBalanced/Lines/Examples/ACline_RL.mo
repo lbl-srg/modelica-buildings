@@ -1,8 +1,10 @@
 within Buildings.Electrical.AC.ThreePhasesBalanced.Lines.Examples;
 model ACline_RL "Test model for a single phase inductive-resistive line"
   extends Modelica.Icons.Example;
-  parameter Modelica.SIunits.Resistance Rbase = 10;
-  parameter Modelica.SIunits.Inductance Lbase = Rbase/2/Modelica.Constants.pi/60;
+  parameter Modelica.SIunits.Resistance Rbase = 10
+    "Base value for the line resistance";
+  parameter Modelica.SIunits.Inductance Lbase = Rbase/2/Modelica.Constants.pi/60
+    "Base value for the line inductance";
   ThreePhasesBalanced.Sources.FixedVoltage E(definiteReference=true)
     "Voltage source"
     annotation (Placement(transformation(extent={{-100,-10},{-80,10}})));
