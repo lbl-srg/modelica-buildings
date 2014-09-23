@@ -3,23 +3,6 @@ package Grids "Package that contains grid models used for the benchmark"
   extends Modelica.Icons.MaterialPropertiesPackage;
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
   annotation (Documentation(revisions="<html>
 <ul>
 <li>

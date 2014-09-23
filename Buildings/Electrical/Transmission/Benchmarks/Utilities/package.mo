@@ -3,9 +3,6 @@ package Utilities "This package contains functions for building the benchmark gr
 extends Modelica.Icons.Package;
 
 
-
-
-
   annotation (Documentation(revisions="<html>
 <ul>
 <li>
