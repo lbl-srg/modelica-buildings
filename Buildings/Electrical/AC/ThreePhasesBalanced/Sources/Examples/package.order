@@ -1,2 +1,4 @@
-FixedSource
+FixedVoltageSource
 VariablePowerSource
+PVPanels
+WindTurbine

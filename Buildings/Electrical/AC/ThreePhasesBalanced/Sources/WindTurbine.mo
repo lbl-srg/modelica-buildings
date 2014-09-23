@@ -4,7 +4,9 @@ model WindTurbine "Model of a simple wind turbine generator"
     redeclare Interfaces.Terminal_p terminal, redeclare
       Buildings.Electrical.AC.ThreePhasesBalanced.Loads.Capacitive load,
       V_nominal = 480);
-  annotation (Documentation(revisions="<html>
+  annotation (
+    defaultComponentName="winTur",
+    Documentation(revisions="<html>
 <ul>
 <li>
 August 24, 2014, by Marco Bonvini:<br/>

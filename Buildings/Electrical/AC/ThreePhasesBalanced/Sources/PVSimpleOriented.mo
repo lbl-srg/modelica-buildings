@@ -5,7 +5,9 @@ model PVSimpleOriented "Model of a simple PV panel with orientation"
       Buildings.Electrical.AC.ThreePhasesBalanced.Sources.PVSimple panel,
       V_nominal = 480);
 
-  annotation (Documentation(revisions="<html>
+  annotation (
+    defaultComponentName="pv",
+    Documentation(revisions="<html>
 <ul>
 <li>
 August 24, 2014, by Marco Bonvini:<br/>

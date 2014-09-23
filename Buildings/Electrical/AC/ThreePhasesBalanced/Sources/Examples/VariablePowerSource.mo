@@ -1,19 +1,22 @@
 within Buildings.Electrical.AC.ThreePhasesBalanced.Sources.Examples;
 model VariablePowerSource
+  "This example illustrates how using a variable power source"
   extends Modelica.Icons.Example;
+  Buildings.Electrical.AC.ThreePhasesBalanced.Sources.Generator generator(phiGen(displayUnit="deg") = 0.26179938779915)
+    "AC generator model"
+    annotation (Placement(transformation(extent={{-50,-10},{-30,10}})));
   Modelica.Blocks.Sources.Sine generation(
-    amplitude=50,
     offset=200,
     startTime=1,
-    freqHz=0.1)
-    annotation (Placement(transformation(extent={{-88,-10},{-68,10}})));
-  Generator gen(f=50, Phi=0.5235987755983)
-    annotation (Placement(transformation(extent={{-58,-10},{-38,10}})));
-  Grid grid(
-    f=50,
-    V=380,
-    Phi=0)
-    annotation (Placement(transformation(extent={{-20,40},{0,60}})));
+    amplitude=100,
+    freqHz=0.05) "Generated power"
+    annotation (Placement(transformation(extent={{-92,-10},{-72,10}})));
+  Buildings.Electrical.AC.ThreePhasesBalanced.Loads.Inductive RL(mode=Types.Assumption.VariableZ_y_input,
+      P_nominal=-300) "Load model"
+    annotation (Placement(transformation(extent={{20,-10},{40,10}})));
+  Buildings.Electrical.AC.ThreePhasesBalanced.Sources.Grid grid
+    "AC one phase electrical grid"
+           annotation (Placement(transformation(extent={{-20,40},{0,60}})));
   Modelica.Blocks.Sources.Trapezoid load(
     rising=2,
     width=3,
@@ -21,27 +24,45 @@ model VariablePowerSource
     period=10,
     startTime=1,
     amplitude=0.8,
-    offset=0.2)
+    offset=0.2) "Power consumption profile"
     annotation (Placement(transformation(extent={{80,-10},{60,10}})));
-  Loads.Inductive RL(mode=Types.Assumption.VariableZ_y_input, P_nominal=3000)
-    annotation (Placement(transformation(extent={{24,-10},{44,10}})));
 equation
-  connect(generation.y, gen.P) annotation (Line(
-      points={{-67,0},{-58,0}},
+  connect(generation.y, generator.P) annotation (Line(
+      points={{-71,0},{-50,0}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(load.y, RL.y) annotation (Line(
-      points={{59,0},{44,0}},
+  connect(generator.terminal, RL.terminal)
+                                          annotation (Line(
+      points={{-30,0},{20,0}},
+      color={0,120,120},
+      smooth=Smooth.None));
+  connect(grid.terminal, RL.terminal)
+                                     annotation (Line(
+      points={{-10,40},{-10,0},{20,0},{20,5.55112e-16}},
+      color={0,120,120},
+      smooth=Smooth.None));
+  connect(load.y, RL.y)
+                       annotation (Line(
+      points={{59,0},{40,0}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(RL.terminal, gen.terminal) annotation (Line(
-      points={{24,0},{-38,0}},
-      color={0,120,120},
-      smooth=Smooth.None));
-  connect(RL.terminal, grid.terminal) annotation (Line(
-      points={{24,0},{-10,0},{-10,40}},
-      color={0,120,120},
-      smooth=Smooth.None));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent=
-            {{-100,-100},{100,100}}), graphics));
+  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
+            -100},{100,100}}), graphics),
+    experiment(StopTime=21, Tolerance=1e-05),
+    __Dymola_Commands(file=
+          "modelica://Buildings/Resources/Scripts/Dymola/Electrical/AC/ThreePhasesBalanced/Sources/Examples/VariablePowerSource.mos"
+        "Simulate and plot"),
+    Documentation(revisions="<html>
+<ul>
+<li>
+September 22, 2014, by Marco Bonvini:<br/>
+Created model and documentation.
+</li>
+</ul>
+</html>", info="<html>
+<p>
+This example shows how to use a variable generator model. The model has to be used
+together with a voltage source generator.
+</p> 
+</html>"));
 end VariablePowerSource;
