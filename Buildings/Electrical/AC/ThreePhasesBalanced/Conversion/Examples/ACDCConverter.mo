@@ -1,53 +1,77 @@
 within Buildings.Electrical.AC.ThreePhasesBalanced.Conversion.Examples;
-model ACDCConverter "Example model for 3phase AC to DC converter"
-  import Buildings;
+model ACDCConverter
+  "This example illustrates how to use the AC/DC converter model"
   extends Modelica.Icons.Example;
-  Buildings.Electrical.AC.ThreePhasesBalanced.Conversion.ACDCConverter
-                                                         tra(conversionFactor=
-        380/15000, eta=0.9) "Transformer"
-    annotation (Placement(transformation(extent={{-26,0},{-6,20}})));
-  Buildings.Electrical.AC.ThreePhasesBalanced.Sources.FixedVoltage
-                                                     V(
-    f=50,
-    Phi=0,
-    V(displayUnit="kV") = 15000)
-    annotation (Placement(transformation(extent={{-80,0},{-60,20}})));
-  Modelica.Blocks.Sources.Ramp ramp(
-    height=1,
+  Buildings.Electrical.DC.Loads.Resistor res(R=1, V_nominal=120)
+    "Resistive load" annotation (Placement(
+        transformation(
+        extent={{10,-10},{-10,10}},
+        rotation=180,
+        origin={50,10})));
+  Buildings.Electrical.AC.ThreePhasesBalanced.Conversion.ACDCConverter conversion(
+    eta=0.9,
+    ground_AC=false,
+    ground_DC=true,
+    conversionFactor=120/480) "AC/DC transformer"
+    annotation (Placement(transformation(extent={{-10,0},{10,20}})));
+  Buildings.Electrical.AC.ThreePhasesBalanced.Sources.FixedVoltage sou(
+    definiteReference=true) "Voltage source" annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=0,
+        origin={-62,10})));
+  Buildings.Electrical.DC.Loads.Conductor load(mode=Buildings.Electrical.Types.Assumption.VariableZ_P_input,
+    P_nominal=-200,
+    V_nominal=120) "Variable resistive load"
+    annotation (Placement(
+        transformation(
+        extent={{10,-10},{-10,10}},
+        rotation=180,
+        origin={50,-10})));
+  Modelica.Blocks.Sources.Ramp pow(
     duration=0.5,
-    startTime=0.3)
-    annotation (Placement(transformation(extent={{80,0},{60,20}})));
-  Buildings.Electrical.DC.Loads.Conductor    loadRL(
-      P_nominal=12000,
-    linearized=false,
-    mode=Buildings.Electrical.Types.Assumption.VariableZ_y_input)
-    annotation (Placement(transformation(extent={{20,0},{40,20}})));
+    startTime=0.2,
+    offset=-200,
+    height=5200) "Variable load profile"
+    annotation (Placement(transformation(extent={{90,-20},{70,0}})));
 equation
-  connect(V.terminal, tra.terminal_n)        annotation (Line(
-      points={{-60,10},{-26,10}},
+  connect(sou.terminal, conversion.terminal_n) annotation (Line(
+      points={{-52,10},{-10,10}},
       color={0,120,120},
       smooth=Smooth.None));
-  connect(ramp.y, loadRL.y) annotation (Line(
-      points={{59,10},{40,10}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(tra.terminal_p, loadRL.terminal) annotation (Line(
-      points={{-6,10},{20,10}},
+  connect(conversion.terminal_p, res.terminal) annotation (Line(
+      points={{10,10},{40,10}},
       color={0,0,255},
       smooth=Smooth.None));
+  connect(conversion.terminal_p, load.terminal) annotation (Line(
+      points={{10,10},{30,10},{30,-10},{40,-10}},
+      color={0,0,255},
+      smooth=Smooth.None));
+  connect(pow.y, load.Pow) annotation (Line(
+      points={{69,-10},{60,-10}},
+      color={0,0,127},
+      smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}}),        graphics), Documentation(
-            info="<html>
+            -100},{100,100}}), graphics), experiment(StopTime=1.0, Tolerance=1e-05),
+    __Dymola_experimentSetupOutput,
+    Documentation(info="<html>
 <p>
-This test model illustrates use of a transformer from 3 phase AC to DC circuit.
+This example illustrates the use of a model that converts AC voltage to DC voltage.
+The transformer model assumes a linear loss when transmitting the power.
 </p>
 </html>",
-revisions="<html>
+      revisions="<html>
 <ul>
 <li>
-July 24, 2013, by Michael Wetter:<br/>
+August 5, 2014, by Marco Bonvini:<br/>
+Revised model and documentation.
+</li>
+<li>
+January 29, 2013, by Thierry S. Nouidui:<br/>
 First implementation.
 </li>
 </ul>
-</html>"));
+</html>"),
+    __Dymola_Commands(file=
+          "modelica://Buildings/Resources/Scripts/Dymola/Electrical/AC/ThreePhasesBalanced/Conversion/Examples/ACDCConverter.mos"
+        "Simulate and plot"));
 end ACDCConverter;
