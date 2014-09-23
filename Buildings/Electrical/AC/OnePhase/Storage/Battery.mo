@@ -1,18 +1,25 @@
 within Buildings.Electrical.AC.OnePhase.Storage;
 model Battery "Simple model of a battery"
  extends Buildings.Electrical.Interfaces.PartialAcDcParameters;
- parameter Real etaCha(min=0, max=1, unit="1") = 0.9
+ replaceable package PhaseSystem =
+      Buildings.Electrical.PhaseSystems.OnePhase constrainedby
+    Buildings.Electrical.PhaseSystems.PartialPhaseSystem "Phase system"
+    annotation (choicesAllMatching=true);
+  parameter Real etaCha(min=0, max=1, unit="1") = 0.9
     "Efficiency during charging";
- parameter Real etaDis(min=0, max=1, unit="1") = 0.9
+  parameter Real etaDis(min=0, max=1, unit="1") = 0.9
     "Efficiency during discharging";
- parameter Real SOC_start=0.1 "Initial charge";
- parameter Modelica.SIunits.Energy EMax(min=0, displayUnit="kWh")
+  parameter Real SOC_start=0.1 "Initial charge";
+  parameter Modelica.SIunits.Energy EMax(min=0, displayUnit="kWh")
     "Maximum available charge";
   parameter Modelica.SIunits.Voltage V_nominal = 120
     "Nominal voltage (V_nominal >= 0)";
   parameter Boolean linearized=false
     "If =true introduce a linearization in the load";
-
+  parameter Buildings.Electrical.Types.InitMode initMode(
+  min=Buildings.Electrical.Types.InitMode.zero_current,
+  max=Buildings.Electrical.Types.InitMode.linearized) = Buildings.Electrical.Types.InitMode.zero_current
+    "Initialization mode for homotopy operator"  annotation(Dialog(tab = "Initialization"));
  Modelica.Blocks.Interfaces.RealInput P(unit="W")
     "Power stored in battery (if positive), or extracted from battery (if negative)"
     annotation (Placement(transformation(extent={{-20,-20},{20,20}},
@@ -23,10 +30,11 @@ model Battery "Simple model of a battery"
         origin={0,100})));
   Modelica.Blocks.Interfaces.RealOutput SOC "State of charge"
     annotation (Placement(transformation(extent={{100,50},{120,70}})));
-  Buildings.Electrical.AC.OnePhase.Interfaces.Terminal_p
-     terminal(redeclare package PhaseSystem =
-        Buildings.Electrical.PhaseSystems.OnePhase) "Generalized terminal"
+  replaceable Buildings.Electrical.AC.OnePhase.Interfaces.Terminal_p
+     terminal(redeclare replaceable package PhaseSystem = PhaseSystem)
+    "Generalized terminal"
     annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
+
 protected
   Buildings.Electrical.DC.Storage.BaseClasses.Charge cha(
     final EMax=EMax,
@@ -34,7 +42,9 @@ protected
     final etaCha=etaCha,
     final etaDis=etaDis) "Charge model"
     annotation (Placement(transformation(extent={{40,50},{60,70}})));
-  Buildings.Electrical.AC.OnePhase.Loads.Resistive bat(
+  replaceable Buildings.Electrical.AC.OnePhase.Loads.Resistive bat
+    constrainedby Buildings.Electrical.Interfaces.Load(
+    final initMode = initMode,
     final P_nominal=0,
     final mode=Buildings.Electrical.Types.Assumption.VariableZ_P_input,
     final V_nominal=V_nominal,
@@ -47,11 +57,9 @@ protected
   Modelica.Blocks.Math.Gain acdc_con_dis(final k = 2 - eta_DCAC)
     "Losses when P < 0"
     annotation (Placement(transformation(extent={{-68,10},{-48,30}})));
-public
   Buildings.Utilities.Math.Splice spl(deltax=1e-2)
     "Splice function that attributes the losses due to AC/DC conversion"
     annotation (Placement(transformation(extent={{-36,30},{-16,50}})));
-protected
   Modelica.Blocks.Math.Gain acdc_con_cha(final k=eta_DCAC) "Losses when P > 0"
     annotation (Placement(transformation(extent={{-68,50},{-48,70}})));
 equation
