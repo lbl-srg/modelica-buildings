@@ -3,7 +3,9 @@ model TwoPortRLC "Model of a RLC element with two electrical ports"
   extends Buildings.Electrical.AC.OnePhase.Lines.TwoPortRLC(redeclare
       Interfaces.Terminal_n terminal_n, redeclare Interfaces.Terminal_p
       terminal_p, V_nominal = 480);
-  annotation (Diagram(graphics),                             Icon(
+  annotation (
+    defaultComponentName="lineRLC",
+    Diagram(graphics),                             Icon(
         coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
                                                                   graphics),
     Documentation(revisions="<html>

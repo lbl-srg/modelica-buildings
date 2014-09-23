@@ -3,7 +3,9 @@ model TwoPortResistance "Model of a resistance with two electrical ports"
   extends Buildings.Electrical.AC.OnePhase.Lines.TwoPortResistance(redeclare
       Interfaces.Terminal_n terminal_n, redeclare Interfaces.Terminal_p
       terminal_p);
-  annotation (Diagram(graphics),                             Icon(
+  annotation (
+    defaultComponentName="lineR",
+    Diagram(graphics),                             Icon(
         coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
                                                                   graphics),
     Documentation(revisions="<html>

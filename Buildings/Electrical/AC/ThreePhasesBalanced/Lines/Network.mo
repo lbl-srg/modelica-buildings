@@ -17,7 +17,9 @@ equation
     Vabs[i] = Buildings.Electrical.PhaseSystems.OnePhase.systemVoltage(terminal[i].v);
   end for;
 
-  annotation (Icon(graphics={             Line(
+  annotation (
+    defaultComponentName="net",
+    Icon(graphics={             Line(
           points={{-98,-60},{-78,-20},{-58,-60},{-38,-100},{-18,-60}},
           color={0,0,0},
           smooth=Smooth.Bezier),          Line(
