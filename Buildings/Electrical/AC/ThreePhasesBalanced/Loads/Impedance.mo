@@ -70,14 +70,13 @@ equation
           fillPattern=FillPattern.Solid,
           origin={2,-49},
           rotation=90),
-        Line(
+        Line(visible = star == true,
           points={{52,50},{68,0},{52,-50}},
-          color=DynamicSelect({0,0,0}, if star then {0,0,0}
-               else {255,255,255}),
+          color={0,0,0},
           smooth=Smooth.None),
-        Line(
+        Line(visible = star == true,
           points={{68,0},{52,0}},
-          color=DynamicSelect({0,0,0}, if star then {0,0,0} else {255,255,255}),
+          color={0,0,0},
           smooth=Smooth.None),
         Line(
           points={{-68,50},{-28,50}},
@@ -103,20 +102,17 @@ equation
           points={{32,-50},{52,-50}},
           color={0,0,0},
           smooth=Smooth.None),
-        Line(
+        Line(visible = star == false,
           points={{52,50},{52,36},{-50,14},{-50,0}},
-          color=DynamicSelect({0,0,0}, if not star then {0,0,0}
-               else {255,255,255}),
+          color={0,0,0},
           smooth=Smooth.None),
-        Line(
+        Line(visible = star == false,
           points={{52,0},{52,-14},{-50,-36},{-50,-50}},
-          color=DynamicSelect({0,0,0}, if not star then {0,0,0}
-               else {255,255,255}),
+          color={0,0,0},
           smooth=Smooth.None),
-        Line(
+        Line(visible = star == false,
           points={{52,-50},{72,-50},{72,68},{-50,68},{-50,50}},
-          color=DynamicSelect({0,0,0}, if not star then {0,0,0}
-               else {255,255,255}),
+          color={0,0,0},
           smooth=Smooth.None)}),
           Documentation(info="<html>
 <p>
