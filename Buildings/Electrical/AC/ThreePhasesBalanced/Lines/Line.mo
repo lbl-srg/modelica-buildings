@@ -9,7 +9,9 @@ model Line "Model of an electrical line"
     L=L,
     C=C));
 
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-100,
+  annotation (
+    defaultComponentName="line",
+    Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-100,
             -100},{100,100}}), graphics), Icon(graphics={
         Ellipse(
           extent={{-70,10},{-50,-10}},

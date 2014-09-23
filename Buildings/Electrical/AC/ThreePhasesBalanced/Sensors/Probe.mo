@@ -3,7 +3,9 @@ model Probe "Model of a probe that measures RMS voltage and angle"
   extends OnePhase.Sensors.Probe(
   redeclare Buildings.Electrical.AC.ThreePhasesBalanced.Interfaces.Terminal_n term,
   V_nominal = 480);
-  annotation (Documentation(info="<html>
+  annotation (
+  defaultComponentName="sen",
+  Documentation(info="<html>
 <p>
 This model represents a probe that measures the RMS voltage and the angle
 of the voltage phasor (in degrees) at a given point.

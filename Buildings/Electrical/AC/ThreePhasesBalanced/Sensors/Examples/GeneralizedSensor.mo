@@ -1,16 +1,14 @@
 within Buildings.Electrical.AC.ThreePhasesBalanced.Sensors.Examples;
 model GeneralizedSensor "Example model for generalized sensor"
-  import Buildings;
   extends Modelica.Icons.Example;
   Buildings.Electrical.AC.ThreePhasesBalanced.Sensors.GeneralizedSensor
-                                                          sen
+                                                          sen "Sensor model"
     annotation (Placement(transformation(extent={{-20,2},{0,22}})));
   Buildings.Electrical.AC.ThreePhasesBalanced.Loads.Capacitive loa(P_nominal=
         100) "Constant load"
     annotation (Placement(transformation(extent={{40,2},{60,22}})));
   Buildings.Electrical.AC.ThreePhasesBalanced.Sources.FixedVoltage
-                                                        sou(V=120)
-    "Voltage source"
+                                                        sou "Voltage source"
     annotation (Placement(transformation(extent={{-60,2},{-40,22}})));
 equation
   connect(sen.terminal_p, loa.terminal)
@@ -34,6 +32,6 @@ First implementation.
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
             100}}), graphics),
 __Dymola_Commands(file=
-          "modelica://Buildings/Resources/Scripts/Dymola/Electrical/AC/AC3ph/Sensors/Examples/GeneralizedSensor.mos"
+          "modelica://Buildings/Resources/Scripts/Dymola/Electrical/AC/ThreePhasesBalanced/Sensors/Examples/GeneralizedSensor.mos"
         "Simulate and plot"));
 end GeneralizedSensor;
