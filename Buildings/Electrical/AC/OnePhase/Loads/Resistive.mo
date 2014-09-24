@@ -61,8 +61,8 @@ the power factor <i>pf=cos(&phi;)</i>. The power
 can be either fixed using the parameter <code>P_nominal</code>, or
 it is possible to specify a variable power using the inputs <code>y</code> or
 <code>Pow</code>. The different modes can be selected with the parameter
-<code>mode</code>, see <a href=\"modelica://Buildings.Electrical.Interfaces.PartialLoad\">
-Buildings.Electrical.Interfaces.PartialLoad</a> for more information.
+<code>mode</code>, see <a href=\"modelica://Buildings.Electrical.Interfaces.Load\">
+Buildings.Electrical.Interfaces.Load</a> for more information.
 </p>
 
 <p>

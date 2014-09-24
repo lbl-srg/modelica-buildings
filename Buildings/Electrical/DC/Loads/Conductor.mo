@@ -40,7 +40,7 @@ equation
 <p>
 Model of a generic DC load. The load can be either constant or variable depending on the value of the 
 parameter <code>mode</code>.
-See the model <a href=\"modelica://Buildings.Electrical.Interfaces.PartialLoad\">Buildings.Electrical.Interfaces.PartialLoad</a>
+See the model <a href=\"modelica://Buildings.Electrical.Interfaces.Load\">Buildings.Electrical.Interfaces.Load</a>
 for more information.
 </p>
 

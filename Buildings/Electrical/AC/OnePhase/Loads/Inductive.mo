@@ -117,10 +117,10 @@ The power factor can be either specified by the parameter <code>pf</code>
 or using the input connector <code>pf_in</code>.
 
 The different modes can be selected with the parameter
-<code>mode</code> and <code>use_pf_in</code>, see <a href=\"modelica://Buildings.Electrical.Interfaces.PartialLoad\">
-Buildings.Electrical.Interfaces.PartialLoad</a> and 
-<a href=\"modelica://Buildings.Electrical.Interfaces.PartialInductiveLoad\">
-Buildings.Electrical.Interfaces.PartialInductiveLoad</a> for more information.
+<code>mode</code> and <code>use_pf_in</code>, see <a href=\"modelica://Buildings.Electrical.Interfaces.Load\">
+Buildings.Electrical.Interfaces.Load</a> and 
+<a href=\"modelica://Buildings.Electrical.Interfaces.InductiveLoad\">
+Buildings.Electrical.Interfaces.InductiveLoad</a> for more information.
 </p>
 
 <p>

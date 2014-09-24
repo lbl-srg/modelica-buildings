@@ -58,8 +58,8 @@ where <i>Z = R + j X</i> is the impedance. The value of the resistance <i>R</i> 
 reactance <i>X</i> depend on the type of impedance. Different types of impedances
 can be selected using the boolean parameters <code>inductive</code>, <code>use_R_in</code>,
 <code>use_L_in</code>, and <code>use_C_in</code>. See 
-<a href=\"modelica://Buildings.Electrical.Interfaces.PartialImpedance\">
-Buildings.Electrical.Interfaces.PartialImpedance</a> for more details.
+<a href=\"modelica://Buildings.Electrical.Interfaces.Impedance\">
+Buildings.Electrical.Interfaces.Impedance</a> for more details.
 </p>
 </html>", revisions="<html>
 <ul>
