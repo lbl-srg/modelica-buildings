@@ -2,7 +2,8 @@ within Buildings.Electrical.Transmission.BaseClasses;
 partial model PartialNetwork "Partial model that represent an electric network"
   replaceable parameter Buildings.Electrical.Transmission.Grids.PartialGrid grid
     "Record that describe the grid with the number of nodes, links, connections, etc."
-    annotation (choicesAllMatching=true);
+    annotation (choicesAllMatching=true,
+                Placement(transformation(extent={{40,60},{60,80}})));
   replaceable Buildings.Electrical.Interfaces.BaseTerminal terminal[grid.nNodes]
     "Electric terminals for each node of the network"
     annotation (Placement(transformation(extent={{90,-10},{110,10}})));
@@ -12,6 +13,7 @@ partial model PartialNetwork "Partial model that represent an electric network"
     each P_nominal=1000,
     each V_nominal=120)
     "Array of line models, each line connecting two nodes of the grid";
+
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
             {100,100}}), graphics={
         Rectangle(
