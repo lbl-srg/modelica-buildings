@@ -8,7 +8,7 @@ function temperatureConstant
     "Type of cable (if medium voltage)";
   output Modelica.SIunits.Temperature M "Temperature constant of the material";
 protected
-  Buildings.Electrical.Transmission.Types.Material material;
+  Buildings.Electrical.Transmission.Types.Material material "Cable material";
 algorithm
 
   // Select the cable depending on the voltage level of the line
