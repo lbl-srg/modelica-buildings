@@ -6,17 +6,14 @@ model Network "Three phases balanced AC network"
     redeclare Lines.Line lines(
     commercialCable_low=grid.cables,
     commercialCable_med=grid.cables));
-    Modelica.SIunits.Voltage Vabs[grid.nNodes] "RMS voltage of the grid nodes";
+    Modelica.SIunits.Voltage Vabs[grid.nNodes]=
+     {Buildings.Electrical.PhaseSystems.OnePhase.systemVoltage(terminal[i].v)
+       for i in 1:grid.nNodes} "RMS voltage of the grid nodes";
 equation
   for i in 1:grid.nLinks loop
     connect(lines[i].terminal_p, terminal[grid.fromTo[i,1]]);
     connect(lines[i].terminal_n, terminal[grid.fromTo[i,2]]);
   end for;
-
-  for i in 1:grid.nNodes loop
-    Vabs[i] = Buildings.Electrical.PhaseSystems.OnePhase.systemVoltage(terminal[i].v);
-  end for;
-
   annotation (
     defaultComponentName="net",
     Icon(graphics={             Line(
@@ -40,12 +37,12 @@ Revised documentation.
 This model represents a generalized electrical AC three phases balanced network.
 </p>
 <p>
-Look at <a href=\"modelica://Buildings.Electrical.Transmission.BaseClasses.PartialNetwork\">
+See <a href=\"modelica://Buildings.Electrical.Transmission.BaseClasses.PartialNetwork\">
 Buildings.Electrical.Transmission.BaseClasses.PartialNetwork</a>
 for information about the network model.
 </p>
 <p>
-Look at <a href=\"modelica://Buildings.Electrical.Transmission.Grids.PartialGrid\">
+See <a href=\"modelica://Buildings.Electrical.Transmission.Grids.PartialGrid\">
 Buildings.Electrical.Transmission.Grids.PartialGrid</a>
 for more information about the topology of the network, such as
 the number of nodes, how they are connected, and the length of each connection.
