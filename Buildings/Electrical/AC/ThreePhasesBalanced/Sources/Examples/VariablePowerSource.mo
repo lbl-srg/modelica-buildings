@@ -2,7 +2,7 @@ within Buildings.Electrical.AC.ThreePhasesBalanced.Sources.Examples;
 model VariablePowerSource
   "This example illustrates how using a variable power source"
   extends Modelica.Icons.Example;
-  Buildings.Electrical.AC.ThreePhasesBalanced.Sources.Generator generator(phiGen(displayUnit="deg") = 0.26179938779915)
+  Buildings.Electrical.AC.ThreePhasesBalanced.Sources.Generator generator(phiGen = 0.26179938779915)
     "AC generator model"
     annotation (Placement(transformation(extent={{-50,-10},{-30,10}})));
   Modelica.Blocks.Sources.Sine generation(
@@ -61,8 +61,9 @@ Created model and documentation.
 </ul>
 </html>", info="<html>
 <p>
-This example shows how to use a variable generator model. The model has to be used
-together with a voltage source generator.
+This example shows how to use a variable generator model. The generator model has to be used
+together with a voltage source generator, which is in this example the
+grid model.
 </p> 
 </html>"));
 end VariablePowerSource;
