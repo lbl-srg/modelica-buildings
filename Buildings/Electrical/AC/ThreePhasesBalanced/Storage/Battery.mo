@@ -5,14 +5,15 @@ model Battery "Simple model of a battery"
       V_nominal = 480,
       redeclare Buildings.Electrical.AC.ThreePhasesBalanced.Loads.Resistive bat);
 
-  annotation (Documentation(info="<html>
+  annotation (
+defaultComponentName="bat",
+Documentation(info="<html>
 <p>
 Simple model of a battery.
 </p>
 <p>
 This model takes as an input the power to be stored in the battery (if <i>P &gt; 0</i>)
-or to be extracted from the battery. This model has a one phase AC connector
-and takes into account the efficiency of the conversion 
+or to be extracted from the battery. This model takes into account the efficiency of the conversion 
 between DC and AC <i>&eta;<sub>DCAC</sub></i>.
 </p>
 <p>
