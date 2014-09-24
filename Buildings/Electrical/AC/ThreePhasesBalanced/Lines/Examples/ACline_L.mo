@@ -1,5 +1,5 @@
 within Buildings.Electrical.AC.ThreePhasesBalanced.Lines.Examples;
-model ACline_L "Test model for a single phase inductive line"
+model ACline_L "Test model for single phase inductive lines"
   extends Modelica.Icons.Example;
   parameter Modelica.SIunits.Inductance Lbase = 10/2/Modelica.Constants.pi/60
     "Base value for the line inductances";
@@ -95,9 +95,9 @@ on the inductance of the line.
 </p>
 <p>
 The remaining three loads <code>R1</code>, <code>R2</code>, and <code>R3</code>
-are resistive loads. Each load is connected to the source with different configurations,
-however the equivalent impedance between each load and the source is the same.
-Since the equivalent impedances are the same, each load draw the same current.
+are resistive loads. Each load is connected to the source with different configurations.
+However, the equivalent impedance between each load and the source is the same.
+Since the equivalent impedances are the same, each load draws the same current.
 </p>
 </html>", revisions="<html>
 <ul>
