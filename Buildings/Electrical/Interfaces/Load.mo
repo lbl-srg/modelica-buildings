@@ -11,7 +11,7 @@ model Load "Partial model for a generic load"
     min=Buildings.Electrical.Types.Assumption.FixedZ_steady_state,
     max=Buildings.Electrical.Types.Assumption.VariableZ_y_input)=
       Buildings.Electrical.Types.Assumption.FixedZ_steady_state
-    "Parameter that specifies the type of load model (e.g., steady state, dynamic, prescribed power consumption, etc.)"
+    "Type of load model (e.g., steady state, dynamic, prescribed power consumption, etc.)"
     annotation(Evaluate=true,Dialog(group="Modelling assumption"));
   parameter Modelica.SIunits.Power P_nominal
     "Nominal power (negative if consumed, positive if generated)"
