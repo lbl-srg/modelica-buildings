@@ -35,7 +35,7 @@ equation
         Text(
           extent={{-120,100},{120,60}},
           lineColor={0,120,120},
-          textString="%name = %V"),
+          textString="%name"),
         Line(
           points={{60,0},{90,0}},
           color={0,0,0},
@@ -53,7 +53,11 @@ equation
         Line(visible = definiteReference == true,
           points={{2,-66},{14,-74},{18,-92}},
           color={0,120,120},
-          smooth=Smooth.Bezier)}),
+          smooth=Smooth.Bezier),
+        Text(
+          extent={{-118,-60},{122,-100}},
+          lineColor={0,120,120},
+          textString="V = %V")}),
       Documentation(info="<html>
 <p>
 This is a constant voltage source. The complex voltage is specified by the RMS voltage and the phase shift.
