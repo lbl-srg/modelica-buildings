@@ -1,9 +1,5 @@
 selectCable_low
 selectCable_med
-lineResistance
-lineInductance
-lineCapacitance
-temperatureConstant
 selectVoltageLevel
 R_AC_correction
 computeGMR

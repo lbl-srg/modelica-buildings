@@ -11,13 +11,13 @@ model ACline
     P_nominal=5000,
     l=2000,
     mode=Types.CableMode.commercial,
-    commercialCable_low=Transmission.LowVoltageCables.Cu50())
+    commercialCable=Transmission.LowVoltageCables.Cu50())
     "Resistive line that connects to load 1"
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
   Line line_2a(
     P_nominal=5000,
     mode=Types.CableMode.commercial,
-    commercialCable_low=Transmission.LowVoltageCables.Cu50(),
+    commercialCable=Transmission.LowVoltageCables.Cu50(),
     l=1000) "Resistive line that connects to load 2"
     annotation (Placement(transformation(extent={{-60,-30},{-40,-10}})));
   Loads.Impedance R2(
@@ -26,19 +26,19 @@ model ACline
   Line line_2b(
     P_nominal=5000,
     mode=Types.CableMode.commercial,
-    commercialCable_low=Transmission.LowVoltageCables.Cu50(),
+    commercialCable=Transmission.LowVoltageCables.Cu50(),
     l=1000) "Resistive line that connects to load 2"
     annotation (Placement(transformation(extent={{-32,-30},{-12,-10}})));
   Line line_3a(
     P_nominal=5000,
     mode=Types.CableMode.commercial,
-    commercialCable_low=Transmission.LowVoltageCables.Cu50(),
+    commercialCable=Transmission.LowVoltageCables.Cu50(),
     l=4000) "Resistive line that connects to load 3"
     annotation (Placement(transformation(extent={{-60,-50},{-40,-30}})));
   Line line_3b(
     P_nominal=5000,
     mode=Types.CableMode.commercial,
-    commercialCable_low=Transmission.LowVoltageCables.Cu50(),
+    commercialCable=Transmission.LowVoltageCables.Cu50(),
     l=4000) "Resistive line that connects to load 3"
     annotation (Placement(transformation(extent={{-60,-70},{-40,-50}})));
   Loads.Impedance R3(
@@ -48,7 +48,7 @@ model ACline
     P_nominal=5000,
     l=2000,
     mode=Types.CableMode.commercial,
-    commercialCable_low=Transmission.LowVoltageCables.Cu50())
+    commercialCable=Transmission.LowVoltageCables.Cu50())
     "Line that connects the source and the short circuit"
     annotation (Placement(transformation(extent={{-60,20},{-40,40}})));
   Loads.Impedance load_sc(R=0) "Short circuit"

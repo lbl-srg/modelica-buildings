@@ -21,39 +21,24 @@ partial model PartialBaseLine "Partial cable line dispersion model"
     "Select if choosing the cable automatically or between a list of commercial options"
     annotation(Evaluate=true, Dialog(tab="Tech. specification", group="Auto/Manual mode"), choicesAllMatching=true);
 
-  parameter Buildings.Electrical.Types.VoltageLevel voltageLevel=
-      Functions.selectVoltageLevel(V_nominal) "Select the voltage level"
-    annotation(Evaluate=true, Dialog(tab="Tech. specification", group="Manual mode", enable = mode == Buildings.Electrical.Types.CableMode.commercial),
-               choicesAllMatching = true);
-
-  parameter Buildings.Electrical.Transmission.LowVoltageCables.Generic commercialCable_low=
-      Functions.selectCable_low(P_nominal, V_nominal)
-    "List of low voltage commercial cables"
+  replaceable parameter
+    Buildings.Electrical.Transmission.LowVoltageCables.Generic
+     commercialCable constrainedby
+    Buildings.Electrical.Transmission.BaseClasses.BaseCable
+    "Commercial cables options"
     annotation(Evaluate=true, Dialog(tab="Tech. specification", group="Manual mode",
-    enable = mode == Buildings.Electrical.Types.CableMode.commercial and voltageLevel == Buildings.Electrical.Types.VoltageLevel.Low),
+    enable = mode == Buildings.Electrical.Types.CableMode.commercial),
                choicesAllMatching = true);
 
-  parameter Buildings.Electrical.Transmission.MediumVoltageCables.Generic commercialCable_med=
-      Functions.selectCable_med(P_nominal, V_nominal)
-    "List of medium voltage commercial cables"
-    annotation(Evaluate=true, Dialog(tab="Tech. specification", group="Manual mode",
-    enable = mode == Buildings.Electrical.Types.CableMode.commercial and voltageLevel == Buildings.Electrical.Types.VoltageLevel.Medium),
-               choicesAllMatching = true);
-
-  final parameter Modelica.SIunits.Temperature T_ref=
-    if voltageLevel==Buildings.Electrical.Types.VoltageLevel.Low
-      then commercialCable_low.Tref else commercialCable_med.Tref
+  final parameter Modelica.SIunits.Temperature T_ref = commercialCable.Tref
     "Reference temperature of the line" annotation(Evaluate=True);
-  final parameter Modelica.SIunits.Temperature M = Functions.temperatureConstant(voltageLevel, commercialCable_low, commercialCable_med)
+  final parameter Modelica.SIunits.Temperature M = commercialCable.M
     "Temperature constant (R_actual = R*(M + T_heatPort)/(M + T_ref))";
-  final parameter Modelica.SIunits.Resistance R=
-  Functions.lineResistance(l, voltageLevel, commercialCable_low, commercialCable_med)
+  final parameter Modelica.SIunits.Resistance R = commercialCable.lineResistance(l, commercialCable)
     "Resistance of the cable" annotation(Evaluate=True);
-  final parameter Modelica.SIunits.Inductance L=
-  Functions.lineInductance(l, voltageLevel, commercialCable_low, commercialCable_med)
+  final parameter Modelica.SIunits.Inductance L = commercialCable.lineInductance(l, commercialCable)
     "Inductance of the cable due to mutual and self inductance" annotation(Evaluate = True);
-  final parameter Modelica.SIunits.Capacitance C=
-  Functions.lineCapacitance(l, voltageLevel, commercialCable_low, commercialCable_med)
+  final parameter Modelica.SIunits.Capacitance C = commercialCable.lineCapacitance(l, commercialCable)
     "Capacitance of the cable" annotation(Evaluate = True);
   Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature cableTemp
     "Temperature of the cable"
@@ -93,7 +78,16 @@ equation
 <p>
 This partial model contains parameters and variables needed to parametrize a
 generic cable. The resistance, inductance and capacitance
-are computed in two different ways depending on the <code>mode</code>.
+are computed by the functions associated to the type of cable selected.
+The type of cable is specified using a record that inherits from 
+<a href=\"modelica://Buildings.Electrical.Transmission.BaseClasses.BaseCable\">
+Buildings.Electrical.Transmission.BaseClasses.BaseCable</a> such as (
+<a href=\"modelica://Buildings.Electrical.Transmission.LowVoltageCables.Generic\">
+Buildings.Electrical.Transmission.LowVoltageCables.Generic</a> or
+<a href=\"modelica://Buildings.Electrical.Transmission.MediumVoltageCables.Generic\">
+Buildings.Electrical.Transmission.MediumVoltageCables.Generic</a>).
+The record contains functions that depending on the properties of cable compute its 
+resistance, inductance or capacitance.
 </p>
 <p>
 The model has two parameters <code>use_C</code> and <code>modelMode</code> that 
@@ -133,9 +127,27 @@ More details about the functions that compute the type of cable and its
 properties can be found in <a href=\"modelica://Buildings.Electrical.Transmission.Functions\">
 Buildings.Electrical.Transmission.Functions</a>.
 </p>
+<p>
+The parameter <code>commercialCable</code> is assumed to be 
+<a href=\"modelica://Buildings.Electrical.Transmission.LowVoltageCables.Generic\">
+Buildings.Electrical.Transmission.LowVoltageCables.Generic</a>.
+The parameter is replaceable so it can be redeclared using a different type, for example
+<a href=\"modelica://Buildings.Electrical.Transmission.MediumVoltageCables.Generic\">
+Buildings.Electrical.Transmission.MediumVoltageCables.Generic</a>.<br/>
+The example models 
+<a href=\"modelica://Buildings.Electrical.AC.ThreePhasesBalanced.Lines.Examples.AClineMedium\">
+Buildings.Electrical.AC.ThreePhasesBalanced.Lines.Examples.AClineMedium</a> and
+<a href=\"modelica://Buildings.Electrical.AC.ThreePhasesBalanced.Lines.Examples.ACSimpleGridMedium\">
+Buildings.Electrical.AC.ThreePhasesBalanced.Lines.Examples.ACSimpleGridMedium</a>
+show how this can be done.
+</p>
 
 </html>", revisions="<html>
 <ul>
+<li>
+September 23, 2014, by Marco Bonvini:<br/>
+Revised model and documentation according to change in the structure of the cable record.
+</li>
 <li>
 June 3, 2014, by Marco Bonvini:<br/>
 Added User's guide.

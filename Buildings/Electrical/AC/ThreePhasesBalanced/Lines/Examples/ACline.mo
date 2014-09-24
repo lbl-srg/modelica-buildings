@@ -12,43 +12,34 @@ model ACline
     P_nominal=5000,
     l=2000,
     mode=Types.CableMode.commercial,
-    commercialCable_low=Transmission.LowVoltageCables.Cu50(),
-    voltageLevel=Buildings.Electrical.Types.VoltageLevel.Low)
+    commercialCable=Transmission.LowVoltageCables.Cu50())
     "Resistive line that connects to load 1"
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
   ThreePhasesBalanced.Lines.Line line_2a(
     P_nominal=5000,
     mode=Types.CableMode.commercial,
-    commercialCable_low=Transmission.LowVoltageCables.Cu50(),
-    l=1000,
-    voltageLevel=Buildings.Electrical.Types.VoltageLevel.Low)
-    "Resistive line that connects to load 2"
+    commercialCable=Transmission.LowVoltageCables.Cu50(),
+    l=1000) "Resistive line that connects to load 2"
     annotation (Placement(transformation(extent={{-60,-30},{-40,-10}})));
   ThreePhasesBalanced.Loads.Impedance R2(R=10) "Resistive load 2"
     annotation (Placement(transformation(extent={{0,-30},{20,-10}})));
   ThreePhasesBalanced.Lines.Line line_2b(
     P_nominal=5000,
     mode=Types.CableMode.commercial,
-    commercialCable_low=Transmission.LowVoltageCables.Cu50(),
-    l=1000,
-    voltageLevel=Buildings.Electrical.Types.VoltageLevel.Low)
-    "Resistive line that connects to load 2"
+    commercialCable=Transmission.LowVoltageCables.Cu50(),
+    l=1000) "Resistive line that connects to load 2"
     annotation (Placement(transformation(extent={{-32,-30},{-12,-10}})));
   ThreePhasesBalanced.Lines.Line line_3a(
     P_nominal=5000,
     mode=Types.CableMode.commercial,
-    commercialCable_low=Transmission.LowVoltageCables.Cu50(),
-    l=4000,
-    voltageLevel=Buildings.Electrical.Types.VoltageLevel.Low)
-    "Resistive line that connects to load 3"
+    commercialCable=Transmission.LowVoltageCables.Cu50(),
+    l=4000) "Resistive line that connects to load 3"
     annotation (Placement(transformation(extent={{-60,-50},{-40,-30}})));
   ThreePhasesBalanced.Lines.Line line_3b(
     P_nominal=5000,
     mode=Types.CableMode.commercial,
-    commercialCable_low=Transmission.LowVoltageCables.Cu50(),
-    l=4000,
-    voltageLevel=Buildings.Electrical.Types.VoltageLevel.Low)
-    "Resistive line that connects to load 3"
+    commercialCable=Transmission.LowVoltageCables.Cu50(),
+    l=4000) "Resistive line that connects to load 3"
     annotation (Placement(transformation(extent={{-60,-70},{-40,-50}})));
   ThreePhasesBalanced.Loads.Impedance R3(R=10) "Resistive load 3"
     annotation (Placement(transformation(extent={{0,-60},{20,-40}})));
@@ -56,8 +47,7 @@ model ACline
     P_nominal=5000,
     l=2000,
     mode=Types.CableMode.commercial,
-    commercialCable_low=Transmission.LowVoltageCables.Cu50(),
-    voltageLevel=Buildings.Electrical.Types.VoltageLevel.Low)
+    commercialCable=Transmission.LowVoltageCables.Cu50())
     "Line that connects the source and the short circuit"
     annotation (Placement(transformation(extent={{-60,20},{-40,40}})));
   ThreePhasesBalanced.Loads.Impedance load_sc(R=0) "Short circuit"

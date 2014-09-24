@@ -13,7 +13,7 @@ Added User's guide.
 </html>", info="<html>
 <p>
 This package contains various functions that are used to compute
-cable properties and selectd the default cable during 
+cable properties and select the default cable during 
 automatic parametrization.
 </p>
 </html>"));

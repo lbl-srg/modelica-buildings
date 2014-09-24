@@ -1,13 +1,12 @@
 within Buildings.Electrical.Transmission.Functions;
 function selectCable_low "This function is used to automatically select the 
     type of cable for low voltages"
-  input Modelica.SIunits.Power P_nominal "Rated power";
-  input Modelica.SIunits.Voltage V_nominal "Rated voltage";
+  input Modelica.SIunits.Power P_nominal = 0 "Rated power";
+  input Modelica.SIunits.Voltage V_nominal = 0 "Rated voltage";
   output Buildings.Electrical.Transmission.LowVoltageCables.Generic cable "Cable";
 protected
   parameter Real safety_factor = 1.2;
-  Modelica.SIunits.Current I_nominal = safety_factor*P_nominal/V_nominal
-    "Nominal current flowing through the line";
+  Modelica.SIunits.Current I_nominal "Nominal current flowing through the line";
   Buildings.Electrical.Transmission.LowVoltageCables.Cu10 cu10;
   Buildings.Electrical.Transmission.LowVoltageCables.Cu20 cu20;
   Buildings.Electrical.Transmission.LowVoltageCables.Cu25 cu25;
@@ -16,6 +15,20 @@ protected
   Buildings.Electrical.Transmission.LowVoltageCables.Cu95 cu95;
   Buildings.Electrical.Transmission.LowVoltageCables.Cu100 cu100;
 algorithm
+
+  assert(Transmission.Functions.selectVoltageLevel(V_nominal) == Buildings.Electrical.Types.VoltageLevel.Low,
+  "In function Buildings.Electrical.Transmission.Functions.selectCable_low,
+  cable autosizing has a nominal Voltage " + String(V_nominal) + " [V].
+  The low voltage cables do not support such a voltage level.",
+  level=AssertionLevel.error);
+
+  // Check if it's possible to compute the current
+  if V_nominal > 0 then
+    I_nominal :=safety_factor*P_nominal/V_nominal;
+  else
+    I_nominal :=0;
+  end if;
+
   // Assumed the material is Copper
   if I_nominal < cu10.Amp then
         cable := cu10;
@@ -33,7 +46,7 @@ algorithm
         cable := cu100;
   else
     assert(I_nominal < cu100.Amp,
-"In function Buildings.Electrical.Transmission.Functions.selectCable_med,
+"In function Buildings.Electrical.Transmission.Functions.selectCable_low,
   cable autosizing does not support a current of " + String(I_nominal) + " [A].
   The selected cable will be undersized.",
   level=AssertionLevel.warning);

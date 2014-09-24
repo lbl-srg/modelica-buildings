@@ -1,5 +1,7 @@
 within Buildings.Electrical.Transmission.BaseClasses;
 partial model PartialNetwork "Partial model that represent an electric network"
+  parameter Modelica.SIunits.Voltage V_nominal(min=0, start=120)
+    "Nominal voltage of the lines in the network";
   replaceable parameter Buildings.Electrical.Transmission.Grids.PartialGrid grid
     "Record that describe the grid with the number of nodes, links, connections, etc."
     annotation (choicesAllMatching=true);
@@ -10,7 +12,7 @@ partial model PartialNetwork "Partial model that represent an electric network"
     each mode=Buildings.Electrical.Types.CableMode.commercial,
     l=grid.l[:, 1],
     each P_nominal=1000,
-    each V_nominal=120)
+    each V_nominal=V_nominal)
     "Array of line models, each line connecting two nodes of the grid";
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
             {100,100}}), graphics={

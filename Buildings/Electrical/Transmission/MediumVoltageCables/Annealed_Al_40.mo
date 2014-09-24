@@ -2,6 +2,7 @@ within Buildings.Electrical.Transmission.MediumVoltageCables;
 record Annealed_Al_40 "Annealed Al cable - AWG 4/0"
   extends Buildings.Electrical.Transmission.MediumVoltageCables.Generic(
     material=Types.Material.Al,
+    M = 228.1 + 273.15,
     size="4/0",
     Rdc=0.274278e-3,
     Tref=298.15,
@@ -25,6 +26,11 @@ Amp  = 285         // Ampacity [A]
 </pre>
 </html>", revisions="<html>
 <ul>
+<li>
+September 24, 2014, by Marco Bonvini:<br/>
+Revised structure of the record, now the temperature constant <code>M</code>
+is directly specified in the record.
+</li>
 <li>
 Sept 19, 2014, by Marco Bonvini:<br/>
 Added User's guide.

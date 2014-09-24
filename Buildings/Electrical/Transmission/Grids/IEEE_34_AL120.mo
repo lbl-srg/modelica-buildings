@@ -9,7 +9,8 @@ record IEEE_34_AL120 "Grid model inspired to the IEEE 34 Node test feeder"
         11,9]; [12,11]; [13,10]; [14,10]; [15,14]; [16,15]; [17,27]; [18,27]; [
         19,31]; [20,31]; [21,32]; [22,32]; [23,20]; [24,23]; [25,24]; [26,8]; [
         27,29]; [28,16]; [29,16]; [30,17]; [31,17]; [32,19]; [33,22]; [34,18]],
-    cables={LowVoltageCables.PvcAl120(),LowVoltageCables.PvcAl120(),
+    redeclare Buildings.Electrical.Transmission.LowVoltageCables.Generic cables=
+       {LowVoltageCables.PvcAl120(),LowVoltageCables.PvcAl120(),
         LowVoltageCables.PvcAl120(),LowVoltageCables.PvcAl120(),
         LowVoltageCables.PvcAl120(),LowVoltageCables.PvcAl120(),
         LowVoltageCables.PvcAl120(),LowVoltageCables.PvcAl120(),
@@ -59,7 +60,11 @@ represent a typical distribution feeder.</p>
 </html>", revisions="<html>
 <ul>
 <li>
-June 3, 2014, by Marco Bonvini:
+September 23, 2014, by Marco Bonvini:<br/>
+Added redeclare statement needed to specify the type of cables used in the array.
+</li>
+<li>
+June 3, 2014, by Marco Bonvini:<br/>
 Added User's guide.
 </li>
 </ul>

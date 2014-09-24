@@ -7,7 +7,7 @@ record PartialGrid "Partial model that represents a generalized grid"
     "Indexes [i,1]->[i,2] of the nodes connected by link i";
   parameter Modelica.SIunits.Length l[nLinks,1](each min=0)
     "Length of the cable";
-  Buildings.Electrical.Transmission.BaseClasses.BaseCable cables[nLinks]
+  replaceable Buildings.Electrical.Transmission.BaseClasses.BaseCable cables[nLinks]
     "Array that contains the characteristics of each cable";
   annotation (Documentation(info="<html>
 <p>
@@ -29,7 +29,12 @@ values contained in the matrices.
 </html>", revisions="<html>
 <ul>
 <li>
-June 3, 2014, by Marco Bonvini:
+September 23, 2014, by Marco Bonvini:<br/>
+Revised model structure. Now the type of the cable is replaceable 
+so it's possible to use either low voltage or medium voltage cable.
+</li>
+<li>
+June 3, 2014, by Marco Bonvini:<br/>
 Added User's guide.
 </li>
 </ul>

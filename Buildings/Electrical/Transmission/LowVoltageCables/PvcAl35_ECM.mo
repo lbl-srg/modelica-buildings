@@ -2,6 +2,7 @@ within Buildings.Electrical.Transmission.LowVoltageCables;
 record PvcAl35_ECM "Aluminum cable 35 mm^2"
     extends Buildings.Electrical.Transmission.LowVoltageCables.Generic(
     material=Types.Material.Al,
+    M = 228.1 + 273.15,
     RCha=0.956e-003,
     XCha=0.074e-003);
   annotation (Documentation(info="<html>
@@ -15,6 +16,11 @@ XCha = 0.074e-003 // Characteristic reactance [Ohm/m]
 </pre>
 </html>", revisions="<html>
 <ul>
+<li>
+September 24, 2014, by Marco Bonvini:<br/>
+Revised structure of the record, now the temperature constant <code>M</code>
+is directly specified in the record.
+</li>
 <li>
 Sept 19, 2014, by Marco Bonvini:<br/>
 Added User's guide.
