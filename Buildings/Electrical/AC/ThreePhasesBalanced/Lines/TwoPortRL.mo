@@ -1,14 +1,14 @@
 within Buildings.Electrical.AC.ThreePhasesBalanced.Lines;
 model TwoPortRL
   "Model of a resistive-inductive element with two electrical ports"
-  extends Buildings.Electrical.AC.OnePhase.Lines.TwoPortRL(redeclare
-      Interfaces.Terminal_n terminal_n, redeclare Interfaces.Terminal_p
-      terminal_p, V_nominal = 480);
+  extends Buildings.Electrical.AC.OnePhase.Lines.TwoPortRL(
+    redeclare Interfaces.Terminal_n terminal_n,
+    redeclare Interfaces.Terminal_p terminal_p,
+    V_nominal = 480);
   annotation (
     defaultComponentName="lineRL",
-    Diagram(graphics),                             Icon(
-        coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
-                                                                  graphics),
+    Diagram(graphics), Icon(
+        coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}})),
     Documentation(revisions="<html>
 <ul>
 <li>
@@ -18,7 +18,7 @@ Revised documentation.
 </ul>
 </html>", info="<html>
 <p>
-This model represents a resistive-inductive impedance that connect two AC three phases 
+Resistive-inductive impedance that connects two AC three phases 
 balanced interfaces. This model can be used to represent a
 cable in a three phases balanced AC system.
 </p>
