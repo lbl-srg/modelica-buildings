@@ -6,7 +6,7 @@ model Impedance "Partial model representing a generalized impedance"
     final P_nominal(fixed = true)=0,
     final V_nominal(fixed = true)=1);
   parameter Boolean inductive=true
-    "If =true the load is inductive, otherwise it is capacitive"
+    "If true, the load is inductive, otherwise it is capacitive"
     annotation (Evaluate=true, choices(
       choice=true "Inductive",
       choice=false "Capacitive",
