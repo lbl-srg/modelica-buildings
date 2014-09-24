@@ -5,50 +5,47 @@ model DCLine "Example model to test the DC lines"
     P_nominal=500,
     V_nominal=50,
     mode=Types.CableMode.commercial,
-    commercialCable_low=Transmission.LowVoltageCables.PvcAl16(),
-    l=100,
-    voltageLevel=Types.VoltageLevel.Low)
+    commercialCable=Transmission.LowVoltageCables.PvcAl16(),
+    l=100) "Transmission line"
     annotation (Placement(transformation(extent={{0,0},{20,20}})));
-  Sources.ConstantVoltage E(V=50)
+  Sources.ConstantVoltage E(V=50) "Voltage source"
     annotation (Placement(transformation(extent={{-80,0},{-60,20}})));
   Line line1(
     P_nominal=500,
     V_nominal=50,
     mode=Types.CableMode.commercial,
-    commercialCable_low=Transmission.LowVoltageCables.PvcAl16(),
-    l=100,
-    voltageLevel=Types.VoltageLevel.Low)
+    commercialCable=Transmission.LowVoltageCables.PvcAl16(),
+    l=100) "Transmission line"
     annotation (Placement(transformation(extent={{0,-20},{20,0}})));
   Line line2(
     P_nominal=500,
     V_nominal=50,
     mode=Types.CableMode.commercial,
-    commercialCable_low=Transmission.LowVoltageCables.PvcAl16(),
-    l=100,
-    voltageLevel=Types.VoltageLevel.Low)
+    commercialCable=Transmission.LowVoltageCables.PvcAl16(),
+    l=100) "Transmission line"
     annotation (Placement(transformation(extent={{0,-40},{20,-20}})));
   Modelica.Electrical.Analog.Basic.Ground ground
     annotation (Placement(transformation(extent={{-90,-20},{-70,0}})));
   Loads.Conductor load1(              mode=Types.Assumption.VariableZ_y_input,
     V_nominal=50,
     linearized=false,
-    P_nominal=-50)
+    P_nominal=-50) "Variable load"
     annotation (Placement(transformation(extent={{40,0},{60,20}})));
   Loads.Conductor load2(
     V_nominal=50,
     linearized=false,
-    P_nominal=-150)
+    P_nominal=-150) "Load"
     annotation (Placement(transformation(extent={{40,-20},{60,0}})));
   Loads.Conductor load3(
     V_nominal=50,
     linearized=false,
-    P_nominal=-200)
+    P_nominal=-200) "Load"
     annotation (Placement(transformation(extent={{40,-40},{60,-20}})));
   Modelica.Blocks.Sources.Ramp varLoad(
     height=0.8,
     duration=0.5,
     offset=0.2,
-    startTime=0.3)
+    startTime=0.3) "Load consumption profile"
     annotation (Placement(transformation(extent={{96,0},{76,20}})));
 equation
   connect(E.terminal, line.terminal_n) annotation (Line(

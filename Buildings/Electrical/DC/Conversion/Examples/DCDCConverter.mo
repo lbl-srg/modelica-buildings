@@ -4,16 +4,17 @@ model DCDCConverter "Test model DC to DC converter"
   Buildings.Electrical.DC.Loads.Conductor resistor(
     mode=Buildings.Electrical.Types.Assumption.FixedZ_steady_state,
     P_nominal=-2000,
-    V_nominal=60)
+    V_nominal=60) "Resistive load"
     annotation (Placement(transformation(extent={{38,30},{58,50}})));
-  Buildings.Electrical.DC.Sources.ConstantVoltage    sou(V=120) "Voltage source"
+  Buildings.Electrical.DC.Sources.ConstantVoltage    sou(V=120)
+    "Voltage source"
     annotation (Placement(transformation(extent={{-90,-10},{-70,10}})));
   Buildings.Electrical.DC.Conversion.DCDCConverter conDCDC(VHigh=120, VLow=60,
-      eta=0.9)
+      eta=0.9) "DC/DC transformer"
     annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
   Buildings.Electrical.DC.Loads.Conductor conductor(mode=Buildings.Electrical.Types.Assumption.VariableZ_P_input,
       V_nominal=60,
-    P_nominal=10e3)
+    P_nominal=10e3) "Variable resistive load"
     annotation (Placement(transformation(extent={{38,-30},{58,-10}})));
   Modelica.Blocks.Sources.Ramp varLoad_P(
     duration=0.5,
@@ -21,7 +22,7 @@ model DCDCConverter "Test model DC to DC converter"
     offset=-1000,
     height=10000)
     annotation (Placement(transformation(extent={{90,-30},{70,-10}})));
-  Buildings.Electrical.DC.Sensors.GeneralizedSensor sen
+  Buildings.Electrical.DC.Sensors.GeneralizedSensor sen "Power sensor"
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
 equation
   connect(varLoad_P.y, conductor.Pow) annotation (Line(

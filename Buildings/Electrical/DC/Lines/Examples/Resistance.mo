@@ -2,15 +2,15 @@ within Buildings.Electrical.DC.Lines.Examples;
 model Resistance "Example model to test for the DC resistance two port model"
   extends Modelica.Icons.Example;
 
-  TwoPortResistance lineR(R=10)
+  TwoPortResistance lineR(R=10) "Line resistance"
     annotation (Placement(transformation(extent={{-30,10},{-10,30}})));
-  Sources.ConstantVoltage constantVoltage(V=50)
+  Sources.ConstantVoltage constantVoltage(V=50) "Voltage source"
     annotation (Placement(transformation(extent={{-60,10},{-40,30}})));
   Modelica.Electrical.Analog.Basic.Ground ground
     annotation (Placement(transformation(extent={{-72,-16},{-52,4}})));
-  Loads.Resistor short_circuit(V_nominal=50, R=0)
+  Loads.Resistor short_circuit(V_nominal=50, R=0) "Short circuit load"
     annotation (Placement(transformation(extent={{30,10},{50,30}})));
-  Sensors.GeneralizedSensor sen
+  Sensors.GeneralizedSensor sen "Power sensor"
     annotation (Placement(transformation(extent={{0,10},{20,30}})));
 equation
   connect(ground.p, constantVoltage.n) annotation (Line(

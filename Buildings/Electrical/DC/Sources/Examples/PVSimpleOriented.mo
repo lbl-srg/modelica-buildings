@@ -5,10 +5,10 @@ model PVSimpleOriented
   extends Modelica.Icons.Example;
   Buildings.Electrical.DC.Sources.PVSimpleOriented
                                                pv(A=10,
+    V_nominal=12,
     til=0.34906585039887,
     lat=0.65798912800186,
-    azi=-0.78539816339745,
-    V_nominal=12) "PV module"
+    azi=-0.78539816339745) "PV module"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
@@ -16,6 +16,7 @@ model PVSimpleOriented
   Modelica.Electrical.Analog.Basic.Ground ground
     annotation (Placement(transformation(extent={{-92,-40},{-72,-20}})));
   Buildings.Electrical.DC.Loads.Resistor    res(R=0.5, V_nominal=12)
+    "Resistance"
     annotation (Placement(transformation(extent={{-2,-10},{18,10}})));
   Buildings.Electrical.DC.Sources.ConstantVoltage    sou(V=12) "Voltage source"
     annotation (Placement(transformation(extent={{-82,-10},{-62,10}})));
@@ -25,7 +26,7 @@ model PVSimpleOriented
   Buildings.Electrical.DC.Lines.TwoPortResistance lin(R=0.05)
     "Transmission line"
     annotation (Placement(transformation(extent={{-38,30},{-18,50}})));
-  Buildings.Electrical.DC.Sensors.GeneralizedSensor sen
+  Buildings.Electrical.DC.Sensors.GeneralizedSensor sen "Sensor"
     annotation (Placement(transformation(extent={{0,30},{20,50}})));
 equation
   connect(sou.terminal, res.terminal) annotation (Line(

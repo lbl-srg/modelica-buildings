@@ -1,7 +1,7 @@
 within Buildings.Electrical.DC.Sensors.Examples;
 model GeneralizedSensor "Example model for generalized sensor"
   extends Modelica.Icons.Example;
-  Buildings.Electrical.DC.Sensors.GeneralizedSensor sen
+  Buildings.Electrical.DC.Sensors.GeneralizedSensor sen "Power sensor"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   Buildings.Electrical.DC.Loads.Conductor loa(V_nominal=120, P_nominal=120)
     "Constant load"
