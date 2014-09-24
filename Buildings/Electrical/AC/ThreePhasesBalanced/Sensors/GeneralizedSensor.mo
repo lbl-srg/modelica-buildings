@@ -8,8 +8,12 @@ model GeneralizedSensor "Sensor for power, voltage and current"
           PhaseSystem_n),
     redeclare Interfaces.Terminal_p terminal_p(redeclare package PhaseSystem =
           PhaseSystem_p));
-  Modelica.Blocks.Interfaces.RealOutput V(final quantity="ElectricPotential",
-                                          final unit="V") "Voltage"           annotation (Placement(
+  Modelica.Blocks.Interfaces.RealOutput V(
+    final quantity="ElectricPotential",
+    final unit="V")=
+      Buildings.Electrical.PhaseSystems.OnePhase.systemVoltage(terminal_n.v)
+    "Voltage"
+      annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=270,
@@ -17,8 +21,12 @@ model GeneralizedSensor "Sensor for power, voltage and current"
         extent={{-10,-10},{10,10}},
         rotation=270,
         origin={0,-90})));
-  Modelica.Blocks.Interfaces.RealOutput I(final quantity="ElectricCurrent",
-                                          final unit="A") "Current"           annotation (Placement(
+  Modelica.Blocks.Interfaces.RealOutput I(
+    final quantity="ElectricCurrent",
+    final unit="A")=
+      Buildings.Electrical.PhaseSystems.OnePhase.systemCurrent(terminal_n.i)
+    "Current"
+      annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=270,
@@ -27,8 +35,11 @@ model GeneralizedSensor "Sensor for power, voltage and current"
         rotation=270,
         origin={60,-90})));
   Modelica.Blocks.Interfaces.RealOutput S[PhaseSystems.OnePhase.n](
-                                          each final quantity="Power",
-                                          each final unit="W") "Phase powers"             annotation (Placement(
+    each final quantity="Power",
+    each final unit="W")=
+      Buildings.Electrical.PhaseSystems.OnePhase.phasePowers_vi(v=terminal_n.v, i=terminal_n.i)
+    "Phase powers"
+      annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=270,
@@ -37,11 +48,6 @@ model GeneralizedSensor "Sensor for power, voltage and current"
         rotation=270,
         origin={-60,-90})));
 equation
-
-  V = Buildings.Electrical.PhaseSystems.OnePhase.systemVoltage(terminal_n.v);
-  I = Buildings.Electrical.PhaseSystems.OnePhase.systemCurrent(terminal_n.i);
-  S = Buildings.Electrical.PhaseSystems.OnePhase.phasePowers_vi(v=terminal_n.v, i=terminal_n.i);
-
   connect(terminal_n, terminal_p) annotation (Line(
       points={{-100,0},{2,0},{2,0},{100,0}},
       color={0,120,120},
@@ -55,8 +61,13 @@ The two components of the power <i>S</i> are the active and reactive power.
 </html>", revisions="<html>
 <ul>
 <li>
+September 24, 2014, by Michael Wetter:<br/>
+Moved assignments outside of equation section to avoid mixing
+textual and graphical modeling.
+</li>
+<li>
 September 22, 2014, by Marco Bonvini:<br/>
-Fixed bug. The model was referencing to the wrong PhaseSystem.
+Fixed bug. The model was referencing the wrong PhaseSystem.
 </li>
 <li>
 August 25, 2014, by Marco Bonvini:<br/>

@@ -15,11 +15,13 @@ model ACDCConverter
     conversionFactor=120/480) "AC/DC transformer"
     annotation (Placement(transformation(extent={{-10,0},{10,20}})));
   Buildings.Electrical.AC.ThreePhasesBalanced.Sources.FixedVoltage sou(
-    definiteReference=true) "Voltage source" annotation (Placement(transformation(
+    definiteReference=true) "Voltage source"
+    annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-62,10})));
-  Buildings.Electrical.DC.Loads.Conductor load(mode=Buildings.Electrical.Types.Assumption.VariableZ_P_input,
+  Buildings.Electrical.DC.Loads.Conductor load(
+    mode=Buildings.Electrical.Types.Assumption.VariableZ_P_input,
     P_nominal=-200,
     V_nominal=120) "Variable resistive load"
     annotation (Placement(

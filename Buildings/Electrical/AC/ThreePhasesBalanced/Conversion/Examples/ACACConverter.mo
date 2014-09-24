@@ -2,15 +2,13 @@ within Buildings.Electrical.AC.ThreePhasesBalanced.Conversion.Examples;
 model ACACConverter
   "This example illustrates how to use the AC/AC converter model"
   extends Modelica.Icons.Example;
-  // fixme: All examples in this package give the warning
-  // Modifiers cannot have subscripts
-  // which must be fixed.
+
   Buildings.Electrical.AC.ThreePhasesBalanced.Conversion.ACACConverter
     conACAC(eta=0.9, conversionFactor=120/480) "ACAC transformer"
     annotation (Placement(transformation(extent={{-10,0},{10,20}})));
-  Buildings.Electrical.AC.ThreePhasesBalanced.Sources.FixedVoltage                 sou(
+  Buildings.Electrical.AC.ThreePhasesBalanced.Sources.FixedVoltage sou(
     definiteReference=true) "Voltage source"
-                          annotation (Placement(transformation(
+    annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-60,10})));
@@ -43,8 +41,8 @@ equation
     __Dymola_experimentSetupOutput,
     Documentation(info="<html>
 <p>
-This example illustrates the use of a model that converts AC voltage to AC voltage
-converter model. The transformer model assumes a linear loss when transmitting the power.
+This example illustrates the use of a model that converts AC voltage to AC voltage.
+The transformer model assumes a linear loss when transmitting the power.
 </p>
 </html>",
       revisions="<html>

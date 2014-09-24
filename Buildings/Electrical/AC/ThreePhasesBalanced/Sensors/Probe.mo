@@ -8,10 +8,7 @@ model Probe "Model of a probe that measures RMS voltage and angle"
   Documentation(info="<html>
 <p>
 This model represents a probe that measures the RMS voltage and the angle
-of the voltage phasor (in degrees) at a given point.
-</p>
-<p>
-Given a reference voltage the model computes also the voltage in per unit.
+of the voltage phasor at a given point.
 </p>
 </html>", revisions="<html>
 <ul>

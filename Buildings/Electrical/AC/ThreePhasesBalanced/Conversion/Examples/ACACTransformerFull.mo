@@ -2,8 +2,7 @@ within Buildings.Electrical.AC.ThreePhasesBalanced.Conversion.Examples;
 model ACACTransformerFull
   "This example illustrates how to use the AC/AC transformer model"
   extends Modelica.Icons.Example;
-  Buildings.Electrical.AC.ThreePhasesBalanced.Conversion.ACACTransformerFull
-                                                              tra_load(
+  Buildings.Electrical.AC.ThreePhasesBalanced.Conversion.ACACTransformerFull tra_load(
     R1=0.0001,
     L1=0.0001,
     R2=0.0001,
@@ -15,9 +14,9 @@ model ACACTransformerFull
     VHigh=480,
     VLow=120) "Transformer with load"
     annotation (Placement(transformation(extent={{-18,40},{2,60}})));
-  Buildings.Electrical.AC.ThreePhasesBalanced.Sources.FixedVoltage                 sou(
+  Buildings.Electrical.AC.ThreePhasesBalanced.Sources.FixedVoltage sou(
     definiteReference=true) "Voltage source"
-                          annotation (Placement(transformation(
+    annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-70,50})));
@@ -25,16 +24,15 @@ model ACACTransformerFull
     mode=Buildings.Electrical.Types.Assumption.VariableZ_P_input,
     P_nominal=-2000,
     pf=0.8,
-    V_nominal=120) "Load model"
-            annotation (Placement(transformation(extent={{10,40},{30,60}})));
+    V_nominal=120) "Load"
+    annotation (Placement(transformation(extent={{10,40},{30,60}})));
   Modelica.Blocks.Sources.Ramp ramp(
     duration=0.5,
     startTime=0.3,
     offset=0,
     height=-4000*0.8) "Load power consumption profile"
     annotation (Placement(transformation(extent={{70,40},{50,60}})));
-  Buildings.Electrical.AC.ThreePhasesBalanced.Conversion.ACACTransformerFull
-                                                              tra_cc(
+  Buildings.Electrical.AC.ThreePhasesBalanced.Conversion.ACACTransformerFull tra_cc(
     VABase=4000,
     R1=0.01,
     L1=0.01,
@@ -49,8 +47,7 @@ model ACACTransformerFull
   Buildings.Electrical.AC.ThreePhasesBalanced.Loads.Impedance shortCircuit(R=1e-8)
     "Short circuit"
     annotation (Placement(transformation(extent={{10,0},{30,20}})));
-  Buildings.Electrical.AC.ThreePhasesBalanced.Conversion.ACACTransformerFull
-                                                              tra_void(
+  Buildings.Electrical.AC.ThreePhasesBalanced.Conversion.ACACTransformerFull tra_void(
     VABase=4000,
     R1=0.01,
     L1=0.01,
@@ -63,14 +60,14 @@ model ACACTransformerFull
     VLow=120) "Transformer with open connection"
     annotation (Placement(transformation(extent={{-16,-30},{4,-10}})));
   Buildings.Electrical.AC.ThreePhasesBalanced.Sources.FixedVoltage sou1(
-    definiteReference=true) "Voltage source for short circuit and open tests "
-                          annotation (Placement(transformation(
+    definiteReference=true) "Voltage source for short circuit and open tests"
+    annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-70,10})));
 equation
   connect(sou.terminal, tra_load.terminal_n)
-                                            annotation (Line(
+    annotation (Line(
       points={{-60,50},{-18,50}},
       color={0,120,120},
       smooth=Smooth.None));
@@ -99,7 +96,7 @@ equation
     __Dymola_experimentSetupOutput,
     Documentation(info="<html>
 <p>
-This example illustrates the use of a the AC/AC transformer model
+This example illustrates the use of the AC/AC transformer model
 that includes losses at the primary and secondary side and magnetization
 effects.
 The example shows three different configurations:

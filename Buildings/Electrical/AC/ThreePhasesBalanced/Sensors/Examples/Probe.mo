@@ -21,8 +21,8 @@ model Probe "This example illustrates how to use the probe model"
     "Second line resistance"
     annotation (Placement(transformation(extent={{-26,-70},{-6,-50}})));
   Buildings.Electrical.AC.ThreePhasesBalanced.Loads.Inductive loaRL(
-    mode=Buildings.Electrical.Types.Assumption.FixedZ_steady_state, P_nominal=-10000)
-    "Constant load"
+    mode=Buildings.Electrical.Types.Assumption.FixedZ_steady_state,
+    P_nominal=-10000) "Constant load"
     annotation (Placement(transformation(extent={{10,-70},{30,-50}})));
   Buildings.Electrical.AC.ThreePhasesBalanced.Sensors.Probe probe_loadRL
     "Probe that measures at the RL load"
