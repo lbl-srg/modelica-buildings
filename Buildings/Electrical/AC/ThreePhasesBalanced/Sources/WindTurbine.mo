@@ -1,9 +1,9 @@
 within Buildings.Electrical.AC.ThreePhasesBalanced.Sources;
 model WindTurbine "Model of a simple wind turbine generator"
   extends Buildings.Electrical.AC.OnePhase.Sources.WindTurbine(
-    redeclare Interfaces.Terminal_p terminal, redeclare
-      Buildings.Electrical.AC.ThreePhasesBalanced.Loads.Capacitive load,
-      V_nominal = 480);
+    redeclare Interfaces.Terminal_p terminal,
+    redeclare Buildings.Electrical.AC.ThreePhasesBalanced.Loads.Capacitive load,
+    V_nominal = 480);
   annotation (
     defaultComponentName="winTur",
     Documentation(revisions="<html>
