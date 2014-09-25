@@ -14,7 +14,7 @@ model Inductive_N
   Modelica.Blocks.Interfaces.RealInput pf_in_1(
     min=0,
     max=1,
-    unit="1") if (use_pf_in and plugPhase1) "Power factor" annotation (Placement(transformation(
+    unit="1") if (use_pf_in and plugPhase1) "Power factor of load on phase 1" annotation (Placement(transformation(
         extent={{-20,-20},{20,20}},
         rotation=90,
         origin={80,-120}),iconTransformation(
@@ -24,7 +24,7 @@ model Inductive_N
   Modelica.Blocks.Interfaces.RealInput pf_in_2(
     min=0,
     max=1,
-    unit="1") if (use_pf_in and plugPhase2) "Power factor" annotation (Placement(transformation(
+    unit="1") if (use_pf_in and plugPhase2) "Power factor of load on phase 2" annotation (Placement(transformation(
         extent={{-20,-20},{20,20}},
         rotation=90,
         origin={40,-120}),iconTransformation(
@@ -34,7 +34,7 @@ model Inductive_N
   Modelica.Blocks.Interfaces.RealInput pf_in_3(
     min=0,
     max=1,
-    unit="1") if (use_pf_in and plugPhase3) "Power factor" annotation (Placement(transformation(
+    unit="1") if (use_pf_in and plugPhase3) "Power factor of load on phase 3" annotation (Placement(transformation(
         extent={{-20,-20},{20,20}},
         rotation=90,
         origin={-60,-120}),
@@ -217,6 +217,6 @@ Buildings.Electrical.AC.ThreePhasesUnbalanced.Loads.BaseClasses.LoadCtrl_N</a> a
 Buildings.Electrical.AC.OnePhase.Loads.Inductive</a>.
 </p>
 </html>"),
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
-            100,100}}), graphics));
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
+            100}}), graphics));
 end Inductive_N;
