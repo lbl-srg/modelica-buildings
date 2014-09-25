@@ -14,7 +14,7 @@ model FixedVoltage_N "Fixed voltage source with neutral cable"
      annotation (Evaluate=true, Dialog(group="Reference Parameters"));
   parameter Modelica.SIunits.Angle angle120 = 2*Modelica.Constants.pi/3
     "Phase shift between the phase voltages";
-  OnePhase.Sources.FixedVoltage Vphase[3](
+  OnePhase.Sources.FixedVoltage vPhase[3](
     each f=f,
     phiSou={phiSou, phiSou + angle120, phiSou + 2*angle120},
     potentialReference={potentialReference, potentialReference, potentialReference},
@@ -23,15 +23,15 @@ model FixedVoltage_N "Fixed voltage source with neutral cable"
              annotation (Placement(transformation(extent={{-30,-10},{-10,10}})));
 equation
 
-  connect(Vphase[1].terminal, terminal.phase[1]) annotation (Line(
+  connect(vPhase[1].terminal, terminal.phase[1]) annotation (Line(
       points={{-10,6.66134e-16},{20,6.66134e-16},{20,0},{100,0}},
       color={0,120,120},
       smooth=Smooth.None));
-  connect(Vphase[2].terminal, terminal.phase[2]) annotation (Line(
+  connect(vPhase[2].terminal, terminal.phase[2]) annotation (Line(
       points={{-10,6.66134e-16},{10,6.66134e-16},{10,0},{100,0}},
       color={0,120,120},
       smooth=Smooth.None));
-  connect(Vphase[3].terminal, terminal.phase[3]) annotation (Line(
+  connect(vPhase[3].terminal, terminal.phase[3]) annotation (Line(
       points={{-10,6.66134e-16},{100,6.66134e-16}},
       color={0,120,120},
       smooth=Smooth.None));

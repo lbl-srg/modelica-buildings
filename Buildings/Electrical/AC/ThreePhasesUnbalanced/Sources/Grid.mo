@@ -43,7 +43,7 @@ equation
 Model that can be used to represent the electrical grid supply.
 </p>
 <p>
-The model has an output connector named <code>P[3]</code> that
+The model has an output connector named <code>P[n]</code> with <code>n = 3</code> that
 contains information about the power supplied by the grid to the network.
 The convention is that <code>P[i].real</code> is positive if real power is
 consumed from the grid, and negative if it is fed into the grid.
