@@ -1,7 +1,6 @@
 within Buildings.Electrical.AC.ThreePhasesUnbalanced.Lines;
 model TwoPortMatrixRLC
   "This model represents a PI model of a line parametrized using matrices"
-  import Buildings;
   Interfaces.Terminal_n terminal_n
     annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
   Interfaces.Terminal_p terminal_p
