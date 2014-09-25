@@ -3,14 +3,14 @@ model Probe "Model of a probe that measures RMS voltage and angle"
   extends Icons.GeneralizedProbe;
   parameter Modelica.SIunits.Voltage V_nominal(min=0, start=120) = 120
     "Nominal voltage (V_nominal >= 0)";
-  parameter Boolean perUnit = true "This flag display voltage in p.u.";
+  parameter Boolean perUnit = true "If true, display voltage in p.u.";
   Interfaces.Terminal_n term "Electrical connector" annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={0,-90})));
-  Modelica.Blocks.Interfaces.RealOutput V(unit="1")
-    "Voltage phasor magnitude in per unit"                                                 annotation (Placement(
+  Modelica.Blocks.Interfaces.RealOutput V(unit=if perUnit then "1" else "V")
+    "Voltage phasor magnitude"                                                                          annotation (Placement(
         transformation(extent={{60,20},{80,40}}), iconTransformation(extent={{60,
             20},{80,40}})));
   Modelica.Blocks.Interfaces.RealOutput theta(unit="rad", displayUnit="deg")

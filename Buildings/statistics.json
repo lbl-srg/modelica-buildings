@@ -1,0 +1,40 @@
+{
+    "testCase": [
+        {
+            "model": "Buildings.Electrical.AC.ThreePhasesBalanced.Sensors.Examples.Probe",
+            "simulate": {
+                "redundant consistent initial conditions": 0,
+                "numerical Jacobians": 0,
+                "type incompatibility": 0,
+                "unused connector": 0,
+                "command": "RunScript(\"Resources/Scripts/Dymola/Electrical/AC/ThreePhasesBalanced/Sensors/Examples/GeneralizedProbe.mos\");",
+                "result": true,
+                "type inconsistent definition equations": 0,
+                "unspecified initial conditions": false
+            },
+            "check": {
+                "command": "checkModel(\"Buildings.Electrical.AC.ThreePhasesBalanced.Sensors.Examples.Probe\");",
+                "result": true
+            },
+            "file": "Buildings/Resources/Scripts/Dymola/Electrical/AC/ThreePhasesBalanced/Sensors/Examples/GeneralizedProbe.mos"
+        },
+        {
+            "model": "Buildings.Electrical.AC.ThreePhasesBalanced.Sensors.Examples.GeneralizedSensor",
+            "simulate": {
+                "redundant consistent initial conditions": 0,
+                "numerical Jacobians": 0,
+                "type incompatibility": 0,
+                "unused connector": 0,
+                "command": "RunScript(\"Resources/Scripts/Dymola/Electrical/AC/ThreePhasesBalanced/Sensors/Examples/GeneralizedSensor.mos\");",
+                "result": true,
+                "type inconsistent definition equations": 0,
+                "unspecified initial conditions": false
+            },
+            "check": {
+                "command": "checkModel(\"Buildings.Electrical.AC.ThreePhasesBalanced.Sensors.Examples.GeneralizedSensor\");",
+                "result": true
+            },
+            "file": "Buildings/Resources/Scripts/Dymola/Electrical/AC/ThreePhasesBalanced/Sensors/Examples/GeneralizedSensor.mos"
+        }
+    ]
+}

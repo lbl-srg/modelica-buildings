@@ -12,7 +12,7 @@ partial model InductiveLoad "Partial model of an inductive load"
                    annotation (Placement(transformation(
         extent={{-20,-20},{20,20}},
         rotation=180,
-        origin={110,-16}), iconTransformation(
+        origin={100,60}),  iconTransformation(
         extent={{-20,-20},{20,20}},
         rotation=180,
         origin={100,60})));

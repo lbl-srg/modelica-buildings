@@ -1,7 +1,11 @@
 within Buildings.Electrical.AC.OnePhase.Interfaces;
 connector Terminal_n "Terminal n for AC one phase systems"
-  extends Buildings.Electrical.Interfaces.Terminal(redeclare replaceable
-      package PhaseSystem = Buildings.Electrical.PhaseSystems.OnePhase);
+  extends Buildings.Electrical.Interfaces.Terminal(
+    redeclare replaceable package PhaseSystem =
+        Buildings.Electrical.PhaseSystems.OnePhase);
+  // fixme: Shouldn't Termminal_p and Terminal_n declare the PhaseSystem
+  // as final rathern than replaceable. Otherwise, someone may replace
+  // the phase system, but still has the same icon for the connector.
   annotation (defaultComponentName = "term_p",
   Documentation(info="<html>
 <p>Electric connector for AC one phase systems.</p>

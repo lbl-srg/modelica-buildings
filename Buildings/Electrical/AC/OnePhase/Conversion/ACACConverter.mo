@@ -5,12 +5,17 @@ model ACACConverter "AC AC converter single phase systems"
     redeclare package PhaseSystem_n = PhaseSystems.OnePhase,
     redeclare Interfaces.Terminal_n terminal_n(
       redeclare package PhaseSystem = PhaseSystem_n,
-      i[:](start = zeros(PhaseSystem_n.n),
+      i(start = zeros(PhaseSystem_n.n),
       each stateSelect = StateSelect.prefer)),
     redeclare Interfaces.Terminal_p terminal_p(
       redeclare package PhaseSystem = PhaseSystem_p,
-      i[:](start = zeros(PhaseSystem_p.n),
+      i(start = zeros(PhaseSystem_p.n),
       each stateSelect = StateSelect.prefer)));
+  // fixme: why is above the PhaseSystem in the terminal
+  // redeclared? The terminal already declares what phase system
+  // it needs, hence I would think we do not need another
+  // redclaration. Without this redeclaration, the phase system
+  // in Interfaces.Terminal_{p,n} could be made final I think.
   parameter Real conversionFactor
     "Ratio of QS rms voltage on side 2 / QS rms voltage on side 1";
   parameter Real eta(min=0, max=1)

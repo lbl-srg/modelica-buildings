@@ -1,7 +1,8 @@
 within Buildings.Electrical.AC.ThreePhasesBalanced.Loads;
 model Inductive "Model of an inductive and resistive load"
-  extends Buildings.Electrical.AC.OnePhase.Loads.Inductive(     redeclare
-      Interfaces.Terminal_n terminal, V_nominal=480);
+  extends Buildings.Electrical.AC.OnePhase.Loads.Inductive(
+    redeclare Interfaces.Terminal_n terminal,
+    V_nominal=480);
   annotation (
   defaultComponentName="loa",
   Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,

@@ -81,7 +81,7 @@ equation
     __Dymola_experimentSetupOutput,
     Documentation(info="<html>
 <p>
-This example illustrates the use of a the AC/AC transformer model.
+This example illustrates the use of the AC/AC transformer model.
 The example shows three different configurations:
 </p>
 <ul>

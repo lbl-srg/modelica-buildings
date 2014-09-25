@@ -5,8 +5,8 @@ package Conversion "Package with trasformers and converter models for three phas
 
 annotation (Documentation(info="<html>
 <p>
-This package contains models for thre phases balanced AC/AC 
-trasformers and AC/DC converters.
+This package contains models for three phases balanced AC/AC 
+transformers and AC/DC converters.
 </p>
 </html>", revisions="<html>
 <ul>

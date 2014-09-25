@@ -1,5 +1,5 @@
 within Buildings.Electrical.AC.ThreePhasesBalanced.Lines.Examples;
-model ACline_RL "Test model for a single phase inductive-resistive line"
+model ACline_RL "Test model for single phase inductive-resistive lines"
   extends Modelica.Icons.Example;
   parameter Modelica.SIunits.Resistance Rbase = 10
     "Base value for the line resistance";
@@ -82,9 +82,9 @@ and <code>load_sc_3</code> representing short circuits <i>R=0</i>.
 The current that flows through the load depends on the impedance of the line.
 </p>
 <p>
-Each load is connected to the source with different configurations,
-however the equivalent impedance between each load and the source is the same.
-Since the equivalent impedances are the same, each load draw the same current.
+Each load is connected to the source with different configurations.
+However, the equivalent impedance between each load and the source is the same.
+Since the equivalent impedances are the same, each load draws the same current.
 </p>
 <p>
 <b>Note:</b>

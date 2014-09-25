@@ -1,7 +1,7 @@
 within Buildings.Electrical.AC.ThreePhasesBalanced.Sources;
 model Generator "Model of a generator"
-  extends Buildings.Electrical.AC.OnePhase.Sources.Generator(redeclare
-      Interfaces.Terminal_p terminal);
+  extends Buildings.Electrical.AC.OnePhase.Sources.Generator(
+    redeclare Interfaces.Terminal_p terminal);
   annotation (
     defaultComponentName="gen",
     Documentation(info="<html>

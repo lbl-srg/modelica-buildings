@@ -5,11 +5,11 @@ model ACACTransformer "AC AC transformer simplified equivalent circuit"
     redeclare package PhaseSystem_n = PhaseSystems.OnePhase,
     redeclare Interfaces.Terminal_n terminal_n(
       redeclare package PhaseSystem = PhaseSystem_n,
-      i[:](start = zeros(PhaseSystem_n.n),
+      i(start = zeros(PhaseSystem_n.n),
       each stateSelect = StateSelect.prefer)),
     redeclare Interfaces.Terminal_p terminal_p(
       redeclare package PhaseSystem = PhaseSystem_p,
-      i[:](start = zeros(PhaseSystem_p.n),
+      i(start = zeros(PhaseSystem_p.n),
       each stateSelect = StateSelect.prefer)));
   parameter Modelica.SIunits.Voltage VHigh
     "Rms voltage on side 1 of the transformer (primary side)";

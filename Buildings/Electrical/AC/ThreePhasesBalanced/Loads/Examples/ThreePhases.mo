@@ -2,9 +2,13 @@ within Buildings.Electrical.AC.ThreePhasesBalanced.Loads.Examples;
 model ThreePhases
   "Example that provides a comparison between AC one phase and three phases balanced"
   extends Modelica.Icons.Example;
-  Modelica.SIunits.Power errorY
+  Modelica.SIunits.Power errorY=
+    sqrt((sen_Y.S[1] - (sen_a.S[1] + sen_b.S[1] + sen_c.S[1]))^2 +
+    (sen_Y.S[2] - (sen_a.S[2] + sen_b.S[2] + sen_c.S[2]))^2)
     "Difference of the power consumption in the star (Y) connection";
-  Modelica.SIunits.Power errorD
+  Modelica.SIunits.Power errorD=
+    sqrt((sen_D.S[1] - (sen_ab.S[1] + sen_bc.S[1] + sen_ca.S[1]))^2 +
+    (sen_D.S[2] - (sen_ab.S[2] + sen_bc.S[2] + sen_ca.S[2]))^2)
     "Difference of the power consumption in the triangle (D) connection";
   Sources.FixedVoltage sou(definiteReference=true)
     "Three phases balanced voltage source"
@@ -43,10 +47,10 @@ model ThreePhases
     L=1/(2*Modelica.Constants.pi*60)) "Impedance on phase C"
     annotation (Placement(transformation(extent={{-40,-90},{-20,-70}})));
   Impedance RL_tri(
-    star=false,
     R=1,
     inductive=true,
-    L=1/(2*Modelica.Constants.pi*60)) "Impedance with D connection"
+    L=1/(2*Modelica.Constants.pi*60),
+    star=false) "Impedance with D connection"
     annotation (Placement(transformation(extent={{40,20},{60,40}})));
   OnePhase.Sources.FixedVoltage sou_ab(
     V=480,
@@ -101,13 +105,6 @@ model ThreePhases
     "Sensor located on line CA (D connection)"
     annotation (Placement(transformation(extent={{34,-90},{54,-70}})));
 equation
-
-  errorY = sqrt((sen_Y.S[1] - (sen_a.S[1] + sen_b.S[1] + sen_c.S[1]))^2 +
-                (sen_Y.S[2] - (sen_a.S[2] + sen_b.S[2] + sen_c.S[2]))^2);
-
-  errorD = sqrt((sen_D.S[1] - (sen_ab.S[1] + sen_bc.S[1] + sen_ca.S[1]))^2 +
-                (sen_D.S[2] - (sen_ab.S[2] + sen_bc.S[2] + sen_ca.S[2]))^2);
-
   connect(sou_a.terminal, sen_a.terminal_n) annotation (Line(
       points={{-70,-20},{-66,-20}},
       color={0,120,120},

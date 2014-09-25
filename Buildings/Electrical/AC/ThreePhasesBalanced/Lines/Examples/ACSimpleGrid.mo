@@ -1,16 +1,18 @@
 within Buildings.Electrical.AC.ThreePhasesBalanced.Lines.Examples;
 model ACSimpleGrid "Test model for a network model"
   extends Modelica.Icons.Example;
-  ThreePhasesBalanced.Lines.Network network(redeclare
-      Buildings.Electrical.Transmission.Grids.TestGrid2Nodes grid)
+  ThreePhasesBalanced.Lines.Network network(
+    redeclare Buildings.Electrical.Transmission.Grids.TestGrid2Nodes grid)
     "Network model that represents the connection between the source and the load"
     annotation (Placement(transformation(extent={{20,-10},{0,10}})));
-  ThreePhasesBalanced.Loads.Inductive load(P_nominal=2500, mode=Types.Assumption.VariableZ_P_input)
-    "Load connected to the network"
+  ThreePhasesBalanced.Loads.Inductive load(
+    P_nominal=2500,
+    mode=Types.Assumption.VariableZ_P_input) "Load connected to the network"
     annotation (Placement(transformation(extent={{-28,10},{-48,30}})));
-  ThreePhasesBalanced.Sources.FixedVoltage E "Voltage source" annotation (Placement(
+  ThreePhasesBalanced.Sources.FixedVoltage E "Voltage source"
+   annotation (Placement(
         transformation(
-        extent={{10,-10},{-10,10}},
+        extent={{10,10},{-10,-10}},
         rotation=180,
         origin={-70,0})));
   Modelica.Blocks.Sources.Ramp load_inputs(
@@ -25,8 +27,8 @@ equation
       color={0,120,120},
       smooth=Smooth.None));
   connect(E.terminal, network.terminal[1]) annotation (Line(
-      points={{-60,-8.88178e-16},{-56,-8.88178e-16},{-56,4.44089e-16},{-4.44089e-16,
-          4.44089e-16}},
+      points={{-60,-1.33227e-15},{-56,-1.33227e-15},{-56,4.44089e-16},{
+          -4.44089e-16,4.44089e-16}},
       color={0,120,120},
       smooth=Smooth.None));
   connect(load_inputs.y, load.Pow) annotation (Line(

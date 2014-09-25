@@ -1,7 +1,8 @@
 within Buildings.Electrical.AC.ThreePhasesBalanced.Loads;
 model Capacitive "Model of a capacitive and resistive load"
-  extends Buildings.Electrical.AC.OnePhase.Loads.Capacitive(     redeclare
-      Interfaces.Terminal_n terminal, V_nominal=480);
+  extends Buildings.Electrical.AC.OnePhase.Loads.Capacitive(
+    redeclare Interfaces.Terminal_n terminal,
+    V_nominal=480);
   annotation (
   defaultComponentName="loa",
   Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,

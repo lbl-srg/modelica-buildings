@@ -1,7 +1,8 @@
 within Buildings.Electrical.AC.OnePhase.Interfaces;
 connector Terminal_p "Terminal p for AC one phase systems"
-  extends Buildings.Electrical.Interfaces.Terminal(redeclare replaceable
-      package PhaseSystem = Buildings.Electrical.PhaseSystems.OnePhase);
+  extends Buildings.Electrical.Interfaces.Terminal(
+    redeclare replaceable package PhaseSystem =
+        Buildings.Electrical.PhaseSystems.OnePhase);
   annotation (defaultComponentName = "term_p",
   Documentation(info="<html>
 <p>Electric connector for AC one phase systems.</p>

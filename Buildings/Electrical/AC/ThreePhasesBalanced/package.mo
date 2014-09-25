@@ -6,8 +6,8 @@ package ThreePhasesBalanced "Three phases balanced AC systems"
 annotation (Documentation(info="<html>
 <p>
 Package with models for alternate current (AC) three phase balanced systems.<br/>
-Because of the balanced nature of the systems, the models contained in this 
-package extends the models of the package
+Because the phases are balanced, the models in this 
+package extend the models of the package
 <a href=\"modelica://Buildings.Electrical.AC.OnePhase\">
 Buildings.Electrical.AC.OnePhase</a>.
 </p>

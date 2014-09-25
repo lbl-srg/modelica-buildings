@@ -82,15 +82,15 @@ The example compares three different batteries. The battery named
 <code>bat_ideal</code> is ideal and it does not account for any losses.
 The battery named <code>bat_loss_acdc</code> accounts for conversion losses when converting
 between AC to DC.
-The battery named <code>bat</code> accounts for bot conversion losses and inefficiencies
-during both the charge and discharge phases.
+The battery named <code>bat</code> accounts for both conversion losses and inefficiencies
+during the charge and discharge phases.
 </p>
 <p>
-All the batteries start from the same initial condition that is 50% of their total capacity.
+All the batteries start from the same initial condition that is <i>50%</i> of their total capacity.
 The batteries are charged and discharged in the same way. The input signal <code>pow.y</code>
-is the power that each battery should store or release. The signal has a duty cycle equal to 50%
-thus if there are no losses the same amount of power stored into the battery will be 
-released and after one cycle teh State OF Charge (SOC) has to be equal.
+is the power that each battery should store or release. The signal has a duty cycle equal to <i>50%</i>.
+Hence, if there are no losses, the same amount of power stored into the battery will be 
+released and after one cycle the State Of Charge (SOC) has to be equal.
 </p>
 <p>
 The image below show the SOC of the three batteries.
@@ -99,7 +99,7 @@ The image below show the SOC of the three batteries.
 <img alt=\"alt-image\" src=\"modelica://Buildings/Resources/Images/Electrical/AC/OnePhase/Storage/Examples/SOCs.png\"/>
 </p>
 <p>
-As expected the red line (ideal battery) maintain the SOC over the time. The other two batteries lose some
+As expected the red line (ideal battery) maintain the SOC over the time. The other two batteries loose some
 of the initial energy due to the losses.
 </p>
 </html>"));

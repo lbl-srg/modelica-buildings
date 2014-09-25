@@ -125,10 +125,13 @@ the capacitance is a parameter.
 </p>
 <p>
 The boolean parameter <code>star</code> is used to 
-select which configuration is used to connect the impedance:
-star (Y) or triangle (D). By default the impedance is assumed to be connected 
-with a star configuration. When the connection type changes between
-<code>star</code> and <code>triangle</code> the value of the impedance
+select whether the star (Y) or triangle (D)
+configuration is used to connect the impedance. 
+By default, the impedance is assumed to be connected 
+with a star configuration. 
+<!-- fixme: not sure what the next sentence means. Where is the implementation? -->
+When the connection type changes between
+<code>star</code> and <code>triangle</code>, the value of the impedance
 is recomputed in order to maintain the same nominal power
 consumption.
 </p>

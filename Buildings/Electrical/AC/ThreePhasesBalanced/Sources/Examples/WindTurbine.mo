@@ -13,7 +13,8 @@ model WindTurbine "Example for the WindTurbine AC model"
         rotation=0,
         origin={60,0})));
   Buildings.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(
-      computeWetBulbTemperature=false, filNam="modelica://Buildings/Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos")
+      computeWetBulbTemperature=false,
+      filNam="modelica://Buildings/Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos")
     "Weather data"
     annotation (Placement(transformation(extent={{-52,36},{-32,56}})));
   Buildings.BoundaryConditions.WeatherData.Bus weaBus "Weather bus"
@@ -64,7 +65,8 @@ equation
     __Dymola_experimentSetupOutput,
     Documentation(info="<html>
 <p>
-This model illustrates the use of the wind turbine model which is connected to a AC voltage source and a resistance.
+This model illustrates the use of the wind turbine model,
+which is connected to a AC voltage source and a resistive load.
 This voltage source can represent the grid to which the 
 circuit is connected.
 Wind data for San Francisco, CA, are used.

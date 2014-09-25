@@ -1,13 +1,12 @@
 within Buildings.Electrical.AC.ThreePhasesBalanced.Lines;
 model TwoPortResistance "Model of a resistance with two electrical ports"
-  extends Buildings.Electrical.AC.OnePhase.Lines.TwoPortResistance(redeclare
-      Interfaces.Terminal_n terminal_n, redeclare Interfaces.Terminal_p
-      terminal_p);
+  extends Buildings.Electrical.AC.OnePhase.Lines.TwoPortResistance(
+    redeclare Interfaces.Terminal_n terminal_n,
+    redeclare Interfaces.Terminal_p terminal_p);
   annotation (
     defaultComponentName="lineR",
-    Diagram(graphics),                             Icon(
-        coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
-                                                                  graphics),
+    Diagram(graphics), Icon(
+        coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}})),
     Documentation(revisions="<html>
 <ul>
 <li>
@@ -17,7 +16,7 @@ Revised documentation.
 </ul>
 </html>", info="<html>
 <p>
-This model represents a resistance that connect two AC three phases 
+Resistance that connects two AC three phases 
 balanced interfaces. This model can be used to represent a
 cable in a three phases balanced AC system.
 </p>

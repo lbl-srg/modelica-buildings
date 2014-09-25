@@ -1,5 +1,5 @@
 within Buildings.Electrical.AC.ThreePhasesBalanced.Lines.Examples;
-model ACline_R "Test model for a single phase resistive line"
+model ACline_R "Test model for single phase resistive lines"
   extends Modelica.Icons.Example;
   ThreePhasesBalanced.Sources.FixedVoltage E(definiteReference=true)
     "Voltage source"
@@ -93,9 +93,9 @@ on the resistance of the line.
 </p>
 <p>
 The remaining three loads <code>R1</code>, <code>R2</code>, and <code>R3</code>
-are resistive loads. Each load is connected to the source with different configurations,
-however the equivalent resistance between each load and the source is the same.
-Since the equivalent resistances are the same, each load draw the same current.
+are resistive loads. Each load is connected to the source with different configurations.
+However, the equivalent resistance between each load and the source is the same.
+Since the equivalent resistances are the same, each load draws the same current.
 </p>
 </html>", revisions="<html>
 <ul>

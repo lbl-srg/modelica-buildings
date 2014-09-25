@@ -1,9 +1,9 @@
 within Buildings.Electrical.AC.ThreePhasesBalanced.Sources;
 model PVSimpleOriented "Model of a simple PV panel with orientation"
   extends Buildings.Electrical.AC.OnePhase.Sources.PVSimpleOriented(
-    redeclare Interfaces.Terminal_p terminal, redeclare
-      Buildings.Electrical.AC.ThreePhasesBalanced.Sources.PVSimple panel,
-      V_nominal = 480);
+    redeclare Interfaces.Terminal_p terminal,
+    redeclare Buildings.Electrical.AC.ThreePhasesBalanced.Sources.PVSimple panel,
+    V_nominal = 480);
 
   annotation (
     defaultComponentName="pv",
@@ -19,8 +19,8 @@ Revised documentation.
 Model of a simple photovoltaic array.
 </p>
 <p>
-This model takes as an input the information provided by the weather bus: 
-direct and diffuse solar radiation. The electrical connector is a AC one phase interfaces.
+This model takes as an input the direct and diffuse solar radiation from
+the weather bus.
 </p>
 <p>
 See <a href=\"modelica://Buildings.Electrical.AC.OnePhase.Sources.PVSimpleOriented\">
