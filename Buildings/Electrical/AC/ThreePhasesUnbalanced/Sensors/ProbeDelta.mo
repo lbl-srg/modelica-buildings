@@ -3,7 +3,7 @@ model ProbeDelta
   "Model of a probe that measures voltage magnitude and angle (Delta configuration)"
   extends
     Buildings.Electrical.AC.ThreePhasesUnbalanced.Sensors.BaseClasses.GeneralizedProbe;
-  Interfaces.WyeToDelta     wyeToDelta
+  Interfaces.WyeToDelta     wyeToDelta "Y to D transformation"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=0,
         origin={20,0})));

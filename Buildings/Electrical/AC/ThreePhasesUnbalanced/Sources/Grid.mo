@@ -4,7 +4,7 @@ model Grid "Electrical grid"
     "Frequency of the source";
   parameter Modelica.SIunits.Voltage V(start = 480) = 480
     "RMS voltage of the source";
-  parameter Modelica.SIunits.Angle Phi(start = 0) = 0
+  parameter Modelica.SIunits.Angle phiSou(start = 0) = 0
     "Phase shift of the source";
   Buildings.Electrical.AC.Interfaces.PowerOutput P[3]
     "Power consumed from grid if negative, or fed to grid if positive"
@@ -20,7 +20,7 @@ model Grid "Electrical grid"
     definiteReference=true,
     f=f,
     V=V,
-    Phi=Phi) "Voltage source"
+    phiSou=phiSou) "Voltage source"
      annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=0,

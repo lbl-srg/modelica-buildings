@@ -4,5 +4,7 @@ Inductive
 Inductive_N
 Capacitive
 Capacitive_N
+Impedance
+Impedance_N
 BaseClasses
 Examples

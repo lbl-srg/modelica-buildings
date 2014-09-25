@@ -1,13 +1,12 @@
 within Buildings.Electrical.AC.ThreePhasesUnbalanced.Lines;
 model TwoPortMatrixRL
   "This model represents a model of a line parametrized using matrices (just RL elements)"
-  import Buildings;
   Interfaces.Terminal_n terminal_n
     annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
   Interfaces.Terminal_p terminal_p
     annotation (Placement(transformation(extent={{90,-10},{110,10}}),
         iconTransformation(extent={{90,-10},{110,10}})));
-  parameter Modelica.SIunits.Voltage V_nominal(min=0, start=480)
+  parameter Modelica.SIunits.Voltage V_nominal(min=0, start=480) = 480
     "Nominal voltage (V_nominal >= 0)"  annotation(Evaluate=true, Dialog(group="Nominal conditions"));
   parameter Modelica.SIunits.Impedance Z11[2] = {1,1}
     "Element [1,1] of impedance matrix";

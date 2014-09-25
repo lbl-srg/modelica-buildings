@@ -45,7 +45,6 @@ Revised documentation.
 
   partial model PartialSource_N "Partial model for a three phases AC unbalanced voltage source 
   with neutral cable"
-
     OnePhase.Basics.Ground ground "Ground reference"
       annotation (Placement(transformation(extent={{10,-60},{30,-40}})));
     Interfaces.Terminal4_p terminal
@@ -85,7 +84,6 @@ Revised documentation.
     parameter Modelica.SIunits.Voltage V_nominal(min=0, start=480) = 480
       "Nominal voltage (V_nominal >= 0)"
        annotation(Dialog(group="Nominal conditions"));
-
     replaceable OnePhase.Sources.PVSimple pv_phase2(
       pf=pf,
       eta_DCAC=eta_DCAC,
@@ -113,6 +111,8 @@ Revised documentation.
       V_nominal=V_nominal/sqrt(3)) if
                   PlugPhase1 "PV phase 1"
       annotation (Placement(transformation(extent={{-18,40},{-38,60}})));
+    Modelica.Blocks.Math.Add3 sum "Sum of the generated power on each phase"
+      annotation (Placement(transformation(extent={{40,60},{60,80}})));
   protected
     Modelica.Blocks.Interfaces.RealOutput G_int
       "Total solar irradiation per unit area" annotation (Placement(
@@ -124,9 +124,6 @@ Revised documentation.
           extent={{-20,-20},{20,20}},
           rotation=270,
           origin={0,100})));
-  public
-    Modelica.Blocks.Math.Add3 sum
-      annotation (Placement(transformation(extent={{40,60},{60,80}})));
   equation
 
     if PlugPhase1 then
@@ -326,9 +323,7 @@ Revised documentation.
       V_nominal=V_nominal/sqrt(3)) if
                   PlugPhase1 "Wind turbine phase 1"
       annotation (Placement(transformation(extent={{-18,40},{-38,60}})));
-
-  public
-    Modelica.Blocks.Math.Add3 sum
+    Modelica.Blocks.Math.Add3 sum "Sum of th epower generated on each phase"
       annotation (Placement(transformation(extent={{32,50},{52,70}})));
   equation
 

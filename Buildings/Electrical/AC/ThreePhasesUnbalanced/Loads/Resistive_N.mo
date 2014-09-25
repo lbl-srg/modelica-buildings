@@ -1,12 +1,15 @@
 within Buildings.Electrical.AC.ThreePhasesUnbalanced.Loads;
-model Resistive_N "Model of a resistive load with neutral cable"
-  extends BaseClasses.PartialLoad_N(
+model Resistive_N
+  "Model of a three phases unbalanced resistive load with neutral cable"
+  extends BaseClasses.LoadCtrl_N(
     redeclare Buildings.Electrical.AC.OnePhase.Loads.Resistive load1,
     redeclare Buildings.Electrical.AC.OnePhase.Loads.Resistive load2,
     redeclare Buildings.Electrical.AC.OnePhase.Loads.Resistive load3);
 equation
 
-  annotation (Icon(graphics={      Rectangle(extent={{-100,100},{100,-100}},
+  annotation (
+  defaultComponentName="loa",
+  Icon(graphics={      Rectangle(extent={{-100,100},{100,-100}},
             lineColor={255,255,255}),
           Rectangle(
             extent={{-80,80},{80,-80}},
@@ -78,6 +81,10 @@ equation
           smooth=Smooth.None)}), Documentation(revisions="<html>
 <ul>
 <li>
+September 24, 2014, by Marco Bonvini:<br/>
+Revised documentation.
+</li>
+<li>
 August 27, 2014, by Marco Bonvini:<br/>
 Revised documentation.
 </li>
@@ -86,8 +93,8 @@ Revised documentation.
 <p>
 This model represents a three phases unbalanced resistive load.
 The model extends from 
-<a href=\"modelica://Buildings.Electrical.AC.ThreePhasesUnbalanced.Loads.BaseClasses.PartialLoad_N\">
-Buildings.Electrical.AC.ThreePhasesUnbalanced.Loads.BaseClasses.PartialLoad_N</a>
+<a href=\"modelica://Buildings.Electrical.AC.ThreePhasesUnbalanced.Loads.BaseClasses.LoadCtrl_N\">
+Buildings.Electrical.AC.ThreePhasesUnbalanced.Loads.BaseClasses.LoadCtrl_N</a>
 and uses the load model from the package
 <a href=\"modelica://Buildings.Electrical.AC.OnePhase.Loads\">
 Buildings.Electrical.AC.OnePhase.Loads</a>. The model is able to provide detailed
@@ -99,8 +106,8 @@ The current in the neutral cable is computed as the algebraic sum of the current
 of the loads.
 </p>
 <p>
-For more information see <a href=\"modelica://Buildings.Electrical.AC.ThreePhasesUnbalanced.Loads.BaseClasses.PartialLoad_N\">
-Buildings.Electrical.AC.ThreePhasesUnbalanced.Loads.BaseClasses.PartialLoad_N</a> and 
+For more information see <a href=\"modelica://Buildings.Electrical.AC.ThreePhasesUnbalanced.Loads.BaseClasses.LoadCtrl_N\">
+Buildings.Electrical.AC.ThreePhasesUnbalanced.Loads.BaseClasses.LoadCtrl_N</a> and 
 <a href=\"modelica://Buildings.Electrical.AC.OnePhase.Loads.Resistive\">
 Buildings.Electrical.AC.OnePhase.Loads.Resistive</a>.
 </p>

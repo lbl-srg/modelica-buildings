@@ -1,12 +1,13 @@
 within Buildings.Electrical.AC.ThreePhasesUnbalanced.Interfaces;
-model Connection3to4_n
+model Connection3to4_n "Adapter between Terminal4 and Terminal3 N"
 
-  Terminal4_n terminal4 annotation (Placement(transformation(extent={{-110,-10},
+  Terminal4_n terminal4 "Connector with neutral" annotation (Placement(transformation(extent={{-110,-10},
             {-90,10}}), iconTransformation(extent={{-110,-10},{-90,10}})));
-  Terminal_n terminal3 annotation (Placement(transformation(extent={{90,-10},{110,
+  Terminal_n terminal3 "Connector without neutral" annotation (Placement(transformation(extent={{90,-10},{110,
             10}}), iconTransformation(extent={{90,-10},{110,10}})));
 equation
 
+  // KVL and KCL
   terminal3.phase[1].v[:] = terminal4.phase[1].v[:] - terminal4.phase[4].v[:];
   terminal3.phase[2].v[:] = terminal4.phase[2].v[:] - terminal4.phase[4].v[:];
   terminal3.phase[3].v[:] = terminal4.phase[3].v[:] - terminal4.phase[4].v[:];

@@ -1,12 +1,10 @@
 within Buildings.Electrical.AC.ThreePhasesUnbalanced.Interfaces.Examples;
-model WyeToDelta
-  import Buildings;
+model WyeToDelta "Test for Y to D connection"
   Buildings.Electrical.AC.ThreePhasesUnbalanced.Interfaces.WyeToDelta wyeToDelta
     annotation (Placement(transformation(extent={{-30,0},{-10,20}})));
-  Buildings.Electrical.AC.ThreePhasesUnbalanced.Sources.FixedVoltage V1(
-    f=60,
-    V=480,
-    Phi=0) annotation (Placement(transformation(extent={{-80,0},{-60,20}})));
+  Buildings.Electrical.AC.ThreePhasesUnbalanced.Sources.FixedVoltage V1
+    "Voltage source"
+           annotation (Placement(transformation(extent={{-80,0},{-60,20}})));
   Buildings.Electrical.AC.ThreePhasesUnbalanced.Loads.Resistive load_D(
     P_nominal=-1000,
     V_nominal=480,
@@ -29,13 +27,12 @@ model WyeToDelta
     PlugPhase1=true,
     PlugPhase2=true)
     annotation (Placement(transformation(extent={{40,-40},{60,-20}})));
-  Buildings.Electrical.AC.ThreePhasesUnbalanced.Sources.FixedVoltage V2(
-    f=60,
-    V=480,
-    Phi=0) annotation (Placement(transformation(extent={{-80,-40},{-60,-20}})));
-  Buildings.Electrical.AC.ThreePhasesUnbalanced.Sensors.GeneralizedSensor3
+  Buildings.Electrical.AC.ThreePhasesUnbalanced.Sources.FixedVoltage V2
+    "Voltage source"
+           annotation (Placement(transformation(extent={{-80,-40},{-60,-20}})));
+  Buildings.Electrical.AC.ThreePhasesUnbalanced.Sensors.GeneralizedSensor
     seriesProbe_D annotation (Placement(transformation(extent={{8,0},{28,20}})));
-  Buildings.Electrical.AC.ThreePhasesUnbalanced.Sensors.GeneralizedSensor3
+  Buildings.Electrical.AC.ThreePhasesUnbalanced.Sensors.GeneralizedSensor
     seriesProbe_Y
     annotation (Placement(transformation(extent={{-20,-40},{0,-20}})));
 equation
@@ -68,5 +65,16 @@ equation
       color={0,120,120},
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}}), graphics));
+            -100},{100,100}}), graphics), Documentation(revisions="<html>
+<ul>
+<li>
+September 24, 2014, by Marco Bonvini:<br/>
+Added info section.
+</li>
+</ul>
+</html>", info="<html>
+<p>
+This example show how the adapter from Y to D connection works.
+</p>
+</html>"));
 end WyeToDelta;

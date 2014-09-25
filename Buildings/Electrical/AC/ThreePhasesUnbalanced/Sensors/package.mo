@@ -3,10 +3,6 @@ package Sensors "Package with sensor models for three phases unbalanced AC syste
   extends Modelica.Icons.SensorsPackage;
 
 
-
-
-
-
 annotation (Documentation(revisions="<html>
 <ul>
 <li>

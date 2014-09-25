@@ -32,9 +32,23 @@ partial model GeneralizedProbe
           textString="theta")}), Documentation(revisions="<html>
 <ul>
 <li>
+September 24, 2014, by Marco Bonvini:<br/>
+Revised documentation.
+</li>
+<li>
 June 6, 2014, by Marco Bonvini:<br/>
 First implementation.
 </li>
 </ul>
+</html>", info="<html>
+<p>
+This model contains the parameters and variables computed by the 
+probe models like <a href=\"modelica://Buildings.Electrical.AC.ThreePhasesUnbalanced.Sensors.ProbeWye\">
+Buildings.Electrical.AC.ThreePhasesUnbalanced.Sensors.ProbeWye</a> or
+<a href=\"modelica://Buildings.Electrical.AC.ThreePhasesUnbalanced.Sensors.ProbeDelta\">
+Buildings.Electrical.AC.ThreePhasesUnbalanced.Sensors.ProbeDelta</a>). 
+The variables measured are the RMS voltage and the angle of the voltage phasors (in degrees) 
+at a given point.
+</p>
 </html>"));
 end GeneralizedProbe;

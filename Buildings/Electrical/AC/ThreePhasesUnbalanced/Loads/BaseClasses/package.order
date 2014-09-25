@@ -1,3 +1,6 @@
-PartialLoad
-PartialLoad_N
-PartialImpedance
+BaseLoadCtrl
+LoadCtrl
+LoadCtrl_N
+BaseImpedance
+Impedance
+Impedance_N
