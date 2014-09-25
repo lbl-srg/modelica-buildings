@@ -1,5 +1,5 @@
 within Buildings.Fluid.HeatExchangers.Borefield.BaseClasses.GroundHX.Examples;
-model boreFieldWallTemperature
+model boreFieldWallTemperature "Test for the function boreFieldWallTemperature"
   extends Modelica.Icons.Example;
 
   parameter Data.GeneralData.c8x1_h110_b5_d3600_T283 gen;

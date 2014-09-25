@@ -17,7 +17,8 @@ model SingleBoreHolesInSerie
     each C_start=C_start,
     each C_nominal=C_nominal) "Borehole heat exchanger" annotation (
       Placement(transformation(extent={{-16,-16},{16,16}}, rotation=0)));
-  Modelica.SIunits.Temperature[gen.nbSer] TWallAveSeg;
+  Modelica.SIunits.Temperature[gen.nbSer] TWallAveSeg
+    "Average borehole wall temperature along the depth for each borehole in serie";
 equation
 
   for i in 1:gen.nbSer loop

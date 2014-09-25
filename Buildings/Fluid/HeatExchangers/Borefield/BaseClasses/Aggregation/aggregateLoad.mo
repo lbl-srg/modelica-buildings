@@ -6,14 +6,14 @@ function aggregateLoad
   input Real QNew "New load element";
   input Real[q_max,p_max] QAggOld
     "Aggregated load matrix form the previous time step";
-  input Integer[q_max,p_max] nuMat "number of pulse at the end of each cells";
+  input Integer[q_max,p_max] nuMat "Number of pulses at the end of each cells";
 
   output Real[q_max,p_max] QAggNew "New aggregated load matrix";
 
 protected
-  Integer q_pre;
-  Integer p_pre;
-  Real QShiPreCell "load from the previous cell";
+  Integer q_pre "Level number of the previous aggregation cell";
+  Integer p_pre "Cell number of the previous aggregation cell";
+  Real QShiPreCell "Load from the previous cell";
 
 algorithm
   for q in 1:q_max loop

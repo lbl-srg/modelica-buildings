@@ -6,22 +6,23 @@ function ShortTimeResponseHX
       3) writing the data \
       If you get a false, look for the error!
     */
+  extends Modelica.Icons.Function;
 
   import SI = Modelica.SIunits;
   input Data.Records.Soil soi=Data.SoilData.SandStone()
     "Thermal properties of the ground";
-                                        //=Data.SoilData.SandStone()
+
   input Data.Records.Filling fil=Data.FillingData.Bentonite()
     "Thermal properties of the filling material";
-                                                  //=Data.FillingData.Bentonite()
+
   input Data.Records.General gen=Data.GeneralData.c8x1_h110_b5_d3600_T283()
     "General charachteristic of the borefield";
-                                                //=Data.GeneralData.c8x1_h110_b5_d3600_T283()
 
-  input String pathSave "save path for the result file";
+  input String pathSave "Save path for the result file";
 
-  output Real[1,gen.tBre_d + 1] TResSho;
-  output Real[2,gen.tBre_d + 1] readData;
+  output Real[1,gen.tBre_d + 1] TResSho "Short-term temperature vector";
+  output Real[2,gen.tBre_d + 1] readData
+    "Matrix with the time and the Short-term temperature vectors";
 
 protected
   final parameter String modelToSimulate="Buildings.Fluid.HeatExchangers.Borefield.BaseClasses.BoreHoles.Examples.SingleBoreHoleSerStepLoadScript"
@@ -46,11 +47,6 @@ algorithm
     numberOfIntervals=gen.tBre_d + 1,
     method="dassl",
    resultFile=pathSave + "_sim");
-
-    // +
-    //  "( soi=" + soi.pathMod + "(), " +
-    //  "fil=" + fil.pathMod + "()," +
-    //  "gen=" + gen.pathMod + "())"
 
   // First columns are shorttime, last column is steady state
     readData := cat(

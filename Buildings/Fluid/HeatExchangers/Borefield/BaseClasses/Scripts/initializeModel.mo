@@ -1,17 +1,19 @@
 within Buildings.Fluid.HeatExchangers.Borefield.BaseClasses.Scripts;
 function initializeModel
+  extends Modelica.Icons.Function;
+
   input Data.Records.Soil soi "Thermal properties of the ground";
   input Data.Records.Filling fil "Thermal properties of the filling material";
   input Data.Records.General gen "General data of the borefield";
 
-  output String sha "pseudo SHA code (unique code) of the record soi and gen";
+  output String sha "Pseudo SHA code (unique code) of the record soi and gen";
   output Real[1,gen.tBre_d + 1] TResSho
     "Short term response temperature vector of the borefield obtained calling the model IDEAS.Fluid.HeatExchangers.GroundHeatExchangers.Borefield.BaseClasses.BoreHoles.Examples.SingleBoreHoleSerStepLoadScript";
   output Boolean existShoTerRes
     "True if the aggregation matrix has already been calculated and stored in the simulation folder";
 
 protected
-  String pathSave "path of the saving folder";
+  String pathSave "Path of the saving folder";
 algorithm
   // --------------- Generate SHA-code and path
   sha := shaBorefieldRecords(
@@ -26,7 +28,7 @@ algorithm
       "\\",
       "/"));
 
- //creation of a folder .BfData in the simulation folder
+ //Creation of a folder .BfData in the simulation folder
   Modelica.Utilities.Files.createDirectory(".BfData");
 
   pathSave := ".BfData/" + sha;

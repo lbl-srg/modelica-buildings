@@ -1,5 +1,7 @@
 within Buildings.Fluid.HeatExchangers.Borefield.BaseClasses.Aggregation.Examples;
 function aggregateLoad
+  extends Modelica.Icons.Function;
+
   input Integer n_max=14;
   input Integer p_max=2;
   // for n_max = 14 and p_max=2 --> q_max = 3

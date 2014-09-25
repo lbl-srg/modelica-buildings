@@ -1,10 +1,10 @@
 within Buildings.Fluid.HeatExchangers.Borefield.BaseClasses.Aggregation.BaseClasses;
 function nbPulseAtEndEachLevel
-  "Calculates the number of pulse at the end of each cells"
+  "Calculates the number of pulses at the end of each cells"
   extends Interface.partialAggFunction;
 
-  input Integer[q_max] rArr "width of cell at each level";
-  output Integer[q_max,p_max] nuMat "number of pulse at the end of each cells";
+  input Integer[q_max] rArr "Width of cells at each level";
+  output Integer[q_max,p_max] nuMat "Number of pulses at the end of each cell";
 
 protected
   Integer levelTerm;

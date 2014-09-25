@@ -32,7 +32,7 @@ algorithm
   y := supCoe*(4*ierf(D*u) - ierf(2*D*u))/(D*u^2);
 
   annotation (Documentation(info="<html>
-  <p>FIXME </p>
+  <p>Integrand for the mean borehole wall temperature of a borefield as defined by Javed and Claesson (see User Guide). </p>
 </html>", revisions="<html>
 <ul>
 <li>

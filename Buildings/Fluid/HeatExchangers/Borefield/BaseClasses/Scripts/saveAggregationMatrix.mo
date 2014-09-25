@@ -8,21 +8,21 @@ function saveAggregationMatrix
 
   input Integer lenSim "Simulation length ([s]). By default = 100 days";
 
-  output Real[q_max,p_max] kappaMat "transient resistance for each cell";
+  output Real[q_max,p_max] kappaMat "Transient resistance for each cell";
   output Integer[q_max] rArr=
       Borefield.BaseClasses.Aggregation.BaseClasses.cellWidth(q_max=q_max,
-      p_max=p_max) "width of aggregation cell for each level";
+      p_max=p_max) "Width of aggregation cells for each level";
   output Integer[q_max,p_max] nuMat=
       Borefield.BaseClasses.Aggregation.BaseClasses.nbPulseAtEndEachLevel(
       q_max=q_max,
       p_max=p_max,
-      rArr=rArr) "nb of aggregated pulse at end of each aggregation cells";
+      rArr=rArr) "Number of aggregated pulses at end of each aggregation cell";
   output Modelica.SIunits.Temperature TWallSteSta
     "Quasi steady state temperature";
 
   output Real[1,gen.tBre_d + 1] TResSho
     "Short term response temperature vector of the borefield obtained calling the model IDEAS.Fluid.HeatExchangers.GroundHeatExchangers.Borefield.BaseClasses.BoreHoles.Examples.SingleBoreHoleSerStepLoadScript";
-  output String sha "pseudo SHA code (unique code) of the record soi and gen";
+  output String sha "Pseudo SHA code (unique code) of the record soi and gen";
 
   output Boolean existShoTerRes
     "True if the short term response has already been calculated and stored in the simulation folder";
@@ -35,7 +35,7 @@ function saveAggregationMatrix
     "True if the aggregation matrix is written in the simulation folder";
 
 protected
-  String pathSave "path of the saving folder";
+  String pathSave "Path of the saving folder";
   Real[1,1] mat;
 algorithm
   // --------------- Generate SHA-code and path

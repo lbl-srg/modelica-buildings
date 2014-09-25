@@ -1,10 +1,13 @@
 within Buildings.Fluid.HeatExchangers.Borefield.BaseClasses.Scripts;
 function shaBorefieldRecords
-    input String soiPath;
-    input String filPath;
-    input String genPath;
+  "Return a pseudo sha code of the combination of the record soi, fil and gen of the borefield"
+  extends Modelica.Icons.Function;
+    input String soiPath "Computer path of the soil record";
+    input String filPath "Computer path of the fil record";
+    input String genPath "Computer path of the general record";
 
-    output String sha;
+    output String sha
+    "Pseudo sha code of the combination of the soi, fil and gen records";
 protected
   Real[3] shaMat=
     {Buildings.Utilities.Cryptographics.BaseClasses.sha(soiPath),

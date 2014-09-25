@@ -37,9 +37,6 @@ model CylindricalGroundLayer
   Modelica.SIunits.HeatFlowRate Q_flow[nSta + 1]
     "Heat flow rate from state i to i+1";
 
-  //  Modelica.SIunits.TemperatureSlope der_T[nSta]
-  //    "Time derivative of temperature (= der(T))";
-
   parameter Modelica.SIunits.Radius r[nSta + 1](each fixed=false)
     "Radius to the boundary of the i-th domain";
 

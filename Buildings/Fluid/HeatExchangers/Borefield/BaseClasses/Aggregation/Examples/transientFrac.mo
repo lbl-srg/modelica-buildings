@@ -9,6 +9,8 @@ function transientFrac "ATTENTION: don't translate this function! otherwise it d
   Borefield.Data.ShortTermResponse.SandstoneH100qSte30()
   ---------------------------------------------------------------------
   "
+  extends Modelica.Icons.Function;
+
   input Integer n_max=201;
   input Integer p_max=5;
   input Real TWallSteSta = 288;

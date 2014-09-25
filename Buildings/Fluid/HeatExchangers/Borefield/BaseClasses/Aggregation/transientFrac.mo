@@ -9,16 +9,16 @@ function transientFrac
   input Real[:] TResSho
     "Vector containing the short term step-reponse wall temperature in function of the time";
 
-  input Integer[q_max,p_max] nuMat "number of pulse at the end of each cell";
+  input Integer[q_max,p_max] nuMat "Number of pulse at the end of each cell";
 
   input Modelica.SIunits.Temperature TWallSteSta
-    "steady state temperature of the wall";
+    "Steady state temperature of the wall";
 
-  output Real[q_max,p_max] kappaMat "transient resistance for each cell";
+  output Real[q_max,p_max] kappaMat "Transient resistance for each cell";
 
 protected
-  Integer q_pre;
-  Integer p_pre;
+  Integer q_pre "Level number of the previous aggregation cell";
+  Integer p_pre "Cell number of the previous aggregation cell";
 
 algorithm
   for q in 1:q_max loop

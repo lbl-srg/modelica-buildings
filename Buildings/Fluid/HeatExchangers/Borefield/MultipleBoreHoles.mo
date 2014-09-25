@@ -16,11 +16,9 @@ model MultipleBoreHoles
   // General parameters of borefield
   replaceable parameter Borefield.Data.Records.BorefieldData bfData
     constrainedby Data.Records.BorefieldData
-    "record containing all the parameters of the borefield model"
+    "Record containing all the parameters of the borefield model"
     annotation (choicesAllMatching=true,
       Placement(transformation(extent={{-90,-88},{-70,-68}})));
-
-  parameter Boolean homotopyInitialization=true "= true, use homotopy method";
 
   //General parameters of aggregation
   parameter Integer lenSim=3600*24*100
@@ -30,13 +28,14 @@ model MultipleBoreHoles
   Modelica.SIunits.HeatFlowRate QAve_flow
     "Average heat flux over a time period";
 
-  Modelica.SIunits.Temperature TWall "average borehole wall temperature";
+  Modelica.SIunits.Temperature TWall "Average borehole wall temperature";
 
   Modelica.Blocks.Sources.RealExpression TWall_val(y=TWall)
+    "Average borehole wall temperature"
     annotation (Placement(transformation(extent={{-80,-54},{-58,-34}})));
 
   Modelica.SIunits.Power Q_flow
-    "thermal power extracted or injected in the borefield";
+    "Thermal power extracted or injected in the borefield";
 
   Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature TWallBou
     "Borehole wall temperature"
@@ -45,25 +44,25 @@ model MultipleBoreHoles
   // Parameters for the aggregation technic
 protected
   final parameter Integer p_max=5
-    "number of aggregation cells within one aggregation level";
+    "Number of aggregation cells within one aggregation level";
   final parameter Integer q_max=
       Borefield.BaseClasses.Aggregation.BaseClasses.nbOfLevelAgg(n_max=integer(
-      lenSim/bfData.gen.tStep), p_max=p_max) "number of aggregation levels";
+      lenSim/bfData.gen.tStep), p_max=p_max) "Number of aggregation levels";
   final parameter Real[q_max,p_max] kappaMat(fixed=false)
-    "transient thermal resistance of each aggregation cells";
+    "Transient thermal resistance of each aggregation cells";
   final parameter Integer[q_max] rArr(fixed=false)
-    "width of aggregation cell for each level";
+    "Width of aggregation cell for each level";
   final parameter Integer[q_max,p_max] nuMat(fixed=false)
-    "nb of aggregated pulse at end of each aggregation cells";
+    "Number of aggregated pulses at end of each aggregation cell";
 
   // Parameters for the calculation of the steady state resistance of the borefield
   final parameter Modelica.SIunits.Temperature TSteSta(fixed=false)
-    "Quasi steady state temperature";
-  final parameter Real R_ss(fixed=false) "steady state resistance";
+    "Quasi steady state temperature of the borefield for a constant heat flux";
+  final parameter Real R_ss(fixed=false) "Steady state resistance";
 
   //Load
   Real[q_max,p_max] QMat
-    "aggregation of load vector. Every discrete time step it is updated.";
+    "Aggregation of load vector. Updated every discrete time step.";
 
   //Utilities
   Modelica.SIunits.Energy UOld "Internal energy at the previous period";
@@ -126,7 +125,7 @@ initial algorithm
     fil=bfData.fil);
 
   R_ss := TSteSta/(bfData.gen.q_ste*bfData.gen.hBor*bfData.gen.nbBh)
-    "steady state resistance";
+    "Steady state resistance";
 
 equation
   assert(time < lenSim, "The chosen value for lenSim is too small. It cannot cover the whole simulation time!");
@@ -134,7 +133,7 @@ equation
   Q_flow = port_a.m_flow*(actualStream(port_a.h_outflow) - actualStream(port_b.h_outflow));
 
   der(U) = Q_flow
-    "integration of load to calculate below the average load/(discrete time step)";
+    "Integration of load to calculate below the average load/(discrete time step)";
 
 algorithm
   // Set the start time for the sampling
@@ -146,7 +145,7 @@ algorithm
     QAve_flow := (U - UOld)/bfData.gen.tStep;
     UOld := U;
 
-    // Update of aggregated load matrix. Careful: need of inversing order of loaVec (so that [end] = most recent load). FIXME: see if you can change that.
+    // Update of aggregated load matrix.
     QMat := Borefield.BaseClasses.Aggregation.aggregateLoad(
       q_max=q_max,
       p_max=p_max,
@@ -155,6 +154,7 @@ algorithm
       QNew=QAve_flow,
       QAggOld=QMat);
 
+    // Wall temperature of the borefield
     TWall :=BaseClasses.deltaTWall(
       q_max=q_max,
       p_max=p_max,

@@ -16,11 +16,11 @@ record BorefieldData
   Gen gen;
 
   Real loaPerMBor_nominal(unit="W/m") = 40
-    "nominal thermal load per meter borhole depth";
+    "Nominal thermal load per meter borhole depth";
   Modelica.SIunits.MassFlowRate m_flow_nominal = gen.m_flow_nominal_bh*gen.nbBh/gen.nbSer
-    "total nominal flow to the borefield";
+    "Total nominal flow to the borefield";
   Modelica.SIunits.Power PThe_nominal = gen.hBor*gen.nbBh*loaPerMBor_nominal
-    "nominal thermal power of the borefield";
+    "Nominal thermal power of the borefield";
 
   String pathMod = "Buildings.Fluid.HeatExchangers.Borefield.Data.Records.BorefieldData"
     "Modelica path of the record";

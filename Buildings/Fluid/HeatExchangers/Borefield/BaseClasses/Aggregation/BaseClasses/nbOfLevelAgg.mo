@@ -1,14 +1,15 @@
 within Buildings.Fluid.HeatExchangers.Borefield.BaseClasses.Aggregation.BaseClasses;
 function nbOfLevelAgg
   "Calculate the number of level necessary to aggregate the whole load and set the value of v_max, q_max and rArr"
+  extends Modelica.Icons.Function;
 
-  input Integer n_max "nb of load step to aggreagate";
-  input Integer p_max "number of cells by level";
-  output Integer q_max "number of levels";
-  output Integer v_max "nb of pulse covered by aggregation";
+  input Integer n_max "Number of load steps to aggreagate";
+  input Integer p_max "Number of cells by level";
+  output Integer q_max "Number of levels";
+  output Integer v_max "Number of pulses covered by aggregation";
 
 protected
-  Integer i_lev;
+  Integer i_lev "Iteration variable for the level number";
 algorithm
   v_max := 0;
   i_lev := 0;

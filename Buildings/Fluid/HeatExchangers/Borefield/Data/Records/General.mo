@@ -11,9 +11,9 @@ record General "General parameters of the borefield"
   parameter SI.Temperature T_start = 283.15
     "Initial temperature of the borefield (grout and soil)";
   parameter SI.MassFlowRate m_flow_nominal_bh = 0.3
-    "nominal mass flow rate per borehole";
+    "Nominal mass flow rate per borehole";
     parameter SI.Pressure dp_nominal=50000
-    "pressure losses for the entire borefield";
+    "Pressure losses for the entire borefield";
 
   //------------------------- Geometrical parameters -----------------------------------------------------------------------------------------------------------------------------
   // -- Borefield geometry
@@ -21,7 +21,7 @@ record General "General parameters of the borefield"
     annotation (Dialog(group="Borehole"));
   parameter SI.Radius rBor=0.1 "Radius of the borehole"
     annotation (Dialog(group="Borehole"));
-  parameter Integer nbBh=1 "total number of boreholes"
+  parameter Integer nbBh=1 "Total number of boreholes"
     annotation (Dialog(group="Borehole"));
 
   parameter Integer nbSer=1
@@ -29,7 +29,7 @@ record General "General parameters of the borefield"
     annotation (Dialog(group="Borehole"));
 
   parameter Real[nbBh,2] cooBh={{0,0}}
-    "cartesian coordinates of the boreholes in meters."
+    "Cartesian coordinates of the boreholes in meters."
     annotation (Dialog(group="Borehole"));
 
   // -- Tube
@@ -46,11 +46,11 @@ record General "General parameters of the borefield"
     annotation (Dialog(group="Tubes"));
 
   //------------------------- Step reponse parameters -----------------------------------------------------------------------------------------------------------------------------
-  parameter SI.Time tStep=3600 "[s] time resolution of the step-response";
+  parameter SI.Time tStep=3600 "Time resolution of the step-response [s]";
   final parameter Integer tSteSta_d=integer(3600*24*365*30/tStep)
-    "[-] discrete time to reach steady state (default = 30 years)";
+    "Discrete time to reach steady state [-] (default = 30 years)";
   final parameter Integer tBre_d= max(1,integer(150*3600 / tStep))
-    "[-] discrete time upper boundary for saving results (tBre_d * tStep) should be >= 150 hours";
+    "Discrete time upper boundary for saving results [-] (tBre_d * tStep) should be >= 150 hours";
   parameter Real q_ste(unit="W/m") = 30
     "Power per length borehole of step load input";
 
@@ -103,13 +103,13 @@ record General "General parameters of the borefield"
 
   /*--------Assumptions: */
   parameter Boolean allowFlowReversal=true
-    "= true to allow flow reversal, false restricts to design direction (port_a -> port_b)"
+    "True to allow flow reversal, false restricts to design direction (port_a -> port_b)"
     annotation (Dialog(tab="Assumption"), Evaluate=true);
 
   parameter SI.Pressure p_constant=101300;
 
   final SI.Volume volOneLegSeg = hSeg*Modelica.Constants.pi*rTub^2
-    "volume of brine in one leg of a segment";
+    "Volume of brine in one leg of a segment";
  annotation (Documentation(info="<html>
  <p>General parameters of the borefield and record path.</p>
 </html>", revisions="<html>

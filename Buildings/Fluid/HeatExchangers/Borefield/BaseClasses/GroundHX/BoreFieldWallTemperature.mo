@@ -5,11 +5,11 @@ function BoreFieldWallTemperature
   import SI = Modelica.SIunits;
 
 protected
-  Real lb "lower boundary of integral";
+  Real lb "Lower boundary of integral";
   Real ub = 100
-    "upper boundary of integral. Theoritical value = infty. From some tests, the value 100 seems sufficient.";
-  Real res "integral value";
-  SI.TemperatureDifference deltaT;
+    "Upper boundary of integral. Theoritical value = infty. From some tests, the value 100 seems sufficient.";
+  Real res "Integral value";
+  SI.TemperatureDifference deltaT "Temperature rise at boreholes wall";
 algorithm
   lb := 1/sqrt(4*soi.alp*t_d*gen.tStep);
 

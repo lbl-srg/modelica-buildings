@@ -1,5 +1,6 @@
 within Buildings.Fluid.HeatExchangers.Borefield.BaseClasses.GroundHX.Examples;
 model correctedBoreFieldWallTemperature
+  "Test for the function correctedBoreFieldWallTemperature"
   extends Modelica.Icons.Example;
   import SI = Modelica.SIunits;
 
@@ -42,26 +43,31 @@ model correctedBoreFieldWallTemperature
    287.7538146972656, 287.75762939453125, 287.76141357421875, 287.7651672363281,
    287.7688903808594, 287.7725524902344, 287.77618408203125, 287.77978515625,
   287.7833251953125, 287.786865234375, 287.7903747558594, 287.7938537597656,
-  287.79730224609375, 287.8006896972656, 287.8040771484375};
+  287.79730224609375, 287.8006896972656, 287.8040771484375}
+    "Temperatures from the short-term model up to the discrete time tBre";
 
-  SI.Temperature TWallCor;
+  SI.Temperature TWallCor
+    "Temperature of the boreholes wall, corrected by the short-term model";
   SI.Temperature TWallCorSteSta=CorrectedBoreFieldWallTemperature(
       t_d=integer(36000*24*365*30/gen.tStep),
       gen=gen,
       soi=soi,
-      TResSho=TResSho);
+      TResSho=TResSho)
+    "Steady state temperature of the boreholes wall, corrected by the short-term model";
 
+protected
   Integer timeSca "time step size for simulation";
   Integer timeSca_old;
-  Integer i;
-  Integer i_old;
+  Integer i "dummy variable for adaptive time step";
+  Integer i_old "dummy variable for adaptive time step";
 
-  Integer t_old(start=0) "help variable for simulation timestep";
-  Integer t_new(start=0) "help variable for simulation timestep";
+  Integer t_old(start=0) "dummy variable for adaptive time step";
+  Integer t_new(start=0) "dummy variable for adaptive time step";
 
-  Data.SoilData.SandStone soi
+public
+  Data.SoilData.SandStone soi "Soil parameters"
     annotation (Placement(transformation(extent={{-90,-92},{-70,-72}})));
-  Data.FillingData.Bentonite fil
+  Data.FillingData.Bentonite fil "Filing parameters"
     annotation (Placement(transformation(extent={{-58,-92},{-38,-72}})));
   Data.GeneralData.c8x1_h110_b5_d3600_T283 gen
     annotation (Placement(transformation(extent={{-28,-92},{-8,-72}})));

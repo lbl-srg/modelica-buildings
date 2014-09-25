@@ -1,9 +1,9 @@
 within Buildings.Fluid.HeatExchangers.Borefield.BaseClasses.Aggregation.BaseClasses;
 function cellWidth
-  " Calculates the width of the cell of each level. The width increase exponential with base 2 "
+  " Calculates the width of the cells of each level. The width increase exponential with base 2 "
   extends Interface.partialAggFunction;
 
-  output Integer[q_max] rArr "width of cell at each level";
+  output Integer[q_max] rArr "Width of cell at each level";
 
 algorithm
   for i in 1:q_max loop

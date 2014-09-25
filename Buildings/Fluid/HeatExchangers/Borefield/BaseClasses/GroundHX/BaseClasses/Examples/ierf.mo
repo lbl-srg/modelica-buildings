@@ -1,5 +1,5 @@
 within Buildings.Fluid.HeatExchangers.Borefield.BaseClasses.GroundHX.BaseClasses.Examples;
-model ierf
+model ierf "Test for the error function"
   extends Modelica.Icons.Example;
 
   parameter Integer lim=5000;

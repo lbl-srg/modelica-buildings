@@ -42,13 +42,13 @@ model SingleBoreHoleSerStepLoadScript "SingleBoreHoleSer with step input load "
     redeclare package Medium = Medium,
     tau=60,
     m_flow_nominal=gen.m_flow_nominal_bh,
-    T_start=gen.T_start) "temperature at the inlet of the borefield"
+    T_start=gen.T_start) "Temperature at the inlet of the borefield"
     annotation (Placement(transformation(extent={{-48,-16},{-32,0}})));
   Sensors.TemperatureTwoPort TSen_bor_out(
     redeclare package Medium = Medium,
     tau=60,
     m_flow_nominal=gen.m_flow_nominal_bh,
-    T_start=gen.T_start) "temperature at the outlet of the borefield"
+    T_start=gen.T_start) "Temperature at the outlet of the borefield"
     annotation (Placement(transformation(extent={{40,-16},{56,0}})));
   inner Modelica.Fluid.System system
     annotation (Placement(transformation(extent={{80,80},{100,100}})));

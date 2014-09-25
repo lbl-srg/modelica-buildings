@@ -1,10 +1,9 @@
 within Buildings.Fluid.HeatExchangers.Borefield.BaseClasses.Aggregation.BaseClasses;
-function previousCellIndex
-  "This function calculates the index [q,p] of the previous cell "
+function previousCellIndex "Calculates the index [q,p] of the previous cell "
   extends Interface.partialAggFunction;
 
-  input Integer q;
-  input Integer p;
+  input Integer q "Current level number";
+  input Integer p "Current cell number";
   output Integer q_pre;
   output Integer p_pre;
 

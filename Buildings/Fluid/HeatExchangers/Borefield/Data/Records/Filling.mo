@@ -6,7 +6,8 @@ record Filling "Thermal properties of the borehole filling material"
     "Modelica path of the record";
   parameter String pathCom = Modelica.Utilities.Files.loadResource("modelica://Buildings/Fluid/HeatExchangers/Borefield/Data/Records/Filling.mo")
     "Computer path of the record";
-  final parameter Modelica.SIunits.DiffusionCoefficient alp=k/d/c;
+  final parameter Modelica.SIunits.DiffusionCoefficient alp=k/d/c
+    "Heat diffusion coefficient of the filling material";
  annotation (Documentation(info="<html>
  <p>Thermal properties of the borehole filling material and record path.</p>
 </html>", revisions="<html>
