@@ -209,6 +209,8 @@ First implementation.
                                                      delta=delta, cBar=cBar),
                                              x_small=delta/4);
     end if;
+    // linear equation for being able to handle r_N=0, see
+    // Buildings/Resources/Images/Fluid/Movers/UsersGuide/2013-IBPSA-Wetter.pdf
     dp := dp - V_flow*kRes;
     annotation(smoothOrder=1,
                 Documentation(info="<html>
@@ -252,7 +254,12 @@ a singularity at the origin. The composite model is once continuously differenti
 in all input variables.
 </p>
 </html>", revisions="<html>
+
 <ul>
+<li>
+April 22, by Filip Jorissen:<br/>
+Added more documentation references to paper
+</li>
 <li>
 August 25, 2011, by Michael Wetter:<br/>
 First implementation.
@@ -273,6 +280,12 @@ First implementation.
       "Coefficients for linear approximation of pressure vs. flow rate";
     output Modelica.SIunits.Pressure dp "Pressure raise";
   algorithm
+
+    // see equation 20 in  Buildings/Resources/Images/Fluid/Movers/UsersGuide/2013-IBPSA-Wetter.pdf
+    // this equation satisfies the constraints detailed in the paper
+    // the first term is added for having a faster convergence
+    // the last term in the paper is absent here because it can be found in
+    // Buildings.Fluid.Movers.BaseClasses.Characteristics.pressure
     dp := r_N * dpDelta + r_N^2 * (cBar[1] + cBar[2]*V_flow);
     annotation (Documentation(info="<html>
 <p>
@@ -353,6 +366,10 @@ If the data <i>d</i> define a monotone decreasing sequence, then
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+April 22, by Filip Jorissen:<br/>
+Added more documentation references to paper
+</li>
 <li>
 September 28, 2011, by Michael Wetter:<br/>
 First implementation.
