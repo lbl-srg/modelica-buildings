@@ -2,9 +2,8 @@ within Buildings.Fluid.HeatExchangers.Borefield.BaseClasses.GroundHX;
 function CorrectedBoreFieldWallTemperature "Return the corrected average borehole wall temperature of the whole borefield in function of the discrete time step t_d.
   The correction is from t=0 till t_d = tBre. Input TResSho gives the vector with the correct temperatures for this time period"
   extends BaseClasses.partialBoreFieldTemperature;
-  import SI = Modelica.SIunits;
 
-  input Real[:] TResSho
+  input Modelica.SIunits.Temperature[:] TResSho
     "Vector containing the short term  borehole wall step-reponse temperature in function of the time";
 
 protected

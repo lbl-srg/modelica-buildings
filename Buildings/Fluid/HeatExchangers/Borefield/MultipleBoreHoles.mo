@@ -61,7 +61,7 @@ protected
   final parameter Real R_ss(fixed=false) "Steady state resistance";
 
   //Load
-  Real[q_max,p_max] QMat
+  Modelica.SIunits.Power[q_max,p_max] QMat
     "Aggregation of load vector. Updated every discrete time step.";
 
   //Utilities

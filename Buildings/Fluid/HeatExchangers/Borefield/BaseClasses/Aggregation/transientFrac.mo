@@ -2,11 +2,10 @@ within Buildings.Fluid.HeatExchangers.Borefield.BaseClasses.Aggregation;
 function transientFrac
   "Calculates the transient resistance for each cell of the aggregation matrix"
   extends Interface.partialAggFunction;
-  import SI = Modelica.SIunits;
 
   input Data.Records.General gen "General parameter of the borefield";
   input Data.Records.Soil soi "Soil charachteristics";
-  input Real[:] TResSho
+  input Modelica.SIunits.Temperature[:] TResSho
     "Vector containing the short term step-reponse wall temperature in function of the time";
 
   input Integer[q_max,p_max] nuMat "Number of pulse at the end of each cell";

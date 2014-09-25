@@ -2,10 +2,8 @@ within Buildings.Fluid.HeatExchangers.Borefield.BaseClasses.GroundHX.BaseClasses
 function integrandBf_bt
   "Integrand for the mean borehole wall temperature of a borefield. u = integration variable,  y = integrand "
   extends Modelica.Math.Nonlinear.Interfaces.partialScalarFunction;
-  import SI = Modelica.SIunits;
-
-  input SI.Distance D "depth of boreholes";
-  input SI.Radius rBor "bh radius";
+  input Modelica.SIunits.Distance D "depth of boreholes";
+  input Modelica.SIunits.Radius rBor "bh radius";
   input Integer nbBh "number of boreholes";
   input Real cooBh[nbBh,2] "coordinates of center of boreholes";
 

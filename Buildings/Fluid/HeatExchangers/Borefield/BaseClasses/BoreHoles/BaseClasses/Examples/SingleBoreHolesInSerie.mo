@@ -1,7 +1,5 @@
 within Buildings.Fluid.HeatExchangers.Borefield.BaseClasses.BoreHoles.BaseClasses.Examples;
 model SingleBoreHolesInSerie "Test for the SingleBoreHole model"
-  import DaPModels;
-  import Buildings;
   extends Modelica.Icons.Example;
   package Medium = Modelica.Media.Water.ConstantPropertyLiquidWater;
 

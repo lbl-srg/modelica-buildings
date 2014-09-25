@@ -2,7 +2,6 @@ within Buildings.Fluid.HeatExchangers.Borefield.BaseClasses.GroundHX;
 function BoreFieldWallTemperature
   "Return the borefield mean wall temperature for the discrete time t_d"
   extends BaseClasses.partialBoreFieldTemperature;
-  import SI = Modelica.SIunits;
 
 protected
   Real lb "Lower boundary of integral";

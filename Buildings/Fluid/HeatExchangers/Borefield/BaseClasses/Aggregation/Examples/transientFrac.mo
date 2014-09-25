@@ -13,7 +13,7 @@ function transientFrac "ATTENTION: don't translate this function! otherwise it d
 
   input Integer n_max=201;
   input Integer p_max=5;
-  input Real TWallSteSta = 288;
+  input Modelica.SIunits.Temperature TWallSteSta = 288;
   input Real[151] TResSho=
   {283.1499938964844, 284.28900146484375, 284.8553161621094, 285.1809387207031,
   285.410400390625, 285.5829772949219, 285.7174987792969, 285.8280029296875,

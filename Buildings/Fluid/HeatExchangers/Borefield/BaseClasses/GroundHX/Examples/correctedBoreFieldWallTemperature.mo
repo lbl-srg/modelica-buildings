@@ -2,7 +2,6 @@ within Buildings.Fluid.HeatExchangers.Borefield.BaseClasses.GroundHX.Examples;
 model correctedBoreFieldWallTemperature
   "Test for the function correctedBoreFieldWallTemperature"
   extends Modelica.Icons.Example;
-  import SI = Modelica.SIunits;
 
   parameter Integer lenSim=3600*24*365 "length of the simulation";
 
@@ -46,9 +45,9 @@ model correctedBoreFieldWallTemperature
   287.79730224609375, 287.8006896972656, 287.8040771484375}
     "Temperatures from the short-term model up to the discrete time tBre";
 
-  SI.Temperature TWallCor
+  Modelica.SIunits.Temperature TWallCor
     "Temperature of the boreholes wall, corrected by the short-term model";
-  SI.Temperature TWallCorSteSta=CorrectedBoreFieldWallTemperature(
+  Modelica.SIunits.Temperature TWallCorSteSta=CorrectedBoreFieldWallTemperature(
       t_d=integer(36000*24*365*30/gen.tStep),
       gen=gen,
       soi=soi,

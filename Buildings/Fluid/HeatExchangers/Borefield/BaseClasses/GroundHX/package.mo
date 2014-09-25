@@ -6,7 +6,6 @@ package GroundHX
 
 
 
-
   annotation (Documentation(info="<html>
   <p>The package contains the models for the long-term model of the borefield. The long-term temperature response of the borefield
   is calculated using the analytical model of Javed (2012). </p>

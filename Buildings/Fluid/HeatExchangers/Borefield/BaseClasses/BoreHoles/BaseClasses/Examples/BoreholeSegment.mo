@@ -1,6 +1,5 @@
 within Buildings.Fluid.HeatExchangers.Borefield.BaseClasses.BoreHoles.BaseClasses.Examples;
 model BoreholeSegment "Test for the boreholeSegment model"
-  import DaPModels;
   extends Modelica.Icons.Example;
   package Medium = Modelica.Media.Water.ConstantPropertyLiquidWater;
 

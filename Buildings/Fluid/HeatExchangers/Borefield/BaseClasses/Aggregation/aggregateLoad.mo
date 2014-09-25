@@ -3,17 +3,18 @@ function aggregateLoad
   extends Interface.partialAggFunction;
 
   input Integer[q_max] rArr;
-  input Real QNew "New load element";
-  input Real[q_max,p_max] QAggOld
+  input Modelica.SIunits.Power QNew "New load element";
+  input Modelica.SIunits.Power[q_max,p_max] QAggOld
     "Aggregated load matrix form the previous time step";
   input Integer[q_max,p_max] nuMat "Number of pulses at the end of each cells";
 
-  output Real[q_max,p_max] QAggNew "New aggregated load matrix";
+  output Modelica.SIunits.Power[q_max,p_max] QAggNew
+    "New aggregated load matrix";
 
 protected
   Integer q_pre "Level number of the previous aggregation cell";
   Integer p_pre "Cell number of the previous aggregation cell";
-  Real QShiPreCell "Load from the previous cell";
+  Modelica.SIunits.Power QShiPreCell "Load from the previous cell";
 
 algorithm
   for q in 1:q_max loop

@@ -8,7 +8,6 @@ function ShortTimeResponseHX
     */
   extends Modelica.Icons.Function;
 
-  import SI = Modelica.SIunits;
   input Data.Records.Soil soi=Data.SoilData.SandStone()
     "Thermal properties of the ground";
 
