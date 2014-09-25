@@ -3,8 +3,8 @@ partial model LoadCtrl
   "Partial model of a three phases load with voltage controller without neutral cable"
   extends
     Buildings.Electrical.AC.ThreePhasesUnbalanced.Loads.BaseClasses.BaseLoadCtrl;
-  Buildings.Electrical.AC.ThreePhasesUnbalanced.Interfaces.Terminal_n
-  terminal_p
+    Buildings.Electrical.AC.ThreePhasesUnbalanced.Interfaces.Terminal_n
+    terminal_p
     "Connector for three phases unbalanced systems without neutral cable"
     annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
 equation

@@ -36,22 +36,6 @@ model LoadCtrl
     P_nominal=10000)
             annotation (Placement(transformation(extent={{-46,-40},{-26,-20}})));
 equation
-  connect(sou.terminal, line1.terminal_n) annotation (Line(
-      points={{-60,0},{-46,0}},
-      color={0,120,120},
-      smooth=Smooth.None));
-  connect(line1.terminal_p, load_ctrl.terminal_p) annotation (Line(
-      points={{-26,0},{-8,0}},
-      color={0,120,120},
-      smooth=Smooth.None));
-  connect(line.terminal_p, load.terminal_p) annotation (Line(
-      points={{-26,-30},{-8,-30}},
-      color={0,120,120},
-      smooth=Smooth.None));
-  connect(sou.terminal, line.terminal_n) annotation (Line(
-      points={{-60,0},{-54,0},{-54,-30},{-46,-30}},
-      color={0,120,120},
-      smooth=Smooth.None));
   connect(pow_1.y, load_ctrl.Pow1) annotation (Line(
       points={{39,20},{30,20},{30,6},{12,6}},
       color={0,0,127},
@@ -59,6 +43,22 @@ equation
   connect(pow_1.y, load.Pow1) annotation (Line(
       points={{39,20},{30,20},{30,-24},{12,-24}},
       color={0,0,127},
+      smooth=Smooth.None));
+  connect(sou.terminal, line1.terminal_n) annotation (Line(
+      points={{-60,0},{-46,0}},
+      color={127,0,127},
+      smooth=Smooth.None));
+  connect(sou.terminal, line.terminal_n) annotation (Line(
+      points={{-60,0},{-54,0},{-54,-30},{-46,-30}},
+      color={127,0,127},
+      smooth=Smooth.None));
+  connect(line.terminal_p, load.terminal_p) annotation (Line(
+      points={{-26,-30},{-8,-30}},
+      color={127,0,127},
+      smooth=Smooth.None));
+  connect(line1.terminal_p, load_ctrl.terminal_p) annotation (Line(
+      points={{-26,0},{-8,0}},
+      color={127,0,127},
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}),      graphics),

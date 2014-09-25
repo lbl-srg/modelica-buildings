@@ -22,19 +22,19 @@ equation
           preserveAspectRatio=false, extent={{-100,-100},{100,100}}), graphics={
                                              Polygon(
           points={{-80,110},{-80,70},{0,70},{0,110},{-80,110}},
-          lineColor={0,120,120},
+          lineColor={127,0,127},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid),    Polygon(
           points={{-80,50},{-80,10},{0,10},{0,50},{-80,50}},
-          lineColor={0,120,120},
+          lineColor={127,0,127},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid),    Polygon(
           points={{-80,-10},{-80,-50},{0,-50},{0,-10},{-80,-10}},
-          lineColor={0,120,120},
+          lineColor={127,0,127},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid),    Polygon(
           points={{-80,-70},{-80,-110},{0,-110},{0,-70},{-80,-70}},
-          lineColor={0,120,120},
+          lineColor={127,0,127},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid),    Polygon(
           points={{0,-40},{0,-80},{80,-80},{80,-40},{0,-40}},

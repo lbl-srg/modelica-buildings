@@ -1,5 +1,5 @@
 within Buildings.Electrical.AC.ThreePhasesUnbalanced.Sources;
-model WindTurbine "Simple wind turbine source without neutral cable"
+model WindTurbine_N "Simple wind turbine source with neutral cable"
   extends BaseClasses.UnbalancedWindTurbine(
   redeclare Buildings.Electrical.AC.OnePhase.Sources.WindTurbine wt_phase1,
   redeclare Buildings.Electrical.AC.OnePhase.Sources.WindTurbine wt_phase2,
@@ -15,14 +15,14 @@ Revised documentation.
 </html>", info="<html>
 <p>
 Simple wind turbine model for three phases unbalanced systems
-without neutral cable connection.
+with neutral cable connection.
 </p>
 <p>
 For more information see 
 <a href=\"modelica://Buildings.Electrical.AC.OnePhase.Sources.WindTurbine\">
 Buildings.Electrical.AC.OnePhase.Sources.WindTurbine</a>, and
-<a href=\"modelica://Buildings.Electrical.AC.ThreePhasesUnbalanced.Sources.BaseClasses.UnbalancedWindTurbine\">
-Buildings.Electrical.AC.ThreePhasesUnbalanced.Sources.BaseClasses.UnbalancedWindTurbine</a>.
+<a href=\"modelica://Buildings.Electrical.AC.ThreePhasesUnbalanced.Sources.BaseClasses.UnbalancedWindTurbine_N\">
+Buildings.Electrical.AC.ThreePhasesUnbalanced.Sources.BaseClasses.UnbalancedWindTurbine_N</a>.
 </p>
 </html>"));
-end WindTurbine;
+end WindTurbine_N;

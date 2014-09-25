@@ -3,12 +3,10 @@ partial model Impedance_N
   "Partial model of a three phases unbalanced impedance with neutral cable"
   extends
     Buildings.Electrical.AC.ThreePhasesUnbalanced.Loads.BaseClasses.BaseImpedance;
-  Interfaces.Terminal4_n
-  terminal_p "Electrical connector"
-             annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
+  Interfaces.Terminal4_n terminal_p "Electrical connector"
+                           annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
   Interfaces.Connection3to4_n connection3to4
-    "Connection from three phases + neutral to three phases"
-    annotation (Placement(transformation(extent={{-88,-10},{-68,10}})));
+    "Connection from three phases + neutral to three phases" annotation (Placement(transformation(extent={{-88,-10},{-68,10}})));
 equation
 
   // Connection branches required to propagate the reference angle

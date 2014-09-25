@@ -1,8 +1,7 @@
 within Buildings.Electrical.AC.ThreePhasesUnbalanced.Sources;
-model PVsimpleOriented
-  "Simple PV source with orientation and without neutral cable"
+model PVsimpleOriented_N "Simple PV source with orientation and neutral cable"
   extends
-    Buildings.Electrical.AC.ThreePhasesUnbalanced.Sources.BaseClasses.UnbalancedPV(
+    Buildings.Electrical.AC.ThreePhasesUnbalanced.Sources.BaseClasses.UnbalancedPV_N(
     redeclare Buildings.Electrical.AC.OnePhase.Sources.PVSimple pv_phase1,
     redeclare Buildings.Electrical.AC.OnePhase.Sources.PVSimple pv_phase2,
     redeclare Buildings.Electrical.AC.OnePhase.Sources.PVSimple pv_phase3);
@@ -68,14 +67,14 @@ Revised documentation.
 </html>", info="<html>
 <p>
 Simple PV model with orientation for three phases unbalanced systems
-without neutral cable connection.
+with neutral cable connection.
 </p>
 <p>
 For more information see 
 <a href=\"modelica://Buildings.Electrical.AC.OnePhase.Sources.PVSimpleOriented\">
 Buildings.Electrical.AC.OnePhase.Sources.PVSimpleOriented</a>, and
-<a href=\"modelica://Buildings.Electrical.AC.ThreePhasesUnbalanced.Sources.BaseClasses.UnbalancedPV\">
-Buildings.Electrical.AC.ThreePhasesUnbalanced.Sources.BaseClasses.UnbalancedPV</a>.
+<a href=\"modelica://Buildings.Electrical.AC.ThreePhasesUnbalanced.Sources.BaseClasses.UnbalancedPV_N\">
+Buildings.Electrical.AC.ThreePhasesUnbalanced.Sources.BaseClasses.UnbalancedPV_N</a>.
 </p>
 </html>"));
-end PVsimpleOriented;
+end PVsimpleOriented_N;

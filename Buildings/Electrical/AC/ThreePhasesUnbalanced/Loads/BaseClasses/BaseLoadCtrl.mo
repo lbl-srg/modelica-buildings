@@ -18,14 +18,13 @@ partial model BaseLoadCtrl
   parameter Modelica.SIunits.Voltage V_nominal(min=0, start = 480) = 480
     "Nominal voltage (V_nominal >= 0)"  annotation(Dialog(group="Nominal conditions", enable = (mode==Assumptionm.FixedZ_dynamic or linear)));
   parameter Boolean voltageCtrl = false "This flag enables the voltage control"
-                                                                                 annotation(Evaluate=true, Dialog(group="Voltage CTRL"));
+                                            annotation(Evaluate=true, Dialog(group="Voltage CTRL"));
   parameter Real vThresh(min=0.0, max=1.0) = 0.1
     "Threshold that activates voltage ctrl (ratio of nominal voltage)" annotation(Dialog(group="Voltage CTRL",
         enable = voltageCtrl));
   parameter Modelica.SIunits.Time tDelay = 300
     "Time to wait before plugging the load again after disconnection" annotation(Dialog(group="Voltage CTRL",
         enable = voltageCtrl));
-
   replaceable Buildings.Electrical.Interfaces.Load load1(
     redeclare package PhaseSystem = Buildings.Electrical.PhaseSystems.OnePhase,
     redeclare Buildings.Electrical.AC.OnePhase.Interfaces.Terminal_n terminal,
@@ -33,9 +32,8 @@ partial model BaseLoadCtrl
     linearized=linearized,
     mode=mode,
     V_nominal=V_nominal/sqrt(3)) if
-                  plugPhase1 "Load 1"
+       plugPhase1 "Load 1"
     annotation (Placement(transformation(extent={{-10,40},{10,60}})));
-
   replaceable Buildings.Electrical.Interfaces.Load load2(
     redeclare package PhaseSystem = Buildings.Electrical.PhaseSystems.OnePhase,
     redeclare Buildings.Electrical.AC.OnePhase.Interfaces.Terminal_n terminal,
@@ -43,9 +41,8 @@ partial model BaseLoadCtrl
     linearized=linearized,
     mode=mode,
     V_nominal=V_nominal/sqrt(3)) if
-                  plugPhase2 "Load 2"
+       plugPhase2 "Load 2"
     annotation (Placement(transformation(extent={{-10,-30},{10,-10}})));
-
   replaceable Buildings.Electrical.Interfaces.Load load3(
     redeclare package PhaseSystem = Buildings.Electrical.PhaseSystems.OnePhase,
     redeclare Buildings.Electrical.AC.OnePhase.Interfaces.Terminal_n terminal,
@@ -53,9 +50,8 @@ partial model BaseLoadCtrl
     linearized=linearized,
     mode=mode,
     V_nominal=V_nominal/sqrt(3)) if
-                  plugPhase3 "Load 3"
+       plugPhase3 "Load 3"
     annotation (Placement(transformation(extent={{-10,-98},{10,-78}})));
-
   Modelica.Blocks.Interfaces.RealInput y1 if  plugPhase1 and
     mode == Buildings.Electrical.Types.Assumption.VariableZ_y_input
     "Fraction of the nominal power consumed"                       annotation (Placement(transformation(
@@ -118,8 +114,7 @@ partial model BaseLoadCtrl
     vThresh=vThresh,
     tDelay=tDelay,
     V_nominal=V_nominal/sqrt(3)) if
-                      plugPhase1 and voltageCtrl
-    "Voltage controller for load 1"
+       plugPhase1 and voltageCtrl "Voltage controller for load 1"
     annotation (Placement(transformation(extent={{10,80},{30,100}})));
   Modelica.Blocks.Math.Product cmd1 if plugPhase1 and voltageCtrl
     "Block that impose voltage ctrl"
@@ -130,8 +125,7 @@ partial model BaseLoadCtrl
     vThresh=vThresh,
     tDelay=tDelay,
     V_nominal=V_nominal/sqrt(3)) if
-                      plugPhase2 and voltageCtrl
-    "Voltage controller for load 2"
+       plugPhase2 and voltageCtrl "Voltage controller for load 2"
     annotation (Placement(transformation(extent={{10,10},{30,30}})));
   Modelica.Blocks.Math.Product cmd2 if plugPhase2 and voltageCtrl
     "Block that impose voltage ctrl"
@@ -142,8 +136,7 @@ partial model BaseLoadCtrl
     vThresh=vThresh,
     tDelay=tDelay,
     V_nominal=V_nominal/sqrt(3)) if
-                      plugPhase3 and voltageCtrl
-    "Voltage controller for load 3"
+       plugPhase3 and voltageCtrl "Voltage controller for load 3"
     annotation (Placement(transformation(extent={{10,-60},{30,-40}})));
   Modelica.Blocks.Math.Product cmd3 if plugPhase3 and voltageCtrl
     "Block that impose voltage ctrl"

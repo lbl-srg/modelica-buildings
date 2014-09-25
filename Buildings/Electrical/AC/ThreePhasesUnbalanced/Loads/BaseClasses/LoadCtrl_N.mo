@@ -4,12 +4,11 @@ partial model LoadCtrl_N
   extends
     Buildings.Electrical.AC.ThreePhasesUnbalanced.Loads.BaseClasses.BaseLoadCtrl;
   Buildings.Electrical.AC.ThreePhasesUnbalanced.Interfaces.Terminal4_n
-                       terminal_p
+    terminal_p
     "Connector for three phases unbalanced systems with neutral cable"
     annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
   Buildings.Electrical.AC.ThreePhasesUnbalanced.Interfaces.Connection3to4_n
-                             connection3to4
-    "Connection from three phases + neutral to three phases"
+    connection3to4 "Connection from three phases + neutral to three phases"
     annotation (Placement(transformation(extent={{-84,-10},{-64,10}})));
 equation
 

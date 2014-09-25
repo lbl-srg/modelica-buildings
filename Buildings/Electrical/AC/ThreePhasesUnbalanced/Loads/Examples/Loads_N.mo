@@ -64,22 +64,22 @@ equation
       points={{79,4.44089e-16},{68,4.44089e-16},{68,-76},{12,-76}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(sou.terminal, sen.terminal_n) annotation (Line(
-      points={{-74,5.55112e-16},{-66,5.55112e-16},{-66,4.44089e-16},{-60,4.44089e-16}},
-      color={0,120,120},
-      smooth=Smooth.None));
 
+  connect(sou.terminal, sen.terminal_n) annotation (Line(
+      points={{-74,0},{-60,0}},
+      color={127,0,127},
+      smooth=Smooth.None));
   connect(sen.terminal_p, loaR_N.terminal_p) annotation (Line(
       points={{-40,0},{-8,0}},
-      color={0,120,120},
+      color={127,0,127},
       smooth=Smooth.None));
   connect(sen.terminal_p, loaRL_N.terminal_p) annotation (Line(
       points={{-40,0},{-26,0},{-26,-30},{-8,-30}},
-      color={0,120,120},
+      color={127,0,127},
       smooth=Smooth.None));
   connect(sen.terminal_p, _N.terminal_p) annotation (Line(
       points={{-40,0},{-26,0},{-26,-70},{-8,-70}},
-      color={0,120,120},
+      color={127,0,127},
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}),      graphics), Documentation(info="<html>

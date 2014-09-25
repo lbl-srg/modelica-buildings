@@ -1,18 +1,18 @@
 within Buildings.Electrical.AC.ThreePhasesUnbalanced.Sources;
-model Grid "Electrical grid"
+model Grid_N "Electrical grid with neutral cable"
   parameter Modelica.SIunits.Frequency f(start = 60) "Frequency of the source";
   parameter Modelica.SIunits.Voltage V(start = 480) "RMS voltage of the source";
   parameter Modelica.SIunits.Angle phiSou = 0 "Phase shift of the source";
   Buildings.Electrical.AC.Interfaces.PowerOutput P[3]
     "Power consumed from grid if negative, or fed to grid if positive"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
-  Buildings.Electrical.AC.ThreePhasesUnbalanced.Interfaces.Terminal_p           terminal
-    "Connector for three phases unbalanced systems"            annotation (Placement(transformation(extent={{-10,
+  Buildings.Electrical.AC.ThreePhasesUnbalanced.Interfaces.Terminal4_p
+    terminal "Connector for three phases unbalanced systems" annotation (Placement(transformation(extent={{-10,
             -110},{10,-90}}), iconTransformation(extent={{-10,-10},{10,10}},
         rotation=90,
         origin={0,-100})));
-
-  Buildings.Electrical.AC.ThreePhasesUnbalanced.Sources.FixedVoltage           sou(
+  Buildings.Electrical.AC.ThreePhasesUnbalanced.Sources.FixedVoltage_N
+    sou(
     potentialReference=true,
     definiteReference=true,
     f=f,
@@ -31,13 +31,14 @@ equation
   end for;
   connect(sou.terminal, terminal) annotation (Line(
       points={{-4.44089e-16,6.66134e-16},{-4.44089e-16,-100},{4.44089e-16,-100}},
-      color={0,120,120},
+      color={127,0,127},
       smooth=Smooth.None));
   annotation (
   defaultComponentName="gri",
     Documentation(info="<html>
 <p>
-Model that can be used to represent the electrical grid supply.
+Model that can be used to represent the electrical grid supply with a neutral cable connection.
+The neutral cable is connected to the ground.
 </p>
 <p>
 The model has an output connector named <code>P[n]</code> with <code>n = 3</code> that
@@ -157,4 +158,4 @@ Revised documentation.
         preserveAspectRatio=false,
         extent={{-100,-100},{100,100}},
         grid={2,2}), graphics));
-end Grid;
+end Grid_N;

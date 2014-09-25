@@ -38,10 +38,6 @@ model Impedances
     annotation (Placement(transformation(extent={{60,-10},{40,10}})));
 equation
 
-  connect(sou_N.terminal, sen_N.terminal_n) annotation (Line(
-      points={{-74,-40},{-60,-40}},
-      color={0,120,120},
-      smooth=Smooth.None));
 
   connect(sou.terminal, sen.terminal_n) annotation (Line(
       points={{-74,40},{-60,40}},
@@ -49,10 +45,6 @@ equation
       smooth=Smooth.None));
   connect(sen.terminal_p, imp.terminal_p) annotation (Line(
       points={{-40,40},{0,40}},
-      color={0,120,120},
-      smooth=Smooth.None));
-  connect(sen_N.terminal_p, imp_N.terminal_p) annotation (Line(
-      points={{-40,-40},{0,-40}},
       color={0,120,120},
       smooth=Smooth.None));
   connect(var_RL.y, imp.y_R) annotation (Line(
@@ -70,6 +62,14 @@ equation
   connect(var_RL.y, imp_N.y_L) annotation (Line(
       points={{39,0},{14,0},{14,-30}},
       color={0,0,127},
+      smooth=Smooth.None));
+  connect(sou_N.terminal, sen_N.terminal_n) annotation (Line(
+      points={{-74,-40},{-60,-40}},
+      color={127,0,127},
+      smooth=Smooth.None));
+  connect(sen_N.terminal_p, imp_N.terminal_p) annotation (Line(
+      points={{-40,-40},{0,-40}},
+      color={127,0,127},
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}),      graphics={Text(

@@ -4,8 +4,7 @@ partial model Impedance
   extends
     Buildings.Electrical.AC.ThreePhasesUnbalanced.Loads.BaseClasses.BaseImpedance;
   Buildings.Electrical.AC.ThreePhasesUnbalanced.Interfaces.Terminal_n
-  terminal_p "Electrical connector"
-             annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
+    terminal_p "Electrical connector" annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
 
 equation
   connect(terminal_p, wyeToDelta.wye) annotation (Line(

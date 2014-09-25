@@ -3,12 +3,6 @@ package Sources "Package with sources model for three phases unbalanced AC syste
   extends Modelica.Icons.SourcesPackage;
 
 
-
-
-
-
-
-
 annotation (Documentation(revisions="<html>
 <ul>
 <li>
