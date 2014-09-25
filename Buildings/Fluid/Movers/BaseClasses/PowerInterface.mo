@@ -4,6 +4,14 @@ partial model PowerInterface
 
   import Modelica.Constants;
 
+  parameter Boolean use_powerCharacteristic = false
+    "Use powerCharacteristic (vs. efficiencyCharacteristic)"
+     annotation(Evaluate=true,Dialog(group="Characteristics"));
+
+  parameter Boolean motorCooledByFluid = true
+    "If true (and if addPowerToMedium = true), then motor heat is added to fluid stream"
+    annotation(Dialog(group="Characteristics"));
+
   parameter Boolean homotopyInitialization = true "= true, use homotopy method"
     annotation(Evaluate=true, Dialog(tab="Advanced"));
 
