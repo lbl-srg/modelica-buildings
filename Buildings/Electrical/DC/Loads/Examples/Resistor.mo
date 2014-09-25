@@ -8,13 +8,13 @@ model Resistor "Example model for resistor"
     annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
   Modelica.Electrical.Analog.Basic.Ground gro "Ground"
     annotation (Placement(transformation(extent={{-90,-2},{-70,18}})));
-  Lines.TwoPortResistance res(R=2) "Resistance"
+  Lines.TwoPortResistance res(R=2) "Line resistance"
     annotation (Placement(transformation(extent={{-40,20},{-20,40}})));
-  Sensors.GeneralizedSensor sen
+  Sensors.GeneralizedSensor sen "Sensor"
     annotation (Placement(transformation(extent={{0,20},{20,40}})));
   Buildings.Electrical.DC.Loads.Resistor res1(R=2, V_nominal=12) "Resistor"
     annotation (Placement(transformation(extent={{40,50},{60,70}})));
-  Sensors.GeneralizedSensor sen1
+  Sensors.GeneralizedSensor sen1 "Sensor"
     annotation (Placement(transformation(extent={{0,50},{20,70}})));
 equation
   connect(sou.terminal, res.terminal_n)

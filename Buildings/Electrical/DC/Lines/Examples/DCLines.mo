@@ -12,28 +12,25 @@ model DCLines
     P_nominal=500,
     V_nominal=50,
     mode=Types.CableMode.commercial,
-    commercialCable_low=Transmission.LowVoltageCables.PvcAl16(),
-    l=L,
-    voltageLevel=Types.VoltageLevel.Low)
+    commercialCable=Transmission.LowVoltageCables.PvcAl16(),
+    l=L) "Transmission line"
     annotation (Placement(transformation(extent={{-2,70},{18,90}})));
-  Sources.ConstantVoltage E(V=50)
+  Sources.ConstantVoltage E(V=50) "Voltage source"
     annotation (Placement(transformation(extent={{-90,70},{-70,90}})));
   Line line1(
     P_nominal=500,
     V_nominal=50,
     mode=Types.CableMode.commercial,
-    commercialCable_low=Transmission.LowVoltageCables.PvcAl16(),
-    l=L,
-    voltageLevel=Types.VoltageLevel.Low)
+    commercialCable=Transmission.LowVoltageCables.PvcAl16(),
+    l=L) "Transmission line"
     annotation (Placement(transformation(extent={{-32,70},{-12,90}})));
 
   Line line2(
     P_nominal=500,
     V_nominal=50,
     mode=Types.CableMode.commercial,
-    commercialCable_low=Transmission.LowVoltageCables.PvcAl16(),
-    l=L,
-    voltageLevel=Types.VoltageLevel.Low)
+    commercialCable=Transmission.LowVoltageCables.PvcAl16(),
+    l=L) "Transmission line"
     annotation (Placement(transformation(extent={{-34,30},{-14,50}})));
 
   Modelica.Electrical.Analog.Basic.Ground ground
@@ -41,19 +38,19 @@ model DCLines
   Loads.Conductor load1(              mode=Types.Assumption.VariableZ_y_input,
     V_nominal=50,
     linearized=linearLoads,
-    P_nominal=-150)
+    P_nominal=-150) "Load"
     annotation (Placement(transformation(extent={{30,70},{50,90}})));
   Loads.Conductor load2(
     V_nominal=50,
     mode=Types.Assumption.VariableZ_y_input,
     linearized=linearLoads,
-    P_nominal=-120)
+    P_nominal=-120) "Load"
     annotation (Placement(transformation(extent={{30,50},{50,70}})));
   Loads.Conductor load3(
     V_nominal=50,
     mode=Types.Assumption.VariableZ_y_input,
     linearized=linearLoads,
-    P_nominal=-200)
+    P_nominal=-200) "Load"
     annotation (Placement(transformation(extent={{30,30},{50,50}})));
   Modelica.Blocks.Sources.Trapezoid
                                varLoad1(
@@ -63,48 +60,44 @@ model DCLines
     width=1000,
     falling=800,
     period=3600,
-    startTime=1800)
+    startTime=1800) "Power consumption profile"
     annotation (Placement(transformation(extent={{86,30},{66,50}})));
   Loads.Conductor load4(
     V_nominal=50,
     mode=Types.Assumption.VariableZ_y_input,
     linearized=linearLoads,
-    P_nominal=-120)
+    P_nominal=-120) "Load"
     annotation (Placement(transformation(extent={{30,12},{50,32}})));
   Line line3(
     P_nominal=500,
     V_nominal=50,
     mode=Types.CableMode.commercial,
-    commercialCable_low=Transmission.LowVoltageCables.PvcAl16(),
-    l=L,
-    voltageLevel=Types.VoltageLevel.Low)
+    commercialCable=Transmission.LowVoltageCables.PvcAl16(),
+    l=L) "Transmission line"
     annotation (Placement(transformation(extent={{2,30},{22,50}})));
 
   Line line4(
     P_nominal=500,
     V_nominal=50,
     mode=Types.CableMode.commercial,
-    commercialCable_low=Transmission.LowVoltageCables.PvcAl16(),
-    l=L,
-    voltageLevel=Types.VoltageLevel.Low)
+    commercialCable=Transmission.LowVoltageCables.PvcAl16(),
+    l=L) "Transmission line"
     annotation (Placement(transformation(extent={{0,50},{20,70}})));
 
   Line line5(
     P_nominal=500,
     V_nominal=50,
     mode=Types.CableMode.commercial,
-    commercialCable_low=Transmission.LowVoltageCables.PvcAl16(),
-    l=L,
-    voltageLevel=Types.VoltageLevel.Low)
+    commercialCable=Transmission.LowVoltageCables.PvcAl16(),
+    l=L) "Transmission line"
     annotation (Placement(transformation(extent={{2,12},{22,32}})));
 
   Line line0(
     P_nominal=500,
     V_nominal=50,
     mode=Types.CableMode.commercial,
-    commercialCable_low=Transmission.LowVoltageCables.PvcAl16(),
-    l=L,
-    voltageLevel=Types.VoltageLevel.Low)
+    commercialCable=Transmission.LowVoltageCables.PvcAl16(),
+    l=L) "Transmission line"
     annotation (Placement(transformation(extent={{-64,70},{-44,90}})));
 
   Modelica.Blocks.Sources.Trapezoid
@@ -115,22 +108,21 @@ model DCLines
     width=1300,
     falling=900,
     period=4000,
-    offset=0.1)
+    offset=0.1) "Power consumption profile"
     annotation (Placement(transformation(extent={{86,70},{66,90}})));
   Line line6(
     P_nominal=500,
     V_nominal=50,
     mode=Types.CableMode.commercial,
-    commercialCable_low=Transmission.LowVoltageCables.PvcAl16(),
-    l=L,
-    voltageLevel=Types.VoltageLevel.Low)
+    commercialCable=Transmission.LowVoltageCables.PvcAl16(),
+    l=L) "Transmission line"
     annotation (Placement(transformation(extent={{-34,-10},{-14,10}})));
 
   Loads.Conductor load5(
     V_nominal=50,
     mode=Types.Assumption.VariableZ_y_input,
     linearized=linearLoads,
-    P_nominal=-200)
+    P_nominal=-200) "Load"
     annotation (Placement(transformation(extent={{30,-10},{50,10}})));
   Modelica.Blocks.Sources.Trapezoid
                                varLoad3(
@@ -140,46 +132,43 @@ model DCLines
     falling=300,
     period=3700,
     offset=0.3,
-    startTime=200)
+    startTime=200) "Power consumption profile"
     annotation (Placement(transformation(extent={{86,-10},{66,10}})));
   Loads.Conductor load6(
     V_nominal=50,
     mode=Types.Assumption.VariableZ_y_input,
     linearized=linearLoads,
-    P_nominal=-120)
+    P_nominal=-120) "Load"
     annotation (Placement(transformation(extent={{30,-28},{50,-8}})));
   Line line7(
     P_nominal=500,
     V_nominal=50,
     mode=Types.CableMode.commercial,
-    commercialCable_low=Transmission.LowVoltageCables.PvcAl16(),
-    l=L,
-    voltageLevel=Types.VoltageLevel.Low)
+    commercialCable=Transmission.LowVoltageCables.PvcAl16(),
+    l=L) "Transmission line"
     annotation (Placement(transformation(extent={{2,-10},{22,10}})));
 
   Line line8(
     P_nominal=500,
     V_nominal=50,
     mode=Types.CableMode.commercial,
-    commercialCable_low=Transmission.LowVoltageCables.PvcAl16(),
-    l=L,
-    voltageLevel=Types.VoltageLevel.Low)
+    commercialCable=Transmission.LowVoltageCables.PvcAl16(),
+    l=L) "Transmission line"
     annotation (Placement(transformation(extent={{2,-28},{22,-8}})));
 
   Line line9(
     P_nominal=500,
     V_nominal=50,
     mode=Types.CableMode.commercial,
-    commercialCable_low=Transmission.LowVoltageCables.PvcAl16(),
-    l=L,
-    voltageLevel=Types.VoltageLevel.Low)
+    commercialCable=Transmission.LowVoltageCables.PvcAl16(),
+    l=L) "Transmission line"
     annotation (Placement(transformation(extent={{-34,-50},{-14,-30}})));
 
   Loads.Conductor load7(
     V_nominal=50,
     mode=Types.Assumption.VariableZ_y_input,
     linearized=linearLoads,
-    P_nominal=-200)
+    P_nominal=-200) "Load"
     annotation (Placement(transformation(extent={{30,-50},{50,-30}})));
   Modelica.Blocks.Sources.Trapezoid
                                varLoad4(
@@ -189,46 +178,43 @@ model DCLines
     period=3600,
     amplitude=0.1,
     offset=0.8,
-    startTime=3300)
+    startTime=3300) "Power consumption profile"
     annotation (Placement(transformation(extent={{86,-50},{66,-30}})));
   Loads.Conductor load8(
     V_nominal=50,
     mode=Types.Assumption.VariableZ_y_input,
     linearized=linearLoads,
-    P_nominal=-120)
+    P_nominal=-120) "Load"
     annotation (Placement(transformation(extent={{30,-68},{50,-48}})));
   Line line10(
     P_nominal=500,
     V_nominal=50,
     mode=Types.CableMode.commercial,
-    commercialCable_low=Transmission.LowVoltageCables.PvcAl16(),
-    l=L,
-    voltageLevel=Types.VoltageLevel.Low)
+    commercialCable=Transmission.LowVoltageCables.PvcAl16(),
+    l=L) "Transmission line"
     annotation (Placement(transformation(extent={{2,-50},{22,-30}})));
 
   Line line11(
     P_nominal=500,
     V_nominal=50,
     mode=Types.CableMode.commercial,
-    commercialCable_low=Transmission.LowVoltageCables.PvcAl16(),
-    l=L,
-    voltageLevel=Types.VoltageLevel.Low)
+    commercialCable=Transmission.LowVoltageCables.PvcAl16(),
+    l=L) "Transmission line"
     annotation (Placement(transformation(extent={{2,-68},{22,-48}})));
 
   Line line12(
     P_nominal=500,
     V_nominal=50,
     mode=Types.CableMode.commercial,
-    commercialCable_low=Transmission.LowVoltageCables.PvcAl16(),
-    l=L,
-    voltageLevel=Types.VoltageLevel.Low)
+    commercialCable=Transmission.LowVoltageCables.PvcAl16(),
+    l=L) "Transmission line"
     annotation (Placement(transformation(extent={{-34,-90},{-14,-70}})));
 
   Loads.Conductor load9(
     V_nominal=50,
     mode=Types.Assumption.VariableZ_y_input,
     linearized=linearLoads,
-    P_nominal=-200)
+    P_nominal=-200) "Load"
     annotation (Placement(transformation(extent={{30,-90},{50,-70}})));
   Modelica.Blocks.Sources.Trapezoid
                                varLoad5(
@@ -238,30 +224,28 @@ model DCLines
     width=800,
     period=3000,
     offset=0.5,
-    startTime=0)
+    startTime=0) "Power consumption profile"
     annotation (Placement(transformation(extent={{86,-90},{66,-70}})));
   Loads.Conductor load10(
     V_nominal=50,
     mode=Types.Assumption.VariableZ_y_input,
     linearized=linearLoads,
-    P_nominal=-120)
+    P_nominal=-120) "Load"
     annotation (Placement(transformation(extent={{30,-108},{50,-88}})));
   Line line13(
     P_nominal=500,
     V_nominal=50,
     mode=Types.CableMode.commercial,
-    commercialCable_low=Transmission.LowVoltageCables.PvcAl16(),
-    l=L,
-    voltageLevel=Types.VoltageLevel.Low)
+    commercialCable=Transmission.LowVoltageCables.PvcAl16(),
+    l=L) "Transmission line"
     annotation (Placement(transformation(extent={{2,-90},{22,-70}})));
 
   Line line14(
     P_nominal=500,
     V_nominal=50,
     mode=Types.CableMode.commercial,
-    commercialCable_low=Transmission.LowVoltageCables.PvcAl16(),
-    l=100,
-    voltageLevel=Types.VoltageLevel.Low)
+    commercialCable=Transmission.LowVoltageCables.PvcAl16(),
+    l=100) "Transmission line"
     annotation (Placement(transformation(extent={{2,-108},{22,-88}})));
 
 equation

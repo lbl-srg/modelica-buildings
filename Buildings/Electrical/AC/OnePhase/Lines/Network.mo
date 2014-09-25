@@ -1,10 +1,11 @@
 within Buildings.Electrical.AC.OnePhase.Lines;
 model Network "Single phase AC network"
   extends Buildings.Electrical.Transmission.BaseClasses.PartialNetwork(
+    V_nominal = 120,
     redeclare Interfaces.Terminal_p terminal,
     redeclare replaceable Transmission.Grids.TestGrid2Nodes grid,
     redeclare Line lines(
-      commercialCable_low=grid.cables,
+      commercialCable=grid.cables,
       each use_C=use_C,
       each modelMode=modelMode));
   parameter Boolean use_C = false "If true, model the cable capacity"

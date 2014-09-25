@@ -18,7 +18,7 @@ model VariableLoad "Example using variable loads models"
     height=0.8,
     duration=0.5,
     startTime=0.3,
-    offset=0)
+    offset=0) "Power signal"
     annotation (Placement(transformation(extent={{60,0},{40,20}})));
   Conductor loa3(              mode=Types.Assumption.VariableZ_P_input,
     V_nominal=12,
@@ -28,11 +28,11 @@ model VariableLoad "Example using variable loads models"
     duration=0.5,
     startTime=0.3,
     height=120,
-    offset=-20)
+    offset=-20) "Power signal"
     annotation (Placement(transformation(extent={{60,-40},{40,-20}})));
-  Lines.TwoPortResistance res(R=0.1) "Resistance"
+  Lines.TwoPortResistance res(R=0.1) "Line resistance"
     annotation (Placement(transformation(extent={{-32,40},{-12,60}})));
-  Sensors.GeneralizedSensor sen
+  Sensors.GeneralizedSensor sen "Sensor"
     annotation (Placement(transformation(extent={{0,40},{20,60}})));
 equation
   connect(sou.terminal, loa2.terminal)

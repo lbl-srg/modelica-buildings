@@ -1,19 +1,23 @@
 within Buildings.Electrical.AC.ThreePhasesBalanced.Lines;
 model Network "Three phases balanced AC network"
   extends Buildings.Electrical.Transmission.BaseClasses.PartialNetwork(
+    V_nominal = 480,
     redeclare Interfaces.Terminal_p terminal,
     redeclare Transmission.Grids.TestGrid2Nodes grid,
     redeclare Lines.Line lines(
-    commercialCable_low=grid.cables,
-    commercialCable_med=grid.cables));
-    Modelica.SIunits.Voltage Vabs[grid.nNodes]=
-     {Buildings.Electrical.PhaseSystems.OnePhase.systemVoltage(terminal[i].v)
-       for i in 1:grid.nNodes} "RMS voltage of the grid nodes";
+    redeclare replaceable
+        Buildings.Electrical.Transmission.LowVoltageCables.Generic commercialCable=grid.cables));
+    Modelica.SIunits.Voltage Vabs[grid.nNodes] "RMS voltage of the grid nodes";
 equation
   for i in 1:grid.nLinks loop
     connect(lines[i].terminal_p, terminal[grid.fromTo[i,1]]);
     connect(lines[i].terminal_n, terminal[grid.fromTo[i,2]]);
   end for;
+
+  for i in 1:grid.nNodes loop
+    Vabs[i] = Buildings.Electrical.PhaseSystems.OnePhase.systemVoltage(terminal[i].v);
+  end for;
+
   annotation (
     defaultComponentName="net",
     Icon(graphics={             Line(
@@ -27,6 +31,11 @@ equation
           color={215,215,215},
           smooth=Smooth.Bezier)}), Documentation(revisions="<html>
 <ul>
+<li>
+September 23, 2014, by Marco Bonvini:<br/>
+Maintained replaceable the parameter <code>commercialCable</code> when redeclaring 
+the type of line.
+</li>
 <li>
 August 25, 2014, by Marco Bonvini:<br/>
 Revised documentation.

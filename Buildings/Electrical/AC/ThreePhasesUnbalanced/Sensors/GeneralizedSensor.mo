@@ -1,11 +1,12 @@
 within Buildings.Electrical.AC.ThreePhasesUnbalanced.Sensors;
-model GeneralizedSensor4
+model GeneralizedSensor
+  "Sensor for power, voltage and current (3 wire system, no neutral cable)"
 
-  Interfaces.Terminal4_n terminal_n
+  Interfaces.Terminal_n terminal_n "Electrical connector side N"
     annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
-  Interfaces.Terminal4_p terminal_p
+  Interfaces.Terminal_p terminal_p "Electrical connector side P"
     annotation (Placement(transformation(extent={{90,-10},{110,10}})));
-  Modelica.Blocks.Interfaces.RealOutput V[4](final quantity="ElectricPotential",
+  Modelica.Blocks.Interfaces.RealOutput V[3](final quantity="ElectricPotential",
                                           final unit="V") "Voltage"           annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
@@ -14,7 +15,7 @@ model GeneralizedSensor4
         extent={{-10,-10},{10,10}},
         rotation=270,
         origin={0,-90})));
-  Modelica.Blocks.Interfaces.RealOutput I[4](final quantity="ElectricCurrent",
+  Modelica.Blocks.Interfaces.RealOutput I[3](final quantity="ElectricCurrent",
                                           final unit="A") "Current"           annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
@@ -23,7 +24,7 @@ model GeneralizedSensor4
         extent={{-10,-10},{10,10}},
         rotation=270,
         origin={60,-90})));
-  Modelica.Blocks.Interfaces.RealOutput S[4,terminal_n.phase[1].PhaseSystem.n](
+  Modelica.Blocks.Interfaces.RealOutput S[3,terminal_n.phase[1].PhaseSystem.n](
                                           final quantity="Power",
                                           final unit="W") "Phase powers"             annotation (Placement(
         transformation(
@@ -35,7 +36,7 @@ model GeneralizedSensor4
         origin={-60,-90})));
 equation
 
-  for i in 1:4 loop
+  for i in 1:3 loop
     V[i]   = Buildings.Electrical.PhaseSystems.OnePhase.systemVoltage(terminal_n.phase[i].v);
     I[i]   = Buildings.Electrical.PhaseSystems.OnePhase.systemCurrent(terminal_n.phase[i].i);
     S[i,:] = Buildings.Electrical.PhaseSystems.OnePhase.phasePowers_vi(v=terminal_n.phase[i].v, i=terminal_n.phase[i].i);
@@ -101,5 +102,19 @@ equation
           lineThickness=1,
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid,
-          textString="I")}));
-end GeneralizedSensor4;
+          textString="I")}),
+    Documentation(info="<html>
+<p>
+Ideal sensor that measures power, voltage and current in a three phases unbalanced system
+without neutral cable.
+The two components of the power <i>S</i> are the active and reactive power for each phase.
+</p>
+</html>", revisions="<html>
+<ul>
+<li>
+September 24, 2014, by Marco Bonvini:<br/>
+Revised documentation.
+</li>
+</ul>
+</html>"));
+end GeneralizedSensor;

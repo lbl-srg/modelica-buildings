@@ -4,7 +4,7 @@ model Grid "Electrical grid"
     "Frequency of the source";
   parameter Modelica.SIunits.Voltage V(start = 480) = 480
     "RMS voltage of the source";
-  parameter Modelica.SIunits.Angle Phi(start = 0) = 0
+  parameter Modelica.SIunits.Angle phiSou(start = 0) = 0
     "Phase shift of the source";
   Buildings.Electrical.AC.Interfaces.PowerOutput P[3]
     "Power consumed from grid if negative, or fed to grid if positive"
@@ -20,7 +20,7 @@ model Grid "Electrical grid"
     definiteReference=true,
     f=f,
     V=V,
-    Phi=Phi) "Voltage source"
+    phiSou=phiSou) "Voltage source"
      annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=0,
@@ -43,7 +43,7 @@ equation
 Model that can be used to represent the electrical grid supply.
 </p>
 <p>
-The model has an output connector named <code>P[3]</code> that
+The model has an output connector named <code>P[n]</code> with <code>n = 3</code> that
 contains information about the power supplied by the grid to the network.
 The convention is that <code>P[i].real</code> is positive if real power is
 consumed from the grid, and negative if it is fed into the grid.

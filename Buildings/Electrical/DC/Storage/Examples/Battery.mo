@@ -15,6 +15,7 @@ model Battery "Test model for battery"
     V_nominal=12) "Electrical load"
     annotation (Placement(transformation(extent={{124,-30},{144,-10}})));
   Modelica.Blocks.Sources.Constant const1(k=-10e3)
+    "Power consumption of the load"
     annotation (Placement(transformation(extent={{180,-30},{160,-10}})));
   Modelica.Blocks.Sources.SampleTrigger startCharge(period=24*3600,
       startTime=23*3600)

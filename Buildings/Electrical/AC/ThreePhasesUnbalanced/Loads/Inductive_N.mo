@@ -1,11 +1,66 @@
 within Buildings.Electrical.AC.ThreePhasesUnbalanced.Loads;
-model Inductive_N "Model of  an inductive load with neutral cable"
-  extends BaseClasses.PartialLoad_N(
-    redeclare Buildings.Electrical.AC.OnePhase.Loads.Inductive load1(pf=pf),
-    redeclare Buildings.Electrical.AC.OnePhase.Loads.Inductive load2(pf=pf),
-    redeclare Buildings.Electrical.AC.OnePhase.Loads.Inductive load3(pf=pf));
+model Inductive_N
+  "Model of a three phases unbalanced inductive load with neutral cable"
+  extends BaseClasses.LoadCtrl_N(
+    redeclare Buildings.Electrical.AC.OnePhase.Loads.Inductive load1(pf=pf,
+        use_pf_in=use_pf_in),
+    redeclare Buildings.Electrical.AC.OnePhase.Loads.Inductive load2(pf=pf,
+        use_pf_in=use_pf_in),
+    redeclare Buildings.Electrical.AC.OnePhase.Loads.Inductive load3(pf=pf,
+        use_pf_in=use_pf_in));
+  parameter Boolean use_pf_in = false "If true the pf is defined by an input"
+    annotation(Dialog(group="Modelling assumption"));
   parameter Real pf(min=0, max=1) = 0.8 "Power factor"  annotation(Dialog(group="Nominal conditions"));
-  annotation (Icon(graphics={
+  Modelica.Blocks.Interfaces.RealInput pf_in_1(
+    min=0,
+    max=1,
+    unit="1") if (use_pf_in and plugPhase1) "Power factor of load on phase 1" annotation (Placement(transformation(
+        extent={{-20,-20},{20,20}},
+        rotation=90,
+        origin={80,-120}),iconTransformation(
+        extent={{-20,-20},{20,20}},
+        rotation=90,
+        origin={-60,-100})));
+  Modelica.Blocks.Interfaces.RealInput pf_in_2(
+    min=0,
+    max=1,
+    unit="1") if (use_pf_in and plugPhase2) "Power factor of load on phase 2" annotation (Placement(transformation(
+        extent={{-20,-20},{20,20}},
+        rotation=90,
+        origin={40,-120}),iconTransformation(
+        extent={{-20,-20},{20,20}},
+        rotation=90,
+        origin={0,-100})));
+  Modelica.Blocks.Interfaces.RealInput pf_in_3(
+    min=0,
+    max=1,
+    unit="1") if (use_pf_in and plugPhase3) "Power factor of load on phase 3" annotation (Placement(transformation(
+        extent={{-20,-20},{20,20}},
+        rotation=90,
+        origin={-60,-120}),
+                          iconTransformation(
+        extent={{-20,-20},{20,20}},
+        rotation=90,
+        origin={62,-100})));
+equation
+  connect(pf_in_1, load1.pf_in) annotation (Line(
+      points={{80,-120},{80,56},{10,56}},
+      color={0,0,127},
+      smooth=Smooth.None,
+      pattern=LinePattern.Dash));
+  connect(pf_in_2, load2.pf_in) annotation (Line(
+      points={{40,-120},{40,-14},{10,-14}},
+      color={0,0,127},
+      smooth=Smooth.None,
+      pattern=LinePattern.Dash));
+  connect(pf_in_3, load3.pf_in) annotation (Line(
+      points={{-60,-120},{-60,-82},{10,-82}},
+      color={0,0,127},
+      smooth=Smooth.None,
+      pattern=LinePattern.Dash));
+  annotation (
+  defaultComponentName="loa",
+  Icon(graphics={
         Rectangle(
           extent={{-80,80},{80,-80}},
           lineColor={0,0,0},
@@ -131,6 +186,10 @@ model Inductive_N "Model of  an inductive load with neutral cable"
           rotation=180)}), Documentation(revisions="<html>
 <ul>
 <li>
+September 24, 2014, by Marco Bonvini:<br/>
+Revised documentation.
+</li>
+<li>
 August 27, 2014, by Marco Bonvini:<br/>
 Revised documentation.
 </li>
@@ -139,8 +198,8 @@ Revised documentation.
 <p>
 This model represents a three phases unbalanced inductive load.
 The model extends from 
-<a href=\"modelica://Buildings.Electrical.AC.ThreePhasesUnbalanced.Loads.BaseClasses.PartialLoad_N\">
-Buildings.Electrical.AC.ThreePhasesUnbalanced.Loads.BaseClasses.PartialLoad_N</a>
+<a href=\"modelica://Buildings.Electrical.AC.ThreePhasesUnbalanced.Loads.BaseClasses.LoadCtrl_N\">
+Buildings.Electrical.AC.ThreePhasesUnbalanced.Loads.BaseClasses.LoadCtrl_N</a>
 and uses the load model from the package
 <a href=\"modelica://Buildings.Electrical.AC.OnePhase.Loads\">
 Buildings.Electrical.AC.OnePhase.Loads</a>. The model is able to provide detailed
@@ -152,10 +211,12 @@ The current in the neutral cable is computed as the algebraic sum of the current
 of the loads.
 </p>
 <p>
-For more information see <a href=\"modelica://Buildings.Electrical.AC.ThreePhasesUnbalanced.Loads.BaseClasses.PartialLoad_N\">
-Buildings.Electrical.AC.ThreePhasesUnbalanced.Loads.BaseClasses.PartialLoad_N</a> and 
+For more information see <a href=\"modelica://Buildings.Electrical.AC.ThreePhasesUnbalanced.Loads.BaseClasses.LoadCtrl_N\">
+Buildings.Electrical.AC.ThreePhasesUnbalanced.Loads.BaseClasses.LoadCtrl_N</a> and 
 <a href=\"modelica://Buildings.Electrical.AC.OnePhase.Loads.Inductive\">
 Buildings.Electrical.AC.OnePhase.Loads.Inductive</a>.
 </p>
-</html>"));
+</html>"),
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
+            100}}), graphics));
 end Inductive_N;

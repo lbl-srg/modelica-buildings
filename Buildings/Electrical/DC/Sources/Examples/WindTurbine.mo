@@ -21,13 +21,14 @@ model WindTurbine "Example for the WindTurbine model"
   Modelica.Electrical.Analog.Basic.Ground ground
     annotation (Placement(transformation(extent={{-90,-20},{-70,0}})));
   Buildings.Electrical.DC.Loads.Resistor    res(R=0.5, V_nominal=12)
+    "Resistance"
     annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
   Buildings.Electrical.DC.Sources.ConstantVoltage    sou(V=12) "Voltage source"
     annotation (Placement(transformation(extent={{-80,10},{-60,30}})));
   Buildings.Electrical.DC.Lines.TwoPortResistance lin(R=0.05)
     "Transmission line"
     annotation (Placement(transformation(extent={{-32,30},{-12,50}})));
-  Buildings.Electrical.DC.Sensors.GeneralizedSensor sen
+  Buildings.Electrical.DC.Sensors.GeneralizedSensor sen "Sensor"
     annotation (Placement(transformation(extent={{-2,30},{18,50}})));
 equation
   connect(weaDat.weaBus,weaBus)  annotation (Line(

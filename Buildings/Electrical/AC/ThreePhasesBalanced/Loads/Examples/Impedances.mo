@@ -68,5 +68,4 @@ The impedances have unitary values such that the RMS value of the voltage and of
           "modelica://Buildings/Resources/Scripts/Dymola/Electrical/AC/ThreePhasesBalanced/Loads/Examples/Impedances.mos"
         "Simulate and plot"),
     __Dymola_experimentSetupOutput);
-
 end Impedances;

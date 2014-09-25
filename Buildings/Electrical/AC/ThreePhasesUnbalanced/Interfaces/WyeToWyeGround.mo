@@ -1,15 +1,14 @@
 within Buildings.Electrical.AC.ThreePhasesUnbalanced.Interfaces;
 model WyeToWyeGround
   "This model represent a connection between wye to wye grounded"
-  import Buildings;
 
-  Terminal_n wye annotation (Placement(transformation(extent={{-110,-10},{-90,10}}),
+  Terminal_n wye "Terminal Y" annotation (Placement(transformation(extent={{-110,-10},{-90,10}}),
         iconTransformation(extent={{-110,-10},{-90,10}})));
-  Terminal_n wyeg annotation (Placement(transformation(extent={{90,-10},{110,10}}),
+  Terminal_n wyeg "Terminal Y with ground connection" annotation (Placement(transformation(extent={{90,-10},{110,10}}),
         iconTransformation(extent={{90,-10},{110,10}})));
-  Connection3to4_n           connection3to4
+  Connection3to4_n connection3to4 "Adapter between Termina3 and Terminal4"
     annotation (Placement(transformation(extent={{-40,-10},{-60,10}})));
-  Buildings.Electrical.AC.OnePhase.Basics.Ground ground
+  Buildings.Electrical.AC.OnePhase.Basics.Ground ground "Ground reference"
     annotation (Placement(transformation(extent={{-30,-40},{-10,-20}})));
 equation
 

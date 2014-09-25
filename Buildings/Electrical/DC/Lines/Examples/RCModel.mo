@@ -5,23 +5,25 @@ model RCModel "Example model to test for the DC RC two port model"
   TwoPortRCLine RC_ss(
     C=1,
     V_nominal=50,
-    R=8) annotation (Placement(transformation(extent={{-30,10},{-10,30}})));
-  Sources.ConstantVoltage constantVoltage(V=50)
+    R=8) "Line resistance"
+         annotation (Placement(transformation(extent={{-30,10},{-10,30}})));
+  Sources.ConstantVoltage constantVoltage(V=50) "Voltage source"
     annotation (Placement(transformation(extent={{-60,10},{-40,30}})));
   Modelica.Electrical.Analog.Basic.Ground ground
     annotation (Placement(transformation(extent={{-72,-16},{-52,4}})));
-  Loads.Resistor sc_ss(V_nominal=50, R=0)
+  Loads.Resistor sc_ss(V_nominal=50, R=0) "Short circuit load"
     annotation (Placement(transformation(extent={{30,10},{50,30}})));
-  Sensors.GeneralizedSensor sen_ss
+  Sensors.GeneralizedSensor sen_ss "Sensor"
     annotation (Placement(transformation(extent={{0,10},{20,30}})));
   TwoPortRCLine RC_dyn(
     C=1,
     V_nominal=50,
     use_C=true,
-    R=8) annotation (Placement(transformation(extent={{-28,-20},{-8,0}})));
-  Loads.Resistor sc_dyn(V_nominal=50, R=0)
+    R=8) "Line resistance"
+         annotation (Placement(transformation(extent={{-28,-20},{-8,0}})));
+  Loads.Resistor sc_dyn(V_nominal=50, R=0) "Load"
     annotation (Placement(transformation(extent={{32,-20},{52,0}})));
-  Sensors.GeneralizedSensor sen_dyn
+  Sensors.GeneralizedSensor sen_dyn "Sensor"
     annotation (Placement(transformation(extent={{2,-20},{22,0}})));
 equation
   connect(ground.p, constantVoltage.n) annotation (Line(

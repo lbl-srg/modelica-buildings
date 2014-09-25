@@ -1,13 +1,12 @@
 within Buildings.Electrical.Transmission.Functions;
 function selectCable_med "This function is used to automatically select the 
     type of cable for medium voltages"
-  input Modelica.SIunits.Power P_nominal "Rated power";
-  input Modelica.SIunits.Voltage V_nominal "Rated voltage";
+  input Modelica.SIunits.Power P_nominal = 0 "Rated power";
+  input Modelica.SIunits.Voltage V_nominal = 0 "Rated voltage";
   output Buildings.Electrical.Transmission.MediumVoltageCables.Generic cable "Cable";
 protected
   parameter Real safety_factor = 1.2;
-  Modelica.SIunits.Current I_nominal = safety_factor*P_nominal/V_nominal
-    "Nominal current flowing through the line";
+  Modelica.SIunits.Current I_nominal "Nominal current flowing through the line";
   Buildings.Electrical.Transmission.MediumVoltageCables.Annealed_Al_10 Al10;
   Buildings.Electrical.Transmission.MediumVoltageCables.Annealed_Al_30 Al30;
   Buildings.Electrical.Transmission.MediumVoltageCables.Annealed_Al_40 Al40;
@@ -16,6 +15,19 @@ protected
   Buildings.Electrical.Transmission.MediumVoltageCables.Annealed_Al_1000 Al1000;
   Buildings.Electrical.Transmission.MediumVoltageCables.Annealed_Al_1500 Al1500;
 algorithm
+
+  assert(Transmission.Functions.selectVoltageLevel(V_nominal) == Buildings.Electrical.Types.VoltageLevel.Medium,
+  "In function Buildings.Electrical.Transmission.Functions.selectCable_med,
+  cable autosizing has a nominal Voltage " + String(V_nominal) + " [V].
+  The medium voltage cables do not support such a voltage level.",
+  level=AssertionLevel.error);
+
+  // Check if it's possible to compute the current
+  if V_nominal > 0 then
+    I_nominal :=safety_factor*P_nominal/V_nominal;
+  else
+    I_nominal :=0;
+  end if;
 
   // Assumed the material is Copper
   if I_nominal < Al10.Amp then

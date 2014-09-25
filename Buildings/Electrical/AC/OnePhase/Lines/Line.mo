@@ -8,9 +8,7 @@ model Line "Model of an electrical line"
       redeclare package PhaseSystem = PhaseSystem_n),
     redeclare Interfaces.Terminal_p terminal_p(
       redeclare package PhaseSystem = PhaseSystem_p),
-    voltageLevel=Types.VoltageLevel.Low,
-    commercialCable_med=
-      Buildings.Electrical.Transmission.Functions.selectCable_med(P_nominal, V_nominal));
+    commercialCable = Buildings.Electrical.Transmission.Functions.selectCable_low(P_nominal, V_nominal));
 protected
   replaceable TwoPortRL line(R=R/3,L=L/3) constrainedby
     Buildings.Electrical.Transmission.BaseClasses.PartialTwoPortRLC(
@@ -81,6 +79,18 @@ and provides functionalities to parametrize the values of <i>R</i>, <i>L</i> and
 using commercial cables or using default values.
 </p>
 </html>", revisions="<html>
+<ul>
+<li>
+September 23, 2014, by Marco Bonvini:<br/>
+Moved here the default declaration of the parameter <code>commercialCable</code>.<br/>
+</li>
+<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">
+<span style=\" font-family:'Courier New,courier';\">commercialCable = </span>
+<span style=\" font-family:'Courier New,courier'; color:#ff0000;\"> Buildings.Electrical.Transmission.Functions.selectCable_low</span>
+<span style=\" font-family:'Courier New,courier';\">(P_nominal, V_nominal)</span>
+</p>
+</ul>
+
 <ul>
 <li>
 August 24, 2014, by Marco Bonvini:<br/>

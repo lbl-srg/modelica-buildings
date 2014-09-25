@@ -10,7 +10,7 @@ model TwoPortRL
     "Temperature constant (R_actual = R*(M + T_heatPort)/(M + T_ref))" annotation(Evaluate=true);
   parameter Modelica.SIunits.Capacitance C(start=0) "Capacity";
   parameter Modelica.SIunits.Inductance L(start=0) "Inductance";
-  parameter Modelica.SIunits.Voltage V_nominal(min=0, start=220)=100
+  parameter Modelica.SIunits.Voltage V_nominal(min=0, start=480)=480
     "Nominal voltage (V_nominal >= 0)"  annotation(Dialog(group="Nominal conditions"));
   Interfaces.Terminal_n terminal_n
     annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));

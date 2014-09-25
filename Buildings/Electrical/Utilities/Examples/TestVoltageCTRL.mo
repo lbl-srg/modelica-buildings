@@ -4,16 +4,16 @@ model TestVoltageCTRL
   extends Modelica.Icons.Example;
   parameter Modelica.SIunits.Voltage V_nominal = 220
     "Nominal voltage of the node to be controlled";
-  parameter Real Vthresh(min=0.0, max=1.0) = 0.1
+  parameter Real vThresh(min=0.0, max=1.0) = 0.1
     "Threshold that activates voltage ctrl (ratio of nominal voltage)";
-  parameter Modelica.SIunits.Time Tdelay = 300
+  parameter Modelica.SIunits.Time tDelay = 300
     "Time to wait before plugging the load back";
-  parameter Modelica.SIunits.Voltage V_max = 220*(1+Vthresh)
+  parameter Modelica.SIunits.Voltage V_max = 220*(1+vThresh)
     "Maximum allowed voltage";
-  parameter Modelica.SIunits.Voltage V_min = 220*(1-Vthresh)
+  parameter Modelica.SIunits.Voltage V_min = 220*(1-vThresh)
     "Minimum allowed voltage";
-  Buildings.Electrical.Utilities.Functions.VoltageControl
-                                                Vctrl(V_nominal=V_nominal, Vthresh=Vthresh, Tdelay=Tdelay);
+  Buildings.Electrical.Utilities.Functions.voltageControl
+                                                Vctrl(V_nominal=V_nominal, vThresh=vThresh, tDelay=tDelay);
 equation
   Vctrl.V = 230 + 220*(0.12)*sin(2*Modelica.Constants.pi*time/1000);
   annotation (Documentation(revisions="<html>

@@ -6,7 +6,8 @@ record SingleFeeder_10nodes_Al120
     nLinks = nNodes-1,
     l = Utilities.lineFeederLengths(nLinks, 200, 16),
     fromTo = Utilities.lineFeederConnections(nLinks),
-    cables = Utilities.lineFeederCables(
+    redeclare Buildings.Electrical.Transmission.LowVoltageCables.Generic cables=
+             Buildings.Electrical.Transmission.Benchmarks.Utilities.lineFeederCablesLow(
              nLinks,
              Buildings.Electrical.Transmission.LowVoltageCables.PvcAl120(),
              Buildings.Electrical.Transmission.LowVoltageCables.PvcAl120()));
@@ -23,7 +24,11 @@ The type of the cables is AL120.
         revisions="<html>
 <ul>
 <li>
-Sept 19 2014 by Marco Bonvini:
+September 23, 2014, by Marco Bonvini:<br/>
+Added redeclare statement needed to specify the type of cables used in the array.
+</li>
+<li>
+Sept 19 2014 by Marco Bonvini:<br/>
 Added documentation
 </li>
 </ul>

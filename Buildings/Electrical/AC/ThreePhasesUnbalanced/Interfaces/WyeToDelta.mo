@@ -1,9 +1,9 @@
 within Buildings.Electrical.AC.ThreePhasesUnbalanced.Interfaces;
 model WyeToDelta "This model represent a connection between wye to delta"
 
-  Terminal_n wye annotation (Placement(transformation(extent={{-110,-10},{-90,10}}),
+  Terminal_n wye "Terminal Y" annotation (Placement(transformation(extent={{-110,-10},{-90,10}}),
         iconTransformation(extent={{-110,-10},{-90,10}})));
-  Terminal_n delta annotation (Placement(transformation(extent={{90,-10},{110,10}}),
+  Terminal_n delta "Terminal D" annotation (Placement(transformation(extent={{90,-10},{110,10}}),
         iconTransformation(extent={{90,-10},{110,10}})));
 equation
 

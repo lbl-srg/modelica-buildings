@@ -1,13 +1,10 @@
 within Buildings.Electrical.AC.ThreePhasesUnbalanced.Loads.BaseClasses;
-partial model PartialImpedance
+partial model BaseImpedance
   "Partial model of a three phases unbalanced impedance"
   extends Buildings.Electrical.Interfaces.PartialPluggableUnbalanced;
-  Buildings.Electrical.AC.ThreePhasesUnbalanced.Interfaces.Terminal_n
-  terminal_p "Electrical connector"
-             annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
 
   replaceable Buildings.Electrical.AC.OnePhase.Loads.Impedance
-                                                load1(
+    load1(
     redeclare package PhaseSystem = Buildings.Electrical.PhaseSystems.OnePhase,
     redeclare Buildings.Electrical.AC.OnePhase.Interfaces.Terminal_n terminal,
     inductive=inductive,
@@ -22,10 +19,10 @@ partial model PartialImpedance
     CMax=CMax,
     use_L_in=use_L_in,
     LMin=LMin,
-    LMax=LMax) if PlugPhase1 "Load 1"
+    LMax=LMax) if plugPhase1 "Load 1"
     annotation (Placement(transformation(extent={{-10,30},{10,50}})));
   replaceable Buildings.Electrical.AC.OnePhase.Loads.Impedance
-                                                load2(
+    load2(
     redeclare package PhaseSystem = Buildings.Electrical.PhaseSystems.OnePhase,
     redeclare Buildings.Electrical.AC.OnePhase.Interfaces.Terminal_n terminal,
     inductive=inductive,
@@ -40,10 +37,10 @@ partial model PartialImpedance
     CMax=CMax,
     use_L_in=use_L_in,
     LMin=LMin,
-    LMax=LMax) if PlugPhase2 "Load 2"
+    LMax=LMax) if plugPhase2 "Load 2"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   replaceable Buildings.Electrical.AC.OnePhase.Loads.Impedance
-                                                load3(
+    load3(
     redeclare package PhaseSystem = Buildings.Electrical.PhaseSystems.OnePhase,
     redeclare Buildings.Electrical.AC.OnePhase.Interfaces.Terminal_n terminal,
     inductive=inductive,
@@ -58,7 +55,7 @@ partial model PartialImpedance
     CMax=CMax,
     use_L_in=use_L_in,
     LMin=LMin,
-    LMax=LMax) if PlugPhase3 "Load 3"
+    LMax=LMax) if plugPhase3 "Load 3"
     annotation (Placement(transformation(extent={{-10,-50},{10,-30}})));
   parameter Buildings.Electrical.Types.LoadConnection loadConn=
     Buildings.Electrical.Types.LoadConnection.wye_to_wyeg
@@ -126,22 +123,22 @@ partial model PartialImpedance
   Buildings.Electrical.AC.ThreePhasesUnbalanced.Interfaces.WyeToDelta
     wyeToDelta if (loadConn == Buildings.Electrical.Types.LoadConnection.wye_to_delta)
     "Wye to delta load connection"
-    annotation (Placement(transformation(extent={{-80,0},{-60,20}})));
+    annotation (Placement(transformation(extent={{-64,0},{-44,20}})));
   Buildings.Electrical.AC.ThreePhasesUnbalanced.Interfaces.WyeToWyeGround
     wyeToWyeGround if (loadConn == Buildings.Electrical.Types.LoadConnection.wye_to_wyeg)
     "Wye to grounded wye connection"
-    annotation (Placement(transformation(extent={{-80,-20},{-60,0}})));
+    annotation (Placement(transformation(extent={{-64,-20},{-44,0}})));
 equation
 
   // Conditional connections to load 1
-  if PlugPhase1 then
+  if plugPhase1 then
     connect(wyeToWyeGround.wyeg.phase[1], load1.terminal) annotation (Line(
-      points={{-60,-10},{-20,-10},{-20,40},{-10,40}},
+      points={{-44,-10},{-20,-10},{-20,40},{-10,40}},
       color={0,120,120},
       smooth=Smooth.None,
         pattern=LinePattern.Dash));
     connect(wyeToDelta.delta.phase[1], load1.terminal) annotation (Line(
-        points={{-60,10},{-36,10},{-36,40},{-10,40}},
+        points={{-44,10},{-36,10},{-36,40},{-10,40}},
         color={0,120,120},
         smooth=Smooth.None));
     if use_R_in then
@@ -164,14 +161,14 @@ equation
     end if;
   end if;
   // Conditional connections to load 2
-  if PlugPhase2 then
+  if plugPhase2 then
     connect(wyeToWyeGround.wyeg.phase[2], load2.terminal) annotation (Line(
-      points={{-60,-10},{-20,-10},{-20,0},{-10,0}},
+      points={{-44,-10},{-20,-10},{-20,0},{-10,0}},
       color={0,120,120},
       smooth=Smooth.None,
         pattern=LinePattern.Dash));
     connect(wyeToDelta.delta.phase[2], load2.terminal) annotation (Line(
-        points={{-60,10},{-36,10},{-36,0},{-10,0}},
+        points={{-44,10},{-36,10},{-36,0},{-10,0}},
         color={0,120,120},
         smooth=Smooth.None));
     if use_R_in then
@@ -195,14 +192,14 @@ equation
   end if;
 
   // Conditional connections to load 3
-  if PlugPhase3 then
+  if plugPhase3 then
     connect(wyeToWyeGround.wyeg.phase[3], load3.terminal) annotation (Line(
-      points={{-60,-10},{-20,-10},{-20,-40},{-10,-40}},
+      points={{-44,-10},{-20,-10},{-20,-40},{-10,-40}},
       color={0,120,120},
       smooth=Smooth.None,
         pattern=LinePattern.Dash));
     connect(wyeToDelta.delta.phase[3], load3.terminal) annotation (Line(
-        points={{-60,10},{-36,10},{-36,-40},{-10,-40}},
+        points={{-44,10},{-36,10},{-36,-40},{-10,-40}},
         color={0,120,120},
         smooth=Smooth.None));
     if use_R_in then
@@ -225,14 +222,6 @@ equation
     end if;
   end if;
 
-  connect(terminal_p, wyeToDelta.wye) annotation (Line(
-      points={{-100,0},{-86,0},{-86,10},{-80,10}},
-      color={0,120,120},
-      smooth=Smooth.None));
-  connect(terminal_p, wyeToWyeGround.wye) annotation (Line(
-      points={{-100,0},{-86,0},{-86,-10},{-80,-10}},
-      color={0,120,120},
-      smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}), graphics), Icon(coordinateSystem(
           preserveAspectRatio=false, extent={{-100,-100},{100,100}}), graphics),
@@ -244,6 +233,10 @@ unbalanced impedance.
 <p>
 The model can be configured in order to represent different type of 
 impedances as well as configurations.
+</p>
+<p>
+The loads can be connected either in wye (Y) or delta (D) configuration.
+The parameter <code>loadConn</code> can be used for such a purpose.
 </p>
 <p>
 The model has three impedances that can be either connected in Y or
@@ -266,9 +259,9 @@ be used to specify time varying impedances.
 </html>", revisions="<html>
 <ul>
 <li>
-August 27, 2014, by Marco Bonvini:<br/>
-Revised documentation.
+September 24, 2014, by Marco Bonvini:<br/>
+Created model from previus version.
 </li>
 </ul>
 </html>"));
-end PartialImpedance;
+end BaseImpedance;

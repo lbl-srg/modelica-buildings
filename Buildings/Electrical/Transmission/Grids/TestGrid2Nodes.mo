@@ -5,7 +5,8 @@ record TestGrid2Nodes "Simple model of a grid with 2 nodes and 1 link"
     nLinks=1,
     fromTo=[[1,2]],
     l=[200],
-    cables={LowVoltageCables.Cu35()});
+    redeclare Buildings.Electrical.Transmission.LowVoltageCables.Generic
+    cables = {LowVoltageCables.Cu35()});
   annotation (Documentation(info="<html>
 <p>
 This model represents a simple grid with two nodes and a single link between them.
@@ -19,7 +20,11 @@ The picture below describes the grid topology.
 </html>", revisions="<html>
 <ul>
 <li>
-June 3, 2014, by Marco Bonvini:
+September 23, 2014, by Marco Bonvini:<br/>
+Added redeclare statement needed to specify the type of cables used in the array.
+</li>
+<li>
+June 3, 2014, by Marco Bonvini:<br/>
 Added User's guide.
 </li>
 </ul>

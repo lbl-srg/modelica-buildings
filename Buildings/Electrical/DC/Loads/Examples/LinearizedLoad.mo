@@ -10,31 +10,31 @@ model LinearizedLoad "Example model to check the linearized load model"
     linearized=false,
     mode=Buildings.Electrical.Types.Assumption.VariableZ_P_input,
     V_nominal=100,
-    P_nominal=0) "Resistor"
+    P_nominal=0) "Nonlinear load model"
     annotation (Placement(transformation(extent={{30,-40},{50,-20}})));
   Sources.ConstantVoltage sou(V=100) "Voltage source"
     annotation (Placement(transformation(extent={{-90,-10},{-70,10}})));
   Modelica.Electrical.Analog.Basic.Ground gro "Ground"
     annotation (Placement(transformation(extent={{-100,-32},{-80,-12}})));
-  Lines.TwoPortResistance Rline1(R=2) "Resistance"
+  Lines.TwoPortResistance Rline1(R=2) "Line resistance"
     annotation (Placement(transformation(extent={{-50,-40},{-30,-20}})));
-  Sensors.GeneralizedSensor sen_nlin
+  Sensors.GeneralizedSensor sen_nlin "Sensor"
     annotation (Placement(transformation(extent={{-10,-40},{10,-20}})));
   Buildings.Electrical.DC.Loads.Conductor LinearLoad(
     mode=Buildings.Electrical.Types.Assumption.VariableZ_P_input,
     V_nominal=100,
     linearized=true,
-    P_nominal=0) "Resistor"
+    P_nominal=0) "Linearized load model"
     annotation (Placement(transformation(extent={{30,20},{50,40}})));
-  Sensors.GeneralizedSensor sen_lin
+  Sensors.GeneralizedSensor sen_lin "Sensor"
     annotation (Placement(transformation(extent={{-10,20},{10,40}})));
-  Lines.TwoPortResistance Rline2(R=2) "Resistance"
+  Lines.TwoPortResistance Rline2(R=2) "Line resistance"
     annotation (Placement(transformation(extent={{-50,20},{-30,40}})));
   Modelica.Blocks.Sources.Ramp ramp(
     duration=0.5,
     startTime=0.2,
     offset=-50,
-    height=-950)
+    height=-950) "Power consumption"
     annotation (Placement(transformation(extent={{90,-10},{70,10}})));
 equation
   connect(sou.terminal, Rline1.terminal_n)
