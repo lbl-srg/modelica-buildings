@@ -7,7 +7,9 @@ model ACACConverter
     conACAC(eta=0.9, conversionFactor=120/480) "ACAC transformer"
     annotation (Placement(transformation(extent={{-10,0},{10,20}})));
   Buildings.Electrical.AC.ThreePhasesBalanced.Sources.FixedVoltage sou(
-    definiteReference=true) "Voltage source"
+    definiteReference=true,
+    f=60,
+    V=480) "Voltage source"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,

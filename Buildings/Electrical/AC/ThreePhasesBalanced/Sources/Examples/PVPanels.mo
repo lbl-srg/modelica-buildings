@@ -3,9 +3,10 @@ model PVPanels "This example illustrates how to use PV panel models"
   extends Modelica.Icons.Example;
   Buildings.Electrical.AC.ThreePhasesBalanced.Loads.Inductive RL(
     mode=Types.Assumption.VariableZ_y_input,
-    P_nominal=-2000) "Load taht consumes the power generted by the PVs"
+    P_nominal=-2000,
+    V_nominal=480) "Load taht consumes the power generted by the PVs"
     annotation (Placement(transformation(extent={{20,-50},{40,-30}})));
-  Buildings.Electrical.AC.ThreePhasesBalanced.Sources.Grid grid
+  Buildings.Electrical.AC.ThreePhasesBalanced.Sources.Grid grid(f=60, V=480)
     "Electrical grid model"
            annotation (Placement(transformation(extent={{-60,-20},{-40,0}})));
   Modelica.Blocks.Sources.Constant  load(k=0.5) "Load consumption"
@@ -26,10 +27,12 @@ model PVPanels "This example illustrates how to use PV panel models"
     annotation (Placement(transformation(extent={{-100,72},{-80,92}})));
   Modelica.Blocks.Math.Add G "Total irradiation on tilted surface"
     annotation (Placement(transformation(extent={{-12,52},{8,72}})));
-  ThreePhasesBalanced.Sources.PVSimple pvSimple(A=10) "PV array simplified"
+  ThreePhasesBalanced.Sources.PVSimple pvSimple(A=10, V_nominal=480)
+    "PV array simplified"
     annotation (Placement(transformation(extent={{40,0},{60,20}})));
   ThreePhasesBalanced.Sources.PVSimpleOriented pvOriented(
     A=10,
+    V_nominal=480,
     til=0.34906585039887,
     lat=0.65798912800186,
     azi=-0.78539816339745) "PV array oriented"

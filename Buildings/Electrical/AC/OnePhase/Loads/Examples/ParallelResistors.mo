@@ -3,7 +3,8 @@ model ParallelResistors
   "Example that illustrates the use of the load models at constant voltage"
   extends Modelica.Icons.Example;
   Buildings.Electrical.AC.OnePhase.Sources.FixedVoltage
-    source "Voltage source" annotation (Placement(transformation(
+    source(f=60, V=120) "Voltage source"
+                            annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-70,10})));
@@ -13,14 +14,16 @@ model ParallelResistors
     annotation (Placement(transformation(extent={{40,0},{20,20}})));
   Buildings.Electrical.AC.OnePhase.Loads.Resistive R(
     mode=Buildings.Electrical.Types.Assumption.VariableZ_P_input,
-    P_nominal=-1e3) "Variable resistive load"
+    P_nominal=-1e3,
+    V_nominal=120) "Variable resistive load"
                                      annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-22,10})));
   Buildings.Electrical.AC.OnePhase.Loads.Resistive R1(
-    mode=Buildings.Electrical.Types.Assumption.FixedZ_steady_state, P_nominal=-1.2e3)
-    "Fixed resistive load"           annotation (Placement(transformation(
+    mode=Buildings.Electrical.Types.Assumption.FixedZ_steady_state, P_nominal=-1.2e3,
+    V_nominal=120) "Fixed resistive load"
+                                     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-22,-10})));

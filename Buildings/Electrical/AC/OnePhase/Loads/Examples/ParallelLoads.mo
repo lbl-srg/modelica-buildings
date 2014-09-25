@@ -5,13 +5,15 @@ model ParallelLoads
   Buildings.Electrical.AC.OnePhase.Loads.Inductive varRL(
     mode=Buildings.Electrical.Types.Assumption.VariableZ_P_input,
     P_nominal=-1e3,
-    linearized=false) "Variable inductor and resistor"
+    linearized=false,
+    V_nominal=120) "Variable inductor and resistor"
     annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={10,50})));
-  Buildings.Electrical.AC.OnePhase.Sources.FixedVoltage source "Voltage source"
+  Buildings.Electrical.AC.OnePhase.Sources.FixedVoltage source(f=60, V=120)
+    "Voltage source"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
@@ -21,21 +23,24 @@ model ParallelLoads
     annotation (Placement(transformation(extent={{60,0},{40,20}})));
   Buildings.Electrical.AC.OnePhase.Loads.Inductive RL(
     P_nominal=-1e3,
-    linearized=false) "Constant inductor and resistor"
+    linearized=false,
+    V_nominal=120) "Constant inductor and resistor"
                                      annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={10,30})));
   Buildings.Electrical.AC.OnePhase.Loads.Capacitive varRC(mode=Buildings.Electrical.Types.Assumption.VariableZ_y_input,
       P_nominal=-1e3,
-    linearized=false) "Variable conductor and resistor"     annotation (Placement(
+    linearized=false,
+    V_nominal=120) "Variable conductor and resistor"        annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={10,10})));
   Buildings.Electrical.AC.OnePhase.Loads.Capacitive RC(mode=Buildings.Electrical.Types.Assumption.FixedZ_steady_state,
       P_nominal=-1e3,
-    linearized=false) "Constant conductor and resistor"     annotation (Placement(
+    linearized=false,
+    V_nominal=120) "Constant conductor and resistor"        annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
@@ -43,7 +48,8 @@ model ParallelLoads
   Buildings.Electrical.AC.OnePhase.Loads.Resistive R(
     P_nominal=-1e3,
     mode=Buildings.Electrical.Types.Assumption.FixedZ_steady_state,
-    linearized=false) "Resistive load"
+    linearized=false,
+    V_nominal=120) "Resistive load"
                      annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,

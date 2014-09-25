@@ -5,14 +5,16 @@ model ACline_RL "Test model for a single phase inductive-resistive line"
     "Base value for the line resistance";
   parameter Modelica.SIunits.Inductance Lbase = Rbase/2/Modelica.Constants.pi/60
     "Base value for the line inductance";
-  Sources.FixedVoltage E(      definiteReference=true) "Voltage source"
+  Sources.FixedVoltage E(      definiteReference=true,
+    f=60,
+    V=120) "Voltage source"
     annotation (Placement(transformation(extent={{-100,-10},{-80,10}})));
   Loads.Impedance load_sc_1(R=0) "Short circuit 1"
     annotation (Placement(transformation(extent={{0,20},{20,40}})));
   Loads.Impedance load_sc_2(R=0) "Short circuit 2"
     annotation (Placement(transformation(extent={{0,-10},{20,10}})));
-  TwoPortRL RL_2(R=Rbase, L=Lbase)
-    "Resistive-Inductive line connected to short circuit 2"
+  TwoPortRL RL_2(R=Rbase, L=Lbase,
+    V_nominal=120) "Resistive-Inductive line connected to short circuit 2"
     annotation (Placement(transformation(extent={{-48,-10},{-28,10}})));
   TwoPortResistance R_1(R=Rbase) "Resistance line connected to short circuit 1"
     annotation (Placement(transformation(extent={{-60,20},{-40,40}})));
@@ -21,7 +23,8 @@ model ACline_RL "Test model for a single phase inductive-resistive line"
   TwoPortRL RL_3(
     R=Rbase,
     L=Lbase,
-    mode=Buildings.Electrical.Types.Assumption.FixedZ_dynamic)
+    mode=Buildings.Electrical.Types.Assumption.FixedZ_dynamic,
+    V_nominal=120)
     "Dynamic resistive-inductive line connected to short circuit 3"
     annotation (Placement(transformation(extent={{-48,-40},{-28,-20}})));
   Loads.Impedance load_sc_3(R=0) "Short circuit 3"

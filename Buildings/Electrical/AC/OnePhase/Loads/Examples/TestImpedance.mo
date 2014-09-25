@@ -1,7 +1,7 @@
 within Buildings.Electrical.AC.OnePhase.Loads.Examples;
 model TestImpedance "Example that illustrates the use of the impedances"
   extends Modelica.Icons.Example;
-  Buildings.Electrical.AC.OnePhase.Sources.FixedVoltage V
+  Buildings.Electrical.AC.OnePhase.Sources.FixedVoltage V(f=60, V=120)
            annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
   Buildings.Electrical.AC.OnePhase.Loads.Impedance Z1(R=0,
     inductive=true,

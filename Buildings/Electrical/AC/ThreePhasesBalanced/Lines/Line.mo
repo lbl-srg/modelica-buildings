@@ -3,17 +3,11 @@ model Line "Model of an electrical line"
   extends Buildings.Electrical.AC.OnePhase.Lines.Line(
     redeclare Interfaces.Terminal_n terminal_n,
     redeclare Interfaces.Terminal_p terminal_p,
-    V_nominal = 480,
+    V_nominal(start=480),
     redeclare TwoPortRLC line(
      R=R,
      L=L,
      C=C));
-     // fixme: The above declaration sets line(R=R, L=L, C=C).
-     // However, Buildings.Electrical.AC.OnePhase.Lines.Line sets
-     // line(R=R/3,L=L/3).
-     // This is confusing. Is this a bug in the base class? Maybe it would
-     // be clearer to set in the base clas R, L and C through the constrainedby
-     // declaration.
 
   annotation (
     defaultComponentName="line",

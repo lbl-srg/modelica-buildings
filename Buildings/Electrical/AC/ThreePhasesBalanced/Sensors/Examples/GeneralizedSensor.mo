@@ -5,10 +5,10 @@ model GeneralizedSensor "Example model for generalized sensor"
     sen "Sensor model"
     annotation (Placement(transformation(extent={{-20,2},{0,22}})));
   Buildings.Electrical.AC.ThreePhasesBalanced.Loads.Capacitive loa(
-    P_nominal=100) "Constant load"
+    P_nominal=100, V_nominal=480) "Constant load"
     annotation (Placement(transformation(extent={{40,2},{60,22}})));
   Buildings.Electrical.AC.ThreePhasesBalanced.Sources.FixedVoltage
-    sou "Voltage source"
+    sou(f=60, V=480) "Voltage source"
     annotation (Placement(transformation(extent={{-60,2},{-40,22}})));
 equation
   connect(sen.terminal_p, loa.terminal)

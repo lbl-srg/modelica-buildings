@@ -4,10 +4,8 @@ model GeneralizedSensor "Sensor for power, voltage and current"
   extends Buildings.Electrical.Interfaces.PartialTwoPort(
     redeclare package PhaseSystem_p = PhaseSystems.OnePhase,
     redeclare package PhaseSystem_n = PhaseSystems.OnePhase,
-    redeclare Interfaces.Terminal_n terminal_n(
-      redeclare package PhaseSystem = PhaseSystem_n),
-    redeclare Interfaces.Terminal_p terminal_p(
-      redeclare package PhaseSystem = PhaseSystem_p));
+    redeclare Interfaces.Terminal_n terminal_n,
+    redeclare Interfaces.Terminal_p terminal_p);
   Modelica.Blocks.Interfaces.RealOutput V(final quantity="ElectricPotential",
                                           final unit="V")=
       Buildings.Electrical.PhaseSystems.OnePhase.systemVoltage(terminal_n.v)

@@ -9,10 +9,10 @@ model Battery "Simple model of a battery"
     "Efficiency during charging";
   parameter Real etaDis(min=0, max=1, unit="1") = 0.9
     "Efficiency during discharging";
-  parameter Real SOC_start=0.1 "Initial charge";
+  parameter Real SOC_start(start=0.1) "Initial charge";
   parameter Modelica.SIunits.Energy EMax(min=0, displayUnit="kWh")
     "Maximum available charge";
-  parameter Modelica.SIunits.Voltage V_nominal = 120
+  parameter Modelica.SIunits.Voltage V_nominal(start = 120)
     "Nominal voltage (V_nominal >= 0)";
   parameter Boolean linearized=false
     "If =true introduce a linearization in the load";
@@ -31,8 +31,7 @@ model Battery "Simple model of a battery"
   Modelica.Blocks.Interfaces.RealOutput SOC "State of charge"
     annotation (Placement(transformation(extent={{100,50},{120,70}})));
   replaceable Buildings.Electrical.AC.OnePhase.Interfaces.Terminal_p
-     terminal(redeclare replaceable package PhaseSystem = PhaseSystem)
-    "Generalized terminal"
+     terminal "Generalized terminal"
     annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
 
 protected

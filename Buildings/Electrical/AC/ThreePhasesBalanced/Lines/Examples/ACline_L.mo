@@ -3,8 +3,9 @@ model ACline_L "Test model for single phase inductive lines"
   extends Modelica.Icons.Example;
   parameter Modelica.SIunits.Inductance Lbase = 10/2/Modelica.Constants.pi/60
     "Base value for the line inductances";
-  ThreePhasesBalanced.Sources.FixedVoltage E(definiteReference=true)
-    "Voltage source"
+  ThreePhasesBalanced.Sources.FixedVoltage E(definiteReference=true,
+    f=60,
+    V=480) "Voltage source"
     annotation (Placement(transformation(extent={{-100,-10},{-80,10}})));
   ThreePhasesBalanced.Loads.Impedance R1(R=10) "Resistive load 1"
     annotation (Placement(transformation(extent={{0,0},{20,20}})));

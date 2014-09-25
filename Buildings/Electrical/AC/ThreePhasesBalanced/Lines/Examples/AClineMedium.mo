@@ -2,25 +2,24 @@ within Buildings.Electrical.AC.ThreePhasesBalanced.Lines.Examples;
 model AClineMedium
   "Test model for a single phase line that uses medium voltage commercial cable information "
   extends Modelica.Icons.Example;
-  ThreePhasesBalanced.Sources.FixedVoltage E(definiteReference=true, V=15000)
-    "Voltage source"
+  ThreePhasesBalanced.Sources.FixedVoltage E(definiteReference=true, V=15000,
+    f=60) "Voltage source"
     annotation (Placement(transformation(extent={{-100,-10},{-80,10}})));
   ThreePhasesBalanced.Loads.Impedance R1(R=10) "Resistive load 1"
     annotation (Placement(transformation(extent={{0,-10},{20,10}})));
   ThreePhasesBalanced.Lines.Line line_1(
-    V_nominal=220,
     P_nominal=5000,
     l=2000,
     redeclare Buildings.Electrical.Transmission.MediumVoltageCables.Generic
-          commercialCable = Buildings.Electrical.Transmission.MediumVoltageCables.Annealed_Al_10())
-    "Resistive line that connects to load 1"
+          commercialCable = Buildings.Electrical.Transmission.MediumVoltageCables.Annealed_Al_10(),
+    V_nominal=15000) "Resistive line that connects to load 1"
     annotation (Placement(transformation(extent={{-58,-10},{-38,10}})));
   ThreePhasesBalanced.Lines.Line line_2a(
     P_nominal=5000,
     l=1000,
     redeclare Buildings.Electrical.Transmission.MediumVoltageCables.Generic
-          commercialCable = Buildings.Electrical.Transmission.MediumVoltageCables.Annealed_Al_10())
-    "Resistive line that connects to load 2"
+          commercialCable = Buildings.Electrical.Transmission.MediumVoltageCables.Annealed_Al_10(),
+    V_nominal=15000) "Resistive line that connects to load 2"
     annotation (Placement(transformation(extent={{-60,-30},{-40,-10}})));
   ThreePhasesBalanced.Loads.Impedance R2(R=10) "Resistive load 2"
     annotation (Placement(transformation(extent={{0,-30},{20,-10}})));
@@ -28,22 +27,22 @@ model AClineMedium
     P_nominal=5000,
     l=1000,
     redeclare Buildings.Electrical.Transmission.MediumVoltageCables.Generic
-          commercialCable = Buildings.Electrical.Transmission.MediumVoltageCables.Annealed_Al_10())
-    "Resistive line that connects to load 2"
+          commercialCable = Buildings.Electrical.Transmission.MediumVoltageCables.Annealed_Al_10(),
+    V_nominal=15000) "Resistive line that connects to load 2"
     annotation (Placement(transformation(extent={{-32,-30},{-12,-10}})));
   ThreePhasesBalanced.Lines.Line line_3a(
     P_nominal=5000,
     l=4000,
     redeclare Buildings.Electrical.Transmission.MediumVoltageCables.Generic
-          commercialCable = Buildings.Electrical.Transmission.MediumVoltageCables.Annealed_Al_10())
-    "Resistive line that connects to load 3"
+          commercialCable = Buildings.Electrical.Transmission.MediumVoltageCables.Annealed_Al_10(),
+    V_nominal=15000) "Resistive line that connects to load 3"
     annotation (Placement(transformation(extent={{-60,-50},{-40,-30}})));
   ThreePhasesBalanced.Lines.Line line_3b(
     P_nominal=5000,
     l=4000,
     redeclare Buildings.Electrical.Transmission.MediumVoltageCables.Generic
-          commercialCable = Buildings.Electrical.Transmission.MediumVoltageCables.Annealed_Al_10())
-    "Resistive line that connects to load 3"
+          commercialCable = Buildings.Electrical.Transmission.MediumVoltageCables.Annealed_Al_10(),
+    V_nominal=15000) "Resistive line that connects to load 3"
     annotation (Placement(transformation(extent={{-60,-70},{-40,-50}})));
   ThreePhasesBalanced.Loads.Impedance R3(R=10) "Resistive load 3"
     annotation (Placement(transformation(extent={{0,-60},{20,-40}})));
@@ -51,8 +50,8 @@ model AClineMedium
     P_nominal=5000,
     l=2000,
     redeclare Buildings.Electrical.Transmission.MediumVoltageCables.Generic
-          commercialCable = Buildings.Electrical.Transmission.MediumVoltageCables.Annealed_Al_10())
-    "Line that connects the source and the short circuit"
+          commercialCable = Buildings.Electrical.Transmission.MediumVoltageCables.Annealed_Al_10(),
+    V_nominal=15000) "Line that connects the source and the short circuit"
     annotation (Placement(transformation(extent={{-58,20},{-38,40}})));
   ThreePhasesBalanced.Loads.Impedance load_sc(R=0) "Short circuit"
     annotation (Placement(transformation(extent={{0,20},{20,40}})));

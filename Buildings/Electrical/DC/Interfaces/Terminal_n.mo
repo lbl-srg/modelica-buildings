@@ -1,6 +1,8 @@
 within Buildings.Electrical.DC.Interfaces;
 connector Terminal_n "Terminal n for DC electrical systems"
-  extends Buildings.Electrical.Interfaces.Terminal;
+  extends Buildings.Electrical.Interfaces.Terminal(
+    redeclare package PhaseSystem =
+        Buildings.Electrical.PhaseSystems.TwoConductor);
   annotation (Icon(graphics={  Polygon(
           points={{-120,0},{0,-120},{120,0},{0,120},{-120,0}},
           lineColor={0,0,255},

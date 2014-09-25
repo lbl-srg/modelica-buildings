@@ -2,13 +2,11 @@ within Buildings.Electrical.AC.OnePhase.Lines;
 model TwoPortRL
   "Model of a resistive-inductive element with two electrical ports"
   extends Buildings.Electrical.Transmission.BaseClasses.PartialTwoPortRLC(
-    V_nominal = 120,
+    V_nominal(start = 120),
     redeclare package PhaseSystem_p = PhaseSystems.OnePhase,
     redeclare package PhaseSystem_n = PhaseSystems.OnePhase,
-    redeclare Interfaces.Terminal_n terminal_n(
-      redeclare package PhaseSystem = PhaseSystem_n),
-    redeclare Interfaces.Terminal_p terminal_p(
-      redeclare package PhaseSystem = PhaseSystem_p),
+    redeclare Interfaces.Terminal_n terminal_n,
+    redeclare Interfaces.Terminal_p terminal_p,
     final C=0);
   parameter Buildings.Electrical.Types.Assumption mode(
     min=Buildings.Electrical.Types.Assumption.FixedZ_steady_state,

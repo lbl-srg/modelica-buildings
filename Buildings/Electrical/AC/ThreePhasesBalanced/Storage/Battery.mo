@@ -2,7 +2,7 @@ within Buildings.Electrical.AC.ThreePhasesBalanced.Storage;
 model Battery "Simple model of a battery"
   extends Buildings.Electrical.AC.OnePhase.Storage.Battery(redeclare
       Interfaces.Terminal_p terminal,
-      V_nominal = 480,
+      V_nominal(start=480),
       redeclare Buildings.Electrical.AC.ThreePhasesBalanced.Loads.Resistive bat);
 
   annotation (

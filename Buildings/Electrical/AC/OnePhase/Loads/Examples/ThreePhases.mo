@@ -3,7 +3,9 @@ model ThreePhases
   "Examples that illustrates how to replicate a 3 phases balanced system"
   extends Modelica.Icons.Example;
   Buildings.Electrical.AC.OnePhase.Sources.FixedVoltage Va(
-    definiteReference=true) "Source phase A"
+    definiteReference=true,
+    f=60,
+    V=120) "Source phase A"
            annotation (Placement(transformation(extent={{-40,40},{-20,60}})));
   Buildings.Electrical.AC.OnePhase.Loads.Impedance Za(
     inductive=true,
@@ -11,7 +13,9 @@ model ThreePhases
     R=12) "Impedance phase A"
     annotation (Placement(transformation(extent={{20,40},{40,60}})));
   Buildings.Electrical.AC.OnePhase.Sources.FixedVoltage Vb(
-    definiteReference=true, phiSou=-2.0943951023932) "Source phase B"
+    definiteReference=true, phiSou=-2.0943951023932,
+    f=60,
+    V=120) "Source phase B"
            annotation (Placement(transformation(extent={{-40,0},{-20,20}})));
   Buildings.Electrical.AC.OnePhase.Loads.Impedance Zb(
     inductive=true,
@@ -19,7 +23,9 @@ model ThreePhases
     R=12) "Impedance phase B"
     annotation (Placement(transformation(extent={{20,0},{40,20}})));
   Buildings.Electrical.AC.OnePhase.Sources.FixedVoltage Vc(
-    definiteReference=true, phiSou=2.0943951023932) "Source phase C"
+    definiteReference=true, phiSou=2.0943951023932,
+    f=60,
+    V=120) "Source phase C"
            annotation (Placement(transformation(extent={{-40,-40},{-20,
             -20}})));
   Buildings.Electrical.AC.OnePhase.Loads.Impedance Zc(

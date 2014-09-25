@@ -1,8 +1,9 @@
 within Buildings.Electrical.AC.ThreePhasesBalanced.Lines.Examples;
 model ACline_R "Test model for single phase resistive lines"
   extends Modelica.Icons.Example;
-  ThreePhasesBalanced.Sources.FixedVoltage E(definiteReference=true)
-    "Voltage source"
+  ThreePhasesBalanced.Sources.FixedVoltage E(definiteReference=true,
+    f=60,
+    V=480) "Voltage source"
     annotation (Placement(transformation(extent={{-100,-10},{-80,10}})));
   ThreePhasesBalanced.Loads.Impedance R1(R=10) "Resistive load 1"
     annotation (Placement(transformation(extent={{0,0},{20,20}})));

@@ -3,27 +3,29 @@ model Probe "This example illustrates how to use the probe model"
   extends Modelica.Icons.Example;
   Buildings.Electrical.AC.OnePhase.Loads.Capacitive loaRC(
     mode=Buildings.Electrical.Types.Assumption.FixedZ_steady_state,
-    P_nominal=-10000) "Constant load"
+    P_nominal=-10000,
+    V_nominal=120) "Constant load"
     annotation (Placement(transformation(extent={{10,0},{30,20}})));
-  Buildings.Electrical.AC.OnePhase.Sources.FixedVoltage sou "Voltage source"
+  Buildings.Electrical.AC.OnePhase.Sources.FixedVoltage sou(f=60, V=120)
+    "Voltage source"
     annotation (Placement(transformation(extent={{-60,-30},{-40,-10}})));
   Buildings.Electrical.AC.OnePhase.Lines.TwoPortResistance res1(R=0.1)
     "First line resistance"
     annotation (Placement(transformation(extent={{-26,0},{-6,20}})));
-  Buildings.Electrical.AC.OnePhase.Sensors.Probe probe_source
+  Buildings.Electrical.AC.OnePhase.Sensors.Probe probe_source(V_nominal=120)
     "Probe that measures at the voltage source"
     annotation (Placement(transformation(extent={{-50,30},{-30,50}})));
-  Buildings.Electrical.AC.OnePhase.Sensors.Probe probe_loadRC
+  Buildings.Electrical.AC.OnePhase.Sensors.Probe probe_loadRC(V_nominal=120)
     "Probe that measures at the RC load"
     annotation (Placement(transformation(extent={{-10,30},{10,50}})));
   Buildings.Electrical.AC.OnePhase.Lines.TwoPortResistance res2(R=0.1)
     "Second line resistance"
     annotation (Placement(transformation(extent={{-26,-70},{-6,-50}})));
   Buildings.Electrical.AC.OnePhase.Loads.Inductive loaRL(
-    mode=Buildings.Electrical.Types.Assumption.FixedZ_steady_state, P_nominal=-10000)
-    "Constant load"
+    mode=Buildings.Electrical.Types.Assumption.FixedZ_steady_state, P_nominal=-10000,
+    V_nominal=120) "Constant load"
     annotation (Placement(transformation(extent={{10,-70},{30,-50}})));
-  Buildings.Electrical.AC.OnePhase.Sensors.Probe probe_loadRL
+  Buildings.Electrical.AC.OnePhase.Sensors.Probe probe_loadRL(V_nominal=120)
     "Probe that measures at the RL load"
     annotation (Placement(transformation(extent={{-10,-28},{10,-8}})));
 equation

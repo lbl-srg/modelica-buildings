@@ -2,15 +2,16 @@ within Buildings.Electrical.AC.OnePhase.Loads.Examples;
 model DynamicLoads "Example that illustrates the use of dynamic loads"
   extends Modelica.Icons.Example;
   Buildings.Electrical.AC.OnePhase.Sources.FixedVoltage
-                                                     source "Voltage source"
-                            annotation (Placement(transformation(
+                                                     source(f=60, V=120)
+    "Voltage source"        annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-70,10})));
   Buildings.Electrical.AC.OnePhase.Loads.Capacitive dynRC(
     pf=0.8,
     mode=Buildings.Electrical.Types.Assumption.FixedZ_dynamic,
-    P_nominal=-1200) "Dynamic RC load"
+    P_nominal=-1200,
+    V_nominal=120) "Dynamic RC load"
     annotation (Placement(transformation(extent={{0,-20},{20,0}})));
   Buildings.Electrical.AC.OnePhase.Lines.TwoPortResistance line(R=0.1)
     "Line resistance"
@@ -18,7 +19,8 @@ model DynamicLoads "Example that illustrates the use of dynamic loads"
   Buildings.Electrical.AC.OnePhase.Loads.Inductive dynRL(
     pf=0.8,
     mode=Buildings.Electrical.Types.Assumption.FixedZ_dynamic,
-    P_nominal=-1200) "Dynamic RL load"
+    P_nominal=-1200,
+    V_nominal=120) "Dynamic RL load"
     annotation (Placement(transformation(extent={{0,10},{20,30}})));
 equation
   connect(source.terminal, line.terminal_n) annotation (Line(

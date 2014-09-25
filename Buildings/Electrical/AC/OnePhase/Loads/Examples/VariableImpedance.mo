@@ -2,7 +2,8 @@ within Buildings.Electrical.AC.OnePhase.Loads.Examples;
 model VariableImpedance
   "Example that illustrates how using variable impedances"
   extends Modelica.Icons.Example;
-  Buildings.Electrical.AC.OnePhase.Sources.FixedVoltage V "Voltage source"
+  Buildings.Electrical.AC.OnePhase.Sources.FixedVoltage V(f=60, V=120)
+    "Voltage source"
            annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
   Buildings.Electrical.AC.OnePhase.Loads.Impedance Z_L(
     R=0,

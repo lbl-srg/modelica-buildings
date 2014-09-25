@@ -3,11 +3,14 @@ model ACDCConverter "AC DC converter"
   extends Buildings.Electrical.Interfaces.PartialConversion(
     redeclare package PhaseSystem_p = PhaseSystems.TwoConductor,
     redeclare package PhaseSystem_n = PhaseSystems.OnePhase,
-    redeclare Interfaces.Terminal_n terminal_n(redeclare package PhaseSystem =
-          PhaseSystem_n, i(start = zeros(PhaseSystem_n.n), stateSelect = StateSelect.prefer)),
-    redeclare DC.Interfaces.Terminal_p terminal_p(redeclare package PhaseSystem
-        = PhaseSystem_p, i(start = zeros(PhaseSystem_p.n), stateSelect = StateSelect.prefer)));
-  parameter Real conversionFactor "Ratio of DC voltage / AC RMS voltage";
+    redeclare Interfaces.Terminal_n terminal_n(
+        i(start = zeros(PhaseSystem_n.n),
+        stateSelect = StateSelect.prefer)),
+    redeclare DC.Interfaces.Terminal_p terminal_p(
+        i(start = zeros(PhaseSystem_p.n),
+        stateSelect = StateSelect.prefer)));
+  parameter Real conversionFactor(min = Modelica.Constants.eps)
+    "Ratio of DC voltage / AC RMS voltage";
   parameter Real eta(min=0, max=1)
     "Converter efficiency, pLoss = (1-eta) * Ptr";
   Modelica.SIunits.Power LossPower "Loss power";

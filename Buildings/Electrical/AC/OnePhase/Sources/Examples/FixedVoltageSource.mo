@@ -3,12 +3,16 @@ model FixedVoltageSource
   "This example illustrates how using a fixed voltage source"
   extends Modelica.Icons.Example;
   Buildings.Electrical.AC.OnePhase.Loads.Inductive RL(
-      P_nominal=-300, mode=Buildings.Electrical.Types.Assumption.FixedZ_steady_state)
-    "Load model"
+      P_nominal=-300, mode=Buildings.Electrical.Types.Assumption.FixedZ_steady_state,
+    V_nominal=120) "Load model"
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
-  FixedVoltage grid(phiSou=0.34906585039887) "AC one phase electrical grid"
+  FixedVoltage grid(
+    f=60,
+    V=120,
+    phiSou=0.34906585039887) "AC one phase electrical grid"
            annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
-  Sensors.Probe sen "Probe that measures the voltage at the load"
+  Sensors.Probe sen(V_nominal=120)
+    "Probe that measures the voltage at the load"
     annotation (Placement(transformation(extent={{-10,20},{10,40}})));
 equation
   connect(grid.terminal, RL.terminal)

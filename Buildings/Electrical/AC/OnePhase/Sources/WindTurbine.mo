@@ -3,7 +3,7 @@ model WindTurbine "Simple wind turbine model"
   extends Buildings.Electrical.Interfaces.PartialWindTurbine(
     redeclare package PhaseSystem = Buildings.Electrical.PhaseSystems.OnePhase,
     redeclare Interfaces.Terminal_p terminal,
-    V_nominal = 120);
+    V_nominal(start = 120));
 
   parameter Real pf(min=0, max=1) = 0.9 "Power factor"
     annotation (Dialog(group="AC-Conversion"));
@@ -11,7 +11,8 @@ model WindTurbine "Simple wind turbine model"
     annotation (Dialog(group="AC-Conversion"));
   replaceable Buildings.Electrical.AC.OnePhase.Loads.Capacitive load(
     final mode=Buildings.Electrical.Types.Assumption.VariableZ_P_input,
-    final pf=pf) "Load model"
+    final pf=pf,
+    V_nominal=V_nominal) "Load model"
     annotation (Placement(transformation(extent={{12,-10},{32,10}})));
 protected
   Modelica.Blocks.Math.Gain gain_DCAC(final k=eta_DCAC) annotation (Placement(

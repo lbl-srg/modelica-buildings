@@ -1,7 +1,7 @@
 within Buildings.Electrical.AC.ThreePhasesBalanced.Loads.Examples;
 model Impedances "Example that illustrates the use of the impedance models"
    extends Modelica.Icons.Example;
-  Sources.FixedVoltage sou "Voltage source"
+  Sources.FixedVoltage sou(f=60, V=480) "Voltage source"
     annotation (Placement(transformation(extent={{-80,-20},{-60,0}})));
   Impedance Z1(R=0,
     inductive=true,

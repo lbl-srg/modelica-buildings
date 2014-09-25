@@ -2,7 +2,8 @@ within Buildings.Electrical.AC.ThreePhasesBalanced.Sources;
 model Grid "Electrical grid"
   extends Buildings.Electrical.AC.OnePhase.Sources.Grid(
     redeclare Interfaces.Terminal_p terminal,
-    V = 480,
+    f(start=60),
+    V(start=480),
     redeclare Buildings.Electrical.AC.ThreePhasesBalanced.Sources.FixedVoltage sou);
 
   annotation (

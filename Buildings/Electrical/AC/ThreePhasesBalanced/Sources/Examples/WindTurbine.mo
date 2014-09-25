@@ -7,7 +7,8 @@ model WindTurbine "Example for the WindTurbine AC model"
            12, 900;
            14, 1000;
            25, 1000], h=10,
-    scale=10) "Wind turbine"
+    scale=10,
+    V_nominal=480) "Wind turbine"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
@@ -20,10 +21,11 @@ model WindTurbine "Example for the WindTurbine AC model"
   Buildings.BoundaryConditions.WeatherData.Bus weaBus "Weather bus"
     annotation (Placement(transformation(extent={{16,36},{36,56}})));
   Buildings.Electrical.AC.ThreePhasesBalanced.Loads.Resistive
-                                            res(P_nominal=-500)
+                                            res(P_nominal=-500, V_nominal=480)
     "Resistive line"
     annotation (Placement(transformation(extent={{-22,-30},{-2,-10}})));
-  Buildings.Electrical.AC.ThreePhasesBalanced.Sources.Grid sou "Voltage source"
+  Buildings.Electrical.AC.ThreePhasesBalanced.Sources.Grid sou(f=60, V=480)
+    "Voltage source"
     annotation (Placement(transformation(extent={{-80,10},{-60,30}})));
   Buildings.Electrical.AC.ThreePhasesBalanced.Lines.TwoPortResistance
                                                   lin(R=0.1)

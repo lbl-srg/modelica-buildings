@@ -2,14 +2,16 @@ within Buildings.Electrical.AC.ThreePhasesBalanced.Lines.Examples;
 model ACSimpleGrid "Test model for a network model"
   extends Modelica.Icons.Example;
   ThreePhasesBalanced.Lines.Network network(
-    redeclare Buildings.Electrical.Transmission.Grids.TestGrid2Nodes grid)
+    redeclare Buildings.Electrical.Transmission.Grids.TestGrid2Nodes grid,
+      V_nominal=480)
     "Network model that represents the connection between the source and the load"
     annotation (Placement(transformation(extent={{20,-10},{0,10}})));
   ThreePhasesBalanced.Loads.Inductive load(
     P_nominal=2500,
-    mode=Types.Assumption.VariableZ_P_input) "Load connected to the network"
+    mode=Types.Assumption.VariableZ_P_input,
+    V_nominal=480) "Load connected to the network"
     annotation (Placement(transformation(extent={{-28,10},{-48,30}})));
-  ThreePhasesBalanced.Sources.FixedVoltage E "Voltage source"
+  ThreePhasesBalanced.Sources.FixedVoltage E(f=60, V=480) "Voltage source"
    annotation (Placement(
         transformation(
         extent={{10,10},{-10,-10}},

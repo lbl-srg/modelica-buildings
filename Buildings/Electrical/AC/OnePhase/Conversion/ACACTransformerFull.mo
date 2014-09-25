@@ -4,11 +4,9 @@ model ACACTransformerFull "AC AC transformer with detailed equivalent circuit"
     redeclare package PhaseSystem_p = PhaseSystems.OnePhase,
     redeclare package PhaseSystem_n = PhaseSystems.OnePhase,
     redeclare Interfaces.Terminal_n terminal_n(
-      redeclare package PhaseSystem = PhaseSystem_n,
       i(start = zeros(PhaseSystem_n.n),
       each stateSelect = StateSelect.prefer)),
     redeclare Interfaces.Terminal_p terminal_p(
-      redeclare package PhaseSystem = PhaseSystem_p,
       i(start = zeros(PhaseSystem_p.n),
       each stateSelect = StateSelect.prefer)));
   parameter Modelica.SIunits.Voltage VHigh
@@ -17,7 +15,7 @@ model ACACTransformerFull "AC AC transformer with detailed equivalent circuit"
     "RMS voltage on side 2 of the transformer (secondary side)";
   parameter Modelica.SIunits.ApparentPower VABase
     "Nominal power of the transformer";
-  parameter Modelica.SIunits.Frequency f(start=60) = 60 "Nominal frequency";
+  parameter Modelica.SIunits.Frequency f(start=60) "Nominal frequency";
   parameter Buildings.Electrical.Types.PerUnit R1(min=0)
     "Resistance on side 1 of the transformer (pu)";
   parameter Buildings.Electrical.Types.PerUnit L1(min=0)

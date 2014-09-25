@@ -1,7 +1,9 @@
 within Buildings.Electrical.AC.OnePhase.Lines.Examples;
 model ACline_R "Test model for a single phase resistive line"
   extends Modelica.Icons.Example;
-  Sources.FixedVoltage E(definiteReference=true) "Voltage source"
+  Sources.FixedVoltage E(definiteReference=true,
+    f=60,
+    V=120) "Voltage source"
     annotation (Placement(transformation(extent={{-100,-10},{-80,10}})));
   Loads.Impedance R1(R=10) "Resistive load 1"
     annotation (Placement(transformation(extent={{0,0},{20,20}})));

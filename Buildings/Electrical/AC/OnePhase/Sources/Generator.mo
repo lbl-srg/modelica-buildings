@@ -3,15 +3,8 @@ model Generator "Model of a generator"
   extends Buildings.Electrical.Interfaces.Source(
     redeclare package PhaseSystem = PhaseSystems.OnePhase,
     redeclare Interfaces.Terminal_p terminal);
-  // fixme: For f and phiGen, only the start value or the value of the parameter
-  // need to be assigned. I think usuability is better if ony the start value is
-  // assigned since then, users will get a warning if they don't set the value,
-  // but the model still simulates. Setting f=60 may cause users outside the US
-  // to use the wrong frequency, hence I prefer to only use the start value.
-  // The same applies to the declaration of V_nominals in other models.
-  parameter Modelica.SIunits.Frequency f(start=60) = 60
-    "Frequency of the source";
-  parameter Modelica.SIunits.Angle phiGen(start=0, displayUnit="deg") = 0
+  parameter Modelica.SIunits.Frequency f(start=60) "Frequency of the source";
+  parameter Modelica.SIunits.Angle phiGen(displayUnit="deg") = 0
     "Phase shift of the source";
   Modelica.SIunits.Current I "value of current";
   Modelica.Blocks.Interfaces.RealInput P

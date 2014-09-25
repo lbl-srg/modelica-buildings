@@ -14,7 +14,7 @@ model ACSimpleGridMedium "Test model for a network model with medium voltage"
     P_nominal=250000,
     V_nominal=15000) "Load connected to the network"
     annotation (Placement(transformation(extent={{-28,10},{-48,30}})));
-  ThreePhasesBalanced.Sources.FixedVoltage E(V=15000) "Voltage source"
+  ThreePhasesBalanced.Sources.FixedVoltage E(V=15000, f=60) "Voltage source"
                                                               annotation (Placement(
         transformation(
         extent={{10,-10},{-10,10}},

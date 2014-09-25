@@ -3,12 +3,9 @@ model FixedVoltage "Fixed single phase AC voltage source"
   extends Buildings.Electrical.Interfaces.Source(
     redeclare package PhaseSystem = PhaseSystems.OnePhase,
     redeclare Interfaces.Terminal_p terminal);
-  parameter Modelica.SIunits.Frequency f(start=60) = 60
-    "Frequency of the source";
-  parameter Modelica.SIunits.Voltage V(start=120) = 120
-    "RMS voltage of the source";
-  parameter Modelica.SIunits.Angle phiSou(start=0) = 0
-    "Phase shift of the source";
+  parameter Modelica.SIunits.Frequency f(start=60) "Frequency of the source";
+  parameter Modelica.SIunits.Voltage V(start=120) "RMS voltage of the source";
+  parameter Modelica.SIunits.Angle phiSou = 0 "Phase shift of the source";
 protected
   Modelica.SIunits.Angle thetaRel
     "Absolute angle of rotating system as offset to thetaRef";
@@ -41,17 +38,17 @@ equation
           color={0,0,0},
           smooth=Smooth.None),
         Line(visible = definiteReference == true,
-          points={{-20,-90},{20,-90}},
+          points={{80,-46},{120,-46}},
           color={0,120,120},
           smooth=Smooth.None,
           thickness=0.5),
         Line(visible = definiteReference == true,
-          points={{-20,-90},{6,-64}},
+          points={{80,-46},{106,-20}},
           color={0,120,120},
           smooth=Smooth.None,
           thickness=0.5),
         Line(visible = definiteReference == true,
-          points={{2,-66},{14,-74},{18,-92}},
+          points={{102,-22},{114,-30},{118,-48}},
           color={0,120,120},
           smooth=Smooth.Bezier),
         Text(

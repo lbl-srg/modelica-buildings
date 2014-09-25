@@ -1,26 +1,27 @@
 within Buildings.Electrical.AC.ThreePhasesBalanced.Loads.Examples;
 model ParallelLoads "Example that illustrates the use of the load models"
   extends Modelica.Icons.Example;
-  Sources.FixedVoltage E "Voltage source"
+  Sources.FixedVoltage E(f=60, V=480) "Voltage source"
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
-  Resistive R(P_nominal=-2000) "Resistive load"
+  Resistive R(P_nominal=-2000, V_nominal=480) "Resistive load"
     annotation (Placement(transformation(extent={{-20,40},{0,60}})));
   Inductive RL_pf(
     pf=0.8,
     P_nominal=-2000,
-    use_pf_in=true) "Inductive load with variable power factor"
+    use_pf_in=true,
+    V_nominal=480) "Inductive load with variable power factor"
     annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
   Modelica.Blocks.Sources.Ramp load(              startTime=0.2, duration=0.3)
     "Power signal profile"
     annotation (Placement(transformation(extent={{60,-50},{40,-30}})));
-  Inductive varRL_y(mode=Types.Assumption.VariableZ_y_input, P_nominal=-2000)
-    "Inductive load with y as input"
+  Inductive varRL_y(mode=Types.Assumption.VariableZ_y_input, P_nominal=-2000,
+    V_nominal=480) "Inductive load with y as input"
     annotation (Placement(transformation(extent={{-20,-36},{0,-16}})));
-  Capacitive varRC_y(mode=Types.Assumption.VariableZ_y_input, P_nominal=-2000)
-    "Capacitive load with y as input"
+  Capacitive varRC_y(mode=Types.Assumption.VariableZ_y_input, P_nominal=-2000,
+    V_nominal=480) "Capacitive load with y as input"
     annotation (Placement(transformation(extent={{-20,-60},{0,-40}})));
-  Inductive varRL_P(pf=0.8, mode=Types.Assumption.VariableZ_P_input)
-    "Inductive load with P as input"
+  Inductive varRL_P(pf=0.8, mode=Types.Assumption.VariableZ_P_input,
+    V_nominal=480) "Inductive load with P as input"
     annotation (Placement(transformation(extent={{-20,14},{0,34}})));
   Modelica.Blocks.Sources.Ramp pow(
     startTime=0.2,

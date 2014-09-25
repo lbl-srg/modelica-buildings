@@ -13,10 +13,13 @@ model ACACTransformerFull
     Rm=10,
     Lm=10,
     VHigh=120,
-    VLow=60) "Transformer with load"
+    VLow=60,
+    f=60) "Transformer with load"
     annotation (Placement(transformation(extent={{-18,40},{2,60}})));
   Buildings.Electrical.AC.OnePhase.Sources.FixedVoltage                 sou(
-    definiteReference=true) "Voltage source"
+    definiteReference=true,
+    f=60,
+    V=120) "Voltage source"
                           annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
@@ -44,7 +47,8 @@ model ACACTransformerFull
     Rm=100,
     Lm=100,
     VHigh=120,
-    VLow=60) "Transformer with short circuit connection"
+    VLow=60,
+    f=60) "Transformer with short circuit connection"
     annotation (Placement(transformation(extent={{-16,0},{4,20}})));
   Buildings.Electrical.AC.OnePhase.Loads.Impedance shortCircuit(R=1e-8)
     "Short circuit"
@@ -60,10 +64,13 @@ model ACACTransformerFull
     Rm=100,
     Lm=100,
     VHigh=120,
-    VLow=60) "Transformer with open connection"
+    VLow=60,
+    f=60) "Transformer with open connection"
     annotation (Placement(transformation(extent={{-16,-30},{4,-10}})));
   Buildings.Electrical.AC.OnePhase.Sources.FixedVoltage sou1(
-    definiteReference=true) "Voltage source for short circuit and open tests "
+    definiteReference=true,
+    f=60,
+    V=120) "Voltage source for short circuit and open tests "
                           annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,

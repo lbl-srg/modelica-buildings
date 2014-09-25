@@ -2,7 +2,8 @@ within Buildings.Electrical.AC.ThreePhasesBalanced.Sources;
 model FixedVoltage "Fixed three phases balanced AC voltage source"
   extends Buildings.Electrical.AC.OnePhase.Sources.FixedVoltage(
     redeclare Interfaces.Terminal_p terminal,
-    V = 480);
+    f(start=60),
+    V(start=480));
   annotation (
     defaultComponentName="fixVol",
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},

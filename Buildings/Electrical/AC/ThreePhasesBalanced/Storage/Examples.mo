@@ -8,9 +8,10 @@ package Examples "Package with example models"
       etaCha=1,
       etaDis=1,
       SOC_start=0.5,
-      EMax=749999.88) "Ideal battery without losses"
+      EMax=749999.88,
+      V_nominal=480) "Ideal battery without losses"
       annotation (Placement(transformation(extent={{20,20},{40,40}})));
-    ThreePhasesBalanced.Sources.FixedVoltage fixVol
+    ThreePhasesBalanced.Sources.FixedVoltage fixVol(f=60, V=480)
       annotation (Placement(transformation(extent={{-42,-10},{-22,10}})));
     Modelica.Blocks.Sources.Pulse pow(
       offset=-500,
@@ -24,12 +25,14 @@ package Examples "Package with example models"
       etaDis=1,
       SOC_start=0.5,
       eta_DCAC=0.95,
-      EMax=749999.88) "Battery with losses for AC/DC conversion"
+      EMax=749999.88,
+      V_nominal=480) "Battery with losses for AC/DC conversion"
       annotation (Placement(transformation(extent={{20,-10},{40,10}})));
     ThreePhasesBalanced.Storage.Battery bat(
       SOC_start=0.5,
       eta_DCAC=0.95,
-      EMax=749999.88)
+      EMax=749999.88,
+      V_nominal=480)
       "Battery with losses for AC/DC conversion and charge/discharge"
       annotation (Placement(transformation(extent={{20,-40},{40,-20}})));
   equation

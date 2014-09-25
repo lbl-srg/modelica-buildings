@@ -7,9 +7,11 @@ model GeneralizedSensor
     annotation (Placement(transformation(extent={{0,0},{20,20}})));
   Buildings.Electrical.AC.OnePhase.Loads.Capacitive loa(
     mode=Buildings.Electrical.Types.Assumption.FixedZ_dynamic,
-    P_nominal=-100) "Constant load"
+    P_nominal=-100,
+    V_nominal=120) "Constant load"
     annotation (Placement(transformation(extent={{40,0},{60,20}})));
-  Buildings.Electrical.AC.OnePhase.Sources.FixedVoltage sou "Voltage source"
+  Buildings.Electrical.AC.OnePhase.Sources.FixedVoltage sou(f=60, V=120)
+    "Voltage source"
     annotation (Placement(transformation(extent={{-60,0},{-40,20}})));
   Buildings.Electrical.AC.OnePhase.Lines.TwoPortResistance res(R=0.05)
     "Line resistance"

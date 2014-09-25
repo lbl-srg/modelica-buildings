@@ -10,7 +10,9 @@ model ACACTransformer
     VLow=60) "Transformer with load"
     annotation (Placement(transformation(extent={{-18,40},{2,60}})));
   Buildings.Electrical.AC.OnePhase.Sources.FixedVoltage sou(
-    definiteReference=true) "Voulate source"
+    definiteReference=true,
+    f=60,
+    V=120) "Voulate source"
       annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
@@ -45,7 +47,9 @@ model ACACTransformer
     VLow=60) "Transformer with secondary not connected"
     annotation (Placement(transformation(extent={{-16,-30},{4,-10}})));
   Buildings.Electrical.AC.OnePhase.Sources.FixedVoltage sou1(
-    definiteReference=true) "Voltage source for open and short circuit tests"
+    definiteReference=true,
+    f=60,
+    V=120) "Voltage source for open and short circuit tests"
                           annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,

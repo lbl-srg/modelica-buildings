@@ -10,26 +10,29 @@ model ThreePhases
     sqrt((sen_D.S[1] - (sen_ab.S[1] + sen_bc.S[1] + sen_ca.S[1]))^2 +
     (sen_D.S[2] - (sen_ab.S[2] + sen_bc.S[2] + sen_ca.S[2]))^2)
     "Difference of the power consumption in the triangle (D) connection";
-  Sources.FixedVoltage sou(definiteReference=true)
-    "Three phases balanced voltage source"
+  Sources.FixedVoltage sou(definiteReference=true,
+    f=60,
+    V=480) "Three phases balanced voltage source"
     annotation (Placement(transformation(extent={{-60,50},{-40,70}})));
   Impedance RL_star(
     R=1,
     inductive=true,
     L=1/(2*Modelica.Constants.pi*60)) "Impedance with Y connection"
     annotation (Placement(transformation(extent={{40,50},{60,70}})));
-  OnePhase.Sources.FixedVoltage sou_a(V=480/sqrt(3), definiteReference=true)
-    "Voltage source phase a"
+  OnePhase.Sources.FixedVoltage sou_a(V=480/sqrt(3), definiteReference=true,
+    f=60) "Voltage source phase a"
     annotation (Placement(transformation(extent={{-90,-30},{-70,-10}})));
   OnePhase.Sources.FixedVoltage sou_b(
     V=480/sqrt(3),
     definiteReference=true,
-    phiSou=2.0943951023932) "Voltage source phase b"
+    phiSou=2.0943951023932,
+    f=60) "Voltage source phase b"
     annotation (Placement(transformation(extent={{-90,-60},{-70,-40}})));
   OnePhase.Sources.FixedVoltage sou_c(
     V=480/sqrt(3),
     definiteReference=true,
-    phiSou=-2.0943951023932) "Voltage source phase c"
+    phiSou=-2.0943951023932,
+    f=60) "Voltage source phase c"
     annotation (Placement(transformation(extent={{-90,-90},{-70,-70}})));
   OnePhase.Loads.Impedance RL_a(
     R=1,
@@ -55,17 +58,20 @@ model ThreePhases
   OnePhase.Sources.FixedVoltage sou_ab(
     V=480,
     phiSou=-0.5235987755983,
-    definiteReference=true) "Voltage source line ab"
+    definiteReference=true,
+    f=60) "Voltage source line ab"
     annotation (Placement(transformation(extent={{10,-30},{30,-10}})));
   OnePhase.Sources.FixedVoltage sou_bc(
     phiSou=1.5707963267949,
     V=480,
-    definiteReference=true) "Voltage source line bc"
+    definiteReference=true,
+    f=60) "Voltage source line bc"
     annotation (Placement(transformation(extent={{10,-60},{30,-40}})));
   OnePhase.Sources.FixedVoltage sou_ca(
     phiSou=-3.6651914291881,
     V=480,
-    definiteReference=true) "Voltage source line ca"
+    definiteReference=true,
+    f=60) "Voltage source line ca"
     annotation (Placement(transformation(extent={{10,-90},{30,-70}})));
   OnePhase.Loads.Impedance RL_ab(
     R=1,

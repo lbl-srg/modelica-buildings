@@ -1,7 +1,7 @@
 within Buildings.Electrical.AC.ThreePhasesBalanced.Lines;
 model Network "Three phases balanced AC network"
   extends Buildings.Electrical.Transmission.BaseClasses.PartialNetwork(
-    V_nominal = 480,
+    V_nominal(start = 480),
     redeclare Interfaces.Terminal_p terminal,
     redeclare Transmission.Grids.TestGrid2Nodes grid,
     redeclare Lines.Line lines(

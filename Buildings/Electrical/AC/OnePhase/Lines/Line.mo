@@ -1,13 +1,11 @@
 within Buildings.Electrical.AC.OnePhase.Lines;
 model Line "Model of an electrical line"
   extends Buildings.Electrical.Transmission.BaseClasses.PartialLine(
-    V_nominal = 120,
+    V_nominal(start = 120),
     redeclare package PhaseSystem_p = PhaseSystems.OnePhase,
     redeclare package PhaseSystem_n = PhaseSystems.OnePhase,
-    redeclare Interfaces.Terminal_n terminal_n(
-      redeclare package PhaseSystem = PhaseSystem_n),
-    redeclare Interfaces.Terminal_p terminal_p(
-      redeclare package PhaseSystem = PhaseSystem_p),
+    redeclare Interfaces.Terminal_n terminal_n,
+    redeclare Interfaces.Terminal_p terminal_p,
     commercialCable = Buildings.Electrical.Transmission.Functions.selectCable_low(P_nominal, V_nominal));
 protected
   replaceable TwoPortRL line(R=R/3,L=L/3) constrainedby
