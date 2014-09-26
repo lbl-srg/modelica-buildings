@@ -162,7 +162,7 @@ Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100
           textString="SOC"),
         Text(
           extent={{44,154},{134,112}},
-          lineColor={0,0,255},
+          lineColor={0,0,0},
           textString="%name")}),
     Documentation(
 info="<html>

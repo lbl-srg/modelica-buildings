@@ -70,7 +70,7 @@ First implementation.
           fillPattern=FillPattern.Solid),
         Text(
           extent={{-120,130},{120,100}},
-          lineColor={0,120,120},
+          lineColor={0,0,0},
           textString="%name"),
         Line(
           points={{-60,-32},{-60,-72}},

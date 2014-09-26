@@ -72,15 +72,15 @@ Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
           textString="AC"),
         Text(
           extent={{-100,92},{100,60}},
-          lineColor={0,120,120},
+          lineColor={0,0,0},
           textString="%name"),
         Text(
           extent={{-100,-60},{100,-92}},
-          lineColor={0,0,255},
+          lineColor={0,0,0},
           textString="%conversionFactor"),
         Text(
           extent={{-100,-100},{100,-132}},
-          lineColor={0,0,255},
+          lineColor={0,0,0},
           textString="%eta"),
         Line(visible = ground_DC == true,
           points={{100,-100},{100,-12}},

@@ -63,11 +63,11 @@ equation
           smooth=Smooth.None),
         Text(
           extent={{-100,92},{100,60}},
-          lineColor={0,120,120},
+          lineColor={0,0,0},
           textString="%name"),
         Text(
           extent={{-100,-60},{100,-92}},
-          lineColor={0,120,120},
+          lineColor={0,0,0},
           textString="%conversionFactor"),
         Text(
           extent={{-100,-100},{100,-132}},

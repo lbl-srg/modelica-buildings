@@ -127,7 +127,7 @@ Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
                                       graphics={
         Text(
           extent={{-100,-60},{100,-92}},
-          lineColor={0,120,120},
+          lineColor={0,0,0},
           textString="%name"),
         Text(
           extent={{-140,60},{-80,20}},

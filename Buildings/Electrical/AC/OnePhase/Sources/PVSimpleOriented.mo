@@ -17,15 +17,7 @@ defaultComponentName="pv",
         preserveAspectRatio=false,
         extent={{-100,-100},{100,100}},
         grid={1,1}), graphics={
-        Line(points={{-90,0},{-59,0}}, color={0,0,0}),
-        Text(
-          extent={{-150,61},{-50,11}},
-          lineColor={0,0,255},
-          textString="+"),
-        Text(
-          extent={{-150,-12},{-50,-62}},
-          lineColor={0,0,255},
-          textString="-")}),
+        Line(points={{-90,0},{-59,0}}, color={0,0,0})}),
     Diagram(coordinateSystem(
         preserveAspectRatio=false,
         extent={{-100,-100},{100,100}},

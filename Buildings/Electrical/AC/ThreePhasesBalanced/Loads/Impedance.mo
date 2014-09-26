@@ -47,7 +47,7 @@ equation
           rotation=180),
         Text(
           extent={{-120,-80},{120,-120}},
-          lineColor={0,120,120},
+          lineColor={0,0,0},
           textString="%name"),
         Rectangle(
           extent={{-11,30},{11,-30}},

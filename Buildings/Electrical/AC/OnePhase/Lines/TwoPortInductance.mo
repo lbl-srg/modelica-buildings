@@ -40,7 +40,7 @@ equation
         graphics={
           Text(
             extent={{-140,80},{140,40}},
-            lineColor={0,120,120},
+            lineColor={0,0,0},
           textString="%name")}),
     Documentation(info="<html>
 <p>

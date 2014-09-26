@@ -29,15 +29,15 @@ equation
           rotation=90),
         Text(
           extent={{50,70},{150,20}},
-          lineColor={0,0,255},
+          lineColor={0,0,0},
           textString="+"),
         Text(
           extent={{50,-12},{150,-62}},
-          lineColor={0,0,255},
+          lineColor={0,0,0},
           textString="-"),
         Text(
           extent={{-150,60},{150,100}},
-          lineColor={0,0,255},
+          lineColor={0,0,0},
           textString="V=%V")}),   Diagram(coordinateSystem(preserveAspectRatio=false,
           extent={{-100,-100},{100,100}}), graphics),
     Documentation(info="<html>

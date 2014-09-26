@@ -21,8 +21,8 @@ equation
                                                                   graphics={
           Text(
             extent={{-144,97},{156,57}},
-            textString="%name",
-            lineColor={0,0,255}),
+            lineColor={0,0,0},
+          textString="%name"),
           Text(
             extent={{-142,-30},{144,-62}},
             lineColor={0,0,0},

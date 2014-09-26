@@ -77,8 +77,8 @@ Revised model and documentation.
             pattern=LinePattern.Dot),
           Text(
             extent={{-152,87},{148,47}},
-            textString="%name",
-            lineColor={0,0,255})}),
+            lineColor={0,0,0},
+          textString="%name")}),
     Diagram(coordinateSystem(
         preserveAspectRatio=true,
         extent={{-100,-100},{100,100}},

@@ -87,7 +87,7 @@ equation
           rotation=180),
         Text(
           extent={{-120,80},{120,40}},
-          lineColor={0,120,120},
+          lineColor={0,0,0},
           textString="%name")}), Diagram(coordinateSystem(preserveAspectRatio=false,
           extent={{-100,-100},{100,100}}), graphics),
     Documentation(info="<html>

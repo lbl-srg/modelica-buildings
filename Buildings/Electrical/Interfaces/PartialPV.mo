@@ -40,8 +40,8 @@ equation
         Line(points={{-90,0},{-59,0}}, color={0,0,0}),
         Text(
           extent={{-150,-104},{150,-64}},
-          textString="%name",
-          lineColor={0,0,255}),
+          lineColor={0,0,0},
+          textString="%name"),
         Polygon(
           points={{-80,-52},{-32,63},{78,63},{29,-52},{-80,-52}},
           smooth=Smooth.None,

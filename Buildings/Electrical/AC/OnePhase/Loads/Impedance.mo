@@ -33,8 +33,8 @@ equation
           origin={-80,0},
           rotation=180),
         Text(
-          extent={{-120,80},{120,40}},
-          lineColor={0,120,120},
+          extent={{-120,-40},{120,-80}},
+          lineColor={0,0,0},
           textString="%name")}),
           Documentation(info="<html>
 <p>        

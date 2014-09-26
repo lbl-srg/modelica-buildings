@@ -85,11 +85,11 @@ equation
           textString="DC"),
         Text(
           extent={{-100,92},{100,60}},
-          lineColor={0,0,255},
+          lineColor={0,0,0},
           textString="%name"),
         Text(
           extent={{-120,-60},{-2,-90}},
-          lineColor={0,0,255},
+          lineColor={0,0,0},
           textString="%VHigh"),
         Text(
           extent={{-100,-100},{100,-132}},
@@ -137,7 +137,7 @@ equation
           smooth=Smooth.None),
         Text(
           extent={{2,-60},{120,-90}},
-          lineColor={0,0,255},
+          lineColor={0,0,0},
           textString="%VLow")}),
     Documentation(info="<html>
 <p>

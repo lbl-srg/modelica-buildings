@@ -48,7 +48,7 @@ equation
           fillPattern=FillPattern.Solid),
         Text(
           extent={{-120,130},{120,100}},
-          lineColor={0,120,120},
+          lineColor={0,0,0},
           textString="%name"),
         Line(visible = definiteReference == true,
           points={{-20,-128},{20,-128}},
