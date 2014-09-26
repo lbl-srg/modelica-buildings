@@ -3,8 +3,7 @@ partial model LoadCtrl_N
   "Partial model of a three phases unbalanced load with voltage controller and neutral cable"
   extends
     Buildings.Electrical.AC.ThreePhasesUnbalanced.Loads.BaseClasses.BaseLoadCtrl;
-  Buildings.Electrical.AC.ThreePhasesUnbalanced.Interfaces.Terminal4_n
-    terminal_p
+  Buildings.Electrical.AC.ThreePhasesUnbalanced.Interfaces.Terminal4_n terminal
     "Connector for three phases unbalanced systems with neutral cable"
     annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
   Buildings.Electrical.AC.ThreePhasesUnbalanced.Interfaces.Connection3to4_n
@@ -20,10 +19,6 @@ equation
     connection3to4.terminal3.phase[i].theta = connection3to4.terminal4.phase[i].theta;
   end for;
 
-  connect(connection3to4.terminal4, terminal_p) annotation (Line(
-      points={{-84,6.66134e-16},{-86,6.66134e-16},{-86,4.44089e-16},{-100,4.44089e-16}},
-      color={0,120,120},
-      smooth=Smooth.None));
   connect(connection3to4.terminal3, wyeToDelta.wye) annotation (Line(
       points={{-64,0},{-58,0},{-58,10},{-54,10}},
       color={0,120,120},
@@ -31,6 +26,10 @@ equation
   connect(connection3to4.terminal3, wyeToWyeGround.wye) annotation (Line(
       points={{-64,0},{-58,0},{-58,-10},{-54,-10}},
       color={0,120,120},
+      smooth=Smooth.None));
+  connect(connection3to4.terminal4, terminal) annotation (Line(
+      points={{-84,0},{-100,0}},
+      color={127,0,127},
       smooth=Smooth.None));
     annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}), graphics), Icon(coordinateSystem(

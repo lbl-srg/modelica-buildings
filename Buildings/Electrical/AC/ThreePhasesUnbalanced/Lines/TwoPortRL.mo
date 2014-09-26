@@ -154,6 +154,6 @@ equation
           textString="C=%C"),
           Text(
             extent={{-142,80},{138,40}},
-            lineColor={0,120,120},
+            lineColor={0,0,0},
           textString="%name")}));
 end TwoPortRL;

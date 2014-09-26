@@ -2,10 +2,11 @@ within Buildings.Electrical.AC.ThreePhasesUnbalanced.Sensors.BaseClasses;
 partial model GeneralizedProbe
   "Partial model of a generalized three phases probe"
   extends Icons.GeneralizedProbe;
-  parameter Modelica.SIunits.Voltage V_nominal(min=0, start=480) = 480
+  parameter Modelica.SIunits.Voltage V_nominal(min=0, start=480)
     "RMS Nominal voltage (V_nominal >= 0)";
   parameter Boolean perUnit = true "This flag display voltage in p.u.";
-  Buildings.Electrical.AC.ThreePhasesUnbalanced.Interfaces.Terminal_n term
+  replaceable
+    Buildings.Electrical.AC.ThreePhasesUnbalanced.Interfaces.Terminal_n           term
     "Electrical connector"                                                                        annotation (
       Placement(transformation(
         extent={{-10,-10},{10,10}},
@@ -19,13 +20,13 @@ partial model GeneralizedProbe
             -40},{80,-20}})));
   annotation (Icon(graphics={      Text(
           extent={{40,60},{100,40}},
-          lineColor={0,120,120},
+          lineColor={0,0,0},
           pattern=LinePattern.Dash,
           fillColor={0,120,120},
           fillPattern=FillPattern.Solid,
           textString="V"), Text(
           extent={{18,-40},{140,-60}},
-          lineColor={0,120,120},
+          lineColor={0,0,0},
           pattern=LinePattern.Dash,
           fillColor={0,120,120},
           fillPattern=FillPattern.Solid,

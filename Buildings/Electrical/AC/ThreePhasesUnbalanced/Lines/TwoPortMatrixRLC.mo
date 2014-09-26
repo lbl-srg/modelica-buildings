@@ -114,7 +114,7 @@ equation
           fillPattern=FillPattern.Solid),
           Text(
             extent={{-140,100},{140,60}},
-            lineColor={0,120,120},
+            lineColor={0,0,0},
           textString="%name"),
           Text(
             extent={{-72,30},{70,10}},

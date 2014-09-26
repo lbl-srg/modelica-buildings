@@ -3,15 +3,16 @@ partial model Impedance
   "Partial model of a three phases unbalanced impedance without neutral cable"
   extends
     Buildings.Electrical.AC.ThreePhasesUnbalanced.Loads.BaseClasses.BaseImpedance;
-  Buildings.Electrical.AC.ThreePhasesUnbalanced.Interfaces.Terminal_n
-    terminal_p "Electrical connector" annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
+  Buildings.Electrical.AC.ThreePhasesUnbalanced.Interfaces.Terminal_n terminal
+    "Electrical connector"
+    annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
 
 equation
-  connect(terminal_p, wyeToDelta.wye) annotation (Line(
+  connect(terminal, wyeToDelta.wye) annotation (Line(
       points={{-100,0},{-80,0},{-80,10},{-64,10}},
       color={0,120,120},
       smooth=Smooth.None));
-  connect(terminal_p, wyeToWyeGround.wye) annotation (Line(
+  connect(terminal, wyeToWyeGround.wye) annotation (Line(
       points={{-100,0},{-80,0},{-80,-10},{-64,-10}},
       color={0,120,120},
       smooth=Smooth.None));

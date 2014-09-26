@@ -3,7 +3,9 @@ model Loads_N
   "This model tests unbalanced load models with neutral cable connection"
   extends Modelica.Icons.Example;
   Sources.FixedVoltage_N
-                       sou(definiteReference=true) "Voltage source"
+                       sou(definiteReference=true,
+    f=60,
+    V=480) "Voltage source"
     annotation (Placement(transformation(extent={{-94,-10},{-74,10}})));
   Modelica.Blocks.Sources.Ramp ph_1(
     offset=-1000,
@@ -14,14 +16,20 @@ model Loads_N
   Modelica.Blocks.Sources.Constant ph_23(k=-1000)
     "Power signal for loads on phase 2 and 3"
     annotation (Placement(transformation(extent={{100,-10},{80,10}})));
-  Resistive_N loaR_N(mode=Buildings.Electrical.Types.Assumption.VariableZ_P_input)
-    "Resistive load with neutral cable"
+  Resistive_N loaR_N(mode=Buildings.Electrical.Types.Assumption.VariableZ_P_input,
+    V_nominal=480,
+    P_nominal=0) "Resistive load with neutral cable"
     annotation (Placement(transformation(extent={{-8,-10},{12,10}})));
   Inductive_N loaRL_N(mode=Buildings.Electrical.Types.Assumption.VariableZ_P_input,
-      pf=0.9) "Inductive load with neutral cable"
+      pf=0.9,
+    V_nominal=480,
+    P_nominal=0) "Inductive load with neutral cable"
     annotation (Placement(transformation(extent={{-8,-40},{12,-20}})));
-  Capacitive_N _N(mode=Buildings.Electrical.Types.Assumption.VariableZ_P_input,
-      pf=0.7) "Capacitive load with neutral cable"
+  Capacitive_N loaRC_N(
+    mode=Buildings.Electrical.Types.Assumption.VariableZ_P_input,
+    pf=0.7,
+    V_nominal=480,
+    P_nominal=0) "Capacitive load with neutral cable"
     annotation (Placement(transformation(extent={{-8,-80},{12,-60}})));
   Sensors.GeneralizedSensor_N
                             sen "Power sensor with neutral cable"
@@ -44,7 +52,7 @@ equation
       points={{59,40},{54,40},{54,-24},{12,-24}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(ph_1.y, _N.Pow1) annotation (Line(
+  connect(ph_1.y, loaRC_N.Pow1) annotation (Line(
       points={{59,40},{54,40},{54,-64},{12,-64}},
       color={0,0,127},
       smooth=Smooth.None));
@@ -56,11 +64,11 @@ equation
       points={{79,4.44089e-16},{68,4.44089e-16},{68,-36},{12,-36}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(ph_23.y, _N.Pow2) annotation (Line(
+  connect(ph_23.y, loaRC_N.Pow2) annotation (Line(
       points={{79,4.44089e-16},{68,4.44089e-16},{68,-70},{12,-70}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(ph_23.y, _N.Pow3) annotation (Line(
+  connect(ph_23.y, loaRC_N.Pow3) annotation (Line(
       points={{79,4.44089e-16},{68,4.44089e-16},{68,-76},{12,-76}},
       color={0,0,127},
       smooth=Smooth.None));
@@ -69,15 +77,15 @@ equation
       points={{-74,0},{-60,0}},
       color={127,0,127},
       smooth=Smooth.None));
-  connect(sen.terminal_p, loaR_N.terminal_p) annotation (Line(
+  connect(sen.terminal_p, loaR_N.terminal) annotation (Line(
       points={{-40,0},{-8,0}},
       color={127,0,127},
       smooth=Smooth.None));
-  connect(sen.terminal_p, loaRL_N.terminal_p) annotation (Line(
+  connect(sen.terminal_p, loaRL_N.terminal) annotation (Line(
       points={{-40,0},{-26,0},{-26,-30},{-8,-30}},
       color={127,0,127},
       smooth=Smooth.None));
-  connect(sen.terminal_p, _N.terminal_p) annotation (Line(
+  connect(sen.terminal_p, loaRC_N.terminal) annotation (Line(
       points={{-40,0},{-26,0},{-26,-70},{-8,-70}},
       color={127,0,127},
       smooth=Smooth.None));

@@ -2,8 +2,9 @@ within Buildings.Electrical.AC.ThreePhasesUnbalanced.Loads.Examples;
 model Impedances
   "This model tests three phases unbalanced impedances with and without neutral cable"
   extends Modelica.Icons.Example;
-  Sources.FixedVoltage_N sou_N(definiteReference=true)
-    "Voltage source with neutral cable"
+  Sources.FixedVoltage_N sou_N(definiteReference=true,
+    f=60,
+    V=480) "Voltage source with neutral cable"
     annotation (Placement(transformation(extent={{-94,-50},{-74,-30}})));
   Sensors.GeneralizedSensor_N sen_N "Power sensor with neutral cable"
     annotation (Placement(transformation(extent={{-60,-50},{-40,-30}})));
@@ -16,8 +17,9 @@ model Impedances
     LMin=0.1,
     LMax=1) "Impedance with neutral cable"
     annotation (Placement(transformation(extent={{0,-50},{20,-30}})));
-  Sources.FixedVoltage sou(definiteReference=true)
-    "Voltage source without neutral cable"
+  Sources.FixedVoltage sou(definiteReference=true,
+    f=60,
+    V=480) "Voltage source without neutral cable"
     annotation (Placement(transformation(extent={{-94,30},{-74,50}})));
   Sensors.GeneralizedSensor sen "Power sensor without neutral cable"
     annotation (Placement(transformation(extent={{-60,30},{-40,50}})));
@@ -38,12 +40,11 @@ model Impedances
     annotation (Placement(transformation(extent={{60,-10},{40,10}})));
 equation
 
-
   connect(sou.terminal, sen.terminal_n) annotation (Line(
       points={{-74,40},{-60,40}},
       color={0,120,120},
       smooth=Smooth.None));
-  connect(sen.terminal_p, imp.terminal_p) annotation (Line(
+  connect(sen.terminal_p, imp.terminal) annotation (Line(
       points={{-40,40},{0,40}},
       color={0,120,120},
       smooth=Smooth.None));
@@ -67,7 +68,7 @@ equation
       points={{-74,-40},{-60,-40}},
       color={127,0,127},
       smooth=Smooth.None));
-  connect(sen_N.terminal_p, imp_N.terminal_p) annotation (Line(
+  connect(sen_N.terminal_p, imp_N.terminal) annotation (Line(
       points={{-40,-40},{0,-40}},
       color={127,0,127},
       smooth=Smooth.None));

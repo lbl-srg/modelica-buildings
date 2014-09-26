@@ -49,7 +49,7 @@ equation
                                                graphics={
         Text(
           extent={{-100,-60},{100,-92}},
-          lineColor={0,120,120},
+          lineColor={0,0,0},
           textString="%name"),
         Text(
           extent={{-130,60},{-70,20}},

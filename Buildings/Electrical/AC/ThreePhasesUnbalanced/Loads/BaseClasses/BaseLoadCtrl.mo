@@ -15,7 +15,7 @@ partial model BaseLoadCtrl
   parameter Modelica.SIunits.Power P_nominal(start=0)
     "Nominal power (negative if consumed, positive if generated)"  annotation(Dialog(group="Nominal conditions",
         enable = mode <> Assumption.VariableZ_P_input));
-  parameter Modelica.SIunits.Voltage V_nominal(min=0, start = 480) = 480
+  parameter Modelica.SIunits.Voltage V_nominal(min=0, start = 480)
     "Nominal voltage (V_nominal >= 0)"  annotation(Dialog(group="Nominal conditions", enable = (mode==Assumptionm.FixedZ_dynamic or linear)));
   parameter Boolean voltageCtrl = false "This flag enables the voltage control"
                                             annotation(Evaluate=true, Dialog(group="Voltage CTRL"));

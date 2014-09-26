@@ -1,7 +1,9 @@
 within Buildings.Electrical.AC.ThreePhasesUnbalanced.Loads.Examples;
 model Loads "This model tests the load models without neutral cable connection"
   extends Modelica.Icons.Example;
-  Sources.FixedVoltage sou(definiteReference=true) "Voltage source"
+  Sources.FixedVoltage sou(definiteReference=true,
+    f=60,
+    V=480) "Voltage source"
     annotation (Placement(transformation(extent={{-94,-10},{-74,10}})));
   Modelica.Blocks.Sources.Sine ph_1(
     amplitude=2000,
@@ -12,14 +14,17 @@ model Loads "This model tests the load models without neutral cable connection"
     "Power signal for loads on phase 2 and 3"
     annotation (Placement(transformation(extent={{100,-10},{80,10}})));
   Resistive loaR(
-    mode=Buildings.Electrical.Types.Assumption.VariableZ_P_input)
-    "Resistive load"
+    mode=Buildings.Electrical.Types.Assumption.VariableZ_P_input,
+    V_nominal=480,
+    P_nominal=0) "Resistive load"
     annotation (Placement(transformation(extent={{-8,-10},{12,10}})));
-  Inductive loaRL(mode=Buildings.Electrical.Types.Assumption.VariableZ_P_input)
-    "Inductive load"
+  Inductive loaRL(mode=Buildings.Electrical.Types.Assumption.VariableZ_P_input,
+    V_nominal=480,
+    P_nominal=0) "Inductive load"
     annotation (Placement(transformation(extent={{-8,-40},{12,-20}})));
-  Capacitive loaRC(mode=Buildings.Electrical.Types.Assumption.VariableZ_P_input)
-    "Capacitive load"
+  Capacitive loaRC(mode=Buildings.Electrical.Types.Assumption.VariableZ_P_input,
+    V_nominal=480,
+    P_nominal=0) "Capacitive load"
     annotation (Placement(transformation(extent={{-8,-80},{12,-60}})));
   Sensors.GeneralizedSensor sen "Power sensor"
     annotation (Placement(transformation(extent={{-64,-10},{-44,10}})));
@@ -28,17 +33,23 @@ model Loads "This model tests the load models without neutral cable connection"
   Capacitive loaRC1(
                    mode=Buildings.Electrical.Types.Assumption.VariableZ_P_input,
     plugPhase2=false,
-    plugPhase3=false) "Capacitive load"
+    plugPhase3=false,
+    V_nominal=480,
+    P_nominal=0) "Capacitive load"
     annotation (Placement(transformation(extent={{10,30},{30,50}})));
   Inductive loaRL1(
                   mode=Buildings.Electrical.Types.Assumption.VariableZ_P_input,
     plugPhase2=false,
-    plugPhase3=false) "Inductive load"
+    plugPhase3=false,
+    V_nominal=480,
+    P_nominal=0) "Inductive load"
     annotation (Placement(transformation(extent={{-10,50},{10,70}})));
   Resistive loaR1(
     mode=Buildings.Electrical.Types.Assumption.VariableZ_P_input,
     plugPhase2=false,
-    plugPhase3=false) "Resistive load"
+    plugPhase3=false,
+    V_nominal=480,
+    P_nominal=0) "Resistive load"
     annotation (Placement(transformation(extent={{-30,70},{-10,90}})));
 equation
   connect(ph_1.y, loaR.Pow1) annotation (Line(
@@ -82,27 +93,27 @@ equation
       color={0,120,120},
       smooth=Smooth.None));
 
-  connect(sen.terminal_p, loaR.terminal_p) annotation (Line(
+  connect(sen.terminal_p, loaR.terminal) annotation (Line(
       points={{-44,0},{-8,0}},
       color={0,120,120},
       smooth=Smooth.None));
-  connect(sen.terminal_p, loaRL.terminal_p) annotation (Line(
+  connect(sen.terminal_p, loaRL.terminal) annotation (Line(
       points={{-44,0},{-26,0},{-26,-30},{-8,-30}},
       color={0,120,120},
       smooth=Smooth.None));
-  connect(sen.terminal_p, loaRC.terminal_p) annotation (Line(
+  connect(sen.terminal_p, loaRC.terminal) annotation (Line(
       points={{-44,0},{-26,0},{-26,-70},{-8,-70}},
       color={0,120,120},
       smooth=Smooth.None));
-  connect(senSingleConn.terminal_p, loaR1.terminal_p) annotation (Line(
+  connect(senSingleConn.terminal_p, loaR1.terminal) annotation (Line(
       points={{-40,60},{-36,60},{-36,80},{-30,80}},
       color={0,120,120},
       smooth=Smooth.None));
-  connect(senSingleConn.terminal_p, loaRL1.terminal_p) annotation (Line(
+  connect(senSingleConn.terminal_p, loaRL1.terminal) annotation (Line(
       points={{-40,60},{-10,60}},
       color={0,120,120},
       smooth=Smooth.None));
-  connect(senSingleConn.terminal_p, loaRC1.terminal_p) annotation (Line(
+  connect(senSingleConn.terminal_p, loaRC1.terminal) annotation (Line(
       points={{-40,60},{-16,60},{-16,40},{10,40}},
       color={0,120,120},
       smooth=Smooth.None));

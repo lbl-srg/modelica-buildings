@@ -1,7 +1,7 @@
 within Buildings.Electrical.AC.ThreePhasesUnbalanced.Loads.Examples;
 model LoadCtrl
   extends Modelica.Icons.Example;
-  Sources.FixedVoltage_N sou "Voltage source"
+  Sources.FixedVoltage_N sou(f=60, V=480) "Voltage source"
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
   Modelica.Blocks.Sources.Sine pow_1(
     freqHz=0.1,
@@ -14,26 +14,32 @@ model LoadCtrl
     tDelay=2,
     voltageCtrl=true,
     plugPhase2=false,
-    plugPhase3=false) "Voltage controlled load"
+    plugPhase3=false,
+    P_nominal=0,
+    V_nominal=480) "Voltage controlled load"
               annotation (Placement(transformation(extent={{-8,-10},{12,10}})));
   Lines.LineN line1(
     mode=Buildings.Electrical.Types.CableMode.commercial,
     redeclare Buildings.Electrical.Transmission.LowVoltageCables.Cu10
       commercialCable,
     l=400,
-    P_nominal=10000) "Transmission line to voltage controlled load"
+    P_nominal=10000,
+    V_nominal=480) "Transmission line to voltage controlled load"
     annotation (Placement(transformation(extent={{-46,-10},{-26,10}})));
   Resistive_N load(
     mode=Buildings.Electrical.Types.Assumption.VariableZ_P_input,
     plugPhase2=false,
-    plugPhase3=false) "Load"
+    plugPhase3=false,
+    P_nominal=0,
+    V_nominal=480) "Load"
     annotation (Placement(transformation(extent={{-8,-40},{12,-20}})));
   Lines.LineN line(
     mode=Buildings.Electrical.Types.CableMode.commercial,
     redeclare Buildings.Electrical.Transmission.LowVoltageCables.Cu10
       commercialCable,
     l=400,
-    P_nominal=10000)
+    P_nominal=10000,
+    V_nominal=480)
             annotation (Placement(transformation(extent={{-46,-40},{-26,-20}})));
 equation
   connect(pow_1.y, load_ctrl.Pow1) annotation (Line(
@@ -52,11 +58,11 @@ equation
       points={{-60,0},{-54,0},{-54,-30},{-46,-30}},
       color={127,0,127},
       smooth=Smooth.None));
-  connect(line.terminal_p, load.terminal_p) annotation (Line(
+  connect(line.terminal_p, load.terminal) annotation (Line(
       points={{-26,-30},{-8,-30}},
       color={127,0,127},
       smooth=Smooth.None));
-  connect(line1.terminal_p, load_ctrl.terminal_p) annotation (Line(
+  connect(line1.terminal_p, load_ctrl.terminal) annotation (Line(
       points={{-26,0},{-8,0}},
       color={127,0,127},
       smooth=Smooth.None));

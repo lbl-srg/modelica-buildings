@@ -1,6 +1,8 @@
 within Buildings.Electrical.AC.ThreePhasesUnbalanced.Lines;
 model Line
-  extends Buildings.Electrical.Transmission.BaseClasses.PartialBaseLine(V_nominal = 480);
+  extends Buildings.Electrical.Transmission.BaseClasses.PartialBaseLine(
+  V_nominal(start = 480),
+  commercialCable = Buildings.Electrical.Transmission.Functions.selectCable_low(P_nominal, V_nominal));
   Interfaces.Terminal_n terminal_n
     annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
   Interfaces.Terminal_p terminal_p

@@ -59,7 +59,7 @@ model ACACTransformerFull "AC AC transformer detailed equivalent circuit (YY)"
             -100},{100,100}}), graphics), Icon(graphics={
         Text(
           extent={{-100,-60},{100,-92}},
-          lineColor={0,120,120},
+          lineColor={0,0,0},
           textString="%name"),
         Text(
           extent={{-130,60},{-70,20}},

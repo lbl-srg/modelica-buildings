@@ -1,7 +1,6 @@
 within Buildings.Electrical.AC.ThreePhasesUnbalanced.Sensors;
 model GeneralizedSensor
   "Sensor for power, voltage and current (3 wire system, no neutral cable)"
-
   Interfaces.Terminal_n terminal_n "Electrical connector side N"
     annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
   Interfaces.Terminal_p terminal_p "Electrical connector side P"

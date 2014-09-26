@@ -9,7 +9,7 @@ model FixedVoltage_N "Fixed voltage source with neutral cable"
      annotation (Evaluate=true, Dialog(group="Reference Parameters"));
   parameter Boolean definiteReference = false "Serve as definite root"
      annotation (Evaluate=true, Dialog(group="Reference Parameters"));
-  parameter Modelica.SIunits.Angle angle120 = 2*Modelica.Constants.pi/3
+  constant Modelica.SIunits.Angle angle120 = 2*Modelica.Constants.pi/3
     "Phase shift between the phase voltages";
   OnePhase.Sources.FixedVoltage vPhase[3](
     each f=f,
@@ -54,8 +54,12 @@ equation
           smooth=Smooth.None),
         Text(
           extent={{-120,100},{120,60}},
-          lineColor={0,120,120},
-          textString="%name = %V")}),
+          lineColor={0,0,0},
+          textString="%name"),
+        Text(
+          extent={{-120,-60},{120,-100}},
+          lineColor={0,0,0},
+          textString="V = %V")}),
     Documentation(info="<html>
 <p>
 This is a constant voltage source, specifying the complex 
