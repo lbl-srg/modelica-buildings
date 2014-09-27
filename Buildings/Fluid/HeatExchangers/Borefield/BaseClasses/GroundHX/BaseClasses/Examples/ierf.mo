@@ -4,10 +4,8 @@ model ierf "Test for the error function"
 
   parameter Integer lim=5000;
   Real y_ierf;
-
 algorithm
   y_ierf := BaseClasses.ierf(u=time*lim);
-
         annotation (Documentation(info="<html>
         <p>Test implementation of ierf function.</p>
 </html>", revisions="<html>

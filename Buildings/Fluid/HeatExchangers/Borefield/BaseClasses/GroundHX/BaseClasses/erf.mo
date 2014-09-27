@@ -1,19 +1,31 @@
 within Buildings.Fluid.HeatExchangers.Borefield.BaseClasses.GroundHX.BaseClasses;
-function erf "Error function, using the external c-function"
+function erf "Error function"
   extends Modelica.Math.Nonlinear.Interfaces.partialScalarFunction;
 
-external"C" y = erf(u);
-  annotation (
-    Include="#include <erf.c>",
-    IncludeDirectory="modelica://Buildings/Resources/C-Sources",
-    Documentation(info="<html>
-    <p>Error function, using the external c-function of Haruhiko Okumura: C-gengo niyoru saishin algorithm jiten
+algorithm
+  if u >= 0 then
+    y :=p_gamma(
+      0.5,
+      u*u,
+      0.572364942924700087071713675675);
+  else
+    y :=-p_gamma(
+      0.5,
+      u*u,
+      0.572364942924700087071713675675);
+  end if;
+  annotation (Documentation(info="<html>
+  <p>Error function according to the c-implementation of Haruhiko Okumura. </p>
+<h4>References</h4>
+<p>
+Haruhiko Okumura: <i>C-gengo niyoru saishin algorithm jiten </i>
             (New Algorithm handbook in C language) (Gijyutsu hyouron
-            sha, Tokyo, 1991) p.227 [in Japanese].</p>
+            sha, Tokyo, 1991) p.227 [in Japanese] .
+</p>
 </html>", revisions="<html>
 <ul>
 <li>
-July 2014, by Damien Picard:<br>
+September 2014, by Damien Picard:<br>
 First implementation.
 </li>
 </ul>

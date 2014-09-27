@@ -7,5 +7,14 @@ protected
 
 algorithm
   y := u*erf(u) - 1/sqrt(Modelica.Constants.pi)*(1 - Modelica.Constants.e^(-u^2));
-
+  annotation (Documentation(info="<html>
+  <p>Integral of error function. </p>
+</html>", revisions="<html>
+<ul>
+<li>
+September 2014, by Damien Picard:<br>
+First implementation.
+</li>
+</ul>
+</html>"));
 end ierf;
