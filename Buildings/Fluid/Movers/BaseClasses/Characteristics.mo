@@ -336,7 +336,7 @@ First implementation.
       // rat_nominal = V_flow_nominal/r_N_nominal = V_flow_nominal/1, we use
       // V_flow_nominal below
       for j in 1:n-1 loop
-         if rat > data.V_flow[j] then
+         if rat > per.V_flow[j] then
            i := j;
          end if;
       end for;
