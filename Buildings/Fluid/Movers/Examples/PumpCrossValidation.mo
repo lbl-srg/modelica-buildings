@@ -29,7 +29,7 @@ model PumpCrossValidation "Comparison between 3 pump types"
   Buildings.Fluid.FixedResistances.FixedResistanceDpM[3] res(
     redeclare each package Medium = Medium,
     each m_flow_nominal=m_flow_nominal,
-    each dp_nominal=5000)
+    each dp_nominal=40000)
     annotation (Placement(transformation(extent={{20,10},{40,30}})));
   Buildings.Fluid.Sources.Boundary_pT sink(
                                           nPorts=3, redeclare package Medium =
@@ -39,7 +39,7 @@ model PumpCrossValidation "Comparison between 3 pump types"
     height=1000,
     duration=100,
     startTime=10,
-    offset=2000)
+    offset=2500)
     annotation (Placement(transformation(extent={{22,70},{2,90}})));
   Modelica.Blocks.Sources.RealExpression dpSet(y=pump_Nrpm.port_b.p - pump_Nrpm.port_a.p)
     annotation (Placement(transformation(extent={{82,30},{6,50}})));
