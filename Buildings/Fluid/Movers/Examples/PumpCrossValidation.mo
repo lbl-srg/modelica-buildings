@@ -4,16 +4,20 @@ model PumpCrossValidation "Comparison between 3 pump types"
   extends Modelica.Icons.Example;
   Buildings.Fluid.Movers.FlowMachine_Nrpm pump_Nrpm(redeclare package Medium =
         Medium, redeclare Buildings.Fluid.Movers.Data.Pumps.Stratos30slash1to8
-      per) annotation (Placement(transformation(extent={{-60,50},{-40,70}})));
+      per,
+    filteredSpeed=false)
+           annotation (Placement(transformation(extent={{-60,50},{-40,70}})));
   Buildings.Fluid.Movers.FlowMachine_dp pump_dp(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
-    redeclare Buildings.Fluid.Movers.Data.Pumps.Stratos30slash1to8 per)
+    redeclare Buildings.Fluid.Movers.Data.Pumps.Stratos30slash1to8 per,
+    filteredSpeed=false)
     annotation (Placement(transformation(extent={{-60,10},{-40,30}})));
   Buildings.Fluid.Movers.FlowMachine_m_flow pump_m_flow(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
-    redeclare Buildings.Fluid.Movers.Data.Pumps.Stratos30slash1to8 per)
+    redeclare Buildings.Fluid.Movers.Data.Pumps.Stratos30slash1to8 per,
+    filteredSpeed=false)
     annotation (Placement(transformation(extent={{-60,-30},{-40,-10}})));
   Buildings.Fluid.Sources.Boundary_pT bou(nPorts=3, redeclare package Medium =
         Medium)
@@ -34,10 +38,10 @@ model PumpCrossValidation "Comparison between 3 pump types"
   Modelica.Blocks.Sources.Ramp ramp(
     height=1000,
     duration=100,
-    offset=1400,
-    startTime=10)
+    startTime=10,
+    offset=2000)
     annotation (Placement(transformation(extent={{22,70},{2,90}})));
-  Modelica.Blocks.Sources.RealExpression dpSet(y=pump_Nrpm.port_a.p - pump_Nrpm.port_b.p)
+  Modelica.Blocks.Sources.RealExpression dpSet(y=pump_Nrpm.port_b.p - pump_Nrpm.port_a.p)
     annotation (Placement(transformation(extent={{82,30},{6,50}})));
   Modelica.Blocks.Sources.RealExpression m_flowSet(y=pump_Nrpm.port_a.m_flow)
     annotation (Placement(transformation(extent={{82,-10},{6,10}})));
@@ -85,11 +89,11 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(result.u1[1], pump_Nrpm.P) annotation (Line(
-      points={{18,-43},{-30,-43},{-30,-44},{-30,-44},{-30,68},{-39,68}},
+      points={{18,-43},{-30,-43},{-30,68},{-39,68}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(result.u2[1], pump_dp.P) annotation (Line(
-      points={{18,-50},{-30,-50},{-30,-48},{-30,-48},{-30,28},{-39,28}},
+      points={{18,-50},{-30,-50},{-30,28},{-39,28}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(result.u3[1], pump_m_flow.P) annotation (Line(
@@ -97,5 +101,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}}), graphics));
+            -100},{100,100}}), graphics),
+    experiment(StopTime=200),
+    __Dymola_experimentSetupOutput);
 end PumpCrossValidation;
