@@ -24,33 +24,39 @@ model Real_Real
   Real uRIntPre[nDblWri] "Value of integral at previous sampling instance";
 public
   Real uRWri[nDblWri] "Value to be sent to Python";
-initial algorithm
-   uRInt    := zeros(nDblWri);
-   uRIntPre := zeros(nDblWri);
+initial equation
+   uRWri    =  pre(uR);
+   uRInt    =  zeros(nDblWri);
+   uRIntPre =  zeros(nDblWri);
    for i in 1:nDblWri loop
      assert(flaDblWri[i]>=0 and flaDblWri[i]<=2,
         "Parameter flaDblWri out of range for " + String(i) + "-th component.");
    end for;
+   // The assignment of yR avoids the warning
+   // "initial conditions for variables of type Real are not fully specified".
+   // At startTime, the sampleTrigger is true and hence this value will
+   // be overwritten.
+   yR = zeros(nDblRea);
 equation
    for i in 1:nDblWri loop
       der(uRInt[i]) = if (flaDblWri[i] > 0) then uR[i] else 0;
    end for;
-algorithm
+
   when {sampleTrigger} then
      // Compute value that will be sent to Python
      for i in 1:nDblWri loop
        if (flaDblWri[i] == 0) then
-         uRWri[i] :=pre(uR[i]);                 // Send the current value.
+         uRWri[i] = pre(uR[i]);                 // Send the current value.
        else
-         uRWri[i] :=uRInt[i] - uRIntPre[i];     // Integral over the sampling interval
+         uRWri[i] = uRInt[i] - pre(uRIntPre[i]);     // Integral over the sampling interval
          if (flaDblWri[i] == 1) then
-            uRWri[i] := uRWri[i]/samplePeriod;  // Average value over the sampling interval
+            uRWri[i] =  uRWri[i]/samplePeriod;  // Average value over the sampling interval
          end if;
        end if;
       end for;
 
     // Exchange data
-    yR :=Buildings.Utilities.IO.Python27.Functions.exchange(
+    yR = Buildings.Utilities.IO.Python27.Functions.exchange(
       moduleName=moduleName,
       functionName=functionName,
       dblWri=uRWri,
@@ -63,7 +69,7 @@ algorithm
       strWri={""});
 
     // Store current value of integral
-  uRIntPre:=uRInt;
+  uRIntPre= uRInt;
   end when;
 
   annotation (defaultComponentName="pyt",
@@ -117,6 +123,12 @@ Integral of uR[i] over the sampling interval
 <br/>
 </html>", revisions="<html>
 <ul>
+<li>
+September 29, 2014, by Michael Wetter:<br/>
+Changed <code>algorithm</code> to <code>equation</code> section
+and assigned start values to avoid a translation warning in 
+Dymola.
+</li>
 <li>
 February 5, 2013, by Michael Wetter:<br/>
 First implementation, 
