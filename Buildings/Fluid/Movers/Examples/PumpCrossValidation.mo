@@ -7,9 +7,8 @@ model PumpCrossValidation "Comparison between 3 pump types"
       per,
     filteredSpeed=false)
            annotation (Placement(transformation(extent={{-60,50},{-40,70}})));
-  Buildings.Fluid.Movers.FlowMachine_dp pump_dp(
+  Buildings.Fluid.Movers.FlowMachine_dp2 pump_dp(
     redeclare package Medium = Medium,
-    m_flow_nominal=m_flow_nominal,
     redeclare Buildings.Fluid.Movers.Data.Pumps.Stratos30slash1to8 per,
     filteredSpeed=false)
     annotation (Placement(transformation(extent={{-60,10},{-40,30}})));
@@ -36,10 +35,10 @@ model PumpCrossValidation "Comparison between 3 pump types"
         Medium)
     annotation (Placement(transformation(extent={{100,10},{80,30}})));
   Modelica.Blocks.Sources.Ramp ramp(
-    height=1000,
     duration=100,
     startTime=10,
-    offset=2500)
+    height=1000,
+    offset=2400)
     annotation (Placement(transformation(extent={{22,70},{2,90}})));
   Modelica.Blocks.Sources.RealExpression dpSet(y=pump_Nrpm.port_b.p - pump_Nrpm.port_a.p)
     annotation (Placement(transformation(extent={{82,30},{6,50}})));
@@ -80,10 +79,6 @@ equation
       points={{1,80},{-50,80},{-50,72}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(dpSet.y, pump_dp.dp_in) annotation (Line(
-      points={{2.2,40},{-50.2,40},{-50.2,32}},
-      color={0,0,127},
-      smooth=Smooth.None));
   connect(m_flowSet.y, pump_m_flow.m_flow_in) annotation (Line(
       points={{2.2,0},{-50.2,0},{-50.2,-8}},
       color={0,0,127},
@@ -98,6 +93,10 @@ equation
       smooth=Smooth.None));
   connect(result.u3[1], pump_m_flow.P) annotation (Line(
       points={{18,-57},{-30,-57},{-30,-12},{-39,-12}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(dpSet.y, pump_dp.dp_in) annotation (Line(
+      points={{2.2,40},{-50,40},{-50,32}},
       color={0,0,127},
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
