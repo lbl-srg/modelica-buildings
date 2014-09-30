@@ -27,14 +27,18 @@ package MoistAirUnsaturated
   // Redeclare ThermodynamicState to avoid the warning
   // "Base class ThermodynamicState is replaceable"
   // during model check
-  redeclare record extends ThermodynamicState
-    "ThermodynamicState record for moist air"
+  redeclare record extends ThermodynamicState(
+    p(nominal=p_default),
+    X(nominal=X_default,
+      start=X_default)) "ThermodynamicState record for moist air"
   end ThermodynamicState;
 
   redeclare replaceable model extends BaseProperties(
     T(stateSelect=if preferredMediumStates then StateSelect.prefer else StateSelect.default),
     p(stateSelect=if preferredMediumStates then StateSelect.prefer else StateSelect.default),
-    Xi(each stateSelect=if preferredMediumStates then StateSelect.prefer else StateSelect.default),
+    Xi(each stateSelect=if preferredMediumStates then StateSelect.prefer else StateSelect.default,
+       nominal=X_default[1:nXi]),
+    X(nominal=X_default),
     final standardOrderComponents=true)
 
     /* p, T, X = X[Water] are used as preferred states, since only then all
@@ -42,7 +46,8 @@ package MoistAirUnsaturated
      If other variables are selected as states, static state selection
      is no longer possible and non-linear algebraic equations occur.
       */
-    MassFraction x_water "Mass of total water/mass of dry air";
+    MassFraction x_water(nominal=X_default[1])
+      "Mass of total water/mass of dry air";
     Real phi "Relative humidity";
 
   protected
@@ -50,8 +55,8 @@ package MoistAirUnsaturated
       "Molar masses of components";
 
     //    MassFraction X_liquid "Mass fraction of liquid water";
-    MassFraction X_steam "Mass fraction of steam water";
-    MassFraction X_air "Mass fraction of air";
+    MassFraction X_steam(nominal=X_default[1]) "Mass fraction of steam water";
+    MassFraction X_air(nominal=X_default[2]) "Mass fraction of air";
     MassFraction X_sat
       "Steam water mass fraction of saturation boundary in kg_water/kg_moistair";
     MassFraction x_sat
@@ -381,8 +386,7 @@ function h_pTX
   SI.MassFraction x_sat "steam water mass fraction of saturation boundary";
   SI.SpecificEnthalpy hDryAir "Enthalpy of dry air";
 algorithm
-  p_steam_sat :=saturationPressure(
-     Buildings.Utilities.Math.Functions.smoothMax(x1=50, x2=T, deltaX=10));
+  p_steam_sat :=saturationPressure(T);
   x_sat    :=k_mair*p_steam_sat/(p - p_steam_sat);
 /*
   assert(X[Water]-0.001 < x_sat/(1 + x_sat), "The medium model '" + mediumName + "' must not be saturated.\n"
@@ -394,7 +398,7 @@ algorithm
      + " p         = " + String(p));
      */
   h := (T - 273.15)*dryair.cp * (1 - X[Water]) + ((T-273.15) * steam.cp + 2501014.5) * X[Water];
-  annotation(smoothOrder=1);
+  annotation(smoothOrder=5);
 end h_pTX;
 
 function T_phX "Compute temperature from specific enthalpy and mass fraction"
@@ -408,10 +412,7 @@ function T_phX "Compute temperature from specific enthalpy and mass fraction"
   SI.AbsolutePressure p_steam_sat "Partial saturation pressure of steam";
   SI.MassFraction x_sat "steam water mass fraction of saturation boundary";
 algorithm
-  T := Buildings.Utilities.Math.Functions.smoothMax(
-        x1=50,
-        x2=273.15 + (h-2501014.5 * X[Water])/(dryair.cp * (1 - X[Water])+steam.cp*X[Water]),
-        deltaX=10);
+  T := 273.15 + (h-2501014.5 * X[Water])/(dryair.cp * (1 - X[Water])+steam.cp*X[Water]);
   // Check for saturation
   p_steam_sat :=saturationPressure(T);
   x_sat    :=k_mair*p_steam_sat/(p - p_steam_sat);
@@ -424,7 +425,7 @@ algorithm
      + " phi       = " + String(X[Water]/((x_sat)/(1+x_sat))) + "\n"
      + " p         = " + String(p));
 */
-  annotation(smoothOrder=1);
+  annotation(smoothOrder=5);
 end T_phX;
 
 redeclare function enthalpyOfNonCondensingGas
@@ -474,14 +475,9 @@ because it allows to invert the function <code>T_phX</code> analytically.
 <ul>
 <li>
 September 29, 2014, by Michael Wetter:<br/>
-Added a call to <code>smoothMax</code> in the functions
-<code>h_pTX</code> and <code>T_phX</code> to avoid
-an error message when simulating
-<code>Buildings.Examples.VAVReheat.ClosedLoop</code>
-because the solver attempts a negative temperature.
-The previous implementation also worked but it leads to an error
-message in the log file.
-The computation time between the two implementations did not change.
+Set consistent nominal values to avoid the warning
+alias set with different nominal values
+in OpenModelica.
 </li>
 <li>
 March 29, 2013, by Michael Wetter:<br/>
