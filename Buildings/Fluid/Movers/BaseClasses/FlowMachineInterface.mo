@@ -555,13 +555,13 @@ equation
     etaHyd = 1;
   else
     if homotopyInitialization then
-      etaHyd = homotopy(actual=cha.efficiency(per=per.hydraulicEfficiency,     r_V=r_V, d=hydDer, r_N=r_N, delta=delta),
-                        simplified=cha.efficiency(per=per.hydraulicEfficiency, r_V=1,   d=hydDer, r_N=r_N, delta=delta));
-      etaMot = homotopy(actual=cha.efficiency(per=per.motorEfficiency,     r_V=r_V, d=motDer, r_N=r_N, delta=delta),
-                        simplified=cha.efficiency(per=per.motorEfficiency, r_V=1,   d=motDer, r_N=r_N, delta=delta));
+      etaHyd = homotopy(actual=cha.efficiency(per=per.hydraulicEfficiency,     V_flow=VMachine_flow, d=hydDer, r_N=r_N, delta=delta),
+                        simplified=cha.efficiency(per=per.hydraulicEfficiency, V_flow=V_flow_max,   d=hydDer, r_N=r_N, delta=delta));
+      etaMot = homotopy(actual=cha.efficiency(per=per.motorEfficiency,     V_flow=VMachine_flow, d=motDer, r_N=r_N, delta=delta),
+                        simplified=cha.efficiency(per=per.motorEfficiency, V_flow=V_flow_max,   d=motDer, r_N=r_N, delta=delta));
     else
-      etaHyd = cha.efficiency(per=per.hydraulicEfficiency, r_V=r_V, d=hydDer, r_N=r_N, delta=delta);
-      etaMot = cha.efficiency(per=per.motorEfficiency,     r_V=r_V, d=motDer, r_N=r_N, delta=delta);
+      etaHyd = cha.efficiency(per=per.hydraulicEfficiency, V_flow=VMachine_flow, d=hydDer, r_N=r_N, delta=delta);
+      etaMot = cha.efficiency(per=per.motorEfficiency,     V_flow=V_flow_max, d=motDer, r_N=r_N, delta=delta);
     end if;
     // To compute the electrical power, we set a lower bound for eta to avoid
     // a division by zero.

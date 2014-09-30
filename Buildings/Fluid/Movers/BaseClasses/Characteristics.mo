@@ -69,9 +69,9 @@ First implementation.
 
   record efficiencyParameters "Record for efficiency parameters"
     extends Modelica.Icons.Record;
-    parameter Real  r_V[:](each min=0, each max=1, each displayUnit="1")
+    parameter Modelica.SIunits.VolumeFlowRate  V_flow[:](each min=0, each max=1)
       "Volumetric flow rate divided by nominal flow rate at user-selected operating points";
-    parameter Real eta[size(r_V,1)](
+    parameter Real eta[size(V_flow,1)](
        each min=0, each max=1, each displayUnit="1")
       "Fan or pump efficiency at these flow rates";
     annotation (Documentation(info="<html>
@@ -395,7 +395,7 @@ First implementation.
     input
       Buildings.Fluid.Movers.BaseClasses.Characteristics.efficiencyParameters
       per "Efficiency performance data";
-    input Real r_V(unit="1")
+    input Modelica.SIunits.VolumeFlowRate V_flow
       "Volumetric flow rate divided by nominal flow rate";
     input Real d[:] "Derivatives at support points for spline interpolation";
     input Real r_N(unit="1") "Relative revolution, r_N=N/N_nominal";
@@ -403,8 +403,8 @@ First implementation.
     output Real eta(min=0, unit="1") "Efficiency";
 
   protected
-    Integer n = size(per.r_V, 1) "Number of data points";
-    Real rat "Ratio of r_V/r_N";
+    Integer n = size(per.V_flow, 1) "Number of data points";
+    Real rat "Ratio of V_flow/r_N";
     Integer i "Integer to select data interval";
   algorithm
     if n == 1 then
@@ -412,22 +412,22 @@ First implementation.
     else
       // The use of the max function to avoids problems for low speeds
       // and turned off pumps
-      rat:=r_V/
+      rat:=V_flow/
               Buildings.Utilities.Math.Functions.smoothMax(
                 x1=r_N,
                 x2=0.1,
                 deltaX=delta);
       i :=1;
       for j in 1:n-1 loop
-         if rat > per.r_V[j] then
+         if rat > per.V_flow[j] then
            i := j;
          end if;
       end for;
       // Extrapolate or interpolate the data
       eta:=Buildings.Utilities.Math.Functions.cubicHermiteLinearExtrapolation(
                   x=rat,
-                  x1=per.r_V[i],
-                  x2=per.r_V[i + 1],
+                  x1=per.V_flow[i],
+                  x2=per.V_flow[i + 1],
                   y1=per.eta[i],
                   y2=per.eta[i + 1],
                   y1d=d[i],

@@ -36,8 +36,8 @@ initial equation
   V_flow_max=m_flow_nominal/rho_default;
 equation
   r_V = VMachine_flow/V_flow_max;
-  etaHyd = cha.efficiency(per=per.hydraulicEfficiency, r_V=r_V, d=hydDer, r_N=1, delta=0);
-  etaMot = cha.efficiency(per=per.motorEfficiency,     r_V=r_V, d=motDer, r_N=1, delta=0);
+  etaHyd = cha.efficiency(per=per.hydraulicEfficiency, V_flow=VMachine_flow, d=hydDer, r_N=1, delta=1E-4);
+  etaMot = cha.efficiency(per=per.motorEfficiency,     V_flow=VMachine_flow, d=motDer, r_N=1, delta=1E-4);
   dpMachine = -dp;
   VMachine_flow = -port_b.m_flow/rho_in;
   // To compute the electrical power, we set a lower bound for eta to avoid
