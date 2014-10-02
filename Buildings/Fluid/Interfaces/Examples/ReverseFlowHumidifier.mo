@@ -32,7 +32,7 @@ package Medium = Buildings.Media.PerfectGases.MoistAir;
     annotation (Placement(transformation(extent={{-50,20},{-30,40}})));
   Modelica.Blocks.Sources.Constant u2(k=0.01) "Control input"
     annotation (Placement(transformation(extent={{-92,54},{-80,66}})));
-  Modelica.Fluid.Sources.MassFlowSource_T source1(
+  Buildings.Fluid.Sources.MassFlowSource_T source1(
     redeclare package Medium = Medium,
     use_m_flow_in=false,
     use_T_in=false,
@@ -87,7 +87,7 @@ package Medium = Buildings.Media.PerfectGases.MoistAir;
     annotation (Placement(transformation(extent={{-10,-16},{10,4}})));
   inner Modelica.Fluid.System system
     annotation (Placement(transformation(extent={{38,-100},{58,-80}})));
-  Modelica.Fluid.Sources.MassFlowSource_T source2(
+  Buildings.Fluid.Sources.MassFlowSource_T source2(
     redeclare package Medium = Medium,
     use_m_flow_in=false,
     use_T_in=false,
@@ -191,6 +191,13 @@ identical for forward flow and reverse flow.
 If the results differ, then an assert is triggered.
 </html>", revisions="<html>
 <ul>
+<li>
+October 1, 2014, by Michael Wetter:<br/>
+Changed flow source from <code>Modelica.Fluid</code> to
+<code>Buildings.Fluid</code> to avoid the warning
+alias set with different nominal values
+in OpenModelica.
+</li>
 <li>
 October 9, 2013, by Michael Wetter:<br/>
 Replaced

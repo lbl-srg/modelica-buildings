@@ -2,8 +2,8 @@ within Buildings.Fluid.BaseClasses;
 partial model PartialResistance "Partial model for a hydraulic resistance"
     extends Buildings.Fluid.Interfaces.PartialTwoPortInterface(
      show_T=false,
-     m_flow(start=0, nominal=m_flow_nominal_pos),
-     dp(start=0, nominal=dp_nominal_pos),
+     m_flow(nominal=m_flow_nominal_pos),
+     dp(nominal=dp_nominal_pos),
      final m_flow_small = 1E-4*abs(m_flow_nominal));
 
   parameter Boolean from_dp = false
@@ -21,9 +21,9 @@ partial model PartialResistance "Partial model for a hydraulic resistance"
   parameter Modelica.SIunits.MassFlowRate m_flow_turbulent(min=0)
     "Turbulent flow if |m_flow| >= m_flow_turbulent";
 
-protected
   parameter Medium.ThermodynamicState sta_default=
-     Medium.setState_pTX(T=Medium.T_default, p=Medium.p_default, X=Medium.X_default);
+     Medium.setState_pTX(p=Medium.p_default, T=Medium.T_default, X=Medium.X_default);
+protected
   parameter Modelica.SIunits.DynamicViscosity eta_default=Medium.dynamicViscosity(sta_default)
     "Dynamic viscosity, used to compute transition to turbulent flow regime";
 protected

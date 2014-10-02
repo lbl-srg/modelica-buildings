@@ -161,27 +161,35 @@ model MixingBox "Outside air mixing box with interlocked air dampers"
     "Flow coefficient for y=1, k1 = pressure drop divided by dynamic pressure"
     annotation (Dialog(tab="Damper coefficients"));
 
-  Modelica.Fluid.Interfaces.FluidPort_a port_Out(redeclare package Medium =
-        Medium, m_flow(start=0, min=if allowFlowReversal then -Constants.inf else
-                0))
+  Modelica.Fluid.Interfaces.FluidPort_a port_Out(
+    redeclare package Medium = Medium,
+    m_flow(start=0, min=if allowFlowReversal then -Constants.inf else 0),
+    p(nominal=Medium.p_default),
+    Xi_outflow(nominal=Medium.X_default[1:Medium.nXi]))
     "Fluid connector a (positive design flow direction is from port_a to port_b)"
     annotation (Placement(transformation(extent={{-110,50},{-90,70}},
           rotation=0)));
-  Modelica.Fluid.Interfaces.FluidPort_b port_Exh(redeclare package Medium =
-        Medium, m_flow(start=0, max=if allowFlowReversal then +Constants.inf else
-                0))
+  Modelica.Fluid.Interfaces.FluidPort_b port_Exh(
+    redeclare package Medium = Medium,
+    m_flow(start=0, max=if allowFlowReversal then +Constants.inf else 0),
+    p(nominal=Medium.p_default),
+    Xi_outflow(nominal=Medium.X_default[1:Medium.nXi]))
     "Fluid connector b (positive design flow direction is from port_a to port_b)"
     annotation (Placement(transformation(extent={{-90,-70},{-110,-50}},
           rotation=0)));
-  Modelica.Fluid.Interfaces.FluidPort_a port_Ret(redeclare package Medium =
-        Medium, m_flow(start=0, min=if allowFlowReversal then -Constants.inf else
-                0))
+  Modelica.Fluid.Interfaces.FluidPort_a port_Ret(
+    redeclare package Medium = Medium,
+    m_flow(start=0, min=if allowFlowReversal then -Constants.inf else 0),
+    p(nominal=Medium.p_default),
+    Xi_outflow(nominal=Medium.X_default[1:Medium.nXi]))
     "Fluid connector a (positive design flow direction is from port_a to port_b)"
     annotation (Placement(transformation(extent={{110,-70},{90,-50}}, rotation=
             0)));
-  Modelica.Fluid.Interfaces.FluidPort_b port_Sup(redeclare package Medium =
-        Medium, m_flow(start=0, max=if allowFlowReversal then +Constants.inf else
-                0))
+  Modelica.Fluid.Interfaces.FluidPort_b port_Sup(
+    redeclare package Medium = Medium,
+    m_flow(start=0, max=if allowFlowReversal then +Constants.inf else 0),
+    p(nominal=Medium.p_default),
+    Xi_outflow(nominal=Medium.X_default[1:Medium.nXi]))
     "Fluid connector b (positive design flow direction is from port_a to port_b)"
     annotation (Placement(transformation(extent={{110,50},{90,70}}, rotation=0)));
   Modelica.Blocks.Sources.Constant uni(k=1) "Unity signal"
@@ -322,6 +330,12 @@ equation
 defaultComponentName="eco",
 Documentation(revisions="<html>
 <ul>
+<li>
+October 1, 2014, by Michael Wetter:<br/>
+Set consistent nominal values to avoid the warning
+alias set with different nominal values
+in OpenModelica.
+</li>
 <li>
 December 14, 2012 by Michael Wetter:<br/>
 Renamed protected parameters for consistency with the naming conventions.

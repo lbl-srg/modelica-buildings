@@ -6,7 +6,11 @@ partial model PartialAbsoluteSensor
     "Medium in the sensor"
     annotation(choicesAllMatching=true);
 
-  Modelica.Fluid.Interfaces.FluidPort_a port(redeclare package Medium=Medium, m_flow(min=0))
+  Modelica.Fluid.Interfaces.FluidPort_a port(
+    redeclare package Medium=Medium,
+    p(nominal=Medium.p_default),
+    Xi_outflow(nominal=Medium.X_default[1:Medium.nXi]),
+    m_flow(min=0)) "Fluid port"
     annotation (Placement(transformation(
         origin={0,-100},
         extent={{-10,-10},{10,10}},
@@ -28,6 +32,12 @@ Buildings.Fluid.Sensors.BaseClasses.PartialFlowSensor</a>.
 </html>",
 revisions="<html>
 <ul>
+<li>
+September 29, 2014, by Michael Wetter:<br/>
+Set consistent nominal values to avoid the warning
+alias set with different nominal values
+in OpenModelica.
+</li>
 <li>
 February 12, 2011, by Michael Wetter:<br/>
 First implementation.

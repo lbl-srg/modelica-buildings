@@ -23,13 +23,20 @@ partial model PartialMixingVolume
       group="Heat transfer"));
   parameter Boolean initialize_p = not Medium.singleState
     "= true to set up initial equations for pressure";
+
+  // Ports
   Modelica.Fluid.Vessels.BaseClasses.VesselFluidPorts_b ports[nPorts](
-      redeclare each package Medium = Medium) "Fluid inlets and outlets"
+      redeclare each final package Medium = Medium,
+      each p(nominal=Medium.p_default),
+      each Xi_outflow(nominal=Medium.X_default[1:Medium.nXi]))
+    "Fluid inlets and outlets"
     annotation (Placement(transformation(extent={{-40,-10},{40,10}},
       origin={0,-100})));
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heatPort
     "Heat port for sensible heat input"
     annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
+
+  // Variables
   Modelica.SIunits.Temperature T "Temperature of the fluid";
   Modelica.SIunits.Pressure p "Pressure of the fluid";
   Modelica.SIunits.MassFraction Xi[Medium.nXi]
@@ -169,6 +176,12 @@ Buildings.Fluid.MixingVolumes</a>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+September 29, 2014, by Michael Wetter:<br/>
+Set consistent nominal values to avoid the warning
+alias set with different nominal values
+in OpenModelica.
+</li>
 <li>
 July 3, 2014, by Michael Wetter:<br/>
 Added parameter <code>initialize_p</code>. This is required

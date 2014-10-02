@@ -1,7 +1,12 @@
 within Buildings.Fluid.Sources;
 model MassFlowSource_h
   "Ideal flow source that produces a prescribed mass flow with prescribed specific enthalpy, mass fraction and trace substances"
-  extends Modelica.Fluid.Sources.BaseClasses.PartialSource;
+  extends Modelica.Fluid.Sources.BaseClasses.PartialSource(
+   ports(each p(nominal=Medium.p_default),
+         each Xi_outflow(nominal=Medium.X_default[1:Medium.nXi])),
+    medium(p(nominal=Medium.p_default),
+           X(nominal=Medium.X_default)));
+
   parameter Boolean use_m_flow_in = false
     "Get the mass flow rate from the input connector"
     annotation(Evaluate=true, HideResult=true);
@@ -176,6 +181,12 @@ with exception of boundary flow rate, do not have an effect.
 </html>",
 revisions="<html>
 <ul>
+<li>
+October 1, 2014, by Michael Wetter:<br/>
+Set consistent nominal values to avoid the warning
+alias set with different nominal values
+in OpenModelica.
+</li>
 <li>
 May 29, 2014, by Michael Wetter:<br/>
 Removed undesirable annotation <code>Evaluate=true</code>.

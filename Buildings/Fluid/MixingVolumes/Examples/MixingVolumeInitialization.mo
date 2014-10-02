@@ -19,13 +19,17 @@ model MixingVolumeInitialization "Test model for mixing volume initialization"
     redeclare package Medium = Medium,
     length=1,
     diameter=0.25,
-    flowModel(m_flow_nominal=2)) annotation (Placement(transformation(extent={{-20,10},{0,30}},
+    flowModel(m_flow_nominal=2),
+    port_b(p(nominal=Medium.p_default)),
+    port_a(Xi_outflow(nominal=Medium.X_default[1:Medium.nXi]))) annotation (Placement(transformation(extent={{-20,10},{0,30}},
           rotation=0)));
   Modelica.Fluid.Pipes.StaticPipe pipe2(
     redeclare package Medium = Medium,
     length=1,
     diameter=0.25,
-    flowModel(m_flow_nominal=2)) annotation (Placement(transformation(extent={{60,10},{80,30}},
+    flowModel(m_flow_nominal=2),
+    port_a(p(nominal=Medium.p_default)),
+    port_b(Xi_outflow(nominal=Medium.X_default[1:Medium.nXi]))) annotation (Placement(transformation(extent={{60,10},{80,30}},
           rotation=0)));
   MixingVolumes.MixingVolume vol1(
     redeclare package Medium = Medium,
@@ -65,6 +69,12 @@ This model tests the initialization of the mixing volume.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+September 29, 2014, by Michael Wetter:<br/>
+Set consistent nominal values to avoid the warning
+alias set with different nominal values
+in OpenModelica.
+</li>
 <li>
 October 24, 2013 by Michael Wetter:<br/>
 Set <code>flowModel(m_flow_nominal=2)</code> in the pipe models to 

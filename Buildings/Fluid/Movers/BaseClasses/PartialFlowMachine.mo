@@ -57,9 +57,10 @@ protected
     "Prescribed power (=heat and flow work) flow for dynamic model"
     annotation (Placement(transformation(extent={{-70,10},{-50,30}})));
 
-  parameter Medium.ThermodynamicState sta_start=Medium.setState_pTX(
-      T=T_start, p=p_start, X=X_start) "Medium state at start values";
-  parameter Modelica.SIunits.SpecificEnthalpy h_outflow_start = Medium.specificEnthalpy(sta_start)
+//  parameter Medium.ThermodynamicState sta_start=Medium.setState_pTX(
+//      T=T_start, p=p_start, X=X_start) "Medium state at start values";
+  parameter Modelica.SIunits.SpecificEnthalpy h_outflow_start=
+    Medium.specificEnthalpy_pTX(p_start, T_start, X_start)
     "Start value for outflowing enthalpy";
 
 equation
@@ -166,8 +167,17 @@ the enthalpy of the medium), but this setting does in some cases lead to simpler
 and more robust simulation, in particular if the mass flow is equal to zero.
 </p>
 </html>",
-      revisions="<html>
+revisions="<html>
 <ul>
+<li>
+October 1, 2014, by Michael Wetter:<br/>
+Changed assignment of <code>h_outflow_start</code> from using
+<code>Medium.specificEnthalpy()</code> to using 
+<code>Medium.specificEnthalpy_pTX()</code> to avoid a warning
+alias set with different nominal values
+in OpenModelica as OpenModelica does not evaluate the first statement
+during the symbolic processing.
+</li>      
 <li>
 May 25, 2011, by Michael Wetter:<br/>
 Revised implementation of energy balance to avoid having to use conditionally removed models.

@@ -30,14 +30,14 @@ partial model FlowMachine_ZeroFlow
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
     dp_nominal=dp_nominal/2) "Pressure drop"
-    annotation (Placement(transformation(extent={{58,70},{78,90}})));
+    annotation (Placement(transformation(extent={{58,50},{78,70}})));
   replaceable Buildings.Fluid.Movers.BaseClasses.PartialFlowMachine floMacSta
                       constrainedby
     Buildings.Fluid.Movers.BaseClasses.PartialFlowMachine(
       redeclare package Medium = Medium,
       energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
       dynamicBalance=false) "Static model of a flow machine"
-    annotation (Placement(transformation(extent={{20,70},{40,90}})));
+    annotation (Placement(transformation(extent={{20,50},{40,70}})));
   replaceable Buildings.Fluid.Movers.BaseClasses.PartialFlowMachine floMacDyn
     constrainedby Buildings.Fluid.Movers.BaseClasses.PartialFlowMachine(
       redeclare package Medium = Medium,
@@ -50,26 +50,28 @@ partial model FlowMachine_ZeroFlow
     dp_nominal=dp_nominal/2) "Pressure drop"
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
   Modelica.Blocks.Math.Gain gain "Gain for input signal"
-    annotation (Placement(transformation(extent={{-46,90},{-26,110}})));
+    annotation (Placement(transformation(extent={{-20,90},{0,110}})));
   Buildings.Fluid.FixedResistances.FixedResistanceDpM dpSta1(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
     dp_nominal=dp_nominal/2) "Pressure drop"
-    annotation (Placement(transformation(extent={{-20,70},{0,90}})));
+    annotation (Placement(transformation(extent={{-20,50},{0,70}})));
   Buildings.Fluid.FixedResistances.FixedResistanceDpM dpDyn1(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
     dp_nominal=dp_nominal/2) "Pressure drop"
     annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
+  Modelica.Blocks.Nonlinear.Limiter limiter(
+    uMax=1E100,
+    uMin=0,
+    strict=true)
+    "Limiter to avoid input signal to be slightly below 0 due to numerical error"
+    annotation (Placement(transformation(extent={{-54,90},{-34,110}})));
 equation
   connect(floMacSta.port_b, dpSta.port_a)
                                    annotation (Line(
-      points={{40,80},{58,80}},
+      points={{40,60},{58,60}},
       color={0,127,255},
-      smooth=Smooth.None));
-  connect(y.y, gain.u) annotation (Line(
-      points={{-69,100},{-48,100}},
-      color={0,0,127},
       smooth=Smooth.None));
   connect(floMacDyn.port_b, dpDyn.port_a) annotation (Line(
       points={{40,6.10623e-16},{50,-3.36456e-22},{50,6.10623e-16},{60,
@@ -77,7 +79,7 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(dpSta1.port_b, floMacSta.port_a) annotation (Line(
-      points={{5.55112e-16,80},{20,80}},
+      points={{5.55112e-16,60},{20,60}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(dpDyn1.port_b, floMacDyn.port_a) annotation (Line(
@@ -86,7 +88,7 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(dpSta1.port_a, sou.ports[1]) annotation (Line(
-      points={{-20,80},{-60,80},{-60,-33},{-68,-33}},
+      points={{-20,60},{-60,60},{-60,-33},{-68,-33}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(dpDyn1.port_a, sou.ports[2]) annotation (Line(
@@ -98,15 +100,39 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(dpSta.port_b, sou.ports[4]) annotation (Line(
-      points={{78,80},{100,80},{100,-39},{-68,-39}},
+      points={{78,60},{100,60},{100,-39},{-68,-39}},
       color={0,127,255},
       smooth=Smooth.None));
+  connect(y.y, limiter.u) annotation (Line(
+      points={{-69,100},{-56,100}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(limiter.y, gain.u) annotation (Line(
+      points={{-33,100},{-22,100}},
+      color={0,0,127},
+      smooth=Smooth.None));
   annotation (
-    Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{160,
-            160}})),
+    Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-100,-100},{160,
+            160}}), graphics),
     Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{160,
             160}})),
     Documentation(info="<html>
 This example demonstrates the use of a flow machine whose flow rate transitions to zero.
+</html>",
+revisions="<html>
+<ul>
+<li>
+October 1, 2014, by Michael Wetter:<br/>
+Added limiter to avoid that the control signal is slighty below
+zero due to numerical error. Without this limiter, OpenModelica stops
+when running <code>Examples.FlowMachine_dp</code> with
+an assert because <code>floMacDyn.dp_in</code> is <i>-1.7E-7</i> which
+is below the minimum value for this variable.
+</li>
+<li>
+March 24 2010, by Michael Wetter:<br/>
+First implementation.
+</li>
+</ul>
 </html>"));
 end FlowMachine_ZeroFlow;
