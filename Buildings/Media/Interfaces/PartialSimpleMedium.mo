@@ -24,18 +24,23 @@ partial package PartialSimpleMedium
 
   constant FluidConstants[nS] fluidConstants "fluid constants";
 
-  redeclare record extends ThermodynamicState "Thermodynamic state"
-    AbsolutePressure p(start=p_default) "Absolute pressure of medium";
-    Temperature T(start=T_default) "Temperature of medium";
+  redeclare record extends ThermodynamicState "Thermodynamic state variables"
+    Modelica.SIunits.Temperature T(start=T_default) "Temperature of medium";
+    Modelica.SIunits.AbsolutePressure p(start=p_default,
+                                        nominal=p_default) "Pressure of medium";
   end ThermodynamicState;
 
   constant Modelica.SIunits.AbsolutePressure p0 = 3E5
     "Reference pressure for default medium pressure";
 
   redeclare replaceable model extends BaseProperties(
-     T(stateSelect=if preferredMediumStates then StateSelect.prefer else StateSelect.default),
-     p(stateSelect=if preferredMediumStates then StateSelect.prefer else StateSelect.default))
-    "Base properties"
+     T(stateSelect=if
+          preferredMediumStates then StateSelect.prefer else StateSelect.default,
+          start=T_default),
+     p(stateSelect=if
+          preferredMediumStates then StateSelect.prefer else StateSelect.default,
+       nominal=p_default,
+       start=p_default)) "Base properties"
   equation
         assert(T >= T_min and T <= T_max, "
 Temperature T (= "   + String(T) + " K) is not
@@ -230,6 +235,12 @@ is translated in the pedantic mode.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+September 29, 2014, by Michael Wetter:<br/>
+Set consistent nominal values to avoid the warning
+alias set with different nominal values
+in OpenModelica.
+</li>
 <li>
 September 12, 2014, by Michael Wetter:<br/>
 Removed option to model water as a compressible medium as

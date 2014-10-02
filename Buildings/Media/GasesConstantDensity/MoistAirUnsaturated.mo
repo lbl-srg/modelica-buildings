@@ -27,15 +27,29 @@ package MoistAirUnsaturated
   // Redeclare ThermodynamicState to avoid the warning
   // "Base class ThermodynamicState is replaceable"
   // during model check
-  redeclare record extends ThermodynamicState
-    "ThermodynamicState record for moist air"
+  redeclare record extends ThermodynamicState(
+    p(start=p_default, nominal=p_default),
+    T(start=T_default),
+    X(start=X_default, nominal=X_default))
   end ThermodynamicState;
 
   redeclare replaceable model extends BaseProperties(
-    T(stateSelect=if preferredMediumStates then StateSelect.prefer else StateSelect.default),
-    p(stateSelect=if preferredMediumStates then StateSelect.prefer else StateSelect.default),
-    Xi(each stateSelect=if preferredMediumStates then StateSelect.prefer else StateSelect.default),
-    final standardOrderComponents=true)
+    T(stateSelect=if preferredMediumStates then StateSelect.prefer else StateSelect.default,
+      start=T_default),
+    p(stateSelect=if preferredMediumStates then StateSelect.prefer else StateSelect.default,
+      nominal=p_default,
+      start=p_default),
+    Xi(each stateSelect=if preferredMediumStates then StateSelect.prefer else StateSelect.default,
+       nominal=X_default[1:nXi],
+       start=X_default[1:nXi]),
+    X(nominal=X_default,
+      start=X_default),
+    state(T(start=T_default),
+          p(start=p_default,
+            nominal=p_default),
+          X(start=X_default,
+            nominal=X_default)),
+    final standardOrderComponents=true) "Base properties"
 
     /* p, T, X = X[Water] are used as preferred states, since only then all
      other quantities can be computed in a recursive sequence. 
@@ -50,8 +64,8 @@ package MoistAirUnsaturated
       "Molar masses of components";
 
     //    MassFraction X_liquid "Mass fraction of liquid water";
-    MassFraction X_steam "Mass fraction of steam water";
-    MassFraction X_air "Mass fraction of air";
+    MassFraction X_steam(nominal=X_default[1]) "Mass fraction of steam water";
+    MassFraction X_air(nominal=X_default[2]) "Mass fraction of air";
     MassFraction X_sat
       "Steam water mass fraction of saturation boundary in kg_water/kg_moistair";
     MassFraction x_sat
@@ -433,6 +447,12 @@ because it allows to invert the function <code>T_phX</code> analytically.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+September 29, 2014, by Michael Wetter:<br/>
+Set consistent nominal values to avoid the warning
+alias set with different nominal values
+in OpenModelica.
+</li>
 <li>
 March 29, 2013, by Michael Wetter:<br/>
 Added <code>final standardOrderComponents=true</code> in the

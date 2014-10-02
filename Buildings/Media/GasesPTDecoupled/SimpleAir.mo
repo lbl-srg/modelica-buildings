@@ -40,19 +40,25 @@ package SimpleAir
 
  redeclare replaceable model BaseProperties "Basic medium properties"
     // declarations from Modelica.Media.Interfaces.PartialMedium
-    InputAbsolutePressure p "Absolute pressure of medium";
-    InputMassFraction[nXi] Xi(start=reference_X[1:nXi])
-      "Structurally independent mass fractions";
+    InputAbsolutePressure p(
+      nominal=p_default,
+      start=p_default) "Absolute pressure of medium";
+    InputMassFraction[nXi] Xi(
+      nominal=X_default[1:nXi],
+      start=X_default[1:nXi]) "Structurally independent mass fractions";
     InputSpecificEnthalpy h "Specific enthalpy of medium";
     Density d "Density of medium";
-    Temperature T "Temperature of medium";
-    MassFraction[nX] X(start=reference_X)
-      "Mass fractions (= (component mass)/total mass  m_i/m)";
+    Temperature T(start=T_default) "Temperature of medium";
+    MassFraction[nX] X(
+      nominal=X_default,
+      start=X_default) "Mass fractions (= (component mass)/total mass  m_i/m)";
     SpecificInternalEnergy u "Specific internal energy of medium";
     SpecificHeatCapacity R "Gas constant (of mixture if applicable)";
     MolarMass MM "Molar mass (of mixture or single fluid)";
-    ThermodynamicState state
-      "thermodynamic state record for optional functions";
+    ThermodynamicState state(
+      T(start=T_default),
+      p(start=p_default,
+        nominal=p_default)) "thermodynamic state record for optional functions";
     parameter Boolean preferredMediumStates=false
       "= true if StateSelect.prefer shall be used for the independent property variables of the medium"
       annotation (Evaluate=true, Dialog(tab="Advanced"));
@@ -219,6 +225,12 @@ quantities are constant.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+September 29, 2014, by Michael Wetter:<br/>
+Set consistent nominal values to avoid the warning
+alias set with different nominal values
+in OpenModelica.
+</li>
 <li>
 March 29, 2013, by Michael Wetter:<br/>
 Added qualifier <code>final</code> to <code>standardOrderComponents=true</code> in the

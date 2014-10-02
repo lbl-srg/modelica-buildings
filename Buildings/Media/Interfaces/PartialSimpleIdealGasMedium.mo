@@ -21,7 +21,8 @@ partial package PartialSimpleIdealGasMedium
 
   redeclare record extends ThermodynamicState
     "Thermodynamic state of ideal gas"
-    AbsolutePressure p(start=p_default) "Absolute pressure of medium";
+    AbsolutePressure p(start=p_default, nominal=p_default)
+      "Absolute pressure of medium";
     Temperature T(start=T_default) "Temperature of medium";
   end ThermodynamicState;
 
