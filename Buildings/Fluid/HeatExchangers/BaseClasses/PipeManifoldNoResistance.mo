@@ -4,7 +4,11 @@ model PipeManifoldNoResistance "Manifold for heat exchanger register"
  parameter Boolean connectAllPressures=true;
   Modelica.Fluid.Fittings.MultiPort mulPor(
       redeclare package Medium = Medium,
-      final nPorts_b=nPipPar)
+      final nPorts_b=nPipPar,
+      port_a(Xi_outflow(nominal=Medium.X_default[1:Medium.nXi]),
+             p(nominal=Medium.p_default)),
+      ports_b(each Xi_outflow(nominal=Medium.X_default[1:Medium.nXi]),
+             each p(nominal=Medium.p_default)))
     annotation (Placement(transformation(extent={{0,-10},{8,10}})));
 equation
   connect(port_a, mulPor.port_a) annotation (Line(
@@ -31,6 +35,12 @@ is added to the other side of the heat exchanger registers.
 </html>",
 revisions="<html>
 <ul>
+<li>
+October 3, 2014, by Michael Wetter:<br/>
+Set consistent nominal values to avoid the warning
+alias set with different nominal values
+in OpenModelica.
+</li>
 <li>
 April 14, 2008, by Michael Wetter:<br/>
 First implementation.
