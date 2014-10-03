@@ -37,13 +37,46 @@ The generalized electrical connector overcomes this limitation. It uses a paradi
 that is similar to the one used by the <b>Modelica.Fluid</b> connectors.
 </p>
 
-<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'Courier New,courier'; color:#0000ff;\">connector</span><span style=\" font-family:'Courier New,courier';\"> Terminal </span><span style=\" font-family:'Courier New,courier'; color:#006400;\">&quot;Generalized electric terminal&quot;</span></p>
-<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:8;\"><span style=\" font-family:'Courier New,courier';\">  </span><span style=\" font-family:'Courier New,courier'; color:#0000ff;\">extends </span><span style=\" font-family:'Courier New,courier'; color:#ff0000;\">Buildings.Electrical.Interfaces.BaseTerminal</span><span style=\" font-family:'Courier New,courier';\">;</span></p>
-<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:8;\"><span style=\" font-family:'Courier New,courier';\">  </span><span style=\" font-family:'Courier New,courier'; color:#0000ff;\">replaceable package</span><span style=\" font-family:'Courier New,courier';\"> PhaseSystem = </span><span style=\" font-family:'Courier New,courier'; color:#ff0000;\">Buildings.Electrical.PhaseSystems.PartialPhaseSystem</span><span style=\" font-family:'Courier New,courier';\"> </span><span style=\" font-family:'Courier New,courier'; color:#006400;\">&quot;Phase system&quot;</span><span style=\" font-family:'Courier New,courier';\">;</span></p>
-<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:8;\"><span style=\" font-family:'Courier New,courier';\">  </span><span style=\" font-family:'Courier New,courier'; color:#ff0000;\">PhaseSystem.Voltage</span><span style=\" font-family:'Courier New,courier';\"> v[PhaseSystem.n] </span><span style=\" font-family:'Courier New,courier'; color:#006400;\">&quot;Voltage vector&quot;</span><span style=\" font-family:'Courier New,courier';\">;</span></p>
-<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:8;\"><span style=\" font-family:'Courier New,courier';\">  </span><span style=\" font-family:'Courier New,courier'; color:#0000ff;\">flow </span><span style=\" font-family:'Courier New,courier'; color:#ff0000;\">PhaseSystem.Current</span><span style=\" font-family:'Courier New,courier';\"> i[PhaseSystem.n] </span><span style=\" font-family:'Courier New,courier'; color:#006400;\">&quot;Current vector&quot;</span><span style=\" font-family:'Courier New,courier';\">;</span></p>
-<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:8;\"><span style=\" font-family:'Courier New,courier';\">  </span><span style=\" font-family:'Courier New,courier'; color:#ff0000;\">PhaseSystem.ReferenceAngle</span><span style=\" font-family:'Courier New,courier';\"> theta[PhaseSystem.m] </span><span style=\" font-family:'Courier New,courier'; color:#006400;\">&quot;Optional vector of phase angles&quot;</span><span style=\" font-family:'Courier New,courier';\">;</span></p>
-<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:8;\"><span style=\" font-family:'Courier New,courier'; color:#0000ff;\">end </span><span style=\" font-family:'Courier New,courier';\">Terminal;</span></p>
+<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">
+<span style=\" font-family:'Courier New,courier'; color:#0000ff;\">connector</span>
+<span style=\" font-family:'Courier New,courier';\"> Terminal </span>
+<span style=\" font-family:'Courier New,courier'; color:#006400;\">&quot;Generalized electric terminal&quot;</span>
+</p>
+<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:8;\">
+<span style=\" font-family:'Courier New,courier'; color:#0000ff;\">extends </span>
+<span style=\" font-family:'Courier New,courier'; color:#ff0000;\">Buildings.Electrical.Interfaces.BaseTerminal</span>
+<span style=\" font-family:'Courier New,courier';\">;</span>
+</p>
+<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:8;\">
+<span style=\" font-family:'Courier New,courier'; color:#0000ff;\">replaceable package</span>
+<span style=\" font-family:'Courier New,courier';\"> PhaseSystem = </span>
+<span style=\" font-family:'Courier New,courier'; color:#ff0000;\">Buildings.Electrical.PhaseSystems.PartialPhaseSystem </span>
+<span style=\" font-family:'Courier New,courier'; color:#006400;\">&quot;Phase system&quot;</span>
+<span style=\" font-family:'Courier New,courier';\">;</span>
+</p>
+<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:8;\">
+<span style=\" font-family:'Courier New,courier'; color:#ff0000;\">PhaseSystem.Voltage</span>
+<span style=\" font-family:'Courier New,courier';\"> v[PhaseSystem.n] </span>
+<span style=\" font-family:'Courier New,courier'; color:#006400;\">&quot;Voltage vector&quot;</span>
+<span style=\" font-family:'Courier New,courier';\">;</span
+</p>
+<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:8;\">
+<span style=\" font-family:'Courier New,courier'; color:#0000ff;\">flow </span>
+<span style=\" font-family:'Courier New,courier'; color:#ff0000;\">PhaseSystem.Current</span>
+<span style=\" font-family:'Courier New,courier';\"> i[PhaseSystem.n] </span>
+<span style=\" font-family:'Courier New,courier'; color:#006400;\">&quot;Current vector&quot;</span>
+<span style=\" font-family:'Courier New,courier';\">;</span>
+</p>
+<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:8;\">
+<span style=\" font-family:'Courier New,courier'; color:#ff0000;\">PhaseSystem.ReferenceAngle</span>
+<span style=\" font-family:'Courier New,courier';\"> theta[PhaseSystem.m] </span>
+<span style=\" font-family:'Courier New,courier'; color:#006400;\">&quot;Optional vector of phase angles&quot;</span>
+<span style=\" font-family:'Courier New,courier';\">;</span>
+</p>
+<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:8;\">
+<span style=\" font-family:'Courier New,courier'; color:#0000ff;\">end </span>
+<span style=\" font-family:'Courier New,courier';\">Terminal;</span>
+</p>
 
 <p>
 The connector has a package called <code>PhaseSystem</code> that contains constants, functions,
