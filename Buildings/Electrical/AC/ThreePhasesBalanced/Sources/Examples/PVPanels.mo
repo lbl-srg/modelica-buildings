@@ -2,7 +2,7 @@ within Buildings.Electrical.AC.ThreePhasesBalanced.Sources.Examples;
 model PVPanels "This example illustrates how to use PV panel models"
   extends Modelica.Icons.Example;
   Buildings.Electrical.AC.ThreePhasesBalanced.Loads.Inductive RL(
-    mode=Types.Assumption.VariableZ_y_input,
+    mode=Types.Load.VariableZ_y_input,
     P_nominal=-2000,
     V_nominal=480) "Load taht consumes the power generted by the PVs"
     annotation (Placement(transformation(extent={{20,-50},{40,-30}})));

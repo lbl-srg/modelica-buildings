@@ -39,7 +39,7 @@ model Static "Example that illustrates the use of static loads"
   Buildings.Electrical.AC.OnePhase.Loads.Inductive Load3(
     pf=0.8,
     V_nominal=220,
-    mode=Buildings.Electrical.Types.Assumption.VariableZ_y_input,
+    mode=Buildings.Electrical.Types.Load.VariableZ_y_input,
     P_nominal=-30000)
     annotation (Placement(transformation(extent={{48,0},{68,20}})));
   Modelica.Blocks.Sources.TimeTable timeTable(

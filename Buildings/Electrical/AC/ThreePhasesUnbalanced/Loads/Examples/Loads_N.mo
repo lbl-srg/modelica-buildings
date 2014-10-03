@@ -16,17 +16,17 @@ model Loads_N
   Modelica.Blocks.Sources.Constant ph_23(k=-1000)
     "Power signal for loads on phase 2 and 3"
     annotation (Placement(transformation(extent={{100,-10},{80,10}})));
-  Resistive_N loaR_N(mode=Buildings.Electrical.Types.Assumption.VariableZ_P_input,
+  Resistive_N loaR_N(mode=Buildings.Electrical.Types.Load.VariableZ_P_input,
     V_nominal=480,
     P_nominal=0) "Resistive load with neutral cable"
     annotation (Placement(transformation(extent={{-8,-10},{12,10}})));
-  Inductive_N loaRL_N(mode=Buildings.Electrical.Types.Assumption.VariableZ_P_input,
+  Inductive_N loaRL_N(mode=Buildings.Electrical.Types.Load.VariableZ_P_input,
       pf=0.9,
     V_nominal=480,
     P_nominal=0) "Inductive load with neutral cable"
     annotation (Placement(transformation(extent={{-8,-40},{12,-20}})));
   Capacitive_N loaRC_N(
-    mode=Buildings.Electrical.Types.Assumption.VariableZ_P_input,
+    mode=Buildings.Electrical.Types.Load.VariableZ_P_input,
     pf=0.7,
     V_nominal=480,
     P_nominal=0) "Capacitive load with neutral cable"

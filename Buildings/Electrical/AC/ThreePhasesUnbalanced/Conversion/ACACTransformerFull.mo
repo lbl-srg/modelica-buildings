@@ -37,25 +37,27 @@ model ACACTransformerFull "AC AC transformer detailed equivalent circuit (YY)"
   parameter Modelica.SIunits.ApparentPower VABase
     "Nominal power of the transformer";
   parameter Modelica.SIunits.Frequency f(start=60) "Nominal frequency";
-  parameter Buildings.Electrical.Types.perUnit R1(min=0)
+  parameter Buildings.Electrical.Types.PerUnit R1(min=0)
     "Resistance on side 1 of the transformer (pu)";
-  parameter Buildings.Electrical.Types.perUnit L1(min=0)
+  parameter Buildings.Electrical.Types.PerUnit L1(min=0)
     "Inductance on side 1 of the transformer (pu)";
-  parameter Buildings.Electrical.Types.perUnit R2(min=0)
+  parameter Buildings.Electrical.Types.PerUnit R2(min=0)
     "Resistance on side 2 of the transformer (pu)";
-  parameter Buildings.Electrical.Types.perUnit L2(min=0)
+  parameter Buildings.Electrical.Types.PerUnit L2(min=0)
     "Inductance on side 2 of the transformer (pu)";
   parameter Boolean magEffects = false
     "If =true introduce magnetization effects"
     annotation(Dialog(group="Magnetization"));
-  parameter Buildings.Electrical.Types.perUnit Rm(min=0)
+  parameter Buildings.Electrical.Types.PerUnit Rm(min=0)
     "Magnetization resistance (pu)" annotation(Dialog(group="Magnetization", enable = magEffects));
-  parameter Buildings.Electrical.Types.perUnit Lm(min=0)
+  parameter Buildings.Electrical.Types.PerUnit Lm(min=0)
     "Magnetization inductance (pu)" annotation(Dialog(group="Magnetization", enable = magEffects));
   parameter Boolean ground_1 = false "Connect side 1 of converter to ground" annotation(Dialog(tab = "Ground", group="side 1"));
   parameter Boolean ground_2 = true "Connect side 2 of converter to ground" annotation(Dialog(tab = "Ground", group="side 2"));
 
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
+  annotation (
+  defaultComponentName="tra",
+  Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}), graphics), Icon(graphics={
         Text(
           extent={{-100,-60},{100,-92}},
@@ -248,6 +250,13 @@ the actual values of the resistances and inductancs.
 <p>
 The magnetization losses can be enabled or disabled using the boolean flag <code>magEffects</code>.
 </p>
+<h4>Configuration:</h4>
+<p>
+The image belod describe the connection of the windings.
+</p>
+<p align=\"center\">
+<img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Electrical/AC/ThreePhasesUnbalanced/Conversion/BaseClasses/YY.png\"/>
+</p>
 <h4>Note:</h4>
 <p>
 This model reuses models from
@@ -260,5 +269,16 @@ See
 Buildings.Electrical.AC.ThreePhasesUnbalanced.Conversion.BaseClasses.PartialConverterYY</a> for
 details on the connections.
 </p>
+</html>", revisions="<html>
+<ul>
+<li>
+October 3, 2014, by Marco Bonvini:<br/>
+Revised documentation.
+</li>
+<li>
+June 6, 2014, by Marco Bonvini:<br/>
+First implementation.
+</li>
+</ul>
 </html>"));
 end ACACTransformerFull;

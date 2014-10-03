@@ -6,7 +6,7 @@ model ACSimpleGrid "Test model for a network model"
         120)
     "Network model that represents the connection between the source and the load"
     annotation (Placement(transformation(extent={{20,-10},{0,10}})));
-  Loads.Inductive load(P_nominal=2500, mode=Types.Assumption.VariableZ_P_input,
+  Loads.Inductive load(P_nominal=2500, mode=Types.Load.VariableZ_P_input,
     V_nominal=120) "Load connected to the network"
     annotation (Placement(transformation(extent={{-28,10},{-48,30}})));
   Sources.FixedVoltage E(f=60, V=120) "Voltage source"

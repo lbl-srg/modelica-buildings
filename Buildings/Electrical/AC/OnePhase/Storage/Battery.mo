@@ -45,7 +45,7 @@ protected
     constrainedby Buildings.Electrical.Interfaces.Load(
     final initMode = initMode,
     final P_nominal=0,
-    final mode=Buildings.Electrical.Types.Assumption.VariableZ_P_input,
+    final mode=Buildings.Electrical.Types.Load.VariableZ_P_input,
     final V_nominal=V_nominal,
     final linearized=linearized) "Power exchanged with battery pack"
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));

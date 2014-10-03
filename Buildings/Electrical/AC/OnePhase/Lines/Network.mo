@@ -10,10 +10,13 @@ model Network "Single phase AC network"
       each modelMode=modelMode));
   parameter Boolean use_C = false "If true, model the cable capacity"
     annotation(Dialog(tab="Model", group="Assumptions"));
-  parameter Buildings.Electrical.Types.Assumption modelMode=Types.Assumption.FixedZ_steady_state
-    "Select between steady state and dynamic model"
-    annotation(Dialog(tab="Model", group="Assumptions", enable = use_C), choices(choice=Buildings.Electrical.Types.Assumption.FixedZ_steady_state
-        "Steady state", choice=Buildings.Electrical.Types.Assumption.FixedZ_dynamic "Dynamic"));
+  parameter Buildings.Electrical.Types.Load modelMode=Types.Load.FixedZ_steady_state
+    "Select between steady state and dynamic model" annotation (Dialog(
+      tab="Model",
+      group="Assumptions",
+      enable=use_C), choices(choice=Buildings.Electrical.Types.Load.FixedZ_steady_state
+        "Steady state", choice=Buildings.Electrical.Types.Load.FixedZ_dynamic
+        "Dynamic"));
   Modelica.SIunits.Voltage Vabs[grid.nNodes] "RMS voltage of the grid nodes";
 equation
   for i in 1:grid.nLinks loop

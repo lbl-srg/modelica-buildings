@@ -66,7 +66,7 @@ This example shows how to use a fixed voltage generator model.
   model PVPanels "This example illustrates how to use PV panel models"
     extends Modelica.Icons.Example;
     ThreePhasesUnbalanced.Loads.Inductive                                             RL(
-      mode=Types.Assumption.VariableZ_y_input,
+      mode=Types.Load.VariableZ_y_input,
       P_nominal=-2000,
       V_nominal=480,
       plugPhase3=false) "Load taht consumes the power generted by the PVs"

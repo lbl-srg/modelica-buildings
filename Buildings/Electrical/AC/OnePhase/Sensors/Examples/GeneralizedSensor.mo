@@ -6,7 +6,7 @@ model GeneralizedSensor
     "Sensor that measures V, I, and S"
     annotation (Placement(transformation(extent={{0,0},{20,20}})));
   Buildings.Electrical.AC.OnePhase.Loads.Capacitive loa(
-    mode=Buildings.Electrical.Types.Assumption.FixedZ_dynamic,
+    mode=Buildings.Electrical.Types.Load.FixedZ_dynamic,
     P_nominal=-100,
     V_nominal=120) "Constant load"
     annotation (Placement(transformation(extent={{40,0},{60,20}})));

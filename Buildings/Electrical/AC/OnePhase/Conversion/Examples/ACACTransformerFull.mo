@@ -25,7 +25,7 @@ model ACACTransformerFull
         rotation=0,
         origin={-70,50})));
   Buildings.Electrical.AC.OnePhase.Loads.Inductive load(
-    mode=Buildings.Electrical.Types.Assumption.VariableZ_P_input,
+    mode=Buildings.Electrical.Types.Load.VariableZ_P_input,
     P_nominal=-2000,
     pf=0.8,
     V_nominal=60) "Load model"

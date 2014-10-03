@@ -7,12 +7,11 @@ model TwoPortInductance
     redeclare package PhaseSystem_n = PhaseSystems.OnePhase,
     redeclare Interfaces.Terminal_n terminal_n,
     redeclare Interfaces.Terminal_p terminal_p);
-  parameter Buildings.Electrical.Types.Assumption mode(
-    min=Buildings.Electrical.Types.Assumption.FixedZ_steady_state,
-    max=Buildings.Electrical.Types.Assumption.VariableZ_y_input)=
-    Buildings.Electrical.Types.Assumption.FixedZ_steady_state
+  parameter Buildings.Electrical.Types.Load mode(
+    min=Buildings.Electrical.Types.Load.FixedZ_steady_state,
+    max=Buildings.Electrical.Types.Load.VariableZ_y_input) = Buildings.Electrical.Types.Load.FixedZ_steady_state
     "Parameter that specifies the type model (e.g., steady state, dynamic, prescribed power consumption, etc.)"
-                                                                                                        annotation(Evaluate=true,Dialog(group="Modelling assumption"));
+    annotation (Evaluate=true, Dialog(group="Modelling assumption"));
 protected
   Modelica.SIunits.AngularVelocity omega
     "Frequency of the quasi-stationary sine waves";
@@ -20,7 +19,7 @@ equation
 
   omega = der(PhaseSystem_p.thetaRef(terminal_p.theta));
 
-  if mode==Buildings.Electrical.Types.Assumption.FixedZ_dynamic then
+  if mode==Buildings.Electrical.Types.Load.FixedZ_dynamic then
     // Dynamics of the system
     der(L*terminal_p.i) + L*omega*PhaseSystem_p.j(terminal_p.i) = terminal_p.v - terminal_n.v;
 

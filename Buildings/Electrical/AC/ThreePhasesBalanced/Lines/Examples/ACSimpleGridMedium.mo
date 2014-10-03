@@ -10,7 +10,7 @@ model ACSimpleGridMedium "Test model for a network model with medium voltage"
     V_nominal=15000)
     "Network model that represents the connection between the source and the load"
     annotation (Placement(transformation(extent={{20,-10},{0,10}})));
-  ThreePhasesBalanced.Loads.Inductive load(mode=Types.Assumption.VariableZ_P_input,
+  ThreePhasesBalanced.Loads.Inductive load(mode=Types.Load.VariableZ_P_input,
     P_nominal=250000,
     V_nominal=15000) "Load connected to the network"
     annotation (Placement(transformation(extent={{-28,10},{-48,30}})));

@@ -2,7 +2,7 @@ within Buildings.Electrical.Interfaces;
 model Impedance "Partial model representing a generalized impedance"
   extends Buildings.Electrical.Interfaces.Load(
     final linearized = false,
-    final mode=Buildings.Electrical.Types.Assumption.FixedZ_steady_state,
+    final mode=Buildings.Electrical.Types.Load.FixedZ_steady_state,
     final P_nominal(fixed = true)=0,
     final V_nominal(fixed = true)=1);
   parameter Boolean inductive=true

@@ -20,7 +20,7 @@ model IEEE34
     annotation (Placement(transformation(extent={{-50,-10},{-30,10}})));
   Buildings.Electrical.AC.ThreePhasesUnbalanced.Loads.Resistive_N load[33](
     each P_nominal=1000,
-    each mode=Buildings.Electrical.Types.Assumption.VariableZ_P_input,
+    each mode=Buildings.Electrical.Types.Load.VariableZ_P_input,
     PlugPhase1 = Phase1,
     PlugPhase2 = Phase2,
     PlugPhase3 = Phase3,
@@ -29,7 +29,7 @@ model IEEE34
     annotation (Placement(transformation(extent={{10,-56},{30,-36}})));
   Buildings.Electrical.AC.ThreePhasesUnbalanced.Loads.Resistive_N pv_loads[11](
     each P_nominal=1000,
-    each mode=Buildings.Electrical.Types.Assumption.VariableZ_P_input,
+    each mode=Buildings.Electrical.Types.Load.VariableZ_P_input,
     each linearized=linearized,
     PlugPhase1 = Phase1_pv,
     PlugPhase2 = Phase2_pv,

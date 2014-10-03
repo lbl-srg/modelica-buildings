@@ -15,13 +15,13 @@ model IEEE34_balanced
     annotation (Placement(transformation(extent={{-50,-10},{-30,10}})));
   AC.ThreePhasesBalanced.Loads.Resistive                          load[33](
     each P_nominal=1000,
-    each mode=Buildings.Electrical.Types.Assumption.VariableZ_P_input,
+    each mode=Buildings.Electrical.Types.Load.VariableZ_P_input,
     each linearized=linearized,
     each V_nominal=V_nominal)
     annotation (Placement(transformation(extent={{10,-56},{30,-36}})));
   AC.ThreePhasesBalanced.Loads.Resistive                          pv_loads[11](
     each P_nominal=1000,
-    each mode=Buildings.Electrical.Types.Assumption.VariableZ_P_input,
+    each mode=Buildings.Electrical.Types.Load.VariableZ_P_input,
     each linearized=linearized,
     each V_nominal=V_nominal)
     annotation (Placement(transformation(extent={{10,30},{30,50}})));

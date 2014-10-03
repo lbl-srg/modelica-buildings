@@ -27,10 +27,10 @@ model DataCenterRenewables
   BaseClasses.Controls.BatteryControl
                              con "Battery controller"
     annotation (Placement(transformation(extent={{-50,-20},{-30,0}})));
-  Buildings.Electrical.DC.Loads.Conductor dcLoad(mode=Buildings.Electrical.Types.Assumption.VariableZ_P_input)
+  Buildings.Electrical.DC.Loads.Conductor dcLoad(mode=Buildings.Electrical.Types.Load.VariableZ_P_input)
     annotation (Placement(transformation(extent={{0,-70},{-20,-50}})));
   Buildings.Electrical.AC.OnePhase.Loads.InductiveLoadP acLoad(
-                                                    mode=Buildings.Electrical.Types.Assumption.VariableZ_P_input)
+                                                    mode=Buildings.Electrical.Types.Load.VariableZ_P_input)
     annotation (Placement(transformation(extent={{40,-50},{20,-30}})));
 equation
   connect(dataCenterContinuousTimeControl.weaBus, weaBus) annotation (Line(

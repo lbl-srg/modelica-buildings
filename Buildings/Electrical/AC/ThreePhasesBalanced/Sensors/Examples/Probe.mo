@@ -2,7 +2,7 @@ within Buildings.Electrical.AC.ThreePhasesBalanced.Sensors.Examples;
 model Probe "This example illustrates how to use the probe model"
   extends Modelica.Icons.Example;
   Buildings.Electrical.AC.ThreePhasesBalanced.Loads.Capacitive loaRC(
-    mode=Buildings.Electrical.Types.Assumption.FixedZ_steady_state,
+    mode=Buildings.Electrical.Types.Load.FixedZ_steady_state,
     P_nominal=-10000,
     V_nominal=480) "Constant load"
     annotation (Placement(transformation(extent={{10,0},{30,20}})));
@@ -22,7 +22,7 @@ model Probe "This example illustrates how to use the probe model"
     "Second line resistance"
     annotation (Placement(transformation(extent={{-26,-70},{-6,-50}})));
   Buildings.Electrical.AC.ThreePhasesBalanced.Loads.Inductive loaRL(
-    mode=Buildings.Electrical.Types.Assumption.FixedZ_steady_state,
+    mode=Buildings.Electrical.Types.Load.FixedZ_steady_state,
     P_nominal=-10000,
     V_nominal=480) "Constant load"
     annotation (Placement(transformation(extent={{10,-70},{30,-50}})));

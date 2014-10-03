@@ -25,7 +25,9 @@ model ACACConverter "AC AC converter single phase systems (YY)"
   parameter Boolean ground_2 = true "Connect side 2 of converter to ground" annotation(Dialog(tab = "Ground", group="side 2"));
 equation
 
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
+  annotation (
+  defaultComponentName="conv",
+  Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}), graphics), Icon(graphics={
         Line(
           points={{2,60},{2,60},{82,60},{2,60},{82,-60},{2,-60},{2,60},{2,-60}},
@@ -123,6 +125,15 @@ where <i>P<sub>tr</sub></i> is the power transmitted. The model is bi-directiona
 and the power can flow from both the primary to the secondary and vice-versa.
 Furthermore, reactive power on both side are set to 0.
 </p>
+
+<h4>Configuration:</h4>
+<p>
+The image belod describe the connection of the windings.
+</p>
+<p align=\"center\">
+<img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Electrical/AC/ThreePhasesUnbalanced/Conversion/BaseClasses/YY.png\"/>
+</p>
+
 <h4>Note:</h4>
 <p>
 This model reuses models from
@@ -135,5 +146,16 @@ See
 Buildings.Electrical.AC.ThreePhasesUnbalanced.Conversion.BaseClasses.PartialConverterYY</a> for
 details on the connections.
 </p>
+</html>", revisions="<html>
+<ul>
+<li>
+October 3, 2014, by Marco Bonvini:<br/>
+Revised documentation.
+</li>
+<li>
+June 6, 2014, by Marco Bonvini:<br/>
+First implementation.
+</li>
+</ul>
 </html>"));
 end ACACConverter;

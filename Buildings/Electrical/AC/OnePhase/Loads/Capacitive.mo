@@ -5,7 +5,7 @@ model Capacitive "Model of a capacitive and resistive load"
     redeclare Interfaces.Terminal_n terminal,
     V_nominal(start=120));
 initial equation
-  if mode == Buildings.Electrical.Types.Assumption.FixedZ_dynamic then
+  if mode == Buildings.Electrical.Types.Load.FixedZ_dynamic then
     // q = Y[2]*{V_nominal, 0}/omega;
     // Steady state initialization
     der(q) = zeros(PhaseSystem.n);
@@ -13,7 +13,7 @@ initial equation
 equation
   omega = der(PhaseSystem.thetaRef(terminal.theta));
 
-  if mode == Buildings.Electrical.Types.Assumption.FixedZ_dynamic then
+  if mode == Buildings.Electrical.Types.Load.FixedZ_dynamic then
 
     // Use the dynamic phasorial representation
     Y[1] = -(P_nominal/pf)*pf/V_nominal^2;

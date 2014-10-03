@@ -14,13 +14,13 @@ model ParallelLoads "Example that illustrates the use of the load models"
   Modelica.Blocks.Sources.Ramp load(              startTime=0.2, duration=0.3)
     "Power signal profile"
     annotation (Placement(transformation(extent={{60,-50},{40,-30}})));
-  Inductive varRL_y(mode=Types.Assumption.VariableZ_y_input, P_nominal=-2000,
+  Inductive varRL_y(mode=Types.Load.VariableZ_y_input, P_nominal=-2000,
     V_nominal=480) "Inductive load with y as input"
     annotation (Placement(transformation(extent={{-20,-36},{0,-16}})));
-  Capacitive varRC_y(mode=Types.Assumption.VariableZ_y_input, P_nominal=-2000,
+  Capacitive varRC_y(mode=Types.Load.VariableZ_y_input, P_nominal=-2000,
     V_nominal=480) "Capacitive load with y as input"
     annotation (Placement(transformation(extent={{-20,-60},{0,-40}})));
-  Inductive varRL_P(pf=0.8, mode=Types.Assumption.VariableZ_P_input,
+  Inductive varRL_P(pf=0.8, mode=Types.Load.VariableZ_P_input,
     V_nominal=480) "Inductive load with P as input"
     annotation (Placement(transformation(extent={{-20,14},{0,34}})));
   Modelica.Blocks.Sources.Ramp pow(

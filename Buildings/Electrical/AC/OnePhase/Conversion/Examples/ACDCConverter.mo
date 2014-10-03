@@ -22,7 +22,7 @@ model ACDCConverter
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-62,10})));
-  Buildings.Electrical.DC.Loads.Conductor load(mode=Buildings.Electrical.Types.Assumption.VariableZ_P_input,
+  Buildings.Electrical.DC.Loads.Conductor load(mode=Buildings.Electrical.Types.Load.VariableZ_P_input,
     P_nominal=-200,
     V_nominal=60) "Variable resistive load"
     annotation (Placement(

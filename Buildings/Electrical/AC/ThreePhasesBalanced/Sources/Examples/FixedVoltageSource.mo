@@ -3,7 +3,7 @@ model FixedVoltageSource
   "This example illustrates how using a fixed voltage source"
   extends Modelica.Icons.Example;
   Buildings.Electrical.AC.ThreePhasesBalanced.Loads.Inductive RL(
-      P_nominal=-300, mode=Buildings.Electrical.Types.Assumption.FixedZ_steady_state,
+      P_nominal=-300, mode=Buildings.Electrical.Types.Load.FixedZ_steady_state,
     V_nominal=480) "Load model"
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
   ThreePhasesBalanced.Sources.FixedVoltage grid(

@@ -18,7 +18,7 @@ package Examples "Package with example models"
           Buildings.Electrical.Transmission.LowVoltageCables.PvcAl70())
       annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
     Loads.Inductive inductiveLoadP(
-      mode=Buildings.Electrical.Types.Assumption.FixedZ_steady_state,
+      mode=Buildings.Electrical.Types.Load.FixedZ_steady_state,
       V_nominal=380,
       P_nominal=-4000)
       annotation (Placement(transformation(extent={{0,-10},{20,10}})));
@@ -83,7 +83,7 @@ package Examples "Package with example models"
       annotation (Placement(transformation(extent={{-20,0},{0,20}})));
     Loads.Resistive load[20](
       each P_nominal=1000,
-      each mode=Buildings.Electrical.Types.Assumption.VariableZ_P_input,
+      each mode=Buildings.Electrical.Types.Load.VariableZ_P_input,
       each V_nominal=230,
       PlugPhase1=Phase1,
       PlugPhase2=Phase2,
@@ -150,7 +150,7 @@ package Examples "Package with example models"
       annotation (Placement(transformation(extent={{-20,0},{0,20}})));
     Loads.Resistive_N load[20](
       each P_nominal=1000,
-      each mode=Buildings.Electrical.Types.Assumption.VariableZ_P_input,
+      each mode=Buildings.Electrical.Types.Load.VariableZ_P_input,
       each V_nominal=230,
       PlugPhase1=Phase1,
       PlugPhase2=Phase2,
@@ -221,7 +221,7 @@ package Examples "Package with example models"
       annotation (Placement(transformation(extent={{-20,0},{0,20}})));
     Loads.Resistive_N load[33](
       each P_nominal=1000,
-      each mode=Buildings.Electrical.Types.Assumption.VariableZ_P_input,
+      each mode=Buildings.Electrical.Types.Load.VariableZ_P_input,
       each V_nominal=230,
       PlugPhase1=Phase1,
       PlugPhase2=Phase2,

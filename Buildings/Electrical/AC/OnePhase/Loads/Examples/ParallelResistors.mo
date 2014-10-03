@@ -13,7 +13,7 @@ model ParallelResistors
     offset=-1200) "Power signal for load R"
     annotation (Placement(transformation(extent={{40,0},{20,20}})));
   Buildings.Electrical.AC.OnePhase.Loads.Resistive R(
-    mode=Buildings.Electrical.Types.Assumption.VariableZ_P_input,
+    mode=Buildings.Electrical.Types.Load.VariableZ_P_input,
     P_nominal=-1e3,
     V_nominal=120) "Variable resistive load"
                                      annotation (Placement(transformation(
@@ -21,7 +21,7 @@ model ParallelResistors
         rotation=0,
         origin={-22,10})));
   Buildings.Electrical.AC.OnePhase.Loads.Resistive R1(
-    mode=Buildings.Electrical.Types.Assumption.FixedZ_steady_state, P_nominal=-1.2e3,
+    mode=Buildings.Electrical.Types.Load.FixedZ_steady_state, P_nominal=-1.2e3,
     V_nominal=120) "Fixed resistive load"
                                      annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},

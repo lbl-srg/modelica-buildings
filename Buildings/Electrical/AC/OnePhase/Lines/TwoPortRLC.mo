@@ -8,12 +8,11 @@ model TwoPortRLC "Model of an RLC element with two electrical ports"
       redeclare package PhaseSystem = PhaseSystem_n),
     redeclare Interfaces.Terminal_p terminal_p(
       redeclare package PhaseSystem = PhaseSystem_p));
-  parameter Buildings.Electrical.Types.Assumption mode(
-    min=Buildings.Electrical.Types.Assumption.FixedZ_steady_state,
-    max=Buildings.Electrical.Types.Assumption.FixedZ_dynamic)=
-     Buildings.Electrical.Types.Assumption.FixedZ_steady_state
+  parameter Buildings.Electrical.Types.Load mode(
+    min=Buildings.Electrical.Types.Load.FixedZ_steady_state,
+    max=Buildings.Electrical.Types.Load.FixedZ_dynamic) = Buildings.Electrical.Types.Load.FixedZ_steady_state
     "Parameter that specifies the type of model (e.g., steady state, dynamic, prescribed power consumption, etc.)"
-    annotation(Evaluate=true,Dialog(group="Modelling assumption"));
+    annotation (Evaluate=true, Dialog(group="Modelling assumption"));
 protected
   Modelica.SIunits.Voltage Vc[2](start = {V_nominal,0})
     "Voltage of the Capacitance located in the middle of the line";
@@ -33,7 +32,7 @@ equation
     terminal_n.i*diagonal(ones(PhaseSystem_n.n)*R_actual/2) = terminal_n.v - Vc;
 
   if C > 0 then
-    if mode == Buildings.Electrical.Types.Assumption.FixedZ_dynamic then
+    if mode == Buildings.Electrical.Types.Load.FixedZ_dynamic then
       // Dynamics of the system
       C*der(Vc) + omega*C*Buildings.Electrical.PhaseSystems.OnePhase.j(Vc) = Ic;
     else

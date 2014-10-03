@@ -15,7 +15,7 @@ model ACACConverter
         rotation=0,
         origin={-60,10})));
   Buildings.Electrical.AC.ThreePhasesBalanced.Loads.Inductive load(
-    mode=Buildings.Electrical.Types.Assumption.VariableZ_P_input,
+    mode=Buildings.Electrical.Types.Load.VariableZ_P_input,
     P_nominal=-1000,
     V_nominal=120) "Load model"
     annotation (Placement(transformation(extent={{24,0},{44,20}})));

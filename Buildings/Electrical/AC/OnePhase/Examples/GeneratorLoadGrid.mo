@@ -15,7 +15,7 @@ model GeneratorLoadGrid "Generator with a load and grid connection"
         origin={-30,-10})));
   Buildings.Electrical.AC.OnePhase.Loads.Inductive res(
     P_nominal=5e3,
-    mode=Buildings.Electrical.Types.Assumption.FixedZ_steady_state,
+    mode=Buildings.Electrical.Types.Load.FixedZ_steady_state,
     V_nominal=220) "Resistance" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,

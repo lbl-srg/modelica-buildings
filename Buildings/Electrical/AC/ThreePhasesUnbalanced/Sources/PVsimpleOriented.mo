@@ -55,7 +55,9 @@ equation
       points={{39,-89},{-60,-89},{-60,-76},{-64,-76}},
       color={0,0,127},
       smooth=Smooth.None));
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
+  annotation (
+  defaultComponentName="pv",
+  Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
             {100,100}}), graphics), Diagram(coordinateSystem(
           preserveAspectRatio=false, extent={{-100,-100},{100,100}}), graphics),
     Documentation(revisions="<html>

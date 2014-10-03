@@ -32,7 +32,9 @@ equation
       points={{-10,6.66134e-16},{100,6.66134e-16}},
       color={0,120,120},
       smooth=Smooth.None));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
+  annotation (
+  defaultComponentName="sou",
+  Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}), graphics), Icon(graphics={
         Ellipse(
           extent={{-60,60},{60,-60}},

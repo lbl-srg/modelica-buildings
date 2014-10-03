@@ -76,7 +76,7 @@ partial model IEEE4 "Base model of the IEEE 4 nodes test feeder"
     pf=0.9,
     P_nominal=-1800e3,
     V_nominal=VLL_side2,
-    mode=Buildings.Electrical.Types.Assumption.VariableZ_P_input,
+    mode=Buildings.Electrical.Types.Load.VariableZ_P_input,
     use_pf_in=true)
     annotation (Placement(transformation(extent={{54,0},{74,20}})));
   replaceable

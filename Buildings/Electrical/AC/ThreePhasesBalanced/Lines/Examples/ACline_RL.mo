@@ -25,7 +25,7 @@ model ACline_RL "Test model for single phase inductive-resistive lines"
   ThreePhasesBalanced.Lines.TwoPortRL RL_3(
     R=Rbase,
     L=Lbase,
-    mode=Buildings.Electrical.Types.Assumption.FixedZ_dynamic,
+    mode=Buildings.Electrical.Types.Load.FixedZ_dynamic,
     V_nominal=480)
     "Dynamic resistive-inductive line connected to short circuit 3"
     annotation (Placement(transformation(extent={{-48,-40},{-28,-20}})));

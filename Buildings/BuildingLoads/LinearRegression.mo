@@ -17,7 +17,7 @@ extends Modelica.Icons.UnderConstruction;
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
 
   Buildings.Electrical.AC.ThreePhasesBalanced.Loads.CapacitiveLoadP loadRC(
-    mode=Buildings.Electrical.Types.Assumption.VariableZ_P_input,
+    mode=Buildings.Electrical.Types.Load.VariableZ_P_input,
     pf=pf,
     linear=linear_AC,
     V_nominal=V_nominal_AC) "Resistive and capacitive building load"
@@ -26,7 +26,7 @@ extends Modelica.Icons.UnderConstruction;
     "Electrical connector"
     annotation (Placement(transformation(extent={{94,-10},{114,10}})));
   Buildings.Electrical.DC.Loads.Conductor conDC(
-    mode=Buildings.Electrical.Types.Assumption.VariableZ_P_input,
+    mode=Buildings.Electrical.Types.Load.VariableZ_P_input,
     linear=linear_DC,
     V_nominal=V_nominal_DC) "Conductor for DC load"
     annotation (Placement(transformation(extent={{60,-70},{40,-50}})));

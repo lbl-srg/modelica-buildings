@@ -11,7 +11,7 @@ model VariablePowerSource
     amplitude=100,
     freqHz=0.05) "Generated power"
     annotation (Placement(transformation(extent={{-92,-10},{-72,10}})));
-  Buildings.Electrical.AC.ThreePhasesBalanced.Loads.Inductive RL(mode=Types.Assumption.VariableZ_y_input,
+  Buildings.Electrical.AC.ThreePhasesBalanced.Loads.Inductive RL(mode=Types.Load.VariableZ_y_input,
       P_nominal=-300,
     V_nominal=480) "Load model"
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));

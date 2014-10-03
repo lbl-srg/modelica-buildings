@@ -14,15 +14,15 @@ model Loads "This model tests the load models without neutral cable connection"
     "Power signal for loads on phase 2 and 3"
     annotation (Placement(transformation(extent={{100,-10},{80,10}})));
   Resistive loaR(
-    mode=Buildings.Electrical.Types.Assumption.VariableZ_P_input,
+    mode=Buildings.Electrical.Types.Load.VariableZ_P_input,
     V_nominal=480,
     P_nominal=0) "Resistive load"
     annotation (Placement(transformation(extent={{-8,-10},{12,10}})));
-  Inductive loaRL(mode=Buildings.Electrical.Types.Assumption.VariableZ_P_input,
+  Inductive loaRL(mode=Buildings.Electrical.Types.Load.VariableZ_P_input,
     V_nominal=480,
     P_nominal=0) "Inductive load"
     annotation (Placement(transformation(extent={{-8,-40},{12,-20}})));
-  Capacitive loaRC(mode=Buildings.Electrical.Types.Assumption.VariableZ_P_input,
+  Capacitive loaRC(mode=Buildings.Electrical.Types.Load.VariableZ_P_input,
     V_nominal=480,
     P_nominal=0) "Capacitive load"
     annotation (Placement(transformation(extent={{-8,-80},{12,-60}})));
@@ -31,21 +31,21 @@ model Loads "This model tests the load models without neutral cable connection"
   Sensors.GeneralizedSensor senSingleConn "Power sensor"
     annotation (Placement(transformation(extent={{-60,50},{-40,70}})));
   Capacitive loaRC1(
-                   mode=Buildings.Electrical.Types.Assumption.VariableZ_P_input,
+                   mode=Buildings.Electrical.Types.Load.VariableZ_P_input,
     plugPhase2=false,
     plugPhase3=false,
     V_nominal=480,
     P_nominal=0) "Capacitive load"
     annotation (Placement(transformation(extent={{10,30},{30,50}})));
   Inductive loaRL1(
-                  mode=Buildings.Electrical.Types.Assumption.VariableZ_P_input,
+                  mode=Buildings.Electrical.Types.Load.VariableZ_P_input,
     plugPhase2=false,
     plugPhase3=false,
     V_nominal=480,
     P_nominal=0) "Inductive load"
     annotation (Placement(transformation(extent={{-10,50},{10,70}})));
   Resistive loaR1(
-    mode=Buildings.Electrical.Types.Assumption.VariableZ_P_input,
+    mode=Buildings.Electrical.Types.Load.VariableZ_P_input,
     plugPhase2=false,
     plugPhase3=false,
     V_nominal=480,

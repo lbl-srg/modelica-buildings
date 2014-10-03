@@ -8,10 +8,10 @@ partial model PartialBaseLine "Partial cable line dispersion model"
   parameter Boolean use_C = false
     "Set to true to add a capacitance in the center of the line"
     annotation(Evaluate=true, Dialog(tab="Model", group="Assumptions"));
-  parameter Buildings.Electrical.Types.Assumption modelMode=Buildings.Electrical.Types.Assumption.FixedZ_steady_state
+  parameter Buildings.Electrical.Types.Load modelMode=Buildings.Electrical.Types.Load.FixedZ_steady_state
     "Select between steady state and dynamic model"
-    annotation(Evaluate=true, Dialog(tab="Model", group="Assumptions", enable = use_C), choices(choice=Buildings.Electrical.Types.Assumption.FixedZ_steady_state
-        "Steady state", choice=Buildings.Electrical.Types.Assumption.FixedZ_dynamic "Dynamic"));
+    annotation(Evaluate=true, Dialog(tab="Model", group="Assumptions", enable = use_C), choices(choice=Buildings.Electrical.Types.Load.FixedZ_steady_state
+        "Steady state", choice=Buildings.Electrical.Types.Load.FixedZ_dynamic "Dynamic"));
   parameter Boolean use_T = false
     "If true, enables the input for the temperature of the cable" annotation(Evaluate = true, Dialog(tab="Model", group="Thermal"));
   parameter Modelica.SIunits.Temperature TCable = T_ref

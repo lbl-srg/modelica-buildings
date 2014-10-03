@@ -9,7 +9,7 @@ model DynamicLoads "Example that illustrates the use of dynamic loads"
         origin={-70,10})));
   Buildings.Electrical.AC.OnePhase.Loads.Capacitive dynRC(
     pf=0.8,
-    mode=Buildings.Electrical.Types.Assumption.FixedZ_dynamic,
+    mode=Buildings.Electrical.Types.Load.FixedZ_dynamic,
     P_nominal=-1200,
     V_nominal=120) "Dynamic RC load"
     annotation (Placement(transformation(extent={{0,-20},{20,0}})));
@@ -18,7 +18,7 @@ model DynamicLoads "Example that illustrates the use of dynamic loads"
     annotation (Placement(transformation(extent={{-40,0},{-20,20}})));
   Buildings.Electrical.AC.OnePhase.Loads.Inductive dynRL(
     pf=0.8,
-    mode=Buildings.Electrical.Types.Assumption.FixedZ_dynamic,
+    mode=Buildings.Electrical.Types.Load.FixedZ_dynamic,
     P_nominal=-1200,
     V_nominal=120) "Dynamic RL load"
     annotation (Placement(transformation(extent={{0,10},{20,30}})));

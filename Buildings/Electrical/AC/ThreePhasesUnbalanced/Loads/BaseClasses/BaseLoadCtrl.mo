@@ -7,10 +7,10 @@ partial model BaseLoadCtrl
     "Type of load connection (Yg or D)";
   parameter Boolean linearized = false
     "If =true introduce a linearization in the load" annotation(Dialog(group="Modelling assumption"));
-  parameter Buildings.Electrical.Types.Assumption mode(
-    min=Buildings.Electrical.Types.Assumption.FixedZ_steady_state,
-    max=Buildings.Electrical.Types.Assumption.VariableZ_y_input)=
-    Buildings.Electrical.Types.Assumption.FixedZ_steady_state "Parameters that specifies the mode of the load (e.g., steady state, 
+  parameter Buildings.Electrical.Types.Load mode(
+    min=Buildings.Electrical.Types.Load.FixedZ_steady_state,
+    max=Buildings.Electrical.Types.Load.VariableZ_y_input)=
+    Buildings.Electrical.Types.Load.FixedZ_steady_state "Parameters that specifies the mode of the load (e.g., steady state, 
     dynamic, prescribed power consumption, etc.)" annotation(Dialog(group="Modelling assumption"));
   parameter Modelica.SIunits.Power P_nominal(start=0)
     "Nominal power (negative if consumed, positive if generated)"  annotation(Dialog(group="Nominal conditions",
@@ -53,7 +53,7 @@ partial model BaseLoadCtrl
        plugPhase3 "Load 3"
     annotation (Placement(transformation(extent={{-10,-98},{10,-78}})));
   Modelica.Blocks.Interfaces.RealInput y1 if  plugPhase1 and
-    mode == Buildings.Electrical.Types.Assumption.VariableZ_y_input
+    mode == Buildings.Electrical.Types.Load.VariableZ_y_input
     "Fraction of the nominal power consumed"                       annotation (Placement(transformation(
         extent={{-20,-20},{20,20}},
         rotation=180,
@@ -62,7 +62,7 @@ partial model BaseLoadCtrl
         rotation=180,
         origin={100,60})));
   Modelica.Blocks.Interfaces.RealInput Pow1(unit="W") if plugPhase1 and
-    mode == Buildings.Electrical.Types.Assumption.VariableZ_P_input
+    mode == Buildings.Electrical.Types.Load.VariableZ_P_input
     "Power consumed"                       annotation (Placement(transformation(
         extent={{-20,-20},{20,20}},
         rotation=180,
@@ -71,7 +71,7 @@ partial model BaseLoadCtrl
         rotation=180,
         origin={100,60})));
   Modelica.Blocks.Interfaces.RealInput y2 if plugPhase2 and
-    mode == Buildings.Electrical.Types.Assumption.VariableZ_y_input
+    mode == Buildings.Electrical.Types.Load.VariableZ_y_input
     "Fraction of the nominal power consumed"                       annotation (Placement(transformation(
         extent={{-20,-20},{20,20}},
         rotation=180,
@@ -80,7 +80,7 @@ partial model BaseLoadCtrl
         rotation=180,
         origin={100,0})));
   Modelica.Blocks.Interfaces.RealInput Pow2(unit="W") if plugPhase2 and
-    mode == Buildings.Electrical.Types.Assumption.VariableZ_P_input
+    mode == Buildings.Electrical.Types.Load.VariableZ_P_input
     "Power consumed"                       annotation (Placement(transformation(
         extent={{-20,-20},{20,20}},
         rotation=180,
@@ -89,7 +89,7 @@ partial model BaseLoadCtrl
         rotation=180,
         origin={100,0})));
   Modelica.Blocks.Interfaces.RealInput y3 if plugPhase3 and
-    mode == Buildings.Electrical.Types.Assumption.VariableZ_y_input
+    mode == Buildings.Electrical.Types.Load.VariableZ_y_input
     "Fraction of the nominal power consumed"                       annotation (Placement(transformation(
         extent={{-20,-20},{20,20}},
         rotation=180,
@@ -99,7 +99,7 @@ partial model BaseLoadCtrl
         rotation=180,
         origin={100,-60})));
   Modelica.Blocks.Interfaces.RealInput Pow3(unit="W") if plugPhase3 and
-    mode == Buildings.Electrical.Types.Assumption.VariableZ_P_input
+    mode == Buildings.Electrical.Types.Load.VariableZ_P_input
     "Power consumed"                       annotation (Placement(transformation(
         extent={{-20,-20},{20,20}},
         rotation=180,
@@ -152,7 +152,7 @@ partial model BaseLoadCtrl
 equation
 
   // Connections enabled when the input provided is y (between 0 and 1)
-  if mode==Buildings.Electrical.Types.Assumption.VariableZ_y_input then
+  if mode==Buildings.Electrical.Types.Load.VariableZ_y_input then
     if plugPhase1 and voltageCtrl then
       connect(cmd1.y, load1.y) annotation (Line(
         points={{35,66},{20,66},{20,50},{10,50}},
@@ -206,7 +206,7 @@ equation
   end if;
 
   // Connections enabled when the input provided is the power
-  if mode==Buildings.Electrical.Types.Assumption.VariableZ_P_input then
+  if mode==Buildings.Electrical.Types.Load.VariableZ_P_input then
     if plugPhase1 and voltageCtrl then
       connect(cmd1.y, load1.Pow) annotation (Line(
         points={{35,66},{20,66},{20,50},{10,50}},

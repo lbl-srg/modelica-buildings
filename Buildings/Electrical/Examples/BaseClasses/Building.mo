@@ -10,7 +10,7 @@ model Building
   AC.OnePhase.Loads.Inductive      building(
     pf=pf,
     V_nominal=V_building_n,
-    mode=Buildings.Electrical.Types.Assumption.VariableZ_y_input,
+    mode=Buildings.Electrical.Types.Load.VariableZ_y_input,
     P_nominal=-P_nominal,
     linearized=linearized)  annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},

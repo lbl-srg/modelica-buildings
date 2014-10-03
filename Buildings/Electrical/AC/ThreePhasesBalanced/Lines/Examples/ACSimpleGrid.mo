@@ -8,7 +8,7 @@ model ACSimpleGrid "Test model for a network model"
     annotation (Placement(transformation(extent={{20,-10},{0,10}})));
   ThreePhasesBalanced.Loads.Inductive load(
     P_nominal=2500,
-    mode=Types.Assumption.VariableZ_P_input,
+    mode=Types.Load.VariableZ_P_input,
     V_nominal=480) "Load connected to the network"
     annotation (Placement(transformation(extent={{-28,10},{-48,30}})));
   ThreePhasesBalanced.Sources.FixedVoltage E(f=60, V=480) "Voltage source"

@@ -9,7 +9,7 @@ model PVSimple "Simple PV model"
   parameter Boolean linearized=false
     "If =true, introduce a linearization in the load";
   replaceable Buildings.Electrical.AC.OnePhase.Loads.Capacitive load(
-    mode=Buildings.Electrical.Types.Assumption.VariableZ_P_input,
+    mode=Buildings.Electrical.Types.Load.VariableZ_P_input,
     final pf=pf,
     final V_nominal=V_nominal,
     final P_nominal=0,

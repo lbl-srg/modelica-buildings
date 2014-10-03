@@ -5,7 +5,7 @@ model Inductive "Model of an inductive and resistive load"
     redeclare Interfaces.Terminal_n terminal,
     V_nominal(start=120));
 initial equation
-  if mode == Buildings.Electrical.Types.Assumption.FixedZ_dynamic then
+  if mode == Buildings.Electrical.Types.Load.FixedZ_dynamic then
     // psi = Z[2]*{P_nominal/V_nominal, 0}/omega;
     // Steady state initialization
     der(psi) = zeros(PhaseSystem.n);
@@ -13,7 +13,7 @@ initial equation
 equation
   omega = der(PhaseSystem.thetaRef(terminal.theta));
 
-  if mode == Buildings.Electrical.Types.Assumption.FixedZ_dynamic then
+  if mode == Buildings.Electrical.Types.Load.FixedZ_dynamic then
 
     // Use the dynamic phasorial representation
     Z[1] = -pf*(V_nominal^2)/(P_nominal/pf);

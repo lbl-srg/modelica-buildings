@@ -3,7 +3,7 @@ model ParallelLoads
   "Example that illustrates the use of the load models at constant voltage"
   extends Modelica.Icons.Example;
   Buildings.Electrical.AC.OnePhase.Loads.Inductive varRL(
-    mode=Buildings.Electrical.Types.Assumption.VariableZ_P_input,
+    mode=Buildings.Electrical.Types.Load.VariableZ_P_input,
     P_nominal=-1e3,
     linearized=false,
     V_nominal=120) "Variable inductor and resistor"
@@ -29,7 +29,7 @@ model ParallelLoads
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={10,30})));
-  Buildings.Electrical.AC.OnePhase.Loads.Capacitive varRC(mode=Buildings.Electrical.Types.Assumption.VariableZ_y_input,
+  Buildings.Electrical.AC.OnePhase.Loads.Capacitive varRC(mode=Buildings.Electrical.Types.Load.VariableZ_y_input,
       P_nominal=-1e3,
     linearized=false,
     V_nominal=120) "Variable conductor and resistor"        annotation (Placement(
@@ -37,7 +37,7 @@ model ParallelLoads
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={10,10})));
-  Buildings.Electrical.AC.OnePhase.Loads.Capacitive RC(mode=Buildings.Electrical.Types.Assumption.FixedZ_steady_state,
+  Buildings.Electrical.AC.OnePhase.Loads.Capacitive RC(mode=Buildings.Electrical.Types.Load.FixedZ_steady_state,
       P_nominal=-1e3,
     linearized=false,
     V_nominal=120) "Constant conductor and resistor"        annotation (Placement(
@@ -47,7 +47,7 @@ model ParallelLoads
         origin={10,-10})));
   Buildings.Electrical.AC.OnePhase.Loads.Resistive R(
     P_nominal=-1e3,
-    mode=Buildings.Electrical.Types.Assumption.FixedZ_steady_state,
+    mode=Buildings.Electrical.Types.Load.FixedZ_steady_state,
     linearized=false,
     V_nominal=120) "Resistive load"
                      annotation (Placement(transformation(

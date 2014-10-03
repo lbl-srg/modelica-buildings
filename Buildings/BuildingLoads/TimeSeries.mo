@@ -31,14 +31,14 @@ extends Modelica.Blocks.Interfaces.BlockIcon;
     linear=linear_AC,
     V_nominal=VACBui_nominal,
     pf=pf,
-    mode=Buildings.Electrical.Types.Assumption.VariableZ_P_input)
+    mode=Buildings.Electrical.Types.Load.VariableZ_P_input)
     "Resistive and capacitive building load"
     annotation (Placement(transformation(extent={{40,-10},{20,10}})));
   Buildings.Electrical.AC.ThreePhasesBalanced.Interfaces.Terminal_n terminal
     "Electrical connector"
     annotation (Placement(transformation(extent={{94,-10},{114,10}})));
   Buildings.Electrical.DC.Loads.Conductor loaDC(
-    mode=Buildings.Electrical.Types.Assumption.VariableZ_P_input,
+    mode=Buildings.Electrical.Types.Load.VariableZ_P_input,
     linear=linear_DC,
     V_nominal=VDCBui_nominal) "Conductor for DC load"
     annotation (Placement(transformation(extent={{42,-70},{22,-50}})));

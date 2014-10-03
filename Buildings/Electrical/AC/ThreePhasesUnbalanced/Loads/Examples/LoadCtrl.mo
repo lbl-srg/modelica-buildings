@@ -9,7 +9,7 @@ model LoadCtrl
     offset=6000) "Power on phase 1"
     annotation (Placement(transformation(extent={{60,10},{40,30}})));
   Resistive_N load_ctrl(
-    mode=Buildings.Electrical.Types.Assumption.VariableZ_P_input,
+    mode=Buildings.Electrical.Types.Load.VariableZ_P_input,
     vThresh=0.05,
     tDelay=2,
     voltageCtrl=true,
@@ -27,7 +27,7 @@ model LoadCtrl
     V_nominal=480) "Transmission line to voltage controlled load"
     annotation (Placement(transformation(extent={{-46,-10},{-26,10}})));
   Resistive_N load(
-    mode=Buildings.Electrical.Types.Assumption.VariableZ_P_input,
+    mode=Buildings.Electrical.Types.Load.VariableZ_P_input,
     plugPhase2=false,
     plugPhase3=false,
     P_nominal=0,

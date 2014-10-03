@@ -18,7 +18,7 @@ model singleFeeder_nNodes
     annotation (Placement(transformation(extent={{-50,-10},{-30,10}})));
   Buildings.Electrical.AC.ThreePhasesUnbalanced.Loads.Resistive_N           load[Nload](
     each P_nominal=1000,
-    each mode=Buildings.Electrical.Types.Assumption.VariableZ_P_input,
+    each mode=Buildings.Electrical.Types.Load.VariableZ_P_input,
     each V_nominal=230,
     PlugPhase1 = Phase1,
     PlugPhase2 = Phase2,
@@ -27,7 +27,7 @@ model singleFeeder_nNodes
     annotation (Placement(transformation(extent={{10,-40},{30,-20}})));
   Buildings.Electrical.AC.ThreePhasesUnbalanced.Loads.Resistive_N           pv_loads[Npv](
     each P_nominal=1000,
-    each mode=Buildings.Electrical.Types.Assumption.VariableZ_P_input,
+    each mode=Buildings.Electrical.Types.Load.VariableZ_P_input,
     each V_nominal=230,
     each linearized=linearized,
     PlugPhase1=Phase1_pv,

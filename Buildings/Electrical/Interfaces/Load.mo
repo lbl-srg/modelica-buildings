@@ -14,13 +14,13 @@ model Load "Partial model for a generic load"
   parameter Modelica.SIunits.Power P_nominal
     "Nominal power (negative if consumed, positive if generated)"
     annotation(Evaluate=true,Dialog(group="Nominal conditions",
-        enable = mode <> Buildings.Electrical.Types.Assumption.VariableZ_P_input));
+        enable = mode <> Buildings.Electrical.Types.Load.VariableZ_P_input));
   parameter Modelica.SIunits.Voltage V_nominal(min=0, start=110)
     "Nominal voltage (V_nominal >= 0)"
     annotation (
       Evaluate=true,
       Dialog(group="Nominal conditions",
-      enable = (mode==Buildings.Electrical.Types.Assumptionm.FixedZ_dynamic or linearized)));
+      enable = (mode==Buildings.Electrical.Types.Loadm.FixedZ_dynamic or linearized)));
   parameter Buildings.Electrical.Types.InitMode initMode(
   min=Buildings.Electrical.Types.InitMode.zero_current,
   max=Buildings.Electrical.Types.InitMode.linearized) = Buildings.Electrical.Types.InitMode.zero_current
@@ -139,7 +139,7 @@ Buildings.Electrical.Interfaces.Terminal</a>
 that can be redeclared.
 The generalized load is modeled as an impedance whose value can change. The value of the impedance
 can change depending on the value of the parameter <code>mode</code>, which is of type 
-<a href=\"Buildings.Electrical.Types.Assumption\">Buildings.Electrical.Types.Assumption</a>:
+<a href=\"Buildings.Electrical.Types.Load\">Buildings.Electrical.Types.Load</a>:
 </p>
 <p>
 <table summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
@@ -150,7 +150,7 @@ can change depending on the value of the parameter <code>mode</code>, which is o
 </tr>
 <!-- ************ -->
 <tr>
-<td>Buildings.Electrical.Types.Assumption.FixedZ_steady_state</td>
+<td>Buildings.Electrical.Types.Load.FixedZ_steady_state</td>
 <td>fixed Z steady state</td>
 <td>The load consumes exactly the power
 specified by the parameter <code>P_nominal</code>.
@@ -158,7 +158,7 @@ specified by the parameter <code>P_nominal</code>.
 </tr>
 <!-- ************ -->
 <tr>
-<td>Buildings.Electrical.Types.Assumption.FixedZ_dynamic</td>
+<td>Buildings.Electrical.Types.Load.FixedZ_dynamic</td>
 <td>fixed Z dynamic</td>
 <td>
 The load consumes exactly the power
@@ -170,7 +170,7 @@ different dynamics are represented.
 </tr>
 <!-- ************ -->
 <tr>
-<td>Buildings.Electrical.Types.Assumption.VariableZ_P_input</td>
+<td>Buildings.Electrical.Types.Load.VariableZ_P_input</td>
 <td>variable Z P input</td>
 <td>
 The load consumes exactly the power specified
@@ -179,7 +179,7 @@ by the input variable <code>Pow</code>.
 </tr>
 <!-- ************ -->
 <tr>
-<td>Buildings.Electrical.Types.Assumption.VariableZ_y_input</td>
+<td>Buildings.Electrical.Types.Load.VariableZ_y_input</td>
 <td>variable Z y input</td>
 <td>
 The load consumes exactly the a fraction of the nominal power 

@@ -4,7 +4,9 @@ model WindTurbine "Simple wind turbine source without neutral cable"
   redeclare Buildings.Electrical.AC.OnePhase.Sources.WindTurbine wt_phase1,
   redeclare Buildings.Electrical.AC.OnePhase.Sources.WindTurbine wt_phase2,
   redeclare Buildings.Electrical.AC.OnePhase.Sources.WindTurbine wt_phase3);
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
+  annotation (
+  defaultComponentName="winTur",
+  Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}), graphics), Documentation(revisions="<html>
 <ul>
 <li>
