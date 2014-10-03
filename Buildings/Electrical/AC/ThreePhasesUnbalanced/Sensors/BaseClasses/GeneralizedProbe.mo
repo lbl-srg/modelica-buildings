@@ -6,8 +6,8 @@ partial model GeneralizedProbe
     "RMS Nominal voltage (V_nominal >= 0)";
   parameter Boolean perUnit = true "This flag display voltage in p.u.";
   replaceable
-    Buildings.Electrical.AC.ThreePhasesUnbalanced.Interfaces.Terminal_n           term
-    "Electrical connector"                                                                        annotation (
+    Buildings.Electrical.AC.ThreePhasesUnbalanced.Interfaces.Terminal_n
+    term "Electrical connector" annotation (
       Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
