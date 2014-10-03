@@ -2,7 +2,8 @@ within Buildings.Electrical.DC.Sources.BaseClasses;
 block WindCorrection "Block for wind correction"
   extends Modelica.Blocks.Interfaces.BlockIcon;
   parameter Modelica.SIunits.Height h "Height over ground";
-  parameter Modelica.SIunits.Height hRef "Reference height for wind measurement";
+  parameter Modelica.SIunits.Height hRef
+    "Reference height for wind measurement";
   parameter Real n(min=0) = 0.4 "Height exponent for wind profile calculation";
   Modelica.Blocks.Interfaces.RealOutput vLoc( unit="m/s")
     "Wind velocity at the location"

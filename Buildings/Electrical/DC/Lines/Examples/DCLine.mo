@@ -26,7 +26,7 @@ model DCLine "Example model to test the DC lines"
     annotation (Placement(transformation(extent={{0,-40},{20,-20}})));
   Modelica.Electrical.Analog.Basic.Ground ground
     annotation (Placement(transformation(extent={{-90,-20},{-70,0}})));
-  Loads.Conductor load1(              mode=Types.Assumption.VariableZ_y_input,
+  Loads.Conductor load1(mode=Types.Load.VariableZ_y_input,
     V_nominal=50,
     linearized=false,
     P_nominal=-50) "Variable load"

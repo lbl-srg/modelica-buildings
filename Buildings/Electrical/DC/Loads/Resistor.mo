@@ -3,7 +3,7 @@ model Resistor "Ideal linear electrical resistor"
   extends Buildings.Electrical.Interfaces.Load(
     redeclare package PhaseSystem = PhaseSystems.TwoConductor,
     redeclare Interfaces.Terminal_n terminal,
-    final mode=Buildings.Electrical.Types.Assumption.FixedZ_steady_state,
+    final mode=Buildings.Electrical.Types.Load.FixedZ_steady_state,
     final P_nominal=0);
   extends Modelica.Electrical.Analog.Interfaces.ConditionalHeatPort(T = T_ref);
   parameter Modelica.SIunits.Resistance R(start=1)

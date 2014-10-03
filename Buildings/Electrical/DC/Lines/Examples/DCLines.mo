@@ -35,20 +35,20 @@ model DCLines
 
   Modelica.Electrical.Analog.Basic.Ground ground
     annotation (Placement(transformation(extent={{-100,50},{-80,70}})));
-  Loads.Conductor load1(              mode=Types.Assumption.VariableZ_y_input,
+  Loads.Conductor load1(mode=Types.Load.VariableZ_y_input,
     V_nominal=50,
     linearized=linearLoads,
     P_nominal=-150) "Load"
     annotation (Placement(transformation(extent={{30,70},{50,90}})));
   Loads.Conductor load2(
     V_nominal=50,
-    mode=Types.Assumption.VariableZ_y_input,
+    mode=Types.Load.VariableZ_y_input,
     linearized=linearLoads,
     P_nominal=-120) "Load"
     annotation (Placement(transformation(extent={{30,50},{50,70}})));
   Loads.Conductor load3(
     V_nominal=50,
-    mode=Types.Assumption.VariableZ_y_input,
+    mode=Types.Load.VariableZ_y_input,
     linearized=linearLoads,
     P_nominal=-200) "Load"
     annotation (Placement(transformation(extent={{30,30},{50,50}})));
@@ -64,7 +64,7 @@ model DCLines
     annotation (Placement(transformation(extent={{86,30},{66,50}})));
   Loads.Conductor load4(
     V_nominal=50,
-    mode=Types.Assumption.VariableZ_y_input,
+    mode=Types.Load.VariableZ_y_input,
     linearized=linearLoads,
     P_nominal=-120) "Load"
     annotation (Placement(transformation(extent={{30,12},{50,32}})));
@@ -120,7 +120,7 @@ model DCLines
 
   Loads.Conductor load5(
     V_nominal=50,
-    mode=Types.Assumption.VariableZ_y_input,
+    mode=Types.Load.VariableZ_y_input,
     linearized=linearLoads,
     P_nominal=-200) "Load"
     annotation (Placement(transformation(extent={{30,-10},{50,10}})));
@@ -136,7 +136,7 @@ model DCLines
     annotation (Placement(transformation(extent={{86,-10},{66,10}})));
   Loads.Conductor load6(
     V_nominal=50,
-    mode=Types.Assumption.VariableZ_y_input,
+    mode=Types.Load.VariableZ_y_input,
     linearized=linearLoads,
     P_nominal=-120) "Load"
     annotation (Placement(transformation(extent={{30,-28},{50,-8}})));
@@ -166,7 +166,7 @@ model DCLines
 
   Loads.Conductor load7(
     V_nominal=50,
-    mode=Types.Assumption.VariableZ_y_input,
+    mode=Types.Load.VariableZ_y_input,
     linearized=linearLoads,
     P_nominal=-200) "Load"
     annotation (Placement(transformation(extent={{30,-50},{50,-30}})));
@@ -182,7 +182,7 @@ model DCLines
     annotation (Placement(transformation(extent={{86,-50},{66,-30}})));
   Loads.Conductor load8(
     V_nominal=50,
-    mode=Types.Assumption.VariableZ_y_input,
+    mode=Types.Load.VariableZ_y_input,
     linearized=linearLoads,
     P_nominal=-120) "Load"
     annotation (Placement(transformation(extent={{30,-68},{50,-48}})));
@@ -212,7 +212,7 @@ model DCLines
 
   Loads.Conductor load9(
     V_nominal=50,
-    mode=Types.Assumption.VariableZ_y_input,
+    mode=Types.Load.VariableZ_y_input,
     linearized=linearLoads,
     P_nominal=-200) "Load"
     annotation (Placement(transformation(extent={{30,-90},{50,-70}})));
@@ -228,7 +228,7 @@ model DCLines
     annotation (Placement(transformation(extent={{86,-90},{66,-70}})));
   Loads.Conductor load10(
     V_nominal=50,
-    mode=Types.Assumption.VariableZ_y_input,
+    mode=Types.Load.VariableZ_y_input,
     linearized=linearLoads,
     P_nominal=-120) "Load"
     annotation (Placement(transformation(extent={{30,-108},{50,-88}})));

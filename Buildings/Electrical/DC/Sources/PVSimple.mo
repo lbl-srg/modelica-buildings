@@ -5,7 +5,7 @@ model PVSimple "Simple PV model"
     redeclare Interfaces.Terminal_p terminal);
 protected
    Loads.Conductor con(
-    mode=Types.Assumption.VariableZ_P_input,
+    mode=Types.Load.VariableZ_P_input,
     P_nominal=0,
     V_nominal=V_nominal)
     "Conductor, used to interface power with electrical circuit"

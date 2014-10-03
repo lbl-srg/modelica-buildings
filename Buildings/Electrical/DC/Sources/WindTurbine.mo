@@ -7,7 +7,7 @@ model WindTurbine
     redeclare Buildings.Electrical.DC.Interfaces.Terminal_p terminal);
 protected
   Loads.Conductor con(
-    mode=Buildings.Electrical.Types.Assumption.VariableZ_P_input,
+    mode=Buildings.Electrical.Types.Load.VariableZ_P_input,
     P_nominal=0,
     V_nominal=V_nominal)
     "Conductor, used to interface the power with the electrical circuit"

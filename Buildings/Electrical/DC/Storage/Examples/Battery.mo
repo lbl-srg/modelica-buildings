@@ -11,7 +11,7 @@ model Battery "Test model for battery"
   Modelica.Electrical.Analog.Basic.Ground ground
     annotation (Placement(transformation(extent={{58,-60},{78,-40}})));
   Buildings.Electrical.DC.Loads.Conductor             loa(
-    P_nominal=0, mode=Buildings.Electrical.Types.Assumption.VariableZ_P_input,
+    P_nominal=0, mode=Buildings.Electrical.Types.Load.VariableZ_P_input,
     V_nominal=12) "Electrical load"
     annotation (Placement(transformation(extent={{124,-30},{144,-10}})));
   Modelica.Blocks.Sources.Constant const1(k=-10e3)

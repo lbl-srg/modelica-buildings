@@ -5,7 +5,8 @@ model Charge "Model to compute the battery charge"
     "Efficiency during charging";
   parameter Real etaDis(min=0, max=1, unit="1") = 0.9
     "Efficiency during discharging";
-  parameter Real SOC_start(min=0, max=1, unit="1")=0.1 "Initial state of charge";
+  parameter Real SOC_start(min=0, max=1, unit="1")=0.1
+    "Initial state of charge";
   parameter Modelica.SIunits.Energy EMax(min=0, displayUnit="kWh")
     "Maximum available charge";
   Modelica.SIunits.Power PAct "Actual power";

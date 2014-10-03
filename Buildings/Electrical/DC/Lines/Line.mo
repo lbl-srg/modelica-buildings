@@ -7,7 +7,7 @@ model Line "Model of a DC electrical line"
       redeclare package PhaseSystem = PhaseSystem_n),
     redeclare Interfaces.Terminal_p terminal_p(
       redeclare package PhaseSystem = PhaseSystem_p),
-    final modelMode=Types.Assumption.FixedZ_steady_state,
+    final modelMode=Types.Load.FixedZ_steady_state,
     commercialCable = Buildings.Electrical.Transmission.Functions.selectCable_low(P_nominal, V_nominal));
 
   TwoPortRCLine lineRC(

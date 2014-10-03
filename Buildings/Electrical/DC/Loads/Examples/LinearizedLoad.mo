@@ -8,7 +8,7 @@ model LinearizedLoad "Example model to check the linearized load model"
     "Voltage distance between nominal condition and actual voltage";
   Buildings.Electrical.DC.Loads.Conductor NonlinearLoad(
     linearized=false,
-    mode=Buildings.Electrical.Types.Assumption.VariableZ_P_input,
+    mode=Buildings.Electrical.Types.Load.VariableZ_P_input,
     V_nominal=100,
     P_nominal=0) "Nonlinear load model"
     annotation (Placement(transformation(extent={{30,-40},{50,-20}})));
@@ -21,7 +21,7 @@ model LinearizedLoad "Example model to check the linearized load model"
   Sensors.GeneralizedSensor sen_nlin "Sensor"
     annotation (Placement(transformation(extent={{-10,-40},{10,-20}})));
   Buildings.Electrical.DC.Loads.Conductor LinearLoad(
-    mode=Buildings.Electrical.Types.Assumption.VariableZ_P_input,
+    mode=Buildings.Electrical.Types.Load.VariableZ_P_input,
     V_nominal=100,
     linearized=true,
     P_nominal=0) "Linearized load model"

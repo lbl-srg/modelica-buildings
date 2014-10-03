@@ -10,7 +10,7 @@ model VariableLoad "Example using variable loads models"
     annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
   Modelica.Electrical.Analog.Basic.Ground gro "Ground"
     annotation (Placement(transformation(extent={{-90,-2},{-70,18}})));
-  Conductor loa2(              mode=Types.Assumption.VariableZ_y_input,
+  Conductor loa2(              mode=Types.Load.VariableZ_y_input,
     V_nominal=12,
     P_nominal=-50) "Load"
     annotation (Placement(transformation(extent={{0,0},{20,20}})));
@@ -20,7 +20,7 @@ model VariableLoad "Example using variable loads models"
     startTime=0.3,
     offset=0) "Power signal"
     annotation (Placement(transformation(extent={{60,0},{40,20}})));
-  Conductor loa3(              mode=Types.Assumption.VariableZ_P_input,
+  Conductor loa3(              mode=Types.Load.VariableZ_P_input,
     V_nominal=12,
     P_nominal=0) "Load"
     annotation (Placement(transformation(extent={{0,-40},{20,-20}})));

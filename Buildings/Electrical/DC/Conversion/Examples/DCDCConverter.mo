@@ -2,7 +2,7 @@ within Buildings.Electrical.DC.Conversion.Examples;
 model DCDCConverter "Test model DC to DC converter"
   extends Modelica.Icons.Example;
   Buildings.Electrical.DC.Loads.Conductor resistor(
-    mode=Buildings.Electrical.Types.Assumption.FixedZ_steady_state,
+    mode=Buildings.Electrical.Types.Load.FixedZ_steady_state,
     P_nominal=-2000,
     V_nominal=60) "Resistive load"
     annotation (Placement(transformation(extent={{38,30},{58,50}})));
@@ -12,7 +12,7 @@ model DCDCConverter "Test model DC to DC converter"
   Buildings.Electrical.DC.Conversion.DCDCConverter conDCDC(VHigh=120, VLow=60,
       eta=0.9) "DC/DC transformer"
     annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
-  Buildings.Electrical.DC.Loads.Conductor conductor(mode=Buildings.Electrical.Types.Assumption.VariableZ_P_input,
+  Buildings.Electrical.DC.Loads.Conductor conductor(mode=Buildings.Electrical.Types.Load.VariableZ_P_input,
       V_nominal=60,
     P_nominal=10e3) "Variable resistive load"
     annotation (Placement(transformation(extent={{38,-30},{58,-10}})));
