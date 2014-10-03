@@ -70,7 +70,8 @@ equation
           fillPattern=FillPattern.Solid,
           origin={2,-49},
           rotation=90),
-        Line(visible = star == true,
+        Line(
+          visible=star == true,
           points={{52,50},{68,0},{52,-50}},
           color={0,0,0},
           smooth=Smooth.None),

@@ -31,7 +31,8 @@ partial model BaseLoadCtrl
     P_nominal=P_nominal,
     linearized=linearized,
     mode=mode,
-    V_nominal=V_nominal/sqrt(3)) if
+    V_nominal=V_nominal/sqrt(3),
+    initMode=initMode) if
        plugPhase1 "Load 1"
     annotation (Placement(transformation(extent={{-10,40},{10,60}})));
   replaceable Buildings.Electrical.Interfaces.Load load2(
@@ -40,7 +41,8 @@ partial model BaseLoadCtrl
     P_nominal=P_nominal,
     linearized=linearized,
     mode=mode,
-    V_nominal=V_nominal/sqrt(3)) if
+    V_nominal=V_nominal/sqrt(3),
+    initMode=initMode) if
        plugPhase2 "Load 2"
     annotation (Placement(transformation(extent={{-10,-30},{10,-10}})));
   replaceable Buildings.Electrical.Interfaces.Load load3(
@@ -49,7 +51,8 @@ partial model BaseLoadCtrl
     P_nominal=P_nominal,
     linearized=linearized,
     mode=mode,
-    V_nominal=V_nominal/sqrt(3)) if
+    V_nominal=V_nominal/sqrt(3),
+    initMode=initMode) if
        plugPhase3 "Load 3"
     annotation (Placement(transformation(extent={{-10,-98},{10,-78}})));
   Modelica.Blocks.Interfaces.RealInput y1 if  plugPhase1 and
@@ -62,8 +65,8 @@ partial model BaseLoadCtrl
         rotation=180,
         origin={100,60})));
   Modelica.Blocks.Interfaces.RealInput Pow1(unit="W") if plugPhase1 and
-    mode == Buildings.Electrical.Types.Load.VariableZ_P_input
-    "Power consumed"                       annotation (Placement(transformation(
+    mode == Buildings.Electrical.Types.Load.VariableZ_P_input "Power consumed"
+                                           annotation (Placement(transformation(
         extent={{-20,-20},{20,20}},
         rotation=180,
         origin={100,60}),iconTransformation(
@@ -80,8 +83,8 @@ partial model BaseLoadCtrl
         rotation=180,
         origin={100,0})));
   Modelica.Blocks.Interfaces.RealInput Pow2(unit="W") if plugPhase2 and
-    mode == Buildings.Electrical.Types.Load.VariableZ_P_input
-    "Power consumed"                       annotation (Placement(transformation(
+    mode == Buildings.Electrical.Types.Load.VariableZ_P_input "Power consumed"
+                                           annotation (Placement(transformation(
         extent={{-20,-20},{20,20}},
         rotation=180,
         origin={100,0}), iconTransformation(
@@ -99,8 +102,8 @@ partial model BaseLoadCtrl
         rotation=180,
         origin={100,-60})));
   Modelica.Blocks.Interfaces.RealInput Pow3(unit="W") if plugPhase3 and
-    mode == Buildings.Electrical.Types.Load.VariableZ_P_input
-    "Power consumed"                       annotation (Placement(transformation(
+    mode == Buildings.Electrical.Types.Load.VariableZ_P_input "Power consumed"
+                                           annotation (Placement(transformation(
         extent={{-20,-20},{20,20}},
         rotation=180,
         origin={100,-60}),
@@ -149,6 +152,9 @@ partial model BaseLoadCtrl
     wyeToWyeGround if (loadConn == Buildings.Electrical.Types.LoadConnection.wye_to_wyeg)
     "Wye to wye grounded connection"
     annotation (Placement(transformation(extent={{-54,-20},{-34,0}})));
+  parameter Types.InitMode initMode=Buildings.Electrical.Types.InitMode.zero_current
+    "Initialization mode for homotopy operator"
+    annotation (Dialog(tab="initialization"));
 equation
 
   // Connections enabled when the input provided is y (between 0 and 1)
