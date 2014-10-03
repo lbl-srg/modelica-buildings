@@ -5,6 +5,7 @@ model ACACTransformerFull "AC AC transformer detailed equivalent circuit (YY)"
     redeclare Buildings.Electrical.AC.OnePhase.Conversion.ACACTransformerFull conv1(
       VHigh=VHigh/sqrt(3),
       VLow=VLow/sqrt(3),
+      f = f,
       VABase=VABase,
       R1=R1,L1=L1,R2=R2,L2=L2,
       magEffects=magEffects,
@@ -14,6 +15,7 @@ model ACACTransformerFull "AC AC transformer detailed equivalent circuit (YY)"
     redeclare Buildings.Electrical.AC.OnePhase.Conversion.ACACTransformerFull conv2(
       VHigh=VHigh/sqrt(3),
       VLow=VLow/sqrt(3),
+      f = f,
       VABase=VABase,
       R1=R1,L1=L1,R2=R2,L2=L2,
       magEffects=magEffects,
@@ -23,6 +25,7 @@ model ACACTransformerFull "AC AC transformer detailed equivalent circuit (YY)"
     redeclare Buildings.Electrical.AC.OnePhase.Conversion.ACACTransformerFull conv3(
       VHigh=VHigh/sqrt(3),
       VLow=VLow/sqrt(3),
+      f = f,
       VABase=VABase,
       R1=R1,L1=L1,R2=R2,L2=L2,
       magEffects=magEffects,
@@ -48,9 +51,9 @@ model ACACTransformerFull "AC AC transformer detailed equivalent circuit (YY)"
   parameter Boolean magEffects = false
     "If =true introduce magnetization effects"
     annotation(Dialog(group="Magnetization"));
-  parameter Buildings.Electrical.Types.PerUnit Rm(min=0)
+  parameter Buildings.Electrical.Types.PerUnit Rm(min=0,start=0)
     "Magnetization resistance (pu)" annotation(Dialog(group="Magnetization", enable = magEffects));
-  parameter Buildings.Electrical.Types.PerUnit Lm(min=0)
+  parameter Buildings.Electrical.Types.PerUnit Lm(min=0,start=0)
     "Magnetization inductance (pu)" annotation(Dialog(group="Magnetization", enable = magEffects));
   parameter Boolean ground_1 = false "Connect side 1 of converter to ground" annotation(Dialog(tab = "Ground", group="side 1"));
   parameter Boolean ground_2 = true "Connect side 2 of converter to ground" annotation(Dialog(tab = "Ground", group="side 2"));
@@ -79,40 +82,6 @@ model ACACTransformerFull "AC AC transformer detailed equivalent circuit (YY)"
           extent={{70,60},{130,20}},
           lineColor={0,120,120},
           textString="2"),
-        Line(
-          points={{-80,-40},{-120,-40}},
-          color=DynamicSelect({0,120,120}, if ground_1 then {0,120,120} else {
-              255,255,255}),
-          smooth=Smooth.None,
-          thickness=0.5),
-        Line(
-          points={{-80,-40},{-106,-14}},
-          color=DynamicSelect({0,120,120}, if ground_1 then {0,120,120} else {255,
-              255,255}),
-          smooth=Smooth.None,
-          thickness=0.5),
-        Line(
-          points={{-102,-16},{-114,-24},{-118,-42}},
-          color=DynamicSelect({0,120,120}, if ground_1 then {0,120,120} else {
-              255,255,255}),
-          smooth=Smooth.Bezier),
-        Line(
-          points={{80,-40},{120,-40}},
-          color=DynamicSelect({0,120,120}, if ground_2 then {0,120,120} else {
-              255,255,255}),
-          smooth=Smooth.None,
-          thickness=0.5),
-        Line(
-          points={{80,-40},{106,-14}},
-          color=DynamicSelect({0,120,120}, if ground_2 then {0,120,120} else {
-              255,255,255}),
-          smooth=Smooth.None,
-          thickness=0.5),
-        Line(
-          points={{102,-16},{114,-24},{118,-42}},
-          color=DynamicSelect({0,120,120}, if ground_2 then {0,120,120} else {
-              255,255,255}),
-          smooth=Smooth.Bezier),
         Line(
           points={{-72,40},{-66,40},{-64,44},{-60,36},{-56,44},{-52,36},{-48,44},
               {-44,36},{-42,40},{-38,40}},

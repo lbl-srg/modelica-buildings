@@ -68,40 +68,6 @@ equation
           lineColor={0,120,120},
           textString="2"),
         Line(
-          points={{-80,-40},{-120,-40}},
-          color=DynamicSelect({0,120,120}, if ground_1 then {0,120,120} else {
-              255,255,255}),
-          smooth=Smooth.None,
-          thickness=0.5),
-        Line(
-          points={{-80,-40},{-106,-14}},
-          color=DynamicSelect({0,120,120}, if ground_1 then {0,120,120} else {255,
-              255,255}),
-          smooth=Smooth.None,
-          thickness=0.5),
-        Line(
-          points={{-102,-16},{-114,-24},{-118,-42}},
-          color=DynamicSelect({0,120,120}, if ground_1 then {0,120,120} else {
-              255,255,255}),
-          smooth=Smooth.Bezier),
-        Line(
-          points={{80,-40},{120,-40}},
-          color=DynamicSelect({0,120,120}, if ground_2 then {0,120,120} else {
-              255,255,255}),
-          smooth=Smooth.None,
-          thickness=0.5),
-        Line(
-          points={{80,-40},{106,-14}},
-          color=DynamicSelect({0,120,120}, if ground_2 then {0,120,120} else {
-              255,255,255}),
-          smooth=Smooth.None,
-          thickness=0.5),
-        Line(
-          points={{102,-16},{114,-24},{118,-42}},
-          color=DynamicSelect({0,120,120}, if ground_2 then {0,120,120} else {
-              255,255,255}),
-          smooth=Smooth.Bezier),
-        Line(
           points={{-72,40},{-66,40},{-64,44},{-60,36},{-56,44},{-52,36},{-48,44},
               {-44,36},{-42,40},{-38,40}},
           color={0,127,127},

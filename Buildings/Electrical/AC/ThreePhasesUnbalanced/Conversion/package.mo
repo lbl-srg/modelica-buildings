@@ -4,15 +4,6 @@ package Conversion "Package with converter and trasformer models for three phase
   extends Modelica.Icons.Package;
 
 
-
-
-
-
-
-
-
-
-
 annotation (Documentation(revisions="<html>
 <ul>
 <li>
