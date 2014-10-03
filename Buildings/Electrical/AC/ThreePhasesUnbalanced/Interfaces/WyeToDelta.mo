@@ -24,17 +24,7 @@ equation
             {100,100}}),       graphics), Icon(coordinateSystem(
           preserveAspectRatio=false, extent={{-100,-100},{100,100}}), graphics={
         Line(
-          points={{-50,40},{-50,0},{-80,-30}},
-          color={0,120,120},
-          smooth=Smooth.None,
-          thickness=0.5),
-        Line(
-          points={{-50,0},{-20,-30}},
-          color={0,120,120},
-          smooth=Smooth.None,
-          thickness=0.5),
-        Line(
-          points={{0,-26},{40,34},{80,-26},{0,-26}},
+          points={{-40,-26},{0,34},{40,-26},{-40,-26}},
           color={0,120,120},
           smooth=Smooth.None,
           thickness=0.5)}),

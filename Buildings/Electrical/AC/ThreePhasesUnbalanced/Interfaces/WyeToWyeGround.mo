@@ -44,42 +44,32 @@ equation
             {100,100}}),       graphics), Icon(coordinateSystem(
           preserveAspectRatio=false, extent={{-100,-100},{100,100}}), graphics={
         Line(
-          points={{-50,40},{-50,0},{-80,-30}},
+          points={{0,40},{0,0},{-30,-30}},
           color={0,120,120},
           smooth=Smooth.None,
           thickness=0.5),
         Line(
-          points={{-50,0},{-20,-30}},
+          points={{0,0},{30,-30}},
           color={0,120,120},
           smooth=Smooth.None,
           thickness=0.5),
         Line(
-          points={{50,40},{50,0},{20,-30}},
-          color={0,120,120},
-          smooth=Smooth.None,
-          thickness=0.5),
-        Line(
-          points={{50,0},{80,-30}},
-          color={0,120,120},
-          smooth=Smooth.None,
-          thickness=0.5),
-        Line(
-          points={{50,0},{50,-40}},
+          points={{0,0},{0,-40}},
           color={0,120,120},
           smooth=Smooth.None,
           thickness=0.25),
         Line(
-          points={{42,-40},{58,-40}},
+          points={{-8,-40},{8,-40}},
           color={0,120,120},
           smooth=Smooth.None,
           thickness=0.25),
         Line(
-          points={{44,-42},{56,-42}},
+          points={{-6,-42},{6,-42}},
           color={0,120,120},
           smooth=Smooth.None,
           thickness=0.25),
         Line(
-          points={{46,-44},{54,-44}},
+          points={{-4,-44},{4,-44}},
           color={0,120,120},
           smooth=Smooth.None,
           thickness=0.25)}),

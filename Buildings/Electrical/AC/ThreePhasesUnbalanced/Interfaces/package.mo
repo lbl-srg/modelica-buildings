@@ -3,14 +3,6 @@ package Interfaces "Package with interfaces for three phases unbalanced AC model
   extends Modelica.Icons.InterfacesPackage;
 
 
-
-
-
-
-
-
-
-
 annotation (Documentation(info="<html>
 <p>
 This package contains connectors that are used by the models in the 
