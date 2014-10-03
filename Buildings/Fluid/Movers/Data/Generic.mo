@@ -32,9 +32,7 @@ record Generic "Generic data record for pumps and fans"
    else
       Buildings.Utilities.Math.Functions.splineDerivatives(
       x=power.V_flow,
-      y=power.P,
-      ensureMonotonicity=Buildings.Utilities.Math.Functions.isMonotonic(x=power.V_flow,
-                                                                        strict=false));
+      y=power.P);
   parameter
     Buildings.Fluid.Movers.BaseClasses.Characteristics.efficiencyParameters
     efficiency(V_flow=pressure.V_flow, eta=pressure.V_flow.*pressure.dp./
