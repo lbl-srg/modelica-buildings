@@ -20,9 +20,9 @@ model IEEE4Unbalanced_D_D_StepDown
     final V2_ref={12341,12370,12302},
     final V3_ref={3902,3972,3871},
     final V4_ref={3431,3647,3294},
-    final Theta2_ref={29.8,-90.5,149.5},
-    final Theta3_ref={27.2,-93.9,145.7},
-    final Theta4_ref={24.3,-100.4,138.6},
+    final Theta2_ref=Modelica.Constants.pi/180.0*{29.8,-90.5,149.5},
+    final Theta3_ref=Modelica.Constants.pi/180.0*{27.2,-93.9,145.7},
+    final Theta4_ref=Modelica.Constants.pi/180.0*{24.3,-100.4,138.6},
     loadRL(loadConn=Buildings.Electrical.Types.LoadConnection.wye_to_delta,
         use_pf_in=true));
   Buildings.Electrical.AC.ThreePhasesUnbalanced.Conversion.ACACTransformerDD

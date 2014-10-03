@@ -1,5 +1,5 @@
 within Buildings.Electrical.AC.ThreePhasesUnbalanced;
-package Examples "Package with examples and tests for the AC three phases unbalanced models"
+package Validation "Package with validation examples and tests for the AC three phases unbalanced models"
   extends Modelica.Icons.ExamplesPackage;
 
 
@@ -17,4 +17,4 @@ Revised documentation.
 </li>
 </ul>
 </html>"));
-end Examples;
+end Validation;

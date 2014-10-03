@@ -1,8 +1,8 @@
-within Buildings.Electrical.AC.ThreePhasesUnbalanced.Examples.IEEETests.Test4NodesFeeder.UnbalancedStepDown;
-model IEEE4Unbalanced_D_Y_StepDown
-  "IEEE 4 node test feeder model with unbalanced load and D - Y connection (step down)"
+within Buildings.Electrical.AC.ThreePhasesUnbalanced.Validation.IEEETests.Test4NodesFeeder.UnbalancedStepUp;
+model IEEE4Unbalanced_D_Y_StepUp
+  "IEEE 4 node test feeder model with unbalanced load and D - Y connection (step up)"
   extends
-    Buildings.Electrical.AC.ThreePhasesUnbalanced.Examples.IEEETests.Test4NodesFeeder.BaseClasses.IEEE4
+    Buildings.Electrical.AC.ThreePhasesUnbalanced.Validation.IEEETests.Test4NodesFeeder.BaseClasses.IEEE4
     (
     final line1_use_Z_y=false,
     final line2_use_Z_y=true,
@@ -15,16 +15,16 @@ model IEEE4Unbalanced_D_Y_StepDown
     redeclare Buildings.Electrical.AC.ThreePhasesUnbalanced.Sensors.ProbeWye
       node4,
     final VLL_side1=12.47e3,
-    final VLL_side2=4.16e3,
+    final VLL_side2=24.9e3,
     final VARbase=6000e3,
-    final V2_ref={12350,12314,12333},
-    final V3_ref={2290,2261,2214},
-    final V4_ref={2157,1936,1849},
-    final Theta2_ref=Modelica.Constants.pi/180.0*{29.6,-90.4,149.8},
-    final Theta3_ref=Modelica.Constants.pi/180.0*{-32.4,-153.8,85.2},
-    final Theta4_ref=Modelica.Constants.pi/180.0*{-34.2,-157.0,73.4},
+    final V2_ref={12364,12391,12333},
+    final V3_ref={13792,13733,13641},
+    final V4_ref={13768,13684,13600},
+    final Theta2_ref=Modelica.Constants.pi/180.0*{29.8,-90.5,149.6},
+    final Theta3_ref=Modelica.Constants.pi/180.0*{27.7,-93.5,145.4},
+    final Theta4_ref=Modelica.Constants.pi/180.0*{27.7,-93.6,145.2},
     loadRL(use_pf_in=true));
-  Buildings.Electrical.AC.ThreePhasesUnbalanced.Conversion.ACACTransformerStepDownDY
+  Buildings.Electrical.AC.ThreePhasesUnbalanced.Conversion.ACACTransformerStepUpDY
     transformer(
     VHigh=VLL_side1,
     VLow=VLL_side2,
@@ -84,9 +84,9 @@ June 17, 2014, by Marco Bonvini:<br/>
 Moved to Examples IEEE package.
 </li>
 <li>
-June 6, 2014, by Marco Bonvini:<br/>
+June 9, 2014, by Marco Bonvini:<br/>
 First implementation.
 </li>
 </ul>
 </html>"));
-end IEEE4Unbalanced_D_Y_StepDown;
+end IEEE4Unbalanced_D_Y_StepUp;

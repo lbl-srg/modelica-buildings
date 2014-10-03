@@ -20,9 +20,9 @@ model IEEE4Unbalanced_Y_Y_StepDown
     final V2_ref={7164,7110,7082},
     final V3_ref={2305,2255,2203},
     final V4_ref={2175,1930,1833},
-    final Theta2_ref={-0.1,-120.2,119.3},
-    final Theta3_ref={-2.3,-123.6,114.8},
-    final Theta4_ref={-4.1,-126.8,102.8},
+    final Theta2_ref=Modelica.Constants.pi/180.0*{-0.1,-120.2,119.3},
+    final Theta3_ref=Modelica.Constants.pi/180.0*{-2.3,-123.6,114.8},
+    final Theta4_ref=Modelica.Constants.pi/180.0*{-4.1,-126.8,102.8},
     loadRL(use_pf_in=true));
   Modelica.Blocks.Sources.Constant load1(k=-1275e3)
     annotation (Placement(transformation(extent={{54,30},{74,50}})));

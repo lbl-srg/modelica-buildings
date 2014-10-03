@@ -1,8 +1,8 @@
-within Buildings.Electrical.AC.ThreePhasesUnbalanced.Examples.IEEETests.Test4NodesFeeder.UnbalancedStepDown;
+within Buildings.Electrical.AC.ThreePhasesUnbalanced.Validation.IEEETests.Test4NodesFeeder.UnbalancedStepDown;
 model IEEE4Unbalanced_Y_D_StepDown
   "IEEE 4 node test feeder model with unbalanced load and Y - D connection (step down)"
   extends
-    Buildings.Electrical.AC.ThreePhasesUnbalanced.Examples.IEEETests.Test4NodesFeeder.BaseClasses.IEEE4
+    Buildings.Electrical.AC.ThreePhasesUnbalanced.Validation.IEEETests.Test4NodesFeeder.BaseClasses.IEEE4
     (
     final line1_use_Z_y=true,
     final line2_use_Z_y=false,

@@ -20,9 +20,9 @@ model IEEE4Unbalanced_D_Y_StepUp
     final V2_ref={12364,12391,12333},
     final V3_ref={13792,13733,13641},
     final V4_ref={13768,13684,13600},
-    final Theta2_ref={29.8,-90.5,149.6},
-    final Theta3_ref={27.7,-93.5,145.4},
-    final Theta4_ref={27.7,-93.6,145.2},
+    final Theta2_ref=Modelica.Constants.pi/180.0*{29.8,-90.5,149.6},
+    final Theta3_ref=Modelica.Constants.pi/180.0*{27.7,-93.5,145.4},
+    final Theta4_ref=Modelica.Constants.pi/180.0*{27.7,-93.6,145.2},
     loadRL(use_pf_in=true));
   Buildings.Electrical.AC.ThreePhasesUnbalanced.Conversion.ACACTransformerStepUpDY
     transformer(

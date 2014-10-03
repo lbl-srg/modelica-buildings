@@ -20,9 +20,9 @@ model IEEE4Balanced_D_Y_StepUP
     final V2_ref={12361,12372,12348},
     final V3_ref={13697,13710,13681},
     final V4_ref={13653,13678,13644},
-    final Theta2_ref={29.7,-90.4,149.6},
-    final Theta3_ref={26.7,-93.4,146.6},
-    final Theta4_ref={26.6,-93.5,146.5},
+    final Theta2_ref=Modelica.Constants.pi/180.0*{29.7,-90.4,149.6},
+    final Theta3_ref=Modelica.Constants.pi/180.0*{26.7,-93.4,146.6},
+    final Theta4_ref=Modelica.Constants.pi/180.0*{26.6,-93.5,146.5},
     loadRL(use_pf_in=false));
   Modelica.Blocks.Sources.Constant load(k=-1800e3)
     annotation (Placement(transformation(extent={{54,62},{74,82}})));

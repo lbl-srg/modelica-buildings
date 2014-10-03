@@ -1,4 +1,4 @@
-within Buildings.Electrical.AC.ThreePhasesUnbalanced.Examples.IEEETests.Test4NodesFeeder.BaseClasses;
+within Buildings.Electrical.AC.ThreePhasesUnbalanced.Validation.IEEETests.Test4NodesFeeder.BaseClasses;
 partial model IEEE4 "Base model of the IEEE 4 nodes test feeder"
   extends Modelica.Icons.Example;
   parameter Modelica.SIunits.Voltage VLL_side1 = 12.47e3
