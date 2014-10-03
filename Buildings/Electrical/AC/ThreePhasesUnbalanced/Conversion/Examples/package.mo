@@ -1,11 +1,10 @@
 within Buildings.Electrical.AC.ThreePhasesUnbalanced.Conversion;
-package BaseClasses "Package with base class models"
-extends Modelica.Icons.BasesPackage;
+package Examples "Package with example models"
+  extends Modelica.Icons.ExamplesPackage;
 
-
-annotation (Documentation(info="<html>
+  annotation (Documentation(info="<html>
 <p>
-This package contains base classes used by the models that are part of the package
+This package contains examples for the use of models that can be found in
 <a href=\"modelica://Buildings.Electrical.AC.ThreePhasesUnbalanced.Conversion\">
 Buildings.Electrical.AC.ThreePhasesUnbalanced.Conversion</a>.
 </p>
@@ -17,4 +16,12 @@ Revised documentation.
 </li>
 </ul>
 </html>"));
-end BaseClasses;
+
+
+
+
+
+
+
+
+end Examples;

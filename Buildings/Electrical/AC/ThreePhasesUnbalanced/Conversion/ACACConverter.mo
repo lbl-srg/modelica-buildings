@@ -61,41 +61,7 @@ equation
         Text(
           extent={{70,78},{130,38}},
           lineColor={0,120,120},
-          textString="2"),
-        Line(
-          points={{-80,-40},{-120,-40}},
-          color=DynamicSelect({0,120,120}, if ground_1 then {0,120,120} else {
-              255,255,255}),
-          smooth=Smooth.None,
-          thickness=0.5),
-        Line(
-          points={{-80,-40},{-106,-14}},
-          color=DynamicSelect({0,120,120}, if ground_1 then {0,120,120} else {255,
-              255,255}),
-          smooth=Smooth.None,
-          thickness=0.5),
-        Line(
-          points={{-102,-16},{-114,-24},{-118,-42}},
-          color=DynamicSelect({0,120,120}, if ground_1 then {0,120,120} else {
-              255,255,255}),
-          smooth=Smooth.Bezier),
-        Line(
-          points={{80,-40},{120,-40}},
-          color=DynamicSelect({0,120,120}, if ground_2 then {0,120,120} else {
-              255,255,255}),
-          smooth=Smooth.None,
-          thickness=0.5),
-        Line(
-          points={{80,-40},{106,-14}},
-          color=DynamicSelect({0,120,120}, if ground_2 then {0,120,120} else {
-              255,255,255}),
-          smooth=Smooth.None,
-          thickness=0.5),
-        Line(
-          points={{102,-16},{114,-24},{118,-42}},
-          color=DynamicSelect({0,120,120}, if ground_2 then {0,120,120} else {
-              255,255,255}),
-          smooth=Smooth.Bezier)}),
+          textString="2")}),
     Documentation(info="<html>
 <p>
 This is an AC AC converter, based on a power balance between both circuit sides.

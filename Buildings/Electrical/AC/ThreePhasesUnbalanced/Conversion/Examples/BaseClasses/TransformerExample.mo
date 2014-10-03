@@ -1,0 +1,74 @@
+within Buildings.Electrical.AC.ThreePhasesUnbalanced.Conversion.Examples.BaseClasses;
+model TransformerExample
+  "This example represents the basic test for a transformer model"
+  extends Modelica.Icons.Example;
+  parameter Modelica.SIunits.Voltage V_primary = 12470
+    "RMS Voltage on the primary side of the trasformer";
+  parameter Modelica.SIunits.Voltage V_secondary = 4160
+    "RMS Voltage on the secondary side of the trasformer";
+  Sources.FixedVoltage sou(
+    f=60,
+    V=V_primary) "Voltage source"
+    annotation (Placement(transformation(extent={{-70,-10},{-50,10}})));
+  replaceable
+    Buildings.Electrical.AC.ThreePhasesUnbalanced.Conversion.BaseClasses.PartialConverter
+    tra "Transformer model"
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
+  Loads.Resistive load(
+    loadConn=Buildings.Electrical.Types.LoadConnection.wye_to_wyeg,
+    P_nominal=-1800e3,
+    V_nominal=V_secondary) "Load model"
+    annotation (Placement(transformation(extent={{50,-10},{70,10}})));
+  Sensors.ProbeWye probe_Y_1(perUnit=false, V_nominal = V_primary)
+    "Probe that measures the voltage in Y configuration, primary side"
+    annotation (Placement(transformation(extent={{-40,30},{-20,50}})));
+  Sensors.ProbeDelta probe_D_1(perUnit=false, V_nominal = V_primary)
+    "Probe that measures the voltage in D configuration, primary side"
+    annotation (Placement(transformation(extent={{-40,-30},{-20,-50}})));
+  replaceable Sensors.BaseClasses.GeneralizedProbe probe_2 constrainedby
+    Sensors.BaseClasses.GeneralizedProbe(perUnit=false,
+    V_nominal=V_secondary)
+    "Probe that measures the voltage at the secondary side"
+    annotation (Placement(transformation(extent={{20,30},{40,50}})));
+
+equation
+  connect(sou.terminal, tra.terminal_n) annotation (Line(
+      points={{-50,0},{-10,0}},
+      color={0,120,120},
+      smooth=Smooth.None));
+  connect(probe_Y_1.term, tra.terminal_n) annotation (Line(
+      points={{-30,31},{-30,0},{-10,0}},
+      color={0,120,120},
+      smooth=Smooth.None));
+  connect(probe_D_1.term, tra.terminal_n) annotation (Line(
+      points={{-30,-31},{-30,0},{-10,0}},
+      color={0,120,120},
+      smooth=Smooth.None));
+  connect(tra.terminal_p, probe_2.term) annotation (Line(
+      points={{10,0},{30,0},{30,31}},
+      color={0,120,120},
+      smooth=Smooth.None));
+  connect(tra.terminal_p, load.terminal) annotation (Line(
+      points={{10,0},{50,0}},
+      color={0,120,120},
+      smooth=Smooth.None));
+  annotation (Documentation(revisions="<html>
+<ul>
+<li>
+October 3, 2014, by Marco Bonvini:<br/>
+Created model and documentation.
+</li>
+</ul>
+</html>", info="<html>
+<p>
+This model is the base classes used by the examples that are part of the package
+<a href=\"modelica://Buildings.Electrical.AC.ThreePhasesUnbalanced.Conversion.Examples\">
+Buildings.Electrical.AC.ThreePhasesUnbalanced.Conversion.Examples</a>.
+</p>
+<p>
+The model has a voltage source, a transformer and a load. The transformer
+model is replaceable so the different types of transformers can be easily tested.
+</p>
+</html>"), Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
+            {100,100}}), graphics));
+end TransformerExample;
