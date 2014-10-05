@@ -1,11 +1,20 @@
 within Buildings.Utilities.Psychrometrics.Functions;
 function TDewPoi_pW_amb
   "Function to compute the dew point temperature of moist air for a given water vapor partial pressure"
-  extends Buildings.Utilities.Psychrometrics.Functions.BaseClasses.pW_TDewPoi_amb;
+  extends Modelica.Icons.Function;
 
   input Modelica.SIunits.Pressure p_w(displayUnit="Pa", min=100)
     "Water vapor partial pressure";
   output Modelica.SIunits.Temperature T "Dew point temperature";
+protected
+  constant Modelica.SIunits.Temperature T1=283.15 "First support point";
+  constant Modelica.SIunits.Temperature T2=293.15 "Second support point";
+  constant Modelica.SIunits.Pressure p1=1227.97 "First support point";
+  constant Modelica.SIunits.Pressure p2=2338.76 "Second support point";
+
+  constant Real a1=(Modelica.Math.log(p2) - Modelica.Math.log(p1)*T2/T1)/(1 -
+      T2/T1);
+  constant Real a2(unit="1/K")=(Modelica.Math.log(p1) - a1)/T1;
 
 algorithm
   T := (Modelica.Math.log(p_w) - a1)/a2;
@@ -33,6 +42,12 @@ whereas the other function requires a numerical solution.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+October 4, 2014, by Michael Wetter:<br/>
+Removed <code>extends Buildings.Utilities.Psychrometrics.Functions.BaseClasses.pW_TDewPoi_amb</code>
+as this gives a compile time error in OpenModelica as the input argument <code>T</code>
+cannot be found.
+</li>
 <li>
 March 9, 2012 by Michael Wetter:<br/>
 Added <code>smoothOrder=99</code> and <code>displayUnit</code> for pressure.
