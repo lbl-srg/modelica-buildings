@@ -6,13 +6,13 @@ model MixingVolumePrescribedHeatFlowRate
   Modelica.Thermal.HeatTransfer.Sensors.HeatFlowSensor heaFlo
     "Heat flow sensor"
     annotation (Placement(transformation(extent={{0,20},{20,40}})));
-  Buildings.Fluid.Sources.MassFlowSource_T sou(
+  Modelica.Fluid.Sources.MassFlowSource_T sou(
     nPorts=1,
     redeclare package Medium = Medium,
     use_m_flow_in=true,
     T=313.15) "Flow source and sink"
     annotation (Placement(transformation(extent={{-20,-20},{0,0}})));
-  Buildings.Fluid.Sources.FixedBoundary bou(
+  Modelica.Fluid.Sources.FixedBoundary bou(
     redeclare package Medium = Medium,
     nPorts=1,
     T=303.15) "Boundary condition"                         annotation (
@@ -28,19 +28,18 @@ model MixingVolumePrescribedHeatFlowRate
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     massDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     allowFlowReversal=true,
-    prescribedHeatFlowRate=true) "Control volume"
+    prescribedHeatFlowRate=true)
               annotation (Placement(transformation(extent={{30,20},{50,40}})));
   Modelica.Blocks.Sources.Ramp ramp(
     duration=1,
     offset=1,
-    height=-2) "Ramp for mass flow rate"
+    height=-2)
     annotation (Placement(transformation(extent={{-90,-20},{-70,0}})));
   inner Modelica.Fluid.System system
     annotation (Placement(transformation(extent={{60,60},{80,80}})));
-  Modelica.Blocks.Math.Gain gain(k=0.01) "Gain for mass flow rate"
+  Modelica.Blocks.Math.Gain gain(k=0.01)
     annotation (Placement(transformation(extent={{-60,-20},{-40,0}})));
   Modelica.Blocks.Sources.Constant const(k=0)
-    "Constant input for heat flow rate"
     annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
   Buildings.HeatTransfer.Sources.PrescribedHeatFlow preHeaFlo
     "Prescribed heat flow rate"
@@ -86,13 +85,6 @@ non-zero.
 </p>
 </html>", revisions="<html>
 <ul>
-<li>
-October 1, 2014, by Michael Wetter:<br/>
-Changed instances <code>sou</code> and <code>bou</code> to use model from the
-<code>Buildings</code> library as this avoids a warning about 
-alias set with different nominal values
-in OpenModelica.
-</li>
 <li>
 October 12, 2009 by Michael Wetter:<br/>
 First implementation.

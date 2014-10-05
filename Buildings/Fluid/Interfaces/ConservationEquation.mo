@@ -9,20 +9,25 @@ model ConservationEquation "Lumped volume with mass and energy balance"
   parameter Boolean initialize_p = not Medium.singleState
     "= true to set up initial equations for pressure";
   Modelica.Fluid.Vessels.BaseClasses.VesselFluidPorts_b ports[nPorts](
-      redeclare each package Medium = Medium,
-      each p(nominal=Medium.p_default),
-      each Xi_outflow(nominal=Medium.X_default[1:Medium.nXi]))
-    "Fluid inlets and outlets"
+      redeclare each package Medium = Medium) "Fluid inlets and outlets"
     annotation (Placement(transformation(extent={{-40,-10},{40,10}},
       origin={0,-100})));
 
+  // Set nominal attributes where literal values can be used.
   Medium.BaseProperties medium(
     preferredMediumStates= not (energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState),
-    p(stateSelect=if not (massDynamics == Modelica.Fluid.Types.Dynamics.SteadyState)
+    p(start=p_start,
+      nominal=Medium.p_default,
+      stateSelect=if not (massDynamics == Modelica.Fluid.Types.Dynamics.SteadyState)
                      then StateSelect.prefer else StateSelect.default),
-    T(stateSelect=if (not (energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState))
+    h(start=hStart),
+    T(start=T_start,
+      nominal=Medium.T_default,
+      stateSelect=if (not (energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState))
                      then StateSelect.prefer else StateSelect.default),
-    Xi(each stateSelect=if (not (substanceDynamics == Modelica.Fluid.Types.Dynamics.SteadyState))
+    Xi(start=X_start[1:Medium.nXi],
+       nominal=Medium.X_default[1:Medium.nXi],
+       each stateSelect=if (not (substanceDynamics == Modelica.Fluid.Types.Dynamics.SteadyState))
                      then StateSelect.prefer else StateSelect.default),
     d(start=rho_nominal)) "Medium properties";
 
@@ -250,19 +255,6 @@ Buildings.Fluid.MixingVolumes.MixingVolume</a>.
 </p>
 </html>", revisions="<html>
 <ul>
-<li>
-October 2, 2014, by Michael Wetter:<br/>
-Removed start attributes in <code>medium</code>.
-The start values for the states are assigned in the <code>initial equation</code>
-section. If the start values are also assigned in the declaration of <code>medium</code>,
-then they differ from the medium implementation and OpenModelica will issue a warning.
-</li>
-<li>
-September 29, 2014, by Michael Wetter:<br/>
-Set consistent nominal values to avoid the warning
-alias set with different nominal values
-in OpenModelica.
-</li>
 <li>
 July 3, 2014, by Michael Wetter:<br/>
 Added parameter <code>initialize_p</code>. This is required

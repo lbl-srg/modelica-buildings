@@ -1,26 +1,14 @@
 within Buildings.Media.IdealGases;
 package SimpleAir "Air: Simple dry air model (-50..100 degC)"
   extends Modelica.Media.Air.SimpleAir(
-     T_min=Modelica.SIunits.Conversions.from_degC(-50),
-     BaseProperties(
-      T(start=T_default),
-      p(nominal=p_default,
-        start=p_default),
-      state(T(start=T_default),
-            p(start=p_default,
-              nominal=p_default))));
+     T_min=Modelica.SIunits.Conversions.from_degC(-50));
 
-  redeclare record extends ThermodynamicState(
-    p(start=p_default, nominal=p_default),
-    T(start=T_default))
-  end ThermodynamicState;
-
-  replaceable function enthalpyOfCondensingGas
+replaceable function enthalpyOfCondensingGas
     "Enthalpy of steam per unit mass of steam"
   extends Modelica.Icons.Function;
   input Temperature T "temperature";
   output SpecificEnthalpy h "steam enthalpy";
-  algorithm
+algorithm
   h := 0;
   annotation (Documentation(info="<html>
 <p>
@@ -34,7 +22,7 @@ First implementation to allow using the room model with a medium that does not c
 </li>
 </ul>
 </html>"));
-  end enthalpyOfCondensingGas;
+end enthalpyOfCondensingGas;
 
 replaceable function saturationPressure
     "Return saturation pressure of condensing fluid"

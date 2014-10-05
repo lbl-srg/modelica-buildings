@@ -1,12 +1,7 @@
 within Buildings.Fluid.Sources;
 model TraceSubstancesFlowSource
   "Source with mass flow that does not take part in medium mass balance (such as CO2)"
-  extends Modelica.Fluid.Sources.BaseClasses.PartialSource(
-    nPorts=1,
-    ports(each p(nominal=Medium.p_default),
-          each Xi_outflow(nominal=Medium.X_default[1:Medium.nXi])),
-    medium(p(nominal=Medium.p_default),
-           X(nominal=Medium.X_default)));
+  extends Modelica.Fluid.Sources.BaseClasses.PartialSource(nPorts=1);
 
   parameter String substanceName = "CO2" "Name of trace substance";
   parameter Boolean use_m_flow_in = false
@@ -66,12 +61,6 @@ made small compared to the room volume if the medium that leaves this
 component has a carbon dioxide concentration of <i>1</i>.
 </html>", revisions="<html>
 <ul>
-<li>
-October 1, 2014, by Michael Wetter:<br/>
-Set consistent nominal values to avoid the warning
-alias set with different nominal values
-in OpenModelica.
-</li>
 <li>
 May 29, 2014, by Michael Wetter:<br/>
 Removed undesirable annotation <code>Evaluate=true</code>.

@@ -5,20 +5,16 @@ model RelativePressure "Ideal relative pressure sensor"
     Modelica.Media.Interfaces.PartialMedium "Medium in the sensor"  annotation (
       choicesAllMatching = true);
 
-  Modelica.Fluid.Interfaces.FluidPort_a port_a(
-    m_flow(min=0),
-    p(start=Medium.p_default,
-    nominal=Medium.p_default),
-    Xi_outflow(nominal=Medium.X_default[1:Medium.nXi]),
-    redeclare package Medium = Medium) "Fluid connector of stream a"
+  Modelica.Fluid.Interfaces.FluidPort_a port_a(m_flow(min=0),
+                                p(start=Medium.p_default),
+                                redeclare package Medium = Medium)
+    "Fluid connector of stream a"
     annotation (Placement(transformation(extent={{-110,-10},{-90,10}},
           rotation=0)));
-  Modelica.Fluid.Interfaces.FluidPort_b port_b(
-    m_flow(min=0),
-    p(start=Medium.p_default,
-    nominal=Medium.p_default),
-    Xi_outflow(nominal=Medium.X_default[1:Medium.nXi]),
-    redeclare package Medium = Medium) "Fluid connector of stream b"
+  Modelica.Fluid.Interfaces.FluidPort_b port_b(m_flow(min=0),
+                                p(start=Medium.p_default),
+                                redeclare package Medium = Medium)
+    "Fluid connector of stream b"
     annotation (Placement(transformation(extent={{110,-12},{90,8}}, rotation=
             0), iconTransformation(extent={{110,-10},{90,10}})));
 
@@ -77,13 +73,6 @@ through the sensor is allowed.
 </html>",
 revisions="<html>
 <ul>
-<li>
-October 1, 2014, by Michael Wetter:<br/>
-Assigned nominal values for port variables to 
-avoid the warning
-alias set with different nominal values
-in OpenModelica.
-</li>
 <li>
 September 29, 2009, by Michael Wetter:<br/>
 First implementation, based on <code>Modelica.Fluid</code>.

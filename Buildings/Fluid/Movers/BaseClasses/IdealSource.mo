@@ -1,14 +1,7 @@
 within Buildings.Fluid.Movers.BaseClasses;
 model IdealSource
   "Base class for pressure and mass flow source with optional power input"
-  extends Modelica.Fluid.Interfaces.PartialTwoPortTransport(
-    show_T=false,
-    port_a(p(start=Medium.p_default,
-             nominal=Medium.p_default),
-           Xi_outflow(nominal=Medium.X_default[1:Medium.nXi])),
-    port_b(p(start=Medium.p_default,
-             nominal=Medium.p_default),
-           Xi_outflow(nominal=Medium.X_default[1:Medium.nXi])));
+  extends Modelica.Fluid.Interfaces.PartialTwoPortTransport(show_T=false);
 
   // what to control
   parameter Boolean control_m_flow "= false to control dp instead of m_flow"
@@ -91,13 +84,6 @@ adding heat to the volume, and flow work to this model.
 </html>",
 revisions="<html>
 <ul>
-<li>
-October 1, 2014, by Michael Wetter:<br/>
-Assigned nominal values for port variables to 
-avoid the warning
-alias set with different nominal values
-in OpenModelica.
-</li>
 <li>
 October 8, 2013, by Michael Wetter:<br/>
 Removed parameter <code>show_V_flow</code>.

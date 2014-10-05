@@ -17,7 +17,7 @@ model MixingVolumeHeatConduction "Test model for heat transfer to volume"
     T=313.15,
     nPorts=1) "Flow source and sink"
     annotation (Placement(transformation(extent={{-20,-20},{0,0}})));
-  Buildings.Fluid.Sources.FixedBoundary bou(
+  Modelica.Fluid.Sources.FixedBoundary bou(
     redeclare package Medium = Medium,
     T=303.15,
     nPorts=1) "Boundary condition"                         annotation (
@@ -80,13 +80,6 @@ The mixing volume is configured as a steady-state model.
 </p>
 </html>", revisions="<html>
 <ul>
-<li>
-October 1, 2014, by Michael Wetter:<br/>
-Changed instance <code>bou</code> to use model from the
-<code>Buildings</code> library as this avoids a warning about 
-alias set with different nominal values
-in OpenModelica.
-</li>
 <li>
 October 12, 2009 by Michael Wetter:<br/>
 First implementation.

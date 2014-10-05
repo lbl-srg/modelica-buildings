@@ -1,12 +1,7 @@
 within Buildings.Fluid.Sensors.BaseClasses;
 partial model PartialFlowSensor
   "Partial component to model sensors that measure flow properties"
-  extends Modelica.Fluid.Interfaces.PartialTwoPort(
-    port_a(p(nominal=Medium.p_default),
-           Xi_outflow(nominal=Medium.X_default[1:Medium.nXi])),
-    port_b(p(nominal=Medium.p_default),
-           Xi_outflow(nominal=Medium.X_default[1:Medium.nXi])));
-
+  extends Modelica.Fluid.Interfaces.PartialTwoPort;
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal(min=0)
     "Nominal mass flow rate, used for regularization near zero flow"
     annotation(Dialog(group = "Nominal condition"));
@@ -34,12 +29,6 @@ species or substance balance, and it has no flow friction.
 </html>",
 revisions="<html>
 <ul>
-<li>
-September 29, 2014, by Michael Wetter:<br/>
-Set consistent nominal values to avoid the warning
-alias set with different nominal values
-in OpenModelica.
-</li>
 <li>
 February 12, 2011, by Michael Wetter:<br/>
 First implementation.

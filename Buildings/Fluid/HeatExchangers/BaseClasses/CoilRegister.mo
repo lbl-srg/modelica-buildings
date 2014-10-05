@@ -59,32 +59,24 @@ model CoilRegister "Register for a heat exchanger"
 
   Modelica.Fluid.Interfaces.FluidPort_a[nPipPar] port_a1(
         redeclare each package Medium = Medium1,
-        each m_flow(start=0, min=if allowFlowReversal1 then -Constants.inf else 0),
-        each Xi_outflow(nominal=Medium1.X_default[1:Medium1.nXi]),
-        each p(nominal=Medium1.p_default))
+        each m_flow(start=0, min=if allowFlowReversal1 then -Constants.inf else 0))
     "Fluid connector a for medium 1 (positive design flow direction is from port_a1 to port_b1)"
     annotation (Placement(transformation(extent={{-110,50},{-90,70}}, rotation=
             0)));
   Modelica.Fluid.Interfaces.FluidPort_b[nPipPar] port_b1(
         redeclare each package Medium = Medium1,
-        each m_flow(start=0, max=if allowFlowReversal1 then +Constants.inf else 0),
-        each Xi_outflow(nominal=Medium1.X_default[1:Medium1.nXi]),
-        each p(nominal=Medium1.p_default))
+        each m_flow(start=0, max=if allowFlowReversal1 then +Constants.inf else 0))
     "Fluid connector b for medium 1 (positive design flow direction is from port_a to port_b)"
     annotation (Placement(transformation(extent={{110,50},{90,70}}, rotation=0)));
   Modelica.Fluid.Interfaces.FluidPort_a[nPipPar,nPipSeg] port_a2(
         redeclare each package Medium = Medium2,
-        each m_flow(start=0, min=if allowFlowReversal2 then -Constants.inf else 0),
-        each Xi_outflow(nominal=Medium2.X_default[1:Medium2.nXi]),
-        each p(nominal=Medium2.p_default))
+        each m_flow(start=0, min=if allowFlowReversal2 then -Constants.inf else 0))
     "Fluid connector a for medium 2 (positive design flow direction is from port_a2 to port_b2)"
     annotation (Placement(transformation(extent={{90,-70},{110,-50}}, rotation=
             0)));
   Modelica.Fluid.Interfaces.FluidPort_b[nPipPar,nPipSeg] port_b2(
         redeclare each package Medium = Medium2,
-        each m_flow(start=0, max=if allowFlowReversal2 then +Constants.inf else 0),
-        each Xi_outflow(nominal=Medium2.X_default[1:Medium2.nXi]),
-        each p(nominal=Medium2.p_default))
+        each m_flow(start=0, max=if allowFlowReversal2 then +Constants.inf else 0))
     "Fluid connector b for medium 2 (positive design flow direction is from port_a to port_b)"
     annotation (Placement(transformation(extent={{-90,-72},{-110,-52}},
           rotation=0)));
@@ -194,12 +186,6 @@ between the fluid volumes and the solid in each heat exchanger element.
 </html>",
 revisions="<html>
 <ul>
-<li>
-October 3, 2014, by Michael Wetter:<br/>
-Set consistent nominal values to avoid the warning
-alias set with different nominal values
-in OpenModelica.
-</li>
 <li>
 August 10, 2014, by Michael Wetter:<br/>
 Reformulated the multiple iterators in the <code>sum</code> function

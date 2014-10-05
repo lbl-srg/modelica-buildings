@@ -41,18 +41,13 @@ package SimpleAir
 
  redeclare replaceable model BaseProperties "Basic medium properties"
     // declarations from Modelica.Media.Interfaces.PartialMedium
-    InputAbsolutePressure p(
-      nominal=p_default,
-      start=p_default) "Absolute pressure of medium";
-    InputMassFraction[nXi] Xi(
-      nominal=X_default[1:nXi],
-      start=X_default[1:nXi]) "Structurally independent mass fractions";
+    InputAbsolutePressure p "Absolute pressure of medium";
+    InputMassFraction[nXi] Xi(start=reference_X[1:nXi])
+      "Structurally independent mass fractions";
     InputSpecificEnthalpy h "Specific enthalpy of medium";
     Density d "Density of medium";
-    Temperature T(start=T_default) "Temperature of medium";
-    MassFraction[nX] X(
-      start=X_default,
-      nominal=X_default)
+    Temperature T "Temperature of medium";
+    MassFraction[nX] X(start=reference_X)
       "Mass fractions (= (component mass)/total mass  m_i/m)";
     SpecificInternalEnergy u "Specific internal energy of medium";
     SpecificHeatCapacity R "Gas constant (of mixture if applicable)";
@@ -234,12 +229,6 @@ quantities are constant.
 </p>
 </html>", revisions="<html>
 <ul>
-<li>
-September 29, 2014, by Michael Wetter:<br/>
-Set consistent nominal values to avoid the warning
-alias set with different nominal values
-in OpenModelica.
-</li>
 <li>
 March 29, 2013, by Michael Wetter:<br/>
 Changed declarationo of <code>parameter Boolean standardOrderComponents = true</code>

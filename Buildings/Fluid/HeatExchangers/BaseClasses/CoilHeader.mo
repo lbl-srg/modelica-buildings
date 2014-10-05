@@ -18,18 +18,14 @@ model CoilHeader "Header for a heat exchanger register"
 
   Modelica.Fluid.Interfaces.FluidPort_a port_a[nPipPar](
         redeclare each final package Medium = Medium,
-        each m_flow(start=mStart_flow_a/nPipPar, min=if allowFlowReversal then -Modelica.Constants.inf else 0),
-        each Xi_outflow(nominal=Medium.X_default[1:Medium.nXi]),
-        each p(nominal=Medium.p_default))
+        each m_flow(start=mStart_flow_a/nPipPar, min=if allowFlowReversal then -Modelica.Constants.inf else 0))
     "Fluid connector a for medium (positive design flow direction is from port_a to port_b)"
     annotation (Placement(transformation(extent={{-110,-10},{-90,10}}, rotation=
            0)));
 
   Modelica.Fluid.Interfaces.FluidPort_b port_b[nPipPar](
         redeclare each final package Medium = Medium,
-        each m_flow(start=-mStart_flow_a/nPipPar, max=if allowFlowReversal then +Modelica.Constants.inf else 0),
-        each Xi_outflow(nominal=Medium.X_default[1:Medium.nXi]),
-        each p(nominal=Medium.p_default))
+        each m_flow(start=-mStart_flow_a/nPipPar, max=if allowFlowReversal then +Modelica.Constants.inf else 0))
     "Fluid connector b for medium (positive design flow direction is from port_a to port_b)"
     annotation (Placement(transformation(extent={{110,-10},{90,10}}, rotation=0)));
 
@@ -53,12 +49,6 @@ different flow reroutings in the coil header.
 </html>",
 revisions="<html>
 <ul>
-<li>
-October 3, 2014, by Michael Wetter:<br/>
-Set consistent nominal values to avoid the warning
-alias set with different nominal values
-in OpenModelica.
-</li>
 <li>
 August 22, 2008, by Michael Wetter:<br/>
 Added start value for port mass flow rate.

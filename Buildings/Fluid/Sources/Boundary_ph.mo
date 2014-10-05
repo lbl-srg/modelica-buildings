@@ -1,12 +1,7 @@
 within Buildings.Fluid.Sources;
 model Boundary_ph
   "Boundary with prescribed pressure, specific enthalpy, composition and trace substances"
-  extends Modelica.Fluid.Sources.BaseClasses.PartialSource(
-    ports(each p(nominal=Medium.p_default),
-          each Xi_outflow(nominal=Medium.X_default[1:Medium.nXi])),
-    medium(p(nominal=Medium.p_default),
-           X(nominal=Medium.X_default)));
-
+  extends Modelica.Fluid.Sources.BaseClasses.PartialSource;
   parameter Boolean use_p_in = false
     "Get the pressure from the input connector"
     annotation(Evaluate=true, HideResult=true);
@@ -162,18 +157,6 @@ with exception of boundary pressure, do not have an effect.
 </html>",
 revisions="<html>
 <ul>
-<li>
-October 1, 2014, by Michael Wetter:<br/>
-Set consistent nominal values to avoid the warning
-alias set with different nominal values
-in OpenModelica.
-</li>
-<li>
-September 29, 2014, by Michael Wetter:<br/>
-Set consistent nominal values to avoid the warning
-alias set with different nominal values
-in OpenModelica.
-</li>
 <li>
 May 29, 2014, by Michael Wetter:<br/>
 Removed undesirable annotation <code>Evaluate=true</code>.

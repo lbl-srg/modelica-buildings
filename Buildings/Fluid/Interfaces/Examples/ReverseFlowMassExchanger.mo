@@ -15,7 +15,7 @@ package Medium = Buildings.Media.PerfectGases.MoistAir;
       startTime=0)
     "Assert to test if the outputs of the forward flow and reverse flow model are identical"
     annotation (Placement(transformation(extent={{160,-60},{180,-40}})));
-  Buildings.Fluid.Sources.MassFlowSource_T source2(
+  Modelica.Fluid.Sources.MassFlowSource_T source2(
     m_flow=1,
     redeclare package Medium = Medium,
     use_m_flow_in=false,
@@ -91,7 +91,7 @@ package Medium = Buildings.Media.PerfectGases.MoistAir;
       startTime=0)
     "Assert to test if the outputs of the forward flow and reverse flow model are identical"
     annotation (Placement(transformation(extent={{-200,-80},{-180,-60}})));
-  Buildings.Fluid.Sources.MassFlowSource_T source3(
+  Modelica.Fluid.Sources.MassFlowSource_T source3(
     m_flow=1,
     redeclare package Medium = Medium,
     use_m_flow_in=false,
@@ -104,7 +104,7 @@ package Medium = Buildings.Media.PerfectGases.MoistAir;
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-150,70})));
-  Buildings.Fluid.Sources.MassFlowSource_T source4(
+  Modelica.Fluid.Sources.MassFlowSource_T source4(
     m_flow=1,
     redeclare package Medium = Medium,
     use_m_flow_in=false,
@@ -117,7 +117,7 @@ package Medium = Buildings.Media.PerfectGases.MoistAir;
         rotation=0,
         origin={38,30})));
 
-  Buildings.Fluid.Sources.MassFlowSource_T source1(
+  Modelica.Fluid.Sources.MassFlowSource_T source1(
     m_flow=1,
     redeclare package Medium = Medium,
     use_m_flow_in=false,
@@ -341,13 +341,6 @@ of stream connector. This bug will be corrected in future versions of Dymola.
 </p>
 </html>", revisions="<html>
 <ul>
-<li>
-October 1, 2014, by Michael Wetter:<br/>
-Changed flow source from <code>Modelica.Fluid</code> to
-<code>Buildings.Fluid</code> to avoid the warning
-alias set with different nominal values
-in OpenModelica.
-</li>
 <li>
 October 9, 2013, by Michael Wetter:<br/>
 Replaced

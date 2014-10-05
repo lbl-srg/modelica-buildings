@@ -3,11 +3,9 @@ partial model PartialTwoPortInterface
   "Partial model transporting fluid between two ports without storing mass or energy"
   extends Modelica.Fluid.Interfaces.PartialTwoPort(
     port_a(p(start=Medium.p_default,
-             nominal=Medium.p_default),
-           Xi_outflow(nominal=Medium.X_default[1:Medium.nXi])),
+             nominal=Medium.p_default)),
     port_b(p(start=Medium.p_default,
-             nominal=Medium.p_default),
-           Xi_outflow(nominal=Medium.X_default[1:Medium.nXi])));
+           nominal=Medium.p_default)));
 
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal
     "Nominal mass flow rate"
@@ -66,12 +64,6 @@ Buildings.Fluid.Interfaces.StaticTwoPortHeatMassExchanger</a>.
 </p>
 </html>", revisions="<html>
 <ul>
-<li>
-September 29, 2014, by Michael Wetter:<br/>
-Set consistent nominal values to avoid the warning
-alias set with different nominal values
-in OpenModelica.
-</li>
 <li>
 November 12, 2013 by Michael Wetter:<br/>
 Removed <code>import Modelica.Constants;</code> statement.
