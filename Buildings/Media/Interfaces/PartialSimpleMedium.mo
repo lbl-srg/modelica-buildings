@@ -32,10 +32,10 @@ partial package PartialSimpleMedium
   constant Modelica.SIunits.AbsolutePressure p0 = 3E5
     "Reference pressure for default medium pressure";
 
-  redeclare replaceable model extends BaseProperties(T(stateSelect=if
-          preferredMediumStates then StateSelect.prefer else StateSelect.default),
-      p(stateSelect=if preferredMediumStates then StateSelect.prefer else
-          StateSelect.default)) "Base properties"
+  redeclare replaceable model extends BaseProperties(
+     T(stateSelect=if preferredMediumStates then StateSelect.prefer else StateSelect.default),
+     p(stateSelect=if preferredMediumStates then StateSelect.prefer else StateSelect.default))
+    "Base properties"
   equation
         assert(T >= T_min and T <= T_max, "
 Temperature T (= "   + String(T) + " K) is not
