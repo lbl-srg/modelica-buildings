@@ -25,6 +25,91 @@ which is typically more readily available prior to the detailed
 HVAC system design.
 </p>
 
+<h4>Port variables</h4>
+<p>
+Component models of this package have fluid ports, which
+are a subclass of
+<a href=\"modelica://Modelica.Fluid.Interfaces.FluidPort\">
+Modelica.Fluid.Interfaces.FluidPort</a>.
+Fluid ports declare the variables listed in the table below.
+</p>
+
+<table summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+<tr>
+<th>Variable</th>
+<th>Description</th>
+</tr>
+<tr>
+  <td><code>m_flow</code></td>
+  <td>Mass flow rate <i>m&#775;</i>.<br/>
+      The convention is that <code>m_flow &ge; 0</code>
+      if at this port, mass flows into the component.</td>
+</tr>
+<tr>
+  <td><code>p</code></td>
+  <td>Absolute total pressure <i>p</i>.<br/>
+      The absolute total pressure is the sum of 
+      the static pressure and the dynamic pressure. 
+      As the total pressure is used in the connector, components
+      do not need to specify the area of the port or the velocity at the port.
+      This convention is consistent with the Modelica Standard Library.
+      Note that component models typically simplify the pressure balance
+      by not taking into account the static pressure that is caused by
+      the height of the medium column, i.e., the term
+      <i>&Delta;p = &Delta;h &rho; g,</i>
+      where
+      <i>&Delta;h</i> is the height of the medium column,
+      <i>&rho;</i> is the mass density and
+      <i>g = 9.81</i> m/s<sup>2</sup> is the gravity acceleration,
+      is ignored.</td>
+</tr>
+<tr>
+  <td><code>h_outflow</code></td>
+  <td>Specific enthalpy <i>h</i> of the outflowing fluid, i.e., 
+      assuming <i>m&#775; &lt; 0.</i><br/>
+      The specific enthalpy in the fluid port always carries the value
+      of the enthalpy that the medium would have if it was leaving
+      the component.
+      Users who need to access the actual enthalpy for the given flow
+      direction can do so using the sensor
+      <a href=\"modelica://Buildings.Fluid.Sensors.SpecificEnthalpyTwoPort\">
+      Buildings.Fluid.Sensors.SpecificEnthalpyTwoPort</a>.
+</tr>
+<tr>
+  <td><code>Xi_outflow[Medium.nXi]</code></td>
+  <td>Independent mixture mass fractions
+      <i>m<sub>i</sub>/m</i> close to the connection point, i.e., 
+      assuming <i>m&#775; &lt; 0.</i><br/>
+      The independent mixture mass fraction in the fluid port always carries the value
+      that the medium would have if it was leaving
+      the component.
+      Users who need to access the actual value for the given flow
+      direction can do so using the sensor
+      <a href=\"modelica://Buildings.Fluid.Sensors.MassFractionTwoPort\">
+      Buildings.Fluid.Sensors.MassFractionTwoPort</a>.
+      Note that this variable is only present for fluids that are a mixture
+      of different substances such as moist air. For water,
+      this variable is automatically removed when a model is translated.</td>
+</tr>
+<tr>
+  <td><code>C_outflow[Medium.nC]</code></td>
+  <td>Trace substances <i>c<sub>i</sub>/m</i> close to the connection point, i.e., 
+      assuming <i>m&#775; &lt; 0.</i><br/>
+      The trace substances in the fluid port always carries the value
+      that the medium would have if it was leaving
+      the component.
+      Users who need to access the actual value for the given flow
+      direction can do so using the sensor
+      <a href=\"modelica://Buildings.Fluid.Sensors.TraceSubstancesTwoPort\">
+      Buildings.Fluid.Sensors.TraceSubstancesTwoPort</a>.
+      Note that this variable is only present for fluids that declare
+      a trace substance such as CO<sub>2</sub>.
+      See for example
+      <a href=\"modelica://Buildings.Fluid.Sensors.Examples.TraceSubstances\">
+      Buildings.Fluid.Sensors.Examples.TraceSubstances</a>.</td>
+</tr>
+</table>
+
 <h4>Computation of flow resistance</h4>
 <p>
 Most component models compute pressure drop as a function of flow rate.

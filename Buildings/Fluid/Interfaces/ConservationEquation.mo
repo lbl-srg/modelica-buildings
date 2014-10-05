@@ -17,16 +17,13 @@ model ConservationEquation "Lumped volume with mass and energy balance"
   Medium.BaseProperties medium(
     preferredMediumStates= not (energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState),
     p(start=p_start,
-      nominal=Medium.p_default,
       stateSelect=if not (massDynamics == Modelica.Fluid.Types.Dynamics.SteadyState)
                      then StateSelect.prefer else StateSelect.default),
     h(start=hStart),
     T(start=T_start,
-      nominal=Medium.T_default,
       stateSelect=if (not (energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState))
                      then StateSelect.prefer else StateSelect.default),
     Xi(start=X_start[1:Medium.nXi],
-       nominal=Medium.X_default[1:Medium.nXi],
        each stateSelect=if (not (substanceDynamics == Modelica.Fluid.Types.Dynamics.SteadyState))
                      then StateSelect.prefer else StateSelect.default),
     d(start=rho_nominal)) "Medium properties";
@@ -255,6 +252,11 @@ Buildings.Fluid.MixingVolumes.MixingVolume</a>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+October 3, 2014, by Michael Wetter:<br/>
+Changed assignment of nominal value to avoid in OpenModelica the warning
+alias set with different nominal values.
+</li>
 <li>
 July 3, 2014, by Michael Wetter:<br/>
 Added parameter <code>initialize_p</code>. This is required
