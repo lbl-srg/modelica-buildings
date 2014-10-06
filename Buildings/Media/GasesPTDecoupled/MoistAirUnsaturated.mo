@@ -28,17 +28,15 @@ package MoistAirUnsaturated
   // "Base class ThermodynamicState is replaceable"
   // during model check
   redeclare record extends ThermodynamicState(
-    p(nominal=p_default),
-    X(nominal=X_default,
-      start=X_default)) "ThermodynamicState record for moist air"
+    p(start=p_default),
+    T(start=T_default),
+    X(start=X_default)) "ThermodynamicState record for moist air"
   end ThermodynamicState;
 
   redeclare replaceable model extends BaseProperties(
     T(stateSelect=if preferredMediumStates then StateSelect.prefer else StateSelect.default),
     p(stateSelect=if preferredMediumStates then StateSelect.prefer else StateSelect.default),
-    Xi(each stateSelect=if preferredMediumStates then StateSelect.prefer else StateSelect.default,
-       nominal=X_default[1:nXi]),
-    X(nominal=X_default),
+    Xi(each stateSelect=if preferredMediumStates then StateSelect.prefer else StateSelect.default),
     final standardOrderComponents=true)
 
     /* p, T, X = X[Water] are used as preferred states, since only then all
@@ -46,8 +44,7 @@ package MoistAirUnsaturated
      If other variables are selected as states, static state selection
      is no longer possible and non-linear algebraic equations occur.
       */
-    MassFraction x_water(nominal=X_default[1])
-      "Mass of total water/mass of dry air";
+    MassFraction x_water "Mass of total water/mass of dry air";
     Real phi "Relative humidity";
 
   protected
@@ -55,8 +52,8 @@ package MoistAirUnsaturated
       "Molar masses of components";
 
     //    MassFraction X_liquid "Mass fraction of liquid water";
-    MassFraction X_steam(nominal=X_default[1]) "Mass fraction of steam water";
-    MassFraction X_air(nominal=X_default[2]) "Mass fraction of air";
+    MassFraction X_steam "Mass fraction of steam water";
+    MassFraction X_air "Mass fraction of air";
     MassFraction X_sat
       "Steam water mass fraction of saturation boundary in kg_water/kg_moistair";
     MassFraction x_sat
