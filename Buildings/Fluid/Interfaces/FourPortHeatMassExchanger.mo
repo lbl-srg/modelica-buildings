@@ -110,7 +110,7 @@ model FourPortHeatMassExchanger
     "Heat flow rate into medium 2";
 
   Buildings.Fluid.FixedResistances.FixedResistanceDpM preDro1(
-    redeclare package Medium = Medium1,
+    redeclare final package Medium = Medium1,
     final use_dh=false,
     final m_flow_nominal=m1_flow_nominal,
     final deltaM=deltaM1,
@@ -125,7 +125,7 @@ model FourPortHeatMassExchanger
     annotation (Placement(transformation(extent={{-80,70},{-60,90}})));
 
   Buildings.Fluid.FixedResistances.FixedResistanceDpM preDro2(
-    redeclare package Medium = Medium2,
+    redeclare final package Medium = Medium2,
     final use_dh=false,
     final m_flow_nominal=m2_flow_nominal,
     final deltaM=deltaM2,
@@ -237,6 +237,10 @@ Modelica.Fluid.HeatExchangers.BasicHX</a>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+October 6, 2014, by Michael Wetter:<br/>
+Changed medium declaration in pressure drop elements to be final.
+</li>
 <li>
 May 28, 2014, by Michael Wetter:<br/>
 Removed <code>annotation(Evaluate=true)</code> for parameters <code>tau1</code>

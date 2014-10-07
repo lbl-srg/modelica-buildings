@@ -9,7 +9,7 @@ model ConservationEquation "Lumped volume with mass and energy balance"
   parameter Boolean initialize_p = not Medium.singleState
     "= true to set up initial equations for pressure";
   Modelica.Fluid.Vessels.BaseClasses.VesselFluidPorts_b ports[nPorts](
-      redeclare each package Medium = Medium) "Fluid inlets and outlets"
+      redeclare each final package Medium = Medium) "Fluid inlets and outlets"
     annotation (Placement(transformation(extent={{-40,-10},{40,10}},
       origin={0,-100})));
 
@@ -253,6 +253,10 @@ Buildings.Fluid.MixingVolumes.MixingVolume</a>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+October 6, 2014, by Michael Wetter:<br/>
+Changed medium declaration in ports to be final.
+</li>
 <li>
 October 6, 2014, by Michael Wetter:<br/>
 Set start attributes in <code>medium</code> to avoid in OpenModelica the warning

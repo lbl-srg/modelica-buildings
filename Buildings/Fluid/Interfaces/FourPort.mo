@@ -34,14 +34,14 @@ model FourPort "Partial model with four ports"
     annotation (Dialog(tab="Advanced", group="Initialization"));
 
   Modelica.Fluid.Interfaces.FluidPort_a port_a1(
-                     redeclare package Medium = Medium1,
+                     redeclare final package Medium = Medium1,
                      m_flow(min=if allowFlowReversal1 then -Modelica.Constants.inf else 0),
                      h_outflow(start=h_outflow_a1_start))
     "Fluid connector a1 (positive design flow direction is from port_a1 to port_b1)"
     annotation (Placement(transformation(extent={{-110,50},{-90,70}},
             rotation=0)));
   Modelica.Fluid.Interfaces.FluidPort_b port_b1(
-                     redeclare package Medium = Medium1,
+                     redeclare final package Medium = Medium1,
                      m_flow(max=if allowFlowReversal1 then +Modelica.Constants.inf else 0),
                      h_outflow(start=h_outflow_b1_start))
     "Fluid connector b1 (positive design flow direction is from port_a1 to port_b1)"
@@ -49,14 +49,14 @@ model FourPort "Partial model with four ports"
              0), iconTransformation(extent={{110,50},{90,70}})));
 
   Modelica.Fluid.Interfaces.FluidPort_a port_a2(
-                     redeclare package Medium = Medium2,
+                     redeclare final package Medium = Medium2,
                      m_flow(min=if allowFlowReversal2 then -Modelica.Constants.inf else 0),
                      h_outflow(start=h_outflow_a2_start))
     "Fluid connector a2 (positive design flow direction is from port_a2 to port_b2)"
     annotation (Placement(transformation(extent={{90,-70},{110,-50}},
             rotation=0)));
   Modelica.Fluid.Interfaces.FluidPort_b port_b2(
-                     redeclare package Medium = Medium2,
+                     redeclare final package Medium = Medium2,
                      m_flow(max=if allowFlowReversal2 then +Modelica.Constants.inf else 0),
                      h_outflow(start=h_outflow_b2_start))
     "Fluid connector b2 (positive design flow direction is from port_a2 to port_b2)"
@@ -84,6 +84,10 @@ Modelica.Fluid.Interfaces.PartialTwoPort</a>, except that it has four ports.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+October 6, 2014, by Michael Wetter:<br/>
+Changed medium declaration in ports to be final.
+</li>
 <li>
 October 3, 2014, by Michael Wetter:<br/>
 Changed assignment of nominal value to avoid in OpenModelica the warning
