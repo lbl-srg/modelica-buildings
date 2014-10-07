@@ -24,11 +24,10 @@ package MoistAir
   constant Modelica.SIunits.Temperature TMin = 200 "Minimum temperature";
   constant Modelica.SIunits.Temperature TMax = 400 "Maximum temperature";
 
-  // Redeclare ThermodynamicState to avoid the warning
-  // "Base class ThermodynamicState is replaceable"
-  // during model check
-  redeclare record extends ThermodynamicState
-    "ThermodynamicState record for moist air"
+  redeclare record extends ThermodynamicState(
+    p(start=p_default),
+    T(start=T_default),
+    X(start=X_default)) "ThermodynamicState record for moist air"
   end ThermodynamicState;
 
   redeclare replaceable model extends BaseProperties(

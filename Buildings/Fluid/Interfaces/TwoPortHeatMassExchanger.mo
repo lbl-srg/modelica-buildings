@@ -54,7 +54,7 @@ model TwoPortHeatMassExchanger
          rotation=0)));
 
   Buildings.Fluid.FixedResistances.FixedResistanceDpM preDro(
-    redeclare package Medium = Medium,
+    redeclare final package Medium = Medium,
     final use_dh=false,
     final m_flow_nominal=m_flow_nominal,
     final deltaM=deltaM,
@@ -151,6 +151,10 @@ Modelica.Fluid.Examples.HeatExchanger.BaseClasses.BasicHX
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+October 6, 2014, by Michael Wetter:<br/>
+Changed medium declaration in pressure drop element to be final.
+</li>
 <li>
 May 28, 2014, by Michael Wetter:<br/>
 Removed <code>annotation(Evaluate=true)</code> for parameter <code>tau</code>.

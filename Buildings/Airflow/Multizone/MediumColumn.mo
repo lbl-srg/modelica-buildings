@@ -17,14 +17,14 @@ model MediumColumn
   Modelica.Fluid.Interfaces.FluidPort_a port_a(
     redeclare package Medium = Medium,
     m_flow(min=if allowFlowReversal then -Constants.inf else 0),
-    p(start=Medium.p_default, nominal=Medium.p_default))
+    p(start=Medium.p_default))
     "Fluid connector a (positive design flow direction is from port_a to port_b)"
     annotation (Placement(transformation(extent={{-10,90},{10,110}}, rotation=0),
         iconTransformation(extent={{-10,90},{10,110}})));
   Modelica.Fluid.Interfaces.FluidPort_b port_b(
     redeclare package Medium = Medium,
     m_flow(max=if allowFlowReversal then +Constants.inf else 0),
-    p(start=Medium.p_default, nominal=Medium.p_default))
+    p(start=Medium.p_default))
     "Fluid connector b (positive design flow direction is from port_a to port_b)"
     annotation (Placement(transformation(extent={{10,-110},{-10,-90}}, rotation=
            0), iconTransformation(extent={{10,-110},{-10,-90}})));
@@ -200,6 +200,10 @@ Buildings.Airflow.Multizone.MediumColumnDynamic</a> instead of this model.
 </html>",
 revisions="<html>
 <ul>
+<li><i>October 4, 2014</i> by Michael Wetter:<br/>
+Removed assignment of <code>port_?.p.nominal</code> to avoid a warning in OpenModelica because
+alias sets have different nominal values.
+</li>
 <li><i>April 17, 2013</i> by Michael Wetter:<br/>
        Reformulated the assert statement that checks for the correct value of <code>densitySelection</code>.
 </li>
