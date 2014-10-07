@@ -26,6 +26,7 @@ model ConservationEquation "Lumped volume with mass and energy balance"
     Xi(start=X_start[1:Medium.nXi],
        each stateSelect=if (not (substanceDynamics == Modelica.Fluid.Types.Dynamics.SteadyState))
                      then StateSelect.prefer else StateSelect.default),
+    X(start=X_start),
     d(start=rho_nominal)) "Medium properties";
 
   Modelica.SIunits.Energy U "Internal energy of fluid";
@@ -252,6 +253,11 @@ Buildings.Fluid.MixingVolumes.MixingVolume</a>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+October 6, 2014, by Michael Wetter:<br/>
+Set start attributes in <code>medium</code> to avoid in OpenModelica the warning
+alias set with several free start values.
+</li>
 <li>
 October 3, 2014, by Michael Wetter:<br/>
 Changed assignment of nominal value to avoid in OpenModelica the warning
