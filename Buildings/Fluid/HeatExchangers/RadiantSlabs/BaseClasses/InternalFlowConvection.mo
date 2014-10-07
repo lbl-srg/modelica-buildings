@@ -37,6 +37,8 @@ protected
   Medium.ThermodynamicState fluSta = Medium.setState_pTX(p=Medium.p_default, T=fluid.T, X=Medium.X_default)
     "State of the medium";
 equation
+  // fixme: This model can be removed, it is no longer used.
+  assert(false, "Remove this model");
   hCon = Modelica.Fluid.Dissipation.HeatTransfer.StraightPipe.kc_overall_KC(
      IN_con=kc_IN_con, IN_var=kc_IN_var);
 
@@ -69,7 +71,7 @@ equation
         Text(
           extent={{-145,140},{155,100}},
           lineColor={0,0,255},
-          textString="%name")}),                          
+          textString="%name")}),
     Documentation(info="<html>
 <p>
 Model to compute the convective heat transfer inside a straight pipe.

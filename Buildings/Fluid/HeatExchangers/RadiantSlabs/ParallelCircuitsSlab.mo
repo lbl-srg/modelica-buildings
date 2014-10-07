@@ -45,6 +45,10 @@ model ParallelCircuitsSlab
   parameter Boolean homotopyInitialization = true "= true, use homotopy method"
     annotation(Evaluate=true, Dialog(tab="Advanced"));
 
+  parameter Boolean use_epsilon_NTU = false
+    "Set to true to use an epsilon-NTU model for the heat conduction"
+    annotation(Dialog(tab="Advanced"));
+
   // Diagnostics
    parameter Boolean show_T = false
     "= true, if actual temperature at port is computed"
@@ -81,6 +85,7 @@ model ParallelCircuitsSlab
 
   Buildings.Fluid.HeatExchangers.RadiantSlabs.SingleCircuitSlab sla(
     redeclare final package Medium = Medium,
+    final use_epsilon_NTU=use_epsilon_NTU,
     final sysTyp=sysTyp,
     final A=A/nCir,
     final disPip=disPip,

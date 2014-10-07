@@ -17,8 +17,14 @@ model SingleCircuitSlab "Model of a single circuit of a radiant slab"
       roughness=pipe.roughness,
       m_flow_small=m_flow_small),
       res(dp(nominal=200*length)));
+
   parameter Modelica.SIunits.Area A "Surface area of radiant slab"
   annotation(Dialog(group="Construction"));
+
+  parameter Boolean use_epsilon_NTU = false
+    "Set to true to use an epsilon-NTU model for the heat conduction"
+    annotation(Dialog(tab="Advanced"));
+
   parameter Modelica.SIunits.Temperature T_c_start=
     (T_a_start*con_b[1].layers.R+T_b_start*con_a[1].layers.R)/layers.R
     "Initial construction temperature in the layer that contains the pipes, used if steadyStateInitial = false"
@@ -61,40 +67,18 @@ model SingleCircuitSlab "Model of a single circuit of a radiant slab"
         origin={40,-58})));
 
 protected
-  Buildings.Fluid.HeatExchangers.RadiantSlabs.BaseClasses.InternalFlowConvection
-    hPip[nSeg](
-    each kc_IN_con=
-        Modelica.Fluid.Dissipation.HeatTransfer.StraightPipe.kc_overall_IN_con(
-        d_hyd=pipe.dIn,
-        L=length/nSeg,
-        K=pipe.roughness),
-    redeclare each final package Medium = Medium,
-    each final A=Modelica.Constants.pi*pipe.dIn*length/nSeg,
-    each fluid(T(start=T_c_start))) "Liquid side convective heat transfer"
-    annotation (Placement(transformation(extent={{-30,-60},{-10,-40}})));
-  Modelica.Blocks.Sources.RealExpression mFlu_flow[nSeg](each y=m_flow)
-    "Input signal for mass flow rate"
-    annotation (Placement(transformation(extent={{-60,-36},{-40,-16}})));
-  Modelica.Thermal.HeatTransfer.Components.ThermalConductor RWal[nSeg](each G=2*
-        Modelica.Constants.pi*pipe.k*(length/nSeg)/Modelica.Math.log(pipe.dOut/pipe.dIn))
-    "Thermal conduction through the pipe wall"
-    annotation (Placement(transformation(extent={{-58,-60},{-38,-40}})));
-
   Modelica.Thermal.HeatTransfer.Components.ThermalCollector colAllToOne(
      final m=nSeg) "Connector to assign multiple heat ports to one heat port"
     annotation (Placement(transformation(
         extent={{-6,-6},{6,6}},
         rotation=0,
-        origin={40,-86})));
+        origin={40,-80})));
   Modelica.Thermal.HeatTransfer.Components.ThermalCollector colAllToOne1(
      final m=nSeg) "Connector to assign multiple heat ports to one heat port"
     annotation (Placement(transformation(
         extent={{-6,-6},{6,6}},
         rotation=180,
         origin={40,76})));
- Modelica.Thermal.HeatTransfer.Components.ThermalConductor RFic[nSeg](each G=A/nSeg/Rx)
-    "Average fictitious thermal resistance between pipe surface and plane that contains pipe"
-    annotation (Placement(transformation(extent={{-86,-60},{-66,-40}})));
 
   final parameter Modelica.SIunits.ThermalInsulance Rx=
       Buildings.Fluid.HeatExchangers.RadiantSlabs.BaseClasses.Functions.AverageResistance(
@@ -105,47 +89,100 @@ protected
         kIns=layers.material[iLayPip+1].k,
         dIns=layers.material[iLayPip+1].x)
     "Thermal insulance for average temperature in plane with pipes";
+
+  BaseClasses.PipeToSlabConductance fluSlaCon[nSeg](
+    redeclare each final package Medium = Medium,
+    each final APip=Modelica.Constants.pi*pipe.dIn*length/nSeg,
+    each final RWal=Modelica.Math.log(pipe.dOut/pipe.dIn)/(2*Modelica.Constants.pi*pipe.k*(
+        length/nSeg)),
+    each final RFic=nSeg*Rx/A,
+    each final  m_flow_nominal=m_flow_nominal,
+    each kc_IN_con=
+        Modelica.Fluid.Dissipation.HeatTransfer.StraightPipe.kc_overall_IN_con(
+        d_hyd=pipe.dIn,
+        L=length/nSeg,
+        K=pipe.roughness),
+    each use_epsilon_NTU=use_epsilon_NTU)
+    "Conductance between fluid and the slab"
+    annotation (Placement(transformation(extent={{-28,-80},{-8,-60}})));
+
+  Modelica.SIunits.MassFraction Xi_in_a[Medium.nXi] = inStream(port_a.Xi_outflow)
+    "Inflowing mass fraction at port_a";
+  Modelica.SIunits.MassFraction Xi_in_b[Medium.nXi] = inStream(port_b.Xi_outflow)
+    "Inflowing mass fraction at port_a";
+  Modelica.Blocks.Sources.RealExpression T_a(
+    final y=Medium.temperature_phX(p=port_a.p,
+                                   h=inStream(port_a.h_outflow),
+                                   X=cat(1,Xi_in_a,{1-sum(Xi_in_a)})))
+    "Fluid temperature at port a"
+    annotation (Placement(transformation(extent={{-80,-22},{-60,-2}})));
+  Modelica.Blocks.Sources.RealExpression T_b(
+    final y=Medium.temperature_phX(p=port_b.p,
+                                   h=inStream(port_b.h_outflow),
+                                   X=cat(1,Xi_in_b,{1-sum(Xi_in_b)})))
+    "Fluid temperature at port b"
+    annotation (Placement(transformation(extent={{-80,-36},{-60,-16}})));
+
+  Modelica.Blocks.Sources.RealExpression mFlu_flow[nSeg](each y=m_flow)
+    "Input signal for mass flow rate"
+    annotation (Placement(transformation(extent={{-80,-56},{-60,-36}})));
+
+  Modelica.Blocks.Routing.Replicator T_a_rep(final nout=nSeg)
+    "Signal replicator for T_a"
+    annotation (Placement(transformation(extent={{-50,-16},{-42,-8}})));
+  Modelica.Blocks.Routing.Replicator T_b_rep(final nout=nSeg)
+    "Signal replicator for T_b"
+    annotation (Placement(transformation(extent={{-50,-30},{-42,-22}})));
 equation
-  connect(hPip.fluid, vol.heatPort)      annotation (Line(
-      points={{-10.4,-50},{-4,-50},{-4,-28},{-1,-28}},
-      color={191,0,0},
-      smooth=Smooth.None));
-  connect(RWal.port_b, hPip.solid)        annotation (Line(
-      points={{-38,-50},{-30.4,-50}},
-      color={191,0,0},
-      smooth=Smooth.None));
-  connect(RFic.port_b, RWal.port_a)        annotation (Line(
-      points={{-66,-50},{-58,-50}},
-      color={191,0,0},
-      smooth=Smooth.None));
   connect(colAllToOne1.port_b,surf_a)  annotation (Line(
       points={{40,82},{40,100},{40,100}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(colAllToOne.port_b,surf_b)  annotation (Line(
-      points={{40,-92},{40,-100},{40,-100}},
+      points={{40,-86},{40,-100}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(colAllToOne1.port_a, con_a.port_a) annotation (Line(
       points={{40,70},{40,60}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(con_a.port_b, RFic.port_a)      annotation (Line(
-      points={{40,40},{40,32},{-94,32},{-94,-50},{-86,-50}},
-      color={191,0,0},
-      smooth=Smooth.None));
   connect(colAllToOne.port_a, con_b.port_b)  annotation (Line(
-      points={{40,-80},{40,-68}},
-      color={191,0,0},
-      smooth=Smooth.None));
-  connect(con_b.port_a, RFic.port_a)       annotation (Line(
-      points={{40,-48},{40,-44},{20,-44},{20,-80},{-94,-80},{-94,-50},{-86,-50}},
+      points={{40,-74},{40,-68}},
       color={191,0,0},
       smooth=Smooth.None));
 
-  connect(mFlu_flow.y, hPip.m_flow) annotation (Line(
-      points={{-39,-26},{-36,-26},{-36,-44.5},{-30.9,-44.5}},
+  connect(fluSlaCon.fluid, vol.heatPort) annotation (Line(
+      points={{-8.4,-70},{-6,-70},{-6,-28},{-1,-28}},
+      color={191,0,0},
+      smooth=Smooth.None));
+  connect(mFlu_flow.y, fluSlaCon.m_flow) annotation (Line(
+      points={{-59,-46},{-50,-46},{-50,-66},{-29,-66}},
       color={0,0,127},
+      smooth=Smooth.None));
+  connect(T_a.y, T_a_rep.u) annotation (Line(
+      points={{-59,-12},{-50.8,-12}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(T_b.y, T_b_rep.u) annotation (Line(
+      points={{-59,-26},{-50.8,-26}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(fluSlaCon.T_a, T_a_rep.y) annotation (Line(
+      points={{-29,-60},{-36,-60},{-36,-12},{-41.6,-12}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(T_b_rep.y, fluSlaCon.T_b) annotation (Line(
+      points={{-41.6,-26},{-38,-26},{-38,-63},{-29,-63}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(con_b.port_a, fluSlaCon.solid) annotation (Line(
+      points={{40,-48},{40,-40},{20,-40},{20,-90},{-88,-90},{-88,-70},{-28.4,-70}},
+      color={191,0,0},
+      smooth=Smooth.None));
+
+  connect(fluSlaCon.solid, con_a.port_b) annotation (Line(
+      points={{-28.4,-70},{-88,-70},{-88,30},{40,30},{40,40}},
+      color={191,0,0},
       smooth=Smooth.None));
   annotation (
 defaultComponentName="sla",
@@ -354,5 +391,7 @@ April 3, 2012, by Xiufeng Pang:<br/>
 First implementation.
 </li>
 </ul>
-</html>"));
+</html>"),
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
+            100}}), graphics));
 end SingleCircuitSlab;
