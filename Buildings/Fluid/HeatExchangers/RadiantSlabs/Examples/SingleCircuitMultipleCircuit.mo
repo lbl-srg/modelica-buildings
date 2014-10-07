@@ -1,5 +1,6 @@
 within Buildings.Fluid.HeatExchangers.RadiantSlabs.Examples;
-model SingleCircuitMultipleCircuit "Model that tests the radiant slab"
+model SingleCircuitMultipleCircuit
+  "Model that tests the radiant slab with multiple parallel circuits"
   extends Modelica.Icons.Example;
  package Medium = Buildings.Media.ConstantPropertyLiquidWater;
       inner Modelica.Fluid.System system
@@ -24,8 +25,8 @@ model SingleCircuitMultipleCircuit "Model that tests the radiant slab"
     disPip=0.2,
     A=A,
     nSeg=nSeg,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
-    "Slabe with embedded pipes"
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    use_epsilon_NTU=false) "Slabe with embedded pipes"
     annotation (Placement(transformation(extent={{-14,10},{6,30}})));
 
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal=
@@ -75,8 +76,8 @@ model SingleCircuitMultipleCircuit "Model that tests the radiant slab"
     disPip=0.2,
     A=A,
     nSeg=nSeg,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
-    "Slabe with embedded pipes"
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    use_epsilon_NTU=false) "Slabe with embedded pipes"
     annotation (Placement(transformation(extent={{10,-30},{30,-10}})));
 
   Modelica.Thermal.HeatTransfer.Components.ThermalConductor conBel2(G=20*A)
@@ -96,8 +97,8 @@ model SingleCircuitMultipleCircuit "Model that tests the radiant slab"
     nCir=nCir,
     A=nCir*A,
     m_flow_nominal=nCir*m_flow_nominal,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
-    "Slabe with embedded pipes"
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    use_epsilon_NTU=false) "Slabe with embedded pipes"
     annotation (Placement(transformation(extent={{30,-70},{50,-50}})));
 
   Modelica.Thermal.HeatTransfer.Components.ThermalConductor conAbo3(G=nCir*20*A)
