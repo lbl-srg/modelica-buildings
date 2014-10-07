@@ -21,7 +21,7 @@ model ParallelCircuitsSlab
       m_flow_small=m_flow_small/nCir));
 
   parameter Integer nCir(min=1) = 1 "Number of parallel circuits";
-  parameter Integer nSeg(min=1) = 10
+  parameter Integer nSeg(min=1) = 1
     "Number of volume segments in each circuit (along flow path)";
 
   parameter Modelica.SIunits.Area A
@@ -45,7 +45,7 @@ model ParallelCircuitsSlab
   parameter Boolean homotopyInitialization = true "= true, use homotopy method"
     annotation(Evaluate=true, Dialog(tab="Advanced"));
 
-  parameter Boolean use_epsilon_NTU = false
+  parameter Boolean use_epsilon_NTU = true
     "Set to true to use an epsilon-NTU model for the heat conduction"
     annotation(Dialog(tab="Advanced"));
 

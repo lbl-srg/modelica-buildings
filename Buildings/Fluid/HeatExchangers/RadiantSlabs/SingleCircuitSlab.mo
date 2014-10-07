@@ -2,6 +2,7 @@ within Buildings.Fluid.HeatExchangers.RadiantSlabs;
 model SingleCircuitSlab "Model of a single circuit of a radiant slab"
   extends Buildings.Fluid.HeatExchangers.RadiantSlabs.BaseClasses.Slab;
   extends Buildings.Fluid.FixedResistances.BaseClasses.Pipe(
+     nSeg=1,
      final diameter=pipe.dIn,
      length=A/disPip,
      final thicknessIns=0,
@@ -21,7 +22,7 @@ model SingleCircuitSlab "Model of a single circuit of a radiant slab"
   parameter Modelica.SIunits.Area A "Surface area of radiant slab"
   annotation(Dialog(group="Construction"));
 
-  parameter Boolean use_epsilon_NTU = false
+  parameter Boolean use_epsilon_NTU = true
     "Set to true to use an epsilon-NTU model for the heat conduction"
     annotation(Dialog(tab="Advanced"));
 
