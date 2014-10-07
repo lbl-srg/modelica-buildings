@@ -1,35 +1,30 @@
 within Buildings.Electrical.AC.ThreePhasesUnbalanced.Lines;
-model TwoPortRL
-  "Model of a resistive-inductive element with two electrical ports"
+model TwoPortResistance "Model of a resistance with two electrical ports"
   extends Modelica.Electrical.Analog.Interfaces.ConditionalHeatPort;
   extends Buildings.Electrical.AC.ThreePhasesUnbalanced.Interfaces.TwoPort;
-  parameter Modelica.SIunits.Resistance R(start=1)
-    "Resistance at temperature T_ref" annotation(Evaluate=true);
   parameter Modelica.SIunits.Temperature T_ref = 298.15 "Reference temperature"
                                                                                 annotation(Evaluate=true);
   parameter Modelica.SIunits.Temperature M = 507.65
     "Temperature constant (R_actual = R*(M + T_heatPort)/(M + T_ref))" annotation(Evaluate=true);
-  parameter Modelica.SIunits.Inductance L(start=0) "Inductance";
-  OnePhase.Lines.TwoPortRL  phase1(
+  parameter Modelica.SIunits.Resistance R(start=1)
+    "Resistance at temperature T_ref";
+  OnePhase.Lines.TwoPortResistance  phase1(
     T_ref=T_ref,
     M=M,
     R=R/3,
-    L=L/3,
-    useHeatPort=useHeatPort) "Impedance line 1"
+    useHeatPort=useHeatPort) "Resistance line 1"
     annotation (Placement(transformation(extent={{-10,20},{10,40}})));
-  OnePhase.Lines.TwoPortRL phase2(
+  OnePhase.Lines.TwoPortResistance phase2(
     T_ref=T_ref,
     M=M,
     R=R/3,
-    L=L/3,
-    useHeatPort=useHeatPort) "Impedance line 2"
+    useHeatPort=useHeatPort) "Resistance line 2"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
-  OnePhase.Lines.TwoPortRL phase3(
+  OnePhase.Lines.TwoPortResistance phase3(
     T_ref=T_ref,
     M=M,
     R=R/3,
-    L=L/3,
-    useHeatPort=useHeatPort) "Impedance line 3"
+    useHeatPort=useHeatPort) "Resistance line 3"
     annotation (Placement(transformation(extent={{-10,-40},{10,-20}})));
 equation
   LossPower = 0;
@@ -76,9 +71,9 @@ equation
           preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
                                                graphics={
           Text(
-            extent={{-150,-28},{136,-60}},
+            extent={{-140,-28},{138,-60}},
             lineColor={0,0,0},
-          textString="R=%R, L=%L"),
+          textString="R=%R"),
           Line(points={{-92,0},{-72,0}}, color={0,0,0}),
           Line(points={{68,0},{88,0}}, color={0,0,0}),
         Rectangle(
@@ -86,64 +81,33 @@ equation
           lineColor={0,0,0},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid),
-          Line(
-          points={{-6.85214e-44,-8.39117e-60},{66,8.0824e-15}},
-          color={0,0,0},
-          origin={52,0},
-          rotation=180),
-        Line(
-          points={{-48,0},{-42,0},{-40,4},{-36,-4},{-32,4},{-28,-4},{-24,4},{-20,
-              -4},{-18,0},{-14,0}},
-          color={0,0,0},
-          smooth=Smooth.None),
-        Ellipse(
-          extent={{-6,6},{6,-6}},
-          lineColor={0,0,0},
-          fillColor={255,255,255},
-          fillPattern=FillPattern.Solid),
-        Ellipse(
-          extent={{6,6},{18,-6}},
-          lineColor={0,0,0},
-          fillColor={255,255,255},
-          fillPattern=FillPattern.Solid),
-        Ellipse(
-          extent={{18,6},{30,-6}},
-          lineColor={0,0,0},
-          fillColor={255,255,255},
-          fillPattern=FillPattern.Solid),
-        Rectangle(
-          extent={{-6,0},{30,-12}},
-          fillColor={255,255,255},
-          fillPattern=FillPattern.Solid,
-          pattern=LinePattern.None),
           Text(
             extent={{-142,80},{138,40}},
             lineColor={0,0,0},
           textString="%name")}),
     Documentation(info="<html>
 <p>
-Resistive-inductive model that connects two AC three phases 
+Resistive model that connects two AC three phases 
 unbalanced interfaces. This model can be used to represent a
 cable in a three phases unbalanced AC system.
 </p>
 
 <p align=\"center\">
-<img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Electrical/AC/ThreePhasesUnbalanced/Lines/twoPortRL.png\"/>
+<img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Electrical/AC/ThreePhasesUnbalanced/Lines/twoPortR.png\"/>
 </p>
 
 <p>
-The model represents the lumped impedances as shown in the figure above.
-Assuming that the overall cable has a resistance <i>R</i> and an inductance
-<i>L</i>, each line has an inductance equal to <i>L/3</i> and a resistance
-equal to <i>R/3</i>.
+The model represents the lumped resistance as shown in the figure above.
+Assuming that the resistance <i>R</i> is the overall resistance of the cable,
+each line has a resistance equal to <i>R/3</i>.
 </p>
 
 </html>", revisions="<html>
 <ul>
 <li>
-October 6, 2014, by Marco Bonvini:<br/>
-Revised documentation and model.
+October 3, 2014, by Marco Bonvini:<br/>
+Added model and documentation.
 </li>
 </ul>
 </html>"));
-end TwoPortRL;
+end TwoPortResistance;

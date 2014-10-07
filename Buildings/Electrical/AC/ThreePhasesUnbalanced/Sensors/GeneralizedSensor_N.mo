@@ -1,6 +1,7 @@
 within Buildings.Electrical.AC.ThreePhasesUnbalanced.Sensors;
 model GeneralizedSensor_N
   "Sensor for power, voltage and current (4 wire system, with neutral cable)"
+
   Interfaces.Terminal4_n terminal_n "Electrical connector side N"
     annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
   Interfaces.Terminal4_p terminal_p "Electrical connector side P"
@@ -45,7 +46,8 @@ equation
       points={{-100,0},{100,0}},
       color={0,120,120},
       smooth=Smooth.None));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
+  annotation (defaultComponentName="sen",
+  Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}), graphics), Icon(graphics={
         Rectangle(
           extent={{-70,28},{70,-30}},

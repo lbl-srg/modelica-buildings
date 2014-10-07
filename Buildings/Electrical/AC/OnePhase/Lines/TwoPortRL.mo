@@ -2,7 +2,7 @@ within Buildings.Electrical.AC.OnePhase.Lines;
 model TwoPortRL
   "Model of a resistive-inductive element with two electrical ports"
   extends Buildings.Electrical.Transmission.BaseClasses.PartialTwoPortRLC(
-    V_nominal(start = 120),
+    final V_nominal=0,
     redeclare package PhaseSystem_p = PhaseSystems.OnePhase,
     redeclare package PhaseSystem_n = PhaseSystems.OnePhase,
     redeclare Interfaces.Terminal_n terminal_n,

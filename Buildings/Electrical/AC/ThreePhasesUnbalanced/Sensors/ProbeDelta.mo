@@ -24,7 +24,8 @@ equation
       points={{0,-90},{0,4.44089e-16},{10,4.44089e-16}},
       color={0,120,120},
       smooth=Smooth.None));
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
+  annotation (defaultComponentName="sen",
+  Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
             {100,100}}), graphics={Text(
           extent={{40,60},{100,40}},
           lineColor={0,120,120},

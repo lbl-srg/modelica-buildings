@@ -20,7 +20,8 @@ equation
         V[i] = Buildings.Electrical.PhaseSystems.OnePhase.systemVoltage(term.phase[i].v - term.phase[4].v);
       end if;
   end for;
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
+  annotation (defaultComponentName="sen",
+  Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
             {100,100}}), graphics={
         Line(
           points={{0,-10},{0,-30},{-14,-44}},

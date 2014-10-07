@@ -1,38 +1,32 @@
 within Buildings.Electrical.AC.ThreePhasesUnbalanced.Lines;
-model Line
+model Line "Model of an electrical line without neutral cable"
+  extends Buildings.Electrical.AC.ThreePhasesUnbalanced.Interfaces.TwoPort;
   extends Buildings.Electrical.Transmission.BaseClasses.PartialBaseLine(
   V_nominal(start = 480),
   commercialCable = Buildings.Electrical.Transmission.Functions.selectCable_low(P_nominal, V_nominal));
-  Interfaces.Terminal_n terminal_n
-    annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
-  Interfaces.Terminal_p terminal_p
-    annotation (Placement(transformation(extent={{90,-10},{110,10}})));
   OnePhase.Lines.TwoPortRL  phase1(
     useHeatPort=true,
     T_ref=T_ref,
     M=M,
-    V_nominal=V_nominal,
     R=R/3,
     L=L/3,
-    mode=modelMode)
+    mode=modelMode) "Impedance line 1"
     annotation (Placement(transformation(extent={{-10,20},{10,40}})));
   OnePhase.Lines.TwoPortRL phase2(
     useHeatPort=true,
     T_ref=T_ref,
     M=M,
-    V_nominal=V_nominal,
     R=R/3,
     L=L/3,
-    mode=modelMode)
+    mode=modelMode) "Impedance line 2"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   OnePhase.Lines.TwoPortRL phase3(
     useHeatPort=true,
     T_ref=T_ref,
     M=M,
-    V_nominal=V_nominal,
     R=R/3,
     L=L/3,
-    mode=modelMode)
+    mode=modelMode) "Impedance line 3"
     annotation (Placement(transformation(extent={{-10,-40},{10,-20}})));
 equation
 
@@ -105,5 +99,22 @@ equation
         Line(
           points={{96,0},{60,0}},
           color={0,0,0},
-          smooth=Smooth.None)}));
+          smooth=Smooth.None)}),
+    Documentation(revisions="<html>
+<ul>
+<li>
+October 6, 2014, by Marco Bonvini:<br/>
+Revised documentation and model.
+</li>
+</ul>
+</html>", info="<html>
+<p>
+This model represents an AC three phases unbalanced cable without
+neutral connection. The model is based on 
+<a href=\"Buildings.Electrical.AC.ThreePhasesUnbalanced.Lines.TwoPortRLC\">
+Buildings.Electrical.AC.ThreePhasesUnbalanced.Lines.TwoPortRLC</a>
+and provides functionalities to parametrize the values of <i>R</i>, <i>L</i> and <i>C</i> either
+using commercial cables or using default values.
+</p>
+</html>"));
 end Line;

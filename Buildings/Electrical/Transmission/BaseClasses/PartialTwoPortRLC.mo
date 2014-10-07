@@ -48,21 +48,25 @@ equation
           origin={64,16},
           rotation=180),
           Line(
+          visible = C > 0,
           points={{-6.85214e-44,-8.39117e-60},{-4.17982e-15,16}},
           color={0,0,0},
           origin={22,16},
           rotation=180),
           Line(
+          visible = C > 0,
           points={{-6.85214e-44,-8.39117e-60},{16,1.95937e-15}},
           color={0,0,0},
           origin={30,0},
           rotation=180),
           Line(
+          visible = C > 0,
           points={{-6.85214e-44,-8.39117e-60},{16,1.95937e-15}},
           color={0,0,0},
           origin={30,-4},
           rotation=180),
           Line(
+          visible = C > 0,
           points={{-6.85214e-44,-8.39117e-60},{-2.40346e-15,16}},
           color={0,0,0},
           origin={22,-4},

@@ -5,7 +5,7 @@ package Validation "Package with validation examples and tests for the AC three 
 
 annotation (Documentation(info="<html>
 <p>
-This package contains examples for the use of models that can be found in
+This package contains examples for the validation of models that can be found in
 <a href=\"modelica://Buildings.Electrical.AC.ThreePhasesUnbalanced\">
 Buildings.Electrical.AC.ThreePhasesUnbalanced</a>.
 </p>

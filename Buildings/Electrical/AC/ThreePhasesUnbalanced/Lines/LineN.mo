@@ -1,45 +1,40 @@
 within Buildings.Electrical.AC.ThreePhasesUnbalanced.Lines;
-model LineN
-  extends Buildings.Electrical.Transmission.BaseClasses.PartialBaseLine(V_nominal = 480);
-  Interfaces.Terminal4_n terminal_n
-    annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
-  Interfaces.Terminal4_p terminal_p
-    annotation (Placement(transformation(extent={{90,-10},{110,10}})));
+model LineN "Model of an electrical line with neutral cable"
+  extends Buildings.Electrical.AC.ThreePhasesUnbalanced.Interfaces.TwoPort_N;
+  extends Buildings.Electrical.Transmission.BaseClasses.PartialBaseLine(
+  V_nominal(start = 480),
+  commercialCable = Buildings.Electrical.Transmission.Functions.selectCable_low(P_nominal, V_nominal));
   OnePhase.Lines.TwoPortRL  phase1(
     useHeatPort=true,
     T_ref=T_ref,
     M=M,
-    V_nominal=V_nominal,
     mode=modelMode,
     R=R/3,
-    L=L/3)
+    L=L/3) "Impedance line 1"
     annotation (Placement(transformation(extent={{-10,20},{10,40}})));
   OnePhase.Lines.TwoPortRL phase2(
     useHeatPort=true,
     T_ref=T_ref,
     M=M,
-    V_nominal=V_nominal,
     mode=modelMode,
     R=R/3,
-    L=L/3)
+    L=L/3) "Impedance line 1"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   OnePhase.Lines.TwoPortRL phase3(
     useHeatPort=true,
     T_ref=T_ref,
     M=M,
-    V_nominal=V_nominal,
     mode=modelMode,
     R=R/3,
-    L=L/3)
+    L=L/3) "Impedance line 1"
     annotation (Placement(transformation(extent={{-10,-40},{10,-20}})));
   OnePhase.Lines.TwoPortRL neutral(
     useHeatPort=true,
     T_ref=T_ref,
     M=M,
-    V_nominal=V_nominal,
     mode=modelMode,
     R=R/3,
-    L=L/3)
+    L=L/3) "Impedance of the neutral cable"
     annotation (Placement(transformation(extent={{-10,-70},{10,-50}})));
 equation
 
@@ -126,5 +121,22 @@ equation
         Line(
           points={{96,0},{60,0}},
           color={0,0,0},
-          smooth=Smooth.None)}));
+          smooth=Smooth.None)}),
+    Documentation(revisions="<html>
+<ul>
+<li>
+October 6, 2014, by Marco Bonvini:<br/>
+Revised documentation and model.
+</li>
+</ul>
+</html>", info="<html>
+<p>
+This model represents an AC three phases unbalanced cable with
+neutral connection. The model is based on 
+<a href=\"Buildings.Electrical.AC.ThreePhasesUnbalanced.Lines.TwoPortRLC\">
+Buildings.Electrical.AC.ThreePhasesUnbalanced.Lines.TwoPortRLC</a>
+and provides functionalities to parametrize the values of <i>R</i>, <i>L</i> and <i>C</i> either
+using commercial cables or using default values.
+</p>
+</html>"));
 end LineN;

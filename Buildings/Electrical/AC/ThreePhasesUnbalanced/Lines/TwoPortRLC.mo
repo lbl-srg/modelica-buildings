@@ -1,34 +1,38 @@
 within Buildings.Electrical.AC.ThreePhasesUnbalanced.Lines;
-model TwoPortRL
-  "Model of a resistive-inductive element with two electrical ports"
+model TwoPortRLC "Model of an RLC element with two electrical ports"
   extends Modelica.Electrical.Analog.Interfaces.ConditionalHeatPort;
   extends Buildings.Electrical.AC.ThreePhasesUnbalanced.Interfaces.TwoPort;
   parameter Modelica.SIunits.Resistance R(start=1)
-    "Resistance at temperature T_ref" annotation(Evaluate=true);
+    "Resistance at temperature T_ref";
+  parameter Modelica.SIunits.Capacitance C(start=0) "Capacity";
+  parameter Modelica.SIunits.Inductance L(start=0) "Inductance";
+
   parameter Modelica.SIunits.Temperature T_ref = 298.15 "Reference temperature"
-                                                                                annotation(Evaluate=true);
+                            annotation(Evaluate=true);
   parameter Modelica.SIunits.Temperature M = 507.65
     "Temperature constant (R_actual = R*(M + T_heatPort)/(M + T_ref))" annotation(Evaluate=true);
-  parameter Modelica.SIunits.Inductance L(start=0) "Inductance";
-  OnePhase.Lines.TwoPortRL  phase1(
+  OnePhase.Lines.TwoPortRLC  phase1(
     T_ref=T_ref,
     M=M,
     R=R/3,
     L=L/3,
+    C=C/3,
     useHeatPort=useHeatPort) "Impedance line 1"
     annotation (Placement(transformation(extent={{-10,20},{10,40}})));
-  OnePhase.Lines.TwoPortRL phase2(
+  OnePhase.Lines.TwoPortRLC phase2(
     T_ref=T_ref,
     M=M,
     R=R/3,
     L=L/3,
+    C=C/3,
     useHeatPort=useHeatPort) "Impedance line 2"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
-  OnePhase.Lines.TwoPortRL phase3(
+  OnePhase.Lines.TwoPortRLC phase3(
     T_ref=T_ref,
     M=M,
     R=R/3,
     L=L/3,
+    C=C/3,
     useHeatPort=useHeatPort) "Impedance line 3"
     annotation (Placement(transformation(extent={{-10,-40},{10,-20}})));
 equation
@@ -87,57 +91,81 @@ equation
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid),
           Line(
-          points={{-6.85214e-44,-8.39117e-60},{66,8.0824e-15}},
+          points={{-6.85214e-44,-8.39117e-60},{96,1.22003e-14}},
           color={0,0,0},
-          origin={52,0},
+          origin={62,16},
+          rotation=180),
+          Line(
+          points={{-6.85214e-44,-8.39117e-60},{-4.17982e-15,16}},
+          color={0,0,0},
+          origin={20,16},
+          rotation=180),
+          Line(
+          points={{-6.85214e-44,-8.39117e-60},{16,1.95937e-15}},
+          color={0,0,0},
+          origin={28,0},
+          rotation=180),
+          Line(
+          points={{-6.85214e-44,-8.39117e-60},{16,1.95937e-15}},
+          color={0,0,0},
+          origin={28,-4},
+          rotation=180),
+          Line(
+          points={{-6.85214e-44,-8.39117e-60},{-2.40346e-15,16}},
+          color={0,0,0},
+          origin={20,-4},
           rotation=180),
         Line(
-          points={{-48,0},{-42,0},{-40,4},{-36,-4},{-32,4},{-28,-4},{-24,4},{-20,
-              -4},{-18,0},{-14,0}},
+          points={{-68,16},{-62,16},{-60,20},{-56,12},{-52,20},{-48,12},{-44,20},
+              {-40,12},{-38,16},{-34,16}},
           color={0,0,0},
           smooth=Smooth.None),
         Ellipse(
-          extent={{-6,6},{6,-6}},
+          extent={{-26,22},{-14,10}},
           lineColor={0,0,0},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid),
         Ellipse(
-          extent={{6,6},{18,-6}},
+          extent={{-14,22},{-2,10}},
           lineColor={0,0,0},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid),
         Ellipse(
-          extent={{18,6},{30,-6}},
+          extent={{-2,22},{10,10}},
           lineColor={0,0,0},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid),
         Rectangle(
-          extent={{-6,0},{30,-12}},
+          extent={{-26,16},{10,4}},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid,
           pattern=LinePattern.None),
+          Text(
+            extent={{-144,-56},{142,-88}},
+            lineColor={0,0,0},
+          textString="C=%C"),
           Text(
             extent={{-142,80},{138,40}},
             lineColor={0,0,0},
           textString="%name")}),
     Documentation(info="<html>
 <p>
-Resistive-inductive model that connects two AC three phases 
+RLC line model (T-model) that connects two AC three phases 
 unbalanced interfaces. This model can be used to represent a
 cable in a three phases unbalanced AC system.
 </p>
 
 <p align=\"center\">
-<img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Electrical/AC/ThreePhasesUnbalanced/Lines/twoPortRL.png\"/>
+<img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Electrical/AC/ThreePhasesUnbalanced/Lines/twoPortRLC.png\"/>
 </p>
 
 <p>
 The model represents the lumped impedances as shown in the figure above.
-Assuming that the overall cable has a resistance <i>R</i> and an inductance
-<i>L</i>, each line has an inductance equal to <i>L/3</i> and a resistance
-equal to <i>R/3</i>.
+Assuming that the overall cable has a resistance <i>R</i>, an inductance
+<i>L</i>, and a capacitance <i>C</i>, each line has an inductance equal 
+to <i>L/3</i>, a resistance equal to <i>R/3</i> and a capacity equal to
+<i>C/3</i>.
 </p>
-
 </html>", revisions="<html>
 <ul>
 <li>
@@ -146,4 +174,4 @@ Revised documentation and model.
 </li>
 </ul>
 </html>"));
-end TwoPortRL;
+end TwoPortRLC;

@@ -3,6 +3,16 @@ package Lines "Package with transmission line models for three phases unbalanced
   extends Modelica.Icons.Package;
 
 
+
+
+
+
+
+
+
+
+
+
 annotation (Icon(graphics={
       Ellipse(
         extent={{42,6},{18,-30}},
@@ -27,5 +37,10 @@ August 25, 2014, by Marco Bonvini:<br/>
 Revised documentation.
 </li>
 </ul>
+</html>", info="<html>
+<p>
+This package contains models for transmission lines and electrical networks
+of AC three phases unbalanced systems. 
+</p>
 </html>"));
 end Lines;

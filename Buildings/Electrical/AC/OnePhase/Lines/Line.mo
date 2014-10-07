@@ -13,8 +13,7 @@ protected
     useHeatPort=true,
     mode=modelMode,
     M=M,
-    T_ref=T_ref,
-    V_nominal=V_nominal) "Model of the line"
+    T_ref=T_ref) "Model of the line"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 
 equation

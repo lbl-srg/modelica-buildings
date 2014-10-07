@@ -1,5 +1,5 @@
 within Buildings.Electrical.AC.ThreePhasesUnbalanced.Lines;
-model Network
+model Network "Three phases unbalanced AC network without neutral cable"
   extends Transmission.BaseClasses.PartialNetwork(
     redeclare
       Buildings.Electrical.AC.ThreePhasesUnbalanced.Interfaces.Terminal_p         terminal,
@@ -19,5 +19,28 @@ equation
     Vabs[3,i] = Buildings.Electrical.PhaseSystems.OnePhase.systemVoltage(terminal[i].phase[3].v);
   end for;
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}}), graphics));
+            -100},{100,100}}), graphics), Documentation(revisions="<html>
+<ul>
+<li>
+October 6, 2014, by Marco Bonvini:<br/>
+Revised documentation and model.
+</li>
+</ul>
+</html>", info="<html>
+<p>
+This model represents a generalized electrical AC three phases unbalanced network
+without neutral cable.
+</p>
+<p>
+Look at <a href=\"modelica://Buildings.Electrical.Transmission.BaseClasses.PartialNetwork\">
+Buildings.Electrical.Transmission.BaseClasses.PartialNetwork</a>
+for information about the network model.
+</p>
+<p>
+Look at <a href=\"modelica://Buildings.Electrical.Transmission.Grids.PartialGrid\">
+Buildings.Electrical.Transmission.Grids.PartialGrid</a>
+for more information about the topology of the network, such as
+the number of nodes, how they are connected, and the length of each connection.
+</p>
+</html>"));
 end Network;
