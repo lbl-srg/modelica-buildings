@@ -204,8 +204,6 @@ revisions="<html>
 Removed assignment of <code>port_?.p.nominal</code> to avoid a warning in OpenModelica because
 alias sets have different nominal values.
 </li>
-</li>
-
 <li><i>April 17, 2013</i> by Michael Wetter:<br/>
        Reformulated the assert statement that checks for the correct value of <code>densitySelection</code>.
 </li>
