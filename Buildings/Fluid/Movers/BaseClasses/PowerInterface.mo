@@ -43,9 +43,9 @@ protected
   //Modelica.SIunits.HeatFlowRate QThe_flow "Heat input into the medium";
   parameter Modelica.SIunits.VolumeFlowRate delta_V_flow = 1E-3*V_flow_max
     "Factor used for setting heat input into medium to zero at very small flows";
-  final parameter Real motDer[size(per.motorEfficiency.r_V, 1)](each fixed=false)
+  final parameter Real motDer[size(per.motorEfficiency.V_flow, 1)](each fixed=false)
     "Coefficients for polynomial of pressure vs. flow rate";
-  final parameter Real hydDer[size(per.hydraulicEfficiency.r_V,1)](each fixed=false)
+  final parameter Real hydDer[size(per.hydraulicEfficiency.V_flow,1)](each fixed=false)
     "Coefficients for polynomial of pressure vs. flow rate";
 
   Modelica.SIunits.HeatFlowRate QThe_flow
@@ -55,24 +55,25 @@ initial algorithm
  // Compute derivatives for cubic spline
  motDer :=
    if per.use_powerCharacteristic then
-     zeros(size(per.motorEfficiency.r_V, 1))
-   elseif ( size(per.motorEfficiency.r_V, 1) == 1)  then
+     zeros(size(per.motorEfficiency.V_flow, 1))
+   elseif ( size(per.motorEfficiency.V_flow, 1) == 1)  then
        {0}
    else
       Buildings.Utilities.Math.Functions.splineDerivatives(
-      x=per.motorEfficiency.r_V,
+      x=per.motorEfficiency.V_flow,
       y=per.motorEfficiency.eta,
       ensureMonotonicity=Buildings.Utilities.Math.Functions.isMonotonic(x=per.motorEfficiency.eta,
                                                                         strict=false));
   hydDer :=
      if per.use_powerCharacteristic then
-       zeros(size(per.hydraulicEfficiency.r_V, 1))
-     elseif ( size(per.hydraulicEfficiency.r_V, 1) == 1)  then
+       zeros(size(per.hydraulicEfficiency.V_flow, 1))
+     elseif ( size(per.hydraulicEfficiency.V_flow, 1) == 1)  then
        {0}
      else
        Buildings.Utilities.Math.Functions.splineDerivatives(
-                   x=per.hydraulicEfficiency.r_V,
+                   x=per.hydraulicEfficiency.V_flow,
                    y=per.hydraulicEfficiency.eta);
+
 equation
   eta = etaHyd * etaMot;
 //  WFlo = eta * P;

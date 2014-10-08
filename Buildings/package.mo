@@ -255,6 +255,7 @@ have been <b style=\"color:blue\">improved</b> in a
 <tr><td colspan=\"2\"><b>Buildings.Media</b>
     </td>
 </tr>
+<<<<<<< HEAD
 <tr><td valign=\"top\">Buildings.Media.Interfaces.PartialSimpleIdealGasMedium<br/>
                        Buildings.Media.Interfaces.PartialSimpleMedium
     </td>
@@ -269,6 +270,21 @@ have been <b style=\"color:blue\">improved</b> in a
 </tr>
 
 
+=======
+<tr><td valign=\"top\">Buildings.Fluid.Movers.FlowMachine_y<br/>
+                       Buildings.Fluid.Movers.FlowMachine_Nrpm<br/>
+                       Buildings.Fluid.Movers.FlowMachine_dp<br/>
+                       Buildings.Fluid.Movers.FlowMachine_m_flow
+
+    </td>
+    <td valign=\"top\">For the parameter setting <code>use_powerCharacteristic=true</code>,
+                     changed the computation of the power consumption at
+                     reduced speed to properly account for the
+                     affinity laws. This is in response to
+                     <a href=\"https://github.com/lbl-srg/modelica-buildings/pull/202\">#202</a>.
+    </td>
+</tr>
+>>>>>>> d165e8b... Merged code from Filip Matadon, added smoothing and documention.
 <tr><td colspan=\"2\"><b>xxx</b>
     </td>
 </tr>
@@ -4128,6 +4144,8 @@ The following people have directly contributed to the implementation of the Buil
 <li>Brandon M. Hencey, Cornell University, USA
 </li>
 <li>Roman Ilk, University of Applied Sciences Technikum Wien, Austria
+</li>
+<li>Filip Mathadon, KU Leuven, Belgium
 </li>
 <li>Thierry S. Nouidui, Lawrence Berkeley National Laboratory, USA
 </li>

@@ -13,10 +13,12 @@ record Generic "Generic data record for pumps and fans"
     annotation(Evaluate=true);
   parameter
     Buildings.Fluid.Movers.BaseClasses.Characteristics.efficiencyParameters
-    hydraulicEfficiency(r_V={1}, eta={0.7}) "Hydraulic efficiency";
+    hydraulicEfficiency(V_flow=efficiency.V_flow, eta=sqrt(efficiency.eta))
+    "Hydraulic efficiency";
   parameter
     Buildings.Fluid.Movers.BaseClasses.Characteristics.efficiencyParameters
-    motorEfficiency(r_V={1}, eta={0.7}) "Electric motor efficiency";
+    motorEfficiency(V_flow=efficiency.V_flow, eta=sqrt(efficiency.eta))
+    "Electric motor efficiency";
   parameter Buildings.Fluid.Movers.BaseClasses.Characteristics.powerParameters
     power(V_flow={1}, P={1})
     "Volume flow rate vs. electrical power consumption";
@@ -24,6 +26,18 @@ record Generic "Generic data record for pumps and fans"
     "If true, then motor heat is added to fluid stream";
   parameter Boolean use_powerCharacteristic=false
     "Use powerCharacteristic instead of efficiencyCharacteristic";
+
+  final parameter Real d[:] = if ( size(power.V_flow, 1) == 1)  then
+       {0}
+   else
+      Buildings.Utilities.Math.Functions.splineDerivatives(
+      x=power.V_flow,
+      y=power.P);
+  parameter
+    Buildings.Fluid.Movers.BaseClasses.Characteristics.efficiencyParameters
+    efficiency(V_flow=pressure.V_flow, eta=pressure.V_flow.*pressure.dp./
+    {Buildings.Fluid.Movers.BaseClasses.Characteristics.power(per=power, V_flow=i, r_N=1, delta=0.01, d=d) for i in pressure.V_flow});
+
   annotation (Documentation(revisions="<html>
 <ul>
 <li>June 16, 2014 by Michael Wetter:<br/>

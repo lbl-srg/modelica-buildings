@@ -69,9 +69,9 @@ First implementation.
 
   record efficiencyParameters "Record for efficiency parameters"
     extends Modelica.Icons.Record;
-    parameter Real  r_V[:](each min=0, each max=1, each displayUnit="1")
+    parameter Modelica.SIunits.VolumeFlowRate  V_flow[:](each min=0, each max=1)
       "Volumetric flow rate divided by nominal flow rate at user-selected operating points";
-    parameter Real eta[size(r_V,1)](
+    parameter Real eta[size(V_flow,1)](
        each min=0, each max=1, each displayUnit="1")
       "Fan or pump efficiency at these flow rates";
     annotation (Documentation(info="<html>
@@ -311,6 +311,7 @@ First implementation.
     input Modelica.SIunits.VolumeFlowRate V_flow "Volumetric flow rate";
     input Real r_N(unit="1") "Relative revolution, r_N=N/N_nominal";
     input Real d[:] "Derivatives at support points for spline interpolation";
+    input Real delta "Small value for switching implementation around zero rpm";
     output Modelica.SIunits.Power P "Power consumption";
 
   protected
@@ -324,17 +325,24 @@ First implementation.
       P := r_N^3*per.P[1];
     else
       i :=1;
+      // The use of the max function to avoids problems for low speeds
+      // and turned off pumps
+      rat:=V_flow/
+              Buildings.Utilities.Math.Functions.smoothMax(
+                x1=r_N,
+                x2=0.1,
+                deltaX=delta);
       // Since the coefficients for the spline were evaluated for
       // rat_nominal = V_flow_nominal/r_N_nominal = V_flow_nominal/1, we use
       // V_flow_nominal below
       for j in 1:n-1 loop
-         if V_flow > per.V_flow[j] then
+         if rat > per.V_flow[j] then
            i := j;
          end if;
       end for;
       // Extrapolate or interpolate the data
       P:=r_N^3*Buildings.Utilities.Math.Functions.cubicHermiteLinearExtrapolation(
-                  x=V_flow,
+                  x=rat,
                   x1=per.V_flow[i],
                   x2=per.V_flow[i + 1],
                   y1=per.P[i],
@@ -349,7 +357,7 @@ This function computes the fan power consumption for given volume flow rate,
 speed and performance data. The power consumption is
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
-  P = r<sub>N</sub><sup>3</sup> &nbsp; s(V, d),
+  P = r<sub>N</sub><sup>3</sup> &nbsp; s(V/r<sub>N</sub>, d),
 </p>
 <p>
 where
@@ -367,8 +375,12 @@ If the data <i>d</i> define a monotone decreasing sequence, then
 </html>", revisions="<html>
 <ul>
 <li>
-April 22, by Filip Jorissen:<br/>
-Added more documentation references to paper
+February 26, 2014, by Filip Jorissen:<br/>
+Changed polynomial to be evaluated at <code>V_flow/r_N</code>
+instead of <code>V_flow</code> to properly account for the
+scaling law. See
+<a href=\"https://github.com/lbl-srg/modelica-buildings/pull/202\">#202</a>
+for a discussion and validation.
 </li>
 <li>
 September 28, 2011, by Michael Wetter:<br/>
@@ -383,29 +395,39 @@ First implementation.
     input
       Buildings.Fluid.Movers.BaseClasses.Characteristics.efficiencyParameters
       per "Efficiency performance data";
-    input Real r_V(unit="1")
+    input Modelica.SIunits.VolumeFlowRate V_flow
       "Volumetric flow rate divided by nominal flow rate";
     input Real d[:] "Derivatives at support points for spline interpolation";
+    input Real r_N(unit="1") "Relative revolution, r_N=N/N_nominal";
+    input Real delta "Small value for switching implementation around zero rpm";
     output Real eta(min=0, unit="1") "Efficiency";
 
   protected
-    Integer n = size(per.r_V, 1) "Number of data points";
+    Integer n = size(per.V_flow, 1) "Number of data points";
+    Real rat "Ratio of V_flow/r_N";
     Integer i "Integer to select data interval";
   algorithm
     if n == 1 then
       eta := per.eta[1];
     else
+      // The use of the max function to avoids problems for low speeds
+      // and turned off pumps
+      rat:=V_flow/
+              Buildings.Utilities.Math.Functions.smoothMax(
+                x1=r_N,
+                x2=0.1,
+                deltaX=delta);
       i :=1;
       for j in 1:n-1 loop
-         if r_V > per.r_V[j] then
+         if rat > per.V_flow[j] then
            i := j;
          end if;
       end for;
       // Extrapolate or interpolate the data
       eta:=Buildings.Utilities.Math.Functions.cubicHermiteLinearExtrapolation(
-                  x=r_V,
-                  x1=per.r_V[i],
-                  x2=per.r_V[i + 1],
+                  x=rat,
+                  x1=per.V_flow[i],
+                  x2=per.V_flow[i + 1],
                   y1=per.eta[i],
                   y2=per.eta[i + 1],
                   y1d=d[i],
@@ -419,11 +441,12 @@ This function computes the fan or pump efficiency for given normalized volume fl
 and performance data. The efficiency is
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
-  &eta; = s(r<sub>V</sub>, d),
+  &eta; = s(r<sub>V</sub>/r<sub>N</sub>, d),
 </p>
 <p>
 where
 <i>&eta;</i> is the efficiency,
+<i>r<sub>N</sub></i> is the normalized fan speed,
 <i>r<sub>V</sub></i> is the normalized volume flow rate, and
 <i>d</i> are performance data for fan or pump efficiency.
 </p>
@@ -435,6 +458,14 @@ If the data <i>d</i> define a monotone decreasing sequence, then
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+April 19, 2014, by Filip Jorissen:<br/>
+Changed polynomial to be evaluated at <code>r_V/r_N</code>
+instead of <code>r_V</code> to properly account for the
+scaling law. See
+<a href=\"https://github.com/lbl-srg/modelica-buildings/pull/202\">#202</a>
+for a discussion and validation.
+</li>
 <li>
 September 28, 2011, by Michael Wetter:<br/>
 First implementation.
