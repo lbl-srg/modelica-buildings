@@ -69,7 +69,7 @@ First implementation.
 
   record efficiencyParameters "Record for efficiency parameters"
     extends Modelica.Icons.Record;
-    parameter Modelica.SIunits.VolumeFlowRate  V_flow[:](each min=0, each max=1)
+    parameter Modelica.SIunits.VolumeFlowRate  V_flow[:](each min=0)
       "Volumetric flow rate divided by nominal flow rate at user-selected operating points";
     parameter Real eta[size(V_flow,1)](
        each min=0, each max=1, each displayUnit="1")
@@ -96,10 +96,10 @@ First implementation.
 
   record powerParameters "Record for electrical power parameters"
     extends Modelica.Icons.Record;
-    parameter Modelica.SIunits.VolumeFlowRate V_flow[:](each min=0)= {0}
+    parameter Modelica.SIunits.VolumeFlowRate V_flow[:](each min=0)
       "Volume flow rate at user-selected operating points";
-    parameter Modelica.SIunits.Power P[size(V_flow,1)](
-       each min=0) = {0} "Fan or pump electrical power at these flow rates";
+    parameter Modelica.SIunits.Power P[size(V_flow,1)](each min=0)
+      "Fan or pump electrical power at these flow rates";
     annotation (Documentation(info="<html>
 <p>
 Data record for performance data that describe volume flow rate versus
