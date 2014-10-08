@@ -63,7 +63,7 @@ the head or the mass flow rate.
 <ul>
 <li>
 April 19, 2014, by Filip Jorissen:<br/>
-Set default values for new parameters in efficiency()
+Set default values for new parameters in <code>efficiency()</code>.
 </li>
 <li>
 October 8, 2013, by Michael Wetter:<br/>
