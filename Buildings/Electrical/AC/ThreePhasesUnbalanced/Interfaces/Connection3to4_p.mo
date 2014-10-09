@@ -47,5 +47,18 @@ equation
               points={{0,-40},{0,-80},{80,-80},{80,-40},{0,-40}},
               lineColor={0,120,120},
               fillColor={0,120,120},
-              fillPattern=FillPattern.Solid)}));
+              fillPattern=FillPattern.Solid)}),
+    Documentation(revisions="<html>
+<ul>
+<li>
+October 9, 2014, by Marco Bonvini:<br/>
+Revised documentation.
+</li>
+</ul>
+</html>", info="<html>
+<p>
+Adapter between electric connectors type p for AC three phases unbalanced systems.
+This adapter connects a connector without neutral cable with a one that has it.
+</p>
+</html>"));
 end Connection3to4_p;

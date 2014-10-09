@@ -31,9 +31,28 @@ equation
     Documentation(revisions="<html>
 <ul>
 <li>
+October 9, 2014, by Marco Bonvini:<br/>
+Revised documentation.
+</li>
+<li>
 June 5, 2014, by Marco Bonvini:<br/>
 Added model.
 </li>
 </ul>
+</html>", info="<html>
+<p>
+Adapter from Wye (Y) to Delta (D) connector.
+A three phases unbalanced connector has three AC single phase
+connectors in it. Each AC single phase connector contains a voltage variable,
+and the voltage is the phase voltage. This model converts the phase voltage (measured 
+between the phase and the neutral) with the line voltage, measured between phase 
+and phase. 
+</p>
+<p>
+The image below show how the phasors are computed when converting from Y to D.
+</p>
+<p align=\"center\">
+<img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Electrical/AC/ThreePhasesUnbalanced/Interfaces/YtoD.png\"/>
+</p>
 </html>"));
 end WyeToDelta;

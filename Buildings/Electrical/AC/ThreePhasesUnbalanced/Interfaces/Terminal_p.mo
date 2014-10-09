@@ -14,5 +14,14 @@ connector Terminal_p
               points={{-100,-20},{100,-20},{100,20},{-100,20},{-100,-20}},
               lineColor={0,120,120},
               fillColor={0,120,120},
-              fillPattern=FillPattern.Solid)}));
+              fillPattern=FillPattern.Solid)}), Documentation(info="<html>
+<p>Electric connector type p for AC three phases unbalanced systems.</p>
+</html>", revisions="<html>
+<ul>
+<li>
+October 9, 2014, by Marco Bonvini:<br/>
+Revised documentation.
+</li>
+</ul>
+</html>"));
 end Terminal_p;

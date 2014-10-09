@@ -1,72 +1,44 @@
 within Buildings.Electrical.AC.ThreePhasesUnbalanced.Interfaces.Examples;
 model WyeToDelta "Test for Y to D connection"
+
   Buildings.Electrical.AC.ThreePhasesUnbalanced.Interfaces.WyeToDelta wyeToDelta
-    annotation (Placement(transformation(extent={{-30,0},{-10,20}})));
-  Buildings.Electrical.AC.ThreePhasesUnbalanced.Sources.FixedVoltage V1
-    "Voltage source"
-           annotation (Placement(transformation(extent={{-80,0},{-60,20}})));
-  Buildings.Electrical.AC.ThreePhasesUnbalanced.Loads.Resistive load_D(
-    P_nominal=-1000,
-    V_nominal=480,
-    loadConn=Buildings.Electrical.Types.LoadConnection.wye_to_wyeg,
-    PlugPhase3=true,
-    PlugPhase1=true,
-    PlugPhase2=true)
-    annotation (Placement(transformation(extent={{40,0},{60,20}})));
+    "Conversion of the voltages from Y to D"
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
+  Buildings.Electrical.AC.ThreePhasesUnbalanced.Sources.FixedVoltage V1(f=60, V=
+        480) "Voltage source"
+           annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
   Buildings.Electrical.AC.ThreePhasesUnbalanced.Sensors.ProbeWye probe_Y(perUnit=
        false, V_nominal=480)
-    annotation (Placement(transformation(extent={{-50,20},{-30,40}})));
+    "Probe that measures the voltage and the angles on each phase"
+    annotation (Placement(transformation(extent={{-30,10},{-10,30}})));
   Buildings.Electrical.AC.ThreePhasesUnbalanced.Sensors.ProbeWye probeD(perUnit=
         false, V_nominal=480)
-    annotation (Placement(transformation(extent={{-10,20},{10,40}})));
-  Buildings.Electrical.AC.ThreePhasesUnbalanced.Loads.Resistive load_Y(
-    P_nominal=-1000,
-    V_nominal=480,
-    loadConn=Buildings.Electrical.Types.LoadConnection.wye_to_wyeg,
-    PlugPhase3=true,
-    PlugPhase1=true,
-    PlugPhase2=true)
-    annotation (Placement(transformation(extent={{40,-40},{60,-20}})));
-  Buildings.Electrical.AC.ThreePhasesUnbalanced.Sources.FixedVoltage V2
-    "Voltage source"
-           annotation (Placement(transformation(extent={{-80,-40},{-60,-20}})));
-  Buildings.Electrical.AC.ThreePhasesUnbalanced.Sensors.GeneralizedSensor
-    seriesProbe_D annotation (Placement(transformation(extent={{8,0},{28,20}})));
-  Buildings.Electrical.AC.ThreePhasesUnbalanced.Sensors.GeneralizedSensor
-    seriesProbe_Y
-    annotation (Placement(transformation(extent={{-20,-40},{0,-20}})));
+    "Probe that measures the voltage and the angles on each phase"
+    annotation (Placement(transformation(extent={{10,10},{30,30}})));
 equation
   connect(V1.terminal, wyeToDelta.wye) annotation (Line(
-      points={{-60,10},{-30,10}},
+      points={{-40,0},{-10,0}},
       color={0,120,120},
       smooth=Smooth.None));
   connect(probe_Y.term, wyeToDelta.wye) annotation (Line(
-      points={{-40,21},{-40,10},{-30,10}},
+      points={{-20,11},{-20,0},{-10,0}},
       color={0,120,120},
       smooth=Smooth.None));
   connect(probeD.term, wyeToDelta.delta) annotation (Line(
-      points={{0,21},{0,10},{-10,10}},
+      points={{20,11},{20,0},{10,0}},
       color={0,120,120},
       smooth=Smooth.None));
-  connect(wyeToDelta.delta, seriesProbe_D.terminal_n) annotation (Line(
-      points={{-10,10},{8,10}},
-      color={0,120,120},
-      smooth=Smooth.None));
-  connect(seriesProbe_D.terminal_p, load_D.terminal_p) annotation (Line(
-      points={{28,10},{40,10}},
-      color={0,120,120},
-      smooth=Smooth.None));
-  connect(V2.terminal, seriesProbe_Y.terminal_n) annotation (Line(
-      points={{-60,-30},{-20,-30}},
-      color={0,120,120},
-      smooth=Smooth.None));
-  connect(seriesProbe_Y.terminal_p, load_Y.terminal_p) annotation (Line(
-      points={{4.44089e-16,-30},{40,-30}},
-      color={0,120,120},
-      smooth=Smooth.None));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
+  annotation (experiment(StopTime=1.0, Tolerance=1e-06),
+  __Dymola_Commands(file=
+          "modelica://Buildings/Resources/Scripts/Dymola/Electrical/AC/ThreePhasesUnbalanced/Interfaces/Examples/WyeToDelta.mos"
+        "Simulate and plot"),
+        Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}), graphics), Documentation(revisions="<html>
 <ul>
+<li>
+October 9, 2014, by Marco Bonvini:<br/>
+Revised example and documentation.
+</li>
 <li>
 September 24, 2014, by Marco Bonvini:<br/>
 Added info section.
@@ -74,7 +46,16 @@ Added info section.
 </ul>
 </html>", info="<html>
 <p>
-This example show how the adapter from Y to D connection works.
+This simple example shows how to use a Y to D adapter.
+</p>
+<p>
+The probe <code>probe_Y</code> mesaures the phase voltages before they
+are converted into D. Their RMS value is equal to <i>480/sqrt(3)</i> V.
+</p>
+<p>
+The probe <code>probe_D</code> measures the phase
+voltages after the conversion to D. Their RMS value is equal to <i>480</i> V, 
+the line voltage provided by the voltage source.
 </p>
 </html>"));
 end WyeToDelta;

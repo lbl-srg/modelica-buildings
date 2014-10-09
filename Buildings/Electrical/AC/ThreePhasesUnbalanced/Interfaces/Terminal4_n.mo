@@ -18,5 +18,15 @@ connector Terminal4_n
           points={{-100,-70},{-100,-110},{100,-110},{100,-70},{-100,-70}},
           lineColor={127,0,127},
           fillColor={255,255,255},
-          fillPattern=FillPattern.Solid)}));
+          fillPattern=FillPattern.Solid)}), Documentation(revisions="<html>
+<ul>
+<li>
+October 9, 2014, by Marco Bonvini:<br/>
+Revised documentation.
+</li>
+</ul>
+</html>", info="<html>
+<p>Electric connector type n for AC three phases unbalanced systems
+with neutral cable connection.</p>
+</html>"));
 end Terminal4_n;

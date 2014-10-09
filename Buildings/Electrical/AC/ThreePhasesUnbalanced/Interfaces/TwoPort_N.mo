@@ -10,6 +10,10 @@ partial model TwoPort_N
   annotation (Documentation(revisions="<html>
 <ul>
 <li>
+October 9, 2014, by Marco Bonvini:<br/>
+Revised documentation.
+</li>
+<li>
 October 3, 2014, by Marco Bonvini:<br/>
 Added model and documentation.
 </li>
