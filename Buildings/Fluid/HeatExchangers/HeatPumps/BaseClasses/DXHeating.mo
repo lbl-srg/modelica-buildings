@@ -20,7 +20,7 @@ block DXHeating "Heating operation"
     nSta=datHP.nHeaSta)
     annotation (Placement(transformation(extent={{0,50},{20,70}})));
   Modelica.Blocks.Interfaces.RealOutput TCoiSur(
-    quantity="Temperature",
+    quantity="ThermodynamicTemperature",
     unit="K") = 273.15+30 "Coil surface temperature"
      annotation (Placement(transformation(extent={{100,-70},{120,-50}})));
   DXCoils.BaseClasses.SpeedShift speShiRecWasQ_flow(

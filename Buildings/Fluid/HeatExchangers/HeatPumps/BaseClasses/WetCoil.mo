@@ -35,7 +35,7 @@ model WetCoil "Calculates wet coil condition "
     annotation (Placement(transformation(extent={{0,50},{20,70}})));
 
   Modelica.Blocks.Interfaces.RealOutput TADP(
-    quantity="Temperature",
+    quantity="ThermodynamicTemperature",
     unit="K",
     min=273.15,
     max=373.15) "Dry bulb temperature of air at ADP"

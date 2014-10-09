@@ -56,7 +56,7 @@ model Evaporation
     "Water flow rate added into the medium"
     annotation (Placement(transformation(extent={{-140,20},{-100,60}}, rotation=0)));
 
-  Modelica.Blocks.Interfaces.RealInput TWat(final quantity="Temperature",
+  Modelica.Blocks.Interfaces.RealInput TWat(final quantity="ThermodynamicTemperature",
                                             final unit = "K",
                                             displayUnit = "degC")
     "Temperature of liquid that is drained from or injected into volume"
@@ -75,7 +75,7 @@ model Evaporation
         rotation=90, origin={-60,-120})));
 
   Modelica.Blocks.Interfaces.RealInput TOut(
-    final quantity="Temperature",
+    final quantity="ThermodynamicTemperature",
     final unit="K",
     displayUnit="degC") "Air temperature"
     annotation (Placement(transformation(extent={{-20,-20},{20,20}},

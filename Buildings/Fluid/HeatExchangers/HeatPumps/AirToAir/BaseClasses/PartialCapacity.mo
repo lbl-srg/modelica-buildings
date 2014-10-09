@@ -10,7 +10,7 @@ partial block PartialCapacity
 //     annotation (Placement(transformation(extent={{-124,88},{-100,112}}),
 //         iconTransformation(extent={{-120,90},{-100,110}})));
 //   Modelica.Blocks.Interfaces.RealInput T2In(
-//     quantity="Temperature",
+//     quantity="ThermodynamicTemperature",
 //     unit="K",
 //     displayUnit="degC") "Temperature of water entering the heat pump"
 //      annotation (Placement(transformation(extent={{-120,-30},{-100,-10}})));
@@ -18,7 +18,7 @@ partial block PartialCapacity
 //     "Air mass flow rate"
 //     annotation (Placement(transformation(extent={{-120,10},{-100,30}})));
 //   Modelica.Blocks.Interfaces.RealInput T1In(
-//     quantity="Temperature",
+//     quantity="ThermodynamicTemperature",
 //     unit="K",
 //     displayUnit="degC") "Temperature of air entering the heat pump"
 //     annotation (Placement(transformation(extent={{-120,50},{-100,70}})));

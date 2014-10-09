@@ -29,7 +29,7 @@ model ATWOperation "Air to water heat flow operation"
     "Performance data";
 
   Modelica.Blocks.Interfaces.RealOutput T1CoiSur(
-    quantity="Temperature",
+    quantity="ThermodynamicTemperature",
     unit="K",
     min=240,
     max=400) "Coil surface temperature"

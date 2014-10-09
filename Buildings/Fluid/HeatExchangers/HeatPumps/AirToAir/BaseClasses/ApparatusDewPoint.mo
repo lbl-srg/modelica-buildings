@@ -12,7 +12,7 @@ block ApparatusDewPoint "Calculates air properties at apparatus dew point"
     max=1.0) "Humidity mass fraction of air at  apparatus dew point"
     annotation (Placement(transformation(extent={{100,40},{120,60}})));
   Modelica.Blocks.Interfaces.RealOutput TADP(
-    quantity="Temperature",
+    quantity="ThermodynamicTemperature",
     unit="K",
     displayUnit="degC",
     min=233.15,

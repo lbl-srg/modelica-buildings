@@ -30,7 +30,7 @@ block HeatMassFlow "Water to air heat flow operation"
     "Performance data";
 
   Modelica.Blocks.Interfaces.RealOutput T1CoiSur(
-    quantity="Temperature",
+    quantity="ThermodynamicTemperature",
     unit="K",
     min=240,
     max=400) "Coil surface temperature"
@@ -79,7 +79,7 @@ block HeatMassFlow "Water to air heat flow operation"
     annotation (Placement(transformation(extent={{11,-11},{-11,11}},
         rotation=90, origin={19,111})));
   Modelica.Blocks.Interfaces.RealInput T1Out(
-    final quantity="Temperature",
+    final quantity="ThermodynamicTemperature",
     final unit="K",
     displayUnit="degC") "Air temperature"
     annotation (Placement(transformation(extent={{11,-11},{-11,11}},

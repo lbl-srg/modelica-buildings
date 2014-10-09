@@ -17,7 +17,7 @@ model DXCooling "This block performs cooling operation "
     "Performance data";
 
   Modelica.Blocks.Interfaces.RealOutput TCoiSur(
-    quantity="Temperature",
+    quantity="ThermodynamicTemperature",
     unit="K",
     min=240,
     max=400) "Coil surface temperature"

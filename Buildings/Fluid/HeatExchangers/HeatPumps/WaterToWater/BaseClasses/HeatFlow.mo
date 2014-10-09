@@ -12,12 +12,12 @@ block HeatFlow "Calculates heat flow rates for source and load side"
                                                                       datHP
     "Heat pump data";
 //   Modelica.Blocks.Interfaces.RealInput TLoa(
-//     quantity="Temperature",unit="K",displayUnit="degC")
+//     quantity="ThermodynamicTemperature",unit="K",displayUnit="degC")
 //     "Temperature of water entering the load side coil "
 //     annotation (Placement(transformation(extent={{-140,10},{-100,50}}),
 //         iconTransformation(extent={{-120,30},{-100,50}})));
 //   Modelica.Blocks.Interfaces.RealInput TSou(
-//     quantity="Temperature",unit="K",displayUnit="degC")
+//     quantity="ThermodynamicTemperature",unit="K",displayUnit="degC")
 //     "Temperature of water entering the source side coil "
 //     annotation (Placement(transformation(extent={{-140,-50},{-100,-10}}),
 //         iconTransformation(extent={{-120,-30},{-100,-10}})));

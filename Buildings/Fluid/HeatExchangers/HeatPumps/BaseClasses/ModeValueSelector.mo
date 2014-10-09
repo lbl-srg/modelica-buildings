@@ -21,7 +21,7 @@ block ModeValueSelector "Selects results from dry or wet coil"
         rotation=270,
         origin={1.77636e-15,-110})));
   Modelica.Blocks.Interfaces.RealInput THeaCoiSur(
-    quantity="Temperature",
+    quantity="ThermodynamicTemperature",
     unit="K",
     min=273.15,
     max=373.15) "Coil surface temperature in heating mode"
@@ -44,7 +44,7 @@ block ModeValueSelector "Selects results from dry or wet coil"
         rotation=90,
         origin={40,-110})));
   Modelica.Blocks.Interfaces.RealInput TADPCoo(
-    quantity="Temperature",
+    quantity="ThermodynamicTemperature",
     unit="K",
     min=273.15,
     max=373.15) "Dry bulb temperature of air at ADP"
@@ -64,7 +64,7 @@ block ModeValueSelector "Selects results from dry or wet coil"
     "Sensible Heat Ratio: Ratio of sensible heat load to total heat load"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
   Modelica.Blocks.Interfaces.RealOutput TCoiSur(
-    quantity="Temperature",
+    quantity="ThermodynamicTemperature",
     unit="K",
     min=273.15,
     max=373.15) "Dry bulb temperature "

@@ -31,7 +31,7 @@ block DryCoil "Calculates dry coil condition"
     annotation (Placement(transformation(extent={{0,50},{20,70}})));
 
   Modelica.Blocks.Interfaces.RealOutput TDry(
-    quantity="Temperature",
+    quantity="ThermodynamicTemperature",
     unit="K",
     min=233.15,
     max=373.15) "Dry bulb temperature of air at ADP"

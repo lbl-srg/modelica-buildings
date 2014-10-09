@@ -20,7 +20,7 @@ block DXHeating "Heating operation"
     annotation (Placement(transformation(extent={{0,50},{20,70}})));
 //     m2_flow_small=datHP.m2_flow_small,
   Modelica.Blocks.Interfaces.RealOutput TCoiSur(
-    quantity="Temperature",
+    quantity="ThermodynamicTemperature",
     unit="K") = 273.15+30 "Coil surface temperature"
      annotation (Placement(transformation(extent={{100,-70},{120,-50}})));
 //   constant Boolean calRecoverableWasteHeat

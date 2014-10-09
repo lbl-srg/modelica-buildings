@@ -11,7 +11,7 @@ block PartialDryCoil "Partial dry coil condition"
     "Specific enthalpy of air entering the coil"
             annotation (Placement(transformation(extent={{-120,-87},{-100,-67}})));
   Modelica.Blocks.Interfaces.RealOutput TDry(
-    quantity="Temperature",
+    quantity="ThermodynamicTemperature",
     unit="K",
     min=233.15,
     max=373.15) "Dry bulb temperature of air at ADP"

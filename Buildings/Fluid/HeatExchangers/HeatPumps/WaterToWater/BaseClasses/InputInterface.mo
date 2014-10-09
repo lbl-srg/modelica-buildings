@@ -10,12 +10,12 @@ block InputInterface
 //   Modelica.Blocks.Interfaces.IntegerInput stage(final min=0)
 //     "Stage of HP, positive value"
   Modelica.Blocks.Interfaces.RealInput T1(
-    quantity="Temperature",unit="K",displayUnit="degC")
+    quantity="ThermodynamicTemperature",unit="K",displayUnit="degC")
     "Temperature of water entering the load side coil "
     annotation (Placement(transformation(extent={{-140,20},{-100,60}}),
         iconTransformation(extent={{-120,30},{-100,50}})));
   Modelica.Blocks.Interfaces.RealInput T2(
-    quantity="Temperature",unit="K",displayUnit="degC")
+    quantity="ThermodynamicTemperature",unit="K",displayUnit="degC")
     "Temperature of water entering the source side coil "
     annotation (Placement(transformation(extent={{-140,-40},{-100,0}}),
         iconTransformation(extent={{-120,-30},{-100,-10}})));
