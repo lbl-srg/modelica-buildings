@@ -10,11 +10,17 @@ model TwoPortRL
   parameter Modelica.SIunits.Temperature M = 507.65
     "Temperature constant (R_actual = R*(M + T_heatPort)/(M + T_ref))" annotation(Evaluate=true);
   parameter Modelica.SIunits.Inductance L(start=0) "Inductance";
+  parameter Buildings.Electrical.Types.Load mode(
+    min=Buildings.Electrical.Types.Load.FixedZ_steady_state,
+    max=Buildings.Electrical.Types.Load.FixedZ_dynamic) = Buildings.Electrical.Types.Load.FixedZ_steady_state
+    "Parameter that specifies the type model (e.g., steady state, dynamic, prescribed power consumption, etc.)"
+    annotation (Evaluate=true, Dialog(group="Modelling assumption"));
   OnePhase.Lines.TwoPortRL  phase1(
     T_ref=T_ref,
     M=M,
     R=R/3,
     L=L/3,
+    mode=mode,
     useHeatPort=useHeatPort) "Impedance line 1"
     annotation (Placement(transformation(extent={{-10,20},{10,40}})));
   OnePhase.Lines.TwoPortRL phase2(
@@ -22,6 +28,7 @@ model TwoPortRL
     M=M,
     R=R/3,
     L=L/3,
+    mode=mode,
     useHeatPort=useHeatPort) "Impedance line 2"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   OnePhase.Lines.TwoPortRL phase3(
@@ -29,6 +36,7 @@ model TwoPortRL
     M=M,
     R=R/3,
     L=L/3,
+    mode=mode,
     useHeatPort=useHeatPort) "Impedance line 3"
     annotation (Placement(transformation(extent={{-10,-40},{10,-20}})));
 equation

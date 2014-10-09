@@ -18,7 +18,7 @@ model LoadCtrl
     P_nominal=0,
     V_nominal=480) "Voltage controlled load"
               annotation (Placement(transformation(extent={{-8,-10},{12,10}})));
-  Lines.LineN line1(
+  Lines.Line_N line1(
     mode=Buildings.Electrical.Types.CableMode.commercial,
     redeclare Buildings.Electrical.Transmission.LowVoltageCables.Cu10
       commercialCable,
@@ -33,14 +33,14 @@ model LoadCtrl
     P_nominal=0,
     V_nominal=480) "Load"
     annotation (Placement(transformation(extent={{-8,-40},{12,-20}})));
-  Lines.LineN line(
+  Lines.Line_N line(
     mode=Buildings.Electrical.Types.CableMode.commercial,
     redeclare Buildings.Electrical.Transmission.LowVoltageCables.Cu10
       commercialCable,
     l=400,
     P_nominal=10000,
     V_nominal=480)
-            annotation (Placement(transformation(extent={{-46,-40},{-26,-20}})));
+    annotation (Placement(transformation(extent={{-46,-40},{-26,-20}})));
 equation
   connect(pow_1.y, load_ctrl.Pow1) annotation (Line(
       points={{39,20},{30,20},{30,6},{12,6}},

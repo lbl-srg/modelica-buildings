@@ -1,10 +1,11 @@
 within Buildings.Electrical.AC.ThreePhasesUnbalanced.Lines;
-model NetworkN "Three phases unbalanced AC network with neutral cable"
+model Network_N "Three phases unbalanced AC network with neutral cable"
   extends Transmission.BaseClasses.PartialNetwork(
     redeclare
       Buildings.Electrical.AC.ThreePhasesUnbalanced.Interfaces.Terminal4_p         terminal,
     redeclare Transmission.Grids.TestGrid2Nodes grid,
-    redeclare Buildings.Electrical.AC.ThreePhasesUnbalanced.Lines.LineN lines(commercialCable_low=grid.cables));
+    redeclare Buildings.Electrical.AC.ThreePhasesUnbalanced.Lines.Line_N lines(
+        commercialCable=grid.cables));
     Modelica.SIunits.Voltage Vabs[3,grid.nNodes]
     "RMS voltage of the grid nodes";
 equation
@@ -43,4 +44,4 @@ for more information about the topology of the network, such as
 the number of nodes, how they are connected, and the length of each connection.
 </p>
 </html>"));
-end NetworkN;
+end Network_N;

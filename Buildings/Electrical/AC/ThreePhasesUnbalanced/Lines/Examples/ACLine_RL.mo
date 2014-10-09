@@ -1,26 +1,31 @@
-within Buildings.Electrical.AC.OnePhase.Lines.Examples;
-model ACline_RL "Test model for a single phase inductive-resistive line"
+within Buildings.Electrical.AC.ThreePhasesUnbalanced.Lines.Examples;
+model ACLine_RL
+  "Test model for a three phases unbalanced inductive-resistive line"
   extends Modelica.Icons.Example;
-  parameter Modelica.SIunits.Resistance Rbase = 10
+  parameter Modelica.SIunits.Resistance Rbase = 3*10
     "Base value for the line resistance";
   parameter Modelica.SIunits.Inductance Lbase = Rbase/2/Modelica.Constants.pi/60
     "Base value for the line inductance";
-  Sources.FixedVoltage E(      definiteReference=true,
+  Sources.FixedVoltage E(
+    definiteReference=true,
     f=60,
-    V=120) "Voltage source"
+    V=100*sqrt(3)) "Voltage source"
     annotation (Placement(transformation(extent={{-100,-10},{-80,10}})));
   Loads.Impedance load_sc_1(R=0) "Short circuit 1"
     annotation (Placement(transformation(extent={{0,20},{20,40}})));
   Loads.Impedance load_sc_2(R=0) "Short circuit 2"
     annotation (Placement(transformation(extent={{0,-10},{20,10}})));
-  TwoPortRL RL_2(R=Rbase, L=Lbase)
-    "Resistive-Inductive line connected to short circuit 2"
+  Lines.TwoPortRL RL_2(
+    R=Rbase,
+    L=Lbase) "Resistive-Inductive line connected to short circuit 2"
     annotation (Placement(transformation(extent={{-48,-10},{-28,10}})));
-  TwoPortResistance R_1(R=Rbase) "Resistance line connected to short circuit 1"
+  Lines.TwoPortResistance R_1(R=Rbase)
+    "Resistance line connected to short circuit 1"
     annotation (Placement(transformation(extent={{-60,20},{-40,40}})));
-  TwoPortInductance L_1(L=Lbase) "Inductance line connected to short circuit 1"
+  Lines.TwoPortInductance L_1(L=Lbase)
+    "Inductance line connected to short circuit 1"
     annotation (Placement(transformation(extent={{-30,20},{-10,40}})));
-  TwoPortRL RL_3(
+  Lines.TwoPortRL RL_3(
     R=Rbase,
     L=Lbase,
     mode=Buildings.Electrical.Types.Load.FixedZ_dynamic)
@@ -61,7 +66,7 @@ equation
   Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
             100}}),            graphics),
   __Dymola_Commands(file=
-          "modelica://Buildings/Resources/Scripts/Dymola/Electrical/AC/OnePhase/Lines/Examples/ACline_RL.mos"
+          "modelica://Buildings/Resources/Scripts/Dymola/Electrical/AC/ThreePhasesUnbalanced/Lines/Examples/ACLine_RL.mos"
         "Simulate and plot"),
     Documentation(revisions="<html>
 <ul>
@@ -91,4 +96,4 @@ The line model <code>RL_3</code> is the same as <code>RL_2</code> but it uses
 dynamic phasors.
 </p>
 </html>"));
-end ACline_RL;
+end ACLine_RL;

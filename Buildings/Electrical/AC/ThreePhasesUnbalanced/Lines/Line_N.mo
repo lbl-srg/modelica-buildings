@@ -1,5 +1,5 @@
 within Buildings.Electrical.AC.ThreePhasesUnbalanced.Lines;
-model LineN "Model of an electrical line with neutral cable"
+model Line_N "Model of an electrical line with neutral cable"
   extends Buildings.Electrical.AC.ThreePhasesUnbalanced.Interfaces.TwoPort_N;
   extends Buildings.Electrical.Transmission.BaseClasses.PartialBaseLine(
   V_nominal(start = 480),
@@ -139,4 +139,4 @@ and provides functionalities to parametrize the values of <i>R</i>, <i>L</i> and
 using commercial cables or using default values.
 </p>
 </html>"));
-end LineN;
+end Line_N;

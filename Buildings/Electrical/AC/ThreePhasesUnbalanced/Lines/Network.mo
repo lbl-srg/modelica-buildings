@@ -4,7 +4,7 @@ model Network "Three phases unbalanced AC network without neutral cable"
     redeclare
       Buildings.Electrical.AC.ThreePhasesUnbalanced.Interfaces.Terminal_p         terminal,
     redeclare Transmission.Grids.TestGrid2Nodes grid,
-    redeclare Buildings.Electrical.AC.ThreePhasesUnbalanced.Lines.Line lines(commercialCable_low=grid.cables));
+    redeclare Buildings.Electrical.AC.ThreePhasesUnbalanced.Lines.Line lines(commercialCable=grid.cables));
     Modelica.SIunits.Voltage Vabs[3,grid.nNodes]
     "RMS voltage of the grid nodes";
 equation
