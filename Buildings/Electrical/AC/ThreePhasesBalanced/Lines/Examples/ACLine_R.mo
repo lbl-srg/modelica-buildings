@@ -1,5 +1,5 @@
 within Buildings.Electrical.AC.ThreePhasesBalanced.Lines.Examples;
-model ACLine_R_1 "Test model for single phase resistive lines"
+model ACLine_R "Test model for single phase resistive lines"
   extends Modelica.Icons.Example;
   ThreePhasesBalanced.Sources.FixedVoltage E(definiteReference=true,
     f=60,
@@ -106,4 +106,4 @@ Documentation and example revised.
 </li>
 </ul>
 </html>"));
-end ACLine_R_1;
+end ACLine_R;

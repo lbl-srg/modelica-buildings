@@ -1,5 +1,5 @@
 within Buildings.Electrical.AC.ThreePhasesBalanced.Lines.Examples;
-model ACLineMedium_1
+model ACLineMedium
   "Test model for a single phase line that uses medium voltage commercial cable information "
   extends Modelica.Icons.Example;
   ThreePhasesBalanced.Sources.FixedVoltage E(definiteReference=true, V=15000,
@@ -146,4 +146,4 @@ record type in order to be <code>Buildings.Electrical.Transmission.MediumVoltage
 </p>
 
 </html>"));
-end ACLineMedium_1;
+end ACLineMedium;

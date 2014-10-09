@@ -1,5 +1,5 @@
 within Buildings.Electrical.AC.ThreePhasesBalanced.Lines.Examples;
-model ACLine_1 "Test model for single phase lines that use commercial cables"
+model ACLine "Test model for single phase lines that use commercial cables"
   extends Modelica.Icons.Example;
   ThreePhasesBalanced.Sources.FixedVoltage E(definiteReference=true,
     f=60,
@@ -130,4 +130,4 @@ However, the equivalent impedance between each load and the source is the same.
 Since the equivalent impedances are the same, each load draws the same current.
 </p>
 </html>"));
-end ACLine_1;
+end ACLine;
