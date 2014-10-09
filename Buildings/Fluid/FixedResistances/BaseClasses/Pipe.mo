@@ -62,9 +62,10 @@ protected
       T=Medium.T_default,
       p=Medium.p_default,
       X=Medium.X_default[1:Medium.nXi]) "Default state";
-  parameter Modelica.SIunits.Density rho_default = Medium.density(state_default);
+  parameter Modelica.SIunits.Density rho_default = Medium.density(state_default)
+    "Mass density at default medium state";
   parameter Modelica.SIunits.DynamicViscosity mu_default = Medium.dynamicViscosity(state_default)
-    "Dynamic viscosity at nominal condition";
+    "Dynamic viscosity at default medium state";
 equation
   connect(port_a, res.port_a) annotation (Line(
       points={{-100,5.55112e-16},{-72,5.55112e-16},{-72,1.16573e-15},{-58,
