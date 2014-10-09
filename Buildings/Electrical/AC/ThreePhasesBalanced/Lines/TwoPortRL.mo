@@ -3,8 +3,7 @@ model TwoPortRL
   "Model of a resistive-inductive element with two electrical ports"
   extends Buildings.Electrical.AC.OnePhase.Lines.TwoPortRL(
     redeclare Interfaces.Terminal_n terminal_n,
-    redeclare Interfaces.Terminal_p terminal_p,
-    V_nominal(start=480));
+    redeclare Interfaces.Terminal_p terminal_p);
   annotation (
     defaultComponentName="lineRL",
     Diagram(graphics), Icon(

@@ -7,7 +7,8 @@ model Line "Model of an electrical line"
     redeclare TwoPortRLC line(
      R=R,
      L=L,
-     C=C));
+     C=C,
+      V_nominal=V_nominal));
 
   annotation (
     defaultComponentName="line",
