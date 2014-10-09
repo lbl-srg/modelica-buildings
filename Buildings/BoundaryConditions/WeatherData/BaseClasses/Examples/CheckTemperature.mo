@@ -1,7 +1,6 @@
 within Buildings.BoundaryConditions.WeatherData.BaseClasses.Examples;
 model CheckTemperature "Test model for CheckTemperature"
   extends Modelica.Icons.Example;
-  import Buildings;
 public
   Buildings.BoundaryConditions.WeatherData.BaseClasses.CheckTemperature
     cheTemDryBul "Check dry bulb temperature "
@@ -15,8 +14,8 @@ protected
   Modelica.Blocks.Tables.CombiTable1Ds datRea(
     tableOnFile=true,
     tableName="tab1",
-    fileName=
-        "Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos",
+    fileName=ModelicaServices.ExternalReferences.loadResource(
+       "modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos"),
     columns=2:30,
     smoothness=Modelica.Blocks.Types.Smoothness.ContinuousDerivative)
     "Data reader"
@@ -54,7 +53,7 @@ equation
       points={{43.1,-10},{58,-10}},
       color={0,0,127},
       smooth=Smooth.None));
-  annotation (Diagram(graphics), 
+  annotation (Diagram(graphics),
 experiment(StopTime=8640000),
 __Dymola_Commands(file=
           "modelica://Buildings/Resources/Scripts/Dymola/BoundaryConditions/WeatherData/BaseClasses/Examples/CheckTemperature.mos"

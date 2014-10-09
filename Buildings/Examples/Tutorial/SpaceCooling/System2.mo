@@ -14,7 +14,8 @@ model System2
     redeclare package Medium = MediumA,
     m_flow_nominal=mA_flow_nominal,
     V=V,
-    nPorts=2)
+    nPorts=2,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     annotation (Placement(transformation(extent={{60,20},{80,40}})));
   Modelica.Thermal.HeatTransfer.Components.ThermalConductor theCon(G=10000/30)
     "Thermal conductance with the ambient"
@@ -70,7 +71,8 @@ model System2
         QRooInt_flow) "Prescribed heat flow"
     annotation (Placement(transformation(extent={{20,70},{40,90}})));
   Fluid.Movers.FlowMachine_m_flow fan(redeclare package Medium = MediumA,
-      m_flow_nominal=mA_flow_nominal) "Supply air fan"
+      m_flow_nominal=mA_flow_nominal,
+    dynamicBalance=false) "Supply air fan"
     annotation (Placement(transformation(extent={{40,-30},{60,-10}})));
   Fluid.HeatExchangers.ConstantEffectiveness hex(redeclare package Medium1 =
         MediumA, redeclare package Medium2 = MediumA,
@@ -92,7 +94,9 @@ model System2
         T_b1=TASup_nominal,
         T_a2=TWSup_nominal,
         T_b2=TWRet_nominal),
-    show_T=true) "Cooling coil"                                annotation (Placement(
+    show_T=true,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial) "Cooling coil"
+                                                               annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=180,
@@ -112,7 +116,7 @@ model System2
     pAtmSou=Buildings.BoundaryConditions.Types.DataSource.Parameter,
     TDryBulSou=Buildings.BoundaryConditions.Types.DataSource.Parameter,
     TDryBul=TOut_nominal,
-    filNam="Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos")
+    filNam="modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos")
     "Weather data reader"
     annotation (Placement(transformation(extent={{-160,40},{-140,60}})));
   BoundaryConditions.WeatherData.Bus weaBus
@@ -190,7 +194,7 @@ equation
       index=-1,
       extent={{-6,3},{-6,3}}));
   connect(fan.m_flow_in, mAir_flow.y) annotation (Line(
-      points={{45,-11.8},{45,10},{21,10}},
+      points={{49.8,-8},{49.8,10},{21,10}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(mWat_flow.y, souWat.m_flow_in) annotation (Line(
@@ -238,7 +242,7 @@ and the outside temperature that is used for the heat conductance
 <code>TOut</code>.
 </p>
 <p>
-In this model, the duct pressure loss is not modelled
+In this model, the duct pressure loss is not modeled
 explicitly, but rather lumped into the pressure drops of the
 heat exchangers.
 </p>
@@ -288,9 +292,10 @@ Note that we use an assignment for the nominal air mass flow rate
 <a href=\"modelica://Buildings.Examples.Tutorial.SpaceCooling.System1\">
 Buildings.Examples.Tutorial.SpaceCooling.System1</a> because
 now, the air flow rate is a result of the sizing calculations.
-<p/>
+</p>
 <p>
 The calculations are as follows:
+</p>
 <pre>
   //////////////////////////////////////////////////////////
   // Heat recovery effectiveness
@@ -341,6 +346,7 @@ Now, we explain the component models that are used to assemble the system model.
 </p>
 <ol start=\"4\">
 <li>
+<p>
 The weather data are obtained from the instance
 <code>weaDat</code> in which we set the location to Chicago, IL.
 We also configured the model to use a constant atmospheric pressure,
@@ -449,6 +455,13 @@ Its default value is <code>false</code>, as this setting can lead to faster comp
 in large system models in which the flow rate crosses zero, because crossing zero
 triggers the numerical solution for a state-event which can be computationally expensive.
 </p>
+<p>
+To use prescribed initial values for the state variables of the cooling coil, we set
+the parameter
+</p>
+<pre>
+  energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial
+</pre>
 </li>
 <li>
 <p>
@@ -456,6 +469,14 @@ For the fan, we set the nominal mass flow rate to <code>mA_flow_nominal</code>
 and also connect its input port to the component <code>mAir_flow</code>,
 which assigns a constant air flow rate.
 We leave the fan efficiency at its default value of <i>0.7</i>.
+We set the parameter 
+</p>
+<pre>
+  dynamicBalance=false
+</pre>
+<p>
+to configure the fan to be a steady-state model. This was done as we
+are using a constant fan speed in this example.
 </p>
 </li>
 <li>
@@ -484,7 +505,6 @@ as is used for the fan, but we chose to use the simpler model
 Buildings.Fluid.Sources.MassFlowSource_T</a>
 as this model allows the direct specification of the
 leaving fluid temperature.
-</p>
 </li>
 <li>
 <p>
@@ -501,7 +521,7 @@ its temperature.
 This completes the initial version of the model. When simulating the model, the
 response shown below should be seen.
 <p align=\"center\">
-<img src=\"modelica://Buildings/Resources/Images/Examples/Tutorial/SpaceCooling/System2Temperatures.png\" border=\"1\">
+<img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Examples/Tutorial/SpaceCooling/System2Temperatures.png\" border=\"1\"/>
 </p>
 <!-- Notes -->
 <h4>Notes</h4>
@@ -524,7 +544,7 @@ from the model.
 </html>", revisions="<html>
 <ul>
 <li>
-January 11, 2012, by Michael Wetter:<br>
+January 11, 2012, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

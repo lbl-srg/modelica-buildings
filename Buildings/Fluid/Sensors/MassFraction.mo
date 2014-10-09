@@ -1,35 +1,24 @@
 within Buildings.Fluid.Sensors;
 model MassFraction "Ideal one port mass fraction sensor"
-  extends Buildings.Fluid.Sensors.BaseClasses.PartialAbsoluteSensor;
+  extends Buildings.Fluid.Sensors.BaseClasses.PartialAbsoluteSensor(
+    redeclare replaceable package Medium =
+        Modelica.Media.Interfaces.PartialCondensingGases);
+  extends Buildings.Fluid.BaseClasses.IndexMassFraction(substanceName = "water");
   extends Modelica.Icons.RotationalSensor;
-  parameter String substanceName = "water" "Name of species substance";
 
-  Modelica.Blocks.Interfaces.RealOutput X(min=0, max=1)
-    "Mass fraction in port medium"
+  Modelica.Blocks.Interfaces.RealOutput X(min=-1e-3,
+                                          max=1.001,
+                                          unit="1") "Mass fraction in port"
     annotation (Placement(transformation(extent={{100,-10},{120,10}},
           rotation=0)));
-
 protected
-  parameter Integer ind(fixed=false)
-    "Index of species in vector of auxiliary substances";
   Medium.MassFraction XiVec[Medium.nXi](
       quantity=Medium.extraPropertiesNames)
-    "Trace substances vector, needed because indexed argument for the operator inStream is not supported";
-initial algorithm
-  ind:= -1;
-  for i in 1:Medium.nX loop
-    if ( Modelica.Utilities.Strings.isEqual(string1=Medium.substanceNames[i],
-                                            string2=substanceName,
-                                            caseSensitive=false)) then
-      ind := i;
-    end if;
-  end for;
-  assert(ind > 0, "Species with name '" + substanceName + "' is not present in medium '"
-         + Medium.mediumName + "'.\n"
-         + "Check sensor parameter and medium model.");
+    "Mass fraction vector, needed because indexed argument for the operator inStream is not supported";
+
 equation
   XiVec = inStream(port.Xi_outflow);
-  X = if ind > Medium.nXi then (1-sum(XiVec)) else XiVec[ind];
+  X = if i_x > Medium.nXi then (1-sum(XiVec)) else XiVec[i_x];
 annotation (defaultComponentName="senMasFra",
   Diagram(coordinateSystem(preserveAspectRatio=true,  extent={{-100,-100},{100,
             100}}),     graphics),
@@ -47,18 +36,39 @@ annotation (defaultComponentName="senMasFra",
         Line(points={{70,0},{100,0}}, color={0,0,127})}),
   Documentation(info="<html>
 <p>
-This component monitors the mass fraction contained in the fluid passing its port. 
-The sensor is ideal, i.e. it does not influence the fluid.
+This model outputs the mass fraction of the fluid connected to its port. 
+The sensor is ideal, i.e., it does not influence the fluid.
+</p>
+<p>
+Read the 
+<a href=\"modelica://Buildings.Fluid.Sensors.UsersGuide\">
+Buildings.Fluid.Sensors.UsersGuide</a>
+prior to using this model with one fluid port.
 </p>
 </html>
 ", revisions="<html>
 <ul>
 <li>
-February 22, by Michael Wetter:<br>
+September 10, 2013, by Michael Wetter:<br/>
+Changed <code>min</code> and <code>max</code> values for
+output signals to allow for numerical approximation error
+without violating these bounds.<br/>
+Changed medium declaration in the <code>extends</code> statement
+to <code>replaceable</code> to avoid a translation error in
+OpenModelica.
+</li>
+<li>
+August 31, 2013, by Michael Wetter:<br/>
+Revised model to use base class
+<a href=\"modelica://Buildings.Fluid.BaseClasses.IndexMassFraction\">
+Buildings.Fluid.BaseClasses.IndexMassFraction</a>.
+</li>
+<li>
+February 22, by Michael Wetter:<br/>
 Improved the code that searches for the index of the substance in the medium model.
 </li>
 <li>
-April 7, 2009 by Michael Wetter:<br>
+April 7, 2009 by Michael Wetter:<br/>
 First implementation.
 Implementation is based on enthalpy sensor of <code>Modelica.Fluid</code>.
 </li>

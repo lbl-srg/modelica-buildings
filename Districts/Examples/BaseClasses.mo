@@ -36,7 +36,7 @@ package BaseClasses "Model with base classes"
       Documentation(revisions="<html>
 <ul>
 <li>
-January 11, 2013, by Michael Wetter:<br>
+January 11, 2013, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
@@ -223,7 +223,7 @@ discharging until it is empty.
 </html>", revisions="<html>
 <ul>
 <li>
-January 11, 2013, by Michael Wetter:<br>
+January 11, 2013, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
@@ -303,12 +303,12 @@ First implementation.
           __Dymola_Algorithm="Radau"),
         __Dymola_experimentSetupOutput,
         Commands(file=
-              "Resources/Scripts/Dymola/Examples/BaseClasses/Examples/BatteryControl.mos"
+              "modelica://Districts/Resources/Scripts/Dymola/Examples/BaseClasses/Examples/BatteryControl.mos"
             "Simulate and plot"),
         Documentation(revisions="<html>
 <ul>
 <li>
-January 31, 2013, by Thierry S. Nouidui:<br>
+January 31, 2013, by Thierry S. Nouidui:<br/>
 First implementation.
 </li>
 </ul>

@@ -1,6 +1,5 @@
 within Buildings.Utilities.Math.Examples;
 model Biquadratic "Test model for biquadratic function"
-  import Buildings;
   extends Modelica.Icons.Example;
   Modelica.Blocks.Sources.Ramp x1(duration=1)
     annotation (Placement(transformation(extent={{-80,60},{-60,80}}, rotation=0)));
@@ -29,16 +28,18 @@ __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Utilities/
         "Simulate and plot"),
     Documentation(info="<html>
 <p>
-This model tests the implementation of the biquadratic function.
+This model tests the implementation of 
+<a href=\"modelica://Buildings.Utilities.Math.Biquadratic\">
+Buildings.Utilities.Math.Biquadratic</a>.
 </p>
 </html>", revisions="<html>
 <ul>
 <li>
-March 14, 2012 by Michael Wetter:<br>
+March 14, 2012 by Michael Wetter:<br/>
 Changed input values of function.
 </li>
 <li>
-Sep 17, 2010 by Michael Wetter:<br>
+Sep 17, 2010 by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

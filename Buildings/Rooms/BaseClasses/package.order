@@ -1,13 +1,14 @@
+AirHeatMassBalanceMixed
 ExteriorBoundaryConditions
 ExteriorBoundaryConditionsWithWindow
 HeatGain
 InfraredRadiationExchange
 InfraredRadiationGainDistribution
-MixedAir
 RadiationAdapter
 RadiationTemperature
 SolarRadiationExchange
 PartialSurfaceInterface
+PartialSurfaceInterfaceRadiative
 SkyRadiationExchange
 ConstructionNumbers
 ConstructionRecords
@@ -17,4 +18,3 @@ ParameterConstruction
 PartialParameterConstruction
 SideFins
 Examples
-

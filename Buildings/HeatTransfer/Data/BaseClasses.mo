@@ -22,7 +22,7 @@ package BaseClasses "Base classes for package Data"
       annotation (Dialog(tab="Advanced"));
     parameter Real piMat=if steadyState then piRef else x*sqrt(c*d)/sqrt(k)
       "Ratio x/sqrt(alpha)"
-      annotation(Evaluate=true, Dialog(tab="Advanced"));
+      annotation(Dialog(tab="Advanced"));
     parameter Real nStaReal(min=0) = nStaRef*piMat/piRef
       "Number of states as a real number"
       annotation (Dialog(tab="Advanced"));
@@ -47,7 +47,7 @@ package BaseClasses "Base classes for package Data"
     annotation (preferredView="info",
     Documentation(info="<html>
 Base record for materials that declares the thermal properties. 
-</p>
+<br/>
 <p>
 The specific heat capacity can be zero, in which case the material
 will be modeled as a thermal resistor that does not store energy.
@@ -65,11 +65,15 @@ and ceilings of different surface area.
   revisions="<html>
 <ul>
 <li>
-June 3 2010, by Michael Wetter:<br>
+May 30, 2014, by Michael Wetter:<br/>
+Removed undesirable annotation <code>Evaluate=true</code>.
+</li>
+<li>
+June 3 2010, by Michael Wetter:<br/>
 Implemented adaptive computation of number of states based on a reference construction of <i>0.2 m</i> concrete.
 </li>
 <li>
-March 6 2010, by Michael Wetter:<br>
+March 6 2010, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
@@ -120,21 +124,19 @@ First implementation.
    annotation (preferredView="info",
     Documentation(info="<html>
 Base record for materials, used in circular geometry or other configurations, that only declares the thermal properties. 
-</p>
+<br/>
 <p>
 The specific heat capacity can be zero, in which case the material
 will be modeled as a thermal resistor that does not store energy.
-</p>
-<p>
 </p>
 </html>",
   revisions="<html>
 <ul>
 <li>
-April 2011, by Pierre Vigouroux:<br>
+April 2011, by Pierre Vigouroux:<br/>
 
 <li>
-April 12 2011, by Pierre Vigouroux:<br>
+April 12 2011, by Pierre Vigouroux:<br/>
 First implementation.
 </li>
 </ul>

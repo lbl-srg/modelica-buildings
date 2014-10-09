@@ -1,14 +1,14 @@
 within Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses;
 block CoolingCapacity
   "Calculates cooling capacity at given temperature and flow fraction"
-  extends Modelica.Blocks.Interfaces.BlockIcon;
+  extends Modelica.Blocks.Icons.Block;
 
   Modelica.Blocks.Interfaces.IntegerInput stage(final min=0)
     "Stage of coil, or 0/1 for variable-speed coil"
     annotation (Placement(transformation(extent={{-124,88},{-100,112}}),
         iconTransformation(extent={{-120,90},{-100,110}})));
   Modelica.Blocks.Interfaces.RealInput TConIn(
-    quantity="Temperature",
+    quantity="ThermodynamicTemperature",
     unit="K",
     displayUnit="degC") "Temperature of air entering the condenser coil "
      annotation (Placement(transformation(extent={{-120,38},{-100,58}})));
@@ -17,7 +17,7 @@ block CoolingCapacity
     unit="kg/s") "Air mass flow rate at the evaporator"
     annotation (Placement(transformation(extent={{-120,-10},{-100,10}})));
   Modelica.Blocks.Interfaces.RealInput TEvaIn(
-    quantity="Temperature",
+    quantity="ThermodynamicTemperature",
     unit="K",
     displayUnit="degC")
     "Temperature of air entering the evaporator (wet bulb for wet coil and dry bulb for dry coil)"
@@ -203,10 +203,9 @@ if stage > 0 then
           textStyle={TextStyle.Italic},
           textString="f(T,m)")}),
           Documentation(info="<html>
-<h4>
-Cooling capacity modifiers
-</h4>
-<p>There are two cooling capacity modifier functions: The function
+<h4>Cooling capacity modifiers</h4>
+<p>
+There are two cooling capacity modifier functions: The function
 <i>cap<sub>&theta;</sub></i> accounts for a performance change due to different
 air temperatures and the function
 cap<sub>FF </sub> accounts for a performance change due to different air flow rates,
@@ -226,7 +225,7 @@ where
 or the wet-bulb temperature if the coil is wet.
 </p>
 <p>
-The temperature dependent cooling capacity modifier function is
+The temperature dependent cooling capacity modifier function is</p>
 <p align=\"center\" style=\"font-style:italic;\" >
   cap<sub>&theta;</sub>(&theta;<sub>e,in</sub>, &theta;<sub>c,in</sub>) = a<sub>1</sub> + a<sub>2</sub> &theta;<sub>e,in</sub> 
 + a<sub>3</sub> &theta;<sub>e,in</sub> <sup>2</sup> + a<sub>4</sub> &theta;<sub>c,in</sub> + 
@@ -234,6 +233,7 @@ a<sub>5</sub> &theta;<sub>c,in</sub> <sup>2</sup> + a<sub>6</sub> &theta;<sub>e,
 </p>
 <p>
 where the six coefficients are obtained from the coil performance data record.
+</p>
 <p>
 The flow fraction dependent cooling capacity modifier function is a polynomial 
 with the normalized mass flow rate <i>ff</i> (flow fraction) as the time dependent variable.
@@ -253,6 +253,7 @@ Hence,
   cap<sub>FF</sub>(ff) = b<sub>1</sub> + b<sub>2</sub> ff + b<sub>3</sub> ff<sup>2</sup> 
 + b<sub>4</sub>ff<sup>3</sup> + ...
 </p>
+<p>
 The coefficients of the equation are obtained from the coil performance data record.
 </p>
 <p>
@@ -265,7 +266,7 @@ in performance record. A non-zero value of
 Hence, when <i>m&#775; &ne; 0</i> is below the valid range of the flow modifier function,
 the coil capacity will be reduced and set to zero near <i>m&#775; = 0</i>.
 </p>
-<p>
+
 <h4>Energy Input Ratio (EIR) modifiers</h4>
 <p>
 The Energy Input Ratio (<i>EIR</i>) is the inverse of the Coefficient of Performance (<i>COP</i>).
@@ -278,9 +279,11 @@ The EIR is computed as
   EIR(&theta;<sub>e,in</sub>, &theta;<sub>c,in</sub>, ff) = EIR<sub>&theta;</sub>(&theta;<sub>e,in</sub>, &theta;<sub>c,in</sub>)
            EIR<sub>FF</sub>(ff) &frasl; COP<sub>nominal</sub>
 </p>
+<p>
 As for the cooling rate, 
 <i>EIR<sub>&theta;</sub>(&sdot;, &sdot;)</i> is
-<p align=\"center\" style=\"font-style:italic;\" >
+</p>
+<p align=\"center\" style=\"font-style:italic;\">
   EIR<sub>&theta;</sub>(&theta;<sub>e,in</sub>, &theta;<sub>c,in</sub>) = c<sub>1</sub> + c<sub>2</sub> &theta;<sub>e,in</sub> 
 + c<sub>3</sub> &theta;<sub>e,in</sub> <sup>2</sup> + c<sub>4</sub> &theta;<sub>c,in</sub> + 
 c<sub>5</sub> &theta;<sub>c,in</sub> <sup>2</sup> + c<sub>6</sub> &theta;<sub>e,in</sub> &theta;<sub>c,in</sub>.
@@ -292,7 +295,8 @@ the wet-bulb temperature otherwise.
 </p>
 <p>
 Similar to the cooling ratio, the change in EIR due to a change in air mass flow rate
-is 
+is
+</p>
 <p align=\"center\" style=\"font-style:italic;\">
   EIR<sub>FF</sub>(ff) = d<sub>1</sub> + d<sub>2</sub> ff + d<sub>3</sub> ff<sup>2</sup> 
 + d<sub>4</sub>ff<sup>3</sup> + ...
@@ -328,9 +332,7 @@ the name of the polynomial coefficients in
 Buildings.Fluid.HeatExchangers.DXCoils.Data.PerformanceCurves</a>
 and the independent parameters against which the data need to be fitted.
 </p>
-<p>
-<p>
-  <table border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+  <table summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
   <tr>
       <th>Modelica name of coefficient in data record</th>
       <th>Polynomial of the above info section</th>
@@ -357,8 +359,6 @@ a<sub>5</sub> &theta;<sub>c,in</sub> <sup>2</sup> + a<sub>6</sub> &theta;<sub>e,
         cap<sub>FF</sub>, ff
         </i></td>
     </tr>
-
-
     <tr>
       <td><code>EIRFunT</code></td>
       <td><i>
@@ -381,7 +381,7 @@ a<sub>5</sub> &theta;<sub>c,in</sub> <sup>2</sup> + a<sub>6</sub> &theta;<sub>e,
         </i></td>
     </tr>
   </table>
-</p>
+
 <p>
 Note that for the above polynomials, the units for temperature is degree Celsius and not Kelvins.
 </p>
@@ -397,26 +397,26 @@ so that both are zero if <i>ff &lt; ff<sub>min</sub>/4</i>, where
 revisions="<html>
 <ul>
 <li>
-December 18, 2012 by Michael Wetter:<br>
+December 18, 2012 by Michael Wetter:<br/>
 Added warning if the evaporator or condenser inlet temperature of the current stage
 cross the minimum and maximum allowed values.
 </li>
 <li>
-September 20, 2012 by Michael Wetter:<br>
+September 20, 2012 by Michael Wetter:<br/>
 Revised model and documentation.
 </li>
 <li>
-May 18, 2012 by Kaustubh Phalak:<br>
+May 18, 2012 by Kaustubh Phalak:<br/>
 Combined cooling capacity and EIR modifier function together to avoid repeatation of same variable calculations.
 Added heaviside function. 
 </li>
 <li>
-April 20, 2012 by Michael Wetter:<br>
+April 20, 2012 by Michael Wetter:<br/>
 Added unit conversion directly to function calls to avoid doing
 the conversion when the coil is switched off.
 </li>
 <li>
-April 6, 2012 by Kaustubh Phalak:<br>
+April 6, 2012 by Kaustubh Phalak:<br/>
 First implementation. 
 </li>
 </ul>

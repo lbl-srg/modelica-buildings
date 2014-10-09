@@ -5,11 +5,10 @@ model DryEffectivenessNTU
       sensibleOnly1=true, sensibleOnly2=true,
       Q1_flow = eps*QMax_flow,
       Q2_flow = -Q1_flow,
-      mXi1_flow = zeros(Medium1.nXi),
-      mXi2_flow = zeros(Medium2.nXi));
+      mWat1_flow = 0,
+      mWat2_flow = 0);
   import con = Buildings.Fluid.Types.HeatExchangerConfiguration;
   import flo = Buildings.Fluid.Types.HeatExchangerFlowRegime;
-
   parameter Modelica.SIunits.HeatFlowRate Q_flow_nominal
     "Nominal heat transfer" annotation (Dialog(group="Nominal condition"));
   parameter Modelica.SIunits.Temperature T_a1_nominal
@@ -20,7 +19,6 @@ model DryEffectivenessNTU
     annotation (Dialog(group="Nominal condition"));
   parameter con configuration "Heat exchanger configuration"
     annotation (Evaluate=true);
-
   parameter Real r_nominal(
     min=0,
     max=1) = 2/3
@@ -34,26 +32,22 @@ model DryEffectivenessNTU
     airSideTemperatureDependent=false)
     "Model for convective heat transfer coefficient";
   Modelica.SIunits.ThermalConductance UA "UA value";
-
   Real eps(min=0, max=1) "Heat exchanger effectiveness";
   Real Z(min=0, max=1) "Ratio of capacity flow rate (CMin/CMax)";
   // NTU has been removed as NTU goes to infinity as CMin goes to zero.
   // This quantity is not good for modeling.
   //  Real NTU(min=0) "Number of transfer units";
-
   final parameter Modelica.SIunits.ThermalConductance UA_nominal(fixed=false)
     "Nominal UA value";
   final parameter Real NTU_nominal(min=0, fixed=false)
     "Nominal number of transfer units";
   final parameter Real eps_nominal(fixed=false)
     "Nominal heat transfer effectiveness";
-
 protected
   parameter Modelica.SIunits.SpecificHeatCapacity cp1_nominal(fixed=false)
     "Specific heat capacity of medium 1 at nominal condition";
   parameter Modelica.SIunits.SpecificHeatCapacity cp2_nominal(fixed=false)
     "Specific heat capacity of medium 2 at nominal condition";
-
   parameter Modelica.SIunits.ThermalConductance C1_flow_nominal(fixed=false)
     "Nominal capacity flow rate of Medium 1";
   parameter Modelica.SIunits.ThermalConductance C2_flow_nominal(fixed=false)
@@ -72,7 +66,6 @@ protected
     "Nominal temperature at port b2";
   parameter flo flowRegime_nominal(fixed=false)
     "Heat exchanger flow regime at nominal flow rates";
-
   flo flowRegime(fixed=false, start=flowRegime_nominal)
     "Heat exchanger flow regime";
 initial equation
@@ -107,7 +100,6 @@ initial equation
     "\n  or increase flow rates. The current parameters result in " +
     "\n  CMin_flow_nominal = " + String(CMin_flow_nominal) +
     "\n  CMax_flow_nominal = " + String(CMax_flow_nominal));
-
   // Assign the flow regime for the given heat exchanger configuration and capacity flow rates
   if (configuration == con.CrossFlowStream1MixedStream2Unmixed) then
     flowRegime_nominal = if (C1_flow_nominal < C2_flow_nominal) then flo.CrossFlowCMinMixedCMaxUnmixed
@@ -122,11 +114,11 @@ initial equation
   elseif (configuration == con.CrossFlowUnmixed) then
     flowRegime_nominal = flo.CrossFlowUnmixed;
   else
-    flowRegime_nominal = 0;
-    assert(configuration > 0 and configuration < 6,
+    // Invalid flow regime. Assign a value to flowRegime_nominal, and stop with an assert
+    flowRegime_nominal = flo.CrossFlowUnmixed;
+    assert(configuration >= con.ParallelFlow and configuration <= con.CrossFlowStream1UnmixedStream2Mixed,
       "Invalid heat exchanger configuration.");
   end if;
-
   // The equation sorter of Dymola 7.3 does not guarantee that the above assert is tested prior to the
   // function call on the next line. Thus, we add the test on eps_nominal to avoid an error in ntu_epsilonZ
   // for invalid input arguments
@@ -134,9 +126,8 @@ initial equation
     Buildings.Fluid.HeatExchangers.BaseClasses.ntu_epsilonZ(
     eps=eps_nominal,
     Z=Z_nominal,
-    flowRegime=flowRegime_nominal) else 0;
+    flowRegime=Integer(flowRegime_nominal)) else 0;
   UA_nominal = NTU_nominal*CMin_flow_nominal;
-
 equation
   // Assign the flow regime for the given heat exchanger configuration and capacity flow rates
   if (configuration == con.ParallelFlow) then
@@ -164,7 +155,7 @@ equation
     UA=UA,
     C1_flow=C1_flow,
     C2_flow=C2_flow,
-    flowRegime=flowRegime,
+    flowRegime=Integer(flowRegime),
     CMin_flow_nominal=CMin_flow_nominal,
     CMax_flow_nominal=CMax_flow_nominal,
     delta=delta);
@@ -180,15 +171,17 @@ equation
 defaultComponentName="hex",
     Documentation(info="<html>
 <p>
-Model of a heat exchanger without humidity condensation. 
-This model transfers heat in the amount of 
+Model of a heat exchanger without humidity condensation.
+This model transfers heat in the amount of
+</p>
 <p align=\"center\" style=\"font-style:italic;\">
-  Q = Q<sub>max</sub>  &epsilon;<br>
+  Q = Q<sub>max</sub>  &epsilon;<br/>
   &epsilon; = f(NTU, Z, flowRegime),
 </p>
+<p>
 where
 <i>Q<sub>max</sub></i> is the maximum heat that can be transferred,
-<i>&epsilon;</i> is the heat transfer effectiveness, 
+<i>&epsilon;</i> is the heat transfer effectiveness,
 <i>NTU</i> is the Number of Transfer Units,
 <i>Z</i> is the ratio of minimum to maximum capacity flow rate and
 <i>flowRegime</i> is the heat exchanger flow regime.
@@ -211,7 +204,18 @@ instead of this model.
 </html>", revisions="<html>
 <ul>
 <li>
-February 12, 2010, by Michael Wetter:<br>
+April 29, 2014 by Michael Wetter:<br/>
+Changed <code>assert</code> statement to avoid comparing
+enumeration with an integer, which triggers a warning
+in Dymola 2015.
+</li>
+<li>
+July 30, 2013 by Michael Wetter:<br/>
+Updated model to use new variable <code>mWat_flow</code>
+in the base class.
+</li>
+<li>
+February 12, 2010, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

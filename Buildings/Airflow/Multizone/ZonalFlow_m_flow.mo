@@ -23,12 +23,17 @@ Input is the mass flow rate from <i>A</i> to <i>B</i> and from <i>B</i> to <i>A<
 </html>",
 revisions="<html>
 <ul>
-<li><i>July 20, 2010</i> by Michael Wetter:<br>
-       Migrated model to Modelica 3.1 and integrated it into the Buildings library.
+<li>
+August 18, 2014, by Michael Wetter:<br/>
+Removed parameter <code>forceErrorControlOnFlow</code> as it was not used.
 </li>
-<li><i>January 17, 2006</i>
-       by Michael Wetter:<br>
-       Implemented first version.
+<li>
+July 20, 2010, by Michael Wetter:<br/>
+Migrated model to Modelica 3.1 and integrated it into the Buildings library.
+</li>
+<li>
+January 17, 2006, by Michael Wetter:<br/>
+Implemented first version.
 </li>
 </ul>
 </html>"),

@@ -5,8 +5,8 @@ model ConstantEffectiveness "Heat exchanger with constant effectiveness"
     sensibleOnly2 = true,
     Q1_flow = eps * QMax_flow,
     Q2_flow = -Q1_flow,
-    mXi1_flow = zeros(Medium1.nXi),
-    mXi2_flow = zeros(Medium2.nXi));
+    mWat1_flow = 0,
+    mWat2_flow = 0);
 
   parameter Real eps(min=0, max=1, unit="1") = 0.8
     "Heat exchanger effectiveness";
@@ -29,18 +29,14 @@ Documentation(info="<html>
 Model for a heat exchanger with constant effectiveness.
 </p>
 <p>
-This model transfers heat in the amount of 
+This model transfers heat in the amount of
+</p>
 <p align=\"center\" style=\"font-style:italic;\">
   Q = Q<sub>max</sub> &epsilon;,
 </p>
+<p>
 where <i>&epsilon;</i> is a constant effectiveness and 
 <i>Q<sub>max</sub></i> is the maximum heat that can be transferred.
-</p>
-<p>
-In the region <code>mK_flow_small > abs(mK_flow) > mK_flow_small/2</code>, for <code>K = 1</code> or
-<code>2</code>, the effectivness <code>eps</code> is transitioned from 
-its user-specified value to 0. This improves the numerical robustness near
-zero flow.
 </p>
 <p>
 For a heat and moisture exchanger, use
@@ -52,16 +48,25 @@ instead of this model.
 revisions="<html>
 <ul>
 <li>
-January 28, 2010, by Michael Wetter:<br>
+August 13, 2013 by Michael Wetter:<br/>
+Corrected error in the documentation.
+</li>
+<li>
+July 30, 2013 by Michael Wetter:<br/>
+Updated model to use new variable <code>mWat_flow</code>
+in the base class.
+</li>
+<li>
+January 28, 2010, by Michael Wetter:<br/>
 Added regularization near zero flow.
 </li>
 <li>
-October 2, 2009, by Michael Wetter:<br>
+October 2, 2009, by Michael Wetter:<br/>
 Changed computation of inlet temperatures to use 
 <code>state_*_inflow</code> which is already known in base class.
 </li>
 <li>
-April 28, 2008, by Michael Wetter:<br>
+April 28, 2008, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

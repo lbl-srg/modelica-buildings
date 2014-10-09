@@ -1,5 +1,6 @@
 within Buildings.Utilities.Psychrometrics.Functions.BaseClasses;
 function der_pW_X "Derivative of function pW_X"
+  extends Modelica.Icons.Function;
 
   input Modelica.SIunits.MassFraction X_w(
     min=0,
@@ -26,13 +27,13 @@ algorithm
     Documentation(info="<html>
 <p>
 Derivative of function 
-<a href=\"modelica:Buildings.Utilities.Psychrometrics.Functions.pW_X\">
+<a href=\"modelica://Buildings.Utilities.Psychrometrics.Functions.pW_X\">
 Buildings.Utilities.Psychrometrics.Functions.pW_X</a>.
 </p>
 </html>", revisions="<html>
 <ul>
 <li>
-May 21, 2010 by Michael Wetter:<br>
+May 21, 2010 by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

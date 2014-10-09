@@ -1,7 +1,7 @@
 within Buildings.BoundaryConditions.WeatherData.BaseClasses;
 block ConvertRelativeHumidity
   "Convert the relative humidity from percentage to real"
-  extends Modelica.Blocks.Interfaces.BlockIcon;
+  extends Modelica.Blocks.Icons.Block;
 public
   Modelica.Blocks.Interfaces.RealInput relHumIn(unit="1")
     "Value of relative humidity in percentage"
@@ -23,11 +23,11 @@ format that is used in the Typical Meteorological Year weather data.
 ", revisions="<html>
 <ul>
 <li>
-October 27, 2011, by Wangda Zuo:<br>
+October 27, 2011, by Wangda Zuo:<br/>
 Separate the checking function to CheckRelativeHumidity.
 </li>
 <li>
-July 14, 2010, by Wangda Zuo:<br>
+July 14, 2010, by Wangda Zuo:<br/>
 First implementation.
 </li>
 </ul>

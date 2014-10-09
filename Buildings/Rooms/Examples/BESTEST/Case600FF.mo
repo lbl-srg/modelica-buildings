@@ -66,6 +66,13 @@ model Case600FF
         d=650,
         nStaRef=nStaRef)}) "Floor"
     annotation (Placement(transformation(extent={{80,84},{94,98}})));
+   parameter Buildings.HeatTransfer.Data.Solids.Generic soil(
+    x=2,
+    k=1.3,
+    c=800,
+    d=1500) "Soil properties"
+    annotation (Placement(transformation(extent={{40,40},{60,60}})));
+
   Buildings.Rooms.MixedAir roo(
     redeclare package Medium = MediumA,
     hRoo=2.7,
@@ -107,7 +114,7 @@ model Case600FF
   Modelica.Blocks.Sources.Constant qLatGai_flow(k=0) "Latent heat gain"
     annotation (Placement(transformation(extent={{-44,56},{-36,64}})));
   Buildings.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam=
-        "Resources/weatherdata/DRYCOLD.mos")
+        "modelica://Buildings/Resources/weatherdata/DRYCOLD.mos")
     annotation (Placement(transformation(extent={{98,-94},{86,-82}})));
   Modelica.Blocks.Sources.Constant uSha(k=0)
     "Control signal for the shading device"
@@ -148,18 +155,14 @@ model Case600FF
     haveExteriorShade=false,
     haveInteriorShade=false) "Window"
     annotation (Placement(transformation(extent={{40,84},{54,98}})));
-  Buildings.HeatTransfer.Conduction.SingleLayer soil(
+  Buildings.HeatTransfer.Conduction.SingleLayer soi(
     A=48,
-    material(
-      x=2,
-      k=1.3,
-      c=800,
-      d=1500,
-      R=0),
+    material=soil,
     steadyStateInitial=true,
     T_a_start=283.15,
     T_b_start=283.75) "2m deep soil (per definition on p.4 of ASHRAE 140-2007)"
-    annotation (Placement(transformation(extent={{5,-5},{-3,3}},
+    annotation (Placement(transformation(
+        extent={{5,-5},{-3,3}},
         rotation=-90,
         origin={57,-35})));
   Buildings.Fluid.Sources.MassFlowSource_T sinInf(
@@ -212,6 +215,7 @@ model Case600FF
   Modelica.Blocks.Math.Mean TRooAnn(f=1/86400/365, y(start=293.15))
     "Annual averaged room air temperature"
     annotation (Placement(transformation(extent={{-68,-40},{-60,-32}})));
+
 equation
   connect(qRadGai_flow.y,multiplex3_1. u1[1])  annotation (Line(
       points={{-35.6,76},{-34,76},{-34,70.8},{-18.8,70.8}},
@@ -222,7 +226,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(multiplex3_1.y, roo.qGai_flow) annotation (Line(
-      points={{-9.6,68},{20,68},{20,-7.5},{34.5,-7.5}},
+      points={{-9.6,68},{20,68},{20,-7.5},{30,-7.5}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(roo.uSha, replicator.y) annotation (Line(
@@ -262,11 +266,11 @@ equation
       string="%second",
       index=1,
       extent={{6,3},{6,3}}));
-  connect(TSoi[1].port, soil.port_a) annotation (Line(
+  connect(TSoi[1].port, soi.port_a) annotation (Line(
       points={{64,-48},{56,-48},{56,-40}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(soil.port_b, roo.surf_conBou[1])  annotation (Line(
+  connect(soi.port_b, roo.surf_conBou[1]) annotation (Line(
       points={{56,-32},{56,-27},{55.5,-27}},
       color={191,0,0},
       smooth=Smooth.None));
@@ -323,13 +327,19 @@ The room temperature is free floating.
 </html>", revisions="<html>
 <ul>
 <li>
-July 15, 2012, by Michael Wetter:<br>
+October 9, 2013, by Michael Wetter:<br/>
+Implemented soil properties using a record so that <code>TSol</code> and
+<code>TLiq</code> are assigned.
+This avoids an error when the model is checked in the pedantic mode.
+</li>
+<li>
+July 15, 2012, by Michael Wetter:<br/>
 Added reference results.
 Changed implementation to make this model the base class
 for all BESTEST cases.
 Added computation of hourly and annual averaged room air temperature.
 <li>
-October 6, 2011, by Michael Wetter:<br>
+October 6, 2011, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

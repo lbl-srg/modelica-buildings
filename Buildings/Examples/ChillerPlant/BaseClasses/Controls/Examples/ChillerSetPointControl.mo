@@ -31,17 +31,14 @@ model ChillerSetPointControl
     y10=0.1,
     y11=1) annotation (Placement(transformation(extent={{-60,20},{-40,40}})));
   Buildings.Fluid.Chillers.ElectricEIR chi(
-    dp1_nominal=6000,
     redeclare package Medium1 = Medium1,
     redeclare package Medium2 = Medium2,
     m1_flow_nominal=mCW_flow_nominal,
     m2_flow_nominal=mCHW_flow_nominal,
+    dp1_nominal=6000,
     dp2_nominal=3000,
     per=Buildings.Fluid.Chillers.Data.ElectricEIR.ElectricEIRChiller_York_YK_1881kW_6_53COP_Vanes(),
-    m1_flow(fixed=true, start=mCW_flow_nominal),
-    m2_flow(fixed=true, start=mCHW_flow_nominal),
-    energyDynamics=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial,
-    massDynamics=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial)
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial) "Chiller"
     annotation (Placement(transformation(extent={{84,18},{104,38}})));
 
   Buildings.Fluid.HeatExchangers.ConstantEffectiveness coi(
@@ -51,7 +48,8 @@ model ChillerSetPointControl
     dp2_nominal=3000,
     redeclare package Medium2 = MediumAir,
     m2_flow_nominal=mAir_flow_nominal,
-    eps=1.0) annotation (Placement(transformation(extent={{86,-64},{106,-44}})));
+    eps=1.0) "Cooling coil"
+             annotation (Placement(transformation(extent={{86,-64},{106,-44}})));
   Buildings.Fluid.Sources.FixedBoundary sin1(redeclare package Medium = Medium1,
       nPorts=1) annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
@@ -69,32 +67,37 @@ model ChillerSetPointControl
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
-        origin={-182,30})));
+        origin={-170,30})));
   Buildings.Controls.Continuous.LimPID limPID(
     reverseAction=true,
     y_start=1,
     yMin=0,
     k=10,
     Ti=0.01,
-    Td=10) annotation (Placement(transformation(
+    Td=10,
+    initType=Modelica.Blocks.Types.InitPID.SteadyState)
+           annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
-        origin={-150,30})));
+        origin={-130,30})));
   Buildings.Fluid.Sensors.TemperatureTwoPort TRet(redeclare package Medium =
         MediumAir, m_flow_nominal=999)
-    annotation (Placement(transformation(extent={{4,-74},{24,-54}})));
+    annotation (Placement(transformation(extent={{0,-70},{20,-50}})));
   Buildings.Fluid.Movers.FlowMachine_m_flow pum(
     m_flow_nominal=1.2*mCHW_flow_nominal,
     dp(start=40474),
     redeclare package Medium = Medium2,
-    init=Modelica.Blocks.Types.Init.NoInit) "Chilled water pump" annotation (
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    init=Modelica.Blocks.Types.Init.InitialState) "Chilled water pump"
+                                                                 annotation (
       Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={134,-9})));
-  Buildings.Fluid.Storage.ExpansionVessel expVesChi(VTot=1, redeclare package
-      Medium = Medium2)
-    annotation (Placement(transformation(extent={{134,26},{154,46}})));
+  Buildings.Fluid.Storage.ExpansionVessel expVesChi(
+    V_start=1,
+    redeclare package Medium = Medium2)
+    annotation (Placement(transformation(extent={{124,26},{144,46}})));
   Modelica.Blocks.Sources.BooleanConstant booleanConstant1(k=true)
     annotation (Placement(transformation(extent={{-180,62},{-160,82}})));
   Modelica.Blocks.Math.Gain gain(k=mCHW_flow_nominal)
@@ -107,21 +110,23 @@ model ChillerSetPointControl
     nPorts=1) annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=180,
-        origin={170,-92})));
+        origin={170,-90})));
   Buildings.Fluid.Sources.FixedBoundary sin2(redeclare package Medium =
         MediumAir, nPorts=1) annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
-        origin={-116,-72})));
+        origin={-30,-60})));
   Modelica.Blocks.Sources.Sine sine(
     amplitude=5,
     offset=273.15 + 25,
     freqHz=1/20000) annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
-        origin={114,-92})));
+        origin={130,-94})));
   Modelica.Blocks.Continuous.FirstOrder firstOrder1(y_start=273.15 + 10, T=chi.tau1
-        /2) annotation (Placement(transformation(extent={{0,20},{20,40}})));
+        /2,
+    initType=Modelica.Blocks.Types.Init.InitialState)
+            annotation (Placement(transformation(extent={{0,20},{20,40}})));
   Buildings.Fluid.Sensors.TemperatureTwoPort TSup(redeclare package Medium =
         MediumAir, m_flow_nominal=999)
     annotation (Placement(transformation(extent={{136,-70},{156,-50}})));
@@ -135,7 +140,7 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(TRet.T, limPID.u_m) annotation (Line(
-      points={{14,-53},{14,-28},{-150,-28},{-150,18}},
+      points={{10,-49},{10,-28},{-130,-28},{-130,18}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(chi.port_a2, pum.port_b) annotation (Line(
@@ -147,7 +152,7 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(chi.port_a2, expVesChi.port_a) annotation (Line(
-      points={{104,22},{144,22},{144,26}},
+      points={{104,22},{134,22},{134,26}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(booleanConstant1.y, chi.on) annotation (Line(
@@ -159,7 +164,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(sou2.T_in, sine.y) annotation (Line(
-      points={{158,-96},{140,-96},{140,-92},{125,-92}},
+      points={{158,-94},{141,-94}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(chi.port_b1, sin1.ports[1]) annotation (Line(
@@ -167,15 +172,15 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(const.y, limPID.u_s) annotation (Line(
-      points={{-171,30},{-162,30}},
+      points={{-159,30},{-142,30}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(TRet.port_b, coi.port_b2) annotation (Line(
-      points={{24,-64},{56,-64},{56,-60},{86,-60}},
+      points={{20,-60},{86,-60}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(TRet.port_a, sin2.ports[1]) annotation (Line(
-      points={{4,-64},{-48,-64},{-48,-60},{-90,-60},{-90,-72},{-106,-72}},
+      points={{0,-60},{-20,-60}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(linPieTwo.y[2], firstOrder1.u) annotation (Line(
@@ -191,41 +196,48 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(TSup.port_b, sou2.ports[1]) annotation (Line(
-      points={{156,-60},{190,-60},{190,-92},{180,-92}},
+      points={{156,-60},{190,-60},{190,-90},{180,-90}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(linPieTwo.y[1], gain.u) annotation (Line(
-      points={{-39,29.3},{-20,29.3},{-20,-8},{84,-8}},
-      color={0,0,127},
-      smooth=Smooth.None));
   connect(limPID.y, triAndRes.u) annotation (Line(
-      points={{-139,30},{-120,30},{-120,30},{-102,30}},
+      points={{-119,30},{-102,30}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(triAndRes.y, linPieTwo.u) annotation (Line(
       points={{-79,30},{-62,30}},
       color={0,0,127},
       smooth=Smooth.None));
+  connect(gain.u, linPieTwo.y[1]) annotation (Line(
+      points={{84,-8},{-20,-8},{-20,29.3},{-39,29.3}},
+      color={0,0,127},
+      smooth=Smooth.None));
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-200,-200},{200,
-            200}})),
+            200}}), graphics),
     __Dymola_Commands(file=
           "modelica://Buildings/Resources/Scripts/Dymola/Examples/ChillerPlant/BaseClasses/Controls/Examples/ChillerSetPointControl.mos"
         "Simulate and plot"),
+    experiment(
+      StopTime=86400,
+      Tolerance=1e-06),
     Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,
             100}})),
     Documentation(revisions="<html>
 <ul>
 <li>
-October 17, 2012, by Wangda Zuo:<br>
+March 25, 2014, by Michael Wetter:<br/>
+Updated model with new expansion vessel.
+</li>
+<li>
+October 17, 2012, by Wangda Zuo:<br/>
 Revised for the new trim and respond control.
 </li>
 <li>
-July 21, 2011, by Wangda Zuo:<br>
+July 21, 2011, by Wangda Zuo:<br/>
 Added mos file and merged to library.
 </li>
 <li>
-January 18, 2011, by Wangda Zuo:<br>
+January 18, 2011, by Wangda Zuo:<br/>
 First implementation.
 </li>
 </ul>

@@ -1,7 +1,7 @@
 within Buildings.HeatTransfer.Windows.BaseClasses;
 model InteriorConvectionCoefficient
   "Model for the heat transfer coefficient at the inside of the window"
-  extends Modelica.Blocks.Interfaces.BlockIcon;
+  extends Modelica.Blocks.Icons.Block;
   parameter Modelica.SIunits.Area A "Heat transfer area";
 
   Modelica.Blocks.Interfaces.RealOutput GCon(unit="W/K")
@@ -30,7 +30,7 @@ shading devices, Technical Report, Oct. 17, 2006.
 </html>", revisions="<html>
 <ul>
 <li>
-August 19 2010, by Michael Wetter:<br>
+August 19 2010, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

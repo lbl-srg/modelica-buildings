@@ -42,11 +42,11 @@ have a window, but there is no window in the south facing wall.
 revisions="<html>
 <ul>
 <li>
-July 16, 2012, by Michael Wetter:<br>
+July 16, 2012, by Michael Wetter:<br/>
 Merged model into library.
 </li>
 <li>
-June 26, 2012, by Roman Ilk and Rafael Velazquez:<br>
+June 26, 2012, by Roman Ilk and Rafael Velazquez:<br/>
 First implementation.
 </li>
 </ul>

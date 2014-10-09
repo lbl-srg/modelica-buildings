@@ -1,6 +1,5 @@
 within Buildings.Fluid.MassExchangers.Examples;
 model HumidifierPrescribed "Model that demonstrates the ideal humidifier model"
-  import Buildings;
   extends Modelica.Icons.Example;
 
   package Medium = Buildings.Media.PerfectGases.MoistAirUnsaturated;
@@ -134,12 +133,12 @@ the parameter <code>T</code> of the humidifier models.
 </html>", revisions="<html>
 <ul>
 <li>
-April 23, 2013, by Michael Wetter:<br>
+April 23, 2013, by Michael Wetter:<br/>
 Added flow resistance at the outlet of the humidifier to avoid a numerical derivative,
 and changed model to use a prescribed mass flow rate.
 </li>
 <li>
-July 11, 2011, by Michael Wetter:<br>
+July 11, 2011, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

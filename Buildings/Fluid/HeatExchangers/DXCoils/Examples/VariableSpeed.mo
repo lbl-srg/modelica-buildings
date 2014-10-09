@@ -28,7 +28,9 @@ model VariableSpeed "Test model for variable speed DX coil"
     datCoi=datCoi,
     minSpeRat=datCoi.minSpeRat,
     T_start=datCoi.sta[1].nomVal.TEvaIn_nominal,
-    from_dp=true) "Variable speed DX coil"
+    from_dp=true,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+    "Variable speed DX coil"
     annotation (Placement(transformation(extent={{-10,2},{10,22}})));
   Modelica.Blocks.Sources.Ramp TEvaIn(
     duration=600,
@@ -138,7 +140,7 @@ The model has open-loop control and time-varying input conditions.
 revisions="<html>
 <ul>
 <li>
-July 26, 2012 by Kaustubh Phalak:<br>
+July 26, 2012 by Kaustubh Phalak:<br/>
 First implementation. 
 </li>
 </ul>

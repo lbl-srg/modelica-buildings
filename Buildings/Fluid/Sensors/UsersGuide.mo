@@ -1,12 +1,13 @@
 within Buildings.Fluid.Sensors;
 package UsersGuide "User's Guide"
-  extends Modelica.Icons.Info;
+  extends Modelica.Icons.Information;
   annotation (preferredView="info",
   Documentation(info="<html>
 <p>
 This package contains models of sensors.
 There are models with one and with two fluid ports.
 </p>
+
 <h4>Selection and parameterization of sensor models</h4>
 <p>
 When selecting a sensor model, a distinction needs to be made
@@ -14,6 +15,7 @@ whether the measured quantity depends on the direction of the flow or
 not, and whether the sensor output signal is the product of the mass flow rate
 and a medium property.
 </p>
+
 <p>
 Output signals that depend on the flow direction and are not multiplied by
 the mass flow rate are temperature, relative humidity, 
@@ -26,23 +28,23 @@ Buildings.Fluid.MixingVolumes</a>.
 Therefore, to measure for example the outlet temperature of a heat exchanger, the
 configuration on the left in the figure below should be used, and not the configuration on the right.
 For an explanation, see
-<a href=\"modelica:Modelica.Fluid.Examples.Explanatory.MeasuringTemperature\">
+<a href=\"modelica://Modelica.Fluid.Examples.Explanatory.MeasuringTemperature\">
 Modelica.Fluid.Examples.Explanatory.MeasuringTemperature</a>.
 </p>
-<p>
-<table border=\"1\" cellspacing=0 cellpadding=2>
+
+<table summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2>
 <tr><th valign=\"top\" align=\"left\">Correct use</th>
     <td valign=\"top\">
-    <img src=\"modelica://Buildings/Resources/Images/Fluid/Sensors/twoPortHex.png\">
+    <img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Fluid/Sensors/twoPortHex.png\" />
     </td>
 </tr>
 <tr><th valign=\"top\" align=\"left\">Not recommended</th>
     <td valign=\"top\">
-    <img src=\"modelica://Buildings/Resources/Images/Fluid/Sensors/onePortHex.png\">
+    <img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Fluid/Sensors/onePortHex.png\" />
     </td>
 </tr>
 </table>
-</p>
+
 <p>
 Except for the mass flow rate sensor,
 all sensors with two ports can be 
@@ -54,6 +56,7 @@ Configuring a sensor as a dynamic sensor is done by setting the time constant to
 value. Typically, setting <code>tau=10</code> seconds yields good results.
 For <code>tau=0</code>, numerical problems may occur if mass flow rates are close to zero.
 </p>
+
 <p>
 If the sensor output signal is the product of mass flow rate times a measured fluid property, 
 such as sensors for volumentric flow rate or enthalpy flow rate,
@@ -73,8 +76,7 @@ ports can be used for all connection topologies.
 <p>
 The table below summarizes the recommendations for the use of sensors.
 </p>
-<p>
-<table border=\"1\" cellspacing=0 cellpadding=2>
+<table summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2>
 <tr><th rowspan=\"2\" valign=\"top\">Measured quantity</th>
     <th rowspan=\"2\" valign=\"top\">One port sensor</th>
     <th colspan=\"2\" valign=\"top\">Two port sensor</th>
@@ -82,16 +84,16 @@ The table below summarizes the recommendations for the use of sensors.
 <tr><td valign=\"top\">steady-state (<code>tau=0</code>)</td>
     <td valign=\"top\">dynamic (<code>tau &gt; 0</code>)</td>
 </tr>
-<tr><td valign=\"top\">temperature<br>
-                       relative humidity<br>
-                       mass fraction<br>
-                       trace substances<br>
+<tr><td valign=\"top\">temperature<br/>
+                       relative humidity<br/>
+                       mass fraction<br/>
+                       trace substances<br/>
                        specific enthalpy</td>
     <td valign=\"top\">use only if connected to a volume</td>
     <td valign=\"top\">avoid</td>
     <td valign=\"top\">recommended</td>
 </tr>
-<tr><td valign=\"top\">volume flow rate<br>
+<tr><td valign=\"top\">volume flow rate<br/>
                        enthalpy flow rate</td>
     <td valign=\"top\">-</td>
     <td valign=\"top\">recommended</td>
@@ -103,15 +105,17 @@ The table below summarizes the recommendations for the use of sensors.
     <td valign=\"top\">recommended</td>
 </tr>
 </table>
-</p>
+
 <h4>Sensor Dynamics</h4>
 <p>
 If a sensor is configured as a dynamic sensor by setting <code>tau &gt; 0</code>, 
 then the measured quantity, say the temperature <i>T</i>, is
 computed as
+</p>
 <p align=\"center\" style=\"font-style:italic;\">
   &tau; &nbsp; dT &frasl; dt = |m&#775;| &frasl; m&#775;<sub>0</sub> &nbsp; (&theta;-T),
 </p>
+<p>
 where <i>&tau;</i> is a user-defined time constant of the sensor (a suggested value is around 10 seconds,
 which is the default setting for the components),
 <i>dT &frasl; dt</i> is the time derivative of the sensor output signal,
@@ -123,6 +127,7 @@ with a sensor that outputs the temperature of this volume. In this situation, th
 be <i>V=&tau; &nbsp; m&#775;<sub>0</sub> &frasl; &rho;</i>, where
 <i>&rho;</i> is the density of the fluid.
 </p>
+
 <h4>Implementation</h4>
 <p>
 The above equation is implemented in such a way that it is differentiable in the mass flow rate.

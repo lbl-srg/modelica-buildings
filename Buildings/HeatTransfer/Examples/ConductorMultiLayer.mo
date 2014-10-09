@@ -1,7 +1,6 @@
 within Buildings.HeatTransfer.Examples;
 model ConductorMultiLayer "Test model for heat conductor"
   extends Modelica.Icons.Example;
-  import Buildings;
   Buildings.HeatTransfer.Sources.FixedTemperature TB(T=293.15)
     annotation (Placement(transformation(extent={{80,0},{60,20}})));
   Buildings.HeatTransfer.Sources.PrescribedTemperature TA
@@ -50,7 +49,7 @@ as the brick is computed using transient heat conduction.
 </html>", revisions="<html>
 <ul>
 <li>
-March 6 2010, by Michael Wetter:<br>
+March 6 2010, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

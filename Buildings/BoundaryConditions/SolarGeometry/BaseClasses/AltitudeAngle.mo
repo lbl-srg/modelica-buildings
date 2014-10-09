@@ -1,6 +1,6 @@
 within Buildings.BoundaryConditions.SolarGeometry.BaseClasses;
 block AltitudeAngle "Solar altitude angle"
-  extends Modelica.Blocks.Interfaces.BlockIcon;
+  extends Modelica.Blocks.Icons.Block;
 public
   Modelica.Blocks.Interfaces.RealInput zen(quantity="Angle", unit="rad")
     "Zenith angle"
@@ -25,7 +25,7 @@ It is the complementory angle to the zenith angle.
 ", revisions="<html>
 <ul>
 <li>
-Feb 01, 2012, by Kaustubh Phalak<br>
+Feb 01, 2012, by Kaustubh Phalak<br/>
 First implementation.
 </li>
 </ul>

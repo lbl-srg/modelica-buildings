@@ -4,7 +4,7 @@ model FixedApproachWetBulb
   extends Modelica.Icons.Example;
   extends
     Buildings.Fluid.HeatExchangers.CoolingTowers.Examples.BaseClasses.PartialStaticTwoPortCoolingTowerWetBulb(
-    redeclare FixedApproach                                              tow);
+     redeclare FixedApproach tow);
 equation
   connect(wetBulTem.TWetBul, tow.TAir) annotation (Line(
       points={{1,50},{10,50},{10,-46},{22,-46}},
@@ -31,7 +31,7 @@ outdoor wet-bulb temperature.
 </html>", revisions="<html>
 <ul>
 <li>
-July 12, 2011, by Michael Wetter:<br>
+July 12, 2011, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

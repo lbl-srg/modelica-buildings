@@ -1,6 +1,5 @@
 within Buildings.HeatTransfer.Radiosity.Examples;
 model OutdoorRadiosity "Test model for outdoor radiosity"
-  import Buildings;
   extends Modelica.Icons.Example;
   Buildings.HeatTransfer.Radiosity.OpaqueSurface sur(A=A, absIR=1)
     "Receiving surface"
@@ -30,7 +29,7 @@ equation
       points={{-59,-30},{-50,-30},{-50,-16},{-42,-16}},
       color={0,0,127},
       smooth=Smooth.None));
-    annotation(
+    annotation (
 experiment(StopTime=1.0),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/HeatTransfer/Radiosity/Examples/OutdoorRadiosity.mos"
         "Simulate and plot"),

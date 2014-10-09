@@ -1,8 +1,9 @@
 within Buildings.Airflow.Multizone;
 package UsersGuide "User's Guide"
-  extends Modelica.Icons.Info;
+  extends Modelica.Icons.Information;
   annotation (preferredView="info",
   Documentation(info="<html>
+<p>
 The package <code>Buildings.Airflow.Multizone</code> contains models for 
 multizone airflow and contaminant transport.
 </p>
@@ -13,17 +14,21 @@ In multizone airflow models, typically each room volume is assumed
 to be completely mixed.
 The driving force for the air flow are pressure differences that
 can be induced, e.g., by
-<UL>
-<LI>
-flow imbalance of the HVAC system,
-<LI>
-density difference across large openings such as doors or open windows,
-<LI>
-stack effects in high rise buildings, and
-<LI>
-wind pressure on the building facade.
-</UL>
 </p>
+<ul>
+<li>
+flow imbalance of the HVAC system,
+</li>
+<li>
+density difference across large openings such as doors or open windows,
+</li>
+<li>
+stack effects in high rise buildings, and
+</li>
+<li>
+wind pressure on the building facade.
+</li>
+</ul>
 <p>
 Wind pressure coefficients for different building configurations can be found
 in Costola <i>et al.</i> (2009), Persily and Ivy (2001), and Swami and Chandra (1987). 

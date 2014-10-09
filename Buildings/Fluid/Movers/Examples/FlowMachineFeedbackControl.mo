@@ -1,6 +1,5 @@
 within Buildings.Fluid.Movers.Examples;
 model FlowMachineFeedbackControl "Flow machine with feedback control"
-  import Buildings;
   extends Modelica.Icons.Example;
 
   package Medium = Buildings.Media.GasesPTDecoupled.MoistAirUnsaturated;
@@ -101,7 +100,7 @@ The fan is controlled to track a required mass flow rate.
 </html>", revisions="<html>
 <ul>
 <li>
-February 14, 2012, by Michael Wetter:<br>
+February 14, 2012, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

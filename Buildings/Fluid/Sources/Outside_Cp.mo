@@ -7,8 +7,7 @@ model Outside_Cp
     "Get the wind pressure coefficient from the input connector"
     annotation(Evaluate=true, HideResult=true);
   parameter Real Cp = 0.6 "Fixed value of wind pressure coefficient"
-    annotation (Evaluate = true,
-                Dialog(enable = not use_Cp_in));
+    annotation (Dialog(enable = not use_Cp_in));
 
   Modelica.Blocks.Interfaces.RealInput Cp_in(unit="1") if
      use_Cp_in "Prescribed wind pressure coefficient"
@@ -70,7 +69,11 @@ wind pressure coefficient is obtained from the input connector
 revisions="<html>
 <ul>
 <li>
-October 26, 2011 by Michael Wetter:<br>
+May 30, 2014, by Michael Wetter:<br/>
+Removed undesirable annotation <code>Evaluate=true</code>.
+</li>
+<li>
+October 26, 2011 by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

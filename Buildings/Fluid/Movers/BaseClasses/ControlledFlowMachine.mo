@@ -1,16 +1,15 @@
 within Buildings.Fluid.Movers.BaseClasses;
 model ControlledFlowMachine
   "Partial model for fan or pump with ideally controlled mass flow rate or head as input signal"
-  extends Buildings.Fluid.Movers.BaseClasses.PartialFlowMachine(
-   final show_V_flow = false,
-   preSou(final control_m_flow=control_m_flow));
-
   extends Buildings.Fluid.Movers.BaseClasses.PowerInterface(
      final use_powerCharacteristic = false,
      final rho_default = Medium.density(sta_default));
 
+  extends Buildings.Fluid.Movers.BaseClasses.PartialFlowMachine(
+   preSou(final control_m_flow=control_m_flow));
+
   import cha = Buildings.Fluid.Movers.BaseClasses.Characteristics;
-//  parameter Medium.MassFlowRate m_flow_nominal
+//  parameter Modelica.SIunits.MassFlowRate m_flow_nominal
 //    "Nominal mass flow rate, used as flow rate if control_m_flow";
 //  parameter Modelica.SIunits.MassFlowRate m_flow_max = m_flow_nominal
 //    "Maximum mass flow rate (at zero head)";
@@ -24,8 +23,10 @@ model ControlledFlowMachine
 protected
   final parameter Medium.AbsolutePressure p_a_default(displayUnit="Pa") = Medium.p_default
     "Nominal inlet pressure for predefined fan or pump characteristics";
-  parameter Medium.ThermodynamicState sta_default = Medium.setState_pTX(T=T_start,
-     p=p_a_default, X=X_start[1:Medium.nXi]);
+  parameter Medium.ThermodynamicState sta_default = Medium.setState_pTX(
+     T=Medium.T_default,
+     p=Medium.p_default,
+     X=Medium.X_default[1:Medium.nXi]) "Default medium state";
 
   Modelica.Blocks.Sources.RealExpression PToMedium_flow(y=Q_flow + WFlo) if  addPowerToMedium
     "Heat and work input into medium"
@@ -40,7 +41,7 @@ equation
   VMachine_flow = -port_b.m_flow/rho_in;
   // To compute the electrical power, we set a lower bound for eta to avoid
   // a division by zero.
-  PEle = WFlo / Buildings.Utilities.Math.Functions.smoothMax(x1=eta, x2=1E-5, deltaX=1E-6);
+  P = WFlo / Buildings.Utilities.Math.Functions.smoothMax(x1=eta, x2=1E-5, deltaX=1E-6);
 
   connect(PToMedium_flow.y, prePow.Q_flow) annotation (Line(
       points={{-79,20},{-70,20}},
@@ -48,25 +49,7 @@ equation
       smooth=Smooth.None));
   annotation (defaultComponentName="fan",
     Icon(coordinateSystem(preserveAspectRatio=true,  extent={{-100,-100},{100,
-            100}}), graphics={
-        Line(
-          points={{0,70},{40,70}},
-          color={0,0,0},
-          smooth=Smooth.None),
-        Ellipse(
-          visible=filteredSpeed,
-          extent={{-34,100},{32,40}},
-          lineColor={0,0,0},
-          fillColor={135,135,135},
-          fillPattern=FillPattern.Solid),
-        Text(
-          visible=filteredSpeed,
-          extent={{-22,92},{20,46}},
-          lineColor={0,0,0},
-          fillColor={135,135,135},
-          fillPattern=FillPattern.Solid,
-          textString="M",
-          textStyle={TextStyle.Bold})}),
+            100}}), graphics),
     Diagram(coordinateSystem(preserveAspectRatio=true,  extent={{-100,-100},{
             100,100}})),
     Documentation(info="<html>
@@ -78,28 +61,37 @@ the head or the mass flow rate.
       revisions="<html>
 <ul>
 <li>
-December 14, 2012 by Michael Wetter:<br>
+October 8, 2013, by Michael Wetter:<br/>
+Removed parameter <code>show_V_flow</code>.
+</li>
+<li>
+September 13, 2013 by Michael Wetter:<br/>
+Corrected computation of <code>sta_default</code> to use medium default
+values instead of medium start values.
+</li>
+<li>
+December 14, 2012 by Michael Wetter:<br/>
 Renamed protected parameters for consistency with the naming conventions.
 </li>
 <li>
-October 11, 2012, by Michael Wetter:<br>
-Added implementation of <code>WFlo = eta * PEle</code> with
+October 11, 2012, by Michael Wetter:<br/>
+Added implementation of <code>WFlo = eta * P</code> with
 guard against division by zero.
 </li>
 <li>
-May 25, 2011, by Michael Wetter:<br>
+May 25, 2011, by Michael Wetter:<br/>
 Revised implementation of energy balance to avoid having to use conditionally removed models.
 </li>
 <li>
-November 11, 2010, by Michael Wetter:<br>
+November 11, 2010, by Michael Wetter:<br/>
 Changed <code>V_flow_max=m_flow_nominal/rho_nominal;</code> to <code>V_flow_max=m_flow_max/rho_nominal;</code>
 </li>
 <li>
-July 27, 2010, by Michael Wetter:<br>
+July 27, 2010, by Michael Wetter:<br/>
 Redesigned model to fix bug in medium balance.
 </li>
 <li>
-March 24, 2010, by Michael Wetter:<br>
+March 24, 2010, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

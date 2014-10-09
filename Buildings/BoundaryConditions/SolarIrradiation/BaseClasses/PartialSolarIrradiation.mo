@@ -1,7 +1,7 @@
 within Buildings.BoundaryConditions.SolarIrradiation.BaseClasses;
 partial block PartialSolarIrradiation
   "Partial model that is used to compute the direct and diffuse solar irradiation"
-  extends Modelica.Blocks.Interfaces.BlockIcon;
+  extends Modelica.Blocks.Icons.Block;
   parameter Modelica.SIunits.Angle til(displayUnit="deg") "Surface tilt";
   Modelica.Blocks.Interfaces.RealOutput H(
      final quantity="RadiantEnergyFluenceRate",
@@ -21,12 +21,12 @@ This is a partial model that is used to implement the direct and diffuse irradia
 ", revisions="<html>
 <ul>
 <li>
-Dec. 12, 2010, by Michael Wetter:<br>
+Dec. 12, 2010, by Michael Wetter:<br/>
 Changed output signal to avoid ambiguity in blocks that output also other
 quantities such as the incidence angle.
 </li>
 <li>
-Sep. 4, 2010, by Michael Wetter:<br>
+Sep. 4, 2010, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

@@ -1,15 +1,15 @@
 within Buildings.Examples.VAVReheat.Controls;
 block CoolingCoilTemperatureSetpoint "Set point scheduler for cooling coil"
-  extends Modelica.Blocks.Interfaces.BlockIcon;
+  extends Modelica.Blocks.Icons.Block;
   import Buildings.Examples.VAVReheat.Controls.OperationModes;
-
   parameter Modelica.SIunits.Temperature TCooOn=273.15+12
     "Cooling setpoint during on";
   parameter Modelica.SIunits.Temperature TCooOff=273.15+30
     "Cooling setpoint during off";
-
   Modelica.Blocks.Sources.RealExpression TSupSetCoo(
-   y=if (mode.y == OperationModes.occupied or mode.y == OperationModes.unoccupiedPreCool or mode.y == OperationModes.safety) then
+   y=if (mode.y == Integer(OperationModes.occupied) or
+         mode.y == Integer(OperationModes.unoccupiedPreCool) or
+         mode.y == Integer(OperationModes.safety)) then
           TCooOn else TCooOff) "Supply air temperature setpoint for cooling"
     annotation (Placement(transformation(extent={{-22,-50},{-2,-30}})));
   Modelica.Blocks.Interfaces.RealInput TSetHea "Set point for heating coil"

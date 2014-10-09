@@ -12,12 +12,14 @@ scaM_flow*(5.196+2.8428+1.0044+0.9612+0.3624+0.1584);
   Buildings.Fluid.FixedResistances.SplitterFixedResistanceDpM spl34(
     redeclare package Medium = Medium,
     m_flow_nominal=scaM_flow*{1,-1,-1},
-    dp_nominal={0.176,-0.844,-0.0662})                             annotation (extent=[-30,110;
+    dp_nominal={0.176,-0.844,-0.0662},
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)     annotation (extent=[-30,110;
         -10,130], Placement(transformation(extent={{-30,110},{-10,130}})));
   Buildings.Fluid.FixedResistances.SplitterFixedResistanceDpM mix55(
     redeclare package Medium = Medium,
     m_flow_nominal=scaM_flow*{-1,1,1},
-    dp_nominal=1E3*{-0.263200E-02,0.999990E-03,0.649000E-03})
+    dp_nominal=1E3*{-0.263200E-02,0.999990E-03,0.649000E-03},
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     annotation (extent=[-30,-30; -10,-50], Placement(transformation(extent={{
             -30,-30},{-10,-50}})));
   Buildings.Fluid.FixedResistances.FixedResistanceDpM res13(
@@ -46,43 +48,51 @@ scaM_flow*(5.196+2.8428+1.0044+0.9612+0.3624+0.1584);
   Buildings.Fluid.FixedResistances.SplitterFixedResistanceDpM spl35(
     redeclare package Medium = Medium,
     m_flow_nominal=scaM_flow*{1,-1,-1},
-    dp_nominal=1E3*{0.371000E-04,-0.259000E-02,-0.131000E-02})     annotation (extent=[30,110;
+    dp_nominal=1E3*{0.371000E-04,-0.259000E-02,-0.131000E-02},
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)     annotation (extent=[30,110;
         50,130]);
   Buildings.Fluid.FixedResistances.SplitterFixedResistanceDpM spl36(
     redeclare package Medium = Medium,
     m_flow_nominal=scaM_flow*{1,-1,-1},
-    dp_nominal=1E3*{0.211000E-03,-0.128000E-01,-0.223000E-02})     annotation (extent=[90,110;
+    dp_nominal=1E3*{0.211000E-03,-0.128000E-01,-0.223000E-02},
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)     annotation (extent=[90,110;
         110,130]);
   Buildings.Fluid.FixedResistances.SplitterFixedResistanceDpM spl37(
     redeclare package Medium = Medium,
     m_flow_nominal=scaM_flow*{1,-1,-1},
-    dp_nominal=1E3*{0.730000E-03,-0.128000E-01,-0.938000E-02})     annotation (extent=[150,110;
+    dp_nominal=1E3*{0.730000E-03,-0.128000E-01,-0.938000E-02},
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)     annotation (extent=[150,110;
         170,130]);
   Buildings.Fluid.FixedResistances.SplitterFixedResistanceDpM spl38(
     redeclare package Medium = Medium,
     m_flow_nominal=scaM_flow*{1,-1,-1},
-    dp_nominal=1E3*{0.731000E-02,-0.895000E-01,-0.942000E-01})     annotation (extent=[210,110;
+    dp_nominal=1E3*{0.731000E-02,-0.895000E-01,-0.942000E-01},
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)     annotation (extent=[210,110;
         230,130]);
   Buildings.Fluid.FixedResistances.SplitterFixedResistanceDpM mix54(
     redeclare package Medium = Medium,
     m_flow_nominal=scaM_flow*{-1,1,1},
-    dp_nominal=1E3*{-0.653000E-02,0.271000E-03,0.402000E-04})
+    dp_nominal=1E3*{-0.653000E-02,0.271000E-03,0.402000E-04},
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     annotation (extent=[30,-30; 50,-50]);
   Buildings.Fluid.FixedResistances.SplitterFixedResistanceDpM mix53(
     redeclare package Medium = Medium,
     m_flow_nominal=scaM_flow*{-1,1,1},
-    dp_nominal=1E3*{-0.566000E-01,0.541000E-02,0.749000E-04})
+    dp_nominal=1E3*{-0.566000E-01,0.541000E-02,0.749000E-04},
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     annotation (extent=[90,-30; 110,-50]);
   Buildings.Fluid.FixedResistances.SplitterFixedResistanceDpM mix52(
     redeclare package Medium = Medium,
     m_flow_nominal=scaM_flow*{-1,1,1},
-    dp_nominal=1E3*{-0.353960,0.494000E-03,0.922000E-03})
+    dp_nominal=1E3*{-0.353960,0.494000E-03,0.922000E-03},
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     annotation (extent=[150,-30; 170,-50], Placement(transformation(extent={{
             150,-30},{170,-50}})));
   Buildings.Fluid.FixedResistances.SplitterFixedResistanceDpM mix51(
     redeclare package Medium = Medium,
     m_flow_nominal=scaM_flow*{-1,1,1},
-    dp_nominal=1E3*{-0.847600E-01,1.89750,0.150000E-02})
+    dp_nominal=1E3*{-0.847600E-01,1.89750,0.150000E-02},
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     annotation (extent=[210,-30; 230,-50]);
   Modelica.Fluid.Interfaces.FluidPort_b port_bExh(redeclare package Medium =
         Medium)                 annotation (extent=[-110,-50; -90,-30]);
@@ -359,8 +369,9 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
-            -100},{300,200}})),
+            -60},{300,200}})),
                        Icon(
+      coordinateSystem(extent={{-100,-60},{300,200}}),
       Rectangle(extent=[-98,-38; 284,-42],   style(
           color=69,
           gradient=2,
@@ -516,12 +527,9 @@ Model of a suite consisting of five rooms for the MIT system model.
 </p></html>", revisions="<html>
 <ul>
 <li>
-July 20, 2007 by Michael Wetter:<br>
+July 20, 2007 by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
-</html>"),
-    Coordsys(extent=[-100,-100; 300,200],
-      grid=[2,2],
-      scale=2));
+</html>"));
 end Suite;

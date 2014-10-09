@@ -28,7 +28,7 @@ is not correct, the model will stop with an assert statement.
 </html>", revisions="<html>
 <ul>
 <li>
-April 14, 2008, by Michael Wetter:<br>
+April 14, 2008, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

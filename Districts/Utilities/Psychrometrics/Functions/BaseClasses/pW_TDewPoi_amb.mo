@@ -22,7 +22,7 @@ and for its inverse function.
 </html>", revisions="<html>
 <ul>
 <li>
-May 21, 2010 by Michael Wetter:<br>
+May 21, 2010 by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

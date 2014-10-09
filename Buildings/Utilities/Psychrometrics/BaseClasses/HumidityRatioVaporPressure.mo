@@ -1,15 +1,15 @@
 within Buildings.Utilities.Psychrometrics.BaseClasses;
 partial block HumidityRatioVaporPressure
   "Humidity ratio for given water vapor pressure"
-  extends Modelica.Blocks.Interfaces.BlockIcon;
+  extends Modelica.Blocks.Icons.Block;
   parameter Boolean use_p_in = true "Get the pressure from the input connector"
     annotation(Evaluate=true, HideResult=true);
 
   parameter Modelica.SIunits.Pressure p = 101325 "Fixed value of pressure"
-    annotation (Evaluate = true,
-                Dialog(enable = not use_p_in));
+    annotation (Dialog(enable = not use_p_in));
   Modelica.Blocks.Interfaces.RealInput p_in(final quantity="Pressure",
                                          final unit="Pa",
+                                         displayUnit="Pa",
                                          min = 0) if  use_p_in
     "Atmospheric Pressure"
     annotation (Placement(transformation(extent={{-140,40},{-100,80}},
@@ -40,7 +40,11 @@ and the value provided by the input connector is used instead.
 </html>", revisions="<html>
 <ul>
 <li>
-April 14, 2009 by Michael Wetter:<br>
+May 29, 2014, by Michael Wetter:<br/>
+Removed undesirable annotation <code>Evaluate=true</code>.
+</li>
+<li>
+April 14, 2009 by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

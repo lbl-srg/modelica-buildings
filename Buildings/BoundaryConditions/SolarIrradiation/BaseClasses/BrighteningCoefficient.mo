@@ -1,6 +1,6 @@
 within Buildings.BoundaryConditions.SolarIrradiation.BaseClasses;
 block BrighteningCoefficient "Circumsolar and horizon brightening coefficients"
-  extends Modelica.Blocks.Interfaces.BlockIcon;
+  extends Modelica.Blocks.Icons.Block;
   import H = Buildings.Utilities.Math.Functions.spliceFunction;
 public
   Modelica.Blocks.Interfaces.RealInput zen(
@@ -121,7 +121,7 @@ This component computes the circumsolar and horizon brightening coefficients.
 ", revisions="<html>
 <ul>
 <li>
-May 25, 2010, by Wangda Zuo:<br>
+May 25, 2010, by Wangda Zuo:<br/>
 First implementation.
 </li>
 </ul>

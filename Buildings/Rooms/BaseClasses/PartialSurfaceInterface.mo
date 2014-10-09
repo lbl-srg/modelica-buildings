@@ -1,7 +1,6 @@
 within Buildings.Rooms.BaseClasses;
 partial model PartialSurfaceInterface
   "Partial model that is used for infrared radiation balance"
-  import Buildings;
   extends Buildings.Rooms.BaseClasses.ConstructionRecords;
 
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a conExt[NConExt]
@@ -51,36 +50,16 @@ protected
   final parameter Modelica.SIunits.Area ASurBou[NSurBou] = surBou.A
     "Area of surface models of constructions that are modeled outside of this room";
 
-  parameter Modelica.SIunits.Emissivity epsConExt[NConExt] = datConExt.layers.absIR_b
-    "Absorptivity of exterior constructions";
-  parameter Modelica.SIunits.Emissivity epsConExtWinOpa[NConExtWin] = datConExtWin.layers.absIR_b
-    "Absorptivity of opaque part of exterior constructions that contain a window";
-  parameter Modelica.SIunits.Emissivity epsConExtWinUns[NConExtWin]=
-    {(datConExtWin[i].glaSys.glass[datConExtWin[i].glaSys.nLay].absIR_b) for i in 1:NConExtWin}
-    "Absorptivity of unshaded part of window constructions";
-  parameter Modelica.SIunits.Emissivity epsConExtWinSha[NConExtWin] = datConExtWin.glaSys.shade.absIR_a
-    "Absorptivity of shaded part of window constructions";
-  parameter Modelica.SIunits.Emissivity epsConExtWinFra[NConExtWin] = datConExtWin.glaSys.absIRFra
-    "Absorptivity of window frame";
-  parameter Modelica.SIunits.Emissivity epsConPar_a[NConPar] = datConPar.layers.absIR_a
-    "Absorptivity of partition constructions surface a";
-  parameter Modelica.SIunits.Emissivity epsConPar_b[NConPar] = datConPar.layers.absIR_b
-    "Absorptivity of partition constructions surface b";
-  parameter Modelica.SIunits.Emissivity epsConBou[NConBou] = datConBou.layers.absIR_b
-    "Absorptivity of constructions with exterior boundary conditions exposed to outside of room model";
-  parameter Modelica.SIunits.Emissivity epsSurBou[NSurBou] = surBou.absIR
-    "Absorptivity of surface models of constructions that are modeled outside of this room";
 protected
   function checkSurfaceAreas
     input Integer n "Number of surfaces";
     input Modelica.SIunits.Area A[:] "Surface areas";
-    input String name
-      "Name of the surface data record, used in error message";
+    input String name "Name of the surface data record, used in error message";
   algorithm
     if n == 0 then
       assert(Modelica.Math.Vectors.norm(v=A, p=1) < 1E-10,
-      "Error in declaration of room model: Construction record '" + 
-      name + 
+      "Error in declaration of room model: Construction record '" +
+      name +
       "' has the following areas: " +
       Modelica.Math.Vectors.toString(A) +
       "However, the room model is declared as having zero surfaces.
@@ -141,37 +120,22 @@ initial algorithm
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid)}),
         Documentation(info="<html>
+<p>
 This partial model is used as a base class for models that need to exchange
-heat with room-facing surfaces. It defines parameters for the surface area,
-the absorptivity, and the products of area times absorptivity.
-</p>
-<p>
-There are also parameters that contain the number of constructions,
-such as the number of exterior constructions <code>nConExt</code>. 
-This parameter may take on the value <code>0</code>. 
-If this parameter were to be used to declare the size of vectors of
-component models, then there may be vectors with zero components.
-This can cause problems in Dymola 7.4. 
-We therefore also introduced the parameter
-<pre>
-  NConExt = max(1, nConExt)
-
-</pre>
-which can be used to set the size of the vector of component models.
-</p>
-<p>
-There are also parameters that can be used to conditionally remove components,
-such as <code>haveConExt</code>, which is set to 
-<pre>
-  haveConExt = nConExt > 0;
-
-</pre>
+heat with room-facing surfaces. It defines parameters for the surface areas.
+The model is used as a base class to implement the convective model, and the various
+radiation models.
 </p>
 </html>",
 revisions="<html>
 <ul>
 <li>
-July 17, 2012, by Michael Wetter:<br>
+July 12, 2013, by Michael Wetter:<br/>
+Removed the radiation related declarations
+to facilitate the separation of the convective and radiative model.
+</li>
+<li>
+July 17, 2012, by Michael Wetter:<br/>
 Added validity check of surface areas.
 This helped catching a bug in an early implementation of BESTEST Case960
 in which the extending class set <code>nConExtWin=0</code>, 
@@ -180,14 +144,14 @@ Because the radiation balance model computes exchange among
 <code>NConExtWin=max(nConExtWin, 1)</code> areas, its result was wrong.
 </li>
 <li>
-November 6, 2011, by Michael Wetter:<br>
+November 6, 2011, by Michael Wetter:<br/>
 Changed parameters that contain radiative properties from final to non-final, as
 they need to be overwritten by 
 <a href=\"modelica://Buildings.Rooms.BaseClasses.SolarRadiationExchange\">
 Buildings.Rooms.BaseClasses.SolarRadiationExchange</a>.
 </li>
 <li>
-November 16 2010, by Michael Wetter:<br>
+November 16 2010, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

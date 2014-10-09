@@ -30,17 +30,15 @@ equation
           textString="p")}),
     Documentation(info="<html>
 <p>
-This component monitors the absolute pressure at its fluid port. The sensor is 
-ideal, i.e., it does not influence the fluid.
+This model outputs the absolute pressure of the fluid connected to its port. 
+The sensor is ideal, i.e., it does not influence the fluid.
 </p>
-</html>
-",
+</html>",
 revisions="<html>
 <ul>
 <li>
-September 29, 2009, by Michael Wetter:<br>
-First implementation.
-Implementation is based on <code>Modelica.Fluid</code>.
+September 29, 2009, by Michael Wetter:<br/>
+First implementation, based on <code>Modelica.Fluid</code>.
 </li>
 </ul>
 </html>"));

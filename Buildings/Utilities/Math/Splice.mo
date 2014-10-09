@@ -1,6 +1,6 @@
 within Buildings.Utilities.Math;
 block Splice "Block for splice function opertation"
-  extends Modelica.Blocks.Interfaces.BlockIcon;
+  extends Modelica.Blocks.Icons.Block;
 
   Modelica.Blocks.Interfaces.RealInput x "Independent value"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}},
@@ -74,11 +74,11 @@ Buildings.Utilities.Math.Functions.spliceFunction</a>, which provides a continuo
 revisions="<html>
 <ul>
 <li>
-August 31, 2012, by Michael Wetter:<br>
+August 31, 2012, by Michael Wetter:<br/>
 Revised documentation.
 </li>
 <li>
-July 30, 2012, by Kaustubh Phalak:<br>
+July 30, 2012, by Kaustubh Phalak:<br/>
 First implementation.
 </li>
 </ul>

@@ -1,7 +1,7 @@
 within Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses;
 partial block PartialSurfaceCondition
   "Partial block for apparatus dew and dry point calculation"
-  extends Modelica.Blocks.Interfaces.BlockIcon;
+  extends Modelica.Blocks.Icons.Block;
   extends
     Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.EssentialParameters;
   replaceable package Medium =
@@ -46,7 +46,7 @@ partial block PartialSurfaceCondition
  output Modelica.SIunits.AngularVelocity spe(displayUnit="1/min")
     "Rotational speed";
 
-  final parameter Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.UACp uacp[nSta](
+  Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.UACp uacp[nSta](
       final per=datCoi.sta.nomVal,
       redeclare final package Medium = Medium) "Calculates UA/Cp of the coil"
     annotation (Placement(transformation(extent={{-20,0},{0,20}})));
@@ -130,11 +130,15 @@ as this ensures that the derivatives are continuous near the off conditions.
 revisions="<html>
 <ul>
 <li>
-September 24, 2012 by Michael Wetter:<br>
+October 9, 2013 by Michael Wetter:<br/>
+Corrected invalid Modelica syntax.
+</li>
+<li>
+September 24, 2012 by Michael Wetter:<br/>
 Revised implementation.
 </li>
 <li>
-August 24, 2012, by Michael Wetter:<br>
+August 24, 2012, by Michael Wetter:<br/>
 Moved function from 
 <code>Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses</code>
 to 
@@ -146,7 +150,7 @@ already contains a block called
 that do not distinguish between upper and lower case letters.
 </li>
 <li>
-August 1, 2012 by Kaustubh Phalak:<br>
+August 1, 2012 by Kaustubh Phalak:<br/>
 First implementation. 
 </li>
 </ul>

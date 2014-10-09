@@ -12,18 +12,18 @@ package SolidsPCM
 <p>
 Generic record for phase change materials.
 The record extends from 
-<a href=\"modelica:Buildings.HeatTransfer.Data.BaseClasses.Material\">
+<a href=\"modelica://Buildings.HeatTransfer.Data.BaseClasses.Material\">
 Buildings.HeatTransfer.Data.BaseClasses.Material</a>
 and declares parameters and constants for phase change materials.
 </p>
 </html>", revisions="<html>
 <ul>
 <li>
-March 9, 2013, by Michael Wetter:<br>
+March 9, 2013, by Michael Wetter:<br/>
 Revised implementation.
 </li>
 <li>
-February 20, 2013, by Michael Wetter:<br>
+February 20, 2013, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
@@ -53,7 +53,7 @@ Simplified numerical description of latent storage characteristics for phase cha
   revisions="<html>
 <ul>
 <li>
-March 18, 2013, by Michael Wetter:<br>
+March 18, 2013, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
@@ -80,7 +80,7 @@ Simplified numerical description of latent storage characteristics for phase cha
   revisions="<html>
 <ul>
 <li>
-March 18, 2013, by Michael Wetter:<br>
+March 18, 2013, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
@@ -121,7 +121,7 @@ Buildings.HeatTransfer.Data.Solids</a>.
 revisions="<html>
 <ul>
 <li>
-February 20, 2013, by Michael Wetter:<br>
+February 20, 2013, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

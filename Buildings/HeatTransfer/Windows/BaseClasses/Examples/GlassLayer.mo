@@ -1,6 +1,5 @@
 within Buildings.HeatTransfer.Windows.BaseClasses.Examples;
 model GlassLayer "Test model for glass layer heat transfer"
-  import Buildings;
   extends Modelica.Icons.Example;
   parameter Modelica.SIunits.Area A=1 "Window surface area";
   parameter Boolean linearize = false "Set to true to linearize emissive power";
@@ -41,8 +40,7 @@ model GlassLayer "Test model for glass layer heat transfer"
         extent={{-10,-10},{10,10}},
         rotation=180,
         origin={114,-60})));
-  Modelica.Blocks.Sources.Constant QAbs_flow(k=0)
-    "Absorbed solar heat flow"
+  Modelica.Blocks.Sources.Constant QAbs_flow(k=0) "Absorbed solar heat flow"
     annotation (Placement(transformation(extent={{-60,74},{-40,94}})));
   Buildings.HeatTransfer.Radiosity.RadiositySplitter radShaInt
     "Radiosity that strikes shading device"
@@ -89,6 +87,12 @@ model GlassLayer "Test model for glass layer heat transfer"
   Buildings.HeatTransfer.Windows.BaseClasses.ShadingSignal shaCon(haveShade=
         true) "Bounds the shading signal"
     annotation (Placement(transformation(extent={{-120,100},{-100,120}})));
+  Modelica.Blocks.Math.MultiSum sumJOut(nu=2)
+    "Sum of radiosities at outer surface"
+    annotation (Placement(transformation(extent={{-30,-68},{-42,-56}})));
+  Modelica.Blocks.Math.MultiSum sumJRoo(nu=2)
+    "Sum of radiosities at room surface"
+    annotation (Placement(transformation(extent={{44,-60},{56,-48}})));
 equation
   connect(TOut.y, TAirOut.T) annotation (Line(
       points={{-139,-30},{-112,-30}},
@@ -141,22 +145,6 @@ equation
       smooth=Smooth.None));
   connect(radShaInt.JOut_2, nonSha.JIn_b) annotation (Line(
       points={{39,-18},{30,-18},{30,-94},{21,-94}},
-      color={0,127,0},
-      smooth=Smooth.None));
-  connect(nonSha.JOut_a, radOut.JIn) annotation (Line(
-      points={{-1,-94},{-24,-94},{-24,-63.4},{-77,-63.4}},
-      color={0,127,0},
-      smooth=Smooth.None));
-  connect(sha.JOut_a, radOut.JIn)    annotation (Line(
-      points={{-1,36},{-14,36},{-14,-63.4},{-77,-63.4}},
-      color={0,127,0},
-      smooth=Smooth.None));
-  connect(sha.JOut_b, radIn.JIn)    annotation (Line(
-      points={{21,44},{34,44},{34,-54},{81,-54}},
-      color={0,127,0},
-      smooth=Smooth.None));
-  connect(nonSha.JOut_b, radIn.JIn) annotation (Line(
-      points={{21,-86},{26,-86},{26,-54},{81,-54}},
       color={0,127,0},
       smooth=Smooth.None));
   connect(QAbs_flow.y, nonSha.QAbs_flow) annotation (Line(
@@ -247,13 +235,48 @@ equation
       points={{-99,110},{40,110},{40,104},{58,104}},
       color={0,0,127},
       smooth=Smooth.None));
+  connect(radOut.JIn, sumJOut.y) annotation (Line(
+      points={{-77,-63.4},{-60,-63.4},{-60,-62},{-43.02,-62}},
+      color={0,0,0},
+      pattern=LinePattern.None,
+      smooth=Smooth.None));
+  connect(sha.JOut_a, sumJOut.u[1]) annotation (Line(
+      points={{-1,36},{-26,36},{-26,-59.9},{-30,-59.9}},
+      color={0,127,0},
+      smooth=Smooth.None));
+  connect(nonSha.JOut_a, sumJOut.u[2]) annotation (Line(
+      points={{-1,-94},{-26,-94},{-26,-64.1},{-30,-64.1}},
+      color={0,127,0},
+      smooth=Smooth.None));
+  connect(radIn.JIn, sumJRoo.y) annotation (Line(
+      points={{81,-54},{57.02,-54}},
+      color={0,0,0},
+      pattern=LinePattern.None,
+      smooth=Smooth.None));
+  connect(sha.JOut_b, sumJRoo.u[1]) annotation (Line(
+      points={{21,44},{28,44},{28,-51.9},{44,-51.9}},
+      color={0,127,0},
+      smooth=Smooth.None));
+  connect(nonSha.JOut_b, sumJRoo.u[2]) annotation (Line(
+      points={{21,-86},{28,-86},{28,-56.1},{44,-56.1}},
+      color={0,127,0},
+      smooth=Smooth.None));
     annotation (
 experiment(StopTime=1.0),
-__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/HeatTransfer/Windows/BaseClasses/Examples/GlassLayer.mos" "Simulate and plot"),
-              Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-160,
+__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/HeatTransfer/Windows/BaseClasses/Examples/GlassLayer.mos"
+        "Simulate and plot"),
+              Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-160,
             -160},{160,160}}),
                       graphics),
     Documentation(info="<html>
 This model tests one glas layer.
+</html>", revisions="<html>
+<ul>
+<li>
+June 27, 2013, by Michael Wetter:<br/>
+Changed model because the outflowing radiosity has been changed to be a non-negative quantity.
+See track issue <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/158\">#158</a>.
+</li>
+</ul>
 </html>"));
 end GlassLayer;

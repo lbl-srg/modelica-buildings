@@ -2,7 +2,7 @@ within Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses;
 partial model PartialDXCoil "Partial model for DX coil"
   extends
     Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.EssentialParameters;
-  extends Buildings.Fluid.BaseClasses.IndexWater;
+  extends Buildings.Fluid.BaseClasses.IndexMassFraction(final substanceName = "water");
   extends Buildings.Fluid.Interfaces.TwoPortHeatMassExchanger(
     redeclare package Medium = Medium,
     redeclare final Buildings.Fluid.MixingVolumes.MixingVolumeMoistAir vol,
@@ -52,7 +52,7 @@ protected
   Modelica.Blocks.Sources.RealExpression p(final y=port_a.p)
     "Inlet air pressure"
     annotation (Placement(transformation(extent={{-90,4},{-70,24}})));
-  Modelica.Blocks.Sources.RealExpression X(final y=XEvaIn[i_w])
+  Modelica.Blocks.Sources.RealExpression X(final y=XEvaIn[i_x])
     "Inlet air mass fraction"
     annotation (Placement(transformation(extent={{-56,26},{-36,46}})));
   Modelica.Blocks.Sources.RealExpression T(final y=TEvaIn)
@@ -196,11 +196,16 @@ for an explanation of the model.
 revisions="<html>
 <ul>
 <li>
-September 24, 2012 by Michael Wetter:<br>
+August 31, 2013, by Michael Wetter:<br/>
+Updated model due to change in 
+<code>Buildings.Fluid.BaseClasses.IndexMassFraction</code>.
+</li>
+<li>
+September 24, 2012 by Michael Wetter:<br/>
 Revised documentation.
 </li>
 <li>
-September 4, 2012 by Michael Wetter:<br>
+September 4, 2012 by Michael Wetter:<br/>
 Moved assignments to declaration section to avoid mixing graphical modeling with textual
 modeling in <code>equation</code> section.
 Redeclare medium model as <code>Modelica.Media.Interfaces.PartialCondensingGases</code>
@@ -208,7 +213,7 @@ to remove errors during model check.
 Added output connectors for sensible and latent heat flow rate.
 </li>
 <li>
-April 12, 2012 by Kaustubh Phalak:<br>
+April 12, 2012 by Kaustubh Phalak:<br/>
 First implementation. 
 </li>
 </ul>

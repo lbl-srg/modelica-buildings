@@ -9,6 +9,7 @@ model System1
     annotation (Placement(transformation(extent={{60,-80},{80,-60}})));
   Fluid.MixingVolumes.MixingVolume vol(
     redeclare package Medium = MediumA,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     m_flow_nominal=mA_flow_nominal,
     V=V)
     annotation (Placement(transformation(extent={{60,20},{80,40}})));
@@ -31,12 +32,10 @@ model System1
     annotation (Placement(transformation(extent={{60,50},{80,70}})));
   Modelica.Blocks.Sources.CombiTimeTable timTab(
       extrapolation=Modelica.Blocks.Types.Extrapolation.Periodic,
-      table=[      0, 0;
-              8*3600, 0;
+      smoothness=Modelica.Blocks.Types.Smoothness.ConstantSegments,
+      table=[-6*3600, 0;
               8*3600, QRooInt_flow;
-             18*3600, QRooInt_flow;
-             18*3600, 0;
-             24*3600, 0]) "Time table for internal heat gain"
+             18*3600, 0]) "Time table for internal heat gain"
     annotation (Placement(transformation(extent={{-20,70},{0,90}})));
 equation
   connect(TOut.port, theCon.port_a) annotation (Line(
@@ -116,6 +115,7 @@ Buildings.Media.GasesPTDecoupled.SimpleAir</a>.
 </p>
 <p>
 We also defined the system-level parameters
+</p>
 <pre>
   parameter Modelica.SIunits.Volume V=6*10*3 \"Room volume\";
   parameter Modelica.SIunits.MassFlowRate mA_flow_nominal = V*6/3600
@@ -123,6 +123,7 @@ We also defined the system-level parameters
   parameter Modelica.SIunits.HeatFlowRate QRooInt_flow = 4000 
     \"Internal heat gains of the room\";
 </pre>
+<p>
 to declare that the room volume is <i>180</i> m<sup>3</sup>, that the room
 has a nominal mass flow rate of <i>6</i> air changes per hour and that 
 the internal heat gains of the room are <i>4000</i> Watts.
@@ -196,23 +197,25 @@ and set its name to <code>timTab</code>.
 We set the table parameters to
 </p>
 <pre>
-Modelica.Blocks.Sources.CombiTimeTable timTab(
-      extrapolation=Modelica.Blocks.Types.Extrapolation.Periodic, 
-      table=[      0, 0; 
-              8*3600, 0; 
-              8*3600, QRooInt_flow; 
-             18*3600, QRooInt_flow; 
-             18*3600, 0; 
-             24*3600, 0]) \"Time table for internal heat gain\";
+  Modelica.Blocks.Sources.CombiTimeTable timTab(
+      extrapolation=Modelica.Blocks.Types.Extrapolation.Periodic,
+      smoothness=Modelica.Blocks.Types.Smoothness.ConstantSegments,
+      table=[-6*3600, 0;
+              8*3600, QRooInt_flow;
+             18*3600, 0]) \"Time table for internal heat gain\";
 </pre>
 <p>
-Note that we set that the output is a periodic signal by configuring 
+Note that we set the output to be a periodic signal by configuring 
 <code>
 extrapolation=Modelica.Blocks.Types.Extrapolation.Periodic.
 </code>
-The documentation of <a href=\"modelica://Modelica.Blocks.Sources.CombiTimeTable\">
-Modelica.Blocks.Sources.CombiTimeTable</a>
-explains why we added two values for 8am and 6pm.
+The first time stamp is <i>-6*3600</i> seconds in order to create
+a table that has a periodicity of one day.
+We also set the interpolation of the data to using
+piece-wise constant segments.
+See the documentation of <a href=\"modelica://Modelica.Blocks.Sources.CombiTimeTable\">
+Modelica.Blocks.Sources.CombiTimeTable</a> for the various options
+of this time table.
 </p>
 </li>
 <li>
@@ -227,13 +230,12 @@ for <i>2</i> days, or <i>172800</i> seconds, the
 response shown below should be seen.
 </p>
 <p align=\"center\">
-<img src=\"modelica://Buildings/Resources/Images/Examples/Tutorial/Boiler/System1Temperatures.png\" border=\"1\">
+<img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Examples/Tutorial/Boiler/System1Temperatures.png\" border=\"1\"/>
 </p>
 <p>
 To verify the correctness of the model, we can compare the simulated results to the
 following analytical solutions:
 </p>
-<p>
 <ol>
 <li>
 <p>
@@ -250,7 +252,6 @@ corresponds to a room temperature of <i>-4</i>&deg;C.
 </p>
 </li>
 </ol>
-</p>
 <p>
 Both analytical values agree with the simulation results shown in the above figure.
 </p>
@@ -262,8 +263,9 @@ This can be implemented by connecting an instance of
 <a href=\"modelica://Modelica.Thermal.HeatTransfer.Sources.FixedTemperature\">
 Modelica.Thermal.HeatTransfer.Sources.FixedTemperature</a>
 as shown below.
+</p>
 <p align=\"center\">
-<img src=\"modelica://Buildings/Resources/Images/Examples/Tutorial/Boiler/System1PrescribedTemperature.png\" border=\"1\">
+<img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Examples/Tutorial/Boiler/System1PrescribedTemperature.png\" border=\"1\"/>
 </p>
 <p>
 When plotting the heat flow rate <code>fixTemp.port.Q_flow</code>, one can see
@@ -288,7 +290,7 @@ could have been used.
 </html>", revisions="<html>
 <ul>
 <li>
-January 27, 2012, by Michael Wetter:<br>
+January 27, 2012, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

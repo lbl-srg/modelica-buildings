@@ -3,11 +3,13 @@ package OpaqueConstructions
   "Package with opaque constructions for floors, walls, etc."
     extends Modelica.Icons.MaterialPropertiesPackage;
   record Generic "Thermal properties of opaque constructions"
-    parameter Integer nLay(min=1, fixed=true) "Number of layers";
+
+   parameter Integer nLay(min=1) "Number of layers";
+
     parameter Buildings.HeatTransfer.Data.BaseClasses.Material material[nLay]
       "Layer by layer declaration of material, starting from outside to room-side"
-      annotation (choicesAllMatching=true, Evaluate=true, Placement(transformation(extent={{60,60},{80,80}})));
-   final parameter Real R(unit="m2.K/W")=sum(material[:].R)
+      annotation (choicesAllMatching=true, Evaluate=false, Placement(transformation(extent={{60,60},{80,80}})));
+   final parameter Real R(unit="m2.K/W")=sum(material[i].R for i in 1:nLay)
       "Thermal resistance per unit area";
 
    parameter Modelica.SIunits.Emissivity absIR_a=0.9
@@ -55,7 +57,7 @@ with one or more layers of material.
 By convention, <code>layer[1]</code> is facing the outside, and the last
 layer is facing the room-side.
 This is the same convention as is used in EnergyPlus and in Window 6.
-</p>
+
 <p>
 The parameters <code>absIR_a</code> and <code>absIR_b</code>
 are used to compute infrared heat radiation (in the infrared spectrum).
@@ -69,18 +71,31 @@ and temperature difference. See
 <a href=\"modelica://Buildings.HeatTransfer.Convection.Exterior\">
 Buildings.HeatTransfer.Convection.Exterior</a>.
 </p>
-</html>", revisions=
-          "<html>
+</html>",
+  revisions=
+  "<html>
 <ul>
 <li>
-March 13, 2013, by Michael Wetter:<br>
+July 1, 2013, by Michael Wetter:<br/>
+Changed the annotation of the instance <code>material</code>
+from
+<code>Evaluate=true</code> to <code>Evaluate=false</code>.
+This is required to allow changing the material properties after compilation.
+Note, however, that the number of state variables in 
+<a href=\"modelica://Buildings.HeatTransfer.Data.BaseClasses.Material\">
+Buildings.HeatTransfer.Data.BaseClasses.Material</a>
+are only computed when the model is translated, because
+the number of state variables is fixed at compilation time.
+</li>
+<li>
+March 13, 2013, by Michael Wetter:<br/>
 Replaced <code>Buildings.HeatTransfer.Data.Solids.Generic</code>
 with
 <code>Buildings.HeatTransfer.Data.OpaqueConstructions.Generic</code>
 to allow use of phase change material.
 </li>
 <li>
-November 16, 2010, by Michael Wetter:<br>
+November 16, 2010, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
@@ -89,18 +104,21 @@ First implementation.
   end Generic;
 
   record Insulation100Concrete200 =
-      Buildings.HeatTransfer.Data.OpaqueConstructions.Generic (material={
-          Solids.InsulationBoard(x=0.1),Solids.Concrete(x=0.2)}, final nLay=2)
+      Buildings.HeatTransfer.Data.OpaqueConstructions.Generic (
+        material={Solids.InsulationBoard(x=0.1),
+                  Solids.Concrete(x=0.2)},
+                  final nLay=2)
     "Construction with 100 mm insulation and 200 mm concrete";
 
   record Brick120 =
-      Buildings.HeatTransfer.Data.OpaqueConstructions.Generic (material={
-          Solids.Brick(x=0.12)}, final nLay=1) "Construction with 120mm brick";
+      Buildings.HeatTransfer.Data.OpaqueConstructions.Generic (
+        material={Solids.Brick(x=0.12)},
+        final nLay=1) "Construction with 120mm brick";
 
   record Concrete200 =
-      Buildings.HeatTransfer.Data.OpaqueConstructions.Generic (material={
-          Solids.Concrete(x=0.2)}, final nLay=1)
-    "Construction with 200mm concrete";
+      Buildings.HeatTransfer.Data.OpaqueConstructions.Generic (
+        material={Solids.Concrete(x=0.2)},
+        final nLay=1) "Construction with 200mm concrete";
 
   annotation (preferredView="info",
 Documentation(info="<html>
@@ -122,7 +140,7 @@ are used to compute solar heat radiation (in the solar spectrum).
 revisions="<html>
 <ul>
 <li>
-November 16, 2010, by Michael Wetter:<br>
+November 16, 2010, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

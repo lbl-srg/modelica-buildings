@@ -1,25 +1,25 @@
 within Buildings.Fluid.Sensors;
 model EnthalpyFlowRate "Ideal enthalphy flow rate sensor"
-  extends Buildings.Fluid.Sensors.BaseClasses.PartialDynamicFlowSensor(tau=0);
+  extends Buildings.Fluid.Sensors.BaseClasses.PartialDynamicFlowSensor;
   extends Modelica.Icons.RotationalSensor;
-
   Modelica.Blocks.Interfaces.RealOutput H_flow(unit="W")
     "Enthalpy flow rate, positive if from port_a to port_b"
     annotation (Placement(transformation(
         origin={0,110},
         extent={{-10,-10},{10,10}},
         rotation=90)));
-
   parameter Modelica.SIunits.SpecificEnthalpy h_out_start=
-    Medium.specificEnthalpy_pTX(Medium.p_default, Medium.T_default, Medium.X_default)
+    Medium.specificEnthalpy_pTX(
+      p=Medium.p_default,
+      T=Medium.T_default,
+      X=Medium.X_default)
     "Initial or guess value of measured specific enthalpy"
     annotation (Dialog(group="Initialization"));
-
+protected
   Modelica.SIunits.SpecificEnthalpy hMed_out(start=h_out_start)
     "Medium enthalpy to which the sensor is exposed";
   Modelica.SIunits.SpecificEnthalpy h_out(start=h_out_start)
     "Medium enthalpy that is used to compute the enthalpy flow rate";
-
 initial equation
   if dynamic then
     if initType == Modelica.Blocks.Types.Init.SteadyState then
@@ -29,12 +29,13 @@ initial equation
       h_out = h_out_start;
     end if;
   end if;
-
 equation
   if allowFlowReversal then
-    hMed_out = Modelica.Fluid.Utilities.regStep(port_a.m_flow,
-                 port_b.h_outflow,
-                 port_a.h_outflow, m_flow_small);
+    hMed_out = Modelica.Fluid.Utilities.regStep(
+                 x=port_a.m_flow,
+                 y1=port_b.h_outflow,
+                 y2=port_a.h_outflow,
+                 x_small=m_flow_small);
   else
     hMed_out = port_b.h_outflow;
   end if;
@@ -46,7 +47,6 @@ equation
   end if;
   // Sensor output signal
   H_flow = port_a.m_flow * h_out;
-
 annotation (defaultComponentName="senEntFlo",
   Diagram(coordinateSystem(preserveAspectRatio=true,  extent={{-100,-100},{100,
             100}})),
@@ -60,7 +60,7 @@ annotation (defaultComponentName="senEntFlo",
           textString="H_flow")}),
   Documentation(info="<html>
 <p>
-This component monitors the enthalphy flow rate of the medium in the flow
+This model outputs the enthalphy flow rate of the medium in the flow
 between fluid ports. The sensor is ideal, i.e., it does not influence the fluid.
 </p>
 <p>
@@ -77,19 +77,23 @@ For a sensor that measures the latent enthalpy flow rate, use
 <a href=\"modelica://Buildings.Fluid.Sensors.LatentEnthalpyFlowRate\">
 Buildings.Fluid.Sensors.LatentEnthalpyFlowRate</a>.
 </p>
-</html>
-", revisions="<html>
-<html>
-<p>
+</html>",
+revisions="<html>
 <ul>
 <li>
-June 3, 2011 by Michael Wetter:<br>
+August 31, 2013, by Michael Wetter:<br/>
+Removed default value <code>tau=0</code> as the base class 
+already sets <code>tau=1</code>.
+This change was made so that all sensors use the same default value.
+</li>
+<li>
+June 3, 2011 by Michael Wetter:<br/>
 Revised implementation to add dynamics in such a way that 
 the time constant increases as the mass flow rate tends to zero.
 This can improve the numerics.
 </li>
 <li>
-April 9, 2008 by Michael Wetter:<br>
+April 9, 2008 by Michael Wetter:<br/>
 First implementation.
 Implementation is based on enthalpy sensor of <code>Modelica.Fluid</code>.
 </li>

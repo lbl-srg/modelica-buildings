@@ -1,6 +1,6 @@
 within Buildings.Examples.VAVReheat.Controls;
 block RoomTemperatureSetpoint "Set point scheduler for room temperature"
-  extends Modelica.Blocks.Interfaces.BlockIcon;
+  extends Modelica.Blocks.Icons.Block;
   import Buildings.Examples.VAVReheat.Controls.OperationModes;
   parameter Modelica.SIunits.Temperature THeaOn=293.15
     "Heating setpoint during on";
@@ -14,25 +14,16 @@ block RoomTemperatureSetpoint "Set point scheduler for room temperature"
     annotation (Placement(transformation(extent={{10,50},{30,70}})));
   Modelica.Blocks.Routing.IntegerPassThrough mode
     annotation (Placement(transformation(extent={{60,50},{80,70}})));
-  Modelica.Blocks.Sources.RealExpression setPoiHea(y=if (mode.y ==
-        OperationModes.occupied or mode.y == OperationModes.unoccupiedWarmUp
-         or mode.y == OperationModes.safety) then THeaOn else THeaOff)
+  Modelica.Blocks.Sources.RealExpression setPoiHea(
+     y=if (mode.y == Integer(OperationModes.occupied) or mode.y == Integer(OperationModes.unoccupiedWarmUp)
+         or mode.y == Integer(OperationModes.safety)) then THeaOn else THeaOff)
     annotation (Placement(transformation(extent={{-80,70},{-60,90}})));
-  Modelica.Blocks.Sources.RealExpression setPoiCoo(y=if (mode.y ==
-        OperationModes.occupied or mode.y == OperationModes.unoccupiedPreCool
-         or mode.y == OperationModes.safety) then TCooOn else TCooOff)
+  Modelica.Blocks.Sources.RealExpression setPoiCoo(
+    y=if (mode.y == Integer(OperationModes.occupied) or
+          mode.y == Integer(OperationModes.unoccupiedPreCool) or
+          mode.y == Integer(OperationModes.safety)) then TCooOn else TCooOff)
     "Cooling setpoint"
     annotation (Placement(transformation(extent={{-80,30},{-60,50}})));
-  Modelica.Blocks.Continuous.FirstOrder firOrdHea(each T=10, each initType=
-        Modelica.Blocks.Types.Init.SteadyState,
-    y(unit="K", displayUnit="degC"))
-    "First order element, used since otherwise, Dymola 7.3 cannot reduce the index of the DAE"
-    annotation (Placement(transformation(extent={{-40,70},{-20,90}})));
-  Modelica.Blocks.Continuous.FirstOrder firOrdCoo(each T=10, each initType=
-        Modelica.Blocks.Types.Init.SteadyState,
-    y(unit="K", displayUnit="degC"))
-    "First order element, used since otherwise, Dymola 7.3 cannot reduce the index of the DAE"
-    annotation (Placement(transformation(extent={{-40,30},{-20,50}})));
 equation
   connect(controlBus.controlMode,mode. u) annotation (Line(
       points={{20,60},{58,60}},
@@ -42,30 +33,23 @@ equation
       string="%first",
       index=-1,
       extent={{-6,3},{-6,3}}));
-  connect(setPoiHea.y, firOrdHea.u) annotation (Line(
-      points={{-59,80},{-42,80}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(firOrdHea.y, controlBus.TRooSetHea) annotation (Line(
-      points={{-19,80},{20,80},{20,60}},
+  connect(setPoiHea.y, controlBus.TRooSetHea) annotation (Line(
+      points={{-59,80},{20,80},{20,60}},
       color={0,0,127},
       smooth=Smooth.None), Text(
       string="%second",
       index=1,
       extent={{6,3},{6,3}}));
-  connect(setPoiCoo.y, firOrdCoo.u) annotation (Line(
-      points={{-59,40},{-42,40}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(firOrdCoo.y, controlBus.TRooSetCoo) annotation (Line(
-      points={{-19,40},{20,40},{20,60}},
+  connect(setPoiCoo.y, controlBus.TRooSetCoo) annotation (Line(
+      points={{-59,40},{20,40},{20,60}},
       color={0,0,127},
       smooth=Smooth.None), Text(
       string="%second",
       index=1,
       extent={{6,3},{6,3}}));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
-            -100},{100,100}})), Icon(graphics={
+  annotation (Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-100,
+            -100},{100,100}}), graphics),
+                                Icon(graphics={
         Text(
           extent={{-92,90},{-52,70}},
           lineColor={0,0,255},

@@ -21,14 +21,15 @@ must have the same size.
   revisions="<html>
 <ul>
 <li>
-September 28, 2011, by Michael Wetter:<br>
+September 28, 2011, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
 </html>"));
   end flowParameters;
 
-  record flowParametersInternal "Record for flow parameters with prescribed size"
+  record flowParametersInternal
+    "Record for flow parameters with prescribed size"
     extends Modelica.Icons.Record;
     parameter Integer n "Number of elements in each array";
     parameter Modelica.SIunits.VolumeFlowRate V_flow[n](each min=0)
@@ -59,13 +60,12 @@ in the <code>initial algorithm</code> section, which is not supported.
   revisions="<html>
 <ul>
 <li>
-March 22, 2013, by Michael Wetter:<br>
+March 22, 2013, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
 </html>"));
   end flowParametersInternal;
-
 
   record efficiencyParameters "Record for efficiency parameters"
     extends Modelica.Icons.Record;
@@ -87,7 +87,7 @@ must have the same size.
   revisions="<html>
 <ul>
 <li>
-September 28, 2011, by Michael Wetter:<br>
+September 28, 2011, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
@@ -99,8 +99,7 @@ First implementation.
     parameter Modelica.SIunits.VolumeFlowRate V_flow[:](each min=0)= {0}
       "Volume flow rate at user-selected operating points";
     parameter Modelica.SIunits.Power P[size(V_flow,1)](
-       each min=0) = {0}
-      "Fan or pump electrical power at these flow rates";
+       each min=0) = {0} "Fan or pump electrical power at these flow rates";
     annotation (Documentation(info="<html>
 <p>
 Data record for performance data that describe volume flow rate versus
@@ -114,12 +113,12 @@ must have the same size.
   revisions="<html>
 <ul>
 <li>
-October 10, 2012, by Michael Wetter:<br>
+October 10, 2012, by Michael Wetter:<br/>
 Fixed wrong <code>displayUnit</code> and 
 <code>max</code> attribute for power.
 </li>
 <li>
-September 28, 2011, by Michael Wetter:<br>
+September 28, 2011, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
@@ -129,7 +128,9 @@ First implementation.
   function pressure
     "Flow vs. head characteristics for fan or pump pressure raise"
     extends Modelica.Icons.Function;
-    input Buildings.Fluid.Movers.BaseClasses.Characteristics.flowParametersInternal data
+    input
+      Buildings.Fluid.Movers.BaseClasses.Characteristics.flowParametersInternal
+                                                                                    data
       "Pressure performance data";
     input Modelica.SIunits.VolumeFlowRate V_flow "Volumetric flow rate";
     input Real r_N(unit="1") "Relative revolution, r_N=N/N_nominal";
@@ -157,7 +158,9 @@ First implementation.
       input Real r_N(unit="1") "Relative revolution, r_N=N/N_nominal";
       input Real d[dimD]
         "Coefficients for polynomial of pressure vs. flow rate";
-      input Buildings.Fluid.Movers.BaseClasses.Characteristics.flowParametersInternal data
+      input
+        Buildings.Fluid.Movers.BaseClasses.Characteristics.flowParametersInternal
+                                                                                      data
         "Pressure performance data";
       input Integer dimD "Dimension of data vector";
 
@@ -251,7 +254,7 @@ in all input variables.
 </html>", revisions="<html>
 <ul>
 <li>
-August 25, 2011, by Michael Wetter:<br>
+August 25, 2011, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
@@ -281,7 +284,7 @@ approaches zero.
 </html>", revisions="<html>
 <ul>
 <li>
-August 25, 2011, by Michael Wetter:<br>
+August 25, 2011, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
@@ -351,7 +354,7 @@ If the data <i>d</i> define a monotone decreasing sequence, then
 </html>", revisions="<html>
 <ul>
 <li>
-September 28, 2011, by Michael Wetter:<br>
+September 28, 2011, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
@@ -416,7 +419,7 @@ If the data <i>d</i> define a monotone decreasing sequence, then
 </html>", revisions="<html>
 <ul>
 <li>
-September 28, 2011, by Michael Wetter:<br>
+September 28, 2011, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
@@ -429,9 +432,9 @@ This package implements performance curves for fans and pumps,
 and records for parameter that can be used with these performance
 curves.
 </p>
-<p>
-The following performance curves are implemented:
-<table border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+
+The following performance curves are implemented:<br/>
+<table summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
 <tr>
 <th>Independent variable</th>
 <th>Dependent variable</th>
@@ -463,12 +466,11 @@ powerParameters</a></td>
 power</a></td>
 </tr>
 </table>
-</p>
 </html>",
 revisions="<html>
 <ul>
 <li>
-September 29, 2011, by Michael Wetter:<br>
+September 29, 2011, by Michael Wetter:<br/>
 New implementation due to changes from polynomial to cubic hermite splines.
 </li>
 </ul>

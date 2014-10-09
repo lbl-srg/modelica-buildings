@@ -16,7 +16,7 @@ model ExteriorBoundaryConditionsWithWindow
     "Set to true if window has interior shade (at surface b)"
     annotation (Dialog(group="Shading"));
 
-  final parameter Boolean windowHasShade=
+  final parameter Boolean haveShade=
     haveExteriorShade[1] or haveInteriorShade[1]
     "Set to true if window system has a shade"
     annotation (Dialog(group="Shading"), Evaluate=true);
@@ -27,7 +27,7 @@ model ExteriorBoundaryConditionsWithWindow
     annotation (Placement(transformation(extent={{140,100},{120,120}})));
 
   Modelica.Blocks.Interfaces.RealInput uSha[nCon](min=0, max=1) if
-       windowHasShade
+       haveShade
     "Control signal for the shading device, 0: unshaded; 1: fully shaded"
     annotation (Placement(transformation(extent={{-340,80},{-300,120}}),
         iconTransformation(extent={{-340,80},{-300,120}})));
@@ -67,12 +67,12 @@ model ExteriorBoundaryConditionsWithWindow
     annotation (Placement(transformation(extent={{-320,10},{-300,30}}),
         iconTransformation(extent={{-320,10},{-300,30}})));
   HeatTransfer.Interfaces.RadiosityOutflow JOutSha[nCon] if
-       windowHasShade
+       haveShade
     "Outgoing radiosity that connects to shaded part of glass at exterior side"
     annotation (Placement(transformation(extent={{-300,-210},{-320,-190}}),
         iconTransformation(extent={{-300,-210},{-320,-190}})));
   HeatTransfer.Interfaces.RadiosityInflow JInSha[nCon] if
-       windowHasShade
+       haveShade
     "Incoming radiosity that connects to shaded part of glass at exterior side"
     annotation (Placement(transformation(extent={{-320,-170},{-300,-150}}),
         iconTransformation(extent={{-320,-170},{-300,-150}})));
@@ -83,7 +83,7 @@ model ExteriorBoundaryConditionsWithWindow
                        rotation=0), iconTransformation(extent={{-310,-90},{-290,
             -70}})));
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a glaSha[nCon] if
-       windowHasShade "Heat port at shaded glass of exterior-facing surface"
+       haveShade "Heat port at shaded glass of exterior-facing surface"
     annotation (Placement(transformation(extent={{-310,-130},{-290,-110}}, rotation=0),
         iconTransformation(extent={{-310,-130},{-290,-110}})));
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a fra[nCon](T(each nominal=
@@ -210,10 +210,6 @@ equation
       points={{42,64},{72,64},{72,90},{199,90}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(conExtWin.QAbs_flow, QAbsSolSha_flow) annotation (Line(
-      points={{-10,-123},{-10,-140},{-160,-140},{-160,60},{-320,60}},
-      color={0,0,127},
-      smooth=Smooth.None));
   connect(skyRadExcWin.TOut, weaBus.TDryBul)
                                           annotation (Line(
       points={{-136,-268},{244,-268},{244,42}},
@@ -275,6 +271,10 @@ equation
       points={{199,126},{168,126},{168,104},{142,104}},
       color={0,0,127},
       smooth=Smooth.None));
+  connect(QAbsSolSha_flow, conExtWin.QSolAbs_flow) annotation (Line(
+      points={{-320,60},{-160,60},{-160,-140},{-10,-140},{-10,-123}},
+      color={0,0,127},
+      smooth=Smooth.None));
   annotation (Icon(graphics={
         Rectangle(
           extent={{-220,180},{-160,-102}},
@@ -293,12 +293,11 @@ equation
           fillColor={170,213,255},
           fillPattern=FillPattern.Solid,
           pattern=LinePattern.Dash)}),
-    Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-300,-300},{300,
-            300}})),
+    Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-300,-300},{300,
+            300}}), graphics),
     Documentation(info="<html>
 This model computes the boundary conditions for the outside-facing surface of
 opaque constructions and of windows.
-</p>
 <p>
 The model computes the infrared, solar, and convective heat exchange
 between these surfaces and the exterior temperature and the sky temperature.
@@ -318,7 +317,7 @@ Buildings.HeatTransfer.Windows.ExteriorHeatTransfer</a>.
 </html>", revisions="<html>
 <ul>
 <li>
-February 8 2012, by Michael Wetter:<br>
+February 8 2012, by Michael Wetter:<br/>
 Changed model to use new implementation of
 <a href=\"modelica://Buildings.HeatTransfer.Radiosity.OutdoorRadiosity\">
 Buildings.HeatTransfer.Radiosity.OutdoorRadiosity</a>.
@@ -327,7 +326,7 @@ heat transfer between window and ambient as is used for
 the opaque constructions.
 </li>
 <li>
-August 9, 2011, by Michael Wetter:<br>
+August 9, 2011, by Michael Wetter:<br/>
 Fixed bug that caused too high a surface temperature of the window frame.
 The previous version did not compute the infrared radiation exchange between the
 window frame and the sky. This has been corrected by adding the instance
@@ -335,7 +334,7 @@ window frame and the sky. This has been corrected by adding the instance
 This closes ticket <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/36\">issue 36</a>.
 </li>
 <li>
-November 23, 2010, by Michael Wetter:<br>
+November 23, 2010, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

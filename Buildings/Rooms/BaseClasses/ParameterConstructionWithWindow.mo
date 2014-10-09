@@ -27,11 +27,11 @@ record ParameterConstructionWithWindow
     wL=0,
     dep=0,
     gap=0) "Geometry of overhang"
-    annotation (Dialog(group="Glazing system"), Evaluate=true, choicesAllMatching=true, Placement(transformation(extent={{60,20},
+    annotation (Dialog(group="Glazing system"), choicesAllMatching=true, Placement(transformation(extent={{60,20},
             {80,40}})));
  replaceable parameter Buildings.Rooms.BaseClasses.SideFins sidFin(h=0, dep=0, gap=0)
     "Geometry of side fins"
-    annotation (Dialog(group="Glazing system"), Evaluate=true, choicesAllMatching=true, Placement(transformation(extent={{60,-20},
+    annotation (Dialog(group="Glazing system"), choicesAllMatching=true, Placement(transformation(extent={{60,-20},
             {80,0}})));
 
   final parameter Modelica.SIunits.Area AFra = fFra*AWin "Frame area"
@@ -41,7 +41,7 @@ record ParameterConstructionWithWindow
 
  replaceable parameter HeatTransfer.Data.GlazingSystems.Generic glaSys
     "Material properties of glazing system"
-    annotation (Dialog(group="Glazing system"), Evaluate=true, choicesAllMatching=true, Placement(transformation(extent={{58,62},
+    annotation (Dialog(group="Glazing system"), choicesAllMatching=true, Placement(transformation(extent={{58,62},
             {78,82}})));
   annotation (
 Documentation(info="<html>
@@ -58,7 +58,11 @@ Buildings.HeatTransfer.Types.Tilt</a>
 </html>", revisions="<html>
 <ul>
 <li>
-December 14, 2010, by Michael Wetter:<br>
+May 30, 2014, by Michael Wetter:<br/>
+Removed undesirable annotation <code>Evaluate=true</code>.
+</li>
+<li>
+December 14, 2010, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

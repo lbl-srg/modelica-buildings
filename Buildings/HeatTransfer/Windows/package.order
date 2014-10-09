@@ -1,6 +1,6 @@
 Window
 ExteriorHeatTransfer
-InteriorHeatTransfer
+InteriorHeatTransferConvective
 FixedShade
 Overhang
 SideFins

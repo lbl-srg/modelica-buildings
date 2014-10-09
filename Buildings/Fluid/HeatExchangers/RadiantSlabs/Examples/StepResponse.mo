@@ -27,7 +27,9 @@ model StepResponse "Model that tests the radiant slab"
     pipe=pipe,
     sysTyp=Buildings.Fluid.HeatExchangers.RadiantSlabs.BaseClasses.Types.SystemType.Floor,
     disPip=0.2,
-    A=A) "Slabe with embedded pipes"
+    A=A,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+    "Slabe with embedded pipes"
     annotation (Placement(transformation(extent={{10,-30},{30,-10}})));
 
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal=
@@ -63,7 +65,7 @@ model StepResponse "Model that tests the radiant slab"
   Modelica.Thermal.HeatTransfer.Components.BodyRadiation hRadBel(Gr=A/(1/0.7 + 1
         /0.7 - 1)) "Radiative heat transfer below the slab"
     annotation (Placement(transformation(extent={{-20,-100},{0,-80}})));
-  HeatTransfer.Data.OpaqueConstructions.Generic layers(nLay=3, material={
+  parameter HeatTransfer.Data.OpaqueConstructions.Generic layers(nLay=3, material={
         Buildings.HeatTransfer.Data.Solids.Generic(
         x=0.08,
         k=1.13,
@@ -80,7 +82,7 @@ model StepResponse "Model that tests the radiant slab"
         d=2400)})
     "Material layers from surface a to b (8cm concrete, 5 cm insulation, 20 cm reinforced concrete)"
     annotation (Placement(transformation(extent={{60,60},{80,80}})));
-  Data.Pipes.PEX_RADTEST pipe "Pipe material"
+  parameter Data.Pipes.PEX_RADTEST pipe "Pipe material"
     annotation (Placement(transformation(extent={{60,20},{80,40}})));
 equation
   connect(pulse.y, sou.m_flow_in)       annotation (Line(
@@ -139,7 +141,11 @@ This example models the step response of a radiant slab.
 revisions="<html>
 <ul>
 <li>
-April 5, 2012, by Michael Wetter:<br>
+October 11, 2013, by Michael Wetter:<br/>
+Added missing <code>parameter</code> keyword in the declaration of the data record.
+</li>
+<li>
+April 5, 2012, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

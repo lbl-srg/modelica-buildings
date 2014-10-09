@@ -13,8 +13,7 @@ model BoreholeSegment "Vertical segment of a borehole"
   extends Buildings.Fluid.Interfaces.LumpedVolumeDeclarations(T_start=TFil_start);
   replaceable package Medium = Modelica.Media.Interfaces.PartialMedium
     "Medium in the component" annotation (choicesAllMatching=true);
-  replaceable parameter Buildings.HeatTransfer.Data.Soil.Generic
-                                             matSoi
+  replaceable parameter Buildings.HeatTransfer.Data.Soil.Generic matSoi
     "Thermal properties of soil"
     annotation (choicesAllMatching=true, Dialog(group="Soil"),
     Placement(transformation(extent={{2,70},{22,90}})));
@@ -23,9 +22,10 @@ model BoreholeSegment "Vertical segment of a borehole"
     annotation (choicesAllMatching=true, Dialog(group="Filling material"),
     Placement(transformation(extent={{-68,70},{-48,90}})));
 
-  parameter Medium.MassFlowRate m_flow_nominal "Nominal mass flow rate"
+  parameter Modelica.SIunits.MassFlowRate m_flow_nominal
+    "Nominal mass flow rate"
     annotation(Dialog(group = "Nominal condition"));
-  parameter Medium.MassFlowRate m_flow_small(min=0) = 1E-4*abs(m_flow_nominal)
+  parameter Modelica.SIunits.MassFlowRate m_flow_small(min=0) = 1E-4*abs(m_flow_nominal)
     "Small mass flow rate for regularization of zero flow"
     annotation(Dialog(tab = "Advanced"));
   parameter Boolean homotopyInitialization = true "= true, use homotopy method"
@@ -54,8 +54,6 @@ model BoreholeSegment "Vertical segment of a borehole"
   parameter Modelica.SIunits.Height hSeg "Height of the element";
   parameter Modelica.SIunits.Length xC=0.05
     "Shank spacing, defined as the distance between the center of a pipe and the center of the borehole";
-  parameter Real B0=17.44 "Shape coefficient for grout resistance";
-  parameter Real B1=-0.6052 "Shape coefficient for grout resistance";
 
  parameter Boolean allowFlowReversal = true
     "= true to allow flow reversal, false restricts to design direction (port_a -> port_b)"
@@ -64,6 +62,7 @@ model BoreholeSegment "Vertical segment of a borehole"
  Buildings.Fluid.HeatExchangers.Boreholes.BaseClasses.HexInternalElement pipFil(
     redeclare final package Medium = Medium,
     final matFil=matFil,
+    final matSoi=matSoi,
     final hSeg=hSeg,
     final rTub=rTub,
     final eTub=eTub,
@@ -72,8 +71,6 @@ model BoreholeSegment "Vertical segment of a borehole"
     final xC=xC,
     final rBor=rBor,
     final TFil_start=TFil_start,
-    final B0=B0,
-    final B1=B1,
     final m1_flow_nominal=m_flow_nominal,
     final m2_flow_nominal=m_flow_nominal,
     final dp1_nominal=dp_nominal,
@@ -89,7 +86,6 @@ model BoreholeSegment "Vertical segment of a borehole"
     final allowFlowReversal1=allowFlowReversal,
     final allowFlowReversal2=allowFlowReversal,
     final homotopyInitialization=homotopyInitialization,
-    final show_V_flow=show_V_flow,
     final energyDynamics=energyDynamics,
     final massDynamics=massDynamics,
     final p1_start=p_start,
@@ -205,8 +201,8 @@ of a borehole heat exchanger.
 <p>
 The instance <code>pipFil</code> computes the heat transfer in the pipes and the filling material. 
 This computation is done using the model
-<a href=\"modelica://Buildings.Fluid.Boreholes.BaseClasses.HexInternalElement\">
-Buildings.Fluid.Boreholes.BaseClasses.HexInternalElement</a>.
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.Boreholes.BaseClasses.HexInternalElement\">
+Buildings.Fluid.HeatExchangers.Boreholes.BaseClasses.HexInternalElement</a>.
 </p>
 <p>
 The instance <code>soi</code> computes transient and steady state heat transfer in the soil using a vertical cylinder.
@@ -214,16 +210,26 @@ The computation is done using the model <a href=\"modelica://Buildings.HeatTrans
 Buildings.HeatTransfer.Conduction.SingleLayerCylinder</a>.
 </p>
 <p>
-The model <code>TBouCon</code> computes the far-field temperature boundary condition, i.e., the temperature at the outer
+The model <code>TBouCon</code> computes the far-field temperature boundary condition, 
+i.e., the temperature at the outer
 surface of the above cylindrical heat transfer computation.
 The computation is done using the model
-<a href=\"modelica://Buildings.Fluid.Boreholes.BaseClasses.TemperatureBoundaryCondition\">
-Buildings.Fluid.Boreholes.BaseClasses.TemperatureBoundaryCondition</a>.
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.Boreholes.BaseClasses.SingleUTubeBoundaryCondition\">
+Buildings.Fluid.HeatExchangers.Boreholes.BaseClasses.SingleUTubeBoundaryCondition</a>.
 </p>
 </html>", revisions="<html>
 <ul>
 <li>
-July 28 2011, by Pierre Vigouroux:<br>
+February 14, 2014, by Michael Wetter:<br/>
+Removed unused parameters <code>B0</code> and <code>B1</code>.
+Updated hyperlinks in the documentation.
+</li>
+<li>
+October 8, 2013, by Michael Wetter:<br/>
+Removed parameter <code>show_V_flow</code>.
+</li>
+<li>
+July 28 2011, by Pierre Vigouroux:<br/>
 First implementation.
 </li>
 </ul>

@@ -2,7 +2,6 @@ within Buildings.HeatTransfer.Windows.BaseClasses;
 model ThermalConductor
   "Lumped thermal element with variable area, transporting heat without storing it"
   extends Modelica.Thermal.HeatTransfer.Interfaces.Element1D;
-  extends Buildings.BaseClasses.BaseIconLow;
   parameter Modelica.SIunits.ThermalConductance G
     "Constant thermal conductance of material";
   Modelica.Blocks.Interfaces.RealInput u(min=0)
@@ -35,7 +34,11 @@ equation
         Text(
           extent={{-105,90},{-64,64}},
           lineColor={0,0,0},
-          textString="u")}),
+          textString="u"),   Text(
+          extent={{-50,-84},{48,-132}},
+          lineColor={0,0,255},
+          textString=
+               "%name")}),
     Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,
             100}}),      graphics={
         Line(
@@ -60,7 +63,7 @@ except that it adds an input signal <code>u</code>.
 ", revisions="<html>
 <ul>
 <li>
-August 18 2010, by Michael Wetter:<br>
+August 18 2010, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

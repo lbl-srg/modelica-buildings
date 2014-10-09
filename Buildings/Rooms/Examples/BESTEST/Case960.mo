@@ -94,18 +94,14 @@ model Case960 "Case 600, but with an unconditioned sun-space"
     annotation (Placement(transformation(extent={{108,16},{116,24}})));
   Modelica.Blocks.Sources.Constant qLatGai_flow1(k=0) "Latent heat gain"
     annotation (Placement(transformation(extent={{92,8},{100,16}})));
-  Buildings.HeatTransfer.Conduction.SingleLayer soil1(
-    material(
-      x=2,
-      k=1.3,
-      c=800,
-      d=1500,
-      R=0),
+  Buildings.HeatTransfer.Conduction.SingleLayer soiSunSpa(
+    material=soil,
     steadyStateInitial=true,
     A=16,
     T_a_start=283.15,
     T_b_start=283.75) "2m deep soil (per definition on p.4 of ASHRAE 140-2007)"
-    annotation (Placement(transformation(extent={{5,-5},{-3,3}},
+    annotation (Placement(transformation(
+        extent={{5,-5},{-3,3}},
         rotation=-90,
         origin={175,-35})));
   Buildings.Fluid.Sources.MassFlowSource_T sinInf2(
@@ -126,9 +122,9 @@ model Case960 "Case 600, but with an unconditioned sun-space"
     "Air density inside the building"
     annotation (Placement(transformation(extent={{84,-162},{74,-152}})));
 
-  Modelica.Thermal.HeatTransfer.Sources.FixedTemperature TSoi1[nConBou](
-    each T=283.15) "Boundary condition for construction"
-                                          annotation (Placement(transformation(
+  Modelica.Thermal.HeatTransfer.Sources.FixedTemperature TSoiSunSpa[nConBou](
+      each T=283.15) "Boundary condition for construction" annotation (
+      Placement(transformation(
         extent={{0,0},{-8,8}},
         rotation=0,
         origin={194,-52})));
@@ -155,12 +151,11 @@ equation
       points={{130,-42},{166,-42},{166,-25.5},{166.15,-25.5}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(sunSpa.surf_conBou[1], soil1.port_b)
-                                            annotation (Line(
+  connect(sunSpa.surf_conBou[1], soiSunSpa.port_b) annotation (Line(
       points={{173.5,-27},{173.5,-29.5},{174,-29.5},{174,-32}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(TSoi1[1].port, soil1.port_a) annotation (Line(
+  connect(TSoiSunSpa[1].port, soiSunSpa.port_a) annotation (Line(
       points={{186,-48},{174,-48},{174,-40}},
       color={191,0,0},
       smooth=Smooth.None));
@@ -184,7 +179,7 @@ equation
       smooth=Smooth.None));
   connect(multiplex3_2.y, sunSpa.qGai_flow)
                                          annotation (Line(
-      points={{116.4,20},{120,20},{120,-7.5},{152.5,-7.5}},
+      points={{116.4,20},{120,20},{120,-7.5},{148,-7.5}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(InfiltrationRate1.y, product1.u1) annotation (Line(
@@ -234,12 +229,17 @@ equation
             Documentation(revisions="<html>
 <ul>
 <li>
-May 1, 2013, by Michael Wetter:<br>
+October 9, 2013, by Michael Wetter:<br/>
+Corrected assignment of soil properties to avoid an error when checking
+the model in pedantic mode.
+</li>
+<li>
+May 1, 2013, by Michael Wetter:<br/>
 Declared the parameter record to be a parameter, as declaring its elements
 to be parameters does not imply that the whole record has the variability of a parameter.
 </li>
 <li>
-July 16, 2012, by Michael Wetter:<br>
+July 16, 2012, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

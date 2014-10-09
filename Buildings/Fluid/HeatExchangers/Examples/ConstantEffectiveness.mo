@@ -1,13 +1,12 @@
 within Buildings.Fluid.HeatExchangers.Examples;
 model ConstantEffectiveness
   "Model that demonstrates use of a heat exchanger with constant effectiveness"
-  import Buildings;
   extends Modelica.Icons.Example;
 
  package Medium1 = Buildings.Media.ConstantPropertyLiquidWater;
  package Medium2 = Buildings.Media.GasesPTDecoupled.MoistAirUnsaturated;
-  Buildings.Fluid.Sources.Boundary_pT sin_2(                       redeclare
-      package Medium = Medium2,
+  Buildings.Fluid.Sources.Boundary_pT sin_2(
+    redeclare package Medium = Medium2,
     use_p_in=true,
     nPorts=1,
     T=273.15 + 10,
@@ -20,8 +19,8 @@ model ConstantEffectiveness
     startTime=50)
                  annotation (Placement(transformation(extent={{-20,-50},{0,-30}},
           rotation=0)));
-  Buildings.Fluid.Sources.Boundary_pT sou_2(                       redeclare
-      package Medium = Medium2, T=273.15 + 5,
+  Buildings.Fluid.Sources.Boundary_pT sou_2(
+    redeclare package Medium = Medium2, T=273.15 + 5,
     use_p_in=true,
     use_T_in=true,
     nPorts=1)             annotation (Placement(transformation(extent={{40,-70},
@@ -38,8 +37,8 @@ model ConstantEffectiveness
     Modelica.Blocks.Sources.Constant POut(k=101325)
       annotation (Placement(transformation(extent={{-100,-2},{-80,18}},
           rotation=0)));
-  Buildings.Fluid.Sources.Boundary_pT sin_1(                       redeclare
-      package Medium = Medium1,
+  Buildings.Fluid.Sources.Boundary_pT sin_1(
+    redeclare package Medium = Medium1,
     use_p_in=true,
     nPorts=1,
     p=300000,
@@ -52,9 +51,9 @@ model ConstantEffectiveness
     use_T_in=true,
     nPorts=1)             annotation (Placement(transformation(extent={{-60,36},
             {-40,56}}, rotation=0)));
-  Buildings.Fluid.HeatExchangers.ConstantEffectiveness hex(redeclare package
-      Medium1 =
-        Medium1, redeclare package Medium2 = Medium2,
+  Buildings.Fluid.HeatExchangers.ConstantEffectiveness hex(
+    redeclare package Medium1 = Medium1,
+    redeclare package Medium2 = Medium2,
     show_T=true,
     m1_flow_nominal=5,
     m2_flow_nominal=5,
@@ -113,5 +112,20 @@ equation
             -100},{100,100}})),
 experiment(StopTime=360),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/Examples/ConstantEffectiveness.mos"
-        "Simulate and plot"));
+        "Simulate and plot"),
+Documentation(info="<html>
+<p>
+This model tests
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.ConstantEffectiveness\">
+Buildings.Fluid.HeatExchangers.ConstantEffectiveness</a>
+for different inlet conditions.
+</p>
+</html>", revisions="<html>
+<ul>
+<li>
+April 28, 2008, by Michael Wetter:<br/>
+First implementation.
+</li>
+</ul>
+</html>"));
 end ConstantEffectiveness;

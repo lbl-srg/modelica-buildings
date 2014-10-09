@@ -1,6 +1,6 @@
 within Buildings.BoundaryConditions.SolarIrradiation.BaseClasses;
 block DirectTiltedSurface "Direct solar irradiation on a tilted surface"
-  extends Modelica.Blocks.Interfaces.BlockIcon;
+  extends Modelica.Blocks.Icons.Block;
   Modelica.Blocks.Interfaces.RealInput incAng(
     quantity="Angle",
     unit="rad",
@@ -26,7 +26,7 @@ This component computes the direct solar irradiation on a tilted surface.
 ", revisions="<html>
 <ul>
 <li>
-May 24, 2010, by Wangda Zuo:<br>
+May 24, 2010, by Wangda Zuo:<br/>
 First implementation.
 </li>
 </ul>

@@ -1,13 +1,19 @@
 within Buildings.Fluid.Movers;
 package UsersGuide "User's Guide"
-  extends Modelica.Icons.Info;
+  extends Modelica.Icons.Information;
   annotation (preferredView="info",
   Documentation(info="<html>
 <p>
 This package contains models for fans and pumps. The same models
 are used for fans or pumps. 
 </p>
+
 <h4>Model description</h4>
+<p>A detailed description of the fan and pump models can be
+found in
+<a href=\"modelica://Buildings/Resources/Images/Fluid/Movers/UsersGuide/2013-IBPSA-Wetter.pdf\">Wetter (2013)</a>.
+Below, the models are briefly described.
+</p>
 <p>
 The models use 
 performance curves that compute pressure rise, 
@@ -17,6 +23,7 @@ These performance curves are described in
 <a href=\"modelica://Buildings.Fluid.Movers.BaseClasses.Characteristics\">
 Buildings.Fluid.Movers.BaseClasses.Characteristics</a>.
 </p>
+
 <h5>Models that use performance curves for pressure rise</h5>
 <p>
 The models
@@ -33,12 +40,12 @@ For other speeds, similarity laws are used to scale the performance curves, as
 described in 
 <a href=\"modelica://Buildings.Fluid.Movers.BaseClasses.Characteristics.pressure\">
 Buildings.Fluid.Movers.BaseClasses.Characteristics.pressure</a>.
+</p>
+
 <p>
 For example, suppose a pump needs to be modeled whose pressure versus flow relation crosses, at
-full speed, the points shown in the table below.
-</p>
-<p>
-  <table border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+full speed, the points shown in the table below.</p>
+  <table summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
   <tr>
       <th>Volume flow rate [m<sup>3</sup>&frasl;h] </th>
       <th>Head [Pa]</th>
@@ -56,9 +63,9 @@ full speed, the points shown in the table below.
       <td>15000</td>
     </tr>
   </table>
-</p>
 <p>
 Then, a declaration would be
+</p>
 <pre>
   Buildings.Fluid.Movers.FlowMachine_y pum(
     redeclare package Medium = Medium,
@@ -66,13 +73,13 @@ Then, a declaration would be
              dp    ={45,35,15}*1000))
     \"Circulation pump\";
 </pre>
-</p>
+
 <p>
-This will model the following pump curve for the pump input signal <code>y=1</code>.
-</p>
+This will model the following pump curve for the pump input signal <code>y=1</code>.</p>
 <p align=\"center\">
-<img src=\"modelica://Buildings/Resources/Images/Fluid/Movers/UsersGuide_pumpCurve.png\"/>
+<img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Fluid/Movers/UsersGuide/pumpCurve.png\"/>
 </p>
+
 <h5>Models that have idealized perfect controls</h5>
 <p>
 The models <a href=\"modelica://Buildings.Fluid.Movers.FlowMachine_dp\">
@@ -84,7 +91,7 @@ This pressure difference or mass flow rate will be provided by the fan or pump,
 i.e., the fan or pump has idealized perfect control and infinite capacity.
 These two models do not have a performance curve for the flow
 characteristics.
-The reason for not using a performance curve for the flow characteristics is that
+The reason for not using a performance curve for the flow characteristics is that</p>
 <ul>
 <li>
 for given pressure rise (or mass flow rate), the mass flow rate (or pressure rise)
@@ -94,13 +101,12 @@ is defined by the flow resistance of the duct or piping network, and
 at zero pressure difference, solving for the flow rate and the revolution leads to a singularity.
 </li>
 </ul>
-</p>
+
 <h5>Start-up and shut-down transients</h5>
 <p>
 All models have a parameter <code>filteredSpeed</code>. This
 parameter affects the fan output as follows:
 </p>
-<p>
 <ol>
 <li>
 If <code>filteredSpeed=false</code>, then the input signal <code>y</code> (or
@@ -109,12 +115,14 @@ is equal to the fan speed (or the mass flow rate or pressure rise).
 Thus, a step change in the input signal causes a step change in the fan speed (or mass flow rate or pressure rise).
 </li>
 <li>
+<p>
 If <code>filteredSpeed=false</code>, which is the default,
 then the fan speed (or the mass flow rate or the pressure rise)
 is equal to the output of a filter. This filter is implemented
 as a 2nd order differential equation and can be thought of as 
 approximating the inertia of the rotor and the fluid.
 Thus, a step change in the fan input signal will cause a gradual change
+</p>
 in the fan speed.
 The filter has a parameter <code>riseTime</code>, which by default is set to
 <i>30</i> seconds. 
@@ -122,15 +130,15 @@ The rise time is the time required to reach <i>99.6%</i> of the full speed, or,
 if the fan is switched off, to reach a fan speed of <i>0.4%</i>.
 </li>
 </ol>
-</p>
+
 <p>
 The figure below shows for a fan with <code>filteredSpeed=true</code>
 and <code>riseTime=30</code> seconds the 
-speed input signal and the actual speed.
-</p>
+speed input signal and the actual speed.</p>
 <p align=\"center\">
-<img src=\"modelica://Buildings/Resources/Images/Fluid/Movers/UsersGuide_fanSpeedFiltered.png\"/>
+<img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Fluid/Movers/UsersGuide/fanSpeedFiltered.png\"/>
 </p>
+
 <p>
 Although many simulations do not require such a detailed model
 that approximates the transients of fans or pumps, it turns
@@ -164,6 +172,7 @@ of the loop gain.
 If the control loop shows oscillatory behavior, then reduce <code>k</code> and/or increase <code>Ti</code>.
 If the control loop reacts too slow, do the opposite.
 </p>
+
 <h5>Efficiency and electrical power consumption</h5>
 <p>
 All models compute the motor power draw <i>P<sub>ele</sub></i>,
@@ -182,6 +191,7 @@ If the motor is cooled by the fluid, as indicated by
 <p align=\"center\" style=\"font-style:italic;\">
   Q = P<sub>ele</sub> - W<sub>flo</sub>.
 </p>
+
 <p>
 If <code>motorCooledByFluid=false</code>, then the motor is outside the fluid stream,
 and only the shaft, or hydraulic, work <i>W<sub>hyd</sub></i> enters the thermodynamic
@@ -190,16 +200,13 @@ control volume. Hence,
 <p align=\"center\" style=\"font-style:italic;\">
   Q = Q<sub>hyd</sub> - W<sub>flo</sub>.
 </p>
-<p>
-The efficiencies are computed as
-</p>
+<p>The efficiencies are computed as</p>
 <p align=\"center\" style=\"font-style:italic;\">
   &eta; = W<sub>flo</sub> &frasl; P<sub>ele</sub> = &eta;<sub>hyd</sub> &nbsp; &eta;<sub>mot</sub> <br/>
   &eta;<sub>hyd</sub> = W<sub>flo</sub> &frasl; W<sub>hyd</sub> <br/>
   &eta;<sub>mot</sub> = W<sub>hyd</sub> &frasl; P<sub>ele</sub> <br/>
 </p>
-<p>
-where
+<p>where
 <i>&eta;<sub>hyd</sub></i> is the hydraulic efficiency,
 <i>&eta;<sub>mot</sub></i> is the motor efficiency and
 <i>Q</i> is the heat released by the motor.
@@ -210,24 +217,30 @@ then a set of data points for the power <i>P<sub>ele</sub></i> for different
 volume flow rates at full speed needs to be provided by the user.
 Using the flow work <i>W<sub>flo</sub></i> and the electrical power input
 <i>P<sub>ele</sub></i>, the total efficiency is computed as
+</p>
 <p align=\"center\" style=\"font-style:italic;\">
   &eta; = W<sub>flo</sub> &frasl; P<sub>ele</sub>, <br/>
 </p>
+<p>
 and the two efficiencies 
 <i>&eta;<sub>hyd</sub></i>
 and <i>&eta;<sub>mot</sub></i> are computed as
+</p>
 <p align=\"center\" style=\"font-style:italic;\">
   &radic;&eta;<sub>hyd</sub> = &radic;&eta;<sub>mot</sub> = &eta;.
 </p>
+<p>
 However, if <code>use_powerCharacteristic=false</code>, then
 performance data for 
 <i>&eta;<sub>hyd</sub></i> and
  <i>&eta;<sub>mot</sub></i> need to be provided by the user, and hence 
 the model computes
+</p>
 <p align=\"center\" style=\"font-style:italic;\">
   &eta; = &eta;<sub>hyd</sub> &nbsp; &eta;<sub>mot</sub><br/>
   P<sub>ele</sub> = W<sub>flo</sub> &frasl; &eta;.
 </p>
+
 <p>
 The efficiency data for the motor are a list of points 
 <i>r<sub>V</sub></i> and <i>&eta;<sub>mot</sub></i>,
@@ -244,6 +257,7 @@ Buildings.Fluid.Movers.FlowMachine_Nrpm</a> set
 <pre>
   V_flow_max = V_flow(dp=0, r_N=1);
 </pre>
+
 <p>
 where <code>r_N</code> is the ratio of actual to nominal speed.
 Since <a href=\"modelica://Buildings.Fluid.Movers.FlowMachine_dp\">
@@ -261,12 +275,14 @@ where <code>m_flow_nominal</code> is the maximum flow rate, which needs to be
 provided by the user as a parameter for these models, and <code>rho_nominal</code> is the
 density at the nominal operating point.
 </p>
+
 <h5>Fluid volume of the component</h5>
 <p>
 All models can be configured to have a fluid volume at the low-pressure side.
 Adding such a volume sometimes helps the solver to find a solution during
 initialization and time integration of large models.
 </p>
+
 <h5>Enthalpy change of the component</h5>
 <p>
 If <code>motorCooledByFluid=true</code>, then
@@ -280,24 +296,20 @@ inlet and outlet other than the flow work <i>W<sub>flo</sub></i>.
 This can lead to simpler equations, but the temperature rise across the component
 will be underestimated, in particular for fans.
 </p>
+
 <h5>Further description</h5>
 <p>
 For a detailed description of the models with names <code>FlowMachine_*</code>,
 see their base class <a href=\"modelica://Buildings.Fluid.Movers.BaseClasses.PartialFlowMachine\">
 Buildings.Fluid.Movers.BaseClasses.PartialFlowMachine.</a>
 </p>
-<h5>Deprecated model</h5>
-<p>
-The model <a href=\"modelica://Buildings.Fluid.Movers.FlowMachinePolynomial\">
-Buildings.Fluid.Movers.FlowMachinePolynomial</a> is in this package for compatibility 
-with older versions of this library. It is recommended to use the other models as they optionally
-allow use of a medium volume that provides state variables which are needed in some models 
-when the flow rate is zero.
-</p>
+
 <h4>Differences to models in Modelica.Fluid.Machines</h4>
-<p>The models with names <code>FlowMachine_*</code> have similar parameters than the
+<p>
+The models with names <code>FlowMachine_*</code> have similar parameters than the
 models in the package <a href=\"Modelica.Fluid.Machines\">Modelica.Fluid.Machines</a>. 
 However, the models in this package differ primarily in the following points:
+</p>
 <ul>
 <li>
 They use a different base class, which allows to have zero mass flow rate.
@@ -321,6 +333,15 @@ The performance data are interpolated using cubic hermite splines instead of pol
 These functions are implemented at <a href=\"modelica://Buildings.Fluid.Movers.BaseClasses.Characteristics\">Buildings.Fluid.Movers.BaseClasses.Characteristics</a>.
 </li>
 </ul>
+<h4>References</h4>
+<p>
+Michael Wetter.
+<a href=\"modelica://Buildings/Resources/Images/Fluid/Movers/UsersGuide/2013-IBPSA-Wetter.pdf\">
+Fan and pump model that has a unique solution for any pressure
+boundary condition and control signal.</a>
+<i>Proc. of the 13th Conference of the International Building Performance
+Simulation Association</i>, p. 3505-3512. Chambery, France. August 2013.
+</p>
 </html>"));
 
 end UsersGuide;

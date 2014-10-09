@@ -1,0 +1,163 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>7. Glossary &mdash; Buildings Library User Guide</title>
+    
+    <link rel="stylesheet" href="_static/sphinxdoc.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="top" title="Buildings Library User Guide" href="index.html" />
+    <link rel="next" title="8. Acknowledgments" href="acknowledgments.html" />
+    <link rel="prev" title="6. Help" href="help.html" /> 
+  </head>
+  <body>
+<div class="headerStyle">
+<img src="_static/lbl-logo.png" alt="LBL logo" />
+</div>
+
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="acknowledgments.html" title="8. Acknowledgments"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="help.html" title="6. Help"
+             accesskey="P">previous</a> |</li>
+    <li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt;
+    <a href="http://simulationresearch.lbl.gov/modelica/userGuide">User Guide</a></li>
+    </br>
+<!--    
+        <li><a href="index.html">Buildings Library User Guide</a> &raquo;</li> -->
+ 
+      </ul>
+    </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="help.html"
+                        title="previous chapter">6. Help</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="acknowledgments.html"
+                        title="next chapter">8. Acknowledgments</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/glossary.txt"
+           rel="nofollow">Show Source</a></li>
+    <li><a href="https://github.com/lbl-srg/modelica-buildings/tree/master/Buildings/Resources/Documentation/userGuide/source/glossary.rst"
+           target="_blank"
+           rel="nofollow">Edit Source on GitHub</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="glossary">
+<h1>7. Glossary<a class="headerlink" href="#glossary" title="Permalink to this headline">¶</a></h1>
+<dl class="glossary docutils">
+<dt id="term-nd-order-low-pass-filter">2nd order low pass filter</dt>
+<dd><p class="first">A second order low pass filter is an input-output block that computes</p>
+<div class="math">
+\[\begin{split}\dot x(t) = \begin{pmatrix} r &amp; 0 \\ -r &amp; r \end{pmatrix} \, x(t) + \begin{pmatrix} -r \\ 0 \end{pmatrix} \, u(t)\end{split}\]</div>
+<p>and</p>
+<div class="math">
+\[y(t) = (0, \, 1) \, x(t),\]</div>
+<p class="last">where <span class="math">\(r\)</span> is a positive real number.
+This causes the input signal <span class="math">\(u(\cdot)\)</span> to be converted to
+an output signal <span class="math">\(y(\cdot)\)</span> that is differentiable in time.
+See the <a class="reference internal" href="workArounds.html#figurefilteredresponse"><em>plot of a filtered step response</em></a>.</p>
+</dd>
+<dt id="term-compressible-flow">compressible flow</dt>
+<dd>The opposite of <a class="reference internal" href="#term-incompressible-flow"><em class="xref std std-term">incompressible flow</em></a>.</dd>
+<dt id="term-incompressible-flow">incompressible flow</dt>
+<dd>In fluid mechanics, incompressible flow refers to flow where the mass
+density is constant within a fluid volume that moves with the fluid.</dd>
+<dt id="term-numerical-noise">numerical noise</dt>
+<dd>In numerical solutions, numerical noise refers to fast but small
+changes in variables whose magnitude is typically smaller than
+the solver tolerance.</dd>
+<dt id="term-regularization">regularization</dt>
+<dd>By regularization, we mean approximating a non-differentiable function by another function that is differentiable and has continuous and bounded derivatives, i.e., a function that is continuously differentiable. Continuous differentiability is a necessary condition for Newton-based solvers to solve nonlinear equations.</dd>
+<dt id="term-state-variables">state variables</dt>
+<dd>State variables are variables whose time rate of change is defined by a differential equation.</dd>
+<dt id="term-thermo-fluid-system">thermo-fluid system</dt>
+<dd>Thermo-fluid systems are systems that compute combined mass and energy flow, such as a heat exchanger in which heat is added to the medium that flows through it.</dd>
+<dt id="term-valve-authority">valve authority</dt>
+<dd><p class="first">For a control valve, the valve authority <span class="math">\(N\)</span> is defined as</p>
+<div class="math">
+\[N = \frac{\Delta p_v(1)}{\Delta p_v(1) + \Delta p_0},\]</div>
+<p class="last">where <span class="math">\(\Delta p_v(1)\)</span> is the pressure drop across the fully open valve, and <span class="math">\(\Delta p_v(1) + \Delta p_0\)</span> is the pressure drop across the whole flow leg whose mass flow rate is controlled by the valve. Valves should be designed such that <span class="math">\(N\)</span> is around 0.5, but not higher.</p>
+</dd>
+</dl>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="acknowledgments.html" title="8. Acknowledgments"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="help.html" title="6. Help"
+             >previous</a> |</li>
+    <li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt;
+    <a href="http://simulationresearch.lbl.gov/modelica/userGuide">User Guide</a></li>
+    </br>
+<!--    
+        <li><a href="index.html">Buildings Library User Guide</a> &raquo;</li> -->
+ 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2012-2013, The Regents of the University of California (through Lawrence Berkeley National Laboratory).
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
+    </div>
+  </body>
+</html>

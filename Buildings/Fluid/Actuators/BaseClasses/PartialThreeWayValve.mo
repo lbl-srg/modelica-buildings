@@ -46,7 +46,8 @@ partial model PartialThreeWayValve "Partial three way valve"
 
   parameter Real fraK(min=0, max=1) = 0.7
     "Fraction Kv(port_3->port_2)/Kv(port_1->port_2)";
-  parameter Real[2] l(min=0, max=1) = {0, 0} "Valve leakage, l=Cv(y=0)/Cvs";
+  parameter Real[2] l(each min=0, each max=1) = {0, 0}
+    "Valve leakage, l=Kv(y=0)/Kv(y=1)";
   parameter Real deltaM = 0.02
     "Fraction of nominal flow rate where linearization starts, if y=1"
     annotation(Dialog(group="Pressure-flow linearization"));
@@ -54,6 +55,9 @@ partial model PartialThreeWayValve "Partial three way valve"
   parameter Boolean[2] linearized = {false, false}
     "= true, use linear relation between m_flow and dp for any flow rate"
     annotation(Dialog(tab="Advanced"));
+
+  parameter Boolean homotopyInitialization = true "= true, use homotopy method"
+    annotation(Evaluate=true, Dialog(tab="Advanced"));
 
 protected
   Modelica.Blocks.Math.Feedback inv "Inversion of control signal"
@@ -162,25 +166,25 @@ a parameter.
 The flow coefficient for the bypass flow from <code>port_3 -> port_2</code>
 is computed as
 </p>
-<p>
 <pre>
          Kv(port_3 -> port_2)
   fraK = ----------------------
          Kv(port_1 -> port_2)
 </pre> 
-</p>
 <p>
 where <code>0 &lt; fraK &le; 1</code> is a parameter with a default value
 of <code>fraK=0.7</code>.
-</p><p>
+</p>
+<p>
 Since this model uses two way valves to construct a three way valve, see 
 <a href=\"modelica://Buildings.Fluid.Actuators.BaseClasses.PartialTwoWayValve\">
-PartialTwoWayValve</a> for details regarding the valve implementation.
+Buildings.Fluid.Actuators.BaseClasses.PartialTwoWayValve</a> 
+for details regarding the valve implementation.
 </p>
 </html>", revisions="<html>
 <ul>
 <li>
-February 28, 2013, by Michael Wetter:<br>
+February 28, 2013, by Michael Wetter:<br/>
 Reformulated assignment of parameters.
 Removed default value for <code>dpValve_nominal</code>, as this
 parameter has the attribute <code>fixed=false</code> for some values
@@ -193,11 +197,11 @@ Because the parameter set correctly its attributes <code>min=0</code> and <code>
 instances of this model used the correct value.
 </li>
 <li>
-April 12, 2012 by Michael Wetter:<br>
+April 12, 2012 by Michael Wetter:<br/>
 Removed duplicate declaration of <code>m_flow_nominal</code>.
 </li>
 <li>
-February 20, 2012 by Michael Wetter:<br>
+February 20, 2012 by Michael Wetter:<br/>
 Renamed parameter <code>dp_nominal</code> to <code>dpValve_nominal</code>,
 and added new parameter <code>dpFixed_nominal=0</code>.
 See 
@@ -205,11 +209,11 @@ See
 Buildings.Fluid.Actuators.UsersGuide</a>.
 </li>
 <li>
-March 25, 2011, by Michael Wetter:<br>
+March 25, 2011, by Michael Wetter:<br/>
 Added homotopy method.
 </li>
 <li>
-June 3, 2008 by Michael Wetter:<br>
+June 3, 2008 by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

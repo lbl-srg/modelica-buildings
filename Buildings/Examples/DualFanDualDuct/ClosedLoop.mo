@@ -1,6 +1,5 @@
 within Buildings.Examples.DualFanDualDuct;
 model ClosedLoop "Closed loop model of a dual-fan dual-duct system"
-  import Buildings;
   extends Modelica.Icons.Example;
 
   replaceable package MediumA =
@@ -101,24 +100,27 @@ model ClosedLoop "Closed loop model of a dual-fan dual-duct system"
     dp2_nominal=0,
     from_dp2=from_dp,
     linearizeFlowResistance2=linearizeFlowResistance,
-    dp1_nominal=0) "Cooling coil"
+    dp1_nominal=0,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial) "Cooling coil"
     annotation (Placement(transformation(extent={{372,-146},{352,-166}})));
   Buildings.Fluid.Movers.FlowMachine_y fanSupHot(
     redeclare package Medium = MediumA,
     pressure(V_flow=mAirHot_flow_nominal/1.2*{0,2}, dp=600*{2,0}),
-    energyDynamics=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial,
-    dynamicBalance=true) "Supply air fan for hot deck"
+    dynamicBalance=true,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+    "Supply air fan for hot deck"
     annotation (Placement(transformation(extent={{300,-10},{320,10}})));
   Buildings.Fluid.Movers.FlowMachine_y fanSupCol(
     redeclare package Medium = MediumA,
     pressure(V_flow=mAirCol_flow_nominal/1.2*{0,2}, dp=600*{2,0}),
-    energyDynamics=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial,
-    dynamicBalance=true) "Supply air fan for cold deck"
+    dynamicBalance=true,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+    "Supply air fan for cold deck"
     annotation (Placement(transformation(extent={{302,-160},{322,-140}})));
   Buildings.Fluid.Movers.FlowMachine_y fanRet(
     redeclare package Medium = MediumA,
     pressure(V_flow=m_flow_nominal/1.2*{0,2}, dp=100*{2,0}),
-    energyDynamics=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     dynamicBalance=true) "Return air fan"
     annotation (Placement(transformation(extent={{360,150},{340,170}})));
   Buildings.Fluid.Sources.FixedBoundary sinHea(
@@ -149,7 +151,7 @@ model ClosedLoop "Closed loop model of a dual-fan dual-duct system"
     m_flow_small=1E-4*m_flow_nominal)
     annotation (Placement(transformation(extent={{-340,100},{-320,120}})));
   Buildings.Examples.DualFanDualDuct.Controls.HeatingCoilTemperatureSetpoint
-                                   TSupSetHea(TOn=284.15, TOff=279.15)
+    TSupSetHea(TOn=284.15, TOff=279.15)
     "Supply air temperature setpoint for heating"
     annotation (Placement(transformation(extent={{-80,-180},{-60,-160}})));
   Buildings.Controls.Continuous.LimPID preHeaCoiCon(
@@ -389,11 +391,12 @@ model ClosedLoop "Closed loop model of a dual-fan dual-duct system"
     dp_nominal={20,0,-20}) "Splitter for room supply"
     annotation (Placement(transformation(extent={{980,10},{1000,-10}})));
   Buildings.Examples.DualFanDualDuct.Controls.CoolingCoilTemperatureSetpoint
-                                                                       TSetCoo(TOn=
-        285.15, TOff=313.15) "Setpoint for cooling coil"
+    TSetCoo(
+      TOn=285.15,
+      TOff=313.15) "Setpoint for cooling coil"
     annotation (Placement(transformation(extent={{-80,-250},{-60,-230}})));
   BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam=
-        "Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos")
+        "modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos")
     annotation (Placement(transformation(extent={{-390,170},{-370,190}})));
   BoundaryConditions.WeatherData.Bus weaBus "Weather Data Bus"
     annotation (Placement(transformation(extent={{-360,170},{-340,190}})));
@@ -443,12 +446,14 @@ model ClosedLoop "Closed loop model of a dual-fan dual-duct system"
     from_dp=true,
     m_flow_nominal=mWatPre_flow_nominal,
     riseTime=10) "Preheating coil valve"
-                                       annotation (Placement(transformation(
+    annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={120,-170})));
-  Fluid.Movers.FlowMachine_m_flow pumPreHea(redeclare package Medium = MediumW,
-      m_flow_nominal=mWatPre_flow_nominal)
+  Fluid.Movers.FlowMachine_m_flow pumPreHea(
+    redeclare package Medium = MediumW,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    m_flow_nominal=mWatPre_flow_nominal)
     "Pump for preheat coil (to ensure constant flow through the coil)"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
@@ -1147,8 +1152,8 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   annotation (
-    Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-400,-400},{1400,
-            600}}),      graphics),
+    Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-400,-400},{
+            1400,600}}), graphics),
     Documentation(info="<html>
 <p>
 This model consist of an HVAC system, a building envelope model and a model 
@@ -1164,7 +1169,7 @@ an economizer. The figure below shows the schematic diagram of the dual-fan,
 dual-duct system.
 </p>
 <p align=\"center\">
-<img src=\"modelica://Buildings/Resources/Images/Examples/DualFanDualDuct/dualFanDualDuctSchematics.png\" border=\"1\">
+<img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Examples/DualFanDualDuct/dualFanDualDuctSchematics.png\" border=\"1\"/>
 </p>
 <p>
 Each thermal zone inlet branch has a flow mixer and an air damper
@@ -1172,7 +1177,7 @@ in the hot deck and the cold deck. The air damper control signals are
 as shown in the figure below.
 </p>
 <p align=\"center\">
-<img src=\"modelica://Buildings/Resources/Images/Examples/DualFanDualDuct/hotColdDeckControl.png\" border=\"1\">
+<img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Examples/DualFanDualDuct/hotColdDeckControl.png\" border=\"1\"/>
 </p>
 <p>
 Hence, at low room temperatures, the amount
@@ -1193,7 +1198,7 @@ maintain an air outlet temperature of 11&deg;C during day-time, and
 air outlet temperature shown in the figure below.
 </p>
 <p align=\"center\">
-<img src=\"modelica://Buildings/Resources/Images/Examples/DualFanDualDuct/hotDeckTemperatureSetPoint.png\" border=\"1\">
+<img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Examples/DualFanDualDuct/hotDeckTemperatureSetPoint.png\" border=\"1\"/>
 </p>
 <p>
 The cooling coil is controlled to maintain a constant outlet temperature 
@@ -1257,11 +1262,11 @@ shading devices, Technical Report, Oct. 17, 2006.
 </html>", revisions="<html>
 <ul>
 <li>
-December 6, 2011, by Michael Wetter:<br>
+December 6, 2011, by Michael Wetter:<br/>
 Improved control for minimum zone flow rate.
 </li>
 <li>
-July 18, 2011, by Michael Wetter:<br>
+July 18, 2011, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

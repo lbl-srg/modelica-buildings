@@ -1,8 +1,7 @@
 within Buildings.HeatTransfer.Windows.Examples;
 model Overhang "This example tests the window overhang model"
-  import Buildings;
   extends Modelica.Icons.Example;
-  Buildings.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam="Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos")
+  Buildings.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam="modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos")
     "Weather data"
     annotation (Placement(transformation(extent={{-60,0},{-40,20}})));
   Buildings.HeatTransfer.Windows.Overhang ove(
@@ -57,12 +56,12 @@ Buildings.HeatTransfer.Windows.BaseClasses.Examples.Overhang</a>.
 revisions="<html>
 <ul>
 <li>
-July 5, 2012, by Michael Wetter:<br>
+July 5, 2012, by Michael Wetter:<br/>
 Changed definitions of <code>wL</code> and <code>wR</code> to be
 measured from the corner of the window instead of the centerline.
 </li>
 <li>
-Feb 01, 2012, by Kaustubh Phalak:<br>
+Feb 01, 2012, by Kaustubh Phalak:<br/>
 First implementation. 
 </li>
 </ul>

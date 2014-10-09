@@ -6,7 +6,7 @@ connector PowerOutput
   output Modelica.SIunits.Angle phi "Phase shift";
   output Real cosPhi "Power factor";
 
-  annotation (Icon(graphics={  Polygon(
+  annotation (Icon(graphics={ Polygon(
           points={{-100,100},{100,0},{-100,-100},{-100,100}},
           lineColor={0,0,127},
           fillColor={255,255,255},

@@ -1,14 +1,13 @@
 within Buildings.BoundaryConditions.SolarGeometry.Examples;
 model IncidenceAngle "Test model for solar incidence angle"
   extends Modelica.Icons.Example;
-  import Buildings;
   Buildings.BoundaryConditions.SolarGeometry.IncidenceAngle incAng(
     lat=0.73097781993588,
     azi=0.3,
     til=0.5) "Incidence angle"
     annotation (Placement(transformation(extent={{0,0},{20,20}})));
   Buildings.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(
-    filNam="Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos")
+    filNam="modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos")
     "Weather data (Chicago)"
     annotation (Placement(transformation(extent={{-60,0},{-40,20}})));
 equation

@@ -22,15 +22,9 @@ record LumpedVolumeDeclarations "Declarations for lumped volumes"
   parameter Medium.AbsolutePressure p_start = Medium.p_default
     "Start value of pressure"
     annotation(Dialog(tab = "Initialization"));
-//  parameter Boolean use_T_start = true "= true, use T_start, otherwise h_start"
- //   annotation(Dialog(tab = "Initialization"), Evaluate=true);
   parameter Medium.Temperature T_start=Medium.T_default
     "Start value of temperature"
     annotation(Dialog(tab = "Initialization"));
-//  parameter Medium.SpecificEnthalpy h_start=
-//    if use_T_start then Medium.specificEnthalpy_pTX(p_start, T_start, X_start) else Medium.h_default
-//    "Start value of specific enthalpy"
-//    annotation(Dialog(tab = "Initialization", enable = not use_T_start));
   parameter Medium.MassFraction X_start[Medium.nX] = Medium.X_default
     "Start value of mass fractions m_i/m"
     annotation (Dialog(tab="Initialization", enable=Medium.nXi > 0));
@@ -65,25 +59,25 @@ Buildings.Rooms.BaseClasses.MixedAir</a>.
 revisions="<html>
 <ul>
 <li>
-August 2, 2011, by Michael Wetter:<br>
+August 2, 2011, by Michael Wetter:<br/>
 Set <code>substanceDynamics</code> and <code>traceDynamics</code> to final
 and equal to <code>energyDynamics</code>, 
 as there is no need to make them different from <code>energyDynamics</code>.
 </li>
 <li>
-August 1, 2011, by Michael Wetter:<br>
+August 1, 2011, by Michael Wetter:<br/>
 Changed default value for <code>energyDynamics</code> to
 <code>Modelica.Fluid.Types.Dynamics.DynamicFreeInitial</code> because
 <code>Modelica.Fluid.Types.Dynamics.SteadyStateInitial</code> leads
 to high order DAE that Dymola cannot reduce.
 </li>
 <li>
-July 31, 2011, by Michael Wetter:<br>
+July 31, 2011, by Michael Wetter:<br/>
 Changed default value for <code>energyDynamics</code> to
 <code>Modelica.Fluid.Types.Dynamics.SteadyStateInitial</code>.
 </li>
 <li>
-April 13, 2009, by Michael Wetter:<br>
+April 13, 2009, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

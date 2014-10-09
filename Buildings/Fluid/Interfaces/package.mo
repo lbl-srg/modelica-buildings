@@ -28,12 +28,12 @@ Buildings.Fluid.Interfaces.FourPortFlowResistanceParameters</a> and
 Buildings.Fluid.Interfaces.LumpedVolumeDeclarations</a>.
 These define parameters that are needed by many fluid flow components.
 </p>
+
 <p>
 Next, we describe the basic classes. For a more detailed description,
 see the <i>info</i> section of the class.
 </p>
-<p>
-<table border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+<table summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
 <tr>
 <!-- ============================================== -->
   <td><a href=\"modelica://Buildings.Fluid.Interfaces.ConservationEquation\">
@@ -49,8 +49,8 @@ see the <i>info</i> section of the class.
       For most components, this can be set to a parameter. However, for components such as 
       expansion vessels, the fluid volume can change in time.
       </p>
-      <p>
-      The model has the following input connectors:
+      
+      The model has the following input connectors:<br/>
 <ul>
 <li>
 <code>Q_flow</code>, which is the sensible plus latent heat flow rate added to the medium, and
@@ -59,7 +59,7 @@ see the <i>info</i> section of the class.
 <code>mXi_flow</code>, which is the species mass flow rate added to the medium.
 </li>
 </ul> 
- </p>
+ 
   <p>
   Models that instanciate this model can used these connectors to interface with the conservation equations.
   </p>
@@ -74,8 +74,8 @@ see the <i>info</i> section of the class.
       This is a basic model for steady-state conservation equations
       for mass and energy of a component with two fluid ports.
       </p>
-      <p>
-      The model has the following input connectors:
+      
+      The model has the following input connectors:<br/>
 <ul>
 <li>
 <code>Q_flow</code>, which is the sensible plus latent heat flow rate added to the medium, and
@@ -84,7 +84,7 @@ see the <i>info</i> section of the class.
 <code>mXi_flow</code>, which is the species mass flow rate added to the medium.
 </li>
 </ul>
-  </p>
+
   <p>
   Models that instanciate this model can used these connectors to interface with the conservation equations.
   </p>
@@ -199,16 +199,18 @@ see the <i>info</i> section of the class.
   </td>
 </tr>
 </table>
-</p>
+
 </html>"));
 
 end UsersGuide;
 
 
 annotation (preferredView="info", Documentation(info="<html>
+<p>
 This package contains basic classes that are used to build
 component models that change the state of the
 fluid. The classes are not directly usable, but can
 be extended when building a new model.
+</p>
 </html>"));
 end Interfaces;

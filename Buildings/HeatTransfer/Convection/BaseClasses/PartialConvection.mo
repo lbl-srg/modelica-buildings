@@ -18,16 +18,12 @@ partial model PartialConvection "Partial model for heat convection"
     annotation (Dialog(enable= not (conMod == Buildings.HeatTransfer.Types.InteriorConvection.fixed)));
 
 protected
-  final parameter Real cosTil=Modelica.Math.cos(til) "Cosine of window tilt"
-    annotation (Evaluate=true);
-  final parameter Real sinTil=Modelica.Math.sin(til) "Sine of window tilt"
-    annotation (Evaluate=true);
+  final parameter Real cosTil=Modelica.Math.cos(til) "Cosine of window tilt";
+  final parameter Real sinTil=Modelica.Math.sin(til) "Sine of window tilt";
   final parameter Boolean isCeiling = abs(sinTil) < 10E-10 and cosTil > 0
-    "Flag, true if the surface is a ceiling"
-    annotation (Evaluate=true);
+    "Flag, true if the surface is a ceiling";
   final parameter Boolean isFloor = abs(sinTil) < 10E-10 and cosTil < 0
-    "Flag, true if the surface is a floor"
-    annotation (Evaluate=true);
+    "Flag, true if the surface is a floor";
 
 equation
   dT = solid.T - fluid.T;
@@ -77,7 +73,11 @@ Partial model for a convective heat transfer model.
 </html>", revisions="<html>
 <ul>
 <li>
-March 8 2010, by Michael Wetter:<br>
+May 30, 2014, by Michael Wetter:<br/>
+Removed undesirable annotation <code>Evaluate=true</code>.
+</li>
+<li>
+March 8 2010, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

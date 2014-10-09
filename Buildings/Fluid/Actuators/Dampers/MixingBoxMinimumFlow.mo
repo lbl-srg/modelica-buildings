@@ -112,10 +112,6 @@ equation
       points={{-42,68},{-12,68},{-12,58},{58,58},{58,54}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(yOutMin_actual, yOutMin_actual) annotation (Line(
-      points={{-42,68},{-47,68},{-47,64},{-52,64},{-52,68},{-42,68}},
-      color={0,0,127},
-      smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=true,  extent={{-100,
             -100},{100,100}}),
                       graphics),
@@ -151,16 +147,16 @@ defaultComponentName="eco",
 Documentation(revisions="<html>
 <ul>
 <li>
-February 14, 2012 by Michael Wetter:<br>
+February 14, 2012 by Michael Wetter:<br/>
 Added filter to approximate the travel time of the actuator.
 </li>
 <li>
-February 3, 2012, by Michael Wetter:<br>
+February 3, 2012, by Michael Wetter:<br/>
 Removed assignment of <code>m_flow_small</code> as it is no
 longer used in its base class.
 </li>
 <li>
-February 24, 2010 by Michael Wetter:<br>
+February 24, 2010 by Michael Wetter:<br/>
 Changed implementation of flow resistance. Instead of using a
 fixed resistance and a damper model in series, only one model is used
 that internally adds these two resistances. This leads to smaller systems
@@ -169,7 +165,7 @@ of nonlinear equations. This new implementation extends
 Buildings.Fluid.Actuators.Dampers.MixingBox</a>.
 </li>
 <li>
-July 20, 2007 by Michael Wetter:<br>
+July 20, 2007 by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

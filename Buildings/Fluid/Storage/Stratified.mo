@@ -1,6 +1,7 @@
 within Buildings.Fluid.Storage;
 model Stratified "Model of a stratified tank for thermal energy storage"
-  extends Buildings.Fluid.Interfaces.PartialTwoPortInterface(show_T=true);
+  extends Buildings.Fluid.Interfaces.PartialTwoPortInterface(
+      showDesignFlowDirection=false);
 
   replaceable package Medium =
       Modelica.Media.Interfaces.PartialSimpleMedium;
@@ -15,7 +16,7 @@ model Stratified "Model of a stratified tank for thermal energy storage"
 
   ////////////////////////////////////////////////////////////////////
   // Assumptions
-  parameter Types.Dynamics energyDynamics=system.energyDynamics
+  parameter Types.Dynamics energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial
     "Formulation of energy balance"
     annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Equations"));
   parameter Types.Dynamics massDynamics=energyDynamics
@@ -117,13 +118,17 @@ model Stratified "Model of a stratified tank for thermal energy storage"
 
 protected
   constant Integer nPorts = 2 "Number of ports of volume";
+
+  parameter Medium.ThermodynamicState sta_default = Medium.setState_pTX(T=Medium.T_default,
+         p=Medium.p_default, X=Medium.X_default[1:Medium.nXi])
+    "Medium state at default properties";
   parameter Modelica.SIunits.Length hSeg = hTan / nSeg
     "Height of a tank segment";
   parameter Modelica.SIunits.Area ATan = VTan/hTan
     "Tank cross-sectional area (without insulation)";
   parameter Modelica.SIunits.Length rTan = sqrt(ATan/Modelica.Constants.pi)
     "Tank diameter (without insulation)";
-  parameter Modelica.SIunits.ThermalConductance conFluSeg = ATan*Medium.lambda_const/hSeg
+  parameter Modelica.SIunits.ThermalConductance conFluSeg = ATan*Medium.thermalConductivity(sta_default)/hSeg
     "Thermal conductance between fluid volumes";
   parameter Modelica.SIunits.ThermalConductance conTopSeg = ATan*kIns/dIns
     "Thermal conductance from center of top (or bottom) volume through tank insulation at top (or bottom)";
@@ -188,9 +193,6 @@ equation
         color={191,0,0}));
   connect(conWal.port_b, heaFloSid.port_a)
     annotation (Line(points={{20,40},{30,40}}, color={191,0,0}));
-  for i in 1:nSeg loop
-
-  end for;
 
   connect(conTop.port_b, heaFloTop.port_a)
     annotation (Line(points={{20,60},{30,60}}, color={191,0,0}));
@@ -223,28 +225,12 @@ defaultComponentName="tan",
 Documentation(info="<html>
 <p>
 This is a model of a stratified storage tank.
-The tank uses several volumes to model the stratification.
-Heat conduction is modeled between the volumes through the fluid,
-and between the volumes and the ambient.
-The port <code>heaPorVol</code> may be used to connect a temperature sensor
-that measures the fluid temperature of an individual volume. It may also
-be used to add heat to individual volumes.
 </p>
 <p>
-The tank has <code>nSeg</code> fluid volumes. The top volume has the index <code>1</code>.
-Thus, to add a heating element to the bottom element, connect a heat input to
-<code>heaPorVol[nSeg]</code>.
-</p>
-<p>
-The heat ports outside the tank insulation can be 
-used to specify an ambient temperature.
-Leave these ports unconnected to force adiabatic boundary conditions.
-Note, however, that all heat conduction elements through the tank wall (but not the top and bottom) are connected to the 
-heat port <code>heaPorSid</code>. Thus, not connecting
-<code>heaPorSid</code> means an adiabatic boundary condition in the sense 
-that <code>heaPorSid.Q_flow = 0</code>. This, however, still allows heat to flow
-through the tank walls, modelled by <code>conWal</code>, from one fluid volume
-to another one.
+See the 
+<a href=\"modelica://Buildings.Fluid.Storage.UsersGuide\">
+Buildings.Fluid.Storage.UsersGuide</a>
+for more information.
 </p>
 <p>
 For a model with enhanced stratification, use
@@ -254,20 +240,32 @@ Buildings.Fluid.Storage.StratifiedEnhanced</a>.
 </html>", revisions="<html>
 <ul>
 <li>
-July 29, 2011, by Michael Wetter:<br>
+August 29, 2014, by Michael Wetter:<br/>
+Replaced the use of <code>Medium.lambda_const</code> with
+<code>Medium.thermalConductivity(sta_default)</code> as
+<code>lambda_const</code> is not declared for all media.
+This avoids a translation error if certain media are used.
+</li>
+<li>
+June 18, 2014, by Michael Wetter:<br/>
+Changed the default value for the energy balance initialization to avoid
+a dependency on the global <code>system</code> declaration.
+</li>
+<li>
+July 29, 2011, by Michael Wetter:<br/>
 Removed <code>use_T_start</code> and <code>h_start</code>.
 </li>
 <li>
-February 18, 2011, by Michael Wetter:<br>
+February 18, 2011, by Michael Wetter:<br/>
 Changed default start values for temperature and pressure.
 </li>
 <li>
-October 25, 2009 by Michael Wetter:<br>
+October 25, 2009 by Michael Wetter:<br/>
 Changed computation of heat transfer through top (and bottom) of tank. Now,
 the thermal resistance of the fluid is not taken into account, i.e., the 
 top (and bottom) element is assumed to be mixed.
 <li>
-October 23, 2009 by Michael Wetter:<br>
+October 23, 2009 by Michael Wetter:<br/>
 Fixed bug in computing heat conduction of top and bottom segment. 
 In the previous version, 
 for computing the heat conduction between the top (or bottom) segment and
@@ -276,17 +274,17 @@ the whole thickness of the water volume was used
 instead of only half the thickness.
 </li>
 <li>
-February 19, 2009 by Michael Wetter:<br>
+February 19, 2009 by Michael Wetter:<br/>
 Changed declaration that constrains the medium. The earlier
 declaration caused the medium model to be not shown in the parameter
 window.
 </li>
 <li>
-October 31, 2008 by Michael Wetter:<br>
+October 31, 2008 by Michael Wetter:<br/>
 Added heat conduction.
 </li>
 <li>
-October 23, 2008 by Michael Wetter:<br>
+October 23, 2008 by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

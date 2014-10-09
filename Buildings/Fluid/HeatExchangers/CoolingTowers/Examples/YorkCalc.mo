@@ -15,7 +15,9 @@ model YorkCalc
     k=1,
     Ti=60,
     Td=10,
-    reverseAction=true) "Controller for tower fan"
+    reverseAction=true,
+    initType=Modelica.Blocks.Types.InitPID.InitialState)
+    "Controller for tower fan"
     annotation (Placement(transformation(extent={{-20,-20},{0,0}})));
 equation
   connect(wetBulTem.TWetBul, tow.TAir) annotation (Line(
@@ -53,7 +55,7 @@ The cooling tower outlet temperature is controlled to track a fixed temperature.
 </html>", revisions="<html>
 <ul>
 <li>
-July 12, 2011, by Michael Wetter:<br>
+July 12, 2011, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

@@ -4,8 +4,8 @@ model HexInternalElement
   extends Modelica.Icons.Example;
   inner Modelica.Fluid.System system
     annotation (Placement(transformation(extent={{-100,-100},{-80,-80}})));
-  import Buildings;
-  package Medium = Buildings.Media.ConstantPropertyLiquidWater;
+  package Medium = Buildings.Media.ConstantPropertyLiquidWater "Fluid";
+
   Buildings.Fluid.HeatExchangers.Boreholes.BaseClasses.HexInternalElement hex(
     redeclare package Medium = Medium,
     m1_flow_nominal=0.3,
@@ -15,12 +15,12 @@ model HexInternalElement
     rBor=0.1,
     xC=0.025,
     kSoi=3.1,
-    B0=21.91,
-    B1=-0.3796,
     dp1_nominal=5,
     dp2_nominal=5,
     hSeg=20,
-    redeclare Buildings.HeatTransfer.Data.BoreholeFillings.Bentonite matFil,
+    redeclare parameter Buildings.HeatTransfer.Data.BoreholeFillings.Bentonite matFil,
+    redeclare parameter Buildings.HeatTransfer.Data.Soil.Sandstone matSoi,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     TFil_start=283.15)
              annotation (Placement(transformation(extent={{10,-16},{30,4}})));
   Buildings.Fluid.Sources.Boundary_pT sou_1(
@@ -64,7 +64,12 @@ The borehole is constitued with two pipes that are symetricaly spaced in the bor
 </html>", revisions="<html>
 <ul>
 <li>
-August 2011, by Pierre Vigouroux:<br>
+January 24, 2014, by Michael Wetter:<br/>
+Added declaration of soil properties as this is needed for the new
+U-tube model.
+</li>
+<li>
+August 2011, by Pierre Vigouroux:<br/>
 First implementation.
 </li>
 </ul>

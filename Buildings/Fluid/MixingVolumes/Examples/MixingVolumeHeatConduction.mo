@@ -2,14 +2,13 @@ within Buildings.Fluid.MixingVolumes.Examples;
 model MixingVolumeHeatConduction "Test model for heat transfer to volume"
   extends Modelica.Icons.Example;
     package Medium = Modelica.Media.Air.SimpleAir;
-
   Modelica.Thermal.HeatTransfer.Components.ThermalConductor theCon(G=10)
     "Thermal conductor"
     annotation (Placement(transformation(extent={{-50,20},{-30,40}})));
   Modelica.Thermal.HeatTransfer.Sensors.HeatFlowSensor heaFlo
     "Heat flow sensor"
     annotation (Placement(transformation(extent={{0,20},{20,40}})));
-  Modelica.Thermal.HeatTransfer.Sources.FixedTemperature TAmb(T=293.15)
+  Buildings.HeatTransfer.Sources.FixedTemperature TAmb(T=293.15)
     "Ambient temperature"
     annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
   Modelica.Fluid.Sources.MassFlowSource_T sou(
@@ -79,6 +78,13 @@ equation
 This model demonstrates the use of the mixing volume with heat conduction to the ambient.
 The mixing volume is configured as a steady-state model.
 </p>
+</html>", revisions="<html>
+<ul>
+<li>
+October 12, 2009 by Michael Wetter:<br/>
+First implementation.
+</li>
+</ul>
 </html>"),
 experiment(StopTime=1.0),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/MixingVolumes/Examples/MixingVolumeHeatConduction.mos"

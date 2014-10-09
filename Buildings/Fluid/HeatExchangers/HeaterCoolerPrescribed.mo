@@ -1,7 +1,8 @@
 within Buildings.Fluid.HeatExchangers;
 model HeaterCoolerPrescribed "Heater or cooler with prescribed heat flow rate"
   extends Buildings.Fluid.Interfaces.TwoPortHeatMassExchanger(
-    redeclare final Buildings.Fluid.MixingVolumes.MixingVolume vol);
+    redeclare final Buildings.Fluid.MixingVolumes.MixingVolume vol,
+    final showDesignFlowDirection=false);
 
   parameter Modelica.SIunits.HeatFlowRate Q_flow_nominal
     "Heat flow rate at u=1, positive for heating";
@@ -9,7 +10,7 @@ model HeaterCoolerPrescribed "Heater or cooler with prescribed heat flow rate"
     annotation (Placement(transformation(
           extent={{-140,40},{-100,80}}, rotation=0)));
 protected
-  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow preHea
+  Buildings.HeatTransfer.Sources.PrescribedHeatFlow preHea
     "Prescribed heat flow"
     annotation (Placement(transformation(extent={{-40,50},{-20,70}})));
   Modelica.Blocks.Math.Gain gai(k=Q_flow_nominal) "Gain"
@@ -69,16 +70,21 @@ can be positive or negative.
 revisions="<html>
 <ul>
 <li>
-July 11, 2011, by Michael Wetter:<br>
+October 15, 2013, by Michael Wetter:<br/>
+Redeclared the control volume to be final so that it does not show
+anymore in the parameter window.
+</li>
+<li>
+July 11, 2011, by Michael Wetter:<br/>
 Redeclared fluid volume as final. This prevents the fluid volume model
 to appear in the dialog window.
 </li>
 <li>
-May 24, 2011, by Michael Wetter:<br>
+May 24, 2011, by Michael Wetter:<br/>
 Changed base class to allow using the model as a dynamic or a steady-state model.
 </li>
 <li>
-April 17, 2008, by Michael Wetter:<br>
+April 17, 2008, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

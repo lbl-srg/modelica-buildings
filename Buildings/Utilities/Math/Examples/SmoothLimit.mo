@@ -1,6 +1,5 @@
 within Buildings.Utilities.Math.Examples;
 model SmoothLimit "Test model for smooth limit"
-  import Buildings;
   extends Modelica.Icons.Example;
   Modelica.Blocks.Sources.Sine sine(freqHz=8)
     annotation (Placement(transformation(extent={{-40,0},{-20,20}},  rotation=0)));
@@ -23,11 +22,14 @@ __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Utilities/
         "Simulate and plot"),
     Documentation(info="<html>
 <p>
-This model tests the implementation of smooth limit function.
+This model tests the implementation of 
+<a href=\"modelica://Buildings.Utilities.Math.SmoothLimit\">
+Buildings.Utilities.Math.SmoothLimit</a>.
 </p>
 </html>", revisions="<html>
 <ul>
-July 14, 2010, by Wangda Zuo, Michael Wetter:<br>
+<li>
+July 14, 2010, by Wangda Zuo, Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

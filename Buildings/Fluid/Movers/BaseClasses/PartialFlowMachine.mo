@@ -41,6 +41,7 @@ partial model PartialFlowMachine
 
   // Models
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heatPort
+    "Heat dissipation to environment"
     annotation (Placement(transformation(extent={{-70,-90},{-50,-70}}),
         iconTransformation(extent={{-10,-78},{10,-58}})));
 
@@ -57,7 +58,7 @@ protected
     annotation (Placement(transformation(extent={{-70,10},{-50,30}})));
 
   parameter Medium.ThermodynamicState sta_start=Medium.setState_pTX(
-      T=T_start, p=p_start, X=X_start);
+      T=T_start, p=p_start, X=X_start) "Medium state at start values";
   parameter Modelica.SIunits.SpecificEnthalpy h_outflow_start = Medium.specificEnthalpy(sta_start)
     "Start value for outflowing enthalpy";
 
@@ -89,9 +90,9 @@ equation
           5.55112e-16}},
       color={0,127,255},
       smooth=Smooth.None));
-  annotation (
-    Icon(coordinateSystem(preserveAspectRatio=true,  extent={{-100,-100},{100,100}}),
-                    graphics={
+  annotation(Icon(coordinateSystem(preserveAspectRatio=true,
+    extent={{-100,-100},{100,100}}),
+    graphics={
         Line(
           visible=not filteredSpeed,
           points={{0,100},{0,40}},
@@ -168,18 +169,18 @@ and more robust simulation, in particular if the mass flow is equal to zero.
       revisions="<html>
 <ul>
 <li>
-May 25, 2011, by Michael Wetter:<br>
+May 25, 2011, by Michael Wetter:<br/>
 Revised implementation of energy balance to avoid having to use conditionally removed models.
 </li>
 <li>
-July 29, 2010, by Michael Wetter:<br>
+July 29, 2010, by Michael Wetter:<br/>
 Reduced fan time constant from 10 to 1 second.
 </li>
 <li>
-July 27, 2010, by Michael Wetter:<br>
+July 27, 2010, by Michael Wetter:<br/>
 Redesigned model to fix bug in medium balance.
 </li>
-<li>March 24 2010, by Michael Wetter:<br>
+<li>March 24 2010, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

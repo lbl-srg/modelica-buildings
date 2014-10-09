@@ -56,22 +56,6 @@ equation
     EIRFunPLR = 0;
   end if;
   annotation (Icon(graphics={
-        Text(extent={{64,4},{114,-10}},   textString="P",
-          lineColor={0,0,127}),
-        Text(extent={{-122,28},{-76,16}},   textString="T_CHWS",
-          lineColor={0,0,127}),
-        Rectangle(
-          extent={{-99,-54},{102,-66}},
-          lineColor={0,0,255},
-          pattern=LinePattern.None,
-          fillColor={0,0,255},
-          fillPattern=FillPattern.Solid),
-        Rectangle(
-          extent={{-100,-66},{0,-54}},
-          lineColor={0,0,127},
-          pattern=LinePattern.None,
-          fillColor={0,0,127},
-          fillPattern=FillPattern.Solid),
         Rectangle(
           extent={{-104,66},{98,54}},
           lineColor={0,0,255},
@@ -116,11 +100,6 @@ equation
           lineColor={0,0,0},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid),
-        Rectangle(
-          extent={{-56,-50},{58,-68}},
-          lineColor={0,0,0},
-          fillColor={255,255,255},
-          fillPattern=FillPattern.Solid),
         Ellipse(
           extent={{18,24},{62,-18}},
           lineColor={0,0,0},
@@ -145,7 +124,9 @@ The difference is that to compute the performance, this model
 uses the condenser leaving temperature instead of the entering temperature,
 and it uses a bicubic polynomial to compute the part load performance.
 </p>
-<p> This model uses three functions to predict capacity and power consumption:
+
+<p>
+This model uses three functions to predict capacity and power consumption:</p>
 <ul>
 <li>
 A biquadratic function is used to predict cooling capacity as a function of
@@ -160,6 +141,8 @@ A biquadratic functions is used to predict power input to cooling capacity ratio
 condenser leaving and evaporator leaving fluid temperature.
 </li>
 </ul>
+
+<p>
 These curves are stored in the data record <code>per</code> and are available from
 <a href=\"Buildings.Fluid.Chillers.Data.ElectricReformulatedEIRChiller\">
 Buildings.Fluid.Chillers.Data.ElectricReformulatedEIRChiller</a>.
@@ -171,11 +154,12 @@ Reference Curve Method and is used when insufficient performance data exist to a
 regression techniques. A detailed description of both techniques can be found in 
 Hydeman and Gillespie (2002).
 </p>
+
 <p>
 The model takes as an input the set point for the leaving chilled water temperature, 
 which is met if the chiller has sufficient capacity.
 Thus, the model has a built-in, ideal temperature control.
-The model has three tests on the part load ratio and the cycling ratio:
+The model has three tests on the part load ratio and the cycling ratio:</p>
 <ol>
 <li>
 The test<pre>
@@ -203,8 +187,9 @@ computes the part load ratio of the compressor.
 The assumption is that for a part load ratio below <code>per.PLRMinUnl</code>,
 the chiller uses hot gas bypass to reduce the capacity, while the compressor
 power draw does not change. 
-</li></ol>
-</p>
+</li>
+</ol>
+
 <p>
 The electric power only contains the power for the compressor, but not any power for pumps or fans.
 </p>
@@ -215,8 +200,8 @@ The transient response of the boiler is computed using a first
 order differential equation for the evaporator and condenser fluid volumes.
 The chiller outlet temperatures are equal to the temperatures of these lumped volumes.
 </p>
+
 <h4>References</h4>
-<p>
 <ul>
 <li>
 Hydeman, M., N. Webb, P. Sreedharan, and S. Blanc. 2002. Development and Testing of a
@@ -231,15 +216,14 @@ Component Models. <i>ASHRAE Transactions</i>, AC-02-9-1.
 revisions="<html>
 <ul>
 <li>
-Jan. 9, 2011, by Michael Wetter:<br>
+Jan. 9, 2011, by Michael Wetter:<br/>
 Added input signal to switch chiller off.
 </li>
 <li>
-September 17, 2010, by Michael Wetter:<br>
+September 17, 2010, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
-</p>
 </html>"),
     Diagram(graphics));
 end ElectricReformulatedEIR;

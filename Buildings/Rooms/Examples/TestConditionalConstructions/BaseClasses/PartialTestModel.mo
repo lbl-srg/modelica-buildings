@@ -22,6 +22,7 @@ partial model PartialTestModel
     AFlo=20,
     hRoo=2.7,
     linearizeRadiation = true,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     lat=0.73268921998722) "Room model"
     annotation (Placement(transformation(extent={{44,-36},{84,4}})));
 
@@ -41,7 +42,7 @@ partial model PartialTestModel
     annotation (Placement(transformation(extent={{-20,-16},{0,4}})));
   Modelica.Blocks.Sources.Constant qLatGai_flow(k=0) "Latent heat gain"
     annotation (Placement(transformation(extent={{-80,-50},{-60,-30}})));
-  BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam="Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos")
+  BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam="modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos")
     annotation (Placement(transformation(extent={{60,60},{80,80}})));
   parameter HeatTransfer.Data.GlazingSystems.DoubleClearAir13Clear glaSys(UFra=2,
     shade=Buildings.HeatTransfer.Data.Shades.Gray(),
@@ -63,7 +64,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(multiplex3_1.y, roo.qGai_flow) annotation (Line(
-      points={{1,-6},{11.25,-6},{11.25,-6},{21.5,-6},{21.5,-6},{42,-6}},
+      points={{1,-6},{36,-6}},
       color={0,0,127},
       smooth=Smooth.None));
 
@@ -79,7 +80,11 @@ equation
     Documentation(revisions="<html>
 <ul>
 <li>
-May 1, 2013, by Michael Wetter:<br>
+June 30, 2014, by Michael Wetter:<br/>
+Set equations to be used to compute the initial conditions.
+</li>
+<li>
+May 1, 2013, by Michael Wetter:<br/>
 Declared the parameter record to be a parameter, as declaring its elements
 to be parameters does not imply that the whole record has the variability of a parameter.
 </li>

@@ -20,7 +20,7 @@ Once continuously differentiable approximation to the <i>max(.,.)</i> function.
 revisions="<html>
 <ul>
 <li>
-August 15, 2008, by Michael Wetter:<br>
+August 15, 2008, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

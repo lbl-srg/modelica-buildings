@@ -1,6 +1,5 @@
 within Buildings.Fluid.MassExchangers.Examples;
 model ConstantEffectiveness
-  import Buildings;
   extends Modelica.Icons.Example;
 
  package Medium1 = Buildings.Media.PerfectGases.MoistAirUnsaturated;

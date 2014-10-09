@@ -2,11 +2,8 @@ within Buildings.Fluid.HeatExchangers;
 model WetCoilCounterFlow
   "Counterflow coil with discretization along the flow paths and humidity condensation"
   extends Buildings.Fluid.HeatExchangers.DryCoilCounterFlow(
-    each ele(
-      redeclare each final Buildings.Fluid.MixingVolumes.MixingVolumeMoistAir vol2,
       redeclare each final
-        Buildings.Fluid.HeatExchangers.BaseClasses.MassExchange masExc(
-         redeclare final package Medium = Medium2)));
+      Buildings.Fluid.HeatExchangers.BaseClasses.HexElementLatent ele[nEle]);
 
   Modelica.SIunits.HeatFlowRate QSen2_flow
     "Sensible heat input into air stream (negative if air is cooled)";
@@ -35,10 +32,7 @@ The flow paths are discretized into <code>nEle</code> elements.
 Each element is modeled by an instance of
 <a href=\"modelica://Buildings.Fluid.HeatExchangers.BaseClasses.HexElement\">
 Buildings.Fluid.HeatExchangers.BaseClasses.HexElement</a>.
-Each element has a state variable for the metal. Depending
-on the value of the boolean parameters <code>steadyState_1</code> and
-<code>steadyState_2</code>, the fluid states are modeled dynamically or in steady
-state.
+Each element has a state variable for the metal.
 </p>
 <p>
 The convective heat transfer coefficients can, for each fluid individually, be 
@@ -66,7 +60,7 @@ the water vapor is stored in the species concentration vector. Examples for
 such media are
 <a href=\"modelica://Buildings.Media.PerfectGases.MoistAir\">
 Buildings.Media.PerfectGases.MoistAir</a> and
-<a href=\"Modelica:Modelica.Media.Air.MoistAir\">
+<a href=\"modelica://Modelica.Media.Air.MoistAir\">
 Modelica.Media.Air.MoistAir</a>.
 </p>
 <p>
@@ -77,14 +71,14 @@ Buildings.Fluid.HeatExchangers.DryCoilCounterFlow</a> instead of this model.
 </html>", revisions="<html>
 <ul>
 <li>
-February 2, 2012, by Michael Wetter:<br>
+February 2, 2012, by Michael Wetter:<br/>
 Corrected error in assignment of <code>dp2_nominal</code> in the base class.
 The previous assignment caused a pressure drop in all except one element,
 instead of the opposite. This caused too high a flow resistance
 of the heat exchanger.
 </li>
 <li>
-May 27, 2010, by Michael Wetter:<br>
+May 27, 2010, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

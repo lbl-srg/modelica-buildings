@@ -2,13 +2,13 @@ within Buildings.HeatTransfer.Radiosity;
 model OutdoorRadiosity
   "Model for the outdoor radiosity that strikes the window"
   parameter Modelica.SIunits.Area A "Area of receiving surface";
-  parameter Real vieFacSky(min=0, max=1)
+  parameter Real vieFacSky(final min=0, final max=1)
     "View factor from receiving surface to sky (=1 for roofs)";
   parameter Boolean linearize=false "Set to true to linearize emissive power"
     annotation (Evaluate=true);
   parameter Modelica.SIunits.Temperature T0=293.15
     "Temperature used to linearize radiative heat transfer"
-    annotation (Dialog(enable=linearize), Evaluate=true);
+    annotation (Dialog(enable=linearize));
   Real TRad4(unit="K4") "4th power of the mean outdoor temperature";
   Modelica.SIunits.Temperature TRad "Mean radiant temperature";
 
@@ -31,13 +31,13 @@ model OutdoorRadiosity
 protected
   final parameter Real T03(
     min=0,
-    unit="K3") = T0^3 "3rd power of temperature T0" annotation (Evaluate=true);
+    final unit="K3") = T0^3 "3rd power of temperature T0";
   final parameter Real T04(
     min=0,
-    unit="K4") = T0^4 "4th power of temperature T0" annotation (Evaluate=true);
+    final unit="K4") = T0^4 "4th power of temperature T0";
 equation
   TRad4 = (vieFacSky*TBlaSky^4 + (1 - vieFacSky)*TOut^4);
-  JOut = -A*Modelica.Constants.sigma*TRad4;
+  JOut = A*Modelica.Constants.sigma*TRad4;
   TRad = if linearize then (TRad4 + 3*T04)/(4*T03) else TRad4^(1/4);
 
   annotation (
@@ -97,15 +97,24 @@ Model for the infrared radiosity balance of the outdoor environment.
 </html>", revisions="<html>
 <ul>
 <li>
-February 10, 2012, by Wangda Zuo:<br>
-Fixed a bug for temperature linearization.
+May 30, 2014, by Michael Wetter:<br/>
+Removed undesirable annotation <code>Evaluate=true</code>.
 </li>
 <li>
-February 8, 2012 by Michael Wetter:<br>
+June 27, 2013, by Michael Wetter:<br/>
+Changed model because the outflowing radiosity has been changed to be a non-negative quantity.
+See track issue <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/158\">#158</a>.
+</li>
+<li>
+February 10, 2012, by Wangda Zuo:<br/>
+Fixed a bug in the temperature linearization.
+</li>
+<li>
+February 8, 2012 by Michael Wetter:<br/>
 Changed implementation to use the same equations as is used for opaque walls.
 </li>
 <li>
-August 18, 2010, by Michael Wetter:<br>
+August 18, 2010, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

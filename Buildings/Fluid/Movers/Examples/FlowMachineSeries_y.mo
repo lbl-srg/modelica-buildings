@@ -1,6 +1,5 @@
 within Buildings.Fluid.Movers.Examples;
-model FlowMachineSeries_y "Test model for two flow machines in series"
-  import Buildings;
+model FlowMachineSeries_y "Two flow machines in series"
   extends Modelica.Icons.Example;
   package Medium = Buildings.Media.ConstantPropertyLiquidWater;
 
@@ -29,8 +28,7 @@ model FlowMachineSeries_y "Test model for two flow machines in series"
       p=Medium.p_default,
       X=Medium.X_default) "Start state";
   parameter Modelica.SIunits.Density rho_nominal=Medium.density(
-     state_start) "Density, used to compute fluid mass"
-                                           annotation (Evaluate=true);
+     state_start) "Density, used to compute fluid mass";
   inner Modelica.Fluid.System system
     annotation (Placement(transformation(extent={{120,-80},{140,-60}})));
   Buildings.Fluid.Movers.FlowMachine_y floMac2(
@@ -87,11 +85,15 @@ However, <code>flowMac2.dp</code> is always negative, as this pump has a constan
 </html>", revisions="<html>
 <ul>
 <li>
-February 14, 2012, by Michael Wetter:<br>
+May 29, 2014, by Michael Wetter:<br/>
+Removed undesirable annotation <code>Evaluate=true</code>.
+</li>
+<li>
+February 14, 2012, by Michael Wetter:<br/>
 Added filter for start-up and shut-down transient.
 </li>
 <li>
-March 24 2010, by Michael Wetter:<br>
+March 24 2010, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

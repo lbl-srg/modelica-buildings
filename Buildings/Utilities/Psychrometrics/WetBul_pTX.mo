@@ -1,21 +1,18 @@
 within Buildings.Utilities.Psychrometrics;
 block WetBul_pTX
   "Block to compute the wet bulb condition for given dry bulb temperature and humidity"
-   extends Modelica.Blocks.Interfaces.BlockIcon;
-  replaceable package Medium =
-    Modelica.Media.Interfaces.PartialCondensingGases "Medium model"
-    annotation (choicesAllMatching = true);
+   extends Modelica.Blocks.Icons.Block;
 
   Modelica.Blocks.Interfaces.RealInput TDryBul(
     start=303,
-    final quantity="Temperature",
+    final quantity="ThermodynamicTemperature",
     final unit="K",
     min=0) "Dry bulb temperature"
     annotation (Placement(transformation(extent={{-120,70},{-100,90}},rotation=
             0)));
   Modelica.Blocks.Interfaces.RealInput XDryBul(
     start=0.01,
-    final quantity="Temperature",
+    final quantity="ThermodynamicTemperature",
     final unit="1",
     min=0) "Dry bulb temperature"
     annotation (Placement(transformation(extent={{-120,-10},{-100,10}},
@@ -30,7 +27,7 @@ block WetBul_pTX
            0)));
   Modelica.Blocks.Interfaces.RealOutput TWetBul(
     start=293,
-    final quantity="Temperature",
+    final quantity="ThermodynamicTemperature",
     final unit="K",
     min=0) "Wet bulb temperature"
     annotation (Placement(transformation(extent={{100,70},{120,90}}, rotation=0)));
@@ -42,23 +39,16 @@ block WetBul_pTX
     unit="1",
     nominal=0.01) "Water vapor mass fraction at wet bulb temperature"
   annotation (Placement(transformation(extent={{100,-10},{120,10}},rotation=0)));
-
-protected
-  constant Modelica.SIunits.SpecificHeatCapacity cpAir=
-     Buildings.Media.PerfectGases.Common.SingleGasData.Air.cp
-    "Specific heat capacity of air";
-  constant Modelica.SIunits.SpecificHeatCapacity cpSte=
-     Buildings.Media.PerfectGases.Common.SingleGasData.H2O.cp
-    "Specific heat capacity of water vapor";
-  constant Modelica.SIunits.SpecificEnthalpy h_fg = 2501014.5
-    "Specific heat capacity of water vapor";
 equation
   XWetBul   = Buildings.Utilities.Psychrometrics.Functions.X_pSatpphi(
-      pSat=   Medium.saturationPressureLiquid(Tsat=TWetBul),
+      pSat=   Buildings.Utilities.Psychrometrics.Functions.saturationPressureLiquid(TWetBul),
       p=     p,
       phi=   1);
-  TWetBul = (TDryBul * ((1-XDryBul) * cpAir + XDryBul * cpSte) + (XDryBul-XWetBul) * h_fg)/
-            ( (1-XWetBul)*cpAir + XWetBul * cpSte);
+  TWetBul = (TDryBul * ((1-XDryBul) * Buildings.Utilities.Psychrometrics.Constants.cpAir +
+             XDryBul * Buildings.Utilities.Psychrometrics.Constants.cpSte) +
+             (XDryBul-XWetBul) * Buildings.Utilities.Psychrometrics.Constants.h_fg)/
+              ( (1-XWetBul)*Buildings.Utilities.Psychrometrics.Constants.cpAir +
+              XWetBul * Buildings.Utilities.Psychrometrics.Constants.cpSte);
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,
             100}})),
@@ -71,7 +61,16 @@ for a given dry bulb state.
 revisions="<html>
 <ul>
 <li>
-October 2, 2010 by Michael Wetter:<br>
+November 20, 2013 by Michael Wetter:<br/>
+Removed package <code>Medium</code>.
+Updated model to use
+<code>Buildings.Utilities.Psychrometrics.Functions.saturationPressure()</code>
+and
+<code>Buildings.Utilities.Psychrometrics.Functions.saturationPressureLiquid()</code>
+as these functions have been moved from the medium to the psychrometrics package.
+</li>
+<li>
+October 2, 2010 by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

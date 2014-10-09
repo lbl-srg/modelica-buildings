@@ -75,7 +75,7 @@ shows the sine wave, the sine wave plus noise, which is input to the Kalman filt
 and the estimated state which is the output of the Kalman filter.
 </p>
 <p align=\"center\">
-<img src=\"modelica://Buildings/Resources/Images/Utilities/IO/Python27/Examples/KalmanFilter.png\"/>
+<img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Utilities/IO/Python27/Examples/KalmanFilter.png\"/>
 </p>
 <h4>Implementation</h4>
 <p>
@@ -86,7 +86,7 @@ http://www.scipy.org/Cookbook/KalmanFiltering</a>.
 </html>", revisions="<html>
 <ul>
 <li>
-February 5, 2013, by Michael Wetter:<br>
+February 5, 2013, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

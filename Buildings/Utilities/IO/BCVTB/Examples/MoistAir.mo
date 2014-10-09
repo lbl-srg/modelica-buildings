@@ -1,7 +1,6 @@
 within Buildings.Utilities.IO.BCVTB.Examples;
 model MoistAir
   "Model with interfaces for media with moist air that will be linked to the BCVTB which models the response of the room"
-  import Buildings;
   extends Modelica.Icons.Example;
   package Medium = Buildings.Media.GasesPTDecoupled.MoistAirUnsaturated;
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal=
@@ -305,8 +304,7 @@ equation
   annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
             -100},{460,200}})),
     Documentation(info="<html>
-This example illustrates the use of Modelica with the Building Controls Virtual Test Bed.
-</p>
+This example illustrates the use of Modelica with the Building Controls Virtual Test Bed.<br/>
 <p>
 The model represents an air-based heating system with an ideal heater and an ideal humidifier
 in the supply duct. The heater and humidifier are controlled with a feedback loop that 
@@ -321,29 +319,30 @@ where <code>XY</code> denotes the EnergyPlus version number.
 </html>", revisions="<html>
 <ul>
 <li>
-May 1, 2013, by Michael Wetter:<br>
+May 1, 2013, by Michael Wetter:<br/>
 Removed the medium declaration in the instance 
 of the model <code>Buildings.Utilities.Psychrometrics.X_pTphi</code> as
 this model no longer allows to replace the medium.
 </li>
 <li>
-January 13, 2012, by Michael Wetter:<br>
+January 13, 2012, by Michael Wetter:<br/>
 Updated fan parameters, which were still for version 0.12 of the 
 Buildings library and hence caused a translation error with version 1.0 or higher.
 </li>
 <li>
-April 5, 2011, by Michael Wetter:<br>
+April 5, 2011, by Michael Wetter:<br/>
 Changed sensor models from one-port sensors to two port sensors.
 </li>
 <li>
-January 21, 2010 by Michael Wetter:<br>
+January 21, 2010 by Michael Wetter:<br/>
 Changed model to include fan instead of having flow driven by two reservoirs at 
 different pressure.
 </li>
 <li>
-September 11, 2009, by Michael Wetter:<br>
+September 11, 2009, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
-</html>"));
+</html>"),
+experiment(StopTime=86400));
 end MoistAir;

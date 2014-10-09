@@ -3,64 +3,64 @@ package Pipes "Package with properties of pipes"
     extends Modelica.Icons.MaterialPropertiesPackage;
 
   record PEX_DN_6 = Buildings.Fluid.Data.Pipes.PEX_RADTEST(
-      dIn  = 8E-3,
-      dOut = 6E-3) "PEX DN 6";
+      dOut = 8E-3,
+      dIn  = 6E-3) "PEX DN 6";
 
   record PEX_DN_8 = Buildings.Fluid.Data.Pipes.PEX_RADTEST(
-      dIn  = 10E-3,
-      dOut = 8E-3) "PEX DN 8";
+      dOut = 10E-3,
+      dIn  = 8E-3) "PEX DN 8";
 
   record PEX_DN_10 = Buildings.Fluid.Data.Pipes.PEX_RADTEST(
-      dIn  = 13E-3,
-      dOut = 10E-3) "PEX DN 10";
+      dOut = 13E-3,
+      dIn  = 10E-3) "PEX DN 10";
 
   record PEX_DN_15 = Buildings.Fluid.Data.Pipes.PEX_RADTEST(
-      dIn  = 19E-3,
-      dOut = 16E-3) "PEX DN 15";
+      dOut = 19E-3,
+      dIn  = 16E-3) "PEX DN 15";
 
   record PEX_DN_20 = Buildings.Fluid.Data.Pipes.PEX_RADTEST(
-      dIn  = 23E-3,
-      dOut = 20E-3) "PEX DN 20";
+      dOut = 23E-3,
+      dIn  = 20E-3) "PEX DN 20";
 
   record PEX_DN_25 = Buildings.Fluid.Data.Pipes.PEX_RADTEST(
-      dIn  = 29E-3,
-      dOut = 26E-3) "PEX DN 25";
+      dOut = 29E-3,
+      dIn  = 26E-3) "PEX DN 25";
 
   record PEX_DN_32 = Buildings.Fluid.Data.Pipes.PEX_RADTEST(
-      dIn  = 35E-3,
-      dOut = 32E-3) "PEX DN 32";
+      dOut = 35E-3,
+      dIn  = 32E-3) "PEX DN 32";
 
   record PEX_DN_40 = Buildings.Fluid.Data.Pipes.PEX_RADTEST(
-      dIn  = 41E-3,
-      dOut = 38E-3) "PEX DN 40";
+      dOut = 41E-3,
+      dIn  = 38E-3) "PEX DN 40";
 
   record PEX_DN_50 = Buildings.Fluid.Data.Pipes.PEX_RADTEST(
-      dIn  = 53E-3,
-      dOut = 50E-3) "PEX DN 50";
+      dOut = 53E-3,
+      dIn  = 50E-3) "PEX DN 50";
 
   record PEX_DN_65 = Buildings.Fluid.Data.Pipes.PEX_RADTEST(
-      dIn  = 70E-3,
-      dOut = 66E-3) "PEX DN 65";
+      dOut = 70E-3,
+      dIn  = 66E-3) "PEX DN 65";
 
   record PEX_DN_80 = Buildings.Fluid.Data.Pipes.PEX_RADTEST(
-      dIn  = 85E-3,
-      dOut = 81E-3) "PEX DN 80";
+      dOut = 85E-3,
+      dIn  = 81E-3) "PEX DN 80";
 
   record PEX_DN_100 = Buildings.Fluid.Data.Pipes.PEX_RADTEST(
-      dIn  = 104E-3,
-      dOut = 100E-3) "PEX DN 100";
+      dOut = 104E-3,
+      dIn  = 100E-3) "PEX DN 100";
 
   record PEX_DN_125 = Buildings.Fluid.Data.Pipes.PEX_RADTEST(
-      dIn  = 129E-3,
-      dOut = 125E-3) "PEX DN 125";
+      dOut = 129E-3,
+      dIn  = 125E-3) "PEX DN 125";
 
   record PEX_DN_150 = Buildings.Fluid.Data.Pipes.PEX_RADTEST(
-      dIn  = 154E-3,
-      dOut = 150E-3) "PEX DN 150";
+      dOut = 154E-3,
+      dIn  = 150E-3) "PEX DN 150";
 
   record PEX_DN_200 = Buildings.Fluid.Data.Pipes.PEX_RADTEST(
-      dIn  = 204E-3,
-      dOut = 200E-3) "PEX DN 200";
+      dOut = 204E-3,
+      dIn  = 200E-3) "PEX DN 200";
 
   record PEX_RADTEST = Buildings.Fluid.Data.Pipes.Generic (
       dOut      = 0.025,
@@ -82,7 +82,7 @@ Comparative Evaluation Tests. Luzern, Switzerland. April 2003.
 </html>", revisions="<html>
 <ul>
 <li>
-April 5, 2012, by Michael Wetter:<br>
+April 5, 2012, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
@@ -103,7 +103,7 @@ This is a generic record for pipes.
 </html>", revisions="<html>
 <ul>
 <li>
-April 5, 2012, by Michael Wetter:<br>
+April 5, 2012, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
@@ -120,7 +120,12 @@ The PEX diameters are based on DIN 11850.
 </html>", revisions="<html>
 <ul>
 <li>
-April 5, 2012, by Michael Wetter:<br>
+September 2, 2014, by Michael Wetter:<br/>
+Corrected wrong entries for inner and outer diameter
+of PEX pipes.
+</li>
+<li>
+April 5, 2012, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

@@ -1,7 +1,7 @@
 within Buildings.Fluid.Chillers;
 model Carnot
   "Chiller with performance curve adjusted based on Carnot efficiency"
- extends Interfaces.FourPortHeatMassExchanger(final show_T = true,
+ extends Interfaces.FourPortHeatMassExchanger(
     vol1(
       final prescribedHeatFlowRate = true),
     redeclare final Buildings.Fluid.MixingVolumes.MixingVolume vol2);
@@ -52,7 +52,10 @@ model Carnot
   Real COPCar(min=0) "Carnot efficiency";
   Modelica.SIunits.HeatFlowRate QCon_flow "Condenser heat input";
   Modelica.SIunits.HeatFlowRate QEva_flow "Evaporator heat input";
-  Modelica.SIunits.Power P "Compressor power";
+  Modelica.Blocks.Interfaces.RealOutput P(final quantity="Power", unit="W")
+    "Electric power consumed by compressor"
+    annotation (Placement(transformation(extent={{100,80},{120,100}}),
+        iconTransformation(extent={{100,80},{120,100}})));
   Modelica.SIunits.Temperature TCon
     "Condenser temperature used to compute efficiency";
   Modelica.SIunits.Temperature TEva
@@ -70,6 +73,12 @@ protected
   Modelica.Blocks.Sources.RealExpression QCon_flow_in(y=QCon_flow)
     "Condenser heat flow rate"
     annotation (Placement(transformation(extent={{-80,30},{-60,50}})));
+
+  Medium1.ThermodynamicState staA1 "Medium properties in port_a1";
+  Medium1.ThermodynamicState staB1 "Medium properties in port_b1";
+  Medium2.ThermodynamicState staA2 "Medium properties in port_a2";
+  Medium2.ThermodynamicState staB2 "Medium properties in port_b2";
+
 initial equation
   assert(dTEva_nominal>0, "Parameter dTEva_nominal must be positive.");
   assert(dTCon_nominal>0, "Parameter dTCon_nominal must be positive.");
@@ -83,25 +92,83 @@ initial equation
   assert(etaCar > 0.1, "Parameters lead to etaCar < 0.1. Check parameters.");
   assert(etaCar < 1,   "Parameters lead to etaCar > 1. Check parameters.");
 equation
+  if allowFlowReversal1 then
+    if homotopyInitialization then
+      staA1=Medium1.setState_phX(port_a1.p,
+                          homotopy(actual=actualStream(port_a1.h_outflow),
+                                   simplified=inStream(port_a1.h_outflow)),
+                          homotopy(actual=actualStream(port_a1.Xi_outflow),
+                                   simplified=inStream(port_a1.Xi_outflow)));
+      staB1=Medium1.setState_phX(port_b1.p,
+                          homotopy(actual=actualStream(port_b1.h_outflow),
+                                   simplified=port_b1.h_outflow),
+                          homotopy(actual=actualStream(port_b1.Xi_outflow),
+                            simplified=port_b1.Xi_outflow));
+
+    else
+      staA1=Medium1.setState_phX(port_a1.p,
+                          actualStream(port_a1.h_outflow),
+                          actualStream(port_a1.Xi_outflow));
+      staB1=Medium1.setState_phX(port_b1.p,
+                          actualStream(port_b1.h_outflow),
+                          actualStream(port_b1.Xi_outflow));
+    end if; // homotopyInitialization
+  else // reverse flow not allowed
+    staA1=Medium1.setState_phX(port_a1.p,
+                             inStream(port_a1.h_outflow),
+                             inStream(port_a1.Xi_outflow));
+    staB1=Medium1.setState_phX(port_b1.p,
+                             inStream(port_b1.h_outflow),
+                             inStream(port_b1.Xi_outflow));
+  end if;
+  if allowFlowReversal2 then
+    if homotopyInitialization then
+      staA2=Medium2.setState_phX(port_a2.p,
+                          homotopy(actual=actualStream(port_a2.h_outflow),
+                                   simplified=inStream(port_a2.h_outflow)),
+                          homotopy(actual=actualStream(port_a2.Xi_outflow),
+                                   simplified=inStream(port_a2.Xi_outflow)));
+      staB2=Medium2.setState_phX(port_b2.p,
+                          homotopy(actual=actualStream(port_b2.h_outflow),
+                                   simplified=port_b2.h_outflow),
+                          homotopy(actual=actualStream(port_b2.Xi_outflow),
+                            simplified=port_b2.Xi_outflow));
+
+    else
+      staA2=Medium2.setState_phX(port_a2.p,
+                          actualStream(port_a2.h_outflow),
+                          actualStream(port_a2.Xi_outflow));
+      staB2=Medium2.setState_phX(port_b2.p,
+                          actualStream(port_b2.h_outflow),
+                          actualStream(port_b2.Xi_outflow));
+    end if; // homotopyInitialization
+  else // reverse flow not allowed
+    staA2=Medium2.setState_phX(port_a2.p,
+                             inStream(port_a2.h_outflow),
+                             inStream(port_a2.Xi_outflow));
+    staB2=Medium2.setState_phX(port_b2.p,
+                             inStream(port_b2.h_outflow),
+                             inStream(port_b2.Xi_outflow));
+  end if;
   // Set temperatures that will be used to compute Carnot efficiency
   if effInpCon == Buildings.Fluid.Types.EfficiencyInput.volume then
     TCon = vol1.heatPort.T;
   elseif effInpCon == Buildings.Fluid.Types.EfficiencyInput.port_a then
-    TCon = Medium1.temperature(sta_a1);
+    TCon = Medium1.temperature(staA1);
   elseif effInpCon == Buildings.Fluid.Types.EfficiencyInput.port_b then
-    TCon = Medium1.temperature(sta_b1);
+    TCon = Medium1.temperature(staB1);
   else
-    TCon = 0.5 * (Medium1.temperature(sta_a1)+Medium1.temperature(sta_b1));
+    TCon = 0.5 * (Medium1.temperature(staA1)+Medium1.temperature(staB1));
   end if;
 
   if effInpEva == Buildings.Fluid.Types.EfficiencyInput.volume then
     TEva = vol2.heatPort.T;
   elseif effInpEva == Buildings.Fluid.Types.EfficiencyInput.port_a then
-    TEva = Medium2.temperature(sta_a2);
+    TEva = Medium2.temperature(staA2);
   elseif effInpEva == Buildings.Fluid.Types.EfficiencyInput.port_b then
-    TEva = Medium2.temperature(sta_b2);
+    TEva = Medium2.temperature(staB2);
   else
-    TEva = 0.5 * (Medium2.temperature(sta_a2)+Medium2.temperature(sta_b2));
+    TEva = 0.5 * (Medium2.temperature(staA2)+Medium2.temperature(staB2));
   end if;
 
   etaPL  = Buildings.Utilities.Math.Functions.polynomial(a=a, x=y);
@@ -206,18 +273,23 @@ equation
           lineColor={0,0,127},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid,
-          textString="y")}),
+          textString="y"),
+        Text(extent={{64,96},{114,82}},   textString="P",
+          lineColor={0,0,127})}),
 defaultComponentName="chi",
 Documentation(info="<html>
+<p>
 This is model of a chiller whose coefficient of performance (COP) changes
 with temperatures in the same way as the Carnot efficiency changes.
 The COP at the nominal conditions can be specified by a parameter, or
 it can be computed by the model based on the Carnot effectiveness, in which
 case
+</p>
 <p align=\"center\" style=\"font-style:italic;\">
   COP<sub>0</sub> = &eta;<sub>car</sub> COP<sub>car</sub>
 = &eta;<sub>car</sub> T<sub>eva</sub> &frasl; (T<sub>con</sub>-T<sub>eva</sub>),
 </p>
+<p>
 where <i>T<sub>eva</sub></i> is the evaporator temperature 
 and <i>T<sub>con</sub></i> is the condenser temperature.
 On the <code>Advanced</code> tab, a user can specify the temperature that
@@ -228,9 +300,11 @@ are the temperature of the fluid volume, of <code>port_a</code>, of
 </p>
 <p>
 The chiller COP is computed as the product
+</p>
 <p align=\"center\" style=\"font-style:italic;\">
   COP = &eta;<sub>car</sub> COP<sub>car</sub> &eta;<sub>PL</sub>,
 </p>
+<p>
 where <i>&eta;<sub>car</sub></i> is the Carnot effectiveness, 
 <i>COP<sub>car</sub></i> is the Carnot efficiency and
 <i>&eta;<sub>PL</sub></i> is a polynomial in the control signal <i>y</i>
@@ -248,11 +322,21 @@ The chiller outlet temperatures are equal to the temperatures of these lumped vo
 revisions="<html>
 <ul>
 <li>
-October 11, 2010 by Michael Wetter:<br>
+October 9, 2013 by Michael Wetter:<br/>
+Reimplemented the computation of the port states to avoid using
+the conditionally removed variables <code>sta_a1</code>,
+<code>sta_a2</code>, <code>sta_b1</code> and <code>sta_b2</code>.
+</li>
+<li>
+May 10, 2013 by Michael Wetter:<br/>
+Added electric power <code>P</code> as an output signal.
+</li>
+<li>
+October 11, 2010 by Michael Wetter:<br/>
 Fixed bug in energy balance.
 </li>
 <li>
-March 3, 2009 by Michael Wetter:<br>
+March 3, 2009 by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

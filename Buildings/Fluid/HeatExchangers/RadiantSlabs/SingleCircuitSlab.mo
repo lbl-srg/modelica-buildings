@@ -8,10 +8,10 @@ model SingleCircuitSlab "Model of a single circuit of a radiant slab"
      final lambdaIns = 0.04,
      dp_nominal = Modelica.Fluid.Pipes.BaseClasses.WallFriction.Detailed.pressureLoss_m_flow(
       m_flow=m_flow_nominal,
-      rho_a=rho_nominal,
-      rho_b=rho_nominal,
-      mu_a=mu_nominal,
-      mu_b=mu_nominal,
+      rho_a=rho_default,
+      rho_b=rho_default,
+      mu_a=mu_default,
+      mu_b=mu_default,
       length=length,
       diameter=pipe.dIn,
       roughness=pipe.roughness,
@@ -19,10 +19,12 @@ model SingleCircuitSlab "Model of a single circuit of a radiant slab"
       res(dp(nominal=200*length)));
   parameter Modelica.SIunits.Area A "Surface area of radiant slab"
   annotation(Dialog(group="Construction"));
-  parameter Modelica.SIunits.Temperature T_c_start=(T_a_start*con_b[1].layers.R+T_b_start*con_a[1].layers.R)/layers.R
+  parameter Modelica.SIunits.Temperature T_c_start=
+    (T_a_start*con_b[1].layers.R+T_b_start*con_a[1].layers.R)/layers.R
     "Initial construction temperature in the layer that contains the pipes, used if steadyStateInitial = false"
     annotation(Dialog(tab="Initialization", group="Construction"));
-  final parameter Modelica.SIunits.Velocity v_nominal = 4*m_flow_nominal/pipe.dIn^2/Modelica.Constants.pi/rho_nominal
+  final parameter Modelica.SIunits.Velocity v_nominal=
+    4*m_flow_nominal/pipe.dIn^2/Modelica.Constants.pi/rho_default
     "Velocity at m_flow_nominal";
 
   Buildings.HeatTransfer.Conduction.MultiLayer con_a[nSeg](
@@ -67,8 +69,8 @@ protected
         L=length/nSeg,
         K=pipe.roughness),
     redeclare each final package Medium = Medium,
-    each final A=Modelica.Constants.pi*pipe.dIn*length/nSeg)
-    "Liquid side convective heat transfer"
+    each final A=Modelica.Constants.pi*pipe.dIn*length/nSeg,
+    each fluid(T(start=T_c_start))) "Liquid side convective heat transfer"
     annotation (Placement(transformation(extent={{-30,-60},{-10,-40}})));
   Modelica.Blocks.Sources.RealExpression mFlu_flow[nSeg](each y=m_flow)
     "Input signal for mass flow rate"
@@ -179,7 +181,7 @@ example in which the pipes are embedded in the concrete slab, and
 the layers below the pipes are insulation and reinforced concrete.
 </p>
 <p align=\"center\">
-<img src=\"modelica://Buildings/Resources/Images/Fluid/HeatExchangers/RadiantSlabs/resistances.png\"/>
+<img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Fluid/HeatExchangers/RadiantSlabs/resistances.png\"/>
 </p>
 <p>
 The construction <code>con_a</code> computes transient heat conduction
@@ -190,7 +192,7 @@ that contains the pipes and the surface heat port
 <code>sur_b</code>, with the heat port <code>con_b.port_b</code> connecting to <code>surf_b</code>.
 The temperature of the plane that contains the pipes is computes using a fictitious
 resistance <code>RFic</code>, which is computed by 
-<a href=\"modelica:Buildings.Fluid.HeatExchangers.RadiantSlabs.BaseClasses.Functions.AverageResistance\">
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.RadiantSlabs.BaseClasses.Functions.AverageResistance\">
 Buildings.Fluid.HeatExchangers.RadiantSlabs.BaseClasses.Functions.AverageResistance</a>.
 There is also a resistance for the pipe wall <code>RPip</code>
 and a convective heat transfer coefficient between the fluid and the pipe inside wall.
@@ -212,11 +214,12 @@ The first layer of this material is the one at the heat port <code>surf_a</code>
 is at the heat port <code>surf_b</code>.
 The parameter <code>iLayPip</code> must be set to the number of the interface in which the pipes
 are located. For example, consider the following floor slab.
+</p>
 <p align=\"center\">
-<img src=\"modelica://Buildings/Resources/Images/Fluid/HeatExchangers/RadiantSlabs/construction.png\"/>
+<img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Fluid/HeatExchangers/RadiantSlabs/construction.png\"/>
 </p>
 Then, the construction definition is
-</p>
+<br/>
 <pre>
   Buildings.HeatTransfer.Data.OpaqueConstructions.Generic layers(
         nLay=3, 
@@ -295,8 +298,7 @@ The parameter <code>sysTyp</code> is used to select the equation that is used to
 the average temperature in the plane of the pipes.
 It needs to be set to the following values:
 </p>
-<p>
-  <table border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+  <table summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
   <tr>
       <th>sysTyp</th>
       <th>System type</th>
@@ -312,7 +314,6 @@ It needs to be set to the following values:
           construction surface.</td>
     </tr>
   </table>
-</p>
 <h4>Limitations</h4>
 <p>
 The analogy with a three-resistance network and the corresponding equation for
@@ -334,17 +335,22 @@ plane with the pipes and the construction surfaces, <code>con_a</code> and <code
 revisions="<html>
 <ul>
 <li>
-February 27, 2013, by Michael Wetter:<br>
+September 12, 2014, by Michael Wetter:<br/>
+Set start value for <code>hPip(fluid(T))</code> to avoid
+a warning about conflicting start values in Dymola 2015 FD01.
+</li>
+<li>
+February 27, 2013, by Michael Wetter:<br/>
 Fixed bug in the assignment of the fictitious thermal resistance by replacing
 <code>RFic[nSeg](each G=A/Rx)</code> with
 <code>RFic[nSeg](each G=A/nSeg/Rx)</code>.
 </li>
 <li>
-April 5, 2012, by Michael Wetter:<br>
+April 5, 2012, by Michael Wetter:<br/>
 Revised implementation.
 </li>
 <li>
-April 3, 2012, by Xiufeng Pang:<br>
+April 3, 2012, by Xiufeng Pang:<br/>
 First implementation.
 </li>
 </ul>

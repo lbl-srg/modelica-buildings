@@ -1,7 +1,7 @@
 within Buildings.BoundaryConditions.SolarIrradiation.BaseClasses;
 block DiffuseIsotropic
   "Diffuse solar irradiation on a tilted surface with an isotropic model"
-  extends Modelica.Blocks.Interfaces.BlockIcon;
+  extends Modelica.Blocks.Icons.Block;
 public
   parameter Real rho=0.2 "Ground reflectance";
   parameter Modelica.SIunits.Angle til(displayUnit="deg") "Surface tilt angle";
@@ -47,11 +47,11 @@ Solar Energy, 39(4): 301-305.
 ", revisions="<html>
 <ul>
 <li>
-June 6, 2012, by Wangda Zuo:<br>
+June 6, 2012, by Wangda Zuo:<br/>
 Separated the contributions from the sky and the ground.
 </li>
 <li>
-May 24, 2010, by Wangda Zuo:<br>
+May 24, 2010, by Wangda Zuo:<br/>
 First implementation.
 </li>
 </ul>

@@ -24,7 +24,7 @@ model RoomVAV "Model for CO2 emitted by people"
         Medium) "Sensor at volume"
     annotation (extent=[14,20; 34,40], Placement(transformation(extent={{16,20},
             {36,40}})));
-  Buildings.Fluid.Sources.PrescribedExtraPropertyFlowRate sou(redeclare package
+  Buildings.Fluid.Sources.TraceSubstancesFlowSource sou(redeclare package
       Medium =         Medium, use_m_flow_in=true,
     nPorts=1) "CO2 source"
     annotation (extent=[-98,-70; -78,-50], Placement(transformation(extent={{-100,
@@ -107,7 +107,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(con.y, vav.y) annotation (Line(
-      points={{121,30},{140,30},{140,70},{8,70}},
+      points={{121,30},{140,30},{140,70},{12,70}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(ple.ports[1], portRet) annotation (Line(
@@ -151,7 +151,7 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(dpPle.port_a, vol.ports[6]) annotation (Line(
-      points={{2.44753e-15,-20},{3.33333,-18},{3.33333,-5.55112e-16}},
+      points={{2.44753e-15,-20},{3.33333,-20},{3.33333,-5.55112e-16}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(dpPle.port_b, ple.ports[2]) annotation (Line(
@@ -162,8 +162,8 @@ equation
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-160,-160},{160,
             160}})),
-    Coordsys(extent=[-160,-160; 160,160]),
     Icon(
+      coordinateSystem(extent={{-160,-160},{160,160}}),
       Rectangle(extent=[-132,90; 130,-112], style(
           color=0,
           rgbcolor={0,0,0},

@@ -8,57 +8,11 @@ model FourPortHeatMassExchanger
     final h_outflow_b2_start = h2_outflow_start);
   extends Buildings.Fluid.Interfaces.FourPortFlowResistanceParameters(
      final computeFlowResistance1=true, final computeFlowResistance2=true);
-  import Modelica.Constants;
-
-  Buildings.Fluid.MixingVolumes.MixingVolume vol1(
-    redeclare final package Medium = Medium1,
-    nPorts = 2,
-    V=m1_flow_nominal*tau1/rho1_nominal,
-    final m_flow_nominal=m1_flow_nominal,
-    energyDynamics=if tau1 > Modelica.Constants.eps
-                         then energyDynamics else
-                         Modelica.Fluid.Types.Dynamics.SteadyState,
-    massDynamics=if tau1 > Modelica.Constants.eps
-                         then massDynamics else
-                         Modelica.Fluid.Types.Dynamics.SteadyState,
-    final p_start=p1_start,
-    final T_start=T1_start,
-    final X_start=X1_start,
-    final C_start=C1_start,
-    final C_nominal=C1_nominal) "Volume for fluid 1"
-                               annotation (Placement(transformation(extent={{-10,70},
-            {10,50}},         rotation=0)));
-
-  replaceable Buildings.Fluid.MixingVolumes.MixingVolume vol2
-    constrainedby Buildings.Fluid.MixingVolumes.MixingVolume(
-    redeclare final package Medium = Medium2,
-    nPorts = 2,
-    V=m2_flow_nominal*tau2/rho2_nominal,
-    final m_flow_nominal = m2_flow_nominal,
-    energyDynamics=if tau2 > Modelica.Constants.eps
-                         then energyDynamics else
-                         Modelica.Fluid.Types.Dynamics.SteadyState,
-    massDynamics=if tau2 > Modelica.Constants.eps
-                         then massDynamics else
-                         Modelica.Fluid.Types.Dynamics.SteadyState,
-    final p_start=p2_start,
-    final T_start=T2_start,
-    final X_start=X2_start,
-    final C_start=C2_start,
-    final C_nominal=C2_nominal) "Volume for fluid 2"
-   annotation (Placement(transformation(
-        origin={2,-60},
-        extent={{-10,10},{10,-10}},
-        rotation=180)));
 
   parameter Modelica.SIunits.Time tau1 = 30 "Time constant at nominal flow"
-     annotation (Evaluate=true, Dialog(tab = "Dynamics", group="Nominal condition"));
+     annotation (Dialog(tab = "Dynamics", group="Nominal condition"));
   parameter Modelica.SIunits.Time tau2 = 30 "Time constant at nominal flow"
-     annotation (Evaluate=true, Dialog(tab = "Dynamics", group="Nominal condition"));
-  Modelica.SIunits.HeatFlowRate Q1_flow= sum(vol1.heatPort.Q_flow)
-    "Heat flow rate into medium 1";
-  Modelica.SIunits.HeatFlowRate Q2_flow= sum(vol2.heatPort.Q_flow)
-    "Heat flow rate into medium 2";
+     annotation (Dialog(tab = "Dynamics", group="Nominal condition"));
 
   // Advanced
   parameter Boolean homotopyInitialization = true "= true, use homotopy method"
@@ -109,6 +63,82 @@ model FourPortHeatMassExchanger
     "Nominal value of trace substances. (Set to typical order of magnitude.)"
    annotation (Dialog(tab="Initialization", group = "Medium 2", enable=Medium2.nC > 0));
 
+  Buildings.Fluid.MixingVolumes.MixingVolume vol1(
+    redeclare final package Medium = Medium1,
+    nPorts = 2,
+    V=m1_flow_nominal*tau1/rho1_nominal,
+    final m_flow_nominal=m1_flow_nominal,
+    energyDynamics=if tau1 > Modelica.Constants.eps
+                         then energyDynamics else
+                         Modelica.Fluid.Types.Dynamics.SteadyState,
+    massDynamics=if tau1 > Modelica.Constants.eps
+                         then massDynamics else
+                         Modelica.Fluid.Types.Dynamics.SteadyState,
+    final p_start=p1_start,
+    final T_start=T1_start,
+    final X_start=X1_start,
+    final C_start=C1_start,
+    final C_nominal=C1_nominal) "Volume for fluid 1"
+                               annotation (Placement(transformation(extent={{-10,70},
+            {10,50}},         rotation=0)));
+
+  replaceable Buildings.Fluid.MixingVolumes.MixingVolume vol2
+    constrainedby Buildings.Fluid.MixingVolumes.BaseClasses.PartialMixingVolume(
+    redeclare final package Medium = Medium2,
+    nPorts = 2,
+    V=m2_flow_nominal*tau2/rho2_nominal,
+    final m_flow_nominal = m2_flow_nominal,
+    energyDynamics=if tau2 > Modelica.Constants.eps
+                         then energyDynamics else
+                         Modelica.Fluid.Types.Dynamics.SteadyState,
+    massDynamics=if tau2 > Modelica.Constants.eps
+                         then massDynamics else
+                         Modelica.Fluid.Types.Dynamics.SteadyState,
+    final p_start=p2_start,
+    final T_start=T2_start,
+    final X_start=X2_start,
+    final C_start=C2_start,
+    final C_nominal=C2_nominal) "Volume for fluid 2"
+   annotation (Placement(transformation(
+        origin={2,-60},
+        extent={{-10,10},{10,-10}},
+        rotation=180)));
+
+  Modelica.SIunits.HeatFlowRate Q1_flow = vol1.heatPort.Q_flow
+    "Heat flow rate into medium 1";
+  Modelica.SIunits.HeatFlowRate Q2_flow = vol2.heatPort.Q_flow
+    "Heat flow rate into medium 2";
+
+  Buildings.Fluid.FixedResistances.FixedResistanceDpM preDro1(
+    redeclare final package Medium = Medium1,
+    final use_dh=false,
+    final m_flow_nominal=m1_flow_nominal,
+    final deltaM=deltaM1,
+    final allowFlowReversal=allowFlowReversal1,
+    final show_T=false,
+    final from_dp=from_dp1,
+    final linearized=linearizeFlowResistance1,
+    final homotopyInitialization=homotopyInitialization,
+    final dp_nominal=dp1_nominal,
+    final dh=1,
+    final ReC=4000) "Pressure drop model for fluid 1"
+    annotation (Placement(transformation(extent={{-80,70},{-60,90}})));
+
+  Buildings.Fluid.FixedResistances.FixedResistanceDpM preDro2(
+    redeclare final package Medium = Medium2,
+    final use_dh=false,
+    final m_flow_nominal=m2_flow_nominal,
+    final deltaM=deltaM2,
+    final allowFlowReversal=allowFlowReversal2,
+    final show_T=false,
+    final from_dp=from_dp2,
+    final linearized=linearizeFlowResistance2,
+    final homotopyInitialization=homotopyInitialization,
+    final dp_nominal=dp2_nominal,
+    final dh=1,
+    final ReC=4000) "Pressure drop model for fluid 2"
+    annotation (Placement(transformation(extent={{80,-90},{60,-70}})));
+
 protected
   parameter Medium1.ThermodynamicState sta1_nominal=Medium1.setState_pTX(
       T=Medium1.T_default, p=Medium1.p_default, X=Medium1.X_default);
@@ -128,39 +158,30 @@ protected
   parameter Modelica.SIunits.SpecificEnthalpy h2_outflow_start = Medium2.specificEnthalpy(sta2_start)
     "Start value for outflowing enthalpy";
 
-public
-  Buildings.Fluid.FixedResistances.FixedResistanceDpM preDro1(
-    redeclare package Medium = Medium1,
-    final use_dh=false,
-    final m_flow_nominal=m1_flow_nominal,
-    final deltaM=deltaM1,
-    final allowFlowReversal=allowFlowReversal1,
-    final show_T=false,
-    final show_V_flow=show_V_flow,
-    final from_dp=from_dp1,
-    final linearized=linearizeFlowResistance1,
-    final homotopyInitialization=homotopyInitialization,
-    final dp_nominal=dp1_nominal,
-    final dh=1,
-    final ReC=4000) "Pressure drop model for fluid 1"
-    annotation (Placement(transformation(extent={{-80,70},{-60,90}})));
+initial algorithm
+  // Check for tau1
+  assert((energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState) or
+          tau1 > Modelica.Constants.eps,
+"The parameter tau1, or the volume of the model from which tau may be derived, is unreasonably small.
+ You need to set energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState to model steady-state.
+ Received tau1 = " + String(tau1) + "\n");
+  assert((massDynamics == Modelica.Fluid.Types.Dynamics.SteadyState) or
+          tau1 > Modelica.Constants.eps,
+"The parameter tau1, or the volume of the model from which tau may be derived, is unreasonably small.          
+ You need to set massDynamics == Modelica.Fluid.Types.Dynamics.SteadyState to model steady-state.
+ Received tau1 = " + String(tau1) + "\n");
 
-  Buildings.Fluid.FixedResistances.FixedResistanceDpM preDro2(
-    redeclare package Medium = Medium2,
-    final use_dh=false,
-    final m_flow_nominal=m2_flow_nominal,
-    final deltaM=deltaM2,
-    final allowFlowReversal=allowFlowReversal2,
-    final show_T=false,
-    final show_V_flow=show_V_flow,
-    final from_dp=from_dp2,
-    final linearized=linearizeFlowResistance2,
-    final homotopyInitialization=homotopyInitialization,
-    final dp_nominal=dp2_nominal,
-    final dh=1,
-    final ReC=4000) "Pressure drop model for fluid 2"
-    annotation (Placement(transformation(extent={{80,-90},{60,-70}})));
-
+ // Check for tau2
+  assert((energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState) or
+          tau2 > Modelica.Constants.eps,
+"The parameter tau2, or the volume of the model from which tau may be derived, is unreasonably small.
+ You need to set energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState to model steady-state.
+ Received tau2 = " + String(tau2) + "\n");
+  assert((massDynamics == Modelica.Fluid.Types.Dynamics.SteadyState) or
+          tau2 > Modelica.Constants.eps,
+"The parameter tau2, or the volume of the model from which tau may be derived, is unreasonably small.          
+ You need to set massDynamics == Modelica.Fluid.Types.Dynamics.SteadyState to model steady-state.
+ Received tau2 = " + String(tau2) + "\n");
 equation
   connect(vol1.ports[2], port_b1) annotation (Line(
       points={{2,70},{20,70},{20,60},{100,60}},
@@ -213,14 +234,37 @@ Buildings.Fluid.HeatExchangers.BaseClasses.HexElement</a>.
 The variable names follow the conventions used in 
 <a href=\"modelica://Modelica.Fluid.HeatExchangers.BasicHX\">
 Modelica.Fluid.HeatExchangers.BasicHX</a>.
+</p>
 </html>", revisions="<html>
 <ul>
 <li>
-February 6, 2012, by Michael Wetter:<br>
+October 6, 2014, by Michael Wetter:<br/>
+Changed medium declaration in pressure drop elements to be final.
+</li>
+<li>
+May 28, 2014, by Michael Wetter:<br/>
+Removed <code>annotation(Evaluate=true)</code> for parameters <code>tau1</code>
+and <code>tau2</code>.
+This is needed to allow changing the time constant after translation.
+</li>
+<li>
+November 12, 2013, by Michael Wetter:<br/>
+Removed <code>import Modelica.Constants</code> statement.
+</li>
+<li>
+October 8, 2013, by Michael Wetter:<br/>
+Removed parameter <code>show_V_flow</code>.
+</li>
+<li>
+September 26, 2013, by Michael Wetter:<br/>
+Removed unrequired <code>sum</code> operator.
+</li>
+<li>
+February 6, 2012, by Michael Wetter:<br/>
 Updated documentation.
 </li>
 <li>
-February 3, 2012, by Michael Wetter:<br>
+February 3, 2012, by Michael Wetter:<br/>
 Removed assignment of <code>m_flow_small</code> as it is no
 longer used in its base class.
 </li>
@@ -241,20 +285,20 @@ Set nominal values for <code>vol1.C</code> and <code>vol2.C</code>.
 </ul>
 </li>
 <li>
-July 11, 2011, by Michael Wetter:<br>
+July 11, 2011, by Michael Wetter:<br/>
 Changed parameterization of fluid volume so that steady-state balance is
 used when <code>tau = 0</code>.
 </li>
 <li>
-March 25, 2011, by Michael Wetter:<br>
+March 25, 2011, by Michael Wetter:<br/>
 Added homotopy operator.
 </li>
 <li>
-April 13, 2009, by Michael Wetter:<br>
+April 13, 2009, by Michael Wetter:<br/>
 Added model to compute flow friction.
 </li>
 <li>
-September 10, 2008 by Michael Wetter:<br>
+September 10, 2008 by Michael Wetter:<br/>
 Added <code>stateSelect=StateSelect.always</code> for temperature of volume 1.
 </li>
 <li>
@@ -262,13 +306,13 @@ Changed temperature sensor from Celsius to Kelvin.
 Unit conversion should be made during output
 processing.
 <li>
-August 5, 2008, by Michael Wetter:<br>
+August 5, 2008, by Michael Wetter:<br/>
 Replaced instances of <code>Delays.DelayFirstOrder</code> with instances of
 <code>MixingVolumes.MixingVolume</code>. This allows to extract liquid for a condensing cooling
 coil model.
 </li>
 <li>
-March 25, 2008, by Michael Wetter:<br>
+March 25, 2008, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

@@ -1,7 +1,6 @@
 within Buildings.BoundaryConditions.SolarGeometry.BaseClasses.Examples;
 model IncidenceAngle "Test model for incidence angle"
   extends Modelica.Icons.Example;
-  import Buildings;
   Buildings.BoundaryConditions.SolarGeometry.BaseClasses.Declination decAng
     "Declination angle"
     annotation (Placement(transformation(extent={{0,20},{20,40}})));
@@ -13,7 +12,7 @@ model IncidenceAngle "Test model for incidence angle"
     lat=0.73268921998722) "incidence angle"
                               annotation (Placement(transformation(extent={{40,-10},{60,10}})));
   Buildings.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(
-    filNam="Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos")
+    filNam="modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos")
     "Weather data"
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
   Buildings.BoundaryConditions.WeatherData.Bus weaBus "Weather bus"

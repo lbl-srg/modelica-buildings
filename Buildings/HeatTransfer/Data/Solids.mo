@@ -21,7 +21,7 @@ heat capacity.
           "<html>
 <ul>
 <li>
-September 9, 2010, by Michael Wetter:<br>
+September 9, 2010, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
@@ -88,27 +88,29 @@ is equal to an arbitrary constant
 <p align=\"center\" style=\"font-style:italic;\">
 &Pi; = ( t &frasl; Fo )<sup>1/2</sup> 
 </p>
-<p>
-and hence
-</p>
+
+<p>and hence</p>
+
 <p align=\"center\" style=\"font-style:italic;\">
 &Pi; = L &frasl; &radic; &alpha;.
 </p>
+
 <p>
 Now, let <i>x</i>
 denote the thickness of the material layer.
 Then, we compute the time constant of the material layer as
 </p>
-<p>
 <p align=\"center\" style=\"font-style:italic;\">
 &Pi;<sub>x</sub> = x &frasl; &radic; &alpha;,
 </p>
+<p>
 and we compute the estimated number of elements <i>N' &isin; &#8477;</i> 
-for the material layer as
-</p>
+for the material layer as</p>
+
 <p align=\"center\" style=\"font-style:italic;\">
 N' = N<sub>ref</sub> &Pi;<sub>x</sub> &frasl; &Pi;<sub>ref</sub>
 </p>
+
 <p>
 where <i>&Pi;<sub>ref</sub> &isin; &#8469;</i> is a user-specified number of elements 
 for a reference material, which is equal to the parameter
@@ -119,15 +121,16 @@ Hence,
 <i>&Pi;<sub>ref</sub> = L<sub>ref</sub>/ &radic; &alpha;<sub>ref</sub> = 331.4</i>
 &radic;s.
 </p>
-<p>Next, we define the number of elements for the material layer as
-</p>
+
+<p>
+Next, we define the number of elements for the material layer as
 <p align=\"center\" style=\"font-style:italic;\">
-<i>N<sub>x</sub> = &lceil;  N' &rceil;
+<i>N<sub>x</sub> = &lceil;  N' &rceil;</i>
 </p>
+
 <p>
 where the notation <i>&lceil; &#8901; &rceil;</i> is defined, for
 <i>s &isin; &#8477;</i>, as
-</p>
 <p align=\"center\" style=\"font-style:italic;\">
 &lceil; s &rceil; = min{ k &isin; &#8484; | k &ge; s }.
 </p>
@@ -135,11 +138,12 @@ where the notation <i>&lceil; &#8901; &rceil;</i> is defined, for
 Finally, we divide the material layer in compartments of length 
 <i>&Delta; = x &frasl; N<sub>x</sub></i>.
 </p>
+
 </html>",
 revisions="<html>
 <ul>
 <li>
-September 9, 2010, by Michael Wetter:<br>
+September 9, 2010, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

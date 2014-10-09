@@ -2,7 +2,6 @@ within Buildings.Fluid.HeatExchangers.Examples;
 model WetCoilCounterFlowPControl
   "Model that demonstrates use of a heat exchanger with condensation and with feedback control"
   extends Modelica.Icons.Example;
-  import Buildings;
   package Medium1 = Buildings.Media.ConstantPropertyLiquidWater;
   package Medium2 = Buildings.Media.PerfectGases.MoistAirUnsaturated;
   //package Medium2 = Buildings.Media.GasesPTDecoupled.MoistAir;
@@ -87,7 +86,9 @@ model WetCoilCounterFlowPControl
         T_b1_nominal,
         T_a2_nominal,
         T_b2_nominal),
-    show_T=true)             annotation (Placement(transformation(extent={{60,
+    show_T=true,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+                             annotation (Placement(transformation(extent={{60,
             16},{80,36}}, rotation=0)));
   inner Modelica.Fluid.System system
     annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
@@ -177,12 +178,25 @@ equation
 experiment(StopTime=3600),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/Examples/WetCoilCounterFlowPControl.mos"
         "Simulate and plot"),
-    Documentation(revisions="<html>
+Documentation(info="<html>
+<p>
+This model demonstrates the use of
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.WetCoilCounterFlow\">
+Buildings.Fluid.HeatExchangers.WetCoilCounterFlow</a>.
+The valve on the water-side is regulated to track a setpoint temperature
+for the air outlet.
+</p>
+</html>",
+revisions="<html>
 <ul>
 <li>
-March 1, 2013, by Michael Wetter:<br>
+March 1, 2013, by Michael Wetter:<br/>
 Added nominal pressure drop for valve as
 this parameter no longer has a default value.
+</li>
+<li>
+May 27, 2010, by Michael Wetter:<br/>
+First implementation.
 </li>
 </ul>
 </html>"));

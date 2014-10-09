@@ -1,19 +1,34 @@
 within Buildings.HeatTransfer.Convection.Functions.HeatFlux.BaseClasses;
 partial function PartialHeatFlux "Partial function for convective heat flux"
+  extends Modelica.Icons.Function;
+
  input Modelica.SIunits.TemperatureDifference dT
     "Temperature difference solid minus fluid";
  output Modelica.SIunits.HeatFlux q_flow
     "Convective heat flux from solid to fluid";
 annotation (Documentation(info=
-                             "<html>
+"<html>
+<p>
 Partial function that is used to implement the convective heat flux
-as <code>q_flow = f(dT)</code>,
-where <code>dT</code> is the solid temperature minus the fluid temperature.
+as
+</p>
+<p align=\"center\" style=\"font-style:italic;\">
+  q&#775; = h &Delta;T,
+</p>
+<p>
+where
+<i>&Delta;T</i> is the solid temperature minus the fluid temperature and
+<i>h</i> is the convective heat transfer coefficient.
+</p>
 </html>",
-        revisions="<html>
+revisions="<html>
 <ul>
 <li>
-March 10 2010, by Michael Wetter:<br>
+July 28, 2014, by Michael Wetter:<br/>
+Updated documentation.
+</li>
+<li>
+March 10 2010, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

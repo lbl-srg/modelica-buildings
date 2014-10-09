@@ -6,26 +6,10 @@ model TwoPortHeatMassExchanger
     port_b(h_outflow(start=h_outflow_start)));
   extends Buildings.Fluid.Interfaces.TwoPortFlowResistanceParameters(
     final computeFlowResistance=true);
-  import Modelica.Constants;
-
-  replaceable Buildings.Fluid.MixingVolumes.MixingVolume vol
-    constrainedby Buildings.Fluid.MixingVolumes.BaseClasses.PartialMixingVolume(
-    redeclare final package Medium = Medium,
-    nPorts = 2,
-    V=m_flow_nominal*tau/rho_default,
-    final m_flow_nominal = m_flow_nominal,
-    final energyDynamics=energyDynamics,
-    final massDynamics=massDynamics,
-    final p_start=p_start,
-    final T_start=T_start,
-    final X_start=X_start,
-    final C_start=C_start) "Volume for fluid stream"
-                                    annotation (Placement(transformation(extent={{-9,0},{
-            11,-20}},         rotation=0)));
 
   parameter Modelica.SIunits.Time tau = 30
     "Time constant at nominal flow (if energyDynamics <> SteadyState)"
-     annotation (Evaluate=true, Dialog(tab = "Dynamics", group="Nominal condition"));
+     annotation (Dialog(tab = "Dynamics", group="Nominal condition"));
 
   // Advanced
   parameter Boolean homotopyInitialization = true "= true, use homotopy method"
@@ -54,6 +38,34 @@ model TwoPortHeatMassExchanger
     "Start value of trace substances"
     annotation (Dialog(tab="Initialization", enable=Medium.nC > 0));
 
+  replaceable Buildings.Fluid.MixingVolumes.MixingVolume vol
+  constrainedby Buildings.Fluid.MixingVolumes.BaseClasses.PartialMixingVolume(
+    redeclare final package Medium = Medium,
+    nPorts = 2,
+    V=m_flow_nominal*tau/rho_default,
+    final m_flow_nominal = m_flow_nominal,
+    final energyDynamics=energyDynamics,
+    final massDynamics=massDynamics,
+    final p_start=p_start,
+    final T_start=T_start,
+    final X_start=X_start,
+    final C_start=C_start) "Volume for fluid stream"
+     annotation (Placement(transformation(extent={{-9,0},{11,-20}},
+         rotation=0)));
+
+  Buildings.Fluid.FixedResistances.FixedResistanceDpM preDro(
+    redeclare final package Medium = Medium,
+    final use_dh=false,
+    final m_flow_nominal=m_flow_nominal,
+    final deltaM=deltaM,
+    final allowFlowReversal=allowFlowReversal,
+    final show_T=false,
+    final from_dp=from_dp,
+    final linearized=linearizeFlowResistance,
+    final homotopyInitialization=homotopyInitialization,
+    final dp_nominal=dp_nominal) "Pressure drop model"
+    annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
+
 protected
   parameter Medium.ThermodynamicState sta_default=Medium.setState_pTX(
       T=Medium.T_default, p=Medium.p_default, X=Medium.X_default);
@@ -63,35 +75,22 @@ protected
       T=T_start, p=p_start, X=X_start);
   parameter Modelica.SIunits.SpecificEnthalpy h_outflow_start = Medium.specificEnthalpy(sta_start)
     "Start value for outflowing enthalpy";
-public
-  Buildings.Fluid.FixedResistances.FixedResistanceDpM preDro(
-    redeclare package Medium = Medium,
-    final use_dh=false,
-    final m_flow_nominal=m_flow_nominal,
-    final deltaM=deltaM,
-    final allowFlowReversal=allowFlowReversal,
-    final show_T=false,
-    final show_V_flow=show_V_flow,
-    final from_dp=from_dp,
-    final linearized=linearizeFlowResistance,
-    final homotopyInitialization=homotopyInitialization,
-    final dp_nominal=dp_nominal) "Pressure drop model"
-    annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
+
 initial algorithm
   assert((energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState) or
           tau > Modelica.Constants.eps,
 "The parameter tau, or the volume of the model from which tau may be derived, is unreasonably small.
- Set energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState to model steady-state.
+ You need to set energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState to model steady-state.
  Received tau = " + String(tau) + "\n");
   assert((massDynamics == Modelica.Fluid.Types.Dynamics.SteadyState) or
           tau > Modelica.Constants.eps,
 "The parameter tau, or the volume of the model from which tau may be derived, is unreasonably small.          
- Set massDynamics == Modelica.Fluid.Types.Dynamics.SteadyState to model steady-state.
+ You need to set massDynamics == Modelica.Fluid.Types.Dynamics.SteadyState to model steady-state.
  Received tau = " + String(tau) + "\n");
 
 equation
   connect(vol.ports[2], port_b) annotation (Line(
-      points={{1,0},{27.25,0},{27.25,0},{51.5,0},{51.5,0},{100,0}},
+      points={{1,0},{100,0}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(port_a, preDro.port_a) annotation (Line(
@@ -99,8 +98,7 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(preDro.port_b, vol.ports[1]) annotation (Line(
-      points={{-40,0},{-30.25,0},{-30.25,0},{
-          -20.5,0},{-20.5,0},{1,0}},
+      points={{-40,0},{1,0}},
       color={0,127,255},
       smooth=Smooth.None));
   annotation (
@@ -124,7 +122,7 @@ the base class
 <a href=\"modelica://Buildings.Fluid.Interfaces.PartialTwoPortInterface\">
 Buildings.Fluid.Interfaces.PartialTwoPortInterface</a>.
 </p>
-<p>
+
 For models that extend this model, see for example
 <ul>
 <li>
@@ -143,7 +141,7 @@ the boiler
 Buildings.Fluid.Boilers.BoilerPolynomial</a>.
 </li>
 </ul>
-</p>
+
 <h4>Implementation</h4>
 <p>
 The variable names follow the conventions used in 
@@ -154,59 +152,76 @@ Modelica.Fluid.Examples.HeatExchanger.BaseClasses.BasicHX
 </html>", revisions="<html>
 <ul>
 <li>
-December 14, 2012 by Michael Wetter:<br>
+October 6, 2014, by Michael Wetter:<br/>
+Changed medium declaration in pressure drop element to be final.
+</li>
+<li>
+May 28, 2014, by Michael Wetter:<br/>
+Removed <code>annotation(Evaluate=true)</code> for parameter <code>tau</code>.
+This is needed to allow changing the time constant after translation.
+</li>
+<li>
+November 12, 2013, by Michael Wetter:<br/>
+Removed <code>import Modelica.Constants</code> statement.
+</li>
+<li>
+October 8, 2013, by Michael Wetter:<br/>
+Removed parameter <code>show_V_flow</code>.
+</li>
+<li>
+December 14, 2012 by Michael Wetter:<br/>
 Renamed protected parameters for consistency with the naming conventions.
 </li>
 <li>
-October 17, 2012, by Michael Wetter:<br>
+October 17, 2012, by Michael Wetter:<br/>
 Fixed broken link in documentation.
 </li>
 <li>
-February 3, 2012, by Michael Wetter:<br>
+February 3, 2012, by Michael Wetter:<br/>
 Removed assignment of <code>m_flow_small</code> as it is no
 longer used in the pressure drop model.
 </li>
 <li>
-January 15, 2011, by Michael Wetter:<br>
+January 15, 2011, by Michael Wetter:<br/>
 Fixed wrong class reference in information section.
 </li>
 <li>
-September 13, 2011, by Michael Wetter:<br>
+September 13, 2011, by Michael Wetter:<br/>
 Changed assignment of <code>vol(mass/energyDynamics=...)</code> as the
 previous assignment caused a non-literal start value that was ignored.
 </li>
 <li>
-July 29, 2011, by Michael Wetter:<br>
+July 29, 2011, by Michael Wetter:<br/>
 Added start value for outflowing enthalpy.
 </li>
 <li>
-July 11, 2011, by Michael Wetter:<br>
+July 11, 2011, by Michael Wetter:<br/>
 Changed parameterization of fluid volume so that steady-state balance is
 used when <code>tau = 0</code>.
 </li>
 <li>
-May 25, 2011, by Michael Wetter:<br>
+May 25, 2011, by Michael Wetter:<br/>
 Removed temperature sensor and changed implementation of fluid volume
 to allow use of this model for the steady-state and dynamic humidifier
 <a href=\"modelica://Buildings.Fluid.MassExchangers.HumidifierPrescribed\">
 Buildings.Fluid.MassExchangers.HumidifierPrescribed</a>.
 </li>
 <li>
-March 25, 2011, by Michael Wetter:<br>
+March 25, 2011, by Michael Wetter:<br/>
 Added homotopy operator.
 </li>
 <li>
-March 21, 2010 by Michael Wetter:<br>
+March 21, 2010 by Michael Wetter:<br/>
 Changed pressure start value from <code>system.p_start</code>
 to <code>Medium.p_default</code> since HVAC models may have water and 
 air, which are typically at different pressures.
 </li>
 <li>
-April 13, 2009, by Michael Wetter:<br>
+April 13, 2009, by Michael Wetter:<br/>
 Added model to compute flow friction.
 </li>
 <li>
-January 29, 2009 by Michael Wetter:<br>
+January 29, 2009 by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

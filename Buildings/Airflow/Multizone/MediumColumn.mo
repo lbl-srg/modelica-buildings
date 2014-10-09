@@ -17,21 +17,21 @@ model MediumColumn
   Modelica.Fluid.Interfaces.FluidPort_a port_a(
     redeclare package Medium = Medium,
     m_flow(min=if allowFlowReversal then -Constants.inf else 0),
-    p(start=Medium.p_default, nominal=Medium.p_default))
+    p(start=Medium.p_default))
     "Fluid connector a (positive design flow direction is from port_a to port_b)"
     annotation (Placement(transformation(extent={{-10,90},{10,110}}, rotation=0),
         iconTransformation(extent={{-10,90},{10,110}})));
   Modelica.Fluid.Interfaces.FluidPort_b port_b(
     redeclare package Medium = Medium,
     m_flow(max=if allowFlowReversal then +Constants.inf else 0),
-    p(start=Medium.p_default, nominal=Medium.p_default))
+    p(start=Medium.p_default))
     "Fluid connector b (positive design flow direction is from port_a to port_b)"
     annotation (Placement(transformation(extent={{10,-110},{-10,-90}}, rotation=
            0), iconTransformation(extent={{10,-110},{-10,-90}})));
 
   Modelica.SIunits.VolumeFlowRate V_flow=m_flow/Medium.density(sta_a)
     "Volume flow rate at inflowing port (positive when flow from port_a to port_b)";
-  Medium.MassFlowRate m_flow(start=0)
+  Modelica.SIunits.MassFlowRate m_flow(start=0)
     "Mass flow rate from port_a to port_b (m_flow > 0 is design flow direction)";
   Modelica.SIunits.Pressure dp(start=0, displayUnit="Pa")
     "Pressure difference between port_a and port_b";
@@ -157,10 +157,12 @@ Documentation(info="<html>
 <p>
 This model describes the pressure difference of a vertical medium
 column. It can be used to model the pressure difference caused by 
-stack effect.</p>
+stack effect.
+</p>
 <p>
 The model can be used with the following three configurations, which are
 controlled by the setting of the parameter <code>densitySelection</code>:
+</p>
 <ul>
 <li>
 <code>top</code>:
@@ -177,7 +179,6 @@ to <code>port_b</code>.
 Use this setting to use the density based on the actual flow direction. 
 </li>
 </ul>
-</p>
 <p>
 The settings <code>top</code> and <code>bottom</code>
 should be used when rooms or different floors of a building are 
@@ -193,23 +194,27 @@ at the top of the column.
 </p>
 <p>
 For a steady-state model, use
-<a href=\"modelica:Buildings.Airflow.Multizone.MediumColumnDynamic\">
+<a href=\"modelica://Buildings.Airflow.Multizone.MediumColumnDynamic\">
 Buildings.Airflow.Multizone.MediumColumnDynamic</a> instead of this model.
 </p>
 </html>",
 revisions="<html>
 <ul>
-<li><i>April 17, 2013</i> by Michael Wetter:<br>
+<li><i>October 4, 2014</i> by Michael Wetter:<br/>
+Removed assignment of <code>port_?.p.nominal</code> to avoid a warning in OpenModelica because
+alias sets have different nominal values.
+</li>
+<li><i>April 17, 2013</i> by Michael Wetter:<br/>
        Reformulated the assert statement that checks for the correct value of <code>densitySelection</code>.
 </li>
-<li><i>July 28, 2010</i> by Michael Wetter:<br>
+<li><i>July 28, 2010</i> by Michael Wetter:<br/>
        Changed sign for pressure difference.
 </li>
-<li><i>July 20, 2010</i> by Michael Wetter:<br>
+<li><i>July 20, 2010</i> by Michael Wetter:<br/>
        Migrated model to Modelica 3.1 and integrated it into the Buildings library.
        Reimplemented assigment of density based on flow direction or based on outflowing state.
 </li>
-<li><i>February 24, 2005</i> by Michael Wetter:<br>
+<li><i>February 24, 2005</i> by Michael Wetter:<br/>
        Released first version.
 </ul>
 </html>"),

@@ -1,7 +1,6 @@
 within Buildings.Fluid.Sources.Examples;
 model Outside_Cp
   "Test model for source and sink with outside weather data and wind pressure"
-  import Buildings;
   extends Modelica.Icons.Example;
   package Medium = Buildings.Media.GasesConstantDensity.MoistAirUnsaturated
     "Medium model for air";
@@ -11,7 +10,7 @@ model Outside_Cp
     Cp=0.6) "Model with outside conditions"
     annotation (Placement(transformation(extent={{-40,20},{-20,40}})));
   Buildings.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(
-    filNam="Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos")
+    filNam="modelica://Buildings/Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos")
     annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
   inner Modelica.Fluid.System system(energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
@@ -92,7 +91,7 @@ account the wind direction relative to the building.
 </html>", revisions="<html>
 <ul>
 <li>
-October 26, 2011 by Michael Wetter:<br>
+October 26, 2011 by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

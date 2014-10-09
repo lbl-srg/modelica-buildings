@@ -7,7 +7,7 @@ record DataRecord "Coefficient data record for properties of perfect gases"
   Modelica.SIunits.SpecificHeatCapacity R "Gas constant";
   Modelica.SIunits.SpecificHeatCapacity cp
     "Specific heat capacity at constant pressure";
-  Modelica.SIunits.SpecificHeatCapacity cv = cp - R
+  Modelica.SIunits.SpecificHeatCapacity cv
     "Specific heat capacity at constant volume";
   annotation (
 defaultComponentName="gas",
@@ -19,7 +19,7 @@ This data record contains the coefficients for perfect gases.
         "<html>
 <ul>
 <li>
-May 12, 2008 by Michael Wetter:<br>
+May 12, 2008 by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

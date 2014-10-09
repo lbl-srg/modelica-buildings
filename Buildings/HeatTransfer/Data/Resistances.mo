@@ -32,7 +32,7 @@ heat resistances.
   revisions="<html>
 <ul>
 <li>
-Sep. 3 2010, by Michael Wetter, Wangda Zuo:<br>
+Sep. 3 2010, by Michael Wetter, Wangda Zuo:<br/>
 First implementation.
 </li>
 </ul>
@@ -47,7 +47,7 @@ heat resistances.
   revisions="<html>
 <ul>
 <li>
-Sep. 3 2010, by Michael Wetter, Wangda Zuo:<br>
+Sep. 3 2010, by Michael Wetter, Wangda Zuo:<br/>
 First implementation.
 </li>
 </ul>

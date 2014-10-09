@@ -1,7 +1,6 @@
 within Buildings.BoundaryConditions.SolarIrradiation.BaseClasses.Examples;
 model BrighteningCoeffcient "Test model for brightening coeffcients"
   extends Modelica.Icons.Example;
-  import Buildings;
   Buildings.BoundaryConditions.SolarGeometry.ZenithAngle zen(lat=
         0.6457718232379)
     annotation (Placement(transformation(extent={{-40,-20},{-20,0}})));
@@ -14,7 +13,7 @@ model BrighteningCoeffcient "Test model for brightening coeffcients"
   Buildings.BoundaryConditions.SolarIrradiation.BaseClasses.SkyBrightness
     skyBri annotation (Placement(transformation(extent={{40,-40},{60,-20}})));
   Buildings.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam=
-        "Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos")
+        "modelica://Buildings/Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos")
     annotation (Placement(transformation(extent={{-60,60},{-40,80}})));
   Buildings.BoundaryConditions.WeatherData.Bus weaBus annotation (Placement(
         transformation(extent={{-20,60},{0,80}}), iconTransformation(extent={{-20,

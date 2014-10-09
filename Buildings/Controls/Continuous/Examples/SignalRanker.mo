@@ -8,7 +8,7 @@ model SignalRanker "Example model for signal ranker"
   Buildings.Controls.Continuous.SignalRanker sigRan(
                                                   nin=3)
     annotation (Placement(transformation(extent={{-20,20},{0,40}}, rotation=0)));
-  Modelica.Blocks.Sources.ExpSine expSine(freqHz=10)
+  Modelica.Blocks.Sources.ExpSine expSine(freqHz=10, damping=1)
     annotation (Placement(transformation(extent={{-60,60},{-40,80}}, rotation=0)));
 equation
   connect(sine.y, sigRan.u[1])       annotation (Line(points={{-39,-10},{-32,
@@ -30,8 +30,8 @@ The figure below shows the input and output signals of the block.
 Note that 
 <code>sigRan.y[1] &ge; sigRan.y[2] &ge; sigRan.y[3]</code>.
 <p align=\"center\">
-<img src=\"modelica://Buildings/Resources/Images/Controls/Continuous/Examples/SignalRankerU.png\" border=\"1\"><br/>
-<img src=\"modelica://Buildings/Resources/Images/Controls/Continuous/Examples/SignalRankerY.png\" border=\"1\">
+<img src=\"modelica://Buildings/Resources/Images/Controls/Continuous/Examples/SignalRankerU.png\" border=\"1\" alt=\"Input to signal ranker.\"/><br/>
+		  <img src=\"modelica://Buildings/Resources/Images/Controls/Continuous/Examples/SignalRankerY.png\" border=\"1\" alt=\"Output of signal ranker.\"/>
 </p>
 </html>", revisions="<html>
 <ul>

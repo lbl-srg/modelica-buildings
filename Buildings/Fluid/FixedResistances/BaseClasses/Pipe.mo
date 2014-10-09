@@ -20,6 +20,9 @@ model Pipe
     "Reynolds number where transition to turbulent starts"
     annotation (Dialog(tab="Flow resistance"));
 
+  parameter Boolean homotopyInitialization = true "= true, use homotopy method"
+    annotation(Evaluate=true, Dialog(tab="Advanced"));
+
   Buildings.Fluid.FixedResistances.FixedResistanceDpM res(
     redeclare final package Medium = Medium,
     final from_dp=from_dp,
@@ -29,7 +32,6 @@ model Pipe
     final m_flow_nominal=m_flow_nominal,
     final dp_nominal=dp_nominal,
     final allowFlowReversal=allowFlowReversal,
-    final show_V_flow=show_V_flow,
     final linearized=linearizeFlowResistance,
     final ReC=ReC,
     final homotopyInitialization=homotopyInitialization) "Flow resistance"
@@ -49,7 +51,6 @@ model Pipe
     each C_start=C_start,
     each C_nominal=C_nominal,
     each final m_flow_small=m_flow_small,
-    each final homotopyInitialization=homotopyInitialization,
     each final allowFlowReversal=allowFlowReversal) "Volume for pipe fluid"
                                                   annotation (Placement(
         transformation(extent={{-1,-18},{19,-38}}, rotation=0)));
@@ -57,12 +58,12 @@ model Pipe
 protected
   parameter Modelica.SIunits.Volume VPipe=Modelica.Constants.pi*(diameter/2.0)^
       2*length "Pipe volume";
-  parameter Medium.ThermodynamicState state_start = Medium.setState_pTX(
-      T=T_start,
-      p=p_start,
-      X=X_start[1:Medium.nXi]) "Start state";
-  parameter Modelica.SIunits.Density rho_nominal = Medium.density(state_start);
-  parameter Modelica.SIunits.DynamicViscosity mu_nominal = Medium.dynamicViscosity(state_start)
+  parameter Medium.ThermodynamicState state_default = Medium.setState_pTX(
+      T=Medium.T_default,
+      p=Medium.p_default,
+      X=Medium.X_default[1:Medium.nXi]) "Default state";
+  parameter Modelica.SIunits.Density rho_default = Medium.density(state_default);
+  parameter Modelica.SIunits.DynamicViscosity mu_default = Medium.dynamicViscosity(state_default)
     "Dynamic viscosity at nominal condition";
 equation
   connect(port_a, res.port_a) annotation (Line(
@@ -111,12 +112,21 @@ Buildings.Fluid.MixingVolumes.MixingVolume</a>.
 </html>", revisions="<html>
 <ul>
 <li>
-February 15, 2012 by Michael Wetter:<br>
+October 8, 2013, by Michael Wetter:<br/>
+Removed parameter <code>show_V_flow</code>.
+</li>
+<li>
+September 13, 2013 by Michael Wetter:<br/>
+Replaced <code>nominal</code> with <code>default</code> values
+as they are computed using the default Medium values.
+</li>
+<li>
+February 15, 2012 by Michael Wetter:<br/>
 Changed base class from which the model extends.
 Propagated parameters of volume to the top if this model.
 </li>
 <li>
-February 12, 2012 by Wangda Zuo:<br>
+February 12, 2012 by Wangda Zuo:<br/>
 First implementation.
 </li>
 </ul>

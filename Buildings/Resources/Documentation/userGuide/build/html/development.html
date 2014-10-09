@@ -1,0 +1,232 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>5. Development &mdash; Buildings Library User Guide</title>
+    
+    <link rel="stylesheet" href="_static/sphinxdoc.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="top" title="Buildings Library User Guide" href="index.html" />
+    <link rel="next" title="6. Help" href="help.html" />
+    <link rel="prev" title="4. Pre- and Post-Processing" href="prePostProcessing.html" /> 
+  </head>
+  <body>
+<div class="headerStyle">
+<img src="_static/lbl-logo.png" alt="LBL logo" />
+</div>
+
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="help.html" title="6. Help"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="prePostProcessing.html" title="4. Pre- and Post-Processing"
+             accesskey="P">previous</a> |</li>
+    <li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt;
+    <a href="http://simulationresearch.lbl.gov/modelica/userGuide">User Guide</a></li>
+    </br>
+<!--    
+        <li><a href="index.html">Buildings Library User Guide</a> &raquo;</li> -->
+ 
+      </ul>
+    </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">5. Development</a><ul>
+<li><a class="reference internal" href="#contributing">5.1. Contributing</a></li>
+<li><a class="reference internal" href="#adding-a-new-class">5.2. Adding a new class</a><ul>
+<li><a class="reference internal" href="#thermofluid-flow-device">5.2.1. Thermofluid flow device</a></li>
+<li><a class="reference internal" href="#pressure-drop">5.2.2. Pressure drop</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="prePostProcessing.html"
+                        title="previous chapter">4. Pre- and Post-Processing</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="help.html"
+                        title="next chapter">6. Help</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/development.txt"
+           rel="nofollow">Show Source</a></li>
+    <li><a href="https://github.com/lbl-srg/modelica-buildings/tree/master/Buildings/Resources/Documentation/userGuide/source/development.rst"
+           target="_blank"
+           rel="nofollow">Edit Source on GitHub</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="development">
+<span id="id1"></span><h1>5. Development<a class="headerlink" href="#development" title="Permalink to this headline">¶</a></h1>
+<p>This section describes the development of the <cite>Buildings</cite> library.</p>
+<div class="section" id="contributing">
+<h2>5.1. Contributing<a class="headerlink" href="#contributing" title="Permalink to this headline">¶</a></h2>
+<p>Contributions of new models and suggestions for how to improve the library are
+welcome.
+Models that are contributed need to adhere to the following guidelines, as this is needed to integrate them in the library, make them accessible to users and further maintain them:</p>
+<blockquote>
+<div><ul class="simple">
+<li>They should be of general interest to other users and well documented and tested.</li>
+<li>They need to follow the coding conventions described in</li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li>the <a class="reference external" href="http://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_UsersGuide.html#Buildings.UsersGuide.Conventions">Buildings library user guide</a>,</li>
+<li>the <a class="reference external" href="http://simulationresearch.lbl.gov/modelica/releases/msl/3.2/help/Modelica_UsersGuide_Conventions.html#Modelica.UsersGuide.Conventions">Modelica Standard Library user guide</a>, and</li>
+<li>the <a class="reference external" href="https://github.com/lbl-srg/modelica-buildings/wiki/Style-Guide">Buildings library style guide</a>.</li>
+</ul>
+</div></blockquote>
+<ul class="simple">
+<li>They need to be made available under the <a class="reference external" href="http://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_UsersGuide.html#Buildings.UsersGuide.License">Modelica license</a>.</li>
+<li>For models of fluid flow components, they need to be based on the base classes in <a class="reference external" href="http://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Fluid_Interfaces.html">Buildings.Fluid.Interfaces</a>, which are described in the <a class="reference external" href="http://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Fluid_Interfaces_UsersGuide.html#Buildings.Fluid.Interfaces.UsersGuide">user guide</a> of this package. Otherwise, it becomes difficult to ensure that the implementation is numerically robust.</li>
+</ul>
+</div></blockquote>
+<p>The website for the development of the library is <a class="reference external" href="https://github.com/lbl-srg/modelica-buildings">https://github.com/lbl-srg/modelica-buildings</a></p>
+</div>
+<div class="section" id="adding-a-new-class">
+<h2>5.2. Adding a new class<a class="headerlink" href="#adding-a-new-class" title="Permalink to this headline">¶</a></h2>
+<p>Adding a new class, such as a model or a function, is usually easiest by extending, or copying and modifying, an existing class. In many cases, the similar component already exists. In this situation, it is recommended to copy and modify a similar component. If both components share a significant amount of similar code, then a base class should be introduced that implements the common code. See for example <a class="reference external" href="http://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Fluid_Sensors_BaseClasses.html#Buildings.Fluid.Sensors.BaseClasses.PartialAbsoluteSensor">Buildings.Fluid.Sensors.BaseClasses.PartialAbsoluteSensor</a> which is shared by all sensors with one fluid port in the package <a class="reference external" href="http://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Fluid_Sensors.html#Buildings.Fluid.Sensors">Buildings.Fluid.Sensors</a>.</p>
+<p>The next sections give guidance that is specific to the implementation of thermofluid flow devices and to pressure drop models.</p>
+<div class="section" id="thermofluid-flow-device">
+<h3>5.2.1. Thermofluid flow device<a class="headerlink" href="#thermofluid-flow-device" title="Permalink to this headline">¶</a></h3>
+<p>To add a component of a thermofluid flow device, the package
+<a class="reference external" href="http://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Fluid_Interfaces.html">Buildings.Fluid.Interface</a>  contains basic classes that can be extended.
+See <a class="reference external" href="http://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Fluid_Interfaces_UsersGuide.html#Buildings.Fluid.Interfaces.UsersGuide">Buildings.Fluid.Interface.UsersGuide</a> for a description of these classes.
+Alternatively, simple models such as the models below may be used as a starting point for implementing new models for thermofluid flow devices:</p>
+<dl class="docutils">
+<dt><a class="reference external" href="http://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Fluid_HeatExchangers.html#Buildings.Fluid.HeatExchangers.HeaterCoolerPrescribed">Buildings.Fluid.HeatExchangers.HeaterCoolerPrescribed</a></dt>
+<dd>For a device that adds heat to a fluid stream.</dd>
+<dt><a class="reference external" href="http://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Fluid_MassExchangers.html#Buildings.Fluid.MassExchangers.HumidifierPrescribed">Buildings.Fluid.MassExchangers.HumidifierPrescribed</a></dt>
+<dd>For a device that adds humidity to a fluid stream.</dd>
+<dt><a class="reference external" href="http://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Fluid_Chillers.html#Buildings.Fluid.Chillers.Carnot">Buildings.Fluid.Chillers.Carnot</a></dt>
+<dd>For a device that exchanges heat between two fluid streams.</dd>
+<dt><a class="reference external" href="http://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Fluid_MassExchangers.html#Buildings.Fluid.MassExchangers.ConstantEffectiveness">Buildings.Fluid.MassExchangers.ConstantEffectiveness</a></dt>
+<dd>For a device that exchanges heat and humidity between two fluid streams.</dd>
+</dl>
+</div>
+<div class="section" id="pressure-drop">
+<h3>5.2.2. Pressure drop<a class="headerlink" href="#pressure-drop" title="Permalink to this headline">¶</a></h3>
+<p>When implementing equations for pressure drop, it is recommended
+to expand the base class
+<a class="reference external" href="http://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Fluid_BaseClasses.html#Buildings.Fluid.BaseClasses.PartialResistance">Buildings.Fluid.BaseClasses.PartialResistance</a>.
+Models should allow computing the flow resistance as a quadratic function
+with regularization near zero as implemented in
+<a class="reference external" href="http://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Fluid_BaseClasses_FlowModels.html#Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp">Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp</a> and in
+<a class="reference external" href="http://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Fluid_BaseClasses_FlowModels.html#Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow">Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow</a>.
+The governing equation is</p>
+<div class="math">
+\[k = \frac{\dot m}{\sqrt{\Delta p}}\]</div>
+<p>with regularization near zero to avoid that the limit
+<span class="math">\({d \dot m}/{d \Delta p}\)</span> tends to infinity as <span class="math">\(\dot m \to 0\)</span>,
+as this can cause Newton-based solvers to stall.
+For fixed flow resistances, <span class="math">\(k\)</span> is typically computed based on nominal
+conditions such as <span class="math">\(k = \dot m_0/\sqrt{\Delta p_0}\)</span>,
+where <span class="math">\(\dot m_0\)</span> is equal to the parameter <tt class="docutils literal"><span class="pre">m_flow_nominal</span></tt> and
+<span class="math">\(\Delta p_0\)</span> is equal to the parameter <tt class="docutils literal"><span class="pre">dp_nominal.</span></tt></p>
+<p>All pressure drop models should also provide a parameter that allows replacing
+the equation by a linear model of the form</p>
+<div class="math">
+\[\dot m \, \dot m_0 = \bar k^2 \, \Delta p\]</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Equations for pressure drop are implemented as a function of mass flow rate
+and not volume flow rate. For some models, this allows decoupling
+the mass flow balance from the energy balance.
+Otherwise, computing the mass flow distribution would require knowledge
+of the density, which may depend on temperature, and temperature is only
+known after solving the energy balance.</p>
+</div>
+<p>When implementing the pressure drop model, also provide means to</p>
+<ol class="arabic simple">
+<li>use homotopy, which should be used by default, and</li>
+<li>disable the pressure-drop model.</li>
+</ol>
+<p>Disabling the pressure-drop model allows, for example, a user to
+set in a series connection of a heating coil and a cooling coil
+the pressure drop of the heating coil to zero, and
+to lump the pressure drop of the heating coil into the pressure drop model
+of the cooling coil.
+This often reduces the size of the system of nonlinear equations.</p>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="help.html" title="6. Help"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="prePostProcessing.html" title="4. Pre- and Post-Processing"
+             >previous</a> |</li>
+    <li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt;
+    <a href="http://simulationresearch.lbl.gov/modelica/userGuide">User Guide</a></li>
+    </br>
+<!--    
+        <li><a href="index.html">Buildings Library User Guide</a> &raquo;</li> -->
+ 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2012-2013, The Regents of the University of California (through Lawrence Berkeley National Laboratory).
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
+    </div>
+  </body>
+</html>

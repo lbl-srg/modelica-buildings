@@ -1,7 +1,7 @@
 within Buildings.Controls.Continuous;
 block NumberOfRequests
   "Outputs the number of signals that are above/below a certain threshold"
-   extends Modelica.Blocks.Interfaces.BlockIcon;
+   extends Modelica.Blocks.Icons.Block;
 
   parameter Integer nin "Number of inputs";
   parameter Real threShold = 0 "Threshold";
@@ -46,8 +46,7 @@ Block that outputs the number of inputs that exceed a threshold.
 The parameter <code>kind</code> is used to determine the kind of the 
 inequality. The table below shows the allowed settings.
 </p>
-<p>
-<table border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+<table border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\" summary=\"Allowed parameter settings.\">
 <tr>
 <th>Value of parameter <code>kind</code></th>
 <th>Output signal incremented by 1 for each <i>i &isin; {1, ..., nin}</i> if</th>
@@ -69,7 +68,6 @@ inequality. The table below shows the allowed settings.
 <td><code>u[i] &lt; threShold</code></td>
 </tr>
 </table>
-</p>
 <p>
 This model may be used to check how many rooms
 exceed a temperature threshold.
@@ -78,11 +76,11 @@ exceed a temperature threshold.
 revisions="<html>
 <ul>
 <li>
-November 21, 2011, by Michael Wetter:<br>
+November 21, 2011, by Michael Wetter:<br/>
 Improved documentation.
 </li>
 <li>
-November 25, 2008, by Michael Wetter:<br>
+November 25, 2008, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

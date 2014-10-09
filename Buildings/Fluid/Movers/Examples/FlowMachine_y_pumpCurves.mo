@@ -1,8 +1,7 @@
 within Buildings.Fluid.Movers.Examples;
 model FlowMachine_y_pumpCurves
-  "Test model for pump that illustrates the pump curves"
+  "Pumps that illustrates the use of the pump curves"
   extends Modelica.Icons.Example;
-  import Buildings;
   package Medium = Buildings.Media.ConstantPropertyLiquidWater "Medium model";
 
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal = 0.5
@@ -192,7 +191,7 @@ avoid a singularity at the origin.
 </p>
 </html>", revisions="<html>
 <ul>
-<li>March 24 2010, by Michael Wetter:<br>
+<li>March 24 2010, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

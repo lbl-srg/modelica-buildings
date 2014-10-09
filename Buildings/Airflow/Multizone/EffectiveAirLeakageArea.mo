@@ -1,7 +1,8 @@
 within Buildings.Airflow.Multizone;
 model EffectiveAirLeakageArea "Effective air leakage area"
   extends Buildings.Airflow.Multizone.Orifice(
-     m=0.65, final A=CD/CDRat * L * dpRat^(0.5-m));
+    m=0.65,
+    final A=CD/CDRat * L * dpRat^(0.5-m));
 
   parameter Modelica.SIunits.Pressure dpRat(min=0)=4
     "|Rating conditions|Pressure drop at rating condition";
@@ -25,7 +26,7 @@ model EffectiveAirLeakageArea "Effective air leakage area"
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid),
         Text(
-          extent={{-70,-42},{18,-100}},
+          extent={{-104,92},{-20,54}},
           lineColor={0,0,255},
           pattern=LinePattern.None,
           fillColor={255,255,255},
@@ -33,7 +34,7 @@ model EffectiveAirLeakageArea "Effective air leakage area"
           textString=
                "L=%L"),
         Text(
-          extent={{-80,96},{26,52}},
+          extent={{22,94},{98,56}},
           lineColor={0,0,255},
           pattern=LinePattern.None,
           fillColor={255,255,255},
@@ -102,11 +103,20 @@ November, 2002.
 </html>",
 revisions="<html>
 <ul>
-<li><i>July 20, 2010</i> by Michael Wetter:<br>
-       Migrated model to Modelica 3.1 and integrated it into the Buildings library.
+<li>
+October 8, 2013 by Michael Wetter:<br/>
+Changed the parameter <code>useConstantDensity</code> to
+<code>useDefaultProperties</code> to use consistent names within this package.
+A conversion script can be used to update this parameter.
 </li>
-<li><i>February 10, 2005</i> by Michael Wetter:<br>
-       Released first version.
+<li>
+July 20, 2010 by Michael Wetter:<br/>
+Migrated model to Modelica 3.1 and integrated it into the Buildings library.
+</li>
+<li>
+February 10, 2005 by Michael Wetter:<br/>
+Released first version.
+</li>
 </ul>
 </html>"));
 end EffectiveAirLeakageArea;

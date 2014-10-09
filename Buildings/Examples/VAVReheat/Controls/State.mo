@@ -6,9 +6,9 @@ model State
   Modelica.Blocks.Interfaces.IntegerOutput y "Mode signal (=0 if not active)"
     annotation (Placement(transformation(extent={{100,-70},{120,-50}})));
 equation
-   y = if localActive then mode else 0;
+   y = if localActive then Integer(mode) else 0;
   annotation (Icon(graphics={Text(
           extent={{-82,96},{82,-84}},
           lineColor={0,0,255},
-          textString="state")}),           Diagram(graphics));
+          textString="state")}));
 end State;

@@ -9,7 +9,8 @@ model Interior "Model for a interior (room-side) convective heat transfer"
   parameter Boolean homotopyInitialization = true "= true, use homotopy method"
     annotation(Evaluate=true, Dialog(tab="Advanced"));
 protected
-  constant Modelica.SIunits.Temperature dT0 = 2 "Initial temperature used in homotopy method";
+  constant Modelica.SIunits.Temperature dT0 = 2
+    "Initial temperature used in homotopy method";
 equation
   if (conMod == Buildings.HeatTransfer.Types.InteriorConvection.Fixed) then
     q_flow = hFixed * dT;
@@ -83,8 +84,8 @@ equation
 This is a model for a convective heat transfer for interior, room-facing surfaces.
 The parameter <code>conMod</code> determines the model that is used to compute
 the heat transfer coefficient:
-</p>
-<p>
+<br/>
+
 <ul>
 <li><p>If <code>conMod=<a href=\"modelica://Buildings.HeatTransfer.Types.InteriorConvection\">
 Buildings.HeatTransfer.Types.InteriorConvection.Fixed</a></code>, then
@@ -93,27 +94,27 @@ the convective heat transfer coefficient is set to the value specified by the pa
 </p>
 </li>
 <li>
-<p>
+
 If <code>conMod=<a href=\"modelica://Buildings.HeatTransfer.Types.InteriorConvection\">
 Buildings.HeatTransfer.Types.InteriorConvection.Temperature</a></code>, then
 the convective heat tranfer coefficient is a function of the temperature difference.
 The convective heat flux is computed using
-</p>
+<br/>
 <ul>
 <li>
 for floors the function 
-<a href=\"modelica://Buildings.HeatTransfer.Convection.Functions.ConvectiveHeatFlux.floor\">
-Buildings.HeatTransfer.Functions.Convection.ConvectiveHeatFlux.floor</a>
+<a href=\"modelica://Buildings.HeatTransfer.Convection.Functions.HeatFlux.floor\">
+Buildings.HeatTransfer.Convection.Functions.HeatFlux.floor</a>
 </li>
 <li>
 for ceilings the function
-<a href=\"modelica://Buildings.HeatTransfer.Functions.Convection.ConvectiveHeatFlux.ceiling\">
-Buildings.HeatTransfer.Functions.Convection.ConvectiveHeatFlux.ceiling</a>
+<a href=\"modelica://Buildings.HeatTransfer.Convection.Functions.HeatFlux.ceiling\">
+Buildings.HeatTransfer.Convection.Functions.HeatFlux.ceiling</a>
 </li>
 <li>
 for walls the function
-<a href=\"modelica://Buildings.HeatTransfer.Functions.Convection.ConvectiveHeatFlux.wall\">
-Buildings.HeatTransfer.Functions.Convection.ConvectiveHeatFlux.wall</a>
+<a href=\"modelica://Buildings.HeatTransfer.Convection.Functions.HeatFlux.wall\">
+Buildings.HeatTransfer.Convection.Functions.HeatFlux.wall</a>
 </li>
 </ul>
 </li>
@@ -121,11 +122,11 @@ Buildings.HeatTransfer.Functions.Convection.ConvectiveHeatFlux.wall</a>
 </html>", revisions="<html>
 <ul>
 <li>
-April 2, 2011 by Michael Wetter:<br>
+April 2, 2011 by Michael Wetter:<br/>
 Added <code>homotopy</code> operator.
 </li>
 <li>
-March 10 2010, by Michael Wetter:<br>
+March 10 2010, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

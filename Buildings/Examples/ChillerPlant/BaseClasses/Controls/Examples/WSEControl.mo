@@ -37,14 +37,17 @@ equation
     __Dymola_Commands(file=
           "modelica://Buildings/Resources/Scripts/Dymola/Examples/ChillerPlant/BaseClasses/Controls/Examples/WSEControl.mos"
         "Simulate and plot"),
+    experiment(
+      StopTime=86400,
+      Tolerance=1e-06),
     Documentation(revisions="<html>
 <ul>
 <li>
-July 21, 2011, by Wangda Zuo:<br>
+July 21, 2011, by Wangda Zuo:<br/>
 Merged to library.
 </li>
 <li>
-January 6, 2011, by Wangda Zuo:<br>
+January 6, 2011, by Wangda Zuo:<br/>
 First implementation.
 </li>
 </ul>

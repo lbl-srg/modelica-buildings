@@ -1,7 +1,6 @@
 within Buildings.BoundaryConditions.SolarGeometry.BaseClasses.Examples;
 model ZenithAngle "Test model for zenith angle"
   extends Modelica.Icons.Example;
-  import Buildings;
   Buildings.BoundaryConditions.SolarGeometry.BaseClasses.ZenithAngle zen(lat=
         0.73268921998722) "Zenith angle"
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
@@ -12,7 +11,7 @@ model ZenithAngle "Test model for zenith angle"
     solHouAng "Solar hour angle"
     annotation (Placement(transformation(extent={{20,-40},{40,-20}})));
   Buildings.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam=
-        "Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos")
+        "modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos")
     "Weather data"
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
   Buildings.BoundaryConditions.WeatherData.Bus weaBus "Weather bus"

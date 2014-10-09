@@ -1,6 +1,6 @@
 within Buildings.Rooms.BaseClasses;
 model RadiationTemperature "Radiative temperature of the room"
-  extends Buildings.Rooms.BaseClasses.PartialSurfaceInterface;
+  extends Buildings.Rooms.BaseClasses.PartialSurfaceInterfaceRadiative;
 
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a glaUns[NConExtWin] if
      haveConExtWin
@@ -163,31 +163,49 @@ equation
   end if;
 
   // Assign heat exchange to connectors
-  for i in 1:NConExt loop
-    0 = conExt[i].Q_flow;
-  end for;
-  for i in 1:NConPar loop
-    0 = conPar_a[i].Q_flow;
-    0 = conPar_b[i].Q_flow;
-  end for;
-  for i in 1:NConBou loop
-    0 = conBou[i].Q_flow;
-  end for;
-  for i in 1:NSurBou loop
-    0 = conSurBou[i].Q_flow;
-  end for;
-  for i in 1:NConExtWin loop
-    0 = conExtWin[i].Q_flow;
-    0 = conExtWinFra[i].Q_flow;
-  end for;
+  if haveConExt then
+    for i in 1:NConExt loop
+      0 = conExt[i].Q_flow;
+    end for;
+  else
+      conExt[1].T = 293.15;
+  end if;
 
- /*
-  for i in 1:NConExtWin loop
-    0 = glaUns_internal[i].Q_flow;
-    0 = glaSha_internal[i].Q_flow;
-    0 = sha_internal[i].Q_flow;
-  end for;
-*/
+  if haveConPar then
+    for i in 1:NConPar loop
+      0 = conPar_a[i].Q_flow;
+      0 = conPar_b[i].Q_flow;
+    end for;
+  else
+      conPar_a[1].T = 293.15;
+      conPar_b[1].T = 293.15;
+  end if;
+
+  if haveConBou then
+    for i in 1:NConBou loop
+      0 = conBou[i].Q_flow;
+    end for;
+  else
+     conBou[1].T = 293.15;
+  end if;
+
+  if haveSurBou then
+    for i in 1:NSurBou loop
+      0 = conSurBou[i].Q_flow;
+    end for;
+  else
+      conSurBou[1].T = 293.15;
+  end if;
+  
+  if haveConExtWin then
+    for i in 1:NConExtWin loop
+      0 = conExtWin[i].Q_flow;
+      0 = conExtWinFra[i].Q_flow;
+    end for;
+  else
+      conExtWin[1].T    = 293.15;
+      conExtWinFra[1].T = 293.15;
+  end if;
 
   annotation (
 preferredView="info",
@@ -217,19 +235,22 @@ computed as
   &frasl;
   &sum;<sub>i</sub> &nbsp; (A<sup>i</sup> &nbsp; &epsilon;<sup>i</sup>)
 </p>
+<p>
 where 
 <i>T<sub>rad</sub></i> is the radiative temperature of the room,
 <i>A<sup>i</sup></i> are the surface areas of the room,
 <i>&epsilon;<sup>i</sup></i> are the infrared emissivities of the surfaces, and
 <i>T<sup>i</sup></i> are the surface temperatures.
+</p>
 <p>
 If a the windows have a shade, then the equation is modified to take the actual shaded and non-shaded
 surface area into account. In this situation, the shaded part of a window has a infrared radiative power
-of 
+of</p>
 <p align=\"center\" style=\"font-style:italic;\">
  E = A &nbsp; ( u &nbsp; &epsilon;<sub>s</sub> &nbsp; T<sub>s</sub> + 
    (1-u) &nbsp; &epsilon;<sub>g</sub> &tau;<sub>s</sub> &nbsp; T<sub>gs</sub>)
 </p>
+<p>
 where
 <i>A</i> is the surface area of the glass,
 <i>u</i> is the control signal of the shade,
@@ -238,23 +259,31 @@ where
 <i>&epsilon;<sub>g</sub></i> is the infrared absorptivity of the glass,
 <i>&tau;<sub>s</sub></i> is the infrared transmittance of the shade, and
 <i>T<sub>gs</sub></i> is the glass temperature behind the shade.
-<br>
+</p>
+<p>
 For the unshaded part of the window, the radiative power is
+</p>
 <p align=\"center\" style=\"font-style:italic;\">
  E = A &nbsp; (1-u) &nbsp; &epsilon;<sub>g</sub> &nbsp; T<sub>gn</sub>
 </p>
-where
+<p>where
 <i>T<sub>gn</sub></i> is the glass temperature of the non-shaded part of the window.
 </p>
 </html>",
 revisions="<html>
 <ul>
 <li>
-March 29 2011, by Michael Wetter:<br>
+July 16, 2013, by Michael Wetter:<br/>
+Added assignment of heat port temperature instead of heat flow rate
+for the cases where a construction has been conditionally removed.
+This is required to avoid a singularity.
+</li>
+<li>
+March 29 2011, by Michael Wetter:<br/>
 Rewrote sum for the radiation temperature.
 </li>
 <li>
-Jan. 18 2011, by Michael Wetter:<br>
+Jan. 18 2011, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

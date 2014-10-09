@@ -1,13 +1,13 @@
 within Buildings.Fluid.Delays;
 model DelayFirstOrder
   "Delay element, approximated by a first order differential equation"
-  extends Buildings.Fluid.MixingVolumes.MixingVolume(final V=V0);
+  extends Buildings.Fluid.MixingVolumes.MixingVolume(final V=V_nominal);
 
   parameter Modelica.SIunits.Time tau = 60 "Time constant at nominal flow"
     annotation (Dialog(tab="Dynamics", group="Nominal condition"));
 
 protected
-   parameter Modelica.SIunits.Volume V0 = m_flow_nominal*tau/rho_nominal
+   parameter Modelica.SIunits.Volume V_nominal = m_flow_nominal*tau/rho_default
     "Volume of delay element";
   annotation (Diagram(graphics),
     Icon(coordinateSystem(preserveAspectRatio=true,  extent={{-100,-100},{100,
@@ -37,18 +37,22 @@ The heat flux connector is optional, it need not be connnected.
 revisions="<html>
 <ul>
 <li>
-September 24, 2008, by Michael Wetter:<br>
+September 14, 2013, by Michael Wetter:<br/>
+Renamed <code>V0</code> to <code>V_nominal</code> to use consistent notation.
+</li>
+<li>
+September 24, 2008, by Michael Wetter:<br/>
 Changed base class from <code>Modelica.Fluid</code> to <code>Buildings</code> library.
 This was done to track the auxiliary species flow <code>mC_flow</code>.
 </li>
 <li>
-September 4, 2008, by Michael Wetter:<br>
+September 4, 2008, by Michael Wetter:<br/>
 Fixed bug in assignment of parameter <code>sta0</code>. 
 The earlier implementation
 required temperature to be a state, which is not always the case.
 </li>
 <li>
-March 17, 2008, by Michael Wetter:<br>
+March 17, 2008, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

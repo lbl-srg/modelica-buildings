@@ -5,23 +5,39 @@ function floor "Free convection, floor"
 
 algorithm
   q_flow  := noEvent(smooth(1, if (dT>0) then 1.51*dT^1.3333 else -0.76*(-dT)^1.3333));
+
 annotation(smoothOrder=1,
-              Documentation(info=
+Documentation(info=
 "<html>
-This function computes the buoyancy-driven convective heat transfer coefficient 
-for a floor as
-<code>h=k*|dT|^0.3333</code>,
-where 
-<code>k=1.51</code> if the floor is warmer than the fluid,
-or <code>k=0.76</code> otherwise, and where
-<code>dT</code> is the solid temperature minus the fluid temperature.
-The convective convective heat flux is then
-<code>q_flow = h * dT</code>.
+<p>
+This function computes the buoyancy-driven convective heat flux as
+</p>
+<p align=\"center\" style=\"font-style:italic;\">
+  q&#775; = h &Delta;T,
+</p>
+<p>
+where
+<i>&Delta;T</i> is the solid temperature minus the fluid temperature and
+<i>h</i> is the convective heat transfer coefficient
+for a floor, computed as
+</p>
+<p align=\"center\" style=\"font-style:italic;\">
+h=k |&Delta;T|<sup>0.3333</sup>,
+</p>
+<p>
+where
+<i>k=0.76</i> if the fluid is warmer than the floor,
+or <i>k=1.51</i> otherwise.
+</p>
 </html>",
 revisions="<html>
 <ul>
 <li>
-March 10 2010, by Michael Wetter:<br>
+July 28, 2014, by Michael Wetter:<br/>
+Updated documentation.
+</li>
+<li>
+March 10 2010, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

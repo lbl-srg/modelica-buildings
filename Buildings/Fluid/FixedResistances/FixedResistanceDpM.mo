@@ -8,15 +8,15 @@ model FixedResistanceDpM
                        deltaM * m_flow_nominal_pos
          else 0);
   parameter Boolean use_dh = false "Set to true to specify hydraulic diameter"
-       annotation(Evaluate=true, Dialog(enable = not linearized));
+       annotation(Dialog(enable = not linearized));
   parameter Modelica.SIunits.Length dh=1 "Hydraulic diameter"
-       annotation(Evaluate=true, Dialog(enable = use_dh and not linearized));
+       annotation(Dialog(enable = use_dh and not linearized));
   parameter Real ReC(min=0)=4000
     "Reynolds number where transition to turbulent starts"
-       annotation(Evaluate=true, Dialog(enable = use_dh and not linearized));
+       annotation(Dialog(enable = use_dh and not linearized));
   parameter Real deltaM(min=0.01) = 0.3
     "Fraction of nominal mass flow rate where transition to turbulent occurs"
-       annotation(Evaluate=true, Dialog(enable = not use_dh and not linearized));
+       annotation(Dialog(enable = not use_dh and not linearized));
 
   final parameter Real k(unit="") = if computeFlowResistance then
         m_flow_nominal_pos / sqrt(dp_nominal_pos) else 0
@@ -80,15 +80,17 @@ Documentation(info="<html>
 <p>
 This is a model of a resistance with a fixed flow coefficient.
 The mass flow rate is computed as
+</p>
 <p align=\"center\" style=\"font-style:italic;\">
 m&#775; = k  
 &radic;<span style=\"text-decoration:overline;\">&Delta;P</span>,
 </p>
+<p>
 where 
 <i>k</i> is a constant and 
 <i>&Delta;P</i> is the pressure drop.
 The constant <i>k</i> is equal to
-<code>k=m_flow_nominal/dp_nominal</code>,
+<code>k=m_flow_nominal/sqrt(dp_nominal)</code>,
 where <code>m_flow_nominal</code> and <code>dp_nominal</code>
 are parameters.
 In the region
@@ -98,7 +100,6 @@ with finite slope.
 The value of <code>m_flow_turbulent</code> is
 computed as follows:
 </p>
-<p>
 <ul>
 <li>
 If the parameter <code>use_dh</code> is <code>false</code>
@@ -119,7 +120,6 @@ the medium model. The parameter
 can be set by the user.
 </li>
 </ul>
-</p>
 <p>
 The figure below shows the pressure drop for the parameters
 <code>m_flow_nominal=5</code> kg/s,
@@ -127,13 +127,12 @@ The figure below shows the pressure drop for the parameters
 <code>deltaM=0.3</code>.
 </p>
 <p align=\"center\">
-<img src=\"modelica://Buildings/Resources/Images/Fluid/FixedResistances/FixedResistanceDpM.png\"/>
+<img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Fluid/FixedResistances/FixedResistanceDpM.png\"/>
 </p>
 <p>
-If the parameters 
-<code>show_V_flow</code> or
-<code>show_T</code> are set to <code>true</code>,
-then the model will compute the volume flow rate and the
+If the parameter
+<code>show_T</code> is set to <code>true</code>,
+then the model will compute the
 temperature at its ports. Note that this can lead to state events
 when the mass flow rate approaches zero,
 which can increase computing time.
@@ -157,7 +156,6 @@ This can be difficult to guarantee, as pressure imbalance after
 the initialization, or due to medium expansion and contraction,
 can lead to reverse flow.
 </p>
-<p>
 <h4>Notes</h4>
 <p>
 For more detailed models that compute the actual flow friction, 
@@ -173,6 +171,7 @@ The pressure drop is computed by calling a function in the package
 <a href=\"modelica://Buildings.Fluid.BaseClasses.FlowModels\">
 Buildings.Fluid.BaseClasses.FlowModels</a>,
 This package contains regularized implementations of the equation
+</p>
 <p align=\"center\" style=\"font-style:italic;\">
   m = sign(&Delta;p) k  &radic;<span style=\"text-decoration:overline;\">&nbsp;&Delta;p &nbsp;</span>
 </p>
@@ -188,11 +187,23 @@ This leads to simpler equations.
 </html>", revisions="<html>
 <ul>
 <li>
-December 14, 2012 by Michael Wetter:<br>
+August 5, 2014, by Michael Wetter:<br/>
+Corrected error in documentation of computation of <code>k</code>.
+</li>
+<li>
+May 29, 2014, by Michael Wetter:<br/>
+Removed undesirable annotation <code>Evaluate=true</code>.
+</li>
+<li>
+October 8, 2013, by Michael Wetter:<br/>
+Removed parameter <code>show_V_flow</code>.
+</li>
+<li>
+December 14, 2012 by Michael Wetter:<br/>
 Renamed protected parameters for consistency with the naming conventions.
 </li>
 <li>
-January 16, 2012 by Michael Wetter:<br>
+January 16, 2012 by Michael Wetter:<br/>
 To simplify object inheritance tree, revised base classes
 <code>Buildings.Fluid.BaseClasses.PartialResistance</code>,
 <code>Buildings.Fluid.Actuators.BaseClasses.PartialTwoWayValve</code>,
@@ -202,11 +213,11 @@ and model
 <code>Buildings.Fluid.FixedResistances.FixedResistanceDpM</code>.
 </li>
 <li>
-May 30, 2008 by Michael Wetter:<br>
+May 30, 2008 by Michael Wetter:<br/>
 Added parameters <code>use_dh</code> and <code>deltaM</code> for easier parameterization.
 </li>
 <li>
-July 20, 2007 by Michael Wetter:<br>
+July 20, 2007 by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

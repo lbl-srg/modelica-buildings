@@ -53,7 +53,7 @@ Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.Condensation</a>.
 revisions="<html>
 <ul>
 <li>
-Aug 8, 2012 by Kaustubh Phalak:<br>
+Aug 8, 2012 by Kaustubh Phalak:<br/>
 First implementation. 
 </li>
 </ul>

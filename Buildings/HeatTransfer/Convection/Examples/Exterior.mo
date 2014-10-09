@@ -1,6 +1,5 @@
 within Buildings.HeatTransfer.Convection.Examples;
 model Exterior "Test model for exterior heat transfer coefficients"
-  import Buildings;
   extends Modelica.Icons.Example;
   Modelica.Blocks.Sources.Constant T1(k=290.15)
     annotation (Placement(transformation(extent={{-100,40},{-80,60}})));
@@ -163,7 +162,7 @@ coefficient for wall surfaces that face North, West, East and South.
 </html>", revisions="<html>
 <ul>
 <li>
-March 9 2010, by Michael Wetter:<br>
+March 9 2010, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

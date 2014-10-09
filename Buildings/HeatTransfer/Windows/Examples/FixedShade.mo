@@ -7,7 +7,7 @@ model FixedShade "Test model for the fixed shade model"
     each lat=weaDat.lat) "Shade model"
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
   Buildings.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(
-    filNam="Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos")
+    filNam="modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos")
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
   Buildings.BoundaryConditions.SolarIrradiation.DirectTiltedSurface HDirTil(
     lat=weaDat.lat,
@@ -97,13 +97,13 @@ nor a side fin.
 </html>", revisions="<html>
 <ul>
 <li>
-July 5, 2012, by Michael Wetter:<br>
+July 5, 2012, by Michael Wetter:<br/>
 Changed values of <code>wL</code> and <code>wR</code> for overhang
 and <code>h</code> for window, to be
 measured from the corner of the window.
 </li>
 <li>
-March 6, 2012, by Michael Wetter:<br>
+March 6, 2012, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

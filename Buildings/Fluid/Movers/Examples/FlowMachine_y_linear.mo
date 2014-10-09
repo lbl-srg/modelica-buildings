@@ -1,8 +1,7 @@
 within Buildings.Fluid.Movers.Examples;
 model FlowMachine_y_linear
-  "Test model for pump with linear characteristic for pressure vs. flow rate"
+  "Pump with linear characteristic for pressure vs. flow rate"
   extends Modelica.Icons.Example;
-  import Buildings;
   package Medium = Buildings.Media.ConstantPropertyLiquidWater "Medium model";
 
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal = 0.5
@@ -118,11 +117,11 @@ This ensures that the actual speed is equal to the input signal.
 </html>", revisions="<html>
 <ul>
 <li>
-February 14, 2012, by Michael Wetter:<br>
+February 14, 2012, by Michael Wetter:<br/>
 Added filter for start-up and shut-down transient.
 </li>
 <li>
-March 24 2010, by Michael Wetter:<br>
+March 24 2010, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

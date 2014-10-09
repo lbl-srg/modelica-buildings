@@ -34,7 +34,8 @@ model FlowMachine_dp
         origin={-2,120})));
 
   Modelica.Blocks.Interfaces.RealOutput dp_actual(min=0, final unit="Pa")
-    annotation (Placement(transformation(extent={{40,60},{60,80}})));
+    annotation (Placement(transformation(extent={{100,40},{120,60}}),
+        iconTransformation(extent={{100,40},{120,60}})));
 
 protected
   Modelica.Blocks.Math.Gain gain(final k=-1)
@@ -73,7 +74,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
     connect(filter.y, dp_actual) annotation (Line(
-      points={{34.7,88},{38,88},{38,70},{50,70}},
+      points={{34.7,88},{38,88},{38,50},{110,50}},
       color={0,0,127},
       smooth=Smooth.None));
     connect(filter.y, dp_filtered) annotation (Line(
@@ -83,13 +84,13 @@ equation
       smooth=Smooth.None));
   else
     connect(gain.y, dp_actual) annotation (Line(
-      points={{1,70},{50,70}},
+      points={{1,70},{56,70},{56,50},{110,50}},
       color={0,0,127},
       smooth=Smooth.None));
   end if;
 
   connect(dp_actual, preSou.dp_in) annotation (Line(
-      points={{50,70},{60,70},{60,40},{36,40},{36,8}},
+      points={{110,50},{60,50},{60,40},{36,40},{36,8}},
       color={0,0,127},
       pattern=LinePattern.None,
       smooth=Smooth.None));
@@ -120,31 +121,38 @@ User's Guide</a> for more information.
       revisions="<html>
 <ul>
 <li>
-February 14, 2012, by Michael Wetter:<br>
+February 14, 2012, by Michael Wetter:<br/>
 Added filter for start-up and shut-down transient.
 </li>
 <li>
-May 25, 2011, by Michael Wetter:<br>
+May 25, 2011, by Michael Wetter:<br/>
 Revised implementation of energy balance to avoid having to use conditionally removed models.
 </li>
 <li>
-July 27, 2010, by Michael Wetter:<br>
+July 27, 2010, by Michael Wetter:<br/>
 Redesigned model to fix bug in medium balance.
 </li>
-<li>July 5, 2010, by Michael Wetter:<br>
+<li>July 5, 2010, by Michael Wetter:<br/>
 Changed <code>assert(dp_in >= 0, ...)</code> to <code>assert(dp_in >= -0.1, ...)</code>.
 The former implementation triggered the assert if <code>dp_in</code> was solved for
 in a nonlinear equation since the solution can be slightly negative while still being
 within the solver tolerance.
 </li>
-<li>March 24, 2010, by Michael Wetter:<br>
+<li>March 24, 2010, by Michael Wetter:<br/>
 Revised implementation to allow zero flow rate.
 </li>
 <li>October 1, 2009,
-    by Michael Wetter:<br>
+    by Michael Wetter:<br/>
        Added model to the Buildings library.
 </ul>
 </html>"),
-    Icon(graphics={Text(extent={{20,142},{104,108}},textString="dp_in")}),
+    Icon(graphics={Text(extent={{20,142},{104,108}},textString="dp_in"),
+        Line(
+          points={{32,50},{100,50}},
+          color={0,0,0},
+          smooth=Smooth.None),
+        Text(extent={{64,68},{114,54}},
+          lineColor={0,0,127},
+          textString="dp")}),
     Diagram(graphics));
 end FlowMachine_dp;

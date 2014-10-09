@@ -1,7 +1,6 @@
 within Buildings.HeatTransfer.Examples;
 model ConductorSingleLayer "Test model for heat conductor"
   extends Modelica.Icons.Example;
-  import Buildings;
   Buildings.HeatTransfer.Conduction.SingleLayer con(A=1, material=concrete200)
          annotation (Placement(transformation(extent={{20,0},{40,20}})));
   Buildings.HeatTransfer.Sources.FixedTemperature TB(T=293.15)
@@ -106,11 +105,11 @@ condition differs.
 </html>", revisions="<html>
 <ul>
 <li>
-January 23 2013, by Michael Wetter:<br>
+January 23 2013, by Michael Wetter:<br/>
 Assigned fixed value to <code>nSta</code> of constructions.
 </li>
 <li>
-March 6 2010, by Michael Wetter:<br>
+March 6 2010, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

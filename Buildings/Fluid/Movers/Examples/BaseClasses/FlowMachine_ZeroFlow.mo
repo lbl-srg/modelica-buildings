@@ -1,7 +1,6 @@
 within Buildings.Fluid.Movers.Examples.BaseClasses;
 partial model FlowMachine_ZeroFlow
   "Base class to test flow machines with zero flow rate"
-  import Buildings;
 
   package Medium = Buildings.Media.GasesPTDecoupled.MoistAirUnsaturated;
 
@@ -32,21 +31,17 @@ partial model FlowMachine_ZeroFlow
     m_flow_nominal=m_flow_nominal,
     dp_nominal=dp_nominal/2) "Pressure drop"
     annotation (Placement(transformation(extent={{58,70},{78,90}})));
-  replaceable Buildings.Fluid.Movers.BaseClasses.PartialFlowMachine floMacSta(
-    redeclare package Medium = Medium,
-    m_flow_nominal=1,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
-    dynamicBalance=false)
+  replaceable Buildings.Fluid.Movers.BaseClasses.PartialFlowMachine floMacSta
                       constrainedby
-    Buildings.Fluid.Movers.BaseClasses.PartialFlowMachine
-    "Static model of a flow machine"
+    Buildings.Fluid.Movers.BaseClasses.PartialFlowMachine(
+      redeclare package Medium = Medium,
+      energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
+      dynamicBalance=false) "Static model of a flow machine"
     annotation (Placement(transformation(extent={{20,70},{40,90}})));
-  replaceable Buildings.Fluid.Movers.BaseClasses.PartialFlowMachine floMacDyn(
-    redeclare package Medium = Medium,
-    m_flow_nominal=1,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial)
-                      constrainedby
-    Buildings.Fluid.Movers.BaseClasses.PartialFlowMachine
+  replaceable Buildings.Fluid.Movers.BaseClasses.PartialFlowMachine floMacDyn
+    constrainedby Buildings.Fluid.Movers.BaseClasses.PartialFlowMachine(
+      redeclare package Medium = Medium,
+      energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     "Dynamic model of a flow machine"
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
   Buildings.Fluid.FixedResistances.FixedResistanceDpM dpDyn(

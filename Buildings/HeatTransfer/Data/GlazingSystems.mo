@@ -12,18 +12,16 @@ package GlazingSystems
     parameter Boolean haveInteriorShade = false
       "Set to true if window has an interior shade (at surface b)"
       annotation (Evaluate=true);
-    final parameter Boolean windowHasShade = haveExteriorShade or haveInteriorShade
-      "Set to true if the window has an exterior or an interior shade";
 
     parameter Glasses.Generic glass[nLay]
       "Layer by layer declaration of glass layers, starting from outside to room-side"
-      annotation (choicesAllMatching=true, Evaluate=true, Placement(transformation(extent={{60,60},{80,80}})));
+      annotation (choicesAllMatching=true, Placement(transformation(extent={{60,60},{80,80}})));
     parameter Gases.Generic gas[nLay-1]
       "Layer by layer declaration of glass layers, starting from outside to room-side"
-      annotation (choicesAllMatching=true, Evaluate=true, Placement(transformation(extent={{60,20},
+      annotation (choicesAllMatching=true, Placement(transformation(extent={{60,20},
               {80,40}})));
     parameter Shades.Generic shade "Shade"
-      annotation (choicesAllMatching=true, Evaluate=true,
+      annotation (choicesAllMatching=true,
       Dialog(enable=haveInteriorShade or haveExteriorShade));
     parameter Modelica.SIunits.CoefficientOfHeatTransfer UFra
       "U-value of frame";
@@ -41,7 +39,15 @@ Generic record that implements thermophysical properties for glazing systems.
   revisions="<html>
 <ul>
 <li>
-Sep. 3 2010, by Michael Wetter:<br>
+May 30, 2014, by Michael Wetter:<br/>
+Removed undesirable annotation <code>Evaluate=true</code>.
+</li>
+<li>
+July 15, 2013, by Michael Wetter:<br/>
+Removed parameter <code>windowHasShade</code> which is redundant with <code>haveShade</code>.
+</li>
+<li>
+Sep. 3 2010, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
@@ -56,7 +62,7 @@ First implementation.
 
   record DoubleClearAir13Clear =
       Buildings.HeatTransfer.Data.GlazingSystems.Generic (
-      final glass={Glasses.ID101(), Glasses.ID102()},
+      final glass={Glasses.ID102(), Glasses.ID102()},
       final gas={Gases.Air(x=0.0127)},
       UFra=1.4,
       final nLay=2) "Double pane, clear glass 3mm, air 12.7, clear glass 3mm";
@@ -76,7 +82,14 @@ Package with generic records that implement thermophysical properties for glazin
   revisions="<html>
 <ul>
 <li>
-Sep. 3 2010, by Michael Wetter:<br>
+May 15, 2013, by Michael Wetter:<br/>
+In <a href=\"modelica://Buildings.HeatTransfer.Data.GlazingSystems.DoubleClearAir13Clear\">
+Buildings.HeatTransfer.Data.GlazingSystems.DoubleClearAir13Clear</a>,
+corrected the glass layer thickness, which was <i>5.7</i> mm instead of
+<i>3</i> mm, as the documentation states.
+</li>
+<li>
+Sep. 3 2010, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

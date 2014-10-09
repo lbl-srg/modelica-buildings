@@ -1,7 +1,7 @@
 within Buildings.Rooms.BaseClasses;
 model SolarRadiationExchange
   "Solar radiation heat exchange between the room facing surfaces"
-  extends Buildings.Rooms.BaseClasses.PartialSurfaceInterface(
+  extends Buildings.Rooms.BaseClasses.PartialSurfaceInterfaceRadiative(
   final epsConExt = datConExt.layers.absSol_b,
   final epsConExtWinOpa = datConExtWin.layers.absSol_b,
   final epsConExtWinUns={(1-datConExtWin[i].glaSys.glass[datConExtWin[i].glaSys.nLay].tauSol
@@ -186,23 +186,49 @@ equation
   // Radiation that is absorbed by the surfaces
   Q_flow = -k .* HTot;
   // Assign heat exchange to connectors
-  for i in 1:NConExt loop
-    Q_flow[i] = conExt[i].Q_flow;
-  end for;
-  for i in 1:NConPar loop
-    Q_flow[i+NConExt]         = conPar_a[i].Q_flow;
-    Q_flow[i+NConExt+NConPar] = conPar_b[i].Q_flow;
-  end for;
-  for i in 1:NConBou loop
-    Q_flow[i+NConExt+2*NConPar] = conBou[i].Q_flow;
-  end for;
-  for i in 1:NSurBou loop
-    Q_flow[i+NConExt+2*NConPar+NConBou] = conSurBou[i].Q_flow;
-  end for;
-  for i in 1:NConExtWin loop
-    Q_flow[i+NConExt+2*NConPar+NConBou+NSurBou]            = conExtWin[i].Q_flow;
-    Q_flow[i+NConExt+2*NConPar+NConBou+NSurBou+NConExtWin] = conExtWinFra[i].Q_flow;
-  end for;
+  if haveConExt then
+    for i in 1:NConExt loop
+      Q_flow[i] = conExt[i].Q_flow;
+    end for;
+  else
+    conExt[1].T = 293.15;
+  end if;
+
+  if haveConPar then
+    for i in 1:NConPar loop
+      Q_flow[i+NConExt]         = conPar_a[i].Q_flow;
+      Q_flow[i+NConExt+NConPar] = conPar_b[i].Q_flow;
+    end for;
+  else
+      conPar_a[1].T = 293.15;
+      conPar_b[1].T = 293.15;
+  end if;
+
+  if haveConBou then
+    for i in 1:NConBou loop
+      Q_flow[i+NConExt+2*NConPar] = conBou[i].Q_flow;
+    end for;
+  else
+    conBou[1].T = 293.15;
+  end if;
+
+  if haveSurBou then
+    for i in 1:NSurBou loop
+      Q_flow[i+NConExt+2*NConPar+NConBou] = conSurBou[i].Q_flow;
+     end for;
+  else
+      conSurBou[1].T = 293.15;
+  end if;
+
+  if haveConExtWin then
+    for i in 1:NConExtWin loop
+      Q_flow[i+NConExt+2*NConPar+NConBou+NSurBou]            = conExtWin[i].Q_flow;
+      Q_flow[i+NConExt+2*NConPar+NConBou+NSurBou+NConExtWin] = conExtWinFra[i].Q_flow;
+    end for;
+  else
+    conExtWin[1].T    = 293.15;
+    conExtWinFra[1].T = 293.15;
+  end if;
   // Windows
   for j in 1:NWin loop
     Q_flow[j+NOpa] = JOutConExtWin[j];
@@ -279,7 +305,6 @@ the unusual case that the floor contains a window, is
 &frasl; &sum;<sub>j=1</sub><sup>N<sup>f</sup></sup> &nbsp; A<sup>j</sup>.
 </p>
 The sum of the radiation that is reflected by the floor is therefore
-</p>
 <p align=\"center\" style=\"font-style:italic;\">
  J<sup>f</sup> = H &nbsp; 
 &sum;<sub>i=1</sub><sup>N<sup>f</sup></sup>
@@ -290,7 +315,6 @@ The sum of the radiation that is reflected by the floor is therefore
 This reflected radiosity is then distributed to all non-floor areas
 <i>i &isin; {1, &hellip;, N<sup>n</sup>}</i>
 using</p>
-</p>
 <p align=\"center\" style=\"font-style:italic;\">
   Q<sup>i</sup> = J<sup>f</sup> &nbsp;
 A<sup>i</sup> &nbsp; (&epsilon;<sup>i</sup>+&tau;<sup>i</sup>)
@@ -311,12 +335,18 @@ radiation.
         revisions="<html>
 <ul>
 <li>
-November 6, 2011, by Michael Wetter:<br>
+July 16, 2013, by Michael Wetter:<br/>
+Added assignment of heat port temperature instead of heat flow rate
+for the cases where a construction has been conditionally removed.
+This is required to avoid a singularity.
+</li>
+<li>
+November 6, 2011, by Michael Wetter:<br/>
 Fixed bug as in the old version, the absorbtance and reflectance
 of the infrared spectrum has been used instead of the solar spectrum.
 </li>
 <li>
-Dec. 1 2010, by Michael Wetter:<br>
+Dec. 1 2010, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

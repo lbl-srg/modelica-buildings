@@ -1,6 +1,6 @@
 within Buildings.BoundaryConditions.SkyTemperature;
 block BlackBody "Calculate black body sky temperature"
-  extends Modelica.Blocks.Interfaces.BlockIcon;
+  extends Modelica.Blocks.Icons.Block;
   import Buildings.BoundaryConditions.Types.SkyTemperatureCalculation;
   parameter Buildings.BoundaryConditions.Types.SkyTemperatureCalculation calTSky=
     SkyTemperatureCalculation.TemperaturesAndSkyCover
@@ -8,19 +8,19 @@ block BlackBody "Calculate black body sky temperature"
     annotation(choicesAllMatching=true,
                Evaluate=true);
   Modelica.Blocks.Interfaces.RealInput TDryBul(
-    final quantity="Temperature",
+    final quantity="ThermodynamicTemperature",
     final unit="K",
     displayUnit="degC") "Dry bulb temperature at ground level"
     annotation (Placement(transformation(extent={{-140,60},{-100,100}})));
   Modelica.Blocks.Interfaces.RealInput TDewPoi(
-    final quantity="Temperature",
+    final quantity="ThermodynamicTemperature",
     final unit="K",
     displayUnit="degC") "Dew point temperature"
     annotation (Placement(transformation(extent={{-140,10},{-100,50}})));
   Modelica.Blocks.Interfaces.RealInput nOpa "Opaque sky cover"
     annotation (Placement(transformation(extent={{-140,-50},{-100,-10}})));
   Modelica.Blocks.Interfaces.RealOutput TBlaSky(
-    final quantity="Temperature",
+    final quantity="ThermodynamicTemperature",
     displayUnit="degC",
     final unit="K") "Black-body sky temperature"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
@@ -60,26 +60,26 @@ Otherwise, it uses dry buld temperature, dew point temperature and opaque sky co
 ", revisions="<html>
 <ul>
 <li>
-August 11, 2012, by Wangda Zuo:<br>
+August 11, 2012, by Wangda Zuo:<br/>
 Renamed <code>radHor</code> to <code>radHorIR</code>.
 </li>
 <li>
-October 3, 2011, by Michael Wetter:<br>
+October 3, 2011, by Michael Wetter:<br/>
 Used enumeration to set the sky temperature computation.
 Fixed error in <code>if-then</code> statement that led to
 a selection of the wrong branch to compute the sky temperature.
 </li>
 <li>
-March 16, 2011, by Michael Wetter:<br>
+March 16, 2011, by Michael Wetter:<br/>
 Added types for parameters and attributes for variables. 
 Removed default parameter value.
 </li>
 <li>
-March 15, 2011, by Wangda Zuo:<br>
+March 15, 2011, by Wangda Zuo:<br/>
 Use <code>smoothMin()</code> instead of <code>min()</code>. 
 </li>
 <li>
-June 1, 2010, by Wangda Zuo:<br>
+June 1, 2010, by Wangda Zuo:<br/>
 First implementation.
 </li>
 </ul>

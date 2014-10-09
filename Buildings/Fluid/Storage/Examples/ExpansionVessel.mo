@@ -1,7 +1,6 @@
 within Buildings.Fluid.Storage.Examples;
 model ExpansionVessel "Test model for expansion vessel"
   extends Modelica.Icons.Example;
-  import Buildings;
 
 // package Medium = Modelica.Media.Water.WaterIF97OnePhase_ph "Medium model";
  package Medium = Buildings.Media.ConstantPropertyLiquidWater "Medium model";
@@ -9,13 +8,15 @@ model ExpansionVessel "Test model for expansion vessel"
   inner Modelica.Fluid.System system(p_ambient=400000, massDynamics=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial)
     annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
   Buildings.Fluid.Storage.ExpansionVessel expVes(
-    redeclare package Medium = Medium, VTot=0.1) "Expansion vessel"
+    redeclare package Medium = Medium, V_start=1) "Expansion vessel"
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
   Buildings.Fluid.MixingVolumes.MixingVolume vol(
     redeclare package Medium = Medium,
     V=1,
     nPorts=1,
-    m_flow_nominal=0.001) "Volume of water"
+    m_flow_nominal=0.001,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+    "Volume of water"
     annotation (Placement(transformation(extent={{30,-10},{50,10}})));
   Modelica.Blocks.Sources.Pulse pulse(
     amplitude=20,

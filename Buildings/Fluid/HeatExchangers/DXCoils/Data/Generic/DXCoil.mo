@@ -6,11 +6,10 @@ record DXCoil
     annotation (Evaluate = true,
                 Dialog(enable = not sinStaOpe));
   parameter Real minSpeRat( min=0,max=1)=0.2 "Minimum speed ratio"
-    annotation (Evaluate = true,
-                Dialog(enable = not sinStaOpe));
+    annotation (Dialog(enable = not sinStaOpe));
   final parameter Boolean sinStaOpe = nSta == 1
     "The data record is used for single speed operation"
-    annotation(Evaluate=true, HideResult=true);
+    annotation(HideResult=true);
 
   parameter
     Buildings.Fluid.HeatExchangers.DXCoils.Data.Generic.BaseClasses.Stage         sta[nSta]
@@ -24,7 +23,6 @@ defaultComponentName="datCoi", Documentation(info="<html>
 This record declares the performance data for the DX cooling coil model.
 The performance data are structured as follows:
 </p>
-<p>
 <pre>
   nSta      - Number of stages. Set to 1 for single speed coil, 
               2 for dual-speed (or dual stage coils), etc.
@@ -32,11 +30,9 @@ The performance data are structured as follows:
   sta       - Array of records with one performance curve for each stage,
               as described below.
 </pre>
-</p>
 <p>
 Each element of the array <code>per</code> has the following data.
 </p>
-<p>
 <pre>
   spe       - Rotational speed for the respective stage.
               (This is only used for variable speed coils to interpolate for 
@@ -79,7 +75,6 @@ Each element of the array <code>per</code> has the following data.
                  for which the performance curves are valid.
                  Outside this range, they will be linearly extrapolated.      
 </pre>
-</p>
 <p>
 The data used to develop the performance curves
 <code>capFunT</code> and 
@@ -114,11 +109,15 @@ a quadratic function.
 revisions="<html>
 <ul>
 <li>
-September 25, 2012 by Michael Wetter:<br>
+May 30, 2014, by Michael Wetter:<br/>
+Removed undesirable annotation <code>Evaluate=true</code>.
+</li>
+<li>
+September 25, 2012 by Michael Wetter:<br/>
 Added documentation.
 </li>
 <li>
-July 23, 2012 by Kaustubh Phalak:<br>
+July 23, 2012 by Kaustubh Phalak:<br/>
 First implementation.
 </li>
 </ul>

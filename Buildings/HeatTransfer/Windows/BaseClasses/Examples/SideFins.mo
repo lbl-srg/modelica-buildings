@@ -9,7 +9,7 @@ model SideFins "Test model for side fins"
     lat=0.73129295658562,
     til=1.5707963267949) "Solar incidence angle on a tilted surface"
     annotation (Placement(transformation(extent={{-40,0},{-20,20}})));
-  Buildings.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam="Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos")
+  Buildings.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam="modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos")
     "Weather data"
     annotation (Placement(transformation(extent={{-100,20},{-80,40}})));
   Buildings.HeatTransfer.Windows.BaseClasses.SideFins fin(
@@ -56,7 +56,7 @@ equation
       points={{-19,10},{0,10},{0,25.2},{18,25.2}},
       color={0,0,127},
       smooth=Smooth.None));
-  annotation (Diagram(graphics),  
+  annotation (Diagram(graphics),
 experiment(StopTime=86400),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/HeatTransfer/Windows/BaseClasses/Examples/SideFins.mos"
         "Simulate and plot"),
@@ -71,7 +71,7 @@ For a detail description of side fin model, see
 Buildings.HeatTransfer.Windows.BaseClasses.SideFins</a>.
 The required data for the solar angle calculations are obtained from the weather data.
 </p>
-<p>
+
 Solar angles used in this model are:
 <ul>
 <li>
@@ -91,20 +91,20 @@ Angle between Sun ray and horizontal surface
 Angle measured in horizontal plane between projection of sun's rays and normal to vertical surface 
 </li>
 </ul>
-</p>
+
 <p align=\"center\">
-<img src=\"modelica://Buildings/Resources/Images/HeatTransfer/Windows/BaseClasses/SideFins.png\" border=\"1\">
+<img alt=\"image\" src=\"modelica://Buildings/Resources/Images/HeatTransfer/Windows/BaseClasses/SideFins.png\" border=\"1\" />
 </p>
 </html>",
 revisions="<html>
 <ul>
 <li>
-July 5, 2012, by Michael Wetter:<br>
+July 5, 2012, by Michael Wetter:<br/>
 Changed definitions of side fin height <code>h</code> to be
 measured from the top of the window.
 </li>
 <li>
-Feb 01, 2012, by Kaustubh Phalak<br>
+Feb 01, 2012, by Kaustubh Phalak<br/>
 First implementation. 
 </li>
 </ul>

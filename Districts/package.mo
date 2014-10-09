@@ -180,14 +180,14 @@ Version 0.1 build0</a>(xxx, 2013)</li>
     annotation (Documentation(info="<html>
 <h4><font color=\"#008000\" size=5>Contact</font></h4>
 <p>
-The development of the Buildings library is organized by<br>
-<a href=\"http://simulationresearch.lbl.gov/wetter\">Michael Wetter</a><br>
-    Lawrence Berkeley National Laboratory (LBNL)<br>
-    One Cyclotron Road<br> 
-    Bldg. 90-3147<br>
-    Berkeley, CA 94720<br>
-    USA<br>
-    email: <A HREF=\"mailto:MWetter@lbl.gov\">MWetter@lbl.gov</A><br>
+The development of the Buildings library is organized by<br/>
+<a href=\"http://simulationresearch.lbl.gov/wetter\">Michael Wetter</a><br/>
+    Lawrence Berkeley National Laboratory (LBNL)<br/>
+    One Cyclotron Road<br/> 
+    Bldg. 90-3147<br/>
+    Berkeley, CA 94720<br/>
+    USA<br/>
+    email: <A HREF=\"mailto:MWetter@lbl.gov\">MWetter@lbl.gov</A><br/>
 </p>
 </html>
 "));
@@ -263,11 +263,11 @@ To reproduce the Original Work in copies, either alone or as part of a collectio
 To create Derivative Works according to Section 1d) of this License. 
 </li><li>
 To distribute or communicate to the public copies of the <u>Original Work</u> or a <u>Derivative Work</u> under <u>this License</u>. No fee, neither as a copyright-license fee, nor as a selling fee for the copy as such may be charged under this License. Furthermore, a verbatim copy of this License must be included in any copy of the Original Work or a Derivative Work under this License. 
-<br>
+<br/>
 For the matter of clarity, it is permitted A) to distribute or communicate such copies as part of a (possible commercial) collection where other parts are provided under different licenses and a license fee is charged for the other parts only and B) to charge for mere printing and shipping costs. 
 </li><li>
 To distribute or communicate to the public copies of a <u>Derivative Work</u>, alternatively to Section 2c), under <u>any other license</u> of your choice, especially also under a license for commercial/proprietary software, as long as You comply with Sections 3, 4 and 8 below. 
-<br>
+<br/>
 For the matter of clarity, no restrictions regarding fees, either as to a copyright-license fee or as to a selling fee for the copy as such apply. 
 </li><li>
 To perform the Original Work publicly. 
@@ -446,6 +446,10 @@ individual libraries.
 end UsersGuide;
 
 
+
+
+
+
 annotation (
 version="0.1",
 versionBuild=0,
@@ -453,7 +457,7 @@ versionDate="2012-12-21",
 dateModified = "$Date: 2012-12-18 14:34:42 -0800 (Tue, 18 Dec 2012) $",
 uses(Modelica(version="3.2"),
     Complex(version="1.0"),
-    Buildings(version="1.3")),
+    Buildings(version="1.5")),
 revisionId="$Id: package.mo 4797 2012-12-18 22:34:42Z mwetter $",
 preferredView="info",
 Documentation(info="<html>

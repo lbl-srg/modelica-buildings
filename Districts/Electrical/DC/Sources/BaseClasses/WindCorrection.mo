@@ -53,12 +53,12 @@ Gasch, R. 1991. Windkraftanlagen. Grundlagen und Entwurf (German). Teubner, Stut
 revisions="<html>
 <ul>
 <li>
-February 7, 2013, by Michael Wetter:<br>
+February 7, 2013, by Michael Wetter:<br/>
 Removed <code>final</code> keyword for parameters to allow users to adjust them,
 and removed default value for <code>h</code>.
 </li>
 <li>
-February 1, 2013, by Thierry S. Nouidui:<br>
+February 1, 2013, by Thierry S. Nouidui:<br/>
 First implementation.
 </li>
 </ul>

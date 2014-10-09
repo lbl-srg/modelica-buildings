@@ -1,6 +1,5 @@
 within Buildings.Fluid.Chillers.Examples;
 model Carnot "Test model for chiller based on Carnot efficiency"
-  import Buildings;
   extends Modelica.Icons.Example;
  package Medium1 = Buildings.Media.ConstantPropertyLiquidWater "Medium model";
  package Medium2 = Buildings.Media.ConstantPropertyLiquidWater "Medium model";
@@ -31,7 +30,9 @@ model Carnot "Test model for chiller based on Carnot efficiency"
     dp1_nominal=6000,
     dp2_nominal=6000,
     m1_flow_nominal=m1_flow_nominal,
-    m2_flow_nominal=m2_flow_nominal) "Chiller model"
+    m2_flow_nominal=m2_flow_nominal,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    show_T=true) "Chiller model"
     annotation (Placement(transformation(extent={{0,0},{20,20}})));
   Buildings.Fluid.Sources.MassFlowSource_T sou1(nPorts=1,
     redeclare package Medium = Medium1,
@@ -114,9 +115,18 @@ __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Chil
     Documentation(revisions="<html>
 <ul>
 <li>
-March 26, 2013 by Michael Wetter:<br>
+March 26, 2013 by Michael Wetter:<br/>
 Removed assignment of parameter that had attribute <code>fixed=false</code>.
 </li>
+<li>
+March 3, 2009 by Michael Wetter:<br/>
+First implementation.
+</li>
 </ul>
+</html>", info="<html>
+<p>
+Example that simulates a chiller whose efficiency is scaled based on the
+Carnot cycle.
+</p>
 </html>"));
 end Carnot;

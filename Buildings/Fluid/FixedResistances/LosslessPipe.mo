@@ -1,8 +1,6 @@
 within Buildings.Fluid.FixedResistances;
 model LosslessPipe "Pipe with no flow friction and no heat transfer"
-  extends Buildings.Fluid.Interfaces.PartialTwoPortInterface(
-     show_T=false, show_V_flow=false);
-  extends Buildings.BaseClasses.BaseIcon;
+  extends Buildings.Fluid.Interfaces.PartialTwoPortInterface;
   final parameter Boolean from_dp=true "Used to satisfy replaceable models";
 equation
   dp=0;
@@ -50,7 +48,11 @@ Buildings.Fluid.Actuators.BaseClasses.PartialThreeWayValve</a>.
 revisions="<html>
 <ul>
 <li>
-June 13, 2008 by Michael Wetter:<br>
+October 8, 2013, by Michael Wetter:<br/>
+Removed parameter <code>show_V_flow</code>.
+</li>
+<li>
+June 13, 2008 by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

@@ -5,7 +5,7 @@ model ThirdOrderStratifier
   replaceable package Medium = Modelica.Media.Interfaces.PartialMedium
     "Medium model" annotation (choicesAllMatching=true);
 
-  parameter Medium.MassFlowRate m_flow_small(min=0)
+  parameter Modelica.SIunits.MassFlowRate m_flow_small(min=0)
     "Small mass flow rate for regularization of zero flow";
   parameter Integer nSeg(min=4) "Number of volume segments";
 
@@ -141,20 +141,20 @@ The model requires at least 4 fluid segments. Hence, set <code>nSeg</code> to 4 
 </html>", revisions="<html>
 <ul>
 <li>
-December 14, 2012 by Michael Wetter:<br>
+December 14, 2012 by Michael Wetter:<br/>
 Removed unused protected parameters <code>sta0</code> and <code>cp0</code>.
 </li>
 <li>
-March 29, 2012 by Wangda Zuo:<br>
+March 29, 2012 by Wangda Zuo:<br/>
 Revised the implementation to reduce the temperature overshoot.
 </li>
 <li>
-July 28, 2010 by Wangda Zuo:<br>
+July 28, 2010 by Wangda Zuo:<br/>
 Rewrote third order upwind scheme to avoid state events.
 This leads to more robust and faster simulation.
 </li>
 <li>
-June 23, 2010 by Michael Wetter and Wangda Zuo:<br>
+June 23, 2010 by Michael Wetter and Wangda Zuo:<br/>
 First implementation.
 </li>
 </ul>

@@ -1,7 +1,6 @@
 within Buildings.BoundaryConditions.WeatherData.BaseClasses.Examples;
 model ConvertRadiation "Test model for ConvertRadiation"
   extends Modelica.Icons.Example;
-  import Buildings;
   Buildings.BoundaryConditions.WeatherData.BaseClasses.ConvertRadiation
     conGloRad "Convert units for global horizontal radiation"
     annotation (Placement(transformation(extent={{20,20},{40,40}})));
@@ -17,8 +16,8 @@ protected
   Modelica.Blocks.Tables.CombiTable1Ds datRea(
     tableOnFile=true,
     tableName="tab1",
-    fileName=
-        "Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos",
+    fileName=ModelicaServices.ExternalReferences.loadResource(
+       "modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos"),
     columns=2:30,
     smoothness=Modelica.Blocks.Types.Smoothness.ContinuousDerivative)
     "Data reader"
@@ -41,7 +40,7 @@ equation
       points={{-79,10},{-62,10}},
       color={0,0,127},
       smooth=Smooth.None));
-  annotation (Diagram(graphics), 
+  annotation (Diagram(graphics),
 experiment(StopTime=8640000),
 __Dymola_Commands(file=
           "modelica://Buildings/Resources/Scripts/Dymola/BoundaryConditions/WeatherData/BaseClasses/Examples/ConvertRadiation.mos"

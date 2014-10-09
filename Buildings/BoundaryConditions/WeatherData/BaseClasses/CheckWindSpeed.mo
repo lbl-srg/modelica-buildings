@@ -1,6 +1,6 @@
 within Buildings.BoundaryConditions.WeatherData.BaseClasses;
 block CheckWindSpeed "Ensures that the wind speed is non-negative"
-  extends Modelica.Blocks.Interfaces.BlockIcon;
+  extends Modelica.Blocks.Icons.Block;
 public
   Modelica.Blocks.Interfaces.RealInput winSpeIn(final quantity="Velocity",
       final unit="m/s") "Input wind speed"
@@ -29,7 +29,7 @@ This component ensures that the wind speed is non-negative.
 ", revisions="<html>
 <ul>
 <li>
-July 14, 2010, by Wangda Zuo:<br>
+July 14, 2010, by Wangda Zuo:<br/>
 First implementation.
 </li>
 </ul>

@@ -1,6 +1,5 @@
 within Buildings.HeatTransfer.Examples;
 model ConductorSteadyStateTransient "Test model for heat conductor"
-  import Buildings;
   extends Modelica.Icons.Example;
 
   parameter Buildings.HeatTransfer.Data.Solids.Brick brick(x=0.12, nStaRef=4)
@@ -138,12 +137,12 @@ condition differs.
 </html>", revisions="<html>
 <ul>
 <li>
-May 1, 2013, by Michael Wetter:<br>
+May 1, 2013, by Michael Wetter:<br/>
 Declared the parameter record to be a parameter, as declaring its elements
 to be parameters does not imply that the whole record has the variability of a parameter.
 </li>
 <li>
-March 6 2010, by Michael Wetter:<br>
+March 6 2010, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

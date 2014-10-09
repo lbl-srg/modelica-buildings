@@ -1,6 +1,6 @@
 within Buildings.Examples.ChillerPlant.BaseClasses.Controls;
 block LinearPiecewiseTwo "A two-pieces linear piecewise function"
-  extends Modelica.Blocks.Interfaces.BlockIcon;
+  extends Modelica.Blocks.Icons.Block;
   parameter Real x0 "First interval [x0, x1]";
   parameter Real x1 "First interval [x0, x1] and second interval (x1, x2]";
   parameter Real x2 "Second interval (x1, x2]";
@@ -59,11 +59,11 @@ This component calcuates the output according to two piecewise linear function a
 </HTML>", revisions="<html>
 <ul>
 <li>
-July 20, 2011, by Wangda Zuo:<br>
+July 20, 2011, by Wangda Zuo:<br/>
 Add comments and merge to library. 
 </li>
 <li>
-January 18, 2011, by Wangda Zuo:<br>
+January 18, 2011, by Wangda Zuo:<br/>
 First implementation.
 </li>
 </ul>
@@ -145,6 +145,5 @@ First implementation.
         Text(
           extent={{62,-46},{72,-54}},
           lineColor={0,0,0},
-          textString="x")}),
-    experiment(StopTime=86400));
+          textString="x")}));
 end LinearPiecewiseTwo;

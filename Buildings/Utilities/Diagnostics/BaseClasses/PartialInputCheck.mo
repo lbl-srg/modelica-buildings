@@ -1,6 +1,6 @@
 within Buildings.Utilities.Diagnostics.BaseClasses;
 block PartialInputCheck "Assert when condition is violated"
-  extends Modelica.Blocks.Interfaces.BlockIcon;
+  extends Modelica.Blocks.Icons.Block;
   parameter Modelica.SIunits.Time startTime = 0
     "Start time for activating the assert";
   parameter Real threShold(min=0)=1E-2 "Threshold for equality comparison";
@@ -31,12 +31,12 @@ a prescribed threshold.
 revisions="<html>
 <ul>
 <li>
-April 18, 2013, by Michael Wetter:<br>
+April 18, 2013, by Michael Wetter:<br/>
 Removed <code>cardinality</code> function as this is 
 deprecated in the MSL specification and not correctly implemented in omc.
 </li>
 <li>
-April 17, 2008, by Michael Wetter:<br>
+April 17, 2008, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

@@ -40,7 +40,7 @@ Districts.Utilities.Math.Functions.regNonZeroPower</a>.
 revisions="<html>
 <ul>
 <li>
-April 9, 2009, by Michael Wetter:<br>
+April 9, 2009, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

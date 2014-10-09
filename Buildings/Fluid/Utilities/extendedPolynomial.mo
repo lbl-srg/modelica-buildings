@@ -40,23 +40,23 @@ in such a way that the first derivative is continuous everywhere.
 </html>", revisions="<html>
 <ul>
 <li>
-September 28, 2012 by Michael Wetter:<br>
+September 28, 2012 by Michael Wetter:<br/>
 Fixed typo in the documentation.
 </li>
 <li>
-March 30, 2011 by Michael Wetter:<br>
+March 30, 2011 by Michael Wetter:<br/>
 Added keyword <code>zeroDerivative</code>.
 </li>
 <li>
-March 23, 2011 by Michael Wetter:<br>
+March 23, 2011 by Michael Wetter:<br/>
 Changed order of argument list to make <code>x</code> the first argument.
 </li>
 <li>
-September 11, 2007 by Michael Wetter:<br>
+September 11, 2007 by Michael Wetter:<br/>
 Fixed error in computing the polynomial outside of <code>xMin</code> and <code>xMax</code>.
 </li>
 <li>
-July 19, 2007 by Michael Wetter:<br>
+July 19, 2007 by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

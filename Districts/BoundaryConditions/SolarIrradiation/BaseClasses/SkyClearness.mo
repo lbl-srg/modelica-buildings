@@ -42,7 +42,7 @@ This component computes the sky clearness.
 ", revisions="<html>
 <ul>
 <li>
-July 07, 2010, by Wangda Zuo:<br>
+July 07, 2010, by Wangda Zuo:<br/>
 First implementation.
 </li>
 </ul>

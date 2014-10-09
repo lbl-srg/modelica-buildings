@@ -1,6 +1,6 @@
 within Buildings.BoundaryConditions.SolarGeometry.BaseClasses;
 block IncidenceAngle "The solar incidence angle on a tilted surface"
-  extends Modelica.Blocks.Interfaces.BlockIcon;
+  extends Modelica.Blocks.Icons.Block;
 public
   parameter Modelica.SIunits.Angle lat "Latitude";
   parameter Modelica.SIunits.Angle azi(displayUnit="degree")
@@ -39,11 +39,11 @@ This component computes the solar incidence angle on a tilted surface using the 
 ", revisions="<html>
 <ul>
 <li>
-Dec 7, 2010, by Michael Wetter:<br>
+Dec 7, 2010, by Michael Wetter:<br/>
 Rewrote equation in explicit form to avoid nonlinear equations in room model.
 </li>
 <li>
-May 19, 2010, by Wangda Zuo:<br>
+May 19, 2010, by Wangda Zuo:<br/>
 First implementation.
 </li>
 </ul>

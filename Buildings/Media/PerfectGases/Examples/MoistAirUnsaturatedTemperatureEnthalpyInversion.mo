@@ -7,5 +7,6 @@ model MoistAirUnsaturatedTemperatureEnthalpyInversion
         Buildings.Media.PerfectGases.MoistAirUnsaturated);
       annotation (
 experiment(StopTime=1.0),
-__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Media/PerfectGases/Examples/MoistAirUnsaturatedTemperatureEnthalpyInversion.mos" "Simulate and plot"));
+__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Media/PerfectGases/Examples/MoistAirUnsaturatedTemperatureEnthalpyInversion.mos"
+        "Simulate and plot"));
 end MoistAirUnsaturatedTemperatureEnthalpyInversion;

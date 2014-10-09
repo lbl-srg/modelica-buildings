@@ -1,6 +1,5 @@
 within Buildings.HeatTransfer.Windows.BaseClasses.Examples;
 model Overhang "Test model for the overhang"
-  import Buildings;
   extends Modelica.Icons.Example;
   Buildings.BoundaryConditions.SolarGeometry.IncidenceAngle incAng(
     lat=weaDat.lat,
@@ -8,7 +7,7 @@ model Overhang "Test model for the overhang"
     til=Buildings.HeatTransfer.Types.Tilt.Wall)
     "Solar incidence angle on a tilted surface"
     annotation (Placement(transformation(extent={{-40,0},{-20,20}})));
-  Buildings.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam="Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos")
+  Buildings.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam="modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos")
     "Weather data"
     annotation (Placement(transformation(extent={{-100,20},{-80,40}})));
   Buildings.HeatTransfer.Windows.BaseClasses.Overhang ove(
@@ -70,7 +69,7 @@ equation
       string="%first",
       index=-1,
       extent={{-6,3},{-6,3}}));
-  annotation (Diagram(graphics), 
+  annotation (Diagram(graphics),
 experiment(StopTime=86400),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/HeatTransfer/Windows/BaseClasses/Examples/Overhang.mos"
         "Simulate and plot"),
@@ -83,7 +82,7 @@ For a detailed description of the overhang block, see
 <a href=\"modelica://Buildings.HeatTransfer.Windows.BaseClasses.Overhang\">Buildings.HeatTransfer.Windows.BaseClasses.Overhang</a>.
 The required data for the solar angle calculations is obtained from weather data.
 </p>
-<p>
+
 Solar angles used in this model are:
 <ul>
 <li>
@@ -103,7 +102,7 @@ Angle between Sun ray and horizontal surface
 Angle measured in horizontal plane between projection of sun's rays and normal to vertical surface 
 </li>
 </ul>
-</p>
+
 <p>
 The values of the parameters of the overhang model have been set in such
 a way that the overhang in non-symmetric with respect to the window center-line.
@@ -112,11 +111,11 @@ a way that the overhang in non-symmetric with respect to the window center-line.
 revisions="<html>
 <ul>
 <li>
-July 5, 2012, by Michael Wetter<br>
+July 5, 2012, by Michael Wetter<br/>
 Changed parameters to test non-symmetric overhang. 
 </li>
 <li>
-Feb 01, 2012, by Kaustubh Phalak<br>
+Feb 01, 2012, by Kaustubh Phalak<br/>
 First implementation. 
 </li>
 </ul>

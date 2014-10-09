@@ -10,7 +10,8 @@ model System1
   Fluid.MixingVolumes.MixingVolume vol(
     redeclare package Medium = MediumA,
     m_flow_nominal=mA_flow_nominal,
-    V=V)
+    V=V,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     annotation (Placement(transformation(extent={{60,20},{80,40}})));
   Modelica.Thermal.HeatTransfer.Components.ThermalConductor theCon(G=10000/30)
     "Thermal conductance with the ambient"
@@ -104,6 +105,7 @@ we can use this medium model for unsaturated air.
 </p>
 <p>
 We also defined the system-level parameters
+</p>
 <pre>
   parameter Modelica.SIunits.Volume V=6*10*3 \"Room volume\";
   parameter Modelica.SIunits.MassFlowRate mA_flow_nominal = V*6/3600
@@ -111,6 +113,7 @@ We also defined the system-level parameters
   parameter Modelica.SIunits.HeatFlowRate QRooInt_flow = 1000 
     \"Internal heat gains of the room\";
 </pre>
+<p>
 to declare that the room volume is <i>180</i> m<sup>3</sup>, that the room
 has a nominal mass flow rate of <i>6</i> air changes per hour and that the internal heat gains of the room are <i>1000</i> Watts.
 These parameters have been declared at the top-level of the model
@@ -127,8 +130,15 @@ an instance of
 <a href=\"modelica://Buildings.Fluid.MixingVolumes.MixingVolume\">
 Buildings.Fluid.MixingVolumes.MixingVolume</a>
 has been used, as this model can be used with dry air or moist air.
-The medium model has been set to <code>MediumA</code>, and the nominal mass
-flow rate is set to <code>mA_flow_nominal</code>.
+The medium model has been set to <code>MediumA</code>.
+We set the parameter 
+<code>energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial</code>
+which will cause the initial conditions of the volume to be fixed to
+the values specified by the parameters on the <code>Initialization</code>
+tab.
+</p>
+<p>
+The nominal mass flow rate of the volume is set to <code>mA_flow_nominal</code>.
 The nominal mass flow rate is used for numerical reasons and should be set 
 to the approximate order of magnitude. It only has an effect if the mass flow
 rate is near zero and what \"near zero\" means depends on the magnitude of
@@ -169,14 +179,14 @@ Finally, we used the instance <code>preHea</code> to model a prescribed, constan
 This completes the initial version of the model. When simulating the model
 for <i>3</i> hours, or <i>10800</i> seconds, the
 response shown below should be seen.
+</p>
 <p align=\"center\">
-<img src=\"modelica://Buildings/Resources/Images/Examples/Tutorial/SpaceCooling/System1Temperatures.png\" border=\"1\">
+<img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Examples/Tutorial/SpaceCooling/System1Temperatures.png\" border=\"1\"/>
 </p>
 <p>
 To verify the correctness of the model, we can compare the simulated results to the
 following analytical solutions:
 </p>
-<p>
 <ol>
 <li>
 At steady-state, the temperature difference to the outside should be
@@ -191,7 +201,6 @@ that is connected to it, and
 <i>G</i> is the heat conductance.
 </li>
 </ol>
-</p>
 <p>
 Both analytical values agree with the simulation results shown in the above figure.
 </p>
@@ -211,7 +220,7 @@ could have been used.
 </html>", revisions="<html>
 <ul>
 <li>
-January 11, 2012, by Michael Wetter:<br>
+January 11, 2012, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

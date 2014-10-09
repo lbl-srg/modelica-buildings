@@ -2,6 +2,8 @@ within Buildings.Examples.VAVReheat.ThermalZones;
 model Floor "Model of a floor of the building"
   replaceable package Medium = Modelica.Media.Interfaces.PartialMedium
     "Medium model for air" annotation (choicesAllMatching=true);
+  parameter HeatTransfer.Types.InteriorConvection intConMod=Buildings.HeatTransfer.Types.InteriorConvection.Temperature
+    "Convective heat transfer model for room-facing surfaces of opaque constructions";
   parameter Modelica.SIunits.Angle lat "Latitude";
   parameter Real winWalRat(
     min=0.01,
@@ -99,7 +101,8 @@ model Floor "Model of a floor of the building"
       til={Buildings.HeatTransfer.Types.Tilt.Wall, Buildings.HeatTransfer.Types.Tilt.Wall, Buildings.HeatTransfer.Types.Tilt.Wall}),
     nSurBou=0,
     nPorts=5,
-    intConMod=intConMod) "South zone"
+    intConMod=intConMod,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial) "South zone"
     annotation (Placement(transformation(extent={{144,-44},{184,-4}})));
   Rooms.MixedAir eas(
     redeclare package Medium = Medium,
@@ -134,7 +137,8 @@ model Floor "Model of a floor of the building"
       each absSol=0.9,
       til={Buildings.HeatTransfer.Types.Tilt.Wall, Buildings.HeatTransfer.Types.Tilt.Wall}),
     nPorts=5,
-    intConMod=intConMod) "East zone"
+    intConMod=intConMod,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial) "East zone"
     annotation (Placement(transformation(extent={{304,56},{344,96}})));
   Rooms.MixedAir nor(
     redeclare package Medium = Medium,
@@ -164,7 +168,8 @@ model Floor "Model of a floor of the building"
       til={Buildings.HeatTransfer.Types.Tilt.Wall, Buildings.HeatTransfer.Types.Tilt.Wall, Buildings.HeatTransfer.Types.Tilt.Wall}),
     nSurBou=0,
     nPorts=5,
-    intConMod=intConMod) "North zone"
+    intConMod=intConMod,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial) "North zone"
     annotation (Placement(transformation(extent={{144,116},{184,156}})));
   Rooms.MixedAir wes(
     redeclare package Medium = Medium,
@@ -199,7 +204,8 @@ model Floor "Model of a floor of the building"
       each absSol=0.9,
       til={Buildings.HeatTransfer.Types.Tilt.Wall, Buildings.HeatTransfer.Types.Tilt.Wall}),
     nPorts=5,
-    intConMod=intConMod) "West zone"
+    intConMod=intConMod,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial) "West zone"
     annotation (Placement(transformation(extent={{12,36},{52,76}})));
   Rooms.MixedAir cor(
     redeclare package Medium = Medium,
@@ -221,7 +227,8 @@ model Floor "Model of a floor of the building"
       each absSol=0.9,
       til={Buildings.HeatTransfer.Types.Tilt.Wall, Buildings.HeatTransfer.Types.Tilt.Wall, Buildings.HeatTransfer.Types.Tilt.Wall, Buildings.HeatTransfer.Types.Tilt.Wall}),
     nPorts=11,
-    intConMod=intConMod) "Core zone"
+    intConMod=intConMod,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial) "Core zone"
     annotation (Placement(transformation(extent={{144,36},{184,76}})));
   Modelica.Fluid.Vessels.BaseClasses.VesselFluidPorts_b portsSou[2](
       redeclare package Medium = Medium) "Fluid inlets and outlets"
@@ -300,9 +307,18 @@ model Floor "Model of a floor of the building"
   Airflow.Multizone.DoorDiscretizedOpen opeWesCor(redeclare package Medium =
         Medium, wOpe=10) "Opening between perimeter3 and core"
     annotation (Placement(transformation(extent={{20,-20},{40,0}})));
-  Modelica.Blocks.Sources.CombiTimeTable intGaiFra(table=[0,0.05; 3600*8,0.05; 3600*9,0.9;
-        3600*12,0.9; 3600*12,0.8; 3600*13,0.8; 3600*13,1; 3600*17,1; 3600*19,0.1; 3600*24,0.05], extrapolation=
-        Modelica.Blocks.Types.Extrapolation.Periodic)
+  Modelica.Blocks.Sources.CombiTimeTable intGaiFra(
+    table=[0,0.05;
+           3600*8,0.05;
+           3600*9,0.9;
+           3600*12,0.9;
+           3600*12,0.8;
+           3600*13,0.8;
+           3600*13,1;
+           3600*17,1;
+           3600*19,0.1;
+           3600*24,0.05],
+       extrapolation=Modelica.Blocks.Types.Extrapolation.Periodic)
     "Fraction of internal heat gain"
     annotation (Placement(transformation(extent={{-80,100},{-60,120}})));
   Fluid.Sensors.RelativePressure senRelPre(redeclare package Medium = Medium)
@@ -316,8 +332,7 @@ model Floor "Model of a floor of the building"
         extent={{-10,-10},{10,10}},
         rotation=180,
         origin={-110,220})));
-  parameter HeatTransfer.Types.InteriorConvection intConMod=Buildings.HeatTransfer.Types.InteriorConvection.Temperature
-    "Convective heat transfer model for room-facing surfaces of opaque constructions";
+
 equation
   connect(sou.surf_conBou[1], wes.surf_surBou[2]) annotation (Line(
       points={{170,-40.6667},{170,-54},{62,-54},{62,20},{28.2,20},{28.2,42.5}},
@@ -382,27 +397,27 @@ equation
       pattern=LinePattern.Dash,
       smooth=Smooth.None));
   connect(gai.y, nor.qGai_flow)          annotation (Line(
-      points={{-19,110},{120,110},{120,146},{142,146}},
+      points={{-19,110},{120,110},{120,146},{136,146}},
       color={0,0,127},
       pattern=LinePattern.Dash,
       smooth=Smooth.None));
   connect(gai.y, cor.qGai_flow)          annotation (Line(
-      points={{-19,110},{120,110},{120,66},{142,66}},
+      points={{-19,110},{120,110},{120,66},{136,66}},
       color={0,0,127},
       pattern=LinePattern.Dash,
       smooth=Smooth.None));
   connect(gai.y, sou.qGai_flow)          annotation (Line(
-      points={{-19,110},{120,110},{120,-14},{142,-14}},
+      points={{-19,110},{120,110},{120,-14},{136,-14}},
       color={0,0,127},
       pattern=LinePattern.Dash,
       smooth=Smooth.None));
   connect(gai.y, eas.qGai_flow)          annotation (Line(
-      points={{-19,110},{226,110},{226,86},{302,86}},
+      points={{-19,110},{226,110},{226,86},{296,86}},
       color={0,0,127},
       pattern=LinePattern.Dash,
       smooth=Smooth.None));
   connect(gai.y, wes.qGai_flow)          annotation (Line(
-      points={{-19,110},{-14,110},{-14,66},{10,66}},
+      points={{-19,110},{-14,110},{-14,66},{4,66}},
       color={0,0,127},
       pattern=LinePattern.Dash,
       smooth=Smooth.None));
@@ -779,7 +794,7 @@ equation
     Documentation(revisions="<html>
 <ul>
 <li>
-May 1, 2013, by Michael Wetter:<br>
+May 1, 2013, by Michael Wetter:<br/>
 Declared the parameter record to be a parameter, as declaring its elements
 to be parameters does not imply that the whole record has the variability of a parameter.
 </li>

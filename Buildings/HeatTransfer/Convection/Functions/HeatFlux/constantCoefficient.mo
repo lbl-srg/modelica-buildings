@@ -6,18 +6,30 @@ function constantCoefficient "Constant convective heat transfer coefficient"
     "Constant for convective heat transfer coefficient";
 algorithm
   q_flow :=hCon*dT;
-annotation (Documentation(info=
-                             "<html>
-This function computes the convective heat transfer coefficient as
-<code>h=hCon</code>, where <code>hCon=3</code> is a default input argument.
-The convective convective heat flux is
-<code>q_flow = h * dT</code>,
-where <code>dT</code> is the solid temperature minus the fluid temperature.
+
+annotation(
+Documentation(info=
+"<html>
+<p>
+This function computes the buoyancy-driven convective heat flux as
+</p>
+<p align=\"center\" style=\"font-style:italic;\">
+  q&#775; = h &Delta;T,
+</p>
+<p>
+where
+<i>&Delta;T</i> is the solid temperature minus the fluid temperature and
+<i>h</i> is the convective heat transfer coefficient.
+</p>
 </html>",
-        revisions="<html>
+revisions="<html>
 <ul>
 <li>
-March 10 2010, by Michael Wetter:<br>
+July 28, 2014, by Michael Wetter:<br/>
+Updated documentation.
+</li>
+<li>
+March 10 2010, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

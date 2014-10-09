@@ -32,7 +32,8 @@ model FlowMachine_m_flow
   Modelica.Blocks.Interfaces.RealOutput m_flow_actual(final unit="kg/s",
                                                        nominal=m_flow_nominal)
     "Actual mass flow rate"
-    annotation (Placement(transformation(extent={{40,60},{60,80}})));
+    annotation (Placement(transformation(extent={{100,40},{120,60}}),
+        iconTransformation(extent={{100,40},{120,60}})));
 
 protected
   Modelica.Blocks.Continuous.Filter filter(
@@ -62,12 +63,12 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
     connect(filter.y, m_flow_actual) annotation (Line(
-      points={{34.7,88},{38,88},{38,70},{50,70}},
+      points={{34.7,88},{38,88},{38,50},{110,50}},
       color={0,0,127},
       smooth=Smooth.None));
   else
     connect(m_flow_in, m_flow_actual) annotation (Line(
-      points={{1.11022e-15,120},{0,120},{0,70},{50,70}},
+      points={{1.11022e-15,120},{0,120},{0,50},{110,50}},
       color={0,0,127},
       smooth=Smooth.None));
   end if;
@@ -77,7 +78,7 @@ equation
       pattern=LinePattern.None,
       smooth=Smooth.None));
         connect(m_flow_actual, preSou.m_flow_in) annotation (Line(
-      points={{50,70},{60,70},{60,40},{24,40},{24,8}},
+      points={{110,50},{60,50},{60,40},{24,40},{24,8}},
       color={0,0,127},
       pattern=LinePattern.None,
       smooth=Smooth.None));
@@ -100,25 +101,32 @@ User's Guide</a> for more information.
       revisions="<html>
 <ul>
 <li>
-February 14, 2012, by Michael Wetter:<br>
+February 14, 2012, by Michael Wetter:<br/>
 Added filter for start-up and shut-down transient.
 </li>
 <li>
-May 25, 2011, by Michael Wetter:<br>
+May 25, 2011, by Michael Wetter:<br/>
 Revised implementation of energy balance to avoid having to use conditionally removed models.
 </li>
 <li>
-July 27, 2010, by Michael Wetter:<br>
+July 27, 2010, by Michael Wetter:<br/>
 Redesigned model to fix bug in medium balance.
 </li>
-<li>March 24, 2010, by Michael Wetter:<br>
+<li>March 24, 2010, by Michael Wetter:<br/>
 Revised implementation to allow zero flow rate.
 </li>
 <li>October 1, 2009
-    by Michael Wetter:<br>
+    by Michael Wetter:<br/>
        Model added to the Buildings library.
 </ul>
 </html>"),
-    Icon(graphics={Text(extent={{22,146},{114,102}},textString="m_flow_in")}),
+    Icon(graphics={Text(extent={{22,146},{114,102}},textString="m_flow_in"),
+        Line(
+          points={{32,50},{100,50}},
+          color={0,0,0},
+          smooth=Smooth.None),
+        Text(extent={{50,68},{100,54}},
+          lineColor={0,0,127},
+          textString="m_flow")}),
     Diagram(graphics));
 end FlowMachine_m_flow;

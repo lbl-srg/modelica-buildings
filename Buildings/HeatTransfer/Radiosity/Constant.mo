@@ -1,8 +1,8 @@
 within Buildings.HeatTransfer.Radiosity;
 block Constant "Generate constant radiosity signal"
-  parameter Real k(max=0, start=0)
-    "Radiosity that leaves this component (k <= 0)";
-  extends Modelica.Blocks.Interfaces.BlockIcon;
+  parameter Real k(min=0, start=0)
+    "Radiosity that leaves this component (k &ge; 0)";
+  extends Modelica.Blocks.Icons.Block;
 
   Interfaces.RadiosityOutflow JOut annotation (Placement(transformation(extent={
             {100,-10},{120,10}}), iconTransformation(extent={{100,-10},{120,10}})));
@@ -37,18 +37,23 @@ equation
     grid={2,2})),
 Documentation(info="<html>
 <p>
-Constant radiosity source. This model requires <i>k &le; 0</i> because the
-radiosity leaves the component and hence needs to be negative or zero.
+Constant radiosity source. This model requires <i>k &ge; 0</i>.
 </p>
 <p>
 This model is used in 
-<a href=\"modelica:Buildings.HeatTransfer.BaseClasses.DummyConstructionExterior\">
+<a href=\"modelica://Buildings.HeatTransfer.BaseClasses.DummyConstructionExterior\">
 Buildings.HeatTransfer.BaseClasses.DummyConstructionExterior</a>.
 </p>
 </html>", revisions="<html>
 <ul>
 <li>
-November 22, 2010, by Michael Wetter:<br>
+June 27, 2013, by Michael Wetter:<br/>
+Changed model to require <i>k &ge; 0</i> instead of <i>k &le; 0</i> because
+the radiosity is no longer a flow variable.
+See track issue <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/158\">#158</a>.
+</li>
+<li>
+November 22, 2010, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

@@ -6,13 +6,13 @@ equation
 annotation (defaultComponentName="max",
 Documentation(info="<html>
 <p>
-Outputs the minimum of the vector.
+Outputs the maximum of the vector.
 </p>
 </html>",
 revisions="<html>
 <ul>
 <li>
-April 3, 2009, by Michael Wetter:<br>
+April 3, 2009, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

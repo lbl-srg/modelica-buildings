@@ -2,7 +2,6 @@ within Buildings.BoundaryConditions.WeatherData.BaseClasses.Examples;
 model ConvertRelativeHumidity
   "Test model for converting relative humidity and checking its validity"
   extends Modelica.Icons.Example;
-  import Buildings;
   Buildings.BoundaryConditions.WeatherData.BaseClasses.ConvertRelativeHumidity
     conRelHum annotation (Placement(transformation(extent={{20,0},{40,20}})));
   Buildings.Utilities.SimulationTime simTim
@@ -11,8 +10,8 @@ protected
   Modelica.Blocks.Tables.CombiTable1Ds datRea(
     tableOnFile=true,
     tableName="tab1",
-    fileName=
-        "Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos",
+    fileName=ModelicaServices.ExternalReferences.loadResource(
+       "modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos"),
     columns=2:30,
     smoothness=Modelica.Blocks.Types.Smoothness.ContinuousDerivative)
     "Data reader"
@@ -34,7 +33,7 @@ equation
       points={{-39,10},{-22,10}},
       color={0,0,127},
       smooth=Smooth.None));
-  annotation (Diagram(graphics), 
+  annotation (Diagram(graphics),
 experiment(StopTime=8640000),
 __Dymola_Commands(file=
           "modelica://Buildings/Resources/Scripts/Dymola/BoundaryConditions/WeatherData/BaseClasses/Examples/ConvertRelativeHumidity.mos"

@@ -22,11 +22,11 @@ linear extrapolation, in order to avoid state events during the simulation.
 </html>", revisions="<html>
 <ul>
 <li>
-March 10, 2013, by Michael Wetter:<br>
+March 10, 2013, by Michael Wetter:<br/>
 Added constant <code>nSupPCM</code>.
 </li>
 <li>
-February 5, 2009, by Michael Wetter:<br>
+February 5, 2009, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

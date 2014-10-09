@@ -1,15 +1,14 @@
 within Buildings.BoundaryConditions.WeatherData.BaseClasses.Examples;
 model CheckWindDirection "Test model for wind direction check"
   extends Modelica.Icons.Example;
-  import Buildings;
   Buildings.Utilities.SimulationTime simTim
     annotation (Placement(transformation(extent={{-100,0},{-80,20}})));
 protected
   Modelica.Blocks.Tables.CombiTable1Ds datRea(
     tableOnFile=true,
     tableName="tab1",
-    fileName=
-        "Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos",
+    fileName=ModelicaServices.ExternalReferences.loadResource(
+       "modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos"),
     columns=2:30,
     smoothness=Modelica.Blocks.Types.Smoothness.ContinuousDerivative)
     "Data reader"

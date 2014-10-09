@@ -1,10 +1,8 @@
 within Buildings.Utilities.Psychrometrics.Examples;
 model WetBul_pTX "Model to test the wet bulb temperature computation"
-  import Buildings;
   extends Modelica.Icons.Example;
 
  package Medium = Buildings.Media.PerfectGases.MoistAirUnsaturated
-    "Medium model"
            annotation (choicesAllMatching = true);
 
   Modelica.Blocks.Sources.Constant p(k=101325) "Pressure"
@@ -19,8 +17,7 @@ model WetBul_pTX "Model to test the wet bulb temperature computation"
   Modelica.Blocks.Sources.Constant TDryBul(k=293.15) "Dry bulb temperature"
                                     annotation (Placement(transformation(extent={{-80,60},
             {-60,80}},           rotation=0)));
-  Buildings.Utilities.Psychrometrics.WetBul_pTX      wetBul_TDryBulX(redeclare
-      package Medium = Medium)
+  Buildings.Utilities.Psychrometrics.WetBul_pTX wetBul_TDryBulX
     annotation (Placement(transformation(extent={{-20,40},{0,60}})));
 equation
   connect(TDryBul.y, wetBul_TDryBulX.TDryBul) annotation (Line(
@@ -46,7 +43,11 @@ This examples is a unit test for the wet bulb computation.
 </html>", revisions="<html>
 <ul>
 <li>
-October 2, 2012 by Michael Wetter:<br>
+November 20, 2013 by Michael Wetter:<br/>
+Removed medium declaration in instance <code>wetBul_TDryBulX</code>.
+</li>
+<li>
+October 2, 2012 by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

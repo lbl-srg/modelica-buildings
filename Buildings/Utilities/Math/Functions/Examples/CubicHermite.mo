@@ -18,7 +18,8 @@ initial algorithm
     x=xd,
     y=yd,
     ensureMonotonicity=false);
-  dMonotone := Buildings.Utilities.Math.Functions.splineDerivatives(x=xd, y=yd);
+  dMonotone := Buildings.Utilities.Math.Functions.splineDerivatives(x=xd, y=yd,
+      ensureMonotonicity=true);
 algorithm
   x := xd[1] + time*1.2*(xd[size(xd, 1)] - xd[1]) - 0.5;
   // i is a counter that is used to pick the derivative of d or dMonotonic
@@ -64,6 +65,13 @@ does not enforce monotonicity.
 The resulting plot should look as shown below, where for better visibility, the support points have been marked with black dots.
 Notice that the red curve is monotone increasing.
 </p>
-<p align=\"center\"><img src=\"modelica://Buildings/Resources/Images/Utilities/Math/Functions/Examples/cubicHermite.png\"/></p>
+<p align=\"center\"><img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Utilities/Math/Functions/Examples/cubicHermite.png\"/></p>
+</html>", revisions="<html>
+<ul>
+<li>
+March 8, 2013, by Michael Wetter:<br/>
+First implementation.
+</li>
+</ul>
 </html>"));
 end CubicHermite;

@@ -28,7 +28,9 @@ model MultiStage "Test model for multi stage DX coil"
     datCoi=datCoi,
     T_start=datCoi.sta[1].nomVal.TEvaIn_nominal,
     show_T=true,
-    from_dp=true) "Multispeed DX coil"
+    from_dp=true,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+    "Multispeed DX coil"
     annotation (Placement(transformation(extent={{-10,0},{10,20}})));
   Modelica.Blocks.Sources.Ramp TEvaIn(
     duration=600,
@@ -141,7 +143,7 @@ The model has open-loop control and time-varying input conditions.
 revisions="<html>
 <ul>
 <li>
-July 26, 2012 by Kaustubh Phalak:<br>
+July 26, 2012 by Kaustubh Phalak:<br/>
 First implementation. 
 </li>
 </ul>

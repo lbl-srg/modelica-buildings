@@ -28,7 +28,8 @@ annotation (defaultComponentName="senMasFlo",
         Line(points={{-100,0},{-70,0}}, color={0,128,255})}),
   Documentation(info="<html>
 <p>
-This component monitors the mass flow rate flowing from port_a to port_b. 
+This model outputs the mass flow rate flowing from 
+<code>port_a</code> to <code>port_b</code>. 
 The sensor is ideal, i.e., it does not influence the fluid.
 </p>
 </html>
@@ -36,11 +37,10 @@ The sensor is ideal, i.e., it does not influence the fluid.
 revisions="<html>
 <ul>
 <li>
-September 29, 2009, by Michael Wetter:<br>
+September 29, 2009, by Michael Wetter:<br/>
 First implementation.
 Implementation is based on <code>Modelica.Fluid</code>.
 </li>
 </ul>
-</html>"
-));
+</html>"));
 end MassFlowRate;

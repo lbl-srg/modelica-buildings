@@ -1,8 +1,8 @@
 within Buildings.Examples.ChillerPlant.BaseClasses.Controls;
 block ChillerSwitch "Control unit for enabling/disabling chiller"
-  extends Modelica.Blocks.Interfaces.BlockIcon;
+  extends Modelica.Blocks.Icons.Block;
   Modelica.Blocks.Interfaces.RealInput chiCHWST(
-    final quantity="Temperature",
+    final quantity="ThermodynamicTemperature",
     final unit="K",
     displayUnit="deg")
     "Chiller chilled water supply temperature (water entering chiller)"
@@ -13,7 +13,7 @@ block ChillerSwitch "Control unit for enabling/disabling chiller"
         transformation(extent={{100,-22},{144,22}}), iconTransformation(extent=
             {{100,-16},{120,4}})));
   Modelica.Blocks.Interfaces.RealInput TSet(
-    final quantity="Temperature",
+    final quantity="ThermodynamicTemperature",
     final unit="K",
     displayUnit="deg") "Set temperature of chiller" annotation (Placement(
         transformation(extent={{-140,-80},{-100,-40}}), iconTransformation(
@@ -52,7 +52,7 @@ equation
         extent={{-100,-100},{100,100}},
         initialScale=0.01,
         grid={2,2})),
-    Documentation(info="<HTML>
+    Documentation(info="<html>
 The controls for enabling/disabling chiller are as follows:
 <ul>
 <li>
@@ -67,18 +67,18 @@ The chiller is disabled when
 </li>
 </ul>
 where <i>T<sub>Chi_CHWST</sub></i> is chiller chilled water supply temperature, <i>T<sub>ChiSet</sub></i> is set temperature for chilled water leaving chiller, and <i>T<sub>DeaBan</sub></i> is dead band to prevent short cycling. 
-</HTML>
+</html>
 ", revisions="<html>
 <ul>
 <li>
-July 20, 2011, by Wangda Zuo:<br>
+July 20, 2011, by Wangda Zuo:<br/>
 Add comments, change variable names, and merge to library.
 </li>
 <li>
-January 18, 2011, by Wangda Zuo:<br>
+January 18, 2011, by Wangda Zuo:<br/>
 First implementation.
 </li>
-</ul></HTML>"),
+</ul></html>"),
     Icon(graphics={
         Rectangle(
           extent={{-100,100},{100,-100}},
@@ -117,6 +117,5 @@ First implementation.
         Rectangle(extent={{-89,-45},{-6,-88}}, lineColor={192,192,192}),
         Line(points={{-47,-25},{-47,-45}}, color={192,192,192}),
         Rectangle(extent={{4,-45},{93,-88}}, lineColor={192,192,192}),
-        Line(points={{43,-25},{43,-45}}, color={192,192,192})}),
-    experiment(StopTime=86400));
+        Line(points={{43,-25},{43,-45}}, color={192,192,192})}));
 end ChillerSwitch;

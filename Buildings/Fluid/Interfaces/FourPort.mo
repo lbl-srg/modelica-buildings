@@ -1,6 +1,6 @@
 within Buildings.Fluid.Interfaces;
 model FourPort "Partial model with four ports"
-  import Modelica.Constants;
+
   outer Modelica.Fluid.System system "System wide properties";
 
   replaceable package Medium1 =
@@ -34,39 +34,35 @@ model FourPort "Partial model with four ports"
     annotation (Dialog(tab="Advanced", group="Initialization"));
 
   Modelica.Fluid.Interfaces.FluidPort_a port_a1(
-                                redeclare package Medium = Medium1,
-                     m_flow(min=if allowFlowReversal1 then -Constants.inf else 0),
-                     h_outflow(nominal=1E5, start=h_outflow_a1_start),
-                     Xi_outflow(nominal=0.01))
+                     redeclare final package Medium = Medium1,
+                     m_flow(min=if allowFlowReversal1 then -Modelica.Constants.inf else 0),
+                     h_outflow(start=h_outflow_a1_start))
     "Fluid connector a1 (positive design flow direction is from port_a1 to port_b1)"
     annotation (Placement(transformation(extent={{-110,50},{-90,70}},
             rotation=0)));
   Modelica.Fluid.Interfaces.FluidPort_b port_b1(
-                                redeclare package Medium = Medium1,
-                     m_flow(max=if allowFlowReversal1 then +Constants.inf else 0),
-                     h_outflow(nominal=1E5, start=h_outflow_b1_start),
-                     Xi_outflow(nominal=0.01))
+                     redeclare final package Medium = Medium1,
+                     m_flow(max=if allowFlowReversal1 then +Modelica.Constants.inf else 0),
+                     h_outflow(start=h_outflow_b1_start))
     "Fluid connector b1 (positive design flow direction is from port_a1 to port_b1)"
     annotation (Placement(transformation(extent={{110,50},{90,70}},  rotation=
              0), iconTransformation(extent={{110,50},{90,70}})));
 
   Modelica.Fluid.Interfaces.FluidPort_a port_a2(
-                                redeclare package Medium = Medium2,
-                     m_flow(min=if allowFlowReversal2 then -Constants.inf else 0),
-                     h_outflow(nominal=1E5,start=h_outflow_a2_start),
-                     Xi_outflow(nominal=0.01))
+                     redeclare final package Medium = Medium2,
+                     m_flow(min=if allowFlowReversal2 then -Modelica.Constants.inf else 0),
+                     h_outflow(start=h_outflow_a2_start))
     "Fluid connector a2 (positive design flow direction is from port_a2 to port_b2)"
     annotation (Placement(transformation(extent={{90,-70},{110,-50}},
             rotation=0)));
   Modelica.Fluid.Interfaces.FluidPort_b port_b2(
-                                redeclare package Medium = Medium2,
-                     m_flow(max=if allowFlowReversal2 then +Constants.inf else 0),
-                     h_outflow(nominal=1E5, start=h_outflow_b2_start),
-                     Xi_outflow(nominal=0.01))
+                     redeclare final package Medium = Medium2,
+                     m_flow(max=if allowFlowReversal2 then +Modelica.Constants.inf else 0),
+                     h_outflow(start=h_outflow_b2_start))
     "Fluid connector b2 (positive design flow direction is from port_a2 to port_b2)"
     annotation (Placement(transformation(extent={{-90,-70},{-110,-50}},
-                                                                     rotation=
-             0), iconTransformation(extent={{-90,-70},{-110,-50}})));
+                          rotation=0),
+                iconTransformation(extent={{-90,-70},{-110,-50}})));
 
   annotation (
     preferredView="info",
@@ -89,12 +85,30 @@ Modelica.Fluid.Interfaces.PartialTwoPort</a>, except that it has four ports.
 </html>", revisions="<html>
 <ul>
 <li>
-September 17, 2010 by Michael Wetter:<br>
+October 6, 2014, by Michael Wetter:<br/>
+Changed medium declaration in ports to be final.
+</li>
+<li>
+October 3, 2014, by Michael Wetter:<br/>
+Changed assignment of nominal value to avoid in OpenModelica the warning
+alias set with different nominal values.
+</li>
+<li>
+November 12, 2013, by Michael Wetter:<br/>
+Removed <code>import Modelica.Constants</code> statement.
+</li>
+<li>
+September 26, 2013 by Michael Wetter:<br/>
+Added missing <code>each</code> keyword in declaration of nominal value for 
+<code>Xi_outflow</code>.
+</li>
+<li>
+September 17, 2010 by Michael Wetter:<br/>
 Fixed bug: The start value for <code>port_b1.h_outflow</code>
 was set to <code>h_outflow_b2_start</code> instead of <code>h_outflow_b1_start</code>.
 </li>
 <li>
-February 26, 2010 by Michael Wetter:<br>
+February 26, 2010 by Michael Wetter:<br/>
 Added start values for outflowing enthalpy because they 
 are often iteration variables in nonlinear equation systems.
 </li>

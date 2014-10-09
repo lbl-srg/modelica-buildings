@@ -1,11 +1,11 @@
 within Buildings.Utilities.Psychrometrics;
 block pW_TDewPoi
   "Model to compute the water vapor pressure for a given dew point temperature of moist air"
-  extends Modelica.Blocks.Interfaces.BlockIcon;
+  extends Modelica.Blocks.Icons.Block;
   Modelica.Blocks.Interfaces.RealOutput p_w "Water vapor partial pressure"
     annotation (Placement(transformation(extent={{100,-10},{120,10}}, rotation=
             0)));
-  Modelica.Blocks.Interfaces.RealInput T(final quantity="Temperature",
+  Modelica.Blocks.Interfaces.RealInput T(final quantity="ThermodynamicTemperature",
                                          final unit="K",
                                          min = 0,
                                          displayUnit="degC")
@@ -23,15 +23,19 @@ Block to compute the water vapor pressure for a given dew point temperature.
 </p>
 <p>
 The correlation used in this model is valid for dew point temperatures between 
-<code>0 degC</code> and <code>200 degC</code>. It is the correlation from 2005
-ASHRAE Handbook, p. 6.2. In an earlier version of this model, the equation from
-Peppers has been used, but this equation yielded about 15 Kelvin lower dew point 
-temperatures.
-</p>
+<i>0</i>&deg;C and <i>30</i>&deg;C. It is an approximation to the correlation from 2005
+ASHRAE Handbook, p. 6.2, which is valid in a wider range of temperatures and implemented
+in
+<a href=\"modelica://Buildings.Utilities.Psychrometrics.Functions.pW_TDewPoi\">
+Buildings.Utilities.Psychrometrics.Functions.pW_TDewPoi</a>.
+The approximation error of this simplified function is below 5% for a 
+temperature of <i>0</i>&deg;C to <i>30</i>&deg;C.
+The benefit of this simpler function is that it can be inverted analytically,
+whereas the other function requires a numerical solution.
 </html>", revisions="<html>
 <ul>
 <li>
-December 7, 2011 by Michael Wetter:<br>
+December 7, 2011 by Michael Wetter:<br/>
 Changed function call from 
 <code>p_w = Buildings.Utilities.Psychrometrics.Functions.pW_TDewPoi(T=T);</code>
 to 
@@ -40,18 +44,18 @@ as the first version sometimes triggered warnings when the solver attempts negat
 temperatures. The accuracy of the two implementation does not change much in the
 region of interest for building HVAC applications.
 </li>
-<li>February 17, 2010 by Michael Wetter:<br>
+<li>February 17, 2010 by Michael Wetter:<br/>
 Renamed block from <code>DewPointTemperature_pWat</code>
 to <code>pW_TDewPoi</code>.
 </li>
 <li>
-September 4, 2008 by Michael Wetter:<br>
+September 4, 2008 by Michael Wetter:<br/>
 Changed from causal to acausal ports, needed, for example, for
 <a href=\"modelica://Buildings.Fluid.Examples.MixingVolumeMoistAir\">
 Buildings.Fluid.Examples.MixingVolumeMoistAir</a>.
 </li>
 <li>
-August 7, 2008 by Michael Wetter:<br>
+August 7, 2008 by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

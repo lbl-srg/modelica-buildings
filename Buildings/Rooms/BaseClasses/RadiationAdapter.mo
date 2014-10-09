@@ -34,7 +34,7 @@ separate models, and exposes these two quantities at its heat port.
         revisions="<html>
 <ul>
 <li>
-Feb. 2, 2011, by Michael Wetter:<br>
+Feb. 2, 2011, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
@@ -67,7 +67,7 @@ between the surfaces, require access to the area and absorptivity of the surface
         revisions="<html>
 <ul>
 <li>
-June 8 2010, by Michael Wetter:<br>
+June 8 2010, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

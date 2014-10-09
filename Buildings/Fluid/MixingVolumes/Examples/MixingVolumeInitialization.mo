@@ -18,18 +18,21 @@ model MixingVolumeInitialization "Test model for mixing volume initialization"
   Modelica.Fluid.Pipes.StaticPipe pipe1(
     redeclare package Medium = Medium,
     length=1,
-    diameter=0.25) annotation (Placement(transformation(extent={{-20,10},{0,30}},
+    diameter=0.25,
+    flowModel(m_flow_nominal=2)) annotation (Placement(transformation(extent={{-20,10},{0,30}},
           rotation=0)));
   Modelica.Fluid.Pipes.StaticPipe pipe2(
     redeclare package Medium = Medium,
     length=1,
-    diameter=0.25) annotation (Placement(transformation(extent={{60,10},{80,30}},
+    diameter=0.25,
+    flowModel(m_flow_nominal=2)) annotation (Placement(transformation(extent={{60,10},{80,30}},
           rotation=0)));
   MixingVolumes.MixingVolume vol1(
     redeclare package Medium = Medium,
     V=0.1,
     nPorts=2,
-    m_flow_nominal=2)
+    m_flow_nominal=2,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     annotation (Placement(transformation(extent={{20,20},{40,40}}, rotation=0)));
   inner Modelica.Fluid.System system
     annotation (Placement(transformation(extent={{-100,-100},{-80,-80}})));
@@ -52,7 +55,28 @@ equation
       smooth=Smooth.None));
     annotation (Diagram(coordinateSystem(preserveAspectRatio=true,  extent={{-100,
             -100},{180,100}}),      graphics),
-experiment(StopTime=0.001),
+experiment(StopTime=0.001,
+           Tolerance=1e-6),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/MixingVolumes/Examples/MixingVolumeInitialization.mos"
-        "Simulate and plot"));
+        "Simulate and plot"),
+    Documentation(info="<html>
+<p>
+This model tests the initialization of the mixing volume.
+</p>
+</html>", revisions="<html>
+<ul>
+<li>
+October 24, 2013 by Michael Wetter:<br/>
+Set <code>flowModel(m_flow_nominal=2)</code> in the pipe models to 
+avoid a cyclic definition of
+<code>pipe1.flowModel.m_flow_nominal</code>
+and
+<code>pipe2.flowModel.m_flow_nominal</code>.
+</li>
+<li>
+October 12, 2009 by Michael Wetter:<br/>
+First implementation.
+</li>
+</ul>
+</html>"));
 end MixingVolumeInitialization;

@@ -1,7 +1,8 @@
 within Buildings.Utilities.Psychrometrics;
 block TWetBul_TDryBulXi
   "Model to compute the wet bulb temperature based on mass fraction"
-  extends Modelica.Blocks.Interfaces.BlockIcon;
+  extends Modelica.Blocks.Icons.Block;
+
   replaceable package Medium =
     Modelica.Media.Interfaces.PartialCondensingGases "Medium model"
                                                             annotation (
@@ -12,7 +13,7 @@ block TWetBul_TDryBulXi
 
   Modelica.Blocks.Interfaces.RealInput TDryBul(
     start=303,
-    final quantity="Temperature",
+    final quantity="ThermodynamicTemperature",
     final unit="K",
     min=0) "Dry bulb temperature"
     annotation (Placement(transformation(extent={{-120,70},{-100,90}},rotation=
@@ -25,7 +26,7 @@ block TWetBul_TDryBulXi
            0)));
   Modelica.Blocks.Interfaces.RealOutput TWetBul(
     start=293,
-    final quantity="Temperature",
+    final quantity="ThermodynamicTemperature",
     final unit="K",
     min=0) "Wet bulb temperature"
     annotation (Placement(transformation(extent={{100,-10},{120,10}},rotation=0)));
@@ -35,25 +36,16 @@ block TWetBul_TDryBulXi
           rotation=0)));
 
 protected
-  constant Modelica.Media.IdealGases.Common.DataRecord dryair = Modelica.Media.IdealGases.Common.SingleGasesData.Air;
-  constant Modelica.Media.IdealGases.Common.DataRecord steam = Modelica.Media.IdealGases.Common.SingleGasesData.H2O;
-  constant Real k_mair =  steam.MM/dryair.MM "ratio of molar weights";
   Modelica.SIunits.Conversions.NonSIunits.Temperature_degC TDryBul_degC
     "Dry bulb temperature in degree Celsius";
   Real rh_per(min=0) "Relative humidity in percentage";
 
-  Modelica.SIunits.MassFraction XiSat "Water vapor mass fraction at saturation";
+  Modelica.SIunits.MassFraction XiSat(start=0.01,
+                                      nominal=0.01)
+    "Water vapor mass fraction at saturation";
 
  parameter Integer iWat(fixed=false)
     "Index of water in medium composition vector";
-  constant Modelica.SIunits.SpecificHeatCapacity cpAir=
-     Buildings.Media.PerfectGases.Common.SingleGasData.Air.cp
-    "Specific heat capacity of air";
-  constant Modelica.SIunits.SpecificHeatCapacity cpSte=
-     Buildings.Media.PerfectGases.Common.SingleGasData.H2O.cp
-    "Specific heat capacity of water vapor";
-  constant Modelica.SIunits.SpecificEnthalpy h_fg = 2501014.5
-    "Specific heat capacity of water vapor";
 initial algorithm
   iWat:=-1;
     for i in 1:Medium.nX loop
@@ -67,7 +59,12 @@ initial algorithm
 equation
   if approximateWetBulb then
     TDryBul_degC = TDryBul - 273.15;
-    rh_per       = 100 * p/min(Medium.saturationPressure(TDryBul),0.999*p)*Xi[iWat]/(Xi[iWat] + k_mair*(1-Xi[iWat]));
+    rh_per       = 100 * p/
+      Buildings.Utilities.Math.Functions.smoothMin(
+         x1=Buildings.Utilities.Psychrometrics.Functions.saturationPressure(TDryBul),
+         x2=0.999*p,
+         deltaX=1E-4)*Xi[iWat]/(Xi[iWat] +
+         Buildings.Utilities.Psychrometrics.Constants.k_mair*(1-Xi[iWat]));
     TWetBul      = 273.15 + TDryBul_degC
        * Modelica.Math.atan(0.151977 * sqrt(rh_per + 8.313659))
        + Modelica.Math.atan(TDryBul_degC + rh_per)
@@ -75,12 +72,16 @@ equation
        + 0.00391838 * rh_per^(1.5) * Modelica.Math.atan( 0.023101 * rh_per)  - 4.686035;
     XiSat = 0;
   else
-    XiSat   = Buildings.Utilities.Psychrometrics.Functions.X_pSatpphi(
-      pSat=   Medium.saturationPressureLiquid(Tsat=TWetBul),
+    XiSat  = Buildings.Utilities.Psychrometrics.Functions.X_pSatpphi(
+      pSat=  Buildings.Utilities.Psychrometrics.Functions.saturationPressureLiquid(TWetBul),
       p=     p,
       phi=   1);
-    TWetBul = (TDryBul * ((1-Xi[iWat]) * cpAir + Xi[iWat] * cpSte) + (Xi[iWat]-XiSat) * h_fg)/
-            ( (1-XiSat)*cpAir + XiSat * cpSte);
+    TWetBul = (TDryBul *
+                ((1-Xi[iWat]) * Buildings.Utilities.Psychrometrics.Constants.cpAir +
+                Xi[iWat] * Buildings.Utilities.Psychrometrics.Constants.cpSte) +
+                (Xi[iWat]-XiSat) * Buildings.Utilities.Psychrometrics.Constants.h_fg)/
+            ( (1-XiSat)*Buildings.Utilities.Psychrometrics.Constants.cpAir +
+            XiSat * Buildings.Utilities.Psychrometrics.Constants.cpSte);
     TDryBul_degC = 0;
     rh_per       = 0;
   end if;
@@ -178,13 +179,33 @@ DOI: 10.1175/JAMC-D-11-0143.1
 revisions="<html>
 <ul>
 <li>
-October 1, 2012 by Michael Wetter:<br>
+July 24, 2014 by Michael Wetter:<br/>
+Revised computation of <code>rh_per</code> to use
+<a href=\"modelica://Buildings.Utilities.Math.Functions.smoothMin\">
+Buildings.Utilities.Math.Functions.smoothMin</a> rather
+than <code>min</code>.
+</li>
+<li>
+November 20, 2013 by Michael Wetter:<br/>
+Updated model to use
+<code>Buildings.Utilities.Psychrometrics.Functions.saturationPressure()</code>
+and
+<code>Buildings.Utilities.Psychrometrics.Functions.saturationPressureLiquid()</code>
+as these functions have been moved from the medium to the psychrometrics package.
+</li>
+<li>
+September 10, 2013 by Michael Wetter:<br/>
+Added start value and nominal value for <code>XiSat</code> as this is an iteration
+variable in OpenModelica.
+</li>
+<li>
+October 1, 2012 by Michael Wetter:<br/>
 Revised implementation to change the dimension of the nonlinear
 system of equations from two to one.
 Added option to compute wet bulb temperature explicitly.
 </li>
 <li>
-February 22, 2011 by Michael Wetter:<br>
+February 22, 2011 by Michael Wetter:<br/>
 Changed the code sections that obtain the water concentration. The old version accessed
 the water concentration using the index of the vector <code>X</code>.
 However, Dymola 7.4 cannot differentiate the function if vector elements are accessed
@@ -192,16 +213,16 @@ using their index. In the new implementation, an inner product is used to access
 In addition, the medium substance name is searched using a case insensitive search.
 </li>
 <li>
-February 17, 2010 by Michael Wetter:<br>
+February 17, 2010 by Michael Wetter:<br/>
 Renamed block from <code>WetBulbTemperature</code> to <code>TWetBul_TDryBulXi</code>
 and changed obsolete real connectors to input and output connectors.
 </li>
 <li>
-May 19, 2008 by Michael Wetter:<br>
+May 19, 2008 by Michael Wetter:<br/>
 Added relative humidity as a port.
 </li>
 <li>
-May 7, 2008 by Michael Wetter:<br>
+May 7, 2008 by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

@@ -1,6 +1,6 @@
 within Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses;
 block InputPower "Electrical power consumed by the unit"
-  extends Modelica.Blocks.Interfaces.BlockIcon;
+  extends Modelica.Blocks.Icons.Block;
    Modelica.Blocks.Interfaces.RealInput Q_flow(
     quantity="Power",
     unit="W") "Cooling capacity of the coil"
@@ -54,14 +54,14 @@ The electrical energy consumed by the unit is
 revisions="<html>
 <ul>
 <li>
-September 4, 2012 by Michael Wetter:<br>
+September 4, 2012 by Michael Wetter:<br/>
 Reimplemented model to avoid having to use the <code>max</code> function,
 and to reduce the number of mathematical operations.
 Added output connector for latent heat flow rate.
 Revised documentation.
 </li>
 <li>
-April 9, 2012 by Kaustubh Phalak:<br>
+April 9, 2012 by Kaustubh Phalak:<br/>
 First implementation. 
 </li>
 </ul>

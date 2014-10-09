@@ -1,6 +1,5 @@
 within Buildings.HeatTransfer.Examples;
 model ConductorStepResponse "Test model for heat conductor"
-  import Buildings;
   extends Modelica.Icons.Example;
   parameter Buildings.HeatTransfer.Data.Solids.Concrete concrete(x=0.12, nStaRef=4)
     annotation (Placement(transformation(extent={{40,60},{60,80}})));
@@ -135,7 +134,7 @@ condition differs.
 </html>", revisions="<html>
 <ul>
 <li>
-March 6 2010, by Michael Wetter:<br>
+March 6 2010, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

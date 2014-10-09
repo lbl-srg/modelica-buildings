@@ -1,7 +1,7 @@
 within Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses;
 model UACp "Calculates UA/Cp of the coil"
   extends Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.NominalCondition;
-  extends Modelica.Blocks.Interfaces.BlockIcon;
+  extends Modelica.Blocks.Icons.Block;
   final parameter Modelica.SIunits.MassFraction XADP_nominal(
     start=0.008,
     min=0,
@@ -108,11 +108,11 @@ and, hence,
 revisions="<html>
 <ul>
 <li>
-September 21, 2012 by Michael Wetter:<br>
+September 21, 2012 by Michael Wetter:<br/>
 Revised implementation and documentation.
 </li>
 <li>
-April 9, 2012 by Kaustubh Phalak:<br>
+April 9, 2012 by Kaustubh Phalak:<br/>
 First implementation. 
 </li>
 </ul>

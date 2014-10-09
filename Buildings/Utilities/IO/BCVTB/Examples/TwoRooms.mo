@@ -1,7 +1,6 @@
 within Buildings.Utilities.IO.BCVTB.Examples;
 model TwoRooms
   "Thermal model of two rooms that will be linked to the BCVTB which models the controls"
-  import Buildings;
   extends Modelica.Icons.Example;
   parameter Modelica.SIunits.Time tau = 2*3600 "Room time constant";
   parameter Modelica.SIunits.HeatFlowRate Q_flow_nom = 100 "Nominal heat flow";
@@ -138,8 +137,7 @@ equation
             -100},{240,100}})),
     experiment(StopTime=21600),
     Documentation(info="<html>
-This example illustrates the use of Modelica with the Building Controls Virtual Test Bed.
-</p>
+This example illustrates the use of Modelica with the Building Controls Virtual Test Bed.<br/>
 <p>
 Given a control signal for two heat flow rates, Modelica simulates the thermal response 
 of two first order systems. The two systems may represent a first order approximation of a room.
@@ -153,7 +151,7 @@ This model is implemented in <code>bcvtb\\examples\\dymola-room</code>.
 </html>", revisions="<html>
 <ul>
 <li>
-May 15, 2009, by Michael Wetter:<br>
+May 15, 2009, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

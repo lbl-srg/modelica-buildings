@@ -1,6 +1,5 @@
 within Buildings.Rooms.BaseClasses;
 record SideFins "Record for window side fins"
-  extends Modelica.Icons.Record;
 
   parameter Modelica.SIunits.Length h(min=0)
     "Height of side fin that extends above window, measured from top of window"
@@ -31,21 +30,22 @@ of the model for side fins.
 </html>", revisions="<html>
 <ul>
 <li>
-July 5, 2012, by Michael Wetter:<br>
+July 5, 2012, by Michael Wetter:<br/>
 Changed definitions of side fin height <code>h</code> to be
 measured from the top of the window.
 This allows changing the window height without having to adjust the
 side fin parameters.
 </li>
 <li>
-May 21, 2012, by Kaustubh Phalak:<br>
+May 21, 2012, by Kaustubh Phalak:<br/>
 Removed <code>gap &gt; 0</code> as a necessary condition. There can be a side fin with no gap.
 </li>
 <li>
-March 5, 2012, by Michael Wetter:<br>
+March 5, 2012, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
-</html>"));
+</html>"), Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
+            {100,100}}), graphics));
 
 end SideFins;

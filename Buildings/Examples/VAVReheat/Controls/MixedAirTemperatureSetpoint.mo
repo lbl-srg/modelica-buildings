@@ -1,9 +1,10 @@
 within Buildings.Examples.VAVReheat.Controls;
 model MixedAirTemperatureSetpoint
   "Mixed air temperature setpoint for economizer"
-  extends Modelica.Blocks.Interfaces.BlockIcon;
-  Modelica.Blocks.Routing.Extractor TSetMix(nin=6)
-    "Mixed air setpoint temperature extractor"
+  extends Modelica.Blocks.Icons.Block;
+  Modelica.Blocks.Routing.Extractor TSetMix(
+    nin=6,
+    index(start=1, fixed=true)) "Mixed air setpoint temperature extractor"
     annotation (Placement(transformation(extent={{60,0},{80,20}})));
   Modelica.Blocks.Sources.Constant off(k=273.15 + 13)
     "Setpoint temperature to close damper"
@@ -28,12 +29,10 @@ model MixedAirTemperatureSetpoint
   Modelica.Blocks.Routing.Multiplex2 multiplex2_1
     annotation (Placement(transformation(extent={{-60,-70},{-40,-50}})));
 equation
-
   connect(TSetMix.u[1], ave.y) annotation (Line(
       points={{58,8.33333},{14,8.33333},{14,-60},{1,-60}},
       color={0,0,127},
       smooth=Smooth.None));
-
   connect(ave.y, TSetMix.u[1])     annotation (Line(
       points={{1,-60},{42,-60},{42,8.33333},{58,8.33333}},
       color={0,0,127},

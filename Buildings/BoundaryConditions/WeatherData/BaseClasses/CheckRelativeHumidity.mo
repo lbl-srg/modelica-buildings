@@ -1,6 +1,6 @@
 within Buildings.BoundaryConditions.WeatherData.BaseClasses;
 block CheckRelativeHumidity "Check the validity of relative humidity"
-  extends Modelica.Blocks.Interfaces.BlockIcon;
+  extends Modelica.Blocks.Icons.Block;
 public
   Modelica.Blocks.Interfaces.RealInput relHumIn(final unit="1")
     "Input relative humidity"
@@ -29,7 +29,7 @@ This component constrains the value of relative humidity to a range of <i>[0, 1]
 ", revisions="<html>
 <ul>
 <li>
-October 27, 2011, by Wangda Zuo:<br>
+October 27, 2011, by Wangda Zuo:<br/>
 First implementation.
 </li>
 </ul>

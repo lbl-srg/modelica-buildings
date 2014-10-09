@@ -1,7 +1,7 @@
 within Buildings.Utilities.Psychrometrics.Functions;
 function pW_TDewPoi
   "Function to compute the water vapor partial pressure for a given dew point temperature of moist air"
-
+  extends Modelica.Icons.Function;
   input Modelica.SIunits.Temperature T(min=100) "Dew point temperature";
   output Modelica.SIunits.Pressure p_w(displayUnit="Pa", min=100)
     "Water vapor partial pressure";
@@ -23,33 +23,33 @@ Dew point temperature calculation for moist air above freezing temperature.
 </p>
 <p>
 The correlation used in this model is valid for dew point temperatures between 
-<code>0 degC</code> and <code>200 degC</code>. It is the correlation from 2005
+<i>0</i>&deg;C and <i>200</i>&deg;C. It is the correlation from 2005
 ASHRAE Handbook, p. 6.2. In an earlier version of this model, the equation from
-Peppers has been used, but this equation yielded about 15 Kelvin lower dew point 
+Peppers has been used, but this equation yielded about <i>15</i> Kelvin lower dew point 
 temperatures.
 </p>
 </html>", revisions="<html>
 <ul>
 <li>
-March 9, 2012 by Michael Wetter:<br>
+March 9, 2012 by Michael Wetter:<br/>
 Added <code>smoothOrder=99</code> and <code>displayUnit</code> for pressure.
 </li>
 <li>
-February 17, 2010 by Michael Wetter:<br>
+February 17, 2010 by Michael Wetter:<br/>
 Renamed function from <code>dewPointTemperature</code> to <code>pW_TDewPoi</code>.
 </li>
 <li>
-February 6, 2010 by Michael Wetter:<br>
+February 6, 2010 by Michael Wetter:<br/>
 Fixed derivative implementation.
 </li>
 <li>
-September 4, 2008 by Michael Wetter:<br>
+September 4, 2008 by Michael Wetter:<br/>
 Changed from causal to acausal ports, needed, for example, for
 <a href=\"modelica://Buildings.Fluid.Examples.MixingVolumeMoistAir\">
 Buildings.Fluid.Examples.MixingVolumeMoistAir</a>.
 </li>
 <li>
-August 7, 2008 by Michael Wetter:<br>
+August 7, 2008 by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

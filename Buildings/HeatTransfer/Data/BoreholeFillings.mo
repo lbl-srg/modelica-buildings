@@ -25,12 +25,12 @@ Package with material definitions for borehole fillings.
 revisions="<html>
 <ul>
 <li>
-July 7, 2012, by Michael Wetter:<br>
+July 7, 2012, by Michael Wetter:<br/>
 Renamed class to <code>BoreholeFillings</code> to be
 consistent with data records being plural.
 </li>
 <li>
-September 9, 2011, by Michael Wetter:<br>
+September 9, 2011, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

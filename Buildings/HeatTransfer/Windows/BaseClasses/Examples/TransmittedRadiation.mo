@@ -1,7 +1,6 @@
 within Buildings.HeatTransfer.Windows.BaseClasses.Examples;
 model TransmittedRadiation
   "Test model for transmitted radiation through window"
-  import Buildings;
   extends Modelica.Icons.Example;
   parameter Modelica.SIunits.Angle lat=0.34906585039887 "Latitude";
   parameter Modelica.SIunits.Angle azi=0 "Surface azimuth";
@@ -15,7 +14,7 @@ model TransmittedRadiation
   BoundaryConditions.WeatherData.Bus weaBus
     annotation (Placement(transformation(extent={{-38,0},{-18,20}})));
   BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam=
-        "Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos")
+        "modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos")
     annotation (Placement(transformation(extent={{-70,0},{-50,20}})));
 
   BoundaryConditions.SolarIrradiation.DiffuseIsotropic HDifTilIso(
@@ -96,16 +95,16 @@ This example illustrates modeling of window transmittance.
 </html>", revisions="<html>
 <ul>
 <li>
-May 1, 2013, by Michael Wetter:<br>
+May 1, 2013, by Michael Wetter:<br/>
 Declared the parameter record to be a parameter, as declaring its elements
 to be parameters does not imply that the whole record has the variability of a parameter.
 </li>
 <li>
-December 12, 2011, by Wangda Zuo:<br>
+December 12, 2011, by Wangda Zuo:<br/>
 Add glass thickness as a parameter for winTra. It is needed by the claculation of property for uncoated glass.
 </li>
 <li>
-December 15, 2010, by Wangda Zuo:<br>
+December 15, 2010, by Wangda Zuo:<br/>
 First implementation.
 </li>
 </ul>

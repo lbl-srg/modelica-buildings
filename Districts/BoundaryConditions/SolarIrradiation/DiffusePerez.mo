@@ -188,15 +188,15 @@ Solar Energy, 44(5):271-289.
 ", revisions="<html>
 <ul>
 <li>
-June 6, 2012, by Wangda Zuo:<br>
+June 6, 2012, by Wangda Zuo:<br/>
 Added contributions from sky and ground that were separated in base class.
 </li>
 <li>
-February 25, 2012, by Michael Wetter:<br>
+February 25, 2012, by Michael Wetter:<br/>
 Changed component to get zenith angle from weather bus.
 </li>
 <li>
-May 24, 2010, by Wangda Zuo:<br>
+May 24, 2010, by Wangda Zuo:<br/>
 First implementation.
 </li>
 </ul>

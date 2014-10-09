@@ -32,16 +32,16 @@ This component converts the simulation time to calendar time in a scale of 1 yea
 ", revisions="<html>
 <ul>
 <li>
-September 27, 2011, by Wangda Zuo, Michael Wetter:<br>
+September 27, 2011, by Wangda Zuo, Michael Wetter:<br/>
 Modify it to convert negative value of time. 
 Use the when-then to allow dymola differentiating this model when conducting index reduction which is not allowed in previous implementation.
 </li>
 <li>
-February 27, 2011, by Wangda Zuo:<br>
+February 27, 2011, by Wangda Zuo:<br/>
 Renamed the component.
 </li>
 <li>
-July 08, 2010, by Wangda Zuo:<br>
+July 08, 2010, by Wangda Zuo:<br/>
 First implementation.
 </li>
 </ul>

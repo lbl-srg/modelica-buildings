@@ -24,11 +24,10 @@ package MoistAir
   constant Modelica.SIunits.Temperature TMin = 200 "Minimum temperature";
   constant Modelica.SIunits.Temperature TMax = 400 "Maximum temperature";
 
-  // Redeclare ThermodynamicState to avoid the warning
-  // "Base class ThermodynamicState is replaceable"
-  // during model check
-  redeclare record extends ThermodynamicState
-    "ThermodynamicState record for moist air"
+  redeclare record extends ThermodynamicState(
+    p(start=p_default),
+    T(start=T_default),
+    X(start=X_default)) "ThermodynamicState record for moist air"
   end ThermodynamicState;
 
   redeclare replaceable model extends BaseProperties(
@@ -154,7 +153,7 @@ algorithm
 
   annotation(Inline=false,smoothOrder=5,
     Documentation(info="<html>
-Derivative function of <a href=Modelica:Modelica.Media.Air.MoistAir.saturationPressureLiquid>saturationPressureLiquid</a>
+Derivative function of <a href=modelica://Modelica.Media.Air.MoistAir.saturationPressureLiquid>saturationPressureLiquid</a>
 </html>"));
 end saturationPressureLiquid_der;
 
@@ -427,36 +426,36 @@ algorithm
      T := Internal.solve(h, TMin, TMax, p, X[1:nXi], steam);
   end if;
     annotation (Documentation(info="<html>
-Temperature is computed from pressure, specific enthalpy and composition via numerical inversion of function <a href=Modelica:Modelica.Media.Air.MoistAir.h_pTX>h_pTX</a>.
+Temperature is computed from pressure, specific enthalpy and composition via numerical inversion of function <a href=modelica://Modelica.Media.Air.MoistAir.h_pTX>h_pTX</a>.
 </html>"));
 end T_phX;
 
   annotation (preferredView="info", Documentation(info="<html>
 <p>
 This is a medium model that is similar to 
-<a href=\"Modelica:Modelica.Media.Air.MoistAir\">
+<a href=\"modelica://Modelica.Media.Air.MoistAir\">
 Modelica.Media.Air.MoistAir</a> but it is a perfect gas, i.e., 
 it has a constant specific heat capacity.
 </p>
 </html>", revisions="<html>
 <ul>
 <li>
-March 29, 2013, by Michael Wetter:<br>
+March 29, 2013, by Michael Wetter:<br/>
 Added <code>final standardOrderComponents=true</code> in the
 <code>BaseProperties</code> declaration. This avoids an error
 when models are checked in Dymola 2014 in the pedenatic mode.
 </li>
 <li>
-April 12, 2012, by Michael Wetter:<br>
+April 12, 2012, by Michael Wetter:<br/>
 Added keyword <code>each</code> to <code>Xi(stateSelect=...</code>.
 </li>
 <li>
-April 4, 2012, by Michael Wetter:<br>
+April 4, 2012, by Michael Wetter:<br/>
 Added redeclaration of <code>ThermodynamicState</code> to avoid a warning
 during model check and translation.
 </li>
 <li>
-February 22, 2010, by Michael Wetter:<br>
+February 22, 2010, by Michael Wetter:<br/>
 Changed <code>T_phX</code> to first compute <code>T</code> 
 in closed form assuming no saturation. Then, a check is done to determine
 whether the state is in the fog region. If the state is in the fog region,
@@ -465,29 +464,29 @@ can lead to significantly shorter computing
 time in models that frequently call <code>T_phX</code>.
 </li>
 <li>
-January 27, 2010, by Michael Wetter:<br>
+January 27, 2010, by Michael Wetter:<br/>
 Fixed bug that lead to run-time error in <code>T_phX</code>.
 </li>
 <li>
-January 13, 2010, by Michael Wetter:<br>
+January 13, 2010, by Michael Wetter:<br/>
 Added function <code>enthalpyOfNonCondensingGas</code> and its derivative.
 </li>
 <li>
-January 13, 2010, by Michael Wetter:<br>
+January 13, 2010, by Michael Wetter:<br/>
 Fixed implementation of derivative functions.
 </li>
 <li>
-October 12, 2009, by Michael Wetter:<br>
+October 12, 2009, by Michael Wetter:<br/>
 Added annotation for analytic derivative for functions
 <code>saturationPressureLiquid</code> and <code>sublimationPressureIce</code>.
 <li>
-August 28, 2008, by Michael Wetter:<br>
+August 28, 2008, by Michael Wetter:<br/>
 Referenced <code>spliceFunction</code> from package 
 <a href=\"modelica://Buildings.Utilities.Math\">Buildings.Utilities.Math</a>
 to avoid duplicate code.
 </li>
 <li>
-May 8, 2008, by Michael Wetter:<br>
+May 8, 2008, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

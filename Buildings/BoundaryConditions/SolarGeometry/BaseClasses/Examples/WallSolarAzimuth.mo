@@ -1,6 +1,5 @@
 within Buildings.BoundaryConditions.SolarGeometry.BaseClasses.Examples;
 model WallSolarAzimuth "Test model for wall solar azimuth angle"
-  import Buildings;
 extends Modelica.Icons.Example;
   Buildings.BoundaryConditions.SolarGeometry.IncidenceAngle incAng(
     azi=0,
@@ -8,7 +7,7 @@ extends Modelica.Icons.Example;
     til=1.5707963267949) "solar incidence angle"
     annotation (Placement(transformation(extent={{-20,-40},{0,-20}})));
   Buildings.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam=
-        "Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos")
+        "modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos")
     "Weather data"
     annotation (Placement(transformation(extent={{-100,0},{-80,20}})));
   Buildings.BoundaryConditions.WeatherData.Bus weaBus "Weather bus"
@@ -63,11 +62,11 @@ This example calculates the wall solar azimuth angle.
 revisions="<html>
 <ul>
 <li>
-Feb 27, 2012, by Michael Wetter:<br>
+Feb 27, 2012, by Michael Wetter:<br/>
 Simplified example by using zenith angle from weather data bus.
 </li>
 <li>
-Feb 01, 2012, by Kaustubh Phalak<br>
+Feb 01, 2012, by Kaustubh Phalak<br/>
 First implementation.
 </li>
 </ul>

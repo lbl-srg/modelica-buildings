@@ -1,7 +1,6 @@
 within Buildings.Fluid.Chillers.Examples.BaseClasses;
 partial model PartialElectric
   "Base class for test model of chiller electric EIR"
-  import Buildings;
  package Medium1 = Buildings.Media.ConstantPropertyLiquidWater "Medium model";
  package Medium2 = Buildings.Media.ConstantPropertyLiquidWater "Medium model";
 
@@ -17,10 +16,11 @@ partial model PartialElectric
   parameter Modelica.SIunits.MassFlowRate mCon_flow_nominal=
      per.mCon_flow_nominal "Nominal mass flow rate at condenser";
 
-  replaceable Buildings.Fluid.Chillers.BaseClasses.PartialElectric
-    chi constrainedby Buildings.Fluid.Chillers.BaseClasses.PartialElectric(
+  replaceable Buildings.Fluid.Chillers.BaseClasses.PartialElectric chi
+        constrainedby Buildings.Fluid.Chillers.BaseClasses.PartialElectric(
        redeclare package Medium1 = Medium1,
        redeclare package Medium2 = Medium2,
+       energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
        dp1_nominal=6000,
        dp2_nominal=6000) "Chiller model"
     annotation (Placement(transformation(extent={{0,0},{20,20}})));
@@ -36,14 +36,16 @@ partial model PartialElectric
     m_flow=mEva_flow_nominal,
     T=291.15)
     annotation (Placement(transformation(extent={{60,-6},{40,14}})));
-  Buildings.Fluid.Sources.FixedBoundary sin1(          redeclare package Medium
-      = Medium1, nPorts=1)                           annotation (Placement(
+  Buildings.Fluid.Sources.FixedBoundary sin1(
+    redeclare package Medium = Medium1,
+    nPorts=1)                           annotation (Placement(
         transformation(
         extent={{10,-10},{-10,10}},
         rotation=0,
         origin={70,40})));
-  Buildings.Fluid.Sources.FixedBoundary sin2(          redeclare package Medium
-      = Medium2, nPorts=1)                           annotation (Placement(
+  Buildings.Fluid.Sources.FixedBoundary sin2(
+    redeclare package Medium = Medium2,
+    nPorts=1)                           annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
@@ -92,7 +94,7 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(sou2.ports[1], chi.port_a2)    annotation (Line(
-      points={{40,4},{35,4},{35,4},{30,4},{30,4},{20,4}},
+      points={{40,4},{20,4}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(TCon_in.y, sou1.T_in) annotation (Line(

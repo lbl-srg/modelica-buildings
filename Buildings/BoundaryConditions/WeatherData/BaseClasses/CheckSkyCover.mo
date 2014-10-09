@@ -1,6 +1,6 @@
 within Buildings.BoundaryConditions.WeatherData.BaseClasses;
 block CheckSkyCover "Constrains the sky cover to [0, 1]"
-  extends Modelica.Blocks.Interfaces.BlockIcon;
+  extends Modelica.Blocks.Icons.Block;
 public
   Modelica.Blocks.Interfaces.RealInput nIn "Input sky cover [0, 10]"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
@@ -27,7 +27,7 @@ This component constrains the interpolated sky cover between <i>0</i> and <i>10<
 ", revisions="<html>
 <ul>
 <li>
-July 14, 2010, by Wangda Zuo:<br>
+July 14, 2010, by Wangda Zuo:<br/>
 First implementation.
 </li>
 </ul>

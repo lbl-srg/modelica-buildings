@@ -21,8 +21,8 @@ partial package PartialSimpleIdealGasMedium
 
   redeclare record extends ThermodynamicState
     "Thermodynamic state of ideal gas"
-    AbsolutePressure p "Absolute pressure of medium";
-    Temperature T "Temperature of medium";
+    AbsolutePressure p(start=p_default) "Absolute pressure of medium";
+    Temperature T(start=T_default) "Temperature of medium";
   end ThermodynamicState;
 
   redeclare record extends FluidConstants "fluid constants"
@@ -304,7 +304,7 @@ quantities are assumed to be constant.
   end molarMass;
   annotation (preferredView="info",
 Documentation(info="<html>
-This package is identical to <a href=\"Modelica:Modelica.Media.Interfaces.PartialSimpleIdealGasMedium\">
+This package is identical to <a href=\"modelica://Modelica.Media.Interfaces.PartialSimpleIdealGasMedium\">
 Modelica.Media.Interfaces.PartialSimpleIdealGasMedium</a>
 except that the functions.
 <code>density</code>,
@@ -315,7 +315,15 @@ Buildings.Media.GasesPTDecoupled.SimpleAir</a>.
 </html>", revisions="<html>
 <ul>
 <li>
-September 16, 2010, by Michael Wetter:<br>
+September 12, 2014, by Michael Wetter:<br/>
+Set <code>T(start=T_default)</code> and <code>p(start=p_default)</code> in the
+<code>ThermodynamicState</code> record. Setting the start value for
+<code>T</code> is required to avoid an error due to conflicting start values
+when checking <a href=\"modelica://Buildings.Examples.VAVReheat.ClosedLoop\">
+Buildings.Examples.VAVReheat.ClosedLoop</a> in pedantic mode.
+</li>
+<li>
+September 16, 2010, by Michael Wetter:<br/>
 Removed the <code>stateSelect</code> assignment in <pre>
 BaseProperties(
     T(stateSelect=if preferredMediumStates then StateSelect.prefer else
@@ -334,7 +342,7 @@ if the <code>stateSelect</code> is not set to <code>StateSelect.prefer</code>
 for steady-state models.
 </li>
 <li>
-August 2, 2011, by Michael Wetter:<br>
+August 2, 2011, by Michael Wetter:<br/>
 <ul>
 <li>
 Made a new copy from the Modelica Standard Library since

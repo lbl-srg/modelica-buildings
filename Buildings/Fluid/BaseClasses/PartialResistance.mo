@@ -1,7 +1,7 @@
 within Buildings.Fluid.BaseClasses;
 partial model PartialResistance "Partial model for a hydraulic resistance"
     extends Buildings.Fluid.Interfaces.PartialTwoPortInterface(
-     show_T=false, show_V_flow=false,
+     show_T=false,
      m_flow(start=0, nominal=m_flow_nominal_pos),
      dp(start=0, nominal=dp_nominal_pos),
      final m_flow_small = 1E-4*abs(m_flow_nominal));
@@ -82,20 +82,25 @@ this base class.
 </html>", revisions="<html>
 <ul>
 <li>
-December 14, 2012 by Michael Wetter:<br>
+October 8, 2013 by Michael Wetter:<br/>
+Removed propagation of <code>show_V_flow</code>
+to base class as it has no longer this parameter.
+</li>
+<li>
+December 14, 2012 by Michael Wetter:<br/>
 Renamed protected parameters for consistency with the naming conventions.
 </li>
 <li>
-February 12, 2012, by Michael Wetter:<br>
+February 12, 2012, by Michael Wetter:<br/>
 Removed duplicate declaration of <code>m_flow_nominal</code>.
 </li>
 <li>
-February 3, 2012, by Michael Wetter:<br>
+February 3, 2012, by Michael Wetter:<br/>
 Made assignment of <code>m_flow_small</code> <code>final</code> as it is no
 longer used in the base class.
 </li>
 <li>
-January 16, 2012, by Michael Wetter:<br>
+January 16, 2012, by Michael Wetter:<br/>
 To simplify object inheritance tree, revised base classes
 <code>Buildings.Fluid.BaseClasses.PartialResistance</code>,
 <code>Buildings.Fluid.Actuators.BaseClasses.PartialTwoWayValve</code>,
@@ -105,35 +110,35 @@ and model
 <code>Buildings.Fluid.FixedResistances.FixedResistanceDpM</code>.
 </li>
 <li>
-August 5, 2011, by Michael Wetter:<br>
+August 5, 2011, by Michael Wetter:<br/>
 Moved linearized pressure drop equation from the function body to the equation
 section. With the previous implementation, 
 the symbolic processor may not rearrange the equations, which can lead 
 to coupled equations instead of an explicit solution.
 </li>
 <li>
-June 20, 2011, by Michael Wetter:<br>
+June 20, 2011, by Michael Wetter:<br/>
 Set start values for <code>m_flow</code> and <code>dp</code> to zero, since
 most HVAC systems start at zero flow. With this change, the start values
 appear in the GUI and can be set by the user.
 </li>
 <li>
-April 2, 2011 by Michael Wetter:<br>
+April 2, 2011 by Michael Wetter:<br/>
 Added <code>m_flow_nominal_pos</code> and <code>dp_nominal_pos</code> to allow
 providing negative nominal values which will be used, for example, to set start
 values of flow splitters which may have negative flow rates and pressure drop
 at the initial condition.
 </li>
 <li>
-March 23, 2011 by Michael Wetter:<br>
+March 23, 2011 by Michael Wetter:<br/>
 Added homotopy operator.
 </li>
 <li>
-March 30, 2010 by Michael Wetter:<br>
+March 30, 2010 by Michael Wetter:<br/>
 Changed base classes to allow easier initialization.
 </li>
 <li>
-July 20, 2007 by Michael Wetter:<br>
+July 20, 2007 by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
@@ -141,23 +146,23 @@ First implementation.
 revisions="<html>
 <ul>
 <li>
-March 27, 2011, by Michael Wetter:<br>
+March 27, 2011, by Michael Wetter:<br/>
 Added <code>homotopy</code> operator.
 </li>
 <li>
-April 13, 2009, by Michael Wetter:<br>
+April 13, 2009, by Michael Wetter:<br/>
 Extracted pressure drop computation and implemented it in the
 new model
 <a href=\"modelica://Buildings.Fluid.BaseClasses.FlowModels.BasicFlowModel\">
 Buildings.Fluid.BaseClasses.FlowModels.BasicFlowModel</a>.
 </li>
 <li>
-September 18, 2008, by Michael Wetter:<br>
+September 18, 2008, by Michael Wetter:<br/>
 Added equations for the mass balance of extra species flow,
 i.e., <code>C</code> and <code>mC_flow</code>.
 </li>
 <li>
-July 20, 2007 by Michael Wetter:<br>
+July 20, 2007 by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

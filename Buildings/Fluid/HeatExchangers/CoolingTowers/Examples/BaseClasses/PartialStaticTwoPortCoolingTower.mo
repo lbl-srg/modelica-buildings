@@ -1,9 +1,9 @@
 within Buildings.Fluid.HeatExchangers.CoolingTowers.Examples.BaseClasses;
 partial model PartialStaticTwoPortCoolingTower
   "Base class for test models of cooling towers"
-  import Buildings;
 
- package Medium_W = Buildings.Media.ConstantPropertyLiquidWater;
+  package Medium_W = Buildings.Media.ConstantPropertyLiquidWater
+    "Medium model for water";
 
   parameter Modelica.SIunits.MassFlowRate mWat_flow_nominal = 0.5
     "Design air flow rate"
@@ -16,7 +16,8 @@ partial model PartialStaticTwoPortCoolingTower
     redeclare package Medium = Medium_W,
     m_flow_nominal=mWat_flow_nominal,
     dp_nominal=6000,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState) "Cooling tower"
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
+    show_T=true) "Cooling tower"
     annotation (Placement(transformation(extent={{24,-60},{44,-40}}, rotation=0)));
   Buildings.Fluid.Movers.FlowMachine_m_flow pum(redeclare package Medium =
         Medium_W, m_flow_nominal=mWat_flow_nominal,
@@ -27,7 +28,7 @@ partial model PartialStaticTwoPortCoolingTower
   inner Modelica.Fluid.System system
     annotation (Placement(transformation(extent={{60,60},{80,80}})));
   Buildings.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam=
-        "Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos")
+        "modelica://Buildings/Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos")
     annotation (Placement(transformation(extent={{-100,40},{-80,60}})));
   Buildings.BoundaryConditions.WeatherData.Bus weaBus
     annotation (Placement(transformation(extent={{-70,40},{-50,60}})));
@@ -50,7 +51,8 @@ partial model PartialStaticTwoPortCoolingTower
     redeclare package Medium = Medium_W,
     m_flow_nominal=mWat_flow_nominal,
     prescribedHeatFlowRate=true,
-    V=0.5)
+    V=0.5,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     annotation (Placement(transformation(extent={{20,-120},{40,-100}})));
   Buildings.Fluid.Sources.FixedBoundary   exp(           redeclare package
       Medium = Medium_W, nPorts=1)
@@ -120,6 +122,5 @@ equation
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-140,
             -260},{140,100}}),
-                      graphics), Icon(coordinateSystem(preserveAspectRatio=true,
-          extent={{-100,-180},{100,100}})));
+                      graphics));
 end PartialStaticTwoPortCoolingTower;

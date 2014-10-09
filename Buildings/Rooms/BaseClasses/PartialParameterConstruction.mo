@@ -1,10 +1,10 @@
 within Buildings.Rooms.BaseClasses;
 record PartialParameterConstruction "Partial record for constructions"
   extends Modelica.Icons.Record;
-  replaceable parameter Buildings.HeatTransfer.Data.OpaqueConstructions.Generic
+  parameter Buildings.HeatTransfer.Data.OpaqueConstructions.Generic
     layers "Material properties of opaque construction"
     annotation(Dialog(group="Opaque construction"),
-               Evaluate=true, choicesAllMatching=true, Placement(transformation(extent={{146,258},
+               choicesAllMatching=true, Placement(transformation(extent={{146,258},
             {166,278}})));
   parameter Modelica.SIunits.Angle til "Surface tilt";
   parameter Modelica.SIunits.Angle azi "Surface azimuth";
@@ -14,7 +14,7 @@ record PartialParameterConstruction "Partial record for constructions"
     "Flag, true if construction is a floor" annotation (Evaluate=true);
   final parameter Integer nLay(min=1, fixed=true) = layers.nLay
     "Number of layers";
-  final parameter Integer nSta[nLay](min=1)={layers.material[i].nSta for i in 1:nLay}
+  final parameter Integer nSta[nLay](each min=1)={layers.material[i].nSta for i in 1:nLay}
     "Number of states"  annotation(Evaluate=true);
   parameter Boolean steadyStateInitial=false
     "=true initializes dT(0)/dt=0, false initializes T(0) at fixed temperature using T_a_start and T_b_start"
@@ -41,7 +41,11 @@ Buildings.HeatTransfer.Types.Tilt</a>
 </html>", revisions="<html>
 <ul>
 <li>
-December 14, 2010, by Michael Wetter:<br>
+October 11, 2013, by Michael Wetter:<br/>
+Added missing <code>each</code> keyword.
+</li>
+<li>
+December 14, 2010, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

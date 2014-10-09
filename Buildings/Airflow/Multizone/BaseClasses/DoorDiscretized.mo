@@ -9,18 +9,18 @@ partial model DoorDiscretized
     "Pressure difference where laminar and turbulent flow relation coincide. Recommended: 0.01";
   parameter Real CD=0.65 "|Orifice characteristics|Discharge coefficient";
 
-  Modelica.SIunits.Pressure dpAB[nCom](nominal=1)
+  Modelica.SIunits.Pressure dpAB[nCom](each nominal=1)
     "Pressure difference between compartments";
-  Modelica.SIunits.Velocity v[nCom](nominal=0.01)
+  Modelica.SIunits.Velocity v[nCom](each nominal=0.01)
     "Velocity in compartment from A to B";
   Modelica.SIunits.Velocity vTop "Velocity at top of opening from A to B";
   Modelica.SIunits.Velocity vBot "Velocity at bottom of opening from A to B";
 
 protected
   parameter Modelica.SIunits.Length dh=hOpe/nCom "Height of each compartment";
-  Modelica.SIunits.AbsolutePressure pA[nCom](nominal=101325)
+  Modelica.SIunits.AbsolutePressure pA[nCom](each nominal=101325)
     "Pressure in compartments of room A";
-  Modelica.SIunits.AbsolutePressure pB[nCom](nominal=101325)
+  Modelica.SIunits.AbsolutePressure pB[nCom](each nominal=101325)
     "Pressure in compartments of room B";
 
   Modelica.SIunits.VolumeFlowRate dV_flow[nCom]
@@ -102,21 +102,25 @@ using the model for a door that can be open or closed.
 revisions="<html>
 <ul>
 <li>
-December 14, 2012 by Michael Wetter:<br>
+September 26, 2013 by Michael Wetter:<br/>
+Added missing <code>each</code> keyword.
+</li>
+<li>
+December 14, 2012 by Michael Wetter:<br/>
 Renamed protected parameters for consistency with the naming conventions.
 </li>
-<li><i>December 6, 2011</i> by Michael Wetter:<br>
+<li><i>December 6, 2011</i> by Michael Wetter:<br/>
        Removed protected variable <code>rhoAve</code>.
 </li>
-<li><i>August 12, 2011</i> by Michael Wetter:<br>
+<li><i>August 12, 2011</i> by Michael Wetter:<br/>
        Changed model to use the new function 
        <a href=\"modelica://Buildings.Airflow.Multizone.BaseClasses.powerLawFixedM\">
        Buildings.Airflow.Multizone.BaseClasses.powerLawFixedM</a>.
 </li>
-<li><i>July 20, 2010</i> by Michael Wetter:<br>
+<li><i>July 20, 2010</i> by Michael Wetter:<br/>
        Migrated model to Modelica 3.1 and integrated it into the Buildings library.
 </li>
-<li><i>February 8, 2005</i> by Michael Wetter:<br>
+<li><i>February 8, 2005</i> by Michael Wetter:<br/>
        Released first version.
 </ul>
 </html>"));

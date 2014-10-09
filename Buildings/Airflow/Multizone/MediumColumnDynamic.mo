@@ -16,16 +16,16 @@ model MediumColumnDynamic
     "Nominal mass flow rate"
     annotation(Dialog(group = "Nominal condition, used only for steady-state model"));
   Modelica.Fluid.Interfaces.FluidPort_a port_a(
-    redeclare package Medium = Medium,
+    redeclare final package Medium = Medium,
     m_flow(min=if allowFlowReversal then -Constants.inf else 0),
-    p(start=Medium.p_default, nominal=Medium.p_default))
+    p(start=Medium.p_default))
     "Fluid connector a (positive design flow direction is from port_a to port_b)"
     annotation (Placement(transformation(extent={{-10,90},{10,110}}, rotation=0),
         iconTransformation(extent={{-10,90},{10,110}})));
   Modelica.Fluid.Interfaces.FluidPort_b port_b(
-    redeclare package Medium = Medium,
+    redeclare final package Medium = Medium,
     m_flow(max=if allowFlowReversal then +Constants.inf else 0),
-    p(start=Medium.p_default, nominal=Medium.p_default))
+    p(start=Medium.p_default))
     "Fluid connector b (positive design flow direction is from port_a to port_b)"
     annotation (Placement(transformation(extent={{10,-110},{-10,-90}}, rotation=
            0), iconTransformation(extent={{10,-110},{-10,-90}})));
@@ -184,7 +184,7 @@ walls to model a solar chimney that stores heat.
 </p>
 <p>
 For a steady-state model, use
-<a href=\"modelica:Buildings.Airflow.Multizone.MediumColumn\">
+<a href=\"modelica://Buildings.Airflow.Multizone.MediumColumn\">
 Buildings.Airflow.Multizone.MediumColumn</a> instead of this model.
 </p>
 <p>In this model, the parameter <code>h</code> must always be positive, and the port <code>port_a</code> must be
@@ -192,15 +192,20 @@ at the top of the column.
 </html>",
 revisions="<html>
 <ul>
-<li><i>July 31, 2011</i> by Michael Wetter:<br>
+<li><i>October 6, 2014</i> by Michael Wetter:<br/>
+Removed assignment of <code>port_?.p.nominal</code> to avoid a warning 
+in OpenModelica because
+alias sets have different nominal values.
+</li>
+<li><i>July 31, 2011</i> by Michael Wetter:<br/>
 Changed model to use new base class 
 <a href=\"modelica://Buildings.Fluid.Interfaces.LumpedVolumeDeclarations\">
 Buildings.Fluid.Interfaces.LumpedVolumeDeclarations</a>.
 </li>
-<li><i>May 25, 2011</i> by Michael Wetter:<br>
+<li><i>May 25, 2011</i> by Michael Wetter:<br/>
        Added <code>m_flow_nominal</code>, which is used if component is configured as steady-state.
 </li>
-<li><i>July 28, 2010</i> by Michael Wetter:<br>
+<li><i>July 28, 2010</i> by Michael Wetter:<br/>
        Released first version.
 </li>
 </ul>

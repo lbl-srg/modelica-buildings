@@ -3,7 +3,6 @@ model InfraredRadiationExchange "Test model for infrared radiation exchange"
   extends Modelica.Icons.Example;
   extends
     Buildings.Rooms.BaseClasses.Examples.BaseClasses.PartialInfraredRadiation;
-  import Buildings;
   Buildings.Rooms.BaseClasses.InfraredRadiationExchange irRadExc(
     nConExt=nConExt,
     nConExtWin=nConExtWin,
@@ -18,7 +17,7 @@ model InfraredRadiationExchange "Test model for infrared radiation exchange"
     linearizeRadiation=true)
     "Distribution for infrared radiative heat transfer"
     annotation (Placement(transformation(extent={{-30,0},{10,40}})));
-  Buildings.HeatTransfer.Radiosity.Constant radSou[NConExtWin](each k=-187)
+  Buildings.HeatTransfer.Radiosity.Constant radSou[NConExtWin](each k=187)
     "Radiosity source for window"
     annotation (Placement(transformation(extent={{-80,70},{-60,90}})));
 equation
@@ -54,7 +53,7 @@ equation
       points={{-59,80},{20,80},{20,26.6667},{10.8333,26.6667}},
       color={0,127,0},
       smooth=Smooth.None));
-  annotation (Diagram(graphics), 
+  annotation (Diagram(graphics),
 experiment(StopTime=1.0),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Rooms/BaseClasses/Examples/InfraredRadiationExchange.mos"
         "Simulate and plot"));

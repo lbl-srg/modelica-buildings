@@ -6,6 +6,15 @@ model UTube "Single U-tube borehole heat exchanger"
       computeFlowResistance=false, final linearizeFlowResistance=false);
   extends Buildings.Fluid.Interfaces.LumpedVolumeDeclarations;
 
+  replaceable parameter Buildings.HeatTransfer.Data.Soil.Generic matSoi
+    "Thermal properties of soil"
+    annotation (choicesAllMatching=true, Dialog(group="Soil"),
+    Placement(transformation(extent={{2,70},{22,90}})));
+  replaceable parameter Buildings.HeatTransfer.Data.BoreholeFillings.Generic matFil
+    "Thermal properties of the filling material"
+    annotation (choicesAllMatching=true, Dialog(group="Borehole"),
+    Placement(transformation(extent={{-68,70},{-48,90}})));
+
   parameter Modelica.SIunits.Radius rTub=0.02 "Radius of the tubes"
     annotation(Dialog(group="Tubes"));
   parameter Modelica.SIunits.ThermalConductivity kTub=0.5
@@ -13,19 +22,12 @@ model UTube "Single U-tube borehole heat exchanger"
   parameter Modelica.SIunits.Length eTub=0.002 "Thickness of a tube"
     annotation (Dialog(group="Tubes"));
 
-  replaceable parameter Buildings.HeatTransfer.Data.BoreholeFillings.Generic
-    matFil "Thermal properties of the borehole filling"
-    annotation (choicesAllMatching=true, Dialog(group="Borehole"));
   parameter Modelica.SIunits.Height hBor "Total height of the borehole"
     annotation(Dialog(group="Borehole"));
   parameter Integer nVer=10
     "Number of segments used for discretization in the vertical direction"
       annotation(Dialog(group="Borehole"));
   parameter Modelica.SIunits.Radius rBor=0.1 "Radius of the borehole";
-
-  replaceable parameter Buildings.HeatTransfer.Data.Soil.Generic
-    matSoi[nVer] "Thermal properties of the soil"
-    annotation (choicesAllMatching=true, Dialog(group="Soil"));
 
   parameter Modelica.SIunits.Radius rExt=3
     "Radius of the soil used for the external boundary condition"
@@ -66,9 +68,13 @@ model UTube "Single U-tube borehole heat exchanger"
     annotation(Dialog(group="Borehole"));
   parameter Real B1=-0.605 "Shape coefficient for grout resistance"
     annotation(Dialog(group="Borehole"));
+
+  parameter Boolean homotopyInitialization = true "= true, use homotopy method"
+    annotation(Evaluate=true, Dialog(tab="Advanced"));
+
   Buildings.Fluid.HeatExchangers.Boreholes.BaseClasses.BoreholeSegment borHol[nVer](
     redeclare each final package Medium = Medium,
-    final matSoi=matSoi,
+    each final matSoi=matSoi,
     each final matFil=matFil,
     each final hSeg=hBor/nVer,
     each final samplePeriod=samplePeriod,
@@ -78,8 +84,6 @@ model UTube "Single U-tube borehole heat exchanger"
     each final xC=xC,
     each final eTub=eTub,
     each final kTub=kTub,
-    each final B0=B0,
-    each final B1=B1,
     each final nSta=nHor,
     each final m_flow_nominal=m_flow_nominal,
     each final m_flow_small=m_flow_small,
@@ -87,7 +91,6 @@ model UTube "Single U-tube borehole heat exchanger"
     TExt_start=TExt_start,
     TFil_start=TExt_start,
     each final homotopyInitialization=homotopyInitialization,
-    each final show_V_flow=show_V_flow,
     each final show_T=show_T,
     each final computeFlowResistance=computeFlowResistance,
     each final from_dp=from_dp,
@@ -205,8 +208,8 @@ The heat transfer in the borehole is computed using a convective heat transfer c
 that depends on the fluid velocity, a heat resistance between the two pipes, and
 a heat resistance between the pipes and the circumference of the borehole.
 The heat capacity of the fluid, and the heat capacity of the grout, is taken into account.
-All thermal mass is assumed to be at the two bulk temperatures of the down-flowing 
-and up-flowing fluid.
+The thermal resistance and capacity network inside the borehole is computed according
+to Bauer et al., (2011).
 </p>
 <p>
 The heat transfer in the soil is computed using transient heat conduction in cylindrical
@@ -239,6 +242,7 @@ the temperature is computed as
 <p align=\"center\" style=\"font-style:italic;\">
   T<sup>i</sup><sub>ext,start</sub> = T<sub>ext,0,start</sub> + (z<sup>i</sup> - z<sub>0</sub>)  dT &frasl; dz
 </p>
+<p>
 with <i>i &isin; {1, ..., n<sub>ver</sub>}</i>,
 where the temperature gradient <i>dT &frasl; dz &ge; 0</i> is a parameter.
 As with <i>z<sub>0</sub></i>, there is large variability in 
@@ -267,11 +271,32 @@ of the model
 <a href=\"modelica://Buildings.Fluid.HeatExchangers.Boreholes.BaseClasses.TemperatureBoundaryCondition\">
 Buildings.Fluid.HeatExchangers.Boreholes.BaseClasses.TemperatureBoundaryCondition</a> which computes
 the far-field temperature boundary condition.
+The thermal resistor and capacitor network is computed in
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.Boreholes.BaseClasses.singleUTubeResistances\">
+Buildings.Fluid.HeatExchangers.Boreholes.BaseClasses.singleUTubeResistances</a>.
+</p>
+<h4>References</h4>
+<p>
+D. Bauer, W. Heidemann, H. M&uuml;ller-Steinhagen, and H.-J. G. Diersch.
+<i>
+<a href=\"http://dx.doi.org/10.1002/er.1689\">
+Thermal resistance and capacity models for borehole heat exchangers
+</a>
+</i>.
+International Journal Of Energy Research, 35:312&ndash;320, 2011.
 </p>
 </html>", revisions="<html>
 <ul>
 <li>
-August 2011, by Pierre Vigouroux:<br>
+October 8, 2013, by Michael Wetter:<br/>
+Removed parameter <code>show_V_flow</code>.
+</li>
+<li>
+September 27, 2013, by Michael Wetter:<br/>
+Added missing <code>each</code> in propagation of material properties.
+</li>
+<li>
+August 2011, by Pierre Vigouroux:<br/>
 First implementation.
 </li>
 </ul>

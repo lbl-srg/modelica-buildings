@@ -1,7 +1,6 @@
 within Buildings.Controls.Continuous.Examples;
 model PIDHysteresis "Example model for PID controller with hysteresis"
   extends Modelica.Icons.Example;
-  import Buildings;
 
   Buildings.Controls.Continuous.PIDHysteresis con(
     pre_y_start=false,
@@ -93,7 +92,7 @@ The figure below shows the control error
 <code>con.y</code>.
 </p>
 <p align=\"center\">
-<img src=\"modelica://Buildings/Resources/Images/Controls/Continuous/Examples/PIDHysteresis.png\" border=\"1\">
+<img src=\"modelica://Buildings/Resources/Images/Controls/Continuous/Examples/PIDHysteresis.png\" border=\"1\" alt=\"Control error.\"/>
 </p>
 </html>", revisions="<html>
 <ul>

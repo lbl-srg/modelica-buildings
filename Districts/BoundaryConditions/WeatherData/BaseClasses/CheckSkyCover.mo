@@ -27,7 +27,7 @@ This component constrains the interpolated sky cover between <i>0</i> and <i>10<
 ", revisions="<html>
 <ul>
 <li>
-July 14, 2010, by Wangda Zuo:<br>
+July 14, 2010, by Wangda Zuo:<br/>
 First implementation.
 </li>
 </ul>

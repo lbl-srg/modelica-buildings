@@ -1,8 +1,7 @@
 within Buildings.Fluid.HeatExchangers.CoolingTowers.BaseClasses;
 partial model CoolingTower "Base class for cooling towers"
   extends Buildings.Fluid.Interfaces.TwoPortHeatMassExchanger(
-    redeclare final Buildings.Fluid.MixingVolumes.MixingVolume vol,
-    show_T=true);
+    redeclare final Buildings.Fluid.MixingVolumes.MixingVolume vol);
   extends Buildings.BaseClasses.BaseIcon;
   Modelica.Blocks.Interfaces.RealOutput TLvg "Leaving water temperature"
     annotation (Placement(transformation(extent={{100,-70},{120,-50}})));
@@ -87,7 +86,7 @@ For a wet cooling tower, this is equal to the wet-bulb temperature.
 </html>", revisions="<html>
 <ul>
 <li>
-July 12, 2011, by Michael Wetter:<br>
+July 12, 2011, by Michael Wetter:<br/>
 Introduced common base class for
 <a href=\"modelica://Buildings.Fluid.HeatExchangers.CoolingTowers.YorkCalc\">Buildings.Fluid.HeatExchangers.CoolingTowers.YorkCalc</a>
 and
@@ -95,19 +94,19 @@ and
 so that they can be used as replaceable models.
 </li>
 <li>
-May 12, 2011, by Michael Wetter:<br>
+May 12, 2011, by Michael Wetter:<br/>
 Added binding equations for <code>Q_flow</code> and <code>mXi_flow</code>.
 </li>
 <li>
-March 8, 2011, by Michael Wetter:<br>
+March 8, 2011, by Michael Wetter:<br/>
 Removed base class and unused variables.
 </li>
 <li>
-April 7, 2009, by Michael Wetter:<br>
+April 7, 2009, by Michael Wetter:<br/>
 Changed interface to new Modelica.Fluid stream concept.
 </li>
 <li>
-May 14, 2008, by Michael Wetter:<br>
+May 14, 2008, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

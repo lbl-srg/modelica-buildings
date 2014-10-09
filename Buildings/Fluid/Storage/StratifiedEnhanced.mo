@@ -39,16 +39,12 @@ defaultComponentName="tan",
 Documentation(info="<html>
 <p>
 This is a model of a stratified storage tank for thermal energy storage.
-The model is identical to
-<a href=\"modelica://Buildings.Fluid.Storage.Stratified\">
-Buildings.Fluid.Storage.Stratified</a>, 
-except that it adds a correction that reduces the numerical
-dissipation.
-The correction uses a third order upwind scheme to compute the 
-outlet temperatures of the segments in the tank. This model
-is implemented in
-<a href=\"modelica:Buildings.Fluid.Storage.BaseClasses.ThirdOrderStratifier\">
-Buildings.Fluid.Storage.BaseClasses.ThirdOrderStratifier</a>.
+</p>
+<p>
+See the 
+<a href=\"modelica://Buildings.Fluid.Storage.UsersGuide\">
+Buildings.Fluid.Storage.UsersGuide</a>
+for more information.
 </p>
 <h4>Limitations</h4>
 <p>
@@ -57,11 +53,11 @@ The model requires at least 4 fluid segments. Hence, set <code>nSeg</code> to 4 
 </html>", revisions="<html>
 <ul>
 <li>
-March 29, 2012 by Wangda Zuo:<br>
+March 29, 2012 by Wangda Zuo:<br/>
 Revised the implementation to reduce the temperature overshoot.
 </li>
 <li>
-June 23, 2010 by Michael Wetter and Wangda Zuo:<br>
+June 23, 2010 by Michael Wetter and Wangda Zuo:<br/>
 Changed model that is used to correct the numerical diffusion. 
 The previous version used the model from Stefan Wischhusen, 
 <a href=\"http://www.modelica.org/events/modelica2006/Proceedings/sessions/Session3a2.pdf\">
@@ -73,11 +69,11 @@ this model can lead to a large overshoot in tank temperatures, leading to a viol
 second law.
 In this revision, the model that computes the volume outlet temperatures has been changed to a third order upwind scheme,
 which is implemented in
-<a href=\"modelica:Buildings.Fluid.Storage.BaseClasses.ThirdOrderStratifier\">
+<a href=\"modelica://Buildings.Fluid.Storage.BaseClasses.ThirdOrderStratifier\">
 Buildings.Fluid.Storage.BaseClasses.ThirdOrderStratifier</a>.
 </li>
 <li>
-October 23, 2008 by Michael Wetter:<br>
+October 23, 2008 by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

@@ -9,10 +9,9 @@ model ParametersOneSurface "Parameters that are used to model one surface"
     annotation (Evaluate=true);
   parameter Modelica.SIunits.Temperature T0=293.15
     "Temperature used to linearize radiative heat transfer"
-    annotation (Dialog(enable=linearize), Evaluate=true);
+    annotation (Dialog(enable=linearize));
 protected
- final parameter Real T03(min=0, unit="K3")=T0^3 "3rd power of temperature T0"
- annotation(Evaluate=true);
+ final parameter Real T03(min=0, unit="K3")=T0^3 "3rd power of temperature T0";
 
 initial equation
   assert(abs(1-absIR-rhoIR-tauIR) < Modelica.Constants.eps,
@@ -28,7 +27,11 @@ Parameters that are used for classes with one surface.
 revisions="<html>
 <ul>
 <li>
-August 23, 2010, by Michael Wetter:<br>
+May 30, 2014, by Michael Wetter:<br/>
+Removed undesirable annotation <code>Evaluate=true</code>.
+</li>
+<li>
+August 23, 2010, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

@@ -1,7 +1,6 @@
 within Buildings.HeatTransfer.Windows.Functions;
 function devAbsExteriorIrradiationInteriorShading
   "Angular and hemispherical absorptance of a shading device for exterior irradiation with interior shading"
-  import Buildings;
   extends
     Buildings.HeatTransfer.Windows.Functions.BaseClasses.partialWindowShadingRadiation;
 
@@ -23,7 +22,7 @@ Pane <code>1</code> is facing the outside and pane <code>N</code> is facing the 
 </html>", revisions="<html>
 <ul>
 <li>
-August 29, 2010, by Wangda Zuo:<br>
+August 29, 2010, by Wangda Zuo:<br/>
 First implementation.
 </li>
 </ul>

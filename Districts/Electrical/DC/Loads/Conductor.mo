@@ -1,13 +1,16 @@
 within Districts.Electrical.DC.Loads;
 model Conductor "Model of a constant conductive load"
-    extends Districts.Electrical.DC.Interfaces.OnePort;
- parameter Modelica.SIunits.Power P_nominal(min=0)
-    "Nominal power (P_nominal >= 0)";
-protected
-    Modelica.SIunits.Conductance G(start=1) "Conductance";
+    extends Districts.Electrical.Interfaces.PartialLoad(redeclare package
+      PhaseSystem = Districts.Electrical.PhaseSystems.TwoConductor, redeclare
+      Districts.Electrical.DC.Interfaces.Terminal_n
+                                                 terminal);
 equation
-  P_nominal = v*i;
-  i = G*v;
+  if linear then
+    terminal.i[1] = P*(2/V_nominal - (terminal.v[1]-terminal.v[2])/V_nominal^2);
+  else
+    PhaseSystem.activePower(terminal.v, terminal.i) = P;
+  end if;
+  sum(i) = 0;
   annotation (
     Documentation(info="<html>
 <p>
@@ -15,13 +18,17 @@ Model of a constant conductive load.
 </p>
 <p>
 The model computes the power as
-<i>P_nominal = v &nbsp; i</i>,
+<code>P_nominal = v &nbsp; i</code>,
 where <i>v</i> is the voltage and <i>i</i> is the current.
+</p>
+<p>
+If the component consumes power, then <code>P_nominal &lt; 0</code>.
+If it feeds power into the electrical grid, then <code>P_nominal &gt; 0</code>.
 </p>
 </html>", revisions="<html>
 <ul>
 <li>
-February 1, 2013, by Thierry S. Nouidui:<br>
+February 1, 2013, by Thierry S. Nouidui:<br/>
 First implementation.
 </li>
 </ul>
@@ -37,12 +44,6 @@ First implementation.
             lineColor={0,0,255}),
           Rectangle(extent={{-70,30},{70,-30}}, lineColor={0,0,255}),
           Line(points={{-90,0},{-70,0}}, color={0,0,255}),
-          Line(
-            visible=useHeatPort,
-            points={{0,-100},{0,-30}},
-            color={127,0,0},
-            smooth=Smooth.None,
-            pattern=LinePattern.Dot),
           Text(
             extent={{-152,87},{148,47}},
             textString="%name",

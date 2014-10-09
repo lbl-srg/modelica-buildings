@@ -1,7 +1,6 @@
 within Buildings.Rooms.BaseClasses;
 model SkyRadiationExchange
   "Radiative heat exchange with the sky and the ambient"
-  import Buildings;
   extends Buildings.BaseClasses.BaseIcon;
   parameter Integer n(min=1) "Number of constructions";
    parameter Modelica.SIunits.Area A[n] "Area of exterior constructions";
@@ -95,7 +94,7 @@ the ground and neighboring buildings).
         revisions="<html>
 <ul>
 <li>
-June 4 2010, by Michael Wetter:<br>
+June 4 2010, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

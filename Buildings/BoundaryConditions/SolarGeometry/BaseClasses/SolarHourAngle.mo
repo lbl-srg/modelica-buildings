@@ -1,6 +1,6 @@
 within Buildings.BoundaryConditions.SolarGeometry.BaseClasses;
 block SolarHourAngle "Solar hour angle"
-  extends Modelica.Blocks.Interfaces.BlockIcon;
+  extends Modelica.Blocks.Icons.Block;
 public
   Modelica.Blocks.Interfaces.RealInput solTim(quantity="Time", unit="s")
     "Solar time"
@@ -24,7 +24,7 @@ and the circle that passes through the sun, the north and the south pole.
 ", revisions="<html>
 <ul>
 <li>
-May 17, 2010, by Wangda Zuo:<br>
+May 17, 2010, by Wangda Zuo:<br/>
 First implementation.
 </li>
 </ul>

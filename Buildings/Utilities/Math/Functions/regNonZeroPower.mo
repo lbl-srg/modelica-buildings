@@ -32,14 +32,14 @@ algorithm
   end if;
   annotation (
     Documentation(info="<html>
-<p>
+
 Function that approximates <i>y=|x|<sup>n</sup></i> where <i>n &gt; 0</i> 
 so that
 <ul>
 <li><i>y(0)</i> is not equal to zero.
 <li><i>dy/dx</i> is bounded and continuous everywhere.
 </ul>
-</p>
+
 <p>
 This function replaces <i>y=|x|<sup>n</sup></i> in the interval
 <i>-&delta;...+&delta;</i> by a 4-th order polynomial that has the same
@@ -58,21 +58,19 @@ a non-zero value at the origin. Physically,
 the region <i>-&delta;...+&delta;</i> may be interpreted as the region
 where heat conduction dominates convection in the boundary layer.
 </p>
-<p>
 See the package <code>Examples</code> for the graph.
-</p>
 </html>", revisions="<html>
 <ul>
 <li>
-March 30, 2011, by Michael Wetter:<br>
+March 30, 2011, by Michael Wetter:<br/>
 Added <code>zeroDerivative</code> keyword.
 </li>
 <li>
-April 14, 2008, by Michael Wetter:<br>
+April 14, 2008, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
-</html>"), Inline=true, 
-           smoothOrder=2, 
+</html>"), Inline=true,
+           smoothOrder=2,
            derivative(zeroDerivative=n, zeroDerivative=delta)=BaseClasses.der_regNonZeroPower);
 end regNonZeroPower;

@@ -1,6 +1,6 @@
 within Buildings.BoundaryConditions.WeatherData.BaseClasses;
 block CheckRadiation "Ensure that the radiation is not smaller than 0"
-  extends Modelica.Blocks.Interfaces.BlockIcon;
+  extends Modelica.Blocks.Icons.Block;
 public
   Modelica.Blocks.Interfaces.RealInput HIn(final quantity=
         "RadiantEnergyFluenceRate", final unit="W/m2") "Input radiation"
@@ -29,7 +29,7 @@ Thus, it is possible to generate negative value due to the interpolation.
 ", revisions="<html>
 <ul>
 <li>
-October 27, 2011, by Wangda Zuo:<br>
+October 27, 2011, by Wangda Zuo:<br/>
 First implementation.
 </li>
 </ul>

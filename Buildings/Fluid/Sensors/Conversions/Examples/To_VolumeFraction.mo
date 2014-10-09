@@ -1,7 +1,6 @@
 within Buildings.Fluid.Sensors.Conversions.Examples;
 model To_VolumeFraction "Example problem for conversion model"
   extends Modelica.Icons.Example;
-  import Buildings;
   package Medium = Buildings.Media.GasesPTDecoupled.SimpleAir(extraPropertiesNames={"CO2"});
 
   Buildings.Fluid.Sensors.Conversions.To_VolumeFraction conMasVolFra(MMMea=
@@ -29,7 +28,7 @@ model To_VolumeFraction "Example problem for conversion model"
     m_flow_nominal=0.1,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial) "Volume of air"
     annotation (Placement(transformation(extent={{90,60},{110,80}})));
-  Buildings.Fluid.Sources.PrescribedExtraPropertyFlowRate souCO2(
+  Buildings.Fluid.Sources.TraceSubstancesFlowSource souCO2(
     use_m_flow_in=true,
     redeclare package Medium = Medium,
     nPorts=1) "CO2 source"
@@ -178,14 +177,14 @@ the setpoint, which does not comply with ASHRAE regulations.
 </html>", revisions="<html>
 <ul>
 <li>
-March 27, 2013 by Michael Wetter:<br>
+March 27, 2013 by Michael Wetter:<br/>
 Added a flow resistance between the volume and the ambient to decouple the
 state of the volume from the boundary conditions. This is needed to allow
 a pedantic model check in Dymola 2014, as otherwise, the initial conditions of
 the volume could not be specified without introducing redundant equations.
 </li>
 <li>
-February 13, 2010 by Michael Wetter:<br>
+February 13, 2010 by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

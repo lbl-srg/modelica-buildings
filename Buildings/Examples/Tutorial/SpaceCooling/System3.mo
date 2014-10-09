@@ -14,7 +14,8 @@ model System3
     redeclare package Medium = MediumA,
     m_flow_nominal=mA_flow_nominal,
     V=V,
-    nPorts=2)
+    nPorts=2,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyStateInitial)
     annotation (Placement(transformation(extent={{60,20},{80,40}})));
   Modelica.Thermal.HeatTransfer.Components.ThermalConductor theCon(G=10000/30)
     "Thermal conductance with the ambient"
@@ -70,7 +71,8 @@ model System3
         QRooInt_flow) "Prescribed heat flow"
     annotation (Placement(transformation(extent={{20,70},{40,90}})));
   Fluid.Movers.FlowMachine_m_flow fan(redeclare package Medium = MediumA,
-      m_flow_nominal=mA_flow_nominal) "Supply air fan"
+      m_flow_nominal=mA_flow_nominal,
+    dynamicBalance=false) "Supply air fan"
     annotation (Placement(transformation(extent={{40,-30},{60,-10}})));
   Fluid.HeatExchangers.ConstantEffectiveness hex(redeclare package Medium1 =
         MediumA, redeclare package Medium2 = MediumA,
@@ -92,7 +94,9 @@ model System3
         T_a2=TWSup_nominal,
         T_b2=TWRet_nominal),
     dp2_nominal=200,
-    show_T=true) "Cooling coil"                                annotation (Placement(
+    show_T=true,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial) "Cooling coil"
+                                                               annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=180,
@@ -111,7 +115,7 @@ model System3
   BoundaryConditions.WeatherData.ReaderTMY3 weaDat(
     pAtmSou=Buildings.BoundaryConditions.Types.DataSource.Parameter,
     TDryBul=TOut_nominal,
-    filNam="Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos",
+    filNam="modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos",
     TDryBulSou=Buildings.BoundaryConditions.Types.DataSource.File)
     "Weather data reader"
     annotation (Placement(transformation(extent={{-160,40},{-140,60}})));
@@ -199,7 +203,7 @@ equation
       index=-1,
       extent={{-6,3},{-6,3}}));
   connect(fan.m_flow_in, mAir_flow.y) annotation (Line(
-      points={{45,-11.8},{45,10},{21,10}},
+      points={{49.8,-8},{49.8,10},{21,10}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(hex.port_b1, senTemHXOut.port_a) annotation (Line(
@@ -278,7 +282,7 @@ whether the outside dry bulb temperature is used from the weather data file
 or set to a constant value. This can be accomplished in the GUI of the weather data reader
 as follows:
 <p align=\"center\">
-<img src=\"modelica://Buildings/Resources/Images/Examples/Tutorial/SpaceCooling/System3TOutChange.png\" border=\"1\">
+<img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Examples/Tutorial/SpaceCooling/System3TOutChange.png\" border=\"1\"/>
 </p>
 </li>
 </ol>
@@ -286,7 +290,7 @@ as follows:
 If the model is now simulated, the following plot could be generated that shows that the
 room is cooled too much due to the open loop control:
 <p align=\"center\">
-<img src=\"modelica://Buildings/Resources/Images/Examples/Tutorial/SpaceCooling/System3TemperaturesOpenLoop.png\" border=\"1\">
+<img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Examples/Tutorial/SpaceCooling/System3TemperaturesOpenLoop.png\" border=\"1\"/>
 </p>
 <p>
 To add closed loop control, we proceeded as follows.
@@ -345,9 +349,9 @@ This completes building the model shown in the figure on
 Buildings.Examples.Tutorial.SpaceCooling</a>. 
 When simulating the model, the response shown below should be seen.
 <p align=\"center\">
-<img src=\"modelica://Buildings/Resources/Images/Examples/Tutorial/SpaceCooling/System3TemperaturesClosedLoop.png\" border=\"1\">
+<img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Examples/Tutorial/SpaceCooling/System3TemperaturesClosedLoop.png\" border=\"1\"/>
 <br/>
-<img src=\"modelica://Buildings/Resources/Images/Examples/Tutorial/SpaceCooling/System3FlowRateClosedLoop.png\" border=\"1\">
+<img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Examples/Tutorial/SpaceCooling/System3FlowRateClosedLoop.png\" border=\"1\"/>
 </p>
 <!-- Notes -->
 <h4>Notes</h4>
@@ -359,7 +363,7 @@ Buildings.Controls.Continuous.LimPID</a>.
 </html>", revisions="<html>
 <ul>
 <li>
-January 11, 2012, by Michael Wetter:<br>
+January 11, 2012, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

@@ -7,34 +7,34 @@ model SplitterFixedResistanceDpM
       redeclare Buildings.Fluid.FixedResistances.FixedResistanceDpM res1(
          redeclare package Medium=Medium,
             final allowFlowReversal=true,
-            from_dp=from_dp, 
-            final m_flow_nominal=m_flow_nominal[1], 
+            from_dp=from_dp,
+            final m_flow_nominal=m_flow_nominal[1],
             final dp_nominal=dp_nominal[1],
-            final ReC=ReC[1], 
+            final ReC=ReC[1],
             final dh=dh[1],
-            linearized=linearized, 
+            linearized=linearized,
             homotopyInitialization=homotopyInitialization,
             deltaM=deltaM),
       redeclare Buildings.Fluid.FixedResistances.FixedResistanceDpM res2(
          redeclare package Medium=Medium,
             final allowFlowReversal=true,
-            from_dp=from_dp, 
-            final m_flow_nominal=m_flow_nominal[2], 
+            from_dp=from_dp,
+            final m_flow_nominal=m_flow_nominal[2],
             final dp_nominal=dp_nominal[2],
-            final ReC=ReC[2], 
+            final ReC=ReC[2],
             final dh=dh[2],
-            linearized=linearized, 
+            linearized=linearized,
             homotopyInitialization=homotopyInitialization,
             deltaM=deltaM),
       redeclare Buildings.Fluid.FixedResistances.FixedResistanceDpM res3(
          redeclare package Medium=Medium,
             final allowFlowReversal=true,
-            from_dp=from_dp, 
-            final m_flow_nominal=m_flow_nominal[3], 
+            from_dp=from_dp,
+            final m_flow_nominal=m_flow_nominal[3],
             final dp_nominal=dp_nominal[3],
-            final ReC=ReC[3], 
+            final ReC=ReC[3],
             final dh=dh[3],
-            linearized=linearized, 
+            linearized=linearized,
             homotopyInitialization=homotopyInitialization,
             deltaM=deltaM));
 
@@ -85,8 +85,8 @@ defaultComponentName="spl",
     Documentation(info="<html>
 <p>
 Model of a flow splitter or mixer with a fixed resistance in each flow leg.
-In each flow lag, a pressure drop can be modelled, and at the fluid junction,
-a mixing volume can be modelled.
+In each flow lag, a pressure drop can be modeled, and at the fluid junction,
+a mixing volume can be modeled.
 </p>
 <p>
 The pressure drop is implemented using the model
@@ -106,14 +106,14 @@ as shown in the figure below. Note that <code>port_3</code> is set to negative v
 The negative values indicate that at the nominal conditions, fluid is leaving the component.
 </p>
 <p align=\"center\">
-<img src=\"modelica://Buildings/Resources/Images/Fluid/FixedResistances/SplitterFixedResistanceDpM.png\"/>
+<img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Fluid/FixedResistances/SplitterFixedResistanceDpM.png\"/>
 </p>
 <p>
-Optionally, at the fluid junction, a control volume can be modelled. 
+Optionally, at the fluid junction, a control volume can be modeled. 
 This is implemented using the model
 <a href=\"modelica://Buildings.Fluid.Delays.DelayFirstOrder\">
 Buildings.Fluid.Delays.DelayFirstOrder</a>.
-The fluid volume is modelled if
+The fluid volume is modeled if
 <code>dynamicBalance=true</code>, and it is removed if
 <code>dynamicBalance=false</code>.
 The control volume has the size
@@ -130,22 +130,22 @@ system of equations.
 </html>", revisions="<html>
 <ul>
 <li>
-February 1, 2012 by Michael Wetter:<br>
+February 1, 2012 by Michael Wetter:<br/>
 Expanded documentation.
 </li>
 <li>
-August 4, 2011 by Michael Wetter:<br>
+August 4, 2011 by Michael Wetter:<br/>
 Added <code>final allowFlowReversal=true</code> to all resistances since it is impractical
 to avoid flow reversal in large flow networks where such a setting may be useful.
 </li>
 <li>
-June 11, 2008 by Michael Wetter:<br>
+June 11, 2008 by Michael Wetter:<br/>
 Based class on 
 <a href=\"modelica://Buildings.Fluid.BaseClasses.PartialThreeWayFixedResistance\">
 PartialThreeWayFixedResistance</a>.
 </li>
 <li>
-July 20, 2007 by Michael Wetter:<br>
+July 20, 2007 by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

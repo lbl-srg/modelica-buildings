@@ -20,11 +20,10 @@ package MoistAirUnsaturated
         Buildings.Media.PerfectGases.Common.SingleGasData.H2O;
   import SI = Modelica.SIunits;
 
-  // Redeclare ThermodynamicState to avoid the warning
-  // "Base class ThermodynamicState is replaceable"
-  // during model check
-  redeclare record extends ThermodynamicState
-    "ThermodynamicState record for moist air"
+  redeclare record extends ThermodynamicState(
+    p(start=p_default),
+    T(start=T_default),
+    X(start=X_default)) "ThermodynamicState record for moist air"
   end ThermodynamicState;
 
   redeclare replaceable model extends BaseProperties(
@@ -163,7 +162,7 @@ algorithm
 
   annotation(Inline=false,smoothOrder=5,
     Documentation(info="<html>
-Derivative function of <a href=Modelica:Modelica.Media.Air.MoistAir.saturationPressureLiquid>saturationPressureLiquid</a>
+Derivative function of <a href=modelica://Modelica.Media.Air.MoistAir.saturationPressureLiquid>saturationPressureLiquid</a>
 </html>"));
 end saturationPressureLiquid_der;
 
@@ -451,30 +450,30 @@ thermo-fluid systems.
 </html>", revisions="<html>
 <ul>
 <li>
-March 29, 2013, by Michael Wetter:<br>
+March 29, 2013, by Michael Wetter:<br/>
 Added <code>final standardOrderComponents=true</code> in the
 <code>BaseProperties</code> declaration. This avoids an error
 when models are checked in Dymola 2014 in the pedenatic mode.
 </li>
 <li>
-April 12, 2012, by Michael Wetter:<br>
+April 12, 2012, by Michael Wetter:<br/>
 Added keyword <code>each</code> to <code>Xi(stateSelect=...</code>.
 </li>
 <li>
-April 4, 2012, by Michael Wetter:<br>
+April 4, 2012, by Michael Wetter:<br/>
 Added redeclaration of <code>ThermodynamicState</code> to avoid a warning
 during model check and translation.
 </li>
 <li>
-January 27, 2010, by Michael Wetter:<br>
+January 27, 2010, by Michael Wetter:<br/>
 Added function <code>enthalpyOfNonCondensingGas</code> and its derivative.
 </li>
 <li>
-January 27, 2010, by Michael Wetter:<br>
+January 27, 2010, by Michael Wetter:<br/>
 Fixed bug with temperature offset in <code>T_phX</code>.
 </li>
 <li>
-August 18, 2008, by Michael Wetter:<br>
+August 18, 2008, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

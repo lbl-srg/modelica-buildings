@@ -1,7 +1,6 @@
 within Buildings.Fluid.Interfaces.Examples;
 model ReverseFlowMassExchanger
   "Model that tests the reverse flow for a mass exchanger"
-  import Buildings;
   extends Modelica.Icons.Example;
 package Medium = Buildings.Media.PerfectGases.MoistAir;
   Buildings.Utilities.Diagnostics.AssertEquality assTem(threShold=1E-8,
@@ -46,9 +45,10 @@ package Medium = Buildings.Media.PerfectGases.MoistAir;
     dp2_nominal=0,
     epsL=0) "Mass exchanger with reverse flow"
     annotation (Placement(transformation(extent={{-30,30},{-50,50}})));
-  Modelica.Fluid.Sources.FixedBoundary sink2(
-                                            redeclare package Medium = Medium,
-      nPorts=2)                                         annotation (Placement(
+  Buildings.Fluid.Sources.FixedBoundary sink2(
+     redeclare package Medium = Medium,
+     nPorts=2) "Fluid sink"
+     annotation (Placement(
         transformation(
         extent={{10,-10},{-10,10}},
         rotation=180,
@@ -130,9 +130,10 @@ package Medium = Buildings.Media.PerfectGases.MoistAir;
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-150,100})));
-  Modelica.Fluid.Sources.FixedBoundary sink1(
-                                            redeclare package Medium = Medium,
-      nPorts=2)                                         annotation (Placement(
+  Buildings.Fluid.Sources.FixedBoundary sink1(
+    redeclare package Medium = Medium,
+    nPorts=2) "Fluid sink"
+    annotation (Placement(
         transformation(
         extent={{10,-10},{-10,10}},
         rotation=0,
@@ -311,7 +312,7 @@ equation
       points={{28,30},{0,30},{0,34},{-30,34}},
       color={0,127,255},
       smooth=Smooth.None));
-  annotation(
+  annotation (
 experiment(StopTime=1),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Interfaces/Examples/ReverseFlowMassExchanger.mos"
         "Simulate and plot"),
@@ -341,7 +342,16 @@ of stream connector. This bug will be corrected in future versions of Dymola.
 </html>", revisions="<html>
 <ul>
 <li>
-August 19, 2010, by Michael Wetter:<br>
+October 9, 2013, by Michael Wetter:<br/>
+Replaced
+<code>Modelica.Fluid.Sources.FixedBoundary</code>
+with 
+<code>Buildings.Fluid.Sources.FixedBoundary</code>
+as otherwise, the pedantic model check fails in 
+Dymola 2014 FD01 beta3.
+</li>
+<li>
+August 19, 2010, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

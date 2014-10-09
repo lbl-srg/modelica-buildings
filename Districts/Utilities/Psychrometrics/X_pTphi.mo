@@ -55,19 +55,19 @@ and the value provided by the input connector is used instead.
 </p>
 </html>", revisions="<html>
 <ul>
-<li>August 21, 2012 by Michael Wetter:<br>
+<li>August 21, 2012 by Michael Wetter:<br/>
 Added function call to compute water vapor content.
 </li>
 <li>
-February 22, 2010 by Michael Wetter:<br>
+February 22, 2010 by Michael Wetter:<br/>
 Improved the code that searches for the index of 'water' in the medium model.
 </li>
 <li>
-February 17, 2010 by Michael Wetter:<br>
+February 17, 2010 by Michael Wetter:<br/>
 Renamed block from <code>MassFraction_pTphi</code> to <code>X_pTphi</code>
 </li>
 <li>
-February 4, 2009 by Michael Wetter:<br>
+February 4, 2009 by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

@@ -6,13 +6,13 @@ model PVSimple "Example for the PVSimple model with constant load"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
-        origin={10,40})));
+        origin={50,40})));
   Modelica.Electrical.Analog.Basic.Ground ground
-    annotation (Placement(transformation(extent={{-92,-38},{-72,-18}})));
+    annotation (Placement(transformation(extent={{-92,-40},{-72,-20}})));
   Districts.Electrical.DC.Loads.Resistor    res(R=0.5)
     annotation (Placement(transformation(extent={{-2,-10},{18,10}})));
   Districts.Electrical.DC.Sources.ConstantVoltage    sou(V=12) "Voltage source"
-    annotation (Placement(transformation(extent={{-62,-10},{-82,10}})));
+    annotation (Placement(transformation(extent={{-82,-10},{-62,10}})));
   Districts.BoundaryConditions.SolarIrradiation.DiffusePerez HDifTil(
     til=0.34906585039887,
     lat=0.65798912800186,
@@ -24,10 +24,15 @@ model PVSimple "Example for the PVSimple model with constant load"
     azi=-0.78539816339745) "Direct irradiation on tilted surface"
     annotation (Placement(transformation(extent={{-80,50},{-60,70}})));
   Districts.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(
-      computeWetBulbTemperature=false, filNam="Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos")
+      computeWetBulbTemperature=false, filNam="modelica://Districts/Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos")
     annotation (Placement(transformation(extent={{-128,90},{-108,110}})));
   Modelica.Blocks.Math.Add G "Total irradiation on tilted surface"
     annotation (Placement(transformation(extent={{-40,70},{-20,90}})));
+  Districts.Electrical.DC.Lines.TwoPortResistance lin(R=0.05)
+    "Transmission line"
+    annotation (Placement(transformation(extent={{-38,30},{-18,50}})));
+  Districts.Electrical.DC.Sensors.GeneralizedSensor sen
+    annotation (Placement(transformation(extent={{0,30},{20,50}})));
 equation
   connect(weaDat.weaBus, HDifTil.weaBus) annotation (Line(
       points={{-108,100},{-80,100}},
@@ -48,19 +53,27 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(G.y, pv.G) annotation (Line(
-      points={{-19,80},{10,80},{10,52}},
+      points={{-19,80},{50,80},{50,52}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(ground.p, sou.n) annotation (Line(
-      points={{-82,-18},{-82,0}},
-      color={0,0,255},
-      smooth=Smooth.None));
-  connect(sou.dcPlug, pv.dcPlug) annotation (Line(
-      points={{-62,0},{-32,0},{-32,40},{0,40}},
-      color={0,0,255},
-      smooth=Smooth.None));
-  connect(sou.dcPlug, res.dcPlug) annotation (Line(
+  connect(sou.terminal, res.terminal) annotation (Line(
       points={{-62,0},{-2,0}},
+      color={0,0,255},
+      smooth=Smooth.None));
+  connect(sou.n, ground.p) annotation (Line(
+      points={{-82,0},{-82,-20}},
+      color={0,0,255},
+      smooth=Smooth.None));
+  connect(lin.terminal_n, res.terminal) annotation (Line(
+      points={{-38,40},{-50,40},{-50,0},{-2,0},{-2,5.55112e-16}},
+      color={0,0,255},
+      smooth=Smooth.None));
+  connect(lin.terminal_p, sen.terminal_n) annotation (Line(
+      points={{-18,40},{-4.44089e-16,40}},
+      color={0,0,255},
+      smooth=Smooth.None));
+  connect(sen.terminal_p, pv.terminal) annotation (Line(
+      points={{20,40},{40,40}},
       color={0,0,255},
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-140,
@@ -83,13 +96,13 @@ In actual systems, the voltage source may be an AC/DC converter.
       revisions="<html>
 <ul>
 <li>
-January 4, 2012, by Michael Wetter:<br>
+January 4, 2012, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
 </html>"),
     Commands(file=
-          "Resources/Scripts/Dymola/Electrical/DC/Sources/Examples/PVSimple.mos"
+          "modelica://Districts/Resources/Scripts/Dymola/Electrical/DC/Sources/Examples/PVSimple.mos"
         "Simulate and plot"),
     Icon(coordinateSystem(extent={{-140,-100},{100,140}})));
 end PVSimple;

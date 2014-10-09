@@ -18,14 +18,14 @@ partial water vapor concentration.
 revisions="<html>
 <ul>
 <li>
-August 10, 2011, by Michael Wetter:<br>
+August 10, 2011, by Michael Wetter:<br/>
 Changed function to extend from 
 <code>Modelica.Media.Common.OneNonLinearEquation</code>
 instead of 
 <code>Districts.Utilities.Math.BaseClasses.OneNonLinearEquation</code>.
 </li>
 <li>
-February 17, 2010, by Michael Wetter:<br>
+February 17, 2010, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

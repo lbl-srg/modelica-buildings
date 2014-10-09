@@ -1,6 +1,5 @@
 within Buildings.Fluid.HeatExchangers.DXCoils.Examples;
 model SpaceCooling "Space cooling with DX coils"
-  import Buildings;
   extends Modelica.Icons.Example;
   replaceable package Medium =
       Buildings.Media.GasesPTDecoupled.MoistAirUnsaturated;
@@ -41,7 +40,8 @@ model SpaceCooling "Space cooling with DX coils"
     "Cooling load of coil, taking into account economizer, and increased due to latent heat removal";
 
   Fluid.Movers.FlowMachine_m_flow fan(redeclare package Medium = Medium,
-      m_flow_nominal=mA_flow_nominal) "Supply air fan"
+      m_flow_nominal=mA_flow_nominal,
+    dynamicBalance=false) "Supply air fan"
     annotation (Placement(transformation(extent={{100,-74},{120,-54}})));
   Fluid.HeatExchangers.ConstantEffectiveness hex(redeclare package Medium1 =
         Medium, redeclare package Medium2 = Medium,
@@ -56,7 +56,7 @@ model SpaceCooling "Space cooling with DX coils"
   BoundaryConditions.WeatherData.ReaderTMY3 weaDat(
     pAtmSou=Buildings.BoundaryConditions.Types.DataSource.Parameter,
     TDryBul=TOut_nominal,
-    filNam="Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos",
+    filNam="modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos",
     TDryBulSou=Buildings.BoundaryConditions.Types.DataSource.File)
     "Weather data reader"
     annotation (Placement(transformation(extent={{-160,60},{-140,80}})));
@@ -82,7 +82,8 @@ model SpaceCooling "Space cooling with DX coils"
   Buildings.Fluid.HeatExchangers.DXCoils.SingleSpeed sinSpeDX(
     redeclare package Medium = Medium,
     datCoi=datCoi,
-    dp_nominal=400)
+    dp_nominal=400,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     annotation (Placement(transformation(extent={{-2,-74},{18,-54}})));
 
   SimpleRoom rooSinSpe(
@@ -95,7 +96,8 @@ model SpaceCooling "Space cooling with DX coils"
           rotation=0, extent={{120,40},{140,60}})));
   Fluid.Movers.FlowMachine_m_flow fan1(
                                       redeclare package Medium = Medium,
-      m_flow_nominal=mA_flow_nominal) "Supply air fan"
+      m_flow_nominal=mA_flow_nominal,
+    dynamicBalance=false) "Supply air fan"
     annotation (Placement(transformation(extent={{100,-174},{120,-154}})));
   Fluid.HeatExchangers.ConstantEffectiveness hex1(
     redeclare package Medium1 =
@@ -119,7 +121,9 @@ model SpaceCooling "Space cooling with DX coils"
   Buildings.Fluid.HeatExchangers.DXCoils.MultiStage mulStaDX(
     redeclare package Medium = Medium,
     dp_nominal=400,
-    datCoi=datCoiMulSpe) "Multi-speed DX coil"
+    datCoi=datCoiMulSpe,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+    "Multi-speed DX coil"
     annotation (Placement(transformation(extent={{-2,-174},{18,-154}})));
   SimpleRoom rooMulSpe(
     redeclare package Medium = Medium,
@@ -182,7 +186,8 @@ model SpaceCooling "Space cooling with DX coils"
           rotation=0, extent={{240,40},{260,60}})));
   Fluid.Movers.FlowMachine_m_flow fan2(
                                       redeclare package Medium = Medium,
-      m_flow_nominal=mA_flow_nominal) "Supply air fan"
+      m_flow_nominal=mA_flow_nominal,
+    dynamicBalance=false) "Supply air fan"
     annotation (Placement(transformation(extent={{98,-250},{118,-230}})));
   Fluid.Sensors.TemperatureTwoPort senTemSupAir2(
                                                 redeclare package Medium =
@@ -193,7 +198,9 @@ model SpaceCooling "Space cooling with DX coils"
     redeclare package Medium = Medium,
     dp_nominal=400,
     datCoi=datCoiMulSpe,
-    minSpeRat=0.2) "Variable-speed DX coil"
+    minSpeRat=0.2,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+    "Variable-speed DX coil"
     annotation (Placement(transformation(extent={{-4,-250},{16,-230}})));
   Fluid.Sensors.TemperatureTwoPort senTemHXEvaOut2(
                                                redeclare package Medium =
@@ -209,10 +216,6 @@ model SpaceCooling "Space cooling with DX coils"
     dp2_nominal=200,
     eps=eps) "Heat recovery"
     annotation (Placement(transformation(extent={{-112,-256},{-92,-236}})));
-  Modelica.Blocks.Nonlinear.Limiter limiter(uMax=1, uMin=0) "Output limiter"
-    annotation (Placement(transformation(extent={{-40,-220},{-20,-200}})));
-  Modelica.Blocks.Math.Feedback feedback
-    annotation (Placement(transformation(extent={{-80,-220},{-60,-200}})));
   Modelica.Blocks.Continuous.Integrator sinSpePow(y(unit="J"))
     "Power consumed by single speed coil"
     annotation (Placement(transformation(extent={{40,-40},{60,-20}})));
@@ -224,6 +227,12 @@ model SpaceCooling "Space cooling with DX coils"
     annotation (Placement(transformation(extent={{40,-220},{60,-200}})));
   Modelica.Blocks.Logical.Not not1
     annotation (Placement(transformation(extent={{-38,2},{-18,22}})));
+  Buildings.Controls.Continuous.LimPID conVarSpe(
+    controllerType=Modelica.Blocks.Types.SimpleController.P,
+    Ti=1,
+    Td=1,
+    reverseAction=true) "Controller for variable speed DX coil"
+    annotation (Placement(transformation(extent={{-60,-220},{-40,-200}})));
 equation
   connect(out.ports[1], hex.port_a1) annotation (Line(
       points={{-154,-62.6667},{-125,-62.6667},{-125,-64},{-110,-64}},
@@ -279,7 +288,8 @@ public
       redeclare package Medium = Medium,
       m_flow_nominal=mA_flow_nominal,
       V=V,
-      nPorts=2)
+      nPorts=2,
+      energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
       annotation (Placement(transformation(extent={{-10,-20},{10,0}})));
     Modelica.Thermal.HeatTransfer.Components.ThermalConductor theCon(G=10000/30)
       "Thermal conductance with the ambient"
@@ -569,23 +579,6 @@ equation
       points={{81,10},{92,10},{92,-212},{107.8,-212},{107.8,-228}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(feedback.u1, rooVarSpe.TRoo) annotation (Line(
-      points={{-78,-210},{-120,-210},{-120,-190},{280,-190},{280,52.3077},{
-          260.933,52.3077}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(TRooSetPoi.y, feedback.u2) annotation (Line(
-      points={{-99,18},{-86,18},{-86,-222},{-70,-222},{-70,-218}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(feedback.y, limiter.u) annotation (Line(
-      points={{-61,-210},{-42,-210}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(limiter.y, varSpeDX.speRat) annotation (Line(
-      points={{-19,-210},{-12,-210},{-12,-232},{-5,-232}},
-      color={0,0,127},
-      smooth=Smooth.None));
   connect(rooSinSpe.TOutDryBul, weaBus.TDryBul) annotation (Line(
       points={{119.067,52.3077},{100,52.3077},{100,70},{-128,70}},
       color={0,0,127},
@@ -628,6 +621,19 @@ equation
           -134.633},{-60.65,-134.633}},
       color={0,0,127},
       smooth=Smooth.None));
+  connect(TRooSetPoi.y, conVarSpe.u_s) annotation (Line(
+      points={{-99,18},{-86,18},{-86,-210},{-62,-210}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(conVarSpe.u_m, rooVarSpe.TRoo) annotation (Line(
+      points={{-50,-222},{-50,-280},{280,-280},{280,52.3077},{260.933,52.3077}},
+      color={0,0,127},
+      smooth=Smooth.None));
+
+  connect(conVarSpe.y, varSpeDX.speRat) annotation (Line(
+      points={{-39,-210},{-20,-210},{-20,-232},{-5,-232}},
+      color={0,0,127},
+      smooth=Smooth.None));
   annotation (Documentation(info="<html>
 <p>
 This model illustrates the use of the DX coil models with 
@@ -654,7 +660,7 @@ and for the coil with variable compressor speed, as both of these coils
 switch off less frequent.
 </p>
 <p align=\"center\">
-<img src=\"modelica://Buildings/Resources/Images/Fluid/HeatExchangers/DXCoils/Examples/SpaceCooling.png\">
+<img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Fluid/HeatExchangers/DXCoils/Examples/SpaceCooling.png\" />
 </p>
 <h4>Implementation</h4>
 <p>
@@ -665,13 +671,18 @@ Buildings.Examples.Tutorial.SpaceCooling.System3</a>.
 </html>", revisions="<html>
 <ul>
 <li>
-January 11, 2012, by Michael Wetter:<br>
+September 13, 2013, by Michael Wetter:<br/>
+Changed control implementation of variable speed coil
+to use a proportional controller.
+</li>
+<li>
+January 11, 2012, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
 </html>"),
-    Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-200,-300},{300,
-            100}})),
+    Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-200,-300},{300,
+            100}}), graphics),
     __Dymola_Commands(file=
      "modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/DXCoils/Examples/SpaceCooling.mos"
         "Simulate and plot"),

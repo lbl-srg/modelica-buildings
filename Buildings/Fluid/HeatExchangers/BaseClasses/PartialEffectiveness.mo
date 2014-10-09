@@ -98,11 +98,13 @@ equation
           fillPattern=FillPattern.Solid)}),
     Documentation(info="<html>
 <p>
-Partial model to implement heat exchanger models
+Partial model to implement heat exchanger models.
 </p>
 <p>
 Classes that extend this model need to implement heat and 
-mass balance equations in a form like<pre>
+mass balance equations in a form like
+</p>
+<pre>
   // transfered heat
   Q1_flow = eps * QMax_flow;
   // no heat loss to ambient
@@ -111,34 +113,35 @@ mass balance equations in a form like<pre>
   mXi1_flow = zeros(Medium1.nXi);
   mXi2_flow = zeros(Medium2.nXi);
 </pre>
+<p>
 Thus, if medium 1 is heated in this device, then <code>Q1_flow &gt; 0</code>
 and <code>QMax_flow &gt; 0</code>.
 </p>
 </html>", revisions="<html>
 <ul>
 <li>
-October 8, 2011, by Michael Wetter:<br>
+October 8, 2011, by Michael Wetter:<br/>
 Set <code>show_T=false</code> to avoid state events near zero flow.
 </li>
 <li>
-August 31, 2011, by Michael Wetter:<br>
+August 31, 2011, by Michael Wetter:<br/>
 Removed unused variables <code>gai1</code> and <code>gai2</code>.
 </li>
 <li>
-February 12, 2010, by Michael Wetter:<br>
+February 12, 2010, by Michael Wetter:<br/>
 Changed model structure to implement effectiveness-NTU model.
 </li>
 <li>
-January 28, 2010, by Michael Wetter:<br>
+January 28, 2010, by Michael Wetter:<br/>
 Added regularization near zero flow.
 </li>
 <li>
-October 2, 2009, by Michael Wetter:<br>
+October 2, 2009, by Michael Wetter:<br/>
 Changed computation of inlet temperatures to use 
 <code>state_*_inflow</code> which is already known in base class.
 </li>
 <li>
-April 28, 2008, by Michael Wetter:<br>
+April 28, 2008, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

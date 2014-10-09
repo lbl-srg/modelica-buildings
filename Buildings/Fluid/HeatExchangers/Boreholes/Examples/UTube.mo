@@ -9,8 +9,10 @@ model UTube "Model that tests the borehole model"
     dT_dz=0.0015,
     samplePeriod=604800,
     m_flow_nominal=0.3,
-    redeclare each Buildings.HeatTransfer.Data.BoreholeFillings.Bentonite matFil,
-    redeclare Buildings.HeatTransfer.Data.Soil.Sandstone matSoi,
+    redeclare each parameter
+      Buildings.HeatTransfer.Data.BoreholeFillings.Bentonite matFil,
+    redeclare parameter Buildings.HeatTransfer.Data.Soil.Sandstone matSoi,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     TExt0_start=283.15,
     TFil0_start=283.15) "Borehole heat exchanger"
     annotation (Placement(transformation(extent={{-16,-36},{16,-4}},rotation=0)));
@@ -62,12 +64,16 @@ and
 </html>", revisions="<html>
 <ul>
 <li>
-August 2011, by Pierre Vigouroux:<br>
+September 27, 2013, by Michael Wetter:<br/>
+Corrected <code>StopTime</code> annotation.
+</li>
+<li>
+August 2011, by Pierre Vigouroux:<br/>
 First implementation.
 </li>
 </ul>
 </html>"),
     experiment(
-      StopTime=5*365*86400,
+      StopTime=157680000,
       Tolerance=1e-05));
 end UTube;

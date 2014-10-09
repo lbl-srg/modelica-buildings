@@ -1,7 +1,6 @@
 within Buildings.Fluid.HeatExchangers.Examples;
 model DryEffectivenessNTU
   "Model that demonstrates use of a heat exchanger without condensation that uses the epsilon-NTU relation"
-  import Buildings;
   extends Modelica.Icons.Example;
 
  package Medium1 = Buildings.Media.ConstantPropertyLiquidWater;
@@ -253,5 +252,20 @@ equation
             -100},{100,100}})),
 experiment(StopTime=360),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/Examples/DryEffectivenessNTU.mos"
-        "Simulate and plot"));
+        "Simulate and plot"),
+Documentation(info="<html>
+<p>
+This model tests
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.DryffectivenessNTU\">
+Buildings.Fluid.HeatExchangers.DryffectivenessNTU</a>
+for different inlet conditions.
+</p>
+</html>", revisions="<html>
+<ul>
+<li>
+February 12, 2010, by Michael Wetter:<br/>
+First implementation.
+</li>
+</ul>
+</html>"));
 end DryEffectivenessNTU;

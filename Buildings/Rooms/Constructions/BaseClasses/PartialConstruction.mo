@@ -7,10 +7,10 @@ partial model PartialConstruction
     "Heat transfer area of opaque construction"
     annotation (Dialog(group="Opaque construction"));
 
-  replaceable parameter Buildings.HeatTransfer.Data.OpaqueConstructions.Generic
+  parameter Buildings.HeatTransfer.Data.OpaqueConstructions.Generic
     layers "Material properties of opaque construction"
     annotation(Dialog(group="Opaque construction"),
-               Evaluate=true, choicesAllMatching=true, Placement(transformation(extent={{146,258},
+               choicesAllMatching=true, Placement(transformation(extent={{146,258},
             {166,278}})));
 
   parameter Modelica.SIunits.Angle til "Surface tilt";
@@ -19,7 +19,7 @@ partial model PartialConstruction
     "Flag, true if construction is a floor" annotation (Evaluate=true);
   final parameter Boolean isCeiling=til > -0.392699 and til < 0.392699
     "Flag, true if construction is a floor" annotation (Evaluate=true);
-public
+
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a opa_a
     "Heat port at surface a of opaque construction"
     annotation (Placement(transformation(extent={{-310,190},{-290,210}})));
@@ -41,7 +41,6 @@ public
     "Initial temperature at port_b, used if steadyStateInitial = false"
     annotation (Dialog(group="Initialization", enable=not steadyStateInitial));
 
-public
   HeatTransfer.Conduction.MultiLayer opa(
     final A=AOpa,
     final layers=layers,
@@ -107,7 +106,11 @@ Buildings.HeatTransfer.Types.Tilt</a>
 </html>", revisions="<html>
 <ul>
 <li>
-December 14, 2010, by Michael Wetter:<br>
+May 30, 2014, by Michael Wetter:<br/>
+Removed undesirable annotation <code>Evaluate=true</code>.
+</li>
+<li>
+December 14, 2010, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

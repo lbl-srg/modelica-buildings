@@ -123,7 +123,7 @@ The equations are mainly based on Finlayson et al. (1990) and Fuler et al. (1991
 <p>
 Step 1: Compute the reflectivity at normal incidence 
 </p>
-<table>
+<table summary=\"summary\">
 <tr>
 <td><p align=\"center\" style=\"font-style:italic;\">
    &rho;(0) = {&beta; &minus; sqrt[&beta;<sup>2</sup> &minus; 4(2 &minus; R(0))R(0)]} 
@@ -134,7 +134,7 @@ Step 1: Compute the reflectivity at normal incidence
 </tr>
 </table>
 where 
-<table>
+<table summary=\"summary\">
 <tr>
 <td><p align=\"center\" style=\"font-style:italic;\">
   &beta; = T(0)<sup>2</sup> &minus; R(0)<sup>2</sup> + 2R(0) + 1.
@@ -146,7 +146,7 @@ where
 <p>
 Step 2: Compute the spectral absorption coefficient &alpha; and spectral index of refraction n
 </p>
-<table>
+<table summary=\"summary\">
 <tr>
 <td><p align=\"center\" style=\"font-style:italic;\">
   &alpha; = 4 &pi; &kappa;<sub>&lambda;</sub> &frasl;  &lambda; 
@@ -166,7 +166,7 @@ Step 2: Compute the spectral absorption coefficient &alpha; and spectral index o
 <p>
 Step 3: For each angle of incidence measured in air &phi; (0 &lt; &phi; &lt; 90) 
 </p>
-<table>
+<table summary=\"summary\">
 <tr>
 <td> a. Compute the angle of incidence measured in glass &phi;'</td>
 </tr> 
@@ -283,11 +283,11 @@ Validation of the window model of the Modelica Buildings library.</a>
 </html>", revisions="<html>
 <ul>
 <li>
-August 06, 2012, by Wangda Zuo:<br>
+August 06, 2012, by Wangda Zuo:<br/>
 Improved the documentation for implementation and added comments for model limitations.
 </li>
 <li>
-December 09, 2011, by Wangda Zuo:<br>
+December 09, 2011, by Wangda Zuo:<br/>
 First implementation.
 </li>
 </ul>

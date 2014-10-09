@@ -20,7 +20,7 @@ model SingleLayer "Model for single layer heat conductance"
     "Definition of specific internal energy (enthalpy in solids)!";
   replaceable parameter Data.BaseClasses.Material material
     "Material from Data.Solids, Data.SolidsPCM or Data.Resistances"
-    annotation (Evaluate=true, choicesAllMatching=true, Placement(transformation(extent={{60,60},
+    annotation (choicesAllMatching=true, Placement(transformation(extent={{60,60},
             {80,80}})));
 
   parameter Boolean steadyStateInitial=false
@@ -173,7 +173,7 @@ defaultComponentName="lay",
     Documentation(info="<html>
 This is a model of a heat conductor for a single layer of homogeneous material
 that computes transient or steady-state heat conduction.
-</p>
+
 <h4>Transient heat conduction in materials without phase change</h4>
 <p>
 If the material is a record that extends
@@ -236,7 +236,7 @@ flow between its heat ports is
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
    Q = A &nbsp; k &frasl; x &nbsp; (T<sub>a</sub>-T<sub>b</sub>),
-</p></p>
+</p>
 <p>
 where
 <i>A</i> is the cross sectional area,
@@ -264,23 +264,27 @@ Buildings.HeatTransfer.Conduction.MultiLayer</a> instead of this model.
 revisions="<html>
 <ul>
 <li>
-January 22, 2013, by Armin Teskeredzic:<br>
+May 30, 2014, by Michael Wetter:<br/>
+Removed undesirable annotation <code>Evaluate=true</code>.
+</li>
+<li>
+January 22, 2013, by Armin Teskeredzic:<br/>
 Implementation of phase-change materials based on enthalpy-linearisation method.
 Phase-change properties defined in <code>material</code> record and relationship
 between enthalpy and temperature defined in the <code>EnthalpyTemperature</code> function.
 </li>
 <li>
-March 9, 2012, by Michael Wetter:<br>
+March 9, 2012, by Michael Wetter:<br/>
 Removed protected variable <code>der_T</code> as it is not required.
 </li>
 <li>
-March 6 2010, by Michael Wetter:<br>
+March 6 2010, by Michael Wetter:<br/>
 Changed implementation to allow steady-state and transient heat conduction
 depending on the specific heat capacity of the material. This allows using the
 same model in composite constructions in which some layers are
 computed steady-state and other transient.
 </li><li>
-February 5 2009, by Michael Wetter:<br>
+February 5 2009, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

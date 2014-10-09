@@ -4,7 +4,8 @@ model FixedApproachDryBulb
   extends Modelica.Icons.Example;
   extends
     Buildings.Fluid.HeatExchangers.CoolingTowers.Examples.BaseClasses.PartialStaticTwoPortCoolingTower(
-    redeclare Buildings.Fluid.HeatExchangers.CoolingTowers.FixedApproach tow);
+    redeclare Buildings.Fluid.HeatExchangers.CoolingTowers.FixedApproach tow, vol(
+        energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial));
 equation
   connect(weaBus.TDryBul, tow.TAir) annotation (Line(
       points={{-60,50},{0,50},{0,-46},{22,-46}},
@@ -32,7 +33,7 @@ outdoor dry-bulb temperature.
 </html>", revisions="<html>
 <ul>
 <li>
-July 12, 2011, by Michael Wetter:<br>
+July 12, 2011, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

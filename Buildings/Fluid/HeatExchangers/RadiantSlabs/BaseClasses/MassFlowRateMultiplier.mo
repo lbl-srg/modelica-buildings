@@ -41,11 +41,11 @@ having the same mass flow rate and temperatures.
 </html>", revisions="<html>
 <ul>
 <li>
-March 27, 2013, by Michael Wetter:<br>
+March 27, 2013, by Michael Wetter:<br/>
 Changed implementation to extend from <code>Modelica.Fluid</code>.
 </li>
 <li>
-June 27, 2012, by Michael Wetter:<br>
+June 27, 2012, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

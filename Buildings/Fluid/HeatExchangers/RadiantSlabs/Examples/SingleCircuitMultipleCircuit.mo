@@ -23,7 +23,9 @@ model SingleCircuitMultipleCircuit "Model that tests the radiant slab"
     sysTyp=Buildings.Fluid.HeatExchangers.RadiantSlabs.BaseClasses.Types.SystemType.Floor,
     disPip=0.2,
     A=A,
-    nSeg=nSeg) "Slabe with embedded pipes"
+    nSeg=nSeg,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+    "Slabe with embedded pipes"
     annotation (Placement(transformation(extent={{-14,10},{6,30}})));
 
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal=
@@ -41,7 +43,7 @@ model SingleCircuitMultipleCircuit "Model that tests the radiant slab"
   Modelica.Thermal.HeatTransfer.Components.ThermalConductor conBel1(G=20*A)
     "Combined convection and radiation resistance below the slab"
     annotation (Placement(transformation(extent={{-40,-90},{-20,-70}})));
-  HeatTransfer.Data.OpaqueConstructions.Generic layers(nLay=3, material={
+  parameter HeatTransfer.Data.OpaqueConstructions.Generic layers(nLay=3, material={
         Buildings.HeatTransfer.Data.Solids.Generic(
         x=0.08,
         k=1.13,
@@ -58,7 +60,7 @@ model SingleCircuitMultipleCircuit "Model that tests the radiant slab"
         d=2400)})
     "Material layers from surface a to b (8cm concrete, 5 cm insulation, 20 cm reinforced concrete)"
     annotation (Placement(transformation(extent={{80,100},{100,120}})));
-  Data.Pipes.PEX_RADTEST pipe "Pipe material"
+  parameter Data.Pipes.PEX_RADTEST pipe "Pipe material"
     annotation (Placement(transformation(extent={{80,72},{100,92}})));
   Modelica.Thermal.HeatTransfer.Components.ThermalConductor conAbo2(G=20*A)
     "Combined convection and radiation resistance above the slab"
@@ -72,7 +74,9 @@ model SingleCircuitMultipleCircuit "Model that tests the radiant slab"
     sysTyp=Buildings.Fluid.HeatExchangers.RadiantSlabs.BaseClasses.Types.SystemType.Floor,
     disPip=0.2,
     A=A,
-    nSeg=nSeg) "Slabe with embedded pipes"
+    nSeg=nSeg,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+    "Slabe with embedded pipes"
     annotation (Placement(transformation(extent={{10,-30},{30,-10}})));
 
   Modelica.Thermal.HeatTransfer.Components.ThermalConductor conBel2(G=20*A)
@@ -91,7 +95,9 @@ model SingleCircuitMultipleCircuit "Model that tests the radiant slab"
     nSeg=nSeg,
     nCir=nCir,
     A=nCir*A,
-    m_flow_nominal=nCir*m_flow_nominal) "Slabe with embedded pipes"
+    m_flow_nominal=nCir*m_flow_nominal,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+    "Slabe with embedded pipes"
     annotation (Placement(transformation(extent={{30,-70},{50,-50}})));
 
   Modelica.Thermal.HeatTransfer.Components.ThermalConductor conAbo3(G=nCir*20*A)
@@ -228,7 +234,11 @@ flow.
 revisions="<html>
 <ul>
 <li>
-June 27, 2012, by Michael Wetter:<br>
+October 11, 2013, by Michael Wetter:<br/>
+Added missing <code>parameter</code> keyword in the declaration of the data record.
+</li>
+<li>
+June 27, 2012, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

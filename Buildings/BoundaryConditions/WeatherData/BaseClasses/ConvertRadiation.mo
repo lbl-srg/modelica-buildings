@@ -1,7 +1,7 @@
 within Buildings.BoundaryConditions.WeatherData.BaseClasses;
 block ConvertRadiation
   "Convert the unit of solar radiation received from the TMY3 data file"
-  extends Modelica.Blocks.Interfaces.BlockIcon;
+  extends Modelica.Blocks.Icons.Block;
 public
   Modelica.Blocks.Interfaces.RealInput HIn(final unit="W.h/m2")
     "Input radiation"
@@ -26,11 +26,11 @@ This component converts <code>Wh/m2</code> to <code>W/m2</code> that is the stan
 ", revisions="<html>
 <ul>
 <li>
-October 27, 2011, by Wangda Zuo:<br>
+October 27, 2011, by Wangda Zuo:<br/>
 Add the unit conversion and delete the data validity check.
 </li>
 <li>
-July 14, 2010, by Wangda Zuo:<br>
+July 14, 2010, by Wangda Zuo:<br/>
 First implementation.
 </li>
 </ul>

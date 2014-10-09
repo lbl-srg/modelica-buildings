@@ -1,12 +1,13 @@
 within Buildings.Examples.DualFanDualDuct.Controls;
 block CoolingCoilTemperatureSetpoint "Set point scheduler for cooling coil"
-  extends Modelica.Blocks.Interfaces.BlockIcon;
+  extends Modelica.Blocks.Icons.Block;
   import Buildings.Examples.VAVReheat.Controls.OperationModes;
   parameter Modelica.SIunits.Temperature TOn "Setpoint during on";
   parameter Modelica.SIunits.Temperature TOff "Setpoint during off";
-  Modelica.Blocks.Sources.RealExpression TSetPoi(y=if (mode.y ==
-        OperationModes.occupied or mode.y == OperationModes.unoccupiedPreCool
-         or mode.y == OperationModes.safety) then TOn else TOff)
+  Modelica.Blocks.Sources.RealExpression TSetPoi(
+     y=if (mode.y == Integer(OperationModes.occupied) or
+           mode.y == Integer(OperationModes.unoccupiedPreCool) or
+           mode.y == Integer(OperationModes.safety)) then TOn else TOff)
     "Air temperature setpoint"
     annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
   VAVReheat.Controls.ControlBus controlBus

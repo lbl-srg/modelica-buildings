@@ -8,17 +8,30 @@ algorithm
 annotation (smoothOrder=1,
 Documentation(info=
 "<html>
-This function computes the buoyancy-driven convective heat transfer coefficient 
-for a wall as
-<code>h=1.3*|dT|^0.3333</code>,
-where <code>dT</code> is the solid temperature minus the fluid temperature.
-The convective convective heat flux is then
-<code>q_flow = h * dT</code>.
+<p>
+This function computes the buoyancy-driven convective heat flux as
+</p>
+<p align=\"center\" style=\"font-style:italic;\">
+  q&#775; = h &Delta;T,
+</p>
+<p>
+where
+<i>&Delta;T</i> is the solid temperature minus the fluid temperature and
+<i>h</i> is the convective heat transfer coefficient
+for a wall, computed as
+</p>
+<p align=\"center\" style=\"font-style:italic;\">
+h=1.3 |&Delta;T|<sup>0.3333</sup>.
+</p>
 </html>",
 revisions="<html>
 <ul>
 <li>
-March 10 2010, by Michael Wetter:<br>
+July 28, 2014, by Michael Wetter:<br/>
+Updated documentation.
+</li>
+<li>
+March 10 2010, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

@@ -1,6 +1,6 @@
 within Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses;
 block Condensation "Calculates rate of condensation"
-  extends Modelica.Blocks.Interfaces.BlockIcon;
+  extends Modelica.Blocks.Icons.Block;
   replaceable package Medium =
     Modelica.Media.Interfaces.PartialCondensingGases "Medium model"
      annotation (choicesAllMatching=true);
@@ -32,11 +32,11 @@ This block computes the water mass flow rate that condenses.
 revisions="<html>
 <ul>
 <li>
-September 20, 2012 by Michael Wetter:<br>
+September 20, 2012 by Michael Wetter:<br/>
 Revised implementation. 
 </li>
 <li>
-August 9, 2012 by Kaustubh Phalak:<br>
+August 9, 2012 by Kaustubh Phalak:<br/>
 First implementation. 
 </li>
 </ul>

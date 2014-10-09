@@ -1,17 +1,19 @@
 within Buildings.Fluid.Movers.Examples;
 model FlowMachine_m_flow
-  import Buildings;
+  "Fan with zero mass flow rate and mass flow rate as input"
   extends Modelica.Icons.Example;
  extends Buildings.Fluid.Movers.Examples.BaseClasses.FlowMachine_ZeroFlow(
     gain(k=m_flow_nominal),
     redeclare Buildings.Fluid.Movers.FlowMachine_m_flow floMacSta(
       redeclare package Medium = Medium,
       m_flow_nominal=m_flow_nominal,
-      filteredSpeed=false),
+      filteredSpeed=false,
+      energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial),
     redeclare Buildings.Fluid.Movers.FlowMachine_m_flow floMacDyn(
       redeclare package Medium = Medium,
       m_flow_nominal=m_flow_nominal,
-      filteredSpeed=false));
+      filteredSpeed=false,
+      energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial));
 
 equation
   connect(gain.y, floMacSta.m_flow_in) annotation (Line(
@@ -39,11 +41,11 @@ This ensures that the actual speed is equal to the input signal.
 </html>", revisions="<html>
 <ul>
 <li>
-February 14, 2012, by Michael Wetter:<br>
+February 14, 2012, by Michael Wetter:<br/>
 Added filter for start-up and shut-down transient.
 </li>
 <li>
-March 24 2010, by Michael Wetter:<br>
+March 24 2010, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

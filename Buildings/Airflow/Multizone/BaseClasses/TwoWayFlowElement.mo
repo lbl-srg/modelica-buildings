@@ -37,11 +37,10 @@ protected
   Modelica.SIunits.VolumeFlowRate VZer_flow(fixed=false)
     "Minimum net volume flow rate to prevent zero flow";
 protected
-  Modelica.SIunits.Mass mExcAB(start=0)
+  Modelica.SIunits.Mass mExcAB(start=0, fixed=true)
     "Air mass exchanged (for purpose of error control only)";
-  Modelica.SIunits.Mass mExcBA(start=0)
+  Modelica.SIunits.Mass mExcBA(start=0, fixed=true)
     "Air mass exchanged (for purpose of error control only)";
-
 equation
   // enforcing error control on both direction rather than on the sum only
   // gives higher robustness. The reason may be that for bi-directional flow,
@@ -107,10 +106,15 @@ for doors that can be open or closed as a function of an input signal.
 </html>",
 revisions="<html>
 <ul>
-<li><i>July 20, 2010</i> by Michael Wetter:<br>
+<li><i>June 18, 2014</i> by Michael Wetter:<br/>
+Added start values and <code>fixed=true</code> attribute for
+<code>mExcAB</code> and <code>mExcBA</code>.
+This avoids a warning during translation.
+</li>
+<li><i>July 20, 2010</i> by Michael Wetter:<br/>
        Migrated model to Modelica 3.1 and integrated it into the Buildings library.
 </li>
-<li><i>February 4, 2005</i> by Michael Wetter:<br>
+<li><i>February 4, 2005</i> by Michael Wetter:<br/>
        Released first version.
 </ul>
 </html>"));

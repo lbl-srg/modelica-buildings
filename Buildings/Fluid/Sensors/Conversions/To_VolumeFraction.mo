@@ -1,7 +1,9 @@
 within Buildings.Fluid.Sensors.Conversions;
-model To_VolumeFraction
-  "Model to convert between mass fraction and volume fraction"
-  extends Buildings.BaseClasses.BaseIcon;
+model To_VolumeFraction "Conversion from mass fraction to volume fraction"
+
+  parameter Modelica.SIunits.MolarMass MMMea "Molar mass of measured substance";
+  parameter Modelica.SIunits.MolarMass MMBul=Modelica.Media.IdealGases.Common.SingleGasesData.Air.MM
+    "Molar mass of bulk medium";
 
   Modelica.Blocks.Interfaces.RealInput m "Mass fraction"
     annotation (Placement(transformation(extent={{-120,-10},{-100,10}},rotation=
@@ -9,9 +11,6 @@ model To_VolumeFraction
   Modelica.Blocks.Interfaces.RealOutput V "Volume fraction"
     annotation (Placement(transformation(extent={{100,-10},{120,10}},rotation=0)));
 
- parameter Modelica.SIunits.MolarMass MMMea "Molar mass of measured substance";
- parameter Modelica.SIunits.MolarMass MMBul=Modelica.Media.IdealGases.Common.SingleGasesData.Air.MM
-    "Molar mass of bulk medium";
 protected
  parameter Real con = MMBul/MMMea
     "Conversion coefficient from mass to volume fraction";
@@ -49,7 +48,10 @@ equation
           extent={{46,2},{80,-2}},
           lineColor={0,0,255},
           fillColor={0,0,255},
-          fillPattern=FillPattern.Solid)}),
+          fillPattern=FillPattern.Solid),Text(
+          extent={{-48,146},{50,98}},
+          lineColor={0,0,255},
+          textString="%name")}),
 defaultComponentName="toVolFra",
 Documentation(info="<html>
 <p>
@@ -65,12 +67,12 @@ of the mixture.
 revisions="<html>
 <ul>
 <li>
-February 13, 2011 by Michael Wetter:<br>
+February 13, 2011 by Michael Wetter:<br/>
 Changed connectors from the obsolete <code>RealSignal</code>
 to <code>RealInput</code> and <code>RealOutput</code>.
 </li>
 <li>
-September 22, 2008 by Michael Wetter:<br>
+September 22, 2008 by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

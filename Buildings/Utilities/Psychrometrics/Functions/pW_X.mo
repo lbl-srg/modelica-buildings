@@ -1,9 +1,9 @@
 within Buildings.Utilities.Psychrometrics.Functions;
 function pW_X "Water vapor pressure for given humidity ratio"
-
+  extends Modelica.Icons.Function;
   input Modelica.SIunits.MassFraction X_w(
     min=0,
-    max=1,
+    max=0.99999,
     nominal=0.01) "Species concentration at dry bulb temperature";
   input Modelica.SIunits.Pressure p=101325 "Total pressure";
   output Modelica.SIunits.Pressure p_w(displayUnit="Pa") "Water vapor pressure";
@@ -27,19 +27,19 @@ Function to compute the water vapor partial pressure for a given humidity ratio.
 </html>", revisions="<html>
 <ul>
 <li>
-March 9, 2012 by Michael Wetter:<br>
+March 9, 2012 by Michael Wetter:<br/>
 Added <code>smoothOrder=99</code> and <code>displayUnit</code> for pressure.
 </li>
 <li>
-February 17, 2010 by Michael Wetter:<br>
+February 17, 2010 by Michael Wetter:<br/>
 Renamed block from <code>VaporPressure_X</code> to <code>pW_X</code>.
 </li>
 <li>
-April 14, 2009 by Michael Wetter:<br>
+April 14, 2009 by Michael Wetter:<br/>
 Converted model to block because <code>RealInput</code> are obsolete in Modelica 3.0.
 </li>
 <li>
-August 7, 2008 by Michael Wetter:<br>
+August 7, 2008 by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

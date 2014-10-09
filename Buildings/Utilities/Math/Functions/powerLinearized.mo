@@ -14,14 +14,12 @@ algorithm
   end if;
   annotation (
     Documentation(info="<html>
-<p>
 Function that approximates <i>y=x<sup>n</sup></i> 
 where <i>0 &lt; n</i> so that
 <ul>
 <li>the function is defined and monotone increasing for all <i>x</i>.
 <li><i>dy/dx</i> is bounded and continuous everywhere (for <i>n &lt; 1</i>).
 </ul>
-</p>
 <p>
 For <i>x &lt; x<sub>0</sub></i>, this function replaces 
 <i>y=x<sup>n</sup></i> by 
@@ -39,7 +37,7 @@ See the package <code>Examples</code> for the graph.
 </html>", revisions="<html>
 <ul>
 <li>
-February 3, 2011, by Michael Wetter:<br>
+February 3, 2011, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

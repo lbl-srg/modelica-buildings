@@ -49,14 +49,13 @@ for the implementation of the three way valve
 and see
 <a href=\"modelica://Buildings.Fluid.Actuators.BaseClasses.PartialTwoWayValve\">
 Buildings.Fluid.Actuators.BaseClasses.PartialTwoWayValve</a>
-for the implementation of the leakage flow or 
-the regularization near the origin.
+for the implementation of the regularization near the origin.
 </p>
 </html>",
 revisions="<html>
 <ul>
 <li>
-February 20, 2012 by Michael Wetter:<br>
+February 20, 2012 by Michael Wetter:<br/>
 Renamed parameter <code>dp_nominal</code> to <code>dpValve_nominal</code>,
 and added new parameter <code>dpFixed_nominal</code>.
 See 
@@ -64,15 +63,15 @@ See
 Buildings.Fluid.Actuators.UsersGuide</a>.
 </li>
 <li>
-February 14, 2012 by Michael Wetter:<br>
+February 14, 2012 by Michael Wetter:<br/>
 Added filter to approximate the travel time of the actuator.
 </li>
 <li>
-March 25, 2011, by Michael Wetter:<br>
+March 25, 2011, by Michael Wetter:<br/>
 Added homotopy method.
 </li>
 <li>
-June 16, 2008 by Michael Wetter:<br>
+June 16, 2008 by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

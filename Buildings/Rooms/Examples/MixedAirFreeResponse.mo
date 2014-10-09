@@ -90,7 +90,7 @@ model MixedAirFreeResponse "Free response of room model"
   Modelica.Blocks.Sources.Constant qLatGai_flow(k=0) "Latent heat gain"
     annotation (Placement(transformation(extent={{-62,2},{-42,22}})));
   Buildings.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(
-    filNam="Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos")
+    filNam="modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos")
     annotation (Placement(transformation(extent={{160,140},{180,160}})));
   Modelica.Blocks.Sources.Constant uSha(k=0)
     "Control signal for the shading device"
@@ -108,8 +108,8 @@ model MixedAirFreeResponse "Free response of room model"
         rotation=0,
         origin={150,-50})));
   HeatTransfer.Conduction.MultiLayer conOut[nSurBou](
-    redeclare Buildings.HeatTransfer.Data.OpaqueConstructions.Brick120 layers,
-    each A=6*4) "Construction that is modeled outside of room"
+    each A=6*4, each layers=matLayPar)
+    "Construction that is modeled outside of room"
     annotation (Placement(transformation(extent={{100,-60},{120,-40}})));
 
   Fluid.Sources.FixedBoundary boundary(
@@ -117,6 +117,7 @@ model MixedAirFreeResponse "Free response of room model"
     redeclare package Medium = MediumA,
     T=293.15) "Boundary condition"
     annotation (Placement(transformation(extent={{0,0},{20,20}})));
+
 equation
   connect(qRadGai_flow.y, multiplex3_1.u1[1])  annotation (Line(
       points={{-39,90},{-32,90},{-32,57},{-22,57}},
@@ -132,7 +133,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(multiplex3_1.y, roo.qGai_flow) annotation (Line(
-      points={{1,50},{44,50}},
+      points={{1,50},{38,50}},
       color={0,0,127},
       smooth=Smooth.None));
 
@@ -173,16 +174,20 @@ equation
 This model illustrates the use of the room model
 <a href=\"modelica://Buildings.Rooms.MixedAir\">
 Buildings.Rooms.MixedAir</a>.
-</p>
 </html>", revisions="<html>
 <ul>
 <li>
-May 1, 2013, by Michael Wetter:<br>
+September 11, 2014, by Michael Wetter:<br/>
+Changed assignment of <code>layers</code> in <code>conOut</code>
+as <code>layers</code> is no longer replaceable.
+</li>
+<li>
+May 1, 2013, by Michael Wetter:<br/>
 Declared the parameter record to be a parameter, as declaring its elements
 to be parameters does not imply that the whole record has the variability of a parameter.
 </li>
 <li>
-December 14, 2010, by Michael Wetter:<br>
+December 14, 2010, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

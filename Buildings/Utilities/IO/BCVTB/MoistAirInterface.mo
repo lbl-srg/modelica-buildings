@@ -86,7 +86,7 @@ This model allows interfacing to the
 <a href=\"http://simulationresearch.lbl.gov/bcvtb\">Building Controls Virtual Test Bed</a>
 an air-conditioning system
 that uses a medium model with water vapor concentration.
-</p>
+<br/>
 <p>
 The model takes as input signals the temperature and water vapor
 concentration and, optionally, a bulk mass flow rate into or
@@ -114,17 +114,17 @@ Buildings.Utilities.Psychrometrics.ToTotalAir</a>.
 </html>", revisions="<html>
 <ul>
 <li>
-May 1, 2013, by Michael Wetter:<br>
+May 1, 2013, by Michael Wetter:<br/>
 Removed the medium declaration in the instance 
 of the model <code>Buildings.Utilities.Psychrometrics.X_pTphi</code> as
 this model no longer allows to replace the medium.
 </li>
 <li>
-April 5, 2011, by Michael Wetter:<br>
+April 5, 2011, by Michael Wetter:<br/>
 Added nominal values that are needed by the sensor.
 </li>
 <li>
-September 10, 2009, by Michael Wetter:<br>
+September 10, 2009, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
