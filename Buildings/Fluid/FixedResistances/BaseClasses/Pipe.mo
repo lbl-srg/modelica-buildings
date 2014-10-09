@@ -8,7 +8,7 @@ model Pipe
   extends Buildings.Fluid.Interfaces.TwoPortFlowResistanceParameters(
     final computeFlowResistance=(abs(dp_nominal) > Modelica.Constants.eps));
 
-  parameter Integer nSeg(min=2) = 10 "Number of volume segments";
+  parameter Integer nSeg(min=1) = 10 "Number of volume segments";
   parameter Modelica.SIunits.Length thicknessIns "Thickness of insulation";
   parameter Modelica.SIunits.ThermalConductivity lambdaIns
     "Heat conductivity of insulation";
@@ -62,9 +62,10 @@ protected
       T=Medium.T_default,
       p=Medium.p_default,
       X=Medium.X_default[1:Medium.nXi]) "Default state";
-  parameter Modelica.SIunits.Density rho_default = Medium.density(state_default);
+  parameter Modelica.SIunits.Density rho_default = Medium.density(state_default)
+    "Mass density at default medium state";
   parameter Modelica.SIunits.DynamicViscosity mu_default = Medium.dynamicViscosity(state_default)
-    "Dynamic viscosity at nominal condition";
+    "Dynamic viscosity at default medium state";
 equation
   connect(port_a, res.port_a) annotation (Line(
       points={{-100,5.55112e-16},{-72,5.55112e-16},{-72,1.16573e-15},{-58,
@@ -75,9 +76,11 @@ equation
       points={{-10,6.10623e-16},{7,6.10623e-16},{7,-18}},
       color={0,127,255},
       smooth=Smooth.None));
-  for i in 1:(nSeg - 1) loop
-    connect(vol[i].ports[2], vol[i + 1].ports[1]);
-  end for;
+  if nSeg > 1 then
+    for i in 1:(nSeg - 1) loop
+      connect(vol[i].ports[2], vol[i + 1].ports[1]);
+    end for;
+  end if;
   connect(vol[nSeg].ports[2], port_b) annotation (Line(
       points={{11,-18},{12,-18},{12,5.55112e-16},{100,5.55112e-16}},
       color={0,127,255},
@@ -111,6 +114,11 @@ Buildings.Fluid.MixingVolumes.MixingVolume</a>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+October 7, 2014, by Michael Wetter:<br/>
+Changed minimum attribute for <code>nSeg</code> from 2 to 1.
+This is required for the radiant slab model.
+</li>
 <li>
 October 8, 2013, by Michael Wetter:<br/>
 Removed parameter <code>show_V_flow</code>.

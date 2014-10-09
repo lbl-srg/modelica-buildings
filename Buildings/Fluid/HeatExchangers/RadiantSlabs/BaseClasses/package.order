@@ -1,6 +1,7 @@
-InternalFlowConvection
 HeatFlowRateMultiplier
 MassFlowRateMultiplier
+PipeToSlabConductance
 Slab
 Functions
 Types
+

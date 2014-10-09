@@ -21,8 +21,6 @@ model ParallelCircuitsSlab
       m_flow_small=m_flow_small/nCir));
 
   parameter Integer nCir(min=1) = 1 "Number of parallel circuits";
-  parameter Integer nSeg(min=2) = 10
-    "Number of volume segments in each circuit (along flow path)";
 
   parameter Modelica.SIunits.Area A
     "Surface area of radiant slab (all circuits combined)"
@@ -105,7 +103,6 @@ model ParallelCircuitsSlab
     final dp_nominal=dp_nominal,
     final linearizeFlowResistance=linearizeFlowResistance,
     final deltaM=deltaM,
-    final nSeg=nSeg,
     final length=length,
     final ReC=4000) "Single parallel circuit of the radiant slab"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
@@ -233,6 +230,17 @@ Buildings.Fluid.Interfaces.PartialTwoPortInterface</a>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+October 9, 2014, by Michael Wetter:<br/>
+Changed model to use an epsilon-NTU approach for the heat transfer between
+the fluid and the slab rather than a finite difference scheme along the
+flow path.
+This has shown to lead to about five times faster computation on several 
+test cases including the models in
+<a href=\"modelica://Buildings.Rooms.FLEXLAB.Rooms.Examples\">
+Buildings.Rooms.FLEXLAB.Rooms.Examples</a>.
+This required removing the parameter <code>nSeg</code> as it is no longer used.
+</li>
 <li>
 October 10, 2013 by Michael Wetter:<br/>
 Added <code>noEvent</code> to the computation of the states at the port.
