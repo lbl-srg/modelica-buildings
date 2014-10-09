@@ -7,10 +7,10 @@ record PartialNominalValues "Data record of nominal values"
     annotation (Dialog(group="Nominal condition"));
 
   parameter Modelica.SIunits.MassFlowRate m1_flow_nominal
-    "Nominal Medium1 mass flow rate"
+    "Nominal mass flow rate for medium 1"
     annotation (Dialog(group="Nominal condition"));
    parameter Modelica.SIunits.MassFlowRate m2_flow_nominal
-    "Nominal water mass flow rate"
+    "Nominal mass flow rate for medium 2"
      annotation (Dialog(group="Nominal condition"));
 
   parameter Real phi1In_nominal=0.5

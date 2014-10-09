@@ -1,11 +1,11 @@
 within Buildings.Fluid.HeatExchangers.HeatPumps.Data.BaseClasses;
 record HeatingNominalValues "Data record of heating mode nominal values"
-
+  extends
+    Buildings.Fluid.HeatExchangers.HeatPumps.Data.BaseClasses.PartialNominalValues;
   parameter Modelica.SIunits.HeatFlowRate Q_flow_nominal(min=0)
     "Nominal heating capacity"
     annotation (Dialog(group="Nominal condition"));
-  extends
-    Buildings.Fluid.HeatExchangers.HeatPumps.Data.BaseClasses.PartialNominalValues;
+
   parameter Modelica.SIunits.Temperature T1In_nominal=273.15+21.1
     "Entering air dry-bulb temperature at rating condition"
       annotation(Dialog(tab="General",group="Nominal condition"));

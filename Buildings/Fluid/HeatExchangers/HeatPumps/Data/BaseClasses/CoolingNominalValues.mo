@@ -1,11 +1,11 @@
 within Buildings.Fluid.HeatExchangers.HeatPumps.Data.BaseClasses;
 record CoolingNominalValues "Data record of cooling mode nominal values"
+  extends
+    Buildings.Fluid.HeatExchangers.HeatPumps.Data.BaseClasses.PartialNominalValues;
 
   parameter Modelica.SIunits.HeatFlowRate Q_flow_nominal(max=0)
     "Nominal cooling capacity (negative number)"
     annotation (Dialog(group="Nominal condition"));
-  extends
-    Buildings.Fluid.HeatExchangers.HeatPumps.Data.BaseClasses.PartialNominalValues;
 
   parameter Real SHR_nominal "Nominal sensible heat ratio"
     annotation (Dialog(group="Nominal condition"));
