@@ -1,5 +1,5 @@
 within Buildings.Electrical.AC.ThreePhasesBalanced.Lines.Examples;
-model AClineMedium
+model ACLineMedium_1
   "Test model for a single phase line that uses medium voltage commercial cable information "
   extends Modelica.Icons.Example;
   ThreePhasesBalanced.Sources.FixedVoltage E(definiteReference=true, V=15000,
@@ -104,7 +104,7 @@ equation
   Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}), graphics),
   __Dymola_Commands(file=
-          "modelica://Buildings/Resources/Scripts/Dymola/Electrical/AC/ThreePhasesBalanced/Lines/Examples/AClineMedium.mos"
+          "modelica://Buildings/Resources/Scripts/Dymola/Electrical/AC/ThreePhasesBalanced/Lines/Examples/ACLineMedium.mos"
         "Simulate and plot"),
     Documentation(revisions="<html>
 <ul>
@@ -146,4 +146,4 @@ record type in order to be <code>Buildings.Electrical.Transmission.MediumVoltage
 </p>
 
 </html>"));
-end AClineMedium;
+end ACLineMedium_1;

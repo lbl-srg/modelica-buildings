@@ -1,5 +1,5 @@
 within Buildings.Electrical.AC.ThreePhasesBalanced.Lines.Examples;
-model ACline_R "Test model for single phase resistive lines"
+model ACLine_R_1 "Test model for single phase resistive lines"
   extends Modelica.Icons.Example;
   ThreePhasesBalanced.Sources.FixedVoltage E(definiteReference=true,
     f=60,
@@ -80,7 +80,7 @@ equation
   Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
                                graphics),
   __Dymola_Commands(file=
-          "modelica://Buildings/Resources/Scripts/Dymola/Electrical/AC/ThreePhasesBalanced/Lines/Examples/ACline_R.mos"
+          "modelica://Buildings/Resources/Scripts/Dymola/Electrical/AC/ThreePhasesBalanced/Lines/Examples/ACLine_R.mos"
         "Simulate and plot"),
     Documentation(info="<html>
 <p>
@@ -106,4 +106,4 @@ Documentation and example revised.
 </li>
 </ul>
 </html>"));
-end ACline_R;
+end ACLine_R_1;

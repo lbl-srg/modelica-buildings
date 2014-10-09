@@ -1,5 +1,5 @@
 within Buildings.Electrical.AC.ThreePhasesBalanced.Lines.Examples;
-model ACline_L "Test model for single phase inductive lines"
+model ACLine_L_1 "Test model for single phase inductive lines"
   extends Modelica.Icons.Example;
   parameter Modelica.SIunits.Inductance Lbase = 10/2/Modelica.Constants.pi/60
     "Base value for the line inductances";
@@ -82,7 +82,7 @@ equation
   Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
                                graphics),
   __Dymola_Commands(file=
-          "modelica://Buildings/Resources/Scripts/Dymola/Electrical/AC/ThreePhasesBalanced/Lines/Examples/ACline_L.mos"
+          "modelica://Buildings/Resources/Scripts/Dymola/Electrical/AC/ThreePhasesBalanced/Lines/Examples/ACLine_L.mos"
         "Simulate and plot"),
     Documentation(info="<html>
 <p>
@@ -108,4 +108,4 @@ Documentation and example revised.
 </li>
 </ul>
 </html>"));
-end ACline_L;
+end ACLine_L_1;
