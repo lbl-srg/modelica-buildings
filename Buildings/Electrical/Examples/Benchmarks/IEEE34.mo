@@ -14,10 +14,9 @@ model IEEE34
   Modelica.SIunits.Power Q;
   Modelica.SIunits.Energy E(start = 0);
 
-  Buildings.Electrical.AC.ThreePhasesUnbalanced.Lines.NetworkN network(
+  Buildings.Electrical.AC.ThreePhasesUnbalanced.Lines.Network_N network(
       redeclare Buildings.Electrical.Transmission.Benchmarks.Grids.IEEE_34_weak
-      grid)
-    annotation (Placement(transformation(extent={{-50,-10},{-30,10}})));
+      grid) annotation (Placement(transformation(extent={{-50,-10},{-30,10}})));
   Buildings.Electrical.AC.ThreePhasesUnbalanced.Loads.Resistive_N load[33](
     each P_nominal=1000,
     each mode=Buildings.Electrical.Types.Load.VariableZ_P_input,
