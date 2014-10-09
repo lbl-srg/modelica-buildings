@@ -333,6 +333,25 @@ have been <b style=\"color:blue\">improved</b> in a
     </td>
 </tr>
 
+
+<tr><td valign=\"top\">Buildings.Fluid.HeatExchangers.RadiantSlabs.SingleCircuitSlab<br/>
+                       Buildings.Fluid.HeatExchangers.RadiantSlabs.ParallelCircuitsSlab
+    </td>
+    <td valign=\"top\">Changed the models to use an epsilon-NTU approach for 
+                       the heat transfer between the fluid and the slab 
+                       rather than a finite difference scheme along the
+                       flow path.
+                       This has shown to lead to about five times faster 
+                       computation on several test cases including the models in
+                       <a href=\"modelica://Buildings.Rooms.FLEXLAB.Rooms.Examples\">
+                       Buildings.Rooms.FLEXLAB.Rooms.Examples</a>.
+                       This required removing the parameter <code>nSeg</code> 
+                       as it is no longer used.<br/>
+                       For Dymola, the conversion script will automatically
+                       update existing models.    
+    </td>
+</tr>
+
 <tr><td valign=\"top\">Buildings.Fluid.HeatExchangers.BaseClasses.DuctManifoldFixedResistance
     </td>
     <td valign=\"top\">Reformulated flow splitter in the model to reduce

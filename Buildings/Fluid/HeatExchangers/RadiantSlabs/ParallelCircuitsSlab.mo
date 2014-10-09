@@ -21,8 +21,6 @@ model ParallelCircuitsSlab
       m_flow_small=m_flow_small/nCir));
 
   parameter Integer nCir(min=1) = 1 "Number of parallel circuits";
-  parameter Integer nSeg(min=1) = 1
-    "Number of volume segments in each circuit (along flow path)";
 
   parameter Modelica.SIunits.Area A
     "Surface area of radiant slab (all circuits combined)"
@@ -44,10 +42,6 @@ model ParallelCircuitsSlab
   // Parameters used for the fluid model implementation
   parameter Boolean homotopyInitialization = true "= true, use homotopy method"
     annotation(Evaluate=true, Dialog(tab="Advanced"));
-
-  parameter Boolean use_epsilon_NTU = true
-    "Set to true to use an epsilon-NTU model for the heat conduction"
-    annotation(Dialog(tab="Advanced"));
 
   // Diagnostics
    parameter Boolean show_T = false
@@ -85,7 +79,6 @@ model ParallelCircuitsSlab
 
   Buildings.Fluid.HeatExchangers.RadiantSlabs.SingleCircuitSlab sla(
     redeclare final package Medium = Medium,
-    final use_epsilon_NTU=use_epsilon_NTU,
     final sysTyp=sysTyp,
     final A=A/nCir,
     final disPip=disPip,
@@ -110,7 +103,6 @@ model ParallelCircuitsSlab
     final dp_nominal=dp_nominal,
     final linearizeFlowResistance=linearizeFlowResistance,
     final deltaM=deltaM,
-    final nSeg=nSeg,
     final length=length,
     final ReC=4000) "Single parallel circuit of the radiant slab"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
@@ -238,6 +230,17 @@ Buildings.Fluid.Interfaces.PartialTwoPortInterface</a>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+October 9, 2014, by Michael Wetter:<br/>
+Changed model to use an epsilon-NTU approach for the heat transfer between
+the fluid and the slab rather than a finite difference scheme along the
+flow path.
+This has shown to lead to about five times faster computation on several 
+test cases including the models in
+<a href=\"modelica://Buildings.Rooms.FLEXLAB.Rooms.Examples\">
+Buildings.Rooms.FLEXLAB.Rooms.Examples</a>.
+This required removing the parameter <code>nSeg</code> as it is no longer used.
+</li>
 <li>
 October 10, 2013 by Michael Wetter:<br/>
 Added <code>noEvent</code> to the computation of the states at the port.

@@ -4,7 +4,7 @@ model PipeToSlabConductance
   replaceable package Medium =
     Modelica.Media.Interfaces.PartialMedium "Medium in the component"
       annotation (choicesAllMatching = true);
-  parameter Boolean use_epsilon_NTU = false
+  parameter Boolean use_epsilon_NTU = true
     "Set to true to use an epsilon-NTU model for the heat conduction";
   parameter Modelica.SIunits.Area APip "Pipe inside surface area";
 
