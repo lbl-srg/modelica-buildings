@@ -2,9 +2,6 @@ within Buildings.Electrical.AC.OnePhase.Conversion.Examples;
 model ACACConverter
   "This example illustrates how to use the AC/AC converter model"
   extends Modelica.Icons.Example;
-  // fixme: All examples in this package give the warning
-  // Modifiers cannot have subscripts
-  // which must be fixed.
   Buildings.Electrical.AC.OnePhase.Conversion.ACACConverter
     conACAC(eta=0.9, conversionFactor=60/120) "ACAC transformer"
     annotation (Placement(transformation(extent={{-10,0},{10,20}})));

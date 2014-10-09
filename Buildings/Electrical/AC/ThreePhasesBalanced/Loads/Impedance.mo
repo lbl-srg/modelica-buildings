@@ -129,12 +129,13 @@ The boolean parameter <code>star</code> is used to
 select whether the star (Y) or triangle (D)
 configuration is used to connect the impedance. 
 By default, the impedance is assumed to be connected 
-with a star configuration. 
-<!-- fixme: not sure what the next sentence means. Where is the implementation? -->
-When the connection type changes between
-<code>star</code> and <code>triangle</code>, the value of the impedance
-is recomputed in order to maintain the same nominal power
-consumption.
+with a star configuration.
+</p>
+<p>
+When the connection type changes from
+<code>star</code> to <code>triangle</code>, the value of the impedance
+is recomputed in such a way that the nominal power consumed by the impedance
+does not change.
 </p>
 </html>", revisions="<html>
 <ul>

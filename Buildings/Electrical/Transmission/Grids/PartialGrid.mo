@@ -23,11 +23,7 @@ This abstract grid model specifies the topology of the network by:
 The picture below describes the meaning of the
 values contained in the matrices.
 </p>
-<!--
-fixme: In the figure, correct the capitalization of nNodes, nLinks, fromTo and l.
-There are also other figures that have not yet been updated to use the new capitalization.
-Also, in the figure, replace 'long 10 m' with '10 meters long' 
--->
+
 <p align=\"center\">
 <img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Electrical/Transmission/Grids/partialGrid.png\"/>
 </p>

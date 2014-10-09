@@ -199,7 +199,7 @@ parameters in various model to help the user understand how they are used.
   </td>
   <td>
   <code>V_nominal</code> is the RMS (Root Mean Square) voltage at which the line operates
-  while <code>P_nominal</code> is th epower flowing through it. These values are used in some
+  while <code>P_nominal</code> is the power flowing through it. These values are used in some
   cases to automatically select the right cable properties.
   </td>
 </tr>
@@ -220,7 +220,7 @@ parameters in various model to help the user understand how they are used.
   <td>Sensors</td>
   <td>
   <code>V_nominal</code> is the RMS (Root Mean Square) voltage of the system
-  thet is currently measured, it can be used to compute the per unit. 
+  that is currently measured, it can be used to measure quantities in per unit [pu]. 
   </td>
 </tr>
 </table>
