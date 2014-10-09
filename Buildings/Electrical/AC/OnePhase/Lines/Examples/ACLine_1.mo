@@ -1,5 +1,5 @@
 within Buildings.Electrical.AC.OnePhase.Lines.Examples;
-model ACline
+model ACLine_1
   "Test model for a single phase line that uses commercial cable information"
   extends Modelica.Icons.Example;
   Sources.FixedVoltage E(      definiteReference=true,
@@ -107,7 +107,7 @@ equation
   Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}), graphics),
   __Dymola_Commands(file=
-          "modelica://Buildings/Resources/Scripts/Dymola/Electrical/AC/OnePhase/Lines/Examples/ACline.mos"
+          "modelica://Buildings/Resources/Scripts/Dymola/Electrical/AC/OnePhase/Lines/Examples/ACLine.mos"
         "Simulate and plot"),
     Documentation(revisions="<html>
 <ul>
@@ -133,4 +133,4 @@ however the equivalent impedance between each load and the source is the same.
 Since the equivalent impedances are the same, each load draws the same current.
 </p>
 </html>"));
-end ACline;
+end ACLine_1;

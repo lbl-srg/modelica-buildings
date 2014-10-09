@@ -1,5 +1,5 @@
 within Buildings.Electrical.AC.OnePhase.Lines.Examples;
-model ACline_RL "Test model for a single phase inductive-resistive line"
+model ACLine_RL_1 "Test model for a single phase inductive-resistive line"
   extends Modelica.Icons.Example;
   parameter Modelica.SIunits.Resistance Rbase = 10
     "Base value for the line resistance";
@@ -61,7 +61,7 @@ equation
   Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
             100}}),            graphics),
   __Dymola_Commands(file=
-          "modelica://Buildings/Resources/Scripts/Dymola/Electrical/AC/OnePhase/Lines/Examples/ACline_RL.mos"
+          "modelica://Buildings/Resources/Scripts/Dymola/Electrical/AC/OnePhase/Lines/Examples/ACLine_RL.mos"
         "Simulate and plot"),
     Documentation(revisions="<html>
 <ul>
@@ -91,4 +91,4 @@ The line model <code>RL_3</code> is the same as <code>RL_2</code> but it uses
 dynamic phasors.
 </p>
 </html>"));
-end ACline_RL;
+end ACLine_RL_1;
