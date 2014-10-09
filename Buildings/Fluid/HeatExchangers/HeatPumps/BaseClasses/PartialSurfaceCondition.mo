@@ -47,7 +47,7 @@ partial block PartialSurfaceCondition
   output Modelica.SIunits.AngularVelocity spe(displayUnit="1/min")
     "Rotational speed";
 
-  final parameter Buildings.Fluid.HeatExchangers.HeatPumps.BaseClasses.UACp uacp[nSta](
+  Buildings.Fluid.HeatExchangers.HeatPumps.BaseClasses.UACp uacp[nSta](
     redeclare final package Medium = Medium,
     TIn_nominal=datHP.cooSta.nomVal.T1In_nominal,
     p_nominal=datHP.cooSta.nomVal.p1_nominal,

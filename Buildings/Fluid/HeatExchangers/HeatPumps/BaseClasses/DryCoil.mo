@@ -32,14 +32,14 @@ block DryCoil "Calculates dry coil condition"
     annotation (Placement(transformation(extent={{44,52},{60,68}})));
   replaceable
     Buildings.Fluid.HeatExchangers.HeatPumps.WaterToAir.BaseClasses.CoolingCapacity
-                                                       cooCap(
-    cooSta=datHP.cooSta,
-    m1_flow_small=datHP.m1_flow_small,
-    nSta=datHP.nCooSta)
+    cooCap(
+      cooSta=datHP.cooSta,
+      m1_flow_small=datHP.m1_flow_small,
+      nSta=datHP.nCooSta)
     annotation (Placement(transformation(extent={{0,50},{20,70}})));
 
   Modelica.Blocks.Interfaces.RealOutput TDry(
-    quantity="Temperature",
+    quantity="ThermodynamicTemperature",
     unit="K",
     min=233.15,
     max=373.15) "Dry bulb temperature of air at ADP"

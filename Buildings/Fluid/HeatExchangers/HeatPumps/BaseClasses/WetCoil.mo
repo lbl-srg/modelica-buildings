@@ -2,11 +2,12 @@ within Buildings.Fluid.HeatExchangers.HeatPumps.BaseClasses;
 model WetCoil "Calculates wet coil condition "
 
   extends
-    Buildings.Fluid.HeatExchangers.HeatPumps.BaseClasses.PartialCoilCondition(    speShiEIR(speSet=datHP.cooSta.spe,
-        nSta=datHP.nCooSta,
-      variableSpeedCoil=true),
-                             speShiQ_flow(speSet=datHP.cooSta.spe, nSta=datHP.nCooSta,
-      variableSpeedCoil=true));
+    Buildings.Fluid.HeatExchangers.HeatPumps.BaseClasses.PartialCoilCondition(
+      speShiEIR(speSet=datHP.cooSta.spe,
+                nSta=datHP.nCooSta,
+                variableSpeedCoil=true),
+      speShiQ_flow(speSet=datHP.cooSta.spe, nSta=datHP.nCooSta,
+                variableSpeedCoil=true));
 
   extends Buildings.Fluid.HeatExchangers.HeatPumps.BaseClasses.PartialWetCoil(
     appDewPt(
@@ -27,10 +28,10 @@ model WetCoil "Calculates wet coil condition "
 //     water to water heatpump";
   replaceable
     Buildings.Fluid.HeatExchangers.HeatPumps.WaterToAir.BaseClasses.CoolingCapacity
-                                                       cooCap(
-    cooSta=datHP.cooSta,
-    m1_flow_small=datHP.m1_flow_small,
-    nSta=datHP.nCooSta)
+      cooCap(
+        cooSta=datHP.cooSta,
+        m1_flow_small=datHP.m1_flow_small,
+        nSta=datHP.nCooSta)
     annotation (Placement(transformation(extent={{0,50},{20,70}})));
 
   Modelica.Blocks.Interfaces.RealOutput TADP(
