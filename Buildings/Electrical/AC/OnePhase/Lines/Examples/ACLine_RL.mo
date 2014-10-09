@@ -1,5 +1,5 @@
 within Buildings.Electrical.AC.OnePhase.Lines.Examples;
-model ACLine_RL_1 "Test model for a single phase inductive-resistive line"
+model ACLine_RL "Test model for a single phase inductive-resistive line"
   extends Modelica.Icons.Example;
   parameter Modelica.SIunits.Resistance Rbase = 10
     "Base value for the line resistance";
@@ -91,4 +91,4 @@ The line model <code>RL_3</code> is the same as <code>RL_2</code> but it uses
 dynamic phasors.
 </p>
 </html>"));
-end ACLine_RL_1;
+end ACLine_RL;

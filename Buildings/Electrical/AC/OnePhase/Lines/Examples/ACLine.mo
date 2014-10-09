@@ -1,5 +1,5 @@
 within Buildings.Electrical.AC.OnePhase.Lines.Examples;
-model ACLine_1
+model ACLine
   "Test model for a single phase line that uses commercial cable information"
   extends Modelica.Icons.Example;
   Sources.FixedVoltage E(      definiteReference=true,
@@ -133,4 +133,4 @@ however the equivalent impedance between each load and the source is the same.
 Since the equivalent impedances are the same, each load draws the same current.
 </p>
 </html>"));
-end ACLine_1;
+end ACLine;
