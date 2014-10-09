@@ -29,17 +29,21 @@ model CoolingCapacity "Test model for CoolingCapacity"
     cooCap(
     m1_flow_small=datHP.m1_flow_small,
     cooSta=datHP.cooSta,
-    nSta=datHP.nCooSta) "Calculates cooling capacity"
+    nSta=datHP.nCooSta,
+    m2_flow_small=datHP.m2_flow_small) "Calculates cooling capacity"
     annotation (Placement(transformation(extent={{20,0},{40,20}})));
 
   Buildings.Fluid.HeatExchangers.HeatPumps.AirToAir.Data.HPData datHP(
     nCooSta=1,
-    heaSta={AirToAir.Data.BaseClasses.HeatingStage(
+    nHeaSta=1,
+    heaSta={
+        Buildings.Fluid.HeatExchangers.HeatPumps.AirToAir.Data.BaseClasses.HeatingStage(
         spe=1800,
         nomVal=AirToAir.Data.BaseClasses.HeatingNominalValues(
-          Q_flow_nominal=1838.7,
           COP_nominal=5,
-          m1_flow_nominal=0.1661088),
+          m1_flow_nominal=0.1661088,
+          m2_flow_nominal=0.1661088,
+          Q_flow_nominal=1838.7),
         perCur=AirToAir.Data.BaseClasses.PerformanceCurve(
           capFunT={0.617474,-0.00245669,-1.87E-05,0.0254921,-1.01E-04,-1.09E-04},
           capFunFF1={1},
@@ -51,13 +55,14 @@ model CoolingCapacity "Test model for CoolingCapacity"
           T2InMax=273.15 + 30,
           ff1Min=0,
           ff1Max=1))},
-    nHeaSta=1,
-    cooSta={AirToAir.Data.BaseClasses.CoolingStage(
+    cooSta={
+        Buildings.Fluid.HeatExchangers.HeatPumps.AirToAir.Data.BaseClasses.CoolingStage(
         spe=1800,
         nomVal=AirToAir.Data.BaseClasses.CoolingNominalValues(
-          Q_flow_nominal=-1877.9,
           COP_nominal=4,
           m1_flow_nominal=0.151008,
+          m2_flow_nominal=0.151008,
+          Q_flow_nominal=-1877.9,
           SHR_nominal=0.75),
         perCur=AirToAir.Data.BaseClasses.PerformanceCurve(
           capFunT={1.43085,-0.0453653,0.00199378,-0.00805944,3.93E-05,-1.81E-04},
