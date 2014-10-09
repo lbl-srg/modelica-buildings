@@ -1,5 +1,5 @@
 within Buildings.Electrical.AC.ThreePhasesUnbalanced.Validation.IEEETests.Test4NodesFeeder.UnbalancedStepDown;
-model IEEE4Unbalanced_Y_Y_StepDown
+model YY
   "IEEE 4 node test feeder model with unbalanced load and Y - Y connection (step down)"
   extends
     Buildings.Electrical.AC.ThreePhasesUnbalanced.Validation.IEEETests.Test4NodesFeeder.BaseClasses.IEEE4
@@ -77,8 +77,16 @@ equation
       points={{-8,10},{12,10}},
       color={0,120,120},
       smooth=Smooth.None));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
+  annotation (experiment(StopTime=1.0, Tolerance=1e-06),
+  __Dymola_Commands(file=
+          "modelica://Buildings/Resources/Scripts/Dymola/Electrical/AC/ThreePhasesUnbalanced/Validation/IEEETests/Test4NodesFeeder/UnbalancedStepDown/YY.mos"
+        "Simulate and plot"),
+        Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
             {100,100}}), graphics), Documentation(revisions="<html><ul>
+<li>
+October 9, 2014, by Marco Bonvini:<br/>
+Added documentation.
+</li>
 <li>
 June 17, 2014, by Marco Bonvini:<br/>
 Moved to Examples IEEE package.
@@ -88,5 +96,22 @@ June 6, 2014, by Marco Bonvini:<br/>
 First implementation.
 </li>
 </ul>
+</html>", info="<html>
+<p>
+IEEE 4 nodes validation test case with the following characteristics
+</p>
+<ul>
+<li>balanced load,
+  <ul>
+  <li>power consumption on phases <i>P<sub>1</sub> = 2375 kW</i>, 
+  <i>P<sub>2</sub> = 1800 kW</i>, and <i>P<sub>3</sub> = 1275 kW</i></li>
+  <li>power factor on phases <i>cos&phi;<sub>1</sub> = 0.85</i>, 
+  <i>cos&phi;<sub>2</sub> = 0.9</i>, and <i>cos&phi;<sub>3</sub> = 0.95</i></li>
+  </ul>
+</li>
+<li>voltage step-down transformer (<i>V<sub>Pri</sub>=12.47 kV,
+<i>V<sub>Sec</sub> = 4.16kV</i>),</li>
+<li>Y-Y transformer</li>
+</ul>
 </html>"));
-end IEEE4Unbalanced_Y_Y_StepDown;
+end YY;

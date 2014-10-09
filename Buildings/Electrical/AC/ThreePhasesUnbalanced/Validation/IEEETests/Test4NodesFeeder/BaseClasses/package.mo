@@ -6,8 +6,8 @@ extends Modelica.Icons.BasesPackage;
 annotation (Documentation(info="<html>
 <p>
 This package contains base classes used by the models that are part of the package
-<a href=\"modelica://Buildings.Electrical.AC.ThreePhasesUnbalanced.Examples.IEEETests.Test4NodesFeeder\">
-Buildings.Electrical.AC.ThreePhasesUnbalanced.Examples.IEEETests.Test4NodesFeeder</a>.
+<a href=\"modelica://Buildings.Electrical.AC.ThreePhasesUnbalanced.Validation.IEEETests.Test4NodesFeeder\">
+Buildings.Electrical.AC.ThreePhasesUnbalanced.Validation.IEEETests.Test4NodesFeeder</a>.
 </p>
 </html>", revisions="<html>
 <ul>

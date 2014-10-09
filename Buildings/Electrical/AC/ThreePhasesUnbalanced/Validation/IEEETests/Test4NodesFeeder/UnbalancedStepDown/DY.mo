@@ -1,6 +1,6 @@
-within Buildings.Electrical.AC.ThreePhasesUnbalanced.Validation.IEEETests.Test4NodesFeeder.UnbalancedStepUp;
-model IEEE4Unbalanced_D_Y_StepUp
-  "IEEE 4 node test feeder model with unbalanced load and D - Y connection (step up)"
+within Buildings.Electrical.AC.ThreePhasesUnbalanced.Validation.IEEETests.Test4NodesFeeder.UnbalancedStepDown;
+model DY
+  "IEEE 4 node test feeder model with unbalanced load and D - Y connection (step down)"
   extends
     Buildings.Electrical.AC.ThreePhasesUnbalanced.Validation.IEEETests.Test4NodesFeeder.BaseClasses.IEEE4
     (
@@ -15,16 +15,16 @@ model IEEE4Unbalanced_D_Y_StepUp
     redeclare Buildings.Electrical.AC.ThreePhasesUnbalanced.Sensors.ProbeWye
       node4,
     final VLL_side1=12.47e3,
-    final VLL_side2=24.9e3,
+    final VLL_side2=4.16e3,
     final VARbase=6000e3,
-    final V2_ref={12364,12391,12333},
-    final V3_ref={13792,13733,13641},
-    final V4_ref={13768,13684,13600},
-    final Theta2_ref=Modelica.Constants.pi/180.0*{29.8,-90.5,149.6},
-    final Theta3_ref=Modelica.Constants.pi/180.0*{27.7,-93.5,145.4},
-    final Theta4_ref=Modelica.Constants.pi/180.0*{27.7,-93.6,145.2},
+    final V2_ref={12350,12314,12333},
+    final V3_ref={2290,2261,2214},
+    final V4_ref={2157,1936,1849},
+    final Theta2_ref=Modelica.Constants.pi/180.0*{29.6,-90.4,149.8},
+    final Theta3_ref=Modelica.Constants.pi/180.0*{-32.4,-153.8,85.2},
+    final Theta4_ref=Modelica.Constants.pi/180.0*{-34.2,-157.0,73.4},
     loadRL(use_pf_in=true));
-  Buildings.Electrical.AC.ThreePhasesUnbalanced.Conversion.ACACTransformerStepUpDY
+  Buildings.Electrical.AC.ThreePhasesUnbalanced.Conversion.ACACTransformerStepDownDY
     transformer(
     VHigh=VLL_side1,
     VLow=VLL_side2,
@@ -77,16 +77,41 @@ equation
       points={{81,40},{86,40},{86,16},{74,16}},
       color={0,0,127},
       smooth=Smooth.None));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
+  annotation (experiment(StopTime=1.0, Tolerance=1e-06),
+  __Dymola_Commands(file=
+          "modelica://Buildings/Resources/Scripts/Dymola/Electrical/AC/ThreePhasesUnbalanced/Validation/IEEETests/Test4NodesFeeder/UnbalancedStepDown/DY.mos"
+        "Simulate and plot"),
+        Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
             {100,100}}), graphics), Documentation(revisions="<html><ul>
+<li>
+October 9, 2014, by Marco Bonvini:<br/>
+Added documentation.
+</li>
 <li>
 June 17, 2014, by Marco Bonvini:<br/>
 Moved to Examples IEEE package.
 </li>
 <li>
-June 9, 2014, by Marco Bonvini:<br/>
+June 6, 2014, by Marco Bonvini:<br/>
 First implementation.
 </li>
 </ul>
+</html>", info="<html>
+<p>
+IEEE 4 nodes validation test case with the following characteristics
+</p>
+<ul>
+<li>balanced load,
+  <ul>
+  <li>power consumption on phases <i>P<sub>1</sub> = 2375 kW</i>, 
+  <i>P<sub>2</sub> = 1800 kW</i>, and <i>P<sub>3</sub> = 1275 kW</i></li>
+  <li>power factor on phases <i>cos&phi;<sub>1</sub> = 0.85</i>, 
+  <i>cos&phi;<sub>2</sub> = 0.9</i>, and <i>cos&phi;<sub>3</sub> = 0.95</i></li>
+  </ul>
+</li>
+<li>voltage step-down transformer (<i>V<sub>Pri</sub>=12.47 kV,
+<i>V<sub>Sec</sub> = 4.16kV</i>),</li>
+<li>D-Y transformer</li>
+</ul>
 </html>"));
-end IEEE4Unbalanced_D_Y_StepUp;
+end DY;

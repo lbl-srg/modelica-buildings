@@ -1,39 +1,40 @@
 within Buildings.Electrical.AC.ThreePhasesUnbalanced.Validation.IEEETests.Test4NodesFeeder.BalancedStepDown;
-model IEEE4Balanced_Y_D_StepDown
-  "IEEE 4 node test feeder model with balanced load and Y - D connection (step down)"
+model YY
+  "IEEE 4 node test feeder model with balanced load and Y - Y connection (step down)"
   extends
     Buildings.Electrical.AC.ThreePhasesUnbalanced.Validation.IEEETests.Test4NodesFeeder.BaseClasses.IEEE4
     (
     final line1_use_Z_y=true,
-    final line2_use_Z_y=false,
+    final line2_use_Z_y=true,
     redeclare Buildings.Electrical.AC.ThreePhasesUnbalanced.Sensors.ProbeWye
       node1,
     redeclare Buildings.Electrical.AC.ThreePhasesUnbalanced.Sensors.ProbeWye
       node2,
-    redeclare Buildings.Electrical.AC.ThreePhasesUnbalanced.Sensors.ProbeDelta
+    redeclare Buildings.Electrical.AC.ThreePhasesUnbalanced.Sensors.ProbeWye
       node3,
-    redeclare Buildings.Electrical.AC.ThreePhasesUnbalanced.Sensors.ProbeDelta
+    redeclare Buildings.Electrical.AC.ThreePhasesUnbalanced.Sensors.ProbeWye
       node4,
     final VLL_side1=12.47e3,
     final VLL_side2=4.16e3,
     final VARbase=6000e3,
-    final V2_ref={7113,7132,7123},
-    final V3_ref={3906,3915,3909},
-    final V4_ref={3437,3497,3388},
+    final V2_ref={7107,7140,7121},
+    final V3_ref={2247,2269,2256},
+    final V4_ref={1918,2061,1981},
     final Theta2_ref=Modelica.Constants.pi/180.0*{-0.3,-120.3,119.6},
-    final Theta3_ref=Modelica.Constants.pi/180.0*{-3.5,-123.6,116.3},
-    final Theta4_ref=Modelica.Constants.pi/180.0*{-7.8,-129.3,110.6},
-    loadRL(use_pf_in=false, loadConn=Buildings.Electrical.Types.LoadConnection.wye_to_delta));
+    final Theta3_ref=Modelica.Constants.pi/180.0*{-3.7,-123.5,116.4},
+    final Theta4_ref=Modelica.Constants.pi/180.0*{-9.1,-128.3,110.9},
+    loadRL(use_pf_in=false));
+
   Modelica.Blocks.Sources.Constant load(k=-1800e3)
     annotation (Placement(transformation(extent={{54,62},{74,82}})));
-  Buildings.Electrical.AC.ThreePhasesUnbalanced.Conversion.ACACTransformerStepDownYD
+  Buildings.Electrical.AC.ThreePhasesUnbalanced.Conversion.ACACTransformer
     transformer(
     VHigh=VLL_side1,
     VLow=VLL_side2,
     XoverR=6,
     Zperc=sqrt(0.01^2 + 0.06^2),
     VABase=VARbase)
-    annotation (Placement(transformation(extent={{-26,0},{-6,20}})));
+    annotation (Placement(transformation(extent={{-28,0},{-8,20}})));
 equation
   connect(load.y, loadRL.Pow1) annotation (Line(
       points={{75,72},{90,72},{90,16},{74,16}},
@@ -48,15 +49,23 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(line1.terminal_p, transformer.terminal_n) annotation (Line(
-      points={{-48,10},{-26,10}},
+      points={{-48,10},{-28,10}},
       color={0,120,120},
       smooth=Smooth.None));
   connect(transformer.terminal_p, line2.terminal_n) annotation (Line(
-      points={{-6,10},{12,10}},
+      points={{-8,10},{12,10}},
       color={0,120,120},
       smooth=Smooth.None));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
+  annotation (experiment(StopTime=1.0, Tolerance=1e-06),
+  __Dymola_Commands(file=
+          "modelica://Buildings/Resources/Scripts/Dymola/Electrical/AC/ThreePhasesUnbalanced/Validation/IEEETests/Test4NodesFeeder/BalancedStepDown/YY.mos"
+        "Simulate and plot"),
+        Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
             {100,100}}), graphics), Documentation(revisions="<html><ul>
+<li>
+October 9, 2014, by Marco Bonvini:<br/>
+Added documentation.
+</li>
 <li>
 June 17, 2014, by Marco Bonvini:<br/>
 Moved to Examples IEEE package.
@@ -66,5 +75,20 @@ June 6, 2014, by Marco Bonvini:<br/>
 First implementation.
 </li>
 </ul>
+</html>", info="<html>
+<p>
+IEEE 4 nodes validation test case with the following characteristics
+</p>
+<ul>
+<li>balanced load,
+  <ul>
+  <li>power consumption on each phase <i>P<sub>1,2,3</sub> = 1800 kW</i></li>
+  <li>power factor on each phase <i>cos&phi;<sub>1,2,3</sub> = 0.9</i></li>
+  </ul>
+</li>
+<li>voltage step-down transformer (<i>V<sub>Pri</sub>=12.47 kV,
+<i>V<sub>Sec</sub> = 4.16kV</i>),</li>
+<li>Y-Y transformer</li>
+</ul>
 </html>"));
-end IEEE4Balanced_Y_D_StepDown;
+end YY;

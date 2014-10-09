@@ -52,7 +52,7 @@ partial model IEEE4 "Base model of the IEEE 4 nodes test feeder"
     "Error in voltage phase angle at node 4 -- percent";
   Buildings.Electrical.AC.ThreePhasesUnbalanced.Sources.FixedVoltage source(
     f=60,
-    V=VLL_side1) annotation (Placement(transformation(extent={{-98,0},{-78,20}})));
+    V=VLL_side1) "Voltage source" annotation (Placement(transformation(extent={{-98,0},{-78,20}})));
   Buildings.Electrical.AC.ThreePhasesUnbalanced.Lines.TwoPortMatrixRL line1(
     Z11=L1*(if line1_use_Z_y then Z11_y else Z11_d),
     Z12=L1*(if line1_use_Z_y then Z12_y else Z12_d),
@@ -60,7 +60,7 @@ partial model IEEE4 "Base model of the IEEE 4 nodes test feeder"
     Z22=L1*(if line1_use_Z_y then Z22_y else Z22_d),
     Z23=L1*(if line1_use_Z_y then Z23_y else Z23_d),
     Z33=L1*(if line1_use_Z_y then Z33_y else Z33_d),
-    V_nominal=VLL_side1)
+    V_nominal=VLL_side1) "Line at primary side"
     annotation (Placement(transformation(extent={{-68,0},{-48,20}})));
   Buildings.Electrical.AC.ThreePhasesUnbalanced.Lines.TwoPortMatrixRL line2(
     Z11=L2*(if line2_use_Z_y then Z11_y else Z11_d),
@@ -69,30 +69,32 @@ partial model IEEE4 "Base model of the IEEE 4 nodes test feeder"
     Z22=L2*(if line2_use_Z_y then Z22_y else Z22_d),
     Z23=L2*(if line2_use_Z_y then Z23_y else Z23_d),
     Z33=L2*(if line2_use_Z_y then Z33_y else Z33_d),
-    V_nominal=VLL_side2)
+    V_nominal=VLL_side2) "Line at secondary side"
     annotation (Placement(transformation(extent={{12,0},{32,20}})));
   Buildings.Electrical.AC.ThreePhasesUnbalanced.Loads.Inductive loadRL(
     pf=0.9,
     P_nominal=-1800e3,
     V_nominal=VLL_side2,
     mode=Buildings.Electrical.Types.Load.VariableZ_P_input,
-    use_pf_in=true)
+    use_pf_in=true) "Load"
     annotation (Placement(transformation(extent={{54,0},{74,20}})));
   replaceable
     Buildings.Electrical.AC.ThreePhasesUnbalanced.Sensors.BaseClasses.GeneralizedProbe
-    node1(perUnit=false, V_nominal=VLL_side1)
+    node1(perUnit=false, V_nominal=VLL_side1) "Probe at source"
     annotation (Placement(transformation(extent={{-84,28},{-64,48}})));
   replaceable
     Buildings.Electrical.AC.ThreePhasesUnbalanced.Sensors.BaseClasses.GeneralizedProbe
     node2(perUnit=false, V_nominal=VLL_side1)
+    "Probe at the primary side of the transformer"
     annotation (Placement(transformation(extent={{-52,28},{-32,48}})));
   replaceable
     Buildings.Electrical.AC.ThreePhasesUnbalanced.Sensors.BaseClasses.GeneralizedProbe
     node3(perUnit=false, V_nominal=VLL_side2)
+    "Probe at the secondary side of the transformer"
               annotation (Placement(transformation(extent={{-4,28},{16,48}})));
   replaceable
     Buildings.Electrical.AC.ThreePhasesUnbalanced.Sensors.BaseClasses.GeneralizedProbe
-    node4(perUnit=false, V_nominal=VLL_side2)
+    node4(perUnit=false, V_nominal=VLL_side2) "Probe at the load"
               annotation (Placement(transformation(extent={{28,28},{48,48}})));
 
 protected
@@ -149,13 +151,120 @@ equation
       points={{32,10},{38,10},{38,29}},
       color={0,120,120},
       smooth=Smooth.None));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
-            {100,100}}), graphics), Documentation(revisions="<html>
+  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
+            -100},{100,100}}),
+                         graphics), Documentation(revisions="<html>
 <ul>
+<li>
+October 8, 2014, by Marco Bonvini:<br/>
+Revised documentation.
+</li>
 <li>
 June 6, 2014, by Marco Bonvini:<br/>
 First implementation.
 </li>
 </ul>
+</html>", info="<html>
+<p>
+This is a partial model that is extended by all the other validation test cases.
+This model defined replaceable probes and trasformer so they can be
+easily changed when implementing the different tests.
+</p>
+
+<p align=\"center\">
+<img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Electrical/AC/ThreePhasesUnbalanced/Validation/IEEETests/Test4nodesFeeder/IEEE_4nodes_schema.png\"/>
+</p>
+
+<p>
+More information can be found in each model that extends this
+one.
+</p>
+
+<h4>Reference results</h4>
+<p>
+The reference results for the tests are saved as parameter of the model and compared to 
+the simulated ones. The error between the results (herein called <i>X<sub>model</sub></i>)
+ and the references (herein called  <i>X<sub>ref</sub></i>) are computed in both
+absolute and relative way. Note that  <i>X<sub>model</sub></i> and  <i>X<sub>ref</sub></i>
+can be either voltage amplitudes or phase angles.
+</p>
+<p align=\"center\" style=\"font-style:italic;\">
+Err<sub>abs</sub> = X<sub>model</sub> - X<sub>ref</sub>
+</p>
+<p align=\"center\" style=\"font-style:italic;\">
+Err<sub>%</sub> = Err<sub>abs</sub> / X<sub>ref</sub>
+</p>
+
+<p>The variables that store the results of the comparison are listed in the
+table below</p>
+
+<table summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+<tr>
+  <th>Variable</th>
+  <th>Description</th>
+  <th>Unit</th>
+</tr>
+<tr>
+  <td><code>err_V2[3]</code></td>
+  <td>Error between simulated voltage at node 2 and reference results</td>
+  <td>[V]</td>
+</tr>
+<tr>
+  <td><code>err_V3[3]</code></td>
+  <td>Error between simulated voltage at node 3 and reference results</td>
+  <td>[V]</td>
+</tr>
+<tr>
+  <td><code>err_V4[3]</code></td>
+  <td>Error between simulated voltage at node 4 and reference results</td>
+  <td>[V]</td>
+</tr>
+<tr>
+  <td><code>err_Theta2[3]</code></td>
+  <td>Error between simulated phase angle at node 2 and reference phase angle</td>
+  <td>[rad], displayed as [deg]</td>
+</tr>
+<tr>
+  <td><code>err_Theta3[3]</code></td>
+  <td>Error between simulated phase angle at node 2 and reference phase angle</td>
+  <td>[rad], displayed as [deg]</td>
+</tr>
+<tr>
+  <td><code>err_Theta4[3]</code></td>
+  <td>Error between simulated phase angle at node 2 and reference phase angle</td>
+  <td>[rad], displayed as [deg]</td>
+</tr>
+<tr>
+  <td><code>err_V2_percent[3]</code></td>
+  <td>Relative error between simulated voltage at node 2 and reference results</td>
+  <td>[%]</td>
+</tr>
+<tr>
+  <td><code>err_V3_percent[3]</code></td>
+  <td>Relative error between simulated voltage at node 3 and reference results</td>
+  <td>[%]</td>
+</tr>
+<tr>
+  <td><code>err_V4_percent[3]</code></td>
+  <td>Relative error between simulated voltage at node 4 and reference results</td>
+  <td>[%]</td>
+</tr>
+<tr>
+  <td><code>err_Theta2_percent[3]</code></td>
+  <td>Relative error between simulated phase angle at node 2 and reference phase angle</td>
+  <td>[%]</td>
+</tr>
+<tr>
+  <td><code>err_Theta3_percent[3]</code></td>
+  <td>Relative error between simulated phase angle at node 2 and reference phase angle</td>
+  <td>[%]</td>
+</tr>
+<tr>
+  <td><code>err_Theta4_percent[3]</code></td>
+  <td>Relative error between simulated phase angle at node 2 and reference phase angle</td>
+  <td>[%]</td>
+</tr>
+</table>
+
 </html>"));
 end IEEE4;

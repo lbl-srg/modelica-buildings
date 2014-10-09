@@ -1,6 +1,6 @@
-within Buildings.Electrical.AC.ThreePhasesUnbalanced.Validation.IEEETests.Test4NodesFeeder.BalancedStepUp;
-model IEEE4Balanced_D_D_StepUp
-  "IEEE 4 node test feeder model with balanced load and D - D connection (step up)"
+within Buildings.Electrical.AC.ThreePhasesUnbalanced.Validation.IEEETests.Test4NodesFeeder.BalancedStepDown;
+model DD
+  "IEEE 4 node test feeder model with balanced load and D - D connection (step down)"
   extends
     Buildings.Electrical.AC.ThreePhasesUnbalanced.Validation.IEEETests.Test4NodesFeeder.BaseClasses.IEEE4
     (
@@ -15,14 +15,14 @@ model IEEE4Balanced_D_D_StepUp
     redeclare Buildings.Electrical.AC.ThreePhasesUnbalanced.Sensors.ProbeDelta
       node4,
     final VLL_side1=12.47e3,
-    final VLL_side2=24.9e3,
+    final VLL_side2=4.16e3,
     final VARbase=6000e3,
-    final V2_ref={12361,12372,12348},
-    final V3_ref={23723,23746,23698},
-    final V4_ref={23657,23688,23625},
+    final V2_ref={12339,12349,12321},
+    final V3_ref={3911,3914,3905},
+    final V4_ref={3442,3497,3384},
     final Theta2_ref=Modelica.Constants.pi/180.0*{29.7,-90.4,149.6},
-    final Theta3_ref=Modelica.Constants.pi/180.0*{26.7,-93.4,146.6},
-    final Theta4_ref=Modelica.Constants.pi/180.0*{26.6,-93.6,146.5},
+    final Theta3_ref=Modelica.Constants.pi/180.0*{26.5,-93.6,146.4},
+    final Theta4_ref=Modelica.Constants.pi/180.0*{22.3,-99.4,140.7},
     loadRL(use_pf_in=false, loadConn=Buildings.Electrical.Types.LoadConnection.wye_to_delta));
   Modelica.Blocks.Sources.Constant load(k=-1800e3)
     annotation (Placement(transformation(extent={{54,62},{74,82}})));
@@ -55,8 +55,16 @@ equation
       points={{-6,10},{12,10}},
       color={0,120,120},
       smooth=Smooth.None));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
+  annotation (experiment(StopTime=1.0, Tolerance=1e-06),
+  __Dymola_Commands(file=
+          "modelica://Buildings/Resources/Scripts/Dymola/Electrical/AC/ThreePhasesUnbalanced/Validation/IEEETests/Test4NodesFeeder/BalancedStepDown/DD.mos"
+        "Simulate and plot"),
+        Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
             {100,100}}), graphics), Documentation(revisions="<html><ul>
+<li>
+October 9, 2014, by Marco Bonvini:<br/>
+Added documentation.
+</li>
 <li>
 June 17, 2014, by Marco Bonvini:<br/>
 Moved to Examples IEEE package.
@@ -66,5 +74,20 @@ June 6, 2014, by Marco Bonvini:<br/>
 First implementation.
 </li>
 </ul>
+</html>", info="<html>
+<p>
+IEEE 4 nodes validation test case with the following characteristics
+</p>
+<ul>
+<li>balanced load,
+  <ul>
+  <li>power consumption on each phase <i>P<sub>1,2,3</sub> = 1800 kW</i></li>
+  <li>power factor on each phase <i>cos&phi;<sub>1,2,3</sub> = 0.9</i></li>
+  </ul>
+</li>
+<li>voltage step-down transformer (<i>V<sub>Pri</sub>=12.47 kV,
+<i>V<sub>Sec</sub> = 4.16kV</i>),</li>
+<li>D-D transformer</li>
+</ul>
 </html>"));
-end IEEE4Balanced_D_D_StepUp;
+end DD;

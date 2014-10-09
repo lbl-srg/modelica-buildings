@@ -33,6 +33,10 @@ annotation (Icon(graphics={
         smooth=Smooth.None)}), Documentation(revisions="<html>
 <ul>
 <li>
+October 8, 2014, by Marco Bonvini:<br/>
+Revised package: added examples, checked results and added unit tests.
+</li>
+<li>
 August 25, 2014, by Marco Bonvini:<br/>
 Revised documentation.
 </li>
