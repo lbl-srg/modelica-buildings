@@ -1,39 +1,36 @@
 within Buildings.Fluid.HeatExchangers.RadiantSlabs;
 model SingleCircuitSlab "Model of a single circuit of a radiant slab"
   extends Buildings.Fluid.HeatExchangers.RadiantSlabs.BaseClasses.Slab;
-   extends Buildings.Fluid.FixedResistances.BaseClasses.Pipe(
-      final nSeg=1,
-      final diameter=pipe.dIn,
-      length=A/disPip,
-      final thicknessIns=0,
-      final lambdaIns = 0.04,
-      dp_nominal = Modelica.Fluid.Pipes.BaseClasses.WallFriction.Detailed.pressureLoss_m_flow(
-        m_flow=m_flow_nominal,
-        rho_a=rho_default,
-        rho_b=rho_default,
-        mu_a=mu_default,
-        mu_b=mu_default,
-        length=length,
-        diameter=pipe.dIn,
-        roughness=pipe.roughness,
-        m_flow_small=m_flow_small),
+  extends Buildings.Fluid.FixedResistances.BaseClasses.Pipe(
+     final diameter=pipe.dIn,
+     length=A/disPip,
+     final thicknessIns=0,
+     final lambdaIns = 0.04,
+     dp_nominal = Modelica.Fluid.Pipes.BaseClasses.WallFriction.Detailed.pressureLoss_m_flow(
+      m_flow=m_flow_nominal,
+      rho_a=rho_default,
+      rho_b=rho_default,
+      mu_a=mu_default,
+      mu_b=mu_default,
+      length=length,
+      diameter=pipe.dIn,
+      roughness=pipe.roughness,
+      m_flow_small=m_flow_small),
       res(dp(nominal=200*length)));
-
-  parameter Modelica.SIunits.Area A "Surface area of the slab"
+  parameter Modelica.SIunits.Area A "Surface area of radiant slab"
   annotation(Dialog(group="Construction"));
-
   parameter Modelica.SIunits.Temperature T_c_start=
-    (T_a_start*con_b.layers.R+T_b_start*con_a.layers.R)/layers.R
+    (T_a_start*con_b[1].layers.R+T_b_start*con_a[1].layers.R)/layers.R
     "Initial construction temperature in the layer that contains the pipes, used if steadyStateInitial = false"
     annotation(Dialog(tab="Initialization", group="Construction"));
   final parameter Modelica.SIunits.Velocity v_nominal=
     4*m_flow_nominal/pipe.dIn^2/Modelica.Constants.pi/rho_default
     "Velocity at m_flow_nominal";
 
-  Buildings.HeatTransfer.Conduction.MultiLayer con_a(
-    final A=A,
-    steadyStateInitial=steadyStateInitial,
-    layers(
+  Buildings.HeatTransfer.Conduction.MultiLayer con_a[nSeg](
+    each final A=A/nSeg,
+    each steadyStateInitial=steadyStateInitial,
+    each layers(
       final nLay = iLayPip,
       final material={layers.material[i] for i in 1:iLayPip},
       absIR_a=layers.absIR_a,
@@ -41,29 +38,64 @@ model SingleCircuitSlab "Model of a single circuit of a radiant slab"
       absSol_a=layers.absSol_a,
       absSol_b=layers.absSol_b,
       roughness_a=layers.roughness_a),
-      T_a_start=T_a_start,
-      T_b_start=T_c_start) "Construction near the surface port surf_a"
+      each T_a_start=T_a_start,
+      each T_b_start=T_c_start) "Construction near the surface port surf_a"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=270,
-        origin={40,60})));
-  Buildings.HeatTransfer.Conduction.MultiLayer con_b(
-      final A=A,
-      steadyStateInitial=steadyStateInitial,
-      layers(
-        final nLay = layers.nLay-iLayPip,
-        final material={layers.material[i] for i in iLayPip + 1:layers.nLay},
-        absIR_a=layers.absIR_a,
-        absIR_b=layers.absIR_b,
-        absSol_a=layers.absSol_a,
-        absSol_b=layers.absSol_b,
-        roughness_a=layers.roughness_a),
-      T_a_start=T_c_start,
-      T_b_start=T_b_start) "Construction near the surface port surf_b"
+        origin={40,50})));
+  Buildings.HeatTransfer.Conduction.MultiLayer con_b[nSeg](
+      each final A=A/nSeg,
+      each steadyStateInitial=steadyStateInitial,
+      each layers(
+      final nLay = layers.nLay-iLayPip,
+      final material={layers.material[i] for i in iLayPip + 1:layers.nLay},
+      absIR_a=layers.absIR_a,
+      absIR_b=layers.absIR_b,
+      absSol_a=layers.absSol_a,
+      absSol_b=layers.absSol_b,
+      roughness_a=layers.roughness_a),
+      each T_a_start=T_c_start,
+      each T_b_start=T_b_start) "Construction near the surface port surf_b"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=270,
-        origin={40,-60})));
+        origin={40,-58})));
 
 protected
+  Buildings.Fluid.HeatExchangers.RadiantSlabs.BaseClasses.InternalFlowConvection
+    hPip[nSeg](
+    each kc_IN_con=
+        Modelica.Fluid.Dissipation.HeatTransfer.StraightPipe.kc_overall_IN_con(
+        d_hyd=pipe.dIn,
+        L=length/nSeg,
+        K=pipe.roughness),
+    redeclare each final package Medium = Medium,
+    each final A=Modelica.Constants.pi*pipe.dIn*length/nSeg,
+    each fluid(T(start=T_c_start))) "Liquid side convective heat transfer"
+    annotation (Placement(transformation(extent={{-30,-60},{-10,-40}})));
+  Modelica.Blocks.Sources.RealExpression mFlu_flow[nSeg](each y=m_flow)
+    "Input signal for mass flow rate"
+    annotation (Placement(transformation(extent={{-60,-36},{-40,-16}})));
+  Modelica.Thermal.HeatTransfer.Components.ThermalConductor RWal[nSeg](each G=2*
+        Modelica.Constants.pi*pipe.k*(length/nSeg)/Modelica.Math.log(pipe.dOut/pipe.dIn))
+    "Thermal conduction through the pipe wall"
+    annotation (Placement(transformation(extent={{-58,-60},{-38,-40}})));
+
+  Modelica.Thermal.HeatTransfer.Components.ThermalCollector colAllToOne(
+     final m=nSeg) "Connector to assign multiple heat ports to one heat port"
+    annotation (Placement(transformation(
+        extent={{-6,-6},{6,6}},
+        rotation=0,
+        origin={40,-86})));
+  Modelica.Thermal.HeatTransfer.Components.ThermalCollector colAllToOne1(
+     final m=nSeg) "Connector to assign multiple heat ports to one heat port"
+    annotation (Placement(transformation(
+        extent={{-6,-6},{6,6}},
+        rotation=180,
+        origin={40,76})));
+ Modelica.Thermal.HeatTransfer.Components.ThermalConductor RFic[nSeg](each G=A/nSeg/Rx)
+    "Average fictitious thermal resistance between pipe surface and plane that contains pipe"
+    annotation (Placement(transformation(extent={{-86,-60},{-66,-40}})));
+
   final parameter Modelica.SIunits.ThermalInsulance Rx=
       Buildings.Fluid.HeatExchangers.RadiantSlabs.BaseClasses.Functions.AverageResistance(
         disPip=disPip,
@@ -73,75 +105,47 @@ protected
         kIns=layers.material[iLayPip+1].k,
         dIns=layers.material[iLayPip+1].x)
     "Thermal insulance for average temperature in plane with pipes";
-
-  BaseClasses.PipeToSlabConductance fluSlaCon(
-    redeclare final package Medium = Medium,
-    final APip=Modelica.Constants.pi*pipe.dIn*length,
-    final RWal=Modelica.Math.log(pipe.dOut/pipe.dIn)/(2*Modelica.Constants.pi*pipe.k*
-        length),
-    final RFic=Rx/A,
-    final  m_flow_nominal=m_flow_nominal,
-    kc_IN_con=
-        Modelica.Fluid.Dissipation.HeatTransfer.StraightPipe.kc_overall_IN_con(
-        d_hyd=pipe.dIn,
-        L=length,
-        K=pipe.roughness)) "Conductance between fluid and the slab"
-    annotation (Placement(transformation(extent={{-28,-80},{-8,-60}})));
-
-  Modelica.SIunits.MassFraction Xi_in_a[Medium.nXi] = inStream(port_a.Xi_outflow)
-    "Inflowing mass fraction at port_a";
-  Modelica.SIunits.MassFraction Xi_in_b[Medium.nXi] = inStream(port_b.Xi_outflow)
-    "Inflowing mass fraction at port_a";
-  Modelica.Blocks.Sources.RealExpression T_a(
-    final y=Medium.temperature_phX(p=port_a.p,
-                                   h=inStream(port_a.h_outflow),
-                                   X=cat(1,Xi_in_a,{1-sum(Xi_in_a)})))
-    "Fluid temperature at port a"
-    annotation (Placement(transformation(extent={{-80,-40},{-60,-20}})));
-  Modelica.Blocks.Sources.RealExpression T_b(
-    final y=Medium.temperature_phX(p=port_b.p,
-                                   h=inStream(port_b.h_outflow),
-                                   X=cat(1,Xi_in_b,{1-sum(Xi_in_b)})))
-    "Fluid temperature at port b"
-    annotation (Placement(transformation(extent={{-80,-54},{-60,-34}})));
-
-  Modelica.Blocks.Sources.RealExpression mFlu_flow(final y=m_flow)
-    "Input signal for mass flow rate"
-    annotation (Placement(transformation(extent={{-80,-70},{-60,-50}})));
-
 equation
-  connect(mFlu_flow.y, fluSlaCon.m_flow) annotation (Line(
-      points={{-59,-60},{-50,-60},{-50,-66},{-29,-66}},
-      color={0,0,127},
+  connect(hPip.fluid, vol.heatPort)      annotation (Line(
+      points={{-10.4,-50},{-4,-50},{-4,-28},{-1,-28}},
+      color={191,0,0},
       smooth=Smooth.None));
-  connect(con_b.port_a, fluSlaCon.solid) annotation (Line(
-      points={{40,-50},{40,-40},{20,-40},{20,-90},{-88,-90},{-88,-70},{-28.4,-70}},
+  connect(RWal.port_b, hPip.solid)        annotation (Line(
+      points={{-38,-50},{-30.4,-50}},
+      color={191,0,0},
+      smooth=Smooth.None));
+  connect(RFic.port_b, RWal.port_a)        annotation (Line(
+      points={{-66,-50},{-58,-50}},
+      color={191,0,0},
+      smooth=Smooth.None));
+  connect(colAllToOne1.port_b,surf_a)  annotation (Line(
+      points={{40,82},{40,100},{40,100}},
+      color={191,0,0},
+      smooth=Smooth.None));
+  connect(colAllToOne.port_b,surf_b)  annotation (Line(
+      points={{40,-92},{40,-100},{40,-100}},
+      color={191,0,0},
+      smooth=Smooth.None));
+  connect(colAllToOne1.port_a, con_a.port_a) annotation (Line(
+      points={{40,70},{40,60}},
+      color={191,0,0},
+      smooth=Smooth.None));
+  connect(con_a.port_b, RFic.port_a)      annotation (Line(
+      points={{40,40},{40,32},{-94,32},{-94,-50},{-86,-50}},
+      color={191,0,0},
+      smooth=Smooth.None));
+  connect(colAllToOne.port_a, con_b.port_b)  annotation (Line(
+      points={{40,-80},{40,-68}},
+      color={191,0,0},
+      smooth=Smooth.None));
+  connect(con_b.port_a, RFic.port_a)       annotation (Line(
+      points={{40,-48},{40,-44},{20,-44},{20,-80},{-94,-80},{-94,-50},{-86,-50}},
       color={191,0,0},
       smooth=Smooth.None));
 
-  connect(fluSlaCon.solid, con_a.port_b) annotation (Line(
-      points={{-28.4,-70},{-88,-70},{-88,30},{40,30},{40,50}},
-      color={191,0,0},
-      smooth=Smooth.None));
-  connect(surf_a, con_a.port_a) annotation (Line(
-      points={{40,100},{40,70}},
-      color={191,0,0},
-      smooth=Smooth.None));
-  connect(con_b.port_b, surf_b) annotation (Line(
-      points={{40,-70},{40,-100}},
-      color={191,0,0},
-      smooth=Smooth.None));
-  connect(fluSlaCon.T_a, T_a.y) annotation (Line(
-      points={{-29,-60},{-40,-60},{-40,-30},{-59,-30}},
+  connect(mFlu_flow.y, hPip.m_flow) annotation (Line(
+      points={{-39,-26},{-36,-26},{-36,-44.5},{-30.9,-44.5}},
       color={0,0,127},
-      smooth=Smooth.None));
-  connect(T_b.y, fluSlaCon.T_b) annotation (Line(
-      points={{-59,-44},{-46,-44},{-46,-63},{-29,-63}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(fluSlaCon.fluid, vol[1].heatPort) annotation (Line(
-      points={{-8.4,-70},{-6,-70},{-6,-28},{-1,-28}},
-      color={191,0,0},
       smooth=Smooth.None));
   annotation (
 defaultComponentName="sla",
@@ -167,7 +171,7 @@ Icon(graphics={
 <p>
 This is a model of a single flow circuit of a radiant slab with pipes or a capillary heat exchanger
 embedded in the construction.
-For a model with multiple parallel flow circuits, use
+For a model with multiple parallel flow circuits, see
 <a href=\"modelica://Buildings.Fluid.HeatExchangers.RadiantSlabs.ParallelCircuitsSlab\">
 Buildings.Fluid.HeatExchangers.RadiantSlabs.ParallelCircuitsSlab</a>.
 </p>
@@ -186,23 +190,21 @@ plane that contains the pipes, with the heat port <code>con_a.port_a</code> conn
 Similarly, the construction <code>con_b</code> is between the plane
 that contains the pipes and the surface heat port
 <code>sur_b</code>, with the heat port <code>con_b.port_b</code> connecting to <code>surf_b</code>.
-The temperature of the plane that contains the pipes is computed using a fictitious
+The temperature of the plane that contains the pipes is computes using a fictitious
 resistance <code>RFic</code>, which is computed by 
 <a href=\"modelica://Buildings.Fluid.HeatExchangers.RadiantSlabs.BaseClasses.Functions.AverageResistance\">
 Buildings.Fluid.HeatExchangers.RadiantSlabs.BaseClasses.Functions.AverageResistance</a>.
 There is also a resistance for the pipe wall <code>RPip</code>
 and a convective heat transfer coefficient between the fluid and the pipe inside wall.
 The convective heat transfer coefficient is a function of the mass flow rate and is computed
-in
-<a href=\"modelica://Buildings.Fluid.HeatExchangers.RadiantSlabs.BaseClasses.PipeToSlabConductance\">
-Buildings.Fluid.HeatExchangers.RadiantSlabs.BaseClasses.PipeToSlabConductance</a>.
+by
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.RadiantSlabs.BaseClasses.InternalFlowConvection\">
+Buildings.Fluid.HeatExchangers.RadiantSlabs.BaseClasses.InternalFlowConvection</a>.
 </p>
 <p>
-This resistance network is instantiated once along the flow path.
-An epilson-NTU model is used to compute the heat transfer between the fluid
-stream and plane that contains the pipe. This is computed by
-<a href=\"modelica://Buildings.Fluid.HeatExchangers.RadiantSlabs.BaseClasses.PipeToSlabConductance\">
-Buildings.Fluid.HeatExchangers.RadiantSlabs.BaseClasses.PipeToSlabConductance</a>.
+This resistance network is instantiated several times along the flow path. The parameter
+<code>nSeg</code> determines how many instances are used. However, all instances 
+connect to the same surface temperature heat ports <code>surf_a</code> and <code>surf_b</code>.
 </p>
 <p>
 The material layers are declared by the parameter <code>layers</code>, which is an instance of
@@ -333,17 +335,6 @@ plane with the pipes and the construction surfaces, <code>con_a</code> and <code
 revisions="<html>
 <ul>
 <li>
-October 9, 2014, by Michael Wetter:<br/>
-Changed model to use an epsilon-NTU approach for the heat transfer between
-the fluid and the slab rather than a finite difference scheme along the
-flow path.
-This has shown to lead to about five times faster computation on several 
-test cases including the models in
-<a href=\"modelica://Buildings.Rooms.FLEXLAB.Rooms.Examples\">
-Buildings.Rooms.FLEXLAB.Rooms.Examples</a>.
-This required removing the parameter <code>nSeg</code> as it is no longer used.
-</li>
-<li>
 September 12, 2014, by Michael Wetter:<br/>
 Set start value for <code>hPip(fluid(T))</code> to avoid
 a warning about conflicting start values in Dymola 2015 FD01.
@@ -363,8 +354,5 @@ April 3, 2012, by Xiufeng Pang:<br/>
 First implementation.
 </li>
 </ul>
-</html>"),
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
-            100,100}}),
-                    graphics));
+</html>"));
 end SingleCircuitSlab;

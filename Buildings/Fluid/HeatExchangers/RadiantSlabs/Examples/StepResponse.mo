@@ -18,7 +18,8 @@ model StepResponse "Model that tests the radiant slab"
     amplitude=-m_flow_nominal,
     offset=m_flow_nominal)
     annotation (Placement(transformation(extent={{-80,-22},{-60,-2}})));
-  Buildings.Fluid.HeatExchangers.RadiantSlabs.SingleCircuitSlab sla(
+  Buildings.Fluid.HeatExchangers.RadiantSlabs.SingleCircuitSlab
+       sla(
     m_flow_nominal=m_flow_nominal,
     redeclare package Medium = Medium,
     layers=layers,

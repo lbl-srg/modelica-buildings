@@ -1,6 +1,5 @@
 within Buildings.Fluid.HeatExchangers.RadiantSlabs.Examples;
-model SingleCircuitMultipleCircuit
-  "Model that tests the radiant slab with multiple parallel circuits"
+model SingleCircuitMultipleCircuit "Model that tests the radiant slab"
   extends Modelica.Icons.Example;
  package Medium = Buildings.Media.ConstantPropertyLiquidWater;
       inner Modelica.Fluid.System system
@@ -24,8 +23,9 @@ model SingleCircuitMultipleCircuit
     sysTyp=Buildings.Fluid.HeatExchangers.RadiantSlabs.BaseClasses.Types.SystemType.Floor,
     disPip=0.2,
     A=A,
+    nSeg=nSeg,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
-    "Slab with embedded pipes"
+    "Slabe with embedded pipes"
     annotation (Placement(transformation(extent={{-14,10},{6,30}})));
 
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal=
@@ -74,8 +74,9 @@ model SingleCircuitMultipleCircuit
     sysTyp=Buildings.Fluid.HeatExchangers.RadiantSlabs.BaseClasses.Types.SystemType.Floor,
     disPip=0.2,
     A=A,
+    nSeg=nSeg,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
-    "Slab with embedded pipes"
+    "Slabe with embedded pipes"
     annotation (Placement(transformation(extent={{10,-30},{30,-10}})));
 
   Modelica.Thermal.HeatTransfer.Components.ThermalConductor conBel2(G=20*A)
@@ -91,11 +92,12 @@ model SingleCircuitMultipleCircuit
     pipe=pipe,
     sysTyp=Buildings.Fluid.HeatExchangers.RadiantSlabs.BaseClasses.Types.SystemType.Floor,
     disPip=0.2,
+    nSeg=nSeg,
     nCir=nCir,
     A=nCir*A,
     m_flow_nominal=nCir*m_flow_nominal,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
-    "Slab with embedded pipes"
+    "Slabe with embedded pipes"
     annotation (Placement(transformation(extent={{30,-70},{50,-50}})));
 
   Modelica.Thermal.HeatTransfer.Components.ThermalConductor conAbo3(G=nCir*20*A)
@@ -110,6 +112,7 @@ model SingleCircuitMultipleCircuit
   Sensors.TemperatureTwoPort senTem3(redeclare package Medium = Medium,
       m_flow_nominal=nCir*m_flow_nominal) "Temperature sensor"
     annotation (Placement(transformation(extent={{70,-70},{90,-50}})));
+  parameter Integer nSeg=3 "Number of volume segments";
   Sources.Boundary_pT sou(
     redeclare package Medium = Medium,
     nPorts=3,
