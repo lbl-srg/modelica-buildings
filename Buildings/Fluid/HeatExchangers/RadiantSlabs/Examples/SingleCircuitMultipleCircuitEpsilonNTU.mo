@@ -1,5 +1,6 @@
 within Buildings.Fluid.HeatExchangers.RadiantSlabs.Examples;
-model SingleCircuitMultipleCircuit "Model that tests the radiant slab"
+model SingleCircuitMultipleCircuitEpsilonNTU
+  "Model that tests the radiant slab with multiple parallel circuits and epsilon-NTU configuration"
   extends Modelica.Icons.Example;
  package Medium = Buildings.Media.ConstantPropertyLiquidWater;
       inner Modelica.Fluid.System system
@@ -20,10 +21,9 @@ model SingleCircuitMultipleCircuit "Model that tests the radiant slab"
     layers=layers,
     iLayPip=1,
     pipe=pipe,
-    sysTyp=Buildings.Fluid.HeatExchangers.RadiantSlabs.BaseClasses.Types.SystemType.Floor,
+    sysTyp=Buildings.Fluid.HeatExchangers.RadiantSlabs.Types.SystemType.Floor,
     disPip=0.2,
     A=A,
-    nSeg=nSeg,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     "Slabe with embedded pipes"
     annotation (Placement(transformation(extent={{-14,10},{6,30}})));
@@ -71,10 +71,9 @@ model SingleCircuitMultipleCircuit "Model that tests the radiant slab"
     layers=layers,
     iLayPip=1,
     pipe=pipe,
-    sysTyp=Buildings.Fluid.HeatExchangers.RadiantSlabs.BaseClasses.Types.SystemType.Floor,
+    sysTyp=Buildings.Fluid.HeatExchangers.RadiantSlabs.Types.SystemType.Floor,
     disPip=0.2,
     A=A,
-    nSeg=nSeg,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     "Slabe with embedded pipes"
     annotation (Placement(transformation(extent={{10,-30},{30,-10}})));
@@ -90,9 +89,8 @@ model SingleCircuitMultipleCircuit "Model that tests the radiant slab"
     layers=layers,
     iLayPip=1,
     pipe=pipe,
-    sysTyp=Buildings.Fluid.HeatExchangers.RadiantSlabs.BaseClasses.Types.SystemType.Floor,
+    sysTyp=Buildings.Fluid.HeatExchangers.RadiantSlabs.Types.SystemType.Floor,
     disPip=0.2,
-    nSeg=nSeg,
     nCir=nCir,
     A=nCir*A,
     m_flow_nominal=nCir*m_flow_nominal,
@@ -112,7 +110,6 @@ model SingleCircuitMultipleCircuit "Model that tests the radiant slab"
   Sensors.TemperatureTwoPort senTem3(redeclare package Medium = Medium,
       m_flow_nominal=nCir*m_flow_nominal) "Temperature sensor"
     annotation (Placement(transformation(extent={{70,-70},{90,-50}})));
-  parameter Integer nSeg=3 "Number of volume segments";
   Sources.Boundary_pT sou(
     redeclare package Medium = Medium,
     nPorts=3,
@@ -216,29 +213,25 @@ equation
       points={{-50,-22.6667},{-40,-22.6667},{-40,-60},{30,-60}},
       color={0,127,255},
       smooth=Smooth.None));
- annotation(__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/RadiantSlabs/Examples/SingleCircuitMultipleCircuit.mos"
+
+ annotation(__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/RadiantSlabs/Examples/SingleCircuitMultipleCircuitEpsilonNTU.mos"
         "Simulate and plot"),
-          Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-140,-160},
+         Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-140,-160},
             {160,160}})),
 Documentation(info="<html>
 <p>
-This example compares the results of two models of a single circuit that are arranged in 
-parallel, versus a model that directly implements two parallel circuits.
-Both configurations have the same mass flow rate and temperatures.
-For simplicity, a combined convective and radiative resistance 
-which is independent of the temperature difference has been used.
-The model is exposed to a step change in pressure, which causes forward and reverse
-flow.
+This model is identical to
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.RadiantSlabs.Examples.SingleCircuitMultipleCircuit\">
+Buildings.Fluid.HeatExchangers.RadiantSlabs.Examples.SingleCircuitMultipleCircuit</a>
+except that the number of segments in the slab is set to <i>1</i>
+and the heat transfer between the fluid and the slab is computed using
+an epsilon-NTU model.
 </p>
 </html>",
 revisions="<html>
 <ul>
 <li>
-October 11, 2013, by Michael Wetter:<br/>
-Added missing <code>parameter</code> keyword in the declaration of the data record.
-</li>
-<li>
-June 27, 2012, by Michael Wetter:<br/>
+October 7, 2014, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
@@ -246,4 +239,4 @@ First implementation.
     experiment(
       StopTime=86400,
       Tolerance=1e-05));
-end SingleCircuitMultipleCircuit;
+end SingleCircuitMultipleCircuitEpsilonNTU;

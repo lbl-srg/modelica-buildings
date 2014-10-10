@@ -37,7 +37,7 @@ model X3AWithRadiantFloor "Example model showing a use of X3A"
     airOut(nPorts=1, redeclare package Medium = Air) "Air outlet for X3A"
     annotation (Placement(transformation(extent={{-158,24},{-138,44}})));
   Buildings.Fluid.HeatExchangers.RadiantSlabs.SingleCircuitSlab sla4A1(
-    sysTyp=Buildings.Fluid.HeatExchangers.RadiantSlabs.BaseClasses.Types.SystemType.Floor,
+    sysTyp=Buildings.Fluid.HeatExchangers.RadiantSlabs.Types.SystemType.Floor,
     iLayPip=1,
     redeclare package Medium = Water,
     pipe=pipe,
@@ -193,7 +193,7 @@ model X3AWithRadiantFloor "Example model showing a use of X3A"
     "Inlet water conditions (from central plant)"
     annotation (Placement(transformation(extent={{-206,-100},{-186,-80}})));
   Buildings.Fluid.HeatExchangers.RadiantSlabs.SingleCircuitSlab sla4A2(
-    sysTyp=Buildings.Fluid.HeatExchangers.RadiantSlabs.BaseClasses.Types.SystemType.Floor,
+    sysTyp=Buildings.Fluid.HeatExchangers.RadiantSlabs.Types.SystemType.Floor,
     iLayPip=1,
     redeclare package Medium = Water,
     pipe=pipe,
@@ -224,7 +224,7 @@ model X3AWithRadiantFloor "Example model showing a use of X3A"
     "Inlet water conditions (from central plant)"
     annotation (Placement(transformation(extent={{-238,-62},{-218,-42}})));
   Buildings.Fluid.HeatExchangers.RadiantSlabs.SingleCircuitSlab sla4A3(
-    sysTyp=Buildings.Fluid.HeatExchangers.RadiantSlabs.BaseClasses.Types.SystemType.Floor,
+    sysTyp=Buildings.Fluid.HeatExchangers.RadiantSlabs.Types.SystemType.Floor,
     iLayPip=1,
     redeclare package Medium = Water,
     pipe=pipe,
@@ -255,7 +255,7 @@ model X3AWithRadiantFloor "Example model showing a use of X3A"
     "Inlet water conditions (from central plant)"
     annotation (Placement(transformation(extent={{-252,-16},{-232,4}})));
   Buildings.Fluid.HeatExchangers.RadiantSlabs.SingleCircuitSlab sla4A4(
-    sysTyp=Buildings.Fluid.HeatExchangers.RadiantSlabs.BaseClasses.Types.SystemType.Floor,
+    sysTyp=Buildings.Fluid.HeatExchangers.RadiantSlabs.Types.SystemType.Floor,
     iLayPip=1,
     redeclare package Medium = Water,
     pipe=pipe,

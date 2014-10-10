@@ -249,7 +249,7 @@ model TestBedX3WithRadiantFloor
         origin={176,218})));
 
   Buildings.Fluid.HeatExchangers.RadiantSlabs.SingleCircuitSlab sla4A1(
-    sysTyp=Buildings.Fluid.HeatExchangers.RadiantSlabs.BaseClasses.Types.SystemType.Floor,
+    sysTyp=Buildings.Fluid.HeatExchangers.RadiantSlabs.Types.SystemType.Floor,
     iLayPip=1,
     redeclare package Medium = Water,
     pipe=pipe,
@@ -284,7 +284,7 @@ model TestBedX3WithRadiantFloor
     "Inlet water conditions (from central plant)"
     annotation (Placement(transformation(extent={{-180,-184},{-160,-164}})));
   Buildings.Fluid.HeatExchangers.RadiantSlabs.SingleCircuitSlab sla4A2(
-    sysTyp=Buildings.Fluid.HeatExchangers.RadiantSlabs.BaseClasses.Types.SystemType.Floor,
+    sysTyp=Buildings.Fluid.HeatExchangers.RadiantSlabs.Types.SystemType.Floor,
     iLayPip=1,
     redeclare package Medium = Water,
     pipe=pipe,
@@ -314,7 +314,7 @@ model TestBedX3WithRadiantFloor
     "Inlet water conditions (from central plant)"
     annotation (Placement(transformation(extent={{-212,-146},{-192,-126}})));
   Buildings.Fluid.HeatExchangers.RadiantSlabs.SingleCircuitSlab sla4A3(
-    sysTyp=Buildings.Fluid.HeatExchangers.RadiantSlabs.BaseClasses.Types.SystemType.Floor,
+    sysTyp=Buildings.Fluid.HeatExchangers.RadiantSlabs.Types.SystemType.Floor,
     iLayPip=1,
     redeclare package Medium = Water,
     pipe=pipe,
@@ -344,7 +344,7 @@ model TestBedX3WithRadiantFloor
     "Inlet water conditions (from central plant)"
     annotation (Placement(transformation(extent={{-226,-100},{-206,-80}})));
   Buildings.Fluid.HeatExchangers.RadiantSlabs.SingleCircuitSlab sla4A4(
-    sysTyp=Buildings.Fluid.HeatExchangers.RadiantSlabs.BaseClasses.Types.SystemType.Floor,
+    sysTyp=Buildings.Fluid.HeatExchangers.RadiantSlabs.Types.SystemType.Floor,
     iLayPip=1,
     redeclare package Medium = Water,
     pipe=pipe,
@@ -380,7 +380,7 @@ model TestBedX3WithRadiantFloor
     "Inlet water conditions (from central plant)"
     annotation (Placement(transformation(extent={{138,-220},{118,-200}})));
   Buildings.Fluid.HeatExchangers.RadiantSlabs.SingleCircuitSlab sla4B1(
-    sysTyp=Buildings.Fluid.HeatExchangers.RadiantSlabs.BaseClasses.Types.SystemType.Floor,
+    sysTyp=Buildings.Fluid.HeatExchangers.RadiantSlabs.Types.SystemType.Floor,
     iLayPip=1,
     redeclare package Medium = Water,
     pipe=pipe,
@@ -410,7 +410,7 @@ model TestBedX3WithRadiantFloor
     "Inlet water conditions (from central plant)"
     annotation (Placement(transformation(extent={{168,-184},{148,-164}})));
   Buildings.Fluid.HeatExchangers.RadiantSlabs.SingleCircuitSlab sla4B2(
-    sysTyp=Buildings.Fluid.HeatExchangers.RadiantSlabs.BaseClasses.Types.SystemType.Floor,
+    sysTyp=Buildings.Fluid.HeatExchangers.RadiantSlabs.Types.SystemType.Floor,
     iLayPip=1,
     redeclare package Medium = Water,
     pipe=pipe,
@@ -440,7 +440,7 @@ model TestBedX3WithRadiantFloor
     "Inlet water conditions (from central plant)"
     annotation (Placement(transformation(extent={{182,-144},{162,-124}})));
   Buildings.Fluid.HeatExchangers.RadiantSlabs.SingleCircuitSlab sla4B3(
-    sysTyp=Buildings.Fluid.HeatExchangers.RadiantSlabs.BaseClasses.Types.SystemType.Floor,
+    sysTyp=Buildings.Fluid.HeatExchangers.RadiantSlabs.Types.SystemType.Floor,
     iLayPip=1,
     redeclare package Medium = Water,
     pipe=pipe,
@@ -470,7 +470,7 @@ model TestBedX3WithRadiantFloor
     "Inlet water conditions (from central plant)"
     annotation (Placement(transformation(extent={{228,-100},{208,-80}})));
   Buildings.Fluid.HeatExchangers.RadiantSlabs.SingleCircuitSlab sla4B4(
-    sysTyp=Buildings.Fluid.HeatExchangers.RadiantSlabs.BaseClasses.Types.SystemType.Floor,
+    sysTyp=Buildings.Fluid.HeatExchangers.RadiantSlabs.Types.SystemType.Floor,
     iLayPip=1,
     redeclare package Medium = Water,
     pipe=pipe,
