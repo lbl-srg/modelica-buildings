@@ -4424,6 +4424,10 @@ individual libraries.<br/>
    </td>
    <td valign=\"top\">Package with direct evaporative cooling coils.</td>
 </tr>
+<tr><td valign=\"top\"><a href=\"modelica://Buildings.Fluid.HeatExchangers.RadiantSlabs.UsersGuide\">Fluid.HeatExchangers.RadiantSlabs</a>
+   </td>
+   <td valign=\"top\">Package with radiant slabs.</td>
+</tr>
 <tr><td valign=\"top\"><a href=\"modelica://Buildings.Fluid.Movers.UsersGuide\">Fluid.Movers</a>
    </td>
    <td valign=\"top\">Package with fans and pumps.</td>
