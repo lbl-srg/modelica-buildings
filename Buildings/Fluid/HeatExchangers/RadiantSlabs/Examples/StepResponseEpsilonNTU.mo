@@ -26,7 +26,7 @@ model StepResponseEpsilonNTU
     layers=layers,
     iLayPip=1,
     pipe=pipe,
-    sysTyp=Buildings.Fluid.HeatExchangers.RadiantSlabs.BaseClasses.Types.SystemType.Floor,
+    sysTyp=Buildings.Fluid.HeatExchangers.RadiantSlabs.Types.SystemType.Floor,
     disPip=0.2,
     A=A,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,

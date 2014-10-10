@@ -6,7 +6,7 @@ function AverageResistance
   input Modelica.SIunits.ThermalConductivity k
     "pipe level construction element thermal conductivity";
   input
-    Buildings.Fluid.HeatExchangers.RadiantSlabs.BaseClasses.Types.SystemType
+    Buildings.Fluid.HeatExchangers.RadiantSlabs.Types.SystemType
      sysTyp "Type of radiant system";
   input Modelica.SIunits.ThermalConductivity kIns
     "floor slab insulation thermal conductivity";
@@ -22,7 +22,7 @@ protected
   Real fac "Factor used for systems in wall or ceiling, or for capillary tubes";
 algorithm
 
-  if sysTyp == Buildings.Fluid.HeatExchangers.RadiantSlabs.BaseClasses.Types.SystemType.Floor then
+  if sysTyp == Buildings.Fluid.HeatExchangers.RadiantSlabs.Types.SystemType.Floor then
     alpha := kIns/dIns;
     if alpha >= 1.212 then
        Modelica.Utilities.Streams.print("Warning: In RadiantAverageResistance, require alpha = kIns/dIns >= 1.212 W/(m2.K).\n" +
@@ -37,14 +37,14 @@ algorithm
     Rx := disPip*(Modelica.Math.log(disPip/Modelica.Constants.pi/dPipOut) + infSum)
           /(2*Modelica.Constants.pi*k);
     fac := 0; // not needed.
-  elseif sysTyp == Buildings.Fluid.HeatExchangers.RadiantSlabs.BaseClasses.Types.SystemType.Ceiling_Wall_or_Capillary then
+  elseif sysTyp == Buildings.Fluid.HeatExchangers.RadiantSlabs.Types.SystemType.Ceiling_Wall_or_Capillary then
     // Branch for radiant ceilings, radiant walls, and systems with capillary heat exchangers
     cri := disPip/dPipOut;
     fac := if (cri >= 5.8) then Modelica.Math.log(cri/Modelica.Constants.pi) else (cri/Modelica.Constants.pi/3);
     Rx := disPip/2/Modelica.Constants.pi/k * fac;
   else
-    assert(sysTyp == Buildings.Fluid.HeatExchangers.RadiantSlabs.BaseClasses.Types.SystemType.Floor or
-           sysTyp == Buildings.Fluid.HeatExchangers.RadiantSlabs.BaseClasses.Types.SystemType.Ceiling_Wall_or_Capillary,
+    assert(sysTyp == Buildings.Fluid.HeatExchangers.RadiantSlabs.Types.SystemType.Floor or
+           sysTyp == Buildings.Fluid.HeatExchangers.RadiantSlabs.Types.SystemType.Ceiling_Wall_or_Capillary,
            "Invalid value for sysTyp in \"Buildings.Fluid.HeatExchangers.RadiantSlabs.BaseClasses.Functions.AverageResistance\"
     Check parameters of the radiant slab model.");
     cri := 0;
@@ -62,16 +62,16 @@ Different equations are used for
 <ul>
 <li>
 floor heating systems (if 
-<code>sysTyp == Buildings.Fluid.HeatExchangers.RadiantSlabs.BaseClasses.Types.SystemType.Floor</code>),
+<code>sysTyp == Buildings.Fluid.HeatExchangers.RadiantSlabs.Types.SystemType.Floor</code>),
 </li>
 <li>
 radiant heating or cooling systems in ceilings and walls (if 
-<code>sysTyp == Buildings.Fluid.HeatExchangers.RadiantSlabs.BaseClasses.Types.SystemType.Ceiling_Wall_or_Capillary</code>
+<code>sysTyp == Buildings.Fluid.HeatExchangers.RadiantSlabs.Types.SystemType.Ceiling_Wall_or_Capillary</code>
 and <code>disPip/dPipOut &ge; 5.8</code>), and 
 </li>
 <li>
 capillary tube systems (if 
-<code>sysTyp == Buildings.Fluid.HeatExchangers.RadiantSlabs.BaseClasses.Types.SystemType.Ceiling_Wall_or_Capillary</code>
+<code>sysTyp == Buildings.Fluid.HeatExchangers.RadiantSlabs.Types.SystemType.Ceiling_Wall_or_Capillary</code>
 and <code>disPip/dPipOut &lt; 5.8</code>).
 </li>
 </ul>
