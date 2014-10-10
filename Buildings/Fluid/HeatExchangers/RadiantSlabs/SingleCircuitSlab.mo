@@ -2,7 +2,7 @@ within Buildings.Fluid.HeatExchangers.RadiantSlabs;
 model SingleCircuitSlab "Model of a single circuit of a radiant slab"
   extends Buildings.Fluid.HeatExchangers.RadiantSlabs.BaseClasses.Slab;
   extends Buildings.Fluid.FixedResistances.BaseClasses.Pipe(
-     nSeg=1,
+     nSeg=if use_epsilonNTU then 1 else 5,
      final diameter=pipe.dIn,
      length=A/disPip,
      final thicknessIns=0,
@@ -213,6 +213,7 @@ For a model with multiple parallel flow circuits, see
 <a href=\"modelica://Buildings.Fluid.HeatExchangers.RadiantSlabs.ParallelCircuitsSlab\">
 Buildings.Fluid.HeatExchangers.RadiantSlabs.ParallelCircuitsSlab</a>.
 </p>
+<h4>Heat transfer through the slab</h4>
 <p>
 The figure below shows the thermal resistance network of the model for an 
 example in which the pipes are embedded in the concrete slab, and
@@ -239,11 +240,8 @@ by
 <a href=\"modelica://Buildings.Fluid.HeatExchangers.RadiantSlabs.BaseClasses.InternalFlowConvection\">
 Buildings.Fluid.HeatExchangers.RadiantSlabs.BaseClasses.InternalFlowConvection</a>.
 </p>
-<p>
-This resistance network is instantiated several times along the flow path. The parameter
-<code>nSeg</code> determines how many instances are used. However, all instances 
-connect to the same surface temperature heat ports <code>surf_a</code> and <code>surf_b</code>.
-</p>
+
+<h4>Material layers</h4>
 <p>
 The material layers are declared by the parameter <code>layers</code>, which is an instance of
 <a href=\"modelica://Buildings.HeatTransfer.Data.OpaqueConstructions\">
@@ -289,7 +287,49 @@ The default setting would have led to only one state variable in this layer.
 Since the pipes are at the interface of the concrete and the insulation, 
 we set <code>iLayPip=1</code>.
 </p>
-<h5>Initialization</h5>
+
+<h4>Discretization along the flow path</h4>
+<p>
+If the parameter <code>fluidHeatTransfer=EpsilonNTU</code>, then the heat transfer between the fluid
+and the fictitious layer temperature is computed using an <i>&epsilon;-NTU</i> model.
+If <code>fluidHeatTransfer=FiniteDifference</code>, then the pipe and the slab is
+discretized along the water flow direction and a finite difference model is used
+to compute the heat transfer. The parameter <code>nSeg</code> determines
+how many times the resistance network is instantiated along the flow path.
+However, all instances connect to the same surface temperature heat ports 
+<code>surf_a</code> and <code>surf_b</code>.
+</p>
+<p>
+The default value for is <code>nSeg=1</code> if <code>fluidHeatTransfer=EpsilonNTU</code>
+and  <code>nSeg=5</code> if <code>fluidHeatTransfer=FiniteDifference</code>.
+For a typical building simulation, we recommend to use the default settings of
+<code>fluidHeatTransfer=EpsilonNTU</code> and <code>nSeg=1</code>, as these lead to
+fastest computing time. 
+However, for feedback control design in which the outlet temperature of the slab
+is used, one may want to use <code>fluidHeatTransfer=FiniteDifference</code> and <code>nSeg=5</code>.
+This will cause the model to use <i>5</i> parallel segments in which heat is conducted between the 
+control volume of the pipe fluid and the surfaces of the slab.
+While the heat flow rate at the surface does not change noticeably between these
+two configurations, the dynamics of
+the water outlet temperature from the slab is significantly different. The
+figure below shows the water outlet temperature response to a step change in the 
+volume flow rate at <i>t=720</i> minutes. One can see that if 
+<code>fluidHeatTransfer=EpsilonNTU</code> and <code>nSeg=1</code>, 
+the response looks like a first order response (because <code>nSeg=1</code>),
+while with <code>fluidHeatTransfer=FiniteDifference</code> and <code>nSeg=5</code>,
+the response is higher order. This figure was generated using
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.RadiantSlabs.Examples.StepResponse\">
+Buildings.Fluid.HeatExchangers.RadiantSlabs.Examples.StepResponse</a> and
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.RadiantSlabs.Examples.StepResponseEpsilonNTU\">
+Buildings.Fluid.HeatExchangers.RadiantSlabs.Examples.StepResponseEpsilonNTU\\</a>.
+</p>
+<p align=\"center\">
+<img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Fluid/HeatExchangers/RadiantSlabs/outletTemperatureComparison.png\"/>
+</p>
+</p>
+
+
+<h4>Initialization</h4>
 <p>
 The initialization of the fluid in the pipes and of the slab temperature are 
 independent of each other.

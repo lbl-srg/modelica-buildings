@@ -21,7 +21,7 @@ model ParallelCircuitsSlab
       m_flow_small=m_flow_small/nCir));
 
   parameter Integer nCir(min=1) = 1 "Number of parallel circuits";
-  parameter Integer nSeg(min=1) = 1
+  parameter Integer nSeg(min=1) = if use_epsilonNTU then 1 else 5
     "Number of volume segments in each circuit (along flow path)";
 
   parameter Modelica.SIunits.Area A
