@@ -200,7 +200,7 @@ Buildings.Electrical.AC.OnePhase.Loads</a>. The model is able to provide detaile
 information about the actual voltages, currents and powers on each phase.
 </p>
 <p>
-This model has a connector with four cable and it does represent the neutral cable.
+This model has a connector with four cables and it represents the neutral cable.
 The current in the neutral cable is computed as the algebraic sum of the currents
 of the loads.
 </p>

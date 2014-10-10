@@ -101,7 +101,7 @@ and at time <i>t = 0.25 s</i> the loads on the first phase start to increase the
 <p>
 When the loads start to be unbalanced the sensors starts to measure a current in the neutral cable
 <code>sen.I[4]</code>. This is the current necessary to satisfy the Kirchoff Current Law (KCL)
-such that the algebraic sum of the current in each cable is equal to zero.
+such that the algebraic sum of the phase current in each load is equal to zero.
 </p>
 <p align=\"center\">
 <img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Electrical/AC/ThreePhasesUnbalanced/Loads/Examples/unbalancedLoads.png\"/>

@@ -353,7 +353,7 @@ The parameter <code>loadConn</code> can be used for such a purpose.
 </p>
 <p>
 Each load model has the option to be controlled by a voltage controller.
-When enabled, the voltage controller unplug the load for a certain amount of
+When enabled, the voltage controller unplugs the load for a certain amount of
 time if the voltage exceeds a given threshold. Mode information about the
 voltage controller can be found 
 <a href=\"modelica://Buildings.Electrical.Utilities.VoltageControl\">here</a>.

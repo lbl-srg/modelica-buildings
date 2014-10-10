@@ -66,7 +66,9 @@ equation
       points={{10,-30},{20,-30},{20,4.44089e-16},{100,4.44089e-16}},
       color={0,120,120},
       smooth=Smooth.None));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
+  annotation (
+  defaultComponentName="line",
+  Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}), graphics), Icon(graphics={
         Ellipse(
           extent={{-70,10},{-50,-10}},

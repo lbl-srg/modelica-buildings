@@ -95,7 +95,7 @@ externally. The values start to change from their minumum to their maximum value
 The unbalanced impedance that has the neutral cable
 <code>sen_N.I[4]</code> is able to measure the current in the neutral. that is
 the current necessary to satisfy the Kirchoff Current Law (KCL)
-such that the algebraic sum of the current in each cable is equal to zero.
+such that the algebraic sum of the phase current in each impedance is equal to zero.
 </p>
 </html>", revisions="<html>
 <ul>

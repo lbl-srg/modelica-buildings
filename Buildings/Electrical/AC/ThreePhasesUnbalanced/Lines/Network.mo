@@ -18,7 +18,9 @@ equation
     Vabs[2,i] = Buildings.Electrical.PhaseSystems.OnePhase.systemVoltage(terminal[i].phase[2].v);
     Vabs[3,i] = Buildings.Electrical.PhaseSystems.OnePhase.systemVoltage(terminal[i].phase[3].v);
   end for;
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
+  annotation (
+  defaultComponentName="net",
+  Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}), graphics), Documentation(revisions="<html>
 <ul>
 <li>

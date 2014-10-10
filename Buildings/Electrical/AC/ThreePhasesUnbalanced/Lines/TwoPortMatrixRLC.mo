@@ -129,7 +129,9 @@ equation
              + product({0, B32/2}, v2_p)
              + product({0, B33/2}, v3_p);
 
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
+  annotation (
+  defaultComponentName="line",
+  Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}), graphics), Icon(coordinateSystem(
           preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
                                                graphics={

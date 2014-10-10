@@ -36,7 +36,7 @@ equation
 <p>
 This model represents a partial interface for a three phases AC
 unbalanced impedance with a neutral cable. The current in the neutral 
-cable is computed from the algebraic sum of the currents in the three loads.
+cable is computed as the algebraic sum of the currents in the loads.
 </p>
 <p>
 The model can be configured in order to represent different type of 

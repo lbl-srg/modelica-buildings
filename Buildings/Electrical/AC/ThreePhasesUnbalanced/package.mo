@@ -14,6 +14,19 @@ Buildings.Electrical.AC.OnePhase</a> to fully describe the three phases.
 The models that are part of this package assume 480 V as nominal RMS phase 
 to phase voltage.
 </p>
+
+<h4>Conventions</h4>
+
+<p align=\"center\">
+<img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Electrical/AC/ThreePhasesUnbalanced/PhaseConvention.png\"/>
+</p>
+
+<p>
+In this package the voltage phasors are measured using the convention shown above. 
+The phase to phase RMS voltage equal to 480 V, is equal to <code>sqrt(3)</code> times the
+phase to neutral voltage <i>V</i> that is equal to 277.13 V.
+</p>
+
 </html>", revisions="<html>
 <ul>
 <li>

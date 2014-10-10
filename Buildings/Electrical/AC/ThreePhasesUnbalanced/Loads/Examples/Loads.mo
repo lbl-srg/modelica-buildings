@@ -150,9 +150,9 @@ The power measured by the sensors on each phase show that the results are equal.
 </p>
 <h4>Note:</h4>
 <p>
-Whenever possible disabling the load on a specific phase using the parameter <code>plugLoad*</code>
-should be preferred since the equations relative to the load are conditionally removed, reducing the size
-of the resulting system of equations.
+Whenever possible it is preferred to disable the load on a specific phase using the parameter <code>plugLoad*</code>
+because the equations relative to the load are conditionally removed, reducing the size
+of the system of equations.
 </p>
 </html>", revisions="<html>
 <ul>

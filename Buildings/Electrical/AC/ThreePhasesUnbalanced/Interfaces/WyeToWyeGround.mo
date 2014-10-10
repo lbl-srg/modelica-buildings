@@ -40,7 +40,9 @@ equation
       points={{-40,0},{-20,0},{-20,-20}},
       color={0,120,120},
       smooth=Smooth.None));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
+  annotation (
+  defaultComponentName="y2yg",
+  Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
             {100,100}}),       graphics), Icon(coordinateSystem(
           preserveAspectRatio=false, extent={{-100,-100},{100,100}}), graphics={
         Line(

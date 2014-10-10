@@ -66,7 +66,9 @@ equation
           4.44089e-16,-72},{4.44089e-16,-100}},
       color={191,0,0},
       smooth=Smooth.None));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
+  annotation (
+  defaultComponentName="line",
+  Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}), graphics), Icon(coordinateSystem(
           preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
                                                graphics={

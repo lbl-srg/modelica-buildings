@@ -20,7 +20,9 @@ equation
   -wye.phase[2].i[:] + delta.phase[1].i[:] = delta.phase[2].i[:];
   -wye.phase[3].i[:] + delta.phase[2].i[:] = delta.phase[3].i[:];
 
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
+  annotation (
+  defaultComponentName="y2d",
+  Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
             {100,100}}),       graphics), Icon(coordinateSystem(
           preserveAspectRatio=false, extent={{-100,-100},{100,100}}), graphics={
         Line(

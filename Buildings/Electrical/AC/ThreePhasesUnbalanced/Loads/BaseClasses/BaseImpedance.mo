@@ -237,7 +237,7 @@ The parameter <code>loadConn</code> can be used for such a purpose.
 </p>
 <p>
 The model has three impedances that can be either connected in Y or
-Delta configuration. The parameter <code>loadConn</code> can be used for
+D configuration. The parameter <code>loadConn</code> can be used for
 such a purpose. The Boolean parameter <code>inductive</code> can be selected
 to specify the type of impedance.
 </p>

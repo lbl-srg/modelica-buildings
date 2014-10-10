@@ -77,7 +77,9 @@ equation
   v2_n - v2_p = product(Z21, i1) + product(Z22, i2) + product(Z23, i3);
   v3_n - v3_p = product(Z31, i1) + product(Z32, i2) + product(Z33, i3);
 
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
+  annotation (
+  defaultComponentName="line",
+  Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}), graphics), Icon(coordinateSystem(
           preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
                                                graphics={

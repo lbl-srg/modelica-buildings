@@ -264,7 +264,7 @@ unbalanced configuration.
 <p>
 The model has an array <code>areaFraction[3]</code> that is used to determine how
 to partition the power of the PVs on the three phases. By default it is assumed 
-an uniform partition <code>areaFraction[3] = {1/3, 1/3, 1/3}</code>.
+a uniform partition <code>areaFraction[3] = {1/3, 1/3, 1/3}</code>.
 </p>
 </html>", revisions="<html>
 <ul>
@@ -699,7 +699,7 @@ unbalanced configuration.
 <p>
 The model has an array <code>scaleFraction[3]</code> that is used to determine how
 to partition the power of the wind turbines on the three phases. By default it is assumed 
-an uniform partition <code>scaleFraction[3] = {1/3, 1/3, 1/3}</code>.
+a uniform partition <code>scaleFraction[3] = {1/3, 1/3, 1/3}</code>.
 </p>
 </html>", revisions="<html>
 <ul>
