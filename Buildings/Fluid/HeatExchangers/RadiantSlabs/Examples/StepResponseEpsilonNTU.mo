@@ -30,7 +30,7 @@ model StepResponseEpsilonNTU
     disPip=0.2,
     A=A,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    fluidHeatTransfer=Buildings.Fluid.HeatExchangers.RadiantSlabs.Types.FluidHeatTransfer.FiniteDifference)
+    heatTransfer=Buildings.Fluid.HeatExchangers.RadiantSlabs.Types.HeatTransfer.FiniteDifference)
     "Slabe with embedded pipes"
     annotation (Placement(transformation(extent={{10,-30},{30,-10}})));
 

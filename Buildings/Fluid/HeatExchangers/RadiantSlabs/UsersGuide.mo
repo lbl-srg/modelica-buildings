@@ -80,9 +80,9 @@ we set <code>iLayPip=1</code>.
 
 <h4>Discretization along the flow path</h4>
 <p>
-If the parameter <code>fluidHeatTransfer=EpsilonNTU</code>, then the heat transfer between the fluid
+If the parameter <code>heatTransfer=EpsilonNTU</code>, then the heat transfer between the fluid
 and the fictitious layer temperature is computed using an <i>&epsilon;-NTU</i> model.
-If <code>fluidHeatTransfer=FiniteDifference</code>, then the pipe and the slab is
+If <code>heatTransfer=FiniteDifference</code>, then the pipe and the slab is
 discretized along the water flow direction and a finite difference model is used
 to compute the heat transfer. The parameter <code>nSeg</code> determines
 how many times the resistance network is instantiated along the flow path.
@@ -90,13 +90,13 @@ However, all instances connect to the same surface temperature heat ports
 <code>surf_a</code> and <code>surf_b</code>.
 </p>
 <p>
-The default value for is <code>nSeg=1</code> if <code>fluidHeatTransfer=EpsilonNTU</code>
-and  <code>nSeg=5</code> if <code>fluidHeatTransfer=FiniteDifference</code>.
+The default value for is <code>nSeg=1</code> if <code>heatTransfer=EpsilonNTU</code>
+and  <code>nSeg=5</code> if <code>heatTransfer=FiniteDifference</code>.
 For a typical building simulation, we recommend to use the default settings of
-<code>fluidHeatTransfer=EpsilonNTU</code> and <code>nSeg=1</code>, as these lead to
+<code>heatTransfer=EpsilonNTU</code> and <code>nSeg=1</code>, as these lead to
 fastest computing time. 
 However, for feedback control design in which the outlet temperature of the slab
-is used, one may want to use <code>fluidHeatTransfer=FiniteDifference</code> and <code>nSeg=5</code>.
+is used, one may want to use <code>heatTransfer=FiniteDifference</code> and <code>nSeg=5</code>.
 This will cause the model to use <i>5</i> parallel segments in which heat is conducted between the 
 control volume of the pipe fluid and the surfaces of the slab.
 While the heat flow rate at the surface does not change noticeably between these
@@ -104,9 +104,9 @@ two configurations, the dynamics of
 the water outlet temperature from the slab is significantly different. The
 figure below shows the water outlet temperature response to a step change in the 
 volume flow rate at <i>t=720</i> minutes. One can see that if 
-<code>fluidHeatTransfer=EpsilonNTU</code> and <code>nSeg=1</code>, 
+<code>heatTransfer=EpsilonNTU</code> and <code>nSeg=1</code>, 
 the response looks like a first order response (because <code>nSeg=1</code>),
-while with <code>fluidHeatTransfer=FiniteDifference</code> and <code>nSeg=5</code>,
+while with <code>heatTransfer=FiniteDifference</code> and <code>nSeg=5</code>,
 the response is higher order. This figure was generated using
 <a href=\"modelica://Buildings.Fluid.HeatExchangers.RadiantSlabs.Examples.StepResponseFiniteDifference\">
 Buildings.Fluid.HeatExchangers.RadiantSlabs.Examples.StepResponse</a> and

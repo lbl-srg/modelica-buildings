@@ -5,9 +5,9 @@ model PipeToSlabConductance
     Modelica.Media.Interfaces.PartialMedium "Medium in the component"
       annotation (choicesAllMatching = true);
 
-  parameter Buildings.Fluid.HeatExchangers.RadiantSlabs.Types.FluidHeatTransfer
-    fluidHeatTransfer=
-    Buildings.Fluid.HeatExchangers.RadiantSlabs.Types.FluidHeatTransfer.EpsilonNTU
+  parameter Buildings.Fluid.HeatExchangers.RadiantSlabs.Types.HeatTransfer
+    heatTransfer=
+    Buildings.Fluid.HeatExchangers.RadiantSlabs.Types.HeatTransfer.EpsilonNTU
     "Model for heat transfer between fluid and slab";
   parameter Modelica.SIunits.Area APip "Pipe inside surface area";
 
@@ -76,7 +76,7 @@ equation
      IN_con=kc_IN_con, IN_var=kc_IN_var);
   RTot = 1/hCon/APip + RFic + RWal;
 
-  if fluidHeatTransfer == Buildings.Fluid.HeatExchangers.RadiantSlabs.Types.FluidHeatTransfer.EpsilonNTU then
+  if heatTransfer == Buildings.Fluid.HeatExchangers.RadiantSlabs.Types.HeatTransfer.EpsilonNTU then
     Q_flow = Functions.heatFlowRate(T_a=T_a,
                           T_b=T_b,
                           T_s=solid.T,

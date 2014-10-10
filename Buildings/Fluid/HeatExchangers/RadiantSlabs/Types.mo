@@ -1,7 +1,7 @@
 within Buildings.Fluid.HeatExchangers.RadiantSlabs;
 package Types "Package with type definitions"
 
-  type FluidHeatTransfer = enumeration(
+  type HeatTransfer = enumeration(
       EpsilonNTU "Epsilon-NTU",
       FiniteDifference "Finite difference")
     "Model for the heat transfer along the fluid flow direction" annotation (

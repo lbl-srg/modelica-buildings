@@ -2,7 +2,7 @@ within Buildings.Fluid.HeatExchangers.RadiantSlabs;
 model SingleCircuitSlab "Model of a single circuit of a radiant slab"
   extends Buildings.Fluid.HeatExchangers.RadiantSlabs.BaseClasses.Slab;
   extends Buildings.Fluid.FixedResistances.BaseClasses.Pipe(
-     nSeg=if fluidHeatTransfer==Types.FluidHeatTransfer.EpsilonNTU then 1 else 5,
+     nSeg=if heatTransfer==Types.HeatTransfer.EpsilonNTU then 1 else 5,
      final diameter=pipe.dIn,
      length=A/disPip,
      final thicknessIns=0,
@@ -22,8 +22,8 @@ model SingleCircuitSlab "Model of a single circuit of a radiant slab"
   parameter Modelica.SIunits.Area A "Surface area of radiant slab"
   annotation(Dialog(group="Construction"));
 
-  parameter Buildings.Fluid.HeatExchangers.RadiantSlabs.Types.FluidHeatTransfer
-    fluidHeatTransfer=Types.FluidHeatTransfer.EpsilonNTU
+  parameter Buildings.Fluid.HeatExchangers.RadiantSlabs.Types.HeatTransfer
+    heatTransfer=Types.HeatTransfer.EpsilonNTU
     "Model for heat transfer between fluid and slab";
   parameter Modelica.SIunits.Temperature T_c_start=
     (T_a_start*con_b[1].layers.R+T_b_start*con_a[1].layers.R)/layers.R
@@ -102,7 +102,7 @@ protected
         d_hyd=pipe.dIn,
         L=length/nSeg,
         K=pipe.roughness),
-    each fluidHeatTransfer=fluidHeatTransfer)
+    each heatTransfer=heatTransfer)
     "Conductance between fluid and the slab"
     annotation (Placement(transformation(extent={{-28,-80},{-8,-60}})));
 

@@ -3,9 +3,9 @@ model SingleCircuitMultipleCircuitFiniteDifference
   "Model that tests the radiant slab with multiple parallel circuits"
   extends
     Buildings.Fluid.HeatExchangers.RadiantSlabs.Examples.SingleCircuitMultipleCircuitEpsilonNTU(
-    sla1(fluidHeatTransfer=Buildings.Fluid.HeatExchangers.RadiantSlabs.Types.FluidHeatTransfer.FiniteDifference),
-    sla2(fluidHeatTransfer=Buildings.Fluid.HeatExchangers.RadiantSlabs.Types.FluidHeatTransfer.FiniteDifference),
-    sla3(fluidHeatTransfer=Buildings.Fluid.HeatExchangers.RadiantSlabs.Types.FluidHeatTransfer.FiniteDifference));
+    sla1(heatTransfer=Buildings.Fluid.HeatExchangers.RadiantSlabs.Types.HeatTransfer.FiniteDifference),
+    sla2(heatTransfer=Buildings.Fluid.HeatExchangers.RadiantSlabs.Types.HeatTransfer.FiniteDifference),
+    sla3(heatTransfer=Buildings.Fluid.HeatExchangers.RadiantSlabs.Types.HeatTransfer.FiniteDifference));
 
  annotation(__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/RadiantSlabs/Examples/SingleCircuitMultipleCircuitFiniteDifference.mos"
         "Simulate and plot"),

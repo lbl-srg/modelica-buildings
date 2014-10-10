@@ -21,7 +21,7 @@ model ParallelCircuitsSlab
       m_flow_small=m_flow_small/nCir));
 
   parameter Integer nCir(min=1) = 1 "Number of parallel circuits";
-  parameter Integer nSeg(min=1) = if fluidHeatTransfer==Types.FluidHeatTransfer.EpsilonNTU then 1 else 5
+  parameter Integer nSeg(min=1) = if heatTransfer==Types.HeatTransfer.EpsilonNTU then 1 else 5
     "Number of volume segments in each circuit (along flow path)";
 
   parameter Modelica.SIunits.Area A
@@ -45,8 +45,8 @@ model ParallelCircuitsSlab
   parameter Boolean homotopyInitialization = true "= true, use homotopy method"
     annotation(Evaluate=true, Dialog(tab="Advanced"));
 
-  parameter Buildings.Fluid.HeatExchangers.RadiantSlabs.Types.FluidHeatTransfer
-    fluidHeatTransfer=Types.FluidHeatTransfer.EpsilonNTU
+  parameter Buildings.Fluid.HeatExchangers.RadiantSlabs.Types.HeatTransfer
+    heatTransfer=Types.HeatTransfer.EpsilonNTU
     "Model for heat transfer between fluid and slab";
 
   // Diagnostics
@@ -85,7 +85,7 @@ model ParallelCircuitsSlab
 
   Buildings.Fluid.HeatExchangers.RadiantSlabs.SingleCircuitSlab sla(
     redeclare final package Medium = Medium,
-    final fluidHeatTransfer=fluidHeatTransfer,
+    final heatTransfer=heatTransfer,
     final sysTyp=sysTyp,
     final A=A/nCir,
     final disPip=disPip,
