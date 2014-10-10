@@ -116,8 +116,6 @@ Buildings.Fluid.HeatExchangers.RadiantSlabs.Examples.StepResponseEpsilonNTU\\</a
 <p align=\"center\">
 <img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Fluid/HeatExchangers/RadiantSlabs/outletTemperatureComparison.png\"/>
 </p>
-</p>
-
 
 <h4>Initialization</h4>
 <p>

@@ -12,7 +12,7 @@ whether the <i>&epsilon;-NTU</i> approach
 should be used to compute the heat transfer
 between the fluid and the solid.
 See the
-<a href=\\modelica://Buildings.Fluid.HeatExchangers.RadiantSlabs.UsersGuide\">
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.RadiantSlabs.UsersGuide\">
 user's guide</a>
 for more information.
 </p>
@@ -27,7 +27,7 @@ for more information.
 This type definition is used to specify
 the type of radiant system to be modeled.
 See the
-<a href=\\modelica://Buildings.Fluid.HeatExchangers.RadiantSlabs.UsersGuide\">
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.RadiantSlabs.UsersGuide\">
 user's guide</a>
 for more information.
 </p>
