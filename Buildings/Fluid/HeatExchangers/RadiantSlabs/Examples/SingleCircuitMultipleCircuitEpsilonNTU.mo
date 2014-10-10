@@ -3,8 +3,8 @@ model SingleCircuitMultipleCircuitEpsilonNTU
   "Model that tests the radiant slab with multiple parallel circuits and epsilon-NTU configuration"
   extends Modelica.Icons.Example;
  package Medium = Buildings.Media.ConstantPropertyLiquidWater;
-      inner Modelica.Fluid.System system
-    annotation (Placement(transformation(extent={{80,-120},{100,-100}})));
+    inner Modelica.Fluid.System system
+      annotation (Placement(transformation(extent={{80,-120},{100,-100}})));
   Sources.Boundary_ph sin(redeclare package Medium = Medium, nPorts=3,
     p(displayUnit="Pa") = 300000) "Sink"
     annotation (Placement(transformation(extent={{132,-30},{112,-10}})));
