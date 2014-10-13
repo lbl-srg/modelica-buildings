@@ -1,5 +1,5 @@
 within Buildings.Fluid.Movers.Examples;
-model PumpCrossValidation "Comparison between 3 pump types"
+model CrossValidation "Power calculation comparison between 3 mover types"
   import Buildings;
   extends Modelica.Icons.Example;
   Buildings.Fluid.Movers.FlowMachine_Nrpm pump_Nrpm(redeclare package Medium =
@@ -104,4 +104,4 @@ equation
             -100},{100,100}}), graphics),
     experiment(StopTime=200),
     __Dymola_experimentSetupOutput);
-end PumpCrossValidation;
+end CrossValidation;
