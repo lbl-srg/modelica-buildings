@@ -3,10 +3,6 @@ record Generic "Generic data record for pumps and fans"
   extends Modelica.Icons.Record;
   parameter Modelica.SIunits.Conversions.NonSIunits.AngularVelocity_rpm
     N_nominal=1500 "Nominal rotational speed for flow characteristic";
-  parameter Modelica.SIunits.Conversions.NonSIunits.AngularVelocity_rpm N_min=0.0
-    "Minimum rotational speed. Fixme. Check how this is used";
-  parameter Modelica.SIunits.Conversions.NonSIunits.AngularVelocity_rpm N_max=Modelica.Constants.inf
-    "Maximum rotational speed (used for checking validity of input)";
   parameter Buildings.Fluid.Movers.BaseClasses.Characteristics.flowParameters pressure
     "Volume flow rate vs. total pressure rise"
     annotation(Evaluate=true);
