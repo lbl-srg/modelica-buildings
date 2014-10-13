@@ -17,8 +17,7 @@ record Generic "Generic data record for pumps and fans"
     {Buildings.Fluid.Movers.BaseClasses.Characteristics.power(per=power, V_flow=i, r_N=1, delta=0.01, d=d) for i in pressure.V_flow}))
     "Electric motor efficiency";
   parameter Buildings.Fluid.Movers.BaseClasses.Characteristics.powerParameters
-    power(V_flow={0}, P={0})
-    "Volume flow rate vs. electrical power consumption";
+    power "Volume flow rate vs. electrical power consumption";
   parameter Boolean motorCooledByFluid=true
     "If true, then motor heat is added to fluid stream";
   parameter Boolean use_powerCharacteristic=false
