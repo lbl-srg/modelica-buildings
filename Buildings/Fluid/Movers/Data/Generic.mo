@@ -2,7 +2,7 @@ within Buildings.Fluid.Movers.Data;
 record Generic "Generic data record for pumps and fans"
   extends Modelica.Icons.Record;
   parameter Modelica.SIunits.Conversions.NonSIunits.AngularVelocity_rpm
-    N_nominal=1500 "Nominal rotational speed for flow characteristic";
+    N_nominal "Nominal rotational speed for flow characteristic";
   parameter Buildings.Fluid.Movers.BaseClasses.Characteristics.flowParameters pressure
     "Volume flow rate vs. total pressure rise"
     annotation(Evaluate=true);
