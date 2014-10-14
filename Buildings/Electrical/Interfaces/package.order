@@ -6,6 +6,7 @@ Impedance
 InductiveLoad
 CapacitiveLoad
 Source
+VariableVoltageSource
 PartialBaseTwoPort
 PartialTwoPort
 PartialConversion

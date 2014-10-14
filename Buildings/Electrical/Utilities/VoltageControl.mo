@@ -19,7 +19,8 @@ model VoltageControl "Voltage controller"
   replaceable Buildings.Electrical.Interfaces.Terminal terminal(redeclare
       replaceable package PhaseSystem = PhaseSystem) "Generalized terminal"
     annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
-  Buildings.Electrical.Utilities.Functions.voltageControl ctrl(V_nominal=V_nominal, vThresh=vThresh, tDelay=tDelay);
+  Buildings.Electrical.Utilities.Functions.voltageControl ctrl(V_nominal=V_nominal, vThresh=vThresh, tDelay=tDelay)
+    "Function that implements the state machines voltage controller";
 equation
 
   // Output of the control block
@@ -52,21 +53,26 @@ CTRL"),                                   Text(
           textString="%name")}), Documentation(revisions="<html>
 <ul>
 <li>
+Oct 14, 2014, by Marco Bonvini:<br/>
+Revised model and documentation.
+</li>
+<li>
 Aug 28, 2014, by Marco Bonvini:<br/>
 Added documentation.
 </li>
 </ul>
 </html>", info="<html>
 <p>
-Model representing a voltage controller that detacthes a load when
-it voltage is outside of the accepted threshold.
+Model representing a voltage controller that unplugs a load when
+its voltage is outside of the accepted thresholds.
 </p>
 <p>
-The model contains a controller based on a state machine that detects voltage
+The model contains a finite state machine controller that detects voltage
 deviations. If the voltage input <code>V</code> exceeds the
 nominal value <code>V_nominal</code> by more than <i>1+V<sub>tr</sub></i>
 then the control signal <code>y</code> becomes zero for 
-a period <code>t = tDelay</code>.
+a period <code>t = tDelay</code>. If after this period the voltage is still
+higher than the thresholds the output remains equal to zero.
 </p>
 </html>"));
 end VoltageControl;

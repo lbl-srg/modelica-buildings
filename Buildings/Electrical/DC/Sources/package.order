@@ -1,4 +1,5 @@
 ConstantVoltage
+VoltageSource
 PVSimple
 PVSimpleOriented
 WindTurbine
