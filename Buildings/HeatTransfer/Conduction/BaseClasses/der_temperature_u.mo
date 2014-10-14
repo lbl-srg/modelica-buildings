@@ -1,7 +1,7 @@
 within Buildings.HeatTransfer.Conduction.BaseClasses;
 function der_temperature_u
   "Computes the derivative of the temperature of a phase change material with respect to specific internal energy"
-  input Buildings.HeatTransfer.Data.Solids.Generic material
+  input Buildings.HeatTransfer.Data.OpaqueConstructions.Material material
     "Material properties";
   output Modelica.SIunits.SpecificInternalEnergy ud[Buildings.HeatTransfer.Conduction.nSupPCM]
     "Support points for derivatives";
@@ -49,6 +49,12 @@ to compute for a given specific internal energy the temperature.
 </html>",
 revisions="<html>
 <ul>
+<li>
+October 13, 2014, by Michael Wetter:<br/>
+Corrected the input argument to be an instance of 
+<code>Buildings.HeatTransfer.Data.BaseClasses.Material</code> rather than
+<code>Buildings.HeatTransfer.Data.Solids.Generic</code>.
+</li>
 <li>
 March 9, 2013, by Michael Wetter:<br/>
 Revised implementation to use new data record.
