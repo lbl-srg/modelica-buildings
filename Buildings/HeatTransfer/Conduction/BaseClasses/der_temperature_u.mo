@@ -1,7 +1,7 @@
 within Buildings.HeatTransfer.Conduction.BaseClasses;
 function der_temperature_u
   "Computes the derivative of the temperature of a phase change material with respect to specific internal energy"
-  input Buildings.HeatTransfer.Data.OpaqueConstructions.Material material
+  input Buildings.HeatTransfer.Data.BaseClasses.Material material
     "Material properties";
   output Modelica.SIunits.SpecificInternalEnergy ud[Buildings.HeatTransfer.Conduction.nSupPCM]
     "Support points for derivatives";
