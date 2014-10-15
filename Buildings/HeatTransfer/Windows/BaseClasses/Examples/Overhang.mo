@@ -53,7 +53,7 @@ equation
       string="%second",
       index=1,
       extent={{6,3},{6,3}}));
-  connect(weaBus.sol.alt, walSolAzi.alt) annotation (Line(
+  connect(weaBus.solAlt, walSolAzi.alt) annotation (Line(
       points={{-34,34},{-32,34},{-32,34.8},{-2,34.8}},
       color={255,204,51},
       thickness=0.5,
@@ -61,7 +61,7 @@ equation
       string="%first",
       index=-1,
       extent={{-6,3},{-6,3}}));
-  connect(weaBus.sol.alt, ove.alt) annotation (Line(
+  connect(weaBus.solAlt, ove.alt) annotation (Line(
       points={{-34,34},{-70,34},{-70,-20},{60,-20},{60,12},{66,12}},
       color={255,204,51},
       thickness=0.5,
@@ -69,7 +69,7 @@ equation
       string="%first",
       index=-1,
       extent={{-6,3},{-6,3}}));
-  annotation (Diagram(graphics),
+  annotation (
 experiment(StopTime=86400),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/HeatTransfer/Windows/BaseClasses/Examples/Overhang.mos"
         "Simulate and plot"),
