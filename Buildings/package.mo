@@ -443,6 +443,18 @@ units are wrong or errors in documentation):
     <td valign=\"top\">Corrected error in documentation of computation of <code>k</code>.
     </td>
 </tr>
+<tr><td colspan=\"2\"><b>Buildings.HeatTransfer</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.HeatTransfer.Windows.BaseClasses.GlassLayer
+    </td>
+    <td valign=\"top\">Changed type of <code>tauIR</code> from 
+                       <code>Modelica.SIunits.Emissivity</code> to
+                       <code>Modelica.SIunits.TransmissionCoefficient</code>.
+                       This avoids a type error in OpenModelica.
+    </td>
+</tr>
+
 </table>
 <!-- Github issues -->
 <p>
