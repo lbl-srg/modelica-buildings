@@ -232,9 +232,8 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
-            -100},{160,160}}),
-                      graphics),
-experiment(StartTime=-1, StopTime=1.0),
+            -100},{160,160}})),
+            experiment(StartTime=-1, StopTime=1.0, Tolerance=1E-8),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/FixedResistances/Examples/FixedResistancesExplicit.mos"
         "Simulate and plot"),
     Documentation(info="<html>
