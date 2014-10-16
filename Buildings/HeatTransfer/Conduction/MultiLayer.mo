@@ -2,7 +2,7 @@ within Buildings.HeatTransfer.Conduction;
 model MultiLayer
   "Model for heat conductance through a solid with multiple material layers"
   extends Buildings.HeatTransfer.Conduction.BaseClasses.PartialConductor(
-   final R=RTot);
+   final R=sum(layers.material[i].R for i in 1:nLay));
   Modelica.SIunits.Temperature T[sum(nSta)](each nominal = 300)
     "Temperature at the states";
   Modelica.SIunits.HeatFlowRate Q_flow[sum(nSta)+nLay]
@@ -22,15 +22,12 @@ protected
     "Initial temperature at port_a of respective layer, used if steadyStateInitial = false";
   final parameter Modelica.SIunits.Temperature _T_b_start[nLay](each fixed=false)
     "Initial temperature at port_b of respective layer, used if steadyStateInitial = false";
-  final parameter Modelica.SIunits.ThermalResistance RTot(fixed=false)
-    "Total thermal resistance of the construction";
 
 initial equation
   _T_a_start = { T_b_start+(T_a_start-T_b_start) * 1/R *
     sum(layers.material[k].R for k in i:nLay) for i in 1:nLay};
   _T_b_start = { T_a_start+(T_b_start-T_a_start) * 1/R *
     sum(layers.material[k].R for k in 1:i) for i in 1:nLay};
-  RTot = sum(layers.material[i].R for i in 1:nLay);
 equation
   // This section assigns the temperatures and heat flow rates of the layer models to
   // an array that makes plotting the results easier.
@@ -168,6 +165,11 @@ and the temperature state.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+October 15, 2014, by Michael Wetter:<br/>
+Changed assignment of <code>R</code> to be in the <code>extends</code> statement
+to avoid a division by zero in OpenModelica.
+</li>
 <li>
 September 9, 2014, by Michael Wetter:<br/>
 Reverted change from March 1 2013 as this causes an error during model check
