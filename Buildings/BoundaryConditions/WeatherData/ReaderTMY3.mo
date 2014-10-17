@@ -42,7 +42,8 @@ block ReaderTMY3 "Reader for TMY3 weather data"
   parameter Real totSkyCov(
     min=0,
     max=1,
-    unit="1") = 0.5 "Total sky cover (used if totSkyCov=Parameter)"
+    unit="1") = 0.5
+    "Total sky cover (used if totSkyCov=Parameter). Use 0 <= totSkyCov <= 1"
     annotation (Dialog(group="Data source"));
   Modelica.Blocks.Interfaces.RealInput totSkyCov_in(
     min=0,
@@ -57,7 +58,8 @@ block ReaderTMY3 "Reader for TMY3 weather data"
   parameter Real opaSkyCov(
     min=0,
     max=1,
-    unit="1") = 0.5 "Opaque sky cover (used if opaSkyCov=Parameter)"
+    unit="1") = 0.5
+    "Opaque sky cover (used if opaSkyCov=Parameter). Use 0 <= opaSkyCov <= 1"
     annotation (Dialog(group="Data source"));
   Modelica.Blocks.Interfaces.RealInput opaSkyCov_in(
     min=0,
@@ -366,6 +368,16 @@ protected
       TDryBul(displayUnit="degC")) if computeWetBulbTemperature
     annotation (Placement(transformation(extent={{244,-66},{264,-46}})));
 
+  //---------------------------------------------------------------------------
+  // Conversion blocks for sky cover
+  Modelica.Blocks.Math.Gain conTotSkyCov(final k=0.1) if
+       totSkyCovSou == Buildings.BoundaryConditions.Types.DataSource.File
+    "Convert sky cover from [0...10] to [0...1]"
+    annotation (Placement(transformation(extent={{120,-40},{140,-20}})));
+  Modelica.Blocks.Math.Gain conOpaSkyCov(final k=0.1) if
+       opaSkyCovSou == Buildings.BoundaryConditions.Types.DataSource.File
+    "Convert sky cover from [0...10] to [0...1]"
+    annotation (Placement(transformation(extent={{120,-158},{140,-138}})));
 equation
   //---------------------------------------------------------------------------
   // Select atmospheric pressure connector
@@ -395,7 +407,11 @@ equation
   elseif totSkyCovSou == Buildings.BoundaryConditions.Types.DataSource.Input then
     connect(totSkyCov_in, totSkyCov_in_internal);
   else
-    connect(datRea.y[13], totSkyCov_in_internal);
+    connect(conTotSkyCov.u, datRea.y[13]) annotation (Line(
+      points={{118,-30},{-59,-30}},
+      color={0,0,127},
+      smooth=Smooth.None));
+    connect(conTotSkyCov.y, totSkyCov_in_internal);
   end if;
   connect(totSkyCov_in_internal, cheTotSkyCov.nIn);
   //---------------------------------------------------------------------------
@@ -405,9 +421,14 @@ equation
   elseif opaSkyCovSou == Buildings.BoundaryConditions.Types.DataSource.Input then
     connect(opaSkyCov_in, opaSkyCov_in_internal);
   else
-    connect(datRea.y[14], opaSkyCov_in_internal);
+    connect(conOpaSkyCov.u, datRea.y[14]) annotation (Line(
+      points={{118,-148},{30,-148},{30,-29.92},{-59,-29.92}},
+      color={0,0,127},
+      smooth=Smooth.None));
+    connect(conOpaSkyCov.y, opaSkyCov_in_internal);
   end if;
   connect(opaSkyCov_in_internal, cheOpaSkyCov.nIn);
+
   //---------------------------------------------------------------------------
   // Select dew point temperature connector
   if TDewPoiSou == Buildings.BoundaryConditions.Types.DataSource.Parameter then
@@ -1162,6 +1183,14 @@ Technical Report, NREL/TP-581-43156, revised May 2008.
 </html>
 ", revisions="<html>
 <ul>
+<li>
+October 17, 2014, by Michael Wetter<br/>
+Corrected error that led the total and opaque sky cover to be ten times
+too low if its value was obtained from the parameter or the input connector.
+For the standard configuration in which the sky cover is obtained from
+the weather data file, the model was correct. This error only affected
+the other two possible configurations.
+</li>
 <li>
 September 12, 2014, by Michael Wetter:<br/>
 Removed redundant connection <code>connect(conHorRad.HOut, cheHorRad.HIn);</code>.

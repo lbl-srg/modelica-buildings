@@ -390,7 +390,18 @@ The following <b style=\"color:red\">critical errors</b> have been fixed (i.e., 
 that can lead to wrong simulation results):
 </p>
 <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
-<tr><td colspan=\"2\"><b>Buildings.Fluid</b>
+<tr><td colspan=\"2\"><b>Buildings.BoundaryConditions</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.BoundaryConditions.WeatherData.ReaderTMY3
+    </td>
+    <td valign=\"top\">Corrected error that led the total and opaque sky cover to be ten times
+                       too low if its value was obtained from the parameter or the input connector.
+                       For the standard configuration in which the sky cover is obtained from
+                       the weather data file, the model was correct. This error only affected
+                       the other two possible configurations.
+    </td>
+</tr><tr><td colspan=\"2\"><b>Buildings.Fluid</b>
     </td>
 </tr>
 <tr><td valign=\"top\">Buildings.Fluid.Data.Pipes
@@ -443,6 +454,18 @@ units are wrong or errors in documentation):
     <td valign=\"top\">Corrected error in documentation of computation of <code>k</code>.
     </td>
 </tr>
+<tr><td colspan=\"2\"><b>Buildings.HeatTransfer</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.HeatTransfer.Windows.BaseClasses.GlassLayer
+    </td>
+    <td valign=\"top\">Changed type of <code>tauIR</code> from 
+                       <code>Modelica.SIunits.Emissivity</code> to
+                       <code>Modelica.SIunits.TransmissionCoefficient</code>.
+                       This avoids a type error in OpenModelica.
+    </td>
+</tr>
+
 </table>
 <!-- Github issues -->
 <p>
