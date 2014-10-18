@@ -311,6 +311,19 @@ have been <b style=\"color:blue\">improved</b> in a
    <td valign=\"top\">Removed block as it is not used in any model.
    </td>
 </tr>
+
+<tr><td colspan=\"2\"><b>Buildings.HeatTransfer</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.HeatTransfer.Conduction.BaseClasses.der_temperature_u
+    </td>
+    <td valign=\"top\">Changed the input argument for this function from type
+                       <code>Buildings.HeatTransfer.Data.BaseClasses.Material</code>
+                       to the elements of this type as OpenModelica fails to translate the
+                       model if the input to this function is a record.
+    </td>
+</tr>
+
 <tr><td colspan=\"2\"><b>Buildings.Fluid</b>
     </td>
 </tr>
