@@ -30,7 +30,6 @@ revisions="<html>
 October 17, 2014, by Michael Wetter:<br/>
 Changed tolerance of the <code>assert</code> statement.
 </li>
-</li>
 <li>
 May 30, 2014, by Michael Wetter:<br/>
 Removed undesirable annotation <code>Evaluate=true</code>.
