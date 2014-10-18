@@ -196,9 +196,6 @@ block ReaderTMY3 "Reader for TMY3 weather data"
     "Time zone";
   Bus weaBus "Weather Data Bus" annotation (Placement(transformation(extent={{
             294,-10},{314,10}}), iconTransformation(extent={{190,-10},{210,10}})));
-  BaseClasses.SolarSubBus solBus "Sub bus with solar position"
-    annotation (Placement(transformation(extent={{-2,-304},{18,-284}}),
-        iconTransformation(extent={{-2,-200},{18,-180}})));
 
   parameter Buildings.BoundaryConditions.Types.SkyTemperatureCalculation
     calTSky=Buildings.BoundaryConditions.Types.SkyTemperatureCalculation.TemperaturesAndSkyCover
@@ -759,55 +756,6 @@ equation
       points={{-59,-216},{-40,-216},{-40,-270},{-32,-270}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(altAng.alt, solBus.alt) annotation (Line(
-      points={{-9,-270},{8,-270},{8,-294}},
-      color={0,0,127},
-      smooth=Smooth.None), Text(
-      string="%second",
-      index=1,
-      extent={{6,3},{6,3}}));
-  connect(zenAng.zen, solBus.zen) annotation (Line(
-      points={{-59,-216},{-40,-216},{-40,-294},{8,-294}},
-      color={0,0,127},
-      smooth=Smooth.None), Text(
-      string="%second",
-      index=1,
-      extent={{6,3},{6,3}}));
-  connect(solBus, weaBus.sol) annotation (Line(
-      points={{8,-294},{122,-294},{122,-292},{290,-292},{290,5.55112e-16},{304,
-          5.55112e-16}},
-      color={255,204,51},
-      thickness=0.5,
-      smooth=Smooth.None));
-
-  connect(decAng.decAng, solBus.dec) annotation (Line(
-      points={{-119,-210},{-100,-210},{-100,-294},{8,-294}},
-      color={0,0,127},
-      smooth=Smooth.None), Text(
-      string="%second",
-      index=1,
-      extent={{6,3},{6,3}}));
-  connect(solHouAng.solHouAng, solBus.solHouAng) annotation (Line(
-      points={{-119,-240},{-100,-240},{-100,-294},{8,-294}},
-      color={0,0,127},
-      smooth=Smooth.None), Text(
-      string="%second",
-      index=1,
-      extent={{6,3},{6,3}}));
-  connect(longitude.y, solBus.lon) annotation (Line(
-      points={{-119,-270},{-100,-270},{-100,-294},{8,-294}},
-      color={0,0,127},
-      smooth=Smooth.None), Text(
-      string="%second",
-      index=1,
-      extent={{6,3},{6,3}}));
-  connect(latitude.y, solBus.lat) annotation (Line(
-      points={{-159,-270},{-150,-270},{-150,-294},{8,-294}},
-      color={0,0,127},
-      smooth=Smooth.None), Text(
-      string="%second",
-      index=1,
-      extent={{6,3},{6,3}}));
 
   // Connectors for wet bulb temperature.
   // These are removed if computeWetBulbTemperature = false
@@ -832,6 +780,32 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
 
+  connect(altAng.alt, weaBus.solAlt) annotation (Line(
+      points={{-9,-270},{8,-270},{8,-290},{290,-290},{290,0},{304,0}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(zenAng.zen, weaBus.solZen) annotation (Line(
+      points={{-59,-216},{-40,-216},{-40,-290},{290,-290},{290,0},{304,0}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(decAng.decAng, weaBus.solDec) annotation (Line(
+      points={{-119,-210},{-110,-210},{-110,-208},{-100,-208},{-100,-290},{290,
+          -290},{290,0},{304,0}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(solHouAng.solHouAng, weaBus.solHouAng) annotation (Line(
+      points={{-119,-240},{-108,-240},{-108,-238},{-100,-238},{-100,-290},{290,
+          -290},{290,0},{304,0}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(longitude.y, weaBus.lon) annotation (Line(
+      points={{-119,-270},{-100,-270},{-100,-290},{290,-290},{290,0},{304,0}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(latitude.y, weaBus.lat) annotation (Line(
+      points={{-159,-270},{-150,-270},{-150,-290},{290,-290},{290,0},{304,0}},
+      color={0,0,127},
+      smooth=Smooth.None));
   annotation (
     defaultComponentName="weaDat",
     Icon(coordinateSystem(
@@ -1320,6 +1294,7 @@ First implementation.
 </ul>
 </html>"),
     Diagram(coordinateSystem(preserveAspectRatio=false,
-                                                      extent={{-200,-300},{300,300}}),
+                                                      extent={{-200,-300},{300,
+            300}}),
         graphics));
 end ReaderTMY3;

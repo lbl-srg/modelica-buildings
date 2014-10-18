@@ -173,7 +173,7 @@ equation
       string="%first",
       index=-1,
       extent={{-6,3},{-6,3}}));
-  connect(weaBus.sol.zen, solAzi.zen) annotation (Line(
+  connect(weaBus.solZen, solAzi.zen) annotation (Line(
       points={{-102,5.55112e-16},{-79,5.55112e-16},{-79,6},{-62,6}},
       color={255,204,51},
       thickness=0.5,
@@ -181,7 +181,7 @@ equation
       string="%first",
       index=-1,
       extent={{-6,3},{-6,3}}));
-  connect(weaBus.sol.dec, solAzi.decAng) annotation (Line(
+  connect(weaBus.solDec, solAzi.decAng) annotation (Line(
       points={{-102,5.55112e-16},{-92,5.55112e-16},{-92,1.22125e-15},{-82,
           1.22125e-15},{-82,6.66134e-16},{-62,6.66134e-16}},
       color={255,204,51},

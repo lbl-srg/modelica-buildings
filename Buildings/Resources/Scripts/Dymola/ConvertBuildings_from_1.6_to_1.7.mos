@@ -44,3 +44,10 @@ convertClear();
 // sysTyp=Buildings.Fluid.HeatExchangers.RadiantSlabs.BaseClasses.Types.SystemType.Floor 
 // to
 // sysTyp=Buildings.Fluid.HeatExchangers.RadiantSlabs.Types.SystemType.Floor
+
+// Buildings.BoundaryConditions.WeatherData.ReaderTMY3
+// Changed the following signals:
+// weaBus.sol.zen -> weaBus.solZen
+// weaBus.sol.dec -> weaBus.solDec
+// weaBus.sol.alt -> weaBus.solAlt
+// weaBus.sol.solHouAng -> weaBus.solHouAng
