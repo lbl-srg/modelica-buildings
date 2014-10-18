@@ -64,11 +64,19 @@ initial equation
   // Calculate derivatives at support points (non-monotone)
   (ud, Td, dT_du) =
     Buildings.HeatTransfer.Conduction.BaseClasses.der_temperature_u(
-    materialNonMonotone);
+      c=   materialNonMonotone.c,
+      TSol=materialNonMonotone.TSol,
+      TLiq=materialNonMonotone.TLiq,
+      LHea=materialNonMonotone.LHea,
+      ensureMonotonicity=materialNonMonotone.ensureMonotonicity);
   // Calculate derivatives at support points (monotone);
  (udMonotone, TdMonotone, dT_duMonotone) =
     Buildings.HeatTransfer.Conduction.BaseClasses.der_temperature_u(
-    materialMonotone);
+      c=   materialMonotone.c,
+      TSol=materialMonotone.TSol,
+      TLiq=materialMonotone.TLiq,
+      LHea=materialMonotone.LHea,
+      ensureMonotonicity=materialMonotone.ensureMonotonicity);
 equation
   u =  2.5e5+time*(1.5*materialMonotone.c*(materialMonotone.TLiq-273.15)+materialMonotone.LHea)*conFac;
 
@@ -147,6 +155,15 @@ obtained for different specific internal energy values (right hand side figure).
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+October 17, 2014, by Michael Wetter:<br/>
+Changed the input argument for the function
+<code>Buildings.HeatTransfer.Conduction.BaseClasses.der_temperature_u</code>
+from type
+<code>Buildings.HeatTransfer.Data.BaseClasses.Material</code>
+to the elements of this type as OpenModelica fails to translate the
+model if the input to this function is a record.
+</li>
 <li>
 October 11, 2013, by Michael Wetter:<br/>
 Added missing <code>each</code> keywords.

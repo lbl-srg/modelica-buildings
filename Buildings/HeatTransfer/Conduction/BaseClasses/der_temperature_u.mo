@@ -1,8 +1,16 @@
 within Buildings.HeatTransfer.Conduction.BaseClasses;
 function der_temperature_u
   "Computes the derivative of the temperature of a phase change material with respect to specific internal energy"
-  input Buildings.HeatTransfer.Data.BaseClasses.Material material
-    "Material properties";
+  input Modelica.SIunits.SpecificHeatCapacity c "Specific heat capacity";
+  input Modelica.SIunits.Temperature TSol
+    "Solidus temperature, used only for PCM.";
+  input Modelica.SIunits.Temperature TLiq
+    "Liquidus temperature, used only for PCM";
+  input Modelica.SIunits.SpecificInternalEnergy LHea
+    "Latent heat of phase change";
+  input Boolean ensureMonotonicity = false
+    "Set to true to force derivatives dT/du to be monotone";
+
   output Modelica.SIunits.SpecificInternalEnergy ud[Buildings.HeatTransfer.Conduction.nSupPCM]
     "Support points for derivatives";
   output Modelica.SIunits.Temperature Td[Buildings.HeatTransfer.Conduction.nSupPCM]
@@ -11,30 +19,31 @@ function der_temperature_u
     "Derivatives dT/du at the support points";
 protected
   parameter Real scale=0.999 "Used to place points on the phase transition";
-  parameter Modelica.SIunits.Temperature Tm1=material.TSol+(1-scale)*(material.TLiq-material.TSol);
-  parameter Modelica.SIunits.Temperature Tm2=material.TSol+scale*(material.TLiq-material.TSol);
+  parameter Modelica.SIunits.Temperature Tm1=TSol+(1-scale)*(TLiq-TSol)
+    "Support point";
+  parameter Modelica.SIunits.Temperature Tm2=TSol+scale*(TLiq-TSol)
+    "Support point";
 algorithm
   assert(Buildings.HeatTransfer.Conduction.nSupPCM == 6,
     "The material must have exactly 6 support points for the u(T) relation.");
-  assert(material.TLiq > material.TSol,
-    "TLiq has to be larger than TSol.");
+  assert(TLiq > TSol, "TLiq has to be larger than TSol.");
   // Get the derivative values at the support points
-  ud:={material.c*scale*material.TSol,
-       material.c*material.TSol,
-       material.c*Tm1 + material.LHea*(Tm1 - material.TSol)/(material.TLiq - material.TSol),
-       material.c*Tm2 + material.LHea*(Tm2 - material.TSol)/(material.TLiq - material.TSol),
-       material.c*material.TLiq + material.LHea,
-       material.c*(material.TLiq + material.TSol*(1 - scale)) + material.LHea};
-  Td:={scale*material.TSol,
-       material.TSol,
+  ud:={c*scale*TSol,
+       c*TSol,
+       c*Tm1 + LHea*(Tm1 - TSol)/(TLiq - TSol),
+       c*Tm2 + LHea*(Tm2 - TSol)/(TLiq - TSol),
+       c*TLiq + LHea,
+       c*(TLiq + TSol*(1 - scale)) + LHea};
+  Td:={scale*TSol,
+       TSol,
        Tm1,
        Tm2,
-       material.TLiq,
-       material.TLiq + material.TSol*(1 - scale)};
+       TLiq,
+       TLiq + TSol*(1 - scale)};
   dT_du := Buildings.Utilities.Math.Functions.splineDerivatives(
       x=ud,
       y=Td,
-      ensureMonotonicity=material.ensureMonotonicity);
+      ensureMonotonicity=ensureMonotonicity);
   annotation(smoothOrder=1,
       Documentation(info="<html>
 <p>
@@ -49,6 +58,13 @@ to compute for a given specific internal energy the temperature.
 </html>",
 revisions="<html>
 <ul>
+<li>
+October 17, 2014, by Michael Wetter:<br/>
+Changed the input argument from type
+<code>Buildings.HeatTransfer.Data.BaseClasses.Material</code>
+to the elements of this type as OpenModelica fails to translate the
+model if the input to this function is a record.
+</li>
 <li>
 October 13, 2014, by Michael Wetter:<br/>
 Corrected the input argument to be an instance of 
