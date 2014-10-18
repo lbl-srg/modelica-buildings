@@ -10,12 +10,12 @@ function glassPropertyUncoated
   output Real layer[3, HEM] "Transmittance, front and back reflectance";
 
 protected
-  Integer NDIR=HEM - 1 "Number of incident angles";
+  Integer NDIR "Number of incident angles";
   Real psi_c "cos(psi), psi is incident angle in air";
   Real psi1_c "cos(psi1), psi1 is incident angle in glass";
   Real angT "Angular variation of transmittance";
   Real angR "Angular variation of reflectance";
-  Real f[3, NDIR]
+  Real f[3, HEM-1]
     "Temporary variables for integration in hemispherical transmittance and reflectance";
   Real beta "Temporary coefficient defined in (7.2.1i)";
   Real rho0
@@ -35,7 +35,7 @@ protected
   Real n
     "Ratio of spectral index of refraction of glass to the index of refraction of air";
   Real psi1 "The angle od incident angle in glass";
-  constant Real deltaX=0.5*Modelica.Constants.pi/(NDIR - 1);
+  Real deltaX;
 
 algorithm
   // Check the data
@@ -46,6 +46,8 @@ algorithm
   assert(glass[TRA] + glass[Ra] <= 1,
     "Glass property is not correct since the summation of solar reflectance and transmittance is larger than 1");
 
+  NDIR := HEM-1;
+  deltaX := 0.5*Modelica.Constants.pi/(NDIR-1);
   // Compute specular value for angle 0 to 90 degree (psi[1] to psi[N])
   for k in TRA:Rb loop
     layer[k, 1] := glass[k] "Copy the data at 0 degree (normal incidence)";
@@ -55,23 +57,23 @@ algorithm
 
   tmp := beta^2 - 4*(2 - glass[Ra])*glass[Ra] "part of (1)";
   assert(tmp >= 0,
-    "Glass property is not correct and not possible to calculate spectral reflectivity at 0 degree for uncoated glass");
+    "Glass property is wrong. It is not possible to calculate the spectral reflectivity at 0 degree for uncoated glass.");
 
   rho0 := 0.5*(beta - sqrt(tmp))/(2 - glass[Ra]) "(1)";
   assert(rho0 >= 0,
-    "Glass property is not correct so that the spectral reflectivity at 0 degree for uncoated glass is less than zero");
+    "Glass property is wrong. The spectral reflectivity at 0 degree for uncoated glass is less than zero.");
 
   tmp := (glass[Ra] - rho0)/(rho0*glass[TRA]) "part of (3)";
   assert(tmp > 0,
-    "Glass property is not correct and not possible to calculate spectral extinction coefficient for uncoated glass");
+    "Glass property is wrong. It is not possible to calculate the spectral extinction coefficient for uncoated glass.");
 
   alpha := -log(tmp)/x "(3)";
   tmp := sqrt(rho0);
   assert(tmp <> 1,
-    "Glass property is not correct and not possible to calculate spectral index of refraction for uncoated glass");
+    "Glass property is wrong. It is not possible to calculate the spectral index of refraction for uncoated glass.");
   n := (1 + tmp)/(1 - tmp) "(4)";
 
-  for j in 2:NDIR - 1 loop
+  for j in 2:HEM-2 loop
     psi1 := asin(sin(psi[j])/n) "(5)";
     psi_c := cos(psi[j]);
     psi1_c := cos(psi1);
@@ -100,7 +102,7 @@ algorithm
   layer[Rb, NDIR] := 1.0 "(16)";
 
   // Computer hemispherical value: HEM.
-  for j in 1:NDIR loop
+  for j in 1:HEM-1 loop
     for k in TRA:Rb loop
       f[k, j] := 2*layer[k, j]*Modelica.Math.cos(psi[j])*Modelica.Math.sin(psi[
         j]);
@@ -282,6 +284,10 @@ Validation of the window model of the Modelica Buildings library.</a>
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+October 17, 2014, by Michael Wetter:<br/>
+Changed use of <code>NDIR</code> for OpenModelica.
+</li>
 <li>
 August 06, 2012, by Wangda Zuo:<br/>
 Improved the documentation for implementation and added comments for model limitations.

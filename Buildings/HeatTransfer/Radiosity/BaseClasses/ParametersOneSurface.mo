@@ -14,7 +14,7 @@ protected
  final parameter Real T03(min=0, unit="K3")=T0^3 "3rd power of temperature T0";
 
 initial equation
-  assert(abs(1-absIR-rhoIR-tauIR) < Modelica.Constants.eps,
+  assert(abs(1-absIR-rhoIR-tauIR) < 1E-8,
     "Absorptivity, reflectivity and transmissivity do not add up to one. Check parameters.");
 
 annotation (
@@ -26,6 +26,11 @@ Parameters that are used for classes with one surface.
 </html>",
 revisions="<html>
 <ul>
+<li>
+October 17, 2014, by Michael Wetter:<br/>
+Changed tolerance of the <code>assert</code> statement.
+</li>
+</li>
 <li>
 May 30, 2014, by Michael Wetter:<br/>
 Removed undesirable annotation <code>Evaluate=true</code>.
