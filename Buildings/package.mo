@@ -296,6 +296,22 @@ have been <b style=\"color:blue\">improved</b> in a
                        update existing models.
    </td>
 </tr>
+
+<tr><td colspan=\"2\"><b>Buildings.BoundaryConditions</b>
+   </td>
+</tr>
+<tr><td valign=\"top\">Buildings.BoundaryConditions.WeatherData.ReaderTMY3
+   </td>
+   <td valign=\"top\">Changed the following signals for compatibility with OpenModelica:<br/>
+                      <code>weaBus.sol.zen</code> to <code>weaBus.solZen</code>.<br/>
+                      <code>weaBus.sol.dec</code> to <code>weaBus.solDec</code>.<br/>
+                      <code>weaBus.sol.alt</code> to <code>weaBus.solAlt</code>.<br/>
+                      <code>weaBus.sol.solHouAng</code> to <code>weaBus.solHouAng</code>.<br/>
+                      For Dymola, the conversion script will automatically
+                      update existing models.
+   </td>
+</tr>
+
 <tr><td colspan=\"2\"><b>Buildings.Examples</b>
    </td>
 </tr>
