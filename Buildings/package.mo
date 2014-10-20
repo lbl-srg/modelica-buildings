@@ -268,6 +268,16 @@ have been <b style=\"color:blue\">improved</b> in a
     </td>
 </tr>
 
+<tr><td colspan=\"2\"><b>Buildings.Rooms</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Rooms.BaseClasses.ExteriorBoundaryConditionsWithWindow
+    </td>
+    <td valign=\"top\">Conditionally removed the shade model if no shade is present.
+                       This corrects
+                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/234\">#234</a>.
+    </td>
+</tr>
 
 <tr><td colspan=\"2\"><b>xxx</b>
     </td>
@@ -503,12 +513,12 @@ The following
 have been fixed:
 </p>
 <table border=\"1\" summary=\"github issues\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
-<tr><td colspan=\"2\"><b>xxx</b>
+<tr><td colspan=\"2\"><b>Buildings.Rooms</b>
     </td>
 </tr>
-<tr><td valign=\"top\"><a href=\"https://github.com/lbl-srg/modelica-buildings/issues/xxx\">#xxx</a>
+<tr><td valign=\"top\"><a href=\"https://github.com/lbl-srg/modelica-buildings/issues/234\">#234</a>
     </td>
-    <td valign=\"top\">xxx.
+    <td valign=\"top\">Division by zero in overhang model.
     </td>
 </tr>
 </table>
