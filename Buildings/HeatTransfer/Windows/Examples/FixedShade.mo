@@ -2,7 +2,8 @@ within Buildings.HeatTransfer.Windows.Examples;
 model FixedShade "Test model for the fixed shade model"
   extends Modelica.Icons.Example;
 
-  Buildings.HeatTransfer.Windows.FixedShade sha[4](final conPar=conPar,
+  Buildings.HeatTransfer.Windows.FixedShade sha[4](
+    final conPar=conPar,
     azi=conPar.azi,
     each lat=weaDat.lat) "Shade model"
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
@@ -27,14 +28,14 @@ model FixedShade "Test model for the fixed shade model"
     each glaSys=glaSys,
     each layers=insCon,
     ove(
-      wR={0.1,0.1,0,0},
-      wL={0.1,0.1,0,0},
-      gap={0.1,0.1,0,0},
-      dep={1,1,0,0}),
+      wR = {0.1, 0.1,   0, 0},
+      wL = {0.1, 0.1,   0, 0},
+      gap= {0.1, 0.1,   0, 0},
+      dep= {1,   1,     0, 0}),
     sidFin(
-      dep={0,1,1,0},
-      gap={0,0.1,0.1,0},
-      h={0,0.1,0.1,0})) "Construction parameters"
+      dep= {0,   1,     1, 0},
+      gap= {0,   0.1, 0.1, 0},
+      h =  {0,   0.1, 0.1, 0})) "Construction parameters"
     annotation (Placement(transformation(extent={{-40,-80},{-20,-60}})));
 
   parameter Buildings.HeatTransfer.Data.GlazingSystems.DoubleClearAir13Clear glaSys
@@ -91,12 +92,17 @@ __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/HeatTransf
         "Simulate and plot"),
     Documentation(info="<html>
 <p>
-This model tests window overhang and side fins. There are three instances of <code>sha</code>.
-The first instance models an overhang, the second models side fins and the third has neither an overhang
+This model tests window overhang and side fins. There are four instances of <code>sha</code>.
+The first instance models an overhang only, the second models side fins and
+an overhang, the third models side fins only and the fourth has neither an overhang
 nor a side fin.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+October 20, 2014, by Michael Wetter:<br/>
+Corrected error in the documentation.
+</li>
 <li>
 October 17, 2014, by Michael Wetter:<br/>
 Removed <code>redeclare</code> statement for <code>conPar.layer</code>.
