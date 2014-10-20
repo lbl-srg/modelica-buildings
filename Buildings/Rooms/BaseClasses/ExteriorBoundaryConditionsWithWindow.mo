@@ -21,9 +21,11 @@ model ExteriorBoundaryConditionsWithWindow
     "Set to true if window system has a shade"
     annotation (Dialog(group="Shading"), Evaluate=true);
 
-  Buildings.HeatTransfer.Windows.FixedShade sha[nCon](final conPar=conPar,
+  Buildings.HeatTransfer.Windows.FixedShade sha[nCon](
+    final conPar=conPar,
     each lat=lat,
-    azi=conPar.azi) "Shade due to overhang or side fins"
+    azi=conPar.azi) if
+       haveShade "Shade due to overhang or side fins"
     annotation (Placement(transformation(extent={{140,100},{120,120}})));
 
   Modelica.Blocks.Interfaces.RealInput uSha[nCon](min=0, max=1) if
@@ -127,7 +129,6 @@ protected
   Modelica.Blocks.Routing.Replicator repConExtWinTSkyBla(final nout=nCon)
     "Signal replicator"
     annotation (Placement(transformation(extent={{220,-112},{200,-92}})));
-
 equation
   connect(uSha, conExtWin.uSha)
                           annotation (Line(
@@ -275,6 +276,16 @@ equation
       points={{-320,60},{-160,60},{-160,-140},{-10,-140},{-10,-123}},
       color={0,0,127},
       smooth=Smooth.None));
+  if not haveShade then
+    connect(HDirTil.H, HTotConExtWinFra.u1) annotation (Line(
+        points={{199,130},{100,130},{100,76},{42,76}},
+        color={0,0,127},
+        smooth=Smooth.None));
+    connect(HDirTil.H, HDir) annotation (Line(
+      points={{199,130},{100,130},{100,70},{280,70},{280,120},{310,120}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  end if;
   annotation (Icon(graphics={
         Rectangle(
           extent={{-220,180},{-160,-102}},
@@ -316,6 +327,12 @@ the model
 Buildings.HeatTransfer.Windows.ExteriorHeatTransfer</a>.
 </html>", revisions="<html>
 <ul>
+<li>
+October 20, 2014, by Michael Wetter:<br/>
+Conditionally removed shade if not present. This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/234\">
+issue 234</a>.
+</li>
 <li>
 February 8 2012, by Michael Wetter:<br/>
 Changed model to use new implementation of
