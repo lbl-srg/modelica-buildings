@@ -16,7 +16,8 @@ record Overhang "Record for window overhang"
     annotation(Dialog(tab="General",group="Overhang"));
 
   final parameter Boolean haveOverhang= dep > Modelica.Constants.eps
-    "Flag, true if the window has an overhang";
+    "Flag, true if the window has an overhang"
+    annotation(Evaluate=true);
 
   annotation (
 Documentation(info="<html>
