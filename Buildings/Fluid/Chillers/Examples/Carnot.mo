@@ -118,6 +118,15 @@ __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Chil
 March 26, 2013 by Michael Wetter:<br/>
 Removed assignment of parameter that had attribute <code>fixed=false</code>.
 </li>
+<li>
+March 3, 2009 by Michael Wetter:<br/>
+First implementation.
+</li>
 </ul>
+</html>", info="<html>
+<p>
+Example that simulates a chiller whose efficiency is scaled based on the
+Carnot cycle.
+</p>
 </html>"));
 end Carnot;

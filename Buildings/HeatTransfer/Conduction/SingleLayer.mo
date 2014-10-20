@@ -71,7 +71,11 @@ initial equation
 
    if material.phasechange then
      (ud, Td, dT_du) = Buildings.HeatTransfer.Conduction.BaseClasses.der_temperature_u(
-       material=material);
+       c=   material.c,
+       TSol=material.TSol,
+       TLiq=material.TLiq,
+       LHea=material.LHea,
+       ensureMonotonicity=material.ensureMonotonicity);
    else
      ud    = zeros(Buildings.HeatTransfer.Conduction.nSupPCM);
      Td    = zeros(Buildings.HeatTransfer.Conduction.nSupPCM);
@@ -263,6 +267,15 @@ Buildings.HeatTransfer.Conduction.MultiLayer</a> instead of this model.
 </html>",
 revisions="<html>
 <ul>
+<li>
+October 17, 2014, by Michael Wetter:<br/>
+Changed the input argument for the function
+<code>Buildings.HeatTransfer.Conduction.BaseClasses.der_temperature_u</code>
+from type
+<code>Buildings.HeatTransfer.Data.BaseClasses.Material</code>
+to the elements of this type as OpenModelica fails to translate the
+model if the input to this function is a record.
+</li>
 <li>
 May 30, 2014, by Michael Wetter:<br/>
 Removed undesirable annotation <code>Evaluate=true</code>.

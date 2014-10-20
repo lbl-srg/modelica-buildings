@@ -2,8 +2,9 @@ within Buildings.Examples.VAVReheat.Controls;
 model MixedAirTemperatureSetpoint
   "Mixed air temperature setpoint for economizer"
   extends Modelica.Blocks.Icons.Block;
-  Modelica.Blocks.Routing.Extractor TSetMix(nin=6)
-    "Mixed air setpoint temperature extractor"
+  Modelica.Blocks.Routing.Extractor TSetMix(
+    nin=6,
+    index(start=1, fixed=true)) "Mixed air setpoint temperature extractor"
     annotation (Placement(transformation(extent={{60,0},{80,20}})));
   Modelica.Blocks.Sources.Constant off(k=273.15 + 13)
     "Setpoint temperature to close damper"

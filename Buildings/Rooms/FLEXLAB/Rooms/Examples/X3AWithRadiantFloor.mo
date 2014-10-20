@@ -10,7 +10,8 @@ model X3AWithRadiantFloor "Example model showing a use of X3A"
   Buildings.Rooms.FLEXLAB.Rooms.X3A.TestCell X3A(
     nPorts=2,
     redeclare package Medium = Air,
-    linearizeRadiation=false)
+    linearizeRadiation=false,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
               annotation (Placement(transformation(extent={{-110,38},{-70,78}})));
   Modelica.Blocks.Sources.CombiTimeTable intGai(table=[0,0,0,0; 86400,0,0,0],
       tableOnFile=false)
@@ -36,7 +37,7 @@ model X3AWithRadiantFloor "Example model showing a use of X3A"
     airOut(nPorts=1, redeclare package Medium = Air) "Air outlet for X3A"
     annotation (Placement(transformation(extent={{-158,24},{-138,44}})));
   Buildings.Fluid.HeatExchangers.RadiantSlabs.SingleCircuitSlab sla4A1(
-    sysTyp=Buildings.Fluid.HeatExchangers.RadiantSlabs.BaseClasses.Types.SystemType.Floor,
+    sysTyp=Buildings.Fluid.HeatExchangers.RadiantSlabs.Types.SystemType.Floor,
     iLayPip=1,
     redeclare package Medium = Water,
     pipe=pipe,
@@ -44,7 +45,8 @@ model X3AWithRadiantFloor "Example model showing a use of X3A"
     m_flow_nominal=0.504,
     A=6.645*3.09,
     length=32.92,
-    disPip=sla4A1.A/sla4A1.length)
+    disPip=sla4A1.A/sla4A1.length,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     "Radiant slab serving the north side of cell X3A. Name is taken from drawing M3.02"
     annotation (Placement(transformation(extent={{-108,-136},{-88,-116}})));
 
@@ -96,7 +98,7 @@ model X3AWithRadiantFloor "Example model showing a use of X3A"
         c=1100,
         d=2400)}) "Construction of the slab"
     annotation (Placement(transformation(extent={{-196,-208},{-176,-188}})));
-  parameter Buildings.Fluid.Data.Pipes.PEX_RADTEST pipe(dOut=0.015875, dIn=0.01905)
+  parameter Buildings.Fluid.Data.Pipes.PEX_RADTEST pipe(dIn=0.015875, dOut=0.01905)
     annotation (Placement(transformation(extent={{-196,-186},{-176,-166}})));
 
   Buildings.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam=
@@ -108,12 +110,16 @@ model X3AWithRadiantFloor "Example model showing a use of X3A"
         rotation=180,
         origin={64,-114})));
   Buildings.Rooms.FLEXLAB.Rooms.X3A.Electrical ele(
-    redeclare package Medium = Air, nPorts=2) "Model of the electrical room"
+    redeclare package Medium = Air, nPorts=2,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+    "Model of the electrical room"
     annotation (Placement(transformation(extent={{54,-80},{94,-40}})));
   Buildings.Rooms.FLEXLAB.Rooms.X3A.Closet
     clo(
     redeclare package Medium = Air,
-    nPorts=2) "Model of the closet"
+    nPorts=2,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+    "Model of the closet"
     annotation (Placement(transformation(extent={{156,92},{196,132}})));
   Modelica.Blocks.Sources.CombiTimeTable TNei(
     table=[0,293.15,293.15; 86400,293.15,293.15], tableOnFile=false)
@@ -187,7 +193,7 @@ model X3AWithRadiantFloor "Example model showing a use of X3A"
     "Inlet water conditions (from central plant)"
     annotation (Placement(transformation(extent={{-206,-100},{-186,-80}})));
   Buildings.Fluid.HeatExchangers.RadiantSlabs.SingleCircuitSlab sla4A2(
-    sysTyp=Buildings.Fluid.HeatExchangers.RadiantSlabs.BaseClasses.Types.SystemType.Floor,
+    sysTyp=Buildings.Fluid.HeatExchangers.RadiantSlabs.Types.SystemType.Floor,
     iLayPip=1,
     redeclare package Medium = Water,
     pipe=pipe,
@@ -195,7 +201,8 @@ model X3AWithRadiantFloor "Example model showing a use of X3A"
     m_flow_nominal=0.504,
     A=6.645*1.51,
     disPip=sla4A2.A/sla4A2.length,
-    length=45.11)
+    length=45.11,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     "Radiant slab serving the north-central section of cell X3A. Name is taken from drawing M3.02"
     annotation (Placement(transformation(extent={{-152,-100},{-132,-80}})));
 
@@ -217,7 +224,7 @@ model X3AWithRadiantFloor "Example model showing a use of X3A"
     "Inlet water conditions (from central plant)"
     annotation (Placement(transformation(extent={{-238,-62},{-218,-42}})));
   Buildings.Fluid.HeatExchangers.RadiantSlabs.SingleCircuitSlab sla4A3(
-    sysTyp=Buildings.Fluid.HeatExchangers.RadiantSlabs.BaseClasses.Types.SystemType.Floor,
+    sysTyp=Buildings.Fluid.HeatExchangers.RadiantSlabs.Types.SystemType.Floor,
     iLayPip=1,
     redeclare package Medium = Water,
     pipe=pipe,
@@ -225,7 +232,8 @@ model X3AWithRadiantFloor "Example model showing a use of X3A"
     m_flow_nominal=0.504,
     A=6.645*0.91,
     disPip=sla4A3.A/sla4A3.length,
-    length=42.98)
+    length=42.98,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     "Radiant slab serving the south-central section of cell X3A. Name is taken from drawing M3.02"
     annotation (Placement(transformation(extent={{-192,-62},{-172,-42}})));
 
@@ -247,7 +255,7 @@ model X3AWithRadiantFloor "Example model showing a use of X3A"
     "Inlet water conditions (from central plant)"
     annotation (Placement(transformation(extent={{-252,-16},{-232,4}})));
   Buildings.Fluid.HeatExchangers.RadiantSlabs.SingleCircuitSlab sla4A4(
-    sysTyp=Buildings.Fluid.HeatExchangers.RadiantSlabs.BaseClasses.Types.SystemType.Floor,
+    sysTyp=Buildings.Fluid.HeatExchangers.RadiantSlabs.Types.SystemType.Floor,
     iLayPip=1,
     redeclare package Medium = Water,
     pipe=pipe,
@@ -255,7 +263,8 @@ model X3AWithRadiantFloor "Example model showing a use of X3A"
     m_flow_nominal=0.504,
     A=6.645*3.65,
     disPip=sla4A4.A/sla4A4.length,
-    length=50.9)
+    length=50.9,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     "Radiant slab serving the south section of cell X3A. Name is taken from drawing M3.02"
     annotation (Placement(transformation(extent={{-222,-16},{-202,4}})));
 
@@ -275,11 +284,11 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(airIn.ports[1], X3A.ports[1]) annotation (Line(
-      points={{-140,60},{-132,60},{-132,48},{-107,48}},
+      points={{-140,60},{-132,60},{-132,46},{-105,46}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(airOut.ports[1], X3A.ports[2]) annotation (Line(
-      points={{-138,34},{-132,34},{-132,48},{-103,48}},
+      points={{-138,34},{-132,34},{-132,50},{-105,50}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(sla4A1.surf_b, preT.port)               annotation (Line(
@@ -346,11 +355,11 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(airInEle.ports[1], ele.ports[1])    annotation (Line(
-      points={{4,-42},{12,-42},{12,-70},{57,-70}},
+      points={{4,-42},{12,-42},{12,-72},{59,-72}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(ele.ports[2], airOutEle.ports[1])    annotation (Line(
-      points={{61,-70},{2,-70}},
+      points={{59,-68},{30,-68},{30,-70},{2,-70}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(ele.surf_surBou[2], clo.surf_conBou[1])    annotation (Line(
@@ -366,7 +375,7 @@ equation
       color={191,0,0},
       smooth=Smooth.None));
   connect(airInClo.ports[1],clo. ports[1]) annotation (Line(
-      points={{60,116},{110,116},{110,102},{159,102}},
+      points={{60,116},{110,116},{110,100},{161,100}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(TNei.y, preT2.T)   annotation (Line(
@@ -390,7 +399,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(airOutClo.ports[1],clo. ports[2]) annotation (Line(
-      points={{60,80},{110,80},{110,102},{163,102}},
+      points={{60,80},{110,80},{110,104},{161,104}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(intGai.y, X3A.qGai_flow) annotation (Line(
@@ -809,6 +818,11 @@ equation
           </html>",
           revisions = "<html>
           <ul>
+          <li>September 2, 2014, by Michael Wetter:<br/>
+          Corrected wrong pipe diameter.
+          </li>
+          <li>June 30, 2014, by Michael Wetter:<br/>
+          Specified equations to be used to compute the initial conditions.</li>          
           <li>October 11, 2013, by Michael Wetter:<br/>
           Added missing <code>parameter</code> keyword in the declaration of the data record.</li>
           <li>Sep 16, 2013 by Peter Grant:<br/>
@@ -818,5 +832,6 @@ equation
           </ul>
           </html>"),
      __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Rooms/FLEXLAB/Rooms/Examples/X3AWithRadiantFloor.mos"
-        "Simulate and Plot"));
+        "Simulate and Plot"),
+     experiment(StopTime=864000.0));
 end X3AWithRadiantFloor;

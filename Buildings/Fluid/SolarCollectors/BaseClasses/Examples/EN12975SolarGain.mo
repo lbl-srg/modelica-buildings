@@ -5,8 +5,6 @@ model EN12975SolarGain "Example showing the use of EN12975SolarGain"
     Buildings.Fluid.SolarCollectors.Data.Concentrating.C_VerificationModel()
     "Performance data"
     annotation (choicesAllMatching=true);
-  inner Modelica.Fluid.System system(p_ambient=101325)
-    annotation (Placement(transformation(extent={{60,60},{80,80}}, rotation=0)));
   Buildings.Fluid.SolarCollectors.BaseClasses.EN12975SolarGain solHeaGai(
     B0=per.B0,
     B1=per.B1,
@@ -101,5 +99,5 @@ equation
     </html>"),
     __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/SolarCollectors/BaseClasses/Examples/EN12975SolarGain.mos"
         "Simulate and Plot"),
-    Icon(graphics));
+        experiment(StopTime=86400.0));
 end EN12975SolarGain;

@@ -23,11 +23,10 @@ package MoistAir "Package with moist air model with constant density"
   constant AbsolutePressure pStp = 101325 "Pressure for which dStp is defined";
   constant Density dStp = 1.2 "Fluid density at pressure pStp";
 
-  // Redeclare ThermodynamicState to avoid the warning
-  // "Base class ThermodynamicState is replaceable"
-  // during model check
-  redeclare record extends ThermodynamicState
-    "ThermodynamicState record for moist air"
+  redeclare record extends ThermodynamicState(
+    p(start=p_default),
+    T(start=T_default),
+    X(start=X_default)) "ThermodynamicState record for moist air"
   end ThermodynamicState;
 
   redeclare replaceable model extends BaseProperties(

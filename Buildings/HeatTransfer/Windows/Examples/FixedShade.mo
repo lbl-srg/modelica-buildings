@@ -25,9 +25,7 @@ model FixedShade "Test model for the fixed shade model"
     each hWin=1.5,
     each wWin=2,
     each glaSys=glaSys,
-    redeclare
-      Buildings.HeatTransfer.Data.OpaqueConstructions.Insulation100Concrete200
-      layers,
+    each layers=insCon,
     ove(
       wR={0.1,0.1,0,0},
       wL={0.1,0.1,0,0},
@@ -42,6 +40,9 @@ model FixedShade "Test model for the fixed shade model"
   parameter Buildings.HeatTransfer.Data.GlazingSystems.DoubleClearAir13Clear glaSys
     "Glazing system"
     annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
+  parameter Data.OpaqueConstructions.Insulation100Concrete200 insCon
+    "Insulation and concrete material"
+    annotation (Placement(transformation(extent={{0,-80},{20,-60}})));
 equation
   connect(weaDat.weaBus, sha[1].weaBus) annotation (Line(
       points={{-40,0},{60,0}},
@@ -96,6 +97,10 @@ nor a side fin.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+October 17, 2014, by Michael Wetter:<br/>
+Removed <code>redeclare</code> statement for <code>conPar.layer</code>.
+</li>
 <li>
 July 5, 2012, by Michael Wetter:<br/>
 Changed values of <code>wL</code> and <code>wR</code> for overhang

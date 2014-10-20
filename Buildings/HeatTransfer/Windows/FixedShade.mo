@@ -85,7 +85,7 @@ protected
     "Limiter to avoid that the fraction of sun-exposed window is below zero"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 equation
-  connect(weaBus.sol.alt, walSolAzi.alt) annotation (Line(
+  connect(weaBus.solAlt, walSolAzi.alt) annotation (Line(
       points={{-100,5.55112e-16},{-92,5.55112e-16},{-92,-76},{-82,-76},{-82,
           -75.2}},
       color={255,204,51},
@@ -107,7 +107,7 @@ equation
       points={{-59,-80},{-54,-80},{-54,-56},{-42,-56}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(weaBus.sol.alt, sidFin.alt) annotation (Line(
+  connect(weaBus.solAlt, sidFin.alt) annotation (Line(
       points={{-100,5.55112e-16},{-92,5.55112e-16},{-92,-64},{-42,-64}},
       color={255,204,51},
       thickness=0.5,
@@ -156,7 +156,7 @@ equation
       points={{21,-80},{26,-80},{26,1},{30,1}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(weaBus.sol.alt, ove.alt) annotation (Line(
+  connect(weaBus.solAlt, ove.alt) annotation (Line(
       points={{-100,5.55112e-16},{-92,5.55112e-16},{-92,46},{-42,46}},
       color={255,204,51},
       thickness=0.5,

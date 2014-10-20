@@ -19,7 +19,7 @@ partial model PartialTwoWayValve "Partial model for a two way valve"
   input Real phi 
     "Ratio actual to nominal mass flow rate of valve, phi=Kv(y)/Kv(y=1)";
 protected
- parameter Real kFixed(unit="") = if dpFixed_nominal > Modelica.Constants.small
+ parameter Real kFixed(unit="", min=0) = if dpFixed_nominal > Modelica.Constants.eps
     then m_flow_nominal / sqrt(dpFixed_nominal) else 0
     "Flow coefficient of fixed resistance that may be in series with valve, k=m_flow/sqrt(dp), with unit=(kg.m)^(1/2).";
  Real kVal(unit="", min=Modelica.Constants.small)
@@ -31,7 +31,11 @@ initial equation
         + String(dpFixed_nominal) + " Pa.");
 equation
  kVal = phi*Kv_SI;
- k = if (dpFixed_nominal > Modelica.Constants.eps) then sqrt(1/(1/kFixed^2 + 1/kVal^2)) else kVal;
+ if (dpFixed_nominal > Modelica.Constants.eps) then 
+   k = sqrt(1/(1/kFixed^2 + 1/kVal^2));
+ else 
+   k = kVal;
+ end if;
 
  if linearized then
    // This implementation yields m_flow_nominal = phi*kv_SI * sqrt(dp_nominal)
@@ -141,6 +145,11 @@ Buildings.Fluid.Actuators.Valves.TwoWayLinear</a>.
 </html>", 
 revisions="<html>
 <ul>
+<li>
+August 8, 2014, by Michael Wetter:<br/>
+Reformulated the computation of <code>k</code> to make the model
+work in OpenModelica.
+</li>
 <li>
 April 4, 2014, by Michael Wetter:<br/>
 Added keyword <code>input</code> to variable <code>phi</code>

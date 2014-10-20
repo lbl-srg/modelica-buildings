@@ -19,7 +19,8 @@ equation
         "Simulate and plot"),
       experiment(
         StartTime=273.15,
-        StopTime=473.15),
+        StopTime=473.15,
+        Tolerance=1E-8),
       Documentation(info="<html>
 <p>
 This example checks whether the function derivative
@@ -28,6 +29,11 @@ is not correct, the model will stop with an assert statement.
 </p>
 </html>",   revisions="<html>
 <ul>
+<li>
+October 4, 2014, by Michael Wetter:<br/>
+Added a high tolerance which is needed for OpenModelica to pass the assert
+statement.
+</li>
 <li>
 October 29, 2008, by Michael Wetter:<br/>
 First implementation.

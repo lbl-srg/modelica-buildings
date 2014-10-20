@@ -20,7 +20,7 @@ equation
       points={{-39,-50},{-20,-50},{-20,4},{-2,4}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(weaBus.sol.alt, fin.alt) annotation (Line(
+  connect(weaBus.solAlt, fin.alt) annotation (Line(
       points={{-100,0},{-80,0},{-80,-4},{-2,-4}},
       color={255,204,51},
       thickness=0.5,

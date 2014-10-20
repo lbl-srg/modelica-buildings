@@ -90,7 +90,7 @@ where
 <i>k</i> is a constant and 
 <i>&Delta;P</i> is the pressure drop.
 The constant <i>k</i> is equal to
-<code>k=m_flow_nominal/dp_nominal</code>,
+<code>k=m_flow_nominal/sqrt(dp_nominal)</code>,
 where <code>m_flow_nominal</code> and <code>dp_nominal</code>
 are parameters.
 In the region
@@ -186,6 +186,10 @@ This leads to simpler equations.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+August 5, 2014, by Michael Wetter:<br/>
+Corrected error in documentation of computation of <code>k</code>.
+</li>
 <li>
 May 29, 2014, by Michael Wetter:<br/>
 Removed undesirable annotation <code>Evaluate=true</code>.

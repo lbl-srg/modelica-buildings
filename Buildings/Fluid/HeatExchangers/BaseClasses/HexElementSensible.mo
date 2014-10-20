@@ -3,8 +3,9 @@ model HexElementSensible
   "Element of a heat exchanger with humidity condensation of fluid 2"
   extends Buildings.Fluid.HeatExchangers.BaseClasses.PartialHexElement(
     redeclare final Buildings.Fluid.MixingVolumes.MixingVolume vol2(
-        final energyDynamics=energyDynamics2,
-        final massDynamics=energyDynamics2));
+        final energyDynamics=energyDynamics,
+        final massDynamics=energyDynamics,
+        final initialize_p=initialize_p2));
 
   annotation (
     Documentation(info="<html>
@@ -21,6 +22,10 @@ for a description of the physics.
 </html>",
 revisions="<html>
 <ul>
+<li>
+June 18, 2014, by Michael Wetter:<br/>
+Added initialization for <code>mas</code> to avoid a warning during translation.
+</li>
 <li>
 September 11, 2013, by Michael Wetter:<br/>
 Separated old model into one for dry and for wet heat exchangers.

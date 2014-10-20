@@ -6,11 +6,13 @@ model FlowMachine_dp "Fan with zero mass flow rate and head as input"
     redeclare Buildings.Fluid.Movers.FlowMachine_dp floMacSta(
       redeclare package Medium = Medium,
       m_flow_nominal=m_flow_nominal,
-      filteredSpeed=false),
+      filteredSpeed=false,
+      energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial),
     redeclare Buildings.Fluid.Movers.FlowMachine_dp floMacDyn(
       redeclare package Medium = Medium,
       m_flow_nominal=m_flow_nominal,
-      filteredSpeed=false));
+      filteredSpeed=false,
+      energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial));
 
 equation
   connect(gain.y, floMacSta.dp_in) annotation (Line(

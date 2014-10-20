@@ -17,6 +17,8 @@ block PartialHeatLoss
     "Fluid flow rate at nominal conditions"
     annotation(Dialog(group="Nominal condition"));
 
+  parameter Modelica.SIunits.SpecificHeatCapacity cp_default
+    "Specific heat capacity of the fluid at the default temperature";
   Modelica.Blocks.Interfaces.RealInput TEnv(
     quantity="ThermodynamicTemperature",
     unit="K",
@@ -45,12 +47,7 @@ protected
   final parameter Modelica.SIunits.Temperature dT_nominal_fluid[nSeg](each
   start = 293.15, fixed = false)
     "Temperature of each semgent in the collector at nominal conditions";
-  Medium.ThermodynamicState sta_default=Medium.setState_pTX(
-      T=Medium.T_default,
-      p=Medium.p_default,
-      X=Medium.X_default);
-  Modelica.SIunits.SpecificHeatCapacity Cp_default = Medium.specificHeatCapacityCp(sta_default)
-    "Specific heat capacity of the fluid";
+
   Modelica.SIunits.HeatFlowRate QLosInt[nSeg]
     "Heat loss rate at current conditions";
 

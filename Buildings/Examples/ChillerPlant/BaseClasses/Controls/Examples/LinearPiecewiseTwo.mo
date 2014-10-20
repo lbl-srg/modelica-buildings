@@ -25,6 +25,9 @@ equation
     __Dymola_Commands(file=
           "modelica://Buildings/Resources/Scripts/Dymola/Examples/ChillerPlant/BaseClasses/Controls/Examples/LinearPiecewiseTwo.mos"
         "Simulate and plot"),
+    experiment(
+      StopTime=86400,
+      Tolerance=1e-06),
     Documentation(revisions="<html>
 <ul>
 <li>

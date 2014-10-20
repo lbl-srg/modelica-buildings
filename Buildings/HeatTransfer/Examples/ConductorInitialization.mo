@@ -5,14 +5,15 @@ model ConductorInitialization "Test model for heat conductor initialization"
     annotation (Placement(transformation(extent={{80,20},{60,40}})));
   Buildings.HeatTransfer.Sources.PrescribedTemperature TA
     annotation (Placement(transformation(extent={{-60,20},{-40,40}})));
-  parameter Buildings.HeatTransfer.Data.OpaqueConstructions.Generic compositeWall(
-      material={insulation,brick}, final nLay=2)
-    "Composite wall consisting of insulation and material"
-    annotation (Placement(transformation(extent={{60,72},{80,92}})));
+
   parameter Buildings.HeatTransfer.Data.Solids.Brick brick(x=0.18, nStaRef=3)
     annotation (Placement(transformation(extent={{18,72},{38,92}})));
   parameter Buildings.HeatTransfer.Data.Solids.InsulationBoard insulation(x=0.05, nStaRef=2)
     annotation (Placement(transformation(extent={{-20,72},{0,92}})));
+  parameter Buildings.HeatTransfer.Data.OpaqueConstructions.Generic compositeWall(
+      material={insulation,brick}, nLay=2)
+    "Composite wall consisting of insulation and material"
+    annotation (Placement(transformation(extent={{60,72},{80,92}})));
 
   Buildings.HeatTransfer.Conduction.MultiLayer conS1(
     A=2,
@@ -135,6 +136,11 @@ This example illustrates how to initialize heat conductors in steady state and w
 predefined temperatures.
 </html>", revisions="<html>
 <ul>
+<li>
+September 9, 2014, by Michael Wetter:<br/>
+Moved declaration of <code>compositeWall</code> due to a bug
+in Dymola 2015 FD01 beta1.
+</li>
 <li>
 March 6 2010, by Michael Wetter:<br/>
 First implementation.

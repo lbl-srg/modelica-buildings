@@ -10,7 +10,9 @@ model Validation3Rooms
     T_start=273.15 + 20,
     V=2.5*5*5*1,
     nPorts=5,
-    m_flow_nominal=0.001)  annotation (Placement(transformation(extent={{80,-20},
+    m_flow_nominal=0.001,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+                           annotation (Placement(transformation(extent={{80,-20},
             {100,0}},   rotation=0)));
 
   Buildings.Airflow.Multizone.Orifice oriOutBot(
@@ -91,11 +93,11 @@ model Validation3Rooms
     redeclare package Medium = Medium,
     T_start=273.15 + 25,
     nPorts=3,
-    p_start=101325,
     V=2.5*5*5,
-    m_flow_nominal=0.001)  annotation (Placement(transformation(extent={{-100,
-            -30},{-80,-10}},
-                         rotation=0)));
+    m_flow_nominal=0.001,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+                           annotation (Placement(transformation(extent={{-90,-30},
+            {-70,-10}},  rotation=0)));
   Modelica.Blocks.Sources.Constant open(k=1) annotation (Placement(
         transformation(extent={{-40,-21},{-20,-1}},  rotation=0)));
   Buildings.Airflow.Multizone.MediumColumn col1EasBot(
@@ -122,7 +124,9 @@ model Validation3Rooms
     T_start=273.15 + 20,
     V=2.5*5*10*1,
     nPorts=2,
-    m_flow_nominal=0.001)  annotation (Placement(transformation(extent={{-20,120},
+    m_flow_nominal=0.001,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+                           annotation (Placement(transformation(extent={{-20,120},
             {0,140}},        rotation=0)));
 
   inner Modelica.Fluid.System system
@@ -132,23 +136,32 @@ model Validation3Rooms
     annotation (Placement(transformation(extent={{-80,120},{-60,140}})));
   Buildings.HeatTransfer.Sources.FixedTemperature TWes(T=298.15)
     "Fixed temperature"
-    annotation (Placement(transformation(extent={{-140,-30},{-120,-10}})));
+    annotation (Placement(transformation(extent={{-150,-30},{-130,-10}})));
   Buildings.HeatTransfer.Sources.FixedTemperature TEas(T=293.15)
     "Fixed temperature"
-    annotation (Placement(transformation(extent={{40,-20},{60,0}})));
+    annotation (Placement(transformation(extent={{20,-20},{40,0}})));
+  Modelica.Thermal.HeatTransfer.Components.ThermalConductor conTop(G=1E9)
+    "Thermal conductor"
+    annotation (Placement(transformation(extent={{-50,120},{-30,140}})));
+  Modelica.Thermal.HeatTransfer.Components.ThermalConductor conWes(G=1E9)
+    "Thermal conductor"
+    annotation (Placement(transformation(extent={{-120,-30},{-100,-10}})));
+  Modelica.Thermal.HeatTransfer.Components.ThermalConductor conEas(G=1E9)
+    "Thermal conductor"
+    annotation (Placement(transformation(extent={{50,-20},{70,0}})));
 equation
   connect(open.y, dooOpeClo.y) annotation (Line(points={{-19,-11},{-14,-11},{
           -14,-45},{-2,-45}},  color={0,0,255}));
   connect(volWes.ports[1], dooOpeClo.port_b2) annotation (Line(
-      points={{-92.6667,-30},{-92.6667,-51},{-1,-51}},
+      points={{-82.6667,-30},{-82.6667,-51},{-1,-51}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(volWes.ports[2], dooOpeClo.port_a1) annotation (Line(
-      points={{-90,-30},{-90,-39},{-1,-39}},
+      points={{-80,-30},{-80,-39},{-1,-39}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(volWes.ports[3], colWesBot.port_b) annotation (Line(
-      points={{-87.3333,-30},{-60,-30},{-60,9}},
+      points={{-77.3333,-30},{-60,-30},{-60,9}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(colWesBot.port_a, oriWesTop.port_b) annotation (Line(
@@ -220,20 +233,32 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
 
-  connect(TTop.port, volTop.heatPort) annotation (Line(
-      points={{-60,130},{-20,130}},
+  connect(TTop.port, conTop.port_a) annotation (Line(
+      points={{-60,130},{-50,130}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(TEas.port, volEas.heatPort) annotation (Line(
-      points={{60,-10},{80,-10}},
+  connect(conTop.port_b, volTop.heatPort) annotation (Line(
+      points={{-30,130},{-20,130}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(TWes.port, volWes.heatPort) annotation (Line(
-      points={{-120,-20},{-100,-20}},
+  connect(TWes.port, conWes.port_a) annotation (Line(
+      points={{-130,-20},{-120,-20}},
+      color={191,0,0},
+      smooth=Smooth.None));
+  connect(conWes.port_b, volWes.heatPort) annotation (Line(
+      points={{-100,-20},{-90,-20}},
+      color={191,0,0},
+      smooth=Smooth.None));
+  connect(TEas.port, conEas.port_a) annotation (Line(
+      points={{40,-10},{50,-10}},
+      color={191,0,0},
+      smooth=Smooth.None));
+  connect(conEas.port_b, volEas.heatPort) annotation (Line(
+      points={{70,-10},{80,-10}},
       color={191,0,0},
       smooth=Smooth.None));
   annotation (
-    Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-200,-150},{300,
+    Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-200,-150},{300,
             250}}), graphics={
         Rectangle(
           extent={{8,48},{152,-100}},
@@ -271,6 +296,12 @@ Proc. of the 5th International Modelica Conference, p. 431-440. Vienna, Austria,
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+June 26, 2014, by Michael Wetter:<br/>
+Set the initial conditions to be fixed to avoid a translation warning.
+This required adding a heat conductor between each volume and its prescribed
+temperature in order to avoid an overdetermined system of equations.
+</li>
 <li>
 November 10, 2011, by Michael Wetter:<br/>
 Added documentation.

@@ -8,8 +8,8 @@ partial model PartialConductor "Partial model for heat conductor"
     "Thermal conductance of construction (without surface heat transfer coefficients)";
   parameter Modelica.SIunits.ThermalResistance R
     "Thermal resistance of construction";
+
   Modelica.SIunits.TemperatureDifference dT "port_a.T - port_b.T";
-public
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a port_a
     "Heat port at surface a" annotation (Placement(transformation(extent={{-110,-10},
             {-90,10}}, rotation=0)));

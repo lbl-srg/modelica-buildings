@@ -1,6 +1,7 @@
 CoilHeader
 CoilRegister
 DuctManifoldFixedResistance
+DuctManifoldFlowDistributor
 DuctManifoldNoResistance
 HACoilInside
 HADryCoil
@@ -14,6 +15,7 @@ PartialEffectiveness
 PartialHexElement
 PartialPipeManifold
 PipeManifoldFixedResistance
+PipeManifoldFlowDistributor
 PipeManifoldNoResistance
 RayleighNumber
 appartusDewPoint

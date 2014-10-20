@@ -7,7 +7,6 @@ partial model ZonalFlow "Flow across zonal boundaries of a room"
      final allowFlowReversal2 = false,
      final m1_flow_nominal = 10/3600*1.2,
      final m2_flow_nominal = m1_flow_nominal);
-  extends Buildings.Airflow.Multizone.BaseClasses.ErrorControl;
 
    replaceable package Medium = Modelica.Media.Interfaces.PartialMedium
     annotation (choicesAllMatching = true);
@@ -61,12 +60,17 @@ Models that extend this model need to provide an equation for
 </html>",
 revisions="<html>
 <ul>
-<li><i>July 20, 2010</i> by Michael Wetter:<br/>
-       Migrated model to Modelica 3.1 and integrated it into the Buildings library.
+<li>
+August 18, 2014, by Michael Wetter:<br/>
+Removed parameter <code>forceErrorControlOnFlow</code> as it was not used.
 </li>
-<li><i>January 4, 2006</i>
-       by Michael Wetter:<br/>
-       Implemented first version.
+<li>
+July 20, 2010 by Michael Wetter:<br/>
+Migrated model to Modelica 3.1 and integrated it into the Buildings library.
+</li>
+<li>
+January 4, 2006, by Michael Wetter:<br/>
+Implemented first version.
 </li>
 </ul>
 </html>"));

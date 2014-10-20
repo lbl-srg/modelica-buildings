@@ -45,7 +45,7 @@ algorithm
     x1=Nu_1,
     x2=Nu_2,
     deltaX=deltaNu);
-  hCon :=Nu*Buildings.HeatTransfer.Data.Gases.thermalConductivity(gas, T_m)/gas.x;
+  hCon :=Nu*Buildings.HeatTransfer.Data.Gases.thermalConductivity(gas=gas, T=T_m)/gas.x;
   q_flow :=hCon*dT;
     annotation (smoothOrder=1, Inline=true,
 Documentation(info="<html>

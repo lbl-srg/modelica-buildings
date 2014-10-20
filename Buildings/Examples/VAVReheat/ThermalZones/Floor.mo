@@ -101,7 +101,8 @@ model Floor "Model of a floor of the building"
       til={Buildings.HeatTransfer.Types.Tilt.Wall, Buildings.HeatTransfer.Types.Tilt.Wall, Buildings.HeatTransfer.Types.Tilt.Wall}),
     nSurBou=0,
     nPorts=5,
-    intConMod=intConMod) "South zone"
+    intConMod=intConMod,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial) "South zone"
     annotation (Placement(transformation(extent={{144,-44},{184,-4}})));
   Rooms.MixedAir eas(
     redeclare package Medium = Medium,
@@ -136,7 +137,8 @@ model Floor "Model of a floor of the building"
       each absSol=0.9,
       til={Buildings.HeatTransfer.Types.Tilt.Wall, Buildings.HeatTransfer.Types.Tilt.Wall}),
     nPorts=5,
-    intConMod=intConMod) "East zone"
+    intConMod=intConMod,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial) "East zone"
     annotation (Placement(transformation(extent={{304,56},{344,96}})));
   Rooms.MixedAir nor(
     redeclare package Medium = Medium,
@@ -166,7 +168,8 @@ model Floor "Model of a floor of the building"
       til={Buildings.HeatTransfer.Types.Tilt.Wall, Buildings.HeatTransfer.Types.Tilt.Wall, Buildings.HeatTransfer.Types.Tilt.Wall}),
     nSurBou=0,
     nPorts=5,
-    intConMod=intConMod) "North zone"
+    intConMod=intConMod,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial) "North zone"
     annotation (Placement(transformation(extent={{144,116},{184,156}})));
   Rooms.MixedAir wes(
     redeclare package Medium = Medium,
@@ -201,7 +204,8 @@ model Floor "Model of a floor of the building"
       each absSol=0.9,
       til={Buildings.HeatTransfer.Types.Tilt.Wall, Buildings.HeatTransfer.Types.Tilt.Wall}),
     nPorts=5,
-    intConMod=intConMod) "West zone"
+    intConMod=intConMod,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial) "West zone"
     annotation (Placement(transformation(extent={{12,36},{52,76}})));
   Rooms.MixedAir cor(
     redeclare package Medium = Medium,
@@ -223,7 +227,8 @@ model Floor "Model of a floor of the building"
       each absSol=0.9,
       til={Buildings.HeatTransfer.Types.Tilt.Wall, Buildings.HeatTransfer.Types.Tilt.Wall, Buildings.HeatTransfer.Types.Tilt.Wall, Buildings.HeatTransfer.Types.Tilt.Wall}),
     nPorts=11,
-    intConMod=intConMod) "Core zone"
+    intConMod=intConMod,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial) "Core zone"
     annotation (Placement(transformation(extent={{144,36},{184,76}})));
   Modelica.Fluid.Vessels.BaseClasses.VesselFluidPorts_b portsSou[2](
       redeclare package Medium = Medium) "Fluid inlets and outlets"

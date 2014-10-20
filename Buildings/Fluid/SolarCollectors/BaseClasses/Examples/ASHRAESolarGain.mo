@@ -5,8 +5,6 @@ model ASHRAESolarGain "Example showing the use of ASHRAESolarGain"
     Buildings.Fluid.SolarCollectors.Data.GlazedFlatPlate.FP_ThermaLiteHS20()
     "Performance data"
     annotation (choicesAllMatching=true);
-  inner Modelica.Fluid.System system(p_ambient=101325)
-    annotation (Placement(transformation(extent={{60,60},{80,80}}, rotation=0)));
   Buildings.Fluid.SolarCollectors.BaseClasses.ASHRAESolarGain   solHeaGai(
     nSeg=3,
     shaCoe=0,
@@ -110,5 +108,5 @@ equation
     __Dymola_Commands(file=
           "modelica://Buildings/Resources/Scripts/Dymola/Fluid/SolarCollectors/BaseClasses/Examples/ASHRAESolarGain.mos"
         "Simulate and Plot"),
-    Icon(graphics));
+        experiment(StopTime=86400.0));
 end ASHRAESolarGain;

@@ -41,7 +41,7 @@ equation
       string="%first",
       index=-1,
       extent={{-6,3},{-6,3}}));
-  connect(weaBus.sol.alt, ove.alt) annotation (Line(
+  connect(weaBus.solAlt, ove.alt) annotation (Line(
       points={{-100,5.55112e-16},{-12,5.55112e-16},{-12,-4},{-2,-4}},
       color={255,204,51},
       thickness=0.5,

@@ -16,7 +16,7 @@ model Stratified "Model of a stratified tank for thermal energy storage"
 
   ////////////////////////////////////////////////////////////////////
   // Assumptions
-  parameter Types.Dynamics energyDynamics=system.energyDynamics
+  parameter Types.Dynamics energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial
     "Formulation of energy balance"
     annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Equations"));
   parameter Types.Dynamics massDynamics=energyDynamics
@@ -118,13 +118,17 @@ model Stratified "Model of a stratified tank for thermal energy storage"
 
 protected
   constant Integer nPorts = 2 "Number of ports of volume";
+
+  parameter Medium.ThermodynamicState sta_default = Medium.setState_pTX(T=Medium.T_default,
+         p=Medium.p_default, X=Medium.X_default[1:Medium.nXi])
+    "Medium state at default properties";
   parameter Modelica.SIunits.Length hSeg = hTan / nSeg
     "Height of a tank segment";
   parameter Modelica.SIunits.Area ATan = VTan/hTan
     "Tank cross-sectional area (without insulation)";
   parameter Modelica.SIunits.Length rTan = sqrt(ATan/Modelica.Constants.pi)
     "Tank diameter (without insulation)";
-  parameter Modelica.SIunits.ThermalConductance conFluSeg = ATan*Medium.lambda_const/hSeg
+  parameter Modelica.SIunits.ThermalConductance conFluSeg = ATan*Medium.thermalConductivity(sta_default)/hSeg
     "Thermal conductance between fluid volumes";
   parameter Modelica.SIunits.ThermalConductance conTopSeg = ATan*kIns/dIns
     "Thermal conductance from center of top (or bottom) volume through tank insulation at top (or bottom)";
@@ -189,9 +193,6 @@ equation
         color={191,0,0}));
   connect(conWal.port_b, heaFloSid.port_a)
     annotation (Line(points={{20,40},{30,40}}, color={191,0,0}));
-  for i in 1:nSeg loop
-
-  end for;
 
   connect(conTop.port_b, heaFloTop.port_a)
     annotation (Line(points={{20,60},{30,60}}, color={191,0,0}));
@@ -238,6 +239,18 @@ Buildings.Fluid.Storage.StratifiedEnhanced</a>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+August 29, 2014, by Michael Wetter:<br/>
+Replaced the use of <code>Medium.lambda_const</code> with
+<code>Medium.thermalConductivity(sta_default)</code> as
+<code>lambda_const</code> is not declared for all media.
+This avoids a translation error if certain media are used.
+</li>
+<li>
+June 18, 2014, by Michael Wetter:<br/>
+Changed the default value for the energy balance initialization to avoid
+a dependency on the global <code>system</code> declaration.
+</li>
 <li>
 July 29, 2011, by Michael Wetter:<br/>
 Removed <code>use_T_start</code> and <code>h_start</code>.
