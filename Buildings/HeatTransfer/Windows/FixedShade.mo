@@ -37,9 +37,9 @@ protected
     "Flag for overhang" annotation (Evaluate=true);
 
   final parameter Boolean haveSideFins = conPar.sidFin.haveSideFins
-    "Flag for sideFins" annotation (Evaluate=true);
+    "Flag for sidefins" annotation (Evaluate=true);
   final parameter Boolean haveOverhangAndSideFins= (haveOverhang
-       and haveSideFins) "Parameter used for error control";
+       and haveSideFins) "Flag for overhang and sidefins";
 
   final parameter Integer idx = if haveOverhangAndSideFins then 2 elseif haveOverhang then 1 elseif haveSideFins then 3 else 4
     "Integer used to pick the appropriate output signal";
