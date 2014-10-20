@@ -39,5 +39,4 @@ allows the model to run in OpenModelica.
 </li>
 </ul>
 </html>"));
-
 end EpsilonNTUZ;
