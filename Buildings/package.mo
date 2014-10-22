@@ -3789,7 +3789,7 @@ Buildings.Media.Interfaces.PartialSimpleIdealGasMedium</a>
 <a href=\"modelica://Modelica.Media.Interfaces.PartialSimpleIdealGasMedium\">
 Modelica.Media.Interfaces.PartialSimpleIdealGasMedium</a>.
 In the original implementation, initial states of fluid volumes can be far away from
-the steady-state value because of an inconsistent implementation of the the enthalpy
+the steady-state value because of an inconsistent implementation of the enthalpy
 and internal energy.
 When the <code>Buildings</code> library is upgraded to
 to Modelica 3.0.0, it should be safe to remove this bug fix.

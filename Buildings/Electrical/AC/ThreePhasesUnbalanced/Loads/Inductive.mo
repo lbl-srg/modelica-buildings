@@ -8,7 +8,7 @@ model Inductive
         use_pf_in=use_pf_in),
     redeclare Buildings.Electrical.AC.OnePhase.Loads.Inductive load3(pf=pf,
         use_pf_in=use_pf_in));
-  parameter Boolean use_pf_in = false "If true the pf is defined by an input"
+  parameter Boolean use_pf_in = false "If true, the power factor is defined by an input"
     annotation(Dialog(group="Modelling assumption"));
   parameter Real pf(min=0, max=1) = 0.8 "Power factor"
   annotation(Dialog(group="Nominal conditions"));

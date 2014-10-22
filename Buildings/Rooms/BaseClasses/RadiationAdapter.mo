@@ -24,7 +24,7 @@ For example, this thermal adapter is used in the room model, which computes
 the distribution of radiative heat gains (such as due to a radiator) in
 <a href=\"modelica://Buildings.Rooms.BaseClasses.InfraredRadiationGainDistribution\">
 Buildings.Rooms.BaseClasses.InfraredRadiationGainDistribution</a>
-and computes the the radiative temperature in
+and computes the radiative temperature in
 <a href=\"modelica://Buildings.Rooms.BaseClasses.RadiationTemperature\">
 Buildings.Rooms.BaseClasses.RadiationTemperature</a>.
 This adapter combines the heat flow rate and the temperatures that are computed in these

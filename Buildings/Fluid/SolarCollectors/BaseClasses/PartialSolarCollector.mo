@@ -51,7 +51,7 @@ model PartialSolarCollector "Partial model for solar collectors"
   Modelica.Thermal.HeatTransfer.Components.HeatCapacitor heaCap[nSeg](
     T(each start =   T_start), each C=(C*nPanels_internal)/nSeg) if
        not (energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState)
-    "Heat capacity for one segment of the the solar collector"
+    "Heat capacity for one segment of the solar collector"
     annotation (Placement(transformation(extent={{-82,-44},{-62,-24}})));
 
   Buildings.BoundaryConditions.WeatherData.Bus weaBus "Weather data bus"

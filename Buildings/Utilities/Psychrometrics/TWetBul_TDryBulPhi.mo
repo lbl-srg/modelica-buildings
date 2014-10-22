@@ -129,7 +129,7 @@ annotation (
     defaultComponentName="wetBul",
     Documentation(info="<html>
 <p>
-This block computes the the wet bulb temperature for a given dry bulb temperature, relative air humidity
+This block computes the wet bulb temperature for a given dry bulb temperature, relative air humidity
 and atmospheric pressure.
 </p>
 <p>

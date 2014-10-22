@@ -395,7 +395,7 @@ The lines
 </pre>
 <p>
 declare that the material layers" + " in these constructions are
-set the the records <code>matLayRoo</code> and <code>matLayExt</code>.
+set the records <code>matLayRoo</code> and <code>matLayExt</code>.
 What follows are the declarations for the surface area,
 the tilt of the surface and the azimuth of the surfaces. Thus, the 
 surface with construction <code>matLayExt</code> is <i>6*3 m<sup>2</sup></i> large

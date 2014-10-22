@@ -231,7 +231,7 @@ To change the fan relative power consumption at part load in the forced convecti
 points of fan controls signal and associated relative power consumption can be specified.
 In between these points, the values are interpolated using cubic splines.
 </p>
-<h4>Comparison the the cooling tower model of EnergyPlus</h4>
+<h4>Comparison the cooling tower model of EnergyPlus</h4>
 <p> 
 This model is similar to the model <code>Cooling Tower:Variable Speed</code> that
 is implemented in the EnergyPlus building energy simulation program version 6.0.
