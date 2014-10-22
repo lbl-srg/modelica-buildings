@@ -139,7 +139,7 @@ annotation (
     defaultComponentName="wetBul",
     Documentation(info="<html>
 <p>
-This block computes the the wet bulb temperature for a given dry bulb temperature, mass fraction
+This block computes the wet bulb temperature for a given dry bulb temperature, mass fraction
 and atmospheric pressure.
 </p>
 <p>

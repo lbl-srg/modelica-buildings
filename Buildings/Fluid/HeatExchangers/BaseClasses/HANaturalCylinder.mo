@@ -180,7 +180,7 @@ Refactored function calls for medium properties.
 May 10, 2013 by Michael Wetter:<br/>
 Revised implementation to use <code>hA_nominal</code> as a parameter, and compute the 
 associated surface area <code>A</code>. This revision was required to have a consistent
-computation of the the <code>hA</code> values inside and outside of the coil in the 
+computation of the <code>hA</code> values inside and outside of the coil in the 
 heat exchanger model of the water tank.
 </li>
 <li>
