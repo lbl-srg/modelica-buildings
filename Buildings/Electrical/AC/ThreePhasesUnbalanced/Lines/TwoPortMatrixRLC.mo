@@ -1,6 +1,6 @@
 within Buildings.Electrical.AC.ThreePhasesUnbalanced.Lines;
 model TwoPortMatrixRLC
-  "PI model of a line parametrized with impedance and admittance matrices"
+  "PI model of a line parameterized with impedance and admittance matrices"
   extends Buildings.Electrical.AC.ThreePhasesUnbalanced.Interfaces.TwoPort;
   parameter Modelica.SIunits.Voltage V_nominal(min=0, start=480)
     "Nominal voltage (V_nominal >= 0)"  annotation(Evaluate=true, Dialog(group="Nominal conditions"));
@@ -177,7 +177,7 @@ cable in a three phases unbalanced AC system.
 </p>
 
 <p>
-The model is parametrized with an impedance matrix <i>Z</i>.
+The model is parameterized with an impedance matrix <i>Z</i>.
 The matrix is symmetric thus just the upper triangular
 part of it has to be defined, and an admittance matrix <i>B</i>.
 </p>

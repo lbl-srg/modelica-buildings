@@ -61,7 +61,7 @@ equation
     Documentation(info="<html>
 <p>
 This example demonstrates how to use a RLC line model to connect
-a source to a load. The model is parametrized using the impedance matrix Z
+a source to a load. The model is parameterized using the impedance matrix Z
 and the admittance matrix B.
 </p>
 <p>

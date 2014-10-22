@@ -200,7 +200,7 @@ The losses are represented by a series of resistances <i>R<sub>1</sub></i>, <i>R
 <i>L<sub>m</sub></i>.
 </p>
 <p>
-The model is parametrized using the following parameters
+The model is parameterized using the following parameters
 </p>
 <ul>
 <li><code>Vhigh</code> - RMS voltage at primary side,</li>

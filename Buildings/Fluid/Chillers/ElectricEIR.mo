@@ -202,7 +202,7 @@ power draw does not change.
 The electric power only contains the power for the compressor, but not any power for pumps or fans.
 </p>
 <p>
-The model can be parametrized to compute a transient
+The model can be parameterized to compute a transient
 or steady-state response.
 The transient response of the boiler is computed using a first
 order differential equation for the evaporator and condenser fluid volumes.

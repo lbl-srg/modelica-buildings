@@ -219,7 +219,7 @@ inductance <i>L</i>. The resistance and the inductance represent both the
 effects of the secondary and primary side of the transformer.
 </p>
 <p>
-The model is parametrized using the following parameters
+The model is parameterized using the following parameters
 </p>
 <ul>
 <li><code>Vhigh</code> - RMS voltage at primary side,</li>

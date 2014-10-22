@@ -1,6 +1,6 @@
 within Buildings.Electrical.AC.ThreePhasesUnbalanced.Lines;
 model TwoPortMatrixRL
-  "Model of an RL line parametrized with impedance matrices"
+  "Model of an RL line parameterized with impedance matrices"
   extends Buildings.Electrical.AC.ThreePhasesUnbalanced.Interfaces.TwoPort;
   parameter Modelica.SIunits.Voltage V_nominal(min=0, start=480)
     "Nominal voltage (V_nominal >= 0)"  annotation(Evaluate=true, Dialog(group="Nominal conditions"));
@@ -132,7 +132,7 @@ the current phasor entering from the connector <code>p</code> of the <i>i-th</i>
 </p>
 
 <p>
-The model is parametrized with an impedance matrix <i>Z</i>.
+The model is parameterized with an impedance matrix <i>Z</i>.
 The matrix is symmetric thus just the upper triangular
 part of it has to be defined.
 </p>
