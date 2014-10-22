@@ -7,8 +7,9 @@ Documentation(info="<html>
 <h4>Overview</h4>
 <p>
 The <a href=\"modelica://Buildings.Electrical\">Buildings.Electrical</a> package extends the 
-capabilities of the buildings library with models for electrical systems, enhancing the 
-capabilities of simulation tools to address building-to-grid integration.
+capabilities of the buildings library with models for electrical systems, allowing
+to study building-to-grid integration such as the effect of large scale PV on the
+voltage of the electrical distribution grid.
 The package contains models for different types of sources, loads, storage equipment, 
 and transmission lines for electric power. The package contains models that can be used to 
 represent DC, AC one-phase, and AC-three phases balanced and unbalanced systems. 
@@ -34,7 +35,8 @@ Modelica.Electrical.QuasiStationary.SinglePhase.Interfaces.Pin</a>).
 </p>
 <p>
 The generalized electrical connector overcomes this limitation. It uses a paradigm 
-that is similar to the one used by the <b>Modelica.Fluid</b> connectors.
+that is similar to the one used by the <code>Modelica.Fluid</code> connectors.
+The generalized connector is as follows:
 </p>
 
 <p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">
@@ -85,7 +87,7 @@ same connector, reusing the same standardized interfaces.
 </p>
 
 <p>
-As the electrical connectors of the Modelica Standard Library, the <b>Terminal</b> has a vector of voltages as effort variables and
+As the electrical connectors of the Modelica Standard Library, the <code>Terminal</code> has a vector of voltages as effort variables and
 a vector of currents as flow variables. The connector has an additional vector that represents the
 reference angle <code>theta[PhaseSystem.m]</code>. If <code>PhaseSystem.m > 0</code> the connector is overdetermined 
 because the number of effort variables is higher than the number of flow variables.
@@ -149,7 +151,7 @@ When multiple loads are connected in a grid through cables that cause voltage dr
 the dimension of the system of nonlinear equations increases linearly with the number of loads.
 This nonlinear system of equations introduces challenges during the initialization, as Newton solvers
 may diverge if initialized far from a solution.
-The initialization problem can be simplified using the <b>homotopy</b>
+The initialization problem can be simplified using the <emph>homotopy</emph>
 operator. The homotopy operator uses two different types of equations to compute the value of a
 variable: the actual one and a simplified one. The actual equation is the one used during the normal 
 operation. During initialization, the simplified equation is first solved and then slowly replaced with the 
@@ -173,8 +175,8 @@ These parameters have names that end in <code>_nominal</code> and
 they should be set to the values that the component typically 
 have if they are run at design conditions. Depending on the model, these
 parameters are used differently, and the respective model documentation or code
-should be consulted for details. However, the table below shows typical use of 
-parameters in various model to help the user understand how they are used.
+should be consulted for details. However, the table below shows the typical use of 
+the parameters in various models to help the user understand how they are used.
 </p>
 <table summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
 <tr>
@@ -225,7 +227,7 @@ parameters in various model to help the user understand how they are used.
 </tr>
 </table>
 
-<h4>Other info</h4>
+<h4>Other information</h4>
 <p>
 Other information about the models and the packages can be found in the
 info section of each model or sub-packages.
