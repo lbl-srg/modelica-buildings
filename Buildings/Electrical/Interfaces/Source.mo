@@ -45,7 +45,7 @@ Model included into the Buildings library.
 This model represents a generic source.
 </p>
 <p>
-In case the phase system adopted has <code>PhaseSystem.m &gt; 0</code> and 
+In case the phase system has <code>PhaseSystem.m &gt; 0</code> and 
 thus the connectors are over determined, 
 the source can be selected to serve as reference point.
 The parameters <code>potentialReference</code> and <code>definiteReference</code> are used to define if the
