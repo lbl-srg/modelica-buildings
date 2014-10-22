@@ -107,6 +107,8 @@ This example illustrates the use of the AC/AC transformer model
 that includes losses at the primary and secondary side and magnetization
 effects.
 The example shows three different configurations:
+
+fixme: revise grammar as in Buildings.Electrical.AC.OnePhase.Conversion.Examples.ACACTransformer
 </p>
 <ul>
 <li>with load connected,</li>

@@ -3,6 +3,12 @@ package ThreePhasesBalanced "Three phases balanced AC systems"
   extends Modelica.Icons.VariantsPackage;
 
 
+
+
+
+
+
+
 annotation (Documentation(info="<html>
 <p>
 Package with models for alternate current (AC) three phase balanced systems.<br/>
@@ -12,8 +18,8 @@ package extend the models of the package
 Buildings.Electrical.AC.OnePhase</a>.
 </p>
 <p>
-The models that are part of this package assume 480 V as nominal RMS phase 
-to phase voltage.
+The models that are part of this package assume by default 480 V as nominal RMS phase 
+to phase voltage. This default value can be changed.
 </p>
 </html>", revisions="<html>
 <ul>

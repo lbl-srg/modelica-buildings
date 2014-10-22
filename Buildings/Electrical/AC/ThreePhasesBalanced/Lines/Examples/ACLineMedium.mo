@@ -141,7 +141,7 @@ Since the equivalent impedances are the same, each load draws the same current.
 <p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:8;\"><span style=\" font-family:'Courier New,courier'; color:#006400;\">    &quot;Resistive line that connects to load 1&quot;</span></p>
 
 <p>
-The code snippet shows how a line model <code>line_1</code> redeclare its
+The code snippet shows how a line model <code>line_1</code> redeclared its
 record type in order to be <code>Buildings.Electrical.Transmission.MediumVoltageCables.Generic</code>.
 </p>
 

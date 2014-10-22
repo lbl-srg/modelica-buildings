@@ -12,11 +12,11 @@ model Probe "This example illustrates how to use the probe model"
   Buildings.Electrical.AC.ThreePhasesBalanced.Lines.TwoPortResistance res1(R=0.1)
     "First line resistance"
     annotation (Placement(transformation(extent={{-26,0},{-6,20}})));
-  Buildings.Electrical.AC.ThreePhasesBalanced.Sensors.Probe probe_source(V_nominal
-      =480) "Probe that measures at the voltage source"
+  Buildings.Electrical.AC.ThreePhasesBalanced.Sensors.Probe probe_source(V_nominal=
+       480) "Probe that measures at the voltage source"
     annotation (Placement(transformation(extent={{-50,30},{-30,50}})));
-  Buildings.Electrical.AC.ThreePhasesBalanced.Sensors.Probe probe_loadRC(V_nominal
-      =480) "Probe that measures at the RC load"
+  Buildings.Electrical.AC.ThreePhasesBalanced.Sensors.Probe probe_loadRC(V_nominal=
+       480) "Probe that measures at the RC load"
     annotation (Placement(transformation(extent={{-10,30},{10,50}})));
   Buildings.Electrical.AC.ThreePhasesBalanced.Lines.TwoPortResistance res2(R=0.1)
     "Second line resistance"
@@ -26,8 +26,8 @@ model Probe "This example illustrates how to use the probe model"
     P_nominal=-10000,
     V_nominal=480) "Constant load"
     annotation (Placement(transformation(extent={{10,-70},{30,-50}})));
-  Buildings.Electrical.AC.ThreePhasesBalanced.Sensors.Probe probe_loadRL(V_nominal
-      =480) "Probe that measures at the RL load"
+  Buildings.Electrical.AC.ThreePhasesBalanced.Sensors.Probe probe_loadRL(V_nominal=
+       480) "Probe that measures at the RL load"
     annotation (Placement(transformation(extent={{-10,-28},{10,-8}})));
 equation
   connect(sou.terminal, res1.terminal_n) annotation (Line(
