@@ -175,7 +175,7 @@ equation
     Documentation(info="<html>
 <p>
 This is a simplified equivalent transformer model.
-The model accounts for winding joule losses and leakage reactances 
+The model accounts for winding Joule losses and leakage reactances 
 that are represented by a serie of a resistance <i>R</i> and an
 inductance <i>L</i>. The resistance and the inductance represent both the 
 effects of the secondary and primary side of the transformer.

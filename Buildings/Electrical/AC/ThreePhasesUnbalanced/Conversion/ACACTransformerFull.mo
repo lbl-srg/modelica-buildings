@@ -190,7 +190,7 @@ model ACACTransformerFull "AC AC transformer detailed equivalent circuit (YY)"
           textString="L")}),
     Documentation(info="<html>
 <p>
-This is a detailed transformer model that takes into accounts the winding joule losses, 
+This is a detailed transformer model that takes into accounts the winding Joule losses, 
 and the leakage reactances on both primary and secondary side. The model also describe
 the core or iron losses and the losses due to magnetization effects.
 </p>
