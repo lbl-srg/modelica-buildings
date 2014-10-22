@@ -28,7 +28,8 @@ equation
   v_p = v_n*conversionFactor;
 
   // Power losses
-  LossPower = (1-eta)*Buildings.Utilities.Math.Functions.spliceFunction(P_p[1], P_n[1], i_p, deltax=0.1);
+  LossPower = (1-eta)*
+    Buildings.Utilities.Math.Functions.spliceFunction(P_p[1], P_n[1], i_p, deltax=0.1);
   P_n + P_p = {LossPower, 0};
 
   if ground_AC then
@@ -115,7 +116,7 @@ Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
     Documentation(info="<html>
 <p>
 This is an AC/DC converter, based on a power balance between both circuit sides.
-The paramater <i>conversionFactor</i> defines the ratio between the RMS voltages
+The paramater <code>conversionFactor</code> defines the ratio between the RMS voltages
 as
 </p>
 
@@ -124,7 +125,7 @@ V<sub>DC</sub> = conversionFactor V<sub>AC</sub>,
 </p>
 
 <p>
-where <i>V<sub>DC</sub></i> is the voltage of the DC circuit and <i>V<sub>AC</sub></i> 
+where <i>V<sub>DC</sub></i> is the voltage of the DC circuit and <i>V<sub>AC</sub></i>
 is the RMS voltage at the primary side of the transformer.
 </p>
 
@@ -138,12 +139,12 @@ P<sub>loss</sub> = (1-&eta;) P<sub>tr</sub>
 </p>
 <p>
 where <i>P<sub>tr</sub></i> is the power transmitted. The model is bi-directional
-and the power can flow from both the primary to the secondary and vice-versa.
-Furthermore, reactive power on both side are set to 0.
+and the power can flow from both the primary to the secondary side and vice-versa.
+Furthermore, reactive power on both side are set to <i>0</i>.
 </p>
 <h4>Note:</h4>
 <p>
-This model is derived from 
+This model is derived from
 <a href=\"modelica://Modelica.Electrical.QuasiStationary.SinglePhase.Utilities.IdealACDCConverter\">
 Modelica.Electrical.QuasiStationary.SinglePhase.Utilities.IdealACDCConverter</a>.
 </p>

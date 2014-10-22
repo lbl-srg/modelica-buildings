@@ -32,6 +32,9 @@ model ACACTransformer "AC AC transformer simplified equivalent circuit"
     "Angle of the voltage side 2 at initialization"
      annotation(Evaluate=true, Dialog(tab = "Initialization"));
   Modelica.SIunits.Efficiency eta "Efficiency";
+  // fixme: shouldn't we rename LossPower to PLoss. First, it should start
+  // lower case (unless it is a physical symbol like P), second it is probably
+  // the only variable here that is not named using a symbol.
   Modelica.SIunits.Power LossPower[2] "Loss power";
 protected
   Real N = VHigh/VLow "Winding ratio";
@@ -45,24 +48,31 @@ protected
     "Short circuit current on secondary side";
   Modelica.SIunits.Impedance Zp = VHigh/IscHigh
     "Impedance of the primary side (module)";
-  Modelica.SIunits.Impedance Z1[2] = {Zp*cos(atan(XoverR)), Zp*sin(atan(XoverR))}
+  Modelica.SIunits.Impedance Z1[2] =
+    {Zp*cos(atan(XoverR)), Zp*sin(atan(XoverR))}
     "Impedance of the primary side of the transformer";
   Modelica.SIunits.Impedance Zs = VLow/IscLow
     "Impedance of the secondary side (module)";
-  Modelica.SIunits.Impedance Z2[2] = {Zs*cos(atan(XoverR)), Zs*sin(atan(XoverR))}
+  Modelica.SIunits.Impedance Z2[2] =
+    {Zs*cos(atan(XoverR)), Zs*sin(atan(XoverR))}
     "Impedance of the secondary side of the transformer";
-  Modelica.SIunits.Voltage V1[2](start = PhaseSystem_n.phaseVoltages(VHigh, phi_1))
+  Modelica.SIunits.Voltage V1[2](
+    start = PhaseSystem_n.phaseVoltages(VHigh, phi_1))
     "Voltage at the winding - primary side";
-  Modelica.SIunits.Voltage V2[2](start = PhaseSystem_p.phaseVoltages(VLow, phi_2))
+  Modelica.SIunits.Voltage V2[2](
+    start = PhaseSystem_p.phaseVoltages(VLow, phi_2))
     "Voltage at the winding - secondary side";
-  Modelica.SIunits.Power P_p[2] = PhaseSystem_p.phasePowers_vi(terminal_p.v, terminal_p.i)
+  Modelica.SIunits.Power P_p[2] =
+    PhaseSystem_p.phasePowers_vi(terminal_p.v, terminal_p.i)
     "Power transmitted at pin p (secondary)";
-  Modelica.SIunits.Power P_n[2] = PhaseSystem_n.phasePowers_vi(terminal_n.v, terminal_n.i)
+  Modelica.SIunits.Power P_n[2] =
+    PhaseSystem_n.phasePowers_vi(terminal_n.v, terminal_n.i)
     "Power transmitted at pin n (primary)";
+    // fixme: rename Sp and Sn to S_p and S_n
   Modelica.SIunits.Power Sp = sqrt(P_p[1]^2 + P_p[2]^2)
-    "Apparent power terminal p";
+    "Apparent power at terminal p";
   Modelica.SIunits.Power Sn = sqrt(P_n[1]^2 + P_n[2]^2)
-    "Apparent power terminal n";
+    "Apparent power at terminal n";
 
 equation
   // Efficiency
@@ -230,9 +240,9 @@ equation
     Documentation(info="<html>
 <p>
 This is a simplified equivalent transformer model.
-The model accounts for winding joule losses and leakage reactances 
-that are represented by a serie of a resistance <i>R</i> and an
-inductance <i>L</i>. The resistance and the inductance represent both the 
+The model accounts for winding Joule losses and leakage reactances
+that are represented by a series of a resistance <i>R</i> and an
+inductance <i>L</i>. The resistance and the inductance represent both the
 effects of the secondary and primary side of the transformer.
 </p>
 <p>

@@ -32,8 +32,10 @@ equation
   terminal_p.v = conversionFactor*terminal_n.v;
 
   // Power loss term
-  terminal_p.i[1] = terminal_n.i[1]/conversionFactor*Buildings.Utilities.Math.Functions.spliceFunction(eta-2, 1/(eta-2), P_p[1], deltax=0.1);
-  terminal_p.i[2] = terminal_n.i[2]/conversionFactor*Buildings.Utilities.Math.Functions.spliceFunction(eta-2, 1/(eta-2), P_p[1], deltax=0.1);
+  terminal_p.i[1] = terminal_n.i[1]/conversionFactor*
+    Buildings.Utilities.Math.Functions.spliceFunction(eta-2, 1/(eta-2), P_p[1], deltax=0.1);
+  terminal_p.i[2] = terminal_n.i[2]/conversionFactor*
+    Buildings.Utilities.Math.Functions.spliceFunction(eta-2, 1/(eta-2), P_p[1], deltax=0.1);
   LossPower = P_p + P_n;
 
   // The two sides have the same reference angle
@@ -103,7 +105,7 @@ V<sub>2</sub> = conversionFactor  V<sub>1</sub>
 
 <p>
 where <i>V<sub>1</sub></i> and <i>V<sub>2</sub></i> are the RMS voltages
-at the primary and secondary sides of the transformer, i.e., the 
+at the primary and secondary sides of the transformer, i.e., the
 connector N and P, respectively.
 </p>
 
@@ -122,7 +124,7 @@ Furthermore, reactive power on both side are set to zero.
 </p>
 <h4>Note:</h4>
 <p>
-This model is derived from 
+This model is derived from
 <a href=\"modelica://Modelica.Electrical.QuasiStationary.SinglePhase.Utilities.IdealACDCConverter\">
 Modelica.Electrical.QuasiStationary.SinglePhase.Utilities.IdealACDCConverter</a>.
 </p>
