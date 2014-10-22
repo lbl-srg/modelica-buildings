@@ -81,6 +81,11 @@ Modelica.Electrical.QuasiStationary.SinglePhase.Sources</a>.
 Otherwise, there will be no equation that defines the phase
 angle of the voltage.
 </p>
+<p>
+fixme: This info section must explain or reference a user guide that explains
+the parameters <code>potentialReference</code> and
+<code>definiteReference</code>.
+</p>
 </html>", revisions="<html>
 <ul>
 <li>
