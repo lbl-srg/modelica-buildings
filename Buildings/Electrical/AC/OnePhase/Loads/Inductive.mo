@@ -29,6 +29,10 @@ equation
 
     // Use the power specified by the parameter or inputs
     if linearized then
+      // fixme: Using simplified=0 for the homotopy is probably not a good idea. Then,
+      // any v will satisfy that simplified equation, and hence the homotopy
+      // may start from an unreasonably large value. Please use something that
+      // is linear in v for the simplified method.
       i[1] = -homotopy(actual= (v[2]*Q + v[1]*P)/(V_nominal^2), simplified=  0.0);
       i[2] = -homotopy(actual= (v[2]*P - v[1]*Q)/(V_nominal^2), simplified=  0.0);
     else

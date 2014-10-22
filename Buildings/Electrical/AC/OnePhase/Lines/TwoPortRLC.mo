@@ -10,7 +10,8 @@ model TwoPortRLC "Model of an RLC element with two electrical ports"
       redeclare package PhaseSystem = PhaseSystem_p));
   parameter Buildings.Electrical.Types.Load mode(
     min=Buildings.Electrical.Types.Load.FixedZ_steady_state,
-    max=Buildings.Electrical.Types.Load.FixedZ_dynamic) = Buildings.Electrical.Types.Load.FixedZ_steady_state
+    max=Buildings.Electrical.Types.Load.FixedZ_dynamic)=
+    Buildings.Electrical.Types.Load.FixedZ_steady_state
     "Parameter that specifies the type of model (e.g., steady state, dynamic, prescribed power consumption, etc.)"
     annotation (Evaluate=true, Dialog(group="Modelling assumption"));
 protected
@@ -60,7 +61,7 @@ Diagram(graphics={
     Documentation(info="<html>
 <p>
 This model represents a series of two resistive-inductive impedances and a capacitance
-that connect two AC single phase interfaces.
+that connects two AC single phase interfaces.
 This model can be used to represent a cable in a AC grid.
 </p>
 <p>

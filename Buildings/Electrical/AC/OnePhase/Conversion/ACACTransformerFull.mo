@@ -344,8 +344,8 @@ Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
           textString="Lm")}),
     Documentation(info="<html>
 <p>
-This is a detailed transformer model that takes into accounts the winding Joule losses,
-and the leakage reactances on both primary and secondary side. The model also describe
+This is a detailed transformer model that takes into account the winding Joule losses
+and the leakage reactances on both primary and secondary side. The model also describes
 the core or iron losses and the losses due to magnetization effects.
 </p>
 <p>
@@ -354,7 +354,7 @@ The losses are represented by a series of resistances <i>R<sub>1</sub></i>, <i>R
 <i>L<sub>m</sub></i>.
 </p>
 <p>
-The model is parametrized using the following parameters
+The model is parameterized using the following parameters
 </p>
 <ul>
 <li><code>VHigh</code> - RMS voltage at primary side,</li>

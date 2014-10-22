@@ -105,8 +105,13 @@ equation
       smooth=Smooth.None));
   annotation (
 defaultComponentName="bat",
-Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
-                               graphics), Icon(coordinateSystem(
+Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
+            100}}),            graphics={Text(
+          extent={{28,-18},{92,-26}},
+          lineColor={0,0,255},
+          textString=
+              "fixme: shouldn't there be a connector visible at the right side of bat?")}),
+                                          Icon(coordinateSystem(
           preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
         graphics={
         Polygon(

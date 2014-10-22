@@ -89,9 +89,9 @@ This example illustrates the use of a the AC/AC transformer model.
 The example shows three different configurations:
 </p>
 <ul>
-<li>with load connected,</li>
-<li>without load connected, and</li>
-<li>short circuit connection.</li>
+<li>With a load connected,</li>
+<li>without a load connected, and</li>
+<li>with a short circuit connection.</li>
 </ul>
 </html>",
       revisions="<html>

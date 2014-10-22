@@ -1,9 +1,9 @@
 within Buildings.Electrical.AC.OnePhase.Loads.Examples;
 model DynamicLoads "Example that illustrates the use of dynamic loads"
   extends Modelica.Icons.Example;
-  Buildings.Electrical.AC.OnePhase.Sources.FixedVoltage
-                                                     source(f=60, V=120)
-    "Voltage source"        annotation (Placement(transformation(
+  Buildings.Electrical.AC.OnePhase.Sources.FixedVoltage source(
+    f=60,
+    V=120) "Voltage source" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-70,10})));
@@ -44,8 +44,8 @@ This model compares two dynamic load models that use the dynamic
 phasors.
 </p>
 <p>
-The loads at nominla conditions should consume an active power equal
-to 1.2 kW. Because of the line resistance the voltage at the load is 
+The loads at nominal conditions should consume an active power equal
+to <i>1.2</i> kW. Because of the line resistance the voltage at the load is 
 attenuated and they consume less power.
 </p>
 <p>

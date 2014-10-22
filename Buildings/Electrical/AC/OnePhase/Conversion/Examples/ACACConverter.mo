@@ -9,7 +9,7 @@ model ACACConverter
     definiteReference=true,
     f=60,
     V=120) "Voltage source"
-                          annotation (Placement(transformation(
+    annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-60,10})));
@@ -42,8 +42,8 @@ equation
     __Dymola_experimentSetupOutput,
     Documentation(info="<html>
 <p>
-This example illustrates the use of a model that converts AC voltage to AC voltage
-converter model. The transformer model assumes a linear loss when transmitting the power.
+This example illustrates the use of a model that converts AC voltage to AC voltage.
+The transformer model assumes a linear loss when transmitting the power.
 </p>
 </html>",
       revisions="<html>

@@ -2,8 +2,7 @@ within Buildings.Electrical.AC.OnePhase.Conversion.Examples;
 model ACACTransformerFull
   "This example illustrates how to use the AC/AC transformer model"
   extends Modelica.Icons.Example;
-  Buildings.Electrical.AC.OnePhase.Conversion.ACACTransformerFull
-                                                              tra_load(
+  Buildings.Electrical.AC.OnePhase.Conversion.ACACTransformerFull tra_load(
     R1=0.0001,
     L1=0.0001,
     R2=0.0001,
@@ -16,11 +15,11 @@ model ACACTransformerFull
     VLow=60,
     f=60) "Transformer with load"
     annotation (Placement(transformation(extent={{-18,40},{2,60}})));
-  Buildings.Electrical.AC.OnePhase.Sources.FixedVoltage                 sou(
+  Buildings.Electrical.AC.OnePhase.Sources.FixedVoltage sou(
     definiteReference=true,
     f=60,
     V=120) "Voltage source"
-                          annotation (Placement(transformation(
+    annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-70,50})));
@@ -53,8 +52,7 @@ model ACACTransformerFull
   Buildings.Electrical.AC.OnePhase.Loads.Impedance shortCircuit(R=1e-8)
     "Short circuit"
     annotation (Placement(transformation(extent={{10,0},{30,20}})));
-  Buildings.Electrical.AC.OnePhase.Conversion.ACACTransformerFull
-                                                              tra_void(
+  Buildings.Electrical.AC.OnePhase.Conversion.ACACTransformerFull tra_void(
     VABase=4000,
     R1=0.01,
     L1=0.01,
@@ -106,15 +104,15 @@ equation
     __Dymola_experimentSetupOutput,
     Documentation(info="<html>
 <p>
-This example illustrates the use of a the AC/AC transformer model
+This example illustrates the use of the AC/AC transformer model
 that includes losses at the primary and secondary side and magnetization
 effects.
 The example shows three different configurations:
 </p>
 <ul>
-<li>with load connected,</li>
-<li>without load connected, and</li>
-<li>short circuit connection.</li>
+<li>With a load connected,</li>
+<li>without a load connected, and</li>
+<li>with a short circuit connection.</li>
 </ul>
 </html>",
       revisions="<html>

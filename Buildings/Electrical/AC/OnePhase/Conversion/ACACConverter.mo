@@ -119,7 +119,7 @@ P<sub>loss</sub> = (1-&eta;) P<sub>tr</sub>,
 </p>
 <p>
 where <i>P<sub>tr</sub></i> is the power transmitted. The model is bi-directional
-and the power can flow from both the primary to the secondary and vice-versa.
+and the power can flow from the primary to the secondary side and vice-versa.
 Furthermore, reactive power on both side are set to zero.
 </p>
 <h4>Note:</h4>
