@@ -2,7 +2,7 @@ within Buildings.Electrical.AC.ThreePhasesUnbalanced.Lines;
 model Network "Three phases unbalanced AC network without neutral cable"
   extends Transmission.BaseClasses.PartialNetwork(
     redeclare
-      Buildings.Electrical.AC.ThreePhasesUnbalanced.Interfaces.Terminal_p         terminal,
+      Buildings.Electrical.AC.ThreePhasesUnbalanced.Interfaces.Terminal_p terminal,
     redeclare Transmission.Grids.TestGrid2Nodes grid,
     redeclare Buildings.Electrical.AC.ThreePhasesUnbalanced.Lines.Line lines(commercialCable=grid.cables));
     Modelica.SIunits.Voltage Vabs[3,grid.nNodes]
@@ -13,6 +13,7 @@ equation
     connect(lines[i].terminal_n, terminal[grid.fromTo[i,2]]);
   end for;
 
+  // fixme: rename Vabs to VAbs to use camel case notation.
   for i in 1:grid.nNodes loop
     Vabs[1,i] = Buildings.Electrical.PhaseSystems.OnePhase.systemVoltage(terminal[i].phase[1].v);
     Vabs[2,i] = Buildings.Electrical.PhaseSystems.OnePhase.systemVoltage(terminal[i].phase[2].v);

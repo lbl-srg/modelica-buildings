@@ -191,7 +191,7 @@ model ACACTransformerFull "AC AC transformer detailed equivalent circuit (YY)"
     Documentation(info="<html>
 <p>
 This is a detailed transformer model that takes into accounts the winding Joule losses, 
-and the leakage reactances on both primary and secondary side. The model also describe
+and the leakage reactances on the primary and secondary side. The model also takes into account
 the core or iron losses and the losses due to magnetization effects.
 </p>
 <p>
@@ -212,8 +212,8 @@ The model is parameterized using the following parameters
 <li><code>R_m, L_m</code> - resistance and inductance for magnetization effects (per unit).</li>
 </ul>
 <p>
-The model given the nominal conditions computes the values of the nominal impedances
-at both primary and secondary side. Given these values the per unit values are transformed into
+Given the nominal conditions, the model computes the values of the nominal impedances
+at the primary and secondary side. Given these values, the per unit values are transformed into
 the actual values of the resistances and inductancs.
 </p>
 <p>

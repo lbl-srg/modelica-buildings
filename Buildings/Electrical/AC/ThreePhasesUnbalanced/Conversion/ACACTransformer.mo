@@ -40,7 +40,6 @@ model ACACTransformer "AC AC transformer simplified equivalent circuit (YY)"
   parameter Real Zperc "Short circuit impedance";
   parameter Boolean ground_1 = false "Connect side 1 of transformer to ground" annotation(Dialog(tab = "Ground", group="side 1"));
   parameter Boolean ground_2 = true "Connect side 2 of transformer to ground" annotation(Dialog(tab = "Ground", group="side 2"));
-equation
 
   annotation (
   defaultComponentName="tra",
@@ -176,7 +175,7 @@ equation
 <p>
 This is a simplified equivalent transformer model.
 The model accounts for winding Joule losses and leakage reactances 
-that are represented by a serie of a resistance <i>R</i> and an
+that are represented by a series of a resistance <i>R</i> and an
 inductance <i>L</i>. The resistance and the inductance represent both the 
 effects of the secondary and primary side of the transformer.
 </p>
@@ -191,7 +190,7 @@ The model is parameterized using the following parameters
 <li><code>Zperc</code> - the short circuit impedance.</li>
 </ul>
 <p>
-The model given the nominal conditions computes the values of the resistance and the inductance.
+Given the nominal conditions, the model computes the values of the resistance and inductance.
 </p>
 <h4>Configuration:</h4>
 <p>

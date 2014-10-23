@@ -8,7 +8,8 @@ model Capacitive_N
         use_pf_in=use_pf_in),
     redeclare Buildings.Electrical.AC.OnePhase.Loads.Capacitive load3(pf=pf,
         use_pf_in=use_pf_in));
-  parameter Boolean use_pf_in = false "If true, the power factor is defined by an input"
+  parameter Boolean use_pf_in = false
+    "If true, the power factor is defined by an input"
     annotation(Dialog(group="Modelling assumption"));
   parameter Real pf(min=0, max=1) = 0.8 "Power factor"
   annotation(Dialog(group="Nominal conditions"));
@@ -196,8 +197,8 @@ The model extends from
 Buildings.Electrical.AC.ThreePhasesUnbalanced.Loads.BaseClasses.LoadCtrl_N</a>
 and uses the load model from the package
 <a href=\"modelica://Buildings.Electrical.AC.OnePhase.Loads\">
-Buildings.Electrical.AC.OnePhase.Loads</a>. The model is able to provide detailed
-information about the actual voltages, currents and powers on each phase.
+Buildings.Electrical.AC.OnePhase.Loads</a>.
+The model computes the voltages, currents and powers on each phase.
 </p>
 <p>
 This model has a connector with four cables and it represents the neutral cable.

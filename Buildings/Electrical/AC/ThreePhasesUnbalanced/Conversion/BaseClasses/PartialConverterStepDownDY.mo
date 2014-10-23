@@ -63,8 +63,8 @@ First implementation.
 </html>", info="<html>
 <p>
 Partial model that represents a three phases unbalanced
-trasformer with delta connection on primary and Y connection on
-the secondary one. The configuration is for voltage step down.
+trasformer with delta connection on the primary and Y connection on
+the secondary side. The configuration is for voltage step down.
 </p>
 <p>
 The image belod describe the connection of the windings.

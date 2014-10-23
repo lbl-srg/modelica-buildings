@@ -2,7 +2,7 @@ within Buildings.Electrical.AC.ThreePhasesUnbalanced.Lines;
 model Network_N "Three phases unbalanced AC network with neutral cable"
   extends Transmission.BaseClasses.PartialNetwork(
     redeclare
-      Buildings.Electrical.AC.ThreePhasesUnbalanced.Interfaces.Terminal4_p         terminal,
+      Buildings.Electrical.AC.ThreePhasesUnbalanced.Interfaces.Terminal4_p terminal,
     redeclare Transmission.Grids.TestGrid2Nodes grid,
     redeclare Buildings.Electrical.AC.ThreePhasesUnbalanced.Lines.Line_N lines(
         commercialCable=grid.cables));

@@ -22,9 +22,7 @@ with neutral cable connection.
 <p>
 For more information see 
 <a href=\"modelica://Buildings.Electrical.AC.OnePhase.Sources.WindTurbine\">
-Buildings.Electrical.AC.OnePhase.Sources.WindTurbine</a>, and
-<a href=\"modelica://Buildings.Electrical.AC.ThreePhasesUnbalanced.Sources.BaseClasses.UnbalancedWindTurbine_N\">
-Buildings.Electrical.AC.ThreePhasesUnbalanced.Sources.BaseClasses.UnbalancedWindTurbine_N</a>.
+Buildings.Electrical.AC.OnePhase.Sources.WindTurbine</a>.
 </p>
 </html>"));
 end WindTurbine_N;

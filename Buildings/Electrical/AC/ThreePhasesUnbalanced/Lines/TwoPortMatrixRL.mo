@@ -4,6 +4,8 @@ model TwoPortMatrixRL
   extends Buildings.Electrical.AC.ThreePhasesUnbalanced.Interfaces.TwoPort;
   parameter Modelica.SIunits.Voltage V_nominal(min=0, start=480)
     "Nominal voltage (V_nominal >= 0)"  annotation(Evaluate=true, Dialog(group="Nominal conditions"));
+    // fixme: remove default values for Z as no values can be
+    // provided that are generally valid.
   parameter Modelica.SIunits.Impedance Z11[2] = {1,1}
     "Element [1,1] of impedance matrix";
   parameter Modelica.SIunits.Impedance Z12[2] = {1,1}
@@ -119,6 +121,7 @@ Added model.
 Resistive-inductive model that connects two AC three phases 
 unbalanced interfaces. This model can be used to represent a
 cable in a three phases unbalanced AC system.
+The voltage between the ports is
 </p>
 
 <p align=\"center\">

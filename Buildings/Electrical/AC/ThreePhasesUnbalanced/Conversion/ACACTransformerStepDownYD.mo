@@ -217,7 +217,7 @@ This is a simplified equivalent transformer model with Y-Delta connection
 (voltage step down).
 The model accounts for winding Joule losses and leakage reactances 
 that are represented by a serie of a resistance <i>R</i> and an
-inductance <i>L</i>. The resistance and the inductance represent both the 
+inductance <i>L</i>. The resistance and the inductance represent the 
 effects of the secondary and primary side of the transformer.
 </p>
 <p>
@@ -231,7 +231,7 @@ The model is parameterized using the following parameters
 <li><code>Zperc</code> - the short circuit impedance.</li>
 </ul>
 <p>
-The model given the nominal conditions computes the values of the resistance and the inductance.
+Given the nominal conditions, the model computes the values of the resistance and inductance.
 </p>
 
 <h4>Configuration:</h4>

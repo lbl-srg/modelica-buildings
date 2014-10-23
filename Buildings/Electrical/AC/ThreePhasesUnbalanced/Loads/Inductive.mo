@@ -2,13 +2,17 @@ within Buildings.Electrical.AC.ThreePhasesUnbalanced.Loads;
 model Inductive
   "Model of a three phases unbalanced inductive load without neutral cable"
   extends BaseClasses.LoadCtrl(
-    redeclare Buildings.Electrical.AC.OnePhase.Loads.Inductive load1(pf=pf,
-        use_pf_in=use_pf_in),
-    redeclare Buildings.Electrical.AC.OnePhase.Loads.Inductive load2(pf=pf,
-        use_pf_in=use_pf_in),
-    redeclare Buildings.Electrical.AC.OnePhase.Loads.Inductive load3(pf=pf,
-        use_pf_in=use_pf_in));
-  parameter Boolean use_pf_in = false "If true, the power factor is defined by an input"
+    redeclare Buildings.Electrical.AC.OnePhase.Loads.Inductive load1(
+      pf=pf,
+      use_pf_in=use_pf_in),
+    redeclare Buildings.Electrical.AC.OnePhase.Loads.Inductive load2(
+      pf=pf,
+      use_pf_in=use_pf_in),
+    redeclare Buildings.Electrical.AC.OnePhase.Loads.Inductive load3(
+      pf=pf,
+      use_pf_in=use_pf_in));
+  parameter Boolean use_pf_in = false
+    "If true, the power factor is defined by an input"
     annotation(Dialog(group="Modelling assumption"));
   parameter Real pf(min=0, max=1) = 0.8 "Power factor"
   annotation(Dialog(group="Nominal conditions"));
@@ -184,7 +188,12 @@ equation
                                          color={0,0,0},
           origin={-66,-52},
           rotation=180)}), Diagram(coordinateSystem(preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}}), graphics),
+          extent={{-100,-100},{100,100}}), graphics={Text(
+          extent={{84,-88},{106,-102}},
+          lineColor={0,0,255},
+          textString="fixme: move the connectors
+so that they don't overlay with the
+components.")}),
     Documentation(revisions="<html>
 <ul>
 <li>
@@ -204,8 +213,8 @@ The model extends from
 Buildings.Electrical.AC.ThreePhasesUnbalanced.Loads.BaseClasses.LoadCtrl</a>
 and uses the load model from the package
 <a href=\"modelica://Buildings.Electrical.AC.OnePhase.Loads\">
-Buildings.Electrical.AC.OnePhase.Loads</a>. The model is able to provide detailed
-information about the actual voltages, currents and powers on each phase.
+Buildings.Electrical.AC.OnePhase.Loads</a>.
+The model computes the voltages, currents and powers on each phase.
 </p>
 <p>
 For more information see <a href=\"modelica://Buildings.Electrical.AC.ThreePhasesUnbalanced.Loads.BaseClasses.LoadCtrl\">

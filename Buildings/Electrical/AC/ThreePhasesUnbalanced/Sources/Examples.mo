@@ -153,8 +153,12 @@ This example shows how to use a fixed voltage generator model.
         color={0,120,120},
         smooth=Smooth.None));
     annotation (experiment(StopTime=172800, Tolerance=1e-05),
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
-                                 graphics),
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
+              100,100}}),        graphics={Text(
+            extent={{-64,-58},{92,-86}},
+            lineColor={0,0,255},
+            textString=
+                "fixme: unit tests need to be added for the PV with neutral line. Each model must be in one unit test.")}),
       __Dymola_Commands(file=
             "modelica://Buildings/Resources/Scripts/Dymola/Electrical/AC/ThreePhasesUnbalanced/Sources/Examples/PVPanels.mos"
           "Simulate and plot"),
@@ -173,10 +177,9 @@ partially consumed by the load, and the remaining part is fed into
 the grid.
 </p>
 <p>
-The PV produces different amount of power on each phase according to the fractions
-specified by the vector <code>areaFraction={0.5,0.3,0.2}</code>. In this case the 50%
-of the power generation is on phase 1, while the remaining is split 30% and 20% between 
-phase 2 and 3 respectively.
+The PV produces different amounts of power on each phase according to the fractions
+specified by the vector <code>areaFraction={0.5,0.3,0.2}</code>. In this example, 50%
+of the power generation is on phase 1, 30% on phase 2 and 20% on phase 3.
 </p> 
 </html>"));
   end PVPanels;
@@ -244,7 +247,11 @@ phase 2 and 3 respectively.
         color={0,120,120},
         smooth=Smooth.None));
     annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-              -100},{100,100}}),      graphics),
+              -100},{100,100}}),      graphics={Text(
+            extent={{-54,-48},{102,-76}},
+            lineColor={0,0,255},
+            textString=
+                "fixme: unit tests need to be added for the wind turbine with neutral line. Each model must be in one unit test.")}),
       experiment(StopTime=172800, Tolerance=1e-05),
       __Dymola_experimentSetupOutput,
       Documentation(info="<html>
@@ -258,10 +265,9 @@ The turbine cut-in wind speed is <i>3.5</i> m/s,
 and hence it is off in the first day when the wind speed is low.
 </p>
 <p>
-The wind turbines produce different amount of power on each phase according to the fractions
-specified by the vector <code>scaleFraction={0.5,0.25,0.25}</code>. In this case the 50%
-of the power generation is on phase 1, while the remaining is split 25% and 25% between
-phase 2 and 3 respectively.
+The wind turbines produce different amounts of power on each phase according to the fractions
+specified by the vector <code>scaleFraction={0.5,0.25,0.25}</code>. In this example, 50%
+of the power generation is on phase 1, 30% on phase 2 and 20% on phase 3.
 As expected the phase with the higher power production has the higher voltage deviation 
 from the nominal condition.
 </p> 

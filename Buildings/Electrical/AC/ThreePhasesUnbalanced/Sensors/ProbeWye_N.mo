@@ -32,11 +32,12 @@ equation
           points={{0,-30},{14,-44}},
           color={127,0,127},
           smooth=Smooth.None,
-          thickness=0.5)}),         Documentation(info="<html>
+          thickness=0.5)}),
+Documentation(info="<html>
 <p>
 This model represents a probe that measures the RMS voltage and the angle
-of the voltage phasors (in degrees) at a given point. The probes are connected
-in Wye (Y) grounded configuration.
+of the voltage phasors at a given point. The probes are connected
+in the Wye (Y) grounded configuration.
 </p>
 </html>", revisions="<html>
 <ul>

@@ -38,9 +38,7 @@ Simple PV model for three phases unbalanced systems with neutral cable connectio
 <p>
 For more information see 
 <a href=\"modelica://Buildings.Electrical.AC.OnePhase.Sources.PVSimple\">
-Buildings.Electrical.AC.OnePhase.Sources.PVSimple</a>, and
-<a href=\"modelica://Buildings.Electrical.AC.ThreePhasesUnbalanced.Sources.BaseClasses.UnbalancedPV_N\">
-Buildings.Electrical.AC.ThreePhasesUnbalanced.Sources.BaseClasses.UnbalancedPV_N</a>.
+Buildings.Electrical.AC.OnePhase.Sources.PVSimple</a>.
 </p>
 </html>"));
 end PVsimple_N;

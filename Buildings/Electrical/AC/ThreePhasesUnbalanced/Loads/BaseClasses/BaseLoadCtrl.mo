@@ -25,6 +25,13 @@ partial model BaseLoadCtrl
   parameter Modelica.SIunits.Time tDelay = 300
     "Time to wait before plugging the load again after disconnection" annotation(Dialog(group="Voltage CTRL",
         enable = voltageCtrl));
+  parameter Types.InitMode initMode=Buildings.Electrical.Types.InitMode.zero_current
+    "Initialization mode for homotopy operator"
+    annotation (Dialog(tab="initialization"));
+ // fixme: All these loads require the "constrainedby" declaration, and the parameters
+ // must be assigned in the constrainedby declaration. Otherwise, if a model redeclares
+ // these instances, then the parameter value is not propagated. We had this problem also
+ // in Buildings.Fluid.HeatExchangers.
   replaceable Buildings.Electrical.Interfaces.Load load1(
     redeclare package PhaseSystem = Buildings.Electrical.PhaseSystems.OnePhase,
     redeclare Buildings.Electrical.AC.OnePhase.Interfaces.Terminal_n terminal,
@@ -152,11 +159,8 @@ partial model BaseLoadCtrl
     wyeToWyeGround if (loadConn == Buildings.Electrical.Types.LoadConnection.wye_to_wyeg)
     "Wye to wye grounded connection"
     annotation (Placement(transformation(extent={{-54,-20},{-34,0}})));
-  parameter Types.InitMode initMode=Buildings.Electrical.Types.InitMode.zero_current
-    "Initialization mode for homotopy operator"
-    annotation (Dialog(tab="initialization"));
-equation
 
+equation
   // Connections enabled when the input provided is y (between 0 and 1)
   if mode==Buildings.Electrical.Types.Load.VariableZ_y_input then
     if plugPhase1 and voltageCtrl then

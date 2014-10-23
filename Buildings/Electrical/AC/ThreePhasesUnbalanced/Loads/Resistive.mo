@@ -97,8 +97,8 @@ The model extends from
 Buildings.Electrical.AC.ThreePhasesUnbalanced.Loads.BaseClasses.LoadCtrl</a>
 and uses the load model from the package
 <a href=\"modelica://Buildings.Electrical.AC.OnePhase.Loads\">
-Buildings.Electrical.AC.OnePhase.Loads</a>. The model is able to provide detailed
-information about the actual voltages, currents and powers on each phase.
+Buildings.Electrical.AC.OnePhase.Loads</a>.
+The model computes the voltages, currents and powers on each phase.
 </p>
 <p>
 For more information see <a href=\"modelica://Buildings.Electrical.AC.ThreePhasesUnbalanced.Loads.BaseClasses.LoadCtrl\">

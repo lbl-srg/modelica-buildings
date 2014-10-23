@@ -1,6 +1,8 @@
 within Buildings.Electrical.AC.ThreePhasesUnbalanced.Conversion.BaseClasses;
 partial model PartialConverter "Partial model of a transformer"
   extends Buildings.Electrical.Icons.RefAngleConversion;
+  // fixme: use constrainedby to set parameter values.
+  // fixme: Correct the indentation.
   replaceable Buildings.Electrical.Interfaces.PartialConversion
                                     conv1(
     redeclare package PhaseSystem_p =

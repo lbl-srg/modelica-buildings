@@ -6,6 +6,7 @@ model ProbeWye
     redeclare final
       Buildings.Electrical.AC.ThreePhasesUnbalanced.Interfaces.Terminal_n
       term);
+  // fixme: correct indentation in all models of this package.
   Interfaces.WyeToWyeGround wyeToWyeGround "Y to Y grounded transformation"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=0,
@@ -36,11 +37,12 @@ equation
           points={{0,-30},{14,-44}},
           color={0,120,120},
           smooth=Smooth.None,
-          thickness=0.5)}),         Documentation(info="<html>
+          thickness=0.5)}),
+Documentation(info="<html>
 <p>
 This model represents a probe that measures the RMS voltage and the angle
-of the voltage phasors (in degrees) at a given point. The probes are connected
-in Wye (Y) grounded configuration.
+of the voltage phasors at a given point. The probes are connected
+in the Wye (Y) grounded configuration.
 </p>
 </html>", revisions="<html>
 <ul>

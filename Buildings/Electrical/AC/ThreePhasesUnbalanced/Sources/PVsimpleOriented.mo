@@ -9,15 +9,15 @@ model PVsimpleOriented
   parameter Modelica.SIunits.Angle til "Surface tilt" annotation(Dialog(group="Orientation"));
   parameter Modelica.SIunits.Angle lat "Latitude" annotation(Dialog(group="Orientation"));
   parameter Modelica.SIunits.Angle azi "Surface Azimith" annotation(Dialog(group="Orientation"));
-  BoundaryConditions.SolarIrradiation.DiffusePerez           HDifTil(
-    til=til,
-    lat=lat,
-    azi=azi) "Diffuse irradiation on tilted surface"
+  BoundaryConditions.SolarIrradiation.DiffusePerez HDifTil(
+    final til=til,
+    final lat=lat,
+    final azi=azi) "Diffuse irradiation on tilted surface"
     annotation (Placement(transformation(extent={{20,-80},{0,-60}})));
-  BoundaryConditions.SolarIrradiation.DirectTiltedSurface           HDirTil(
-    til=til,
-    lat=lat,
-    azi=azi) "Direct irradiation on tilted surface"
+  BoundaryConditions.SolarIrradiation.DirectTiltedSurface HDirTil(
+    final til=til,
+    final lat=lat,
+    final azi=azi) "Direct irradiation on tilted surface"
     annotation (Placement(transformation(extent={{60,-99},{40,-79}})));
   Modelica.Blocks.Math.Add G "Total irradiation on tilted surface"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
@@ -75,9 +75,7 @@ without neutral cable connection.
 <p>
 For more information see 
 <a href=\"modelica://Buildings.Electrical.AC.OnePhase.Sources.PVSimpleOriented\">
-Buildings.Electrical.AC.OnePhase.Sources.PVSimpleOriented</a>, and
-<a href=\"modelica://Buildings.Electrical.AC.ThreePhasesUnbalanced.Sources.BaseClasses.UnbalancedPV\">
-Buildings.Electrical.AC.ThreePhasesUnbalanced.Sources.BaseClasses.UnbalancedPV</a>.
+Buildings.Electrical.AC.OnePhase.Sources.PVSimpleOriented</a>.
 </p>
 </html>"));
 end PVsimpleOriented;

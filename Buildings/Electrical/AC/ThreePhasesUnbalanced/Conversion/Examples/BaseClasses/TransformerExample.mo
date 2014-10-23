@@ -67,7 +67,7 @@ Buildings.Electrical.AC.ThreePhasesUnbalanced.Conversion.Examples</a>.
 </p>
 <p>
 The model has a voltage source, a transformer and a load. The transformer
-model is replaceable so the different types of transformers can be easily tested.
+model is replaceable so that different types of transformers can easily be tested.
 </p>
 </html>"), Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
             {100,100}}), graphics));
