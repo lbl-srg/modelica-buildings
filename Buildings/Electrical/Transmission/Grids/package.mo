@@ -12,14 +12,14 @@ Added User's guide.
 </ul>
 </html>", info="<html>
 <p>
-This package contains different types of grid that can be used to represent
-electric networks. The grid model specifies the topology of the network by:
+This package contains different types of grids that can be used to represent
+electrical networks. The topology of the network is specified by
 </p>
 <ul>
-<li>number of nodes,</li>
-<li>number of links,</li>
-<li>length of links,</li>
-<li>relationships between links and nodes.</li>
+<li>the number of nodes,</li>
+<li>the number of links,</li>
+<li>the length of links, and</li>
+<li>the connection between links and nodes.</li>
 </ul>
 </html>"));
 end Grids;

@@ -14,7 +14,7 @@ This model represents a simple grid with two nodes and a single link between the
 This model differs from 
 <a href=\"modelica://Buildings.Electrical.Transmission.Grids.TestGrid2Nodes\">
 Buildings.Electrical.Transmission.Grids.TestGrid2Nodes</a> because it defines a medium voltage
-cable instead of a low voltage one.
+cable instead of a low voltage cable.
 </p>
 <p>
 The picture below describes the grid topology.

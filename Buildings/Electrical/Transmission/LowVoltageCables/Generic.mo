@@ -2,6 +2,9 @@ within Buildings.Electrical.Transmission.LowVoltageCables;
 record Generic "Data record for a generic low voltage cable"
   extends Modelica.Icons.MaterialProperty;
   extends Buildings.Electrical.Transmission.BaseClasses.BaseCable;
+  // fixme: Is there a reason for RCha and XCha to be a constant rather than a parameter?
+  // Buildings.HeatTransfer.Data uses parameters.
+  // The same comment applies to the other cable records
   constant Buildings.Electrical.Types.CharacteristicResistance RCha(start=0)
     "Characteristic resistance of the cable";
   constant Buildings.Electrical.Types.CharacteristicReactance XCha(start=0)
@@ -26,6 +29,10 @@ This function computes the overall resistance of a cable.
 </p>
 
 <p>
+<!-- fixme: I don't understand the first sentence. Why is there only a characteristic
+resistance per unit lenght when the voltage is low, but not otherwise? The
+same comment applies to the other 2 functions in this package.
+Do you mean to write 'Low voltage cables are characterized by their resistance per unit length'? -->
 When the voltage level is low, the cables have a characteristic resistance per unit 
 length. The overall resistance is computed as
 </p>

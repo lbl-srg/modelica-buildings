@@ -51,10 +51,10 @@ record IEEE_34_AL120 "Grid model inspired to the IEEE 34 Node test feeder"
     
    */
   annotation (Documentation(info="<html>
-<p> This model represents a grid inspired to the IEEE 34 node test feeder.
-In this example the cables type and length have been modified in order to 
+<p> This model represents a grid inspired by the IEEE 34 node test feeder.
+In this example, the cable types and lengths have been modified in order to 
 represent a typical distribution feeder.</p>
-<p>There are three type of cables in the grid: AL120, AL70, and Al35.
+<p>The following three type of cables are in the grid: AL120, AL70, and Al35.
 </p>
 <p><img alt=\"alt-image\" src=\"modelica://Buildings/Resources/Images/Electrical/Transmission/Grids/IEEE_34.png\"/></p>
 </html>", revisions="<html>
