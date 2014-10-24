@@ -2,11 +2,7 @@ within Buildings.Electrical.Transmission;
 package Benchmarks "Package with different models, resources and data for benchmarking electrical models"
   extends Modelica.Icons.Package;
 
-
   extends Modelica.Icons.UnderConstruction;
-
-
-
 
 annotation (Documentation(info="<html>
 <p>
