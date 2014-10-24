@@ -75,8 +75,8 @@ equation
     Documentation(info="<html>
 <p>
 This model is identical to 
-<a href=\"modelica://Buildings.Controls.DemandResponse.Examples.Validation.SineInput\">
-Buildings.Controls.DemandResponse.Examples.Validation.SineInput</a>,
+<a href=\"modelica://Buildings.Controls.Predictors.Examples.Validation.SineInput\">
+Buildings.Controls.Predictors.Examples.Validation.SineInput</a>,
 except that the input <code>client.PCon</code> is linear in the temperature.
 </p>
 <p>
