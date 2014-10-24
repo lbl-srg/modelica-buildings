@@ -1,6 +1,8 @@
 within Buildings.Electrical.Utilities.Functions;
 model voltageControl
   "This model represents a simple voltage controller that unplug a load when there is a voltage fluctuation higher that a given threshold."
+  // fixme: This is not a function but a model. Hence, it need to be upper case and
+  // not in the package "Functions"
   Modelica.Blocks.Interfaces.RealInput V "Voltage of the node to be controlled";
   parameter Modelica.SIunits.Voltage V_nominal
     "Nominal voltage of the node to be controlled";

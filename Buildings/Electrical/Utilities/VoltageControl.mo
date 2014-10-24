@@ -16,11 +16,15 @@ model VoltageControl "Voltage controller"
     "High threshold";
   Modelica.Blocks.Interfaces.RealOutput y "Control signal"
     annotation (Placement(transformation(extent={{96,-10},{116,10}})));
-  replaceable Buildings.Electrical.Interfaces.Terminal terminal(redeclare
-      replaceable package PhaseSystem = PhaseSystem) "Generalized terminal"
+  replaceable Buildings.Electrical.Interfaces.Terminal terminal(
+    redeclare replaceable package PhaseSystem = PhaseSystem)
+    "Generalized terminal"
     annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
-  Buildings.Electrical.Utilities.Functions.voltageControl ctrl(V_nominal=V_nominal, vThresh=vThresh, tDelay=tDelay)
+  Buildings.Electrical.Utilities.Functions.voltageControl ctrl(
+    V_nominal=V_nominal,
+    vThresh=vThresh, tDelay=tDelay)
     "Function that implements the state machines voltage controller";
+    // fixme: This is not a function, it is a model
 equation
 
   // Output of the control block

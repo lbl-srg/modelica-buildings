@@ -47,9 +47,9 @@ Added model and documentation.
 This example shows the use of the voltage controller.
 </p>
 <p>
-The voltage controller model is connected to a variable voltage source
-that oscillates between 140 and 100 V. The nominal voltage is 
-<i>V<sub>nom</sub> = 120 </i> V. The controller has the following settings
+The voltage controller is connected to a variable voltage source
+that oscillates between <i>140</i> and <i>100</i> V. The nominal voltage is 
+<i>V<sub>nom</sub> = 120 </i> V. The controller has the following settings:
 </p>
 <ul>
 <li>Nominal voltage <i>V<sub>nom</sub> = 120 </i> V,</li>
@@ -57,10 +57,11 @@ that oscillates between 140 and 100 V. The nominal voltage is
 <li>tdelay <i>T<sub>delay</sub> = 2 </i> s.</li>
 </ul>
 <p>
-With such settings the voltage controller, whenever measures a voltage that 
-is 10% higher that 120 V (that is 132 V), sets to zero the value of its 
-control signal <code>y</code>. The signal stays at zero for <i>T<sub>delay</sub></i>
-and after this time expires, the controllers check again if the voltage is within the 
+Therefore, when the voltage controller measures a voltage that 
+is 10% higher that 120 V (that is 132 V), it sets its output signal <code>y</code> to zero.
+The output signal stays at zero for <i>T<sub>delay</sub></i>,
+after which it expires.
+Then, the controllers check again if the voltage is within the 
 accepted thresholds.
 </p>
 <p>
@@ -71,8 +72,8 @@ voltage exceeds the threshold.
 <img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Electrical/Utilities/Examples/VoltCTRL.png\"/>
 </p>
 <p>
-It is possible to see that the signal <code>y</code> becomes zero at about <i>t = 1</i> s. After 
-<i>T<sub>delay</sub></i> the voltage is still higher that 123 V and thus the controller wait until
+The figure shows that the signal <code>y</code> becomes zero around <i>t = 1</i> s. After 
+<i>T<sub>delay</sub></i> the voltage is still higher that 123 V and thus the controller waits until
 <i>t = 5</i> s to change the signal to one.
 </p>
 </html>"), Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
