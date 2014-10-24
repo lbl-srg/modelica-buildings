@@ -2,7 +2,6 @@ within Buildings.Electrical;
 package Transmission "Package with models for transmission lines"
   extends Modelica.Icons.Package;
 
-
 annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
           {100,100}}), graphics={
       Ellipse(
@@ -62,9 +61,9 @@ for a given material, ampacity). E.g. 24 AWG wire has a nominal diameter of
 <h5>kcmil (thousand of Circular Mils)</h5>
 <p>
 kcmil is an abbreviation for thousands of circular mils, an old measurement of 
-wire gauge. 1 kcmil = 0.5067 square milimeters. A mil is 1/1000 inch. 
+wire gauge. 1 kcmil = 0.5067 square millimeters. A mil is 1/1000 inch. 
 A wire 200 mils in diameter is 40 kcmil. kcmil is generally used for very 
-large-diameter wire. Most wire uses AWG.
+large-diameter wire. Most wires use AWG.
 </p>
 
 </html>", revisions="<html>
