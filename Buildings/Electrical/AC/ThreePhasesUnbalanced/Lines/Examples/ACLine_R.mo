@@ -90,13 +90,13 @@ a source to a load.
 </p>
 <p>
 The model has four different loads. The load <code>sc_load</code> represents
-a short circuit <i>R=0</i>. The current that flows through the load depends 
+a short circuit <i>R=0</i>. The current that flows through the load depends
 on the resistance of the line.
 </p>
 <p>
 The remaining three loads <code>R1</code>, <code>R2</code>, and <code>R3</code>
 are resistive loads. Each load is connected to the source with different configurations,
-however the equivalent resistance between each load and the source is the same.
+but the equivalent resistance between each load and the source is the same.
 Since the equivalent resistances are the same, each load draws the same current.
 </p>
 </html>", revisions="<html>

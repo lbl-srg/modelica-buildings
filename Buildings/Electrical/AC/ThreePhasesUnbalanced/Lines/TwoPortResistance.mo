@@ -3,28 +3,30 @@ model TwoPortResistance "Model of a resistance with two electrical ports"
   extends Modelica.Electrical.Analog.Interfaces.ConditionalHeatPort;
   extends Buildings.Electrical.AC.ThreePhasesUnbalanced.Interfaces.TwoPort;
   parameter Modelica.SIunits.Temperature T_ref = 298.15 "Reference temperature"
-                                                                                annotation(Evaluate=true);
+    annotation(Evaluate=true);
   parameter Modelica.SIunits.Temperature M = 507.65
-    "Temperature constant (R_actual = R*(M + T_heatPort)/(M + T_ref))" annotation(Evaluate=true);
+    "Temperature constant (R_actual = R*(M + T_heatPort)/(M + T_ref))"
+    annotation(Evaluate=true);
+    // fixme: remove the start value from R as this is not generally a good value.
   parameter Modelica.SIunits.Resistance R(start=1)
     "Resistance at temperature T_ref";
   OnePhase.Lines.TwoPortResistance  phase1(
-    T_ref=T_ref,
-    M=M,
-    R=R/3,
-    useHeatPort=useHeatPort) "Resistance line 1"
+    final T_ref=T_ref,
+    final M=M,
+    final R=R/3,
+    final useHeatPort=useHeatPort) "Resistance line 1"
     annotation (Placement(transformation(extent={{-10,20},{10,40}})));
   OnePhase.Lines.TwoPortResistance phase2(
-    T_ref=T_ref,
-    M=M,
-    R=R/3,
-    useHeatPort=useHeatPort) "Resistance line 2"
+    final T_ref=T_ref,
+    final M=M,
+    final R=R/3,
+    final useHeatPort=useHeatPort) "Resistance line 2"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   OnePhase.Lines.TwoPortResistance phase3(
-    T_ref=T_ref,
-    M=M,
-    R=R/3,
-    useHeatPort=useHeatPort) "Resistance line 3"
+    final T_ref=T_ref,
+    final M=M,
+    final R=R/3,
+    final useHeatPort=useHeatPort) "Resistance line 3"
     annotation (Placement(transformation(extent={{-10,-40},{10,-20}})));
 equation
   LossPower = 0;

@@ -6,6 +6,7 @@ model ProbeDelta
     redeclare final
       Buildings.Electrical.AC.ThreePhasesUnbalanced.Interfaces.Terminal_n
       term);
+  // fixme: The model ProbeDelta_N is missing from the library.
   Interfaces.WyeToDelta wyeToDelta "Y to D transformation"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=0,

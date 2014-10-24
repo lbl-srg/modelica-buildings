@@ -88,10 +88,10 @@ Added model.
 </ul>
 </html>", info="<html>
 <p>
-Adapter from Wye (Y) to Wye grounded (Yg) connector.
+Adapter from wye (Y) to wye grounded (Yg) connector.
 A three phases unbalanced connector has three AC single phase
-connectors in it. Each AC single phase connector contains a voltage variable,
-and the voltage is the phase voltage, measured 
+connectors. Each AC single phase connector contains a the phase voltage, 
+which is measured 
 between the phase and the neutral. This model assures that the voltage of the neutral
 cable is equal to zero.
 </p>

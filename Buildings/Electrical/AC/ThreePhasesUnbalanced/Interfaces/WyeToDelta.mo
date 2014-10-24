@@ -45,10 +45,10 @@ Added model.
 <p>
 Adapter from Wye (Y) to Delta (D) connector.
 A three phases unbalanced connector has three AC single phase
-connectors in it. Each AC single phase connector contains a voltage variable,
-and the voltage is the phase voltage. This model converts the phase voltage (measured 
-between the phase and the neutral) with the line voltage, measured between phase 
-and phase. 
+connectors. Each AC single phase connector contains the phase voltage,
+which is measured between the phase and the neutral.
+This model converts the phase voltage to the line voltage, measured between
+the phases. 
 </p>
 <p>
 The image below show how the phasors are computed when converting from Y to D.

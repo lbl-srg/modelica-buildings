@@ -6,14 +6,16 @@ model TwoPortRLC "Model of an RLC element with two electrical ports"
     "Resistance at temperature T_ref";
   parameter Modelica.SIunits.Capacitance C(start=0) "Capacity";
   parameter Modelica.SIunits.Inductance L(start=0) "Inductance";
-
+  // fixme: remove start value of R, C and L. (You may want to do a global replace
+  // using regular expressions)
   parameter Modelica.SIunits.Temperature T_ref = 298.15 "Reference temperature"
                             annotation(Evaluate=true);
   parameter Modelica.SIunits.Temperature M = 507.65
     "Temperature constant (R_actual = R*(M + T_heatPort)/(M + T_ref))" annotation(Evaluate=true);
   parameter Buildings.Electrical.Types.Load mode(
     min=Buildings.Electrical.Types.Load.FixedZ_steady_state,
-    max=Buildings.Electrical.Types.Load.FixedZ_dynamic) = Buildings.Electrical.Types.Load.FixedZ_steady_state
+    max=Buildings.Electrical.Types.Load.FixedZ_dynamic)=
+    Buildings.Electrical.Types.Load.FixedZ_steady_state
     "Parameter that specifies the type model (e.g., steady state, dynamic, prescribed power consumption, etc.)"
     annotation (Evaluate=true, Dialog(group="Modelling assumption"));
   parameter Modelica.SIunits.Voltage V_nominal(min=0, start=480)
@@ -22,35 +24,35 @@ model TwoPortRLC "Model of an RLC element with two electrical ports"
       Evaluate=true,
       Dialog(group="Nominal conditions",
       enable = (mode==Buildings.Electrical.Types.Loadm.FixedZ_dynamic)));
-  OnePhase.Lines.TwoPortRLC  phase1(
-    T_ref=T_ref,
-    M=M,
-    R=R/3,
-    L=L/3,
-    C=C/3,
-    mode=mode,
-    V_nominal = V_nominal/sqrt(3),
-    useHeatPort=useHeatPort) "Impedance line 1"
+  OnePhase.Lines.TwoPortRLC phase1(
+    final T_ref=T_ref,
+    final M=M,
+    final R=R/3,
+    final L=L/3,
+    final C=C/3,
+    final mode=mode,
+    final V_nominal = V_nominal/sqrt(3),
+    final useHeatPort=useHeatPort) "Impedance line 1"
     annotation (Placement(transformation(extent={{-10,20},{10,40}})));
   OnePhase.Lines.TwoPortRLC phase2(
-    T_ref=T_ref,
-    M=M,
-    R=R/3,
-    L=L/3,
-    C=C/3,
-    mode=mode,
-    V_nominal = V_nominal/sqrt(3),
-    useHeatPort=useHeatPort) "Impedance line 2"
+    final T_ref=T_ref,
+    final M=M,
+    final R=R/3,
+    final L=L/3,
+    final C=C/3,
+    final mode=mode,
+    final V_nominal = V_nominal/sqrt(3),
+    final useHeatPort=useHeatPort) "Impedance line 2"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   OnePhase.Lines.TwoPortRLC phase3(
-    T_ref=T_ref,
-    M=M,
-    R=R/3,
-    L=L/3,
-    C=C/3,
-    mode=mode,
-    V_nominal = V_nominal/sqrt(3),
-    useHeatPort=useHeatPort) "Impedance line 3"
+    final T_ref=T_ref,
+    final M=M,
+    final R=R/3,
+    final L=L/3,
+    final C=C/3,
+    final mode=mode,
+    final V_nominal = V_nominal/sqrt(3),
+    final useHeatPort=useHeatPort) "Impedance line 3"
     annotation (Placement(transformation(extent={{-10,-40},{10,-20}})));
 equation
   LossPower = 0;

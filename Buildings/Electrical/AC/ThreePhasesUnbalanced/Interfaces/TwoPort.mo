@@ -1,6 +1,7 @@
 within Buildings.Electrical.AC.ThreePhasesUnbalanced.Interfaces;
 partial model TwoPort
   "Partial model interface for a two port component without neutral cable"
+
   Terminal_p terminal_p "Electric terminal side p"
     annotation (Placement(transformation(extent={{90,-10},{110,10}}),
         iconTransformation(extent={{90,-10},{110,10}})));
@@ -20,7 +21,7 @@ Added model and documentation.
 </html>", info="<html>
 <p>
 Interface model for an AC three phases unbalanced component with two ports
-and without neutral cable connection.
+and without neutral cable.
 </p>
 </html>"));
 end TwoPort;

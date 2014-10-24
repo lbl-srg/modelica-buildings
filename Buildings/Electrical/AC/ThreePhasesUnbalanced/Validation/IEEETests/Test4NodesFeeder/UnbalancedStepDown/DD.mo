@@ -112,7 +112,7 @@ IEEE 4 nodes validation test case with the following characteristics
 </li>
 <li>voltage step-down transformer (<i>V<sub>Pri</sub>=12.47 kV,
 <i>V<sub>Sec</sub> = 4.16kV</i>),</li>
-<li>D-Dtransformer</li>
+<li>D-D transformer</li>
 </ul>
 </html>"));
 end DD;

@@ -4,29 +4,29 @@ model Line "Model of an electrical line without neutral cable"
   extends Buildings.Electrical.Transmission.BaseClasses.PartialBaseLine(
   V_nominal(start = 480),
   commercialCable = Buildings.Electrical.Transmission.Functions.selectCable_low(P_nominal, V_nominal));
-  OnePhase.Lines.TwoPortRL  phase1(
-    useHeatPort=true,
-    T_ref=T_ref,
-    M=M,
-    R=R/3,
-    L=L/3,
-    mode=modelMode) "Impedance line 1"
+  OnePhase.Lines.TwoPortRL phase1(
+    final useHeatPort=true,
+    final T_ref=T_ref,
+    final M=M,
+    final R=R/3,
+    final L=L/3,
+    final mode=modelMode) "Impedance line 1"
     annotation (Placement(transformation(extent={{-10,20},{10,40}})));
   OnePhase.Lines.TwoPortRL phase2(
-    useHeatPort=true,
-    T_ref=T_ref,
-    M=M,
-    R=R/3,
-    L=L/3,
-    mode=modelMode) "Impedance line 2"
+    final useHeatPort=true,
+    final T_ref=T_ref,
+    final M=M,
+    final R=R/3,
+    final L=L/3,
+    final mode=modelMode) "Impedance line 2"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   OnePhase.Lines.TwoPortRL phase3(
-    useHeatPort=true,
-    T_ref=T_ref,
-    M=M,
-    R=R/3,
-    L=L/3,
-    mode=modelMode) "Impedance line 3"
+    final useHeatPort=true,
+    final T_ref=T_ref,
+    final M=M,
+    final R=R/3,
+    final L=L/3,
+    final mode=modelMode) "Impedance line 3"
     annotation (Placement(transformation(extent={{-10,-40},{10,-20}})));
 equation
 

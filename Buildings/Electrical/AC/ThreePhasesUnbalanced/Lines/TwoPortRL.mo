@@ -6,9 +6,12 @@ model TwoPortRL
   parameter Modelica.SIunits.Resistance R(start=1)
     "Resistance at temperature T_ref" annotation(Evaluate=true);
   parameter Modelica.SIunits.Temperature T_ref = 298.15 "Reference temperature"
-                                                                                annotation(Evaluate=true);
+    annotation(Evaluate=true);
   parameter Modelica.SIunits.Temperature M = 507.65
-    "Temperature constant (R_actual = R*(M + T_heatPort)/(M + T_ref))" annotation(Evaluate=true);
+    "Temperature constant (R_actual = R*(M + T_heatPort)/(M + T_ref))"
+    annotation(Evaluate=true);
+  // fixme: remove start value of L and R. (You may want to do a global replace
+  // using regular expressions)
   parameter Modelica.SIunits.Inductance L(start=0) "Inductance";
   parameter Buildings.Electrical.Types.Load mode(
     min=Buildings.Electrical.Types.Load.FixedZ_steady_state,
@@ -16,31 +19,33 @@ model TwoPortRL
     "Parameter that specifies the type model (e.g., steady state, dynamic, prescribed power consumption, etc.)"
     annotation (Evaluate=true, Dialog(group="Modelling assumption"));
   OnePhase.Lines.TwoPortRL  phase1(
-    T_ref=T_ref,
-    M=M,
-    R=R/3,
-    L=L/3,
-    mode=mode,
-    useHeatPort=useHeatPort) "Impedance line 1"
+    final T_ref=T_ref,
+    final M=M,
+    final R=R/3,
+    final L=L/3,
+    final mode=mode,
+    final useHeatPort=useHeatPort) "Impedance line 1"
     annotation (Placement(transformation(extent={{-10,20},{10,40}})));
   OnePhase.Lines.TwoPortRL phase2(
-    T_ref=T_ref,
-    M=M,
-    R=R/3,
-    L=L/3,
-    mode=mode,
-    useHeatPort=useHeatPort) "Impedance line 2"
+    final T_ref=T_ref,
+    final M=M,
+    final R=R/3,
+    final L=L/3,
+    final mode=mode,
+    final useHeatPort=useHeatPort) "Impedance line 2"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   OnePhase.Lines.TwoPortRL phase3(
-    T_ref=T_ref,
-    M=M,
-    R=R/3,
-    L=L/3,
-    mode=mode,
-    useHeatPort=useHeatPort) "Impedance line 3"
+    final T_ref=T_ref,
+    final M=M,
+    final R=R/3,
+    final L=L/3,
+    final mode=mode,
+    final useHeatPort=useHeatPort) "Impedance line 3"
     annotation (Placement(transformation(extent={{-10,-40},{10,-20}})));
 equation
   LossPower = 0;
+  // fixme: should LossPower be an input in the base class? We want to avoid
+  // mixing graphical and textual modeling
   connect(terminal_n.phase[1], phase1.terminal_n) annotation (Line(
       points={{-100,0},{-20,0},{-20,30},{-10,30}},
       color={0,120,120},

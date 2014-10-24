@@ -92,13 +92,13 @@ a source to a load.
 </p>
 <p>
 The model has four different loads. The load <code>sc_load</code> represents
-a short circuit <i>R=0</i>. The current that flows through the load depends 
+a short circuit <i>R=0</i>. The current that flows through the load depends
 on the resistance of the line.
 </p>
 <p>
 The remaining three loads <code>L1</code>, <code>L2</code>, and <code>L3</code>
 are inductive loads. Each load is connected to the source with different configurations,
-however the equivalent impedance between each load and the source is the same.
+but the equivalent impedance between each load and the source is the same.
 Since the equivalent impedances are the same, each load draws the same current.
 </p>
 </html>", revisions="<html>

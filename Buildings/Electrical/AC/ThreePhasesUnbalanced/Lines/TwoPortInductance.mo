@@ -1,15 +1,16 @@
 within Buildings.Electrical.AC.ThreePhasesUnbalanced.Lines;
 model TwoPortInductance "Model of an inductance with two electrical ports"
   extends Buildings.Electrical.AC.ThreePhasesUnbalanced.Interfaces.TwoPort;
+  // fixme: remove start value L as this is not generally valid
   parameter Modelica.SIunits.Inductance L(start = 1) "Inductance";
   OnePhase.Lines.TwoPortInductance  phase1(
-    L=L/3) "Inductance line 1"
+    final L=L/3) "Inductance line 1"
     annotation (Placement(transformation(extent={{-10,20},{10,40}})));
   OnePhase.Lines.TwoPortInductance phase2(
-    L=L/3) "Inductance line 2"
+    final L=L/3) "Inductance line 2"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   OnePhase.Lines.TwoPortInductance phase3(
-    L=L/3) "Inductance line 3"
+    final L=L/3) "Inductance line 3"
     annotation (Placement(transformation(extent={{-10,-40},{10,-20}})));
 equation
   connect(terminal_n.phase[1], phase1.terminal_n) annotation (Line(
