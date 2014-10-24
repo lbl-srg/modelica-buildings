@@ -151,7 +151,7 @@ When multiple loads are connected in a grid through cables that cause voltage dr
 the dimension of the system of nonlinear equations increases linearly with the number of loads.
 This nonlinear system of equations introduces challenges during the initialization, as Newton solvers
 may diverge if initialized far from a solution.
-The initialization problem can be simplified using the <emph>homotopy</emph>
+The initialization problem can be simplified using the homotopy
 operator. The homotopy operator uses two different types of equations to compute the value of a
 variable: the actual one and a simplified one. The actual equation is the one used during the normal 
 operation. During initialization, the simplified equation is first solved and then slowly replaced with the 
