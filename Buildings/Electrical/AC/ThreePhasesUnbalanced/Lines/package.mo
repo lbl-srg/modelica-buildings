@@ -2,7 +2,6 @@ within Buildings.Electrical.AC.ThreePhasesUnbalanced;
 package Lines "Package with transmission line models for three phases unbalanced AC systems"
   extends Modelica.Icons.Package;
 
-
 annotation (Icon(graphics={
       Ellipse(
         extent={{42,6},{18,-30}},
@@ -33,6 +32,9 @@ Revised documentation.
 </ul>
 </html>", info="<html>
 <p>
+<!-- 
+ fixme: this package has models *_N only for some components. Is this the intention? 
+ All other packages seem to have model with and without _N for all components  -->
 This package contains models for transmission lines and electrical networks
 of AC three phases unbalanced systems. 
 </p>
