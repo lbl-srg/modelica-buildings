@@ -11,7 +11,7 @@ block ShedOperation "Computes the consumption with the shed taken into account"
     annotation (Placement(transformation(extent={{100,-90},{120,-70}})));
 
 equation
-  PPre = 0.5*PCon;
+  PPre = 0.5*PCon; // fixme: this needs to be changed.
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}), graphics={Text(
           extent={{-70,64},{74,-54}},
