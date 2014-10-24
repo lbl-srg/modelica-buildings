@@ -79,10 +79,10 @@ Revised documentation.
 </html>", info="<html>
 <p>
 Partial model that represents a three phases unbalanced
-trasformer with Y connection on both primary and secondary side.
+transformer with Y connection on both primary and secondary side.
 </p>
 <p>
-The image belod describe the connection of the windings.
+The image below describes the connection of the windings.
 </p>
 <p align=\"center\">
 <img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Electrical/AC/ThreePhasesUnbalanced/Conversion/BaseClasses/YY.png\"/>

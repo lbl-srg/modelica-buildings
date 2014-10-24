@@ -25,7 +25,7 @@ model Building
     "Nominal voltage of the building";
   parameter Real pf=0.8 "Power factor";
   parameter Modelica.SIunits.Area A "Net surface area";
-  AC.OnePhase.Conversion.ACACTransformer trasformer(VHigh=V_distrib_n, VLow=V_building_n,
+  AC.OnePhase.Conversion.ACACTransformer transformer(VHigh=V_distrib_n, VLow=V_building_n,
     XoverR=8,
     Zperc=0.003,
     VABase=2.0*P_nominal)
@@ -53,15 +53,15 @@ model Building
   parameter Boolean linearized=false
     "If =true introduce a linearization in the load";
 equation
-  connect(node, trasformer.terminal_n) annotation (Line(
+  connect(node, transformer.terminal_n) annotation (Line(
       points={{-98,0},{-80,0}},
       color={0,120,120},
       smooth=Smooth.None));
-  connect(trasformer.terminal_p, pVSimple.terminal) annotation (Line(
+  connect(transformer.terminal_p, pVSimple.terminal) annotation (Line(
       points={{-60,0},{-30,0},{-30,30},{-4.44089e-16,30}},
       color={0,120,120},
       smooth=Smooth.None));
-  connect(trasformer.terminal_p, building.terminal) annotation (Line(
+  connect(transformer.terminal_p, building.terminal) annotation (Line(
       points={{-60,0},{-30,0},{-30,-30},{0,-30}},
       color={0,120,120},
       smooth=Smooth.None));

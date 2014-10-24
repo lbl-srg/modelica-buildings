@@ -106,7 +106,7 @@ The current in the neutral cable is computed as the algebraic sum of the current
 of the loads.
 </p>
 <p>
-For more information see <a href=\"modelica://Buildings.Electrical.AC.ThreePhasesUnbalanced.Loads.BaseClasses.LoadCtrl_N\">
+For more information, see <a href=\"modelica://Buildings.Electrical.AC.ThreePhasesUnbalanced.Loads.BaseClasses.LoadCtrl_N\">
 Buildings.Electrical.AC.ThreePhasesUnbalanced.Loads.BaseClasses.LoadCtrl_N</a> and 
 <a href=\"modelica://Buildings.Electrical.AC.OnePhase.Loads.Resistive\">
 Buildings.Electrical.AC.OnePhase.Loads.Resistive</a>.

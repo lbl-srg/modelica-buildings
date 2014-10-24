@@ -186,7 +186,7 @@ equation
 <p>
 This is a simplified equivalent transformer model with Delta-Delta connection.
 The model accounts for winding Joule losses and leakage reactances 
-that are represented by a serie of a resistance <i>R</i> and an
+that are represented by a series of a resistance <i>R</i> and an
 inductance <i>L</i>. The resistance and the inductance represent the 
 effects of the secondary and primary side of the transformer.
 </p>
@@ -205,7 +205,7 @@ Given the nominal conditions, the model computes the values of the resistance an
 </p>
 <h4>Configuration:</h4>
 <p>
-The image belod describe the connection of the windings.
+The image below describes the connection of the windings.
 </p>
 <p align=\"center\">
 <img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Electrical/AC/ThreePhasesUnbalanced/Conversion/BaseClasses/DD.png\"/>
@@ -213,8 +213,8 @@ The image belod describe the connection of the windings.
 <h4>Note:</h4>
 <p>
 This model reuses models from
-<a href=\"modelica://Buildings.Electrical.AC.OnePhase.Conversion.ACACTrasformer\">
-Buildings.Electrical.AC.OnePhase.Conversion.ACACTrasformer</a>.
+<a href=\"modelica://Buildings.Electrical.AC.OnePhase.Conversion.ACACTransformer\">
+Buildings.Electrical.AC.OnePhase.Conversion.ACACTransformer</a>.
 </p>
 <p>
 See

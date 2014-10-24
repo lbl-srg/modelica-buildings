@@ -16,7 +16,7 @@ model TwoPortRLC "Model of an RLC element with two electrical ports"
     min=Buildings.Electrical.Types.Load.FixedZ_steady_state,
     max=Buildings.Electrical.Types.Load.FixedZ_dynamic)=
     Buildings.Electrical.Types.Load.FixedZ_steady_state
-    "Parameter that specifies the type model (e.g., steady state, dynamic, prescribed power consumption, etc.)"
+    "Type of model (e.g., steady state, dynamic, prescribed power consumption, etc.)"
     annotation (Evaluate=true, Dialog(group="Modelling assumption"));
   parameter Modelica.SIunits.Voltage V_nominal(min=0, start=480)
     "Nominal voltage (V_nominal >= 0)"

@@ -20,7 +20,7 @@ Simple wind turbine model for three phases unbalanced systems
 with neutral cable connection.
 </p>
 <p>
-For more information see 
+For more information, see 
 <a href=\"modelica://Buildings.Electrical.AC.OnePhase.Sources.WindTurbine\">
 Buildings.Electrical.AC.OnePhase.Sources.WindTurbine</a>.
 </p>

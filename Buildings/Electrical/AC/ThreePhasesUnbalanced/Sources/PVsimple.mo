@@ -36,7 +36,7 @@ Revised documentation.
 Simple PV model for three phases unbalanced systems without neutral cable connection.
 </p>
 <p>
-For more information see 
+For more information, see 
 <a href=\"modelica://Buildings.Electrical.AC.OnePhase.Sources.PVSimple\">
 Buildings.Electrical.AC.OnePhase.Sources.PVSimple</a>.
 </p>

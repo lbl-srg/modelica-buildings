@@ -12,7 +12,7 @@ record CA_T24_2013Roof =
     CA Title 24-2013. It is used in test bed 90X2.
     </p>
     <p>
-    Note: This model is currently a work in progress. For more information see
+    Note: This model is currently a work in progress. For more information, see
     the documentation available at  
     <a href=\"modelica://Buildings.Rooms.FLEXLAB.UsersGuide\">
     Buildings.Rooms.FLEXLAB.UsersGuide</a>.

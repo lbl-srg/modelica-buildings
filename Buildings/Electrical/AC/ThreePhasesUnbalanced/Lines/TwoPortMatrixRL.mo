@@ -130,8 +130,8 @@ The voltage between the ports is
 
 <p>
 where <i>V<sub>i</sub><sup>{p,n}</sup></i> is the voltage phasor at the connector <code>p</code> or
-<code>n</code> of the <i>i-th</i> phase, while <i>I<sub>i</sub><sup>p</sup></i>
-the current phasor entering from the connector <code>p</code> of the <i>i-th</i> phase.
+<code>n</code> of the <i>i</i>-th phase, while <i>I<sub>i</sub><sup>p</sup></i>
+the current phasor entering from the connector <code>p</code> of the <i>i</i>-th phase.
 </p>
 
 <p>

@@ -221,7 +221,7 @@ The magnetization losses can be enabled or disabled using the boolean flag <code
 </p>
 <h4>Configuration:</h4>
 <p>
-The image belod describe the connection of the windings.
+The image below describes the connection of the windings.
 </p>
 <p align=\"center\">
 <img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Electrical/AC/ThreePhasesUnbalanced/Conversion/BaseClasses/YY.png\"/>
@@ -229,8 +229,8 @@ The image belod describe the connection of the windings.
 <h4>Note:</h4>
 <p>
 This model reuses models from
-<a href=\"modelica://Buildings.Electrical.AC.OnePhase.Conversion.ACACTrasformerFull\">
-Buildings.Electrical.AC.OnePhase.Conversion.ACACTrasformerFull</a>.
+<a href=\"modelica://Buildings.Electrical.AC.OnePhase.Conversion.ACACTransformerFull\">
+Buildings.Electrical.AC.OnePhase.Conversion.ACACTransformerFull</a>.
 </p>
 <p>
 See

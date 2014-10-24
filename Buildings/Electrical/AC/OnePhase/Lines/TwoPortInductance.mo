@@ -11,7 +11,7 @@ model TwoPortInductance
     min=Buildings.Electrical.Types.Load.FixedZ_steady_state,
     max=Buildings.Electrical.Types.Load.VariableZ_y_input)=
     Buildings.Electrical.Types.Load.FixedZ_steady_state
-    "Parameter that specifies the type model (e.g., steady state, dynamic, prescribed power consumption, etc.)"
+    "Type of model (e.g., steady state, dynamic, prescribed power consumption, etc.)"
     annotation (Evaluate=true, Dialog(group="Modelling assumption"));
 protected
   Modelica.SIunits.AngularVelocity omega

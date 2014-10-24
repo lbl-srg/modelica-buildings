@@ -12,7 +12,7 @@ record ASHRAE_901_2010Roof =
     It is used in the bed X3 and test cell XRA.
     </p>
     <p>
-    Note: This model is currently a work in progress. For more information see
+    Note: This model is currently a work in progress. For more information, see
     the documentation available at 
     <a href=\"modelica://Buildings.Rooms.FLEXLAB.UsersGuide\">
   Buildings.Rooms.FLEXLAB.UsersGuide</a>.
