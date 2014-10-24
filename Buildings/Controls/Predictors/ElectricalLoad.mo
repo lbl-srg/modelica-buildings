@@ -71,8 +71,8 @@ block ElectricalLoad "Block that predicts an electrical load"
 protected
   parameter Modelica.SIunits.Time samplePeriod=86400/nSam
     "Sample period of the component";
-  parameter Modelica.SIunits.Time simStart(fixed=false)
-    "Time when the simulation started";
+  parameter Modelica.SIunits.Time samStart(fixed=false)
+    "Time when the first sampling starts";
   parameter Integer iDayOf_start = integer((nSam*dayOfAdj_start/86400+1E-8))
     "Counter where day of look up begins";
   parameter Integer iDayOf_end = integer((nSam*dayOfAdj_end  /86400+1E-8))
@@ -173,7 +173,7 @@ initial equation
   iHis = zeros(Buildings.Controls.Types.nDayTypes, nSam);
 
    _storeHistory = true;
-   simStart = time;// fixme: this should be a multiple of samplePeriod
+   samStart = time;// fixme: this should be a multiple of samplePeriod
 
    // Compute the offset of the index that is used to look up the data for
    // the dayOfAdj
@@ -186,14 +186,13 @@ Wrong values for parameters.
    end if;
 
 equation
-  sampleTrigger = sample(simStart, samplePeriod);
+  sampleTrigger = sample(samStart, samplePeriod);
   if predictionModel == Types.PredictionModel.WeatherRegression then
     der(intTOut) = TOut;
   else
     intTOut = 0;
   end if;
 algorithm
-
 
   when sampleTrigger then
     // Set flag for event day.
@@ -202,7 +201,7 @@ algorithm
     // Auxiliary variables to avoid repetitive type conversion.
     idxPreTyp1 := Integer(pre(typeOfDay[1]));
     idxTyp1    := Integer(typeOfDay[1]);
-    
+
     // Index to access iSam[1]
     idxSam :=getIndex(iSam[1] - 1, nSam);
 
@@ -350,10 +349,10 @@ current outside temperature. The two coefficients for the linear function are
 obtained using a regression of the past <i>n<sub>his</sub></i> days.
 </p>
 <p>
-If the input signal <code>suspend</code> is <code>true</code>, then
+If the input signal <code>storeHistory</code> is <code>true</code>, then
 the prediction is no longer carried out for this day until midnight.
 For example, if used for a demand respond client, on an event day,
-one may want to set <code>suspend=true</code> when the building operates
+one may want to set <code>storeHistory=true</code> when the building operates
 in demand respond mode. Then any time interval after this signal
 is received is excluded from the baseline computation.
 Storing history terms for the baseline resumes automatically at midnight.
