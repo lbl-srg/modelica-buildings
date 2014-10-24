@@ -48,12 +48,12 @@ protected
     "Short circuit current on secondary side";
   Modelica.SIunits.Impedance Zp = VHigh/IscHigh
     "Impedance of the primary side (module)";
-  Modelica.SIunits.Impedance Z1[2] =
+  Modelica.SIunits.Impedance Z1[2]=
     {Zp*cos(atan(XoverR)), Zp*sin(atan(XoverR))}
     "Impedance of the primary side of the transformer";
   Modelica.SIunits.Impedance Zs = VLow/IscLow
     "Impedance of the secondary side (module)";
-  Modelica.SIunits.Impedance Z2[2] =
+  Modelica.SIunits.Impedance Z2[2]=
     {Zs*cos(atan(XoverR)), Zs*sin(atan(XoverR))}
     "Impedance of the secondary side of the transformer";
   Modelica.SIunits.Voltage V1[2](
@@ -62,10 +62,10 @@ protected
   Modelica.SIunits.Voltage V2[2](
     start = PhaseSystem_p.phaseVoltages(VLow, phi_2))
     "Voltage at the winding - secondary side";
-  Modelica.SIunits.Power P_p[2] =
+  Modelica.SIunits.Power P_p[2]=
     PhaseSystem_p.phasePowers_vi(terminal_p.v, terminal_p.i)
     "Power transmitted at pin p (secondary)";
-  Modelica.SIunits.Power P_n[2] =
+  Modelica.SIunits.Power P_n[2]=
     PhaseSystem_n.phasePowers_vi(terminal_n.v, terminal_n.i)
     "Power transmitted at pin n (primary)";
     // fixme: rename Sp and Sn to S_p and S_n
@@ -76,6 +76,11 @@ protected
 
 equation
   // Efficiency
+  // fixme: the sqrt function is not differentiable near the origin (its derivative is zero).
+  // This needs to be reformulated. There are several places in the Buildings.Electrical with
+  // a similar formulation. Please use the smoothing functions. This also would allow later
+  // changing the smoothing from C1 to C2. We currently have such discussions going on for the
+  // Annex60 library.
   eta = Buildings.Utilities.Math.Functions.smoothMin(
         x1=  sqrt(P_p[1]^2 + P_p[2]^2) / (sqrt(P_n[1]^2 + P_n[2]^2) + 1e-6),
         x2=  sqrt(P_n[1]^2 + P_n[2]^2) / (sqrt(P_p[1]^2 + P_p[2]^2) + 1e-6),
