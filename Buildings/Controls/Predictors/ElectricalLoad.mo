@@ -173,7 +173,9 @@ initial equation
   iHis = zeros(Buildings.Controls.Types.nDayTypes, nSam);
 
    _storeHistory = true;
-   samStart = time;// fixme: this should be a multiple of samplePeriod
+   samStart = Buildings.Controls.Predictors.BaseClasses.sampleStart(
+     t=time,
+     samplePeriod=samplePeriod);
 
    // Compute the offset of the index that is used to look up the data for
    // the dayOfAdj
@@ -315,7 +317,7 @@ algorithm
     Documentation(info="<html>
 <p>
 Block that predicts the electrical load.
-This load prediction is used in the demand response client.
+This load prediction can for example be used in a demand response client.
 </p>
 <p>
 The implementation computes either an average baseline or
@@ -396,6 +398,10 @@ and maximum adjustment factors as defined by the parameters
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+October 25, 2014, by Michael Wetter:<br/>
+Implemented new assignment of the start of the sampling.
+</li>
 <li>
 September 6, 2014 by Michael Wetter:<br/>
 Moved to package <code>Buildings.Controls.Predictors</code>.
