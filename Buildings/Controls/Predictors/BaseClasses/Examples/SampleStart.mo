@@ -9,9 +9,11 @@ model SampleStart "Test model for sampleStart function"
 initial equation
  samSta = sampleStart(t=             tSimSta,
                       samplePeriod=  tSample);
+ /*
  for i in 1:size(tSimSta,1) loop
    Modelica.Utilities.Streams.print("t = " + String(tSimSta[i]) + " samSta = " + String(samSta[i]));
  end for;
+ */
   annotation (
   experiment(StopTime=1),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/Predictors/BaseClasses/Examples/SampleStart.mos"
