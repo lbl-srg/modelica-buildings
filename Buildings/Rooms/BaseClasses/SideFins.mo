@@ -1,6 +1,6 @@
 within Buildings.Rooms.BaseClasses;
 record SideFins "Record for window side fins"
-
+  extends Modelica.Icons.Record;
   parameter Modelica.SIunits.Length h(min=0)
     "Height of side fin that extends above window, measured from top of window"
     annotation(Dialog(tab="General",group="Side fin"));
