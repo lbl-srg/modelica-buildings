@@ -422,6 +422,19 @@ have been <b style=\"color:blue\">improved</b> in a
                        this option was not useful.
     </td>
 </tr>
+
+<tr><td colspan=\"2\"><b>Buildings.Rooms</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Rooms.BaseClasses.ParameterConstructionWithWindow
+    </td>
+    <td valign=\"top\">Removed the keyword <code>replaceable</code> for the parameters
+                       <code>ove</code> and <code>sidFin</code>.<br/>
+                       Models that instantiate <code>Buildings.Rooms.MixedAir</code> are
+                       not affected by this change.
+    </td>
+</tr>
+
 </table>
 <!-- Errors that have been fixed -->
 <p>
