@@ -22,18 +22,18 @@ protected
     "Sample period of the component";
   output Integer iDay(min=1, max=nDays)
     "Pointer to days that determines what day type is sent to the output";
-  parameter Modelica.SIunits.Time simStart(fixed=false)
-    "Time when the simulation started";
+  parameter Modelica.SIunits.Time firstSample(fixed=false)
+    "Time when the sampling starts";
   output Boolean sampleTrigger "True, if sample time instant";
   output Boolean firstTrigger "Rising edge signals first sample instant";
 
 initial equation
   iDay = mod(iStart-1+integer(time/samplePeriod), nDays)+1;
   firstTrigger = true;
-  simStart = time;
+  firstSample = ceil(time/86400)*86400;
 equation
   y = days[iDay];
-  sampleTrigger = sample(simStart, samplePeriod);
+  sampleTrigger = sample(firstSample, samplePeriod);
   when sampleTrigger then
     firstTrigger = false;
     if pre(firstTrigger) then
