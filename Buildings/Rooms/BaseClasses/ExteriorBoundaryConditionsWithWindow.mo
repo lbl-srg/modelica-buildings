@@ -18,7 +18,8 @@ model ExteriorBoundaryConditionsWithWindow
 
   // fixme: this should use Modelica.Math.BooleanVectors.anyTrue
   final parameter Boolean haveShade=
-    haveExteriorShade[1] or haveInteriorShade[1]
+    Modelica.Math.BooleanVectors.anyTrue(haveExteriorShade) or
+    Modelica.Math.BooleanVectors.anyTrue(haveInteriorShade)
     "Set to true if window system has a shade"
     annotation (Dialog(group="Shading"), Evaluate=true);
 
@@ -337,6 +338,13 @@ the model
 Buildings.HeatTransfer.Windows.ExteriorHeatTransfer</a>.
 </html>", revisions="<html>
 <ul>
+<li>
+October 28, 2014, by Michael Wetter:<br/>
+Replaced
+<code>final parameter Boolean haveShade=haveExteriorShade[1] or haveInteriorShade[1]</code>
+with a test for all elements of the vector.
+This was not possible in earlier versions of Dymola, but now works.
+</li>
 <li>
 October 20, 2014, by Michael Wetter:<br/>
 Conditionally removed shade if not present. This is for
