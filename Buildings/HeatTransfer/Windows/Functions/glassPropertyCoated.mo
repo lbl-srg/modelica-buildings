@@ -9,28 +9,32 @@ function glassPropertyCoated
   output Real layer[3, HEM] "Transmittance, front and back reflectance";
 
 protected
-  Integer NDIR=HEM - 1 "Number of incident angles";
+  constant Real a[4, 5]={{-0.0015,3.355,-3.840,1.460,0.0288},{0.999,-0.563,
+      2.043,-2.532,1.054},{-0.002,2.813,-2.341,-0.05725,0.599},{0.997,-1.868,
+      6.513,-7.862,3.225}} "Coeffcients in Table A.2";
+
+  Integer NDIR "Number of incident angles";
 
   Real psi_c "cos(psi), psi is incident angle";
   Real psi_cs "cos(psi)*sin(psi)";
   Real angT "Angular variation of transmittance";
   Real angR "Angular variation of reflectance";
-  Real f[3, NDIR]
+  Real f[3, HEM-1]
     "Temporary variables for integration in hemispherical transmittance and reflectance";
-  constant Real deltaX=0.5*Modelica.Constants.pi/(NDIR - 1);
-  constant Real a[4, 5]={{-0.0015,3.355,-3.840,1.460,0.0288},{0.999,-0.563,
-      2.043,-2.532,1.054},{-0.002,2.813,-2.341,-0.05725,0.599},{0.997,-1.868,
-      6.513,-7.862,3.225}} "Coeffcients in Table A.2";
+  Real deltaX;
+
   Integer id1 "Index of coefficients for transmittance";
   Integer id2 "Index of coefficients for reflectance";
 
 algorithm
+  NDIR:=HEM - 1;
+  deltaX := 0.5*Modelica.Constants.pi/(NDIR - 1);
   // Compute specular value for angle 0 to 90 degree (psi[1] to psi[N])
     for k in TRA:Rb loop
       layer[k, 1] := glass[k] "Copy the data at 0 degree (normal incidence)";
     end for;
 
-    for j in 2:NDIR - 1 loop
+    for j in 2:HEM-2 loop
       psi_c := Modelica.Math.cos(psi[j]);
        if layer[TRA, 1] > 0.645 then
         id1 := 1;
@@ -54,7 +58,7 @@ algorithm
     layer[Rb, NDIR] := 1.0;
 
   // Computer hemispherical value: HEM.
-    for j in 1:NDIR loop
+    for j in 1:HEM-1 loop
       psi_cs := Modelica.Math.cos(psi[j])*Modelica.Math.sin(psi[j]);
       for k in TRA:Rb loop
         f[k, j] := 2*layer[k, j]*psi_cs;
@@ -75,6 +79,10 @@ This function computes the angular variation and the hemispherical integration o
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+October 17, 2014, by Michael Wetter:<br/>
+Changed use of <code>NDIR</code> for OpenModelica.
+</li>
 <li>
 December 09, 2011, by Wangda Zuo:<br/>
 First implementation.

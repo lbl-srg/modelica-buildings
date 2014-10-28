@@ -18,6 +18,10 @@ model ExteriorWallWithWindow "Test model for an exterior wall with a window"
     haveInteriorShade=false) "Record for glazing system"
     annotation (Placement(transformation(extent={{-120,60},{-100,80}})));
 
+  parameter HeatTransfer.Data.OpaqueConstructions.Insulation100Concrete200 extConMat
+    "Record for material layers"
+    annotation (Placement(transformation(extent={{-160,60},{-140,80}})));
+
   parameter Buildings.Rooms.BaseClasses.ParameterConstructionWithWindow conPar(
     til=Buildings.HeatTransfer.Types.Tilt.Wall,
     azi=0,
@@ -27,10 +31,6 @@ model ExteriorWallWithWindow "Test model for an exterior wall with a window"
     hWin=hWin,
     wWin=wWin) "Data for construction with window"
     annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
-
-  parameter HeatTransfer.Data.OpaqueConstructions.Insulation100Concrete200 extConMat
-    "Record for material layers"
-    annotation (Placement(transformation(extent={{-160,60},{-140,80}})));
 
   ConstructionWithWindow conExt[1](
     layers={conPar.layers},

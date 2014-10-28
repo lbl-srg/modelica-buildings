@@ -53,17 +53,16 @@ protected
   parameter Real Ra0(fixed=false, min=0) "Rayleigh number";
   parameter Boolean homotopyInitialization = true "= true, use homotopy method"
     annotation(Evaluate=true, Dialog(tab="Advanced"));
-
 initial equation
   assert(isVertical or isHorizontal, "Only vertical and horizontal windows are implemented.");
-initial equation
+
   // Computations that are used in the linearized model only
   Ra0 = Buildings.HeatTransfer.Convection.Functions.HeatFlux.rayleigh(
     x=gas.x,
-    rho=Buildings.HeatTransfer.Data.Gases.density(gas, T0),
-    c_p=Buildings.HeatTransfer.Data.Gases.specificHeatCapacity(gas, T0),
-    mu=Buildings.HeatTransfer.Data.Gases.dynamicViscosity(gas, T0),
-    k=Buildings.HeatTransfer.Data.Gases.thermalConductivity(gas, T0),
+    rho=Buildings.HeatTransfer.Data.Gases.density(gas=gas, T=T0),
+    c_p=Buildings.HeatTransfer.Data.Gases.specificHeatCapacity(gas=gas, T=T0),
+    mu=Buildings.HeatTransfer.Data.Gases.dynamicViscosity(gas=gas, T=T0),
+    k=Buildings.HeatTransfer.Data.Gases.thermalConductivity(gas=gas, T=T0),
     T_a=T0-5,
     T_b=T0+5,
     Ra_min=100);
@@ -186,6 +185,10 @@ of thermal performance of glazing systems with our without
 shading devices, Technical Report, Oct. 17, 2006.
 </html>", revisions="<html>
 <ul>
+<li>
+October 17, 2014, by Michael Wetter:<br/>
+Removed duplicate <code>initial equation</code> section.
+</li>
 <li>
 May 30, 2014, by Michael Wetter:<br/>
 Removed undesirable annotation <code>Evaluate=true</code>.

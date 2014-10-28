@@ -1,11 +1,12 @@
 within Buildings.Fluid.HeatExchangers.RadiantSlabs.Examples;
-model StepResponse "Model that tests the radiant slab"
+model StepResponseEpsilonNTU
+  "Model that tests the radiant slab with epsilon-NTU configuration"
   extends Modelica.Icons.Example;
  package Medium = Buildings.Media.ConstantPropertyLiquidWater;
       inner Modelica.Fluid.System system
     annotation (Placement(transformation(extent={{60,-80},{80,-60}})));
   Sources.Boundary_ph sin(redeclare package Medium = Medium, nPorts=1) "Sink"
-    annotation (Placement(transformation(extent={{80,-30},{60,-10}})));
+    annotation (Placement(transformation(extent={{90,-30},{70,-10}})));
   Sources.MassFlowSource_T sou(
     redeclare package Medium = Medium,
     use_m_flow_in=true,
@@ -25,10 +26,11 @@ model StepResponse "Model that tests the radiant slab"
     layers=layers,
     iLayPip=1,
     pipe=pipe,
-    sysTyp=Buildings.Fluid.HeatExchangers.RadiantSlabs.BaseClasses.Types.SystemType.Floor,
+    sysTyp=Buildings.Fluid.HeatExchangers.RadiantSlabs.Types.SystemType.Floor,
     disPip=0.2,
     A=A,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    heatTransfer=Buildings.Fluid.HeatExchangers.RadiantSlabs.Types.HeatTransfer.FiniteDifference)
     "Slabe with embedded pipes"
     annotation (Placement(transformation(extent={{10,-30},{30,-10}})));
 
@@ -84,6 +86,9 @@ model StepResponse "Model that tests the radiant slab"
     annotation (Placement(transformation(extent={{60,60},{80,80}})));
   parameter Data.Pipes.PEX_RADTEST pipe "Pipe material"
     annotation (Placement(transformation(extent={{60,20},{80,40}})));
+  Sensors.TemperatureTwoPort TOut(redeclare package Medium = Medium,
+      m_flow_nominal=m_flow_nominal) "Outlet temperature of the slab"
+    annotation (Placement(transformation(extent={{40,-30},{60,-10}})));
 equation
   connect(pulse.y, sou.m_flow_in)       annotation (Line(
       points={{-59,-12},{-30,-12}},
@@ -91,10 +96,6 @@ equation
       smooth=Smooth.None));
   connect(sou.ports[1], sla.port_a) annotation (Line(
       points={{-10,-20},{10,-20}},
-      color={0,127,255},
-      smooth=Smooth.None));
-  connect(sla.port_b, sin.ports[1]) annotation (Line(
-      points={{30,-20},{60,-20}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(TAirAbo.port, conAbo.fluid) annotation (Line(
@@ -129,23 +130,33 @@ equation
       points={{5.55112e-16,-90},{24,-90},{24,-30}},
       color={191,0,0},
       smooth=Smooth.None));
- annotation(__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/RadiantSlabs/Examples/StepResponse.mos"
+  connect(sla.port_b, TOut.port_a) annotation (Line(
+      points={{30,-20},{40,-20}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(TOut.port_b, sin.ports[1]) annotation (Line(
+      points={{60,-20},{70,-20}},
+      color={0,127,255},
+      smooth=Smooth.None));
+
+ annotation(__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/RadiantSlabs/Examples/StepResponseEpsilonNTU.mos"
         "Simulate and plot"),
-          Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-120},
+          Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-100,-120},
             {100,100}})),
 Documentation(info="<html>
 <p>
-This example models the step response of a radiant slab.
+This model is identical to
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.RadiantSlabs.Examples.StepResponse\">
+Buildings.Fluid.HeatExchangers.RadiantSlabs.Examples.StepResponse</a>
+except that the number of segments in the slab is set to <i>1</i>
+and the heat transfer between the fluid and the slab is computed using
+an epsilon-NTU model.
 </p>
 </html>",
 revisions="<html>
 <ul>
 <li>
-October 11, 2013, by Michael Wetter:<br/>
-Added missing <code>parameter</code> keyword in the declaration of the data record.
-</li>
-<li>
-April 5, 2012, by Michael Wetter:<br/>
+October 7, 2014, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
@@ -153,4 +164,4 @@ First implementation.
     experiment(
       StopTime=86400,
       Tolerance=1e-05));
-end StepResponse;
+end StepResponseEpsilonNTU;

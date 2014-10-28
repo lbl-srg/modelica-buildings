@@ -20,23 +20,16 @@ equation
           1.16573e-15},{95.5,5.55112e-16},{110,5.55112e-16}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(weaBus.sol.dec, zen.decAng) annotation (Line(
-      points={{-102,5.55112e-16},{-60,5.55112e-16},{-60,5.4},{-2,5.4}},
+  connect(weaBus.solDec, zen.decAng) annotation (Line(
+      points={{-102,0},{-40,0},{-40,5.4},{-2,5.4}},
       color={255,204,51},
       thickness=0.5,
-      smooth=Smooth.None), Text(
-      string="%first",
-      index=-1,
-      extent={{-6,3},{-6,3}}));
-  connect(weaBus.sol.solHouAng, zen.solHouAng) annotation (Line(
-      points={{-102,5.55112e-16},{-60,5.55112e-16},{-60,-6},{-60,-6},{-60,-4.8},
-          {-2,-4.8}},
+      smooth=Smooth.None));
+  connect(weaBus.solHouAng, zen.solHouAng) annotation (Line(
+      points={{-102,0},{-40,0},{-40,-4.8},{-2,-4.8}},
       color={255,204,51},
       thickness=0.5,
-      smooth=Smooth.None), Text(
-      string="%first",
-      index=-1,
-      extent={{-6,3},{-6,3}}));
+      smooth=Smooth.None));
   annotation (
     defaultComponentName="zen",
     Documentation(info="<html>
@@ -59,8 +52,9 @@ First implementation.
 </li>
 </ul>
 </html>"),
-    Diagram(coordinateSystem(preserveAspectRatio=true,extent={{-100,-100},{100,
-            100}})),
+    Diagram(coordinateSystem(preserveAspectRatio=false,
+                                                      extent={{-100,-100},{100,
+            100}}), graphics),
     Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,
             100}}), graphics={Text(
           extent={{-150,110},{150,150}},

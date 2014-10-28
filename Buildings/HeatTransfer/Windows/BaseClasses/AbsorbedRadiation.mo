@@ -35,7 +35,7 @@ block AbsorbedRadiation "Absorbed radiation by window"
       absRad[2,N+2]: interior shading device)";
 
 protected
-  Integer k=1;
+  constant Integer k=1;
   Real x;
   final parameter Integer NDIR=radDat.NDIR;
   final parameter Integer HEM=radDat.HEM;
@@ -43,11 +43,11 @@ protected
   constant Integer Shade=2;
   constant Integer Interior=1;
   constant Integer Exterior=2;
-  final parameter Real coeAbsEx[2, radDat.N, radDat.HEM + 2](fixed=false);
-  final parameter Real coeRefExtPan1[radDat.HEM + 2](fixed=false)
+  final parameter Real coeAbsEx[2, radDat.N, radDat.HEM + 2](each fixed=false);
+  final parameter Real coeRefExtPan1[radDat.HEM + 2](each fixed=false)
     "Reflectivity of pane 1";
-  final parameter Real coeAbsIn[2, radDat.N](fixed=false);
-  final parameter Real coeAbsDevExtIrrIntSha[radDat.HEM + 2](fixed=false)
+  final parameter Real coeAbsIn[2, radDat.N](each fixed=false);
+  final parameter Real coeAbsDevExtIrrIntSha[radDat.HEM + 2](each fixed=false)
     "Absorptivity of interior shading device for exterior radiation";
   final parameter Real coeAbsDevExtIrrExtSha=1 - radDat.traRefShaDev[1, 1] -
       radDat.traRefShaDev[2, 1]
@@ -266,6 +266,10 @@ Dissertation. University of California at Berkeley. 2004.
 </ul>
 </html>", revisions="<html>
 <ul>
+<li>
+October 17, 2014, by Michael Wetter:<br/>
+Added missing <code>each</code> keywords in parameter declarations.
+</li>
 <li>
 March 4, 2011, by Wangda Zuo:<br/>
 Remove the if-statement and integer function that can trigger events.

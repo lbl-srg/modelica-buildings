@@ -167,9 +167,31 @@ have been <b style=\"color:blue\">improved</b> in a
 <b style=\"color:blue\">backward compatible</b> way:
 </p>
 <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+<tr><td colspan=\"2\"><b>Buildings.BoundaryConditions</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.BoundaryConditions.WeatherData.ReaderTMY3
+    </td>
+    <td valign=\"top\">Removed redundant connection 
+                       <code>connect(conHorRad.HOut, cheHorRad.HIn);</code>.
+    </td>
+</tr>
 <tr><td colspan=\"2\"><b>Buildings.Fluid</b>
     </td>
 </tr>
+
+<tr><td valign=\"top\">Buildings.Fluid.HeatExchangers.DryCoilCounterFlow
+    </td>
+    <td valign=\"top\">Changed assignment of <code>T_m</code> to avoid using the conditionally
+                       enabled model <code>ele[:].mas.T</code>, which is only
+                       valid in a connect statement.
+                       Moved assignments of 
+                       <code>Q1_flow</code>, <code>Q2_flow</code>, <code>T1</code>,
+                       <code>T2</code> and <code>T_m</code> outside of equation section
+                       to avoid mixing graphical and textual modeling within the same model.
+    </td>
+    </tr>
+
 <tr><td valign=\"top\">Buildings.Fluid.HeatExchangers.DryCoilDiscretized
     </td>
     <td valign=\"top\">Removed parameter <code>m1_flow_nominal</code>, as this parameter is already
@@ -183,20 +205,80 @@ have been <b style=\"color:blue\">improved</b> in a
     </tr>
     <tr>
     <td valign=\"top\">Buildings.Fluid.HeatExchangers.BaseClasses.CoilRegister<br/>
-                       Buildings.Fluid.HeatExchangers.BaseClasses.DuctManifoldDistributor  
+                       Buildings.Fluid.HeatExchangers.BaseClasses.DuctManifoldDistributor
     </td>
     <td valign=\"top\">Reformulated the multiple iterators in the <code>sum</code> function
-                       as this language construct is not supported in OpenModelica.    
+                       as this language construct is not supported in OpenModelica.
     </td>
     </tr>
+
+    <tr>
+    <td valign=\"top\">Buildings.Fluid.HeatExchangers.RadiantSlabs.SingleCircuitSlab
+    </td>
+    <td valign=\"top\">Set start value for <code>hPip(fluid(T))</code> to avoid
+                       a warning about conflicting start values.
+    </td>
+    </tr>
+
+
+    <tr>
+    <td valign=\"top\">Buildings.Fluid.SolarCollectors.ASHRAE93<br/>
+                       Buildings.Fluid.SolarCollectors.EN12975
+    </td>
+    <td valign=\"top\">Reformulated the model to avoid an translation error
+                       if glycol is used..
+    </td>
+    </tr>
+
     <tr>
     <td valign=\"top\">Buildings.Fluid.Storage.StratifiedEnhancedInternalHex
     </td>
     <td valign=\"top\">Replaced the <code>abs()</code> function in the assignment of the parameter
-                       <code>nSegHexTan</code> as the return value of <code>abs()</code> 
+                       <code>nSegHexTan</code> as the return value of <code>abs()</code>
                        is a <code>Real</code> which causes a type error during model check.
     </td>
     </tr>
+<tr><td colspan=\"2\"><b>Buildings.HeatTransfer</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.HeatTransfer.Conduction.MultiLayer
+    </td>
+    <td valign=\"top\">Changed the assignment of <code>_T_a_start</code>,
+                       <code>_T_b_start</code> and <code>RTot</code> to be
+                       in the initial equation section as opposed to
+                       the parameter declaration.
+                       This is needed to avoid an error during model check
+                       and translation in Dymola 2015 FD01 beta1.
+    </td>
+</tr>
+
+<tr><td colspan=\"2\"><b>Buildings.Media</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Media.Interfaces.PartialSimpleIdealGasMedium<br/>
+                       Buildings.Media.Interfaces.PartialSimpleMedium
+    </td>
+    <td valign=\"top\">Set <code>T(start=T_default)</code> and 
+                       <code>p(start=p_default)</code> in the
+                       <code>ThermodynamicState</code> record. Setting the start value for
+                       <code>T</code> is required to avoid an error due to 
+                       conflicting start values when translating 
+                       <a href=\"modelica://Buildings.Examples.VAVReheat.ClosedLoop\">
+                       Buildings.Examples.VAVReheat.ClosedLoop</a> in pedantic mode.
+    </td>
+</tr>
+
+<tr><td colspan=\"2\"><b>Buildings.Rooms</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Rooms.BaseClasses.ExteriorBoundaryConditionsWithWindow
+    </td>
+    <td valign=\"top\">Conditionally removed the shade model if no shade is present.
+                       This corrects
+                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/234\">#234</a>.
+    </td>
+</tr>
+
 <tr><td colspan=\"2\"><b>xxx</b>
     </td>
 </tr>
@@ -224,6 +306,22 @@ have been <b style=\"color:blue\">improved</b> in a
                        update existing models.
    </td>
 </tr>
+
+<tr><td colspan=\"2\"><b>Buildings.BoundaryConditions</b>
+   </td>
+</tr>
+<tr><td valign=\"top\">Buildings.BoundaryConditions.WeatherData.ReaderTMY3
+   </td>
+   <td valign=\"top\">Changed the following signals for compatibility with OpenModelica:<br/>
+                      <code>weaBus.sol.zen</code> to <code>weaBus.solZen</code>.<br/>
+                      <code>weaBus.sol.dec</code> to <code>weaBus.solDec</code>.<br/>
+                      <code>weaBus.sol.alt</code> to <code>weaBus.solAlt</code>.<br/>
+                      <code>weaBus.sol.solHouAng</code> to <code>weaBus.solHouAng</code>.<br/>
+                      For Dymola, the conversion script will automatically
+                      update existing models.
+   </td>
+</tr>
+
 <tr><td colspan=\"2\"><b>Buildings.Examples</b>
    </td>
 </tr>
@@ -239,6 +337,19 @@ have been <b style=\"color:blue\">improved</b> in a
    <td valign=\"top\">Removed block as it is not used in any model.
    </td>
 </tr>
+
+<tr><td colspan=\"2\"><b>Buildings.HeatTransfer</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.HeatTransfer.Conduction.BaseClasses.der_temperature_u
+    </td>
+    <td valign=\"top\">Changed the input argument for this function from type
+                       <code>Buildings.HeatTransfer.Data.BaseClasses.Material</code>
+                       to the elements of this type as OpenModelica fails to translate the
+                       model if the input to this function is a record.
+    </td>
+</tr>
+
 <tr><td colspan=\"2\"><b>Buildings.Fluid</b>
     </td>
 </tr>
@@ -259,6 +370,25 @@ have been <b style=\"color:blue\">improved</b> in a
                        update existing models.
 
     </td>
+</tr>
+
+<tr><td valign=\"top\">Buildings.Fluid.HeatExchangers.RadiantSlabs.SingleCircuitSlab<br/>
+                       Buildings.Fluid.HeatExchangers.RadiantSlabs.ParallelCircuitsSlab
+    </td>
+    <td valign=\"top\">Changed the models to use by default an <i>&epsilon;-NTU</i>
+                       approach for the heat transfer between the fluid and the slab
+                       rather than a finite difference scheme along the
+                       flow path.
+                       Optionally, the finite difference scheme can also be used
+                       as this is needed for some control design applications.<br/>
+                       The new <i>&epsilon;-NTU</i> formulation has shown to lead to 
+                       about five times faster
+                       computation on several test cases including the models in
+                       <a href=\"modelica://Buildings.Rooms.FLEXLAB.Rooms.Examples\">
+                       Buildings.Rooms.FLEXLAB.Rooms.Examples</a>.<br/>
+                       For Dymola, the conversion script will automatically
+                       update existing models.
+ </td>
 </tr>
 
 <tr><td valign=\"top\">Buildings.Fluid.HeatExchangers.BaseClasses.DuctManifoldFixedResistance
@@ -285,6 +415,26 @@ have been <b style=\"color:blue\">improved</b> in a
                        update existing models.
     </td>
 </tr>
+<tr><td valign=\"top\">Buildings.Media.ConstantPropertyLiquidWater<br/>
+                       Buildings.Media.Interfaces.PartialSimpleMedium
+    </td>
+    <td valign=\"top\">Removed option to model water as a compressible medium as
+                       this option was not useful.
+    </td>
+</tr>
+
+<tr><td colspan=\"2\"><b>Buildings.Rooms</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Rooms.BaseClasses.ParameterConstructionWithWindow
+    </td>
+    <td valign=\"top\">Removed the keyword <code>replaceable</code> for the parameters
+                       <code>ove</code> and <code>sidFin</code>.<br/>
+                       Models that instantiate <code>Buildings.Rooms.MixedAir</code> are
+                       not affected by this change.
+    </td>
+</tr>
+
 </table>
 <!-- Errors that have been fixed -->
 <p>
@@ -292,7 +442,18 @@ The following <b style=\"color:red\">critical errors</b> have been fixed (i.e., 
 that can lead to wrong simulation results):
 </p>
 <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
-<tr><td colspan=\"2\"><b>Buildings.Fluid</b>
+<tr><td colspan=\"2\"><b>Buildings.BoundaryConditions</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.BoundaryConditions.WeatherData.ReaderTMY3
+    </td>
+    <td valign=\"top\">Corrected error that led the total and opaque sky cover to be ten times
+                       too low if its value was obtained from the parameter or the input connector.
+                       For the standard configuration in which the sky cover is obtained from
+                       the weather data file, the model was correct. This error only affected
+                       the other two possible configurations.
+    </td>
+</tr><tr><td colspan=\"2\"><b>Buildings.Fluid</b>
     </td>
 </tr>
 <tr><td valign=\"top\">Buildings.Fluid.Data.Pipes
@@ -314,7 +475,7 @@ that can lead to wrong simulation results):
     </td>
     <td valign=\"top\">Corrected issue
                        <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/271\">#271</a>
-                       which led to a compilation error if the heat exchanger 
+                       which led to a compilation error if the heat exchanger
                        and the tank had different media.
     </td>
 </tr>
@@ -345,6 +506,18 @@ units are wrong or errors in documentation):
     <td valign=\"top\">Corrected error in documentation of computation of <code>k</code>.
     </td>
 </tr>
+<tr><td colspan=\"2\"><b>Buildings.HeatTransfer</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.HeatTransfer.Windows.BaseClasses.GlassLayer
+    </td>
+    <td valign=\"top\">Changed type of <code>tauIR</code> from 
+                       <code>Modelica.SIunits.Emissivity</code> to
+                       <code>Modelica.SIunits.TransmissionCoefficient</code>.
+                       This avoids a type error in OpenModelica.
+    </td>
+</tr>
+
 </table>
 <!-- Github issues -->
 <p>
@@ -353,12 +526,12 @@ The following
 have been fixed:
 </p>
 <table border=\"1\" summary=\"github issues\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
-<tr><td colspan=\"2\"><b>xxx</b>
+<tr><td colspan=\"2\"><b>Buildings.Rooms</b>
     </td>
 </tr>
-<tr><td valign=\"top\"><a href=\"https://github.com/lbl-srg/modelica-buildings/issues/xxx\">#xxx</a>
+<tr><td valign=\"top\"><a href=\"https://github.com/lbl-srg/modelica-buildings/issues/234\">#234</a>
     </td>
-    <td valign=\"top\">xxx.
+    <td valign=\"top\">Division by zero in overhang model.
     </td>
 </tr>
 </table>
@@ -3845,7 +4018,7 @@ Buildings.Media.Interfaces.PartialSimpleIdealGasMedium</a>
 <a href=\"modelica://Modelica.Media.Interfaces.PartialSimpleIdealGasMedium\">
 Modelica.Media.Interfaces.PartialSimpleIdealGasMedium</a>.
 In the original implementation, initial states of fluid volumes can be far away from
-the steady-state value because of an inconsistent implementation of the the enthalpy
+the steady-state value because of an inconsistent implementation of the enthalpy
 and internal energy.
 When the <code>Buildings</code> library is upgraded to
 to Modelica 3.0.0, it should be safe to remove this bug fix.
@@ -4344,6 +4517,10 @@ individual libraries.<br/>
 <tr><td valign=\"top\"><a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.UsersGuide\">Fluid.HeatExchangers.DXCoils</a>
    </td>
    <td valign=\"top\">Package with direct evaporative cooling coils.</td>
+</tr>
+<tr><td valign=\"top\"><a href=\"modelica://Buildings.Fluid.HeatExchangers.RadiantSlabs.UsersGuide\">Fluid.HeatExchangers.RadiantSlabs</a>
+   </td>
+   <td valign=\"top\">Package with radiant slabs.</td>
 </tr>
 <tr><td valign=\"top\"><a href=\"modelica://Buildings.Fluid.Movers.UsersGuide\">Fluid.Movers</a>
    </td>

@@ -26,7 +26,8 @@ model ASHRAE93 "Model of a flat plate solar thermal collector"
     final G_nominal=per.G_nominal,
     dT_nominal=per.dT_nominal,
     final A_c=TotalArea_internal,
-    m_flow_nominal=per.mperA_flow_nominal*per.A)
+    m_flow_nominal=per.mperA_flow_nominal*per.A,
+    final cp_default=cp_default)
     "Calculates the heat lost to the surroundings using the ASHRAE93 standard calculations"
         annotation (Placement(transformation(extent={{-20,6},{0,26}})));
 
@@ -72,7 +73,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(heaLos.QLos, QLos.Q_flow) annotation (Line(
-      points={{1,16},{26,16},{26,16},{50,16}},
+      points={{1,16},{50,16}},
       color={0,0,127},
       smooth=Smooth.None));
   annotation (

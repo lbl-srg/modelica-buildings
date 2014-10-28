@@ -79,7 +79,7 @@ equation
 This model demonstrates the use of the mixing volume with a prescribed heat flow rate.
 The mixing volume is configured as a steady-state model.
 The heat flow rate is set to a very small value. This model is used to test
-convergence for the case the the prescribed heat flow rate should be zero,
+convergence for the case the prescribed heat flow rate should be zero,
 but due to numerical solutions, it may have a small error that causes the signal to be 
 non-zero.
 </p>

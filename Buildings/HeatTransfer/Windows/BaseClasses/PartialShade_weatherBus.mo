@@ -17,7 +17,7 @@ protected
     annotation (Placement(transformation(extent={{60,50},{80,70}})));
 
 equation
-  connect(weaBus.sol.alt, walSolAzi.alt) annotation (Line(
+  connect(weaBus.solAlt, walSolAzi.alt) annotation (Line(
       points={{-100,5.55112e-16},{-80,5.55112e-16},{-80,-45.2},{-62,-45.2}},
       color={255,204,51},
       thickness=0.5,

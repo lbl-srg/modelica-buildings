@@ -48,12 +48,6 @@ model PartialSolarCollector "Partial model for solar collectors"
     "Shading coefficient"
     annotation(Placement(transformation(extent={{-140,46},{-100,6}},    rotation=0)));
 
-  Modelica.Thermal.HeatTransfer.Components.HeatCapacitor heaCap[nSeg](
-    T(each start =   T_start), each C=(C*nPanels_internal)/nSeg) if
-       not (energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState)
-    "Heat capacity for one segment of the the solar collector"
-    annotation (Placement(transformation(extent={{-82,-44},{-62,-24}})));
-
   Buildings.BoundaryConditions.WeatherData.Bus weaBus "Weather data bus"
     annotation (Placement(
     transformation(extent={{-110,86},{-90,106}})));
@@ -87,6 +81,10 @@ model PartialSolarCollector "Partial model for solar collectors"
     deltaM=deltaM,
     final dp_nominal=dp_nominal_final) "Flow resistance"
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}},rotation=0)));
+
+  // The size of the liquid volume has been increased to also
+  // add the heat capacity of the metal. See the info section
+  // for an explanation.
   Buildings.Fluid.MixingVolumes.MixingVolume vol[nSeg](
     each nPorts=2,
     redeclare package Medium = Medium,
@@ -95,7 +93,7 @@ model PartialSolarCollector "Partial model for solar collectors"
     each final p_start=p_start,
     each final T_start=T_start,
     each m_flow_small=m_flow_small,
-    each final V=(perPar.V*nPanels_internal)/nSeg)
+    each final V=(perPar.V+C/cp_default/rho_default)*nPanels_internal/nSeg)
     "Volume of fluid in one segment of the solar collector"
     annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
@@ -139,6 +137,16 @@ protected
     else
       totalArea/perPar.A "Number of panels used in the simulation";
 
+  parameter Medium.ThermodynamicState sta_default = Medium.setState_pTX(
+    T=Medium.T_default,
+    p=Medium.p_default,
+    X=Medium.X_default[1:Medium.nXi]) "Medium state at default properties";
+  parameter Modelica.SIunits.SpecificHeatCapacity cp_default=
+    Medium.specificHeatCapacityCp(sta_default)
+    "Specific heat capacity of the fluid";
+  parameter Modelica.SIunits.Density rho_default=
+    Medium.density(sta_default) "Density, used to compute fluid mass";
+
 equation
   connect(shaCoe_internal,shaCoe_in);
 
@@ -163,10 +171,6 @@ equation
   connect(senMasFlo.port_b, res.port_a) annotation (Line(
       points={{-66,0},{-60,0}},
       color={0,127,255},
-      smooth=Smooth.None));
-  connect(heaCap.port, vol.heatPort) annotation (Line(
-      points={{-72,-44},{30,-44},{30,-16},{38,-16}},
-      color={191,0,0},
       smooth=Smooth.None));
       connect(vol[nSeg].ports[2], port_b) annotation (Line(
       points={{50,-6},{50,0},{94,0},{94,4.44089e-16},{100,4.44089e-16}},
@@ -198,44 +202,63 @@ equation
     Icon(graphics),
     defaultComponentName="solCol",
     Documentation(info="<html>
-      <p>
-        This component is a partial model of a solar thermal collector. It can be
-        expanded to create solar collector models based on either ASHRAE93 or 
-        EN12975 ratings data.
-      </p>
-    <h4>Notice</h4>
-      <p>
-        1. As mentioned in the reference, the SRCC incident angle modifier equation 
-        coefficients are only valid for incident angles of 60 degrees or less.
-        Because these curves behave poorly for angles greater than 60 degrees 
-        the model does not calculatue either direct or diffuse solar radiation gains
-        when the incidence angle is greater than 60 degrees. <br/>
-        2. By default, the estimated heat capacity of the collector without fluid is 
-        calculated based on the dry mass and the specific heat capacity of copper.
-      </p>
-    <h4>References</h4>
-      <p>
-      <a href=\"http://www.energyplus.gov\">EnergyPlus 7.0.0 Engineering Reference</a>, 
-        October 13, 2011.<br/>
-      CEN 2006, European Standard 12975-1:2006, European Committee for Standardization 
-      </p>
-    </html>",
-    revisions="<html>
-    <ul>
-    <li>
-    June 25, 2014, by Michael Wetter:<br/>
-    Improved comments for tilt to address 
-    <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/246\">
-    https://github.com/lbl-srg/modelica-buildings/issues/246</a>.
-    </li>
-        <li>
-          October 8, 2013, by Michael Wetter:<br/>
-          Removed parameter <code>show_V_flow</code> in declaration of instance <code>res</code>.
-          </li>
-        <li>
-          January 4, 2013, by Peter Grant:<br/>
-          First implementation.
-        </li>
-      </ul>
-    </html>"));
+<p>
+This component is a partial model of a solar thermal collector. It can be
+expanded to create solar collector models based on either ASHRAE93 or 
+EN12975 ratings data.
+</p>
+<h4>Notice</h4>
+<p>
+As mentioned in the reference, the SRCC incident angle modifier equation 
+coefficients are only valid for incident angles of 60 degrees or less.
+Because these curves behave poorly for angles greater than 60 degrees 
+the model does not calculatue either direct or diffuse solar radiation gains
+when the incidence angle is greater than 60 degrees.
+</p>
+<p>
+The heat capacity of the collector without fluid is 
+estimated based on the dry mass and the specific heat capacity of copper.
+This heat capacity is then added to the model by increasing the size of the fluid
+volume. Note that in earlier implementations, there was a separate model to take into
+account this heat capacity. However, this led to a translation error if glycol
+was used as the medium, because during the translation, the function
+<a href=\"modelica://Modelica.Media.Incompressible.Examples.Glycol47.T_ph\">
+Modelica.Media.Incompressible.Examples.Glycol47.T_ph</a> had to be differentiated,
+but this function is not differentiable.
+</p>
+<h4>References</h4>
+<p>
+<a href=\"http://www.energyplus.gov\">EnergyPlus 7.0.0 Engineering Reference</a>, 
+October 13, 2011.<br/>
+CEN 2006, European Standard 12975-1:2006, European Committee for Standardization 
+</p>
+</html>",
+revisions="<html>
+<ul>
+<li>
+September 18, 2014, by Michael Wetter:<br/>
+Removed the separate instance of
+<code>Modelica.Thermal.HeatTransfer.Components.HeatCapacitor</code> and
+added this capacity to the volume.
+This is in response to
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/276\">
+https://github.com/lbl-srg/modelica-buildings/issues/276</a>.
+
+</li>
+<li>
+June 25, 2014, by Michael Wetter:<br/>
+Improved comments for tilt to address 
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/246\">
+https://github.com/lbl-srg/modelica-buildings/issues/246</a>.
+</li>
+<li>
+October 8, 2013, by Michael Wetter:<br/>
+Removed parameter <code>show_V_flow</code> in declaration of instance <code>res</code>.
+</li>
+<li>
+January 4, 2013, by Peter Grant:<br/>
+First implementation.
+</li>
+</ul>
+</html>"));
 end PartialSolarCollector;

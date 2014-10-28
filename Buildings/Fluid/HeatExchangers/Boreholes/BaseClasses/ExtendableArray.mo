@@ -62,7 +62,7 @@ annotation(Documentation(info="<html>
 Class derived from <code>ExternalObject</code> having two local external function definition, 
 named <code>destructor</code> and <code>constructor</code> respectively.
 <p>
-These functions create and release an external object that allows the the storage 
+These functions create and release an external object that allows the storage 
 of real parameters in an array of extendable dimension.
 
 </html>",

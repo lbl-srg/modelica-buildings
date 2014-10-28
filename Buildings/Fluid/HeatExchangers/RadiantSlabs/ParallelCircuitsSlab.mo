@@ -21,7 +21,7 @@ model ParallelCircuitsSlab
       m_flow_small=m_flow_small/nCir));
 
   parameter Integer nCir(min=1) = 1 "Number of parallel circuits";
-  parameter Integer nSeg(min=2) = 10
+  parameter Integer nSeg(min=1) = if heatTransfer==Types.HeatTransfer.EpsilonNTU then 1 else 5
     "Number of volume segments in each circuit (along flow path)";
 
   parameter Modelica.SIunits.Area A
@@ -44,6 +44,10 @@ model ParallelCircuitsSlab
   // Parameters used for the fluid model implementation
   parameter Boolean homotopyInitialization = true "= true, use homotopy method"
     annotation(Evaluate=true, Dialog(tab="Advanced"));
+
+  parameter Buildings.Fluid.HeatExchangers.RadiantSlabs.Types.HeatTransfer
+    heatTransfer=Types.HeatTransfer.EpsilonNTU
+    "Model for heat transfer between fluid and slab";
 
   // Diagnostics
    parameter Boolean show_T = false
@@ -81,6 +85,7 @@ model ParallelCircuitsSlab
 
   Buildings.Fluid.HeatExchangers.RadiantSlabs.SingleCircuitSlab sla(
     redeclare final package Medium = Medium,
+    final heatTransfer=heatTransfer,
     final sysTyp=sysTyp,
     final A=A/nCir,
     final disPip=disPip,
@@ -210,8 +215,8 @@ with the same pipe spacing and pipe length. Then, rather than using two instance
 Buildings.Fluid.HeatExchangers.RadiantSlabs.SingleCircuitSlab</a>,
 this system can be modeled using one instance of this model in order to reduce computing effort.
 See 
-<a href=\"modelica://Buildings.Fluid.HeatExchangers.RadiantSlabs.Examples.SingleCircuitMultipleCircuit\">
-Buildings.Fluid.HeatExchangers.RadiantSlabs.Examples.SingleCircuitMultipleCircuit</a> for an example
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.RadiantSlabs.Examples.SingleCircuitMultipleCircuitEpsilonNTU\">
+Buildings.Fluid.HeatExchangers.RadiantSlabs.Examples.SingleCircuitMultipleCircuitEpsilonNTU</a> for an example
 that shows that the models give identical results.
 </p>
 <p>
@@ -222,6 +227,11 @@ we refer to
 <a href=\"Buildings.Fluid.HeatExchangers.RadiantSlabs.SingleCircuitSlab\">
 Buildings.Fluid.HeatExchangers.RadiantSlabs.SingleCircuitSlab</a>
 for the model documentation.
+</p>
+<p>
+See the
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.RadiantSlabs.UsersGuide\">
+user's guide</a> for more information.
 </p>
 <h4>Implementation</h4>
 <p>

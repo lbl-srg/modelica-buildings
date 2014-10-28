@@ -37,3 +37,17 @@ convertClear();
 // Removed energyDynamics1 energyDynamics2, and ductConnectionDynamics,
 // used instead the value
 // of the parameter energyDynamics
+
+// Buildings.Fluid.HeatExchangers.RadiantSlabs.SingleCircuitSlab
+// Buildings.Fluid.HeatExchangers.RadiantSlabs.ParallelCircuitsSlab
+// Change
+// sysTyp=Buildings.Fluid.HeatExchangers.RadiantSlabs.BaseClasses.Types.SystemType.Floor 
+// to
+// sysTyp=Buildings.Fluid.HeatExchangers.RadiantSlabs.Types.SystemType.Floor
+
+// Buildings.BoundaryConditions.WeatherData.ReaderTMY3
+// Changed the following signals:
+// weaBus.sol.zen -> weaBus.solZen
+// weaBus.sol.dec -> weaBus.solDec
+// weaBus.sol.alt -> weaBus.solAlt
+// weaBus.sol.solHouAng -> weaBus.solHouAng

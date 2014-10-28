@@ -27,8 +27,10 @@ package MoistAirUnsaturated
   // Redeclare ThermodynamicState to avoid the warning
   // "Base class ThermodynamicState is replaceable"
   // during model check
-  redeclare record extends ThermodynamicState
-    "ThermodynamicState record for moist air"
+  redeclare record extends ThermodynamicState(
+    p(start=p_default),
+    T(start=T_default),
+    X(start=X_default)) "ThermodynamicState record for moist air"
   end ThermodynamicState;
 
   redeclare replaceable model extends BaseProperties(
@@ -468,6 +470,12 @@ because it allows to invert the function <code>T_phX</code> analytically.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+September 29, 2014, by Michael Wetter:<br/>
+Set consistent nominal values to avoid the warning
+alias set with different nominal values
+in OpenModelica.
+</li>
 <li>
 March 29, 2013, by Michael Wetter:<br/>
 Added <code>final standardOrderComponents=true</code> in the

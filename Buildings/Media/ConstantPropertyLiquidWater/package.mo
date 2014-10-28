@@ -49,6 +49,11 @@ It implements the function that computes the specific internal energy.
 </html>", revisions="<html>
 <ul>
 <li>
+September 12, 2014, by Michael Wetter:<br/>
+Removed option to model water as a compressible medium as
+this option was not useful.
+</li>
+<li>
 April 16, 2013, by Michael Wetter:<br/>
 Changed package to extend directly from
 <code>Buildings.Media.Interfaces.PartialSimpleMedium</code>

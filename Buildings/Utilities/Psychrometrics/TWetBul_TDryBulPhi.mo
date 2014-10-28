@@ -9,7 +9,7 @@ block TWetBul_TDryBulPhi
   parameter Boolean approximateWetBulb=false
     "Set to true to approximate wet bulb temperature" annotation (Evaluate=true);
   Modelica.Blocks.Interfaces.RealInput TDryBul(
-    start=303,
+    start=Medium.T_default,
     final quantity="ThermodynamicTemperature",
     final unit="K",
     min=0) "Dry bulb temperature"
@@ -28,7 +28,7 @@ block TWetBul_TDryBulPhi
                           rotation=0)));
 
   Modelica.Blocks.Interfaces.RealOutput TWetBul(
-    start=293,
+    start=Medium.T_default-2,
     final quantity="ThermodynamicTemperature",
     final unit="K",
     min=0) "Wet bulb temperature"
@@ -124,7 +124,7 @@ annotation (
     defaultComponentName="wetBul",
     Documentation(info="<html>
 <p>
-This block computes the the wet bulb temperature for a given dry bulb temperature, relative air humidity
+This block computes the wet bulb temperature for a given dry bulb temperature, relative air humidity
 and atmospheric pressure.
 </p>
 <p>
@@ -159,6 +159,11 @@ DOI: 10.1175/JAMC-D-11-0143.1
 ",
 revisions="<html>
 <ul>
+<li>
+October 3, 2014, by Michael Wetter:<br/>
+Changed assignment of nominal value to avoid in OpenModelica the warning
+alias set with different nominal values.
+</li>
 <li>
 November 20, 2013 by Michael Wetter:<br/>
 Updated model to use

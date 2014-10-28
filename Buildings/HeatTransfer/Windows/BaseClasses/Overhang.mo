@@ -54,7 +54,7 @@ protected
     "Vertical distance between overhang and shadow lower edge";
   Modelica.SIunits.Length y2[4]
     "Window height (vertical distance corresponding to x2)";
-  Real shdwTrnglRtio "ratio of y1 and x1";
+  Real shdwTrnglRtio "Ratio of y1 and x1";
   Modelica.SIunits.Area area[4]
     "Shaded areas of the sections used in superposition";
   Modelica.SIunits.Area shdArea "Shaded area calculated from equations";
@@ -97,13 +97,21 @@ equation
     tmpW[2] = w;
     tmpW[3] = w;
     tmpW[4] = w + wWin;
-
     y1*Modelica.Math.cos(verAzi) = dep*Modelica.Math.tan(alt);
     x1 = dep*Modelica.Math.tan(verAzi);
     shdwTrnglRtio*x1 = y1;
     for i in 1:4 loop
       y2[i] = tmpH[i];
-      x2[i]*y1 = x1*tmpH[i];
+      // For the equation below, Dymola generated the following code in MixedAirFreeResponse.
+      // This led to a division by zero as y1 crosses zero. The problem occured in an
+      // FMU simulation. Therefore, we guard against division by zero when computing
+      // x2[i].
+      //  roo.bouConExtWin.sha[1].ove.x2[1] := roo.bouConExtWin.sha[1].ove.x1*
+      //  roo.bouConExtWin.sha[1].ove.tmpH[1]/roo.bouConExtWin.sha[1].ove.y1;
+      // x2[i]*y1 = x1*tmpH[i];
+
+      x2[i] = x1*tmpH[i]/Buildings.Utilities.Math.Functions.smoothMax(
+        x1=y1, x2=1E-8*hWin, deltaX=1E-9*hWin);
       area[i] = Buildings.Utilities.Math.Functions.smoothMin(
         x1=y1,
         x2=y2[i],
@@ -173,7 +181,7 @@ equation
       string="%first",
       index=-1,
       extent={{-6,3},{-6,3}}));
-  connect(weaBus.sol.zen, solAzi.zen) annotation (Line(
+  connect(weaBus.solZen, solAzi.zen) annotation (Line(
       points={{-102,5.55112e-16},{-79,5.55112e-16},{-79,6},{-62,6}},
       color={255,204,51},
       thickness=0.5,
@@ -181,7 +189,7 @@ equation
       string="%first",
       index=-1,
       extent={{-6,3},{-6,3}}));
-  connect(weaBus.sol.dec, solAzi.decAng) annotation (Line(
+  connect(weaBus.solDec, solAzi.decAng) annotation (Line(
       points={{-102,5.55112e-16},{-92,5.55112e-16},{-92,1.22125e-15},{-82,
           1.22125e-15},{-82,6.66134e-16},{-62,6.66134e-16}},
       color={255,204,51},
@@ -251,6 +259,12 @@ to calculate the shaded fraction of the window.
 </html>",
 revisions="<html>
 <ul>
+<li>
+October 28, 2014, by Michael Wetter:<br/>
+Reformulated <code>shdwTrnglRtio*x1 = y1</code> to avoid a division by
+zero if the model is exported as an FMU.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/234\">#234</a>.
+</li>
 <li>
 July 5, 2012, by Michael Wetter:<br/>
 Changed definitions of <code>wL</code> and <code>wR</code> to be

@@ -46,8 +46,7 @@ model ConductorSingleLayerPCM "Test model for heat conductor"
   Buildings.HeatTransfer.Conduction.SingleLayer con2(
     A=1, material=concrete100) "Construction without PCM"
     annotation (Placement(transformation(extent={{50,-40},{70,-20}})));
-  parameter Buildings.HeatTransfer.Data.SolidsPCM.Generic
-                                                       matPCM(
+  parameter Buildings.HeatTransfer.Data.SolidsPCM.Generic matPCM(
     x=0.2,
     k=1.4,
     c=840,
@@ -70,8 +69,7 @@ model ConductorSingleLayerPCM "Test model for heat conductor"
   Buildings.HeatTransfer.Sources.FixedTemperature TB2(T=293.15)
     "Temperature boundary condition"
     annotation (Placement(transformation(extent={{100,34},{80,54}})));
-  parameter Buildings.HeatTransfer.Data.SolidsPCM.Generic
-                                                       matPCM2(
+  parameter Buildings.HeatTransfer.Data.SolidsPCM.Generic matPCM2(
     x=0.2,
     k=1.4,
     c=840,
@@ -180,10 +178,14 @@ if there is a difference in heat fluxes.
 </html>", revisions="<html>
 <ul>
 <li>
+October 17, 2014, by Michael Wetter:<br/>
+Increased tolerance for OpenModelica.
+</li>
+<li>
 March 6 2010, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
 </html>"),
-    experiment(StopTime=7200));
+    experiment(StopTime=7200, Tolerance=1E-8));
 end ConductorSingleLayerPCM;

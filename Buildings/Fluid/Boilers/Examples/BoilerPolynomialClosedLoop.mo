@@ -93,7 +93,7 @@ model BoilerPolynomialClosedLoop "Boiler with closed loop control"
     redeclare package Medium = Medium,
     dp_nominal=0*{1,1,1},
     dynamicBalance=false,
-    m_flow_nominal=m_flow_nominal*{1,2,1}) "Splitter/mixer"
+    m_flow_nominal=m_flow_nominal*{2,1,1}) "Splitter/mixer"
                                            annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=270,
@@ -268,6 +268,10 @@ and it is used to accomodate for the thermal expansion of the water.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+October 6, 2014, by Michael Wetter:<br/>
+Corrected wrong value of <code>m_flow_nominal</code> for <code>spl3</code>.
+</li>
 <li>
 March 25, 2014, by Michael Wetter:<br/>
 Updated model with new expansion vessel.

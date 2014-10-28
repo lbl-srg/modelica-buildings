@@ -2,6 +2,17 @@ within Buildings.Rooms.Constructions.Examples;
 model ExteriorWall "Test model for an exterior wall without a window"
   extends Modelica.Icons.Example;
 
+  parameter HeatTransfer.Data.OpaqueConstructions.Insulation100Concrete200 extConMat
+    "Record for material layers"
+    annotation (Placement(transformation(extent={{-160,60},{-140,80}})));
+
+  parameter Buildings.Rooms.BaseClasses.ParameterConstruction conPar[1](
+    each til=Buildings.HeatTransfer.Types.Tilt.Wall,
+    each azi=0,
+    each A=3*10,
+    layers={extConMat}) "Data for construction"
+    annotation (Placement(transformation(extent={{-120,60},{-100,80}})));
+
   Buildings.Rooms.Constructions.Construction conExt[1](
     A=conPar[:].A,
     layers=conPar[:].layers,
@@ -33,16 +44,6 @@ model ExteriorWall "Test model for an exterior wall without a window"
     annotation (Placement(transformation(extent={{100,60},{120,80}})));
   Modelica.Blocks.Sources.Constant TRoo(k=273.15 + 20) "Room air temperature"
     annotation (Placement(transformation(extent={{-180,10},{-160,30}})));
-  parameter HeatTransfer.Data.OpaqueConstructions.Insulation100Concrete200 extConMat
-    "Record for material layers"
-    annotation (Placement(transformation(extent={{-160,60},{-140,80}})));
-
-  parameter Buildings.Rooms.BaseClasses.ParameterConstruction conPar[1](
-    each til=Buildings.HeatTransfer.Types.Tilt.Wall,
-    each azi=0,
-    each A=3*10,
-    layers={extConMat}) "Data for construction"
-    annotation (Placement(transformation(extent={{-120,60},{-100,80}})));
 equation
   connect(prescribedTemperature.port, theCol.port_b) annotation (Line(
       points={{-100,20},{-90,20},{-90,20},{-80,20}},
@@ -94,7 +95,7 @@ to be parameters does not imply that the whole record has the variability of a p
 </li>
 <li>
 March 7, 2012, by Michael Wetter:<br/>
-Updated example to use new data model 
+Updated example to use new data model
 <a href=\"modelica://Buildings.Rooms.BaseClasses.ParameterConstruction\">
 Buildings.Rooms.BaseClasses.ParameterConstruction</a>
 in model for boundary conditions.
