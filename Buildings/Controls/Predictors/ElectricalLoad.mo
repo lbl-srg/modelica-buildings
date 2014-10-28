@@ -129,6 +129,8 @@ protected
   Integer idxPreTyp1 "Value of Integer(pre(typeOfDay[1]))";
   Integer idxTyp1 "Value of Integer(typeOfDay[1])";
 
+  Boolean isMidNight "True if time is equals to midnight";
+
   function incrementIndex
     input Integer i "Counter";
     input Integer n "Maximum value of counter";
@@ -198,7 +200,9 @@ algorithm
 
   when sampleTrigger then
     // Set flag for event day.
-    _storeHistory :=if not pre(_storeHistory) and (not iSam[1] == 1) then false else storeHistory;
+    // isMidnight is true if time is within 1 second of midnight.
+    isMidNight := rem(time, 86400.0) < 1;
+    _storeHistory :=if not pre(_storeHistory) and (not isMidNight) then false else storeHistory;
 
     // Auxiliary variables to avoid repetitive type conversion.
     idxPreTyp1 := Integer(pre(typeOfDay[1]));
