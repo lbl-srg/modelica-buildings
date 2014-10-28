@@ -99,8 +99,7 @@ equation
     tmpW[4] = w + wWin;
     y1*Modelica.Math.cos(verAzi) = dep*Modelica.Math.tan(alt);
     x1 = dep*Modelica.Math.tan(verAzi);
-    //shdwTrnglRtio*x1 = y1;
-    shdwTrnglRtio = y1/x1;
+    shdwTrnglRtio*x1 = y1;
     for i in 1:4 loop
       y2[i] = tmpH[i];
       // For the equation below, Dymola generated the following code in MixedAirFreeResponse.
@@ -260,6 +259,12 @@ to calculate the shaded fraction of the window.
 </html>",
 revisions="<html>
 <ul>
+<li>
+October 28, 2014, by Michael Wetter:<br/>
+Reformulated <code>shdwTrnglRtio*x1 = y1</code> to avoid a division by
+zero if the model is exported as an FMU.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/234\">#234</a>.
+</li>
 <li>
 July 5, 2012, by Michael Wetter:<br/>
 Changed definitions of <code>wL</code> and <code>wR</code> to be
