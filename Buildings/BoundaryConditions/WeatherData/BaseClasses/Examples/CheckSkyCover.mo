@@ -25,13 +25,10 @@ protected
   Buildings.BoundaryConditions.WeatherData.BaseClasses.ConvertTime conTim
     annotation (Placement(transformation(extent={{-60,0},{-40,20}})));
 
-  Modelica.Blocks.Math.Gain conTotSkyCov(final k=0.1) if
-       totSkyCovSou == Buildings.BoundaryConditions.Types.DataSource.File
+  Modelica.Blocks.Math.Gain conTotSkyCov(final k=0.1)
     "Convert sky cover from [0...10] to [0...1]"
     annotation (Placement(transformation(extent={{20,20},{40,40}})));
-  Modelica.Blocks.Math.Gain conOpaSkyCov1(
-                                         final k=0.1) if
-       totSkyCovSou == Buildings.BoundaryConditions.Types.DataSource.File
+  Modelica.Blocks.Math.Gain conOpaSkyCov1(final k=0.1)
     "Convert sky cover from [0...10] to [0...1]"
     annotation (Placement(transformation(extent={{20,-20},{40,0}})));
 equation
