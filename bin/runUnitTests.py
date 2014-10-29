@@ -61,7 +61,7 @@ def _runUnitTests():
 #    ut.deleteTemporaryDirectories(False)
 #    ut.useExistingResults(['/tmp/tmp-Buildings-0-fagmeZ'])
 #    #print ut.getDataDictionary()
-    ut.setSinglePackage("Buildings.Controls.DemandResponse")
+#    ut.setSinglePackage("Buildings.Examples")
 #    ut.include_fmu_tests(True)
     retVal = ut.run()
     exit(retVal)
