@@ -3,11 +3,9 @@ model ClientLBNL90
   "Demand response client with input data from building 90 at LBNL"
   extends Modelica.Icons.Example;
   // fixme: scaling factor for easier debugging
-  parameter Modelica.SIunits.Time tPeriod = 24*3600 "Period";
-  parameter Modelica.SIunits.Time tSample = 900 "Sampling period";
+  parameter Integer nSam = 24*4 "Number of samples in a day";
   Client clientAverage(
-    tSample=tSample,
-    tPeriod=24*3600,
+    nSam=nSam,
     predictionModel=Buildings.Controls.Predictors.Types.PredictionModel.Average)
     "Demand response client"
     annotation (Placement(transformation(extent={{8,40},{28,60}})));
@@ -30,8 +28,7 @@ model ClientLBNL90
     "Difference between predicted minus actual load"
     annotation (Placement(transformation(extent={{40,10},{60,30}})));
   Client clientWeather(
-    tSample=tSample,
-    tPeriod=24*3600,
+    nSam=nSam,
     predictionModel=Buildings.Controls.Predictors.Types.PredictionModel.WeatherRegression)
     "Demand response client with weather regression model"
     annotation (Placement(transformation(extent={{8,-20},{28,0}})));
@@ -52,10 +49,6 @@ equation
       points={{7,54},{-12,54},{-12,46},{7,46}},
       color={255,0,255},
       smooth=Smooth.None));
-  connect(dayType.y, clientAverage.typeOfDay) annotation (Line(
-      points={{-31,70},{-12,70},{-12,58},{7,58}},
-      color={0,127,0},
-      smooth=Smooth.None));
   connect(drSig.u, bui90.y[3]) annotation (Line(
       points={{-54,44},{-64,44},{-64,10},{-71,10}},
       color={0,0,127},
@@ -72,10 +65,6 @@ equation
   connect(clientWeather.isEventDay, clientWeather.shed) annotation (Line(
       points={{7,-6},{-12,-6},{-12,-14},{7,-14}},
       color={255,0,255},
-      smooth=Smooth.None));
-  connect(dayType.y, clientWeather.typeOfDay) annotation (Line(
-      points={{-31,70},{-12,70},{-12,-2},{7,-2}},
-      color={0,127,0},
       smooth=Smooth.None));
   connect(drSig.y, clientWeather.shed) annotation (Line(
       points={{-31,44},{-12,44},{-12,-14},{7,-14}},
@@ -121,9 +110,16 @@ equation
       points={{38,14},{-64,14},{-64,10},{-71,10}},
       color={0,0,127},
       smooth=Smooth.None));
+  connect(dayType.y, clientAverage.typeOfDay) annotation (Line(
+      points={{-31,70},{-12,70},{-12,58},{7,58}},
+      color={0,127,0},
+      smooth=Smooth.None));
+  connect(dayType.y, clientWeather.typeOfDay) annotation (Line(
+      points={{-31,70},{-12,70},{-12,-2},{7,-2}},
+      color={0,127,0},
+      smooth=Smooth.None));
   annotation (
-  Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
-            100}}),                                                                    graphics),
+  Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}), graphics),
           __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/DemandResponse/Examples/ClientLBNL90.mos"
         "Simulate and plot"),
             experiment(

@@ -5,6 +5,9 @@ block BaselinePrediction "Predicts the baseline consumption"
   parameter Buildings.Controls.Predictors.Types.PredictionModel
     predictionModel "Load prediction model";
 
+  parameter Integer nPre(min=1) = 1
+    "Number of intervals for which future load need to be predicted (set to one to only predict current time, or to nSam to predict one day)";
+
   parameter Integer nHis(min=1) = 10 "Number of history terms to be stored";
 
   Modelica.Blocks.Interfaces.RealInput TOut(unit="K", displayUnit="degC")
@@ -12,8 +15,9 @@ block BaselinePrediction "Predicts the baseline consumption"
     annotation (Placement(transformation(extent={{-140,-110},{-100,-70}}),
         iconTransformation(extent={{-120,-90},{-100,-70}})));
 
-  Buildings.Controls.Interfaces.DayTypeInput typeOfDay
-    "If true, this day remains an event day until midnight" annotation (
+  Buildings.Controls.Interfaces.DayTypeInput typeOfDay[integer((nPre-1)/nSam)+2] "Type of day for the current and the future days for which a prediction is to be made.
+    Typically, this has dimension 2 for predictions up to and including 24 hours, and 2+n for any additional day"
+  annotation (
       Placement(transformation(extent={{-120,90},{-100,70}}),
         iconTransformation(extent={{-120,90},{-100,70}})));
 
@@ -24,6 +28,7 @@ block BaselinePrediction "Predicts the baseline consumption"
 protected
   Buildings.Controls.Predictors.ElectricalLoad basLin(
     final nSam=nSam,
+    final nPre=nPre,
     final nHis=nHis,
     final predictionModel=predictionModel) "Model that computes the base line"
     annotation (Placement(transformation(extent={{-12,-10},{8,10}})));
@@ -43,10 +48,6 @@ equation
       points={{9,0},{40,0},{40,-80},{110,-80}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(basLin.typeOfDay[1], typeOfDay) annotation (Line(
-      points={{-14,10},{-60,10},{-60,80},{-110,80}},
-      color={0,127,0},
-      smooth=Smooth.None));
   connect(stoHis.u, isEventDay) annotation (Line(
       points={{-90,6},{-96,6},{-96,40},{-110,40}},
       color={255,0,255},
@@ -54,6 +55,10 @@ equation
   connect(stoHis.y, basLin.storeHistory) annotation (Line(
       points={{-67,6},{-40,6},{-40,5},{-14,5}},
       color={255,0,255},
+      smooth=Smooth.None));
+  connect(basLin.typeOfDay, typeOfDay) annotation (Line(
+      points={{-14,10},{-60,10},{-60,80},{-110,80}},
+      color={0,127,0},
       smooth=Smooth.None));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
             {100,100}}),
@@ -93,6 +98,7 @@ First implementation.
 </li>
 </ul>
 </html>"),
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
-            100}}), graphics));
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
+            100,100}}),
+                    graphics));
 end BaselinePrediction;

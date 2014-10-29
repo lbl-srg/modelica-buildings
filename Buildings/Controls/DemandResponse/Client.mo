@@ -2,22 +2,26 @@ within Buildings.Controls.DemandResponse;
 model Client "Demand response client"
   extends Modelica.Blocks.Interfaces.BlockIcon;
 
-  parameter Modelica.SIunits.Time tPeriod = 24*3600 "Period, generally one day";
-  parameter Modelica.SIunits.Time tSample=3600
+  final parameter Modelica.SIunits.Time tPeriod = 24*3600
+    "Period, generally one day";
+  final parameter Modelica.SIunits.Time tSample=tPeriod/nSam
     "Sample period, generally 900 or 3600 seconds";
+  parameter Integer nSam
+    "Number of samples in a day. For 1 hour sampling, set to 24";
+  parameter Integer nPre(min=1) = 1
+    "Number of intervals for which future load need to be predicted (set to one to only predict current time, or to nSam to predict one day)";
+
   parameter Integer nHis(min=1) = 10
     "Number of history terms to be stored for baseline computation";
 
   parameter Buildings.Controls.Predictors.Types.PredictionModel
-    predictionModel = 
+    predictionModel=
       Buildings.Controls.Predictors.Types.PredictionModel.WeatherRegression
-      "Load prediction model";
+    "Load prediction model";
 
-  final parameter Integer nSam = integer((tPeriod+1E-4*tSample)/tSample)
-    "Number of samples in a day";
-
-  Buildings.Controls.Interfaces.DayTypeInput typeOfDay
-    "If true, this day remains an event day until midnight" annotation (
+  Buildings.Controls.Interfaces.DayTypeInput typeOfDay[integer((nPre-1)/nSam)+2] "Type of day for the current and the future days for which a prediction is to be made.
+    Typically, this has dimension 2 for predictions up to and including 24 hours, and 2+n for any additional day"
+  annotation (
       Placement(transformation(extent={{-120,90},{-100,70}}),
         iconTransformation(extent={{-120,90},{-100,70}})));
 
@@ -52,9 +56,10 @@ model Client "Demand response client"
     annotation (Placement(transformation(extent={{-40,70},{-20,90}})));
   BaseClasses.BaselinePrediction comBasLin(
     final nSam=nSam,
-    nIn=3,
     final nHis=nHis,
-    final predictionModel=predictionModel) "Compute the baseline"
+    final nPre=nPre,
+    final predictionModel=predictionModel,
+    nIn=3) "Baseline prediction"
     annotation (Placement(transformation(extent={{20,40},{40,60}})));
   Modelica.StateGraph.Transition t1 "State transition" annotation (Placement(
         transformation(
@@ -172,13 +177,13 @@ equation
       points={{-110,40},{-90,40},{-90,54},{19,54}},
       color={255,0,255},
       smooth=Smooth.None));
-  connect(comBasLin.typeOfDay, typeOfDay) annotation (Line(
-      points={{19,58},{-92,58},{-92,80},{-110,80}},
-      color={0,127,0},
-      smooth=Smooth.None));
   connect(comBasLin.TOut, TOut) annotation (Line(
       points={{19,42},{-60,42},{-60,-80},{-110,-80}},
       color={0,0,127},
+      smooth=Smooth.None));
+  connect(typeOfDay, comBasLin.typeOfDay) annotation (Line(
+      points={{-110,80},{-90,80},{-90,58},{19,58}},
+      color={0,127,0},
       smooth=Smooth.None));
   annotation (
   Diagram(coordinateSystem(
