@@ -57,9 +57,10 @@ block ElectricalLoad "Block that predicts an electrical load"
     "Predicted power consumptions (first element is for current time"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 
-  Buildings.Controls.Interfaces.DayTypeInput typeOfDay[nPre](
-    each fixed=true, each start=Buildings.Controls.Types.Day.WorkingDay)
-    "Type of day for each time interval for which prediction is to be made" annotation (
+    // fixme: the dimension of typeOfDay need to be computed based on nPre
+  Buildings.Controls.Interfaces.DayTypeInput typeOfDay[2]
+    "Type of day for the current and the future days for which a prediction is to be made"
+    annotation (
       Placement(transformation(extent={{-140,120},{-100,80}}),
         iconTransformation(extent={{-140,120},{-100,80}})));
 
@@ -101,6 +102,9 @@ protected
    if predictionModel == Types.PredictionModel.WeatherRegression then nHis else 0]
     "Temperature history";
 
+  Integer _typeOfDay[nPre]
+    "Type of day for each time interval for which prediction is to be made";
+
   Integer iHis[Buildings.Controls.Types.nDayTypes,nSam]
     "Index for power of the current sampling history, for the currrent time interval";
   Boolean historyComplete[Buildings.Controls.Types.nDayTypes,nSam](each start=false, each fixed=true)
@@ -126,10 +130,36 @@ protected
 
   Integer idxSam "Index to access iSam[1]";
 
-  Integer idxPreTyp1 "Value of Integer(pre(typeOfDay[1]))";
-  Integer idxTyp1 "Value of Integer(typeOfDay[1])";
+  function isMidNight
+    input Modelica.SIunits.Time t "Simulation time";
+    output Boolean r "True if time is midnight, false otherwise";
+  algorithm
+    r := rem(t, 86400.0) < 1;
+  end isMidNight;
 
-  Boolean isMidNight "True if time is equals to midnight";
+  function getTypeOfDays
+    input Modelica.SIunits.Time t "Simulation time";
+    input Buildings.Controls.Types.Day[:] typeOfDay
+      "Type of day as received from input connector";
+    input Modelica.SIunits.Time dt "Lenght of one sampling interval";
+    input Integer nPre "Number of predictions to be made";
+    output Integer[nPre] tod "Type of day for each prediction interval";
+  protected
+    Integer itod "Pointer to the type of day";
+  algorithm
+    tod[1] :=Integer(typeOfDay[1]);
+    if nPre > 1 then
+      itod :=1;
+      for i in 2:nPre loop
+        // We reached mid-night. Hence, we need to take the next type of day.
+        if isMidNight(t + (i-1)*dt) then
+          itod := itod + 1;
+        end if;
+        tod[i] :=Integer(typeOfDay[itod]);
+      end for;
+    end if;
+    annotation(LateInline=true);
+  end getTypeOfDays;
 
   function incrementIndex
     input Integer i "Counter";
@@ -179,6 +209,10 @@ initial equation
      t=time,
      samplePeriod=samplePeriod);
 
+   for i in 1:nPre loop
+      _typeOfDay[i] =  Integer(Buildings.Controls.Types.Day.WorkingDay);
+   end for;
+
    // Compute the offset of the index that is used to look up the data for
    // the dayOfAdj
    if use_dayOfAdj then
@@ -201,12 +235,9 @@ algorithm
   when sampleTrigger then
     // Set flag for event day.
     // isMidnight is true if time is within 1 second of midnight.
-    isMidNight := rem(time, 86400.0) < 1;
-    _storeHistory :=if not pre(_storeHistory) and (not isMidNight) then false else storeHistory;
+    _storeHistory :=if not pre(_storeHistory) and (not isMidNight(t=time)) then false else storeHistory;
 
-    // Auxiliary variables to avoid repetitive type conversion.
-    idxPreTyp1 := Integer(pre(typeOfDay[1]));
-    idxTyp1    := Integer(typeOfDay[1]);
+    _typeOfDay := getTypeOfDays(t=time, typeOfDay=typeOfDay, dt=dt, nPre=nPre);
 
     // Index to access iSam[1]
     idxSam :=getIndex(iSam[1] - 1, nSam);
@@ -217,15 +248,15 @@ algorithm
       if (time - tLast) > 1E-5 then
         // Update iHis, which points to where the last interval's power
         // consumption will be stored.
-        iHis[idxPreTyp1, idxSam] :=
-          incrementIndex(iHis[idxPreTyp1, idxSam], nHis);
-        if iHis[idxPreTyp1, idxSam] == nHis then
-          historyComplete[idxPreTyp1, idxSam] :=true;
+        iHis[pre(_typeOfDay[1]), idxSam] :=
+          incrementIndex(iHis[pre(_typeOfDay[1]), idxSam], nHis);
+        if iHis[pre(_typeOfDay[1]), idxSam] == nHis then
+          historyComplete[pre(_typeOfDay[1]), idxSam] :=true;
         end if;
         PAve :=(ECon - ELast)/(time - tLast);
-        P[idxPreTyp1, idxSam, iHis[idxPreTyp1, idxSam]] := PAve;
+        P[pre(_typeOfDay[1]), idxSam, iHis[pre(_typeOfDay[1]), idxSam]] := PAve;
         if predictionModel == Types.PredictionModel.WeatherRegression then
-          T[idxPreTyp1, idxSam, iHis[idxPreTyp1, idxSam]] := (intTOut-intTOutLast)/(time - tLast);
+          T[pre(_typeOfDay[1]), idxSam, iHis[pre(_typeOfDay[1]), idxSam]] := (intTOut-intTOutLast)/(time - tLast);
         end if;
       end if;
     end if;
@@ -245,16 +276,16 @@ algorithm
         // are repeated because PPre[m] = pre(PPre[m+1]). This could be improved
         // in future versions.
         PPre[m] :=Buildings.Controls.Predictors.BaseClasses.average(
-                    P={P[Integer(typeOfDay[m]), iSam[m], i] for i in 1:nHis},
-                    k=if historyComplete[Integer(typeOfDay[m]), iSam[m]] then nHis else iHis[Integer(typeOfDay[m]), iSam[m]]);
+                    P={P[_typeOfDay[m], iSam[m], i] for i in 1:nHis},
+                    k=if historyComplete[_typeOfDay[m], iSam[m]] then nHis else iHis[_typeOfDay[m], iSam[m]]);
       end for;
     elseif predictionModel == Types.PredictionModel.WeatherRegression then
       for m in 1:nPre loop
         PPre[m] :=Buildings.Controls.Predictors.BaseClasses.weatherRegression(
                     TCur=if m == 1 then TOut else TOutFut[m-1],
-                    T={T[Integer(typeOfDay[m]), iSam[m], i] for i in 1:nHis},
-                    P={P[Integer(typeOfDay[m]), iSam[m], i] for i in 1:nHis},
-                    k=if historyComplete[Integer(typeOfDay[m]), iSam[m]] then nHis else iHis[Integer(typeOfDay[m]), iSam[m]]);
+                    T={T[_typeOfDay[m], iSam[m], i] for i in 1:nHis},
+                    P={P[_typeOfDay[m], iSam[m], i] for i in 1:nHis},
+                    k=if historyComplete[_typeOfDay[m], iSam[m]] then nHis else iHis[_typeOfDay[m], iSam[m]]);
       end for;
     else
       PPre:= zeros(nPre);
@@ -266,10 +297,10 @@ algorithm
 
         // Store the predicted power consumption. This variable is stored
         // to avoid having to compute the average or weather regression multiple times.
-        PPreHis[idxTyp1,    getIndex(idxSam+1, nSam)] :=  PPre[1];
+        PPreHis[_typeOfDay[1],    getIndex(idxSam+1, nSam)] :=  PPre[1];
 
         // If iHis == 0, then there is no history yet and hence PPre[1] is 0.
-        PPreHisSet[idxTyp1, getIndex(idxSam+1, nSam)] :=  (iHis[idxTyp1, iSam[1]] > 0);
+        PPreHisSet[_typeOfDay[1], getIndex(idxSam+1, nSam)] :=  (iHis[_typeOfDay[1], iSam[1]] > 0);
       end if;
       // Compute average historical load.
       // This is a running sum over the past nHis days for the time window from iDayOf_start to iDayOf_end.
@@ -278,11 +309,11 @@ algorithm
       EActAve := 0;
       for i in iDayOf_start:iDayOf_end-1 loop
         if Modelica.Math.BooleanVectors.allTrue(
-           {PPreHisSet[idxTyp1, getIndex(iSam[1]+i, nSam)] for i in iDayOf_start:iDayOf_end-1}) then
-           EHisAve := EHisAve + dt*PPreHis[idxTyp1,
+           {PPreHisSet[_typeOfDay[1], getIndex(iSam[1]+i, nSam)] for i in iDayOf_start:iDayOf_end-1}) then
+           EHisAve := EHisAve + dt*PPreHis[_typeOfDay[1],
                         getIndex(idxSam+i+1, nSam)];
-           EActAve := EActAve + dt*P[idxTyp1,
-                        getIndex(idxSam+i+1, nSam), iHis[idxTyp1, getIndex(idxSam+i+1, nSam)]];
+           EActAve := EActAve + dt*P[_typeOfDay[1],
+                        getIndex(idxSam+i+1, nSam), iHis[_typeOfDay[1], getIndex(idxSam+i+1, nSam)]];
         else
           EHisAve := 0;
           EActAve := 0;
@@ -301,8 +332,8 @@ algorithm
     else
       EActAve := 0;
       EHisAve := 0;
-      PPreHis[idxTyp1, getIndex(iSam[1], nSam)] := 0;
-      PPreHisSet[idxTyp1, getIndex(iSam[1], nSam)] :=  false;
+      PPreHis[_typeOfDay[1], getIndex(iSam[1], nSam)] := 0;
+      PPreHisSet[_typeOfDay[1], getIndex(iSam[1], nSam)] :=  false;
       adj := 1;
     end if;
 
@@ -335,10 +366,13 @@ The type of day is an input signal received from the connector
 in
 <a href=\"modelica://Buildings.Controls.Types.Day\">
 Buildings.Controls.Types.Day</a>.
-This input is a vector where each element corresponds to the
-time interval for which the load prediction <code>PPre</code> is
-being made. Using a vector is required as the prediction could be
-from noon of a workday to noon of a holiday.
+This input is a vector where the first element corresponds to the
+current day, the next element to tomorrow, and so on.
+The dimension of this input vector is typically <i>2</i> if
+the demand is to be predicted for the next <i>24</i> hours.
+If it is for the next <i>48</i> hours, then the dimension is <i>3</i>.
+Using a vector is required as the prediction could be
+from noon of a workday to noon of a holiday or week-end day.
 </p>
 <p>
 The average baseline is the average of the consumed power of the previous
