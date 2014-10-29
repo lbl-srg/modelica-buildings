@@ -17,7 +17,7 @@ partial model PartialSimpleTestCase
     period=7*tPeriod,
     startTime=1.5*tPeriod) "Sample trigger"
     annotation (Placement(transformation(extent={{-40,70},{-20,90}})));
-  Sources.DayType dayType(nDays=2)
+  Sources.DayType dayType(nout=2)
     "Outputs the type of the day for each hour where load is to be predicted"
     annotation (Placement(transformation(extent={{-40,30},{-20,50}})));
   Modelica.Blocks.Logical.Not notEventDay
@@ -32,13 +32,13 @@ equation
       points={{21,80},{44,80},{44,5},{58,5}},
       color={255,0,255},
       smooth=Smooth.None));
-  connect(baseLoad.typeOfDay, dayType.y) annotation (Line(
-      points={{58,10},{24,10},{24,40},{-19,40}},
+  connect(dayType.y, baseLoad.typeOfDay) annotation (Line(
+      points={{-19,40},{18,40},{18,10},{58,10}},
       color={0,127,0},
       smooth=Smooth.None));
   annotation (
-  Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
-            100}}), graphics),
+  Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
+                    graphics),
     Documentation(info="<html>
 <p>
 Partial base class to build test for the load prediction.

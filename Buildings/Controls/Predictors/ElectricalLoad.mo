@@ -57,9 +57,8 @@ block ElectricalLoad "Block that predicts an electrical load"
     "Predicted power consumptions (first element is for current time"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 
-    // fixme: the dimension of typeOfDay need to be computed based on nPre
-  Buildings.Controls.Interfaces.DayTypeInput typeOfDay[2]
-    "Type of day for the current and the future days for which a prediction is to be made"
+  Buildings.Controls.Interfaces.DayTypeInput typeOfDay[integer((nPre-1)/nSam)+2] "Type of day for the current and the future days for which a prediction is to be made.
+    Typically, this has dimension 2 for predictions up to and including 24 hours, and 2+n for any additional day"
     annotation (
       Placement(transformation(extent={{-140,120},{-100,80}}),
         iconTransformation(extent={{-140,120},{-100,80}})));
@@ -304,7 +303,6 @@ algorithm
       end if;
       // Compute average historical load.
       // This is a running sum over the past nHis days for the time window from iDayOf_start to iDayOf_end.
-      // Fixme: check in SineInput whether EHisAve is offset by 1 time unit compared to EActAve
       EHisAve := 0;
       EActAve := 0;
       for i in iDayOf_start:iDayOf_end-1 loop
