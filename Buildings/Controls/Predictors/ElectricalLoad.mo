@@ -43,10 +43,12 @@ block ElectricalLoad "Block that predicts an electrical load"
     annotation (Placement(transformation(extent={{-140,-80},{-100,-40}}),
         iconTransformation(extent={{-140,-80},{-100,-40}})));
 
-  Modelica.Blocks.Interfaces.RealInput TOutFut[nPre-1](each unit="K")
+  Modelica.Blocks.Interfaces.RealInput TOutFut[nPre-1](each unit="K") if
+       (predictionModel == Buildings.Controls.Predictors.Types.PredictionModel.WeatherRegression)
     "Future outside air temperatures"
-    annotation (Placement(transformation(extent={{-140,-120},{-100,-80}}),
-        iconTransformation(extent={{-140,-120},{-100,-80}})));
+    annotation (Placement(
+       transformation(extent={{-140,-120},{-100,-80}}),
+       iconTransformation(extent={{-140,-120},{-100,-80}})));
 
   Modelica.Blocks.Interfaces.RealInput ECon(unit="J", nominal=1E5)
     "Consumed electrical energy"
@@ -129,6 +131,11 @@ protected
 
   Integer idxSam "Index to access iSam[1]";
 
+  // Conditional connector
+  Modelica.Blocks.Interfaces.RealInput TOutFut_in_internal[nPre-1](each unit="K")
+    "Needed to connect to conditional connector";
+
+  // Functions
   function isMidNight
     input Modelica.SIunits.Time t "Simulation time";
     output Boolean r "True if time is midnight, false otherwise";
@@ -223,12 +230,22 @@ Wrong values for parameters.
    end if;
 
 equation
+  // Conditional connector
+  connect(TOutFut, TOutFut_in_internal);
+  if predictionModel <> Types.PredictionModel.WeatherRegression then
+    TOutFut_in_internal = zeros(nPre-1);
+  end if;
+
+  // Sample trigger
   sampleTrigger = sample(samStart, samplePeriod);
+
+  // Averaging of outside temperature
   if predictionModel == Types.PredictionModel.WeatherRegression then
     der(intTOut) = TOut;
   else
     intTOut = 0;
   end if;
+
 algorithm
 
   when sampleTrigger then
@@ -281,7 +298,7 @@ algorithm
     elseif predictionModel == Types.PredictionModel.WeatherRegression then
       for m in 1:nPre loop
         PPre[m] :=Buildings.Controls.Predictors.BaseClasses.weatherRegression(
-                    TCur=if m == 1 then TOut else TOutFut[m-1],
+                    TCur=if m == 1 then TOut else TOutFut_in_internal[m-1],
                     T={T[_typeOfDay[m], iSam[m], i] for i in 1:nHis},
                     P={P[_typeOfDay[m], iSam[m], i] for i in 1:nHis},
                     k=if historyComplete[_typeOfDay[m], iSam[m]] then nHis else iHis[_typeOfDay[m], iSam[m]]);

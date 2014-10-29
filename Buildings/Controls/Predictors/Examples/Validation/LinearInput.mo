@@ -26,7 +26,7 @@ model LinearInput
     annotation (Placement(transformation(extent={{0,-30},{20,-10}})));
   Modelica.Blocks.Sources.RealExpression TOutFut[nPre - 1](each y=293.15) if
        nPre > 1 "Prediction of future outside temperatures"
-    annotation (Placement(transformation(extent={{32,-30},{52,-10}})));
+    annotation (Placement(transformation(extent={{30,-30},{50,-10}})));
 equation
   connect(POffSet.y, PCon.u1) annotation (Line(
       points={{-69,-14},{-62,-14}},
@@ -64,8 +64,8 @@ equation
       points={{81,0},{84,0},{84,-24},{88,-24}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(TOutFut.y, baseLoad.TOutFut) annotation (Line(
-      points={{53,-20},{54,-20},{54,-10},{58,-10}},
+  connect(baseLoad.TOutFut, TOutFut.y) annotation (Line(
+      points={{58,-10},{54,-10},{54,-20},{51,-20}},
       color={0,0,127},
       smooth=Smooth.None));
   annotation (

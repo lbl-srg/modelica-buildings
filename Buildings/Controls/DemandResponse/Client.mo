@@ -36,13 +36,20 @@ model Client "Demand response client"
 
   Modelica.Blocks.Interfaces.BooleanInput shed
     "Signal, true if load needs to be shed at the current time"
-    annotation (Placement(transformation(extent={{-120,-50},{-100,-30}}),
-        iconTransformation(extent={{-120,-50},{-100,-30}})));
+    annotation (Placement(transformation(extent={{-120,-40},{-100,-20}}),
+        iconTransformation(extent={{-120,-40},{-100,-20}})));
 
   Modelica.Blocks.Interfaces.RealInput TOut(unit="K", displayUnit="degC")
     "Outside air temperature"
-   annotation (Placement(transformation(extent={{-120,-90},{-100,-70}}),
-        iconTransformation(extent={{-120,-90},{-100,-70}})));
+   annotation (Placement(transformation(extent={{-120,-70},{-100,-50}}),
+        iconTransformation(extent={{-120,-70},{-100,-50}})));
+
+  Modelica.Blocks.Interfaces.RealInput TOutFut[nPre-1](each unit="K") if
+       (predictionModel == Buildings.Controls.Predictors.Types.PredictionModel.WeatherRegression)
+    "Future outside air temperatures"
+    annotation (Placement(
+      transformation(extent={{-120,-90},{-100,-70}}),
+      iconTransformation(extent={{-120,-98},{-100,-78}})));
 
   Modelica.Blocks.Interfaces.RealOutput PPre(unit="W")
     "Predicted power consumption for the current time interval"
@@ -109,7 +116,7 @@ equation
       color={0,0,0},
       smooth=Smooth.None));
   connect(comBasLin.ECon, ECon) annotation (Line(
-      points={{19,46},{-64,46},{-64,36},{-94,36},{-94,4.44089e-16},{-110,4.44089e-16}},
+      points={{19,48},{-64,48},{-64,36},{-94,36},{-94,4.44089e-16},{-110,4.44089e-16}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(comBasLin.PPre, nor.PCon) annotation (Line(
@@ -162,7 +169,7 @@ equation
       color={0,0,0},
       smooth=Smooth.None));
   connect(shed, t3.condition) annotation (Line(
-      points={{-110,-40},{-80,-40},{-80,-10},{-2,-10},{-2,-18}},
+      points={{-110,-30},{-80,-30},{-80,-10},{-2,-10},{-2,-18}},
       color={255,0,255},
       smooth=Smooth.None));
   connect(switch1.u1, she.PCon) annotation (Line(
@@ -178,12 +185,16 @@ equation
       color={255,0,255},
       smooth=Smooth.None));
   connect(comBasLin.TOut, TOut) annotation (Line(
-      points={{19,42},{-60,42},{-60,-80},{-110,-80}},
+      points={{19,45},{-60,45},{-60,-60},{-110,-60}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(typeOfDay, comBasLin.typeOfDay) annotation (Line(
       points={{-110,80},{-90,80},{-90,58},{19,58}},
       color={0,127,0},
+      smooth=Smooth.None));
+  connect(comBasLin.TOutFut, TOutFut) annotation (Line(
+      points={{19,41},{-56,41},{-56,-80},{-110,-80}},
+      color={0,0,127},
       smooth=Smooth.None));
   annotation (
   Diagram(coordinateSystem(
@@ -196,8 +207,8 @@ equation
     Documentation(info="<html>
 <p>
 Model for a demand response client.
-This model takes as a parameter the sampling time, which is generally
-1 hour or 15 minutes.
+This model takes as a parameter the number of samples in a day, which is generally
+<i>24</i> for one hour sampling or <i>96</i> for <i>15</i> minute sampling.
 Input to the model are the consumed energy, the current temperature,
 the week of the day, which is of type
 <a href=\"modelica://Buildings.Controls.Types.Day\">

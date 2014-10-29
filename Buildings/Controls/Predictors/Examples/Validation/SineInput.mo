@@ -28,9 +28,6 @@ model SineInput
     annotation (Placement(transformation(extent={{-100,-18},{-80,2}})));
   Modelica.Blocks.Math.Add PCon "Consumed power"
     annotation (Placement(transformation(extent={{-68,-40},{-48,-20}})));
-  Modelica.Blocks.Sources.RealExpression TOutFut[nPre - 1](each y=293.15) if
-       nPre > 1 "Prediction of future outside temperatures"
-    annotation (Placement(transformation(extent={{32,-30},{52,-10}})));
 equation
   connect(add.u2, TOffSet.y) annotation (Line(
       points={{-2,-86},{-59,-86}},
@@ -66,10 +63,6 @@ equation
       smooth=Smooth.None));
   connect(PCon.y, P.u) annotation (Line(
       points={{-47,-30},{-42,-30}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(TOutFut.y, baseLoad.TOutFut) annotation (Line(
-      points={{53,-20},{54,-20},{54,-10},{58,-10}},
       color={0,0,127},
       smooth=Smooth.None));
   annotation (

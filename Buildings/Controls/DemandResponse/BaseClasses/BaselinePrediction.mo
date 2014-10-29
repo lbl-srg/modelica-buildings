@@ -2,18 +2,12 @@ within Buildings.Controls.DemandResponse.BaseClasses;
 block BaselinePrediction "Predicts the baseline consumption"
   extends Buildings.Controls.DemandResponse.BaseClasses.PartialDemandResponse;
 
-  parameter Buildings.Controls.Predictors.Types.PredictionModel
-    predictionModel "Load prediction model";
-
-  parameter Integer nPre(min=1) = 1
-    "Number of intervals for which future load need to be predicted (set to one to only predict current time, or to nSam to predict one day)";
-
   parameter Integer nHis(min=1) = 10 "Number of history terms to be stored";
 
   Modelica.Blocks.Interfaces.RealInput TOut(unit="K", displayUnit="degC")
     "Outside air temperature"
-    annotation (Placement(transformation(extent={{-140,-110},{-100,-70}}),
-        iconTransformation(extent={{-120,-90},{-100,-70}})));
+    annotation (Placement(transformation(extent={{-140,-80},{-100,-40}}),
+        iconTransformation(extent={{-120,-60},{-100,-40}})));
 
   Buildings.Controls.Interfaces.DayTypeInput typeOfDay[integer((nPre-1)/nSam)+2] "Type of day for the current and the future days for which a prediction is to be made.
     Typically, this has dimension 2 for predictions up to and including 24 hours, and 2+n for any additional day"
@@ -31,21 +25,21 @@ protected
     final nPre=nPre,
     final nHis=nHis,
     final predictionModel=predictionModel) "Model that computes the base line"
-    annotation (Placement(transformation(extent={{-12,-10},{8,10}})));
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   Modelica.Blocks.Logical.Not stoHis
     "Boolean signal to set whether history should be stored"
     annotation (Placement(transformation(extent={{-88,-4},{-68,16}})));
 equation
   connect(basLin.ECon, ECon) annotation (Line(
-      points={{-14,6.66134e-16},{-62,6.66134e-16},{-62,-50},{-120,-50}},
+      points={{-12,0},{-62,0},{-62,-30},{-120,-30}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(TOut, basLin.TOut) annotation (Line(
-      points={{-120,-90},{-40,-90},{-40,-6},{-14,-6}},
+      points={{-120,-60},{-40,-60},{-40,-6},{-12,-6}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(basLin.PPre[1], PPre) annotation (Line(
-      points={{9,0},{40,0},{40,-80},{110,-80}},
+      points={{11,0},{40,0},{40,-80},{110,-80}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(stoHis.u, isEventDay) annotation (Line(
@@ -53,12 +47,16 @@ equation
       color={255,0,255},
       smooth=Smooth.None));
   connect(stoHis.y, basLin.storeHistory) annotation (Line(
-      points={{-67,6},{-40,6},{-40,5},{-14,5}},
+      points={{-67,6},{-40,6},{-40,5},{-12,5}},
       color={255,0,255},
       smooth=Smooth.None));
   connect(basLin.typeOfDay, typeOfDay) annotation (Line(
-      points={{-14,10},{-60,10},{-60,80},{-110,80}},
+      points={{-12,10},{-60,10},{-60,80},{-110,80}},
       color={0,127,0},
+      smooth=Smooth.None));
+  connect(basLin.TOutFut, TOutFut) annotation (Line(
+      points={{-12,-10},{-36,-10},{-36,-90},{-120,-90}},
+      color={0,0,127},
       smooth=Smooth.None));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
             {100,100}}),

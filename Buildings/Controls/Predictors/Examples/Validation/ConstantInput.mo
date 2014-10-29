@@ -15,9 +15,6 @@ model ConstantInput
   Modelica.Blocks.Continuous.Integrator integrator
     "Integrator to compute energy from power"
     annotation (Placement(transformation(extent={{-20,-40},{0,-20}})));
-  Modelica.Blocks.Sources.RealExpression TOutFut[nPre - 1](each y=293.15) if
-       nPre > 1 "Prediction of future outside temperatures"
-    annotation (Placement(transformation(extent={{26,-36},{46,-16}})));
 equation
   connect(add.u2,TOffSet. y) annotation (Line(
       points={{-10,-86},{-67,-86}},
@@ -44,10 +41,6 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
 
-  connect(TOutFut.y, baseLoad.TOutFut) annotation (Line(
-      points={{47,-26},{52,-26},{52,-10},{58,-10}},
-      color={0,0,127},
-      smooth=Smooth.None));
   annotation (
   experiment(StopTime=5270400),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/Predictors/Examples/Validation/ConstantInput.mos"
