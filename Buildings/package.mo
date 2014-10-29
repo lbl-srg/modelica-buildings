@@ -139,9 +139,18 @@ Version 1.7 build 1 is ... xxx
 The following <b style=\"color:blue\">new libraries</b> have been added:
 </p>
 <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2>
-<tr><td valign=\"top\">xxx
+<tr><td valign=\"top\">Buildings.Controls.DemandResponse
     </td>
-    <td valign=\"top\">xxx.
+    <td valign=\"top\">Library with a model for demand response prediction.
+    </td>
+    </tr>
+<tr><td valign=\"top\">Buildings.Controls.Predictors
+    </td>
+    <td valign=\"top\">Library with a data-driven model that predicts the electrical load
+                     of a building. The prediction can be done
+                     either using an average baseline or
+                     a linear regression with respect to outside temperature.
+                     For both, optionally a day-of adjustment can be made.
     </td>
     </tr>
 </table>

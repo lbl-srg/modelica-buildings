@@ -39,22 +39,28 @@ model Client "Demand response client"
     annotation (Placement(transformation(extent={{-120,-40},{-100,-20}}),
         iconTransformation(extent={{-120,-40},{-100,-20}})));
 
+  Modelica.Blocks.Interfaces.RealInput yShed(min=-1, max=1, unit="1")
+    "Amount of load to shed. Set to 0.5 to shed 50% of load"
+    annotation (Placement(transformation(extent={{-120,-60},{-100,-40}}),
+        iconTransformation(extent={{-120,-60},{-100,-40}})));
+
   Modelica.Blocks.Interfaces.RealInput TOut(unit="K", displayUnit="degC")
     "Outside air temperature"
-   annotation (Placement(transformation(extent={{-120,-70},{-100,-50}}),
-        iconTransformation(extent={{-120,-70},{-100,-50}})));
+   annotation (Placement(transformation(extent={{-120,-80},{-100,-60}}),
+        iconTransformation(extent={{-120,-80},{-100,-60}})));
 
   Modelica.Blocks.Interfaces.RealInput TOutFut[nPre-1](each unit="K") if
        (predictionModel == Buildings.Controls.Predictors.Types.PredictionModel.WeatherRegression)
     "Future outside air temperatures"
     annotation (Placement(
-      transformation(extent={{-120,-90},{-100,-70}}),
-      iconTransformation(extent={{-120,-98},{-100,-78}})));
+      transformation(extent={{-120,-100},{-100,-80}}),
+      iconTransformation(extent={{-120,-100},{-100,-80}})));
 
   Modelica.Blocks.Interfaces.RealOutput PPre(unit="W")
     "Predicted power consumption for the current time interval"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 
+protected
   Modelica.StateGraph.InitialStep initialStep
     annotation (Placement(transformation(extent={{-80,70},{-60,90}})));
   inner Modelica.StateGraph.StateGraphRoot stateGraphRoot
@@ -149,7 +155,7 @@ equation
       color={255,0,255},
       smooth=Smooth.None));
   connect(nor.PPre, she.PCon) annotation (Line(
-      points={{19,-38},{-8,-38}},
+      points={{19,-38},{6,-38},{6,-39},{-8,-39}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(switch1.y, PPre) annotation (Line(
@@ -173,7 +179,7 @@ equation
       color={255,0,255},
       smooth=Smooth.None));
   connect(switch1.u1, she.PCon) annotation (Line(
-      points={{38,-62},{10,-62},{10,-38},{-8,-38}},
+      points={{38,-62},{10,-62},{10,-39},{-8,-39}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(switch1.u3, she.PPre) annotation (Line(
@@ -185,7 +191,7 @@ equation
       color={255,0,255},
       smooth=Smooth.None));
   connect(comBasLin.TOut, TOut) annotation (Line(
-      points={{19,45},{-60,45},{-60,-60},{-110,-60}},
+      points={{19,45},{-60,45},{-60,-70},{-110,-70}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(typeOfDay, comBasLin.typeOfDay) annotation (Line(
@@ -193,7 +199,11 @@ equation
       color={0,127,0},
       smooth=Smooth.None));
   connect(comBasLin.TOutFut, TOutFut) annotation (Line(
-      points={{19,41},{-56,41},{-56,-80},{-110,-80}},
+      points={{19,41},{-56,41},{-56,-90},{-110,-90}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(yShed, she.yShed) annotation (Line(
+      points={{-110,-50},{-48,-50},{-48,-14},{-6,-14},{-6,-32},{-9,-32}},
       color={0,0,127},
       smooth=Smooth.None));
   annotation (
@@ -215,9 +225,16 @@ the week of the day, which is of type
 Buildings.Controls.Types.Day</a>,
 a boolean signal that indicates whether it is an event day,
 and a signal that if <code>true</code>, causes the load to be shed.
+The input signal <code>yShed</code> determines how much of the load
+will be shed if <code>shed=true</code>. If <code>shed=false</code>, then
+this signal is ignored.
+</p>
+<p>
 Output of the model is the prediction of the power that will be consumed
 in the current sampling interval, i.e., generally in the next 1 hour or the
 next 15 minutes.
+If the parameter <code>nPre &gt; 1</code>, then the prediction is done
+for multiple time intervals.
 </p>
 <p>
 The baseline prediction is computed in

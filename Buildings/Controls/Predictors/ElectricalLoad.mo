@@ -366,12 +366,13 @@ algorithm
           textString="BL")}),
     Documentation(info="<html>
 <p>
-Block that predicts the electrical load.
+Data-driven model that predicts the electrical load.
 This load prediction can for example be used in a demand response client.
 </p>
 <p>
-The implementation computes either an average baseline or
-a linear regression, optionally with a day-of adjustment.
+The model computes either an average baseline or
+a linear regression with respect to outside temperature.
+For both, optionally a day-of adjustment can be made.
 </p>
 <h4>Computation of baseline</h4>
 <p>

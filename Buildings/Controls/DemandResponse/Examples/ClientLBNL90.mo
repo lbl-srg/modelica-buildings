@@ -2,15 +2,14 @@ within Buildings.Controls.DemandResponse.Examples;
 model ClientLBNL90
   "Demand response client with input data from building 90 at LBNL"
   extends Modelica.Icons.Example;
-  // fixme: scaling factor for easier debugging
   parameter Integer nSam = 24*4 "Number of samples in a day";
   Client clientAverage(
     nSam=nSam,
     predictionModel=Buildings.Controls.Predictors.Types.PredictionModel.Average)
     "Demand response client"
-    annotation (Placement(transformation(extent={{8,40},{28,60}})));
+    annotation (Placement(transformation(extent={{10,20},{30,40}})));
   Sources.DayType dayType "Outputs the type of the day"
-    annotation (Placement(transformation(extent={{-52,60},{-32,80}})));
+    annotation (Placement(transformation(extent={{-50,40},{-30,60}})));
   Modelica.Blocks.Sources.CombiTimeTable bui90(
     tableOnFile=true,
     tableName="b90",
@@ -19,104 +18,115 @@ model ClientLBNL90
     fileName=ModelicaServices.ExternalReferences.loadResource(
       "modelica://Buildings/Resources/Data/Controls/DemandResponse/Examples/B90_DR_Data.mos"),
     columns={2,3,4}) "LBNL building 90 data"
-    annotation (Placement(transformation(extent={{-92,0},{-72,20}})));
+    annotation (Placement(transformation(extent={{-90,-20},{-70,0}})));
 
   Modelica.Blocks.Logical.GreaterThreshold drSig(threshold=0.5)
     "Demand response signal"
-    annotation (Placement(transformation(extent={{-52,34},{-32,54}})));
+    annotation (Placement(transformation(extent={{-50,14},{-30,34}})));
   Modelica.Blocks.Math.Add errorAverage(k2=-1)
     "Difference between predicted minus actual load"
-    annotation (Placement(transformation(extent={{40,10},{60,30}})));
+    annotation (Placement(transformation(extent={{42,-10},{62,10}})));
   Client clientWeather(
     nSam=nSam,
     predictionModel=Buildings.Controls.Predictors.Types.PredictionModel.WeatherRegression)
     "Demand response client with weather regression model"
-    annotation (Placement(transformation(extent={{8,-20},{28,0}})));
+    annotation (Placement(transformation(extent={{10,-40},{30,-20}})));
   Modelica.Blocks.Math.Add errorWeather(k2=-1)
     "Difference between predicted minus actual load"
-    annotation (Placement(transformation(extent={{40,-54},{60,-34}})));
+    annotation (Placement(transformation(extent={{42,-74},{62,-54}})));
   Modelica.Blocks.Math.Gain relErrAverage(k=1/400000)
     "Relative error, normalized by a value that is close to the peak power consumption"
-    annotation (Placement(transformation(extent={{70,10},{90,30}})));
+    annotation (Placement(transformation(extent={{72,-10},{92,10}})));
   Modelica.Blocks.Math.Gain relErrWeather(k=1/400000)
     "Relative error, normalized by a value that is close to the peak power consumption"
-    annotation (Placement(transformation(extent={{72,-54},{92,-34}})));
+    annotation (Placement(transformation(extent={{74,-74},{94,-54}})));
   Modelica.Blocks.Continuous.Integrator ene(u(unit="W"))
     "Integrator to compute energy from power"
-    annotation (Placement(transformation(extent={{-50,-20},{-30,0}})));
+    annotation (Placement(transformation(extent={{-48,-40},{-28,-20}})));
+  Modelica.Blocks.Sources.Constant yShed(k=0.5)
+    "Amount of load to be shed during DR event"
+    annotation (Placement(transformation(extent={{-50,70},{-30,90}})));
 equation
   connect(clientAverage.isEventDay, clientAverage.shed) annotation (Line(
-      points={{7,54},{-12,54},{-12,46},{7,46}},
+      points={{9,34},{-10,34},{-10,27},{9,27}},
       color={255,0,255},
       smooth=Smooth.None));
   connect(drSig.u, bui90.y[3]) annotation (Line(
-      points={{-54,44},{-64,44},{-64,10},{-71,10}},
+      points={{-52,24},{-62,24},{-62,-10},{-69,-10}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(drSig.y, clientAverage.shed) annotation (Line(
-      points={{-31,44},{-12,44},{-12,46},{7,46}},
+      points={{-29,24},{-10,24},{-10,27},{9,27}},
       color={255,0,255},
       smooth=Smooth.None));
   connect(clientAverage.PPre, errorAverage.u1) annotation (Line(
-      points={{29,50},{34,50},{34,26},{38,26}},
+      points={{31,30},{36,30},{36,6},{40,6}},
       color={0,0,127},
       smooth=Smooth.None));
 
   connect(clientWeather.isEventDay, clientWeather.shed) annotation (Line(
-      points={{7,-6},{-12,-6},{-12,-14},{7,-14}},
+      points={{9,-26},{-10,-26},{-10,-33},{9,-33}},
       color={255,0,255},
       smooth=Smooth.None));
   connect(drSig.y, clientWeather.shed) annotation (Line(
-      points={{-31,44},{-12,44},{-12,-14},{7,-14}},
+      points={{-29,24},{-10,24},{-10,-33},{9,-33}},
       color={255,0,255},
       smooth=Smooth.None));
   connect(clientWeather.PPre, errorWeather.u1) annotation (Line(
-      points={{29,-10},{34,-10},{34,-38},{38,-38}},
+      points={{31,-30},{36,-30},{36,-58},{40,-58}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(clientAverage.TOut, bui90.y[1]) annotation (Line(
-      points={{7,42},{-8,42},{-8,10},{-71,10}},
+      points={{9,23},{-6,23},{-6,-10},{-69,-10}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(clientWeather.TOut, bui90.y[1]) annotation (Line(
-      points={{7,-18},{-8,-18},{-8,10},{-71,10}},
+      points={{9,-37},{-6,-37},{-6,-10},{-69,-10}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(relErrAverage.u, errorAverage.y) annotation (Line(
-      points={{68,20},{61,20}},
+      points={{70,0},{63,0}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(relErrWeather.u, errorWeather.y) annotation (Line(
-      points={{70,-44},{61,-44}},
+      points={{72,-64},{63,-64}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(ene.u, bui90.y[2]) annotation (Line(
-      points={{-52,-10},{-64,-10},{-64,10},{-71,10}},
+      points={{-50,-30},{-62,-30},{-62,-10},{-69,-10}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(ene.y, clientWeather.ECon) annotation (Line(
-      points={{-29,-10},{7,-10}},
+      points={{-27,-30},{9,-30}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(ene.y, clientAverage.ECon) annotation (Line(
-      points={{-29,-10},{-16,-10},{-16,50},{7,50}},
+      points={{-27,-30},{-14,-30},{-14,30},{9,30}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(errorWeather.u2, bui90.y[2]) annotation (Line(
-      points={{38,-50},{-64,-50},{-64,10},{-71,10}},
+      points={{40,-70},{-62,-70},{-62,-10},{-69,-10}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(errorAverage.u2, bui90.y[2]) annotation (Line(
-      points={{38,14},{-64,14},{-64,10},{-71,10}},
+      points={{40,-6},{-62,-6},{-62,-10},{-69,-10}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(dayType.y, clientAverage.typeOfDay) annotation (Line(
-      points={{-31,70},{-12,70},{-12,58},{7,58}},
+      points={{-29,50},{-10,50},{-10,38},{9,38}},
       color={0,127,0},
       smooth=Smooth.None));
   connect(dayType.y, clientWeather.typeOfDay) annotation (Line(
-      points={{-31,70},{-12,70},{-12,-2},{7,-2}},
+      points={{-29,50},{-10,50},{-10,-22},{9,-22}},
       color={0,127,0},
+      smooth=Smooth.None));
+  connect(yShed.y, clientAverage.yShed) annotation (Line(
+      points={{-29,80},{0,80},{0,25},{9,25}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(clientWeather.yShed, yShed.y) annotation (Line(
+      points={{9,-35},{0,-35},{0,80},{-29,80}},
+      color={0,0,127},
       smooth=Smooth.None));
   annotation (
   Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}), graphics),
