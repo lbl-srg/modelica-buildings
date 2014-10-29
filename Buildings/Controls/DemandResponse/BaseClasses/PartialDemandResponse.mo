@@ -15,7 +15,7 @@ partial block PartialDemandResponse
     "Consumed electrical energy"
     annotation (Placement(transformation(extent={{-140,-50},{-100,-10}}),
         iconTransformation(extent={{-120,-30},{-100,-10}})));
-  Modelica.Blocks.Interfaces.RealOutput PPre(unit="W")
+  Modelica.Blocks.Interfaces.RealOutput PPre[nPre](each unit="W")
     "Predicted power consumption for the current time interval"
     annotation (Placement(transformation(extent={{100,-90},{120,-70}})));
 

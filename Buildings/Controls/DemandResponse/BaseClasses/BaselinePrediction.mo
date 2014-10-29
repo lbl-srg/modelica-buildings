@@ -38,7 +38,7 @@ equation
       points={{-120,-60},{-40,-60},{-40,-6},{-12,-6}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(basLin.PPre[1], PPre) annotation (Line(
+  connect(basLin.PPre, PPre) annotation (Line(
       points={{11,0},{40,0},{40,-80},{110,-80}},
       color={0,0,127},
       smooth=Smooth.None));

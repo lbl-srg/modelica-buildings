@@ -144,6 +144,12 @@ Output of the data reader are the outdoor dry-bulb temperature,
 the total electrical consumption,
 and a signal that indicates whether load shedding is required.
 </p>
+<p>
+Output of the demand response blocks are the predicted power consumption.
+If the input signal <code>shed</code> is <code>true</code>,
+then the predicted load is reduced by the amount of power that is shed,
+as received from the input signal <code>yShed</code>.
+</p>
 </html>", revisions="<html>
 <ul>
 <li>

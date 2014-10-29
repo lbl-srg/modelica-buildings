@@ -57,8 +57,11 @@ model Client "Demand response client"
       iconTransformation(extent={{-120,-100},{-100,-80}})));
 
   Modelica.Blocks.Interfaces.RealOutput PPre(unit="W")
-    "Predicted power consumption for the current time interval"
+    "Predicted power consumption for the current time interval, taking into account yShed"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
+  Modelica.Blocks.Interfaces.RealOutput PPreNoShe[nPre](each unit="W")
+    "Predicted power consumption for the current and future time intervals, not taking into account yShed"
+    annotation (Placement(transformation(extent={{100,40},{120,60}})));
 
 protected
   Modelica.StateGraph.InitialStep initialStep
@@ -78,8 +81,8 @@ protected
         transformation(
         extent={{10,-10},{-10,10}},
         rotation=90,
-        origin={70,20})));
-  BaseClasses.NormalOperation nor(nOut=2) "Normal operation"
+        origin={60,20})));
+  BaseClasses.NormalOperation norOpe(nOut=2) "Normal operation"
     annotation (Placement(transformation(extent={{40,-40},{20,-20}})));
   Modelica.StateGraph.TransitionWithSignal
                                  t2(enableTimer=false) "State transition"
@@ -102,7 +105,8 @@ protected
         origin={-40,10})));
   Modelica.Blocks.Sources.SampleTrigger tri(period=tSample) "Sample trigger"
     annotation (Placement(transformation(extent={{-90,10},{-70,30}})));
-  Modelica.Blocks.Logical.Switch switch1
+  Modelica.Blocks.Logical.Switch switch
+    "Switch to select normal or shedded load"
     annotation (Placement(transformation(extent={{40,-80},{60,-60}})));
 equation
   connect(initialStep.outPort[1], transition.inPort) annotation (Line(
@@ -114,19 +118,19 @@ equation
       color={0,0,0},
       smooth=Smooth.None));
   connect(t1.inPort, comBasLin.outPort[1]) annotation (Line(
-      points={{70,24},{70,50},{40.5,50}},
+      points={{60,24},{60,50},{40.5,50}},
       color={0,0,0},
       smooth=Smooth.None));
-  connect(t1.outPort,nor. inPort[1]) annotation (Line(
-      points={{70,18.5},{70,-30},{41,-30}},
+  connect(t1.outPort, norOpe.inPort[1]) annotation (Line(
+      points={{60,18.5},{60,-30},{41,-30}},
       color={0,0,0},
       smooth=Smooth.None));
   connect(comBasLin.ECon, ECon) annotation (Line(
       points={{19,48},{-64,48},{-64,36},{-94,36},{-94,4.44089e-16},{-110,4.44089e-16}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(comBasLin.PPre, nor.PCon) annotation (Line(
-      points={{41,42},{50,42},{50,-38},{42,-38}},
+  connect(comBasLin.PPre[1], norOpe.PCon) annotation (Line(
+      points={{41,42},{80,42},{80,-38},{42,-38}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(t2.outPort, comBasLin.inPort[2]) annotation (Line(
@@ -154,23 +158,19 @@ equation
       points={{-2,20},{-69,20}},
       color={255,0,255},
       smooth=Smooth.None));
-  connect(nor.PPre, she.PCon) annotation (Line(
+  connect(norOpe.PPre, she.PCon) annotation (Line(
       points={{19,-38},{6,-38},{6,-39},{-8,-39}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(switch1.y, PPre) annotation (Line(
-      points={{61,-70},{90,-70},{90,0},{110,0}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(nor.active, switch1.u2) annotation (Line(
+  connect(norOpe.active, switch.u2) annotation (Line(
       points={{30,-41},{30,-70},{38,-70}},
       color={255,0,255},
       smooth=Smooth.None));
-  connect(nor.outPort[1], t2.inPort) annotation (Line(
+  connect(norOpe.outPort[1], t2.inPort) annotation (Line(
       points={{19.5,-29.75},{10,-29.75},{10,16}},
       color={0,0,0},
       smooth=Smooth.None));
-  connect(nor.outPort[2], t3.inPort) annotation (Line(
+  connect(norOpe.outPort[2], t3.inPort) annotation (Line(
       points={{19.5,-30.25},{12,-30.25},{12,-30},{2,-30}},
       color={0,0,0},
       smooth=Smooth.None));
@@ -178,11 +178,11 @@ equation
       points={{-110,-30},{-80,-30},{-80,-10},{-2,-10},{-2,-18}},
       color={255,0,255},
       smooth=Smooth.None));
-  connect(switch1.u1, she.PCon) annotation (Line(
+  connect(switch.u1, she.PCon) annotation (Line(
       points={{38,-62},{10,-62},{10,-39},{-8,-39}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(switch1.u3, she.PPre) annotation (Line(
+  connect(switch.u3, she.PPre) annotation (Line(
       points={{38,-78},{-40,-78},{-40,-38},{-31,-38}},
       color={0,0,127},
       smooth=Smooth.None));
@@ -204,6 +204,15 @@ equation
       smooth=Smooth.None));
   connect(yShed, she.yShed) annotation (Line(
       points={{-110,-50},{-48,-50},{-48,-14},{-6,-14},{-6,-32},{-9,-32}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  // Only PPre[1] will take into account the shedded load.
+  connect(switch.y, PPre) annotation (Line(
+      points={{61,-70},{90,-70},{90,0},{110,0}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(comBasLin.PPre, PPreNoShe) annotation (Line(
+      points={{41,42},{80,42},{80,50},{110,50}},
       color={0,0,127},
       smooth=Smooth.None));
   annotation (
@@ -234,16 +243,26 @@ Output of the model is the prediction of the power that will be consumed
 in the current sampling interval, i.e., generally in the next 1 hour or the
 next 15 minutes.
 If the parameter <code>nPre &gt; 1</code>, then the prediction is done
-for multiple time intervals.
+for multiple time intervals. All of these predictions can be obtained from
+the output <code>PPreNoShe</code>. This output does not take into account 
+<code>yShed</code>.
+The output <code>PPre</code> is 
+<code>PPre = yShed * PPreNoShe[1]</code> if <code>shed=true</code>,
+otherwise it is
+<code>PPre = PPreNoShe[1]</code>.
 </p>
 <p>
 The baseline prediction is computed in
-<a href=\"modelica://Buildings.Controls.DemandResponse.BaseClasses.BaselineComputation\">
-Buildings.Controls.DemandResponse.BaseClasses.BaselineComputation</a>.
+<a href=\"modelica://Buildings.Controls.Predictors.ElectricalLoad\">
+Buildings.Controls.Predictors.ElectricalLoad</a>.
 </html>", revisions="<html>
 <ul>
 <li>
-March 20, 2014 by Michael Wetter:<br/>
+October 29, 2014, by Michael Wetter:<br/>
+Revised implementation.
+</li>
+<li>
+March 20, 2014, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

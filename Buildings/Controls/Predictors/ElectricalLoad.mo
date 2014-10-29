@@ -453,6 +453,10 @@ and maximum adjustment factors as defined by the parameters
 </html>", revisions="<html>
 <ul>
 <li>
+October 29, 2014, by Michael Wetter:<br/>
+Revised implementation.
+</li>
+<li>
 October 25, 2014, by Michael Wetter:<br/>
 Implemented new assignment of the start of the sampling.
 </li>
