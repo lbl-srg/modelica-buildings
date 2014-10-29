@@ -1,8 +1,8 @@
 within Buildings.Controls.Sources;
 model DayType "Block that outputs a signal that indicates week-day or week-end"
   extends Modelica.Blocks.Icons.DiscreteBlock;
-  parameter Integer nDays = 7 "Periodicity in number of days";
-  parameter Buildings.Controls.Types.Day[nDays] days={
+  parameter Integer nDays = 1 "Number of days to output";
+  parameter Buildings.Controls.Types.Day[:] days={
     Buildings.Controls.Types.Day.WorkingDay,
     Buildings.Controls.Types.Day.WorkingDay,
     Buildings.Controls.Types.Day.WorkingDay,
@@ -11,35 +11,40 @@ model DayType "Block that outputs a signal that indicates week-day or week-end"
     Buildings.Controls.Types.Day.NonWorkingDay,
     Buildings.Controls.Types.Day.NonWorkingDay}
     "Array where each element is a day indicator";
-   parameter Integer iStart(min=1, max=nDays) = 1
-    "Index of element in days that will be sent to output at time=k*samplePeriod";
+   parameter Integer iStart(min=1, max=size(days, 1)) = 1
+    "Index of element in days at simulation start";
 
-  Interfaces.DayTypeOutput y "Type of the day" annotation (Placement(transformation(extent={{100,-10},
+  Interfaces.DayTypeOutput y[nDays]
+    "Type of the day for the current and the next (nDays-1) days"                                 annotation (Placement(transformation(extent={{100,-10},
             {120,10}}), iconTransformation(extent={{100,-10},{120,10}})));
 
 protected
   parameter Modelica.SIunits.Time samplePeriod=86400
     "Sample period of the component";
-  output Integer iDay(min=1, max=nDays)
+  output Integer iDay(min=1, max=size(days, 1))
     "Pointer to days that determines what day type is sent to the output";
   parameter Modelica.SIunits.Time firstSample(fixed=false)
     "Time when the sampling starts";
   output Boolean sampleTrigger "True, if sample time instant";
-  output Boolean firstTrigger "Rising edge signals first sample instant";
+  output Boolean skipIDayIncrement
+    "If true, don't increment iDay in first sample";
 
 initial equation
-  iDay = mod(iStart-1+integer(time/samplePeriod), nDays)+1;
-  firstTrigger = true;
+  iDay = iStart;
   firstSample = ceil(time/86400)*86400;
+  // skipIDayIncrement is true if the simulation starts at midnight.
+  skipIDayIncrement = abs(firstSample-time) < 1E-8;
 equation
-  y = days[iDay];
+  for i in 1:nDays loop
+    y[i] = days[ mod(iDay+i-2, size(days, 1))+1];
+  end for;
   sampleTrigger = sample(firstSample, samplePeriod);
   when sampleTrigger then
-    firstTrigger = false;
-    if pre(firstTrigger) then
+    skipIDayIncrement = false;
+    if pre(skipIDayIncrement) then
       iDay = pre(iDay);
     else
-      iDay = mod(pre(iDay), nDays)+1;
+      iDay = mod(pre(iDay), size(days, 1))+1;
     end if;
   end when;
   annotation (
@@ -57,6 +62,20 @@ the current time is a work day or a non-working day.
 The output signal is of type
 <a href=\"modelica://Buildings.Controls.Types.Day\">
 Buildings.Controls.Types.Day</a>.
+</p>
+<p>
+The parameter <code>nDays</code> determines how many days should be
+sent to the output. For applications in which only the current day
+is of interest, set <code>nDays=1</code>.
+For applications in which the load is predicted for the next <i>24</i> hours,
+set <code>nDays=2</code> in order to output the type of day for today and for
+tomorrow.
+</p>
+<p>
+The transition from one day type to another always happens when the simulation time
+is a multiple of <i>1</i> day. Hence, if the simulation starts for example
+at <i>t=-3600</i> seconds, then the first transition to another day will be
+at <i>t=0</i>.
 </p>
 </html>", revisions="<html>
 <ul>
