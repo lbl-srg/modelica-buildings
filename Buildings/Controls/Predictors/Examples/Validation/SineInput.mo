@@ -24,7 +24,7 @@ model SineInput
     "Integrator to compute energy from power"
     annotation (Placement(transformation(extent={{-8,-10},{12,10}})));
   Modelica.Blocks.Sources.RealExpression realExpression(
-    y=if (dayType[1].y == Buildings.Controls.Types.Day.WorkingDay) then 0 else 1)
+    y=if (dayType.y[1] == Buildings.Controls.Types.Day.WorkingDay) then 0 else 1)
     annotation (Placement(transformation(extent={{-100,-18},{-80,2}})));
   Modelica.Blocks.Math.Add PCon "Consumed power"
     annotation (Placement(transformation(extent={{-68,-40},{-48,-20}})));
