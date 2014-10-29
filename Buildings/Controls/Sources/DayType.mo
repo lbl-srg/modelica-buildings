@@ -1,7 +1,8 @@
 within Buildings.Controls.Sources;
 model DayType "Block that outputs a signal that indicates week-day or week-end"
   extends Modelica.Blocks.Icons.DiscreteBlock;
-  parameter Integer nDays = 1 "Number of days to output";
+  parameter Integer nout = 2
+    "Number of days to output. Set to true for one day predictions";
   parameter Buildings.Controls.Types.Day[:] days={
     Buildings.Controls.Types.Day.WorkingDay,
     Buildings.Controls.Types.Day.WorkingDay,
@@ -14,8 +15,9 @@ model DayType "Block that outputs a signal that indicates week-day or week-end"
    parameter Integer iStart(min=1, max=size(days, 1)) = 1
     "Index of element in days at simulation start";
 
-  Interfaces.DayTypeOutput y[nDays]
-    "Type of the day for the current and the next (nDays-1) days"                                 annotation (Placement(transformation(extent={{100,-10},
+  Interfaces.DayTypeOutput y[nout]
+    "Type of the day for the current and the next (nout-1) days"
+    annotation (Placement(transformation(extent={{100,-10},
             {120,10}}), iconTransformation(extent={{100,-10},{120,10}})));
 
 protected
@@ -35,7 +37,7 @@ initial equation
   // skipIDayIncrement is true if the simulation starts at midnight.
   skipIDayIncrement = abs(firstSample-time) < 1E-8;
 equation
-  for i in 1:nDays loop
+  for i in 1:nout loop
     y[i] = days[ mod(iDay+i-2, size(days, 1))+1];
   end for;
   sampleTrigger = sample(firstSample, samplePeriod);
@@ -64,11 +66,11 @@ The output signal is of type
 Buildings.Controls.Types.Day</a>.
 </p>
 <p>
-The parameter <code>nDays</code> determines how many days should be
+The parameter <code>nout</code> determines how many days should be
 sent to the output. For applications in which only the current day
-is of interest, set <code>nDays=1</code>.
+is of interest, set <code>nout=1</code>.
 For applications in which the load is predicted for the next <i>24</i> hours,
-set <code>nDays=2</code> in order to output the type of day for today and for
+set <code>nout=2</code> in order to output the type of day for today and for
 tomorrow.
 </p>
 <p>

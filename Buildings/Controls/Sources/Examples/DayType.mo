@@ -8,7 +8,8 @@ model DayType "Example model for the source that outputs the type of the day"
   Buildings.Controls.Sources.DayType dayTypSat(iStart=6)
     "Model that outputs the type of the day, starting with Saturday"
     annotation (Placement(transformation(extent={{-60,0},{-40,20}})));
-  Buildings.Controls.Sources.DayType dayTypTwoWeeks(days={
+  Buildings.Controls.Sources.DayType dayTypTwoWeeks(
+    days={
         Buildings.Controls.Types.Day.WorkingDay,
         Buildings.Controls.Types.Day.WorkingDay,
         Buildings.Controls.Types.Day.WorkingDay,
@@ -18,11 +19,11 @@ model DayType "Example model for the source that outputs the type of the day"
         Buildings.Controls.Types.Day.NonWorkingDay,Buildings.Controls.Types.Day.NonWorkingDay,
         Buildings.Controls.Types.Day.NonWorkingDay,Buildings.Controls.Types.Day.NonWorkingDay,
         Buildings.Controls.Types.Day.NonWorkingDay,Buildings.Controls.Types.Day.NonWorkingDay,
-        Buildings.Controls.Types.Day.NonWorkingDay,Buildings.Controls.Types.Day.NonWorkingDay}, nDays=
-        14)
+        Buildings.Controls.Types.Day.NonWorkingDay,Buildings.Controls.Types.Day.NonWorkingDay},
+    nout=14)
     "Model that outputs the type of the day, starting with 6 workdays, then 8 non-working days"
     annotation (Placement(transformation(extent={{-60,-40},{-40,-20}})));
-  Buildings.Controls.Sources.DayType dayTypMonThr(nDays=3)
+  Buildings.Controls.Sources.DayType dayTypMonThr(nout=3)
     "Model that outputs the type of the day for 3 days, starting with Monday"
     annotation (Placement(transformation(extent={{-60,-80},{-40,-60}})));
   annotation (__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/Sources/Examples/DayType.mos"
