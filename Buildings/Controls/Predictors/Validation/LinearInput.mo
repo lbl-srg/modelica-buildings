@@ -1,8 +1,8 @@
-within Buildings.Controls.Predictors.Examples.Validation;
+within Buildings.Controls.Predictors.Validation;
 model LinearInput
   "Demand response client with actual power consumption being linear in the temperature"
   extends
-    Buildings.Controls.Predictors.Examples.Validation.BaseClasses.PartialSimpleTestCase(
+    Buildings.Controls.Predictors.Validation.BaseClasses.PartialSimpleTestCase(
      baseLoad(predictionModel=Buildings.Controls.Predictors.Types.PredictionModel.WeatherRegression));
   Modelica.Blocks.Sources.Ramp   TOut(
     y(unit="K", displayUnit="degC"),
@@ -70,13 +70,13 @@ equation
       smooth=Smooth.None));
   annotation (
   experiment(StopTime=5270400),
-  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/Predictors/Examples/Validation/LinearInput.mos"
+  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/Predictors/Validation/LinearInput.mos"
         "Simulate and plot"),
     Documentation(info="<html>
 <p>
 This model is identical to 
-<a href=\"modelica://Buildings.Controls.Predictors.Examples.Validation.SineInput\">
-Buildings.Controls.Predictors.Examples.Validation.SineInput</a>,
+<a href=\"modelica://Buildings.Controls.Predictors.Validation.SineInput\">
+Buildings.Controls.Predictors.Validation.SineInput</a>,
 except that the input <code>client.PCon</code> is linear in the temperature.
 </p>
 <p>

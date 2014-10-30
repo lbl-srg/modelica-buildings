@@ -2,7 +2,7 @@ within Buildings.Controls.Sources;
 model DayType "Block that outputs a signal that indicates week-day or week-end"
   extends Modelica.Blocks.Icons.DiscreteBlock;
   parameter Integer nout = 2
-    "Number of days to output. Set to true for one day predictions";
+    "Number of days to output. Set to two for one day predictions";
   parameter Buildings.Controls.Types.Day[:] days={
     Buildings.Controls.Types.Day.WorkingDay,
     Buildings.Controls.Types.Day.WorkingDay,

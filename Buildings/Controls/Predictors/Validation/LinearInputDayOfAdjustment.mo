@@ -1,18 +1,18 @@
-within Buildings.Controls.Predictors.Examples.Validation;
+within Buildings.Controls.Predictors.Validation;
 model LinearInputDayOfAdjustment
   "Demand response client with constant input for actual power consumption"
-  extends Buildings.Controls.Predictors.Examples.Validation.LinearInput(
+  extends Buildings.Controls.Predictors.Validation.LinearInput(
      baseLoad(use_dayOfAdj=true));
 
   annotation (
   experiment(StopTime=5270400),
-  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/Predictors/Examples/Validation/LinearInputDayOfAdjustment.mos"
+  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/Predictors/Validation/LinearInputDayOfAdjustment.mos"
         "Simulate and plot"),
     Documentation(info="<html>
 <p>
 This model is identical to 
-<a href=\"modelica://Buildings.Controls.Predictors.Examples.Validation.LinearInput\">
-Buildings.Controls.Predictors.Examples.Validation.LinearInput</a>,
+<a href=\"modelica://Buildings.Controls.Predictors.Validation.LinearInput\">
+Buildings.Controls.Predictors.Validation.LinearInput</a>,
 except that the demand respond client is configured to use the day-of adjustment.
 </p>
 <p>

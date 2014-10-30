@@ -76,10 +76,6 @@ equation
       points={{31,-30},{36,-30},{36,-58},{40,-58}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(clientAverage.TOut, bui90.y[1]) annotation (Line(
-      points={{9,23},{-6,23},{-6,-10},{-69,-10}},
-      color={0,0,127},
-      smooth=Smooth.None));
   connect(clientWeather.TOut, bui90.y[1]) annotation (Line(
       points={{9,-37},{-6,-37},{-6,-10},{-69,-10}},
       color={0,0,127},
@@ -134,7 +130,9 @@ equation
         "Simulate and plot"),
             experiment(
       StopTime=1.728e+06,
-      Interval=900),
+      __Dymola_NumberOfIntervals=1920,
+      __Dymola_fixedstepsize=900,
+      __Dymola_Algorithm="Euler"),
     Documentation(info="<html>
 <p>
 Model that demonstrates the demand response client, 
