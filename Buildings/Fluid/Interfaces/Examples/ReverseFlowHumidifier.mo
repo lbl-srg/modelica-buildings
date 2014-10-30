@@ -83,8 +83,7 @@ package Medium = Buildings.Media.PerfectGases.MoistAir;
     linearized=false,
     dp_nominal=1000) "Fixed resistance"
     annotation (Placement(transformation(extent={{-10,-16},{10,4}})));
-  inner Modelica.Fluid.System system
-    annotation (Placement(transformation(extent={{38,-100},{58,-80}})));
+
   Modelica.Fluid.Sources.MassFlowSource_T source2(
     redeclare package Medium = Medium,
     use_m_flow_in=false,

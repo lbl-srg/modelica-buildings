@@ -80,8 +80,7 @@ model MixingVolumeMoistAir
           extent={{2,120},{22,140}})));
   Modelica.Blocks.Math.Gain gai1(k=0.1) annotation (Placement(transformation(
           extent={{-20,-60},{0,-40}})));
-  inner Modelica.Fluid.System system
-    annotation (Placement(transformation(extent={{-100,-160},{-80,-140}})));
+
     Buildings.Fluid.FixedResistances.FixedResistanceDpM res1(
     redeclare each package Medium = Medium,
     from_dp=true,

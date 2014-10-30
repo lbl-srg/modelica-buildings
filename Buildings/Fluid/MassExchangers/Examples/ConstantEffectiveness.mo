@@ -64,8 +64,7 @@ model ConstantEffectiveness
     dp2_nominal=100,
     show_T=true)
     annotation (Placement(transformation(extent={{6,-4},{26,16}})));
-  inner Modelica.Fluid.System system
-    annotation (Placement(transformation(extent={{-100,-100},{-80,-80}})));
+
 equation
   connect(PIn.y,sou_2. p_in) annotation (Line(
       points={{1,-40},{20,-40},{20,-52},{38,-52}},

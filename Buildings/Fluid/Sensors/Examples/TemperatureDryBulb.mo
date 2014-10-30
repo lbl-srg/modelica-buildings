@@ -42,8 +42,7 @@ model TemperatureDryBulb "Test model for the dry bulb temperature sensor"
    m_flow_nominal=2,
    tau=0) "Steady state temperature sensor"
     annotation (Placement(transformation(extent={{0,-2},{20,18}})));
-  inner Modelica.Fluid.System system
-    annotation (Placement(transformation(extent={{80,-100},{100,-80}})));
+
     Modelica.Blocks.Sources.Pulse m_flow(
     offset=-1,
     amplitude=2,

@@ -18,8 +18,7 @@ model Pressure "Test model for the pressure sensor"
     nPorts=1) "Flow boundary condition"
      annotation (Placement(transformation(
           extent={{-52,-10},{-32,10}})));
-  inner Modelica.Fluid.System system
-    annotation (Placement(transformation(extent={{80,-100},{100,-80}})));
+
   Buildings.Fluid.FixedResistances.FixedResistanceDpM dp(
     redeclare package Medium = Medium,
     m_flow_nominal=10,

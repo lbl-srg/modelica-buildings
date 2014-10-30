@@ -39,8 +39,7 @@ model ValveParameterization
     Kv=0.73,
     filteredOpening=false) "Valve model, linear opening characteristics"
          annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
-  inner Modelica.Fluid.System system
-    annotation (Placement(transformation(extent={{-100,-100},{-80,-80}})));
+
   Valves.TwoWayLinear valCv(
     redeclare package Medium = Medium,
     m_flow_nominal=150/3600,

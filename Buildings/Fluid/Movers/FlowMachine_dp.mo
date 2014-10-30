@@ -4,8 +4,7 @@ model FlowMachine_dp
   extends Buildings.Fluid.Movers.BaseClasses.ControlledFlowMachine(
   final control_m_flow = false,
   preSou(
-      dp_start=dp_start,
-      m_flow_small=m_flow_small));
+      dp_start=dp_start));
 
   // Classes used to implement the filtered speed
   parameter Boolean filteredSpeed=true

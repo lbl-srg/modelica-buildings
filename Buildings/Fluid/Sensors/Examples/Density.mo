@@ -18,8 +18,7 @@ model Density "Test model for the density sensor"
     use_m_flow_in=true) "Flow boundary condition"
      annotation (Placement(transformation(
           extent={{-50,-10},{-30,10}})));
-  inner Modelica.Fluid.System system
-    annotation (Placement(transformation(extent={{80,-100},{100,-80}})));
+
   Buildings.Fluid.Sensors.Density senDenVol(
     redeclare package Medium = Medium) "Density sensor for the volume"
     annotation (Placement(transformation(extent={{20,0},{40,20}})));

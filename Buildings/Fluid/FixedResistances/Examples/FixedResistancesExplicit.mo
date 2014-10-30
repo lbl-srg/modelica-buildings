@@ -22,9 +22,7 @@ model FixedResistancesExplicit "Test of multiple resistances in series"
     m_flow_nominal=2,
     dp_nominal=5)
              annotation (Placement(transformation(extent={{-20,90},{0,110}})));
-  inner Modelica.Fluid.System system(p_ambient=101325)
-                                   annotation (Placement(transformation(extent={{140,-80},
-            {160,-60}})));
+
     Buildings.Fluid.FixedResistances.FixedResistanceDpM res12(
     redeclare package Medium = Medium,
     from_dp=false,
@@ -220,8 +218,9 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
-            -100},{160,160}})),
-            experiment(StartTime=-1, StopTime=1.0, Tolerance=1E-8),
+            -100},{160,160}}),
+                      graphics),
+experiment(StartTime=-1, StopTime=1.0),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/FixedResistances/Examples/FixedResistancesExplicit.mos"
         "Simulate and plot"),
     Documentation(info="<html>

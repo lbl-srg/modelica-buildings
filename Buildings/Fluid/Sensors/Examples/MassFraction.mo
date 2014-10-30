@@ -18,8 +18,7 @@ model MassFraction "Test model for the mass fraction sensor"
     m_flow=10,
     nPorts=1) "Flow boundary condition"  annotation (Placement(transformation(
           extent={{-80,0},{-60,20}})));
-  inner Modelica.Fluid.System system
-    annotation (Placement(transformation(extent={{80,-100},{100,-80}})));
+
   Buildings.Fluid.Sensors.MassFraction senMasFra2(
     redeclare package Medium = Medium) "Mass fraction sensor for the volume"
     annotation (Placement(transformation(extent={{20,36},{40,56}})));

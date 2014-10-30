@@ -1,13 +1,13 @@
 within Buildings.Fluid.Actuators.Dampers;
 model MixingBox "Outside air mixing box with interlocked air dampers"
   extends Buildings.Fluid.Actuators.BaseClasses.ActuatorSignal;
-  outer Modelica.Fluid.System system "System wide properties";
+
   replaceable package Medium =
       Modelica.Media.Interfaces.PartialMedium "Medium in the component"
     annotation (choicesAllMatching = true);
   import Modelica.Constants;
 
-  parameter Boolean allowFlowReversal = system.allowFlowReversal
+  parameter Boolean allowFlowReversal = true
     "= true to allow flow reversal, false restricts to design direction (port_a -> port_b)"
     annotation(Dialog(tab="Assumptions"), Evaluate=true);
 

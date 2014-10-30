@@ -41,8 +41,7 @@ model Delay
     T_start=283.15)
     "Fluid volume that is a first order approximation of the transport delay"
     annotation (Placement(transformation(extent={{-2,6},{18,26}})));
-  inner Modelica.Fluid.System system
-    annotation (Placement(transformation(extent={{-100,-100},{-80,-80}})));
+
 equation
   connect(P.y, sou.p_in) annotation (Line(points={{-73,40},{-66,40},{-66,14},{
           -60,14}}, color={0,0,127}));

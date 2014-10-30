@@ -18,8 +18,7 @@ model VolumeFlowRate "Test model for the volume flow rate sensor"
     nPorts=1) "Flow boundary condition"
      annotation (Placement(transformation(
           extent={{-50,-10},{-30,10}})));
-  inner Modelica.Fluid.System system
-    annotation (Placement(transformation(extent={{80,-100},{100,-80}})));
+
   Modelica.Blocks.Sources.Ramp ramp(
     height=-20,
     offset=10,

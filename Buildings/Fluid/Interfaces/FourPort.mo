@@ -1,7 +1,7 @@
 within Buildings.Fluid.Interfaces;
 model FourPort "Partial model with four ports"
 
-  outer Modelica.Fluid.System system "System wide properties";
+
 
   replaceable package Medium1 =
       Modelica.Media.Interfaces.PartialMedium "Medium 1 in the component"
@@ -10,10 +10,10 @@ model FourPort "Partial model with four ports"
       Modelica.Media.Interfaces.PartialMedium "Medium 2 in the component"
       annotation (choicesAllMatching = true);
 
-  parameter Boolean allowFlowReversal1 = system.allowFlowReversal
+  parameter Boolean allowFlowReversal1 = true
     "= true to allow flow reversal in medium 1, false restricts to design direction (port_a -> port_b)"
     annotation(Dialog(tab="Assumptions"), Evaluate=true);
-  parameter Boolean allowFlowReversal2 = system.allowFlowReversal
+  parameter Boolean allowFlowReversal2 = true
     "= true to allow flow reversal in medium 2, false restricts to design direction (port_a -> port_b)"
     annotation(Dialog(tab="Assumptions"), Evaluate=true);
 

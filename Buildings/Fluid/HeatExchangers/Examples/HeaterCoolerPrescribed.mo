@@ -4,11 +4,7 @@ model HeaterCoolerPrescribed "Model that demonstrates the ideal heater model"
 
   package Medium = Buildings.Media.GasesConstantDensity.SimpleAir;
 
-  inner Modelica.Fluid.System system(
-     m_flow_start=0,
-     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState)
-    "System wide declarations"
-    annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
+
   parameter Modelica.SIunits.MassFlowRate
     m_flow_nominal=3000/1000/20 "Nominal mass flow rate";
 

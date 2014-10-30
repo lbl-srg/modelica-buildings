@@ -53,8 +53,7 @@ model TraceSubstances "Test model for the extra property sensor"
     m_flow_nominal=m_flow_nominal) "Sensor at exhaust air"
     annotation (Placement(transformation(extent={{50,-62},{30,-42}})));
 
-  inner Modelica.Fluid.System system   annotation (Placement(transformation(
-          extent={{-100,-100},{-80,-80}})));
+
 
   FixedResistances.FixedResistanceDpM res(
     redeclare package Medium = Medium,

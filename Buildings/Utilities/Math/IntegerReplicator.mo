@@ -29,10 +29,10 @@ equation
 This block replicates the integer input signal to an array of <code>nout</code> identical output signals.
 </p>
 </html>", revisions="<html>
-<p><ul>
+<ul>
 <li>November 28, 2013, by Marcus Fuchs:<br/>Changed block to use Functions.integerReplicator. </li>
 <li>August 31, 2012, by Michael Wetter:<br/>Revised documentation. </li>
 <li>July 27, 2012, by Kaustubh Phalak:<br/>First implementation. </li>
-</ul></p>
+</ul>
 </html>"));
 end IntegerReplicator;

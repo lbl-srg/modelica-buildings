@@ -78,8 +78,7 @@ model To_VolumeFraction "Example problem for conversion model"
     initType=Modelica.Blocks.Types.Init.InitialState)
     "CO2 concentration in fresh air supply"
     annotation (Placement(transformation(extent={{60,-20},{80,0}})));
-  inner Modelica.Fluid.System system
-    annotation (Placement(transformation(extent={{-180,60},{-160,80}})));
+
   Buildings.Fluid.FixedResistances.FixedResistanceDpM res(
     redeclare package Medium = Medium,
     dp_nominal=10,

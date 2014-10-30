@@ -34,8 +34,7 @@ model TwoWayValveTable
     m_flow_nominal=0.04)
     "Valve model with opening characteristics based on a table"
          annotation (Placement(transformation(extent={{-20,10},{0,30}})));
-    inner Modelica.Fluid.System system
-    annotation (Placement(transformation(extent={{-90,70},{-70,90}})));
+
   parameter Data.Generic datVal(
     y={0,0.1667,0.3333,0.5,0.6667,1},
     phi={0, 0.19, 0.35, 0.45, 0.5, 0.65}/0.65) "Valve characteristics"
