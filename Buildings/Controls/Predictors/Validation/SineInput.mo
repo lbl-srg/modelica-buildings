@@ -1,8 +1,8 @@
-within Buildings.Controls.Predictors.Examples.Validation;
+within Buildings.Controls.Predictors.Validation;
 model SineInput
   "Demand response client with sinusoidal input for actual power consumption"
   extends
-    Buildings.Controls.Predictors.Examples.Validation.BaseClasses.PartialSimpleTestCase;
+    Buildings.Controls.Predictors.Validation.BaseClasses.PartialSimpleTestCase;
 
   Modelica.Blocks.Sources.Cosine PBas(
     amplitude=0.5,
@@ -45,7 +45,7 @@ equation
   annotation (
   Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
             100}}),                                                                    graphics),
-          __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/Predictors/Examples/Validation/SineInput.mos"
+          __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/Predictors/Validation/SineInput.mos"
         "Simulate and plot"),
             experiment(StopTime=5270400),
     Documentation(info="<html>

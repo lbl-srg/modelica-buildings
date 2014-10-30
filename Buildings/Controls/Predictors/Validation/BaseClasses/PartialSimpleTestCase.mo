@@ -1,4 +1,4 @@
-within Buildings.Controls.Predictors.Examples.Validation.BaseClasses;
+within Buildings.Controls.Predictors.Validation.BaseClasses;
 partial model PartialSimpleTestCase
   "Partial base class for simple test case of base load prediction"
   extends Modelica.Icons.Example;

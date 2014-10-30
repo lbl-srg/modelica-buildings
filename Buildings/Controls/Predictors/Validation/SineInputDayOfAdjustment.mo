@@ -1,17 +1,17 @@
-within Buildings.Controls.Predictors.Examples.Validation;
+within Buildings.Controls.Predictors.Validation;
 model SineInputDayOfAdjustment
   "Demand response client with constant input for actual power consumption"
-  extends Buildings.Controls.Predictors.Examples.Validation.SineInput(
+  extends Buildings.Controls.Predictors.Validation.SineInput(
      baseLoad(use_dayOfAdj=true));
   annotation (
   experiment(StopTime=5270400),
-  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/Predictors/Examples/Validation/SineInputDayOfAdjustment.mos"
+  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/Predictors/Validation/SineInputDayOfAdjustment.mos"
         "Simulate and plot"),
     Documentation(info="<html>
 <p>
 This model is identical to 
-<a href=\"modelica://Buildings.Controls.Predictors.Examples.Validation.SineInput\">
-Buildings.Controls.Predictors.Examples.Validation.SineInput</a>,
+<a href=\"modelica://Buildings.Controls.Predictors.Validation.SineInput\">
+Buildings.Controls.Predictors.Validation.SineInput</a>,
 except that the demand respond client is configured to use the day-of adjustment.
 </p>
 <p>

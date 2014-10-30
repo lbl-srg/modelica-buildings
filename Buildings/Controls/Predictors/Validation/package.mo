@@ -1,4 +1,4 @@
-within Buildings.Controls.Predictors.Examples;
+within Buildings.Controls.Predictors;
 package Validation "Collection of models that validate the load predictors"
   extends Modelica.Icons.ExamplesPackage;
 

@@ -1,8 +1,8 @@
-within Buildings.Controls.Predictors.Examples.Validation;
+within Buildings.Controls.Predictors.Validation;
 model ConstantInput
   "Demand response client with constant input for actual power consumption"
   extends
-    Buildings.Controls.Predictors.Examples.Validation.BaseClasses.PartialSimpleTestCase;
+    Buildings.Controls.Predictors.Validation.BaseClasses.PartialSimpleTestCase;
   Modelica.Blocks.Sources.Constant PCon(k=1) "Measured power consumption"
     annotation (Placement(transformation(extent={{-90,-40},{-70,-20}})));
   Modelica.Blocks.Continuous.Integrator integrator
@@ -20,13 +20,13 @@ equation
 
   annotation (
   experiment(StopTime=5270400),
-  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/Predictors/Examples/Validation/ConstantInput.mos"
+  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/Predictors/Validation/ConstantInput.mos"
         "Simulate and plot"),
     Documentation(info="<html>
 <p>
 This model is identical to 
-<a href=\"modelica://Buildings.Controls.Predictors.Examples.Validation.ConstantInputDayOfAdjustment\">
-Buildings.Controls.Predictors.Examples.Validation.ConstantInputDayOfAdjustment</a>,
+<a href=\"modelica://Buildings.Controls.Predictors.Validation.ConstantInputDayOfAdjustment\">
+Buildings.Controls.Predictors.Validation.ConstantInputDayOfAdjustment</a>,
 except that this model does not use any day-of adjustment for the predicted load.
 </p>
 <p>
