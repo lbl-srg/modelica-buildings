@@ -39,12 +39,14 @@ block ElectricalLoad "Block that predicts an electrical load"
     annotation (Dialog(enable=use_dayOfAdj,
                 group="Day of adjustment"));
 
-  Modelica.Blocks.Interfaces.RealInput TOut(unit="K") "Outside air temperature"
+  Modelica.Blocks.Interfaces.RealInput TOut(unit="K") 
+  if (predictionModel == Buildings.Controls.Predictors.Types.PredictionModel.WeatherRegression)
+  "Outside air temperature"
     annotation (Placement(transformation(extent={{-140,-80},{-100,-40}}),
         iconTransformation(extent={{-140,-80},{-100,-40}})));
 
-  Modelica.Blocks.Interfaces.RealInput TOutFut[nPre-1](each unit="K") if
-       (predictionModel == Buildings.Controls.Predictors.Types.PredictionModel.WeatherRegression)
+  Modelica.Blocks.Interfaces.RealInput TOutFut[nPre-1](each unit="K")
+    if (predictionModel == Buildings.Controls.Predictors.Types.PredictionModel.WeatherRegression)
     "Future outside air temperatures"
     annotation (Placement(
        transformation(extent={{-140,-120},{-100,-80}}),
@@ -131,7 +133,10 @@ protected
 
   Integer idxSam "Index to access iSam[1]";
 
-  // Conditional connector
+  // Conditional connectors
+  Modelica.Blocks.Interfaces.RealInput TOut_in_internal(unit="K") 
+    "Needed to connect to conditional connector";
+
   Modelica.Blocks.Interfaces.RealInput TOutFut_in_internal[nPre-1](each unit="K")
     "Needed to connect to conditional connector";
 
@@ -231,9 +236,11 @@ Wrong values for parameters.
 
 equation
   // Conditional connector
+  connect(TOut,    TOut_in_internal);
   connect(TOutFut, TOutFut_in_internal);
   if predictionModel <> Types.PredictionModel.WeatherRegression then
     TOutFut_in_internal = zeros(nPre-1);
+    TOut_in_internal = 0;
   end if;
 
   // Sample trigger
@@ -241,7 +248,7 @@ equation
 
   // Averaging of outside temperature
   if predictionModel == Types.PredictionModel.WeatherRegression then
-    der(intTOut) = TOut;
+    der(intTOut) = TOut_in_internal;
   else
     intTOut = 0;
   end if;
@@ -298,7 +305,7 @@ algorithm
     elseif predictionModel == Types.PredictionModel.WeatherRegression then
       for m in 1:nPre loop
         PPre[m] :=Buildings.Controls.Predictors.BaseClasses.weatherRegression(
-                    TCur=if m == 1 then TOut else TOutFut_in_internal[m-1],
+                    TCur=if m == 1 then TOut_in_internal else TOutFut_in_internal[m-1],
                     T={T[_typeOfDay[m], iSam[m], i] for i in 1:nHis},
                     P={P[_typeOfDay[m], iSam[m], i] for i in 1:nHis},
                     k=if historyComplete[_typeOfDay[m], iSam[m]] then nHis else iHis[_typeOfDay[m], iSam[m]]);

@@ -5,33 +5,10 @@ model ConstantInput
     Buildings.Controls.Predictors.Examples.Validation.BaseClasses.PartialSimpleTestCase;
   Modelica.Blocks.Sources.Constant PCon(k=1) "Measured power consumption"
     annotation (Placement(transformation(extent={{-90,-40},{-70,-20}})));
-  Modelica.Blocks.Math.Gain gain(k=10)
-    annotation (Placement(transformation(extent={{-50,-70},{-30,-50}})));
-  Modelica.Blocks.Sources.Constant TOffSet(k=293.15)
-    "Offset for outside air temperature"
-    annotation (Placement(transformation(extent={{-88,-96},{-68,-76}})));
-  Modelica.Blocks.Math.Add add
-    annotation (Placement(transformation(extent={{-8,-90},{12,-70}})));
   Modelica.Blocks.Continuous.Integrator integrator
     "Integrator to compute energy from power"
     annotation (Placement(transformation(extent={{-20,-40},{0,-20}})));
 equation
-  connect(add.u2,TOffSet. y) annotation (Line(
-      points={{-10,-86},{-67,-86}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(add.y, baseLoad.TOut) annotation (Line(
-      points={{13,-80},{20,-80},{20,-6},{58,-6}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(gain.y,add. u1) annotation (Line(
-      points={{-29,-60},{-20,-60},{-20,-74},{-10,-74}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(gain.u,PCon. y) annotation (Line(
-      points={{-52,-60},{-60,-60},{-60,-30},{-69,-30}},
-      color={0,0,127},
-      smooth=Smooth.None));
   connect(PCon.y, integrator.u) annotation (Line(
       points={{-69,-30},{-22,-30}},
       color={0,0,127},

@@ -13,13 +13,6 @@ model SineInput
   Modelica.Blocks.Discrete.Sampler P(samplePeriod=tSample)
     "Sampler to turn PCon into a piece-wise constant signal. This makes it easier to verify the results"
     annotation (Placement(transformation(extent={{-40,-40},{-20,-20}})));
-  Modelica.Blocks.Sources.Constant TOffSet(k=293.15)
-    "Offset for outside air temperature"
-    annotation (Placement(transformation(extent={{-80,-96},{-60,-76}})));
-  Modelica.Blocks.Math.Gain gain(k=10)
-    annotation (Placement(transformation(extent={{-40,-70},{-20,-50}})));
-  Modelica.Blocks.Math.Add add
-    annotation (Placement(transformation(extent={{0,-90},{20,-70}})));
   Modelica.Blocks.Continuous.Integrator integrator
     "Integrator to compute energy from power"
     annotation (Placement(transformation(extent={{-8,-10},{12,10}})));
@@ -29,28 +22,12 @@ model SineInput
   Modelica.Blocks.Math.Add PCon "Consumed power"
     annotation (Placement(transformation(extent={{-68,-40},{-48,-20}})));
 equation
-  connect(add.u2, TOffSet.y) annotation (Line(
-      points={{-2,-86},{-59,-86}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(gain.y, add.u1) annotation (Line(
-      points={{-19,-60},{-12,-60},{-12,-74},{-2,-74}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(add.y, baseLoad.TOut) annotation (Line(
-      points={{21,-80},{26,-80},{26,-6},{58,-6}},
-      color={0,0,127},
-      smooth=Smooth.None));
   connect(P.y, integrator.u) annotation (Line(
       points={{-19,-30},{-12,-30},{-12,0},{-10,0}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(integrator.y, baseLoad.ECon) annotation (Line(
       points={{13,0},{26,0},{26,8.88178e-16},{58,8.88178e-16}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(gain.u, P.y) annotation (Line(
-      points={{-42,-60},{-50,-60},{-50,-44},{-12,-44},{-12,-30},{-19,-30}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(PCon.u2, PBas.y) annotation (Line(
