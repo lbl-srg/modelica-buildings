@@ -108,8 +108,7 @@ equation
   else
     Q_flow = u*A*q_flow;
   end if;
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},
-            {100,100}}),       graphics), Icon(coordinateSystem(
+  annotation ( Icon(coordinateSystem(
           preserveAspectRatio=true, extent={{-100,-100},{100,100}}),
        graphics={
         Rectangle(

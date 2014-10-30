@@ -9,8 +9,7 @@ model MassFraction "Ideal one port mass fraction sensor"
   Modelica.Blocks.Interfaces.RealOutput X(min=-1e-3,
                                           max=1.001,
                                           unit="1") "Mass fraction in port"
-    annotation (Placement(transformation(extent={{100,-10},{120,10}},
-          rotation=0)));
+    annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 protected
   Medium.MassFraction XiVec[Medium.nXi](
       quantity=Medium.extraPropertiesNames)
@@ -20,8 +19,6 @@ equation
   XiVec = inStream(port.Xi_outflow);
   X = if i_x > Medium.nXi then (1-sum(XiVec)) else XiVec[i_x];
 annotation (defaultComponentName="senMasFra",
-  Diagram(coordinateSystem(preserveAspectRatio=true,  extent={{-100,-100},{100,
-            100}}),     graphics),
   Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
         graphics={
         Line(points={{0,-70},{0,-100}}, color={0,0,127}),

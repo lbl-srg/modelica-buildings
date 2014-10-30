@@ -50,8 +50,7 @@ model TwoPortHeatMassExchanger
     final T_start=T_start,
     final X_start=X_start,
     final C_start=C_start) "Volume for fluid stream"
-     annotation (Placement(transformation(extent={{-9,0},{11,-20}},
-         rotation=0)));
+     annotation (Placement(transformation(extent={{-9,0},{11,-20}})));
 
   Buildings.Fluid.FixedResistances.FixedResistanceDpM preDro(
     redeclare final package Medium = Medium,
@@ -102,10 +101,6 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   annotation (
-    Diagram(coordinateSystem(
-        preserveAspectRatio=true,
-        extent={{-100,-100},{100,100}},
-        grid={1,1})),
     Documentation(info="<html>
 <p>
 This component transports one fluid stream.

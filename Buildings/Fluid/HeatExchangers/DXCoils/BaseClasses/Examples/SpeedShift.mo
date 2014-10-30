@@ -81,8 +81,7 @@ equation
       points={{21,10},{32,10},{32,8},{40,8}},
       color={255,127,0},
       smooth=Smooth.None));
-annotation (Diagram(graphics),
-experiment(StopTime=3600),
+annotation (experiment(StopTime=3600),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/DXCoils/BaseClasses/Examples/SpeedShift.mos"
         "Simulate and plot"),
           Documentation(info="<html>

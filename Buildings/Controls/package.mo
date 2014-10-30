@@ -8,7 +8,7 @@ For additional models, see also
 <a href=\"modelica://Modelica.Blocks\">
 Modelica.Blocks</a>.
 </html>"),
-Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100.0,-100.0},{100.0,100.0}}, initialScale=0.1), graphics={
+Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100.0,-100.0},{100.0,100.0}}), graphics={
       Rectangle(
         origin={0.0,35.1488},
         fillColor={255,255,255},

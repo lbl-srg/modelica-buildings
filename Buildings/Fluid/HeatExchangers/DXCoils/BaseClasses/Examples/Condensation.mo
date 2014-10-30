@@ -39,8 +39,7 @@ equation
           6.10623e-16},{-20,6.10623e-16},{-1,6.10623e-16}},
       color={0,0,127},
       smooth=Smooth.None));
-annotation (Diagram(graphics),
-experiment(StopTime=3600),
+annotation (experiment(StopTime=3600),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/DXCoils/BaseClasses/Examples/Condensation.mos"
         "Simulate and plot"),
           Documentation(info="<html>

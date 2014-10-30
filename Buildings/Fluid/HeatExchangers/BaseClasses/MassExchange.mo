@@ -7,48 +7,42 @@ model MassExchange
       annotation (choicesAllMatching=true);
 
   Modelica.Blocks.Interfaces.RealInput XInf "Water mass fraction of medium"
-    annotation (Placement(transformation(extent={{-140,-20},{-100,20}},
-          rotation=0)));
+    annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
   Modelica.Blocks.Interfaces.RealInput TSur(final quantity="ThermodynamicTemperature",
                                             final unit = "K", displayUnit = "degC", min=0)
     "Surface temperature"
-    annotation (Placement(transformation(extent={{-140,60},{-100,100}},
-          rotation=0)));
+    annotation (Placement(transformation(extent={{-140,60},{-100,100}})));
   Modelica.Blocks.Interfaces.RealOutput mWat_flow(final unit = "kg/s")
     "Water flow rate"
-    annotation (Placement(transformation(extent={{100,10},{120,30}}, rotation=0)));
+    annotation (Placement(transformation(extent={{100,10},{120,30}})));
   Modelica.Blocks.Interfaces.RealOutput TLiq(final quantity="ThermodynamicTemperature",
                                              final unit = "K", displayUnit = "degC", min=0)
     "Temperature at which condensate drains from system"
-    annotation (Placement(transformation(extent={{100,-50},{120,-30}}, rotation=
-           0)));
+    annotation (Placement(transformation(extent={{100,-50},{120,-30}})));
   Modelica.Blocks.Interfaces.RealInput Gc
     "Signal representing the convective (sensible) thermal conductance in [W/K]"
-    annotation (Placement(transformation(extent={{-140,-100},{-100,-60}},
-          rotation=0)));
+    annotation (Placement(transformation(extent={{-140,-100},{-100,-60}})));
   parameter Real Le = 1 "Lewis number (around 1 for water vapor in air)";
   parameter Real n = 1/3
     "Exponent in bondary layer ratio, delta/delta_t = Pr^n";
 public
   Buildings.Utilities.Psychrometrics.X_pW humRatPre(use_p_in=false)
     "Model to convert water vapor pressure into humidity ratio"
-    annotation (Placement(transformation(extent={{0,0},{20,20}}, rotation=0)));
+    annotation (Placement(transformation(extent={{0,0},{20,20}})));
   Buildings.Utilities.Psychrometrics.pW_TDewPoi TDewPoi
     "Model to compute the water vapor pressure at the dew point"
-    annotation (Placement(transformation(extent={{-60,40},{-40,60}}, rotation=0)));
+    annotation (Placement(transformation(extent={{-60,40},{-40,60}})));
   Modelica.Blocks.Math.Gain gain(k=1/cpLe_default)
     "Constant to convert from heat transfer to mass transfer"
-    annotation (Placement(transformation(extent={{-80,-90},{-60,-70}}, rotation=
-           0)));
+    annotation (Placement(transformation(extent={{-80,-90},{-60,-70}})));
   Modelica.Blocks.Math.Product mWat "Water flow rate"
-    annotation (Placement(transformation(extent={{60,-80},{80,-60}}, rotation=0)));
+    annotation (Placement(transformation(extent={{60,-80},{80,-60}})));
   Modelica.Blocks.Math.Min min annotation (Placement(transformation(extent={{20,
-            -60},{40,-40}}, rotation=0)));
+            -60},{40,-40}})));
   Modelica.Blocks.Sources.Constant zero(k=0) "Constant for zero"
-    annotation (Placement(transformation(extent={{-20,-40},{0,-20}}, rotation=0)));
+    annotation (Placement(transformation(extent={{-20,-40},{0,-20}})));
   Modelica.Blocks.Math.Add delX(k2=-1, k1=1) "Humidity difference"
-    annotation (Placement(transformation(extent={{-40,-66},{-20,-46}}, rotation=
-           0)));
+    annotation (Placement(transformation(extent={{-40,-66},{-20,-46}})));
 protected
  parameter Medium.ThermodynamicState sta_default = Medium.setState_phX(h=Medium.h_default,
        p=Medium.p_default, X=Medium.X_default);
@@ -151,9 +145,6 @@ equation
           lineColor={0,0,255},
           fillColor={0,0,255},
           fillPattern=FillPattern.Solid)}),
-                            Diagram(coordinateSystem(preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}}),
-                                    graphics),
     Documentation(info="<html>
 <p>
 This model computes the mass transfer based on similarity laws between

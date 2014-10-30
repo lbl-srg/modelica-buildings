@@ -366,9 +366,6 @@ Implemented first version in <code>Buildings</code> library, based on model from
 </li>
 </ul>
 </html>"),
-    Diagram(coordinateSystem(preserveAspectRatio=true,  extent={{-100,-100},{
-            100,100}}),
-            graphics),
     Icon(graphics={            Rectangle(
           extent={{-100,100},{100,-100}},
           fillColor={135,135,135},

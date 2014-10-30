@@ -15,9 +15,7 @@ equation
   // Energy balance. (Energy is not conserved by this model!)
   port_b.Q_flow = -k*port_a.Q_flow;
   port_a.T = port_b.T;
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=true,  extent={{-100,
-            -100},{100,100}})),
-    Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{
+  annotation (    Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{
             100,100}}), graphics={
         Line(
           points={{0,90},{0,40}},

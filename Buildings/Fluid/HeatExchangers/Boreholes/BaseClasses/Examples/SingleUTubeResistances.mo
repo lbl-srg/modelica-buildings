@@ -50,8 +50,6 @@ initial algorithm
 experiment(StopTime=1),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/Boreholes/BaseClasses/Examples/SingleUTubeResistances.mos"
         "Simulate and plot"),
-        Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},
-            {100,100}})),
                   Documentation(info="<html>
 <p>
 This example tests the thermal resistances in the borehole.

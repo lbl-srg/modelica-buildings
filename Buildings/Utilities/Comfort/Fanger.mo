@@ -448,6 +448,5 @@ rather than computing it in model, added model to UTC library.
           points={{-44,30},{-30,24},{-22,10},{-18,-14},{-6,-20},{2,-20},{8,-16},
               {12,-12},{16,6},{24,24},{38,30}},
           color={255,0,0},
-          smooth=Smooth.None)}),
-    Diagram(graphics));
+          smooth=Smooth.None)}));
 end Fanger;

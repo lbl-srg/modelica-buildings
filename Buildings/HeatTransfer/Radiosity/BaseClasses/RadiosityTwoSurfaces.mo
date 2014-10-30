@@ -17,8 +17,7 @@ partial block RadiosityTwoSurfaces
     "Outgoing radiosity at surface b"
     annotation (Placement(transformation(extent={{100,30},{120,50}})));
 
-  annotation (Diagram(graphics), Icon(graphics),
-           Documentation(info="<html>
+  annotation (           Documentation(info="<html>
 Partial model for a device with two surfaces.
 </html>", revisions="<html>
 <ul>

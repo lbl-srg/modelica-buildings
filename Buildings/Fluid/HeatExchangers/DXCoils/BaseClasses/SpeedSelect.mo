@@ -45,6 +45,5 @@ First implementation.
           points={{-86,-64},{-26,-64},{-26,-26},{-10,-26},{-10,18},{14,18},{14,58},
               {84,58}},
           color={0,0,255},
-          smooth=Smooth.None)}),
-    Diagram(graphics));
+          smooth=Smooth.None)}));
 end SpeedSelect;

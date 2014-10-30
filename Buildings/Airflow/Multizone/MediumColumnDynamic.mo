@@ -20,15 +20,14 @@ model MediumColumnDynamic
     m_flow(min=if allowFlowReversal then -Constants.inf else 0),
     p(start=Medium.p_default))
     "Fluid connector a (positive design flow direction is from port_a to port_b)"
-    annotation (Placement(transformation(extent={{-10,90},{10,110}}, rotation=0),
+    annotation (Placement(transformation(extent={{-10,90},{10,110}}),
         iconTransformation(extent={{-10,90},{10,110}})));
   Modelica.Fluid.Interfaces.FluidPort_b port_b(
     redeclare final package Medium = Medium,
     m_flow(max=if allowFlowReversal then +Constants.inf else 0),
     p(start=Medium.p_default))
     "Fluid connector b (positive design flow direction is from port_a to port_b)"
-    annotation (Placement(transformation(extent={{10,-110},{-10,-90}}, rotation=
-           0), iconTransformation(extent={{10,-110},{-10,-90}})));
+    annotation (Placement(transformation(extent={{10,-110},{-10,-90}}), iconTransformation(extent={{10,-110},{-10,-90}})));
 
   // m_flow_nominal is not used by vol, since this component
   // can only be configured as a dynamic model.
@@ -209,6 +208,5 @@ Buildings.Fluid.Interfaces.LumpedVolumeDeclarations</a>.
        Released first version.
 </li>
 </ul>
-</html>"),
-    Diagram(graphics));
+</html>"));
 end MediumColumnDynamic;

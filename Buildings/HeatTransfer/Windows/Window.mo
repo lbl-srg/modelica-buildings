@@ -59,26 +59,24 @@ model Window "Model for a window"
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a glaUns_a
     "Heat port at unshaded glass of exterior-facing surface"
                                                     annotation (Placement(transformation(extent={{-210,10},
-            {-190,30}},rotation=0)));
+            {-190,30}})));
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_b glaUns_b
     "Heat port at unshaded glass of room-facing surface"
                                                 annotation (Placement(transformation(extent={{190,10},
-            {210,30}},rotation=0)));
+            {210,30}})));
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a glaSha_a if haveShade
     "Heat port at shaded glass of exterior-facing surface"
-    annotation (Placement(transformation(extent={{-210, -30}, {-190,-10}}, rotation=0)));
+    annotation (Placement(transformation(extent={{-210, -30}, {-190,-10}})));
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_b glaSha_b if haveShade
     "Heat port at shaded glass of room-facing surface"
-  annotation (Placement(transformation(extent={{190,-30}, {210,-10}}, rotation=0)));
+  annotation (Placement(transformation(extent={{190,-30}, {210,-10}})));
 
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a fra_a
     "Heat port at frame of exterior-facing surface"                                   annotation (Placement(transformation(extent={{-210,
-            -170},{-190,-150}},
-                       rotation=0)));
+            -170},{-190,-150}})));
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_b fra_b
     "Heat port at frame of room-facing surface"                                       annotation (Placement(transformation(extent={{192,
-            -170},{212,-150}},
-                      rotation=0)));
+            -170},{212,-150}})));
   Modelica.Blocks.Interfaces.RealInput uSha(min=0, max=1) if
        haveShade
     "Control signal for the shading device. 0: unshaded; 1: fully shaded (removed if no shade is present)"
@@ -203,10 +201,8 @@ equation
       smooth=Smooth.None));
 
   annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-200,
-            -200},{200,200}},
-        initialScale=0.1),     graphics), Icon(coordinateSystem(
-          preserveAspectRatio=true, extent={{-200,-200},{200,200}},
-        initialScale=0.1),                                           graphics={
+            -200},{200,200}}),     graphics), Icon(coordinateSystem(
+          preserveAspectRatio=true, extent={{-200,-200},{200,200}}),                                           graphics={
         Polygon(
           visible = glaSys.haveInteriorShade,
           points={{48,160},{48,60},{116,-4},{116,96},{48,160}},

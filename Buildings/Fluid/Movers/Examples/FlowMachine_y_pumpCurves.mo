@@ -30,15 +30,13 @@ model FlowMachine_y_pumpCurves
     duration=0.5,
     startTime=0.25,
     height=-1) "Input signal"
-                 annotation (Placement(transformation(extent={{-80,120},{-60,140}},
-          rotation=0)));
+                 annotation (Placement(transformation(extent={{-80,120},{-60,140}})));
   Buildings.Fluid.Sources.Boundary_pT sou(
     redeclare package Medium = Medium,
     use_p_in=false,
     p=300000,
     T=293.15,
-    nPorts=4) annotation (Placement(transformation(extent={{-70,78},{-50,98}},
-          rotation=0)));
+    nPorts=4) annotation (Placement(transformation(extent={{-70,78},{-50,98}})));
 
   inner Modelica.Fluid.System system
     annotation (Placement(transformation(extent={{120,-80},{140,-60}})));
@@ -58,8 +56,7 @@ model FlowMachine_y_pumpCurves
     annotation (Placement(transformation(extent={{-20,80},{0,100}})));
   Modelica.Blocks.Sources.Constant
                                y1(k=1) "Input signal"
-                 annotation (Placement(transformation(extent={{20,120},{40,140}},
-          rotation=0)));
+                 annotation (Placement(transformation(extent={{20,120},{40,140}})));
 
   Buildings.Fluid.Actuators.Valves.TwoWayLinear dp2(
     redeclare package Medium = Medium,
@@ -69,8 +66,7 @@ model FlowMachine_y_pumpCurves
     annotation (Placement(transformation(extent={{-20,38},{0,58}})));
   Modelica.Blocks.Sources.Constant
                                y2(k=0.5) "Input signal"
-                 annotation (Placement(transformation(extent={{8,60},{28,80}},
-          rotation=0)));
+                 annotation (Placement(transformation(extent={{8,60},{28,80}})));
 
   Buildings.Fluid.Actuators.Valves.TwoWayLinear dp3(
     redeclare package Medium = Medium,
@@ -80,8 +76,7 @@ model FlowMachine_y_pumpCurves
     annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
   Modelica.Blocks.Sources.Constant
                                y3(k=0.05) "Input signal"
-                 annotation (Placement(transformation(extent={{8,12},{28,32}},
-          rotation=0)));
+                 annotation (Placement(transformation(extent={{8,12},{28,32}})));
   Buildings.Fluid.Actuators.Valves.TwoWayLinear dp4(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
@@ -90,8 +85,7 @@ model FlowMachine_y_pumpCurves
     annotation (Placement(transformation(extent={{-20,-60},{0,-40}})));
   Modelica.Blocks.Sources.Constant
                                y4(k=0.01) "Input signal"
-                 annotation (Placement(transformation(extent={{8,-38},{28,-18}},
-          rotation=0)));
+                 annotation (Placement(transformation(extent={{8,-38},{28,-18}})));
 equation
   connect(dp1.port_b, pum.port_a)      annotation (Line(
       points={{5.55112e-16,90},{40,90}},

@@ -112,9 +112,6 @@ annotation (Icon(coordinateSystem(preserveAspectRatio=true,  extent={{-100,-100}
           fillColor={0,0,191},
           fillPattern=FillPattern.Solid),
         Line(points={{0,60},{0,60},{0,60},{0,40}}, color={0,0,255})}),
-                       Diagram(coordinateSystem(preserveAspectRatio=true,
-          extent={{-100,-100},{100,100}}),
-                               graphics),
 defaultComponentName="mov",
     Documentation(revisions="<html>
 <ul>

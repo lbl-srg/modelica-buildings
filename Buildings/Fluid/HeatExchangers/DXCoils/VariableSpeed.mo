@@ -63,6 +63,5 @@ First implementation.
     Icon(graphics={Text(
           extent={{-96,96},{-38,78}},
           lineColor={0,0,127},
-          textString="speRat")}),
-    Diagram(graphics));
+          textString="speRat")}));
 end VariableSpeed;

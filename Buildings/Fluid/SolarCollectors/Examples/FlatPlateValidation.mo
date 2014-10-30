@@ -28,9 +28,9 @@ model FlatPlateValidation "Validation model for FlatPlate"
     use_p_in=false,
     p(displayUnit="Pa") = 101325,
     nPorts=1) "Outlet for water flow"
-    annotation (Placement(transformation(extent={{80,-20},{60,0}},rotation=0)));
+    annotation (Placement(transformation(extent={{80,-20},{60,0}})));
   inner Modelica.Fluid.System system(p_ambient=101325)
-    annotation (Placement(transformation(extent={{60,60},{80,80}}, rotation=0)));
+    annotation (Placement(transformation(extent={{60,60},{80,80}})));
   Buildings.Fluid.Sources.MassFlowSource_T bou(
     nPorts=1,
     redeclare package Medium = Medium,
@@ -85,8 +85,6 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   annotation (
-    Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-100,-100},{100,
-            100}}), graphics),
     Documentation(info="<html>
       <p>
         This model was used to validate the

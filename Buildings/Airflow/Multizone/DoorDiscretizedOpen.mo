@@ -32,9 +32,7 @@ equation
       dp_turbulent=dp_turbulent);
   end for;
 
-  annotation (Diagram(graphics),
-                       Icon(graphics),
-defaultComponentName="doo",
+  annotation (defaultComponentName="doo",
 Documentation(info="<html>
 <p>
 This model describes the bi-directional air flow through an open door.

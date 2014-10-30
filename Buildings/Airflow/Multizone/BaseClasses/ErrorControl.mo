@@ -2,9 +2,7 @@ within Buildings.Airflow.Multizone.BaseClasses;
 model ErrorControl "Interface that defines parameters for error control"
   parameter Boolean forceErrorControlOnFlow = true
     "Flag to force error control on m_flow. Set to true if interested in flow rate";
-  annotation (Diagram(graphics),
-                       Icon(graphics),
-Documentation(info="<html>
+  annotation (Documentation(info="<html>
 <p>
 This is an interface that defines parameters used for error control.
 <p>

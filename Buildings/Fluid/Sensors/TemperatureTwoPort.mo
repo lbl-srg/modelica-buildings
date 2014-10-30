@@ -54,9 +54,6 @@ equation
     T = TMed;
   end if;
 annotation (defaultComponentName="senTem",
-  Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,
-            100}}),
-          graphics),
     Icon(graphics={
         Line(points={{-100,0},{92,0}}, color={0,128,255}),
         Ellipse(

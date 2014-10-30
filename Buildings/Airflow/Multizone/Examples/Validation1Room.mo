@@ -21,23 +21,21 @@ model Validation1Room
   Buildings.Airflow.Multizone.Orifice oriOutBot(
     redeclare package Medium = Medium,
     A=0.01,
-    m=0.5) annotation (Placement(transformation(extent={{38,-72},{58,-52}},
-          rotation=0)));
+    m=0.5) annotation (Placement(transformation(extent={{38,-72},{58,-52}})));
   Buildings.Airflow.Multizone.MediumColumn colOutTop(
     redeclare package Medium = Medium,
     h=1.5,
     densitySelection=Buildings.Airflow.Multizone.Types.densitySelection.fromBottom)
-    annotation (Placement(transformation(extent={{69,10},{89,30}}, rotation=0)));
+    annotation (Placement(transformation(extent={{69,10},{89,30}})));
   Buildings.Airflow.Multizone.Orifice oriOutTop(
     redeclare package Medium = Medium,
     A=0.01,
-    m=0.5) annotation (Placement(transformation(extent={{39,30},{59,50}},
-          rotation=0)));
+    m=0.5) annotation (Placement(transformation(extent={{39,30},{59,50}})));
   Buildings.Airflow.Multizone.MediumColumn colEasInTop(
     redeclare package Medium = Medium,
     h=1.5,
     densitySelection=Buildings.Airflow.Multizone.Types.densitySelection.fromBottom)
-    annotation (Placement(transformation(extent={{11,10},{31,30}}, rotation=0)));
+    annotation (Placement(transformation(extent={{11,10},{31,30}})));
   Buildings.Fluid.MixingVolumes.MixingVolume volOut(
     redeclare package Medium = Medium,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
@@ -56,12 +54,12 @@ model Validation1Room
     redeclare package Medium = Medium,
     h=1.5,
     densitySelection=Buildings.Airflow.Multizone.Types.densitySelection.fromTop)
-    annotation (Placement(transformation(extent={{10,-50},{30,-30}},rotation=0)));
+    annotation (Placement(transformation(extent={{10,-50},{30,-30}})));
   Buildings.Airflow.Multizone.MediumColumn colOutBot(
     redeclare package Medium = Medium,
     h=1.5,
     densitySelection=Buildings.Airflow.Multizone.Types.densitySelection.fromTop)
-    annotation (Placement(transformation(extent={{70,-52},{90,-32}}, rotation=0)));
+    annotation (Placement(transformation(extent={{70,-52},{90,-32}})));
   inner Modelica.Fluid.System system
     annotation (Placement(transformation(extent={{160,60},{180,80}})));
 equation

@@ -77,8 +77,7 @@ initial equation
   UAcp = -per.m_flow_nominal * Modelica.Math.log(bypass_nominal);
 
  annotation(defaultComponentName="uacp",
-    Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,
-            100}})),    Documentation(info="<html>
+    Documentation(info="<html>
 <p>
 This model calculates the <i>UA/c<sub>p</sub></i> value and the bypass factor
 of the coil from the nominal inlet and outlet

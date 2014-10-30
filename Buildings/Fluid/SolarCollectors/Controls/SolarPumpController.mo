@@ -64,10 +64,7 @@ equation
       points={{-36.4,-10},{-30,-10},{-30,-6},{-22,-6}},
       color={0,0,127},
       smooth=Smooth.None));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=false,
-    extent={{-100,-100},{100,100}}),
-    graphics),
-    defaultComponentName = "pumCon",
+  annotation (    defaultComponentName = "pumCon",
     Documentation(info = "<html>
       <p>
         This component models a pump controller which might be used in a solar thermal system.

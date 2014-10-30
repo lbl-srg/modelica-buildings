@@ -8,14 +8,12 @@ model RelativeTemperature "Ideal relative temperature sensor"
                                 p(start=Medium.p_default),
                                 redeclare package Medium = Medium)
     "Fluid connector of stream a"
-    annotation (Placement(transformation(extent={{-110,-10},{-90,10}},
-          rotation=0)));
+    annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
   Modelica.Fluid.Interfaces.FluidPort_b port_b(m_flow(min=0),
                                 p(start=Medium.p_default),
                                 redeclare package Medium = Medium)
     "Fluid connector of stream b"
-    annotation (Placement(transformation(extent={{110,-10},{90,10}}, rotation=
-           0)));
+    annotation (Placement(transformation(extent={{110,-10},{90,10}})));
   Modelica.Blocks.Interfaces.RealOutput T_rel(final unit = "K",
                                               displayUnit = "K")
     "Temperature difference of port_a minus port_b"

@@ -46,6 +46,5 @@ First implementation.
           lineColor={0,0,0},
           textString="degC"),
         Line(points={{-96,-4},{24,-4}},
-                                      color={191,0,0})}),
-    Diagram(graphics));
+                                      color={191,0,0})}));
 end To_degC;

@@ -62,8 +62,6 @@ equation
   // Sensor output signal
   H_flow = port_a.m_flow * h_out;
 annotation (defaultComponentName="senEntFlo",
-  Diagram(coordinateSystem(preserveAspectRatio=true,  extent={{-100,-100},{100,
-            100}})),
   Icon(graphics={
         Ellipse(
           extent={{-70,70},{70,-70}},

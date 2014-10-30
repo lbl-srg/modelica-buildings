@@ -76,7 +76,6 @@ model System7
   Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor temRoo
     "Room temperature" annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
-        rotation=0,
         origin={-40,30})));
   Buildings.Fluid.Movers.FlowMachine_m_flow pumRad(
     redeclare package Medium = MediumW,

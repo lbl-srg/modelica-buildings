@@ -48,10 +48,6 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   annotation (defaultComponentName="fan",
-    Icon(coordinateSystem(preserveAspectRatio=true,  extent={{-100,-100},{100,
-            100}}), graphics),
-    Diagram(coordinateSystem(preserveAspectRatio=true,  extent={{-100,-100},{
-            100,100}})),
     Documentation(info="<html>
 <p>
 This model describes a fan or pump that takes as an input

@@ -20,7 +20,7 @@ model SimplifiedRoom "Simplified data center room"
     m_flow_nominal=m_flow_nominal,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     final T_start=293.15) "Volume of air in the room" annotation (Placement(
-        transformation(extent={{41,-20},{61,-40}}, rotation=0)));
+        transformation(extent={{41,-20},{61,-40}})));
   Modelica.Fluid.Vessels.BaseClasses.VesselFluidPorts_b airPorts[nPorts](
       redeclare each package Medium = Medium) "Fluid inlets and outlets"
     annotation (Placement(transformation(
@@ -55,8 +55,6 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   annotation (
-    Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,
-            100}})),
     Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,
             100}}), graphics={Rectangle(
           extent={{-100,100},{100,-100}},

@@ -322,6 +322,5 @@ October 13, 2008, by Brandon Hencey:<br/>
 First implementation.
 </li>
 </ul>
-</html>"),
-    Diagram(graphics));
+</html>"));
 end PartialElectric;

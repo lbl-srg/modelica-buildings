@@ -10,8 +10,7 @@ equation
               127,255}));
     end for;
   end for;
-  annotation (Diagram(graphics),
-Documentation(info="<html>
+  annotation (Documentation(info="<html>
 <p>
 Duct manifold without flow resistance.
 </p>

@@ -5,15 +5,12 @@ model SpecificEntropy "Ideal one port specific entropy sensor"
   Modelica.Blocks.Interfaces.RealOutput s(final quantity="SpecificEntropy",
                                           final unit="J/(kg.K)")
     "Specific entropy in port medium"
-    annotation (Placement(transformation(extent={{100,-10},{120,10}},
-          rotation=0)));
+    annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 
 equation
   s = Medium.specificEntropy(state=Medium.setState_phX(
           p=port.p, h=inStream(port.h_outflow), X=inStream(port.Xi_outflow)));
 annotation (defaultComponentName="senSpeEnt",
-  Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
-            100,100}})),
   Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
         graphics={
         Line(points={{0,-70},{0,-100}}, color={0,0,127}),

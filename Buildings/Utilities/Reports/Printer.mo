@@ -10,8 +10,7 @@ model Printer "Model that prints values to a file"
   parameter Integer minimumLength =  1 "Minimum length of result string";
   parameter Integer significantDigits = 16 "Number of significant digits";
   Modelica.Blocks.Interfaces.RealInput x[nin] "Value to be printed"
-    annotation (Placement(transformation(extent={{-140,-20},{-100,20}},
-          rotation=0)));
+    annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
 
 initial algorithm
   if (fileName <> "") then

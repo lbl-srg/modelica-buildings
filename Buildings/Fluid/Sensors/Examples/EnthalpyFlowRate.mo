@@ -81,9 +81,7 @@ equation
     annotation (
 experiment(StopTime=60.0),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Sensors/Examples/EnthalpyFlowRate.mos"
-        "Simulate and plot"),  Diagram(
-        coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,100}})),
-    Documentation(info="<html>
+        "Simulate and plot"),    Documentation(info="<html>
 <p>
 This example tests the enthalpy flow rate sensor and the
 specific enthalpy sensor.

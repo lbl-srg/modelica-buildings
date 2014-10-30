@@ -31,10 +31,6 @@ equation
       extent={{-150,-150},{150,-110}},
       lineColor={0,0,0},
       textString="k=%k")}),
-    Diagram(coordinateSystem(
-    preserveAspectRatio=true,
-    extent={{-100,-100},{100,100}},
-    grid={2,2})),
 Documentation(info="<html>
 <p>
 Constant radiosity source. This model requires <i>k &ge; 0</i>.

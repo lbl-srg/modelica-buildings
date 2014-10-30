@@ -48,7 +48,6 @@ equation
   annotation (
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Storage/Examples/ExpansionVessel.mos"
         "Simulate and plot"),
-  Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,100}})),
     Documentation(info="<html>
 This model tests a pressure expansion vessel. The medium model that is used in this
 example changes its density as a function of temperature.

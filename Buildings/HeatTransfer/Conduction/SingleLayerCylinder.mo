@@ -24,10 +24,10 @@ model SingleLayerCylinder "Heat conduction in a cylinder"
 
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a port_a
     "Heat port at surface a" annotation (Placement(transformation(extent={{-110,-10},
-            {-90,10}}, rotation=0)));
+            {-90,10}})));
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_b port_b
     "Heat port at surface b" annotation (Placement(transformation(extent={{90,-10},{
-            110,10}}, rotation=0)));
+            110,10}})));
 
   Modelica.SIunits.Temperature T[nSta](start=
      {TInt_start+ (TExt_start-TInt_start)/Modelica.Math.log(r_b/r_a)
@@ -109,8 +109,7 @@ equation
         der(T[i])= (Q_flow[i]-Q_flow[i+1])/C[i];
     end for;
   end if;
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
-            -100},{100,100}})), Icon(coordinateSystem(
+  annotation ( Icon(coordinateSystem(
           preserveAspectRatio=true, extent={{-100,-100},{100,100}}), graphics={
         Rectangle(
           extent={{-94,4},{92,-4}},

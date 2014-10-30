@@ -6,15 +6,15 @@ model RadiationTemperature "Radiative temperature of the room"
      haveConExtWin
     "Heat port that connects to room-side surface of unshaded glass"
                               annotation (Placement(transformation(extent={{230,110},
-            {250,130}},          rotation=0)));
+            {250,130}})));
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a glaSha[NConExtWin] if
     haveShade "Heat port that connects to room-side surface of shaded glass"
                               annotation (Placement(transformation(extent={{230,70},
-            {250,90}},           rotation=0)));
+            {250,90}})));
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a sha[NConExtWin] if
     haveShade "Heat port that connects to shade"
                                        annotation (Placement(transformation(extent={{230,28},
-            {250,48}},           rotation=0)));
+            {250,48}})));
   parameter Boolean haveShade "Set to true if the windows have a shade"
   annotation(HideResult="true");
 

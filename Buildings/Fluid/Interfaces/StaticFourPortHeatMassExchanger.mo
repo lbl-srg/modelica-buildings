@@ -57,10 +57,6 @@ equation
   connect(bal2.port_b, port_b2);
   annotation (
     preferredView="info",
-    Diagram(coordinateSystem(
-        preserveAspectRatio=false,
-        extent={{-100,-100},{100,100}},
-        grid={1,1})),
     Documentation(info="<html>
 <p>
 This component transports two fluid streams between four ports, without

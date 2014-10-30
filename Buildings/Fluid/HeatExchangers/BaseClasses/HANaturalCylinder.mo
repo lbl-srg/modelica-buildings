@@ -132,9 +132,7 @@ equation
   Nusselt = nusselt(k=k, Pr=Pr, Ra=Ra);
   h = Nusselt * k/ChaLen;
   hA = h*A;
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}}), graphics),
-            defaultComponentName="hNat",
+  annotation (            defaultComponentName="hNat",
             Documentation(info="<html>
             <p>
             This model calculates the convection coefficient <i>h</i> for natural convection

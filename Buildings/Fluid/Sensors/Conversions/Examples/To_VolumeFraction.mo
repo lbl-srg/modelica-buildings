@@ -49,7 +49,6 @@ model To_VolumeFraction "Example problem for conversion model"
     nPorts=1) "Sink for exhaust air"                        annotation (
       Placement(transformation(
         extent={{10,-10},{-10,10}},
-        rotation=0,
         origin={170,40})));
   Modelica.Blocks.Math.Gain gai(k=50/3600) "Gain for mass flow rate"
     annotation (Placement(transformation(extent={{-60,-20},{-40,0}})));

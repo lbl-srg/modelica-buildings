@@ -5,11 +5,10 @@ model StratifiedEnhanced "Stratified tank model with enhanced discretization"
     redeclare package Medium = Medium,
     nSeg=nSeg,
     m_flow_small=m_flow_small) "Model to reduce numerical dissipation"
-    annotation (Placement(transformation(extent={{-60,-50},{-40,-30}}, rotation=
-           0)));
+    annotation (Placement(transformation(extent={{-60,-50},{-40,-30}})));
   Modelica.Blocks.Sources.RealExpression mTan_flow(y=port_a.m_flow)
     "Mass flow rate at port a" annotation (Placement(transformation(extent={{-94,-42},
-            {-74,-22}},          rotation=0)));
+            {-74,-22}})));
 equation
   connect(vol[1:nSeg].ports[3], str.fluidPort[2:nSeg+1])
                                                         annotation (Line(points={{16,-16},
@@ -101,7 +100,5 @@ First implementation.
           lineColor={0,0,255},
           pattern=LinePattern.None,
           fillColor={255,255,0},
-          fillPattern=FillPattern.Solid)}),
-    Diagram(coordinateSystem(preserveAspectRatio=true,  extent={{-100,-100},{
-            100,100}})));
+          fillPattern=FillPattern.Solid)}));
 end StratifiedEnhanced;

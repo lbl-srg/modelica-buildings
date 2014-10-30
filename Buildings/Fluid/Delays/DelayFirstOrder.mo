@@ -9,8 +9,7 @@ model DelayFirstOrder
 protected
    parameter Modelica.SIunits.Volume V_nominal = m_flow_nominal*tau/rho_default
     "Volume of delay element";
-  annotation (Diagram(graphics),
-    Icon(coordinateSystem(preserveAspectRatio=true,  extent={{-100,-100},{100,
+  annotation (    Icon(coordinateSystem(preserveAspectRatio=true,  extent={{-100,-100},{100,
             100}}), graphics={Ellipse(
           extent={{-100,98},{100,-102}},
           lineColor={0,0,0},

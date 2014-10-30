@@ -60,11 +60,9 @@ equation
       color={191,0,0},
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-300,-300},
-            {300,300}},
-        initialScale=0.1)),
+            {300,300}})),
                           Icon(coordinateSystem(preserveAspectRatio=true,
-          extent={{-300,-300},{300,300}},
-        initialScale=0.1), graphics={
+          extent={{-300,-300},{300,300}}), graphics={
         Rectangle(
           extent={{-290,202},{298,198}},
           lineColor={0,0,0},

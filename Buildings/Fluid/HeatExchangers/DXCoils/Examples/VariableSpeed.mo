@@ -122,13 +122,9 @@ equation
       points={{-11,15},{-40.5,15},{-40.5,30},{-79,30}},
       color={0,0,127},
       smooth=Smooth.None));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-100,
-            -100},{100,100}})),
-             __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/DXCoils/Examples/VariableSpeed.mos"
+  annotation (             __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/DXCoils/Examples/VariableSpeed.mos"
         "Simulate and plot"),
     experiment(StopTime=3600),
-    Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,
-            100}})),
             Documentation(info="<html>
 <p>
 This is a test model for

@@ -57,11 +57,9 @@ model PIDHysteresisTimer
     annotation (Dialog(group="Initialization"));
 
   Modelica.Blocks.Interfaces.RealOutput tOn "Time since boiler switched on"
-    annotation (Placement(transformation(extent={{100,70},{120,90}},
-        rotation=0)));
+    annotation (Placement(transformation(extent={{100,70},{120,90}})));
   Modelica.Blocks.Interfaces.RealOutput tOff "Time since boiler switched off"
-    annotation (Placement(transformation(extent={{100,30},{120,50}},
-        rotation=0)));
+    annotation (Placement(transformation(extent={{100,30},{120,50}})));
 
   LimPID con(
     controllerType=controllerType,
@@ -104,7 +102,7 @@ public
     annotation (Placement(transformation(extent={{20,30},{40,50}})));
          Modelica.Blocks.Interfaces.BooleanOutput on
     "Outputs true if boiler is on"        annotation (Placement(
-        transformation(extent={{100,-90},{120,-70}},rotation=0)));
+        transformation(extent={{100,-90},{120,-70}})));
 protected
   Modelica.Blocks.Logical.Switch switch1
     annotation (Placement(transformation(extent={{-40,-60},{-20,-40}})));
@@ -213,7 +211,7 @@ equation
       points={{-39,6.10623e-16},{-30,6.10623e-16},{-30,-8},{58,-8}},
       color={255,0,255},
       smooth=Smooth.None));
-  annotation (Diagram(graphics), Icon(graphics={
+  annotation ( Icon(graphics={
         Polygon(
           points={{-80,94},{-88,72},{-72,72},{-80,94}},
           lineColor={192,192,192},

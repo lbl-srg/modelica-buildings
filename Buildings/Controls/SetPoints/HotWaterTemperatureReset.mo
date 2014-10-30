@@ -25,8 +25,7 @@ block HotWaterTemperatureReset
   Modelica.Blocks.Interfaces.RealInput TRoo_in(final quantity="ThermodynamicTemperature",
                                                final unit = "K", displayUnit = "degC", min=0) if
           use_TRoo_in "Room air temperature set point"
-    annotation (Placement(transformation(extent={{-139,-80},{-99,-40}},
-          rotation=0)));
+    annotation (Placement(transformation(extent={{-139,-80},{-99,-40}})));
 
   Modelica.Blocks.Interfaces.RealInput TOut(final quantity="ThermodynamicTemperature",
                                             final unit = "K", displayUnit = "degC", min=0)
@@ -145,7 +144,5 @@ First implementation.
         Text(
           extent={{42,-30},{92,-80}},
           lineColor={0,0,127},
-          textString="TRet")}),
-              Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
-            -100},{100,100}})));
+          textString="TRet")}));
 end HotWaterTemperatureReset;

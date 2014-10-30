@@ -51,9 +51,5 @@ Feb. 9, 2011 by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
-</html>"),
-    Diagram(coordinateSystem(
-        preserveAspectRatio=false,
-        extent={{-100,-100},{100,100}},
-        grid={2,2})));
+</html>"));
 end Outside;

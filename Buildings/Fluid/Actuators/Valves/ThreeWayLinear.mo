@@ -13,13 +13,7 @@ equation
   connect(y_actual, res1.y) annotation (Line(points={{50,70},{88,70},{88,34},{
           -50,34},{-50,12}},
         color={0,0,127}));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=true,  extent={{-100,
-            -100},{100,100}}),
-                      graphics),
-                       Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}}),
-                            graphics),
-defaultComponentName="val",
+  annotation (defaultComponentName="val",
 Documentation(info="<html>
 <p>
 Three way valve with linear opening characteristic.

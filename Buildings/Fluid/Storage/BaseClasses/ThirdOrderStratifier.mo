@@ -15,21 +15,20 @@ model ThirdOrderStratifier
 
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a[nSeg] heatPort
     "Heat input into the volumes" annotation (Placement(transformation(extent={
-            {90,-10},{110,10}},rotation=0)));
+            {90,-10},{110,10}})));
 
   Modelica.Blocks.Interfaces.RealInput m_flow
     "Mass flow rate from port a to port b" annotation (Placement(transformation(
-          extent={{-140,62},{-100,102}}, rotation=0)));
+          extent={{-140,62},{-100,102}})));
 
   Modelica.Blocks.Interfaces.RealInput[nSeg + 1] H_flow
     "Enthalpy flow between the volumes" annotation (Placement(transformation(
-          extent={{-140,-100},{-100,-60}}, rotation=0)));
+          extent={{-140,-100},{-100,-60}})));
 
   Modelica.Fluid.Interfaces.FluidPort_a[nSeg + 2] fluidPort(redeclare each
       package Medium = Medium)
     "Fluid port, needed to get pressure, temperature and species concentration"
-    annotation (Placement(transformation(extent={{-110,-10},{-90,10}}, rotation=
-           0)));
+    annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
 
 protected
   Modelica.SIunits.SpecificEnthalpy[nSeg + 1] hOut

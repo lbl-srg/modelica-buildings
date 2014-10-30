@@ -25,7 +25,6 @@ package Medium = Buildings.Media.PerfectGases.MoistAir;
     T(displayUnit="degC") = 303.15,
     X={0.02,0.98})  annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
-        rotation=0,
         origin={38,70})));
   Buildings.Fluid.MassExchangers.ConstantEffectiveness masExcFor(
     redeclare package Medium1 = Medium,
@@ -102,7 +101,6 @@ package Medium = Buildings.Media.PerfectGases.MoistAir;
     T(displayUnit="degC") = 293.15)
                     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
-        rotation=0,
         origin={-150,70})));
   Modelica.Fluid.Sources.MassFlowSource_T source4(
     m_flow=1,
@@ -114,7 +112,6 @@ package Medium = Buildings.Media.PerfectGases.MoistAir;
     T(displayUnit="degC") = 303.15,
     X={0.02,0.98})  annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
-        rotation=0,
         origin={38,30})));
 
   Modelica.Fluid.Sources.MassFlowSource_T source1(
@@ -128,7 +125,6 @@ package Medium = Buildings.Media.PerfectGases.MoistAir;
     T(displayUnit="degC") = 293.15)
                     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
-        rotation=0,
         origin={-150,100})));
   Buildings.Fluid.Sources.FixedBoundary sink1(
     redeclare package Medium = Medium,
@@ -136,7 +132,6 @@ package Medium = Buildings.Media.PerfectGases.MoistAir;
     annotation (Placement(
         transformation(
         extent={{10,-10},{-10,10}},
-        rotation=0,
         origin={40,98})));
   Sensors.SpecificEnthalpy senEnt1(redeclare package Medium = Medium)
     annotation (Placement(transformation(extent={{10,140},{30,160}})));

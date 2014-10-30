@@ -37,8 +37,6 @@ equation
       color={0,127,0},
       smooth=Smooth.None));
   annotation (
-  Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
-                    graphics),
     Documentation(info="<html>
 <p>
 Partial base class to build test for the load prediction.

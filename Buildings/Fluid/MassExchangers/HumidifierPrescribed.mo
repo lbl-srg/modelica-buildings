@@ -18,11 +18,10 @@ model HumidifierPrescribed
 
   Modelica.Blocks.Interfaces.RealInput T_in if use_T_in
     "Temperature of water added to the fluid stream"
-    annotation (Placement(transformation(extent={{-140,-80},{-100,-40}},
-          rotation=0)));
+    annotation (Placement(transformation(extent={{-140,-80},{-100,-40}})));
   Modelica.Blocks.Interfaces.RealInput u "Control input"
     annotation (Placement(transformation(
-          extent={{-140,40},{-100,80}}, rotation=0)));
+          extent={{-140,40},{-100,80}})));
 protected
   Modelica.Blocks.Interfaces.RealInput T_in_internal
     "Needed to connect to conditional connector";
@@ -155,6 +154,5 @@ April 17, 2008, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
-</html>"),
-    Diagram(graphics));
+</html>"));
 end HumidifierPrescribed;

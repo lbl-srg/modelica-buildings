@@ -52,9 +52,6 @@ equation
     phi = phiMed;
   end if;
 annotation (defaultComponentName="senRelHum",
-  Diagram(coordinateSystem(preserveAspectRatio=true,  extent={{-100,-100},{
-            100,100}},
-        grid={1,1}),    graphics),
   Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}},
         grid={1,1}), graphics={
         Text(

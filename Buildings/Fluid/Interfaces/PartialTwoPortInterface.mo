@@ -36,10 +36,6 @@ equation
   dp = port_a.p - port_b.p;
   annotation (
     preferredView="info",
-    Diagram(coordinateSystem(
-        preserveAspectRatio=false,
-        extent={{-100,-100},{100,100}},
-        grid={1,1})),
     Documentation(info="<html>
 <p>
 This component defines the interface for models that

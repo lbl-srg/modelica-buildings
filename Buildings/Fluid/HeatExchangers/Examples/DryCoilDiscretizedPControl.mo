@@ -22,7 +22,7 @@ model DryCoilDiscretizedPControl
     nPorts=1,
     m_flow=-10.5,
     T=303.15)             annotation (Placement(transformation(extent={{-52,10},
-            {-32,30}}, rotation=0)));
+            {-32,30}})));
   Buildings.Fluid.Sources.Boundary_pT sou_2(                       redeclare
       package Medium = Medium2,
     nPorts=1,
@@ -30,32 +30,30 @@ model DryCoilDiscretizedPControl
     use_T_in=false,
     p(displayUnit="Pa") = 101625,
     T=T_a2_nominal)              annotation (Placement(transformation(extent={{140,10},
-            {120,30}},  rotation=0)));
+            {120,30}})));
   Buildings.Fluid.Sources.Boundary_pT sin_1(                       redeclare
       package Medium = Medium1,
     p=300000,
     T=293.15,
     use_p_in=true,
     nPorts=1)             annotation (Placement(transformation(extent={{140,50},
-            {120,70}}, rotation=0)));
+            {120,70}})));
   Buildings.Fluid.Sources.Boundary_pT sou_1(
     redeclare package Medium = Medium1,
     p=300000 + 9000,
     nPorts=1,
     use_T_in=false,
     T=T_a1_nominal)              annotation (Placement(transformation(extent={{-52,50},
-            {-32,70}}, rotation=0)));
+            {-32,70}})));
     Modelica.Blocks.Sources.Ramp PSin_1(
     duration=60,
     height=5000,
     startTime=240,
     offset=300000)
-                 annotation (Placement(transformation(extent={{140,90},{160,110}},
-          rotation=0)));
+                 annotation (Placement(transformation(extent={{140,90},{160,110}})));
   Buildings.Fluid.Sensors.TemperatureTwoPort temSen(redeclare package Medium =
         Medium2, m_flow_nominal=m2_flow_nominal)
-                 annotation (Placement(transformation(extent={{40,10},{20,30}},
-          rotation=0)));
+                 annotation (Placement(transformation(extent={{40,10},{20,30}})));
   Buildings.Fluid.Actuators.Valves.TwoWayEqualPercentage val(
     redeclare package Medium = Medium1,
     l=0.005,
@@ -63,13 +61,11 @@ model DryCoilDiscretizedPControl
     filteredOpening=false,
     dpFixed_nominal=2000 + 3000,
     dpValve_nominal=6000) "Valve model"
-             annotation (Placement(transformation(extent={{30,50},{50,70}},
-          rotation=0)));
+             annotation (Placement(transformation(extent={{30,50},{50,70}})));
   Modelica.Blocks.Sources.TimeTable TSet(table=[0,298.15; 600,298.15; 600,
         303.15; 1200,303.15; 1800,298.15; 2400,298.15; 2400,304.15])
     "Setpoint temperature"
-    annotation (Placement(transformation(extent={{-80,90},{-60,110}},  rotation=
-           0)));
+    annotation (Placement(transformation(extent={{-80,90},{-60,110}})));
   Buildings.Fluid.HeatExchangers.DryCoilDiscretized hex(
     redeclare package Medium1 = Medium1,
     redeclare package Medium2 = Medium2,
@@ -90,9 +86,9 @@ model DryCoilDiscretizedPControl
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     from_dp1=true,
     from_dp2=true)       annotation (Placement(transformation(extent={{60,16},{
-            80,36}}, rotation=0)));
+            80,36}})));
   Buildings.Fluid.Actuators.Motors.IdealMotor mot(tOpe=60) "Motor model"
-    annotation (Placement(transformation(extent={{12,90},{32,110}},rotation=0)));
+    annotation (Placement(transformation(extent={{12,90},{32,110}})));
   inner Modelica.Fluid.System system
     annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
   Buildings.Controls.Continuous.LimPID con(
@@ -100,7 +96,7 @@ model DryCoilDiscretizedPControl
     Ti=60,
     controllerType=Modelica.Blocks.Types.SimpleController.P,
     Td=60) "Controller"               annotation (Placement(transformation(
-          extent={{-20,90},{0,110}},    rotation=0)));
+          extent={{-20,90},{0,110}})));
 equation
   connect(PSin_1.y, sin_1.p_in) annotation (Line(points={{161,100},{180,100},{
           180,68},{142,68}},

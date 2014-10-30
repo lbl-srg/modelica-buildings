@@ -6,13 +6,12 @@ model VectorFunctions "Test model for functions that take a vector as argument"
                    nin=3)
     annotation (Placement(transformation(extent={{-20,20},{0,40}})));
   Modelica.Blocks.Sources.Sine sine(freqHz=6)
-    annotation (Placement(transformation(extent={{-80,20},{-60,40}}, rotation=0)));
+    annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
   Modelica.Blocks.Sources.Sine sine1(
                                     freqHz=8)
-    annotation (Placement(transformation(extent={{-80,-20},{-60,0}}, rotation=0)));
+    annotation (Placement(transformation(extent={{-80,-20},{-60,0}})));
   Modelica.Blocks.Sources.Sine sine2(freqHz=10)
-    annotation (Placement(transformation(extent={{-80,-60},{-60,-40}},
-                                                                     rotation=0)));
+    annotation (Placement(transformation(extent={{-80,-60},{-60,-40}})));
   Buildings.Utilities.Math.Max maxVec(
                    nin=3)
     annotation (Placement(transformation(extent={{-20,-60},{0,-40}})));
@@ -56,10 +55,7 @@ equation
       points={{-59,-50},{-40,-50},{-40,-8.66667},{-22,-8.66667}},
       color={0,0,127},
       smooth=Smooth.None));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
-            -100},{100,100}}),
-                    graphics),
-experiment(StopTime=1.0),
+  annotation (experiment(StopTime=1.0),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Utilities/Math/Examples/VectorFunctions.mos"
         "Simulate and plot"),
     Documentation(info="<html>

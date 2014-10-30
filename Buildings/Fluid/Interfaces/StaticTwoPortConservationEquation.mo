@@ -144,10 +144,6 @@ equation
 
   annotation (
     preferredView="info",
-    Diagram(coordinateSystem(
-        preserveAspectRatio=true,
-        extent={{-100,-100},{100,100}},
-        grid={1,1})),
     Documentation(info="<html>
 <p>
 This model transports fluid between its two ports, without storing mass or energy.

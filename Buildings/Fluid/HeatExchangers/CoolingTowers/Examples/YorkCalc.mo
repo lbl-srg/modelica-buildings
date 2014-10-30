@@ -9,8 +9,7 @@ model YorkCalc
 
   Modelica.Blocks.Sources.Constant TSetLea(k=273.15 + 18)
     "Setpoint for leaving temperature"
-                 annotation (Placement(transformation(extent={{-60,-20},{-40,0}},
-          rotation=0)));
+                 annotation (Placement(transformation(extent={{-60,-20},{-40,0}})));
   Controls.Continuous.LimPID conFan(
     k=1,
     Ti=60,

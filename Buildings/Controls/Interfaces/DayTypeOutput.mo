@@ -5,8 +5,7 @@ annotation (
   defaultComponentName="y",
   Icon(
     coordinateSystem(preserveAspectRatio=true,
-      extent={{-100.0,-100.0},{100.0,100.0}},
-      initialScale=0.1),
+      extent={{-100.0,-100.0},{100.0,100.0}}),
       graphics={
     Polygon(
       lineColor={0,127,0},
@@ -15,8 +14,7 @@ annotation (
       points={{-100.0,100.0},{100.0,0.0},{-100.0,-100.0}})}),
   Diagram(
     coordinateSystem(preserveAspectRatio=true,
-      extent={{-100.0,-100.0},{100.0,100.0}},
-      initialScale=0.1),
+      extent={{-100.0,-100.0},{100.0,100.0}}),
       graphics={
     Polygon(
       lineColor={0,127,0},

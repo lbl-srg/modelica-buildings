@@ -43,8 +43,6 @@ equation
     h_out = hMed_out;
   end if;
 annotation (defaultComponentName="senSpeEnt",
-  Diagram(coordinateSystem(preserveAspectRatio=true,  extent={{-100,-100},{
-            100,100}})),
   Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
         graphics={
         Text(

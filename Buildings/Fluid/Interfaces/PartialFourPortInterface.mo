@@ -64,10 +64,6 @@ equation
   dp2 = port_a2.p - port_b2.p;
   annotation (
   preferredView="info",
-    Diagram(coordinateSystem(
-        preserveAspectRatio=false,
-        extent={{-100,-100},{100,100}},
-        grid={1,1})),
     Documentation(info="<html>
 <p>
 This component defines the interface for models that

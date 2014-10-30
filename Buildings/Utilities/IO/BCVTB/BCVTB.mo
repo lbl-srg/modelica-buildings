@@ -146,8 +146,7 @@ algorithm
    end when;
 
   annotation (defaultComponentName="cliBCVTB",
-   Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,
-            100}}),            graphics), Icon(coordinateSystem(
+ Icon(coordinateSystem(
           preserveAspectRatio=false, extent={{-100,-100},{100,100}}), graphics={
         Rectangle(
           visible=not activateInterface,

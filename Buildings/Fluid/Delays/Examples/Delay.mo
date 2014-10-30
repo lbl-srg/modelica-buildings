@@ -6,44 +6,41 @@ model Delay
  package Medium = Buildings.Media.GasesPTDecoupled.MoistAirUnsaturated(X_default={0.001, 0.999});
 
     Modelica.Blocks.Sources.Constant PAtm(k=101325)
-      annotation (Placement(transformation(extent={{62,36},{82,56}}, rotation=0)));
+      annotation (Placement(transformation(extent={{62,36},{82,56}})));
     Modelica.Blocks.Sources.Ramp P(
       duration=1,
     height=20,
     offset=101315)
-                 annotation (Placement(transformation(extent={{-94,30},{-74,50}},
-          rotation=0)));
+                 annotation (Placement(transformation(extent={{-94,30},{-74,50}})));
     Buildings.Fluid.FixedResistances.FixedResistanceDpM res1(
     from_dp=true,
     m_flow_nominal=5,
     dp_nominal=5,
     redeclare package Medium = Medium)
-             annotation (Placement(transformation(extent={{-30,-4},{-10,16}},
-          rotation=0)));
+             annotation (Placement(transformation(extent={{-30,-4},{-10,16}})));
   Buildings.Fluid.Sources.Boundary_pT sou(
                 T=293.15, redeclare package Medium = Medium,
     use_p_in=true,
     nPorts=1)             annotation (Placement(transformation(extent={{-58,-4},
-            {-38,16}}, rotation=0)));
+            {-38,16}})));
   Buildings.Fluid.Sources.Boundary_pT sin(
                 T=283.15, redeclare package Medium = Medium,
     use_p_in=true,
     nPorts=1)             annotation (Placement(transformation(extent={{78,-4},
-            {58,16}}, rotation=0)));
+            {58,16}})));
     Buildings.Fluid.FixedResistances.FixedResistanceDpM res2(
     from_dp=true,
     m_flow_nominal=5,
     dp_nominal=5,
     redeclare package Medium = Medium)
-             annotation (Placement(transformation(extent={{26,-4},{46,16}},
-          rotation=0)));
+             annotation (Placement(transformation(extent={{26,-4},{46,16}})));
   Buildings.Fluid.Delays.DelayFirstOrder del(         m_flow_nominal=5, redeclare
       package Medium = Medium,
     nPorts=2,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     T_start=283.15)
     "Fluid volume that is a first order approximation of the transport delay"
-    annotation (Placement(transformation(extent={{-2,6},{18,26}},  rotation=0)));
+    annotation (Placement(transformation(extent={{-2,6},{18,26}})));
   inner Modelica.Fluid.System system
     annotation (Placement(transformation(extent={{-100,-100},{-80,-80}})));
 equation
@@ -67,10 +64,7 @@ equation
       points={{26,6},{10,6}},
       color={0,127,255},
       smooth=Smooth.None));
-    annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
-            -100},{100,100}}),
-                        graphics),
-experiment(StopTime=300),
+    annotation (experiment(StopTime=300),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Delays/Examples/Delay.mos"
         "Simulate and plot"));
 end Delay;

@@ -106,7 +106,6 @@ model X3BWithRadiantFloor "Example model showing a use of X3B"
     columns=2:5)
     "Inlet air conditions for the connected electrical room (y[1] = m_flow, y[2] = T)"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
-        rotation=0,
         origin={-58,-38})));
 
   Modelica.Blocks.Sources.CombiTimeTable airConClo(
@@ -117,7 +116,6 @@ model X3BWithRadiantFloor "Example model showing a use of X3B"
     columns=2:5)
     "Inlet air conditions for the connected closet (y[1] = m_flow, y[2] = T)"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
-        rotation=0,
         origin={-2,112})));
 
   Buildings.Fluid.Sources.MassFlowSource_T airInEle(
@@ -126,7 +124,6 @@ model X3BWithRadiantFloor "Example model showing a use of X3B"
     redeclare package Medium = Air,
     nPorts=1) "Inlet air conditions (from AHU) for the electrical room"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
-        rotation=0,
         origin={-6,-42})));
   Buildings.Fluid.Sources.Boundary_pT airOutEle(nPorts=1, redeclare package
       Medium = Air) "Air outlet from the electrical room"
@@ -142,7 +139,6 @@ model X3BWithRadiantFloor "Example model showing a use of X3B"
   Buildings.Fluid.Sources.Boundary_pT airOutClo(
     redeclare package Medium = Air, nPorts=1) "Air outlet from the closet"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
-        rotation=0,
         origin={50,80})));
   Modelica.Blocks.Sources.CombiTimeTable intGaiClo(
     table=[0,0,0,0; 86400,0,0,0], tableOnFile=false)

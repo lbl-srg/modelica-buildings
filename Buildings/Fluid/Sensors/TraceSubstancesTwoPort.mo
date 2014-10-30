@@ -58,8 +58,6 @@ equation
     C = CMed;
   end if;
 annotation (defaultComponentName="senTraSub",
-  Diagram(coordinateSystem(preserveAspectRatio=true,  extent={{-100,-100},{
-            100,100}})),
   Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
         graphics={
         Text(

@@ -12,7 +12,6 @@ model OnlySurfaceBoundary "Test model for room model"
   Buildings.HeatTransfer.Sources.FixedTemperature TBou[nSurBou](each T=288.15)
     "Boundary condition for construction" annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
-        rotation=0,
         origin={130,-70})));
   HeatTransfer.Conduction.MultiLayer conOut[nSurBou](
     each A=15,

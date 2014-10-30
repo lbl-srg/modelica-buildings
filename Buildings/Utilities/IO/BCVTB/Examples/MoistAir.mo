@@ -19,7 +19,7 @@ model MoistAir
     use_X_in=true,
     p(displayUnit="Pa") = 101325,
     T=293.15)             annotation (Placement(transformation(extent={{96,60},
-            {116,80}}, rotation=0)));
+            {116,80}})));
   inner Modelica.Fluid.System system
     annotation (Placement(transformation(extent={{-80,160},{-60,180}})));
   Buildings.Fluid.FixedResistances.FixedResistanceDpM dp2(

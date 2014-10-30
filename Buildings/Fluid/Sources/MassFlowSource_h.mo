@@ -29,22 +29,18 @@ model MassFlowSource_h
     annotation (Dialog(enable = (not use_C_in) and Medium.nC > 0));
   Modelica.Blocks.Interfaces.RealInput m_flow_in if     use_m_flow_in
     "Prescribed mass flow rate"
-    annotation (Placement(transformation(extent={{-120,60},{-80,100}},
-          rotation=0)));
+    annotation (Placement(transformation(extent={{-120,60},{-80,100}})));
   Modelica.Blocks.Interfaces.RealInput h_in if              use_h_in
     "Prescribed fluid specific enthalpy"
-    annotation (Placement(transformation(extent={{-140,20},{-100,60}},
-          rotation=0), iconTransformation(extent={{-140,20},{-100,60}})));
+    annotation (Placement(transformation(extent={{-140,20},{-100,60}}), iconTransformation(extent={{-140,20},{-100,60}})));
   Modelica.Blocks.Interfaces.RealInput X_in[Medium.nX] if
                                                         use_X_in
     "Prescribed fluid composition"
-    annotation (Placement(transformation(extent={{-140,-60},{-100,-20}},
-          rotation=0)));
+    annotation (Placement(transformation(extent={{-140,-60},{-100,-20}})));
   Modelica.Blocks.Interfaces.RealInput C_in[Medium.nC] if
                                                         use_C_in
     "Prescribed boundary trace substances"
-    annotation (Placement(transformation(extent={{-120,-100},{-80,-60}},
-          rotation=0), iconTransformation(extent={{-120,-100},{-80,-60}})));
+    annotation (Placement(transformation(extent={{-120,-100},{-80,-60}}), iconTransformation(extent={{-120,-100},{-80,-60}})));
 protected
   Modelica.Blocks.Interfaces.RealInput m_flow_in_internal
     "Needed to connect to conditional connector";
@@ -145,15 +141,6 @@ equation
           extent={{-150,110},{150,150}},
           textString="%name",
           lineColor={0,0,255})}),
-    Window(
-      x=0.45,
-      y=0.01,
-      width=0.44,
-      height=0.65),
-    Diagram(coordinateSystem(
-        preserveAspectRatio=false,
-        extent={{-100,-100},{100,100}},
-        grid={1,1})),
     Documentation(info="<html>
 <p>
 Models an ideal flow source, with prescribed values of flow rate, temperature and composition:

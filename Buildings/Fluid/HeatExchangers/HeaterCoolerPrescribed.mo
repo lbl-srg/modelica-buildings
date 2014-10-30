@@ -8,7 +8,7 @@ model HeaterCoolerPrescribed "Heater or cooler with prescribed heat flow rate"
     "Heat flow rate at u=1, positive for heating";
   Modelica.Blocks.Interfaces.RealInput u "Control input"
     annotation (Placement(transformation(
-          extent={{-140,40},{-100,80}}, rotation=0)));
+          extent={{-140,40},{-100,80}})));
 protected
   Buildings.HeatTransfer.Sources.PrescribedHeatFlow preHea
     "Prescribed heat flow"
@@ -88,6 +88,5 @@ April 17, 2008, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
-</html>"),
-    Diagram(graphics));
+</html>"));
 end HeaterCoolerPrescribed;

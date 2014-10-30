@@ -29,10 +29,7 @@ equation
   port_a.Xi_outflow = sum(sum(inStream(port_b[i, j].Xi_outflow) for i in 1:nPipPar) for j in 1:nPipSeg)/nPipPar/nPipSeg;
   port_a.C_outflow  = sum(sum(inStream(port_b[i, j].C_outflow) for i in 1:nPipPar) for j in 1:nPipSeg)/nPipPar/nPipSeg;
 
-annotation (Diagram(coordinateSystem(preserveAspectRatio=true,  extent={{-100,
-            -100},{100,100}}),
-                    graphics),
-Documentation(info="<html>
+annotation (Documentation(info="<html>
 <p>
 This model distributes the mass flow rates equally between all instances
 of <code>port_b</code>.

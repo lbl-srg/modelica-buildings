@@ -34,8 +34,7 @@ model BoilerPolynomial
   Modelica.SIunits.VolumeFlowRate VFue_flow "Fuel volume flow rate";
 
   Modelica.Blocks.Interfaces.RealInput y(min=0, max=1) "Part load ratio"
-    annotation (Placement(transformation(extent={{-140,60},{-100,100}},
-          rotation=0)));
+    annotation (Placement(transformation(extent={{-140,60},{-100,100}})));
 protected
   Real eta_nominal "Boiler efficiency at nominal condition";
 
@@ -46,7 +45,7 @@ public
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heatPort
     "Heat port, can be used to connect to ambient"
                              annotation (Placement(transformation(extent={{-10,62},
-            {10,82}},            rotation=0)));
+            {10,82}})));
   Modelica.Thermal.HeatTransfer.Components.HeatCapacitor heaCapDry(C=500*mDry,
       T(start=T_start)) if not (energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState)
     "heat capacity of boiler metal"
@@ -54,7 +53,7 @@ public
   Modelica.Blocks.Interfaces.RealOutput T(final quantity="ThermodynamicTemperature",
                                           final unit = "K", displayUnit = "degC", min=0)
                                           annotation (Placement(
-        transformation(extent={{100,70},{120,90}}, rotation=0)));
+        transformation(extent={{100,70},{120,90}})));
 protected
   Buildings.HeatTransfer.Sources.PrescribedHeatFlow preHeaFlo
     annotation (Placement(transformation(extent={{-43,-40},{-23,-20}})));
@@ -117,7 +116,7 @@ equation
       points={{-9,-10},{-16,-10},{-16,40},{0,40}},
       color={191,0,0},
       smooth=Smooth.None));
-  annotation (Diagram(graphics), Icon(graphics={
+  annotation ( Icon(graphics={
         Ellipse(
           extent={{-20,22},{20,-20}},
           fillColor={127,0,0},

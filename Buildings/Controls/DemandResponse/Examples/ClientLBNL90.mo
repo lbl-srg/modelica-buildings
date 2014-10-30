@@ -125,7 +125,6 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   annotation (
-  Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}), graphics),
           __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/DemandResponse/Examples/ClientLBNL90.mos"
         "Simulate and plot"),
             experiment(
@@ -155,6 +154,5 @@ March 20, 2014 by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
-</html>"),
-    __Dymola_experimentSetupOutput);
+</html>"));
 end ClientLBNL90;

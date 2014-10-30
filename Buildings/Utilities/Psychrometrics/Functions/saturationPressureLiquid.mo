@@ -14,8 +14,6 @@ algorithm
     smoothOrder=99,
     derivative=Buildings.Utilities.Psychrometrics.Functions.BaseClasses.der_saturationPressureLiquid,
     Inline=true,
-    Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,
-            100}}), graphics),
     Documentation(info="<html>
 <p>
 Saturation pressure of water above the triple point temperature computed from temperature

@@ -86,10 +86,6 @@ equation
       smooth=Smooth.None));
   annotation (
     preferredView="info",
-    Diagram(coordinateSystem(
-        preserveAspectRatio=true,
-        extent={{-100,-100},{100,100}},
-        grid={1,1}), graphics),
     Documentation(info="<html>
 <p>
 This component transports fluid between its two ports, without
@@ -217,9 +213,5 @@ March 17, 2008, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
-</html>"),
-    Icon(coordinateSystem(
-        preserveAspectRatio=false,
-        extent={{-100,-100},{100,100}},
-        grid={1,1}), graphics));
+</html>"));
 end StaticTwoPortHeatMassExchanger;

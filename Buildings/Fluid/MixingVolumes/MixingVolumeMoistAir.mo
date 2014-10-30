@@ -9,16 +9,13 @@ model MixingVolumeMoistAir
   Modelica.Blocks.Interfaces.RealInput mWat_flow(final quantity="MassFlowRate",
                                                  final unit = "kg/s")
     "Water flow rate added into the medium"
-    annotation (Placement(transformation(extent={{-140,60},{-100,100}},rotation=
-           0)));
+    annotation (Placement(transformation(extent={{-140,60},{-100,100}})));
   Modelica.Blocks.Interfaces.RealInput TWat(final quantity="ThermodynamicTemperature",
                                             final unit = "K", displayUnit = "degC", min=260)
     "Temperature of liquid that is drained from or injected into volume"
-    annotation (Placement(transformation(extent={{-140,28},{-100,68}},
-          rotation=0)));
+    annotation (Placement(transformation(extent={{-140,28},{-100,68}})));
   Modelica.Blocks.Interfaces.RealOutput X_w "Species composition of medium"
-    annotation (Placement(transformation(extent={{100,-60},{140,-20}}, rotation=
-           0)));
+    annotation (Placement(transformation(extent={{100,-60},{140,-20}})));
   Modelica.Blocks.Math.Product QLat_flow
     "Latent heat flow rate added to the fluid stream"
     annotation (Placement(transformation(extent={{0,56},{20,76}})));
@@ -89,11 +86,7 @@ equation
       points={{-39,88},{50,88},{50,80},{66,80}},
       color={0,0,127},
       smooth=Smooth.None));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}}),
-                      graphics),
-                       Icon(graphics),
-defaultComponentName="vol",
+  annotation (defaultComponentName="vol",
 Documentation(info="<html>
 Model for an ideally mixed fluid volume and the ability
 to store mass and energy. The volume is fixed,

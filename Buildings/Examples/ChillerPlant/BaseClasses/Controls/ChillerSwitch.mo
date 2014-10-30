@@ -47,11 +47,6 @@ equation
 
   annotation (
     defaultComponentName="chiSwi",
-    Diagram(coordinateSystem(
-        preserveAspectRatio=true,
-        extent={{-100,-100},{100,100}},
-        initialScale=0.01,
-        grid={2,2})),
     Documentation(info="<html>
 The controls for enabling/disabling chiller are as follows:
 <ul>

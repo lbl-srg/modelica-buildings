@@ -68,6 +68,5 @@ First implementation.
     Icon(graphics={Text(
           extent={{-102,94},{-44,76}},
           lineColor={0,0,127},
-          textString="stage")}),
-    Diagram(graphics));
+          textString="stage")}));
 end MultiStage;

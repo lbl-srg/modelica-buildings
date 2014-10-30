@@ -71,9 +71,7 @@ Obtained CvData = " + String(CvData) + ".");
     dpValve_nominal =  (m_flow_nominal/Kv_SI)^2;
   end if;
 
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}})),
-Documentation(info="<html>
+  annotation (Documentation(info="<html>
 <p>
 Model that computes the flow coefficients of valves. This base class allows the following modeling options,
 which have been adapted from the valve implementation

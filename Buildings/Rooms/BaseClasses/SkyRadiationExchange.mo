@@ -39,7 +39,7 @@ equation
     h[i]  = k[i] * TEnv[i]^3;
     port[i].Q_flow = h[i] * (port[i].T-TEnv[i]);
   end for;
-  annotation (Diagram(graphics), Icon(graphics={
+  annotation ( Icon(graphics={
         Rectangle(
           extent={{-100,100},{100,-100}},
           lineColor={0,0,0},

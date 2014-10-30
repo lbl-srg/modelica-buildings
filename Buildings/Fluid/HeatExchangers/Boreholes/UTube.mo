@@ -190,11 +190,6 @@ equation
           lineColor={0,0,0},
           fillColor={192,192,192},
           fillPattern=FillPattern.Backward)}),
-    Diagram(coordinateSystem(
-        preserveAspectRatio=true,
-        extent={{-100,-100},{100,100}},
-        grid={2,2},
-        initialScale=0.5)),
     Documentation(info="<html>
 <p>
 Model of a single U-tube borehole heat exchanger.

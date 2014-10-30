@@ -179,9 +179,7 @@ equation
       points={{10,-21},{10,-84},{8.88178e-16,-84},{8.88178e-16,-120}},
       color={0,0,127},
       smooth=Smooth.None));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}}),
-                      graphics), Icon(graphics={
+  annotation ( Icon(graphics={
         Text(
           extent={{-94,48},{-52,32}},
           lineColor={0,0,127},

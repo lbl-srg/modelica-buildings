@@ -25,8 +25,7 @@ partial block PartialDemandResponse
     annotation (Placement(
       transformation(extent={{-140,-110},{-100,-70}}),
       iconTransformation(extent={{-120,-100},{-100,-80}})));
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}})), Documentation(info="<html>
+  annotation ( Documentation(info="<html>
 <p>
 This is a partial block that declares parameters, inputs and outputs that are
 used by the blocks that compute the demand reponse client.
@@ -39,7 +38,5 @@ March 20, 2014 by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
-</html>"),
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
-            100}}), graphics));
+</html>"));
 end PartialDemandResponse;

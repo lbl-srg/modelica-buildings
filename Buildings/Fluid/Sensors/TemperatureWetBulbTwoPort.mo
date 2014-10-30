@@ -64,9 +64,6 @@ equation
     T = TMedWetBul;
   end if;
 annotation (defaultComponentName="senWetBul",
-  Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
-            100}}),
-          graphics),
     Icon(graphics={
         Line(points={{-100,0},{92,0}}, color={0,128,255}),
         Ellipse(

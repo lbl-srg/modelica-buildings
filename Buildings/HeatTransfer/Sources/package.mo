@@ -7,7 +7,7 @@ extends Modelica.Icons.SourcesPackage;
 
     parameter Modelica.SIunits.Temperature T "Fixed temperature at port";
     Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_b port annotation (Placement(transformation(extent={{90,
-              -10},{110,10}}, rotation=0)));
+              -10},{110,10}})));
   equation
     port.T = T;
     annotation (
@@ -73,9 +73,9 @@ i.e., it defines a fixed temperature as a boundary condition.
   "Variable temperature boundary condition in Kelvin"
 
     Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_b port annotation (Placement(transformation(extent={{90,
-              -10},{110,10}}, rotation=0)));
+              -10},{110,10}})));
     Modelica.Blocks.Interfaces.RealInput T annotation (Placement(transformation(
-            extent={{-140,-20},{-100,20}}, rotation=0)));
+            extent={{-140,-20},{-100,20}})));
   equation
     port.T = T;
     annotation (
@@ -140,7 +140,7 @@ as required to keep the temperature at the specified value.
     parameter Modelica.SIunits.HeatFlowRate Q_flow
     "Fixed heat flow rate at port";
     Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_b port annotation (Placement(transformation(extent={{90,
-              -10},{110,10}}, rotation=0)));
+              -10},{110,10}})));
   equation
     port.Q_flow = -Q_flow;
     annotation (
@@ -235,7 +235,7 @@ Modelica.Thermal.HeatTransfer.Sources.FixedHeatFlow</a>.
           extent={{20,-20},{-20,20}},
           rotation=180)));
     Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_b port annotation (Placement(transformation(extent={{90,
-              -10},{110,10}}, rotation=0)));
+              -10},{110,10}})));
   equation
     port.Q_flow = -Q_flow;
     annotation (
@@ -330,8 +330,7 @@ Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow</a>.
   end PrescribedHeatFlow;
 
 
-  annotation (Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,
-            -100},{100,100}})),   Documentation(info="<html>
+  annotation (   Documentation(info="<html>
 This package is identical to
 <a href=\"modelica://Modelica.Thermal.HeatTransfer.Sources\">
 Modelica.Thermal.HeatTransfer.Sources</a>, except that

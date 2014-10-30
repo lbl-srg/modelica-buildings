@@ -7,7 +7,7 @@ partial block EssentialParameters "A partial block for essential parameters"
     annotation (Placement(transformation(extent={{-80,82},{-68,94}})));
 protected
   parameter Integer nSta=datCoi.nSta "Number of stages";
-  annotation (Diagram(graphics), Documentation(info="<html>
+  annotation ( Documentation(info="<html>
 <p>
 This partial block declares parameters that are required by most classes
 in the package

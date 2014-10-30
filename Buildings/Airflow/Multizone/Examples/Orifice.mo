@@ -3,14 +3,12 @@ model Orifice "Model with an orifice"
   extends Modelica.Icons.Example;
   package Medium = Buildings.Media.PerfectGases.MoistAirUnsaturated;
   Buildings.Airflow.Multizone.Orifice ori(redeclare package Medium = Medium, A=
-        0.2) annotation (Placement(transformation(extent={{0,20},{20,40}},
-          rotation=0)));
+        0.2) annotation (Placement(transformation(extent={{0,20},{20,40}})));
   Buildings.Fluid.Sources.Boundary_pT roo1(
     redeclare package Medium = Medium,
     use_p_in=true,
     nPorts=1,
-    T=278.15) annotation (Placement(transformation(extent={{-60,20},{-40,40}},
-          rotation=0)));
+    T=278.15) annotation (Placement(transformation(extent={{-60,20},{-40,40}})));
   Buildings.Fluid.Sources.Boundary_pT roo2(
     redeclare package Medium = Medium,
     use_p_in=true,
@@ -23,22 +21,20 @@ model Orifice "Model with an orifice"
     duration=0.5,
     height=2,
     offset=-1,
-    startTime=0.25) annotation (Placement(transformation(extent={{0,-48},{20,-28}},
-          rotation=0)));
+    startTime=0.25) annotation (Placement(transformation(extent={{0,-48},{20,-28}})));
   Modelica.Blocks.Sources.Constant Pre(k=100000) annotation (Placement(
-        transformation(extent={{-100,-20},{-80,0}},  rotation=0)));
+        transformation(extent={{-100,-20},{-80,0}})));
   Modelica.Blocks.Math.Add Add1 annotation (Placement(transformation(extent={{
-            44,-30},{64,-10}}, rotation=0)));
+            44,-30},{64,-10}})));
   Fluid.Sensors.DensityTwoPort    den1(redeclare package Medium = Medium,
       m_flow_nominal=0.1,
     initType=Modelica.Blocks.Types.Init.InitialState) "Density sensor"
                      annotation (Placement(transformation(extent={{-30,20},{-10,
-            40}}, rotation=0)));
+            40}})));
   Fluid.Sensors.DensityTwoPort    den2(redeclare package Medium = Medium,
       m_flow_nominal=0.1,
     initType=Modelica.Blocks.Types.Init.InitialState) "Density sensor"
-                     annotation (Placement(transformation(extent={{30,20},{50,40}},
-                  rotation=0)));
+                     annotation (Placement(transformation(extent={{30,20},{50,40}})));
   inner Modelica.Fluid.System system
     annotation (Placement(transformation(extent={{60,-80},{80,-60}})));
 equation

@@ -27,8 +27,7 @@ equation
       points={{1,10},{8,10},{8,-4},{18,-4}},
       color={0,0,127},
       smooth=Smooth.None));
-  annotation (Diagram(graphics),
-experiment(StopTime=864000),
+  annotation (experiment(StopTime=864000),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/BoundaryConditions/WeatherData/BaseClasses/Examples/SolarTime.mos"
         "Simulate and plot"));
 end SolarTime;

@@ -31,8 +31,7 @@ partial model ShadeInterface_weatherBus
 
 equation
 
-  annotation (Diagram(graphics),
-Documentation(info="<html>
+  annotation (Documentation(info="<html>
 <p>
 Partial model to implement overhang and side fin model with weather bus as a connector.
 </p>

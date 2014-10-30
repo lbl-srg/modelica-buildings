@@ -4,13 +4,12 @@ model Average "Test model for average function"
   Buildings.Utilities.Math.Average average(nin=2)
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
   Modelica.Blocks.Sources.Ramp x1(duration=1)
-    annotation (Placement(transformation(extent={{-60,10},{-40,30}}, rotation=0)));
+    annotation (Placement(transformation(extent={{-60,10},{-40,30}})));
   Modelica.Blocks.Sources.Ramp x2(
     height=2,
     duration=1,
     offset=2)
-    annotation (Placement(transformation(extent={{-60,-30},{-40,-10}},
-                                                                     rotation=0)));
+    annotation (Placement(transformation(extent={{-60,-30},{-40,-10}})));
   Modelica.Blocks.Routing.Multiplex2 multiplex2_1
     annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
 equation
@@ -27,8 +26,7 @@ equation
       points={{1,0},{18,0}},
       color={0,0,127},
       smooth=Smooth.None));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}}), graphics), experiment(StopTime=1.0),
+  annotation ( experiment(StopTime=1.0),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Utilities/Math/Examples/Average.mos"
         "Simulate and plot"), Documentation(info="<html>
 <p>

@@ -17,8 +17,7 @@ model FlowMachineSeries_y "Two flow machines in series"
     use_p_in=false,
     p(displayUnit="Pa") = 300000,
     T=293.15,
-    nPorts=1) annotation (Placement(transformation(extent={{-92,50},{-72,70}},
-          rotation=0)));
+    nPorts=1) annotation (Placement(transformation(extent={{-92,50},{-72,70}})));
 
   Modelica.Blocks.Sources.Constant const2(k=1)
     annotation (Placement(transformation(extent={{40,80},{60,100}})));
@@ -46,8 +45,7 @@ model FlowMachineSeries_y "Two flow machines in series"
     use_p_in=false,
     p(displayUnit="Pa") = 300000 + 4000,
     T=293.15,
-    nPorts=1) annotation (Placement(transformation(extent={{156,50},{136,70}},
-          rotation=0)));
+    nPorts=1) annotation (Placement(transformation(extent={{156,50},{136,70}})));
 equation
   connect(const2.y, floMac2.y)
                               annotation (Line(

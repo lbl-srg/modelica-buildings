@@ -219,8 +219,6 @@ equation
           pattern=LinePattern.None,
           fillColor={255,85,85},
           fillPattern=FillPattern.Solid)}),
-              Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}}), graphics),
 defaultComponentName = "tan",
 Documentation(info = "<html>
 <p>

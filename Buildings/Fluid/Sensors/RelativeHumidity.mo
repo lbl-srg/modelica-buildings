@@ -5,8 +5,7 @@ model RelativeHumidity "Ideal one port relative humidity sensor"
 
   Modelica.Blocks.Interfaces.RealOutput phi(unit="1", min=0)
     "Relative humidity in port medium"
-    annotation (Placement(transformation(extent={{100,-10},{120,10}},
-          rotation=0)));
+    annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 
 protected
   Medium.BaseProperties med "Medium state at dry bulb temperature";
@@ -18,8 +17,6 @@ equation
   phi = med.phi;
 
 annotation (defaultComponentName="senRelHum",
-  Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
-            100}}),     graphics),
   Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
         graphics={
         Line(points={{0,-70},{0,-100}}, color={0,0,127}),

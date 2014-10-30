@@ -13,18 +13,15 @@ model ShadeConvection
     "Signal representing the convective thermal conductance"
     annotation (Placement(transformation(
         extent={{-20,-20},{20,20}},
-        rotation=0,
         origin={-120,30}), iconTransformation(extent={{-10,-10},{10,10}},
           origin={-110,40})));
 
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a air
     "Port that connects to the air (room or outside)"        annotation (Placement(transformation(extent={{-110,
-            -10},{-90,10}},
-                       rotation=0)));
+            -10},{-90,10}})));
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_b glass
     "Heat port that connects to shaded part of glass"
-    annotation (Placement(transformation(extent={{84,-10},{104,10}},
-                                                                   rotation=0),
+    annotation (Placement(transformation(extent={{84,-10},{104,10}}),
         iconTransformation(extent={{84,-10},{104,10}})));
  Modelica.Blocks.Interfaces.RealInput QRadAbs_flow(unit="W")
     "Total net radiation that is absorbed by the shade (positive if absorbed)"
@@ -60,10 +57,7 @@ equation
     TSha = (air.T+glass.T)/2;
   end if;
 
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}}),
-                      graphics),
-    Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
+  annotation (    Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
          graphics={
         Rectangle(
           extent={{-100,100},{100,-100}},

@@ -84,7 +84,6 @@ First implementation.
 </li>
 </ul>
 </html>"),
-Diagram(graphics),
     Icon(graphics={
     Text(
       extent={{-78,-45},{-40,-56}},

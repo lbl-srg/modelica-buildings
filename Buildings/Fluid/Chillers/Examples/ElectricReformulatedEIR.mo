@@ -10,9 +10,7 @@ model ElectricReformulatedEIR
   annotation (
 experiment(StopTime=14400),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Chillers/Examples/ElectricReformulatedEIR.mos"
-        "Simulate and plot"),                                                                                                    Diagram(
-        graphics),
-    Documentation(info="<html>
+        "Simulate and plot"),    Documentation(info="<html>
 <p>
 Example that simulates a chiller whose efficiency is computed based on the
 condenser leaving and evaporator leaving fluid temperature.

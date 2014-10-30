@@ -6,12 +6,10 @@ model SpecificEnthalpy "Ideal one port specific enthalpy sensor"
                                               final unit="J/kg")
     "Specific enthalpy in port medium"
     annotation (defaultComponentName="senSpeEnt",
-        Placement(transformation(extent={{100,-10},{120,10}}, rotation=0)));
+        Placement(transformation(extent={{100,-10},{120,10}})));
 equation
   h_out = inStream(port.h_outflow);
 annotation (defaultComponentName="senSpeEnt",
-  Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
-            100,100}})),
   Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
         graphics={
         Line(points={{0,-70},{0,-100}}, color={0,0,127}),

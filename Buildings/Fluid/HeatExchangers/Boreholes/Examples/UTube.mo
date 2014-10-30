@@ -15,7 +15,7 @@ model UTube "Model that tests the borehole model"
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     TExt0_start=283.15,
     TFil0_start=283.15) "Borehole heat exchanger"
-    annotation (Placement(transformation(extent={{-16,-36},{16,-4}},rotation=0)));
+    annotation (Placement(transformation(extent={{-16,-36},{16,-4}})));
       inner Modelica.Fluid.System system
     annotation (Placement(transformation(extent={{-100,-100},{-80,-80}})));
   Sources.Boundary_ph sin(nPorts=1, redeclare package Medium = Medium) "Sink"
@@ -46,8 +46,6 @@ equation
       smooth=Smooth.None));
  annotation(__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/Boreholes/Examples/UTube.mos"
         "Simulate and plot"),
-          Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},
-            {100,100}})),
                   Documentation(info="<html>
 <p>
 This example models a borehole heat exchanger with two pipes that are

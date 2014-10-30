@@ -5,7 +5,7 @@ model RadiationAdapter
 
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a rad
     "Port for radiative heat gain and radiation temperature"    annotation (Placement(transformation(extent={{-10,
-            -110},{10,-90}},   rotation=0), iconTransformation(extent={{-12,
+            -110},{10,-90}}), iconTransformation(extent={{-12,
             -110},{8,-90}})));
 public
   Modelica.Blocks.Interfaces.RealInput TRad "Radiation temperature of room"
@@ -71,6 +71,5 @@ June 8 2010, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
-</html>"),
-    Diagram(graphics));
+</html>"));
 end RadiationAdapter;

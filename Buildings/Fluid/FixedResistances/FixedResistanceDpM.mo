@@ -72,10 +72,7 @@ equation
     dp = 0;
   end if;  // computeFlowResistance
 
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=true,  extent={{-100,
-            -100},{100,100}}),
-                      graphics),
-defaultComponentName="res",
+  annotation (defaultComponentName="res",
 Documentation(info="<html>
 <p>
 This is a model of a resistance with a fixed flow coefficient.

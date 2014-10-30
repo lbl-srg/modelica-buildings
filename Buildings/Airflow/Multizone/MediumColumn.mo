@@ -19,15 +19,14 @@ model MediumColumn
     m_flow(min=if allowFlowReversal then -Constants.inf else 0),
     p(start=Medium.p_default))
     "Fluid connector a (positive design flow direction is from port_a to port_b)"
-    annotation (Placement(transformation(extent={{-10,90},{10,110}}, rotation=0),
+    annotation (Placement(transformation(extent={{-10,90},{10,110}}),
         iconTransformation(extent={{-10,90},{10,110}})));
   Modelica.Fluid.Interfaces.FluidPort_b port_b(
     redeclare package Medium = Medium,
     m_flow(max=if allowFlowReversal then +Constants.inf else 0),
     p(start=Medium.p_default))
     "Fluid connector b (positive design flow direction is from port_a to port_b)"
-    annotation (Placement(transformation(extent={{10,-110},{-10,-90}}, rotation=
-           0), iconTransformation(extent={{10,-110},{-10,-90}})));
+    annotation (Placement(transformation(extent={{10,-110},{-10,-90}}), iconTransformation(extent={{10,-110},{-10,-90}})));
 
   Modelica.SIunits.VolumeFlowRate V_flow=m_flow/Medium.density(sta_a)
     "Volume flow rate at inflowing port (positive when flow from port_a to port_b)";
@@ -217,6 +216,5 @@ alias sets have different nominal values.
 <li><i>February 24, 2005</i> by Michael Wetter:<br/>
        Released first version.
 </ul>
-</html>"),
-    Diagram(graphics));
+</html>"));
 end MediumColumn;

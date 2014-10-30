@@ -109,6 +109,5 @@ First implementation.
 </li>
 </ul>
 
-</html>"),
-    Diagram(graphics));
+</html>"));
 end ApparatusDewPoint;

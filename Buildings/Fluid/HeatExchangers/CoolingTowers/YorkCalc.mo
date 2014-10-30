@@ -33,13 +33,13 @@ model YorkCalc
   Modelica.Blocks.Interfaces.RealInput TAir(min=0, unit="K")
     "Entering air wet bulb temperature"
      annotation (Placement(transformation(
-          extent={{-140,20},{-100,60}}, rotation=0)));
+          extent={{-140,20},{-100,60}})));
 
   Buildings.Fluid.HeatExchangers.CoolingTowers.Correlations.BoundsYorkCalc bou
     "Bounds for correlation";
   Modelica.Blocks.Interfaces.RealInput y "Fan control signal"
      annotation (Placement(transformation(
-          extent={{-140,60},{-100,100}}, rotation=0)));
+          extent={{-140,60},{-100,100}})));
 
   Modelica.SIunits.TemperatureDifference TRan(nominal=1, displayUnit="K")
     "Range temperature";
@@ -176,9 +176,6 @@ equation
           fillColor={0,127,0},
           fillPattern=FillPattern.Solid,
           textString="York")}),
-                          Diagram(coordinateSystem(preserveAspectRatio=true,
-          extent={{-100,-100},{100,100}}),
-                                  graphics),
 Documentation(info="<html>
 <p>
 Model for a steady-state or dynamic cooling tower with variable speed fan using the York calculation for the

@@ -28,7 +28,7 @@ model FlatPlateWithTank
     computeWetBulbTemperature=false) "Weather data file reader"
     annotation (Placement(transformation(extent={{-30,80},{-10,100}})));
   inner Modelica.Fluid.System system(p_ambient=101325) annotation (Placement(
-        transformation(extent={{70,68},{90,88}}, rotation=0)));
+        transformation(extent={{70,68},{90,88}})));
   Buildings.Fluid.Sensors.TemperatureTwoPort TOut(
     T_start(displayUnit="K"),
     m_flow_nominal=solCol.m_flow_nominal,
@@ -60,7 +60,6 @@ model FlatPlateWithTank
     "Storage tank model"
     annotation (Placement(transformation(
       extent={{-15,-15},{15,15}},
-      rotation=0,
       origin={27,-33})));
   Buildings.Fluid.SolarCollectors.Controls.SolarPumpController
     pumCon(per=Buildings.Fluid.SolarCollectors.Data.GlazedFlatPlate.FP_ThermaLiteHS20())
@@ -91,7 +90,6 @@ model FlatPlateWithTank
     T=288.15) "Inlet and flow rate for hot water draw"
     annotation (Placement(transformation(
       extent={{10,-10},{-10,10}},
-      rotation=0,
       origin={70,-32})));
   Buildings.Fluid.Movers.FlowMachine_m_flow pum(redeclare package Medium =
     Medium_2, m_flow_nominal=0.1,
@@ -105,7 +103,6 @@ model FlatPlateWithTank
     redeclare package Medium = Medium_2, V_start=0.1) "Expansion tank"
     annotation (Placement(transformation(
       extent={{-10,-10},{10,10}},
-      rotation=0,
       origin={-66,-36})));
   Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor TTan
     "Temperature in the tank water that surrounds the heat exchanger"
@@ -177,9 +174,7 @@ equation
       points={{-20,10},{-44,10},{-44,68},{-84,68},{-84,62}},
       color={0,0,127},
       smooth=Smooth.None));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}}), graphics),
-                      __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/SolarCollectors/Examples/FlatPlateWithTank.mos"
+  annotation (                      __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/SolarCollectors/Examples/FlatPlateWithTank.mos"
         "Simulate and Plot"),
         experiment(StopTime=86400.0),
         Documentation(info="<html>

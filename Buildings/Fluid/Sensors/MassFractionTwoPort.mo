@@ -54,10 +54,6 @@ equation
     X = XMed;
   end if;
 annotation (defaultComponentName="senMasFra",
-  Diagram(coordinateSystem(preserveAspectRatio=true,  extent={{-100,-100},{
-            100,100}},
-        grid={1,1}),
-          graphics),
   Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}},
         grid={1,1}), graphics={
         Text(
