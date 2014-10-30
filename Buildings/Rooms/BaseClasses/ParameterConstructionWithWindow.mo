@@ -53,7 +53,7 @@ Documentation(info="<html>
 This data record is used to set the parameters of constructions that do have a window.
 </p>
 <p>
-The surface azimuth is defined in 
+The surface azimuth is defined in
 <a href=\"modelica://Buildings.HeatTransfer.Types.Azimuth\">
 Buildings.HeatTransfer.Types.Azimuth</a>
 and the surface tilt is defined in <a href=\"modelica://Buildings.HeatTransfer.Types.Tilt\">
@@ -68,7 +68,7 @@ Removed <code>replacable</code> keyword for parameters that are records as this 
 <li>
 October 27, 2014, by Michael Wetter:<br/>
 Introduced the parameter <code>haveOverhangOrSideFins</code> which is needed by
-<a href=\modelica://Buildings.Rooms.BaseClasses.ExteriorBoundaryConditionsWithWindow\">
+<a href=\"modelica://Buildings.Rooms.BaseClasses.ExteriorBoundaryConditionsWithWindow\">
 Buildings.Rooms.BaseClasses.ExteriorBoundaryConditionsWithWindow</a>.
 </li>
 <li>
