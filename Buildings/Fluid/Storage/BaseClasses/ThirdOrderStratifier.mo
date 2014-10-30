@@ -105,11 +105,11 @@ Number of segments of the enhanced stratified tank should be no less than 4 (nSe
   annotation (Documentation(info="<html>
 <p>
 This model reduces the numerical dissipation that is introduced
-by the standard first-order upwind discretization scheme which is 
+by the standard first-order upwind discretization scheme which is
 created when connecting fluid volumes in series.
 </p>
 <p>
-The model is used in conjunction with 
+The model is used in conjunction with
 <a href=\"modelica://Modelica.Fluid.Storage.Stratified\">
 Modelica.Fluid.Storage.Stratified</a>.
 It computes a heat flux that needs to be added to each volume of <a href=\"modelica://Modelica.Fluid.Storage.Stratified\">

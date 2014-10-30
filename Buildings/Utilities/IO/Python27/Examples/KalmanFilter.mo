@@ -62,7 +62,7 @@ in Python.
 The model generates a uniform random number, which is computed
 in the Python file <code>KalmanFilter.py</code> by the function
 <code>random(seed)</code>.
-This random number is added to a sine wave and then sent to 
+This random number is added to a sine wave and then sent to
 the function <code>filter(u)</code> in the above Python file.
 The function <code>filter(u)</code> implements a Kalman filter that estimates and returns
 the state.

@@ -36,7 +36,7 @@ package MoistAir "Package with moist air model with constant density"
     final standardOrderComponents=true)
 
     /* p, T, X = X[Water] are used as preferred states, since only then all
-     other quantities can be computed in a recursive sequence. 
+     other quantities can be computed in a recursive sequence.
      If other variables are selected as states, static state selection
      is no longer possible and non-linear algebraic equations occur.
       */
@@ -119,7 +119,7 @@ required from medium model \""     + mediumName + "\".");
     annotation (Documentation(info="<html>
 Function to set the state for given pressure, enthalpy and species concentration.
 This function needed to be reimplemented in order for the medium model to use
-the implementation of <code>T_phX</code> provided by this package as opposed to the 
+the implementation of <code>T_phX</code> provided by this package as opposed to the
 implementation provided by its parent package.
 </html>"));
   end setState_phX;
@@ -154,7 +154,7 @@ implementation provided by its parent package.
 This function declares the first derivative of
 <a href=\"modelica://Buildings.Media.GasesConstantDensity.MoistAir.saturationPressureLiquid\">
 Buildings.Media.GasesConstantDensity.MoistAir.saturationPressureLiquid</a>.
-It is required since otherwise, Dymola 7.3 cannot find the derivative of the inherited function 
+It is required since otherwise, Dymola 7.3 cannot find the derivative of the inherited function
 <code>saturationPressureLiquid</code>.
 </html>"));
 
@@ -350,13 +350,13 @@ end T_phX;
 
   annotation (preferredView="info", Documentation(info="<html>
 <p>
-This is a medium model that is similar to 
+This is a medium model that is similar to
 <a href=\"modelica://Buildings.Media.PerfectGases.MoistAir\">
 Buildings.Media.PerfectGases.MoistAir</a>, but the mass density is constant.
 </p>
 <p>
 The use of a constant density avoids having pressure as a state variable in mixing volumes. Hence, fast transients
-introduced by a change in pressure are avoided. 
+introduced by a change in pressure are avoided.
 The drawback is that the dimensionality of the coupled
 nonlinear equation system is typically larger for flow
 networks.
@@ -366,7 +366,7 @@ As in
 <a href=\"modelica://Buildings.Media.PerfectGases.MoistAir\">
 Buildings.Media.PerfectGases.MoistAir</a>, the
 specific enthalpy h and specific internal energy u are only
-a function of temperature <code>T</code> and 
+a function of temperature <code>T</code> and
 species concentration <code>X</code> and all other provided medium
 quantities are constant.
 </p>
@@ -389,7 +389,7 @@ during model check and translation.
 </li>
 <li>
 August 3, 2011, by Michael Wetter:<br/>
-Fixed bug in <code>u=h-R*T</code>, which is only valid for ideal gases. 
+Fixed bug in <code>u=h-R*T</code>, which is only valid for ideal gases.
 For this medium, the function is <code>u=h-p/dStp</code>.
 </li>
 <li>
@@ -409,26 +409,26 @@ Fixed implementation of derivative functions.
 </li>
 <li>
 August 28, 2008, by Michael Wetter:<br/>
-Referenced <code>spliceFunction</code> from package 
+Referenced <code>spliceFunction</code> from package
 <a href=\"modelica://Buildings.Utilities.Math\">Buildings.Utilities.Math</a>
 to avoid duplicate code.
 </li>
 <li>
 August 21, 2008, by Michael Wetter:<br/>
 Replaced <code>d*pStp = p*dStp</code> by
-<code>d/dStp = p/pStp</code> to indicate that division by 
+<code>d/dStp = p/pStp</code> to indicate that division by
 <code>dStp</code> and <code>pStp</code> is allowed.
 </li>
 <li>
 August 22, 2008, by Michael Wetter:<br/>
-Changed function 
+Changed function
 <a href=\"modelica://Buildings.Media.GasesConstantDensity.MoistAir.density\">
 density</a> so that it uses <code>rho=p/pStd*rhoStp</code>
 instead of the ideal gas law.
 </li>
 <li>
 August 18, 2008, by Michael Wetter:<br/>
-Changed function 
+Changed function
 <a href=\"modelica://Buildings.Media.GasesConstantDensity.MoistAir.T_phX\">
 T_phX</a> so that it uses the implementation of
 <a href=\"Buildings.Media.PerfectGases.MoistAir.T_phX\">

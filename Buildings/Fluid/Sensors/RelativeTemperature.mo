@@ -79,8 +79,7 @@ See
 <a href=\"modelica://Buildings.Fluid.Sensors.UsersGuide\">
 Buildings.Fluid.Sensors.UsersGuide</a> for an explanation.
 </p>
-</html>
-",
+</html>",
 revisions="<html>
 <ul>
 <li>

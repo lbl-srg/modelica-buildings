@@ -204,19 +204,19 @@ equation
     Documentation(info="<html>
 <p>
 This component is a partial model of a solar thermal collector. It can be
-expanded to create solar collector models based on either ASHRAE93 or 
+expanded to create solar collector models based on either ASHRAE93 or
 EN12975 ratings data.
 </p>
 <h4>Notice</h4>
 <p>
-As mentioned in the reference, the SRCC incident angle modifier equation 
+As mentioned in the reference, the SRCC incident angle modifier equation
 coefficients are only valid for incident angles of 60 degrees or less.
-Because these curves behave poorly for angles greater than 60 degrees 
+Because these curves behave poorly for angles greater than 60 degrees
 the model does not calculatue either direct or diffuse solar radiation gains
 when the incidence angle is greater than 60 degrees.
 </p>
 <p>
-The heat capacity of the collector without fluid is 
+The heat capacity of the collector without fluid is
 estimated based on the dry mass and the specific heat capacity of copper.
 This heat capacity is then added to the model by increasing the size of the fluid
 volume. Note that in earlier implementations, there was a separate model to take into
@@ -228,9 +228,9 @@ but this function is not differentiable.
 </p>
 <h4>References</h4>
 <p>
-<a href=\"http://www.energyplus.gov\">EnergyPlus 7.0.0 Engineering Reference</a>, 
+<a href=\"http://www.energyplus.gov\">EnergyPlus 7.0.0 Engineering Reference</a>,
 October 13, 2011.<br/>
-CEN 2006, European Standard 12975-1:2006, European Committee for Standardization 
+CEN 2006, European Standard 12975-1:2006, European Committee for Standardization
 </p>
 </html>",
 revisions="<html>
@@ -247,7 +247,7 @@ https://github.com/lbl-srg/modelica-buildings/issues/276</a>.
 </li>
 <li>
 June 25, 2014, by Michael Wetter:<br/>
-Improved comments for tilt to address 
+Improved comments for tilt to address
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/246\">
 https://github.com/lbl-srg/modelica-buildings/issues/246</a>.
 </li>

@@ -186,13 +186,13 @@ approach temperature at off-design conditions.
 </p>
 <h4>Thermal performance</h4>
 <p>
-To compute the thermal performance, this model takes as parameters 
-the approach temperature, the range temperature and the inlet air wet bulb temperature 
+To compute the thermal performance, this model takes as parameters
+the approach temperature, the range temperature and the inlet air wet bulb temperature
 at the design condition. Since the design mass flow rate (of the chiller condenser loop)
 is also a parameter, these parameters define the rejected heat.
 </p>
 <p>
-For off-design conditions, the model uses the actual range temperature and a polynomial 
+For off-design conditions, the model uses the actual range temperature and a polynomial
 to compute the approach temperature for free convection and for forced convection, i.e.,
 with the fan operating. The polynomial is valid for a York cooling tower.
 If the fan input signal <code>y</code> is below the minimum fan revolution <code>yMin</code>,
@@ -206,9 +206,9 @@ The fan power consumption at the design condition can be specified as follows:
 </p>
 <ul>
 <li>
-The parameter <code>fraPFan_nominal</code> can be used to specify at the 
-nominal conditions the fan power divided by the water flow rate. The default value is 
-<i>275</i> Watts for a water flow rate of <i>0.15</i> kg/s. 
+The parameter <code>fraPFan_nominal</code> can be used to specify at the
+nominal conditions the fan power divided by the water flow rate. The default value is
+<i>275</i> Watts for a water flow rate of <i>0.15</i> kg/s.
 </li>
 <li>
 The parameter <code>PFan_nominal</code> can be set to the fan power at nominal conditions.
@@ -218,21 +218,21 @@ is the nominal water flow rate.
 </li>
 </ul>
 <p>
-In the forced convection mode, the actual fan power is 
+In the forced convection mode, the actual fan power is
 computed as <code>PFan=fanRelPow(y) * PFan_nominal</code>, where
 the default value for the fan relative power consumption at part load is
 <code>fanRelPow(y)=y<sup>3</sup></code>.
 In the free convection mode, the fan power consumption is zero.
 For numerical reasons, the transition of fan power from the part load mode
-to zero power consumption in the free convection mode occurs in the range 
+to zero power consumption in the free convection mode occurs in the range
 <code>y &isin; [0.9*yMin, yMin]</code>.
 <br/>
-To change the fan relative power consumption at part load in the forced convection mode, 
+To change the fan relative power consumption at part load in the forced convection mode,
 points of fan controls signal and associated relative power consumption can be specified.
 In between these points, the values are interpolated using cubic splines.
 </p>
 <h4>Comparison the cooling tower model of EnergyPlus</h4>
-<p> 
+<p>
 This model is similar to the model <code>Cooling Tower:Variable Speed</code> that
 is implemented in the EnergyPlus building energy simulation program version 6.0.
 The main differences are
@@ -260,7 +260,7 @@ Removed undesirable annotation <code>Evaluate=true</code>.
 </li>
 <li>
 October 9, 2013, by Michael Wetter:<br/>
-Simplified the implementation for the situation if 
+Simplified the implementation for the situation if
 <code>allowReverseFlow=false</code>.
 Avoided the use of the conditionally enabled variables <code>sta_a</code> and
 <code>sta_b</code> as this was not proper use of the Modelica syntax.

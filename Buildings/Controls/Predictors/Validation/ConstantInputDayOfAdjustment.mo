@@ -10,7 +10,7 @@ model ConstantInputDayOfAdjustment
         "Simulate and plot"),
     Documentation(info="<html>
 <p>
-This model is identical to 
+This model is identical to
 <a href=\"modelica://Buildings.Controls.Predictors.Validation.ConstantInput\">
 Buildings.Controls.Predictors.Validation.ConstantInput</a>,
 except that the demand respond client is configured to use the day-of adjustment.

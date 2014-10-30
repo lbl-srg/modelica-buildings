@@ -146,7 +146,7 @@ equation
           textString="T")}),
     Documentation(info="<html>
 <p>
-Model for the convective heat balance 
+Model for the convective heat balance
 of a shade that is in the outside or the room-side of a window.
 </p>
 <p>
@@ -159,7 +159,7 @@ be shown as a convective heat resistance model as follows:
 <p>
 Wright (2008) reports that if the shading layer is far enough from the window,
 the boundary layers associated with each surface will not interfere with
-each other. In this case, it is reasonable to consider each surface on an 
+each other. In this case, it is reasonable to consider each surface on an
 individual basis by setting the convective heat transfer coefficient shown in grey to zero,
 and setting the black depicted convective heat transfer coefficients
 to <i>h=4 W/m<sup>2</sup> K</i>.

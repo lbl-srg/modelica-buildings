@@ -39,7 +39,7 @@ block ElectricalLoad "Block that predicts an electrical load"
     annotation (Dialog(enable=use_dayOfAdj,
                 group="Day of adjustment"));
 
-  Modelica.Blocks.Interfaces.RealInput TOut(unit="K") 
+  Modelica.Blocks.Interfaces.RealInput TOut(unit="K")
   if (predictionModel == Buildings.Controls.Predictors.Types.PredictionModel.WeatherRegression)
   "Outside air temperature"
     annotation (Placement(transformation(extent={{-140,-80},{-100,-40}}),
@@ -134,7 +134,7 @@ protected
   Integer idxSam "Index to access iSam[1]";
 
   // Conditional connectors
-  Modelica.Blocks.Interfaces.RealInput TOut_in_internal(unit="K") 
+  Modelica.Blocks.Interfaces.RealInput TOut_in_internal(unit="K")
     "Needed to connect to conditional connector";
 
   Modelica.Blocks.Interfaces.RealInput TOutFut_in_internal[nPre-1](each unit="K")

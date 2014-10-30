@@ -164,7 +164,7 @@ Models an ideal flow source, with prescribed values of flow rate, temperature an
 <li> Boundary composition (only for multi-substance or trace-substance flow).</li>
 </ul>
 <p>If <code>use_m_flow_in</code> is false (default option), the <code>m_flow</code> parameter
-is used as boundary pressure, and the <code>m_flow_in</code> input connector is disabled; if <code>use_m_flow_in</code> is true, then the <code>m_flow</code> parameter is ignored, and the value provided by the input connector is used instead.</p> 
+is used as boundary pressure, and the <code>m_flow_in</code> input connector is disabled; if <code>use_m_flow_in</code> is true, then the <code>m_flow</code> parameter is ignored, and the value provided by the input connector is used instead.</p>
 <p>The same applies to the temperature, composition and trace substances.</p>
 <p>
 Note, that boundary temperature,
@@ -182,7 +182,7 @@ Removed undesirable annotation <code>Evaluate=true</code>.
 </li>
 <li>
 September 29, 2009, by Michael Wetter:<br/>
-First implementation. 
+First implementation.
 Implemenation is based on <code>Modelica.Fluid</code>.
 </li>
 </ul>

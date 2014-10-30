@@ -179,15 +179,15 @@ equation
               defaultComponentName="dxCoi", Documentation(info="<html>
 <p>
 This partial model is the base class for
-<a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.SingleSpeed\"> 
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.SingleSpeed\">
 Buildings.Fluid.HeatExchangers.DXCoils.SingleSpeed</a>
-<a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.MultiStage\"> 
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.MultiStage\">
 Buildings.Fluid.HeatExchangers.DXCoils.MultiStage</a> and
-<a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.VariableSpeed\"> 
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.VariableSpeed\">
 Buildings.Fluid.HeatExchangers.DXCoils.VariableSpeed</a>.
 </p>
 <p>
-See 
+See
 <a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.UsersGuide\">
 Buildings.Fluid.HeatExchangers.DXCoils.UsersGuide</a>
 for an explanation of the model.
@@ -197,7 +197,7 @@ revisions="<html>
 <ul>
 <li>
 August 31, 2013, by Michael Wetter:<br/>
-Updated model due to change in 
+Updated model due to change in
 <code>Buildings.Fluid.BaseClasses.IndexMassFraction</code>.
 </li>
 <li>
@@ -214,7 +214,7 @@ Added output connectors for sensible and latent heat flow rate.
 </li>
 <li>
 April 12, 2012 by Kaustubh Phalak:<br/>
-First implementation. 
+First implementation.
 </li>
 </ul>
 

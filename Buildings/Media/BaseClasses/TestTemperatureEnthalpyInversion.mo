@@ -18,7 +18,7 @@ equation
     annotation (preferredView="info", Documentation(info="<html>
 This model computes <code>h=f(T0)</code> and
 <code>T=g(h)</code>. It then checks whether <code>T=T0</code>.
-Hence, it checks whether the function <code>T_phX</code> is 
+Hence, it checks whether the function <code>T_phX</code> is
 implemented correctly.
 </html>", revisions="<html>
 <ul>

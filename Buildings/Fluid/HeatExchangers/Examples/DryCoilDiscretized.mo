@@ -140,7 +140,7 @@ __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Heat
 July 3, 2014, by Michael Wetter:<br/>
 Changed pressure sink to mass flow rate sink to avoid an overdetermined
 by consistent set of initial conditions.
-</li>        
+</li>
 <li>
 March 25, 2008, by Michael Wetter:<br/>
 First implementation.

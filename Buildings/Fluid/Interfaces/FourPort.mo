@@ -72,13 +72,13 @@ model FourPort "Partial model with four ports"
           grid={1,1})),
     Documentation(info="<html>
 <p>
-This model defines an interface for components with four ports. 
+This model defines an interface for components with four ports.
 The parameters <code>allowFlowReversal1</code> and
 <code>allowFlowReversal2</code> may be used by models that extend
 this model to treat flow reversal.
 </p>
 <p>
-This model is identical to 
+This model is identical to
 <a href=\"modelica://Modelica.Fluid.Interfaces.PartialTwoPort\">
 Modelica.Fluid.Interfaces.PartialTwoPort</a>, except that it has four ports.
 </p>
@@ -99,7 +99,7 @@ Removed <code>import Modelica.Constants</code> statement.
 </li>
 <li>
 September 26, 2013 by Michael Wetter:<br/>
-Added missing <code>each</code> keyword in declaration of nominal value for 
+Added missing <code>each</code> keyword in declaration of nominal value for
 <code>Xi_outflow</code>.
 </li>
 <li>
@@ -109,7 +109,7 @@ was set to <code>h_outflow_b2_start</code> instead of <code>h_outflow_b1_start</
 </li>
 <li>
 February 26, 2010 by Michael Wetter:<br/>
-Added start values for outflowing enthalpy because they 
+Added start values for outflowing enthalpy because they
 are often iteration variables in nonlinear equation systems.
 </li>
 </ul>

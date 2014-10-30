@@ -60,7 +60,7 @@ __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Heat
             100}})),
     Documentation(info="<html>
 This example illustrates modeling the internal part of a borehole heat exchanger.
-The borehole is constitued with two pipes that are symetricaly spaced in the borehole. 
+The borehole is constitued with two pipes that are symetricaly spaced in the borehole.
 </html>", revisions="<html>
 <ul>
 <li>

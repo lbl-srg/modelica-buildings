@@ -60,7 +60,7 @@ This example illustrates the use of the model that
 exchanges a prescribed air exchange rate between the
 volumes that are attached to it.
 The constant block prescribes the air exchange rate to
-5 air changes per hour. 
+5 air changes per hour.
 This amount of air flows from
 <code>rooA</code> to <code>rooB</code>, and
 from <code>rooB</code> to <code>rooA</code>.

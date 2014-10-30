@@ -16,9 +16,9 @@ record C_CogenraSunDeck =
     annotation(Documentation(info = "<html>
       <p>
         Necessary data for calculating <code>dp_nominal</code>, <code>G_nominal
-        </code> and <code>dT_nominal</code> is not provided in the EN12975 test 
+        </code> and <code>dT_nominal</code> is not provided in the EN12975 test
         data. All are left blank.
-      </p>    
+      </p>
     <h4>References</h4>
       <p>
         Ratings data taken from the <a href=\"http://www.solar-rating.org\">

@@ -104,16 +104,16 @@ equation
             Buildings.Utilities.IO.Python27.Real_Real</a> to communicate with the
             CalBay adapter. The Python script is located at
             <a href=\"file://Buildings/Resources/Python-Sources/CalBayComm.py\">
-            Buildings/Resources/Python-Sources/CalBayComm.py</a>. The script must be 
+            Buildings/Resources/Python-Sources/CalBayComm.py</a>. The script must be
             edited before it will effectively communicate with the CalBay adapter.
             The necessary changes include:
             </p>
             <ul>
             <li>The script currently does not have valid login or password credentials.
-            The credentials will have to be replaced before communication with the 
+            The credentials will have to be replaced before communication with the
             CalBay adapter will succeed.</li>
             <li>To avoid accidental manipulation of controls, the script currently does
-            not include effective commands. The desired commands must be added to the 
+            not include effective commands. The desired commands must be added to the
             program before it will have any effect.</li>
             </ul>
             <p>
@@ -122,7 +122,7 @@ equation
             </p>
             <p>
             <b>Note:</b>
-            This model is marked as under construction because the 
+            This model is marked as under construction because the
             application programming interface for data exchange with the CalBay adaptor
             of FLEXLAB has not yet been finalized.
             The model works, however, with the CalBay infrastructure as of October 2013.

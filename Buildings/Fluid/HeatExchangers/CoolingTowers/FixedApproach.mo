@@ -27,13 +27,13 @@ equation
 Model for a steady-state or dynamic cooling tower with constant approach temperature.
 The approach temperature is the difference between the leaving water temperature and
 the entering air temperature.
-The entering air temperature is used from the signal <code>TAir</code>. If 
+The entering air temperature is used from the signal <code>TAir</code>. If
 connected to the a dry-bulb temperature, then a dry cooling tower is modeled.
 If connected to a wet-bulb temperature, then a wet cooling tower is modeled.
 </p><p>
 By connecting a signal that contains either the dry-bulb or the wet-bulb
 temperature, this model can be used to estimate the water return temperature
-from a cooling tower. 
+from a cooling tower.
 For a more detailed model, use for example the
 <a href=\"modelica://Buildings.Fluid.HeatExchangers.CoolingTowers.YorkCalc\">YorkCalc</a>
 model.

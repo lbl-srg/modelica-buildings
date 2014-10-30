@@ -23,11 +23,10 @@ equation
     defaultComponentName="zen",
     Documentation(info="<html>
 <p>
-This component computes the zenith angle, which is the angle between the earth surface normal and the sun's beam. 
+This component computes the zenith angle, which is the angle between the earth surface normal and the sun's beam.
 Input are the solar hour angle and the declination angle.
 </p>
-</html>
-", revisions="<html>
+</html>", revisions="<html>
 <ul>
 <li>
 Dec 7, 2010, by Michael Wetter:<br/>

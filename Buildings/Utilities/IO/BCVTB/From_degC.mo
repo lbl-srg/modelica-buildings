@@ -21,7 +21,7 @@ Documentation(info="<html>
 Converts the input from Kelvin to degree Celsius.
 Note that inside Modelica, by convention, all models use
 Kelvin. This block is provided for convenience since the BCVTB
-interface may couple Modelica to programs that use Celsius 
+interface may couple Modelica to programs that use Celsius
 as the unit for temperature.
 </p>
 </html>",

@@ -121,7 +121,7 @@ equation
     Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,
             100}})),
     Documentation(info="<html>
-This test model compares the radiator model when 
+This test model compares the radiator model when
 used as a steady-state and a dynamic model.
 </html>"));
 end RadiatorEN442_2;

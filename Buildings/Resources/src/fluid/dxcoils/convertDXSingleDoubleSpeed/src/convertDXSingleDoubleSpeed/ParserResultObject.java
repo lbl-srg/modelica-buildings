@@ -15,26 +15,26 @@ import java.util.Date;
 /**
  * This class records and prints all dx single speed cooling coils found in an input file.
  * <h3>License agreement</h3>
- * 
+ *
  * The use of this program is subjected to the following <A
  * HREF="../../../../../../../legal.html">license terms</A>.
- * 
+ *
  * @author <A HREF="mailto:TSNouidui@lbl.gov">Thierry Nouidui</A>
  * @version 1.0, November 20, 2012
- * 
+ *
  */
 public class ParserResultObject {
 
     private ArrayList<DXSingleSpeed> dxSingleSpeeds;
     private ArrayList<DXDoubleSpeed> dxDoubleSpeeds;
-    private String gloHeaderStr; 
+    private String gloHeaderStr;
 
     public ParserResultObject() {
     }
 
     /**
      * This method sets the found dx single speed coils in an array.
-     * 
+     *
      * @param foundDXSingleSpeeds
      *            array list of DXSingleSpeeds.
      */
@@ -43,10 +43,10 @@ public class ParserResultObject {
 
         dxSingleSpeeds = foundDXSingleSpeeds;
     }
-    
+
     /**
      * This method sets the found dx double speed coils in an array.
-     * 
+     *
      * @param foundDXDoubleSpeeds
      *            array list of DXDoubleSpeeds.
      */
@@ -66,7 +66,7 @@ public class ParserResultObject {
     /**
      * This method finds duplicated DXSingleSpeed in the input file and print them
      * in an output file.
-     * 
+     *
      * @param fileName
      *            the EnergyPlus idf file name.
      * @exception IOException
@@ -109,7 +109,7 @@ public class ParserResultObject {
     /**
      * This method finds duplicated DXDoubleSpeed in the input file and print them
      * in an output file.
-     * 
+     *
      * @param fileName
      *            the EnergyPlus idf file name.
      * @exception IOException
@@ -151,7 +151,7 @@ public class ParserResultObject {
 
     /**
      * This method prints all DXSingleSpeed in an output file.
-     * 
+     *
      * @param fileName
      *            the EnergyPlus idf file name.
      * @exception IOException
@@ -164,13 +164,13 @@ public class ParserResultObject {
         // Date date = new Date();
         String fileHeader = "within Buildings.Fluid.HeatExchangers.DXCoils.Data;"
                 + "\n"
-                
-                
+
+
                 + "package SingleSpeed \"Performance data for SingleSpeed DXCoils\""
                 + "\n" + " annotation(preferredView=" + "\"" + "info" + "\""
-                + ", Documentation(info=\"<html>" 
+                + ", Documentation(info=\"<html>"
                 + "Package with performance data for DX coils."
-                + "</html>\"," 
+                + "</html>\","
                 + " revisions=\"<html>"
                 + "Generated on "
                 + getDateTime()
@@ -256,7 +256,7 @@ public class ParserResultObject {
 
     /**
      * This method prints all DXDoubleSpeed in an output file.
-     * 
+     *
      * @param fileName
      *            the EnergyPlus idf file name.
      * @exception IOException
@@ -269,12 +269,12 @@ public class ParserResultObject {
         // Date date = new Date();
         String fileHeader = "within Buildings.Fluid.HeatExchangers.DXCoils.Data;"
                 + "\n"
-                
+
                 + "package DoubleSpeed \"Performance data for DoubleSpeed DXCoils\""
                 + "\n" + " annotation(preferredView=" + "\"" + "info" + "\""
-                + ", Documentation(info=\"<html>" 
+                + ", Documentation(info=\"<html>"
                 + "Package with performance data for DX coils."
-                + "</html>\"," 
+                + "</html>\","
                 + " revisions=\"<html>"
                 + "Generated on "
                 + getDateTime()
@@ -328,7 +328,7 @@ public class ParserResultObject {
                 .hasNext();) {
             recordedDXDoubleSpeedsStrings.add(dxDoubleSpeedIterator.next()
                     .toMoRecordString());
-            
+
         }
 
         // remove any duplicates in the array;
@@ -356,17 +356,17 @@ public class ParserResultObject {
         OutputStreamWriter fw = new FileWriter(fileName);
         fw.write(fileHeader + cleanRecordedDXDoubleSpeeds + fileFooter);
         fw.close();
-     
+
     }
 
     /**
      * This method returns the number of duplicated DXSingleSpeed found in an
      * input file.
-     * 
+     *
      * @param fileName
      *            the EnergyPlus idf file name.
      * @return number of duplicates.
-     * 
+     *
      */
     public double cardinalDXSingleSpeedsDuplicatesFile(String fileName) {
         // this method returns the cardinality of the duplicated DXSingleSpeed coils data
@@ -393,15 +393,15 @@ public class ParserResultObject {
 
         return value;
     }
-    
+
     /**
      * This method returns the number of duplicated DXDoubleSpeed found in an
      * input file.
-     * 
+     *
      * @param fileName
      *            the EnergyPlus idf file name.
      * @return number of duplicates.
-     * 
+     *
      */
     public double cardinalDXDoubleSpeedsDuplicatesFile(String fileName) {
         // this method returns the cardinality of the duplicated DXDoubleSpeed coils data
@@ -433,7 +433,7 @@ public class ParserResultObject {
 
     /**
      * This method saves duplicates found in an array list.
-     * 
+     *
      * @param arlList
      *            array list with duplicated entries.
      * @return new array list with found duplicates.
@@ -459,7 +459,7 @@ public class ParserResultObject {
 
     /**
      * This method removes duplicates from an array list.
-     * 
+     *
      * @param arlList
      *            array list with duplicated entries.
      * @return new array list without duplicates.

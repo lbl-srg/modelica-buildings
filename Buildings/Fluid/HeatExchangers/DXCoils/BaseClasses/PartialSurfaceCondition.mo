@@ -106,16 +106,16 @@ algorithm
   annotation (Documentation(info="<html>
 <p>
 This partial block is the base class for
-<a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.ApparatusDewPoint\"> 
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.ApparatusDewPoint\">
 Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.ApparatusDewPoint</a> and
-<a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.ApparatusDryPoint\"> 
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.ApparatusDryPoint\">
 Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.ApparatusDryPoint</a>.
 </p>
 <p>
 This block calculates the <i>UA/c<sub>p</sub></i> value, the bypass factor and the
 enthalpy difference across the coil.
 It uses the function
-<a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.Functions.speedShift\"> 
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.Functions.speedShift\">
 Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.Functions.speedShift</a>
 for intermediate compressor speeds.
 </p>
@@ -139,19 +139,19 @@ Revised implementation.
 </li>
 <li>
 August 24, 2012, by Michael Wetter:<br/>
-Moved function from 
+Moved function from
 <code>Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses</code>
-to 
+to
 <code>Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.Functions</code>
-because the package 
+because the package
 <code>Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses</code>
-already contains a block called 
+already contains a block called
 <code>SpeedShift</code> which gives a clash in file names on file systems
 that do not distinguish between upper and lower case letters.
 </li>
 <li>
 August 1, 2012 by Kaustubh Phalak:<br/>
-First implementation. 
+First implementation.
 </li>
 </ul>
 

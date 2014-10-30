@@ -30,7 +30,7 @@ algorithm
 <p>
 Function that predicts the current load using a linear regression model.
 The load is assumed to be linear in the temperature.
-The argument <i>k</i> determines how many data points will 
+The argument <i>k</i> determines how many data points will
 be used for the regression. This is needed as during the
 start of the simulation, the complete history is not yet built up.
 </p>

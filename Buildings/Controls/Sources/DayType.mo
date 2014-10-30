@@ -59,7 +59,7 @@ equation
     Documentation(info="<html>
 <p>
 This block outputs a periodic signal that indicates the type of the day.
-It can for example be used to generate a signal that indicates whether 
+It can for example be used to generate a signal that indicates whether
 the current time is a work day or a non-working day.
 The output signal is of type
 <a href=\"modelica://Buildings.Controls.Types.Day\">

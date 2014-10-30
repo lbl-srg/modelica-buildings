@@ -41,7 +41,7 @@ convertClear();
 // Buildings.Fluid.HeatExchangers.RadiantSlabs.SingleCircuitSlab
 // Buildings.Fluid.HeatExchangers.RadiantSlabs.ParallelCircuitsSlab
 // Change
-// sysTyp=Buildings.Fluid.HeatExchangers.RadiantSlabs.BaseClasses.Types.SystemType.Floor 
+// sysTyp=Buildings.Fluid.HeatExchangers.RadiantSlabs.BaseClasses.Types.SystemType.Floor
 // to
 // sysTyp=Buildings.Fluid.HeatExchangers.RadiantSlabs.Types.SystemType.Floor
 

@@ -5,7 +5,7 @@ annotation (
 preferredView="info", Documentation(info="<html>
 This package contains components models for sources
 that are used with controllers.
-For additional models, see also 
+For additional models, see also
 <a href=\"modelica://Modelica.Blocks.Sources\">
 Modelica.Blocks.Sources</a>.
 </html>"));

@@ -290,7 +290,7 @@ case
 = &eta;<sub>car</sub> T<sub>eva</sub> &frasl; (T<sub>con</sub>-T<sub>eva</sub>),
 </p>
 <p>
-where <i>T<sub>eva</sub></i> is the evaporator temperature 
+where <i>T<sub>eva</sub></i> is the evaporator temperature
 and <i>T<sub>con</sub></i> is the condenser temperature.
 On the <code>Advanced</code> tab, a user can specify the temperature that
 will be used as the evaporator (or condenser) temperature. The options
@@ -305,10 +305,10 @@ The chiller COP is computed as the product
   COP = &eta;<sub>car</sub> COP<sub>car</sub> &eta;<sub>PL</sub>,
 </p>
 <p>
-where <i>&eta;<sub>car</sub></i> is the Carnot effectiveness, 
+where <i>&eta;<sub>car</sub></i> is the Carnot effectiveness,
 <i>COP<sub>car</sub></i> is the Carnot efficiency and
 <i>&eta;<sub>PL</sub></i> is a polynomial in the control signal <i>y</i>
-that can be used to take into account a change in <i>COP</i> at part load 
+that can be used to take into account a change in <i>COP</i> at part load
 conditions.
 </p>
 <p>

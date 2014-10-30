@@ -34,7 +34,7 @@ annotation (defaultComponentName="senRelHum",
         Line(points={{70,0},{100,0}}, color={0,0,127})}),
   Documentation(info="<html>
 <p>
-This model outputs the relative humidity of the fluid connected to its port. 
+This model outputs the relative humidity of the fluid connected to its port.
 The sensor is ideal, i.e. it does not influence the fluid.
 </p>
 <p>
@@ -42,13 +42,12 @@ Note that this sensor can only be used with media that contain the variable <cod
 which is typically the case for moist air models.
 </p>
 <p>
-Read the 
+Read the
 <a href=\"modelica://Buildings.Fluid.Sensors.UsersGuide\">
 Buildings.Fluid.Sensors.UsersGuide</a>
 prior to using this model with one fluid port.
 </p>
-</html>
-", revisions="<html>
+</html>", revisions="<html>
 <ul>
 <li>
 May 12, 2010 by Michael Wetter:<br/>

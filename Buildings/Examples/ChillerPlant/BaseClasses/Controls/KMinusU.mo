@@ -16,12 +16,11 @@ equation
     Documentation(info="<HTML>
 This component computes the value of
 <p align=\"left\" style=\"font-style:italic;\"> y = k - u. </p>
-</HTML>
-", revisions="<html>
+</html>", revisions="<html>
 <ul>
 <li>
 July 20, 2011, by Wangda Zuo:<br/>
-Add comments and merge to library. 
+Add comments and merge to library.
 </li>
 <li>
 May 19, 2010, by Wangda Zuo:<br/>

@@ -127,8 +127,8 @@ equation
             100}}), graphics),
     Documentation(info="<html>
       <p>
-        This model uses <code>TotalArea</code> instead of <code>nPanels</code> to 
-        define the system size. Aside from that change, this model is identical to 
+        This model uses <code>TotalArea</code> instead of <code>nPanels</code> to
+        define the system size. Aside from that change, this model is identical to
         <a href=\"modelica://Buildings.Fluid.SolarCollectors.Examples.FlatPlate\">
         Buildings.Fluid.SolarCollectors.Examples.FlatPlate</a>.
       </p>

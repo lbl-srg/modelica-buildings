@@ -53,11 +53,10 @@ algorithm
 This component computes the black-body sky temperature.
 </p>
 <p>
-For <code>calTSky = 0</code>, the model uses horizontal infrared irradiation. 
+For <code>calTSky = 0</code>, the model uses horizontal infrared irradiation.
 Otherwise, it uses dry buld temperature, dew point temperature and opaque sky cover.
 </p>
-</html>
-", revisions="<html>
+</html>", revisions="<html>
 <ul>
 <li>
 August 11, 2012, by Wangda Zuo:<br/>
@@ -71,12 +70,12 @@ a selection of the wrong branch to compute the sky temperature.
 </li>
 <li>
 March 16, 2011, by Michael Wetter:<br/>
-Added types for parameters and attributes for variables. 
+Added types for parameters and attributes for variables.
 Removed default parameter value.
 </li>
 <li>
 March 15, 2011, by Wangda Zuo:<br/>
-Use <code>smoothMin()</code> instead of <code>min()</code>. 
+Use <code>smoothMin()</code> instead of <code>min()</code>.
 </li>
 <li>
 June 1, 2010, by Wangda Zuo:<br/>

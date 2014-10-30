@@ -28,29 +28,29 @@ equation
   Documentation(info="<html>
 <p>
 This block uses the
-<a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.Functions.speedShift\"> 
-Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.Functions.speedShift</a> function 
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.Functions.speedShift\">
+Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.Functions.speedShift</a> function
 to interpolate the input array.
-Depending on input speed ratio and speed set array the input array <i>u</i> is interpolated.  
+Depending on input speed ratio and speed set array the input array <i>u</i> is interpolated.
 </p>
 </html>",
 revisions="<html>
 <ul>
 <li>
 August 24, 2012, by Michael Wetter:<br/>
-Moved function from 
+Moved function from
 <code>Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses</code>
-to 
+to
 <code>Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.Functions</code>
-because the package 
+because the package
 <code>Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses</code>
-already contains a block called 
+already contains a block called
 <code>SpeedShift</code> which gives a clash in file names on file systems
 that do not distinguish between upper and lower case letters.
 </li>
 <li>
 Aug. 9, 2012 by Kaustubh Phalak:<br/>
-First implementation. 
+First implementation.
 </li>
 </ul>
 </html>"),

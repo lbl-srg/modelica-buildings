@@ -18,8 +18,8 @@ and a medium property.
 
 <p>
 Output signals that depend on the flow direction and are not multiplied by
-the mass flow rate are temperature, relative humidity, 
-water vapor concentration <i>X</i>, trace substances <i>C</i> and density. 
+the mass flow rate are temperature, relative humidity,
+water vapor concentration <i>X</i>, trace substances <i>C</i> and density.
 For such quantities, sensors with two fluid ports need to be used.
 An exception is if the quantity is measured directly in a fluid volume, such as modeled in
 models of the package
@@ -47,7 +47,7 @@ Modelica.Fluid.Examples.Explanatory.MeasuringTemperature</a>.
 
 <p>
 Except for the mass flow rate sensor,
-all sensors with two ports can be 
+all sensors with two ports can be
 configured as dynamic sensors or as steady-state sensor.
 For numerical reasons, if the sensor output signal is <i>not</i> multiplied by the
 mass flow rate, then it is strongly suggested to configure these sensors
@@ -58,10 +58,10 @@ For <code>tau=0</code>, numerical problems may occur if mass flow rates are clos
 </p>
 
 <p>
-If the sensor output signal is the product of mass flow rate times a measured fluid property, 
+If the sensor output signal is the product of mass flow rate times a measured fluid property,
 such as sensors for volumentric flow rate or enthalpy flow rate,
 then the sensor is by default configured as steady-state sensor. These sensors may be configured by the user
-as a dynamic sensor by setting <code>tau &gt; 0</code>, but there is typically little benefit as these sensors typically 
+as a dynamic sensor by setting <code>tau &gt; 0</code>, but there is typically little benefit as these sensors typically
 do not cause numerical problems.
 The reason is that these sensors multiply the quantity that is carried by the flow,
 such as specific enthalpy <i>h</i> by the mass flow rate <i>m&#775;</i>
@@ -70,7 +70,7 @@ Hence, as the mass flow rate goes to zero, the sensor output
 signal also goes to zero, which seems to avoid numerical problems.
 </p>
 <p>
-For static pressure measurements, sensors with one or with two 
+For static pressure measurements, sensors with one or with two
 ports can be used for all connection topologies.
 </p>
 <p>
@@ -108,7 +108,7 @@ The table below summarizes the recommendations for the use of sensors.
 
 <h4>Sensor Dynamics</h4>
 <p>
-If a sensor is configured as a dynamic sensor by setting <code>tau &gt; 0</code>, 
+If a sensor is configured as a dynamic sensor by setting <code>tau &gt; 0</code>,
 then the measured quantity, say the temperature <i>T</i>, is
 computed as
 </p>
@@ -136,12 +136,12 @@ The above equation is implemented in such a way that it is differentiable in the
 Note that the implementation of the dynamic sensors does not use the model
 <a href=\"modelica://Buildings.Fluid.MixingVolumes\">
 Buildings.Fluid.MixingVolumes</a>.
-The reason is that depending on the selected medium model, the 
+The reason is that depending on the selected medium model, the
 mixing volume may introduce states for the pressure, species concentration,
 trace substance and enthalpy. Not all states are typically needed to
 model the dynamics of a sensor. Moreover, in many building system applications,
 the sensor dynamics is not of concern, but is rather used here to avoid numerical
-problems that steady-state models of sensors cause when flow rates are 
+problems that steady-state models of sensors cause when flow rates are
 very close to zero.
 </p>
 </html>"));

@@ -45,8 +45,7 @@ extends Modelica.Icons.SourcesPackage;
 This model defines a fixed temperature T at its port in Kelvin,
 i.e., it defines a fixed temperature as a boundary condition.
 </p>
-</HTML>
-"),   Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{
+</html>"),   Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{
               100,100}}), graphics={
           Rectangle(
             extent={{-100,100},{100,-101}},
@@ -113,8 +112,7 @@ to the model. The effect is that an instance of this model acts as
 an infinite reservoir able to absorb or generate as much energy
 as required to keep the temperature at the specified value.
 </p>
-</HTML>
-"),   Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{
+</html>"),   Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{
               100,100}}), graphics={
           Rectangle(
             extent={{-100,100},{100,-100}},
@@ -293,8 +291,7 @@ Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow</a>, except that
 the parameters <code>alpha</code> and <code>T_ref</code> have
 been deleted as these can cause division by zero in some fluid flow models.
 </p>
-</HTML>
-",revisions="<html>
+</html>",revisions="<html>
 <ul>
 <li>
 March 29 2011, by Michael Wetter:<br/>

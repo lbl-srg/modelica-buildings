@@ -32,9 +32,9 @@ equation
 Partial Block to compute the relation between humidity ratio and water vapor partial pressure.
 </p>
 <p>If <code>use_p_in</code> is false (default option), the <code>p</code> parameter
-is used as atmospheric pressure, 
-and the <code>p_in</code> input connector is disabled; 
-if <code>use_p_in</code> is true, then the <code>p</code> parameter is ignored, 
+is used as atmospheric pressure,
+and the <code>p_in</code> input connector is disabled;
+if <code>use_p_in</code> is true, then the <code>p</code> parameter is ignored,
 and the value provided by the input connector is used instead.
 </p>
 </html>", revisions="<html>

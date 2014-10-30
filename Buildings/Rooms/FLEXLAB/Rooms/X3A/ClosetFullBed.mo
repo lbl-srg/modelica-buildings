@@ -66,8 +66,8 @@ model ClosetFullBed
     Buildings.Rooms.FLEXLAB.Rooms.X3A.Closet</a> with the wall separating this model and
     <a href=\"modelica://Buildings.Rooms.FLEXLAB.Rooms.X3B.Closet\">
     Buildings.Rooms.FLEXLAB.Rooms.X3B.Closet</a> removed. It is intended for use in simulations
-    which include both room models to simulate the whole test bed. If the regular models are used 
-    the wall separating the closets will be modeled twice, so one model must have the wall removed. 
+    which include both room models to simulate the whole test bed. If the regular models are used
+    the wall separating the closets will be modeled twice, so one model must have the wall removed.
     This documentation only describes the walls and connections which are different from
     <a href=\"modelica://Buildings.Rooms.FLEXLAB.Rooms.X3A.Closet\">
     Buildings.Rooms.FLEXLAB.Rooms.X3A.Closet</a>. For information on the rest of the walls
@@ -114,10 +114,10 @@ model ClosetFullBed
     </table>
     <p>
     Several of the connections in this model are intended to be connected to specific surfaces in other room models.
-    The following table describes the connections to models outside of the X3A package. The connections in datConExt 
-    are not described in the table because they are connected to the external environment, and no additional heat 
-    port connections are necessary. A rationale for why the model is created this way is also provided if it is 
-    considered necessary. 
+    The following table describes the connections to models outside of the X3A package. The connections in datConExt
+    are not described in the table because they are connected to the external environment, and no additional heat
+    port connections are necessary. A rationale for why the model is created this way is also provided if it is
+    considered necessary.
     </p>
     <table border =\"1\" summary=\"Intended connections including the Closet model\">
     <tr>
@@ -134,7 +134,7 @@ model ClosetFullBed
     X3A.ClosetNoCelDiv.surf_surBou[3] to this port models heat transfer from the wall in X3B.Closet to the air in this
     space.</td>
     </tr>
-    </table>  
+    </table>
     </html>",
     revisions = "<html>
     <ul>

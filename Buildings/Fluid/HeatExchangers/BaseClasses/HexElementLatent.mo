@@ -37,10 +37,10 @@ equation
     Documentation(info="<html>
 <p>
 Element of a heat exchanger with humidity condensation of fluid 2 and
-with dynamics of the fluids and the solid. 
+with dynamics of the fluids and the solid.
 </p>
 <p>
-See 
+See
 <a href=\"modelica://Buildings.Fluid.HeatExchangers.BaseClasses.PartialHexElement\">
 Buildings.Fluid.HeatExchangers.BaseClasses.PartialHexElement</a>
 for a description of the physics.

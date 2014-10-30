@@ -42,7 +42,7 @@ equation
           lineColor={0,0,127},
           textString="1-u'")}),
            Documentation(info="<html>
-This model changes the shading control signal to avoid a singularity 
+This model changes the shading control signal to avoid a singularity
 in the window model if the input signal is zero or one.
 Since the window heat balance multiplies the area of the window by <code>u</code>
 or by <code>1-u</code> (if a shade is present), the heat balance can be singular

@@ -338,15 +338,15 @@ equation
 <h4>Overview</h4>
 <p>
 This is a model for a window system. The equations are similar to the
-equations used in the Window 5 model and described in TARCOG 2006. 
-The model computes 
-the heat balance from the exterior surface to 
+equations used in the Window 5 model and described in TARCOG 2006.
+The model computes
+the heat balance from the exterior surface to
 the room-facing surface for a window system.
 The window system can have
 an exterior or an interior shade, but not both, or it can
 have no shade.
 The convective heat transfer between the window system and the outside air
-or the room is <em>not</em> computed by this model. 
+or the room is <em>not</em> computed by this model.
 They can be computed using the models
 <a href=\"modelica://Buildings.HeatTransfer.Windows.ExteriorHeatTransfer\">
 Buildings.HeatTransfer.Windows.ExteriorHeatTransfer</a>
@@ -358,24 +358,24 @@ Buildings.HeatTransfer.Windows.InteriorHeatTransfer</a>.
 <h4>Limitations</h4>
 <p>
 To calculate the angular transmittance, reflectance and absorptance of a glazing system, Window 5 model first calculates the value for each wave length, then calculate the weighted value over entire wave lengths.
-Current window model in Buildings library only uses the weighted value of each glass. 
-As a result, there are some differences in prediciton between the current Modelica window model and WINDOW 5. 
-The difference is small for single layer window or multi-layer window with the same glasses. 
-But it can be large for multi-layer window with different glasses.  
+Current window model in Buildings library only uses the weighted value of each glass.
+As a result, there are some differences in prediciton between the current Modelica window model and WINDOW 5.
+The difference is small for single layer window or multi-layer window with the same glasses.
+But it can be large for multi-layer window with different glasses.
 </p>
 
 <h4>Parameters</h4>
 <p>
-This model takes as the parameter <code>glaSys</code> a data record 
+This model takes as the parameter <code>glaSys</code> a data record
 from the package
 <a href=\"modelica://Buildings.HeatTransfer.Data.GlazingSystems\">
 Buildings.HeatTransfer.Data.GlazingSystems</a>.
-This data record specifies the properties of the glasses, 
+This data record specifies the properties of the glasses,
 the gas fills, the frame and of
 the shades, if any shade is present.
 Whether a shade is present or not is determined by the parameters
 <code>glaSys.haveExteriorShade</code> and
-<code>glaSys.haveInteriorShade</code>. 
+<code>glaSys.haveInteriorShade</code>.
 </p>
 <p>
 The parameter <code>linearize</code> can be used
@@ -383,11 +383,11 @@ to linearize the model equations.
 </p>
 <h4>Ports</h4>
 <p>
-If a shade is present, then the input port <code>u</code> is used 
+If a shade is present, then the input port <code>u</code> is used
 to determine the
-shade position. Set <code>u=0</code> to have the window in the 
+shade position. Set <code>u=0</code> to have the window in the
 unshaded mode,
-and set <code>u=1</code> to have the window shade completely deployed. 
+and set <code>u=1</code> to have the window shade completely deployed.
 Any intermediate value is possible.
 If no shade is present, then this port will be removed.
 </p>
@@ -395,7 +395,7 @@ If no shade is present, then this port will be removed.
 For the heat ports, the suffix <code>_a</code> is used for the exterior, outside-facing side
 of the window, and the suffix <code>_b</code> is used for the interior, room-facing surface
 of the window.
-Each side has heat ports that connect to the glass, to the frame, and, optionally, to the 
+Each side has heat ports that connect to the glass, to the frame, and, optionally, to the
 shade. If no shade is present, then the heat port to the shade will be removed.
 </p>
 
@@ -423,16 +423,16 @@ and no interior shade, then the model <code>glaSha</code> will be removed.
 </ol>
 
 <p>
-The models <code>glaUns</code> and <code>glaSha</code> 
-compute the solar radiation that is absorbed by each 
-glass pane and the solar radiation that is transitted 
+The models <code>glaUns</code> and <code>glaSha</code>
+compute the solar radiation that is absorbed by each
+glass pane and the solar radiation that is transitted
 through the window as a function of the solar incidence angle.
 They then compute a heat balance that takes into account heat conduction through the glass,
 heat convection through the gas layer,
 and infrared radiation from the exterior and the room through the glass and gas layers.
 The infrared radiative heat exchange is computed using a radiosity balance.
-Heat conduction through the frame is computed using a heat flow path that is parallel to the 
-glazing system, i.e., there is no heat exchange between the frame 
+Heat conduction through the frame is computed using a heat flow path that is parallel to the
+glazing system, i.e., there is no heat exchange between the frame
 and the glazing layer.
 </p>
 

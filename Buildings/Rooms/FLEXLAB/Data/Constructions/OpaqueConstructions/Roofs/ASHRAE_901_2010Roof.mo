@@ -4,7 +4,7 @@ record ASHRAE_901_2010Roof =
     Buildings.HeatTransfer.Data.Solids.GypsumBoard(x=0.016),
     Buildings.HeatTransfer.Data.Solids.InsulationBoard(x=0.1016),
     Buildings.HeatTransfer.Data.Solids.Plywood(x=0.0127)},
-    final nLay=3) "Construction model for a roof minimally compliant with ASHRAE 
+    final nLay=3) "Construction model for a roof minimally compliant with ASHRAE
     90.1-2010. Used in test cells X3A, X3B, and XRA"
     annotation(Documentation(info="<html>
     <p>
@@ -13,10 +13,10 @@ record ASHRAE_901_2010Roof =
     </p>
     <p>
     Note: This model is currently a work in progress. For more information see
-    the documentation available at 
+    the documentation available at
     <a href=\"modelica://Buildings.Rooms.FLEXLAB.UsersGuide\">
   Buildings.Rooms.FLEXLAB.UsersGuide</a>.
-</html>", 
+</html>",
 revisions="<html>
 <ul>
 <li>

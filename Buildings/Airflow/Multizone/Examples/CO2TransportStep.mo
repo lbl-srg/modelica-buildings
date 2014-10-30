@@ -64,16 +64,16 @@ This model is based on
 Buildings.Airflow.Multizone.Examples.Validation3Rooms</a>.
 In addition, a CO<sub>2</sub> source has been added to the left room
 in the bottom floor.
-At initial time, all volumes have zero CO<sub>2</sub> concentration. 
+At initial time, all volumes have zero CO<sub>2</sub> concentration.
 At <i>t=3600</i> seconds, CO<sub>2</sub> is added to <code>volWes</code>.
-As time progresses, the CO<sub>2</sub> is transported to 
+As time progresses, the CO<sub>2</sub> is transported to
 the other rooms, and eventually its concentration decays.
 </p>
 </html>", revisions="<html>
 <ul>
 <li>
 November 10, 2011, by Michael Wetter:<br/>
-Extended model from 
+Extended model from
 <a href=\"modelica://Buildings.Airflow.Multizone.Examples.Validation3Rooms\">
 Buildings.Airflow.Multizone.Examples.Validation3Rooms</a>
 and added documentation.

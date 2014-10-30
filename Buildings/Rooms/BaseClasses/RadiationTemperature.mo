@@ -196,7 +196,7 @@ equation
   else
       conSurBou[1].T = 293.15;
   end if;
-  
+
   if haveConExtWin then
     for i in 1:NConExtWin loop
       0 = conExtWin[i].Q_flow;
@@ -236,7 +236,7 @@ computed as
   &sum;<sub>i</sub> &nbsp; (A<sup>i</sup> &nbsp; &epsilon;<sup>i</sup>)
 </p>
 <p>
-where 
+where
 <i>T<sub>rad</sub></i> is the radiative temperature of the room,
 <i>A<sup>i</sup></i> are the surface areas of the room,
 <i>&epsilon;<sup>i</sup></i> are the infrared emissivities of the surfaces, and
@@ -247,7 +247,7 @@ If a the windows have a shade, then the equation is modified to take the actual 
 surface area into account. In this situation, the shaded part of a window has a infrared radiative power
 of</p>
 <p align=\"center\" style=\"font-style:italic;\">
- E = A &nbsp; ( u &nbsp; &epsilon;<sub>s</sub> &nbsp; T<sub>s</sub> + 
+ E = A &nbsp; ( u &nbsp; &epsilon;<sub>s</sub> &nbsp; T<sub>s</sub> +
    (1-u) &nbsp; &epsilon;<sub>g</sub> &tau;<sub>s</sub> &nbsp; T<sub>gs</sub>)
 </p>
 <p>

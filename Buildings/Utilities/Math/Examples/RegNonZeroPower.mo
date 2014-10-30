@@ -15,7 +15,7 @@ equation
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Utilities/Math/Examples/RegNonZeroPower.mos"
         "Simulate and plot"), Documentation(info="<html>
 <p>
-This model tests the implementation of 
+This model tests the implementation of
 <a href=\"modelica://Buildings.Utilities.Math.RegNonZeroPower\">
 Buildings.Utilities.Math.RegNonZeroPower</a>.
 </p>

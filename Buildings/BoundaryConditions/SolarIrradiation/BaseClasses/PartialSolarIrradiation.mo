@@ -17,8 +17,7 @@ partial block PartialSolarIrradiation
 <p>
 This is a partial model that is used to implement the direct and diffuse irradiation.
 </p>
-</html>
-", revisions="<html>
+</html>", revisions="<html>
 <ul>
 <li>
 Dec. 12, 2010, by Michael Wetter:<br/>

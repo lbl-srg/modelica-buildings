@@ -646,8 +646,7 @@ trim and response logic for a data center. The model is described at
 <a href=\"Buildings.Examples.ChillerPlant\">
 Buildings.Examples.ChillerPlant</a>.
 </p>
-</HTML>
-", revisions="<html>
+</html>", revisions="<html>
 <ul>
 <li>
 March 25, 2014, by Michael Wetter:<br/>

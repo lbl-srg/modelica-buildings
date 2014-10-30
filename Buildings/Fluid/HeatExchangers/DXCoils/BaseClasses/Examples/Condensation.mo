@@ -45,16 +45,16 @@ __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Heat
         "Simulate and plot"),
           Documentation(info="<html>
 <p>
-This example illustrates working of Condensation block 
+This example illustrates working of Condensation block
 <a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.Condensation\">
-Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.Condensation</a>. 
+Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.Condensation</a>.
 </p>
 </html>",
 revisions="<html>
 <ul>
 <li>
 Aug 8, 2012 by Kaustubh Phalak:<br/>
-First implementation. 
+First implementation.
 </li>
 </ul>
 </html>"));

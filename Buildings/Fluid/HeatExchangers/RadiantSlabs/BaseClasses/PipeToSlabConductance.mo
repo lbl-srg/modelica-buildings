@@ -125,8 +125,7 @@ using the function
 <a href=\"modelica://Modelica.Fluid.Dissipation.HeatTransfer.StraightPipe.kc_overall_KC\">
 Modelica.Fluid.Dissipation.HeatTransfer.StraightPipe.kc_overall_KC</a>.
 </p>
-</html>
-",
+</html>",
 revisions="<html>
 <ul>
 <li>

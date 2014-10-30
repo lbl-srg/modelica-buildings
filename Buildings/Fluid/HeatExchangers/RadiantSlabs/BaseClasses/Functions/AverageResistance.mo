@@ -54,23 +54,23 @@ algorithm
 annotation (
 Documentation(info="<html>
 <p>
-This function computes a fictitious thermal resistance between the pipe outer wall 
+This function computes a fictitious thermal resistance between the pipe outer wall
 and a fictitious, average temperature of the plane that contains the pipes.
 The equation is the same as is implemented in TRNSYS 17.
 Different equations are used for
 </p>
 <ul>
 <li>
-floor heating systems (if 
+floor heating systems (if
 <code>sysTyp == Buildings.Fluid.HeatExchangers.RadiantSlabs.Types.SystemType.Floor</code>),
 </li>
 <li>
-radiant heating or cooling systems in ceilings and walls (if 
+radiant heating or cooling systems in ceilings and walls (if
 <code>sysTyp == Buildings.Fluid.HeatExchangers.RadiantSlabs.Types.SystemType.Ceiling_Wall_or_Capillary</code>
-and <code>disPip/dPipOut &ge; 5.8</code>), and 
+and <code>disPip/dPipOut &ge; 5.8</code>), and
 </li>
 <li>
-capillary tube systems (if 
+capillary tube systems (if
 <code>sysTyp == Buildings.Fluid.HeatExchangers.RadiantSlabs.Types.SystemType.Ceiling_Wall_or_Capillary</code>
 and <code>disPip/dPipOut &lt; 5.8</code>).
 </li>
@@ -81,8 +81,7 @@ The resistance <code>Rx</code> is based on a steady-state heat transfer analysis
 only valid during steady-state.
 For a fully dynamic model, a finite element method for the radiant slab would need to be implemented.
 </p>
-</html>
-",
+</html>",
 revisions="<html>
 <ul>
 <li>

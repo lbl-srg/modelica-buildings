@@ -57,13 +57,12 @@ Documentation(info="<html>
 <p>
 This component converts mass fraction to volume fraction for an ideal gas.
 The default value for the parameter <code>MMBul</code>
-assumes that the bulk medium is air. 
+assumes that the bulk medium is air.
 The model assumes that the concentration
 of the measured substance is small enough to be neglected in the molar mass
 of the mixture.
 </p>
-</html>
-",
+</html>",
 revisions="<html>
 <ul>
 <li>

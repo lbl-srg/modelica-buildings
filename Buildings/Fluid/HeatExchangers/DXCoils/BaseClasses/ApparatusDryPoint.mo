@@ -85,7 +85,7 @@ Revised implementation and documentation.
 </li>
 <li>
 April 9, 2012 by Kaustubh Phalak:<br/>
-First implementation. 
+First implementation.
 </li>
 </ul>
 

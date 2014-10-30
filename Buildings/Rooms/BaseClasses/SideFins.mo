@@ -20,7 +20,7 @@ Documentation(info="<html>
 This record declares parameters for window side fins.
 </p>
 <p>
-See 
+See
 <a href=\"modelica://Buildings.HeatTransfer.Windows.SideFins\">
 Buildings.HeatTransfer.Windows.SideFins</a>
 for an explanation of the parameters, and

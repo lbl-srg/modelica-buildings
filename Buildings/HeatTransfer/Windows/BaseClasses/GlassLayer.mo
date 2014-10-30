@@ -120,7 +120,7 @@ Removed nominal value for heat ports as the default is already
 </li>
 <li>
 October 15, 2014, by Michael Wetter:<br/>
-Changed type of <code>tauIR</code> from 
+Changed type of <code>tauIR</code> from
 <code>Modelica.SIunits.Emissivity</code> to
 <code>Modelica.SIunits.TransmissionCoefficient</code>.
 This avoids a type error in OpenModelica.

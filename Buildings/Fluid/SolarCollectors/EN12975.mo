@@ -80,22 +80,22 @@ equation
     Documentation(info="<html>
       <h4>Overview</h4>
         <p>
-          This component models a solar thermal collector according 
+          This component models a solar thermal collector according
           to the EN12975 test standard.
         </p>
       <h4>Notice</h4>
         <ul>
           <li>
-            As mentioned in EnergyPlus 7.0.0 Engineering Reference, the SRCC 
-            incident angle modifier equation coefficients are only valid for 
-            incident angles of 60 degrees or less. Because these curves behave 
-            poorly for angles greater than 60 degrees the model does not calculate 
+            As mentioned in EnergyPlus 7.0.0 Engineering Reference, the SRCC
+            incident angle modifier equation coefficients are only valid for
+            incident angles of 60 degrees or less. Because these curves behave
+            poorly for angles greater than 60 degrees the model does not calculate
             either direct or diffuse solar radiation gains when the incidence
-            angle is greater than 60 degrees. 
+            angle is greater than 60 degrees.
           </li>
           <li>
-            By default, the estimated heat capacity of the collector without 
-            fluid is calculated based on the dry mass and the specific heat 
+            By default, the estimated heat capacity of the collector without
+            fluid is calculated based on the dry mass and the specific heat
             capacity of copper.
           </li>
         </ul>

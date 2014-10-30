@@ -41,7 +41,7 @@ revisions="<html>
 <ul>
 <li>
 March 2, 2012, by Michael Wetter:<br/>
-First implementation. 
+First implementation.
 </li>
 </ul>
 </html>"));

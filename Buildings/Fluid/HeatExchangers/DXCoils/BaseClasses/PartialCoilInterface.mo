@@ -34,10 +34,10 @@ partial block PartialCoilInterface "Partial block for DX coil"
 
   annotation (Diagram(graphics), Documentation(info="<html>
 <p>
-This partial block declares the inputs and outputs that are common for  
-<a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.CoilCondition\"> 
+This partial block declares the inputs and outputs that are common for
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.CoilCondition\">
 Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.CoilCondition</a> and
-<a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.DXCooling\"> 
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.DXCooling\">
 Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.DXCooling</a>.
 </p>
 </html>",
@@ -45,7 +45,7 @@ revisions="<html>
 <ul>
 <li>
 August 1, 2012 by Kaustubh Phalak:<br/>
-First implementation. 
+First implementation.
 </li>
 </ul>
 

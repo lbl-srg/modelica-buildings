@@ -94,8 +94,8 @@ The model has two flow legs, both are connected to models for constant inlet and
 pressures.
 The top flow leg has a flow resistance and an air damper, and
 the bottom flow leg combines both of these resistances into one model.
-Both flow legs have identical mass flow rates, except at very small 
-flow rates. The reason for this difference is that the equations 
+Both flow legs have identical mass flow rates, except at very small
+flow rates. The reason for this difference is that the equations
 are regularized for numerical reasons, and combining the two components
 within one component leads to a slightly different equation for the
 regularization.

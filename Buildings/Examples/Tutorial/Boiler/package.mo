@@ -11,14 +11,14 @@ package Boiler "Package with example for how to build a model for boiler with a 
 
 annotation (preferredView="info", Documentation(info="<html>
 <p>
-This package contains examples with step-by-step instructions for how to build 
-a system model for a boiler with a heat load as shown in the figure below. 
+This package contains examples with step-by-step instructions for how to build
+a system model for a boiler with a heat load as shown in the figure below.
 The pressure drops of the individual flow branches and the temperatures correspond to design conditions.
 The heating system shall be designed to provide <i>20</i> kW, which is the load
 needed at <i>-10</i>&deg;C outdoor temperature.
 This load already takes into account the heat required for air infiltration and
 ventilation.
-Using this load and the temperatures shown in the schematic drawing, 
+Using this load and the temperatures shown in the schematic drawing,
 the nominal mass flow rates of the individual flow branches should be computed.
 From <i>8:00</i> to <i>18:00</i>, there is an internal heat gain of <i>4</i>kW,
 which should not be accounted for when sizing the system.
@@ -27,7 +27,7 @@ which should not be accounted for when sizing the system.
 The room volume is <i>180</i>m<sup>3</sup>.
 To approximate the thermal storage effect of furniture and building constructions,
 the heat capacity of the room should be increased by a factor of three.
-(Modeling a detailed room heat transfer as implemented in 
+(Modeling a detailed room heat transfer as implemented in
 <a href=\"modelica://Buildings.Rooms\">
 Buildings.Rooms</a> is out of scope for this tutorial.)
 </p>
@@ -63,12 +63,12 @@ To explain the implementation of this model, the model has been created in the f
 <ol>
 <li>
 <a href=\"modelica://Buildings.Examples.Tutorial.Boiler.System1\">
-Buildings.Examples.Tutorial.Boiler.System1</a> 
-implements the room model without any heating. 
+Buildings.Examples.Tutorial.Boiler.System1</a>
+implements the room model without any heating.
 </li>
 <li>
 <a href=\"modelica://Buildings.Examples.Tutorial.Boiler.System2\">
-Buildings.Examples.Tutorial.Boiler.System2</a> 
+Buildings.Examples.Tutorial.Boiler.System2</a>
 adds a radiator that is fed with water at a constant temperature and flow rate.
 The pump is switched on and off depending on the room temperature.
 </li>

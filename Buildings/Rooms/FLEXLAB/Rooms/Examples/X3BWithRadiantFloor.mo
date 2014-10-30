@@ -507,10 +507,10 @@ equation
           <li>The room models were changed from X3A models to X3B models.</li>
           <li><a href=\"modelica://Buildings.Rooms.FLEXLAB.Rooms.X3B.TestCell\">
           Buildings.Rooms.FLEXLAB.Rooms.X3B.TestCell</a> has one external wall (modeled in datConExt)
-          which was a dividing wall (modeled in datConBou) in 
+          which was a dividing wall (modeled in datConBou) in
           <a href=\"modelica://Buildings.Rooms.FLEXLAB.Rooms.X3A.TestCell\">
           Buildings.Rooms.FLEXLAB.Rooms.X3A.TestCell</a>. Because of this, a few construction indexes
-          changed. Connections were made according to the table in 
+          changed. Connections were made according to the table in
           <a href=\"modelica://Buildings.Rooms.FLEXLAB.Rooms.X3B\">
           Buildings.Rooms.FLEXLAB.Rooms.X3B</a>.</li>
           </ul>

@@ -245,9 +245,9 @@ in the current sampling interval, i.e., generally in the next 1 hour or the
 next 15 minutes.
 If the parameter <code>nPre &gt; 1</code>, then the prediction is done
 for multiple time intervals. All of these predictions can be obtained from
-the output <code>PPreNoShe</code>. This output does not take into account 
+the output <code>PPreNoShe</code>. This output does not take into account
 <code>yShed</code>.
-The output <code>PPre</code> is 
+The output <code>PPre</code> is
 <code>PPre = yShed * PPreNoShe[1]</code> if <code>shed=true</code>,
 otherwise it is
 <code>PPre = PPreNoShe[1]</code>.

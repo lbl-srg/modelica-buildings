@@ -171,9 +171,9 @@ defaultComponentName="col",
 Documentation(info="<html>
 <p>
 This model contains a completely mixed fluid volume and
-models that take into account the pressure difference of 
+models that take into account the pressure difference of
 a medium column that is at the same temperature as the
-fluid volume. It can be used to model the pressure difference 
+fluid volume. It can be used to model the pressure difference
 caused by a stack effect.</p>
 <p>
 Set the parameter <code>use_HeatTransfer=true</code> to expose
@@ -193,12 +193,12 @@ at the top of the column.
 revisions="<html>
 <ul>
 <li><i>October 6, 2014</i> by Michael Wetter:<br/>
-Removed assignment of <code>port_?.p.nominal</code> to avoid a warning 
+Removed assignment of <code>port_?.p.nominal</code> to avoid a warning
 in OpenModelica because
 alias sets have different nominal values.
 </li>
 <li><i>July 31, 2011</i> by Michael Wetter:<br/>
-Changed model to use new base class 
+Changed model to use new base class
 <a href=\"modelica://Buildings.Fluid.Interfaces.LumpedVolumeDeclarations\">
 Buildings.Fluid.Interfaces.LumpedVolumeDeclarations</a>.
 </li>

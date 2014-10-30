@@ -326,7 +326,7 @@ If the results differ, then an assert is triggered.
 </p>
 <p>
 Note that if the latent heat transfer effectiveness is non-zero, then
-the results will differ. The reason is that the maximum capacity stream 
+the results will differ. The reason is that the maximum capacity stream
 is computed using the mass flow rates at <code>port_a1</code>
 and <code>port_a2</code>. For reverse flow, they are not equal if
 moisture is added to the mass flow rate. Using an average mass flow rate
@@ -345,9 +345,9 @@ of stream connector. This bug will be corrected in future versions of Dymola.
 October 9, 2013, by Michael Wetter:<br/>
 Replaced
 <code>Modelica.Fluid.Sources.FixedBoundary</code>
-with 
+with
 <code>Buildings.Fluid.Sources.FixedBoundary</code>
-as otherwise, the pedantic model check fails in 
+as otherwise, the pedantic model check fails in
 Dymola 2014 FD01 beta3.
 </li>
 <li>

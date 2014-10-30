@@ -44,7 +44,7 @@ equation
 annotation (defaultComponentName="Ra",
 Documentation(info = "<html>
 <p>
-This model calculates the rayleigh number for a given fluid and characteristic length. 
+This model calculates the rayleigh number for a given fluid and characteristic length.
 It is calculated using Eq 9.25 in Incropera and DeWitt (1996). The equation is:
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
@@ -52,15 +52,15 @@ Ra<sub>L</sub> = Gr<sub>L</sub> Pr (g B (T<sub>S</sub> - T<sub>F</sub>) L<sup>3<
 </p>
 <p>
 where:<br/>
-  <i>Ra<sub>L</sub></i> is the Rayleigh number, <i>Gr<sub>L</sub></i> is the Grashof number, <i>Pr</i> 
+  <i>Ra<sub>L</sub></i> is the Rayleigh number, <i>Gr<sub>L</sub></i> is the Grashof number, <i>Pr</i>
   is the Prandtl number, <i>g</i> is gravity, <i>B</i> is the isobaric expansion coefficient,
-  <i>T<sub>S</sub></i> is the temperature of the surface, <i>T<sub>F</sub></i> is the temperature of the 
-  fluid, <i>L</i> is the characteristic length, <i>&nu;</i> is the kinematic viscosity and <i>&alpha;</i> 
+  <i>T<sub>S</sub></i> is the temperature of the surface, <i>T<sub>F</sub></i> is the temperature of the
+  fluid, <i>L</i> is the characteristic length, <i>&nu;</i> is the kinematic viscosity and <i>&alpha;</i>
   is the thermal diffusivity.
 </p>
 <p>
-This model is currently only used in natural convection calculations for water. As a result, the 
-calculations reference functions to identify properties of water instead of a medium model. 
+This model is currently only used in natural convection calculations for water. As a result, the
+calculations reference functions to identify properties of water instead of a medium model.
 </p>
 <h4>References</h4>
 <p>

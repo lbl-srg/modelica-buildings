@@ -102,7 +102,7 @@ The convective heat flux is computed using
 <br/>
 <ul>
 <li>
-for floors the function 
+for floors the function
 <a href=\"modelica://Buildings.HeatTransfer.Convection.Functions.HeatFlux.floor\">
 Buildings.HeatTransfer.Convection.Functions.HeatFlux.floor</a>
 </li>

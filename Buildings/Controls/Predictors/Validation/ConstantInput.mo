@@ -24,7 +24,7 @@ equation
         "Simulate and plot"),
     Documentation(info="<html>
 <p>
-This model is identical to 
+This model is identical to
 <a href=\"modelica://Buildings.Controls.Predictors.Validation.ConstantInputDayOfAdjustment\">
 Buildings.Controls.Predictors.Validation.ConstantInputDayOfAdjustment</a>,
 except that this model does not use any day-of adjustment for the predicted load.

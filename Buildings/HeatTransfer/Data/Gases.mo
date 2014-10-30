@@ -27,8 +27,8 @@ package Gases "Package with thermophysical properties for window fill gases"
                    "<html>
 Generic record for thermophysical properties for window
 gas fills.
-The implementation is according to 
-<a href=\"http://www.iso.org/iso/catalogue_detail.htm?csnumber=26425\">ISO 15099:2003, 
+The implementation is according to
+<a href=\"http://www.iso.org/iso/catalogue_detail.htm?csnumber=26425\">ISO 15099:2003,
 Thermal performance of windows, doors and shading devices -- Detailed calculations</a>.
 </html>",
   revisions="<html>
@@ -103,8 +103,8 @@ end specificHeatCapacity;
   annotation (Documentation(info="<html>
 Package with records for thermophysical properties for window
 gas fills.
-The implementation is according to 
-<a href=\"http://www.iso.org/iso/catalogue_detail.htm?csnumber=26425\">ISO 15099:2003, 
+The implementation is according to
+<a href=\"http://www.iso.org/iso/catalogue_detail.htm?csnumber=26425\">ISO 15099:2003,
 Thermal performance of windows, doors and shading devices -- Detailed calculations</a>.
 </html>",
   revisions="<html>

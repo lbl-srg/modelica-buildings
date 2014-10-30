@@ -22,7 +22,7 @@ A bicubic polynomial is used to compute the chiller part load performance.
 <ul>
 <li>
 August 14, 2014, by Michael Wetter:<br/>
-Added missing <code>redeclare</code> keyword in 
+Added missing <code>redeclare</code> keyword in
 performance data redeclaration.
 This avoids an error in OpenModelica.
 </li>

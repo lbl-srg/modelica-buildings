@@ -29,13 +29,13 @@ Dew point temperature calculation for moist air between <i>0</i>&deg;C and <i>30
 with partial pressure of water vapor as an input.
 </p>
 <p>
-The correlation used in this model is valid for dew point temperatures between 
+The correlation used in this model is valid for dew point temperatures between
 <i>0</i>&deg;C and <i>30</i>&deg;C. It is an approximation to the correlation from 2005
 ASHRAE Handbook, p. 6.2, which is valid in a wider range of temperatures and implemented
 in
 <a href=\"modelica://Buildings.Utilities.Psychrometrics.Functions.pW_TDewPoi\">
 Buildings.Utilities.Psychrometrics.Functions.pW_TDewPoi</a>.
-The approximation error of this simplified function is below 5% for a 
+The approximation error of this simplified function is below 5% for a
 temperature of <i>0</i>&deg;C to <i>30</i>&deg;C.
 The benefit of this simpler function is that it can be inverted analytically,
 whereas the other function requires a numerical solution.

@@ -3,7 +3,7 @@ package Chillers "Package with chiller models"
   extends Modelica.Icons.VariantsPackage;
 annotation (preferredView="info", Documentation(info="<html>
 This package contains components models for chillers.
-The model 
+The model
 <a href=\"modelica://Buildings.Fluid.Chillers.Carnot\">
 Buildings.Fluid.Chillers.Carnot</a> computes the coefficient of performance
 based on a change in the Carnot effectiveness.

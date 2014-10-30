@@ -78,7 +78,7 @@ experiment(StopTime=1),
 <p>
 This model demonstrates the use of the orifice model.
 The pressure difference across the orifice model changes
-between <i>-1</i> Pascal and <i>+1</i> Pascal, which 
+between <i>-1</i> Pascal and <i>+1</i> Pascal, which
 causes air to flow through the orifice.
 </p>
 </html>", revisions="<html>

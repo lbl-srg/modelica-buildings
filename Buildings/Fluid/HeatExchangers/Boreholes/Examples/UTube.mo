@@ -51,14 +51,14 @@ equation
                   Documentation(info="<html>
 <p>
 This example models a borehole heat exchanger with two pipes that are
-symmetrically spaced. 
+symmetrically spaced.
 The simulation period is 5 years.
-From the 4th to the 10th months, the mass flow source switches on the 
+From the 4th to the 10th months, the mass flow source switches on the
 flow rate through the borehole. The leaving
 water of the mass flow source is <i>25</i>&deg;C,
-and the water that returns from the borehole is between 
+and the water that returns from the borehole is between
 <i>20.5</i>&deg;C
-and 
+and
 <i>21.5</i>&deg;C.
 </p>
 </html>", revisions="<html>

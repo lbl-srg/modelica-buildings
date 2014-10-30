@@ -177,7 +177,7 @@ defaultComponentName="occSch",
 Documentation(info="<html>
 <p>
 This model outputs whether the building is currently occupied,
-and how long it will take until the next time when the building 
+and how long it will take until the next time when the building
 will be occupied or non-occupied.
 The latter may be used, for example, to start a ventilation system
 half an hour before occupancy starts in order to ventilate the room.

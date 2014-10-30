@@ -171,14 +171,14 @@ equation
     Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,100}})),
     Documentation(info="<html>
 <p>
-This model demonstrate buoyancy-induced air flow 
+This model demonstrate buoyancy-induced air flow
 through a vertical shaft.
 On the right, there are two flow paths that are connected
 to a volume, which is kept at 20&deg;C through a feedback
-controller, and to the ambient, which is at 
+controller, and to the ambient, which is at
 0&deg;C.
 The flow path on the very right consists of an orifice
-and two models that compute the pressure difference 
+and two models that compute the pressure difference
 <i>&Delta;p</i>
 between
 the bottom and top of the medium column using <i>&Delta;p=h &rho; g</i>,
@@ -188,7 +188,7 @@ where
 <i>g</i> is the gravity constant.
 </p>
 <p>
-The top model is parameterized to use the 
+The top model is parameterized to use the
 density from the ambient,
 whereas the bottom model is parameterized to use
 the density from the room volume, regardless of
@@ -201,13 +201,13 @@ and a roof with a leakage on the right. The chimney height starts
 <i>1.5</i> m below the roof, and ends <i>1.5</i> m above the roof.
 </p>
 <p>
-The flow boundary condition of the model 
-<code>boundary</code> is such that at the start 
+The flow boundary condition of the model
+<code>boundary</code> is such that at the start
 of the simulation, air flows from <code>boundary</code>
 to <code>roo</code> until <i>t=600</i> seconds. Then, the flow rate
-is set to zero until <i>t=1800</i> seconds. 
+is set to zero until <i>t=1800</i> seconds.
 Since the shaft <code>sha</code> is filled with
-20&deg;C air, there is a circulation in the clock-wise 
+20&deg;C air, there is a circulation in the clock-wise
 direction; up the shaft, and down the other flow path.
 Next, until <i>t=2400</i> seconds, air is extracted from
 the volume <code>roo</code>, and then the flow rate

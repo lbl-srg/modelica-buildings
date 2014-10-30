@@ -77,8 +77,8 @@ equation
     Documentation(info="<html>
 <p>
 Example that demonstrates the use of the PID controller
-with hysteresis and off timer. 
-The example is identical to 
+with hysteresis and off timer.
+The example is identical to
 <a href=\"modelica://Buildings.Controls.Continuous.Examples.PIDHysteresis\">
 Buildings.Controls.Continuous.Examples.PIDHysteresis</a>,
 except that the controller also has an off timer.

@@ -67,7 +67,7 @@ This model tests the initialization of the mixing volume.
 <ul>
 <li>
 October 24, 2013 by Michael Wetter:<br/>
-Set <code>flowModel(m_flow_nominal=2)</code> in the pipe models to 
+Set <code>flowModel(m_flow_nominal=2)</code> in the pipe models to
 avoid a cyclic definition of
 <code>pipe1.flowModel.m_flow_nominal</code>
 and

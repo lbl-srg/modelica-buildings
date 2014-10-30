@@ -32,7 +32,7 @@ equation
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Utilities/Math/Examples/Average.mos"
         "Simulate and plot"), Documentation(info="<html>
 <p>
-This model tests the implementation of 
+This model tests the implementation of
 <a href=\"modelica://Buildings.Utilities.Math.Average\">
 Buildings.Utilities.Math.Average</a>.
 </p>

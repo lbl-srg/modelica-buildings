@@ -44,10 +44,10 @@ __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/HeatTransf
 <p>
 This example uses the window sidefin model to calculate the fraction of total window area exposed to the sun.</p>
 <p>
-For a detailed description of the model, see 
+For a detailed description of the model, see
 <a href=\"modelica://Buildings.HeatTransfer.Windows.SideFins\">Buildings.HeatTransfer.Windows.SideFins</a>.
-A similar example of can be found in 
-<a href=\"modelica://Buildings.HeatTransfer.Windows.BaseClasses.Examples.SideFins\">Buildings.HeatTransfer.Windows.BaseClasses.Examples.SideFins</a>. 
+A similar example of can be found in
+<a href=\"modelica://Buildings.HeatTransfer.Windows.BaseClasses.Examples.SideFins\">Buildings.HeatTransfer.Windows.BaseClasses.Examples.SideFins</a>.
 </p>
 </html>",
 revisions="<html>
@@ -61,7 +61,7 @@ side fin parameters.
 </li>
 <li>
 Feb 01, 2012, by Kaustubh Phalak<br/>
-First implementation. 
+First implementation.
 </li>
 </ul>
 </html>"));

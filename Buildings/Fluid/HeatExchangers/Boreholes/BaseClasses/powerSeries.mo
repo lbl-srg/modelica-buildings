@@ -8,7 +8,7 @@ algorithm
     for j in 1:N);
   annotation (Diagram(graphics), Documentation(info="<html>
           <p>
-This function computes the power series that is used to compute the far-field 
+This function computes the power series that is used to compute the far-field
 temperature.
 </p>
 </html>", revisions="<html>

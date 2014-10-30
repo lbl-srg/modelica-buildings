@@ -9,7 +9,7 @@ record Win600 =
   "Double pane, clear glass 3.175mm, air 13mm, clear glass 3.175mm" annotation (
    Documentation(info="<html>
 <p>
-This record declares the parameters for the window system 
+This record declares the parameters for the window system
 for the BESTEST.
 </p>
 </html>", revisions="<html>

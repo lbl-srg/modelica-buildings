@@ -217,8 +217,7 @@ See the
 <a href=\"modelica://Buildings.Fluid.HeatExchangers.RadiantSlabs.UsersGuide\">
 user's guide</a> for more information.
 </p>
-</html>
-",
+</html>",
 revisions="<html>
 <ul>
 <li>

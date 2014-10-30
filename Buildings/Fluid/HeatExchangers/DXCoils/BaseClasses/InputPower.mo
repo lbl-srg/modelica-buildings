@@ -41,7 +41,7 @@ equation
           textString="P")}),
             Documentation(info="<html>
 <p>
-This block calculates total electrical energy consumed by the unit using 
+This block calculates total electrical energy consumed by the unit using
 the rate of cooling and the energy input ratio <i>EIR</i>.
 </p>
 <p>
@@ -62,7 +62,7 @@ Revised documentation.
 </li>
 <li>
 April 9, 2012 by Kaustubh Phalak:<br/>
-First implementation. 
+First implementation.
 </li>
 </ul>
 </html>"));

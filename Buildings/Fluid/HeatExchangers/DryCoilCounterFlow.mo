@@ -230,7 +230,7 @@ September 12, 2014, by Michael Wetter:<br/>
 Changed assignment of <code>T_m</code> to avoid using the conditionally
 enabled model <code>ele[:].mas.T</code>, which is only
 valid in a connect statement.
-Moved assignments of 
+Moved assignments of
 <code>Q1_flow</code>, <code>Q2_flow</code>, <code>T1</code>,
 <code>T2</code> and <code>T_m</code> outside of equation section
 to avoid mixing graphical and textual modeling within the same model.

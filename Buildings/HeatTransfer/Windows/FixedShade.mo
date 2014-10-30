@@ -209,18 +209,18 @@ Documentation(info="<html>
 <p>
 This model outputs the fraction of the window area that is sun exposed
 for a window that may have an overhang and sidefins.
-Depending on the record with construction data <code>conPar</code>, 
+Depending on the record with construction data <code>conPar</code>,
 an overhang, side fins or no external shade is modeled.
-The model allows having an overhang and side fins at the same time. 
-In such a case, the overhang width should be 
+The model allows having an overhang and side fins at the same time.
+In such a case, the overhang width should be
 measured from the window edge to the sidefin,
-because the overhang width beyond the sidefin will 
+because the overhang width beyond the sidefin will
 cast a shadow on the side fin and not on the window.
-Similarly, the side fin height should be measured 
+Similarly, the side fin height should be measured
 from the upper window edge to the overhang,
-because the side fin height above the 
+because the side fin height above the
 overhang will not cast a shadow on the window.
-The parameters for the dimensions of the overhang and side fins are as 
+The parameters for the dimensions of the overhang and side fins are as
 described in the models
 <a href=\"modelica://Buildings.HeatTransfer.Windows.Overhang\">
 Buildings.HeatTransfer.Windows.Overhang</a>
@@ -234,8 +234,8 @@ Buildings.HeatTransfer.Windows.SideFins</a>.
 For overhangs, the model assumes that
 </p>
 <ul>
-<li> 
-the overhang is at least as wide as the window, i.e., 
+<li>
+the overhang is at least as wide as the window, i.e.,
 <i>w<sub>L</sub> &ge; 0</i> and
 <i>w<sub>R</sub> &ge; 0</i>, and
 </li>
@@ -251,17 +251,17 @@ For side fins, the model assumes that
 <li>
 the side fins are placed symmetrically to the left and right of the window,
 </li>
-<li> 
+<li>
 the top of the side fins must be at an equal or greater height than the window, and
 </li>
 <li>
 the side fins extends at least to the lower edge of the window.
 </li>
-</ul> 
+</ul>
 
 <h4>Implementation</h4>
 <p>
-The detailed calculation method is explained in 
+The detailed calculation method is explained in
 <a href=\"modelica://Buildings.HeatTransfer.Windows.BaseClasses.SideFins\">
 Buildings.HeatTransfer.Windows.BaseClasses.SideFins</a>
 and in
@@ -281,17 +281,17 @@ Renamed model from <code>Shade</code> to <code>FixedShade</code> because
 shade is already used for window interior and exterior shades.
 </li><li>
 July 5, 2012, by Michael Wetter:<br/>
-Moved model from package <code>Buildings.Rooms.BaseClasses</code> to 
+Moved model from package <code>Buildings.Rooms.BaseClasses</code> to
 <code>Buildings.HeatTransfer.Windows</code>, because the overhang and side fin
 models are also in this package.
 </li>
 <li>
 May 21, 2012, by Kaustubh Phalak:<br/>
-Enabled the model to use overhang and side at the same time. 
+Enabled the model to use overhang and side at the same time.
 </li>
 <li>
 March 5, 2012, by Michael Wetter:<br/>
-First implementation. 
+First implementation.
 </li>
 
 </ul>

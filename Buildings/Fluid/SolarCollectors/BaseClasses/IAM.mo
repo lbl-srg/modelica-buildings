@@ -27,19 +27,19 @@ algorithm
     Documentation(info="<html>
 <h4>Overview</h4>
 <p>
-This function computes the incidence angle modifier for solar insolation 
-striking the surface of the solar thermal collector. It is calculated using 
+This function computes the incidence angle modifier for solar insolation
+striking the surface of the solar thermal collector. It is calculated using
 Eq 555 in the EnergyPlus 7.0.0 Engineering Reference.
 </p>
 <h4>Notice</h4>
 <p>
-As stated in EnergyPlus7.0.0 the incidence angle equation performs poorly 
+As stated in EnergyPlus7.0.0 the incidence angle equation performs poorly
 at angles greater than 60 degrees. This model outputs 0 whenever the incidence
 angle is greater than 60 degrees.
 </p>
 <h4>References</h4>
 <p>
-<a href=\"http://www.energyplus.gov\">EnergyPlus 7.0.0 Engineering Reference</a>, 
+<a href=\"http://www.energyplus.gov\">EnergyPlus 7.0.0 Engineering Reference</a>,
 October 13, 2011.
 </p>
 </html>", revisions="<html>

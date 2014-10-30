@@ -162,7 +162,7 @@ equation
     Documentation(info="<html>
 This is a model for the heat transfer through the center of the glass.
 The properties of the glazing system is defined by the parameter
-<code>glaSys</code>. 
+<code>glaSys</code>.
 The model contains these main component models:
 <ul>
 <li>
@@ -172,9 +172,9 @@ for the heat balance of the shade, modeled using
 Buildings.HeatTransfer.Windows.BaseClasses.Shade</a>.
 </li>
 <li>
-an array of models <code>glass</code> for the heat conduction and the 
+an array of models <code>glass</code> for the heat conduction and the
 infrared radiative heat balance of the glass layers.
-There can be an arbitrary number of glass layers, which are all modeled using 
+There can be an arbitrary number of glass layers, which are all modeled using
 instances of
 <a href=\"modelica://Buildings.HeatTransfer.Windows.BaseClasses.GlassLayer\">
 Buildings.HeatTransfer.Windows.BaseClasses.GlassLayer</a>.
@@ -188,9 +188,9 @@ Buildings.HeatTransfer.Windows.BaseClasses.GasConvection</a>.
 </ul>
 Note that this model does <em>not</em> compute heat conduction through the frame and
 it does <em>not</em> model the convective heat transfer at the exterior and interior
-surface. These models are implemented in 
+surface. These models are implemented in
 <a href=\"modelica://Buildings.HeatTransfer.Windows.Window\">
-Buildings.HeatTransfer.Windows.Window</a>, 
+Buildings.HeatTransfer.Windows.Window</a>,
 <a href=\"modelica://Buildings.HeatTransfer.Windows.ExteriorHeatTransfer\">
 Buildings.HeatTransfer.Windows.ExteriorHeatTransfer</a>, and
 <a href=\"modelica://Buildings.HeatTransfer.Windows.InteriorHeatTransfer\">

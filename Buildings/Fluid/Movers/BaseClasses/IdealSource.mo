@@ -78,7 +78,7 @@ for a pressure source or to prescribe a mass flow rate.
 <p>
 Note that for fans and pumps with dynamic balance,
 both the heat and the flow work are added to the volume of
-air or water. This simplifies the equations compared to 
+air or water. This simplifies the equations compared to
 adding heat to the volume, and flow work to this model.
 </p>
 </html>",

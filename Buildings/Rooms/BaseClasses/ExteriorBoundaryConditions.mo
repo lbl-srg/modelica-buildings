@@ -240,10 +240,10 @@ Buildings.Rooms.BaseClasses.ExteriorBoundaryConditionsWithWindow</a>.
 August 9, 2011 by Michael Wetter:<br/>
 Changed assignment of tilt in instance <code>conOpa</code>.
 This fixes the bug in <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/35\">issue 35</a>
-that led to the wrong solar radiation gain for roofs and floors. 
-(Since the tilt has been changed in the model 
+that led to the wrong solar radiation gain for roofs and floors.
+(Since the tilt has been changed in the model
 <a href=\"modelica://Buildings.Rooms.MixedAir\">
-Buildings.Rooms.MixedAir</a> at the place where it makes an instance of this model, 
+Buildings.Rooms.MixedAir</a> at the place where it makes an instance of this model,
 the change in the tilt parameter of the convective heat transfer model was required.)
 </li>
 <li>

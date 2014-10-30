@@ -247,7 +247,7 @@ CoolTools chiller model that are implemented in EnergyPlus as the models
 <code>Chiller:Electric:EIR</code> and <code>Chiller:Electric:ReformulatedEIR</code>.
 </p>
 <p>
-The model takes as an input the set point for the leaving chilled water temperature, 
+The model takes as an input the set point for the leaving chilled water temperature,
 which is met if the chiller has sufficient capacity.
 Thus, the model has a built-in, ideal temperature control.
 The model has three tests on the part load ratio and the cycling ratio:
@@ -266,20 +266,20 @@ The test <pre>
   CR = min(PLR1/per.PRLMin, 1.0);
 </pre>
 computes a cycling ratio. This ratio expresses the fraction of time
-that a chiller would run if it were to cycle because its load is smaller than 
-the minimal load at which it can operature. Notice that this model does continuously operature even if 
-the part load ratio is below the minimum part load ratio. Its leaving evaporator and condenser temperature 
-can therefore be considered as an 
+that a chiller would run if it were to cycle because its load is smaller than
+the minimal load at which it can operature. Notice that this model does continuously operature even if
+the part load ratio is below the minimum part load ratio. Its leaving evaporator and condenser temperature
+can therefore be considered as an
 average temperature between the modes where the compressor is off and on.
 </li>
 <li>
 The test <pre>
   PLR2 = max(PLRMinUnl, PLR1);
 </pre>
-computes the part load ratio of the compressor. 
+computes the part load ratio of the compressor.
 The assumption is that for a part load ratio below <code>PLRMinUnl</code>,
 the chiller uses hot gas bypass to reduce the capacity, while the compressor
-power draw does not change. 
+power draw does not change.
 </li>
 </ol>
 <p>
@@ -310,7 +310,7 @@ revisions="<html>
 <li>
 Jan. 10, 2011, by Michael Wetter:<br/>
 Added input signal to switch chiller off, and changed base class to use a dynamic model.
-The change of the base class was required to improve the robustness of the model when the control 
+The change of the base class was required to improve the robustness of the model when the control
 is switched on again.
 </li>
 <li>

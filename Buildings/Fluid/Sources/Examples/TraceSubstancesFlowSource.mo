@@ -291,7 +291,7 @@ The source is a step function of <i>2</i> kg/s CO<sub>2</sub> from <i>t=0</i> se
 to <i>t=0.5</i> second.
 The sensors <code>C</code> and <code>C1</code> measure the same concentration that initially increases
 and then remains constant as there is no flow through the volumes <code>vol</code> and <code>vol1</code>.
-The sensors 
+The sensors
 <code>C2</code> and
 <code>C3</code> first meaure an increase in concentration, which then decays to zero
 as there is a mass flow rate with zero CO<sub>2</sub> from the source <code>bou</code> to the sink <code>sin</code>.

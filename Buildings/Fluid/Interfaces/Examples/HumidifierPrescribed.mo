@@ -659,7 +659,7 @@ Documentation(info="<html>
 <p>
 Model that tests the basic class that is used for the humidifier model.
 It adds and removes water for forward and reverse flow.
-The top and bottom models should give similar results, although 
+The top and bottom models should give similar results, although
 the sign of the humidity difference over the components differ
 because of the reverse flow.
 The model uses assert statements that will be triggered if
@@ -677,12 +677,12 @@ of equations if the medium model is incompressible.
 October 9, 2013, by Michael Wetter:<br/>
 Introduced protected model <code>Humidifier</code> so that states at
 the fluid ports can be computed without having to use a conditionally
-removed variable. This is required for the model to pass the model check in 
+removed variable. This is required for the model to pass the model check in
 Dymola 2014 FD01 beta3 with <code>Advanced.PedanticModelica=true;</code>.
 </li>
 <li>
 January 24, 2013, by Michael Wetter:<br/>
-Set initial conditions to 
+Set initial conditions to
 <code>Modelica.Fluid.Types.Dynamics.FixedInitial</code>.
 </li>
 <li>

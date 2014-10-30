@@ -33,11 +33,11 @@ revisions="<html>
 <ul>
 <li>
 September 20, 2012 by Michael Wetter:<br/>
-Revised implementation. 
+Revised implementation.
 </li>
 <li>
 August 9, 2012 by Kaustubh Phalak:<br/>
-First implementation. 
+First implementation.
 </li>
 </ul>
 

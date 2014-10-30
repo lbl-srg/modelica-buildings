@@ -77,7 +77,7 @@ equation
         "Simulate and plot"),
     Documentation(info="<html>
 This example tests the configuration of two flow machines that are installed in series.
-Both flow machines start with full speed. 
+Both flow machines start with full speed.
 At <i>t=150</i> seconds, the speed of the flow machine on the left is reduced to zero.
 As its speed is reduced, the mass flow rate is reduced. Note that even at zero input, the mass flow rate is non-zero,
 but the pressure drop of the pump <code>floMac1.dp</code> is positive, which means that this pump has a flow resistance.

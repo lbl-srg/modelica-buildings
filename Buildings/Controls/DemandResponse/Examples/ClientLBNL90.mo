@@ -135,7 +135,7 @@ equation
       __Dymola_Algorithm="Euler"),
     Documentation(info="<html>
 <p>
-Model that demonstrates the demand response client, 
+Model that demonstrates the demand response client,
 using as an input for the actual electrical consumption simulated
 data from building 90 at LBNL.
 Output of the data reader are the outdoor dry-bulb temperature,

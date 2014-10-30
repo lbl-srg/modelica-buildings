@@ -11,7 +11,7 @@ algorithm
   annotation (Documentation(info="<html>
 <p>
 Function that predicts the current load using the average of the previous loads.
-The argument <i>k</i> determines how many data points will 
+The argument <i>k</i> determines how many data points will
 be used to compute the average. This is needed as during the
 start of the simulation, the complete history is not yet built up.
 </p>

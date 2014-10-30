@@ -135,8 +135,8 @@ Otherwise, the model will introduce one nonlinear equation.
 </p>
 <p>
 The approximation by Stull is valid for a relative humidity of <i>5%</i> to <i>99%</i>,
-a temperature range from <i>-20</i>&deg;C to <i>50</i>&deg;C 
-and standard sea level pressure. 
+a temperature range from <i>-20</i>&deg;C to <i>50</i>&deg;C
+and standard sea level pressure.
 For this range of data, the approximation error is <i>-1</i> Kelvin to <i>+0.65</i> Kelvin,
 with a mean error of less than <i>0.3</i> Kelvin.
 </p>
@@ -152,11 +152,10 @@ Stull, Roland.
 Wet-Bulb Temperature from Relative Humidity and Air Temperature
 Roland Stull.</a></i>
 Journal of Applied Meteorology and Climatology.
-Volume 50, Issue 11, pp. 2267-2269. November 2011 
+Volume 50, Issue 11, pp. 2267-2269. November 2011
 DOI: 10.1175/JAMC-D-11-0143.1
 </p>
-</html>
-",
+</html>",
 revisions="<html>
 <ul>
 <li>

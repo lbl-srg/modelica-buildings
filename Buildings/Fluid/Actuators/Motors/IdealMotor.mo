@@ -88,7 +88,7 @@ The output <code>y</code> is bounded between <code>0</code> and <code>1</code>.
 For a more efficient implementation that approximates a motor, set in
 the valve or damper model the parameter <code>filteredOpening=true</code>
 instead of using this motor model.
-See also 
+See also
 <a href=\"modelica://Buildings.Fluid.Actuators.UsersGuide\">
 Buildings.Fluid.Actuators.UsersGuide</a>.
 </p>
@@ -96,7 +96,7 @@ Buildings.Fluid.Actuators.UsersGuide</a>.
 <ul>
 <li>
 September 8, 2008 by Michael Wetter:<br/>
-Added to instance <code>int</code> the attribute 
+Added to instance <code>int</code> the attribute
 <code>y(stateSelect=StateSelect.always)</code>. Without this attribute,
 the model <a href=\"modelica://Buildings.Fluid.Examples.TwoWayValves\">
 Buildings.Fluid.Examples.TwoWayValves</a> sets <code>y=3</code>

@@ -124,12 +124,12 @@ revisions="<html>
 <ul>
 <li>
 May 8, 2014, by Michael Wetter:<br/>
-Added a pressure drop element, as otherwise the initialization problem 
+Added a pressure drop element, as otherwise the initialization problem
 is overspecified for incompressible media.
 </li>
 <li>
 November 27, 2013 by Michael Wetter:<br/>
-Changed sink model from a prescribed flow source to a pressure 
+Changed sink model from a prescribed flow source to a pressure
 boundary condition. This is required for the new air model,
 which is incompressible. Otherwise, there will be no pressure reference
 in the system.
@@ -141,7 +141,7 @@ a translation warning in OpenModelica.
 </li>
 <li>
 August 30, 2013 by Michael Wetter:<br/>
-Renamed example and added an instance of 
+Renamed example and added an instance of
 <a href=\"modelica://Buildings.Fluid.Sensors.TraceSubstancesTwoPort\">
 Buildings.Fluid.Sensors.TraceSubstancesTwoPort</a>.
 </li>

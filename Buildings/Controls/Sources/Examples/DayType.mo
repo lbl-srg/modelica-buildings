@@ -32,14 +32,14 @@ model DayType "Example model for the source that outputs the type of the day"
     Documentation(
     info="<html>
 <p>
-This example generates signals for three different work weeks. 
+This example generates signals for three different work weeks.
 The instance <code>dayTypMon</code> outputs a signal with five working
 days, followed by two non-working days.
 The instance <code>dayTypSat</code> does the same, except that the first
 days is a non-working day.
 The instance <code>dayTypTwoWeeks</code> outputs six working days, followed
-by 8 non-working days. 
-The instance <code>dayTypMonThr</code> is configured the same as 
+by 8 non-working days.
+The instance <code>dayTypMonThr</code> is configured the same as
 <code>dayTypMon</code>, except that it outputs the type of the day
 for three days, starting with the current day, then the next day and
 the day after.

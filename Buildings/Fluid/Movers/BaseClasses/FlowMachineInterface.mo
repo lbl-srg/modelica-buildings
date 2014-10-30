@@ -188,7 +188,7 @@ The following performance data have been entered:
     assert((pressure.V_flow[nOri]-pressure.V_flow[nOri-1])/((pressure.dp[nOri]-pressure.dp[nOri-1]))<0,
     "The last two pressure points for the fan or pump performance curve must be decreasing.
     You need to set more reasonable parameters.
-Received 
+Received
 " + getArrayAsString(pressure.dp, "dp"));
     V_flow_max :=pressure.V_flow[nOri] - (pressure.V_flow[nOri] - pressure.V_flow[
       nOri - 1])/((pressure.dp[nOri] - pressure.dp[nOri - 1]))*pressure.dp[nOri];
@@ -220,10 +220,10 @@ of the fan or pump satisfies the minimum decrease condition
         (pressure.dp[i+1]-pressure.dp[i])
 d[i] = ----------------------------------------- < " + String(-kRes) + "
        (pressure.V_flow[i+1]-pressure.V_flow[i])
- 
+
 is " + getArrayAsString({(pressure.dp[i+1]-pressure.dp[i])/(pressure.V_flow[i+1]-pressure.V_flow[i]) for i in 1:nOri-1}, "d") + "
 Otherwise, a solution to the equations may not exist if the fan or pump speed is reduced.
-In this situation, the solver will fail due to non-convergence and 
+In this situation, the solver will fail due to non-convergence and
 the simulation stops.");
   end if;
 
@@ -586,8 +586,8 @@ equation
             graphics),
     Documentation(info="<html>
 <p>
-This is an interface that implements the functions to compute the head, power draw 
-and efficiency of fans and pumps. It is used by the model 
+This is an interface that implements the functions to compute the head, power draw
+and efficiency of fans and pumps. It is used by the model
 <a href=\"modelica://Buildings.Fluids.Movers.BaseClasses.PrescribedFlowMachine\">PrescribedFlowMachine</a>.
 </p>
 <p>
@@ -600,31 +600,31 @@ operating points.
 <ul>
 <li>
 If <code>use_powerCharacteristic = false</code>, then the data points for
-normalized volume flow rate versus efficiency is used to determine the efficiency, 
+normalized volume flow rate versus efficiency is used to determine the efficiency,
 and then the power consumption. The default is a constant efficiency of 0.8.
 </li>
 <li>
 If <code>use_powerCharacteristic = true</code>, then the data points for
 normalized volume flow rate versus power consumption
 is used to determine the power consumption, and then the efficiency
-is computed based on the actual power consumption and the flow work. 
+is computed based on the actual power consumption and the flow work.
 </li>
 </ul>
 
 <h4>Implementation</h4>
 <p>
-For numerical reasons, the user-provided data points for volume flow rate 
+For numerical reasons, the user-provided data points for volume flow rate
 versus pressure rise are modified to add a fan internal flow resistance.
 Because this flow resistance is subtracted during the simulation when
-computing the fan pressure rise, the model reproduces the exact points 
+computing the fan pressure rise, the model reproduces the exact points
 that were provided by the user.
 </p>
 <p>
-Also for numerical reasons, the pressure rise at zero flow rate and 
+Also for numerical reasons, the pressure rise at zero flow rate and
 the flow rate at zero pressure rise is added to the user-provided data,
 unless the user already provides these data points.
-Since Modelica 3.2 does not allow dynamic memory allocation, this 
-implementation required the use of three different arrays for the 
+Since Modelica 3.2 does not allow dynamic memory allocation, this
+implementation required the use of three different arrays for the
 situation where no additional point is added, where one additional
 point is added and where two additional points are added.
 The parameter <code>curve</code> causes the correct data record
@@ -636,8 +636,8 @@ revisions="<html>
 <li>
 September 27, 2013, by Michael Wetter:<br/>
 Reformulated <code>data=if (curve == 1) then pCur1 elseif (curve == 2) then pCur2 else pCur3</code>
-by moving the computation into the idividual logical branches because OpenModelica generates an 
-error when assign the statement to <code>data</code> 
+by moving the computation into the idividual logical branches because OpenModelica generates an
+error when assign the statement to <code>data</code>
 as <code>pCur1</code>, <code>pCur2</code> and <code>pCur3</code> have different dimensions.
 </li>
 <li>
@@ -654,7 +654,7 @@ these parameters have the attribute <code>fixed=false</code> set.
 October 11, 2012, by Michael Wetter:<br/>
 Added implementation of <code>WFlo = eta * P</code> with
 guard against division by zero.
-Changed implementation of <code>etaMot=sqrt(eta)</code> to 
+Changed implementation of <code>etaMot=sqrt(eta)</code> to
 <code>etaHyd = 1</code> to avoid infinite derivative as <code>eta</code>
 converges to zero.
 </li>

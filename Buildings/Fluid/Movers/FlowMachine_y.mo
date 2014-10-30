@@ -68,7 +68,7 @@ the actual volume flow rate divided by the maximum possible volume flow rate, or
 based on the motor performance curves.
 </p>
 <p>
-See the 
+See the
 <a href=\"modelica://Buildings.Fluid.Movers.UsersGuide\">
 User's Guide</a> for more information.
 </p>

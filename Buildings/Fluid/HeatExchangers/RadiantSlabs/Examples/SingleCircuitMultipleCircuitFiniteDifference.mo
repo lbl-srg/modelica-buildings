@@ -13,10 +13,10 @@ model SingleCircuitMultipleCircuitFiniteDifference
             {160,160}})),
 Documentation(info="<html>
 <p>
-This example compares the results of two models of a single circuit that are arranged in 
+This example compares the results of two models of a single circuit that are arranged in
 parallel, versus a model that directly implements two parallel circuits.
 Both configurations have the same mass flow rate and temperatures.
-For simplicity, a combined convective and radiative resistance 
+For simplicity, a combined convective and radiative resistance
 which is independent of the temperature difference has been used.
 The model is exposed to a step change in pressure, which causes forward and reverse
 flow.

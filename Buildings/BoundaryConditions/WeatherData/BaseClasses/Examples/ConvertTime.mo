@@ -11,7 +11,7 @@ equation
       points={{-19,10},{-2,10}},
       color={0,0,127},
       smooth=Smooth.None));
-  annotation (Diagram(graphics), 
+  annotation (Diagram(graphics),
 experiment(StopTime=86400*900),
 __Dymola_Commands(file=
           "modelica://Buildings/Resources/Scripts/Dymola/BoundaryConditions/WeatherData/BaseClasses/Examples/ConvertTime.mos"

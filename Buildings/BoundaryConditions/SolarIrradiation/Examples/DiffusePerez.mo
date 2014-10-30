@@ -73,7 +73,7 @@ __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/BoundaryCo
 This model tests the implementation of Perez' model for diffuse solar radiation.
 The three instances of Perez' model compute the diffuse solar
 irradiation on a roof, a wall and a floor.
-Since the floor only sees the ground but not the radiative heat flow that is 
+Since the floor only sees the ground but not the radiative heat flow that is
 scattered in the atmosphere, it receives the lowest amount of
 diffuse solar irradiation.
 </p>

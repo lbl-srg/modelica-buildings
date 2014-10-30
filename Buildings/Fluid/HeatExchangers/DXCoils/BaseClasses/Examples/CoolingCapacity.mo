@@ -64,7 +64,7 @@ __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Heat
         "Simulate and plot"),
           Documentation(info="<html>
 <p>
-This example illustrates working of cooling capacity function 
+This example illustrates working of cooling capacity function
 <a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.CoolingCapacity\">
 Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.CoolingCapacity</a>.
 </p>
@@ -78,7 +78,7 @@ to be parameters does not imply that the whole record has the variability of a p
 </li>
 <li>
 April 10, 2012 by Kaustubh Phalak:<br/>
-First implementation. 
+First implementation.
 </li>
 </ul>
 </html>"));

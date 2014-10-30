@@ -167,7 +167,7 @@ initial algorithm
  Received tau1 = " + String(tau1) + "\n");
   assert((massDynamics == Modelica.Fluid.Types.Dynamics.SteadyState) or
           tau1 > Modelica.Constants.eps,
-"The parameter tau1, or the volume of the model from which tau may be derived, is unreasonably small.          
+"The parameter tau1, or the volume of the model from which tau may be derived, is unreasonably small.
  You need to set massDynamics == Modelica.Fluid.Types.Dynamics.SteadyState to model steady-state.
  Received tau1 = " + String(tau1) + "\n");
 
@@ -179,7 +179,7 @@ initial algorithm
  Received tau2 = " + String(tau2) + "\n");
   assert((massDynamics == Modelica.Fluid.Types.Dynamics.SteadyState) or
           tau2 > Modelica.Constants.eps,
-"The parameter tau2, or the volume of the model from which tau may be derived, is unreasonably small.          
+"The parameter tau2, or the volume of the model from which tau may be derived, is unreasonably small.
  You need to set massDynamics == Modelica.Fluid.Types.Dynamics.SteadyState to model steady-state.
  Received tau2 = " + String(tau2) + "\n");
 equation
@@ -214,12 +214,12 @@ equation
         grid={1,1})),
     Documentation(info="<html>
 <p>
-This component transports two fluid streams between four ports. 
+This component transports two fluid streams between four ports.
 It provides the basic model for implementing a dynamic heat exchanger.
 </p>
 <p>
 The model can be used as-is, although there will be no heat or mass transfer
-between the two fluid streams. 
+between the two fluid streams.
 To add heat transfer, heat flow can be added to the heat port of the two volumes.
 See for example
 <a href=\"Buildings.Fluid.Chillers.Carnot\">
@@ -231,7 +231,7 @@ Buildings.Fluid.HeatExchangers.BaseClasses.HexElement</a>.
 </p>
 <h4>Implementation</h4>
 <p>
-The variable names follow the conventions used in 
+The variable names follow the conventions used in
 <a href=\"modelica://Modelica.Fluid.HeatExchangers.BasicHX\">
 Modelica.Fluid.HeatExchangers.BasicHX</a>.
 </p>
@@ -272,11 +272,11 @@ longer used in its base class.
 July 29, 2011, by Michael Wetter:
 <ul>
 <li>
-Changed values of 
+Changed values of
 <code>h_outflow_a1_start</code>,
 <code>h_outflow_b1_start</code>,
 <code>h_outflow_a2_start</code> and
-<code>h_outflow_b2_start</code>, and 
+<code>h_outflow_b2_start</code>, and
 declared them as final.
 </li>
 <li>

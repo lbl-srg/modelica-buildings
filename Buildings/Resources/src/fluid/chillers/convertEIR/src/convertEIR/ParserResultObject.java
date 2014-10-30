@@ -14,15 +14,15 @@ import java.text.SimpleDateFormat;
 
 /**
  * This class records and prints all electric chillers found in an input file.
- * 
+ *
  * <h3>License agreement</h3>
- * 
+ *
  * The use of this program is subjected to the following <A
  * HREF="../../../../../../../legal.html">license terms</A>.
- * 
+ *
  * @author <A HREF="mailto:TSNouidui@lbl.gov">Thierry Nouidui</A>
  * @version 1.0, October 10, 2010
- * 
+ *
  */
 public class ParserResultObject {
 
@@ -36,7 +36,7 @@ public class ParserResultObject {
 
     /**
      * This method sets the found electric chillers in an array.
-     * 
+     *
      * @param eirs
      *            array list of ElectricEIRs.
      */
@@ -48,7 +48,7 @@ public class ParserResultObject {
 
     /**
      * This method sets the found reformulated electric chillers in an array.
-     * 
+     *
      * @param reformEirs
      *            array list of reformulated ElectricEIR.
      */
@@ -70,7 +70,7 @@ public class ParserResultObject {
     /**
      * This method finds duplicated ElectricEIR in the input file and print them
      * in an output file.
-     * 
+     *
      * @param fileName
      *            the EnergyPlus idf file name.
      * @exception IOException
@@ -112,7 +112,7 @@ public class ParserResultObject {
 
     /**
      * This method prints all ElectricEIR in an output file.
-     * 
+     *
      * @param fileName
      *            the EnergyPlus idf file name.
      * @exception IOException
@@ -127,9 +127,9 @@ public class ParserResultObject {
                 + "\n"
                 + "package ElectricEIR \"Performance data for chiller ElectricEIR\""
                 + "\n" + " annotation(preferredView=" + "\"" + "info" + "\""
-                + ", Documentation(info=\"<html>" 
+                + ", Documentation(info=\"<html>"
                 + "Package with performance data for chillers."
-                + "</html>\"," 
+                + "</html>\","
                 + " revisions=\"<html>"
                 + "Generated on "
                 + getDateTime()
@@ -256,11 +256,11 @@ public class ParserResultObject {
     /**
      * This method returns the number of duplicated ElectricEIR found in an
      * input file.
-     * 
+     *
      * @param fileName
      *            the EnergyPlus idf file name.
      * @return number of duplicates.
-     * 
+     *
      */
     public double cardinalElectricEirsDuplicatesFile(String fileName) {
         // this method returns the cardinality of the duplicated Electric EIRs
@@ -291,7 +291,7 @@ public class ParserResultObject {
     /**
      * This method finds duplicated reformulated ElectricEIR in an input file
      * and print them in an output file.
-     * 
+     *
      * @param fileName
      *            the EnergyPlus idf file name.
      * @exception IOException
@@ -334,7 +334,7 @@ public class ParserResultObject {
 
     /**
      * This method prints all reformulated ElectricEIR in an output file.
-     * 
+     *
      * @param fileName
      *            the EnergyPlus idf file name.
      * @exception IOException
@@ -349,13 +349,13 @@ public class ParserResultObject {
                 + "\n"
                 + "package ElectricReformulatedEIR \"Performance data for chiller ElectricReformulatedEIR\""
                 + "\n" + " annotation(preferredView=" + "\"" + "info" + "\""
-                + ", Documentation(info=\"<html>" 
+                + ", Documentation(info=\"<html>"
                 + " Package with performance data for chillers."
-                + "</html>\"," 
+                + "</html>\","
                 + " revisions=\"<html>"
                 + " Generated on "
-                + getDateTime()  
-                + " by "     
+                + getDateTime()
+                + " by "
                 // + System.getProperty("user.name")
                 + "mwetter."
                 + "</html>\"));"
@@ -479,7 +479,7 @@ public class ParserResultObject {
     /**
      * This method returns the number of duplicated reformulated ElectricEIR in
      * an input file.
-     * 
+     *
      * @param fileName
      *            the EnergyPlus idf file name.
      * @return number of duplicates.
@@ -513,7 +513,7 @@ public class ParserResultObject {
 
     /**
      * This method saves duplicates found in an array list.
-     * 
+     *
      * @param arlList
      *            array list with duplicated entries.
      * @return new array list with found duplicates.
@@ -539,7 +539,7 @@ public class ParserResultObject {
 
     /**
      * This method removes duplicates from an array list.
-     * 
+     *
      * @param arlList
      *            array list with duplicated entries.
      * @return new array list without duplicates.

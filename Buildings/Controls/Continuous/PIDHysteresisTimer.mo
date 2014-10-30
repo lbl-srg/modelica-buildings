@@ -236,9 +236,9 @@ Block of a controller for set point tracking with a hysteresis element that swit
 controller to short cycle.
 </p>
 <p>
-The controller is similar to 
+The controller is similar to
 <a href=\"modelica://Buildings.Controls.Continuous.PIDHysteresis\">
-Buildings.Controls.Continuous.PIDHysteresis</a> but in addition, 
+Buildings.Controls.Continuous.PIDHysteresis</a> but in addition,
 it has a timer that prevents the controller from switching to on
 too fast. When the controller switches off, the timer starts and
 avoids the controller from switching on until <code>minOffTime</code> seconds elapsed.
@@ -247,7 +247,7 @@ avoids the controller from switching on until <code>minOffTime</code> seconds el
 <li>
 February 24, 2010, by Michael Wetter:<br/>
 Changed PID controller from Modelica Standard Library to
-PID controller from Buildings library to allow reverse control action. 
+PID controller from Buildings library to allow reverse control action.
 </li>
 <li>
 October 2, 2009, by Michael Wetter:<br/>

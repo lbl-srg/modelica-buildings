@@ -64,7 +64,7 @@ The figure below shows the predicted and simulated heating power, and the
 normalized prediction error.
 </p>
 <p align=\"center\">
-<img alt=\"Result comparison\" 
+<img alt=\"Result comparison\"
   src=\"modelica://Buildings/Resources/Images/Controls/Predictors/Examples/BESTEST.png\" border=\"1\" />
 </p>
 </html>", revisions="<html>

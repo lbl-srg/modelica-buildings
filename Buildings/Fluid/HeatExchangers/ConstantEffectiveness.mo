@@ -35,7 +35,7 @@ This model transfers heat in the amount of
   Q = Q<sub>max</sub> &epsilon;,
 </p>
 <p>
-where <i>&epsilon;</i> is a constant effectiveness and 
+where <i>&epsilon;</i> is a constant effectiveness and
 <i>Q<sub>max</sub></i> is the maximum heat that can be transferred.
 </p>
 <p>
@@ -62,7 +62,7 @@ Added regularization near zero flow.
 </li>
 <li>
 October 2, 2009, by Michael Wetter:<br/>
-Changed computation of inlet temperatures to use 
+Changed computation of inlet temperatures to use
 <code>state_*_inflow</code> which is already known in base class.
 </li>
 <li>
