@@ -54,7 +54,6 @@ First implementation.
 This model is used for the test case 650 of the BESTEST validation suite.
 Case650 is the same as Case600, but with the following modifications:
 </p>
-<p>
 <ul>
 <li>
 From 1800 hours to 0700 hours, vent fan = on
@@ -80,6 +79,5 @@ infiltration rate).
 No waste heat from fan.
 </li>
 </ul>
-</p>
 </html>"));
 end Case650;

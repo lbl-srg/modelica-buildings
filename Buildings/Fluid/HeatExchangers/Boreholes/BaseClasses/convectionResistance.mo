@@ -72,7 +72,6 @@ of the tubular type</a>.
 DOI:10.1016/0735-1933(85)90003-X.
 </p>
 </html>", revisions="<html>
-<p>
 <ul>
 <li>
 February 14, 2014, by Michael Wetter:<br/>
@@ -91,6 +90,5 @@ January 23, 2014, by Damien Picard:<br/>
 First implementation.
 </li>
 </ul>
-</p>
 </html>"));
 end convectionResistance;

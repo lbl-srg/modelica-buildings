@@ -380,11 +380,13 @@ First implementation.
 </li>
 </ul>
 </html>", info="<html>
+<p>
 This model is used to compute heat transfer through constructions with windows inside the
 room model.
 </p>
 <p>
 The model consists of the following two main submodels:
+</p>
 <ul>
 <li>
 The instance <code>opa</code>, which uses the model
@@ -403,7 +405,6 @@ This model uses the record <code>glaSys</code> to access the material properties
 of the glazing system.
 </li>
 </ul>
-</p>
 <p>
 The parameter <code>A</code> is the area of the opaque construction plus the window.
 The parameter <code>AWin</code> is the area of the glazing system, including the frame.
