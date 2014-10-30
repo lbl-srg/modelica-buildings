@@ -43,8 +43,7 @@ model VAVBoxExponential
     redeclare package Medium = Medium,
     dp_nominal=5 - 0.45*2^2/1.2/1.8^2/2)
              annotation (Placement(transformation(extent={{-36,10},{-16,30}})));
-  inner Modelica.Fluid.System system
-    annotation (Placement(transformation(extent={{-100,-100},{-80,-80}})));
+
 equation
   connect(yDam.y,dam. y) annotation (Line(
       points={{-39,70},{-12,70},{-12,40},{30,40},{30,32}},

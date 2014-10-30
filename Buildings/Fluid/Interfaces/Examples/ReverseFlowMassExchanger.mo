@@ -159,8 +159,7 @@ package Medium = Buildings.Media.PerfectGases.MoistAir;
     linearized=false,
     dp_nominal=1000) "Fixed resistance"
     annotation (Placement(transformation(extent={{-12,36},{8,56}})));
-  inner Modelica.Fluid.System system
-    annotation (Placement(transformation(extent={{118,-100},{138,-80}})));
+
 equation
 
   connect(res1.port_b, sink1.ports[1]) annotation (Line(

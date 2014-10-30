@@ -88,11 +88,9 @@ equation
       smooth=Smooth.None));
   annotation (defaultComponentName="vol",
 Documentation(info="<html>
-<p>
 Model for an ideally mixed fluid volume and the ability
 to store mass and energy. The volume is fixed,
 and latent and sensible heat can be exchanged.
-</p>
 <p>
 This model represents the same physics as
 <a href=\"modelica://Buildings.Fluid.MixingVolumes.MixingVolume\">
@@ -125,7 +123,7 @@ as port of the correction of issue
 <li>
 December 18, 2013 by Michael Wetter:<br/>
 Changed computation of <code>s</code> to allow this model to also be used
-with <code>Buildings.Media.Water</code>.
+with <code>Buildings.Media.Water.Simple</code>.
 </li>
 <li>
 October 21, 2013 by Michael Wetter:<br/>

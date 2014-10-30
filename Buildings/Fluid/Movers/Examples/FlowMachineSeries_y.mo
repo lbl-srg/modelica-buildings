@@ -28,8 +28,7 @@ model FlowMachineSeries_y "Two flow machines in series"
       X=Medium.X_default) "Start state";
   parameter Modelica.SIunits.Density rho_nominal=Medium.density(
      state_start) "Density, used to compute fluid mass";
-  inner Modelica.Fluid.System system
-    annotation (Placement(transformation(extent={{120,-80},{140,-60}})));
+
   Buildings.Fluid.Movers.FlowMachine_y floMac2(
     redeclare package Medium = Medium,
     pressure(V_flow={0, m_flow_nominal/1000}, dp={2*4*1000, 0}),

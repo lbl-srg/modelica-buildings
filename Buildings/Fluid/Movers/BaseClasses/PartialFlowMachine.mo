@@ -49,8 +49,9 @@ protected
   Modelica.SIunits.Density rho_in "Density of inflowing fluid";
 
   Buildings.Fluid.Movers.BaseClasses.IdealSource preSou(
-  redeclare package Medium = Medium,
-    allowFlowReversal=allowFlowReversal) "Pressure source"
+    redeclare final package Medium = Medium,
+    final m_flow_small=m_flow_small,
+    final allowFlowReversal=allowFlowReversal) "Pressure source"
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
 
   Buildings.HeatTransfer.Sources.PrescribedHeatFlow prePow if addPowerToMedium

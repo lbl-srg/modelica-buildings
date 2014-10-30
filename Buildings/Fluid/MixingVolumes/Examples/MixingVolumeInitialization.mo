@@ -32,8 +32,9 @@ model MixingVolumeInitialization "Test model for mixing volume initialization"
     m_flow_nominal=2,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     annotation (Placement(transformation(extent={{20,20},{40,40}})));
+
   inner Modelica.Fluid.System system
-    annotation (Placement(transformation(extent={{-100,-100},{-80,-80}})));
+    annotation (Placement(transformation(extent={{-80,80},{-60,100}})));
 equation
   connect(sou1.ports[1], pipe1.port_a) annotation (Line(
       points={{-40,20},{-20,20}},

@@ -2,8 +2,7 @@ within Buildings.Fluid.Movers;
 model FlowMachine_m_flow
   "Fan or pump with ideally controlled mass flow rate as input signal"
   extends Buildings.Fluid.Movers.BaseClasses.ControlledFlowMachine(
-  final control_m_flow=true, preSou(m_flow_start=m_flow_start, m_flow_small=
-          m_flow_small));
+  final control_m_flow=true, preSou(m_flow_start=m_flow_start));
   Modelica.Blocks.Interfaces.RealInput m_flow_in(final unit="kg/s",
                                                  nominal=m_flow_nominal)
     "Prescribed mass flow rate"

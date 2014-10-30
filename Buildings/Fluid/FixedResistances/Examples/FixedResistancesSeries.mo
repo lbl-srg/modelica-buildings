@@ -31,9 +31,7 @@ model FixedResistancesSeries "Test of multiple resistances in series"
     each from_dp = false,
     each m_flow_nominal=2)
              annotation (Placement(transformation(extent={{0,20},{20,40}})));
-  inner Modelica.Fluid.System system(p_ambient=101325)
-                                   annotation (Placement(transformation(extent={{-80,-80},
-            {-60,-60}})));
+
 equation
   for i in 1:nRes-1 loop
   connect(res[i].port_b, res[i+1].port_a) annotation (Line(points={{20,30},{26,

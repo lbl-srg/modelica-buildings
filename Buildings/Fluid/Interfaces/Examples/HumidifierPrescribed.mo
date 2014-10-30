@@ -350,8 +350,7 @@ model HumidifierPrescribed
     annotation (Placement(transformation(extent={{220,-250},{320,-230}})));
   Modelica.Blocks.Sources.RealExpression y40(y=hea7.staA.X[1])
     annotation (Placement(transformation(extent={{220,-270},{320,-250}})));
-  inner Modelica.Fluid.System system(energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState)
-    annotation (Placement(transformation(extent={{-180,-300},{-160,-280}})));
+
 protected
   model Humidifier
     "Model for humidifier that adds a variable for the thermodynamic states at its ports"

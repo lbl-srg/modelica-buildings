@@ -25,4 +25,3 @@ createPlot(id = 17,
  subPlot = 2,
  leftTitleType = 1,
  bottomTitleType = 1);
-

@@ -61,7 +61,7 @@ Added <code>assert</code> to verify that <code>Medium.nX==2</code>
 as the implementation is only valid for such media.
 </li>
 <li>April 26, 2013 by Michael Wetter:<br/>
-Set the medium model to <code>Buildings.Media.PerfectGases.MoistAirUnsaturated</code>.
+Set the medium model to <code>Buildings.Media.Air</code>.
 This was required to allow a pedantic model check in Dymola 2014.
 </li>
 <li>August 21, 2012 by Michael Wetter:<br/>

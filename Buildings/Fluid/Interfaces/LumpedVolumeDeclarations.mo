@@ -36,6 +36,9 @@ record LumpedVolumeDeclarations "Declarations for lumped volumes"
        quantity=Medium.extraPropertiesNames) = fill(1E-2, Medium.nC)
     "Nominal value of trace substances. (Set to typical order of magnitude.)"
    annotation (Dialog(tab="Initialization", enable=Medium.nC > 0));
+  parameter Real mFactor=1
+    "Factor to scale the thermal mass of the volume"
+    annotation(Dialog(tab="Advanced"));
 
 annotation (preferredView="info",
 Documentation(info="<html>
@@ -58,6 +61,10 @@ Buildings.Rooms.BaseClasses.MixedAir</a>.
 </html>",
 revisions="<html>
 <ul>
+<li>
+October 21, 2014, by Filip Jorissen:<br/>
+Added parameter <code>mFactor</code> to increase the thermal capacity.
+</li>
 <li>
 August 2, 2011, by Michael Wetter:<br/>
 Set <code>substanceDynamics</code> and <code>traceDynamics</code> to final

@@ -37,8 +37,7 @@ model RadiatorEN442_2 "Test model for radiator"
     p(displayUnit="Pa") = 300000,
     T=T_b_nominal) "Sink"
     annotation (Placement(transformation(extent={{90,-68},{70,-48}})));
-  inner Modelica.Fluid.System system
-    annotation (Placement(transformation(extent={{-100,-100},{-80,-80}})));
+
   Buildings.Fluid.HeatExchangers.Radiators.RadiatorEN442_2 rad1(redeclare
       package Medium =
                Medium,

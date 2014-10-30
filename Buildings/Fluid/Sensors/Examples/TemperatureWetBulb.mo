@@ -45,8 +45,7 @@ model TemperatureWetBulb "Test model for the wet bulb temperature sensor"
     "Difference, used to compute the mass fraction of dry air"
     annotation (Placement(transformation(
           extent={{-68,-20},{-48,0}})));
-  inner Modelica.Fluid.System system
-    annotation (Placement(transformation(extent={{80,-100},{100,-80}})));
+
 equation
   connect(TDryBul.y, sou.T_in)          annotation (Line(points={{-79,50},{-60,50},
           {-60,24},{-32,24}}, color={0,0,127}));

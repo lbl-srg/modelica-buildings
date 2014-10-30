@@ -19,12 +19,10 @@ This model tests the implementation of
 Buildings.Utilities.Math.Polynominal</a>.
 </p>
 </html>", revisions="<html>
-<p>
 <ul>
 <li>
 November 28, 2013, by Marcus Fuchs:<br/>First implementation.
 </li>
 </ul>
-</p>
 </html>"));
 end Polynominal;

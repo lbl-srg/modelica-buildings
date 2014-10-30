@@ -1,7 +1,7 @@
 within Buildings.Fluid.Interfaces;
 partial model PartialTwoPortInterface
   "Partial model transporting fluid between two ports without storing mass or energy"
-  extends Modelica.Fluid.Interfaces.PartialTwoPort(
+  extends Buildings.Fluid.Interfaces.PartialTwoPort(
     port_a(p(start=Medium.p_default)),
     port_b(p(start=Medium.p_default)));
 

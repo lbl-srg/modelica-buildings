@@ -48,9 +48,7 @@ model FixedResistancesParallel
   Buildings.Fluid.Sensors.MassFlowRate masFlo1(redeclare package Medium = Medium)
     "Mass flow rate sensor" annotation (Placement(transformation(extent={{20,30},
             {40,50}})));
-  inner Modelica.Fluid.System system(p_ambient=101325)
-                                   annotation (Placement(transformation(extent={{-80,-80},
-            {-60,-60}})));
+
 equation
   connect(PAtm.y, sin1.p_in)
                             annotation (Line(points={{87,86},{94,86},{94,46},{

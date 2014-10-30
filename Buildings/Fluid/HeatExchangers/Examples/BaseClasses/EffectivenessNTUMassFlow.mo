@@ -44,8 +44,7 @@ partial model EffectivenessNTUMassFlow
     T=T_a1_nominal) "Source for water"
     annotation (Placement(transformation(extent={{-2,52},{18,72}})));
 
-  inner Modelica.Fluid.System system
-    annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
+
   Modelica.Blocks.Sources.Constant relHum(k=0.8) "Relative humidity"
     annotation (Placement(transformation(extent={{100,-70},{120,-50}})));
   Buildings.Utilities.Psychrometrics.X_pTphi x_pTphi(use_p_in=false)

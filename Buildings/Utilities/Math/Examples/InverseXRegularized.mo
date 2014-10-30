@@ -21,12 +21,11 @@ This model tests the implementation of
 Buildings.Utilities.Math.InverseXRegularized</a>.
 </p>
 </html>", revisions="<html>
-<p>
 <ul>
 <li>
 November 28, 2013, by Marcus Fuchs:<br/>
 Implementation based on Functions.inverseXRegularized.
 </li>
-</ul></p>
+</ul>
 </html>"));
 end InverseXRegularized;

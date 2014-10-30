@@ -5,7 +5,9 @@ FourPortFlowResistanceParameters
 FourPortHeatMassExchanger
 LumpedVolumeDeclarations
 PartialFourPortInterface
+PartialTwoPort
 PartialTwoPortInterface
+PartialTwoPortTransport
 StaticFourPortHeatMassExchanger
 StaticTwoPortConservationEquation
 StaticTwoPortHeatMassExchanger

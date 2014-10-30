@@ -45,8 +45,7 @@ model TwoWayValves "Two way valves with different opening characteristics"
     dpValve_nominal=6000)
     "Valve model, equal percentage opening characteristics"
          annotation (Placement(transformation(extent={{0,-60},{20,-40}})));
-  inner Modelica.Fluid.System system
-    annotation (Placement(transformation(extent={{-100,-100},{-80,-80}})));
+
 equation
   connect(y.y, valLin.y) annotation (Line(
       points={{-39,70},{-12,70},{-12,50},{10,50},{10,42}},

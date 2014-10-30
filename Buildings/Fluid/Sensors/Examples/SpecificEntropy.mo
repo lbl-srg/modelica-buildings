@@ -24,8 +24,7 @@ model SpecificEntropy "Test model for the entropy flow rate sensors"
     offset=1,
     duration=60)
     annotation (Placement(transformation(extent={{-80,-12},{-60,8}})));
-  inner Modelica.Fluid.System system
-    annotation (Placement(transformation(extent={{-100,-100},{-80,-80}})));
+
   Buildings.Fluid.Sensors.SpecificEntropy senFloSou(
     redeclare package Medium = Medium) "Sensor at the flow source"
     annotation (Placement(transformation(extent={{-10,0},{10,20}})));

@@ -104,8 +104,7 @@ model TraceSubstancesFlowSource
     dp_nominal=1)
     "Resistance, used to check if species are transported between ports"
     annotation (Placement(transformation(extent={{-28,-80},{-6,-60}})));
-  inner Modelica.Fluid.System system(energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
-    annotation (Placement(transformation(extent={{-80,140},{-60,160}})));
+
   Sensors.TraceSubstances C(redeclare package Medium = Medium)
     "Trace substance sensor"
     annotation (Placement(transformation(extent={{120,134},{140,154}})));

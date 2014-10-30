@@ -35,8 +35,7 @@ model MixingVolumePrescribedHeatFlowRate
     offset=1,
     height=-2)
     annotation (Placement(transformation(extent={{-90,-20},{-70,0}})));
-  inner Modelica.Fluid.System system
-    annotation (Placement(transformation(extent={{60,60},{80,80}})));
+
   Modelica.Blocks.Math.Gain gain(k=0.01)
     annotation (Placement(transformation(extent={{-60,-20},{-40,0}})));
   Modelica.Blocks.Sources.Constant const(k=0)

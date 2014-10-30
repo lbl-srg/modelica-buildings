@@ -7,7 +7,9 @@ model RadiatorEN442_2 "Dynamic radiator for space heating"
    extends Buildings.Fluid.Interfaces.LumpedVolumeDeclarations(
      final X_start = Medium.X_default,
      final C_start = fill(0, Medium.nC),
-     final C_nominal = fill(1E-2, Medium.nC));
+     final C_nominal = fill(1E-2, Medium.nC),
+     final mFactor = 1 + 500*mDry/(VWat*cp_nominal*Medium.density(
+        Medium.setState_pTX(Medium.p_default, Medium.T_default, Medium.X_default))));
 
   parameter Integer nEle(min=1) = 5
     "Number of elements used in the discretization";
@@ -66,7 +68,8 @@ model RadiatorEN442_2 "Dynamic radiator for space heating"
     each final p_start=p_start,
     each final T_start=T_start,
     each final X_start=X_start,
-    each final C_start=C_start) "Volume for fluid stream"
+    each final C_start=C_start,
+    each final mFactor=mFactor) "Volume for fluid stream"
     annotation (Placement(transformation(extent={{-9,0},{11,-20}})));
 protected
    parameter Modelica.SIunits.SpecificHeatCapacity cp_nominal=
@@ -95,13 +98,6 @@ protected
 
    final parameter Real k = if T_b_nominal > TAir_nominal then 1 else -1
     "Parameter that is used to compute QEle_flow_nominal for heating or cooling mode";
-
-   Modelica.Thermal.HeatTransfer.Components.HeatCapacitor[nEle] heaCap(
-     each C=500*mDry/nEle,
-     each T(start=T_start)) if
-       not (energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState)
-    "heat capacity of radiator metal"
-     annotation (Placement(transformation(extent={{-30,12},{-10,32}})));
 
    Buildings.HeatTransfer.Sources.PrescribedHeatFlow[nEle] preCon
     "Heat input into radiator from convective heat transfer"
@@ -195,10 +191,6 @@ equation
       smooth=Smooth.None));
   connect(preRad.port, vol.heatPort)       annotation (Line(
       points={{-28,-70},{-20,-70},{-20,-10},{-9,-10}},
-      color={191,0,0},
-      smooth=Smooth.None));
-  connect(heaCap.port, vol.heatPort)    annotation (Line(
-      points={{-20,12},{-20,-10},{-9,-10}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(port_a, vol[1].ports[1]) annotation (Line(
@@ -359,6 +351,17 @@ with one plate of water carying fluid, and a height of 0.42 meters.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+October 29, 2014, by Michael Wetter:<br/>
+Made assignment of <code>mFactor</code> final, and changed computation of
+density to use default medium states as are also used to compute the
+specific heat capacity.
+</li>
+<li>
+October 21, 2014, by Filip Jorissen:<br/>
+Added parameter <code>mFactor</code> and removed thermal capacity
+which can lead to an index reduction.
+</li>
 <li>
 May 29, 2014, by Michael Wetter:<br/>
 Removed undesirable annotation <code>Evaluate=true</code>.
