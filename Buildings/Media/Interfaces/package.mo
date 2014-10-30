@@ -6,7 +6,7 @@ package Interfaces "Package with partial medium models"
 annotation (preferredView="info", Documentation(info="<html>
 <p>
 This package contains partial medium models that are used
-to fix a bug in 
+to fix a bug in
 <a href=\"modelica://Modelica.Media.Interfaces.PartialSimpleIdealGasMedium.specificEnthalpy\">
 Modelica.Media.Interfaces.PartialSimpleIdealGasMedium.specificEnthalpy</a>.
 See

@@ -8,13 +8,13 @@ model HexElementLatent "Element of a heat exchanger"
 
   MassExchange masExc(
      redeclare final package Medium=Medium2) "Model for mass exchange"
-    annotation (Placement(transformation(extent={{48,-44},{68,-24}}, rotation=0)));
+    annotation (Placement(transformation(extent={{48,-44},{68,-24}})));
 protected
   Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor temSen(
     T(final quantity="ThermodynamicTemperature",
       final unit = "K", displayUnit = "degC", min=0))
     "Temperature sensor of metal"
-    annotation (Placement(transformation(extent={{8,-10},{28,10}},  rotation=0)));
+    annotation (Placement(transformation(extent={{8,-10},{28,10}})));
 equation
   connect(temSen.T, masExc.TSur) annotation (Line(points={{28,0},{36,0},{36,-26},
           {46,-26}},                    color={0,0,127}));
@@ -37,10 +37,10 @@ equation
     Documentation(info="<html>
 <p>
 Element of a heat exchanger with humidity condensation of fluid 2 and
-with dynamics of the fluids and the solid. 
+with dynamics of the fluids and the solid.
 </p>
 <p>
-See 
+See
 <a href=\"modelica://Buildings.Fluid.HeatExchangers.BaseClasses.PartialHexElement\">
 Buildings.Fluid.HeatExchangers.BaseClasses.PartialHexElement</a>
 for a description of the physics.
@@ -57,10 +57,7 @@ September 11, 2013, by Michael Latentter:<br/>
 First implementation.
 </li>
 </ul>
-</html>"), Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}}),
-                         graphics),
-    Icon(graphics={
+</html>"),    Icon(graphics={
         Polygon(
           points={{-56,-52},{-58,-58},{-60,-66},{-58,-74},{-54,-76},{-44,-76},{-38,
               -70},{-40,-62},{-44,-50},{-50,-38},{-56,-52}},

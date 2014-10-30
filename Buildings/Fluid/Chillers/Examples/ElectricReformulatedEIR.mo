@@ -10,9 +10,7 @@ model ElectricReformulatedEIR
   annotation (
 experiment(StopTime=14400),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Chillers/Examples/ElectricReformulatedEIR.mos"
-        "Simulate and plot"),                                                                                                    Diagram(
-        graphics),
-    Documentation(info="<html>
+        "Simulate and plot"),    Documentation(info="<html>
 <p>
 Example that simulates a chiller whose efficiency is computed based on the
 condenser leaving and evaporator leaving fluid temperature.
@@ -22,7 +20,7 @@ A bicubic polynomial is used to compute the chiller part load performance.
 <ul>
 <li>
 August 14, 2014, by Michael Wetter:<br/>
-Added missing <code>redeclare</code> keyword in 
+Added missing <code>redeclare</code> keyword in
 performance data redeclaration.
 This avoids an error in OpenModelica.
 </li>

@@ -8,7 +8,7 @@ record Construction10and23 =
     final nLay = 4) "South and north exterior wall in test bed X3"
     annotation(Documentation(info="<html>
     <p>
-    This is a model of exterior walls in test bed X3. It is used to 
+    This is a model of exterior walls in test bed X3. It is used to
     represent both the north and south exterior wall of the test cells
     themselves.
     </p>

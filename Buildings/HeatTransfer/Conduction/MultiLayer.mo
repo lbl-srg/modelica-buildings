@@ -57,8 +57,7 @@ equation
       color={191,0,0},
       smooth=Smooth.None));
 
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
-            -100},{100,100}})), Icon(coordinateSystem(
+  annotation ( Icon(coordinateSystem(
           preserveAspectRatio=true, extent={{-100,-100},{100,100}}), graphics={
         Rectangle(
           extent={{-90,2},{92,-4}},
@@ -122,7 +121,7 @@ equation
 <p>
 This is a model of a heat conductor with multiple material layers and energy storage.
 The construction has at least one material layer, and each layer has
-at least one temperature node. The layers are modeled using an instance of 
+at least one temperature node. The layers are modeled using an instance of
 <a href=\"Buildings.HeatTransfer.Conduction.SingleLayer\">
 Buildings.HeatTransfer.Conduction.SingleLayer</a>.
 </p>
@@ -136,7 +135,7 @@ To assign the material properties to this model, do the following:
 </p>
 <ol>
 <li>
-Create an instance of a record of 
+Create an instance of a record of
 <a href=\"modelica://Buildings.HeatTransfer.Data.OpaqueConstructions\">
 Buildings.HeatTransfer.Data.OpaqueConstructions</a>, for example
 by dragging the record into the schematic model editor.
@@ -146,14 +145,14 @@ Make sure the instance has the attribute <code>parameter</code>, which may not b
 assigned automatically when you drop the model in a graphical editor. For
 example, an instanciation may look like
 <pre>
- parameter Data.OpaqueConstructions.Insulation100Concrete200 layers 
+ parameter Data.OpaqueConstructions.Insulation100Concrete200 layers
    \"Material layers of construction\"
    annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
 </pre>
 </li>
 <li>
-Assign the instance of the material to the instance of the heat transfer 
-model as shown in 
+Assign the instance of the material to the instance of the heat transfer
+model as shown in
 <a href=\"modelica://Buildings.HeatTransfer.Examples.ConductorMultiLayer\">
 Buildings.HeatTransfer.Examples.ConductorMultiLayer</a>.
 </li>

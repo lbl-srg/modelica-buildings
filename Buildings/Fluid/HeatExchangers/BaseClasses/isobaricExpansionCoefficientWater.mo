@@ -12,13 +12,13 @@ algorithm
 
 annotation(Documentation(info = "<html>
 <p>
-This function is used to identify the isobaric expansion coefficient of water at a 
-given temperature. The function used is a fourth order polynomial fit to data from 
+This function is used to identify the isobaric expansion coefficient of water at a
+given temperature. The function used is a fourth order polynomial fit to data from
 Incropera and Dewitt (1996).
 </p>
 <h4>References</h4>
 <p>
-Fundamentals of Heat and Mass Transfer (Fourth Edition), Frank Incropera and David P. 
+Fundamentals of Heat and Mass Transfer (Fourth Edition), Frank Incropera and David P.
 Dewitt, John Wiley &amp; Sons, 1996
 </p>
 </html>",

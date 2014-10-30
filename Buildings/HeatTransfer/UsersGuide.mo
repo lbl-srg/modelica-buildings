@@ -56,10 +56,10 @@ this model are the temperatures and heat flow rates at the material interface.
 <p>
 The model <a href=\"modelica://Buildings.HeatTransfer.Conduction.SingleLayer\">
 Buildings.HeatTransfer.Conduction.SingleLayer</a>
-is then used to construct the heat conductor 
+is then used to construct the heat conductor
 <a href=\"modelica://Buildings.HeatTransfer.Conduction.MultiLayer\">
 Buildings.HeatTransfer.Conduction.MultiLayer</a>
-that has multiple layers of material. 
+that has multiple layers of material.
 Some layers may be computed transient (if <i>&rho; c &gt; 0</i>)
 and others are computed steady-state.
 The boundary conditions for
@@ -81,12 +81,12 @@ models that compute the heat transfer.
 The section describes the syntax used to declare heat conduction models.
 Note that such syntax is typically generated through the use
 of a graphical user interface that will show fields that can be edited
-and that provide options for predefined data that may be used as-is or 
+and that provide options for predefined data that may be used as-is or
 adjusted for a particular building.
 </p>
 <p>
-Suppose we want to model a construction with a surface area of 
-<i>20 m<sup>2</sup></i> 
+Suppose we want to model a construction with a surface area of
+<i>20 m<sup>2</sup></i>
 that consists of a <i>0.1 m</i> insulation and
 <i>0.2 m</i> concrete. This can be accomplished as follows.
 </p>
@@ -108,13 +108,13 @@ layer faces the outside, and the last material layer faces the room-side.
 Therefore, the declaration for an exterior wall with insulation at the outside is
 </p>
 <pre>
-  Buildings.HeatTransfer.Data.OpaqueConstructions.Generic 
+  Buildings.HeatTransfer.Data.OpaqueConstructions.Generic
      wall(nLay=2, material={insulation,concrete});
 </pre>
 <p>
 (Note that <code>nLay</code> must be set to the number of layers to allow
 a Modelica translator to know how many layers there are prior to translating
-the model.) 
+the model.)
 </p>
 <p>
 Alternatively, to model the insulation in steady-state, we can set its heat capacity to zero by declaring
@@ -124,15 +124,15 @@ Alternatively, to model the insulation in steady-state, we can set its heat capa
 </pre>
 <p>
 Instead of specifying a material with specific heat capacity and setting <code>c=0</code>,
-materials from the library 
+materials from the library
 <a href=\"modelica://Buildings.HeatTransfer.Data.Resistances\">
-Buildings.HeatTransfer.Data.Resistances</a> can be used. 
+Buildings.HeatTransfer.Data.Resistances</a> can be used.
 For example, for a floor with carpet, the declaration would be
 </p>
 <pre>
   Buildings.HeatTransfer.Data.Resistances.Carpet carpet;
   Buildings.HeatTransfer.Data.Solids.Concrete    concrete(x=0.2, nStaRef=4);
-  Buildings.HeatTransfer.Data.OpaqueConstructions.Generic 
+  Buildings.HeatTransfer.Data.OpaqueConstructions.Generic
        floor(nLay=2, material={concrete, carpet});
 </pre>
 <p>

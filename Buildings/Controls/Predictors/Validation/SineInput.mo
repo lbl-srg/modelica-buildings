@@ -43,8 +43,6 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   annotation (
-  Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
-            100}}),                                                                    graphics),
           __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/Predictors/Validation/SineInput.mos"
         "Simulate and plot"),
             experiment(StopTime=5270400),
@@ -54,16 +52,16 @@ Model that demonstrates and tests the demand response model.
 Input to the model is a sinusoidal consumed electrical power
 which has been discretized using a sampler.
 Because of this discretization and because of the periodicity
-of the input signal, the baseline prediction model will be able to 
+of the input signal, the baseline prediction model will be able to
 predict the load exactly.
 The baseline prediction model also takes as an input signal
 the day type, and a demand response signal.
-Every seventh day, there is a demand response signal. 
+Every seventh day, there is a demand response signal.
 </p>
 <p>
-After at least one initial working day and non-working days at 
+After at least one initial working day and non-working days at
 which no demand response is requested, the predicted power
-<code>client.PPre</code> exactly matches the consumed power 
+<code>client.PPre</code> exactly matches the consumed power
 <code>client.PCon</code>.
 </p>
 <p>

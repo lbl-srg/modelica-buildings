@@ -309,7 +309,7 @@ Modelica.Media.Interfaces.PartialSimpleIdealGasMedium</a>
 except that the functions.
 <code>density</code>,
 <code>specificEntropy</code> and <code>setState_dTX</code> are declared as <code>replaceable</code>.
-This is required for the implementation of 
+This is required for the implementation of
 <a href=\"modelica://Buildings.Media.GasesPTDecoupled.SimpleAir\">
 Buildings.Media.GasesPTDecoupled.SimpleAir</a>.
 </html>", revisions="<html>
@@ -335,7 +335,7 @@ as this is now handled in the model
 <a href=\"modelica://Buildings.Fluid.MixingVolumes.MixingVolume\">
 Buildings.Fluid.MixingVolumes.MixingVolume</a>. The reason for this change is
 that the assignment is different for steady-state and dynamic balance.
-In the previous implementation, this assignment can cause steady-state models to 
+In the previous implementation, this assignment can cause steady-state models to
 be differentiated in order to obtain <code>T</code> as a state. This resulted
 in some cases in large coupled systems of equations that can be avoided
 if the <code>stateSelect</code> is not set to <code>StateSelect.prefer</code>
@@ -359,7 +359,7 @@ this medium implements density as a function of pressure.
 Declared functions
 <code>density</code>,
 <code>specificEntropy</code> and <code>setState_dTX</code> as <code>replaceable</code>.
-This is required for the implementation of 
+This is required for the implementation of
 <a href=\"modelica://Buildings.Media.GasesPTDecoupled.SimpleAir\">
 Buildings.Media.GasesPTDecoupled.SimpleAir</a>.
 </li>

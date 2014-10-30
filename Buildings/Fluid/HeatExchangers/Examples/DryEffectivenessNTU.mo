@@ -24,47 +24,43 @@ model DryEffectivenessNTU
     use_p_in=true,
     nPorts=5,
     T=273.15 + 10)        annotation (Placement(transformation(extent={{-64,10},
-            {-44,30}}, rotation=0)));
+            {-44,30}})));
     Modelica.Blocks.Sources.Ramp PIn(
     height=200,
     duration=60,
     offset=101325,
     startTime=100)
-                 annotation (Placement(transformation(extent={{60,-90},{80,-70}},
-          rotation=0)));
+                 annotation (Placement(transformation(extent={{60,-90},{80,-70}})));
   Buildings.Fluid.Sources.Boundary_pT sou_2(                       redeclare
       package Medium = Medium2, T=273.15 + 5,
     use_p_in=true,
     use_T_in=true,
     nPorts=5)             annotation (Placement(transformation(extent={{10,-10},
-            {-10,10}}, rotation=0,
-        origin={72,-10})));
+            {-10,10}}, origin={72,-10})));
     Modelica.Blocks.Sources.Ramp TWat(
     height=10,
     duration=60,
     offset=273.15 + 30,
     startTime=60) "Water temperature"
-                 annotation (Placement(transformation(extent={{-100,44},{-80,64}},
-          rotation=0)));
+                 annotation (Placement(transformation(extent={{-100,44},{-80,64}})));
   Modelica.Blocks.Sources.Constant TDb(k=293.15) "Drybulb temperature"
-    annotation (Placement(transformation(extent={{60,-60},{80,-40}}, rotation=0)));
+    annotation (Placement(transformation(extent={{60,-60},{80,-40}})));
     Modelica.Blocks.Sources.Constant POut(k=101325)
-      annotation (Placement(transformation(extent={{-100,10},{-80,30}},
-          rotation=0)));
+      annotation (Placement(transformation(extent={{-100,10},{-80,30}})));
   Buildings.Fluid.Sources.Boundary_pT sin_1(                       redeclare
       package Medium = Medium1,
     use_p_in=true,
     nPorts=5,
     p=300000,
     T=273.15 + 25)        annotation (Placement(transformation(extent={{80,40},
-            {60,60}},rotation=0)));
+            {60,60}})));
   Buildings.Fluid.Sources.Boundary_pT sou_1(
     redeclare package Medium = Medium1,
     p=300000 + 5000,
     T=273.15 + 50,
     use_T_in=true,
     nPorts=5)             annotation (Placement(transformation(extent={{-62,40},
-            {-42,60}}, rotation=0)));
+            {-42,60}})));
   Buildings.Fluid.HeatExchangers.DryEffectivenessNTU hexPar(
     redeclare package Medium1 = Medium1,
     redeclare package Medium2 = Medium2,
@@ -77,8 +73,7 @@ model DryEffectivenessNTU
     show_T=true,
     T_a1_nominal=303.15,
     T_a2_nominal=293.15)
-    annotation (Placement(transformation(extent={{-10,40},{10,60}},
-                                                                  rotation=0)));
+    annotation (Placement(transformation(extent={{-10,40},{10,60}})));
 
   inner Modelica.Fluid.System system(
     p_ambient=300000,
@@ -96,7 +91,7 @@ model DryEffectivenessNTU
     show_T=true,
     T_a1_nominal=303.15,
     T_a2_nominal=293.15)
-    annotation (Placement(transformation(extent={{-10,0},{10,20}},rotation=0)));
+    annotation (Placement(transformation(extent={{-10,0},{10,20}})));
   Buildings.Fluid.HeatExchangers.DryEffectivenessNTU hexCroC1Mix(
     redeclare package Medium1 = Medium1,
     redeclare package Medium2 = Medium2,
@@ -109,8 +104,7 @@ model DryEffectivenessNTU
     show_T=true,
     T_a1_nominal=303.15,
     T_a2_nominal=293.15)
-    annotation (Placement(transformation(extent={{-10,-28},{10,-8}},
-                                                                  rotation=0)));
+    annotation (Placement(transformation(extent={{-10,-28},{10,-8}})));
   Buildings.Fluid.HeatExchangers.DryEffectivenessNTU hexCroC1Unm(
     redeclare package Medium1 = Medium1,
     redeclare package Medium2 = Medium2,
@@ -123,8 +117,7 @@ model DryEffectivenessNTU
     show_T=true,
     T_a1_nominal=303.15,
     T_a2_nominal=293.15)
-    annotation (Placement(transformation(extent={{-10,-58},{10,-38}},
-                                                                  rotation=0)));
+    annotation (Placement(transformation(extent={{-10,-58},{10,-38}})));
   Buildings.Fluid.HeatExchangers.DryEffectivenessNTU hexCroUnm(
     redeclare package Medium1 = Medium1,
     redeclare package Medium2 = Medium2,
@@ -137,8 +130,7 @@ model DryEffectivenessNTU
     show_T=true,
     T_a1_nominal=303.15,
     T_a2_nominal=293.15)
-    annotation (Placement(transformation(extent={{-10,-86},{10,-66}},
-                                                                  rotation=0)));
+    annotation (Placement(transformation(extent={{-10,-86},{10,-66}})));
   Modelica.Blocks.Sources.Trapezoid trapezoid(
     amplitude=5000,
     rising=10,
@@ -248,9 +240,7 @@ equation
       points={{61,80},{92,80},{92,58},{82,58}},
       color={0,0,127},
       smooth=Smooth.None));
-  annotation(Diagram(coordinateSystem(preserveAspectRatio=true,  extent={{-100,
-            -100},{100,100}})),
-experiment(StopTime=360),
+  annotation(experiment(StopTime=360),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/Examples/DryEffectivenessNTU.mos"
         "Simulate and plot"),
 Documentation(info="<html>

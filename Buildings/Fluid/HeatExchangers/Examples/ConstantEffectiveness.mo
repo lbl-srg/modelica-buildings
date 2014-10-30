@@ -11,46 +11,43 @@ model ConstantEffectiveness
     nPorts=1,
     T=273.15 + 10,
     X={0.001,0.999})      annotation (Placement(transformation(extent={{-58,-10},
-            {-38,10}}, rotation=0)));
+            {-38,10}})));
     Modelica.Blocks.Sources.Ramp PIn(
     height=200,
     duration=60,
     offset=101325,
     startTime=50)
-                 annotation (Placement(transformation(extent={{-20,-50},{0,-30}},
-          rotation=0)));
+                 annotation (Placement(transformation(extent={{-20,-50},{0,-30}})));
   Buildings.Fluid.Sources.Boundary_pT sou_2(
     redeclare package Medium = Medium2, T=273.15 + 5,
     use_p_in=true,
     use_T_in=true,
     nPorts=1)             annotation (Placement(transformation(extent={{40,-70},
-            {60,-50}}, rotation=0)));
+            {60,-50}})));
     Modelica.Blocks.Sources.Ramp TWat(
     height=10,
     duration=60,
     offset=273.15 + 30,
     startTime=60) "Water temperature"
-                 annotation (Placement(transformation(extent={{-100,40},{-80,60}},
-          rotation=0)));
+                 annotation (Placement(transformation(extent={{-100,40},{-80,60}})));
   Modelica.Blocks.Sources.Constant TDb(k=293.15) "Drybulb temperature"
-    annotation (Placement(transformation(extent={{-20,-90},{0,-70}}, rotation=0)));
+    annotation (Placement(transformation(extent={{-20,-90},{0,-70}})));
     Modelica.Blocks.Sources.Constant POut(k=101325)
-      annotation (Placement(transformation(extent={{-100,-2},{-80,18}},
-          rotation=0)));
+      annotation (Placement(transformation(extent={{-100,-2},{-80,18}})));
   Buildings.Fluid.Sources.Boundary_pT sin_1(
     redeclare package Medium = Medium1,
     use_p_in=true,
     nPorts=1,
     p=300000,
     T=273.15 + 25)        annotation (Placement(transformation(extent={{84,2},{
-            64,22}}, rotation=0)));
+            64,22}})));
   Buildings.Fluid.Sources.Boundary_pT sou_1(
     redeclare package Medium = Medium1,
     p=300000 + 5000,
     T=273.15 + 50,
     use_T_in=true,
     nPorts=1)             annotation (Placement(transformation(extent={{-60,36},
-            {-40,56}}, rotation=0)));
+            {-40,56}})));
   Buildings.Fluid.HeatExchangers.ConstantEffectiveness hex(
     redeclare package Medium1 = Medium1,
     redeclare package Medium2 = Medium2,
@@ -59,7 +56,7 @@ model ConstantEffectiveness
     m2_flow_nominal=5,
     dp1_nominal=500,
     dp2_nominal=10)
-    annotation (Placement(transformation(extent={{6,-4},{26,16}}, rotation=0)));
+    annotation (Placement(transformation(extent={{6,-4},{26,16}})));
   inner Modelica.Fluid.System system(
     p_ambient=300000,
     T_ambient=313.15)
@@ -108,9 +105,7 @@ equation
       points={{61,72},{94,72},{94,20},{86,20}},
       color={0,0,127},
       smooth=Smooth.None));
-  annotation(Diagram(coordinateSystem(preserveAspectRatio=true,  extent={{-100,
-            -100},{100,100}})),
-experiment(StopTime=360),
+  annotation(experiment(StopTime=360),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/Examples/ConstantEffectiveness.mos"
         "Simulate and plot"),
 Documentation(info="<html>

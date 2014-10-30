@@ -14,14 +14,14 @@ exchange in fluid flow networks.
 </p>
 <p>
 The models have the same interface as models of the package
-<a href=\"modelica://Modelica.Fluid\">Modelica.Fluid</a>, 
-but have in general a simpler set of parameters that may be better 
-suited if the models are used in early design of building systems. 
-For example, in addition to the detailed pipe model from 
 <a href=\"modelica://Modelica.Fluid\">Modelica.Fluid</a>,
-this package also contains models for which a user has to specify 
-the mass flow and pressure drop at a nominal flow rate, 
-which is typically more readily available prior to the detailed 
+but have in general a simpler set of parameters that may be better
+suited if the models are used in early design of building systems.
+For example, in addition to the detailed pipe model from
+<a href=\"modelica://Modelica.Fluid\">Modelica.Fluid</a>,
+this package also contains models for which a user has to specify
+the mass flow and pressure drop at a nominal flow rate,
+which is typically more readily available prior to the detailed
 HVAC system design.
 </p>
 
@@ -48,8 +48,8 @@ Fluid ports declare the variables listed in the table below.
 <tr>
   <td><code>p</code></td>
   <td>Absolute total pressure <i>p</i>.<br/>
-      The absolute total pressure is the sum of 
-      the static pressure and the dynamic pressure. 
+      The absolute total pressure is the sum of
+      the static pressure and the dynamic pressure.
       As the total pressure is used in the connector, components
       do not need to specify the area of the port or the velocity at the port.
       This convention is consistent with the Modelica Standard Library.
@@ -65,7 +65,7 @@ Fluid ports declare the variables listed in the table below.
 </tr>
 <tr>
   <td><code>h_outflow</code></td>
-  <td>Specific enthalpy <i>h</i> of the outflowing fluid, i.e., 
+  <td>Specific enthalpy <i>h</i> of the outflowing fluid, i.e.,
       assuming <i>m&#775; &lt; 0.</i><br/>
       The specific enthalpy in the fluid port always carries the value
       of the enthalpy that the medium would have if it was leaving
@@ -78,7 +78,7 @@ Fluid ports declare the variables listed in the table below.
 <tr>
   <td><code>Xi_outflow[Medium.nXi]</code></td>
   <td>Independent mixture mass fractions
-      <i>m<sub>i</sub>/m</i> close to the connection point, i.e., 
+      <i>m<sub>i</sub>/m</i> close to the connection point, i.e.,
       assuming <i>m&#775; &lt; 0.</i><br/>
       The independent mixture mass fraction in the fluid port always carries the value
       that the medium would have if it was leaving
@@ -93,7 +93,7 @@ Fluid ports declare the variables listed in the table below.
 </tr>
 <tr>
   <td><code>C_outflow[Medium.nC]</code></td>
-  <td>Trace substances <i>c<sub>i</sub>/m</i> close to the connection point, i.e., 
+  <td>Trace substances <i>c<sub>i</sub>/m</i> close to the connection point, i.e.,
       assuming <i>m&#775; &lt; 0.</i><br/>
       The trace substances in the fluid port always carries the value
       that the medium would have if it was leaving
@@ -113,10 +113,10 @@ Fluid ports declare the variables listed in the table below.
 <h4>Computation of flow resistance</h4>
 <p>
 Most component models compute pressure drop as a function of flow rate.
-If their pressure drop at the nominal conditions is set to zero, 
-for example by setting the parameter value <code>dp_nominal=0</code>, then the 
+If their pressure drop at the nominal conditions is set to zero,
+for example by setting the parameter value <code>dp_nominal=0</code>, then the
 equation for the pressure drop is removed from the model.
-This allows, for example, 
+This allows, for example,
 to model a heating and a cooling coil in series, and lump their pressure drops
 into a single element, thereby reducing the dimension of the nonlinear system
 of equations.
@@ -125,14 +125,14 @@ of equations.
 <p>
 The flow resistance is computed as</p>
 <p align=\"center\" style=\"font-style:italic;\">
-  k = m&#775; &frasl; &radic;<span style=\"text-decoration:overline;\">&nbsp;&Delta;p &nbsp;</span> 
+  k = m&#775; &frasl; &radic;<span style=\"text-decoration:overline;\">&nbsp;&Delta;p &nbsp;</span>
 </p>
 <p>
 where <i>m&#775;</i> is the mass flow rate and <i>&Delta;p</i> is the pressure drop.
-For <i>|m&#775;| &lt; &delta;<sub>m&#775;</sub> m&#775;<sub>0</sub></i>, 
-where <i>&delta;<sub>m&#775;</sub></i> is equal to the parameter <code>deltaM</code> and 
+For <i>|m&#775;| &lt; &delta;<sub>m&#775;</sub> m&#775;<sub>0</sub></i>,
+where <i>&delta;<sub>m&#775;</sub></i> is equal to the parameter <code>deltaM</code> and
 <i>m&#775;<sub>0</sub></i> is the mass flow rate at the nominal operating point, as
-set by the parameter <code>m_flow_nominal</code>, the 
+set by the parameter <code>m_flow_nominal</code>, the
 equation is linearized.
 The pressure drop is computed as a function of mass flow rate instead of
 volume flow rate as this often leads to fewer equations. Otherwise,
@@ -158,11 +158,11 @@ In actuators such as valves and air dampers, <i>k</i> is a function of the contr
 
 <h4>Computation of mass and energy balance</h4>
 <p>
-Most models have parameters  
+Most models have parameters
 <code>massDynamics</code> and <code>energyDynamics</code>
-that allow using a dynamic or a 
+that allow using a dynamic or a
 steady-state equation for the mass and energy balance.
-The table below shows the different settings and how they affect the 
+The table below shows the different settings and how they affect the
 mass and energy balance equations.
 For the mass balance, the following configurations can be selected:
 </p>
@@ -207,7 +207,7 @@ where <i>m(t)</i> is the mass of the control volume,
 <i>m&#775;(t)</i> is the mass flow rate,
 <i>p</i> is the pressure and
 <i>p<sub>0</sub></i> is the initial pressure, which is a parameter.
-<i>Unspecified</i> means that no equation is declared for 
+<i>Unspecified</i> means that no equation is declared for
 <i>p(0)</i>. In this situation, there can be two cases:
 </p>
 <ol>
@@ -217,13 +217,13 @@ to a model that sets the pressure, e.g.,
 <a href=\"modelica://Buildings.Fluid.Sources.FixedBoundary\">
 Buildings.Fluid.Sources.FixedBoundary</a>,
 then due to the connection between the models, the
-pressure of the volume is the same as the pressure of the 
+pressure of the volume is the same as the pressure of the
 model for the boundary condition.
 </li>
 <li>
-If a system model does not set the pressure, then the pressure starts 
-at the value set by 
-<code>p(start=Medium.p_default)</code>, 
+If a system model does not set the pressure, then the pressure starts
+at the value set by
+<code>p(start=Medium.p_default)</code>,
 where <code>Medium</code> is the medium model.
 </li>
 </ol>
@@ -263,7 +263,7 @@ Similarly, for the energy balance, the following configurations can be selected:
 where <i>U(t)</i> is the internal energy of the control volume,
 <i>h(t)</i> is the enthalpy carried by the medium and
 <i>Q&#775;(t)</i> is the heat flow rate that is added to the medium through the heat port.
-<i>Unspecified</i> means that no equation is declared for 
+<i>Unspecified</i> means that no equation is declared for
 <i>T(0)</i>. In this situation, there can be two cases:
 </p>
 <ol>
@@ -274,15 +274,15 @@ then <i>T(0)</i> of the volume would be equal to the temperature connected
 to this port.
 </li>
 <li>
-If a system model does not set the temperature, then the temperature starts 
-at the value <code>T(start=Medium.T_default)</code>, 
+If a system model does not set the temperature, then the temperature starts
+at the value <code>T(start=Medium.T_default)</code>,
 where <code>Medium</code> is the medium model
 </li>
 </ol>
 
 <p>
 In most models, the size of volume is configured using the parameter <code>tau</code>.
-This parameter is equal to the time constant that the volume has if the mass flow rate is 
+This parameter is equal to the time constant that the volume has if the mass flow rate is
 at its nominal value, as set by the parameter <code>m_flow_nominal</code>.
 Using the time constant, as opposed to the actual fluid volume, allows in many cases an
 easier parametrization, since the volume is automatically enlarged if the nominal mass
@@ -302,11 +302,11 @@ where
 <h4>Nominal values</h4>
 <p>
 Most components have a parameters for the nominal operating conditions.
-These parameters have names that end in <code>_nominal</code> and 
-they should be set to the values that the component typically 
+These parameters have names that end in <code>_nominal</code> and
+they should be set to the values that the component typically
 have if they are run at full load or design conditions. Depending on the model, these
 parameters are used differently, and the respective model documentation or code
-should be consulted for details. However, the table below shows typical use of 
+should be consulted for details. However, the table below shows typical use of
 parameters in various model to help the user understand how they are used.
 </p>
 <table summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
@@ -319,7 +319,7 @@ parameters in various model to help the user understand how they are used.
   <td>m_flow_nominal<br/>
       dp_nominal</td>
   <td>Flow resistance models</td>
-  <td>These parameter may be used 
+  <td>These parameter may be used
       to define a point on the flow rate versus pressure drop curve. For other
       mass flow rates, the pressure drop is typically adjusted using similarity laws.
       See
@@ -338,12 +338,12 @@ parameters in various model to help the user understand how they are used.
   <td>Some of these models set <code>m_flow_small=1E-4*abs(m_flow_nominal)</code> as the
       default value. Then, <code>m_flow_small</code> is used to regularize, or replace,
       equations when the mass flow rate is smaller than <code>m_flow_small</code>
-      in magnitude. This is needed to improve the numerical properties of the model. The error in the 
+      in magnitude. This is needed to improve the numerical properties of the model. The error in the
       results is for typical applications negligible, because at flow rates below
       <i>0.01%</i> from the design flow rate, most model assumptions are not applicable
       anyways, and the HVAC system is not operated in this region. However, because Modelica
       simulates in the continuous-time domain, such small flow rates can occur, and therefore
-      models are implemented in such a way that they are numerically well-behaved for 
+      models are implemented in such a way that they are numerically well-behaved for
       zero or near-zero flow rates.
   </td>
 </tr>
@@ -356,26 +356,26 @@ parameters in various model to help the user understand how they are used.
       Chillers
   </td>
   <td>
-     Because Modelica simulates in the continuous-time domain, dynamic models are 
-     in general numerically more efficient than steady-state models. However, 
-     dynamic models require product data that are generally not published by  
-     manufacturers. Examples include the volume of fluid that is contained in a  
-     device, and the weight of heat exchangers. In addition, other effects such  
-     as transport delays in pipes and heat exchangers of a chiller are generally  
-     unknown and require detailed geometry that is typically not available  
+     Because Modelica simulates in the continuous-time domain, dynamic models are
+     in general numerically more efficient than steady-state models. However,
+     dynamic models require product data that are generally not published by
+     manufacturers. Examples include the volume of fluid that is contained in a
+     device, and the weight of heat exchangers. In addition, other effects such
+     as transport delays in pipes and heat exchangers of a chiller are generally
+     unknown and require detailed geometry that is typically not available
      during the design stage.
      <br/>
       To circumvent this problem, many models take as a parameter the time constant
-      <code>tau</code> and lump all its thermal mass into a fluid volume. 
-      The time constant <code>tau</code> can be understood as the time constant that one would 
+      <code>tau</code> and lump all its thermal mass into a fluid volume.
+      The time constant <code>tau</code> can be understood as the time constant that one would
       observe if the input to the component has a step change, and the mass flow rate
       of the component is equal to <code>m_flow_nominal</code>.
-      Using these two values and the fluid density <code>rho</code>, 
-      components adjust their fluid volume 
+      Using these two values and the fluid density <code>rho</code>,
+      components adjust their fluid volume
       <code>V=m_flow_nominal tau/rho</code> because having such a volume
       gives the specified time response.
       For most components, engineering experience can be used to estimate a reasonable
-      value for <code>tau</code>, and where generally applicable values can be used, 
+      value for <code>tau</code>, and where generally applicable values can be used,
       components already set a default value for <code>tau</code>.
       See for example
       <a href=\"modelica://Buildings.Fluid.HeatExchangers.WetCoilDiscretized\">
@@ -386,16 +386,16 @@ parameters in various model to help the user understand how they are used.
 
 <h4>Implementation</h4>
 <p>
-The models are implemented using base classes from 
+The models are implemented using base classes from
 <a href=\"modelica://Buildings.Fluid.Interfaces\">
 Buildings.Fluid.Interfaces</a>
-and from 
+and from
 <a href=\"modelica://Modelica.Fluid.Interfaces\">
 Modelica.Fluid.Interfaces</a>.
-This allows models to be fully compatible with 
+This allows models to be fully compatible with
 <a href=\"modelica://Modelica.Fluid\">
 Modelica.Fluid</a>, and it allows the implementation of
-component models that reuse base classes for heat transfer, mass transfer and 
+component models that reuse base classes for heat transfer, mass transfer and
 flow resistance.
 The class inheritance is as follows:
 </p>
@@ -411,7 +411,7 @@ end UsersGuide;
 annotation (
 preferredView="info", Documentation(info="<html>
 This package contains components for fluid flow systems such as
-pumps, valves and sensors. For other fluid flow models, see 
+pumps, valves and sensors. For other fluid flow models, see
 <a href=\"modelica://Modelica.Fluid\">Modelica.Fluid</a>.
 </html>"),
 Icon(graphics={

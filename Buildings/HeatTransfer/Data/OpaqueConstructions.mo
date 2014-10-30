@@ -81,7 +81,7 @@ Changed the annotation of the instance <code>material</code>
 from
 <code>Evaluate=true</code> to <code>Evaluate=false</code>.
 This is required to allow changing the material properties after compilation.
-Note, however, that the number of state variables in 
+Note, however, that the number of state variables in
 <a href=\"modelica://Buildings.HeatTransfer.Data.BaseClasses.Material\">
 Buildings.HeatTransfer.Data.BaseClasses.Material</a>
 are only computed when the model is translated, because

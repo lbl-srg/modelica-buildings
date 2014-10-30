@@ -5,15 +5,15 @@ import java.util.StringTokenizer;
 
 /**
  * This class represents a chiller from type "reformulated ElectricEIR".
- * 
+ *
  * <h3>License agreement</h3>
- * 
+ *
  * The use of this program is subjected to the following <A
  * HREF="../../../../../../../legal.html">license terms</A>.
- * 
+ *
  * @author <A HREF="mailto:TSNouidui@lbl.gov">Thierry Nouidui</A>
  * @version 1.0, October 10, 2010
- * 
+ *
  */
 public class ReformElectricEIR {
 
@@ -44,7 +44,7 @@ public class ReformElectricEIR {
 
     /**
      * This method is used to convert chillers data into a String.
-     * 
+     *
      * @return the converted chillers data as a string.
      */
     public String toMoRecordString() {
@@ -319,7 +319,7 @@ public class ReformElectricEIR {
     /**
      * this method is used to removed token strings from the name of the chiller
      * and to print it in a format that can be used in Modelica.
-     * 
+     *
      * @param name
      *            input string.
      * @return name without token strings.

@@ -37,22 +37,22 @@ equation
     defaultComponentName="heaLos",
     Documentation(info="<html>
       <p>
-        This component computes the heat loss from the solar thermal collector to the 
-        environment. It is designed for use with ratings data collected in accordance 
-        with ASHRAE Standard 93. A negative <code>QLos[i]</code> indicates that heat 
+        This component computes the heat loss from the solar thermal collector to the
+        environment. It is designed for use with ratings data collected in accordance
+        with ASHRAE Standard 93. A negative <code>QLos[i]</code> indicates that heat
         is being lost to the environment.
       </p>
       <p>
-        This model calculates the heat lost from a multiple-segment model using ratings 
-        data based solely on the inlet temperature. As a result, the slope from the 
-        ratings data is converted to a <i>UA</i> value which, for a given number of 
-        segments, yields the same heat loss as the ratings data would at nominal conditions. 
-        The first three equations, which perform calculations at nominal conditions without 
-        a <i>UA</i> value, are based on equations 6.17.1 through 6.17.3 in Duffie and Beckman 
+        This model calculates the heat lost from a multiple-segment model using ratings
+        data based solely on the inlet temperature. As a result, the slope from the
+        ratings data is converted to a <i>UA</i> value which, for a given number of
+        segments, yields the same heat loss as the ratings data would at nominal conditions.
+        The first three equations, which perform calculations at nominal conditions without
+        a <i>UA</i> value, are based on equations 6.17.1 through 6.17.3 in Duffie and Beckman
         (2006). The <i>UA</i> value is identified using the system of equations below:
       </p>
       <p align=\"center\" style=\"font-style:italic;\">
-        Q<sub>Use,nom</sub> = G<sub>nom</sub> A<sub>c</sub> F<sub>R</sub>(&tau;&alpha;) + 
+        Q<sub>Use,nom</sub> = G<sub>nom</sub> A<sub>c</sub> F<sub>R</sub>(&tau;&alpha;) +
           F<sub>R</sub>U<sub>L</sub> A<sub>c</sub> (T<sub>In,nom</sub> - T<sub>Env,nom
           </sub>)<br/>
         T<sub>Fluid,nom</sub>[nSeg]=T<sub>In,nom</sub>+Q<sub>Use,nom</sub>/(m<sub>
@@ -67,46 +67,46 @@ equation
       </p>
       <p>
         where <i>Q<sub>Use,nom</sub></i> is the useful heat gain at nominal conditions,
-        <i>G<sub>nom</sub></i> is the nominal solar irradiance, <i>A<sub>c</sub></i> 
-        is the area of the collector, <i>F<sub>R</sub>(&tau;&alpha;)</i> is the collector 
-        maximum efficiency, <i>F<sub>R</sub> U<sub>L</sub></i> is the collector heat loss 
+        <i>G<sub>nom</sub></i> is the nominal solar irradiance, <i>A<sub>c</sub></i>
+        is the area of the collector, <i>F<sub>R</sub>(&tau;&alpha;)</i> is the collector
+        maximum efficiency, <i>F<sub>R</sub> U<sub>L</sub></i> is the collector heat loss
         coefficient,<i>T<sub>In,nom</sub></i> is the nominal inlet temperature, <i>T<sub>
         Env,nom</sub></i> is the ambient temperature at nominal conditions, <i>T<sub>
-        Fluid,nom</sub>[i]</i> is the temperature of fluid in a given segment of the 
-        collector, <i>m<sub>Flow,nom</sub></i> is the fluid flow at nominal conditions, 
+        Fluid,nom</sub>[i]</i> is the temperature of fluid in a given segment of the
+        collector, <i>m<sub>Flow,nom</sub></i> is the fluid flow at nominal conditions,
         <i>C<sub>p</sub></i> is the specific heat of the heated fluid, <i>Q<sub>
-        Loss,nom</sub></i> is the heat loss identified using the default value <i>UA</i> 
-        is the identified heat loss coefficient for a multiple-segment equivalent solar 
+        Loss,nom</sub></i> is the heat loss identified using the default value <i>UA</i>
+        is the identified heat loss coefficient for a multiple-segment equivalent solar
         collector, <i>nSeg</i> is the number of segments in the simulation, and <i>Q
         <sub>Loss,UA</sub></i> is the heat loss identified using the <i>UA</i> value.
       </p>
       <p>
-        The effective <i>UA</i> value is calculated at the beginning of the simulation 
-        and used as a constant through the rest of the simulation. The actual heat 
+        The effective <i>UA</i> value is calculated at the beginning of the simulation
+        and used as a constant through the rest of the simulation. The actual heat
         loss from the collector is calculated using
       </p>
       <p align=\"center\" style=\"font-style:italic;\">
         -Q<sub>Loss</sub>[i] = UA/nSeg (T<sub>Fluid</sub>[i] - T<sub>Env</sub>)
       </p>
       <p>
-        where <i>Q<sub>Loss</sub>[i]</i> is the heat loss from a given segment, 
-        <i>UA</i> is the heat loss coefficient for a multiple segments model, <i>nSeg</i> 
-        is the number of segments in the simulation, <i>T<sub>Fluid</sub>[i]</i> is the 
+        where <i>Q<sub>Loss</sub>[i]</i> is the heat loss from a given segment,
+        <i>UA</i> is the heat loss coefficient for a multiple segments model, <i>nSeg</i>
+        is the number of segments in the simulation, <i>T<sub>Fluid</sub>[i]</i> is the
         temperature of the fluid in a given segment, and <i>T<sub>Env
         </sub></i> is the temperature of the surrounding air.
       </p>
       <p>
-        This model reduces the heat loss rate to 0 W when the fluid temperature is within 
-        1 degree C of the minimum temperature of the medium model. The calucation is 
-        performed using the 
+        This model reduces the heat loss rate to 0 W when the fluid temperature is within
+        1 degree C of the minimum temperature of the medium model. The calucation is
+        performed using the
         <a href=\"modelica://Buildings.Utilities.Math.Functions.smoothHeaviside\">
-        Buildings.Utilities.Math.Functions.smoothHeaviside</a> function. 
+        Buildings.Utilities.Math.Functions.smoothHeaviside</a> function.
       </p>
     <h4>References</h4>
       <p>
-        J.A. Duffie and W.A. Beckman 2006, Solar Engineering of Thermal Processes (3rd Edition), 
+        J.A. Duffie and W.A. Beckman 2006, Solar Engineering of Thermal Processes (3rd Edition),
         John Wiley &amp; Sons, Inc. <br/>
-        ASHRAE 93-2010 -- Methods of Testing to Determine the Thermal Performance of Solar 
+        ASHRAE 93-2010 -- Methods of Testing to Determine the Thermal Performance of Solar
         Collectors (ANSI approved)
       </p>
     </html>", revisions="<html>
@@ -116,9 +116,5 @@ equation
           First implementation
         </li>
       </ul>
-    </html>"),
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
-            100}}),
-            graphics),
-    Icon(graphics));
+    </html>"));
 end ASHRAEHeatLoss;

@@ -20,8 +20,6 @@ model Case940 "Case 900, but with heating schedule"
       StopTime=3.1536e+07,
       Interval=3600,
       Tolerance=1e-006),
-Diagram(coordinateSystem(
-          preserveAspectRatio=true, extent={{-100,-100},{100,100}})),
     Documentation(revisions="<html>
 <ul>
 <li>

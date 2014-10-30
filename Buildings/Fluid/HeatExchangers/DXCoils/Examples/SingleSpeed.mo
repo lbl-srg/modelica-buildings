@@ -94,18 +94,14 @@ equation
       points={{-79,50},{-46,50},{-46,13},{-11,13}},
       color={0,0,127},
       smooth=Smooth.None));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-100,
-            -100},{100,100}})),
-             __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/DXCoils/Examples/SingleSpeed.mos"
+  annotation (             __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/DXCoils/Examples/SingleSpeed.mos"
         "Simulate and plot"),
     experiment(StopTime=3600),
-    Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,
-            100}})),
             Documentation(info="<html>
 <p>
 This is a test model for
 <a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.SingleSpeed\">
-Buildings.Fluid.HeatExchangers.DXCoils.SingleSpeed</a>. 
+Buildings.Fluid.HeatExchangers.DXCoils.SingleSpeed</a>.
 The model has open-loop control and time-varying input conditions.
 </p>
 </html>",
@@ -113,7 +109,7 @@ revisions="<html>
 <ul>
 <li>
 April 12, 2012 by Kaustubh Phalak:<br/>
-First implementation. 
+First implementation.
 </li>
 </ul>
 </html>"));

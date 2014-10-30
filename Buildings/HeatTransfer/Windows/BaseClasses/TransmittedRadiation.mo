@@ -88,7 +88,7 @@ algorithm
   QTra_flow := QTraUns_flow + QTraSha_flow;
   annotation (
     Documentation(info="<html>
-The model calculates solar radiation through the window. 
+The model calculates solar radiation through the window.
 The calculations follow the description in Wetter (2004), Appendix A.4.3.
 <br/>
 
@@ -134,7 +134,7 @@ Separate transmittance and absorbance models from the window radiation model.
 </li>
 <li>
 December 12, 2010, by Michael Wetter:<br/>
-Replaced record 
+Replaced record
 <a href=\"modelica://Buildings.HeatTransfer.Data.GlazingSystems\">
 Buildings.HeatTransfer.Data.GlazingSystems</a> with the
 parameters used by this model.

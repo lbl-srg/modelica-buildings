@@ -234,7 +234,7 @@ Buildings.Examples.Tutorial.SpaceCooling.System1</a>.
 The space cooling consist of a model for the ambient conditions
 <code>out</code>, a heat recovery <code>hex</code>,
 a cooling coil <code>cooCoi</code> and a fan <code>fan</code>.
-There is also a return duct that connects the room volume 
+There is also a return duct that connects the room volume
 <code>vol</code> with the heat recovery.
 Weather data are obtained from the instance <code>weaDat</code>
 which is connected to the model for the ambient air conditions <code>out</code>
@@ -253,7 +253,7 @@ This section describes the steps that were required to build the model.
 <ol>
 <li>
 <p>
-The first step was to copy the model 
+The first step was to copy the model
 <a href=\"modelica://Buildings.Examples.Tutorial.SpaceCooling.System1\">
 Buildings.Examples.Tutorial.SpaceCooling.System1</a>.
 Note that for larger models, it is recommended to extend models instead
@@ -303,14 +303,14 @@ The calculations are as follows:
 
   /////////////////////////////////////////////////////////
   // Air temperatures at design conditions
-  parameter Modelica.SIunits.Temperature TASup_nominal = 273.15+18 
+  parameter Modelica.SIunits.Temperature TASup_nominal = 273.15+18
     \"Nominal air temperature supplied to room\";
-  parameter Modelica.SIunits.Temperature TRooSet = 273.15+24 
+  parameter Modelica.SIunits.Temperature TRooSet = 273.15+24
     \"Nominal room air temperature\";
-  parameter Modelica.SIunits.Temperature TOut_nominal = 273.15+30 
+  parameter Modelica.SIunits.Temperature TOut_nominal = 273.15+30
     \"Design outlet air temperature\";
   parameter Modelica.SIunits.Temperature THeaRecLvg=
-    TOut_nominal - eps*(TOut_nominal-TRooSet) 
+    TOut_nominal - eps*(TOut_nominal-TRooSet)
     \"Air temperature leaving the heat recovery\";
 
   /////////////////////////////////////////////////////////
@@ -318,25 +318,25 @@ The calculations are as follows:
   parameter Modelica.SIunits.HeatFlowRate QRooInt_flow=
      1000 \"Internal heat gains of the room\";
   parameter Modelica.SIunits.HeatFlowRate QRooC_flow_nominal=
-    -QRooInt_flow-10E3/30*(TOut_nominal-TRooSet) 
+    -QRooInt_flow-10E3/30*(TOut_nominal-TRooSet)
     \"Nominal cooling load of the room\";
   parameter Modelica.SIunits.MassFlowRate mA_flow_nominal=
-    1.3*QRooC_flow_nominal/1006/(TASup_nominal-TRooSet) 
+    1.3*QRooC_flow_nominal/1006/(TASup_nominal-TRooSet)
     \"Nominal air mass flow rate, increased by factor 1.3 to allow for recovery after temperature setback\";
-  parameter Modelica.SIunits.TemperatureDifference dTFan = 2 
+  parameter Modelica.SIunits.TemperatureDifference dTFan = 2
     \"Estimated temperature raise across fan that needs to be made up by the cooling coil\";
   parameter Modelica.SIunits.HeatFlowRate QCoiC_flow_nominal=4*
-    (QRooC_flow_nominal + mA_flow_nominal*(TASup_nominal-THeaRecLvg-dTFan)*1006) 
+    (QRooC_flow_nominal + mA_flow_nominal*(TASup_nominal-THeaRecLvg-dTFan)*1006)
     \"Cooling load of coil, taking into account economizer, and increased due to latent heat removal\";
 
   /////////////////////////////////////////////////////////
   // Water temperatures and mass flow rates
-  parameter Modelica.SIunits.Temperature TWSup_nominal = 273.15+16 
+  parameter Modelica.SIunits.Temperature TWSup_nominal = 273.15+16
     \"Water supply temperature\";
-  parameter Modelica.SIunits.Temperature TWRet_nominal = 273.15+12 
+  parameter Modelica.SIunits.Temperature TWRet_nominal = 273.15+12
     \"Water return temperature\";
   parameter Modelica.SIunits.MassFlowRate mW_flow_nominal=
-    QCoiC_flow_nominal/(TWRet_nominal-TWSup_nominal)/4200 
+    QCoiC_flow_nominal/(TWRet_nominal-TWSup_nominal)/4200
     \"Nominal water mass flow rate\";
 </pre>
 </li>
@@ -352,9 +352,9 @@ The weather data are obtained from the instance
 We also configured the model to use a constant atmospheric pressure,
 as opposed to the pressure from the weather file, as we are not interested
 in modeling the effect of changes in the atmospheric pressure.
-Furthermore, we configured the model to use a constant dry-bulb 
-temperature of <code>TOut_nominal</code>. This helps in testing the 
-model at the design conditions, and can easily be changed later to 
+Furthermore, we configured the model to use a constant dry-bulb
+temperature of <code>TOut_nominal</code>. This helps in testing the
+model at the design conditions, and can easily be changed later to
 use weather data from the file.
 Thus, although we use a model that reads a weather data file, for
 now we want to use constant outside conditions to simplify the testing
@@ -381,8 +381,8 @@ In this model, we also set the medium model to <code>MediumA</code>.
 </li>
 <li>
 <p>
-Next, we set in all new component models the medium model to 
-<code>MediumA</code> if it is part of the air system, or to 
+Next, we set in all new component models the medium model to
+<code>MediumA</code> if it is part of the air system, or to
 <code>MediumW</code> if it is part of the water system.
 From the information section of the cooling coil, we see
 that its parameter <code>Medium1</code> needs to be water,
@@ -411,7 +411,7 @@ of the model.
 </li>
 <li>
 <p>
-To configure the cooling coil model <code>cooCoi</code>, we set the 
+To configure the cooling coil model <code>cooCoi</code>, we set the
 water and air side nominal mass flow rates and pressure drops to
 </p>
 <pre>
@@ -430,7 +430,7 @@ We assign this value using the equation
 <p>
 where <i>Q&#775;</i> is the exchanged heat and
 <i>lmtd</i> is the logarithmic mean temperature difference.
-The computation of the <i>UA</i> is done using the 
+The computation of the <i>UA</i> is done using the
 parameter assignment
 </p>
 <pre>
@@ -469,7 +469,7 @@ For the fan, we set the nominal mass flow rate to <code>mA_flow_nominal</code>
 and also connect its input port to the component <code>mAir_flow</code>,
 which assigns a constant air flow rate.
 We leave the fan efficiency at its default value of <i>0.7</i>.
-We set the parameter 
+We set the parameter
 </p>
 <pre>
   dynamicBalance=false
@@ -497,7 +497,7 @@ and we connected this input connector to the constant block
 <code>mWat_flow</code>.
 To set the water temperature that leaves this component,
 we set the parameter <code>T=TWSup_nominal</code>.
-Alternatively, we could have used the model 
+Alternatively, we could have used the model
 <a href=\"modelica://Buildings.Fluid.Movers.FlowMachine_m_flow\">
 Buildings.Fluid.Movers.FlowMachine_m_flow</a>
 as is used for the fan, but we chose to use the simpler model
@@ -510,7 +510,7 @@ leaving fluid temperature.
 <p>
 To complete the water circuit, we also used the instance <code>sinWat</code>.
 This model is required for the water to flow out of the heat exchanger into
-an infinite reservoir. It is also required to set a reference for the 
+an infinite reservoir. It is also required to set a reference for the
 pressure of the water loop.
 Since in our model, no water flows out of this reservoir, there is no need to set
 its temperature.
@@ -538,7 +538,7 @@ In fact, rather than separately computing the pressure drop of the heat recovery
 pressure drop of the cooling coil, we could have modeled the cooling coil pressure drop as
 <code>dp_nominal = 2*200+200</code> and set for the heat recovery
 <code>dp1_nominal = 0</code> and
-<code>dp2_nominal = 0</code>. Setting the nominal pressure drop to zero will remove this equation 
+<code>dp2_nominal = 0</code>. Setting the nominal pressure drop to zero will remove this equation
 from the model.
 </p>
 </html>", revisions="<html>

@@ -5,15 +5,14 @@ partial model PartialPipeManifold "Partial pipe manifold for a heat exchanger"
         redeclare each package Medium = Medium,
         each m_flow(start=-mStart_flow_a/nPipPar, max=if allowFlowReversal then +Modelica.Constants.inf else 0))
     "Fluid connector b for medium (positive design flow direction is from port_a to port_b)"
-    annotation (Placement(transformation(extent={{110,-10},{90,10}}, rotation=0)));
-annotation(Diagram(graphics),
-                    Documentation(info="<html>
+    annotation (Placement(transformation(extent={{110,-10},{90,10}})));
+annotation(                    Documentation(info="<html>
 <p>
 Partial pipe manifold for a heat exchanger.
 </p>
 <p>
 This model defines the pipe connection to a heat exchanger.
-It is extended by other models that model the flow connection 
+It is extended by other models that model the flow connection
 between the ports with and without flow friction.
 </p>
 </html>",

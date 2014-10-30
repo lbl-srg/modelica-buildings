@@ -113,7 +113,7 @@ model DryCoilDiscretized
     each dp1_nominal=0,
     each dp2_nominal=0,
     each final UA_nominal=UA_nominal/nReg) "Heat exchanger register"
-    annotation (Placement(transformation(extent={{-10,0},{10,20}}, rotation=0)));
+    annotation (Placement(transformation(extent={{-10,0},{10,20}})));
 
   Buildings.Fluid.HeatExchangers.BaseClasses.PipeManifoldFixedResistance
     pipMan_a(
@@ -130,7 +130,7 @@ model DryCoilDiscretized
     final from_dp=from_dp1,
     final allowFlowReversal=allowFlowReversal1) "Pipe manifold at port a"
                                                annotation (Placement(
-        transformation(extent={{-38,18},{-18,38}}, rotation=0)));
+        transformation(extent={{-38,18},{-18,38}})));
 
   Buildings.Fluid.HeatExchangers.BaseClasses.PipeManifoldNoResistance pipMan_b(
     redeclare package Medium = Medium1,
@@ -138,7 +138,7 @@ model DryCoilDiscretized
     final mStart_flow_a=-mStart_flow_a1,
     final allowFlowReversal=allowFlowReversal1) "Pipe manifold at port b"
                                          annotation (Placement(transformation(
-          extent={{52,50},{32,70}}, rotation=0)));
+          extent={{52,50},{32,70}})));
 
   Buildings.Fluid.HeatExchangers.BaseClasses.DuctManifoldNoResistance ducMan_b(
     redeclare package Medium = Medium2,
@@ -146,8 +146,7 @@ model DryCoilDiscretized
     final nPipSeg=nPipSeg,
     final mStart_flow_a=-mStart_flow_a2,
     final allowFlowReversal=allowFlowReversal2) "Duct manifold at port b"
-    annotation (Placement(transformation(extent={{-52,-70},{-32,-50}}, rotation=
-           0)));
+    annotation (Placement(transformation(extent={{-52,-70},{-32,-50}})));
 
   Buildings.Fluid.HeatExchangers.BaseClasses.DuctManifoldFixedResistance
     ducMan_a(
@@ -164,7 +163,7 @@ model DryCoilDiscretized
     final deltaM=deltaM2,
     final from_dp=from_dp2,
     final allowFlowReversal=allowFlowReversal2) "Duct manifold at port a"
-    annotation (Placement(transformation(extent={{40,-26},{20,-6}}, rotation=0)));
+    annotation (Placement(transformation(extent={{40,-26},{20,-6}})));
 
   BaseClasses.HADryCoil hA(
     final UA_nominal=UA_nominal,
@@ -175,8 +174,7 @@ model DryCoilDiscretized
     final airSideTemperatureDependent=airSideTemperatureDependent,
     final airSideFlowDependent=airSideFlowDependent)
     "Model for convective heat transfer coefficient"
-        annotation (Placement(transformation(extent={{-60,80},{-40,100}},
-          rotation=0)));
+        annotation (Placement(transformation(extent={{-60,80},{-40,100}})));
 
 protected
   constant Boolean allowCondensation = false
@@ -199,36 +197,35 @@ protected
       each final mStart_flow_a=mStart_flow_a1,
       each allowFlowReversal=allowFlowReversal1) if
       nReg > 2 "Pipe header to redirect flow into next register"
-      annotation (Placement(transformation(extent={{-60,-2},{-40,18}}, rotation=
-           0)));
+      annotation (Placement(transformation(extent={{-60,-2},{-40,18}})));
   Modelica.Blocks.Math.Gain gai_1(k=1/nReg)
     "Gain medium-side 1 to take discretization into account"
-    annotation (Placement(transformation(extent={{-14,84},{-2,98}}, rotation=0)));
+    annotation (Placement(transformation(extent={{-14,84},{-2,98}})));
   Modelica.Blocks.Math.Gain gai_2(k=1/nReg)
     "Gain medium-side 2 to take discretization into account"
-    annotation (Placement(transformation(extent={{-14,60},{-2,74}}, rotation=0)));
+    annotation (Placement(transformation(extent={{-14,60},{-2,74}})));
 
   Buildings.Fluid.Sensors.TemperatureTwoPort temSen_1(
     redeclare package Medium = Medium1,
     final allowFlowReversal=allowFlowReversal1,
     m_flow_nominal=m1_flow_nominal) "Temperature sensor"
                                       annotation (Placement(transformation(
-          extent={{-58,54},{-48,66}}, rotation=0)));
+          extent={{-58,54},{-48,66}})));
   Buildings.Fluid.Sensors.MassFlowRate masFloSen_1(
     redeclare package Medium = Medium1,
     final allowFlowReversal=allowFlowReversal1) "Mass flow rate sensor"
                                          annotation (Placement(transformation(
-          extent={{-80,54},{-68,66}}, rotation=0)));
+          extent={{-80,54},{-68,66}})));
   Buildings.Fluid.Sensors.TemperatureTwoPort temSen_2(
     redeclare package Medium = Medium2,
     m_flow_nominal=m2_flow_nominal,
     final allowFlowReversal=allowFlowReversal2) "Temperature sensor"
                                       annotation (Placement(transformation(
-          extent={{58,-66},{44,-54}}, rotation=0)));
+          extent={{58,-66},{44,-54}})));
   Buildings.Fluid.Sensors.MassFlowRate masFloSen_2(redeclare package Medium =
         Medium2, final allowFlowReversal=allowFlowReversal2)
     "Mass flow rate sensor"              annotation (Placement(transformation(
-          extent={{82,-66},{70,-54}}, rotation=0)));
+          extent={{82,-66},{70,-54}})));
 initial equation
   assert(UA_nominal>0, "Parameter UA_nominal is negative. Check heat exchanger parameters.");
 equation

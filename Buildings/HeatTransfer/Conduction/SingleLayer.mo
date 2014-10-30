@@ -131,8 +131,7 @@ equation
       end if;
     end if;
 
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
-            -100},{100,100}})), Icon(coordinateSystem(
+  annotation ( Icon(coordinateSystem(
           preserveAspectRatio=false,extent={{-100,-100},{100,100}}), graphics={
         Rectangle(
           extent={{-94,4},{92,-4}},
@@ -188,20 +187,20 @@ is non-zero, then this model computes <i>transient</i> heat conduction, i.e., it
 computes a numerical approximation to the solution of the heat equation
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
-   &rho; c (&part; T(s,t) &frasl; &part;t) = 
+   &rho; c (&part; T(s,t) &frasl; &part;t) =
     k (&part;&sup2; T(s,t) &frasl; &part;s&sup2;),
 </p>
 <p>
-where 
+where
 <i>&rho;</i>
 is the mass density,
 <i>c</i>
 is the specific heat capacity per unit mass,
 <i>T</i>
 is the temperature at location <i>s</i> and time <i>t</i> and
-<i>k</i> is the heat conductivity. 
+<i>k</i> is the heat conductivity.
 At the locations <i>s=0</i> and <i>s=x</i>, where <i>x</i> is the
-material thickness, the temperature and heat flow rate is equal to the 
+material thickness, the temperature and heat flow rate is equal to the
 temperature and heat flow rate of the heat ports.
 </p>
 <h4>Transient heat conduction in phase change materials</h4>
@@ -214,27 +213,27 @@ The record <a href=\"modelica://Buildings.HeatTransfer.Data.SolidsPCM\">
 Buildings.HeatTransfer.Data.SolidsPCM</a>
 declares the solidus temperature <code>TSol</code>,
 the liquidus temperature <code>TLiq</code> and the latent heat of
-phase transformation <code>LHea</code>. 
+phase transformation <code>LHea</code>.
 For heat transfer with phase change, the specific internal energy <i>u</i>
 is the dependent variable, rather than the temperature.
 Therefore, the governing equation is
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
-   &rho; (&part; u(s,t) &frasl; &part;t) = 
+   &rho; (&part; u(s,t) &frasl; &part;t) =
     k (&part;&sup2; T(s,t) &frasl; &part;s&sup2;).
 </p>
 <p>
-The constitutive 
+The constitutive
 relation between specific internal energy <i>u</i> and temperature <i>T</i> is defined in
-<a href=\"modelica://Buildings.HeatTransfer.Conduction.BaseClasses.enthalpyTemperature\"> 
-Buildings.HeatTransfer.Conduction.BaseClasses.enthalyTemperature</a> by using 
+<a href=\"modelica://Buildings.HeatTransfer.Conduction.BaseClasses.enthalpyTemperature\">
+Buildings.HeatTransfer.Conduction.BaseClasses.enthalyTemperature</a> by using
 cubic hermite spline interpolation with linear extrapolation.
 </p>
 <h4>Steady-state heat conduction</h4>
 <p>
 If <code>material.c=0</code>, or if the material extends
 <a href=\"modelica://Buildings.HeatTransfer.Data.Resistances\">
-Buildings.HeatTransfer.Data.Resistances</a>, 
+Buildings.HeatTransfer.Data.Resistances</a>,
 then steady-state heat conduction is computed. In this situation, the heat
 flow between its heat ports is
 </p>
@@ -250,9 +249,9 @@ where
 </p>
 <h4>Spatial discretization</h4>
 <p>
-To spatially discretize the heat equation, the construction is 
-divided into compartments with <code>material.nSta &ge; 1</code> state variables. 
-The state variables are connected to each other through thermal conductors. 
+To spatially discretize the heat equation, the construction is
+divided into compartments with <code>material.nSta &ge; 1</code> state variables.
+The state variables are connected to each other through thermal conductors.
 There is also a thermal conductor
 between the surfaces and the outermost state variables. Thus, to obtain
 the surface temperature, use <code>port_a.T</code> (or <code>port_b.T</code>)

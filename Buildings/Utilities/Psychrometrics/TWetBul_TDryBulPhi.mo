@@ -13,26 +13,23 @@ block TWetBul_TDryBulPhi
     final quantity="ThermodynamicTemperature",
     final unit="K",
     min=0) "Dry bulb temperature"
-    annotation (Placement(transformation(extent={{-120,70},{-100,90}},rotation=
-            0)));
+    annotation (Placement(transformation(extent={{-120,70},{-100,90}})));
 
   Modelica.Blocks.Interfaces.RealInput phi(min=0, max=1)
     "Relative air humidity"
-    annotation (Placement(transformation(extent={{-120,-10},{-100,10}},
-          rotation=0)));
+    annotation (Placement(transformation(extent={{-120,-10},{-100,10}})));
 
   Modelica.Blocks.Interfaces.RealInput p(final quantity="Pressure",
                                          final unit="Pa",
                                          min = 0) "Pressure"
-    annotation (Placement(transformation(extent={{-120,-90},{-100,-70}},
-                          rotation=0)));
+    annotation (Placement(transformation(extent={{-120,-90},{-100,-70}})));
 
   Modelica.Blocks.Interfaces.RealOutput TWetBul(
     start=Medium.T_default-2,
     final quantity="ThermodynamicTemperature",
     final unit="K",
     min=0) "Wet bulb temperature"
-    annotation (Placement(transformation(extent={{100,-10},{120,10}},rotation=0)));
+    annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 
 protected
   Modelica.SIunits.Conversions.NonSIunits.Temperature_degC TDryBul_degC
@@ -72,9 +69,6 @@ equation
   end if;
 
 annotation (
-  Diagram(coordinateSystem(preserveAspectRatio=true,  extent={{-100,-100},{100,
-            100}}),
-          graphics),
     Icon(coordinateSystem(preserveAspectRatio=true,  extent={{-100,-100},{100,
             100}}), graphics={
         Ellipse(
@@ -135,8 +129,8 @@ Otherwise, the model will introduce one nonlinear equation.
 </p>
 <p>
 The approximation by Stull is valid for a relative humidity of <i>5%</i> to <i>99%</i>,
-a temperature range from <i>-20</i>&deg;C to <i>50</i>&deg;C 
-and standard sea level pressure. 
+a temperature range from <i>-20</i>&deg;C to <i>50</i>&deg;C
+and standard sea level pressure.
 For this range of data, the approximation error is <i>-1</i> Kelvin to <i>+0.65</i> Kelvin,
 with a mean error of less than <i>0.3</i> Kelvin.
 </p>
@@ -152,11 +146,10 @@ Stull, Roland.
 Wet-Bulb Temperature from Relative Humidity and Air Temperature
 Roland Stull.</a></i>
 Journal of Applied Meteorology and Climatology.
-Volume 50, Issue 11, pp. 2267-2269. November 2011 
+Volume 50, Issue 11, pp. 2267-2269. November 2011
 DOI: 10.1175/JAMC-D-11-0143.1
 </p>
-</html>
-",
+</html>",
 revisions="<html>
 <ul>
 <li>

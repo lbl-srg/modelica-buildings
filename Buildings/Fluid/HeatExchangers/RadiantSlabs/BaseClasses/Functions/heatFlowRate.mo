@@ -46,8 +46,7 @@ Documentation(info="<html>
 <p>
 fixme
 </p>
-</html>
-",
+</html>",
 revisions="<html>
 <ul>
 <li>

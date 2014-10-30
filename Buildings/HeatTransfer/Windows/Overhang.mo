@@ -49,20 +49,20 @@ equation
       string="%first",
       index=-1,
       extent={{-6,3},{-6,3}}));
-  annotation (Diagram(graphics), Icon(graphics={Bitmap(extent={{-92,92},{92,-92}},
+  annotation ( Icon(graphics={Bitmap(extent={{-92,92},{92,-92}},
             fileName="modelica://Buildings/Resources/Images/HeatTransfer/Windows/BaseClasses/Overhang.png")}),
 defaultComponentName="ove",
 Documentation(info="<html>
 <p>
-For a window with an overhang, this model outputs the fraction of 
+For a window with an overhang, this model outputs the fraction of
 the area that is exposed to the sun.
-The models can also be used for doors with an overhang. 
+The models can also be used for doors with an overhang.
 </p>
 <p>
-The overhang can be asymmetrical (i.e. wR &ne; wL is allowed) 
+The overhang can be asymmetrical (i.e. wR &ne; wL is allowed)
 about the vertical centerline of the window. However, the
 overhang must completely cover the window,
-i.e., <code>wL &ge; 0</code> and <code>wR &ge; 0</code>. 
+i.e., <code>wL &ge; 0</code> and <code>wR &ge; 0</code>.
 <code>wL</code> and <code>wR</code> must be measured from the respective corner
 of the window.
 </p>
@@ -74,7 +74,7 @@ The figure below shows the parameters.
 </p>
 
 <p>
-The surface azimuth <code>azi</code> is as defined in 
+The surface azimuth <code>azi</code> is as defined in
 <a href=\"modelica://Buildings.HeatTransfer.Types.Azimuth\">
 Buildings.HeatTransfer.Types.Azimuth</a>.
 </p>
@@ -83,8 +83,8 @@ Buildings.HeatTransfer.Types.Azimuth</a>.
 <p>
 The model assumes that</p>
 <ul>
-<li> 
-the overhang is at least as wide as the window, i.e., 
+<li>
+the overhang is at least as wide as the window, i.e.,
 <i>w<sub>L</sub> &ge; 0</i> and
 <i>w<sub>R</sub> &ge; 0</i>, and
 </li>
@@ -95,7 +95,7 @@ the overhang is horizontal.
 
 <h4>Implementation</h4>
 <p>
-The implementation is explained in 
+The implementation is explained in
 <a href=\"modelica://Buildings.HeatTransfer.Windows.BaseClasses.Overhang\">
 Buildings.HeatTransfer.Windows.BaseClasses.Overhang</a>.
 </p>
@@ -115,7 +115,7 @@ Revised implementation.
 </li>
 <li>
 Feb 01, 2012, by Kaustubh Phalak<br/>
-First implementation. 
+First implementation.
 </li>
 </ul>
 </html>"));

@@ -218,7 +218,7 @@ quantities are assumed to be constant.
 
   annotation (Documentation(info="<html>
 <p>
-This medium model is almost identical to 
+This medium model is almost identical to
 <a href=\"modelica://Modelica.Media.Interfaces.PartialSimpleMedium\">
 Modelica.Media.Interfaces.PartialSimpleMedium</a>.
 However, it had to be introduced to allow setting the start attribute
@@ -244,10 +244,10 @@ BaseProperties(
 as this leads to a different state selection in the Annex 60 test case
 with shorter computing time.<br/>
 Introduced the attributes
-<code>T(start=T_default)</code> and 
+<code>T(start=T_default)</code> and
 <code>p(start=p_default)</code> in the
 <code>ThermodynamicState</code> record. Setting the start value for
-<code>T</code> is required to avoid an error due to 
+<code>T</code> is required to avoid an error due to
 conflicting start values when translating
 <a href=\"modelica://Buildings.Examples.VAVReheat.ClosedLoop\">
 Buildings.Examples.VAVReheat.ClosedLoop</a> in pedantic mode.
@@ -265,7 +265,7 @@ as this is now handled in the model
 <a href=\"modelica://Buildings.Fluid.MixingVolumes.MixingVolume\">
 Buildings.Fluid.MixingVolumes.MixingVolume</a>. The reason for this change is
 that the assignment is different for steady-state and dynamic balance.
-In the previous implementation, this assignment can cause steady-state models to 
+In the previous implementation, this assignment can cause steady-state models to
 be differentiated in order to obtain <code>T</code> as a state. This resulted
 in some cases in large coupled systems of equations that can be avoided
 if the <code>stateSelect</code> is not set to <code>StateSelect.prefer</code>

@@ -17,32 +17,32 @@ record RadiationData "Radiation data of a window"
       HEM=HEM,
       glass=glass,
       xGla=xGla,
-      psi=psi) "Angular and hemispherical transmissivity, front (outside-facing) and back (room facing) reflectivity 
+      psi=psi) "Angular and hemispherical transmissivity, front (outside-facing) and back (room facing) reflectivity
       of each glass pane";
   final parameter Real traRef[3, N, N, HEM]=
       Buildings.HeatTransfer.Windows.Functions.getGlassTR(
       N=N,
       HEM=HEM,
-      layer=layer) "Angular and hemispherical transmissivity, front (outside-facing) and back (room facing) reflectivity 
+      layer=layer) "Angular and hemispherical transmissivity, front (outside-facing) and back (room facing) reflectivity
       between glass panes for exterior or interior irradiation without shading";
   final parameter Real absExtIrrNoSha[N, HEM]=
       Buildings.HeatTransfer.Windows.Functions.glassAbsExteriorIrradiationNoShading(
       traRef=traRef,
       N=N,
-      HEM=HEM) "Angular and hemispherical absorptivity of each glass pane 
+      HEM=HEM) "Angular and hemispherical absorptivity of each glass pane
       for exterior irradiation without shading";
   final parameter Real absIntIrrNoSha[N]=
       Buildings.HeatTransfer.Windows.Functions.glassAbsInteriorIrradiationNoShading(
       traRef=traRef,
       N=N,
-      HEM=HEM) "Hemispherical absorptivity of each glass pane 
+      HEM=HEM) "Hemispherical absorptivity of each glass pane
       for interior irradiation without shading";
   final parameter Real winTraExtIrrExtSha[HEM]=
       Buildings.HeatTransfer.Windows.Functions.winTExteriorIrradiatrionExteriorShading(
       traRef=traRef,
       traRefShaDev=traRefShaDev,
       N=N,
-      HEM=HEM) "Angular and hemispherical transmissivity of a window system (glass + exterior shading device) 
+      HEM=HEM) "Angular and hemispherical transmissivity of a window system (glass + exterior shading device)
      for exterior irradiation";
   final parameter Real absExtIrrExtSha[N, HEM]=
       Buildings.HeatTransfer.Windows.Functions.glassAbsExteriorIrradiationExteriorShading(
@@ -50,14 +50,14 @@ record RadiationData "Radiation data of a window"
       traRef=traRef,
       traRefShaDev=traRefShaDev,
       N=N,
-      HEM=HEM) "Angular and hemispherical absorptivity of each glass pane 
+      HEM=HEM) "Angular and hemispherical absorptivity of each glass pane
       for exterior irradiation with exterior shading";
   final parameter Real winTraExtIrrIntSha[HEM]=
       Buildings.HeatTransfer.Windows.Functions.winTExteriorIrradiationInteriorShading(
       traRef=traRef,
       traRefShaDev=traRefShaDev,
       N=N,
-      HEM=HEM) "Angular and hemispherical transmissivity of a window system (glass and interior shading device) 
+      HEM=HEM) "Angular and hemispherical transmissivity of a window system (glass and interior shading device)
       for exterior irradiation";
   final parameter Real absExtIrrIntSha[N, HEM]=
       Buildings.HeatTransfer.Windows.Functions.glassAbsExteriorIrradiationInteriorShading(
@@ -72,15 +72,15 @@ record RadiationData "Radiation data of a window"
       traRef=traRef,
       traRefShaDev=traRefShaDev,
       N=N,
-      HEM=HEM) "Angular and hemispherical absorptivity of an interior shading device 
+      HEM=HEM) "Angular and hemispherical absorptivity of an interior shading device
       for exterior irradiation";
   final parameter Real winTraRefIntIrrExtSha[3]=
       Buildings.HeatTransfer.Windows.Functions.winTRInteriorIrradiationExteriorShading(
       traRef=traRef,
       traRefShaDev=traRefShaDev,
       N=N,
-      HEM=HEM) "Hemisperical transmissivity and reflectivity of a window system (glass and exterior shadig device) 
-      for interior irradiation. traRefIntIrrExtSha[1]: transmissivity, 
+      HEM=HEM) "Hemisperical transmissivity and reflectivity of a window system (glass and exterior shadig device)
+      for interior irradiation. traRefIntIrrExtSha[1]: transmissivity,
       traRefIntIrrExtSha[2]: Back reflectivity; traRefIntIrrExtSha[3]: dummy value";
   final parameter Real absIntIrrExtSha[N]=
       Buildings.HeatTransfer.Windows.Functions.glassAbsInteriorIrradiationExteriorShading(
@@ -88,7 +88,7 @@ record RadiationData "Radiation data of a window"
       traRef=traRef,
       traRefShaDev=traRefShaDev,
       N=N,
-      HEM=HEM) "Hemispherical absorptivity of each glass pane 
+      HEM=HEM) "Hemispherical absorptivity of each glass pane
       for interior irradiation with exterior shading";
   final parameter Real absIntIrrIntSha[N]=
       Buildings.HeatTransfer.Windows.Functions.glassAbsInteriorIrradiationInteriorShading(
@@ -96,14 +96,14 @@ record RadiationData "Radiation data of a window"
       traRef=traRef,
       traRefShaDev=traRefShaDev,
       N=N,
-      HEM=HEM) "Hemispherical absorptivity of each glass pane 
+      HEM=HEM) "Hemispherical absorptivity of each glass pane
       for interior irradiation with interior shading";
   final parameter Real winTraRefIntIrrIntSha[3]=
       Buildings.HeatTransfer.Windows.Functions.winTRInteriorIrradiationInteriorShading(
       traRef=traRef,
       traRefShaDev=traRefShaDev,
       N=N,
-      HEM=HEM) "Hemisperical transmissivity and back reflectivity of a window system (glass and interior shadig device) 
+      HEM=HEM) "Hemisperical transmissivity and back reflectivity of a window system (glass and interior shadig device)
       for interior irradiation";
   final parameter Real devAbsIntIrrIntSha=
       Buildings.HeatTransfer.Windows.Functions.devAbsInteriorIrradiationInteriorShading(
@@ -122,7 +122,7 @@ Add glass thickness as a parameter for glassProperty(). It is needed by the calc
 </li>
 <li>
 December 12, 2010, by Michael Wetter:<br/>
-Replaced record 
+Replaced record
 <a href=\"modelica://Buildings.HeatTransfer.Data.GlazingSystems\">
 Buildings.HeatTransfer.Data.GlazingSystems</a> with the
 parameters used by this model.

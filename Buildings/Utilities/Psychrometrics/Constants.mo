@@ -15,7 +15,7 @@ package Constants "Library of constants for psychometric functions"
   annotation (
     Documentation(info="<html>
 <p>
-This package provides constants for functions used 
+This package provides constants for functions used
 in the calculation of thermodynamic properties of moist air.
 </p>
 </html>", revisions="<html>

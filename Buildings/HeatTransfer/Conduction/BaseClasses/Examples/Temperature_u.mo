@@ -114,41 +114,39 @@ equation
   errMonotone    = relativeError(T=TMonotone, TExa=TExa, dTCha=  dTCha);
 
   annotation (
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
-            100,100}})),
 experiment(StopTime=1.0),
 __Dymola_Commands(file=
           "modelica://Buildings/Resources/Scripts/Dymola/HeatTransfer/Conduction/BaseClasses/Examples/Temperature_u.mos"
         "Simulate and plot"),
     Documentation(info="<html>
 <p>
-This example tests and demonstrates the implementation of the specific internal 
-energy versus temperature <i>T(u)</i> relationship for phase-change problems. 
-Cubic hermite interpolation and linear extrapolation is used to approximate 
-the piece-wise linear <i>T(u)</i> relationship. 
+This example tests and demonstrates the implementation of the specific internal
+energy versus temperature <i>T(u)</i> relationship for phase-change problems.
+Cubic hermite interpolation and linear extrapolation is used to approximate
+the piece-wise linear <i>T(u)</i> relationship.
 A piece-wise linear <i>T(u)</i> relationship is assumed in all three chracteristic regions (solid, mushy and liquid).
 The example uses the functions
 <a href=\"modelica://Buildings.HeatTransfer.Conduction.BaseClasses.der_temperature_u\">
-Buildings.HeatTransfer.Conduction.BaseClasses.der_temperature_u</a> 
-and 
+Buildings.HeatTransfer.Conduction.BaseClasses.der_temperature_u</a>
+and
 <a href=\"modelica://Buildings.HeatTransfer.Conduction.BaseClasses.temeprature_u\">
 Buildings.HeatTransfer.Conduction.BaseClasses.temeprature_u</a>.
-The first function is used to compute 
+The first function is used to compute
 the derivatives at the support points,
-and the second function computes the temperature 
-for a given specific internal energy. 
+and the second function computes the temperature
+for a given specific internal energy.
 </p>
 <p>
-The example also demonstrates the use of cubic hermite spline interpolation with 
-two different settings: One produces an approximation of the <i>T(u)</i> relationship that is monotone, 
-whereas the other does not enforce monotonicity. 
-The latter one is used by default in the <code>Buildings</code> library, 
+The example also demonstrates the use of cubic hermite spline interpolation with
+two different settings: One produces an approximation of the <i>T(u)</i> relationship that is monotone,
+whereas the other does not enforce monotonicity.
+The latter one is used by default in the <code>Buildings</code> library,
 since it produces a higher accuracy in the mushy
 region, especially for materials in which phase-change transformation occurs in a wide
-temperature interval (see the figure below). 
-The curves <code>errNonMonotone</code> and 
+temperature interval (see the figure below).
+The curves <code>errNonMonotone</code> and
 <code>errMonotone</code>
-represent the relative error between approximated and exact temperatures 
+represent the relative error between approximated and exact temperatures
 obtained for different specific internal energy values (right hand side figure).
 </p>
 <p align=\"center\"><img alt=\"image\" src=\"modelica://Buildings/Resources/Images/HeatTransfer/Conduction/BaseClasses/Examples/Temperature_u.png\"/>

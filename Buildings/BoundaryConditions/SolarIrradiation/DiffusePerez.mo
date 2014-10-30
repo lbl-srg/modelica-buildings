@@ -161,9 +161,9 @@ equation
     defaultComponentName="HDifTil",
     Documentation(info="<html>
 <p>
-This component computes the hemispherical diffuse irradiation on a tilted surface using an anisotropic 
-sky model proposed by Perez. 
-For a definition of the parameters, see the 
+This component computes the hemispherical diffuse irradiation on a tilted surface using an anisotropic
+sky model proposed by Perez.
+For a definition of the parameters, see the
 <a href=\"modelica://Buildings.BoundaryConditions.UsersGuide\">User's Guide</a>.
 </p>
 <h4>References</h4>
@@ -184,8 +184,7 @@ R. Perez, P. Ineichen, R. Seals, J. Michalsky and R. Stewart (1990).
 Solar Energy, 44(5):271-289.
 </li>
 </ul>
-</html>
-", revisions="<html>
+</html>", revisions="<html>
 <ul>
 <li>
 June 6, 2012, by Wangda Zuo:<br/>
@@ -201,8 +200,6 @@ First implementation.
 </li>
 </ul>
 </html>"),
-    Diagram(coordinateSystem(preserveAspectRatio=true,extent={{-100,-100},{100,
-            100}})),
     Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,
             100}}), graphics={Text(
           extent={{-150,110},{150,150}},

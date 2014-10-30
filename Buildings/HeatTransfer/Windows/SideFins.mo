@@ -32,15 +32,15 @@ equation
       points={{21,0},{40,0},{40,54},{58,54}},
       color={0,0,127},
       smooth=Smooth.None));
-  annotation (Diagram(graphics), Icon(graphics={Bitmap(extent={{-92,92},{92,-92}},
+  annotation ( Icon(graphics={Bitmap(extent={{-92,92},{92,-92}},
             fileName="modelica://Buildings/Resources/Images/HeatTransfer/Windows/BaseClasses/SideFins.png")}),
             defaultComponentName="fin",
             Documentation(info="<html>
 <p>
-For a window with side fins, this model outputs the fraction of 
+For a window with side fins, this model outputs the fraction of
 the area that is exposed to the sun.
 The model calculates the fraction of the window area that is exposed to the sun.
-The side fins are symmetrically placed above the vertical window centerline, 
+The side fins are symmetrically placed above the vertical window centerline,
 and its height must be equal or greater than the window height.
 This models can also be used for doors with side fins.
 The figure below shows the parameters. The parameter <code>h</code> is measured
@@ -61,23 +61,23 @@ The side fin must extend at least to the bottom of the window.
 <img alt=\"image\" src=\"modelica://Buildings/Resources/Images/HeatTransfer/Windows/WindowSideFinsExtendedSideFin.png\" />
 </p>
 <h4>Limitations</h4>
-The model assumes that 
+The model assumes that
 <ul>
 <li>
 the side fins are placed symmetrically to the left and right of the window,
 </li>
-<li> 
+<li>
 the top of the side fins must be at an equal or greater height than the window, and
 </li>
 <li>
-the bottom of the side fins must be at an equal or lower height than the 
+the bottom of the side fins must be at an equal or lower height than the
 bottom of the window.
 </li>
-</ul> 
+</ul>
 
 <h4>Implementation</h4>
 <p>
-The detailed calculation method is explained in 
+The detailed calculation method is explained in
 <a href=\"modelica://Buildings.HeatTransfer.Windows.BaseClasses.SideFins\">
 Buildings.HeatTransfer.Windows.BaseClasses.SideFins</a>.
 </p>
@@ -97,7 +97,7 @@ Revised implementation.
 </li>
 <li>
 Feb 01, 2012, by Kaustubh Phalak<br/>
-First implementation. 
+First implementation.
 </li>
 </ul>
 </html>"));

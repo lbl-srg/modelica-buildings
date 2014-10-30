@@ -61,6 +61,5 @@ equation
   annotation (
 experiment(StartTime=1.82304e+07, StopTime=1.83168e+07),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/BoundaryConditions/SolarIrradiation/Examples/DiffuseIsotropic.mos"
-        "Simulate and plot"),
-    Icon(graphics));
+        "Simulate and plot"));
 end DiffuseIsotropic;

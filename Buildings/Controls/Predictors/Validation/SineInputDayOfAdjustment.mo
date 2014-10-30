@@ -9,7 +9,7 @@ model SineInputDayOfAdjustment
         "Simulate and plot"),
     Documentation(info="<html>
 <p>
-This model is identical to 
+This model is identical to
 <a href=\"modelica://Buildings.Controls.Predictors.Validation.SineInput\">
 Buildings.Controls.Predictors.Validation.SineInput</a>,
 except that the demand respond client is configured to use the day-of adjustment.
@@ -25,7 +25,5 @@ March 20, 2014 by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
-</html>"),
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
-            100}}),     graphics));
+</html>"));
 end SineInputDayOfAdjustment;

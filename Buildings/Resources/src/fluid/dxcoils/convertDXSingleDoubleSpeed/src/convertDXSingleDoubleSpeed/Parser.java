@@ -9,22 +9,22 @@ import java.util.*;
 /**
  * This class is the parser used to get and store dx single speed cooling coils
  * data from an input file.
- * 
+ *
  * <h3>License agreement</h3>
- * 
+ *
  * The use of this program is subjected to the following <A
  * HREF="../../../../../../../legal.html">license terms</A>.
- * 
+ *
  * @author <A HREF="mailto:TSNouidui@lbl.gov">Thierry Nouidui</A>
  * @version 1.0, October 05, 2012
- * 
+ *
  */
 public class Parser {
 
     /**
      * This is the main routine that finds and stores the DXSingleSpeeds in
      * arrays.
-     * 
+     *
      * @param fileName
      *            the EnergyPlus idf file name.
      * @return DXSingleSpeed.
@@ -52,7 +52,7 @@ public class Parser {
             // read each lines of the file
             line = reader.readLine();
             String valueBlock = "";
-            // skip the first 20 lines of the IDF 
+            // skip the first 20 lines of the IDF
             for (int i = 0; i < 21; i++) {
                 line = reader.readLine();
             }
@@ -62,10 +62,10 @@ public class Parser {
             }
             result.setGloHeaderStr(valueBlock);
            // System.out.println(valueBlock);
-            
+
             while ((line = reader.readLine()) != null) {
                 line = line.trim();
-                
+
              // all 14 lines including the comments will be concatenated in this
                 // variable
 
@@ -101,7 +101,7 @@ public class Parser {
 
     /**
      * This methods reads the current DXSingleSpeed.
-     * 
+     *
      * @param line
      *            current line in the input file.
      * @param reader
@@ -173,10 +173,10 @@ public class Parser {
         }
         return dxSingleSpeed;
     }
-    
+
     /**
      * This methods reads the current DXSingleSpeed.
-     * 
+     *
      * @param line
      *            current line in the input file.
      * @param reader
@@ -222,11 +222,11 @@ public class Parser {
         return dxCoilPerformance;
     }
 
-    
+
 
     /**
      * This methods reads the current DXDoubleSpeed.
-     * 
+     *
      * @param line
      *            current line in the input file.
      * @param reader
@@ -285,10 +285,10 @@ public class Parser {
         }
 
         dxDoubleSpeed.setFoundDXCoilPerformances(tmpDXCoilPerformances);
-        
+
         index = 1;
         int numberOfExpectedCurves = 9;
-        
+
         // get and add the functions that will be found.
         while (index <= numberOfExpectedCurves) {
             line = reader.readLine();
@@ -320,7 +320,7 @@ public class Parser {
 
     /**
      * This methods reads the current quadratic curve.
-     * 
+     *
      * @param curve
      *            current quadratic curve.
      * @param reader
@@ -358,7 +358,7 @@ public class Parser {
 
     /**
      * This routine calls a method to set the parameters of the quadratic curve.
-     * 
+     *
      * @param curve
      *            current quadratic curve.
      * @param curveParameters
@@ -375,7 +375,7 @@ public class Parser {
 
     /**
      * This methods gets and sets the parameters of the quadratic curve.
-     * 
+     *
      * @param index
      *            the current index.
      * @param parameter
@@ -415,7 +415,7 @@ public class Parser {
 
     /**
      * This methods reads the current biquadratic curve.
-     * 
+     *
      * @param curve
      *            current biquadratic curve.
      * @param reader
@@ -455,7 +455,7 @@ public class Parser {
     /**
      * This routine calls a method to set the parameters of the biquadratic
      * curve.
-     * 
+     *
      * @param curve
      *            current biquadratic curve.
      * @param curveParameters
@@ -472,7 +472,7 @@ public class Parser {
 
     /**
      * This methods gets and sets the parameters of the biquadratic curve.
-     * 
+     *
      * @param index
      *            current index.
      * @param parameter
@@ -524,7 +524,7 @@ public class Parser {
     }
     /**
      * This routine calls a method to set the parameters of the DXCoilPerformance.
-     * 
+     *
      * @param dxCoilPerformance
      *            an object of type DXCoilPerformance.
      * @param dxSingleSpeedParameters
@@ -540,10 +540,10 @@ public class Parser {
         }
 
     }
-    
+
     /**
      * This routine calls a method to set the parameters of the DXSingleSpeed.
-     * 
+     *
      * @param dxSingleSpeed
      *            an object of type DXSingleSpeed.
      * @param dxSingleSpeedParameters
@@ -562,7 +562,7 @@ public class Parser {
 
     /**
      * This routine calls a method to set the parameters of the DXDoubleSpeed.
-     * 
+     *
      * @param dxDoubleSpeed
      *            an object of type DXDoubleSpeed.
      * @param dxDoubleSpeedParameters
@@ -581,7 +581,7 @@ public class Parser {
 
     /**
      * This methods sets the parameters of the DXSingleSpeed.
-     * 
+     *
      * @param index
      *            current index.
      * @param parameter
@@ -642,7 +642,7 @@ public class Parser {
 
     /**
      * This methods sets the parameters of the DXCoilPerformance.
-     * 
+     *
      * @param index
      *            current index.
      * @param parameter
@@ -691,10 +691,10 @@ public class Parser {
             break;
         }
     }
-    
+
     /**
      * This methods sets the parameters of the DXDoubleSpeed.
-     * 
+     *
      * @param index
      *            current index.
      * @param parameter

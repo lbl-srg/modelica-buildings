@@ -8,8 +8,7 @@ model ZonalFlow_ACS "Zonal flow with input air change per second"
 
   Modelica.Blocks.Interfaces.RealInput ACS
     "Air change per seconds, relative to the smaller of the two volumes"
-    annotation (Placement(transformation(extent={{-120,90},{-100,110}},rotation=
-           0)));
+    annotation (Placement(transformation(extent={{-120,90},{-100,110}})));
 protected
   Modelica.SIunits.VolumeFlowRate V_flow
     "Volume flow rate at standard pressure";
@@ -88,6 +87,5 @@ January 4, 2006 by Michael Wetter:<br/>
 Implemented first version.
 </li>
 </ul>
-</html>"),
-    Diagram(graphics));
+</html>"));
 end ZonalFlow_ACS;

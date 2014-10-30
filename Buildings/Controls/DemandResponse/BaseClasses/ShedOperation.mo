@@ -21,9 +21,7 @@ equation
             -100},{100,100}}), graphics={Text(
           extent={{-70,64},{74,-54}},
           lineColor={0,0,255},
-          textString="SH")}), Diagram(coordinateSystem(preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}}), graphics),
-    Documentation(info="<html>
+          textString="SH")}),    Documentation(info="<html>
 <p>
 fixme: this is only a place holder.
 </p>

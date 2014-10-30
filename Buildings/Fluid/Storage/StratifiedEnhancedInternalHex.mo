@@ -219,15 +219,13 @@ equation
           pattern=LinePattern.None,
           fillColor={255,85,85},
           fillPattern=FillPattern.Solid)}),
-              Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}}), graphics),
 defaultComponentName = "tan",
 Documentation(info = "<html>
 <p>
 This is a model of a stratified storage tank for thermal energy storage with built-in heat exchanger.
 </p>
 <p>
-See the 
+See the
 <a href=\"modelica://Buildings.Fluid.Storage.UsersGuide\">
 Buildings.Fluid.Storage.UsersGuide</a>
 for more information.
@@ -242,7 +240,7 @@ revisions = "<html>
 <li>
 September 2, 2014 by Michael Wetter:<br/>
 Replaced the <code>abs()</code> function in the assignment of the parameter
-<code>nSegHexTan</code> as the return value of <code>abs()</code> 
+<code>nSegHexTan</code> as the return value of <code>abs()</code>
 is a <code>Real</code> which causes a type error during model check.
 </li>
 <li>
@@ -250,7 +248,7 @@ August 29, 2014 by Michael Wetter:<br/>
 Corrected issue <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/271\">#271</a>
 which led to a compilation error if the heat exchanger and the tank
 had different media.
-</li> 
+</li>
 <li>
 April 18, 2014 by Michael Wetter:<br/>
 Added missing ceiling function in computation of <code>botHexSeg</code>.
@@ -258,8 +256,8 @@ Without this function, this parameter can take on zero, which is wrong
 because the Modelica uses one-based arrays.
 
 Revised the model as the old version required the port<sub>a</sub>
-of the heat exchanger to be located higher than port<sub>b</sub>. 
-This makes sense if the heat exchanger is used to heat up the tank, 
+of the heat exchanger to be located higher than port<sub>b</sub>.
+This makes sense if the heat exchanger is used to heat up the tank,
 but not if it is used to cool down a tank, such as in a cooling plant.
 The following parameters were changed:
 <ol>
@@ -275,7 +273,7 @@ The names of the following ports have been changed:
 <li>Changed <code>port_a1</code> to <code>portHex_a</code>.</li>
 <li>Changed <code>port_b1</code> to <code>portHex_b</code>.</li>
 </ol>
-The conversion script should update old instances of 
+The conversion script should update old instances of
 this model automatically in Dymola for all of the above changes.
 </li>
 <li>

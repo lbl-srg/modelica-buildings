@@ -8,7 +8,7 @@ algorithm
   y :=fill(u, nout);
 
   annotation (Documentation(info="<html>
-<p>This function replicates the integer input signal to an array of 
+<p>This function replicates the integer input signal to an array of
 <code>nout</code> identical output signals. </p>
 </html>", revisions="<html>
 <p>

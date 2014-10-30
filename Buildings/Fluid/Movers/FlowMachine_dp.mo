@@ -98,7 +98,7 @@ equation
   Documentation(info="<html>
 <p>
 This model describes a fan or pump with prescribed head.
-The input connector provides the difference between 
+The input connector provides the difference between
 outlet minus inlet pressure.
 The efficiency of the device is computed based
 on the efficiency curves that take as an argument
@@ -113,7 +113,7 @@ of the value of <code>dp_nominal</code>. It is recommended to set
 full speed.
 </p>
 <p>
-See the 
+See the
 <a href=\"modelica://Buildings.Fluid.Movers.UsersGuide\">
 User's Guide</a> for more information.
 </p>
@@ -153,6 +153,5 @@ Revised implementation to allow zero flow rate.
           smooth=Smooth.None),
         Text(extent={{64,68},{114,54}},
           lineColor={0,0,127},
-          textString="dp")}),
-    Diagram(graphics));
+          textString="dp")}));
 end FlowMachine_dp;

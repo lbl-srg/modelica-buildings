@@ -28,7 +28,7 @@ model FlatPlateWithTank
     computeWetBulbTemperature=false) "Weather data file reader"
     annotation (Placement(transformation(extent={{-30,80},{-10,100}})));
   inner Modelica.Fluid.System system(p_ambient=101325) annotation (Placement(
-        transformation(extent={{70,68},{90,88}}, rotation=0)));
+        transformation(extent={{70,68},{90,88}})));
   Buildings.Fluid.Sensors.TemperatureTwoPort TOut(
     T_start(displayUnit="K"),
     m_flow_nominal=solCol.m_flow_nominal,
@@ -60,7 +60,6 @@ model FlatPlateWithTank
     "Storage tank model"
     annotation (Placement(transformation(
       extent={{-15,-15},{15,15}},
-      rotation=0,
       origin={27,-33})));
   Buildings.Fluid.SolarCollectors.Controls.SolarPumpController
     pumCon(per=Buildings.Fluid.SolarCollectors.Data.GlazedFlatPlate.FP_ThermaLiteHS20())
@@ -91,7 +90,6 @@ model FlatPlateWithTank
     T=288.15) "Inlet and flow rate for hot water draw"
     annotation (Placement(transformation(
       extent={{10,-10},{-10,10}},
-      rotation=0,
       origin={70,-32})));
   Buildings.Fluid.Movers.FlowMachine_m_flow pum(redeclare package Medium =
     Medium_2, m_flow_nominal=0.1,
@@ -105,7 +103,6 @@ model FlatPlateWithTank
     redeclare package Medium = Medium_2, V_start=0.1) "Expansion tank"
     annotation (Placement(transformation(
       extent={{-10,-10},{10,10}},
-      rotation=0,
       origin={-66,-36})));
   Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor TTan
     "Temperature in the tank water that surrounds the heat exchanger"
@@ -177,58 +174,56 @@ equation
       points={{-20,10},{-44,10},{-44,68},{-84,68},{-84,62}},
       color={0,0,127},
       smooth=Smooth.None));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}}), graphics),
-                      __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/SolarCollectors/Examples/FlatPlateWithTank.mos"
+  annotation (                      __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/SolarCollectors/Examples/FlatPlateWithTank.mos"
         "Simulate and Plot"),
         experiment(StopTime=86400.0),
         Documentation(info="<html>
           <p>
             This example shows how several different models can be combined to create
-            an entire solar water heating system. The 
+            an entire solar water heating system. The
             <a href=\"modelica://Buildings.Fluid.Storage.StratifiedEnhancedInternalHex\">
-            Buildings.Fluid.Storage.StratifiedEnhancedInternalHex</a> (tan) model is 
+            Buildings.Fluid.Storage.StratifiedEnhancedInternalHex</a> (tan) model is
             used to represent the tank filled with hot water. A loop, powered by a pump
             (<a href=\"modelica://Buildings.Fluid.Movers.FlowMachine_m_flow\">
-            Buildings.Fluid.Movers.FlowMachine_m_flow</a>, pum), passes the water 
+            Buildings.Fluid.Movers.FlowMachine_m_flow</a>, pum), passes the water
             through an expansion tank
-            (<a href=\"modelica://Buildings.Fluid.Storage.ExpansionVessel\"> 
+            (<a href=\"modelica://Buildings.Fluid.Storage.ExpansionVessel\">
             Buildings.Fluid.Storage.ExpansionVessel</a>, exp), a temperature sensor
-            (<a href=\"modelica://Buildings.Fluid.Sensors.TemperatureTwoPort\"> 
+            (<a href=\"modelica://Buildings.Fluid.Sensors.TemperatureTwoPort\">
             Buildings.Fluid.Sensors.TemperatureTwoPort</a>, TIn), the solar collector
-            (<a href=\"modelica://Buildings.Fluid.SolarCollectors.ASHRAE93\"> 
-            Buildings.Fluid.SolarCollectors.ASHRAE93,</a> solCol) and a second temperature 
-            sensor 
-            (<a href=\"modelica://Buildings.Fluid.Sensors.TemperatureTwoPort\"> 
-            Buildings.Fluid.Sensors.TemperatureTwoPort</a>, TOut) before re-entering the 
+            (<a href=\"modelica://Buildings.Fluid.SolarCollectors.ASHRAE93\">
+            Buildings.Fluid.SolarCollectors.ASHRAE93,</a> solCol) and a second temperature
+            sensor
+            (<a href=\"modelica://Buildings.Fluid.Sensors.TemperatureTwoPort\">
+            Buildings.Fluid.Sensors.TemperatureTwoPort</a>, TOut) before re-entering the
             tank.
           </p>
           <p>
-            The solar collector is connected to the weather model 
-            (<a href=\"modelica://Buildings.BoundaryConditions.WeatherData.ReaderTMY3\"> 
-            Buildings.BoundaryConditions.WeatherData.ReaderTMY3</a>, weaDat) which passes 
-            information for the San Francisco, CA, USA climate. This information is used to 
-            identify both the heat gain in the water from the sun and the heat loss to the 
+            The solar collector is connected to the weather model
+            (<a href=\"modelica://Buildings.BoundaryConditions.WeatherData.ReaderTMY3\">
+            Buildings.BoundaryConditions.WeatherData.ReaderTMY3</a>, weaDat) which passes
+            information for the San Francisco, CA, USA climate. This information is used to
+            identify both the heat gain in the water from the sun and the heat loss to the
             ambient conditions.
           </p>
           <p>
-            The flow rate through the pump is controlled by a solar pump controller model 
-            (<a href=\"modelica://Buildings.Fluid.SolarCollectors.Controls.SolarPumpController\"> 
+            The flow rate through the pump is controlled by a solar pump controller model
+            (<a href=\"modelica://Buildings.Fluid.SolarCollectors.Controls.SolarPumpController\">
             Buildings.Fluid.SolarCollectors.Controls.SolarPumpController</a>, pumCon) and a
-            gain model. The controller outputs a binary on (1) / off (0) signal. The on/off 
-            signal is passed through the gain model, multiplying by 0.04, to represent a 
+            gain model. The controller outputs a binary on (1) / off (0) signal. The on/off
+            signal is passed through the gain model, multiplying by 0.04, to represent a
             flow rate of 0.04 kg/s when the pump is active.
           </p>
           <p>
-            The heat ports for the tank are connected to an ambient temperature of 20 
+            The heat ports for the tank are connected to an ambient temperature of 20
             degrees C representing the temperature of the room the tank is stored in.
           </p>
           <p>
             bou1 (<a href=\"modelica://Buildings.Fluid.Sources.MassFlowSource_T\">
-            Buildings.Fluid.Sources.MassFlowSource_T)</a> provides a constant mass flow 
-            rate for a hot water draw while bou 
+            Buildings.Fluid.Sources.MassFlowSource_T)</a> provides a constant mass flow
+            rate for a hot water draw while bou
             (<a href=\"modelica://Buildings.Fluid.Sources.Boundary_pT\">
-            Buildings.Fluid.Sources.Boundary_pT)</a> provides a boundary 
+            Buildings.Fluid.Sources.Boundary_pT)</a> provides a boundary
             condition for the outlet of the draw.
           </p>
       </html>",
@@ -237,7 +232,7 @@ equation
           <li>
             April 18, 2014, by Michael Wetter:<br/>
             Updated model to use the revised tank and increased the tank height.
-          </li>      
+          </li>
           <li>
             March 25, 2014, by Michael Wetter:<br/>
             Updated model with new expansion vessel.

@@ -5,15 +5,10 @@ model Pressure "Ideal pressure sensor"
   Modelica.Blocks.Interfaces.RealOutput p(final quantity="Pressure",
                                           final unit="Pa",
                                           min=0) "Pressure at port"
-    annotation (Placement(transformation(extent={{100,-10},{120,10}},
-          rotation=0)));
+    annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 equation
   p = port.p;
   annotation (defaultComponentName="senPre",
-  Diagram(coordinateSystem(
-        preserveAspectRatio=false,
-        extent={{-100,-100},{100,100}},
-        grid={1,1})),
   Icon(coordinateSystem(
         preserveAspectRatio=false,
         extent={{-100,-100},{100,100}},
@@ -30,7 +25,7 @@ equation
           textString="p")}),
     Documentation(info="<html>
 <p>
-This model outputs the absolute pressure of the fluid connected to its port. 
+This model outputs the absolute pressure of the fluid connected to its port.
 The sensor is ideal, i.e., it does not influence the fluid.
 </p>
 </html>",

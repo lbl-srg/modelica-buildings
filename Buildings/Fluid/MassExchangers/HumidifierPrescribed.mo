@@ -18,11 +18,10 @@ model HumidifierPrescribed
 
   Modelica.Blocks.Interfaces.RealInput T_in if use_T_in
     "Temperature of water added to the fluid stream"
-    annotation (Placement(transformation(extent={{-140,-80},{-100,-40}},
-          rotation=0)));
+    annotation (Placement(transformation(extent={{-140,-80},{-100,-40}})));
   Modelica.Blocks.Interfaces.RealInput u "Control input"
     annotation (Placement(transformation(
-          extent={{-140,40},{-100,80}}, rotation=0)));
+          extent={{-140,40},{-100,80}})));
 protected
   Modelica.Blocks.Interfaces.RealInput T_in_internal
     "Needed to connect to conditional connector";
@@ -110,12 +109,12 @@ If <i>m&#775;<sub>wat</sub></i> is positive, then moisture is added
 to the air stream, otherwise it is removed.
 </p>
 <p>If the connector <code>T_in</code> is left unconnected, the value
-set by the parameter <code>T</code> is used for the temperature of the water that is 
+set by the parameter <code>T</code> is used for the temperature of the water that is
 added to the air stream.
 </p>
 <p>
 This model can only be used with medium models that define the integer constant
-<code>Water</code> which needs to be equal to the index of the water mass fraction 
+<code>Water</code> which needs to be equal to the index of the water mass fraction
 in the species vector.
 </p>
 </html>",
@@ -132,7 +131,7 @@ which led to twice the amount of latent heat being added to the fluid stream.
 </li>
 <li>
 October 14, 2013 by Michael Wetter:<br/>
-Constrained medium to be a subclass of 
+Constrained medium to be a subclass of
 <code>Modelica.Media.Interfaces.PartialCondensingGases</code>,
 as this base class declares the function
 <code>enthalpyOfCondensingGas</code>.
@@ -155,6 +154,5 @@ April 17, 2008, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
-</html>"),
-    Diagram(graphics));
+</html>"));
 end HumidifierPrescribed;

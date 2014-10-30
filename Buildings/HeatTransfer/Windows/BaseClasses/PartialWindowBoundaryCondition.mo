@@ -27,14 +27,14 @@ partial model PartialWindowBoundaryCondition
 
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a air
     "Port that connects to the air (room or outside)"        annotation (Placement(transformation(extent={{-110,-10},
-            {-90,10}}, rotation=0)));
+            {-90,10}})));
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_b glaUns
     "Heat port that connects to unshaded part of glass"
-      annotation (Placement(transformation(extent={{90,10},{110,30}},  rotation=0)));
+      annotation (Placement(transformation(extent={{90,10},{110,30}})));
 
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_b glaSha if haveShade
     "Heat port that connects to shaded part of glass"
-    annotation (Placement(transformation(extent={{90,-30},{110,-10}},      rotation=0)));
+    annotation (Placement(transformation(extent={{90,-30},{110,-10}})));
 
   Modelica.Thermal.HeatTransfer.Components.Convection conWinUns
     "Convection from unshaded part of window to outside or room air"
@@ -42,7 +42,7 @@ partial model PartialWindowBoundaryCondition
 
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a frame
     "Heat port at window frame"  annotation (Placement(transformation(extent={{60,-110},
-            {80,-90}}, rotation=0)));
+            {80,-90}})));
   Modelica.Thermal.HeatTransfer.Components.Convection conFra
     "Convective heat transfer between air and frame"
     annotation (Placement(transformation(extent={{50,-98},{30,-78}})));
@@ -186,7 +186,7 @@ equation
     Documentation(info="<html>
 <p>
 Partial model for boundary conditions for convection and radiation for a window surface with or without shade,
-that is outside or inside the room. 
+that is outside or inside the room.
 </p>
 <p>
 This allows using the model as a base class for windows with inside shade, outside shade, or no shade.
@@ -198,7 +198,5 @@ August 25 2010, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
-</html>"),
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
-            100}}), graphics));
+</html>"));
 end PartialWindowBoundaryCondition;

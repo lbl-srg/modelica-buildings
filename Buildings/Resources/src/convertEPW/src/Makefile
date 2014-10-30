@@ -23,7 +23,7 @@ JARS = ConvertWeatherData.jar
 #######################################################
 all: clean doc
 	$(JC) $(SRCS)
-	$(JJ) $(JFLAGS) $(JARS) Manifest.txt $(OBJS) $(SRCS) 
+	$(JJ) $(JFLAGS) $(JARS) Manifest.txt $(OBJS) $(SRCS)
 	$(JJ) -i $(JARS)
 	rm $(OBJS)
 	mv $(JARS) $(BINDIR)
@@ -33,12 +33,12 @@ doc:	cleandoc
 	javadoc -d $(HTMLDIR) $(SRCS)
 	@echo "==== Documents created"
 
-cleandoc: 
+cleandoc:
 	rm -rf $(HTMLDIR)/*.html $(HTMLDIR)/package-list
 	@echo "==== Clean of document directory finished"
 
 clean: cleandoc
-	rm -f $(PROG) 
-	rm -f $(BINDIR)/$(PROG) 
+	rm -f $(PROG)
+	rm -f $(BINDIR)/$(PROG)
 	@echo "==== Clean of directory finished"
 

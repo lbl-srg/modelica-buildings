@@ -179,9 +179,7 @@ equation
       points={{10,-21},{10,-84},{8.88178e-16,-84},{8.88178e-16,-120}},
       color={0,0,127},
       smooth=Smooth.None));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}}),
-                      graphics), Icon(graphics={
+  annotation ( Icon(graphics={
         Text(
           extent={{-94,48},{-52,32}},
           lineColor={0,0,127},
@@ -207,7 +205,7 @@ defaultComponentName="extHeaTra",
 <p>
 Model for the convective heat transfer between a window shade, a window surface
 and the room air.
-This model is applicable for the outside-facing surface of a window system and 
+This model is applicable for the outside-facing surface of a window system and
 can be used with the model
 <a href=\"modelica://Buildings.HeatTransfer.Windows.Window\">
 Buildings.HeatTransfer.Windows.Window</a>.
@@ -223,7 +221,7 @@ Changed model to use new implementation of
 <a href=\"modelica://Buildings.HeatTransfer.Radiosity.OutdoorRadiosity\">
 Buildings.HeatTransfer.Radiosity.OutdoorRadiosity</a>.
 This change leads to the use of the same equations for the radiative
-heat transfer between window and ambient as is used for 
+heat transfer between window and ambient as is used for
 the opaque constructions.
 </li>
 <li>

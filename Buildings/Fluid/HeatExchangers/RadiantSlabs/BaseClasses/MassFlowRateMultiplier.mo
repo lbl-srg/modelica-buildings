@@ -32,7 +32,7 @@ This model multiplies the mass flow rate so that
 The specific enthalpy, the species concentration and the trace substance concentration
 remains unchanged.
 Therefore, this model does not conserve mass or energy.
-It is used in 
+It is used in
 <a href=\"modelica://Buildings.Fluid.HeatExchangers.RadiantSlabs.ParallelCircuitsSlab\">
 Buildings.Fluid.HeatExchangers.RadiantSlabs.ParallelCircuitsSlab</a>
 to avoid having to instanciate multiple slab models in parallel, with each

@@ -19,7 +19,7 @@ defaultComponentName="staRes",
 Documentation(info=
 "<html>
 <p>
-For free-floating temperature cases, 
+For free-floating temperature cases,
 this record is used to compare the simulated results with
 the results published in the ASHRAE/ANSI Standard 140.
 </p>

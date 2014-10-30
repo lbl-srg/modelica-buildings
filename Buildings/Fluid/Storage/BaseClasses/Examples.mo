@@ -59,9 +59,7 @@ package Examples "Examples for BaseClasses models"
         points={{20,8},{-7.89333,8}},
         color={191,0,0},
         smooth=Smooth.None));
-    annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-              -100},{100,100}}), graphics),
-                                  __Dymola_Commands(file=
+    annotation (                                  __Dymola_Commands(file=
             "modelica://Buildings/Resources/Scripts/Dymola/Fluid/Storage/BaseClasses/Examples/IndirectTankHeatExchanger.mos"
           "Simulate and Plot"),
           experiment(StopTime=15.0),
@@ -70,12 +68,11 @@ package Examples "Examples for BaseClasses models"
         This model provides an example of how the <a href=\"modelica://Buildings.Fluid.Storage.BaseClasses.IndirectTankHeatExchanger\"> Buildings.Fluid.Storage.BaseClasses.IndirectTankHeatExchanger</a> model is used. In the model water flows from a flow source through the heat exchanger to a low
          pressure environment. The stagnant fluid on the outside of the heat exchanger is modeled as a constant temperature.<br/>
          </p>
-         </html>
-        ",revisions="<html>
+         </html>",revisions="<html>
         <ul>
         <li>
         Mar 27, 2013 by Peter Grant:<br/>
-        First implementation        
+        First implementation
         </li>
         </ul>
         </html>"));

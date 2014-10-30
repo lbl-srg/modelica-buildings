@@ -18,8 +18,7 @@ model MoistAirInterface
     "Difference between total and sensible enthalpy flow rate"
     annotation (Placement(transformation(extent={{70,50},{90,70}})));
   Modelica.Blocks.Interfaces.RealInput phi "Medium relative humidity"
-    annotation (Placement(transformation(extent={{-140,-80},{-100,-40}},
-          rotation=0)));
+    annotation (Placement(transformation(extent={{-140,-80},{-100,-40}})));
   Buildings.Utilities.Psychrometrics.X_pTphi masFra(use_p_in=false)
     "Mass fraction"
     annotation (Placement(transformation(extent={{-60,-64},{-40,-44}})));
@@ -68,7 +67,7 @@ equation
       points={{-39,-54},{-20,-54},{-20,-30},{-72,-30},{-72,-4},{-62,-4}},
       color={0,0,127},
       smooth=Smooth.None));
-  annotation (Diagram(graphics), Icon(coordinateSystem(preserveAspectRatio=false,
+  annotation ( Icon(coordinateSystem(preserveAspectRatio=false,
                    extent={{-100,-100},{100,100}}), graphics={Text(
           extent={{32,104},{102,78}},
           lineColor={0,0,0},
@@ -82,7 +81,7 @@ equation
           textString="HLat")}),
 defaultComponentName="airInt",
 Documentation(info="<html>
-This model allows interfacing to the 
+This model allows interfacing to the
 <a href=\"http://simulationresearch.lbl.gov/bcvtb\">Building Controls Virtual Test Bed</a>
 an air-conditioning system
 that uses a medium model with water vapor concentration.
@@ -90,7 +89,7 @@ that uses a medium model with water vapor concentration.
 <p>
 The model takes as input signals the temperature and water vapor
 concentration and, optionally, a bulk mass flow rate into or
-out of the system boundary. The state of the fluid 
+out of the system boundary. The state of the fluid
 that flows out of this model will be at this temperature and
 water vapor concentration. The output of this model are the sensible and
 latent heat exchanged across the system boundary.
@@ -101,7 +100,7 @@ simulation program such as EnergyPlus
 may compute the room air temperatures and
 room air humidity rate, which is then used as an input
 to this model. The sensible and latent heat flow rates may be
-sent to EnergyPlus to couple the air-conditioning system to 
+sent to EnergyPlus to couple the air-conditioning system to
 the energy balance of the building model.
 </p>
 <p>
@@ -115,7 +114,7 @@ Buildings.Utilities.Psychrometrics.ToTotalAir</a>.
 <ul>
 <li>
 May 1, 2013, by Michael Wetter:<br/>
-Removed the medium declaration in the instance 
+Removed the medium declaration in the instance
 of the model <code>Buildings.Utilities.Psychrometrics.X_pTphi</code> as
 this model no longer allows to replace the medium.
 </li>

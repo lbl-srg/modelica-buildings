@@ -17,8 +17,7 @@ model FlowMachineSeries_y "Two flow machines in series"
     use_p_in=false,
     p(displayUnit="Pa") = 300000,
     T=293.15,
-    nPorts=1) annotation (Placement(transformation(extent={{-92,50},{-72,70}},
-          rotation=0)));
+    nPorts=1) annotation (Placement(transformation(extent={{-92,50},{-72,70}})));
 
   Modelica.Blocks.Sources.Constant const2(k=1)
     annotation (Placement(transformation(extent={{40,80},{60,100}})));
@@ -46,8 +45,7 @@ model FlowMachineSeries_y "Two flow machines in series"
     use_p_in=false,
     p(displayUnit="Pa") = 300000 + 4000,
     T=293.15,
-    nPorts=1) annotation (Placement(transformation(extent={{156,50},{136,70}},
-          rotation=0)));
+    nPorts=1) annotation (Placement(transformation(extent={{156,50},{136,70}})));
 equation
   connect(const2.y, floMac2.y)
                               annotation (Line(
@@ -77,7 +75,7 @@ equation
         "Simulate and plot"),
     Documentation(info="<html>
 This example tests the configuration of two flow machines that are installed in series.
-Both flow machines start with full speed. 
+Both flow machines start with full speed.
 At <i>t=150</i> seconds, the speed of the flow machine on the left is reduced to zero.
 As its speed is reduced, the mass flow rate is reduced. Note that even at zero input, the mass flow rate is non-zero,
 but the pressure drop of the pump <code>floMac1.dp</code> is positive, which means that this pump has a flow resistance.

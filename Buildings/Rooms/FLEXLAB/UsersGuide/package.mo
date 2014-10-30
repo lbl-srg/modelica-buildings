@@ -15,8 +15,8 @@ package UsersGuide "User's Guide"
   FLEXLAB models are made based on architectural drawings of individual
   rooms. The room models are located in the
   <a href=\"modelica://Buildings.Rooms.FLEXLAB.Rooms\">
-  Buildings.Rooms.FLEXLAB.Rooms</a> package. The intent is that simulations of 
-  FLEXLAB test cells are created by connecting the necessary room models 
+  Buildings.Rooms.FLEXLAB.Rooms</a> package. The intent is that simulations of
+  FLEXLAB test cells are created by connecting the necessary room models
   for the desired application.
   </p>
   <p>
@@ -33,16 +33,16 @@ package UsersGuide "User's Guide"
   One example demonstrating the use of FLEXLAB models is
   <a href=\"modelica://Buildings.Rooms.FLEXLAB.Rooms.Examples.X3AWithRadiantFloor\">
   Buildings.Rooms.FLEXLAB.Rooms.Examples.X3AWithRadiantFloor</a>.
-  The example  is made assuming that the shading position controls, internal 
-  gains, air handlers, and central plant do not need detailed models. Instead it 
-  is assumed that experimental data is available and data tables reading that 
+  The example  is made assuming that the shading position controls, internal
+  gains, air handlers, and central plant do not need detailed models. Instead it
+  is assumed that experimental data is available and data tables reading that
   data are used instead.
   </p>
   <p>
   Each room model is made to match architectural drawings. If a construction
   needs to be changed to match an experiment the construction definition
   can be changed in the Parameters window. Sometimes constructions are used
-  in multiple walls, so the user must be careful to avoid accidentally 
+  in multiple walls, so the user must be careful to avoid accidentally
   changing the construction of more walls than intended. Detailed editing
   of a model may be necessary.
   </p>
@@ -109,10 +109,10 @@ package UsersGuide "User's Guide"
   </tr>
   </table>
   <p>
-  For an example demonstrating how many of these ports are used, see 
+  For an example demonstrating how many of these ports are used, see
   <a href=\"modelica://Buildings.Rooms.FLEXLAB.Rooms.Examples.X3AWithRadiantFloor\">
   Buildings.Rooms.FLEXLAB.Rooms.Examples.X3AWithRadiantFloor</a>.
-  </p>  
+  </p>
   <h4>Future Work</h4>
   <p>
   A list of items which still need to be understood and finalized is below:
@@ -122,14 +122,14 @@ package UsersGuide "User's Guide"
   is still uncertain. It is clear from the drawing on M3.02 that they are
   not heated/cooled using the radiant system. However, I have been unable
   to determine what the construction is. Currently the closet
-  and electrical room floor models are using the same construction as 
+  and electrical room floor models are using the same construction as
   the test cell radiant slab.</li>
   <li>Does HVAC serve the closets and electrical rooms?</li>
   <li>Identify all detailed door constructions when detailed
   specifications are available.</li>
   <li>Use available window information to identify detailed
   model-level window specifications.</li>
-  <li>Create FLEXLAB-specific weather data file for 
+  <li>Create FLEXLAB-specific weather data file for
   taking weather data from the FLEXLAB weather sensors.
   </li>
   <li>The design of the radiant slab is not clearly documented.
@@ -144,12 +144,12 @@ package UsersGuide "User's Guide"
   Are they? If not, how does the model need to be changed?</li>
   <li>Ventilation assumptions used in
   <a href=\"modelica://Buildings.Rooms.FLEXLAB.Rooms.Examples.X3AWithRadiantFloor\">
-  Buildings.Rooms.FLEXLAB.Rooms.Examples.X3AWithRadiantFloor</a>  
+  Buildings.Rooms.FLEXLAB.Rooms.Examples.X3AWithRadiantFloor</a>
   include zero ACH in the electrical room overnight. Probably not realistic. Electrical
   equipment will need cooling overnight. Try to estimate convective heat gains from
   electrical equipment and identify an air flow rate to keep temperature in space
   realistic.</li>
-  <li>The specific construction information for the roofs is not currently available 
+  <li>The specific construction information for the roofs is not currently available
   (9/5/13). Roof construction packages in
   <a href=\"modelica://Buildings.Rooms.FLEXLAB.Data.Constructions\">
   Buildings.Rooms.FLEXLAB.Data.Constructions</a> are based on comments on A2.01 in the
@@ -163,14 +163,14 @@ package UsersGuide "User's Guide"
   <li>According to the drawings on M3.02, each test cell has four different sections of
   radiant tubing in the slab. To account for this, models of X3A and X3B use four
   different surBou definitions to define four different sections of the floor.
-  Unfortunately, the total area described in drawing M3.02 (623 sq ft). does not match 
+  Unfortunately, the total area described in drawing M3.02 (623 sq ft). does not match
   the floor area in drawing A2.03 (656.25 sq ft). The areas listed on M3.02 have been
-  increased by the percent difference in the total. This assumption should be checked 
+  increased by the percent difference in the total. This assumption should be checked
   against final, as-built drawings when they are available.</li>
   <li>Length of tube in each radiant slab model in the examples is based on the numbers
   in drawing M3.02. These numbers may include tube  running to/from the manifold,
   instead of only the tube in the slab itself. Worth determining?</li>
-  <li>The heat conduction through the steel beams is not explicitely modeled. 
+  <li>The heat conduction through the steel beams is not explicitely modeled.
   During model calibration, an effective heat conductivity would need to be identified.
   </li>
   </ul>

@@ -74,7 +74,7 @@ equation
         "Simulate and plot"),
     Documentation(info="<html>
 <p>
-This model is identical to 
+This model is identical to
 <a href=\"modelica://Buildings.Controls.Predictors.Validation.SineInput\">
 Buildings.Controls.Predictors.Validation.SineInput</a>,
 except that the input <code>client.PCon</code> is linear in the temperature.
@@ -85,7 +85,7 @@ of the baseline prediction model based on a simple input scenario.
 Note that in the first day, no prediction is made as no historical data are available.
 In the second day, the prediction differs from the actual (linearly increasing) consumption
 because only one data point exists for the respective sampling interval, and hence the linear
-regression is underdetermined. 
+regression is underdetermined.
 In the third day, the prediction starts as correct because two data points exist for each
 sampling interval. Later in the third day, there is again a prediction error as the second
 day was an event day and hence no data was recorded once the event day signal has been

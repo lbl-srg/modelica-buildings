@@ -16,10 +16,7 @@ equation
     pSat=Buildings.Utilities.Psychrometrics.Functions.saturationPressure(T);
     der(pSat)=der(pSatDer);
     assert(abs(pSat-pSatDer) < 1E-2, "Model has an error");
-   annotation(Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}}),
-                      graphics),
-                       __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Utilities/Psychrometrics/Functions/BaseClasses/Examples/SaturationPressureDerivativeCheck.mos"
+   annotation(                       __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Utilities/Psychrometrics/Functions/BaseClasses/Examples/SaturationPressureDerivativeCheck.mos"
         "Simulate and plot"),
       experiment(
         StartTime=0,

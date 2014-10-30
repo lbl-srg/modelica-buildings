@@ -103,7 +103,6 @@ protected
     "Temperature of the heat transfer fluid"                                                  annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
-        rotation=0,
         origin={-20,-70})));
   Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor temSenWat[nSeg]
     "Temperature sensor of the fluid surrounding the heat exchanger"
@@ -122,7 +121,6 @@ protected
                                                    annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
-        rotation=0,
         origin={20,-80})));
   HeatExchangers.BaseClasses.HANaturalCylinder hANatCyl[nSeg](
     redeclare each final package Medium = Medium,
@@ -133,7 +131,6 @@ protected
     "Calculates an hA value for each side of the heat exchanger"
                                     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
-        rotation=0,
         origin={10,110})));
   Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor temSenSur[nSeg]
     "Temperature at the external surface of the heat exchanger" annotation (
@@ -268,7 +265,7 @@ equation
           For example, the heat exchanger in a storage tank which is part of a solar thermal system.
           </p>
           <p>
-          This component models the fluid in the heat exchanger, convection between the fluid and 
+          This component models the fluid in the heat exchanger, convection between the fluid and
           the heat exchanger, and convection from the heat exchanger to the surrounding fluid.
           </p>
           <p>
@@ -278,9 +275,9 @@ equation
           Buildings.Fluid.HeatExchangers.BaseClasses.HANaturalCylinder</a>.
           </p>
           <p>
-          The fluid ports are intended to be connected to a circulated heat transfer fluid 
+          The fluid ports are intended to be connected to a circulated heat transfer fluid
           while the heat port is intended to be connected to a stagnant fluid.
-          </p>          
+          </p>
           </html>",
           revisions = "<html>
           <ul>

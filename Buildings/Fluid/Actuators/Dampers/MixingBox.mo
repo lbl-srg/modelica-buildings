@@ -33,8 +33,7 @@ model MixingBox "Outside air mixing box with interlocked air dampers"
     allowFlowReversal=allowFlowReversal,
     m_flow_nominal=mOut_flow_nominal,
     final filteredOpening=false)
-    annotation (Placement(transformation(extent={{-40,20},{-20,40}},   rotation=
-           0)));
+    annotation (Placement(transformation(extent={{-40,20},{-20,40}})));
   parameter Boolean use_deltaM = true
     "Set to true to use deltaM for turbulent transition, else ReC is used";
   parameter Real deltaM = 0.3
@@ -77,8 +76,7 @@ model MixingBox "Outside air mixing box with interlocked air dampers"
     use_constant_density=use_constant_density,
     allowFlowReversal=allowFlowReversal,
     final filteredOpening=false) "Exhaust air damper"
-    annotation (Placement(transformation(extent={{-20,-70},{-40,-50}}, rotation=
-           0)));
+    annotation (Placement(transformation(extent={{-20,-70},{-40,-50}})));
   parameter Modelica.SIunits.Area AExh=mExh_flow_nominal/rho_default/v_nominal
     "Face area exhaust air damper"
     annotation(Dialog(enable=not use_v_nominal));
@@ -165,31 +163,28 @@ model MixingBox "Outside air mixing box with interlocked air dampers"
         Medium, m_flow(start=0, min=if allowFlowReversal then -Constants.inf else
                 0))
     "Fluid connector a (positive design flow direction is from port_a to port_b)"
-    annotation (Placement(transformation(extent={{-110,50},{-90,70}},
-          rotation=0)));
+    annotation (Placement(transformation(extent={{-110,50},{-90,70}})));
   Modelica.Fluid.Interfaces.FluidPort_b port_Exh(redeclare package Medium =
         Medium, m_flow(start=0, max=if allowFlowReversal then +Constants.inf else
                 0))
     "Fluid connector b (positive design flow direction is from port_a to port_b)"
-    annotation (Placement(transformation(extent={{-90,-70},{-110,-50}},
-          rotation=0)));
+    annotation (Placement(transformation(extent={{-90,-70},{-110,-50}})));
   Modelica.Fluid.Interfaces.FluidPort_a port_Ret(redeclare package Medium =
         Medium, m_flow(start=0, min=if allowFlowReversal then -Constants.inf else
                 0))
     "Fluid connector a (positive design flow direction is from port_a to port_b)"
-    annotation (Placement(transformation(extent={{110,-70},{90,-50}}, rotation=
-            0)));
+    annotation (Placement(transformation(extent={{110,-70},{90,-50}})));
   Modelica.Fluid.Interfaces.FluidPort_b port_Sup(redeclare package Medium =
         Medium, m_flow(start=0, max=if allowFlowReversal then +Constants.inf else
                 0))
     "Fluid connector b (positive design flow direction is from port_a to port_b)"
-    annotation (Placement(transformation(extent={{110,50},{90,70}}, rotation=0)));
+    annotation (Placement(transformation(extent={{110,50},{90,70}})));
   Modelica.Blocks.Sources.Constant uni(k=1) "Unity signal"
-    annotation (Placement(transformation(extent={{-90,-4},{-70,16}},rotation=0)));
+    annotation (Placement(transformation(extent={{-90,-4},{-70,16}})));
 
   Modelica.Blocks.Math.Add add(k2=-1)
                              annotation (Placement(transformation(extent={{-40,-10},
-            {-20,10}},    rotation=0)));
+            {-20,10}})));
 
 protected
   parameter Medium.Density rho_default=Medium.density(sta_default)
@@ -239,10 +234,7 @@ equation
       points={{50,70},{60,70},{60,60},{0,60},{0,-20},{-30,-20},{-30,-48}},
       color={0,0,127},
       smooth=Smooth.None));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=true,  extent={{-100,
-            -100},{100,100}}),
-                      graphics),
-                       Icon(coordinateSystem(preserveAspectRatio=true,  extent={{-100,
+  annotation (                       Icon(coordinateSystem(preserveAspectRatio=true,  extent={{-100,
             -100},{100,100}}), graphics={
         Rectangle(
           extent={{-94,12},{90,0}},

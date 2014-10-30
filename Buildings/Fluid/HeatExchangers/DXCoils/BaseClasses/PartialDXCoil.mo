@@ -16,13 +16,13 @@ partial model PartialDXCoil "Partial model for DX coil"
   Modelica.Blocks.Interfaces.RealOutput P(
     quantity="Power",
     unit="W") "Electrical power consumed by the unit"
-    annotation (Placement(transformation(extent={{100,80},{120,100}},rotation=0)));
+    annotation (Placement(transformation(extent={{100,80},{120,100}})));
   Modelica.Blocks.Interfaces.RealOutput QSen_flow(quantity="Power", unit="W")
     "Sensible heat flow rate"
-    annotation (Placement(transformation(extent={{100,60},{120,80}}, rotation=0)));
+    annotation (Placement(transformation(extent={{100,60},{120,80}})));
   Modelica.Blocks.Interfaces.RealOutput QLat_flow(quantity="Power", unit="W")
     "Latent heat flow rate"
-    annotation (Placement(transformation(extent={{100,40},{120,60}},  rotation=0)));
+    annotation (Placement(transformation(extent={{100,40},{120,60}})));
 
   Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.DXCooling dxCoo(
     redeclare final package Medium = Medium,
@@ -173,21 +173,18 @@ equation
       points={{13,-6},{40,-6},{40,-90},{-4,-90},{-4,-82}},
       color={0,0,127},
       smooth=Smooth.None));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=true,  extent={{-100,
-            -100},{100,100}}),
-                      graphics),
-              defaultComponentName="dxCoi", Documentation(info="<html>
+  annotation (              defaultComponentName="dxCoi", Documentation(info="<html>
 <p>
 This partial model is the base class for
-<a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.SingleSpeed\"> 
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.SingleSpeed\">
 Buildings.Fluid.HeatExchangers.DXCoils.SingleSpeed</a>
-<a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.MultiStage\"> 
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.MultiStage\">
 Buildings.Fluid.HeatExchangers.DXCoils.MultiStage</a> and
-<a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.VariableSpeed\"> 
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.VariableSpeed\">
 Buildings.Fluid.HeatExchangers.DXCoils.VariableSpeed</a>.
 </p>
 <p>
-See 
+See
 <a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.UsersGuide\">
 Buildings.Fluid.HeatExchangers.DXCoils.UsersGuide</a>
 for an explanation of the model.
@@ -197,7 +194,7 @@ revisions="<html>
 <ul>
 <li>
 August 31, 2013, by Michael Wetter:<br/>
-Updated model due to change in 
+Updated model due to change in
 <code>Buildings.Fluid.BaseClasses.IndexMassFraction</code>.
 </li>
 <li>
@@ -214,7 +211,7 @@ Added output connectors for sensible and latent heat flow rate.
 </li>
 <li>
 April 12, 2012 by Kaustubh Phalak:<br/>
-First implementation. 
+First implementation.
 </li>
 </ul>
 

@@ -40,9 +40,7 @@ equation
       points={{-59,-30},{-50,-30},{-50,4},{-41.9,4}},
       color={0,0,127},
       smooth=Smooth.None));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
-            -100},{100,100}})),
-experiment(StopTime=1.0),
+  annotation (experiment(StopTime=1.0),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/SetPoints/Examples/HotWaterTemperatureReset.mos"
         "Simulate and plot"),
     Documentation(info="<html>
@@ -53,10 +51,10 @@ The parameters of the block <code>heaCur</code>
 are for a heating system with
 <i>60</i>&deg;C supply water temperature and
 <i>40</i>&deg;C return water temperature at
-an outside temperature of 
+an outside temperature of
 <i>-10</i>&deg;C and a room temperature of
-<i>20</i>&deg;C. The offset for the temperature reset is 
-<i>8</i> Kelvin, i.e., above 
+<i>20</i>&deg;C. The offset for the temperature reset is
+<i>8</i> Kelvin, i.e., above
 <i>12</i>&deg;C outside temperature, there is no heating load.
 The figure below shows the computed supply and return water temperatures.
 </p>

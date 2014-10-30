@@ -14,7 +14,7 @@ model ChimneyShaftWithVolume
     p_start=101325,
     nPorts=3) "Air volume of a room"
      annotation (Placement(transformation(extent={{20,-60},
-            {40,-40}},   rotation=0)));
+            {40,-40}})));
   Buildings.Airflow.Multizone.Orifice oriChiTop(
     m=0.5,
     redeclare package Medium = Medium,
@@ -50,8 +50,7 @@ model ChimneyShaftWithVolume
     redeclare package Medium = Medium,
     densitySelection=Buildings.Airflow.Multizone.Types.densitySelection.fromTop,
     h=1.5) "Model for stack effect outside the room"
-    annotation (Placement(transformation(extent={{100,-1},{120,19}},  rotation=
-            0)));
+    annotation (Placement(transformation(extent={{100,-1},{120,19}})));
   Buildings.Airflow.Multizone.Orifice oriChiBot(
     m=0.5,
     redeclare package Medium = Medium,
@@ -77,7 +76,6 @@ model ChimneyShaftWithVolume
   Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor temSen
     "Temperature sensor" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
-        rotation=0,
         origin={-80,0})));
   Modelica.Blocks.Math.Gain gain(k=3000)
     annotation (Placement(transformation(extent={{-28,20},{-8,40}})));
@@ -95,8 +93,7 @@ model ChimneyShaftWithVolume
     redeclare package Medium = Medium,
     densitySelection=Buildings.Airflow.Multizone.Types.densitySelection.fromBottom,
     h=1.5) "Model for stack effect inside the room"
-    annotation (Placement(transformation(extent={{100,-59},{120,-39}},rotation=
-            0)));
+    annotation (Placement(transformation(extent={{100,-59},{120,-39}})));
 
 equation
   connect(TSet.y, con.u_s) annotation (Line(
@@ -172,7 +169,6 @@ equation
     experiment(
       StopTime=3600,
       Tolerance=1e-06),
-    Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,100}})),
     Documentation(info="<html>
 <p>
 This model is identical to

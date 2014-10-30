@@ -26,7 +26,7 @@ Documentation(info="<html>
 This record declares parameters for window overhangs.
 </p>
 <p>
-See 
+See
 <a href=\"modelica://Buildings.HeatTransfer.Windows.Overhang\">
 Buildings.HeatTransfer.Windows.Overhang</a>
 for an explanation of the parameters, and
@@ -44,7 +44,7 @@ overhang parameters.
 </li>
 <li>
 May 21, 2012, by Kaustubh Phalak:<br/>
-Removed <code>gap &gt; 0</code> as a necessary condition. 
+Removed <code>gap &gt; 0</code> as a necessary condition.
 There can be an overhang with no gap.
 </li>
 <li>

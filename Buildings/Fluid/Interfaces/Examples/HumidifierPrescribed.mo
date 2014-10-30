@@ -14,45 +14,41 @@ model HumidifierPrescribed
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     massDynamics=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial)
     "Heater and cooler"                           annotation (Placement(
-        transformation(extent={{-54,92},{-34,112}}, rotation=0)));
+        transformation(extent={{-54,92},{-34,112}})));
   Modelica.Blocks.Sources.Constant TDb(k=293.15) "Drybulb temperature"
-    annotation (Placement(transformation(extent={{-200,92},{-180,112}},
-          rotation=0)));
+    annotation (Placement(transformation(extent={{-200,92},{-180,112}})));
   Buildings.Fluid.Sources.Boundary_pT sou_1(
     redeclare package Medium = Medium,
     use_T_in=true,
     nPorts=4,
     p(displayUnit="Pa") = 101435,
     T=293.15)             annotation (Placement(transformation(extent={{-168,92},
-            {-148,112}}, rotation=0)));
+            {-148,112}})));
     Buildings.Fluid.FixedResistances.FixedResistanceDpM res_11(
     redeclare package Medium = Medium,
     dp_nominal=5,
     m_flow_nominal=0.5)
-             annotation (Placement(transformation(extent={{-100,92},{-80,112}},
-          rotation=0)));
+             annotation (Placement(transformation(extent={{-100,92},{-80,112}})));
     Buildings.Fluid.FixedResistances.FixedResistanceDpM res_12(
     redeclare package Medium = Medium,
     dp_nominal=5,
     m_flow_nominal=0.5)
-             annotation (Placement(transformation(extent={{-100,134},{-80,154}},
-          rotation=0)));
+             annotation (Placement(transformation(extent={{-100,134},{-80,154}})));
   Buildings.Fluid.Sources.Boundary_pT sin_1(
     redeclare package Medium = Medium,
     use_p_in=true,
     T=288.15,
     nPorts=4)             annotation (Placement(transformation(extent={{-168,
-            134},{-148,154}}, rotation=0)));
+            134},{-148,154}})));
     Modelica.Blocks.Sources.Constant POut(k=101325)
-      annotation (Placement(transformation(extent={{-200,140},{-180,160}},
-          rotation=0)));
+      annotation (Placement(transformation(extent={{-200,140},{-180,160}})));
     Modelica.Blocks.Sources.Ramp u(
     duration=3600,
     startTime=0,
     height=1,
     offset=0) "Control signal"
                  annotation (Placement(transformation(extent={{-148,174},{-128,
-            194}}, rotation=0)));
+            194}})));
   Humidifier hea2(
     redeclare package Medium = Medium,
     m_flow_nominal=0.5,
@@ -61,9 +57,9 @@ model HumidifierPrescribed
     show_T=true,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     "Heater and cooler"                           annotation (Placement(
-        transformation(extent={{-12,134},{8,154}}, rotation=0)));
+        transformation(extent={{-12,134},{8,154}})));
   Modelica.Blocks.Math.Gain gain(k=-1) annotation (Placement(transformation(
-          extent={{-50,174},{-30,194}}, rotation=0)));
+          extent={{-50,174},{-30,194}})));
   Humidifier hea3(
     redeclare package Medium = Medium,
     m_flow_nominal=0.5,
@@ -73,19 +69,17 @@ model HumidifierPrescribed
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     massDynamics=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial)
     "Heater and cooler"                           annotation (Placement(
-        transformation(extent={{-54,12},{-34,32}}, rotation=0)));
+        transformation(extent={{-54,12},{-34,32}})));
     Buildings.Fluid.FixedResistances.FixedResistanceDpM res_2(
     redeclare package Medium = Medium,
     dp_nominal=5,
     m_flow_nominal=0.5)
-             annotation (Placement(transformation(extent={{-100,12},{-80,32}},
-          rotation=0)));
+             annotation (Placement(transformation(extent={{-100,12},{-80,32}})));
     Buildings.Fluid.FixedResistances.FixedResistanceDpM res_3(
     redeclare package Medium = Medium,
     dp_nominal=5,
     m_flow_nominal=0.5)
-             annotation (Placement(transformation(extent={{-100,54},{-80,74}},
-          rotation=0)));
+             annotation (Placement(transformation(extent={{-100,54},{-80,74}})));
   Humidifier hea4(
     redeclare package Medium = Medium,
     m_flow_nominal=0.5,
@@ -94,7 +88,7 @@ model HumidifierPrescribed
     show_T=true,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     "Heater and cooler"                           annotation (Placement(
-        transformation(extent={{-12,54},{8,74}}, rotation=0)));
+        transformation(extent={{-12,54},{8,74}})));
     Buildings.Fluid.FixedResistances.FixedResistanceDpM res_4(
     redeclare package Medium = Medium,
     dp_nominal=5,
@@ -109,45 +103,39 @@ model HumidifierPrescribed
     nPorts=2,
     m_flow_nominal=0.5,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
-                 annotation (Placement(transformation(extent={{-20,22},{0,42}},
-          rotation=0)));
+                 annotation (Placement(transformation(extent={{-20,22},{0,42}})));
   Buildings.Utilities.Diagnostics.AssertEquality ass1(
     startTime=0.3,
     threShold=0.05)
-    annotation (Placement(transformation(extent={{160,140},{180,160}}, rotation=
-           0)));
+    annotation (Placement(transformation(extent={{160,140},{180,160}})));
   Modelica.Blocks.Sources.RealExpression y1(y=hea2.staB.T)
-    annotation (Placement(transformation(extent={{40,150},{140,170}}, rotation=
-            0)));
+    annotation (Placement(transformation(extent={{40,150},{140,170}})));
   Modelica.Blocks.Sources.RealExpression y2(y=hea1.staB.T)
-    annotation (Placement(transformation(extent={{40,130},{140,150}}, rotation=
-            0)));
+    annotation (Placement(transformation(extent={{40,130},{140,150}})));
   Buildings.Utilities.Diagnostics.AssertEquality ass2(
     startTime=0.3,
     threShold=0.05)
-    annotation (Placement(transformation(extent={{160,100},{180,120}}, rotation=
-           0)));
+    annotation (Placement(transformation(extent={{160,100},{180,120}})));
   Modelica.Blocks.Sources.RealExpression y3(y=hea2.staA.T)
-    annotation (Placement(transformation(extent={{40,110},{140,130}}, rotation=
-            0)));
+    annotation (Placement(transformation(extent={{40,110},{140,130}})));
   Modelica.Blocks.Sources.RealExpression y4(y=hea1.staA.T)
-    annotation (Placement(transformation(extent={{40,90},{140,110}}, rotation=0)));
+    annotation (Placement(transformation(extent={{40,90},{140,110}})));
   Buildings.Utilities.Diagnostics.AssertEquality ass3(
     startTime=0.3,
     threShold=0.05)
-    annotation (Placement(transformation(extent={{160,38},{180,58}}, rotation=0)));
+    annotation (Placement(transformation(extent={{160,38},{180,58}})));
   Modelica.Blocks.Sources.RealExpression y5(y=hea4.staB.T)
-    annotation (Placement(transformation(extent={{40,48},{140,68}}, rotation=0)));
+    annotation (Placement(transformation(extent={{40,48},{140,68}})));
   Modelica.Blocks.Sources.RealExpression y6(y=hea3.staB.T)
-    annotation (Placement(transformation(extent={{40,28},{140,48}}, rotation=0)));
+    annotation (Placement(transformation(extent={{40,28},{140,48}})));
   Buildings.Utilities.Diagnostics.AssertEquality ass4(
     startTime=0.3,
     threShold=0.05)
-    annotation (Placement(transformation(extent={{160,-2},{180,18}}, rotation=0)));
+    annotation (Placement(transformation(extent={{160,-2},{180,18}})));
   Modelica.Blocks.Sources.RealExpression y7(y=hea4.staA.T)
-    annotation (Placement(transformation(extent={{40,8},{140,28}}, rotation=0)));
+    annotation (Placement(transformation(extent={{40,8},{140,28}})));
   Modelica.Blocks.Sources.RealExpression y8(y=hea3.staA.T)
-    annotation (Placement(transformation(extent={{40,-12},{140,8}}, rotation=0)));
+    annotation (Placement(transformation(extent={{40,-12},{140,8}})));
   Humidifier hea5(redeclare package Medium =
         Medium,
     m_flow_nominal=0.5,
@@ -157,19 +145,17 @@ model HumidifierPrescribed
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     massDynamics=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial)
     "Heater and cooler"                           annotation (Placement(
-        transformation(extent={{-54,-110},{-34,-90}}, rotation=0)));
+        transformation(extent={{-54,-110},{-34,-90}})));
     Buildings.Fluid.FixedResistances.FixedResistanceDpM res_1(
     redeclare package Medium = Medium,
     dp_nominal=5,
     m_flow_nominal=0.5)
-             annotation (Placement(transformation(extent={{-100,-110},{-80,-90}},
-          rotation=0)));
+             annotation (Placement(transformation(extent={{-100,-110},{-80,-90}})));
     Buildings.Fluid.FixedResistances.FixedResistanceDpM res_5(
     redeclare package Medium = Medium,
     dp_nominal=5,
     m_flow_nominal=0.5)
-             annotation (Placement(transformation(extent={{-100,-68},{-80,-48}},
-          rotation=0)));
+             annotation (Placement(transformation(extent={{-100,-68},{-80,-48}})));
   Humidifier hea6(                               redeclare package Medium =
         Medium,
     m_flow_nominal=0.5,
@@ -178,7 +164,7 @@ model HumidifierPrescribed
     show_T=true,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     "Heater and cooler"                           annotation (Placement(
-        transformation(extent={{-12,-68},{8,-48}}, rotation=0)));
+        transformation(extent={{-12,-68},{8,-48}})));
   Humidifier hea7(redeclare package Medium =
         Medium,
     m_flow_nominal=0.5,
@@ -188,19 +174,17 @@ model HumidifierPrescribed
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     massDynamics=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial)
     "Heater and cooler"                           annotation (Placement(
-        transformation(extent={{-54,-190},{-34,-170}}, rotation=0)));
+        transformation(extent={{-54,-190},{-34,-170}})));
     Buildings.Fluid.FixedResistances.FixedResistanceDpM res_6(
     redeclare package Medium = Medium,
     dp_nominal=5,
     m_flow_nominal=0.5)
-             annotation (Placement(transformation(extent={{-100,-190},{-80,-170}},
-          rotation=0)));
+             annotation (Placement(transformation(extent={{-100,-190},{-80,-170}})));
     Buildings.Fluid.FixedResistances.FixedResistanceDpM res_7(
     redeclare package Medium = Medium,
     dp_nominal=5,
     m_flow_nominal=0.5)
-             annotation (Placement(transformation(extent={{-100,-148},{-80,-128}},
-          rotation=0)));
+             annotation (Placement(transformation(extent={{-100,-148},{-80,-128}})));
   Humidifier hea8(                               redeclare package Medium =
         Medium,
     m_flow_nominal=0.5,
@@ -209,7 +193,7 @@ model HumidifierPrescribed
     show_T=true,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     "Heater and cooler"                           annotation (Placement(
-        transformation(extent={{-12,-148},{8,-128}}, rotation=0)));
+        transformation(extent={{-12,-148},{8,-128}})));
     Buildings.Fluid.FixedResistances.FixedResistanceDpM res_8(
     redeclare package Medium = Medium,
     dp_nominal=5,
@@ -225,189 +209,147 @@ model HumidifierPrescribed
     m_flow_nominal=0.5,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
                  annotation (Placement(transformation(extent={{-20,-180},{0,
-            -160}}, rotation=0)));
+            -160}})));
   Buildings.Utilities.Diagnostics.AssertEquality ass5(
     startTime=0.3,
     threShold=0.05)
-    annotation (Placement(transformation(extent={{160,-62},{180,-42}}, rotation=
-           0)));
+    annotation (Placement(transformation(extent={{160,-62},{180,-42}})));
   Modelica.Blocks.Sources.RealExpression y9(y=hea6.staB.T)
-    annotation (Placement(transformation(extent={{40,-50},{140,-30}}, rotation=
-            0)));
+    annotation (Placement(transformation(extent={{40,-50},{140,-30}})));
   Modelica.Blocks.Sources.RealExpression y10(
                                             y=hea5.staB.T)
-    annotation (Placement(transformation(extent={{40,-72},{140,-52}}, rotation=
-            0)));
+    annotation (Placement(transformation(extent={{40,-72},{140,-52}})));
   Buildings.Utilities.Diagnostics.AssertEquality ass6(
     startTime=0.3,
     threShold=0.05)
-    annotation (Placement(transformation(extent={{160,-102},{180,-82}},
-          rotation=0)));
+    annotation (Placement(transformation(extent={{160,-102},{180,-82}})));
   Modelica.Blocks.Sources.RealExpression y11(
                                             y=hea6.staA.T)
-    annotation (Placement(transformation(extent={{40,-92},{140,-72}}, rotation=
-            0)));
+    annotation (Placement(transformation(extent={{40,-92},{140,-72}})));
   Modelica.Blocks.Sources.RealExpression y12(
                                             y=hea5.staA.T)
-    annotation (Placement(transformation(extent={{40,-112},{140,-92}}, rotation=
-           0)));
+    annotation (Placement(transformation(extent={{40,-112},{140,-92}})));
   Buildings.Utilities.Diagnostics.AssertEquality ass7(
     startTime=0.3,
     threShold=0.05)
-    annotation (Placement(transformation(extent={{160,-164},{180,-144}},
-          rotation=0)));
+    annotation (Placement(transformation(extent={{160,-164},{180,-144}})));
   Modelica.Blocks.Sources.RealExpression y13(
                                             y=hea8.staB.T)
-    annotation (Placement(transformation(extent={{40,-154},{140,-134}},
-          rotation=0)));
+    annotation (Placement(transformation(extent={{40,-154},{140,-134}})));
   Modelica.Blocks.Sources.RealExpression y14(
                                             y=hea7.staB.T)
-    annotation (Placement(transformation(extent={{40,-174},{140,-154}},
-          rotation=0)));
+    annotation (Placement(transformation(extent={{40,-174},{140,-154}})));
   Buildings.Utilities.Diagnostics.AssertEquality ass8(
     startTime=0.3,
     threShold=0.05)
-    annotation (Placement(transformation(extent={{160,-204},{180,-184}},
-          rotation=0)));
+    annotation (Placement(transformation(extent={{160,-204},{180,-184}})));
   Modelica.Blocks.Sources.RealExpression y15(
                                             y=hea8.staA.T)
-    annotation (Placement(transformation(extent={{40,-194},{140,-174}},
-          rotation=0)));
+    annotation (Placement(transformation(extent={{40,-194},{140,-174}})));
   Modelica.Blocks.Sources.RealExpression y16(
                                             y=hea7.staA.T)
-    annotation (Placement(transformation(extent={{40,-214},{140,-194}},
-          rotation=0)));
+    annotation (Placement(transformation(extent={{40,-214},{140,-194}})));
   Buildings.Utilities.Diagnostics.AssertEquality ass9(
     startTime=0.3,
     threShold=0.05)
-    annotation (Placement(transformation(extent={{160,-300},{180,-280}},
-          rotation=0)));
+    annotation (Placement(transformation(extent={{160,-300},{180,-280}})));
   Modelica.Blocks.Sources.RealExpression y17(y=hea2.staB.T)
-    annotation (Placement(transformation(extent={{40,-290},{140,-270}},
-          rotation=0)));
+    annotation (Placement(transformation(extent={{40,-290},{140,-270}})));
   Modelica.Blocks.Sources.RealExpression y18(y=hea5.staB.T)
-    annotation (Placement(transformation(extent={{40,-310},{140,-290}},
-          rotation=0)));
+    annotation (Placement(transformation(extent={{40,-310},{140,-290}})));
   Buildings.Utilities.Diagnostics.AssertEquality ass10(
      startTime=0.3,
     threShold=0.05)
-    annotation (Placement(transformation(extent={{160,-260},{180,-240}},
-          rotation=0)));
+    annotation (Placement(transformation(extent={{160,-260},{180,-240}})));
   Modelica.Blocks.Sources.RealExpression y19(y=hea4.staA.T)
-    annotation (Placement(transformation(extent={{40,-250},{140,-230}},
-          rotation=0)));
+    annotation (Placement(transformation(extent={{40,-250},{140,-230}})));
   Modelica.Blocks.Sources.RealExpression y20(y=hea7.staA.T)
-    annotation (Placement(transformation(extent={{40,-270},{140,-250}},
-          rotation=0)));
+    annotation (Placement(transformation(extent={{40,-270},{140,-250}})));
   Buildings.Utilities.Diagnostics.AssertEquality ass11(
     threShold=1E-2,
     startTime=0.3)
-    annotation (Placement(transformation(extent={{340,140},{360,160}}, rotation=
-           0)));
+    annotation (Placement(transformation(extent={{340,140},{360,160}})));
   Modelica.Blocks.Sources.RealExpression y21(y=hea2.staB.X[1])
-    annotation (Placement(transformation(extent={{220,150},{320,170}}, rotation=
-           0)));
+    annotation (Placement(transformation(extent={{220,150},{320,170}})));
   Modelica.Blocks.Sources.RealExpression y22(y=hea1.staB.X[1])
-    annotation (Placement(transformation(extent={{220,130},{320,150}}, rotation=
-           0)));
+    annotation (Placement(transformation(extent={{220,130},{320,150}})));
   Buildings.Utilities.Diagnostics.AssertEquality ass12(threShold=1E-2, startTime=
         0.3)
-    annotation (Placement(transformation(extent={{340,100},{360,120}}, rotation=
-           0)));
+    annotation (Placement(transformation(extent={{340,100},{360,120}})));
   Modelica.Blocks.Sources.RealExpression y23(
                                             y=hea2.staA.X[1])
-    annotation (Placement(transformation(extent={{220,110},{320,130}}, rotation=
-           0)));
+    annotation (Placement(transformation(extent={{220,110},{320,130}})));
   Modelica.Blocks.Sources.RealExpression y24(
                                             y=hea1.staA.X[1])
-    annotation (Placement(transformation(extent={{220,90},{320,110}}, rotation=
-            0)));
+    annotation (Placement(transformation(extent={{220,90},{320,110}})));
   Buildings.Utilities.Diagnostics.AssertEquality ass13(threShold=1E-2, startTime=
         0.3)
-    annotation (Placement(transformation(extent={{340,38},{360,58}}, rotation=0)));
+    annotation (Placement(transformation(extent={{340,38},{360,58}})));
   Modelica.Blocks.Sources.RealExpression y25(
                                             y=hea4.staB.X[1])
-    annotation (Placement(transformation(extent={{220,48},{320,68}}, rotation=0)));
+    annotation (Placement(transformation(extent={{220,48},{320,68}})));
   Modelica.Blocks.Sources.RealExpression y26(
                                             y=hea3.staB.X[1])
-    annotation (Placement(transformation(extent={{220,28},{320,48}}, rotation=0)));
+    annotation (Placement(transformation(extent={{220,28},{320,48}})));
   Buildings.Utilities.Diagnostics.AssertEquality ass14(threShold=1E-2, startTime=
         0.3)
-    annotation (Placement(transformation(extent={{340,-2},{360,18}}, rotation=0)));
+    annotation (Placement(transformation(extent={{340,-2},{360,18}})));
   Modelica.Blocks.Sources.RealExpression y27(
                                             y=hea4.staA.X[1])
-    annotation (Placement(transformation(extent={{220,8},{320,28}}, rotation=0)));
+    annotation (Placement(transformation(extent={{220,8},{320,28}})));
   Modelica.Blocks.Sources.RealExpression y28(
                                             y=hea3.staA.X[1])
-    annotation (Placement(transformation(extent={{220,-12},{320,8}}, rotation=0)));
+    annotation (Placement(transformation(extent={{220,-12},{320,8}})));
   Buildings.Utilities.Diagnostics.AssertEquality ass15(threShold=1E-2, startTime=
         0.3)
-    annotation (Placement(transformation(extent={{340,-62},{360,-42}}, rotation=
-           0)));
+    annotation (Placement(transformation(extent={{340,-62},{360,-42}})));
   Modelica.Blocks.Sources.RealExpression y29(
                                             y=hea6.staB.X[1])
-    annotation (Placement(transformation(extent={{220,-52},{320,-32}}, rotation=
-           0)));
+    annotation (Placement(transformation(extent={{220,-52},{320,-32}})));
   Modelica.Blocks.Sources.RealExpression y30(
                                             y=hea5.staB.X[1])
-    annotation (Placement(transformation(extent={{220,-72},{320,-52}}, rotation=
-           0)));
+    annotation (Placement(transformation(extent={{220,-72},{320,-52}})));
   Buildings.Utilities.Diagnostics.AssertEquality ass16(threShold=1E-2, startTime=
         0.3)
-    annotation (Placement(transformation(extent={{340,-102},{360,-82}},
-          rotation=0)));
+    annotation (Placement(transformation(extent={{340,-102},{360,-82}})));
   Modelica.Blocks.Sources.RealExpression y31(
                                             y=hea6.staA.X[1])
-    annotation (Placement(transformation(extent={{220,-92},{320,-72}}, rotation=
-           0)));
+    annotation (Placement(transformation(extent={{220,-92},{320,-72}})));
   Modelica.Blocks.Sources.RealExpression y32(
                                             y=hea5.staA.X[1])
-    annotation (Placement(transformation(extent={{220,-112},{320,-92}},
-          rotation=0)));
+    annotation (Placement(transformation(extent={{220,-112},{320,-92}})));
   Buildings.Utilities.Diagnostics.AssertEquality ass17(threShold=1E-2, startTime=
         0.3)
-    annotation (Placement(transformation(extent={{340,-164},{360,-144}},
-          rotation=0)));
+    annotation (Placement(transformation(extent={{340,-164},{360,-144}})));
   Modelica.Blocks.Sources.RealExpression y33(
                                             y=hea8.staB.X[1])
-    annotation (Placement(transformation(extent={{220,-154},{320,-134}},
-          rotation=0)));
+    annotation (Placement(transformation(extent={{220,-154},{320,-134}})));
   Modelica.Blocks.Sources.RealExpression y34(
                                             y=hea7.staB.X[1])
-    annotation (Placement(transformation(extent={{220,-174},{320,-154}},
-          rotation=0)));
+    annotation (Placement(transformation(extent={{220,-174},{320,-154}})));
   Buildings.Utilities.Diagnostics.AssertEquality ass18(threShold=1E-2, startTime=
         0.3)
-    annotation (Placement(transformation(extent={{340,-204},{360,-184}},
-          rotation=0)));
+    annotation (Placement(transformation(extent={{340,-204},{360,-184}})));
   Modelica.Blocks.Sources.RealExpression y35(
                                             y=hea8.staA.X[1])
-    annotation (Placement(transformation(extent={{220,-194},{320,-174}},
-          rotation=0)));
+    annotation (Placement(transformation(extent={{220,-194},{320,-174}})));
   Modelica.Blocks.Sources.RealExpression y36(
                                             y=hea7.staA.X[1])
-    annotation (Placement(transformation(extent={{220,-214},{320,-194}},
-          rotation=0)));
+    annotation (Placement(transformation(extent={{220,-214},{320,-194}})));
   Buildings.Utilities.Diagnostics.AssertEquality ass19(threShold=1E-2, startTime=
         0.3)
-    annotation (Placement(transformation(extent={{340,-300},{360,-280}},
-          rotation=0)));
+    annotation (Placement(transformation(extent={{340,-300},{360,-280}})));
   Modelica.Blocks.Sources.RealExpression y37(y=hea2.staB.X[1])
-    annotation (Placement(transformation(extent={{220,-290},{320,-270}},
-          rotation=0)));
+    annotation (Placement(transformation(extent={{220,-290},{320,-270}})));
   Modelica.Blocks.Sources.RealExpression y38(y=hea5.staB.X[1])
-    annotation (Placement(transformation(extent={{220,-310},{320,-290}},
-          rotation=0)));
+    annotation (Placement(transformation(extent={{220,-310},{320,-290}})));
   Buildings.Utilities.Diagnostics.AssertEquality ass20(threShold=1E-2, startTime=
         0.3)
-    annotation (Placement(transformation(extent={{340,-260},{360,-240}},
-          rotation=0)));
+    annotation (Placement(transformation(extent={{340,-260},{360,-240}})));
   Modelica.Blocks.Sources.RealExpression y39(y=hea4.staA.X[1])
-    annotation (Placement(transformation(extent={{220,-250},{320,-230}},
-          rotation=0)));
+    annotation (Placement(transformation(extent={{220,-250},{320,-230}})));
   Modelica.Blocks.Sources.RealExpression y40(y=hea7.staA.X[1])
-    annotation (Placement(transformation(extent={{220,-270},{320,-250}},
-          rotation=0)));
+    annotation (Placement(transformation(extent={{220,-270},{320,-250}})));
   inner Modelica.Fluid.System system(energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState)
     annotation (Placement(transformation(extent={{-180,-300},{-160,-280}})));
 protected
@@ -659,7 +601,7 @@ Documentation(info="<html>
 <p>
 Model that tests the basic class that is used for the humidifier model.
 It adds and removes water for forward and reverse flow.
-The top and bottom models should give similar results, although 
+The top and bottom models should give similar results, although
 the sign of the humidity difference over the components differ
 because of the reverse flow.
 The model uses assert statements that will be triggered if
@@ -677,12 +619,12 @@ of equations if the medium model is incompressible.
 October 9, 2013, by Michael Wetter:<br/>
 Introduced protected model <code>Humidifier</code> so that states at
 the fluid ports can be computed without having to use a conditionally
-removed variable. This is required for the model to pass the model check in 
+removed variable. This is required for the model to pass the model check in
 Dymola 2014 FD01 beta3 with <code>Advanced.PedanticModelica=true;</code>.
 </li>
 <li>
 January 24, 2013, by Michael Wetter:<br/>
-Set initial conditions to 
+Set initial conditions to
 <code>Modelica.Fluid.Types.Dynamics.FixedInitial</code>.
 </li>
 <li>

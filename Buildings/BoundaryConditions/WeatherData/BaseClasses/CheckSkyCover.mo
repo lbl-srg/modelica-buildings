@@ -25,12 +25,11 @@ equation
 <p>
 This component constrains the interpolated sky cover between <i>0</i> and <i>1</i>.
 </p>
-</html>
-", revisions="<html>
+</html>", revisions="<html>
 <ul>
 <li>
 October 17, 2014, by Michael Wetter:<br/>
-Changed model as 
+Changed model as
 <a href=\"modelica://Buildings.BoundaryConditions.WeatherData.ReaderTMY3\">
 Buildings.BoundaryConditions.WeatherData.ReaderTMY3</a>
 send a signal between <i>0</i> and <i>1</i>.
@@ -43,8 +42,6 @@ First implementation.
 </li>
 </ul>
 </html>"),
-    Diagram(coordinateSystem(preserveAspectRatio=true,extent={{-100,-100},{100,
-            100}})),
     Icon(coordinateSystem(preserveAspectRatio=false,extent={{-100,-100},{100,
             100}}), graphics={Text(
           extent={{-64,48},{70,-48}},

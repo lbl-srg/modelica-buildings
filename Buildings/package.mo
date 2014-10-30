@@ -121,8 +121,7 @@ To indicate that a class (i.e., a package, model, block etc.) has not been exten
 its class name ends with the string <code>Beta</code>.
 </li>
 </ol>
-</html>
-"));
+</html>"));
   end Conventions;
 
   package ReleaseNotes "Release notes"
@@ -181,7 +180,7 @@ have been <b style=\"color:blue\">improved</b> in a
 </tr>
 <tr><td valign=\"top\">Buildings.BoundaryConditions.WeatherData.ReaderTMY3
     </td>
-    <td valign=\"top\">Removed redundant connection 
+    <td valign=\"top\">Removed redundant connection
                        <code>connect(conHorRad.HOut, cheHorRad.HIn);</code>.
     </td>
 </tr>
@@ -194,7 +193,7 @@ have been <b style=\"color:blue\">improved</b> in a
     <td valign=\"top\">Changed assignment of <code>T_m</code> to avoid using the conditionally
                        enabled model <code>ele[:].mas.T</code>, which is only
                        valid in a connect statement.
-                       Moved assignments of 
+                       Moved assignments of
                        <code>Q1_flow</code>, <code>Q2_flow</code>, <code>T1</code>,
                        <code>T2</code> and <code>T_m</code> outside of equation section
                        to avoid mixing graphical and textual modeling within the same model.
@@ -267,11 +266,11 @@ have been <b style=\"color:blue\">improved</b> in a
 <tr><td valign=\"top\">Buildings.Media.Interfaces.PartialSimpleIdealGasMedium<br/>
                        Buildings.Media.Interfaces.PartialSimpleMedium
     </td>
-    <td valign=\"top\">Set <code>T(start=T_default)</code> and 
+    <td valign=\"top\">Set <code>T(start=T_default)</code> and
                        <code>p(start=p_default)</code> in the
                        <code>ThermodynamicState</code> record. Setting the start value for
-                       <code>T</code> is required to avoid an error due to 
-                       conflicting start values when translating 
+                       <code>T</code> is required to avoid an error due to
+                       conflicting start values when translating
                        <a href=\"modelica://Buildings.Examples.VAVReheat.ClosedLoop\">
                        Buildings.Examples.VAVReheat.ClosedLoop</a> in pedantic mode.
     </td>
@@ -390,7 +389,7 @@ have been <b style=\"color:blue\">improved</b> in a
                        flow path.
                        Optionally, the finite difference scheme can also be used
                        as this is needed for some control design applications.<br/>
-                       The new <i>&epsilon;-NTU</i> formulation has shown to lead to 
+                       The new <i>&epsilon;-NTU</i> formulation has shown to lead to
                        about five times faster
                        computation on several test cases including the models in
                        <a href=\"modelica://Buildings.Rooms.FLEXLAB.Rooms.Examples\">
@@ -520,7 +519,7 @@ units are wrong or errors in documentation):
 </tr>
 <tr><td valign=\"top\">Buildings.HeatTransfer.Windows.BaseClasses.GlassLayer
     </td>
-    <td valign=\"top\">Changed type of <code>tauIR</code> from 
+    <td valign=\"top\">Changed type of <code>tauIR</code> from
                        <code>Modelica.SIunits.Emissivity</code> to
                        <code>Modelica.SIunits.TransmissionCoefficient</code>.
                        This avoids a type error in OpenModelica.
@@ -3339,8 +3338,7 @@ Buildings.Fluid.Sources.Outside</a>
 to allow use of the room model with media that do not contain water vapor.
 </li>
 </ul>
-</html>
-"));
+</html>"));
   end Version_0_12_0;
 
   class Version_0_11_0 "Version 0.11.0"
@@ -3444,8 +3442,7 @@ Fixed bug in efficiency curves in package
 Buildings.Fluid.Movers.BaseClasses.Characteristics</a>.
 </li>
 </ul>
-</html>
-"));
+</html>"));
   end Version_0_11_0;
 
   class Version_0_10_0 "Version 0.10.0"
@@ -3509,8 +3506,7 @@ The new version has exactly the same nominal power during the simulation as spec
 by the parameters. This also required a change in the parameters.
 </li>
 </ul>
-</html>
-"));
+</html>"));
   end Version_0_10_0;
 
   class Version_0_9_1 "Version 0.9.1"
@@ -3543,8 +3539,7 @@ that can lead to wrong simulation results):
       </td>
   </tr>
 </table>
-</html>
-"));
+</html>"));
   end Version_0_9_1;
 
   class Version_0_9_0 "Version 0.9.0"
@@ -3660,8 +3655,7 @@ Buildings.Fluid.MixingVolumes</a> by removing the port velocity,
 pressure drop and height.
 </li>
 </ul>
-</html>
-"));
+</html>"));
   end Version_0_9_0;
 
   class Version_0_8_0 "Version 0.8.0"
@@ -3797,8 +3791,7 @@ Buildings.Fluid.BaseClasses.PartialThreeWayResistance</a>
 and hence to the flow splitter and to the three-way valves. This often breaks algebraic loops and provides a state for the temperature if the mass flow rate goes to zero.
 </li>
 </ul>
-</html>
-"));
+</html>"));
   end Version_0_8_0;
 
   class Version_0_7_0 "Version 0.7.0"
@@ -3821,8 +3814,7 @@ systems that are modeled with Modelica with the Building Controls
 Virtual Test Bed.
 </li>
 </ul>
-</html>
-"));
+</html>"));
   end Version_0_7_0;
 
   class Version_0_6_0 "Version 0.6.0"
@@ -3930,8 +3922,7 @@ Changed various variable names to be consistent with naming
 convention used in Modelica.Fluid 1.0.
 </li>
 </ul>
-</html>
-"));
+</html>"));
   end Version_0_6_0;
 
   class Version_0_5_0 "Version 0.5.0"
@@ -3969,8 +3960,7 @@ Buildings.Fluid.Actuators.Valves</a> so that <code>Kv</code> or <code>Cv</code> 
 be used as the flow coefficient (in [m3/h] or [USG/min]).
 </li>
 </ul>
-</html>
-"));
+</html>"));
   end Version_0_5_0;
 
   class Version_0_4_0 "Version 0.4.0"
@@ -3992,8 +3982,7 @@ Added package <a href=\"modelica://Buildings.Utilities.Reports\">Buildings.Utili
 The package contains models that facilitate reporting.
 </li>
 </ul>
-</html>
-"));
+</html>"));
   end Version_0_4_0;
 
   class Version_0_3_0 "Version 0.3.0"
@@ -4054,8 +4043,7 @@ This model can be used to model a volume of moist air with water vapor condensat
 inside the volume. The condensate is removed from the volume in its liquid phase.
 </li>
 </ul>
-</html>
-"));
+</html>"));
   end Version_0_3_0;
 
   class Version_0_2_0 "Version 0.2.0"
@@ -4069,8 +4057,7 @@ The package <code>Fluid.BaseClasses</code> has been added because in
 the previous version, partial models for fixed resistances
 where part of the <code>Actuator</code> package.
 </p>
-</html>
-"));
+</html>"));
   end Version_0_2_0;
 
   class Version_0_1_0 "Version 0.1.0"
@@ -4091,8 +4078,7 @@ from <a href=\"modelica://Modelica.Media\">Modelica.Media</a> that are valid in
 a larger temperature range, at the expense of introducing non-linearities due
 to the medium properties.
 </p>
-</html>
-"));
+</html>"));
   end Version_0_1_0;
 
     annotation (preferredView="info",
@@ -4164,8 +4150,7 @@ on the Buildings library.
 </li>
 </ul>
 
-</html>
-"));
+</html>"));
   end ReleaseNotes;
 
   class Contact "Contact"
@@ -4183,8 +4168,7 @@ The development of the Buildings library is organized by<br/>
     USA<br/>
     email: <A HREF=\"mailto:MWetter@lbl.gov\">MWetter@lbl.gov</A><br/>
 </p>
-</html>
-"));
+</html>"));
   end Contact;
 
   class Acknowledgements "Acknowledgements"
@@ -4259,8 +4243,7 @@ The following people have directly contributed to the implementation of the Buil
 <li>Wangda Zuo, Lawrence Berkeley National Laboratory, USA
 </li>
 </ul>
-</html>
-"));
+</html>"));
   end Acknowledgements;
 
   class License "Modelica License 2"
@@ -4448,8 +4431,7 @@ In these cases, save a copy of the Modelica License 2 in one directory of the di
 <a href=\"http://www.modelica.org/modelica-legal-documents/ModelicaLicense2-standalone.html\">http://www.modelica.org/modelica-legal-documents/ModelicaLicense2-standalone.html</a> in directory <strong>&lt;library&gt;/help/documentation/ModelicaLicense2.html</strong>.
 </p>
 
-</html>
-"));
+</html>"));
   end License;
 
   class Copyright "Copyright"
@@ -4467,8 +4449,7 @@ If you have questions about your rights to use or distribute this software, plea
 <p>
 NOTICE. This software was developed under partial funding from the U.S. Department of Energy. As such, the U.S. Government has been granted for itself and others acting on its behalf a paid-up, nonexclusive, irrevocable, worldwide license in the Software to reproduce, prepare derivative works, and perform publicly and display publicly. Beginning five (5) years after the date permission to assert copyright is obtained from the U.S. Department of Energy, and subject to any subsequent five (5) year renewals, the U.S. Government is granted for itself and others acting on its behalf a paid-up, nonexclusive, irrevocable, worldwide license in the Software to reproduce, prepare derivative works, distribute copies to the public, perform publicly and display publicly, and to permit others to do so.
 </p>
-</html>
-"));
+</html>"));
   end Copyright;
   annotation (preferredView="info",
   Documentation(info="<html>

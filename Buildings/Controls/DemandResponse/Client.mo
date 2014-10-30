@@ -94,7 +94,6 @@ protected
   Modelica.StateGraph.TransitionWithSignal t3 "State transition"
                        annotation (Placement(transformation(
         extent={{10,10},{-10,-10}},
-        rotation=0,
         origin={-2,-30})));
   BaseClasses.ShedOperation she "Operation during load shedding"
     annotation (Placement(transformation(extent={{-10,-40},{-30,-20}})));
@@ -217,8 +216,6 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   annotation (
-  Diagram(coordinateSystem(
-          preserveAspectRatio=false, extent={{-100,-100},{100,100}}), graphics),
       experiment(StopTime=7200),
     Icon(graphics={                      Text(
           extent={{-70,54},{74,-64}},
@@ -245,9 +242,9 @@ in the current sampling interval, i.e., generally in the next 1 hour or the
 next 15 minutes.
 If the parameter <code>nPre &gt; 1</code>, then the prediction is done
 for multiple time intervals. All of these predictions can be obtained from
-the output <code>PPreNoShe</code>. This output does not take into account 
+the output <code>PPreNoShe</code>. This output does not take into account
 <code>yShed</code>.
-The output <code>PPre</code> is 
+The output <code>PPre</code> is
 <code>PPre = yShed * PPreNoShe[1]</code> if <code>shed=true</code>,
 otherwise it is
 <code>PPre = PPreNoShe[1]</code>.

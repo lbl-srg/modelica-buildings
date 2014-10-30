@@ -5,24 +5,24 @@ model Printer "Test model for printer"
     header="time ramp",
     nin=2,
     samplePeriod=0.1)            annotation (Placement(transformation(extent={{-20,40},
-            {0,60}},         rotation=0)));
+            {0,60}})));
   Modelica.Blocks.Sources.Clock clo annotation (Placement(transformation(extent=
-           {{-80,40},{-60,60}}, rotation=0)));
+           {{-80,40},{-60,60}})));
   Modelica.Blocks.Sources.Ramp ram(duration=2)
                                    annotation (Placement(transformation(extent=
-            {{-80,0},{-60,20}}, rotation=0)));
+            {{-80,0},{-60,20}})));
   Buildings.Utilities.Reports.Printer pri2(
     header="time ramp",
     nin=2,
     configuration=2,
     samplePeriod=0.1)            annotation (Placement(transformation(extent={{
-            -20,0},{0,20}}, rotation=0)));
+            -20,0},{0,20}})));
   Buildings.Utilities.Reports.Printer pri3(
     header="time ramp",
     nin=2,
     configuration=3,
     samplePeriod=0.1)            annotation (Placement(transformation(extent={{
-            -20,-40},{0,-20}}, rotation=0)));
+            -20,-40},{0,-20}})));
 equation
   connect(clo.y, pri1.x[1]) annotation (Line(points={{-59,50},{-40,50},{-40,49},
           {-22,49}}, color={0,0,127}));
@@ -36,9 +36,7 @@ equation
           {-22,-31}}, color={0,0,127}));
   connect(ram.y, pri3.x[2]) annotation (Line(points={{-59,10},{-40,10},{-40,-29},
           {-22,-29}}, color={0,0,127}));
-  annotation(Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}})),
-experiment(StopTime=1.0),
+  annotation(experiment(StopTime=1.0),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Utilities/Reports/Examples/Printer.mos"
         "Simulate and plot"));
 end Printer;
