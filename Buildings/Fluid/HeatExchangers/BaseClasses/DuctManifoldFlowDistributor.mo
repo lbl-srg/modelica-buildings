@@ -3,6 +3,13 @@ model DuctManifoldFlowDistributor
   "Manifold for duct inlet that distributes the mass flow rate equally"
   extends PartialDuctManifold;
 
+protected
+  Medium.SpecificEnthalpy port_a_2_h_outflow[nPipSeg] "Outflowing enthalpies";
+  Medium.MassFraction port_a_2_Xi_outflow[nPipSeg, Medium.nXi]
+    "Outflowing mass fractions";
+  Medium.ExtraProperty port_a_2_C_outflow[nPipSeg, Medium.nC]
+    "Outflowing trace substances";
+
 equation
   port_b[1, 1].m_flow = -port_a.m_flow/nPipPar/nPipSeg;
   for j in 2:nPipSeg loop
@@ -25,9 +32,15 @@ equation
   end for;
   // As OpenModelica does not support multiple iterators as of August 2014, we
   // use here two sum(.) functions
-  port_a.h_outflow  = sum(sum(inStream(port_b[i, j].h_outflow) for i in 1:nPipPar) for j in 1:nPipSeg)/nPipPar/nPipSeg;
-  port_a.Xi_outflow = sum(sum(inStream(port_b[i, j].Xi_outflow) for i in 1:nPipPar) for j in 1:nPipSeg)/nPipPar/nPipSeg;
-  port_a.C_outflow  = sum(sum(inStream(port_b[i, j].C_outflow) for i in 1:nPipPar) for j in 1:nPipSeg)/nPipPar/nPipSeg;
+  for j in 1:nPipSeg loop
+    port_a_2_h_outflow[j] = sum(inStream(port_b[i, j].h_outflow) for i in 1:nPipPar)/nPipPar;
+    port_a_2_Xi_outflow[j, 1:Medium.nXi] = sum(inStream(port_b[i, j].Xi_outflow[1:Medium.nXi]) for i in 1:nPipPar)/nPipPar;
+    port_a_2_C_outflow[j, 1:Medium.nC] = sum(inStream(port_b[i, j].C_outflow[1:Medium.nC]) for i in 1:nPipPar)/nPipPar;
+  end for;
+
+  port_a.h_outflow                = sum(port_a_2_h_outflow[j] for j in 1:nPipSeg)/nPipSeg;
+  port_a.Xi_outflow[1:Medium.nXi] = sum(port_a_2_Xi_outflow[j, 1:Medium.nXi] for j in 1:nPipSeg)/nPipSeg;
+  port_a.C_outflow[1:Medium.nC]   = sum(port_a_2_C_outflow[j, 1:Medium.nC] for j in 1:nPipSeg)/nPipSeg;
 
 annotation (Documentation(info="<html>
 <p>
@@ -50,6 +63,10 @@ what you are doing.
 </html>",
 revisions="<html>
 <ul>
+<li>
+October 30, 2014, by Michael Wetter:<br/>
+Reformulated model for OpenModelica.
+</li>
 <li>
 August 10, 2014, by Michael Wetter:<br/>
 Reformulated the multiple iterators in the <code>sum</code> function
