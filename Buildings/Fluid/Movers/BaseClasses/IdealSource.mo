@@ -1,7 +1,8 @@
 within Buildings.Fluid.Movers.BaseClasses;
 model IdealSource
   "Base class for pressure and mass flow source with optional power input"
-  extends Buildings.Fluid.Interfaces.PartialTwoPortTransport(show_T=false);
+  extends Buildings.Fluid.Interfaces.PartialTwoPortTransport(
+    show_T=false);
 
   // what to control
   parameter Boolean control_m_flow "= false to control dp instead of m_flow"
