@@ -1,7 +1,7 @@
 within Buildings.Fluid.FMI.Examples;
 block HeaterCoolerPrescribed "FMU declaration for an ideal heater or cooler"
    extends Buildings.Fluid.FMI.TwoPortSingleComponent(
-     redeclare package Medium = Buildings.Media.Water,
+     redeclare package Medium = Buildings.Media.ConstantPropertyLiquidWater,
      redeclare final Buildings.Fluid.HeatExchangers.HeaterCoolerPrescribed com(
       m_flow_nominal=m_flow_nominal,
       dp_nominal=dp_nominal,
