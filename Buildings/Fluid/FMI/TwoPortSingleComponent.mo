@@ -4,9 +4,9 @@ block TwoPortSingleComponent
   extends TwoPort;
   replaceable Modelica.Fluid.Interfaces.PartialTwoPort com constrainedby
     Modelica.Fluid.Interfaces.PartialTwoPort(
-      redeclare package Medium = Medium,
+      redeclare final package Medium = Medium,
       final allowFlowReversal=allowFlowReversal)
-    "Component that is replaced by actual model"
+    "Component that holds actual model"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   parameter Boolean allowFlowReversal = true
     "= true to allow flow reversal, false restricts to design direction (port_a -> port_b)"
