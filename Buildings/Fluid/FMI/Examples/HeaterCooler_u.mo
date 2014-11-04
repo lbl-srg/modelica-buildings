@@ -1,5 +1,5 @@
 within Buildings.Fluid.FMI.Examples;
-block HeaterCoolerPrescribed "FMU declaration for an ideal heater or cooler"
+block HeaterCooler_u "FMU declaration for an ideal heater or cooler"
    extends Buildings.Fluid.FMI.TwoPortSingleComponent(
      redeclare package Medium = Buildings.Media.ConstantPropertyLiquidWater,
      redeclare final Buildings.Fluid.HeatExchangers.HeaterCoolerPrescribed com(
@@ -23,4 +23,27 @@ equation
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}), graphics));
-end HeaterCoolerPrescribed;
+  annotation (
+  Documentation(info="<html>
+<p>
+This example demonstrates how to export an FMU with a fluid flow component.
+The FMU has an instance of
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.HeaterCooler_u\">
+Buildings.Fluid.HeatExchangers.HeaterCooler_u</a>.
+</p>
+<p>
+In Dymola, to export the model as an FMU,
+select from the pull down menu <code>Commands - Export FMU</code>.
+</p>
+</html>", revisions="<html>
+<ul>
+<li>
+November 3, 2014 by Michael Wetter:<br/>
+First implementation.
+</li>
+</ul>
+</html>"),
+__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/FMI/Examples/HeaterCooler_u.mos"
+        "Export FMU"));
+
+end HeaterCooler_u;
