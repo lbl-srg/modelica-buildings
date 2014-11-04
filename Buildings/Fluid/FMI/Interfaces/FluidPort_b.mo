@@ -1,7 +1,10 @@
 within Buildings.Fluid.FMI.Interfaces;
-connector Outlet "Connector for fluid outlet"
+connector FluidPort_b "Connector for fluid port b"
   replaceable package Medium = Modelica.Media.Interfaces.PartialMedium
     "Medium model" annotation (choicesAllMatching=true);
+  parameter Boolean allowFlowReversal = true
+    "= true to allow flow reversal, false restricts to design direction (port_a -> port_b)"
+    annotation(Dialog(tab="Assumptions"), Evaluate=true);
 
   output Medium.MassFlowRate m_flow
     "Mass flow rate from the connection point into the component";
@@ -14,18 +17,22 @@ connector Outlet "Connector for fluid outlet"
   output Medium.ExtraProperty C_outflow[Medium.nC]
     "Properties c_i/m close to the connection point if m_flow < 0";
 
-  input Medium.SpecificEnthalpy h_inflow
+  input Medium.SpecificEnthalpy h_inflow if
+       allowFlowReversal
     "Specific thermodynamic enthalpy close to the connection point if m_flow >= 0";
-  input Medium.MassFraction Xi_inflow[Medium.nXi]
+  input Medium.MassFraction Xi_inflow[Medium.nXi] if
+       allowFlowReversal
     "Independent mixture mass fractions m_i/m close to the connection point if m_flow < 0";
-  input Medium.ExtraProperty C_inflow[Medium.nC]
+  input Medium.ExtraProperty C_inflow[Medium.nC] if
+       allowFlowReversal
     "Properties c_i/m close to the connection point if m_flow < 0";
 
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
+  annotation (defaultComponentName="port_b",
+  Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
             {100,100}}), graphics={Polygon(
           points={{-100,100},{-100,-100},{100,0},{-100,100}},
           lineColor={0,0,255},
           smooth=Smooth.None,
           fillPattern=FillPattern.Solid,
           fillColor={255,255,255})}));
-end Outlet;
+end FluidPort_b;

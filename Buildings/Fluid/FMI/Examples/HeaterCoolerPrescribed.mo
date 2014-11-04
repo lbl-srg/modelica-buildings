@@ -11,8 +11,6 @@ block HeaterCoolerPrescribed "FMU declaration for an ideal heater or cooler"
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal=1
     "Nominal mass flow rate";
   parameter Modelica.SIunits.Pressure dp_nominal=10 "Pressure";
-  inner Modelica.Fluid.System system(energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
-    annotation (Placement(transformation(extent={{70,68},{90,88}})));
   parameter Modelica.SIunits.HeatFlowRate Q_flow_nominal = 1000
     "Heat flow rate at u=1, positive for heating";
   Modelica.Blocks.Interfaces.RealInput u(min=0, max=1, unit="1")
