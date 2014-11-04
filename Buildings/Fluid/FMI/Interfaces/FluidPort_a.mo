@@ -3,10 +3,6 @@ connector FluidPort_a "Connector for fluid inlet"
   replaceable package Medium = Modelica.Media.Interfaces.PartialMedium
     "Medium model" annotation (choicesAllMatching=true);
 
-  parameter Boolean allowFlowReversal = true
-    "= true to allow flow reversal, false restricts to design direction (port_a -> port_b)"
-    annotation(Dialog(tab="Assumptions"), Evaluate=true);
-
   input Medium.MassFlowRate m_flow
     "Mass flow rate from the connection point into the component";
   input Medium.AbsolutePressure p
@@ -18,14 +14,11 @@ connector FluidPort_a "Connector for fluid inlet"
   input Medium.ExtraProperty C_inflow[Medium.nC]
     "Properties c_i/m close to the connection point if m_flow < 0";
 
-  output Medium.SpecificEnthalpy h_outflow if
-       allowFlowReversal
+  output Medium.SpecificEnthalpy h_outflow
     "Specific thermodynamic enthalpy close to the connection point if m_flow >= 0";
-  output Medium.MassFraction Xi_outflow[Medium.nXi] if
-       allowFlowReversal
+  output Medium.MassFraction Xi_outflow[Medium.nXi]
     "Independent mixture mass fractions m_i/m close to the connection point if m_flow < 0";
-  output Medium.ExtraProperty C_outflow[Medium.nC] if
-       allowFlowReversal
+  output Medium.ExtraProperty C_outflow[Medium.nC]
     "Properties c_i/m close to the connection point if m_flow < 0";
 
   annotation (defaultComponentName="port_a",
