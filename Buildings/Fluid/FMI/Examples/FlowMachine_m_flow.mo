@@ -3,7 +3,7 @@ block FlowMachine_m_flow "FMU declaration for a fixed resistance"
    extends Buildings.Fluid.FMI.TwoPortSingleComponent(
      redeclare package Medium =
         Buildings.Media.GasesConstantDensity.MoistAirUnsaturated,
-     redeclare final Movers.FlowMachine_m_flow com);
+     redeclare final Movers.FlowMachine_m_flow com(filteredSpeed=false));
         // fixme: This model is structurally singular.
         // Probably because there is no equation that links
         // the pressures of the two ports.

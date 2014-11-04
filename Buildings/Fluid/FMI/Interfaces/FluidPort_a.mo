@@ -3,23 +3,10 @@ connector FluidPort_a "Connector for fluid inlet"
   replaceable package Medium = Modelica.Media.Interfaces.PartialMedium
     "Medium model" annotation (choicesAllMatching=true);
 
-  input Medium.MassFlowRate m_flow
-    "Mass flow rate from the connection point into the component";
-  input Medium.AbsolutePressure p
-    "Thermodynamic pressure in the connection point";
-  input Medium.SpecificEnthalpy h_inflow
-    "Specific thermodynamic enthalpy close to the connection point if m_flow >= 0";
-  input Medium.MassFraction Xi_inflow[Medium.nXi]
-    "Independent mixture mass fractions m_i/m close to the connection point if m_flow < 0";
-  input Medium.ExtraProperty C_inflow[Medium.nC]
-    "Properties c_i/m close to the connection point if m_flow < 0";
-
-  output Medium.SpecificEnthalpy h_outflow
-    "Specific thermodynamic enthalpy close to the connection point if m_flow >= 0";
-  output Medium.MassFraction Xi_outflow[Medium.nXi]
-    "Independent mixture mass fractions m_i/m close to the connection point if m_flow < 0";
-  output Medium.ExtraProperty C_outflow[Medium.nC]
-    "Properties c_i/m close to the connection point if m_flow < 0";
+  input Buildings.Fluid.FMI.Interfaces.FlowProperties inflow(
+    redeclare final package Medium = Medium) "Inflowing properties";
+  output Buildings.Fluid.FMI.Interfaces.FluidProperties outflow(
+    redeclare final package Medium = Medium) "Outflowing properties";
 
   annotation (defaultComponentName="port_a",
   Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},

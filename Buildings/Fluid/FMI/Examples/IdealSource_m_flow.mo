@@ -18,20 +18,20 @@ block IdealSource_m_flow "FMU declaration for a fixed resistance"
         origin={-2,120})));
 
 equation
-  assert(abs(port_a.m_flow-port_b.m_flow) < 1E-2,
+  assert(abs(port_a.inflow.m_flow-port_b.outflow.m_flow) < 1E-2,
   "The mass flow rate of port_a and port_b is not conserved.
   This indicates a wrong configuration of your system model.");
-  port_b.m_flow = m_flow_in;
-  port_b.p = port_a.p;
+  port_b.outflow.m_flow = m_flow_in;
+  port_b.outflow.p = port_a.inflow.p;
 
-  port_a.h_outflow = port_b.h_inflow;
-  port_b.h_outflow = port_a.h_inflow;
+  port_a.inflow.h = port_b.outflow.h;
+  port_b.inflow.h = port_a.outflow.h;
 
-  port_a.Xi_outflow = port_b.Xi_inflow;
-  port_b.Xi_outflow = port_a.Xi_inflow;
+  port_a.inflow.Xi = port_b.outflow.Xi;
+  port_b.inflow.Xi = port_a.outflow.Xi;
 
-  port_a.C_outflow = port_b.C_inflow;
-  port_b.C_outflow = port_a.C_inflow;
+  port_a.inflow.C = port_b.outflow.C;
+  port_b.inflow.C = port_a.outflow.C;
 
   annotation (
   Documentation(info="<html>

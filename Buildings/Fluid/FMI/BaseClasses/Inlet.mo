@@ -5,13 +5,12 @@ model Inlet "Model for exposing a fluid inlet to the FMI interface"
       Modelica.Media.Interfaces.PartialMedium "Medium model within the source"
      annotation (choicesAllMatching=true);
 
-  Buildings.Fluid.FMI.Interfaces.FluidPort_a port_a(redeclare final package
-      Medium =                                                                     Medium)
-    "Fluid inlet"
+  Buildings.Fluid.FMI.Interfaces.FluidPort_a port_a(
+    redeclare final package Medium = Medium) "Fluid inlet"
     annotation (Placement(transformation(extent={{-120,-10},{-100,10}})));
 
-  Modelica.Fluid.Interfaces.FluidPort_b port_b(redeclare final package Medium=Medium)
-    "Fluid port"
+  Modelica.Fluid.Interfaces.FluidPort_b port_b(
+    redeclare final package Medium=Medium) "Fluid port"
                 annotation (Placement(
         transformation(extent={{90,-10},{110,10}}), iconTransformation(extent={{90,-10},
             {110,10}})));
@@ -21,17 +20,19 @@ model Inlet "Model for exposing a fluid inlet to the FMI interface"
         rotation=270,
         origin={0,-110})));
 equation
-  port_b.m_flow     = port_a.m_flow;
-  port_b.h_outflow  = port_a.h_inflow;
-  port_b.Xi_outflow = port_a.Xi_inflow;
-  port_b.C_outflow  = port_a.C_inflow;
+  port_b.m_flow     = port_a.inflow.m_flow;
+  port_b.p          = port_a.inflow.p;
 
-  inStream(port_b.h_outflow)  = port_a.h_outflow;
-  inStream(port_b.Xi_outflow) = port_a.Xi_outflow;
-  inStream(port_b.C_outflow)  = port_a.C_outflow;
+  port_b.h_outflow  = port_a.inflow.h;
+  port_b.Xi_outflow = port_a.inflow.Xi;
+  port_b.C_outflow  = port_a.inflow.C;
+
+  inStream(port_b.h_outflow)  = port_a.outflow.h;
+  inStream(port_b.Xi_outflow) = port_a.outflow.Xi;
+  inStream(port_b.C_outflow)  = port_a.outflow.C;
 
   // Send inlet pressure to signal port p
-  p = port_a.p;
+  p = port_a.inflow.p;
 
   annotation (defaultComponentName="boundary",
     Icon(coordinateSystem(
