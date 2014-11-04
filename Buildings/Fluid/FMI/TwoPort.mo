@@ -20,8 +20,11 @@ partial block TwoPort
                    annotation (Placement(transformation(extent={{100,
             -10},{120,10}}), iconTransformation(extent={{100,-10},{120,10}})));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
-            {100,100}}), graphics={Rectangle(extent={{-100,100},{100,-100}},
-            lineColor={0,0,255}),
+            {100,100}}), graphics={Rectangle(
+          extent={{-100,100},{100,-100}},
+          lineColor={0,0,0},
+          fillPattern=FillPattern.Solid,
+          fillColor={255,255,255}),
             Text(
           extent={{-151,147},{149,107}},
           lineColor={0,0,255},
