@@ -22,7 +22,9 @@ model Inlet "Model for exposing a fluid inlet to the FMI interface"
 equation
   // To locally balance the model, the pressure is only imposed at the
   // oulet model.
-  port_b.m_flow     = inlet.m_flow;
+  // Negative sign because inlet.m_flow > 0
+  // means that fluid flows out of this component
+  -port_b.m_flow     = inlet.m_flow;
   //port_b.p          = inlet.inflow.p;
 
   port_b.h_outflow  = inlet.forward.h;
