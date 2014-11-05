@@ -2,7 +2,8 @@ within Buildings.Fluid.FMI;
 model TwoPortExtends
   "Container to export a thermofluid flow model with two ports as an FMU"
   replaceable package Med =
-      Buildings.Media.Air "Medium in the component"
+      Buildings.Media.GasesConstantDensity.MoistAirUnsaturated
+    "Medium in the component"
       annotation (choicesAllMatching = true);
   extends Buildings.Fluid.FixedResistances.FixedResistanceDpM(
    redeclare final package Medium = Med,

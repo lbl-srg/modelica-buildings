@@ -1,9 +1,14 @@
-within Buildings.Fluid.FMI;
-block Fixme
-  "Container to export a single thermofluid flow model with two ports as an FMU"
+within Buildings.Fluid.FMI.Examples;
+block ResistanceVolume
+  "Container to export a flow resistance and control volume as an FMU"
   import Buildings;
   extends TwoPort(redeclare package Medium =
-        Buildings.Media.Water);
+        Buildings.Media.GasesConstantDensity.MoistAirUnsaturated);
+
+  parameter Modelica.SIunits.Volume V=1 "Volume";
+  parameter Modelica.SIunits.MassFlowRate m_flow_nominal = 0.1
+    "Nominal mass flow rate";
+  parameter Modelica.SIunits.Pressure dp_nominal = 100 "Nominal pressure drop";
   parameter Boolean allowFlowReversal = true
     "= true to allow flow reversal, false restricts to design direction (port_a -> port_b)"
     annotation(Dialog(tab="Assumptions"), Evaluate=true);
@@ -20,29 +25,22 @@ protected
 
   Sensors.RelativePressure senRelPre(redeclare package Medium = Medium)
     "Sensor for pressure difference across the component"
-    annotation (Placement(transformation(extent={{-10,-44},{10,-24}})));
-public
-  Modelica.Blocks.Sources.Constant const(k=22222)
-    annotation (Placement(transformation(extent={{-44,-90},{-24,-70}})));
+    annotation (Placement(transformation(extent={{-40,-44},{-20,-24}})));
+
   FixedResistances.FixedResistanceDpM res(
     redeclare package Medium = Medium,
-    m_flow_nominal=1,
-    dp_nominal=1)
+    m_flow_nominal=m_flow_nominal,
+    dp_nominal=dp_nominal,
+    allowFlowReversal=allowFlowReversal) "Flow resistance"
     annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
-  inner Modelica.Fluid.System system(energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
-    annotation (Placement(transformation(extent={{70,70},{90,90}})));
-  Buildings.Fluid.Interfaces.ConservationEquation conservationEquation(
+  Buildings.Fluid.MixingVolumes.MixingVolume vol(
     nPorts=2,
     redeclare package Medium = Medium,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    fluidVolume=1)
+    m_flow_nominal=m_flow_nominal,
+    allowFlowReversal=allowFlowReversal,
+    V=V) "Control volume"
     annotation (Placement(transformation(extent={{6,0},{26,20}})));
-public
-  Modelica.Blocks.Sources.Constant const1(k=0)
-    annotation (Placement(transformation(extent={{-60,60},{-40,80}})));
-public
-  Modelica.Blocks.Sources.Constant const2(k=0)
-    annotation (Placement(transformation(extent={{-60,20},{-40,40}})));
 equation
   connect(inlet, bouIn.inlet) annotation (Line(
       points={{-110,0},{-81,0}},
@@ -60,38 +58,47 @@ equation
       points={{29,-60},{70,-60},{70,-12}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(bouIn.port, res.port_a) annotation (Line(
-      points={{-60,0},{-40,0}},
-      color={0,127,255},
-      smooth=Smooth.None));
   connect(res.port_a, senRelPre.port_a) annotation (Line(
-      points={{-40,0},{-42,0},{-42,-34},{-10,-34}},
+      points={{-40,0},{-50,0},{-50,-34},{-40,-34}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(res.port_b, senRelPre.port_b) annotation (Line(
-      points={{-20,0},{-6,0},{-6,-20},{10,-20},{10,-34}},
+      points={{-20,0},{-10,0},{-10,-34},{-20,-34}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(senRelPre.p_rel, pOut.u2) annotation (Line(
-      points={{0,-43},{-2,-43},{-2,-80},{20,-80},{20,-68}},
+      points={{-30,-43},{-30,-80},{20,-80},{20,-68}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(res.port_b, conservationEquation.ports[1]) annotation (Line(
+  connect(res.port_b, vol.ports[1]) annotation (Line(
       points={{-20,0},{-2,0},{-2,-4.44089e-16},{14,-4.44089e-16}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(const1.y, conservationEquation.Q_flow) annotation (Line(
-      points={{-39,70},{-4,70},{-4,16},{4,16}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(conservationEquation.ports[2], bouOut.port) annotation (Line(
-      points={{18,0},{60,0}},
+  connect(bouIn.port_b, res.port_a) annotation (Line(
+      points={{-60,0},{-40,0}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(const2.y, conservationEquation.mWat_flow) annotation (Line(
-      points={{-39,30},{-28,30},{-28,28},{-14,28},{-14,12},{4,12}},
-      color={0,0,127},
+  connect(bouOut.port_a, vol.ports[2]) annotation (Line(
+      points={{60,0},{18,0}},
+      color={0,127,255},
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}}), graphics));
-end Fixme;
+            -100},{100,100}}), graphics),
+Documentation(info="<html>
+<p>
+This example demonstrates how to export an FMU with a
+flow resistance and a control volume.
+The FMU has an instance of
+<a href=\"modelica://Buildings.Fluid.FixedResistances.FixedResistanceDpM\">
+Buildings.Fluid.FixedResistances.FixedResistanceDpM</a> and
+<a href=\"modelica://Buildings.Fluid.MixingVolumes.MixingVolume\">
+Buildings.Fluid.MixingVolumes.MixingVolume</a>.
+</p>
+<p>
+In Dymola, to export the model as an FMU,
+select from the pull down menu <code>Commands - Export FMU</code>.
+</p>
+</html>"),
+__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/FMI/Examples/ResistanceVolume.mos"
+        "Export FMU"));
+end ResistanceVolume;
