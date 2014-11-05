@@ -9,13 +9,11 @@ block TwoPortSingleComponent
     "Component that holds actual model"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 
-  Modelica.Blocks.Math.Feedback pOut "Pressure at component outlet"
-    annotation (Placement(transformation(extent={{10,-70},{30,-50}})));
-
 protected
   BaseClasses.Inlet bouIn(redeclare final package Medium=Medium)
     "Boundary model for inlet"
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
+
   BaseClasses.Outlet bouOut(redeclare final package Medium=Medium)
     "Boundary component for outlet"
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
@@ -23,6 +21,10 @@ protected
   Sensors.RelativePressure senRelPre(redeclare package Medium = Medium)
     "Sensor for pressure difference across the component"
     annotation (Placement(transformation(extent={{-10,-40},{10,-20}})));
+
+  Modelica.Blocks.Math.Feedback pOut "Pressure at component outlet"
+    annotation (Placement(transformation(extent={{10,-70},{30,-50}})));
+
 equation
   connect(pOut.u1, bouIn.p) annotation (Line(
       points={{12,-60},{-70,-60},{-70,-11}},
