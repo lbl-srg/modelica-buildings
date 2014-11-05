@@ -5,4 +5,4 @@ FlowMachine_dp
 FlowMachine_m_flow
 HeaterCooler_u
 IdealSource_m_flow
-LoopPressureDrop
+LoopHeater

@@ -18,20 +18,20 @@ block IdealSource_m_flow "FMU declaration for a fixed resistance"
         origin={-2,120})));
 
 equation
-  assert(abs(port_a.inflow.m_flow-port_b.outflow.m_flow) < 1E-2,
+  assert(abs(inlet.m_flow-outlet.m_flow) < 1E-2,
   "The mass flow rate of port_a and port_b is not conserved.
   This indicates a wrong configuration of your system model.");
-  port_b.outflow.m_flow = m_flow_in;
-  port_b.outflow.p = port_a.inflow.p;
+  outlet.m_flow = m_flow_in;
+  outlet.p = inlet.p;
 
-  port_a.inflow.h = port_b.outflow.h;
-  port_b.inflow.h = port_a.outflow.h;
+  inlet.forward.h = outlet.forward.h;
+  outlet.backward.h = inlet.backward.h;
 
-  port_a.inflow.Xi = port_b.outflow.Xi;
-  port_b.inflow.Xi = port_a.outflow.Xi;
+  inlet.forward.Xi = outlet.forward.Xi;
+  outlet.backward.Xi = inlet.backward.Xi;
 
-  port_a.inflow.C = port_b.outflow.C;
-  port_b.inflow.C = port_a.outflow.C;
+  inlet.forward.C = outlet.forward.C;
+  outlet.backward.C = inlet.backward.C;
 
   annotation (
   Documentation(info="<html>
@@ -57,5 +57,10 @@ __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/FMI/
         "Export FMU"),
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
             100,100}}),
-                    graphics));
+                    graphics),
+    Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
+            100}}), graphics={Text(
+          extent={{-70,36},{66,-24}},
+          lineColor={0,0,255},
+          textString="m_flow")}));
 end IdealSource_m_flow;

@@ -11,7 +11,7 @@ connector FluidPort_b "Connector for fluid outlet"
   input Buildings.Fluid.FMI.Interfaces.FluidProperties backward(
     redeclare final package Medium = Medium) "Inflowing properties";
 
-  output Buildings.Fluid.FMI.Interfaces.FlowProperties forward(
+  output Buildings.Fluid.FMI.Interfaces.FluidProperties forward(
     redeclare final package Medium = Medium) "Outflowing properties";
 
   annotation (defaultComponentName="port_b",

@@ -8,7 +8,7 @@ connector FluidPort_a "Connector for fluid inlet"
   input Medium.AbsolutePressure p
     "Thermodynamic pressure in the connection point";
 
-  input Buildings.Fluid.FMI.Interfaces.FlowProperties forward(
+  input Buildings.Fluid.FMI.Interfaces.FluidProperties forward(
     redeclare final package Medium = Medium) "Inflowing properties";
   output Buildings.Fluid.FMI.Interfaces.FluidProperties backward(
     redeclare final package Medium = Medium) "Outflowing properties";
