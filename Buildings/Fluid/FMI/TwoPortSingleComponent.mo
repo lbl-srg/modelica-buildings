@@ -36,14 +36,6 @@ equation
       points={{29,-60},{70,-60},{70,-12}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(bouOut.port_b, port_b) annotation (Line(
-      points={{81,0},{110,0}},
-      color={0,0,255},
-      smooth=Smooth.None));
-  connect(port_a, bouIn.port_a) annotation (Line(
-      points={{-110,0},{-81,0}},
-      color={0,0,255},
-      smooth=Smooth.None));
   connect(senRelPre.port_a, bouIn.port_b) annotation (Line(
       points={{-10,-30},{-40,-30},{-40,0},{-60,0}},
       color={0,127,255},
@@ -59,6 +51,14 @@ equation
   connect(com.port_b, bouOut.port_a) annotation (Line(
       points={{10,0},{60,0}},
       color={0,127,255},
+      smooth=Smooth.None));
+  connect(inlet, bouIn.inlet) annotation (Line(
+      points={{-110,0},{-81,0}},
+      color={0,0,255},
+      smooth=Smooth.None));
+  connect(bouOut.outlet, outlet) annotation (Line(
+      points={{81,0},{110,0}},
+      color={0,0,255},
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}), graphics));

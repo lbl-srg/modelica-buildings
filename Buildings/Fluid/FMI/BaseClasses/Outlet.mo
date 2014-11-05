@@ -5,7 +5,7 @@ model Outlet "Model for exposing a fluid outlet to the FMI interface"
       Modelica.Media.Interfaces.PartialMedium "Medium model within the source"
      annotation (choicesAllMatching=true);
 
-  Buildings.Fluid.FMI.Interfaces.FluidPort_b port_b(
+  Buildings.Fluid.FMI.Interfaces.FluidPort_b outlet(
     redeclare final package Medium = Medium) "Fluid outlet"
                    annotation (Placement(transformation(extent={{100,-10},
             {120,10}}), iconTransformation(extent={{100,-10},{120,10}})));
@@ -24,17 +24,17 @@ model Outlet "Model for exposing a fluid outlet to the FMI interface"
 equation
   // Set outlet pressure and port pressure to pressure
   // of signal port
-  port_b.outflow.p  = p;
-  port_a.p         = port_b.outflow.p;
-  port_a.m_flow    = port_b.outflow.m_flow;
+  outlet.p      = p;
+  port_a.p      = p;
+  port_a.m_flow = outlet.m_flow;
 
-  inStream(port_a.h_outflow)  = port_b.outflow.h;
-  inStream(port_a.Xi_outflow) = port_b.outflow.Xi;
-  inStream(port_a.C_outflow)  = port_b.outflow.C;
+  inStream(port_a.h_outflow)  = outlet.forward.h;
+  inStream(port_a.Xi_outflow) = outlet.forward.Xi;
+  inStream(port_a.C_outflow)  = outlet.forward.C;
 
-  port_a.h_outflow  = port_b.inflow.h;
-  port_a.Xi_outflow = port_b.inflow.Xi;
-  port_a.C_outflow  = port_b.inflow.C;
+  port_a.h_outflow  = outlet.backward.h;
+  port_a.Xi_outflow = outlet.backward.Xi;
+  port_a.C_outflow  = outlet.backward.C;
 
     annotation (defaultComponentName="boundary",
     Icon(coordinateSystem(

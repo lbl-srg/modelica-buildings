@@ -3,9 +3,14 @@ connector FluidPort_a "Connector for fluid inlet"
   replaceable package Medium = Modelica.Media.Interfaces.PartialMedium
     "Medium model" annotation (choicesAllMatching=true);
 
-  input Buildings.Fluid.FMI.Interfaces.FlowProperties inflow(
+  input Medium.MassFlowRate m_flow
+    "Mass flow rate from the connection point into the component";
+  input Medium.AbsolutePressure p
+    "Thermodynamic pressure in the connection point";
+
+  input Buildings.Fluid.FMI.Interfaces.FlowProperties forward(
     redeclare final package Medium = Medium) "Inflowing properties";
-  output Buildings.Fluid.FMI.Interfaces.FluidProperties outflow(
+  output Buildings.Fluid.FMI.Interfaces.FluidProperties backward(
     redeclare final package Medium = Medium) "Outflowing properties";
 
   annotation (defaultComponentName="port_a",
