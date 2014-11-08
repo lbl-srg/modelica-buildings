@@ -1,13 +1,13 @@
 within Buildings.Fluid.FMI.Examples;
 block HeaterCooler_u "FMU declaration for an ideal heater or cooler"
    extends Buildings.Fluid.FMI.TwoPortSingleComponent(
-     redeclare package Medium =
+     redeclare final package Medium =
         Buildings.Media.GasesConstantDensity.MoistAirUnsaturated,
      redeclare final Buildings.Fluid.HeatExchangers.HeaterCoolerPrescribed com(
-      m_flow_nominal=m_flow_nominal,
-      dp_nominal=dp_nominal,
-      Q_flow_nominal=Q_flow_nominal,
-      energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState));
+      final m_flow_nominal=m_flow_nominal,
+      final dp_nominal=dp_nominal,
+      final Q_flow_nominal=Q_flow_nominal,
+      final energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState));
       // fixme: for Buildings.Media.GasesConstantDensity.MoistAirUnsaturated and
       // dynamic balance with fixed initial values, this model does not translate
       // due to the index reduction requiring derivatives for the inputs.

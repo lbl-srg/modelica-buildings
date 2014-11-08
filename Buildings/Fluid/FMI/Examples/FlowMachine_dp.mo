@@ -1,12 +1,12 @@
 within Buildings.Fluid.FMI.Examples;
 block FlowMachine_dp "FMU declaration for a fixed resistance"
    extends Buildings.Fluid.FMI.TwoPortSingleComponent(
-     redeclare package Medium =
+     redeclare final package Medium =
         Buildings.Media.GasesConstantDensity.MoistAirUnsaturated,
      redeclare final Movers.FlowMachine_dp com(
-      m_flow_nominal=m_flow_nominal,
-      dynamicBalance=false,
-      filteredSpeed=false));
+      final m_flow_nominal=m_flow_nominal,
+      final dynamicBalance=false,
+      final filteredSpeed=false));
 
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal(start=1) = 1
     "Nominal mass flow rate";

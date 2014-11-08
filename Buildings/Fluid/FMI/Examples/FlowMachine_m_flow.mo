@@ -1,12 +1,12 @@
 within Buildings.Fluid.FMI.Examples;
 block FlowMachine_m_flow "FMU declaration for a fixed resistance"
    extends Buildings.Fluid.FMI.TwoPortSingleComponent(
-     redeclare package Medium =
+     redeclare final package Medium =
         Buildings.Media.GasesConstantDensity.MoistAirUnsaturated,
      redeclare final Movers.FlowMachine_m_flow com(filteredSpeed=false,
-      energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
-      tau=0,
-      dynamicBalance=false));
+      final energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
+      final tau=0,
+      final dynamicBalance=false));
         // fixme: This model is structurally singular.
         // Probably because there is no equation that links
         // the pressures of the two ports.

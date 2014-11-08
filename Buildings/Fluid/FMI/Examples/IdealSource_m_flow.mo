@@ -1,13 +1,10 @@
 within Buildings.Fluid.FMI.Examples;
 block IdealSource_m_flow "FMU declaration for a fixed resistance"
    extends Buildings.Fluid.FMI.TwoPort(
-     redeclare package Medium =
+     redeclare final package Medium =
         Buildings.Media.GasesConstantDensity.MoistAirUnsaturated);
-  parameter Modelica.SIunits.MassFlowRate m_flow_nominal(start=1) = 1
-    "Nominal mass flow rate";
 
-  Modelica.Blocks.Interfaces.RealInput m_flow_in(final unit="kg/s",
-                                                 nominal=m_flow_nominal)
+  Modelica.Blocks.Interfaces.RealInput m_flow_in(final unit="kg/s")
     "Prescribed mass flow rate"
     annotation (Placement(transformation(
         extent={{-20,-20},{20,20}},
