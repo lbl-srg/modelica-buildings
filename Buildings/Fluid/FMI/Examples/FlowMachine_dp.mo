@@ -37,12 +37,11 @@ The FMU has an instance of
 Buildings.Fluid.FixedResistances.FlowMachine_dp</a>.
 </p>
 <p>
-Note that there is no FMU that exports the model
+See
+<a href=\"modelica://Buildings.Fluid.FMI.UsersGuide\">
+Buildings.Fluid.FMI.UsersGuide</a> for why there is no model that exports
 <a href=\"modelica://Buildings.Fluid.FixedResistances.FlowMachine_m_flow\">
 Buildings.Fluid.FixedResistances.FlowMachine_m_flow</a>.
-This is because the inlet connector 
-</p>
-
 </p>
 <p>
 In Dymola, to export the model as an FMU,
