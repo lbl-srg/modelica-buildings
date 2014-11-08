@@ -1,18 +1,18 @@
 within Buildings.Fluid.FMI.Examples;
 block IdealSource_m_flow "FMU declaration for a fixed resistance"
    extends Buildings.Fluid.FMI.TwoPort(
-     redeclare final package Medium =
+     redeclare replaceable package Medium =
         Buildings.Media.GasesConstantDensity.MoistAirUnsaturated);
 
   Modelica.Blocks.Interfaces.RealInput m_flow_in(final unit="kg/s")
     "Prescribed mass flow rate"
     annotation (Placement(transformation(
         extent={{-20,-20},{20,20}},
-        rotation=-90,
-        origin={0,120}),   iconTransformation(
-        extent={{-20,-20},{20,20}},
-        rotation=-90,
-        origin={-2,120})));
+        rotation=0,
+        origin={-120,50}), iconTransformation(
+        extent={{-10,-10},{10,10}},
+        rotation=0,
+        origin={-110,60})));
 
 equation
   assert(abs(inlet.m_flow-outlet.m_flow) < 1E-2,
@@ -33,10 +33,7 @@ equation
   annotation (
   Documentation(info="<html>
 <p>
-This example demonstrates how to export an FMU with a fluid flow component.
-The FMU has an instance of
-<a href=\"modelica://Buildings.Fluid.Movers.IdealSource_m_flow\">
-Buildings.Fluid.Movers.IdealSource_m_flow</a>.
+This example demonstrates how to export an FMU that sets the mass flow rate.
 </p>
 <p>
 In Dymola, to export the model as an FMU,
@@ -56,8 +53,25 @@ __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/FMI/
             100,100}}),
                     graphics),
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
-            100}}), graphics={Text(
-          extent={{-70,36},{66,-24}},
-          lineColor={0,0,255},
-          textString="m_flow")}));
+            100}}), graphics={
+        Rectangle(
+          extent={{-100,14},{100,-16}},
+          lineColor={0,0,0},
+          fillColor={0,127,255},
+          fillPattern=FillPattern.HorizontalCylinder),
+                              Text(
+          extent={{-96,88},{-52,30}},
+          lineColor={0,0,127},
+          textString="m_flow"),
+        Ellipse(
+          extent={{-16,18},{24,-22}},
+          lineColor={0,0,0},
+          fillPattern=FillPattern.Sphere,
+          fillColor={0,100,199}),
+        Polygon(
+          points={{-8,14},{-8,-16},{22,-2},{-8,14}},
+          lineColor={0,0,0},
+          pattern=LinePattern.None,
+          fillPattern=FillPattern.HorizontalCylinder,
+          fillColor={255,255,255})}));
 end IdealSource_m_flow;

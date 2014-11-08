@@ -1,7 +1,7 @@
 within Buildings.Fluid.FMI.Examples;
 block FixedResistanceDpM "FMU declaration for a fixed resistance"
    extends Buildings.Fluid.FMI.TwoPortSingleComponent(
-     redeclare final package Medium =
+     redeclare replaceable package Medium =
         Buildings.Media.GasesConstantDensity.MoistAirUnsaturated,
      redeclare final Buildings.Fluid.FixedResistances.FixedResistanceDpM com(
       final m_flow_nominal=m_flow_nominal,
@@ -32,5 +32,16 @@ First implementation.
 </ul>
 </html>"),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/FMI/Examples/FixedResistanceDpM.mos"
-        "Export FMU"));
+        "Export FMU"),
+    Icon(graphics={
+        Rectangle(
+          extent={{-64,24},{70,-26}},
+          lineColor={0,0,0},
+          fillPattern=FillPattern.HorizontalCylinder,
+          fillColor={192,192,192}),
+        Rectangle(
+          extent={{-100,14},{100,-16}},
+          lineColor={0,0,0},
+          fillColor={0,127,255},
+          fillPattern=FillPattern.HorizontalCylinder)}));
 end FixedResistanceDpM;

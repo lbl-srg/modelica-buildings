@@ -5,8 +5,8 @@ model Inlet "Model for exposing a fluid inlet to the FMI interface"
       Modelica.Media.Interfaces.PartialMedium "Medium model within the source"
      annotation (choicesAllMatching=true);
 
-  Buildings.Fluid.FMI.Interfaces.FluidPort_a inlet(
-    redeclare final package Medium = Medium) "Fluid inlet"
+  Buildings.Fluid.FMI.Interfaces.Inlet inlet(redeclare final package Medium =
+        Medium) "Fluid inlet"
     annotation (Placement(transformation(extent={{-120,-10},{-100,10}})));
 
   Modelica.Fluid.Interfaces.FluidPort_b port_b(
@@ -25,7 +25,6 @@ equation
   // Negative sign because inlet.m_flow > 0
   // means that fluid flows out of this component
   -port_b.m_flow     = inlet.m_flow;
-  //port_b.p          = inlet.inflow.p;
 
   port_b.h_outflow  = inlet.forward.h;
   port_b.Xi_outflow = inlet.forward.Xi;

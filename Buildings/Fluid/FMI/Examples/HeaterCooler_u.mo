@@ -1,7 +1,7 @@
 within Buildings.Fluid.FMI.Examples;
 block HeaterCooler_u "FMU declaration for an ideal heater or cooler"
    extends Buildings.Fluid.FMI.TwoPortSingleComponent(
-     redeclare final package Medium =
+     redeclare replaceable package Medium =
         Buildings.Media.GasesConstantDensity.MoistAirUnsaturated,
      redeclare final Buildings.Fluid.HeatExchangers.HeaterCoolerPrescribed com(
       final m_flow_nominal=m_flow_nominal,
@@ -13,7 +13,8 @@ block HeaterCooler_u "FMU declaration for an ideal heater or cooler"
       // due to the index reduction requiring derivatives for the inputs.
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal=1
     "Nominal mass flow rate";
-  parameter Modelica.SIunits.Pressure dp_nominal=10 "Pressure";
+  parameter Modelica.SIunits.Pressure dp_nominal(displayUnit="Pa")=1000
+    "Pressure";
   parameter Modelica.SIunits.HeatFlowRate Q_flow_nominal = 1000
     "Heat flow rate at u=1, positive for heating";
   Modelica.Blocks.Interfaces.RealInput u(min=0, max=1, unit="1")
@@ -47,5 +48,51 @@ First implementation.
 </ul>
 </html>"),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/FMI/Examples/HeaterCooler_u.mos"
-        "Export FMU"));
+        "Export FMU"),
+    Icon(graphics={
+        Polygon(
+          points={{22,-75},{52,-85},{22,-95},{22,-75}},
+          lineColor={255,255,255},
+          smooth=Smooth.None,
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid,
+          visible=allowFlowReversal),
+        Rectangle(
+          extent={{-68,60},{72,-60}},
+          lineColor={0,0,255},
+          pattern=LinePattern.None,
+          fillColor={95,95,95},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{-101,6},{100,-4}},
+          lineColor={0,0,255},
+          pattern=LinePattern.None,
+          fillColor={0,0,255},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{2,-4},{102,6}},
+          lineColor={0,0,255},
+          pattern=LinePattern.None,
+          fillColor={255,0,0},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{-68,80},{72,-80}},
+          lineColor={0,0,255},
+          pattern=LinePattern.None,
+          fillColor={95,95,95},
+          fillPattern=FillPattern.Solid),
+        Text(
+          extent={{-54,-12},{56,-72}},
+          lineColor={255,255,255},
+          textString="Q=%Q_flow_nominal"),
+        Rectangle(
+          extent={{-100,61},{-68,58}},
+          lineColor={0,0,255},
+          pattern=LinePattern.None,
+          fillColor={0,0,127},
+          fillPattern=FillPattern.Solid),
+        Text(
+          extent={{-104,94},{-60,66}},
+          lineColor={0,0,255},
+          textString="u")}));
 end HeaterCooler_u;

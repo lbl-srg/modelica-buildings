@@ -2,6 +2,7 @@ within Buildings.Fluid.FMI;
 block TwoPortSingleComponent
   "Container to export a single thermofluid flow model with two ports as an FMU"
   extends TwoPort;
+
   replaceable Buildings.Fluid.Interfaces.PartialTwoPort com constrainedby
     Buildings.Fluid.Interfaces.PartialTwoPort(
       redeclare final package Medium = Medium,

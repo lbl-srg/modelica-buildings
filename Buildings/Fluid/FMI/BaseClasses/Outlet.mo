@@ -5,10 +5,9 @@ model Outlet "Model for exposing a fluid outlet to the FMI interface"
       Modelica.Media.Interfaces.PartialMedium "Medium model within the source"
      annotation (choicesAllMatching=true);
 
-  Buildings.Fluid.FMI.Interfaces.FluidPort_b outlet(
-    redeclare final package Medium = Medium) "Fluid outlet"
-                   annotation (Placement(transformation(extent={{100,-10},
-            {120,10}}), iconTransformation(extent={{100,-10},{120,10}})));
+  Buildings.Fluid.FMI.Interfaces.Outlet outlet(redeclare final package Medium
+      = Medium) "Fluid outlet" annotation (Placement(transformation(extent={{
+            100,-10},{120,10}}), iconTransformation(extent={{100,-10},{120,10}})));
 
   Modelica.Fluid.Interfaces.FluidPort_a port_a(
     redeclare final package Medium=Medium) "Fluid port"

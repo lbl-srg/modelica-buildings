@@ -1,7 +1,6 @@
 within Buildings.Fluid.FMI.Examples;
 block ResistanceVolume
   "Container to export a flow resistance and control volume as an FMU"
-  import Buildings;
   extends TwoPort(redeclare package Medium =
         Buildings.Media.GasesConstantDensity.MoistAirUnsaturated);
 
@@ -98,7 +97,30 @@ Buildings.Fluid.MixingVolumes.MixingVolume</a>.
 In Dymola, to export the model as an FMU,
 select from the pull down menu <code>Commands - Export FMU</code>.
 </p>
+</html>", revisions="<html>
+<ul>
+<li>
+November 8, 2014 by Michael Wetter:<br/>
+First implementation.
+</li>
+</ul>
 </html>"),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/FMI/Examples/ResistanceVolume.mos"
-        "Export FMU"));
+        "Export FMU"),
+    Icon(graphics={
+        Rectangle(
+          extent={{-64,24},{-6,-26}},
+          lineColor={0,0,0},
+          fillPattern=FillPattern.HorizontalCylinder,
+          fillColor={192,192,192}),
+        Rectangle(
+          extent={{-100,14},{100,-16}},
+          lineColor={0,0,0},
+          fillColor={0,127,255},
+          fillPattern=FillPattern.HorizontalCylinder),
+                              Ellipse(
+          extent={{18,32},{84,-34}},
+          lineColor={0,0,0},
+          fillPattern=FillPattern.Sphere,
+          fillColor={170,213,255})}));
 end ResistanceVolume;

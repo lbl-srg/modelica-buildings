@@ -6,17 +6,15 @@ partial block TwoPort
       annotation (choicesAllMatching = true);
 
   parameter Boolean allowFlowReversal = true
-    "= true to allow flow reversal, false restricts to design direction (port_a -> port_b)"
+    "= true to allow flow reversal, false restricts to design direction (inlet -> outlet)"
     annotation(Dialog(tab="Assumptions"), Evaluate=true);
 
-  Interfaces.FluidPort_a inlet(
-  redeclare final package Medium = Medium) "Fluid inlet"
+  Interfaces.Inlet inlet(redeclare final package Medium = Medium) "Fluid inlet"
     annotation (Placement(transformation(extent={{-120,-10},{-100,10}})));
 
-  Interfaces.FluidPort_b outlet(
-  redeclare final package Medium = Medium) "Fluid outlet"
-                   annotation (Placement(transformation(extent={{100,
-            -10},{120,10}}), iconTransformation(extent={{100,-10},{120,10}})));
+  Interfaces.Outlet outlet(redeclare final package Medium = Medium)
+    "Fluid outlet" annotation (Placement(transformation(extent={{100,-10},{120,
+            10}}), iconTransformation(extent={{100,-10},{120,10}})));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
             {100,100}}), graphics={Rectangle(
           extent={{-100,100},{100,-100}},
