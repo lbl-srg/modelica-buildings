@@ -1,4 +1,4 @@
-within Buildings.Fluid.FMI.Examples;
+within Buildings.Fluid.FMI.Examples.FMUs;
 block IdealSource_m_flow "FMU declaration for a fixed resistance"
    extends Buildings.Fluid.FMI.TwoPort(
      redeclare replaceable package Medium =
@@ -35,10 +35,6 @@ equation
 <p>
 This example demonstrates how to export an FMU that sets the mass flow rate.
 </p>
-<p>
-In Dymola, to export the model as an FMU,
-select from the pull down menu <code>Commands - Export FMU</code>.
-</p>
 </html>", revisions="<html>
 <ul>
 <li>
@@ -47,7 +43,7 @@ First implementation.
 </li>
 </ul>
 </html>"),
-__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/FMI/Examples/IdealSource_m_flow.mos"
+__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/FMI/Examples/FMUs/IdealSource_m_flow.mos"
         "Export FMU"),
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
             100,100}}),

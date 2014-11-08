@@ -1,6 +1,6 @@
-within Buildings.Fluid.FMI.Examples;
+within Buildings.Fluid.FMI.Examples.FMUs;
 block FixedResistanceDpM "FMU declaration for a fixed resistance"
-   extends Buildings.Fluid.FMI.TwoPortSingleComponent(
+   extends Buildings.Fluid.FMI.TwoPortComponent(
      redeclare replaceable package Medium =
         Buildings.Media.GasesConstantDensity.MoistAirUnsaturated,
      redeclare final Buildings.Fluid.FixedResistances.FixedResistanceDpM com(
@@ -19,10 +19,6 @@ The FMU has an instance of
 <a href=\"modelica://Buildings.Fluid.FixedResistances.FixedResistanceDpM\">
 Buildings.Fluid.FixedResistances.FixedResistanceDpM</a>.
 </p>
-<p>
-In Dymola, to export the model as an FMU,
-select from the pull down menu <code>Commands - Export FMU</code>.
-</p>
 </html>", revisions="<html>
 <ul>
 <li>
@@ -31,7 +27,7 @@ First implementation.
 </li>
 </ul>
 </html>"),
-__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/FMI/Examples/FixedResistanceDpM.mos"
+__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/FMI/Examples/FMUs/FixedResistanceDpM.mos"
         "Export FMU"),
     Icon(graphics={
         Rectangle(

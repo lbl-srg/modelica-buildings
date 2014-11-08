@@ -2,7 +2,7 @@ UsersGuide
 Source_T
 Sink_T
 TwoPort
-TwoPortSingleComponent
+TwoPortComponent
 Examples
 Validation
 Interfaces

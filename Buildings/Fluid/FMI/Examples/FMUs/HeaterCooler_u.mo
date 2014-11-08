@@ -1,6 +1,6 @@
-within Buildings.Fluid.FMI.Examples;
+within Buildings.Fluid.FMI.Examples.FMUs;
 block HeaterCooler_u "FMU declaration for an ideal heater or cooler"
-   extends Buildings.Fluid.FMI.TwoPortSingleComponent(
+   extends Buildings.Fluid.FMI.TwoPortComponent(
      redeclare replaceable package Medium =
         Buildings.Media.GasesConstantDensity.MoistAirUnsaturated,
      redeclare final Buildings.Fluid.HeatExchangers.HeaterCoolerPrescribed com(
@@ -35,10 +35,6 @@ The FMU has an instance of
 <a href=\"modelica://Buildings.Fluid.HeatExchangers.HeaterCooler_u\">
 Buildings.Fluid.HeatExchangers.HeaterCooler_u</a>.
 </p>
-<p>
-In Dymola, to export the model as an FMU,
-select from the pull down menu <code>Commands - Export FMU</code>.
-</p>
 </html>", revisions="<html>
 <ul>
 <li>
@@ -47,7 +43,7 @@ First implementation.
 </li>
 </ul>
 </html>"),
-__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/FMI/Examples/HeaterCooler_u.mos"
+__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/FMI/Examples/FMUs/HeaterCooler_u.mos"
         "Export FMU"),
     Icon(graphics={
         Polygon(

@@ -1,6 +1,6 @@
-within Buildings.Fluid.FMI.Examples;
+within Buildings.Fluid.FMI.Examples.FMUs;
 block FlowMachine_dp "FMU declaration for a fixed resistance"
-   extends Buildings.Fluid.FMI.TwoPortSingleComponent(
+   extends Buildings.Fluid.FMI.TwoPortComponent(
      redeclare replaceable package Medium =
         Buildings.Media.GasesConstantDensity.MoistAirUnsaturated,
      redeclare final Movers.FlowMachine_dp com(
@@ -43,10 +43,6 @@ Buildings.Fluid.FMI.UsersGuide</a> for why there is no model that exports
 <a href=\"modelica://Buildings.Fluid.FixedResistances.FlowMachine_m_flow\">
 Buildings.Fluid.FixedResistances.FlowMachine_m_flow</a>.
 </p>
-<p>
-In Dymola, to export the model as an FMU,
-select from the pull down menu <code>Commands - Export FMU</code>.
-</p>
 </html>", revisions="<html>
 <ul>
 <li>
@@ -55,7 +51,7 @@ First implementation.
 </li>
 </ul>
 </html>"),
-__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/FMI/Examples/FlowMachine_dp.mos"
+__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/FMI/Examples/FMUs/FlowMachine_dp.mos"
         "Export FMU"),
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
             100}}),     graphics),

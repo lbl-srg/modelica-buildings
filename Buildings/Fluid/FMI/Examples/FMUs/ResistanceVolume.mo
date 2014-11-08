@@ -1,4 +1,4 @@
-within Buildings.Fluid.FMI.Examples;
+within Buildings.Fluid.FMI.Examples.FMUs;
 block ResistanceVolume
   "Container to export a flow resistance and control volume as an FMU"
   extends TwoPort(redeclare package Medium =
@@ -35,11 +35,11 @@ protected
   Buildings.Fluid.MixingVolumes.MixingVolume vol(
     nPorts=2,
     redeclare package Medium = Medium,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     m_flow_nominal=m_flow_nominal,
     allowFlowReversal=allowFlowReversal,
-    V=V) "Control volume"
-    annotation (Placement(transformation(extent={{6,0},{26,20}})));
+    V=V,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState) "Control volume"
+    annotation (Placement(transformation(extent={{10,0},{30,20}})));
 equation
   connect(inlet, bouIn.inlet) annotation (Line(
       points={{-110,0},{-81,0}},
@@ -70,7 +70,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(res.port_b, vol.ports[1]) annotation (Line(
-      points={{-20,0},{-2,0},{-2,-4.44089e-16},{14,-4.44089e-16}},
+      points={{-20,0},{-2,0},{-2,-4.44089e-16},{18,-4.44089e-16}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(bouIn.port_b, res.port_a) annotation (Line(
@@ -78,7 +78,7 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(bouOut.port_a, vol.ports[2]) annotation (Line(
-      points={{60,0},{18,0}},
+      points={{60,0},{22,0}},
       color={0,127,255},
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
@@ -93,10 +93,6 @@ Buildings.Fluid.FixedResistances.FixedResistanceDpM</a> and
 <a href=\"modelica://Buildings.Fluid.MixingVolumes.MixingVolume\">
 Buildings.Fluid.MixingVolumes.MixingVolume</a>.
 </p>
-<p>
-In Dymola, to export the model as an FMU,
-select from the pull down menu <code>Commands - Export FMU</code>.
-</p>
 </html>", revisions="<html>
 <ul>
 <li>
@@ -105,7 +101,7 @@ First implementation.
 </li>
 </ul>
 </html>"),
-__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/FMI/Examples/ResistanceVolume.mos"
+__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/FMI/Examples/FMUs/ResistanceVolume.mos"
         "Export FMU"),
     Icon(graphics={
         Rectangle(

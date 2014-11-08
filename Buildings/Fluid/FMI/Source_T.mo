@@ -34,8 +34,9 @@ model Source_T
     annotation (Placement(transformation(extent={{-140,-120},{-100,-80}}),
         iconTransformation(extent={{-140,-120},{-100,-80}})));
 
-  Interfaces.Outlet outlet(redeclare final package Medium = Medium, final
-      allowFlowReversal=allowFlowReversal) "Fluid port"
+  Interfaces.Outlet outlet(
+    redeclare final package Medium = Medium,
+    final allowFlowReversal=allowFlowReversal) "Fluid port"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 equation
   outlet.m_flow = m_flow_in;

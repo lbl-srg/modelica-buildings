@@ -5,8 +5,13 @@ model Inlet "Model for exposing a fluid inlet to the FMI interface"
       Modelica.Media.Interfaces.PartialMedium "Medium model within the source"
      annotation (choicesAllMatching=true);
 
-  Buildings.Fluid.FMI.Interfaces.Inlet inlet(redeclare final package Medium =
-        Medium) "Fluid inlet"
+  parameter Boolean allowFlowReversal = true
+    "= true to allow flow reversal, false restricts to design direction (inlet -> outlet)"
+    annotation(Dialog(tab="Assumptions"), Evaluate=true);
+
+  Buildings.Fluid.FMI.Interfaces.Inlet inlet(
+    redeclare final package Medium = Medium,
+    final allowFlowReversal=allowFlowReversal) "Fluid inlet"
     annotation (Placement(transformation(extent={{-120,-10},{-100,10}})));
 
   Modelica.Fluid.Interfaces.FluidPort_b port_b(
@@ -19,10 +24,14 @@ model Inlet "Model for exposing a fluid inlet to the FMI interface"
         extent={{-10,-10},{10,10}},
         rotation=270,
         origin={0,-110})));
+protected
+  Buildings.Fluid.FMI.Interfaces.FluidProperties bacPro_internal(
+    redeclare final package Medium = Medium)
+    "Internal connector for fluid properties for back flow";
 equation
   // To locally balance the model, the pressure is only imposed at the
   // oulet model.
-  // Negative sign because inlet.m_flow > 0
+  // The sign is negative because inlet.m_flow > 0
   // means that fluid flows out of this component
   -port_b.m_flow     = inlet.m_flow;
 
@@ -30,9 +39,17 @@ equation
   port_b.Xi_outflow = inlet.forward.Xi;
   port_b.C_outflow  = inlet.forward.C;
 
-  inStream(port_b.h_outflow)  = inlet.backward.h;
-  inStream(port_b.Xi_outflow) = inlet.backward.Xi;
-  inStream(port_b.C_outflow)  = inlet.backward.C;
+  // Conditional connector for flow reversal
+  connect(inlet.backward, bacPro_internal);
+  if allowFlowReversal then
+    bacPro_internal.h  = inStream(port_b.h_outflow);
+    bacPro_internal.Xi = inStream(port_b.Xi_outflow);
+    bacPro_internal.C  = inStream(port_b.C_outflow);
+  else
+    bacPro_internal.h  = Medium.h_default;
+    bacPro_internal.Xi = Medium.X_default[1:Medium.nXi];
+    bacPro_internal.C  = fill(0, Medium.nC);
+  end if;
 
   // Send inlet pressure to signal port p
   p = inlet.p;

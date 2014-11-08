@@ -25,13 +25,26 @@ model Sink_T
     annotation (Placement(transformation(extent={{-140,-70},{-100,-30}}),
         iconTransformation(extent={{-140,-70},{-100,-30}})));
 
-  Interfaces.Inlet inlet(redeclare final package Medium = Medium, final
-      allowFlowReversal=allowFlowReversal) "Fluid port"
+  Interfaces.Inlet inlet(
+    redeclare final package Medium = Medium,
+    final allowFlowReversal=allowFlowReversal) "Fluid port"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
+protected
+  Buildings.Fluid.FMI.Interfaces.FluidProperties bacPro_internal(
+    redeclare final package Medium = Medium)
+    "Internal connector for fluid properties for back flow";
 equation
-  inlet.backward.h  = Medium.specificEnthalpy_pTX(p=inlet.p, T=T_in, X=X_in);
-  inlet.backward.Xi = X_in[1:Medium.nXi];
-  inlet.backward.C  = C_in;
+ // Conditional connector for flow reversal
+  connect(inlet.backward, bacPro_internal);
+  if allowFlowReversal then
+    bacPro_internal.h  = Medium.specificEnthalpy_pTX(p=inlet.p, T=T_in, X=X_in);
+    bacPro_internal.Xi = X_in[1:Medium.nXi];
+    bacPro_internal.C  = C_in;
+  else
+    bacPro_internal.h = Medium.h_default;
+    bacPro_internal.Xi = Medium.X_default[1:Medium.nXi];
+    bacPro_internal.C  = fill(0, Medium.nC);
+  end if;
 
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}), graphics), Icon(coordinateSystem(

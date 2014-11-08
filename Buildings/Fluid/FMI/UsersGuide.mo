@@ -7,6 +7,15 @@ package UsersGuide "User's Guide"
 This user's guide describes the FMI package.
 The FMI package has been implemented to facilitate the export
 of fluid flow models a Functional Mockup Units.
+The goal is to export such models as FMUs so that they can be
+imported in other simulators. 
+The challenge is that thermofluid flow components have
+acausal connectors, whereas FMUs require input and outputs
+to be defined.
+This package introduces connectors that can be used to wrap the
+acausal models within an input/output block. It also contains
+various examples in which thermofluid flow components and subsystems
+are exported as FMUs.
 </p>
 <p>
 In the subpackage
@@ -32,7 +41,8 @@ Note the following when exporting FMUs:
 <ol>
 <li>
 Volumes, if configured with a dynamic balance,
-cannot be exported as an FMU. The reason is xxxx
+cannot be exported as an FMU as they would require the derivatives
+of pressure and mass flow rate as an input.
 </li>
 <li>
 The model

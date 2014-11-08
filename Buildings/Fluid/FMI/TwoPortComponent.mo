@@ -1,8 +1,7 @@
 within Buildings.Fluid.FMI;
-block TwoPortSingleComponent
-  "Container to export a single thermofluid flow model with two ports as an FMU"
+block TwoPortComponent
+  "Container to export thermofluid flow models with two ports as an FMU"
   extends TwoPort;
-// fixme: rename to TwoPortComponent
   replaceable Buildings.Fluid.Interfaces.PartialTwoPort com constrainedby
     Buildings.Fluid.Interfaces.PartialTwoPort(
       redeclare final package Medium = Medium,
@@ -11,12 +10,14 @@ block TwoPortSingleComponent
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 
 protected
-  BaseClasses.Inlet bouIn(redeclare final package Medium=Medium)
-    "Boundary model for inlet"
+  BaseClasses.Inlet bouIn(
+    redeclare final package Medium=Medium,
+    final allowFlowReversal=allowFlowReversal) "Boundary model for inlet"
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
 
-  BaseClasses.Outlet bouOut(redeclare final package Medium=Medium)
-    "Boundary component for outlet"
+  BaseClasses.Outlet bouOut(
+    redeclare final package Medium=Medium,
+    final allowFlowReversal=allowFlowReversal) "Boundary component for outlet"
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
 
   Sensors.RelativePressure senRelPre(redeclare package Medium = Medium)
@@ -65,4 +66,4 @@ equation
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}), graphics));
-end TwoPortSingleComponent;
+end TwoPortComponent;

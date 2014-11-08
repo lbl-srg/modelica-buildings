@@ -5,8 +5,13 @@ model Outlet "Model for exposing a fluid outlet to the FMI interface"
       Modelica.Media.Interfaces.PartialMedium "Medium model within the source"
      annotation (choicesAllMatching=true);
 
-  Buildings.Fluid.FMI.Interfaces.Outlet outlet(redeclare final package Medium
-      = Medium) "Fluid outlet" annotation (Placement(transformation(extent={{
+  parameter Boolean allowFlowReversal = true
+    "= true to allow flow reversal, false restricts to design direction (inlet -> outlet)"
+    annotation(Dialog(tab="Assumptions"), Evaluate=true);
+
+  Buildings.Fluid.FMI.Interfaces.Outlet outlet(
+    redeclare final package Medium = Medium,
+    final allowFlowReversal=allowFlowReversal) "Fluid outlet" annotation (Placement(transformation(extent={{
             100,-10},{120,10}}), iconTransformation(extent={{100,-10},{120,10}})));
 
   Modelica.Fluid.Interfaces.FluidPort_a port_a(
@@ -20,6 +25,10 @@ model Outlet "Model for exposing a fluid outlet to the FMI interface"
         extent={{-20,-20},{20,20}},
         rotation=90,
         origin={0,-120})));
+protected
+  Buildings.Fluid.FMI.Interfaces.FluidProperties bacPro_internal(
+    redeclare final package Medium = Medium)
+    "Internal connector for fluid properties for back flow";
 equation
   // Set outlet pressure and port pressure to pressure
   // of signal port
@@ -31,9 +40,16 @@ equation
   inStream(port_a.Xi_outflow) = outlet.forward.Xi;
   inStream(port_a.C_outflow)  = outlet.forward.C;
 
-  port_a.h_outflow  = outlet.backward.h;
-  port_a.Xi_outflow = outlet.backward.Xi;
-  port_a.C_outflow  = outlet.backward.C;
+  // Conditional connector for flow reversal
+  connect(outlet.backward, bacPro_internal);
+  if not allowFlowReversal then
+    bacPro_internal.h  = Medium.h_default;
+    bacPro_internal.Xi = Medium.X_default[1:Medium.nXi];
+    bacPro_internal.C  = fill(0, Medium.nC);
+  end if;
+  bacPro_internal.h  = port_a.h_outflow;
+  bacPro_internal.Xi = port_a.Xi_outflow;
+  bacPro_internal.C  = port_a.C_outflow;
 
     annotation (defaultComponentName="boundary",
     Icon(coordinateSystem(

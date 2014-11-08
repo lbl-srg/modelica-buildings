@@ -4,8 +4,8 @@ model HeaterFlowMachine_dp "Heater and flow machine in series"
   package Medium =
         Buildings.Media.GasesConstantDensity.MoistAirUnsaturated "Medium model";
 
-  FlowMachine_dp floMac(m_flow_nominal=m_flow_nominal, dp_nominal=dp_nominal)
-    "Flow machine with pressure raise as an input"
+  FMUs.FlowMachine_dp floMac(m_flow_nominal=m_flow_nominal, dp_nominal=
+        dp_nominal) "Flow machine with pressure raise as an input"
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
 
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal=Q_flow_nominal/1000/10
@@ -14,7 +14,8 @@ model HeaterFlowMachine_dp "Heater and flow machine in series"
   parameter Modelica.SIunits.HeatFlowRate Q_flow_nominal = 1000
     "Heat flow rate at u=1, positive for heating";
 
-  HeaterCooler_u hea(m_flow_nominal=m_flow_nominal,
+  FMUs.HeaterCooler_u hea(
+    m_flow_nominal=m_flow_nominal,
     dp_nominal=dp_nominal,
     Q_flow_nominal=Q_flow_nominal) "Heater"
     annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
@@ -111,6 +112,10 @@ set by the component <code>sou</code>.
 Therefore, the fan simply increases the pressure of the medium,
 and it also computes how much power is needed for this pressure rise,
 which is an input to the fan model.
+</p>
+<p>
+For this example, the models are not exported as FMUs. However, the
+thermofluid flow models are wrapped using input/output blocks.
 </p>
 </html>", revisions="<html>
 <ul>
