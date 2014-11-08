@@ -15,7 +15,7 @@ Buildings.Fluid.FMI.Interfaces.Inlet</a>
 and
 <a href=\"modelica://Buildings.Fluid.FMI.Interfaces.Outlet\">
 Buildings.Fluid.FMI.Interfaces.Outlet</a>
-are hierarchical so that the exported FMUs have hierarchical
+are hierarchical. This was done for the exported FMUs to have hierarchical
 names for their input and output signals.
 </p>
 </html>", revisions="<html>

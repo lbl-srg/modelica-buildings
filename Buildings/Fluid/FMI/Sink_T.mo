@@ -56,10 +56,10 @@ equation
           fillColor={255,255,255})}),
     Documentation(info="<html>
 <p>
-Model for a sink that takes as an input the medium properties
+Model of a sink that takes as an input the medium properties
 temperature, mass fractions (if <code>Medium.nXi &gt; 0</code>)
 and trace substances (if <code>Medium.nC &gt; 0</code>).
-These properties are used for the reverse flow
+These properties are used during reverse flow.
 </p>
 <p>
 For a system of components with the connectors of the

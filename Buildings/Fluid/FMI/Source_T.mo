@@ -58,7 +58,7 @@ equation
 p")}),
     Documentation(info="<html>
 <p>
-Model for a source that takes as an input the mass flow rate,
+Model of a source that takes as an input the mass flow rate,
 pressure and the medium properties
 temperature, mass fractions (if <code>Medium.nXi &gt; 0</code>)
 and trace substances (if <code>Medium.nC &gt; 0</code>).

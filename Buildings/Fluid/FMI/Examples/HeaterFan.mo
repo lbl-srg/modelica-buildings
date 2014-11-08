@@ -1,12 +1,9 @@
 within Buildings.Fluid.FMI.Examples;
-model HeaterFlowMachine_dp "Heater and flow machine in series"
+model HeaterFan
+  "Heater and fan in series, model configured to allow flow reversal"
   extends Modelica.Icons.Example;
   package Medium =
         Buildings.Media.GasesConstantDensity.MoistAirUnsaturated "Medium model";
-
-  FMUs.FlowMachine_dp floMac(m_flow_nominal=m_flow_nominal, dp_nominal=
-        dp_nominal) "Flow machine with pressure raise as an input"
-    annotation (Placement(transformation(extent={{20,-10},{40,10}})));
 
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal=Q_flow_nominal/1000/10
     "Nominal mass flow rate";
@@ -14,38 +11,55 @@ model HeaterFlowMachine_dp "Heater and flow machine in series"
   parameter Modelica.SIunits.HeatFlowRate Q_flow_nominal = 1000
     "Heat flow rate at u=1, positive for heating";
 
+  FMUs.Fan floMac(
+    m_flow_nominal=m_flow_nominal,
+    dp_nominal=dp_nominal) "Flow machine with pressure raise as an input"
+    annotation (Placement(transformation(extent={{20,-10},{40,10}})));
+
   FMUs.HeaterCooler_u hea(
     m_flow_nominal=m_flow_nominal,
     dp_nominal=dp_nominal,
     Q_flow_nominal=Q_flow_nominal) "Heater"
     annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
+
   Modelica.Blocks.Sources.Constant dp(k=1000) "Pressure raise of fan"
     annotation (Placement(transformation(extent={{-18,40},{2,60}})));
+
   Modelica.Blocks.Sources.Constant uHea(k=0.2) "Control signal for heater"
     annotation (Placement(transformation(extent={{-60,40},{-40,60}})));
+
   Source_T sou(redeclare package Medium = Medium)
     "Source for mass flow rate and pressure"
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
+
   Sink_T sin(redeclare package Medium = Medium)
     "Sink for flow rate, and source for backflow properties"
     annotation (Placement(transformation(extent={{80,-10},{60,10}})));
+
   Modelica.Blocks.Sources.Constant m_flow(k=m_flow_nominal) "Mass flow rate"
     annotation (Placement(transformation(extent={{-100,60},{-80,80}})));
+
   Modelica.Blocks.Sources.Constant pIn(k=100000) "Inlet pressure"
     annotation (Placement(transformation(extent={{-100,30},{-80,50}})));
+
   Modelica.Blocks.Sources.Constant TIn(k=293.15) "Inlet temperature"
     annotation (Placement(transformation(extent={{-100,0},{-80,20}})));
+
   Modelica.Blocks.Sources.Constant XIn[2](k={0.01,0.99}) "Inlet mass fraction"
     annotation (Placement(transformation(extent={{-100,-30},{-80,-10}})));
+
   Modelica.Blocks.Sources.Constant TBac(k=303.15)
     "Temperature of backward flow"
     annotation (Placement(transformation(extent={{120,40},{100,60}})));
+
   Modelica.Blocks.Sources.Constant XBac[2](k={0.015,0.985})
     "Moisture mass fraction for back flow"
     annotation (Placement(transformation(extent={{120,-10},{100,10}})));
+
   Modelica.Blocks.Sources.Constant CBac[Medium.nC](each k=0.01) if
      Medium.nC > 0 "Trace substances for back flow"
     annotation (Placement(transformation(extent={{120,-60},{100,-40}})));
+
   Modelica.Blocks.Sources.Constant C[Medium.nC](each k=0.01) if
      Medium.nC > 0 "Trace substances for forward flow"
     annotation (Placement(transformation(extent={{-100,-70},{-80,-50}})));
@@ -120,12 +134,12 @@ thermofluid flow models are wrapped using input/output blocks.
 </html>", revisions="<html>
 <ul>
 <li>
-November 8, 2014 by Michael Wetter:<br/>
+November 8, 2014, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
 </html>"),
-__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/FMI/Examples/HeaterFlowMachine_dp.mos"
+__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/FMI/Examples/HeaterFan.mos"
         "Simulate and plot"),
     experiment(StopTime=1));
-end HeaterFlowMachine_dp;
+end HeaterFan;

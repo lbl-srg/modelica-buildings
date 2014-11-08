@@ -110,23 +110,21 @@ equation
           textString="p")}),
     Documentation(info="<html>
 <p>
-Defines prescribed values for boundary conditions:
-</p>
-<ul>
-<li> Prescribed boundary pressure.</li>
-<li> Prescribed boundary enthalpy.</li>
-<li> Boundary composition (only for multi-substance or trace-substance flow).</li>
-</ul>
-<p>
-Note that boundary specific enthalpy,
-mass fractions and trace substances have only an effect if mass flows
-from the boundary into the port. If mass flows from
-the port into the boundary, the boundary definitions,
-with exception of the boundary pressure, do not have an effect.
+Model that is used to connect an input signal to a fluid port.
+The model needs to be used in conjunction with an instance of
+<a href=\"modelica://Buildings.Fluid.FMI.BaseClasses.Outlet\">
+Buildings.Fluid.FMI.BaseClasses.Outlet</a> in order for
+fluid mass flow rate and pressure to be properly assigned to
+the acausal fluid models.
 </p>
 <p>
-This model can be used to send input signals from the FMI interface
-to a fluid flow component model.
+See 
+<a href=\"modelica://Buildings.Fluid.FMI.TwoPortComponent\">
+Buildings.Fluid.FMI.TwoPortComponent</a>
+or
+<a href=\"modelica://Buildings.Fluid.FMI.Examples.FMUs.ResistanceVolume\">
+Buildings.Fluid.FMI.Examples.FMUs.ResistanceVolume</a>
+for how to use this model.
 </p>
 </html>", revisions="<html>
 <ul>

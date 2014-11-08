@@ -31,5 +31,25 @@ partial block TwoPort
           fillPattern=FillPattern.HorizontalCylinder,
           fillColor={0,127,255},
           textString="%name")}), Diagram(coordinateSystem(preserveAspectRatio=false,
-                   extent={{-100,-100},{100,100}}), graphics));
+                   extent={{-100,-100},{100,100}}), graphics),
+    Documentation(info="<html>
+<p>
+Partial model that can be used to export thermofluid flow models as an FMU.
+This model only declares the inlet and outlet ports, the medium and
+whether flow reversal is allowed.
+</p>
+<p>
+See
+<a href=\modelica://Buildings.Fluid.FMI.Examples.FMUs.ResistanceVolume\">
+Buildings.Fluid.FMI.Examples.FMUs.ResistanceVolume</a>
+for a block that extends this partial block.
+</p>
+</html>", revisions="<html>
+<ul>
+<li>
+November 8, 2014, by Michael Wetter:<br/>
+First implementation.
+</li>
+</ul>
+</html>"));
 end TwoPort;

@@ -2,8 +2,8 @@ within Buildings.Fluid.FMI;
 block TwoPortComponent
   "Container to export thermofluid flow models with two ports as an FMU"
   extends TwoPort;
-  replaceable Buildings.Fluid.Interfaces.PartialTwoPort com constrainedby
-    Buildings.Fluid.Interfaces.PartialTwoPort(
+  replaceable Buildings.Fluid.Interfaces.PartialTwoPort com
+    constrainedby Buildings.Fluid.Interfaces.PartialTwoPort(
       redeclare final package Medium = Medium,
       final allowFlowReversal=allowFlowReversal)
     "Component that holds actual model"
@@ -65,5 +65,31 @@ equation
       color={0,0,255},
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}}), graphics));
+            -100},{100,100}}), graphics), Documentation(info="<html>
+<p>
+Block that serves as a container to export a thermofluid flow component.
+This block contains a replaceable model <code>com</code> that needs to
+be redeclared to export any model that has as its base class
+<a href=\"modelica://Buildings.Fluid.Interfaces.PartialTwoPort\">
+Buildings.Fluid.Interfaces.PartialTwoPort</a>.
+This allows exporting a large variety of thermofluid flow models
+with a simple redeclare.
+</p>
+<p>
+See for example
+<a href=\"modelica://Buildings.Fluid.FMI.Examples.FMUs.FixedResistanceDpM\">
+Buildings.Fluid.FMI.Examples.FMUs.FixedResistanceDpM</a>
+or
+<a href=\"modelica://Buildings.Fluid.FMI.Examples.FMUs.HeaterCooler_u\">
+Buildings.Fluid.FMI.Examples.FMUs.HeaterCooler_u</a>
+for how to use this block.
+</p>
+</html>", revisions="<html>
+<ul>
+<li>
+November 8, 2014, by Michael Wetter:<br/>
+First implementation.
+</li>
+</ul>
+</html>"));
 end TwoPortComponent;

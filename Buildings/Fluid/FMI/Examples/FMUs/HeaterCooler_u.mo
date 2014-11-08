@@ -30,7 +30,7 @@ equation
             -100},{100,100}}), graphics),
   Documentation(info="<html>
 <p>
-This example demonstrates how to export an FMU with a fluid flow component.
+This example demonstrates how to export an FMU with a heater.
 The FMU has an instance of
 <a href=\"modelica://Buildings.Fluid.HeatExchangers.HeaterCooler_u\">
 Buildings.Fluid.HeatExchangers.HeaterCooler_u</a>.

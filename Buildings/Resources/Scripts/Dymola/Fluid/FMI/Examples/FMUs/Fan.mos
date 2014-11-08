@@ -1,5 +1,5 @@
 translateModelFMU(
-  modelToOpen="Buildings.Fluid.FMI.Examples.FMUs.FlowMachine_m_flow", 
+  modelToOpen="Buildings.Fluid.FMI.Examples.FMUs.Fan", 
   storeResult=false, 
   modelName="", 
   fmiVersion="2", 

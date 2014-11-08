@@ -86,16 +86,21 @@ equation
           textString="p")}),
     Documentation(info="<html>
 <p>
-Defines output values for boundary conditions:
+Model that is used to connect a fluid port with an output signal.
+The model needs to be used in conjunction with an instance of
+<a href=\"modelica://Buildings.Fluid.FMI.BaseClasses.Inlet\">
+Buildings.Fluid.FMI.BaseClasses.Inlet</a> in order for
+fluid mass flow rate and pressure to be properly assigned to
+the acausal fluid models.
 </p>
-<ul>
-<li> Boundary pressure.</li>
-<li> Boundary enthalpy.</li>
-<li> Boundary composition (only for multi-substance or trace-substance flow).</li>
-</ul>
 <p>
-This model can be used to send output signals from a fluid flow component
-to the FMI interface.
+See 
+<a href=\"modelica://Buildings.Fluid.FMI.TwoPortComponent\">
+Buildings.Fluid.FMI.TwoPortComponent</a>
+or
+<a href=\"modelica://Buildings.Fluid.FMI.Examples.FMUs.ResistanceVolume\">
+Buildings.Fluid.FMI.Examples.FMUs.ResistanceVolume</a>
+for how to use this model.
 </p>
 </html>", revisions="<html>
 <ul>

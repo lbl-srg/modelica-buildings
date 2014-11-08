@@ -6,23 +6,33 @@ package UsersGuide "User's Guide"
 <p>
 This user's guide describes the FMI package.
 The FMI package has been implemented to facilitate the export
-of fluid flow models a Functional Mockup Units.
+of thermofluid flow models as Functional Mockup Units (FMUs).
 The goal is to export such models as FMUs so that they can be
 imported in other simulators. 
 The challenge is that thermofluid flow components have
 acausal connectors, whereas FMUs require input and outputs
 to be defined.
+</p>
+<p>
 This package introduces connectors that can be used to wrap the
 acausal models within an input/output block. It also contains
 various examples in which thermofluid flow components and subsystems
 are exported as FMUs.
 </p>
 <p>
-In the subpackage
+The connectors that define the input and output signals of
+the FMUs can be found in the package
 <a href=\"modelica://Buildings.Fluid.FMI.Interfaces\">
-Buildings.Fluid.FMI.Interfaces</a>
-are connectors that define the input and output signals.
-See these connectors for the meaning of the variables.
+Buildings.Fluid.FMI.Interfaces</a>.
+They have been designed in such a way that an FMU, if exported
+with <code>allowFlowReversal=false</code> (and hence mass can only
+flow from the inlet to the outlet), has as input the 
+mass flow rate, pressure and fluid properties of the inflowing fluid.
+At the outlet, there will be mass flow rate, outlet pressure and 
+the fluid properties of the outflowing medium. This allows simulators
+such as TRNSYS to evaluate the FMUs in the direction of the mass flow
+by first setting all inputs, then computing the model, and then obtaining
+all outputs before proceeding to the next downstream component.
 </p>
 <p>
 Users who want to export a single fluid flow component, or a

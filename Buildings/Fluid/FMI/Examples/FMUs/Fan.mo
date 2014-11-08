@@ -1,5 +1,5 @@
 within Buildings.Fluid.FMI.Examples.FMUs;
-block FlowMachine_dp "FMU declaration for a fixed resistance"
+block Fan "FMU declaration for a fixed resistance"
    extends Buildings.Fluid.FMI.TwoPortComponent(
      redeclare replaceable package Medium =
         Buildings.Media.GasesConstantDensity.MoistAirUnsaturated,
@@ -7,7 +7,7 @@ block FlowMachine_dp "FMU declaration for a fixed resistance"
       final m_flow_nominal=m_flow_nominal,
       final dynamicBalance=false,
       final filteredSpeed=false));
-
+      // fixme: This fails to export as an FMU. Contact support.
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal
     "Nominal mass flow rate";
   parameter Modelica.SIunits.Pressure dp_nominal(displayUnit="Pa")
@@ -40,8 +40,8 @@ Buildings.Fluid.FixedResistances.FlowMachine_dp</a>.
 See
 <a href=\"modelica://Buildings.Fluid.FMI.UsersGuide\">
 Buildings.Fluid.FMI.UsersGuide</a> for why there is no model that exports
-<a href=\"modelica://Buildings.Fluid.FixedResistances.FlowMachine_m_flow\">
-Buildings.Fluid.FixedResistances.FlowMachine_m_flow</a>.
+<a href=\"modelica://Buildings.Fluid.Movers.FlowMachine_m_flow\">
+Buildings.Fluid.Movers.FlowMachine_m_flow</a>.
 </p>
 </html>", revisions="<html>
 <ul>
@@ -51,7 +51,7 @@ First implementation.
 </li>
 </ul>
 </html>"),
-__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/FMI/Examples/FMUs/FlowMachine_dp.mos"
+__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/FMI/Examples/FMUs/Fan.mos"
         "Export FMU"),
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
             100}}),     graphics),
@@ -73,4 +73,4 @@ __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/FMI/
           pattern=LinePattern.None,
           fillPattern=FillPattern.HorizontalCylinder,
           fillColor={255,255,255})}));
-end FlowMachine_dp;
+end Fan;

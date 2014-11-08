@@ -1,19 +1,12 @@
 within Buildings.Fluid.FMI.Examples;
-model HeaterFlowMachine_dp_noReverseFlow
-  "Heater and flow machine in series, model configured to not allow flow reversal"
+model HeaterFan_noReverseFlow
+  "Heater and fan in series, model configured to not allow flow reversal"
   extends Modelica.Icons.Example;
   package Medium =
         Buildings.Media.GasesConstantDensity.MoistAirUnsaturated "Medium model";
 
   final parameter Boolean allowFlowReversal = false
-    "= true to allow flow reversal, false restricts to design direction (inlet -> outlet)"
-    annotation(Dialog(tab="Assumptions"), Evaluate=true);
-
-  FMUs.FlowMachine_dp floMac(m_flow_nominal=m_flow_nominal, dp_nominal=
-        dp_nominal,
-    final allowFlowReversal=allowFlowReversal)
-    "Flow machine with pressure raise as an input"
-    annotation (Placement(transformation(extent={{60,-10},{80,10}})));
+    "= true to allow flow reversal, false restricts to design direction (inlet -> outlet)";
 
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal=Q_flow_nominal/1000/10
     "Nominal mass flow rate";
@@ -21,29 +14,44 @@ model HeaterFlowMachine_dp_noReverseFlow
   parameter Modelica.SIunits.HeatFlowRate Q_flow_nominal = 1000
     "Heat flow rate at u=1, positive for heating";
 
+  FMUs.Fan floMac(
+    m_flow_nominal=m_flow_nominal,
+    dp_nominal=dp_nominal,
+    final allowFlowReversal=allowFlowReversal)
+    "Flow machine with pressure raise as an input"
+    annotation (Placement(transformation(extent={{60,-10},{80,10}})));
+
   FMUs.HeaterCooler_u hea(
     m_flow_nominal=m_flow_nominal,
     dp_nominal=dp_nominal,
     Q_flow_nominal=Q_flow_nominal,
     final allowFlowReversal=allowFlowReversal) "Heater"
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
+
   Modelica.Blocks.Sources.Constant dp(k=1000) "Pressure raise of fan"
     annotation (Placement(transformation(extent={{22,40},{42,60}})));
+
   Modelica.Blocks.Sources.Constant uHea(k=0.2) "Control signal for heater"
     annotation (Placement(transformation(extent={{-20,40},{0,60}})));
+
   Source_T sou(
     redeclare package Medium = Medium,
     final allowFlowReversal=allowFlowReversal)
     "Source for mass flow rate and pressure"
     annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
+
   Modelica.Blocks.Sources.Constant m_flow(k=m_flow_nominal) "Mass flow rate"
     annotation (Placement(transformation(extent={{-60,60},{-40,80}})));
+
   Modelica.Blocks.Sources.Constant pIn(k=100000) "Inlet pressure"
     annotation (Placement(transformation(extent={{-60,30},{-40,50}})));
+
   Modelica.Blocks.Sources.Constant TIn(k=293.15) "Inlet temperature"
     annotation (Placement(transformation(extent={{-60,0},{-40,20}})));
+
   Modelica.Blocks.Sources.Constant XIn[2](k={0.01,0.99}) "Inlet mass fraction"
     annotation (Placement(transformation(extent={{-60,-30},{-40,-10}})));
+
   Modelica.Blocks.Sources.Constant C[Medium.nC](each k=0.01) if
      Medium.nC > 0 "Trace substances for forward flow"
     annotation (Placement(transformation(extent={{-60,-70},{-40,-50}})));
@@ -84,30 +92,31 @@ equation
       points={{-39,-20},{-30,-20},{-30,-5},{-22,-5}},
       color={0,0,127},
       smooth=Smooth.None));
-  annotation (Documentation(info="<html>
+    annotation(Evaluate=true,
+              Documentation(info="<html>
 <p>
 This example demonstrates how to configure a model with a heater
 and a fan that causes a pressure rise in the air stream.
 The model is identical with
-<a href=\"modelica://Buildings.Fluid.FMI.Examples.HeaterFlowMachine_dp\">
-Buildings.Fluid.FMI.Examples.HeaterFlowMachine_dp</a>
+<a href=\"modelica://Buildings.Fluid.FMI.Examples.HeaterFan\">
+Buildings.Fluid.FMI.Examples.HeaterFan</a>
 except that reverse flow is not allowed due to the parameter
 <code>allowFlowReversal=false</code>.
 Consequently, the connectors for the fluid properties for the reverse flow
 are removed, and the blocks on the right hand side of the model 
-<a href=\"modelica://Buildings.Fluid.FMI.Examples.HeaterFlowMachine_dp\">
-Buildings.Fluid.FMI.Examples.HeaterFlowMachine_dp</a>
+<a href=\"modelica://Buildings.Fluid.FMI.Examples.HeaterFan\">
+Buildings.Fluid.FMI.Examples.HeaterFan</a>
 have been deleted.
 </p>
 </html>", revisions="<html>
 <ul>
 <li>
-November 8, 2014 by Michael Wetter:<br/>
+November 8, 2014, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
 </html>"),
-__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/FMI/Examples/HeaterFlowMachine_dp_noReverseFlow.mos"
+__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/FMI/Examples/HeaterFan_noReverseFlow.mos"
         "Simulate and plot"),
     experiment(StopTime=1));
-end HeaterFlowMachine_dp_noReverseFlow;
+end HeaterFan_noReverseFlow;
