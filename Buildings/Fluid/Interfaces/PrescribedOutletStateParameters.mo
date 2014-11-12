@@ -7,7 +7,7 @@ record PrescribedOutletStateParameters
   parameter Modelica.SIunits.HeatFlowRate Q_flow_maxCool = -Modelica.Constants.inf
     "Maximum heat flow rate for cooling (negative)";
 
-  parameter Modelica.SIunits.MassFlowRate m_flow_nominal(min=0)
+  parameter Modelica.SIunits.MassFlowRate m_flow_nominal
     "Nominal mass flow rate, used for regularization near zero flow"
     annotation(Dialog(group = "Nominal condition"));
 

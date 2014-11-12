@@ -9,7 +9,6 @@ model Heater_T
     m_flow_nominal=m_flow_nominal,
     dp_nominal=1000,
     Q_flow_maxCool=0,
-    show_T=true,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     Q_flow_maxHeat=Q_flow_nominal) "Heater"
     annotation (Placement(transformation(extent={{-20,-50},{0,-30}})));
