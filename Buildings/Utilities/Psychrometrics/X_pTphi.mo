@@ -4,8 +4,7 @@ block X_pTphi
   extends
     Buildings.Utilities.Psychrometrics.BaseClasses.HumidityRatioVaporPressure;
 
-  package Medium = Buildings.Media.PerfectGases.MoistAirUnsaturated
-    "Medium model";
+  package Medium = Buildings.Media.PerfectGases.MoistAirUnsaturated "Medium model";
 
 public
   Modelica.Blocks.Interfaces.RealInput T(final unit="K",
