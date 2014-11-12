@@ -1,6 +1,6 @@
 simulateModel("Buildings.Fluid.HeatExchangers.Examples.Heater_u", stopTime=172800, method="Radau", tolerance=1e-05, resultFile="Heater_u");
 createPlot(id=1, position={17, 9, 946, 677},
- y={"TSet.y", "TOut.y", "TVol.T", "THeaOut.T", "hea.TSet"},
+ y={"TSet.y", "TOut.y", "TVol.T", "THeaOut.T"},
 range={0.0, 50.0, 5.0, 35.0}, grid=true, filename="HeaterCooler_u.mat", leftTitleType=1, bottomTitleType=1, colors={{0,0,255}, {255,0,0}, {0,128,0}, {255,0,255}, {0,0,0}});
 createPlot(id=1, position={17, 9, 946, 335},
  y={"hea.Q_flow"},

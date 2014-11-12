@@ -3,8 +3,8 @@ model ConstantEffectiveness
   "Model that demonstrates use of a heat exchanger with constant effectiveness"
   extends Modelica.Icons.Example;
 
- package Medium1 = Buildings.Media.Water.Simple;
- package Medium2 = Buildings.Media.Air;
+ package Medium1 = Buildings.Media.ConstantPropertyLiquidWater;
+ package Medium2 = Buildings.Media.GasesPTDecoupled.MoistAirUnsaturated;
   Buildings.Fluid.Sources.Boundary_pT sin_2(
     redeclare package Medium = Medium2,
     use_p_in=true,

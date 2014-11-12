@@ -2,7 +2,7 @@ within Buildings.Fluid.HeatExchangers.Validation;
 model HeaterCooler_T
   "Model that demonstrates the ideal heater/cooler model for a prescribed outlet temperature, configured as steady-state"
   extends Modelica.Icons.Example;
-  package Medium = Buildings.Media.Water.Simple;
+  package Medium = Buildings.Media.ConstantPropertyLiquidWater;
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal=0.1
     "Nominal mass flow rate";
   Buildings.Fluid.Sources.Boundary_pT sin(
@@ -58,14 +58,17 @@ model HeaterCooler_T
     offset=m_flow_nominal,
     startTime=1000) "Mass flow rate"
     annotation (Placement(transformation(extent={{-80,32},{-60,52}})));
-  Buildings.Fluid.Sensors.TemperatureTwoPort heaHigPowIn(redeclare package Medium
-      = Medium, m_flow_nominal=m_flow_nominal) "Temperature sensor"
+  Buildings.Fluid.Sensors.TemperatureTwoPort heaHigPowIn(redeclare package
+      Medium =
+        Medium, m_flow_nominal=m_flow_nominal) "Temperature sensor"
     annotation (Placement(transformation(extent={{-8,110},{12,130}})));
-  Buildings.Fluid.Sensors.TemperatureTwoPort cooLimPowIn(redeclare package Medium
-      = Medium, m_flow_nominal=m_flow_nominal) "Temperature sensor"
+  Buildings.Fluid.Sensors.TemperatureTwoPort cooLimPowIn(redeclare package
+      Medium =
+        Medium, m_flow_nominal=m_flow_nominal) "Temperature sensor"
     annotation (Placement(transformation(extent={{-6,24},{14,44}})));
-  Buildings.Fluid.Sensors.TemperatureTwoPort heaCooUnlIn(redeclare package Medium
-      = Medium, m_flow_nominal=m_flow_nominal) "Temperature sensor"
+  Buildings.Fluid.Sensors.TemperatureTwoPort heaCooUnlIn(redeclare package
+      Medium =
+        Medium, m_flow_nominal=m_flow_nominal) "Temperature sensor"
     annotation (Placement(transformation(extent={{-8,-60},{12,-40}})));
   Sources.MassFlowSource_T sou1(
     redeclare package Medium = Medium,
