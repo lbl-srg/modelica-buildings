@@ -161,7 +161,6 @@ package Medium = Buildings.Media.PerfectGases.MoistAir;
     annotation (Placement(transformation(extent={{-12,36},{8,56}})));
 
 equation
-
   connect(res1.port_b, sink1.ports[1]) annotation (Line(
       points={{10,100},{30,100}},
       color={0,127,255},

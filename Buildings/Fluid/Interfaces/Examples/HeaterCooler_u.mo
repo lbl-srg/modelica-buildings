@@ -1,14 +1,13 @@
 within Buildings.Fluid.Interfaces.Examples;
-model HeaterCoolerPrescribed
+model HeaterCooler_u
   "Model that tests a heat exchanger model with reverse flow"
   extends Modelica.Icons.Example;
 
  package Medium = Buildings.Media.ConstantPropertyLiquidWater;
 
-  Buildings.Fluid.HeatExchangers.HeaterCoolerPrescribed hea1(
-                                                         redeclare package
-      Medium =
-        Medium, Q_flow_nominal=5000,
+  Buildings.Fluid.HeatExchangers.HeaterCooler_u hea1(
+    redeclare package Medium = Medium,
+    Q_flow_nominal=5000,
     m_flow_nominal=0.5,
     dp_nominal=200,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
@@ -49,9 +48,9 @@ model HeaterCoolerPrescribed
     startTime=0) "Control signal"
                  annotation (Placement(transformation(extent={{-148,174},{-128,
             194}})));
-  Buildings.Fluid.HeatExchangers.HeaterCoolerPrescribed hea2(
-                                                 redeclare package Medium =
-        Medium, Q_flow_nominal=5000,
+  Buildings.Fluid.HeatExchangers.HeaterCooler_u hea2(
+    redeclare package Medium = Medium,
+    Q_flow_nominal=5000,
     m_flow_nominal=0.5,
     dp_nominal=200,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
@@ -59,10 +58,9 @@ model HeaterCoolerPrescribed
         transformation(extent={{28,134},{48,154}})));
   Modelica.Blocks.Math.Gain gain(k=-1) annotation (Placement(transformation(
           extent={{-50,174},{-30,194}})));
-  Buildings.Fluid.HeatExchangers.HeaterCoolerPrescribed hea3(
-                                                         redeclare package
-      Medium =
-        Medium, Q_flow_nominal=5000,
+  Buildings.Fluid.HeatExchangers.HeaterCooler_u hea3(
+    redeclare package Medium = Medium,
+    Q_flow_nominal=5000,
     m_flow_nominal=0.5,
     dp_nominal=200,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
@@ -79,9 +77,8 @@ model HeaterCoolerPrescribed
     dp_nominal=5,
     m_flow_nominal=0.5)
              annotation (Placement(transformation(extent={{-100,22},{-80,42}})));
-  Buildings.Fluid.HeatExchangers.HeaterCoolerPrescribed hea4(
-                                                 redeclare package Medium =
-        Medium, Q_flow_nominal=5000,
+  Buildings.Fluid.HeatExchangers.HeaterCooler_u hea4(
+    redeclare package Medium = Medium, Q_flow_nominal=5000,
     m_flow_nominal=0.5,
     dp_nominal=200,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
@@ -108,10 +105,9 @@ model HeaterCoolerPrescribed
   Buildings.Utilities.Diagnostics.AssertEquality ass2(               threShold=
         0.05, startTime=600)
     annotation (Placement(transformation(extent={{160,116},{180,136}})));
-  Buildings.Fluid.HeatExchangers.HeaterCoolerPrescribed hea5(
-                                                         redeclare package
-      Medium =
-        Medium, Q_flow_nominal=5000,
+  Buildings.Fluid.HeatExchangers.HeaterCooler_u hea5(
+    redeclare package Medium = Medium,
+    Q_flow_nominal=5000,
     m_flow_nominal=0.5,
     dp_nominal=200,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
@@ -128,18 +124,17 @@ model HeaterCoolerPrescribed
     dp_nominal=5,
     m_flow_nominal=0.5)
              annotation (Placement(transformation(extent={{-100,-130},{-80,-110}})));
-  Buildings.Fluid.HeatExchangers.HeaterCoolerPrescribed hea6(
-                                                 redeclare package Medium =
+  Buildings.Fluid.HeatExchangers.HeaterCooler_u hea6(
+    redeclare package Medium =
         Medium, Q_flow_nominal=5000,
     m_flow_nominal=0.5,
     dp_nominal=200,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     "Heater and cooler"                                  annotation (Placement(
         transformation(extent={{0,-130},{20,-110}})));
-  Buildings.Fluid.HeatExchangers.HeaterCoolerPrescribed hea7(
-                                                         redeclare package
-      Medium =
-        Medium, Q_flow_nominal=5000,
+  Buildings.Fluid.HeatExchangers.HeaterCooler_u hea7(
+    redeclare package Medium = Medium,
+    Q_flow_nominal=5000,
     m_flow_nominal=0.5,
     dp_nominal=200,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
@@ -156,9 +151,8 @@ model HeaterCoolerPrescribed
     dp_nominal=5,
     m_flow_nominal=0.5)
              annotation (Placement(transformation(extent={{-100,-270},{-80,-250}})));
-  Buildings.Fluid.HeatExchangers.HeaterCoolerPrescribed hea8(
-                                                 redeclare package Medium =
-        Medium, Q_flow_nominal=5000,
+  Buildings.Fluid.HeatExchangers.HeaterCooler_u hea8(
+    redeclare package Medium = Medium, Q_flow_nominal=5000,
     m_flow_nominal=0.5,
     dp_nominal=200,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
@@ -173,8 +167,8 @@ model HeaterCoolerPrescribed
         extent={{-10,-10},{10,10}},
         rotation=180)));
   Buildings.Fluid.MixingVolumes.MixingVolume mix2(
-                                           redeclare package Medium = Medium, V=
-       0.000001,
+    redeclare package Medium = Medium,
+    V=0.000001,
     nPorts=2,
     m_flow_nominal=0.5,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
@@ -569,7 +563,7 @@ equation
           lineColor={0,0,255},
           textString="Same system as above, but with flow reversed")}),
 experiment(StopTime=3600),
-__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Interfaces/Examples/HeaterCoolerPrescribed.mos"
+__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Interfaces/Examples/HeaterCooler_u.mos"
         "Simulate and plot"),
 Documentation(info="<html>
 <p>Model that tests the basic class that is used for the heater models. It adds and removes heat for forward and reverse flow. The top and bottom models should give similar results, although the sign of the temperature difference over the components differ because of the reverse flow. The model uses assert statements that will be triggered if results that are expected to be close to each other differ by more than a prescribed threshold. All temperature sensors are configured as steady-state sensors to avoid differences in temperature due to the dynamic response of the sensor.</p>
@@ -598,4 +592,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end HeaterCoolerPrescribed;
+end HeaterCooler_u;
