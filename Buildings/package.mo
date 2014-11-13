@@ -159,12 +159,17 @@ The following <b style=\"color:blue\">new components</b> have been added
 to <b style=\"color:blue\">existing</b> libraries:
 </p>
 <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
-<tr><td colspan=\"2\"><b>xxx</b>
+<tr><td colspan=\"2\"><b>Buildings.Fluid</b>
     </td>
 </tr>
-<tr><td valign=\"top\">xxx
+<tr><td valign=\"top\">Buildings.Fluid.HeatExchangers.HeaterCooler_T
     </td>
-    <td valign=\"top\">xxx.
+    <td valign=\"top\">Model of a heater or cooler that takes as an input
+                       the set point for the temperature of the fluid that leaves
+                       the component. The set point is tracked exactly
+                       if the component has sufficient capacity.
+                       Optionally, the component can be configured to compute
+                       a dynamic rather than a steady-state response.
     </td>
     </tr>
 </table>
@@ -234,7 +239,7 @@ have been <b style=\"color:blue\">improved</b> in a
                        Buildings.Fluid.SolarCollectors.EN12975
     </td>
     <td valign=\"top\">Reformulated the model to avoid an translation error
-                       if glycol is used..
+                       if glycol is used.
     </td>
     </tr>
 
@@ -380,6 +385,16 @@ have been <b style=\"color:blue\">improved</b> in a
     </td>
 </tr>
 
+<tr><td valign=\"top\">Buildings.Fluid.HeatExchangers.HeaterCoolerPrescribed
+    </td>
+    <td valign=\"top\">Renamed the model to <code>HeaterCooler_u</code> due to 
+                       the introduction of the new model <code>HeaterCooler_T</code>.<br/>
+                       For Dymola, the conversion script will automatically
+                       update existing models.
+
+    </td>
+</tr>
+
 <tr><td valign=\"top\">Buildings.Fluid.HeatExchangers.RadiantSlabs.SingleCircuitSlab<br/>
                        Buildings.Fluid.HeatExchangers.RadiantSlabs.ParallelCircuitsSlab
     </td>
@@ -421,6 +436,21 @@ have been <b style=\"color:blue\">improved</b> in a
                        is already contained in <code>energyDynamics</code>.<br/>
                        For Dymola, the conversion script will automatically
                        update existing models.
+    </td>
+</tr>
+
+<tr><td valign=\"top\">Buildings.Fluid.MassExchangers.HumidifierPrescribed
+    </td>
+    <td valign=\"top\">Renamed the model to <code>Humidifier_u</code> due to 
+                       the introduction of the new model <code>HeaterCooler_T</code>
+                       and to use the same naming pattern as <code>HeaterCooler_u</code>.<br/>
+                       For Dymola, the conversion script will automatically
+                       update existing models.
+
+    </td>
+</tr>
+
+<tr><td colspan=\"2\"><b>Buildings.Media</b>
     </td>
 </tr>
 <tr><td valign=\"top\">Buildings.Media.ConstantPropertyLiquidWater<br/>

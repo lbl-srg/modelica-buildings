@@ -51,3 +51,6 @@ convertClear();
 // weaBus.sol.dec -> weaBus.solDec
 // weaBus.sol.alt -> weaBus.solAlt
 // weaBus.sol.solHouAng -> weaBus.solHouAng
+
+// Renamed Buildings/Fluid/HeatExchangers/{HeaterCoolerPrescribed.mo → HeaterCooler_u.mo}
+// Renamed Buildings/Fluid/Interfaces/Examples/{HumidifierPrescribed.mo → Humidifier_u.mo}
