@@ -116,6 +116,17 @@ see the <i>info</i> section of the class.
 <!-- ============================================== -->
 <tr>
   <td>
+    <a href=\"modelica://Buildings.Fluid.Interfaces.TemperatureControlledHeatFlow\">
+                         Buildings.Fluid.Interfaces.TemperatureControlledHeatFlow</a>
+  </td>
+  <td>
+    This model calculates a prescribed heat flow (e.g. for an ideal heater or cooler),
+    depending on a set temperature TSet.
+  </td>
+</tr>
+<!-- ============================================== -->
+<tr>
+  <td>
      <a href=\"modelica://Buildings.Fluid.Interfaces.PartialTwoPortInterface\">
                           Buildings.Fluid.Interfaces.PartialTwoPortInterface</a>
   </td>
@@ -203,6 +214,19 @@ see the <i>info</i> section of the class.
 </html>"));
 
 end UsersGuide;
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 annotation (preferredView="info", Documentation(info="<html>

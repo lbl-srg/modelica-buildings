@@ -1,8 +1,8 @@
-within Buildings.Fluid.HeatExchangers.Examples;
-model HeaterCoolerPrescribed "Model that demonstrates the ideal heater model"
+within Buildings.Fluid.HeatExchangers.Validation;
+model HeaterCooler_u "Model that demonstrates the ideal heater model"
   extends Modelica.Icons.Example;
 
-  package Medium = Buildings.Media.GasesConstantDensity.SimpleAir;
+  package Medium = Buildings.Media.GasesPTDecoupled.MoistAirUnsaturated;
 
 
   parameter Modelica.SIunits.MassFlowRate
@@ -13,11 +13,10 @@ model HeaterCoolerPrescribed "Model that demonstrates the ideal heater model"
     use_T_in=false,
     p(displayUnit="Pa"),
     T=293.15,
-    nPorts=2) "Sink"   annotation (Placement(transformation(extent={{-10,-10},{
-            10,10}},
-                  rotation=180,
-        origin={130,50})));
-  Buildings.Fluid.HeatExchangers.HeaterCoolerPrescribed heaSte(
+    nPorts=2)
+    "Sink"
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}},rotation=180,origin={130,50})));
+  Buildings.Fluid.HeatExchangers.HeaterCooler_u heaSte(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
     dp_nominal=6000,
@@ -29,16 +28,18 @@ model HeaterCoolerPrescribed "Model that demonstrates the ideal heater model"
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal) "Temperature sensor"
     annotation (Placement(transformation(extent={{40,90},{60,110}})));
-  Modelica.Blocks.Sources.TimeTable TSet(table=[0, 273.15 + 20; 120, 273.15 +
-        20; 120, 273.15 + 30; 1200, 273.15 + 30]) "Setpoint"
+  Modelica.Blocks.Sources.TimeTable TSet(table=[0, 273.15 + 20; 120, 273.15
+    +20; 120, 273.15 + 30; 1200, 273.15 + 30])
+    "Setpoint"
     annotation (Placement(transformation(extent={{-60,140},{-40,160}})));
   Buildings.Controls.Continuous.LimPID con1(
     controllerType=Modelica.Blocks.Types.SimpleController.PI,
     Td=1,
     k=1,
-    Ti=10) "Controller"
+    Ti=10)
+    "Controller"
     annotation (Placement(transformation(extent={{40,140},{60,160}})));
-  Buildings.Fluid.HeatExchangers.HeaterCoolerPrescribed heaDyn(
+  Buildings.Fluid.HeatExchangers.HeaterCooler_u heaDyn(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
     dp_nominal=6000,
@@ -46,16 +47,20 @@ model HeaterCoolerPrescribed "Model that demonstrates the ideal heater model"
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyStateInitial)
     "Dynamic model of the heater"
     annotation (Placement(transformation(extent={{0,-20},{20,0}})));
-  Buildings.Fluid.Sensors.TemperatureTwoPort senTem2(redeclare package Medium =
-        Medium, m_flow_nominal=m_flow_nominal) "Temperature sensor"
+  Buildings.Fluid.Sensors.TemperatureTwoPort senTem2(
+    redeclare package Medium = Medium,
+    m_flow_nominal=m_flow_nominal) "Temperature sensor"
+
     annotation (Placement(transformation(extent={{40,-20},{60,0}})));
   Buildings.Controls.Continuous.LimPID con2(
     controllerType=Modelica.Blocks.Types.SimpleController.PI,
     Td=1,
     Ti=10,
-    k=0.1) "Controller"
+    k=0.1)
+    "Controller"
     annotation (Placement(transformation(extent={{40,30},{60,50}})));
-  Sources.MassFlowSource_T sou(
+
+  Buildings.Fluid.Sources.MassFlowSource_T sou(
     redeclare package Medium = Medium,
     use_T_in=false,
     nPorts=2,
@@ -115,9 +120,7 @@ equation
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-100,-100},{200,
             200}}), graphics),
-    __Dymola_Commands(file=
-          "modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/Examples/HeaterCoolerPrescribed.mos"
-        "Simulate and plot"),
+    __Dymola_Commands(file= "modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/Validation/HeaterCooler_u.mos" "Simulate and plot"),
     Documentation(info="<html>
 <p>
 Model that demonstrates the use of an ideal heater.
@@ -128,6 +131,11 @@ temperature.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+September 11, 2014, by Christoph Nytsch-Geusen:<br/>
+Rename experiment to HetaterColler_u
+in the Annex 60 library.
+</li>
 <li>
 September 19, 2013, by Michael Wetter:<br/>
 Removed fan with a prescribed mass flow source for inclusion of the test model
@@ -142,4 +150,4 @@ First implementation.
     experiment(
       StopTime=1200,
       Tolerance=1e-05));
-end HeaterCoolerPrescribed;
+end HeaterCooler_u;
