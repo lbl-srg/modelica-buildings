@@ -65,11 +65,11 @@ protected
   Modelica.SIunits.TemperatureDifference TAppFreCon(min=0, nominal=1, displayUnit="K")
     "Approach temperature for free convection";
 
-  final parameter Real fanRelPowDer[size(fanRelPow.r_V,1)](fixed=false)
+  final parameter Real fanRelPowDer[size(fanRelPow.r_V,1)](each fixed=false)
     "Coefficients for fan relative power consumption as a function of control signal";
 
-  Medium.ThermodynamicState staA "Medium properties in port_a";
-  Medium.ThermodynamicState staB "Medium properties in port_b";
+  Modelica.SIunits.Temperature T_a "Temperature in port_a";
+  Modelica.SIunits.Temperature T_b "Temperature in port_b";
 
 initial equation
   TWatOut_nominal = TAirInWB_nominal + TApp_nominal;
@@ -99,50 +99,55 @@ equation
 
   if allowFlowReversal then
     if homotopyInitialization then
-      staA=Medium.setState_phX(port_a.p,
-                          homotopy(actual=actualStream(port_a.h_outflow),
-                                   simplified=inStream(port_a.h_outflow)),
-                          homotopy(actual=actualStream(port_a.Xi_outflow),
-                                   simplified=inStream(port_a.Xi_outflow)));
-      staB=Medium.setState_phX(port_b.p,
-                          homotopy(actual=actualStream(port_b.h_outflow),
-                                   simplified=port_b.h_outflow),
-                          homotopy(actual=actualStream(port_b.Xi_outflow),
-                            simplified=port_b.Xi_outflow));
+      T_a=Medium.temperature(Medium.setState_phX(p=port_a.p,
+                                 h=homotopy(actual=actualStream(port_a.h_outflow),
+                                            simplified=inStream(port_a.h_outflow)),
+                                 X=homotopy(actual=actualStream(port_a.Xi_outflow),
+                                            simplified=inStream(port_a.Xi_outflow))));
+      T_b=Medium.temperature(Medium.setState_phX(p=port_b.p,
+                                 h=homotopy(actual=actualStream(port_b.h_outflow),
+                                            simplified=port_b.h_outflow),
+                                 X=homotopy(actual=actualStream(port_b.Xi_outflow),
+                                            simplified=port_b.Xi_outflow)));
 
     else
-      staA=Medium.setState_phX(port_a.p,
-                          actualStream(port_a.h_outflow),
-                          actualStream(port_a.Xi_outflow));
-      staB=Medium.setState_phX(port_b.p,
-                          actualStream(port_b.h_outflow),
-                          actualStream(port_b.Xi_outflow));
+      T_a=Medium.temperature(Medium.setState_phX(p=port_a.p,
+                                 h=actualStream(port_a.h_outflow),
+                                 X=actualStream(port_a.Xi_outflow)));
+      T_b=Medium.temperature(Medium.setState_phX(p=port_b.p,
+                                 h=actualStream(port_b.h_outflow),
+                                 X=actualStream(port_b.Xi_outflow)));
     end if; // homotopyInitialization
 
   else // reverse flow not allowed
-    staA=Medium.setState_phX(port_a.p,
-                             inStream(port_a.h_outflow),
-                             inStream(port_a.Xi_outflow));
-    staB=Medium.setState_phX(port_b.p,
-                             inStream(port_b.h_outflow),
-                             inStream(port_b.Xi_outflow));
+    T_a=Medium.temperature(Medium.setState_phX(p=port_a.p,
+                               h=inStream(port_a.h_outflow),
+                               X=inStream(port_a.Xi_outflow)));
+    T_b=Medium.temperature(Medium.setState_phX(p=port_b.p,
+                               h=inStream(port_b.h_outflow),
+                               X=inStream(port_b.Xi_outflow)));
   end if;
 
   // Air temperature used for the heat transfer
   TAirHT=TAir;
   // Range temperature
-  TRan = Medium.temperature(staA) - Medium.temperature(staB);
+  TRan = T_a - T_b;
   // Fractional mass flow rates
   FRWat = m_flow/mRef_flow;
   FRAir = y;
 
   TAppCor = Buildings.Fluid.HeatExchangers.CoolingTowers.Correlations.yorkCalc(
-               TRan=TRan, TWetBul=TAir,
-               FRWat=FRWat, FRAir=max(FRWat/bou.liqGasRat_max, FRAir));
-  dTMax = Medium.temperature(staA) - TAir;
+               TRan=TRan,
+               TWetBul=TAir,
+               FRWat=FRWat,
+               FRAir=max(FRWat/bou.liqGasRat_max, FRAir));
+  dTMax = T_a - TAir;
   TAppFreCon = (1-fraFreCon) * dTMax  + fraFreCon *
                Buildings.Fluid.HeatExchangers.CoolingTowers.Correlations.yorkCalc(
-                   TRan=TRan, TWetBul=TAir, FRWat=FRWat, FRAir=1);
+                   TRan=TRan,
+                   TWetBul=TAir,
+                   FRWat=FRWat,
+                   FRAir=1);
 
   // Actual approach temperature and fan power consumption,
   // which depends on forced vs. free convection.
@@ -251,6 +256,10 @@ control law to compute the input signal <code>y</code>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+November 13, 2014, by Michael Wetter:<br/>
+Added missing <code>each</code> keyword for <code>fanRelPowDer</code>.
+</li>
 <li>
 May 30, 2014, by Michael Wetter:<br/>
 Removed undesirable annotation <code>Evaluate=true</code>.
