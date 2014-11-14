@@ -8,13 +8,19 @@ model RelativeHumidity "Ideal one port relative humidity sensor"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 
 protected
-  Medium.BaseProperties med "Medium state at dry bulb temperature";
-
+  Modelica.SIunits.Temperature T "Temperature of the medium";
+  Medium.MassFraction Xi[Medium.nXi] "Mass fraction of the medium";
 equation
-  med.p = port.p;
-  med.h = inStream(port.h_outflow);
-  med.Xi = inStream(port.Xi_outflow);
-  phi = med.phi;
+  Xi = inStream(port.Xi_outflow);
+  T=Medium.temperature_phX(
+      p=port.p,
+      h=inStream(port.h_outflow),
+      X=Xi);
+
+  phi = Buildings.Utilities.Psychrometrics.Functions.phi_pTX(
+    p=port.p,
+    T=T,
+    X_w=Xi[1]);
 
 annotation (defaultComponentName="senRelHum",
   Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),

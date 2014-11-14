@@ -3,7 +3,6 @@ model TWetBul_TDryBulPhi "Model to test the wet bulb temperature computation"
   extends Modelica.Icons.Example;
 
  package Medium = Buildings.Media.PerfectGases.MoistAirUnsaturated
-    "Medium model"
            annotation (choicesAllMatching = true);
 
   Buildings.Utilities.Psychrometrics.TWetBul_TDryBulPhi wetBulPhi(redeclare
