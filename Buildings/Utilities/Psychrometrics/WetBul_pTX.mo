@@ -11,14 +11,14 @@ block WetBul_pTX
     annotation (Placement(transformation(extent={{-120,70},{-100,90}})));
   Modelica.Blocks.Interfaces.RealInput XDryBul(
     start=0.01,
-    final quantity="ThermodynamicTemperature",
     final unit="1",
     min=0) "Dry bulb temperature"
     annotation (Placement(transformation(extent={{-120,-10},{-100,10}})));
 
-  Modelica.Blocks.Interfaces.RealInput p(  final quantity="Pressure",
-                                           final unit="Pa",
-                                           min = 0) "Pressure"
+  Modelica.Blocks.Interfaces.RealInput p(
+    final quantity="Pressure",
+    final unit="Pa",
+    min = 0) "Pressure"
     annotation (Placement(transformation(extent={{-120,-90},{-100,-70}})));
   Modelica.Blocks.Interfaces.RealOutput TWetBul(
     start=293,
@@ -53,6 +53,10 @@ for a given dry bulb state.
 </html>",
 revisions="<html>
 <ul>
+<li>
+November 13, 2014, by Michael Wetter:<br/>
+Removed wrong quantity attribute for <code>XDryBul</code>.
+</li>
 <li>
 November 20, 2013 by Michael Wetter:<br/>
 Removed package <code>Medium</code>.

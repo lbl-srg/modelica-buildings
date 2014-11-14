@@ -172,6 +172,18 @@ to <b style=\"color:blue\">existing</b> libraries:
                        a dynamic rather than a steady-state response.
     </td>
     </tr>
+
+<tr><td colspan=\"2\"><b>Buildings.Utilities</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Utilities.Psychrometrics.Phi_pTX<br/>
+                       Buildings.Utilities.Psychrometrics.Functions.phi_pTX
+    </td>
+    <td valign=\"top\">Block and function that computes the relative humidity
+                       for given pressure, temperature and water vapor mass fraction.
+    </td>
+    </tr>
+
 </table>
 <!-- Backward compatible changes -->
 <p>
