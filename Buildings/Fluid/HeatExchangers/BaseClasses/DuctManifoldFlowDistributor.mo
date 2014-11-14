@@ -10,22 +10,32 @@ protected
   Movers.BaseClasses.IdealSource sou0(
     redeclare final package Medium = Medium,
     each allowFlowReversal=allowFlowReversal,
-    each m_flow_small=1E-4*abs(m_flow_nominal),
-    final control_m_flow=false) "Mass flow rate source with fixed dp"
+    each m_flow_small=1E-4*abs(m_flow_nominal/nPipPar/nPipSeg),
+    final control_m_flow=false,
+    m_flow_start=mStart_flow_a/nPipPar/nPipSeg,
+    final dp_start=0,
+    final show_V_flow=false,
+    final show_T=false) "Mass flow rate source with fixed dp"
     annotation (Placement(transformation(extent={{0,-10},{20,10}})));
 
   Movers.BaseClasses.IdealSource sou1[nPipPar-1](
     redeclare each final package Medium = Medium,
     each final allowFlowReversal=allowFlowReversal,
-    each final m_flow_small=1E-4*abs(m_flow_nominal),
-    each final control_m_flow=true) "Mass flow rate source with fixed m_flow"
+    each final m_flow_small=1E-4*abs(m_flow_nominal/nPipPar/nPipSeg),
+    each final control_m_flow=true,
+    each m_flow_start=mStart_flow_a/nPipPar/nPipSeg,
+    each final show_V_flow=false,
+    each final show_T=false) "Mass flow rate source with fixed m_flow"
     annotation (Placement(transformation(extent={{20,-40},{40,-20}})));
 
   Movers.BaseClasses.IdealSource sou2[nPipPar,nPipSeg-1](
     redeclare each final package Medium = Medium,
     each final allowFlowReversal=allowFlowReversal,
-    each final m_flow_small=1E-4*abs(m_flow_nominal),
-    each final control_m_flow=true) "Mass flow rate source with fixed m_flow"
+    each final m_flow_small=1E-4*abs(m_flow_nominal/nPipPar/nPipSeg),
+    each final control_m_flow=true,
+    each m_flow_start=mStart_flow_a/nPipPar/nPipSeg,
+    final show_V_flow=false,
+    each final show_T=false) "Mass flow rate source with fixed m_flow"
     annotation (Placement(transformation(extent={{40,-72},{60,-52}})));
   Sensors.MassFlowRate senMasFlo(redeclare final package Medium = Medium)
     "Mass flow rate sensor"
