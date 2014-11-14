@@ -1,6 +1,7 @@
 DewPointTemperature
 HumidityRatioPressure
 MassFraction_pTphi
+Phi_pTX
 SaturationPressure
 SaturationPressureLiquid
 SublimationPressureIce
