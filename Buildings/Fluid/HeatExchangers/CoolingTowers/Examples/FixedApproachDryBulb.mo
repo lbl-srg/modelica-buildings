@@ -2,10 +2,9 @@ within Buildings.Fluid.HeatExchangers.CoolingTowers.Examples;
 model FixedApproachDryBulb
   "Test model for cooling tower with fixed approach temperature using the dry-bulb temperature"
   extends Modelica.Icons.Example;
-  extends
-    Buildings.Fluid.HeatExchangers.CoolingTowers.Examples.BaseClasses.PartialStaticTwoPortCoolingTower(
-    redeclare Buildings.Fluid.HeatExchangers.CoolingTowers.FixedApproach tow, vol(
-        energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial));
+  extends BaseClasses.PartialStaticTwoPortCoolingTower(
+    redeclare CoolingTowers.FixedApproach tow,
+    vol(energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial));
 equation
   connect(weaBus.TDryBul, tow.TAir) annotation (Line(
       points={{-60,50},{0,50},{0,-46},{22,-46}},

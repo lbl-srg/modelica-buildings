@@ -6,27 +6,26 @@ partial model PartialStaticTwoPortCoolingTower
     "Medium model for water";
 
   parameter Modelica.SIunits.MassFlowRate mWat_flow_nominal = 0.5
-    "Design air flow rate"
+    "Design water flow rate"
       annotation (Dialog(group="Nominal condition"));
 
   replaceable
     Buildings.Fluid.HeatExchangers.CoolingTowers.BaseClasses.CoolingTower tow
      constrainedby
     Buildings.Fluid.HeatExchangers.CoolingTowers.BaseClasses.CoolingTower(
-    redeclare package Medium = Medium_W,
+    redeclare final package Medium = Medium_W,
     m_flow_nominal=mWat_flow_nominal,
     dp_nominal=6000,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     show_T=true) "Cooling tower"
     annotation (Placement(transformation(extent={{24,-60},{44,-40}})));
-  Buildings.Fluid.Movers.FlowMachine_m_flow pum(redeclare package Medium =
-        Medium_W, m_flow_nominal=mWat_flow_nominal,
+  Buildings.Fluid.Movers.FlowMachine_m_flow pum(
+    redeclare package Medium = Medium_W,
+    m_flow_nominal=mWat_flow_nominal,
     dynamicBalance=false,
     filteredSpeed=false) "Pump for chilled water loop"
                           annotation (Placement(transformation(extent={{-40,-60},
             {-20,-40}})));
-  inner Modelica.Fluid.System system
-    annotation (Placement(transformation(extent={{60,60},{80,80}})));
   Buildings.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam=
         "modelica://Buildings/Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos")
     annotation (Placement(transformation(extent={{-100,40},{-80,60}})));
@@ -51,8 +50,9 @@ partial model PartialStaticTwoPortCoolingTower
     V=0.5,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     annotation (Placement(transformation(extent={{20,-120},{40,-100}})));
-  Buildings.Fluid.Sources.FixedBoundary   exp(           redeclare package
-      Medium = Medium_W, nPorts=1)
+  Buildings.Fluid.Sources.FixedBoundary exp(
+    redeclare package Medium = Medium_W,
+    nPorts=1) "Expansion vessel"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=180,
         origin={92,-120})));
