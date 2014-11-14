@@ -489,7 +489,7 @@ model TwoRoomsWithStorage
     m_flow_nominal=2*VRoo*1.2*0.37/3600)
     "Supply air damper that bypasses the heat recovery"
     annotation (Placement(transformation(extent={{160,510},{180,530}})));
-  Fluid.HeatExchangers.HeaterCoolerPrescribed coo(
+  Fluid.HeatExchangers.HeaterCooler_u coo(
     Q_flow_nominal=-3000,
     redeclare package Medium = MediumA,
     m_flow_nominal=2*VRoo*1.2*0.37/3600,

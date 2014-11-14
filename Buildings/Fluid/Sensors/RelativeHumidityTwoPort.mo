@@ -16,10 +16,21 @@ model RelativeHumidityTwoPort "Ideal two port relative humidity sensor"
 protected
   Real phiMed(unit="1", min=0, start=phi_start)
     "Relative humidity to which the sensor is exposed to";
-  Medium.BaseProperties med_a_inflow
-    "Medium state of inflowing fluid at port a";
-  Medium.BaseProperties med_b_inflow
-    "Medium state of inflowing fluid at port b";
+
+protected
+  Modelica.SIunits.Temperature T_a
+    "Temperature of the medium flowing from port_a to port_b";
+  Medium.MassFraction Xi_a[Medium.nXi]
+    "Mass fraction of the medium flowing from port_a to port_b";
+  Real phi_a(unit="1")
+    "Relative humidity of the medium flowing from port_a to port_b";
+  Modelica.SIunits.Temperature T_b
+    "Temperature of the medium flowing from port_b to port_a";
+  Medium.MassFraction Xi_b[Medium.nXi]
+    "Mass fraction of the medium flowing from port_b to port_a";
+  Real phi_b(unit="1")
+    "Relative humidity of the medium flowing from port_b to port_a";
+
 initial equation
   if dynamic then
     if initType == Modelica.Blocks.Types.Init.SteadyState then
@@ -30,20 +41,41 @@ initial equation
     end if;
   end if;
 equation
-  med_a_inflow.p  = port_a.p;
-  med_a_inflow.h  = port_b.h_outflow;
-  med_a_inflow.Xi = port_b.Xi_outflow;
-  med_b_inflow.p  = port_b.p;
-  med_b_inflow.h  = port_a.h_outflow;
-  med_b_inflow.Xi = port_a.Xi_outflow;
+
+  // Since the sensor does not affect the medium, we can use
+  // port_b.Xi_outflow = inStream(port_a.Xi_outflow).
+  Xi_a = port_b.Xi_outflow;
+
+  T_a=Medium.temperature_phX(
+      p=port_a.p,
+      h=port_b.h_outflow,
+      X=Xi_a);
+
+  phi_a = Buildings.Utilities.Psychrometrics.Functions.phi_pTX(
+    p=port_a.p,
+    T=T_a,
+    X_w=Xi_a[1]);
+
   if allowFlowReversal then
+    phi_b = Buildings.Utilities.Psychrometrics.Functions.phi_pTX(
+      p=port_b.p,
+      T=T_b,
+      X_w=Xi_b[1]);
+    T_b=Medium.temperature_phX(
+      p=port_b.p,
+      h=port_a.h_outflow,
+      X=Xi_b);
+    Xi_b = port_a.Xi_outflow;
     phiMed = Modelica.Fluid.Utilities.regStep(
                x=port_a.m_flow,
-               y1=med_a_inflow.phi,
-               y2=med_b_inflow.phi,
+               y1=phi_a,
+               y2=phi_b,
                x_small=m_flow_small);
   else
-    phiMed = med_a_inflow.phi;
+    phi_b = 0;
+    T_b = 273.15;
+    Xi_b = zeros(Medium.nXi);
+    phiMed = phi_a;
   end if;
   // Output signal of sensor
   if dynamic then

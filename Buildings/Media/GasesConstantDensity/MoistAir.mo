@@ -40,9 +40,6 @@ package MoistAir "Package with moist air model with constant density"
      If other variables are selected as states, static state selection
      is no longer possible and non-linear algebraic equations occur.
       */
-    MassFraction x_water "Mass of total water/mass of dry air";
-    Real phi "Relative humidity";
-
   protected
     constant SI.MolarMass[2] MMX = {steam.MM,dryair.MM}
       "Molar masses of components";
@@ -52,8 +49,6 @@ package MoistAir "Package with moist air model with constant density"
     MassFraction X_air "Mass fraction of air";
     MassFraction X_sat
       "Steam water mass fraction of saturation boundary in kg_water/kg_moistair";
-    MassFraction x_sat
-      "Steam water mass content of saturation boundary in kg_water/kg_dryair";
     AbsolutePressure p_steam_sat "Partial saturation pressure of steam";
   equation
     assert(T >= 200.0 and T <= 423.15, "
@@ -90,10 +85,6 @@ required from medium model \""     + mediumName + "\".");
     state.T = T;
     state.X = X;
 
-    // this x_steam is water load / dry air!!!!!!!!!!!
-    x_sat    = k_mair*p_steam_sat/max(100*Modelica.Constants.eps,p - p_steam_sat);
-    x_water = Xi[Water]/max(X_air,100*Modelica.Constants.eps);
-    phi = p/p_steam_sat*Xi[Water]/(Xi[Water] + k_mair*X_air);
   end BaseProperties;
 
   function Xsaturation = Buildings.Media.PerfectGases.MoistAir.Xsaturation
@@ -372,6 +363,10 @@ quantities are constant.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+November 13, 2014, by Michael Wetter:<br/>
+Removed <code>phi</code> and removed non-required computations.
+</li>
 <li>
 March 29, 2013, by Michael Wetter:<br/>
 Added <code>final standardOrderComponents=true</code> in the
