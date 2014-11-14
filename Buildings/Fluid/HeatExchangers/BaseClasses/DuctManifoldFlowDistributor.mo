@@ -3,45 +3,94 @@ model DuctManifoldFlowDistributor
   "Manifold for duct inlet that distributes the mass flow rate equally"
   extends PartialDuctManifold;
 
+  parameter Modelica.SIunits.MassFlowRate m_flow_nominal
+    "Mass flow rate at port_a" annotation(Dialog(group = "Nominal Condition"));
+
 protected
-  Medium.SpecificEnthalpy port_a_2_h_outflow[nPipSeg] "Outflowing enthalpies";
-  Medium.MassFraction port_a_2_Xi_outflow[nPipSeg, Medium.nXi]
-    "Outflowing mass fractions";
-  Medium.ExtraProperty port_a_2_C_outflow[nPipSeg, Medium.nC]
-    "Outflowing trace substances";
+  Movers.BaseClasses.IdealSource sou0(
+    redeclare final package Medium = Medium,
+    each allowFlowReversal=allowFlowReversal,
+    each m_flow_small=1E-4*abs(m_flow_nominal),
+    final control_m_flow=false) "Mass flow rate source with fixed dp"
+    annotation (Placement(transformation(extent={{0,-10},{20,10}})));
 
+  Movers.BaseClasses.IdealSource sou1[nPipPar-1](
+    redeclare each final package Medium = Medium,
+    each final allowFlowReversal=allowFlowReversal,
+    each final m_flow_small=1E-4*abs(m_flow_nominal),
+    each final control_m_flow=true) "Mass flow rate source with fixed m_flow"
+    annotation (Placement(transformation(extent={{20,-40},{40,-20}})));
+
+  Movers.BaseClasses.IdealSource sou2[nPipPar,nPipSeg-1](
+    redeclare each final package Medium = Medium,
+    each final allowFlowReversal=allowFlowReversal,
+    each final m_flow_small=1E-4*abs(m_flow_nominal),
+    each final control_m_flow=true) "Mass flow rate source with fixed m_flow"
+    annotation (Placement(transformation(extent={{40,-72},{60,-52}})));
+  Sensors.MassFlowRate senMasFlo(redeclare final package Medium = Medium)
+    "Mass flow rate sensor"
+    annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
+  Modelica.Blocks.Math.Gain gain(final k=1/nPipPar/nPipSeg)
+    "Gain for mass flow distribution to manifold"
+    annotation (Placement(transformation(extent={{-20,60},{0,80}})));
+  Modelica.Blocks.Sources.Constant dpDis(k=0) "Pressure drop of distribution"
+    annotation (Placement(transformation(extent={{-20,20},{0,40}})));
 equation
-  port_b[1, 1].m_flow = -port_a.m_flow/nPipPar/nPipSeg;
-  for j in 2:nPipSeg loop
-    port_b[1, j].m_flow = port_b[1, 1].m_flow;
-  end for;
-  for i in 2:nPipPar loop
-    for j in 1:nPipSeg loop
-      port_b[i, j].m_flow = port_b[1, 1].m_flow;
-    end for;
-  end for;
+  connect(port_a, senMasFlo.port_a) annotation (Line(
+      points={{-100,0},{-60,0}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(senMasFlo.m_flow, gain.u) annotation (Line(
+      points={{-50,11},{-50,70},{-22,70}},
+      color={0,0,127},
+      smooth=Smooth.None));
 
-  port_b[1, 1].p = port_a.p;
+  // Connect the model that imposes zero pressure drop in the manifold
+  connect(senMasFlo.port_b, sou0.port_a) annotation (Line(
+      points={{-40,0},{0,0}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(sou0.port_b, port_b[1, 1]) annotation (Line(
+      points={{20,0},{100,0}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(dpDis.y, sou0.dp_in) annotation (Line(
+      points={{1,30},{16,30},{16,8}},
+      color={0,0,127},
+      smooth=Smooth.None));
+
+  // Connect the models that impose the mass flow rates
+  for i in 1:nPipPar-1 loop
+      connect(senMasFlo.port_b, sou1[i].port_a) annotation (Line(
+      points={{-40,0},{-20,0},{-20,-30},{20,-30}},
+      color={0,127,255},
+      smooth=Smooth.None));
+      connect(sou1[i].port_b, port_b[i+1, 1]) annotation (Line(
+      points={{40,-30},{80,-30},{80,0},{100,0}},
+      color={0,127,255},
+      smooth=Smooth.None));
+      connect(gain.y, sou1[i].m_flow_in) annotation (Line(
+      points={{1,70},{24,70},{24,-22}},
+      color={0,0,127},
+      smooth=Smooth.None));
+    end for;
 
   for i in 1:nPipPar loop
-    for j in 1:nPipSeg loop
-      inStream(port_a.h_outflow)  = port_b[i, j].h_outflow;
-      inStream(port_a.Xi_outflow) = port_b[i, j].Xi_outflow;
-      inStream(port_a.C_outflow)  = port_b[i, j].C_outflow;
+    for j in 1:nPipSeg-1 loop
+      connect(senMasFlo.port_b, sou2[i, j].port_a) annotation (Line(
+      points={{-40,0},{-20,0},{-20,-62},{40,-62}},
+      color={0,127,255},
+      smooth=Smooth.None));
+      connect(sou2[i, j].port_b, port_b[i, j+1]) annotation (Line(
+      points={{60,-62},{80,-62},{80,0},{100,0}},
+      color={0,127,255},
+      smooth=Smooth.None));
+      connect(gain.y, sou2[i, j].m_flow_in) annotation (Line(
+      points={{1,70},{44,70},{44,-54}},
+      color={0,0,127},
+      smooth=Smooth.None));
     end for;
   end for;
-  // As OpenModelica does not support multiple iterators as of August 2014, we
-  // use here two sum(.) functions
-  for j in 1:nPipSeg loop
-    port_a_2_h_outflow[j] = sum(inStream(port_b[i, j].h_outflow) for i in 1:nPipPar)/nPipPar;
-    port_a_2_Xi_outflow[j, 1:Medium.nXi] = sum(inStream(port_b[i, j].Xi_outflow[1:Medium.nXi]) for i in 1:nPipPar)/nPipPar;
-    port_a_2_C_outflow[j, 1:Medium.nC] = sum(inStream(port_b[i, j].C_outflow[1:Medium.nC]) for i in 1:nPipPar)/nPipPar;
-  end for;
-
-  port_a.h_outflow                = sum(port_a_2_h_outflow[j] for j in 1:nPipSeg)/nPipSeg;
-  port_a.Xi_outflow[1:Medium.nXi] = sum(port_a_2_Xi_outflow[j, 1:Medium.nXi] for j in 1:nPipSeg)/nPipSeg;
-  port_a.C_outflow[1:Medium.nC]   = sum(port_a_2_C_outflow[j, 1:Medium.nC] for j in 1:nPipSeg)/nPipSeg;
-
 annotation (Documentation(info="<html>
 <p>
 This model distributes the mass flow rates equally between all instances
@@ -64,8 +113,8 @@ what you are doing.
 revisions="<html>
 <ul>
 <li>
-October 30, 2014, by Michael Wetter:<br/>
-Reformulated model for OpenModelica.
+November 13, 2014, by Michael Wetter:<br/>
+Rewrote the model to make it compile in OpenModelica.
 </li>
 <li>
 August 10, 2014, by Michael Wetter:<br/>
@@ -97,5 +146,7 @@ First implementation.
           lineColor={0,0,255},
           smooth=Smooth.None,
           fillPattern=FillPattern.Solid,
-          fillColor={0,0,255})}));
+          fillColor={0,0,255})}),
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
+            100}}), graphics));
 end DuctManifoldFlowDistributor;
