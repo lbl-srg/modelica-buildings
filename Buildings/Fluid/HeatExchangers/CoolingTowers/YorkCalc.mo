@@ -140,7 +140,10 @@ equation
                TRan=TRan,
                TWetBul=TAir,
                FRWat=FRWat,
-               FRAir=max(FRWat/bou.liqGasRat_max, FRAir));
+               FRAir=Buildings.Utilities.Math.Functions.smoothMax(
+                 x1=FRWat/bou.liqGasRat_max,
+                 x2=FRAir,
+                 deltaX=0.01));
   dTMax = T_a - TAir;
   TAppFreCon = (1-fraFreCon) * dTMax  + fraFreCon *
                Buildings.Fluid.HeatExchangers.CoolingTowers.Correlations.yorkCalc(
@@ -259,6 +262,8 @@ control law to compute the input signal <code>y</code>.
 <li>
 November 13, 2014, by Michael Wetter:<br/>
 Added missing <code>each</code> keyword for <code>fanRelPowDer</code>.
+Added regularization in computation of <code>TAppCor</code>.
+Removed intermediate states with temperatures.
 </li>
 <li>
 May 30, 2014, by Michael Wetter:<br/>
