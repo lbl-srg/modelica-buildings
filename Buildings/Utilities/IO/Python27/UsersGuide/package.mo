@@ -210,5 +210,44 @@ if a Modelica function returns <code>(Real[nR], Integer[nI], String)</code>.
 This will be fixed in Dymola 2014.
 (Support request #14983.)
 </p>
+<h4>Known Issues</h4>
+<p>
+The Python installation of Ubuntu 14.04 has a bug that causes Dymola 
+to produce output of the following form:
+</p>
+<pre>
+Traceback (most recent call last):
+  File \"/usr/lib/python2.7/site.py\", line 563, in &lt;module&gt;
+    main()
+  File \"/usr/lib/python2.7/site.py\", line 545, in main
+    known_paths = addusersitepackages(known_paths)
+  File \"/usr/lib/python2.7/site.py\", line 272, in addusersitepackages
+    user_site = getusersitepackages()
+  File \"/usr/lib/python2.7/site.py\", line 247, in getusersitepackages
+    user_base = getuserbase() # this will also set USER_BASE
+  File \"/usr/lib/python2.7/site.py\", line 237, in getuserbase
+    USER_BASE = get_config_var('userbase')
+  File \"/usr/lib/python2.7/sysconfig.py\", line 578, in get_config_var
+    return get_config_vars().get(name)
+  File \"/usr/lib/python2.7/sysconfig.py\", line 524, in get_config_vars
+    _init_posix(_CONFIG_VARS)
+  File \"/usr/lib/python2.7/sysconfig.py\", line 408, in _init_posix
+    from _sysconfigdata import build_time_vars
+  File \"/usr/lib/python2.7/_sysconfigdata.py\", line 6, in &lt;module&gt;
+    from _sysconfigdata_nd import *
+ImportError: No module named _sysconfigdat
+...(message truncated)
+</pre>
+<p>
+As a work-around, type in a shell the commands
+</p>
+<pre>
+$ cd /usr/lib/python2.7
+$ sudo ln -s plat-x86_64-linux-gnu/_sysconfigdata_nd.py .
+</pre>
+<p>
+See also <a href=\"https://bugs.launchpad.net/ubuntu/+source/python2.7/+bug/1115466\">
+https://bugs.launchpad.net/ubuntu/+source/python2.7/+bug/1115466</a>.
+</p>
 </html>"));
 end UsersGuide;
