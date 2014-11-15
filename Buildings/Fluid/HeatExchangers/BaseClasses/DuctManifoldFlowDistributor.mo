@@ -7,6 +7,18 @@ model DuctManifoldFlowDistributor
     "Mass flow rate at port_a" annotation(Dialog(group = "Nominal Condition"));
 
 protected
+  Sensors.MassFlowRate senMasFlo(redeclare final package Medium = Medium)
+    "Mass flow rate sensor"
+    annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
+
+  Modelica.Blocks.Math.Gain gain(final k=1/nPipPar/nPipSeg)
+    "Gain for mass flow distribution to manifold"
+    annotation (Placement(transformation(extent={{-20,60},{0,80}})));
+
+  Modelica.Blocks.Sources.Constant dpDis(final k=0)
+    "Pressure drop of distribution"
+    annotation (Placement(transformation(extent={{-20,20},{0,40}})));
+
   Movers.BaseClasses.IdealSource sou0(
     redeclare final package Medium = Medium,
     each allowFlowReversal=allowFlowReversal,
@@ -34,17 +46,9 @@ protected
     each final m_flow_small=1E-4*abs(m_flow_nominal/nPipPar/nPipSeg),
     each final control_m_flow=true,
     each m_flow_start=mStart_flow_a/nPipPar/nPipSeg,
-    final show_V_flow=false,
+    each final show_V_flow=false,
     each final show_T=false) "Mass flow rate source with fixed m_flow"
     annotation (Placement(transformation(extent={{40,-72},{60,-52}})));
-  Sensors.MassFlowRate senMasFlo(redeclare final package Medium = Medium)
-    "Mass flow rate sensor"
-    annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
-  Modelica.Blocks.Math.Gain gain(final k=1/nPipPar/nPipSeg)
-    "Gain for mass flow distribution to manifold"
-    annotation (Placement(transformation(extent={{-20,60},{0,80}})));
-  Modelica.Blocks.Sources.Constant dpDis(k=0) "Pressure drop of distribution"
-    annotation (Placement(transformation(extent={{-20,20},{0,40}})));
 equation
   connect(port_a, senMasFlo.port_a) annotation (Line(
       points={{-100,0},{-60,0}},
