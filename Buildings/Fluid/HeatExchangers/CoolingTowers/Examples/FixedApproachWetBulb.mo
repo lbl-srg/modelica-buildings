@@ -2,9 +2,8 @@ within Buildings.Fluid.HeatExchangers.CoolingTowers.Examples;
 model FixedApproachWetBulb
   "Test model for cooling tower with fixed approach temperature using the wet-bulb temperature"
   extends Modelica.Icons.Example;
-  extends
-    Buildings.Fluid.HeatExchangers.CoolingTowers.Examples.BaseClasses.PartialStaticTwoPortCoolingTowerWetBulb(
-     redeclare FixedApproach tow);
+  extends BaseClasses.PartialStaticTwoPortCoolingTowerWetBulb(
+    redeclare CoolingTowers.FixedApproach tow);
 equation
   connect(wetBulTem.TWetBul, tow.TAir) annotation (Line(
       points={{1,50},{10,50},{10,-46},{22,-46}},

@@ -38,9 +38,9 @@ partial model WetCoilDiscretized
         T_b1_nominal,
         T_a2_nominal,
         T_b2_nominal),
-    show_T=true,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
-    "Coil with fixed initial conditions" annotation (Placement(transformation(
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    show_T=true) "Coil with fixed initial conditions"
+                                         annotation (Placement(transformation(
           extent={{-10,40},{10,60}})));
   Sources.MassFlowSource_T            sin_2(
     redeclare package Medium = Medium2,
@@ -90,9 +90,9 @@ partial model WetCoilDiscretized
         T_b1_nominal,
         T_a2_nominal,
         T_b2_nominal),
-    show_T=true,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyStateInitial)
-    "Coil with fixed initial conditions" annotation (Placement(transformation(
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyStateInitial,
+    show_T=true) "Coil with fixed initial conditions"
+                                         annotation (Placement(transformation(
           extent={{-10,-20},{10,0}})));
   Sources.MassFlowSource_T            sin_3(
     redeclare package Medium = Medium2,
@@ -134,9 +134,9 @@ partial model WetCoilDiscretized
         T_b1_nominal,
         T_a2_nominal,
         T_b2_nominal),
-    show_T=true,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState)
-    "Coil with fixed initial conditions" annotation (Placement(transformation(
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
+    show_T=true) "Coil with fixed initial conditions"
+                                         annotation (Placement(transformation(
           extent={{-10,-80},{10,-60}})));
   Sources.MassFlowSource_T            sin_5(
     redeclare package Medium = Medium2,
@@ -256,7 +256,7 @@ equation
       points={{69,70},{60,70},{60,-42},{50,-42}},
       color={0,0,127},
       smooth=Smooth.None));
-  annotation( Documentation(info="<html>
+  annotation (Documentation(info="<html>
 <p>
 This is the base model that is used to test the initialization of the coil model.
 There are three instances of the coil model, each having different settings

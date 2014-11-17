@@ -2,10 +2,9 @@ within Buildings.Fluid.HeatExchangers.CoolingTowers.Examples;
 model YorkCalc
   "Test model for cooling tower using the York performance correlation"
   extends Modelica.Icons.Example;
-  extends
-    Buildings.Fluid.HeatExchangers.CoolingTowers.Examples.BaseClasses.PartialStaticTwoPortCoolingTowerWetBulb(
-    redeclare Buildings.Fluid.HeatExchangers.CoolingTowers.YorkCalc tow,
-      onOffController(bandwidth=2));
+  extends BaseClasses.PartialStaticTwoPortCoolingTowerWetBulb(
+    redeclare CoolingTowers.YorkCalc tow,
+    onOffController(bandwidth=2));
 
   Modelica.Blocks.Sources.Constant TSetLea(k=273.15 + 18)
     "Setpoint for leaving temperature"

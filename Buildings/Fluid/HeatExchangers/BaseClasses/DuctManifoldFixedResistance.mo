@@ -42,7 +42,8 @@ protected
     nPipPar=nPipPar,
     mStart_flow_a=mStart_flow_a,
     nPipSeg=nPipSeg,
-    allowFlowReversal=allowFlowReversal)
+    allowFlowReversal=allowFlowReversal,
+    m_flow_nominal=m_flow_nominal)
     "Mass flow distributor to the individual segments of the coil"
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
 equation
