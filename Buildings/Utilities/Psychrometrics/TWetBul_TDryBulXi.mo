@@ -56,10 +56,8 @@ equation
   if approximateWetBulb then
     TDryBul_degC = TDryBul - 273.15;
     rh_per       = 100 * p/
-      Buildings.Utilities.Math.Functions.smoothMin(
-         x1=Buildings.Utilities.Psychrometrics.Functions.saturationPressure(TDryBul),
-         x2=0.999*p,
-         deltaX=1E-4)*Xi[iWat]/(Xi[iWat] +
+         Buildings.Utilities.Psychrometrics.Functions.saturationPressure(TDryBul)
+         *Xi[iWat]/(Xi[iWat] +
          Buildings.Utilities.Psychrometrics.Constants.k_mair*(1-Xi[iWat]));
     TWetBul      = 273.15 + TDryBul_degC
        * Modelica.Math.atan(0.151977 * sqrt(rh_per + 8.313659))
@@ -170,6 +168,14 @@ DOI: 10.1175/JAMC-D-11-0143.1
 </html>",
 revisions="<html>
 <ul>
+<li>
+November 17, 2014, by Michael Wetter:<br/>
+Removed test on saturation pressure that avoids it to be larger than
+<code>p</code>.
+This test is not needed as it is only active near or above the boiling temperature,
+and the result is only used in the computation of <code>rh_per</code>.
+I do not see any negative impact from removing this test.
+</li>
 <li>
 July 24, 2014 by Michael Wetter:<br/>
 Revised computation of <code>rh_per</code> to use
