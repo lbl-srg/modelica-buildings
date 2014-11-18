@@ -84,6 +84,21 @@ or
 Buildings.Fluid.FMI.Examples.FMUs.HeaterCooler_u</a>
 for how to use this block.
 </p>
+<p>
+Note that this block must not be used if the instance <code>com</code>
+sets a constant pressure. In such a situation, use
+<a href=\"modelica://Buildings.Fluid.FMI.TwoPort\">
+Buildings.Fluid.FMI.TwoPort</a>
+together with
+<a href=\"modelica://Buildings.Fluid.FMI.BaseClasses.Inlet\">
+Buildings.Fluid.FMI.BaseClasses.Inlet</a>
+and
+<a href=\"modelica://Buildings.Fluid.FMI.BaseClasses.Outlet\">
+Buildings.Fluid.FMI.BaseClasses.Outlet</a>
+and set the pressure to be equal to the port <code>p</code> of
+<a href=\"modelica://Buildings.Fluid.FMI.BaseClasses.Outlet\">
+Buildings.Fluid.FMI.BaseClasses.Outlet</a>.
+</p>
 </html>", revisions="<html>
 <ul>
 <li>

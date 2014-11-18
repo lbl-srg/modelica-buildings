@@ -18,9 +18,11 @@ model Outlet "Model for exposing a fluid outlet to the FMI interface"
     redeclare final package Medium=Medium) "Fluid port"
                 annotation (Placement(
         transformation(extent={{-110,-10},{-90,10}}),
-                                                    iconTransformation(extent={{-110,
+          iconTransformation(extent={{-110,
             -10},{-90,10}})));
-  Modelica.Blocks.Interfaces.RealInput p(unit="Pa") "Pressure" annotation (
+  Modelica.Blocks.Interfaces.RealInput p(unit="Pa")
+    "Pressure to be sent to outlet"
+              annotation (
       Placement(transformation(
         extent={{-20,-20},{20,20}},
         rotation=90,
@@ -29,11 +31,13 @@ protected
   Buildings.Fluid.FMI.Interfaces.FluidProperties bacPro_internal(
     redeclare final package Medium = Medium)
     "Internal connector for fluid properties for back flow";
+
 equation
   // Set outlet pressure and port pressure to pressure
   // of signal port
-  outlet.p      = p;
-  port_a.p      = p;
+
+  port_a.p = p;
+  outlet.p = p;
   port_a.m_flow = outlet.m_flow;
 
   inStream(port_a.h_outflow)  = outlet.forward.h;

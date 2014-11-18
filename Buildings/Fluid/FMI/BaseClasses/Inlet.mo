@@ -51,7 +51,6 @@ equation
     bacPro_internal.C  = fill(0, Medium.nC);
   end if;
 
-  // Send inlet pressure to signal port p
   p = inlet.p;
 
   annotation (defaultComponentName="boundary",
