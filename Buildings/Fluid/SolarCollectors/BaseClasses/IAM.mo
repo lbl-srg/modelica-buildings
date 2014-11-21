@@ -5,11 +5,12 @@ function IAM "Function for incident angle modifer"
   input Real B0 "1st incident angle modifer coefficient";
   input Real B1 "2nd incident angle modifer coefficient";
   output Real incAngMod "Incident angle modifier coefficient";
-  parameter Modelica.SIunits.Angle incAngMin = Modelica.Constants.pi / 2 -0.1
+protected
+  constant Modelica.SIunits.Angle incAngMin = Modelica.Constants.pi / 2 -0.1
     "Minimum incidence angle to avoid divison by zero";
-  parameter Real cosIncAngMin(min=Modelica.Constants.eps)=
+  constant Real delta = 0.0001 "Width of the smoothing function";
+  Real cosIncAngMin(min=Modelica.Constants.eps)=
   Modelica.Math.cos(incAngMin) "Cosine of minimum incidence angle";
-  parameter Real delta = 0.0001 "Width of the smoothing function";
 
 algorithm
   // E+ Equ (555)
@@ -44,6 +45,10 @@ October 13, 2011.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+November 20, 2014, by Michael Wetter:<br/>
+Added missing <code>protected</code> keyword.
+</li>
 <li>
 May 22, 2012, by Wangda Zuo:<br/>
 First implementation.
