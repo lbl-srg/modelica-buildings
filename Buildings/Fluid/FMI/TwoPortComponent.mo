@@ -9,6 +9,10 @@ block TwoPortComponent
     "Component that holds actual model"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 
+  Modelica.Blocks.Sources.RealExpression dpCom(y=com.port_a.p - com.port_b.p)
+    "Pressure drop of the component"
+    annotation (Placement(transformation(extent={{-40,-90},{-20,-70}})));
+
 protected
   Inlet bouIn(
     redeclare final package Medium=Medium,
@@ -20,14 +24,8 @@ protected
     final allowFlowReversal=allowFlowReversal) "Boundary component for outlet"
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
 
-
   Modelica.Blocks.Math.Feedback pOut "Pressure at component outlet"
     annotation (Placement(transformation(extent={{-10,-70},{10,-50}})));
-
-public
-  Modelica.Blocks.Sources.RealExpression dpCom(y=com.port_a.p - com.port_b.p)
-    "Pressure drop of the component"
-    annotation (Placement(transformation(extent={{-40,-90},{-20,-70}})));
 equation
   connect(pOut.u1, bouIn.p) annotation (Line(
       points={{-8,-60},{-70,-60},{-70,-11}},
