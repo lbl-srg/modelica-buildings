@@ -53,7 +53,7 @@ equation
 
   p = inlet.p;
 
-  annotation (defaultComponentName="boundary",
+  annotation (defaultComponentName="bouInl",
     Icon(coordinateSystem(
         preserveAspectRatio=false,
         extent={{-100,-100},{100,100}}), graphics={

@@ -55,7 +55,7 @@ equation
   bacPro_internal.Xi = port_a.Xi_outflow;
   bacPro_internal.C  = port_a.C_outflow;
 
-    annotation (defaultComponentName="boundary",
+    annotation (defaultComponentName="bouOut",
     Icon(coordinateSystem(
         preserveAspectRatio=false,
         extent={{-100,-100},{100,100}}), graphics={
