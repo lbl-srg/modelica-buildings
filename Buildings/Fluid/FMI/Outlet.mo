@@ -1,5 +1,5 @@
-within Buildings.Fluid.FMI.BaseClasses;
-model Inlet "Model for exposing a fluid inlet to the FMI interface"
+within Buildings.Fluid.FMI;
+model Outlet "Model for exposing a fluid outlet to the FMI interface"
 
   replaceable package Medium =
       Modelica.Media.Interfaces.PartialMedium "Medium model within the source"
@@ -9,51 +9,53 @@ model Inlet "Model for exposing a fluid inlet to the FMI interface"
     "= true to allow flow reversal, false restricts to design direction (inlet -> outlet)"
     annotation(Dialog(tab="Assumptions"), Evaluate=true);
 
-  Buildings.Fluid.FMI.Interfaces.Inlet inlet(
+  Buildings.Fluid.FMI.Interfaces.Outlet outlet(
     redeclare final package Medium = Medium,
-    final allowFlowReversal=allowFlowReversal) "Fluid inlet"
-    annotation (Placement(transformation(extent={{-120,-10},{-100,10}})));
+    final allowFlowReversal=allowFlowReversal) "Fluid outlet" annotation (Placement(transformation(extent={{
+            100,-10},{120,10}}), iconTransformation(extent={{100,-10},{120,10}})));
 
-  Modelica.Fluid.Interfaces.FluidPort_b port_b(
+  Modelica.Fluid.Interfaces.FluidPort_a port_a(
     redeclare final package Medium=Medium) "Fluid port"
                 annotation (Placement(
-        transformation(extent={{90,-10},{110,10}}), iconTransformation(extent={{90,-10},
-            {110,10}})));
-  Modelica.Blocks.Interfaces.RealOutput p(unit="Pa") "Pressure" annotation (
+        transformation(extent={{-110,-10},{-90,10}}),
+          iconTransformation(extent={{-110,
+            -10},{-90,10}})));
+  Modelica.Blocks.Interfaces.RealInput p(unit="Pa")
+    "Pressure to be sent to outlet"
+              annotation (
       Placement(transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=270,
-        origin={0,-110})));
+        extent={{-20,-20},{20,20}},
+        rotation=90,
+        origin={0,-120})));
 protected
   Buildings.Fluid.FMI.Interfaces.FluidProperties bacPro_internal(
     redeclare final package Medium = Medium)
     "Internal connector for fluid properties for back flow";
-equation
-  // To locally balance the model, the pressure is only imposed at the
-  // oulet model.
-  // The sign is negative because inlet.m_flow > 0
-  // means that fluid flows out of this component
-  -port_b.m_flow     = inlet.m_flow;
 
-  port_b.h_outflow  = inlet.forward.h;
-  port_b.Xi_outflow = inlet.forward.Xi;
-  port_b.C_outflow  = inlet.forward.C;
+equation
+  // Set outlet pressure and port pressure to pressure
+  // of signal port
+
+  port_a.p = p;
+  outlet.p = p;
+  port_a.m_flow = outlet.m_flow;
+
+  inStream(port_a.h_outflow)  = outlet.forward.h;
+  inStream(port_a.Xi_outflow) = outlet.forward.Xi;
+  inStream(port_a.C_outflow)  = outlet.forward.C;
 
   // Conditional connector for flow reversal
-  connect(inlet.backward, bacPro_internal);
-  if allowFlowReversal then
-    bacPro_internal.h  = inStream(port_b.h_outflow);
-    bacPro_internal.Xi = inStream(port_b.Xi_outflow);
-    bacPro_internal.C  = inStream(port_b.C_outflow);
-  else
+  connect(outlet.backward, bacPro_internal);
+  if not allowFlowReversal then
     bacPro_internal.h  = Medium.h_default;
     bacPro_internal.Xi = Medium.X_default[1:Medium.nXi];
     bacPro_internal.C  = fill(0, Medium.nC);
   end if;
+  bacPro_internal.h  = port_a.h_outflow;
+  bacPro_internal.Xi = port_a.Xi_outflow;
+  bacPro_internal.C  = port_a.C_outflow;
 
-  p = inlet.p;
-
-  annotation (defaultComponentName="bouInl",
+    annotation (defaultComponentName="bouOut",
     Icon(coordinateSystem(
         preserveAspectRatio=false,
         extent={{-100,-100},{100,100}}), graphics={
@@ -67,52 +69,31 @@ equation
           textString="%name",
           lineColor={0,0,255}),
         Line(
-          points={{-100,0},{-60,0}},
+          points={{60,0},{100,0}},
           color={0,0,255}),
-        Ellipse(
-          extent={{-34,30},{26,-30}},
-          lineColor={0,0,255},
-          fillColor={255,255,255},
-          fillPattern=FillPattern.Solid),
         Rectangle(
-          extent={{60,20},{100,-21}},
+          extent={{-100,20},{-60,-21}},
           lineColor={0,0,0},
           fillPattern=FillPattern.HorizontalCylinder,
           fillColor={0,127,255}),
-        Polygon(
-          points={{-18,26},{26,0},{-18,-26},{-18,26}},
-          lineColor={0,0,255},
-          fillColor={0,0,255},
-          fillPattern=FillPattern.Solid),
         Text(
-          extent={{-20,6},{14,-12}},
-          lineColor={255,0,0},
-          fillColor={255,0,0},
-          fillPattern=FillPattern.Solid,
-          textString="m"),
-        Ellipse(
-          extent={{-6,8},{-2,4}},
-          lineColor={255,0,0},
-          fillColor={255,0,0},
-          fillPattern=FillPattern.Solid),
-        Text(
-          extent={{-120,34},{-98,16}},
+          extent={{66,40},{100,0}},
           lineColor={0,0,255},
-          textString="inlet"),
+          textString="outlet"),
         Line(
-          points={{0,-100},{0,-60}},
+          points={{0,-60},{0,-100}},
           color={0,0,255},
           smooth=Smooth.None),
         Text(
-          extent={{2,-76},{24,-94}},
+          extent={{10,-64},{44,-104}},
           lineColor={0,0,255},
           textString="p")}),
     Documentation(info="<html>
 <p>
-Model that is used to connect an input signal to a fluid port.
+Model that is used to connect a fluid port with an output signal.
 The model needs to be used in conjunction with an instance of
-<a href=\"modelica://Buildings.Fluid.FMI.BaseClasses.Outlet\">
-Buildings.Fluid.FMI.BaseClasses.Outlet</a> in order for
+<a href=\"modelica://Buildings.Fluid.FMI.BaseClasses.Inlet\">
+Buildings.Fluid.FMI.BaseClasses.Inlet</a> in order for
 fluid mass flow rate and pressure to be properly assigned to
 the acausal fluid models.
 </p>
@@ -135,4 +116,4 @@ First implementation.
 </html>"),
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
             100}}), graphics));
-end Inlet;
+end Outlet;
