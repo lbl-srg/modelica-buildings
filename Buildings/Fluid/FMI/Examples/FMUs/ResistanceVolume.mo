@@ -15,10 +15,10 @@ block ResistanceVolume
     annotation (Placement(transformation(extent={{10,-70},{30,-50}})));
 
 protected
-  BaseClasses.Inlet bouIn(redeclare final package Medium=Medium)
+  Inlet bouIn(redeclare final package Medium=Medium)
     "Boundary model for inlet"
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
-  BaseClasses.Outlet bouOut(redeclare final package Medium=Medium)
+  Outlet bouOut(redeclare final package Medium=Medium)
     "Boundary component for outlet"
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
 

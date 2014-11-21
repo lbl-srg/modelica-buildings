@@ -1,9 +1,10 @@
 UsersGuide
 FlowSplitter_u
+Inlet
+Outlet
 Source_T
 Sink_T
 TwoPort
 TwoPortComponent
 Examples
 Interfaces
-

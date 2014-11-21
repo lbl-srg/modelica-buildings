@@ -111,8 +111,8 @@ equation
 <p>
 Model that is used to connect an input signal to a fluid port.
 The model needs to be used in conjunction with an instance of
-<a href=\"modelica://Buildings.Fluid.FMI.BaseClasses.Outlet\">
-Buildings.Fluid.FMI.BaseClasses.Outlet</a> in order for
+<a href=\"modelica://Buildings.Fluid.FMI.Outlet\">
+Buildings.Fluid.FMI.Outlet</a> in order for
 fluid mass flow rate and pressure to be properly assigned to
 the acausal fluid models.
 </p>
