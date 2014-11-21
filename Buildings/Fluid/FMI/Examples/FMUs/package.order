@@ -1,5 +1,6 @@
 FixedResistanceDpM
 Fan
+FlowSplitter_u
 HeaterCooler_u
-ResistanceVolume
 IdealSource_m_flow
+ResistanceVolume

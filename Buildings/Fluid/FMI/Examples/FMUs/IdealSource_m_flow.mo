@@ -9,10 +9,7 @@ block IdealSource_m_flow "FMU declaration for a fixed resistance"
     annotation (Placement(transformation(
         extent={{-20,-20},{20,20}},
         rotation=0,
-        origin={-120,50}), iconTransformation(
-        extent={{-10,-10},{10,10}},
-        rotation=0,
-        origin={-110,60})));
+        origin={-120,70}), iconTransformation(extent={{-120,70},{-100,90}})));
 
 equation
   assert(abs(inlet.m_flow-outlet.m_flow) < 1E-2,
@@ -21,14 +18,11 @@ equation
   outlet.m_flow = m_flow_in;
   outlet.p = inlet.p;
 
-  inlet.forward.h = outlet.forward.h;
-  outlet.backward.h = inlet.backward.h;
-
-  inlet.forward.Xi = outlet.forward.Xi;
-  outlet.backward.Xi = inlet.backward.Xi;
-
-  inlet.forward.C = outlet.forward.C;
-  outlet.backward.C = inlet.backward.C;
+  // We use connect statements, in particular
+  // because outlet.backward and inlet.backward
+  // is removed if allowFlowReversal=false
+  connect(inlet.forward, outlet.forward);
+  connect(outlet.backward, inlet.backward);
 
   annotation (
   Documentation(info="<html>
@@ -56,7 +50,7 @@ __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/FMI/
           fillColor={0,127,255},
           fillPattern=FillPattern.HorizontalCylinder),
                               Text(
-          extent={{-96,88},{-52,30}},
+          extent={{-94,110},{-50,52}},
           lineColor={0,0,127},
           textString="m_flow"),
         Ellipse(
