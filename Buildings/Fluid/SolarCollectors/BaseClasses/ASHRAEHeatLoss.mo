@@ -8,7 +8,9 @@ block ASHRAEHeatLoss
     "Slope from ratings data";
 
 protected
-  final parameter Modelica.SIunits.ThermalConductance UA(start = -slope*A_c, fixed = false)
+  final parameter Modelica.SIunits.ThermalConductance UA(
+      start = -slope*A_c,
+      fixed = false)
     "Coefficient describing heat loss to ambient conditions";
 initial equation
    //Identifies useful heat gain at nominal conditions
