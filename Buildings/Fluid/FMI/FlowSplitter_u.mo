@@ -56,7 +56,8 @@ equation
   assert(abs(inlet.m_flow-sum(outlet.m_flow)) > 1E-2 * mAve_flow_nominal,
     "Mass flow rate is not conserved.");
 
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
+  annotation(defaultComponentName="spl",
+Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
             {100,100}}), graphics={Rectangle(
           extent={{-100,100},{100,-100}},
           lineColor={0,0,0},
@@ -117,7 +118,6 @@ equation
         Diagram(coordinateSystem(preserveAspectRatio=false,
                    extent={{-100,-100},{100,100}}), graphics),
     Documentation(
-    defaultComponentName="spl",
 info="<html>
 <p>
 Block that takes as an input the inflowing fluid at the port <code>inlet</code>
