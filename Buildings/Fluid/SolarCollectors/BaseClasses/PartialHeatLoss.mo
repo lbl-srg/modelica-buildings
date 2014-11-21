@@ -25,16 +25,15 @@ block PartialHeatLoss
     displayUnit="degC") "Temperature of surrounding environment"
     annotation (Placement(transformation(extent={{-140,40},{-100,80}})));
 
-public
   Modelica.Blocks.Interfaces.RealInput TFlu[nSeg](
-    quantity="ThermodynamicTemperature",
-    unit = "K",
-    displayUnit="degC") "Temperature of the heat transfer fluid"
+    each quantity="ThermodynamicTemperature",
+    each unit = "K",
+    each displayUnit="degC") "Temperature of the heat transfer fluid"
     annotation (Placement(transformation(extent={{-140,-80},{-100,-40}})));
   Modelica.Blocks.Interfaces.RealOutput QLos[nSeg](
-    quantity="HeatFlowRate",
-    unit="W",
-    displayUnit="W") "Limited heat loss rate at current conditions"
+    each quantity="HeatFlowRate",
+    each unit="W",
+    each displayUnit="W") "Limited heat loss rate at current conditions"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 
 protected
@@ -42,10 +41,11 @@ protected
     "Useful heat gain at nominal conditions";
   final parameter Modelica.SIunits.HeatFlowRate QLos_nominal(fixed = false)
     "Heat loss at nominal conditions";
-  final parameter Modelica.SIunits.HeatFlowRate QLosUA[nSeg](fixed = false)
+  final parameter Modelica.SIunits.HeatFlowRate QLosUA[nSeg](each fixed = false)
     "Heat loss at current conditions";
-  final parameter Modelica.SIunits.Temperature dT_nominal_fluid[nSeg](each
-  start = 293.15, fixed = false)
+  final parameter Modelica.SIunits.Temperature dT_nominal_fluid[nSeg](
+    each start = 293.15,
+    each fixed = false)
     "Temperature of each semgent in the collector at nominal conditions";
 
   Modelica.SIunits.HeatFlowRate QLosInt[nSeg]
@@ -71,6 +71,10 @@ equation
       </p>
     </html>", revisions="<html>
       <ul>
+        <li>
+          November 20, 2014, by Michael Wetter:<br/>
+          Added missing <code>each</code> keyword.
+        </li>
         <li>
           Apr 17, 2013, by Peter Grant:<br/>
           First implementation
