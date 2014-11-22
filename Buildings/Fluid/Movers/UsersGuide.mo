@@ -73,7 +73,7 @@ Then, a declaration would be
   Buildings.Fluid.Movers.FlowMachine_y pum(
     redeclare package Medium = Medium,
     per.pressure(V_flow={0.0003,0.0006,0.0008},
-                  dp    ={45,35,15}*1000))
+                 dp    ={45,35,15}*1000))
     \"Circulation pump\";
 </pre>
 
@@ -184,9 +184,11 @@ the hydraulic power input <i>W<sub>hyd</sub></i>, the flow work
 <i>Q</i>. Based on the first law, the flow work is
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
-  W<sub>flo</sub> = | V &Delta;p |.
+  W<sub>flo</sub> = | V&#775; &Delta;p |,
 </p>
 <p>
+where <i>V&#775;</i> is the volume flow rate and
+<i>&Delta;p</i> is the pressure rise.
 The heat dissipated into the medium is as follows: 
 If the motor is cooled by the fluid, as indicated by 
 <code>per.motorCooledByFluid=true</code>, then the heat dissipated into the medium is
@@ -246,37 +248,7 @@ the model computes
 
 <p>
 The efficiency data for the motor are a list of points
-<i>r<sub>V</sub></i> and <i>&eta;<sub>mot</sub></i>,
-where <i>r<sub>V</sub></i> is the ratio of actual volume flow rate divided by the
-maximum volume flow rate <code>V_flow_max</code>,
-which is the volume flow rate at full speed and zero pressure rise.
-The maximum flow rate <code>V_flow_max</code> is obtained as follows:
-The models
-<a href=\"modelica://Buildings.Fluid.Movers.FlowMachine_y\">
-Buildings.Fluid.Movers.FlowMachine_y</a> and
-<a href=\"modelica://Buildings.Fluid.Movers.FlowMachine_Nrpm\">
-Buildings.Fluid.Movers.FlowMachine_Nrpm</a> set
-</p>
-<pre>
-  V_flow_max = V_flow(dp=0, r_N=1);
-</pre>
-
-<p>
-where <code>r_N</code> is the ratio of actual to nominal speed.
-Since <a href=\"modelica://Buildings.Fluid.Movers.FlowMachine_dp\">
-Buildings.Fluid.Movers.FlowMachine_dp</a> and
-<a href=\"modelica://Buildings.Fluid.Movers.FlowMachine_m_flow\">
-Buildings.Fluid.Movers.FlowMachine_m_flow</a>
-do not have a flow versus pressure performance curve, the parameter
-<code>V_flow_max</code> is assigned in these two models as
-</p>
-<pre>
-  V_flow_max = m_flow_nominal/rho_nominal,
-</pre>
-<p>
-where <code>m_flow_nominal</code> is the maximum flow rate, which needs to be
-provided by the user as a parameter for these models, and <code>rho_nominal</code> is the
-density at the nominal operating point.
+<i>V&#775;</i> and <i>&eta;<sub>mot</sub></i>.
 </p>
 
 <h5>Fluid volume of the component</h5>
