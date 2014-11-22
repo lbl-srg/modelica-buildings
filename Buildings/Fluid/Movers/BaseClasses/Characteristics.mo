@@ -441,13 +441,13 @@ This function computes the fan or pump efficiency for given normalized volume fl
 and performance data. The efficiency is
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
-  &eta; = s(r<sub>V</sub>/r<sub>N</sub>, d),
+  &eta; = s(V&#775;/r<sub>N</sub>, d),
 </p>
 <p>
 where
 <i>&eta;</i> is the efficiency,
 <i>r<sub>N</sub></i> is the normalized fan speed,
-<i>r<sub>V</sub></i> is the normalized volume flow rate, and
+<i>V&#775;</i> is the volume flow rate, and
 <i>d</i> are performance data for fan or pump efficiency.
 </p>
 <h4>Implementation</h4>
@@ -456,8 +456,19 @@ The function <i>s(&middot;, &middot;)</i> is a cubic hermite spline.
 If the data <i>d</i> define a monotone decreasing sequence, then
 <i>s(&middot;, d)</i> is a monotone decreasing function.
 </p>
-</html>", revisions="<html>
+</html>",
+  revisions="<html>
 <ul>
+<li>
+November 22, 2014, by Michael Wetter:<br/>
+Corrected documentation as curve uses <i>V&#775;</i>
+as an independent variable.
+</li>
+<li>
+September 30, 2014, by Filip Jorissen:<br/>
+Changed polynomial to be evaluated at <code>V_flow</code>
+instead of <code>r_V</code>.
+</li>       
 <li>
 April 19, 2014, by Filip Jorissen:<br/>
 Changed polynomial to be evaluated at <code>r_V/r_N</code>
