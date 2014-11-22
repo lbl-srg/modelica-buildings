@@ -4,8 +4,6 @@ model FlowMachineFeedbackControl "Flow machine with feedback control"
 
   package Medium = Buildings.Media.GasesPTDecoupled.MoistAirUnsaturated;
 
-
-
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal= 0.1
     "Nominal mass flow rate";
   parameter Modelica.SIunits.Pressure dp_nominal = 500
@@ -36,7 +34,7 @@ model FlowMachineFeedbackControl "Flow machine with feedback control"
   Buildings.Fluid.Movers.FlowMachine_y fan(
       redeclare package Medium = Medium,
       per(pressure(V_flow={0,m_flow_nominal,2*m_flow_nominal}/1.2,
-                    dp={2*dp_nominal,dp_nominal,0})),
+                   dp={2*dp_nominal,dp_nominal,0})),
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial) "Fan"
     annotation (Placement(transformation(extent={{40,40},{60,60}})));
   Buildings.Fluid.Sensors.MassFlowRate senMasFlo(redeclare package Medium =
