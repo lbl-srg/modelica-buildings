@@ -219,23 +219,24 @@ This function computes the fan static
 pressure raise as a function of volume flow rate and revolution in the form
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
-  &Delta;p = r<sub>N</sub><sup>2</sup> &nbsp; s(V/r<sub>N</sub>, d)
+  &Delta;p = r<sub>N</sub><sup>2</sup> &nbsp; s(V&#775;/r<sub>N</sub>, d)
   - &Delta;p<sub>r</sub> ,
 </p>
 <p>
 where
 <i>&Delta;p</i> is the pressure rise,
 <i>r<sub>N</sub></i> is the normalized fan speed,
-<i>V</i> is the volume flow rate and
+<i>V&#775;</i> is the volume flow rate and
 <i>d</i> are performance data for fan or pump power consumption at <i>r<sub>N</sub>=1</i>.
 The term
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
-&Delta;p<sub>r</sub> = V &nbsp; &Delta;p<sub>max</sub> &frasl; V<sub>max</sub> &nbsp; &delta;
+&Delta;p<sub>r</sub> = V&#775; &nbsp; &Delta;p<sub>max</sub> &frasl; V&#775;<sub>max</sub> &nbsp; &delta;
 </p>
 <p>
 models the flow resistance of the fan, approximated using a linear equation.
-This is done for numerical reasons to avoid a singularity at <i>r<sub>N</sub>=0</i>. Since <i>&delta;</i> is small, the contribution of this term is small.
+This is done for numerical reasons to avoid a singularity at <i>r<sub>N</sub>=0</i>.
+Since <i>&delta;</i> is small, the contribution of this term is small.
 The fan and pump models in
 <a href=\"modelica://Buildings.Fluid.Movers\">
 Buildings.Fluid.Movers</a> modify the user-supplied performance data to add the term
@@ -357,13 +358,13 @@ This function computes the fan power consumption for given volume flow rate,
 speed and performance data. The power consumption is
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
-  P = r<sub>N</sub><sup>3</sup> &nbsp; s(V/r<sub>N</sub>, d),
+  P = r<sub>N</sub><sup>3</sup> &nbsp; s(V&#775;/r<sub>N</sub>, d),
 </p>
 <p>
 where
 <i>P</i> is the power consumption,
 <i>r<sub>N</sub></i> is the normalized fan speed,
-<i>V</i> is the volume flow rate and
+<i>V&#775;</i> is the volume flow rate and
 <i>d</i> are performance data for fan or pump power consumption at <i>r<sub>N</sub>=1</i>.
 </p>
 <h4>Implementation</h4>
