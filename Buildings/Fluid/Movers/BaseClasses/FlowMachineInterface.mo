@@ -65,10 +65,12 @@ protected
         filteredSpeed
     "Second order filter to approximate valve opening time, and to improve numerics"
     annotation (Placement(transformation(extent={{20,81},{34,95}})));
-  parameter Modelica.SIunits.VolumeFlowRate VDelta_flow(fixed=false, start=delta*V_flow_nominal)
-    "Small volume flow rate";
-  parameter Modelica.SIunits.Pressure dpDelta(fixed=false, start=100)
-    "Small pressure";
+  parameter Modelica.SIunits.VolumeFlowRate VDelta_flow(
+    fixed=false,
+    start=delta*V_flow_nominal) "Small volume flow rate";
+  parameter Modelica.SIunits.Pressure dpDelta(
+    fixed=false,
+    start=100) "Small pressure";
   parameter Real delta = 0.05
     "Small value used to transition to other fan curve";
   parameter Real cBar[2](each fixed=false)
@@ -84,17 +86,20 @@ protected
   parameter
     Buildings.Fluid.Movers.BaseClasses.Characteristics.flowParametersInternal pCur1(
     final n = nOri,
-    V_flow(each fixed=false), dp(each fixed=false))
+    V_flow(each fixed=false),
+    dp(each fixed=false))
     "Volume flow rate vs. total pressure rise with correction for pump resistance added";
   parameter
     Buildings.Fluid.Movers.BaseClasses.Characteristics.flowParametersInternal pCur2(
-   final n = nOri + 1,
-    V_flow(each fixed=false), dp(each fixed=false))
+    final n = nOri + 1,
+    V_flow(each fixed=false),
+    dp(each fixed=false))
     "Volume flow rate vs. total pressure rise with correction for pump resistance added";
   parameter
     Buildings.Fluid.Movers.BaseClasses.Characteristics.flowParametersInternal pCur3(
    final n = nOri + 2,
-    V_flow(each fixed=false), dp(each fixed=false))
+    V_flow(each fixed=false),
+    dp(each fixed=false))
     "Volume flow rate vs. total pressure rise with correction for pump resistance added";
   parameter Real preDer1[nOri](each fixed=false)
     "Derivatives of flow rate vs. pressure at the support points";
