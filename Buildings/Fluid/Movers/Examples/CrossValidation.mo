@@ -1,5 +1,5 @@
 within Buildings.Fluid.Movers.Examples;
-model PumpCrossValidation "Comparison between 3 pump types"
+model CrossValidation "Power calculation comparison between 3 mover types"
   import Buildings;
   extends Modelica.Icons.Example;
   Buildings.Fluid.Movers.FlowMachine_Nrpm pump_Nrpm(redeclare package Medium =
@@ -7,10 +7,11 @@ model PumpCrossValidation "Comparison between 3 pump types"
       per,
     filteredSpeed=false)
            annotation (Placement(transformation(extent={{-60,50},{-40,70}})));
-  Buildings.Fluid.Movers.FlowMachine_dp2 pump_dp(
+  Buildings.Fluid.Movers.FlowMachine_dp  pump_dp(
     redeclare package Medium = Medium,
     redeclare Buildings.Fluid.Movers.Data.Pumps.Stratos30slash1to8 per,
-    filteredSpeed=false)
+    filteredSpeed=false,
+    m_flow_nominal=5)
     annotation (Placement(transformation(extent={{-60,10},{-40,30}})));
   Buildings.Fluid.Movers.FlowMachine_m_flow pump_m_flow(
     redeclare package Medium = Medium,
@@ -96,11 +97,11 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(dpSet.y, pump_dp.dp_in) annotation (Line(
-      points={{2.2,40},{-50,40},{-50,32}},
+      points={{2.2,40},{-50.2,40},{-50.2,32}},
       color={0,0,127},
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}), graphics),
     experiment(StopTime=200),
     __Dymola_experimentSetupOutput);
-end PumpCrossValidation;
+end CrossValidation;

@@ -2,41 +2,35 @@ within Buildings.Fluid.Movers.Data;
 record Generic "Generic data record for pumps and fans"
   extends Modelica.Icons.Record;
   parameter Modelica.SIunits.Conversions.NonSIunits.AngularVelocity_rpm
-    N_nominal=1500 "Nominal rotational speed for flow characteristic";
-  parameter Modelica.SIunits.Conversions.NonSIunits.AngularVelocity_rpm N_min=0.0
-    "Minimum rotational speed. Fixme. Check how this is used";
-  parameter Modelica.SIunits.Conversions.NonSIunits.AngularVelocity_rpm N_max=Modelica.Constants.inf
-    "Maximum rotational speed (used for checking validity of input)";
+    N_nominal "Nominal rotational speed for flow characteristic";
   parameter Buildings.Fluid.Movers.BaseClasses.Characteristics.flowParameters pressure
     "Volume flow rate vs. total pressure rise"
     annotation(Evaluate=true);
   parameter
     Buildings.Fluid.Movers.BaseClasses.Characteristics.efficiencyParameters
-    hydraulicEfficiency(V_flow={0}, eta={0.7}) "Hydraulic efficiency";
+    hydraulicEfficiency(V_flow=pressure.V_flow, eta=sqrt(pressure.V_flow.*pressure.dp./
+    {Buildings.Fluid.Movers.BaseClasses.Characteristics.power(per=power, V_flow=i, r_N=1, delta=0.01, d=d) for i in pressure.V_flow}))
+    "Hydraulic efficiency";
   parameter
     Buildings.Fluid.Movers.BaseClasses.Characteristics.efficiencyParameters
-    motorEfficiency(V_flow={0}, eta={0.7}) "Electric motor efficiency";
+    motorEfficiency(V_flow=pressure.V_flow, eta=sqrt(pressure.V_flow.*pressure.dp./
+    {Buildings.Fluid.Movers.BaseClasses.Characteristics.power(per=power, V_flow=i, r_N=1, delta=0.01, d=d) for i in pressure.V_flow}))
+    "Electric motor efficiency";
   parameter Buildings.Fluid.Movers.BaseClasses.Characteristics.powerParameters
-    power(V_flow={0}, P={0})
-    "Volume flow rate vs. electrical power consumption";
+    power "Volume flow rate vs. electrical power consumption";
   parameter Boolean motorCooledByFluid=true
     "If true, then motor heat is added to fluid stream";
   parameter Boolean use_powerCharacteristic=false
     "Use powerCharacteristic instead of efficiencyCharacteristic";
 
-    /* fixme: this needs to be deleted. if hydraulicEfficiency and motorEfficiency are
-    declared, then efficiency is given as efficiency = hydraulicEfficiency * motorEfficiency
-  final parameter Real d[:] = if ( size(power.V_flow, 1) == 1)  then 
+protected
+  final parameter Real d[:] = if ( size(power.V_flow, 1) == 1)  then
        {0}
-   else 
+   else
       Buildings.Utilities.Math.Functions.splineDerivatives(
       x=power.V_flow,
       y=power.P);
-  parameter 
-    Buildings.Fluid.Movers.BaseClasses.Characteristics.efficiencyParameters
-    efficiency(V_flow=pressure.V_flow, eta=pressure.V_flow.*pressure.dp./
-    {Buildings.Fluid.Movers.BaseClasses.Characteristics.power(per=power, V_flow=i, r_N=1, delta=0.01, d=d) for i in pressure.V_flow});
-*/
+
   annotation (Documentation(revisions="<html>
 <ul>
 <li>June 16, 2014 by Michael Wetter:<br/>
