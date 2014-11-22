@@ -2,17 +2,8 @@ within Buildings.Fluid.Movers;
 model FlowMachine_m_flow
   "Fan or pump with ideally controlled mass flow rate as input signal"
   extends Buildings.Fluid.Movers.BaseClasses.ControlledFlowMachine(
-  final control_m_flow=true, preSou(m_flow_start=m_flow_start));
-  Modelica.Blocks.Interfaces.RealInput m_flow_in(final unit="kg/s",
-                                                 nominal=m_flow_nominal)
-    "Prescribed mass flow rate"
-    annotation (Placement(transformation(
-        extent={{-20,-20},{20,20}},
-        rotation=-90,
-        origin={0,120}),   iconTransformation(
-        extent={{-20,-20},{20,20}},
-        rotation=-90,
-        origin={-2,120})));
+    final control_m_flow=true,
+    preSou(m_flow_start=m_flow_start));
 
   // Classes used to implement the filtered speed
   parameter Boolean filteredSpeed=true
@@ -27,6 +18,17 @@ model FlowMachine_m_flow
   parameter Modelica.SIunits.MassFlowRate m_flow_start(min=0)=0
     "Initial value of mass flow rate"
     annotation(Dialog(tab="Dynamics", group="Filtered speed"));
+
+  Modelica.Blocks.Interfaces.RealInput m_flow_in(final unit="kg/s",
+                                                 nominal=m_flow_nominal)
+    "Prescribed mass flow rate"
+    annotation (Placement(transformation(
+        extent={{-20,-20},{20,20}},
+        rotation=-90,
+        origin={0,120}),   iconTransformation(
+        extent={{-20,-20},{20,20}},
+        rotation=-90,
+        origin={-2,120})));
 
   Modelica.Blocks.Interfaces.RealOutput m_flow_actual(final unit="kg/s",
                                                        nominal=m_flow_nominal)
