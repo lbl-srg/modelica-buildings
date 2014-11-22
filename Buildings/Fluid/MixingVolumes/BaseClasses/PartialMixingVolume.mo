@@ -1,7 +1,7 @@
 within Buildings.Fluid.MixingVolumes.BaseClasses;
 partial model PartialMixingVolume
   "Partial mixing volume with inlet and outlet ports (flow reversal is allowed)"
-  outer Modelica.Fluid.System system "System properties";
+
   extends Buildings.Fluid.Interfaces.LumpedVolumeDeclarations;
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal(min=0)
     "Nominal mass flow rate"
@@ -12,7 +12,7 @@ partial model PartialMixingVolume
   parameter Modelica.SIunits.MassFlowRate m_flow_small(min=0) = 1E-4*abs(m_flow_nominal)
     "Small mass flow rate for regularization of zero flow"
     annotation(Dialog(tab = "Advanced"));
-  parameter Boolean allowFlowReversal = system.allowFlowReversal
+  parameter Boolean allowFlowReversal = true
     "= true to allow flow reversal in medium, false restricts to design direction (ports[1] -> ports[2]). Used only if model has two ports."
     annotation(Dialog(tab="Assumptions"), Evaluate=true);
   parameter Modelica.SIunits.Volume V "Volume";
@@ -60,7 +60,8 @@ protected
     m(start=V*rho_start),
     U(start=V*rho_start*Medium.specificInternalEnergy(
         state_start)),
-    nPorts=nPorts) if
+    nPorts=nPorts,
+    final mFactor=mFactor) if
         not useSteadyStateTwoPort "Model for dynamic energy balance"
     annotation (Placement(transformation(extent={{40,0},{60,20}})));
 
@@ -98,6 +99,7 @@ protected
   Modelica.Blocks.Sources.RealExpression QSen_flow(y=heatPort.Q_flow)
     "Block to set sensible heat input into volume"
     annotation (Placement(transformation(extent={{-60,78},{-40,98}})));
+
 equation
   ///////////////////////////////////////////////////////////////////////////
   // asserts
@@ -169,6 +171,16 @@ Buildings.Fluid.MixingVolumes</a>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+October 29, 2014, by Michael Wetter:<br/>
+Made assignment of <code>mFactor</code> final, and changed computation of
+density to use default medium states as are also used to compute the
+specific heat capacity.
+</li>
+<li>
+October 21, 2014, by Filip Jorissen:<br/>
+Added parameter <code>mFactor</code> to increase the thermal capacity.
+</li>
 <li>
 July 3, 2014, by Michael Wetter:<br/>
 Added parameter <code>initialize_p</code>. This is required

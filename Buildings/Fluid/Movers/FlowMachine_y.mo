@@ -52,8 +52,6 @@ equation
     Icon(coordinateSystem(preserveAspectRatio=true,  extent={{-100,-100},{100,
             100}}), graphics={Text(extent={{10,124},{102,102}},textString=
               "y_in [0, 1]")}),
-    Diagram(coordinateSystem(preserveAspectRatio=true,  extent={{-100,-100},{100,
-            100}}),     graphics),
     Documentation(info="<html>
 <p>
 This model describes a fan or pump with prescribed normalized speed.
@@ -67,7 +65,7 @@ the actual volume flow rate divided by the maximum possible volume flow rate, or
 based on the motor performance curves.
 </p>
 <p>
-See the 
+See the
 <a href=\"modelica://Buildings.Fluid.Movers.UsersGuide\">
 User's Guide</a> for more information.
 </p>

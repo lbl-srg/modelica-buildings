@@ -4,13 +4,12 @@ model FixedResistancesParallel
 
  package Medium = Buildings.Media.ConstantPropertyLiquidWater;
     Modelica.Blocks.Sources.Constant PAtm(k=101325)
-      annotation (Placement(transformation(extent={{66,76},{86,96}}, rotation=0)));
+      annotation (Placement(transformation(extent={{66,76},{86,96}})));
     Modelica.Blocks.Sources.Ramp P(
       duration=1,
     height=20,
     offset=101315)
-                 annotation (Placement(transformation(extent={{-100,70},{-80,90}},
-          rotation=0)));
+                 annotation (Placement(transformation(extent={{-100,70},{-80,90}})));
     Buildings.Fluid.FixedResistances.FixedResistanceDpM res1(
     redeclare package Medium = Medium,
     m_flow_nominal=5,
@@ -18,20 +17,19 @@ model FixedResistancesParallel
     deltaM=0.3,
     linearized=false,
     from_dp=false)
-             annotation (Placement(transformation(extent={{-28,30},{-8,50}},
-          rotation=0)));
+             annotation (Placement(transformation(extent={{-28,30},{-8,50}})));
   Buildings.Fluid.Sources.Boundary_pT sou1(          redeclare package Medium
       = Medium,
     T=293.15,
     nPorts=2,
     use_p_in=true)        annotation (Placement(transformation(extent={{-70,28},
-            {-50,48}}, rotation=0)));
+            {-50,48}})));
   Buildings.Fluid.Sources.Boundary_pT sin1(          redeclare package Medium
       = Medium,
     T=283.15,
     nPorts=2,
     use_p_in=true)        annotation (Placement(transformation(extent={{80,28},
-            {60,48}}, rotation=0)));
+            {60,48}})));
     Buildings.Fluid.FixedResistances.FixedResistanceDpM res2(
     redeclare package Medium = Medium,
     m_flow_nominal=5,
@@ -39,21 +37,18 @@ model FixedResistancesParallel
     deltaM=0.3,
     linearized=false,
     from_dp=false)
-             annotation (Placement(transformation(extent={{-28,-10},{-8,10}},
-          rotation=0)));
+             annotation (Placement(transformation(extent={{-28,-10},{-8,10}})));
   Buildings.Fluid.Sensors.MassFlowRate masFlo2(redeclare package Medium = Medium)
     "Mass flow rate sensor" annotation (Placement(transformation(extent={{0,-10},
-            {20,10}}, rotation=0)));
+            {20,10}})));
   Buildings.Utilities.Diagnostics.AssertEquality assEqu(threShold=1E-4, message=
         "Inputs differ, check that lossless pipe is correctly implemented.")
     "Assert equality of the two mass flow rates"
-    annotation (Placement(transformation(extent={{40,60},{60,80}},   rotation=0)));
+    annotation (Placement(transformation(extent={{40,60},{60,80}})));
   Buildings.Fluid.Sensors.MassFlowRate masFlo1(redeclare package Medium = Medium)
     "Mass flow rate sensor" annotation (Placement(transformation(extent={{20,30},
-            {40,50}}, rotation=0)));
-  inner Modelica.Fluid.System system(p_ambient=101325)
-                                   annotation (Placement(transformation(extent={{-80,-80},
-            {-60,-60}},        rotation=0)));
+            {40,50}})));
+
 equation
   connect(PAtm.y, sin1.p_in)
                             annotation (Line(points={{87,86},{94,86},{94,46},{
@@ -89,9 +84,6 @@ equation
       points={{30,51},{30,64},{38,64}},
       color={0,0,127},
       smooth=Smooth.None));
-    annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
-            -100},{100,100}}),
-                        graphics),
-experiment(StopTime=1.0),
+    annotation (experiment(StopTime=1.0),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/FixedResistances/Examples/FixedResistancesParallel.mos" "Simulate and plot"));
 end FixedResistancesParallel;

@@ -88,12 +88,12 @@ Use the same commands as for <i>Linux 32 bit, Dymola 2013 FD01</i> because Dymol
     </tr>
   <!-- =================================================================== -->
     <tr>
-      <td>Windows 32 bit, Dymola 2014 
+      <td>Windows 32 bit, Dymola 2014
       <br/>Windows 64 bit, Dymola 2014
-      <br/>Windows 32 bit, Dymola 2013 FD01 
+      <br/>Windows 32 bit, Dymola 2013 FD01
       <br/>Windows 64 bit, Dymola 2013 FD01 </td>
       <td>
-        Add to the system environment variable <code>PYTHONPATH</code> the directory 
+        Add to the system environment variable <code>PYTHONPATH</code> the directory
         <code>\"Path_To_Buildings_Library\"\\Resources\\Python-Sources</code>.
       </td>
     </tr>
@@ -106,7 +106,7 @@ The parameters <code>nDblWri</code> (or <code>nIntWri</code> or <code>nStrWri</c
 and <code>nDblRea</code> (or <code>nIntRea</code>) declare
 how many double (integer or string) values should be written to, or read from, the Python function.
 These values can be zero, in which case the Python function receives no
-arguments for this data type, or it must return a list with zero elements. 
+arguments for this data type, or it must return a list with zero elements.
 However, because Modelica does not allow arrays with
 zero elements, the arrays
 <code>dblWri</code> and <code>dblRea</code>, respectively, must contain exactly one element
@@ -125,7 +125,7 @@ If there is no value of a data type (such as if <code>nDblWri=0</code>), then th
 Thus, if a data type is not present, then the function will <i>not</i> receive an empty list of this data type.
 If there are no arguments at all, then the function takes no arguments.</p>
 <p>
-The table below shows the list of arguments for various combinations where no, 
+The table below shows the list of arguments for various combinations where no,
 one or two double values, integers and strings are passed as an argument to a Python function.
 </p>
  <table summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
@@ -146,7 +146,7 @@ The Python function must return their values in the following order:</p>
 <ol>
 <li>
 If the function returns one or multiple double values, then the first return
-value must be a double (if <code>nDblRea=1</code>) or a list of doubles 
+value must be a double (if <code>nDblRea=1</code>) or a list of doubles
 (if <code>nDblRea &gt; 1</code>).
 </li>
 <li>
@@ -177,7 +177,7 @@ and integer values are returned.</p>
 <h4>Pure Modelica functions (functions without side effects)</h4>
 <p>
 The functions that exchange data with Python are implemented as <i>pure</i>
-Modelica functions. 
+Modelica functions.
 Pure functions always return the same value if called repeatedly.
 If these functions are used to call hardware sensors or web services,
 they need to be called from a <code>when</code>-equation.</p>
@@ -196,7 +196,7 @@ The Python functions are stored in the directory
 <code>Buildings/Resources/Python-Sources</code>.
 </p>
 <p>
-The example 
+The example
 <a href=\"modelica://Buildings.Utilities.IO.Python27.Examples.KalmanFilter\">
 Buildings.Utilities.IO.Python27.Examples.KalmanFilter</a>
 shows how to implement in a Modelica block a call to a Python function.
@@ -209,6 +209,45 @@ The reason is that Dymola 2013 FD01 generates a compile time error
 if a Modelica function returns <code>(Real[nR], Integer[nI], String)</code>.
 This will be fixed in Dymola 2014.
 (Support request #14983.)
+</p>
+<h4>Known Issues</h4>
+<p>
+The Python installation of Ubuntu 14.04 has a bug that causes Dymola 
+to produce output of the following form:
+</p>
+<pre>
+Traceback (most recent call last):
+  File \"/usr/lib/python2.7/site.py\", line 563, in &lt;module&gt;
+    main()
+  File \"/usr/lib/python2.7/site.py\", line 545, in main
+    known_paths = addusersitepackages(known_paths)
+  File \"/usr/lib/python2.7/site.py\", line 272, in addusersitepackages
+    user_site = getusersitepackages()
+  File \"/usr/lib/python2.7/site.py\", line 247, in getusersitepackages
+    user_base = getuserbase() # this will also set USER_BASE
+  File \"/usr/lib/python2.7/site.py\", line 237, in getuserbase
+    USER_BASE = get_config_var('userbase')
+  File \"/usr/lib/python2.7/sysconfig.py\", line 578, in get_config_var
+    return get_config_vars().get(name)
+  File \"/usr/lib/python2.7/sysconfig.py\", line 524, in get_config_vars
+    _init_posix(_CONFIG_VARS)
+  File \"/usr/lib/python2.7/sysconfig.py\", line 408, in _init_posix
+    from _sysconfigdata import build_time_vars
+  File \"/usr/lib/python2.7/_sysconfigdata.py\", line 6, in &lt;module&gt;
+    from _sysconfigdata_nd import *
+ImportError: No module named _sysconfigdat
+...(message truncated)
+</pre>
+<p>
+As a work-around, type in a shell the commands
+</p>
+<pre>
+$ cd /usr/lib/python2.7
+$ sudo ln -s plat-x86_64-linux-gnu/_sysconfigdata_nd.py .
+</pre>
+<p>
+See also <a href=\"https://bugs.launchpad.net/ubuntu/+source/python2.7/+bug/1115466\">
+https://bugs.launchpad.net/ubuntu/+source/python2.7/+bug/1115466</a>.
 </p>
 </html>"));
 end UsersGuide;

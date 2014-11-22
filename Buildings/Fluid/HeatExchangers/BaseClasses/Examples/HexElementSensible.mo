@@ -10,59 +10,53 @@ model HexElementSensible
     use_T_in=true,
     T=288.15,
     nPorts=1)             annotation (Placement(transformation(extent={{-60,-30},
-            {-40,-10}}, rotation=0)));
+            {-40,-10}})));
     Modelica.Blocks.Sources.Ramp PIn(
     height=20,
     duration=300,
     startTime=300,
     offset=101325)
-                 annotation (Placement(transformation(extent={{0,-60},{20,-40}},
-          rotation=0)));
+                 annotation (Placement(transformation(extent={{0,-60},{20,-40}})));
   Buildings.Fluid.Sources.Boundary_pT sou_2(
     redeclare package Medium = Medium_A,
     use_p_in=true,
     use_T_in=true,
     T=283.15,
     nPorts=1)             annotation (Placement(transformation(extent={{40,-80},
-            {60,-60}}, rotation=0)));
+            {60,-60}})));
     Modelica.Blocks.Sources.Ramp TWat(
     startTime=1,
     height=4,
     duration=300,
     offset=303.15) "Water temperature"
-                 annotation (Placement(transformation(extent={{0,-92},{20,-72}},
-          rotation=0)));
+                 annotation (Placement(transformation(extent={{0,-92},{20,-72}})));
   Modelica.Blocks.Sources.Constant TDb(k=278.15) "Drybulb temperature"
-    annotation (Placement(transformation(extent={{-100,44},{-80,64}}, rotation=
-            0)));
+    annotation (Placement(transformation(extent={{-100,44},{-80,64}})));
     Modelica.Blocks.Sources.Constant POut(k=101325)
-      annotation (Placement(transformation(extent={{-100,80},{-80,100}},
-          rotation=0)));
+      annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
   Buildings.Fluid.Sources.Boundary_pT sin_1(
    redeclare package Medium = Medium_W,
     use_p_in=true,
     T=288.15,
     nPorts=1)             annotation (Placement(transformation(extent={{42,40},
-            {62,60}}, rotation=0)));
+            {62,60}})));
   Buildings.Fluid.Sources.Boundary_pT sou_1(
     redeclare package Medium = Medium_W,
     use_T_in=true,
     nPorts=1,
     p=101340,
     T=293.15)             annotation (Placement(transformation(extent={{-60,40},
-            {-40,60}}, rotation=0)));
+            {-40,60}})));
     Fluid.FixedResistances.FixedResistanceDpM res_22(
     m_flow_nominal=5,
     dp_nominal=5,
     redeclare package Medium = Medium_A)
-             annotation (Placement(transformation(extent={{-4,-30},{-24,-10}},
-          rotation=0)));
+             annotation (Placement(transformation(extent={{-4,-30},{-24,-10}})));
     Fluid.FixedResistances.FixedResistanceDpM res_12(
     m_flow_nominal=5,
     dp_nominal=5,
     redeclare package Medium = Medium_W)
-             annotation (Placement(transformation(extent={{48,-4},{68,16}},
-          rotation=0)));
+             annotation (Placement(transformation(extent={{48,-4},{68,16}})));
   Buildings.Fluid.HeatExchangers.BaseClasses.HexElementSensible hex(
     m1_flow_nominal=5,
     m2_flow_nominal=5,
@@ -73,24 +67,21 @@ model HexElementSensible
     dp2_nominal=5,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
                     annotation (Placement(transformation(extent={{10,-10},{30,
-            10}}, rotation=0)));
+            10}})));
   Modelica.Blocks.Sources.Constant TDb1(k=303.15) "Drybulb temperature"
-    annotation (Placement(transformation(extent={{-100,-26},{-80,-6}},
-          rotation=0)));
+    annotation (Placement(transformation(extent={{-100,-26},{-80,-6}})));
     Fluid.FixedResistances.FixedResistanceDpM res_11(
     m_flow_nominal=5,
     dp_nominal=5,
     redeclare package Medium = Medium_W)
-             annotation (Placement(transformation(extent={{-24,-4},{-4,16}},
-          rotation=0)));
+             annotation (Placement(transformation(extent={{-24,-4},{-4,16}})));
     Fluid.FixedResistances.FixedResistanceDpM res_21(
     m_flow_nominal=5,
     dp_nominal=5,
     redeclare package Medium = Medium_A)
-             annotation (Placement(transformation(extent={{70,-30},{50,-10}},
-          rotation=0)));
+             annotation (Placement(transformation(extent={{70,-30},{50,-10}})));
   Modelica.Blocks.Sources.Constant hACon(k=10000) "Convective heat transfer"
-    annotation (Placement(transformation(extent={{-20,60},{0,80}}, rotation=0)));
+    annotation (Placement(transformation(extent={{-20,60},{0,80}})));
   inner Modelica.Fluid.System system
     annotation (Placement(transformation(extent={{-100,-100},{-80,-80}})));
 equation
@@ -147,9 +138,7 @@ equation
       points={{-40,-20},{-24,-20}},
       color={0,127,255},
       smooth=Smooth.None));
-  annotation(Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
-            -100},{100,100}})),
-experiment(StopTime=600),
+  annotation(experiment(StopTime=600),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/BaseClasses/Examples/HexElementSensible.mos"
         "Simulate and plot"));
 end HexElementSensible;

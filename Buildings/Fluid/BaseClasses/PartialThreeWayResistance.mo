@@ -2,26 +2,23 @@ within Buildings.Fluid.BaseClasses;
 partial model PartialThreeWayResistance
   "Flow splitter with partial resistance model at each port"
   extends Buildings.Fluid.Interfaces.LumpedVolumeDeclarations;
-  outer Modelica.Fluid.System system "System properties";
+
 
   Modelica.Fluid.Interfaces.FluidPort_a port_1(redeclare package Medium =
         Medium, m_flow(min=if (portFlowDirection_1 == Modelica.Fluid.Types.PortFlowDirection.Entering) then
                 0.0 else -Modelica.Constants.inf, max=if (portFlowDirection_1
            == Modelica.Fluid.Types.PortFlowDirection.Leaving) then 0.0 else Modelica.Constants.inf))
-    annotation (Placement(transformation(extent={{-110,-10},{-90,10}},
-          rotation=0)));
+    annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
   Modelica.Fluid.Interfaces.FluidPort_b port_2(redeclare package Medium =
         Medium, m_flow(min=if (portFlowDirection_2 == Modelica.Fluid.Types.PortFlowDirection.Entering) then
                 0.0 else -Modelica.Constants.inf, max=if (portFlowDirection_2
            == Modelica.Fluid.Types.PortFlowDirection.Leaving) then 0.0 else Modelica.Constants.inf))
-    annotation (Placement(transformation(extent={{90,-10},{110,10}}, rotation=
-           0)));
+    annotation (Placement(transformation(extent={{90,-10},{110,10}})));
   Modelica.Fluid.Interfaces.FluidPort_a port_3(
     redeclare package Medium=Medium,
     m_flow(min=if (portFlowDirection_3==Modelica.Fluid.Types.PortFlowDirection.Entering) then 0.0 else -Modelica.Constants.inf,
     max=if (portFlowDirection_3==Modelica.Fluid.Types.PortFlowDirection.Leaving) then 0.0 else Modelica.Constants.inf))
-    annotation (Placement(transformation(extent={{-10,-110},{10,-90}},
-    rotation=0)));
+    annotation (Placement(transformation(extent={{-10,-110},{10,-90}})));
 
   parameter Boolean from_dp = true
     "= true, use m_flow = f(dp) else dp = f(m_flow)"
@@ -30,12 +27,11 @@ partial model PartialThreeWayResistance
   replaceable Buildings.Fluid.Interfaces.PartialTwoPortInterface res1(redeclare
       package Medium = Medium, allowFlowReversal=true)
     "Partial model, to be replaced with a fluid component"
-    annotation (Placement(transformation(extent={{-60,-10},{-40,10}}, rotation=
-            0)));
+    annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
   replaceable Buildings.Fluid.Interfaces.PartialTwoPortInterface res2(redeclare
       package Medium = Medium, allowFlowReversal=true)
     "Partial model, to be replaced with a fluid component"
-    annotation (Placement(transformation(extent={{60,-10},{40,10}}, rotation=0)));
+    annotation (Placement(transformation(extent={{60,-10},{40,10}})));
   replaceable Buildings.Fluid.Interfaces.PartialTwoPortInterface res3(redeclare
       package Medium = Medium, allowFlowReversal=true)
     "Partial model, to be replaced with a fluid component"
@@ -115,22 +111,16 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   end if;
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=true,  extent={{-100,
-            -100},{100,100}}),
-                      graphics),
-                       Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}}),
-                            graphics),
-     extent=[40,-10; 60,10],
+  annotation (     extent=[40,-10; 60,10],
     Documentation(info="<html>
 <p>
-Partial model for flow resistances with three ports such as a 
+Partial model for flow resistances with three ports such as a
 flow mixer/splitter or a three way valve.
 </p>
 <p>
 If <code>dynamicBalance=true</code>, then at the junction of the three flows,
 a mixing volume will be present. This will introduce a dynamic energy and momentum
-balance, which often breaks algebraic loops. 
+balance, which often breaks algebraic loops.
 The time constant of the mixing volume is determined by the parameter <code>tau</code>.
 </html>", revisions="<html>
 <ul>
@@ -141,7 +131,7 @@ to <code>Medium.p_default</code>.
 </li>
 <li>
 September 18, 2008 by Michael Wetter:<br/>
-Replaced splitter model with a fluid port since the 
+Replaced splitter model with a fluid port since the
 splitter model in Modelica.Fluid 1.0 beta does not transport
 <code>mC_flow</code>.
 <li>

@@ -4,8 +4,7 @@ block X_pTphi
   extends
     Buildings.Utilities.Psychrometrics.BaseClasses.HumidityRatioVaporPressure;
 
-  package Medium = Buildings.Media.PerfectGases.MoistAirUnsaturated
-    "Medium model";
+  package Medium = Buildings.Media.PerfectGases.MoistAirUnsaturated "Medium model";
 
 public
   Modelica.Blocks.Interfaces.RealInput T(final unit="K",
@@ -49,9 +48,9 @@ Block to compute the water vapor concentration based on
 pressure, temperature and relative humidity.
 </p>
 <p>If <code>use_p_in</code> is false (default option), the <code>p</code> parameter
-is used as atmospheric pressure, 
-and the <code>p_in</code> input connector is disabled; 
-if <code>use_p_in</code> is true, then the <code>p</code> parameter is ignored, 
+is used as atmospheric pressure,
+and the <code>p_in</code> input connector is disabled;
+if <code>use_p_in</code> is true, then the <code>p</code> parameter is ignored,
 and the value provided by the input connector is used instead.
 </p>
 </html>", revisions="<html>
@@ -61,7 +60,7 @@ Added <code>assert</code> to verify that <code>Medium.nX==2</code>
 as the implementation is only valid for such media.
 </li>
 <li>April 26, 2013 by Michael Wetter:<br/>
-Set the medium model to <code>Buildings.Media.PerfectGases.MoistAirUnsaturated</code>.
+Set the medium model to <code>Buildings.Media.Air</code>.
 This was required to allow a pedantic model check in Dymola 2014.
 </li>
 <li>August 21, 2012 by Michael Wetter:<br/>

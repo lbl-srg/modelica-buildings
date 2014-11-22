@@ -5,7 +5,7 @@ package UsersGuide "User's Guide"
   Documentation(info="<html>
 <p>
 This package contains models for fans and pumps. The same models
-are used for fans or pumps. 
+are used for fans or pumps.
 </p>
 
 <h4>Model description</h4>
@@ -15,9 +15,9 @@ found in
 Below, the models are briefly described.
 </p>
 <p>
-The models use 
-performance curves that compute pressure rise, 
-electrical power draw and efficiency as a function 
+The models use
+performance curves that compute pressure rise,
+electrical power draw and efficiency as a function
 of the volume flow rate and the speed.
 These performance curves are described in
 <a href=\"modelica://Buildings.Fluid.Movers.BaseClasses.Characteristics\">
@@ -37,10 +37,10 @@ Buildings.Fluid.Movers.FlowMachine_Nrpm</a>
 take as an input either a control signal between <i>0</i> and <i>1</i>, or the
 rotational speed in units of <i>[1/min]</i>. From this input and the current flow rate,
 they compute the pressure rise.
-This pressure rise is computed using user-provided list of operating points that 
+This pressure rise is computed using user-provided list of operating points that
 defines the fan or pump curve at full speed.
 For other speeds, similarity laws are used to scale the performance curves, as
-described in 
+described in
 <a href=\"modelica://Buildings.Fluid.Movers.BaseClasses.Characteristics.pressure\">
 Buildings.Fluid.Movers.BaseClasses.Characteristics.pressure</a>.
 </p>
@@ -122,13 +122,13 @@ Thus, a step change in the input signal causes a step change in the fan speed (o
 If <code>filteredSpeed=false</code>, which is the default,
 then the fan speed (or the mass flow rate or the pressure rise)
 is equal to the output of a filter. This filter is implemented
-as a 2nd order differential equation and can be thought of as 
+as a 2nd order differential equation and can be thought of as
 approximating the inertia of the rotor and the fluid.
 Thus, a step change in the fan input signal will cause a gradual change
 </p>
 in the fan speed.
 The filter has a parameter <code>riseTime</code>, which by default is set to
-<i>30</i> seconds. 
+<i>30</i> seconds.
 The rise time is the time required to reach <i>99.6%</i> of the full speed, or,
 if the fan is switched off, to reach a fan speed of <i>0.4%</i>.
 </li>
@@ -136,7 +136,7 @@ if the fan is switched off, to reach a fan speed of <i>0.4%</i>.
 
 <p>
 The figure below shows for a fan with <code>filteredSpeed=true</code>
-and <code>riseTime=30</code> seconds the 
+and <code>riseTime=30</code> seconds the
 speed input signal and the actual speed.</p>
 <p align=\"center\">
 <img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Fluid/Movers/UsersGuide/fanSpeedFiltered.png\"/>
@@ -145,7 +145,7 @@ speed input signal and the actual speed.</p>
 <p>
 Although many simulations do not require such a detailed model
 that approximates the transients of fans or pumps, it turns
-out that using this filter can reduce computing time and 
+out that using this filter can reduce computing time and
 can lead to fewer convergence problems in large system models.
 With a filter, any sudden change in control signal, such as when
 a fan switches on, is damped before it affects the air flow rate.
@@ -158,11 +158,11 @@ the whole simulation. In this case, set <code>filteredSpeed=false</code>.
 </p>
 <p>
 Note that if the fan is part of a closed loop control, then the filter affects
-the transient response of the control. 
+the transient response of the control.
 When changing the value of <code>filteredSpeed</code>, the control gains
-may need to be retuned. 
+may need to be retuned.
 We now present values control parameters that seem to work in most cases.
-Suppose there is a closed loop control with a PI-controller 
+Suppose there is a closed loop control with a PI-controller
 <a href=\"modelica://Buildings.Controls.Continuous.LimPID\">
 Buildings.Controls.Continuous.LimPID</a>
 and a fan or pump, configured with <code>filteredOpening=true</code> and <code>riseTime=30</code> seconds.
@@ -225,7 +225,7 @@ Using the flow work <i>W<sub>flo</sub></i> and the electrical power input
   &eta; = W<sub>flo</sub> &frasl; P<sub>ele</sub>, <br/>
 </p>
 <p>
-and the two efficiencies 
+and the two efficiencies
 <i>&eta;<sub>hyd</sub></i>
 and <i>&eta;<sub>mot</sub></i> are computed as
 </p>
@@ -236,7 +236,7 @@ and <i>&eta;<sub>mot</sub></i> are computed as
 However, if <code>per.use_powerCharacteristic=false</code>, then
 performance data for 
 <i>&eta;<sub>hyd</sub></i> and
- <i>&eta;<sub>mot</sub></i> need to be provided by the user, and hence 
+ <i>&eta;<sub>mot</sub></i> need to be provided by the user, and hence
 the model computes
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
@@ -245,13 +245,13 @@ the model computes
 </p>
 
 <p>
-The efficiency data for the motor are a list of points 
+The efficiency data for the motor are a list of points
 <i>r<sub>V</sub></i> and <i>&eta;<sub>mot</sub></i>,
 where <i>r<sub>V</sub></i> is the ratio of actual volume flow rate divided by the
 maximum volume flow rate <code>V_flow_max</code>,
 which is the volume flow rate at full speed and zero pressure rise.
 The maximum flow rate <code>V_flow_max</code> is obtained as follows:
-The models 
+The models
 <a href=\"modelica://Buildings.Fluid.Movers.FlowMachine_y\">
 Buildings.Fluid.Movers.FlowMachine_y</a> and
 <a href=\"modelica://Buildings.Fluid.Movers.FlowMachine_Nrpm\">
@@ -292,7 +292,7 @@ If <code>per.motorCooledByFluid=true</code>, then
 the enthalpy change between the inlet and outlet fluid port is equal 
 to the electrical power <i>P<sub>ele</sub></i> that is consumed by the component.
 Otherwise, it is equal to the hydraulic work <i>W<sub>hyd</sub></i>.
-The parameter <code>addPowerToMedium</code>, which is by default set to 
+The parameter <code>addPowerToMedium</code>, which is by default set to
 <code>true</code>, can be used to simplify the equations.
 If it is set to <code>false</code>, then no enthalpy change occurs between
 inlet and outlet other than the flow work <i>W<sub>flo</sub></i>.
@@ -310,7 +310,7 @@ Buildings.Fluid.Movers.BaseClasses.PartialFlowMachine.</a>
 <h4>Differences to models in Modelica.Fluid.Machines</h4>
 <p>
 The models with names <code>FlowMachine_*</code> have similar parameters than the
-models in the package <a href=\"Modelica.Fluid.Machines\">Modelica.Fluid.Machines</a>. 
+models in the package <a href=\"Modelica.Fluid.Machines\">Modelica.Fluid.Machines</a>.
 However, the models in this package differ primarily in the following points:
 </p>
 <ul>
@@ -320,7 +320,7 @@ The models in <code>Modelica.Fluid</code> restrict the number of revolutions, an
 rate, to be non-zero.
 </li>
 <li>
-For the model with prescribed pressure, the input signal is the 
+For the model with prescribed pressure, the input signal is the
 pressure difference between the two ports, and not the absolute
 pressure at <code>port_b</code>.
 </li>

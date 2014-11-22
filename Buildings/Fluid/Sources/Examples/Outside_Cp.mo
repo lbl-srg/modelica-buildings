@@ -70,7 +70,7 @@ equation
   annotation (
 experiment(StopTime=86400),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Sources/Examples/Outside_Cp.mos"
-        "Simulate and plot"),                                                                                                   
+        "Simulate and plot"),
     Documentation(info="<html>
 <p>
 This model demonstrates the use of a source for ambient temperature, pressure and

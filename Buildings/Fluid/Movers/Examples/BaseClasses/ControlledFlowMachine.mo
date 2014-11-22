@@ -8,24 +8,20 @@ model ControlledFlowMachine
     offset=0,
     amplitude=1,
     period=120,
-    width=50)    annotation (Placement(transformation(extent={{-140,70},{-120,90}},
-          rotation=0)));
+    width=50)    annotation (Placement(transformation(extent={{-140,70},{-120,90}})));
   Buildings.Fluid.Sources.Boundary_pT sou(
     redeclare package Medium = Medium,
     use_p_in=false,
-    p=system.p_ambient,
+    p=101325,
     T=293.15,
-    nPorts=4) annotation (Placement(transformation(extent={{-90,20},{-70,40}},
-          rotation=0)));
-  inner Modelica.Fluid.System system
-    annotation (Placement(transformation(extent={{120,-80},{140,-60}})));
+    nPorts=4) annotation (Placement(transformation(extent={{-90,20},{-70,40}})));
+
   Buildings.Fluid.Sensors.MassFlowRate masFloRat1(redeclare package Medium =
         Medium)
     annotation (Placement(transformation(extent={{60,50},{80,70}})));
   Buildings.Fluid.Sensors.RelativePressure relPre(redeclare package Medium =
         Medium) annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
-        rotation=0,
         origin={-10,32})));
   Buildings.Fluid.Movers.FlowMachine_y fan1(
     redeclare package Medium = Medium,
@@ -101,10 +97,9 @@ model ControlledFlowMachine
   Buildings.Fluid.Sources.Boundary_pT sin(
     redeclare package Medium = Medium,
     use_p_in=false,
-    p=system.p_ambient,
+    p=101325,
     T=293.15,
-    nPorts=4) annotation (Placement(transformation(extent={{142,20},{122,40}},
-          rotation=0)));
+    nPorts=4) annotation (Placement(transformation(extent={{142,20},{122,40}})));
 equation
 
   connect(fan1.port_a, relPre.port_b) annotation (Line(

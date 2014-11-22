@@ -11,20 +11,21 @@ model GlassLayer "Model for a glass layer of a window assembly"
     "Infrared absorptivity of surface a (usually room-facing surface)";
   parameter Modelica.SIunits.Emissivity absIR_b
     "Infrared absorptivity of surface b (usually outside-facing surface)";
-  parameter Modelica.SIunits.Emissivity tauIR "Infrared transmittance of glass";
+  parameter Modelica.SIunits.TransmissionCoefficient tauIR
+    "Infrared transmittance of glass";
 
   Modelica.Blocks.Interfaces.RealInput u
     "Input connector, used to scale the surface area to take into account an operable shading device"
     annotation (Placement(transformation(extent={{-140,50},{-100,90}}),
         iconTransformation(extent={{-120,70},{-100,90}})));
-  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a port_a(T(start=293.15, nominal=293.15))
+  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a port_a(T(start=293.15))
     "Heat port at surface a"
     annotation (Placement(transformation(extent={{-110,-10},
-            {-90,10}}, rotation=0)));
-  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_b port_b(T(start=293.15, nominal=293.15))
+            {-90,10}})));
+  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_b port_b(T(start=293.15))
     "Heat port at surface b"
     annotation (Placement(transformation(extent={{90,-10},{
-            110,10}}, rotation=0)));
+            110,10}})));
   Modelica.Blocks.Interfaces.RealInput QAbs_flow(unit="W", quantity="Power")
     "Solar radiation absorbed by glass" annotation (Placement(transformation(
         extent={{-20,-20},{20,20}},
@@ -74,8 +75,7 @@ equation
   // other surface.
   JOut_a = E_a + rhoIR_a * JIn_a + tauIR * JIn_b;
   JOut_b = E_b + rhoIR_b * JIn_b + tauIR * JIn_a;
-  annotation (Diagram(graphics),
-    Icon(graphics={
+  annotation (    Icon(graphics={
         Rectangle(
           extent={{-100,100},{100,-100}},
           lineColor={0,0,0},
@@ -112,6 +112,18 @@ Buildings.HeatTransfer.Radiosity.WindowPane</a>.
 <br/>
 </html>", revisions="<html>
 <ul>
+<li>
+October 17, 2014, by Michael Wetter:<br/>
+Removed nominal value for heat ports as the default is already
+<i>300</i> Kelvin.
+</li>
+<li>
+October 15, 2014, by Michael Wetter:<br/>
+Changed type of <code>tauIR</code> from
+<code>Modelica.SIunits.Emissivity</code> to
+<code>Modelica.SIunits.TransmissionCoefficient</code>.
+This avoids a type error in OpenModelica.
+</li>
 <li>
 June 27, 2013, by Michael Wetter:<br/>
 Changed model because the outflowing radiosity has been changed to be a non-negative quantity.

@@ -20,15 +20,14 @@ model MediumColumnDynamic
     m_flow(min=if allowFlowReversal then -Constants.inf else 0),
     p(start=Medium.p_default))
     "Fluid connector a (positive design flow direction is from port_a to port_b)"
-    annotation (Placement(transformation(extent={{-10,90},{10,110}}, rotation=0),
+    annotation (Placement(transformation(extent={{-10,90},{10,110}}),
         iconTransformation(extent={{-10,90},{10,110}})));
   Modelica.Fluid.Interfaces.FluidPort_b port_b(
     redeclare final package Medium = Medium,
     m_flow(max=if allowFlowReversal then +Constants.inf else 0),
     p(start=Medium.p_default))
     "Fluid connector b (positive design flow direction is from port_a to port_b)"
-    annotation (Placement(transformation(extent={{10,-110},{-10,-90}}, rotation=
-           0), iconTransformation(extent={{10,-110},{-10,-90}})));
+    annotation (Placement(transformation(extent={{10,-110},{-10,-90}}), iconTransformation(extent={{10,-110},{-10,-90}})));
 
   // m_flow_nominal is not used by vol, since this component
   // can only be configured as a dynamic model.
@@ -171,9 +170,9 @@ defaultComponentName="col",
 Documentation(info="<html>
 <p>
 This model contains a completely mixed fluid volume and
-models that take into account the pressure difference of 
+models that take into account the pressure difference of
 a medium column that is at the same temperature as the
-fluid volume. It can be used to model the pressure difference 
+fluid volume. It can be used to model the pressure difference
 caused by a stack effect.</p>
 <p>
 Set the parameter <code>use_HeatTransfer=true</code> to expose
@@ -193,12 +192,12 @@ at the top of the column.
 revisions="<html>
 <ul>
 <li><i>October 6, 2014</i> by Michael Wetter:<br/>
-Removed assignment of <code>port_?.p.nominal</code> to avoid a warning 
+Removed assignment of <code>port_?.p.nominal</code> to avoid a warning
 in OpenModelica because
 alias sets have different nominal values.
 </li>
 <li><i>July 31, 2011</i> by Michael Wetter:<br/>
-Changed model to use new base class 
+Changed model to use new base class
 <a href=\"modelica://Buildings.Fluid.Interfaces.LumpedVolumeDeclarations\">
 Buildings.Fluid.Interfaces.LumpedVolumeDeclarations</a>.
 </li>
@@ -209,6 +208,5 @@ Buildings.Fluid.Interfaces.LumpedVolumeDeclarations</a>.
        Released first version.
 </li>
 </ul>
-</html>"),
-    Diagram(graphics));
+</html>"));
 end MediumColumnDynamic;

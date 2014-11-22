@@ -42,18 +42,17 @@ equation
 defaultComponentName="wallSolAzi",
 Documentation(info="<html>
 <p>
-This block computes the wall solar azimuth angle. 
-It is the angle between the projection of the sun ray on a horizontal surface 
-and the line perpendicular to the wall. The value of this angle varies from <i>0</i> to <i>180</i> degrees. 
+This block computes the wall solar azimuth angle.
+It is the angle between the projection of the sun ray on a horizontal surface
+and the line perpendicular to the wall. The value of this angle varies from <i>0</i> to <i>180</i> degrees.
 In the northern hemisphere at solar noon, the value of the wall solar azimuth angle is zero if the wall is facing south.
 </p>
-</html>
-", revisions="<html>
+</html>", revisions="<html>
 <ul>
 <li>
 July 5, 2012, by Michael Wetter:<br/>
 Decreased <code>deltaX</code> from <i>1e-3</i> to <i>1e-4</i>, as
-the looser tolerance gives sharp changes in 
+the looser tolerance gives sharp changes in
 <a href=\"modelica://Buildings.HeatTransfer.Windows.BaseClasses.Examples.Overhang\">
 Buildings.HeatTransfer.Windows.BaseClasses.Examples.Overhang</a>.
 </li>

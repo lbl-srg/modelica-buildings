@@ -40,12 +40,12 @@ equation
       smooth=Smooth.None));
   annotation (defaultComponentName="mulStaDX", Documentation(info="<html>
 <p>
-This model can be used to simulate a DX cooling coil with continuously variable speed compressors. 
+This model can be used to simulate a DX cooling coil with continuously variable speed compressors.
 The control input is the speed ratio.
 The coil will switch off if the speed ratio is below a minimum value.
 </p>
 <p>
-See 
+See
 <a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.UsersGuide\">
 Buildings.Fluid.HeatExchangers.DXCoils.UsersGuide</a>
 for an explanation of the model.
@@ -55,7 +55,7 @@ revisions="<html>
 <ul>
 <li>
 July 28, 2012 by Kaustubh Phalak:<br/>
-First implementation. 
+First implementation.
 </li>
 </ul>
 
@@ -63,6 +63,5 @@ First implementation.
     Icon(graphics={Text(
           extent={{-96,96},{-38,78}},
           lineColor={0,0,127},
-          textString="speRat")}),
-    Diagram(graphics));
+          textString="speRat")}));
 end VariableSpeed;

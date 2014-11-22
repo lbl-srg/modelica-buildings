@@ -2,15 +2,15 @@ package convertEIR;
 
 /**
  * This method implements a quadratic curve.
- * 
+ *
  * <h3>License agreement</h3>
- * 
+ *
  * The use of this program is subjected to the following <A
  * HREF="../../../../../../../legal.html">license terms</A>.
- * 
+ *
  * @author <A HREF="mailto:TSNouidui@lbl.gov">Thierry Nouidui</A>
  * @version 1.0, October 10, 2010
- * 
+ *
  */
 public class QuadraticCurve implements ICurve {
     private String coef1;
@@ -78,7 +78,7 @@ public class QuadraticCurve implements ICurve {
 
     /**
      * This method concatenates the coefficients of the curve into a string.
-     * 
+     *
      * @return string containing the coefficients of the curve.
      */
     public String curveToString() {

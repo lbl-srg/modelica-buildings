@@ -1,7 +1,7 @@
 within Buildings.Utilities.Psychrometrics.Functions;
 function X_pW "Humidity ratio for given water vapor pressure"
   extends Modelica.Icons.Function;
-  input Modelica.SIunits.Pressure p_w(displayUnit="Pa", 
+  input Modelica.SIunits.Pressure p_w(displayUnit="Pa",
                                       min=0.003,
                                       nominal=1000)
     "Water vapor pressure";
@@ -20,8 +20,6 @@ algorithm
   annotation (
     smoothOrder=99,
     Inline=true,
-    Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,
-            100}}), graphics),
     Documentation(info="<html>
 <p>
 Function to compute the humidity ratio for a given water vapor partial pressure.
@@ -49,7 +47,5 @@ August 7, 2008 by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
-</html>"),
-    Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
-            100}}), graphics));
+</html>"));
 end X_pW;

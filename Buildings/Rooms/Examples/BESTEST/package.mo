@@ -23,7 +23,7 @@ The script compares the following quantities
 <ul>
 <li>
 For free floating cases, the annual hourly integrated minimum (and maximum)
-zone air temperature, and the annual mean zone air temperature. 
+zone air temperature, and the annual mean zone air temperature.
 </li>
 <li>
 For cases with heating and cooling, the annual heating and cooling energy,

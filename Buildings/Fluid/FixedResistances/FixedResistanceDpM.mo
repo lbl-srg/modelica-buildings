@@ -72,29 +72,26 @@ equation
     dp = 0;
   end if;  // computeFlowResistance
 
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=true,  extent={{-100,
-            -100},{100,100}}),
-                      graphics),
-defaultComponentName="res",
+  annotation (defaultComponentName="res",
 Documentation(info="<html>
 <p>
 This is a model of a resistance with a fixed flow coefficient.
 The mass flow rate is computed as
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
-m&#775; = k  
+m&#775; = k
 &radic;<span style=\"text-decoration:overline;\">&Delta;P</span>,
 </p>
 <p>
-where 
-<i>k</i> is a constant and 
+where
+<i>k</i> is a constant and
 <i>&Delta;P</i> is the pressure drop.
 The constant <i>k</i> is equal to
 <code>k=m_flow_nominal/sqrt(dp_nominal)</code>,
 where <code>m_flow_nominal</code> and <code>dp_nominal</code>
 are parameters.
 In the region
-<code>abs(m_flow) &lt; m_flow_turbulent</code>, 
+<code>abs(m_flow) &lt; m_flow_turbulent</code>,
 the square root is replaced by a differentiable function
 with finite slope.
 The value of <code>m_flow_turbulent</code> is
@@ -103,16 +100,16 @@ computed as follows:
 <ul>
 <li>
 If the parameter <code>use_dh</code> is <code>false</code>
-(the default setting), 
-the equation 
+(the default setting),
+the equation
 <code>m_flow_turbulent = deltaM * abs(m_flow_nominal)</code>,
-where <code>deltaM=0.3</code> and 
+where <code>deltaM=0.3</code> and
 <code>m_flow_nominal</code> are parameters that can be set by the user.
 </li>
 <li>
 Otherwise, the equation
 <code>m_flow_turbulent = eta_nominal*dh/4*&pi;*ReC</code> is used,
-where 
+where
 <code>eta_nominal</code> is the dynamic viscosity, obtained from
 the medium model. The parameter
 <code>dh</code> is the hydraulic diameter and
@@ -139,7 +136,7 @@ which can increase computing time.
 </p>
 <p>
 The parameter <code>from_dp</code> is used to determine
-whether the mass flow rate is computed as a function of the 
+whether the mass flow rate is computed as a function of the
 pressure drop (if <code>from_dp=true</code>), or vice versa.
 This setting can affect the size of the nonlinear system of equations.
 </p>
@@ -152,17 +149,17 @@ mass flow rate.
 Setting <code>allowFlowReversal=false</code> can lead to simpler
 equations. However, this should only be set to <code>false</code>
 if one can guarantee that the flow never reverses its direction.
-This can be difficult to guarantee, as pressure imbalance after 
+This can be difficult to guarantee, as pressure imbalance after
 the initialization, or due to medium expansion and contraction,
 can lead to reverse flow.
 </p>
 <h4>Notes</h4>
 <p>
-For more detailed models that compute the actual flow friction, 
-models from the package 
+For more detailed models that compute the actual flow friction,
+models from the package
 <a href=\"modelica://Modelica.Fluid\">
 Modelica.Fluid</a>
-can be used and combined with models from the 
+can be used and combined with models from the
 <code>Buildings</code> library.
 </p>
 <h4>Implementation</h4>

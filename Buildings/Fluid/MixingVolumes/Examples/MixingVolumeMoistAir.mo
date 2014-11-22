@@ -13,42 +13,37 @@ model MixingVolumeMoistAir
     nPorts=2,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     m_flow_nominal=m_flow_nominal) "Volume"
-          annotation (Placement(transformation(extent={{50,0},{70,20}},
-          rotation=0)));
+          annotation (Placement(transformation(extent={{50,0},{70,20}})));
   Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor TSen
     "Temperature sensor"
-    annotation (Placement(transformation(extent={{-68,82},{-48,102}}, rotation=
-            0)));
+    annotation (Placement(transformation(extent={{-68,82},{-48,102}})));
   Modelica.Blocks.Sources.Constant XSet(k=0.005)
     "Set point for water mass fraction" annotation (Placement(transformation(
-          extent={{-80,-60},{-60,-40}}, rotation=0)));
+          extent={{-80,-60},{-60,-40}})));
   Buildings.HeatTransfer.Sources.PrescribedHeatFlow preHeaFlo
-    annotation (Placement(transformation(extent={{36,120},{56,140}}, rotation=0)));
+    annotation (Placement(transformation(extent={{36,120},{56,140}})));
   Modelica.Blocks.Sources.Constant TSet(k=273.15 + 20)
     "Set point for temperature" annotation (Placement(transformation(extent={{
-            -80,120},{-60,140}}, rotation=0)));
+            -80,120},{-60,140}})));
   Buildings.Utilities.Psychrometrics.pW_X humRat(           use_p_in=false)
     "Conversion from humidity ratio to partial water vapor pressure"
-    annotation (Placement(transformation(extent={{-20,-120},{0,-100}},rotation=
-            0)));
+    annotation (Placement(transformation(extent={{-20,-120},{0,-100}})));
   Buildings.Utilities.Psychrometrics.TDewPoi_pW dewPoi "Dew point temperature"
                             annotation (Placement(transformation(extent={{12,-120},
-            {32,-100}},rotation=0)));
+            {32,-100}})));
   Modelica.Thermal.HeatTransfer.Sensors.HeatFlowSensor heatFlowSensor
-    annotation (Placement(transformation(extent={{64,120},{84,140}}, rotation=0)));
+    annotation (Placement(transformation(extent={{64,120},{84,140}})));
   Modelica.Blocks.Continuous.Integrator QSen "Sensible heat transfer"
-    annotation (Placement(transformation(extent={{140,100},{160,120}}, rotation=
-           0)));
+    annotation (Placement(transformation(extent={{140,100},{160,120}})));
   Modelica.Blocks.Continuous.Integrator QLat "Enthalpy of extracted water"
-    annotation (Placement(transformation(extent={{140,60},{160,80}}, rotation=0)));
+    annotation (Placement(transformation(extent={{140,60},{160,80}})));
   Modelica.Blocks.Sources.RealExpression QLat_flow(y=vol1.QLat_flow.y)
     "MoistAir heat flow rate" annotation (Placement(transformation(extent={{112,
-            60},{132,80}}, rotation=0)));
+            60},{132,80}})));
   Buildings.Fluid.Sources.MassFlowSource_T sou(
     redeclare package Medium = Medium,
     nPorts=1,
-    T=293.15)    annotation (Placement(transformation(extent={{-40,-10},{-20,10}},
-          rotation=0)));
+    T=293.15)    annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
   Buildings.Fluid.Sources.Boundary_pT sin(        redeclare package Medium =
         Medium,
     T=293.15,
@@ -65,8 +60,7 @@ model MixingVolumeMoistAir
     controllerType=Modelica.Blocks.Types.SimpleController.PI,
     wd=0,
     yMin=-1000)
-    annotation (Placement(transformation(extent={{-40,120},{-20,140}}, rotation=
-           0)));
+    annotation (Placement(transformation(extent={{-40,120},{-20,140}})));
   Buildings.Controls.Continuous.LimPID PI1(
     Ni=0.1,
     Ti=1,
@@ -75,29 +69,24 @@ model MixingVolumeMoistAir
     yMax=1,
     yMin=-1,
     Td=1)
-    annotation (Placement(transformation(extent={{-50,-60},{-30,-40}}, rotation=
-           0)));
+    annotation (Placement(transformation(extent={{-50,-60},{-30,-40}})));
   Buildings.Fluid.Sensors.MassFlowRate mIn_flow(redeclare package Medium =
-        Medium) annotation (Placement(transformation(extent={{6,-10},{26,10}},
-          rotation=0)));
+        Medium) annotation (Placement(transformation(extent={{6,-10},{26,10}})));
   Buildings.Fluid.Sensors.MassFlowRate mOut_flow(redeclare package Medium =
-        Medium) annotation (Placement(transformation(extent={{84,-10},{104,10}},
-          rotation=0)));
+        Medium) annotation (Placement(transformation(extent={{84,-10},{104,10}})));
   Modelica.Blocks.Math.Add dM_flow(k2=-1) annotation (Placement(transformation(
-          extent={{140,20},{160,40}},   rotation=0)));
+          extent={{140,20},{160,40}})));
   Modelica.Blocks.Math.Gain gai(k=200) annotation (Placement(transformation(
-          extent={{2,120},{22,140}}, rotation=0)));
+          extent={{2,120},{22,140}})));
   Modelica.Blocks.Math.Gain gai1(k=0.1) annotation (Placement(transformation(
-          extent={{-20,-60},{0,-40}}, rotation=0)));
-  inner Modelica.Fluid.System system
-    annotation (Placement(transformation(extent={{-100,-160},{-80,-140}})));
+          extent={{-20,-60},{0,-40}})));
+
     Buildings.Fluid.FixedResistances.FixedResistanceDpM res1(
     redeclare each package Medium = Medium,
     from_dp=true,
     dp_nominal=2.5,
     m_flow_nominal=m_flow_nominal)
-             annotation (Placement(transformation(extent={{120,-10},{140,10}},
-          rotation=0)));
+             annotation (Placement(transformation(extent={{120,-10},{140,10}})));
 equation
   connect(preHeaFlo.port, heatFlowSensor.port_a)
     annotation (Line(points={{56,130},{64,130}}, color={191,0,0}));
@@ -172,7 +161,7 @@ __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Mixi
         "Simulate and plot"),
     Documentation(info="<html>
 <p>
-This model tests 
+This model tests
 <a href=\"modelica://Buildings.Fluid.MixingVolumes.MixingVolumeMoistAir\">
 Buildings.Fluid.MixingVolumes.MixingVolumeMoistAir</a>.
 After an initial transient, the temperature and humidity of the volume
@@ -182,8 +171,8 @@ stabilizes.
 <ul>
 <li>
 February 11, 2014 by Michael Wetter:<br/>
-Changed 
-<code>HWat_flow(y=vol1.HWat_flow</code> to 
+Changed
+<code>HWat_flow(y=vol1.HWat_flow</code> to
 <code>QLat_flow(y=vol1.QLat_flow.y)</code>
 and
 <code>QWat</code> to <code>QLat</code>.

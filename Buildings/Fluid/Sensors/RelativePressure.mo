@@ -9,14 +9,12 @@ model RelativePressure "Ideal relative pressure sensor"
                                 p(start=Medium.p_default),
                                 redeclare package Medium = Medium)
     "Fluid connector of stream a"
-    annotation (Placement(transformation(extent={{-110,-10},{-90,10}},
-          rotation=0)));
+    annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
   Modelica.Fluid.Interfaces.FluidPort_b port_b(m_flow(min=0),
                                 p(start=Medium.p_default),
                                 redeclare package Medium = Medium)
     "Fluid connector of stream b"
-    annotation (Placement(transformation(extent={{110,-12},{90,8}}, rotation=
-            0), iconTransformation(extent={{110,-10},{90,10}})));
+    annotation (Placement(transformation(extent={{110,-12},{90,8}}), iconTransformation(extent={{110,-10},{90,10}})));
 
   Modelica.Blocks.Interfaces.RealOutput p_rel(final quantity="Pressure",
                                               final unit="Pa",

@@ -27,7 +27,6 @@ model Case960 "Case 600, but with an unconditioned sun-space"
     parWal(layers=matLayPar, A=8*2.7) "Partition wall between the two rooms"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
-        rotation=0,
         origin={120,-42})));
 
   parameter Buildings.HeatTransfer.Data.OpaqueConstructions.Brick120
@@ -126,7 +125,6 @@ model Case960 "Case 600, but with an unconditioned sun-space"
       each T=283.15) "Boundary condition for construction" annotation (
       Placement(transformation(
         extent={{0,0},{-8,8}},
-        rotation=0,
         origin={194,-52})));
   Fluid.FixedResistances.FixedResistanceDpM heaCoo1(
     redeclare package Medium = MediumA,

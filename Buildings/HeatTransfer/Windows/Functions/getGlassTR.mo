@@ -38,9 +38,9 @@ algorithm
   annotation (Documentation(info="<html>
 <p>
 This function computes the angular variation of the transmittance and reflectance of each glass pane.
-It accounts for the transmittance and reflectance among different panes. 
-Pane <code>1</code> is facing outside and pane <code>N</code> is facing the room. 
-For instance, <code>traRef[TRA, 1, N, iD]</code> means transmittance between layer <code>1</code> to <code>N</code> for exterior irradiation and 
+It accounts for the transmittance and reflectance among different panes.
+Pane <code>1</code> is facing outside and pane <code>N</code> is facing the room.
+For instance, <code>traRef[TRA, 1, N, iD]</code> means transmittance between layer <code>1</code> to <code>N</code> for exterior irradiation and
 <code>traRef[TRA, N, 1, iD]</code> means the transmittance for interior irradiation.
 </p>
 </html>", revisions="<html>

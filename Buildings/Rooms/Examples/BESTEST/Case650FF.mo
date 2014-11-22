@@ -27,7 +27,7 @@ __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Rooms/Exam
         "Simulate and plot"), Documentation(info="<html>
 <p>
 This model is used for the test case 650FF of the BESTEST validation suite.
-Case 650FF is identical to case 650, except that there is no 
+Case 650FF is identical to case 650, except that there is no
 heating and no cooling.
 </p>
 </html>", revisions="<html>

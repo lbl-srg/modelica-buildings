@@ -9,20 +9,20 @@
 ! EWBT - Entering air wet-bulb temeprature
 !
 ! In the objects Coil:Cooling:DX:SingleSpeed and Coil:Cooling:DX:TwoStageWithHumidityControlMode below, input fields 'Availability Schedule Name',
-! 'Air Inlet Node Name' and 'Air Outlet Node Name' need to be defined by the user.  Also, the 
-! 'Part Load Fraction' as a function of 'Part Load Ratio' curves (PLFFPLR) are derived by using the following correlation 
+! 'Air Inlet Node Name' and 'Air Outlet Node Name' need to be defined by the user.  Also, the
+! 'Part Load Fraction' as a function of 'Part Load Ratio' curves (PLFFPLR) are derived by using the following correlation
 ! described in InputOutput reference: PLF = 0.85 + 0.15(PLR)
 !
 ! NOTE: If the rated air flow rates at ARI conditions were different from what are given at extended cooling performance data, then the flow rate
 ! for which extended performance data is published is taken as the rated air flow rate.
-! Whenever the manufacturer's data was found to be inconsistent/insufficient to generate the curve fits, appropriate judgements were made to fill 
+! Whenever the manufacturer's data was found to be inconsistent/insufficient to generate the curve fits, appropriate judgements were made to fill
 ! the missing information. Also, these curve fits are good for use within the minimum and maximum limits of the independent variables
 ! specified in the curves. The extrapolation of these curves can produce undesirable results. Users will have to use these curve-fits per their
 ! own discretion.
 !
 !---------------------------------------------------------------------------------------------------------------------------------------
 !                                  Compressor  Nominal    Reference      Reference   Refrig        Expansion Valve Type
-! Name                               Type      Capacity   Capacity          COP       Type       
+! Name                               Type      Capacity   Capacity          COP       Type
 !                                              (tons)     kW (tons)
 !---------------------------------------------------------------------------------------------------------------------------------------
 ! Lennox KCA060S4                   Scroll        5       18.1 (5.15)       4.07     R-410A       Balance port TXV removable head

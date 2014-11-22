@@ -11,4 +11,3 @@ createPlot(id = 1,
  filename = "NumberOfRequests.mat",
  leftTitleType = 1,
  bottomTitleType = 1);
-

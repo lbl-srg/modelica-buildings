@@ -7,8 +7,10 @@ ConstantEffectiveness
 DryCoilCounterFlow
 DryCoilDiscretized
 DryEffectivenessNTU
-HeaterCoolerPrescribed
+HeaterCooler_T
+HeaterCooler_u
 WetCoilCounterFlow
 WetCoilDiscretized
 Examples
+Validation
 BaseClasses

@@ -29,8 +29,7 @@ equation
       points={{-59,-20},{-32,-20},{-32,6},{-2,6}},
       color={0,0,127},
       smooth=Smooth.None));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}}), graphics), __Dymola_Commands(file=
+  annotation ( __Dymola_Commands(file=
           "modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/BaseClasses/Examples/HANaturalCylinder.mos"
         "Simulate and Plot"),
         experiment(StopTime=250.0),

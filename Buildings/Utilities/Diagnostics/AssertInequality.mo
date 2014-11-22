@@ -14,14 +14,11 @@ equation
   annotation (Icon(graphics={Text(
           extent={{-84,108},{90,-28}},
           lineColor={255,0,0},
-          textString="u1 > u2")}),            Diagram(coordinateSystem(
-          preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
-                                                      graphics),
-Documentation(
+          textString="u1 > u2")}),Documentation(
 defaultComponentName="assIne",
 info="<html>
 <p>
-Model that triggers an assert if 
+Model that triggers an assert if
 <i>u1 > u2 - threShold</i>
 and <i>t &gt; t<sub>0</sub></i>.
 </p>

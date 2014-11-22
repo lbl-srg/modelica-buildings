@@ -86,14 +86,10 @@ equation
       smooth=Smooth.None));
   annotation (
     preferredView="info",
-    Diagram(coordinateSystem(
-        preserveAspectRatio=true,
-        extent={{-100,-100},{100,100}},
-        grid={1,1}), graphics),
     Documentation(info="<html>
 <p>
 This component transports fluid between its two ports, without
-storing mass or energy. It is based on 
+storing mass or energy. It is based on
 <a href=\"modelica://Modelica.Fluid.Interfaces.PartialTwoPortTransport\">
 Modelica.Fluid.Interfaces.PartialTwoPortTransport</a> but it does
 use a different implementation for handling reverse flow because
@@ -161,10 +157,10 @@ Changed model to use graphical modeling.
 <li>
 December 14, 2011 by Michael Wetter:<br/>
 Changed assignment of <code>hOut</code>, <code>XiOut</code> and
-<code>COut</code> to no longer declare that it is continuous. 
-The declaration of continuity, i.e, the 
+<code>COut</code> to no longer declare that it is continuous.
+The declaration of continuity, i.e, the
 <code>smooth(0, if (port_a.m_flow >= 0) then ...</code> declaration,
-was required for Dymola 2012 to simulate, but it is no longer needed 
+was required for Dymola 2012 to simulate, but it is no longer needed
 for Dymola 2012 FD01.
 </li>
 <li>
@@ -175,8 +171,8 @@ Changed assignment of <code>hOut</code>, <code>XiOut</code> and
 <li>
 August 4, 2011, by Michael Wetter:<br/>
 Moved linearized pressure drop equation from the function body to the equation
-section. With the previous implementation, 
-the symbolic processor may not rearrange the equations, which can lead 
+section. With the previous implementation,
+the symbolic processor may not rearrange the equations, which can lead
 to coupled equations instead of an explicit solution.
 </li>
 <li>
@@ -190,9 +186,9 @@ Added <code>homotopy</code> operator.
 <li>
 August 19, 2010, by Michael Wetter:<br/>
 Fixed bug in energy and moisture balance that affected results if a component
-adds or removes moisture to the air stream. 
+adds or removes moisture to the air stream.
 In the old implementation, the enthalpy and species
-outflow at <code>port_b</code> was multiplied with the mass flow rate at 
+outflow at <code>port_b</code> was multiplied with the mass flow rate at
 <code>port_a</code>. The old implementation led to small errors that were proportional
 to the amount of moisture change. For example, if the moisture added by the component
 was <code>0.005 kg/kg</code>, then the error was <code>0.5%</code>.
@@ -201,7 +197,7 @@ With the new implementation, the energy and moisture balance is exact.
 </li>
 <li>
 March 22, 2010, by Michael Wetter:<br/>
-Added constant <code>sensibleOnly</code> to 
+Added constant <code>sensibleOnly</code> to
 simplify species balance equation.
 </li>
 <li>
@@ -217,9 +213,5 @@ March 17, 2008, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
-</html>"),
-    Icon(coordinateSystem(
-        preserveAspectRatio=false,
-        extent={{-100,-100},{100,100}},
-        grid={1,1}), graphics));
+</html>"));
 end StaticTwoPortHeatMassExchanger;

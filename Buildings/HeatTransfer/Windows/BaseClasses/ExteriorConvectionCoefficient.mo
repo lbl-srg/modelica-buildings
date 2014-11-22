@@ -12,7 +12,7 @@ model ExteriorConvectionCoefficient
 
 equation
   GCon = A*(4+4*Buildings.Utilities.Math.Functions.smoothMax(v, -v, 0.1));
-  annotation (Diagram(graphics), Icon(graphics={
+  annotation ( Icon(graphics={
         Text(
           extent={{-92,22},{-50,-22}},
           lineColor={0,0,127},

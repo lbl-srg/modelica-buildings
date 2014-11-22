@@ -37,9 +37,9 @@ protected
     "Flag for overhang" annotation (Evaluate=true);
 
   final parameter Boolean haveSideFins = conPar.sidFin.haveSideFins
-    "Flag for sideFins" annotation (Evaluate=true);
+    "Flag for sidefins" annotation (Evaluate=true);
   final parameter Boolean haveOverhangAndSideFins= (haveOverhang
-       and haveSideFins) "Parameter used for error control";
+       and haveSideFins) "Flag for overhang and sidefins";
 
   final parameter Integer idx = if haveOverhangAndSideFins then 2 elseif haveOverhang then 1 elseif haveSideFins then 3 else 4
     "Integer used to pick the appropriate output signal";
@@ -85,7 +85,7 @@ protected
     "Limiter to avoid that the fraction of sun-exposed window is below zero"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 equation
-  connect(weaBus.sol.alt, walSolAzi.alt) annotation (Line(
+  connect(weaBus.solAlt, walSolAzi.alt) annotation (Line(
       points={{-100,5.55112e-16},{-92,5.55112e-16},{-92,-76},{-82,-76},{-82,
           -75.2}},
       color={255,204,51},
@@ -107,7 +107,7 @@ equation
       points={{-59,-80},{-54,-80},{-54,-56},{-42,-56}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(weaBus.sol.alt, sidFin.alt) annotation (Line(
+  connect(weaBus.solAlt, sidFin.alt) annotation (Line(
       points={{-100,5.55112e-16},{-92,5.55112e-16},{-92,-64},{-42,-64}},
       color={255,204,51},
       thickness=0.5,
@@ -156,7 +156,7 @@ equation
       points={{21,-80},{26,-80},{26,1},{30,1}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(weaBus.sol.alt, ove.alt) annotation (Line(
+  connect(weaBus.solAlt, ove.alt) annotation (Line(
       points={{-100,5.55112e-16},{-92,5.55112e-16},{-92,46},{-42,46}},
       color={255,204,51},
       thickness=0.5,
@@ -202,25 +202,25 @@ equation
       points={{11,6.10623e-16},{18,6.10623e-16},{18,13},{30,13}},
       color={0,0,127},
       smooth=Smooth.None));
-  annotation (Diagram(graphics), Icon(graphics={Bitmap(extent={{-92,92},{92,-92}},
+  annotation ( Icon(graphics={Bitmap(extent={{-92,92},{92,-92}},
             fileName="modelica://Buildings/Resources/Images/HeatTransfer/Windows/BaseClasses/Overhang.png")}),
 defaultComponentName="sha",
 Documentation(info="<html>
 <p>
 This model outputs the fraction of the window area that is sun exposed
 for a window that may have an overhang and sidefins.
-Depending on the record with construction data <code>conPar</code>, 
+Depending on the record with construction data <code>conPar</code>,
 an overhang, side fins or no external shade is modeled.
-The model allows having an overhang and side fins at the same time. 
-In such a case, the overhang width should be 
+The model allows having an overhang and side fins at the same time.
+In such a case, the overhang width should be
 measured from the window edge to the sidefin,
-because the overhang width beyond the sidefin will 
+because the overhang width beyond the sidefin will
 cast a shadow on the side fin and not on the window.
-Similarly, the side fin height should be measured 
+Similarly, the side fin height should be measured
 from the upper window edge to the overhang,
-because the side fin height above the 
+because the side fin height above the
 overhang will not cast a shadow on the window.
-The parameters for the dimensions of the overhang and side fins are as 
+The parameters for the dimensions of the overhang and side fins are as
 described in the models
 <a href=\"modelica://Buildings.HeatTransfer.Windows.Overhang\">
 Buildings.HeatTransfer.Windows.Overhang</a>
@@ -234,8 +234,8 @@ Buildings.HeatTransfer.Windows.SideFins</a>.
 For overhangs, the model assumes that
 </p>
 <ul>
-<li> 
-the overhang is at least as wide as the window, i.e., 
+<li>
+the overhang is at least as wide as the window, i.e.,
 <i>w<sub>L</sub> &ge; 0</i> and
 <i>w<sub>R</sub> &ge; 0</i>, and
 </li>
@@ -251,17 +251,17 @@ For side fins, the model assumes that
 <li>
 the side fins are placed symmetrically to the left and right of the window,
 </li>
-<li> 
+<li>
 the top of the side fins must be at an equal or greater height than the window, and
 </li>
 <li>
 the side fins extends at least to the lower edge of the window.
 </li>
-</ul> 
+</ul>
 
 <h4>Implementation</h4>
 <p>
-The detailed calculation method is explained in 
+The detailed calculation method is explained in
 <a href=\"modelica://Buildings.HeatTransfer.Windows.BaseClasses.SideFins\">
 Buildings.HeatTransfer.Windows.BaseClasses.SideFins</a>
 and in
@@ -281,17 +281,17 @@ Renamed model from <code>Shade</code> to <code>FixedShade</code> because
 shade is already used for window interior and exterior shades.
 </li><li>
 July 5, 2012, by Michael Wetter:<br/>
-Moved model from package <code>Buildings.Rooms.BaseClasses</code> to 
+Moved model from package <code>Buildings.Rooms.BaseClasses</code> to
 <code>Buildings.HeatTransfer.Windows</code>, because the overhang and side fin
 models are also in this package.
 </li>
 <li>
 May 21, 2012, by Kaustubh Phalak:<br/>
-Enabled the model to use overhang and side at the same time. 
+Enabled the model to use overhang and side at the same time.
 </li>
 <li>
 March 5, 2012, by Michael Wetter:<br/>
-First implementation. 
+First implementation.
 </li>
 
 </ul>

@@ -19,15 +19,14 @@ model MediumColumn
     m_flow(min=if allowFlowReversal then -Constants.inf else 0),
     p(start=Medium.p_default))
     "Fluid connector a (positive design flow direction is from port_a to port_b)"
-    annotation (Placement(transformation(extent={{-10,90},{10,110}}, rotation=0),
+    annotation (Placement(transformation(extent={{-10,90},{10,110}}),
         iconTransformation(extent={{-10,90},{10,110}})));
   Modelica.Fluid.Interfaces.FluidPort_b port_b(
     redeclare package Medium = Medium,
     m_flow(max=if allowFlowReversal then +Constants.inf else 0),
     p(start=Medium.p_default))
     "Fluid connector b (positive design flow direction is from port_a to port_b)"
-    annotation (Placement(transformation(extent={{10,-110},{-10,-90}}, rotation=
-           0), iconTransformation(extent={{10,-110},{-10,-90}})));
+    annotation (Placement(transformation(extent={{10,-110},{-10,-90}}), iconTransformation(extent={{10,-110},{-10,-90}})));
 
   Modelica.SIunits.VolumeFlowRate V_flow=m_flow/Medium.density(sta_a)
     "Volume flow rate at inflowing port (positive when flow from port_a to port_b)";
@@ -156,7 +155,7 @@ defaultComponentName="col",
 Documentation(info="<html>
 <p>
 This model describes the pressure difference of a vertical medium
-column. It can be used to model the pressure difference caused by 
+column. It can be used to model the pressure difference caused by
 stack effect.
 </p>
 <p>
@@ -167,21 +166,21 @@ controlled by the setting of the parameter <code>densitySelection</code>:
 <li>
 <code>top</code>:
 Use this setting to use the density from the volume that is connected
-to <code>port_a</code>. 
+to <code>port_a</code>.
 </li>
 <li>
 <code>bottom</code>:
 Use this setting to use the density from the volume that is connected
-to <code>port_b</code>. 
+to <code>port_b</code>.
 </li>
 <li>
 <code>actual</code>:
-Use this setting to use the density based on the actual flow direction. 
+Use this setting to use the density based on the actual flow direction.
 </li>
 </ul>
 <p>
 The settings <code>top</code> and <code>bottom</code>
-should be used when rooms or different floors of a building are 
+should be used when rooms or different floors of a building are
 connected since multizone airflow models assume that each floor is completely mixed.
 For these two seetings, this model will compute the pressure between the center of the room
 and an opening that is at height <code>h</code> relative to the center of the room.
@@ -217,6 +216,5 @@ alias sets have different nominal values.
 <li><i>February 24, 2005</i> by Michael Wetter:<br/>
        Released first version.
 </ul>
-</html>"),
-    Diagram(graphics));
+</html>"));
 end MediumColumn;

@@ -33,25 +33,16 @@ package MoistAirUnsaturated
     final standardOrderComponents=true)
 
     /* p, T, X = X[Water] are used as preferred states, since only then all
-     other quantities can be computed in a recursive sequence. 
+     other quantities can be computed in a recursive sequence.
      If other variables are selected as states, static state selection
      is no longer possible and non-linear algebraic equations occur.
       */
-    MassFraction x_water "Mass of total water/mass of dry air";
-    Real phi "Relative humidity";
-
   protected
     constant SI.MolarMass[2] MMX = {steam.MM,dryair.MM}
       "Molar masses of components";
 
-  //  MassFraction X_liquid "Mass fraction of liquid water. Need to be zero.";
     MassFraction X_steam "Mass fraction of steam water";
     MassFraction X_air "Mass fraction of air";
-    MassFraction X_sat
-      "Steam water mass fraction of saturation boundary in kg_water/kg_moistair";
-    MassFraction x_sat
-      "Steam water mass content of saturation boundary in kg_water/kg_dryair";
-    AbsolutePressure p_steam_sat "Partial saturation pressure of steam";
   equation
     assert(T >= 200.0 and T <= 423.15, "
 Temperature T is not in the allowed range
@@ -68,11 +59,6 @@ required from medium model \""     + mediumName + "\".");
 */
     MM = 1/(Xi[Water]/MMX[Water]+(1.0-Xi[Water])/MMX[Air]);
 
-    p_steam_sat = min(saturationPressure(T),0.999*p);
-    X_sat = min(p_steam_sat * k_mair/max(100*Modelica.Constants.eps, p - p_steam_sat)*(1 - Xi[Water]), 1.0)
-      "Water content at saturation with respect to actual water content";
-  //  X_liquid = max(Xi[Water] - X_sat, 0.0);
-
     X_steam  = Xi[Water];
     X_air    = 1-Xi[Water];
 
@@ -87,11 +73,6 @@ required from medium model \""     + mediumName + "\".");
     state.p = p;
     state.T = T;
     state.X = X;
-
-    // this x_steam is water load / dry air!!!!!!!!!!!
-    x_sat    = k_mair*p_steam_sat/max(100*Modelica.Constants.eps,p - p_steam_sat);
-    x_water = Xi[Water]/max(X_air,100*Modelica.Constants.eps);
-    phi = p/p_steam_sat*Xi[Water]/(Xi[Water] + k_mair*X_air);
   end BaseProperties;
 
   function Xsaturation = Buildings.Media.PerfectGases.MoistAir.Xsaturation
@@ -116,7 +97,7 @@ required from medium model \""     + mediumName + "\".");
     annotation (Documentation(info="<html>
 Function to set the state for given pressure, enthalpy and species concentration.
 This function needed to be reimplemented in order for the medium model to use
-the implementation of <code>T_phX</code> provided by this package as opposed to the 
+the implementation of <code>T_phX</code> provided by this package as opposed to the
 implementation provided by <a href=\"Buildings.Media.PerfectGases.MoistAir.setState_pTX\">
 Buildings.Media.PerfectGases.MoistAir.setState_pTX</a>.
 </html>"));
@@ -353,21 +334,8 @@ function h_pTX
   output SI.SpecificEnthalpy h "Specific enthalpy at p, T, X";
 
   protected
-  SI.AbsolutePressure p_steam_sat "Partial saturation pressure of steam";
-  SI.MassFraction x_sat "steam water mass fraction of saturation boundary";
   SI.SpecificEnthalpy hDryAir "Enthalpy of dry air";
 algorithm
-  p_steam_sat :=saturationPressure(T);
-  x_sat    :=k_mair*p_steam_sat/(p - p_steam_sat);
-  /*
-  assert(X[Water] < x_sat/(1 + x_sat), "The medium model '" + mediumName + "' must not be saturated.\n"
-     + "To model a saturated medium, use 'Buildings.Media.PerfectGases.MoistAir' instead of this medium.\n"
-     + " T         = " + String(T) + "\n"
-     + " x_sat     = " + String(x_sat) + "\n"
-     + " X[Water] = "  + String(X[Water]) + "\n"
-     + " phi       = " + String(X[Water]/((x_sat)/(1+x_sat))) + "\n"
-     + " p         = " + String(p));
-  */
   hDryAir := (T - 273.15)*dryair.cp;
   h := hDryAir * (1 - X[Water]) +
        ((T-273.15) * steam.cp + 2501014.5) * X[Water];
@@ -402,25 +370,9 @@ function T_phX "Compute temperature from specific enthalpy and mass fraction"
   input SpecificEnthalpy h "specific enthalpy";
   input MassFraction[:] X "mass fractions of composition";
   output Temperature T "temperature";
-
-  protected
-  SI.AbsolutePressure p_steam_sat "Partial saturation pressure of steam";
-  SI.MassFraction x_sat "steam water mass fraction of saturation boundary";
-
 algorithm
   T := 273.15 + (h - 2501014.5 * X[Water])/((1 - X[Water])*dryair.cp + X[Water] * steam.cp);
-  // check for saturation
-  p_steam_sat :=saturationPressure(T);
-  x_sat    :=k_mair*p_steam_sat/(p - p_steam_sat);
-  /*
-  assert(X[Water] < x_sat/(1 + x_sat), "The medium model '" + mediumName + "' must not be saturated.\n"
-     + "To model a saturated medium, use 'Buildings.Media.PerfectGases.MoistAir' instead of this medium.\n"
-     + " T         = " + String(T) + "\n"
-     + " x_sat     = " + String(x_sat) + "\n"
-     + " X[Water] = " + String(X[Water]) + "\n"
-     + " phi       = " + String(X[Water]/((x_sat)/(1+x_sat))) + "\n"
-     + " p         = " + String(p));
-   */
+
   annotation(Inline=false, smoothOrder=5,
       Documentation(info="<html>
 Temperature as a function of specific enthalpy and species concentration.
@@ -431,24 +383,28 @@ end T_phX;
 
   annotation (preferredView="info", Documentation(info="<html>
 <p>
-This is a medium model that is similar to 
+This is a medium model that is similar to
 <a href=\"modelica://Buildings.Media.PerfectGases.MoistAir\">
-Buildings.Media.PerfectGases.MoistAir</a> but 
-in this model, the air must not be saturated. If the air is saturated, 
+Buildings.Media.PerfectGases.MoistAir</a> but
+in this model, the air must not be saturated. If the air is saturated,
 use the medium model
 <a href=\"modelica://Buildings.Media.PerfectGases.MoistAir\">
 Buildings.Media.PerfectGases.MoistAir</a> instead of this one.
 </p>
 <p>
 This medium model has been added to allow an explicit computation of
-the function 
+the function
 <code>T_phX</code> so that it is once differentiable in <code>h</code>
 with a continuous derivative. This allows obtaining an analytic
 expression for the Jacobian, and therefore simplifies the computation
-of initial conditions that can be numerically challenging for 
+of initial conditions that can be numerically challenging for
 thermo-fluid systems.
 </html>", revisions="<html>
 <ul>
+<li>
+November 13, 2014, by Michael Wetter:<br/>
+Removed <code>phi</code> and removed non-required computations.
+</li>
 <li>
 March 29, 2013, by Michael Wetter:<br/>
 Added <code>final standardOrderComponents=true</code> in the

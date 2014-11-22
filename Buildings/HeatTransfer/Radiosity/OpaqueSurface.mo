@@ -58,7 +58,7 @@ equation
           rotation=90)}),
     defaultComponentName="sur",
     Documentation(info="<html>
-Model for the emissive power of an opaque surface. 
+Model for the emissive power of an opaque surface.
 </html>", revisions="<html>
 <ul>
 <li>
@@ -74,7 +74,6 @@ See track issue <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1
 February 10, 2012, by Wangda Zuo:<br/>
 Fixed a bug for temperature linearization.
 </li>
-</ul>
 <li>
 August 18, 2010, by Michael Wetter:<br/>
 First implementation.

@@ -41,6 +41,5 @@ equation
       points={{-19,40},{-10,40},{-10,30}},
       color={0,0,127},
       smooth=Smooth.None));
-  annotation (uses(Buildings(version="0.13"), Modelica(version="3.2")), Diagram(
-        graphics));
+  annotation (uses(Buildings(version="0.13"), Modelica(version="3.2")));
 end FlowCircuit;

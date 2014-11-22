@@ -139,7 +139,7 @@ equation
     Documentation(info="<html>
 This example illustrates the use of Modelica with the Building Controls Virtual Test Bed.<br/>
 <p>
-Given a control signal for two heat flow rates, Modelica simulates the thermal response 
+Given a control signal for two heat flow rates, Modelica simulates the thermal response
 of two first order systems. The two systems may represent a first order approximation of a room.
 The control signal for the heat flow rate is computed in the Building Controls Virtual Test Bed
 using a discrete time implementation of a proportional controller.

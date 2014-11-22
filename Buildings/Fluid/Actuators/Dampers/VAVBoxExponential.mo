@@ -47,7 +47,7 @@ for negative numbers during the solver iterations.
 </li>
 <li>
 June 10, 2008 by Michael Wetter:<br/>
-Introduced new partial base class, 
+Introduced new partial base class,
 <a href=\"modelica://Buildings.Fluid.Actuators.BaseClasses.PartialDamperExponential\">
 PartialDamperExponential</a>.
 </li>
@@ -91,8 +91,5 @@ First implementation.
           points={{-20,-36},{28,6},{28,-6},{-20,-48},{-20,-36}},
           lineColor={0,0,0},
           smooth=Smooth.None,
-          fillPattern=FillPattern.Solid)}),
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
-            100,100}}),
-            graphics));
+          fillPattern=FillPattern.Solid)}));
 end VAVBoxExponential;

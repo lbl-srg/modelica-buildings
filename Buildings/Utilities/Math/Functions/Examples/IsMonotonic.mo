@@ -61,7 +61,7 @@ info="<html>
 This example tests the correct implementation of the function
 <a href=\"modelica://Buildings.Utilities.Math.Functions.isMonotonic\">
 Buildings.Utilities.Math.Functions.isMonotonic</a>.
-If the function is implemented incorrect, the example will stop 
+If the function is implemented incorrect, the example will stop
 with an error.
 </p>
 </html>",

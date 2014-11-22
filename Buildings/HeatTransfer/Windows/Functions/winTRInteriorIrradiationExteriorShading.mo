@@ -13,12 +13,12 @@ algorithm
     "Equation (A.4.97)";
   traRefIntIrrExtSha[Ra] := 0 "Dummy value";
   annotation (Documentation(info="<html>
-This function computes hemispherical transmittance and back reflectance of a window for interior irradiation with exterior shading. 
+This function computes hemispherical transmittance and back reflectance of a window for interior irradiation with exterior shading.
 Pane <code>1</code> is facing the outside and pane <code>N</code> is facing the room.
 The variables are<br/>
 <pre>
 traRefIntIrrExtSha[1]: Transmittance;
-traRefIntIrrExtSha[2]: Back reflectance; 
+traRefIntIrrExtSha[2]: Back reflectance;
 traRefIntIrrExtSha[3]: Dummy value
 </pre>
 </html>", revisions="<html>

@@ -5,7 +5,7 @@ package Data "Data for BESTEST models"
 
   annotation (Documentation(info="<html>
 Package with data that are used in various BESTEST models.
-This package has been implemented to avoid duplicate 
+This package has been implemented to avoid duplicate
 definition of data in the various BESTEST examples.
 </html>"));
 end Data;

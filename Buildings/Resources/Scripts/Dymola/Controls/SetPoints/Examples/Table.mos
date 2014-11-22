@@ -12,4 +12,3 @@ createPlot(id = 1,
  filename = "Table.mat",
  leftTitle = "y",
  bottomTitle = "u");
-

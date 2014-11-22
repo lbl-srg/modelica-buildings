@@ -11,7 +11,7 @@ package SolidsPCM
      "<html>
 <p>
 Generic record for phase change materials.
-The record extends from 
+The record extends from
 <a href=\"modelica://Buildings.HeatTransfer.Data.BaseClasses.Material\">
 Buildings.HeatTransfer.Data.BaseClasses.Material</a>
 and declares parameters and constants for phase change materials.
@@ -106,9 +106,9 @@ Documentation(
 info="<html>
 <p>
 Package with records for solid materials with embedded phase change material.
-The material is characterized by its 
+The material is characterized by its
 thermal conductivity, mass density and specific
-heat capacity, as well as the solidus and liquidus temperatures, and 
+heat capacity, as well as the solidus and liquidus temperatures, and
 the latent heat.
 </p>
 <p>

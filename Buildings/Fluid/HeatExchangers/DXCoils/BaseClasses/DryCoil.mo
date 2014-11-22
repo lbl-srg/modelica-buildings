@@ -64,7 +64,7 @@ under the assumption that the coil is dry.
 The wet coil conditions are computed in
 <a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.WetCoil\">
 Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.WetCoil</a>.
-See 
+See
 <a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.UsersGuide\">
 Buildings.Fluid.HeatExchangers.DXCoils.UsersGuide</a>
 for an explanation of the model.
@@ -74,7 +74,7 @@ revisions="<html>
 <ul>
 <li>
 April 12, 2012 by Kaustubh Phalak:<br/>
-First implementation. 
+First implementation.
 </li>
 </ul>
 

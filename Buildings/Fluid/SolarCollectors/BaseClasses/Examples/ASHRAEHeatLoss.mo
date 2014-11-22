@@ -54,11 +54,9 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   annotation (
-    Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,
-            100}}), graphics),
     Documentation(info="<html>
       <p>
-        This examples demonstrates the implementation of 
+        This examples demonstrates the implementation of
         <a href=\"modelica://Buildings.Fluid.SolarCollectors.BaseClasses.ASHRAEHeatLoss\">
         Buildings.Fluid.SolarCollectors.BaseClasses.ASHRAEHeatLoss</a>.
       </p>

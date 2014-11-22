@@ -93,7 +93,7 @@ model SpaceCooling "Space cooling with DX coils"
     mA_flow_nominal=mA_flow_nominal)
     "Room model connected to single speed coil"
                                      annotation (Placement(transformation(
-          rotation=0, extent={{120,40},{140,60}})));
+          extent={{120,40},{140,60}})));
   Fluid.Movers.FlowMachine_m_flow fan1(
                                       redeclare package Medium = Medium,
       m_flow_nominal=mA_flow_nominal,
@@ -131,7 +131,7 @@ model SpaceCooling "Space cooling with DX coils"
     QRooInt_flow=QRooInt_flow,
     mA_flow_nominal=mA_flow_nominal) "Room model connected to multi stage coil"
                                      annotation (Placement(transformation(
-          rotation=0, extent={{180,40},{200,60}})));
+          extent={{180,40},{200,60}})));
 
   Buildings.Fluid.HeatExchangers.DXCoils.Data.Generic.DXCoil
     datCoi(
@@ -174,8 +174,7 @@ model SpaceCooling "Space cooling with DX coils"
     "Coil data"
     annotation (Placement(transformation(extent={{0,-140},{20,-120}})));
   ControllerTwoStage mulSpeCon "Controller for multi-stage coil"
-                               annotation (Placement(transformation(rotation=0,
-          extent={{-60,-140},{-40,-120}})));
+                               annotation (Placement(transformation(extent={{-60,-140},{-40,-120}})));
   SimpleRoom rooVarSpe(
     redeclare package Medium = Medium,
     nPorts=2,
@@ -183,7 +182,7 @@ model SpaceCooling "Space cooling with DX coils"
     mA_flow_nominal=mA_flow_nominal)
     "Room model connected to variable speed coil"
                                      annotation (Placement(transformation(
-          rotation=0, extent={{240,40},{260,60}})));
+          extent={{240,40},{260,60}})));
   Fluid.Movers.FlowMachine_m_flow fan2(
                                       redeclare package Medium = Medium,
       m_flow_nominal=mA_flow_nominal,
@@ -318,13 +317,12 @@ public
 
     Modelica.Blocks.Interfaces.RealInput TOutDryBul
       "Outdoor drybulb temperature"
-      annotation (Placement(transformation(rotation=0, extent={{-209,-13},{-179,13}})));
+      annotation (Placement(transformation(extent={{-209,-13},{-179,13}})));
     Modelica.Blocks.Interfaces.RealOutput TRoo(unit="K") "Room temperature"
-      annotation (Placement(transformation(rotation=0, extent={{119,-13},{149,13}})));
+      annotation (Placement(transformation(extent={{119,-13},{149,13}})));
     Modelica.Fluid.Vessels.BaseClasses.VesselFluidPorts_b ports[nPorts](redeclare
         each package Medium =
-                         Medium) annotation (Placement(transformation(rotation=0,
-            extent={{-50,-170},{47,-147}})));
+                         Medium) annotation (Placement(transformation(extent={{-50,-170},{47,-147}})));
   equation
     connect(theCon.port_b,vol. heatPort) annotation (Line(
         points={{-38,-10},{-10,-10}},
@@ -427,7 +425,7 @@ public
         pre_y_start=true) "Controller for coil water flow rate"
       annotation (Placement(transformation(extent={{-20,-150},{0,-130}})));
     Modelica.Blocks.Interfaces.RealInput u annotation (Placement(transformation(
-            rotation=0, extent={{-206,-133},{-180,-106}})));
+            extent={{-206,-133},{-180,-106}})));
     Modelica.Blocks.Interfaces.RealInput reference
       "Connector of Real input signal used as reference signal"
       annotation (Placement(transformation(extent={{-220,20},{-180,60}})));
@@ -636,10 +634,10 @@ equation
       smooth=Smooth.None));
   annotation (Documentation(info="<html>
 <p>
-This model illustrates the use of the DX coil models with 
+This model illustrates the use of the DX coil models with
 single speed compressor, multi-stage compressor, and variable
 speed compressor.
-The three systems all have the same simple model for a room, 
+The three systems all have the same simple model for a room,
 and the same HVAC components, except for the coil.
 The top system has a DX coil with single speed compressor
 and on/off control with dead-band.
@@ -653,7 +651,7 @@ All coils are controlled based on the respective room air temperature.
 The plot below shows how room air temperatures and humidity levels
 are controlled with the respective coils.
 The single speed coil has the highest room air humidity level because
-during its off-time, water that accumulated on the coil evaporates 
+during its off-time, water that accumulated on the coil evaporates
 into the air stream.
 This effect is smaller for the coil with two compressor stages
 and for the coil with variable compressor speed, as both of these coils
@@ -664,7 +662,7 @@ switch off less frequent.
 </p>
 <h4>Implementation</h4>
 <p>
-The model is based on 
+The model is based on
 <a href=\"modelica://Buildings.Examples.Tutorial.SpaceCooling.System3\">
 Buildings.Examples.Tutorial.SpaceCooling.System3</a>.
 </p>

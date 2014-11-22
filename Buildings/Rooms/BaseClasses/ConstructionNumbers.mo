@@ -60,16 +60,16 @@ annotation (
 Documentation(
 info="<html>
 <p>
-Record that defines the number of constructions that are 
+Record that defines the number of constructions that are
 used in the room model.
 </p>
 <p>
 This record also declares parameters that contain the number of constructions,
-such as the number of exterior constructions <code>nConExt</code>. 
-This parameter may take on the value <code>0</code>. 
+such as the number of exterior constructions <code>nConExt</code>.
+This parameter may take on the value <code>0</code>.
 If this parameter were to be used to declare the size of vectors of
 component models, then there may be vectors with zero components.
-This can cause problems in Dymola 7.4. 
+This can cause problems in Dymola 7.4.
 Therefore, a parameter is declared in the form
 </p>
 <pre>

@@ -32,4 +32,4 @@ createPlot(id = 1,
  leftTitleType = 1,
  bottomTitleType = 1,
  colors = {{0,0,255}});
- 
+

@@ -87,7 +87,7 @@ equation
         "Simulate and plot"),
           Documentation(info="<html>
 <p>
-This example illustrates the evaporation of water vapor that 
+This example illustrates the evaporation of water vapor that
 accumulated on the coil.
 Input to the model is an air mass flow rate that is first positive, then
 ramps down to a negative value, and eventually ramps up to zero where
@@ -98,7 +98,7 @@ revisions="<html>
 <ul>
 <li>
 August 25, 2012 by Michael Wetter:<br/>
-First implementation. 
+First implementation.
 </li>
 </ul>
 </html>"),

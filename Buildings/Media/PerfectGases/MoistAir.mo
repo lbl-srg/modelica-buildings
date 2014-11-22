@@ -37,13 +37,10 @@ package MoistAir
     final standardOrderComponents=true)
 
     /* p, T, X = X[Water] are used as preferred states, since only then all
-     other quantities can be computed in a recursive sequence. 
+     other quantities can be computed in a recursive sequence.
      If other variables are selected as states, static state selection
      is no longer possible and non-linear algebraic equations occur.
       */
-    MassFraction x_water "Mass of total water/mass of dry air";
-    Real phi "Relative humidity";
-
   protected
     constant SI.MolarMass[2] MMX = {steam.MM,dryair.MM}
       "Molar masses of components";
@@ -53,8 +50,6 @@ package MoistAir
     MassFraction X_air "Mass fraction of air";
     MassFraction X_sat
       "Steam water mass fraction of saturation boundary in kg_water/kg_moistair";
-    MassFraction x_sat
-      "Steam water mass content of saturation boundary in kg_water/kg_dryair";
     AbsolutePressure p_steam_sat "Partial saturation pressure of steam";
 
   equation
@@ -83,10 +78,6 @@ required from medium model \""     + mediumName + "\".");
     state.T = T;
     state.X = X;
 
-    // this x_steam is water load / dry air!!!!!!!!!!!
-    x_sat    = k_mair*p_steam_sat/max(100*Modelica.Constants.eps,p - p_steam_sat);
-    x_water = Xi[Water]/max(X_air,100*Modelica.Constants.eps);
-    phi = p/p_steam_sat*Xi[Water]/(Xi[Water] + k_mair*X_air);
   end BaseProperties;
 
   function Xsaturation = Modelica.Media.Air.MoistAir.Xsaturation
@@ -111,7 +102,7 @@ required from medium model \""     + mediumName + "\".");
     annotation (Documentation(info="<html>
 Function to set the state for given pressure, enthalpy and species concentration.
 This function needed to be reimplemented in order for the medium model to use
-the implementation of <code>T_phX</code> provided by this package as opposed to the 
+the implementation of <code>T_phX</code> provided by this package as opposed to the
 implementation provided by its parent package.
 </html>"));
   end setState_phX;
@@ -340,13 +331,13 @@ algorithm
   X_steam  :=X[Water] - X_liquid;
   X_air    :=1 - X[Water];
 
-/* THIS DOES NOT WORK --------------------------    
-  h := enthalpyOfDryAir(T) * X_air + 
+/* THIS DOES NOT WORK --------------------------
+  h := enthalpyOfDryAir(T) * X_air +
        Modelica.Media.Air.MoistAir.enthalpyOfCondensingGas(T) * X_steam + enthalpyOfLiquid(T)*X_liquid;
 --------------------------------- */
 
 /* THIS WORKS!!!! +++++++++++++++++++++
-  h := (T - 273.15)*dryair.cp * X_air + 
+  h := (T - 273.15)*dryair.cp * X_air +
        Modelica.Media.Air.MoistAir.enthalpyOfCondensingGas(T) * X_steam + enthalpyOfLiquid(T)*X_liquid;
  +++++++++++++++++++++*/
 
@@ -432,13 +423,17 @@ end T_phX;
 
   annotation (preferredView="info", Documentation(info="<html>
 <p>
-This is a medium model that is similar to 
+This is a medium model that is similar to
 <a href=\"modelica://Modelica.Media.Air.MoistAir\">
-Modelica.Media.Air.MoistAir</a> but it is a perfect gas, i.e., 
+Modelica.Media.Air.MoistAir</a> but it is a perfect gas, i.e.,
 it has a constant specific heat capacity.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+November 13, 2014, by Michael Wetter:<br/>
+Removed <code>phi</code> and removed non-required computations.
+</li>
 <li>
 March 29, 2013, by Michael Wetter:<br/>
 Added <code>final standardOrderComponents=true</code> in the
@@ -456,7 +451,7 @@ during model check and translation.
 </li>
 <li>
 February 22, 2010, by Michael Wetter:<br/>
-Changed <code>T_phX</code> to first compute <code>T</code> 
+Changed <code>T_phX</code> to first compute <code>T</code>
 in closed form assuming no saturation. Then, a check is done to determine
 whether the state is in the fog region. If the state is in the fog region,
 then <code>Internal.solve</code> is called. This new implementation
@@ -481,7 +476,7 @@ Added annotation for analytic derivative for functions
 <code>saturationPressureLiquid</code> and <code>sublimationPressureIce</code>.
 <li>
 August 28, 2008, by Michael Wetter:<br/>
-Referenced <code>spliceFunction</code> from package 
+Referenced <code>spliceFunction</code> from package
 <a href=\"modelica://Buildings.Utilities.Math\">Buildings.Utilities.Math</a>
 to avoid duplicate code.
 </li>
