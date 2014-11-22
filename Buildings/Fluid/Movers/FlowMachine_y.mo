@@ -13,12 +13,18 @@ model FlowMachine_y
         rotation=-90,
         origin={0,120})));
 
+  // We set the nominal value to 3000 as this is the
+  // right order of magnitude. Using per.N_nominal
+  // would yield to a translation warning
+  // Non-literal value.
+  // In nominal attribute for fan.filter.u.
 protected
-  Modelica.Blocks.Math.Gain gaiSpe(final k=per.N_nominal,
+  Modelica.Blocks.Math.Gain gaiSpe(
+    final k=per.N_nominal,
     u(min=0, max=1),
     y(final quantity="AngularVelocity",
       final unit="1/min",
-      nominal=per.N_nominal)) "Gain for speed input signal"
+      nominal=3000)) "Gain for speed input signal"
     annotation (Placement(transformation(extent={{-6,64},{6,76}})));
 equation
   connect(y, gaiSpe.u) annotation (Line(
@@ -72,6 +78,10 @@ User's Guide</a> for more information.
 </html>",
       revisions="<html>
 <ul>
+<li>
+November 22, 2014, by Michael Wetter:<br/>
+Revised implementation that uses the new performance data as a record.
+</li>
 <li>
 February 14, 2012, by Michael Wetter:<br/>
 Added filter for start-up and shut-down transient.

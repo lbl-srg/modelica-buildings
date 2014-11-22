@@ -29,10 +29,15 @@ partial model FlowMachineInterface
     annotation(Dialog(tab="Dynamics", group="Filtered speed",enable=filteredSpeed));
 
   // Speed
-  Modelica.Blocks.Interfaces.RealOutput N_actual(min=0, max=per.N_nominal,
+  // We set the nominal value to 3000 as this is the
+  // right order of magnitude. Using per.N_nominal
+  // would yield to a translation warning
+  // Non-literal value.
+  // In nominal attribute for fan.N_actual
+  Modelica.Blocks.Interfaces.RealOutput N_actual(min=0,
                                                  final quantity="AngularVelocity",
                                                  final unit="1/min",
-                                                 nominal=per.N_nominal)
+                                                 nominal=3000)
     annotation (Placement(transformation(extent={{100,40},{120,60}}),
         iconTransformation(extent={{100,40},{120,60}})));
 
@@ -42,8 +47,8 @@ partial model FlowMachineInterface
   Real r_V(start=1, unit="1") "Ratio V_flow/V_flow_max";
 
 protected
-  Modelica.Blocks.Interfaces.RealOutput N_filtered(min=0, start=N_start, max=per.N_nominal) if
-     filteredSpeed "Filtered speed in the range 0..N_nominal"
+  Modelica.Blocks.Interfaces.RealOutput N_filtered(min=0, start=N_start) if
+       filteredSpeed "Filtered speed in the range 0..N_nominal"
     annotation (Placement(transformation(extent={{40,78},{60,98}}),
         iconTransformation(extent={{60,50},{80,70}})));
   Modelica.Blocks.Continuous.Filter filter(
@@ -53,8 +58,8 @@ protected
      final y_start=N_start,
      x(each stateSelect=StateSelect.always),
      u_nominal=per.N_nominal,
-     u(final quantity="AngularVelocity", final unit="1/min", nominal=per.N_nominal),
-     y(final quantity="AngularVelocity", final unit="1/min", nominal=per.N_nominal),
+     u(final quantity="AngularVelocity", final unit="1/min", nominal=3000),
+     y(final quantity="AngularVelocity", final unit="1/min", nominal=3000),
      final analogFilter=Modelica.Blocks.Types.AnalogFilter.CriticalDamping,
      final filterType=Modelica.Blocks.Types.FilterType.LowPass) if
         filteredSpeed
@@ -631,6 +636,12 @@ to be used during the simulation.
 </html>",
 revisions="<html>
 <ul>
+<li>
+November 22, 2014, by Michael Wetter:<br/>
+Removed in <code>N_actual</code> and <code>N_filtered</code>
+the <code>max</code> attribute to
+avoid a translation warning.
+</li>
 <li>
 April 21, 2014, by Filip Jorisson and Michael Wetter:<br/>
 Changed model to use 
