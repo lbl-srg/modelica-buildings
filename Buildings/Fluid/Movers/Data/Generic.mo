@@ -8,16 +8,28 @@ record Generic "Generic data record for pumps and fans"
     annotation(Evaluate=true);
   parameter
     Buildings.Fluid.Movers.BaseClasses.Characteristics.efficiencyParameters
-    hydraulicEfficiency(V_flow=pressure.V_flow, eta=sqrt(pressure.V_flow.*pressure.dp./
-    {Buildings.Fluid.Movers.BaseClasses.Characteristics.power(per=power, V_flow=i, r_N=1, delta=0.01, d=d) for i in pressure.V_flow}))
-    "Hydraulic efficiency";
+    hydraulicEfficiency(
+      V_flow=pressure.V_flow,
+      eta=sqrt(pressure.V_flow.*pressure.dp./
+          {Buildings.Fluid.Movers.BaseClasses.Characteristics.power(
+             per=power,
+             V_flow=i,
+             r_N=1,
+             delta=0.01,
+             d=d) for i in pressure.V_flow})) "Hydraulic efficiency";
   parameter
     Buildings.Fluid.Movers.BaseClasses.Characteristics.efficiencyParameters
-    motorEfficiency(V_flow=pressure.V_flow, eta=sqrt(pressure.V_flow.*pressure.dp./
-    {Buildings.Fluid.Movers.BaseClasses.Characteristics.power(per=power, V_flow=i, r_N=1, delta=0.01, d=d) for i in pressure.V_flow}))
-    "Electric motor efficiency";
-  parameter Buildings.Fluid.Movers.BaseClasses.Characteristics.powerParameters
-    power "Volume flow rate vs. electrical power consumption";
+    motorEfficiency(
+      V_flow=pressure.V_flow,
+      eta=sqrt(pressure.V_flow.*pressure.dp./
+          {Buildings.Fluid.Movers.BaseClasses.Characteristics.power(
+            per=power,
+            V_flow=i,
+            r_N=1,
+            delta=0.01,
+            d=d) for i in pressure.V_flow})) "Electric motor efficiency";
+  parameter Buildings.Fluid.Movers.BaseClasses.Characteristics.powerParameters power
+    "Volume flow rate vs. electrical power consumption";
   parameter Boolean motorCooledByFluid=true
     "If true, then motor heat is added to fluid stream";
   parameter Boolean use_powerCharacteristic=false
@@ -25,7 +37,7 @@ record Generic "Generic data record for pumps and fans"
 
 protected
   final parameter Real d[:] = if ( size(power.V_flow, 1) == 1)  then
-       {0}
+      {0}
    else
       Buildings.Utilities.Math.Functions.splineDerivatives(
       x=power.V_flow,
@@ -53,13 +65,22 @@ https://github.com/lbl-srg/modelica-buildings/issues/209#issuecomment-46109021</
 </ul>
 </html>", info="<html>
 <p>
-Record containing parameters from real pumps or fans. Parameters can be typically found in data sheets. 
+Record containing parameters for pumps or fans as can be found in data sheets. 
 </p>
 <p>
-<br>An example can be found in:
+This record may be used to assign for example fan performance data using
+declaration such as
+<pre>
+  Buildings.Fluid.Movers.FlowMachine_y fan(
+      redeclare package Medium = Medium,
+      per(pressure(V_flow={0,m_flow_nominal,2*m_flow_nominal}/1.2,
+                   dp={2*dp_nominal,dp_nominal,0}))) \"Fan\";
+</pre>
+</p>
+<p>
+An example that uses manufacturer data can be found in
 <a href=\"modelica://Buildings.Fluid.Movers.Examples.FlowMachine_Nrpm_Data\">
-Buildings.Fluid.Movers.Examples.FlowMachine_Nrpm_Data
-</a>
+Buildings.Fluid.Movers.Examples.FlowMachine_Nrpm_Data</a>.
 </p>
 </html>"));
 end Generic;
