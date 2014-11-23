@@ -2,7 +2,7 @@ within Buildings.Fluid.HeatExchangers.CoolingTowers;
 model YorkCalc
   "Cooling tower with variable speed using the York calculation for the approach temperature"
   extends Buildings.Fluid.HeatExchangers.CoolingTowers.BaseClasses.CoolingTower;
-  import cha = Buildings.Fluid.Movers.BaseClasses.Characteristics;
+  import cha = Buildings.Fluid.HeatExchangers.CoolingTowers.BaseClasses.Characteristics;
 
   parameter Modelica.SIunits.Temperature TAirInWB_nominal = 273.15+25.55
     "Design inlet air wet bulb temperature"
@@ -18,8 +18,7 @@ model YorkCalc
   parameter Modelica.SIunits.Power PFan_nominal = fraPFan_nominal*m_flow_nominal
     "Fan power";
 
-  parameter
-    Buildings.Fluid.Movers.BaseClasses.Characteristics.efficiencyParameters fanRelPow(
+  parameter cha.efficiencyParameters fanRelPow(
        r_V = {0, 0.1,   0.3,   0.6,   1},
        eta = {0, 0.1^3, 0.3^3, 0.6^3, 1})
     "Fan relative power consumption as a function of control signal, fanRelPow=P(y)/P(y=1)"
