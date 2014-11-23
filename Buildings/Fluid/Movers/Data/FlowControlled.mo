@@ -12,12 +12,14 @@ record FlowControlled
     Buildings.Fluid.Movers.BaseClasses.Characteristics.efficiencyParameters
     motorEfficiency(
       V_flow={0},
-      each eta={0.7}) "Electric motor efficiency";
+      eta={0.7}) "Electric motor efficiency";
+
   // Power requires default values to avoid in Dymola the message
   // Failed to expand the variable Power.V_flow
-  parameter Buildings.Fluid.Movers.BaseClasses.Characteristics.powerParameters power(
-    V_flow={0},
-    P={0}) "Volume flow rate vs. electrical power consumption";
+  parameter BaseClasses.Characteristics.powerParameters power(V_flow={0}, P={0})
+    "Volume flow rate vs. electrical power consumption"
+    annotation (Dialog(enable=use_powerCharacteristic));
+
   parameter Boolean motorCooledByFluid=true
     "If true, then motor heat is added to fluid stream";
   parameter Boolean use_powerCharacteristic=false
