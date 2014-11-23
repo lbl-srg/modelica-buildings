@@ -72,7 +72,7 @@ model ControlledFlowMachine
     per(pressure(final V_flow={0,1.8,3}, dp={1000,600,0})),
     dynamicBalance=false)
     annotation (Placement(transformation(extent={{-20,100},{0,120}})));
-  Modelica.Blocks.Math.Gain gain(k=3000) "Converts y to nominal rpm"
+  Modelica.Blocks.Math.Gain gain(k=1500) "Converts y to nominal rpm"
     annotation (Placement(transformation(extent={{-60,130},{-40,150}})));
   FixedResistances.FixedResistanceDpM dp5(
     m_flow_nominal=6000/3600*1.2,
