@@ -1,14 +1,51 @@
 within Buildings.Fluid.Movers.Data;
-record SpeedControlled_y "Generic data record for pumps and fans that take y as an input signal"
+record SpeedControlled_y
+  "Generic data record for pumps and fans that take y as an input signal"
   extends FlowControlled;
-
+  parameter
+    Buildings.Fluid.Movers.BaseClasses.Characteristics.efficiencyParameters
+    hydraulicEfficiency(V_flow=power.V_flow,
+      eta=if use_powerCharacteristic then
+        sqrt(power.V_flow.*pressure.dp./
+        {Buildings.Fluid.Movers.BaseClasses.Characteristics.power(
+          per=power,
+          V_flow=i,
+          r_N=1,
+          delta=0.01,
+          d=Buildings.Utilities.Math.Functions.splineDerivatives(
+          x=power.V_flow,
+          y=power.P))
+          for i in power.V_flow})
+          else
+          {0.7 for i in power.V_flow}) "Hydraulic efficiency";
+parameter
+    Buildings.Fluid.Movers.BaseClasses.Characteristics.efficiencyParameters
+    motorEfficiency(V_flow=power.V_flow,
+      eta=if use_powerCharacteristic then
+        sqrt(power.V_flow.*pressure.dp./
+        {Buildings.Fluid.Movers.BaseClasses.Characteristics.power(
+          per=power,
+          V_flow=i,
+          r_N=1,
+          delta=0.01,
+          d=Buildings.Utilities.Math.Functions.splineDerivatives(
+          x=power.V_flow,
+          y=power.P))
+          for i in power.V_flow})
+          else
+          {0.7 for i in power.V_flow}) "Electric motor efficiency";
   parameter Buildings.Fluid.Movers.BaseClasses.Characteristics.flowParameters pressure
     "Volume flow rate vs. total pressure rise"
     annotation(Evaluate=true);
   annotation (Documentation(
 info="<html>
 <p>
-Record containing parameters for pumps or fans as can be found in data sheets. 
+Record containing parameters for pumps or fans as can be found in data sheets.
+If <code>use_powerCharacteristic=true</code>, then the efficiencies
+are computed based on the parameters <code>power</code> and
+<code>pressure</code>.
+Otherwise, a default efficiency of <i>0.7</i> is assumed for
+the motor efficiency and the hydraulic efficiency. 
 </p>
 <p>
 This record may be used to assign for example fan performance data using
