@@ -6,7 +6,7 @@ model ControlledFlowMachine
    preSou(final control_m_flow=control_m_flow));
 
   extends Buildings.Fluid.Movers.BaseClasses.PowerInterface(per(
-     final use_powerCharacteristic = false),
+     use_powerCharacteristic = false),
      final rho_default = Medium.density(sta_default));
 
   import cha = Buildings.Fluid.Movers.BaseClasses.Characteristics;
