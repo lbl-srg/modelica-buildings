@@ -1,7 +1,8 @@
 within Buildings.Fluid.Movers;
 model FlowMachine_Nrpm
   "Fan or pump with ideally controlled speed Nrpm as input signal"
-  extends Buildings.Fluid.Movers.BaseClasses.PrescribedFlowMachine;
+  extends Buildings.Fluid.Movers.BaseClasses.FlowControlledMachine(
+  redeclare Data.SpeedControlled_Nrpm per);
   Modelica.Blocks.Interfaces.RealInput Nrpm(unit="1/min")
     "Prescribed rotational speed"
     annotation (Placement(transformation(
@@ -12,28 +13,42 @@ model FlowMachine_Nrpm
         rotation=-90,
         origin={0,120})));
 
+protected
+  Modelica.Blocks.Math.Gain gaiSpe(
+    u(min=0,
+      final quantity="AngularVelocity",
+      final unit="1/min",
+      nominal=3000),
+    y(final unit="1",
+      nominal=1),
+    final k=1/per.N_nominal) "Gain for speed input signal"
+    annotation (Placement(transformation(extent={{-16,64},{-4,76}})));
 equation
   if filteredSpeed then
-    connect(Nrpm, filter.u) annotation (Line(
-      points={{1.11022e-15,120},{0,104},{0,104},{0,88},{18.6,88}},
+    connect(gaiSpe.y, filter.u) annotation (Line(
+      points={{-3.4,70},{10,70},{10,88},{18.6,88}},
       color={0,0,127},
       smooth=Smooth.None));
-    connect(filter.y, N_actual) annotation (Line(
-      points={{34.7,88},{38.35,88},{38.35,50},{110,50}},
+    connect(filter.y, y_actual) annotation (Line(
+      points={{34.7,88},{60.35,88},{60.35,50},{110,50}},
       color={0,0,127},
       smooth=Smooth.None));
-    connect(filter.y, N_filtered) annotation (Line(
+    connect(filter.y, y_filtered) annotation (Line(
       points={{34.7,88},{50,88}},
       color={0,0,127},
       smooth=Smooth.None));
 
   else
-    connect(Nrpm, N_actual) annotation (Line(
-      points={{1.11022e-15,120},{0,120},{0,50},{110,50}},
+    connect(gaiSpe.y, y_actual) annotation (Line(
+      points={{-3.4,70},{10,70},{10,50},{110,50}},
       color={0,0,127},
       smooth=Smooth.None));
   end if;
 
+  connect(gaiSpe.u, Nrpm) annotation (Line(
+      points={{-17.2,70},{-32,70},{-32,94},{0,94},{0,120}},
+      color={0,0,127},
+      smooth=Smooth.None));
   annotation (defaultComponentName="pump",
     Icon(coordinateSystem(preserveAspectRatio=true,  extent={{-100,-100},{100,
             100}}), graphics={Text(extent={{20,126},{118,104}},textString=
@@ -83,5 +98,7 @@ Revised implementation to allow zero flow rate.
     by <a href=\"mailto:francesco.casella@polimi.it\">Francesco Casella</a>:<br/>
        Model added to the Fluid library</li>
 </ul>
-</html>"));
+</html>"),
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
+            100}}), graphics));
 end FlowMachine_Nrpm;

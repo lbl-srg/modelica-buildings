@@ -1,6 +1,6 @@
 within Buildings.Fluid.Movers.Data.Pumps;
 record Stratos40slash1to8 "Pump data for a Wilo Stratos 40/1-8 pump"
-  extends Generic(
+  extends SpeedControlled_Nrpm(
     N_nominal=3830,
     use_powerCharacteristic=true,
     power(V_flow={4.03163741226e-06,0.00188290448506,0.00245068662086,
@@ -12,15 +12,15 @@ record Stratos40slash1to8 "Pump data for a Wilo Stratos 40/1-8 pump"
         dp={50361.3292164,50002.6907452,46761.3220062,42267.4693149,
           36095.691563,30066.6880748,23476.280464}));
   annotation (Documentation(info="<html>
-  <p>Data from: 
+  <p>Data from:
   <a href=\"http://productfinder.wilo.com/en/COM/product/00000018000028050002003a/fc_product_datasheet\">
   http://productfinder.wilo.com/en/COM/product/0000000e000379df0002003a/fc_product_datasheet
   </a>
   </p>
-  <p>See 
+  <p>See
   <a href=\"modelica://Buildings.Fluid.Movers.Data.Pumps.Stratos25slash1to6\">
   Buildings.Fluid.Movers.Data.Pumps.Stratos25slash1to6
-  </a> 
+  </a>
   for more information about how the data is derived.
   </p>
   </html>", revisions="<html>

@@ -14,19 +14,121 @@ found in
 <a href=\"modelica://Buildings/Resources/Images/Fluid/Movers/UsersGuide/2013-IBPSA-Wetter.pdf\">Wetter (2013)</a>.
 Below, the models are briefly described.
 </p>
+<h5>Performance data</h5>
 <p>
 The models use
 performance curves that compute pressure rise,
 electrical power draw and efficiency as a function
 of the volume flow rate and the speed.
-These performance curves are described in
+The following performance curves are implemented:<br/>
+<table summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+<tr>
+<th>Independent variable</th>
+<th>Dependent variable</th>
+<th>Record for performance data</th>
+<th>Function</th>
+</tr>
+<tr>
+<td>Volume flow rate</td>
+<td>Pressure</td>
+<td><a href=\"modelica://Buildings.Fluid.Movers.BaseClasses.Characteristics.flowParameters\">
+flowParameters</a></td>
+<td><a href=\"modelica://Buildings.Fluid.Movers.BaseClasses.Characteristics.pressure\">
+pressure</a></td>
+</tr>
+<tr>
+<td>Relative volumetric flow rate</td>
+<td>Efficiency</td>
+<td><a href=\"modelica://Buildings.Fluid.Movers.BaseClasses.Characteristics.efficiencyParameters\">
+efficiencyParameters</a></td>
+<td><a href=\"modelica://Buildings.Fluid.Movers.BaseClasses.Characteristics.efficiency\">
+efficiency</a></td>
+</tr>
+<tr>
+<td>Volume flow rate</td>
+<td>Power</td>
+<td><a href=\"modelica://Buildings.Fluid.Movers.BaseClasses.Characteristics.powerParameters\">
+powerParameters</a></td>
+<td><a href=\"modelica://Buildings.Fluid.Movers.BaseClasses.Characteristics.power\">
+power</a></td>
+</tr>
+</table>
+</p>
+<p>
+These performance curves are implemented in
 <a href=\"modelica://Buildings.Fluid.Movers.BaseClasses.Characteristics\">
 Buildings.Fluid.Movers.BaseClasses.Characteristics</a>,
-and they are declared in the model parameter
-<a href=\"modelica://Buildings.Fluid.Movers.Data.Generic\">
-Buildings.Fluid.Movers.Data.Generic</a>.
+and are used in the performance records in the package
+<a href=\"modelica://Buildings.Fluid.Movers.Data\">
+Buildings.Fluid.Movers.Data</a>.
+The package
+<a href=\"modelica://Buildings.Fluid.Movers.Data\">
+Buildings.Fluid.Movers.Data</a>
+contains different data records. The table below shows
+which data records can be used for what models.
+Note that not all records can be used with all models, as
+the records only declare the minimum set of required data.
 </p>
+<!-- Table for performance data -->
+<table summary=\"Performance data\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+<tr>
+<th></th>
+<th style=\"text-align:left\">
+<a href=\"modelica://Buildings.Fluid.Movers.Data.FlowControlled\">
+Data.FlowControlled</a>
+</th>
+<th style=\"text-align:left\">
+<a href=\"modelica://Buildings.Fluid.Movers.Data.SpeedControlled_y\">
+Data.SpeedControlled_y</a>
+</th>
+<th style=\"text-align:left\">
+<a href=\"modelica://Buildings.Fluid.Movers.Data.SpeedControlled_Nrpm\">
+Data.SpeedControlled_Nrpm</a>
+</th>
+</tr>
+<tr>
+<th style=\"text-align:left\">
+<a href=\"modelica://Buildings.Fluid.Movers.FlowMachine_m_flow\">
+FlowMachine_m_flow</a>
+</th>
+<td style=\"background-color:DarkGreen\"/>
+<td style=\"background-color:DarkGreen\"/>
+<td style=\"background-color:DarkGreen\"/>
+</tr>
+<tr>
+<th>
+<a href=\"modelica://Buildings.Fluid.Movers.FlowMachine_dp\">
+FlowMachine_dp</a>
+</th>
+<td style=\"background-color:DarkGreen\"/>
+<td style=\"background-color:DarkGreen\"/>
+<td style=\"background-color:DarkGreen\"/>
+</tr>
+<tr>
+<th>
+<a href=\"modelica://Buildings.Fluid.Movers.FlowMachine_y\">
+FlowMachine_y</a>
+</th>
+<td style=\"background-color:DarkRed\"/>
+<td style=\"background-color:DarkGreen\"/>
+<td style=\"background-color:DarkGreen\"/>
+</tr>
+<tr>
+<th>
+<a href=\"modelica://Buildings.Fluid.Movers.FlowMachine_Nrpm\">
+FlowMachine_Nrpm</a>
+</th>
+<td style=\"background-color:DarkRed\"/>
+<td style=\"background-color:DarkRed\"/>
+<td style=\"background-color:DarkGreen\"/>
+</tr>
+</table>
 
+<p>
+&nbsp;
+<!-- empty paragraph to add spacing below table -->
+</p>
+<!-- fixme: add table -->
 <h5>Models that use performance curves for pressure rise</h5>
 <p>
 The models

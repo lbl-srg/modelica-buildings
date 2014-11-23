@@ -29,8 +29,7 @@ partial model FlowMachine_ZeroFlow
     dp_nominal=dp_nominal/2) "Pressure drop"
     annotation (Placement(transformation(extent={{58,70},{78,90}})));
   replaceable Buildings.Fluid.Movers.BaseClasses.PartialFlowMachine floMacSta
-                      constrainedby
-    Buildings.Fluid.Movers.BaseClasses.PartialFlowMachine(
+    constrainedby Buildings.Fluid.Movers.BaseClasses.PartialFlowMachine(
       redeclare package Medium = Medium,
       energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
       dynamicBalance=false) "Static model of a flow machine"

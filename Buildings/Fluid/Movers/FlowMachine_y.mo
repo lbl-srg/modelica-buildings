@@ -1,7 +1,7 @@
 within Buildings.Fluid.Movers;
 model FlowMachine_y
   "Fan or pump with ideally controlled normalized speed y as input signal"
-  extends Buildings.Fluid.Movers.BaseClasses.PrescribedFlowMachine;
+  extends Buildings.Fluid.Movers.BaseClasses.FlowControlledMachine;
 
   Modelica.Blocks.Interfaces.RealInput y(min=0, unit="1")
     "Constant normalized rotational speed"
@@ -18,38 +18,24 @@ model FlowMachine_y
   // would yield to a translation warning
   // Non-literal value.
   // In nominal attribute for fan.filter.u.
-protected
-  Modelica.Blocks.Math.Gain gaiSpe(
-    final k=per.N_nominal,
-    u(min=0, max=1),
-    y(final quantity="AngularVelocity",
-      final unit="1/min",
-      nominal=3000)) "Gain for speed input signal"
-    annotation (Placement(transformation(extent={{-6,64},{6,76}})));
 equation
-  connect(y, gaiSpe.u) annotation (Line(
-      points={{1.11022e-15,120},{0,104},{0,104},{0,92},{-20,92},{-20,70},{-7.2,
-          70}},
-      color={0,0,127},
-      smooth=Smooth.None));
-
-   connect(filter.y, N_filtered) annotation (Line(
+  connect(filter.y, y_filtered) annotation (Line(
       points={{34.7,88},{50,88}},
       color={0,0,127},
       smooth=Smooth.None));
 
   if filteredSpeed then
-    connect(gaiSpe.y, filter.u) annotation (Line(
-      points={{6.6,70},{12.6,70},{12.6,88},{18.6,88}},
+    connect(y, filter.u) annotation (Line(
+      points={{0,120},{0,88},{18.6,88}},
       color={0,0,127},
       smooth=Smooth.None));
-    connect(filter.y, N_actual) annotation (Line(
+    connect(filter.y, y_actual) annotation (Line(
       points={{34.7,88},{38,88},{38,50},{110,50}},
       color={0,0,127},
       smooth=Smooth.None));
   else
-    connect(gaiSpe.y, N_actual) annotation (Line(
-      points={{6.6,70},{58,70},{58,50},{110,50}},
+    connect(y, y_actual) annotation (Line(
+      points={{0,120},{0,50},{110,50}},
       color={0,0,127},
       smooth=Smooth.None));
   end if;

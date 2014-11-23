@@ -45,11 +45,11 @@ model FlowMachine_Nrpm_stratos "Model test using a Wilo Stratos 80/1-12 pump"
     annotation (Placement(transformation(extent={{-36,88},{-24,100}})));
   Buildings.Fluid.Movers.FlowMachine_Nrpm stratosPump80dash1to12_1(
   redeclare package Medium = Modelica.Media.Water.StandardWater,
-  N_nominal=N_nominal,
-  pressure=pressure,
-  use_powerCharacteristic=true,
-  power=power,
-    N_start=N_nominal) "Wilo Stratos pump"
+  per(
+    pressure=pressure,
+    use_powerCharacteristic=true,
+    power=power),
+  y_start=1) "Wilo Stratos pump"
     annotation (Placement(transformation(extent={{-60,60},{-40,80}})));
   Buildings.Fluid.Movers.FlowMachine_m_flow fan1(
                                                 redeclare package Medium =
@@ -57,11 +57,12 @@ model FlowMachine_Nrpm_stratos "Model test using a Wilo Stratos 80/1-12 pump"
     annotation (Placement(transformation(extent={{38,10},{58,30}})));
   Buildings.Fluid.Movers.FlowMachine_Nrpm stratosPump80dash1to12_2(
   redeclare package Medium = Modelica.Media.Water.StandardWater,
-  N_nominal=N_nominal,
-  pressure=pressure,
-  use_powerCharacteristic=true,
-  power=power,
-    N_start=N_nominal) "Wilo Stratos pump"
+  per(
+    N_nominal=N_nominal,
+    pressure=pressure,
+    use_powerCharacteristic=true,
+    power=power),
+  y_start=1) "Wilo Stratos pump"
     annotation (Placement(transformation(extent={{-60,10},{-40,30}})));
   Buildings.Fluid.Movers.FlowMachine_m_flow fan2(
                                                 redeclare package Medium =
@@ -69,11 +70,12 @@ model FlowMachine_Nrpm_stratos "Model test using a Wilo Stratos 80/1-12 pump"
     annotation (Placement(transformation(extent={{38,-36},{58,-16}})));
   Buildings.Fluid.Movers.FlowMachine_Nrpm stratosPump80dash1to12_3(
   redeclare package Medium = Modelica.Media.Water.StandardWater,
-  N_nominal=N_nominal,
-  pressure=pressure,
-  use_powerCharacteristic=true,
-  power=power,
-    N_start=N_nominal) "Wilo Stratos pump"
+  per(
+    N_nominal=N_nominal,
+    pressure=pressure,
+    use_powerCharacteristic=true,
+    power=power),
+    y_start=1) "Wilo Stratos pump"
     annotation (Placement(transformation(extent={{-60,-36},{-40,-16}})));
   Buildings.Fluid.Movers.FlowMachine_m_flow fan3(
                                                 redeclare package Medium =
@@ -81,23 +83,24 @@ model FlowMachine_Nrpm_stratos "Model test using a Wilo Stratos 80/1-12 pump"
     annotation (Placement(transformation(extent={{38,-80},{58,-60}})));
   Buildings.Fluid.Movers.FlowMachine_Nrpm stratosPump80dash1to12_4(
   redeclare package Medium = Modelica.Media.Water.StandardWater,
-  N_nominal=N_nominal,
-  pressure=pressure,
-  use_powerCharacteristic=true,
-  power=power,
-    N_start=N_nominal) "Wilo Stratos pump"
+  per(
+    N_nominal=N_nominal,
+    pressure=pressure,
+    use_powerCharacteristic=true,
+    power=power),
+    y_start=1) "Wilo Stratos pump"
     annotation (Placement(transformation(extent={{-60,-80},{-40,-60}})));
-  Buildings.Fluid.Movers.FlowMachine_m_flow fan4(
-                                                redeclare package Medium =
+  Buildings.Fluid.Movers.FlowMachine_m_flow fan4(redeclare package Medium =
         Modelica.Media.Water.StandardWater, m_flow_nominal=3)
     annotation (Placement(transformation(extent={{38,-130},{58,-110}})));
   Buildings.Fluid.Movers.FlowMachine_Nrpm stratosPump80dash1to12_5(
   redeclare package Medium = Modelica.Media.Water.StandardWater,
-  N_nominal=N_nominal,
-  pressure=pressure,
-  use_powerCharacteristic=true,
-  power=power,
-    N_start=N_nominal) "Wilo Stratos pump"
+  per(
+    N_nominal=N_nominal,
+    pressure=pressure,
+    use_powerCharacteristic=true,
+    power=power),
+    y_start=1) "Wilo Stratos pump"
     annotation (Placement(transformation(extent={{-60,-130},{-40,-110}})));
   Modelica.Blocks.Sources.Constant rpm2(k=2610) "Pump speed control signal"
     annotation (Placement(transformation(extent={{-90,34},{-78,46}})));

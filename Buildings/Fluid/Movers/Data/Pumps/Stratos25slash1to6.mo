@@ -1,6 +1,6 @@
 within Buildings.Fluid.Movers.Data.Pumps;
 record Stratos25slash1to6 "Pump data for a Wilo Stratos 25/1-6 pump"
-  extends Generic(
+  extends SpeedControlled_Nrpm(
     N_nominal=2540,
     use_powerCharacteristic=true,
     power(V_flow={8.4618254914e-06,0.000274485730449,0.000555832400486,
@@ -17,17 +17,17 @@ record Stratos25slash1to6 "Pump data for a Wilo Stratos 25/1-6 pump"
 http://productfinder.wilo.com/en/COM/product/00000018000028040002003a/fc_product_datasheet</a>
 </p>
 <p>
-The nominal rpm is arbitrarily chosen as the rpm of the pump curve 
+The nominal rpm is arbitrarily chosen as the rpm of the pump curve
 in the data sheet that has the highest rpm,
-without being limited by the maximum power limitation 
+without being limited by the maximum power limitation
 (see dotted curve on figure below).
-Pump curves (H(m_flow) and P(m_flow)) from the data sheets 
-are digitized using 
+Pump curves (H(m_flow) and P(m_flow)) from the data sheets
+are digitized using
 <a href=\"http://arohatgi.info/WebPlotDigitizer/app/\">web plot digitizer</a>.
 </p>
 <h4>Limitations:</h4>
 <ul>
-<li>The pump curve cap at high rpm that can be seen is not enforced 
+<li>The pump curve cap at high rpm that can be seen is not enforced
 by the model.
 </li>
 <li>

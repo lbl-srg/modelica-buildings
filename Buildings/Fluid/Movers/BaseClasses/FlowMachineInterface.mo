@@ -3,7 +3,8 @@ partial model FlowMachineInterface
   "Partial model with performance curves for fans or pumps"
   extends Buildings.Fluid.Movers.BaseClasses.PowerInterface(
     VMachine_flow(nominal=V_flow_nominal, start=V_flow_nominal),
-    V_flow_max(nominal=V_flow_nominal, start=V_flow_nominal));
+    V_flow_max(nominal=V_flow_nominal, start=V_flow_nominal),
+    redeclare Data.SpeedControlled_y per);
 
   import Modelica.Constants;
   import cha = Buildings.Fluid.Movers.BaseClasses.Characteristics;
@@ -25,41 +26,33 @@ partial model FlowMachineInterface
   parameter Modelica.Blocks.Types.Init init=Modelica.Blocks.Types.Init.InitialOutput
     "Type of initialization (no init/steady state/initial state/initial output)"
     annotation(Dialog(tab="Dynamics", group="Filtered speed",enable=filteredSpeed));
-  parameter Real N_start=0 "Initial value of speed"
+  parameter Real y_start(min=0, max=1, unit="1")=0 "Initial value of speed"
     annotation(Dialog(tab="Dynamics", group="Filtered speed",enable=filteredSpeed));
 
-  // Speed
-  // We set the nominal value to 3000 as this is the
-  // right order of magnitude. Using per.N_nominal
-  // would yield to a translation warning
-  // Non-literal value.
-  // In nominal attribute for fan.N_actual
-  Modelica.Blocks.Interfaces.RealOutput N_actual(min=0,
-                                                 final quantity="AngularVelocity",
-                                                 final unit="1/min",
-                                                 nominal=3000)
+  // Normalized speed
+  Modelica.Blocks.Interfaces.RealOutput y_actual(min=0,
+                                                 final unit="1")
     annotation (Placement(transformation(extent={{100,40},{120,60}}),
         iconTransformation(extent={{100,40},{120,60}})));
 
-  // "Shaft rotational speed in rpm";
-  Real r_N(min=0, start=N_start/per.N_nominal, unit="1")
-    "Ratio N_actual/N_nominal";
+  // "Shaft rotational speed";
+  Real r_N(min=0, start=y_start, unit="1") "Ratio N_actual/N_nominal";
   Real r_V(start=1, unit="1") "Ratio V_flow/V_flow_max";
 
 protected
-  Modelica.Blocks.Interfaces.RealOutput N_filtered(min=0, start=N_start) if
-       filteredSpeed "Filtered speed in the range 0..N_nominal"
+  Modelica.Blocks.Interfaces.RealOutput y_filtered(min=0, start=y_start) if
+       filteredSpeed "Filtered speed in the range 0..1"
     annotation (Placement(transformation(extent={{40,78},{60,98}}),
         iconTransformation(extent={{60,50},{80,70}})));
   Modelica.Blocks.Continuous.Filter filter(
      order=2,
      f_cut=5/(2*Modelica.Constants.pi*riseTime),
      final init=init,
-     final y_start=N_start,
+     final y_start=y_start,
      x(each stateSelect=StateSelect.always),
-     u_nominal=per.N_nominal,
-     u(final quantity="AngularVelocity", final unit="1/min", nominal=3000),
-     y(final quantity="AngularVelocity", final unit="1/min", nominal=3000),
+     u_nominal=1,
+     u(final unit="1"),
+     y(final unit="1"),
      final analogFilter=Modelica.Blocks.Types.AnalogFilter.CriticalDamping,
      final filterType=Modelica.Blocks.Types.FilterType.LowPass) if
         filteredSpeed
@@ -437,7 +430,7 @@ the simulation stops.");
 equation
 
   // Hydraulic equations
-  r_N = N_actual/per.N_nominal;
+  r_N = y_actual;
   r_V = VMachine_flow/V_flow_max;
   // For the homotopy method, we approximate dpMachine by an equation
   // that is linear in VMachine_flow, and that goes linearly to 0 as r_N goes to 0.
@@ -588,12 +581,12 @@ equation
           smooth=Smooth.None),
         Text(extent={{64,68},{114,54}},
           lineColor={0,0,127},
-          textString="N")}),
+          textString="y")}),
     Documentation(info="<html>
 <p>
 This is an interface that implements the functions to compute the head, power draw
 and efficiency of fans and pumps. It is used by the model
-<a href=\"modelica://Buildings.Fluids.Movers.BaseClasses.PrescribedFlowMachine\">PrescribedFlowMachine</a>.
+<a href=\"modelica://Buildings.Fluids.Movers.BaseClasses.FlowControlledMachine\">FlowControlledMachine</a>.
 </p>
 <p>
 The nominal hydraulic characteristic (volume flow rate versus total pressure) is given by a set of data points
@@ -609,7 +602,7 @@ operating points.
 <li>
 If <code>per.use_powerCharacteristic = false</code>, then the data points for
 normalized volume flow rate versus efficiency is used to determine the efficiency, 
-and then the power consumption. The default is a constant efficiency of 0.8.
+and then the power consumption. The default is a constant efficiency of 0.7.
 </li>
 <li>
 If <code>per.use_powerCharacteristic = true</code>, then the data points for
