@@ -15,8 +15,8 @@ partial model PowerInterface
   parameter Boolean homotopyInitialization = true "= true, use homotopy method"
     annotation(Evaluate=true, Dialog(tab="Advanced"));
 
-  replaceable parameter Data.FlowControlled per constrainedby
-    Data.FlowControlled "Record with performance data"
+  replaceable parameter Data.FlowControlled per
+    constrainedby Data.FlowControlled "Record with performance data"
                                    annotation (choicesAllMatching=true,
       Placement(transformation(extent={{60,-80},{80,-60}})));
 
