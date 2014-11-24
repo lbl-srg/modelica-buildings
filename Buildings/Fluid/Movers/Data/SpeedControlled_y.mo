@@ -50,13 +50,14 @@ the motor efficiency and the hydraulic efficiency.
 <p>
 This record may be used to assign for example fan performance data using
 declaration such as
+</p>
 <pre>
   Buildings.Fluid.Movers.FlowMachine_y fan(
       redeclare package Medium = Medium,
       per(pressure(V_flow={0,m_flow_nominal,2*m_flow_nominal}/1.2,
                    dp={2*dp_nominal,dp_nominal,0}))) \"Fan\";
 </pre>
-</p>
+<p>
 This data record can be used with
 </p>
 <ul>
@@ -80,10 +81,12 @@ Buildings.Fluid.Movers.FlowMachine_Nrpm</a>,
 use the record
 <a href=\"modelica://Buildings.Fluid.Movers.Data.Generic_Nrpm\">
 Buildings.Fluid.Movers.Data.Generic_Nrpm</a>.
+</p>
 </html>",
 revisions="<html>
 <ul>
-<li>November 22, 2014, by Michael Wetter:<br/>
+<li>
+November 22, 2014, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

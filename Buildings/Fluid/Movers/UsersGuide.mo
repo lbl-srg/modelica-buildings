@@ -20,7 +20,8 @@ The models use
 performance curves that compute pressure rise,
 electrical power draw and efficiency as a function
 of the volume flow rate and the speed.
-The following performance curves are implemented:<br/>
+The following performance curves are implemented:
+</p>
 <table summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
 <tr>
 <th>Independent variable</th>
@@ -53,7 +54,6 @@ powerParameters</a></td>
 power</a></td>
 </tr>
 </table>
-</p>
 <p>
 These performance curves are implemented in
 <a href=\"modelica://Buildings.Fluid.Movers.BaseClasses.Characteristics\">
@@ -123,12 +123,10 @@ FlowMachine_Nrpm</a>
 <td style=\"background-color:DarkGreen\"/>
 </tr>
 </table>
-
 <p>
 &nbsp;
 <!-- empty paragraph to add spacing below table -->
 </p>
-<!-- fixme: add table -->
 <h5>Models that use performance curves for pressure rise</h5>
 <p>
 The models
@@ -149,7 +147,8 @@ Buildings.Fluid.Movers.BaseClasses.Characteristics.pressure</a>.
 
 <p>
 For example, suppose a pump needs to be modeled whose pressure versus flow relation crosses, at
-full speed, the points shown in the table below.</p>
+full speed, the points shown in the table below.
+</p>
   <table summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
   <tr>
       <th>Volume flow rate [m<sup>3</sup>&frasl;h] </th>
@@ -180,7 +179,8 @@ Then, a declaration would be
 </pre>
 
 <p>
-This will model the following pump curve for the pump input signal <code>y=1</code>.</p>
+This will model the following pump curve for the pump input signal <code>y=1</code>.
+</p>
 <p align=\"center\">
 <img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Fluid/Movers/UsersGuide/pumpCurve.png\"/>
 </p>

@@ -35,11 +35,12 @@ as an input signal.
 <p>
 This record may be used to assign for example fan performance data using
 declaration such as
+</p>
 <pre>
   Buildings.Fluid.Movers.FlowMachine_m_flow fan(
       redeclare package Medium = Medium) \"Fan\";
 </pre>
-</p>
+<p>
 This data record can be used with
 </p>
 <ul>

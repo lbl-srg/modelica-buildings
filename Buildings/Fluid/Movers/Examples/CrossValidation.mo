@@ -148,10 +148,10 @@ Each pump has identical mass flow rate and pressure rise.
 </p>
 <p>
 Note that for the instances
-<href=\"modelica://Buildings.Fluid.Movers.FlowMachine_dp\">
+<a href=\"modelica://Buildings.Fluid.Movers.FlowMachine_dp\">
 Buildings.Fluid.Movers.FlowMachine_dp</a>
 and
-<href=\"modelica://Buildings.Fluid.Movers.FlowMachine_m_flow\">
+<a href=\"modelica://Buildings.Fluid.Movers.FlowMachine_m_flow\">
 Buildings.Fluid.Movers.FlowMachine_m_flow</a>,
 we had to assign the efficiencies (otherwise the default constant
 efficiency of <i>0.7</i> would have been used).
@@ -164,17 +164,19 @@ the speed is different from the nominal speed <code>N_nominal</code>
 because similarity laws are valid for speed and not for
 mass flow rate.
 To see the error, change the assignments
+</p>
 <pre>
  redeclare Data.Pumps.Stratos30slash1to8 per(
      use_powerCharacteristic=true,
      hydraulicEfficiency=efficiency,
      motorEfficiency=efficiency)
 </pre>
+<p>
 to
+</p>
 <pre>
  redeclare Data.Pumps.Stratos30slash1to8 per
 </pre>
-</p>
 </html>", revisions="<html>
 <ul>
 <li>
