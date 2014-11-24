@@ -70,7 +70,7 @@ First implementation.
   record efficiencyParameters "Record for efficiency parameters"
     extends Modelica.Icons.Record;
     parameter Modelica.SIunits.VolumeFlowRate  V_flow[:](each min=0)
-      "Volumetric flow rate divided by nominal flow rate at user-selected operating points";
+      "Volumetric flow rate at user-selected operating points";
     parameter Real eta[size(V_flow,1)](
        each min=0, each max=1, each displayUnit="1")
       "Fan or pump efficiency at these flow rates";
@@ -333,9 +333,6 @@ First implementation.
                 x1=r_N,
                 x2=0.1,
                 deltaX=delta);
-      // Since the coefficients for the spline were evaluated for
-      // rat_nominal = V_flow_nominal/r_N_nominal = V_flow_nominal/1, we use
-      // V_flow_nominal below
       for j in 1:n-1 loop
          if rat > per.V_flow[j] then
            i := j;
@@ -397,7 +394,7 @@ First implementation.
       Buildings.Fluid.Movers.BaseClasses.Characteristics.efficiencyParameters
       per "Efficiency performance data";
     input Modelica.SIunits.VolumeFlowRate V_flow
-      "Volumetric flow rate divided by nominal flow rate";
+      "Volumetric flow rate";
     input Real d[:] "Derivatives at support points for spline interpolation";
     input Real r_N(unit="1") "Relative revolution, r_N=N/N_nominal";
     input Real delta "Small value for switching implementation around zero rpm";
@@ -469,7 +466,7 @@ as an independent variable.
 September 30, 2014, by Filip Jorissen:<br/>
 Changed polynomial to be evaluated at <code>V_flow</code>
 instead of <code>r_V</code>.
-</li>       
+</li>
 <li>
 April 19, 2014, by Filip Jorissen:<br/>
 Changed polynomial to be evaluated at <code>r_V/r_N</code>
@@ -493,7 +490,7 @@ and records for parameter that can be used with these performance
 curves.
 </p>
 <p>
-See the 
+See the
 <a href=\"modelica://Buildings.Fluid.Movers.UsersGuide\">
 User's Guide</a> for information about these performance curves.
 </p>
