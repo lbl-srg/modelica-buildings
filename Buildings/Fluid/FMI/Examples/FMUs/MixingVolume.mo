@@ -6,9 +6,6 @@ block MixingVolume "Container to export a control volume as an FMU"
   parameter Modelica.SIunits.Volume V=1 "Volume";
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal = 0.1
     "Nominal mass flow rate";
-  parameter Boolean allowFlowReversal = true
-    "= true to allow flow reversal, false restricts to design direction (port_a -> port_b)"
-    annotation(Dialog(tab="Assumptions"), Evaluate=true);
 
 protected
   Inlet bouIn(
@@ -21,12 +18,11 @@ protected
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
 
   Buildings.Fluid.MixingVolumes.MixingVolume vol(
-    redeclare package Medium = Medium,
-    m_flow_nominal=m_flow_nominal,
-    allowFlowReversal=allowFlowReversal,
-    V=V,
-    nPorts=2,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState) "Control volume"
+    redeclare final package Medium = Medium,
+    final m_flow_nominal=m_flow_nominal,
+    final allowFlowReversal=allowFlowReversal,
+    final V=V,
+    nPorts=2) "Control volume"
     annotation (Placement(transformation(extent={{-10,0},{10,20}})));
 equation
   connect(inlet, bouIn.inlet) annotation (Line(

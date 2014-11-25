@@ -8,9 +8,7 @@ block ResistanceVolume
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal = 0.1
     "Nominal mass flow rate";
   parameter Modelica.SIunits.Pressure dp_nominal = 100 "Nominal pressure drop";
-  parameter Boolean allowFlowReversal = true
-    "= true to allow flow reversal, false restricts to design direction (port_a -> port_b)"
-    annotation(Dialog(tab="Assumptions"), Evaluate=true);
+
   Modelica.Blocks.Math.Feedback pOut "Pressure at component outlet"
     annotation (Placement(transformation(extent={{10,-70},{30,-50}})));
 
