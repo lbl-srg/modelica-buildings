@@ -278,7 +278,7 @@ __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Move
         "Simulate and plot"),
     Documentation(info="<html>
 <p>This example model provides a validation for the Nrpm model. A Wilo Stratos 80/1-12 pump is simulated on five different rpms for a changing load. The resulting curves for the head (pressure increase) and mass flow rate are plotted (colored lines) over the pump data sheet. The resulting figure is shown below. </p>
-<p><br><img src=\"modelica://Buildings/Resources/Images/Fluid/Movers/Examples/PumpValidation.png\"/></p>
+<p><br/><img src=\"modelica://Buildings/Resources/Images/Fluid/Movers/Examples/PumpValidation.png\" alt=\"Figure not found\"/></p>
 <p>Figure adapted from <a href=\"http://productfinder.wilo.com/en/COM/product/0000001700017d670001003a/fc_product_datasheet\">Wilo Stratos 80/1-12 data sheet</a></p>
 </html>",
         revisions="<html>
