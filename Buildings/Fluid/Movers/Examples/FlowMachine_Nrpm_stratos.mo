@@ -10,7 +10,7 @@ model FlowMachine_Nrpm_stratos "Model test using a Wilo Stratos 80/1-12 pump"
 
   Buildings.Fluid.Sources.Boundary_pT sin(
     redeclare package Medium =Medium,
-    nPorts=5) "Fixed pressure boundary condition"
+    nPorts=5) "Boundary condition with fixed pressure"
     annotation (Placement(transformation(extent={{130,-10},{110,10}})));
 
   Modelica.Blocks.Sources.Ramp m_flow(
@@ -51,24 +51,25 @@ model FlowMachine_Nrpm_stratos "Model test using a Wilo Stratos 80/1-12 pump"
     "Wilo Stratos pump"
     annotation (Placement(transformation(extent={{-60,-130},{-40,-110}})));
 
-  Buildings.Fluid.Movers.FlowMachine_m_flow fan1(redeclare package Medium =
-        Medium, m_flow_nominal=3)
+  Buildings.Fluid.Movers.FlowMachine_m_flow forcedPump1(redeclare package
+      Medium = Medium, m_flow_nominal=3)
+    "Pump for forcing a certain mass flow rate"
     annotation (Placement(transformation(extent={{38,60},{58,80}})));
-  Buildings.Fluid.Movers.FlowMachine_m_flow fan2(
-    redeclare package Medium = Medium,
-    m_flow_nominal=3)
+  Buildings.Fluid.Movers.FlowMachine_m_flow forcedPump2(redeclare package
+      Medium = Medium, m_flow_nominal=3)
+    "Pump for forcing a certain mass flow rate"
     annotation (Placement(transformation(extent={{38,10},{58,30}})));
-  Buildings.Fluid.Movers.FlowMachine_m_flow fan3(
-    redeclare package Medium = Medium,
-    m_flow_nominal=3)
+  Buildings.Fluid.Movers.FlowMachine_m_flow forcedPump3(redeclare package
+      Medium = Medium, m_flow_nominal=3)
+    "Pump for forcing a certain mass flow rate"
     annotation (Placement(transformation(extent={{38,-36},{58,-16}})));
-  Buildings.Fluid.Movers.FlowMachine_m_flow fan4(
-    redeclare package Medium = Medium,
-    m_flow_nominal=3)
+  Buildings.Fluid.Movers.FlowMachine_m_flow forcedPump4(redeclare package
+      Medium = Medium, m_flow_nominal=3)
+    "Pump for forcing a certain mass flow rate"
     annotation (Placement(transformation(extent={{38,-80},{58,-60}})));
-  Buildings.Fluid.Movers.FlowMachine_m_flow fan5(
-    redeclare package Medium = Medium,
-    m_flow_nominal=3)
+  Buildings.Fluid.Movers.FlowMachine_m_flow forcedPump5(redeclare package
+      Medium = Medium, m_flow_nominal=3)
+    "Pump for forcing a certain mass flow rate"
     annotation (Placement(transformation(extent={{38,-130},{58,-110}})));
 
   Modelica.Blocks.Sources.Constant rpm1(k=2960) "Pump speed control signal"
@@ -82,41 +83,51 @@ model FlowMachine_Nrpm_stratos "Model test using a Wilo Stratos 80/1-12 pump"
   Modelica.Blocks.Sources.Constant rpm5(k=900) "Pump speed control signal"
     annotation (Placement(transformation(extent={{-90,-108},{-78,-96}})));
 
-  Modelica.Blocks.Math.Min min1 annotation (Placement(transformation(
+  Modelica.Blocks.Math.Min min1
+    "Minimum for not going outside of the figure range (see documentation)"
+                                annotation (Placement(transformation(
         extent={{-5,-5},{5,5}},
         rotation=0,
         origin={35,91})));
-  Modelica.Blocks.Math.Min min2 annotation (Placement(transformation(
+  Modelica.Blocks.Math.Min min2
+    "Minimum for not going outside of the figure range (see documentation)"
+                                annotation (Placement(transformation(
         extent={{-5,-5},{5,5}},
         rotation=0,
         origin={35,45})));
-  Modelica.Blocks.Math.Min min3 annotation (Placement(transformation(
+  Modelica.Blocks.Math.Min min3
+    "Minimum for not going outside of the figure range (see documentation)"
+                                annotation (Placement(transformation(
         extent={{-5,-5},{5,5}},
         rotation=0,
         origin={35,-5})));
-  Modelica.Blocks.Math.Min min4 annotation (Placement(transformation(
+  Modelica.Blocks.Math.Min min4
+    "Minimum for not going outside of the figure range (see documentation)"
+                                annotation (Placement(transformation(
         extent={{-5,-5},{5,5}},
         rotation=0,
         origin={35,-49})));
-  Modelica.Blocks.Math.Min min5 annotation (Placement(transformation(
+  Modelica.Blocks.Math.Min min5
+    "Minimum for not going outside of the figure range (see documentation)"
+                                annotation (Placement(transformation(
         extent={{-5,-5},{5,5}},
         rotation=0,
         origin={35,-97})));
 
   Modelica.Blocks.Sources.Constant mMax_flow1(k=40/3.6)
-    "Maximum flow rate of the pump"
+    "Maximum flow rate of the pump at given rpm"
     annotation (Placement(transformation(extent={{2,76},{14,88}})));
   Modelica.Blocks.Sources.Constant mMax_flow2(k=55/3.6)
-    "Maximum flow rate of the pump"
+    "Maximum flow rate of the pump at given rpm"
     annotation (Placement(transformation(extent={{0,30},{12,42}})));
   Modelica.Blocks.Sources.Constant mMax_flow3(k=40/3.6)
-    "Maximum flow rate of the pump"
+    "Maximum flow rate of the pump at given rpm"
     annotation (Placement(transformation(extent={{0,-20},{12,-8}})));
   Modelica.Blocks.Sources.Constant mMax_flow4(k=22/3.6)
-    "Maximum flow rate of the pump"
+    "Maximum flow rate of the pump at given rpm"
     annotation (Placement(transformation(extent={{0,-64},{12,-52}})));
   Modelica.Blocks.Sources.Constant mMax_flow5(k=16/3.6)
-    "Maximum flow rate of the pump"
+    "Maximum flow rate of the pump at given rpm"
     annotation (Placement(transformation(extent={{0,-112},{12,-100}})));
 
 equation
@@ -124,7 +135,7 @@ equation
       points={{-100,-18.8},{-70,-18.8},{-70,70},{-60,70}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(fan1.port_a, pump1.port_b) annotation (Line(
+  connect(forcedPump1.port_a, pump1.port_b) annotation (Line(
       points={{38,70},{-40,70}},
       color={0,127,255},
       smooth=Smooth.None));
@@ -149,19 +160,19 @@ equation
       points={{-60,-120},{-70,-120},{-70,-25.2},{-100,-25.2}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(pump2.port_b,fan2. port_a) annotation (Line(
+  connect(pump2.port_b, forcedPump2.port_a) annotation (Line(
       points={{-40,20},{38,20}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(pump3.port_b,fan3. port_a) annotation (Line(
+  connect(pump3.port_b, forcedPump3.port_a) annotation (Line(
       points={{-40,-26},{38,-26}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(pump4.port_b,fan4. port_a) annotation (Line(
+  connect(pump4.port_b, forcedPump4.port_a) annotation (Line(
       points={{-40,-70},{38,-70}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(pump5.port_b,fan5. port_a) annotation (Line(
+  connect(pump5.port_b, forcedPump5.port_a) annotation (Line(
       points={{-40,-120},{38,-120}},
       color={0,127,255},
       smooth=Smooth.None));
@@ -181,7 +192,7 @@ equation
       points={{-77.4,-102},{-50,-102},{-50,-108}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(fan1.m_flow_in, min1.y) annotation (Line(
+  connect(forcedPump1.m_flow_in, min1.y) annotation (Line(
       points={{47.8,82},{48,82},{48,91},{40.5,91}},
       color={0,0,127},
       smooth=Smooth.None));
@@ -189,7 +200,7 @@ equation
       points={{29,94},{-23.4,94}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(min2.y,fan2. m_flow_in) annotation (Line(
+  connect(min2.y, forcedPump2.m_flow_in) annotation (Line(
       points={{40.5,45},{48,45},{48,32},{47.8,32}},
       color={0,0,127},
       smooth=Smooth.None));
@@ -197,15 +208,15 @@ equation
       points={{29,48},{-14,48},{-14,94},{-23.4,94}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(min3.y,fan3. m_flow_in) annotation (Line(
+  connect(min3.y, forcedPump3.m_flow_in) annotation (Line(
       points={{40.5,-5},{44.25,-5},{44.25,-14},{47.8,-14}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(min5.y,fan5. m_flow_in) annotation (Line(
+  connect(min5.y, forcedPump5.m_flow_in) annotation (Line(
       points={{40.5,-97},{44.25,-97},{44.25,-108},{47.8,-108}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(min4.y,fan4. m_flow_in) annotation (Line(
+  connect(min4.y, forcedPump4.m_flow_in) annotation (Line(
       points={{40.5,-49},{44.25,-49},{44.25,-58},{47.8,-58}},
       color={0,0,127},
       smooth=Smooth.None));
@@ -241,23 +252,23 @@ equation
       points={{12.6,-106},{20,-106},{20,-100},{29,-100}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(fan1.port_b, sin.ports[1]) annotation (Line(
+  connect(forcedPump1.port_b, sin.ports[1]) annotation (Line(
       points={{58,70},{100,70},{100,3.2},{110,3.2}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(fan2.port_b, sin.ports[2]) annotation (Line(
+  connect(forcedPump2.port_b, sin.ports[2]) annotation (Line(
       points={{58,20},{100,20},{100,1.6},{110,1.6}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(fan3.port_b, sin.ports[3]) annotation (Line(
+  connect(forcedPump3.port_b, sin.ports[3]) annotation (Line(
       points={{58,-26},{100,-26},{100,0},{110,0}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(fan4.port_b, sin.ports[4]) annotation (Line(
+  connect(forcedPump4.port_b, sin.ports[4]) annotation (Line(
       points={{58,-70},{100,-70},{100,-2.66667},{110,-2.66667},{110,-1.6}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(fan5.port_b, sin.ports[5]) annotation (Line(
+  connect(forcedPump5.port_b, sin.ports[5]) annotation (Line(
       points={{58,-120},{100,-120},{100,-1},{110,-1},{110,-3.2}},
       color={0,127,255},
       smooth=Smooth.None));
