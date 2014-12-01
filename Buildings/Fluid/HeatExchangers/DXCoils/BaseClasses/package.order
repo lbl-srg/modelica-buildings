@@ -2,13 +2,12 @@ ApparatusDewPoint
 ApparatusDryPoint
 Condensation
 CoolingCapacity
+DXCooling
 DryCoil
 DryWetSelector
-DXCooling
 EssentialParameters
 Evaporation
 InputPower
-NominalCondition
 PartialCoilCondition
 PartialCoilInterface
 PartialDXCoil
@@ -18,5 +17,6 @@ SpeedSelect
 SpeedShift
 UACp
 WetCoil
+NominalCondition
 Functions
 Examples
