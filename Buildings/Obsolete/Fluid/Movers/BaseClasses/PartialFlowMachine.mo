@@ -14,7 +14,7 @@ partial model PartialFlowMachine
       final m_flow(max = if allowFlowReversal then +Constants.inf else 0)),
       final showDesignFlowDirection=false);
 
-  Delays.DelayFirstOrder vol(
+ Buildings.Fluid.Delays.DelayFirstOrder vol(
     redeclare package Medium = Medium,
     tau=tau,
     energyDynamics=if dynamicBalance then energyDynamics else Modelica.Fluid.Types.Dynamics.SteadyState,
