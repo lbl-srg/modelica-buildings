@@ -1,7 +1,7 @@
-simulateModel("Buildings.Obsolete.Fluid.Movers.Examples.FlowMachine_y_pumpCurves", numberOfIntervals=500, method="dassl", resultFile="FlowMachine_y_pumpCurves");
+simulateModel("Buildings.Obsolete.Fluid.Movers.Examples.FlowMachine_y_pumpCurves", numberOfIntervals=500, method="dassl", resultFile="Obsolete.FlowMachine_y_pumpCurves");
 removePlots();
 createPlot(id = 5,
- filename = "FlowMachine_y_pumpCurves.mat",
+ filename = "Obsolete.FlowMachine_y_pumpCurves.mat",
  position = {30, 24, 406, 305},
  x = "pum.VMachine_flow",
  y = {"pum.dpMachine"},
