@@ -1,5 +1,4 @@
 UsersGuide
-Conversions
 Density
 DensityTwoPort
 EnthalpyFlowRate
@@ -23,5 +22,6 @@ TemperatureWetBulbTwoPort
 TraceSubstances
 TraceSubstancesTwoPort
 VolumeFlowRate
+Conversions
 Examples
 BaseClasses

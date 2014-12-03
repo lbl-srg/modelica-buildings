@@ -1,4 +1,4 @@
-StepResponseEpsilonNTU
 SingleCircuitMultipleCircuitEpsilonNTU
-StepResponseFiniteDifference
 SingleCircuitMultipleCircuitFiniteDifference
+StepResponseEpsilonNTU
+StepResponseFiniteDifference
