@@ -5,7 +5,10 @@ record SpeedControlled_Nrpm "Generic data record for FlowMachine_Nrpm"
   parameter Modelica.SIunits.Conversions.NonSIunits.AngularVelocity_rpm N_nominal = 1500
     "Nominal rotational speed for flow characteristic";
 
-  annotation (Documentation(revisions="<html>
+  annotation (
+  defaultComponentPrefixes = "parameter",
+  defaultComponentName = "per",
+  Documentation(revisions="<html>
 <ul>
 <li>November 22, 2014 by Michael Wetter:<br/>
 First implementation.

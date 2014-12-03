@@ -37,7 +37,10 @@ parameter
   parameter Buildings.Fluid.Movers.BaseClasses.Characteristics.flowParameters pressure
     "Volume flow rate vs. total pressure rise"
     annotation(Evaluate=true);
-  annotation (Documentation(
+  annotation (
+  defaultComponentPrefixes = "parameter",
+  defaultComponentName = "per",
+  Documentation(
 info="<html>
 <p>
 Record containing parameters for pumps or fans as can be found in data sheets.

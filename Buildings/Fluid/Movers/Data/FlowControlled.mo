@@ -25,7 +25,9 @@ record FlowControlled
   parameter Boolean use_powerCharacteristic=false
     "Use powerCharacteristic instead of efficiencyCharacteristic";
 
-  annotation (Documentation(
+  annotation(defaultComponentPrefixes = "parameter",
+             defaultComponentName = "per",
+  Documentation(
 info="<html>
 <p>
 Record containing parameters for pumps or fans
