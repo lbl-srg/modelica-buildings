@@ -112,8 +112,8 @@ This is the base class for examples that demonstrates the use of a flow machine 
 September 20, 2014, by Michael Wetter:<br/>
 Added <code>constrainedby</code> declaration for medium.
 Otherwise, the pedantic model check of 
-<a href=\"modelica://Buildings.Fluid.Movers.Examples.FlowMachine_Nrpm_Data\">
-Buildings.Fluid.Movers.Examples.FlowMachine_Nrpm_Data</a>
+<a href=\"modelica://Buildings.Fluid.Movers.Validation.SpeedControlled_Nrpm_Data\">
+Buildings.Fluid.Movers.Validation.SpeedControlled_Nrpm_Data</a>
 fails because water does not implemented the function
 <code>Xsaturation</code>.
 </li>

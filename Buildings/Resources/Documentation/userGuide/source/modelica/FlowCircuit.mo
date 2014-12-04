@@ -4,7 +4,7 @@ model FlowCircuit
   //package Medium = Buildings.Media.ConstantPropertyLiquidWater;
   //package Medium = Buildings.Media.GasesConstantDensity.SimpleAir;
  package Medium = Modelica.Media.Water.WaterIF97OnePhase_ph;
-  Buildings.Fluid.Movers.FlowMachine_y fan(
+  Buildings.Fluid.Movers.SpeedControlled_y fan(
     dynamicBalance=false,
     redeclare package Medium = Medium,
     m_flow_nominal=1,

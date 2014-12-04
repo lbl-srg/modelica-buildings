@@ -103,21 +103,21 @@ model ClosedLoop "Closed loop model of a dual-fan dual-duct system"
     dp1_nominal=0,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial) "Cooling coil"
     annotation (Placement(transformation(extent={{372,-146},{352,-166}})));
-  Buildings.Fluid.Movers.FlowMachine_y fanSupHot(
+  Buildings.Fluid.Movers.SpeedControlled_y fanSupHot(
     redeclare package Medium = MediumA,
     per(pressure(V_flow=mAirHot_flow_nominal/1.2*{0,2}, dp=600*{2,0})),
     dynamicBalance=true,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     "Supply air fan for hot deck"
     annotation (Placement(transformation(extent={{300,-10},{320,10}})));
-  Buildings.Fluid.Movers.FlowMachine_y fanSupCol(
+  Buildings.Fluid.Movers.SpeedControlled_y fanSupCol(
     redeclare package Medium = MediumA,
     per(pressure(V_flow=mAirCol_flow_nominal/1.2*{0,2}, dp=600*{2,0})),
     dynamicBalance=true,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     "Supply air fan for cold deck"
     annotation (Placement(transformation(extent={{302,-160},{322,-140}})));
-  Buildings.Fluid.Movers.FlowMachine_y fanRet(
+  Buildings.Fluid.Movers.SpeedControlled_y fanRet(
     redeclare package Medium = MediumA,
     per(pressure(V_flow=m_flow_nominal/1.2*{0,2}, dp=100*{2,0})),
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
@@ -450,7 +450,7 @@ model ClosedLoop "Closed loop model of a dual-fan dual-duct system"
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={120,-170})));
-  Fluid.Movers.FlowMachine_m_flow pumPreHea(
+  Fluid.Movers.FlowControlled_m_flow pumPreHea(
     redeclare package Medium = MediumW,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     m_flow_nominal=mWatPre_flow_nominal)

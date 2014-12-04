@@ -39,7 +39,7 @@ model SpaceCooling "Space cooling with DX coils"
     (QRooC_flow_nominal + mA_flow_nominal*(TASup_nominal-THeaRecLvg-dTFan)*1006)
     "Cooling load of coil, taking into account economizer, and increased due to latent heat removal";
 
-  Fluid.Movers.FlowMachine_m_flow fan(redeclare package Medium = Medium,
+  Buildings.Fluid.Movers.FlowControlled_m_flow fan(redeclare package Medium = Medium,
       m_flow_nominal=mA_flow_nominal,
     dynamicBalance=false) "Supply air fan"
     annotation (Placement(transformation(extent={{100,-74},{120,-54}})));
@@ -94,9 +94,9 @@ model SpaceCooling "Space cooling with DX coils"
     "Room model connected to single speed coil"
                                      annotation (Placement(transformation(
           extent={{120,40},{140,60}})));
-  Fluid.Movers.FlowMachine_m_flow fan1(
-                                      redeclare package Medium = Medium,
-      m_flow_nominal=mA_flow_nominal,
+  Buildings.Fluid.Movers.FlowControlled_m_flow fan1(
+    redeclare package Medium = Medium,
+    m_flow_nominal=mA_flow_nominal,
     dynamicBalance=false) "Supply air fan"
     annotation (Placement(transformation(extent={{100,-174},{120,-154}})));
   Fluid.HeatExchangers.ConstantEffectiveness hex1(
@@ -149,7 +149,7 @@ model SpaceCooling "Space cooling with DX coils"
           nSta=1)
     annotation (Placement(transformation(extent={{0,-40},{20,-20}})));
 
-  Buildings.Fluid.HeatExchangers.DXCoils.Data.Generic.DXCoil
+  parameter Buildings.Fluid.HeatExchangers.DXCoils.Data.Generic.DXCoil
        datCoiMulSpe(nSta=2, sta=
        {Buildings.Fluid.HeatExchangers.DXCoils.Data.Generic.BaseClasses.Stage(
         spe=900/60,
@@ -183,7 +183,7 @@ model SpaceCooling "Space cooling with DX coils"
     "Room model connected to variable speed coil"
                                      annotation (Placement(transformation(
           extent={{240,40},{260,60}})));
-  Fluid.Movers.FlowMachine_m_flow fan2(
+  Buildings.Fluid.Movers.FlowControlled_m_flow fan2(
                                       redeclare package Medium = Medium,
       m_flow_nominal=mA_flow_nominal,
     dynamicBalance=false) "Supply air fan"

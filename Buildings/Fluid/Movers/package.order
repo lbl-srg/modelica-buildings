@@ -1,8 +1,9 @@
 UsersGuide
-FlowMachine_Nrpm
-FlowMachine_dp
-FlowMachine_m_flow
-FlowMachine_y
+FlowControlled_dp
+FlowControlled_m_flow
+SpeedControlled_Nrpm
+SpeedControlled_y
 Data
 Examples
+Validation
 BaseClasses

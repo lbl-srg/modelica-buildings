@@ -88,8 +88,8 @@ Data.SpeedControlled_Nrpm</a>
 </tr>
 <tr>
 <th style=\"text-align:left\">
-<a href=\"modelica://Buildings.Fluid.Movers.FlowMachine_m_flow\">
-FlowMachine_m_flow</a>
+<a href=\"modelica://Buildings.Fluid.Movers.FlowControlled_m_flow\">
+FlowControlled_m_flow</a>
 </th>
 <td style=\"background-color:DarkGreen\"/>
 <td style=\"background-color:DarkGreen\"/>
@@ -97,8 +97,8 @@ FlowMachine_m_flow</a>
 </tr>
 <tr>
 <th>
-<a href=\"modelica://Buildings.Fluid.Movers.FlowMachine_dp\">
-FlowMachine_dp</a>
+<a href=\"modelica://Buildings.Fluid.Movers.FlowControlled_dp\">
+FlowControlled_dp</a>
 </th>
 <td style=\"background-color:DarkGreen\"/>
 <td style=\"background-color:DarkGreen\"/>
@@ -106,8 +106,8 @@ FlowMachine_dp</a>
 </tr>
 <tr>
 <th>
-<a href=\"modelica://Buildings.Fluid.Movers.FlowMachine_y\">
-FlowMachine_y</a>
+<a href=\"modelica://Buildings.Fluid.Movers.SpeedControlled_y\">
+SpeedControlled_y</a>
 </th>
 <td style=\"background-color:DarkRed\"/>
 <td style=\"background-color:DarkGreen\"/>
@@ -115,8 +115,8 @@ FlowMachine_y</a>
 </tr>
 <tr>
 <th>
-<a href=\"modelica://Buildings.Fluid.Movers.FlowMachine_Nrpm\">
-FlowMachine_Nrpm</a>
+<a href=\"modelica://Buildings.Fluid.Movers.SpeedControlled_Nrpm\">
+SpeedControlled_Nrpm</a>
 </th>
 <td style=\"background-color:DarkRed\"/>
 <td style=\"background-color:DarkRed\"/>
@@ -130,10 +130,10 @@ FlowMachine_Nrpm</a>
 <h5>Models that use performance curves for pressure rise</h5>
 <p>
 The models
-<a href=\"modelica://Buildings.Fluid.Movers.FlowMachine_y\">
-Buildings.Fluid.Movers.FlowMachine_y</a> and
-<a href=\"modelica://Buildings.Fluid.Movers.FlowMachine_Nrpm\">
-Buildings.Fluid.Movers.FlowMachine_Nrpm</a>
+<a href=\"modelica://Buildings.Fluid.Movers.SpeedControlled_y\">
+Buildings.Fluid.Movers.SpeedControlled_y</a> and
+<a href=\"modelica://Buildings.Fluid.Movers.SpeedControlled_Nrpm\">
+Buildings.Fluid.Movers.SpeedControlled_Nrpm</a>
 take as an input either a control signal between <i>0</i> and <i>1</i>, or the
 rotational speed in units of <i>[1/min]</i>. From this input and the current flow rate,
 they compute the pressure rise.
@@ -171,7 +171,7 @@ full speed, the points shown in the table below.
 Then, a declaration would be
 </p>
 <pre>
-  Buildings.Fluid.Movers.FlowMachine_y pum(
+  Buildings.Fluid.Movers.SpeedControlled_y pum(
     redeclare package Medium = Medium,
     per.pressure(V_flow={0.0003,0.0006,0.0008},
                  dp    ={45,35,15}*1000))
@@ -187,10 +187,10 @@ This will model the following pump curve for the pump input signal <code>y=1</co
 
 <h5>Models that have idealized perfect controls</h5>
 <p>
-The models <a href=\"modelica://Buildings.Fluid.Movers.FlowMachine_dp\">
-Buildings.Fluid.Movers.FlowMachine_dp</a> and
-<a href=\"modelica://Buildings.Fluid.Movers.FlowMachine_m_flow\">
-Buildings.Fluid.Movers.FlowMachine_m_flow</a>
+The models <a href=\"modelica://Buildings.Fluid.Movers.FlowControlled_dp\">
+Buildings.Fluid.Movers.FlowControlled_dp</a> and
+<a href=\"modelica://Buildings.Fluid.Movers.FlowControlled_m_flow\">
+Buildings.Fluid.Movers.FlowControlled_m_flow</a>
 take as an input the pressure difference or the mass flow rate.
 This pressure difference or mass flow rate will be provided by the fan or pump,
 i.e., the fan or pump has idealized perfect control and infinite capacity.

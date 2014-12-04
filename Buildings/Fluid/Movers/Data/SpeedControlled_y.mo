@@ -55,7 +55,7 @@ This record may be used to assign for example fan performance data using
 declaration such as
 </p>
 <pre>
-  Buildings.Fluid.Movers.FlowMachine_y fan(
+  Buildings.Fluid.Movers.SpeedControlled_y fan(
       redeclare package Medium = Medium,
       per(pressure(V_flow={0,m_flow_nominal,2*m_flow_nominal}/1.2,
                    dp={2*dp_nominal,dp_nominal,0}))) \"Fan\";
@@ -65,22 +65,22 @@ This data record can be used with
 </p>
 <ul>
 <li>
-<a href=\"modelica://Buildings.Fluid.Movers.FlowMachine_y\">
-Buildings.Fluid.Movers.FlowMachine_y</a>
+<a href=\"modelica://Buildings.Fluid.Movers.SpeedControlled_y\">
+Buildings.Fluid.Movers.SpeedControlled_y</a>
 </li>
 <li>
-<a href=\"modelica://Buildings.Fluid.Movers.FlowMachine_dp\">
-Buildings.Fluid.Movers.FlowMachine_dp</a>
+<a href=\"modelica://Buildings.Fluid.Movers.FlowControlled_dp\">
+Buildings.Fluid.Movers.FlowControlled_dp</a>
 </li>
 <li>
-<a href=\"modelica://Buildings.Fluid.Movers.FlowMachine_m_flow\">
-Buildings.Fluid.Movers.FlowMachine_m_flow</a>
+<a href=\"modelica://Buildings.Fluid.Movers.FlowControlled_m_flow\">
+Buildings.Fluid.Movers.FlowControlled_m_flow</a>
 </li>
 </ul>
 <p>
 For
-<a href=\"modelica://Buildings.Fluid.Movers.FlowMachine_Nrpm\">
-Buildings.Fluid.Movers.FlowMachine_Nrpm</a>,
+<a href=\"modelica://Buildings.Fluid.Movers.SpeedControlled_Nrpm\">
+Buildings.Fluid.Movers.SpeedControlled_Nrpm</a>,
 use the record
 <a href=\"modelica://Buildings.Fluid.Movers.Data.Generic_Nrpm\">
 Buildings.Fluid.Movers.Data.Generic_Nrpm</a>.
