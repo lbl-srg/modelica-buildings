@@ -529,6 +529,20 @@ that can lead to wrong simulation results):
                        and the tank had different media.
     </td>
 </tr>
+
+<tr><td colspan=\"2\"><b>Buildings.HeatTransfer</b>
+    </td>
+</tr>
+
+<tr><td valign=\"top\">Buildings.HeatTransfer.Windows.BaseClasses.GlassLayer
+    </td>
+    <td valign=\"top\">Corrected issue
+                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/304\">#304</a>
+                       that led to an error in the glass temperatures if the glass conductance
+                       is very small.
+    </td>
+</tr>
+
 <tr><td colspan=\"2\"><b>Buildings.Rooms</b>
     </td>
 </tr>
