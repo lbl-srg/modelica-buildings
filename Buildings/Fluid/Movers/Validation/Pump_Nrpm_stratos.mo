@@ -1,7 +1,7 @@
 within Buildings.Fluid.Movers.Validation;
-model Pump_Nrpm_stratos "Model test using a Wilo Stratos 80/1-12 pump"
+model Pump_Nrpm_stratos "Model validation using a Wilo Stratos 80/1-12 pump"
   extends Modelica.Icons.Example;
-  replaceable package Medium = Modelica.Media.Water.ConstantPropertyLiquidWater;
+  package Medium = Modelica.Media.Water.ConstantPropertyLiquidWater;
 
   Buildings.Fluid.Sources.Boundary_pT sou(
     redeclare package Medium = Medium,
@@ -20,55 +20,65 @@ model Pump_Nrpm_stratos "Model test using a Wilo Stratos 80/1-12 pump"
     offset=0) "Ramp signal for forced mass flow rate"
     annotation (Placement(transformation(extent={{-36,88},{-24,100}})));
 
-  Buildings.Fluid.Movers.FlowMachine_Nrpm pump1(
+  Buildings.Fluid.Movers.SpeedControlled_Nrpm pump1(
     y_start=1,
     redeclare package Medium = Medium,
-    redeclare Buildings.Fluid.Movers.Data.Pumps.Stratos80slash1to12 per)
+    redeclare Buildings.Fluid.Movers.Data.Pumps.Stratos80slash1to12 per,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState)
     "Wilo Stratos pump"
     annotation (Placement(transformation(extent={{-60,60},{-40,80}})));
-  Buildings.Fluid.Movers.FlowMachine_Nrpm pump2(
+  Buildings.Fluid.Movers.SpeedControlled_Nrpm pump2(
     y_start=1,
     redeclare package Medium = Medium,
-    redeclare Buildings.Fluid.Movers.Data.Pumps.Stratos80slash1to12 per)
+    redeclare Buildings.Fluid.Movers.Data.Pumps.Stratos80slash1to12 per,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState)
     "Wilo Stratos pump"
     annotation (Placement(transformation(extent={{-60,10},{-40,30}})));
-  Buildings.Fluid.Movers.FlowMachine_Nrpm pump3(
+  Buildings.Fluid.Movers.SpeedControlled_Nrpm pump3(
     y_start=1,
     redeclare package Medium = Medium,
-    redeclare Buildings.Fluid.Movers.Data.Pumps.Stratos80slash1to12 per)
+    redeclare Buildings.Fluid.Movers.Data.Pumps.Stratos80slash1to12 per,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState)
     "Wilo Stratos pump"
     annotation (Placement(transformation(extent={{-60,-36},{-40,-16}})));
-  Buildings.Fluid.Movers.FlowMachine_Nrpm pump4(
+  Buildings.Fluid.Movers.SpeedControlled_Nrpm pump4(
     y_start=1,
     redeclare package Medium = Medium,
-    redeclare Buildings.Fluid.Movers.Data.Pumps.Stratos80slash1to12 per)
+    redeclare Buildings.Fluid.Movers.Data.Pumps.Stratos80slash1to12 per,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState)
     "Wilo Stratos pump"
     annotation (Placement(transformation(extent={{-60,-80},{-40,-60}})));
-  Buildings.Fluid.Movers.FlowMachine_Nrpm pump5(
+  Buildings.Fluid.Movers.SpeedControlled_Nrpm pump5(
     y_start=1,
     redeclare package Medium = Medium,
-    redeclare Buildings.Fluid.Movers.Data.Pumps.Stratos80slash1to12 per)
+    redeclare Buildings.Fluid.Movers.Data.Pumps.Stratos80slash1to12 per,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState)
     "Wilo Stratos pump"
     annotation (Placement(transformation(extent={{-60,-130},{-40,-110}})));
 
-  Buildings.Fluid.Movers.FlowMachine_m_flow forcedPump1(redeclare package
-      Medium = Medium, m_flow_nominal=3)
+  Buildings.Fluid.Movers.FlowControlled_m_flow forcedPump1(redeclare package
+      Medium = Medium, m_flow_nominal=3,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState)
     "Pump for forcing a certain mass flow rate"
     annotation (Placement(transformation(extent={{38,60},{58,80}})));
-  Buildings.Fluid.Movers.FlowMachine_m_flow forcedPump2(redeclare package
-      Medium = Medium, m_flow_nominal=3)
+  Buildings.Fluid.Movers.FlowControlled_m_flow forcedPump2(redeclare package
+      Medium = Medium, m_flow_nominal=3,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState)
     "Pump for forcing a certain mass flow rate"
     annotation (Placement(transformation(extent={{38,10},{58,30}})));
-  Buildings.Fluid.Movers.FlowMachine_m_flow forcedPump3(redeclare package
-      Medium = Medium, m_flow_nominal=3)
+  Buildings.Fluid.Movers.FlowControlled_m_flow forcedPump3(redeclare package
+      Medium = Medium, m_flow_nominal=3,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState)
     "Pump for forcing a certain mass flow rate"
     annotation (Placement(transformation(extent={{38,-36},{58,-16}})));
-  Buildings.Fluid.Movers.FlowMachine_m_flow forcedPump4(redeclare package
-      Medium = Medium, m_flow_nominal=3)
+  Buildings.Fluid.Movers.FlowControlled_m_flow forcedPump4(redeclare package
+      Medium = Medium, m_flow_nominal=3,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState)
     "Pump for forcing a certain mass flow rate"
     annotation (Placement(transformation(extent={{38,-80},{58,-60}})));
-  Buildings.Fluid.Movers.FlowMachine_m_flow forcedPump5(redeclare package
-      Medium = Medium, m_flow_nominal=3)
+  Buildings.Fluid.Movers.FlowControlled_m_flow forcedPump5(redeclare package
+      Medium = Medium, m_flow_nominal=3,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState)
     "Pump for forcing a certain mass flow rate"
     annotation (Placement(transformation(extent={{38,-130},{58,-110}})));
 
@@ -275,17 +285,29 @@ equation
 
   annotation (experiment(StopTime=1000),
 experiment(StopTime=1.0),
-__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Movers/Validation/SpeedControlled_Nrpm_stratos.mos"
+__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Movers/Validation/Pump_Nrpm_stratos.mos"
         "Simulate and plot"),
     Documentation(info="<html>
-<p>This example model provides a validation for the Nrpm model. A Wilo Stratos 80/1-12 pump is simulated on five different rpms for a changing load. The resulting curves for the head (pressure increase) and mass flow rate are plotted (colored lines) over the pump data sheet. The resulting figure is shown below. </p>
-<p>Pump head curves:</p>
-<p><img src=\"modelica://Buildings/Resources/Images/Fluid/Movers/Examples/PumpValidationHead.png\" alt=\"Figure not found\"/></p>
-<p>Pump electrical power curves:</p>
-<p><img src=\"modelica://Buildings/Resources/Images/Fluid/Movers/Examples/PumpValidationPower.png\" alt=\"Figure not found\"/></p>
-<p>Figures adapted from <a href=\"http://productfinder.wilo.com/en/COM/product/0000001700017d670001003a/fc_product_datasheet\">Wilo Stratos 80/1-12 data sheet</a></p>
+<p>This example provides a validation for the Nrpm model.
+A Wilo Stratos 80/1-12 pump is simulated for five different RPMs for load
+that changes with time.
+The resulting curves for the pump head and mass flow rate are plotted
+using colored lines over the pump data sheet.
+The resulting figures are shown below.
+</p>
+<p>Pump heads:</p>
+<p><img src=\"modelica://Buildings/Resources/Images/Fluid/Movers/Examples/PumpValidationHead.png\"
+alt=\"Pump head.\"/>
+</p>
+<p>Pump electrical power:</p>
+<p><img src=\"modelica://Buildings/Resources/Images/Fluid/Movers/Examples/PumpValidationPower.png\"
+alt=\"Pump power.\"/></p>
+<p>The figures are adapted from the
+<a href=\"http://productfinder.wilo.com/en/COM/product/0000001700017d670001003a/fc_product_datasheet\">
+Wilo Stratos 80/1-12 data sheet</a>.
+</p>
 </html>",
-        revisions="<html>
+revisions="<html>
 <ul>
 <li>
 November 26, 2014, by Filip Jorissen:<br/>
@@ -300,6 +322,6 @@ for a discussion and validation.
 </ul>
 </html>"),
     Diagram(coordinateSystem(extent={{-140,-140},{140,120}},
-          preserveAspectRatio=false), graphics),
-    Icon(coordinateSystem(extent={{-140,-140},{140,120}})));
+          preserveAspectRatio=false)),
+    Icon(coordinateSystem(extent={{-100,-100},{100,100}})));
 end Pump_Nrpm_stratos;
