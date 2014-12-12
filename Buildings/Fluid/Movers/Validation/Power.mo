@@ -3,7 +3,7 @@ model Power "Power calculation comparison among three mover types"
   extends Modelica.Icons.Example;
 
   package Medium = Buildings.Media.ConstantPropertyLiquidWater
-    annotation (__Dymola_choicesAllMatching=true);
+    "Medium model";
 
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal=3
     "Nominal mass flow rate";
