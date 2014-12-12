@@ -234,6 +234,8 @@ The term
 &Delta;p<sub>r</sub> = V&#775; &nbsp; &Delta;p<sub>max</sub> &frasl; V&#775;<sub>max</sub> &nbsp; &delta;
 </p>
 <p>
+where <i>&delta; &gt; 0</i> is a pressure that is small compared to pressure raise of the
+fan at the nominal conditions,
 models the flow resistance of the fan, approximated using a linear equation.
 This is done for numerical reasons to avoid a singularity at <i>r<sub>N</sub>=0</i>.
 Since <i>&delta;</i> is small, the contribution of this term is small.
@@ -393,8 +395,7 @@ First implementation.
     input
       Buildings.Fluid.Movers.BaseClasses.Characteristics.efficiencyParameters
       per "Efficiency performance data";
-    input Modelica.SIunits.VolumeFlowRate V_flow
-      "Volumetric flow rate";
+    input Modelica.SIunits.VolumeFlowRate V_flow "Volumetric flow rate";
     input Real d[:] "Derivatives at support points for spline interpolation";
     input Real r_N(unit="1") "Relative revolution, r_N=N/N_nominal";
     input Real delta "Small value for switching implementation around zero rpm";
