@@ -19,7 +19,7 @@ partial model PartialStaticTwoPortCoolingTower
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     show_T=true) "Cooling tower"
     annotation (Placement(transformation(extent={{24,-60},{44,-40}})));
-  Buildings.Fluid.Movers.FlowMachine_m_flow pum(
+  Buildings.Fluid.Movers.FlowControlled_m_flow pum(
     redeclare package Medium = Medium_W,
     m_flow_nominal=mWat_flow_nominal,
     dynamicBalance=false,

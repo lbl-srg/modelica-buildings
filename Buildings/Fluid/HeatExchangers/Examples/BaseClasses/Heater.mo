@@ -28,7 +28,7 @@ partial model Heater "Base class for example model for the heater and cooler"
   Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor TVol
     "Sensor for volume temperature"
     annotation (Placement(transformation(extent={{20,-10},{0,10}})));
-  Buildings.Fluid.Movers.FlowMachine_m_flow fan(
+  Buildings.Fluid.Movers.FlowControlled_m_flow fan(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
     addPowerToMedium=false,

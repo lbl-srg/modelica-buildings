@@ -245,6 +245,19 @@ have been <b style=\"color:blue\">improved</b> in a
     </td>
     </tr>
 
+<tr><td valign=\"top\">Buildings.Fluid.Movers.SpeedControlled_y<br/>
+                       Buildings.Fluid.Movers.SpeedControlled_Nrpm<br/>
+                       Buildings.Fluid.Movers.FlowControlled_dp<br/>
+                       Buildings.Fluid.Movers.FlowControlled_m_flow
+
+    </td>
+    <td valign=\"top\">For the parameter setting <code>use_powerCharacteristic=true</code>,
+                     changed the computation of the power consumption at
+                     reduced speed to properly account for the
+                     affinity laws. This is in response to
+                     <a href=\"https://github.com/lbl-srg/modelica-buildings/pull/202\">#202</a>.
+    </td>
+</tr>
 
     <tr>
     <td valign=\"top\">Buildings.Fluid.SolarCollectors.ASHRAE93<br/>
@@ -461,6 +474,57 @@ have been <b style=\"color:blue\">improved</b> in a
 
     </td>
 </tr>
+
+<tr><td valign=\"top\">Buildings.Fluid.Movers
+    </td>
+    <td valign=\"top\">This package has been redesigned.
+                       The models have been renamed as follows:<br/>
+                       <code>Buildings.Fluid.Movers.FlowMachine_dp</code>
+                       is now called
+                       <code>Buildings.Fluid.Movers.FlowControlled_dp</code>.<br/>
+                       <code>Buildings.Fluid.Movers.FlowMachine_m_flow</code>
+                       is now called
+                       <code>Buildings.Fluid.Movers.FlowControlled_m_flow</code>.<br/>
+                       <code>Buildings.Fluid.Movers.FlowMachine_Nrpm</code>
+                       is now called
+                       <code>Buildings.Fluid.Movers.SpeedControlled_Nrpm</code>.<br/>
+                       <code>Buildings.Fluid.Movers.FlowMachine_y</code>
+                       is now called
+                       <code>Buildings.Fluid.Movers.SpeedControlled_y</code>.<br/><br/>
+                       In addition, the performance
+                       data of all movers are now stored in a record.
+                       These records are in
+                       <a href=\"modelica://Buildings.Fluid.Movers.Data\">
+                       Buildings.Fluid.Movers.Data</a>.
+                       For most existing instances, it should be sufficient to enclose
+                       the existing performance data in a record called <code>per</code>.
+                       For example,
+                       <code><br/>
+                       Buildings.Fluid.Movers.FlowMachine_y fan(<br/>
+                       &nbsp;redeclare package Medium = Medium,<br/>
+                       &nbsp;pressure(<br/>
+                       &nbsp;&nbsp;V_flow={0,m_flow_nominal,2*m_flow_nominal}/1.2,<br/>
+                       &nbsp;&nbsp;dp={2*dp_nominal,dp_nominal,0})));<br/>
+                       </code>
+                       becomes
+                       <code><br/>
+                       Buildings.Fluid.Movers.SpeedControlled_y fan(<br/>
+                       &nbsp;redeclare package Medium = Medium,<br/>
+                       &nbsp;per(<br/>
+                       &nbsp;&nbsp;pressure(<br/>
+                       &nbsp;&nbsp;&nbsp;V_flow={0,m_flow_nominal,2*m_flow_nominal}/1.2,<br/>
+                       &nbsp;&nbsp;&nbsp;dp={2*dp_nominal,dp_nominal,0})));<br/>
+                       </code>
+                       <br/>
+                       See the <a href=\"modelica://Buildings.Fluid.Movers.UsersGuide\">
+                       User's Guide</a> for more information about these records.
+                       <br/><br/>
+                       For Dymola, the conversion script will
+                       update existing models to use the old implementations
+                       which are now in the package <code>Buildings.Obsolete.Fluid.Movers</code>.
+    </td>
+</tr>
+
 
 <tr><td colspan=\"2\"><b>Buildings.Media</b>
     </td>
@@ -1933,10 +1997,10 @@ have been <b style=\"color:blue\">improved</b> in a
 <tr><td colspan=\"2\"><b>Buildings.Fluid</b>
     </td>
 </tr>
-<tr><td valign=\"top\">Buildings.Fluid.Movers.FlowMachine_dp<br/>
-                       Buildings.Fluid.Movers.FlowMachine_m_flow<br/>
-                       Buildings.Fluid.Movers.FlowMachine_Nrpm<br/>
-                       Buildings.Fluid.Movers.FlowMachine_y<br/>
+<tr><td valign=\"top\">Buildings.Fluid.Movers.FlowControlled_dp<br/>
+                       Buildings.Fluid.Movers.FlowControlled_m_flow<br/>
+                       Buildings.Fluid.Movers.SpeedControlled_Nrpm<br/>
+                       Buildings.Fluid.Movers.SpeedControlled_y<br/>
     </td>
     <td valign=\"top\">Reformulated implementation of efficiency model
                        to avoid a division by zero at zero mass flow rate
@@ -2480,10 +2544,10 @@ have been <b style=\"color:blue\">improved</b> in a
     <td valign=\"top\">Added computation of fuel usage and improved the documentation.
     </td>
 </tr>
-<tr><td valign=\"top\">Buildings.Fluid.Movers.FlowMachine_y<br/>
-                       Buildings.Fluid.Movers.FlowMachine_Nrpm<br/>
-                       Buildings.Fluid.Movers.FlowMachine_dp<br/>
-                       Buildings.Fluid.Movers.FlowMachine_m_flow
+<tr><td valign=\"top\">Buildings.Fluid.Movers.SpeedControlled_y<br/>
+                       Buildings.Fluid.Movers.SpeedControlled_Nrpm<br/>
+                       Buildings.Fluid.Movers.FlowControlled_dp<br/>
+                       Buildings.Fluid.Movers.FlowControlled_m_flow
     </td>
     <td valign=\"top\">Added a 2nd order lowpass filter to the input signal.
                        The filter approximates the startup and shutdown transients of fans or pumps.
@@ -3078,10 +3142,10 @@ that is used for the regularization near zero mass flow rate.</td>
 </tr>
 
 <tr><td colspan=\"2\"><b>Buildings.Fluid.Movers</b></td></tr>
-<tr><td valign=\"top\">Buildings.Fluid.Movers.FlowMachine_y<br/>
-                     Buildings.Fluid.Movers.FlowMachine_Nrpm<br/>
-                     Buildings.Fluid.Movers.FlowMachine_dp<br/>
-                     Buildings.Fluid.Movers.FlowMachine_m_flow</td>
+<tr><td valign=\"top\">Buildings.Fluid.Movers.SpeedControlled_y<br/>
+                     Buildings.Fluid.Movers.SpeedControlled_Nrpm<br/>
+                     Buildings.Fluid.Movers.FlowControlled_dp<br/>
+                     Buildings.Fluid.Movers.FlowControlled_m_flow</td>
     <td valign=\"top\">
                      The performance data are now defined through records and not
                      through replaceable functions. The performance data now needs to be
@@ -3541,8 +3605,8 @@ Fixed bug in fan and pump models that led to too small an enthalpy
 increase across the flow device.
 </li>
 <li>
-In model <a href=\"modelica://Buildings.Fluid.Movers.FlowMachine_dp\">
-Buildings.Fluid.Movers.FlowMachine_dp</a>,
+In model <a href=\"modelica://Buildings.Fluid.Movers.FlowControlled_dp\">
+Buildings.Fluid.Movers.FlowControlled_dp</a>,
 changed <code>assert(dp_in >= 0, ...)</code> to <code>assert(dp_in >= -0.1, ...)</code>.
 The former implementation triggered the assert if <code>dp_in</code> was solved for
 in a nonlinear equation since the solution can be slightly negative while still being
@@ -4271,6 +4335,8 @@ The following people have directly contributed to the implementation of the Buil
 <li>Brandon M. Hencey, Cornell University, USA
 </li>
 <li>Roman Ilk, University of Applied Sciences Technikum Wien, Austria
+</li>
+<li>Filip Mathadon, KU Leuven, Belgium
 </li>
 <li>Thierry S. Nouidui, Lawrence Berkeley National Laboratory, USA
 </li>
