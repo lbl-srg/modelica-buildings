@@ -4,7 +4,7 @@ partial model FlowMachineInterface
   extends Buildings.Fluid.Movers.BaseClasses.PowerInterface(
     VMachine_flow(nominal=V_flow_nominal, start=V_flow_nominal),
     V_flow_max(nominal=V_flow_nominal, start=V_flow_nominal),
-    redeclare Data.SpeedControlled_y per);
+    redeclare replaceable Data.SpeedControlled_y per);
 
   import Modelica.Constants;
   import cha = Buildings.Fluid.Movers.BaseClasses.Characteristics;
