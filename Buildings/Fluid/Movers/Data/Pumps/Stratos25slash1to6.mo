@@ -11,7 +11,10 @@ record Stratos25slash1to6 "Pump data for a Wilo Stratos 25/1-6 pump"
           0.000837082776634,0.00110292011218,0.00138657181719,0.00166761756882,
           0.00187198329301}, dp={34808.1176471,34738.9411765,34508.1176471,
           32430.7058824,29083.7647059,24005.6470588,18004.2352941,13041.5294118}));
-  annotation (Documentation(info="<html>
+  annotation (
+defaultComponentPrefixes="parameter",
+defaultComponentName="per",
+Documentation(info="<html>
 <p>Data from
 <a href=\"http://productfinder.wilo.com/en/COM/product/00000018000028040002003a/fc_product_datasheet\">
 http://productfinder.wilo.com/en/COM/product/00000018000028040002003a/fc_product_datasheet</a>
@@ -41,6 +44,11 @@ The figure below illustrates a digitized pump curve.
 <img alt=\"Pump curve\" src=\"modelica://Buildings/Resources/Images/Fluid/Movers/Data/stratoscurve.png\"/></p>
 </html>", revisions="<html>
 <ul>
+<li>
+December 12, 2014, by Michael Wetter:<br/>
+Added <code>defaultComponentPrefixes</code> and
+<code>defaultComponentName</code> annotations.
+</li>
 <li>April 17, 2014
     by Filip Jorissen:<br/>
        Initial version

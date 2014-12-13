@@ -11,7 +11,10 @@ record Stratos25slash1to8 "Pump data for a Wilo Stratos 25/1-8 pump"
           0.0011525489114,0.00140859349908,0.00168018209891,0.00191740837085,
           0.00219831980599}, dp={50002.7035151,49603.919395,47783.2940685,
           44505.1908368,39882.6694921,33688.9797121,27835.1000463,20631.4409942}));
-  annotation (Documentation(info="<html>
+  annotation (
+defaultComponentPrefixes="parameter",
+defaultComponentName="per",
+Documentation(info="<html>
   <p>Data from:
   <a href=\"http://productfinder.wilo.com/en/COM/product/00000018000028650002003a/fc_product_datasheet\">
   http://productfinder.wilo.com/en/COM/product/0000000e000379df0002003a/fc_product_datasheet
@@ -25,6 +28,11 @@ record Stratos25slash1to8 "Pump data for a Wilo Stratos 25/1-8 pump"
   </p>
   </html>", revisions="<html>
 <ul>
+<li>
+December 12, 2014, by Michael Wetter:<br/>
+Added <code>defaultComponentPrefixes</code> and
+<code>defaultComponentName</code> annotations.
+</li>
 <li>April 22, 2014
     by Filip Jorissen:<br/>
        Initial version
