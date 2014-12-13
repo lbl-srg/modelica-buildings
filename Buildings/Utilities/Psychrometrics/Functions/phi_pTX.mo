@@ -7,14 +7,8 @@ function phi_pTX
   input Modelica.SIunits.MassFraction X_w
     "Water vapor mass fraction per unit mass total air";
   output Real phi(unit="1") "Relative humidity";
-protected
- Modelica.SIunits.AbsolutePressure p_steam_sat "Saturation pressure";
 algorithm
-  p_steam_sat :=Buildings.Utilities.Math.Functions.smoothMin(
-    x1=  saturationPressure(T),
-    x2=  0.999*p,
-    deltaX=  0.0001*p);
-  phi :=p/p_steam_sat*X_w/(X_w +
+  phi :=p/saturationPressure(T)*X_w/(X_w +
     Buildings.Utilities.Psychrometrics.Constants.k_mair*(1-X_w));
   annotation (
     smoothOrder=1,
@@ -30,6 +24,12 @@ total air, and not dry air.
 </html>",
 revisions="<html>
 <ul>
+<li>
+November 17, 2014 by Michael Wetter:<br/>
+Removed test that constrains the saturation pressure to be
+lower than <code>p</code>.
+I do not see any numerical problems without this test.
+</li>
 <li>
 November 13, 2014 by Michael Wetter:<br/>
 First implementation.

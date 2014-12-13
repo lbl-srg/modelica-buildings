@@ -23,9 +23,9 @@ block ASHRAESolarGain
     "Shading coefficient"
     annotation(Placement(transformation(extent={{-140,-70},{-100,-30}})));
    Modelica.Blocks.Interfaces.RealInput TFlu[nSeg](
-   unit = "K",
-   displayUnit="degC",
-   quantity="Temperature")
+   each unit = "K",
+   each displayUnit="degC",
+   each quantity="Temperature")
    annotation (Placement(transformation(extent={{-140,-100},{-100,-60}})));
    Modelica.Blocks.Interfaces.RealInput HSkyDifTil(
      unit="W/m2", quantity="RadiantEnergyFluenceRate")
@@ -44,18 +44,18 @@ block ASHRAESolarGain
     unit="W/m2", quantity="RadiantEnergyFluenceRate")
     "Direct solar irradiation on a tilted surfce"
     annotation (Placement(transformation(extent={{-140,0},{-100,40}})));
-  Modelica.Blocks.Interfaces.RealOutput QSol_flow[nSeg](final unit="W")
+  Modelica.Blocks.Interfaces.RealOutput QSol_flow[nSeg](each final unit="W")
     "Solar heat gain"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 
 protected
-  final parameter Real iamSky( fixed = false)
+  final parameter Real iamSky(fixed = false)
     "Incident angle modifier for diffuse solar radiation from the sky";
-  final parameter Real iamGro( fixed = false)
+  final parameter Real iamGro(fixed = false)
     "Incident angle modifier for diffuse solar radiation from the ground";
-  final parameter Modelica.SIunits.Angle incAngSky( fixed = false)
+  final parameter Modelica.SIunits.Angle incAngSky(fixed = false)
     "Incident angle of diffuse radiation from the sky";
-  final parameter Modelica.SIunits.Angle incAngGro( fixed = false)
+  final parameter Modelica.SIunits.Angle incAngGro(fixed = false)
     "Incident angle of diffuse radiation from the ground";
   final parameter Real tilDeg(
     unit = "deg") = Modelica.SIunits.Conversions.to_deg(til)
@@ -219,6 +219,10 @@ equation
     </html>",
     revisions="<html>
       <ul>
+      <li>
+      November 20, 2014, by Michael Wetter:<br/>
+      Added missing <code>each</code> keyword.
+      </li>
         <li>
           Jan 15, 2013, by Peter Grant:<br/>
           First implementation

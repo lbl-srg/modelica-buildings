@@ -24,6 +24,16 @@ convertClass("Buildings.Fluid.Movers.Examples.FlowMachine",
              "Buildings.Obsolete.Fluid.Movers.Examples.FlowMachine");
 
 
+// Fixme: Add conversion of mover data such as pressure to be part of the record,
+//        and explain in release notes what needs to be changed.
+convertElement({"Buildings.Fluid.Movers.BaseClasses.Characteristics.pressure"},
+                "data", "per");
+convertElement({"Buildings.Fluid.Movers.BaseClasses.Characteristics.power"},
+                "data", "per");
+convertElement({"Buildings.Fluid.Movers.BaseClasses.Characteristics.efficiency"},
+                "data", "per");
+
+
 convertElement("Buildings.Fluid.Storage.StratifiedEnhancedInternalHex",
                 "hexTopHeight", "hHex_a");
 convertElement("Buildings.Fluid.Storage.StratifiedEnhancedInternalHex",
@@ -36,3 +46,4 @@ convertElement("Buildings.Fluid.Storage.StratifiedEnhancedInternalHex",
                 "port_a1", "portHex_a");
 convertElement("Buildings.Fluid.Storage.StratifiedEnhancedInternalHex",
                 "port_b1", "portHex_b");
+

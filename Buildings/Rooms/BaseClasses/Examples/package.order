@@ -1,7 +1,6 @@
 AirHeatMassBalance
 HeatGain
-InfraredRadiationGainDistribution
 InfraredRadiationExchange
+InfraredRadiationGainDistribution
 RadiationTemperature
 BaseClasses
-

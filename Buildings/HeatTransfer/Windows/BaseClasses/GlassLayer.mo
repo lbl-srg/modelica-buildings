@@ -52,7 +52,7 @@ equation
   // Heat balance of surface node
   // These equations are from Window 6 Technical report, (2.1-14) to (2.1-17)
   0 = port_a.Q_flow + port_b.Q_flow + QAbs_flow + JIn_a  + JIn_b - JOut_a - JOut_b;
-  u * (port_b.T-port_a.T) = 2*R * (-port_a.Q_flow-QAbs_flow/2-JIn_a+JOut_a);
+  u * (port_b.T-port_a.T) = 2*R * (-port_a.Q_flow-QAbs_flow/2-JIn_a+JOut_a + tauIR * (JIn_a - JIn_b));
   // Radiosity balance
   if linearize then
     T4_a = 4*T03*port_a.T - 3*T04;
@@ -112,6 +112,15 @@ Buildings.HeatTransfer.Radiosity.WindowPane</a>.
 <br/>
 </html>", revisions="<html>
 <ul>
+<li>
+December 8, 2014, by Michael Wetter:<br/>
+Added term <code>tauIR * (JIn_a - JIn_b)</code>
+to heat balance. This is to correct
+issue
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/304\">#304</a>
+that led to an error in the glass temperatures if the glass conductance
+is very small.
+</li>
 <li>
 October 17, 2014, by Michael Wetter:<br/>
 Removed nominal value for heat ports as the default is already
