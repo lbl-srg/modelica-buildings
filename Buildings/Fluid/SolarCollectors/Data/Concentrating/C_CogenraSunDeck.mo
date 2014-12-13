@@ -13,7 +13,10 @@ record C_CogenraSunDeck =
     final B1=0,
     final mDry=484,
     final slope=0) "C - Cogenra Solar, Inc., SunDeck 1.0"
-    annotation(Documentation(info = "<html>
+    annotation(
+defaultComponentPrefixes="parameter",
+defaultComponentName="datSolCol",
+Documentation(info = "<html>
       <p>
         Necessary data for calculating <code>dp_nominal</code>, <code>G_nominal
         </code> and <code>dT_nominal</code> is not provided in the EN12975 test

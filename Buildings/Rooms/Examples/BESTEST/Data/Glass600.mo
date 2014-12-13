@@ -15,7 +15,10 @@ record Glass600 "Thermal properties of window glass"
     "Infrared infrared absorptivity of surface a (usually outside-facing surface). It is Emis1 in WINDOW5.";
  parameter Modelica.SIunits.Emissivity absIR_b = 0.9
     "Infrared infrared absorptivity of surface b (usually room-facing surface). It is Emis2 in WINDOW5.";
-  annotation (Documentation(info="<html>
+  annotation (
+defaultComponentPrefixes="parameter",
+defaultComponentName="datGla",
+Documentation(info="<html>
 <p>
 This record declares the glass properties for the BESTEST model.
 </p>

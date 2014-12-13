@@ -45,6 +45,8 @@ package BaseClasses "Base classes for package Data"
           annotation (Dialog(group="Properties for phase change material"));
 
     annotation (preferredView="info",
+    defaultComponentPrefixes="parameter",
+    defaultComponentName="datMat",
     Documentation(info="<html>
 Base record for materials that declares the thermal properties.
 <br/>
@@ -122,6 +124,8 @@ First implementation.
       "Flag, if true, then material is computed using steady-state heat conduction"
       annotation(Evaluate=true);
    annotation (preferredView="info",
+   defaultComponentPrefixes="parameter",
+   defaultComponentName="datThePro",
     Documentation(info="<html>
 Base record for materials, used in circular geometry or other configurations, that only declares the thermal properties.
 <br/>
@@ -134,7 +138,7 @@ will be modeled as a thermal resistor that does not store energy.
 <ul>
 <li>
 April 2011, by Pierre Vigouroux:<br/>
-
+</li>
 <li>
 April 12 2011, by Pierre Vigouroux:<br/>
 First implementation.

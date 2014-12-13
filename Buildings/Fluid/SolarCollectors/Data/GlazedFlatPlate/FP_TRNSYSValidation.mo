@@ -17,7 +17,10 @@ record FP_TRNSYSValidation =
     G_nominal=800,
     dT_nominal=10)
   "Default values in the TRNSYS Simulation Studio SDHW example"
-    annotation(Documentation(info="<html>
+    annotation(
+defaultComponentPrefixes="parameter",
+defaultComponentName="datSolCol",
+Documentation(info="<html>
       <p>
         Default values in the TRNSYS Simualtion Studio SDHW example.
         No value for <code>dp_nominal</code> was provided in TRNSYS, so 1000
