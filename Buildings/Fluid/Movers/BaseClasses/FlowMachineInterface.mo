@@ -10,8 +10,7 @@ partial model FlowMachineInterface
   import cha = Buildings.Fluid.Movers.BaseClasses.Characteristics;
 
   final parameter Modelica.SIunits.VolumeFlowRate V_flow_nominal=
-    per.pressure.V_flow[size(per.pressure.V_flow,1)]
-    "Nominal volume flow rate, used for homotopy";
+    per.pressure.V_flow[nOri] "Nominal volume flow rate, used for homotopy";
 
   parameter Boolean homotopyInitialization = true "= true, use homotopy method"
     annotation(Evaluate=true, Dialog(tab="Advanced"));
@@ -75,7 +74,9 @@ protected
   parameter Integer curve(min=1, max=3, fixed=false)
     "Flag, used to pick the right representatio of the fan or pump pressure curve";
   parameter Integer nOri = size(per.pressure.V_flow,1)
-    "Number of data points for pressure curve";
+    "Number of data points for pressure curve"
+    annotation(Evaluate=true);
+
   parameter
     Buildings.Fluid.Movers.BaseClasses.Characteristics.flowParametersInternal pCur1(
     final n = nOri,
@@ -161,9 +162,9 @@ algorithm
   end for;
 end getArrayAsString;
 
-initial algorithm
+initial equation
   // Check validity of data
-  assert(size(per.pressure.V_flow, 1) > 1, "Must have at least two data points for pressure.V_flow.");
+ // fixme. add back, removed for OpenModelica testing assert(nOri > 1, "Must have at least two data points for pressure.V_flow.");
   assert(Buildings.Utilities.Math.Functions.isMonotonic(x=per.pressure.V_flow, strict=true) and
   per.pressure.V_flow[1] > -Modelica.Constants.eps,
   "The fan pressure rise must be a strictly decreasing sequence with respect to the volume flow rate,
@@ -172,11 +173,11 @@ The following performance data have been entered:
 " + getArrayAsString(per.pressure.V_flow, "pressure.V_flow"));
 
   // Check if V_flow_max or dpMax are provided by user
-  haveVMax  :=(abs(per.pressure.dp[nOri])   < Modelica.Constants.eps);
-  haveDPMax :=(abs(per.pressure.V_flow[1])  < Modelica.Constants.eps);
+  haveVMax  = (abs(per.pressure.dp[nOri])   < Modelica.Constants.eps);
+  haveDPMax = (abs(per.pressure.V_flow[1])  < Modelica.Constants.eps);
   // Assign V_flow_max and dpMax
   if haveVMax then
-    V_flow_max :=per.pressure.V_flow[nOri];
+    V_flow_max = per.pressure.V_flow[nOri];
   else
     assert((per.pressure.V_flow[nOri]-per.pressure.V_flow[nOri-1])
          /((per.pressure.dp[nOri]-per.pressure.dp[nOri-1]))<0,
@@ -184,24 +185,27 @@ The following performance data have been entered:
     You need to set more reasonable parameters.
 Received 
 " + getArrayAsString(per.pressure.dp, "dp"));
-    V_flow_max :=per.pressure.V_flow[nOri] - (per.pressure.V_flow[nOri] - per.pressure.V_flow[
+    V_flow_max = per.pressure.V_flow[nOri] - (per.pressure.V_flow[nOri] - per.pressure.V_flow[
       nOri - 1])/((per.pressure.dp[nOri] - per.pressure.dp[nOri - 1]))*per.pressure.dp[nOri];
   end if;
   if haveDPMax then
-    dpMax :=per.pressure.dp[1];
+    dpMax = per.pressure.dp[1];
   else
-    dpMax :=per.pressure.dp[1] - ((per.pressure.dp[2] - per.pressure.dp[1])/(per.pressure.V_flow[
+    dpMax = per.pressure.dp[1] - ((per.pressure.dp[2] - per.pressure.dp[1])/(per.pressure.V_flow[
       2] - per.pressure.V_flow[1]))*per.pressure.V_flow[1];
   end if;
 
   // Check if minimum decrease condition is satisfied
-  haveMinimumDecrease :=true;
-  kRes :=dpMax/V_flow_max*delta^2/10;
-  for i in 1:nOri-1 loop
-    if ((per.pressure.dp[i+1]-per.pressure.dp[i])/(per.pressure.V_flow[i+1]-per.pressure.V_flow[i]) >= -kRes) then
-      haveMinimumDecrease :=false;
-    end if;
-  end for;
+  kRes = dpMax/V_flow_max*delta^2/10;
+//  haveMinimumDecrease = true;
+//  for i in 1:nOri-1 loop
+ //   if ((per.pressure.dp[i+1]-per.pressure.dp[i])/(per.pressure.V_flow[i+1]-per.pressure.V_flow[i]) >= -kRes) then
+ //     haveMinimumDecrease = false;
+ //   end if;
+ // end for;
+  haveMinimumDecrease = Modelica.Math.BooleanVectors.allTrue(
+    {(per.pressure.dp[i+1]-per.pressure.dp[i])/(per.pressure.V_flow[i+1]-per.pressure.V_flow[i]) < -kRes
+    for i in 1:nOri-1});
   // Write warning if the volumetric flow rate versus pressure curve does not satisfy
   // the minimum decrease condition
   if (not haveMinimumDecrease) then
@@ -225,21 +229,21 @@ the simulation stops.");
   // Correction for flow resistance of pump or fan
   // Case 1:
   if (haveVMax and haveDPMax) or (nOri == 2) then  // ----- Curve 1
-    curve :=1; // V_flow_max and dpMax are provided by the user, or we only have two data points
+    curve = 1; // V_flow_max and dpMax are provided by the user, or we only have two data points
     for i in 1:nOri loop
-      pCur1.dp[i]  :=per.pressure.dp[i] + per.pressure.V_flow[i] * kRes;
-      pCur1.V_flow[i] := per.pressure.V_flow[i];
+      pCur1.dp[i]  = per.pressure.dp[i] + per.pressure.V_flow[i] * kRes;
+      pCur1.V_flow[i] =  per.pressure.V_flow[i];
     end for;
-    pCur2.V_flow := zeros(nOri + 1);
-    pCur2.dp     := zeros(nOri + 1);
-    pCur3.V_flow := zeros(nOri + 2);
-    pCur3.dp     := zeros(nOri + 2);
-    preDer1:=Buildings.Utilities.Math.Functions.splineDerivatives(x=pCur1.V_flow, y=pCur1.dp);
-    preDer2:=zeros(nOri+1);
-    preDer3:=zeros(nOri+2);
+    pCur2.V_flow =  zeros(nOri + 1);
+    pCur2.dp     =  zeros(nOri + 1);
+    pCur3.V_flow =  zeros(nOri + 2);
+    pCur3.dp     =  zeros(nOri + 2);
+    preDer1= Buildings.Utilities.Math.Functions.splineDerivatives(x=pCur1.V_flow, y=pCur1.dp);
+    preDer2= zeros(nOri+1);
+    preDer3= zeros(nOri+2);
 
     // Equation to compute dpDelta
-    dpDelta :=cha.pressure(
+    dpDelta = cha.pressure(
       per=pCur1,
       V_flow=0,
       r_N=delta,
@@ -253,14 +257,14 @@ the simulation stops.");
       kRes=  kRes);
 
     // Equation to compute VDelta_flow. By the affinity laws, the volume flow rate is proportional to the speed.
-    VDelta_flow :=V_flow_max*delta;
+    VDelta_flow = V_flow_max*delta;
 
     // Linear equations to determine cBar
     // Conditions for r_N=delta, V_flow = VDelta_flow
     // Conditions for r_N=delta, V_flow = 0
     // used in equation 20 in Buildings/Resources/Images/Fluid/Movers/UsersGuide/2013-IBPSA-Wetter.pdf
     // see function Buildings.Fluid.Movers.BaseClasses.Characteristics.flowApproximationAtOrigin
-    cBar[1] :=cha.pressure(
+    cBar[1] = cha.pressure(
       per=pCur1,
       V_flow=0,
       r_N=delta,
@@ -273,7 +277,7 @@ the simulation stops.");
       cBar=zeros(2),
       kRes=  kRes) * (1-delta)/delta^2;
 
-    cBar[2] :=((cha.pressure(
+    cBar[2] = ((cha.pressure(
       per=pCur1,
       V_flow=VDelta_flow,
       r_N=delta,
@@ -287,32 +291,32 @@ the simulation stops.");
       kRes=  kRes) - delta*dpDelta)/delta^2 - cBar[1])/VDelta_flow;
 
   elseif haveVMax or haveDPMax then  // ----- Curve 2
-    curve :=2; // V_flow_max or dpMax is provided by the user, but not both
+    curve = 2; // V_flow_max or dpMax is provided by the user, but not both
     if haveVMax then
-      pCur2.V_flow[1] := 0;
-      pCur2.dp[1]     := dpMax;
+      pCur2.V_flow[1] =  0;
+      pCur2.dp[1]     =  dpMax;
       for i in 1:nOri loop
-        pCur2.dp[i+1]  := per.pressure.dp[i] + per.pressure.V_flow[i] * kRes;
-        pCur2.V_flow[i+1] := per.pressure.dp[i];
+        pCur2.dp[i+1]  =  per.pressure.dp[i] + per.pressure.V_flow[i] * kRes;
+        pCur2.V_flow[i+1] =  per.pressure.dp[i];
       end for;
     else
       for i in 1:nOri loop
-        pCur2.dp[i]  := per.pressure.dp[i] + per.pressure.V_flow[i] * kRes;
-        pCur2.V_flow[i] := per.pressure.V_flow[i];
+        pCur2.dp[i]  =  per.pressure.dp[i] + per.pressure.V_flow[i] * kRes;
+        pCur2.V_flow[i] =  per.pressure.V_flow[i];
       end for;
-      pCur2.V_flow[nOri+1] := V_flow_max;
-      pCur2.dp[nOri+1]     := 0;
+      pCur2.V_flow[nOri+1] =  V_flow_max;
+      pCur2.dp[nOri+1]     =  0;
     end if;
-    pCur1.V_flow := zeros(nOri);
-    pCur1.dp     := zeros(nOri);
-    pCur3.V_flow := zeros(nOri + 2);
-    pCur3.dp     := zeros(nOri + 2);
-    preDer1:=zeros(nOri);
-    preDer2:=Buildings.Utilities.Math.Functions.splineDerivatives(x=pCur2.V_flow, y=pCur2.dp);
-    preDer3:=zeros(nOri+2);
+    pCur1.V_flow =  zeros(nOri);
+    pCur1.dp     =  zeros(nOri);
+    pCur3.V_flow =  zeros(nOri + 2);
+    pCur3.dp     =  zeros(nOri + 2);
+    preDer1= zeros(nOri);
+    preDer2= Buildings.Utilities.Math.Functions.splineDerivatives(x=pCur2.V_flow, y=pCur2.dp);
+    preDer3= zeros(nOri+2);
 
     // Equation to compute dpDelta
-    dpDelta :=cha.pressure(
+    dpDelta = cha.pressure(
       per=pCur2,
       V_flow=0,
       r_N=delta,
@@ -326,14 +330,14 @@ the simulation stops.");
       kRes=  kRes);
 
     // Equation to compute VDelta_flow. By the affinity laws, the volume flow rate is proportional to the speed.
-    VDelta_flow :=V_flow_max*delta;
+    VDelta_flow = V_flow_max*delta;
 
     // Linear equations to determine cBar
     // Conditions for r_N=delta, V_flow = VDelta_flow
     // Conditions for r_N=delta, V_flow = 0
     // used in equation 20 in Buildings/Resources/Images/Fluid/Movers/UsersGuide/2013-IBPSA-Wetter.pdf
     // see function Buildings.Fluid.Movers.BaseClasses.Characteristics.flowApproximationAtOrigin
-    cBar[1] :=cha.pressure(
+    cBar[1] = cha.pressure(
       per=pCur2,
       V_flow=0,
       r_N=delta,
@@ -346,7 +350,7 @@ the simulation stops.");
       cBar=zeros(2),
       kRes=  kRes) * (1-delta)/delta^2;
 
-    cBar[2] :=((cha.pressure(
+    cBar[2] = ((cha.pressure(
       per=pCur2,
       V_flow=VDelta_flow,
       r_N=delta,
@@ -360,25 +364,25 @@ the simulation stops.");
       kRes=  kRes) - delta*dpDelta)/delta^2 - cBar[1])/VDelta_flow;
 
   else  // ----- Curve 3
-    curve :=3; // Neither V_flow_max nor dpMax are provided by the user
-    pCur3.V_flow[1] := 0;
-    pCur3.dp[1]     := dpMax;
+    curve = 3; // Neither V_flow_max nor dpMax are provided by the user
+    pCur3.V_flow[1] =  0;
+    pCur3.dp[1]     =  dpMax;
     for i in 1:nOri loop
-      pCur3.dp[i+1]  := per.pressure.dp[i] + per.pressure.V_flow[i] * kRes;
-      pCur3.V_flow[i+1] := per.pressure.V_flow[i];
+      pCur3.dp[i+1]  =  per.pressure.dp[i] + per.pressure.V_flow[i] * kRes;
+      pCur3.V_flow[i+1] =  per.pressure.V_flow[i];
     end for;
-    pCur3.V_flow[nOri+2] := V_flow_max;
-    pCur3.dp[nOri+2]     := 0;
-    pCur1.V_flow := zeros(nOri);
-    pCur1.dp     := zeros(nOri);
-    pCur2.V_flow := zeros(nOri + 1);
-    pCur2.dp     := zeros(nOri + 1);
-    preDer1:=zeros(nOri);
-    preDer2:=zeros(nOri+1);
-    preDer3:=Buildings.Utilities.Math.Functions.splineDerivatives(x=pCur3.V_flow, y=pCur3.dp);
+    pCur3.V_flow[nOri+2] =  V_flow_max;
+    pCur3.dp[nOri+2]     =  0;
+    pCur1.V_flow =  zeros(nOri);
+    pCur1.dp     =  zeros(nOri);
+    pCur2.V_flow =  zeros(nOri + 1);
+    pCur2.dp     =  zeros(nOri + 1);
+    preDer1= zeros(nOri);
+    preDer2= zeros(nOri+1);
+    preDer3= Buildings.Utilities.Math.Functions.splineDerivatives(x=pCur3.V_flow, y=pCur3.dp);
 
     // Equation to compute dpDelta
-    dpDelta :=cha.pressure(
+    dpDelta = cha.pressure(
       per=pCur3,
       V_flow=0,
       r_N=delta,
@@ -392,14 +396,14 @@ the simulation stops.");
       kRes=  kRes);
 
     // Equation to compute VDelta_flow. By the affinity laws, the volume flow rate is proportional to the speed.
-    VDelta_flow :=V_flow_max*delta;
+    VDelta_flow = V_flow_max*delta;
 
     // Linear equations to determine cBar
     // Conditions for r_N=delta, V_flow = VDelta_flow
     // Conditions for r_N=delta, V_flow = 0
     // used in equation 20 in Buildings/Resources/Images/Fluid/Movers/UsersGuide/2013-IBPSA-Wetter.pdf
     // see function Buildings.Fluid.Movers.BaseClasses.Characteristics.flowApproximationAtOrigin
-    cBar[1] :=cha.pressure(
+    cBar[1] = cha.pressure(
       per=pCur3,
       V_flow=0,
       r_N=delta,
@@ -412,7 +416,7 @@ the simulation stops.");
       cBar=zeros(2),
       kRes=  kRes) * (1-delta)/delta^2;
 
-    cBar[2] :=((cha.pressure(
+    cBar[2] = ((cha.pressure(
       per=pCur3,
       V_flow=VDelta_flow,
       r_N=delta,
