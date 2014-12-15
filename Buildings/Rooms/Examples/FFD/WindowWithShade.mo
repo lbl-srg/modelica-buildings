@@ -65,36 +65,14 @@ model WindowWithShade
         "Simulate and plot"),
     experiment(StopTime=20),
     Documentation(info="<html>
-<p>
-This model tests the cosimulation of
-<a href=\"modelica://Buildings.Rooms.CFD\">
-Buildings.Rooms.CFD</a>
-with the FFD program by simulating natural convection in a room with only exterior walls and windows with shades.
-</p>
-<p>
-Figure (a) show the schematic of FFD simulation.
-The walls and the windows are exposed to the ambient environment.
-The wall is well insulated and the initial temperature is <i>20</i>&circ;C.
-</p>
-<p align=\"center\">
-<img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Rooms/Examples/FFD/WindowWithShadeSchematic.png\" border=\"1\"/>
-</p>
-<p align=\"center\">
-Figure (a)
-</p>
-Figure (b) shows the velocity vectors and temperature contours in degree Celsius
-on the X-Z plane at <i>Y = 0.5</i> m, at <i>t = 300</i> s as simulated by the FFD.
-<p align=\"center\">
-<img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Rooms/Examples/FFD/WindowWithShade.png\" border=\"1\"/>
-</p>
-<p align=\"center\">
-Figure (b)
-</p>
-<p>
-<b>Note</b>: The current version of the FFD program does not support a moving boundary.
-Thus, the shade can only be at a fixed position as determined by the parameter
-<code>uSha_fixed={0.5,0.5}</code>.
-<p align=\"left\">
+<p>This model tests the cosimulation of <a href=\"modelica://Buildings.Rooms.CFD\">Buildings.Rooms.CFD</a> with the FFD program by simulating natural convection in a room with only exterior walls and windows with shades. </p>
+<p>Figure (a) show the schematic of FFD simulation. The walls and the windows are exposed to the ambient environment. The wall is well insulated and the initial temperature is <i>20</i>&circ;C. The initial temperature for the room air is 17&circ;C.</p>
+<p align=\"center\"><img src=\"modelica://Buildings/Resources/Images/Rooms/Examples/FFD/WindowWithShadeSchematic.png\" alt=\"image\"/> </p>
+<p align=\"center\">Figure (a) </p>
+<p>Figure (b) shows the velocity vectors and temperature contours in degree Celsius on the X-Z plane at <i>Y = 0.5</i> m, at <i>t = 300</i> s as simulated by the FFD. </p>
+<p align=\"center\"><img src=\"modelica://Buildings/Resources/Images/Rooms/Examples/FFD/WindowWithShade.png\" alt=\"image\"/> </p>
+<p align=\"center\">Figure (b) </p>
+<p><b>Note</b>: The current version of the FFD program does not support a moving boundary. Thus, the shade can only be at a fixed position as determined by the parameter <code>uSha_fixed={0.5,0.5}</code>. </p>
 </html>", revisions="<html>
 <ul>
 <li>
