@@ -1,11 +1,35 @@
 within Buildings.Fluid.Movers.Data;
 record SpeedControlled_y
   "Generic data record for pumps and fans that take y as an input signal"
-  extends FlowControlled;
+   extends Modelica.Icons.Record;
+
   parameter
     Buildings.Fluid.Movers.BaseClasses.Characteristics.efficiencyParameters
+    hydraulicEfficiency(
+      V_flow={0},
+      eta={0.7}) "Hydraulic efficiency";
+  parameter
+    Buildings.Fluid.Movers.BaseClasses.Characteristics.efficiencyParameters
+    motorEfficiency(
+      V_flow={0},
+      eta={0.7}) "Electric motor efficiency";
+
+  // Power requires default values to avoid in Dymola the message
+  // Failed to expand the variable Power.V_flow
+  parameter BaseClasses.Characteristics.powerParameters power(V_flow={0}, P={0})
+    "Volume flow rate vs. electrical power consumption"
+    annotation (Dialog(enable=use_powerCharacteristic));
+
+  parameter Boolean motorCooledByFluid=true
+    "If true, then motor heat is added to fluid stream";
+  parameter Boolean use_powerCharacteristic=false
+    "Use powerCharacteristic instead of efficiencyCharacteristic";
+
+  //  extends FlowControlled;
+/*  parameter 
+    Buildings.Fluid.Movers.BaseClasses.Characteristics.efficiencyParameters
     hydraulicEfficiency(V_flow=power.V_flow,
-      eta=if use_powerCharacteristic then
+      eta=if use_powerCharacteristic then 
         sqrt(power.V_flow.*pressure.dp./
         {Buildings.Fluid.Movers.BaseClasses.Characteristics.power(
           per=power,
@@ -16,12 +40,12 @@ record SpeedControlled_y
           x=power.V_flow,
           y=power.P))
           for i in power.V_flow})
-          else
+          else 
           {0.7 for i in power.V_flow}) "Hydraulic efficiency";
-parameter
+parameter 
     Buildings.Fluid.Movers.BaseClasses.Characteristics.efficiencyParameters
     motorEfficiency(V_flow=power.V_flow,
-      eta=if use_powerCharacteristic then
+      eta=if use_powerCharacteristic then 
         sqrt(power.V_flow.*pressure.dp./
         {Buildings.Fluid.Movers.BaseClasses.Characteristics.power(
           per=power,
@@ -32,8 +56,9 @@ parameter
           x=power.V_flow,
           y=power.P))
           for i in power.V_flow})
-          else
+          else 
           {0.7 for i in power.V_flow}) "Electric motor efficiency";
+          */
   parameter Buildings.Fluid.Movers.BaseClasses.Characteristics.flowParameters pressure
     "Volume flow rate vs. total pressure rise"
     annotation(Evaluate=true);

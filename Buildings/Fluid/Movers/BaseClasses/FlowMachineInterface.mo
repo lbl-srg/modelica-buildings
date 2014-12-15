@@ -73,28 +73,62 @@ protected
 
   parameter Integer curve(min=1, max=3, fixed=false)
     "Flag, used to pick the right representatio of the fan or pump pressure curve";
-  parameter Integer nOri = size(per.pressure.V_flow,1)
+  final parameter Integer nOri = size(per.pressure.V_flow,1)
     "Number of data points for pressure curve"
     annotation(Evaluate=true);
 
-  parameter
+  final parameter
     Buildings.Fluid.Movers.BaseClasses.Characteristics.flowParametersInternal pCur1(
     final n = nOri,
-    V_flow(each fixed=false),
-    dp(each fixed=false))
+    final V_flow = if (haveVMax and haveDPMax) or (nOri == 2) then
+             {per.pressure.V_flow[i] for i in 1:nOri}
+             else
+             zeros(nOri),
+    final dp = if (haveVMax and haveDPMax) or (nOri == 2) then
+             {(per.pressure.dp[i] + per.pressure.V_flow[i] * kRes) for i in 1:nOri}
+             else
+             zeros(nOri))
     "Volume flow rate vs. total pressure rise with correction for pump resistance added";
+
   parameter
     Buildings.Fluid.Movers.BaseClasses.Characteristics.flowParametersInternal pCur2(
     final n = nOri + 1,
-    V_flow(each fixed=false),
-    dp(each fixed=false))
+    V_flow = if (haveVMax and haveDPMax) or (nOri == 2) then
+                zeros(nOri + 1)
+             elseif haveVMax then
+              cat(1, {0}, {per.pressure.V_flow[i] for i in 1:nOri})
+             elseif haveDPMax then
+              cat(1, { per.pressure.V_flow[i] for i in 1:nOri}, {V_flow_max})
+             else
+              zeros(nOri + 1),
+    dp = if (haveVMax and haveDPMax) or (nOri == 2) then
+                zeros(nOri + 1)
+             elseif haveVMax then
+              cat(1, {dpMax}, {per.pressure.dp[i] + per.pressure.V_flow[i] * kRes for i in 1:nOri})
+             elseif haveDPMax then
+              cat(1, {per.pressure.dp[i] + per.pressure.V_flow[i] * kRes for i in 1:nOri}, {0})
+             else
+               zeros(nOri+1))
     "Volume flow rate vs. total pressure rise with correction for pump resistance added";
+                                  // fixme check whether these branches are correct
+                                  // fixme check whether these branches are correct
   parameter
     Buildings.Fluid.Movers.BaseClasses.Characteristics.flowParametersInternal pCur3(
-   final n = nOri + 2,
-    V_flow(each fixed=false),
-    dp(each fixed=false))
+    final n = nOri + 2,
+    V_flow = if (haveVMax and haveDPMax) or (nOri == 2) then
+               zeros(nOri + 2)
+             elseif haveVMax or haveDPMax then
+               zeros(nOri + 2)
+             else
+               cat(1, {0}, {per.pressure.V_flow[i] for i in 1:nOri}, {V_flow_max}),
+    dp =     if (haveVMax and haveDPMax) or (nOri == 2) then
+               zeros(nOri + 2)
+             elseif haveVMax or haveDPMax then
+               zeros(nOri + 2)
+             else
+               cat(1, {dpMax}, {per.pressure.dp[i] + per.pressure.V_flow[i] * kRes for i in 1:nOri}, {0}))
     "Volume flow rate vs. total pressure rise with correction for pump resistance added";
+
   parameter Real preDer1[nOri](each fixed=false)
     "Derivatives of flow rate vs. pressure at the support points";
   parameter Real preDer2[nOri+1](each fixed=false)
@@ -231,13 +265,13 @@ the simulation stops.");
   if (haveVMax and haveDPMax) or (nOri == 2) then  // ----- Curve 1
     curve = 1; // V_flow_max and dpMax are provided by the user, or we only have two data points
     for i in 1:nOri loop
-      pCur1.dp[i]  = per.pressure.dp[i] + per.pressure.V_flow[i] * kRes;
-      pCur1.V_flow[i] =  per.pressure.V_flow[i];
+//      pCur1.dp[i]  = per.pressure.dp[i] + per.pressure.V_flow[i] * kRes;
+//      pCur1.V_flow[i] =  per.pressure.V_flow[i];
     end for;
-    pCur2.V_flow =  zeros(nOri + 1);
-    pCur2.dp     =  zeros(nOri + 1);
-    pCur3.V_flow =  zeros(nOri + 2);
-    pCur3.dp     =  zeros(nOri + 2);
+//    pCur2.V_flow =  zeros(nOri + 1);
+//    pCur2.dp     =  zeros(nOri + 1);
+//    pCur3.V_flow =  zeros(nOri + 2);
+//    pCur3.dp     =  zeros(nOri + 2);
     preDer1= Buildings.Utilities.Math.Functions.splineDerivatives(x=pCur1.V_flow, y=pCur1.dp);
     preDer2= zeros(nOri+1);
     preDer3= zeros(nOri+2);
@@ -292,25 +326,25 @@ the simulation stops.");
 
   elseif haveVMax or haveDPMax then  // ----- Curve 2
     curve = 2; // V_flow_max or dpMax is provided by the user, but not both
-    if haveVMax then
-      pCur2.V_flow[1] =  0;
-      pCur2.dp[1]     =  dpMax;
+    if haveVMax then  // fixme: shouldn't this be haveDPMax?
+//      pCur2.V_flow[1] =  0;
+//      pCur2.dp[1]     =  dpMax;
       for i in 1:nOri loop
-        pCur2.dp[i+1]  =  per.pressure.dp[i] + per.pressure.V_flow[i] * kRes;
-        pCur2.V_flow[i+1] =  per.pressure.dp[i];
+//        pCur2.dp[i+1]  =  per.pressure.dp[i] + per.pressure.V_flow[i] * kRes;
+//        pCur2.V_flow[i+1] =  per.pressure.dp[i]; // fixme: this shold be V_flow[i]?
       end for;
     else
       for i in 1:nOri loop
-        pCur2.dp[i]  =  per.pressure.dp[i] + per.pressure.V_flow[i] * kRes;
-        pCur2.V_flow[i] =  per.pressure.V_flow[i];
+//        pCur2.dp[i]  =  per.pressure.dp[i] + per.pressure.V_flow[i] * kRes;
+//        pCur2.V_flow[i] =  per.pressure.V_flow[i];
       end for;
-      pCur2.V_flow[nOri+1] =  V_flow_max;
-      pCur2.dp[nOri+1]     =  0;
+//      pCur2.V_flow[nOri+1] =  V_flow_max;
+//      pCur2.dp[nOri+1]     =  0;
     end if;
-    pCur1.V_flow =  zeros(nOri);
-    pCur1.dp     =  zeros(nOri);
-    pCur3.V_flow =  zeros(nOri + 2);
-    pCur3.dp     =  zeros(nOri + 2);
+//    pCur1.V_flow =  zeros(nOri);
+//    pCur1.dp     =  zeros(nOri);
+//    pCur3.V_flow =  zeros(nOri + 2);
+//    pCur3.dp     =  zeros(nOri + 2);
     preDer1= zeros(nOri);
     preDer2= Buildings.Utilities.Math.Functions.splineDerivatives(x=pCur2.V_flow, y=pCur2.dp);
     preDer3= zeros(nOri+2);
@@ -365,18 +399,18 @@ the simulation stops.");
 
   else  // ----- Curve 3
     curve = 3; // Neither V_flow_max nor dpMax are provided by the user
-    pCur3.V_flow[1] =  0;
-    pCur3.dp[1]     =  dpMax;
+//    pCur3.V_flow[1] =  0;
+//    pCur3.dp[1]     =  dpMax;
     for i in 1:nOri loop
-      pCur3.dp[i+1]  =  per.pressure.dp[i] + per.pressure.V_flow[i] * kRes;
-      pCur3.V_flow[i+1] =  per.pressure.V_flow[i];
+//      pCur3.dp[i+1]  =  per.pressure.dp[i] + per.pressure.V_flow[i] * kRes;
+//      pCur3.V_flow[i+1] =  per.pressure.V_flow[i];
     end for;
-    pCur3.V_flow[nOri+2] =  V_flow_max;
-    pCur3.dp[nOri+2]     =  0;
-    pCur1.V_flow =  zeros(nOri);
-    pCur1.dp     =  zeros(nOri);
-    pCur2.V_flow =  zeros(nOri + 1);
-    pCur2.dp     =  zeros(nOri + 1);
+//    pCur3.V_flow[nOri+2] =  V_flow_max;
+//    pCur3.dp[nOri+2]     =  0;
+//    pCur1.V_flow =  zeros(nOri);
+//    pCur1.dp     =  zeros(nOri);
+//    pCur2.V_flow =  zeros(nOri + 1);
+//    pCur2.dp     =  zeros(nOri + 1);
     preDer1= zeros(nOri);
     preDer2= zeros(nOri+1);
     preDer3= Buildings.Utilities.Math.Functions.splineDerivatives(x=pCur3.V_flow, y=pCur3.dp);

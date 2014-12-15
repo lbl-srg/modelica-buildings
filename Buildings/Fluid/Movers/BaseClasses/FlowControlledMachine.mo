@@ -1,16 +1,16 @@
 within Buildings.Fluid.Movers.BaseClasses;
 partial model FlowControlledMachine
   "Partial model for fan or pump with speed (y or Nrpm) as input signal"
+  extends Buildings.Fluid.Movers.BaseClasses.PartialFlowMachine(
+      final m_flow_nominal = max(per.pressure.V_flow)*rho_default,
+      preSou(final control_m_flow=false));
+
   extends Buildings.Fluid.Movers.BaseClasses.FlowMachineInterface(
     V_flow_max(start=V_flow_nominal),
     final rho_default = Medium.density_pTX(
       p=Medium.p_default,
       T=Medium.T_default,
       X=Medium.X_default));
-
-  extends Buildings.Fluid.Movers.BaseClasses.PartialFlowMachine(
-      final m_flow_nominal = max(per.pressure.V_flow)*rho_default,
-      preSou(final control_m_flow=false));
 
   // Models
 protected
