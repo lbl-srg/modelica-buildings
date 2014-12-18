@@ -18,7 +18,7 @@ Icon(graphics={Text(
           textString="u1 = u2")}),
 Documentation(info="<html>
 <p>
-Model that triggers an assert if 
+Model that triggers an assert if
 <i>|u1-u2| &gt; threShold</i>
 and <i>t &gt; t<sub>0</sub></i>.
 </p>

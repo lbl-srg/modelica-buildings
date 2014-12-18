@@ -1,0 +1,16 @@
+simulateModel("Buildings.Fluid.Movers.Examples.ClosedLoop_y", stopTime=3600, method="Radau", tolerance=1e-06, resultFile="ClosedLoop_y");
+createPlot(id = 1,
+ position = {75, 70, 654, 387},
+ y = {"conPID.u_s", "conPID.u_m", "conPID.y"},
+ range = {0.0, 3600.0, 0.8, -0.1},
+ autoscale = true,
+ autoerase = true,
+ autoreplot = true,
+ description = false,
+ grid = true,
+ color = true,
+ online = false,
+ filename = "ClosedLoop_y.mat",
+ leftTitleType = 1,
+ bottomTitleType = 1,
+ colors = {{0, 0, 255}, {255, 0, 0}, {0, 128, 0}});

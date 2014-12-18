@@ -41,8 +41,6 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   annotation (experiment(StopTime=1.0, Tolerance=1e-06),
-  Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}}), graphics),
 __Dymola_Commands(file=
           "modelica://Buildings/Resources/Scripts/Dymola/Electrical/AC/ThreePhasesBalanced/Lines/Examples/ACSimpleGridMedium.mos"
         "Simulate and plot"),
@@ -56,7 +54,7 @@ Documentation and example added.
 </html>", info="<html>
 <p>
 This example demonstrates how to use a network model to connect
-a source to a load (using a medium voltage cable). In this simple case the network has two nodes 
+a source to a load (using a medium voltage cable). In this simple case the network has two nodes
 that are connected by a commercial line cable.
 </p>
 <p>
@@ -79,7 +77,7 @@ The picture below describes the grid topology.
 <h4>Note:</h4>
 <p>
 The cables are usually defined using the <code>LowVoltageCable.Generic</code> type. In order to use a
-medium voltage cable it is necessary to redeclare the type of the record <code>commercialCable</code>. 
+medium voltage cable it is necessary to redeclare the type of the record <code>commercialCable</code>.
 </p>
 
 <p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'Courier New,courier'; color:#ff0000;\">ThreePhasesBalanced.Lines.Network</span><span style=\" font-family:'Courier New,courier';\"> network(</span></p>
@@ -92,7 +90,7 @@ medium voltage cable it is necessary to redeclare the type of the record <code>c
 
 <p>
 The code snippet shows how each line that is part of the vector <code>lines</code> is
-redeclared in order to have as type the record 
+redeclared in order to have as type the record
 <code>Buildings.Electrical.Transmission.MediumVoltageCables.Generic</code>. The lines are initialized
 using the cables of the grid <code>network.grid.cables</code>. All the lines have the same
 nominal voltage <code>each V_nominal = network.V_nominal</code>.

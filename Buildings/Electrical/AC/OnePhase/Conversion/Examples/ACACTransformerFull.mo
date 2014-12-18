@@ -21,7 +21,6 @@ model ACACTransformerFull
     V=120) "Voltage source"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
-        rotation=0,
         origin={-70,50})));
   Buildings.Electrical.AC.OnePhase.Loads.Inductive load(
     mode=Buildings.Electrical.Types.Load.VariableZ_P_input,
@@ -71,7 +70,6 @@ model ACACTransformerFull
     V=120) "Voltage source for short circuit and open tests "
                           annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
-        rotation=0,
         origin={-70,10})));
 equation
   connect(sou.terminal, tra_load.terminal_n)
@@ -99,10 +97,8 @@ equation
       points={{-60,10},{-38,10},{-38,-20},{-16,-20}},
       color={0,120,120},
       smooth=Smooth.None));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}}), graphics), experiment(StopTime=1.0, Tolerance=1e-05),
-    __Dymola_experimentSetupOutput,
-    Documentation(info="<html>
+  annotation ( experiment(StopTime=1.0, Tolerance=1e-05),
+Documentation(info="<html>
 <p>
 This example illustrates the use of the AC/AC transformer model
 that includes losses at the primary and secondary side and magnetization

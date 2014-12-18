@@ -7,7 +7,9 @@ model RadiatorEN442_2 "Dynamic radiator for space heating"
    extends Buildings.Fluid.Interfaces.LumpedVolumeDeclarations(
      final X_start = Medium.X_default,
      final C_start = fill(0, Medium.nC),
-     final C_nominal = fill(1E-2, Medium.nC));
+     final C_nominal = fill(1E-2, Medium.nC),
+     final mFactor = 1 + 500*mDry/(VWat*cp_nominal*Medium.density(
+        Medium.setState_pTX(Medium.p_default, Medium.T_default, Medium.X_default))));
 
   parameter Integer nEle(min=1) = 5
     "Number of elements used in the discretization";
@@ -51,12 +53,10 @@ model RadiatorEN442_2 "Dynamic radiator for space heating"
   // Heat ports
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heatPortCon
     "Heat port for convective heat transfer with room air temperature"
-    annotation (Placement(transformation(extent={{-30,62},{-10,82}},
-                                 rotation=0)));
+    annotation (Placement(transformation(extent={{-30,62},{-10,82}})));
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heatPortRad
     "Heat port for radiative heat transfer with room radiation temperature"
-    annotation (Placement(transformation(extent={{10,62},{30,82}},
-                                 rotation=0)));
+    annotation (Placement(transformation(extent={{10,62},{30,82}})));
 
   Fluid.MixingVolumes.MixingVolume[nEle] vol(
     redeclare each package Medium = Medium,
@@ -68,9 +68,9 @@ model RadiatorEN442_2 "Dynamic radiator for space heating"
     each final p_start=p_start,
     each final T_start=T_start,
     each final X_start=X_start,
-    each final C_start=C_start) "Volume for fluid stream"
-    annotation (Placement(transformation(extent={{-9,0},{11,-20}},
-                          rotation=0)));
+    each final C_start=C_start,
+    each final mFactor=mFactor) "Volume for fluid stream"
+    annotation (Placement(transformation(extent={{-9,0},{11,-20}})));
 protected
    parameter Modelica.SIunits.SpecificHeatCapacity cp_nominal=
       Medium.specificHeatCapacityCp(
@@ -98,13 +98,6 @@ protected
 
    final parameter Real k = if T_b_nominal > TAir_nominal then 1 else -1
     "Parameter that is used to compute QEle_flow_nominal for heating or cooling mode";
-
-   Modelica.Thermal.HeatTransfer.Components.HeatCapacitor[nEle] heaCap(
-     each C=500*mDry/nEle,
-     each T(start=T_start)) if
-       not (energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState)
-    "heat capacity of radiator metal"
-     annotation (Placement(transformation(extent={{-30,12},{-10,32}})));
 
    Buildings.HeatTransfer.Sources.PrescribedHeatFlow[nEle] preCon
     "Heat input into radiator from convective heat transfer"
@@ -200,10 +193,6 @@ equation
       points={{-28,-70},{-20,-70},{-20,-10},{-9,-10}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(heaCap.port, vol.heatPort)    annotation (Line(
-      points={{-20,12},{-20,-10},{-9,-10}},
-      color={191,0,0},
-      smooth=Smooth.None));
   connect(port_a, vol[1].ports[1]) annotation (Line(
       points={{-100,5.55112e-16},{-75.25,5.55112e-16},{-75.25,1.11022e-15},{
           -50.5,1.11022e-15},{-50.5,5.55112e-16},{-1,5.55112e-16}},
@@ -253,9 +242,7 @@ equation
       points={{72,-80},{86,-80},{86,50},{20,50},{20,72}},
       color={191,0,0},
       smooth=Smooth.None));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-100,-100},
-            {100,100}}),
-                      graphics), Icon(graphics={
+  annotation ( Icon(graphics={
         Ellipse(
           extent={{-20,22},{20,-20}},
           fillColor={127,0,0},
@@ -314,7 +301,7 @@ manufacturers that follow the European Norm EN 442-2.
 However, to allow for varying mass flow rates, the transferred heat is computed
 using a discretization along the water flow path, and heat is exchanged between
 each compartment and a uniform room air and radiation temperature.
-This discretization is different from the computation in EN 442-2, which 
+This discretization is different from the computation in EN 442-2, which
 may yield water outlet temperatures that are below
 the room temperature at low mass flow rates.
 Furthermore, rather than using only one room temperature, this model uses
@@ -331,7 +318,7 @@ from the radiator to the room is
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
   Q<sup>i</sup><sub>c</sub> = sign(T<sup>i</sup>-T<sub>a</sub>)
-     (1-f<sub>r</sub>) UA &frasl; N |T<sup>i</sup>-T<sub>a</sub>|<sup>n</sup> 
+     (1-f<sub>r</sub>) UA &frasl; N |T<sup>i</sup>-T<sub>a</sub>|<sup>n</sup>
   <br/> <br/>
   Q<sup>i</sup><sub>r</sub> = sign(T<sup>i</sup>-T<sub>r</sub>)
      f<sub>r</sub> UA &frasl; N |T<sup>i</sup>-T<sub>r</sub>|<sup>n</sup>
@@ -353,17 +340,28 @@ and exponent for heat transfer.
 <p>
 The parameter <code>energyDynamics</code> (in the Assumptions tab),
 determines whether the model computes the dynamic or the steady-state response.
-For the transient response, heat storage is computed using a 
-finite volume approach for the 
+For the transient response, heat storage is computed using a
+finite volume approach for the
 water and the metal mass, which are both assumed to be at the same
-temperature. 
+temperature.
 </p>
 <p>
-The default parameters for the heat capacities are valid for a flat plate radiator without fins, 
+The default parameters for the heat capacities are valid for a flat plate radiator without fins,
 with one plate of water carying fluid, and a height of 0.42 meters.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+October 29, 2014, by Michael Wetter:<br/>
+Made assignment of <code>mFactor</code> final, and changed computation of
+density to use default medium states as are also used to compute the
+specific heat capacity.
+</li>
+<li>
+October 21, 2014, by Filip Jorissen:<br/>
+Added parameter <code>mFactor</code> and removed thermal capacity
+which can lead to an index reduction.
+</li>
 <li>
 May 29, 2014, by Michael Wetter:<br/>
 Removed undesirable annotation <code>Evaluate=true</code>.
@@ -375,7 +373,7 @@ Removed conditional statement in the declaration of the parameter
 </li>
 <li>
 September 26, 2013 by Michael Wetter:<br/>
-Reformulated implementation to avoid mixing textual and graphical 
+Reformulated implementation to avoid mixing textual and graphical
 declarations in the <code>equation</code> section.
 </li>
 <li>

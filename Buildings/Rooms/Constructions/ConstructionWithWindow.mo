@@ -50,17 +50,15 @@ model ConstructionWithWindow
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a glaUns_a
     "Heat port at unshaded glass of exterior-facing surface"
                                                     annotation (Placement(transformation(extent={{-310,
-            -90},{-290,-70}},
-                       rotation=0), iconTransformation(extent={{-310,-90},{-290,
+            -90},{-290,-70}}), iconTransformation(extent={{-310,-90},{-290,
             -70}})));
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a glaSha_a if haveShade
     "Heat port at shaded glass of exterior-facing surface"
-    annotation (Placement(transformation(extent={{-310,-130},{-290,-110}}, rotation=0),
+    annotation (Placement(transformation(extent={{-310,-130},{-290,-110}}),
         iconTransformation(extent={{-310,-130},{-290,-110}})));
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a fra_a
     "Heat port at frame of exterior-facing surface"                                   annotation (Placement(transformation(extent={{-310,
-            -270},{-290,-250}},
-                       rotation=0), iconTransformation(extent={{-310,-270},{-290,
+            -270},{-290,-250}}), iconTransformation(extent={{-310,-270},{-290,
             -250}})));
   Modelica.Blocks.Interfaces.RealInput uSha(min=0, max=1) if
        haveShade
@@ -86,16 +84,14 @@ model ConstructionWithWindow
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_b glaUns_b
     "Heat port at unshaded glass of room-facing surface"
                                                 annotation (Placement(transformation(extent={{290,-90},
-            {310,-70}},
-                      rotation=0), iconTransformation(extent={{290,-90},{310,-70}})));
+            {310,-70}}), iconTransformation(extent={{290,-90},{310,-70}})));
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_b glaSha_b if haveShade
     "Heat port at shaded glass of room-facing surface"
-  annotation (Placement(transformation(extent={{290,-130},{310,-110}},rotation=0),
+  annotation (Placement(transformation(extent={{290,-130},{310,-110}}),
         iconTransformation(extent={{290,-130},{310,-110}})));
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_b fra_b
     "Heat port at frame of room-facing surface"
-    annotation (Placement(transformation(extent={{292,-270},{312,-250}},
-                      rotation=0), iconTransformation(extent={{292,-270},{312,-250}})));
+    annotation (Placement(transformation(extent={{292,-270},{312,-250}}), iconTransformation(extent={{292,-270},{312,-250}})));
 
 protected
   final parameter Boolean haveShade = glaSys.haveExteriorShade or glaSys.haveInteriorShade
@@ -207,11 +203,9 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-300,
-            -300},{300,300}},
-        initialScale=0.1)),
+            -300},{300,300}})),
                           Icon(coordinateSystem(preserveAspectRatio=true,
-          extent={{-300,-300},{300,300}},
-        initialScale=0.1), graphics={
+          extent={{-300,-300},{300,300}}), graphics={
         Rectangle(
           extent={{-290,202},{298,198}},
           lineColor={0,0,0},
@@ -386,14 +380,16 @@ First implementation.
 </li>
 </ul>
 </html>", info="<html>
-This model is used to compute heat transfer through constructions with windows inside the 
+<p>
+This model is used to compute heat transfer through constructions with windows inside the
 room model.
 </p>
 <p>
 The model consists of the following two main submodels:
+</p>
 <ul>
 <li>
-The instance <code>opa</code>, which uses the model 
+The instance <code>opa</code>, which uses the model
 <a href=\"modelica://Buildings.HeatTransfer.Conduction.MultiLayer\">
 Buildings.HeatTransfer.Conduction.MultiLayer</a> to compute
 the heat transfer through the opaque part of the construction.
@@ -409,7 +405,6 @@ This model uses the record <code>glaSys</code> to access the material properties
 of the glazing system.
 </li>
 </ul>
-</p>
 <p>
 The parameter <code>A</code> is the area of the opaque construction plus the window.
 The parameter <code>AWin</code> is the area of the glazing system, including the frame.

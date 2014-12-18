@@ -28,14 +28,14 @@ block AbsorbedRadiation "Absorbed radiation by window"
     annotation (Placement(transformation(extent={{100,-50},{120,-30}}),
         iconTransformation(extent={{100,-50},{120,-30}})));
 
-  output Modelica.SIunits.Power absRad[2, N + 2] "Absorbed interior and exterior radiation. 
-      (absRad[2,1]: exterior shading device, 
+  output Modelica.SIunits.Power absRad[2, N + 2] "Absorbed interior and exterior radiation.
+      (absRad[2,1]: exterior shading device,
       absRad[1,2 to N+1]: glass (unshaded part),
-      absRad[2,2 to N+1]: glass (shaded part),   
+      absRad[2,2 to N+1]: glass (shaded part),
       absRad[2,N+2]: interior shading device)";
 
 protected
-  Integer k=1;
+  constant Integer k=1;
   Real x;
   final parameter Integer NDIR=radDat.NDIR;
   final parameter Integer HEM=radDat.HEM;
@@ -43,11 +43,11 @@ protected
   constant Integer Shade=2;
   constant Integer Interior=1;
   constant Integer Exterior=2;
-  final parameter Real coeAbsEx[2, radDat.N, radDat.HEM + 2](fixed=false);
-  final parameter Real coeRefExtPan1[radDat.HEM + 2](fixed=false)
+  final parameter Real coeAbsEx[2, radDat.N, radDat.HEM + 2](each fixed=false);
+  final parameter Real coeRefExtPan1[radDat.HEM + 2](each fixed=false)
     "Reflectivity of pane 1";
-  final parameter Real coeAbsIn[2, radDat.N](fixed=false);
-  final parameter Real coeAbsDevExtIrrIntSha[radDat.HEM + 2](fixed=false)
+  final parameter Real coeAbsIn[2, radDat.N](each fixed=false);
+  final parameter Real coeAbsDevExtIrrIntSha[radDat.HEM + 2](each fixed=false)
     "Absorptivity of interior shading device for exterior radiation";
   final parameter Real coeAbsDevExtIrrExtSha=1 - radDat.traRefShaDev[1, 1] -
       radDat.traRefShaDev[2, 1]
@@ -192,7 +192,7 @@ algorithm
   annotation (
     Documentation(info="<html>
 <p>
-The model calculates absorbed solar radiation on the window. 
+The model calculates absorbed solar radiation on the window.
 The calculations follow the description in Wetter (2004), Appendix A.4.3.
 </p>
 <p>
@@ -267,6 +267,10 @@ Dissertation. University of California at Berkeley. 2004.
 </html>", revisions="<html>
 <ul>
 <li>
+October 17, 2014, by Michael Wetter:<br/>
+Added missing <code>each</code> keywords in parameter declarations.
+</li>
+<li>
 March 4, 2011, by Wangda Zuo:<br/>
 Remove the if-statement and integer function that can trigger events.
 </li>
@@ -280,7 +284,7 @@ Separate transmittance and absorbance.
 </li>
 <li>
 December 12, 2010, by Michael Wetter:<br/>
-Replaced record 
+Replaced record
 <a href=\"modelica://Buildings.HeatTransfer.Data.GlazingSystems\">
 Buildings.HeatTransfer.Data.GlazingSystems</a> with the
 parameters used by this model.

@@ -29,22 +29,18 @@ model MassFlowSource_T
     annotation (Dialog(enable = (not use_C_in) and Medium.nC > 0));
   Modelica.Blocks.Interfaces.RealInput m_flow_in if     use_m_flow_in
     "Prescribed mass flow rate"
-    annotation (Placement(transformation(extent={{-120,60},{-80,100}},
-          rotation=0), iconTransformation(extent={{-120,60},{-80,100}})));
+    annotation (Placement(transformation(extent={{-120,60},{-80,100}}), iconTransformation(extent={{-120,60},{-80,100}})));
   Modelica.Blocks.Interfaces.RealInput T_in if         use_T_in
     "Prescribed fluid temperature"
-    annotation (Placement(transformation(extent={{-140,20},{-100,60}},
-          rotation=0), iconTransformation(extent={{-140,20},{-100,60}})));
+    annotation (Placement(transformation(extent={{-140,20},{-100,60}}), iconTransformation(extent={{-140,20},{-100,60}})));
   Modelica.Blocks.Interfaces.RealInput X_in[Medium.nX] if
                                                         use_X_in
     "Prescribed fluid composition"
-    annotation (Placement(transformation(extent={{-140,-60},{-100,-20}},
-          rotation=0)));
+    annotation (Placement(transformation(extent={{-140,-60},{-100,-20}})));
   Modelica.Blocks.Interfaces.RealInput C_in[Medium.nC] if
                                                         use_C_in
     "Prescribed boundary trace substances"
-    annotation (Placement(transformation(extent={{-120,-100},{-80,-60}},
-          rotation=0)));
+    annotation (Placement(transformation(extent={{-120,-100},{-80,-60}})));
 protected
   Modelica.Blocks.Interfaces.RealInput m_flow_in_internal
     "Needed to connect to conditional connector";
@@ -145,15 +141,6 @@ equation
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid,
           textString="C")}),
-    Window(
-      x=0.45,
-      y=0.01,
-      width=0.44,
-      height=0.65),
-    Diagram(coordinateSystem(
-        preserveAspectRatio=false,
-        extent={{-100,-100},{100,100}},
-        grid={1,1})),
     Documentation(info="<html>
 <p>
 Models an ideal flow source, with prescribed values of flow rate, temperature, composition and trace substances:
@@ -164,7 +151,7 @@ Models an ideal flow source, with prescribed values of flow rate, temperature, c
 <li> Boundary composition (only for multi-substance or trace-substance flow).</li>
 </ul>
 <p>If <code>use_m_flow_in</code> is false (default option), the <code>m_flow</code> parameter
-is used as boundary pressure, and the <code>m_flow_in</code> input connector is disabled; if <code>use_m_flow_in</code> is true, then the <code>m_flow</code> parameter is ignored, and the value provided by the input connector is used instead.</p> 
+is used as boundary pressure, and the <code>m_flow_in</code> input connector is disabled; if <code>use_m_flow_in</code> is true, then the <code>m_flow</code> parameter is ignored, and the value provided by the input connector is used instead.</p>
 <p>The same applies to the temperature, composition and trace substances.</p>
 <p>
 Note, that boundary temperature,
@@ -178,7 +165,7 @@ revisions="<html>
 <ul>
 <li>
 September 29, 2009, by Michael Wetter:<br/>
-First implementation. 
+First implementation.
 </li>
 </ul>
 </html>"));

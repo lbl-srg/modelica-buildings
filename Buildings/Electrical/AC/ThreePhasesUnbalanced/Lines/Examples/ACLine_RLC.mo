@@ -144,17 +144,20 @@ with an RMS value of 100 V produces a current equal to
 </p>
 <h4>Notes</h4>
 <p>
+<b>(1) Note:</b>
 The line model <code>RLCLine_sc</code> is the same as <code>RLCLine_1</code> but it uses
 dynamic phasors.
 </p>
 
 <p>
+<b>(2) Note:</b>
 The line model <code>RLCLine_2a</code> has a current that is different 
 from the one passing in <code>RLCLine_1</code> because the series of two T
 line models is different from the sum of the two separate line models.
 </p>
 
 <p>
+<b>(3) Note:</b>
 The line models <code>RLCLine_3a</code> and <code>RLCLine_3b</code> have currents that are
 50% of the other lines because they are in parallel.
 </p>

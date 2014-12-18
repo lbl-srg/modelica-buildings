@@ -9,7 +9,4 @@ model singleFeeder_20nodes
         Buildings.Electrical.Transmission.Benchmarks.Grids.SingleFeeder_20nodes_Al70
         grid));
 
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}}), graphics));
-
 end singleFeeder_20nodes;

@@ -6,8 +6,7 @@ model Orifice "Orifice"
 
   parameter Real CD=0.65 "|Orifice characteristics|Discharge coefficient";
 
-  annotation (Diagram(graphics),
-                       Icon(graphics={
+  annotation (                       Icon(graphics={
         Rectangle(
           extent={{-100,8},{100,-8}},
           lineColor={0,0,255},
@@ -42,7 +41,7 @@ of an orifice in the form
 </PRE>
 where <code>k</code> is a variable and
 <code>m</code> a parameter. For turbulent flow, set <code>m=1/2</code> and
-for laminar flow, set <code>m=1</code>. 
+for laminar flow, set <code>m=1</code>.
 Large openings are characterized by values close to <code>0.5</code>,
 while values near <code>0.65</code> have been found for small
 crack-like openings (Dols and Walton, 2002).

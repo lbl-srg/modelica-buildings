@@ -89,8 +89,7 @@ equation
       points={{-40,0},{-26,0},{-26,-70},{-8,-70}},
       color={127,0,127},
       smooth=Smooth.None));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}}),      graphics), Documentation(info="<html>
+  annotation ( Documentation(info="<html>
 <p>
 This example model shows how three phases unbalanced loads with the neutral cable can be used.
 </p>
@@ -117,6 +116,5 @@ Created model from previus version and added documentation.
     experiment(Tolerance=1e-05, __Dymola_Algorithm="Radau", StopTime=1.0),
     __Dymola_Commands(file=
           "modelica://Buildings/Resources/Scripts/Dymola/Electrical/AC/ThreePhasesUnbalanced/Loads/Examples/Loads_N.mos"
-        "Simulate and plot"),
-    __Dymola_experimentSetupOutput);
+        "Simulate and plot"));
 end Loads_N;

@@ -38,7 +38,7 @@ equation
   annotation (
     Documentation(info="<html>
 <p>
-Model of a generic DC load. The load can be either constant or variable depending on the value of the 
+Model of a generic DC load. The load can be either constant or variable depending on the value of the
 parameter <code>mode</code>.
 See the model <a href=\"modelica://Buildings.Electrical.Interfaces.Load\">Buildings.Electrical.Interfaces.Load</a>
 for more information.
@@ -64,7 +64,7 @@ Consider the simple DC circuit shown in the figure below
 <img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Electrical/DC/Loads/simpleLoad.png\"/>
 </p>
 <p>
-where <i>V<sub>S</sub></i> is a constant voltage source, and <i>R</i> is the line resistance. 
+where <i>V<sub>S</sub></i> is a constant voltage source, and <i>R</i> is the line resistance.
 The load has a voltage <i>V</i> across its electrical pins and a current <i>i</i> is flowing through it.
 If the power consumption drawn by the load is prescribed by the variable <i>P<sub>LOAD</sub></i>,
  the equation that describes the circuit is
@@ -73,22 +73,22 @@ If the power consumption drawn by the load is prescribed by the variable <i>P<su
 V<sub>S</sub> - R i - P<sub>LOAD</sub>/i = 0
 </p>
 <p>
-The unknown variable <i>i</i> appears in a nonlinear equation. This means that in order to compute the current 
-that is drawn by the load, a nonlinear equation has to be solved. If the number of loads increases (as typically 
-happens in real case examples) the number of nonlinear equations to be solved increases too, and the resulting system 
-of nonlinear equations can slow down the simulation. It is possible to avoid such a problem by introducing a linearized 
+The unknown variable <i>i</i> appears in a nonlinear equation. This means that in order to compute the current
+that is drawn by the load, a nonlinear equation has to be solved. If the number of loads increases (as typically
+happens in real case examples) the number of nonlinear equations to be solved increases too, and the resulting system
+of nonlinear equations can slow down the simulation. It is possible to avoid such a problem by introducing a linearized
 model.
 </p>
 
 <p>
-The first step to linearize the load model is to define its nominal voltage conditions <i>V<sub>nom</sub></i>, 
+The first step to linearize the load model is to define its nominal voltage conditions <i>V<sub>nom</sub></i>,
 around which the equations will be linearized.<br/>
 The constitutive equation of the load can be linearized around the nominal voltage condition <i>V<sub>nom</sub></i> as
 </p>
 
 <p align=\"center\" style=\"font-style:italic;\">
-i = P<sub>LOAD</sub>/V = P<sub>LOAD</sub>/V<sub>nom</sub> + 
-(V - V<sub>nom</sub>)[&part; (P<sub>LOAD</sub>/V)/ &part;V ]<sub>V = V<sub>nom</sub></sub> 
+i = P<sub>LOAD</sub>/V = P<sub>LOAD</sub>/V<sub>nom</sub> +
+(V - V<sub>nom</sub>)[&part; (P<sub>LOAD</sub>/V)/ &part;V ]<sub>V = V<sub>nom</sub></sub>
 + &#8338;((V - V<sub>nom</sub>)<sup>2</sup>),
 </p>
 
@@ -131,7 +131,7 @@ The points are at <i>0.8 V<sub>nom</sub></i> and <i>1.2 V<sub>nom</sub></i>.
 </html>", revisions="<html>
 <ul>
 <li>June 17, 2014, by Marco Bonvini:<br/>
-Adde parameter <code>initMode</code> that can be used to 
+Adde parameter <code>initMode</code> that can be used to
 select the assumption to be used during initialization phase
 by the homotopy operator.
 </li>

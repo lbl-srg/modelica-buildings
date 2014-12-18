@@ -105,8 +105,7 @@ equation
     P = P_nominal*load;
   end if;
 
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
-            {100,100}}),       graphics), Documentation(revisions="<html>
+  annotation ( Documentation(revisions="<html>
 <ul>
 <li>September 4, 2014, by Michael Wetter:<br/>
 Changed the parameter from <code>linear</code> to <code>linearized</code>
@@ -114,7 +113,7 @@ because <code>Buildings.Fluid</code> also uses <code>linearized</code>.
 This change has been done to use a consistent naming across the library.
 </li>
 <li>June 17, 2014, by Marco Bonvini:<br/>
-Adde parameter <code>initMode</code> that can be used to 
+Adde parameter <code>initMode</code> that can be used to
 select the assumption to be used during initialization phase
 by the homotopy operator.
 </li>
@@ -129,16 +128,16 @@ Model included in the Buildings library.
 </ul>
 </html>", info="<html>
 <p>
-This model represents a generic load that can be extended to represent 
+This model represents a generic load that can be extended to represent
 either a DC or an AC load.
 </p>
 <p>
-The model has a single generalized electric terminal of type 
+The model has a single generalized electric terminal of type
 <a href=\"modelica://Buildings.Electrical.Interfaces.Terminal\">
 Buildings.Electrical.Interfaces.Terminal</a>
 that can be redeclared.
 The generalized load is modeled as an impedance whose value can change. The value of the impedance
-can change depending on the value of the parameter <code>mode</code>, which is of type 
+can change depending on the value of the parameter <code>mode</code>, which is of type
 <a href=\"Buildings.Electrical.Types.Load\">Buildings.Electrical.Types.Load</a>:
 </p>
 <p>
@@ -162,8 +161,8 @@ specified by the parameter <code>P_nominal</code>.
 <td>fixed Z dynamic</td>
 <td>
 The load consumes exactly the power
-specified by the parameter <code>P_nominal</code> at steady state. 
-Depending on the type 
+specified by the parameter <code>P_nominal</code> at steady state.
+Depending on the type
 of load (e.g., inductive or capacitive)
 different dynamics are represented.
 </td>
@@ -182,7 +181,7 @@ by the input variable <code>Pow</code>.
 <td>Buildings.Electrical.Types.Load.VariableZ_y_input</td>
 <td>variable Z y input</td>
 <td>
-The load consumes exactly the a fraction of the nominal power 
+The load consumes exactly the a fraction of the nominal power
 <code>P_nominal</code> specified by the input variable <code>y</code>.
 </td>
 </tr>
@@ -192,19 +191,19 @@ The load consumes exactly the a fraction of the nominal power
 
 <h4>Conventions</h4>
 <p>
-It is assumed that the power <code>P</code> of the load is positive when produced 
-(e.g., the load acts like a source) and negative when consumed (e.g., the 
+It is assumed that the power <code>P</code> of the load is positive when produced
+(e.g., the load acts like a source) and negative when consumed (e.g., the
 source acts like a utilizer).
 </p>
 
 <h4>Linearized models</h4>
 <p>
-The model has a Boolean parameter <code>linearized</code> that by default is equal to <code>false</code>. 
+The model has a Boolean parameter <code>linearized</code> that by default is equal to <code>false</code>.
 When the power consumption of the load is imposed, this introduces
-a nonlinear equation between the voltage and the current of the load. This flag is used to 
-select between a linearized version 
+a nonlinear equation between the voltage and the current of the load. This flag is used to
+select between a linearized version
 of the equations or the original nonlinear ones.<br/>
-When the linearized version of the model is used, the parameter <code>V_nominal</code> has to 
+When the linearized version of the model is used, the parameter <code>V_nominal</code> has to
 be specified. The nominal voltage is needed to linearize the nonlinear equations.<br/>
 </p>
 <p>
@@ -213,7 +212,5 @@ A linearized model will not consume the nominal power if the voltage
 at the terminal differs from the nominal voltage.
 </p>
 
-</html>"),
-    Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
-        graphics));
+</html>"));
 end Load;

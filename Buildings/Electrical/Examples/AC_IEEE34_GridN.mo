@@ -61,6 +61,4 @@ equation
       color={0,120,120},
       smooth=Smooth.None));
 
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}}), graphics));
 end AC_IEEE34_GridN;

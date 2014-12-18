@@ -21,11 +21,11 @@ Each package inherits from <a href=\"modelica://Buildings.Electrical.PhaseSystem
 Buildings.Electrical.PhaseSystems.PartialPhaseSystem</a>.
 </p>
 <p>
-The packages represent various types of electrical systems. The basic idea behind this 
+The packages represent various types of electrical systems. The basic idea behind this
 approach is to use the same connector for different electrical domains.
-Each connector has a replaceable package that inherits from 
+Each connector has a replaceable package that inherits from
 <a href=\"modelica://Buildings.Electrical.PhaseSystems.PartialPhaseSystem\">
-Buildings.Electrical.PhaseSystems.PartialPhaseSystem</a> 
+Buildings.Electrical.PhaseSystems.PartialPhaseSystem</a>
 depending on the type of electrical system.
 The electrical systems represented are:
 </p>
@@ -47,7 +47,7 @@ This approach has been used by the following Modelica libraries:
 <li><a href=\"http://www.modelon.com/products/modelica-libraries/electric-power-library\">Electric Power Library</a>,
 developed by Modelon,</li>
 <li><a href=\"https://github.com/modelica/PowerSystems\">Power Systems Library</a>, and
-developed by <a href=\"mailto:Ruediger.Franke@de.abb.com\">Rüdiger Franke</a> (ABB).</li>
+developed by <a href=\"mailto:Ruediger.Franke@de.abb.com\">Rudiger Franke</a> (ABB).</li>
 </ul>
 
 <p>
@@ -56,10 +56,10 @@ More details about the phase system packages can be found in <a href=\"#Ruediger
 <h4>References</h4>
 <p>
 <a NAME=\"RuedigerEtAl2014\"/>
-Rüdiger Franke and Hansjürg Wiesmann.<br/>
+Ruediger Franke and Hansjurg Wiesmann.<br/>
 <a href=\"https://www.modelica.org/events/modelica2014/proceedings/html/submissions/ECP14096515_FrankeWiesmann.pdf\">
 Flexible modeling of electrical power systems - the Modelica PowerSystems library</a>.<br/>
-Proc. of the 10th Modelica Conference, Lund, Sweden, March 2014. 
+Proc. of the 10th Modelica Conference, Lund, Sweden, March 2014.
 </p>
 </html>", revisions="<html>
 <ul>

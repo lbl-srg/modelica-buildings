@@ -251,7 +251,7 @@ A Modelica package for building-to-electrical grid integration</a><br/>
 
 <p>
 <a NAME=\"RuedigerEtAl2014\"/>
-Rüdiger Franke and Hansjürg Wiesmann.<br/>
+Rudiger Franke and Hansjorg Wiesmann.<br/>
 <a href=\"https://www.modelica.org/events/modelica2014/proceedings/html/submissions/ECP14096515_FrankeWiesmann.pdf\">
 Flexible modeling of electrical power systems - the Modelica PowerSystems library</a>.<br/>
 Proc. of the 10th Modelica Conference, Lund, Sweden, March 2014.<br/>

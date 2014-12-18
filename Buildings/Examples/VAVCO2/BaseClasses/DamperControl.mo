@@ -44,9 +44,7 @@ equation
       points={{-120,1.11022e-15},{-70,1.11022e-15},{-70,-40},{-42,-40}},
       color={0,0,127},
       smooth=Smooth.None));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
-            -100},{100,100}})),
-                       Icon(
+  annotation (                       Icon(
       Line(points=[-60,-68; -60,42],
                                    style(color=8)),
       Polygon(points=[-60,52; -65,42; -55,42; -60,52],

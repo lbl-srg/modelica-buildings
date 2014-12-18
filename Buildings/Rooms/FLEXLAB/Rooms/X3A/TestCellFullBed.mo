@@ -96,7 +96,7 @@ model TestCellFullBed
   </p>
   <p align=\"center\">
   <img src=\"modelica://Buildings/Resources/Images/Rooms/FLEXLAB/Rooms/X3A/TestCell.png\" border=\"1\" alt=\"Wall sections in test cell model\"/>
-  </p>  
+  </p>
   <p>
   The different wall sections are entered into the model according to the following table.
   </p>
@@ -127,7 +127,7 @@ model TestCellFullBed
   <th>Location in TestCelNoDiv</th>
   </tr>
   <tr>
-  <td>4</td>  
+  <td>4</td>
   <td>Insulated wall separating the test cell and the electrical room</td>
   <td>datConBou[5]</td>
   <td>datConBou[4]</td>
@@ -143,9 +143,9 @@ model TestCellFullBed
   </table>
   <p>
   Several of the connections in this model are intended to be connected to specific surfaces in other room models.
-  The following table describes the connections to models outside of the X3A package. The connections in datConExt 
-  are not described in the table because they are connected to the external environment, and no additional heat 
-  port connections are necessary. A rationale for why the model is created this way is also provided if it is 
+  The following table describes the connections to models outside of the X3A package. The connections in datConExt
+  are not described in the table because they are connected to the external environment, and no additional heat
+  port connections are necessary. A rationale for why the model is created this way is also provided if it is
   considered necessary.
   </p>
   <table border =\"1\" summary=\"Description of intended connections including TestCell model\">
@@ -162,8 +162,8 @@ model TestCellFullBed
   <td>X3B.TestCell.surf_conBou[1] is the location of the cell dividing wall in the neighboring test cell. Connecting
   X3A.TestCellNoCelDiv.surf_surBou[2] to this port models heat transfer from the wall in X3B.TestCell to the air in this
   space.</td>
-  </tr>  
-  </table> 
+  </tr>
+  </table>
   </html>",
   revisions = "<html>
   <ul>

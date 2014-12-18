@@ -10,7 +10,7 @@ Added User's guide.
 </ul>
 </html>", info="<html>
 <p>
-Enumeration for materials that can be used 
+Enumeration for materials that can be used
 for cables.
 </p>
 </html>"));

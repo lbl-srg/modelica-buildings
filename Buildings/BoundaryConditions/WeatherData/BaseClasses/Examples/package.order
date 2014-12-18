@@ -1,6 +1,6 @@
 CheckCeilingHeight
-CheckRadiation
 CheckPressure
+CheckRadiation
 CheckRelativeHumidity
 CheckSkyCover
 CheckTemperature
@@ -14,4 +14,3 @@ GetAbsolutePath
 GetHeaderElement
 LocalCivilTime
 SolarTime
-

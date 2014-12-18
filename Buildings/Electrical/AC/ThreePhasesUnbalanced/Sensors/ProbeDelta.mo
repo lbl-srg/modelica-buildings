@@ -9,7 +9,6 @@ model ProbeDelta
   // fixme: The model ProbeDelta_N is missing from the library.
   Interfaces.WyeToDelta wyeToDelta "Y to D transformation"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
-        rotation=0,
         origin={20,0})));
 equation
   for i in 1:3 loop
@@ -57,7 +56,5 @@ June 6, 2014, by Marco Bonvini:<br/>
 First implementation.
 </li>
 </ul>
-</html>"),
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
-            100}}), graphics));
+</html>"));
 end ProbeDelta;

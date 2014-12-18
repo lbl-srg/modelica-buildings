@@ -17,8 +17,7 @@ model DoorDiscretizedOperable
   parameter Real mOpe = 0.5 "|Open aperture|Flow exponent for door";
   parameter Real mClo= 0.65 "|Closed aperture|Flow exponent for crack";
   Modelica.Blocks.Interfaces.RealInput y "Opening signal, 0=closed, 1=open"
-    annotation (Placement(transformation(extent={{-120,-10},{-100,10}},rotation=
-           0), iconTransformation(extent={{-120,-10},{-100,10}})));
+    annotation (Placement(transformation(extent={{-120,-10},{-100,10}}), iconTransformation(extent={{-120,-10},{-100,10}})));
 protected
  parameter Modelica.SIunits.Area AOpe=wOpe*hOpe "Open aperture area";
  parameter Modelica.SIunits.Area AClo(fixed=false) "Closed aperture area";
@@ -54,8 +53,7 @@ equation
       dp_turbulent=dp_turbulent);
   end for;
 
-  annotation (Diagram(graphics),
-                       Icon(graphics={
+  annotation (                       Icon(graphics={
         Text(
           extent={{-118,34},{-98,16}},
           lineColor={0,0,127},
@@ -85,7 +83,7 @@ Documentation(info="<html>
 This model describes the bi-directional air flow through an open door.
 </p>
 <p>
-To compute the bi-directional flow, 
+To compute the bi-directional flow,
 the door is discretize along the height coordinate, and uses
 an orifice equation to compute the flow for each compartment.
 </p>
@@ -94,7 +92,7 @@ The door can be either open or closed, depending on the input signal
 <i>y</i>.
 Set <i>y=0</i> if the door is closed, and <i>y=1</i>
 if the door is open.
-Use the model 
+Use the model
 <a href=\"modelica://Buildings.Airflow.Multizone.Crack\">
 Buildings.Airflow.Multizone.Crack
 </a> for a door that is always closed.
@@ -106,13 +104,13 @@ December 14, 2012 by Michael Wetter:<br/>
 Renamed protected parameters for consistency with the naming conventions.
 </li>
 <li><i>December 6, 2011</i> by Michael Wetter:<br/>
-       Changed the computation of the discharge coefficient to use the 
-       nominal density instead of the actual density. 
+       Changed the computation of the discharge coefficient to use the
+       nominal density instead of the actual density.
        Computing <code>sqrt(2/rho)</code> sometimes causes warnings from the solver,
        as it seems to try negative values for the density during iterative solutions.
 </li>
 <li><i>August 12, 2011</i> by Michael Wetter:<br/>
-       Changed model to use the new function 
+       Changed model to use the new function
        <a href=\"modelica://Buildings.Airflow.Multizone.BaseClasses.powerLawFixedM\">
        Buildings.Airflow.Multizone.BaseClasses.powerLawFixedM</a>.
 </li>

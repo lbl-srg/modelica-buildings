@@ -1,5 +1,5 @@
 /*
- * External function that exchanges a value with 
+ * External function that exchanges a value with
  * an array. The array size is dynamically changed
  * as needed.
  *
@@ -10,7 +10,7 @@
  * x:  value to be stored
  * iY: value to be returned (1-based index)
  *
- * Pierre Vigouroux, LBNL                  7/18/2011 
+ * Pierre Vigouroux, LBNL                  7/18/2011
  */
 
 #include "externalObjectStructure.h"
@@ -32,7 +32,7 @@ double exchangeValues(void* object, int iX, double x, int iY){
    * At first call, initialize storage */
   if ( table->x == NULL ){
     table->x= malloc( nNew * sizeof(double) );
-    if ( table->x == NULL ) 
+    if ( table->x == NULL )
       ModelicaError("Out of memory in storeValue.c when allocating memory for table.");
     table->n = nNew;
     table->x[iX-1] = x;
@@ -45,16 +45,16 @@ double exchangeValues(void* object, int iX, double x, int iY){
   if (iX > nTab){
     /* Assign more memory before storing the value */
     tab2 = malloc( nTab * sizeof(double) );
-    if ( tab2 == NULL ) 
+    if ( tab2 == NULL )
       ModelicaError("Out of memory in storeValue.c when allocating memory for tab2.");
-    
+
     /* Copy the values of x in tab2 */
     memcpy(tab2, table->x, nTab * sizeof(double) );
-    
+
     /* Increase the size of x */
     free(table->x);
     table->x = malloc(nNew * sizeof(double) );
-    if ( table->x == NULL ) 
+    if ( table->x == NULL )
       ModelicaError("Out of memory in storeValue.c when allocating memory for table->x.");
     table->n = nNew;
     /* Copy previous values */

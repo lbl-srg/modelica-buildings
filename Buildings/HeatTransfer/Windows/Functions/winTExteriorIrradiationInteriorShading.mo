@@ -15,8 +15,8 @@ algorithm
 
   annotation (Documentation(info="<html>
 <p>
-This function computes the angular and hemispherical transmittance of a window system (glass and shading device) for exterior irradiation with interior shading. 
-Pane <code>1</code> is facing outside and pane <code>N</code> is facing the room. 
+This function computes the angular and hemispherical transmittance of a window system (glass and shading device) for exterior irradiation with interior shading.
+Pane <code>1</code> is facing outside and pane <code>N</code> is facing the room.
 </p>
 </html>", revisions="<html>
 <ul>

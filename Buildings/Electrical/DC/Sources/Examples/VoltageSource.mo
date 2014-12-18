@@ -44,8 +44,7 @@ equation
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-140,
             -100},{100,140}}),      graphics),
     experiment(StopTime=1, Tolerance=1e-05),
-    __Dymola_experimentSetupOutput,
-    Documentation(info="<html>
+Documentation(info="<html>
 <p>
 This model illustrates the use of the varaible voltage source model.
 </p>

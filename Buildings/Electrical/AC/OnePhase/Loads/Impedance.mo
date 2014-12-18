@@ -37,11 +37,11 @@ equation
           lineColor={0,0,0},
           textString="%name")}),
           Documentation(info="<html>
-<p>        
+<p>
 Model of an impedance. This model can be used to represent any type
 of resistive, inductive or capacitive load.
 </p>
-<p>        
+<p>
 Note that the power consumed by the impedance model will drecrease if its voltage
 decreases.
 </p>
@@ -57,7 +57,7 @@ V = Z i,
 where <i>Z = R + j X</i> is the impedance. The value of the resistance <i>R</i> and the
 reactance <i>X</i> depend on the type of impedance. Different types of impedances
 can be selected using the boolean parameters <code>inductive</code>, <code>use_R_in</code>,
-<code>use_L_in</code>, and <code>use_C_in</code>. See 
+<code>use_L_in</code>, and <code>use_C_in</code>. See
 <a href=\"modelica://Buildings.Electrical.Interfaces.Impedance\">
 Buildings.Electrical.Interfaces.Impedance</a> for more details.
 </p>

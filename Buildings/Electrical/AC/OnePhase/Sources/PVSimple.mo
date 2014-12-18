@@ -37,8 +37,6 @@ equation
       smooth=Smooth.None));
   annotation (
 defaultComponentName="pv",
-Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}}), graphics),
 Documentation(info="<html>
 <p>
 Model of a simple photovoltaic array.
@@ -57,16 +55,16 @@ where <i>A</i> is the panel area,
 <i>&eta;</i> is the panel efficiency,
 <i>G</i> is the total solar irradiation, which is the
 sum of direct and diffuse irradiation, and
-<i>&eta;<sub>DCAC</sub></i> is the efficiency of the conversion 
+<i>&eta;<sub>DCAC</sub></i> is the efficiency of the conversion
 between DC and AC.
 </p>
 <p>
-This active power is equal to <i>P</i>, 
+This active power is equal to <i>P</i>,
 while the reactive power is equal to <i>Q = P &nbsp; tan(acos(pf)) </i>
 where <i>pf</i> is the power factor.
 </p>
 <p>
-<b>Note:</b> This model takes as input the total solar irradiation on the panel. 
+<b>Note:</b> This model takes as input the total solar irradiation on the panel.
 This has to be computed converting the incoming radiation to take tilt and azimuth into account.
 For a model that implements this conversion, use
 <a href=\"modelica://Buildings.Electrical.AC.OnePhase.Sources.PVSimpleOriented\">

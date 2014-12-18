@@ -16,6 +16,4 @@ equation
       points={{61,70},{64,70},{64,10}},
       color={0,0,127},
       smooth=Smooth.None));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}}), graphics));
 end DemandResponse;

@@ -96,8 +96,7 @@ equation
       smooth=Smooth.None));
   annotation (
   defaultComponentName="line",
-  Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}}), graphics), Icon(coordinateSystem(
+ Icon(coordinateSystem(
           preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
                                                graphics={
           Text(
@@ -171,7 +170,7 @@ equation
           textString="%name")}),
     Documentation(info="<html>
 <p>
-RLC line model (T-model) that connects two AC three phases 
+RLC line model (T-model) that connects two AC three phases
 unbalanced interfaces. This model can be used to represent a
 cable in a three phases unbalanced AC system.
 </p>
@@ -183,7 +182,7 @@ cable in a three phases unbalanced AC system.
 <p>
 The model represents the lumped impedances as shown in the figure above.
 Assuming that the overall cable has a resistance <i>R</i>, an inductance
-<i>L</i>, and a capacitance <i>C</i>, each line has an inductance equal 
+<i>L</i>, and a capacitance <i>C</i>, each line has an inductance equal
 to <i>L/3</i>, a resistance equal to <i>R/3</i> and a capacity equal to
 <i>C/3</i>.
 </p>

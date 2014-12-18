@@ -36,7 +36,7 @@ Revised documentation.
  fixme: this package has models *_N only for some components. Is this the intention? 
  All other packages seem to have model with and without _N for all components  -->
 This package contains models for transmission lines and electrical networks
-of AC three phases unbalanced systems. 
+of AC three phases unbalanced systems.
 </p>
 </html>"));
 end Lines;

@@ -68,17 +68,16 @@ equation
     defaultComponentName="HDifTilIso",
     Documentation(info="<html>
 <p>
-This component computes the hemispherical diffuse irradiation on a tilted surface using an isotropic model. 
+This component computes the hemispherical diffuse irradiation on a tilted surface using an isotropic model.
 The irradiation is a sum composed of diffuse solar irradiation and radiation reflected by the ground.
-For a definition of the parameters, see the 
+For a definition of the parameters, see the
 <a href=\"modelica://Buildings.BoundaryConditions.UsersGuide\">User's Guide</a>.
 </p>
 <h4>References</h4>
 P. Ineichen, R. Perez and R. Seals (1987).
 <i>The Importance of Correct Albedo Determination for Adequately Modeling Energy Received by Tilted Surface</i>,
 Solar Energy, 39(4): 301-305.
-</html>
-", revisions="<html>
+</html>", revisions="<html>
 <ul>
 <li>
 June 6, 2012, by Wangda Zuo:<br/>
@@ -90,8 +89,6 @@ First implementation.
 </li>
 </ul>
 </html>"),
-    Diagram(coordinateSystem(preserveAspectRatio=true,extent={{-100,-100},{100,
-            100}})),
     Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,
             100}}), graphics={Text(
           extent={{-150,110},{150,150}},

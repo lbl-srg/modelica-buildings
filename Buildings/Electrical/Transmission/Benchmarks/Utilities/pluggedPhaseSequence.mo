@@ -35,7 +35,7 @@ should be connected to a specific node of the feeder.
 </p>
 <p>
 The function takes as inputs <code>N</code> the number of elements
-of the array, <code>first</code> the index of the first element that 
+of the array, <code>first</code> the index of the first element that
 will be True, and <code>Mod</code> the period of the sequence.
 </p>
 <pre>

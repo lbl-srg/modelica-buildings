@@ -21,8 +21,8 @@ partial package PartialSimpleIdealGasMedium
 
   redeclare record extends ThermodynamicState
     "Thermodynamic state of ideal gas"
-    AbsolutePressure p "Absolute pressure of medium";
-    Temperature T "Temperature of medium";
+    AbsolutePressure p(start=p_default) "Absolute pressure of medium";
+    Temperature T(start=T_default) "Temperature of medium";
   end ThermodynamicState;
 
   redeclare record extends FluidConstants "fluid constants"
@@ -309,11 +309,19 @@ Modelica.Media.Interfaces.PartialSimpleIdealGasMedium</a>
 except that the functions.
 <code>density</code>,
 <code>specificEntropy</code> and <code>setState_dTX</code> are declared as <code>replaceable</code>.
-This is required for the implementation of 
+This is required for the implementation of
 <a href=\"modelica://Buildings.Media.GasesPTDecoupled.SimpleAir\">
 Buildings.Media.GasesPTDecoupled.SimpleAir</a>.
 </html>", revisions="<html>
 <ul>
+<li>
+September 12, 2014, by Michael Wetter:<br/>
+Set <code>T(start=T_default)</code> and <code>p(start=p_default)</code> in the
+<code>ThermodynamicState</code> record. Setting the start value for
+<code>T</code> is required to avoid an error due to conflicting start values
+when checking <a href=\"modelica://Buildings.Examples.VAVReheat.ClosedLoop\">
+Buildings.Examples.VAVReheat.ClosedLoop</a> in pedantic mode.
+</li>
 <li>
 September 16, 2010, by Michael Wetter:<br/>
 Removed the <code>stateSelect</code> assignment in <pre>
@@ -327,7 +335,7 @@ as this is now handled in the model
 <a href=\"modelica://Buildings.Fluid.MixingVolumes.MixingVolume\">
 Buildings.Fluid.MixingVolumes.MixingVolume</a>. The reason for this change is
 that the assignment is different for steady-state and dynamic balance.
-In the previous implementation, this assignment can cause steady-state models to 
+In the previous implementation, this assignment can cause steady-state models to
 be differentiated in order to obtain <code>T</code> as a state. This resulted
 in some cases in large coupled systems of equations that can be avoided
 if the <code>stateSelect</code> is not set to <code>StateSelect.prefer</code>
@@ -351,7 +359,7 @@ this medium implements density as a function of pressure.
 Declared functions
 <code>density</code>,
 <code>specificEntropy</code> and <code>setState_dTX</code> as <code>replaceable</code>.
-This is required for the implementation of 
+This is required for the implementation of
 <a href=\"modelica://Buildings.Media.GasesPTDecoupled.SimpleAir\">
 Buildings.Media.GasesPTDecoupled.SimpleAir</a>.
 </li>

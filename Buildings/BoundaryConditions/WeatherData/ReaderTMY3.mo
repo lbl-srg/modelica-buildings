@@ -42,7 +42,8 @@ block ReaderTMY3 "Reader for TMY3 weather data"
   parameter Real totSkyCov(
     min=0,
     max=1,
-    unit="1") = 0.5 "Total sky cover (used if totSkyCov=Parameter)"
+    unit="1") = 0.5
+    "Total sky cover (used if totSkyCov=Parameter). Use 0 <= totSkyCov <= 1"
     annotation (Dialog(group="Data source"));
   Modelica.Blocks.Interfaces.RealInput totSkyCov_in(
     min=0,
@@ -57,7 +58,8 @@ block ReaderTMY3 "Reader for TMY3 weather data"
   parameter Real opaSkyCov(
     min=0,
     max=1,
-    unit="1") = 0.5 "Opaque sky cover (used if opaSkyCov=Parameter)"
+    unit="1") = 0.5
+    "Opaque sky cover (used if opaSkyCov=Parameter). Use 0 <= opaSkyCov <= 1"
     annotation (Dialog(group="Data source"));
   Modelica.Blocks.Interfaces.RealInput opaSkyCov_in(
     min=0,
@@ -194,9 +196,6 @@ block ReaderTMY3 "Reader for TMY3 weather data"
     "Time zone";
   Bus weaBus "Weather Data Bus" annotation (Placement(transformation(extent={{
             294,-10},{314,10}}), iconTransformation(extent={{190,-10},{210,10}})));
-  BaseClasses.SolarSubBus solBus "Sub bus with solar position"
-    annotation (Placement(transformation(extent={{-2,-304},{18,-284}}),
-        iconTransformation(extent={{-2,-200},{18,-180}})));
 
   parameter Buildings.BoundaryConditions.Types.SkyTemperatureCalculation
     calTSky=Buildings.BoundaryConditions.Types.SkyTemperatureCalculation.TemperaturesAndSkyCover
@@ -369,6 +368,16 @@ protected
       TDryBul(displayUnit="degC")) if computeWetBulbTemperature
     annotation (Placement(transformation(extent={{244,-66},{264,-46}})));
 
+  //---------------------------------------------------------------------------
+  // Conversion blocks for sky cover
+  Modelica.Blocks.Math.Gain conTotSkyCov(final k=0.1) if
+       totSkyCovSou == Buildings.BoundaryConditions.Types.DataSource.File
+    "Convert sky cover from [0...10] to [0...1]"
+    annotation (Placement(transformation(extent={{120,-40},{140,-20}})));
+  Modelica.Blocks.Math.Gain conOpaSkyCov(final k=0.1) if
+       opaSkyCovSou == Buildings.BoundaryConditions.Types.DataSource.File
+    "Convert sky cover from [0...10] to [0...1]"
+    annotation (Placement(transformation(extent={{120,-158},{140,-138}})));
 equation
   //---------------------------------------------------------------------------
   // Select atmospheric pressure connector
@@ -398,7 +407,11 @@ equation
   elseif totSkyCovSou == Buildings.BoundaryConditions.Types.DataSource.Input then
     connect(totSkyCov_in, totSkyCov_in_internal);
   else
-    connect(datRea.y[13], totSkyCov_in_internal);
+    connect(conTotSkyCov.u, datRea.y[13]) annotation (Line(
+      points={{118,-30},{-59,-30}},
+      color={0,0,127},
+      smooth=Smooth.None));
+    connect(conTotSkyCov.y, totSkyCov_in_internal);
   end if;
   connect(totSkyCov_in_internal, cheTotSkyCov.nIn);
   //---------------------------------------------------------------------------
@@ -408,9 +421,14 @@ equation
   elseif opaSkyCovSou == Buildings.BoundaryConditions.Types.DataSource.Input then
     connect(opaSkyCov_in, opaSkyCov_in_internal);
   else
-    connect(datRea.y[14], opaSkyCov_in_internal);
+    connect(conOpaSkyCov.u, datRea.y[14]) annotation (Line(
+      points={{118,-148},{30,-148},{30,-29.92},{-59,-29.92}},
+      color={0,0,127},
+      smooth=Smooth.None));
+    connect(conOpaSkyCov.y, opaSkyCov_in_internal);
   end if;
   connect(opaSkyCov_in_internal, cheOpaSkyCov.nIn);
+
   //---------------------------------------------------------------------------
   // Select dew point temperature connector
   if TDewPoiSou == Buildings.BoundaryConditions.Types.DataSource.Parameter then
@@ -663,10 +681,6 @@ equation
       points={{-59,169.25},{20,169.25},{20,250},{118,250}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(conHorRad.HOut, cheHorRad.HIn) annotation (Line(
-      points={{141,250},{158,250}},
-      color={0,0,127},
-      smooth=Smooth.None));
   connect(cheTemDryBul.TOut, TBlaSky.TDryBul) annotation (Line(
       points={{181,-190},{220,-190},{220,-202},{238,-202}},
       color={0,0,127},
@@ -742,55 +756,6 @@ equation
       points={{-59,-216},{-40,-216},{-40,-270},{-32,-270}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(altAng.alt, solBus.alt) annotation (Line(
-      points={{-9,-270},{8,-270},{8,-294}},
-      color={0,0,127},
-      smooth=Smooth.None), Text(
-      string="%second",
-      index=1,
-      extent={{6,3},{6,3}}));
-  connect(zenAng.zen, solBus.zen) annotation (Line(
-      points={{-59,-216},{-40,-216},{-40,-294},{8,-294}},
-      color={0,0,127},
-      smooth=Smooth.None), Text(
-      string="%second",
-      index=1,
-      extent={{6,3},{6,3}}));
-  connect(solBus, weaBus.sol) annotation (Line(
-      points={{8,-294},{122,-294},{122,-292},{290,-292},{290,5.55112e-16},{304,
-          5.55112e-16}},
-      color={255,204,51},
-      thickness=0.5,
-      smooth=Smooth.None));
-
-  connect(decAng.decAng, solBus.dec) annotation (Line(
-      points={{-119,-210},{-100,-210},{-100,-294},{8,-294}},
-      color={0,0,127},
-      smooth=Smooth.None), Text(
-      string="%second",
-      index=1,
-      extent={{6,3},{6,3}}));
-  connect(solHouAng.solHouAng, solBus.solHouAng) annotation (Line(
-      points={{-119,-240},{-100,-240},{-100,-294},{8,-294}},
-      color={0,0,127},
-      smooth=Smooth.None), Text(
-      string="%second",
-      index=1,
-      extent={{6,3},{6,3}}));
-  connect(longitude.y, solBus.lon) annotation (Line(
-      points={{-119,-270},{-100,-270},{-100,-294},{8,-294}},
-      color={0,0,127},
-      smooth=Smooth.None), Text(
-      string="%second",
-      index=1,
-      extent={{6,3},{6,3}}));
-  connect(latitude.y, solBus.lat) annotation (Line(
-      points={{-159,-270},{-150,-270},{-150,-294},{8,-294}},
-      color={0,0,127},
-      smooth=Smooth.None), Text(
-      string="%second",
-      index=1,
-      extent={{6,3},{6,3}}));
 
   // Connectors for wet bulb temperature.
   // These are removed if computeWetBulbTemperature = false
@@ -815,6 +780,32 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
 
+  connect(altAng.alt, weaBus.solAlt) annotation (Line(
+      points={{-9,-270},{8,-270},{8,-290},{290,-290},{290,0},{304,0}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(zenAng.zen, weaBus.solZen) annotation (Line(
+      points={{-59,-216},{-40,-216},{-40,-290},{290,-290},{290,0},{304,0}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(decAng.decAng, weaBus.solDec) annotation (Line(
+      points={{-119,-210},{-110,-210},{-110,-208},{-100,-208},{-100,-290},{290,
+          -290},{290,0},{304,0}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(solHouAng.solHouAng, weaBus.solHouAng) annotation (Line(
+      points={{-119,-240},{-108,-240},{-108,-238},{-100,-238},{-100,-290},{290,
+          -290},{290,0},{304,0}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(longitude.y, weaBus.lon) annotation (Line(
+      points={{-119,-270},{-100,-270},{-100,-290},{290,-290},{290,0},{304,0}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(latitude.y, weaBus.lat) annotation (Line(
+      points={{-159,-270},{-150,-270},{-150,-290},{290,-290},{290,0},{304,0}},
+      color={0,0,127},
+      smooth=Smooth.None));
   annotation (
     defaultComponentName="weaDat",
     Icon(coordinateSystem(
@@ -887,7 +878,7 @@ equation
           fillColor={230,230,230})}),
     Documentation(info="<html>
 <p>
-This component reads TMY3 weather data (Wilcox and Marion, 2008) or user specified weather data. 
+This component reads TMY3 weather data (Wilcox and Marion, 2008) or user specified weather data.
 The weather data format is the Typical Meteorological Year (TMY3)
 as obtained from the EnergyPlus web site at
 <a href=\"http://apps1.eere.energy.gov/buildings/energyplus/cfm/weather_data.cfm\">
@@ -950,7 +941,7 @@ To disable the computation of the wet bulb temperature, set
 <!-- ============================================== -->
 <h4>Using constant or user-defined input signals for weather data</h4>
 <p>
-This model has the option of using a constant value, using the data from the weather file, 
+This model has the option of using a constant value, using the data from the weather file,
 or using data from an input connector for the following variables:
 </p>
 <ul>
@@ -1097,7 +1088,7 @@ and allows the following configurations:
 <p>
 In HVAC systems, when the fan is off, changes in atmospheric pressure can cause small air flow rates
 in the duct system due to change in pressure and hence in the mass of air that is stored
-in air volumes (such as in fluid junctions or in the room model). 
+in air volumes (such as in fluid junctions or in the room model).
 This may increase computing time. Therefore, the default value for the atmospheric pressure is set to a constant.
 Furthermore, if the initial pressure of air volumes are different
 from the atmospheric pressure, then fast pressure transients can happen in the first few seconds of the simulation.
@@ -1109,25 +1100,25 @@ For medium models for moist air and dry air, the default is
 </li>
 <li>
 <p>
-Different units apply depending on whether data are obtained from a file, or 
+Different units apply depending on whether data are obtained from a file, or
 from a parameter or an input connector:
 </p>
 <ul>
 <li>
-When using TMY3 data from a file (e.g. <code>USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos</code>), the units must be the same as the original TMY3 file used by EnergyPlus (e.g. 
-<code>USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.epw</code>). 
-The TMY3 data used by EnergyPlus are in both SI units and non-SI units. 
+When using TMY3 data from a file (e.g. <code>USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos</code>), the units must be the same as the original TMY3 file used by EnergyPlus (e.g.
+<code>USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.epw</code>).
+The TMY3 data used by EnergyPlus are in both SI units and non-SI units.
 If <code>Resources/bin/ConvertWeatherData.jar</code> is used to convert the <code>.epw</code> file to an <code>.mos</code> file, the units of the TMY3 data are preserved and the file can be directly
-used by this data reader. 
+used by this data reader.
 The data reader will automatically convert units to the SI units used by Modelica.
-For example, the dry bulb temperature <code>TDryBul</code> in TMY3 is in degree Celsius. 
-The data reader will automatically convert the data to Kelvin. 
+For example, the dry bulb temperature <code>TDryBul</code> in TMY3 is in degree Celsius.
+The data reader will automatically convert the data to Kelvin.
 The wind direction <code>winDir</code> in TMY3 is degrees and will be automatically converted to radians.
 </li>
 <li>
 When using data from a parameter or from an input connector,
-the data must be in the SI units used by Modelica. 
-For instance, the unit must be 
+the data must be in the SI units used by Modelica.
+For instance, the unit must be
 <code>Pa</code> for pressure,
 <code>K</code> for temperature,
 <code>W/m2</code> for solar radiations and
@@ -1136,9 +1127,9 @@ For instance, the unit must be
 </ul>
 </li>
 <li>
-The ReaderTMY3 should only be used with TMY3 data. It contains a time shift for solar radiation data 
-that is explained below. This time shift needs to be removed if the user may want to 
-use the ReaderTMY3 for other weather data types. 
+The ReaderTMY3 should only be used with TMY3 data. It contains a time shift for solar radiation data
+that is explained below. This time shift needs to be removed if the user may want to
+use the ReaderTMY3 for other weather data types.
 </li>
 </ol>
 <h4>Implementation</h4>
@@ -1150,10 +1141,10 @@ Thus, the first entry for temperatures, humidity, wind speed etc. are values
 at 1:00 AM and not at midnight. Furthermore, the TMY3 weather data files can have
 values at midnight of December 31 that may be significantly different from the values
 at 1:00 AM on January 1.
-Since annual simulations require weather data that start at 0:00 on January 1, 
+Since annual simulations require weather data that start at 0:00 on January 1,
 data need to be provided for this hour. Due to the possibly large change in
-weatherdata between 1:00 AM on January 1 and midnight at December 31, 
-the weather data files in the Buildings library do not use the data entry from 
+weatherdata between 1:00 AM on January 1 and midnight at December 31,
+the weather data files in the Buildings library do not use the data entry from
 midnight at December 31 as the value for <i>t=0</i>. Rather, the
 value from 1:00 AM on January 1 is duplicated and used for 0:00 on January 1.
 To maintain a data record with <i>8760</i> hours, the weather data record from
@@ -1169,14 +1160,14 @@ two data readers in this model. One data reader obtains all data
 except solar radiation, and the other data reader reads only the
 solar radiation data, shifted by <i>30</i> minutes.
 The reason for this time shift is as follows:
-The TMY3 weather data file contains for solar radiation the 
+The TMY3 weather data file contains for solar radiation the
 \"...radiation received
 on a horizontal surface during
 the 60-minute period ending at
 the timestamp.\"
 
-Thus, as the figure below shows, a more accurate interpolation is obtained if 
-time is shifted by <i>30</i> minutes prior to reading the weather data.   
+Thus, as the figure below shows, a more accurate interpolation is obtained if
+time is shifted by <i>30</i> minutes prior to reading the weather data.
 </p>
 <p align=\"center\">
 <img alt=\"image\" src=\"modelica://Buildings/Resources/Images/BoundaryConditions/WeatherData/RadiationTimeShift.png\"
@@ -1185,13 +1176,24 @@ border=\"1\" />
 <h4>References</h4>
 <ul>
 <li>
-Wilcox S. and W. Marion. <i>Users Manual for TMY3 Data Sets</i>. 
+Wilcox S. and W. Marion. <i>Users Manual for TMY3 Data Sets</i>.
 Technical Report, NREL/TP-581-43156, revised May 2008.
 </li>
 </ul>
-</html>
-", revisions="<html>
+</html>", revisions="<html>
 <ul>
+<li>
+October 17, 2014, by Michael Wetter<br/>
+Corrected error that led the total and opaque sky cover to be ten times
+too low if its value was obtained from the parameter or the input connector.
+For the standard configuration in which the sky cover is obtained from
+the weather data file, the model was correct. This error only affected
+the other two possible configurations.
+</li>
+<li>
+September 12, 2014, by Michael Wetter:<br/>
+Removed redundant connection <code>connect(conHorRad.HOut, cheHorRad.HIn);</code>.
+</li>
 <li>
 May 30, 2014, by Michael Wetter:<br/>
 Removed undesirable annotation <code>Evaluate=true</code>.
@@ -1199,7 +1201,7 @@ Removed undesirable annotation <code>Evaluate=true</code>.
 <li>
 May 5, 2013, by Thierry S. Nouidui:<br/>
 Added the option to use a constant, an input signal or the weather file as the source
-for the ceiling height, the total sky cover, the opaque sky cover, the dew point temperature, 
+for the ceiling height, the total sky cover, the opaque sky cover, the dew point temperature,
 and the infrared horizontal radiation <code>HInfHor</code>.
 </li>
 <li>
@@ -1211,7 +1213,7 @@ are added in this order to search for the weather file.
 This allows using the data reader without having to specify an absolute path,
 as long as the <code>Buildings</code> library
 is on the <code>MODELICAPATH</code>.
-This change was implemented in 
+This change was implemented in
 <a href=\"modelica://Buildings.BoundaryConditions.WeatherData.BaseClasses.getAbsolutePath\">
 Buildings.BoundaryConditions.WeatherData.BaseClasses.getAbsolutePath</a>
 and improves this weather data reader.
@@ -1226,14 +1228,14 @@ Added computation of the wet bulb temperature.
 Computing the wet bulb temperature introduces a nonlinear
 equation. As we have not observed an increase in computing time
 because of computing the wet bulb temperature, it is computed
-by default. By setting the parameter 
+by default. By setting the parameter
 <code>computeWetBulbTemperature=false</code>, the computation of the
 wet bulb temperature can be removed.
 Revised documentation.
 </li>
 <li>
 August 11, 2012, by Wangda Zuo:<br/>
-Renamed <code>radHor</code> to <code>radHorIR</code> and 
+Renamed <code>radHor</code> to <code>radHorIR</code> and
 improved the optional inputs for radiation data.
 </li>
 <li>
@@ -1254,13 +1256,13 @@ shading model.
 </li>
 <li>
 November 29, 2011, by Michael Wetter:<br/>
-Fixed wrong display unit for <code>pAtm_in_internal</code> and 
+Fixed wrong display unit for <code>pAtm_in_internal</code> and
 made propagation of parameter final.
 </li>
 <li>
 October 27, 2011, by Wangda Zuo:<br/>
 1. Added optional connectors for dry bulb temperature, relative humidity, wind speed, wind direction, global horizontal radiation, diffuse horizontal radiation.<br/>
-2. Separate the unit convertion for TMY3 data and data validity check. 
+2. Separate the unit convertion for TMY3 data and data validity check.
 </li>
 <li>
 October 3, 2011, by Michael Wetter:<br/>
@@ -1276,8 +1278,8 @@ Delete the wet bulb temperature since it may cause numerical problem.
 </li>
 <li>
 March 7, 2011, by Wangda Zuo:<br/>
-Added wet bulb temperature. Changed reader to read only needed columns. 
-Added explanation for 30 minutes shift for radiation data.  
+Added wet bulb temperature. Changed reader to read only needed columns.
+Added explanation for 30 minutes shift for radiation data.
 </li>
 <li>
 March 5, 2011, by Michael Wetter:<br/>
@@ -1291,6 +1293,7 @@ First implementation.
 </ul>
 </html>"),
     Diagram(coordinateSystem(preserveAspectRatio=false,
-                                                      extent={{-200,-300},{300,300}}),
+                                                      extent={{-200,-300},{300,
+            300}}),
         graphics));
 end ReaderTMY3;

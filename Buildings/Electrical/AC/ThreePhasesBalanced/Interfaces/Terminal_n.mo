@@ -5,8 +5,7 @@ connector Terminal_n "AC three phases balanced terminal ('negative')"
   annotation (defaultComponentName = "term_p",
   Documentation(info="<html>
 <p>Electric connector with a vector of negative pins.</p>
-</html>
-"),
+</html>"),
   Icon(coordinateSystem(
         preserveAspectRatio=false,
         extent={{-100,-100},{100,100}},

@@ -62,8 +62,7 @@ equation
       points={{43,20},{68,20},{68,8.88178e-16},{60,8.88178e-16}},
       color={0,0,127},
       smooth=Smooth.None));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}}), graphics), Icon(coordinateSystem(
+  annotation ( Icon(coordinateSystem(
           preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
         graphics={
         Polygon(
@@ -136,7 +135,7 @@ Simple model of a battery.
 <p>
 This model takes as an input the power that should be stored in the battery (if <i>P &gt; 0</i>)
 or that should be extracted from the battery.
-The model uses a fictitious conductance 
+The model uses a fictitious conductance
 (see <a href=\"modelica://Buildings.Electrical.DC.Loads.Conductor\">Buildings.Electrical.DC.Loads.Conductor</a>) <i>G</i> such that
 <i>P = u &nbsp; i</i> and <i>i = u &nbsp; G,</i> where
 <i>u</i> is the voltage difference across the pins and

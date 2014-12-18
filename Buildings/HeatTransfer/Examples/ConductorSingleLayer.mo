@@ -26,8 +26,6 @@ model ConductorSingleLayer "Test model for heat conductor"
     annotation (Placement(transformation(extent={{2,-36},{14,-24}})));
   Modelica.Thermal.HeatTransfer.Sensors.HeatFlowSensor heaFlo1
     annotation (Placement(transformation(extent={{-6,4},{6,16}})));
-  Buildings.Utilities.Diagnostics.AssertEquality assertEquality(threShold=1E-8)
-    annotation (Placement(transformation(extent={{20,-80},{40,-60}})));
   parameter Buildings.HeatTransfer.Data.Solids.Concrete concrete200(x=0.2, nSta=4)
     annotation (Placement(transformation(extent={{20,60},{40,80}})));
   parameter Buildings.HeatTransfer.Data.Solids.Concrete concrete100(x=0.1, nSta=2)
@@ -68,14 +66,6 @@ equation
       points={{6,10},{20,10}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(assertEquality.u1, heaFlo2.Q_flow) annotation (Line(
-      points={{18,-64},{8,-64},{8,-36}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(assertEquality.u2, heaFlo1.Q_flow) annotation (Line(
-      points={{18,-76},{0,-76},{0,4},{-1.88738e-16,4}},
-      color={0,0,127},
-      smooth=Smooth.None));
   connect(TA.port, conv1.fluid) annotation (Line(
       points={{-40,10},{-32,10}},
       color={191,0,0},
@@ -92,9 +82,8 @@ equation
       points={{-12,10},{-6,10}},
       color={191,0,0},
       smooth=Smooth.None));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
-            -100},{100,100}})),
-experiment(StopTime=86400),
+  annotation (            experiment(StopTime=86400,
+            Tolerance=1E-8),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/HeatTransfer/Examples/ConductorSingleLayer.mos"
         "Simulate and plot"),
     Documentation(info="<html>
@@ -104,6 +93,11 @@ The <code>assert</code> block will stop the simulation if the heat exchange with
 condition differs.
 </html>", revisions="<html>
 <ul>
+<li>
+October 13, 2014, by Michael Wetter:<br/>
+Removed <code>assert</code> as the equality of the results is already tested
+in the regression tests, and OpenModelica triggers this assert during the integration.
+</li>
 <li>
 January 23 2013, by Michael Wetter:<br/>
 Assigned fixed value to <code>nSta</code> of constructions.

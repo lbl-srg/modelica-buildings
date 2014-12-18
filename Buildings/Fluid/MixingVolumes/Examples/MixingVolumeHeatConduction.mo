@@ -8,7 +8,7 @@ model MixingVolumeHeatConduction "Test model for heat transfer to volume"
   Modelica.Thermal.HeatTransfer.Sensors.HeatFlowSensor heaFlo
     "Heat flow sensor"
     annotation (Placement(transformation(extent={{0,20},{20,40}})));
-  Modelica.Thermal.HeatTransfer.Sources.FixedTemperature TAmb(T=293.15)
+  Buildings.HeatTransfer.Sources.FixedTemperature TAmb(T=293.15)
     "Ambient temperature"
     annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
   Modelica.Fluid.Sources.MassFlowSource_T sou(
@@ -39,8 +39,7 @@ model MixingVolumeHeatConduction "Test model for heat transfer to volume"
     offset=1,
     height=-2)
     annotation (Placement(transformation(extent={{-90,-20},{-70,0}})));
-  inner Modelica.Fluid.System system
-    annotation (Placement(transformation(extent={{60,60},{80,80}})));
+
   Modelica.Blocks.Math.Gain gain(k=0.01)
     annotation (Placement(transformation(extent={{-60,-20},{-40,0}})));
 equation
@@ -88,6 +87,5 @@ First implementation.
 </html>"),
 experiment(StopTime=1.0),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/MixingVolumes/Examples/MixingVolumeHeatConduction.mos"
-        "Simulate and plot"),
-    Diagram(graphics));
+        "Simulate and plot"));
 end MixingVolumeHeatConduction;

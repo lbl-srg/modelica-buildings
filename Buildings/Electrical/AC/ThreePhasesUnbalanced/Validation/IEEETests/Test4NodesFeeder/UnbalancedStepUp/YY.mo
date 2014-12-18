@@ -81,8 +81,7 @@ equation
   __Dymola_Commands(file=
           "modelica://Buildings/Resources/Scripts/Dymola/Electrical/AC/ThreePhasesUnbalanced/Validation/IEEETests/Test4NodesFeeder/UnbalancedStepUp/YY.mos"
         "Simulate and plot"),
-        Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
-            {100,100}}), graphics), Documentation(revisions="<html><ul>
+ Documentation(revisions="<html><ul>
 <li>
 October 9, 2014, by Marco Bonvini:<br/>
 Added documentation.
@@ -103,9 +102,9 @@ IEEE 4 nodes validation test case with the following characteristics
 <ul>
 <li>balanced load,
   <ul>
-  <li>power consumption on phases <i>P<sub>1</sub> = 2375 kW</i>, 
+  <li>power consumption on phases <i>P<sub>1</sub> = 2375 kW</i>,
   <i>P<sub>2</sub> = 1800 kW</i>, and <i>P<sub>3</sub> = 1275 kW</i></li>
-  <li>power factor on phases <i>cos&phi;<sub>1</sub> = 0.85</i>, 
+  <li>power factor on phases <i>cos&phi;<sub>1</sub> = 0.85</i>,
   <i>cos&phi;<sub>2</sub> = 0.9</i>, and <i>cos&phi;<sub>3</sub> = 0.95</i></li>
   </ul>
 </li>

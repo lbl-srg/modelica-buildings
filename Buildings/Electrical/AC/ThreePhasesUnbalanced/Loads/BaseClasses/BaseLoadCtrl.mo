@@ -10,7 +10,7 @@ partial model BaseLoadCtrl
   parameter Buildings.Electrical.Types.Load mode(
     min=Buildings.Electrical.Types.Load.FixedZ_steady_state,
     max=Buildings.Electrical.Types.Load.VariableZ_y_input)=
-    Buildings.Electrical.Types.Load.FixedZ_steady_state "Parameters that specifies the mode of the load (e.g., steady state, 
+    Buildings.Electrical.Types.Load.FixedZ_steady_state "Parameters that specifies the mode of the load (e.g., steady state,
     dynamic, prescribed power consumption, etc.)" annotation(Dialog(group="Modelling assumption"));
   parameter Modelica.SIunits.Power P_nominal(start=0)
     "Nominal power (negative if consumed, positive if generated)"  annotation(Dialog(group="Nominal conditions",
@@ -338,16 +338,13 @@ equation
         smooth=Smooth.None));
   end if;
 
-    annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}}), graphics), Icon(coordinateSystem(
-          preserveAspectRatio=false, extent={{-100,-100},{100,100}}), graphics),
-    Documentation(info="<html>
+    annotation (    Documentation(info="<html>
 <p>
 This model represents a partial interface for a three phases AC unbalanced
 load.
 </p>
 <p>
-The loads on each phase can be removed using the boolean flags 
+The loads on each phase can be removed using the boolean flags
 <code>plugPhase1</code>, <code>plugPhase2</code>, and <code>plugPhase3</code>.
 These parameters can be used to generate unbalanced loads.
 </p>
@@ -359,7 +356,7 @@ The parameter <code>loadConn</code> can be used for such a purpose.
 Each load model has the option to be controlled by a voltage controller.
 When enabled, the voltage controller unplugs the load for a certain amount of
 time if the voltage exceeds a given threshold. Mode information about the
-voltage controller can be found 
+voltage controller can be found
 <a href=\"modelica://Buildings.Electrical.Utilities.VoltageControl\">here</a>.
 </p>
 </html>", revisions="<html>

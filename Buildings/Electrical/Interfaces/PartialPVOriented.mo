@@ -160,10 +160,6 @@ equation
           extent={{102,107},{124,81}},
           lineColor={0,0,127},
           textString="P")}),
-    Diagram(coordinateSystem(
-        preserveAspectRatio=false,
-        extent={{-100,-100},{100,100}},
-        grid={1,1}), graphics),
     Documentation(revisions="<html>
     <ul>
 <li>
@@ -190,8 +186,8 @@ where <i>A</i> is the panel area,
 <i>f<sub>act</sub></i> is the fraction of the aperture area,
 <i>&eta;</i> is the panel efficiency and
 <i>G</i> is the total solar irradiation, which is the sum of
-direct and diffuse irradiation. 
-The model takes into account the location and the orientation of the PV panel, 
+direct and diffuse irradiation.
+The model takes into account the location and the orientation of the PV panel,
 specified by the surface tilt, latitude and azimuth.
 </p>
 </html>"));

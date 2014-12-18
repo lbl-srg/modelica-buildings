@@ -11,7 +11,7 @@ model RelativeHumidity "Test model for relative humidity sensor"
     T=293.15,
     nPorts=1)
      annotation (Placement(
-        transformation(extent={{80,10},{60,30}}, rotation=0)));
+        transformation(extent={{80,10},{60,30}})));
   Buildings.Fluid.Sources.MassFlowSource_T sou(
     redeclare package Medium = Medium,
     m_flow=1,
@@ -19,28 +19,26 @@ model RelativeHumidity "Test model for relative humidity sensor"
     use_X_in=true,
     use_m_flow_in=true,
     nPorts=2) "Flow boundary condition"  annotation (Placement(transformation(
-          extent={{-30,12},{-10,32}}, rotation=0)));
+          extent={{-30,12},{-10,32}})));
   Modelica.Blocks.Sources.Ramp TDryBul(
     height=10,
     offset=273.15 + 30,
     duration=120) "Dry bulb temperature"
-                 annotation (Placement(transformation(extent={{-100,14},{-80,34}},
-          rotation=0)));
+                 annotation (Placement(transformation(extent={{-100,14},{-80,34}})));
   Modelica.Blocks.Sources.Ramp XHum(
     duration=1,
     height=(0.0133 - 0.0175),
     offset=0.0175) "Humidity concentration"
                  annotation (Placement(transformation(extent={{-100,-60},{-80,
-            -40}}, rotation=0)));
+            -40}})));
   Modelica.Blocks.Sources.Constant const(k=1) "Constant"
                                          annotation (Placement(transformation(
-          extent={{-100,-20},{-80,0}}, rotation=0)));
+          extent={{-100,-20},{-80,0}})));
   Modelica.Blocks.Math.Feedback dif
     "Difference, used to compute the mass fraction of dry air"
     annotation (Placement(transformation(
-          extent={{-68,-20},{-48,0}}, rotation=0)));
-  inner Modelica.Fluid.System system
-    annotation (Placement(transformation(extent={{80,-100},{100,-80}})));
+          extent={{-68,-20},{-48,0}})));
+
   Buildings.Fluid.Sensors.RelativeHumidity senRelHum(
     redeclare package Medium = Medium)
     "Relative humidity of the flow source if the medium were outflowing"
@@ -49,8 +47,7 @@ model RelativeHumidity "Test model for relative humidity sensor"
     height=-2,
     offset=1,
     duration=500) "Mass flow rate"
-                 annotation (Placement(transformation(extent={{-80,40},{-60,60}},
-          rotation=0)));
+                 annotation (Placement(transformation(extent={{-80,40},{-60,60}})));
   Buildings.Fluid.Sensors.RelativeHumidityTwoPort relHum(
     redeclare package Medium = Medium, m_flow_nominal=1,
     initType=Modelica.Blocks.Types.Init.InitialState)
@@ -83,10 +80,7 @@ equation
       points={{-10,20},{20,20}},
       color={0,127,255},
       smooth=Smooth.None));
-    annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}}),
-                        graphics),
-experiment(StopTime=600),
+    annotation (experiment(StopTime=600),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Sensors/Examples/RelativeHumidity.mos"
         "Simulate and plot"),
     Documentation(info="<html>

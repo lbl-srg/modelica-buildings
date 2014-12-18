@@ -4,8 +4,9 @@ model X_pSatpphi "Model to test X_pSatpphi function"
   package Medium = Buildings.Media.PerfectGases.MoistAir "Medium model"
            annotation (choicesAllMatching = true);
   parameter Modelica.SIunits.Temperature T = 293.15 "Temperature";
-  Modelica.SIunits.AbsolutePressure pSat "Saturation pressure";
   parameter Modelica.SIunits.Pressure p = 101325 "Pressure of the fluid";
+
+  Modelica.SIunits.AbsolutePressure pSat "Saturation pressure";
   Real phi(min=0, max=1) "Relative humidity";
   Modelica.SIunits.MassFraction X_w(
     min=0,
@@ -14,7 +15,7 @@ model X_pSatpphi "Model to test X_pSatpphi function"
 
   constant Real conv(unit="1/s") = 1 "Conversion factor";
 equation
-  phi = time;
+  phi = time*conv;
   pSat = Medium.saturationPressure(T);
   X_w = Buildings.Utilities.Psychrometrics.Functions.X_pSatpphi(pSat=pSat, p=p, phi=phi);
 
@@ -30,6 +31,10 @@ and atmospheric pressure.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+October 4, 2014, by Michael Wetter:<br/>
+Added conversion factor to avoid a unit error.
+</li>
 <li>
 August 21, 2012, by Michael Wetter:<br/>
 First implementation.

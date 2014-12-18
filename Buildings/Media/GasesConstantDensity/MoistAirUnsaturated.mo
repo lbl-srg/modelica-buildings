@@ -24,11 +24,10 @@ package MoistAirUnsaturated
   constant AbsolutePressure pStp = 101325 "Pressure for which dStp is defined";
   constant Density dStp = 1.2 "Fluid density at pressure pStp";
 
-  // Redeclare ThermodynamicState to avoid the warning
-  // "Base class ThermodynamicState is replaceable"
-  // during model check
-  redeclare record extends ThermodynamicState
-    "ThermodynamicState record for moist air"
+  redeclare record extends ThermodynamicState(
+    p(start=p_default),
+    T(start=T_default),
+    X(start=X_default)) "ThermodynamicState record for moist air"
   end ThermodynamicState;
 
   redeclare replaceable model extends BaseProperties(
@@ -38,25 +37,15 @@ package MoistAirUnsaturated
     final standardOrderComponents=true)
 
     /* p, T, X = X[Water] are used as preferred states, since only then all
-     other quantities can be computed in a recursive sequence. 
+     other quantities can be computed in a recursive sequence.
      If other variables are selected as states, static state selection
      is no longer possible and non-linear algebraic equations occur.
       */
-    MassFraction x_water "Mass of total water/mass of dry air";
-    Real phi "Relative humidity";
 
   protected
     constant SI.MolarMass[2] MMX = {steam.MM,dryair.MM}
       "Molar masses of components";
 
-    //    MassFraction X_liquid "Mass fraction of liquid water";
-    MassFraction X_steam "Mass fraction of steam water";
-    MassFraction X_air "Mass fraction of air";
-    MassFraction X_sat
-      "Steam water mass fraction of saturation boundary in kg_water/kg_moistair";
-    MassFraction x_sat
-      "Steam water mass content of saturation boundary in kg_water/kg_dryair";
-    AbsolutePressure p_steam_sat "Partial saturation pressure of steam";
   equation
     assert(T >= 200.0 and T <= 423.15, "
 Temperature T is not in the allowed range
@@ -73,15 +62,6 @@ required from medium model \""     + mediumName + "\".");
      + " p         = " + String(p));
  */
     MM = 1/(Xi[Water]/MMX[Water]+(1.0-Xi[Water])/MMX[Air]);
-
-    p_steam_sat = min(saturationPressure(T),0.999*p);
-    X_sat = min(p_steam_sat * k_mair/max(100*Modelica.Constants.eps, p - p_steam_sat)*(1 - Xi[Water]), 1.0)
-      "Water content at saturation with respect to actual water content";
-    //    X_liquid = max(Xi[Water] - X_sat, 0.0);
-    //    X_steam  = Xi[Water]-X_liquid;
-
-    X_steam  = Xi[Water]; // There is no liquid in this medium model
-    X_air    = 1-Xi[Water];
 
     h = specificEnthalpy_pTX(p,T,Xi);
     R = dryair.R*(1 - Xi[Water]) + steam.R*Xi[Water];
@@ -100,11 +80,6 @@ required from medium model \""     + mediumName + "\".");
     state.p = p;
     state.T = T;
     state.X = X;
-
-    // this x_steam is water load / dry air!!!!!!!!!!!
-    x_sat    = k_mair*p_steam_sat/max(100*Modelica.Constants.eps,p - p_steam_sat);
-    x_water = Xi[Water]/max(X_air,100*Modelica.Constants.eps);
-    phi = p/p_steam_sat*Xi[Water]/(Xi[Water] + k_mair*X_air);
   end BaseProperties;
 
   function Xsaturation = Buildings.Media.PerfectGases.MoistAir.Xsaturation
@@ -130,7 +105,7 @@ required from medium model \""     + mediumName + "\".");
     annotation (Documentation(info="<html>
 Function to set the state for given pressure, enthalpy and species concentration.
 This function needed to be reimplemented in order for the medium model to use
-the implementation of <code>T_phX</code> provided by this package as opposed to the 
+the implementation of <code>T_phX</code> provided by this package as opposed to the
 implementation provided by its parent package.
 </html>"));
   end setState_phX;
@@ -165,7 +140,7 @@ implementation provided by its parent package.
 This function declares the first derivative of
 <a href=\"modelica://Buildings.Media.GasesConstantDensity.MoistAir.saturationPressureLiquid\">
 Buildings.Media.GasesConstantDensity.MoistAir.saturationPressureLiquid</a>.
-It is required since otherwise, Dymola 7.3 cannot find the derivative of the inherited function 
+It is required since otherwise, Dymola 7.3 cannot find the derivative of the inherited function
 <code>saturationPressureLiquid</code>.
 </html>"));
 
@@ -340,22 +315,7 @@ function h_pTX
   input SI.Temperature T "Temperature";
   input SI.MassFraction X[nX] "Mass fractions of moist air";
   output SI.SpecificEnthalpy h "Specific enthalpy at p, T, X";
-  protected
-  SI.AbsolutePressure p_steam_sat "Partial saturation pressure of steam";
-  SI.MassFraction x_sat "steam water mass fraction of saturation boundary";
-  SI.SpecificEnthalpy hDryAir "Enthalpy of dry air";
 algorithm
-  p_steam_sat :=saturationPressure(T);
-  x_sat    :=k_mair*p_steam_sat/(p - p_steam_sat);
- /*
-  assert(X[Water] < x_sat/(1 + x_sat), "The medium model '" + mediumName + "' must not be saturated.\n"
-     + "To model a saturated medium, use 'Buildings.Media.GasesConstantDensity.MoistAir' instead of this medium.\n"
-     + " T         = " + String(T) + "\n"
-     + " x_sat     = " + String(x_sat) + "\n"
-     + " X[Water] = "  + String(X[Water]) + "\n"
-     + " phi       = " + String(X[Water]/((x_sat)/(1+x_sat))) + "\n"
-     + " p         = " + String(p));
- */
  h := (T - 273.15)*dryair.cp * (1 - X[Water]) + ((T-273.15) * steam.cp + 2501014.5) * X[Water];
 
   annotation(smoothOrder=5);
@@ -368,23 +328,8 @@ function T_phX "Compute temperature from specific enthalpy and mass fraction"
   input SpecificEnthalpy h "specific enthalpy";
   input MassFraction[:] X "mass fractions of composition";
   output Temperature T "temperature";
-  protected
-  SI.AbsolutePressure p_steam_sat "Partial saturation pressure of steam";
-  SI.MassFraction x_sat "steam water mass fraction of saturation boundary";
 algorithm
   T := 273.15 + (h-2501014.5 * X[Water])/(dryair.cp * (1 - X[Water])+steam.cp*X[Water]);
-  // Check for saturation
-  p_steam_sat :=saturationPressure(T);
-  x_sat    :=k_mair*p_steam_sat/(p - p_steam_sat);
-  /*
-  assert(X[Water] < x_sat/(1 + x_sat), "The medium model '" + mediumName + "' must not be saturated.\n"
-     + "To model a saturated medium, use 'Buildings.Media.GasesConstantDensity.MoistAir' instead of this medium.\n"
-     + " T         = " + String(T) + "\n"
-     + " x_sat     = " + String(x_sat) + "\n"
-     + " X[Water] = " + String(X[Water]) + "\n"
-     + " phi       = " + String(X[Water]/((x_sat)/(1+x_sat))) + "\n"
-     + " p         = " + String(p));
-  */
   annotation(smoothOrder=5);
 end T_phX;
 
@@ -410,9 +355,9 @@ algorithm
 end der_enthalpyOfNonCondensingGas;
   annotation (preferredView="info", Documentation(info="<html>
 <p>
-This is a medium model that is identical to 
+This is a medium model that is identical to
 <a href=\"modelica://Buildings.Media.GasesConstantDensity.MoistAir\">
-Buildings.Media.GasesConstantDensity.MoistAir</a>,  but 
+Buildings.Media.GasesConstantDensity.MoistAir</a>,  but
 in this model, the air must not be saturated. If the air is saturated,
 use the medium model
 <a href=\"modelica://Buildings.Media.GasesConstantDensity.MoistAir\">
@@ -420,19 +365,23 @@ Buildings.Media.GasesConstantDensity.MoistAir</a> instead of this one.
 </p>
 <p>
 This medium model has been added to allow an explicit computation of
-the function 
+the function
 <code>T_phX</code> so that it is once differentiable in <code>h</code>
 with a continuous derivative. This allows obtaining an analytic
 expression for the Jacobian, and therefore simplifies the computation
-of initial conditions that can be numerically challenging for 
+of initial conditions that can be numerically challenging for
 thermo-fluid systems.
 </p>
 <p>
-This new formulation often leads to smaller systems of nonlinear equations 
+This new formulation often leads to smaller systems of nonlinear equations
 because it allows to invert the function <code>T_phX</code> analytically.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+November 13, 2014, by Michael Wetter:<br/>
+Removed <code>phi</code> and removed non-required computations.
+</li>
 <li>
 March 29, 2013, by Michael Wetter:<br/>
 Added <code>final standardOrderComponents=true</code> in the
@@ -450,7 +399,7 @@ during model check and translation.
 </li>
 <li>
 August 3, 2011, by Michael Wetter:<br/>
-Fixed bug in <code>u=h-R*T</code>, which is only valid for ideal gases. 
+Fixed bug in <code>u=h-R*T</code>, which is only valid for ideal gases.
 For this medium, the function is <code>u=h-p/dStp</code>.
 </li>
 <li>

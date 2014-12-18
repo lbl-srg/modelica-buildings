@@ -1,4 +1,4 @@
 within Buildings.Electrical.Examples;
-package DynamicPhasor 
+package DynamicPhasor
 extends Modelica.Icons.ExamplesPackage;
 end DynamicPhasor;

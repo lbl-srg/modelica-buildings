@@ -6,12 +6,12 @@ record Linear = Generic (
 defaultComponentName="datValLin",
 Documentation(info="<html>
 <p>
-Linear valve opening characteristics with 
+Linear valve opening characteristics with
 a normalized leakage flow rate of <i>0.0001</i>.
 </p>
 <p>
 <b>Note</b>: This record is only for demonstration,
-as the implementation in 
+as the implementation in
 <a href=\"modelica://Buildings.Fluid.Actuators.Valves.TwoWayLinear\">
 Buildings.Fluid.Actuators.Valves.TwoWayLinear</a>
 is more efficient.

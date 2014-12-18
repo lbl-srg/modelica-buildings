@@ -5,7 +5,7 @@ package Loads "Package with load models for three phases balanced AC systems"
 
 annotation (Documentation(info="<html>
 <p>
-This package contains models that represent different types of three 
+This package contains models that represent different types of three
 phases balanced AC loads.
 </p>
 </html>", revisions="<html>

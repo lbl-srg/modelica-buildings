@@ -4,52 +4,40 @@ block TWetBul_TDryBulPhi
   extends Modelica.Blocks.Icons.Block;
   replaceable package Medium =
     Modelica.Media.Interfaces.PartialCondensingGases "Medium model"
-                                                            annotation (
-      choicesAllMatching = true);
+    annotation (choicesAllMatching = true);
 
   parameter Boolean approximateWetBulb=false
     "Set to true to approximate wet bulb temperature" annotation (Evaluate=true);
   Modelica.Blocks.Interfaces.RealInput TDryBul(
-    start=303,
+    start=Medium.T_default,
     final quantity="ThermodynamicTemperature",
     final unit="K",
     min=0) "Dry bulb temperature"
-    annotation (Placement(transformation(extent={{-120,70},{-100,90}},rotation=
-            0)));
+    annotation (Placement(transformation(extent={{-120,70},{-100,90}})));
 
   Modelica.Blocks.Interfaces.RealInput phi(min=0, max=1)
     "Relative air humidity"
-    annotation (Placement(transformation(extent={{-120,-10},{-100,10}},
-          rotation=0)));
+    annotation (Placement(transformation(extent={{-120,-10},{-100,10}})));
 
-  Modelica.Blocks.Interfaces.RealInput p(  final quantity="Pressure",
-                                           final unit="Pa",
-                                           min = 0) "Pressure"
-    annotation (Placement(transformation(extent={{-120,-90},{-100,-70}},
-                                                                       rotation=
-           0)));
+  Modelica.Blocks.Interfaces.RealInput p(final quantity="Pressure",
+                                         final unit="Pa",
+                                         min = 0) "Pressure"
+    annotation (Placement(transformation(extent={{-120,-90},{-100,-70}})));
 
   Modelica.Blocks.Interfaces.RealOutput TWetBul(
-    start=293,
+    start=Medium.T_default-2,
     final quantity="ThermodynamicTemperature",
     final unit="K",
     min=0) "Wet bulb temperature"
-    annotation (Placement(transformation(extent={{100,-10},{120,10}},rotation=0)));
+    annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 
 protected
-  constant Real k_mair = 0.6219647130774989 "Ratio of molar weights";
   Modelica.SIunits.Conversions.NonSIunits.Temperature_degC TDryBul_degC
     "Dry bulb temperature in degree Celsius";
   Real rh_per(min=0) "Relative humidity in percentage";
   Modelica.SIunits.MassFraction XiDryBul
     "Water vapor mass fraction at dry bulb state";
   Modelica.SIunits.MassFraction XiSat "Water vapor mass fraction at saturation";
-  constant Modelica.SIunits.SpecificHeatCapacity cpAir=1006
-    "Specific heat capacity of air";
-  constant Modelica.SIunits.SpecificHeatCapacity cpSte=1860
-    "Specific heat capacity of water vapor";
-  constant Modelica.SIunits.SpecificEnthalpy h_fg = 2501014.5
-    "Specific heat capacity of water vapor";
 equation
   if approximateWetBulb then
     TDryBul_degC = TDryBul - 273.15;
@@ -70,16 +58,17 @@ equation
       p=     p,
       pSat=  Buildings.Utilities.Psychrometrics.Functions.saturationPressureLiquid(TDryBul),
       phi=   phi);
-    TWetBul = (TDryBul * ((1-XiDryBul) * cpAir + XiDryBul * cpSte) + (XiDryBul-XiSat) * h_fg)/
-            ( (1-XiSat)*cpAir + XiSat * cpSte);
+    TWetBul = (TDryBul * ((1-XiDryBul) *
+               Buildings.Utilities.Psychrometrics.Constants.cpAir + XiDryBul *
+               Buildings.Utilities.Psychrometrics.Constants.cpSte) + (XiDryBul-XiSat) *
+               Buildings.Utilities.Psychrometrics.Constants.h_fg)/
+            ( (1-XiSat)*Buildings.Utilities.Psychrometrics.Constants.cpAir + XiSat *
+            Buildings.Utilities.Psychrometrics.Constants.cpSte);
     TDryBul_degC = 0;
     rh_per       = 0;
   end if;
 
 annotation (
-  Diagram(coordinateSystem(preserveAspectRatio=true,  extent={{-100,-100},{100,
-            100}}),
-          graphics),
     Icon(coordinateSystem(preserveAspectRatio=true,  extent={{-100,-100},{100,
             100}}), graphics={
         Ellipse(
@@ -140,8 +129,8 @@ Otherwise, the model will introduce one nonlinear equation.
 </p>
 <p>
 The approximation by Stull is valid for a relative humidity of <i>5%</i> to <i>99%</i>,
-a temperature range from <i>-20&circ;C</i> to <i>50&circ;C</i> 
-and standard sea level pressure. 
+a temperature range from <i>-20</i>&deg;C to <i>50</i>&deg;C
+and standard sea level pressure.
 For this range of data, the approximation error is <i>-1</i> Kelvin to <i>+0.65</i> Kelvin,
 with a mean error of less than <i>0.3</i> Kelvin.
 </p>
@@ -157,13 +146,17 @@ Stull, Roland.
 Wet-Bulb Temperature from Relative Humidity and Air Temperature
 Roland Stull.</a></i>
 Journal of Applied Meteorology and Climatology.
-Volume 50, Issue 11, pp. 2267-2269. November 2011 
+Volume 50, Issue 11, pp. 2267-2269. November 2011
 DOI: 10.1175/JAMC-D-11-0143.1
 </p>
-</html>
-",
+</html>",
 revisions="<html>
 <ul>
+<li>
+October 3, 2014, by Michael Wetter:<br/>
+Changed assignment of nominal value to avoid in OpenModelica the warning
+alias set with different nominal values.
+</li>
 <li>
 November 20, 2013 by Michael Wetter:<br/>
 Updated model to use

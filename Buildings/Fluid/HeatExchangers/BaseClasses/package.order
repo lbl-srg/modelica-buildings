@@ -1,15 +1,16 @@
 CoilHeader
 CoilRegister
 DuctManifoldFixedResistance
+DuctManifoldFlowDistributor
 DuctManifoldNoResistance
 HACoilInside
 HADryCoil
 HANaturalCylinder
 HexElementLatent
 HexElementSensible
+Internal
 MassExchange
 PartialDuctManifold
-DuctManifoldFlowDistributor
 PartialDuctPipeManifold
 PartialEffectiveness
 PartialHexElement
@@ -27,4 +28,3 @@ lmtd
 ntu_epsilonZ
 prandtlNumberWater
 Examples
-Internal

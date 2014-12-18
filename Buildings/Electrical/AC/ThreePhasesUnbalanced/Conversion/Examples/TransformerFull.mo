@@ -29,7 +29,7 @@ Created model and documentation.
 </ul>
 </html>", info="<html>
 <p>
-This example model tests the 
+This example model tests the
 <a href=\"modelica://Buildings.Electrical.AC.ThreePhasesUnbalanced.Conversion.ACACTransformerFull\">
 Buildings.Electrical.AC.ThreePhasesUnbalanced.Conversion.ACACTransformerFull</a> model.
 </p>

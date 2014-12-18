@@ -68,8 +68,7 @@ equation
       smooth=Smooth.None));
   annotation (
   defaultComponentName="line",
-  Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}}), graphics), Icon(graphics={
+ Icon(graphics={
         Ellipse(
           extent={{-70,10},{-50,-10}},
           lineColor={0,0,0},
@@ -112,7 +111,7 @@ Revised documentation and model.
 </html>", info="<html>
 <p>
 This model represents an AC three phases unbalanced cable without
-neutral connection. The model is based on 
+neutral connection. The model is based on
 <a href=\"Buildings.Electrical.AC.ThreePhasesUnbalanced.Lines.TwoPortRLC\">
 Buildings.Electrical.AC.ThreePhasesUnbalanced.Lines.TwoPortRLC</a>
 and provides functionalities to parametrize the values of <i>R</i>, <i>L</i> and <i>C</i>

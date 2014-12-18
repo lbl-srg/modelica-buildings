@@ -32,10 +32,6 @@ equation
           points={{0,0},{40,0}},
           color={0,0,0},
           thickness=0.5)}),
-    Diagram(coordinateSystem(
-        preserveAspectRatio=true,
-        extent={{-100,-100},{100,100}},
-        grid={1,1})),
     Documentation(info="<html>
 <p>
 This component generates a time signal by using the simulation time.

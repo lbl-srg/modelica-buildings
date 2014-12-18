@@ -2,15 +2,13 @@ within Buildings.Fluid.HeatExchangers.CoolingTowers.Examples;
 model YorkCalc
   "Test model for cooling tower using the York performance correlation"
   extends Modelica.Icons.Example;
-  extends
-    Buildings.Fluid.HeatExchangers.CoolingTowers.Examples.BaseClasses.PartialStaticTwoPortCoolingTowerWetBulb(
-    redeclare Buildings.Fluid.HeatExchangers.CoolingTowers.YorkCalc tow,
-      onOffController(bandwidth=2));
+  extends BaseClasses.PartialStaticTwoPortCoolingTowerWetBulb(
+    redeclare CoolingTowers.YorkCalc tow,
+    onOffController(bandwidth=2));
 
   Modelica.Blocks.Sources.Constant TSetLea(k=273.15 + 18)
     "Setpoint for leaving temperature"
-                 annotation (Placement(transformation(extent={{-60,-20},{-40,0}},
-          rotation=0)));
+                 annotation (Placement(transformation(extent={{-60,-20},{-40,0}})));
   Controls.Continuous.LimPID conFan(
     k=1,
     Ti=60,
@@ -48,7 +46,7 @@ __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Heat
 This example illustrates the use of the cooling tower model
 <a href=\"modelica://Buildings.Fluid.HeatExchangers.CoolingTowers.YorkCalc\">
 Buildings.Fluid.HeatExchangers.CoolingTowers.YorkCalc</a>.
-Heat is injected into the volume <code>vol</code>. An on/off controller 
+Heat is injected into the volume <code>vol</code>. An on/off controller
 switches the cooling loop water pump on or off based on the temperature of
 this volume.
 The cooling tower outlet temperature is controlled to track a fixed temperature.

@@ -31,7 +31,7 @@ values contained in the matrices.
 <ul>
 <li>
 September 23, 2014, by Marco Bonvini:<br/>
-Revised model structure. Now the type of the cable is replaceable 
+Revised model structure. Now the type of the cable is replaceable
 so it's possible to use either low voltage or medium voltage cable.
 </li>
 <li>

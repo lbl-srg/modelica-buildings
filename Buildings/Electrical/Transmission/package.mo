@@ -2,6 +2,7 @@ within Buildings.Electrical;
 package Transmission "Package with models for transmission lines"
   extends Modelica.Icons.Package;
 
+
 annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
           {100,100}}), graphics={
       Ellipse(

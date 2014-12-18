@@ -12,8 +12,7 @@ model Line "Model of an electrical line"
 
   annotation (
     defaultComponentName="line",
-    Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-100,
-            -100},{100,100}}), graphics), Icon(graphics={
+ Icon(graphics={
         Ellipse(
           extent={{-70,10},{-50,-10}},
           lineColor={0,0,0},
@@ -55,7 +54,7 @@ Revised documentation.
 </ul>
 </html>", info="<html>
 <p>
-This model represents a cable for three phases balanced AC systems. The model is based on 
+This model represents a cable for three phases balanced AC systems. The model is based on
 <a href=\"modelica://Buildings.Electrical.AC.ThreePhasesBalanced.Lines.TwoPortRLC\">
 Buildings.Electrical.AC.ThreePhasesBalanced.Lines.TwoPortRLC</a>
 and provides functionalities to parametrize the values of <i>R</i>, <i>L</i> and <i>C</i> either
@@ -64,7 +63,7 @@ using commercial cables or using default values.
 <p>
 See model
 <a href=\"modelica://Buildings.Electrical.AC.OnePhase.Lines.Line\">
-Buildings.Electrical.AC.OnePhase.Lines.Line</a> for more 
+Buildings.Electrical.AC.OnePhase.Lines.Line</a> for more
 information.
 </p>
 </html>"));

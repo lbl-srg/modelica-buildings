@@ -36,7 +36,6 @@ partial model DemandResponseBase
     P_nominal=P1,
     linearized=linearized)   annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
-        rotation=0,
         origin={-36,30})));
   BaseClasses.Building building1(
     P_nominal=P2,
@@ -45,7 +44,6 @@ partial model DemandResponseBase
     linearized=linearized)
            annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
-        rotation=0,
         origin={-6,30})));
   BaseClasses.Building building2(
     startTime=-1800,
@@ -54,7 +52,6 @@ partial model DemandResponseBase
     linearized=linearized)
            annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
-        rotation=0,
         origin={24,30})));
   AC.OnePhase.Storage.Battery
                      battery(EMax=Ebatt, SOC_start=0.5,
@@ -112,6 +109,4 @@ equation
       points={{54,0},{40,0},{40,5.55112e-16}},
       color={0,120,120},
       smooth=Smooth.None));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}}), graphics));
 end DemandResponseBase;

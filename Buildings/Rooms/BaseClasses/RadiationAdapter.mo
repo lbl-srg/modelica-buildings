@@ -5,7 +5,7 @@ model RadiationAdapter
 
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a rad
     "Port for radiative heat gain and radiation temperature"    annotation (Placement(transformation(extent={{-10,
-            -110},{10,-90}},   rotation=0), iconTransformation(extent={{-12,
+            -110},{10,-90}}), iconTransformation(extent={{-12,
             -110},{8,-90}})));
 public
   Modelica.Blocks.Interfaces.RealInput TRad "Radiation temperature of room"
@@ -19,7 +19,7 @@ equation
  annotation (Placement(transformation(extent={{-140,-20},{-100,20}})),
             Documentation(info="<html>
 This model can be used as a thermal adapter in situations where the temperature
-and the heat flow rate are computed in separate models. 
+and the heat flow rate are computed in separate models.
 For example, this thermal adapter is used in the room model, which computes
 the distribution of radiative heat gains (such as due to a radiator) in
 <a href=\"modelica://Buildings.Rooms.BaseClasses.InfraredRadiationGainDistribution\">
@@ -56,7 +56,7 @@ First implementation.
 This is a dummy model that is required to implement the room
 model with a variable number of surface models.
 The model is required since arrays of models, such as used for the surfaces
-that model the construction outside of the room, 
+that model the construction outside of the room,
 must have at least one element, unless the whole array
 is conditionally removed if its size is zero.
 However, conditionally removing the surface models does not work in this
@@ -71,6 +71,5 @@ June 8 2010, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
-</html>"),
-    Diagram(graphics));
+</html>"));
 end RadiationAdapter;

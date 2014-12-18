@@ -11,8 +11,8 @@ Aluminium cable with a cross-sectional area of 35mm^2, ECM type.
 This type of cable has the following properties
 </p>
 <pre>
-RCha = 0.956e-003 // Characteristic resistance [Ohm/m] 
-XCha = 0.074e-003 // Characteristic reactance [Ohm/m] 
+RCha = 0.956e-003 // Characteristic resistance [Ohm/m]
+XCha = 0.074e-003 // Characteristic reactance [Ohm/m]
 </pre>
 </html>", revisions="<html>
 <ul>

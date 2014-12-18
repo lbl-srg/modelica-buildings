@@ -33,7 +33,7 @@ equation
 <ul>
 <li>
 September 23, 2014, by Marco Bonvini:<br/>
-Maintained replaceable the parameter <code>commercialCable</code> when redeclaring 
+Maintained replaceable the parameter <code>commercialCable</code> when redeclaring
 the type of line.
 </li>
 <li>

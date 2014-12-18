@@ -55,16 +55,14 @@ equation
       color={0,0,255},
       smooth=Smooth.None));
   annotation (
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
-            100}}), graphics),
     Documentation(info="<html>
 <p>
-This model shows how to use a two port resistance-capacitance model. 
+This model shows how to use a two port resistance-capacitance model.
 The example also shows a comparison between the dynamic and steady state version model
 that can be selected by changing the boolean flag <code>use_C</code>.
 </p>
 <p>
-In this example the RC connects an ideal constant voltage source with 
+In this example the RC connects an ideal constant voltage source with
 a short circuit. The steady state current value passing through the RC
 model depends just on the value of <i>R</i>.
 </p>

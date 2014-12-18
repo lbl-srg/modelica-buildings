@@ -21,9 +21,7 @@ equation
       points={{23,30},{94,30},{94,6.66134e-16},{80,6.66134e-16}},
       color={0,0,127},
       smooth=Smooth.None));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}}), graphics),
-    Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
+  annotation (    Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
         graphics={
         Text(
           extent={{-150,70},{-50,20}},
@@ -55,7 +53,7 @@ For example, the following specification (with default <code>scale=1</code>) of 
 <pre>
   WindTurbine_Table tur(
     table=[3.5, 0;
-           5.5,   100;    
+           5.5,   100;
            12, 900;
            14, 1000;
            25, 1000]) \"Wind turbine\";

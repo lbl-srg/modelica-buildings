@@ -10,7 +10,7 @@ model Grid "Electrical grid"
   defaultComponentName="gri",
     Documentation(info="<html>
 <p>
-Model that can be used to represent the electrical grid supply. 
+Model that can be used to represent the electrical grid supply.
 See <a href=\"modelica://Buildings.Electrical.AC.OnePhase.Sources.Grid\">
 Buildings.Electrical.AC.OnePhase.Sources.Grid</a> for
 more information.
@@ -27,7 +27,5 @@ January 2, 2012, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
-</html>"),
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
-            100}}), graphics));
+</html>"));
 end Grid;

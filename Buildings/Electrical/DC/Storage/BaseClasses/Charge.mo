@@ -40,13 +40,12 @@ equation
     level=AssertionLevel.warning);
   end when;
 
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
-            {100,100}}), graphics), Documentation(info="<html>
+  annotation ( Documentation(info="<html>
 <p>
 This model represents the charge/discharge mechanism of a battery.
 </p>
 <p>
-This model two parameters <i>&eta;<sub>CHA</sub></i> and <i>&eta;<sub>DIS</sub></i> that represent 
+This model two parameters <i>&eta;<sub>CHA</sub></i> and <i>&eta;<sub>DIS</sub></i> that represent
 the efficiency during the charge and discharge of the battery.
 </p>
 <p>
@@ -76,7 +75,7 @@ The state of charge is the state variable of this model and is a real value betw
 </p>
 
 <p>
-<b>Note:</b>The input power <i>P</i> has to be controlled in order 
+<b>Note:</b>The input power <i>P</i> has to be controlled in order
 to avoid the state of charge <code>SOC</code>
 exceeding the range between 0 and 1.
 </p>

@@ -30,8 +30,6 @@ model Case620 "Case 600, but with windows on East and West side walls"
       StopTime=3.1536e+07,
       Interval=3600,
       Tolerance=1e-006),
-Diagram(coordinateSystem(
-          preserveAspectRatio=true, extent={{-100,-100},{100,100}})),
     Documentation(info="<html>
 <p>
 This model is the case 620 of the BESTEST validation suite.

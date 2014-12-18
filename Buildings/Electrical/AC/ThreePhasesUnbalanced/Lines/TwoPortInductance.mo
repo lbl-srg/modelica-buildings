@@ -40,8 +40,7 @@ equation
 
   annotation (
   defaultComponentName="line",
-  Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}}), graphics), Icon(coordinateSystem(
+ Icon(coordinateSystem(
           preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
                                                graphics={
         Rectangle(
@@ -91,7 +90,7 @@ equation
           rotation=180)}),
     Documentation(info="<html>
 <p>
-Inductive model that connects two AC three phases 
+Inductive model that connects two AC three phases
 unbalanced interfaces. This model can be used to represent a
 cable in a three phases unbalanced AC system.
 </p>

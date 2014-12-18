@@ -37,7 +37,6 @@ equation
 experiment(StopTime=1.0),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/HeatTransfer/Radiosity/Examples/OpaqueSurface.mos"
         "Simulate and plot"),
-              Diagram(graphics),
     Documentation(info="<html>
 <p>
 This examples demonstrates two opaque surfaces that radiate toward each other.

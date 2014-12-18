@@ -13,7 +13,7 @@ package Solids
      "<html>
 <p>
 Generic record for solid materials.
-The material is characterized by its 
+The material is characterized by its
 thermal conductivity, mass density and specific
 heat capacity.
 </p>
@@ -53,7 +53,7 @@ Documentation(
 info="<html>
 <p>
 Package with records for solid materials.
-The material is characterized by its 
+The material is characterized by its
 thermal conductivity, mass density and specific
 heat capacity.
 </p>
@@ -79,14 +79,14 @@ From dimensionless analysis, one can obtain a characteristic time, called the <e
 Fo = &alpha; t &frasl; L<sup>2</sup>
 </p>
 <p>
-where <i>&alpha;</i> denotes the thermal diffusivity, <i>t</i> denotes time and <i>L</i> denotes the characteristic length. 
+where <i>&alpha;</i> denotes the thermal diffusivity, <i>t</i> denotes time and <i>L</i> denotes the characteristic length.
 We like to generate the spatial grid so that the ratio
 <i>t &frasl; Fo</i>
-is equal to an arbitrary constant 
+is equal to an arbitrary constant
 <i>&Pi;</i>, which we define as
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
-&Pi; = ( t &frasl; Fo )<sup>1/2</sup> 
+&Pi; = ( t &frasl; Fo )<sup>1/2</sup>
 </p>
 
 <p>and hence</p>
@@ -104,7 +104,7 @@ Then, we compute the time constant of the material layer as
 &Pi;<sub>x</sub> = x &frasl; &radic; &alpha;,
 </p>
 <p>
-and we compute the estimated number of elements <i>N' &isin; &#8477;</i> 
+and we compute the estimated number of elements <i>N' &isin; &#8477;</i>
 for the material layer as</p>
 
 <p align=\"center\" style=\"font-style:italic;\">
@@ -112,12 +112,12 @@ N' = N<sub>ref</sub> &Pi;<sub>x</sub> &frasl; &Pi;<sub>ref</sub>
 </p>
 
 <p>
-where <i>&Pi;<sub>ref</sub> &isin; &#8469;</i> is a user-specified number of elements 
+where <i>&Pi;<sub>ref</sub> &isin; &#8469;</i> is a user-specified number of elements
 for a reference material, which is equal to the parameter
-<code>nStaRef</code>, and defined as a concrete construction with thickness 
+<code>nStaRef</code>, and defined as a concrete construction with thickness
 <i>L<sub>ref</sub> = 0.20</i> meter and thermal diffusivity
 <i>&alpha;<sub>ref</sub> = 3.64E-7</i> m<sup>2</sup>/s.
-Hence, 
+Hence,
 <i>&Pi;<sub>ref</sub> = L<sub>ref</sub>/ &radic; &alpha;<sub>ref</sub> = 331.4</i>
 &radic;s.
 </p>
@@ -135,7 +135,7 @@ where the notation <i>&lceil; &#8901; &rceil;</i> is defined, for
 &lceil; s &rceil; = min{ k &isin; &#8484; | k &ge; s }.
 </p>
 <p>
-Finally, we divide the material layer in compartments of length 
+Finally, we divide the material layer in compartments of length
 <i>&Delta; = x &frasl; N<sub>x</sub></i>.
 </p>
 

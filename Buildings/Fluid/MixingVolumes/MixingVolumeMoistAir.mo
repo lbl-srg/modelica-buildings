@@ -9,16 +9,13 @@ model MixingVolumeMoistAir
   Modelica.Blocks.Interfaces.RealInput mWat_flow(final quantity="MassFlowRate",
                                                  final unit = "kg/s")
     "Water flow rate added into the medium"
-    annotation (Placement(transformation(extent={{-140,60},{-100,100}},rotation=
-           0)));
+    annotation (Placement(transformation(extent={{-140,60},{-100,100}})));
   Modelica.Blocks.Interfaces.RealInput TWat(final quantity="ThermodynamicTemperature",
                                             final unit = "K", displayUnit = "degC", min=260)
     "Temperature of liquid that is drained from or injected into volume"
-    annotation (Placement(transformation(extent={{-140,28},{-100,68}},
-          rotation=0)));
+    annotation (Placement(transformation(extent={{-140,28},{-100,68}})));
   Modelica.Blocks.Interfaces.RealOutput X_w "Species composition of medium"
-    annotation (Placement(transformation(extent={{100,-60},{140,-20}}, rotation=
-           0)));
+    annotation (Placement(transformation(extent={{100,-60},{140,-20}})));
   Modelica.Blocks.Math.Product QLat_flow
     "Latent heat flow rate added to the fluid stream"
     annotation (Placement(transformation(extent={{0,56},{20,76}})));
@@ -89,17 +86,13 @@ equation
       points={{-39,88},{50,88},{50,80},{66,80}},
       color={0,0,127},
       smooth=Smooth.None));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}}),
-                      graphics),
-                       Icon(graphics),
-defaultComponentName="vol",
+  annotation (defaultComponentName="vol",
 Documentation(info="<html>
-Model for an ideally mixed fluid volume and the ability 
-to store mass and energy. The volume is fixed, 
+Model for an ideally mixed fluid volume and the ability
+to store mass and energy. The volume is fixed,
 and latent and sensible heat can be exchanged.
 <p>
-This model represents the same physics as 
+This model represents the same physics as
 <a href=\"modelica://Buildings.Fluid.MixingVolumes.MixingVolume\">
 Buildings.Fluid.MixingVolumes.MixingVolume</a>, but in addition, it allows
 adding or subtracting water in liquid phase.
@@ -107,8 +100,8 @@ The mass flow rate of the added or subtracted water is
 specified at the port <code>mWat_flow</code>.
 The water flow rate is assumed to be added or subtracted at the
 temperature of the input port <code>TWat</code>.
-Adding water causes a change in 
-enthalpy and species concentration in the volume. 
+Adding water causes a change in
+enthalpy and species concentration in the volume.
 </p>
 <p>
 Note that this model can only be used with medium models that include water
@@ -121,16 +114,16 @@ Buildings.Fluid.MixingVolumes.MixingVolume</a>.
 </p>
 </html>", revisions="<html>
 <ul>
-<ul>
+<li>
 February 11, 2014 by Michael Wetter:<br/>
-Redesigned implementation of latent and sensible heat flow rates 
+Redesigned implementation of latent and sensible heat flow rates
 as port of the correction of issue
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/197\">#197</a>.
 </li>
 <li>
 December 18, 2013 by Michael Wetter:<br/>
 Changed computation of <code>s</code> to allow this model to also be used
-with <code>Buildings.Media.Water</code>.
+with <code>Buildings.Media.Water.Simple</code>.
 </li>
 <li>
 October 21, 2013 by Michael Wetter:<br/>
@@ -172,7 +165,7 @@ Improved the code that searches for the index of 'water' in the medium model.
 <li>
 May 29, 2010 by Michael Wetter:<br/>
 Rewrote computation of index of water substance.
-For the old formulation, Dymola 7.4 failed to differentiate the 
+For the old formulation, Dymola 7.4 failed to differentiate the
 model when trying to reduce the index of the DAE.
 </li>
 <li>

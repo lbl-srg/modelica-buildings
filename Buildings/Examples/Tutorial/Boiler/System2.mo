@@ -79,11 +79,10 @@ model System2
   Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor temRoo
     "Room temperature" annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
-        rotation=0,
         origin={-40,30})));
 
 //------------------------Step 5: Pump for radiator-----------------------//
-Buildings.Fluid.Movers.FlowMachine_m_flow pumRad(
+Buildings.Fluid.Movers.FlowControlled_m_flow pumRad(
     redeclare package Medium = MediumW,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     m_flow_nominal=mRad_flow_nominal) "Pump for radiator"
@@ -216,8 +215,8 @@ at the top-level of the model by adding the lines
 <p>
 To model the pump, a temperature sensor which we will need later
 for the control, and a flow sink, we made instances of the models
-<a href=\"modelica://Buildings.Fluid.Movers.FlowMachine_m_flow\">
-Buildings.Fluid.Movers.FlowMachine_m_flow</a>
+<a href=\"modelica://Buildings.Fluid.Movers.FlowControlled_m_flow\">
+Buildings.Fluid.Movers.FlowControlled_m_flow</a>
 (instance <code>pumRad</code> for the pump that serves the radiators),
 <a href=\"modelica://Buildings.Fluid.Sensors.TemperatureTwoPort\">
 Buildings.Fluid.Sensors.TemperatureTwoPort</a>
@@ -292,7 +291,7 @@ We configured the parameters of the radiator model as
 We configured the parameters of the pump model as
 </p>
 <pre>
-  Buildings.Fluid.Movers.FlowMachine_m_flow pumRad(
+  Buildings.Fluid.Movers.FlowControlled_m_flow pumRad(
     redeclare package Medium = MediumW,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     m_flow_nominal=mRad_flow_nominal)

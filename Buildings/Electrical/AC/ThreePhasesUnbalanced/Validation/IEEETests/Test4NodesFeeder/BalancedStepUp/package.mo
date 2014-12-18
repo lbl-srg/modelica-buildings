@@ -12,7 +12,7 @@ Added documentation.
 </ul>
 </html>", info="<html>
 <p>
-This package contains examples for the IEEE 4 nodes test validation 
+This package contains examples for the IEEE 4 nodes test validation
 whith balanced load and step up in the voltage of the transformers.
 </p>
 </html>"));

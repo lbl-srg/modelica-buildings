@@ -99,7 +99,7 @@ The model computes the complex power vector as
 S = P + jQ = V &sdot; i<sup>*</sup>
 </p>
 <p>
-where <i>V</i> is the voltage phasor and <i>i<sup>*</sup></i> is the complex 
+where <i>V</i> is the voltage phasor and <i>i<sup>*</sup></i> is the complex
 conjugate of the current phasor. The voltage and current phasors are shifted
 by an angle <i>&phi;</i>.
 </p>
@@ -116,7 +116,7 @@ or using the input variable <code>pf_in</code>.
 
 The different modes can be selected with the parameter
 <code>mode</code> and <code>use_pf_in</code>, see <a href=\"modelica://Buildings.Electrical.Interfaces.Load\">
-Buildings.Electrical.Interfaces.Load</a> and 
+Buildings.Electrical.Interfaces.Load</a> and
 <a href=\"modelica://Buildings.Electrical.Interfaces.CapacitiveLoad\">
 Buildings.Electrical.Interfaces.CapacitiveLoad</a> for more information.
 </p>
@@ -149,9 +149,9 @@ The nonlinearity of the model is due to the fact that the load consumes the powe
 and <i>Q</i> irrespectively of the voltage of the load.
 </p>
 <p>
-When multiple loads are connected in a grid through cables that cause voltage drops, 
+When multiple loads are connected in a grid through cables that cause voltage drops,
 the dimension of the system of nonlinear equations increases linearly with the number of loads.
-This nonlinear system of equations introduces challenges during the initialization, 
+This nonlinear system of equations introduces challenges during the initialization,
 as Newton solvers may diverge if initialized far from a solution, as well during the simulation.
 In this situation, the model can be parameterized to use a linear approximation
 as discussed in the next section.
@@ -159,11 +159,11 @@ as discussed in the next section.
 
 <h4>Linearized model</h4>
 <p>
-Given the constraints and the two-dimensional nature of the problem, it is difficult to 
-find a linearized version of the AC load model. A solution could be to divide the voltage 
-domain into sectors, and for each sector compute the best linear approximation. 
-However the selection of the proper approximation depending on the value of the 
-voltage can generate events that increase the simulation time. For these reasons, the 
+Given the constraints and the two-dimensional nature of the problem, it is difficult to
+find a linearized version of the AC load model. A solution could be to divide the voltage
+domain into sectors, and for each sector compute the best linear approximation.
+However the selection of the proper approximation depending on the value of the
+voltage can generate events that increase the simulation time. For these reasons, the
 linearized model assumes a voltage that is equal to the nominal value
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
@@ -174,20 +174,20 @@ i<sub>2</sub> = (P V<sub>2</sub> - Q V<sub>1</sub>)/V<sub>RMS</sub><sup>2</sup>,
 </p>
 <p>
 where <i>V<sub>RMS</sub></i> is the Root Mean Square voltage os the AC system.
-Even though this linearized version of the load model introduces an approximation 
-error in the current, it satisfies the contraints related to the ratio of the 
+Even though this linearized version of the load model introduces an approximation
+error in the current, it satisfies the contraints related to the ratio of the
 active and reactive powers.
 </p>
 
 <h4>Initialization</h4>
 <p>
-The initialization problem can be simplified using the homotopy operator. The homotopy operator 
+The initialization problem can be simplified using the homotopy operator. The homotopy operator
 uses two different types of equations to compute the value of a variable: the actual one
-and a simplified one. The actual equation is the one used during the normal operation. 
-During initialization, the simplified equation is first solved and then slowly replaced 
-with the actual equation to compute the initial values for the nonlinear systems of 
-equations. The load model uses the homotopy operator, with the linearized model being used 
-as the simplified equation. This numerical expedient has proven useful when simulating models 
+and a simplified one. The actual equation is the one used during the normal operation.
+During initialization, the simplified equation is first solved and then slowly replaced
+with the actual equation to compute the initial values for the nonlinear systems of
+equations. The load model uses the homotopy operator, with the linearized model being used
+as the simplified equation. This numerical expedient has proven useful when simulating models
 with more than ten connected loads.
 </p>
 <p>

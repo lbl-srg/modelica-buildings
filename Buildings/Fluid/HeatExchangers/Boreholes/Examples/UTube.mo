@@ -15,7 +15,7 @@ model UTube "Model that tests the borehole model"
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     TExt0_start=283.15,
     TFil0_start=283.15) "Borehole heat exchanger"
-    annotation (Placement(transformation(extent={{-16,-36},{16,-4}},rotation=0)));
+    annotation (Placement(transformation(extent={{-16,-36},{16,-4}})));
       inner Modelica.Fluid.System system
     annotation (Placement(transformation(extent={{-100,-100},{-80,-80}})));
   Sources.Boundary_ph sin(nPorts=1, redeclare package Medium = Medium) "Sink"
@@ -46,19 +46,17 @@ equation
       smooth=Smooth.None));
  annotation(__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/Boreholes/Examples/UTube.mos"
         "Simulate and plot"),
-          Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},
-            {100,100}})),
                   Documentation(info="<html>
 <p>
 This example models a borehole heat exchanger with two pipes that are
-symmetrically spaced. 
+symmetrically spaced.
 The simulation period is 5 years.
-From the 4th to the 10th months, the mass flow source switches on the 
+From the 4th to the 10th months, the mass flow source switches on the
 flow rate through the borehole. The leaving
 water of the mass flow source is <i>25</i>&deg;C,
-and the water that returns from the borehole is between 
+and the water that returns from the borehole is between
 <i>20.5</i>&deg;C
-and 
+and
 <i>21.5</i>&deg;C.
 </p>
 </html>", revisions="<html>

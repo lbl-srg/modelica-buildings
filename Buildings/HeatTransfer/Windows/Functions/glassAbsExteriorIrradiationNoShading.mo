@@ -3,8 +3,8 @@ function glassAbsExteriorIrradiationNoShading
   "Angular and hemispherical absorptance of each glass pane for exterior irradiation without shading"
   extends
     Buildings.HeatTransfer.Windows.Functions.BaseClasses.partialWindowRadiation;
-  output Real[N, HEM] abs(each min=0, each max=1) "Angular and hemispherical absorptance of each glass pane for exterior irradiation without shading. 
-     Indices: abs[1 to N : ] -> pane 1 to N; 
+  output Real[N, HEM] abs(each min=0, each max=1) "Angular and hemispherical absorptance of each glass pane for exterior irradiation without shading.
+     Indices: abs[1 to N : ] -> pane 1 to N;
      abs[ : 1 to HEM] -> angular (1:HEM-1) and hemispherical (HEM)";
 
 protected

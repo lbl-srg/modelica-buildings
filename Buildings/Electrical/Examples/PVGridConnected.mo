@@ -6,7 +6,6 @@ model PVGridConnected
   Buildings.Electrical.DC.Sources.PVSimple     pv(A=10) "PV module"
     annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
-        rotation=0,
         origin={-10,40})));
   Buildings.Electrical.DC.Loads.Resistor    res(R=0.5, V_nominal=12)
     annotation (Placement(transformation(extent={{2,-10},{-18,10}})));
@@ -72,15 +71,14 @@ equation
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-140,
             -100},{100,140}}),      graphics),
     experiment(StopTime=172800, Tolerance=1e-05),
-    __Dymola_experimentSetupOutput,
-    Documentation(info="<html>
+Documentation(info="<html>
 <p>
 This model illustrates the use of the photovoltaic model
 connected to a AC circuit.
 </p>
 <p>
 The total solar irradiation is computed based on a weather data file
-for San Francisco, CA. 
+for San Francisco, CA.
 The PV is connected to a circuit that has resistance which may emulate a load, and an AC/DC converter.
 The AC/DC converter converts 12 Volts AC to 380 Volts DC.
 The block called <code>grid</code> has an output connector <code>P</code>

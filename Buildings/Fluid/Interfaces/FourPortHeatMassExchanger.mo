@@ -80,7 +80,7 @@ model FourPortHeatMassExchanger
     final C_start=C1_start,
     final C_nominal=C1_nominal) "Volume for fluid 1"
                                annotation (Placement(transformation(extent={{-10,70},
-            {10,50}},         rotation=0)));
+            {10,50}})));
 
   replaceable Buildings.Fluid.MixingVolumes.MixingVolume vol2
     constrainedby Buildings.Fluid.MixingVolumes.BaseClasses.PartialMixingVolume(
@@ -110,7 +110,7 @@ model FourPortHeatMassExchanger
     "Heat flow rate into medium 2";
 
   Buildings.Fluid.FixedResistances.FixedResistanceDpM preDro1(
-    redeclare package Medium = Medium1,
+    redeclare final package Medium = Medium1,
     final use_dh=false,
     final m_flow_nominal=m1_flow_nominal,
     final deltaM=deltaM1,
@@ -125,7 +125,7 @@ model FourPortHeatMassExchanger
     annotation (Placement(transformation(extent={{-80,70},{-60,90}})));
 
   Buildings.Fluid.FixedResistances.FixedResistanceDpM preDro2(
-    redeclare package Medium = Medium2,
+    redeclare final package Medium = Medium2,
     final use_dh=false,
     final m_flow_nominal=m2_flow_nominal,
     final deltaM=deltaM2,
@@ -167,7 +167,7 @@ initial algorithm
  Received tau1 = " + String(tau1) + "\n");
   assert((massDynamics == Modelica.Fluid.Types.Dynamics.SteadyState) or
           tau1 > Modelica.Constants.eps,
-"The parameter tau1, or the volume of the model from which tau may be derived, is unreasonably small.          
+"The parameter tau1, or the volume of the model from which tau may be derived, is unreasonably small.
  You need to set massDynamics == Modelica.Fluid.Types.Dynamics.SteadyState to model steady-state.
  Received tau1 = " + String(tau1) + "\n");
 
@@ -179,7 +179,7 @@ initial algorithm
  Received tau2 = " + String(tau2) + "\n");
   assert((massDynamics == Modelica.Fluid.Types.Dynamics.SteadyState) or
           tau2 > Modelica.Constants.eps,
-"The parameter tau2, or the volume of the model from which tau may be derived, is unreasonably small.          
+"The parameter tau2, or the volume of the model from which tau may be derived, is unreasonably small.
  You need to set massDynamics == Modelica.Fluid.Types.Dynamics.SteadyState to model steady-state.
  Received tau2 = " + String(tau2) + "\n");
 equation
@@ -208,18 +208,14 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   annotation (
-    Diagram(coordinateSystem(
-        preserveAspectRatio=true,
-        extent={{-100,-100},{100,100}},
-        grid={1,1})),
     Documentation(info="<html>
 <p>
-This component transports two fluid streams between four ports. 
+This component transports two fluid streams between four ports.
 It provides the basic model for implementing a dynamic heat exchanger.
 </p>
 <p>
 The model can be used as-is, although there will be no heat or mass transfer
-between the two fluid streams. 
+between the two fluid streams.
 To add heat transfer, heat flow can be added to the heat port of the two volumes.
 See for example
 <a href=\"Buildings.Fluid.Chillers.Carnot\">
@@ -231,12 +227,16 @@ Buildings.Fluid.HeatExchangers.BaseClasses.HexElement</a>.
 </p>
 <h4>Implementation</h4>
 <p>
-The variable names follow the conventions used in 
+The variable names follow the conventions used in
 <a href=\"modelica://Modelica.Fluid.HeatExchangers.BasicHX\">
 Modelica.Fluid.HeatExchangers.BasicHX</a>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+October 6, 2014, by Michael Wetter:<br/>
+Changed medium declaration in pressure drop elements to be final.
+</li>
 <li>
 May 28, 2014, by Michael Wetter:<br/>
 Removed <code>annotation(Evaluate=true)</code> for parameters <code>tau1</code>
@@ -268,11 +268,11 @@ longer used in its base class.
 July 29, 2011, by Michael Wetter:
 <ul>
 <li>
-Changed values of 
+Changed values of
 <code>h_outflow_a1_start</code>,
 <code>h_outflow_b1_start</code>,
 <code>h_outflow_a2_start</code> and
-<code>h_outflow_b2_start</code>, and 
+<code>h_outflow_b2_start</code>, and
 declared them as final.
 </li>
 <li>

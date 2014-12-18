@@ -12,4 +12,3 @@ createPlot(id = 3,
  filename = "TwoWayValvesMotor.mat",
  leftTitleType = 1,
  bottomTitleType = 1);
-

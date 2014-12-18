@@ -59,8 +59,7 @@ equation
   __Dymola_Commands(file=
           "modelica://Buildings/Resources/Scripts/Dymola/Electrical/AC/ThreePhasesUnbalanced/Validation/IEEETests/Test4NodesFeeder/BalancedStepUp/YY.mos"
         "Simulate and plot"),
-  Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
-            {100,100}}), graphics), Documentation(revisions="<html><ul>
+ Documentation(revisions="<html><ul>
 <li>
 October 9, 2014, by Marco Bonvini:<br/>
 Added documentation.

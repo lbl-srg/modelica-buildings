@@ -19,9 +19,7 @@ model Case640 "Case 600, but with heating schedule"
         experiment(
       StopTime=3.1536e+07,
       Interval=3600,
-      Tolerance=1e-006),                  Diagram(coordinateSystem(
-          preserveAspectRatio=true, extent={{-100,-100},{100,100}})),
-    Documentation(revisions="<html>
+      Tolerance=1e-006),    Documentation(revisions="<html>
 <ul>
 <li>
 July 15, 2012, by Michael Wetter:<br/>

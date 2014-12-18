@@ -46,8 +46,7 @@ model ConductorSingleLayerPCM "Test model for heat conductor"
   Buildings.HeatTransfer.Conduction.SingleLayer con2(
     A=1, material=concrete100) "Construction without PCM"
     annotation (Placement(transformation(extent={{50,-40},{70,-20}})));
-  parameter Buildings.HeatTransfer.Data.SolidsPCM.Generic
-                                                       matPCM(
+  parameter Buildings.HeatTransfer.Data.SolidsPCM.Generic matPCM(
     x=0.2,
     k=1.4,
     c=840,
@@ -70,8 +69,7 @@ model ConductorSingleLayerPCM "Test model for heat conductor"
   Buildings.HeatTransfer.Sources.FixedTemperature TB2(T=293.15)
     "Temperature boundary condition"
     annotation (Placement(transformation(extent={{100,34},{80,54}})));
-  parameter Buildings.HeatTransfer.Data.SolidsPCM.Generic
-                                                       matPCM2(
+  parameter Buildings.HeatTransfer.Data.SolidsPCM.Generic matPCM2(
     x=0.2,
     k=1.4,
     c=840,
@@ -154,36 +152,38 @@ equation
       points={{44,44},{80,44}},
       color={191,0,0},
       smooth=Smooth.None));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},
-            {100,100}}),       graphics),
-             __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/HeatTransfer/Examples/ConductorSingleLayerPCM.mos"
+  annotation (             __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/HeatTransfer/Examples/ConductorSingleLayerPCM.mos"
         "Simulate and plot"),
     Documentation(info="<html>
 <p>
-This example tests the implementation of the phase-change material (PCM) model. 
+This example tests the implementation of the phase-change material (PCM) model.
 </p>
 <p>
 The phase-change material <code>matPCM</code> is exposed to the same boundary
 conditions as the non phase-change material.
 In the construction <code>conPCM2</code>, the phase change is around <i>20.5</i> &deg;C.
-In the construction <code>conPCM</code>, the phase change is around <i>40.5</i> &deg;C, which 
+In the construction <code>conPCM</code>, the phase change is around <i>40.5</i> &deg;C, which
 is above the temperature range simulated in this model.
 Therefore, the same result is expected for the PCM material <code>conPCM</code>
-as is for two conductors in series. 
+as is for two conductors in series.
 Note that in case of using <code>matPCM</code>, the internal energy is
 the dependent variable, whereas in case of two conductors in series, the temperature
-is the dependent variable. However, both models will 
-produce the same results. 
+is the dependent variable. However, both models will
+produce the same results.
 The <code>assert</code> block will stop the simulation
 if there is a difference in heat fluxes.
 </p>
 </html>", revisions="<html>
 <ul>
 <li>
+October 17, 2014, by Michael Wetter:<br/>
+Increased tolerance for OpenModelica.
+</li>
+<li>
 March 6 2010, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
 </html>"),
-    experiment(StopTime=7200));
+    experiment(StopTime=7200, Tolerance=1E-8));
 end ConductorSingleLayerPCM;

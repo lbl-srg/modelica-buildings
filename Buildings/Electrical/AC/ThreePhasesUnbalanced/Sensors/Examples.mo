@@ -85,8 +85,7 @@ package Examples "Package with example models"
         points={{59,0},{50,0},{50,-36},{40,-36}},
         color={0,0,127},
         smooth=Smooth.None));
-    annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-              -100},{100,100}}),      graphics), Documentation(
+    annotation ( Documentation(
   revisions="<html>
 <ul>
 <li>

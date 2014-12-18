@@ -14,8 +14,7 @@ protected
     "Nominal current flowing through the line";
   parameter Real nominal_v_ = V_nominal "Nominal voltage of the line";
 
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}}), graphics), Icon(coordinateSystem(
+  annotation ( Icon(coordinateSystem(
           preserveAspectRatio=false, extent={{-100,-100},{100,100}}), graphics={
           Text(
             extent={{-150,-19},{150,-59}},

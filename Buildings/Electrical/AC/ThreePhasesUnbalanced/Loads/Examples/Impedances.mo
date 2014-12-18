@@ -88,7 +88,7 @@ This example model shows how to use three phases unbalanced impedances with and 
 <p>
 This model contains two identical inductive impedances with and without neutral cable.
 The impedances have inputs that allow to change the value of their resistances and inductances
-externally. The values start to change from their minumum to their maximum values at time 
+externally. The values start to change from their minumum to their maximum values at time
 <i>t = 0.25 s</i>.
 </p>
 <p>
@@ -108,6 +108,5 @@ Created model from previus version and added documentation.
     experiment(Tolerance=1e-05, __Dymola_Algorithm="Radau", StopTime=1.0),
     __Dymola_Commands(file=
           "modelica://Buildings/Resources/Scripts/Dymola/Electrical/AC/ThreePhasesUnbalanced/Loads/Examples/Impedances.mos"
-        "Simulate and plot"),
-    __Dymola_experimentSetupOutput);
+        "Simulate and plot"));
 end Impedances;

@@ -94,8 +94,7 @@ equation
   __Dymola_Commands(file=
           "modelica://Buildings/Resources/Scripts/Dymola/Electrical/AC/ThreePhasesUnbalanced/Lines/Examples/ACLine.mos"
         "Simulate and plot"),
-  Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}}), graphics), Documentation(info="<html>
+ Documentation(info="<html>
 <p>
 This example demonstrates how to use a cable model without neutral line
 to connect a source to a load.

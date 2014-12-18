@@ -40,7 +40,7 @@ equation
     defaultComponentName="linPieTwo",
     Documentation(info="<HTML>
 <p>
-This component calcuates the output according to two piecewise linear function as 
+This component calcuates the output according to two piecewise linear function as
 </p>
 <table>
 <tr>
@@ -52,15 +52,15 @@ This component calcuates the output according to two piecewise linear function a
 <tr>
 <td><i>u &isin; (x<sub>1</sub>, x<sub>2</sub>]:</i></td>
     <td><i>y<sub>1</sub> = y<sub>11</sub></i><br/>
-    <i>y<sub>2</sub> = y<sub>20</sub> + (u-x<sub>1</sub>) 
+    <i>y<sub>2</sub> = y<sub>20</sub> + (u-x<sub>1</sub>)
        (y<sub>21</sub>-y<sub>20</sub>)/(x<sub>2</sub>-x<sub>1</sub>)</i></td>
 </tr>
-</table> 
+</table>
 </HTML>", revisions="<html>
 <ul>
 <li>
 July 20, 2011, by Wangda Zuo:<br/>
-Add comments and merge to library. 
+Add comments and merge to library.
 </li>
 <li>
 January 18, 2011, by Wangda Zuo:<br/>

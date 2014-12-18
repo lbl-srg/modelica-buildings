@@ -125,10 +125,10 @@ inductance is a parameter, otherwise
 the capacitance is a parameter.
 </p>
 <p>
-The boolean parameter <code>star</code> is used to 
+The boolean parameter <code>star</code> is used to
 select whether the star (Y) or triangle (D)
-configuration is used to connect the impedance. 
-By default, the impedance is assumed to be connected 
+configuration is used to connect the impedance.
+By default, the impedance is assumed to be connected
 with a star configuration.
 </p>
 <p>

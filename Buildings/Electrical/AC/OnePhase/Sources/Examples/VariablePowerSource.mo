@@ -47,9 +47,7 @@ equation
       points={{59,0},{40,0}},
       color={0,0,127},
       smooth=Smooth.None));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}}), graphics),
-    experiment(StopTime=21, Tolerance=1e-05),
+  annotation (    experiment(StopTime=21, Tolerance=1e-05),
     __Dymola_Commands(file=
           "modelica://Buildings/Resources/Scripts/Dymola/Electrical/AC/OnePhase/Sources/Examples/VariablePowerSource.mos"
         "Simulate and plot"),
@@ -64,6 +62,6 @@ Revised model and documentation.
 <p>
 This example shows how to use a variable generator model. The model has to be used
 together with a voltage source generator.
-</p> 
+</p>
 </html>"));
 end VariablePowerSource;

@@ -62,7 +62,7 @@ This function has been introduced to allow users to specify the name of weather 
 files with a path that is relative to the library path.
 This allows users to change the current working directory while still being able to read
 the files.
-</p>                       
+</p>
 </html>", revisions="<html>
 <ul>
 <li>

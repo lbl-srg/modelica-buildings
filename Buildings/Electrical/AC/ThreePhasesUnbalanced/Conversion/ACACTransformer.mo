@@ -40,6 +40,7 @@ model ACACTransformer "AC AC transformer simplified equivalent circuit (YY)"
   parameter Real Zperc "Short circuit impedance";
   parameter Boolean ground_1 = false "Connect side 1 of transformer to ground" annotation(Dialog(tab = "Ground", group="side 1"));
   parameter Boolean ground_2 = true "Connect side 2 of transformer to ground" annotation(Dialog(tab = "Ground", group="side 2"));
+equation
 
   annotation (
   defaultComponentName="tra",

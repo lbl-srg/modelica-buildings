@@ -54,7 +54,7 @@ protected
     "Vertical distance between overhang and shadow lower edge";
   Modelica.SIunits.Length y2[4]
     "Window height (vertical distance corresponding to x2)";
-  Real shdwTrnglRtio "ratio of y1 and x1";
+  Real shdwTrnglRtio "Ratio of y1 and x1";
   Modelica.SIunits.Area area[4]
     "Shaded areas of the sections used in superposition";
   Modelica.SIunits.Area shdArea "Shaded area calculated from equations";
@@ -97,13 +97,21 @@ equation
     tmpW[2] = w;
     tmpW[3] = w;
     tmpW[4] = w + wWin;
-
     y1*Modelica.Math.cos(verAzi) = dep*Modelica.Math.tan(alt);
     x1 = dep*Modelica.Math.tan(verAzi);
     shdwTrnglRtio*x1 = y1;
     for i in 1:4 loop
       y2[i] = tmpH[i];
-      x2[i]*y1 = x1*tmpH[i];
+      // For the equation below, Dymola generated the following code in MixedAirFreeResponse.
+      // This led to a division by zero as y1 crosses zero. The problem occured in an
+      // FMU simulation. Therefore, we guard against division by zero when computing
+      // x2[i].
+      //  roo.bouConExtWin.sha[1].ove.x2[1] := roo.bouConExtWin.sha[1].ove.x1*
+      //  roo.bouConExtWin.sha[1].ove.tmpH[1]/roo.bouConExtWin.sha[1].ove.y1;
+      // x2[i]*y1 = x1*tmpH[i];
+
+      x2[i] = x1*tmpH[i]/Buildings.Utilities.Math.Functions.smoothMax(
+        x1=y1, x2=1E-8*hWin, deltaX=1E-9*hWin);
       area[i] = Buildings.Utilities.Math.Functions.smoothMin(
         x1=y1,
         x2=y2[i],
@@ -173,7 +181,7 @@ equation
       string="%first",
       index=-1,
       extent={{-6,3},{-6,3}}));
-  connect(weaBus.sol.zen, solAzi.zen) annotation (Line(
+  connect(weaBus.solZen, solAzi.zen) annotation (Line(
       points={{-102,5.55112e-16},{-79,5.55112e-16},{-79,6},{-62,6}},
       color={255,204,51},
       thickness=0.5,
@@ -181,7 +189,7 @@ equation
       string="%first",
       index=-1,
       extent={{-6,3},{-6,3}}));
-  connect(weaBus.sol.dec, solAzi.decAng) annotation (Line(
+  connect(weaBus.solDec, solAzi.decAng) annotation (Line(
       points={{-102,5.55112e-16},{-92,5.55112e-16},{-92,1.22125e-15},{-82,
           1.22125e-15},{-82,6.66134e-16},{-62,6.66134e-16}},
       color={255,204,51},
@@ -191,40 +199,40 @@ equation
       index=-1,
       extent={{-6,3},{-6,3}}));
 
-  annotation (Diagram(graphics), Icon(graphics={Bitmap(extent={{-92,92},{92,-92}},
+  annotation ( Icon(graphics={Bitmap(extent={{-92,92},{92,-92}},
 fileName="modelica://Buildings/Resources/Images/HeatTransfer/Windows/BaseClasses/Overhang.png")}),
 defaultComponentName="overhang",
 Documentation(info="<html>
 <p>
-For a window with an overhang, this block outputs the fraction of 
+For a window with an overhang, this block outputs the fraction of
 the area that is exposed to the sun.
-This models can also be used for doors with an overhang. 
+This models can also be used for doors with an overhang.
 </p>
 <p>
-Input to this block are the 
-wall solar azimuth angle and the altitude angle of the sun. 
+Input to this block are the
+wall solar azimuth angle and the altitude angle of the sun.
 These angles can be calculated using blocks from the package
 <a href=\"modelica://Buildings.BoundaryConditions.SolarGeometry.BaseClasses\">
-Buildings.BoundaryConditions.SolarGeometry.BaseClasses</a>. 
+Buildings.BoundaryConditions.SolarGeometry.BaseClasses</a>.
 </p>
 <p>
-The overhang can be asymmetrical (i.e. <code>wR &ne; wL</code>) 
-about the vertical centerline 
+The overhang can be asymmetrical (i.e. <code>wR &ne; wL</code>)
+about the vertical centerline
 of the window.
 The overhang must completely cover the window (i.e.,
-<code>wL &ge; 0</code> and 
-<code>wR &ge; 0</code>). 
+<code>wL &ge; 0</code> and
+<code>wR &ge; 0</code>).
 <code>wL</code> and <code>wR</code> are measured from the left and right edge of the window.
 </p>
 <p>
-The surface azimuth <code>azi</code> is as defined in 
+The surface azimuth <code>azi</code> is as defined in
 <a href=\"modelica://Buildings.HeatTransfer.Types.Azimuth\">
 Buildings.HeatTransfer.Types.Azimuth</a>.
 </p>
 <h4>Implementation</h4>
 <p>
-The method of super position is used to calculate the window shaded area. 
-The area below the overhang is divided as shown in the figure. 
+The method of super position is used to calculate the window shaded area.
+The area below the overhang is divided as shown in the figure.
 </p>
 <p align=\"center\">
 <img alt=\"image\" src=\"modelica://Buildings/Resources/Images/HeatTransfer/Windows/BaseClasses/OverhangSuperPosition.png\" />
@@ -237,20 +245,26 @@ are shown in the figure below:
 <img alt=\"image\" src=\"modelica://Buildings/Resources/Images/HeatTransfer/Windows/BaseClasses/OverhangVariables.png\" />
 </p>
 <p>
-The rectangles <i>DEGI, AEGH, CFGI</i> and <i>BFGH</i> have the same geometric configuration 
+The rectangles <i>DEGI, AEGH, CFGI</i> and <i>BFGH</i> have the same geometric configuration
 with respect to the overhang.
-Thus, the same algorithm can be used to calculate the shaded portion in these areas. 
-A single equation in the <code>for</code> loop improves the total calculation time, 
-as compared to <code>if-then-else</code> 
-conditions, considering the various shapes of the shaded portions. 
-To find the shaded area in window <i>ABCD</i>, the shaded portion of <i>AEGD</i> and <i>CFGI</i> 
+Thus, the same algorithm can be used to calculate the shaded portion in these areas.
+A single equation in the <code>for</code> loop improves the total calculation time,
+as compared to <code>if-then-else</code>
+conditions, considering the various shapes of the shaded portions.
+To find the shaded area in window <i>ABCD</i>, the shaded portion of <i>AEGD</i> and <i>CFGI</i>
 should be subtracted from that of <i>DEGI</i> and <i>BFGH</i>.
-This shaded area of the window is then divided by the total window area 
-to calculate the shaded fraction of the window. 
+This shaded area of the window is then divided by the total window area
+to calculate the shaded fraction of the window.
 </p>
 </html>",
 revisions="<html>
 <ul>
+<li>
+October 28, 2014, by Michael Wetter:<br/>
+Reformulated <code>shdwTrnglRtio*x1 = y1</code> to avoid a division by
+zero if the model is exported as an FMU.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/234\">#234</a>.
+</li>
 <li>
 July 5, 2012, by Michael Wetter:<br/>
 Changed definitions of <code>wL</code> and <code>wR</code> to be
@@ -273,7 +287,7 @@ Revised implementation.
 </li>
 <li>
 Feb 01, 2012, by Kaustubh Phalak:<br/>
-First implementation. 
+First implementation.
 </li>
 </ul>
 </html>"));

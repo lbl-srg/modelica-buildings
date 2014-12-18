@@ -3,12 +3,6 @@ package ThreePhasesBalanced "Three phases balanced AC systems"
   extends Modelica.Icons.VariantsPackage;
 
 
-
-
-
-
-
-
 annotation (Documentation(info="<html>
 <p>
 Package with models for alternate current (AC) three phase balanced systems.<br/>

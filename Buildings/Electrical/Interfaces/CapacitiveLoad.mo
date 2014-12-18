@@ -54,15 +54,14 @@ This is a model of a generic capacitive load. This model is an extension of the 
 <a href=\"Buildings.Electrical.Interfaces.PartialLoad\">Buildings.Electrical.Interfaces.PartialLoad</a>.
 </p>
 <p>
-This model assumes a fixed power factor <code>pf</code> when the flag <code>use_pf_in = false</code> 
+This model assumes a fixed power factor <code>pf</code> when the flag <code>use_pf_in = false</code>
 otherwise it uses the power factor specified by the input <code>pf_in</code>.
 </p>
-<p>The power factor (either the input or the parameter) is used to compute the reactive power 
+<p>The power factor (either the input or the parameter) is used to compute the reactive power
 <code>Q</code> given the active power <code>P</code>
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
 Q = - P * tan(arccos(pf))
 </p>
-</html>"), Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
-            {100,100}}), graphics));
+</html>"));
 end CapacitiveLoad;

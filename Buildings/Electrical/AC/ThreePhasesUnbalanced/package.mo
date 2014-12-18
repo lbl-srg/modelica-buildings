@@ -2,6 +2,7 @@ within Buildings.Electrical.AC;
 package ThreePhasesUnbalanced "Three phases unbalanced AC systems"
   extends Modelica.Icons.VariantsPackage;
 
+
 annotation (Documentation(info="<html>
 <p>
 Package with models for alternate current (AC) three phase unbalanced systems.<br/>
@@ -25,6 +26,12 @@ phase to neutral voltage <i>V</i>, which is <i>277.13</i> V.
 
 <p align=\"center\">
 <img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Electrical/AC/ThreePhasesUnbalanced/PhaseConvention.png\"/>
+</p>
+
+<p>
+In this package the voltage phasors are measured using the convention shown above. 
+The phase to phase RMS voltage equal to 480 V, is equal to <code>sqrt(3)</code> times the
+phase to neutral voltage <i>V</i> that is equal to 277.13 V.
 </p>
 
 </html>", revisions="<html>

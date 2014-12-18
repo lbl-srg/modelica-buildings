@@ -13,31 +13,28 @@ model ThreeWayValves "Three way valves with different opening characteristics"
     dpValve_nominal=6000,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     "Valve model, linear opening characteristics"
-         annotation (Placement(transformation(extent={{0,-8},{20,12}},
-          rotation=0)));
+         annotation (Placement(transformation(extent={{0,-8},{20,12}})));
     Modelica.Blocks.Sources.Ramp y(
     height=1,
     duration=1,
     offset=0) "Control signal"
-                 annotation (Placement(transformation(extent={{-40,30},{-20,50}},
-          rotation=0)));
+                 annotation (Placement(transformation(extent={{-40,30},{-20,50}})));
   Buildings.Fluid.Sources.Boundary_pT sou(             redeclare package Medium
       = Medium,
     nPorts=2,
     use_p_in=true,
     T=313.15)                                       annotation (Placement(
-        transformation(extent={{-50,-10},{-30,10}}, rotation=0)));
+        transformation(extent={{-50,-10},{-30,10}})));
   Buildings.Fluid.Sources.Boundary_pT sin(             redeclare package Medium
       = Medium,
     nPorts=2,
     use_p_in=true,
     T=313.15)                                       annotation (Placement(
-        transformation(extent={{70,-10},{50,10}}, rotation=0)));
+        transformation(extent={{70,-10},{50,10}})));
     Modelica.Blocks.Sources.Constant PSin(k=3E5)
-      annotation (Placement(transformation(extent={{60,60},{80,80}}, rotation=0)));
+      annotation (Placement(transformation(extent={{60,60},{80,80}})));
     Modelica.Blocks.Sources.Constant PSou(k=306000)
-      annotation (Placement(transformation(extent={{-88,-2},{-68,18}},
-          rotation=0)));
+      annotation (Placement(transformation(extent={{-88,-2},{-68,18}})));
   Actuators.Valves.ThreeWayEqualPercentageLinear valEquPerLin(
     l={0.05,0.05},
     redeclare package Medium = Medium,
@@ -46,16 +43,14 @@ model ThreeWayValves "Three way valves with different opening characteristics"
     filteredOpening=false,
     dpValve_nominal=6000,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
-    annotation (Placement(transformation(extent={{0,-60},{20,-40}}, rotation=0)));
+    annotation (Placement(transformation(extent={{0,-60},{20,-40}})));
   Buildings.Fluid.Sources.Boundary_pT ret(
     redeclare package Medium = Medium,
     nPorts=2,
     use_p_in=true,
     T=303.15)                                       annotation (Placement(
-        transformation(extent={{10,-10},{-10,10}},  rotation=0,
-        origin={64,-70})));
-  inner Modelica.Fluid.System system
-    annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
+        transformation(extent={{10,-10},{-10,10}},  origin={64,-70})));
+
 equation
   connect(y.y, valLin.y) annotation (Line(
       points={{-19,40},{10,40},{10,14}},
@@ -98,15 +93,12 @@ equation
       points={{-67,8},{-59.5,8},{-59.5,8},{-52,8}},
       color={0,0,127},
       smooth=Smooth.None));
-    annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
-            -100},{100,100}}),
-                        graphics),
-experiment(StopTime=1.0),
+    annotation (experiment(StopTime=1.0),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Actuators/Valves/Examples/ThreeWayValves.mos"
         "Simulate and plot"),
     Documentation(info="<html>
 <p>
-Test model for three way valves. Note that the 
+Test model for three way valves. Note that the
 leakage flow rate has been set to a large value
 and the rangeability to a small value
 for better visualization of the valve characteristics.
@@ -125,4 +117,3 @@ First implementation.
 </ul>
 </html>"));
 end ThreeWayValves;
-

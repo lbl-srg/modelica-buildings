@@ -5,7 +5,7 @@ extends Modelica.Icons.InterfacesPackage;
 
 annotation (Documentation(info="<html>
 <p>
-This package contains interfaces that are used by the models in the 
+This package contains interfaces that are used by the models in the
 <a href=\"modelica://Buildings.Electrical.AC\">Buildings.Electrical.AC</a> package.
 </p>
 </html>"));

@@ -33,11 +33,11 @@ Note that
 <li>by the term <i>solar</i>, we mean the whole solar spectrum.
 Data in the solar spectrum are used for computing solar heat gains.
 </li>
-<li>by the term <i>infrared</i> (or <i>infrared</i>), we mean the infrared spectrum. 
-Data in the infrared spectrum are used for thermal radiation that is emitted by surfaces that are 
+<li>by the term <i>infrared</i> (or <i>infrared</i>), we mean the infrared spectrum.
+Data in the infrared spectrum are used for thermal radiation that is emitted by surfaces that are
 around room or ambient temperature.
 </li>
-<li>WINDOW 6 uses spectral data in the calculation of optical properties of window systems, 
+<li>WINDOW 6 uses spectral data in the calculation of optical properties of window systems,
 whereas the model in this library uses averages over the whole solar or infrared spectrum.
 </li>
 </ul>
@@ -131,7 +131,7 @@ This package implements thermophysical properties for window glas.
 Since the infrared transmissivity is part of the Window 5 data and since
 it depends on the glass thickness, the glass thickness is a parameter
 that is set for all glass layers.
-This configuration is different from the records fo gas properties, 
+This configuration is different from the records fo gas properties,
 which do not yet set the value for the thickness of the gas gap.
 </p>
 </html>",

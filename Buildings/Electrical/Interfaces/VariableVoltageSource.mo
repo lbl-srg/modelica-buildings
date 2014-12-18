@@ -27,8 +27,7 @@ equation
   if use_V_in == false then
     V_in_internal = V;
   end if;
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}}), graphics), Documentation(revisions="<html>
+  annotation ( Documentation(revisions="<html>
 <ul>
 <li>
 October 14, 2014, by Marco Bonvini:<br/>
@@ -40,15 +39,15 @@ Model included into the Buildings library, added documentation.
 This model represents a generic variable voltage source. The model has a boolean
 flag <code>use_V_in</code>, when this flag is equal to <code>true</code>
 the voltage of the source is imposed by the input variable <code>V_in</code>.
-When the flag is equal to <code>false</code> the voltage source is equal to the parameter <code>V</code>. 
+When the flag is equal to <code>false</code> the voltage source is equal to the parameter <code>V</code>.
 </p>
 <p>
-In case the phase system adopted has <code>PhaseSystem.m &gt; 0</code> and 
-thus the connectors are over determined, 
+In case the phase system adopted has <code>PhaseSystem.m &gt; 0</code> and
+thus the connectors are over determined,
 the source can be selected to serve as reference point.
 The parameters <code>potentialReference</code> and <code>definiteReference</code> are used to define if the
 source model should be selected as source for the reference angles or not.
-More information about overdetermined connectors can be found 
+More information about overdetermined connectors can be found
 in <a href=\"#Olsson2008\">Olsson Et Al. (2008)</a>.
 </p>
 
@@ -60,7 +59,5 @@ Hans Olsson, Martin Otter, Sven Erik Mattson and Hilding Elmqvist.<br/>
 Balanced Models in Modelica 3.0 for Increased Model Quality</a>.<br/>
 Proc. of the 7th Modelica Conference, Bielefeld, Germany, March 2008.
 </p>
-</html>"),
-    Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
-        graphics));
+</html>"));
 end VariableVoltageSource;

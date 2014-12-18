@@ -407,15 +407,13 @@ equation
       color={0,0,255},
       smooth=Smooth.None));
   annotation (experiment(StopTime=4000,Tolerance=1e-06),
-  Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}}), graphics),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Electrical/DC/Lines/Examples/DCLines.mos"
         "Simulate and plot"),
     Documentation(info="<html>
 <p>
 This model shows a DC grid with 10 loads and 16 cables.
 Each cable is of length <i>l = 10</i> meters, a parameter that can be modified.
-Each load can be either be a full nonlinear model, or be replaced by the 
+Each load can be either be a full nonlinear model, or be replaced by the
 linearized version. The parameter <code>linearLoads = false</code>
 can be used to switch between linear and nonlinear implementation.
 </p>

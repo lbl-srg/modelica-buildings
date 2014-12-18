@@ -136,7 +136,7 @@ equation
       points={{61,60},{70,60},{70,30},{-50,30},{-50,8},{-32,8}},
       color={0,0,127},
       smooth=Smooth.None));
-  annotation (Diagram(graphics), Icon(graphics={
+  annotation ( Icon(graphics={
         Polygon(
           points={{-80,94},{-88,72},{-72,72},{-80,94}},
           lineColor={192,192,192},
@@ -172,7 +172,7 @@ If the controller is off, and the control error becomes larger than <code>eOn</c
 the controller switches to on and remains on until the control error is smaller than <code>eOff</code>.
 When the controller is on, the set point tracking can be done using a P-, PI-, or PID-controller.
 In its off-mode, the control output is zero. Thus, the parameters <code>yMin</code> and <code>yMax</code> are
-used to constrain the output of the controller during its on mode only. This can be used, for 
+used to constrain the output of the controller during its on mode only. This can be used, for
 example, to modulate a device between 0.3 and 1.0, and switch it to off when the control error
 is small enough.
 </p>
@@ -181,12 +181,12 @@ is small enough.
 <li>
 February 24, 2010, by Michael Wetter:<br/>
 Changed PID controller from Modelica Standard Library to
-PID controller from Buildings library to allow reverse control action. 
+PID controller from Buildings library to allow reverse control action.
 </li>
 <li>
 October 2, 2009, by Michael Wetter:<br/>
 Fixed error in default parameter <code>eOn</code>.
-Fixed error by introducing parameter <code>Td</code>, 
+Fixed error by introducing parameter <code>Td</code>,
 which used to be hard-wired in the PID controller.
 </li>
 <li>

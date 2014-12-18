@@ -109,7 +109,7 @@ model Capacitive "Model of a capacitive and resistive load"
           origin={10,-52},
           rotation=180)}),       Documentation(info="<html>
 <p>
-Model of a capacitive load. See 
+Model of a capacitive load. See
 <a href=\"modelica://Buildings.Electrical.AC.OnePhase.Loads.Capacitive\">
 Buildings.Electrical.AC.OnePhase.Loads.Capacitive</a> for more information.
 </p>

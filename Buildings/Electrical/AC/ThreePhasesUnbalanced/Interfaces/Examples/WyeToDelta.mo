@@ -32,8 +32,7 @@ equation
   __Dymola_Commands(file=
           "modelica://Buildings/Resources/Scripts/Dymola/Electrical/AC/ThreePhasesUnbalanced/Interfaces/Examples/WyeToDelta.mos"
         "Simulate and plot"),
-        Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}}), graphics), Documentation(revisions="<html>
+ Documentation(revisions="<html>
 <ul>
 <li>
 October 9, 2014, by Marco Bonvini:<br/>
@@ -54,7 +53,7 @@ are converted into D. Their RMS value is equal to <i>480/sqrt(3)</i> V.
 </p>
 <p>
 The probe <code>probe_D</code> measures the phase
-voltages after the conversion to D. Their RMS value is equal to <i>480</i> V, 
+voltages after the conversion to D. Their RMS value is equal to <i>480</i> V,
 the line voltage provided by the voltage source.
 </p>
 </html>"));

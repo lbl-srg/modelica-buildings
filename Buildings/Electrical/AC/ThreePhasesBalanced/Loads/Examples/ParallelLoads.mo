@@ -73,9 +73,7 @@ equation
       points={{39,-10},{30,-10},{30,6},{4.44089e-16,6}},
       color={0,0,127},
       smooth=Smooth.None));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}}),        graphics),
-    Documentation(revisions="<html>
+  annotation (    Documentation(revisions="<html>
 <ul>
 <li>
 September 22, 2014 by Marco Bonvini:<br/>
@@ -90,6 +88,5 @@ This model illustrates the use of the three phases unbalanced load models.
     experiment(Tolerance=1e-05, __Dymola_Algorithm="Radau", StopTime=1.0),
     __Dymola_Commands(file=
           "modelica://Buildings/Resources/Scripts/Dymola/Electrical/AC/ThreePhasesBalanced/Loads/Examples/ParallelLoads.mos"
-        "Simulate and plot"),
-    __Dymola_experimentSetupOutput);
+        "Simulate and plot"));
 end ParallelLoads;

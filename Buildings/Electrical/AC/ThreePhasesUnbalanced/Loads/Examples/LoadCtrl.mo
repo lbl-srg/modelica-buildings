@@ -66,21 +66,18 @@ equation
       points={{-26,0},{-8,0}},
       color={127,0,127},
       smooth=Smooth.None));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}}),      graphics),
-    experiment(Tolerance=1e-05, __Dymola_Algorithm="Radau", StopTime=10.0),
+  annotation (    experiment(Tolerance=1e-05, __Dymola_Algorithm="Radau", StopTime=10.0),
     __Dymola_Commands(file=
           "modelica://Buildings/Resources/Scripts/Dymola/Electrical/AC/ThreePhasesUnbalanced/Loads/Examples/LoadCtrl.mos"
         "Simulate and plot"),
-    __Dymola_experimentSetupOutput,
-    Documentation(info="<html>
+Documentation(info="<html>
 <p>
 This example model shows how the voltage controller can act on a three phases unbalanced load.
 </p>
 <p>
 This model contains two loads (one with voltage control and one without)
 that produce power just on the first phase connected through a transmission line to a voltage
-source. When the power production increases the losses on the line cause a voltage increase 
+source. When the power production increases the losses on the line cause a voltage increase
 at the load. The load that has the voltage controller activated when detects the problem
 unplug the load for a period of time equal to 2 seconds. The load is attached again after it
 passed the threshold after a period equal to 2 seconds.

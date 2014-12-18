@@ -2,15 +2,15 @@ package convertDXSingleDoubleSpeed;
 
 /**
  * This method implements a biquadratic curve.
- * 
+ *
  * <h3>License agreement</h3>
- * 
+ *
  * The use of this program is subjected to the following <A
  * HREF="../../../../../../../legal.html">license terms</A>.
- * 
+ *
  * @author <A HREF="mailto:TSNouidui@lbl.gov">Thierry Nouidui</A>
  * @version 1.0, October 05, 2012
- * 
+ *
  */
 
 public class BiQuadraticCurve implements ICurve {
@@ -136,7 +136,7 @@ public class BiQuadraticCurve implements ICurve {
 
     /**
      * This method concatenates the coefficients of the curve into a string.
-     * 
+     *
      * @return string containing the coefficients of the curve.
      */
     public String curveToString() {

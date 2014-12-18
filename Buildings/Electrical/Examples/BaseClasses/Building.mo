@@ -14,7 +14,6 @@ model Building
     P_nominal=-P_nominal,
     linearized=linearized)  annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
-        rotation=0,
         origin={10,-30})));
   AC.OnePhase.Interfaces.Terminal_n node "Generalized terminal"
     annotation (Placement(transformation(extent={{-108,-10},{-88,10}})));
@@ -73,8 +72,7 @@ equation
       points={{59,-30},{20,-30}},
       color={0,0,127},
       smooth=Smooth.None));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}}), graphics), Icon(coordinateSystem(
+  annotation ( Icon(coordinateSystem(
           preserveAspectRatio=false, extent={{-100,-100},{100,100}}), graphics={
         Rectangle(
           extent={{-40,28},{40,-100}},

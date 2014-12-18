@@ -39,7 +39,7 @@ annotation (defaultComponentName="nomVal",
               preferredView="info",
   Documentation(info="<html>
   <p>
-This is the base record of nominal values for DX cooling coil models. 
+This is the base record of nominal values for DX cooling coil models.
 </p>
 <p>
 See the information section of

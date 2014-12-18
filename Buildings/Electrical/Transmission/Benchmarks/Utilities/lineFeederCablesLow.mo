@@ -15,7 +15,7 @@ First implementation
 </ul>
 </html>", info="<html>
 <p>
-This function extends 
+This function extends
 <a href=\"modelica://Buildings.Electrical.Transmission.Benchmarks.Utilities.lineFeederCables\">
 Buildings.Electrical.Transmission.Benchmarks.Utilities.lineFeederCables()
 </a>

@@ -4,7 +4,7 @@ record ASHRAE_901_1975Roof =
     Buildings.HeatTransfer.Data.Solids.GypsumBoard(x=0.016),
     Buildings.HeatTransfer.Data.Solids.InsulationBoard(x=0.09652),
     Buildings.HeatTransfer.Data.Solids.Plywood(x=0.0127)},
-    final nLay=3) "Construction model for a roof minimally compliant with ASHRAE 90.1-1975. 
+    final nLay=3) "Construction model for a roof minimally compliant with ASHRAE 90.1-1975.
       Used in test cells X1A and X1B"
     annotation(Documentation(info="<html>
     <p>
@@ -15,7 +15,7 @@ record ASHRAE_901_1975Roof =
     This model is not currently completed. For more information, see the future work list at
     <a href=\"modelica://Buildings.Rooms.FLEXLAB.UsersGuide\">
     Buildings.Rooms.FLEXLAB.UsersGuide</a>.
-</html>", 
+</html>",
 revisions="<html>
 <ul>
 <li>

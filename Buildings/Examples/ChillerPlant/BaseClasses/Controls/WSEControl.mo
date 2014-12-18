@@ -133,24 +133,23 @@ The WSE is disabled when
 </li>
 </ol>
 <p>
-where <i>T<sub>WSE_CHWST</sub></i> is the chilled water supply temperature for the WSE, 
+where <i>T<sub>WSE_CHWST</sub></i> is the chilled water supply temperature for the WSE,
 <i>T<sub>WetBul</sub></i> is the wet bulb temperature, <i>T<sub>TowApp</sub></i> is the cooling tower approach, <i>T<sub>WSEApp</sub></i> is the approach for the WSE, <i>T<sub>WSE_CHWRT</sub></i> is the chilled water return temperature for the WSE, and <i>T<sub>WSE_CWST</sub></i> is the condenser water return temperature for the WSE.
-</p> 
-</html>
-", revisions="<html>
+</p>
+</html>", revisions="<html>
 <ul>
 <li>
 April 1, 2013, by Wangda Zuo:<br/>
 Added <code>final</code> attribute to initial state declaration.
-This is required for a successful model check in Dymola 2014 using the pedantic check. 
+This is required for a successful model check in Dymola 2014 using the pedantic check.
 </li>
 <li>
 September 12, 2011, by Wangda Zuo:<br/>
-Deleted the first order continuous block and changed the model to use SI units. 
+Deleted the first order continuous block and changed the model to use SI units.
 </li>
 <li>
 July 20, 2011, by Wangda Zuo:<br/>
-Added comments, redefined variables names, and merged to library. 
+Added comments, redefined variables names, and merged to library.
 </li>
 <li>
 January 18, 2011, by Wangda Zuo:<br/>

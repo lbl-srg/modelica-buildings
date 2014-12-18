@@ -8,10 +8,9 @@ algorithm
   y :=fill(u, nout);
 
   annotation (Documentation(info="<html>
-<p>This function replicates the integer input signal to an array of 
+<p>This function replicates the integer input signal to an array of
 <code>nout</code> identical output signals. </p>
 </html>", revisions="<html>
-<p>
 <ul>
 <li>
 November 28, 2013, by Marcus Fuchs:<br/>
@@ -19,6 +18,6 @@ Implementation based on Kaustubh Phalak&apos;s block
 <a href=\"modelica://Buildings.Utilities.Math.IntegerReplicator\">
 Buildings.Utilities.Math.IntegerReplicator</a>.
 </li>
-</ul></p>
+</ul>
 </html>"));
 end integerReplicator;

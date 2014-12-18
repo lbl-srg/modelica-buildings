@@ -38,9 +38,7 @@ equation
         Text(visible = not use_V_in,
           extent={{-150,60},{150,100}},
           lineColor={0,0,0},
-          textString="V=%V")}),   Diagram(coordinateSystem(preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}}), graphics),
-    Documentation(info="<html>
+          textString="V=%V")}),    Documentation(info="<html>
 <p>
 This model represents a simple DC voltage source with variable voltage.
 </p>
