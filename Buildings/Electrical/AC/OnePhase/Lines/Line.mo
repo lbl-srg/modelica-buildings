@@ -32,8 +32,7 @@ equation
 
   annotation (
 defaultComponentName="line",
-Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}}), graphics), Icon(graphics={
+ Icon(graphics={
         Ellipse(
           extent={{-70,10},{-50,-10}},
           lineColor={0,0,0},
@@ -69,7 +68,7 @@ Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
     Documentation(
 info="<html>
 <p>
-This model represents an AC single phase cable. The model is based on 
+This model represents an AC single phase cable. The model is based on
 <a href=\"Buildings.Electrical.AC.OnePhase.Lines.TwoPortRLC\">
 Buildings.Electrical.AC.OnePhase.Lines.TwoPortRLC</a>
 and provides functionalities to parametrize the values of <i>R</i>, <i>L</i> and <i>C</i> either

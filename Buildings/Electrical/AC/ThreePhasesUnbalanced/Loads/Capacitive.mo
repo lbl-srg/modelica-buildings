@@ -178,9 +178,7 @@ equation
           points={{0,0},{32,3.91873e-15}},
           color={0,0,0},
           origin={10,-52},
-          rotation=180)}), Diagram(coordinateSystem(preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}}), graphics),
-    Documentation(revisions="<html>
+          rotation=180)}),    Documentation(revisions="<html>
 <ul>
 <li>
 September 24, 2014, by Marco Bonvini:<br/>
@@ -194,7 +192,7 @@ Revised documentation.
 </html>", info="<html>
 <p>
 This model represents a three phases unbalanced capacitive load.
-The model extends from 
+The model extends from
 <a href=\"modelica://Buildings.Electrical.AC.ThreePhasesUnbalanced.Loads.BaseClasses.LoadCtrl\">
 Buildings.Electrical.AC.ThreePhasesUnbalanced.Loads.BaseClasses.LoadCtrl</a>
 and uses the load model from the package
@@ -204,7 +202,7 @@ information about the actual voltages, currents and powers on each phase.
 </p>
 <p>
 For more information see <a href=\"modelica://Buildings.Electrical.AC.ThreePhasesUnbalanced.Loads.BaseClasses.LoadCtrl\">
-Buildings.Electrical.AC.ThreePhasesUnbalanced.Loads.BaseClasses.LoadCtrl</a> and 
+Buildings.Electrical.AC.ThreePhasesUnbalanced.Loads.BaseClasses.LoadCtrl</a> and
 <a href=\"modelica://Buildings.Electrical.AC.OnePhase.Loads.Capacitive\">
 Buildings.Electrical.AC.OnePhase.Loads.Capacitive</a>.
 </p>

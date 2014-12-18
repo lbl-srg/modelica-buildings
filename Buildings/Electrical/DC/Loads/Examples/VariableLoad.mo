@@ -70,9 +70,7 @@ equation
       points={{-80,30},{-80,18}},
       color={0,0,255},
       smooth=Smooth.None));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}}), graphics),
-            experiment(StopTime=1.0, Tolerance=1e-06, __Dymola_Algorithm="Radau"),
+  annotation (            experiment(StopTime=1.0, Tolerance=1e-06, __Dymola_Algorithm="Radau"),
             __Dymola_Commands(file=
           "modelica://Buildings/Resources/Scripts/Dymola/Electrical/DC/Loads/Examples/VariableLoad.mos"
         "Simulate and plot"),
@@ -80,14 +78,14 @@ equation
 <p>
 This example shows how to use three different types of load models.
 Each load is of type <a href=\"modelica://Buildings.Electrical.DC.Loads.Conductor\">
-Buildings.Electrical.DC.Loads.Conductor</a>. 
+Buildings.Electrical.DC.Loads.Conductor</a>.
 </p>
 <p>
 The first load <code>loa1</code>consumes a constant amount of power.
 The second and the third loads (<code>loa2</code> and <code>loa3</code>) consume a variable amount of power.
-The load <code>loa2</code> has a variable input <code>y</code> between 0 and 1 that specifies the portion of 
+The load <code>loa2</code> has a variable input <code>y</code> between 0 and 1 that specifies the portion of
 nominal power that is consumed.
-The load <code>loa3</code> has a variable input <code>Pow</code> that represents the actual power consumed 
+The load <code>loa3</code> has a variable input <code>Pow</code> that represents the actual power consumed
 (or produced) by the load.
 </p>
 </html>", revisions="<html>

@@ -31,14 +31,14 @@ Added documentation
 <p>
 This function returns a vector of boolean variable that can be used
 to decide which phase of a three phases unbalanced system
-should be connected to a specific node of the feeder, depending on 
+should be connected to a specific node of the feeder, depending on
 an array of random numbers.
 </p>
 <p>
 The function takes as inputs <code>N</code> the number of elements
 of the array, <code>val</code> the array of random numbers comprises
 between 0 and 1, <code>min</code> and <code>max</code> the boundaries
-of the region that identify if a random number will be transformed in 
+of the region that identify if a random number will be transformed in
 a True or False value.
 </p>
 <pre>
@@ -52,7 +52,7 @@ sequence = pluggedPhaseFromRndSeq(N,min,max,val);
 produces a sequence like
 </p>
 <pre>
-   1     2       3     4    
+   1     2       3     4
 {False, False, True, True}
 </pre>
 </html>"));

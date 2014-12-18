@@ -44,7 +44,7 @@ Revised documentation.
 </html>", info="<html>
 <p>
 This package contains models for transmission lines and electrical networks
-of AC three phases unbalanced systems. 
+of AC three phases unbalanced systems.
 </p>
 </html>"));
 end Lines;

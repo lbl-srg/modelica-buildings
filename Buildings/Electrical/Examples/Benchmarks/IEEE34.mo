@@ -48,7 +48,7 @@ model IEEE34
   Transmission.Benchmarks.DataReader.DataSeries dataSeries
     annotation (Placement(transformation(extent={{80,-10},{60,10}})));
   /* the connection matrix represents this concept
-  
+
      Pv profile 1 -> to node 1+1
      Pv profile 2 -> to node 5+1
      ...
@@ -181,6 +181,4 @@ equation
 
   end for;
 
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}}), graphics));
 end IEEE34;

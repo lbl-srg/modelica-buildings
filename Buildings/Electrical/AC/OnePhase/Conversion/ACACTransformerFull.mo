@@ -121,9 +121,7 @@ equation
 
   annotation (
 defaultComponentName="traACAC",
-Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}}),
-                      graphics), Icon(coordinateSystem(preserveAspectRatio=false,
+ Icon(coordinateSystem(preserveAspectRatio=false,
           extent={{-100,-100},{100,100}}),
                                       graphics={
         Text(
@@ -341,13 +339,13 @@ Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
           textString="Lm")}),
     Documentation(info="<html>
 <p>
-This is a detailed transformer model that takes into accounts the winding joule losses, 
+This is a detailed transformer model that takes into accounts the winding joule losses,
 and the leakage reactances on both primary and secondary side. The model also describe
 the core or iron losses and the losses due to magnetization effects.
 </p>
 <p>
 The losses are represented by a series of resistances <i>R<sub>1</sub></i>, <i>R<sub>2</sub></i>,
-<i>R<sub>m</sub></i> and inductances <i>L<sub>1</sub></i>, <i>L<sub>2</sub></i>, and 
+<i>R<sub>m</sub></i> and inductances <i>L<sub>1</sub></i>, <i>L<sub>2</sub></i>, and
 <i>L<sub>m</sub></i>.
 </p>
 <p>

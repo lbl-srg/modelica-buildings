@@ -133,14 +133,13 @@ equation
       points={{-74,0},{-68,0},{-68,60},{-60,60}},
       color={0,120,120},
       smooth=Smooth.None));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}}),      graphics), Documentation(info="<html>
+  annotation ( Documentation(info="<html>
 <p>
 This example model shows how three phases unbalanced loads can be used.
 </p>
 <p>
 This model contains two set of loads (one for each type: resistive, inductive and capacitive)
-that consume power just on the first phase. The example shows how it's possible to model 
+that consume power just on the first phase. The example shows how it's possible to model
 this situation in two different ways. It's possible to not connect the loads on the phases
 setting the parameters <code>plugLoad*=false</code>.
 The alternative is to impose the load on a specific phase equal to zero.
@@ -165,6 +164,5 @@ Created model from previus version and added documentation.
     experiment(Tolerance=1e-05, __Dymola_Algorithm="Radau", StopTime=1.0),
     __Dymola_Commands(file=
           "modelica://Buildings/Resources/Scripts/Dymola/Electrical/AC/ThreePhasesUnbalanced/Loads/Examples/Loads.mos"
-        "Simulate and plot"),
-    __Dymola_experimentSetupOutput);
+        "Simulate and plot"));
 end Loads;

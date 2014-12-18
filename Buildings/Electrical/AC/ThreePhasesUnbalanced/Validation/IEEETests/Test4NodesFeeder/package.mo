@@ -7,17 +7,17 @@ annotation (Documentation(info="<html>
 <p>
 This package contains examples that shows the validation of the models
 against the IEEE four-nodes test feeder validation procedure <a href=\"#\"></a>.
-The tests that are part of the validation certify the capability to represent 
+The tests that are part of the validation certify the capability to represent
 transformers of various configurations, full three-phase lines, and unbalanced loads.
 </p>
 <p align=\"center\">
 <img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Electrical/AC/ThreePhasesUnbalanced/Validation/IEEETests/Test4nodesFeeder/IEEE_4nodes_schema.png\"/>
 </p>
 <p>
-The figure shows the structure of the four-nodes network. The voltage 
-source is connected to the load through two lines and a transformer. The validation procedure 
+The figure shows the structure of the four-nodes network. The voltage
+source is connected to the load through two lines and a transformer. The validation procedure
 consists of mutliple tests in which the type of the load and the type of the transformer vary.
-The test cases that have been successfully implemented using the models of the 
+The test cases that have been successfully implemented using the models of the
 <a href=\"modelica://Buildings.Electrical\">Buildings.Electrical</a>
 package.
 </p>
@@ -85,7 +85,7 @@ package.
 
 <p>
 For example Gr Y - D Step Up indicates that the transformer has a grounded Y connection at the primary
-side, and a D connection at the secondary side. Step up indicates that the voltage at the secondary 
+side, and a D connection at the secondary side. Step up indicates that the voltage at the secondary
 side is higher than the primary side.
 Each test listed in the table produces results that differ from the reference IEEE values by
 less than 0.05%, which is the threshold defined by IEEE to determine whether results should be accepted or not.

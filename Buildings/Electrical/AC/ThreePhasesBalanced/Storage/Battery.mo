@@ -13,7 +13,7 @@ Simple model of a battery.
 </p>
 <p>
 This model takes as an input the power to be stored in the battery (if <i>P &gt; 0</i>)
-or to be extracted from the battery. This model takes into account the efficiency of the conversion 
+or to be extracted from the battery. This model takes into account the efficiency of the conversion
 between DC and AC <i>&eta;<sub>DCAC</sub></i>.
 </p>
 <p>

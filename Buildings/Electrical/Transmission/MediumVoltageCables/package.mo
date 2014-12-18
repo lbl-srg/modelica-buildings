@@ -5,9 +5,9 @@ package MediumVoltageCables "Package of medium voltage electricity cables used i
 
 annotation (Documentation(info="<html>
 <p>
-This package contains records of physical properties of medium 
-voltage commercial cables. New cables can be added by extending the 
-base record 
+This package contains records of physical properties of medium
+voltage commercial cables. New cables can be added by extending the
+base record
 <a href=\"modelia://Buildings.Electrical.Transmission.MediumVoltageCables.Generic\">
 Buildings.Electrical.Transmission.MediumVoltageCables.Generic</a>.
 </p>

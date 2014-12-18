@@ -61,9 +61,7 @@ equation
     i_n = conversionFactor*i_p/(eta - 2);
   end if;
 
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}}),
-                      graphics), Icon(coordinateSystem(preserveAspectRatio=false,
+  annotation ( Icon(coordinateSystem(preserveAspectRatio=false,
           extent={{-100,-100},{100,100}}),
                                       graphics={
         Line(
@@ -152,13 +150,13 @@ P<sub>loss</sub> = (1-&eta;) P<sub>DC</sub>,
 <p>
 where <i>P<sub>DC</sub></i> is the power transmitted. This model is symmetric and the power
 can be transmitted in both directions. The loss is computed depending on the direction
-of the power flow. 
+of the power flow.
 </p>
 </html>", revisions="<html>
 <ul>
 <li>
 June 2, 2014, by Marco Bonvini:<br/>
-Revised model and documentation. Changed parameter sof the model, 
+Revised model and documentation. Changed parameter sof the model,
 now the user specify <code>VHigh</code> and <code>VLow</code>
 instead of <code>conversionFactor</code>.
 </li>

@@ -31,7 +31,7 @@ record IEEE_34_medium
 
    /*
    LEFT HERE TO CHECK CONSISTENCY
-   
+
    LenVec={
    0,48,16,16,40,
    32,16,16,16,16,
@@ -40,7 +40,7 @@ record IEEE_34_medium
    32,32,16,16,16,
    16,16,32,32,16,
    32,16,16,16},
-   
+
     CabTyp={
                ,.PvcAl120(),.PvcAl120(),.PvcAl120(),.PvcAl120(),
     .PvcAl120(),.PvcAl120(),.PvcAl120(),.PvcAl120(),.PvcAl120(),
@@ -49,9 +49,9 @@ record IEEE_34_medium
     .PvcAl35(),.PvcAl35(),.PvcAl35(),.PvcAl35(),.PvcAl35(),
     .PvcAl120(),.PvcAl70(),.PvcAl70(),.PvcAl70(),.PvcAl70(),
     .PvcAl70(),.PvcAl35(),.PvcAl35(),.PvcAl70()});
-    
+
     The new cables for the benchmark are different, check with Juan
-    
+
      CabTyp={
                  .PvcAl120(),.PvcAl120(),.PvcAl120(),.PvcAl120(),
      .PvcAl120(),.PvcAl120(),.PvcAl120(),.PvcAl120(),.PvcAl120(),
@@ -60,9 +60,9 @@ record IEEE_34_medium
      .PvcAl35(),.PvcAl35(),.PvcAl35(),.PvcAl35(),.PvcAl35(),
      .PvcAl35(),.PvcAl120(),.PvcAl70(),.PvcAl70(),.PvcAl70(),
      .PvcAl70(),.PvcAl70(),.PvcAl35(),.PvcAl35(),.PvcAl70()});
-    
-    
-    
+
+
+
    */
   annotation (Documentation(info="<html>
 <p>
@@ -73,8 +73,8 @@ The grid uses three type of cables to connect the nodes of the network.
 In the image below the different cables are identified by different thicknesses.
 </p>
 <p>
-This grid model uses the following cables (AL95,AL50,Al35) and it can be considered 
-the medium (i.e., the one that causes neither the smaller or the higher losses) 
+This grid model uses the following cables (AL95,AL50,Al35) and it can be considered
+the medium (i.e., the one that causes neither the smaller or the higher losses)
 of the three IEEE-34 networks used in this benchmark.
 </p>
 <p><img alt=\"alt-image\" src=\"modelica://Buildings/Resources/Images/Electrical/Transmission/Grids/IEEE_34.png\"/></p>

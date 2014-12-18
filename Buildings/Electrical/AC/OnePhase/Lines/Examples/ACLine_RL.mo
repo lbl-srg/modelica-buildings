@@ -58,8 +58,6 @@ equation
       color={0,120,120},
       smooth=Smooth.None));
   annotation (experiment(StopTime=1.0, Tolerance=1e-06),
-  Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
-            100}}),            graphics),
   __Dymola_Commands(file=
           "modelica://Buildings/Resources/Scripts/Dymola/Electrical/AC/OnePhase/Lines/Examples/ACLine_RL.mos"
         "Simulate and plot"),
@@ -76,7 +74,7 @@ This example demonstrates how to use a resistive-inductive line model to connect
 a source to a load.
 </p>
 <p>
-The model has three loads <code>load_sc_1</code>, <code>load_sc_2</code>, 
+The model has three loads <code>load_sc_1</code>, <code>load_sc_2</code>,
 and <code>load_sc_3</code> representing short circuits <i>R=0</i>.
 The current that flows through the load depends on the impedance of the line.
 </p>

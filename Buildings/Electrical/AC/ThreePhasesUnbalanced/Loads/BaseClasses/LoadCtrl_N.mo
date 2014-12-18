@@ -31,17 +31,14 @@ equation
       points={{-84,0},{-100,0}},
       color={127,0,127},
       smooth=Smooth.None));
-    annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}}), graphics), Icon(coordinateSystem(
-          preserveAspectRatio=false, extent={{-100,-100},{100,100}}), graphics),
-    Documentation(info="<html>
+    annotation (    Documentation(info="<html>
 <p>
 This model represents a partial interface for a three phases AC unbalanced
 load with neutral cable. The current in the neutral cable is computed as the
 algebraic sum of the currents in the loads.
 </p>
 <p>
-The loads on each phase can be removed using the boolean flags 
+The loads on each phase can be removed using the boolean flags
 <code>plugPhase1</code>, <code>plugPhase2</code>, and <code>plugPhase3</code>.
 These parameters can be used to generate unbalanced loads.
 </p>
@@ -53,14 +50,14 @@ The parameter <code>loadConn</code> can be used for such a purpose.
 Each load model has the option to be controlled by a voltage controller.
 When enabled, the voltage controller unplugs the load for a certain amount of
 time if the voltage exceeds a given threshold. Mode information about the
-voltage controller can be found 
+voltage controller can be found
 <a href=\"modelica://Buildings.Electrical.Utilities.VoltageControl\">here</a>.
 </p>
 </html>", revisions="<html>
 <ul>
 <li>
 September 24, 2014, by Marco Bonvini:<br/>
-Revised model, it now extends from 
+Revised model, it now extends from
 <a href=\"modelica://Buildings.Electrical.AC.ThreePhasesUnbalanced.Loads.BaseClasses.PartialLoadCtrl\">
 Buildings.Electrical.AC.ThreePhasesUnbalanced.Loads.BaseClasses.PartialLoadCtrl</a>.
 </li>

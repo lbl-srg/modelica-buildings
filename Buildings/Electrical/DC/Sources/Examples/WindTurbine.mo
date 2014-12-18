@@ -11,7 +11,6 @@ model WindTurbine "Example for the WindTurbine model"
     V_nominal=12) "Wind turbine"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
-        rotation=0,
         origin={50,40})));
   Buildings.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(
       computeWetBulbTemperature=false, filNam="modelica://Buildings/Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos")
@@ -64,11 +63,10 @@ equation
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-140,
             -100},{100,140}}),      graphics),
     experiment(StopTime=172800, Tolerance=1e-05),
-    __Dymola_experimentSetupOutput,
-    Documentation(info="<html>
+Documentation(info="<html>
 <p>
 This model illustrates the use of the wind turbine model which is connected to a DC voltage source and a resistance.
-This voltage source may be a DC grid to which the 
+This voltage source may be a DC grid to which the
 circuit is connected.
 Wind data for San Francisco, CA, are used.
 The turbine cut-in wind speed is <i>3.5</i> m/s,

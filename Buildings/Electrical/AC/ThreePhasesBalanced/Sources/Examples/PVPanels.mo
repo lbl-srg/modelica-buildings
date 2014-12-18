@@ -84,8 +84,6 @@ equation
       color={0,120,120},
       smooth=Smooth.None));
   annotation (experiment(StopTime=172800, Tolerance=1e-05),
-  Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}}), graphics),
     __Dymola_Commands(file=
           "modelica://Buildings/Resources/Scripts/Dymola/Electrical/AC/ThreePhasesBalanced/Sources/Examples/PVPanels.mos"
         "Simulate and plot"),
@@ -102,6 +100,6 @@ This example shows how to use a simple PV model without orientation
 as well as a PV model with orientation. The power produced by the PV is
 partially consumed by the load, and the remaining part is fed into
 the grid.
-</p> 
+</p>
 </html>"));
 end PVPanels;

@@ -6,8 +6,7 @@ connector Terminal_n "Terminal n for AC one phase systems"
   annotation (defaultComponentName = "term_p",
   Documentation(info="<html>
 <p>Electric connector for AC one phase systems.</p>
-</html>
-"),
+</html>"),
   Icon(coordinateSystem(
         preserveAspectRatio=false,
         extent={{-100,-100},{100,100}},

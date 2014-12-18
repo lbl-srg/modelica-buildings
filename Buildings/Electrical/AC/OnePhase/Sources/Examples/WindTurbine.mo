@@ -11,7 +11,6 @@ model WindTurbine "Example for the WindTurbine AC model"
     V_nominal=120) "Wind turbine"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
-        rotation=0,
         origin={60,0})));
   Buildings.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(
       computeWetBulbTemperature=false, filNam="modelica://Buildings/Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos")
@@ -60,14 +59,11 @@ equation
       points={{28,0},{50,0}},
       color={0,120,120},
       smooth=Smooth.None));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}}),      graphics),
-    experiment(StopTime=172800, Tolerance=1e-05),
-    __Dymola_experimentSetupOutput,
-    Documentation(info="<html>
+  annotation (    experiment(StopTime=172800, Tolerance=1e-05),
+Documentation(info="<html>
 <p>
 This model illustrates the use of the wind turbine model which is connected to a AC voltage source and a resistance.
-This voltage source can represent the grid to which the 
+This voltage source can represent the grid to which the
 circuit is connected.
 Wind data for San Francisco, CA, are used.
 The turbine cut-in wind speed is <i>3.5</i> m/s,
@@ -84,7 +80,5 @@ First implementation.
 </html>"),
     __Dymola_Commands(file=
           "modelica://Buildings/Resources/Scripts/Dymola/Electrical/AC/OnePhase/Sources/Examples/WindTurbineAC.mos"
-        "Simulate and plot"),
-    Icon(coordinateSystem(extent={{-100,-100},{100,100}}, preserveAspectRatio=
-            false)));
+        "Simulate and plot"));
 end WindTurbine;

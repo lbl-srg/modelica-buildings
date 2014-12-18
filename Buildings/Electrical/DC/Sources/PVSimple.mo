@@ -34,10 +34,6 @@ equation
           extent={{-150,-12},{-50,-62}},
           lineColor={0,0,0},
           textString="-")}),
-    Diagram(coordinateSystem(
-        preserveAspectRatio=false,
-        extent={{-100,-100},{100,100}},
-        grid={1,1}), graphics),
     Documentation(revisions="<html>
 <ul>
 <li>
@@ -51,7 +47,7 @@ First implementation.
 Model of a simple photovoltaic array.
 </p>
 <p>
-This model computes the power as 
+This model computes the power as
 </p>
 
 <p align=\"center\" style=\"font-style:italic;\">
@@ -61,7 +57,7 @@ P=A &nbsp; f<sub>act</sub> &nbsp; &eta; &nbsp; G
 <p>
 where <i>A</i> is the panel area, <i>f<sub>act</sub></i> is the fraction of the aperture area,
 <i>&eta;</i> is the panel efficiency and <i>G</i> is the total solar irradiation.
-This power is equal to <i>P = v &nbsp; i</i>, where <i>v</i> is the voltage across the panel and 
+This power is equal to <i>P = v &nbsp; i</i>, where <i>v</i> is the voltage across the panel and
 <i>i</i> is the current that flows through the panel.
 </p>
 <p>
@@ -72,7 +68,7 @@ See
 Buildings.Electrical.DC.Sources.Examples.PVSimple</a>.
 </p>
 <p>
-<b>Note:</b> This model takes as input the total solar irradiation on the panel. This has to be 
+<b>Note:</b> This model takes as input the total solar irradiation on the panel. This has to be
 computed converting the incoming radiation to take tilt and azimuth into account.
 </p>
 </html>"));

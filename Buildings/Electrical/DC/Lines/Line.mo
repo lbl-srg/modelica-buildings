@@ -32,8 +32,7 @@ equation
       points={{-40,22},{0,22},{0,10}},
       color={191,0,0},
       smooth=Smooth.None));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}}), graphics), Icon(graphics={
+  annotation ( Icon(graphics={
         Ellipse(
           extent={{-70,10},{-50,-10}},
           lineColor={0,0,0},
@@ -79,7 +78,7 @@ First implementation.
 </ul>
 </html>", info="<html>
 <p>
-This model represents a DC cable. The model is based on 
+This model represents a DC cable. The model is based on
 <a href=\"Buildings.Electrical.DC.Lines.TwoPortRCLine\">
 Buildings.Electrical.DC.Lines.TwoPortRCLine</a>
 and provides functionalities to parametrize the values of <i>R</i> and <i>C</i> either

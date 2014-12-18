@@ -35,9 +35,7 @@ partial model PartialConverter "Partial model of a transformer"
     annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
   Interfaces.Terminal_p terminal_p "Electrical connector side P"
     annotation (Placement(transformation(extent={{90,-10},{110,10}})));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}}), graphics), Icon(graphics),
-    Documentation(revisions="<html>
+  annotation (    Documentation(revisions="<html>
 <ul>
 <li>
 October 3, 2014, by Marco Bonvini:<br/>

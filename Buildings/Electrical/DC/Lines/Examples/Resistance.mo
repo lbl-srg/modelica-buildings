@@ -29,11 +29,10 @@ equation
       points={{20,20},{30,20}},
       color={0,0,255},
       smooth=Smooth.None));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
-            {100,100}}), graphics), Documentation(info="<html>
+  annotation ( Documentation(info="<html>
 <p>
 This model shows how to use a two port resistance.
-In this example the resistance connects an ideal constant voltage source with 
+In this example the resistance connects an ideal constant voltage source with
 a short circuit. The current flowing through the circuit depends just
 on the value of the two port resistance.
 </p>

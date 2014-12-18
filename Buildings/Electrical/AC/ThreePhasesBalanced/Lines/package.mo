@@ -22,7 +22,7 @@ package Lines "Package with line models for three phases balanced AC systems"
         color={0,0,0},
         smooth=Smooth.None)}), Documentation(info="<html>
 <p>
-This package contains models for transmission lines and electrical networks. 
+This package contains models for transmission lines and electrical networks.
 </p>
 </html>", revisions="<html>
 <ul>

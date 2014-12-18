@@ -64,8 +64,6 @@ First implementation.
 </li>
 </ul>
 </html>"),
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
-            100}}), graphics),
     Icon(graphics={
         Text(
           extent={{-120,-42},{0,-82}},

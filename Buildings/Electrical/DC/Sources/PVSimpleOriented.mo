@@ -19,10 +19,6 @@ model PVSimpleOriented "Simple PV model with orientation"
           extent={{-150,-12},{-50,-62}},
           lineColor={0,0,0},
           textString="-")}),
-    Diagram(coordinateSystem(
-        preserveAspectRatio=false,
-        extent={{-100,-100},{100,100}},
-        grid={1,1}), graphics),
     Documentation(revisions="<html>
 <ul>
 <li>
@@ -36,7 +32,7 @@ info="<html>
 Model of a simple photovoltaic array.
 </p>
 <p>
-This model computes the power as 
+This model computes the power as
 </p>
 
 <p align=\"center\" style=\"font-style:italic;\">
@@ -48,17 +44,17 @@ where <i>A</i> is the panel area,
 <i>f<sub>act</sub></i> is the fraction of the aperture area,
 <i>&eta;</i> is the panel efficiency and
 <i>G</i> is the total solar irradiation, which is the sum
-of direct and diffuse irradiation. 
-The model takes into account the location and the orientation of the PV panel, 
+of direct and diffuse irradiation.
+The model takes into account the location and the orientation of the PV panel,
 specified by the surface tilt, latitude and azimuth.
 </p>
 <p>
 This power is equal to <i>P = v &nbsp; i</i>,
-where <i>v</i> is the voltage across the panel and 
+where <i>v</i> is the voltage across the panel and
 <i>i</i> is the current that flows through the panel.
 </p>
 <p>
-To avoid a large voltage drop the panel electric connector, 
+To avoid a large voltage drop the panel electric connector,
 it is recommended to use this model together
 with a model that prescribes the voltage.
 See

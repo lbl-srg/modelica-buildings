@@ -6,34 +6,34 @@ Documentation(info="<html>
 
 <h4>Overview</h4>
 <p>
-The <a href=\"modelica://Buildings.Electrical\">Buildings.Electrical</a> package extends the 
-capabilities of the buildings library with models for electrical systems, enhancing the 
+The <a href=\"modelica://Buildings.Electrical\">Buildings.Electrical</a> package extends the
+capabilities of the buildings library with models for electrical systems, enhancing the
 capabilities of simulation tools to address building-to-grid integration.
-The package contains models for different types of sources, loads, storage equipment, 
-and transmission lines for electric power. The package contains models that can be used to 
-represent DC, AC one-phase, and AC-three phases balanced and unbalanced systems. 
-The models can be used to scale from the building level up to the distribution level. 
+The package contains models for different types of sources, loads, storage equipment,
+and transmission lines for electric power. The package contains models that can be used to
+represent DC, AC one-phase, and AC-three phases balanced and unbalanced systems.
+The models can be used to scale from the building level up to the distribution level.
 The models have been successfully validated against the IEEE four nodes test feeder.
 </p>
 
 <h4>Connectors</h4>
 <p>
-The <a href=\"modelica://Buildings.Electrical\">Buildings.Electrical</a> package uses a 
+The <a href=\"modelica://Buildings.Electrical\">Buildings.Electrical</a> package uses a
 new type of generalized connector that has been introduced by <a href=\"#RuedigerEtAl2014\">R. Franke and Wiesman (2014)</a>
-and is used by the <a href=\"https://github.com/modelica/PowerSystems\">Power Systems Library</a> 
+and is used by the <a href=\"https://github.com/modelica/PowerSystems\">Power Systems Library</a>
 and the <a href=\"http://www.modelon.com/products/modelica-libraries/electric-power-library\">
 Electric Power Library</a>.
 </p>
 <p>
-The Modelica Standard Library (MSL) version 3.2.1 has different connectors depending on the 
-type of electric system being modeled. For example, DC and AC continuous time systems have 
+The Modelica Standard Library (MSL) version 3.2.1 has different connectors depending on the
+type of electric system being modeled. For example, DC and AC continuous time systems have
 a connector (<a href=\"modelica://Modelica.Electrical.Analog.Interfaces.Pin\">Modelica.Electrical.Analog.Interfaces.Pin</a>)
-that differs from the one used by AC models, which use the 
+that differs from the one used by AC models, which use the
 quasi-stationary assumption (<a href=\"modelica://Modelica.Electrical.QuasiStationary.SinglePhase.Interfaces.Pin\">
 Modelica.Electrical.QuasiStationary.SinglePhase.Interfaces.Pin</a>).
 </p>
 <p>
-The generalized electrical connector overcomes this limitation. It uses a paradigm 
+The generalized electrical connector overcomes this limitation. It uses a paradigm
 that is similar to the one used by the <b>Modelica.Fluid</b> connectors.
 </p>
 
@@ -80,27 +80,27 @@ that is similar to the one used by the <b>Modelica.Fluid</b> connectors.
 
 <p>
 The connector has a package called <code>PhaseSystem</code> that contains constants, functions,
-and equations of the specific electric domain. This allows to represent different electrical domains using the 
+and equations of the specific electric domain. This allows to represent different electrical domains using the
 same connector, reusing the same standardized interfaces.
 </p>
 
 <p>
 As the electrical connectors of the Modelica Standard Library, the <b>Terminal</b> has a vector of voltages as effort variables and
 a vector of currents as flow variables. The connector has an additional vector that represents the
-reference angle <code>theta[PhaseSystem.m]</code>. If <code>PhaseSystem.m > 0</code> the connector is overdetermined 
+reference angle <code>theta[PhaseSystem.m]</code>. If <code>PhaseSystem.m > 0</code> the connector is overdetermined
 because the number of effort variables is higher than the number of flow variables.
 The over-determined connectors are defined and used in such a way that a Modelica tool is able
 to remove the superfluous but consistent equations, arriving at a balanced set of equations based on a
-graph analysis of the connection structure. The models in the library uses constructs specified 
+graph analysis of the connection structure. The models in the library uses constructs specified
 by the Modelica language to handle this situation <a href=\"#Olsson2008\">Olsson Et Al. (2008)</a>.
 </p>
 
 <h4>PhaseSystem</h4>
 
 <p>
-The connector has a package called <code>PhaseSystem</code> that allows to represent different 
+The connector has a package called <code>PhaseSystem</code> that allows to represent different
 electrical domains using the same connector, reusing the same standardized interfaces.
-The available <code>PhaseSystems</code> are contained in the package 
+The available <code>PhaseSystems</code> are contained in the package
 <a href=\"modelica://Buildings.Electrical.PhaseSystems\">
 Buildings.Electrical.PhaseSystems</a>.
 </p>
@@ -122,9 +122,9 @@ The electrical systems represented are:
 <img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Electrical/DC/Loads/simpleLoad.png\"/>
 </p>
 <p>
-Consider the simple DC circuit shown above, where <i>V<sub>S</sub></i> is a 
-constant voltage source and <i>R</i> is a line resistance. The load has a voltage <i>V</i> across 
-its electrical pins and a current <i>i</i>. If the power consumed 
+Consider the simple DC circuit shown above, where <i>V<sub>S</sub></i> is a
+constant voltage source and <i>R</i> is a line resistance. The load has a voltage <i>V</i> across
+its electrical pins and a current <i>i</i>. If the power consumed
 by the load is <i>P<sub>LOAD</sub></i>, the equation that describes the circuit is nonlinear.
 </p>
 
@@ -133,32 +133,32 @@ by the load is <i>P<sub>LOAD</sub></i>, the equation that describes the circuit 
 </p>
 
 <p>
-If the number of loads increases, as typically happens in grid simulations, the size of the system of 
-nonlinear equations to be solved increases too, causing the numerical solver to slow the simulation. 
-A linearized load model can solve such a problem. All the load models in the 
+If the number of loads increases, as typically happens in grid simulations, the size of the system of
+nonlinear equations to be solved increases too, causing the numerical solver to slow the simulation.
+A linearized load model can solve such a problem. All the load models in the
 <a href=\"modelica://Buildings.Electrical\">Buildings.Electrical</a> package have a linearized version.
 The linearized version of the model can be selected by setting the boolean flag <code>linearized = true</code>.
-Details about the implementation of the linearized models can be found in 
+Details about the implementation of the linearized models can be found in
 <a href=\"modelica://Buildings.Electrical.DC.Loads.Conductor\">Buildings.Electrical.DC.Loads.Conductor</a>
 or
 <a href=\"modelica://Buildings.Electrical.AC.OnePhase.Loads.Resistive\">Buildings.Electrical.AC.OnePhase.Loads.Resistive</a>.
 </p>
 
 <p>
-When multiple loads are connected in a grid through cables that cause voltage drops, 
+When multiple loads are connected in a grid through cables that cause voltage drops,
 the dimension of the system of nonlinear equations increases linearly with the number of loads.
 This nonlinear system of equations introduces challenges during the initialization, as Newton solvers
 may diverge if initialized far from a solution.
 The initialization problem can be simplified using the <b>homotopy</b>
 operator. The homotopy operator uses two different types of equations to compute the value of a
-variable: the actual one and a simplified one. The actual equation is the one used during the normal 
-operation. During initialization, the simplified equation is first solved and then slowly replaced with the 
+variable: the actual one and a simplified one. The actual equation is the one used during the normal
+operation. During initialization, the simplified equation is first solved and then slowly replaced with the
 actual equation to compute the initial values for the nonlinear systems of equations.
 The load model uses the homotopy operator, with the linearized model being used
-as the simplified equation. This numerical expedient has proven useful 
+as the simplified equation. This numerical expedient has proven useful
 when simulating models with more than ten connected loads.
 All the load models of the <a href=\"modelica://Buildings.Electrical\">Buildings.Electrical</a> package use the
-the homotopy operator during the initialization. The parameter <code>initMode</code> is used to select which 
+the homotopy operator during the initialization. The parameter <code>initMode</code> is used to select which
 simplified equation should be used by the homotopy operator:
 </p>
 <ul>
@@ -169,11 +169,11 @@ simplified equation should be used by the homotopy operator:
 <h4>Nominal values</h4>
 <p>
 Most components have a parameters for the nominal operating conditions.
-These parameters have names that end in <code>_nominal</code> and 
-they should be set to the values that the component typically 
+These parameters have names that end in <code>_nominal</code> and
+they should be set to the values that the component typically
 have if they are run at design conditions. Depending on the model, these
 parameters are used differently, and the respective model documentation or code
-should be consulted for details. However, the table below shows typical use of 
+should be consulted for details. However, the table below shows typical use of
 parameters in various model to help the user understand how they are used.
 </p>
 <table summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
@@ -212,7 +212,7 @@ parameters in various model to help the user understand how they are used.
   <td>
   <code>V_nominal</code> is the RMS (Root Mean Square) voltage at which these components
   typically operate. Since these model contain load models, <code>V_nominal</code> can be used
-  for linearization purposes. 
+  for linearization purposes.
   </td>
 </tr>
 <tr>
@@ -220,7 +220,7 @@ parameters in various model to help the user understand how they are used.
   <td>Sensors</td>
   <td>
   <code>V_nominal</code> is the RMS (Root Mean Square) voltage of the system
-  that is currently measured, it can be used to measure quantities in per unit [pu]. 
+  that is currently measured, it can be used to measure quantities in per unit [pu].
   </td>
 </tr>
 </table>
@@ -249,7 +249,7 @@ A Modelica package for building-to-electrical grid integration</a><br/>
 
 <p>
 <a NAME=\"RuedigerEtAl2014\"/>
-Rüdiger Franke and Hansjürg Wiesmann.<br/>
+Rudiger Franke and Hansjorg Wiesmann.<br/>
 <a href=\"https://www.modelica.org/events/modelica2014/proceedings/html/submissions/ECP14096515_FrankeWiesmann.pdf\">
 Flexible modeling of electrical power systems - the Modelica PowerSystems library</a>.<br/>
 Proc. of the 10th Modelica Conference, Lund, Sweden, March 2014.<br/>

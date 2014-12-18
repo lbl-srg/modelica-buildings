@@ -38,10 +38,10 @@ The correction is
 R = l<sub>CABLE</sub> R<sub>DC</sub> f<sub>CORR</sub>(s, m),
 </p>
 <p>
-where <i>R<sub>DC</sub> </i> is the characteristic DC resistance per unit lenght, 
+where <i>R<sub>DC</sub> </i> is the characteristic DC resistance per unit lenght,
 <i>l<sub>CABLE</sub></i> is the length of the cable, and
 <i>f<sub>CORR</sub>(s, m)</i> is a function that corrects the DC value and depends on the
-size of the cable <i>s</i> and its material <i>m</i>. See 
+size of the cable <i>s</i> and its material <i>m</i>. See
 <a href=\"modelica://Buildings.Electrical.Transmission.Functions.R_AC_correction\">
 Buildings.Electrical.Transmission.Functions.R_AC_correction</a> for more details.
 </p>
@@ -67,7 +67,7 @@ Added function and documentation
 This function computes the overall inductance of a cable.
 </p>
 <p>
-When the voltage level is medium or high, the cables have geometric parameters that can 
+When the voltage level is medium or high, the cables have geometric parameters that can
 be used to compute the inductance as
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
@@ -102,7 +102,7 @@ Added function and documentation
 This function computes the overall capacity of a cable.
 </p>
 <p>
-When the voltage level is medium or high, the cables have geometric parameters that can 
+When the voltage level is medium or high, the cables have geometric parameters that can
 be used to compute the capacity as
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
@@ -110,7 +110,7 @@ C = l<sub>CABLE</sub> 2 &pi; &epsilon;<sub>0</sub>/log(GMD/r),
 </p>
 <p>
 where <i>l<sub>CABLE</sub></i> is the length of the cable,
-<i>&epsilon;<sub>0</sub></i> is the dielectric constant of the air, <i>GMD</i> 
+<i>&epsilon;<sub>0</sub></i> is the dielectric constant of the air, <i>GMD</i>
 is the geometric mean distance, and <i>r = d/2</i> where <i>d</i> is the inner
 diameter of the cable.
 </p>

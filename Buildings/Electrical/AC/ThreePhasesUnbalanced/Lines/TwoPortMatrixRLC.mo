@@ -131,8 +131,7 @@ equation
 
   annotation (
   defaultComponentName="line",
-  Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}}), graphics), Icon(coordinateSystem(
+ Icon(coordinateSystem(
           preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
                                                graphics={
           Line(points={{-92,0},{-72,0}}, color={0,0,0}),
@@ -167,7 +166,7 @@ Added model.
 </ul>
 </html>", info="<html>
 <p>
-RLC line model (&pi;-model) that connects two AC three phases 
+RLC line model (&pi;-model) that connects two AC three phases
 unbalanced interfaces. This model can be used to represent a
 cable in a three phases unbalanced AC system.
 </p>

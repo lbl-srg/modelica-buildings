@@ -151,9 +151,7 @@ equation
       points={{32,10},{38,10},{38,29}},
       color={0,120,120},
       smooth=Smooth.None));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}}),
-                         graphics), Documentation(revisions="<html>
+  annotation ( Documentation(revisions="<html>
 <ul>
 <li>
 October 8, 2014, by Marco Bonvini:<br/>
@@ -182,7 +180,7 @@ one.
 
 <h4>Reference results</h4>
 <p>
-The reference results for the tests are saved as parameter of the model and compared to 
+The reference results for the tests are saved as parameter of the model and compared to
 the simulated ones. The error between the results (herein called <i>X<sub>model</sub></i>)
  and the references (herein called  <i>X<sub>ref</sub></i>) are computed in both
 absolute and relative way. Note that  <i>X<sub>model</sub></i> and  <i>X<sub>ref</sub></i>

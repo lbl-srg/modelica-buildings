@@ -26,6 +26,4 @@ equation
       points={{41,-4},{30,-4},{30,-6},{18,-6}},
       color={0,0,127},
       smooth=Smooth.None));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}}), graphics));
 end singleFeeder_10;

@@ -18,10 +18,6 @@ defaultComponentName="pv",
         extent={{-100,-100},{100,100}},
         grid={1,1}), graphics={
         Line(points={{-90,0},{-59,0}}, color={0,0,0})}),
-    Diagram(coordinateSystem(
-        preserveAspectRatio=false,
-        extent={{-100,-100},{100,100}},
-        grid={1,1}), graphics),
     Documentation(revisions="<html>
     <ul>
 <li>

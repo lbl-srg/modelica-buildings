@@ -44,8 +44,7 @@ equation
 
   annotation (
   defaultComponentName="tra",
-  Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}}), graphics), Icon(graphics={
+ Icon(graphics={
         Text(
           extent={{-100,-60},{100,-92}},
           lineColor={0,0,0},
@@ -185,9 +184,9 @@ equation
     Documentation(info="<html>
 <p>
 This is a simplified equivalent transformer model with Delta-Delta connection.
-The model accounts for winding joule losses and leakage reactances 
+The model accounts for winding joule losses and leakage reactances
 that are represented by a serie of a resistance <i>R</i> and an
-inductance <i>L</i>. The resistance and the inductance represent both the 
+inductance <i>L</i>. The resistance and the inductance represent both the
 effects of the secondary and primary side of the transformer.
 </p>
 <p>

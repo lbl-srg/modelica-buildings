@@ -30,7 +30,7 @@ record IEEE_34_AL120 "Grid model inspired to the IEEE 34 Node test feeder"
 
    /*
    LEFT HERE TO CHECK CONSISTENCY
-   
+
    LenVec={
    0,48,16,16,40,
    32,16,16,16,16,
@@ -39,7 +39,7 @@ record IEEE_34_AL120 "Grid model inspired to the IEEE 34 Node test feeder"
    32,32,16,16,16,
    16,16,32,32,16,
    32,16,16,16},
-   
+
     CabTyp={
                ,.PvcAl120(),.PvcAl120(),.PvcAl120(),.PvcAl120(),
     .PvcAl120(),.PvcAl120(),.PvcAl120(),.PvcAl120(),.PvcAl120(),
@@ -48,11 +48,11 @@ record IEEE_34_AL120 "Grid model inspired to the IEEE 34 Node test feeder"
     .PvcAl35(),.PvcAl35(),.PvcAl35(),.PvcAl35(),.PvcAl35(),
     .PvcAl120(),.PvcAl70(),.PvcAl70(),.PvcAl70(),.PvcAl70(),
     .PvcAl70(),.PvcAl35(),.PvcAl35(),.PvcAl70()});
-    
+
    */
   annotation (Documentation(info="<html>
 <p> This model represents a grid inspired to the IEEE 34 node test feeder.
-In this example the cables type and length have been modified in order to 
+In this example the cables type and length have been modified in order to
 represent a typical distribution feeder.</p>
 <p>There are three type of cables in the grid: AL120, AL70, and Al35.
 </p>

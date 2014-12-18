@@ -29,17 +29,14 @@ equation
       points={{-88,0},{-100,0}},
       color={127,0,127},
       smooth=Smooth.None));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}}), graphics), Icon(coordinateSystem(
-          preserveAspectRatio=false, extent={{-100,-100},{100,100}}), graphics),
-    Documentation(info="<html>
+  annotation (    Documentation(info="<html>
 <p>
 This model represents a partial interface for a three phases AC
-unbalanced impedance with a neutral cable. The current in the neutral 
+unbalanced impedance with a neutral cable. The current in the neutral
 cable is computed as the algebraic sum of the currents in the loads.
 </p>
 <p>
-The model can be configured in order to represent different type of 
+The model can be configured in order to represent different type of
 impedances as well as configurations.
 </p>
 <p>
@@ -53,7 +50,7 @@ such a purpose. The Boolean parameter <code>inductive</code> can be selected
 to specify the type of impedance.
 </p>
 <p>
-The impedances on each phase can be removed using the boolean flags 
+The impedances on each phase can be removed using the boolean flags
 <code>plugPhase1</code>, <code>plugPhase2</code>, and <code>plugPhase3</code>.
 These parameters can be used to generate unbalanced loads.
 </p>
@@ -61,7 +58,7 @@ These parameters can be used to generate unbalanced loads.
 The values of the impedances are computed starting from the parameters <code>R</code>,
 <code>L</code>, and <code>C</code>. Depending on the values of the boolean flag
 <code>inductive</code> some of these parameters may be disabled. There are additional
-flags <code>use_R_in</code>, <code>use_L_in</code>, and <code>use_C_in</code> that can 
+flags <code>use_R_in</code>, <code>use_L_in</code>, and <code>use_C_in</code> that can
 be used to specify time varying impedances.
 </p>
 </html>", revisions="<html>

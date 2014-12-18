@@ -18,7 +18,6 @@ model Grid "Electrical grid"
     final phiSou=phiSou) "Voltage source"
      annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
-        rotation=0,
         origin={10,0})));
 equation
   P.real = -sou.S[1];
@@ -151,9 +150,5 @@ First implementation.
         Line(
           points={{74,68},{84,72},{100,82}},
           color={175,175,175},
-          smooth=Smooth.Bezier)}),
-    Diagram(coordinateSystem(
-        preserveAspectRatio=false,
-        extent={{-100,-100},{100,100}},
-        grid={2,2}), graphics));
+          smooth=Smooth.Bezier)}));
 end Grid;

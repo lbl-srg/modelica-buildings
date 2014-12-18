@@ -53,9 +53,7 @@ partial class GeneralizedSensor
           textString="I"),    Text(
           extent={{-140,110},{140,70}},
           lineColor={0,0,0},
-          textString="%name")}), Diagram(coordinateSystem(preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}}), graphics),
-    Documentation(info="<html>
+          textString="%name")}),    Documentation(info="<html>
 <p>
 This is the icon for ideal sensors that measure power, voltage and current.
 </p>

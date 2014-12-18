@@ -6,7 +6,6 @@ model ParallelResistors
     source(f=60, V=120) "Voltage source"
                             annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
-        rotation=0,
         origin={-70,10})));
   Modelica.Blocks.Sources.Ramp load(duration=0.5, startTime=0.2,
     height=2400,
@@ -18,14 +17,12 @@ model ParallelResistors
     V_nominal=120) "Variable resistive load"
                                      annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
-        rotation=0,
         origin={-22,10})));
   Buildings.Electrical.AC.OnePhase.Loads.Resistive R1(
     mode=Buildings.Electrical.Types.Load.FixedZ_steady_state, P_nominal=-1.2e3,
     V_nominal=120) "Fixed resistive load"
                                      annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
-        rotation=0,
         origin={-22,-10})));
 equation
   connect(source.terminal, R.terminal) annotation (Line(
@@ -42,9 +39,6 @@ equation
       smooth=Smooth.None));
   annotation (
     experiment(StopTime=1.0, Tolerance=1e-06),
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
-            100,100}}),
-                    graphics),
     Documentation(info="<html>
 <p>
 This model compares two resistive loads. Model <code>R</code> consumes/produce

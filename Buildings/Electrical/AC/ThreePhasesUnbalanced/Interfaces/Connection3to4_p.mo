@@ -17,8 +17,7 @@ equation
   terminal4.phase[2].i[:] = - terminal3.phase[2].i[:];
   terminal4.phase[3].i[:] = - terminal3.phase[3].i[:];
 
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}}), graphics), Icon(graphics={
+  annotation ( Icon(graphics={
                                              Polygon(
           points={{-80,110},{-80,70},{0,70},{0,110},{-80,110}},
           lineColor={127,0,127},

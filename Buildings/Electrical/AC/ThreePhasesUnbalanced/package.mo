@@ -11,7 +11,7 @@ The models in this package uses the models of the package
 Buildings.Electrical.AC.OnePhase</a> to fully describe the three phases.
 </p>
 <p>
-The models that are part of this package assume 480 V as nominal RMS phase 
+The models that are part of this package assume 480 V as nominal RMS phase
 to phase voltage.
 </p>
 
@@ -22,7 +22,7 @@ to phase voltage.
 </p>
 
 <p>
-In this package the voltage phasors are measured using the convention shown above. 
+In this package the voltage phasors are measured using the convention shown above.
 The phase to phase RMS voltage equal to 480 V, is equal to <code>sqrt(3)</code> times the
 phase to neutral voltage <i>V</i> that is equal to 277.13 V.
 </p>

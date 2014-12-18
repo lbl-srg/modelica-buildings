@@ -1,4 +1,4 @@
 within Buildings.Electrical.Examples;
-package BaseClasses 
+package BaseClasses
 extends Modelica.Icons.BasesPackage;
 end BaseClasses;

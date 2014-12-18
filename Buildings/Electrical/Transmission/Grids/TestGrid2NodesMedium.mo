@@ -11,7 +11,7 @@ record TestGrid2NodesMedium
   annotation (Documentation(info="<html>
 <p>
 This model represents a simple grid with two nodes and a single link between them.
-This model differs from 
+This model differs from
 <a href=\"modelica://Buildings.Electrical.Transmission.Grids.TestGrid2Nodes\">
 Buildings.Electrical.Transmission.Grids.TestGrid2Nodes</a> because it defines a medium voltage
 cable instead of a low voltage one.

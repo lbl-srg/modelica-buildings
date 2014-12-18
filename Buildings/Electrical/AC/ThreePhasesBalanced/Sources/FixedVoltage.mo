@@ -17,7 +17,7 @@ model FixedVoltage "Fixed three phases balanced AC voltage source"
           smooth=Smooth.Bezier)}),
       Documentation(info="<html>
 <p>
-This is a constant voltage source, specifying the complex voltage 
+This is a constant voltage source, specifying the complex voltage
 by the RMS voltage and the phase shift.
 </p>
 </html>", revisions="<html>
@@ -27,8 +27,5 @@ August 24, 2014, by Marco Bonvini:<br/>
 Revised documentation.
 </li>
 </ul>
-</html>"),
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
-            100,100}}),
-                    graphics));
+</html>"));
 end FixedVoltage;

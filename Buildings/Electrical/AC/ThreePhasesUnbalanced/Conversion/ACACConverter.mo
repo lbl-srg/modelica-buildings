@@ -27,8 +27,7 @@ equation
 
   annotation (
   defaultComponentName="conv",
-  Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}}), graphics), Icon(graphics={
+ Icon(graphics={
         Line(
           points={{2,60},{2,60},{82,60},{2,60},{82,-60},{2,-60},{2,60},{2,-60}},
           color={0,120,120},
@@ -74,7 +73,7 @@ V<sub>2</sub> = conversionFactor * V<sub>1</sub>
 
 <p>
 where <i>V<sub>1</sub></i> and <i>V<sub>2</sub></i> are the RMS voltages
-at the primary and secondary sides of the transformer (connector N and P 
+at the primary and secondary sides of the transformer (connector N and P
 respectively).
 </p>
 

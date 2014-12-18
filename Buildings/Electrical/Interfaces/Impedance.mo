@@ -117,13 +117,12 @@ equation
     L_internal = LMin + y_L_internal*(LMax - LMin);
   end if;
 
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}}), graphics), Documentation(info="<html>
+  annotation ( Documentation(info="<html>
 <p>
 This model represents a generalized interface for an impedance.
 </p>
 <p>
-The model has a single generalized electric terminal of type 
+The model has a single generalized electric terminal of type
 <a href=\"modelica://Buildings.Electrical.Interfaces.Terminal\">
 Buildings.Electrical.Interfaces.Terminal</a>
 that can be redeclared.
@@ -137,17 +136,17 @@ The impedance can be of different types:
 <li>resistive and capacitive.</li>
 </ol>
 <p>
-The values of the resistance <code>R</code>, capacitance <code>C</code> and 
+The values of the resistance <code>R</code>, capacitance <code>C</code> and
 inductance <code>L</code> can be
 specified as parameters of the model.
 </p>
 <p>
-The values of the resistance <code>R</code>, capacitance <code>C</code> 
+The values of the resistance <code>R</code>, capacitance <code>C</code>
 and inductance <code>L</code> can also be
-specified by using the input variables <code>y_R</code>, <code>y_C</code>, 
+specified by using the input variables <code>y_R</code>, <code>y_C</code>,
 and <code>y_L</code> that are Real values between <i>[0,1]</i>.<br/>
-These input values are enabled by the boolean flags <code>use_R_in</code>, 
-<code>use_L_in</code>, and 
+These input values are enabled by the boolean flags <code>use_R_in</code>,
+<code>use_L_in</code>, and
 <code>use_C_in</code>.
 </p>
 <h5>Example</h5>

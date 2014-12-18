@@ -48,9 +48,7 @@ equation
 
   annotation (
 defaultComponentName="conACDC",
-Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}}),
-                      graphics), Icon(coordinateSystem(preserveAspectRatio=false,
+ Icon(coordinateSystem(preserveAspectRatio=false,
           extent={{-100,-100},{100,100}}),
                                       graphics={
         Line(
@@ -124,7 +122,7 @@ V<sub>DC</sub> = conversionFactor V<sub>AC</sub>,
 </p>
 
 <p>
-where <i>V<sub>DC</sub></i> is the voltage of the DC circuit and <i>V<sub>AC</sub></i> 
+where <i>V<sub>DC</sub></i> is the voltage of the DC circuit and <i>V<sub>AC</sub></i>
 is the RMS voltage at the primary side of the transformer.
 </p>
 
@@ -143,7 +141,7 @@ Furthermore, reactive power on both side are set to 0.
 </p>
 <h4>Note:</h4>
 <p>
-This model is derived from 
+This model is derived from
 <a href=\"modelica://Modelica.Electrical.QuasiStationary.SinglePhase.Utilities.IdealACDCConverter\">
 Modelica.Electrical.QuasiStationary.SinglePhase.Utilities.IdealACDCConverter</a>.
 </p>

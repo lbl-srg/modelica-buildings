@@ -118,14 +118,14 @@ The model computes a resistance <i>R(T)</i> that varies depending on the tempera
 R(T) = R<sub>ref</sub> (M + T)/(M + T<sub>ref</sub>),
 </p>
 <p>
-where the resistance <i>R<sub>ref</sub></i> is the reference value of the resistance, 
-<i>M</i> is the temperature coefficient of the cable material, and 
+where the resistance <i>R<sub>ref</sub></i> is the reference value of the resistance,
+<i>M</i> is the temperature coefficient of the cable material, and
 <i>T<sub>ref</sub></i> is the reference temperature.
 The temperature <i>T</i> is the temperature of the heat port if <code>useHeatPort = true</code>.
 </p>
 <p>
 The impedance <i>L</i> and the capacity <i>C</i> do not vary with respect to the temperature
-and are specified by the user. 
+and are specified by the user.
 </p>
 </html>"));
 end PartialTwoPortRLC;

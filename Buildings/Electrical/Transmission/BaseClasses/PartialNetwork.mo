@@ -112,8 +112,8 @@ The model has three main components. The parameter <code>grid</code> declares th
 <a href=\"modelica://Buildings.Electrical.Transmission.Grids.PartialGrid\">
 Buildings.Electrical.Transmission.Grids.PartialGrid</a>
 that contains the information about the topology of the network, such as
-the number of nodes, 
-how they are connected, and the length of each connection. 
+the number of nodes,
+how they are connected, and the length of each connection.
 The parameter <code>terminal[...]</code> declares
 an array of generalized electric connectors that are associated to each node of the grid.
 The parameter <code>lines[...]</code> is an array of type

@@ -81,8 +81,7 @@ equation
       smooth=Smooth.None));
   annotation (
   defaultComponentName="line",
-  Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}}), graphics), Icon(coordinateSystem(
+ Icon(coordinateSystem(
           preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
                                                graphics={
           Text(
@@ -132,7 +131,7 @@ equation
           textString="%name")}),
     Documentation(info="<html>
 <p>
-Resistive-inductive model that connects two AC three phases 
+Resistive-inductive model that connects two AC three phases
 unbalanced interfaces. This model can be used to represent a
 cable in a three phases unbalanced AC system.
 </p>

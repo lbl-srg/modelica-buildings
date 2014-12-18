@@ -13,7 +13,7 @@ equation
   terminal.v = zeros(PhaseSystem.n);
   annotation (Documentation(info="<html>
 <p>
-Given a generic electric connector 
+Given a generic electric connector
 <a href=\"modelica://Buildings.Electrical.Interfaces.Terminal\">
 Buildings.Electrical.Interfaces.Terminal</a> this
 model imposes the following condition on the voltage <code>V[PhaseSystem.n]</code>

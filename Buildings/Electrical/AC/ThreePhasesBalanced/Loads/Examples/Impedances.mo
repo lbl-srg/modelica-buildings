@@ -48,9 +48,7 @@ equation
       points={{-60,-10},{-40,-10},{-40,-68},{-20,-68}},
       color={0,120,120},
       smooth=Smooth.None));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}}), graphics),
-Documentation(revisions="<html>
+  annotation (Documentation(revisions="<html>
 <ul>
 <li>
 September 22, 2014 by Marco Bonvini:<br/>
@@ -66,6 +64,5 @@ The impedances have unitary values such that the RMS value of the voltage and of
     experiment(Tolerance=1e-05, __Dymola_Algorithm="Radau", StopTime=1.0),
     __Dymola_Commands(file=
           "modelica://Buildings/Resources/Scripts/Dymola/Electrical/AC/ThreePhasesBalanced/Loads/Examples/Impedances.mos"
-        "Simulate and plot"),
-    __Dymola_experimentSetupOutput);
+        "Simulate and plot"));
 end Impedances;

@@ -47,8 +47,7 @@ equation
       color={0,120,120},
       smooth=Smooth.None));
   annotation (defaultComponentName="sen",
-  Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}}), graphics), Icon(graphics={
+ Icon(graphics={
         Rectangle(
           extent={{-70,28},{70,-30}},
           lineColor={0,0,0},

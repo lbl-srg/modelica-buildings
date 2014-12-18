@@ -60,9 +60,7 @@ package Examples "Package with example models"
         points={{1,70},{66,70},{66,-10},{30,-10},{30,-20}},
         color={0,0,127},
         smooth=Smooth.None));
-    annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-              -100},{100,100}}), graphics),
-              experiment(
+    annotation (              experiment(
         StopTime=3600,
         Tolerance=1e-05,
         __Dymola_Algorithm="Radau"),
@@ -92,7 +90,7 @@ during the charge and discharge phases.
 All the batteries start from the same initial condition that is <i>50%</i> of their total capacity.
 The batteries are charged and discharged in the same way. The input signal <code>pow.y</code>
 is the power that each battery should store or release. The signal has a duty cycle equal to <i>50%</i>.
-Hence, if there are no losses, the same amount of power stored into the battery will be 
+Hence, if there are no losses, the same amount of power stored into the battery will be
 released and after one cycle the State Of Charge (SOC) has to be equal.
 </p>
 <p>

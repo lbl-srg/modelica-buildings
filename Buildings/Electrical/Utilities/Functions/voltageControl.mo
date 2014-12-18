@@ -54,7 +54,7 @@ Added documentation.
 Function that implements a state machine that detects voltage
 deviations. If the voltage input <code>V</code> exceeds the
 nominal value <code>V_nominal</code> by more than <i>1+V<sub>tr</sub></i>
-then the control signal <code>y</code> becones zero for 
+then the control signal <code>y</code> becones zero for
 a period equal to <code>tDelay</code>.
 </p>
 <p>

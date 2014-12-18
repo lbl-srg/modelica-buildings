@@ -7,14 +7,14 @@ model ACACConverter "AC AC converter three phase balanced systems"
   defaultComponentName="conACAC",
   Documentation(info="<html>
 <p>
-This model represents a simplified conversion between two AC 
-three phases balanced systems. The conversion losses are represented by a 
+This model represents a simplified conversion between two AC
+three phases balanced systems. The conversion losses are represented by a
 constant efficiency <i>&eta;</i>.
 </p>
 <p>
 See model
 <a href=\"modelica://Buildings.Electrical.AC.OnePhase.Conversion.ACACConverter\">
-Buildings.Electrical.AC.OnePhase.Conversion.ACACConverter</a> for more 
+Buildings.Electrical.AC.OnePhase.Conversion.ACACConverter</a> for more
 information.
 </p>
 </html>", revisions="<html>

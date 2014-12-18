@@ -56,9 +56,6 @@ equation
       smooth=Smooth.None));
   annotation (
   defaultComponentName="pv",
-  Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
-            {100,100}}), graphics), Diagram(coordinateSystem(
-          preserveAspectRatio=false, extent={{-100,-100},{100,100}}), graphics),
     Documentation(revisions="<html>
 <ul>
 <li>
@@ -72,7 +69,7 @@ Simple PV model with orientation for three phases unbalanced systems
 with neutral cable connection.
 </p>
 <p>
-For more information see 
+For more information see
 <a href=\"modelica://Buildings.Electrical.AC.OnePhase.Sources.PVSimpleOriented\">
 Buildings.Electrical.AC.OnePhase.Sources.PVSimpleOriented</a>, and
 <a href=\"modelica://Buildings.Electrical.AC.ThreePhasesUnbalanced.Sources.BaseClasses.UnbalancedPV_N\">

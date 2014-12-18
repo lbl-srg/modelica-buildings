@@ -10,13 +10,11 @@ model ParallelLoads
     annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
-        rotation=0,
         origin={10,50})));
   Buildings.Electrical.AC.OnePhase.Sources.FixedVoltage source(f=60, V=120)
     "Voltage source"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
-        rotation=0,
         origin={-70,10})));
   Modelica.Blocks.Sources.Ramp load_y(duration=0.5, startTime=0.2)
     "Input signal for RC load"
@@ -27,7 +25,6 @@ model ParallelLoads
     V_nominal=120) "Constant inductor and resistor"
                                      annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
-        rotation=0,
         origin={10,30})));
   Buildings.Electrical.AC.OnePhase.Loads.Capacitive varRC(mode=Buildings.Electrical.Types.Load.VariableZ_y_input,
       P_nominal=-1e3,
@@ -35,7 +32,6 @@ model ParallelLoads
     V_nominal=120) "Variable conductor and resistor"        annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
-        rotation=0,
         origin={10,10})));
   Buildings.Electrical.AC.OnePhase.Loads.Capacitive RC(mode=Buildings.Electrical.Types.Load.FixedZ_steady_state,
       P_nominal=-1e3,
@@ -43,7 +39,6 @@ model ParallelLoads
     V_nominal=120) "Constant conductor and resistor"        annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
-        rotation=0,
         origin={10,-10})));
   Buildings.Electrical.AC.OnePhase.Loads.Resistive R(
     P_nominal=-1e3,
@@ -52,7 +47,6 @@ model ParallelLoads
     V_nominal=120) "Resistive load"
                      annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
-        rotation=0,
         origin={10,-30})));
   Modelica.Blocks.Sources.Ramp load_P(
     startTime=0.2,
@@ -94,9 +88,6 @@ equation
       smooth=Smooth.None));
   annotation (
     experiment(StopTime=1.0, Tolerance=1e-06),
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
-            100,100}}),
-                    graphics),
     Documentation(info="<html>
 <p>
 This model illustrates the use of the load models.
@@ -107,7 +98,7 @@ have a variable load specified by the inputs <code>Pow</code> and <code>y</code>
 respectively.
 
 All the loads have a nominal power of 1kW, and <code>varRL</code> is the only one
-that at <i>t=0</i> produces power 1kW and as the time increases it start to 
+that at <i>t=0</i> produces power 1kW and as the time increases it start to
 consume up to 1kW.
 
 </p>
@@ -126,6 +117,5 @@ First implementation.
 </html>"),
     __Dymola_Commands(file=
           "modelica://Buildings/Resources/Scripts/Dymola/Electrical/AC/OnePhase/Loads/Examples/ParallelLoads.mos"
-        "Simulate and plot"),
-    __Dymola_experimentSetupOutput);
+        "Simulate and plot"));
 end ParallelLoads;

@@ -1,5 +1,5 @@
 within Buildings.Electrical.Transmission.Functions;
-function selectCable_med "This function is used to automatically select the 
+function selectCable_med "This function is used to automatically select the
     type of cable for medium voltages"
   input Modelica.SIunits.Power P_nominal = 0 "Rated power";
   input Modelica.SIunits.Voltage V_nominal = 0 "Rated voltage";
@@ -70,7 +70,7 @@ This function selects the default cable for a medium voltage
 transmission line.
 </p>
 <p>
-The function takes as inputs the nominal voltage <i>V<sub>nominal</sub></i> and the 
+The function takes as inputs the nominal voltage <i>V<sub>nominal</sub></i> and the
 nominal power <i>P<sub>nominal</sub></i>. It computes the maximum current current that
 can flow through the cable as
 </p>

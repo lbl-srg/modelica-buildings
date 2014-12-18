@@ -24,9 +24,7 @@ equation
       points={{-20,6.66134e-16},{0,6.66134e-16},{0,21},{4.44089e-16,21}},
       color={0,120,120},
       smooth=Smooth.None));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}}), graphics),
-    experiment(StopTime=1, Tolerance=1e-05),
+  annotation (    experiment(StopTime=1, Tolerance=1e-05),
     __Dymola_Commands(file=
           "modelica://Buildings/Resources/Scripts/Dymola/Electrical/AC/OnePhase/Sources/Examples/FixedVoltageSource.mos"
         "Simulate and plot"),
@@ -40,6 +38,6 @@ Created model and documentation.
 </html>", info="<html>
 <p>
 This example shows how to use a fixed voltage generator model.
-</p> 
+</p>
 </html>"));
 end FixedVoltageSource;

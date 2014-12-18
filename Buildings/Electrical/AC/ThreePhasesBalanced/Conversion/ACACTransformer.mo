@@ -7,12 +7,12 @@ model ACACTransformer "AC AC transformer three phase balanced systems"
   defaultComponentName="traACAC",
   Documentation(info="<html>
 <p>
-Simple transformer model for three phases 
+Simple transformer model for three phases
 balanced AC systems. The model does not include core and
 magnetic losses.
 </p>
 <p>
-See model 
+See model
 <a href=\"modelica://Buildings.Electrical.AC.OnePhase.Conversion.ACACTransformer\">
 Buildings.Electrical.AC.OnePhase.Conversion.ACACTransformer</a> for more
 information.

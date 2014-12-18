@@ -71,8 +71,5 @@ August 5, 2014, by Marco Bonvini:<br/>
 First implementation.
 </li>
 </ul>
-</html>"),
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
-            100,100}}),
-                    graphics));
+</html>"));
 end FixedVoltage;

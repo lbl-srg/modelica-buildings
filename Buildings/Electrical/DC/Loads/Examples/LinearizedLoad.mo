@@ -78,9 +78,7 @@ equation
       points={{50,-30},{60,-30},{60,6.66134e-16},{69,6.66134e-16}},
       color={0,0,127},
       smooth=Smooth.None));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}}), graphics),
-            experiment(StopTime=1.0, Tolerance=1e-06, __Dymola_Algorithm="Radau"),
+  annotation (            experiment(StopTime=1.0, Tolerance=1e-06, __Dymola_Algorithm="Radau"),
             __Dymola_Commands(file=
           "modelica://Buildings/Resources/Scripts/Dymola/Electrical/DC/Loads/Examples/LinearizedLoad.mos"
         "Simulate and plot"),

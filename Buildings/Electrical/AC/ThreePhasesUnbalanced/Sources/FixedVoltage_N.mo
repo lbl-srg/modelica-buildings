@@ -34,8 +34,7 @@ equation
       smooth=Smooth.None));
   annotation (
   defaultComponentName="sou",
-  Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}}), graphics), Icon(graphics={
+ Icon(graphics={
         Ellipse(
           extent={{-60,60},{60,-60}},
           lineColor={0,0,0},
@@ -64,7 +63,7 @@ equation
           textString="V = %V")}),
     Documentation(info="<html>
 <p>
-This is a constant voltage source, specifying the complex 
+This is a constant voltage source, specifying the complex
 voltage by the RMS voltage and the phase shift. The model has also
 the neutral cable, connected to a ground reference by default.
 </p>

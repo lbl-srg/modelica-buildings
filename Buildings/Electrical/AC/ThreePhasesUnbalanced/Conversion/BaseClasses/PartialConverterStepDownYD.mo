@@ -1,5 +1,5 @@
 within Buildings.Electrical.AC.ThreePhasesUnbalanced.Conversion.BaseClasses;
-partial model PartialConverterStepDownYD "Model of a transformer with Y connection primary side and D 
+partial model PartialConverterStepDownYD "Model of a transformer with Y connection primary side and D
 connection secondary side (Voltage step down)"
   extends
     Buildings.Electrical.AC.ThreePhasesUnbalanced.Conversion.BaseClasses.PartialConverter;
@@ -47,9 +47,7 @@ equation
       color={0,120,120},
       smooth=Smooth.None));
 
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}}), graphics), Icon(graphics),
-    Documentation(revisions="<html>
+  annotation (    Documentation(revisions="<html>
 <ul>
 <li>
 August 27, 2014, by Marco Bonvini:<br/>

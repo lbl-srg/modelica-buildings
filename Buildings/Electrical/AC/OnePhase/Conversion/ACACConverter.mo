@@ -48,9 +48,7 @@ equation
 
   annotation (
   defaultComponentName="conACAC",
-  Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}}),
-                      graphics), Icon(coordinateSystem(preserveAspectRatio=false,
+ Icon(coordinateSystem(preserveAspectRatio=false,
           extent={{-100,-100},{100,100}}),
                                       graphics={
         Line(
@@ -103,7 +101,7 @@ V<sub>2</sub> = conversionFactor  V<sub>1</sub>
 
 <p>
 where <i>V<sub>1</sub></i> and <i>V<sub>2</sub></i> are the RMS voltages
-at the primary and secondary sides of the transformer, i.e., the 
+at the primary and secondary sides of the transformer, i.e., the
 connector N and P, respectively.
 </p>
 
@@ -122,7 +120,7 @@ Furthermore, reactive power on both side are set to zero.
 </p>
 <h4>Note:</h4>
 <p>
-This model is derived from 
+This model is derived from
 <a href=\"modelica://Modelica.Electrical.QuasiStationary.SinglePhase.Utilities.IdealACDCConverter\">
 Modelica.Electrical.QuasiStationary.SinglePhase.Utilities.IdealACDCConverter</a>.
 </p>

@@ -90,7 +90,7 @@ First implementation.
 This model represents a three phases unbalanced impedance with neutral cable.
 The current in the neutral cable is computed as the algebraic sum of the currents
 of the loads.
-The model extends from 
+The model extends from
 <a href=\"modelica://Buildings.Electrical.AC.ThreePhasesUnbalanced.Loads.BaseClasses.Impedance_N\">
 Buildings.Electrical.AC.ThreePhasesUnbalanced.Loads.BaseClasses.Impedance_N</a>
 and uses the load model from the package

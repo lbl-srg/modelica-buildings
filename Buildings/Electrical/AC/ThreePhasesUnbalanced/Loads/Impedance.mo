@@ -88,7 +88,7 @@ First implementation.
 </html>", info="<html>
 <p>
 This model represents a three phases unbalanced impedance without neutral cable.
-The model extends from 
+The model extends from
 <a href=\"modelica://Buildings.Electrical.AC.ThreePhasesUnbalanced.Loads.BaseClasses.Impedance\">
 Buildings.Electrical.AC.ThreePhasesUnbalanced.Loads.BaseClasses.Impedance</a>
 and uses the load model from the package

@@ -28,8 +28,7 @@ package BaseClasses "Package with base class models"
         points={{20,-40},{20,0},{40,0}},
         color={127,0,127},
         smooth=Smooth.None));
-    annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-              -100},{100,100}}), graphics), Documentation(info="<html>
+    annotation ( Documentation(info="<html>
 <p>
 This model is a partial class extended by three phases unbalanced
 voltage sources without neutral cable connection.
@@ -44,7 +43,7 @@ Created model and documentation.
 </html>"));
   end PartialSource;
 
-  partial model PartialSource_N "Partial model for a three phases AC unbalanced voltage source 
+  partial model PartialSource_N "Partial model for a three phases AC unbalanced voltage source
   with neutral cable"
 
     OnePhase.Basics.Ground ground "Ground reference"
@@ -58,8 +57,7 @@ Created model and documentation.
         points={{20,-40},{20,0},{100,0}},
         color={127,0,127},
         smooth=Smooth.None));
-    annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{
-              -100,-100},{100,100}}), graphics), Documentation(info="<html>
+    annotation ( Documentation(info="<html>
 <p>
 This model is a partial class extended by three phases unbalanced
 voltage sources that have neutral cable.
@@ -125,7 +123,6 @@ Revised documentation.
       "Total solar irradiation per unit area" annotation (Placement(
           transformation(
           extent={{-20,-20},{20,20}},
-          rotation=0,
           origin={-80,20}),
                           iconTransformation(
           extent={{-20,-20},{20,20}},
@@ -182,8 +179,7 @@ Revised documentation.
         color={0,0,127},
         smooth=Smooth.None,
         pattern=LinePattern.Dash));
-    annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-              -100},{100,100}}), graphics), Icon(coordinateSystem(
+    annotation ( Icon(coordinateSystem(
             preserveAspectRatio=false, extent={{-100,-100},{100,100}}), graphics={
           Line(points={{58,0},{92,0}},   color={0,0,0}),
           Text(
@@ -258,12 +254,12 @@ PV power sources.
 </p>
 <p>
 The model has boolean parameters <code>plugPhase1</code>, <code>plugPhase2</code>,
-and <code>plugPhase3</code> that can be used to connect the PV in an 
+and <code>plugPhase3</code> that can be used to connect the PV in an
 unbalanced configuration.
 </p>
 <p>
 The model has an array <code>areaFraction[3]</code> that is used to determine how
-to partition the power of the PVs on the three phases. By default it is assumed 
+to partition the power of the PVs on the three phases. By default it is assumed
 a uniform partition <code>areaFraction[3] = {1/3, 1/3, 1/3}</code>.
 </p>
 </html>", revisions="<html>
@@ -305,8 +301,7 @@ Created model and documentation.
           smooth=Smooth.None));
     end if;
 
-    annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-              -100},{100,100}}), graphics), Icon(coordinateSystem(
+    annotation ( Icon(coordinateSystem(
             preserveAspectRatio=false, extent={{-100,-100},{100,100}}), graphics={
           Line(points={{58,0},{92,0}},   color={0,0,0}),
           Text(
@@ -422,8 +417,7 @@ Revised documentation.
           smooth=Smooth.None));
     end if;
 
-    annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-              -100},{100,100}}), graphics), Icon(coordinateSystem(
+    annotation ( Icon(coordinateSystem(
             preserveAspectRatio=false, extent={{-100,-100},{100,100}}), graphics={
           Line(points={{58,0},{92,0}},   color={0,0,0}),
           Text(
@@ -617,8 +611,7 @@ Revised documentation.
         points={{0,120},{0,72},{-52,72},{-52,-26},{-30,-26},{-30,-38}},
         color={0,0,127},
         smooth=Smooth.None));
-    annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-              -100},{100,100}}), graphics), Icon(coordinateSystem(
+    annotation ( Icon(coordinateSystem(
             preserveAspectRatio=false, extent={{-100,-100},{100,100}}), graphics={
           Rectangle(
             extent={{-100,100},{100,-100}},
@@ -693,12 +686,12 @@ wind turbine power sources.
 </p>
 <p>
 The model has boolean parameters <code>plugPhase1</code>, <code>plugPhase2</code>,
-and <code>plugPhase3</code> that can be used to connect the wind turbines in an 
+and <code>plugPhase3</code> that can be used to connect the wind turbines in an
 unbalanced configuration.
 </p>
 <p>
 The model has an array <code>scaleFraction[3]</code> that is used to determine how
-to partition the power of the wind turbines on the three phases. By default it is assumed 
+to partition the power of the wind turbines on the three phases. By default it is assumed
 a uniform partition <code>scaleFraction[3] = {1/3, 1/3, 1/3}</code>.
 </p>
 </html>", revisions="<html>
@@ -740,8 +733,7 @@ Created model and documentation.
           smooth=Smooth.None));
     end if;
 
-    annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-              -100},{100,100}}), graphics), Icon(coordinateSystem(
+    annotation ( Icon(coordinateSystem(
             preserveAspectRatio=false, extent={{-100,-100},{100,100}}), graphics={
           Rectangle(
             extent={{-100,100},{100,-100}},
@@ -857,8 +849,7 @@ Revised documentation.
           smooth=Smooth.None));
     end if;
 
-    annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-              -100},{100,100}}), graphics), Icon(coordinateSystem(
+    annotation ( Icon(coordinateSystem(
             preserveAspectRatio=false, extent={{-100,-100},{100,100}}), graphics={
           Rectangle(
             extent={{-100,100},{100,-100}},

@@ -70,7 +70,7 @@ its voltage is outside of the accepted thresholds.
 The model contains a finite state machine controller that detects voltage
 deviations. If the voltage input <code>V</code> exceeds the
 nominal value <code>V_nominal</code> by more than <i>1+V<sub>tr</sub></i>
-then the control signal <code>y</code> becomes zero for 
+then the control signal <code>y</code> becomes zero for
 a period <code>t = tDelay</code>. If after this period the voltage is still
 higher than the thresholds the output remains equal to zero.
 </p>

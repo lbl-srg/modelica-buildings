@@ -54,8 +54,7 @@ equation
       points={{43,40},{90,40}},
       color={0,0,127},
       smooth=Smooth.None));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}}), graphics), Icon(coordinateSystem(
+  annotation ( Icon(coordinateSystem(
           preserveAspectRatio=false, extent={{-100,-100},{100,100}}), graphics={
         Rectangle(
           extent={{-100,100},{100,-100}},
@@ -84,8 +83,8 @@ data"), Text(
 <p>
 This model reads time series data from .mat files and provides
 them as output signals. The data series represent the power
-produced by PV panels and the power consumed by buildings in a 
-network with up to 50 nodes. 
+produced by PV panels and the power consumed by buildings in a
+network with up to 50 nodes.
 </p>
 </html>", revisions="<html>
 <ul>

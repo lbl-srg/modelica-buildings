@@ -19,9 +19,7 @@ model PartialTwoPort "Model of a generic two port component with phase systems"
     redeclare replaceable Buildings.Electrical.Interfaces.Terminal
       terminal_p(redeclare replaceable package PhaseSystem=PhaseSystem_p));
 
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}}), graphics),
-Documentation(revisions="<html>
+  annotation (Documentation(revisions="<html>
 <ul>
 <li>
 May 15, 2014, by Marco Bonvini:<br/>
@@ -34,7 +32,7 @@ Model included into the Buildings library.
 </ul>
 </html>", info="<html>
 <p>
-This is a model of a component with two electric terminals. 
+This is a model of a component with two electric terminals.
 It represents a common interface that is extended by other models.
 </p>
 </html>"));

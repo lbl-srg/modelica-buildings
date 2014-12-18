@@ -11,7 +11,6 @@ model ACACConverter
     V=120) "Voltage source"
                           annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
-        rotation=0,
         origin={-60,10})));
   Buildings.Electrical.AC.OnePhase.Loads.Inductive load(
     mode=Buildings.Electrical.Types.Load.VariableZ_P_input,
@@ -37,10 +36,8 @@ equation
       points={{59,10},{44,10}},
       color={0,0,127},
       smooth=Smooth.None));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}}), graphics), experiment(StopTime=1.0, Tolerance=1e-05),
-    __Dymola_experimentSetupOutput,
-    Documentation(info="<html>
+  annotation ( experiment(StopTime=1.0, Tolerance=1e-05),
+Documentation(info="<html>
 <p>
 This example illustrates the use of a model that converts AC voltage to AC voltage
 converter model. The transformer model assumes a linear loss when transmitting the power.

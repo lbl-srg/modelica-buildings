@@ -44,8 +44,6 @@ equation
       color={0,120,120},
       smooth=Smooth.None));
   annotation (experiment(StopTime=1.0, Tolerance=1e-06),
-  Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}}), graphics),
     __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Electrical/AC/OnePhase/Loads/Examples/TestImpedance.mos"
         "Simulate and plot"),
     Documentation(info="<html>

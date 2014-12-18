@@ -5,8 +5,6 @@ model TwoPortResistance "Model of a resistance with two electrical ports"
     redeclare Interfaces.Terminal_p terminal_p);
   annotation (
     defaultComponentName="lineR",
-    Diagram(graphics), Icon(
-        coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}})),
     Documentation(revisions="<html>
 <ul>
 <li>
@@ -16,14 +14,14 @@ Revised documentation.
 </ul>
 </html>", info="<html>
 <p>
-Resistance that connects two AC three phases 
+Resistance that connects two AC three phases
 balanced interfaces. This model can be used to represent a
 cable in a three phases balanced AC system.
 </p>
 <p>
 See model
 <a href=\"modelica://Buildings.Electrical.AC.OnePhase.Lines.TwoPortResistance\">
-Buildings.Electrical.AC.OnePhase.Lines.TwoPortResistance</a> for more 
+Buildings.Electrical.AC.OnePhase.Lines.TwoPortResistance</a> for more
 information.
 </p>
 </html>"));

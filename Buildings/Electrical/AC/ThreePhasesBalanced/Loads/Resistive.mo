@@ -74,7 +74,7 @@ model Resistive "Model of a resistive load"
           smooth=Smooth.None)}),
           Documentation(info="<html>
 <p>
-Model of a resistive load. See 
+Model of a resistive load. See
 <a href=\"modelica://Buildings.Electrical.AC.OnePhase.Loads.Resistive\">
 Buildings.Electrical.AC.OnePhase.Loads.Resistive</a> for more information.
 </p>
@@ -89,7 +89,5 @@ January 2, 2012, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
-</html>"),
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
-            100}}), graphics));
+</html>"));
 end Resistive;

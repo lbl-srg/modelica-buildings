@@ -67,8 +67,7 @@ equation
       points={{-71,22},{-62,22}},
       color={0,0,127},
       smooth=Smooth.None));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}}), graphics), Icon(coordinateSystem(
+  annotation ( Icon(coordinateSystem(
           preserveAspectRatio=false, extent={{-100,-100},{100,100}}), graphics={
           Text(
             extent={{-150,-19},{150,-59}},
@@ -79,18 +78,18 @@ equation
 This partial model contains parameters and variables needed to parametrize a
 generic cable. The resistance, inductance and capacitance
 are computed by the functions associated to the type of cable selected.
-The type of cable is specified using a record that inherits from 
+The type of cable is specified using a record that inherits from
 <a href=\"modelica://Buildings.Electrical.Transmission.BaseClasses.BaseCable\">
 Buildings.Electrical.Transmission.BaseClasses.BaseCable</a> such as (
 <a href=\"modelica://Buildings.Electrical.Transmission.LowVoltageCables.Generic\">
 Buildings.Electrical.Transmission.LowVoltageCables.Generic</a> or
 <a href=\"modelica://Buildings.Electrical.Transmission.MediumVoltageCables.Generic\">
 Buildings.Electrical.Transmission.MediumVoltageCables.Generic</a>).
-The record contains functions that depending on the properties of cable compute its 
+The record contains functions that depending on the properties of cable compute its
 resistance, inductance or capacitance.
 </p>
 <p>
-The model has two parameters <code>use_C</code> and <code>modelMode</code> that 
+The model has two parameters <code>use_C</code> and <code>modelMode</code> that
 change the behaviour of the model. It is possible to include the effects
 of a capacity or select the model to be dynamic or steady state. More information
 are available in the line models that extends this partial model.
@@ -109,7 +108,7 @@ of commercial cables. The cables are divided in three different categories:
 <p>
 The details and type of cables can be found in
 <a href=\"modelica://Buildings.Electrical.Transmission.LowVoltageCables\">
-Buildings.Electrical.Transmission.LowVoltageCables</a> and 
+Buildings.Electrical.Transmission.LowVoltageCables</a> and
 <a href=\"modelica://Buildings.Electrical.Transmission.MediumVoltageCables\">
 Buildings.Electrical.Transmission.MediumVoltageCables</a>.
 </p>
@@ -123,18 +122,18 @@ depending on the value of the parameters <code>V_nominal</code> and
 
 <h4>Note:</h4>
 <p>
-More details about the functions that compute the type of cable and its  
+More details about the functions that compute the type of cable and its
 properties can be found in <a href=\"modelica://Buildings.Electrical.Transmission.Functions\">
 Buildings.Electrical.Transmission.Functions</a>.
 </p>
 <p>
-The parameter <code>commercialCable</code> is assumed to be 
+The parameter <code>commercialCable</code> is assumed to be
 <a href=\"modelica://Buildings.Electrical.Transmission.LowVoltageCables.Generic\">
 Buildings.Electrical.Transmission.LowVoltageCables.Generic</a>.
 The parameter is replaceable so it can be redeclared using a different type, for example
 <a href=\"modelica://Buildings.Electrical.Transmission.MediumVoltageCables.Generic\">
 Buildings.Electrical.Transmission.MediumVoltageCables.Generic</a>.<br/>
-The example models 
+The example models
 <a href=\"modelica://Buildings.Electrical.AC.ThreePhasesBalanced.Lines.Examples.AClineMedium\">
 Buildings.Electrical.AC.ThreePhasesBalanced.Lines.Examples.AClineMedium</a> and
 <a href=\"modelica://Buildings.Electrical.AC.ThreePhasesBalanced.Lines.Examples.ACSimpleGridMedium\">

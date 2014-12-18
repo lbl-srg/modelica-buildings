@@ -13,9 +13,7 @@ equation
   v_p = PhaseSystem_p.systemVoltage(terminal_p.v);
   v_n = PhaseSystem_n.systemVoltage(terminal_n.v);
 
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}})),
-Documentation(revisions="<html>
+  annotation (Documentation(revisions="<html>
 <ul>
 <li>
 May 15, 2014, by Marco Bonvini:<br/>
@@ -31,11 +29,11 @@ Model included in the Buildings library.
 This model extends the base class
 <a href=\"Buildings.Electrical.Interfaces.PartialTwoPort\">
 Buildings.Electrical.Interfaces.PartialTwoPort</a>
-model and declares the variables 
-<code>v_p</code> and <code>i_p</code> that represents the voltage and the 
+model and declares the variables
+<code>v_p</code> and <code>i_p</code> that represents the voltage and the
 current at the <code>terminal_p</code>, and the variables
-<code>v_n</code> and <code>i_n</code> that represents the voltage and the 
-current at the <code>terminal_n</code>. 
+<code>v_n</code> and <code>i_n</code> that represents the voltage and the
+current at the <code>terminal_n</code>.
 These variables are used in conversion models such as transformers and AC/DC converters.
 </p>
 </html>"));

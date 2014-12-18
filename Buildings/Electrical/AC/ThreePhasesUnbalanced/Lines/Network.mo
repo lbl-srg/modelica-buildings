@@ -20,8 +20,7 @@ equation
   end for;
   annotation (
   defaultComponentName="net",
-  Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}}), graphics), Documentation(revisions="<html>
+ Documentation(revisions="<html>
 <ul>
 <li>
 October 6, 2014, by Marco Bonvini:<br/>
