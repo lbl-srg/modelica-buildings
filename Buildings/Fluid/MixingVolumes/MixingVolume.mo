@@ -27,7 +27,7 @@ equation
 defaultComponentName="vol",
 Documentation(info="<html>
 <p>
-This model represents an instantaneously mixed volume. 
+This model represents an instantaneously mixed volume.
 Potential and kinetic energy at the port are neglected,
 and there is no pressure drop at the ports.
 The volume can exchange heat through its <code>heatPort</code>.
@@ -37,7 +37,7 @@ The volume can be parameterized as a steady-state model or as
 dynamic model.</p>
 <p>
 To increase the numerical robustness of the model, the parameter
-<code>prescribedHeatFlowRate</code> can be set by the user. 
+<code>prescribedHeatFlowRate</code> can be set by the user.
 This parameter only has an effect if the model has exactly two fluid ports connected,
 and if it is used as a steady-state model.
 Use the following settings:
@@ -89,8 +89,9 @@ Buildings.Fluid.MassExchangers.HumidifierPrescribed</a>.
 
 </html>", revisions="<html>
 <ul>
+<li>
 February 11, 2014 by Michael Wetter:<br/>
-Redesigned implementation of latent and sensible heat flow rates 
+Redesigned implementation of latent and sensible heat flow rates
 as port of the correction of issue
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/197\">#197</a>.
 </li>
@@ -102,7 +103,7 @@ Revised base classes for conservation equations in <code>Buildings.Fluid.Interfa
 September 17, 2011 by Michael Wetter:<br/>
 Removed instance <code>medium</code> as this is already used in <code>dynBal</code>.
 Removing the base properties led to 30% faster computing time for a solar thermal system
-that contains many fluid volumes. 
+that contains many fluid volumes.
 </li>
 <li>
 September 13, 2011 by Michael Wetter:<br/>
@@ -127,7 +128,7 @@ model.
 May 25, 2011 by Michael Wetter:<br/>
 <ul>
 <li>
-Changed implementation of balance equation. The new implementation uses a different model if 
+Changed implementation of balance equation. The new implementation uses a different model if
 exactly two fluid ports are connected, and in addition, the model is used as a steady-state
 component. For this model configuration, the same balance equations are used as were used
 for steady-state component models, i.e., instead of <code>actualStream(...)</code>, the
@@ -143,7 +144,7 @@ no noticable overhead in always having the <code>heatPort</code> connector prese
 </li>
 <li>
 July 30, 2010 by Michael Wetter:<br/>
-Added nominal value for <code>mC</code> to avoid wrong trajectory 
+Added nominal value for <code>mC</code> to avoid wrong trajectory
 when concentration is around 1E-7.
 See also <a href=\"https://trac.modelica.org/Modelica/ticket/393\">
 https://trac.modelica.org/Modelica/ticket/393</a>.
@@ -173,7 +174,5 @@ Buildings.Fluid.MixingVolumes.BaseClasses.ClosedVolume</a>.
           textString="V=%V"),         Text(
           extent={{-152,100},{148,140}},
           textString="%name",
-          lineColor={0,0,255})}),
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
-            100,100}}), graphics));
+          lineColor={0,0,255})}));
 end MixingVolume;

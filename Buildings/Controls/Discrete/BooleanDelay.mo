@@ -19,9 +19,9 @@ info="<html>
 <p>
 Block that delays the boolean input signal by
 one sampling interval.
-For example, 
+For example,
 if <i>u</i> denotes the input,
-<i>y</i> denotes the output, and 
+<i>y</i> denotes the output, and
 <i>t<sub>i</sub></i> and <i>t<sub>i+1</sub></i>
 denote subsequent sampling
 instants, then the model outputs

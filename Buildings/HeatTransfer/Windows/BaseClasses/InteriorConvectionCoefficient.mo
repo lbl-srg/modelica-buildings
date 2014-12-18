@@ -10,7 +10,7 @@ model InteriorConvectionCoefficient
 
 equation
   GCon = 4*A;
-  annotation (Diagram(graphics), Icon(graphics={
+  annotation ( Icon(graphics={
         Text(
           extent={{40,26},{92,-20}},
           lineColor={0,0,127},

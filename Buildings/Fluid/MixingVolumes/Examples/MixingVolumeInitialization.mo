@@ -8,34 +8,33 @@ model MixingVolumeInitialization "Test model for mixing volume initialization"
     p=101330,
     nPorts=1,
     T=293.15)                                       annotation (Placement(
-        transformation(extent={{-60,10},{-40,30}}, rotation=0)));
+        transformation(extent={{-60,10},{-40,30}})));
   Buildings.Fluid.Sources.Boundary_pT sin1(redeclare package Medium =
         Medium,
     p=101320,
     nPorts=1,
     T=293.15)                                       annotation (Placement(
-        transformation(extent={{120,10},{100,30}}, rotation=0)));
+        transformation(extent={{120,10},{100,30}})));
   Modelica.Fluid.Pipes.StaticPipe pipe1(
     redeclare package Medium = Medium,
     length=1,
     diameter=0.25,
-    flowModel(m_flow_nominal=2)) annotation (Placement(transformation(extent={{-20,10},{0,30}},
-          rotation=0)));
+    flowModel(m_flow_nominal=2)) annotation (Placement(transformation(extent={{-20,10},{0,30}})));
   Modelica.Fluid.Pipes.StaticPipe pipe2(
     redeclare package Medium = Medium,
     length=1,
     diameter=0.25,
-    flowModel(m_flow_nominal=2)) annotation (Placement(transformation(extent={{60,10},{80,30}},
-          rotation=0)));
+    flowModel(m_flow_nominal=2)) annotation (Placement(transformation(extent={{60,10},{80,30}})));
   MixingVolumes.MixingVolume vol1(
     redeclare package Medium = Medium,
     V=0.1,
     nPorts=2,
     m_flow_nominal=2,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
-    annotation (Placement(transformation(extent={{20,20},{40,40}}, rotation=0)));
+    annotation (Placement(transformation(extent={{20,20},{40,40}})));
+
   inner Modelica.Fluid.System system
-    annotation (Placement(transformation(extent={{-100,-100},{-80,-80}})));
+    annotation (Placement(transformation(extent={{-80,80},{-60,100}})));
 equation
   connect(sou1.ports[1], pipe1.port_a) annotation (Line(
       points={{-40,20},{-20,20}},
@@ -67,7 +66,7 @@ This model tests the initialization of the mixing volume.
 <ul>
 <li>
 October 24, 2013 by Michael Wetter:<br/>
-Set <code>flowModel(m_flow_nominal=2)</code> in the pipe models to 
+Set <code>flowModel(m_flow_nominal=2)</code> in the pipe models to
 avoid a cyclic definition of
 <code>pipe1.flowModel.m_flow_nominal</code>
 and

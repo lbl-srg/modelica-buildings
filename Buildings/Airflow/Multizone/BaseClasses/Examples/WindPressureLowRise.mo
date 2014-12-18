@@ -14,7 +14,7 @@ experiment(StartTime=-2, StopTime=2),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Airflow/Multizone/BaseClasses/Examples/windPressureLowRise.mos"
         "Simulate and plot"), Documentation(info="<html>
 <p>
-This examples demonstrates the 
+This examples demonstrates the
 <a href=\"modelica://Buildings.Airflow.Multizone.BaseClasses.windPressureLowRise\">
 Buildings.Airflow.Multizone.BaseClasses.windPressureLowRise</a>
 function.

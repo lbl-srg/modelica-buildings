@@ -10,7 +10,7 @@ model PartialConstruction "Partial model for multi-layer constructions"
 
   final parameter Integer nLay(min=1, fixed=true) = layers.nLay
     "Number of layers";
-  final parameter Integer nSta[nLay](min=1)={layers.material[i].nSta for i in 1:nLay}
+  final parameter Integer nSta[nLay](each min=1)={layers.material[i].nSta for i in 1:nLay}
     "Number of states"  annotation(Evaluate=true);
   parameter Boolean steadyStateInitial=false
     "=true initializes dT(0)/dt=0, false initializes T(0) at fixed temperature using T_a_start and T_b_start"
@@ -21,14 +21,15 @@ model PartialConstruction "Partial model for multi-layer constructions"
   parameter Modelica.SIunits.Temperature T_b_start=293.15
     "Initial temperature at port_b, used if steadyStateInitial = false"
     annotation (Dialog(group="Initialization", enable=not steadyStateInitial));
-
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
-            -100},{100,100}}), graphics), Icon(coordinateSystem(
-          preserveAspectRatio=true, extent={{-100,-100},{100,100}}), graphics),
-    Documentation(info="<html>
+  annotation (    Documentation(info="<html>
 Partial model for constructions and multi-layer heat conductors.
 </html>", revisions="<html>
 <ul>
+<li>
+August 12, 2014, by Michael Wetter:<br/>
+Added missing <code>each</code> keyword in <code>min</code>
+attribute of <code>nSta</code>.
+</li>
 <li>
 May 30, 2014, by Michael Wetter:<br/>
 Removed undesirable annotation <code>Evaluate=true</code>.

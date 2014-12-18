@@ -38,20 +38,19 @@ model TwoRoomsWithStorage
     "Pressure difference of loop";
   // Room model
 
-  Fluid.Movers.FlowMachine_y pumBoi(
+  Fluid.Movers.SpeedControlled_y pumBoi(
     redeclare package Medium = Medium,
-    pressure(V_flow=mBoi_flow_nominal/1000*{0.5, 1},
-             dp=(3000+2000)*{2,1}),
+    per(pressure(V_flow=mBoi_flow_nominal/1000*{0.5, 1},
+                  dp=(3000+2000)*{2,1})),
     dynamicBalance=false)
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
-        rotation=0,
         origin={70,-120})));
 
-  Fluid.Movers.FlowMachine_y pumRad(
+  Fluid.Movers.SpeedControlled_y pumRad(
     redeclare package Medium = Medium,
-    pressure(
+    per(pressure(
           V_flow=mRad_flow_nominal/1000*{0,2},
-          dp=dp_nominal*{2,0}),
+          dp=dp_nominal*{2,0})),
     dynamicBalance=false) "Pump that serves the radiators"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=90,
@@ -362,7 +361,6 @@ model TwoRoomsWithStorage
     m_flow_nominal=6*4*3*1.2*0.3/3600,
     dp_nominal=10) "Pressure drop at facade"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
-        rotation=0,
         origin={330,216})));
   HeatTransfer.Conduction.MultiLayer parWal(A=4*3, layers=matLayPar)
     "Partition wall between the two rooms" annotation (Placement(transformation(
@@ -375,7 +373,6 @@ model TwoRoomsWithStorage
     m_flow_nominal=6*4*3*1.2*0.3/3600,
     dp_nominal=10) "Pressure drop at facade"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
-        rotation=0,
         origin={330,474})));
   Fluid.HeatExchangers.ConstantEffectiveness hex(
     redeclare package Medium1 = MediumA,
@@ -386,7 +383,7 @@ model TwoRoomsWithStorage
     dp2_nominal=100,
     eps=0.9) "Heat recovery"
     annotation (Placement(transformation(extent={{180,478},{200,498}})));
-  Fluid.Movers.FlowMachine_m_flow fanSup(
+  Fluid.Movers.FlowControlled_m_flow fanSup(
     redeclare package Medium = MediumA,
     dynamicBalance=false,
     m_flow_nominal=2*VRoo*1.2*0.37/3600) "Supply air fan"
@@ -394,7 +391,7 @@ model TwoRoomsWithStorage
   Modelica.Blocks.Sources.Constant m_flow_out(k=2*VRoo*1.2*0.37/3600)
     "Outside air mass flow rate"
     annotation (Placement(transformation(extent={{0,500},{20,520}})));
-  Fluid.Movers.FlowMachine_m_flow fanRet(
+  Fluid.Movers.FlowControlled_m_flow fanRet(
     redeclare package Medium = MediumA,
     dynamicBalance=false,
     m_flow_nominal=2*VRoo*1.2*0.37/3600) "Return air fan"
@@ -492,7 +489,7 @@ model TwoRoomsWithStorage
     m_flow_nominal=2*VRoo*1.2*0.37/3600)
     "Supply air damper that bypasses the heat recovery"
     annotation (Placement(transformation(extent={{160,510},{180,530}})));
-  Fluid.HeatExchangers.HeaterCoolerPrescribed coo(
+  Fluid.HeatExchangers.HeaterCooler_u coo(
     Q_flow_nominal=-3000,
     redeclare package Medium = MediumA,
     m_flow_nominal=2*VRoo*1.2*0.37/3600,
@@ -581,9 +578,7 @@ model TwoRoomsWithStorage
 <p>
 This block computes a control signal for free cooling and for mechanical cooling.
 </p>
-</html>"),
-      Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
-              100}}), graphics));
+</html>"));
   end CoolingControl;
   Fluid.Actuators.Dampers.Exponential damHex(
     redeclare package Medium = MediumA,
@@ -1167,9 +1162,9 @@ This example demonstrates the implementation of a building that has the followin
 <p>
 There are two rooms. (For simplicity, we only modeled two rooms, but more could be added.)
 Each room is modeled using a dynamic model for the heat transfer through the opaque constructions.
-The room <code>roo1</code> has a south- and west-facing window, the room <code>roo2</code> has a south- and 
+The room <code>roo1</code> has a south- and west-facing window, the room <code>roo2</code> has a south- and
 east-facing window.
-The rooms are modeled as if they were in an intermediate floor, with the same temperature above and below 
+The rooms are modeled as if they were in an intermediate floor, with the same temperature above and below
 the room. The rooms share one common wall. The north facing wall is modeled as a partition wall, i.e., both
 surfaces have the same boundary conditions.
 Weather data are used from Chicago.
@@ -1184,13 +1179,13 @@ the water from the radiator return. The pump has a variable frequency drive that
 <p>
 A finite state machine is used to switch the boiler and its pump on and off.
 The boiler and pump are switched on when the temperature
-at the top of the tank is less then 1 Kelvin above the setpoint temperature 
+at the top of the tank is less then 1 Kelvin above the setpoint temperature
 for the supply water temperature of the radiator loop.
 The boiler and pump are switched off when the temperature at the bottom
 of the tank reaches 55 degree Celsius.
 The state transition of the finite state machine
-is such that first the pump of the boiler is switched on. 
-Ten seconds later, the boiler will be switched on. 
+is such that first the pump of the boiler is switched on.
+Ten seconds later, the boiler will be switched on.
 When the tank reaches its temperature, the boiler
 is switched off, and ten seconds later, the pump will be switched off.
 </p>
@@ -1205,7 +1200,7 @@ The hydronic heating system is connected to an expansion vessel.
 Some medium models for water compute the density as a function of
 temperature, while others assume a constant density.
 If the density is modeled as a function of temperature, then the water
-volume will increase when heated, and the expansion vessel will 
+volume will increase when heated, and the expansion vessel will
 accumulate the added volume. As the water cools, this volume will flow from
 the expansion vessel into the hydronic heating system.
 If the medium model assumes the density to be constant, then the
@@ -1222,7 +1217,7 @@ with a proportional band of <i>1</i> Kelvin.
 If the room air temperature is above <i>22</i> degree Celsius,
 the free cooling is enabled by opening the bypass damper of the heat
 recovery. Free cooling is only allowed if the outside air temperature
-is above <i>16</i> degree Celsius and <i>1</i> Kelvin below the 
+is above <i>16</i> degree Celsius and <i>1</i> Kelvin below the
 room air temperature.
 </p>
 <p>

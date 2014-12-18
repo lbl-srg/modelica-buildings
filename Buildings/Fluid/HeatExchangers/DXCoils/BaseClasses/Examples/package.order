@@ -2,9 +2,9 @@ ApparatusDewPoint
 ApparatusDryPoint
 Condensation
 CoolingCapacity
+DXCooling
 DryCoil
 DryWetSelector
-DXCooling
 EvaporationFlowReversal
 EvaporationPulse
 InputPower

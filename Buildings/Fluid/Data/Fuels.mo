@@ -62,7 +62,7 @@ Documentation(info="<html>
 <p>
 Package with records for fuel properties.
 Note that the heating value and the mass density can vary for individual fuels.
-The parameter <code>mCO2</code> are the CO<sub>2</sub> emission in kilograms 
+The parameter <code>mCO2</code> are the CO<sub>2</sub> emission in kilograms
 that are released per kilogram fuel that is burnt.
 </p>
 </html>", revisions="<html>

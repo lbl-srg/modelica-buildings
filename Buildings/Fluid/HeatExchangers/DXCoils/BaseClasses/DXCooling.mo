@@ -165,13 +165,11 @@ equation
       points={{-40,39},{-40,4},{39,4}},
       color={0,0,127},
       smooth=Smooth.None));
-  annotation (defaultComponentName="dxCoo", Diagram(coordinateSystem(
-          preserveAspectRatio=true, extent={{-100,-100},{100,100}}),
-                                                     graphics), Documentation(info="<html>
+  annotation (defaultComponentName="dxCoo", Documentation(info="<html>
 <p>
 This block combines the models for the dry coil and the wet coil.
 Output of the block is the coil performance which, depending on the
-mass fraction at the apparatus dew point temperature and 
+mass fraction at the apparatus dew point temperature and
 the mass fraction of the coil inlet air,
 may be from the dry coil, the wet coil, or a weighted average of the two.
 </p>
@@ -188,7 +186,7 @@ Renamed connector to follow naming convention.
 </li>
 <li>
 April 12, 2012 by Kaustubh Phalak:<br/>
-First implementation. 
+First implementation.
 </li>
 </ul>
 </html>"),

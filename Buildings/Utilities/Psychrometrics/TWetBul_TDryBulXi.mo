@@ -2,6 +2,7 @@ within Buildings.Utilities.Psychrometrics;
 block TWetBul_TDryBulXi
   "Model to compute the wet bulb temperature based on mass fraction"
   extends Modelica.Blocks.Icons.Block;
+
   replaceable package Medium =
     Modelica.Media.Interfaces.PartialCondensingGases "Medium model"
                                                             annotation (
@@ -15,27 +16,22 @@ block TWetBul_TDryBulXi
     final quantity="ThermodynamicTemperature",
     final unit="K",
     min=0) "Dry bulb temperature"
-    annotation (Placement(transformation(extent={{-120,70},{-100,90}},rotation=
-            0)));
+    annotation (Placement(transformation(extent={{-120,70},{-100,90}})));
   Modelica.Blocks.Interfaces.RealInput p(  final quantity="Pressure",
                                            final unit="Pa",
                                            min = 0) "Pressure"
-    annotation (Placement(transformation(extent={{-120,-90},{-100,-70}},
-                                                                       rotation=
-           0)));
+    annotation (Placement(transformation(extent={{-120,-90},{-100,-70}})));
   Modelica.Blocks.Interfaces.RealOutput TWetBul(
     start=293,
     final quantity="ThermodynamicTemperature",
     final unit="K",
     min=0) "Wet bulb temperature"
-    annotation (Placement(transformation(extent={{100,-10},{120,10}},rotation=0)));
+    annotation (Placement(transformation(extent={{100,-10},{120,10}})));
   Modelica.Blocks.Interfaces.RealInput Xi[Medium.nXi]
     "Species concentration at dry bulb temperature"
-    annotation (Placement(transformation(extent={{-120,-10},{-100,10}},
-          rotation=0)));
+    annotation (Placement(transformation(extent={{-120,-10},{-100,10}})));
 
 protected
-  constant Real k_mair = 0.6219647130774989 "Ratio of molar weights";
   Modelica.SIunits.Conversions.NonSIunits.Temperature_degC TDryBul_degC
     "Dry bulb temperature in degree Celsius";
   Real rh_per(min=0) "Relative humidity in percentage";
@@ -46,12 +42,6 @@ protected
 
  parameter Integer iWat(fixed=false)
     "Index of water in medium composition vector";
-  constant Modelica.SIunits.SpecificHeatCapacity cpAir=1006
-    "Specific heat capacity of air";
-  constant Modelica.SIunits.SpecificHeatCapacity cpSte=1860
-    "Specific heat capacity of water vapor";
-  constant Modelica.SIunits.SpecificEnthalpy h_fg = 2501014.5
-    "Specific heat capacity of water vapor";
 initial algorithm
   iWat:=-1;
     for i in 1:Medium.nX loop
@@ -65,7 +55,10 @@ initial algorithm
 equation
   if approximateWetBulb then
     TDryBul_degC = TDryBul - 273.15;
-    rh_per       = 100 * p/min(Buildings.Utilities.Psychrometrics.Functions.saturationPressure(TDryBul),0.999*p)*Xi[iWat]/(Xi[iWat] + k_mair*(1-Xi[iWat]));
+    rh_per       = 100 * p/
+         Buildings.Utilities.Psychrometrics.Functions.saturationPressure(TDryBul)
+         *Xi[iWat]/(Xi[iWat] +
+         Buildings.Utilities.Psychrometrics.Constants.k_mair*(1-Xi[iWat]));
     TWetBul      = 273.15 + TDryBul_degC
        * Modelica.Math.atan(0.151977 * sqrt(rh_per + 8.313659))
        + Modelica.Math.atan(TDryBul_degC + rh_per)
@@ -77,16 +70,17 @@ equation
       pSat=  Buildings.Utilities.Psychrometrics.Functions.saturationPressureLiquid(TWetBul),
       p=     p,
       phi=   1);
-    TWetBul = (TDryBul * ((1-Xi[iWat]) * cpAir + Xi[iWat] * cpSte) + (Xi[iWat]-XiSat) * h_fg)/
-            ( (1-XiSat)*cpAir + XiSat * cpSte);
+    TWetBul = (TDryBul *
+                ((1-Xi[iWat]) * Buildings.Utilities.Psychrometrics.Constants.cpAir +
+                Xi[iWat] * Buildings.Utilities.Psychrometrics.Constants.cpSte) +
+                (Xi[iWat]-XiSat) * Buildings.Utilities.Psychrometrics.Constants.h_fg)/
+            ( (1-XiSat)*Buildings.Utilities.Psychrometrics.Constants.cpAir +
+            XiSat * Buildings.Utilities.Psychrometrics.Constants.cpSte);
     TDryBul_degC = 0;
     rh_per       = 0;
   end if;
 
 annotation (
-  Diagram(coordinateSystem(preserveAspectRatio=true,  extent={{-100,-100},{100,
-            100}}),
-          graphics),
     Icon(coordinateSystem(preserveAspectRatio=true,  extent={{-100,-100},{100,
             100}}), graphics={
         Ellipse(
@@ -136,7 +130,7 @@ annotation (
     defaultComponentName="wetBul",
     Documentation(info="<html>
 <p>
-This block computes the the wet bulb temperature for a given dry bulb temperature, mass fraction
+This block computes the wet bulb temperature for a given dry bulb temperature, mass fraction
 and atmospheric pressure.
 </p>
 <p>
@@ -147,8 +141,8 @@ Otherwise, the model will introduce one nonlinear equation.
 </p>
 <p>
 The approximation by Stull is valid for a relative humidity of <i>5%</i> to <i>99%</i>,
-a temperature range from <i>-20&circ;C</i> to <i>50&circ;C</i> 
-and standard sea level pressure. 
+a temperature range from <i>-20&circ;C</i> to <i>50&circ;C</i>
+and standard sea level pressure.
 For this range of data, the approximation error is <i>-1</i> Kelvin to <i>+0.65</i> Kelvin,
 with a mean error of less than <i>0.3</i> Kelvin.
 </p>
@@ -168,13 +162,27 @@ Stull, Roland.
 Wet-Bulb Temperature from Relative Humidity and Air Temperature
 Roland Stull.</a></i>
 Journal of Applied Meteorology and Climatology.
-Volume 50, Issue 11, pp. 2267-2269. November 2011 
+Volume 50, Issue 11, pp. 2267-2269. November 2011
 DOI: 10.1175/JAMC-D-11-0143.1
 </p>
-</html>
-",
+</html>",
 revisions="<html>
 <ul>
+<li>
+November 17, 2014, by Michael Wetter:<br/>
+Removed test on saturation pressure that avoids it to be larger than
+<code>p</code>.
+This test is not needed as it is only active near or above the boiling temperature,
+and the result is only used in the computation of <code>rh_per</code>.
+I do not see any negative impact from removing this test.
+</li>
+<li>
+July 24, 2014 by Michael Wetter:<br/>
+Revised computation of <code>rh_per</code> to use
+<a href=\"modelica://Buildings.Utilities.Math.Functions.smoothMin\">
+Buildings.Utilities.Math.Functions.smoothMin</a> rather
+than <code>min</code>.
+</li>
 <li>
 November 20, 2013 by Michael Wetter:<br/>
 Updated model to use

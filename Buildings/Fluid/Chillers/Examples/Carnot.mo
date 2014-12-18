@@ -50,13 +50,11 @@ model Carnot "Test model for chiller based on Carnot efficiency"
       = Medium1)                                     annotation (Placement(
         transformation(
         extent={{10,-10},{-10,10}},
-        rotation=0,
         origin={70,40})));
   Buildings.Fluid.Sources.FixedBoundary sin2(nPorts=1, redeclare package Medium
       = Medium2)                                     annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
-        rotation=0,
         origin={-50,-20})));
   Modelica.Blocks.Sources.Ramp uCom(
     height=-1,
@@ -107,9 +105,7 @@ equation
       points={{-39,60},{-10,60},{-10,19},{-2,19}},
       color={0,0,127},
       smooth=Smooth.None));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
-            -100},{100,100}})),
-experiment(StopTime=3600),
+  annotation (experiment(StopTime=3600),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Chillers/Examples/Carnot.mos"
         "Simulate and plot"),
     Documentation(revisions="<html>
@@ -118,6 +114,15 @@ __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Chil
 March 26, 2013 by Michael Wetter:<br/>
 Removed assignment of parameter that had attribute <code>fixed=false</code>.
 </li>
+<li>
+March 3, 2009 by Michael Wetter:<br/>
+First implementation.
+</li>
 </ul>
+</html>", info="<html>
+<p>
+Example that simulates a chiller whose efficiency is scaled based on the
+Carnot cycle.
+</p>
 </html>"));
 end Carnot;

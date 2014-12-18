@@ -101,7 +101,7 @@ equation
 Partial model to implement heat exchanger models.
 </p>
 <p>
-Classes that extend this model need to implement heat and 
+Classes that extend this model need to implement heat and
 mass balance equations in a form like
 </p>
 <pre>
@@ -137,7 +137,7 @@ Added regularization near zero flow.
 </li>
 <li>
 October 2, 2009, by Michael Wetter:<br/>
-Changed computation of inlet temperatures to use 
+Changed computation of inlet temperatures to use
 <code>state_*_inflow</code> which is already known in base class.
 </li>
 <li>
@@ -145,7 +145,5 @@ April 28, 2008, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
-</html>"),
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
-            100,100}})));
+</html>"));
 end PartialEffectiveness;

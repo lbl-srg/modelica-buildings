@@ -7,7 +7,7 @@ This package contains components models for transport delays in
 piping networks.
 </p>
 <p>
-The model 
+The model
 <a href=\"modelica://Buildings.Fluid.Delays.DelayFirstOrder\">
 Buildings.Fluid.Delays.DelayFirstOrder</a>
 approximates transport delays using a first order differential equation.

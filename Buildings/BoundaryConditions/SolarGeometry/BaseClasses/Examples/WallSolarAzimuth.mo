@@ -41,7 +41,7 @@ equation
       points={{1,30},{60,30},{60,14.8},{68,14.8}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(weaBus.sol.zen, altAng.zen) annotation (Line(
+  connect(weaBus.solZen, altAng.zen) annotation (Line(
       points={{-60,10},{-40,10},{-40,30},{-22,30}},
       color={255,204,51},
       thickness=0.5,
@@ -49,9 +49,7 @@ equation
       string="%first",
       index=-1,
       extent={{-6,3},{-6,3}}));
-  annotation (                                                         Diagram(
-        graphics), 
-experiment(StopTime=86400),
+  annotation (experiment(StopTime=86400),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/BoundaryConditions/SolarGeometry/BaseClasses/Examples/WallSolarAzimuth.mos"
         "Simulate and plot"),
 Documentation(info="<html>

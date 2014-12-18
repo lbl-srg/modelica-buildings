@@ -24,13 +24,15 @@ model Temperature_u
                x=0.2) "Phase change material with non-monotone u-T relation";
   parameter Modelica.SIunits.SpecificInternalEnergy ud[Buildings.HeatTransfer.Conduction.nSupPCM](each fixed=false)
     "Support points";
+  parameter Modelica.SIunits.SpecificInternalEnergy udMonotone[Buildings.HeatTransfer.Conduction.nSupPCM](each fixed=false)
+    "Support points";
   parameter Modelica.SIunits.Temperature Td[Buildings.HeatTransfer.Conduction.nSupPCM](each fixed=false)
     "Support points";
-  parameter Real scale=0.999
-    "Scale used to position the points 1,3,4 and 6 while T2=TSol and T5=TLiq";
+  parameter Modelica.SIunits.Temperature TdMonotone[Buildings.HeatTransfer.Conduction.nSupPCM](each fixed=false)
+    "Support points";
   parameter Real dT_du[Buildings.HeatTransfer.Conduction.nSupPCM](each fixed=false, each unit="kg.K2/J")
     "Derivatives at the support points - non-monotone, default in Modelica PCM";
-  parameter Real[Buildings.HeatTransfer.Conduction.nSupPCM] dT_duMonotone(each fixed=false, each unit="kg.K2/J")
+  parameter Real dT_duMonotone[Buildings.HeatTransfer.Conduction.nSupPCM](each fixed=false, each unit="kg.K2/J")
     "Derivatives at the support points for monotone increasing cubic splines";
   Modelica.SIunits.SpecificInternalEnergy u "Specific internal energy";
   Modelica.SIunits.Temperature T
@@ -58,28 +60,36 @@ protected
 
   constant Real conFac(unit="1/s") = 1
     "Conversion factor to satisfy unit check";
-initial algorithm
+initial equation
   // Calculate derivatives at support points (non-monotone)
-  (ud, Td, dT_du) :=
+  (ud, Td, dT_du) =
     Buildings.HeatTransfer.Conduction.BaseClasses.der_temperature_u(
-    materialNonMonotone);
+      c=   materialNonMonotone.c,
+      TSol=materialNonMonotone.TSol,
+      TLiq=materialNonMonotone.TLiq,
+      LHea=materialNonMonotone.LHea,
+      ensureMonotonicity=materialNonMonotone.ensureMonotonicity);
   // Calculate derivatives at support points (monotone);
- (ud, Td, dT_duMonotone) :=
+ (udMonotone, TdMonotone, dT_duMonotone) =
     Buildings.HeatTransfer.Conduction.BaseClasses.der_temperature_u(
-    materialMonotone);
-algorithm
-  u :=  2.5e5+time*(1.5*materialMonotone.c*(materialMonotone.TLiq-273.15)+materialMonotone.LHea)*conFac;
+      c=   materialMonotone.c,
+      TSol=materialMonotone.TSol,
+      TLiq=materialMonotone.TLiq,
+      LHea=materialMonotone.LHea,
+      ensureMonotonicity=materialMonotone.ensureMonotonicity);
+equation
+  u =  2.5e5+time*(1.5*materialMonotone.c*(materialMonotone.TLiq-273.15)+materialMonotone.LHea)*conFac;
 
   // Calculate T based on non-monotone interpolation
-  T := Buildings.HeatTransfer.Conduction.BaseClasses.temperature_u(
+  T = Buildings.HeatTransfer.Conduction.BaseClasses.temperature_u(
        ud=ud,
        Td=Td,
        dT_du=dT_du,
        u=u);
   // Calculate T based on monotone interpolation
-  TMonotone := Buildings.HeatTransfer.Conduction.BaseClasses.temperature_u(
-       ud=ud,
-       Td=Td,
+  TMonotone = Buildings.HeatTransfer.Conduction.BaseClasses.temperature_u(
+       ud=udMonotone,
+       Td=TdMonotone,
        dT_du=dT_duMonotone,
        u=u);
   //Relative errors of obtained temperatures by using monotone and non-monotone
@@ -87,64 +97,71 @@ algorithm
   if time>=1.e-05 then
     if u <= materialMonotone.c*materialMonotone.TSol then
       // Solid region
-      TExa           := u/materialMonotone.c;
+      TExa           = u/materialMonotone.c;
     elseif u >= materialMonotone.c*materialMonotone.TLiq+materialMonotone.LHea then
       // Liquid region
-      TExa           := (u-materialMonotone.LHea)/materialMonotone.c;
+      TExa           = (u-materialMonotone.LHea)/materialMonotone.c;
    else
       // Region of phase transition
-      TExa:=((u + materialMonotone.LHea*materialMonotone.TSol/(materialMonotone.TLiq
+      TExa=((u + materialMonotone.LHea*materialMonotone.TSol/(materialMonotone.TLiq
          - materialMonotone.TSol))/(materialMonotone.c + materialMonotone.LHea/(
         materialMonotone.TLiq - materialMonotone.TSol)));
     end if;
   else
-    TExa :=T;
+    TExa =T;
   end if;
-  errNonMonotone := relativeError(T=T,         TExa=TExa, dTCha=  dTCha);
-  errMonotone    := relativeError(T=TMonotone, TExa=TExa, dTCha=  dTCha);
+  errNonMonotone = relativeError(T=T,         TExa=TExa, dTCha=  dTCha);
+  errMonotone    = relativeError(T=TMonotone, TExa=TExa, dTCha=  dTCha);
 
   annotation (
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
-            100,100}})),
 experiment(StopTime=1.0),
 __Dymola_Commands(file=
           "modelica://Buildings/Resources/Scripts/Dymola/HeatTransfer/Conduction/BaseClasses/Examples/Temperature_u.mos"
         "Simulate and plot"),
     Documentation(info="<html>
 <p>
-This example tests and demonstrates the implementation of the specific internal 
-energy versus temperature <i>T(u)</i> relationship for phase-change problems. 
-Cubic hermite interpolation and linear extrapolation is used to approximate 
-the piece-wise linear <i>T(u)</i> relationship. 
+This example tests and demonstrates the implementation of the specific internal
+energy versus temperature <i>T(u)</i> relationship for phase-change problems.
+Cubic hermite interpolation and linear extrapolation is used to approximate
+the piece-wise linear <i>T(u)</i> relationship.
 A piece-wise linear <i>T(u)</i> relationship is assumed in all three chracteristic regions (solid, mushy and liquid).
 The example uses the functions
 <a href=\"modelica://Buildings.HeatTransfer.Conduction.BaseClasses.der_temperature_u\">
-Buildings.HeatTransfer.Conduction.BaseClasses.der_temperature_u</a> 
-and 
+Buildings.HeatTransfer.Conduction.BaseClasses.der_temperature_u</a>
+and
 <a href=\"modelica://Buildings.HeatTransfer.Conduction.BaseClasses.temeprature_u\">
 Buildings.HeatTransfer.Conduction.BaseClasses.temeprature_u</a>.
-The first function is used to compute 
+The first function is used to compute
 the derivatives at the support points,
-and the second function computes the temperature 
-for a given specific internal energy. 
+and the second function computes the temperature
+for a given specific internal energy.
 </p>
 <p>
-The example also demonstrates the use of cubic hermite spline interpolation with 
-two different settings: One produces an approximation of the <i>T(u)</i> relationship that is monotone, 
-whereas the other does not enforce monotonicity. 
-The latter one is used by default in the <code>Buildings</code> library, 
+The example also demonstrates the use of cubic hermite spline interpolation with
+two different settings: One produces an approximation of the <i>T(u)</i> relationship that is monotone,
+whereas the other does not enforce monotonicity.
+The latter one is used by default in the <code>Buildings</code> library,
 since it produces a higher accuracy in the mushy
 region, especially for materials in which phase-change transformation occurs in a wide
-temperature interval (see the figure below). 
-The curves <code>errNonMonotone</code> and 
+temperature interval (see the figure below).
+The curves <code>errNonMonotone</code> and
 <code>errMonotone</code>
-represent the relative error between approximated and exact temperatures 
+represent the relative error between approximated and exact temperatures
 obtained for different specific internal energy values (right hand side figure).
 </p>
 <p align=\"center\"><img alt=\"image\" src=\"modelica://Buildings/Resources/Images/HeatTransfer/Conduction/BaseClasses/Examples/Temperature_u.png\"/>
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+October 17, 2014, by Michael Wetter:<br/>
+Changed the input argument for the function
+<code>Buildings.HeatTransfer.Conduction.BaseClasses.der_temperature_u</code>
+from type
+<code>Buildings.HeatTransfer.Data.BaseClasses.Material</code>
+to the elements of this type as OpenModelica fails to translate the
+model if the input to this function is a record.
+</li>
 <li>
 October 11, 2013, by Michael Wetter:<br/>
 Added missing <code>each</code> keywords.

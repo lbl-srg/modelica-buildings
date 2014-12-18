@@ -10,7 +10,7 @@ createPlot(id = 1,
  autoerase = true,
  autoreplot = true,
  grid = true,
- color = true, 
+ color = true,
  subPlot = 1,
  filename = "FlatPlateShaCoeTrue.mat",
  leftTitleType = 1,
@@ -31,4 +31,4 @@ createPlot(id = 1,
  leftTitleType = 1,
  bottomTitleType = 1,
  colors = {{0,0,255}});
- 
+

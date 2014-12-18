@@ -37,16 +37,16 @@ of an orifice in the form
   V = k sign(&Delta;p) |&Delta;p|<sup>m</sup>
 </p>
 <p>
-where 
+where
 <i>V</i> is the volume flow rate,
 <i>k &gt; 0</i> is a flow coefficient
 <i>&Delta; p</i> is the pressure drop and
 <i>m &isin; [0.5, 1]</i> is a flow coefficient.
-The equation is regularized for 
+The equation is regularized for
 <i>|&Delta;p| &lt; &Delta;p<sub>t</sub></i>, where
 <i>&Delta;p<sub>t</sub></i> is a parameter.
 For turbulent flow, set <i>m=1 &frasl; 2</i> and
-for laminar flow, set <i>m=1</i>. 
+for laminar flow, set <i>m=1</i>.
 </p>
 <p>
 The model is used for the interzonal air flow models.

@@ -47,14 +47,15 @@ model DryCoilCounterFlow
     "Set to false to make air-side hA independent of temperature"
     annotation (Dialog(tab="Heat transfer"));
 
-  Modelica.SIunits.HeatFlowRate Q1_flow
+  Modelica.SIunits.HeatFlowRate Q1_flow = sum(ele[i].Q1_flow for i in 1:nEle)
     "Heat transfered from solid into medium 1";
-  Modelica.SIunits.HeatFlowRate Q2_flow
+  Modelica.SIunits.HeatFlowRate Q2_flow = sum(ele[i].Q2_flow for i in 1:nEle)
     "Heat transfered from solid into medium 2";
 
-  Modelica.SIunits.Temperature T1[nEle] "Water temperature";
-  Modelica.SIunits.Temperature T2[nEle] "Air temperature";
-  Modelica.SIunits.Temperature T_m[nEle] "Metal temperature";
+  Modelica.SIunits.Temperature T1[nEle] = ele[:].vol1.T "Water temperature";
+  Modelica.SIunits.Temperature T2[nEle] = ele[:].vol2.T "Air temperature";
+  Modelica.SIunits.Temperature T_m[nEle] = ele[:].con1.solid.T
+    "Metal temperature";
 
   BaseClasses.HADryCoil hA(
     final UA_nominal=UA_nominal,
@@ -65,33 +66,32 @@ model DryCoilCounterFlow
     final airSideTemperatureDependent=airSideTemperatureDependent,
     final airSideFlowDependent=airSideFlowDependent,
     r_nominal=r_nominal) "Model for convective heat transfer coefficient"
-    annotation (Placement(transformation(extent={{-60,80},{-40,100}}, rotation=
-            0)));
+    annotation (Placement(transformation(extent={{-60,80},{-40,100}})));
 protected
   Buildings.Fluid.Sensors.TemperatureTwoPort temSen_1(redeclare package Medium
       = Medium1,
     allowFlowReversal=allowFlowReversal1,
     m_flow_nominal=m1_flow_nominal) "Temperature sensor"
                                       annotation (Placement(transformation(
-          extent={{-58,54},{-48,66}}, rotation=0)));
+          extent={{-58,54},{-48,66}})));
   Buildings.Fluid.Sensors.MassFlowRate masFloSen_1(redeclare package Medium =
         Medium1) "Mass flow rate sensor" annotation (Placement(transformation(
-          extent={{-80,54},{-68,66}}, rotation=0)));
+          extent={{-80,54},{-68,66}})));
   Buildings.Fluid.Sensors.TemperatureTwoPort temSen_2(redeclare package Medium
       = Medium2,
     final allowFlowReversal=allowFlowReversal2,
     m_flow_nominal=m2_flow_nominal) "Temperature sensor"
                                       annotation (Placement(transformation(
-          extent={{58,-66},{44,-54}}, rotation=0)));
+          extent={{58,-66},{44,-54}})));
   Buildings.Fluid.Sensors.MassFlowRate masFloSen_2(redeclare package Medium =
         Medium2) "Mass flow rate sensor" annotation (Placement(transformation(
-          extent={{82,-66},{70,-54}}, rotation=0)));
+          extent={{82,-66},{70,-54}})));
   Modelica.Blocks.Math.Gain gai_1(k=1/nEle)
     "Gain medium-side 1 to take discretization into account" annotation (
-      Placement(transformation(extent={{-18,84},{-6,96}}, rotation=0)));
+      Placement(transformation(extent={{-18,84},{-6,96}})));
   Modelica.Blocks.Math.Gain gai_2(k=1/nEle)
     "Gain medium-side 2 to take discretization into account" annotation (
-      Placement(transformation(extent={{-18,62},{-6,74}}, rotation=0)));
+      Placement(transformation(extent={{-18,62},{-6,74}})));
 
   replaceable BaseClasses.HexElementSensible ele[nEle]
   constrainedby BaseClasses.PartialHexElement(
@@ -124,12 +124,8 @@ protected
 initial equation
   assert(UA_nominal > 0,
     "Parameter UA_nominal is negative. Check heat exchanger parameters.");
+
 equation
-  Q1_flow = sum(ele[i].Q1_flow for i in 1:nEle);
-  Q2_flow = sum(ele[i].Q2_flow for i in 1:nEle);
-  T1[:] = ele[:].vol1.T;
-  T2[:] = ele[:].vol2.T;
-  T_m[:] = ele[:].mas.T;
   connect(masFloSen_1.m_flow, hA.m1_flow) annotation (Line(points={{-74,66.6},{
           -74,72},{-82,72},{-82,97},{-61,97}}, color={0,0,127}));
   connect(port_a2, masFloSen_2.port_a)
@@ -228,6 +224,16 @@ this model computes only sensible heat transfer.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+September 12, 2014, by Michael Wetter:<br/>
+Changed assignment of <code>T_m</code> to avoid using the conditionally
+enabled model <code>ele[:].mas.T</code>, which is only
+valid in a connect statement.
+Moved assignments of
+<code>Q1_flow</code>, <code>Q2_flow</code>, <code>T1</code>,
+<code>T2</code> and <code>T_m</code> outside of equation section
+to avoid mixing graphical and textual modeling within the same model.
+</li>
 <li>
 July 3, 2014, by Michael Wetter:<br/>
 Added parameters <code>initialize_p1</code> and <code>initialize_p2</code>.

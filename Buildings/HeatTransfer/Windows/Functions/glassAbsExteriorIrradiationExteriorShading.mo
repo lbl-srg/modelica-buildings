@@ -24,7 +24,7 @@ algorithm
   annotation (Documentation(info="<html>
 <p>
 This function computes angular and hemispherical absorptance of each glass pane for exterior irradiation with exterior shading.
-Pane <code>1</code> is facing outside and pane <code>N</code> is facing the room. 
+Pane <code>1</code> is facing outside and pane <code>N</code> is facing the room.
 </p>
 </html>", revisions="<html>
 <ul>

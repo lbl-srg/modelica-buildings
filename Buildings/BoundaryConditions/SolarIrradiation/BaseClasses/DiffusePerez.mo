@@ -58,7 +58,7 @@ equation
     defaultComponentName="HDifTil",
     Documentation(info="<html>
 <p>
-This component computes the hemispherical diffuse irradiation on a tilted surface by using an anisotropic model proposed by Perez. 
+This component computes the hemispherical diffuse irradiation on a tilted surface by using an anisotropic model proposed by Perez.
 </p>
 <h4>References</h4>
 <ul>
@@ -78,8 +78,7 @@ R. Perez, P. Ineichen, R. Seals, J. Michalsky and R. Stewart (1990).
 Solar Energy, 44(5):271-289.
 </li>
 </ul>
-</html>
-", revisions="<html>
+</html>", revisions="<html>
 <ul>
 <li>
 June 6, 2012, by Wangda Zuo:<br/>
@@ -93,8 +92,6 @@ First implementation.
 </li>
 </ul>
 </html>"),
-    Diagram(coordinateSystem(preserveAspectRatio=true,extent={{-100,-100},{100,
-            100}})),
     Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,
             100}}), graphics={
         Text(

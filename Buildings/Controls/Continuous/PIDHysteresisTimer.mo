@@ -57,11 +57,9 @@ model PIDHysteresisTimer
     annotation (Dialog(group="Initialization"));
 
   Modelica.Blocks.Interfaces.RealOutput tOn "Time since boiler switched on"
-    annotation (Placement(transformation(extent={{100,70},{120,90}},
-        rotation=0)));
+    annotation (Placement(transformation(extent={{100,70},{120,90}})));
   Modelica.Blocks.Interfaces.RealOutput tOff "Time since boiler switched off"
-    annotation (Placement(transformation(extent={{100,30},{120,50}},
-        rotation=0)));
+    annotation (Placement(transformation(extent={{100,30},{120,50}})));
 
   LimPID con(
     controllerType=controllerType,
@@ -104,7 +102,7 @@ public
     annotation (Placement(transformation(extent={{20,30},{40,50}})));
          Modelica.Blocks.Interfaces.BooleanOutput on
     "Outputs true if boiler is on"        annotation (Placement(
-        transformation(extent={{100,-90},{120,-70}},rotation=0)));
+        transformation(extent={{100,-90},{120,-70}})));
 protected
   Modelica.Blocks.Logical.Switch switch1
     annotation (Placement(transformation(extent={{-40,-60},{-20,-40}})));
@@ -213,7 +211,7 @@ equation
       points={{-39,6.10623e-16},{-30,6.10623e-16},{-30,-8},{58,-8}},
       color={255,0,255},
       smooth=Smooth.None));
-  annotation (Diagram(graphics), Icon(graphics={
+  annotation ( Icon(graphics={
         Polygon(
           points={{-80,94},{-88,72},{-72,72},{-80,94}},
           lineColor={192,192,192},
@@ -236,9 +234,9 @@ Block of a controller for set point tracking with a hysteresis element that swit
 controller to short cycle.
 </p>
 <p>
-The controller is similar to 
+The controller is similar to
 <a href=\"modelica://Buildings.Controls.Continuous.PIDHysteresis\">
-Buildings.Controls.Continuous.PIDHysteresis</a> but in addition, 
+Buildings.Controls.Continuous.PIDHysteresis</a> but in addition,
 it has a timer that prevents the controller from switching to on
 too fast. When the controller switches off, the timer starts and
 avoids the controller from switching on until <code>minOffTime</code> seconds elapsed.
@@ -247,7 +245,7 @@ avoids the controller from switching on until <code>minOffTime</code> seconds el
 <li>
 February 24, 2010, by Michael Wetter:<br/>
 Changed PID controller from Modelica Standard Library to
-PID controller from Buildings library to allow reverse control action. 
+PID controller from Buildings library to allow reverse control action.
 </li>
 <li>
 October 2, 2009, by Michael Wetter:<br/>

@@ -9,22 +9,22 @@ import java.util.*;
 /**
  * This class is the parser used to get and store electric chillers from an
  * input file.
- * 
+ *
  * <h3>License agreement</h3>
- * 
+ *
  * The use of this program is subjected to the following <A
  * HREF="../../../../../../../legal.html">license terms</A>.
- * 
+ *
  * @author <A HREF="mailto:TSNouidui@lbl.gov">Thierry Nouidui</A>
  * @version 1.0, October 10, 2010
- * 
+ *
  */
 public class Parser {
 
     /**
      * This is the main routine that finds and stores the electric chillers in
      * arrays.
-     * 
+     *
      * @param fileName
      *            the EnergyPlus idf file name.
      * @return ElectricEIR, reformElectricEIR.
@@ -90,7 +90,7 @@ public class Parser {
 
     /**
      * This methods reads the current ElectricEIR.
-     * 
+     *
      * @param line
      *            current line in the input file.
      * @param reader
@@ -165,7 +165,7 @@ public class Parser {
 
     /**
      * This methods reads the current quadratic curve.
-     * 
+     *
      * @param curve
      *            current quadratic curve.
      * @param reader
@@ -203,7 +203,7 @@ public class Parser {
 
     /**
      * This routine calls a method to set the parameters of the quadratic curve.
-     * 
+     *
      * @param curve
      *            current quadratic curve.
      * @param curveParameters
@@ -220,7 +220,7 @@ public class Parser {
 
     /**
      * This methods gets and sets the parameters of the quadratic curve.
-     * 
+     *
      * @param index
      *            the current index.
      * @param parameter
@@ -260,7 +260,7 @@ public class Parser {
 
     /**
      * This methods reads the current reformulated ElectricEIR.
-     * 
+     *
      * @param line
      *            current line in the input file.
      * @param reader
@@ -335,7 +335,7 @@ public class Parser {
 
     /**
      * This methods reads the current biquadratic curve.
-     * 
+     *
      * @param curve
      *            current biquadratic curve.
      * @param reader
@@ -375,7 +375,7 @@ public class Parser {
     /**
      * This routine calls a method to set the parameters of the biquadratic
      * curve.
-     * 
+     *
      * @param curve
      *            current biquadratic curve.
      * @param curveParameters
@@ -392,7 +392,7 @@ public class Parser {
 
     /**
      * This methods gets and sets the parameters of the biquadratic curve.
-     * 
+     *
      * @param index
      *            current index.
      * @param parameter
@@ -445,7 +445,7 @@ public class Parser {
 
     /**
      * This methods reads the current bicubic curve.
-     * 
+     *
      * @param curve
      *            current bicubic curve.
      * @param reader
@@ -483,7 +483,7 @@ public class Parser {
 
     /**
      * This routine calls a method to set the parameters of the bicubic curve.
-     * 
+     *
      * @param curve
      *            current bicubic curve.
      * @param curveParameters
@@ -500,7 +500,7 @@ public class Parser {
 
     /**
      * This methods gets and sets the parameters of the bicubic curve.
-     * 
+     *
      * @param index
      *            current index.
      * @param parameter
@@ -565,7 +565,7 @@ public class Parser {
 
     /**
      * This routine calls a method to set the parameters of the ElectricEIR.
-     * 
+     *
      * @param eir
      *            an object of type ElectricEIR.
      * @param eirParameters
@@ -584,7 +584,7 @@ public class Parser {
     /**
      * This routine calls a method to set the parameters of the reformulated
      * ElectricEIR.
-     * 
+     *
      * @param reir
      *            and object of type reformulated ElectricEIR.
      * @param reirParameters
@@ -602,7 +602,7 @@ public class Parser {
 
     /**
      * This methods sets the parameters of the ElectricEIR.
-     * 
+     *
      * @param index
      *            current index.
      * @param parameter
@@ -691,7 +691,7 @@ public class Parser {
 
     /**
      * This methods sets the parameters of the reformulated ElectricEIR.
-     * 
+     *
      * @param index
      *            current index.
      * @param parameter

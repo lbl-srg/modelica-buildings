@@ -38,10 +38,10 @@ protected
     "Normalized pressure, used to test slope of polynomial outside [xMin, xMax]";
 
 initial equation
- Modelica.Utilities.Streams.print("The model Buildings.Fluid.Movers.FlowMachinePolynomial is deprecated.
+ Modelica.Utilities.Streams.print("The model Buildings.Obsolete.Fluid.Movers.FlowMachinePolynomial is deprecated.
  It will be removed in future releases.
- You should use Buildings.Fluid.Movers.FlowMachine_y 
- instead of Buildings.Fluid.Movers.FlowMachinePolynomial.");
+ You should use Buildings.Obsolete.Fluid.Movers.FlowMachine_y
+ instead of Buildings.Obsolete.Fluid.Movers.FlowMachinePolynomial.");
  // check slope of polynomial outside the domain [mNorMin_flow, mNorMax_flow]
  pNorMin1 = Buildings.Fluid.Utilities.extendedPolynomial(
                                         c=a, x=mNorMin_flow/2, xMin=mNorMin_flow, xMax=mNorMax_flow);
@@ -112,9 +112,6 @@ annotation (Icon(coordinateSystem(preserveAspectRatio=true,  extent={{-100,-100}
           fillColor={0,0,191},
           fillPattern=FillPattern.Solid),
         Line(points={{0,60},{0,60},{0,60},{0,40}}, color={0,0,255})}),
-                       Diagram(coordinateSystem(preserveAspectRatio=true,
-          extent={{-100,-100},{100,100}}),
-                               graphics),
 defaultComponentName="mov",
     Documentation(revisions="<html>
 <ul>
@@ -144,8 +141,8 @@ The normalized pressure difference is computed using a function of the normalize
 </p>
 <p>
 <b>Note:</b> This model is here for compatibility with older versions of this library.
-For new models, use instead <a href=\"modelica://Buildings.Fluid.Movers.FlowMachine_y\">
-Buildings.Fluid.Movers.FlowMachine_y</a>.
+For new models, use instead <a href=\"modelica://Buildings.Obsolete.Fluid.Movers.FlowMachine_y\">
+Buildings.Obsolete.Fluid.Movers.FlowMachine_y</a>.
 </p>
 </html>"));
 end FlowMachinePolynomial;

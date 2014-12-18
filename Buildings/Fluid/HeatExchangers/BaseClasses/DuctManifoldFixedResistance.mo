@@ -35,15 +35,15 @@ model DuctManifoldFixedResistance
     each ReC=ReC,
     each use_dh=use_dh,
     each linearized=linearized) "Fixed resistance for each duct"
-    annotation (Placement(transformation(extent={{-40,-10},{-20,10}},
-      rotation=0)));
+    annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
 protected
   DuctManifoldFlowDistributor floDis(
     redeclare package Medium = Medium,
     nPipPar=nPipPar,
     mStart_flow_a=mStart_flow_a,
     nPipSeg=nPipSeg,
-    allowFlowReversal=allowFlowReversal)
+    allowFlowReversal=allowFlowReversal,
+    m_flow_nominal=m_flow_nominal)
     "Mass flow distributor to the individual segments of the coil"
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
 equation
@@ -59,10 +59,7 @@ equation
       points={{60,0},{100,0}},
       color={0,127,255},
       smooth=Smooth.None));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}}),
-                      graphics),
-Documentation(info="<html>
+  annotation (Documentation(info="<html>
 <p>
 Duct manifold with a fixed flow resistance.
 </p>

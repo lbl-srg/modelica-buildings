@@ -1,4 +1,4 @@
-/* Style sheet for Modelica documentation 
+/* Style sheet for Modelica documentation
 */
 html {
     color: #191970;
@@ -27,9 +27,9 @@ body {
 
 // begin header css
 div.headerStyle{
-    background-color: white; 
-    text-align: left; 
-    padding: 10px 10px 15px 15px; 
+    background-color: white;
+    text-align: left;
+    padding: 10px 10px 15px 15px;
 }
 
 div.headerLinks {
@@ -53,7 +53,7 @@ div.headerLinks ul li {
     float: left;
     list-style: none;
     margin-left: 0em;
-    
+
 }
 
 div.headerLinks ul li a {
@@ -139,12 +139,12 @@ dd p {
 a, img, img.drawing {
     border: 0;
     /* Restrict image size to width of text.
-     Otherwise, very large image overlap the screen 
+     Otherwise, very large image overlap the screen
     */
     max-width: 865px;
 }
 
-code { 
+code {
     font-family: 'Consolas', 'Deja Vu Sans Mono',
                  'Bitstream Vera Sans Mono', monospace;
     background-color: #F3F5F7;
@@ -200,7 +200,7 @@ table
     max-width: 865px;
 }
 
-table.noBorder, th.noBorder, td.noBorder, tr.noBorder  { 
+table.noBorder, th.noBorder, td.noBorder, tr.noBorder  {
     border: none;
 }
 
@@ -209,14 +209,14 @@ table.noBorder, th.noBorder, td.noBorder, tr.noBorder  {
 {
     min-width: 400px;
     max-width: 400px;
-    word-wrap: break-word; 
+    word-wrap: break-word;
 }
 
 .releaseTable td:nth-child(2)
 {
     min-width: 435px;
     max-width: 435px;
-    word-wrap: break-word; 
+    word-wrap: break-word;
 }
 
 th, td

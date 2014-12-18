@@ -1,7 +1,7 @@
 within Buildings.Fluid.Movers.BaseClasses;
 model IdealSource
   "Base class for pressure and mass flow source with optional power input"
-  extends Modelica.Fluid.Interfaces.PartialTwoPortTransport(show_T=false);
+  extends Buildings.Fluid.Interfaces.PartialTwoPortTransport(show_T=false);
 
   // what to control
   parameter Boolean control_m_flow "= false to control dp instead of m_flow"
@@ -78,7 +78,7 @@ for a pressure source or to prescribe a mass flow rate.
 <p>
 Note that for fans and pumps with dynamic balance,
 both the heat and the flow work are added to the volume of
-air or water. This simplifies the equations compared to 
+air or water. This simplifies the equations compared to
 adding heat to the volume, and flow work to this model.
 </p>
 </html>",
@@ -106,8 +106,5 @@ March 23, 2010 by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
-</html>"),
-    Diagram(coordinateSystem(preserveAspectRatio=true,  extent={{-100,-100},{
-            100,100}}),
-                    graphics));
+</html>"));
 end IdealSource;

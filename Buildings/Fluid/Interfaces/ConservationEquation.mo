@@ -1,15 +1,16 @@
 within Buildings.Fluid.Interfaces;
 model ConservationEquation "Lumped volume with mass and energy balance"
 
-//  outer Modelica.Fluid.System system "System properties";
   extends Buildings.Fluid.Interfaces.LumpedVolumeDeclarations;
   // Port definitions
   parameter Integer nPorts=0 "Number of ports"
     annotation(Evaluate=true, Dialog(connectorSizing=true, tab="General",group="Ports"));
   parameter Boolean initialize_p = not Medium.singleState
     "= true to set up initial equations for pressure";
+  parameter Real mFactor = 1
+    "Factor to scale the thermal mass of the volume";
   Modelica.Fluid.Vessels.BaseClasses.VesselFluidPorts_b ports[nPorts](
-      redeclare each package Medium = Medium) "Fluid inlets and outlets"
+      redeclare each final package Medium = Medium) "Fluid inlets and outlets"
     annotation (Placement(transformation(extent={{-40,-10},{40,10}},
       origin={0,-100})));
 
@@ -17,18 +18,16 @@ model ConservationEquation "Lumped volume with mass and energy balance"
   Medium.BaseProperties medium(
     preferredMediumStates= not (energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState),
     p(start=p_start,
-      nominal=Medium.p_default,
       stateSelect=if not (massDynamics == Modelica.Fluid.Types.Dynamics.SteadyState)
                      then StateSelect.prefer else StateSelect.default),
     h(start=hStart),
     T(start=T_start,
-      nominal=Medium.T_default,
       stateSelect=if (not (energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState))
                      then StateSelect.prefer else StateSelect.default),
     Xi(start=X_start[1:Medium.nXi],
-       nominal=Medium.X_default[1:Medium.nXi],
        each stateSelect=if (not (substanceDynamics == Modelica.Fluid.Types.Dynamics.SteadyState))
                      then StateSelect.prefer else StateSelect.default),
+    X(start=X_start),
     d(start=rho_nominal)) "Medium properties";
 
   Modelica.SIunits.Energy U "Internal energy of fluid";
@@ -157,7 +156,7 @@ equation
   // Total quantities
   m = fluidVolume*medium.d;
   mXi = m*medium.Xi;
-  U = m*medium.u;
+  U = m*medium.u*mFactor;
   mC = m*C;
 
   hOut = medium.h;
@@ -255,6 +254,24 @@ Buildings.Fluid.MixingVolumes.MixingVolume</a>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+October 21, 2014, by Filip Jorissen:<br/>
+Added parameter <code>mFactor</code> to increase the thermal capacity.
+</li>
+<li>
+October 6, 2014, by Michael Wetter:<br/>
+Changed medium declaration in ports to be final.
+</li>
+<li>
+October 6, 2014, by Michael Wetter:<br/>
+Set start attributes in <code>medium</code> to avoid in OpenModelica the warning
+alias set with several free start values.
+</li>
+<li>
+October 3, 2014, by Michael Wetter:<br/>
+Changed assignment of nominal value to avoid in OpenModelica the warning
+alias set with different nominal values.
+</li>
 <li>
 July 3, 2014, by Michael Wetter:<br/>
 Added parameter <code>initialize_p</code>. This is required
@@ -354,9 +371,6 @@ Implemented first version in <code>Buildings</code> library, based on model from
 </li>
 </ul>
 </html>"),
-    Diagram(coordinateSystem(preserveAspectRatio=true,  extent={{-100,-100},{
-            100,100}}),
-            graphics),
     Icon(graphics={            Rectangle(
           extent={{-100,100},{100,-100}},
           fillColor={135,135,135},

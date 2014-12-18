@@ -54,9 +54,9 @@ algorithm
 
   annotation (Documentation(info="<html>
 <p>
-This function computes the angular variation of the transmittance and reflectance of each glass pane for exteior irradiation without shading. 
-It accounts for the transmittance and reflectance among different panes. 
-Pane <code>1</code> is facing outside and pane <code>N</code> is facing the room. 
+This function computes the angular variation of the transmittance and reflectance of each glass pane for exteior irradiation without shading.
+It accounts for the transmittance and reflectance among different panes.
+Pane <code>1</code> is facing outside and pane <code>N</code> is facing the room.
 </p>
 </html>", revisions="<html>
 <ul>

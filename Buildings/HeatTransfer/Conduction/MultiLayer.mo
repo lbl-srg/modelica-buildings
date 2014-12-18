@@ -2,7 +2,7 @@ within Buildings.HeatTransfer.Conduction;
 model MultiLayer
   "Model for heat conductance through a solid with multiple material layers"
   extends Buildings.HeatTransfer.Conduction.BaseClasses.PartialConductor(
-   final R=sum(lay[i].R for i in 1:nLay));
+   final R=sum(layers.material[i].R for i in 1:nLay));
   Modelica.SIunits.Temperature T[sum(nSta)](each nominal = 300)
     "Temperature at the states";
   Modelica.SIunits.HeatFlowRate Q_flow[sum(nSta)+nLay]
@@ -10,21 +10,24 @@ model MultiLayer
   extends Buildings.HeatTransfer.Conduction.BaseClasses.PartialConstruction;
 
 protected
-  Buildings.HeatTransfer.Conduction.SingleLayer[nLay] lay(
+  Buildings.HeatTransfer.Conduction.SingleLayer[layers.nLay] lay(
    each final A=A,
-   material = layers.material,
+   material = {layers.material[i] for i in 1:layers.nLay},
    T_a_start = _T_a_start,
    T_b_start = _T_b_start,
    each steadyStateInitial = steadyStateInitial) "Material layer"
     annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
 
-protected
-  parameter Modelica.SIunits.Temperature _T_a_start[nLay]=
-    { T_b_start+(T_a_start-T_b_start) * 1/R * sum(lay[k].R for k in i:nLay) for i in 1:nLay}
+  final parameter Modelica.SIunits.Temperature _T_a_start[nLay](each fixed=false)
     "Initial temperature at port_a of respective layer, used if steadyStateInitial = false";
-  parameter Modelica.SIunits.Temperature _T_b_start[nLay]=
-    { T_a_start+(T_b_start-T_a_start) * 1/R * sum(lay[k].R for k in 1:i) for i in 1:nLay}
+  final parameter Modelica.SIunits.Temperature _T_b_start[nLay](each fixed=false)
     "Initial temperature at port_b of respective layer, used if steadyStateInitial = false";
+
+initial equation
+  _T_a_start = { T_b_start+(T_a_start-T_b_start) * 1/R *
+    sum(layers.material[k].R for k in i:nLay) for i in 1:nLay};
+  _T_b_start = { T_a_start+(T_b_start-T_a_start) * 1/R *
+    sum(layers.material[k].R for k in 1:i) for i in 1:nLay};
 equation
   // This section assigns the temperatures and heat flow rates of the layer models to
   // an array that makes plotting the results easier.
@@ -54,8 +57,7 @@ equation
       color={191,0,0},
       smooth=Smooth.None));
 
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
-            -100},{100,100}})), Icon(coordinateSystem(
+  annotation ( Icon(coordinateSystem(
           preserveAspectRatio=true, extent={{-100,-100},{100,100}}), graphics={
         Rectangle(
           extent={{-90,2},{92,-4}},
@@ -119,7 +121,7 @@ equation
 <p>
 This is a model of a heat conductor with multiple material layers and energy storage.
 The construction has at least one material layer, and each layer has
-at least one temperature node. The layers are modeled using an instance of 
+at least one temperature node. The layers are modeled using an instance of
 <a href=\"Buildings.HeatTransfer.Conduction.SingleLayer\">
 Buildings.HeatTransfer.Conduction.SingleLayer</a>.
 </p>
@@ -129,7 +131,32 @@ The construction material is defined by a record of the package
 Buildings.HeatTransfer.Data.OpaqueConstructions</a>.
 This record allows specifying materials that store energy, and material
 that are a thermal conductor only with no heat storage.
+To assign the material properties to this model, do the following:
 </p>
+<ol>
+<li>
+Create an instance of a record of
+<a href=\"modelica://Buildings.HeatTransfer.Data.OpaqueConstructions\">
+Buildings.HeatTransfer.Data.OpaqueConstructions</a>, for example
+by dragging the record into the schematic model editor.
+</li>
+<li>
+Make sure the instance has the attribute <code>parameter</code>, which may not be
+assigned automatically when you drop the model in a graphical editor. For
+example, an instanciation may look like
+<pre>
+ parameter Data.OpaqueConstructions.Insulation100Concrete200 layers
+   \"Material layers of construction\"
+   annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
+</pre>
+</li>
+<li>
+Assign the instance of the material to the instance of the heat transfer
+model as shown in
+<a href=\"modelica://Buildings.HeatTransfer.Examples.ConductorMultiLayer\">
+Buildings.HeatTransfer.Examples.ConductorMultiLayer</a>.
+</li>
+</ol>
 <p>
 To obtain the surface temperature of the construction, use <code>port_a.T</code> (or <code>port_b.T</code>)
 and not the variable <code>T[1]</code> because there is a thermal resistance between the surface
@@ -137,6 +164,21 @@ and the temperature state.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+October 15, 2014, by Michael Wetter:<br/>
+Changed assignment of <code>R</code> to be in the <code>extends</code> statement
+to avoid a division by zero in OpenModelica.
+</li>
+<li>
+September 9, 2014, by Michael Wetter:<br/>
+Reverted change from March 1 2013 as this causes an error during model check
+in Dymola 2015 FD01 beta1.
+</li>
+<li>
+August 12, 2014, by Michael Wetter:<br/>
+Reformulated the protected elements and the model instantiation to avoid
+a warning in the OpenModelica parser.
+</li>
 <li>
 March 1, 2013, by Michael Wetter:<br/>
 Removed <code>initial equation</code> section and assigned the protected parameters

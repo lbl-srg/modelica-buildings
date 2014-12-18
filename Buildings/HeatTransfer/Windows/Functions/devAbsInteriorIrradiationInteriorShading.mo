@@ -19,7 +19,7 @@ algorithm
 
   annotation (Documentation(info="<html>
 <p>
-This function computes the hemiperical absorbtance of a shading device for interior irradiation with interior shading. 
+This function computes the hemiperical absorbtance of a shading device for interior irradiation with interior shading.
 </p>
 </html>", revisions="<html>
 <ul>

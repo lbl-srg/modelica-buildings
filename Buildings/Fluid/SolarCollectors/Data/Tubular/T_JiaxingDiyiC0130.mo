@@ -26,5 +26,5 @@ record T_JiaxingDiyiC0130 =
       <p>
         The ratings provided for <code>dp_nominal</code> were suspicious
         so 100 Pa is used instead.<br/>
-      </p>    
+      </p>
     </html>"));

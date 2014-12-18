@@ -11,7 +11,7 @@ annotation (
 Documentation(
 info="<html>
 <p>
-Function to compute the dew point temperature based on the 
+Function to compute the dew point temperature based on the
 partial water vapor concentration.
 </p>
 </html>",
@@ -19,9 +19,9 @@ revisions="<html>
 <ul>
 <li>
 August 10, 2011, by Michael Wetter:<br/>
-Changed function to extend from 
+Changed function to extend from
 <code>Modelica.Media.Common.OneNonLinearEquation</code>
-instead of 
+instead of
 <code>Buildings.Utilities.Math.BaseClasses.OneNonLinearEquation</code>.
 </li>
 <li>

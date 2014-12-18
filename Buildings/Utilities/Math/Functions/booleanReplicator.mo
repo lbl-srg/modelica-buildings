@@ -10,7 +10,6 @@ algorithm
   annotation (Documentation(info="<html>
 <p>This function replicates the boolean input signal to an array of <code>nout</code> identical output signals. </p>
 </html>", revisions="<html>
-<p>
 <ul>
 <li>November 28, 2013, by Marcus Fuchs:<br/>
 Implementation based on Kaustubh Phalak&apos;s block
@@ -18,6 +17,5 @@ Implementation based on Kaustubh Phalak&apos;s block
 Buildings.Utilities.Math.BooleanReplicator</a>.
 </li>
 </ul>
-</p>
 </html>"));
 end booleanReplicator;

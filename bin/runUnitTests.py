@@ -2,19 +2,19 @@
 #######################################################
 # Script that runs all unit tests.
 #
-# This script 
-# - creates temporary directories for each processors, 
+# This script
+# - creates temporary directories for each processors,
 # - copies the library directory into these
 #   temporary directories,
 # - creates run scripts that run all unit tests,
 # - runs these unit tests,
 # - collects the dymola log files from each process,
 # - writes the combined log file 'unitTests.log'
-#   in the current directory, 
+#   in the current directory,
 # - checks whether all unit tests run successfully,
 #   and produced the same results as the reference
 #   results, and
-# - exits with the message 
+# - exits with the message
 #    'Unit tests completed successfully.' or with
 #   an error message.
 #
@@ -61,9 +61,12 @@ def _runUnitTests():
 #    ut.deleteTemporaryDirectories(False)
 #    ut.useExistingResults(['/tmp/tmp-Buildings-0-fagmeZ'])
 #    #print ut.getDataDictionary()
+#    ut.setSinglePackage("Buildings.Fluid.HeatExchangers.DXCoils")
+#    ut.include_fmu_tests(True)
+
 #    ut.setSinglePackage("Buildings.Examples")
 #    ut.setSinglePackage("Buildings.Electrical.DC")
-    ut.setSinglePackage("Buildings.Electrical.DC.Sources.Examples")
+#    ut.setSinglePackage("Buildings.Electrical.DC.Sources.Examples")
 #    ut.setSinglePackage("Buildings.Electrical.AC")
 #    ut.setSinglePackage("Buildings.Electrical.AC.OnePhase")
 #    ut.setSinglePackage("Buildings.Electrical.AC.OnePhase.Loads.Examples")
@@ -87,6 +90,7 @@ def _runUnitTests():
 #    ut.setSinglePackage("Buildings.Electrical.AC.ThreePhasesUnbalanced.Validation")
 #    ut.setSinglePackage("Buildings.Electrical.AC.ThreePhasesUnbalanced.Interfaces.Examples")
 #    ut.setSinglePackage("Buildings.Electrical.Utilities.Examples")
+
     retVal = ut.run()
     exit(retVal)
 
@@ -114,10 +118,10 @@ if __name__ == '__main__':
 
     # Set environment variables
     if platform.system() == "Windows":
-        _setEnvironmentVariables("PATH", 
+        _setEnvironmentVariables("PATH",
                                  os.path.join(os.path.abspath('.'), "Resources", "Library", "win32"))
     else:
-        _setEnvironmentVariables("LD_LIBRARY_PATH", 
+        _setEnvironmentVariables("LD_LIBRARY_PATH",
                                  os.path.join(os.path.abspath('.'), "Resources", "Library", "linux32"))
 
     # The path to buildingspy must be added to sys.path to work on Linux.
@@ -126,4 +130,3 @@ if __name__ == '__main__':
 
 
     _runUnitTests()
-

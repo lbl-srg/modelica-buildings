@@ -12,11 +12,10 @@ model OnlySurfaceBoundary "Test model for room model"
   Buildings.HeatTransfer.Sources.FixedTemperature TBou[nSurBou](each T=288.15)
     "Boundary condition for construction" annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
-        rotation=0,
         origin={130,-70})));
-  HeatTransfer.Conduction.MultiLayer conOut[nSurBou](each A=15, redeclare
-      Buildings.HeatTransfer.Data.OpaqueConstructions.Brick120 layers)
-    "Construction that is modeled outside of room"
+  HeatTransfer.Conduction.MultiLayer conOut[nSurBou](
+    each A=15,
+    each layers = matLayPar) "Construction that is modeled outside of room"
     annotation (Placement(transformation(extent={{80,-80},{100,-60}})));
 equation
   connect(TBou.port, conOut.port_b) annotation (Line(

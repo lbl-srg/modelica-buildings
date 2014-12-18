@@ -7,23 +7,23 @@ import java.io.IOException;
  * This program converts DX cooling coils performance curves from <code>idf</code>
  * -format for EnergyPlus to <code>mo</code>-format for Modelica.
  * <p>
- * 
+ *
  * To convert the performance curves, run this program as
- * 
+ *
  * <pre>
  *      java -jar ConvertDXData.jar inputFile.idf
  * </pre>
- * 
+ *
  * where <code>inputFile</code> is an EnergyPlus IDF file in the
  * <code>idf</code>-format. This will produce two <code>.mo</code> files. if
  * duplicates exist in the input file, they will be removed and printed in the
  * <code>.txt</code> output files.
- * 
+ *
  * <h3>License agreement</h3>
- * 
+ *
  * The use of this program is subjected to the following <A
  * HREF="../../../../../../../legal.html">license terms</A>.
- * 
+ *
  * @author <A HREF="mailto:TSNouidui@lbl.gov">Thierry Nouidui</A>
  * @version 1.0, November 20, 2012
  */
@@ -31,7 +31,7 @@ public class ConvertDXData {
 
     /**
      * This is the main routine that starts the program.
-     * 
+     *
      */
     public static void main(String[] args) {
 
@@ -67,7 +67,7 @@ public class ConvertDXData {
                 result.dxSingleSpeedsDuplicates("SingleSpeed_Report.txt");
             }
             ;
-            
+
             result.toMoDXDoubleSpeedsFile("DoubleSpeed.mo");
           /*
             if (result.cardinalDXDoubleSpeedsDuplicatesFile(fileName) != 0) {

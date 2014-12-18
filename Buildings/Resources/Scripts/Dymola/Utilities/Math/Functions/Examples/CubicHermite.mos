@@ -14,4 +14,3 @@ createPlot(id = 1,
  filename = "CubicHermite.mat",
  leftTitleType = 1,
  bottomTitleType = 1);
-
