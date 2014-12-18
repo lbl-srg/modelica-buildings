@@ -6,8 +6,7 @@ model TraceSubstances "Ideal one port trace substances sensor"
 
   Modelica.Blocks.Interfaces.RealOutput C(min=0)
     "Trace substance in port medium"
-    annotation (Placement(transformation(extent={{100,-10},{120,10}},
-          rotation=0)));
+    annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 
 protected
   parameter Real s[Medium.nC](each fixed=false)
@@ -32,8 +31,6 @@ equation
   // if we set C = CVec[ind];
   C = s*inStream(port.C_outflow);
 annotation (defaultComponentName="senTraSub",
-  Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
-            100}}),     graphics),
   Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
         graphics={
         Line(points={{0,-70},{0,-100}}, color={0,0,127}),
@@ -48,17 +45,16 @@ annotation (defaultComponentName="senTraSub",
         Line(points={{70,0},{100,0}}, color={0,0,127})}),
   Documentation(info="<html>
 <p>
-This model outputs the trace substances contained in the fluid connected to its port. 
+This model outputs the trace substances contained in the fluid connected to its port.
 The sensor is ideal, i.e., it does not influence the fluid.
 </p>
 <p>
-Read the 
+Read the
 <a href=\"modelica://Buildings.Fluid.Sensors.UsersGuide\">
 Buildings.Fluid.Sensors.UsersGuide</a>
 prior to using this model with one fluid port.
 </p>
-</html>
-", revisions="<html>
+</html>", revisions="<html>
 <ul>
 <li>
 September 10, 2013, by Michael Wetter:<br/>

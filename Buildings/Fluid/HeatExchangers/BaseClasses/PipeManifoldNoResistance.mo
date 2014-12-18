@@ -15,15 +15,12 @@ equation
       points={{8,0},{100,0}},
       color={0,127,255},
       smooth=Smooth.None));
-annotation (Diagram(coordinateSystem(preserveAspectRatio=true,  extent={{-100,
-            -100},{100,100}}),
-                    graphics),
-Documentation(info="<html>
+annotation (Documentation(info="<html>
 <p>
 Pipe manifold without flow resistance.
 </p>
 <p>
-This model connects the flows between the ports without 
+This model connects the flows between the ports without
 modeling flow friction. The model is used in conjunction with
 a manifold which contains pressure drop elements and that
 is added to the other side of the heat exchanger registers.

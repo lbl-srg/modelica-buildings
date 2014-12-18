@@ -36,7 +36,7 @@ algorithm
       Documentation(info="<html>
 <p>
 This function computes for a given specific internal energy <i>u</i>
-the temperature <i>T(u)</i>, using a cubic hermite spline approximation to the 
+the temperature <i>T(u)</i>, using a cubic hermite spline approximation to the
 temperature vs. specific internal energy relation.
 Input to the function are the derivatives <i>dT/du</i> at the support points.
 These derivatives can be computed using
@@ -45,7 +45,7 @@ Buildings.HeatTransfer.Conduction.BaseClasses.der_temperature_u</a>.
 </p>
 <h4>Implementation</h4>
 <p>
-The derivatives <i>dT/du</i> are an input to this function because they typically only need 
+The derivatives <i>dT/du</i> are an input to this function because they typically only need
 to be computed once, whereas <i>T(u)</i> must be evaluated at each time step.
 </p>
 </html>",

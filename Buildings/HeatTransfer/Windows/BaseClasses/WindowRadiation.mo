@@ -130,7 +130,7 @@ equation
   annotation (
     Documentation(info="<html>
 <p>
-The model calculates solar radiation through the window. 
+The model calculates solar radiation through the window.
 The calculations follow the description in Wetter (2004), Appendix A.4.3.
 </p>
 <p>
@@ -237,7 +237,7 @@ Revise the model by separating transmittance and absorbance.
 </li>
 <li>
 December 12, 2010, by Michael Wetter:<br/>
-Replaced record 
+Replaced record
 <a href=\"modelica://Buildings.HeatTransfer.Data.GlazingSystems\">
 Buildings.HeatTransfer.Data.GlazingSystems</a> with the
 parameters used by this model.

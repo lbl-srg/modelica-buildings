@@ -13,8 +13,7 @@ block CoolingCoilTemperatureSetpoint "Set point scheduler for cooling coil"
           TCooOn else TCooOff) "Supply air temperature setpoint for cooling"
     annotation (Placement(transformation(extent={{-22,-50},{-2,-30}})));
   Modelica.Blocks.Interfaces.RealInput TSetHea "Set point for heating coil"
-    annotation (Placement(transformation(extent={{-140,-20},{-100,20}},
-        rotation=0)));
+    annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
   Modelica.Blocks.Math.Add add
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
   Modelica.Blocks.Sources.Constant dTMin(k=1)
@@ -57,8 +56,7 @@ equation
       points={{-120,1.11022e-15},{-52,1.11022e-15},{-52,-6},{18,-6}},
       color={0,0,127},
       smooth=Smooth.None));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
-            -100},{100,100}})), Icon(graphics={
+  annotation ( Icon(graphics={
         Text(
           extent={{44,16},{90,-18}},
           lineColor={0,0,255},

@@ -1,9 +1,13 @@
 within Buildings.Obsolete.Fluid.Movers;
-package Examples "Package with obsolete models for examples of flow machines"
-  extends Modelica.Icons.Package;
+package Examples "Collection of models that illustrate model use and test models"
+  extends Modelica.Icons.ExamplesPackage;
 
-annotation (
-preferredView="info", Documentation(info="<html>
-This package contains obsolete models that are planned to be removed.
+
+annotation (preferredView="info", Documentation(info="<html>
+<p>
+This package contains examples for the use of models that can be found in
+<a href=\"modelica://Buildings.Obsolete.Fluid.Movers\">
+Buildings.Obsolete.Fluid.Movers</a>.
+</p>
 </html>"));
 end Examples;

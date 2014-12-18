@@ -49,8 +49,9 @@ protected
   Modelica.SIunits.Density rho_in "Density of inflowing fluid";
 
   Buildings.Fluid.Movers.BaseClasses.IdealSource preSou(
-  redeclare package Medium = Medium,
-    allowFlowReversal=allowFlowReversal) "Pressure source"
+    redeclare final package Medium = Medium,
+    final m_flow_small=m_flow_small,
+    final allowFlowReversal=allowFlowReversal) "Pressure source"
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
 
   Buildings.HeatTransfer.Sources.PrescribedHeatFlow prePow if addPowerToMedium
@@ -140,9 +141,6 @@ equation
           fillPattern=FillPattern.Solid,
           textString="M",
           textStyle={TextStyle.Bold})}),
-    Diagram(coordinateSystem(preserveAspectRatio=true,  extent={{-100,-100},{100,
-            100}}),
-            graphics),
     Documentation(info="<html>
 <p>This is the base model for fans and pumps.
 It provides an interface
@@ -156,7 +154,7 @@ the parameter <code>dynamicBalance</code>, the fluid volume
 is computed using a dynamic balance or a steady-state balance.
 </p>
 <p>
-The parameter <code>addPowerToMedium</code> determines whether 
+The parameter <code>addPowerToMedium</code> determines whether
 any power is added to the fluid. The default is <code>addPowerToMedium=true</code>,
 and hence the outlet enthalpy is higher than the inlet enthalpy if the
 flow device is operating.

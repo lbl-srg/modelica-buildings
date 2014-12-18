@@ -13,7 +13,6 @@ model Exterior "Test model for exterior heat transfer coefficients"
     "North-facing wall"                       annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
-        rotation=0,
         origin={30,30})));
   Buildings.HeatTransfer.Convection.Exterior wes(
     A=1,
@@ -23,7 +22,6 @@ model Exterior "Test model for exterior heat transfer coefficients"
     "West facing wall"                                         annotation (
       Placement(transformation(
         extent={{-10,-10},{10,10}},
-        rotation=0,
         origin={-10,0})));
   Buildings.HeatTransfer.Sources.PrescribedTemperature TA1
     annotation (Placement(transformation(extent={{-60,40},{-40,60}})));
@@ -41,7 +39,6 @@ model Exterior "Test model for exterior heat transfer coefficients"
     "South facing wall"                         annotation (
       Placement(transformation(
         extent={{-10,-10},{10,10}},
-        rotation=0,
         origin={30,-30})));
   Buildings.HeatTransfer.Convection.Exterior eas(
     A=1,
@@ -51,7 +48,6 @@ model Exterior "Test model for exterior heat transfer coefficients"
     "East facing wall"                          annotation (
       Placement(transformation(
         extent={{-10,-10},{10,10}},
-        rotation=0,
         origin={70,-14})));
   Buildings.HeatTransfer.Sources.FixedTemperature TB1(T=293.15)
     annotation (Placement(transformation(extent={{120,0},{100,20}})));

@@ -146,8 +146,7 @@ algorithm
    end when;
 
   annotation (defaultComponentName="cliBCVTB",
-   Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,
-            100}}),            graphics), Icon(coordinateSystem(
+ Icon(coordinateSystem(
           preserveAspectRatio=false, extent={{-100,-100},{100,100}}), graphics={
         Rectangle(
           visible=not activateInterface,
@@ -284,7 +283,7 @@ algorithm
           fillPattern=FillPattern.Solid,
           textString="tS=%samplePeriod%")}),
     Documentation(info="<html>
-Block that exchanges data with the 
+Block that exchanges data with the
 <a href=\"http://simulationresearch.lbl.gov/bcvtb\">Building Controls Virtual Test Bed</a> (BCVTB).
 <p>
 At the start of the simulation, this block establishes a socket connection
@@ -295,7 +294,7 @@ When Dymola terminates, a signal is sent to the BCVTB
 so that it can terminate gracefully.
 </p>
 <p>
-For each element in the input vector <code>uR[nDblWri]</code>, 
+For each element in the input vector <code>uR[nDblWri]</code>,
 the value of the flag <code>flaDblWri[nDblWri]</code> determines whether
 the current value, the average over the sampling interval or the integral
 over the sampling interval is sent to the BCVTB. The following three options are allowed:
@@ -347,8 +346,8 @@ the test that picks <code>uR[i]</code> or <code>uStart[i]</code>, and hence ther
 <p>
 If the parameter <code>activateInterface</code> is set to false, then no data is exchanged with the BCVTB.
 The output of this block is then equal to the value of the parameter <code>yRFixed[nDblRea]</code>.
-This option can be helpful during debugging. Since during model translation, the functions are 
-still linked to the C library, the header files and libraries need to be present in the current working 
+This option can be helpful during debugging. Since during model translation, the functions are
+still linked to the C library, the header files and libraries need to be present in the current working
 directory even if <code>activateInterface=false</code>.
 </p>
 </html>", revisions="<html>

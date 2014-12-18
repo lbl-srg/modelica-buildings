@@ -1,5 +1,5 @@
 within Buildings.Fluid.FixedResistances;
-package BaseClasses 
+package BaseClasses
 extends Modelica.Icons.BasesPackage;
 annotation (preferredView="info", Documentation(info="<html>
 <p>

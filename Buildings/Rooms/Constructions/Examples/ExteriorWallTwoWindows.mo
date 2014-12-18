@@ -28,9 +28,7 @@ model ExteriorWallTwoWindows
     annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
 
   parameter Buildings.Rooms.BaseClasses.ParameterConstructionWithWindow conPar[nCon](
-    redeclare
-      Buildings.HeatTransfer.Data.OpaqueConstructions.Insulation100Concrete200
-      layers,
+    each layers = extConMat,
     each til=Buildings.HeatTransfer.Types.Tilt.Wall,
     each azi=0.017453292519943,
     A=A,
@@ -38,6 +36,10 @@ model ExteriorWallTwoWindows
     wWin=wWin,
     glaSys = {glaSys1, glaSys2}) "Construction parameters"
     annotation (Placement(transformation(extent={{-40,60},{-20,80}})));
+
+  parameter HeatTransfer.Data.OpaqueConstructions.Insulation100Concrete200 extConMat
+    "Record for material layers"
+    annotation (Placement(transformation(extent={{-160,60},{-140,80}})));
 
   ConstructionWithWindow conExt[nCon](
     layers=conPar[:].layers,
@@ -74,9 +76,6 @@ model ExteriorWallTwoWindows
   BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam=
         "modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos")
     annotation (Placement(transformation(extent={{100,60},{120,80}})));
-  HeatTransfer.Data.OpaqueConstructions.Insulation100Concrete200 extConMat
-    "Record for material layers"
-    annotation (Placement(transformation(extent={{-160,60},{-140,80}})));
 
   Modelica.Blocks.Sources.Constant uSha(k=0) "Shading control signal"
     annotation (Placement(transformation(extent={{-190,-42},{-170,-22}})));
@@ -307,12 +306,12 @@ which was set to an interior instead of an exterior convection model.
 June 12, 2013, by Michael Wetter:<br/>
 Redesigned model to separate convection from radiation, which is
 required for the implementation of a CFD model.
-Corrected wrong connection to frame heat transfer. The previous implementation accounted 
+Corrected wrong connection to frame heat transfer. The previous implementation accounted
 twice for the convective resistance of the frame on the room-side.
 </li>
 <li>
 March 7, 2012, by Michael Wetter:<br/>
-Updated example to use new data model 
+Updated example to use new data model
 <a href=\"modelica://Buildings.Rooms.BaseClasses.ParameterConstructionWithWindow\">
 Buildings.Rooms.BaseClasses.ParameterConstructionWithWindow</a>
 in model for boundary conditions.

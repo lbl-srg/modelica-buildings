@@ -8,9 +8,9 @@ equation
 <p>This block computes a polynomial of arbitrary order. The polynomial has the form </p>
 <p align=\"center\"><i>y = a1 + a2 x + a3 x2 + ... </i></p>
 </html>", revisions="<html>
-<p><ul>
+<ul>
 <li>November 28, 2013, by Marcus Fuchs:<br/>First implementation. </li>
-</ul></p>
+</ul>
 </html>"), Icon(graphics={   Text(
           extent={{-90,38},{90,-34}},
           lineColor={160,160,164},

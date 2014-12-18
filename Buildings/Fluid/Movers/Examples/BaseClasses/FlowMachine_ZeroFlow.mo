@@ -2,10 +2,9 @@ within Buildings.Fluid.Movers.Examples.BaseClasses;
 partial model FlowMachine_ZeroFlow
   "Base class to test flow machines with zero flow rate"
 
-  package Medium = Buildings.Media.GasesPTDecoupled.MoistAirUnsaturated;
-
-  inner Modelica.Fluid.System system
-    annotation (Placement(transformation(extent={{120,-80},{140,-60}})));
+  replaceable package Medium =
+    Buildings.Media.GasesPTDecoupled.MoistAirUnsaturated
+      constrainedby Modelica.Media.Interfaces.PartialMedium "Medium model";
 
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal= 1
     "Nominal mass flow rate";
@@ -17,23 +16,20 @@ partial model FlowMachine_ZeroFlow
     duration=0.5,
     startTime=0.25,
     height=-1) "Input signal"
-                 annotation (Placement(transformation(extent={{-90,90},{-70,110}},
-          rotation=0)));
+    annotation (Placement(transformation(extent={{-90,90},{-70,110}})));
   Buildings.Fluid.Sources.Boundary_pT sou(
     redeclare package Medium = Medium,
     use_p_in=false,
-    p=system.p_ambient,
+    p=101325,
     T=293.15,
-    nPorts=4) annotation (Placement(transformation(extent={{-88,-46},{-68,-26}},
-          rotation=0)));
+    nPorts=4) annotation (Placement(transformation(extent={{-88,-46},{-68,-26}})));
   Buildings.Fluid.FixedResistances.FixedResistanceDpM dpSta(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
     dp_nominal=dp_nominal/2) "Pressure drop"
     annotation (Placement(transformation(extent={{58,70},{78,90}})));
   replaceable Buildings.Fluid.Movers.BaseClasses.PartialFlowMachine floMacSta
-                      constrainedby
-    Buildings.Fluid.Movers.BaseClasses.PartialFlowMachine(
+    constrainedby Buildings.Fluid.Movers.BaseClasses.PartialFlowMachine(
       redeclare package Medium = Medium,
       energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
       dynamicBalance=false) "Static model of a flow machine"
@@ -63,7 +59,7 @@ partial model FlowMachine_ZeroFlow
     annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
 equation
   connect(floMacSta.port_b, dpSta.port_a)
-                                   annotation (Line(
+    annotation (Line(
       points={{40,80},{58,80}},
       color={0,127,255},
       smooth=Smooth.None));
@@ -107,6 +103,24 @@ equation
     Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{160,
             160}})),
     Documentation(info="<html>
-This example demonstrates the use of a flow machine whose flow rate transitions to zero.
+<p>
+This is the base class for examples that demonstrates the use of a flow machine whose flow rate transitions to zero.
+</p>
+</html>", revisions="<html>
+<ul>
+<li>
+September 20, 2014, by Michael Wetter:<br/>
+Added <code>constrainedby</code> declaration for medium.
+Otherwise, the pedantic model check of 
+<a href=\"modelica://Buildings.Fluid.Movers.Validation.SpeedControlled_Nrpm_Data\">
+Buildings.Fluid.Movers.Validation.SpeedControlled_Nrpm_Data</a>
+fails because water does not implemented the function
+<code>Xsaturation</code>.
+</li>
+<li>
+March 24 2010, by Michael Wetter:<br/>
+First implementation.
+</li>
+</ul>
 </html>"));
 end FlowMachine_ZeroFlow;

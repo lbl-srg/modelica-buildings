@@ -22,8 +22,7 @@ model MixingBoxMinimumFlow
         Medium, m_flow(start=0, min=if allowFlowReversal then -Constants.inf else
                 0))
     "Fluid connector a (positive design flow direction is from port_a to port_b)"
-    annotation (Placement(transformation(extent={{-110,90},{-90,110}},rotation=
-            0), iconTransformation(extent={{-110,90},{-90,110}})));
+    annotation (Placement(transformation(extent={{-110,90},{-90,110}}), iconTransformation(extent={{-110,90},{-90,110}})));
   Modelica.Blocks.Interfaces.RealInput yOutMin
     "Damper position minimum outside air (0: closed, 1: open)"
     annotation (Placement(transformation(extent={{-20,-20},{20,20}},
@@ -59,8 +58,7 @@ model MixingBoxMinimumFlow
     dp_nominal=dpOutMin_nominal,
     A=AOutMin,
     final filteredOpening=false) "Damper for minimum outside air intake"
-    annotation (Placement(transformation(extent={{48,32},{68,52}},     rotation=
-           0)));
+    annotation (Placement(transformation(extent={{48,32},{68,52}})));
 protected
   Modelica.Blocks.Interfaces.RealOutput yOutMin_filtered if filteredOpening
     "Filtered damper position in the range 0..1"
@@ -112,10 +110,7 @@ equation
       points={{-42,68},{-12,68},{-12,58},{58,58},{58,54}},
       color={0,0,127},
       smooth=Smooth.None));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=true,  extent={{-100,
-            -100},{100,100}}),
-                      graphics),
-                       Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
+  annotation (                       Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}), graphics={
         Rectangle(
           extent={{-60,34},{80,28}},
@@ -160,7 +155,7 @@ February 24, 2010 by Michael Wetter:<br/>
 Changed implementation of flow resistance. Instead of using a
 fixed resistance and a damper model in series, only one model is used
 that internally adds these two resistances. This leads to smaller systems
-of nonlinear equations. This new implementation extends 
+of nonlinear equations. This new implementation extends
 <a href=\"modelica://Buildings.Fluid.Actuators.Dampers.MixingBox\">
 Buildings.Fluid.Actuators.Dampers.MixingBox</a>.
 </li>

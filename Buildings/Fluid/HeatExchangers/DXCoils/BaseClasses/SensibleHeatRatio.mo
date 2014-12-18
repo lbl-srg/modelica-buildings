@@ -76,7 +76,7 @@ Revised implementation.
 </li>
 <li>
 August 9, 2012 by Kaustubh Phalak:<br/>
-First implementation. 
+First implementation.
 </li>
 </ul>
 
@@ -85,6 +85,5 @@ First implementation.
           lineColor={0,0,255},
           fillColor={0,0,255},
           fillPattern=FillPattern.Solid,
-          textString="Qs/Q")}),
-    Diagram(graphics));
+          textString="Qs/Q")}));
 end SensibleHeatRatio;

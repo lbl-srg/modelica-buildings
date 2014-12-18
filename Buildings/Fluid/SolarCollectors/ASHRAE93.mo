@@ -26,7 +26,8 @@ model ASHRAE93 "Model of a flat plate solar thermal collector"
     final G_nominal=per.G_nominal,
     dT_nominal=per.dT_nominal,
     final A_c=TotalArea_internal,
-    m_flow_nominal=per.mperA_flow_nominal*per.A)
+    m_flow_nominal=per.mperA_flow_nominal*per.A,
+    final cp_default=cp_default)
     "Calculates the heat lost to the surroundings using the ASHRAE93 standard calculations"
         annotation (Placement(transformation(extent={{-20,6},{0,26}})));
 
@@ -72,13 +73,10 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(heaLos.QLos, QLos.Q_flow) annotation (Line(
-      points={{1,16},{26,16},{26,16},{50,16}},
+      points={{1,16},{50,16}},
       color={0,0,127},
       smooth=Smooth.None));
   annotation (
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
-            100,100}}),
-            graphics),
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
             100}}),
          graphics={
@@ -158,15 +156,15 @@ equation
     <h4>Notice</h4>
       <ul>
         <li>
-          As mentioned in EnergyPlus 7.0.0 Engineering Reference, the SRCC 
-          incident angle modifier equation coefficients are only valid for 
-          incident angles of 60 degrees or less. Because these curves behave 
-          poorly for angles greater than 60 degrees the model does not 
+          As mentioned in EnergyPlus 7.0.0 Engineering Reference, the SRCC
+          incident angle modifier equation coefficients are only valid for
+          incident angles of 60 degrees or less. Because these curves behave
+          poorly for angles greater than 60 degrees the model does not
           calculate either direct or diffuse solar radiation gains when the
-          incidence angle is greater than 60 degrees.  
+          incidence angle is greater than 60 degrees.
         </li>
         <li>
-          By default, the estimated heat capacity of the collector without 
+          By default, the estimated heat capacity of the collector without
           fluid is calculated based on the dry mass and the specific heat
           capacity of copper.
         </li>

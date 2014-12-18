@@ -26,7 +26,7 @@ algorithm
   annotation (
     Documentation(info="<html>
 <p>
-Derivative of function 
+Derivative of function
 <a href=\"modelica://Buildings.Utilities.Psychrometrics.Functions.pW_X\">
 Buildings.Utilities.Psychrometrics.Functions.pW_X</a>.
 </p>
@@ -37,9 +37,5 @@ May 21, 2010 by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
-</html>"),
-    Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
-            100}}), graphics),
-    Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,
-            100}}), graphics));
+</html>"));
 end der_pW_X;

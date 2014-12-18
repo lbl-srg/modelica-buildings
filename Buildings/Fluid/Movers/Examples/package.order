@@ -1,12 +1,5 @@
-ControlledFlowMachine
-ControlledFlowMachineDynamic
-FlowMachineFeedbackControl
-FlowMachineParallel_y
-FlowMachineSeries_y
-FlowMachine_Nrpm
-FlowMachine_dp
-FlowMachine_m_flow
-FlowMachine_y
-FlowMachine_y_linear
-FlowMachine_y_pumpCurves
+ClosedLoop_y
+PumpsParallel
+PumpsSeries
+SpeedControlled_y_pumpCurves
 BaseClasses

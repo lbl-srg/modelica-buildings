@@ -19,7 +19,6 @@ equation
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None));
-  annotation (Diagram(graphics), 
-experiment(StopTime=864000),
+  annotation (experiment(StopTime=864000),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/BoundaryConditions/SolarIrradiation/BaseClasses/Examples/RelativeAirMass.mos" "Simulate and plot"));
 end RelativeAirMass;

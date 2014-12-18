@@ -7,8 +7,7 @@ model TwoWayValvesTable "Two way valve with linear opening characteristics"
     height=1,
     duration=1,
     offset=0) "Control signal"
-    annotation (Placement(transformation(extent={{-60,40},{-40,60}},
-          rotation=0)));
+    annotation (Placement(transformation(extent={{-60,40},{-40,60}})));
   Buildings.Fluid.Sources.Boundary_pT sou(
     redeclare package Medium = Medium,
     nPorts=2,
@@ -16,14 +15,14 @@ model TwoWayValvesTable "Two way valve with linear opening characteristics"
     p(displayUnit="Pa") = 306000,
     T=293.15) "Boundary condition for flow source"
     annotation (Placement(
-        transformation(extent={{-80,8},{-60,28}},  rotation=0)));
+        transformation(extent={{-80,8},{-60,28}})));
   Buildings.Fluid.Sources.Boundary_pT sin(
     redeclare package Medium = Medium,
     nPorts=2,
     p(displayUnit="Pa") = 3E5,
     T=293.15) "Boundary condition for flow sink"
     annotation (Placement(
-        transformation(extent={{60,8},{40,28}},  rotation=0)));
+        transformation(extent={{60,8},{40,28}})));
   Valves.TwoWayTable valTab(
     redeclare package Medium = Medium,
     m_flow_nominal=2,
@@ -31,8 +30,7 @@ model TwoWayValvesTable "Two way valve with linear opening characteristics"
     dpValve_nominal=6000,
     flowCharacteristics=Buildings.Fluid.Actuators.Valves.Data.Linear(),
     from_dp=true) "Valve model with opening characteristics based on a table"
-         annotation (Placement(transformation(extent={{-10,10},{10,30}},
-          rotation=0)));
+         annotation (Placement(transformation(extent={{-10,10},{10,30}})));
   TwoWayLinear valLin(
     filteredOpening=false,
     redeclare package Medium = Medium,
@@ -41,8 +39,7 @@ model TwoWayValvesTable "Two way valve with linear opening characteristics"
     dpValve_nominal=6000,
     from_dp=true) "Valve model with linear opening characteristics"
     annotation (Placement(transformation(extent={{-10,-30},{10,-10}})));
-    inner Modelica.Fluid.System system
-    annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
+
 equation
   connect(y.y,valTab. y) annotation (Line(
       points={{-39,50},{-39,50},{0,50},{0,50},{0,32}},
@@ -68,15 +65,12 @@ equation
       points={{10,-20},{28,-20},{28,16},{40,16}},
       color={0,127,255},
       smooth=Smooth.None));
-    annotation (Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-100,
-            -100},{100,100}}),
-                        graphics),
-experiment(StopTime=1.0),
+    annotation (experiment(StopTime=1.0),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Actuators/Valves/Examples/TwoWayValvesTable.mos"
         "Simulate and plot"),
     Documentation(info="<html>
 <p>
-Test model for two way valves. 
+Test model for two way valves.
 The instance <code>valTab</code> has a linear opening characteristics
 based on a table, while <code>valLin</code> also has a linear opening
 characteristics that is directly implemented in the model.
@@ -86,7 +80,7 @@ than <code>valTab</code> as <code>valLin</code> is a more efficient
 implementation.
 </p>
 <p>
-This test demonstrates that both valves have, as expected, the same 
+This test demonstrates that both valves have, as expected, the same
 mass flow rate for the whole range of the opening signal.
 </p>
 <p>

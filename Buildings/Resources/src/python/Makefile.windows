@@ -25,10 +25,10 @@ endif
 CC = gcc
 LM = lib
 
-SRCS = pythonInterpreter.c 
+SRCS = pythonInterpreter.c
 OBJS = pythonInterpreter.o
 
-DLL  = ModelicaBuildingsPython2.7.dll 
+DLL  = ModelicaBuildingsPython2.7.dll
 LIB  = ModelicaBuildingsPython2.7.lib
 DEF  = ModelicaBuildingsPython2.7.def
 EXP  = ModelicaBuildingsPython2.7.exp
@@ -41,11 +41,11 @@ all: clean
 	# import library. lib.exe is available in Microsoft Visual Studio.
 	$(LM) /def:$(DEF) /OUT:$(LIB)
 	mv $(LIB) $(DLL) $(BINDIR)
-	@echo "==== libraries generated in $(BINDIR)"   
-	
+	@echo "==== libraries generated in $(BINDIR)"
+
 prg: clean
 	$(CC) -g testProgram.c $(SRCS) -o testProgram  $(CC_FLAGS) -L$(PYTHONLibs) -lpython27
 
 clean:
 	rm -f $(OBJS) $(LIB) $(DLL) $(EXP) main.o main
-	
+

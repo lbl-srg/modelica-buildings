@@ -36,8 +36,8 @@ model CoilRegister "Register for a heat exchanger"
     constrainedby Buildings.Fluid.HeatExchangers.BaseClasses.PartialHexElement(
     redeclare each package Medium1 = Medium1,
     redeclare each package Medium2 = Medium2,
-    initialize_p1 = {(i == 1 and j == 1 and initialize_p1) for i in 1:nPipSeg, j in 1:nPipPar},
-    initialize_p2 = {(i == 1 and j == 1 and initialize_p2) for i in 1:nPipSeg, j in 1:nPipPar},
+    initialize_p1 = {{(i == 1 and j == 1 and initialize_p1) for i in 1:nPipSeg} for j in 1:nPipPar},
+    initialize_p2 = {{(i == 1 and j == 1 and initialize_p2) for i in 1:nPipSeg} for j in 1:nPipPar},
     each allowFlowReversal1=allowFlowReversal1,
     each allowFlowReversal2=allowFlowReversal2,
     each tau1=tau1/nPipSeg,
@@ -55,31 +55,28 @@ model CoilRegister "Register for a heat exchanger"
     each deltaM2=deltaM2,
     each dp1_nominal=dp1_nominal,
     each dp2_nominal=dp2_nominal) "Element of a heat exchanger"
-    annotation (Placement(transformation(extent={{-10,20},{10,40}}, rotation=0)));
+    annotation (Placement(transformation(extent={{-10,20},{10,40}})));
 
   Modelica.Fluid.Interfaces.FluidPort_a[nPipPar] port_a1(
         redeclare each package Medium = Medium1,
         each m_flow(start=0, min=if allowFlowReversal1 then -Constants.inf else 0))
     "Fluid connector a for medium 1 (positive design flow direction is from port_a1 to port_b1)"
-    annotation (Placement(transformation(extent={{-110,50},{-90,70}}, rotation=
-            0)));
+    annotation (Placement(transformation(extent={{-110,50},{-90,70}})));
   Modelica.Fluid.Interfaces.FluidPort_b[nPipPar] port_b1(
         redeclare each package Medium = Medium1,
         each m_flow(start=0, max=if allowFlowReversal1 then +Constants.inf else 0))
     "Fluid connector b for medium 1 (positive design flow direction is from port_a to port_b)"
-    annotation (Placement(transformation(extent={{110,50},{90,70}}, rotation=0)));
+    annotation (Placement(transformation(extent={{110,50},{90,70}})));
   Modelica.Fluid.Interfaces.FluidPort_a[nPipPar,nPipSeg] port_a2(
         redeclare each package Medium = Medium2,
         each m_flow(start=0, min=if allowFlowReversal2 then -Constants.inf else 0))
     "Fluid connector a for medium 2 (positive design flow direction is from port_a2 to port_b2)"
-    annotation (Placement(transformation(extent={{90,-70},{110,-50}}, rotation=
-            0)));
+    annotation (Placement(transformation(extent={{90,-70},{110,-50}})));
   Modelica.Fluid.Interfaces.FluidPort_b[nPipPar,nPipSeg] port_b2(
         redeclare each package Medium = Medium2,
         each m_flow(start=0, max=if allowFlowReversal2 then +Constants.inf else 0))
     "Fluid connector b for medium 2 (positive design flow direction is from port_a to port_b)"
-    annotation (Placement(transformation(extent={{-90,-72},{-110,-52}},
-          rotation=0)));
+    annotation (Placement(transformation(extent={{-90,-72},{-110,-52}})));
 
   parameter Modelica.SIunits.ThermalConductance UA_nominal
     "Thermal conductance at nominal flow, used to compute time constant"
@@ -127,13 +124,15 @@ model CoilRegister "Register for a heat exchanger"
 protected
   Modelica.Blocks.Math.Gain gai_1(k=1/nEle)
     "Gain medium-side 1 to take discretization into account"
-    annotation (Placement(transformation(extent={{-34,48},{-22,62}}, rotation=0)));
+    annotation (Placement(transformation(extent={{-34,48},{-22,62}})));
   Modelica.Blocks.Math.Gain gai_2(k=1/nEle)
     "Gain medium-side 2 to take discretization into account"
-    annotation (Placement(transformation(extent={{24,-76},{12,-62}}, rotation=0)));
+    annotation (Placement(transformation(extent={{24,-76},{12,-62}})));
 equation
-  Q1_flow = sum(ele[i,j].Q1_flow for i in 1:nPipPar, j in 1:nPipSeg);
-  Q2_flow = sum(ele[i,j].Q2_flow for i in 1:nPipPar, j in 1:nPipSeg);
+  // As OpenModelica does not support multiple iterators as of August 2014, we
+  // use here two sum(.) functions
+  Q1_flow = sum(sum(ele[i,j].Q1_flow for i in 1:nPipPar) for j in 1:nPipSeg);
+  Q2_flow = sum(sum(ele[i,j].Q2_flow for i in 1:nPipPar) for j in 1:nPipSeg);
   for i in 1:nPipPar loop
     connect(ele[i,1].port_a1,       port_a1[i])
        annotation (Line(points={{-10,36},{-68,36},{-68,60},{-100,60}}, color={0,
@@ -185,6 +184,11 @@ between the fluid volumes and the solid in each heat exchanger element.
 revisions="<html>
 <ul>
 <li>
+August 10, 2014, by Michael Wetter:<br/>
+Reformulated the multiple iterators in the <code>sum</code> function
+as this language construct is not supported in OpenModelica.
+</li>
+<li>
 July 3, 2014, by Michael Wetter:<br/>
 Added parameters <code>initialize_p1</code> and <code>initialize_p2</code>.
 This is required to enable the coil models to initialize the pressure in the
@@ -211,10 +215,7 @@ First implementation.
 </li>
 </ul>
 </html>"),
-extent=[-20,80; 0,100], Diagram(coordinateSystem(preserveAspectRatio=true,
-          extent={{-100,-100},{100,100}}),
-                                graphics),
-    Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
+extent=[-20,80; 0,100],    Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
             100}}), graphics={
         Rectangle(
           extent={{-70,80},{70,-80}},
@@ -266,5 +267,5 @@ extent=[-20,80; 0,100], Diagram(coordinateSystem(preserveAspectRatio=true,
           extent={{-80,112},{-58,84}},
           lineColor={0,0,255},
           textString="h")}),
-    Placement(transformation(extent={{-20,80},{0,100}}, rotation=0)));
+    Placement(transformation(extent={{-20,80},{0,100}})));
 end CoilRegister;

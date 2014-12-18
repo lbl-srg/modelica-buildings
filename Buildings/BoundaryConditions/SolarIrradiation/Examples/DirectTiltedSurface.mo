@@ -77,7 +77,6 @@ equation
 experiment(StartTime=1.82304e+07, StopTime=1.83168e+07),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/BoundaryConditions/SolarIrradiation/Examples/DirectTiltedSurface.mos"
         "Simulate and plot"),
-    Icon(graphics),
     Documentation(info="<html>
 <p>
 This model tests the direct solar irradiation received on a ceiling, a wall and a floor.

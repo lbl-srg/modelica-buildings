@@ -37,8 +37,6 @@ equation
       StopTime=3.1536e+07,
       Interval=3600,
       Tolerance=1e-006),
-Diagram(coordinateSystem(
-          preserveAspectRatio=true, extent={{-100,-100},{100,100}})),
     Documentation(revisions="<html>
 <ul>
 <li>
@@ -56,7 +54,6 @@ First implementation.
 This model is used for the test case 950 of the BESTEST validation suite.
 Case950 is the same as Case900, but with the following modifications:
 </p>
-<p>
 <ul>
 <li>
 From 1800 hours to 0700 hours, vent fan = on
@@ -82,6 +79,5 @@ infiltration rate).
 No waste heat from fan.
 </li>
 </ul>
-</p>
 </html>"));
 end Case950;

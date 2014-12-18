@@ -20,7 +20,7 @@ model SingleUTubeBoundaryCondition
      annotation (Placement(transformation(extent={{-120,-100},{-80,-60}})));
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_b port "Heat port"
     annotation (Placement(transformation(extent={{86,-10},
-            {106,10}},      rotation=0), iconTransformation(extent={{86,-10},
+            {106,10}}), iconTransformation(extent={{86,-10},
             {106,10}})));
 protected
   final parameter Modelica.SIunits.SpecificHeatCapacity c= matSoi.c

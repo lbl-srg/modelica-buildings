@@ -69,22 +69,20 @@ equation
       points={{-59,70},{-2,70}},
       color={0,0,127},
       smooth=Smooth.None));
- annotation (Diagram(coordinateSystem(preserveAspectRatio=true,
-             extent={{-100,-100},{100,100}})),
-                      __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/Continuous/Examples/PIDHysteresis.mos"
+ annotation (                      __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/Continuous/Examples/PIDHysteresis.mos"
         "Simulate and plot"),
     experiment(StopTime=86400),
     Documentation(info="<html>
 <p>
 Example that demonstrates the use of the PID controller
-with hysteresis. The control objective is to keep 
+with hysteresis. The control objective is to keep
 the temperature of the energy storage <code>cap</code>
 at <i>40</i>&deg;C.
-The controller <code>con</code> is parameterized to 
-switch on if the control error is bigger than 
+The controller <code>con</code> is parameterized to
+switch on if the control error is bigger than
 <i>e<sub>on</sub>=1</i>.
 The output of the controller remains above <i>y<sub>min</sub>=0.3</i> until the control
-error is smaller than <i>e<sub>off</sub>=-1</i>, at which 
+error is smaller than <i>e<sub>off</sub>=-1</i>, at which
 time the controller outputs <i>y=0</i> until the
 control error is again bigger than <i>1</i>.
 The figure below shows the control error

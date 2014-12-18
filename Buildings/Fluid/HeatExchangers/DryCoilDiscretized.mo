@@ -8,6 +8,10 @@ model DryCoilDiscretized
     from_dp1 = false,
     from_dp2 = false);
 
+  constant Boolean airSideTemperatureDependent = false
+    "Set to false to make air-side hA independent of temperature"
+    annotation(Dialog(tab="Heat transfer"));
+
   parameter Modelica.SIunits.ThermalConductance UA_nominal(min=0)
     "Thermal conductance at nominal flow, used to compute heat capacity"
           annotation(Dialog(tab="General", group="Nominal condition"));
@@ -43,6 +47,48 @@ model DryCoilDiscretized
     "Set to true to initialize the pressure of volume 2"
     annotation(Dialog(tab = "Initialization", group = "Medium 2"));
 
+  parameter Modelica.SIunits.Length dh1=0.025
+    "Hydraulic diameter for a single pipe"
+     annotation(Dialog(group = "Geometry",
+                enable = use_dh1 and not linearizeFlowResistance1));
+  parameter Real ReC_1=4000
+    "Reynolds number where transition to turbulent starts inside pipes"
+     annotation(Dialog(enable = use_dh1 and not linearizeFlowResistance1, tab="Advanced"));
+  parameter Real ReC_2=4000
+    "Reynolds number where transition to turbulent starts inside ducts"
+     annotation(Dialog(enable = use_dh2 and not linearized2, tab="Advanced"));
+  parameter Modelica.SIunits.Length dh2=1 "Hydraulic diameter for duct"
+      annotation(Dialog(group = "Geometry"));
+  parameter Modelica.SIunits.Time tau1=20
+    "Time constant at nominal flow for medium 1"
+    annotation (Dialog(group="Nominal condition", enable=not steadyState_1));
+  parameter Modelica.SIunits.Time tau2=1
+    "Time constant at nominal flow for medium 2"
+    annotation (Dialog(group="Nominal condition", enable=not steadyState_2));
+  parameter Modelica.SIunits.Time tau_m=20
+    "Time constant of metal at nominal UA value"
+    annotation (Dialog(group="Nominal condition"));
+  parameter Boolean waterSideFlowDependent = false
+    "Set to false to make water-side hA independent of mass flow rate"
+    annotation(Dialog(tab="Heat transfer"));
+  parameter Boolean airSideFlowDependent = false
+    "Set to false to make air-side hA independent of mass flow rate"
+    annotation(Dialog(tab="Heat transfer"));
+  parameter Boolean waterSideTemperatureDependent = false
+    "Set to false to make water-side hA independent of temperature"
+    annotation(Dialog(tab="Heat transfer"));
+  parameter Modelica.SIunits.MassFlowRate mStart_flow_a1=m1_flow_nominal
+    "Guess value for mass flow rate at port_a1"
+    annotation(Dialog(tab="General", group="Initialization"));
+  parameter Modelica.SIunits.MassFlowRate mStart_flow_a2=m2_flow_nominal
+    "Guess value for mass flow rate at port_a2"
+    annotation(Dialog(tab="General", group="Initialization"));
+
+  Modelica.SIunits.HeatFlowRate Q1_flow
+    "Heat transfered from solid into medium 1";
+  Modelica.SIunits.HeatFlowRate Q2_flow
+    "Heat transfered from solid into medium 2";
+
   Buildings.Fluid.HeatExchangers.BaseClasses.CoilRegister hexReg[nReg](
     redeclare each package Medium1 = Medium1,
     redeclare each package Medium2 = Medium2,
@@ -67,7 +113,8 @@ model DryCoilDiscretized
     each dp1_nominal=0,
     each dp2_nominal=0,
     each final UA_nominal=UA_nominal/nReg) "Heat exchanger register"
-    annotation (Placement(transformation(extent={{-10,0},{10,20}}, rotation=0)));
+    annotation (Placement(transformation(extent={{-10,0},{10,20}})));
+
   Buildings.Fluid.HeatExchangers.BaseClasses.PipeManifoldFixedResistance
     pipMan_a(
     redeclare package Medium = Medium1,
@@ -83,22 +130,24 @@ model DryCoilDiscretized
     final from_dp=from_dp1,
     final allowFlowReversal=allowFlowReversal1) "Pipe manifold at port a"
                                                annotation (Placement(
-        transformation(extent={{-38,18},{-18,38}}, rotation=0)));
+        transformation(extent={{-38,18},{-18,38}})));
+
   Buildings.Fluid.HeatExchangers.BaseClasses.PipeManifoldNoResistance pipMan_b(
     redeclare package Medium = Medium1,
     final nPipPar=nPipPar,
     final mStart_flow_a=-mStart_flow_a1,
     final allowFlowReversal=allowFlowReversal1) "Pipe manifold at port b"
                                          annotation (Placement(transformation(
-          extent={{52,50},{32,70}}, rotation=0)));
+          extent={{52,50},{32,70}})));
+
   Buildings.Fluid.HeatExchangers.BaseClasses.DuctManifoldNoResistance ducMan_b(
     redeclare package Medium = Medium2,
     final nPipPar=nPipPar,
     final nPipSeg=nPipSeg,
     final mStart_flow_a=-mStart_flow_a2,
     final allowFlowReversal=allowFlowReversal2) "Duct manifold at port b"
-    annotation (Placement(transformation(extent={{-52,-70},{-32,-50}}, rotation=
-           0)));
+    annotation (Placement(transformation(extent={{-52,-70},{-32,-50}})));
+
   Buildings.Fluid.HeatExchangers.BaseClasses.DuctManifoldFixedResistance
     ducMan_a(
     redeclare package Medium = Medium2,
@@ -114,38 +163,24 @@ model DryCoilDiscretized
     final deltaM=deltaM2,
     final from_dp=from_dp2,
     final allowFlowReversal=allowFlowReversal2) "Duct manifold at port a"
-    annotation (Placement(transformation(extent={{40,-26},{20,-6}}, rotation=0)));
-public
-  parameter Modelica.SIunits.Length dh1=0.025
-    "Hydraulic diameter for a single pipe"
-     annotation(Dialog(group = "Geometry",
-                enable = use_dh1 and not linearizeFlowResistance1));
-  parameter Real ReC_1=4000
-    "Reynolds number where transition to turbulent starts inside pipes"
-     annotation(Dialog(enable = use_dh1 and not linearizeFlowResistance1, tab="Advanced"));
-  parameter Real ReC_2=4000
-    "Reynolds number where transition to turbulent starts inside ducts"
-     annotation(Dialog(enable = use_dh2 and not linearized2, tab="Advanced"));
-  parameter Modelica.SIunits.MassFlowRate m1_flow_nominal
-    "Mass flow rate at port_a1 for all pipes"
-     annotation(Dialog(group = "Nominal condition"));
-  parameter Modelica.SIunits.Length dh2=1 "Hydraulic diameter for duct"
-      annotation(Dialog(group = "Geometry"));
-  Modelica.SIunits.HeatFlowRate Q1_flow
-    "Heat transfered from solid into medium 1";
-  Modelica.SIunits.HeatFlowRate Q2_flow
-    "Heat transfered from solid into medium 2";
-  parameter Modelica.SIunits.Time tau1=20
-    "Time constant at nominal flow for medium 1"
-    annotation (Dialog(group="Nominal condition", enable=not steadyState_1));
-  parameter Modelica.SIunits.Time tau2=1
-    "Time constant at nominal flow for medium 2"
-    annotation (Dialog(group="Nominal condition", enable=not steadyState_2));
-  parameter Modelica.SIunits.Time tau_m=20
-    "Time constant of metal at nominal UA value"
-    annotation (Dialog(group="Nominal condition"));
+    annotation (Placement(transformation(extent={{40,-26},{20,-6}})));
+
+  BaseClasses.HADryCoil hA(
+    final UA_nominal=UA_nominal,
+    final m_flow_nominal_a=m2_flow_nominal,
+    final m_flow_nominal_w=m1_flow_nominal,
+    final waterSideTemperatureDependent=waterSideTemperatureDependent,
+    final waterSideFlowDependent=waterSideFlowDependent,
+    final airSideTemperatureDependent=airSideTemperatureDependent,
+    final airSideFlowDependent=airSideFlowDependent)
+    "Model for convective heat transfer coefficient"
+        annotation (Placement(transformation(extent={{-60,80},{-40,100}})));
 
 protected
+  constant Boolean allowCondensation = false
+    "Set to false to compute sensible heat transfer only"
+    annotation(Dialog(tab="Heat transfer"));
+
   BaseClasses.CoilHeader hea1[div(nReg,2)](
       redeclare each final package Medium = Medium1,
       each final nPipPar = nPipPar,
@@ -162,74 +197,37 @@ protected
       each final mStart_flow_a=mStart_flow_a1,
       each allowFlowReversal=allowFlowReversal1) if
       nReg > 2 "Pipe header to redirect flow into next register"
-      annotation (Placement(transformation(extent={{-60,-2},{-40,18}}, rotation=
-           0)));
+      annotation (Placement(transformation(extent={{-60,-2},{-40,18}})));
   Modelica.Blocks.Math.Gain gai_1(k=1/nReg)
     "Gain medium-side 1 to take discretization into account"
-    annotation (Placement(transformation(extent={{-14,84},{-2,98}}, rotation=0)));
+    annotation (Placement(transformation(extent={{-14,84},{-2,98}})));
   Modelica.Blocks.Math.Gain gai_2(k=1/nReg)
     "Gain medium-side 2 to take discretization into account"
-    annotation (Placement(transformation(extent={{-14,60},{-2,74}}, rotation=0)));
-public
-  parameter Boolean waterSideFlowDependent = false
-    "Set to false to make water-side hA independent of mass flow rate"
-    annotation(Dialog(tab="Heat transfer"));
-  parameter Boolean airSideFlowDependent = false
-    "Set to false to make air-side hA independent of mass flow rate"
-    annotation(Dialog(tab="Heat transfer"));
-  parameter Boolean waterSideTemperatureDependent = false
-    "Set to false to make water-side hA independent of temperature"
-    annotation(Dialog(tab="Heat transfer"));
-  constant Boolean airSideTemperatureDependent = false
-    "Set to false to make air-side hA independent of temperature"
-    annotation(Dialog(tab="Heat transfer"));
-  BaseClasses.HADryCoil hA(
-    final UA_nominal=UA_nominal,
-    final m_flow_nominal_a=m2_flow_nominal,
-    final m_flow_nominal_w=m1_flow_nominal,
-    final waterSideTemperatureDependent=waterSideTemperatureDependent,
-    final waterSideFlowDependent=waterSideFlowDependent,
-    final airSideTemperatureDependent=airSideTemperatureDependent,
-    final airSideFlowDependent=airSideFlowDependent)
-    "Model for convective heat transfer coefficient"
-        annotation (Placement(transformation(extent={{-60,80},{-40,100}},
-          rotation=0)));
-protected
-  constant Boolean allowCondensation = false
-    "Set to false to compute sensible heat transfer only"
-    annotation(Dialog(tab="Heat transfer"));
+    annotation (Placement(transformation(extent={{-14,60},{-2,74}})));
 
-protected
   Buildings.Fluid.Sensors.TemperatureTwoPort temSen_1(
     redeclare package Medium = Medium1,
     final allowFlowReversal=allowFlowReversal1,
     m_flow_nominal=m1_flow_nominal) "Temperature sensor"
                                       annotation (Placement(transformation(
-          extent={{-58,54},{-48,66}}, rotation=0)));
+          extent={{-58,54},{-48,66}})));
   Buildings.Fluid.Sensors.MassFlowRate masFloSen_1(
     redeclare package Medium = Medium1,
     final allowFlowReversal=allowFlowReversal1) "Mass flow rate sensor"
                                          annotation (Placement(transformation(
-          extent={{-80,54},{-68,66}}, rotation=0)));
+          extent={{-80,54},{-68,66}})));
   Buildings.Fluid.Sensors.TemperatureTwoPort temSen_2(
     redeclare package Medium = Medium2,
     m_flow_nominal=m2_flow_nominal,
     final allowFlowReversal=allowFlowReversal2) "Temperature sensor"
                                       annotation (Placement(transformation(
-          extent={{58,-66},{44,-54}}, rotation=0)));
+          extent={{58,-66},{44,-54}})));
   Buildings.Fluid.Sensors.MassFlowRate masFloSen_2(redeclare package Medium =
         Medium2, final allowFlowReversal=allowFlowReversal2)
     "Mass flow rate sensor"              annotation (Placement(transformation(
-          extent={{82,-66},{70,-54}}, rotation=0)));
-public
-  parameter Modelica.SIunits.MassFlowRate mStart_flow_a1=m1_flow_nominal
-    "Guess value for mass flow rate at port_a1"
-    annotation(Dialog(tab="General", group="Initialization"));
-  parameter Modelica.SIunits.MassFlowRate mStart_flow_a2=m2_flow_nominal
-    "Guess value for mass flow rate at port_a2"
-    annotation(Dialog(tab="General", group="Initialization"));
+          extent={{82,-66},{70,-54}})));
 initial equation
-  assert(UA_nominal>0,     "Parameter UA_nominal is negative. Check heat exchanger parameters.");
+  assert(UA_nominal>0, "Parameter UA_nominal is negative. Check heat exchanger parameters.");
 equation
   Q1_flow = sum(hexReg[i].Q1_flow for i in 1:nReg);
   Q2_flow = sum(hexReg[i].Q2_flow for i in 1:nReg);
@@ -349,6 +347,18 @@ this model computes only sensible heat transfer.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+August 10, 2014, by Michael Wetter:<br/>
+Removed parameter <code>m1_flow_nominal</code>, as this parameter is already
+declared in its base class
+<a href=\"modelica://Buildings.Fluid.Interfaces.PartialFourPortInterface\">
+Buildings.Fluid.Interfaces.PartialFourPortInterface</a>.
+This change avoids an error in OpenModelica as the two declarations
+had a different value for the <code>min</code> attribute, which is not valid
+in Modelica.<br/>
+This change also reorganizes the order of the declaration of constants,
+parameters and models.
+</li>
 <li>
 July 3, 2014, by Michael Wetter:<br/>
 Added parameters <code>initialize_p1</code> and <code>initialize_p2</code>.

@@ -4,10 +4,14 @@ model IndirectTankHeatExchanger
 
   replaceable package MediumHex = Modelica.Media.Interfaces.PartialMedium
     "Heat transfer fluid flowing through the heat exchanger";
+  replaceable package MediumTan = Modelica.Media.Interfaces.PartialMedium
+    "Heat transfer fluid inside the tank";
 
   extends Buildings.Fluid.Interfaces.TwoPortFlowResistanceParameters;
-  extends Buildings.Fluid.Interfaces.LumpedVolumeDeclarations;
+  extends Buildings.Fluid.Interfaces.LumpedVolumeDeclarations(
+      redeclare final package Medium = MediumHex);
   extends Buildings.Fluid.Interfaces.PartialTwoPortInterface(
+    redeclare final package Medium = MediumHex,
     showDesignFlowDirection=false,
     final show_T=false);
 
@@ -52,7 +56,7 @@ model IndirectTankHeatExchanger
         iconTransformation(extent={{-10,-108},{10,-88}})));
 
   FixedResistances.FixedResistanceDpM res(
-    redeclare final package Medium = Medium,
+    redeclare final package Medium = MediumHex,
     final dp_nominal=dp_nominal,
     final m_flow_nominal=m_flow_nominal,
     final allowFlowReversal=allowFlowReversal,
@@ -99,7 +103,6 @@ protected
     "Temperature of the heat transfer fluid"                                                  annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
-        rotation=0,
         origin={-20,-70})));
   Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor temSenWat[nSeg]
     "Temperature sensor of the fluid surrounding the heat exchanger"
@@ -118,7 +121,6 @@ protected
                                                    annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
-        rotation=0,
         origin={20,-80})));
   HeatExchangers.BaseClasses.HANaturalCylinder hANatCyl[nSeg](
     redeclare each final package Medium = Medium,
@@ -129,7 +131,6 @@ protected
     "Calculates an hA value for each side of the heat exchanger"
                                     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
-        rotation=0,
         origin={10,110})));
   Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor temSenSur[nSeg]
     "Temperature at the external surface of the heat exchanger" annotation (
@@ -264,7 +265,7 @@ equation
           For example, the heat exchanger in a storage tank which is part of a solar thermal system.
           </p>
           <p>
-          This component models the fluid in the heat exchanger, convection between the fluid and 
+          This component models the fluid in the heat exchanger, convection between the fluid and
           the heat exchanger, and convection from the heat exchanger to the surrounding fluid.
           </p>
           <p>
@@ -274,12 +275,19 @@ equation
           Buildings.Fluid.HeatExchangers.BaseClasses.HANaturalCylinder</a>.
           </p>
           <p>
-          The fluid ports are intended to be connected to a circulated heat transfer fluid 
+          The fluid ports are intended to be connected to a circulated heat transfer fluid
           while the heat port is intended to be connected to a stagnant fluid.
-          </p>          
+          </p>
           </html>",
           revisions = "<html>
           <ul>
+          <li>
+          August 29, 2014, by Michael Wetter:<br/>
+          Introduced <code>MediumTan</code> for the tank medium, and assigned <code>Medium</code>
+          to be equal to <code>MediumHex</code>.
+          This is to correct issue <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/271\">
+          #271</a>.
+          </li>
           <li>
           June 18, 2014, by Michael Wetter:<br/>
           Set initial equations for <code>cap</code>, and renamed this instance from

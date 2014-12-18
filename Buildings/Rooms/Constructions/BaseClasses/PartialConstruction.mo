@@ -7,7 +7,7 @@ partial model PartialConstruction
     "Heat transfer area of opaque construction"
     annotation (Dialog(group="Opaque construction"));
 
-  replaceable parameter Buildings.HeatTransfer.Data.OpaqueConstructions.Generic
+  parameter Buildings.HeatTransfer.Data.OpaqueConstructions.Generic
     layers "Material properties of opaque construction"
     annotation(Dialog(group="Opaque construction"),
                choicesAllMatching=true, Placement(transformation(extent={{146,258},
@@ -19,7 +19,7 @@ partial model PartialConstruction
     "Flag, true if construction is a floor" annotation (Evaluate=true);
   final parameter Boolean isCeiling=til > -0.392699 and til < 0.392699
     "Flag, true if construction is a floor" annotation (Evaluate=true);
-public
+
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a opa_a
     "Heat port at surface a of opaque construction"
     annotation (Placement(transformation(extent={{-310,190},{-290,210}})));
@@ -41,7 +41,6 @@ public
     "Initial temperature at port_b, used if steadyStateInitial = false"
     annotation (Dialog(group="Initialization", enable=not steadyStateInitial));
 
-public
   HeatTransfer.Conduction.MultiLayer opa(
     final A=AOpa,
     final layers=layers,
@@ -61,11 +60,9 @@ equation
       color={191,0,0},
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-300,-300},
-            {300,300}},
-        initialScale=0.1)),
+            {300,300}})),
                           Icon(coordinateSystem(preserveAspectRatio=true,
-          extent={{-300,-300},{300,300}},
-        initialScale=0.1), graphics={
+          extent={{-300,-300},{300,300}}), graphics={
         Rectangle(
           extent={{-290,202},{298,198}},
           lineColor={0,0,0},
@@ -98,7 +95,7 @@ equation
 This is the base class that is used to model opaque constructions in the room model.
 </p>
 <p>
-The surface azimuth is defined in 
+The surface azimuth is defined in
 <a href=\"modelica://Buildings.HeatTransfer.Types.Azimuth\">
 Buildings.HeatTransfer.Types.Azimuth</a>
 and the surface tilt is defined in <a href=\"modelica://Buildings.HeatTransfer.Types.Tilt\">

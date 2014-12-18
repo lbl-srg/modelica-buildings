@@ -7,11 +7,11 @@ partial block EssentialParameters "A partial block for essential parameters"
     annotation (Placement(transformation(extent={{-80,82},{-68,94}})));
 protected
   parameter Integer nSta=datCoi.nSta "Number of stages";
-  annotation (Diagram(graphics), Documentation(info="<html>
+  annotation ( Documentation(info="<html>
 <p>
 This partial block declares parameters that are required by most classes
 in the package
-<a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils\"> 
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils\">
 Buildings.Fluid.HeatExchangers.DXCoils</a>.
 </p>
 </html>",
@@ -23,7 +23,7 @@ Removed medium declaration to avoid multiple definitions of the medium.
 </li>
 <li>
 August 1, 2012 by Kaustubh Phalak:<br/>
-First implementation. 
+First implementation.
 </li>
 </ul>
 

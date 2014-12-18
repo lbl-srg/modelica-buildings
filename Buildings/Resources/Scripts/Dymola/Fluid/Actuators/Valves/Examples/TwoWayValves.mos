@@ -13,4 +13,3 @@ createPlot(id = 3,
  filename = "TwoWayValves.mat",
  leftTitleType = 1,
  bottomTitleType = 1);
-

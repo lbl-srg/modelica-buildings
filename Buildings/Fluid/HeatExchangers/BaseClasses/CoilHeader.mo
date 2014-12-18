@@ -20,22 +20,18 @@ model CoilHeader "Header for a heat exchanger register"
         redeclare each final package Medium = Medium,
         each m_flow(start=mStart_flow_a/nPipPar, min=if allowFlowReversal then -Modelica.Constants.inf else 0))
     "Fluid connector a for medium (positive design flow direction is from port_a to port_b)"
-    annotation (Placement(transformation(extent={{-110,-10},{-90,10}}, rotation=
-           0)));
+    annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
 
   Modelica.Fluid.Interfaces.FluidPort_b port_b[nPipPar](
         redeclare each final package Medium = Medium,
         each m_flow(start=-mStart_flow_a/nPipPar, max=if allowFlowReversal then +Modelica.Constants.inf else 0))
     "Fluid connector b for medium (positive design flow direction is from port_a to port_b)"
-    annotation (Placement(transformation(extent={{110,-10},{90,10}}, rotation=0)));
+    annotation (Placement(transformation(extent={{110,-10},{90,10}})));
 
 equation
   connect(port_a, port_b) annotation (Line(points={{-100,0},{-50,0},{-50,0},{
           100,0},{100,0}},                                   color={0,127,255}));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}}),
-                      graphics),
-Documentation(info="<html>
+  annotation (Documentation(info="<html>
 <p>
 Header for a heat exchanger coil.
 </p>

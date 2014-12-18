@@ -10,13 +10,13 @@ import convertDXSingleDoubleSpeed.BiQuadraticCurve;
  * This class represents the performance data for a double stage cooling coils.
  * This call is slightly different from the single speed class.
  * <h3>License agreement</h3>
- * 
+ *
  * The use of this program is subjected to the following <A
  * HREF="../../../../../../../legal.html">license terms</A>.
- * 
+ *
  * @author <A HREF="mailto:TSNouidui@lbl.gov">Thierry Nouidui</A>
  * @version 1.0, November 20, 2012
- * 
+ *
  */
 public class DXCoilPerformance {
 
@@ -41,7 +41,7 @@ public class DXCoilPerformance {
     private String floFractionMin;
     private String floFractionMax;
 
-    
+
     // private final static String LS = System.getProperty("line.separator");
 
     public DXCoilPerformance() {
@@ -49,7 +49,7 @@ public class DXCoilPerformance {
 
     /**
      * This method is used to convert performance data of dx coils data into a String.
-     * 
+     *
      * @return the converted cooling coil data as a string.
      */
     public String toMoRecordString() {
@@ -76,20 +76,20 @@ public class DXCoilPerformance {
                 floFractionMin = qCurve.getMinValX();
                 floFractionMax = qCurve.getMaxValX();
             }
-            else if (curve instanceof BiQuadraticCurve) 
+            else if (curve instanceof BiQuadraticCurve)
             {
                 BiQuadraticCurve biqCurve = (BiQuadraticCurve) curve;
                 evaporatorFluidTempMin    = biqCurve.getMinValX();
                 evaporatorFluidTempMax    = biqCurve.getMaxValX();
                 condenserFluidTempMin     = biqCurve.getMinValY();
-                condenserFluidTempMax     = biqCurve.getMaxValY(); 
+                condenserFluidTempMax     = biqCurve.getMaxValY();
             }
         }
 
         for (int i = 0; i < curves.size(); i++) {
             CurveToString[i] = curves.get(i).curveToString();
         }
-        dxSingleSpeedSpecificParameters = 
+        dxSingleSpeedSpecificParameters =
                 String.format(format, "", "TConInMin", "=        ", "   "
                         + "273.15 + " + condenserFluidTempMin + ",")
                 + String.format(format, "", "TConInMax", "=        ", "   "
@@ -139,14 +139,14 @@ public class DXCoilPerformance {
     public String getName() {
         return name;
     }
-    
+
     /**
      * This method sets the name of the cooling coil.
      */
     public void setName(String name) {
         this.name = name;
     }
-    
+
     /**
      * This method gets the rated total cooling capacity of the cooling coil.
      */
@@ -159,8 +159,8 @@ public class DXCoilPerformance {
      */
     public void setRatTotCooCapacity(String ratTotCooCapacity) {
         this.ratTotCooCapacity = ratTotCooCapacity;
-    } 
-    
+    }
+
     /**
      * This method gets the rated sensible heat ratio of the cooling coil.
      */
@@ -174,7 +174,7 @@ public class DXCoilPerformance {
     public void setRatSenHeaRatio(String ratSenHeaRatio) {
         this.ratSenHeaRatio = ratSenHeaRatio;
     }
-    
+
     /**
      * This method gets the reference COP of the cooling coil.
      */
@@ -204,7 +204,7 @@ public class DXCoilPerformance {
     public void setRatAirFlowRate(String ratAirFlowRate) {
         this.ratAirFlowRate = ratAirFlowRate;
     }
-    
+
     /**
      * This method gets the fraction of air flow bypassed around the coil.
      */
@@ -218,7 +218,7 @@ public class DXCoilPerformance {
     public void setFraAirFlow(String fraAirFlow) {
         this.fraAirFlow = fraAirFlow;
     }
-    
+
     /**
      * This method gets the functions names of the cooling coil.
      */
@@ -265,7 +265,7 @@ public class DXCoilPerformance {
     /**
      * this method is used to removed token strings from the name of the cooling coil
      * and to print it in a format that can be used in Modelica.
-     * 
+     *
      * @param name
      *            input string.
      * @return name without token strings.
@@ -283,10 +283,10 @@ public class DXCoilPerformance {
 
     /**
      * This method converts a string in a float.
-     * 
+     *
      * @param number
      *            string value.
-     * 
+     *
      * @return float value.
      */
     static float getFloat(String number) {
@@ -298,10 +298,10 @@ public class DXCoilPerformance {
 
     /**
      * This method rounds a double to four decimals.
-     * 
+     *
      * @param d
      *            double value.
-     * 
+     *
      * @return double rounded value.
      */
     static double roundFourDecimals(double d) {

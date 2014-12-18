@@ -22,9 +22,9 @@ protected
  final parameter Real T04(min=0, final unit="K4")=T0^4
     "4th power of temperature T0";
 initial equation
-    assert(abs(1-absIR_a-rhoIR_a-tauIR) < Modelica.Constants.eps,
+  assert(abs(1-absIR_a-rhoIR_a-tauIR) < 1E-8,
     "Absorptivity, reflectivity and transmissivity of surface a do not add up to one. Check parameters.");
-    assert(abs(1-absIR_b-rhoIR_b-tauIR) < Modelica.Constants.eps,
+    assert(abs(1-absIR_b-rhoIR_b-tauIR) < 1E-8,
     "Absorptivity, reflectivity and transmissivity of surface b do not add up to one. Check parameters.");
 
 annotation (
@@ -36,6 +36,10 @@ Parameters that are used for classes with two surfaces.
 </html>",
 revisions="<html>
 <ul>
+<li>
+October 17, 2014, by Michael Wetter:<br/>
+Changed tolerance of the <code>assert</code> statement.
+</li>
 <li>
 May 30, 2014, by Michael Wetter:<br/>
 Removed undesirable annotation <code>Evaluate=true</code>.

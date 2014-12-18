@@ -13,7 +13,7 @@ algorithm
 
   annotation (Documentation(info="<html>
 <p>
-This function computes discrete incident angles for the window radiation calculation. The range is from 0 to 90 degree. 
+This function computes discrete incident angles for the window radiation calculation. The range is from 0 to 90 degree.
 </p>
 </html>", revisions="<html>
 <ul>

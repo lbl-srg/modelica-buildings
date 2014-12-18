@@ -2,9 +2,8 @@ within Buildings.Fluid.HeatExchangers.CoolingTowers.Examples;
 model FixedApproachWetBulb
   "Test model for cooling tower with fixed approach temperature using the wet-bulb temperature"
   extends Modelica.Icons.Example;
-  extends
-    Buildings.Fluid.HeatExchangers.CoolingTowers.Examples.BaseClasses.PartialStaticTwoPortCoolingTowerWetBulb(
-     redeclare FixedApproach tow);
+  extends BaseClasses.PartialStaticTwoPortCoolingTowerWetBulb(
+    redeclare CoolingTowers.FixedApproach tow);
 equation
   connect(wetBulTem.TWetBul, tow.TAir) annotation (Line(
       points={{1,50},{10,50},{10,-46},{22,-46}},
@@ -23,7 +22,7 @@ This example illustrates the use of the cooling tower model
 <a href=\"modelica://Buildings.Fluid.HeatExchangers.CoolingTowers.FixedApproach\">
 Buildings.Fluid.HeatExchangers.CoolingTowers.FixedApproach</a>, using
 the outdoor wet-bulb temperature as the potential for heat transfer.
-Heat is injected into the volume <code>vol</code>. An on/off controller 
+Heat is injected into the volume <code>vol</code>. An on/off controller
 switches the cooling loop water pump on or off based on the temperature of
 this volume.
 The cooling tower outlet temperature has a fixed approach temperature to the

@@ -1,5 +1,6 @@
 within Buildings.Rooms.BaseClasses;
 record Overhang "Record for window overhang"
+  extends Modelica.Icons.Record;
 
   parameter Modelica.SIunits.Length wL(min=0)
     "Overhang width left to the window, measured from the window corner"
@@ -16,7 +17,8 @@ record Overhang "Record for window overhang"
     annotation(Dialog(tab="General",group="Overhang"));
 
   final parameter Boolean haveOverhang= dep > Modelica.Constants.eps
-    "Flag, true if the window has an overhang";
+    "Flag, true if the window has an overhang"
+    annotation(Evaluate=true);
 
   annotation (
 Documentation(info="<html>
@@ -24,7 +26,7 @@ Documentation(info="<html>
 This record declares parameters for window overhangs.
 </p>
 <p>
-See 
+See
 <a href=\"modelica://Buildings.HeatTransfer.Windows.Overhang\">
 Buildings.HeatTransfer.Windows.Overhang</a>
 for an explanation of the parameters, and
@@ -42,7 +44,7 @@ overhang parameters.
 </li>
 <li>
 May 21, 2012, by Kaustubh Phalak:<br/>
-Removed <code>gap &gt; 0</code> as a necessary condition. 
+Removed <code>gap &gt; 0</code> as a necessary condition.
 There can be an overhang with no gap.
 </li>
 <li>

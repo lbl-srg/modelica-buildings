@@ -1,4 +1,4 @@
 FluidInterface
+closeClientSocket
 establishClientSocket
 exchangeReals
-closeClientSocket

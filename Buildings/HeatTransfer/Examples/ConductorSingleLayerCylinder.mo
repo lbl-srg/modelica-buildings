@@ -42,8 +42,6 @@ equation
 experiment(StopTime=36000),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/HeatTransfer/Examples/ConductorSingleLayerCylinder.mos"
         "Simulate and plot"),
-        Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
-            -100},{100,100}})),
     Documentation(info="<html>
 This example tests a circular conductor with a constant temperature at his boundary.
 

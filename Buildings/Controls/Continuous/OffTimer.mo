@@ -4,10 +4,9 @@ model OffTimer "Records the time since the input changed to false"
 
   Modelica.Blocks.Interfaces.BooleanInput u "Connector of Boolean input signal"
     annotation (Placement(transformation(
-          extent={{-140,-20},{-100,20}}, rotation=0)));
+          extent={{-140,-20},{-100,20}})));
   Modelica.Blocks.Interfaces.RealOutput y "Connector of Real output signal"
-    annotation (Placement(transformation(extent={{100,-10},{120,10}},
-          rotation=0)));
+    annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 
 protected
   discrete Modelica.SIunits.Time entryTime "Time instant when u became true";
@@ -19,8 +18,6 @@ equation
   end when;
   y = time - entryTime;
   annotation (
-    Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,
-            100}})),
     Icon(graphics={
         Line(points={{-78,16},{-60,30},{-60,-8},{42,82},{42,-8},{72,18}}, color=
              {0,0,255}),

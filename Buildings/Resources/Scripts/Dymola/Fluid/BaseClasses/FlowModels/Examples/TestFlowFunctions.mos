@@ -12,4 +12,3 @@ createPlot(id = 5,
  filename = "TestFlowFunctions.mat",
  leftTitleType = 1,
  bottomTitleType = 1);
-

@@ -61,19 +61,15 @@ equation
       index=-1,
       extent={{-6,3},{-6,3}}));
   annotation (
-    Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,
-            100}}), graphics),
 experiment(StartTime=1.82304e+07, StopTime=1.83168e+07),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/BoundaryConditions/SolarIrradiation/Examples/DiffusePerez.mos"
         "Simulate and plot"),
-    Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,
-            100}}), graphics),
     Documentation(info="<html>
 <p>
 This model tests the implementation of Perez' model for diffuse solar radiation.
 The three instances of Perez' model compute the diffuse solar
 irradiation on a roof, a wall and a floor.
-Since the floor only sees the ground but not the radiative heat flow that is 
+Since the floor only sees the ground but not the radiative heat flow that is
 scattered in the atmosphere, it receives the lowest amount of
 diffuse solar irradiation.
 </p>

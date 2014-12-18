@@ -23,13 +23,13 @@ equation
   annotation (defaultComponentName="criSol",
   Documentation(info="<html>
     <p>
-      This component calculates the solar radiation necessary for the fluid 
-      in the collector to gain heat. It is used in the model 
+      This component calculates the solar radiation necessary for the fluid
+      in the collector to gain heat. It is used in the model
       <a href=\"modelica://Buildings.Fluid.SolarCollectors.Controls.SolarPumpController\">
       Buildings.Fluid.SolarCollectors.Controls.SolarPumpController</a>.
     </p>
     <p>
-      The critical solar radiation level is calculated using Equation 6.8.2 in Duffie 
+      The critical solar radiation level is calculated using Equation 6.8.2 in Duffie
       and Beckman (2006). It is
     </p>
     <p align=\"center\" style=\"font-style:italic;\">
@@ -37,15 +37,15 @@ equation
       /(F<sub>R</sub>(&tau;&alpha;))
     </p>
     <p>
-      where <i>G<sub>TC</sub></i> is the critical solar radiation, 
-      <i>F<sub>R</sub>U<sub>L</sub></i> is the heat loss coefficient, 
-      <i>T<sub>In</sub></i> is the inlet temperature, <i>T<sub>Env</sub></i> is the 
-      ambient temperature, and <i>F<sub>R</sub>(&tau;&alpha;)</i> is the maximum 
+      where <i>G<sub>TC</sub></i> is the critical solar radiation,
+      <i>F<sub>R</sub>U<sub>L</sub></i> is the heat loss coefficient,
+      <i>T<sub>In</sub></i> is the inlet temperature, <i>T<sub>Env</sub></i> is the
+      ambient temperature, and <i>F<sub>R</sub>(&tau;&alpha;)</i> is the maximum
       efficiency.
-    </p>   
+    </p>
   <h4>References</h4>
     <p>
-      J.A. Duffie and W.A. Beckman 2006, Solar Engineering of Thermal Processes (3rd 
+      J.A. Duffie and W.A. Beckman 2006, Solar Engineering of Thermal Processes (3rd
       Edition), John Wiley &amp; Sons, Inc.<br/>
     </p>
  </html>",

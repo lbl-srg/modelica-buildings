@@ -78,17 +78,17 @@ Fluid.Actuators.Dampers.MixingBox mixBox(
     controllerType=Modelica.Blocks.Types.SimpleController.P)
     "Controller for supply fan"
             annotation (Placement(transformation(extent={{40,80},{60,100}})));
-  Fluid.Movers.FlowMachine_y fan32(
+  Fluid.Movers.SpeedControlled_y fan32(
     redeclare package Medium = Medium,
-    pressure(final V_flow={0,11.08,14.9}, dp={1508,743,100}),
+    per(pressure(final V_flow={0,11.08,14.9}, dp={1508,743,100})),
     dynamicBalance=true,
     r_N(start=0),
     init=Modelica.Blocks.Types.Init.InitialState,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     annotation (Placement(transformation(extent={{122,-18},{138,-2}})));
-  Fluid.Movers.FlowMachine_y fan56(
+  Fluid.Movers.SpeedControlled_y fan56(
     redeclare package Medium = Medium,
-    pressure(final V_flow={2.676,11.05}, dp={600,100}),
+    per(pressure(final V_flow={2.676,11.05}, dp={600,100})),
     dynamicBalance=true,
     r_N(start=0),
     init=Modelica.Blocks.Types.Init.InitialState,
@@ -184,8 +184,8 @@ The supply and return fans are controlled to provide a constant static
 pressure.
 </p>
 <p>
-Note that this example does not control the room temperature and 
-the heat flow through the building envelope. It only implements the 
+Note that this example does not control the room temperature and
+the heat flow through the building envelope. It only implements the
 CO<sub>2</sub> source and the damper and fan control to maintain
 a CO<sub>2</sub> concentration in the room below 700 PPM.
 </p>

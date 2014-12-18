@@ -37,8 +37,7 @@ model RadiatorEN442_2 "Test model for radiator"
     p(displayUnit="Pa") = 300000,
     T=T_b_nominal) "Sink"
     annotation (Placement(transformation(extent={{90,-68},{70,-48}})));
-  inner Modelica.Fluid.System system
-    annotation (Placement(transformation(extent={{-100,-100},{-80,-80}})));
+
   Buildings.Fluid.HeatExchangers.Radiators.RadiatorEN442_2 rad1(redeclare
       package Medium =
                Medium,
@@ -118,10 +117,8 @@ equation
     __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/Radiators/Examples/RadiatorEN442_2.mos"
         "Simulate and plot"),
     experiment(StopTime=10800),
-    Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,
-            100}})),
     Documentation(info="<html>
-This test model compares the radiator model when 
+This test model compares the radiator model when
 used as a steady-state and a dynamic model.
 </html>"));
 end RadiatorEN442_2;

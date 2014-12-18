@@ -7,10 +7,10 @@ extends Modelica.Icons.Package;
 
   annotation(Documentation(info="<html>
   <p>
-  This package contains models of rooms in test cell X3B of the FLEXLAB at LBNL. The following image is a drawing 
-  of test cell X3B. It shows how the different rooms in this example are connected, as well as providing the names 
+  This package contains models of rooms in test cell X3B of the FLEXLAB at LBNL. The following image is a drawing
+  of test cell X3B. It shows how the different rooms in this example are connected, as well as providing the names
   used in this example for each of the rooms.
-  </p>        
+  </p>
   <p align=\"center\">
   <img src=\"modelica://Buildings/Resources/Images/Rooms/FLEXLAB/Rooms/X3B.png\"border=\"1\" alt=\"Room locations and names in X3AWithRadiantFloor\"/>
   </p>
@@ -23,7 +23,7 @@ extends Modelica.Icons.Package;
   <a href=\"modelica://Buildings.Rooms.FLEXLAB.Rooms.X3B.Electrical\">
   Buildings.Rooms.FLEXLAB.Rooms.X3B.Electrical</a>. Each of the models were developed using construction and
   parameter information taken from architectural drawings. Accurate use of the models will likely require
-  combining all three room models to each other.  
+  combining all three room models to each other.
   </p>
   <p>
   The models in this package are intended to be connected to each other to develop a model of the entirety

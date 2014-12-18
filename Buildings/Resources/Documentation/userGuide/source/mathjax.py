@@ -2,15 +2,15 @@
     sphinx.ext.mathjax
     ~~~~~~~~~~~~~~~~~~
 
-    Allow `MathJax <http://mathjax.org/>`_ to be used to display math 
+    Allow `MathJax <http://mathjax.org/>`_ to be used to display math
     in Sphinx's HTML writer - requires the MathJax JavaScript library
     on your webserver/computer.
 
     Kevin Dunn, kgdunn@gmail.com, 3-clause BSD license.
-    
 
-    For background, installation details and support: 
-    
+
+    For background, installation details and support:
+
         https://bitbucket.org/kevindunn/sphinx-extension-mathjax
 
 """

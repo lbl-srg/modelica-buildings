@@ -7,9 +7,9 @@ Documentation(info="<html>
 Package <code>Sensors</code> consists of idealized sensor components that
 provide variables of a medium as
 output signals. These signals can be, e.g., further processed
-with components of the 
+with components of the
 <a href=\"modelica://Modelica.Blocks\">
-Modelica.Blocks</a> 
+Modelica.Blocks</a>
 library.
 </p>
 </html>",

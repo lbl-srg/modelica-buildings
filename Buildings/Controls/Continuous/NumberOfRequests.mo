@@ -9,11 +9,9 @@ block NumberOfRequests
     "Set to 0 for u>threShold, to 1 for >=, to 2 for <= or to 3 for <";
   Modelica.Blocks.Interfaces.IntegerOutput y
     "Number of input signals that violate the threshold"
-    annotation (Placement(transformation(extent={{100,-10},{120,10}}, rotation=
-            0)));
+    annotation (Placement(transformation(extent={{100,-10},{120,10}})));
   Modelica.Blocks.Interfaces.RealInput u[nin] "Input signals"
-    annotation (Placement(transformation(extent={{-140,-20},{-100,20}},
-          rotation=0)));
+    annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
 algorithm
   y := 0;
   for i in 1:nin loop
@@ -43,7 +41,7 @@ defaultComponentName="numReq",
 Documentation(info="<html>
 <p>
 Block that outputs the number of inputs that exceed a threshold.
-The parameter <code>kind</code> is used to determine the kind of the 
+The parameter <code>kind</code> is used to determine the kind of the
 inequality. The table below shows the allowed settings.
 </p>
 <table border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\" summary=\"Allowed parameter settings.\">
@@ -99,8 +97,5 @@ First implementation.
         Line(points={{-18,24},{66,54}}, color={255,0,0}),
         Line(points={{-78,-50},{78,-50}}, color={0,0,0}),
         Line(points={{70,-46},{78,-50}}, color={0,0,0}),
-        Line(points={{70,-54},{78,-50}}, color={0,0,0})}),
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
-            100,100}}),
-            graphics));
+        Line(points={{70,-54},{78,-50}}, color={0,0,0})}));
 end NumberOfRequests;

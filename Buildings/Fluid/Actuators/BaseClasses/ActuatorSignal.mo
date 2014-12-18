@@ -100,12 +100,12 @@ Documentation(info="<html>
 <p>
 This model implements the filter that is used to approximate the travel
 time of the actuator.
-Models that extend this model use the signal 
+Models that extend this model use the signal
 <code>y_actual</code> to obtain the
 current position of the actuator.
 </p>
 <p>
-See 
+See
 <a href=\"modelica://Buildings.Fluid.Actuators.UsersGuide\">
 Buildings.Fluid.Actuators.UsersGuide</a>
 for a description of the filter.

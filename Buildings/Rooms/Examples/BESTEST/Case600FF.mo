@@ -125,7 +125,6 @@ model Case600FF
         283.15) "Boundary condition for construction"
                                           annotation (Placement(transformation(
         extent={{0,0},{-8,8}},
-        rotation=0,
         origin={72,-52})));
   parameter Buildings.HeatTransfer.Data.OpaqueConstructions.Generic roof(nLay=3,
     absIR_a=0.9,
@@ -343,6 +342,5 @@ October 6, 2011, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
-</html>"),
-    Diagram(graphics));
+</html>"));
 end Case600FF;

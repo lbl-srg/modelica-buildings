@@ -59,8 +59,7 @@ equation
 This is a model for transport of heat without storing it.
 It is identical to the thermal conductor from the Modelica Standard Library,
 except that it adds an input signal <code>u</code>.
-</html>
-", revisions="<html>
+</html>", revisions="<html>
 <ul>
 <li>
 August 18 2010, by Michael Wetter:<br/>

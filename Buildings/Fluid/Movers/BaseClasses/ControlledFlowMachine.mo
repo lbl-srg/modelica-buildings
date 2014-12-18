@@ -1,12 +1,13 @@
 within Buildings.Fluid.Movers.BaseClasses;
 model ControlledFlowMachine
   "Partial model for fan or pump with ideally controlled mass flow rate or head as input signal"
-  extends Buildings.Fluid.Movers.BaseClasses.PowerInterface(
-     final use_powerCharacteristic = false,
-     final rho_default = Medium.density(sta_default));
 
   extends Buildings.Fluid.Movers.BaseClasses.PartialFlowMachine(
    preSou(final control_m_flow=control_m_flow));
+
+  extends Buildings.Fluid.Movers.BaseClasses.PowerInterface(per(
+     use_powerCharacteristic = false),
+     final rho_default = Medium.density(sta_default));
 
   import cha = Buildings.Fluid.Movers.BaseClasses.Characteristics;
 //  parameter Modelica.SIunits.MassFlowRate m_flow_nominal
@@ -35,8 +36,8 @@ initial equation
   V_flow_max=m_flow_nominal/rho_default;
 equation
   r_V = VMachine_flow/V_flow_max;
-  etaHyd = cha.efficiency(data=hydraulicEfficiency, r_V=r_V, d=hydDer);
-  etaMot = cha.efficiency(data=motorEfficiency,     r_V=r_V, d=motDer);
+  etaHyd = cha.efficiency(per=per.hydraulicEfficiency, V_flow=VMachine_flow, d=hydDer, r_N=1, delta=1E-4);
+  etaMot = cha.efficiency(per=per.motorEfficiency,     V_flow=VMachine_flow, d=motDer, r_N=1, delta=1E-4);
   dpMachine = -dp;
   VMachine_flow = -port_b.m_flow/rho_in;
   // To compute the electrical power, we set a lower bound for eta to avoid
@@ -48,10 +49,6 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   annotation (defaultComponentName="fan",
-    Icon(coordinateSystem(preserveAspectRatio=true,  extent={{-100,-100},{100,
-            100}}), graphics),
-    Diagram(coordinateSystem(preserveAspectRatio=true,  extent={{-100,-100},{
-            100,100}})),
     Documentation(info="<html>
 <p>
 This model describes a fan or pump that takes as an input
@@ -60,6 +57,10 @@ the head or the mass flow rate.
 </html>",
       revisions="<html>
 <ul>
+<li>
+April 19, 2014, by Filip Jorissen:<br/>
+Set default values for new parameters in <code>efficiency()</code>.
+</li>
 <li>
 October 8, 2013, by Michael Wetter:<br/>
 Removed parameter <code>show_V_flow</code>.

@@ -77,7 +77,7 @@ This section describes step by step how we implemented the model.
 <ol>
 <li>
 <p>
-First, we dragged 
+First, we dragged
 <a href=\"modelica://Modelica.Fluid.System\">
 Modelica.Fluid.System</a> into the model and keep its name at
 its default setting, which is <code>system</code>.
@@ -104,7 +104,7 @@ have water as a medium. Because we do not anticipate saturated air, we used
 the medium model
 <a href=\"modelica://Buildings.Media.GasesPTDecoupled.MoistAirUnsaturated\">
 Buildings.Media.GasesPTDecoupled.MoistAirUnsaturated</a>
-instead of 
+instead of
 <a href=\"modelica://Buildings.Media.GasesPTDecoupled.MoistAir\">
 Buildings.Media.GasesPTDecoupled.MoistAir</a>
 as the latter is computationally more expensive.
@@ -120,12 +120,12 @@ We also defined the system-level parameters
   parameter Modelica.SIunits.Volume V=6*10*3 \"Room volume\";
   parameter Modelica.SIunits.MassFlowRate mA_flow_nominal = V*6/3600
     \"Nominal mass flow rate\";
-  parameter Modelica.SIunits.HeatFlowRate QRooInt_flow = 4000 
+  parameter Modelica.SIunits.HeatFlowRate QRooInt_flow = 4000
     \"Internal heat gains of the room\";
 </pre>
 <p>
 to declare that the room volume is <i>180</i> m<sup>3</sup>, that the room
-has a nominal mass flow rate of <i>6</i> air changes per hour and that 
+has a nominal mass flow rate of <i>6</i> air changes per hour and that
 the internal heat gains of the room are <i>4000</i> Watts.
 These parameters have been declared at the top-level of the model
 as they will be used in several other models.
@@ -136,19 +136,19 @@ when revising the model.
 </li>
 <li>
 <p>
-To model the room air, approximated as a completely mixed volume of air, 
+To model the room air, approximated as a completely mixed volume of air,
 an instance of
 <a href=\"modelica://Buildings.Fluid.MixingVolumes.MixingVolume\">
 Buildings.Fluid.MixingVolumes.MixingVolume</a>
 has been used, as this model can be used with dry air or moist air.
 The medium model has been set to <code>MediumA</code>, and the nominal mass
 flow rate is set to <code>mA_flow_nominal</code>.
-The nominal mass flow rate is used for numerical reasons and should be set 
+The nominal mass flow rate is used for numerical reasons and should be set
 to the approximate order of magnitude. It only has an effect if the mass flow
 rate is near zero and what \"near zero\" means depends on the magnitude of
 <code>m_flow_nominal</code>, as it is used for the default value of the parameter
 <code>m_flow_small</code> on the <code>Assumptions</code> tag of the model.
-See also 
+See also
 <a href=\"modelica://Buildings.Fluid.UsersGuide\">
 Buildings.Fluid.UsersGuide</a>
 for an explanation of the purpose of <code>m_flow_small</code>.
@@ -157,12 +157,12 @@ for an explanation of the purpose of <code>m_flow_small</code>.
 <li>
 <p>
 Since we need to increase the heat capacity of the room air to approximate
-energy storage in furniture and building constructions, we connected the instance <code>heaCap</code> of 
+energy storage in furniture and building constructions, we connected the instance <code>heaCap</code> of
 <a href=\"modelica://Modelica.Thermal.HeatTransfer.Components.HeatCapacitor\">
 Modelica.Thermal.HeatTransfer.Components.HeatCapacitor</a>
 to the heat port of the room air.
 The model <code>heaCap</code> models energy storage. We set its capacity to
-<i>C=2*V*1.2*1006</i> J/K. This will increase the total heat capacity 
+<i>C=2*V*1.2*1006</i> J/K. This will increase the total heat capacity
 of the room air by a factor of three.
 </p>
 </li>
@@ -170,21 +170,21 @@ of the room air by a factor of three.
 <p>
 We used the instance <code>theCon</code> of
 <a href=\"modelica://Modelica.Thermal.HeatTransfer.Components.ThermalConductor\">
-Modelica.Thermal.HeatTransfer.Components.ThermalConductor</a> 
+Modelica.Thermal.HeatTransfer.Components.ThermalConductor</a>
  to model the thermal conductance to the ambient.
 Since our room should have a heat loss of <i>20</i> kW at a temperature difference
-of <i>30</i> Kelvin, we set the conductance to 
+of <i>30</i> Kelvin, we set the conductance to
 <i>G=20000 &frasl; 30</i> W/K.
 </p>
 </li>
 <li>
 <p>
-We used the instance <code>preHea</code> of 
+We used the instance <code>preHea</code> of
 <a href=\"modelica://Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow\">
 Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow</a>
-to model a prescribed heat gain, 
+to model a prescribed heat gain,
 such as due to internal heat source.
-This model outputs the heat gain which is equal to the value of its 
+This model outputs the heat gain which is equal to the value of its
 input signal, which is obtained from a time table.
 </p>
 </li>
@@ -205,7 +205,7 @@ We set the table parameters to
              18*3600, 0]) \"Time table for internal heat gain\";
 </pre>
 <p>
-Note that we set the output to be a periodic signal by configuring 
+Note that we set the output to be a periodic signal by configuring
 <code>
 extrapolation=Modelica.Blocks.Types.Extrapolation.Periodic.
 </code>
@@ -239,7 +239,7 @@ following analytical solutions:
 <ol>
 <li>
 <p>
-When the internal heat gain is zero, the room temperature should be equal 
+When the internal heat gain is zero, the room temperature should be equal
 to the outside temperature.
 </p>
 </li>
@@ -247,7 +247,7 @@ to the outside temperature.
 <p>
 At steady-state when the internal heat gain is <i>4000</i> Watts,
 the temperature difference to the outside should be
-<i>&Delta; T = Q&#775; &frasl; UA = 4000/(20000/30) = 6</i> Kelvin, which 
+<i>&Delta; T = Q&#775; &frasl; UA = 4000/(20000/30) = 6</i> Kelvin, which
 corresponds to a room temperature of <i>-4</i>&deg;C.
 </p>
 </li>
@@ -269,15 +269,15 @@ as shown below.
 </p>
 <p>
 When plotting the heat flow rate <code>fixTemp.port.Q_flow</code>, one can see
-that the required heat flow rate to keep the temperature at 
-<i>20</i>&deg;C is 
-<i>20</i> kW during night, and 
+that the required heat flow rate to keep the temperature at
+<i>20</i>&deg;C is
+<i>20</i> kW during night, and
 <i>16</i> kW during day when the heat gain is active.
 </p>
 <!-- Notes -->
 <h4>Notes</h4>
 <p>
-For a more realistic model of a room, the model 
+For a more realistic model of a room, the model
 <a href=\"modelica://Buildings.Rooms.MixedAir\">
 Buildings.Rooms.MixedAir</a>
 could have been used.

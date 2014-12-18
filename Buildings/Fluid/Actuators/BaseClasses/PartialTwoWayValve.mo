@@ -16,10 +16,10 @@ partial model PartialTwoWayValve "Partial model for a two way valve"
 
   parameter Real l(min=1e-10, max=1) = 0.0001
     "Valve leakage, l=Kv(y=0)/Kv(y=1)";
-  input Real phi 
+  input Real phi
     "Ratio actual to nominal mass flow rate of valve, phi=Kv(y)/Kv(y=1)";
 protected
- parameter Real kFixed(unit="") = if dpFixed_nominal > Modelica.Constants.small
+ parameter Real kFixed(unit="", min=0) = if dpFixed_nominal > Modelica.Constants.eps
     then m_flow_nominal / sqrt(dpFixed_nominal) else 0
     "Flow coefficient of fixed resistance that may be in series with valve, k=m_flow/sqrt(dp), with unit=(kg.m)^(1/2).";
  Real kVal(unit="", min=Modelica.Constants.small)
@@ -31,7 +31,11 @@ initial equation
         + String(dpFixed_nominal) + " Pa.");
 equation
  kVal = phi*Kv_SI;
- k = if (dpFixed_nominal > Modelica.Constants.eps) then sqrt(1/(1/kFixed^2 + 1/kVal^2)) else kVal;
+ if (dpFixed_nominal > Modelica.Constants.eps) then
+   k = sqrt(1/(1/kFixed^2 + 1/kVal^2));
+ else
+   k = kVal;
+ end if;
 
  if linearized then
    // This implementation yields m_flow_nominal = phi*kv_SI * sqrt(dp_nominal)
@@ -100,7 +104,7 @@ or quick opening.
 <p>
 To prevent the derivative <code>d/dP (m_flow)</code> to be infinite near
 the origin, this model linearizes the pressure drop versus flow relation
-ship. The region in which it is linearized is parameterized by 
+ship. The region in which it is linearized is parameterized by
 </p>
 <pre>
   m_turbulent_flow = deltaM * m_flow_nominal
@@ -113,8 +117,8 @@ changes.
 <p>
 In contrast to the model in <a href=\"modelica://Modelica.Fluid\">
 Modelica.Fluid</a>, this model uses the parameter <code>Kv_SI</code>,
-which is the flow coefficient in SI units, i.e., 
-it is the ratio between mass flow rate in <code>kg/s</code> and square root 
+which is the flow coefficient in SI units, i.e.,
+it is the ratio between mass flow rate in <code>kg/s</code> and square root
 of pressure drop in <code>Pa</code>.
 </p>
 <h4>Modelling options</h4>
@@ -132,15 +136,20 @@ each valve opening characteristics has different parameters.
 </p>
 <h4>Implementation</h4>
 <p>
-Models that extend this model need to provide a binding equation 
+Models that extend this model need to provide a binding equation
 for the flow function <code>phi</code>.
 An example of such a code can be found in
 <a href=\"modelica://Buildings.Fluid.Actuators.Valves.TwoWayLinear\">
 Buildings.Fluid.Actuators.Valves.TwoWayLinear</a>.
 </p>
-</html>", 
+</html>",
 revisions="<html>
 <ul>
+<li>
+August 8, 2014, by Michael Wetter:<br/>
+Reformulated the computation of <code>k</code> to make the model
+work in OpenModelica.
+</li>
 <li>
 April 4, 2014, by Michael Wetter:<br/>
 Added keyword <code>input</code> to variable <code>phi</code>
@@ -151,7 +160,7 @@ Buildings.Fluid.Interfaces.StaticTwoPortHeatMassExchanger</a>.
 </li>
 <li>
 March 27, 2014 by Michael Wetter:<br/>
-Revised model for implementation of new valve model that computes the flow function 
+Revised model for implementation of new valve model that computes the flow function
 based on a table.
 </li>
 <li>
@@ -173,7 +182,7 @@ a non-literal value.
 February 20, 2012 by Michael Wetter:<br/>
 Renamed parameter <code>dp_nominal</code> to <code>dpValve_nominal</code>,
 and added new parameter <code>dpFixed_nominal</code>.
-See 
+See
 <a href=\"modelica://Buildings.Fluid.Actuators.UsersGuide\">
 Buildings.Fluid.Actuators.UsersGuide</a>.
 </li>
@@ -190,7 +199,7 @@ and model
 <li>
 August 12, 2011 by Michael Wetter:<br/>
 Added <code>assert</code> statement to prevent <code>l=0</code> due to the
-implementation of 
+implementation of
 <a href=\"modelica://Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow\">
 Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow</a>.
 </li>
@@ -200,7 +209,7 @@ Revised implementation to use new base class for actuators.
 </li>
 <li>
 February 18, 2009 by Michael Wetter:<br/>
-Implemented parameterization of flow coefficient as in 
+Implemented parameterization of flow coefficient as in
 <code>Modelica.Fluid</code>.
 </li>
 <li>
