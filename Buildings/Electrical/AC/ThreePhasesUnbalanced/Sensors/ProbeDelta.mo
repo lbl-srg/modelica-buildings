@@ -6,7 +6,8 @@ model ProbeDelta
     redeclare final
       Buildings.Electrical.AC.ThreePhasesUnbalanced.Interfaces.Terminal_n
       term);
-  Interfaces.WyeToDelta     wyeToDelta "Y to D transformation"
+  // fixme: The model ProbeDelta_N is missing from the library.
+  Interfaces.WyeToDelta wyeToDelta "Y to D transformation"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         origin={20,0})));
 equation
@@ -45,8 +46,8 @@ equation
           thickness=0.5)}),         Documentation(info="<html>
 <p>
 This model represents a probe that measures the RMS voltage and the angle
-of the voltage phasors (in degrees) at a given point. The probes are connected
-in Wye (Y) grounded configuration.
+of the voltage phasors at a given point. The probes are connected
+in the Wye (Y) grounded configuration.
 </p>
 </html>", revisions="<html>
 <ul>

@@ -85,7 +85,7 @@ The current that flows through the load depends on the impedance of the line.
 </p>
 <p>
 Each load is connected to the source with different configurations,
-however the equivalent impedance between each load and the source is the same.
+but the equivalent impedance between each load and the source is the same.
 Since the equivalent impedances are the same, each load draw the same current.
 </p>
 <p>

@@ -102,7 +102,7 @@ equation
     Documentation(info="<html>
 <p>
 This example demonstrates how to use an inductive resistive line model to connect
-a source to a load. The model is parametrized using the impedance matrix Z.
+a source to a load. The model is parameterized using the impedance matrix <i>Z</i>.
 </p>
 <p>
 The model has three loads. The loads represent a short circuit <i>R=0</i>.

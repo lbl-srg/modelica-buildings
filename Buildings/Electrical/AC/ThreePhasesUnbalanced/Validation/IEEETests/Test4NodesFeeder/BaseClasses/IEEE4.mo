@@ -165,7 +165,7 @@ First implementation.
 </html>", info="<html>
 <p>
 This is a partial model that is extended by all the other validation test cases.
-This model defined replaceable probes and trasformer so they can be
+This model defined replaceable probes and transformer so they can be
 easily changed when implementing the different tests.
 </p>
 

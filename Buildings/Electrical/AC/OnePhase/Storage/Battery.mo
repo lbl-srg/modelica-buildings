@@ -105,7 +105,13 @@ equation
       smooth=Smooth.None));
   annotation (
 defaultComponentName="bat",
- Icon(coordinateSystem(
+Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
+            100}}),            graphics={Text(
+          extent={{28,-18},{92,-26}},
+          lineColor={0,0,255},
+          textString=
+              "fixme: shouldn't there be a connector visible at the right side of bat?")}),
+                                          Icon(coordinateSystem(
           preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
         graphics={
         Polygon(
@@ -171,7 +177,7 @@ Simple model of a battery.
 <p>
 This model takes as an input the power to be stored in the battery (if <i>P &gt; 0</i>)
 or to be extracted from the battery. This model has a one phase AC connector
-and takes into account the efficiency of the conversion
+and takes into account the efficiency of the conversion 
 between DC and AC <i>&eta;<sub>DCAC</sub></i>.
 </p>
 <p>
@@ -189,7 +195,7 @@ and that the state of charge remains between zero and one.
 <li>
 September 4, 2014, by Michael Wetter:<br/>
 Corrected problem, the losses due to AC/DC conversion have to
-affect both during the charge and the discharge. The input P is the
+affect both during the charge and the discharge. The input P is the 
 power that is taken, due to conversions the actual power drain
 from the battery is higher.
 </li>

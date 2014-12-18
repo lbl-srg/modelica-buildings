@@ -94,7 +94,7 @@ on the resistance of the line.
 <p>
 The remaining three loads <code>R1</code>, <code>R2</code>, and <code>R3</code>
 are resistive loads. Each load is connected to the source with different configurations,
-however the equivalent resistance between each load and the source is the same.
+but the equivalent resistance between each load and the source is the same.
 Since the equivalent resistances are the same, each load draws the same current.
 </p>
 </html>", revisions="<html>

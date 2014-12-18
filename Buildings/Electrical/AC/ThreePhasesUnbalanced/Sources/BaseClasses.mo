@@ -60,7 +60,7 @@ Created model and documentation.
     annotation ( Documentation(info="<html>
 <p>
 This model is a partial class extended by three phases unbalanced
-voltage sources that have neutral cable.
+voltage sources that have a neutral cable.
 </p>
 <p>
 The neutral cable is connected to the ground reference.
@@ -88,6 +88,9 @@ Revised documentation.
        annotation(Dialog(group="Nominal conditions"));
     parameter Real areaFraction[3](each min=0, each max=1.0) = ones(3)/3
       "Fraction of area occupied by the PVs of each phase";
+    // fixme: you need to use constrainedby and assign the parameters in the
+    // constrainedby instance to correctly propagate them even if the model
+    // is redeclared.
     replaceable OnePhase.Sources.PVSimple pv_phase2(
       pf=pf,
       eta_DCAC=eta_DCAC,
@@ -95,7 +98,7 @@ Revised documentation.
       fAct=fAct,
       eta=eta,
       V_nominal=V_nominal/sqrt(3)) if
-                  plugPhase2 "PV phase 2"
+         plugPhase2 "PV phase 2"
       annotation (Placement(transformation(extent={{-20,-10},{-40,10}})));
     replaceable OnePhase.Sources.PVSimple pv_phase3(
       pf=pf,
@@ -104,7 +107,7 @@ Revised documentation.
       fAct=fAct,
       eta=eta,
       V_nominal=V_nominal/sqrt(3)) if
-                  plugPhase3 "PV phase 3"
+         plugPhase3 "PV phase 3"
       annotation (Placement(transformation(extent={{-20,-60},{-40,-40}})));
     replaceable OnePhase.Sources.PVSimple pv_phase1(
       pf=pf,
@@ -113,7 +116,7 @@ Revised documentation.
       fAct=fAct,
       eta=eta,
       V_nominal=V_nominal/sqrt(3)) if
-                  plugPhase1 "PV phase 1"
+         plugPhase1 "PV phase 1"
       annotation (Placement(transformation(extent={{-18,40},{-38,60}})));
     Modelica.Blocks.Math.Add3 sumBlock
       "Sum of the generated power on each phase"
@@ -514,6 +517,9 @@ Revised documentation.
     extends Buildings.Electrical.Interfaces.PartialWindTurbineBase(V_nominal(start = 480));
     parameter Real scaleFraction[3](each min=0, each max=1.0) = ones(3)/3
       "Fraction of power allocated to the wind turbines of each phase";
+    // fixme: you need to use constrainedby and assign the parameters in the
+    // constrainedby instance to correctly propagate them even if the model
+    // is redeclared. Also, fix the indentation.
     replaceable OnePhase.Sources.WindTurbine
                                           wt_phase2(
       pf=pf,

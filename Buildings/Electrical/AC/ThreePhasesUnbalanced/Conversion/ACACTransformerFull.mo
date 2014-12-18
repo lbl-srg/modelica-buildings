@@ -60,7 +60,8 @@ model ACACTransformerFull "AC AC transformer detailed equivalent circuit (YY)"
 
   annotation (
   defaultComponentName="tra",
- Icon(graphics={
+  Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
+            -100},{100,100}}), graphics), Icon(graphics={
         Text(
           extent={{-100,-60},{100,-92}},
           lineColor={0,0,0},
@@ -189,17 +190,17 @@ model ACACTransformerFull "AC AC transformer detailed equivalent circuit (YY)"
           textString="L")}),
     Documentation(info="<html>
 <p>
-This is a detailed transformer model that takes into accounts the winding joule losses,
-and the leakage reactances on both primary and secondary side. The model also describe
+This is a detailed transformer model that takes into accounts the winding Joule losses, 
+and the leakage reactances on the primary and secondary side. The model also takes into account
 the core or iron losses and the losses due to magnetization effects.
 </p>
 <p>
 The losses are represented by a series of resistances <i>R<sub>1</sub></i>, <i>R<sub>2</sub></i>,
-<i>R<sub>m</sub></i> and inductances <i>L<sub>1</sub></i>, <i>L<sub>2</sub></i>, and
+<i>R<sub>m</sub></i> and inductances <i>L<sub>1</sub></i>, <i>L<sub>2</sub></i>, and 
 <i>L<sub>m</sub></i>.
 </p>
 <p>
-The model is parametrized using the following parameters
+The model is parameterized using the following parameters
 </p>
 <ul>
 <li><code>Vhigh</code> - RMS voltage at primary side,</li>
@@ -211,8 +212,8 @@ The model is parametrized using the following parameters
 <li><code>R_m, L_m</code> - resistance and inductance for magnetization effects (per unit).</li>
 </ul>
 <p>
-The model given the nominal conditions computes the values of the nominal impedances
-at both primary and secondary side. Given these values the per unit values are transformed into
+Given the nominal conditions, the model computes the values of the nominal impedances
+at the primary and secondary side. Given these values, the per unit values are transformed into
 the actual values of the resistances and inductancs.
 </p>
 <p>
@@ -220,7 +221,7 @@ The magnetization losses can be enabled or disabled using the boolean flag <code
 </p>
 <h4>Configuration:</h4>
 <p>
-The image belod describe the connection of the windings.
+The image below describes the connection of the windings.
 </p>
 <p align=\"center\">
 <img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Electrical/AC/ThreePhasesUnbalanced/Conversion/BaseClasses/YY.png\"/>
@@ -228,8 +229,8 @@ The image belod describe the connection of the windings.
 <h4>Note:</h4>
 <p>
 This model reuses models from
-<a href=\"modelica://Buildings.Electrical.AC.OnePhase.Conversion.ACACTrasformerFull\">
-Buildings.Electrical.AC.OnePhase.Conversion.ACACTrasformerFull</a>.
+<a href=\"modelica://Buildings.Electrical.AC.OnePhase.Conversion.ACACTransformerFull\">
+Buildings.Electrical.AC.OnePhase.Conversion.ACACTransformerFull</a>.
 </p>
 <p>
 See

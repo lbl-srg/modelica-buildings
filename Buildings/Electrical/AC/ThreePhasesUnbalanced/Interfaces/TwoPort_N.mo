@@ -21,7 +21,7 @@ Added model and documentation.
 </html>", info="<html>
 <p>
 Interface model for an AC three phases unbalanced component with two ports
-and with neutral cable connection.
+and with neutral cable.
 </p>
 </html>"));
 end TwoPort_N;

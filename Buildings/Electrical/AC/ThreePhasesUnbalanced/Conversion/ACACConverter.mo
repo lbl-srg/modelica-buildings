@@ -23,7 +23,6 @@ model ACACConverter "AC AC converter single phase systems (YY)"
     "Converter efficiency, pLoss = (1-eta) * Ptr";
   parameter Boolean ground_1 = false "Connect side 1 of converter to ground" annotation(Dialog(tab = "Ground", group="side 1"));
   parameter Boolean ground_2 = true "Connect side 2 of converter to ground" annotation(Dialog(tab = "Ground", group="side 2"));
-equation
 
   annotation (
   defaultComponentName="conv",
@@ -79,7 +78,7 @@ respectively).
 
 <p>
 The loss of the converter is proportional to the power transmitted.
-The parameter <code>eps</code> is the efficiency of the transfer.
+The parameter <code>eta</code> is the efficiency of the transfer.
 The loss is computed as
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
@@ -93,7 +92,7 @@ Furthermore, reactive power on both side are set to 0.
 
 <h4>Configuration:</h4>
 <p>
-The image belod describe the connection of the windings.
+The image below describes the connection of the windings.
 </p>
 <p align=\"center\">
 <img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Electrical/AC/ThreePhasesUnbalanced/Conversion/BaseClasses/YY.png\"/>

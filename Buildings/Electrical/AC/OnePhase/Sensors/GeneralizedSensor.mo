@@ -58,7 +58,7 @@ The two components of the power <i>S</i> are the active and reactive power.
 <ul>
 <li>
 September 22, 2014, by Marco Bonvini:<br/>
-Fixed bug. The model was referencing to the wrong PhaseSystem.
+Fixed bug. The model was referencing the wrong PhaseSystem.
 </li>
 <li>September 4, 2014, by Michael Wetter:<br/>
 Revised model, changed <code>equation</code> section to

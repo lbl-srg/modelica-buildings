@@ -27,7 +27,7 @@ extends Modelica.Blocks.Interfaces.BlockIcon;
     "Building load"
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
 
-  Buildings.Electrical.AC.ThreePhasesBalanced.Loads.CapacitiveLoadP loaAC(
+  Buildings.Electrical.AC.ThreePhasesBalanced.Loads.Capacitive loaAC(
     linear=linear_AC,
     V_nominal=VACBui_nominal,
     pf=pf,

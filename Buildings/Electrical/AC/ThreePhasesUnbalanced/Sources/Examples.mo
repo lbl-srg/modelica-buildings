@@ -43,7 +43,9 @@ package Examples "Package with example models"
         points={{-20,-60},{0,-60},{0,-39}},
         color={127,0,127},
         smooth=Smooth.None));
-    annotation (      experiment(StopTime=1, Tolerance=1e-05),
+    annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
+              -100},{100,100}}), graphics),
+      experiment(StopTime=1, Tolerance=1e-05),
       __Dymola_Commands(file=
             "modelica://Buildings/Resources/Scripts/Dymola/Electrical/AC/ThreePhasesUnbalanced/Sources/Examples/FixedVoltageSource.mos"
           "Simulate and plot"),
@@ -57,7 +59,7 @@ Created model and documentation.
 </html>",   info="<html>
 <p>
 This example shows how to use a fixed voltage generator model.
-</p>
+</p> 
 </html>"));
   end FixedVoltageSource;
 
@@ -151,6 +153,12 @@ This example shows how to use a fixed voltage generator model.
         color={0,120,120},
         smooth=Smooth.None));
     annotation (experiment(StopTime=172800, Tolerance=1e-05),
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
+              100,100}}),        graphics={Text(
+            extent={{-64,-58},{92,-86}},
+            lineColor={0,0,255},
+            textString=
+                "fixme: unit tests need to be added for the PV with neutral line. Each model must be in one unit test.")}),
       __Dymola_Commands(file=
             "modelica://Buildings/Resources/Scripts/Dymola/Electrical/AC/ThreePhasesUnbalanced/Sources/Examples/PVPanels.mos"
           "Simulate and plot"),
@@ -169,11 +177,10 @@ partially consumed by the load, and the remaining part is fed into
 the grid.
 </p>
 <p>
-The PV produces different amount of power on each phase according to the fractions
-specified by the vector <code>areaFraction={0.5,0.3,0.2}</code>. In this case the 50%
-of the power generation is on phase 1, while the remaining is split 30% and 20% between
-phase 2 and 3 respectively.
-</p>
+The PV produces different amounts of power on each phase according to the fractions
+specified by the vector <code>areaFraction={0.5,0.3,0.2}</code>. In this example, 50%
+of the power generation is on phase 1, 30% on phase 2 and 20% on phase 3.
+</p> 
 </html>"));
   end PVPanels;
 
@@ -191,6 +198,7 @@ phase 2 and 3 respectively.
       scaleFraction={0.5,0.25,0.25}) "Wind turbine"
       annotation (Placement(transformation(
           extent={{10,-10},{-10,10}},
+          rotation=0,
           origin={60,0})));
     Buildings.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(
         computeWetBulbTemperature=false,
@@ -238,25 +246,31 @@ phase 2 and 3 respectively.
         points={{-20,5.55112e-16},{8,0},{8,6.66134e-16}},
         color={0,120,120},
         smooth=Smooth.None));
-    annotation (      experiment(StopTime=172800, Tolerance=1e-05),
-Documentation(info="<html>
+    annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
+              -100},{100,100}}),      graphics={Text(
+            extent={{-54,-48},{102,-76}},
+            lineColor={0,0,255},
+            textString=
+                "fixme: unit tests need to be added for the wind turbine with neutral line. Each model must be in one unit test.")}),
+      experiment(StopTime=172800, Tolerance=1e-05),
+      __Dymola_experimentSetupOutput,
+      Documentation(info="<html>
 <p>
 This model illustrates the use of the wind turbine model,
 which is connected to a AC voltage source and a resistive load.
-This voltage source can represent the grid to which the
+This voltage source can represent the grid to which the 
 circuit is connected.
 Wind data for San Francisco, CA, are used.
 The turbine cut-in wind speed is <i>3.5</i> m/s,
 and hence it is off in the first day when the wind speed is low.
 </p>
 <p>
-The wind turbines produce different amount of power on each phase according to the fractions
-specified by the vector <code>scaleFraction={0.5,0.25,0.25}</code>. In this case the 50%
-of the power generation is on phase 1, while the remaining is split 25% and 25% between
-phase 2 and 3 respectively.
-As expected the phase with the higher power production has the higher voltage deviation
+The wind turbines produce different amounts of power on each phase according to the fractions
+specified by the vector <code>scaleFraction={0.5,0.25,0.25}</code>. In this example, 50%
+of the power generation is on phase 1, 30% on phase 2 and 20% on phase 3.
+As expected the phase with the higher power production has the higher voltage deviation 
 from the nominal condition.
-</p>
+</p> 
 </html>",
         revisions="<html>
 <ul>
@@ -268,7 +282,9 @@ Created model and documentation
 </html>"),
       __Dymola_Commands(file=
             "modelica://Buildings/Resources/Scripts/Dymola/Electrical/AC/ThreePhasesUnbalanced/Sources/Examples/WindTurbineAC.mos"
-          "Simulate and plot"));
+          "Simulate and plot"),
+      Icon(coordinateSystem(extent={{-100,-100},{100,100}}, preserveAspectRatio=
+              false)));
   end WindTurbine;
   annotation (Documentation(info="<html>
 <p>

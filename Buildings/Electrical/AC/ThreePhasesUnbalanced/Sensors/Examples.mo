@@ -106,8 +106,8 @@ unbalanced system.
 <p>
 In this example all the loads are directly connected to the sources,
 avoiding voltage losses. The loads are all resistive and they start
-by consuming 10 kW for each phase, while at the end of the simulation
-they all produce 10 kW.
+by consuming <i>10</i> kW for each phase, while at the end of the simulation
+they all produce <i>10</i> kW.
 </p>
 </html>"),
   experiment(Tolerance=1e-05, __Dymola_Algorithm="Radau"),

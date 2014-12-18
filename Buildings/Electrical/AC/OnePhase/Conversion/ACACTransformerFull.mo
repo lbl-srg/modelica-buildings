@@ -29,11 +29,15 @@ model ACACTransformerFull "AC AC transformer with detailed equivalent circuit"
     "If true, introduce magnetization effects"
     annotation(Evaluate=true, Dialog(group="Magnetization"));
   parameter Buildings.Electrical.Types.PerUnit Rm(min=0)
-    "Magnetization resistance (pu)" annotation(Evaluate=true, Dialog(group="Magnetization", enable = magEffects));
+    "Magnetization resistance (pu)"
+    annotation(Evaluate=true, Dialog(group="Magnetization", enable = magEffects));
   parameter Buildings.Electrical.Types.PerUnit Lm(min=0)
-    "Magnetization inductance (pu)" annotation(Evaluate=true, Dialog(group="Magnetization", enable = magEffects));
-  parameter Boolean ground_1 = false "Connect side 1 of converter to ground" annotation(Evaluate=true,Dialog(tab = "Ground", group="side 1"));
-  parameter Boolean ground_2 = true "Connect side 2 of converter to ground" annotation(Evaluate=true, Dialog(tab = "Ground", group="side 2"));
+    "Magnetization inductance (pu)"
+    annotation(Evaluate=true, Dialog(group="Magnetization", enable = magEffects));
+  parameter Boolean ground_1 = false "Connect side 1 of converter to ground"
+   annotation(Evaluate=true,Dialog(tab = "Ground", group="side 1"));
+  parameter Boolean ground_2 = true "Connect side 2 of converter to ground"
+   annotation(Evaluate=true, Dialog(tab = "Ground", group="side 2"));
   parameter Modelica.SIunits.Angle phi_1 = 0
     "Angle of the voltage side 1 at initialization"
      annotation(Evaluate=true,Dialog(tab = "Initialization"));
@@ -94,8 +98,7 @@ equation
     Im = Buildings.Electrical.PhaseSystems.OnePhase.divide(V1, Zrm) +
          Buildings.Electrical.PhaseSystems.OnePhase.divide(V1, Zlm);
   else
-    Im[1] = 0;
-    Im[2] = 0;
+    Im = zeros(2);
   end if;
 
   // Losses due to the impedance - primary side
@@ -339,8 +342,8 @@ defaultComponentName="traACAC",
           textString="Lm")}),
     Documentation(info="<html>
 <p>
-This is a detailed transformer model that takes into accounts the winding joule losses,
-and the leakage reactances on both primary and secondary side. The model also describe
+This is a detailed transformer model that takes into account the winding Joule losses
+and the leakage reactances on both primary and secondary side. The model also describes
 the core or iron losses and the losses due to magnetization effects.
 </p>
 <p>
@@ -349,7 +352,7 @@ The losses are represented by a series of resistances <i>R<sub>1</sub></i>, <i>R
 <i>L<sub>m</sub></i>.
 </p>
 <p>
-The model is parametrized using the following parameters
+The model is parameterized using the following parameters
 </p>
 <ul>
 <li><code>VHigh</code> - RMS voltage at primary side,</li>

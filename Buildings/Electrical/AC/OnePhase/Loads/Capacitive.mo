@@ -91,7 +91,7 @@ equation
           textString="%name")}), Documentation(info="<html>
 
 <p>
-Model of an inductive load. It may be used to model a bank of capacitors.
+Model of an capacitive load. It may be used to model a bank of capacitors.
 </p>
 <p>
 The model computes the complex power vector as

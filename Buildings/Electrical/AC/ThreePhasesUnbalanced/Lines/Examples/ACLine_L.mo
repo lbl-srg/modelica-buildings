@@ -96,7 +96,7 @@ on the resistance of the line.
 <p>
 The remaining three loads <code>L1</code>, <code>L2</code>, and <code>L3</code>
 are inductive loads. Each load is connected to the source with different configurations,
-however the equivalent impedance between each load and the source is the same.
+but the equivalent impedance between each load and the source is the same.
 Since the equivalent impedances are the same, each load draws the same current.
 </p>
 </html>", revisions="<html>

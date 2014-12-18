@@ -2,28 +2,6 @@ within Buildings.Electrical.Transmission;
 package LowVoltageCables "Package of low voltage electricity cables used in distribution grid"
   extends Modelica.Icons.MaterialPropertiesPackage;
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 annotation (Documentation(info="<html>
 <p>
 This package contains records of physical properties for low

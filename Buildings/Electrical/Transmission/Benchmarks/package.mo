@@ -6,8 +6,6 @@ package Benchmarks "Package with different models, resources and data for benchm
   extends Modelica.Icons.UnderConstruction;
 
 
-
-
 annotation (Documentation(info="<html>
 <p>
 This package contains models and data for benchmarks.
@@ -15,6 +13,7 @@ This package contains models and data for benchmarks.
 <h4>Note:</h4>
 <p>
 This part of the library is under construction.
+<!-- fixme: is this still under construction? If yes, when will it be done so the library can be merged to the master? -->
 </p>
 </html>", revisions="<html>
 <ul>

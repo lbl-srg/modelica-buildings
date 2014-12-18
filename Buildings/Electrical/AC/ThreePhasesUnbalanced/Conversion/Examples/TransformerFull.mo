@@ -16,7 +16,10 @@ model TransformerFull "Test for the AC/AC transformer full model"
       L2=0.005*6,
       magEffects=true,
       Rm=10,
-      Lm=10), load(initMode=Buildings.Electrical.Types.InitMode.linearized));
+      Lm=10),
+      load(initMode=Buildings.Electrical.Types.InitMode.linearized));
+             // fixme: fix indentation
+
   annotation (Documentation(revisions="<html>
 <ul>
 <li>

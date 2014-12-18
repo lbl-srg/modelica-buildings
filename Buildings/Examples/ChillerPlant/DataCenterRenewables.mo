@@ -12,15 +12,16 @@ model DataCenterRenewables
     lat=0.65798912800186,
     azi=-0.78539816339745) "PV array"
     annotation (Placement(transformation(extent={{-22,50},{-42,70}})));
-  Buildings.Electrical.DC.Storage.Battery     bat(EMax=500e3*4*3600) "Battery"
+  Buildings.Electrical.DC.Storage.Battery     bat(EMax=500e3*4*3600, V_nominal=
+        480) "Battery"
     annotation (Placement(transformation(extent={{0,-42},{-20,-22}})));
   Buildings.Electrical.AC.OnePhase.Conversion.ACDCConverter                 conv(
       conversionFactor=480/480, eta=0.9) "AC/DC converter"
     annotation (Placement(transformation(extent={{40,10},{20,30}})));
-  Buildings.Electrical.AC.OnePhase.Sources.Grid                 gri(
+  Buildings.Electrical.AC.OnePhase.Sources.Grid gri(
     f=60,
     V=480,
-    Phi=0) annotation (Placement(transformation(extent={{60,60},{80,80}})));
+    phiSou=0) annotation (Placement(transformation(extent={{60,60},{80,80}})));
   Buildings.BoundaryConditions.WeatherData.Bus
     weaBus "Weather data bus"
     annotation (Placement(transformation(extent={{-70,30},{-50,50}})));
@@ -29,8 +30,8 @@ model DataCenterRenewables
     annotation (Placement(transformation(extent={{-50,-20},{-30,0}})));
   Buildings.Electrical.DC.Loads.Conductor dcLoad(mode=Buildings.Electrical.Types.Load.VariableZ_P_input)
     annotation (Placement(transformation(extent={{0,-70},{-20,-50}})));
-  Buildings.Electrical.AC.OnePhase.Loads.InductiveLoadP acLoad(
-                                                    mode=Buildings.Electrical.Types.Load.VariableZ_P_input)
+  Buildings.Electrical.AC.OnePhase.Loads.Inductive acLoad(
+    mode=Buildings.Electrical.Types.Load.VariableZ_P_input)
     annotation (Placement(transformation(extent={{40,-50},{20,-30}})));
 equation
   connect(dataCenterContinuousTimeControl.weaBus, weaBus) annotation (Line(
