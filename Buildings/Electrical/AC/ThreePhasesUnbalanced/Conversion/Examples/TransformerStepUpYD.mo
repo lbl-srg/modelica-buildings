@@ -14,6 +14,8 @@ model TransformerStepUpYD
       XoverR=6,
       Zperc=sqrt(0.01^2 + 0.06^2),
       VABase=6000000));
+             // fixme: fix indentation
+
   annotation (Documentation(revisions="<html>
 <ul>
 <li>
@@ -29,9 +31,9 @@ Buildings.Electrical.AC.ThreePhasesUnbalanced.Conversion.ACACTransformerStepUpYD
 </p>
 <h4>Note:</h4>
 <p>
-When the secondary side of the transformer is in Delta (D) configuration
+When the secondary side of the transformer is in the Delta (D) configuration,
 measuring the voltage with a Wye (Y) is not possible because the voltage vectors
-in the connector do not have a neutral reference anymore.
+in the connector do not have a neutral reference.
 </p>
 </html>"),
 experiment(Tolerance=1e-05, __Dymola_Algorithm="Radau"),

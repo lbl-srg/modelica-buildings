@@ -1,9 +1,11 @@
 within Buildings.Electrical.AC.ThreePhasesUnbalanced.Lines;
 model TwoPortMatrixRLC
-  "PI model of a line parametrized with impedance and admittance matrices"
+  "PI model of a line parameterized with impedance and admittance matrices"
   extends Buildings.Electrical.AC.ThreePhasesUnbalanced.Interfaces.TwoPort;
   parameter Modelica.SIunits.Voltage V_nominal(min=0, start=480)
     "Nominal voltage (V_nominal >= 0)"  annotation(Evaluate=true, Dialog(group="Nominal conditions"));
+    // fixme: remove default values for Z and B as no values can be
+    // provided that are generally valid.
   parameter Modelica.SIunits.Impedance Z11[2] = {1,1}
     "Element [1,1] of impedance matrix";
   parameter Modelica.SIunits.Impedance Z12[2] = {1,1}
@@ -176,9 +178,10 @@ cable in a three phases unbalanced AC system.
 </p>
 
 <p>
-The model is parametrized with an impedance matrix <i>Z</i>.
-The matrix is symmetric thus just the upper triangular
-part of it has to be defined, and an admittance matrix <i>B</i>.
+The model is parameterized with an impedance matrix <i>Z</i> and
+an admittance matrix <i>B</i>.
+The impedance matrix is symmetric, and therefore only the upper triangular
+part of the matrix needs to be defined.
 </p>
 
 <p>

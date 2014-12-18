@@ -83,6 +83,8 @@ Documentation(info="<html>
 <p>
 This example illustrates the use of the AC/AC transformer model.
 The example shows three different configurations:
+
+fixme: revise grammar as in Buildings.Electrical.AC.OnePhase.Conversion.Examples.ACACTransformer
 </p>
 <ul>
 <li>with load connected,</li>

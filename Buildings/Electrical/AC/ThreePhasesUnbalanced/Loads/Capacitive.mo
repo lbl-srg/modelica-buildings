@@ -8,7 +8,8 @@ model Capacitive
         use_pf_in=use_pf_in),
     redeclare Buildings.Electrical.AC.OnePhase.Loads.Capacitive load3(pf=pf,
         use_pf_in=use_pf_in));
-  parameter Boolean use_pf_in = false "If true the pf is defined by an input"
+  parameter Boolean use_pf_in = false
+    "If true, the power factor is defined by an input"
     annotation(Dialog(group="Modelling assumption"));
   parameter Real pf(min=0, max=1) = 0.8 "Power factor"
   annotation(Dialog(group="Nominal conditions"));
@@ -178,7 +179,9 @@ equation
           points={{0,0},{32,3.91873e-15}},
           color={0,0,0},
           origin={10,-52},
-          rotation=180)}),    Documentation(revisions="<html>
+          rotation=180)}), Diagram(coordinateSystem(preserveAspectRatio=false,
+          extent={{-100,-100},{100,100}}), graphics),
+    Documentation(revisions="<html>
 <ul>
 <li>
 September 24, 2014, by Marco Bonvini:<br/>
@@ -192,17 +195,17 @@ Revised documentation.
 </html>", info="<html>
 <p>
 This model represents a three phases unbalanced capacitive load.
-The model extends from
+The model extends from 
 <a href=\"modelica://Buildings.Electrical.AC.ThreePhasesUnbalanced.Loads.BaseClasses.LoadCtrl\">
 Buildings.Electrical.AC.ThreePhasesUnbalanced.Loads.BaseClasses.LoadCtrl</a>
 and uses the load model from the package
 <a href=\"modelica://Buildings.Electrical.AC.OnePhase.Loads\">
-Buildings.Electrical.AC.OnePhase.Loads</a>. The model is able to provide detailed
-information about the actual voltages, currents and powers on each phase.
+Buildings.Electrical.AC.OnePhase.Loads</a>.
+The model computes the voltages, currents and powers on each phase.
 </p>
 <p>
-For more information see <a href=\"modelica://Buildings.Electrical.AC.ThreePhasesUnbalanced.Loads.BaseClasses.LoadCtrl\">
-Buildings.Electrical.AC.ThreePhasesUnbalanced.Loads.BaseClasses.LoadCtrl</a> and
+For more information, see <a href=\"modelica://Buildings.Electrical.AC.ThreePhasesUnbalanced.Loads.BaseClasses.LoadCtrl\">
+Buildings.Electrical.AC.ThreePhasesUnbalanced.Loads.BaseClasses.LoadCtrl</a> and 
 <a href=\"modelica://Buildings.Electrical.AC.OnePhase.Loads.Capacitive\">
 Buildings.Electrical.AC.OnePhase.Loads.Capacitive</a>.
 </p>

@@ -14,6 +14,8 @@ model TransformerStepUpDY
       XoverR=6,
       Zperc=sqrt(0.01^2 + 0.06^2),
       VABase=6000000));
+             // fixme: fix indentation
+
   annotation (Documentation(revisions="<html>
 <ul>
 <li>

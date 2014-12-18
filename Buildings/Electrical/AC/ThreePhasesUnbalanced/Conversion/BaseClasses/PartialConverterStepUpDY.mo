@@ -61,11 +61,11 @@ First implementation.
 </html>", info="<html>
 <p>
 Partial model that represents a three phases unbalanced
-trasformer with delta connection on primary and Y connection on
-the secondary one. The configuration is for voltage step up.
+transformer with delta connection on the primary and Y connection on
+the secondary side. The configuration is for voltage step up.
 </p>
 <p>
-The image belod describe the connection of the windings.
+The image below describes the connection of the windings.
 </p>
 <p align=\"center\">
 <img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Electrical/AC/ThreePhasesUnbalanced/Conversion/BaseClasses/DY_b.png\"/>

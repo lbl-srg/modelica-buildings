@@ -135,9 +135,9 @@ D    : Outer diameter [m]
 Amp  : Ampacity [A]
 </pre>
 <p>
-other properties like the GMD (Geometric Mean Diameter) and the GMR
-(Geometric Mean Radius) by default are computed using functions,
-but can be override.
+other properties such as the geometric mean diameter GMD and the 
+geometric mean radius GMR are by default computed using functions,
+but this can be overriden.
 </p>
 </html>", revisions="<html>
 <ul>

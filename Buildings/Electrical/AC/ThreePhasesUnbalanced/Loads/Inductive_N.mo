@@ -8,7 +8,8 @@ model Inductive_N
         use_pf_in=use_pf_in),
     redeclare Buildings.Electrical.AC.OnePhase.Loads.Inductive load3(pf=pf,
         use_pf_in=use_pf_in));
-  parameter Boolean use_pf_in = false "If true the pf is defined by an input"
+  parameter Boolean use_pf_in = false
+    "If true, the power factor is defined by an input"
     annotation(Dialog(group="Modelling assumption"));
   parameter Real pf(min=0, max=1) = 0.8 "Power factor"  annotation(Dialog(group="Nominal conditions"));
   Modelica.Blocks.Interfaces.RealInput pf_in_1(
@@ -75,6 +76,7 @@ equation
           pattern=LinePattern.None),
           Line(points={{0,0},{12,1.46953e-15}},
                                          color={0,0,0},
+          origin={0,0},
           rotation=180),
           Line(points={{-6.85214e-44,-8.39117e-60},{10,1.22461e-15}},
                                          color={0,0,0},
@@ -85,6 +87,7 @@ equation
           origin={-82,0},
           rotation=180),
         Ellipse(extent={{-10,-10},{10,10}},
+          origin={0,0},
           rotation=360),
         Ellipse(extent={{30,-10},{50,10}}),
         Ellipse(extent={{10,-10},{30,10}}),
@@ -195,13 +198,13 @@ Revised documentation.
 </html>", info="<html>
 <p>
 This model represents a three phases unbalanced inductive load.
-The model extends from
+The model extends from 
 <a href=\"modelica://Buildings.Electrical.AC.ThreePhasesUnbalanced.Loads.BaseClasses.LoadCtrl_N\">
 Buildings.Electrical.AC.ThreePhasesUnbalanced.Loads.BaseClasses.LoadCtrl_N</a>
 and uses the load model from the package
 <a href=\"modelica://Buildings.Electrical.AC.OnePhase.Loads\">
-Buildings.Electrical.AC.OnePhase.Loads</a>. The model is able to provide detailed
-information about the actual voltages, currents and powers on each phase.
+Buildings.Electrical.AC.OnePhase.Loads</a>.
+The model computes the voltages, currents and powers on each phase.
 </p>
 <p>
 This model has a connector with four cables and it represents the neutral cable.
@@ -209,10 +212,12 @@ The current in the neutral cable is computed as the algebraic sum of the current
 of the loads.
 </p>
 <p>
-For more information see <a href=\"modelica://Buildings.Electrical.AC.ThreePhasesUnbalanced.Loads.BaseClasses.LoadCtrl_N\">
-Buildings.Electrical.AC.ThreePhasesUnbalanced.Loads.BaseClasses.LoadCtrl_N</a> and
+For more information, see <a href=\"modelica://Buildings.Electrical.AC.ThreePhasesUnbalanced.Loads.BaseClasses.LoadCtrl_N\">
+Buildings.Electrical.AC.ThreePhasesUnbalanced.Loads.BaseClasses.LoadCtrl_N</a> and 
 <a href=\"modelica://Buildings.Electrical.AC.OnePhase.Loads.Inductive\">
 Buildings.Electrical.AC.OnePhase.Loads.Inductive</a>.
 </p>
-</html>"));
+</html>"),
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
+            100}}), graphics));
 end Inductive_N;

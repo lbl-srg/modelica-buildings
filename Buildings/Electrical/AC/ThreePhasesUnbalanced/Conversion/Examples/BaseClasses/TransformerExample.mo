@@ -3,9 +3,9 @@ model TransformerExample
   "This example represents the basic test for a transformer model"
   extends Modelica.Icons.Example;
   parameter Modelica.SIunits.Voltage V_primary = 12470
-    "RMS Voltage on the primary side of the trasformer";
+    "RMS Voltage on the primary side of the transformer";
   parameter Modelica.SIunits.Voltage V_secondary = 4160
-    "RMS Voltage on the secondary side of the trasformer";
+    "RMS Voltage on the secondary side of the transformer";
   Sources.FixedVoltage sou(
     f=60,
     V=V_primary) "Voltage source"
@@ -67,7 +67,7 @@ Buildings.Electrical.AC.ThreePhasesUnbalanced.Conversion.Examples</a>.
 </p>
 <p>
 The model has a voltage source, a transformer and a load. The transformer
-model is replaceable so the different types of transformers can be easily tested.
+model is replaceable so that different types of transformers can easily be tested.
 </p>
 </html>"));
 end TransformerExample;

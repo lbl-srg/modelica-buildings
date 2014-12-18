@@ -21,6 +21,9 @@ equation
       smooth=Smooth.None));
   annotation (
   defaultComponentName="pv",
+  Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
+            {100,100}}), graphics), Diagram(coordinateSystem(
+          preserveAspectRatio=false, extent={{-100,-100},{100,100}}), graphics),
     Documentation(revisions="<html>
 <ul>
 <li>
@@ -33,11 +36,9 @@ Revised documentation.
 Simple PV model for three phases unbalanced systems without neutral cable connection.
 </p>
 <p>
-For more information see
+For more information, see 
 <a href=\"modelica://Buildings.Electrical.AC.OnePhase.Sources.PVSimple\">
-Buildings.Electrical.AC.OnePhase.Sources.PVSimple</a>, and
-<a href=\"modelica://Buildings.Electrical.AC.ThreePhasesUnbalanced.Sources.BaseClasses.UnbalancedPV\">
-Buildings.Electrical.AC.ThreePhasesUnbalanced.Sources.BaseClasses.UnbalancedPV</a>.
+Buildings.Electrical.AC.OnePhase.Sources.PVSimple</a>.
 </p>
 </html>"));
 end PVsimple;

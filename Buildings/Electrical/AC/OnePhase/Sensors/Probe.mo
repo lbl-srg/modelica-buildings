@@ -47,7 +47,7 @@ This model represents a probe that measures the RMS voltage and the angle
 of the voltage phasor at a given point.
 </p>
 <p>
-Given a reference voltage the model computes also the voltage in per unit.
+Optionally, given a reference voltage, the model can compute the voltage in per unit.
 </p>
 </html>", revisions="<html>
 <ul>

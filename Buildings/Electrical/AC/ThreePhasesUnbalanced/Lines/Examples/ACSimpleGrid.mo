@@ -2,8 +2,9 @@ within Buildings.Electrical.AC.ThreePhasesUnbalanced.Lines.Examples;
 model ACSimpleGrid
   "Test model for a network model for three phases unbalanced systems without neutral cable"
   extends Modelica.Icons.Example;
-  Network network(redeclare
-      Buildings.Electrical.Transmission.Grids.TestGrid2Nodes grid, V_nominal=480)
+  Network network(
+    redeclare Buildings.Electrical.Transmission.Grids.TestGrid2Nodes grid,
+    V_nominal=480)
     "Network model that represents the connection between the source and the load"
     annotation (Placement(transformation(extent={{20,-10},{0,10}})));
   Loads.Inductive load(
@@ -41,6 +42,8 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   annotation (experiment(StopTime=1.0, Tolerance=1e-06),
+  Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
+                               graphics),
 __Dymola_Commands(file=
           "modelica://Buildings/Resources/Scripts/Dymola/Electrical/AC/ThreePhasesUnbalanced/Lines/Examples/ACSimpleGrid.mos"
         "Simulate and plot"),
@@ -54,13 +57,13 @@ Created model and documentation.
 </html>", info="<html>
 <p>
 This example demonstrates how to use a network model to connect
-a source to a load. In this simple case the network has two nodes
-that are connected by a commercial line cable without neutral.
+a source to a load. In this simple case the network has two nodes 
+that are connected by a commercial cable without a neutral line.
 </p>
 <p>
-At the beginning of the simulation the load consumes power while at the
+At the beginning of the simulation, the load consumes power while at the
 and it produces power. The voltage at the load at the beginning is lower
-that the nominal RMS voltage (480 V) while at the end of the simulation it is higher.
+than the nominal RMS voltage (480 V), while at the end of the simulation it is higher.
 The voltage drop and increase are due to the presence of the cable between
 the source and the load.
 </p>

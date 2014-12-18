@@ -1,7 +1,7 @@
 within Buildings.Electrical.Interfaces;
 partial model InductiveLoad "Partial model of an inductive load"
   extends Load;
-  parameter Boolean use_pf_in = false "If true the pf is defined by an input"
+  parameter Boolean use_pf_in = false "If true, the power factor is defined by an input"
     annotation(Dialog(group="Modelling assumption"));
   parameter Real pf(min=0, max=1) = 0.8 "Power factor"
   annotation(Dialog(group="Nominal conditions"));

@@ -28,7 +28,8 @@ equation
   v_p = v_n*conversionFactor;
 
   // Power losses
-  LossPower = (1-eta)*Buildings.Utilities.Math.Functions.spliceFunction(P_p[1], P_n[1], i_p, deltax=0.1);
+  LossPower = (1-eta)*
+    Buildings.Utilities.Math.Functions.spliceFunction(P_p[1], P_n[1], i_p, deltax=0.1);
   P_n + P_p = {LossPower, 0};
 
   if ground_AC then
@@ -113,7 +114,7 @@ defaultComponentName="conACDC",
     Documentation(info="<html>
 <p>
 This is an AC/DC converter, based on a power balance between both circuit sides.
-The paramater <i>conversionFactor</i> defines the ratio between the RMS voltages
+The paramater <code>conversionFactor</code> defines the ratio between the RMS voltages
 as
 </p>
 
@@ -136,8 +137,8 @@ P<sub>loss</sub> = (1-&eta;) P<sub>tr</sub>
 </p>
 <p>
 where <i>P<sub>tr</sub></i> is the power transmitted. The model is bi-directional
-and the power can flow from both the primary to the secondary and vice-versa.
-Furthermore, reactive power on both side are set to 0.
+and the power can flow from both the primary to the secondary side and vice-versa.
+Furthermore, reactive power on both side are set to <i>0</i>.
 </p>
 <h4>Note:</h4>
 <p>

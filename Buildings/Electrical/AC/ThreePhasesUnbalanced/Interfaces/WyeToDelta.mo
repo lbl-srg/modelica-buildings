@@ -22,7 +22,8 @@ equation
 
   annotation (
   defaultComponentName="y2d",
- Icon(coordinateSystem(
+  Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
+            {100,100}}),       graphics), Icon(coordinateSystem(
           preserveAspectRatio=false, extent={{-100,-100},{100,100}}), graphics={
         Line(
           points={{-40,-26},{0,34},{40,-26},{-40,-26}},
@@ -44,10 +45,10 @@ Added model.
 <p>
 Adapter from Wye (Y) to Delta (D) connector.
 A three phases unbalanced connector has three AC single phase
-connectors in it. Each AC single phase connector contains a voltage variable,
-and the voltage is the phase voltage. This model converts the phase voltage (measured
-between the phase and the neutral) with the line voltage, measured between phase
-and phase.
+connectors. Each AC single phase connector contains the phase voltage,
+which is measured between the phase and the neutral.
+This model converts the phase voltage to the line voltage, measured between
+the phases. 
 </p>
 <p>
 The image below show how the phasors are computed when converting from Y to D.

@@ -59,13 +59,13 @@ equation
     Documentation(info="<html>
 <p>
 This example demonstrates how to use a RLC line model to connect
-a source to a load. The model is parametrized using the impedance matrix Z
+a source to a load. The model is parameterized using the impedance matrix Z
 and the admittance matrix B.
 </p>
 <p>
-The example shows two configurations to test when the matrix B is equal to zero
-and when it is not. In the second case the impedance matrix Z has been set to zero.
-For such a reason the line model does not have a load connected to it.
+The example shows two configurations to test a zero and non-zero matrix <i>B</i>.
+In the second case the impedance matrix <i>Z</i> has been set to zero.
+Therefore, the line model does not have a load connected to it.
 </p>
 </html>", revisions="<html>
 <ul>

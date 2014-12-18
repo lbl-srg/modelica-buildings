@@ -71,8 +71,8 @@ info="<html>
 This model represents an AC single phase cable. The model is based on
 <a href=\"Buildings.Electrical.AC.OnePhase.Lines.TwoPortRLC\">
 Buildings.Electrical.AC.OnePhase.Lines.TwoPortRLC</a>
-and provides functionalities to parametrize the values of <i>R</i>, <i>L</i> and <i>C</i> either
-using commercial cables or using default values.
+and provides functionalities to parametrize the values of <i>R</i>, <i>L</i> and <i>C</i>,
+either using commercial cables or using default values.
 </p>
 </html>", revisions="<html>
 <ul>

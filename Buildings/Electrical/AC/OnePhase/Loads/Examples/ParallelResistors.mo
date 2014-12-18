@@ -41,7 +41,7 @@ equation
     experiment(StopTime=1.0, Tolerance=1e-06),
     Documentation(info="<html>
 <p>
-This model compares two resistive loads. Model <code>R</code> consumes/produce
+This model compares two resistive loads. Model <code>R</code> consumes or produces
 a variable amount of power, while model <code>R1</code> consumes a fixed power.
 </p>
 <p>

@@ -32,8 +32,10 @@ equation
   terminal_p.v = conversionFactor*terminal_n.v;
 
   // Power loss term
-  terminal_p.i[1] = terminal_n.i[1]/conversionFactor*Buildings.Utilities.Math.Functions.spliceFunction(eta-2, 1/(eta-2), P_p[1], deltax=0.1);
-  terminal_p.i[2] = terminal_n.i[2]/conversionFactor*Buildings.Utilities.Math.Functions.spliceFunction(eta-2, 1/(eta-2), P_p[1], deltax=0.1);
+  terminal_p.i[1] = terminal_n.i[1]/conversionFactor*
+    Buildings.Utilities.Math.Functions.spliceFunction(eta-2, 1/(eta-2), P_p[1], deltax=0.1);
+  terminal_p.i[2] = terminal_n.i[2]/conversionFactor*
+    Buildings.Utilities.Math.Functions.spliceFunction(eta-2, 1/(eta-2), P_p[1], deltax=0.1);
   LossPower = P_p + P_n;
 
   // The two sides have the same reference angle
@@ -115,7 +117,7 @@ P<sub>loss</sub> = (1-&eta;) P<sub>tr</sub>,
 </p>
 <p>
 where <i>P<sub>tr</sub></i> is the power transmitted. The model is bi-directional
-and the power can flow from both the primary to the secondary and vice-versa.
+and the power can flow from the primary to the secondary side and vice-versa.
 Furthermore, reactive power on both side are set to zero.
 </p>
 <h4>Note:</h4>

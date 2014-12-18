@@ -11,13 +11,13 @@ record PartialGrid "Partial model that represents a generalized grid"
     "Array that contains the characteristics of each cable";
   annotation (Documentation(info="<html>
 <p>
-This abstract grid model specifies the topology of the network by:
+This abstract grid model specifies the topology of the network by
 </p>
 <ul>
-<li>number of nodes,</li>
-<li>number of links,</li>
-<li>length of links,</li>
-<li>relationships between links and nodes.</li>
+<li>the number of nodes,</li>
+<li>the number of links,</li>
+<li>the length of links, and</li>
+<li>the connection between links and nodes.</li>
 </ul>
 <p>
 The picture below describes the meaning of the

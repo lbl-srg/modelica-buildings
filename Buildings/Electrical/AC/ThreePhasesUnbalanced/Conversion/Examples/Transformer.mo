@@ -1,7 +1,7 @@
 within Buildings.Electrical.AC.ThreePhasesUnbalanced.Conversion.Examples;
 model Transformer "Test for the AC/AC transformer model"
   extends BaseClasses.TransformerExample(
-  redeclare Buildings.Electrical.AC.ThreePhasesUnbalanced.Sensors.ProbeWye
+ redeclare Buildings.Electrical.AC.ThreePhasesUnbalanced.Sensors.ProbeWye
                                                                    probe_2,
   redeclare
       Buildings.Electrical.AC.ThreePhasesUnbalanced.Conversion.ACACTransformer
@@ -11,6 +11,7 @@ model Transformer "Test for the AC/AC transformer model"
       XoverR=6,
       Zperc=sqrt(0.01^2 + 0.06^2),
       VABase=6000000));
+       // fixme: fix indentation
   annotation (Documentation(revisions="<html>
 <ul>
 <li>

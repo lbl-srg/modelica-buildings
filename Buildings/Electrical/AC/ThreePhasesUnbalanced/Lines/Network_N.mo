@@ -2,7 +2,7 @@ within Buildings.Electrical.AC.ThreePhasesUnbalanced.Lines;
 model Network_N "Three phases unbalanced AC network with neutral cable"
   extends Transmission.BaseClasses.PartialNetwork(
     redeclare
-      Buildings.Electrical.AC.ThreePhasesUnbalanced.Interfaces.Terminal4_p         terminal,
+      Buildings.Electrical.AC.ThreePhasesUnbalanced.Interfaces.Terminal4_p terminal,
     redeclare Transmission.Grids.TestGrid2Nodes grid,
     redeclare Buildings.Electrical.AC.ThreePhasesUnbalanced.Lines.Line_N lines(
         commercialCable=grid.cables));
@@ -34,12 +34,12 @@ This model represents a generalized electrical AC three phases unbalanced networ
 with neutral cable.
 </p>
 <p>
-Look at <a href=\"modelica://Buildings.Electrical.Transmission.BaseClasses.PartialNetwork\">
+See <a href=\"modelica://Buildings.Electrical.Transmission.BaseClasses.PartialNetwork\">
 Buildings.Electrical.Transmission.BaseClasses.PartialNetwork</a>
 for information about the network model.
 </p>
 <p>
-Look at <a href=\"modelica://Buildings.Electrical.Transmission.Grids.PartialGrid\">
+See <a href=\"modelica://Buildings.Electrical.Transmission.Grids.PartialGrid\">
 Buildings.Electrical.Transmission.Grids.PartialGrid</a>
 for more information about the topology of the network, such as
 the number of nodes, how they are connected, and the length of each connection.

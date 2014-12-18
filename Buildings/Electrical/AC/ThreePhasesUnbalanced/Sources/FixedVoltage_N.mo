@@ -67,6 +67,9 @@ This is a constant voltage source, specifying the complex
 voltage by the RMS voltage and the phase shift. The model has also
 the neutral cable, connected to a ground reference by default.
 </p>
+<p>
+Explain, or provide a link to an explanation, for the parameters *Reference.
+</p>
 </html>", revisions="<html>
 <ul>
 <li>

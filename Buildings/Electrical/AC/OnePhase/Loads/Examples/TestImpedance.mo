@@ -14,8 +14,9 @@ model TestImpedance "Example that illustrates the use of the impedances"
   Buildings.Electrical.AC.OnePhase.Loads.Impedance Z3(R=1)
     "Resistive impedance"
     annotation (Placement(transformation(extent={{-20,-20},{0,0}})));
-  Buildings.Electrical.AC.OnePhase.Loads.Impedance Z4(R=1, L=1/(2*Modelica.Constants.pi
-        *60)) "Inductive-resistive impedance"
+  Buildings.Electrical.AC.OnePhase.Loads.Impedance Z4(
+    R=1,
+    L=1/(2*Modelica.Constants.pi*60)) "Inductive-resistive impedance"
     annotation (Placement(transformation(extent={{-20,-40},{0,-20}})));
   Buildings.Electrical.AC.OnePhase.Loads.Impedance Z5(
     R=1,

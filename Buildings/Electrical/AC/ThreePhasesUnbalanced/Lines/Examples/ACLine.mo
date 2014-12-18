@@ -96,13 +96,13 @@ equation
         "Simulate and plot"),
  Documentation(info="<html>
 <p>
-This example demonstrates how to use a cable line model without netral
+This example demonstrates how to use a cable model without neutral line
 to connect a source to a load.
 </p>
 <p>
 The model has three resistive loads <code>R1</code>, <code>R2</code>, and <code>R3</code>.
 Each load is connected to the source with different configurations,
-however the equivalent resistance between each load and the source is the same.
+but the equivalent resistance between each load and the source is the same.
 Since the equivalent resistances are the same, each load draws the same current.
 </p>
 </html>", revisions="<html>

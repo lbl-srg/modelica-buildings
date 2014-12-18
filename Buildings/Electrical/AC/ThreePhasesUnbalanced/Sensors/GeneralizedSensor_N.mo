@@ -1,13 +1,15 @@
 within Buildings.Electrical.AC.ThreePhasesUnbalanced.Sensors;
 model GeneralizedSensor_N
   "Sensor for power, voltage and current (4 wire system, with neutral cable)"
+  //fixme: add text to the icon that displays the component name.
 
   Interfaces.Terminal4_n terminal_n "Electrical connector side N"
     annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
   Interfaces.Terminal4_p terminal_p "Electrical connector side P"
     annotation (Placement(transformation(extent={{90,-10},{110,10}})));
   Modelica.Blocks.Interfaces.RealOutput V[4](final quantity="ElectricPotential",
-                                          final unit="V") "Voltage"           annotation (Placement(
+                                          final unit="V") "Voltage"
+    annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=270,
@@ -16,7 +18,8 @@ model GeneralizedSensor_N
         rotation=270,
         origin={0,-90})));
   Modelica.Blocks.Interfaces.RealOutput I[4](final quantity="ElectricCurrent",
-                                          final unit="A") "Current"           annotation (Placement(
+                                          final unit="A") "Current"
+   annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=270,
@@ -26,7 +29,8 @@ model GeneralizedSensor_N
         origin={60,-90})));
   Modelica.Blocks.Interfaces.RealOutput S[4,terminal_n.phase[1].PhaseSystem.n](
                                           final quantity="Power",
-                                          final unit="W") "Phase powers"             annotation (Placement(
+                                          final unit="W") "Phase powers"
+    annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=270,

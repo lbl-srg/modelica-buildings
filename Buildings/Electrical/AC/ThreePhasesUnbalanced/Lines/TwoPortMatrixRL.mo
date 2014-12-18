@@ -1,9 +1,11 @@
 within Buildings.Electrical.AC.ThreePhasesUnbalanced.Lines;
 model TwoPortMatrixRL
-  "Model of an RL line parametrized with impedance matrices"
+  "Model of an RL line parameterized with impedance matrices"
   extends Buildings.Electrical.AC.ThreePhasesUnbalanced.Interfaces.TwoPort;
   parameter Modelica.SIunits.Voltage V_nominal(min=0, start=480)
     "Nominal voltage (V_nominal >= 0)"  annotation(Evaluate=true, Dialog(group="Nominal conditions"));
+    // fixme: remove default values for Z as no values can be
+    // provided that are generally valid.
   parameter Modelica.SIunits.Impedance Z11[2] = {1,1}
     "Element [1,1] of impedance matrix";
   parameter Modelica.SIunits.Impedance Z12[2] = {1,1}
@@ -118,6 +120,7 @@ Added model.
 Resistive-inductive model that connects two AC three phases
 unbalanced interfaces. This model can be used to represent a
 cable in a three phases unbalanced AC system.
+The voltage between the ports is
 </p>
 
 <p align=\"center\">
@@ -126,12 +129,12 @@ cable in a three phases unbalanced AC system.
 
 <p>
 where <i>V<sub>i</sub><sup>{p,n}</sup></i> is the voltage phasor at the connector <code>p</code> or
-<code>n</code> of the <i>i-th</i> phase, while <i>I<sub>i</sub><sup>p</sup></i>
-the current phasor entering from the connector <code>p</code> of the <i>i-th</i> phase.
+<code>n</code> of the <i>i</i>-th phase, while <i>I<sub>i</sub><sup>p</sup></i>
+the current phasor entering from the connector <code>p</code> of the <i>i</i>-th phase.
 </p>
 
 <p>
-The model is parametrized with an impedance matrix <i>Z</i>.
+The model is parameterized with an impedance matrix <i>Z</i>.
 The matrix is symmetric thus just the upper triangular
 part of it has to be defined.
 </p>

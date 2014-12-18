@@ -59,8 +59,8 @@ that are connected by a commercial line cable.
 </p>
 <p>
 At the beginning of the simulation the load consumes power while at the
-and it produces power. The voltage at the load at the beginning is lower
-that the nominal RMS voltage (15 kV) while at the end of the simulation it is higher.
+end it produces power. The voltage at the load at the beginning is lower
+than the nominal RMS voltage (15 kV) while at the end of the simulation it is higher.
 The voltage drop and increase are due to the presence of the cable between
 the source and the load.
 </p>

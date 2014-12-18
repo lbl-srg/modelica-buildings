@@ -45,7 +45,8 @@ equation
 
   annotation (
   defaultComponentName="tra",
- Icon(graphics={
+  Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
+            -100},{100,100}}), graphics), Icon(graphics={
         Text(
           extent={{-100,-60},{100,-92}},
           lineColor={0,0,0},
@@ -212,13 +213,13 @@ First implementation.
 <p>
 This is a simplified equivalent transformer model with Delta-Y connection
 (voltage step up).
-The model accounts for winding joule losses and leakage reactances
-that are represented by a serie of a resistance <i>R</i> and an
-inductance <i>L</i>. The resistance and the inductance represent both the
+The model accounts for winding Joule losses and leakage reactances 
+that are represented by a series of a resistance <i>R</i> and an
+inductance <i>L</i>. The resistance and the inductance represent the 
 effects of the secondary and primary side of the transformer.
 </p>
 <p>
-The model is parametrized using the following parameters
+The model is parameterized using the following parameters
 </p>
 <ul>
 <li><code>Vhigh</code> - RMS voltage at primary side,</li>
@@ -228,12 +229,12 @@ The model is parametrized using the following parameters
 <li><code>Zperc</code> - the short circuit impedance.</li>
 </ul>
 <p>
-The model given the nominal conditions computes the values of the resistance and the inductance.
+Given the nominal conditions, the model computes the values of the resistance and inductance.
 </p>
 
 <h4>Configuration:</h4>
 <p>
-The image belod describe the connection of the windings.
+The image below describes the connection of the windings.
 </p>
 <p align=\"center\">
 <img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Electrical/AC/ThreePhasesUnbalanced/Conversion/BaseClasses/DY_b.png\"/>
@@ -242,8 +243,8 @@ The image belod describe the connection of the windings.
 <h4>Note:</h4>
 <p>
 This model reuses models from
-<a href=\"modelica://Buildings.Electrical.AC.OnePhase.Conversion.ACACTrasformer\">
-Buildings.Electrical.AC.OnePhase.Conversion.ACACTrasformer</a>.
+<a href=\"modelica://Buildings.Electrical.AC.OnePhase.Conversion.ACACTransformer\">
+Buildings.Electrical.AC.OnePhase.Conversion.ACACTransformer</a>.
 </p>
 <p>
 See

@@ -7,7 +7,6 @@ model TwoPortResistance "Model of a resistance with two electrical ports"
     redeclare Interfaces.Terminal_n terminal_n,
     redeclare Interfaces.Terminal_p terminal_p);
 equation
-
   terminal_p.v - terminal_n.v = terminal_p.i*diagonal(ones(PhaseSystem_p.n)*R_actual);
 
   annotation (
