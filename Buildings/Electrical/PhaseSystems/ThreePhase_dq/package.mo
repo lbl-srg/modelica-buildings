@@ -64,7 +64,7 @@ package ThreePhase_dq "AC system, symmetrically loaded three phases"
   redeclare function extends systemVoltage
   "Return system voltage as function of phase voltages"
   algorithm
-    V := sqrt(3*v*v);
+    V := Modelica.Fluid.Utilities.regRoot(3*v*v, delta=  0.01);
     annotation(Inline=true);
   end systemVoltage;
 
@@ -72,7 +72,7 @@ package ThreePhase_dq "AC system, symmetrically loaded three phases"
   redeclare function extends systemCurrent
   "Return system current as function of phase currents"
   algorithm
-    I := sqrt(i*i);
+    I := Modelica.Fluid.Utilities.regRoot(i*i, delta=  0.01);
     annotation(Inline=true);
   end systemCurrent;
 
