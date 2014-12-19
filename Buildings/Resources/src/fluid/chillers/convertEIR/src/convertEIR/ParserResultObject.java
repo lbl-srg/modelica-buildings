@@ -261,6 +261,10 @@ public class ParserResultObject {
 
         // print the header + ElectricEIR + footer in the output file
         OutputStreamWriter fw = new FileWriter(fileName);
+        // Some E+ fields have string such as Trane CVHG670-44&86 2490kW/6.5COP
+        // The & sign needs to be converted to &amp; as it is inside an html section.
+        cleanRecordedElectricEirs = cleanRecordedElectricEirs.replaceAll("&", "&amp;");
+
         fw.write(fileHeader + cleanRecordedElectricEirs + fileFooter);
         fw.close();
     }
@@ -361,16 +365,15 @@ public class ParserResultObject {
                 + "\n"
                 + "package ElectricReformulatedEIR \"Performance data for chiller ElectricReformulatedEIR\""
                 + "\n" + " annotation(preferredView=" + "\"" + "info" + "\""
-                + ", Documentation(info=\"<html>"
-                + " Package with performance data for chillers."
-                + "</html>\","
-                + " revisions=\"<html>"
-                + " Generated on "
+                + ",\n Documentation(info=\"<html>\n"
+                + "<p>\nPackage with performance data for chillers."
+                + "\n</p>\n</html>\","
+                + " revisions=\"<html>\n"
+                + "<p>\nGenerated on "
                 + getDateTime()
                 + " by "
-                // + System.getProperty("user.name")
-                + "mwetter."
-                + "</html>\"));"
+                + System.getProperty("user.name")
+                + "\n</p>\n</html>\"));"
                 + "\n"
                 + "  "
                 + "record Generic \"Generic data record for chiller ElectricReformulatedEIR\""
@@ -491,6 +494,11 @@ public class ParserResultObject {
         // print the header + ReformulatedElectricEIR + footer in the output
         // file
         OutputStreamWriter fw = new FileWriter(fileName);
+
+        // Some E+ fields have string such as Trane CVHG670-44&86 2490kW/6.5COP
+        // The & sign needs to be converted to &amp; as it is inside an html section.
+        cleanRecordedReformElectricEirs = cleanRecordedReformElectricEirs.replaceAll("&", "&amp;");
+
         fw.write(fileHeader + cleanRecordedReformElectricEirs + fileFooter);
         fw.close();
     }
