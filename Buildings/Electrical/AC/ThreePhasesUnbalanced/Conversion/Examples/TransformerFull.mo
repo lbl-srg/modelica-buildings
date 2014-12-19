@@ -1,12 +1,9 @@
 within Buildings.Electrical.AC.ThreePhasesUnbalanced.Conversion.Examples;
 model TransformerFull "Test for the AC/AC transformer full model"
   extends BaseClasses.TransformerExample(
-  redeclare Buildings.Electrical.AC.ThreePhasesUnbalanced.Sensors.ProbeWye
-                                                                   probe_2,
-  redeclare
-      Buildings.Electrical.AC.ThreePhasesUnbalanced.Conversion.ACACTransformerFull
-      tra(
-      VHigh=V_primary,
+  redeclare Buildings.Electrical.AC.ThreePhasesUnbalanced.Sensors.ProbeWye probe_2,
+  redeclare Buildings.Electrical.AC.ThreePhasesUnbalanced.Conversion.ACACTransformerFull
+  tra(VHigh=V_primary,
       VLow=V_secondary,
       VABase=6000000,
       f=60,
@@ -18,9 +15,8 @@ model TransformerFull "Test for the AC/AC transformer full model"
       Rm=10,
       Lm=10),
       load(initMode=Buildings.Electrical.Types.InitMode.linearized));
-             // fixme: fix indentation
 
-  annotation (Documentation(revisions="<html>
+annotation (Documentation(revisions="<html>
 <ul>
 <li>
 October 3, 2014, by Marco Bonvini:<br/>

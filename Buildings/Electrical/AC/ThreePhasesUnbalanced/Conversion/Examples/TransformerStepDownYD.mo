@@ -2,19 +2,15 @@ within Buildings.Electrical.AC.ThreePhasesUnbalanced.Conversion.Examples;
 model TransformerStepDownYD
   "Test for the AC/AC transformer model with Wye-Delta configuration (step-down voltage)"
   extends BaseClasses.TransformerExample(
-  redeclare Buildings.Electrical.AC.ThreePhasesUnbalanced.Sensors.ProbeDelta
-                                                                     probe_2,
-  redeclare
-      Buildings.Electrical.AC.ThreePhasesUnbalanced.Conversion.ACACTransformerStepDownYD
-      tra(
-      VHigh=V_primary,
+  redeclare Buildings.Electrical.AC.ThreePhasesUnbalanced.Sensors.ProbeDelta probe_2,
+  redeclare Buildings.Electrical.AC.ThreePhasesUnbalanced.Conversion.ACACTransformerStepDownYD
+  tra(VHigh=V_primary,
       VLow=V_secondary,
       XoverR=6,
       Zperc=sqrt(0.01^2 + 0.06^2),
       VABase=6000000));
-             // fixme: fix indentation
 
-  annotation (Documentation(revisions="<html>
+annotation (Documentation(revisions="<html>
 <ul>
 <li>
 October 3, 2014, by Marco Bonvini:<br/>

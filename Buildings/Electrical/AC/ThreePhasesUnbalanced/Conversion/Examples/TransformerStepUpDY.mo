@@ -4,19 +4,15 @@ model TransformerStepUpDY
   extends BaseClasses.TransformerExample(
   V_primary = 4160,
   V_secondary = 12470,
-  redeclare Buildings.Electrical.AC.ThreePhasesUnbalanced.Sensors.ProbeWye
-                                                                   probe_2,
-  redeclare
-      Buildings.Electrical.AC.ThreePhasesUnbalanced.Conversion.ACACTransformerStepUpDY
-      tra(
-      VHigh=V_primary,
+  redeclare Buildings.Electrical.AC.ThreePhasesUnbalanced.Sensors.ProbeWye probe_2,
+  redeclare Buildings.Electrical.AC.ThreePhasesUnbalanced.Conversion.ACACTransformerStepUpDY
+  tra(VHigh=V_primary,
       VLow=V_secondary,
       XoverR=6,
       Zperc=sqrt(0.01^2 + 0.06^2),
       VABase=6000000));
-             // fixme: fix indentation
 
-  annotation (Documentation(revisions="<html>
+annotation (Documentation(revisions="<html>
 <ul>
 <li>
 October 3, 2014, by Marco Bonvini:<br/>

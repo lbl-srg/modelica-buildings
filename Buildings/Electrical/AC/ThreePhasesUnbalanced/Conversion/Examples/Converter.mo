@@ -3,13 +3,11 @@ model Converter "Test for the AC/AC converter model"
   extends BaseClasses.TransformerExample(
   V_primary = 480,
   V_secondary = 240,
-  redeclare Buildings.Electrical.AC.ThreePhasesUnbalanced.Sensors.ProbeWye
-                                                                   probe_2,
-  redeclare
-      Buildings.Electrical.AC.ThreePhasesUnbalanced.Conversion.ACACConverter
-      tra(conversionFactor=0.5,eta=0.9));
-       // fixme: fix indentation
-  annotation (Documentation(revisions="<html>
+  redeclare Buildings.Electrical.AC.ThreePhasesUnbalanced.Sensors.ProbeWye probe_2,
+  redeclare  Buildings.Electrical.AC.ThreePhasesUnbalanced.Conversion.ACACConverter
+  tra(conversionFactor=0.5,eta=0.9));
+    
+annotation (Documentation(revisions="<html>
 <ul>
 <li>
 October 3, 2014, by Marco Bonvini:<br/>

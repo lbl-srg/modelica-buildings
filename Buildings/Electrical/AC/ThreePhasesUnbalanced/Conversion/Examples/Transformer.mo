@@ -1,18 +1,15 @@
 within Buildings.Electrical.AC.ThreePhasesUnbalanced.Conversion.Examples;
 model Transformer "Test for the AC/AC transformer model"
   extends BaseClasses.TransformerExample(
- redeclare Buildings.Electrical.AC.ThreePhasesUnbalanced.Sensors.ProbeWye
-                                                                   probe_2,
-  redeclare
-      Buildings.Electrical.AC.ThreePhasesUnbalanced.Conversion.ACACTransformer
-      tra(
-      VHigh=V_primary,
+  redeclare Buildings.Electrical.AC.ThreePhasesUnbalanced.Sensors.ProbeWye probe_2,
+  redeclare Buildings.Electrical.AC.ThreePhasesUnbalanced.Conversion.ACACTransformer
+  tra(VHigh=V_primary,
       VLow=V_secondary,
       XoverR=6,
       Zperc=sqrt(0.01^2 + 0.06^2),
       VABase=6000000));
-       // fixme: fix indentation
-  annotation (Documentation(revisions="<html>
+       
+annotation (Documentation(revisions="<html>
 <ul>
 <li>
 October 3, 2014, by Marco Bonvini:<br/>
