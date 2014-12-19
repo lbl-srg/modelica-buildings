@@ -1,12 +1,12 @@
 within Buildings.Electrical.Transmission.BaseClasses;
 record BaseCable "Record that contains the properties of a generic cable"
-  constant Buildings.Electrical.Transmission.Types.Material material = Buildings.Electrical.Transmission.Types.Material.Al
+  parameter Buildings.Electrical.Transmission.Types.Material material = Buildings.Electrical.Transmission.Types.Material.Al
     "Material of the cable";
-  constant Modelica.SIunits.Current Amp(start=0.0)=0.0
+  parameter Modelica.SIunits.Current Amp(start=0.0)=0.0
     "Ampacitance of the cable";
-  constant Modelica.SIunits.Temperature Tref = 298.15
+  parameter Modelica.SIunits.Temperature Tref = 298.15
     "Reference cable temperature";
-  constant Modelica.SIunits.Temperature M = 228.1 + 273.15
+  parameter Modelica.SIunits.Temperature M = 228.1 + 273.15
     "Temperature constant of the material";
 
   replaceable partial function lineResistance
@@ -65,7 +65,6 @@ Added function and documentation
 </ul>
 </html>"));
   end lineCapacitance;
-
 
   annotation (Documentation(revisions="<html>
 <ul>
