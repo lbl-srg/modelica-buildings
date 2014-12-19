@@ -21,7 +21,7 @@ model Grid "Electrical grid"
         origin={10,0})));
 equation
   P.real = -sou.S[1];
-  P.apparent = sqrt(sou.S[2]^2 + sou.S[1]^2);
+  P.apparent = Modelica.Fluid.Utilities.regRoot(sou.S[2]^2 + sou.S[1]^2, delta=  0.01);
   P.phi = sou.phi;
   P.cosPhi = cos(sou.phi);
   connect(sou.terminal, terminal) annotation (Line(

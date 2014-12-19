@@ -7,9 +7,7 @@ model TwoPortResistance "Model of a resistance with two electrical ports"
   parameter Modelica.SIunits.Temperature M = 507.65
     "Temperature constant (R_actual = R*(M + T_heatPort)/(M + T_ref))"
     annotation(Evaluate=true);
-    // fixme: remove the start value from R as this is not generally a good value.
-  parameter Modelica.SIunits.Resistance R(start=1)
-    "Resistance at temperature T_ref";
+  parameter Modelica.SIunits.Resistance R "Resistance at temperature T_ref";
   OnePhase.Lines.TwoPortResistance  phase1(
     final T_ref=T_ref,
     final M=M,

@@ -3,9 +3,9 @@ model ProbeWye_N
   "Model of a probe that measures voltage magnitude and angle (Wye configuration) witn neutral cable connection"
   extends
     Buildings.Electrical.AC.ThreePhasesUnbalanced.Sensors.BaseClasses.GeneralizedProbe(
-    redeclare final
+   redeclare final
       Buildings.Electrical.AC.ThreePhasesUnbalanced.Interfaces.Terminal4_n
-      term);
+                                                                        term);
 equation
 
   for i in 1:4 loop

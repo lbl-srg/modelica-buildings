@@ -2,14 +2,15 @@ within Buildings.Electrical.Transmission.MediumVoltageCables;
 record Generic "Data record for a generic medium voltage cable"
   extends Modelica.Icons.MaterialProperty;
   extends Buildings.Electrical.Transmission.BaseClasses.BaseCable;
-  constant String size(start="")
+  parameter String size(start="")
     "AWG or kcmil code representing the conductor size";
-  constant Buildings.Electrical.Types.CharacteristicResistance Rdc(start=0)
+  parameter Buildings.Electrical.Types.CharacteristicResistance Rdc(start=0)
     "Characteristic DC resistance of the cable @ Tref";
-  constant Modelica.SIunits.Length d "Inner diameter";
-  constant Modelica.SIunits.Length D "Outer diameter";
-  constant Modelica.SIunits.Length GMR "Geometrical Mean Radius of the cable";
-  constant Modelica.SIunits.Length GMD "Geometrical Mean Diameter of the cable";
+  parameter Modelica.SIunits.Length d "Inner diameter";
+  parameter Modelica.SIunits.Length D "Outer diameter";
+  parameter Modelica.SIunits.Length GMR "Geometrical Mean Radius of the cable";
+  parameter Modelica.SIunits.Length GMD
+    "Geometrical Mean Diameter of the cable";
 
   redeclare function extends lineResistance
     "Function that computes the resistance of a cable"

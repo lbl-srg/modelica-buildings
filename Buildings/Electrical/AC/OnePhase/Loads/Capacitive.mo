@@ -17,7 +17,7 @@ equation
 
     // Use the dynamic phasorial representation
     Y[1] = -(P_nominal/pf)*pf/V_nominal^2;
-    Y[2] = -(P_nominal/pf)*sqrt(1 - pf^2)/V_nominal^2;
+    Y[2] = -(P_nominal/pf)*Modelica.Fluid.Utilities.regRoot(1 - pf^2, delta=0.001)/V_nominal^2;
 
     // Electric charge
     q = Y[2]*{v[1], v[2]}/omega;
@@ -29,8 +29,8 @@ equation
 
     // Use the power specified by the parameter or inputs
     if linearized then
-      i[1] = -homotopy(actual= (v[2]*Q + v[1]*P)/(V_nominal^2), simplified=0.0);
-      i[2] = -homotopy(actual= (v[2]*P - v[1]*Q)/(V_nominal^2), simplified=0.0);
+      i[1] = -homotopy(actual= (v[2]*Q + v[1]*P)/(V_nominal^2), simplified= v[1]*Modelica.Constants.eps*1e3);
+      i[2] = -homotopy(actual= (v[2]*P - v[1]*Q)/(V_nominal^2), simplified= v[2]*Modelica.Constants.eps*1e3);
     else
       if initMode == Buildings.Electrical.Types.InitMode.zero_current then
         i[1] = -homotopy(actual=(v[2]*Q + v[1]*P)/(v[1]^2 + v[2]^2), simplified=0.0);

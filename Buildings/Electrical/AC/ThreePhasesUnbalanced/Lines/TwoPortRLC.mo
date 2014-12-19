@@ -2,12 +2,9 @@ within Buildings.Electrical.AC.ThreePhasesUnbalanced.Lines;
 model TwoPortRLC "Model of an RLC element with two electrical ports"
   extends Modelica.Electrical.Analog.Interfaces.ConditionalHeatPort;
   extends Buildings.Electrical.AC.ThreePhasesUnbalanced.Interfaces.TwoPort;
-  parameter Modelica.SIunits.Resistance R(start=1)
-    "Resistance at temperature T_ref";
-  parameter Modelica.SIunits.Capacitance C(start=0) "Capacity";
-  parameter Modelica.SIunits.Inductance L(start=0) "Inductance";
-  // fixme: remove start value of R, C and L. (You may want to do a global replace
-  // using regular expressions)
+  parameter Modelica.SIunits.Resistance R "Resistance at temperature T_ref";
+  parameter Modelica.SIunits.Capacitance C "Capacity";
+  parameter Modelica.SIunits.Inductance L "Inductance";
   parameter Modelica.SIunits.Temperature T_ref = 298.15 "Reference temperature"
                             annotation(Evaluate=true);
   parameter Modelica.SIunits.Temperature M = 507.65

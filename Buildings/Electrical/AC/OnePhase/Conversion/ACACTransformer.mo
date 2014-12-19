@@ -32,10 +32,7 @@ model ACACTransformer "AC AC transformer simplified equivalent circuit"
     "Angle of the voltage side 2 at initialization"
      annotation(Evaluate=true, Dialog(tab = "Initialization"));
   Modelica.SIunits.Efficiency eta "Efficiency";
-  // fixme: shouldn't we rename LossPower to PLoss. First, it should start
-  // lower case (unless it is a physical symbol like P), second it is probably
-  // the only variable here that is not named using a symbol.
-  Modelica.SIunits.Power LossPower[2] "Loss power";
+  Modelica.SIunits.Power PLoss[2] "Loss power";
 protected
   Real N = VHigh/VLow "Winding ratio";
   Modelica.SIunits.Current IHigh = VABase/VHigh
@@ -68,22 +65,20 @@ protected
   Modelica.SIunits.Power P_n[2]=
     PhaseSystem_n.phasePowers_vi(terminal_n.v, terminal_n.i)
     "Power transmitted at pin n (primary)";
-    // fixme: rename Sp and Sn to S_p and S_n
-  Modelica.SIunits.Power Sp = sqrt(P_p[1]^2 + P_p[2]^2)
+  Modelica.SIunits.Power S_p = Modelica.Fluid.Utilities.regRoot(P_p[1]^2 + P_p[2]^2, delta=0.1)
     "Apparent power at terminal p";
-  Modelica.SIunits.Power Sn = sqrt(P_n[1]^2 + P_n[2]^2)
+  Modelica.SIunits.Power S_n = Modelica.Fluid.Utilities.regRoot(P_n[1]^2 + P_n[2]^2, delta=0.1)
     "Apparent power at terminal n";
 
 equation
   // Efficiency
-  // fixme: the sqrt function is not differentiable near the origin (its derivative is zero).
-  // This needs to be reformulated. There are several places in the Buildings.Electrical with
-  // a similar formulation. Please use the smoothing functions. This also would allow later
-  // changing the smoothing from C1 to C2. We currently have such discussions going on for the
-  // Annex60 library.
   eta = Buildings.Utilities.Math.Functions.smoothMin(
-        x1=  sqrt(P_p[1]^2 + P_p[2]^2) / (sqrt(P_n[1]^2 + P_n[2]^2) + 1e-6),
-        x2=  sqrt(P_n[1]^2 + P_n[2]^2) / (sqrt(P_p[1]^2 + P_p[2]^2) + 1e-6),
+        x1=
+        Modelica.Fluid.Utilities.regRoot(P_p[1]^2 + P_p[2]^2, delta=0.01)/
+        Modelica.Fluid.Utilities.regRoot(P_n[1]^2 + P_n[2]^2 + 1e-6, delta=0.01),
+        x2=
+        Modelica.Fluid.Utilities.regRoot(P_n[1]^2 + P_n[2]^2, delta=0.01)/
+        Modelica.Fluid.Utilities.regRoot(P_p[1]^2 + P_p[2]^2 + 1e-6, delta=0.01),
         deltaX=  0.01);
 
   // Ideal transformation
@@ -97,7 +92,7 @@ equation
   V2 = terminal_p.v;
 
   // Loss of power
-  LossPower = P_p + P_n;
+  PLoss = P_p + P_n;
 
   // The two sides have the same reference angle
   terminal_p.theta = terminal_n.theta;

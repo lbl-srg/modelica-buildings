@@ -21,7 +21,7 @@ model TestVoltageCTRL
     annotation (Placement(transformation(extent={{-94,-4},{-74,16}})));
   Modelica.Blocks.Sources.Constant Vtr_high(k=120*(1 + 0.1))
     "Voltage threshold high"
-    annotation (Placement(transformation(extent={{-80,40},{-60,60}})));
+    annotation (Placement(transformation(extent={{-60,40},{-40,60}})));
 equation
   connect(sou.terminal, voltageControl.terminal) annotation (Line(
       points={{-40,0},{-10,0}},

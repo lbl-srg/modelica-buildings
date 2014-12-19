@@ -7,8 +7,8 @@ model Resistive "Model of a resistive load"
 equation
 
   if linearized then
-    i[1] = -homotopy(actual=  v[1]*P/V_nominal^2, simplified=0.0);
-    i[2] = -homotopy(actual=  v[2]*P/V_nominal^2, simplified=0.0);
+    i[1] = -homotopy(actual=  v[1]*P/V_nominal^2, simplified=  v[1]*Modelica.Constants.eps*1e3);
+    i[2] = -homotopy(actual=  v[2]*P/V_nominal^2, simplified=  v[2]*Modelica.Constants.eps*1e3);
   else
     if initMode == Buildings.Electrical.Types.InitMode.zero_current then
       i[1] = -homotopy(actual= v[1]*P/(v[1]^2 + v[2]^2),  simplified= 0.0);

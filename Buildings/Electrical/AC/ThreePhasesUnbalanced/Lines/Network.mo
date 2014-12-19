@@ -5,7 +5,7 @@ model Network "Three phases unbalanced AC network without neutral cable"
       Buildings.Electrical.AC.ThreePhasesUnbalanced.Interfaces.Terminal_p terminal,
     redeclare Transmission.Grids.TestGrid2Nodes grid,
     redeclare Buildings.Electrical.AC.ThreePhasesUnbalanced.Lines.Line lines(commercialCable=grid.cables));
-    Modelica.SIunits.Voltage Vabs[3,grid.nNodes]
+    Modelica.SIunits.Voltage VAbs[3,grid.nNodes]
     "RMS voltage of the grid nodes";
 equation
   for i in 1:grid.nLinks loop
@@ -13,11 +13,10 @@ equation
     connect(lines[i].terminal_n, terminal[grid.fromTo[i,2]]);
   end for;
 
-  // fixme: rename Vabs to VAbs to use camel case notation.
   for i in 1:grid.nNodes loop
-    Vabs[1,i] = Buildings.Electrical.PhaseSystems.OnePhase.systemVoltage(terminal[i].phase[1].v);
-    Vabs[2,i] = Buildings.Electrical.PhaseSystems.OnePhase.systemVoltage(terminal[i].phase[2].v);
-    Vabs[3,i] = Buildings.Electrical.PhaseSystems.OnePhase.systemVoltage(terminal[i].phase[3].v);
+    VAbs[1,i] = Buildings.Electrical.PhaseSystems.OnePhase.systemVoltage(terminal[i].phase[1].v);
+    VAbs[2,i] = Buildings.Electrical.PhaseSystems.OnePhase.systemVoltage(terminal[i].phase[2].v);
+    VAbs[3,i] = Buildings.Electrical.PhaseSystems.OnePhase.systemVoltage(terminal[i].phase[3].v);
   end for;
   annotation (
   defaultComponentName="net",
