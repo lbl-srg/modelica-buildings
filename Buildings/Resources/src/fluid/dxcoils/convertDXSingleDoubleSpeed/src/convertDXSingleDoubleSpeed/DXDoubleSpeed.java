@@ -74,14 +74,18 @@ public class DXDoubleSpeed {
                 + replaceTokenCharacter(name)
                 + " ="
                 + "\n"
-                + "    Buildings.Fluid.HeatExchangers.DXCoils.Data.DoubleSpeed.Generic (";
+                + "    Buildings.Fluid.HeatExchangers.DXCoils.Data.DoubleSpeed.Generic(";
 
-        stringAnnotationOfDXDoubleSpeedObjectBegin = "annotation (Documentation(info=\"<html>"
+        stringAnnotationOfDXDoubleSpeedObjectBegin = "annotation(\n"
+        		+ "defaultComponentName=\"datCoi\",\n"
+        		+ "defaultComponentPrefixes=\"parameter\",\n"
+        		+ "Documentation(info=\"<html>"
                 + "\n"
+        		+ "<p>\n"
                 + "Performance data for double speed cooling coil model."
                 + "\n"
                 + "This data corresponds to the following EnergyPlus model:"
-                + "\n" + "<pre>";
+                + "</p>\n" + "<pre>";
 
         stringAnnotationOfDXDoubleSpeedObjectEnd = "</pre>" + "\n"
                 + "</html>\"))" + ";";

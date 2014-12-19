@@ -167,16 +167,18 @@ public class ParserResultObject {
 
 
                 + "package SingleSpeed \"Performance data for SingleSpeed DXCoils\""
-                + "\n" + " annotation(preferredView=" + "\"" + "info" + "\""
-                + ", Documentation(info=\"<html>"
+                + "\n"
+                + "  extends Modelica.Icons.MaterialPropertiesPackage;\n"
+                + " annotation(\n  preferredView=" + "\"" + "info" + "\""
+                + ",\n  Documentation(info=\"<html>\n<p>\n"
                 + "Package with performance data for DX coils."
-                + "</html>\","
-                + " revisions=\"<html>"
-                + "Generated on "
+                + "\n</p>\n</html>\",\n"
+                + " revisions=\"<html>\n"
+                + "<p>\nGenerated on "
                 + getDateTime()
                 + " by "
                 + "tsnouidui."
-                + "</html>\"));"
+                + "\n</p>\n</html>\"));"
                 + "\n"
 
                 + "  "
@@ -185,8 +187,11 @@ public class ParserResultObject {
                 + "    "
                 + "extends Buildings.Fluid.HeatExchangers.DXCoils.Data.Generic.DXCoil(final nSta=1);"
                 + "\n"
-                + "annotation (defaultComponentName=\"per\", Documentation(info=\"<html>"
-                + "\n"
+                + "annotation(\n"
+                + "defaultComponentName=\"datCoi\",\n"
+        		+ "defaultComponentPrefixes=\"parameter\",\n"                
+                + "Documentation(info=\"<html>"
+                + "\n<p>\n"
                 + "This record is used as a template for performance data"
                 + "\n"
                 + "for SingleSpeed DXCoils"
@@ -198,14 +203,14 @@ public class ParserResultObject {
                 + "\">"
                 + "\n"
                 + "Buildings.Fluid.HeatExchangers.DXCoils.SingleSpeed</a>."
-                + "\n"
+                + "\n</p>\n"
                 + "</html>\", revisions=\"<html>"
                 + "\n"
                 + "<ul>"
                 + "\n"
                 + "<li>"
                 + "\n"
-                + "November 20, 2012 by Thierry S. Nouidui:<br>"
+                + "November 20, 2012 by Thierry S. Nouidui:<br/>"
                 + "\n"
                 + "First implementation."
                 + "\n"
@@ -250,6 +255,9 @@ public class ParserResultObject {
 
         // print the header + DXSingleSpeed + footer in the output file
         OutputStreamWriter fw = new FileWriter(fileName);
+        // Some E+ fields have string such as Lennox SCA240H4B Stage 1&2.
+        // The & sign needs to be converted to &amp; as it is inside an html section.
+        cleanRecordedDXSingleSpeeds = cleanRecordedDXSingleSpeeds.replaceAll("&", "&amp;");
         fw.write(fileHeader + cleanRecordedDXSingleSpeeds + fileFooter);
         fw.close();
     }
@@ -271,16 +279,18 @@ public class ParserResultObject {
                 + "\n"
 
                 + "package DoubleSpeed \"Performance data for DoubleSpeed DXCoils\""
-                + "\n" + " annotation(preferredView=" + "\"" + "info" + "\""
-                + ", Documentation(info=\"<html>"
+                + "\n"
+                + "  extends Modelica.Icons.MaterialPropertiesPackage;\n"                
+                + " annotation(\n preferredView=" + "\"" + "info" + "\""
+                + ",\n  Documentation(info=\"<html>\n<p>\n"
                 + "Package with performance data for DX coils."
-                + "</html>\","
-                + " revisions=\"<html>"
-                + "Generated on "
+                + "\n</p>\n</html>\",\n"
+                + " revisions=\"<html>\n"
+                + "<p>\nGenerated on "
                 + getDateTime()
                 + " by "
                 + "tsnouidui."
-                + "</html>\"));"
+                + "\n</p>\n</html>\"));"
                 + "\n"
                 + "  "
                 + "record Generic \"Generic data record for DoubleSpeed DXCoils\""
@@ -288,11 +298,14 @@ public class ParserResultObject {
                 + "    "
                 + "extends Buildings.Fluid.HeatExchangers.DXCoils.Data.Generic.DXCoil(final nSta=2);"
                 + "\n"
-                + "annotation (defaultComponentName=\"per\", Documentation(info=\"<html>"
-                + "\n"
+                + "annotation(\n"
+                + "defaultComponentName=\"datCoi\",\n"
+        		+ "defaultComponentPrefixes=\"parameter\",\n"                
+                + "Documentation(info=\"<html>"
+                + "\n<p>\n"
                 + "This record is used as a template for performance data"
                 + "\n"
-                + "for DoubleSpeed DXCoils"
+                + "for the double speed DX coils"
                 + "\n"
                 + "<a href="
                 + "\\"
@@ -301,14 +314,14 @@ public class ParserResultObject {
                 + "\">"
                 + "\n"
                 + "Buildings.Fluid.HeatExchangers.DXCoils.DoubleSpeed</a>."
-                + "\n"
+                + "\n</p>\n"
                 + "</html>\", revisions=\"<html>"
                 + "\n"
                 + "<ul>"
                 + "\n"
                 + "<li>"
                 + "\n"
-                + "November 20, 2012 by Thierry S. Nouidui:<br>"
+                + "November 20, 2012 by Thierry S. Nouidui:<br/>"
                 + "\n"
                 + "First implementation."
                 + "\n"
@@ -354,6 +367,9 @@ public class ParserResultObject {
 
         // print the header + DXSingleSpeed + footer in the output file
         OutputStreamWriter fw = new FileWriter(fileName);
+        // Some E+ fields have string such as Lennox SCA240H4B Stage 1&2.
+        // The & sign needs to be converted to &amp; as it is inside an html section.
+        cleanRecordedDXDoubleSpeeds = cleanRecordedDXDoubleSpeeds.replaceAll("&", "&amp;");
         fw.write(fileHeader + cleanRecordedDXDoubleSpeeds + fileFooter);
         fw.close();
 
