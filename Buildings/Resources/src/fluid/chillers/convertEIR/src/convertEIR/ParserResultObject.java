@@ -125,8 +125,8 @@ public class ParserResultObject {
         // Date date = new Date();
         String fileHeader = "within Buildings.Fluid.Chillers.Data;"
                 + "\n"
-                + "package ElectricEIR \"Performance data for chiller ElectricEIR\""
-                + "\n" 
+                + "package ElectricEIR \"Performance data for chiller ElectricEIR\"\n"
+                + "  extends Modelica.Icons.MaterialPropertiesPackage;\n"
                 + " annotation(preferredView=\"info\",\n"
                 + " Documentation(info=\"<html>\n"
                 + "<p>\n"
@@ -363,8 +363,9 @@ public class ParserResultObject {
         // defines the header of the output file
         String fileHeader = "within Buildings.Fluid.Chillers.Data;"
                 + "\n"
-                + "package ElectricReformulatedEIR \"Performance data for chiller ElectricReformulatedEIR\""
-                + "\n" + " annotation(preferredView=" + "\"" + "info" + "\""
+                + "package ElectricReformulatedEIR \"Performance data for chiller ElectricReformulatedEIR\"\n"
+                + "  extends Modelica.Icons.MaterialPropertiesPackage;\n"
+                + " annotation(preferredView=" + "\"" + "info" + "\""
                 + ",\n Documentation(info=\"<html>\n"
                 + "<p>\nPackage with performance data for chillers."
                 + "\n</p>\n</html>\","
