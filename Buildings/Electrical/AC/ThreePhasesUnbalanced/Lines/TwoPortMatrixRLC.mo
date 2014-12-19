@@ -4,19 +4,17 @@ model TwoPortMatrixRLC
   extends Buildings.Electrical.AC.ThreePhasesUnbalanced.Interfaces.TwoPort;
   parameter Modelica.SIunits.Voltage V_nominal(min=0, start=480)
     "Nominal voltage (V_nominal >= 0)"  annotation(Evaluate=true, Dialog(group="Nominal conditions"));
-    // fixme: remove default values for Z and B as no values can be
-    // provided that are generally valid.
-  parameter Modelica.SIunits.Impedance Z11[2] = {1,1}
+  parameter Modelica.SIunits.Impedance Z11[2]
     "Element [1,1] of impedance matrix";
-  parameter Modelica.SIunits.Impedance Z12[2] = {1,1}
+  parameter Modelica.SIunits.Impedance Z12[2]
     "Element [1,2] of impedance matrix";
-  parameter Modelica.SIunits.Impedance Z13[2] = {1,1}
+  parameter Modelica.SIunits.Impedance Z13[2]
     "Element [1,3] of impedance matrix";
-  parameter Modelica.SIunits.Impedance Z22[2] = {1,1}
+  parameter Modelica.SIunits.Impedance Z22[2]
     "Element [2,2] of impedance matrix";
-  parameter Modelica.SIunits.Impedance Z23[2] = {1,1}
+  parameter Modelica.SIunits.Impedance Z23[2]
     "Element [2,3] of impedance matrix";
-  parameter Modelica.SIunits.Impedance Z33[2] = {1,1}
+  parameter Modelica.SIunits.Impedance Z33[2]
     "Element [3,3] of impedance matrix";
   final parameter Modelica.SIunits.Impedance[2] Z21 = Z12
     "Element [2,1] of impedance matrix";
@@ -25,17 +23,17 @@ model TwoPortMatrixRLC
   final parameter Modelica.SIunits.Impedance[2] Z32 = Z23
     "Element [3,1] of impedance matrix";
 
-  parameter Modelica.SIunits.Admittance B11 = 1
+  parameter Modelica.SIunits.Admittance B11
     "Element [1,1] of admittance matrix";
-  parameter Modelica.SIunits.Admittance B12 = 1
+  parameter Modelica.SIunits.Admittance B12
     "Element [1,2] of admittance matrix";
-  parameter Modelica.SIunits.Admittance B13 = 1
+  parameter Modelica.SIunits.Admittance B13
     "Element [1,3] of admittance matrix";
-  parameter Modelica.SIunits.Admittance B22 = 1
+  parameter Modelica.SIunits.Admittance B22
     "Element [2,2] of admittance matrix";
-  parameter Modelica.SIunits.Admittance B23 = 1
+  parameter Modelica.SIunits.Admittance B23
     "Element [2,3] of admittance matrix";
-  parameter Modelica.SIunits.Admittance B33 = 1
+  parameter Modelica.SIunits.Admittance B33
     "Element [3,3] of admittance matrix";
   final parameter Modelica.SIunits.Admittance B21 = B12
     "Element [2,1] of admittance matrix";

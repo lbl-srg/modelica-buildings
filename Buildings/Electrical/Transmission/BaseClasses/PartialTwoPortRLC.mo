@@ -3,13 +3,13 @@ partial model PartialTwoPortRLC
   "Partial model of an RLC element that links two electrical connectors"
   extends Interfaces.PartialTwoPort;
   extends Modelica.Electrical.Analog.Interfaces.ConditionalHeatPort(T = T_ref);
-  parameter Modelica.SIunits.Resistance R(start=1)
-    "Resistance at temperature T_ref" annotation(Evaluate=true);
+  parameter Modelica.SIunits.Resistance R "Resistance at temperature T_ref"
+                                      annotation(Evaluate=true);
   parameter Modelica.SIunits.Temperature T_ref = 298.15 "Reference temperature";
   parameter Modelica.SIunits.Temperature M = 507.65
     "Temperature constant (R_actual = R*(M + T_heatPort)/(M + T_ref))";
-  parameter Modelica.SIunits.Capacitance C(start=0) "Capacity";
-  parameter Modelica.SIunits.Inductance L(start=0) "Inductance";
+  parameter Modelica.SIunits.Capacitance C "Capacity";
+  parameter Modelica.SIunits.Inductance L "Inductance";
   parameter Modelica.SIunits.Voltage V_nominal(min=0, start=120)
     "Nominal voltage (V_nominal >= 0)"  annotation(Dialog(group="Nominal conditions"));
   Modelica.SIunits.Resistance R_actual
