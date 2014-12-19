@@ -1,10 +1,8 @@
 within Buildings.Electrical.AC.ThreePhasesUnbalanced.Conversion.BaseClasses;
 partial model PartialConverter "Partial model of a transformer"
   extends Buildings.Electrical.Icons.RefAngleConversion;
-  // fixme: use constrainedby to set parameter values.
-  // fixme: Correct the indentation.
   replaceable Buildings.Electrical.Interfaces.PartialConversion
-                                    conv1(
+    conv1 constrainedby Buildings.Electrical.Interfaces.PartialConversion(
     redeclare package PhaseSystem_p =
         Buildings.Electrical.PhaseSystems.OnePhase,
     redeclare package PhaseSystem_n =
@@ -14,7 +12,7 @@ partial model PartialConverter "Partial model of a transformer"
     "Transformer phase 1"
     annotation (Placement(transformation(extent={{-10,42},{10,62}})));
   replaceable Buildings.Electrical.Interfaces.PartialConversion
-                                    conv2(
+    conv2 constrainedby Buildings.Electrical.Interfaces.PartialConversion(
     redeclare package PhaseSystem_p =
         Buildings.Electrical.PhaseSystems.OnePhase,
     redeclare package PhaseSystem_n =
@@ -24,7 +22,7 @@ partial model PartialConverter "Partial model of a transformer"
     "Transformer phase 2"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   replaceable Buildings.Electrical.Interfaces.PartialConversion
-                                    conv3(
+    conv3 constrainedby Buildings.Electrical.Interfaces.PartialConversion(
     redeclare package PhaseSystem_p =
         Buildings.Electrical.PhaseSystems.OnePhase,
     redeclare package PhaseSystem_n =
