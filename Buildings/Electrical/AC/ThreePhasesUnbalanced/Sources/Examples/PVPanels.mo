@@ -68,11 +68,11 @@ equation
       thickness=0.5,
       smooth=Smooth.None));
   connect(load.y, RL.y2) annotation (Line(
-      points={{57,-40},{40,-40}},
+      points={{57,-40},{50,-40},{50,-42},{42,-42}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(load.y, RL.y1) annotation (Line(
-      points={{57,-40},{50,-40},{50,-34},{40,-34}},
+      points={{57,-40},{50,-40},{50,-34},{42,-34}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(grid.terminal, RL.terminal) annotation (Line(
@@ -89,11 +89,7 @@ equation
       smooth=Smooth.None));
   annotation (experiment(StopTime=172800, Tolerance=1e-05),
   Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
-            100,100}}),        graphics={Text(
-          extent={{-64,-58},{92,-86}},
-          lineColor={0,0,255},
-          textString=
-              "fixme: unit tests need to be added for the PV with neutral line. Each model must be in one unit test.")}),
+            100,100}}),        graphics),
     __Dymola_Commands(file=
           "modelica://Buildings/Resources/Scripts/Dymola/Electrical/AC/ThreePhasesUnbalanced/Sources/Examples/PVPanels.mos"
         "Simulate and plot"),

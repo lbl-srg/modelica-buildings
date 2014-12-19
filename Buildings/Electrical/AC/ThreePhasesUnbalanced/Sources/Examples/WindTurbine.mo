@@ -62,11 +62,7 @@ equation
       color={0,120,120},
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}}),      graphics={Text(
-          extent={{-54,-48},{102,-76}},
-          lineColor={0,0,255},
-          textString=
-              "fixme: unit tests need to be added for the wind turbine with neutral line. Each model must be in one unit test.")}),
+            -100},{100,100}}),      graphics),
     experiment(StopTime=172800, Tolerance=1e-05),
     __Dymola_experimentSetupOutput,
     Documentation(info="<html>
