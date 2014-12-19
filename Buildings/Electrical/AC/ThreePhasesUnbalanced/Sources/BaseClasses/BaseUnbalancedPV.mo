@@ -8,9 +8,6 @@ partial model BaseUnbalancedPV "Partial model for an unbalanced PV source"
      annotation(Dialog(group="Nominal conditions"));
   parameter Real areaFraction[3](each min=0, each max=1.0) = ones(3)/3
     "Fraction of area occupied by the PVs of each phase";
-  // fixme: you need to use constrainedby and assign the parameters in the
-  // constrainedby instance to correctly propagate them even if the model
-  // is redeclared.
   replaceable OnePhase.Sources.PVSimple pv_phase2(
     pf=pf,
     eta_DCAC=eta_DCAC,

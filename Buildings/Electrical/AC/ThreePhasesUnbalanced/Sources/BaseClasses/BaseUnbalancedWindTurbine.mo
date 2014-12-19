@@ -6,9 +6,6 @@ partial model BaseUnbalancedWindTurbine
   extends Buildings.Electrical.Interfaces.PartialWindTurbineBase(V_nominal(start = 480));
   parameter Real scaleFraction[3](each min=0, each max=1.0) = ones(3)/3
     "Fraction of power allocated to the wind turbines of each phase";
-  // fixme: you need to use constrainedby and assign the parameters in the
-  // constrainedby instance to correctly propagate them even if the model
-  // is redeclared. Also, fix the indentation.
   replaceable OnePhase.Sources.WindTurbine
                                         wt_phase2(
     pf=pf,
