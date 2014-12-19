@@ -13,7 +13,7 @@ model ACDCConverter "AC DC converter"
     "Ratio of DC voltage / AC RMS voltage";
   parameter Real eta(min=0, max=1)
     "Converter efficiency, pLoss = (1-eta) * Ptr";
-  Modelica.SIunits.Power LossPower "Loss power";
+  Modelica.SIunits.Power PLoss "Loss power";
   parameter Boolean ground_AC = false "Connect AC side of converter to ground" annotation(Evaluate=true, Dialog(tab = "Ground", group="AC side"));
   parameter Boolean ground_DC = true "Connect DC side of converter to ground" annotation(Evaluate=true, Dialog(tab = "Ground", group="DC side"));
 protected
@@ -28,9 +28,9 @@ equation
   v_p = v_n*conversionFactor;
 
   // Power losses
-  LossPower = (1-eta)*
+  PLoss = (1-eta)*
     Buildings.Utilities.Math.Functions.spliceFunction(P_p[1], P_n[1], i_p, deltax=0.1);
-  P_n + P_p = {LossPower, 0};
+  P_n + P_p = {PLoss, 0};
 
   if ground_AC then
     Connections.potentialRoot(terminal_n.theta);

@@ -78,9 +78,12 @@ Otherwise, there will be no equation that defines the phase
 angle of the voltage.
 </p>
 <p>
-fixme: This info section must explain or reference a user guide that explains
-the parameters <code>potentialReference</code> and
-<code>definiteReference</code>.
+The boolean flags <code>potentialReference</code> and
+<code>definiteReference</code> allows to select the phase angle of the 
+generator as reference for the models connected to it. More info about
+these flags are available in
+<a href=\"modelica://Buildings.Electrical.AC.UsersGuide\">
+Buildings.Electrical.AC.UsersGuide</a>.
 </p>
 </html>", revisions="<html>
 <ul>

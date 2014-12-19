@@ -45,7 +45,7 @@ model ACACTransformerFull "AC AC transformer with detailed equivalent circuit"
     "Angle of the voltage side 2 at initialization"
      annotation(Evaluate=true, Dialog(tab = "Initialization"));
   Modelica.SIunits.Efficiency eta "Efficiency";
-  Modelica.SIunits.Power LossPower[2] "Loss power";
+  Modelica.SIunits.Power PLoss[2] "Loss power";
 protected
   parameter Modelica.SIunits.AngularVelocity omega_n = 2*Modelica.Constants.pi*f;
   parameter Real N = VHigh/VLow "Winding ratio";
@@ -69,10 +69,10 @@ protected
     "Power transmitted at pin p (secondary)";
   Modelica.SIunits.Power P_n[2] = PhaseSystem_n.phasePowers_vi(terminal_n.v, terminal_n.i)
     "Power transmitted at pin n (primary)";
-  Modelica.SIunits.Power Sp = sqrt(P_p[1]^2 + P_p[2]^2)
-    "Apparent power terminal p";
-  Modelica.SIunits.Power Sn = sqrt(P_n[1]^2 + P_n[2]^2)
-    "Apparent power terminal n";
+  Modelica.SIunits.Power S_p = Modelica.Fluid.Utilities.regRoot(P_p[1]^2 + P_p[2]^2, delta=0.1)
+    "Apparent power at terminal p";
+  Modelica.SIunits.Power S_n = Modelica.Fluid.Utilities.regRoot(P_n[1]^2 + P_n[2]^2, delta=0.1)
+    "Apparent power at terminal n";
   Modelica.SIunits.AngularVelocity omega "Angular velocity";
   Modelica.SIunits.Current Im[2] "Magnetization current";
 equation
@@ -84,8 +84,12 @@ equation
 
   // Efficiency
   eta = Buildings.Utilities.Math.Functions.smoothMin(
-        x1=  sqrt(P_p[1]^2 + P_p[2]^2) / (sqrt(P_n[1]^2 + P_n[2]^2) + 1e-6),
-        x2=  sqrt(P_n[1]^2 + P_n[2]^2) / (sqrt(P_p[1]^2 + P_p[2]^2) + 1e-6),
+        x1=
+        Modelica.Fluid.Utilities.regRoot(P_p[1]^2 + P_p[2]^2, delta=0.01)/
+        Modelica.Fluid.Utilities.regRoot(P_n[1]^2 + P_n[2]^2 + 1e-6, delta=0.01),
+        x2=
+        Modelica.Fluid.Utilities.regRoot(P_n[1]^2 + P_n[2]^2, delta=0.01)/
+        Modelica.Fluid.Utilities.regRoot(P_p[1]^2 + P_p[2]^2 + 1e-6, delta=0.01),
         deltaX=  0.01);
 
   // Ideal transformation
@@ -110,7 +114,7 @@ equation
     terminal_p.i, Z2);
 
   // Loss of power
-  LossPower = P_p + P_n;
+  PLoss = P_p + P_n;
 
   // The two sides have the same reference angle
   terminal_p.theta = terminal_n.theta;

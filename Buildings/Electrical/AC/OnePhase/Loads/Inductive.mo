@@ -17,7 +17,7 @@ equation
 
     // Use the dynamic phasorial representation
     Z[1] = -pf*(V_nominal^2)/(P_nominal/pf);
-    Z[2] = -sqrt(1-pf^2)*(V_nominal^2)/(P_nominal/pf);
+    Z[2] = -Modelica.Fluid.Utilities.regRoot(1-pf^2, delta=0.001)*(V_nominal^2)/(P_nominal/pf);
 
     // Dynamics of the system
     der(psi) + omega*j(psi) + Z[1]*i = v;
@@ -29,12 +29,8 @@ equation
 
     // Use the power specified by the parameter or inputs
     if linearized then
-      // fixme: Using simplified=0 for the homotopy is probably not a good idea. Then,
-      // any v will satisfy that simplified equation, and hence the homotopy
-      // may start from an unreasonably large value. Please use something that
-      // is linear in v for the simplified method.
-      i[1] = -homotopy(actual= (v[2]*Q + v[1]*P)/(V_nominal^2), simplified=  0.0);
-      i[2] = -homotopy(actual= (v[2]*P - v[1]*Q)/(V_nominal^2), simplified=  0.0);
+      i[1] = -homotopy(actual= (v[2]*Q + v[1]*P)/(V_nominal^2), simplified= v[1]*Modelica.Constants.eps*1e3);
+      i[2] = -homotopy(actual= (v[2]*P - v[1]*Q)/(V_nominal^2), simplified= v[2]*Modelica.Constants.eps*1e3);
     else
       //PhaseSystem.phasePowers_vi(terminal.v, terminal.i) = PhaseSystem.phasePowers(P, Q);
       if initMode == Buildings.Electrical.Types.InitMode.zero_current then
