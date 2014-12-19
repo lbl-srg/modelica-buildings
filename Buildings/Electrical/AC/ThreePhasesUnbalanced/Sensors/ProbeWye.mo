@@ -3,10 +3,8 @@ model ProbeWye
   "Model of a probe that measures voltage magnitude and angle (Wye configuration)"
   extends
     Buildings.Electrical.AC.ThreePhasesUnbalanced.Sensors.BaseClasses.GeneralizedProbe(
-    redeclare final
-      Buildings.Electrical.AC.ThreePhasesUnbalanced.Interfaces.Terminal_n
-      term);
-  // fixme: correct indentation in all models of this package.
+   redeclare final
+      Buildings.Electrical.AC.ThreePhasesUnbalanced.Interfaces.Terminal_n              term);
   Interfaces.WyeToWyeGround wyeToWyeGround "Y to Y grounded transformation"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         origin={20,0})));

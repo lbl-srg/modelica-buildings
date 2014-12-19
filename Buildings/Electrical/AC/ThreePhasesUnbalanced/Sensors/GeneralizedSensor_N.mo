@@ -1,7 +1,6 @@
 within Buildings.Electrical.AC.ThreePhasesUnbalanced.Sensors;
 model GeneralizedSensor_N
   "Sensor for power, voltage and current (4 wire system, with neutral cable)"
-  //fixme: add text to the icon that displays the component name.
 
   Interfaces.Terminal4_n terminal_n "Electrical connector side N"
     annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
@@ -106,7 +105,11 @@ equation
           lineThickness=1,
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid,
-          textString="I")}),
+          textString="I"),
+        Text(
+          extent={{-120,100},{120,60}},
+          lineColor={0,0,0},
+          textString="%name")}),
     Documentation(info="<html>
 <p>
 Ideal sensor that measures power, voltage and current in a three phases unbalanced system
