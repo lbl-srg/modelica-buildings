@@ -20,11 +20,11 @@ model VoltageControl "Voltage controller"
     redeclare replaceable package PhaseSystem = PhaseSystem)
     "Generalized terminal"
     annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
-  Buildings.Electrical.Utilities.Functions.voltageControl ctrl(
+  Buildings.Electrical.Utilities.Controllers.StateMachineVoltCtrl ctrl(
     V_nominal=V_nominal,
-    vThresh=vThresh, tDelay=tDelay)
-    "Function that implements the state machines voltage controller";
-    // fixme: This is not a function, it is a model
+    vThresh=vThresh,
+    tDelay=tDelay)
+    "Model that implements the state machines voltage controller";
 equation
 
   // Output of the control block
@@ -78,5 +78,7 @@ then the control signal <code>y</code> becomes zero for
 a period <code>t = tDelay</code>. If after this period the voltage is still
 higher than the thresholds the output remains equal to zero.
 </p>
-</html>"));
+</html>"),
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
+            100,100}}), graphics));
 end VoltageControl;

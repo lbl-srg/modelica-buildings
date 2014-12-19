@@ -1,5 +1,5 @@
 within Buildings.Electrical.Utilities;
-package Functions "Package that contains function used by the utilities"
+package Controllers "Package that contains state machines and control models used by the utilities"
 extends Modelica.Icons.BasesPackage;
 
 
@@ -12,7 +12,7 @@ Added documentation.
 </ul>
 </html>", info="<html>
 <p>
-This package contains function used by the utilities models.
+This package contains state machines and controller models used by the utilities.
 </p>
 </html>"));
-end Functions;
+end Controllers;

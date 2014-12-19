@@ -76,6 +76,12 @@ where the subscripts indicates a
 <li><i>RC</i> - resistive capacitive load</li>
 </ul>
 
+<h4>Phasorial representation</h4>
+<p>
+fixme: add documentation for the flags <code>potentialReference</code> and
+<code>definiteReference</code>.
+</p>
+
 <h4>References</h4>
 <p>
 <a NAME=\"Stankovic1999\"/>
