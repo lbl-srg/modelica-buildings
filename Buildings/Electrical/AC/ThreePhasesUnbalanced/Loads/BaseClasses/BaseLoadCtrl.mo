@@ -28,10 +28,6 @@ partial model BaseLoadCtrl
   parameter Types.InitMode initMode=Buildings.Electrical.Types.InitMode.zero_current
     "Initialization mode for homotopy operator"
     annotation (Dialog(tab="initialization"));
- // fixme: All these loads require the "constrainedby" declaration, and the parameters
- // must be assigned in the constrainedby declaration. Otherwise, if a model redeclares
- // these instances, then the parameter value is not propagated. We had this problem also
- // in Buildings.Fluid.HeatExchangers.
   replaceable Buildings.Electrical.Interfaces.Load load1(
     redeclare package PhaseSystem = Buildings.Electrical.PhaseSystems.OnePhase,
     redeclare Buildings.Electrical.AC.OnePhase.Interfaces.Terminal_n terminal,
@@ -67,57 +63,59 @@ partial model BaseLoadCtrl
     "Fraction of the nominal power consumed"                       annotation (Placement(transformation(
         extent={{-20,-20},{20,20}},
         rotation=180,
-        origin={100,60}),iconTransformation(
+        origin={120,60}),iconTransformation(
         extent={{-20,-20},{20,20}},
         rotation=180,
-        origin={100,60})));
+        origin={120,60})));
   Modelica.Blocks.Interfaces.RealInput Pow1(unit="W") if plugPhase1 and
     mode == Buildings.Electrical.Types.Load.VariableZ_P_input "Power consumed"
                                            annotation (Placement(transformation(
         extent={{-20,-20},{20,20}},
         rotation=180,
-        origin={100,60}),iconTransformation(
+        origin={120,100}),
+                         iconTransformation(
         extent={{-20,-20},{20,20}},
         rotation=180,
-        origin={100,60})));
+        origin={120,100})));
   Modelica.Blocks.Interfaces.RealInput y2 if plugPhase2 and
     mode == Buildings.Electrical.Types.Load.VariableZ_y_input
     "Fraction of the nominal power consumed"                       annotation (Placement(transformation(
         extent={{-20,-20},{20,20}},
         rotation=180,
-        origin={100,0}), iconTransformation(
+        origin={120,-20}),
+                         iconTransformation(
         extent={{-20,-20},{20,20}},
         rotation=180,
-        origin={100,0})));
+        origin={120,-20})));
   Modelica.Blocks.Interfaces.RealInput Pow2(unit="W") if plugPhase2 and
     mode == Buildings.Electrical.Types.Load.VariableZ_P_input "Power consumed"
                                            annotation (Placement(transformation(
         extent={{-20,-20},{20,20}},
         rotation=180,
-        origin={100,0}), iconTransformation(
+        origin={120,20}),iconTransformation(
         extent={{-20,-20},{20,20}},
         rotation=180,
-        origin={100,0})));
+        origin={120,20})));
   Modelica.Blocks.Interfaces.RealInput y3 if plugPhase3 and
     mode == Buildings.Electrical.Types.Load.VariableZ_y_input
     "Fraction of the nominal power consumed"                       annotation (Placement(transformation(
         extent={{-20,-20},{20,20}},
         rotation=180,
-        origin={100,-60}),
+        origin={120,-100}),
                          iconTransformation(
         extent={{-20,-20},{20,20}},
         rotation=180,
-        origin={100,-60})));
+        origin={120,-100})));
   Modelica.Blocks.Interfaces.RealInput Pow3(unit="W") if plugPhase3 and
     mode == Buildings.Electrical.Types.Load.VariableZ_P_input "Power consumed"
                                            annotation (Placement(transformation(
         extent={{-20,-20},{20,20}},
         rotation=180,
-        origin={100,-60}),
+        origin={120,-60}),
                          iconTransformation(
         extent={{-20,-20},{20,20}},
         rotation=180,
-        origin={100,-60})));
+        origin={120,-60})));
   Buildings.Electrical.Utilities.VoltageControl vCTRL_1(
     redeclare package PhaseSystem = Buildings.Electrical.PhaseSystems.OnePhase,
     redeclare Buildings.Electrical.AC.OnePhase.Interfaces.Terminal_n terminal,
@@ -169,13 +167,13 @@ equation
         color={0,0,127},
         smooth=Smooth.None));
       connect(cmd1.u2, y1) annotation (Line(
-        points={{58,60},{100,60}},
+        points={{58,60},{120,60}},
         color={0,0,127},
         smooth=Smooth.None));
     end if;
     if plugPhase1 and not voltageCtrl then
       connect(y1, load1.y) annotation (Line(
-        points={{100,60},{70,60},{70,50},{10,50}},
+        points={{120,60},{66,60},{66,50},{10,50}},
         color={0,0,127},
         smooth=Smooth.None));
     end if;
@@ -186,13 +184,13 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
       connect(cmd2.u2, y2) annotation (Line(
-      points={{58,-12},{72,-12},{72,1.77636e-15},{100,1.77636e-15}},
+      points={{58,-12},{72,-12},{72,-20},{120,-20}},
       color={0,0,127},
       smooth=Smooth.None));
     end if;
     if plugPhase2 and not voltageCtrl then
       connect(y2, load2.y) annotation (Line(
-      points={{100,8.88178e-16},{72,8.88178e-16},{72,-20},{10,-20}},
+      points={{120,-20},{10,-20}},
       color={0,0,127},
       smooth=Smooth.None));
     end if;
@@ -203,13 +201,13 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
       connect(cmd3.u2, y3) annotation (Line(
-      points={{58,-76},{72,-76},{72,-60},{100,-60}},
+      points={{58,-76},{72,-76},{72,-100},{120,-100}},
       color={0,0,127},
       smooth=Smooth.None));
     end if;
     if plugPhase3 and not voltageCtrl then
       connect(y3, load3.y) annotation (Line(
-      points={{100,-60},{72,-60},{72,-88},{10,-88}},
+      points={{120,-100},{72,-100},{72,-88},{10,-88}},
       color={0,0,127},
       smooth=Smooth.None));
     end if;
@@ -223,13 +221,13 @@ equation
         color={0,0,127},
         smooth=Smooth.None));
       connect(cmd1.u2, Pow1) annotation (Line(
-        points={{58,60},{100,60}},
+        points={{58,60},{82,60},{82,100},{120,100}},
         color={0,0,127},
         smooth=Smooth.None));
     end if;
     if plugPhase1 and not voltageCtrl then
       connect(Pow1, load1.Pow) annotation (Line(
-        points={{100,60},{70,60},{70,50},{10,50}},
+        points={{120,100},{70,100},{70,50},{10,50}},
         color={0,0,127},
         smooth=Smooth.None));
     end if;
@@ -240,13 +238,13 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
       connect(cmd2.u2, Pow2) annotation (Line(
-      points={{58,-12},{72,-12},{72,1.77636e-15},{100,1.77636e-15}},
+      points={{58,-12},{72,-12},{72,20},{120,20}},
       color={0,0,127},
       smooth=Smooth.None));
     end if;
     if plugPhase2 and not voltageCtrl then
       connect(Pow2, load2.Pow) annotation (Line(
-      points={{100,8.88178e-16},{72,8.88178e-16},{72,-20},{10,-20}},
+      points={{120,20},{72,20},{72,-20},{10,-20}},
       color={0,0,127},
       smooth=Smooth.None));
     end if;
@@ -257,13 +255,13 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
       connect(cmd3.u2, Pow3) annotation (Line(
-      points={{58,-76},{72,-76},{72,-60},{100,-60}},
+      points={{58,-76},{72,-76},{72,-60},{120,-60}},
       color={0,0,127},
       smooth=Smooth.None));
     end if;
     if plugPhase3 and not voltageCtrl then
       connect(Pow3, load3.Pow) annotation (Line(
-      points={{100,-60},{72,-60},{72,-88},{10,-88}},
+      points={{120,-60},{72,-60},{72,-88},{10,-88}},
       color={0,0,127},
       smooth=Smooth.None));
     end if;
@@ -366,5 +364,6 @@ September 24, 2014, by Marco Bonvini:<br/>
 Created model and documentation.
 </li>
 </ul>
-</html>"));
+</html>"), Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
+            {100,100}}), graphics));
 end BaseLoadCtrl;

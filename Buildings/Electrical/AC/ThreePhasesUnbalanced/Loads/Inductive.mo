@@ -22,7 +22,8 @@ model Inductive
     unit="1") if (use_pf_in and plugPhase1) "Power factor of load on phase 1" annotation (Placement(transformation(
         extent={{-20,-20},{20,20}},
         rotation=90,
-        origin={74,-86}), iconTransformation(
+        origin={-60,-120}),
+                          iconTransformation(
         extent={{-20,-20},{20,20}},
         rotation=90,
         origin={-60,-100})));
@@ -32,7 +33,7 @@ model Inductive
     unit="1") if (use_pf_in and plugPhase2) "Power factor of load on phase 2" annotation (Placement(transformation(
         extent={{-20,-20},{20,20}},
         rotation=90,
-        origin={46,-86}), iconTransformation(
+        origin={50,-120}),iconTransformation(
         extent={{-20,-20},{20,20}},
         rotation=90,
         origin={0,-100})));
@@ -42,24 +43,27 @@ model Inductive
     unit="1") if (use_pf_in and plugPhase3) "Power factor of load on phase 3" annotation (Placement(transformation(
         extent={{-20,-20},{20,20}},
         rotation=90,
-        origin={18,-86}), iconTransformation(
+        origin={20,-120}),iconTransformation(
         extent={{-20,-20},{20,20}},
         rotation=90,
         origin={62,-100})));
 
 equation
   connect(pf_in_1, load1.pf_in) annotation (Line(
-      points={{74,-86},{74,56},{10,56}},
+      points={{-60,-120},{-60,56},{10,56}},
       color={0,0,127},
-      smooth=Smooth.None));
+      smooth=Smooth.None,
+      pattern=LinePattern.Dash));
   connect(pf_in_2, load2.pf_in) annotation (Line(
-      points={{46,-86},{46,-14},{10,-14}},
+      points={{50,-120},{50,-14},{10,-14}},
       color={0,0,127},
-      smooth=Smooth.None));
+      smooth=Smooth.None,
+      pattern=LinePattern.Dash));
   connect(pf_in_3, load3.pf_in) annotation (Line(
-      points={{18,-86},{18,-82},{10,-82}},
+      points={{20,-120},{20,-82},{10,-82}},
       color={0,0,127},
-      smooth=Smooth.None));
+      smooth=Smooth.None,
+      pattern=LinePattern.Dash));
   annotation (
   defaultComponentName="loa",
   Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
@@ -188,12 +192,7 @@ equation
                                          color={0,0,0},
           origin={-66,-52},
           rotation=180)}), Diagram(coordinateSystem(preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}}), graphics={Text(
-          extent={{84,-88},{106,-102}},
-          lineColor={0,0,255},
-          textString="fixme: move the connectors
-so that they don't overlay with the
-components.")}),
+          extent={{-100,-100},{100,100}}), graphics),
     Documentation(revisions="<html>
 <ul>
 <li>
