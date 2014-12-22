@@ -2,7 +2,6 @@ within Buildings.Airflow.Multizone;
 model MediumColumn
   "Vertical shaft with no friction and no storage of heat and mass"
   import Modelica.Constants;
-  outer Modelica.Fluid.System system "System wide properties";
 
   replaceable package Medium = Modelica.Media.Interfaces.PartialMedium
     "Medium in the component" annotation (choicesAllMatching=true);
@@ -10,7 +9,7 @@ model MediumColumn
   parameter Modelica.SIunits.Length h(min=0) = 3 "Height of shaft";
   parameter Buildings.Airflow.Multizone.Types.densitySelection densitySelection
     "Select how to pick density" annotation (Evaluate=true);
-  parameter Boolean allowFlowReversal=system.allowFlowReversal
+  parameter Boolean allowFlowReversal=true
     "= true to allow flow reversal, false restricts to design direction (port_a -> port_b)"
     annotation (Dialog(tab="Assumptions"),Evaluate=true);
 
@@ -199,6 +198,13 @@ Buildings.Airflow.Multizone.MediumColumnDynamic</a> instead of this model.
 </html>",
 revisions="<html>
 <ul>
+<li>
+<li>
+December 22, 2014 by Michael Wetter:<br/>
+Removed <code>Modelica.Fluid.System</code>
+to address issue
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/311\">#311</a>.
+</li>
 <li><i>October 4, 2014</i> by Michael Wetter:<br/>
 Removed assignment of <code>port_?.p.nominal</code> to avoid a warning in OpenModelica because
 alias sets have different nominal values.

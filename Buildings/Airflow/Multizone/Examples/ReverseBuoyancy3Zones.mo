@@ -121,8 +121,6 @@ model ReverseBuoyancy3Zones
     nPorts=3,
     m_flow_nominal=0.001)
               annotation (Placement(transformation(extent={{-164,-27},{-144,-7}})));
-  inner Modelica.Fluid.System system
-    annotation (Placement(transformation(extent={{160,140},{180,160}})));
 equation
   connect(dooOpeClo.port_b2, volWes.ports[1]) annotation (Line(
       points={{-61,-51},{-104,-51},{-104,-50},{-156.667,-50},{-156.667,-27}},
@@ -209,7 +207,7 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   annotation (
-    Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-200,-100},{200,
+    Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-200,-100},{160,
             200}}), graphics={Rectangle(
           extent={{-52,48},{48,-96}},
           lineColor={135,135,135},
@@ -225,6 +223,12 @@ experiment(StopTime=3600),
         "Simulate and plot"),
     Documentation(revisions="<html>
 <ul>
+<li>
+December 22, 2014 by Michael Wetter:<br/>
+Removed <code>Modelica.Fluid.System</code>
+to address issue
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/311\">#311</a>.
+</li>
 <li>
 November 10, 2011, by Michael Wetter:<br/>
 Added documentation.

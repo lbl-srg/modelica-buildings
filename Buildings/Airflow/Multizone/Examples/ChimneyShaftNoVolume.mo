@@ -79,8 +79,6 @@ model ChimneyShaftNoVolume
         origin={-80,0})));
   Modelica.Blocks.Math.Gain gain(k=3000)
     annotation (Placement(transformation(extent={{-28,20},{-8,40}})));
-  inner Modelica.Fluid.System system
-    annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
   Buildings.Airflow.Multizone.MediumColumn sha(redeclare package Medium =
         Medium, densitySelection=Buildings.Airflow.Multizone.Types.densitySelection.actual)
     "Shaft of chimney"
@@ -214,6 +212,12 @@ up the other flow path.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+December 22, 2014 by Michael Wetter:<br/>
+Removed <code>Modelica.Fluid.System</code>
+to address issue
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/311\">#311</a>.
+</li>
 <li>
 November 10, 2011, by Michael Wetter:<br/>
 Added documentation.
