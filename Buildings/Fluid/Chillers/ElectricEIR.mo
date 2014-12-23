@@ -13,7 +13,8 @@ model ElectricEIR "Electric chiller based on the DOE-2.1 model"
 
   parameter Buildings.Fluid.Chillers.Data.ElectricEIR.Generic per
     "Performance data"
-    annotation (choicesAllMatching = true);
+    annotation (choicesAllMatching = true,
+                Placement(transformation(extent={{40,80},{60,100}})));
 
 protected
   final parameter Modelica.SIunits.Conversions.NonSIunits.Temperature_degC
