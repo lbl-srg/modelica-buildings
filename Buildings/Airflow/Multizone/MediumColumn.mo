@@ -199,7 +199,6 @@ Buildings.Airflow.Multizone.MediumColumnDynamic</a> instead of this model.
 revisions="<html>
 <ul>
 <li>
-<li>
 December 22, 2014 by Michael Wetter:<br/>
 Removed <code>Modelica.Fluid.System</code>
 to address issue
