@@ -115,11 +115,6 @@ model ClosedLoop
       displayUnit="degC",
       min=0))
     annotation (Placement(transformation(extent={{-300,138},{-280,158}})));
-  inner Modelica.Fluid.System system(
-    p_ambient(displayUnit="Pa"),
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    m_flow_small=1E-4*m_flow_nominal)
-    annotation (Placement(transformation(extent={{-340,100},{-320,120}})));
   Buildings.Fluid.Sensors.TemperatureTwoPort TSup(redeclare package Medium =
         MediumA, m_flow_nominal=m_flow_nominal)
     annotation (Placement(transformation(extent={{330,-50},{350,-30}})));

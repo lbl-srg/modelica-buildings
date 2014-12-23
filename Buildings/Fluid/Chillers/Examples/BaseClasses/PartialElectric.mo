@@ -54,8 +54,6 @@ partial model PartialElectric
     offset=273.15 + 10,
     height=8) "Set point for leaving chilled water temperature"
     annotation (Placement(transformation(extent={{-80,50},{-60,70}})));
-  inner Modelica.Fluid.System system
-    annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
   Modelica.Blocks.Sources.Ramp TCon_in(
     height=10,
     offset=273.15 + 20,

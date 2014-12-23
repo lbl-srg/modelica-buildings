@@ -4,9 +4,6 @@ model MixedAirFreeResponse "Free response of room model"
   package MediumA = Buildings.Media.GasesConstantDensity.MoistAirUnsaturated
     "Medium model";
 
-  inner Modelica.Fluid.System system
-    annotation (Placement(transformation(extent={{-72,-32},{-52,-12}})));
-
   parameter
     Buildings.HeatTransfer.Data.OpaqueConstructions.Insulation100Concrete200
     matLayExt "Construction material for exterior walls"
@@ -174,6 +171,12 @@ This model illustrates the use of the room model
 Buildings.Rooms.MixedAir</a>.
 </html>", revisions="<html>
 <ul>
+<li>
+December 22, 2014 by Michael Wetter:<br/>
+Removed <code>Modelica.Fluid.System</code>
+to address issue
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/311\">#311</a>.
+</li>
 <li>
 September 11, 2014, by Michael Wetter:<br/>
 Changed assignment of <code>layers</code> in <code>conOut</code>

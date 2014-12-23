@@ -2,12 +2,10 @@ within Buildings.Fluid.HeatExchangers.BaseClasses;
 model CoilHeader "Header for a heat exchanger register"
   extends Buildings.BaseClasses.BaseIcon;
 
-  outer Modelica.Fluid.System system "System wide properties";
-
   replaceable package Medium =
       Modelica.Media.Interfaces.PartialMedium "Medium in the component"
       annotation (choicesAllMatching = true);
-  parameter Boolean allowFlowReversal = system.allowFlowReversal
+  parameter Boolean allowFlowReversal = true
     "= true to allow flow reversal, false restricts to design direction (port_a -> port_b)"
     annotation(Dialog(tab="Assumptions"), Evaluate=true);
 
@@ -45,6 +43,12 @@ different flow reroutings in the coil header.
 </html>",
 revisions="<html>
 <ul>
+<li>
+December 22, 2014 by Michael Wetter:<br/>
+Removed <code>Modelica.Fluid.System</code>
+to address issue
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/311\">#311</a>.
+</li>
 <li>
 August 22, 2008, by Michael Wetter:<br/>
 Added start value for port mass flow rate.

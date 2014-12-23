@@ -4,8 +4,6 @@ model SpaceCooling "Space cooling with DX coils"
   replaceable package Medium =
       Buildings.Media.GasesPTDecoupled.MoistAirUnsaturated;
 
-  inner Modelica.Fluid.System system
-    annotation (Placement(transformation(extent={{-160,-280},{-140,-260}})));
   parameter Modelica.SIunits.Volume V=6*10*3 "Room volume";
   //////////////////////////////////////////////////////////
   // Heat recovery effectiveness
@@ -668,6 +666,12 @@ Buildings.Examples.Tutorial.SpaceCooling.System3</a>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+December 22, 2014 by Michael Wetter:<br/>
+Removed <code>Modelica.Fluid.System</code>
+to address issue
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/311\">#311</a>.
+</li>
 <li>
 September 13, 2013, by Michael Wetter:<br/>
 Changed control implementation of variable speed coil

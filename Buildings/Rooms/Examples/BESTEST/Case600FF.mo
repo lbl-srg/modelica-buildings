@@ -22,8 +22,6 @@ model Case600FF
   parameter Integer nConExtWin = 1 "Number of constructions with a window";
   parameter Integer nConBou = 1
     "Number of surface that are connected to constructions that are modeled inside the room";
-  inner Modelica.Fluid.System system
-    annotation (Placement(transformation(extent={{-98,82},{-82,98}})));
   parameter Buildings.HeatTransfer.Data.OpaqueConstructions.Generic matExtWal(
     nLay=3,
     absIR_a=0.9,
@@ -250,7 +248,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(density.port, roo.ports[1])  annotation (Line(
-      points={{-45,-76},{32,-76},{32,-22.5},{37.75,-22.5}},
+      points={{-45,-76},{32,-76},{32,-24.5},{39.75,-24.5}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(density.d, product.u2) annotation (Line(
@@ -294,7 +292,7 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(sinInf.ports[1], roo.ports[3])        annotation (Line(
-      points={{16,-60},{30,-60},{30,-22.5},{41.75,-22.5}},
+      points={{16,-60},{30,-60},{30,-20.5},{39.75,-20.5}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(multiSum.y, product.u1) annotation (Line(
@@ -325,6 +323,12 @@ The room temperature is free floating.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+December 22, 2014 by Michael Wetter:<br/>
+Removed <code>Modelica.Fluid.System</code>
+to address issue
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/311\">#311</a>.
+</li>
 <li>
 October 9, 2013, by Michael Wetter:<br/>
 Implemented soil properties using a record so that <code>TSol</code> and

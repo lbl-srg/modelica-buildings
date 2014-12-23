@@ -89,8 +89,6 @@ model DryCoilDiscretizedPControl
             80,36}})));
   Buildings.Fluid.Actuators.Motors.IdealMotor mot(tOpe=60) "Motor model"
     annotation (Placement(transformation(extent={{12,90},{32,110}})));
-  inner Modelica.Fluid.System system
-    annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
   Buildings.Controls.Continuous.LimPID con(
     k=1,
     Ti=60,
@@ -164,6 +162,12 @@ of modeling detail is not justified.
 </html>",
 revisions="<html>
 <ul>
+<li>
+December 22, 2014 by Michael Wetter:<br/>
+Removed <code>Modelica.Fluid.System</code>
+to address issue
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/311\">#311</a>.
+</li>
 <li>
 July 3, 2014, by Michael Wetter:<br/>
 Changed pressure sink to mass flow rate sink to avoid an overdetermined

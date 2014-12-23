@@ -8,8 +8,6 @@ model System2
   replaceable package MediumW =
       Buildings.Media.ConstantPropertyLiquidWater;
 
-  inner Modelica.Fluid.System system
-    annotation (Placement(transformation(extent={{60,-120},{80,-100}})));
   Fluid.MixingVolumes.MixingVolume vol(
     redeclare package Medium = MediumA,
     m_flow_nominal=mA_flow_nominal,
@@ -543,6 +541,12 @@ from the model.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+December 22, 2014 by Michael Wetter:<br/>
+Removed <code>Modelica.Fluid.System</code>
+to address issue
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/311\">#311</a>.
+</li>
 <li>
 January 11, 2012, by Michael Wetter:<br/>
 First implementation.

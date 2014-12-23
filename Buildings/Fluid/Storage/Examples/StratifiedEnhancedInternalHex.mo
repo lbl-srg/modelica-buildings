@@ -53,8 +53,6 @@ model StratifiedEnhancedInternalHex
     TTan_nominal=293.15,
     THex_nominal=323.15) "Tank with heat exchanger"
     annotation (Placement(transformation(extent={{-22,-6},{12,26}})));
-  inner Modelica.Fluid.System system
-    annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
 equation
   connect(solColSup.ports[1], tan.portHex_a) annotation (Line(
       points={{-60,4},{-32,4},{-32,3.92},{-22,3.92}},
@@ -88,6 +86,12 @@ is passed through the heat exchanger to heat the water in the tank.
 </html>",
 revisions = "<html>
 <ul>
+<li>
+December 22, 2014 by Michael Wetter:<br/>
+Removed <code>Modelica.Fluid.System</code>
+to address issue
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/311\">#311</a>.
+</li>
 <li>
 August 29, 2014 by Michael Wetter:<br/>
 Revised example to use a different media in the tank and in the

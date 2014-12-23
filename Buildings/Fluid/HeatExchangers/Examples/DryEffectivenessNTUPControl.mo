@@ -86,8 +86,6 @@ model DryEffectivenessNTUPControl
                          annotation (Placement(transformation(extent={{60,16},{
             80,36}})));
 
-  inner Modelica.Fluid.System system
-    annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
 equation
   connect(val.port_b, hex.port_a1)                   annotation (Line(points={{50,60},
           {52,60},{52,32},{60,32}},        color={0,127,255}));
@@ -139,6 +137,12 @@ for the air outlet.
 </html>",
 revisions="<html>
 <ul>
+<li>
+December 22, 2014 by Michael Wetter:<br/>
+Removed <code>Modelica.Fluid.System</code>
+to address issue
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/311\">#311</a>.
+</li>
 <li>
 July 3, 2014, by Michael Wetter:<br/>
 Changed pressure sink to mass flow rate sink to avoid an overdetermined

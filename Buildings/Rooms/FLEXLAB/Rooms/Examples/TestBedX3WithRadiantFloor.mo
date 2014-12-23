@@ -36,8 +36,6 @@ model TestBedX3WithRadiantFloor
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     "Electrical room in test cell X3A"
     annotation (Placement(transformation(extent={{-212,124},{-172,164}})));
-  inner Modelica.Fluid.System system
-    annotation (Placement(transformation(extent={{280,-300},{300,-280}})));
   Buildings.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam="/Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos")
     annotation (Placement(transformation(extent={{-240,260},{-220,280}})));
   Modelica.Blocks.Sources.CombiTimeTable intGaiCloB(table=[0,0,0,0; 86400,0,0,0],
@@ -973,6 +971,12 @@ equation
         </html>",
         revisions="<html>
         <ul>
+        <li>
+        December 22, 2014 by Michael Wetter:<br/>
+        Removed <code>Modelica.Fluid.System</code>
+        to address issue
+        <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/311\">#311</a>.
+        </li>        
         <li>September 2, 2014, by Michael Wetter:<br/>
         Corrected wrong pipe diameter.
         </li>

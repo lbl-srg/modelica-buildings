@@ -8,9 +8,6 @@ model BoilerPolynomialClosedLoop "Boiler with closed loop control"
  parameter Modelica.SIunits.MassFlowRate m_flow_nominal = Q_flow_nominal/dT_nominal/4200
     "Nominal mass flow rate";
 
-  inner Modelica.Fluid.System system
-    annotation (Placement(transformation(extent={{-120,-140},{-100,-120}})));
-
   Buildings.Fluid.Boilers.BoilerPolynomial boi(
     a={0.9},
     effCur=Buildings.Fluid.Types.EfficiencyCurves.Constant,
@@ -266,6 +263,12 @@ and it is used to accomodate for the thermal expansion of the water.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+December 22, 2014 by Michael Wetter:<br/>
+Removed <code>Modelica.Fluid.System</code>
+to address issue
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/311\">#311</a>.
+</li>
 <li>
 October 6, 2014, by Michael Wetter:<br/>
 Corrected wrong value of <code>m_flow_nominal</code> for <code>spl3</code>.

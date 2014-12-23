@@ -144,8 +144,6 @@ model X3BWithRadiantFloor "Example model showing a use of X3B"
     table=[0,0,0,0; 86400,0,0,0], tableOnFile=false)
     "Internal gain heat flow for the closet"
     annotation (Placement(transformation(extent={{-12,132},{8,152}})));
-  inner Modelica.Fluid.System system
-    annotation (Placement(transformation(extent={{180,-220},{200,-200}})));
   Modelica.Blocks.Sources.CombiTimeTable watCon4B2(tableOnFile=false, table=[0,
         0.504,293.15; 86400,0.504,293.15])
     "Inlet water conditions (y[1] = m_flow, y[2] =  T)"
@@ -513,6 +511,12 @@ equation
           </html>",
           revisions = "<html>
           <ul>
+          <li>
+          December 22, 2014 by Michael Wetter:<br/>
+          Removed <code>Modelica.Fluid.System</code>
+          to address issue
+          <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/311\">#311</a>.
+          </li>          
           <li>September 2, 2014, by Michael Wetter:<br/>
           Corrected wrong pipe diameter.
           </li>

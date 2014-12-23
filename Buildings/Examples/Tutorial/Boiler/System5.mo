@@ -33,8 +33,6 @@ model System5
     "Radiator nominal mass flow rate";
 //------------------------------------------------------------------------------//
 
-  inner Modelica.Fluid.System system
-    annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
   Buildings.Fluid.MixingVolumes.MixingVolume vol(
     redeclare package Medium = MediumA,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
@@ -593,6 +591,12 @@ Buildings.Examples.Tutorial.Boiler.System4</a>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+December 22, 2014 by Michael Wetter:<br/>
+Removed <code>Modelica.Fluid.System</code>
+to address issue
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/311\">#311</a>.
+</li>
 <li>
 March 1, 2013, by Michael Wetter:<br/>
 Added nominal pressure drop for valves as

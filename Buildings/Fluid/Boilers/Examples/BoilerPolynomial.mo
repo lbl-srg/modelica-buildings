@@ -9,8 +9,6 @@ model BoilerPolynomial "Test model"
     "Nominal mass flow rate";
  parameter Modelica.SIunits.Pressure dp_nominal = 3000
     "Pressure drop at m_flow_nominal";
-  inner Modelica.Fluid.System system
-    annotation (Placement(transformation(extent={{-100,-100},{-80,-80}})));
 
   Buildings.Fluid.Sources.Boundary_pT sin(
     redeclare package Medium = Medium,
@@ -106,6 +104,12 @@ so that <code>boi1</code> is a dynamic model and
 <code>boi2</code> is a steady-state model.
 </html>", revisions="<html>
 <ul>
+<li>
+December 22, 2014 by Michael Wetter:<br/>
+Removed <code>Modelica.Fluid.System</code>
+to address issue
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/311\">#311</a>.
+</li>
 <li>
 April 27, 2013, by Michael Wetter:<br/>
 Removed first order filter from the output of the table.

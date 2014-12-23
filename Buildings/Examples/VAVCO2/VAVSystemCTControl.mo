@@ -66,8 +66,6 @@ Fluid.Actuators.Dampers.MixingBox mixBox(
     T=293.15,
     nPorts=2)
     annotation (Placement(transformation(extent={{-38,-74},{-18,-54}})));
-  inner Modelica.Fluid.System system
-    annotation (Placement(transformation(extent={{-60,40},{-40,60}})));
    Buildings.Controls.Continuous.LimPID conSupFan(
     Ti=60,
     yMax=1,

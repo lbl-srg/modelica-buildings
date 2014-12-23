@@ -145,11 +145,6 @@ model ClosedLoop "Closed loop model of a dual-fan dual-duct system"
       displayUnit="degC",
       min=0))
     annotation (Placement(transformation(extent={{-300,138},{-280,158}})));
-  inner Modelica.Fluid.System system(
-    p_ambient(displayUnit="Pa"),
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    m_flow_small=1E-4*m_flow_nominal)
-    annotation (Placement(transformation(extent={{-340,100},{-320,120}})));
   Buildings.Examples.DualFanDualDuct.Controls.HeatingCoilTemperatureSetpoint
     TSupSetHea(TOn=284.15, TOff=279.15)
     "Supply air temperature setpoint for heating"
@@ -1261,6 +1256,12 @@ shading devices, Technical Report, Oct. 17, 2006.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+December 22, 2014 by Michael Wetter:<br/>
+Removed <code>Modelica.Fluid.System</code>
+to address issue
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/311\">#311</a>.
+</li>
 <li>
 December 6, 2011, by Michael Wetter:<br/>
 Improved control for minimum zone flow rate.

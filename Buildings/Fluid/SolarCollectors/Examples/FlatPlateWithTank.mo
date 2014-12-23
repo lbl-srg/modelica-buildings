@@ -27,8 +27,6 @@ model FlatPlateWithTank
     "modelica://Buildings/Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos",
     computeWetBulbTemperature=false) "Weather data file reader"
     annotation (Placement(transformation(extent={{-30,80},{-10,100}})));
-  inner Modelica.Fluid.System system(p_ambient=101325) annotation (Placement(
-        transformation(extent={{70,68},{90,88}})));
   Buildings.Fluid.Sensors.TemperatureTwoPort TOut(
     T_start(displayUnit="K"),
     m_flow_nominal=solCol.m_flow_nominal,
@@ -227,20 +225,26 @@ equation
             condition for the outlet of the draw.
           </p>
       </html>",
-      revisions="<html>
-      <ul>
-          <li>
-            April 18, 2014, by Michael Wetter:<br/>
-            Updated model to use the revised tank and increased the tank height.
-          </li>
-          <li>
-            March 25, 2014, by Michael Wetter:<br/>
-            Updated model with new expansion vessel.
-          </li>
-          <li>
-            Mar 27, 2013 by Peter Grant:<br/>
-            First implementation
-          </li>
-        </ul>
-      </html>"));
+revisions="<html>
+<ul>
+<li>
+December 22, 2014 by Michael Wetter:<br/>
+Removed <code>Modelica.Fluid.System</code>
+to address issue
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/311\">#311</a>.
+</li>
+<li>
+April 18, 2014, by Michael Wetter:<br/>
+Updated model to use the revised tank and increased the tank height.
+</li>
+<li>
+March 25, 2014, by Michael Wetter:<br/>
+Updated model with new expansion vessel.
+</li>
+<li>
+March 27, 2013 by Peter Grant:<br/>
+First implementation
+</li>
+</ul>
+</html>"));
 end FlatPlateWithTank;

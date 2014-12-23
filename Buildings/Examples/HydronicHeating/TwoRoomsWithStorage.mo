@@ -156,8 +156,6 @@ model TwoRoomsWithStorage
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     T_start=293.15) "Boiler"
     annotation (Placement(transformation(extent={{2,-130},{22,-110}})));
-  inner Modelica.Fluid.System system
-    annotation (Placement(transformation(extent={{-80,540},{-60,560}})));
   Buildings.HeatTransfer.Sources.FixedTemperature TAmb(T=288.15)
     "Ambient temperature in boiler room"
     annotation (Placement(transformation(extent={{-40,-100},{-20,-80}})));
@@ -1227,6 +1225,12 @@ Buildings.Examples.HydronicHeating.TwoRoomsWithStorage.CoolingControl</a>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+December 22, 2014 by Michael Wetter:<br/>
+Removed <code>Modelica.Fluid.System</code>
+to address issue
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/311\">#311</a>.
+</li>
 <li>
 October 15, 2013, by Michael Wetter:<br/>
 Added free cooling and mechanical cooling.
