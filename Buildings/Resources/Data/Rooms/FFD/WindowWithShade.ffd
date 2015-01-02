@@ -61,7 +61,7 @@ sensor.nb_sensor 2 // Number of sensors
 sensor.name OccupiedZoneAirTemperature // Name of sensor
 sensor.name Velocity // Name of sensor
 
-init.T 10.0 // Initial condition for Temperature
+init.T 17.0 // Initial condition for Temperature
 init.u 0.0 // Initial condition for velocity u
 init.v 0.0 // Initial condition for velocity v
 init.w 0.0 // Initial condition for velocity w
