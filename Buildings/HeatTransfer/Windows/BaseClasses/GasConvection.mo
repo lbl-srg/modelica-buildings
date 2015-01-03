@@ -15,15 +15,16 @@ model GasConvection
     "Surface tilt (only 0, 90 and 180 degrees are implemented)";
   parameter Boolean linearize=false "Set to true to linearize emissive power";
 
+  parameter Modelica.SIunits.Temperature T0 = 293.15
+    "Temperature used to compute thermophysical properties";
+
+  parameter Boolean homotopyInitialization = true "= true, use homotopy method"
+    annotation(Evaluate=true, Dialog(tab="Advanced"));
+
   Modelica.Blocks.Interfaces.RealInput u
     "Input connector, used to scale the surface area to take into account an operable shading device"
     annotation (Placement(transformation(extent={{-140,50},{-100,90}}),
         iconTransformation(extent={{-120,70},{-100,90}})));
-
-  parameter Modelica.SIunits.Temperature T0 = 293.15
-    "Temperature used to compute thermophysical properties";
-  parameter Boolean homotopyInitialization = true "= true, use homotopy method"
-    annotation(Evaluate=true, Dialog(tab="Advanced"));
 
   Modelica.SIunits.CoefficientOfHeatTransfer hCon(min=0, start=3)
     "Convective heat transfer coefficient";
@@ -55,8 +56,6 @@ protected
   parameter Real Nu0(fixed=false, min=0) "Nusselt number";
   parameter Real Ra0(fixed=false, min=0) "Rayleigh number";
 
-  parameter Boolean homotopyInitialization = true "= true, use homotopy method"
-    annotation(Evaluate=true, Dialog(tab="Advanced"));
 initial equation
   assert(isVertical or isHorizontal, "Only vertical and horizontal windows are implemented.");
 
