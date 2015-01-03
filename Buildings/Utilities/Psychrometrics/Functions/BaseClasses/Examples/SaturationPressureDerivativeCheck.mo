@@ -16,14 +16,12 @@ equation
     pSat=Buildings.Utilities.Psychrometrics.Functions.saturationPressure(T);
     der(pSat)=der(pSatDer);
     assert(abs(pSat-pSatDer) < 1E-2, "Model has an error");
-   annotation(Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}}),
-                      graphics),
-                       __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Utilities/Psychrometrics/Functions/BaseClasses/Examples/SaturationPressureDerivativeCheck.mos"
+   annotation(                       __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Utilities/Psychrometrics/Functions/BaseClasses/Examples/SaturationPressureDerivativeCheck.mos"
         "Simulate and plot"),
       experiment(
         StartTime=0,
-        StopTime=1),
+        StopTime=1,
+        Tolerance=1E-10),
       Documentation(info="<html>
 <p>
 This example checks whether the function derivative
@@ -32,6 +30,11 @@ is not correct, the model will stop with an assert statement.
 </p>
 </html>",   revisions="<html>
 <ul>
+<li>
+October 4, 2014, by Michael Wetter:<br/>
+Added a high tolerance which is needed for OpenModelica to pass the assert
+statement.
+</li>
 <li>
 November 20, 2013, by Michael Wetter:<br/>
 First implementation.

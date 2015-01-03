@@ -24,7 +24,7 @@ function exchangeReals "Exchanges values of type Real with the socket"
         Include="#include \"bcvtb.h\"");
 annotation(Documentation(info="<html>
 Function to exchange data of type <code>Real</code> with the socket.
-This function must only be called once in each 
+This function must only be called once in each
 communication interval.
 </html>",
 revisions="<html>

@@ -21,18 +21,24 @@ package Gases "Package with thermophysical properties for window fill gases"
       parameter Modelica.SIunits.MolarMass MM
       "Molar mass (of mixture or single fluid)";
 
-      constant Modelica.SIunits.Pressure P0 = 101325 "Normal pressure";
+      parameter Modelica.SIunits.Pressure P0 = 101325 "Normal pressure";
 
     annotation (defaultComponentName="gas", Documentation(info=
                    "<html>
 Generic record for thermophysical properties for window
 gas fills.
-The implementation is according to 
-<a href=\"http://www.iso.org/iso/catalogue_detail.htm?csnumber=26425\">ISO 15099:2003, 
+The implementation is according to
+<a href=\"http://www.iso.org/iso/catalogue_detail.htm?csnumber=26425\">ISO 15099:2003,
 Thermal performance of windows, doors and shading devices -- Detailed calculations</a>.
 </html>",
   revisions="<html>
 <ul>
+<li>
+October 17, 2014, by Michael Wetter:<br/>
+Changed <code>P0</code> from a <code>constant</code> to a
+<code>parameter</code> to avoid a compilation error in
+OpenModelica.
+</li>
 <li>
 August 18 2010, by Michael Wetter:<br/>
 First implementation.
@@ -97,8 +103,8 @@ end specificHeatCapacity;
   annotation (Documentation(info="<html>
 Package with records for thermophysical properties for window
 gas fills.
-The implementation is according to 
-<a href=\"http://www.iso.org/iso/catalogue_detail.htm?csnumber=26425\">ISO 15099:2003, 
+The implementation is according to
+<a href=\"http://www.iso.org/iso/catalogue_detail.htm?csnumber=26425\">ISO 15099:2003,
 Thermal performance of windows, doors and shading devices -- Detailed calculations</a>.
 </html>",
   revisions="<html>

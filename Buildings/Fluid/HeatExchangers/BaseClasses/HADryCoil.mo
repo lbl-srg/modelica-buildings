@@ -12,24 +12,20 @@ model HADryCoil "Sensible convective heat transfer model for air to water coil"
           annotation(Dialog(tab="General", group="Nominal condition"));
 
   Modelica.Blocks.Interfaces.RealInput m1_flow "Mass flow rate medium 1"
-    annotation (Placement(transformation(extent={{-120,60},{-100,80}}, rotation=
-           0)));
+    annotation (Placement(transformation(extent={{-120,60},{-100,80}})));
   Modelica.Blocks.Interfaces.RealInput m2_flow "Mass flow rate medium 2"
-    annotation (Placement(transformation(extent={{-120,-80},{-100,-60}},
-          rotation=0)));
+    annotation (Placement(transformation(extent={{-120,-80},{-100,-60}})));
   Modelica.Blocks.Interfaces.RealInput T_1 "Temperature medium 1"
-    annotation (Placement(transformation(extent={{-120,20},{-100,40}}, rotation=
-           0)));
+    annotation (Placement(transformation(extent={{-120,20},{-100,40}})));
   Modelica.Blocks.Interfaces.RealInput T_2 "Temperature medium 2"
-    annotation (Placement(transformation(extent={{-120,-40},{-100,-20}},
-          rotation=0)));
+    annotation (Placement(transformation(extent={{-120,-40},{-100,-20}})));
 
   Modelica.Blocks.Interfaces.RealOutput hA_1
     "Convective heat transfer medium 1" annotation (Placement(transformation(
-          extent={{100,60},{120,80}}, rotation=0)));
+          extent={{100,60},{120,80}})));
   Modelica.Blocks.Interfaces.RealOutput hA_2
     "Convective heat transfer medium 2" annotation (Placement(transformation(
-          extent={{100,-80},{120,-60}}, rotation=0)));
+          extent={{100,-80},{120,-60}})));
 
   parameter Real r_nominal(min=0)=0.5
     "Ratio between air-side and water-side convective heat transfer coefficient"
@@ -99,10 +95,7 @@ equation
   else
     hA_2 = x_a * hA_nominal_a;
   end if;
-annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}}),
-                    graphics),
-Documentation(info="<html>
+annotation (Documentation(info="<html>
 <p>
 Model for sensible convective heat transfer coefficients for an air to water coil.
 </p>

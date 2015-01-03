@@ -3,7 +3,7 @@ model HANaturalCylinder
   "Calculates an hA value for natural convection around a cylinder"
   extends Modelica.Blocks.Icons.Block;
   replaceable package Medium = Modelica.Media.Interfaces.PartialMedium
-    "Partial medium model to be replaced with specific medium";
+    "Medium inside the tank";
   parameter Modelica.SIunits.Diameter ChaLen
     "Characteristic length of the cylinder";
 
@@ -59,6 +59,8 @@ protected
   constant Modelica.SIunits.Acceleration g= Modelica.Constants.g_n
     "Acceleration due to gravity";
 
+  Medium.ThermodynamicState state
+    "Thermodynamic state of the fluid around the cylinder";
   Real Ra "Rayleigh number";
   Real Pr "Prandlt number";
   Real Nusselt "Nusselt number";
@@ -109,13 +111,13 @@ initial equation
   A = hA_nominal / h_nominal;
 equation
   // Fluid properties
+  state = Medium.setState_pTX(
+             p=  Medium.p_default,
+             T=  0.5*(TSur+TFlu),
+             X=  Medium.X_default);
   mu = Buildings.Fluid.HeatExchangers.BaseClasses.dynamicViscosityWater(
         T=  0.5 * (TSur+TFlu));
-  rho = Medium.density(
-        Medium.setState_pTX(
-          p=  Medium.p_default,
-          T=  0.5*(TSur+TFlu),
-          X=  Medium.X_default));
+  rho = Medium.density(state);
   Pr = Buildings.Fluid.HeatExchangers.BaseClasses.prandtlNumberWater(
           T=  0.5*(TSur+TFlu));
 
@@ -126,21 +128,15 @@ equation
   Gr = Modelica.Constants.g_n * B * (TSur - TFlu)*ChaLen^3/nu^2;
   Ra = Gr*Pr;
   // Convection coefficient
-  k = Medium.thermalConductivity(
-    Medium.setState_pTX(
-    p=  Medium.p_default,
-    T=  0.5*(TFlu+TSur),
-    X=  Medium.X_default));
+  k = Medium.thermalConductivity(state);
   Nusselt = nusselt(k=k, Pr=Pr, Ra=Ra);
   h = Nusselt * k/ChaLen;
   hA = h*A;
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}}), graphics),
-            defaultComponentName="hNat",
+  annotation (            defaultComponentName="hNat",
             Documentation(info="<html>
             <p>
             This model calculates the convection coefficient <i>h</i> for natural convection
-            from a cylinder submerged in fluid. <i>h</i> is calcualted using Eq 9.34 from 
+            from a cylinder submerged in fluid. <i>h</i> is calcualted using Eq 9.34 from
             Incropera and DeWitt (1996).
             Output of the block is the <i>hA</i> value.
             </p>
@@ -152,8 +148,8 @@ equation
             (9/16)</sup>)<sup>(8/27)</sup>)<sup>2</sup>);
             </p>
             <p>
-            where <i>Nu<sub>D</sub></i> is the Nusselt number, <i>Ra<sub>D</sub></i> is the 
-            Rayleigh number and 
+            where <i>Nu<sub>D</sub></i> is the Nusselt number, <i>Ra<sub>D</sub></i> is the
+            Rayleigh number and
             <i>Pr</i> is the Prandtl number.<br/>
             This correclation is accurate for <i>Ra<sub>D</sub></i> less than 10<sup>12</sup>.
             </p>
@@ -169,16 +165,20 @@ equation
             </p>
             <h4>References</h4>
             <p>
-            Fundamentals of Heat and Mass Transfer (Fourth Edition), Frank Incropera and David 
+            Fundamentals of Heat and Mass Transfer (Fourth Edition), Frank Incropera and David
             DeWitt, John Wiley and Sons, 1996
             </p>
             </html>", revisions="<html>
-<ul>
+            <ul>
+<li>
+August 29, 2014 by Michael Wetter:<br/>
+Refactored function calls for medium properties.
+</li>
 <li>
 May 10, 2013 by Michael Wetter:<br/>
-Revised implementation to use <code>hA_nominal</code> as a parameter, and compute the 
+Revised implementation to use <code>hA_nominal</code> as a parameter, and compute the
 associated surface area <code>A</code>. This revision was required to have a consistent
-computation of the the <code>hA</code> values inside and outside of the coil in the 
+computation of the <code>hA</code> values inside and outside of the coil in the
 heat exchanger model of the water tank.
 </li>
 <li>

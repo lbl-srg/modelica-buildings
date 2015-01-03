@@ -13,7 +13,7 @@ external"C" y = exchangeValues(table, iX, x, iY) annotation (Include="#include <
   annotation (Documentation(info="<html>
 <p>
 External function that stores the input value <code>x</code> as the element
-<code>a[iX]</code> in the array 
+<code>a[iX]</code> in the array
 <code>a = [a[1], a[2], ...]</code>,
 and that returns the element <code>a[iY]</code>.
 The size of the array <code>a</code> is automatically enlarged as needed.

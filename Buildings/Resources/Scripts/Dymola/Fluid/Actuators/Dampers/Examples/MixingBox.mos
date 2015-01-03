@@ -11,4 +11,3 @@ createPlot(id = 5,
  filename = "MixingBox.mat",
  leftTitleType = 1,
  bottomTitleType = 1);
-

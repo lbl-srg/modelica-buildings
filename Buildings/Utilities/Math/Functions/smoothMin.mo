@@ -11,7 +11,7 @@ algorithm
   annotation (
 Documentation(info="<html>
 <p>
-Once continuously differentiable approximation to the <code>max(.,.)</code> function.
+Once continuously differentiable approximation to the <code>min(.,.)</code> function.
 </p>
 </html>",
 revisions="<html>

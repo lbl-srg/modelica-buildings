@@ -77,13 +77,12 @@ initial equation
   UAcp = -per.m_flow_nominal * Modelica.Math.log(bypass_nominal);
 
  annotation(defaultComponentName="uacp",
-    Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,
-            100}})),    Documentation(info="<html>
+    Documentation(info="<html>
 <p>
 This model calculates the <i>UA/c<sub>p</sub></i> value and the bypass factor
-of the coil from the nominal inlet and outlet 
-air properties. 
-The nominal conditions are calculated using 
+of the coil from the nominal inlet and outlet
+air properties.
+The nominal conditions are calculated using
 <a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.NominalCondition\">
 Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.NominalCondition</a>.</p>
 <p>
@@ -100,7 +99,7 @@ one can write
   b = exp(-UA &frasl; c<sub>p</sub> &frasl; m&#775;)
 </p>
 <p>
-and, hence, 
+and, hence,
 <p align=\"center\" style=\"font-style:italic;\">
  UA &frasl; c<sub>p</sub> = - m&#775; log(b)
 </p>
@@ -113,7 +112,7 @@ Revised implementation and documentation.
 </li>
 <li>
 April 9, 2012 by Kaustubh Phalak:<br/>
-First implementation. 
+First implementation.
 </li>
 </ul>
 

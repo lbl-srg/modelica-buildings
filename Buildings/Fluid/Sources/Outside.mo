@@ -10,24 +10,24 @@ equation
     Documentation(info="<html>
 <p>
 This model describes boundary conditions for
-pressure, enthalpy, and species concentration that can be obtained 
-from weather data. 
+pressure, enthalpy, and species concentration that can be obtained
+from weather data.
 </p>
 <p>
 To use this model, connect weather data from
 <a href=\"modelica://Buildings.BoundaryConditions.WeatherData.ReaderTMY3\">
 Buildings.BoundaryConditions.WeatherData.ReaderTMY3</a> to the port
-<code>weaBus</code> of this model. 
+<code>weaBus</code> of this model.
 This will cause the medium of this model to be
 at the pressure that is obtained from the weather file, and any flow that
 leaves this model to be at the temperature and humidity that are obtained
 from the weather data.
 </p>
-<p>If the parameter <code>use_C_in</code> is <code>false</code> (default option), 
+<p>If the parameter <code>use_C_in</code> is <code>false</code> (default option),
 the <code>C</code> parameter
-is used as the trace substance for flow that leaves the component, and the 
-<code>C_in</code> input connector is disabled; if <code>use_C_in</code> is <code>true</code>, 
-then the <code>C</code> parameter is ignored, and the value provided by the input connector is used instead.</p> 
+is used as the trace substance for flow that leaves the component, and the
+<code>C_in</code> input connector is disabled; if <code>use_C_in</code> is <code>true</code>,
+then the <code>C</code> parameter is ignored, and the value provided by the input connector is used instead.</p>
 <p>
 Note that boundary temperature,
 mass fractions and trace substances have only an effect if the mass flow
@@ -51,9 +51,5 @@ Feb. 9, 2011 by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
-</html>"),
-    Diagram(coordinateSystem(
-        preserveAspectRatio=false,
-        extent={{-100,-100},{100,100}},
-        grid={2,2})));
+</html>"));
 end Outside;

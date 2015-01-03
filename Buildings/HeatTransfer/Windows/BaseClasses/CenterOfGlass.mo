@@ -41,10 +41,10 @@ model CenterOfGlass "Model for center of glass of a window construction"
 
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a glass_a
     "Heat port connected to the outside facing surface of the glass"
-    annotation (Placement(transformation(extent={{-110,-10},{-90,10}}, rotation=0)));
+    annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_b glass_b
     "Heat port connected to the room-facing surface of the glass"
-    annotation (Placement(transformation(extent={{90,-10},{110,10}},rotation=0)));
+    annotation (Placement(transformation(extent={{90,-10},{110,10}})));
 
   parameter Boolean linearize=false "Set to true to linearize emissive power";
   Modelica.Blocks.Interfaces.RealInput QAbs_flow[size(glass, 1)](each unit="W", each
@@ -167,7 +167,7 @@ equation
     Documentation(info="<html>
 This is a model for the heat transfer through the center of the glass.
 The properties of the glazing system is defined by the parameter
-<code>glaSys</code>. 
+<code>glaSys</code>.
 The model contains these main component models:
 <ul>
 <li>
@@ -177,9 +177,9 @@ for the heat balance of the shade, modeled using
 Buildings.HeatTransfer.Windows.BaseClasses.Shade</a>.
 </li>
 <li>
-an array of models <code>glass</code> for the heat conduction and the 
+an array of models <code>glass</code> for the heat conduction and the
 infrared radiative heat balance of the glass layers.
-There can be an arbitrary number of glass layers, which are all modeled using 
+There can be an arbitrary number of glass layers, which are all modeled using
 instances of
 <a href=\"modelica://Buildings.HeatTransfer.Windows.BaseClasses.GlassLayer\">
 Buildings.HeatTransfer.Windows.BaseClasses.GlassLayer</a>.
@@ -193,9 +193,9 @@ Buildings.HeatTransfer.Windows.BaseClasses.GasConvection</a>.
 </ul>
 Note that this model does <em>not</em> compute heat conduction through the frame and
 it does <em>not</em> model the convective heat transfer at the exterior and interior
-surface. These models are implemented in 
+surface. These models are implemented in
 <a href=\"modelica://Buildings.HeatTransfer.Windows.Window\">
-Buildings.HeatTransfer.Windows.Window</a>, 
+Buildings.HeatTransfer.Windows.Window</a>,
 <a href=\"modelica://Buildings.HeatTransfer.Windows.ExteriorHeatTransfer\">
 Buildings.HeatTransfer.Windows.ExteriorHeatTransfer</a>, and
 <a href=\"modelica://Buildings.HeatTransfer.Windows.InteriorHeatTransfer\">

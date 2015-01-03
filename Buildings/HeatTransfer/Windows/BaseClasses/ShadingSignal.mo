@@ -6,11 +6,9 @@ block ShadingSignal
     annotation (Evaluate=true);
   Modelica.Blocks.Interfaces.RealInput u if haveShade
     "Shading control signal, 0: unshaded; 1: fully shaded"
-    annotation (Placement(transformation(extent={{-140,-20},{-100,20}},
-        rotation=0), iconTransformation(extent={{-140,-20},{-100,20}})));
+    annotation (Placement(transformation(extent={{-140,-20},{-100,20}}), iconTransformation(extent={{-140,-20},{-100,20}})));
   Modelica.Blocks.Interfaces.RealOutput yCom "1-u"
-    annotation (Placement(transformation(extent={{100,-70},{120,-50}},
-        rotation=0), iconTransformation(extent={{100,-70},{120,-50}})));
+    annotation (Placement(transformation(extent={{100,-70},{120,-50}}), iconTransformation(extent={{100,-70},{120,-50}})));
 protected
   constant Real y0 = 1E-6 "Smallest allowed value for y if a shade is present";
   constant Real k = 1-2*y0 "Gain for shading signal";
@@ -28,7 +26,7 @@ equation
     y = 0;
     yCom = 1;
   end if;
-  annotation (Diagram(graphics), Icon(graphics={
+  annotation ( Icon(graphics={
         Text(
           extent={{-92,22},{-50,-22}},
           lineColor={0,0,127},
@@ -42,7 +40,7 @@ equation
           lineColor={0,0,127},
           textString="1-u'")}),
            Documentation(info="<html>
-This model changes the shading control signal to avoid a singularity 
+This model changes the shading control signal to avoid a singularity
 in the window model if the input signal is zero or one.
 Since the window heat balance multiplies the area of the window by <code>u</code>
 or by <code>1-u</code> (if a shade is present), the heat balance can be singular

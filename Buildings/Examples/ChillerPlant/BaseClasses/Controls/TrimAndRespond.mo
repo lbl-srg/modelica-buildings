@@ -88,7 +88,7 @@ equation
    The control sequence is as follows:
 </p>
 <ul>
-  <li>If <code>u &ge; 0</code>, then <code>y = y + nActInc</code>,</li> 
+  <li>If <code>u &ge; 0</code>, then <code>y = y + nActInc</code>,</li>
   <li>If <code>u &lt; 0</code>, then <code>y = y - yDec</code>.</li>
 </ul>
 </html>", revisions="<html>
@@ -110,7 +110,5 @@ January 6 2011, by Michael Wetter and Wangda Zuo:<br/>
 First implementation.
 </li>
 </ul>
-</html>"),
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
-            100}})));
+</html>"));
 end TrimAndRespond;

@@ -63,7 +63,7 @@ Note: Reference enthalpy might have to be extended with enthalpy of formation.
 <h4>Implementation</h4>
 <p>
 This package is a copy from the Modelica Standard Library (MSL) because
-MSL 3.2 stores this package in 
+MSL 3.2 stores this package in
 <code>Modelica.Media.Interfaces.PartialMedium.Choices</code>, whereas
 MSL 3.2.1 stores it in
 <code>Modelica.Media.Interfaces.Choices</code> because enumerations

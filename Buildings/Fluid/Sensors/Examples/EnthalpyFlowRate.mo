@@ -27,8 +27,7 @@ model EnthalpyFlowRate "Test model for the enthalpy flow rate sensors"
     offset=1,
     duration=60)
     annotation (Placement(transformation(extent={{-100,-12},{-80,8}})));
-  inner Modelica.Fluid.System system
-    annotation (Placement(transformation(extent={{-100,-100},{-80,-80}})));
+
   Buildings.Fluid.Sensors.SpecificEnthalpyTwoPort senH(
     redeclare package Medium = Medium,
     m_flow_nominal=2) "Specific enthalpy sensor"
@@ -81,13 +80,11 @@ equation
     annotation (
 experiment(StopTime=60.0),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Sensors/Examples/EnthalpyFlowRate.mos"
-        "Simulate and plot"),  Diagram(
-        coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,100}})),
-    Documentation(info="<html>
+        "Simulate and plot"),    Documentation(info="<html>
 <p>
 This example tests the enthalpy flow rate sensor and the
 specific enthalpy sensor.
-The model compares the output of the enthalpy flow rate sensor with 
+The model compares the output of the enthalpy flow rate sensor with
 the product of the output of the enthalpy and the mass flow rate sensor.
 </p>
 </html>", revisions="<html>

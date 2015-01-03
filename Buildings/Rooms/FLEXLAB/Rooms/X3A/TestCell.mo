@@ -76,7 +76,7 @@ model TestCell "Model of LBNL User Test Facility Cell X3A"
     annotation (Placement(transformation(extent={{410,-72},{430,-52}})));
   annotation(Documentation(info="<html>
   <p>
-  This is a model for test cell 3A in the LBNL User Facility. This model is intended to represent 
+  This is a model for test cell 3A in the LBNL User Facility. This model is intended to represent
   the main space in test cell 3A. This documentation describes the wall constructions used to model
   test cell X3A. Documentation describing how it is to be combined to other room models to create
   a model of the full test cell can be found in
@@ -87,7 +87,7 @@ model TestCell "Model of LBNL User Test Facility Cell X3A"
   </p>
   <p align=\"center\">
   <img src=\"modelica://Buildings/Resources/Images/Rooms/FLEXLAB/Rooms/X3A/TestCell.png\" border=\"1\" alt=\"Wall sections in test cell model\"/>
-  </p>  
+  </p>
   <p>
   The different wall sections are entered into the model according to the following table.
   </p>
@@ -133,9 +133,9 @@ model TestCell "Model of LBNL User Test Facility Cell X3A"
   </tr>
   <tr>
   <td>5</td>
-  <td>This north wall borders an externally modeled closet. For an example see 
+  <td>This north wall borders an externally modeled closet. For an example see
   <a href=\"modelica://Buildings.Rooms.FLEXLAB.Rooms.Examples.X3AWithRadiantFloor\">
-  Buildings.Rooms.FLEXLAB.Rooms.Examples.X3AWithRadiantFloor</a>. Similar to wall section 
+  Buildings.Rooms.FLEXLAB.Rooms.Examples.X3AWithRadiantFloor</a>. Similar to wall section
   3 this wall section contains both a wall construction and a door construction. The wall area
   calculation shows the total wall area minus the door area.</td>
   <td>Door: datConBou[4]; Wall: datConBou[3]</td>
@@ -150,7 +150,7 @@ model TestCell "Model of LBNL User Test Facility Cell X3A"
   </tr>
   <tr>
   <td>7</td>
-  <td>This is the south wall of test cell X3A. It includes both a wall construction and 
+  <td>This is the south wall of test cell X3A. It includes both a wall construction and
   windows. The bottoms of the windows are 3 ft above the floor.</td>
   <td>datConExtWin[1]</td>
   <td>Window: glaSys; Wall: R16p8Wal</td>
@@ -168,9 +168,9 @@ model TestCell "Model of LBNL User Test Facility Cell X3A"
   </p>
   <p>
   Several of the connections in this model are intended to be connected to specific surfaces in other room models.
-  The following table describes the connections to models outside of the X3A package. The connections in datConExt 
-  are not described in the table because they are connected to the external environment, and no additional heat 
-  port connections are necessary. A rationale for why the model is created this way is also provided if it is 
+  The following table describes the connections to models outside of the X3A package. The connections in datConExt
+  are not described in the table because they are connected to the external environment, and no additional heat
+  port connections are necessary. A rationale for why the model is created this way is also provided if it is
   considered necessary.
   </p>
   <table border =\"1\" summary=\"Description of intended connections including TestCell model\">
@@ -194,8 +194,8 @@ model TestCell "Model of LBNL User Test Facility Cell X3A"
   <td>Temperature of test cell X3B</td>
   <td>References a data table</td>
   <td>See rationale for surf_ConBou[1]</td>
-  </tr>  
-  </table> 
+  </tr>
+  </table>
   </html>",
   revisions = "<html>
   <ul>

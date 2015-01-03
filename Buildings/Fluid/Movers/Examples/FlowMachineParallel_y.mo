@@ -1,7 +1,14 @@
 within Buildings.Fluid.Movers.Examples;
 model FlowMachineParallel_y "Two flow machines in parallel"
   extends Modelica.Icons.Example;
-  package Medium = Buildings.Media.ConstantPropertyLiquidWater;
+  // fixme. Revisit when Dymola 2015 is available.
+  // The medium has been changed from
+  // Buildings.Media.Water.Simple to
+  // Buildings.Media.GasesPTDecoupled.MoistAirUnsaturated because
+  // Buildings.Media.Water.Simple and Buildings.Media.Air cause in
+  // Dymola 2014 FD01 a division by zero. This is due to the
+  // bug https://github.com/iea-annex60/modelica-annex60/issues/53
+  package Medium = Buildings.Media.GasesPTDecoupled.MoistAirUnsaturated "Medium model";
 
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal=
      1 "Nominal mass flow rate";
@@ -27,8 +34,7 @@ model FlowMachineParallel_y "Two flow machines in parallel"
     redeclare package Medium = Medium,
     use_p_in=false,
     nPorts=2,
-    T=293.15) annotation (Placement(transformation(extent={{-92,48},{-72,68}},
-          rotation=0)));
+    T=293.15) annotation (Placement(transformation(extent={{-92,48},{-72,68}})));
 
   Buildings.Fluid.FixedResistances.FixedResistanceDpM dpIn(
     redeclare package Medium = Medium,
@@ -43,10 +49,9 @@ model FlowMachineParallel_y "Two flow machines in parallel"
   Modelica.Blocks.Sources.Constant const2(k=1) "Constant source"
     annotation (Placement(transformation(extent={{0,30},{20,50}})));
 
-  parameter Modelica.SIunits.Density rho_nominal=1000
+  parameter Modelica.SIunits.Density rho_nominal=1.2
     "Density, used to compute fluid mass";
-  inner Modelica.Fluid.System system
-    annotation (Placement(transformation(extent={{120,-80},{140,-60}})));
+
   Buildings.Fluid.FixedResistances.FixedResistanceDpM dpIn2(
     redeclare package Medium = Medium,
     dp_nominal=1000,
@@ -125,7 +130,7 @@ equation
         "Simulate and plot"),
     Documentation(info="<html>
 This example tests the configuration of two flow machines that are installed in parallel.
-Both flow machines start with full speed. 
+Both flow machines start with full speed.
 At <i>t=150</i> second, the speed of the flow machine on the top is reduced to zero.
 As its speed is reduced, the mass flow rate changes its direction in such a way that the flow machine
 at the top has reverse flow.

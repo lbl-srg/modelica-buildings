@@ -10,7 +10,7 @@ equation
   annotation (Icon(graphics={Text(
           extent={{-88,40},{92,-32}},
           lineColor={160,160,164},
-          textString="smoothLimit()")}),       
+          textString="smoothLimit()")}),
 Documentation(info="<html>
 <p>
 Once continuously differentiable approximation to the <i>limit(.,.)</i> function.

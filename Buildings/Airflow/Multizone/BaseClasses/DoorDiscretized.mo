@@ -90,7 +90,7 @@ equation
 This is a partial model for the bi-directional air flow through a door.
 </p>
 <p>
-To compute the bi-directional flow, 
+To compute the bi-directional flow,
 the door is discretize along the height coordinate, and uses
 an orifice equation to compute the flow for each compartment.
 </p>
@@ -113,7 +113,7 @@ Renamed protected parameters for consistency with the naming conventions.
        Removed protected variable <code>rhoAve</code>.
 </li>
 <li><i>August 12, 2011</i> by Michael Wetter:<br/>
-       Changed model to use the new function 
+       Changed model to use the new function
        <a href=\"modelica://Buildings.Airflow.Multizone.BaseClasses.powerLawFixedM\">
        Buildings.Airflow.Multizone.BaseClasses.powerLawFixedM</a>.
 </li>

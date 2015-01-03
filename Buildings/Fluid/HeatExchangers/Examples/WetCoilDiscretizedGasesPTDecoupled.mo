@@ -6,8 +6,6 @@ model WetCoilDiscretizedGasesPTDecoupled
    redeclare package Medium2 =
         Buildings.Media.GasesPTDecoupled.MoistAirUnsaturated);
   extends Modelica.Icons.Example;
-  // fixme: check dimensionality of system of equations of steady-state hex
-  //        and compare with old implementation.
   annotation (
 experiment(StopTime=360),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/Examples/WetCoilDiscretizedGasesPTDecoupled.mos"

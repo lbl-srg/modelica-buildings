@@ -101,14 +101,13 @@ Revised implementation and documentation.
 </li>
 <li>
 July 4, 2012 by Kaustubh Phalak:<br/>
-Updated to handle zero mass flow rate and freezing coil condition. 
+Updated to handle zero mass flow rate and freezing coil condition.
 </li>
 <li>
 April 9, 2012 by Kaustubh Phalak:<br/>
-First implementation. 
+First implementation.
 </li>
 </ul>
 
-</html>"),
-    Diagram(graphics));
+</html>"));
 end ApparatusDewPoint;

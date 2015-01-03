@@ -6,16 +6,13 @@ model HACoilInside "Calculates the hA value for water inside a coil"
     annotation(Dialog(tab="General", group="Nominal condition"));
 
   Modelica.Blocks.Interfaces.RealInput m_flow(unit="kg/s") "Mass flow rate"
-    annotation (Placement(transformation(extent={{-120,-50},{-100,-30}},
-                                                                       rotation=
-           0)));
+    annotation (Placement(transformation(extent={{-120,-50},{-100,-30}})));
   Modelica.Blocks.Interfaces.RealInput T(unit="K") "Temperature"
-    annotation (Placement(transformation(extent={{-120,30},{-100,50}}, rotation=
-           0)));
+    annotation (Placement(transformation(extent={{-120,30},{-100,50}})));
 
   Modelica.Blocks.Interfaces.RealOutput hA(unit="W/K")
     "Inside convective heat transfer" annotation (Placement(transformation(
-          extent={{100,-10},{120,10}},rotation=0)));
+          extent={{100,-10},{120,10}})));
 
   parameter Modelica.SIunits.ThermalConductance hA_nominal(min=0)
     "Convective heat transfer coefficient"
@@ -57,10 +54,7 @@ equation
     hA = hA_nominal;
   end if;
 
-annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}}),
-                    graphics),
-                    defaultComponentName="HASin",
+annotation (                    defaultComponentName="HASin",
 Documentation(info="<html>
 <p>
 Model for convective heat transfer coefficients inside a coil.

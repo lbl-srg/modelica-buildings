@@ -48,5 +48,5 @@ equation
   annotation (
 experiment(StopTime=3.1536e+07),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Sources/Examples/Outside.mos"
-        "Simulate and plot"),                                                                                                    Diagram(graphics));
+        "Simulate and plot"));
 end Outside;

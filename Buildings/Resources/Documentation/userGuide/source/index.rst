@@ -27,7 +27,7 @@ Contents
 ========
 
 .. toctree::
-   :numbered: 
+   :numbered:
    :maxdepth: 3
 
    gettingStarted

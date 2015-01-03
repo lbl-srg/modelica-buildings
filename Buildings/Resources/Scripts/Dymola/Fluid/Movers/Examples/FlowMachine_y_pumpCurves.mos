@@ -49,4 +49,3 @@ createPlot(id = 8,
  color = true,
  leftTitleType = 1,
  bottomTitleType = 1);
-

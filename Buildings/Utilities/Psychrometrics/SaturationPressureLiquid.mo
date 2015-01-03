@@ -6,14 +6,12 @@ block SaturationPressureLiquid
                                             displayUnit="degC",
                                             nominal=300)
     "Saturation temperature"
-    annotation (Placement(transformation(extent={{-120,-10},{-100,10}},
-          rotation=0)));
+    annotation (Placement(transformation(extent={{-120,-10},{-100,10}})));
   Modelica.Blocks.Interfaces.RealOutput pSat(unit="Pa",
                                              displayUnit="Pa",
                                              nominal=1000)
     "Saturation pressure"
-    annotation (Placement(transformation(extent={{100,-10},{120,10}},
-          rotation=0)));
+    annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 
 equation
   pSat = Buildings.Utilities.Psychrometrics.Functions.saturationPressureLiquid(TSat);
@@ -21,9 +19,17 @@ equation
     defaultComponentName="pSat",
     Documentation(info="<html>
 <p>
-Saturation pressure of water above the triple point temperature computed from temperature. 
-The range of validity is between
+Saturation pressure of water above the triple point temperature computed from temperature
+according to Wagner <i>et al.</i> (1993). The range of validity is between
 <i>273.16</i> and <i>373.16</i> Kelvin.
+</p>
+<h4>References</h4>
+<p>
+Wagner W., A. Saul, A. Pruss.
+ <i>International equations for the pressure along the melting and along the sublimation curve of ordinary water substance</i>,
+equation 3.5. 1993.
+<a href=\"http://www.nist.gov/data/PDFfiles/jpcrd477.pdf\">
+http://www.nist.gov/data/PDFfiles/jpcrd477.pdf</a>.
 </p>
 </html>",
 revisions="<html>
@@ -95,7 +101,5 @@ First implementation.
           lineColor={0,0,255},
           smooth=Smooth.Bezier,
           fillPattern=FillPattern.Solid,
-          fillColor={0,0,255})}),
-    Diagram(coordinateSystem(preserveAspectRatio=true,  extent={{-100,-100},{
-            100,100}})));
+          fillColor={0,0,255})}));
 end SaturationPressureLiquid;

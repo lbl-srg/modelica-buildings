@@ -8,9 +8,6 @@ expandable connector ControlBus
           extent={{-20,2},{22,-2}},
           lineColor={255,204,51},
           lineThickness=0.5)}),
-    Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,
-            100}}),
-            graphics),
     Documentation(info="<html>
 <p>
 This connector defines the <code>expandable connector</code> ControlBus that

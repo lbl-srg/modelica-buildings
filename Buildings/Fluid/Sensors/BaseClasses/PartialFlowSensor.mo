@@ -1,7 +1,7 @@
 within Buildings.Fluid.Sensors.BaseClasses;
 partial model PartialFlowSensor
   "Partial component to model sensors that measure flow properties"
-  extends Modelica.Fluid.Interfaces.PartialTwoPort;
+  extends Buildings.Fluid.Interfaces.PartialTwoPort;
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal(min=0)
     "Nominal mass flow rate, used for regularization near zero flow"
     annotation(Dialog(group = "Nominal condition"));
@@ -35,10 +35,5 @@ First implementation.
 Implementation is based on <code>Modelica.Fluid</code>.
 </li>
 </ul>
-</html>"),
-    Diagram(coordinateSystem(
-        preserveAspectRatio=false,
-        extent={{-100,-100},{100,100}},
-        grid={1,1})),
-    Icon(graphics));
+</html>"));
 end PartialFlowSensor;

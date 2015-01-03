@@ -8,13 +8,13 @@ package UsersGuide "User's Guide"
                      "<html>
 <p>The model <a href=\"modelica://Buildings.Rooms.MixedAir\">Buildings.Rooms.MixedAir</a> is 
 a model of a room with completely mixed air.
-The room can have any number of constructions and surfaces that participate in the 
+The room can have any number of constructions and surfaces that participate in the
 heat exchange through convection, conduction, infrared radiation and solar radiation.</p>
 <h4>Physical description</h4>
 <p>
-A description of the model assumptions and the implemention and validation of this room model can be found in 
+A description of the model assumptions and the implemention and validation of this room model can be found in
 <a href=\"#WetterEtAl2011\">Wetter et al. (2011)</a>.
-Note that this paper describes a previous version of the room model. 
+Note that this paper describes a previous version of the room model.
 The equations have not changed. However, what is shown in Figure 2 in the paper has in this version
 of the model been integrated directly into what is shown in Figure 1.</p>
 <p>
@@ -49,7 +49,7 @@ Overhangs and side fins are modeled using
 Buildings.HeatTransfer.Windows.Overhang</a> and
 <a href=\"modelica://Buildings.HeatTransfer.Windows.SideFins\">
 Buildings.HeatTransfer.Windows.SideFins</a>, respectively.
-These models compute the reduction in direct solar irradiation 
+These models compute the reduction in direct solar irradiation
 due to the external shading device.
 </li>
 <li>
@@ -66,13 +66,13 @@ and temperature, pressure and species balance inside the room volume.
 These effects are modeled as follows:
 <ol>
 <li>
-The model 
-<a href=\"modelica://Buildings.Rooms.BaseClasses.MixedAirHeatMassBalance\">
-Buildings.Rooms.BaseClasses.MixedAirHeatMassBalance</a>
+The model
+<a href=\"modelica://Buildings.Rooms.BaseClasses.AirHeatMassBalanceMixed\">
+Buildings.Rooms.BaseClasses.AirHeatMassBalanceMixed</a>
 is used to compute heat convection between the room air
 and the surface of opaque constructions. It is also used to compute the
 heat and mass balance of the room air.
-This model is a composite model that contains 
+This model is a composite model that contains
 <a href=\"modelica://Buildings.HeatTransfer.Windows.InteriorHeatTransferConvective\">
 Buildings.HeatTransfer.Windows.InteriorHeatTransferConvective</a> to compute the convective
 heat balance of the window and a shade, if present.
@@ -108,7 +108,7 @@ surfaces is modeled in
 <a href=\"modelica://Buildings.Rooms.BaseClasses.InfraredRadiationExchange\">
 Buildings.Rooms.BaseClasses.InfraredRadiationExchange</a>.
 This model takes into account the absorptivity of the surfaces and
-the surface area. However, the view factors are assumed to be 
+the surface area. However, the view factors are assumed to be
 proportional to the area of the receiving surface, without taking
 into account the location of the surfaces.
 </li>
@@ -127,32 +127,32 @@ solar absorptivity.
 </ol>
 <h4>Model instantiation</h4>
 <p>The next paragraphs describe how to instantiate a room model.
-To instantiate a room model, 
+To instantiate a room model,
 <ol>
 <li>
 make an instance of the room model in your model,
 </li>
 <li>
-make instances of constructions from the package 
+make instances of constructions from the package
 <a href=\"modelica://Buildings.HeatTransfer.Data.OpaqueConstructions\">
 Buildings.HeatTransfer.Data.OpaqueConstructions</a> to model opaque constructions such as walls, floors,
 ceilings and roofs,
 </li>
 <li>
-make an instance of constructions from the package 
+make an instance of constructions from the package
 <a href=\"modelica://Buildings.HeatTransfer.Data.GlazingSystems\">
 Buildings.HeatTransfer.Data.GlazingSystems</a> to model glazing systems, and
 </li>
 <li>
-enter the parameters of the room. 
+enter the parameters of the room.
 </li>
 </ol>
 <p>
-Entering parameters may be easiest in a textual editor. 
+Entering parameters may be easiest in a textual editor.
 </p>
 <p>
 In the here presented example, we assume we made several instances
-of data records for the construction material by dragging them from 
+of data records for the construction material by dragging them from
 the package <a href=\"modelica://Buildings.HeatTransfer.Data\">
 Buildings.HeatTransfer.Data</a> to create the following list of declarations:
 </p>
@@ -189,13 +189,13 @@ Note that construction layers are assembled from the outside to the room-side. T
 <code>matLayRoo</code> has an exterior insulation. This constructions can then be used in the room model.
 </p>
 <p>
-Before we explain how to declare and parametrize a room model, 
+Before we explain how to declare and parametrize a room model,
 we explain the different models that can be used to compute heat transfer through the room enclosing surfaces
-and constructions. The room model 
+and constructions. The room model
 <a href=\"modelica://Buildings.Rooms.MixedAir\">Buildings.Rooms.MixedAir</a> contains the constructions shown
-in the table below. 
+in the table below.
 The first row of the table lists the name of the data record that is used by the user
-to assign the model parameters. 
+to assign the model parameters.
 The second row lists the name of the instance of the model that simulates the equations.
 The third column provides a reference to the class definition that implements the equations.
 The forth column describes the main applicability of the model.
@@ -237,7 +237,7 @@ Exterior constructions that have a window. Each construction of this type must h
 <br/>
 Within the same room, all windows can either have an interior shade, an exterior shade or no shade.
 Each window has its own control signal for the shade. This signal is exposed by the port <code>uSha</code>, which
-has the same dimension as the number of windows. The values for <code>uSha</code> must be between 
+has the same dimension as the number of windows. The values for <code>uSha</code> must be between
 <code>0</code> and <code>1</code>. Set <code>uSha=0</code> to open the shade, and <code>uSha=1</code>
 to close the shade.<br/>
 Windows can also have an overhang, side fins, both (overhang and sidefins) or no external shading device.
@@ -256,7 +256,7 @@ modConPar
 </td>
 <td>
 Interior constructions such as partitions within a room. Both surfaces of this construction are inside the room model
-and participate in the infrared and solar radiation balance. 
+and participate in the infrared and solar radiation balance.
 Since the view factor between these surfaces is zero, there is no infrared radiation from one surface to the other
 of the same construction.
 </td>
@@ -274,8 +274,8 @@ modConBou
 </td>
 <td>
 Constructions that expose the other boundary conditions of the other surface to the outside of this room model.
-The heat conduction through these constructions is modeled in this room model. 
-The surface at the port <code>opa_b</code> is connected to the models for convection, infrared and solar radiation exchange 
+The heat conduction through these constructions is modeled in this room model.
+The surface at the port <code>opa_b</code> is connected to the models for convection, infrared and solar radiation exchange
 with this room model and with the other surfaces of this room model.
 The surface at the port <code>opa_a</code> is connected to the port <code>surf_conBou</code> of this room model. This could be used, for example,
 to model a floor inside this room and connect to other side of this floor model to a model that computes heat transfer in the soil.
@@ -351,11 +351,11 @@ The statement
 
 </pre>
 <p>
-declares that the medium of the room air is set to <code>MediumA</code>, 
-that the floor area is <i>20 m<sup>2</sup></i> and that 
-the room air volume is <i>20*2.5 m<sup>3</sup></i>. 
+declares that the medium of the room air is set to <code>MediumA</code>,
+that the floor area is <i>20 m<sup>2</sup></i> and that
+the room air volume is <i>20*2.5 m<sup>3</sup></i>.
 The floor area is used to scale the internal heat
-gains, which are declared with units of <i>W/m<sup>2</sup></i> 
+gains, which are declared with units of <i>W/m<sup>2</sup></i>
 using the input signal <code>qGai_flow</code>.
 </p>
 <p>
@@ -372,7 +372,7 @@ The entry
 declares that there are two exterior constructions.
 </p>
 <p>
-The lines 
+The lines
 </p>
 <pre>
 <span style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:8;\"><span style=\" font-family:'Courier New,courier';\">    datConExt(layers={matLayRoo, matLayExt},</span></span>
@@ -383,9 +383,9 @@ The lines
 </pre>
 <p>
 declare that the material layers" + " in these constructions are
-set the the records <code>matLayRoo</code> and <code>matLayExt</code>.
+set the records <code>matLayRoo</code> and <code>matLayExt</code>.
 What follows are the declarations for the surface area,
-the tilt of the surface and the azimuth of the surfaces. Thus, the 
+the tilt of the surface and the azimuth of the surfaces. Thus, the
 surface with construction <code>matLayExt</code> is <i>6*3 m<sup>2</sup></i> large
 and it is a west-facing wall.
 </p>
@@ -416,9 +416,9 @@ to total glazing system area is <i>10%</i>.
 <p>
 Optionally, each window can have an overhang, side fins or both.
 If the above window were to have an overhang of
-<i>2.5 m</i> width that is centered above the window, 
+<i>2.5 m</i> width that is centered above the window,
 and hence extends each side of the window by <i>0.25 m</i>, and has a depth of
-<i>1 m</i> and a gap between window and overhang of 
+<i>1 m</i> and a gap between window and overhang of
 <i>0.1 m</i>, then
 its declaration would be
 </p>
@@ -432,10 +432,10 @@ This would instanciate the model
 Buildings.HeatTransfer.Windows.Overhang</a> to model the overhang. See this class for a picture of the above dimensions.
 </p>
 <p>
-If the window were to have side fins that are 
+If the window were to have side fins that are
 <i>2.5 m</i> high, measured from the bottom of the windows,
 and hence extends <i>0.5 m</i> above the window, are
-<i>1 m</i> depth and are placed 
+<i>1 m</i> depth and are placed
 <i>0.1 m</i> to the left and right of the window,
 then its declaration would be
 </p>
@@ -458,7 +458,7 @@ The lines
 declare that the construction is a wall that is south exposed.
 </p>
 <p>
-Note that if the room were to have two windows, and one window has side fins and the other window has an overhang, the 
+Note that if the room were to have two windows, and one window has side fins and the other window has an overhang, the
 following declaration could be used, which sets the value of <code>dep</code> to <code>0</code> for the non-present side fins or overhang, respectively:
 </p>
 <pre>
@@ -500,13 +500,13 @@ The declaration
 
 </pre>
 <p>
-is used to instantiate a model for a surface that is in this room. 
+is used to instantiate a model for a surface that is in this room.
 The surface has an area of <i>6*3 m<sup>2</sup></i>, absorptivity in the infrared and the solar
 spectrum of <i>0.9</i> and it is a wall.
 The room model will compute infrared radiative heat exchange, solar radiative heat gains
-and infrared radiative heat gains of this surface. The surface temperature and 
-heat flow rate are exposed by this room model at the heat port 
-<code>surf_surBou</code>. 
+and infrared radiative heat gains of this surface. The surface temperature and
+heat flow rate are exposed by this room model at the heat port
+<code>surf_surBou</code>.
 A model builder may use this construct
 to couple this room model to another room model that may model the construction.
 </p>
@@ -522,7 +522,7 @@ causes the equations for radiative heat transfer to be linearized. This can
 reduce computing time at the expense of accuracy.
 </p>
 <p>
-The declaration 
+The declaration
 </p>
 <pre>
 <span style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:8;\"><span style=\" font-family:'Courier New,courier';\">    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,</span></span>
@@ -543,11 +543,11 @@ sets the latitude of the building which needs to correspond with the latitude of
 </p>
 <h4>References</h4>
 <p>
-<a NAME=\"WetterEtAl2011\"/> 
+<a NAME=\"WetterEtAl2011\"/>
 Michael Wetter, Wangda Zuo and Thierry Stephane Nouidui.<br/>
 <a href=\"modelica://Buildings/Resources/Images/Rooms/2011-ibpsa-BuildingsLib.pdf\">
 Modeling of Heat Transfer in Rooms in the Modelica \"Buildings\" Library.</a><br/>
-Proc. of the 12th IBPSA Conference, p. 1096-1103. Sydney, Australia, November 2011. 
+Proc. of the 12th IBPSA Conference, p. 1096-1103. Sydney, Australia, November 2011.
 </p>
 </html>"));
    end MixedAir;

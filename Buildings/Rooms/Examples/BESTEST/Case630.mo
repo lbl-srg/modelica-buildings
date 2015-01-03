@@ -24,12 +24,10 @@ model Case630 "Case 620, but with added overhang and sidefins"
       StopTime=3.1536e+07,
       Interval=3600,
       Tolerance=1e-006),
-Diagram(coordinateSystem(
-          preserveAspectRatio=true, extent={{-100,-100},{100,100}})),
     Documentation(info="<html>
 <p>
 This model is case 630 of the BESTEST validation suite.
-Case 630 differs from case 620 in that the 
+Case 630 differs from case 620 in that the
 windows on the west and east walls have an overhang and side fins.
 </p>
 </html>",

@@ -171,13 +171,11 @@ algorithm
           extent={{34,-44},{94,-76}},
           lineColor={0,0,255},
           textString="occupied")}),
-    Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,
-            100}})),
 defaultComponentName="occSch",
 Documentation(info="<html>
 <p>
 This model outputs whether the building is currently occupied,
-and how long it will take until the next time when the building 
+and how long it will take until the next time when the building
 will be occupied or non-occupied.
 The latter may be used, for example, to start a ventilation system
 half an hour before occupancy starts in order to ventilate the room.
@@ -208,7 +206,7 @@ Fixed a bug that caused an error in the schedule if the simulation start time wa
 <li>
 February 16, 2012, by Michael Wetter:<br/>
 Removed parameter <code>startTime</code>. It was removed because <code>startTime=0</code>
-would imply that the schedule should not start for one day if the the simulation were
+would imply that the schedule should not start for one day if the simulation were
 to be started at <i>t=-8760</i> seconds.
 Fixed bug that prevented schedule to start when the simulation was started at a time that
 is higher than <code>endTime</code>.

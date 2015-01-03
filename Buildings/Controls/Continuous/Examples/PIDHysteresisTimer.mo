@@ -69,16 +69,14 @@ equation
       points={{-59,70},{-2,70}},
       color={0,0,127},
       smooth=Smooth.None));
- annotation (Diagram(coordinateSystem(preserveAspectRatio=true,  extent={{-100,
-            -100},{100,100}})),
-                      __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/Continuous/Examples/PIDHysteresisTimer.mos"
+ annotation (                      __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/Continuous/Examples/PIDHysteresisTimer.mos"
         "Simulate and plot"),
     experiment(StopTime=86400),
     Documentation(info="<html>
 <p>
 Example that demonstrates the use of the PID controller
-with hysteresis and off timer. 
-The example is identical to 
+with hysteresis and off timer.
+The example is identical to
 <a href=\"modelica://Buildings.Controls.Continuous.Examples.PIDHysteresis\">
 Buildings.Controls.Continuous.Examples.PIDHysteresis</a>,
 except that the controller also has an off timer.

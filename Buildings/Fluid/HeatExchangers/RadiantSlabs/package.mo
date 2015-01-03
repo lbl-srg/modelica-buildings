@@ -5,8 +5,8 @@ package RadiantSlabs "Package with radiant slab models"
 
 annotation (preferredView="info", Documentation(info="<html>
 <p>
-This package contains models for radiant slabs 
-with pipes or a capillary heat exchanger 
+This package contains models for radiant slabs
+with pipes or a capillary heat exchanger
 embedded in the construction.
 </p>
 </html>"));

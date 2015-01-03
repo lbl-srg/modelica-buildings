@@ -21,7 +21,7 @@ model ParallelCircuitsSlab
       m_flow_small=m_flow_small/nCir));
 
   parameter Integer nCir(min=1) = 1 "Number of parallel circuits";
-  parameter Integer nSeg(min=2) = 10
+  parameter Integer nSeg(min=1) = if heatTransfer==Types.HeatTransfer.EpsilonNTU then 1 else 5
     "Number of volume segments in each circuit (along flow path)";
 
   parameter Modelica.SIunits.Area A
@@ -44,6 +44,10 @@ model ParallelCircuitsSlab
   // Parameters used for the fluid model implementation
   parameter Boolean homotopyInitialization = true "= true, use homotopy method"
     annotation(Evaluate=true, Dialog(tab="Advanced"));
+
+  parameter Buildings.Fluid.HeatExchangers.RadiantSlabs.Types.HeatTransfer
+    heatTransfer=Types.HeatTransfer.EpsilonNTU
+    "Model for heat transfer between fluid and slab";
 
   // Diagnostics
    parameter Boolean show_T = false
@@ -81,6 +85,7 @@ model ParallelCircuitsSlab
 
   Buildings.Fluid.HeatExchangers.RadiantSlabs.SingleCircuitSlab sla(
     redeclare final package Medium = Medium,
+    final heatTransfer=heatTransfer,
     final sysTyp=sysTyp,
     final A=A/nCir,
     final disPip=disPip,
@@ -200,7 +205,7 @@ that are arranged in a parallel.
 </p>
 <p>
 The parameter <code>nCir</code> declares the number of parallel flow circuits.
-Each circuit will have the same mass flow rate, and it is exposed to the same 
+Each circuit will have the same mass flow rate, and it is exposed to the same
 port variables for the heat port at the two surfaces, and for the flow inlet and outlet.
 </p>
 <p>
@@ -209,13 +214,13 @@ with the same pipe spacing and pipe length. Then, rather than using two instance
 <a href=\"Buildings.Fluid.HeatExchangers.RadiantSlabs.SingleCircuitSlab\">
 Buildings.Fluid.HeatExchangers.RadiantSlabs.SingleCircuitSlab</a>,
 this system can be modeled using one instance of this model in order to reduce computing effort.
-See 
-<a href=\"modelica://Buildings.Fluid.HeatExchangers.RadiantSlabs.Examples.SingleCircuitMultipleCircuit\">
-Buildings.Fluid.HeatExchangers.RadiantSlabs.Examples.SingleCircuitMultipleCircuit</a> for an example
+See
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.RadiantSlabs.Examples.SingleCircuitMultipleCircuitEpsilonNTU\">
+Buildings.Fluid.HeatExchangers.RadiantSlabs.Examples.SingleCircuitMultipleCircuitEpsilonNTU</a> for an example
 that shows that the models give identical results.
 </p>
 <p>
-Since this model is a parallel arrangment of <code>nCir</code> models of 
+Since this model is a parallel arrangment of <code>nCir</code> models of
 <a href=\"Buildings.Fluid.HeatExchangers.RadiantSlabs.SingleCircuitSlab\">
 Buildings.Fluid.HeatExchangers.RadiantSlabs.SingleCircuitSlab</a>,
 we refer to
@@ -223,11 +228,16 @@ we refer to
 Buildings.Fluid.HeatExchangers.RadiantSlabs.SingleCircuitSlab</a>
 for the model documentation.
 </p>
+<p>
+See the
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.RadiantSlabs.UsersGuide\">
+user's guide</a> for more information.
+</p>
 <h4>Implementation</h4>
 <p>
 To allow a better comment for the nominal mass flow rate, i.e., to specify that
 its value is for all circuits combined, this
-model does not inherit 
+model does not inherit
 <a href=\"modelica://Buildings.Fluid.Interfaces.PartialTwoPortInterface\">
 Buildings.Fluid.Interfaces.PartialTwoPortInterface</a>.
 </p>
@@ -237,8 +247,8 @@ Buildings.Fluid.Interfaces.PartialTwoPortInterface</a>.
 October 10, 2013 by Michael Wetter:<br/>
 Added <code>noEvent</code> to the computation of the states at the port.
 This is correct, because the states are only used for reporting, but not
-to compute any other variable. 
-Use of the states to compute other variables would violate the Modelica 
+to compute any other variable.
+Use of the states to compute other variables would violate the Modelica
 language, as conditionally removed variables must not be used in any equation.
 </li>
 <li>

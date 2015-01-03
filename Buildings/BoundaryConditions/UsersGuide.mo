@@ -10,7 +10,7 @@ The calculations follow the description in Wetter (2004), Appendix A.4.2.</p>
 <p align=\"center\"><img alt=\"image\" src=\"modelica://Buildings/Resources/Images/BoundaryConditions/zen_sun.png\"/> </p>
 <p align=\"center\"><img alt=\"image\" src=\"modelica://Buildings/Resources/Images/BoundaryConditions/zen_pla.png\"/> </p>
 <p>
-For the surface azimuth and tilt, the enumerations 
+For the surface azimuth and tilt, the enumerations
 <a href=\"modelica://Buildings.HeatTransfer.Types.Azimuth\">
 Buildings.HeatTransfer.Types.Azimuth</a>
 and
@@ -20,7 +20,7 @@ can be used.
 </p>
 <p>
 Note that a ceiling has a tilt of <i>0</i>, and also the solar collector models
-in 
+in
 <a href=\"Buildings.Fluid.SolarCollectors\">Buildings.Fluid.SolarCollectors</a>
 require a tilt of <i>0</i> if they are facing straight upwards.
 This is correct because

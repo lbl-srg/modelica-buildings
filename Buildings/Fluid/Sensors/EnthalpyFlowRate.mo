@@ -48,8 +48,6 @@ equation
   // Sensor output signal
   H_flow = port_a.m_flow * h_out;
 annotation (defaultComponentName="senEntFlo",
-  Diagram(coordinateSystem(preserveAspectRatio=true,  extent={{-100,-100},{100,
-            100}})),
   Icon(graphics={
         Line(points={{-100,0},{-70,0}}, color={0,128,255}),
         Line(points={{70,0},{100,0}}, color={0,128,255}),
@@ -65,10 +63,10 @@ between fluid ports. The sensor is ideal, i.e., it does not influence the fluid.
 </p>
 <p>
 If the parameter <code>tau</code> is non-zero, then the measured
-specific enthalpy <i>h<sub>out</sub></i> that is used to 
-compute the enthalpy flow rate 
-<i>H&#775; = m&#775; h<sub>out</sub></i> 
-is computed using a first order differential equation. 
+specific enthalpy <i>h<sub>out</sub></i> that is used to
+compute the enthalpy flow rate
+<i>H&#775; = m&#775; h<sub>out</sub></i>
+is computed using a first order differential equation.
 See <a href=\"modelica://Buildings.Fluid.Sensors.UsersGuide\">
 Buildings.Fluid.Sensors.UsersGuide</a> for an explanation.
 </p>
@@ -82,13 +80,13 @@ revisions="<html>
 <ul>
 <li>
 August 31, 2013, by Michael Wetter:<br/>
-Removed default value <code>tau=0</code> as the base class 
+Removed default value <code>tau=0</code> as the base class
 already sets <code>tau=1</code>.
 This change was made so that all sensors use the same default value.
 </li>
 <li>
 June 3, 2011 by Michael Wetter:<br/>
-Revised implementation to add dynamics in such a way that 
+Revised implementation to add dynamics in such a way that
 the time constant increases as the mass flow rate tends to zero.
 This can improve the numerics.
 </li>

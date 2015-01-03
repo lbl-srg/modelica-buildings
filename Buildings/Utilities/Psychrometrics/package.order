@@ -1,4 +1,5 @@
-Functions
+Constants
+Phi_pTX
 SaturationPressure
 SaturationPressureLiquid
 SublimationPressureIce
@@ -12,5 +13,6 @@ X_pTphi
 X_pW
 pW_TDewPoi
 pW_X
+Functions
 Examples
 BaseClasses

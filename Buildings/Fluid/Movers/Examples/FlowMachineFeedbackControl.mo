@@ -4,8 +4,7 @@ model FlowMachineFeedbackControl "Flow machine with feedback control"
 
   package Medium = Buildings.Media.GasesPTDecoupled.MoistAirUnsaturated;
 
-  inner Modelica.Fluid.System system
-    annotation (Placement(transformation(extent={{120,-80},{140,-60}})));
+
 
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal= 0.1
     "Nominal mass flow rate";
@@ -17,15 +16,13 @@ model FlowMachineFeedbackControl "Flow machine with feedback control"
     startTime=0,
     amplitude=0.5,
     period=15*60) "Input signal"
-                 annotation (Placement(transformation(extent={{-80,100},{-60,120}},
-          rotation=0)));
+                 annotation (Placement(transformation(extent={{-80,100},{-60,120}})));
   Buildings.Fluid.Sources.Boundary_pT sou(
     redeclare package Medium = Medium,
     use_p_in=false,
-    p=system.p_ambient,
+    p=101325,
     T=293.15,
-    nPorts=2) annotation (Placement(transformation(extent={{-82,10},{-62,30}},
-          rotation=0)));
+    nPorts=2) annotation (Placement(transformation(extent={{-82,10},{-62,30}})));
   FixedResistances.FixedResistanceDpM dp1(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,

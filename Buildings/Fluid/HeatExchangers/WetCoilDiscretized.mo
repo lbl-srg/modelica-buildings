@@ -13,14 +13,14 @@ defaultComponentName="cooCoi",
     Documentation(info="<html>
 <p>
 Model of a discretized coil with humidity condensation.
-This model is identical to 
+This model is identical to
 <a href=\"modelica://Buildings.Fluid.HeatExchangers.DryCoilDiscretized\">
 Buildings.Fluid.HeatExchangers.DryCoilDiscretized</a>
 but in addition, the mass transfer from fluid 2 to the metal is computed.
 The mass transfer is computed using a similarity law between
 heat and mass transfer, as implemented by the model
 <a href=\"modelica://Buildings.Fluid.HeatExchangers.BaseClasses.MassExchange\">
-Buildings.Fluid.HeatExchangers.BaseClasses.MassExchange</a>. 
+Buildings.Fluid.HeatExchangers.BaseClasses.MassExchange</a>.
 See this model for details.
 </p>
 <p>
@@ -42,7 +42,7 @@ Removed parameter <code>dl</code> which is no longer needed.
 </li>
 <li>
 December 13, 2013, by Michael Wetter:<br/>
-Corrected wrong connection 
+Corrected wrong connection
 <code>connect(hexReg[nReg].port_b1, pipMan_b.port_b)</code>
 to
 <code>connect(hexReg[nReg].port_a1, pipMan_b.port_b)</code>

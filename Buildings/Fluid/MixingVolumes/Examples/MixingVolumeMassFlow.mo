@@ -25,8 +25,7 @@ model MixingVolumeMassFlow "Test model for mass flow into and out of volume"
     allowFlowReversal=false,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
               annotation (Placement(transformation(extent={{-20,0},{0,20}})));
-  inner Modelica.Fluid.System system
-    annotation (Placement(transformation(extent={{60,60},{80,80}})));
+
 equation
   connect(sou.ports[1], vol.ports[1]) annotation (Line(
       points={{-40,6.66134e-16},{-26,6.66134e-16},{-26,-5.55112e-16},{-12,

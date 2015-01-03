@@ -13,7 +13,8 @@ model AbsorbedRadiation "Test model for absorbed radiation by windows"
   BoundaryConditions.WeatherData.Bus weaBus
     annotation (Placement(transformation(extent={{-38,0},{-18,20}})));
   BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam=
-        "modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos")
+        "modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos",
+      computeWetBulbTemperature=false)
     annotation (Placement(transformation(extent={{-70,0},{-50,20}})));
 
   BoundaryConditions.SolarIrradiation.DiffuseIsotropic HDifTilIso(
@@ -90,8 +91,6 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   annotation (
-    Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,
-            100}})),
 experiment(StopTime=864000),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/HeatTransfer/Windows/BaseClasses/Examples/AbsorbedRadiation.mos"
         "Simulate and plot"),
@@ -99,6 +98,10 @@ __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/HeatTransf
 This example illustrates modeling of window radiation.
 </html>", revisions="<html>
 <ul>
+<li>
+October 17, 2014, by Michael Wetter:<br/>
+Changed weather data reader to not compute wet bulb temperature.
+</li>
 <li>
 May 1, 2013, by Michael Wetter:<br/>
 Declared the parameter record to be a parameter, as declaring its elements

@@ -37,12 +37,10 @@ equation
       points={{5.55112e-16,10},{20,10}},
       color={191,0,0},
       smooth=Smooth.None));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
-            -100},{100,100}})), 
-experiment(StopTime=86400),
+  annotation (experiment(StopTime=86400),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/HeatTransfer/Examples/ConductorMultiLayer.mos" "Simulate and plot"),
     Documentation(info="<html>
-This example illustrates how to use a solid material, set its heat capacity to zero, 
+This example illustrates how to use a solid material, set its heat capacity to zero,
 and then use this material in a multi-layer construction.
 The plot window shows that the insulation is computed in steady state, where
 as the brick is computed using transient heat conduction.

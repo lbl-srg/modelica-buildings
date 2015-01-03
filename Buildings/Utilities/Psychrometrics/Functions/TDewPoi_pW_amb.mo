@@ -1,12 +1,20 @@
 within Buildings.Utilities.Psychrometrics.Functions;
 function TDewPoi_pW_amb
   "Function to compute the dew point temperature of moist air for a given water vapor partial pressure"
-  extends
-    Buildings.Utilities.Psychrometrics.Functions.BaseClasses.pW_TDewPoi_amb;
+  extends Modelica.Icons.Function;
 
   input Modelica.SIunits.Pressure p_w(displayUnit="Pa", min=100)
     "Water vapor partial pressure";
   output Modelica.SIunits.Temperature T "Dew point temperature";
+protected
+  constant Modelica.SIunits.Temperature T1=283.15 "First support point";
+  constant Modelica.SIunits.Temperature T2=293.15 "Second support point";
+  constant Modelica.SIunits.Pressure p1=1227.97 "First support point";
+  constant Modelica.SIunits.Pressure p2=2338.76 "Second support point";
+
+  constant Real a1=(Modelica.Math.log(p2) - Modelica.Math.log(p1)*T2/T1)/(1 -
+      T2/T1);
+  constant Real a2(unit="1/K")=(Modelica.Math.log(p1) - a1)/T1;
 
 algorithm
   T := (Modelica.Math.log(p_w) - a1)/a2;
@@ -17,23 +25,29 @@ algorithm
     derivative=BaseClasses.der_TDewPoi_pW_amb,
     Documentation(info="<html>
 <p>
-Dew point temperature calculation for moist air between <i>0 degC</i> and <i>30 degC</i>
+Dew point temperature calculation for moist air between <i>0</i>&deg;C and <i>30</i>&deg;C
 with partial pressure of water vapor as an input.
 </p>
 <p>
-The correlation used in this model is valid for dew point temperatures between 
-<code>0 degC</code> and <code>30 degC</code>. It is an approximation to the correlation from 2005
+The correlation used in this model is valid for dew point temperatures between
+<i>0</i>&deg;C and <i>30</i>&deg;C. It is an approximation to the correlation from 2005
 ASHRAE Handbook, p. 6.2, which is valid in a wider range of temperatures and implemented
 in
 <a href=\"modelica://Buildings.Utilities.Psychrometrics.Functions.pW_TDewPoi\">
 Buildings.Utilities.Psychrometrics.Functions.pW_TDewPoi</a>.
-The approximation error of this simplified function is below 5% for a 
-temperature of <code>0 degC</code> to <code>30 degC</code>.
+The approximation error of this simplified function is below 5% for a
+temperature of <i>0</i>&deg;C to <i>30</i>&deg;C.
 The benefit of this simpler function is that it can be inverted analytically,
 whereas the other function requires a numerical solution.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+October 4, 2014, by Michael Wetter:<br/>
+Removed <code>extends Buildings.Utilities.Psychrometrics.Functions.BaseClasses.pW_TDewPoi_amb</code>
+as this gives a compile time error in OpenModelica as the input argument <code>T</code>
+cannot be found.
+</li>
 <li>
 March 9, 2012 by Michael Wetter:<br/>
 Added <code>smoothOrder=99</code> and <code>displayUnit</code> for pressure.
@@ -43,9 +57,5 @@ May 21, 2010 by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
-</html>"),
-    Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
-            100}}), graphics),
-    Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,
-            100}}), graphics));
+</html>"));
 end TDewPoi_pW_amb;

@@ -5,7 +5,7 @@ extends Modelica.Icons.Package;
 
 annotation (preferredView="info", Documentation(info="<html>
 <p>
-This package contains base classes that are used in the 
+This package contains base classes that are used in the
 <a href=\"modelica://Buildings.Fluid.SolarCollectors.Controls\">
 Buildings.Fluid.SolarCollectors.Controls</a> package.
 </p>

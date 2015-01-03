@@ -1,8 +1,11 @@
 within Buildings.Rooms.BaseClasses;
 record PartialParameterConstruction "Partial record for constructions"
   extends Modelica.Icons.Record;
+
   parameter String name = ""
     "Surface name. Optional for MixedAir, required for FFD.";
+// fixme: Check why the parameter below is replaceable. This is no longer needed I think,
+// and not used for other data either.
   replaceable parameter Buildings.HeatTransfer.Data.OpaqueConstructions.Generic
     layers "Material properties of opaque construction"
     annotation(Dialog(group="Opaque construction"),
@@ -40,7 +43,7 @@ Documentation(info="<html>
 This data record is used to set the parameters of constructions that do not have a window.
 </p>
 <p>
-The surface azimuth is defined in 
+The surface azimuth is defined in
 <a href=\"modelica://Buildings.HeatTransfer.Types.Azimuth\">
 Buildings.HeatTransfer.Types.Azimuth</a>
 and the surface tilt is defined in <a href=\"modelica://Buildings.HeatTransfer.Types.Tilt\">

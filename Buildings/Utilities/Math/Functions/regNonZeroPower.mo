@@ -33,7 +33,7 @@ algorithm
   annotation (
     Documentation(info="<html>
 
-Function that approximates <i>y=|x|<sup>n</sup></i> where <i>n &gt; 0</i> 
+Function that approximates <i>y=|x|<sup>n</sup></i> where <i>n &gt; 0</i>
 so that
 <ul>
 <li><i>y(0)</i> is not equal to zero.
@@ -46,15 +46,15 @@ This function replaces <i>y=|x|<sup>n</sup></i> in the interval
 function value and the first and second derivative at <i>x=&plusmn; &delta;</i>.
 </p>
 <p>
-A typical use of this function is to replace the 
+A typical use of this function is to replace the
 function for the convective heat transfer
-coefficient for forced or free convection that is of the form 
-<i>h=c |dT|<sup>n</sup></i> for some constant <i>c</i> and exponent 
-<i>0 &le; n &le; 1</i>. 
+coefficient for forced or free convection that is of the form
+<i>h=c |dT|<sup>n</sup></i> for some constant <i>c</i> and exponent
+<i>0 &le; n &le; 1</i>.
 By using this function, the original function
 that has an infinite derivative near zero and that takes on zero
-at the origin is replaced by a function with a bounded derivative and 
-a non-zero value at the origin. Physically, 
+at the origin is replaced by a function with a bounded derivative and
+a non-zero value at the origin. Physically,
 the region <i>-&delta;...+&delta;</i> may be interpreted as the region
 where heat conduction dominates convection in the boundary layer.
 </p>

@@ -6,21 +6,19 @@ model MassExchange "Test model for latent heat exchange"
       package Medium =
                Medium) "Model for mass exchange"
                                      annotation (Placement(transformation(
-          extent={{20,0},{40,20}}, rotation=0)));
+          extent={{20,0},{40,20}})));
   Modelica.Blocks.Sources.Ramp TSur(
     duration=1,
     height=20,
     offset=273.15 + 5) "Surface temperature"
                    annotation (Placement(transformation(extent={{-80,60},{-60,
-            80}}, rotation=0)));
+            80}})));
     Modelica.Blocks.Sources.Constant X_w(k=0.01)
     "Humidity mass fraction in medium"
-      annotation (Placement(transformation(extent={{-80,0},{-60,20}}, rotation=
-            0)));
+      annotation (Placement(transformation(extent={{-80,0},{-60,20}})));
     Modelica.Blocks.Sources.Constant Gc(k=1)
     "Sensible convective thermal conductance"
-      annotation (Placement(transformation(extent={{-80,-80},{-60,-60}},
-          rotation=0)));
+      annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
 equation
   connect(TSur.y, masExc.TSur)    annotation (Line(points={{-59,70},{8,70},{8,
           18},{18,18}}, color={0,0,127}));
