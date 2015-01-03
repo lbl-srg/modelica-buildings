@@ -32,8 +32,6 @@ model HeatGain "Test model for the HeatGain model"
     redeclare package Medium = MediumA,
     nPorts=1)
     annotation (Placement(transformation(extent={{0,-80},{20,-60}})));
-  inner Modelica.Fluid.System system
-    annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
   Buildings.Utilities.Diagnostics.AssertEquality assertEquality
     annotation (Placement(transformation(extent={{60,64},{80,84}})));
   Modelica.Blocks.Math.Gain gainLat(k=AFlo)

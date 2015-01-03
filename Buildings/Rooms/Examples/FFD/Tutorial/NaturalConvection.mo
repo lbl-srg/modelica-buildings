@@ -20,9 +20,6 @@ model NaturalConvection "Tutorial for Natural Convection case"
     annotation (Placement(transformation(extent={{-60,-80},{-40,-60}})));
   Modelica.Blocks.Routing.Multiplex3 multiplex3_1
     annotation (Placement(transformation(extent={{0,-40},{20,-20}})));
-  inner Modelica.Fluid.System system(T_ambient=283.15)
-    annotation (Placement(transformation(extent={{-60,
-            -120},{-40,-100}})));
   parameter HeatTransfer.Data.OpaqueConstructions.Generic matLayRoo(final nLay=
         1, material={HeatTransfer.Data.Solids.Steel(x=0.001)},
     roughness_a=Buildings.HeatTransfer.Types.SurfaceRoughness.Smooth)
@@ -196,10 +193,6 @@ This section describes step by step how to build and simulate the model.
 Add the following component models to the <code>NaturalConvection</code> model:
 </p>
 <ul>
-<li>
-<a href=\"modelica://Modelica.Fluid.System\">Modelica.Fluid.System</a>.
-This model provides a basic physical environment for the simulation.
-</li>
 <li>
 <a href=\"modelica://Buildings.Rooms.CFD\">Buildings.Rooms.CFD</a>.
 This model is used to implement the data exchange between Modelica and FFD. Name it as <code>roo</code>.

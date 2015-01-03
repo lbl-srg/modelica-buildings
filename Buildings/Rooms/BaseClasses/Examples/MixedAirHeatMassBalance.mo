@@ -49,8 +49,6 @@ public
   Modelica.Blocks.Sources.Constant uSha[NConExtWin](each k=0)
     "Shade control signal"
     annotation (Placement(transformation(extent={{-140,80},{-120,100}})));
-  inner Modelica.Fluid.System system
-    annotation (Placement(transformation(extent={{-100,-200},{-80,-180}})));
 protected
   Buildings.Rooms.BaseClasses.MixedAirHeatGain heaGai(
     redeclare package Medium = Medium, final AFlo=5)

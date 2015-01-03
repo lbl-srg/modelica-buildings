@@ -54,8 +54,6 @@ public
   Modelica.Blocks.Sources.Constant QRadAbs_flow[NConExtWin](each k=0)
     "Radiation absorbed by shade"
     annotation (Placement(transformation(extent={{-140,40},{-120,60}})));
-  inner Modelica.Fluid.System system
-    annotation (Placement(transformation(extent={{-100,-200},{-80,-180}})));
 equation
   connect(conConExt.port_a, air.conExt)          annotation (Line(
       points={{40,90},{30,90},{30,38.3333},{-42,38.3333}},

@@ -20,8 +20,6 @@ model MixedConvection "Tutorial for Mixed Convection case"
     annotation (Placement(transformation(extent={{-40,-60},{-20,-40}})));
   Modelica.Blocks.Routing.Multiplex3 multiplex3_1
     annotation (Placement(transformation(extent={{20,-20},{40,0}})));
-  inner Modelica.Fluid.System system(T_ambient=283.15)
-    annotation (Placement(transformation(extent={{-40,-100},{-20,-80}})));
   parameter HeatTransfer.Data.OpaqueConstructions.Generic matLayRoo(final nLay=1,
     material={HeatTransfer.Data.Solids.Steel(x=0.001)},
     roughness_a=Buildings.HeatTransfer.Types.SurfaceRoughness.Smooth)
@@ -167,10 +165,6 @@ This section describes step by step how to build and simulate the model.
 Add the following model components into the <code>MixedConvection</code> model:
 </p>
 <ul>
-<li>
-<a href=\"modelica://Modelica.Fluid.System\">Modelica.Fluid.System</a>.
-This model provides a basic physical environment for the simulation.
-</li>
 <li>
 <a href=\"modelica://Buildings.Rooms.CFD\">Buildings.Rooms.CFD</a>.
 This model is used to implement data exchange between Modelica and FFD.

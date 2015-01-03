@@ -5,7 +5,8 @@ model MixedAirHeatGain "Test model for the MixedAirHeatGain model"
   package MediumA = Buildings.Media.GasesPTDecoupled.MoistAirUnsaturated
     "Medium model";
 
-  Buildings.Rooms.BaseClasses.MixedAirHeatGain heatGain(redeclare package Medium =
+  Buildings.Rooms.BaseClasses.MixedAirHeatGain heatGain(redeclare package
+      Medium =
         MediumA, AFlo=AFlo)
     annotation (Placement(transformation(extent={{0,-10},{20,10}})));
   Modelica.Blocks.Sources.Constant qConGai_flow(k=10) "Convective heat gain"
@@ -27,8 +28,6 @@ model MixedAirHeatGain "Test model for the MixedAirHeatGain model"
   Buildings.Fluid.Sources.Boundary_pT boundary(          redeclare package
       Medium = MediumA, nPorts=1)
     annotation (Placement(transformation(extent={{30,-80},{50,-60}})));
-  inner Modelica.Fluid.System system
-    annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
   Buildings.Utilities.Diagnostics.AssertEquality assertEquality
     annotation (Placement(transformation(extent={{60,64},{80,84}})));
   parameter Modelica.SIunits.Area AFlo=50 "Floor area";

@@ -2,8 +2,6 @@ within Buildings.Rooms.Examples.FFD.BaseClasses;
 partial model PartialRoom "Partial model for a room"
   package MediumA = Buildings.Media.GasesConstantDensity.MoistAirUnsaturated (
         T_default=283.15) "Medium model";
-  inner Modelica.Fluid.System system(T_ambient=283.15)
-    annotation (Placement(transformation(extent={{-80,-40},{-60,-20}})));
   parameter Buildings.HeatTransfer.Data.OpaqueConstructions.Generic matLayRoo(
       final nLay=1, material={HeatTransfer.Data.Solids.Steel(x=0.001)},
     roughness_a=Buildings.HeatTransfer.Types.SurfaceRoughness.Smooth)

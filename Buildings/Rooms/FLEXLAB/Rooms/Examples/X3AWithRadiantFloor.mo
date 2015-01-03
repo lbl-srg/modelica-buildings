@@ -175,8 +175,6 @@ model X3AWithRadiantFloor "Example model showing a use of X3A"
     table=[0,0,0,0; 86400,0,0,0], tableOnFile=false)
     "Internal gain heat flow for the closet"
     annotation (Placement(transformation(extent={{-12,132},{8,152}})));
-  inner Modelica.Fluid.System system
-    annotation (Placement(transformation(extent={{180,-210},{200,-190}})));
   Modelica.Blocks.Sources.CombiTimeTable watCon4A2(tableOnFile=false, table=[0,
         0.504,293.15; 86400,0.504,293.15])
     "Inlet water conditions (y[1] = m_flow, y[2] =  T)"
@@ -399,15 +397,15 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(intGai.y, X3A.qGai_flow) annotation (Line(
-      points={{-175,102},{-140,102},{-140,68},{-118,68}},
+      points={{-175,102},{-140,102},{-140,66},{-112,66}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(intGaiEle.y, ele.qGai_flow)    annotation (Line(
-      points={{-47,-6},{20,-6},{20,-50},{46,-50}},
+      points={{-47,-6},{20,-6},{20,-52},{52,-52}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(intGaiClo.y,clo. qGai_flow) annotation (Line(
-      points={{9,142},{120,142},{120,122},{148,122}},
+      points={{9,142},{120,142},{120,120},{154,120}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(preT.port,clo. surf_conBou[3]) annotation (Line(
