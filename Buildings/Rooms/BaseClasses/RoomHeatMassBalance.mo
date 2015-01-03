@@ -244,7 +244,7 @@ partial model RoomHeatMassBalance "Base model for a room"
     final tauIR_air=tauIRSha_air,
     final tauIR_glass=tauIRSha_glass,
     each final linearize = linearizeRadiation,
-    final homotopyInitialization=homotopyInitialization) if
+    each final homotopyInitialization=homotopyInitialization) if
        haveShade "Radiation model for room-side window shade"
     annotation (Placement(transformation(extent={{-60,90},{-40,110}})));
 
