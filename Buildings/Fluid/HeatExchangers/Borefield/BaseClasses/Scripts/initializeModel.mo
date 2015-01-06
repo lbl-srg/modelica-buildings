@@ -39,7 +39,7 @@ algorithm
       soi=soi,
       fil=fil,
       gen=gen,
-      pathSave=pathSave);
+      pathSave=pathSave) annotation(__Dymola_interactive=true);
 
     existShoTerRes := false;
   else

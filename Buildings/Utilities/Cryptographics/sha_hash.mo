@@ -15,4 +15,22 @@ algorithm
     hash_numb :=hash_numb - hash_el*10^(57 - 3*i);
     hash :=hash + String(hash_el);
   end for;
+
+    annotation (Include="#include <sha1.c>", IncludeDirectory="modelica://Buildings/Resources/C-Sources",
+    Documentation(info="<html>
+    <p>This function return unique string containing the digits from the real number of <a href=\"Buildings.Utilities.Cryptographics.BaseClasses.sha\"> 
+    Buildings.Utilities.Cryptographics.BaseClasses.sha </a>. This is necessary as the Modelica function <code> String </code> cannot return 60 digits. Therefore, in order to
+    convert the full number, the convertion is done by the concatenation of 19 different string. </p>
+</html>", revisions="<html>
+<ul>
+<li>
+January 2015, by Damien Picard:<br>
+Add documentation.
+</li>
+<li>
+July 2014, by Damien Picard:<br>
+First implementation.
+</li>
+</ul>
+</html>"));
 end sha_hash;
