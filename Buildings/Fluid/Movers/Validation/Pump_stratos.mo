@@ -9,11 +9,13 @@ model Pump_stratos "Stratos pum with speed as input"
     redeclare Buildings.Fluid.Movers.SpeedControlled_Nrpm floMacSta(
       redeclare package Medium = Medium,
       filteredSpeed=false,
-      redeclare Buildings.Fluid.Movers.Data.Pumps.Stratos25slash1to6 per),
+      per=per),
     redeclare Buildings.Fluid.Movers.SpeedControlled_Nrpm floMacDyn(
       redeclare package Medium = Medium,
       filteredSpeed=false,
-      redeclare Buildings.Fluid.Movers.Data.Pumps.Stratos25slash1to6 per));
+      per=per));
+  parameter Data.Pumps.Stratos25slash1to6 per
+    annotation (Placement(transformation(extent={{100,100},{120,120}})));
 equation
   connect(gain.y, floMacSta.Nrpm) annotation (Line(
       points={{-25,100},{30,100},{30,92}},
