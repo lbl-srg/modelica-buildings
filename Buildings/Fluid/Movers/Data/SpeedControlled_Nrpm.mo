@@ -41,34 +41,8 @@ declaration such as
 </pre>
 <p>
 This data record can be used with
-</p>
-<ul>
-<li>
 <a href=\"modelica://Buildings.Fluid.Movers.SpeedControlled_Nrpm\">
-Buildings.Fluid.Movers.SpeedControlled_Nrpm</a>
-</li>
-<li>
-<a href=\"modelica://Buildings.Fluid.Movers.FlowControlled_dp\">
-Buildings.Fluid.Movers.FlowControlled_dp</a>
-</li>
-<li>
-<a href=\"modelica://Buildings.Fluid.Movers.FlowControlled_m_flow\">
-Buildings.Fluid.Movers.FlowControlled_m_flow</a>
-</li>
-<li>
-<a href=\"modelica://Buildings.Fluid.Movers.SpeedControlled_y\">
-Buildings.Fluid.Movers.SpeedControlled_y</a>
-</li>
-</ul>
-<p>
-However, for the second and third model, the record
-<a href=\"modelica://Buildings.Fluid.Movers.Data.FlowControlled\">
-Buildings.Fluid.Movers.Data.FlowControlled</a>
-is sufficient,
-and for the last model,
-<a href=\"modelica://Buildings.Fluid.Movers.Data.SpeedControlled_y\">
-Buildings.Fluid.Movers.Data.SpeedControlled_y</a>
-is sufficient.
+Buildings.Fluid.Movers.SpeedControlled_Nrpm</a>.
 </p>
 <p>
 An example that uses manufacturer data can be found in

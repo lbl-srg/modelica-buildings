@@ -44,17 +44,12 @@ declaration such as
 </pre>
 <p>
 This data record can be used with
-</p>
-<ul>
-<li>
 <a href=\"modelica://Buildings.Fluid.Movers.FlowControlled_dp\">
 Buildings.Fluid.Movers.FlowControlled_dp</a>
-</li>
-<li>
+and with
 <a href=\"modelica://Buildings.Fluid.Movers.FlowControlled_m_flow\">
-Buildings.Fluid.Movers.FlowControlled_m_flow</a>
-</li>
-</ul>
+Buildings.Fluid.Movers.FlowControlled_m_flow</a>.
+</p>
 <p>
 For
 <a href=\"modelica://Buildings.Fluid.Movers.SpeedControlled_y\">

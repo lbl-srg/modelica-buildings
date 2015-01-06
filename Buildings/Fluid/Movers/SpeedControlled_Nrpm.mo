@@ -5,9 +5,9 @@ model SpeedControlled_Nrpm
     _per_y(hydraulicEfficiency=per.hydraulicEfficiency,
             motorEfficiency=per.motorEfficiency,
             power=per.power,
-      pressure(
-            V_flow =        per.pressure.V_flow,
-            dp =        per.pressure.dp),
+            pressure(
+              V_flow = per.pressure.V_flow,
+              dp =     per.pressure.dp),
             motorCooledByFluid=per.motorCooledByFluid,
             use_powerCharacteristic=per.use_powerCharacteristic));
 
