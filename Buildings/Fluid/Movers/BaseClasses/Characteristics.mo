@@ -6,7 +6,7 @@ package Characteristics "Functions for fan or pump characteristics"
 
     parameter Modelica.SIunits.VolumeFlowRate V_flow[:](each min=0)
       "Volume flow rate at user-selected operating points";
-    parameter Modelica.SIunits.Pressure dp[n](
+    parameter Modelica.SIunits.Pressure dp[:](
        each min=0, each displayUnit="Pa")
       "Fan or pump total pressure at these flow rates";
 
