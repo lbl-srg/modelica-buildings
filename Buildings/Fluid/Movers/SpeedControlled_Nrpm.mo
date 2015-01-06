@@ -2,7 +2,19 @@ within Buildings.Fluid.Movers;
 model SpeedControlled_Nrpm
   "Fan or pump with ideally controlled speed Nrpm as input signal"
   extends Buildings.Fluid.Movers.BaseClasses.FlowControlledMachine(
-  redeclare replaceable Data.SpeedControlled_Nrpm per);
+    _per_y(hydraulicEfficiency=per.hydraulicEfficiency,
+            motorEfficiency=per.motorEfficiency,
+            power=per.power,
+      pressure(
+            V_flow =        per.pressure.V_flow,
+            dp =        per.pressure.dp),
+            motorCooledByFluid=per.motorCooledByFluid,
+            use_powerCharacteristic=per.use_powerCharacteristic));
+
+  parameter Data.SpeedControlled_Nrpm per "Record with performance data"
+    annotation (choicesAllMatching=true,
+      Placement(transformation(extent={{60,-80},{80,-60}})));
+
   Modelica.Blocks.Interfaces.RealInput Nrpm(unit="1/min")
     "Prescribed rotational speed"
     annotation (Placement(transformation(
