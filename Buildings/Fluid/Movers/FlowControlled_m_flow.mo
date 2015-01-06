@@ -102,6 +102,10 @@ User's Guide</a> for more information.
       revisions="<html>
 <ul>
 <li>
+January 6, 2015, by Michael Wetter:<br/>
+Revised model for OpenModelica.
+</li>
+<li>
 February 14, 2012, by Michael Wetter:<br/>
 Added filter for start-up and shut-down transient.
 </li>

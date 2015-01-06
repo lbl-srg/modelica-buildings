@@ -12,7 +12,6 @@ partial model FlowControlledMachine
       T=Medium.T_default,
       X=Medium.X_default));
 
-  // Models
 protected
   Modelica.Blocks.Sources.RealExpression dpMac(y=-dpMachine)
     "Pressure drop of the pump or fan"

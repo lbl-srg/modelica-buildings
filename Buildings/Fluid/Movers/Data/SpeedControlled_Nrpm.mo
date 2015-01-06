@@ -10,7 +10,12 @@ record SpeedControlled_Nrpm "Generic data record for FlowMachine_Nrpm"
   defaultComponentName = "per",
   Documentation(revisions="<html>
 <ul>
-<li>November 22, 2014 by Michael Wetter:<br/>
+<li>
+January 6, 2015, by Michael Wetter:<br/>
+Revised record for OpenModelica.
+</li>
+<li>
+November 22, 2014 by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

@@ -229,7 +229,7 @@ end getArrayAsString;
 
 initial algorithm
   // Check validity of data
- // fixme. add back, removed for OpenModelica testing assert(nOri > 1, "Must have at least two data points for pressure.V_flow.");
+  assert(nOri > 1, "Must have at least two data points for pressure.V_flow.");
   assert(Buildings.Utilities.Math.Functions.isMonotonic(x=_per_y.pressure.V_flow, strict=true) and
   _per_y.pressure.V_flow[1] > -Modelica.Constants.eps,
   "The fan pressure rise must be a strictly decreasing sequence with respect to the volume flow rate,
@@ -237,40 +237,16 @@ initial algorithm
 The following performance data have been entered:
 " + getArrayAsString(_per_y.pressure.V_flow, "pressure.V_flow"));
 
-  // Check if V_flow_max or dpMax are provided by user
-//  haveVMax  = (abs(_per_y.pressure.dp[nOri])   < Modelica.Constants.eps);
-//  haveDPMax = (abs(_per_y.pressure.V_flow[1])  < Modelica.Constants.eps);
-  // Assign V_flow_max and dpMax
   if not haveVMax then
-//    V_flow_max = _per_y.pressure.V_flow[nOri];
-//  else
     assert((_per_y.pressure.V_flow[nOri]-_per_y.pressure.V_flow[nOri-1])
          /((_per_y.pressure.dp[nOri]-_per_y.pressure.dp[nOri-1]))<0,
     "The last two pressure points for the fan or pump performance curve must be decreasing.
     You need to set more reasonable parameters.
 Received 
 " + getArrayAsString(_per_y.pressure.dp, "dp"));
-//    V_flow_max = _per_y.pressure.V_flow[nOri] - (_per_y.pressure.V_flow[nOri] - _per_y.pressure.V_flow[
-//      nOri - 1])/((_per_y.pressure.dp[nOri] - _per_y.pressure.dp[nOri - 1]))*_per_y.pressure.dp[nOri];
-  end if;
- // if haveDPMax then
-//    dpMax :=_per_y.pressure.dp[1];
-//  else
-//    dpMax :=_per_y.pressure.dp[1] - ((_per_y.pressure.dp[2] - _per_y.pressure.dp[1])/(
-//      _per_y.pressure.V_flow[2] - _per_y.pressure.V_flow[1]))*_per_y.pressure.V_flow[1];
-//  end if;
 
-  // Check if minimum decrease condition is satisfied
-//  kRes :=dpMax/V_flow_max*delta^2/10;
-//  haveMinimumDecrease = true;
-//  for i in 1:nOri-1 loop
- //   if ((_per_y.pressure.dp[i+1]-_per_y.pressure.dp[i])/(_per_y.pressure.V_flow[i+1]-_per_y.pressure.V_flow[i]) >= -kRes) then
- //     haveMinimumDecrease = false;
- //   end if;
- // end for;
-//  haveMinimumDecrease :=Modelica.Math.BooleanVectors.allTrue({(_per_y.pressure.dp[
-//    i + 1] - _per_y.pressure.dp[i])/(_per_y.pressure.V_flow[i + 1] - _per_y.pressure.V_flow[
-//    i]) < -kRes for i in 1:nOri - 1});
+  end if;
+
   // Write warning if the volumetric flow rate versus pressure curve does not satisfy
   // the minimum decrease condition
   if (not haveMinimumDecrease) then
@@ -293,17 +269,8 @@ the simulation stops.");
   end if;
 
   // Correction for flow resistance of pump or fan
-  // Case 1:
   if (haveVMax and haveDPMax) or (nOri == 2) then  // ----- Curve 1
     // V_flow_max and dpMax are provided by the user, or we only have two data points
-    for i in 1:nOri loop
-//      pCur1.dp[i]  = _per_y.pressure.dp[i] + _per_y.pressure.V_flow[i] * kRes;
-//      pCur1.V_flow[i] =  _per_y.pressure.V_flow[i];
-    end for;
-//    pCur2.V_flow =  zeros(nOri + 1);
-//    pCur2.dp     =  zeros(nOri + 1);
-//    pCur3.V_flow =  zeros(nOri + 2);
-//    pCur3.dp     =  zeros(nOri + 2);
     preDer1:=Buildings.Utilities.Math.Functions.splineDerivatives(x=pCur1.V_flow,
       y=pCur1.dp);
     preDer2:=zeros(nOri + 1);
@@ -359,25 +326,6 @@ the simulation stops.");
 
   elseif haveVMax or haveDPMax then  // ----- Curve 2
     // V_flow_max or dpMax is provided by the user, but not both
-    if haveVMax then  // fixme: shouldn't this be haveDPMax?
-//      pCur2.V_flow[1] =  0;
-//      pCur2.dp[1]     =  dpMax;
-      for i in 1:nOri loop
-//        pCur2.dp[i+1]  =  _per_y.pressure.dp[i] + _per_y.pressure.V_flow[i] * kRes;
-//        pCur2.V_flow[i+1] =  _per_y.pressure.dp[i]; // fixme: this shold be V_flow[i]?
-      end for;
-    else
-      for i in 1:nOri loop
-//        pCur2.dp[i]  =  _per_y.pressure.dp[i] + _per_y.pressure.V_flow[i] * kRes;
-//        pCur2.V_flow[i] =  _per_y.pressure.V_flow[i];
-      end for;
-//      pCur2.V_flow[nOri+1] =  V_flow_max;
-//      pCur2.dp[nOri+1]     =  0;
-    end if;
-//    pCur1.V_flow =  zeros(nOri);
-//    pCur1.dp     =  zeros(nOri);
-//    pCur3.V_flow =  zeros(nOri + 2);
-//    pCur3.dp     =  zeros(nOri + 2);
     preDer1:=zeros(nOri);
     preDer2:=Buildings.Utilities.Math.Functions.splineDerivatives(x=pCur2.V_flow,
       y=pCur2.dp);
@@ -433,18 +381,6 @@ the simulation stops.");
 
   else  // ----- Curve 3
     // Neither V_flow_max nor dpMax are provided by the user
-//    pCur3.V_flow[1] =  0;
-//    pCur3.dp[1]     =  dpMax;
-    for i in 1:nOri loop
-//      pCur3.dp[i+1]  =  _per_y.pressure.dp[i] + _per_y.pressure.V_flow[i] * kRes;
-//      pCur3.V_flow[i+1] =  _per_y.pressure.V_flow[i];
-    end for;
-//    pCur3.V_flow[nOri+2] =  V_flow_max;
-//    pCur3.dp[nOri+2]     =  0;
-//    pCur1.V_flow =  zeros(nOri);
-//    pCur1.dp     =  zeros(nOri);
-//    pCur2.V_flow =  zeros(nOri + 1);
-//    pCur2.dp     =  zeros(nOri + 1);
     preDer1:=zeros(nOri);
     preDer2:=zeros(nOri + 1);
     preDer3:=Buildings.Utilities.Math.Functions.splineDerivatives(x=pCur3.V_flow,
@@ -707,6 +643,10 @@ to be used during the simulation.
 </html>",
 revisions="<html>
 <ul>
+<li>
+January 6, 2015, by Michael Wetter:<br/>
+Revised model for OpenModelica.
+</li>
 <li>
 November 22, 2014, by Michael Wetter:<br/>
 Removed in <code>N_actual</code> and <code>N_filtered</code>

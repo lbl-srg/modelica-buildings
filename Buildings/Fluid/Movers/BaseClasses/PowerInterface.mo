@@ -117,6 +117,10 @@ to properly guard against division by zero.
       revisions="<html>
 <ul>
 <li>
+January 6, 2015, by Michael Wetter:<br/>
+Revised model for OpenModelica.
+</li>
+<li>
 May 29, 2014, by Michael Wetter:<br/>
 Removed undesirable annotation <code>Evaluate=true</code>.
 </li>

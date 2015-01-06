@@ -84,6 +84,10 @@ User's Guide</a> for more information.
       revisions="<html>
 <ul>
 <li>
+January 6, 2015, by Michael Wetter:<br/>
+Revised model for OpenModelica.
+</li>
+<li>
 April 17, 2014, by Filip Jorissen:<br/>
 Implemented records for supplying pump/fan parameters
 </li>

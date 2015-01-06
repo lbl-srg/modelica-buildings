@@ -77,6 +77,10 @@ User's Guide</a> for more information.
       revisions="<html>
 <ul>
 <li>
+January 6, 2015, by Michael Wetter:<br/>
+Revised model for OpenModelica.
+</li>
+<li>
 November 22, 2014, by Michael Wetter:<br/>
 Revised implementation that uses the new performance data as a record.
 </li>

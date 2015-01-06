@@ -72,6 +72,10 @@ Buildings.Fluid.Movers.Data.Generic_Nrpm</a>
 revisions="<html>
 <ul>
 <li>
+January 6, 2015, by Michael Wetter:<br/>
+Revised record for OpenModelica.
+</li>
+<li>
 November 22, 2014, by Michael Wetter:<br/>
 First implementation.
 </li>
