@@ -1,5 +1,5 @@
 within Buildings.Fluid.HeatExchangers.Borefield.BaseClasses.GroundHX.BaseClasses.Examples;
-model integrandBf_bt "Test for the integrand function"
+model IntegrandBf_bt "Test for the integrand function"
   extends Modelica.Icons.Example;
 
   parameter Integer lim=5;
@@ -25,4 +25,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end integrandBf_bt;
+end IntegrandBf_bt;

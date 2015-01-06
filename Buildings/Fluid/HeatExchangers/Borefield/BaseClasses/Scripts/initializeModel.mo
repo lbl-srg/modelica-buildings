@@ -35,7 +35,7 @@ algorithm
   // --------------- Check if the short term response (TResSho) needs to be calculated or loaded
   if not Modelica.Utilities.Files.exist(pathSave + "ShoTermData.mat") then
 
-    Buildings.Fluid.HeatExchangers.Borefield.BaseClasses.Scripts.ShortTimeResponseHX(
+    Buildings.Fluid.HeatExchangers.Borefield.BaseClasses.Scripts.shortTimeResponseHX(
       soi=soi,
       fil=fil,
       gen=gen,

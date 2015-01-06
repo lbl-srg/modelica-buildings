@@ -82,7 +82,7 @@ The borefield model with this BfData record has not yet been initialized. Please
       String(lenSim) + ".mat") then
     existAgg := false;
 
-    TWallSteSta := GroundHX.CorrectedBoreFieldWallTemperature(
+    TWallSteSta := GroundHX.correctedBoreFieldWallTemperature(
       gen=gen,
       soi=soi,
       TResSho=TResSho[1, :],

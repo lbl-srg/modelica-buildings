@@ -1,5 +1,5 @@
 within Buildings.Fluid.HeatExchangers.Borefield.BaseClasses.Scripts;
-function ShortTimeResponseHX
+function shortTimeResponseHX
   /* Remark: by calling the function, 3 "true" should appear for: \
       1) translation of model \
       2) simulation of model \
@@ -62,4 +62,4 @@ algorithm
         fileName=pathSave + "ShoTermData.mat", matrixName="TResSho", matrix=TResSho, append=false);
 
   annotation ();
-end ShortTimeResponseHX;
+end shortTimeResponseHX;

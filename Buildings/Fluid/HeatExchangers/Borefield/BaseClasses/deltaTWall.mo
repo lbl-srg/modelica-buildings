@@ -20,7 +20,7 @@ algorithm
   end for;
   deltaTWall := R_ss*q_sum;
 
-    annotation (Documentation(info="<html>
+    annotation (Documentation(info="<html> This function calculates the temperature difference from the inital temperature of the borehole wall, due to the Load array.
 </html>", revisions="<html>
 <ul>
 <li>

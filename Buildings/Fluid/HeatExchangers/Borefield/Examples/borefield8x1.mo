@@ -1,5 +1,5 @@
 within Buildings.Fluid.HeatExchangers.Borefield.Examples;
-model borefield8x1
+model Borefield8x1
   "Model of a borefield in a 8x1 boreholes line configuration and a constant heat injection rate"
 
   extends Modelica.Icons.Example;
@@ -91,4 +91,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end borefield8x1;
+end Borefield8x1;

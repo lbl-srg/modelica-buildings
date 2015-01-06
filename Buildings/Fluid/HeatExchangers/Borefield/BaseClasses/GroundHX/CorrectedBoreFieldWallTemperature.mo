@@ -1,5 +1,5 @@
 within Buildings.Fluid.HeatExchangers.Borefield.BaseClasses.GroundHX;
-function CorrectedBoreFieldWallTemperature "Return the corrected average borehole wall temperature of the whole borefield in function of the discrete time step t_d.
+function correctedBoreFieldWallTemperature "Return the corrected average borehole wall temperature of the whole borefield in function of the discrete time step t_d.
   The correction is from t=0 till t_d = tBre. Input TResSho gives the vector with the correct temperatures for this time period"
   extends BaseClasses.partialBoreFieldTemperature;
 
@@ -16,11 +16,11 @@ algorithm
     deltaTWallCorBre := 0;
   else
     deltaTWallCorBre := TResSho[gen.tBre_d] -
-      BoreFieldWallTemperature(
+      boreFieldWallTemperature(
       t_d=gen.tBre_d,
       gen=gen,
       soi=soi);
-    T := BoreFieldWallTemperature(
+    T := boreFieldWallTemperature(
       t_d=t_d,
       gen=gen,
       soi=soi) + deltaTWallCorBre;
@@ -36,4 +36,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end CorrectedBoreFieldWallTemperature;
+end correctedBoreFieldWallTemperature;

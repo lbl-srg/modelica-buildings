@@ -23,7 +23,7 @@ algorithm
   for q in 1:q_max loop
     for p in 1:p_max loop
       if q == 1 and p == 1 then
-        kappaMat[q, p] :=(GroundHX.CorrectedBoreFieldWallTemperature(
+        kappaMat[q, p] :=(GroundHX.correctedBoreFieldWallTemperature(
           t_d=nuMat[q, p],
           gen=gen,
           soi=soi,
@@ -36,11 +36,11 @@ algorithm
           q,
           p);
 
-        kappaMat[q, p] :=(GroundHX.CorrectedBoreFieldWallTemperature(
+        kappaMat[q, p] :=(GroundHX.correctedBoreFieldWallTemperature(
           t_d=nuMat[q, p],
           gen=gen,
           soi=soi,
-          TResSho=TResSho) - GroundHX.CorrectedBoreFieldWallTemperature(
+          TResSho=TResSho) - GroundHX.correctedBoreFieldWallTemperature(
           t_d=nuMat[q_pre, p_pre],
           gen=gen,
           soi=soi,

@@ -1,5 +1,6 @@
 within Buildings.Fluid.HeatExchangers.Borefield.BaseClasses.GroundHX.Examples;
-model boreFieldWallTemperature "Test for the function boreFieldWallTemperature"
+model BoreFieldWallTemperature "Test for the function boreFieldWallTemperature"
+  import Buildings;
   extends Modelica.Icons.Example;
 
   parameter Data.GeneralData.c8x1_h110_b5_d3600_T283 gen;
@@ -11,7 +12,8 @@ equation
   if time < gen.tStep then
     TWall = 273.15;
   else
-    TWall = BoreFieldWallTemperature(
+    TWall =
+      Buildings.Fluid.HeatExchangers.Borefield.BaseClasses.GroundHX.boreFieldWallTemperature(
       t_d=integer(time/gen.tStep),
       gen=gen,
       soi=soi);
@@ -28,4 +30,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end boreFieldWallTemperature;
+end BoreFieldWallTemperature;

@@ -1,5 +1,5 @@
 within Buildings.Fluid.HeatExchangers.Borefield.BaseClasses.GroundHX;
-function BoreFieldWallTemperature
+function boreFieldWallTemperature
   "Return the borefield mean wall temperature for the discrete time t_d"
   extends BaseClasses.partialBoreFieldTemperature;
 
@@ -35,4 +35,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end BoreFieldWallTemperature;
+end boreFieldWallTemperature;
