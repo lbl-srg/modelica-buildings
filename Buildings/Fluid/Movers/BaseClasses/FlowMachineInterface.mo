@@ -92,10 +92,13 @@ protected
       _per_y.pressure.V_flow[2] - _per_y.pressure.V_flow[1]))*_per_y.pressure.V_flow[1]
     "Maximum head";
 
-  parameter Real kRes(min=0, unit="kg/(s.m4)", fixed=false)
+  parameter Real kRes(min=0, unit="kg/(s.m4)") = dpMax/V_flow_max*delta^2/10
     "Coefficient for internal pressure drop of fan or pump";
 
-  parameter Integer curve(min=1, max=3, fixed=false)
+  parameter Integer curve=
+     if (haveVMax and haveDPMax) or (nOri == 2) then 1
+     elseif haveVMax or haveDPMax then 2
+     else 3
     "Flag, used to pick the right representatio of the fan or pump pressure curve";
   final parameter Integer nOri = _per_y.pressure.n
     "Number of data points for pressure curve"
@@ -170,7 +173,11 @@ protected
      zeros(size(_per_y.power.V_flow,1))
     "Coefficients for polynomial of pressure vs. flow rate";
 
-  parameter Boolean haveMinimumDecrease(fixed=false) "Flag used for reporting";
+  parameter Boolean haveMinimumDecrease=
+    Modelica.Math.BooleanVectors.allTrue({(_per_y.pressure.dp[i + 1] -
+    _per_y.pressure.dp[i])/(_per_y.pressure.V_flow[i + 1] - _per_y.pressure.V_flow[
+    i]) < -kRes for i in 1:nOri - 1}) "Flag used for reporting";
+
   parameter Boolean haveDPMax = (abs(_per_y.pressure.V_flow[1])  < Modelica.Constants.eps)
     "Flag, true if user specified data that contain dpMax";
   parameter Boolean haveVMax = (abs(_per_y.pressure.dp[nOri])   < Modelica.Constants.eps)
@@ -254,16 +261,16 @@ Received
 //  end if;
 
   // Check if minimum decrease condition is satisfied
-  kRes :=dpMax/V_flow_max*delta^2/10;
+//  kRes :=dpMax/V_flow_max*delta^2/10;
 //  haveMinimumDecrease = true;
 //  for i in 1:nOri-1 loop
  //   if ((_per_y.pressure.dp[i+1]-_per_y.pressure.dp[i])/(_per_y.pressure.V_flow[i+1]-_per_y.pressure.V_flow[i]) >= -kRes) then
  //     haveMinimumDecrease = false;
  //   end if;
  // end for;
-  haveMinimumDecrease :=Modelica.Math.BooleanVectors.allTrue({(_per_y.pressure.dp[
-    i + 1] - _per_y.pressure.dp[i])/(_per_y.pressure.V_flow[i + 1] - _per_y.pressure.V_flow[
-    i]) < -kRes for i in 1:nOri - 1});
+//  haveMinimumDecrease :=Modelica.Math.BooleanVectors.allTrue({(_per_y.pressure.dp[
+//    i + 1] - _per_y.pressure.dp[i])/(_per_y.pressure.V_flow[i + 1] - _per_y.pressure.V_flow[
+//    i]) < -kRes for i in 1:nOri - 1});
   // Write warning if the volumetric flow rate versus pressure curve does not satisfy
   // the minimum decrease condition
   if (not haveMinimumDecrease) then
@@ -277,7 +284,8 @@ of the fan or pump satisfies the minimum decrease condition
 d[i] = ------------------------------------------------- < " + String(-kRes) + "
        (_per_y.pressure.V_flow[i+1]-_per_y.pressure.V_flow[i])
  
- is " + getArrayAsString({(_per_y.pressure.dp[i+1]-_per_y.pressure.dp[i])
+ is 
+" + getArrayAsString({(_per_y.pressure.dp[i+1]-_per_y.pressure.dp[i])
         /(_per_y.pressure.V_flow[i+1]-_per_y.pressure.V_flow[i]) for i in 1:nOri-1}, "d") + "
 Otherwise, a solution to the equations may not exist if the fan or pump speed is reduced.
 In this situation, the solver will fail due to non-convergence and
@@ -287,7 +295,7 @@ the simulation stops.");
   // Correction for flow resistance of pump or fan
   // Case 1:
   if (haveVMax and haveDPMax) or (nOri == 2) then  // ----- Curve 1
-    curve :=1; // V_flow_max and dpMax are provided by the user, or we only have two data points
+    // V_flow_max and dpMax are provided by the user, or we only have two data points
     for i in 1:nOri loop
 //      pCur1.dp[i]  = _per_y.pressure.dp[i] + _per_y.pressure.V_flow[i] * kRes;
 //      pCur1.V_flow[i] =  _per_y.pressure.V_flow[i];
@@ -350,7 +358,7 @@ the simulation stops.");
       kRes=kRes) - delta*dpDelta)/delta^2 - cBar[1])/VDelta_flow;
 
   elseif haveVMax or haveDPMax then  // ----- Curve 2
-    curve :=2; // V_flow_max or dpMax is provided by the user, but not both
+    // V_flow_max or dpMax is provided by the user, but not both
     if haveVMax then  // fixme: shouldn't this be haveDPMax?
 //      pCur2.V_flow[1] =  0;
 //      pCur2.dp[1]     =  dpMax;
@@ -424,7 +432,7 @@ the simulation stops.");
       kRes=kRes) - delta*dpDelta)/delta^2 - cBar[1])/VDelta_flow;
 
   else  // ----- Curve 3
-    curve :=3; // Neither V_flow_max nor dpMax are provided by the user
+    // Neither V_flow_max nor dpMax are provided by the user
 //    pCur3.V_flow[1] =  0;
 //    pCur3.dp[1]     =  dpMax;
     for i in 1:nOri loop
