@@ -5,8 +5,13 @@ model ControlledFlowMachine
   extends Buildings.Fluid.Movers.BaseClasses.PartialFlowMachine(
    preSou(final control_m_flow=control_m_flow));
 
-  extends Buildings.Fluid.Movers.BaseClasses.PowerInterface(per(
-     use_powerCharacteristic = false),
+  extends Buildings.Fluid.Movers.BaseClasses.PowerInterface(
+   _perPow(hydraulicEfficiency=per.hydraulicEfficiency,
+            motorEfficiency=per.motorEfficiency,
+            power=per.power,
+            motorCooledByFluid=per.motorCooledByFluid,
+            use_powerCharacteristic = per.use_powerCharacteristic),
+            delta_V_flow = 1E-3*V_flow_max,
      final rho_default = Medium.density(sta_default));
 
   import cha = Buildings.Fluid.Movers.BaseClasses.Characteristics;
@@ -18,12 +23,20 @@ model ControlledFlowMachine
   constant Boolean control_m_flow "= false to control head instead of m_flow"
     annotation(Evaluate=true);
 
+  parameter Data.FlowControlled per "Record with performance data"
+    annotation (choicesAllMatching=true,
+      Placement(transformation(extent={{60,-80},{80,-60}})));
+
   Real r_V(start=1)
     "Ratio V_flow/V_flow_max = V_flow/V_flow(dp=0, N=N_nominal)";
 
 protected
   final parameter Medium.AbsolutePressure p_a_default(displayUnit="Pa") = Medium.p_default
     "Nominal inlet pressure for predefined fan or pump characteristics";
+
+ parameter Modelica.SIunits.VolumeFlowRate V_flow_max=m_flow_nominal/rho_default
+    "Maximum volume flow rate";
+
   parameter Medium.ThermodynamicState sta_default = Medium.setState_pTX(
      T=Medium.T_default,
      p=Medium.p_default,
@@ -32,8 +45,7 @@ protected
   Modelica.Blocks.Sources.RealExpression PToMedium_flow(y=Q_flow + WFlo) if  addPowerToMedium
     "Heat and work input into medium"
     annotation (Placement(transformation(extent={{-100,10},{-80,30}})));
-initial equation
-  V_flow_max=m_flow_nominal/rho_default;
+
 equation
   r_V = VMachine_flow/V_flow_max;
   etaHyd = cha.efficiency(per=per.hydraulicEfficiency, V_flow=VMachine_flow, d=hydDer, r_N=1, delta=1E-4);
