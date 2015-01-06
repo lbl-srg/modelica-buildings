@@ -3,11 +3,18 @@ package Characteristics "Functions for fan or pump characteristics"
 
   record flowParameters "Record for flow parameters"
     extends Modelica.Icons.Record;
+
     parameter Modelica.SIunits.VolumeFlowRate V_flow[:](each min=0)
       "Volume flow rate at user-selected operating points";
-    parameter Modelica.SIunits.Pressure dp[size(V_flow,1)](
+    parameter Modelica.SIunits.Pressure dp[n](
        each min=0, each displayUnit="Pa")
       "Fan or pump total pressure at these flow rates";
+
+    // This is needed for OpenModelica.
+    // fixme: Check if this can be put into FlowMachineInterface instead of here.
+    final parameter Integer n = size(V_flow,1)
+      "Number of data points for flow rate in V_flow vs. pressure data";
+
     annotation (Documentation(info="<html>
 <p>
 Data record for performance data that describe volume flow rate versus
