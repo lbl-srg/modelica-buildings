@@ -3,15 +3,19 @@ partial model FlowMachineInterface
   "Partial model with performance curves for fans or pumps"
   extends Buildings.Fluid.Movers.BaseClasses.PowerInterface(
     VMachine_flow(nominal=V_flow_nominal, start=V_flow_nominal),
-    V_flow_max(nominal=V_flow_nominal, start=V_flow_nominal),
-    redeclare replaceable Data.SpeedControlled_y per);
+    delta_V_flow = 1E-3*V_flow_max,
+    _perPow(hydraulicEfficiency=_per_y.hydraulicEfficiency,
+            motorEfficiency=_per_y.motorEfficiency,
+            power=_per_y.power,
+            motorCooledByFluid=_per_y.motorCooledByFluid,
+            use_powerCharacteristic=_per_y.use_powerCharacteristic));
+    // fixme    redeclare replaceable Data.SpeedControlled_y per);
 
   import Modelica.Constants;
   import cha = Buildings.Fluid.Movers.BaseClasses.Characteristics;
 
   final parameter Modelica.SIunits.VolumeFlowRate V_flow_nominal=
-    per.pressure.V_flow[size(per.pressure.V_flow,1)]
-    "Nominal volume flow rate, used for homotopy";
+    _per_y.pressure.V_flow[nOri] "Nominal volume flow rate, used for homotopy";
 
   parameter Boolean homotopyInitialization = true "= true, use homotopy method"
     annotation(Evaluate=true, Dialog(tab="Advanced"));
@@ -58,6 +62,19 @@ protected
         filteredSpeed
     "Second order filter to approximate valve opening time, and to improve numerics"
     annotation (Placement(transformation(extent={{20,81},{34,95}})));
+
+  parameter Data.SpeedControlled_y _per_y "Record with performance data"
+    annotation (choicesAllMatching=true,
+      Placement(transformation(extent={{60,-80},{80,-60}})));
+
+  parameter Modelica.SIunits.VolumeFlowRate V_flow_max=
+    if haveVMax then
+      _per_y.pressure.V_flow[nOri]
+     else
+      _per_y.pressure.V_flow[nOri] - (_per_y.pressure.V_flow[nOri] - _per_y.pressure.V_flow[
+      nOri - 1])/((_per_y.pressure.dp[nOri] - _per_y.pressure.dp[nOri - 1]))*_per_y.pressure.dp[nOri]
+    "Maximum volume flow rate, used for smoothing";
+
   parameter Modelica.SIunits.VolumeFlowRate VDelta_flow(
     fixed=false,
     start=delta*V_flow_nominal) "Small volume flow rate";
@@ -68,53 +85,102 @@ protected
     "Small value used to transition to other fan curve";
   parameter Real cBar[2](each fixed=false)
     "Coefficients for linear approximation of pressure vs. flow rate";
-  parameter Modelica.SIunits.Pressure dpMax(min=0, fixed=false);
-  parameter Real kRes(min=0, unit="kg/(s.m4)", fixed=false)
+
+  parameter Modelica.SIunits.Pressure dpMax = if haveDPMax then
+    _per_y.pressure.dp[1] else
+    _per_y.pressure.dp[1] - ((_per_y.pressure.dp[2] - _per_y.pressure.dp[1])/(
+      _per_y.pressure.V_flow[2] - _per_y.pressure.V_flow[1]))*_per_y.pressure.V_flow[1]
+    "Maximum head";
+
+  parameter Real kRes(min=0, unit="kg/(s.m4)") = dpMax/V_flow_max*delta^2/10
     "Coefficient for internal pressure drop of fan or pump";
 
-  parameter Integer curve(min=1, max=3, fixed=false)
+  parameter Integer curve=
+     if (haveVMax and haveDPMax) or (nOri == 2) then 1
+     elseif haveVMax or haveDPMax then 2
+     else 3
     "Flag, used to pick the right representatio of the fan or pump pressure curve";
-  parameter Integer nOri = size(per.pressure.V_flow,1)
-    "Number of data points for pressure curve";
-  parameter
+  final parameter Integer nOri = _per_y.pressure.n
+    "Number of data points for pressure curve"
+    annotation(Evaluate=true);
+
+  final parameter
     Buildings.Fluid.Movers.BaseClasses.Characteristics.flowParametersInternal pCur1(
     final n = nOri,
-    V_flow(each fixed=false),
-    dp(each fixed=false))
+    final V_flow = if (haveVMax and haveDPMax) or (nOri == 2) then
+             {_per_y.pressure.V_flow[i] for i in 1:nOri}
+             else
+             zeros(nOri),
+    final dp = if (haveVMax and haveDPMax) or (nOri == 2) then
+             {(_per_y.pressure.dp[i] + _per_y.pressure.V_flow[i] * kRes) for i in 1:nOri}
+             else
+             zeros(nOri))
     "Volume flow rate vs. total pressure rise with correction for pump resistance added";
+
   parameter
     Buildings.Fluid.Movers.BaseClasses.Characteristics.flowParametersInternal pCur2(
     final n = nOri + 1,
-    V_flow(each fixed=false),
-    dp(each fixed=false))
+    V_flow = if (haveVMax and haveDPMax) or (nOri == 2) then
+                zeros(nOri + 1)
+             elseif haveVMax then
+              cat(1, {0}, {_per_y.pressure.V_flow[i] for i in 1:nOri})
+             elseif haveDPMax then
+              cat(1, { _per_y.pressure.V_flow[i] for i in 1:nOri}, {V_flow_max})
+             else
+              zeros(nOri + 1),
+    dp = if (haveVMax and haveDPMax) or (nOri == 2) then
+                zeros(nOri + 1)
+             elseif haveVMax then
+              cat(1, {dpMax}, {_per_y.pressure.dp[i] + _per_y.pressure.V_flow[i] * kRes for i in 1:nOri})
+             elseif haveDPMax then
+              cat(1, {_per_y.pressure.dp[i] + _per_y.pressure.V_flow[i] * kRes for i in 1:nOri}, {0})
+             else
+               zeros(nOri+1))
     "Volume flow rate vs. total pressure rise with correction for pump resistance added";
+                                  // fixme check whether these branches are correct
+                                  // fixme check whether these branches are correct
   parameter
     Buildings.Fluid.Movers.BaseClasses.Characteristics.flowParametersInternal pCur3(
-   final n = nOri + 2,
-    V_flow(each fixed=false),
-    dp(each fixed=false))
+    final n = nOri + 2,
+    V_flow = if (haveVMax and haveDPMax) or (nOri == 2) then
+               zeros(nOri + 2)
+             elseif haveVMax or haveDPMax then
+               zeros(nOri + 2)
+             else
+               cat(1, {0}, {_per_y.pressure.V_flow[i] for i in 1:nOri}, {V_flow_max}),
+    dp =     if (haveVMax and haveDPMax) or (nOri == 2) then
+               zeros(nOri + 2)
+             elseif haveVMax or haveDPMax then
+               zeros(nOri + 2)
+             else
+               cat(1, {dpMax}, {_per_y.pressure.dp[i] + _per_y.pressure.V_flow[i] * kRes for i in 1:nOri}, {0}))
     "Volume flow rate vs. total pressure rise with correction for pump resistance added";
+
   parameter Real preDer1[nOri](each fixed=false)
     "Derivatives of flow rate vs. pressure at the support points";
   parameter Real preDer2[nOri+1](each fixed=false)
     "Derivatives of flow rate vs. pressure at the support points";
   parameter Real preDer3[nOri+2](each fixed=false)
     "Derivatives of flow rate vs. pressure at the support points";
-  parameter Real powDer[size(per.power.V_flow,1)]=
-   if per.use_powerCharacteristic then
+  parameter Real powDer[size(_per_y.power.V_flow,1)]=
+   if _per_y.use_powerCharacteristic then
      Buildings.Utilities.Math.Functions.splineDerivatives(
-                   x=per.power.V_flow,
-                   y=per.power.P,
-                   ensureMonotonicity=Buildings.Utilities.Math.Functions.isMonotonic(x=per.power.P,
+                   x=_per_y.power.V_flow,
+                   y=_per_y.power.P,
+                   ensureMonotonicity=Buildings.Utilities.Math.Functions.isMonotonic(x=_per_y.power.P,
                                                                                      strict=false))
    else
-     zeros(size(per.power.V_flow,1))
+     zeros(size(_per_y.power.V_flow,1))
     "Coefficients for polynomial of pressure vs. flow rate";
 
-  parameter Boolean haveMinimumDecrease(fixed=false) "Flag used for reporting";
-  parameter Boolean haveDPMax(fixed=false)
+  parameter Boolean haveMinimumDecrease=
+    Modelica.Math.BooleanVectors.allTrue({(_per_y.pressure.dp[i + 1] -
+    _per_y.pressure.dp[i])/(_per_y.pressure.V_flow[i + 1] - _per_y.pressure.V_flow[
+    i]) < -kRes for i in 1:nOri - 1}) "Flag used for reporting";
+
+  parameter Boolean haveDPMax = (abs(_per_y.pressure.V_flow[1])  < Modelica.Constants.eps)
     "Flag, true if user specified data that contain dpMax";
-  parameter Boolean haveVMax(fixed=false)
+  parameter Boolean haveVMax = (abs(_per_y.pressure.dp[nOri])   < Modelica.Constants.eps)
     "Flag, true if user specified data that contain V_flow_max";
 
   // Variables
@@ -163,45 +229,24 @@ end getArrayAsString;
 
 initial algorithm
   // Check validity of data
-  assert(size(per.pressure.V_flow, 1) > 1, "Must have at least two data points for pressure.V_flow.");
-  assert(Buildings.Utilities.Math.Functions.isMonotonic(x=per.pressure.V_flow, strict=true) and
-  per.pressure.V_flow[1] > -Modelica.Constants.eps,
+  assert(nOri > 1, "Must have at least two data points for pressure.V_flow.");
+  assert(Buildings.Utilities.Math.Functions.isMonotonic(x=_per_y.pressure.V_flow, strict=true) and
+  _per_y.pressure.V_flow[1] > -Modelica.Constants.eps,
   "The fan pressure rise must be a strictly decreasing sequence with respect to the volume flow rate,
   with the first element for the fan pressure raise being non-zero.
 The following performance data have been entered:
-" + getArrayAsString(per.pressure.V_flow, "pressure.V_flow"));
+" + getArrayAsString(_per_y.pressure.V_flow, "pressure.V_flow"));
 
-  // Check if V_flow_max or dpMax are provided by user
-  haveVMax  :=(abs(per.pressure.dp[nOri])   < Modelica.Constants.eps);
-  haveDPMax :=(abs(per.pressure.V_flow[1])  < Modelica.Constants.eps);
-  // Assign V_flow_max and dpMax
-  if haveVMax then
-    V_flow_max :=per.pressure.V_flow[nOri];
-  else
-    assert((per.pressure.V_flow[nOri]-per.pressure.V_flow[nOri-1])
-         /((per.pressure.dp[nOri]-per.pressure.dp[nOri-1]))<0,
+  if not haveVMax then
+    assert((_per_y.pressure.V_flow[nOri]-_per_y.pressure.V_flow[nOri-1])
+         /((_per_y.pressure.dp[nOri]-_per_y.pressure.dp[nOri-1]))<0,
     "The last two pressure points for the fan or pump performance curve must be decreasing.
     You need to set more reasonable parameters.
 Received 
-" + getArrayAsString(per.pressure.dp, "dp"));
-    V_flow_max :=per.pressure.V_flow[nOri] - (per.pressure.V_flow[nOri] - per.pressure.V_flow[
-      nOri - 1])/((per.pressure.dp[nOri] - per.pressure.dp[nOri - 1]))*per.pressure.dp[nOri];
-  end if;
-  if haveDPMax then
-    dpMax :=per.pressure.dp[1];
-  else
-    dpMax :=per.pressure.dp[1] - ((per.pressure.dp[2] - per.pressure.dp[1])/(per.pressure.V_flow[
-      2] - per.pressure.V_flow[1]))*per.pressure.V_flow[1];
+" + getArrayAsString(_per_y.pressure.dp, "dp"));
+
   end if;
 
-  // Check if minimum decrease condition is satisfied
-  haveMinimumDecrease :=true;
-  kRes :=dpMax/V_flow_max*delta^2/10;
-  for i in 1:nOri-1 loop
-    if ((per.pressure.dp[i+1]-per.pressure.dp[i])/(per.pressure.V_flow[i+1]-per.pressure.V_flow[i]) >= -kRes) then
-      haveMinimumDecrease :=false;
-    end if;
-  end for;
   // Write warning if the volumetric flow rate versus pressure curve does not satisfy
   // the minimum decrease condition
   if (not haveMinimumDecrease) then
@@ -211,32 +256,25 @@ Warning:
 It is recommended that the volume flow rate versus pressure relation
 of the fan or pump satisfies the minimum decrease condition
 
-        (per.pressure.dp[i+1]-per.pressure.dp[i])
+        (_per_y.pressure.dp[i+1]-_per_y.pressure.dp[i])
 d[i] = ------------------------------------------------- < " + String(-kRes) + "
-       (per.pressure.V_flow[i+1]-per.pressure.V_flow[i])
+       (_per_y.pressure.V_flow[i+1]-_per_y.pressure.V_flow[i])
  
- is " + getArrayAsString({(per.pressure.dp[i+1]-per.pressure.dp[i])
-        /(per.pressure.V_flow[i+1]-per.pressure.V_flow[i]) for i in 1:nOri-1}, "d") + "
+ is 
+" + getArrayAsString({(_per_y.pressure.dp[i+1]-_per_y.pressure.dp[i])
+        /(_per_y.pressure.V_flow[i+1]-_per_y.pressure.V_flow[i]) for i in 1:nOri-1}, "d") + "
 Otherwise, a solution to the equations may not exist if the fan or pump speed is reduced.
 In this situation, the solver will fail due to non-convergence and
 the simulation stops.");
   end if;
 
   // Correction for flow resistance of pump or fan
-  // Case 1:
   if (haveVMax and haveDPMax) or (nOri == 2) then  // ----- Curve 1
-    curve :=1; // V_flow_max and dpMax are provided by the user, or we only have two data points
-    for i in 1:nOri loop
-      pCur1.dp[i]  :=per.pressure.dp[i] + per.pressure.V_flow[i] * kRes;
-      pCur1.V_flow[i] := per.pressure.V_flow[i];
-    end for;
-    pCur2.V_flow := zeros(nOri + 1);
-    pCur2.dp     := zeros(nOri + 1);
-    pCur3.V_flow := zeros(nOri + 2);
-    pCur3.dp     := zeros(nOri + 2);
-    preDer1:=Buildings.Utilities.Math.Functions.splineDerivatives(x=pCur1.V_flow, y=pCur1.dp);
-    preDer2:=zeros(nOri+1);
-    preDer3:=zeros(nOri+2);
+    // V_flow_max and dpMax are provided by the user, or we only have two data points
+    preDer1:=Buildings.Utilities.Math.Functions.splineDerivatives(x=pCur1.V_flow,
+      y=pCur1.dp);
+    preDer2:=zeros(nOri + 1);
+    preDer3:=zeros(nOri + 2);
 
     // Equation to compute dpDelta
     dpDelta :=cha.pressure(
@@ -250,7 +288,7 @@ the simulation stops.");
       delta=0,
       d=preDer1,
       cBar=zeros(2),
-      kRes=  kRes);
+      kRes=kRes);
 
     // Equation to compute VDelta_flow. By the affinity laws, the volume flow rate is proportional to the speed.
     VDelta_flow :=V_flow_max*delta;
@@ -271,7 +309,7 @@ the simulation stops.");
       delta=0,
       d=preDer1,
       cBar=zeros(2),
-      kRes=  kRes) * (1-delta)/delta^2;
+      kRes=kRes)*(1 - delta)/delta^2;
 
     cBar[2] :=((cha.pressure(
       per=pCur1,
@@ -284,32 +322,14 @@ the simulation stops.");
       delta=0,
       d=preDer1,
       cBar=zeros(2),
-      kRes=  kRes) - delta*dpDelta)/delta^2 - cBar[1])/VDelta_flow;
+      kRes=kRes) - delta*dpDelta)/delta^2 - cBar[1])/VDelta_flow;
 
   elseif haveVMax or haveDPMax then  // ----- Curve 2
-    curve :=2; // V_flow_max or dpMax is provided by the user, but not both
-    if haveVMax then
-      pCur2.V_flow[1] := 0;
-      pCur2.dp[1]     := dpMax;
-      for i in 1:nOri loop
-        pCur2.dp[i+1]  := per.pressure.dp[i] + per.pressure.V_flow[i] * kRes;
-        pCur2.V_flow[i+1] := per.pressure.dp[i];
-      end for;
-    else
-      for i in 1:nOri loop
-        pCur2.dp[i]  := per.pressure.dp[i] + per.pressure.V_flow[i] * kRes;
-        pCur2.V_flow[i] := per.pressure.V_flow[i];
-      end for;
-      pCur2.V_flow[nOri+1] := V_flow_max;
-      pCur2.dp[nOri+1]     := 0;
-    end if;
-    pCur1.V_flow := zeros(nOri);
-    pCur1.dp     := zeros(nOri);
-    pCur3.V_flow := zeros(nOri + 2);
-    pCur3.dp     := zeros(nOri + 2);
+    // V_flow_max or dpMax is provided by the user, but not both
     preDer1:=zeros(nOri);
-    preDer2:=Buildings.Utilities.Math.Functions.splineDerivatives(x=pCur2.V_flow, y=pCur2.dp);
-    preDer3:=zeros(nOri+2);
+    preDer2:=Buildings.Utilities.Math.Functions.splineDerivatives(x=pCur2.V_flow,
+      y=pCur2.dp);
+    preDer3:=zeros(nOri + 2);
 
     // Equation to compute dpDelta
     dpDelta :=cha.pressure(
@@ -323,7 +343,7 @@ the simulation stops.");
       delta=0,
       d=preDer2,
       cBar=zeros(2),
-      kRes=  kRes);
+      kRes=kRes);
 
     // Equation to compute VDelta_flow. By the affinity laws, the volume flow rate is proportional to the speed.
     VDelta_flow :=V_flow_max*delta;
@@ -344,7 +364,7 @@ the simulation stops.");
       delta=0,
       d=preDer2,
       cBar=zeros(2),
-      kRes=  kRes) * (1-delta)/delta^2;
+      kRes=kRes)*(1 - delta)/delta^2;
 
     cBar[2] :=((cha.pressure(
       per=pCur2,
@@ -357,25 +377,14 @@ the simulation stops.");
       delta=0,
       d=preDer2,
       cBar=zeros(2),
-      kRes=  kRes) - delta*dpDelta)/delta^2 - cBar[1])/VDelta_flow;
+      kRes=kRes) - delta*dpDelta)/delta^2 - cBar[1])/VDelta_flow;
 
   else  // ----- Curve 3
-    curve :=3; // Neither V_flow_max nor dpMax are provided by the user
-    pCur3.V_flow[1] := 0;
-    pCur3.dp[1]     := dpMax;
-    for i in 1:nOri loop
-      pCur3.dp[i+1]  := per.pressure.dp[i] + per.pressure.V_flow[i] * kRes;
-      pCur3.V_flow[i+1] := per.pressure.V_flow[i];
-    end for;
-    pCur3.V_flow[nOri+2] := V_flow_max;
-    pCur3.dp[nOri+2]     := 0;
-    pCur1.V_flow := zeros(nOri);
-    pCur1.dp     := zeros(nOri);
-    pCur2.V_flow := zeros(nOri + 1);
-    pCur2.dp     := zeros(nOri + 1);
+    // Neither V_flow_max nor dpMax are provided by the user
     preDer1:=zeros(nOri);
-    preDer2:=zeros(nOri+1);
-    preDer3:=Buildings.Utilities.Math.Functions.splineDerivatives(x=pCur3.V_flow, y=pCur3.dp);
+    preDer2:=zeros(nOri + 1);
+    preDer3:=Buildings.Utilities.Math.Functions.splineDerivatives(x=pCur3.V_flow,
+      y=pCur3.dp);
 
     // Equation to compute dpDelta
     dpDelta :=cha.pressure(
@@ -389,7 +398,7 @@ the simulation stops.");
       delta=0,
       d=preDer3,
       cBar=zeros(2),
-      kRes=  kRes);
+      kRes=kRes);
 
     // Equation to compute VDelta_flow. By the affinity laws, the volume flow rate is proportional to the speed.
     VDelta_flow :=V_flow_max*delta;
@@ -410,7 +419,7 @@ the simulation stops.");
       delta=0,
       d=preDer3,
       cBar=zeros(2),
-      kRes=  kRes) * (1-delta)/delta^2;
+      kRes=kRes)*(1 - delta)/delta^2;
 
     cBar[2] :=((cha.pressure(
       per=pCur3,
@@ -423,7 +432,7 @@ the simulation stops.");
       delta=0,
       d=preDer3,
       cBar=zeros(2),
-      kRes=  kRes) - delta*dpDelta)/delta^2 - cBar[1])/VDelta_flow;
+      kRes=kRes) - delta*dpDelta)/delta^2 - cBar[1])/VDelta_flow;
 
   end if;
 
@@ -534,15 +543,15 @@ equation
      // end of computation for this branch
   end if;
   // Power consumption
-  if per.use_powerCharacteristic then
+  if _per_y.use_powerCharacteristic then
     // For the homotopy, we want P/V_flow to be bounded as V_flow -> 0 to avoid a very high medium
     // temperature near zero flow.
     if homotopyInitialization then
-      P = homotopy(actual=cha.power(per=per.power, V_flow=VMachine_flow, r_N=r_N, d=powDer, delta=delta),
+      P = homotopy(actual=cha.power(per=_per_y.power, V_flow=VMachine_flow, r_N=r_N, d=powDer, delta=delta),
                       simplified=VMachine_flow/V_flow_nominal*
-                            cha.power(per=per.power, V_flow=V_flow_nominal, r_N=1, d=powDer, delta=delta));
+                            cha.power(per=_per_y.power, V_flow=V_flow_nominal, r_N=1, d=powDer, delta=delta));
     else
-      P = (rho/rho_default)*cha.power(per=per.power, V_flow=VMachine_flow, r_N=r_N, d=powDer, delta=delta);
+      P = (rho/rho_default)*cha.power(per=_per_y.power, V_flow=VMachine_flow, r_N=r_N, d=powDer, delta=delta);
     end if;
     // To compute the efficiency, we set a lower bound on the electricity consumption.
     // This is needed because WFlo can be close to zero when P is zero, thereby
@@ -558,13 +567,13 @@ equation
     etaHyd = 1;
   else
     if homotopyInitialization then
-      etaHyd = homotopy(actual=cha.efficiency(per=per.hydraulicEfficiency,     V_flow=VMachine_flow, d=hydDer, r_N=r_N, delta=delta),
-                        simplified=cha.efficiency(per=per.hydraulicEfficiency, V_flow=V_flow_max,   d=hydDer, r_N=r_N, delta=delta));
-      etaMot = homotopy(actual=cha.efficiency(per=per.motorEfficiency,     V_flow=VMachine_flow, d=motDer, r_N=r_N, delta=delta),
-                        simplified=cha.efficiency(per=per.motorEfficiency, V_flow=V_flow_max,   d=motDer, r_N=r_N, delta=delta));
+      etaHyd = homotopy(actual=cha.efficiency(per=_per_y.hydraulicEfficiency,     V_flow=VMachine_flow, d=hydDer, r_N=r_N, delta=delta),
+                        simplified=cha.efficiency(per=_per_y.hydraulicEfficiency, V_flow=V_flow_max,   d=hydDer, r_N=r_N, delta=delta));
+      etaMot = homotopy(actual=cha.efficiency(per=_per_y.motorEfficiency,     V_flow=VMachine_flow, d=motDer, r_N=r_N, delta=delta),
+                        simplified=cha.efficiency(per=_per_y.motorEfficiency, V_flow=V_flow_max,   d=motDer, r_N=r_N, delta=delta));
     else
-      etaHyd = cha.efficiency(per=per.hydraulicEfficiency, V_flow=VMachine_flow, d=hydDer, r_N=r_N, delta=delta);
-      etaMot = cha.efficiency(per=per.motorEfficiency,     V_flow=V_flow_max, d=motDer, r_N=r_N, delta=delta);
+      etaHyd = cha.efficiency(per=_per_y.hydraulicEfficiency, V_flow=VMachine_flow, d=hydDer, r_N=r_N, delta=delta);
+      etaMot = cha.efficiency(per=_per_y.motorEfficiency,     V_flow=V_flow_max, d=motDer, r_N=r_N, delta=delta);
     end if;
     // To compute the electrical power, we set a lower bound for eta to avoid
     // a division by zero.
@@ -600,12 +609,12 @@ operating points.
 
 <ul>
 <li>
-If <code>per.use_powerCharacteristic = false</code>, then the data points for
+If <code>_per_y.use_powerCharacteristic = false</code>, then the data points for
 normalized volume flow rate versus efficiency is used to determine the efficiency, 
 and then the power consumption. The default is a constant efficiency of 0.7.
 </li>
 <li>
-If <code>per.use_powerCharacteristic = true</code>, then the data points for
+If <code>_per_y.use_powerCharacteristic = true</code>, then the data points for
 normalized volume flow rate versus power consumption
 is used to determine the power consumption, and then the efficiency
 is computed based on the actual power consumption and the flow work.
@@ -634,6 +643,10 @@ to be used during the simulation.
 </html>",
 revisions="<html>
 <ul>
+<li>
+January 6, 2015, by Michael Wetter:<br/>
+Revised model for OpenModelica.
+</li>
 <li>
 November 22, 2014, by Michael Wetter:<br/>
 Removed in <code>N_actual</code> and <code>N_filtered</code>

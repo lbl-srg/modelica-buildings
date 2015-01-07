@@ -3,8 +3,7 @@ model FlowControlled_dp
   "Fan or pump with ideally controlled head dp as input signal"
   extends Buildings.Fluid.Movers.BaseClasses.ControlledFlowMachine(
   final control_m_flow = false,
-  preSou(
-      dp_start=dp_start));
+  preSou(dp_start=dp_start));
 
   // Classes used to implement the filtered speed
   parameter Boolean filteredSpeed=true
@@ -119,6 +118,10 @@ User's Guide</a> for more information.
 </html>",
       revisions="<html>
 <ul>
+<li>
+January 6, 2015, by Michael Wetter:<br/>
+Revised model for OpenModelica.
+</li>
 <li>
 February 14, 2012, by Michael Wetter:<br/>
 Added filter for start-up and shut-down transient.

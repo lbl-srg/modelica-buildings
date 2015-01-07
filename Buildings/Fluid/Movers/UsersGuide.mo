@@ -92,8 +92,8 @@ Data.SpeedControlled_Nrpm</a>
 FlowControlled_m_flow</a>
 </th>
 <td style=\"background-color:DarkGreen\"/>
-<td style=\"background-color:DarkGreen\"/>
-<td style=\"background-color:DarkGreen\"/>
+<td style=\"background-color:DarkRed\"/>
+<td style=\"background-color:DarkRed\"/>
 </tr>
 <tr>
 <th>
@@ -101,8 +101,8 @@ FlowControlled_m_flow</a>
 FlowControlled_dp</a>
 </th>
 <td style=\"background-color:DarkGreen\"/>
-<td style=\"background-color:DarkGreen\"/>
-<td style=\"background-color:DarkGreen\"/>
+<td style=\"background-color:DarkRed\"/>
+<td style=\"background-color:DarkRed\"/>
 </tr>
 <tr>
 <th>
@@ -111,7 +111,7 @@ SpeedControlled_y</a>
 </th>
 <td style=\"background-color:DarkRed\"/>
 <td style=\"background-color:DarkGreen\"/>
-<td style=\"background-color:DarkGreen\"/>
+<td style=\"background-color:DarkRed\"/>
 </tr>
 <tr>
 <th>

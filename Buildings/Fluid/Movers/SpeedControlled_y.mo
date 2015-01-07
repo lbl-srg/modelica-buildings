@@ -1,7 +1,19 @@
 within Buildings.Fluid.Movers;
 model SpeedControlled_y
   "Fan or pump with ideally controlled normalized speed y as input signal"
-  extends Buildings.Fluid.Movers.BaseClasses.FlowControlledMachine;
+  extends Buildings.Fluid.Movers.BaseClasses.FlowControlledMachine(
+    _per_y(hydraulicEfficiency=per.hydraulicEfficiency,
+            motorEfficiency=per.motorEfficiency,
+            power=per.power,
+            pressure(
+              V_flow = per.pressure.V_flow,
+              dp =     per.pressure.dp),
+            motorCooledByFluid=per.motorCooledByFluid,
+            use_powerCharacteristic=per.use_powerCharacteristic));
+
+  parameter Data.SpeedControlled_y per "Record with performance data"
+    annotation (choicesAllMatching=true,
+      Placement(transformation(extent={{60,-80},{80,-60}})));
 
   Modelica.Blocks.Interfaces.RealInput y(min=0, unit="1")
     "Constant normalized rotational speed"
@@ -64,6 +76,10 @@ User's Guide</a> for more information.
 </html>",
       revisions="<html>
 <ul>
+<li>
+January 6, 2015, by Michael Wetter:<br/>
+Revised model for OpenModelica.
+</li>
 <li>
 November 22, 2014, by Michael Wetter:<br/>
 Revised implementation that uses the new performance data as a record.

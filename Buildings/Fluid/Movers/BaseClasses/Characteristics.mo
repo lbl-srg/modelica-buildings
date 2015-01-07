@@ -3,11 +3,18 @@ package Characteristics "Functions for fan or pump characteristics"
 
   record flowParameters "Record for flow parameters"
     extends Modelica.Icons.Record;
+
     parameter Modelica.SIunits.VolumeFlowRate V_flow[:](each min=0)
       "Volume flow rate at user-selected operating points";
-    parameter Modelica.SIunits.Pressure dp[size(V_flow,1)](
+    parameter Modelica.SIunits.Pressure dp[:](
        each min=0, each displayUnit="Pa")
       "Fan or pump total pressure at these flow rates";
+
+    // This is needed for OpenModelica.
+    // fixme: Check if this can be put into FlowMachineInterface instead of here.
+    final parameter Integer n = size(V_flow,1)
+      "Number of data points for flow rate in V_flow vs. pressure data";
+
     annotation (Documentation(info="<html>
 <p>
 Data record for performance data that describe volume flow rate versus
@@ -31,7 +38,8 @@ First implementation.
   record flowParametersInternal
     "Record for flow parameters with prescribed size"
     extends Modelica.Icons.Record;
-    parameter Integer n "Number of elements in each array";
+    parameter Integer n "Number of elements in each array"
+     annotation(Evaluate=true);
     parameter Modelica.SIunits.VolumeFlowRate V_flow[n](each min=0)
       "Volume flow rate at user-selected operating points";
     parameter Modelica.SIunits.Pressure dp[n](
@@ -69,11 +77,12 @@ First implementation.
 
   record efficiencyParameters "Record for efficiency parameters"
     extends Modelica.Icons.Record;
-    parameter Modelica.SIunits.VolumeFlowRate  V_flow[:](each min=0)
-      "Volumetric flow rate at user-selected operating points";
+    parameter Modelica.SIunits.VolumeFlowRate V_flow[:](
+      each min=0) "Volumetric flow rate at user-selected operating points";
     parameter Real eta[size(V_flow,1)](
-       each min=0, each max=1, each displayUnit="1")
-      "Fan or pump efficiency at these flow rates";
+       each min=0,
+       each max=1,
+       each displayUnit="1") "Fan or pump efficiency at these flow rates";
     annotation (Documentation(info="<html>
 <p>
 Data record for performance data that describe volume flow rate versus
