@@ -14,7 +14,8 @@ model ElectricReformulatedEIR
 
   parameter Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic per
     "Performance data"
-    annotation (choicesAllMatching = true);
+    annotation (choicesAllMatching = true,
+                Placement(transformation(extent={{40,80},{60,100}})));
 
 protected
   final parameter Modelica.SIunits.Conversions.NonSIunits.Temperature_degC
