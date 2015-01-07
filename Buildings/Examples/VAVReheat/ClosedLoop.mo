@@ -79,18 +79,18 @@ model ClosedLoop
     redeclare package Medium = MediumA,
     dp_nominal=20) "Pressure drop for return duct"
     annotation (Placement(transformation(extent={{440,110},{420,130}})));
-  Buildings.Fluid.Movers.FlowMachine_y fanSup(
+  Buildings.Fluid.Movers.SpeedControlled_y fanSup(
     redeclare package Medium = MediumA,
     tau=60,
     dynamicBalance=true,
-    pressure(V_flow={0, m_flow_nominal/1.2*2}, dp={850,0}),
+    per(pressure(V_flow={0, m_flow_nominal/1.2*2}, dp={850,0})),
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial) "Supply air fan"
     annotation (Placement(transformation(extent={{300,-50},{320,-30}})));
-  Buildings.Fluid.Movers.FlowMachine_y fanRet(
+  Buildings.Fluid.Movers.SpeedControlled_y fanRet(
     redeclare package Medium = MediumA,
     tau=60,
     dynamicBalance=true,
-    pressure(V_flow=m_flow_nominal/1.2*{0, 2}, dp=1.5*110*{2,0}),
+    per(pressure(V_flow=m_flow_nominal/1.2*{0, 2}, dp=1.5*110*{2,0})),
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial) "Return air fan"
     annotation (Placement(transformation(extent={{310,110},{290,130}})));
   Buildings.Fluid.Sources.FixedBoundary sinHea(

@@ -2,7 +2,7 @@ within Buildings.Fluid.HeatExchangers.CoolingTowers;
 model YorkCalc
   "Cooling tower with variable speed using the York calculation for the approach temperature"
   extends Buildings.Fluid.HeatExchangers.CoolingTowers.BaseClasses.CoolingTower;
-  import cha = Buildings.Fluid.Movers.BaseClasses.Characteristics;
+  import cha = Buildings.Fluid.HeatExchangers.CoolingTowers.BaseClasses.Characteristics;
 
   parameter Modelica.SIunits.Temperature TAirInWB_nominal = 273.15+25.55
     "Design inlet air wet bulb temperature"
@@ -18,8 +18,7 @@ model YorkCalc
   parameter Modelica.SIunits.Power PFan_nominal = fraPFan_nominal*m_flow_nominal
     "Fan power";
 
-  parameter
-    Buildings.Fluid.Movers.BaseClasses.Characteristics.efficiencyParameters fanRelPow(
+  parameter cha.efficiencyParameters fanRelPow(
        r_V = {0, 0.1,   0.3,   0.6,   1},
        eta = {0, 0.1^3, 0.3^3, 0.6^3, 1})
     "Fan relative power consumption as a function of control signal, fanRelPow=P(y)/P(y=1)"
@@ -89,12 +88,12 @@ initial equation
             ensureMonotonicity=Buildings.Utilities.Math.Functions.isMonotonic(x=fanRelPow.eta,
                                                                               strict=false));
   // Check validity of relative fan power consumption at y=yMin and y=1
-  assert(cha.efficiency(data=fanRelPow, r_V=yMin, d=fanRelPowDer) > -1E-4,
+  assert(cha.efficiency(per=fanRelPow, r_V=yMin, d=fanRelPowDer) > -1E-4,
     "The fan relative power consumption must be non-negative for y=0."
-  + "\n   Obtained fanRelPow(0) = " + String(cha.efficiency(data=fanRelPow, r_V=yMin, d=fanRelPowDer))
+  + "\n   Obtained fanRelPow(0) = " + String(cha.efficiency(per=fanRelPow, r_V=yMin, d=fanRelPowDer))
   + "\n   You need to choose different values for the parameter fanRelPow.");
-  assert(abs(1-cha.efficiency(data=fanRelPow, r_V=1, d=fanRelPowDer))<1E-4, "The fan relative power consumption must be one for y=1."
-  + "\n   Obtained fanRelPow(1) = " + String(cha.efficiency(data=fanRelPow, r_V=1, d=fanRelPowDer))
+  assert(abs(1-cha.efficiency(per=fanRelPow, r_V=1, d=fanRelPowDer))<1E-4, "The fan relative power consumption must be one for y=1."
+  + "\n   Obtained fanRelPow(1) = " + String(cha.efficiency(per=fanRelPow, r_V=1, d=fanRelPowDer))
   + "\n   You need to choose different values for the parameter fanRelPow."
   + "\n   To increase the fan power, change fraPFan_nominal or PFan_nominal.");
 
@@ -172,7 +171,7 @@ equation
   [TAppAct, PFan] = Buildings.Utilities.Math.Functions.spliceFunction(
                                                  pos=[TAppCor,
                                                  cha.efficiency(
-                                                     data=fanRelPow, r_V=y, d=fanRelPowDer) * PFan_nominal],
+                                                     per=fanRelPow, r_V=y, d=fanRelPowDer) * PFan_nominal],
                                                  neg=[TAppFreCon, 0],
                                                  x=y-yMin+yMin/20,
                                                  deltax=yMin/20);
