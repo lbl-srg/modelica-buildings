@@ -80,7 +80,7 @@ model System4
     "Room temperature" annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         origin={-40,30})));
-  Buildings.Fluid.Movers.FlowMachine_m_flow pumRad(
+  Buildings.Fluid.Movers.FlowControlled_m_flow pumRad(
     redeclare package Medium = MediumW,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     m_flow_nominal=mRad_flow_nominal) "Pump for radiator"
@@ -143,7 +143,7 @@ model System4
         origin={60,-150})));
 //----------------------------------------------------------------------------//
 
-  Buildings.Fluid.Movers.FlowMachine_m_flow pumBoi(
+  Buildings.Fluid.Movers.FlowControlled_m_flow pumBoi(
       redeclare package Medium = MediumW,
       energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
       m_flow_nominal=mBoi_flow_nominal) "Pump for boiler"

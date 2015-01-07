@@ -15,4 +15,7 @@ record FloorCase900 = Buildings.HeatTransfer.Data.OpaqueConstructions.Generic (
         k=1.130,
         c=1000,
         d=1400,
-        nStaRef=nStaRef)}) "High Mass Case: Floor";
+        nStaRef=nStaRef)}) "High Mass Case: Floor"
+    annotation(
+      defaultComponentPrefixes="parameter",
+      defaultComponentName="datOpaCon");

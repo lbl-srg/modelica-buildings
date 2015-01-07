@@ -2,7 +2,7 @@ within Buildings.Fluid.HeatExchangers.CoolingTowers;
 model YorkCalc
   "Cooling tower with variable speed using the York calculation for the approach temperature"
   extends Buildings.Fluid.HeatExchangers.CoolingTowers.BaseClasses.CoolingTower;
-  import cha = Buildings.Fluid.Movers.BaseClasses.Characteristics;
+  import cha = Buildings.Fluid.HeatExchangers.CoolingTowers.BaseClasses.Characteristics;
 
   parameter Modelica.SIunits.Temperature TAirInWB_nominal = 273.15+25.55
     "Design inlet air wet bulb temperature"
@@ -18,8 +18,7 @@ model YorkCalc
   parameter Modelica.SIunits.Power PFan_nominal = fraPFan_nominal*m_flow_nominal
     "Fan power";
 
-  parameter
-    Buildings.Fluid.Movers.BaseClasses.Characteristics.efficiencyParameters fanRelPow(
+  parameter cha.efficiencyParameters fanRelPow(
        r_V = {0, 0.1,   0.3,   0.6,   1},
        eta = {0, 0.1^3, 0.3^3, 0.6^3, 1})
     "Fan relative power consumption as a function of control signal, fanRelPow=P(y)/P(y=1)"
@@ -48,7 +47,10 @@ model YorkCalc
   Modelica.SIunits.MassFraction FRAir
     "Ratio actual over design air mass flow ratio";
   Modelica.SIunits.Power PFan "Fan power";
+
 protected
+  package Water =  Buildings.Media.ConstantPropertyLiquidWater
+    "Medium package for water";
   parameter Modelica.SIunits.MassFraction FRWat0(min=0, start=1, fixed=false)
     "Ratio actual over design water mass flow ratio at nominal condition";
   parameter Modelica.SIunits.Temperature TWatIn0(fixed=false)
@@ -86,44 +88,55 @@ initial equation
             ensureMonotonicity=Buildings.Utilities.Math.Functions.isMonotonic(x=fanRelPow.eta,
                                                                               strict=false));
   // Check validity of relative fan power consumption at y=yMin and y=1
-  assert(cha.efficiency(data=fanRelPow, r_V=yMin, d=fanRelPowDer) > -1E-4,
+  assert(cha.efficiency(per=fanRelPow, r_V=yMin, d=fanRelPowDer) > -1E-4,
     "The fan relative power consumption must be non-negative for y=0."
-  + "\n   Obtained fanRelPow(0) = " + String(cha.efficiency(data=fanRelPow, r_V=yMin, d=fanRelPowDer))
+  + "\n   Obtained fanRelPow(0) = " + String(cha.efficiency(per=fanRelPow, r_V=yMin, d=fanRelPowDer))
   + "\n   You need to choose different values for the parameter fanRelPow.");
-  assert(abs(1-cha.efficiency(data=fanRelPow, r_V=1, d=fanRelPowDer))<1E-4, "The fan relative power consumption must be one for y=1."
-  + "\n   Obtained fanRelPow(1) = " + String(cha.efficiency(data=fanRelPow, r_V=1, d=fanRelPowDer))
+  assert(abs(1-cha.efficiency(per=fanRelPow, r_V=1, d=fanRelPowDer))<1E-4, "The fan relative power consumption must be one for y=1."
+  + "\n   Obtained fanRelPow(1) = " + String(cha.efficiency(per=fanRelPow, r_V=1, d=fanRelPowDer))
   + "\n   You need to choose different values for the parameter fanRelPow."
   + "\n   To increase the fan power, change fraPFan_nominal or PFan_nominal.");
+
+  // Check that a medium is used that has the same definition of enthalpy vs. temperature.
+  // This is needed because below, T_a=Water.temperature needed to be hard-coded to use
+  // Water.* instead of Medium.* in the function calls due to a bug in OpenModelica.
+  assert(abs(Medium.specificEnthalpy_pTX(p=101325, T=273.15, X=Medium.X_default) -
+             Water.specificEnthalpy_pTX(p=101325, T=273.15, X=Medium.X_default)) < 1E-5 and
+         abs(Medium.specificEnthalpy_pTX(p=101325, T=293.15, X=Medium.X_default) -
+             Water.specificEnthalpy_pTX(p=101325, T=293.15, X=Medium.X_default)) < 1E-5,
+         "The selected medium has an enthalpy computation that is not consistent
+  with the one in Buildings.Media.ConstantPropertyLiquidWater
+  Use a different medium, such as Buildings.Media.ConstantPropertyLiquidWater.");
 equation
   // States at the inlet and outlet
 
   if allowFlowReversal then
     if homotopyInitialization then
-      T_a=Medium.temperature(Medium.setState_phX(p=port_a.p,
+      T_a=Water.temperature(Water.setState_phX(p=port_a.p,
                                  h=homotopy(actual=actualStream(port_a.h_outflow),
                                             simplified=inStream(port_a.h_outflow)),
                                  X=homotopy(actual=actualStream(port_a.Xi_outflow),
                                             simplified=inStream(port_a.Xi_outflow))));
-      T_b=Medium.temperature(Medium.setState_phX(p=port_b.p,
+      T_b=Water.temperature(Water.setState_phX(p=port_b.p,
                                  h=homotopy(actual=actualStream(port_b.h_outflow),
                                             simplified=port_b.h_outflow),
                                  X=homotopy(actual=actualStream(port_b.Xi_outflow),
                                             simplified=port_b.Xi_outflow)));
 
     else
-      T_a=Medium.temperature(Medium.setState_phX(p=port_a.p,
+      T_a=Water.temperature(Water.setState_phX(p=port_a.p,
                                  h=actualStream(port_a.h_outflow),
                                  X=actualStream(port_a.Xi_outflow)));
-      T_b=Medium.temperature(Medium.setState_phX(p=port_b.p,
+      T_b=Water.temperature(Water.setState_phX(p=port_b.p,
                                  h=actualStream(port_b.h_outflow),
                                  X=actualStream(port_b.Xi_outflow)));
     end if; // homotopyInitialization
 
   else // reverse flow not allowed
-    T_a=Medium.temperature(Medium.setState_phX(p=port_a.p,
+    T_a=Water.temperature(Water.setState_phX(p=port_a.p,
                                h=inStream(port_a.h_outflow),
                                X=inStream(port_a.Xi_outflow)));
-    T_b=Medium.temperature(Medium.setState_phX(p=port_b.p,
+    T_b=Water.temperature(Water.setState_phX(p=port_b.p,
                                h=inStream(port_b.h_outflow),
                                X=inStream(port_b.Xi_outflow)));
   end if;
@@ -158,7 +171,7 @@ equation
   [TAppAct, PFan] = Buildings.Utilities.Math.Functions.spliceFunction(
                                                  pos=[TAppCor,
                                                  cha.efficiency(
-                                                     data=fanRelPow, r_V=y, d=fanRelPowDer) * PFan_nominal],
+                                                     per=fanRelPow, r_V=y, d=fanRelPowDer) * PFan_nominal],
                                                  neg=[TAppFreCon, 0],
                                                  x=y-yMin+yMin/20,
                                                  deltax=yMin/20);
@@ -253,12 +266,42 @@ To switch cells on or off, use multiple instances of this model, and use your ow
 control law to compute the input signal <code>y</code>.
 </li>
 </ol>
+<h4>Assumptions and limitations</h4>
+<p>
+This model requires a medium that has the same computation of the enthalpy as
+<a href=\"Buildings.Media.ConstantPropertyLiquidWater\">
+Buildings.Media.ConstantPropertyLiquidWater</a>,
+which computes
+</p>
+<p align=\"center\" style=\"font-style:italic;\">
+ h = c<sub>p</sub> (T-T<sub>0</sub>),
+</p>
+<p>
+where
+<i>h</i> is the enthalpy,
+<i>c<sub>p</sub> = 4184</i> J/(kg K) is the specific heat capacity,
+<i>T</i> is the temperature in Kelvin and
+<i>T<sub>0</sub> = 273.15</i> Kelvin.
+If this is not the case, the simulation will stop with an error message.
+The reason for this limitation is that as of January 2015, OpenModelica
+failed to translate the model if <code>Medium.temperature()</code> is used
+instead of
+<code>Water.temperature()</code>.
+</p>
 <h4>References</h4>
 <p>
 <a href=\"http://www.energyplus.gov\">EnergyPlus 2.0.0 Engineering Reference</a>, April 9, 2007.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+January 2, 2015, by Michael Wetter:<br/>
+Replaced <code>Medium.temperature()</code> with
+<code>Water.temperature()</code> in order for the model
+to work with OpenModelica.
+Added an <code>assert</code> that stops the simulation if
+an incompatible medium is used.
+</li>
 <li>
 November 13, 2014, by Michael Wetter:<br/>
 Added missing <code>each</code> keyword for <code>fanRelPowDer</code>.

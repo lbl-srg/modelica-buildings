@@ -15,6 +15,7 @@ record StandardResults "ASHRAE Standard Results"
                                Max(unit="W"),
                                Mean(unit="W")) "Peak heating power";
  annotation (
+   defaultComponentPrefixes="parameter",
    defaultComponentName="staRes",
    Documentation(info=
 "<html>

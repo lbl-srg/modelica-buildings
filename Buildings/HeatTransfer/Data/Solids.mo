@@ -9,8 +9,11 @@ package Solids
                                                                final TLiq=293.15,
                                                                final LHea=0,
                                                                final phasechange=false);
-    annotation (defaultComponentName="mat", Documentation(info=
-     "<html>
+    annotation (
+defaultComponentPrefixes="parameter",
+defaultComponentName="datSol",
+Documentation(info=
+"<html>
 <p>
 Generic record for solid materials.
 The material is characterized by its
@@ -18,7 +21,7 @@ thermal conductivity, mass density and specific
 heat capacity.
 </p>
 </html>", revisions=
-          "<html>
+"<html>
 <ul>
 <li>
 September 9, 2010, by Michael Wetter:<br/>
@@ -31,24 +34,44 @@ First implementation.
   record Brick = Buildings.HeatTransfer.Data.Solids.Generic (
       k=0.89,
       d=1920,
-      c=790) "Brick (k=0.89)";
+      c=790) "Brick (k=0.89)"
+    annotation(
+      defaultComponentPrefixes="parameter",
+      defaultComponentName="datSol");
+
   record Concrete = Buildings.HeatTransfer.Data.Solids.Generic (
       k=1.4,
       d=2240,
-      c=840) "Concrete (k=1.4)";
+      c=840) "Concrete (k=1.4)"
+    annotation(
+      defaultComponentPrefixes="parameter",
+      defaultComponentName="datSol");
+
   record InsulationBoard = Buildings.HeatTransfer.Data.Solids.Generic (
       k=0.03,
       d=40,
-      c=1200) "Insulation board (k=0.03)";
+      c=1200) "Insulation board (k=0.03)"
+    annotation(
+      defaultComponentPrefixes="parameter",
+      defaultComponentName="datSol");
+
   record GypsumBoard = Buildings.HeatTransfer.Data.Solids.Generic (
       k=0.16,
       d=800,
-      c=1090) "Gypsum board (k=0.58)";
+      c=1090) "Gypsum board (k=0.58)"
+    annotation(
+      defaultComponentPrefixes="parameter",
+      defaultComponentName="datSol");
+
   record Plywood = Buildings.HeatTransfer.Data.Solids.Generic (
       k=0.12,
       d=540,
-      c=1210) "Plywood (k=0.12)";
-  annotation (
+      c=1210) "Plywood (k=0.12)"
+    annotation(
+      defaultComponentPrefixes="parameter",
+      defaultComponentName="datSol");
+
+annotation (
 Documentation(
 info="<html>
 <p>

@@ -5,17 +5,29 @@ package BoreholeFillings
 
   record Generic =
       Buildings.HeatTransfer.Data.BaseClasses.ThermalProperties
-    "Generic filling material";
+    "Generic filling material"
+    annotation(
+      defaultComponentPrefixes="parameter",
+      defaultComponentName="datFil");
+
   record Bentonite =
       Buildings.HeatTransfer.Data.BoreholeFillings.Generic (
       k=1.15,
       d=1600,
-      c=800) "Bentonite (k=1.15)";
+      c=800) "Bentonite (k=1.15)"
+    annotation(
+      defaultComponentPrefixes="parameter",
+      defaultComponentName="datFil");
+
   record Concrete =
       Buildings.HeatTransfer.Data.BoreholeFillings.Generic (
       k=3.1,
       d=2000,
-      c=840) "Concrete (k=3.1)";
+      c=840) "Concrete (k=3.1)"
+    annotation(
+      defaultComponentPrefixes="parameter",
+      defaultComponentName="datFil");
+
   annotation (preferredView="info",
 Documentation(info="<html>
 <p>

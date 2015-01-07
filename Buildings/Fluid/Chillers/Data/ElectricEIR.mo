@@ -1,5 +1,14 @@
 within Buildings.Fluid.Chillers.Data;
 package ElectricEIR "Performance data for chiller ElectricEIR"
+  extends Modelica.Icons.MaterialPropertiesPackage;
+ annotation(preferredView="info",
+ Documentation(info="<html>
+<p>
+Package with performance data for chillers.
+</p>
+</html>
+", revisions="<html>
+Generated on 12/19/2014 15:30 by mwetter</html>"));
   record Generic "Generic data record for chiller ElectricEIR"
     extends Buildings.Fluid.Chillers.Data.BaseClasses.Chiller(
         final nCapFunT=6,
@@ -15,15 +24,21 @@ package ElectricEIR "Performance data for chiller ElectricEIR"
       "Maximum value for entering condenser temperature"
       annotation (Dialog(group="Performance curves"));
 
-    annotation (defaultComponentName="per", Documentation(info=
-                   "<html>
-This record is used as a template for performance data
+annotation(
+defaultComponentName="datChi",
+defaultComponentPrefixes="parameter",
+Documentation(info="<html>
+<p>This record is used as a template for performance data
 for the chiller model
 <a href=\"Buildings.Fluid.Chillers.ElectricEIR\">
 Buildings.Fluid.Chillers.ElectricEIR</a>.
+</p>
 </html>", revisions="<html>
 <ul>
 <li>
+December 19, 2014 by Michael Wetter:<br/>
+Added <code>defaultComponentName</code> and <code>defaultComponentPrefixes</code>.
+</li><li>
 September 17, 2010 by Michael Wetter:<br/>
 First implementation.
 </li>
@@ -50,8 +65,11 @@ First implementation.
       EIRFunT =             {4.475238E-01,-2.588210E-02,-1.459053E-03,4.342595E-02,-1.000651E-03,1.920106E-03},
       EIRFunPLR =           {2.778889E-01,2.338363E-01,4.883748E-01},
       etaMotor =            1.0)
-    "ElectricEIRChiller McQuay WSC 471kW/5.89COP/Vanes" annotation (
-      Documentation(info =     "<html>
+"ElectricEIRChiller McQuay WSC 471kW/5.89COP/Vanes"
+annotation(
+defaultComponentName="datChi",
+defaultComponentPrefixes="parameter",
+Documentation(info="<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -102,8 +120,11 @@ Chiller:Electric:EIR,
       EIRFunT =             {-5.781003E-01,-1.169130E-01,-4.760535E-03,2.230082E-01,-5.313649E-03,6.846644E-03},
       EIRFunPLR =           {5.203969E-01,-7.775900E-01,1.255394E+00},
       etaMotor =            1.0)
-    "ElectricEIRChiller York YT 563kW/10.61COP/Vanes" annotation (Documentation(
-        info =                 "<html>
+"ElectricEIRChiller York YT 563kW/10.61COP/Vanes"
+annotation(
+defaultComponentName="datChi",
+defaultComponentPrefixes="parameter",
+Documentation(info="<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -154,8 +175,11 @@ Chiller:Electric:EIR,
       EIRFunT =             {8.234029E-01,-1.171542E-01,5.869351E-04,2.964642E-02,-9.190377E-04,5.035796E-03},
       EIRFunPLR =           {3.864389E-01,-2.522595E-01,8.672354E-01},
       etaMotor =            1.0)
-    "ElectricEIRChiller McQuay PEH 703kW/7.03COP/Vanes" annotation (
-      Documentation(info =     "<html>
+"ElectricEIRChiller McQuay PEH 703kW/7.03COP/Vanes"
+annotation(
+defaultComponentName="datChi",
+defaultComponentPrefixes="parameter",
+Documentation(info="<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -206,8 +230,11 @@ Chiller:Electric:EIR,
       EIRFunT =             {5.059102E-01,-1.621557E-02,3.346388E-04,2.350906E-02,3.514201E-04,-6.342981E-04},
       EIRFunPLR =           {1.879418E-01,3.562862E-01,4.540392E-01},
       etaMotor =            1.0)
-    "ElectricEIRChiller Carrier 23XL 724kW/6.04COP/Vanes" annotation (
-      Documentation(info =     "<html>
+"ElectricEIRChiller Carrier 23XL 724kW/6.04COP/Vanes"
+annotation(
+defaultComponentName="datChi",
+defaultComponentPrefixes="parameter",
+Documentation(info="<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -258,8 +285,11 @@ Chiller:Electric:EIR,
       EIRFunT =             {9.946139E-01,-4.829399E-02,4.674277E-04,-1.158726E-03,5.762583E-04,2.148192E-04},
       EIRFunPLR =           {1.202277E-01,1.396384E-01,7.394038E-01},
       etaMotor =            1.0)
-    "ElectricEIRChiller Carrier 19XR 742kW/5.42COP/VSD" annotation (
-      Documentation(info =     "<html>
+"ElectricEIRChiller Carrier 19XR 742kW/5.42COP/VSD"
+annotation(
+defaultComponentName="datChi",
+defaultComponentPrefixes="parameter",
+Documentation(info="<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -310,8 +340,11 @@ Chiller:Electric:EIR,
       EIRFunT =             {7.335321E-01,4.465107E-04,-3.448575E-03,3.770822E-03,-2.189675E-04,2.400267E-03},
       EIRFunPLR =           {3.070136E-01,8.654874E-02,6.081551E-01},
       etaMotor =            1.0)
-    "ElectricEIRChiller McQuay WSC 816kW/6.74COP/Vanes" annotation (
-      Documentation(info =     "<html>
+"ElectricEIRChiller McQuay WSC 816kW/6.74COP/Vanes"
+annotation(
+defaultComponentName="datChi",
+defaultComponentPrefixes="parameter",
+Documentation(info="<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -362,8 +395,11 @@ Chiller:Electric:EIR,
       EIRFunT =             {5.925176E-01,-1.908391E-02,-1.852692E-03,4.051551E-02,-2.908719E-04,1.059047E-03},
       EIRFunPLR =           {2.830681E-01,2.254147E-01,4.916649E-01},
       etaMotor =            1.0)
-    "ElectricEIRChiller McQuay PEH 819kW/8.11COP/Vanes" annotation (
-      Documentation(info =     "<html>
+"ElectricEIRChiller McQuay PEH 819kW/8.11COP/Vanes"
+annotation(
+defaultComponentName="datChi",
+defaultComponentPrefixes="parameter",
+Documentation(info="<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -414,8 +450,11 @@ Chiller:Electric:EIR,
       EIRFunT =             {8.029134E-01,2.171359E-02,2.388123E-04,-1.096173E-02,1.065277E-03,-2.057538E-03},
       EIRFunPLR =           {2.965419E-01,4.689744E-01,2.332341E-01},
       etaMotor =            1.0)
-    "ElectricEIRChiller Carrier 19XR 823kW/6.28COP/Vanes" annotation (
-      Documentation(info =     "<html>
+"ElectricEIRChiller Carrier 19XR 823kW/6.28COP/Vanes"
+annotation(
+defaultComponentName="datChi",
+defaultComponentPrefixes="parameter",
+Documentation(info="<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -466,8 +505,11 @@ Chiller:Electric:EIR,
       EIRFunT =             {3.943721E-01,1.079147E-01,-8.912223E-03,-3.229487E-04,1.302402E-05,1.561862E-03},
       EIRFunPLR =           {1.501042E-01,-6.804336E-02,9.171460E-01},
       etaMotor =            1.0)
-    "ElectricEIRChiller Carrier 19XR 869kW/5.57COP/VSD" annotation (
-      Documentation(info =     "<html>
+"ElectricEIRChiller Carrier 19XR 869kW/5.57COP/VSD"
+annotation(
+defaultComponentName="datChi",
+defaultComponentPrefixes="parameter",
+Documentation(info="<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -518,8 +560,11 @@ Chiller:Electric:EIR,
       EIRFunT =             {6.511011E-01,4.948557E-02,-8.152733E-04,2.322946E-02,1.990802E-04,-2.669401E-03},
       EIRFunPLR =           {2.036380E-01,-3.913200E-01,1.187172E+00},
       etaMotor =            1.0)
-    "ElectricEIRChiller Carrier 19XR 897kW/7.23COP/VSD" annotation (
-      Documentation(info =     "<html>
+"ElectricEIRChiller Carrier 19XR 897kW/7.23COP/VSD"
+annotation(
+defaultComponentName="datChi",
+defaultComponentPrefixes="parameter",
+Documentation(info="<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -570,8 +615,11 @@ Chiller:Electric:EIR,
       EIRFunT =             {8.527749E-01,-4.336881E-03,8.972177E-04,-1.888039E-03,8.648075E-04,-1.438797E-03},
       EIRFunPLR =           {3.323416E-01,2.561103E-01,4.106954E-01},
       etaMotor =            1.0)
-    "ElectricEIRChiller Carrier 19XR 897kW/6.50COP/Vanes" annotation (
-      Documentation(info =     "<html>
+"ElectricEIRChiller Carrier 19XR 897kW/6.50COP/Vanes"
+annotation(
+defaultComponentName="datChi",
+defaultComponentPrefixes="parameter",
+Documentation(info="<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -621,9 +669,12 @@ Chiller:Electric:EIR,
       capFunT =             {5.699948E-01,2.961470E-02,-1.064930E-03,3.062313E-02,-1.753205E-03,2.142105E-03},
       EIRFunT =             {5.526128E-01,3.299472E-03,-7.981925E-04,4.245710E-02,-3.533658E-04,-9.415137E-04},
       EIRFunPLR =           {4.708628E-02,7.070062E-02,8.802198E-01},
-      etaMotor =            1.0) "ElectricEIRChiller York YT 897kW/7.60COP/VSD"
-    annotation (Documentation(info=
-                               "<html>
+      etaMotor =            1.0)
+"ElectricEIRChiller York YT 897kW/7.60COP/VSD"
+annotation(
+defaultComponentName="datChi",
+defaultComponentPrefixes="parameter",
+Documentation(info="<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -673,9 +724,12 @@ Chiller:Electric:EIR,
       capFunT =             {1.197991E-01,1.568955E-01,-4.426242E-03,3.449640E-02,-8.163597E-04,-2.236230E-03},
       EIRFunT =             {5.530767E-01,-5.683068E-02,4.423475E-03,6.472411E-02,-7.378933E-04,-2.491202E-03},
       EIRFunPLR =           {9.836320E-02,-1.638320E-02,9.127289E-01},
-      etaMotor =            1.0) "ElectricEIRChiller York YT 897kW/6.27COP/VSD"
-    annotation (Documentation(info=
-                               "<html>
+      etaMotor =            1.0)
+"ElectricEIRChiller York YT 897kW/6.27COP/VSD"
+annotation(
+defaultComponentName="datChi",
+defaultComponentPrefixes="parameter",
+Documentation(info="<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -726,8 +780,11 @@ Chiller:Electric:EIR,
       EIRFunT =             {8.606461E-01,-1.202294E-03,9.398625E-04,2.983262E-03,4.119228E-04,-1.123884E-03},
       EIRFunPLR =           {2.075556E-01,-2.126466E-01,1.004182E+00},
       etaMotor =            1.0)
-    "ElectricEIRChiller Carrier 19XR 897kW/6.23COP/VSD" annotation (
-      Documentation(info =     "<html>
+"ElectricEIRChiller Carrier 19XR 897kW/6.23COP/VSD"
+annotation(
+defaultComponentName="datChi",
+defaultComponentPrefixes="parameter",
+Documentation(info="<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -778,8 +835,11 @@ Chiller:Electric:EIR,
       EIRFunT =             {6.053491E-01,-1.089778E-02,-1.511327E-03,1.902687E-02,-1.910750E-04,9.008184E-04},
       EIRFunPLR =           {6.823245E-02,6.672421E-01,2.654211E-01},
       etaMotor =            1.0)
-    "ElectricEIRChiller McQuay PFH 932kW/5.09COP/Vanes" annotation (
-      Documentation(info =     "<html>
+"ElectricEIRChiller McQuay PFH 932kW/5.09COP/Vanes"
+annotation(
+defaultComponentName="datChi",
+defaultComponentPrefixes="parameter",
+Documentation(info="<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -830,8 +890,11 @@ Chiller:Electric:EIR,
       EIRFunT =             {5.735924E-01,2.270414E-02,-3.331832E-03,6.025574E-03,3.245033E-04,3.229690E-05},
       EIRFunPLR =           {2.737941E-01,3.141127E-01,4.113671E-01},
       etaMotor =            1.0)
-    "ElectricEIRChiller York YT 960kW/4.64COP/Vanes" annotation (Documentation(
-        info =                 "<html>
+"ElectricEIRChiller York YT 960kW/4.64COP/Vanes"
+annotation(
+defaultComponentName="datChi",
+defaultComponentPrefixes="parameter",
+Documentation(info="<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -882,8 +945,11 @@ Chiller:Electric:EIR,
       EIRFunT =             {5.254964E-01,-1.972389E-02,3.441072E-04,1.651466E-02,2.005198E-04,-3.193246E-04},
       EIRFunPLR =           {2.368399E-01,3.286421E-01,4.344939E-01},
       etaMotor =            1.0)
-    "ElectricEIRChiller York YT 1023kW/5.81COP/Vanes" annotation (Documentation(
-        info =                 "<html>
+"ElectricEIRChiller York YT 1023kW/5.81COP/Vanes"
+annotation(
+defaultComponentName="datChi",
+defaultComponentPrefixes="parameter",
+Documentation(info="<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -934,8 +1000,11 @@ Chiller:Electric:EIR,
       EIRFunT =             {7.125878E-01,1.388940E-02,-2.473407E-03,2.096719E-02,-1.566098E-04,6.035460E-04},
       EIRFunPLR =           {3.215320E-01,-9.188416E-03,6.881582E-01},
       etaMotor =            1.0)
-    "ElectricEIRChiller McQuay PEH 1030kW/8.58COP/Vanes" annotation (
-      Documentation(info =     "<html>
+"ElectricEIRChiller McQuay PEH 1030kW/8.58COP/Vanes"
+annotation(
+defaultComponentName="datChi",
+defaultComponentPrefixes="parameter",
+Documentation(info="<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -986,8 +1055,11 @@ Chiller:Electric:EIR,
       EIRFunT =             {7.255594E-01,-3.502968E-02,2.213476E-03,3.925410E-03,5.538176E-04,-8.638012E-04},
       EIRFunPLR =           {1.543796E-01,7.276121E-01,1.162393E-01},
       etaMotor =            1.0)
-    "ElectricEIRChiller York YT 1048kW/6.06COP/Vanes" annotation (Documentation(
-        info =                 "<html>
+"ElectricEIRChiller York YT 1048kW/6.06COP/Vanes"
+annotation(
+defaultComponentName="datChi",
+defaultComponentPrefixes="parameter",
+Documentation(info="<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -1038,8 +1110,11 @@ Chiller:Electric:EIR,
       EIRFunT =             {5.245110E-01,-2.850126E-02,8.034720E-04,1.893133E-02,1.151629E-04,-9.340642E-05},
       EIRFunPLR =           {2.619878E-01,2.393605E-01,4.988306E-01},
       etaMotor =            1.0)
-    "ElectricEIRChiller York YT 1055kW/5.96COP/Vanes" annotation (Documentation(
-        info =                 "<html>
+"ElectricEIRChiller York YT 1055kW/5.96COP/Vanes"
+annotation(
+defaultComponentName="datChi",
+defaultComponentPrefixes="parameter",
+Documentation(info="<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -1090,8 +1165,11 @@ Chiller:Electric:EIR,
       EIRFunT =             {7.511044E-01,2.415573E-02,-5.310959E-03,-1.073812E-03,1.189538E-04,1.604476E-03},
       EIRFunPLR =           {1.315760E-01,-3.004087E-02,8.967180E-01},
       etaMotor =            1.0)
-    "ElectricEIRChiller Carrier 19XR 1076kW/5.52COP/Vanes" annotation (
-      Documentation(info =     "<html>
+"ElectricEIRChiller Carrier 19XR 1076kW/5.52COP/Vanes"
+annotation(
+defaultComponentName="datChi",
+defaultComponentPrefixes="parameter",
+Documentation(info="<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -1142,8 +1220,11 @@ Chiller:Electric:EIR,
       EIRFunT =             {3.608716E-01,-5.637178E-02,-3.428415E-04,4.230087E-02,-4.391632E-04,1.517182E-03},
       EIRFunPLR =           {1.789841E-01,2.976513E-01,5.243235E-01},
       etaMotor =            1.0)
-    "ElectricEIRChiller Trane CVHE 1080kW/7.39COP/Vanes" annotation (
-      Documentation(info =     "<html>
+"ElectricEIRChiller Trane CVHE 1080kW/7.39COP/Vanes"
+annotation(
+defaultComponentName="datChi",
+defaultComponentPrefixes="parameter",
+Documentation(info="<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -1194,8 +1275,11 @@ Chiller:Electric:EIR,
       EIRFunT =             {9.241019E-01,-4.961574E-02,1.291675E-04,3.299013E-02,-6.769477E-04,1.692815E-03},
       EIRFunPLR =           {1.431969E-01,-4.920686E-01,1.341333E+00},
       etaMotor =            1.0)
-    "ElectricEIRChiller York YT 1090kW/7.57COP/VSD" annotation (Documentation(
-        info =                 "<html>
+"ElectricEIRChiller York YT 1090kW/7.57COP/VSD"
+annotation(
+defaultComponentName="datChi",
+defaultComponentPrefixes="parameter",
+Documentation(info="<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -1246,8 +1330,11 @@ Chiller:Electric:EIR,
       EIRFunT =             {8.655242E-01,-3.808337E-04,-1.320050E-03,1.137834E-02,-4.095120E-05,6.531102E-04},
       EIRFunPLR =           {3.091150E-01,-1.089639E-02,7.022967E-01},
       etaMotor =            1.0)
-    "ElectricEIRChiller McQuay PEH 1104kW/8.00COP/Vanes" annotation (
-      Documentation(info =     "<html>
+"ElectricEIRChiller McQuay PEH 1104kW/8.00COP/Vanes"
+annotation(
+defaultComponentName="datChi",
+defaultComponentPrefixes="parameter",
+Documentation(info="<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -1298,8 +1385,11 @@ Chiller:Electric:EIR,
       EIRFunT =             {5.810580E-01,-4.344257E-02,-5.369108E-04,2.844405E-02,-1.609390E-04,7.004346E-04},
       EIRFunPLR =           {1.807198E-01,-1.469686E-01,9.658417E-01},
       etaMotor =            1.0)
-    "ElectricEIRChiller Trane CVHE 1125kW/4.89COP/Vanes" annotation (
-      Documentation(info =     "<html>
+"ElectricEIRChiller Trane CVHE 1125kW/4.89COP/Vanes"
+annotation(
+defaultComponentName="datChi",
+defaultComponentPrefixes="parameter",
+Documentation(info="<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -1350,8 +1440,11 @@ Chiller:Electric:EIR,
       EIRFunT =             {6.542286E-01,-2.451604E-02,1.253508E-03,4.216477E-02,1.404867E-04,-1.508780E-03},
       EIRFunPLR =           {1.147453E-01,4.231235E-02,8.419681E-01},
       etaMotor =            1.0)
-    "ElectricEIRChiller York YT 1125kW/7.92COP/VSD" annotation (Documentation(
-        info =                 "<html>
+"ElectricEIRChiller York YT 1125kW/7.92COP/VSD"
+annotation(
+defaultComponentName="datChi",
+defaultComponentPrefixes="parameter",
+Documentation(info="<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -1402,8 +1495,11 @@ Chiller:Electric:EIR,
       EIRFunT =             {3.742142E-01,-5.536709E-02,-8.199663E-04,4.655032E-02,-7.312591E-04,1.887184E-03},
       EIRFunPLR =           {1.693841E-01,2.475201E-01,5.836059E-01},
       etaMotor =            1.0)
-    "ElectricEIRChiller Trane CVHE 1129kW/7.19COP/Vanes" annotation (
-      Documentation(info =     "<html>
+"ElectricEIRChiller Trane CVHE 1129kW/7.19COP/Vanes"
+annotation(
+defaultComponentName="datChi",
+defaultComponentPrefixes="parameter",
+Documentation(info="<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -1454,8 +1550,11 @@ Chiller:Electric:EIR,
       EIRFunT =             {9.475580E-01,-1.187942E-02,8.799326E-05,2.250775E-04,1.815775E-04,2.178409E-04},
       EIRFunPLR =           {1.408822E-01,-1.578153E-01,1.014316E+00},
       etaMotor =            1.0)
-    "ElectricEIRChiller Carrier 19XR 1143kW/6.57COP/VSD" annotation (
-      Documentation(info =     "<html>
+"ElectricEIRChiller Carrier 19XR 1143kW/6.57COP/VSD"
+annotation(
+defaultComponentName="datChi",
+defaultComponentPrefixes="parameter",
+Documentation(info="<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -1506,8 +1605,11 @@ Chiller:Electric:EIR,
       EIRFunT =             {1.075567E+00,-3.893571E-02,1.082499E-03,-5.782829E-03,6.574492E-04,-5.302886E-04},
       EIRFunPLR =           {1.608589E-01,-2.058215E-01,1.043133E+00},
       etaMotor =            1.0)
-    "ElectricEIRChiller Carrier 19XR 1157kW/5.62COP/VSD" annotation (
-      Documentation(info =     "<html>
+"ElectricEIRChiller Carrier 19XR 1157kW/5.62COP/VSD"
+annotation(
+defaultComponentName="datChi",
+defaultComponentPrefixes="parameter",
+Documentation(info="<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -1558,8 +1660,11 @@ Chiller:Electric:EIR,
       EIRFunT =             {9.514432E-01,-2.252147E-02,-1.062456E-05,-1.383194E-04,3.914644E-04,8.126485E-05},
       EIRFunPLR =           {2.724491E-01,2.710369E-01,4.552356E-01},
       etaMotor =            1.0)
-    "ElectricEIRChiller Carrier 19XR 1196kW/6.50COP/Vanes" annotation (
-      Documentation(info =     "<html>
+"ElectricEIRChiller Carrier 19XR 1196kW/6.50COP/Vanes"
+annotation(
+defaultComponentName="datChi",
+defaultComponentPrefixes="parameter",
+Documentation(info="<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -1610,8 +1715,11 @@ Chiller:Electric:EIR,
       EIRFunT =             {1.002142E+00,-2.505239E-02,5.169707E-04,6.321862E-03,5.116807E-04,-4.794244E-04},
       EIRFunPLR =           {2.847744E-01,4.027863E-01,3.114896E-01},
       etaMotor =            1.0)
-    "ElectricEIRChiller Carrier 19XR 1213kW/7.78COP/Vanes" annotation (
-      Documentation(info =     "<html>
+"ElectricEIRChiller Carrier 19XR 1213kW/7.78COP/Vanes"
+annotation(
+defaultComponentName="datChi",
+defaultComponentPrefixes="parameter",
+Documentation(info="<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -1662,8 +1770,11 @@ Chiller:Electric:EIR,
       EIRFunT =             {8.067591E-01,1.868314E-02,-5.569088E-03,-4.309148E-03,1.373034E-04,2.394081E-03},
       EIRFunPLR =           {2.117054E-01,4.263662E-01,3.614654E-01},
       etaMotor =            1.0)
-    "ElectricEIRChiller McQuay PEH 1231kW/6.18COP/Vanes" annotation (
-      Documentation(info =     "<html>
+"ElectricEIRChiller McQuay PEH 1231kW/6.18COP/Vanes"
+annotation(
+defaultComponentName="datChi",
+defaultComponentPrefixes="parameter",
+Documentation(info="<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -1714,8 +1825,11 @@ Chiller:Electric:EIR,
       EIRFunT =             {3.771659E-01,1.144965E-01,-8.186893E-03,-3.372584E-03,1.689440E-04,1.008523E-03},
       EIRFunPLR =           {1.495681E-01,-1.449639E-01,9.941070E-01},
       etaMotor =            1.0)
-    "ElectricEIRChiller Carrier 19XR 1234kW/5.39COP/VSD" annotation (
-      Documentation(info =     "<html>
+"ElectricEIRChiller Carrier 19XR 1234kW/5.39COP/VSD"
+annotation(
+defaultComponentName="datChi",
+defaultComponentPrefixes="parameter",
+Documentation(info="<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -1766,8 +1880,11 @@ Chiller:Electric:EIR,
       EIRFunT =             {7.582035E-01,6.896017E-03,-1.491911E-03,2.249459E-03,3.908697E-04,-1.735265E-04},
       EIRFunPLR =           {2.226232E-01,5.199282E-01,2.578470E-01},
       etaMotor =            1.0)
-    "ElectricEIRChiller Carrier 19XR 1259kW/6.26COP/Vanes" annotation (
-      Documentation(info =     "<html>
+"ElectricEIRChiller Carrier 19XR 1259kW/6.26COP/Vanes"
+annotation(
+defaultComponentName="datChi",
+defaultComponentPrefixes="parameter",
+Documentation(info="<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -1818,8 +1935,11 @@ Chiller:Electric:EIR,
       EIRFunT =             {8.991536E-01,6.305932E-03,-3.756374E-04,-1.952076E-02,1.381302E-03,-1.615004E-03},
       EIRFunPLR =           {1.014593E-01,6.216537E-01,2.780213E-01},
       etaMotor =            1.0)
-    "ElectricEIRChiller York YK 1259kW/6.45COP/Vanes" annotation (Documentation(
-        info =                 "<html>
+"ElectricEIRChiller York YK 1259kW/6.45COP/Vanes"
+annotation(
+defaultComponentName="datChi",
+defaultComponentPrefixes="parameter",
+Documentation(info="<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -1870,8 +1990,11 @@ Chiller:Electric:EIR,
       EIRFunT =             {8.284925E-02,4.206167E-02,-5.254555E-03,1.964407E-02,1.070646E-04,2.298241E-04},
       EIRFunPLR =           {7.326942E-01,-7.962527E-01,1.059148E+00},
       etaMotor =            1.0)
-    "ElectricEIRChiller York YT 1266kW/4.39COP/Vanes" annotation (Documentation(
-        info =                 "<html>
+"ElectricEIRChiller York YT 1266kW/4.39COP/Vanes"
+annotation(
+defaultComponentName="datChi",
+defaultComponentPrefixes="parameter",
+Documentation(info="<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -1922,8 +2045,11 @@ Chiller:Electric:EIR,
       EIRFunT =             {7.815645E-01,-2.448971E-02,1.644370E-03,5.564580E-03,5.800428E-04,-1.086993E-03},
       EIRFunPLR =           {2.324812E-01,7.690691E-01,-6.532223E-04},
       etaMotor =            1.0)
-    "ElectricEIRChiller Carrier 19XR 1284kW/6.20COP/Vanes" annotation (
-      Documentation(info =     "<html>
+"ElectricEIRChiller Carrier 19XR 1284kW/6.20COP/Vanes"
+annotation(
+defaultComponentName="datChi",
+defaultComponentPrefixes="parameter",
+Documentation(info="<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -1974,8 +2100,11 @@ Chiller:Electric:EIR,
       EIRFunT =             {1.085249E+00,-9.441252E-04,-2.505100E-03,-8.724367E-03,4.164780E-04,8.473746E-04},
       EIRFunPLR =           {9.344563E-02,3.993002E-01,5.087169E-01},
       etaMotor =            1.0)
-    "ElectricEIRChiller Carrier 19XR 1294kW/7.61COP/Vanes" annotation (
-      Documentation(info =     "<html>
+"ElectricEIRChiller Carrier 19XR 1294kW/7.61COP/Vanes"
+annotation(
+defaultComponentName="datChi",
+defaultComponentPrefixes="parameter",
+Documentation(info="<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -2026,8 +2155,11 @@ Chiller:Electric:EIR,
       EIRFunT =             {8.074052E-01,3.355495E-02,-1.549617E-03,-7.142554E-03,5.056363E-04,-7.547786E-04},
       EIRFunPLR =           {4.079777E-02,1.174456E+00,-2.212711E-01},
       etaMotor =            1.0)
-    "ElectricEIRChiller Trane CVHE 1329kW/5.38COP/Vanes" annotation (
-      Documentation(info =     "<html>
+"ElectricEIRChiller Trane CVHE 1329kW/5.38COP/Vanes"
+annotation(
+defaultComponentName="datChi",
+defaultComponentPrefixes="parameter",
+Documentation(info="<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -2078,8 +2210,11 @@ Chiller:Electric:EIR,
       EIRFunT =             {9.953536E-01,-3.118863E-02,2.094171E-03,7.086716E-03,7.387078E-04,-1.384330E-03},
       EIRFunPLR =           {3.336374E-01,-4.098166E-01,1.077791E+00},
       etaMotor =            1.0)
-    "ElectricEIRChiller Carrier 19XR 1350kW/7.90COP/VSD" annotation (
-      Documentation(info =     "<html>
+"ElectricEIRChiller Carrier 19XR 1350kW/7.90COP/VSD"
+annotation(
+defaultComponentName="datChi",
+defaultComponentPrefixes="parameter",
+Documentation(info="<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -2130,8 +2265,11 @@ Chiller:Electric:EIR,
       EIRFunT =             {3.227543E-01,-1.415418E-02,-5.090650E-03,4.606511E-02,-8.769578E-04,2.600343E-03},
       EIRFunPLR =           {9.483562E-02,1.521114E-01,7.543027E-01},
       etaMotor =            1.0)
-    "ElectricEIRChiller York YT 1368kW/7.35COP/VSD" annotation (Documentation(
-        info =                 "<html>
+"ElectricEIRChiller York YT 1368kW/7.35COP/VSD"
+annotation(
+defaultComponentName="datChi",
+defaultComponentPrefixes="parameter",
+Documentation(info="<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -2182,8 +2320,11 @@ Chiller:Electric:EIR,
       EIRFunT =             {9.123765E-01,1.616509E-02,1.906349E-03,-1.143164E-02,1.080775E-03,-2.873661E-03},
       EIRFunPLR =           {5.154478E-02,9.635713E-01,-1.896824E-02},
       etaMotor =            1.0)
-    "ElectricEIRChiller Trane CVHE 1372kW/7.49COP/Vanes" annotation (
-      Documentation(info =     "<html>
+"ElectricEIRChiller Trane CVHE 1372kW/7.49COP/Vanes"
+annotation(
+defaultComponentName="datChi",
+defaultComponentPrefixes="parameter",
+Documentation(info="<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -2234,8 +2375,11 @@ Chiller:Electric:EIR,
       EIRFunT =             {5.207500E-01,-9.073869E-03,-1.812171E-04,2.568740E-02,4.255936E-05,-5.899242E-04},
       EIRFunPLR =           {3.043032E-01,3.720107E-02,6.590338E-01},
       etaMotor =            1.0)
-    "ElectricEIRChiller York YT 1396kW/7.35COP/Vanes" annotation (Documentation(
-        info =                 "<html>
+"ElectricEIRChiller York YT 1396kW/7.35COP/Vanes"
+annotation(
+defaultComponentName="datChi",
+defaultComponentPrefixes="parameter",
+Documentation(info="<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -2286,8 +2430,11 @@ Chiller:Electric:EIR,
       EIRFunT =             {1.098641E+00,-2.485880E-02,-6.240421E-05,-1.719488E-03,4.887321E-04,9.618075E-05},
       EIRFunPLR =           {8.788698E-02,2.678891E-01,6.445180E-01},
       etaMotor =            1.0)
-    "ElectricEIRChiller Carrier 19XR 1403kW/7.09COP/VSD" annotation (
-      Documentation(info =     "<html>
+"ElectricEIRChiller Carrier 19XR 1403kW/7.09COP/VSD"
+annotation(
+defaultComponentName="datChi",
+defaultComponentPrefixes="parameter",
+Documentation(info="<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -2338,8 +2485,11 @@ Chiller:Electric:EIR,
       EIRFunT =             {3.983846E-01,2.396665E-02,-6.601871E-03,2.944077E-02,-4.570885E-04,1.873209E-03},
       EIRFunPLR =           {3.272242E-02,3.873540E-01,5.789579E-01},
       etaMotor =            1.0)
-    "ElectricEIRChiller York YT 1403kW/6.94COP/VSD" annotation (Documentation(
-        info =                 "<html>
+"ElectricEIRChiller York YT 1403kW/6.94COP/VSD"
+annotation(
+defaultComponentName="datChi",
+defaultComponentPrefixes="parameter",
+Documentation(info="<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -2390,8 +2540,11 @@ Chiller:Electric:EIR,
       EIRFunT =             {5.674858E-01,4.461513E-02,-6.341978E-03,4.674972E-03,4.387295E-04,2.778096E-04},
       EIRFunPLR =           {5.963988E-02,3.503067E-01,5.870000E-01},
       etaMotor =            1.0)
-    "ElectricEIRChiller Trane CVHE 1407kW/7.14COP/VSD" annotation (
-      Documentation(info =     "<html>
+"ElectricEIRChiller Trane CVHE 1407kW/7.14COP/VSD"
+annotation(
+defaultComponentName="datChi",
+defaultComponentPrefixes="parameter",
+Documentation(info="<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -2442,8 +2595,11 @@ Chiller:Electric:EIR,
       EIRFunT =             {7.929709E-01,3.424884E-02,-5.567434E-03,-6.974667E-03,2.531138E-04,1.862577E-03},
       EIRFunPLR =           {7.700603E-02,5.414789E-01,3.826334E-01},
       etaMotor =            1.0)
-    "ElectricEIRChiller McQuay PFH 1407kW/6.60COP/Vanes" annotation (
-      Documentation(info =     "<html>
+"ElectricEIRChiller McQuay PFH 1407kW/6.60COP/Vanes"
+annotation(
+defaultComponentName="datChi",
+defaultComponentPrefixes="parameter",
+Documentation(info="<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -2494,8 +2650,11 @@ Chiller:Electric:EIR,
       EIRFunT =             {1.026340E+00,-1.612819E-02,-1.092591E-03,-1.784393E-02,7.961842E-04,-9.586049E-05},
       EIRFunPLR =           {1.188880E-01,6.723542E-01,2.068754E-01},
       etaMotor =            1.0)
-    "ElectricEIRChiller Carrier 19XR 1407kW/6.04COP/VSD" annotation (
-      Documentation(info =     "<html>
+"ElectricEIRChiller Carrier 19XR 1407kW/6.04COP/VSD"
+annotation(
+defaultComponentName="datChi",
+defaultComponentPrefixes="parameter",
+Documentation(info="<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -2546,8 +2705,11 @@ Chiller:Electric:EIR,
       EIRFunT =             {1.131014E+00,-6.735406E-02,3.034309E-06,1.307361E-02,3.384625E-04,7.872113E-04},
       EIRFunPLR =           {9.662908E-02,7.475978E-01,1.566368E-01},
       etaMotor =            1.0)
-    "ElectricEIRChiller Carrier 19XR 1410kW/8.54COP/VSD" annotation (
-      Documentation(info =     "<html>
+"ElectricEIRChiller Carrier 19XR 1410kW/8.54COP/VSD"
+annotation(
+defaultComponentName="datChi",
+defaultComponentPrefixes="parameter",
+Documentation(info="<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -2598,8 +2760,11 @@ Chiller:Electric:EIR,
       EIRFunT =             {6.287646E-01,-3.024605E-02,6.137016E-04,1.805826E-02,1.640653E-04,-1.113802E-04},
       EIRFunPLR =           {9.299787E-02,3.244475E-01,5.818753E-01},
       etaMotor =            1.0)
-    "ElectricEIRChiller Trane CVHE 1442kW/6.61COP/VSD" annotation (
-      Documentation(info =     "<html>
+"ElectricEIRChiller Trane CVHE 1442kW/6.61COP/VSD"
+annotation(
+defaultComponentName="datChi",
+defaultComponentPrefixes="parameter",
+Documentation(info="<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -2650,8 +2815,11 @@ Chiller:Electric:EIR,
       EIRFunT =             {1.438935E-01,9.821191E-02,-1.174270E-02,3.748666E-02,-5.700518E-04,1.053698E-03},
       EIRFunPLR =           {3.999642E-02,2.509430E-01,7.067059E-01},
       etaMotor =            1.0)
-    "ElectricEIRChiller York YT 1459kW/6.40COP/VSD" annotation (Documentation(
-        info =                 "<html>
+"ElectricEIRChiller York YT 1459kW/6.40COP/VSD"
+annotation(
+defaultComponentName="datChi",
+defaultComponentPrefixes="parameter",
+Documentation(info="<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -2702,8 +2870,11 @@ Chiller:Electric:EIR,
       EIRFunT =             {-3.693940E-01,-6.387787E-02,-2.760494E-04,1.661135E-01,-3.105485E-03,1.705909E-03},
       EIRFunPLR =           {1.353827E-01,1.385983E-02,8.522688E-01},
       etaMotor =            1.0)
-    "ElectricEIRChiller Trane CVHE 1484kW/9.96COP/VSD" annotation (
-      Documentation(info =     "<html>
+"ElectricEIRChiller Trane CVHE 1484kW/9.96COP/VSD"
+annotation(
+defaultComponentName="datChi",
+defaultComponentPrefixes="parameter",
+Documentation(info="<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -2754,8 +2925,11 @@ Chiller:Electric:EIR,
       EIRFunT =             {7.106985E-01,-2.087623E-01,9.421379E-03,8.491925E-02,-1.260820E-03,1.125512E-03},
       EIRFunPLR =           {1.517470E-01,-1.577252E-01,1.005197E+00},
       etaMotor =            1.0)
-    "ElectricEIRChiller York YT 1495kW/7.51COP/VSD" annotation (Documentation(
-        info =                 "<html>
+"ElectricEIRChiller York YT 1495kW/7.51COP/VSD"
+annotation(
+defaultComponentName="datChi",
+defaultComponentPrefixes="parameter",
+Documentation(info="<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -2806,8 +2980,11 @@ Chiller:Electric:EIR,
       EIRFunT =             {9.981236E-01,-1.060763E-02,-3.921458E-03,-1.206761E-02,-1.398595E-04,3.467199E-03},
       EIRFunPLR =           {1.563837E-01,4.894381E-01,3.541551E-01},
       etaMotor =            1.0)
-    "ElectricEIRChiller McQuay WSC 1519kW/7.10COP/Vanes" annotation (
-      Documentation(info =     "<html>
+"ElectricEIRChiller McQuay WSC 1519kW/7.10COP/Vanes"
+annotation(
+defaultComponentName="datChi",
+defaultComponentPrefixes="parameter",
+Documentation(info="<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -2858,8 +3035,11 @@ Chiller:Electric:EIR,
       EIRFunT =             {1.099343E+00,-3.132676E-02,4.108521E-04,-7.377845E-03,5.775048E-04,-3.528472E-04},
       EIRFunPLR =           {1.620909E-01,-2.553890E-01,1.092232E+00},
       etaMotor =            1.0)
-    "ElectricEIRChiller Carrier 19XR 1558kW/5.81COP/VSD" annotation (
-      Documentation(info =     "<html>
+"ElectricEIRChiller Carrier 19XR 1558kW/5.81COP/VSD"
+annotation(
+defaultComponentName="datChi",
+defaultComponentPrefixes="parameter",
+Documentation(info="<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -2910,8 +3090,11 @@ Chiller:Electric:EIR,
       EIRFunT =             {1.110611E+00,-3.795765E-02,2.851444E-04,-4.560404E-03,4.044229E-04,1.407332E-04},
       EIRFunPLR =           {1.996379E-01,-1.612021E-01,9.608483E-01},
       etaMotor =            1.0)
-    "ElectricEIRChiller Carrier 19XR 1586kW/5.53COP/VSD" annotation (
-      Documentation(info =     "<html>
+"ElectricEIRChiller Carrier 19XR 1586kW/5.53COP/VSD"
+annotation(
+defaultComponentName="datChi",
+defaultComponentPrefixes="parameter",
+Documentation(info="<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -2962,8 +3145,11 @@ Chiller:Electric:EIR,
       EIRFunT =             {1.040733E+00,-7.118888E-02,2.262395E-03,1.221901E-02,2.152693E-04,7.409943E-04},
       EIRFunPLR =           {1.836695E-01,5.781685E-01,2.385719E-01},
       etaMotor =            1.0)
-    "ElectricEIRChiller McQuay PEH 1635kW/7.47COP/Vanes" annotation (
-      Documentation(info =     "<html>
+"ElectricEIRChiller McQuay PEH 1635kW/7.47COP/Vanes"
+annotation(
+defaultComponentName="datChi",
+defaultComponentPrefixes="parameter",
+Documentation(info="<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -3014,8 +3200,11 @@ Chiller:Electric:EIR,
       EIRFunT =             {7.355981E-01,-1.083354E-02,-9.244662E-04,1.458943E-02,8.494647E-06,1.279572E-04},
       EIRFunPLR =           {2.581595E-01,2.707154E-01,4.707425E-01},
       etaMotor =            1.0)
-    "ElectricEIRChiller Carrier 19XR 1635kW/6.36COP/Vanes" annotation (
-      Documentation(info =     "<html>
+"ElectricEIRChiller Carrier 19XR 1635kW/6.36COP/Vanes"
+annotation(
+defaultComponentName="datChi",
+defaultComponentPrefixes="parameter",
+Documentation(info="<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -3066,8 +3255,11 @@ Chiller:Electric:EIR,
       EIRFunT =             {7.730916E-01,-8.073559E-02,-2.161313E-03,6.144398E-02,-1.953734E-03,4.056527E-03},
       EIRFunPLR =           {1.982584E-01,4.414042E-02,7.642946E-01},
       etaMotor =            1.0)
-    "ElectricEIRChiller Carrier 19XR 1656kW/8.24COP/VSD" annotation (
-      Documentation(info =     "<html>
+"ElectricEIRChiller Carrier 19XR 1656kW/8.24COP/VSD"
+annotation(
+defaultComponentName="datChi",
+defaultComponentPrefixes="parameter",
+Documentation(info="<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -3118,8 +3310,11 @@ Chiller:Electric:EIR,
       EIRFunT =             {1.028094E+00,-6.127553E-02,3.236371E-03,1.656482E-02,2.976850E-04,-4.418361E-04},
       EIRFunPLR =           {2.127966E-01,3.131004E-01,4.726018E-01},
       etaMotor =            1.0)
-    "ElectricEIRChiller York YT 1663kW/9.34COP/Vanes" annotation (Documentation(
-        info =                 "<html>
+"ElectricEIRChiller York YT 1663kW/9.34COP/Vanes"
+annotation(
+defaultComponentName="datChi",
+defaultComponentPrefixes="parameter",
+Documentation(info="<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -3170,8 +3365,11 @@ Chiller:Electric:EIR,
       EIRFunT =             {9.868510E-01,-6.325526E-02,3.498632E-03,1.699731E-02,2.573490E-04,-4.233553E-04},
       EIRFunPLR =           {3.386410E-01,2.621224E-01,3.987109E-01},
       etaMotor =            1.0)
-    "ElectricEIRChiller Carrier 19XL 1674kW/7.89COP/Vanes" annotation (
-      Documentation(info =     "<html>
+"ElectricEIRChiller Carrier 19XL 1674kW/7.89COP/Vanes"
+annotation(
+defaultComponentName="datChi",
+defaultComponentPrefixes="parameter",
+Documentation(info="<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -3222,8 +3420,11 @@ Chiller:Electric:EIR,
       EIRFunT =             {4.344630E-01,-5.781149E-03,2.852311E-04,2.723246E-02,1.280801E-04,-8.964328E-04},
       EIRFunPLR =           {1.619116E-01,2.362420E-01,6.032459E-01},
       etaMotor =            1.0)
-    "ElectricEIRChiller Trane CVHF 1681kW/6.59COP/Vanes" annotation (
-      Documentation(info =     "<html>
+"ElectricEIRChiller Trane CVHF 1681kW/6.59COP/Vanes"
+annotation(
+defaultComponentName="datChi",
+defaultComponentPrefixes="parameter",
+Documentation(info="<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -3274,8 +3475,11 @@ Chiller:Electric:EIR,
       EIRFunT =             {2.950574E-01,-1.036684E-01,-4.169567E-03,1.256790E-01,-4.004203E-03,6.718687E-03},
       EIRFunPLR =           {2.374010E-01,-1.796745E-01,9.441507E-01},
       etaMotor =            1.0)
-    "ElectricEIRChiller Carrier 19XR 1723kW/8.32COP/VSD" annotation (
-      Documentation(info =     "<html>
+"ElectricEIRChiller Carrier 19XR 1723kW/8.32COP/VSD"
+annotation(
+defaultComponentName="datChi",
+defaultComponentPrefixes="parameter",
+Documentation(info="<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -3326,8 +3530,11 @@ Chiller:Electric:EIR,
       EIRFunT =             {1.072553E+00,-8.058631E-03,-2.109608E-03,-1.262910E-03,6.155442E-04,4.796754E-04},
       EIRFunPLR =           {2.465824E-01,4.494453E-01,3.037680E-01},
       etaMotor =            1.0)
-    "ElectricEIRChiller Carrier 19XR 1727kW/9.04COP/Vanes" annotation (
-      Documentation(info =     "<html>
+"ElectricEIRChiller Carrier 19XR 1727kW/9.04COP/Vanes"
+annotation(
+defaultComponentName="datChi",
+defaultComponentPrefixes="parameter",
+Documentation(info="<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -3378,8 +3585,11 @@ Chiller:Electric:EIR,
       EIRFunT =             {8.089395E-01,2.628482E-02,-1.773497E-03,-8.118430E-03,7.146809E-04,-6.481705E-04},
       EIRFunPLR =           {2.250725E-01,2.648297E-01,5.095786E-01},
       etaMotor =            1.0)
-    "ElectricEIRChiller McQuay WSC 1751kW/6.73COP/Vanes" annotation (
-      Documentation(info =     "<html>
+"ElectricEIRChiller McQuay WSC 1751kW/6.73COP/Vanes"
+annotation(
+defaultComponentName="datChi",
+defaultComponentPrefixes="parameter",
+Documentation(info="<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -3430,8 +3640,11 @@ Chiller:Electric:EIR,
       EIRFunT =             {4.910329E-01,-9.895115E-02,4.257871E-03,5.433817E-02,-8.184909E-04,6.178810E-04},
       EIRFunPLR =           {3.694797E-01,9.551656E-02,5.347291E-01},
       etaMotor =            1.0)
-    "ElectricEIRChiller Trane CVHF 1758kW/5.96COP/Vanes" annotation (
-      Documentation(info =     "<html>
+"ElectricEIRChiller Trane CVHF 1758kW/5.96COP/Vanes"
+annotation(
+defaultComponentName="datChi",
+defaultComponentPrefixes="parameter",
+Documentation(info="<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -3482,8 +3695,11 @@ Chiller:Electric:EIR,
       EIRFunT =             {6.794525E-01,6.694756E-02,-3.625396E-03,-1.018762E-02,1.066394E-03,-2.113402E-03},
       EIRFunPLR =           {7.859908E-02,1.950291E-01,7.241581E-01},
       etaMotor =            1.0)
-    "ElectricEIRChiller York YT 1758kW/5.76COP/VSD" annotation (Documentation(
-        info =                 "<html>
+"ElectricEIRChiller York YT 1758kW/5.76COP/VSD"
+annotation(
+defaultComponentName="datChi",
+defaultComponentPrefixes="parameter",
+Documentation(info="<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -3534,8 +3750,11 @@ Chiller:Electric:EIR,
       EIRFunT =             {2.311197E-01,9.581517E-02,-5.672726E-03,2.766035E-02,-1.411214E-04,-1.011216E-03},
       EIRFunPLR =           {1.720545E-01,5.598164E-01,2.626117E-01},
       etaMotor =            1.0)
-    "ElectricEIRChiller York YT 1758kW/6.26COP/Vanes" annotation (Documentation(
-        info =                 "<html>
+"ElectricEIRChiller York YT 1758kW/6.26COP/Vanes"
+annotation(
+defaultComponentName="datChi",
+defaultComponentPrefixes="parameter",
+Documentation(info="<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -3586,8 +3805,11 @@ Chiller:Electric:EIR,
       EIRFunT =             {4.949320E-01,9.099785E-03,-6.935841E-04,3.277452E-02,-3.895481E-04,-5.524011E-04},
       EIRFunPLR =           {2.236154E-01,2.590053E-01,5.169137E-01},
       etaMotor =            1.0)
-    "ElectricEIRChiller York YT 1758kW/5.96COP/Vanes" annotation (Documentation(
-        info =                 "<html>
+"ElectricEIRChiller York YT 1758kW/5.96COP/Vanes"
+annotation(
+defaultComponentName="datChi",
+defaultComponentPrefixes="parameter",
+Documentation(info="<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -3638,8 +3860,11 @@ Chiller:Electric:EIR,
       EIRFunT =             {1.243313E+00,-3.031784E-02,3.452464E-03,-2.739941E-02,9.141695E-04,-1.000080E-03},
       EIRFunPLR =           {1.871377E-01,5.849639E-01,2.291447E-01},
       etaMotor =            1.0)
-    "ElectricEIRChiller Trane CVHE 1758kW/5.96COP/Vanes" annotation (
-      Documentation(info =     "<html>
+"ElectricEIRChiller Trane CVHE 1758kW/5.96COP/Vanes"
+annotation(
+defaultComponentName="datChi",
+defaultComponentPrefixes="parameter",
+Documentation(info="<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -3690,8 +3915,11 @@ Chiller:Electric:EIR,
       EIRFunT =             {5.605391E-01,-1.377994E-02,6.569542E-05,1.321951E-02,2.686074E-04,-5.011451E-04},
       EIRFunPLR =           {1.861223E-01,5.482049E-01,2.647377E-01},
       etaMotor =            1.0)
-    "ElectricEIRChiller York YT 1758kW/6.28COP/Vanes" annotation (Documentation(
-        info =                 "<html>
+"ElectricEIRChiller York YT 1758kW/6.28COP/Vanes"
+annotation(
+defaultComponentName="datChi",
+defaultComponentPrefixes="parameter",
+Documentation(info="<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -3742,8 +3970,11 @@ Chiller:Electric:EIR,
       EIRFunT =             {1.743365E-01,-5.054806E-02,-5.424748E-03,8.244673E-02,-2.400392E-03,5.078720E-03},
       EIRFunPLR =           {2.784580E-01,-5.498632E-01,1.269693E+00},
       etaMotor =            1.0)
-    "ElectricEIRChiller Carrier 19XR 1758kW/5.86COP/VSD" annotation (
-      Documentation(info =     "<html>
+"ElectricEIRChiller Carrier 19XR 1758kW/5.86COP/VSD"
+annotation(
+defaultComponentName="datChi",
+defaultComponentPrefixes="parameter",
+Documentation(info="<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -3794,8 +4025,11 @@ Chiller:Electric:EIR,
       EIRFunT =             {7.989434E-02,2.062907E-02,-4.050827E-04,4.570552E-02,-1.469163E-04,-1.563259E-03},
       EIRFunPLR =           {3.268954E-01,3.297771E-01,3.423342E-01},
       etaMotor =            1.0)
-    "ElectricEIRChiller Trane CVHF 1758kW/6.46COP/VSD" annotation (
-      Documentation(info =     "<html>
+"ElectricEIRChiller Trane CVHF 1758kW/6.46COP/VSD"
+annotation(
+defaultComponentName="datChi",
+defaultComponentPrefixes="parameter",
+Documentation(info="<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -3846,8 +4080,11 @@ Chiller:Electric:EIR,
       EIRFunT =             {6.329473E-01,5.521802E-03,1.487172E-04,2.433576E-03,7.100129E-04,-1.108627E-03},
       EIRFunPLR =           {2.401900E-01,5.090345E-01,2.500532E-01},
       etaMotor =            1.0)
-    "ElectricEIRChiller Trane CVHF 1758kW/6.87COP/Vanes" annotation (
-      Documentation(info =     "<html>
+"ElectricEIRChiller Trane CVHF 1758kW/6.87COP/Vanes"
+annotation(
+defaultComponentName="datChi",
+defaultComponentPrefixes="parameter",
+Documentation(info="<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -3898,8 +4135,11 @@ Chiller:Electric:EIR,
       EIRFunT =             {8.006719E-01,-3.137026E-02,4.098888E-04,3.176921E-02,-2.104567E-04,-7.660277E-05},
       EIRFunPLR =           {3.276235E-01,2.787167E-01,3.952405E-01},
       etaMotor =            1.0)
-    "ElectricEIRChiller Carrier 19XR 1776kW/8.00COP/Vanes" annotation (
-      Documentation(info =     "<html>
+"ElectricEIRChiller Carrier 19XR 1776kW/8.00COP/Vanes"
+annotation(
+defaultComponentName="datChi",
+defaultComponentPrefixes="parameter",
+Documentation(info="<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -3950,8 +4190,11 @@ Chiller:Electric:EIR,
       EIRFunT =             {5.872331E-01,-3.907248E-02,3.474913E-04,2.950392E-02,-2.510016E-04,2.481610E-04},
       EIRFunPLR =           {3.090532E-01,2.641442E-01,4.269265E-01},
       etaMotor =            1.0)
-    "ElectricEIRChiller Carrier 19XL 1779kW/6.18COP/Vanes" annotation (
-      Documentation(info =     "<html>
+"ElectricEIRChiller Carrier 19XL 1779kW/6.18COP/Vanes"
+annotation(
+defaultComponentName="datChi",
+defaultComponentPrefixes="parameter",
+Documentation(info="<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -4002,8 +4245,11 @@ Chiller:Electric:EIR,
       EIRFunT =             {3.137523E-01,-1.879556E-02,-1.860907E-03,3.469711E-02,-1.503480E-04,7.641242E-04},
       EIRFunPLR =           {1.699409E-01,1.874304E-01,6.410385E-01},
       etaMotor =            1.0)
-    "ElectricEIRChiller Trane CVHF 1779kW/6.18COP/Vanes" annotation (
-      Documentation(info =     "<html>
+"ElectricEIRChiller Trane CVHF 1779kW/6.18COP/Vanes"
+annotation(
+defaultComponentName="datChi",
+defaultComponentPrefixes="parameter",
+Documentation(info="<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -4054,8 +4300,11 @@ Chiller:Electric:EIR,
       EIRFunT =             {8.546274E-01,2.456473E-01,-9.770595E-03,-7.386557E-02,2.843499E-03,-5.292981E-03},
       EIRFunPLR =           {3.187543E-02,8.272483E-01,1.279099E-01},
       etaMotor =            1.0)
-    "ElectricEIRChiller York YT 1794kW/8.11COP/Vanes" annotation (Documentation(
-        info =                 "<html>
+"ElectricEIRChiller York YT 1794kW/8.11COP/Vanes"
+annotation(
+defaultComponentName="datChi",
+defaultComponentPrefixes="parameter",
+Documentation(info="<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -4106,8 +4355,11 @@ Chiller:Electric:EIR,
       EIRFunT =             {5.984829E-01,-1.552700E-01,6.909012E-03,6.801572E-02,-7.450754E-04,5.764600E-04},
       EIRFunPLR =           {1.445880E-01,1.059293E-01,7.489704E-01},
       etaMotor =            1.0)
-    "ElectricEIRChiller York YT 1794kW/7.90COP/VSD" annotation (Documentation(
-        info =                 "<html>
+"ElectricEIRChiller York YT 1794kW/7.90COP/VSD"
+annotation(
+defaultComponentName="datChi",
+defaultComponentPrefixes="parameter",
+Documentation(info="<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -4158,8 +4410,11 @@ Chiller:Electric:EIR,
       EIRFunT =             {1.084290E+00,-4.318103E-02,1.586113E-03,1.664015E-03,8.043383E-05,5.681056E-05},
       EIRFunPLR =           {5.926251E-01,-2.657314E-01,6.731751E-01},
       etaMotor =            1.0)
-    "ElectricEIRChiller Carrier 19XL 1797kW/5.69COP/Vanes" annotation (
-      Documentation(info =     "<html>
+"ElectricEIRChiller Carrier 19XL 1797kW/5.69COP/Vanes"
+annotation(
+defaultComponentName="datChi",
+defaultComponentPrefixes="parameter",
+Documentation(info="<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -4210,8 +4465,11 @@ Chiller:Electric:EIR,
       EIRFunT =             {6.931082E-01,-1.885558E-02,8.345461E-04,1.263879E-02,4.588028E-04,-8.221467E-04},
       EIRFunPLR =           {1.040764E-01,2.818752E-01,6.144036E-01},
       etaMotor =            1.0)
-    "ElectricEIRChiller Carrier 19XR 1801kW/6.34COP/VSD" annotation (
-      Documentation(info =     "<html>
+"ElectricEIRChiller Carrier 19XR 1801kW/6.34COP/VSD"
+annotation(
+defaultComponentName="datChi",
+defaultComponentPrefixes="parameter",
+Documentation(info="<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -4262,8 +4520,11 @@ Chiller:Electric:EIR,
       EIRFunT =             {6.668391E-01,1.506485E-02,-4.249134E-03,3.588996E-02,-1.681591E-04,7.028459E-04},
       EIRFunPLR =           {2.157002E-01,2.251016E-01,5.584287E-01},
       etaMotor =            1.0)
-    "ElectricEIRChiller York YT 1867kW/10.09COP/Vanes" annotation (
-      Documentation(info =     "<html>
+"ElectricEIRChiller York YT 1867kW/10.09COP/Vanes"
+annotation(
+defaultComponentName="datChi",
+defaultComponentPrefixes="parameter",
+Documentation(info="<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -4314,8 +4575,11 @@ Chiller:Electric:EIR,
       EIRFunT =             {1.029608E+00,-7.149045E-02,2.043279E-03,-6.116474E-04,3.908334E-04,6.870233E-04},
       EIRFunPLR =           {2.984908E-01,2.906868E-01,4.089411E-01},
       etaMotor =            1.0)
-    "ElectricEIRChiller Carrier 19XL 1871kW/6.49COP/Vanes" annotation (
-      Documentation(info =     "<html>
+"ElectricEIRChiller Carrier 19XL 1871kW/6.49COP/Vanes"
+annotation(
+defaultComponentName="datChi",
+defaultComponentPrefixes="parameter",
+Documentation(info="<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -4366,8 +4630,11 @@ Chiller:Electric:EIR,
       EIRFunT =             {6.175311E-01,-3.913241E-02,6.177961E-04,2.775640E-02,-2.151466E-04,5.514895E-04},
       EIRFunPLR =           {6.087656E-02,4.842164E-01,4.571519E-01},
       etaMotor =            1.0)
-    "ElectricEIRChiller York YT 1881kW/6.77COP/VSD" annotation (Documentation(
-        info =                 "<html>
+"ElectricEIRChiller York YT 1881kW/6.77COP/VSD"
+annotation(
+defaultComponentName="datChi",
+defaultComponentPrefixes="parameter",
+Documentation(info="<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -4418,8 +4685,11 @@ Chiller:Electric:EIR,
       EIRFunT =             {4.434989E-01,4.361264E-02,-1.733337E-03,9.915503E-03,4.312717E-04,-1.122346E-03},
       EIRFunPLR =           {5.272116E-02,4.176382E-01,5.310870E-01},
       etaMotor =            1.0)
-    "ElectricEIRChiller York YK 1881kW/6.53COP/Vanes" annotation (Documentation(
-        info =                 "<html>
+"ElectricEIRChiller York YK 1881kW/6.53COP/Vanes"
+annotation(
+defaultComponentName="datChi",
+defaultComponentPrefixes="parameter",
+Documentation(info="<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -4470,8 +4740,11 @@ Chiller:Electric:EIR,
       EIRFunT =             {3.915073E-01,-4.399727E-02,-3.868294E-06,4.623771E-02,-7.092319E-04,1.372133E-03},
       EIRFunPLR =           {2.592598E-01,1.425462E-01,5.966041E-01},
       etaMotor =            1.0)
-    "ElectricEIRChiller McQuay PEH 1895kW/6.42COP/Vanes" annotation (
-      Documentation(info =     "<html>
+"ElectricEIRChiller McQuay PEH 1895kW/6.42COP/Vanes"
+annotation(
+defaultComponentName="datChi",
+defaultComponentPrefixes="parameter",
+Documentation(info="<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -4522,8 +4795,11 @@ Chiller:Electric:EIR,
       EIRFunT =             {1.173674E+00,-1.301647E-01,5.588446E-03,8.605153E-03,7.234201E-05,1.314581E-03},
       EIRFunPLR =           {1.706237E-01,6.063362E-01,2.170672E-01},
       etaMotor =            1.0)
-    "ElectricEIRChiller York YT 1934kW/7.55COP/Vanes" annotation (Documentation(
-        info =                 "<html>
+"ElectricEIRChiller York YT 1934kW/7.55COP/Vanes"
+annotation(
+defaultComponentName="datChi",
+defaultComponentPrefixes="parameter",
+Documentation(info="<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -4574,8 +4850,11 @@ Chiller:Electric:EIR,
       EIRFunT =             {2.885371E-01,-5.877829E-03,-1.807763E-03,5.193076E-02,-7.936373E-04,1.108590E-03},
       EIRFunPLR =           {3.849256E-01,-2.369152E-01,8.496351E-01},
       etaMotor =            1.0)
-    "ElectricEIRChiller McQuay PEH 1934kW/6.01COP/Vanes" annotation (
-      Documentation(info =     "<html>
+"ElectricEIRChiller McQuay PEH 1934kW/6.01COP/Vanes"
+annotation(
+defaultComponentName="datChi",
+defaultComponentPrefixes="parameter",
+Documentation(info="<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -4626,8 +4905,11 @@ Chiller:Electric:EIR,
       EIRFunT =             {1.097378E+00,-3.018324E-02,-2.792200E-03,-1.252428E-02,2.095232E-04,2.409252E-03},
       EIRFunPLR =           {1.282891E-01,2.722981E-01,6.012232E-01},
       etaMotor =            1.0)
-    "ElectricEIRChiller McQuay WDC 1973kW/6.28COP/Vanes" annotation (
-      Documentation(info =     "<html>
+"ElectricEIRChiller McQuay WDC 1973kW/6.28COP/Vanes"
+annotation(
+defaultComponentName="datChi",
+defaultComponentPrefixes="parameter",
+Documentation(info="<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -4678,8 +4960,11 @@ Chiller:Electric:EIR,
       EIRFunT =             {1.188194E-01,8.769791E-02,-1.692086E-03,2.209962E-03,1.327958E-03,-3.249833E-03},
       EIRFunPLR =           {9.359332E-02,5.873752E-01,3.208990E-01},
       etaMotor =            1.0)
-    "ElectricEIRChiller York YK 1997kW/7.24COP/Vanes" annotation (Documentation(
-        info =                 "<html>
+"ElectricEIRChiller York YK 1997kW/7.24COP/Vanes"
+annotation(
+defaultComponentName="datChi",
+defaultComponentPrefixes="parameter",
+Documentation(info="<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -4730,8 +5015,11 @@ Chiller:Electric:EIR,
       EIRFunT =             {7.891693E-01,1.168677E-02,-1.825470E-03,1.278749E-02,1.521317E-04,2.156746E-04},
       EIRFunPLR =           {1.225600E-01,3.070007E-01,5.712759E-01},
       etaMotor =            1.0)
-    "ElectricEIRChiller McQuay PFH 2043kW/8.44COP/Vanes" annotation (
-      Documentation(info =     "<html>
+"ElectricEIRChiller McQuay PFH 2043kW/8.44COP/Vanes"
+annotation(
+defaultComponentName="datChi",
+defaultComponentPrefixes="parameter",
+Documentation(info="<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -4782,8 +5070,11 @@ Chiller:Electric:EIR,
       EIRFunT =             {6.065177E-01,1.178669E-02,2.098586E-03,1.532536E-02,6.756887E-04,-2.629852E-03},
       EIRFunPLR =           {2.173752E-01,4.394720E-01,3.431813E-01},
       etaMotor =            1.0)
-    "ElectricEIRChiller Trane CVHF 2043kW/9.08COP/Vanes" annotation (
-      Documentation(info =     "<html>
+"ElectricEIRChiller Trane CVHF 2043kW/9.08COP/Vanes"
+annotation(
+defaultComponentName="datChi",
+defaultComponentPrefixes="parameter",
+Documentation(info="<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -4834,8 +5125,11 @@ Chiller:Electric:EIR,
       EIRFunT =             {8.623086E-01,-5.844490E-02,-2.284745E-03,2.469188E-02,-1.022604E-03,3.996523E-03},
       EIRFunPLR =           {4.041274E-01,-3.861525E-01,9.804493E-01},
       etaMotor =            1.0)
-    "ElectricEIRChiller Carrier 19XL 2057kW/6.05COP/Vanes" annotation (
-      Documentation(info =     "<html>
+"ElectricEIRChiller Carrier 19XL 2057kW/6.05COP/Vanes"
+annotation(
+defaultComponentName="datChi",
+defaultComponentPrefixes="parameter",
+Documentation(info="<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -4886,8 +5180,11 @@ Chiller:Electric:EIR,
       EIRFunT =             {6.270855E-01,-4.119654E-02,1.327107E-03,2.661446E-02,-1.856827E-04,5.094942E-04},
       EIRFunPLR =           {2.469187E-01,1.862690E-01,5.660904E-01},
       etaMotor =            1.0)
-    "ElectricEIRChiller York YT 2110kW/7.15COP/Vanes" annotation (Documentation(
-        info =                 "<html>
+"ElectricEIRChiller York YT 2110kW/7.15COP/Vanes"
+annotation(
+defaultComponentName="datChi",
+defaultComponentPrefixes="parameter",
+Documentation(info="<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -4938,8 +5235,11 @@ Chiller:Electric:EIR,
       EIRFunT =             {1.157799E+00,-3.621524E-02,-3.684818E-03,-1.202959E-02,-7.378548E-05,3.787365E-03},
       EIRFunPLR =           {1.051419E-01,2.033679E-01,6.902026E-01},
       etaMotor =            1.0)
-    "ElectricEIRChiller McQuay PFH 2124kW/6.03COP/Vanes" annotation (
-      Documentation(info =     "<html>
+"ElectricEIRChiller McQuay PFH 2124kW/6.03COP/Vanes"
+annotation(
+defaultComponentName="datChi",
+defaultComponentPrefixes="parameter",
+Documentation(info="<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -4990,8 +5290,11 @@ Chiller:Electric:EIR,
       EIRFunT =             {9.106730E-01,-3.786410E-03,-1.084261E-03,-7.148246E-03,5.178799E-04,1.818623E-05},
       EIRFunPLR =           {2.595694E-01,1.889684E-01,5.518450E-01},
       etaMotor =            1.0)
-    "ElectricEIRChiller York YK 2159kW/6.85COP/Vanes" annotation (Documentation(
-        info =                 "<html>
+"ElectricEIRChiller York YK 2159kW/6.85COP/Vanes"
+annotation(
+defaultComponentName="datChi",
+defaultComponentPrefixes="parameter",
+Documentation(info="<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -5042,8 +5345,11 @@ Chiller:Electric:EIR,
       EIRFunT =             {8.877947E-01,-1.334886E-02,1.689581E-03,-1.599710E-03,7.884945E-04,-1.584900E-03},
       EIRFunPLR =           {8.942647E-02,5.249540E-01,3.850801E-01},
       etaMotor =            1.0)
-    "ElectricEIRChiller Trane CVHF 2184kW/6.78COP/Vanes" annotation (
-      Documentation(info =     "<html>
+"ElectricEIRChiller Trane CVHF 2184kW/6.78COP/Vanes"
+annotation(
+defaultComponentName="datChi",
+defaultComponentPrefixes="parameter",
+Documentation(info="<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -5094,8 +5400,11 @@ Chiller:Electric:EIR,
       EIRFunT =             {8.234137E-01,1.308264E-02,-1.147806E-03,-4.071161E-03,5.220869E-04,-6.312495E-04},
       EIRFunPLR =           {2.653493E-01,1.444620E-01,5.911158E-01},
       etaMotor =            1.0)
-    "ElectricEIRChiller York YK 2201kW/6.69COP/Vanes" annotation (Documentation(
-        info =                 "<html>
+"ElectricEIRChiller York YK 2201kW/6.69COP/Vanes"
+annotation(
+defaultComponentName="datChi",
+defaultComponentPrefixes="parameter",
+Documentation(info="<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -5146,8 +5455,11 @@ Chiller:Electric:EIR,
       EIRFunT =             {7.563409E-01,-1.966623E-02,-3.927494E-04,2.973607E-02,1.299230E-04,-4.325357E-04},
       EIRFunPLR =           {6.917141E-02,1.743339E-01,7.524059E-01},
       etaMotor =            1.0)
-    "ElectricEIRChiller York YT 2233kW/9.54COP/VSD" annotation (Documentation(
-        info =                 "<html>
+"ElectricEIRChiller York YT 2233kW/9.54COP/VSD"
+annotation(
+defaultComponentName="datChi",
+defaultComponentPrefixes="parameter",
+Documentation(info="<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -5198,8 +5510,11 @@ Chiller:Electric:EIR,
       EIRFunT =             {8.567950E-01,3.354557E-03,1.047901E-03,-5.217250E-03,6.565310E-04,-1.361740E-03},
       EIRFunPLR =           {2.605354E-01,2.125571E-01,5.269144E-01},
       etaMotor =            1.0)
-    "ElectricEIRChiller York YK 2237kW/6.41COP/Vanes" annotation (Documentation(
-        info =                 "<html>
+"ElectricEIRChiller York YK 2237kW/6.41COP/Vanes"
+annotation(
+defaultComponentName="datChi",
+defaultComponentPrefixes="parameter",
+Documentation(info="<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -5250,8 +5565,11 @@ Chiller:Electric:EIR,
       EIRFunT =             {8.326094E-01,-6.056615E-03,-3.016626E-04,-2.498578E-03,4.933363E-04,-3.125632E-04},
       EIRFunPLR =           {2.735485E-01,2.163041E-01,5.099054E-01},
       etaMotor =            1.0)
-    "ElectricEIRChiller York YK 2275kW/6.32COP/Vanes" annotation (Documentation(
-        info =                 "<html>
+"ElectricEIRChiller York YK 2275kW/6.32COP/Vanes"
+annotation(
+defaultComponentName="datChi",
+defaultComponentPrefixes="parameter",
+Documentation(info="<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -5302,8 +5620,11 @@ Chiller:Electric:EIR,
       EIRFunT =             {7.178121E-01,6.561784E-03,8.193740E-06,2.319141E-02,-1.755983E-06,-8.834410E-04},
       EIRFunPLR =           {1.161399E-01,4.347344E-01,4.486380E-01},
       etaMotor =            1.0)
-    "ElectricEIRChiller Trane CVHF 2300kW/8.10COP/Vanes" annotation (
-      Documentation(info =     "<html>
+"ElectricEIRChiller Trane CVHF 2300kW/8.10COP/Vanes"
+annotation(
+defaultComponentName="datChi",
+defaultComponentPrefixes="parameter",
+Documentation(info="<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -5354,8 +5675,11 @@ Chiller:Electric:EIR,
       EIRFunT =             {3.502330E-01,-2.301510E-02,5.749596E-04,1.902421E-02,3.109974E-04,-4.714517E-04},
       EIRFunPLR =           {9.861441E-02,5.297727E-01,3.707229E-01},
       etaMotor =            1.0)
-    "ElectricEIRChiller Trane CVHF 2317kW/6.33COP/VSD" annotation (
-      Documentation(info =     "<html>
+"ElectricEIRChiller Trane CVHF 2317kW/6.33COP/VSD"
+annotation(
+defaultComponentName="datChi",
+defaultComponentPrefixes="parameter",
+Documentation(info="<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -5406,8 +5730,11 @@ Chiller:Electric:EIR,
       EIRFunT =             {6.266646E-01,-2.367443E-02,4.031296E-04,2.827714E-02,-1.985242E-04,-1.470260E-04},
       EIRFunPLR =           {3.036386E-01,2.524850E-01,4.429285E-01},
       etaMotor =            1.0)
-    "ElectricEIRChiller Carrier 19XR 2391kW/6.77COP/Vanes" annotation (
-      Documentation(info =     "<html>
+"ElectricEIRChiller Carrier 19XR 2391kW/6.77COP/Vanes"
+annotation(
+defaultComponentName="datChi",
+defaultComponentPrefixes="parameter",
+Documentation(info="<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -5458,8 +5785,11 @@ Chiller:Electric:EIR,
       EIRFunT =             {6.230142E-01,-2.371649E-02,3.996265E-04,2.874515E-02,-2.115103E-04,-1.526191E-04},
       EIRFunPLR =           {9.774812E-02,2.490111E-01,6.539378E-01},
       etaMotor =            1.0)
-    "ElectricEIRChiller Carrier 19XR 2391kW/6.44COP/VSD" annotation (
-      Documentation(info =     "<html>
+"ElectricEIRChiller Carrier 19XR 2391kW/6.44COP/VSD"
+annotation(
+defaultComponentName="datChi",
+defaultComponentPrefixes="parameter",
+Documentation(info="<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -5510,8 +5840,11 @@ Chiller:Electric:EIR,
       EIRFunT =             {4.626807E-01,-2.305674E-02,1.169126E-03,3.431185E-02,-3.396938E-04,-7.381352E-05},
       EIRFunPLR =           {2.472427E-01,7.531481E-01,8.643617E-04},
       etaMotor =            1.0)
-    "ElectricEIRChiller York YK 2412kW/5.58COP/Vanes" annotation (Documentation(
-        info =                 "<html>
+"ElectricEIRChiller York YK 2412kW/5.58COP/Vanes"
+annotation(
+defaultComponentName="datChi",
+defaultComponentPrefixes="parameter",
+Documentation(info="<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -5562,8 +5895,11 @@ Chiller:Electric:EIR,
       EIRFunT =             {5.462893E-01,2.854651E-02,-5.770782E-03,1.634571E-02,-2.645314E-04,2.138325E-03},
       EIRFunPLR =           {9.222135E-02,5.830980E-01,3.250019E-01},
       etaMotor =            1.0)
-    "ElectricEIRChiller McQuay PFH 2462kW/6.67COP/Vanes" annotation (
-      Documentation(info =     "<html>
+"ElectricEIRChiller McQuay PFH 2462kW/6.67COP/Vanes"
+annotation(
+defaultComponentName="datChi",
+defaultComponentPrefixes="parameter",
+Documentation(info="<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -5614,8 +5950,11 @@ Chiller:Electric:EIR,
       EIRFunT =             {4.561990E-01,-3.333063E-02,-1.763576E-03,5.624520E-02,-8.535085E-05,3.567604E-04},
       EIRFunPLR =           {1.039419E-01,4.184975E-01,4.774210E-01},
       etaMotor =            1.0)
-    "ElectricEIRChiller Trane CVHF 2567kW/11.77COP/VSD" annotation (
-      Documentation(info =     "<html>
+"ElectricEIRChiller Trane CVHF 2567kW/11.77COP/VSD"
+annotation(
+defaultComponentName="datChi",
+defaultComponentPrefixes="parameter",
+Documentation(info="<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -5666,8 +6005,11 @@ Chiller:Electric:EIR,
       EIRFunT =             {7.203736E-01,1.030460E-02,-7.854237E-04,-1.206349E-03,8.210060E-04,-1.455414E-03},
       EIRFunPLR =           {8.653354E-02,1.737382E-01,7.403679E-01},
       etaMotor =            1.0)
-    "ElectricEIRChiller York YK 2771kW/6.84COP/VSD" annotation (Documentation(
-        info =                 "<html>
+"ElectricEIRChiller York YK 2771kW/6.84COP/VSD"
+annotation(
+defaultComponentName="datChi",
+defaultComponentPrefixes="parameter",
+Documentation(info="<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -5718,8 +6060,11 @@ Chiller:Electric:EIR,
       EIRFunT =             {2.267558E-01,-7.615857E-02,2.140583E-03,7.088812E-02,-1.124968E-03,6.089843E-04},
       EIRFunPLR =           {3.023576E-01,-2.893592E-02,7.262269E-01},
       etaMotor =            1.0)
-    "ElectricEIRChiller Trane CVHF 2799kW/6.40COP/Vanes" annotation (
-      Documentation(info =     "<html>
+"ElectricEIRChiller Trane CVHF 2799kW/6.40COP/Vanes"
+annotation(
+defaultComponentName="datChi",
+defaultComponentPrefixes="parameter",
+Documentation(info="<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -5770,8 +6115,11 @@ Chiller:Electric:EIR,
       EIRFunT =             {9.150153E-01,-3.956395E-02,1.865473E-03,1.810633E-02,2.900613E-04,-4.199110E-04},
       EIRFunPLR =           {1.387579E-01,6.435208E-01,2.155990E-01},
       etaMotor =            1.0)
-    "ElectricEIRChiller York YT 3133kW/9.16COP/Vanes" annotation (Documentation(
-        info =                 "<html>
+"ElectricEIRChiller York YT 3133kW/9.16COP/Vanes"
+annotation(
+defaultComponentName="datChi",
+defaultComponentPrefixes="parameter",
+Documentation(info="<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -5822,8 +6170,11 @@ Chiller:Electric:EIR,
       EIRFunT =             {9.347904E-01,6.551597E-02,-1.242676E-02,-2.799974E-02,3.323287E-04,4.803491E-03},
       EIRFunPLR =           {1.054110E-01,4.090646E-01,4.838839E-01},
       etaMotor =            1.0)
-    "ElectricEIRChiller McQuay PFH 3165kW/6.48COP/Vanes" annotation (
-      Documentation(info =     "<html>
+"ElectricEIRChiller McQuay PFH 3165kW/6.48COP/Vanes"
+annotation(
+defaultComponentName="datChi",
+defaultComponentPrefixes="parameter",
+Documentation(info="<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -5874,8 +6225,11 @@ Chiller:Electric:EIR,
       EIRFunT =             {9.322623E-01,-2.157964E-02,-1.435883E-03,1.379036E-02,-1.491048E-04,1.302075E-03},
       EIRFunPLR =           {5.763566E-02,5.964012E-01,3.473613E-01},
       etaMotor =            1.0)
-    "ElectricEIRChiller McQuay PFH 4020kW/7.35COP/Vanes" annotation (
-      Documentation(info =     "<html>
+"ElectricEIRChiller McQuay PFH 4020kW/7.35COP/Vanes"
+annotation(
+defaultComponentName="datChi",
+defaultComponentPrefixes="parameter",
+Documentation(info="<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -5926,8 +6280,11 @@ Chiller:Electric:EIR,
       EIRFunT =             {5.913358E-01,-5.974145E-02,8.176561E-04,3.987353E-02,-8.176694E-04,1.457994E-03},
       EIRFunPLR =           {3.021070E-01,3.103971E-02,6.669726E-01},
       etaMotor =            1.0)
-    "ElectricEIRChiller York YK 4396kW/6.63COP/Vanes" annotation (Documentation(
-        info =                 "<html>
+"ElectricEIRChiller York YK 4396kW/6.63COP/Vanes"
+annotation(
+defaultComponentName="datChi",
+defaultComponentPrefixes="parameter",
+Documentation(info="<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -5978,8 +6335,11 @@ Chiller:Electric:EIR,
       EIRFunT =             {4.264570E-01,-3.391606E-02,-1.991396E-03,5.032090E-02,-1.140771E-03,1.814692E-03},
       EIRFunPLR =           {2.767206E-01,1.074393E-01,6.145706E-01},
       etaMotor =            1.0)
-    "ElectricEIRChiller York YK 4477kW/6.64COP/Vanes" annotation (Documentation(
-        info =                 "<html>
+"ElectricEIRChiller York YK 4477kW/6.64COP/Vanes"
+annotation(
+defaultComponentName="datChi",
+defaultComponentPrefixes="parameter",
+Documentation(info="<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -6030,8 +6390,11 @@ Chiller:Electric:EIR,
       EIRFunT =             {5.908290E-01,1.028668E-02,-4.718838E-04,1.220347E-02,4.166971E-04,-1.484327E-03},
       EIRFunPLR =           {2.870815E-01,3.951784E-01,3.177735E-01},
       etaMotor =            1.0)
-    "ElectricEIRChiller York YK 4515kW/6.22COP/Vanes" annotation (Documentation(
-        info =                 "<html>
+"ElectricEIRChiller York YK 4515kW/6.22COP/Vanes"
+annotation(
+defaultComponentName="datChi",
+defaultComponentPrefixes="parameter",
+Documentation(info="<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -6082,8 +6445,11 @@ Chiller:Electric:EIR,
       EIRFunT =             {7.709829E-01,-2.257680E-02,2.492708E-04,7.635418E-03,3.376522E-04,-3.614203E-04},
       EIRFunPLR =           {2.528426E-01,2.920280E-01,4.533447E-01},
       etaMotor =            1.0)
-    "ElectricEIRChiller York YK 4537kW/6.28COP/Vanes" annotation (Documentation(
-        info =                 "<html>
+"ElectricEIRChiller York YK 4537kW/6.28COP/Vanes"
+annotation(
+defaultComponentName="datChi",
+defaultComponentPrefixes="parameter",
+Documentation(info="<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -6134,8 +6500,11 @@ Chiller:Electric:EIR,
       EIRFunT =             {7.415078E-01,-4.779029E-02,-1.028085E-03,1.423650E-02,1.304315E-04,9.170177E-04},
       EIRFunPLR =           {2.026691E-01,2.922585E-01,5.044422E-01},
       etaMotor =            1.0)
-    "ElectricEIRChiller Trane CVHF 4610kW/6.34COP/Vanes" annotation (
-      Documentation(info =     "<html>
+"ElectricEIRChiller Trane CVHF 4610kW/6.34COP/Vanes"
+annotation(
+defaultComponentName="datChi",
+defaultComponentPrefixes="parameter",
+Documentation(info="<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -6186,8 +6555,11 @@ Chiller:Electric:EIR,
       EIRFunT =             {5.214788E-01,-8.218594E-03,-3.068358E-05,2.152332E-02,1.203908E-04,-7.167755E-04},
       EIRFunPLR =           {3.771252E-01,2.854188E-02,5.928670E-01},
       etaMotor =            1.0)
-    "ElectricEIRChiller Carrier 19EX 4667kW/6.16COP/Vanes" annotation (
-      Documentation(info =     "<html>
+"ElectricEIRChiller Carrier 19EX 4667kW/6.16COP/Vanes"
+annotation(
+defaultComponentName="datChi",
+defaultComponentPrefixes="parameter",
+Documentation(info="<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -6238,8 +6610,11 @@ Chiller:Electric:EIR,
       EIRFunT =             {8.283132E-01,-3.030491E-02,4.164965E-03,-3.278448E-03,6.762508E-04,-1.107762E-03},
       EIRFunPLR =           {3.531562E-01,-2.126229E-01,8.597400E-01},
       etaMotor =            1.0)
-    "ElectricEIRChiller Trane CVHF 4677kW/6.27COP/Vanes" annotation (
-      Documentation(info =     "<html>
+"ElectricEIRChiller Trane CVHF 4677kW/6.27COP/Vanes"
+annotation(
+defaultComponentName="datChi",
+defaultComponentPrefixes="parameter",
+Documentation(info="<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -6290,8 +6665,11 @@ Chiller:Electric:EIR,
       EIRFunT =             {8.229769E-01,-8.128614E-03,1.110212E-03,-3.521351E-03,6.129803E-04,-9.170063E-04},
       EIRFunPLR =           {3.416463E-01,1.947185E-01,4.640804E-01},
       etaMotor =            1.0)
-    "ElectricEIRChiller York YK 4966kW/6.05COP/Vanes" annotation (Documentation(
-        info =                 "<html>
+"ElectricEIRChiller York YK 4966kW/6.05COP/Vanes"
+annotation(
+defaultComponentName="datChi",
+defaultComponentPrefixes="parameter",
+Documentation(info="<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -6342,8 +6720,11 @@ Chiller:Electric:EIR,
       EIRFunT =             {7.382162E-01,-5.847442E-02,1.117191E-03,2.168089E-02,-2.189722E-04,1.036877E-03},
       EIRFunPLR =           {2.259512E-01,2.320151E-01,5.423771E-01},
       etaMotor =            1.0)
-    "ElectricEIRChiller York YK 4969kW/7.14COP/Vanes" annotation (Documentation(
-        info =                 "<html>
+"ElectricEIRChiller York YK 4969kW/7.14COP/Vanes"
+annotation(
+defaultComponentName="datChi",
+defaultComponentPrefixes="parameter",
+Documentation(info="<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -6394,8 +6775,11 @@ Chiller:Electric:EIR,
       EIRFunT =             {7.220087E-01,-4.480691E-02,9.621038E-06,2.084835E-02,-2.615973E-04,1.188407E-03},
       EIRFunPLR =           {2.308102E-01,1.802734E-01,5.894894E-01},
       etaMotor =            1.0)
-    "ElectricEIRChiller York YK 4969kW/7.07COP/Vanes" annotation (Documentation(
-        info =                 "<html>
+"ElectricEIRChiller York YK 4969kW/7.07COP/Vanes"
+annotation(
+defaultComponentName="datChi",
+defaultComponentPrefixes="parameter",
+Documentation(info="<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -6446,8 +6830,11 @@ Chiller:Electric:EIR,
       EIRFunT =             {6.685097E-01,-2.541433E-02,3.334144E-03,1.002578E-02,5.753780E-04,-1.801340E-03},
       EIRFunPLR =           {3.364887E-01,2.122607E-01,4.486522E-01},
       etaMotor =            1.0)
-    "ElectricEIRChiller Carrier 19EX 4997kW/6.40COP/Vanes" annotation (
-      Documentation(info =     "<html>
+"ElectricEIRChiller Carrier 19EX 4997kW/6.40COP/Vanes"
+annotation(
+defaultComponentName="datChi",
+defaultComponentPrefixes="parameter",
+Documentation(info="<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -6498,8 +6885,11 @@ Chiller:Electric:EIR,
       EIRFunT =             {5.426449E-01,3.961314E-03,-1.195821E-04,1.609421E-02,3.089258E-04,-1.129525E-03},
       EIRFunPLR =           {1.883602E-01,5.018646E-01,3.089569E-01},
       etaMotor =            1.0)
-    "ElectricEIRChiller Carrier 19EX 5148kW/6.34COP/Vanes" annotation (
-      Documentation(info =     "<html>
+"ElectricEIRChiller Carrier 19EX 5148kW/6.34COP/Vanes"
+annotation(
+defaultComponentName="datChi",
+defaultComponentPrefixes="parameter",
+Documentation(info="<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -6550,8 +6940,11 @@ Chiller:Electric:EIR,
       EIRFunT =             {5.894383E-01,-2.926530E-02,-1.900238E-03,2.849479E-02,-5.105015E-04,1.702334E-03},
       EIRFunPLR =           {2.497273E-01,1.011288E-01,6.499847E-01},
       etaMotor =            1.0)
-    "ElectricEIRChiller York YK 5170kW/7.15COP/Vanes" annotation (Documentation(
-        info =                 "<html>
+"ElectricEIRChiller York YK 5170kW/7.15COP/Vanes"
+annotation(
+defaultComponentName="datChi",
+defaultComponentPrefixes="parameter",
+Documentation(info="<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -6602,8 +6995,11 @@ Chiller:Electric:EIR,
       EIRFunT =             {5.198204E-01,-1.523340E-02,-6.391523E-04,2.170049E-02,2.423693E-05,1.432604E-04},
       EIRFunPLR =           {2.334262E-01,3.926783E-01,3.731320E-01},
       etaMotor =            1.0)
-    "ElectricEIRChiller Carrier 19EX 5208kW/6.88COP/Vanes" annotation (
-      Documentation(info =     "<html>
+"ElectricEIRChiller Carrier 19EX 5208kW/6.88COP/Vanes"
+annotation(
+defaultComponentName="datChi",
+defaultComponentPrefixes="parameter",
+Documentation(info="<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -6654,8 +7050,11 @@ Chiller:Electric:EIR,
       EIRFunT =             {6.396022E-01,-5.954060E-02,5.884523E-04,3.170651E-02,-5.088216E-04,1.460759E-03},
       EIRFunPLR =           {2.795792E-01,7.872758E-02,6.424321E-01},
       etaMotor =            1.0)
-    "ElectricEIRChiller York YK 5465kW/6.94COP/Vanes" annotation (Documentation(
-        info =                 "<html>
+"ElectricEIRChiller York YK 5465kW/6.94COP/Vanes"
+annotation(
+defaultComponentName="datChi",
+defaultComponentPrefixes="parameter",
+Documentation(info="<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -6706,8 +7105,11 @@ Chiller:Electric:EIR,
       EIRFunT =             {4.989980E-01,-8.246157E-02,6.047523E-03,5.168793E-02,-8.552445E-04,6.275326E-05},
       EIRFunPLR =           {2.336623E-01,1.901320E-01,5.749473E-01},
       etaMotor =            1.0)
-    "ElectricEIRChiller York YK 5549kW/6.50COP/Vanes" annotation (Documentation(
-        info =                 "<html>
+"ElectricEIRChiller York YK 5549kW/6.50COP/Vanes"
+annotation(
+defaultComponentName="datChi",
+defaultComponentPrefixes="parameter",
+Documentation(info="<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -6758,8 +7160,11 @@ Chiller:Electric:EIR,
       EIRFunT =             {7.853207E-01,-1.652255E-02,-3.294526E-04,4.569179E-03,1.964013E-04,1.761497E-04},
       EIRFunPLR =           {1.629327E-01,5.709336E-01,2.659304E-01},
       etaMotor =            1.0)
-    "ElectricEIRChiller Carrier 19FA 5651kW/5.50COP/Vanes" annotation (
-      Documentation(info =     "<html>
+"ElectricEIRChiller Carrier 19FA 5651kW/5.50COP/Vanes"
+annotation(
+defaultComponentName="datChi",
+defaultComponentPrefixes="parameter",
+Documentation(info="<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -6809,8 +7214,12 @@ Chiller:Electric:EIR,
       capFunT =             {0.257896E+00,0.389016E-01,-0.217080E-03,0.468684E-01,-0.942840E-03,-0.343440E-03},
       EIRFunT =             {0.933884E+00,-0.582120E-01,0.450036E-02,0.243000E-02,0.486000E-03,-0.121500E-02},
       EIRFunPLR =           {0.222903,0.313387,0.463710},
-      etaMotor =            1.0) "DOE-2 Centrifugal/5.50COP" annotation (
-      Documentation(info =     "<html>
+      etaMotor =            1.0)
+"DOE-2 Centrifugal/5.50COP"
+annotation(
+defaultComponentName="datChi",
+defaultComponentPrefixes="parameter",
+Documentation(info="<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -6838,7 +7247,7 @@ Chiller:Electric:EIR,
     1.0,                     !- Compressor Motor Efficiency
     2.0,                     !- Leaving Chilled Water Lower Temperature Limit {C}
     ConstantFlow;            !- Chiller Flow Mode
-
+    
 </pre>
 </html>"));
 
@@ -6861,8 +7270,11 @@ Chiller:Electric:EIR,
       EIRFunT =             {9.396181E-01,-5.754225E-02,2.561677E-03,1.081450E-02,1.839935E-04,5.269319E-05},
       EIRFunPLR =           {4.747786E-03,1.072374E+00,-7.758317E-02},
       etaMotor =            1.0)
-    "ElectricEIRChiller Multistack MS 172kW/3.67COP/None" annotation (
-      Documentation(info =     "<html>
+"ElectricEIRChiller Multistack MS 172kW/3.67COP/None"
+annotation(
+defaultComponentName="datChi",
+defaultComponentPrefixes="parameter",
+Documentation(info="<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -6912,8 +7324,12 @@ Chiller:Electric:EIR,
       capFunT =             {0.507883E+00,0.145228E+00,-0.625644E-02,-0.111780E-02,-0.129600E-03,-0.281880E-03},
       EIRFunT =             {0.103076E+01,-0.103536E+00,0.710208E-02,0.931860E-02,0.317520E-03,-0.104328E-02},
       EIRFunPLR =           {0.088065,1.137742,-0.225806},
-      etaMotor =            1.0) "DOE-2 Reciprocating/3.67COP" annotation (
-      Documentation(info =     "<html>
+      etaMotor =            1.0)
+"DOE-2 Reciprocating/3.67COP"
+annotation(
+defaultComponentName="datChi",
+defaultComponentPrefixes="parameter",
+Documentation(info="<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -6941,7 +7357,7 @@ Chiller:Electric:EIR,
     1.0,                     !- Compressor Motor Efficiency
     2.0,                     !- Leaving Chilled Water Lower Temperature Limit {C}
     ConstantFlow;            !- Chiller Flow Mode
-
+    
 </pre>
 </html>"));
 
@@ -6964,8 +7380,11 @@ Chiller:Electric:EIR,
       EIRFunT =             {6.228513E-01,-8.700783E-03,9.719796E-04,5.184584E-03,4.951699E-04,-9.632370E-04},
       EIRFunPLR =           {3.295553E-02,9.114398E-01,5.565265E-02},
       etaMotor =            1.0)
-    "ElectricEIRChiller Trane RTWA 383kW/4.17COP/Valve" annotation (
-      Documentation(info =     "<html>
+"ElectricEIRChiller Trane RTWA 383kW/4.17COP/Valve"
+annotation(
+defaultComponentName="datChi",
+defaultComponentPrefixes="parameter",
+Documentation(info="<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -7016,8 +7435,11 @@ Chiller:Electric:EIR,
       EIRFunT =             {4.524778E-01,1.045156E-04,6.932509E-05,2.044980E-02,3.672953E-04,-1.099051E-03},
       EIRFunPLR =           {1.980020E-01,2.733157E-01,5.277318E-01},
       etaMotor =            1.0)
-    "ElectricEIRChiller Trane RTHB 531kW/4.83COP/Valve" annotation (
-      Documentation(info =     "<html>
+"ElectricEIRChiller Trane RTHB 531kW/4.83COP/Valve"
+annotation(
+defaultComponentName="datChi",
+defaultComponentPrefixes="parameter",
+Documentation(info="<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -7068,8 +7490,11 @@ Chiller:Electric:EIR,
       EIRFunT =             {5.455087E-01,-9.301201E-03,5.012361E-04,1.432870E-02,4.719381E-04,-8.937669E-04},
       EIRFunPLR =           {1.816950E-01,3.731838E-01,4.448009E-01},
       etaMotor =            1.0)
-    "ElectricEIRChiller Trane RTHB 538kW/5.12COP/Valve" annotation (
-      Documentation(info =     "<html>
+"ElectricEIRChiller Trane RTHB 538kW/5.12COP/Valve"
+annotation(
+defaultComponentName="datChi",
+defaultComponentPrefixes="parameter",
+Documentation(info="<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -7120,8 +7545,11 @@ Chiller:Electric:EIR,
       EIRFunT =             {4.953775E-01,-1.359340E-02,5.784637E-04,2.778142E-02,1.747259E-04,-8.590768E-04},
       EIRFunPLR =           {3.057645E-01,-1.548084E-01,8.484536E-01},
       etaMotor =            1.0)
-    "ElectricEIRChiller Trane RTHB 542kW/5.26COP/Valve" annotation (
-      Documentation(info =     "<html>
+"ElectricEIRChiller Trane RTHB 542kW/5.26COP/Valve"
+annotation(
+defaultComponentName="datChi",
+defaultComponentPrefixes="parameter",
+Documentation(info="<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -7172,8 +7600,11 @@ Chiller:Electric:EIR,
       EIRFunT =             {4.069331E-01,-6.420922E-03,2.689257E-04,4.500373E-02,1.583981E-04,-1.284532E-03},
       EIRFunPLR =           {1.936152E-01,3.375574E-01,4.704892E-01},
       etaMotor =            1.0)
-    "ElectricEIRChiller York YS 672kW/7.90COP/Valve" annotation (Documentation(
-        info =                 "<html>
+"ElectricEIRChiller York YS 672kW/7.90COP/Valve"
+annotation(
+defaultComponentName="datChi",
+defaultComponentPrefixes="parameter",
+Documentation(info="<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -7224,8 +7655,11 @@ Chiller:Electric:EIR,
       EIRFunT =             {5.014060E-01,1.561000E-03,-1.347980E-04,1.525028E-02,5.701374E-04,-1.221374E-03},
       EIRFunPLR =           {2.113934E-01,4.190226E-01,3.686143E-01},
       etaMotor =            1.0)
-    "ElectricEIRChiller Carrier 23XL 686kW/5.91COP/Valve" annotation (
-      Documentation(info =     "<html>
+"ElectricEIRChiller Carrier 23XL 686kW/5.91COP/Valve"
+annotation(
+defaultComponentName="datChi",
+defaultComponentPrefixes="parameter",
+Documentation(info="<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -7276,8 +7710,11 @@ Chiller:Electric:EIR,
       EIRFunT =             {6.497944E-01,6.883157E-03,-5.277681E-04,1.725788E-02,6.779317E-04,-1.244055E-03},
       EIRFunPLR =           {1.997099E-01,6.754676E-01,1.243767E-01},
       etaMotor =            1.0)
-    "ElectricEIRChiller Trane RTHC 707kW/7.77COP/Valve" annotation (
-      Documentation(info =     "<html>
+"ElectricEIRChiller Trane RTHC 707kW/7.77COP/Valve"
+annotation(
+defaultComponentName="datChi",
+defaultComponentPrefixes="parameter",
+Documentation(info="<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -7328,8 +7765,11 @@ Chiller:Electric:EIR,
       EIRFunT =             {6.917947E-01,-1.929936E-02,1.450011E-03,1.795987E-02,9.301685E-04,-1.755165E-03},
       EIRFunPLR =           {2.929778E-01,1.673799E-02,6.881229E-01},
       etaMotor =            1.0)
-    "ElectricEIRChiller York YS 756kW/7.41COP/Valve" annotation (Documentation(
-        info =                 "<html>
+"ElectricEIRChiller York YS 756kW/7.41COP/Valve"
+annotation(
+defaultComponentName="datChi",
+defaultComponentPrefixes="parameter",
+Documentation(info="<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -7380,8 +7820,11 @@ Chiller:Electric:EIR,
       EIRFunT =             {4.475957E-01,-1.054652E-02,7.126870E-04,1.158632E-02,5.151510E-04,-9.831355E-04},
       EIRFunPLR =           {2.519108E-01,2.756914E-01,4.725826E-01},
       etaMotor =            1.0)
-    "ElectricEIRChiller York YS 781kW/5.42COP/Valve" annotation (Documentation(
-        info =                 "<html>
+"ElectricEIRChiller York YS 781kW/5.42COP/Valve"
+annotation(
+defaultComponentName="datChi",
+defaultComponentPrefixes="parameter",
+Documentation(info="<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -7432,8 +7875,11 @@ Chiller:Electric:EIR,
       EIRFunT =             {4.610959E-01,-1.560459E-02,-2.737454E-04,2.650593E-02,-7.789498E-05,1.855843E-04},
       EIRFunPLR =           {2.307464E-01,7.784162E-01,-7.516503E-03},
       etaMotor =            1.0)
-    "ElectricEIRChiller Carrier 23XL 830kW/6.97COP/Valve" annotation (
-      Documentation(info =     "<html>
+"ElectricEIRChiller Carrier 23XL 830kW/6.97COP/Valve"
+annotation(
+defaultComponentName="datChi",
+defaultComponentPrefixes="parameter",
+Documentation(info="<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -7484,8 +7930,11 @@ Chiller:Electric:EIR,
       EIRFunT =             {5.420642E-01,-2.110032E-02,1.513908E-03,2.067897E-02,5.287518E-04,-1.630330E-03},
       EIRFunPLR =           {2.292819E-01,3.662723E-01,4.032019E-01},
       etaMotor =            1.0)
-    "ElectricEIRChiller Carrier 23XL 862kW/6.11COP/Valve" annotation (
-      Documentation(info =     "<html>
+"ElectricEIRChiller Carrier 23XL 862kW/6.11COP/Valve"
+annotation(
+defaultComponentName="datChi",
+defaultComponentPrefixes="parameter",
+Documentation(info="<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -7536,8 +7985,11 @@ Chiller:Electric:EIR,
       EIRFunT =             {5.930611E-01,-2.082914E-02,1.600282E-03,2.352564E-02,5.992247E-04,-1.907335E-03},
       EIRFunPLR =           {1.145826E-01,7.340475E-01,1.507744E-01},
       etaMotor =            1.0)
-    "ElectricEIRChiller Carrier 23XL 862kW/6.84COP/Valve" annotation (
-      Documentation(info =     "<html>
+"ElectricEIRChiller Carrier 23XL 862kW/6.84COP/Valve"
+annotation(
+defaultComponentName="datChi",
+defaultComponentPrefixes="parameter",
+Documentation(info="<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -7588,8 +8040,11 @@ Chiller:Electric:EIR,
       EIRFunT =             {5.437328E-01,7.625344E-03,-9.201579E-05,1.339616E-03,8.286757E-04,-1.543530E-03},
       EIRFunPLR =           {2.545235E-01,3.104981E-01,4.347781E-01},
       etaMotor =            1.0)
-    "ElectricEIRChiller Carrier 23XL 865kW/6.05COP/Valve" annotation (
-      Documentation(info =     "<html>
+"ElectricEIRChiller Carrier 23XL 865kW/6.05COP/Valve"
+annotation(
+defaultComponentName="datChi",
+defaultComponentPrefixes="parameter",
+Documentation(info="<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -7640,8 +8095,11 @@ Chiller:Electric:EIR,
       EIRFunT =             {5.595308E-01,-1.087985E-02,8.721022E-04,1.010347E-02,5.087454E-04,-1.211319E-03},
       EIRFunPLR =           {3.029493E-01,3.223124E-01,3.751948E-01},
       etaMotor =            1.0)
-    "ElectricEIRChiller York YS 879kW/5.82COP/Valve" annotation (Documentation(
-        info =                 "<html>
+"ElectricEIRChiller York YS 879kW/5.82COP/Valve"
+annotation(
+defaultComponentName="datChi",
+defaultComponentPrefixes="parameter",
+Documentation(info="<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -7692,8 +8150,11 @@ Chiller:Electric:EIR,
       EIRFunT =             {4.383883E-01,7.754235E-03,6.353809E-04,-2.951880E-03,1.270756E-03,-1.541831E-03},
       EIRFunPLR =           {1.316727E-01,1.013111E+00,-1.413213E-01},
       etaMotor =            1.0)
-    "ElectricEIRChiller Trane RTHC 1009kW/5.37COP/Valve" annotation (
-      Documentation(info =     "<html>
+"ElectricEIRChiller Trane RTHC 1009kW/5.37COP/Valve"
+annotation(
+defaultComponentName="datChi",
+defaultComponentPrefixes="parameter",
+Documentation(info="<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -7744,8 +8205,11 @@ Chiller:Electric:EIR,
       EIRFunT =             {4.904181E-01,-5.530317E-03,1.209907E-03,9.122333E-03,5.923591E-04,-1.469958E-03},
       EIRFunPLR =           {2.590465E-01,2.148987E-01,5.265039E-01},
       etaMotor =            1.0)
-    "ElectricEIRChiller Trane RTHB 1051kW/5.05COP/Valve" annotation (
-      Documentation(info =     "<html>
+"ElectricEIRChiller Trane RTHB 1051kW/5.05COP/Valve"
+annotation(
+defaultComponentName="datChi",
+defaultComponentPrefixes="parameter",
+Documentation(info="<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -7796,8 +8260,11 @@ Chiller:Electric:EIR,
       EIRFunT =             {2.634070E-01,-7.025220E-03,-4.942613E-04,2.516931E-02,1.712769E-04,-4.309735E-04},
       EIRFunPLR =           {2.576261E-01,3.416910E-01,4.007672E-01},
       etaMotor =            1.0)
-    "ElectricEIRChiller Carrier 23XL 1062kW/5.50COP/Valve" annotation (
-      Documentation(info =     "<html>
+"ElectricEIRChiller Carrier 23XL 1062kW/5.50COP/Valve"
+annotation(
+defaultComponentName="datChi",
+defaultComponentPrefixes="parameter",
+Documentation(info="<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -7848,8 +8315,11 @@ Chiller:Electric:EIR,
       EIRFunT =             {9.003080E-01,3.783201E-03,9.815780E-04,-4.051727E-02,2.037095E-03,-1.619326E-03},
       EIRFunPLR =           {1.007344E-01,1.119205E+00,-2.173230E-01},
       etaMotor =            1.0)
-    "ElectricEIRChiller Trane RTHC 1066kW/5.73COP/Valve" annotation (
-      Documentation(info =     "<html>
+"ElectricEIRChiller Trane RTHC 1066kW/5.73COP/Valve"
+annotation(
+defaultComponentName="datChi",
+defaultComponentPrefixes="parameter",
+Documentation(info="<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -7900,8 +8370,11 @@ Chiller:Electric:EIR,
       EIRFunT =             {6.579136E-01,-1.133448E-02,6.497057E-04,7.318160E-03,6.167738E-04,-9.553369E-04},
       EIRFunPLR =           {1.626466E-01,7.903550E-01,4.770888E-02},
       etaMotor =            1.0)
-    "ElectricEIRChiller Trane RTHC 1094kW/6.55COP/Valve" annotation (
-      Documentation(info =     "<html>
+"ElectricEIRChiller Trane RTHC 1094kW/6.55COP/Valve"
+annotation(
+defaultComponentName="datChi",
+defaultComponentPrefixes="parameter",
+Documentation(info="<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -7952,8 +8425,11 @@ Chiller:Electric:EIR,
       EIRFunT =             {5.668296E-01,-2.800906E-02,9.362408E-04,2.210818E-02,4.660373E-04,-7.989601E-04},
       EIRFunPLR =           {1.370745E-01,8.374817E-01,2.534280E-02},
       etaMotor =            1.0)
-    "ElectricEIRChiller Carrier 23XL 1108kW/6.92COP/Valve" annotation (
-      Documentation(info =     "<html>
+"ElectricEIRChiller Carrier 23XL 1108kW/6.92COP/Valve"
+annotation(
+defaultComponentName="datChi",
+defaultComponentPrefixes="parameter",
+Documentation(info="<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -8004,8 +8480,11 @@ Chiller:Electric:EIR,
       EIRFunT =             {5.325834E-01,-2.611733E-02,1.365012E-03,4.099324E-02,3.401995E-04,-1.514251E-03},
       EIRFunPLR =           {1.889392E-01,4.684305E-01,3.451545E-01},
       etaMotor =            1.0)
-    "ElectricEIRChiller York YS 1171kW/9.15COP/Valve" annotation (Documentation(
-        info =                 "<html>
+"ElectricEIRChiller York YS 1171kW/9.15COP/Valve"
+annotation(
+defaultComponentName="datChi",
+defaultComponentPrefixes="parameter",
+Documentation(info="<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -8056,8 +8535,11 @@ Chiller:Electric:EIR,
       EIRFunT =             {5.077824E-01,-1.608447E-02,1.742121E-04,2.093857E-02,4.160938E-04,-7.169668E-04},
       EIRFunPLR =           {1.061065E-01,7.305514E-01,1.632883E-01},
       etaMotor =            1.0)
-    "ElectricEIRChiller Carrier 23XL 1196kW/6.39COP/Valve" annotation (
-      Documentation(info =     "<html>
+"ElectricEIRChiller Carrier 23XL 1196kW/6.39COP/Valve"
+annotation(
+defaultComponentName="datChi",
+defaultComponentPrefixes="parameter",
+Documentation(info="<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -8108,8 +8590,11 @@ Chiller:Electric:EIR,
       EIRFunT =             {5.099117E-01,1.379553E-02,-2.069529E-04,2.846021E-02,7.189977E-04,-2.027317E-03},
       EIRFunPLR =           {1.720219E-01,5.084848E-01,3.212462E-01},
       etaMotor =            1.0)
-    "ElectricEIRChiller York YS 1554kW/9.31COP/Valve" annotation (Documentation(
-        info =                 "<html>
+"ElectricEIRChiller York YS 1554kW/9.31COP/Valve"
+annotation(
+defaultComponentName="datChi",
+defaultComponentPrefixes="parameter",
+Documentation(info="<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -8160,8 +8645,11 @@ Chiller:Electric:EIR,
       EIRFunT =             {6.381264E-01,6.304193E-03,9.233511E-04,-4.552881E-03,8.256904E-04,-1.561533E-03},
       EIRFunPLR =           {3.149879E-01,3.171267E-01,3.709077E-01},
       etaMotor =            1.0)
-    "ElectricEIRChiller York YS 1758kW/5.84COP/Valve" annotation (Documentation(
-        info =                 "<html>
+"ElectricEIRChiller York YS 1758kW/5.84COP/Valve"
+annotation(
+defaultComponentName="datChi",
+defaultComponentPrefixes="parameter",
+Documentation(info="<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -8212,8 +8700,11 @@ Chiller:Electric:EIR,
       EIRFunT =             {7.273870E-01,-1.189276E-02,5.411677E-04,1.879294E-03,4.734664E-04,-7.114850E-04},
       EIRFunPLR =           {4.146742E-02,6.543795E-01,3.044125E-01},
       etaMotor =            1.0)
-    "ElectricEIRChiller Trane CGWD 207kW/3.99COP/None" annotation (
-      Documentation(info =     "<html>
+"ElectricEIRChiller Trane CGWD 207kW/3.99COP/None"
+annotation(
+defaultComponentName="datChi",
+defaultComponentPrefixes="parameter",
+Documentation(info="<html>
 Performance data for chiller model.
 This data corresponds to the following EnergyPlus model:
 <pre>
@@ -8245,9 +8736,4 @@ Chiller:Electric:EIR,
 </pre>
 </html>"));
 
- annotation(preferredView="info", Documentation(info="<html>
- Package with performance data for chillers.
- </html>", revisions="<html>
- Generated on 11/08/2010 08:45 by mwetter.
- </html>"));
 end ElectricEIR;

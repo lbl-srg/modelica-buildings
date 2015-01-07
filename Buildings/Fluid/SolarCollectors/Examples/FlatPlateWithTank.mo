@@ -89,7 +89,7 @@ model FlatPlateWithTank
     annotation (Placement(transformation(
       extent={{10,-10},{-10,10}},
       origin={70,-32})));
-  Buildings.Fluid.Movers.FlowMachine_m_flow pum(redeclare package Medium =
+  Buildings.Fluid.Movers.FlowControlled_m_flow pum(redeclare package Medium =
     Medium_2, m_flow_nominal=0.1,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     dynamicBalance=false) "Pump forcing circulation through the system"
@@ -182,8 +182,8 @@ equation
             <a href=\"modelica://Buildings.Fluid.Storage.StratifiedEnhancedInternalHex\">
             Buildings.Fluid.Storage.StratifiedEnhancedInternalHex</a> (tan) model is
             used to represent the tank filled with hot water. A loop, powered by a pump
-            (<a href=\"modelica://Buildings.Fluid.Movers.FlowMachine_m_flow\">
-            Buildings.Fluid.Movers.FlowMachine_m_flow</a>, pum), passes the water
+            (<a href=\"modelica://Buildings.Fluid.Movers.FlowControlled_m_flow\">
+            Buildings.Fluid.Movers.FlowControlled_m_flow</a>, pum), passes the water
             through an expansion tank
             (<a href=\"modelica://Buildings.Fluid.Storage.ExpansionVessel\">
             Buildings.Fluid.Storage.ExpansionVessel</a>, exp), a temperature sensor

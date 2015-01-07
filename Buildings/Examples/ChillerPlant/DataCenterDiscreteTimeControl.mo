@@ -23,7 +23,7 @@ model DataCenterDiscreteTimeControl
 
   parameter Modelica.SIunits.Pressure dp_nominal=500
     "Nominal pressure difference";
-  Buildings.Fluid.Movers.FlowMachine_m_flow fan(
+  Buildings.Fluid.Movers.FlowControlled_m_flow fan(
     redeclare package Medium = MediumAir,
     m_flow_nominal=mAir_flow_nominal,
     dp(start=249),
@@ -58,7 +58,7 @@ model DataCenterDiscreteTimeControl
     QRoo_flow=500000) "Room model" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         origin={248,-238})));
-  Fluid.Movers.FlowMachine_dp pumCHW(
+  Fluid.Movers.FlowControlled_dp pumCHW(
     redeclare package Medium = MediumCHW,
     m_flow_nominal=mCHW_flow_nominal,
     m_flow(start=mCHW_flow_nominal),
@@ -85,7 +85,7 @@ model DataCenterDiscreteTimeControl
         transformation(
         extent={{-10,-10},{10,10}},
         origin={269,239})));
-  Buildings.Fluid.Movers.FlowMachine_m_flow pumCW(
+  Buildings.Fluid.Movers.FlowControlled_m_flow pumCW(
     redeclare package Medium = MediumCW,
     m_flow_nominal=mCW_flow_nominal,
     dp(start=214992),

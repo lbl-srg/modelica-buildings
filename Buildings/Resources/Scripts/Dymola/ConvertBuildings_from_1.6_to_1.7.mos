@@ -54,3 +54,15 @@ convertClear();
 
 // Renamed Buildings/Fluid/HeatExchangers/{HeaterCoolerPrescribed.mo → HeaterCooler_u.mo}
 // Renamed Buildings/Fluid/Interfaces/Examples/{HumidifierPrescribed.mo → Humidifier_u.mo}
+
+// Rename the pump and fan models as the new implementation requires a record.
+// See also the release notes for how to change models for the new movers.
+convertClass("Buildings.Fluid.Movers.FlowMachine_dp",
+             "Buildings.Obsolete.Fluid.Movers.FlowMachine_dp");
+convertClass("Buildings.Fluid.Movers.FlowMachine_m_flow",
+             "Buildings.Obsolete.Fluid.Movers.FlowMachine_m_flow");
+convertClass("Buildings.Fluid.Movers.FlowMachine_Nrpm",
+             "Buildings.Obsolete.Fluid.Movers.FlowMachine_Nrpm");
+convertClass("Buildings.Fluid.Movers.FlowMachine_y",
+             "Buildings.Obsolete.Fluid.Movers.FlowMachine_y");
+

@@ -78,7 +78,7 @@ model ChillerSetPointControl
   Buildings.Fluid.Sensors.TemperatureTwoPort TRet(redeclare package Medium =
         MediumAir, m_flow_nominal=999)
     annotation (Placement(transformation(extent={{0,-70},{20,-50}})));
-  Buildings.Fluid.Movers.FlowMachine_m_flow pum(
+  Buildings.Fluid.Movers.FlowControlled_m_flow pum(
     m_flow_nominal=1.2*mCHW_flow_nominal,
     dp(start=40474),
     redeclare package Medium = Medium2,
