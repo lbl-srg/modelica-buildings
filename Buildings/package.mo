@@ -4605,16 +4605,16 @@ is available at
 <a href=\"http://simulationresearch.lbl.gov/modelica/userGuide\">
 http://simulationresearch.lbl.gov/modelica/userGuide</a>.
 This web site covers general information that is not specific to the
-use of individual sublibraries or models.
+use of individual packages or models.
 Discussed topics include
 how to get started, best practices, how to post-process results using Python,
 work-around for problems and how to develop models.<br/>
 </li>
 <li>
-Some of the main sublibraries have their own
+Some of packages have their own
 User's Guides that can be accessed by the links below.
-These User's Guides are discussing items that are specific to the
-individual libraries.<br/>
+These User's Guides are explaining items that are specific to the
+particular package.<br/>
 <table summary=\"summary\" border=1 cellspacing=0 cellpadding=2>
 <tr><td valign=\"top\"><a href=\"modelica://Buildings.Airflow.Multizone.UsersGuide\">Airflow.Multizone</a>
    </td>
@@ -4662,10 +4662,23 @@ individual libraries.<br/>
    </td>
    <td valign=\"top\">Package for heat transfer in building constructions.</td>
 </tr>
-<tr><td valign=\"top\"><a href=\"modelica://Buildings.Rooms.UsersGuide\">Rooms</a>
+<tr><td valign=\"top\"><a href=\"modelica://Buildings.Rooms.UsersGuide.MixedAir\">Rooms.MixedAir</a>
    </td>
-   <td valign=\"top\">Package for heat transfer in rooms and through the building envelope.</td>
+   <td valign=\"top\">Package for heat transfer in rooms and through the building envelope with the
+                      room air being modeled using the mixed air assumption.</td>
 </tr>
+<tr><td valign=\"top\"><a href=\"modelica://Buildings.Rooms.UsersGuide.MixedAir\">Rooms.CFD</a>
+   </td>
+   <td valign=\"top\">Package for heat transfer in rooms and through the building envelope with the
+                      room air being modeled using computational fluid dynamics.</td>
+</tr>
+
+<tr><td valign=\"top\"><a href=\"modelica://Buildings.Rooms.Examples.FFD.UsersGuide\">Rooms.Examples.FFD</a>
+   </td>
+   <td valign=\"top\">Package with examples that use the Fast Fluid Dynamics program for
+                      the computational fluid dynamics.</td>
+</tr>
+
 <tr><td valign=\"top\"><a href=\"modelica://Buildings.Utilities.IO.Python27.UsersGuide\">Utilities.IO.Python27</a>
    </td>
    <td valign=\"top\">Package to call Python functions from Modelica.</td>
