@@ -7,7 +7,9 @@ record Win600 =
     UFra=1.4,
     final nLay=2)
   "Double pane, clear glass 3.175mm, air 13mm, clear glass 3.175mm" annotation (
-   Documentation(info="<html>
+defaultComponentPrefixes="parameter",
+defaultComponentName="datThePro",
+Documentation(info="<html>
 <p>
 This record declares the parameters for the window system
 for the BESTEST.

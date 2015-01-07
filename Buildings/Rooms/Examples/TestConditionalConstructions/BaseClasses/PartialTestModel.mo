@@ -26,8 +26,6 @@ partial model PartialTestModel
     lat=0.73268921998722) "Room model"
     annotation (Placement(transformation(extent={{44,-36},{84,4}})));
 
-  inner Modelica.Fluid.System system
-    annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
   parameter HeatTransfer.Data.OpaqueConstructions.Insulation100Concrete200 matLayExt
     "Construction material for exterior walls"
     annotation (Placement(transformation(extent={{-80,100},{-60,120}})));
@@ -79,6 +77,12 @@ equation
     Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{200,160}})),
     Documentation(revisions="<html>
 <ul>
+<li>
+December 22, 2014 by Michael Wetter:<br/>
+Removed <code>Modelica.Fluid.System</code>
+to address issue
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/311\">#311</a>.
+</li>
 <li>
 June 30, 2014, by Michael Wetter:<br/>
 Set equations to be used to compute the initial conditions.

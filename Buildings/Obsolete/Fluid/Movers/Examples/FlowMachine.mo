@@ -50,8 +50,6 @@ model FlowMachine "Fan with polynomial performance curve"
     annotation (Placement(transformation(extent={{-40,-80},{-20,-60}})));
   Modelica.Blocks.Sources.RealExpression fan_PSha(y=fan.PSha)
     annotation (Placement(transformation(extent={{-40,-106},{-20,-86}})));
-  inner Modelica.Fluid.System system
-    annotation (Placement(transformation(extent={{80,-100},{100,-80}})));
   Buildings.Fluid.Sensors.TemperatureTwoPort
                                       TIn(redeclare package Medium = Medium,
       m_flow_nominal=10)

@@ -4,12 +4,13 @@ model FlowCircuit
   //package Medium = Buildings.Media.ConstantPropertyLiquidWater;
   //package Medium = Buildings.Media.GasesConstantDensity.SimpleAir;
  package Medium = Modelica.Media.Water.WaterIF97OnePhase_ph;
-  Buildings.Fluid.Movers.FlowMachine_y fan(                  dynamicBalance=false,
+  Buildings.Fluid.Movers.SpeedControlled_y fan(
+    dynamicBalance=false,
     redeclare package Medium = Medium,
     m_flow_nominal=1,
     redeclare function flowCharacteristic =
         Buildings.Fluid.Movers.BaseClasses.Characteristics.linearFlow (
-          V_flow_nominal={2e6,0}, dp_nominal={0,20000}))
+          data(V_flow_nominal={2e6,0}, dp_nominal={0,20000})))
     annotation (Placement(transformation(extent={{-20,10},{0,30}})));
   Buildings.Fluid.FixedResistances.FixedResistanceDpM res(
     redeclare package Medium = Medium,

@@ -59,8 +59,6 @@ model MixingBoxMinimumFlow
     startTime=60)
                  annotation (Placement(transformation(extent={{-40,70},{-20,90}})));
 
-  inner Modelica.Fluid.System system
-    annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
 equation
   connect(yDamMin.y, mixBox.yOutMin)
                                annotation (Line(points={{-19,50},{18,50},{18,
@@ -107,6 +105,12 @@ conditions and input signals.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+December 22, 2014 by Michael Wetter:<br/>
+Removed <code>Modelica.Fluid.System</code>
+to address issue
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/311\">#311</a>.
+</li>
 <li>
 July 20, 2007 by Michael Wetter:<br/>
 First implementation.

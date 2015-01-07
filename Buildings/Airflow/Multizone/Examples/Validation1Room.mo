@@ -16,26 +16,26 @@ model Validation1Room
               annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
-        origin={8,-10})));
+        origin={-30,-10})));
 
   Buildings.Airflow.Multizone.Orifice oriOutBot(
     redeclare package Medium = Medium,
     A=0.01,
-    m=0.5) annotation (Placement(transformation(extent={{38,-72},{58,-52}})));
+    m=0.5) annotation (Placement(transformation(extent={{0,-72},{20,-52}})));
   Buildings.Airflow.Multizone.MediumColumn colOutTop(
     redeclare package Medium = Medium,
     h=1.5,
     densitySelection=Buildings.Airflow.Multizone.Types.densitySelection.fromBottom)
-    annotation (Placement(transformation(extent={{69,10},{89,30}})));
+    annotation (Placement(transformation(extent={{31,10},{51,30}})));
   Buildings.Airflow.Multizone.Orifice oriOutTop(
     redeclare package Medium = Medium,
     A=0.01,
-    m=0.5) annotation (Placement(transformation(extent={{39,30},{59,50}})));
+    m=0.5) annotation (Placement(transformation(extent={{1,30},{21,50}})));
   Buildings.Airflow.Multizone.MediumColumn colEasInTop(
     redeclare package Medium = Medium,
     h=1.5,
     densitySelection=Buildings.Airflow.Multizone.Types.densitySelection.fromBottom)
-    annotation (Placement(transformation(extent={{11,10},{31,30}})));
+    annotation (Placement(transformation(extent={{-27,10},{-7,30}})));
   Buildings.Fluid.MixingVolumes.MixingVolume volOut(
     redeclare package Medium = Medium,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
@@ -48,57 +48,54 @@ model Validation1Room
               annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=270,
-        origin={89,-10})));
+        origin={51,-10})));
 
   Buildings.Airflow.Multizone.MediumColumn colEasInBot(
     redeclare package Medium = Medium,
     h=1.5,
     densitySelection=Buildings.Airflow.Multizone.Types.densitySelection.fromTop)
-    annotation (Placement(transformation(extent={{10,-50},{30,-30}})));
+    annotation (Placement(transformation(extent={{-28,-50},{-8,-30}})));
   Buildings.Airflow.Multizone.MediumColumn colOutBot(
     redeclare package Medium = Medium,
     h=1.5,
     densitySelection=Buildings.Airflow.Multizone.Types.densitySelection.fromTop)
-    annotation (Placement(transformation(extent={{70,-52},{90,-32}})));
-  inner Modelica.Fluid.System system
-    annotation (Placement(transformation(extent={{160,60},{180,80}})));
+    annotation (Placement(transformation(extent={{32,-52},{52,-32}})));
 equation
   connect(colEasInTop.port_a, oriOutTop.port_a) annotation (Line(
-      points={{21,30},{20,30},{20,40},{39,40}},
+      points={{-17,30},{-18,30},{-18,40},{1,40}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(colEasInTop.port_b, volEas.ports[1]) annotation (Line(
-      points={{21,10},{20,10},{20,-12},{18,-12}},
+      points={{-17,10},{-18,10},{-18,-12},{-20,-12}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(colEasInBot.port_a, volEas.ports[2]) annotation (Line(
-      points={{20,-30},{20,-8},{18,-8}},
+      points={{-18,-30},{-18,-8},{-20,-8}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(colEasInBot.port_b, oriOutBot.port_a) annotation (Line(
-      points={{20,-50},{20,-62},{38,-62}},
+      points={{-18,-50},{-18,-62},{0,-62}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(oriOutBot.port_b, colOutBot.port_b) annotation (Line(
-      points={{58,-62},{80,-62},{80,-52}},
+      points={{20,-62},{42,-62},{42,-52}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(colOutBot.port_a, volOut.ports[1]) annotation (Line(
-      points={{80,-32},{80,-8},{79,-8}},
+      points={{42,-32},{42,-8},{41,-8}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(colOutTop.port_b, volOut.ports[2]) annotation (Line(
-      points={{79,10},{79,-12}},
+      points={{41,10},{41,-12}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(colOutTop.port_a, oriOutTop.port_b) annotation (Line(
-      points={{79,30},{80,30},{80,40},{59,40}},
+      points={{41,30},{42,30},{42,40},{21,40}},
       color={0,127,255},
       smooth=Smooth.None));
   annotation (
-    Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{200,
-            100}}), graphics={Rectangle(
-          extent={{-52,60},{48,-88}},
+    Diagram(graphics={Rectangle(
+          extent={{-90,60},{10,-88}},
           lineColor={0,0,0},
           lineThickness=1)}),
 experiment(StopTime=1),
@@ -113,6 +110,12 @@ This initial condition induces a clock-wise airflow between the two volumes.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+December 22, 2014 by Michael Wetter:<br/>
+Removed <code>Modelica.Fluid.System</code>
+to address issue
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/311\">#311</a>.
+</li>
 <li>
 November 10, 2011, by Michael Wetter:<br/>
 Added documentation.

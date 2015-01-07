@@ -324,6 +324,12 @@ The room temperature is free floating.
 </html>", revisions="<html>
 <ul>
 <li>
+December 22, 2014 by Michael Wetter:<br/>
+Removed <code>Modelica.Fluid.System</code>
+to address issue
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/311\">#311</a>.
+</li>
+<li>
 October 9, 2013, by Michael Wetter:<br/>
 Implemented soil properties using a record so that <code>TSol</code> and
 <code>TLiq</code> are assigned.

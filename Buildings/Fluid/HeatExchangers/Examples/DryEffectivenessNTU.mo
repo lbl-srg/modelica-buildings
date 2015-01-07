@@ -75,10 +75,6 @@ model DryEffectivenessNTU
     T_a2_nominal=293.15)
     annotation (Placement(transformation(extent={{-10,40},{10,60}})));
 
-  inner Modelica.Fluid.System system(
-    p_ambient=300000,
-    T_ambient=313.15)
-    annotation (Placement(transformation(extent={{-100,-80},{-80,-60}})));
   Buildings.Fluid.HeatExchangers.DryEffectivenessNTU hexCou(
     redeclare package Medium1 = Medium1,
     redeclare package Medium2 = Medium2,
@@ -252,6 +248,12 @@ for different inlet conditions.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+December 22, 2014 by Michael Wetter:<br/>
+Removed <code>Modelica.Fluid.System</code>
+to address issue
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/311\">#311</a>.
+</li>
 <li>
 February 12, 2010, by Michael Wetter:<br/>
 First implementation.

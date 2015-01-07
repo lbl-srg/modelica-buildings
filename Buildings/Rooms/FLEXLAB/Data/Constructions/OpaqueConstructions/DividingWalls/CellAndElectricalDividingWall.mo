@@ -8,7 +8,10 @@ record CellAndElectricalDividingWall =
     Buildings.HeatTransfer.Data.Solids.Plywood(x=0.01905)},
     final nLay = 5) "Wall separating FLEXLAB test cells from the adjoining
       electrical rooms"
-    annotation(Documentation(info="<html>
+    annotation(
+defaultComponentPrefixes="parameter",
+defaultComponentName="datOpaCon",
+Documentation(info="<html>
     <p>
     This is a construction of a dividing wall commonly found in FLEXLAB test
     cells. It is used to divide one test cell from another (cell A and cell B)

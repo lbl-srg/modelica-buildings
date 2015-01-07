@@ -17,7 +17,10 @@ record C_VerificationModel =
     final G_nominal = 1000,
     final dT_nominal = 20)
   "C - All inputs necessary for verification of EN12975 models"
-    annotation(Documentation(info = "<html>
+    annotation(
+defaultComponentPrefixes="parameter",
+defaultComponentName="datSolCol",
+Documentation(info = "<html>
       <p>
         No model on the <a href=\"http://www.solar-rating.org\"> Solar Rating and
         Certification Corporation </a> website tested to EN12975 standards provides all

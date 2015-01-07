@@ -16,7 +16,10 @@ record T_AMKCollectraAGOWR20 =
     final C2=0,
     final G_nominal = 1000,
     final dT_nominal = 10) "T - AMG Collectra AG, OWR 20"
-    annotation(Documentation(info = "<html>
+    annotation(
+defaultComponentPrefixes="parameter",
+defaultComponentName="datSolCol",
+Documentation(info = "<html>
     <h4>References</h4>
       <p>
         Ratings data taken from the <a href=\"http://www.solar-rating.org\">

@@ -9,7 +9,10 @@ record TestCellDividngWall =
     Buildings.HeatTransfer.Data.Solids.InsulationBoard(x=0.1016),
     Buildings.HeatTransfer.Data.Solids.GypsumBoard(x=0.1588)},
     nLay = 7) "Wall separating test cells within a test bed"
-    annotation(Documentation(info="<html>
+    annotation(
+defaultComponentPrefixes="parameter",
+defaultComponentName="datOpaCon",
+Documentation(info="<html>
     <p>
     This is a dividing wall used to separate test cells within a given
     test bed. For example, it is installed between test cells X3A and

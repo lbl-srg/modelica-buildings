@@ -125,6 +125,12 @@ stay at <i>20</i>&deg;C.
 </html>", revisions="<html>
 <ul>
 <li>
+December 22, 2014 by Michael Wetter:<br/>
+Removed <code>Modelica.Fluid.System</code>
+to address issue
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/311\">#311</a>.
+</li>
+<li>
 June 9, 2010, by Michael Wetter:<br/>
 First implementation.
 </li>

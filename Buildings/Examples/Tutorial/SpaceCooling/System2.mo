@@ -8,8 +8,6 @@ model System2
   replaceable package MediumW =
       Buildings.Media.ConstantPropertyLiquidWater;
 
-  inner Modelica.Fluid.System system
-    annotation (Placement(transformation(extent={{60,-120},{80,-100}})));
   Fluid.MixingVolumes.MixingVolume vol(
     redeclare package Medium = MediumA,
     m_flow_nominal=mA_flow_nominal,
@@ -70,7 +68,8 @@ model System2
   Modelica.Thermal.HeatTransfer.Sources.FixedHeatFlow preHea(Q_flow=
         QRooInt_flow) "Prescribed heat flow"
     annotation (Placement(transformation(extent={{20,70},{40,90}})));
-  Fluid.Movers.FlowMachine_m_flow fan(redeclare package Medium = MediumA,
+  Fluid.Movers.FlowControlled_m_flow fan(
+      redeclare package Medium = MediumA,
       m_flow_nominal=mA_flow_nominal,
     dynamicBalance=false) "Supply air fan"
     annotation (Placement(transformation(extent={{40,-30},{60,-10}})));
@@ -498,8 +497,8 @@ and we connected this input connector to the constant block
 To set the water temperature that leaves this component,
 we set the parameter <code>T=TWSup_nominal</code>.
 Alternatively, we could have used the model
-<a href=\"modelica://Buildings.Fluid.Movers.FlowMachine_m_flow\">
-Buildings.Fluid.Movers.FlowMachine_m_flow</a>
+<a href=\"modelica://Buildings.Fluid.Movers.FlowControlled_m_flow\">
+Buildings.Fluid.Movers.FlowControlled_m_flow</a>
 as is used for the fan, but we chose to use the simpler model
 <a href=\"modelica://Buildings.Fluid.Sources.MassFlowSource_T\">
 Buildings.Fluid.Sources.MassFlowSource_T</a>
@@ -543,6 +542,12 @@ from the model.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+December 22, 2014 by Michael Wetter:<br/>
+Removed <code>Modelica.Fluid.System</code>
+to address issue
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/311\">#311</a>.
+</li>
 <li>
 January 11, 2012, by Michael Wetter:<br/>
 First implementation.

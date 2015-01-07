@@ -17,8 +17,11 @@ package Glasses "Package with thermophysical properties for window glas"
       "Infrared absorptivity of surface a (usually outside-facing surface)";
    parameter Modelica.SIunits.Emissivity absIR_b = 0.84
       "Infrared absorptivity of surface b (usually room-facing surface)";
-    annotation (defaultComponentName="gla", Documentation(info=
-                   "<html>
+    annotation (
+    defaultComponentPrefixes="parameter",
+    defaultComponentName="datGla",
+    Documentation(info=
+"<html>
 <p>
 This record implements thermophysical properties for window glas.
 </p>
@@ -86,7 +89,7 @@ First implementation.
 </html>"));
   end Generic;
 
-  record ID100 =   Buildings.HeatTransfer.Data.Glasses.Generic (
+  record ID100 = Buildings.HeatTransfer.Data.Glasses.Generic (
       x=0.0031,
       k=1.0,
       tauSol=0.646,
@@ -94,8 +97,12 @@ First implementation.
       rhoSol_b=0.063,
       tauIR=0,
       absIR_a=0.84,
-      absIR_b=0.84) "Generic Bronze Glass 3.1mm. Manufacturer: Generic.";
-  record ID101 =   Buildings.HeatTransfer.Data.Glasses.Generic (
+      absIR_b=0.84) "Generic Bronze Glass 3.1mm. Manufacturer: Generic."
+    annotation(
+      defaultComponentPrefixes="parameter",
+      defaultComponentName="datGla");
+
+  record ID101 = Buildings.HeatTransfer.Data.Glasses.Generic (
       x=0.0057,
       k=1.0,
       tauSol=0.486,
@@ -103,8 +110,12 @@ First implementation.
       rhoSol_b=0.053,
       tauIR=0,
       absIR_a=0.84,
-      absIR_b=0.84) "Generic Bronze Glass 5.7mm. Manufacturer: Generic.";
-  record ID102 =   Buildings.HeatTransfer.Data.Glasses.Generic (
+      absIR_b=0.84) "Generic Bronze Glass 5.7mm. Manufacturer: Generic."
+    annotation(
+      defaultComponentPrefixes="parameter",
+      defaultComponentName="datGla");
+
+  record ID102 = Buildings.HeatTransfer.Data.Glasses.Generic (
       x=0.003,
       k=1.0,
       tauSol=0.834,
@@ -112,8 +123,12 @@ First implementation.
       rhoSol_b=0.075,
       tauIR=0,
       absIR_a=0.84,
-      absIR_b=0.84) "Generic Clear Glass 3.048mm. Manufacturer: Generic.";
-  record ID103 =   Buildings.HeatTransfer.Data.Glasses.Generic (
+      absIR_b=0.84) "Generic Clear Glass 3.048mm. Manufacturer: Generic."
+    annotation(
+      defaultComponentPrefixes="parameter",
+      defaultComponentName="datGla");
+
+  record ID103 = Buildings.HeatTransfer.Data.Glasses.Generic (
       x=0.0057,
       k=1.0,
       tauSol=0.771,
@@ -121,9 +136,13 @@ First implementation.
       rhoSol_b=0.070,
       tauIR=0,
       absIR_a=0.84,
-      absIR_b=0.84) "Generic Clear Glass 5.7mm. Manufacturer: Generic.";
-  annotation(preferredView="info",
-            Documentation(info="<html>
+      absIR_b=0.84) "Generic Clear Glass 5.7mm. Manufacturer: Generic."
+    annotation(
+      defaultComponentPrefixes="parameter",
+      defaultComponentName="datGla");
+
+annotation(preferredView="info",
+Documentation(info="<html>
 <p>
 This package implements thermophysical properties for window glas.
 </p>

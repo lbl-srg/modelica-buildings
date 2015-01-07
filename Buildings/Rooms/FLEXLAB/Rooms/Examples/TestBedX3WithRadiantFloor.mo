@@ -971,6 +971,12 @@ equation
         </html>",
         revisions="<html>
         <ul>
+        <li>
+        December 22, 2014 by Michael Wetter:<br/>
+        Removed <code>Modelica.Fluid.System</code>
+        to address issue
+        <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/311\">#311</a>.
+        </li>        
         <li>September 2, 2014, by Michael Wetter:<br/>
         Corrected wrong pipe diameter.
         </li>

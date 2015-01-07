@@ -12,8 +12,6 @@ model Outside_Cp
   Buildings.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(
     filNam="modelica://Buildings/Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos")
     annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
-  inner Modelica.Fluid.System system(energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
-    annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
   Buildings.Fluid.Sources.Outside bouFix(redeclare package Medium = Medium,
       nPorts=2) "Model with outside conditions"
     annotation (Placement(transformation(extent={{70,20},{50,40}})));
@@ -90,6 +88,12 @@ account the wind direction relative to the building.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+December 22, 2014 by Michael Wetter:<br/>
+Removed <code>Modelica.Fluid.System</code>
+to address issue
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/311\">#311</a>.
+</li>
 <li>
 October 26, 2011 by Michael Wetter:<br/>
 First implementation.

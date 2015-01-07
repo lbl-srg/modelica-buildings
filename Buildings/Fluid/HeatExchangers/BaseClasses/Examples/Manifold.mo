@@ -94,8 +94,6 @@ model Manifold "Test model for coil manifold"
     redeclare package Medium = Medium1)
     "Header for water-side heat exchanger register"
     annotation (Placement(transformation(extent={{60,24},{80,44}})));
-  inner Modelica.Fluid.System system
-    annotation (Placement(transformation(extent={{140,60},{160,80}})));
   Buildings.Fluid.Sources.Boundary_pT sou_2(
     use_p_in=true,
     use_T_in=true,

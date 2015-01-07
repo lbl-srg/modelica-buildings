@@ -8,8 +8,6 @@ model System3
   replaceable package MediumW =
       Buildings.Media.ConstantPropertyLiquidWater;
 
-  inner Modelica.Fluid.System system
-    annotation (Placement(transformation(extent={{60,-120},{80,-100}})));
   Fluid.MixingVolumes.MixingVolume vol(
     redeclare package Medium = MediumA,
     m_flow_nominal=mA_flow_nominal,
@@ -70,7 +68,7 @@ model System3
   Modelica.Thermal.HeatTransfer.Sources.FixedHeatFlow preHea(Q_flow=
         QRooInt_flow) "Prescribed heat flow"
     annotation (Placement(transformation(extent={{20,70},{40,90}})));
-  Fluid.Movers.FlowMachine_m_flow fan(redeclare package Medium = MediumA,
+  Fluid.Movers.FlowControlled_m_flow fan(redeclare package Medium = MediumA,
       m_flow_nominal=mA_flow_nominal,
     dynamicBalance=false) "Supply air fan"
     annotation (Placement(transformation(extent={{40,-30},{60,-10}})));
@@ -362,6 +360,12 @@ Buildings.Controls.Continuous.LimPID</a>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+December 22, 2014 by Michael Wetter:<br/>
+Removed <code>Modelica.Fluid.System</code>
+to address issue
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/311\">#311</a>.
+</li>
 <li>
 January 11, 2012, by Michael Wetter:<br/>
 First implementation.

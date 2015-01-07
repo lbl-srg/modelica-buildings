@@ -15,6 +15,7 @@ record StandardResultsFreeFloating "ASHRAE Standard Results"
                               Mean(unit="K")) "Mean temperature";
 
 annotation (
+defaultComponentPrefixes="parameter",
 defaultComponentName="staRes",
 Documentation(info=
 "<html>

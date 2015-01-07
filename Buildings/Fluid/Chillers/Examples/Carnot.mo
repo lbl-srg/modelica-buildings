@@ -62,8 +62,6 @@ model Carnot "Test model for chiller based on Carnot efficiency"
     offset=1,
     startTime=1800) "Compressor control signal"
     annotation (Placement(transformation(extent={{-60,50},{-40,70}})));
-  inner Modelica.Fluid.System system
-    annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
   Modelica.Blocks.Sources.Ramp TCon_in(
     height=10,
     duration=60,
@@ -110,6 +108,12 @@ __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Chil
         "Simulate and plot"),
     Documentation(revisions="<html>
 <ul>
+<li>
+December 22, 2014 by Michael Wetter:<br/>
+Removed <code>Modelica.Fluid.System</code>
+to address issue
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/311\">#311</a>.
+</li>
 <li>
 March 26, 2013 by Michael Wetter:<br/>
 Removed assignment of parameter that had attribute <code>fixed=false</code>.

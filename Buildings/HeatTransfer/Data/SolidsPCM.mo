@@ -7,7 +7,10 @@ package SolidsPCM
       extends Buildings.HeatTransfer.Data.BaseClasses.Material(final R=x/k,
                                                                final phasechange=true);
 
-    annotation (defaultComponentName="mat", Documentation(info=
+    annotation (
+defaultComponentPrefixes="parameter",
+defaultComponentName="datSolPCM",
+Documentation(info=
      "<html>
 <p>
 Generic record for phase change materials.
@@ -38,7 +41,10 @@ First implementation.
       TSol=273.15+23,
       TLiq=273.15+27,
       LHea=38900) "Wallboard with 20% of microencapsulated paraffin"
-    annotation (Documentation(info="<html>
+    annotation (
+defaultComponentPrefixes="parameter",
+defaultComponentName="datSolPCM",
+Documentation(info="<html>
 <p>
 This material record is for PCM treated wallboard. The data source is Feustel (1995).
 </p>
@@ -58,6 +64,7 @@ First implementation.
 </li>
 </ul>
 </html>"));
+
   record PCM030 =Buildings.HeatTransfer.Data.SolidsPCM.Generic (
       k=0.232,
       d=998,
@@ -65,7 +72,10 @@ First implementation.
       TSol=273.15+24,
       TLiq=273.15+26,
       LHea=58300) "Wallboard with 30% of microencapsulated paraffin"
-        annotation (Documentation(info="<html>
+        annotation (
+defaultComponentPrefixes="parameter",
+defaultComponentName="datSolPCM",
+Documentation(info="<html>
 <p>
 This material record is for PCM treated wallboard. The data source is Feustel (1995).
 </p>
@@ -85,23 +95,32 @@ First implementation.
 </li>
 </ul>
 </html>"));
+
   record MicronalSmartBoard23 =
-                        Buildings.HeatTransfer.Data.SolidsPCM.Generic (
+    Buildings.HeatTransfer.Data.SolidsPCM.Generic (
       k=0.18,
       d=767,
       c=1200,
       TSol=273.15+22.99,
       TLiq=273.15+23.01,
-      LHea=28696) "Micronal PCM SmartBoard 23";
+      LHea=28696) "Micronal PCM SmartBoard 23"
+    annotation(
+      defaultComponentPrefixes="parameter",
+      defaultComponentName="datSolPCM");
+
   record MicronalSmartBoard26 =
-                        Buildings.HeatTransfer.Data.SolidsPCM.Generic (
+    Buildings.HeatTransfer.Data.SolidsPCM.Generic (
       k=0.18,
       d=767,
       c=1200,
       TSol=273.15+25.99,
       TLiq=273.15+26.01,
-      LHea=28696) "Micronal PCM SmartBoard 26";
-  annotation (
+      LHea=28696) "Micronal PCM SmartBoard 26"
+    annotation(
+      defaultComponentPrefixes="parameter",
+      defaultComponentName="datSolPCM");
+
+annotation (
 Documentation(
 info="<html>
 <p>

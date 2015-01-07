@@ -51,11 +51,14 @@ public class ElectricEIR {
     public String toMoRecordString() {
 
         String format = "%1$-5s %2$-1s %3$-2s %4$-1s\n";
-        stringHeaderBeginOfElectricEIRObject = "  record  "
+        stringHeaderBeginOfElectricEIRObject = "  record "
                 + replaceTokenCharacter(name) + " =" + "\n"
                 + "    Buildings.Fluid.Chillers.Data.ElectricEIR.Generic (";
 
-        stringAnnotationOfElectricEIRObjectBegin = "annotation (Documentation(info=\"<html>"
+        stringAnnotationOfElectricEIRObjectBegin = "annotation(\n"
+        		+ "defaultComponentName=\"datChi\",\n"
+        		+ "defaultComponentPrefixes=\"parameter\",\n"        		
+        		+ "Documentation(info=\"<html>"
                 + "\n"
                 + "Performance data for chiller model."
                 + "\n"

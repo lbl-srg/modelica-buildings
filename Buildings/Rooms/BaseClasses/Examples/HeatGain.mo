@@ -133,6 +133,12 @@ stop with an error.
 </html>", revisions="<html>
 <ul>
 <li>
+December 22, 2014 by Michael Wetter:<br/>
+Removed <code>Modelica.Fluid.System</code>
+to address issue
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/311\">#311</a>.
+</li>
+<li>
 June 30, 2014, by Michael Wetter:<br/>
 Added resistance to decouple the pressure in the volume and the ambient.
 </li>

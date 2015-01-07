@@ -38,19 +38,19 @@ model TwoRoomsWithStorage
     "Pressure difference of loop";
   // Room model
 
-  Fluid.Movers.FlowMachine_y pumBoi(
+  Fluid.Movers.SpeedControlled_y pumBoi(
     redeclare package Medium = Medium,
-    pressure(V_flow=mBoi_flow_nominal/1000*{0.5, 1},
-             dp=(3000+2000)*{2,1}),
+    per(pressure(V_flow=mBoi_flow_nominal/1000*{0.5, 1},
+                  dp=(3000+2000)*{2,1})),
     dynamicBalance=false)
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         origin={70,-120})));
 
-  Fluid.Movers.FlowMachine_y pumRad(
+  Fluid.Movers.SpeedControlled_y pumRad(
     redeclare package Medium = Medium,
-    pressure(
+    per(pressure(
           V_flow=mRad_flow_nominal/1000*{0,2},
-          dp=dp_nominal*{2,0}),
+          dp=dp_nominal*{2,0})),
     dynamicBalance=false) "Pump that serves the radiators"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=90,
@@ -156,8 +156,6 @@ model TwoRoomsWithStorage
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     T_start=293.15) "Boiler"
     annotation (Placement(transformation(extent={{2,-130},{22,-110}})));
-  inner Modelica.Fluid.System system
-    annotation (Placement(transformation(extent={{-80,540},{-60,560}})));
   Buildings.HeatTransfer.Sources.FixedTemperature TAmb(T=288.15)
     "Ambient temperature in boiler room"
     annotation (Placement(transformation(extent={{-40,-100},{-20,-80}})));
@@ -383,7 +381,7 @@ model TwoRoomsWithStorage
     dp2_nominal=100,
     eps=0.9) "Heat recovery"
     annotation (Placement(transformation(extent={{180,478},{200,498}})));
-  Fluid.Movers.FlowMachine_m_flow fanSup(
+  Fluid.Movers.FlowControlled_m_flow fanSup(
     redeclare package Medium = MediumA,
     dynamicBalance=false,
     m_flow_nominal=2*VRoo*1.2*0.37/3600) "Supply air fan"
@@ -391,7 +389,7 @@ model TwoRoomsWithStorage
   Modelica.Blocks.Sources.Constant m_flow_out(k=2*VRoo*1.2*0.37/3600)
     "Outside air mass flow rate"
     annotation (Placement(transformation(extent={{0,500},{20,520}})));
-  Fluid.Movers.FlowMachine_m_flow fanRet(
+  Fluid.Movers.FlowControlled_m_flow fanRet(
     redeclare package Medium = MediumA,
     dynamicBalance=false,
     m_flow_nominal=2*VRoo*1.2*0.37/3600) "Return air fan"
@@ -1227,6 +1225,12 @@ Buildings.Examples.HydronicHeating.TwoRoomsWithStorage.CoolingControl</a>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+December 22, 2014 by Michael Wetter:<br/>
+Removed <code>Modelica.Fluid.System</code>
+to address issue
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/311\">#311</a>.
+</li>
 <li>
 October 15, 2013, by Michael Wetter:<br/>
 Added free cooling and mechanical cooling.
