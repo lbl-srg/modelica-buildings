@@ -181,7 +181,7 @@ Figure (b)
 </p>
 <p align=\"left\">
 More details of the case description can be found in
-<a href=\"#ZuoEtAl2011\">Zuo et al. (2011)</a>.
+<a href=\"#ZuoEtAl2012\">Zuo et al. (2012)</a>.
 </p>
 <h4>Step by Step Guide</h4>
 <p>
@@ -389,9 +389,9 @@ First implementation.
 </ul>
 <h4>References</h4>
 <p>
-<a NAME=\"ZuoEtAl2011\"/>
-Wangda Zuo, Mingang Jin, Qingyan Chen, 2011.<br/>
-<a href=\"modelica://Buildings/Resources/Images/Rooms/Examples/FFD/2011-Zuo-EACFD.pdf\">
+<a NAME=\"ZuoEtAl2012\"/>
+Wangda Zuo, Mingang Jin, Qingyan Chen, 2012.<br/>
+<a href=\"http://doi.org/10.1080/19942060.2012.11015418\">
 Reduction of numerical viscosity in FFD model.</a><br/>
 Journal of Engineering Applications of Computational Fluid Mechanics, 6(2), p. 234-247.
 </p>
