@@ -13,8 +13,8 @@
 ///
 /// \date   8/3/2013
 ///
-/// This file provides function that computes the turbulent viscosity using 
-/// Chen's zero equation model 
+/// This file provides function that computes the turbulent viscosity using
+/// Chen's zero equation model
 ///
 ///////////////////////////////////////////////////////////////////////////////
 #include "chen_zero_equ_model.h"
@@ -37,7 +37,7 @@ REAL nu_t_chen_zero_equ(PARA_DATA *para, REAL **var, int i, int j, int k) {
   int imax = para->geom->imax, jmax = para->geom->jmax,
       kmax = para->geom->kmax;
   int IMAX = imax+2, IJMAX = (imax+2)*(jmax+2);
-  
+
   lx1 = x[IX(i,j,k)] - x[IX(0,j,k)];
   lx2 = x[IX(imax+1,j,k)] - x[IX(i,j,k)];
   lx = lx1 < lx2 ? lx1 : lx2;

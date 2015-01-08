@@ -16,7 +16,7 @@ if exist "%DIR%\%MSbuildName%.dll" (
   echo Going to delete %MSbuildName%.dll
   del "%DIR%\%MSbuildName%.dll"
   )
-  
+
 if exist "%DIR%\%MSbuildName%.lib" (
   echo Going to delete %MSbuildName%.lib
   del "%DIR%\%MSbuildName%.lib"
@@ -29,7 +29,7 @@ if exist "%DIR%\%MSbuildName%.lib" (
 ::-------------------------------------------------------------------
 ::Set User Defined Compiler Directory and Toolset
 ::-------------------------------------------------------------------
-::Example: 
+::Example:
 ::set VCDIR=C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC
 ::set Toolset=v100
 ::if exist "%VCDIR%\vcvarsall.bat" (
@@ -62,7 +62,7 @@ goto missing
 
 :MSbuildSetting
 ::*******************************************************************
-::MSbuild Setting 
+::MSbuild Setting
 ::*******************************************************************
 
 ::-------------------------------------------------------------------

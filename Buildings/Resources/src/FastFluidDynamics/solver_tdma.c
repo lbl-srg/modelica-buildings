@@ -2,7 +2,7 @@
 ///
 /// \file   solver_tdma.c
 ///
-/// \brief Tri-Diagonal Matrix Algorithm Solver 
+/// \brief Tri-Diagonal Matrix Algorithm Solver
 ///
 /// \author Mingang Jin, Qingyan Chen
 ///         Purdue University
@@ -38,48 +38,48 @@ int TDMA_3D(PARA_DATA *para, REAL **var, int type, REAL *psi) {
     if(TDMA_YZ(para, var, psi, i)) {
       ffd_log("TDMA_3D: Could not compute TDMA_YZ.", FFD_ERROR);
       return 1;
-    }     
+    }
   }
   //South to North
   for(j=1; j<=jmax; j++) {
     if(TDMA_ZX(para, var, psi, j)) {
       ffd_log("TDMA_3D: Could not compute TDMA_ZX.", FFD_ERROR);
       return 1;
-    } 
+    }
   }
   //Back to Front
   for(k=1; k<=kmax; k++) {
     if(TDMA_XY(para, var, psi, k)) {
       ffd_log("TDMA_3D: Could not compute TDMA_XY.", FFD_ERROR);
       return 1;
-    }     
+    }
   }
   //East to West
   for(i=imax; i>=1; i--) {
     if(TDMA_YZ(para, var, psi, i)) {
       ffd_log("TDMA_3D: Could not compute TDMA_YZ.", FFD_ERROR);
       return 1;
-    }     
+    }
   }
   //North to South
   for(j=jmax; j>=1; j--) {
     if(TDMA_ZX(para, var, psi, j)) {
       ffd_log("TDMA_3D: Could not compute TDMA_ZX.", FFD_ERROR);
       return 1;
-    }     
+    }
   }
   //Front to Back
   for(k=kmax; k>=1; k--) {
     if(TDMA_XY(para, var, psi, k)) {
       ffd_log("TDMA_3D: Could not compute TDMA_YZ.", FFD_ERROR);
       return 1;
-    }          
+    }
   }
   return 0;
 }// end of TDMA_3D()
 
 ///////////////////////////////////////////////////////////////////////////////
-/// TDMA solver for XY-plane 
+/// TDMA solver for XY-plane
 ///
 ///\param para Pointer to FFD parameters
 ///\param var Pointer to FFD simulation variables
@@ -95,7 +95,7 @@ int TDMA_XY(PARA_DATA *para, REAL **var, REAL *psi, int k) {
   REAL *b = var[B], *ap = var[AP], *af = var[AF], *ab = var[AB];
   REAL *ae = var[AE], *aw =var[AW], *an = var[AN], *as = var[AS];
   REAL *temp_ap, *temp_aw, *temp_ae, *temp_b, *temp_psi;
-  
+
   temp_ap = (REAL *) malloc((jmax+1)*sizeof(REAL));
   if(temp_ap==NULL) {
     ffd_log("TDMA_XY(): Could not allocate memory for temp_ap.",
@@ -130,7 +130,7 @@ int TDMA_XY(PARA_DATA *para, REAL **var, REAL *psi, int k) {
   //line-by-line from West to East
   for(i=1; i<=imax; i++) {
     for(j=1; j<=jmax; j++) {
-      temp_b[j] = b[IX(i,j,k)] 
+      temp_b[j] = b[IX(i,j,k)]
                 + ae[IX(i,j,k)]*psi[IX(i+1,j,k)] + aw[IX(i,j,k)]*psi[IX(i-1,j,k)]
                 + af[IX(i,j,k)]*psi[IX(i,j,k+1)] + ab[IX(i,j,k)]*psi[IX(i,j,k-1)];
       temp_ap[j] = ap[IX(i,j,k)];
@@ -142,11 +142,11 @@ int TDMA_XY(PARA_DATA *para, REAL **var, REAL *psi, int k) {
     if(TDMA_1D(temp_ap, temp_ae, temp_aw, temp_b, temp_psi, jmax)) {
       ffd_log("TDMA_XY(): Could not compute TDMA_1D", FFD_ERROR);
       return 1;
-    }   
-    for(j=1; j<=jmax; j++)  
+    }
+    for(j=1; j<=jmax; j++)
       psi[IX(i,j,k)] = temp_psi[j];
   }
-  
+
   free(temp_ap);
   free(temp_ae);
   free(temp_aw);
@@ -156,7 +156,7 @@ int TDMA_XY(PARA_DATA *para, REAL **var, REAL *psi, int k) {
 } // End of TDMA_XY()
 
 ///////////////////////////////////////////////////////////////////////////////
-/// TDMA solver for YZ-plane 
+/// TDMA solver for YZ-plane
 ///
 ///\param para Pointer to FFD parameters
 ///\param var Pointer to FFD simulation variables
@@ -175,7 +175,7 @@ int TDMA_YZ(PARA_DATA *para, REAL **var, REAL *psi, int i)
   REAL *b = var[B], *ap = var[AP], *af = var[AF], *ab = var[AB];
   REAL *ae = var[AE], *aw =var[AW], *an = var[AN], *as = var[AS];
   REAL *temp_ap, *temp_aw, *temp_ae, *temp_b, *temp_psi;
-  
+
   temp_ap = (REAL *) malloc((kmax+1)*sizeof(REAL));
   if(temp_ap==NULL) {
     ffd_log("TDMA_YZ(): Could not allocate memory for temp_ap.",
@@ -206,11 +206,11 @@ int TDMA_YZ(PARA_DATA *para, REAL **var, REAL *psi, int i)
             FFD_ERROR);
     return 1;
   }
-  
+
   //line-by-line from South to North
   for(j=1; j<=jmax; j++) {
     for(k=1; k<=kmax; k++) {
-      temp_b[k] = b[IX(i,j,k)] 
+      temp_b[k] = b[IX(i,j,k)]
                 + ae[IX(i,j,k)]*psi[IX(i+1,j,k)] + aw[IX(i,j,k)]*psi[IX(i-1,j,k)]
                 + an[IX(i,j,k)]*psi[IX(i,j+1,k)] + as[IX(i,j,k)]*psi[IX(i,j-1,k)];
       temp_ap[k] = ap[IX(i,j,k)];
@@ -226,7 +226,7 @@ int TDMA_YZ(PARA_DATA *para, REAL **var, REAL *psi, int i)
     for(k=1; k<=kmax; k++)  psi[IX(i,j,k)] = temp_psi[k];
 
   }
-  
+
   free(temp_ap);
   free(temp_ae);
   free(temp_aw);
@@ -236,7 +236,7 @@ int TDMA_YZ(PARA_DATA *para, REAL **var, REAL *psi, int i)
 } // End of TDMA_YZ()
 
 ///////////////////////////////////////////////////////////////////////////////
-/// TDMA solver for ZX-plane 
+/// TDMA solver for ZX-plane
 ///
 ///\param para Pointer to FFD parameters
 ///\param var Pointer to FFD simulation variables
@@ -286,11 +286,11 @@ int TDMA_ZX(PARA_DATA *para, REAL **var, REAL *psi, int j)
             FFD_ERROR);
     return 1;
   }
-  
+
   //line-by-line from South to North
   for(k=1; k<=kmax; k++) {
     for(i=1; i<=imax; i++) {
-      temp_b[i] = b[IX(i,j,k)] 
+      temp_b[i] = b[IX(i,j,k)]
                + af[IX(i,j,k)]*psi[IX(i,j,k+1)] + ab[IX(i,j,k)]*psi[IX(i,j,k-1)]
                + an[IX(i,j,k)]*psi[IX(i,j+1,k)] + as[IX(i,j,k)]*psi[IX(i,j-1,k)];
       temp_ap[i] = ap[IX(i,j,k)];
@@ -306,7 +306,7 @@ int TDMA_ZX(PARA_DATA *para, REAL **var, REAL *psi, int j)
 
     for(i=1; i<=imax; i++)  psi[IX(i,j,k)] = temp_psi[i];
   }
-  
+
   free(temp_ap);
   free(temp_ae);
   free(temp_aw);
@@ -316,9 +316,9 @@ int TDMA_ZX(PARA_DATA *para, REAL **var, REAL *psi, int j)
 } // End of TDMA_ZX()
 
 ///////////////////////////////////////////////////////////////////////////////
-/// TDMA solver for 1D array 
+/// TDMA solver for 1D array
 ///
-///\param ap Pointer to coefficient for center 
+///\param ap Pointer to coefficient for center
 ///\param ae Pointer to coefficient for east
 ///\param aw Pointer to coefficient for west
 ///\param b Pointer to b
@@ -327,7 +327,7 @@ int TDMA_ZX(PARA_DATA *para, REAL **var, REAL *psi, int j)
 ///
 ///\return 0 if no error occurred
 ///////////////////////////////////////////////////////////////////////////////
-int TDMA_1D(REAL *ap, REAL *ae, REAL *aw, REAL *b, REAL *psi, 
+int TDMA_1D(REAL *ap, REAL *ae, REAL *aw, REAL *b, REAL *psi,
              int LENGTH) {
   REAL *P, *Q;
   int i;
@@ -356,4 +356,4 @@ int TDMA_1D(REAL *ap, REAL *ae, REAL *aw, REAL *b, REAL *psi,
 } /* end of TDMA_1D() */
 
 
-  
+

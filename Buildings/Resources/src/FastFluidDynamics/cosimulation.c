@@ -10,7 +10,7 @@
 ///
 /// \date   8/3/2013
 ///
-/// This file provides functions that are used for conducting the coupled simulation 
+/// This file provides functions that are used for conducting the coupled simulation
 /// with Modelica
 ///
 ///////////////////////////////////////////////////////////////////////////////
@@ -43,15 +43,15 @@ int read_cosim_parameter(PARA_DATA *para, REAL **var, int **BINDEX) {
   ****************************************************************************/
   if(para->cosim->para->nSur==para->bc->nb_wall) {
     sprintf(msg, "\tnSur=%d", para->cosim->para->nSur);
-    ffd_log(msg, FFD_NORMAL);    
+    ffd_log(msg, FFD_NORMAL);
   }
   else {
-    sprintf(msg, 
+    sprintf(msg,
             "read_cosim_parameter(): Modelica(%d) and FFD(%d) "
-            "have different numbers of solid surfaces.", 
+            "have different numbers of solid surfaces.",
             para->cosim->para->nSur, para->bc->nb_wall);
     ffd_log(msg, FFD_ERROR);
-    ffd_log("\tModelica Surfaces are:", FFD_NORMAL); 
+    ffd_log("\tModelica Surfaces are:", FFD_NORMAL);
     for(i=0; i<para->cosim->para->nSur; i++) {
       sprintf(msg, "\t\t%s", para->cosim->para->name[i]);
       ffd_log(msg, FFD_NORMAL);
@@ -72,9 +72,9 @@ int read_cosim_parameter(PARA_DATA *para, REAL **var, int **BINDEX) {
     ffd_log(msg, FFD_NORMAL);
   }
   else {
-    sprintf(msg, 
+    sprintf(msg,
             "read_cosim_parameter(): Modelica(%d) and FFD(%d) "
-            "have different number of fluid ports.", 
+            "have different number of fluid ports.",
             para->cosim->para->nPorts, para->bc->nb_port);
     ffd_log(msg, FFD_ERROR);
     return 1;
@@ -88,9 +88,9 @@ int read_cosim_parameter(PARA_DATA *para, REAL **var, int **BINDEX) {
     ffd_log(msg, FFD_NORMAL);
   }
   else {
-    sprintf(msg, 
+    sprintf(msg,
             "read_cosim_parameter(): Modelica(%d) and FFD(%d) "
-            "have different number of sensors.", 
+            "have different number of sensors.",
             para->cosim->para->nSen, para->sens->nb_sensor);
     ffd_log(msg, FFD_ERROR);
     return 1;
@@ -104,9 +104,9 @@ int read_cosim_parameter(PARA_DATA *para, REAL **var, int **BINDEX) {
     ffd_log(msg, FFD_NORMAL);
   }
   else {
-    sprintf(msg, 
+    sprintf(msg,
             "read_cosim_parameter(): Modelica(%d) and FFD(%d) "
-            "have different number of species.", 
+            "have different number of species.",
             para->cosim->para->nXi, para->bc->nb_Xi);
     ffd_log(msg, FFD_ERROR);
     return 1;
@@ -120,9 +120,9 @@ int read_cosim_parameter(PARA_DATA *para, REAL **var, int **BINDEX) {
     ffd_log(msg, FFD_NORMAL);
   }
   else {
-    sprintf(msg, 
+    sprintf(msg,
             "read_cosim_parameter(): Modelica(%d) and FFD(%d) "
-            "have different number of substances.", 
+            "have different number of substances.",
             para->cosim->para->nC, para->bc->nb_C);
     ffd_log(msg, FFD_ERROR);
     return 1;
@@ -140,7 +140,7 @@ int read_cosim_parameter(PARA_DATA *para, REAL **var, int **BINDEX) {
   for(i=0; i<para->cosim->para->nSur; i++) {
     sprintf(msg, "\tSurface %d: %s", i, para->cosim->para->name[i]);
     ffd_log(msg, FFD_NORMAL);
-    sprintf(msg, "\t\tArea:%f[m2],\t Tilt:%f[deg]", 
+    sprintf(msg, "\t\tArea:%f[m2],\t Tilt:%f[deg]",
             para->cosim->para->are[i], para->cosim->para->til[i]);
     ffd_log(msg, FFD_NORMAL);
     switch (para->cosim->para->bouCon[i]) {
@@ -151,7 +151,7 @@ int read_cosim_parameter(PARA_DATA *para, REAL **var, int **BINDEX) {
         ffd_log("\t\tThermal boundary: Fixed heat flux", FFD_NORMAL);
         break;
       default:
-        sprintf(msg, 
+        sprintf(msg,
         "Invalid value (%d) for thermal boundary condition. "
         "1: Fixed T; 2: Fixed heat flux",
         para->cosim->para->bouCon[i]);
@@ -167,7 +167,7 @@ int read_cosim_parameter(PARA_DATA *para, REAL **var, int **BINDEX) {
 
   for(i=0; i<para->cosim->para->nSen; i++) {
     sprintf(msg, "\tSensor %d: %s", i, para->cosim->para->sensorName[i]);
-    ffd_log(msg, FFD_NORMAL); 
+    ffd_log(msg, FFD_NORMAL);
   }
 
   /****************************************************************************
@@ -188,7 +188,7 @@ int read_cosim_parameter(PARA_DATA *para, REAL **var, int **BINDEX) {
   | Get the start time of co-simulation
   ****************************************************************************/
   para->mytime->t = para->cosim->modelica->t;
-  sprintf(msg, "read_cosim_parameter(): Simulation starts at %fs", 
+  sprintf(msg, "read_cosim_parameter(): Simulation starts at %fs",
           para->mytime->t);
   ffd_log(msg, FFD_NORMAL);
 
@@ -197,11 +197,11 @@ int read_cosim_parameter(PARA_DATA *para, REAL **var, int **BINDEX) {
   ****************************************************************************/
   if(para->bc->nb_port>0 && para->prob->rho!=para->cosim->para->rho_start) {
     sprintf(msg, "read_cosim_parameter(): Overwrite the density of air "
-           "%f kg/m3 with %f kg/m3", para->prob->rho, 
+           "%f kg/m3 with %f kg/m3", para->prob->rho,
            para->cosim->para->rho_start);
     para->prob->rho = para->cosim->para->rho_start;
     ffd_log(msg, FFD_NORMAL);
-  } 
+  }
 
   return 0;
 } // End of read_cosim_parameter()
@@ -220,7 +220,7 @@ int read_cosim_data(PARA_DATA *para, REAL **var, int **BINDEX) {
   ffd_log("-------------------------------------------------------------------",
           FFD_NORMAL);
   if(para->outp->version==DEBUG) {
-    ffd_log("read_cosim_data(): Start to read data from Modelica.", 
+    ffd_log("read_cosim_data(): Start to read data from Modelica.",
             FFD_NORMAL);
   }
   /****************************************************************************
@@ -228,7 +228,7 @@ int read_cosim_data(PARA_DATA *para, REAL **var, int **BINDEX) {
   ****************************************************************************/
   while(para->cosim->modelica->flag==0) {
     if(para->outp->version==DEBUG) {
-      sprintf(msg, 
+      sprintf(msg,
               "read_cosim_data(): Data is not ready with "
               "para->cosim->modelica->flag=%d",
               para->cosim->modelica->flag);
@@ -242,8 +242,8 @@ int read_cosim_data(PARA_DATA *para, REAL **var, int **BINDEX) {
 
   if(para->outp->version==DEBUG) {
     ffd_log("read_cosim_data(): Modelica data is ready.", FFD_NORMAL);
-    sprintf(msg, 
-            "read_cosim_data(): Received the following data at t=%f[s]", 
+    sprintf(msg,
+            "read_cosim_data(): Received the following data at t=%f[s]",
             para->cosim->modelica->t);
     ffd_log(msg, FFD_NORMAL);
   }
@@ -266,7 +266,7 @@ int read_cosim_data(PARA_DATA *para, REAL **var, int **BINDEX) {
             FFD_NORMAL);
     for(i=0; i<para->cosim->para->nConExtWin; i++) {
       sprintf(msg, "Surface[%d]: %f,\t%f\n",
-              i, para->cosim->modelica->shaConSig[i], 
+              i, para->cosim->modelica->shaConSig[i],
               para->cosim->modelica->shaAbsRad[i]);
       ffd_log(msg, FFD_NORMAL);
     }
@@ -315,7 +315,7 @@ int read_cosim_data(PARA_DATA *para, REAL **var, int **BINDEX) {
 ///////////////////////////////////////////////////////////////////////////////
 int write_cosim_data(PARA_DATA *para, REAL **var) {
   int i, j, id;
-  
+
   ffd_log("-------------------------------------------------------------------",
           FFD_NORMAL);
   if(para->outp->version==DEBUG) {
@@ -339,15 +339,15 @@ int write_cosim_data(PARA_DATA *para, REAL **var) {
   para->cosim->ffd->t = para->mytime->t;
 
   sprintf(msg, "write_cosim_data(): Start to write FFD data to Modelica "
-               "at t=%f[s]", 
+               "at t=%f[s]",
           para->cosim->ffd->t);
   ffd_log(msg, FFD_NORMAL);
-  
+
   /****************************************************************************
   | Set the time and space averaged temperature of space
   | Convert T from degC to K
   ****************************************************************************/
-  para->cosim->ffd->TRoo = average_volume(para, var, var[TEMPM]); 
+  para->cosim->ffd->TRoo = average_volume(para, var, var[TEMPM]);
   sprintf(msg, "\tAveraged room temperature %f[degC]", para->cosim->ffd->TRoo);
   para->cosim->ffd->TRoo += 273.15;
   ffd_log(msg, FFD_NORMAL);
@@ -359,7 +359,7 @@ int write_cosim_data(PARA_DATA *para, REAL **var) {
     ffd_log("\tTemperature of the shade:", FFD_NORMAL);
     for(i=0; i<para->cosim->para->nConExtWin; i++) {
       //Note: The shade feature is to be implemented
-      para->cosim->ffd->TSha[i] = 20 + 273.15; 
+      para->cosim->ffd->TSha[i] = 20 + 273.15;
       sprintf(msg, "\t\tSurface %d: %f[K]\n",
               i, para->cosim->ffd->TSha[i]);
       ffd_log(msg, FFD_NORMAL);
@@ -376,10 +376,10 @@ int write_cosim_data(PARA_DATA *para, REAL **var) {
     /*-------------------------------------------------------------------------
     | Assign the temperature
     -------------------------------------------------------------------------*/
-    para->cosim->ffd->TPor[id] = para->bc->TPortMean[i]/para->bc->APort[i] 
+    para->cosim->ffd->TPor[id] = para->bc->TPortMean[i]/para->bc->APort[i]
                                  + 273.15;
     sprintf(msg, "\t\t%s: TPor[%d]=%f",
-            para->cosim->para->portName[id], i, 
+            para->cosim->para->portName[id], i,
             para->cosim->ffd->TPor[id]);
     ffd_log(msg, FFD_NORMAL);
     /*-------------------------------------------------------------------------
@@ -392,11 +392,11 @@ int write_cosim_data(PARA_DATA *para, REAL **var) {
 
     for(j=0; j<para->bc->nb_Xi; j++) {
       para->bc->velPortMean[i] = fabs(para->bc->velPortMean[i]) + SMALL;
-      para->cosim->ffd->XiPor[id][j] = para->bc->XiPortMean[i][j] 
+      para->cosim->ffd->XiPor[id][j] = para->bc->XiPortMean[i][j]
                                       / para->bc->velPortMean[i];
 
       sprintf(msg, "\t\t%s: Xi[%d]=%f",
-              para->cosim->para->portName[id], j, 
+              para->cosim->para->portName[id], j,
               para->cosim->ffd->XiPor[id][j]);
       ffd_log(msg, FFD_NORMAL);
     }
@@ -406,9 +406,9 @@ int write_cosim_data(PARA_DATA *para, REAL **var) {
     for(j=0; j<para->bc->nb_C; j++) {
       para->bc->velPortMean[i] = fabs(para->bc->velPortMean[i]) + SMALL;
       para->cosim->ffd->CPor[id][j] = para->bc->CPortMean[i][j]
-                                    / para->bc->velPortMean[i]; 
+                                    / para->bc->velPortMean[i];
       sprintf(msg, "\t\t%s: C[%d]=%f",
-              para->cosim->para->portName[id], j, 
+              para->cosim->para->portName[id], j,
               para->cosim->ffd->CPor[id][j]);
       ffd_log(msg, FFD_NORMAL);
     }
@@ -423,7 +423,7 @@ int write_cosim_data(PARA_DATA *para, REAL **var) {
 
     // Set the B.C. Temperature
     if(para->cosim->para->bouCon[id]==2) {
-      para->cosim->ffd->temHea[id] = para->bc->temHeaMean[i] 
+      para->cosim->ffd->temHea[id] = para->bc->temHeaMean[i]
                                   / para->bc->AWall[i] + 273.15;
       sprintf(msg, "\t\t%s: %f[K]",
               para->cosim->para->name[id], para->cosim->ffd->temHea[id]);
@@ -445,11 +445,11 @@ int write_cosim_data(PARA_DATA *para, REAL **var) {
     return 1;
   }
   else
-    ffd_log("\tSensor Information:", FFD_NORMAL); 
+    ffd_log("\tSensor Information:", FFD_NORMAL);
 
   for(i=0; i<para->cosim->para->nSen; i++) {
     para->cosim->ffd->senVal[i] = para->sens->senVal[i];
-    sprintf(msg, "\t\t%s: %f", 
+    sprintf(msg, "\t\t%s: %f",
             para->cosim->para->sensorName[i], para->cosim->ffd->senVal[i]);
     ffd_log(msg, FFD_NORMAL);
   }
@@ -465,7 +465,7 @@ int write_cosim_data(PARA_DATA *para, REAL **var) {
 
 
 ///////////////////////////////////////////////////////////////////////////////
-/// Compare the names of boundaries and store the relationship 
+/// Compare the names of boundaries and store the relationship
 ///
 ///\param para Pointer to FFD parameters
 ///
@@ -514,7 +514,7 @@ int compare_boundary_names(PARA_DATA *para) {
     } // End of for(j=0; j<para->bc->nb_wall&&flag!=0; j++)
 
     /*-------------------------------------------------------------------------
-    | Stop if name is not found 
+    | Stop if name is not found
     -------------------------------------------------------------------------*/
     if(flag!=0) {
       sprintf(msg, "compare_boundary_names(): Could not find the Modelica "
@@ -564,7 +564,7 @@ int compare_boundary_names(PARA_DATA *para) {
     }
 
     /*-------------------------------------------------------------------------
-    | Stop if name is not found 
+    | Stop if name is not found
     -------------------------------------------------------------------------*/
     if(flag!=0) {
       sprintf(msg, "compare_boundary_names(): Could not find "
@@ -601,7 +601,7 @@ int compare_boundary_area(PARA_DATA *para, REAL **var, int **BINDEX) {
       ffd_log(msg, FFD_NORMAL);
     }
     else {
-      sprintf(msg, 
+      sprintf(msg,
               "compare_boundary_area(): Area of surface %s are different: "
               "Modelica (%f[m2]) and FFD (%f[m2])",
               para->bc->wallName[i], A1[j], A0[i]);
@@ -651,21 +651,21 @@ int assign_thermal_bc(PARA_DATA *para, REAL **var, int **BINDEX) {
       switch(para->cosim->para->bouCon[i]) {
         case 1: // Temperature
           temHea[j] = para->cosim->modelica->temHea[i] - 273.15;
-          sprintf(msg, "\t%s: T=%f[degC]", 
+          sprintf(msg, "\t%s: T=%f[degC]",
             para->bc->wallName[j], temHea[j]);
           ffd_log(msg, FFD_NORMAL);
           break;
         case 2: // Heat flow rate
           temHea[j] = para->cosim->modelica->temHea[i] / para->bc->AWall[j];
-          sprintf(msg, "\t%s: Q_dot=%f[W/m2]", 
+          sprintf(msg, "\t%s: Q_dot=%f[W/m2]",
             para->bc->wallName[j], temHea[j]);
           ffd_log(msg, FFD_NORMAL);
           break;
         default:
-          sprintf(msg, 
+          sprintf(msg,
           "Invalid value (%d) for thermal boundary condition. "
           "Expected value are 1->Fixed T; 2->Fixed heat flux",
-          para->cosim->para->bouCon[i]);        
+          para->cosim->para->bouCon[i]);
           ffd_log(msg, FFD_ERROR);
           return 1;
       }
@@ -673,22 +673,22 @@ int assign_thermal_bc(PARA_DATA *para, REAL **var, int **BINDEX) {
     //-------------------------------------------------------------------------
     // Assign the BC
     //-------------------------------------------------------------------------
-    for(it=0; it<para->geom->index; it++) {    
+    for(it=0; it<para->geom->index; it++) {
       i = BINDEX[0][it];
       j = BINDEX[1][it];
       k = BINDEX[2][it];
       id = BINDEX[4][it];
       modelicaId = para->bc->wallId[id];
 
-      if(var[FLAGP][IX(i,j,k)]==SOLID) 
+      if(var[FLAGP][IX(i,j,k)]==SOLID)
         switch(para->cosim->para->bouCon[modelicaId]) {
-          case 1: 
+          case 1:
             var[TEMPBC][IX(i,j,k)] = temHea[id];
             BINDEX[3][it] = 1; // Specified temperature
             break;
           case 2:
             var[QFLUXBC][IX(i,j,k)] = temHea[id];
-            BINDEX[3][it] = 0; // Specified heat flux 
+            BINDEX[3][it] = 0; // Specified heat flux
             break;
           default:
             sprintf(msg,
@@ -701,7 +701,7 @@ int assign_thermal_bc(PARA_DATA *para, REAL **var, int **BINDEX) {
     }
 
     free(temHea);
-  } // End of if(para->bc->nb_wall>0) 
+  } // End of if(para->bc->nb_wall>0)
   /****************************************************************************
   | No action since there is not a solid surface
   ****************************************************************************/
@@ -711,7 +711,7 @@ int assign_thermal_bc(PARA_DATA *para, REAL **var, int **BINDEX) {
   /****************************************************************************
   | Calculate heat injected into the space
   ****************************************************************************/
-  sprintf(msg, "Convective sensible heat received by FFD is %f", 
+  sprintf(msg, "Convective sensible heat received by FFD is %f",
                 sensibleHeat);
   ffd_log(msg, FFD_NORMAL);
 
@@ -735,13 +735,13 @@ int assign_thermal_bc(PARA_DATA *para, REAL **var, int **BINDEX) {
 ///////////////////////////////////////////////////////////////////////////////
 /// Assign the Modelica inlet and outlet boundary condition data to FFD
 ///
-/// The inlet and outlet boundaries are not fixed and they can change during 
+/// The inlet and outlet boundaries are not fixed and they can change during
 /// the simulation. The reason is that the Modelica uses acausal modeling
-/// and the flow direction can change during the simulation depending on the 
+/// and the flow direction can change during the simulation depending on the
 /// pressure difference. As a result, the FFD has to change its inlet and outlet
-/// boundry condition accordingly. The inlet or outlet boundary is decided 
+/// boundry condition accordingly. The inlet or outlet boundary is decided
 /// according to the flow rate para->cosim->modelica->mFloRarPor. The port is
-/// inlet if mFloRarPor>0 and outlet if mFloRarPor<0. We will need to reset the 
+/// inlet if mFloRarPor>0 and outlet if mFloRarPor<0. We will need to reset the
 /// var[FLAGP][IX(i,j,k)] to apply the change of boundary conditions.
 ///
 ///\param para Pointer to FFD parameters
@@ -767,11 +767,11 @@ int assign_port_bc(PARA_DATA *para, REAL **var, int **BINDEX) {
     /*-------------------------------------------------------------------------
     | Convert for mass flow rate and temperature
     -------------------------------------------------------------------------*/
-    para->bc->velPort[j] = para->cosim->modelica->mFloRatPor[i] 
+    para->bc->velPort[j] = para->cosim->modelica->mFloRatPor[i]
                               / (para->prob->rho*para->bc->APort[j]);
     para->bc->TPort[j] = para->cosim->modelica->TPor[i] - 273.15;
-    sprintf(msg, "\t%s: vel=%f[m/s], T=%f[degC]", 
-          para->bc->portName[j], para->bc->velPort[j], 
+    sprintf(msg, "\t%s: vel=%f[m/s], T=%f[degC]",
+          para->bc->portName[j], para->bc->velPort[j],
           para->bc->TPort[j]);
     ffd_log(msg, FFD_NORMAL);
     /*-------------------------------------------------------------------------
@@ -795,7 +795,7 @@ int assign_port_bc(PARA_DATA *para, REAL **var, int **BINDEX) {
   /****************************************************************************
   | Assign the BC
   ****************************************************************************/
-  for(it=0; it<para->geom->index; it++) {    
+  for(it=0; it<para->geom->index; it++) {
     i = BINDEX[0][it];
     j = BINDEX[1][it];
     k = BINDEX[2][it];
@@ -807,7 +807,7 @@ int assign_port_bc(PARA_DATA *para, REAL **var, int **BINDEX) {
     if(var[FLAGP][IX(i,j,k)]==INLET || var[FLAGP][IX(i,j,k)]==OUTLET) {
       // Set it to inlet if the flow velocity is positive or equal to 0
       if(para->bc->velPort[id]>=0) {
-        var[FLAGP][IX(i,j,k)] = INLET; 
+        var[FLAGP][IX(i,j,k)] = INLET;
         var[TEMPBC][IX(i,j,k)] = para->bc->TPort[id];
         for(Xid=0; Xid<para->cosim->para->nXi; Xid++)
           var[Xi1BC+Xid][IX(i,j,k)] = para->bc->XiPort[id][Xid];
@@ -840,9 +840,9 @@ int assign_port_bc(PARA_DATA *para, REAL **var, int **BINDEX) {
 
 
 ///////////////////////////////////////////////////////////////////////////////
-/// Integrate the coupled simulation exchange data over the surfaces 
+/// Integrate the coupled simulation exchange data over the surfaces
 ///
-/// Fluid port: 
+/// Fluid port:
 ///   - T/Xi/C: sum(u*T*dA)
 ///   - m_dot:  sum(u*dA)
 ///
@@ -857,17 +857,17 @@ int assign_port_bc(PARA_DATA *para, REAL **var, int **BINDEX) {
 ///\return 0 if no error occurred
 ///////////////////////////////////////////////////////////////////////////////
 int surface_integrate(PARA_DATA *para, REAL **var, int **BINDEX) {
-  int imax = para->geom->imax, jmax = para->geom->jmax; 
+  int imax = para->geom->imax, jmax = para->geom->jmax;
   int kmax = para->geom->kmax;
   int i, j, k, it, bcid;
   int IMAX = imax+2, IJMAX = (imax+2)*(jmax+2);
-  REAL vel_tmp, A_tmp; 
+  REAL vel_tmp, A_tmp;
 
   /****************************************************************************
   | Set the variable to 0
   ****************************************************************************/
   if(para->outp->version==DEBUG)
-    ffd_log("surface_integrate(): Start to set the variable to 0", 
+    ffd_log("surface_integrate(): Start to set the variable to 0",
             FFD_NORMAL);
 
   for(i=0; i<para->bc->nb_wall; i++)
@@ -910,9 +910,9 @@ int surface_integrate(PARA_DATA *para, REAL **var, int **BINDEX) {
     /*-------------------------------------------------------------------------
     | Set the thermal conditions data for Modelica.
     | In FFD simulation, the BINDEX[3][it] indicates: 1->T, 0->Heat Flux.
-    | Those BINDEX[3][it] will be reset according to the Modelica data 
-    | para->comsim->para->bouCon (1->Heat Flux, 2->T). 
-    | Here is to give the Modelica the missing data (For instance, if Modelica 
+    | Those BINDEX[3][it] will be reset according to the Modelica data
+    | para->comsim->para->bouCon (1->Heat Flux, 2->T).
+    | Here is to give the Modelica the missing data (For instance, if Modelica
     | send FFD Temperature, FFD should then send Modelica Heat Flux).
     -------------------------------------------------------------------------*/
     /*-------------------------------------------------------------------------
@@ -922,12 +922,12 @@ int surface_integrate(PARA_DATA *para, REAL **var, int **BINDEX) {
       switch(BINDEX[3][it]) {
         // FFD uses heat flux as BC to compute temperature
         // Then send Modelica the temperature
-        case 0: 
+        case 0:
           para->bc->temHeaAve[bcid] += var[TEMP][IX(i,j,k)] * A_tmp;
           break;
         // FFD uses temperature as BC to compute heat flux
         // Then send Modelica the heat flux
-        case 1: 
+        case 1:
           para->bc->temHeaAve[bcid] += var[QFLUX][IX(i,j,k)] * A_tmp;
           //sprintf(msg, "Cell(%d,%d,%d):\tQFLUX=%f,\tA=%f", i,j,k,var[QFLUX][IX(i,j,k)], A_tmp);
           //ffd_log(msg, FFD_NORMAL);
@@ -945,7 +945,7 @@ int surface_integrate(PARA_DATA *para, REAL **var, int **BINDEX) {
     -------------------------------------------------------------------------*/
     else if(var[FLAGP][IX(i,j,k)]==OUTLET) {
       if(para->outp->version==DEBUG) {
-        sprintf(msg, "surface_integrate(): Set the outlet[%d, %d, %d]", 
+        sprintf(msg, "surface_integrate(): Set the outlet[%d, %d, %d]",
                 i, j, k);
         ffd_log(msg, FFD_NORMAL);
       }
@@ -957,29 +957,29 @@ int surface_integrate(PARA_DATA *para, REAL **var, int **BINDEX) {
 
       for(j=0; j<para->bc->nb_C; j++)
         para->bc->CPortAve[bcid][j] += var[C1+j][IX(i,j,k)] * A_tmp;
-        
-    } 
+
+    }
     /*-------------------------------------------------------------------------
     | Inlet
     -------------------------------------------------------------------------*/
-    else if(var[FLAGP][IX(i,j,k)]==INLET) {  
+    else if(var[FLAGP][IX(i,j,k)]==INLET) {
       if(para->outp->version==DEBUG) {
-        sprintf(msg, "surface_integrate(): Set 0 for inlet [%d,%d,%d].", 
+        sprintf(msg, "surface_integrate(): Set 0 for inlet [%d,%d,%d].",
                 i, j, k);
         ffd_log(msg, FFD_NORMAL);
       }
-      
-      para->bc->TPortAve[bcid] = 0; 
+
+      para->bc->TPortAve[bcid] = 0;
       para->bc->velPortAve[bcid] = 0;
       for(j=0; j<para->bc->nb_Xi; j++)
         para->bc->XiPortAve[bcid][j] = 0;
 
       for(j=0; j<para->bc->nb_C; j++)
         para->bc->CPortAve[bcid][j] = 0;
-    } 
-    
+    }
+
   } // End of for(it=0; it<para->geom->index; it++)
-  
+
   return 0;
 } // End of surface_integrate()
 

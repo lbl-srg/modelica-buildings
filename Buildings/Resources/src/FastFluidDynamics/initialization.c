@@ -18,7 +18,7 @@
 #include "initialization.h"
 
 ///////////////////////////////////////////////////////////////////////////////
-/// Initialize the parameters 
+/// Initialize the parameters
 ///
 ///\param para Pointer to FFD parameters
 ///
@@ -35,7 +35,7 @@ int initialize(PARA_DATA *para) {
   }
 
   /*---------------------------------------------------------------------------
-  | Output the help information 
+  | Output the help information
   ---------------------------------------------------------------------------*/
   if(para->outp->version==DEMO) {
     printf("\n\nHow to use this demo:\n\n" );
@@ -57,7 +57,7 @@ int initialize(PARA_DATA *para) {
 } // End of initialize( )
 
 ///////////////////////////////////////////////////////////////////////////////
-/// Set the default value for parameters 
+/// Set the default value for parameters
 ///
 ///\param para Pointer to FFD parameters
 ///
@@ -70,8 +70,8 @@ void set_default_parameter(PARA_DATA *para) {
 
   para->prob->alpha = (REAL) 2.376e-5; // Thermal diffusity
   para->prob->diff = 0.00001;
-  para->prob->force = 1.0; 
-  para->prob->heat = 1.0; 
+  para->prob->force = 1.0;
+  para->prob->heat = 1.0;
   para->prob->source = 100.0;
 
   para->prob->chen_a = (REAL) 0.03874; // Coeffcient of Chen's model
@@ -89,11 +89,11 @@ void set_default_parameter(PARA_DATA *para) {
   // Default values for Output
   para->outp->Temp_ref   = 0;//35.5f;//10.25f;
   para->outp->cal_mean   = 0;
-  para->outp->v_length   = 1;  
+  para->outp->v_length   = 1;
   para->outp->winx       = 600;
   para->outp->winy       = 600;
   para->outp->winz       = 600;
-  para->outp->v_ref      = 1.0; 
+  para->outp->v_ref      = 1.0;
   para->outp->version    = DEBUG; // Running the debug version
   para->outp->i_N        = 1;
   para->outp->j_N        = 1;
@@ -108,7 +108,7 @@ void set_default_parameter(PARA_DATA *para) {
 } // End of set_default_parameter
 
 ///////////////////////////////////////////////////////////////////////////////
-/// Set default initial values for simulation variables 
+/// Set default initial values for simulation variables
 ///
 ///\param para Pointer to FFD parameters
 ///\param var Pointer to FFD simulation variables
@@ -117,10 +117,10 @@ void set_default_parameter(PARA_DATA *para) {
 ///\return 0 if no error occurred
 ///////////////////////////////////////////////////////////////////////////////
 int set_initial_data(PARA_DATA *para, REAL **var, int **BINDEX) {
-  int i, j; 
+  int i, j;
   int size = (para->geom->imax+2)*(para->geom->jmax+2)*(para->geom->kmax+2);
   int flag = 0;
-  
+
   para->mytime->t = 0.0;
   para->mytime->step_current = 0;
   para->outp->cal_mean = 0;
@@ -142,7 +142,7 @@ int set_initial_data(PARA_DATA *para, REAL **var, int **BINDEX) {
     var[VYS][i]     = 0.0;
     var[VZS][i]     = 0.0;
     var[TEMP][i]    = para->init->T;
-    var[TEMPM][i]   = 0.0; 
+    var[TEMPM][i]   = 0.0;
     var[TEMPS][i]   = 0.0;  // Source of temperature
     var[IP][i]      = 0.0;
     var[AP][i]      = 0.0;
@@ -186,21 +186,21 @@ int set_initial_data(PARA_DATA *para, REAL **var, int **BINDEX) {
   para->prob->alpha = para->prob->cond / (para->prob->rho*para->prob->Cp);
 
   /****************************************************************************
-  | Read the configurations defined by SCI 
+  | Read the configurations defined by SCI
   ****************************************************************************/
   if(para->inpu->parameter_file_format == SCI) {
     flag = read_sci_input(para, var, BINDEX);
     if(flag != 0) {
-      sprintf(msg, "set_inital_data(): Could not read file %s", 
+      sprintf(msg, "set_inital_data(): Could not read file %s",
               para->inpu->parameter_file_name);
       ffd_log(msg, FFD_ERROR);
-      return flag; 
+      return flag;
     }
     flag = read_sci_zeroone(para, var, BINDEX);
     if(flag != 0) {
-      ffd_log("set_inital_data(): Could not read block information file", 
+      ffd_log("set_inital_data(): Could not read block information file",
                FFD_ERROR);
-      return flag; 
+      return flag;
     }
     mark_cell(para, var);
   }
@@ -230,7 +230,7 @@ int set_initial_data(PARA_DATA *para, REAL **var, int **BINDEX) {
     para->bc->XiPort = (REAL **) malloc(sizeof(REAL*)*para->bc->nb_port);
     para->bc->XiPortAve = (REAL **) malloc(sizeof(REAL*)*para->bc->nb_port);
     para->bc->XiPortMean = (REAL **) malloc(sizeof(REAL*)*para->bc->nb_port);
-    if(para->bc->XiPort==NULL || 
+    if(para->bc->XiPort==NULL ||
        para->bc->XiPortAve==NULL ||
        para->bc->XiPortMean==NULL) {
       ffd_log("set_initial_data(): Could not allocate memory for XiPort.",
@@ -242,8 +242,8 @@ int set_initial_data(PARA_DATA *para, REAL **var, int **BINDEX) {
       para->bc->XiPort[i] = (REAL *) malloc(sizeof(REAL)*para->bc->nb_Xi);
       para->bc->XiPortAve[i] = (REAL *) malloc(sizeof(REAL)*para->bc->nb_Xi);
       para->bc->XiPortMean[i] = (REAL *) malloc(sizeof(REAL)*para->bc->nb_Xi);
-      if(para->bc->XiPort[i]==NULL || 
-         para->bc->XiPortAve[i]==NULL || 
+      if(para->bc->XiPort[i]==NULL ||
+         para->bc->XiPortAve[i]==NULL ||
          para->bc->XiPortMean[i]==NULL) {
         sprintf(msg, "set_initial_data(): Could not allocate memory for "
                 "Xi at Port[%d].", i);
@@ -272,18 +272,18 @@ int set_initial_data(PARA_DATA *para, REAL **var, int **BINDEX) {
     para->bc->CPort = (REAL **) malloc(sizeof(REAL *)*para->bc->nb_port);
     para->bc->CPortAve = (REAL **) malloc(sizeof(REAL *)*para->bc->nb_port);
     para->bc->CPortMean = (REAL **) malloc(sizeof(REAL *)*para->bc->nb_port);
-    if(para->bc->CPort==NULL || para->bc->CPortAve==NULL 
+    if(para->bc->CPort==NULL || para->bc->CPortAve==NULL
        || para->bc->CPortMean) {
       ffd_log("set_initial_data(): Could not allocate memory for CPort.",
               FFD_ERROR);
       return 1;
     }
-    
+
     for(i=0; i<para->bc->nb_port; i++) {
       para->bc->CPort[i] = (REAL *) malloc(sizeof(REAL)*para->bc->nb_C);
       para->bc->CPortAve[i] = (REAL *) malloc(sizeof(REAL)*para->bc->nb_C);
       para->bc->CPortMean[i] = (REAL *) malloc(sizeof(REAL)*para->bc->nb_C);
-      if(para->bc->CPort[i]==NULL || para->bc->CPortAve[i]==NULL 
+      if(para->bc->CPort[i]==NULL || para->bc->CPortAve[i]==NULL
          || para->bc->CPortMean[i]) {
         ffd_log("set_initial_data(): "
                 "Could not allocate memory for C at Port[i].",
@@ -322,7 +322,7 @@ int set_initial_data(PARA_DATA *para, REAL **var, int **BINDEX) {
   }
 
   /****************************************************************************
-  | Conduct the data exchange at the inital state of cosimulation 
+  | Conduct the data exchange at the inital state of cosimulation
   ****************************************************************************/
   if(para->solv->cosimulation==1) {
     /*------------------------------------------------------------------------
@@ -352,7 +352,7 @@ int set_initial_data(PARA_DATA *para, REAL **var, int **BINDEX) {
                "cosimulaiton.", FFD_ERROR);
       return flag;
     }
-    
+
     /*------------------------------------------------------------------------
     | Perform the simulation for one step to update the FFD initial condition
     ------------------------------------------------------------------------*/
@@ -379,7 +379,7 @@ int set_initial_data(PARA_DATA *para, REAL **var, int **BINDEX) {
     }
     else if(para->outp->version==DEBUG)
       ffd_log("FFD_solver(): solved density step.", FFD_NORMAL);
-    
+
     // Integrate the data on the boundary surface
     flag = surface_integrate(para, var, BINDEX);
     if(flag != 0) {
@@ -389,7 +389,7 @@ int set_initial_data(PARA_DATA *para, REAL **var, int **BINDEX) {
       return flag;
     }
     else if (para->outp->version==DEBUG)
-      ffd_log("FFD_solver(): completed surface integration", 
+      ffd_log("FFD_solver(): completed surface integration",
               FFD_NORMAL);
 
     flag = add_time_averaged_data(para, var);
@@ -400,7 +400,7 @@ int set_initial_data(PARA_DATA *para, REAL **var, int **BINDEX) {
       return flag;
     }
     else if (para->outp->version==DEBUG)
-      ffd_log("FFD_solver(): completed time average", 
+      ffd_log("FFD_solver(): completed time average",
               FFD_NORMAL);
 
     // Average the FFD simulation data

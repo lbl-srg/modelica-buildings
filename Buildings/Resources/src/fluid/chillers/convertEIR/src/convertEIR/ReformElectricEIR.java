@@ -57,8 +57,8 @@ public class ReformElectricEIR {
 
         stringAnnotationOfReformElectricEIRObjectBegin = "annotation(\n"
         		+ "defaultComponentName=\"datChi\",\n"
-        		+ "defaultComponentPrefixes=\"parameter\",\n"        		
-        		+ "Documentation(info=\"<html>" 
+        		+ "defaultComponentPrefixes=\"parameter\",\n"
+        		+ "Documentation(info=\"<html>"
                 + "\n"
                 + "Performance data for chiller model."
                 + "\n"

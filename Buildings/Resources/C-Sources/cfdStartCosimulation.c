@@ -22,7 +22,7 @@
 ///\param name Pointer to the names of surfaces and fluid ports
 ///\param A Pointer to the area of surfaces in the same order of name
 ///\param til Pointer to the tilt of surface in the same order of name
-///\param bouCon Pointer to the type of thermal boundary condition in the 
+///\param bouCon Pointer to the type of thermal boundary condition in the
 ///       same order of name
 ///\param nPorts Number of fluid ports
 ///\param portName Pointer to the name of fluid ports
@@ -38,7 +38,7 @@
 ///
 ///\return 0 if no error occurred
 ///////////////////////////////////////////////////////////////////////////////
-int cfdStartCosimulation(char *cfdFilNam, char **name, double *A, double *til, 
+int cfdStartCosimulation(char *cfdFilNam, char **name, double *A, double *til,
                 int *bouCon, int nPorts, char** portName, int haveSensor,
                 char **sensorName, int haveShade, int nSur, int nSen,
                 int nConExtWin, int nXi, int nC, double rho_start) {
@@ -48,7 +48,7 @@ int cfdStartCosimulation(char *cfdFilNam, char **name, double *A, double *til,
   ****************************************************************************/
   //Define loaded library handle
 #ifdef _MSC_VER //Windows
-  HINSTANCE hinstLib; 
+  HINSTANCE hinstLib;
 #else //Linux
   void *hinstLib;
 #endif
@@ -57,15 +57,15 @@ int cfdStartCosimulation(char *cfdFilNam, char **name, double *A, double *til,
   MYPROC ProcAdd;
 
   cosim = (CosimulationData *) malloc(sizeof(CosimulationData));
-  cosim->para = (ParameterSharedData *) malloc(sizeof(ParameterSharedData));  
-  cosim->modelica = (ModelicaSharedData *) malloc(sizeof(ModelicaSharedData)); 
-  cosim->ffd = (ffdSharedData *) malloc(sizeof(ffdSharedData)); 
+  cosim->para = (ParameterSharedData *) malloc(sizeof(ParameterSharedData));
+  cosim->modelica = (ModelicaSharedData *) malloc(sizeof(ModelicaSharedData));
+  cosim->ffd = (ffdSharedData *) malloc(sizeof(ffdSharedData));
 
   /****************************************************************************
   | allocate the memory and assign the data
   ****************************************************************************/
   cosim->para->fileName = (char *) malloc(sizeof(char)*(strlen(cfdFilNam)+1));
-  strcpy(cosim->para->fileName, cfdFilNam); 
+  strcpy(cosim->para->fileName, cfdFilNam);
 
   cosim->para->nSur = nSur;
   cosim->para->nSen = nSen;
@@ -83,7 +83,7 @@ int cfdStartCosimulation(char *cfdFilNam, char **name, double *A, double *til,
   cosim->para->til = (REAL *) malloc(nSur*sizeof(REAL));
   cosim->para->bouCon = (int *) malloc(nSur*sizeof(int));
 
-  for(i=0; i<nSur; i++) { 
+  for(i=0; i<nSur; i++) {
     cosim->para->name[i] = (char *)malloc(sizeof(char) *(strlen(name[i])+1));
     strcpy(cosim->para->name[i], name[i]);
     cosim->para->are[i] = (REAL) A[i];
@@ -147,7 +147,7 @@ int cfdStartCosimulation(char *cfdFilNam, char **name, double *A, double *til,
 #ifdef _MSC_VER //Windows
 
 #if _WIN64
-  hinstLib = LoadLibrary(TEXT("Resources/Library/win64/ffd.dll")); 
+  hinstLib = LoadLibrary(TEXT("Resources/Library/win64/ffd.dll"));
 #elif _WIN32
   hinstLib = LoadLibrary(TEXT("Resources/Library/win32/ffd.dll"));
 #else
@@ -184,7 +184,7 @@ int cfdStartCosimulation(char *cfdFilNam, char **name, double *A, double *til,
   // If the function address is valid, call the function.
   if (ProcAdd!=NULL) {
   //call function: passing pointer of NAME struct
-    ProcAdd(cosim); 
+    ProcAdd(cosim);
   }
   else{
     ModelicaError("Error: Could not find dll function address.\n");

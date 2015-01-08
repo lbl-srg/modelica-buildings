@@ -33,7 +33,7 @@
 FILE *file1;
 
 ///////////////////////////////////////////////////////////////////////////////
-/// Write standard output data in a format for tecplot 
+/// Write standard output data in a format for tecplot
 ///
 ///\param para Pointer to FFD parameters
 ///\param var Pointer to FFD simulation variables
@@ -44,7 +44,7 @@ FILE *file1;
 int write_tecplot_data(PARA_DATA *para, REAL **var, char *name);
 
 ///////////////////////////////////////////////////////////////////////////////
-/// Write all available data in a format for tecplot 
+/// Write all available data in a format for tecplot
 ///
 ///\param para Pointer to FFD parameters
 ///\param var Pointer to FFD simulation variables
@@ -55,10 +55,10 @@ int write_tecplot_data(PARA_DATA *para, REAL **var, char *name);
 int write_tecplot_all_data(PARA_DATA *para, REAL **var, char *name);
 
 ///////////////////////////////////////////////////////////////////////////////
-/// Convert the data to the format for Tecplot 
+/// Convert the data to the format for Tecplot
 ///
-/// FFD uses staggered grid and Tecplot data is for collocated grid. 
-/// This subroutine transfers the data from FFD format to Tecplot format. 
+/// FFD uses staggered grid and Tecplot data is for collocated grid.
+/// This subroutine transfers the data from FFD format to Tecplot format.
 ///
 ///\param para Pointer to FFD parameters
 ///\param var Pointer to FFD simulation variables
@@ -66,12 +66,12 @@ int write_tecplot_all_data(PARA_DATA *para, REAL **var, char *name);
 ///\return no return
 ///////////////////////////////////////////////////////////////////////////////
 void convert_to_tecplot(PARA_DATA *para, REAL **var);
-  
+
 ///////////////////////////////////////////////////////////////////////////////
-/// Convert the data at 8 corners to the format for Tecplot 
+/// Convert the data at 8 corners to the format for Tecplot
 ///
-/// FFD uses staggered grid and Tecplot data is for collocated grid. 
-/// This subroutine transfers the data from FFD format to Tecplot format. 
+/// FFD uses staggered grid and Tecplot data is for collocated grid.
+/// This subroutine transfers the data from FFD format to Tecplot format.
 ///
 ///\param para Pointer to FFD parameters
 ///\param var Pointer to FFD simulation variables

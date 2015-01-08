@@ -24,14 +24,14 @@
 ///////////////////////////////////////////////////////////////////////////////
 int assign_parameter(PARA_DATA *para, char *string) {
   char tmp[400];
-  // tmp2 needs to be initialized to avoid crash 
+  // tmp2 needs to be initialized to avoid crash
   // when the input for tmp2 is empty
-  char tmp2[100] = ""; 
+  char tmp2[100] = "";
   int senId = -1;
 
   /****************************************************************************
-  sscanf() reads data from string and stores them according to parameter format 
-  into the locations given by the additional arguments. 
+  sscanf() reads data from string and stores them according to parameter format
+  into the locations given by the additional arguments.
   When sscanf() scans an empty line, it gets nothing and returns EOF.
   Thus, when sscanf returns EOF, no need to compare the tmp with parameter.
   ****************************************************************************/
@@ -137,11 +137,11 @@ int assign_parameter(PARA_DATA *para, char *string) {
   else if(!strcmp(tmp, "outp.version")) {
     sscanf(string, "%s%s", tmp, tmp2);
     sprintf(msg, "assign_parameter(): %s=%s", tmp, tmp2);
-    if(!strcmp(tmp2, "DEMO")) 
+    if(!strcmp(tmp2, "DEMO"))
       para->outp->version = DEMO;
-    else if(!strcmp(tmp2, "DEBUG")) 
+    else if(!strcmp(tmp2, "DEBUG"))
       para->outp->version = DEBUG;
-    else if(!strcmp(tmp2, "RUN")) 
+    else if(!strcmp(tmp2, "RUN"))
       para->outp->version = RUN;
     else {
       sprintf(msg, "assign_parameter(): %s is not valid input for %s", tmp2, tmp);
@@ -153,7 +153,7 @@ int assign_parameter(PARA_DATA *para, char *string) {
   else if(!strcmp(tmp, "inpu.parameter_file_format")) {
     sscanf(string, "%s%s", tmp, tmp2);
     sprintf(msg, "assign_parameter(): %s=%s", tmp, tmp2);
-    if(!strcmp(tmp2, "SCI")) 
+    if(!strcmp(tmp2, "SCI"))
       para->inpu->parameter_file_format = SCI;
     else {
       sprintf(msg, "assign_parameter(): %s is not valid input for %s", tmp2, tmp);
@@ -250,11 +250,11 @@ int assign_parameter(PARA_DATA *para, char *string) {
   else if(!strcmp(tmp, "prob.tur_model")) {
     sscanf(string, "%s%s", tmp, tmp2);
     sprintf(msg, "assign_parameter(): %s=%s", tmp, tmp2);
-    if(!strcmp(tmp2, "LAM")) 
+    if(!strcmp(tmp2, "LAM"))
       para->prob->tur_model = LAM;
-    else if(!strcmp(tmp2, "CHEN")) 
+    else if(!strcmp(tmp2, "CHEN"))
       para->prob->tur_model = CHEN;
-    else if(!strcmp(tmp2, "CONSTANT")) 
+    else if(!strcmp(tmp2, "CONSTANT"))
       para->prob->tur_model = CONSTANT;
     else {
       sprintf(msg, "assign_parameter(): %s is not valid input for %s", tmp2, tmp);
@@ -286,9 +286,9 @@ int assign_parameter(PARA_DATA *para, char *string) {
   else if(!strcmp(tmp, "solv.solver")) {
     sscanf(string, "%s%s", tmp, tmp2);
     sprintf(msg, "assign_parameter(): %s=%s", tmp, tmp2);
-    if(!strcmp(tmp2, "GS")) 
+    if(!strcmp(tmp2, "GS"))
       para->solv->solver = GS;
-    else if(!strcmp(tmp2, "TDMA")) 
+    else if(!strcmp(tmp2, "TDMA"))
       para->solv->solver = TDMA;
     else {
       sprintf(msg, "assign_parameter(): %s is not valid input for %s", tmp2, tmp);
@@ -305,13 +305,13 @@ int assign_parameter(PARA_DATA *para, char *string) {
   else if(!strcmp(tmp, "solv.advection_solver")) {
     sscanf(string, "%s%s", tmp, tmp2);
     sprintf(msg, "assign_parameter(): %s=%s", tmp, tmp2);
-    if(!strcmp(tmp2, "SEMI")) 
+    if(!strcmp(tmp2, "SEMI"))
       para->solv->advection_solver = SEMI;
-    else if(!strcmp(tmp2, "LAX")) 
+    else if(!strcmp(tmp2, "LAX"))
       para->solv->advection_solver = LAX;
-    else if(!strcmp(tmp2, "UPWIND")) 
+    else if(!strcmp(tmp2, "UPWIND"))
       para->solv->advection_solver = UPWIND;
-    else if(!strcmp(tmp2, "UPWIND_NEW")) 
+    else if(!strcmp(tmp2, "UPWIND_NEW"))
       para->solv->advection_solver = UPWIND_NEW;
     else {
       sprintf(msg, "assign_parameter(): %s is not valid input for %s", tmp2, tmp);
@@ -323,11 +323,11 @@ int assign_parameter(PARA_DATA *para, char *string) {
   else if(!strcmp(tmp, "solv.interpolation")) {
     sscanf(string, "%s%s", tmp, tmp2);
     sprintf(msg, "assign_parameter(): %s=%s", tmp, tmp2);
-    if(!strcmp(tmp2, "BILINEAR")) 
+    if(!strcmp(tmp2, "BILINEAR"))
       para->solv->interpolation = BILINEAR;
-    else if(!strcmp(tmp2, "FSJ")) 
+    else if(!strcmp(tmp2, "FSJ"))
       para->solv->interpolation = FSJ;
-    else if(!strcmp(tmp2, "HYBRID")) 
+    else if(!strcmp(tmp2, "HYBRID"))
       para->solv->interpolation = HYBRID;
     else {
       sprintf(msg, "assign_parameter(): %s is not valid input for %s", tmp2, tmp);
@@ -393,7 +393,7 @@ int assign_parameter(PARA_DATA *para, char *string) {
     | if it is the first name, allocate memory for para->sens->sensorName
     ------------------------------------------------------------------------*/
     if(para->sens->sensorName==NULL) {
-      // The number of sensor must be defined before we allocate memory for 
+      // The number of sensor must be defined before we allocate memory for
       // para->sens->sensorName
       if(para->sens->nb_sensor==0) {
         sprintf(msg, "assign_parameter(): Must define the number of sensors "
@@ -413,7 +413,7 @@ int assign_parameter(PARA_DATA *para, char *string) {
     } // End of if(para->sens->nb_sensor==0)
 
     /*------------------------------------------------------------------------
-    | Copy the sensor name 
+    | Copy the sensor name
     ------------------------------------------------------------------------*/
     sscanf(string, "%s%s", tmp, tmp2);
     senId++;
@@ -432,7 +432,7 @@ int assign_parameter(PARA_DATA *para, char *string) {
   }
 
   return 0;
-} // End of assign_parameter() 
+} // End of assign_parameter()
 
 ///////////////////////////////////////////////////////////////////////////////
 /// Read the FFD parameter file input.ffd
@@ -471,9 +471,9 @@ int read_parameter(PARA_DATA *para) {
               para->cosim->para->fileName);
       ffd_log(msg, FFD_ERROR);
       return 1;
-    } 
+    }
     else {
-      sprintf(msg, "read_parameter(): Opened file %s for FFD parameters", 
+      sprintf(msg, "read_parameter(): Opened file %s for FFD parameters",
               para->cosim->para->fileName);
       ffd_log(msg, FFD_NORMAL);
     }
@@ -482,7 +482,7 @@ int read_parameter(PARA_DATA *para) {
   //Use fgets(...) as loop condition, it reutrns null when it fail to read more characters.
   while(fgets(string, 400, file_para) != NULL) {
     if(assign_parameter(para, string)) {
-      sprintf(msg, "read_parameter(): Could not read data from file %s", 
+      sprintf(msg, "read_parameter(): Could not read data from file %s",
             para->cosim->para->fileName);
       ffd_log(msg, FFD_ERROR);
       return 1;
@@ -493,7 +493,7 @@ int read_parameter(PARA_DATA *para) {
   //Use feof() to detect what went wrong after one of the main I/O functions failed
   //Do not use feof() as condition of while loop. It will read one more time after last line.
   if (!feof(file_para)){
-      sprintf(msg, "read_parameter(): Could not read data from file %s", 
+      sprintf(msg, "read_parameter(): Could not read data from file %s",
             para->cosim->para->fileName);
       ffd_log(msg, FFD_ERROR);
   }

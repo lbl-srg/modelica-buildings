@@ -39,7 +39,7 @@ FILE *file_params;
 ///////////////////////////////////////////////////////////////////////////////
 /// Read the basic index information from input.cfd
 ///
-/// Specific method for advection will be selected according to the variable 
+/// Specific method for advection will be selected according to the variable
 /// type.
 ///
 ///\param para Pointer to FFD parameters

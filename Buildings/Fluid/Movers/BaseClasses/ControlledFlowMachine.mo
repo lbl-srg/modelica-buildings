@@ -72,7 +72,7 @@ the head or the mass flow rate.
 <li>
 January 6, 2015, by Michael Wetter:<br/>
 Revised model for OpenModelica.
-</li>      
+</li>
 <li>
 April 19, 2014, by Filip Jorissen:<br/>
 Set default values for new parameters in <code>efficiency()</code>.

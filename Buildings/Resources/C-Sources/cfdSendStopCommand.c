@@ -20,4 +20,4 @@
 ///////////////////////////////////////////////////////////////////////////////
 void cfdSendStopCommand( ) {
   cosim->para->flag = 0;
-} // End of cfdSendStopCommand 
+} // End of cfdSendStopCommand

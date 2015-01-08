@@ -12,9 +12,8 @@ equation
 
   annotation (
     defaultComponentName="toW",
-    Documentation(info="<html>This component adds the unit [W] into the data. 
-</html>
-", revisions="<html>
+    Documentation(info="<html>This component adds the unit [W] into the data.
+</html>", revisions="<html>
 <ul>
 <li>
 January 24, 2014, by Wangda Zuo:<br/>
@@ -22,8 +21,6 @@ First implementation.
 </li>
 </ul>
 </html>"),
-    Diagram(coordinateSystem(preserveAspectRatio=true,extent={{-100,-100},{100,
-            100}})),
     Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,
             100}}), graphics={Text(
           extent={{-150,110},{150,150}},

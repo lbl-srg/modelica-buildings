@@ -64,12 +64,10 @@ model NaturalConvection "Tutorial for Natural Convection case"
   HeatTransfer.Sources.FixedTemperature           TWesWal(T=274.15)
     "Boundary condition for the west wall" annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
-        rotation=0,
         origin={130,-110})));
   HeatTransfer.Sources.FixedTemperature           TEasWal(T=273.15)
     "Temperature of east wall"            annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
-        rotation=0,
         origin={130,-70})));
 equation
   connect(qRadGai_flow.y, multiplex3_1.u1[1]) annotation (Line(

@@ -1,5 +1,5 @@
 //------------------------------------------------------------------------------
-// The are key input file parameters 
+// The are key input file parameters
 //------------------------------------------------------------------------------
 
 inpu.parameter_file_format SCI // Format of extra parameter file: SCI
@@ -24,7 +24,7 @@ inpu.read_old_ffd_file 0 // 1: Read previous FFD file; 0: False
 geom.dx 0.1 // Length delta_x of one cell in x-direction for uniform grid only
 geom.dy 0.1 // Length delta_y of one cell in y-direction for uniform grid only
 geom.dz 0.1 // Length delta_z of one cell in z-direction for uniform grid only
-geom.uniform 1 // Only for generating grid by FFD. 1: uniform grid; 0: non-uniform grid 
+geom.uniform 1 // Only for generating grid by FFD. 1: uniform grid; 0: non-uniform grid
 
 outp.version RUN // DEBUG, RUN
 
@@ -39,15 +39,15 @@ prob.beta 0.00343 // Thermal expansion coefficient
 prob.diff 0.00001 // Diffusivity for contaminants
 prob.coeff_h 0.0004 // Convective heat transfer coefficient near the wall
 prob.force 1.0 // Force to be added in demo window when left-click on mouse
-prob.source 1.0 // Source to be added in demo window for contaminants when right click on mouse 
-prob.movie 0 // Donot output data for making animation 
+prob.source 1.0 // Source to be added in demo window for contaminants when right click on mouse
+prob.movie 0 // Donot output data for making animation
 prob.tur_model LAM // LAM, CHEN, CONSTANT
 prob.chen_a 0.03874 // Coefficeint of Chen's zero euqation turbulence model
 prob.Prt 0.9 // Turbulent Prandl number
 prob.Temp_Buoyancy 10.0 // Reference temperature for calculating bouyance force
 
 mytime.t_steady 100.0 //Necessary time for reaching the steady state from initial condition
- 
+
 bc.nb_Xi 1 // Total number of species
 bc.C 0 // Total number of trace substances
 

@@ -44,9 +44,7 @@ equation
   T_internal      = port.T;
   Q_flow_internal = port.Q_flow;
 
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}}), graphics),
-    Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
+  annotation (    Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
                     graphics={Rectangle(
           extent={{-100,100},{100,-100}},
           lineColor={0,0,0},
@@ -54,7 +52,7 @@ equation
           fillPattern=FillPattern.Solid)}),
     Documentation(info="<html>
 <p>
-This model is used to connect temperatures and heat flow rates between the 
+This model is used to connect temperatures and heat flow rates between the
 block that communicates with the CFD program
 and the heat port of the model that encapsulates the air heat and mass balance.
 </p>

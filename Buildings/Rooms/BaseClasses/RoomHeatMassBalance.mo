@@ -811,7 +811,7 @@ July 16, 2013, by Michael Wetter:<br/>
 Redesigned implementation to remove one level of model hierarchy on the room-side heat and mass balance.
 This change was done to facilitate the implementation of non-uniform room air heat and mass balance,
 which required separating the convection and long-wave radiation models.<br/>
-Changed assignment 
+Changed assignment
 <code>solRadExc(tauGla={0.6 for i in 1:NConExtWin})</code> to
 <code>solRadExc(tauGla={datConExtWin[i].glaSys.glass[datConExtWin[i].glaSys.nLay].tauSol for i in 1:NConExtWin})</code> to
 better take into account the solar properties of the glass.
@@ -828,7 +828,7 @@ Changed model to use new implementation of
 <a href=\"modelica://Buildings.HeatTransfer.Radiosity.OutdoorRadiosity\">
 Buildings.HeatTransfer.Radiosity.OutdoorRadiosity</a>.
 This change leads to the use of the same equations for the radiative
-heat transfer between window and ambient as is used for 
+heat transfer between window and ambient as is used for
 the opaque constructions.
 </li>
 <li>
@@ -837,7 +837,7 @@ Add glass thickness as a parameter for conExtWinRad. It is needed by the clacula
 </li>
 <li>
 December 6, 2011, by Michael Wetter:<br/>
-Fixed bug that caused convective heat gains to be 
+Fixed bug that caused convective heat gains to be
 removed from the room instead of added to the room.
 This error was caused by a wrong sign in
 <a href=\"modelica://Buildings.Rooms.BaseClasses.MixedAirHeatGain\">
@@ -849,8 +849,8 @@ August 9, 2011, by Michael Wetter:<br/>
 Fixed bug that caused too high a surface temperature of the window frame.
 The previous version did not compute the infrared radiation exchange between the
 window frame and the sky. This has been corrected by adding the instance
-<code>skyRadExcWin</code> and the parameter <code>absIRFra</code> to the 
-model 
+<code>skyRadExcWin</code> and the parameter <code>absIRFra</code> to the
+model
 <a href=\"modelica://Buildings.Rooms.BaseClasses.ExteriorBoundaryConditionsWithWindow\">
 Buildings.Rooms.BaseClasses.ExteriorBoundaryConditionsWithWindow</a>.
 This closes ticket <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/36\">issue 36</a>.

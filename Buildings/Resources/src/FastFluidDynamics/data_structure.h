@@ -34,12 +34,12 @@
 #include "modelica_ffd_common.h"
 #endif
 /*-----------------------------------------------------------------------------
-Problem with windows version 
-The stdlib.h which ships with the recent versions of Visual Studio has a 
-different (and conflicting) definition of the exit() function. 
+Problem with windows version
+The stdlib.h which ships with the recent versions of Visual Studio has a
+different (and conflicting) definition of the exit() function.
 It clashes with the definition in glut.h.
 Solution:
-Override the definition in glut.h with that in stdlib.h. 
+Override the definition in glut.h with that in stdlib.h.
 Place the stdlib.h line above the glut.h line in the code.
 -----------------------------------------------------------------------------*/
 
@@ -166,7 +166,7 @@ typedef struct {
   REAL  dy; // Length delta_y of one cell in y-direction for uniform grid only
   REAL  dz; // Length delta_z of one cell in z-direction for uniform grid only
   REAL  volFlu; // Total volume of fluid cells
-  int   uniform; // Only for generating grid by FFD. 1: uniform grid; 0: non-uniform grid 
+  int   uniform; // Only for generating grid by FFD. 1: uniform grid; 0: non-uniform grid
 } GEOM_DATA;
 
 // Parameter for the data output control
@@ -188,7 +188,7 @@ typedef struct{
   int omy; // Internal
   int mx; // Internal
   int my; // Internal
-  int win_id; // Internal: Windows id 
+  int win_id; // Internal: Windows id
   int mouse_down[3]; // Internal: Record for mouse action
   VERSION version; // DEMO, DEBUG, RUN
   int screen; // Screen for display: 1 velocity; 2: temperature; 3: contaminant
@@ -217,8 +217,8 @@ typedef struct{
   //REAL trefmax; // T Reference max defined by SCI
   REAL Cp; // Specific heat capacity
   REAL force; // Force to be added in demo window for velocity when left-click on mouse
-  REAL heat; // Heat to be added in demo window for contaminants when click middle button on mouse 
-  REAL source; // Source to be added in demo window for contaminants when right click on mouse 
+  REAL heat; // Heat to be added in demo window for contaminants when click middle button on mouse
+  REAL source; // Source to be added in demo window for contaminants when right click on mouse
   int movie; // Output data for making animation (1:yes, 0:no)
   int output;   // Internal: 0: have not been written; 1: done
   TUR_MODEL tur_model; // LAM, CHEN, CONSTANT
@@ -238,7 +238,7 @@ typedef struct {
   int nb_port; // nPort = nInlet + nOutlet
   int nb_Xi; // Number of species
   int nb_C; // Number of substances
-  int sha; // 1: have shade ; 0: no shade 
+  int sha; // 1: have shade ; 0: no shade
   char **wallName; // *wallName[nb_wall]: Name of solid boundary (Wall, Window)
   char **inletName; // *inletName[nb_inlet]: Name of inlet boundary
   char **outletName; // *inletName[nb_outlet]: Name of outlet boundary
@@ -292,7 +292,7 @@ typedef struct {
 typedef struct {
   SOLVERTYPE solver;  // Solver type: GS, TDMA
   int check_residual; // 1: check, 0: donot check
-  ADVECTION advection_solver; // Type of advection solver: SEMI, LAX, UPWIND, UPWIND_NEW 
+  ADVECTION advection_solver; // Type of advection solver: SEMI, LAX, UPWIND, UPWIND_NEW
   INTERPOLATION interpolation; // Interpolation in semi-Lagrangian method: BILINEAR, FSJ, HYBRID
   int cosimulation;  // 0: single; 1: coupled simulation
   int nextstep; // Internal: 1: yes; 0: no, wait

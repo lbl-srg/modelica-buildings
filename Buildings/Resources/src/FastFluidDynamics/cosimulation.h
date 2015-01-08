@@ -10,7 +10,7 @@
 ///
 /// \date   8/3/2013
 ///
-/// This file provides functions that are used for conducting the coupled simulation 
+/// This file provides functions that are used for conducting the coupled simulation
 /// with Modelica
 ///
 ///////////////////////////////////////////////////////////////////////////////
@@ -69,7 +69,7 @@ int write_cosim_data(PARA_DATA *para, REAL **var);
 int read_cosim_data(PARA_DATA *para, REAL **var, int **BINDEX);
 
 ///////////////////////////////////////////////////////////////////////////////
-/// Compare the names of boundaries and store the relationship 
+/// Compare the names of boundaries and store the relationship
 ///
 ///\param para Pointer to FFD parameters
 ///
@@ -102,13 +102,13 @@ int assign_thermal_bc(PARA_DATA *para, REAL **var, int **BINDEX);
 ///////////////////////////////////////////////////////////////////////////////
 /// Assign the Modelica inlet and outlet boundary condition data to FFD
 ///
-/// The inlet and outlet boundaries are not fixed and they can change during 
+/// The inlet and outlet boundaries are not fixed and they can change during
 /// the simulation. The reason is that the Modelica uses acausal modeling
-/// and the flow direction can change during the simulation depending on the 
+/// and the flow direction can change during the simulation depending on the
 /// pressure difference. As a result, the FFD has to change its inlet and outlet
-/// boundary condition accordingly. The inlet or outlet boundary is decided 
+/// boundary condition accordingly. The inlet or outlet boundary is decided
 /// according to the flow rate para->cosim->modelica->mFloRarPor. The port is
-/// inlet if mFloRarPor>0 and outlet if mFloRarPor<0. We will need to reset the 
+/// inlet if mFloRarPor>0 and outlet if mFloRarPor<0. We will need to reset the
 /// var[FLAGP][IX(i,j,k)] to apply the change of boundary conditions.
 ///
 ///\param para Pointer to FFD parameters
@@ -120,9 +120,9 @@ int assign_thermal_bc(PARA_DATA *para, REAL **var, int **BINDEX);
 int assign_port_bc(PARA_DATA *para, REAL **var, int **BINDEX);
 
 ///////////////////////////////////////////////////////////////////////////////
-/// Integrate the coupled simulation exchange data over the surfaces 
+/// Integrate the coupled simulation exchange data over the surfaces
 ///
-/// Fluid port: 
+/// Fluid port:
 ///   - T/Xi/C: sum(u*T*dA)
 ///   - m_dot:  sum(u*dA)
 ///

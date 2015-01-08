@@ -242,7 +242,7 @@ The following performance data have been entered:
          /((_per_y.pressure.dp[nOri]-_per_y.pressure.dp[nOri-1]))<0,
     "The last two pressure points for the fan or pump performance curve must be decreasing.
     You need to set more reasonable parameters.
-Received 
+Received
 " + getArrayAsString(_per_y.pressure.dp, "dp"));
 
   end if;
@@ -259,8 +259,8 @@ of the fan or pump satisfies the minimum decrease condition
         (_per_y.pressure.dp[i+1]-_per_y.pressure.dp[i])
 d[i] = ------------------------------------------------- < " + String(-kRes) + "
        (_per_y.pressure.V_flow[i+1]-_per_y.pressure.V_flow[i])
- 
- is 
+
+ is
 " + getArrayAsString({(_per_y.pressure.dp[i+1]-_per_y.pressure.dp[i])
         /(_per_y.pressure.V_flow[i+1]-_per_y.pressure.V_flow[i]) for i in 1:nOri-1}, "d") + "
 Otherwise, a solution to the equations may not exist if the fan or pump speed is reduced.
@@ -610,7 +610,7 @@ operating points.
 <ul>
 <li>
 If <code>_per_y.use_powerCharacteristic = false</code>, then the data points for
-normalized volume flow rate versus efficiency is used to determine the efficiency, 
+normalized volume flow rate versus efficiency is used to determine the efficiency,
 and then the power consumption. The default is a constant efficiency of 0.7.
 </li>
 <li>
@@ -655,7 +655,7 @@ avoid a translation warning.
 </li>
 <li>
 April 21, 2014, by Filip Jorisson and Michael Wetter:<br/>
-Changed model to use 
+Changed model to use
 <a href=\"modelica://Buildings.Fluid.Movers.Data.Generic\">
 Buildings.Fluid.Movers.Data.Generic</a>.
 April 19, 2014, by Filip Jorissen:<br/>
@@ -668,8 +668,8 @@ for a discussion and validation.
 <li>
 September 27, 2013, by Michael Wetter:<br/>
 Reformulated <code>per=if (curve == 1) then pCur1 elseif (curve == 2) then pCur2 else pCur3</code>
-by moving the computation into the idividual logical branches because OpenModelica generates an 
-error when assign the statement to <code>data</code> 
+by moving the computation into the idividual logical branches because OpenModelica generates an
+error when assign the statement to <code>data</code>
 as <code>pCur1</code>, <code>pCur2</code> and <code>pCur3</code> have different dimensions.
 </li>
 <li>

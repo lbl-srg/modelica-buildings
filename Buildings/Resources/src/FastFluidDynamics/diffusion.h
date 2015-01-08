@@ -75,7 +75,7 @@ int diffusion(PARA_DATA *para, REAL **var, int var_type, int index,
 ///
 ///\return 0 if no error occurred
 ///////////////////////////////////////////////////////////////////////////////
-int coef_diff(PARA_DATA *para, REAL **var, REAL *psi, REAL *psi0, 
+int coef_diff(PARA_DATA *para, REAL **var, REAL *psi, REAL *psi0,
                int var_type, int index, int **BINDEX);
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -83,7 +83,7 @@ int coef_diff(PARA_DATA *para, REAL **var, REAL *psi, REAL *psi0,
 ///
 ///\param para Pointer to FFD parameters
 ///\param var Pointer to FFD simulation variables
-///\param var_type Type of variable 
+///\param var_type Type of variable
 ///\param index Index of trace substances or species
 ///
 ///\return 0 if no error occurred

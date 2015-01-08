@@ -95,31 +95,26 @@ model Pump_Nrpm_stratos "Model validation using a Wilo Stratos 80/1-12 pump"
     "Minimum for not going outside of the figure range (see documentation)"
                                 annotation (Placement(transformation(
         extent={{-5,-5},{5,5}},
-        rotation=0,
         origin={35,91})));
   Modelica.Blocks.Math.Min min2
     "Minimum for not going outside of the figure range (see documentation)"
                                 annotation (Placement(transformation(
         extent={{-5,-5},{5,5}},
-        rotation=0,
         origin={35,45})));
   Modelica.Blocks.Math.Min min3
     "Minimum for not going outside of the figure range (see documentation)"
                                 annotation (Placement(transformation(
         extent={{-5,-5},{5,5}},
-        rotation=0,
         origin={35,-5})));
   Modelica.Blocks.Math.Min min4
     "Minimum for not going outside of the figure range (see documentation)"
                                 annotation (Placement(transformation(
         extent={{-5,-5},{5,5}},
-        rotation=0,
         origin={35,-49})));
   Modelica.Blocks.Math.Min min5
     "Minimum for not going outside of the figure range (see documentation)"
                                 annotation (Placement(transformation(
         extent={{-5,-5},{5,5}},
-        rotation=0,
         origin={35,-97})));
 
   Modelica.Blocks.Sources.Constant mMax_flow1(k=40/3.6)
@@ -320,6 +315,5 @@ for a discussion and validation.
 </ul>
 </html>"),
     Diagram(coordinateSystem(extent={{-140,-140},{140,120}},
-          preserveAspectRatio=false)),
-    Icon(coordinateSystem(extent={{-100,-100},{100,100}})));
+          preserveAspectRatio=false)));
 end Pump_Nrpm_stratos;

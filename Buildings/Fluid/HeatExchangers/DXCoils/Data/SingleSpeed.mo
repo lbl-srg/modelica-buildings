@@ -43,7 +43,7 @@ First implementation.
       COP_nominal =           4.07,
       SHR_nominal =           0.72,
       m_flow_nominal =        1.2*0.944),
-      perCur = 
+      perCur =
       Buildings.Fluid.HeatExchangers.DXCoils.Data.Generic.BaseClasses.PerformanceCurve(
       capFunT =              {0.9600147,-0.0106038,0.0013516,0.0039357,-0.0000568,-0.0004915},
       capFunFF =             {0.7491909,0.3721683,-0.1213592},
@@ -90,7 +90,7 @@ Coil:Cooling:DX:SingleSpeed,
       COP_nominal =           4.48,
       SHR_nominal =           0.73,
       m_flow_nominal =        1.2*0.944),
-      perCur = 
+      perCur =
       Buildings.Fluid.HeatExchangers.DXCoils.Data.Generic.BaseClasses.PerformanceCurve(
       capFunT =              {1.0671319,-0.0218036,0.0016875,0.0054500,-0.0000643,-0.0005786},
       capFunFF =             {0.8174603,0.2420635,-0.0595238},
@@ -137,7 +137,7 @@ Coil:Cooling:DX:SingleSpeed,
       COP_nominal =           4.07,
       SHR_nominal =           0.75,
       m_flow_nominal =        1.2*0.944),
-      perCur = 
+      perCur =
       Buildings.Fluid.HeatExchangers.DXCoils.Data.Generic.BaseClasses.PerformanceCurve(
       capFunT =              {0.9274018,-0.0049893,0.0010446,0.0003500,-0.0000300,-0.0002957},
       capFunFF =             {0.7539683,0.3650794,-0.1190476},
@@ -184,7 +184,7 @@ Coil:Cooling:DX:SingleSpeed,
       COP_nominal =           4.15,
       SHR_nominal =           0.74,
       m_flow_nominal =        1.2*0.944),
-      perCur = 
+      perCur =
       Buildings.Fluid.HeatExchangers.DXCoils.Data.Generic.BaseClasses.PerformanceCurve(
       capFunT =              {0.9953455,-0.0118418,0.0012277,0.0030246,-0.0000702,-0.0003685},
       capFunFF =             {0.7705358,0.2848007,-0.0580891},
@@ -231,7 +231,7 @@ Coil:Cooling:DX:SingleSpeed,
       COP_nominal =           4.05,
       SHR_nominal =           0.76,
       m_flow_nominal =        1.2*1.888),
-      perCur = 
+      perCur =
       Buildings.Fluid.HeatExchangers.DXCoils.Data.Generic.BaseClasses.PerformanceCurve(
       capFunT =              {1.0013476,-0.0187754,0.0015312,0.0054931,-0.0000901,-0.0004408},
       capFunFF =             {0.6460191,0.5455414,-0.1910828},
@@ -278,7 +278,7 @@ Coil:Cooling:DX:SingleSpeed,
       COP_nominal =           3.95,
       SHR_nominal =           0.71,
       m_flow_nominal =        1.2*3.776),
-      perCur = 
+      perCur =
       Buildings.Fluid.HeatExchangers.DXCoils.Data.Generic.BaseClasses.PerformanceCurve(
       capFunT =              {0.5781158,0.0405917,0.0000113,-0.0095022,0.0000001,-0.0000573},
       capFunFF =             {0.8328798,0.2403628,-0.0725624},
@@ -325,7 +325,7 @@ Coil:Cooling:DX:SingleSpeed,
       COP_nominal =           3.9,
       SHR_nominal =           0.78,
       m_flow_nominal =        1.2*0.944),
-      perCur = 
+      perCur =
       Buildings.Fluid.HeatExchangers.DXCoils.Data.Generic.BaseClasses.PerformanceCurve(
       capFunT =              {1.6380187,-0.0747347,0.0029747,0.0015201,-0.0000519,-0.0004509},
       capFunFF =             {0.8185792,0.2831771,-0.1017563},
@@ -372,7 +372,7 @@ Coil:Cooling:DX:SingleSpeed,
       COP_nominal =           3.9,
       SHR_nominal =           0.73,
       m_flow_nominal =        1.2*0.944),
-      perCur = 
+      perCur =
       Buildings.Fluid.HeatExchangers.DXCoils.Data.Generic.BaseClasses.PerformanceCurve(
       capFunT =              {0.3116765,0.0622847,-0.0008633,-0.0066556,-0.0000462,0.0001349},
       capFunFF =             {0.6583072,0.5294956,-0.1869478},
@@ -419,7 +419,7 @@ Coil:Cooling:DX:SingleSpeed,
       COP_nominal =           3.71,
       SHR_nominal =           0.73,
       m_flow_nominal =        1.2*1.888),
-      perCur = 
+      perCur =
       Buildings.Fluid.HeatExchangers.DXCoils.Data.Generic.BaseClasses.PerformanceCurve(
       capFunT =              {0.5878544,0.0247382,0.0001631,-0.0034960,-0.0000889,0.0001450},
       capFunFF =             {0.7232943,0.4292712,-0.1525863},
@@ -466,7 +466,7 @@ Coil:Cooling:DX:SingleSpeed,
       COP_nominal =           3.73,
       SHR_nominal =           0.76,
       m_flow_nominal =        1.2*3.776),
-      perCur = 
+      perCur =
       Buildings.Fluid.HeatExchangers.DXCoils.Data.Generic.BaseClasses.PerformanceCurve(
       capFunT =              {1.1345120,-0.0239764,0.0012836,0.0023642,-0.0000802,-0.0001980},
       capFunFF =             {0.7578828,0.3524189,-0.1092772},
@@ -513,7 +513,7 @@ Coil:Cooling:DX:SingleSpeed,
       COP_nominal =           3.95,
       SHR_nominal =           0.72,
       m_flow_nominal =        1.2*0.944),
-      perCur = 
+      perCur =
       Buildings.Fluid.HeatExchangers.DXCoils.Data.Generic.BaseClasses.PerformanceCurve(
       capFunT =              {1.3045870,-0.0618386,0.0024674,0.0081572,-0.0001826,-0.0001610},
       capFunFF =             {-0.9361345,3.4420168,-1.5058824},
@@ -560,7 +560,7 @@ Coil:Cooling:DX:SingleSpeed,
       COP_nominal =           3.88,
       SHR_nominal =           0.71,
       m_flow_nominal =        1.2*0.8496),
-      perCur = 
+      perCur =
       Buildings.Fluid.HeatExchangers.DXCoils.Data.Generic.BaseClasses.PerformanceCurve(
       capFunT =              {0.9829911,-0.0197231,0.0016341,0.0058106,-0.0000309,-0.0005776},
       capFunFF =             {0.9268752,0.0902018,-0.0175149},
@@ -607,7 +607,7 @@ Coil:Cooling:DX:SingleSpeed,
       COP_nominal =           4.24,
       SHR_nominal =           0.68,
       m_flow_nominal =        1.2*0.826),
-      perCur = 
+      perCur =
       Buildings.Fluid.HeatExchangers.DXCoils.Data.Generic.BaseClasses.PerformanceCurve(
       capFunT =              {1.2343140,-0.0398816,0.0019354,0.0062114,-0.0001247,-0.0003619},
       capFunFF =             {1.2527302,-0.7182445,0.4623738},
@@ -654,7 +654,7 @@ Coil:Cooling:DX:SingleSpeed,
       COP_nominal =           4.25,
       SHR_nominal =           0.70,
       m_flow_nominal =        1.2*0.944),
-      perCur = 
+      perCur =
       Buildings.Fluid.HeatExchangers.DXCoils.Data.Generic.BaseClasses.PerformanceCurve(
       capFunT =              {0.8277321,-0.0496772,0.0021600,0.0350767,-0.0004860,-0.0004331},
       capFunFF =             {1.3022329,-0.7346939,0.4379352},
@@ -701,7 +701,7 @@ Coil:Cooling:DX:SingleSpeed,
       COP_nominal =           3.85,
       SHR_nominal =           0.70,
       m_flow_nominal =        1.2*0.8024),
-      perCur = 
+      perCur =
       Buildings.Fluid.HeatExchangers.DXCoils.Data.Generic.BaseClasses.PerformanceCurve(
       capFunT =              {1.1028912,-0.0119627,0.0014640,-0.0041312,-0.0000388,-0.0003520},
       capFunFF =             {0.7060647,0.3967112,-0.1059134},
@@ -748,7 +748,7 @@ Coil:Cooling:DX:SingleSpeed,
       COP_nominal =           4.06,
       SHR_nominal =           0.734,
       m_flow_nominal =        1.2*1.888),
-      perCur = 
+      perCur =
       Buildings.Fluid.HeatExchangers.DXCoils.Data.Generic.BaseClasses.PerformanceCurve(
       capFunT =              {1.2083456,-0.0287633,0.0022322,0.0019731,-0.0000541,-0.0007392},
       capFunFF =             {0.6735828,0.4697959,-0.1469388},
@@ -795,7 +795,7 @@ Coil:Cooling:DX:SingleSpeed,
       COP_nominal =           3.98,
       SHR_nominal =           0.685,
       m_flow_nominal =        1.2*0.944),
-      perCur = 
+      perCur =
       Buildings.Fluid.HeatExchangers.DXCoils.Data.Generic.BaseClasses.PerformanceCurve(
       capFunT =              {1.1491510,-0.0161007,0.0015936,-0.0027657,-0.0000236,-0.0004692},
       capFunFF =             {0.3148231,1.0463502,-0.3708016},
@@ -842,7 +842,7 @@ Coil:Cooling:DX:SingleSpeed,
       COP_nominal =           4.05,
       SHR_nominal =           0.69,
       m_flow_nominal =        1.2*0.944),
-      perCur = 
+      perCur =
       Buildings.Fluid.HeatExchangers.DXCoils.Data.Generic.BaseClasses.PerformanceCurve(
       capFunT =              {1.4767927,-0.0614116,0.0027182,-0.0010838,-0.0000353,-0.0003531},
       capFunFF =             {0.9156325,0.0076960,0.0769601},
@@ -889,7 +889,7 @@ Coil:Cooling:DX:SingleSpeed,
       COP_nominal =           3.59,
       SHR_nominal =           0.70,
       m_flow_nominal =        1.2*3.776),
-      perCur = 
+      perCur =
       Buildings.Fluid.HeatExchangers.DXCoils.Data.Generic.BaseClasses.PerformanceCurve(
       capFunT =              {1.0477109,-0.0126686,0.0012838,0.0012381,-0.0000551,-0.0003875},
       capFunFF =             {0.6042146,0.6557209,-0.2667894},
@@ -936,7 +936,7 @@ Coil:Cooling:DX:SingleSpeed,
       COP_nominal =           4.096,
       SHR_nominal =           0.75,
       m_flow_nominal =        1.2*3.776),
-      perCur = 
+      perCur =
       Buildings.Fluid.HeatExchangers.DXCoils.Data.Generic.BaseClasses.PerformanceCurve(
       capFunT =              {1.3804089,-0.0801861,0.0033588,0.0118882,-0.0001339,-0.0005357},
       capFunFF =             {0.7894654,0.1996615,0.0111454},

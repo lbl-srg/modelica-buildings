@@ -13,8 +13,8 @@
 ///
 /// \date   8/3/2013
 ///
-/// This file provides functions that are used for setting the boundary 
-/// conditions. 
+/// This file provides functions that are used for setting the boundary
+/// conditions.
 /// It starts with \c set_bnd(). Then different subroutines are called
 /// according to the properties of variables.
 ///
@@ -47,7 +47,7 @@
 ///////////////////////////////////////////////////////////////////////////////
 /// Entrance of setting boundary conditions
 ///
-/// Specific boundary conditions will be selected according to the variable 
+/// Specific boundary conditions will be selected according to the variable
 /// type.
 ///
 ///\param para Pointer to FFD parameters
@@ -59,7 +59,7 @@
 ///
 ///\return 0 if no error occurred
 ///////////////////////////////////////////////////////////////////////////////
-int set_bnd(PARA_DATA *para, REAL **var, int var_type, int index, REAL *psi, 
+int set_bnd(PARA_DATA *para, REAL **var, int var_type, int index, REAL *psi,
             int **BINDEX) ;
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -73,7 +73,7 @@ int set_bnd(PARA_DATA *para, REAL **var, int var_type, int index, REAL *psi,
 ///
 ///\return 0 if no error occurred
 ///////////////////////////////////////////////////////////////////////////////
-int set_bnd_vel(PARA_DATA *para, REAL **var, int var_type, REAL *vx, 
+int set_bnd_vel(PARA_DATA *para, REAL **var, int var_type, REAL *vx,
                 int **BINDEX);
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -119,9 +119,9 @@ int set_bnd_pressure(PARA_DATA *para, REAL **var, REAL *p,int **BINDEX);
 ///////////////////////////////////////////////////////////////////////////////
 /// Enforce the mass conservation by adjusting the outlet flow rate
 ///
-/// The details was published in the paper 
-/// "W. Zuo, J. Hu, Q. Chen 2010. 
-/// Improvements on FFD modeling by using different numerical schemes, 
+/// The details was published in the paper
+/// "W. Zuo, J. Hu, Q. Chen 2010.
+/// Improvements on FFD modeling by using different numerical schemes,
 /// Numerical Heat Transfer, Part B Fundamentals, 58(1), 1-16."
 ///
 ///\param para Pointer to FFD parameters
@@ -133,11 +133,11 @@ int set_bnd_pressure(PARA_DATA *para, REAL **var, REAL *p,int **BINDEX);
 int mass_conservation(PARA_DATA *para, REAL **var, int **BINDEX);
 
 ///////////////////////////////////////////////////////////////////////////////
-/// Get the mass flow difference divided by outflow area 
+/// Get the mass flow difference divided by outflow area
 ///
-/// The details was published in the paper 
-/// "W. Zuo, J. Hu, Q. Chen 2010. 
-/// Improvements on FFD modeling by using different numerical schemes, 
+/// The details was published in the paper
+/// "W. Zuo, J. Hu, Q. Chen 2010.
+/// Improvements on FFD modeling by using different numerical schemes,
 /// Numerical Heat Transfer, Part B Fundamentals, 58(1), 1-16."
 ///
 ///\param para Pointer to FFD parameters

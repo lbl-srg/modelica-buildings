@@ -58,12 +58,10 @@ model MixedConvection "Tutorial for Mixed Convection case"
   HeatTransfer.Sources.FixedTemperature TOthWal[nSurBou-1](each T=283.15)
     "Temperature for other walls"          annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
-        rotation=0,
         origin={150,-50})));
   HeatTransfer.Sources.FixedTemperature TFlo(T=303.15) "Temperature of floor"
     annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
-        rotation=0,
         origin={150,-90})));
   Fluid.Sources.MassFlowSource_T bouIn(
     nPorts=1,

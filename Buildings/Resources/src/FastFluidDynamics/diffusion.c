@@ -91,13 +91,13 @@ int diffusion(PARA_DATA *para, REAL **var, int var_type, int index,
                 index, check_residual(para, var, psi));
         ffd_log(msg, FFD_NORMAL);
       default:
-        sprintf(msg, "diffusion(): No solver for variable type %d", 
+        sprintf(msg, "diffusion(): No solver for variable type %d",
                 var_type);
         ffd_log(msg, FFD_ERROR);
         flag = 1;
     }
   }
-       
+
   return flag;
 } // End of diffusion( )
 
@@ -114,7 +114,7 @@ int diffusion(PARA_DATA *para, REAL **var, int var_type, int index,
 ///
 ///\return 0 if no error occurred
 ///////////////////////////////////////////////////////////////////////////////
-int coef_diff(PARA_DATA *para, REAL **var, REAL *psi, REAL *psi0, 
+int coef_diff(PARA_DATA *para, REAL **var, REAL *psi, REAL *psi0,
                int var_type, int index, int **BINDEX) {
   int i, j, k;
   int imax = para->geom->imax, jmax = para->geom->jmax;
@@ -140,8 +140,8 @@ int coef_diff(PARA_DATA *para, REAL **var, REAL *psi, REAL *psi0,
     -------------------------------------------------------------------------*/
     case VX:
       if(para->prob->tur_model==LAM)
-        kapa = para->prob->nu; 
-      else if(para->prob->tur_model==CONSTANT) 
+        kapa = para->prob->nu;
+      else if(para->prob->tur_model==CONSTANT)
         kapa = (REAL) 101.0 * para->prob->nu;
 
       FOR_U_CELL
@@ -172,18 +172,18 @@ int coef_diff(PARA_DATA *para, REAL **var, REAL *psi, REAL *psi0,
       set_bnd(para, var, var_type, index, psi, BINDEX);
       //set_bnd(para, var, var_type, psi, BINDEX);
       FOR_U_CELL
-          ap[IX(i,j,k)] = ap0[IX(i,j,k)] + ae[IX(i,j,k)] + aw[IX(i,j,k)] 
-                        + an[IX(i,j,k)]  + as[IX(i,j,k)] + af[IX(i,j,k)] 
+          ap[IX(i,j,k)] = ap0[IX(i,j,k)] + ae[IX(i,j,k)] + aw[IX(i,j,k)]
+                        + an[IX(i,j,k)]  + as[IX(i,j,k)] + af[IX(i,j,k)]
                         + ab[IX(i,j,k)];
       END_FOR
       break;
     /*-------------------------------------------------------------------------
     | Y-velocity
-    -------------------------------------------------------------------------*/ 
+    -------------------------------------------------------------------------*/
     case VY:
       if(para->prob->tur_model==LAM)
-        kapa = para->prob->nu; 
-      else if(para->prob->tur_model==CONSTANT) 
+        kapa = para->prob->nu;
+      else if(para->prob->tur_model==CONSTANT)
         kapa = (REAL) 101.0 * para->prob->nu;
 
       FOR_V_CELL
@@ -214,8 +214,8 @@ int coef_diff(PARA_DATA *para, REAL **var, REAL *psi, REAL *psi0,
       set_bnd(para, var, var_type, index, psi, BINDEX);
       //set_bnd(para, var, var_type, psi,BINDEX);
       FOR_V_CELL
-        ap[IX(i,j,k)] = ap0[IX(i,j,k)] + ae[IX(i,j,k)] + aw[IX(i,j,k)] 
-                      + an[IX(i,j,k)] + as[IX(i,j,k)] + af[IX(i,j,k)] 
+        ap[IX(i,j,k)] = ap0[IX(i,j,k)] + ae[IX(i,j,k)] + aw[IX(i,j,k)]
+                      + an[IX(i,j,k)] + as[IX(i,j,k)] + af[IX(i,j,k)]
                       + ab[IX(i,j,k)];
       END_FOR
       break;
@@ -223,11 +223,11 @@ int coef_diff(PARA_DATA *para, REAL **var, REAL *psi, REAL *psi0,
     | Z-velocity
     -------------------------------------------------------------------------*/
     case VZ:
-      if(para->prob->tur_model==LAM)   
-        kapa = para->prob->nu; 
-      else if(para->prob->tur_model==CONSTANT) 
+      if(para->prob->tur_model==LAM)
+        kapa = para->prob->nu;
+      else if(para->prob->tur_model==CONSTANT)
         kapa = (REAL) 101.0 * para->prob->nu;
-        
+
       FOR_W_CELL
         dxe = x[IX(i+1,j,k)] - x[IX(i,j,k)];
         dxw = x[IX(i,j,k)] - x[IX(i-1,j,k)];
@@ -257,8 +257,8 @@ int coef_diff(PARA_DATA *para, REAL **var, REAL *psi, REAL *psi0,
       //set_bnd(para, var, var_type, psi, BINDEX);
 
       FOR_W_CELL
-        ap[IX(i,j,k)] = ap0[IX(i,j,k)] + ae[IX(i,j,k)] + aw[IX(i,j,k)] 
-                      +  an[IX(i,j,k)] + as[IX(i,j,k)] + af[IX(i,j,k)] 
+        ap[IX(i,j,k)] = ap0[IX(i,j,k)] + ae[IX(i,j,k)] + aw[IX(i,j,k)]
+                      +  an[IX(i,j,k)] + as[IX(i,j,k)] + af[IX(i,j,k)]
                       + ab[IX(i,j,k)];
       END_FOR
       break;
@@ -270,9 +270,9 @@ int coef_diff(PARA_DATA *para, REAL **var, REAL *psi, REAL *psi0,
     case Xi2:
     case C1:
     case C2:
-      if(para->prob->tur_model == LAM)   
-        kapa = para->prob->alpha; 
-      else if(para->prob->tur_model == CONSTANT) 
+      if(para->prob->tur_model == LAM)
+        kapa = para->prob->alpha;
+      else if(para->prob->tur_model == CONSTANT)
         kapa = (REAL) 101.0 * para->prob->alpha;
 
       FOR_EACH_CELL
@@ -285,7 +285,7 @@ int coef_diff(PARA_DATA *para, REAL **var, REAL *psi, REAL *psi0,
         Dx = gx[IX(i,j,k)] - gx[IX(i-1,j,k)];
         Dy = gy[IX(i,j,k)] - gy[IX(i,j-1,k)];
         Dz = gz[IX(i,j,k)] - gz[IX(i,j,k-1)];
- 
+
         if(para->prob->tur_model==CHEN)
           kapa = nu_t_chen_zero_equ(para, var, i, j, k);
 
@@ -298,14 +298,14 @@ int coef_diff(PARA_DATA *para, REAL **var, REAL *psi, REAL *psi0,
         ap0[IX(i,j,k)] = Dx*Dy*Dz/dt;
         b[IX(i,j,k)] = psi0[IX(i,j,k)]*ap0[IX(i,j,k)];
       END_FOR
-      
+
       // Add the source terms
       source_diff(para, var, var_type, index);
       // Set boundary conditions
       set_bnd(para, var, var_type, index, psi, BINDEX);
 
       FOR_EACH_CELL
-        ap[IX(i,j,k)] = ap0[IX(i,j,k)] + ae[IX(i,j,k)] + aw[IX(i,j,k)] 
+        ap[IX(i,j,k)] = ap0[IX(i,j,k)] + ae[IX(i,j,k)] + aw[IX(i,j,k)]
                       +  an[IX(i,j,k)] + as[IX(i,j,k)] + af[IX(i,j,k)] + ab[IX(i,j,k)];
       END_FOR
       break;
@@ -323,30 +323,30 @@ int coef_diff(PARA_DATA *para, REAL **var, REAL *psi, REAL *psi0,
 ///
 ///\param para Pointer to FFD parameters
 ///\param var Pointer to FFD simulation variables
-///\param var_type Type of variable 
+///\param var_type Type of variable
 ///\param index Index of trace substances or species
 ///
 ///\return 0 if no error occurred
 ///////////////////////////////////////////////////////////////////////////////
 int source_diff(PARA_DATA *para, REAL **var, int var_type, int index) {
-  int i, j, k;  
-  int imax = para->geom->imax, jmax = para->geom->jmax; 
+  int i, j, k;
+  int imax = para->geom->imax, jmax = para->geom->jmax;
   int kmax = para->geom->kmax;
   int IMAX = imax+2, IJMAX = (imax+2)*(jmax+2);
   REAL *b = var[B];
- 
+
   FOR_EACH_CELL
     switch(var_type) {
       case VX:
-        b[IX(i,j,k)] += var[VXS][IX(i,j,k)];   
+        b[IX(i,j,k)] += var[VXS][IX(i,j,k)];
         break;
-      case VY: 
-        b[IX(i,j,k)] += var[VYS][IX(i,j,k)];  
+      case VY:
+        b[IX(i,j,k)] += var[VYS][IX(i,j,k)];
         break;
-      case VZ: 
-        b[IX(i,j,k)] += var[VZS][IX(i,j,k)]; 
+      case VZ:
+        b[IX(i,j,k)] += var[VZS][IX(i,j,k)];
         break;
-      case TEMP: 
+      case TEMP:
         b[IX(i,j,k)] += var[TEMPS][IX(i,j,k)]/(para->prob->rho*para->prob->Cp);
         break;
       case C1:

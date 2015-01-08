@@ -32,7 +32,7 @@ info="<html>
 <p>
 Record containing parameters for pumps or fans
 that have either the mass flow rate or the pressure rise
-as an input signal. 
+as an input signal.
 </p>
 <p>
 This record may be used to assign for example fan performance data using

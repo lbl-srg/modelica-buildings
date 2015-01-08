@@ -28,7 +28,6 @@ model RoomOnlySurfaceBoundary
   Buildings.HeatTransfer.Sources.FixedTemperature TWesWal(each T=283.15)
     "Boundary condition for the west wall" annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
-        rotation=0,
         origin={110,-30})));
 
   HeatTransfer.Sources.FixedHeatFlow fixedHeatFlow[nSurBou - 2](each Q_flow=0)
@@ -37,7 +36,6 @@ model RoomOnlySurfaceBoundary
     "Temperature of the east wall"
     annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
-        rotation=0,
         origin={110,10})));
 equation
   for i in 1:nSurBou - 2 loop

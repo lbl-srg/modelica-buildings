@@ -74,12 +74,12 @@ int FFD_solver(PARA_DATA *para, REAL **var, int **BINDEX) {
     //-------------------------------------------------------------------------
     if(para->solv->cosimulation == 1) {
       /*.......................................................................
-      | Condition 1: If synchronization point is reached, 
+      | Condition 1: If synchronization point is reached,
       | Action:     Do data exchange
       .......................................................................*/
       if(fabs(para->mytime->t - t_cosim)<SMALL) {
         if(para->outp->version==DEBUG)
-          ffd_log("FFD_solver(): Coupled simulation, reached synchronization point", 
+          ffd_log("FFD_solver(): Coupled simulation, reached synchronization point",
                   FFD_NORMAL);
 
         // Average the FFD simulation data
@@ -117,12 +117,12 @@ int FFD_solver(PARA_DATA *para, REAL **var, int **BINDEX) {
         }
 
         /*.......................................................................
-        | Check if Modelica asks to stop the simulation 
+        | Check if Modelica asks to stop the simulation
         .......................................................................*/
         if(para->cosim->para->flag==0) {
           // Stop the solver
-          next = 0; 
-          sprintf(msg, 
+          next = 0;
+          sprintf(msg,
                   "ffd_solver(): Received stop command from Modelica at "
                   "FFD time: %f[s], Modelica Time: %f[s].",
                   para->mytime->t, para->cosim->modelica->t);
@@ -132,15 +132,15 @@ int FFD_solver(PARA_DATA *para, REAL **var, int **BINDEX) {
         continue;
       } // End of Condition 1
       /*.......................................................................
-      | Condition 2: synchronization point is not reached , 
+      | Condition 2: synchronization point is not reached ,
       |             but already miss the synchronization point
       | Action:     Stop simulation
       .......................................................................*/
       else if(para->mytime->t-t_cosim>SMALL) {
-        sprintf(msg, 
+        sprintf(msg,
           "ffd_solver(): Mis-matched synchronization step with "
                 "t_ffd=%f[s], t_cosim=%f[s], dt_syn=%f[s], dt_ffd=%f[s].",
-                para->mytime->t, t_cosim, 
+                para->mytime->t, t_cosim,
                 para->cosim->modelica->dt, para->mytime->dt);
         ffd_log(msg, FFD_ERROR);
         sprintf(msg, "para->mytime->t - t_cosim=%lf", para->mytime->t - t_cosim);
@@ -154,7 +154,7 @@ int FFD_solver(PARA_DATA *para, REAL **var, int **BINDEX) {
       .......................................................................*/
       else {
         if(para->outp->version==DEBUG)
-          ffd_log("FFD_solver(): Coupled simulation, prepare next step for FFD", 
+          ffd_log("FFD_solver(): Coupled simulation, prepare next step for FFD",
                   FFD_NORMAL);
 
         // Integrate the data on the boundary surface
@@ -166,7 +166,7 @@ int FFD_solver(PARA_DATA *para, REAL **var, int **BINDEX) {
           return flag;
         }
         else if (para->outp->version==DEBUG)
-          ffd_log("FFD_solver(): completed surface integration", 
+          ffd_log("FFD_solver(): completed surface integration",
                   FFD_NORMAL);
 
         flag = add_time_averaged_data(para, var);
@@ -177,7 +177,7 @@ int FFD_solver(PARA_DATA *para, REAL **var, int **BINDEX) {
           return flag;
         }
         else if (para->outp->version==DEBUG)
-          ffd_log("FFD_solver(): completed time average", 
+          ffd_log("FFD_solver(): completed time average",
                   FFD_NORMAL);
 
       } // End of Condition 3
@@ -187,7 +187,7 @@ int FFD_solver(PARA_DATA *para, REAL **var, int **BINDEX) {
     //-------------------------------------------------------------------------
     else {
       if(para->outp->version==DEBUG)
-        ffd_log("FFD_solver(): Single Simulation, prepare for next time step", 
+        ffd_log("FFD_solver(): Single Simulation, prepare for next time step",
                 FFD_NORMAL);
 
       // Start to record data for calculating mean velocity if needed
@@ -202,7 +202,7 @@ int FFD_solver(PARA_DATA *para, REAL **var, int **BINDEX) {
         else
           ffd_log("FFD_solver(): Start to calculate mean properties.",
                    FFD_NORMAL);
-      }   
+      }
 
       if(para->outp->cal_mean==1) {
         flag = add_time_averaged_data(para, var);
@@ -213,11 +213,11 @@ int FFD_solver(PARA_DATA *para, REAL **var, int **BINDEX) {
         }
       }
       next = para->mytime->step_current < step_total ? 1 : 0;
-    }    
-  } // End of While loop  
+    }
+  } // End of While loop
 
   return flag;
-} // End of FFD_solver( ) 
+} // End of FFD_solver( )
 
 ///////////////////////////////////////////////////////////////////////////////
 /// Calculate the temperature
@@ -232,7 +232,7 @@ int temp_step(PARA_DATA *para, REAL **var, int **BINDEX) {
   REAL *T = var[TEMP], *T0 = var[TMP1];
   int flag = 0;
 
-  flag = advect(para, var, TEMP, 0, T0, T, BINDEX); 
+  flag = advect(para, var, TEMP, 0, T0, T, BINDEX);
   if(flag!=0) {
     ffd_log("temp_step(): Could not advect temperature.", FFD_ERROR);
     return flag;
@@ -255,7 +255,7 @@ int temp_step(PARA_DATA *para, REAL **var, int **BINDEX) {
 ///\param BINDEX Pointer to boundary index
 ///
 ///\return 0 if no error occurred
-/////////////////////////////////////////////////////////////////////////////// 
+///////////////////////////////////////////////////////////////////////////////
 int den_step(PARA_DATA *para, REAL **var, int **BINDEX) {
   REAL *den, *den0 = var[TMP1];
   int i, flag = 0;
@@ -319,7 +319,7 @@ int den_step(PARA_DATA *para, REAL **var, int **BINDEX) {
 ///\param BINDEX Pointer to boundary index
 ///
 ///\return 0 if no error occurred
-/////////////////////////////////////////////////////////////////////////////// 
+///////////////////////////////////////////////////////////////////////////////
 int vel_step(PARA_DATA *para, REAL **var,int **BINDEX) {
   REAL *u  = var[VX],  *v  = var[VY],    *w  = var[VZ];
   REAL *u0 = var[TMP1], *v0 = var[TMP2], *w0 = var[TMP3];
@@ -337,7 +337,7 @@ int vel_step(PARA_DATA *para, REAL **var,int **BINDEX) {
     return flag;
   }
 
-  flag = advect(para, var, VZ, 0, w0, w, BINDEX); 
+  flag = advect(para, var, VZ, 0, w0, w, BINDEX);
   if(flag!=0) {
     ffd_log("vel_step(): Could not advect for velocity Z.", FFD_ERROR);
     return flag;
@@ -355,7 +355,7 @@ int vel_step(PARA_DATA *para, REAL **var,int **BINDEX) {
     return flag;
   }
 
-  flag = diffusion(para, var, VZ, 0, w, w0, BINDEX); 
+  flag = diffusion(para, var, VZ, 0, w, w0, BINDEX);
   if(flag!=0) {
     ffd_log("vel_step(): Could not diffuse velocity Z.", FFD_ERROR);
     return flag;
@@ -411,7 +411,7 @@ int equ_solver(PARA_DATA *para, REAL **var, int var_type, REAL *psi) {
       Gauss_Seidel(para, var, flagp, psi);
       break;
     default:
-      sprintf(msg, "equ_solver(): Solver for variable type %d is not defined.", 
+      sprintf(msg, "equ_solver(): Solver for variable type %d is not defined.",
               var_type);
       ffd_log(msg, FFD_ERROR);
       flag = 1;

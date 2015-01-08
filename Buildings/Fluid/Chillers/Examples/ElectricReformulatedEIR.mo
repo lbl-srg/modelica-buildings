@@ -70,7 +70,5 @@ September 17, 2010, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
-</html>"),
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
-            100,100}}), graphics));
+</html>"));
 end ElectricReformulatedEIR;

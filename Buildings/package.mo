@@ -412,7 +412,7 @@ have been <b style=\"color:blue\">improved</b> in a
 
 <tr><td valign=\"top\">Buildings.Fluid.HeatExchangers.HeaterCoolerPrescribed
     </td>
-    <td valign=\"top\">Renamed the model to <code>HeaterCooler_u</code> due to 
+    <td valign=\"top\">Renamed the model to <code>HeaterCooler_u</code> due to
                        the introduction of the new model <code>HeaterCooler_T</code>.<br/>
                        For Dymola, the conversion script will automatically
                        update existing models.
@@ -466,7 +466,7 @@ have been <b style=\"color:blue\">improved</b> in a
 
 <tr><td valign=\"top\">Buildings.Fluid.MassExchangers.HumidifierPrescribed
     </td>
-    <td valign=\"top\">Renamed the model to <code>Humidifier_u</code> due to 
+    <td valign=\"top\">Renamed the model to <code>Humidifier_u</code> due to
                        the introduction of the new model <code>HeaterCooler_T</code>
                        and to use the same naming pattern as <code>HeaterCooler_u</code>.<br/>
                        For Dymola, the conversion script will automatically

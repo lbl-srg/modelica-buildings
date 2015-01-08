@@ -6,8 +6,7 @@ package ElectricEIR "Performance data for chiller ElectricEIR"
 <p>
 Package with performance data for chillers.
 </p>
-</html>
-", revisions="<html>
+</html>", revisions="<html>
 Generated on 12/19/2014 15:30 by mwetter</html>"));
   record Generic "Generic data record for chiller ElectricEIR"
     extends Buildings.Fluid.Chillers.Data.BaseClasses.Chiller(
@@ -7247,7 +7246,7 @@ Chiller:Electric:EIR,
     1.0,                     !- Compressor Motor Efficiency
     2.0,                     !- Leaving Chilled Water Lower Temperature Limit {C}
     ConstantFlow;            !- Chiller Flow Mode
-    
+
 </pre>
 </html>"));
 
@@ -7357,7 +7356,7 @@ Chiller:Electric:EIR,
     1.0,                     !- Compressor Motor Efficiency
     2.0,                     !- Leaving Chilled Water Lower Temperature Limit {C}
     ConstantFlow;            !- Chiller Flow Mode
-    
+
 </pre>
 </html>"));
 

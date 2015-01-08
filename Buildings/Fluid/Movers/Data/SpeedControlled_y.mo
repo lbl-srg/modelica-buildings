@@ -10,12 +10,12 @@ record SpeedControlled_y
   /*
   This does not translate in OpenModelica (even if FlowControlled is copied
   into this model rather than extended).
-  
-  parameter 
+
+  parameter
     Buildings.Fluid.Movers.BaseClasses.Characteristics.efficiencyParameters
     hydraulicEfficiency(
       V_flow=power.V_flow,
-      eta=if use_powerCharacteristic then 
+      eta=if use_powerCharacteristic then
        {sqrt(power.V_flow[i]*pressure.dp[i]/
         Buildings.Fluid.Movers.BaseClasses.Characteristics.power(
           per=power,
@@ -28,10 +28,10 @@ record SpeedControlled_y
           ) for i in 1:size(power.V_flow, 1)}
        else {0.7 for i in 1:size(power.V_flow, 1)}) "Hydraulic efficiency";
 
-   parameter 
+   parameter
     Buildings.Fluid.Movers.BaseClasses.Characteristics.efficiencyParameters
     motorEfficiency(V_flow=power.V_flow,
-      eta=if use_powerCharacteristic then 
+      eta=if use_powerCharacteristic then
         sqrt(power.V_flow.*pressure.dp./
         {Buildings.Fluid.Movers.BaseClasses.Characteristics.power(
           per=power,
@@ -42,7 +42,7 @@ record SpeedControlled_y
           x=power.V_flow,
           y=power.P))
           for i in power.V_flow})
-          else 
+          else
           {0.7 for i in power.V_flow}) "Electric motor efficiency";
 */
 

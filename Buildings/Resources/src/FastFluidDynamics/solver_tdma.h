@@ -2,7 +2,7 @@
 ///
 /// \file   solver_tdma.h
 ///
-/// \brief Tri-Diagonal Matrix Algorithm Solver 
+/// \brief Tri-Diagonal Matrix Algorithm Solver
 ///
 /// \author Mingang Jin, Qingyan Chen
 ///         Purdue University
@@ -42,7 +42,7 @@
 int TDMA_3D(PARA_DATA *para, REAL **var, int type, REAL *psi);
 
 ///////////////////////////////////////////////////////////////////////////////
-/// TDMA solver for XY-plane 
+/// TDMA solver for XY-plane
 ///
 ///\param para Pointer to FFD parameters
 ///\param var Pointer to FFD simulation variables
@@ -54,7 +54,7 @@ int TDMA_3D(PARA_DATA *para, REAL **var, int type, REAL *psi);
 int TDMA_XY(PARA_DATA *para, REAL **var, REAL *psi, int k);
 
 ///////////////////////////////////////////////////////////////////////////////
-/// TDMA solver for YZ-plane 
+/// TDMA solver for YZ-plane
 ///
 ///\param para Pointer to FFD parameters
 ///\param var Pointer to FFD simulation variables
@@ -66,7 +66,7 @@ int TDMA_XY(PARA_DATA *para, REAL **var, REAL *psi, int k);
 int TDMA_YZ(PARA_DATA *para, REAL **var, REAL *psi, int i);
 
 ///////////////////////////////////////////////////////////////////////////////
-/// TDMA solver for ZX-plane 
+/// TDMA solver for ZX-plane
 ///
 ///\param para Pointer to FFD parameters
 ///\param var Pointer to FFD simulation variables
@@ -78,9 +78,9 @@ int TDMA_YZ(PARA_DATA *para, REAL **var, REAL *psi, int i);
 int TDMA_ZX(PARA_DATA *para, REAL **var, REAL *psi, int j);
 
 //////////////////////////////////////////////////////////////////////////////
-/// TDMA solver for 1D array 
+/// TDMA solver for 1D array
 ///
-///\param ap Pointer to coefficient for center 
+///\param ap Pointer to coefficient for center
 ///\param ae Pointer to coefficient for east
 ///\param aw Pointer to coefficient for west
 ///\param b Pointer to b

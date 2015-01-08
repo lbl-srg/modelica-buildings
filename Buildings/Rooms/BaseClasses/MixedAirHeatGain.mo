@@ -12,7 +12,7 @@ model MixedAirHeatGain "Model to convert internal heat gain signals"
 
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a QCon_flow
     "Convective heat gain"    annotation (Placement(transformation(extent={{90,-10},
-            {110,10}},         rotation=0), iconTransformation(extent={{90,-10},
+            {110,10}}), iconTransformation(extent={{90,-10},
             {110,10}})));
 
 public
@@ -173,6 +173,5 @@ June 8 2010, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
-</html>"),
-    Diagram(graphics));
+</html>"));
 end MixedAirHeatGain;

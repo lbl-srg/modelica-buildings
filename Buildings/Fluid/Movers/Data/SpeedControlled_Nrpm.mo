@@ -22,12 +22,12 @@ First implementation.
 </html>", info="<html>
 <p>
 Record containing parameters for pumps or fans of
-type 
+type
 <a href=\"modelica://Buildings.Fluid.Movers.SpeedControlled_Nrpm\">
 Buildings.Fluid.Movers.SpeedControlled_Nrpm</a>.
 </p>
 <p>
-This record is identical to 
+This record is identical to
 <a href=\"modelica://Buildings.Fluid.Movers.Data.Generic\">Buildings.Fluid.Movers.Data.Generic
 Buildings.Fluid.Movers.Data.Generic</a>.
 except that it also declares the nominal speed which is required

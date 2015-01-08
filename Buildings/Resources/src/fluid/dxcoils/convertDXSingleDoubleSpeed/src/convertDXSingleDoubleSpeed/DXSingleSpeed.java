@@ -64,7 +64,7 @@ public class DXSingleSpeed {
 
         stringAnnotationOfDXSingleSpeedObjectBegin = "annotation(\n"
         		+ "defaultComponentName=\"datCoi\",\n"
-        		+ "defaultComponentPrefixes=\"parameter\",\n"        		
+        		+ "defaultComponentPrefixes=\"parameter\",\n"
         		+ "Documentation(info=\"<html>"
                 + "\n"
         		+ "<p>"

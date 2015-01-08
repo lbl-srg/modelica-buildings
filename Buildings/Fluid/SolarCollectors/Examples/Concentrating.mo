@@ -95,7 +95,7 @@ December 22, 2014 by Michael Wetter:<br/>
 Removed <code>Modelica.Fluid.System</code>
 to address issue
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/311\">#311</a>.
-</li>    
+</li>
 <li>
 March 27, 2013 by Peter Grant:<br/>
 First implementation

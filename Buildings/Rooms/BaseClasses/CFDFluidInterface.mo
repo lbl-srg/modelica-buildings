@@ -183,9 +183,7 @@ equation
 
    end for;
 
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}}), graphics),
-    Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
+  annotation (    Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
             100}}), graphics={Rectangle(
           extent={{-100,100},{100,-100}},
           lineColor={0,0,0},
@@ -209,7 +207,7 @@ Otherwise, the time derivative of the pressure is
 dp&frasl;dt = p_<sub>start</sub> &nbsp; &sum; m&#775;<sub>i</sub> &frasl; m<sub>start</sub>,
 </p>
 <p>
-where 
+where
 <i>p_<sub>start</sub></i> is the initial pressure,
 <i>&sum; m&#775;<sub>i</sub></i> is the sum of the mass flow rates over all ports, and
 <i>m<sub>start</sub></i> is the initial mass of the room.
@@ -227,7 +225,7 @@ and hence this parameter is not needed.
 <li>
 July 24, 2014, by Wangda Zuo and Michael Wetter:<br/>
 Changed minimum attribute for <code>nPorts</code> from <i>2</i> to <i>0</i>
-as the FFD code uses atmospheric pressure and hence does not use the pressure 
+as the FFD code uses atmospheric pressure and hence does not use the pressure
 of the fluid connector.
 </li>
 <li>

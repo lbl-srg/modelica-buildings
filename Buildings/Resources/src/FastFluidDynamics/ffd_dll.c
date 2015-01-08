@@ -16,16 +16,16 @@
 
 #include "ffd_dll.h"
 /******************************************************************************
-| DLL interface to launch a separated thread for FFD. 
+| DLL interface to launch a separated thread for FFD.
 | Called by the other program
 ******************************************************************************/
 int ffd_dll(CosimulationData *cosim) {
 // Windows
-#ifdef _MSC_VER 
+#ifdef _MSC_VER
   DWORD dummy;
   HANDLE workerThreadHandle;
 //  Linux
-#else 
+#else
     pthread_t thread1;
 #endif
 
@@ -53,7 +53,7 @@ int ffd_dll(CosimulationData *cosim) {
 ///\return 0 if no error occurred
 ///////////////////////////////////////////////////////////////////////////////
 #ifdef _MSC_VER //Windows
-DWORD WINAPI ffd_thread(void *p){ 
+DWORD WINAPI ffd_thread(void *p){
   ULONG workerID = (ULONG)(ULONG_PTR)p;
 #else //Linux
 void *ffd_thread(void* p){
@@ -75,7 +75,7 @@ void *ffd_thread(void* p){
 
   if(ffd_cosimulation(cosim)!=0) {
     ffd_log("ffd_thread(): Cosimulation failed", FFD_ERROR);
-#ifdef _MSC_VER    
+#ifdef _MSC_VER
     return 1;
 #endif
   }

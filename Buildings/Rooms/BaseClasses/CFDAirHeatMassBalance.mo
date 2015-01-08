@@ -853,7 +853,7 @@ December 31, 2013, by Wangda Zuo:<br/>
 Corrected the connections. cfd.u should always be connected to Q_flow_out and cfd.y to T_in.
 </li>
 <li>
-Added unit [W] for total convective sensible heat before it is input into component cfd.  
+Added unit [W] for total convective sensible heat before it is input into component cfd.
 </li>
 <li>
 Enabled transfer of C and X information.

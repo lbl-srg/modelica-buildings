@@ -17,7 +17,7 @@ and records for parameter that can be used with these performance
 curves.
 </p>
 <p>
-See the 
+See the
 <a href=\"modelica://Buildings.Fluid.Movers.UsersGuide\">
 User's Guide</a> for information about these performance curves.
 </p>

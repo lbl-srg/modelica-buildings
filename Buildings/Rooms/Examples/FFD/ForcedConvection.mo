@@ -26,7 +26,6 @@ model ForcedConvection "Ventilation with forced convection in an empty room"
     "Temperature of other walls"
                                annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
-        rotation=0,
         origin={110,10})));
   Fluid.Sources.FixedBoundary bouOut(nPorts=1, redeclare package Medium =
         MediumA)

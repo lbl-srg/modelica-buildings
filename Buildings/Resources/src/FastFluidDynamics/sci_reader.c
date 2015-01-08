@@ -20,7 +20,7 @@
 ///////////////////////////////////////////////////////////////////////////////
 /// Read the basic index information from input.cfd
 ///
-/// Specific method for advection will be selected according to the variable 
+/// Specific method for advection will be selected according to the variable
 /// type.
 ///
 ///\param para Pointer to FFD parameters
@@ -28,7 +28,7 @@
 ///
 ///\return 0 if no error occurred
 ///////////////////////////////////////////////////////////////////////////////
-int read_sci_max(PARA_DATA *para, REAL **var) {  
+int read_sci_max(PARA_DATA *para, REAL **var) {
   char string[400];
 
   // Open the file
@@ -47,7 +47,7 @@ int read_sci_max(PARA_DATA *para, REAL **var) {
   sscanf(string,"%d %d %d", &para->geom->imax, &para->geom->jmax,
     &para->geom->kmax);
 
-  fclose(file_params); 
+  fclose(file_params);
   return 0;
 } // End of read_sci_max()
 
@@ -79,15 +79,15 @@ int read_sci_input(PARA_DATA *para, REAL **var, int **BINDEX) {
   int jmax = para->geom->jmax;
   int kmax = para->geom->kmax;
   int index=0;
-  int IMAX = imax+2, IJMAX = (imax+2)*(jmax+2); 
+  int IMAX = imax+2, IJMAX = (imax+2)*(jmax+2);
   char string[400];
   REAL *delx, *dely, *delz;
   REAL *flagp = var[FLAGP];
   int bcnameid = -1;
 
   // Open the parameter file
-  if((file_params=fopen(para->inpu->parameter_file_name,"r")) == NULL ) { 
-    sprintf(msg,"read_sci_input(): Could not open the file \"%s\".", 
+  if((file_params=fopen(para->inpu->parameter_file_name,"r")) == NULL ) {
+    sprintf(msg,"read_sci_input(): Could not open the file \"%s\".",
             para->inpu->parameter_file_name);
     ffd_log(msg, FFD_ERROR);
     return 1;
@@ -104,7 +104,7 @@ int read_sci_input(PARA_DATA *para, REAL **var, int **BINDEX) {
   /*****************************************************************************
   | Convert the cell dimensions defined by SCI to coordinates in FFD
   *****************************************************************************/
-  // Allocate temporary memory for dimension of each cell  
+  // Allocate temporary memory for dimension of each cell
   delx = (REAL *) malloc ((imax+2)*sizeof(REAL));
   dely = (REAL *) malloc ((jmax+2)*sizeof(REAL));
   delz = (REAL *) malloc ((kmax+2)*sizeof(REAL));
@@ -120,11 +120,11 @@ int read_sci_input(PARA_DATA *para, REAL **var, int **BINDEX) {
   delz[0]=0;
 
   // Read cell dimensions in X, Y, Z directions
-  for(i=1; i<=imax; i++) fscanf(file_params, "%lf", &delx[i]); 
+  for(i=1; i<=imax; i++) fscanf(file_params, "%lf", &delx[i]);
   fscanf(file_params,"\n");
-  for(j=1; j<=jmax; j++) fscanf(file_params, "%lf", &dely[j]); 
+  for(j=1; j<=jmax; j++) fscanf(file_params, "%lf", &dely[j]);
   fscanf(file_params,"\n");
-  for(k=1; k<=kmax; k++) fscanf(file_params, "%lf", &delz[k]); 
+  for(k=1; k<=kmax; k++) fscanf(file_params, "%lf", &delz[k]);
   fscanf(file_params,"\n");
 
   // Store the locations of grid cell surfaces
@@ -151,42 +151,42 @@ int read_sci_input(PARA_DATA *para, REAL **var, int **BINDEX) {
   }
 
   /*****************************************************************************
-  | Convert the coordinates for cell surfaces to 
+  | Convert the coordinates for cell surfaces to
   | the coordinates for the cell center
   *****************************************************************************/
   FOR_ALL_CELL
-    if(i<1) 
+    if(i<1)
       x[IX(i,j,k)] = 0;
-    else if(i>imax) 
+    else if(i>imax)
       x[IX(i,j,k)] = Lx;
-    else 
+    else
       x[IX(i,j,k)] = (REAL) 0.5 * (gx[IX(i,j,k)]+gx[IX(i-1,j,k)]);
 
-    if(j<1)  
+    if(j<1)
       y[IX(i,j,k)] = 0;
-    else if(j>jmax) 
+    else if(j>jmax)
       y[IX(i,j,k)] = Ly;
-    else 
+    else
       y[IX(i,j,k)] = (REAL) 0.5 * (gy[IX(i,j,k)]+gy[IX(i,j-1,k)]);
 
-    if(k<1)  
+    if(k<1)
       z[IX(i,j,k)] = 0;
-    else if(k>kmax) 
+    else if(k>kmax)
       z[IX(i,j,k)] = Lz;
-    else 
+    else
       z[IX(i,j,k)] = (REAL) 0.5 * (gz[IX(i,j,k)]+gz[IX(i,j,k-1)]);
   END_FOR
 
   // Get the wall property
   fgets(string, 400, file_params);
-  sscanf(string,"%d%d%d%d%d%d", &IWWALL, &IEWALL, &ISWALL, 
-         &INWALL, &IBWALL, &ITWALL); 
+  sscanf(string,"%d%d%d%d%d%d", &IWWALL, &IEWALL, &ISWALL,
+         &INWALL, &IBWALL, &ITWALL);
 
   /*****************************************************************************
   | Read total number of boundary conditions
   *****************************************************************************/
   fgets(string, 400, file_params);
-  sscanf(string,"%d", &para->bc->nb_bc); 
+  sscanf(string,"%d", &para->bc->nb_bc);
   sprintf(msg, "read_sci_input(): para->bc->nb_bc=%d", para->bc->nb_bc);
   ffd_log(msg, FFD_NORMAL);
 
@@ -195,7 +195,7 @@ int read_sci_input(PARA_DATA *para, REAL **var, int **BINDEX) {
   *****************************************************************************/
   // Get number of inlet boundaries
   fgets(string, 400, file_params);
-  sscanf(string,"%d", &para->bc->nb_inlet); 
+  sscanf(string,"%d", &para->bc->nb_inlet);
   sprintf(msg, "read_sci_input(): para->bc->nb_inlet=%d", para->bc->nb_inlet);
   ffd_log(msg, FFD_NORMAL);
 
@@ -243,26 +243,26 @@ int read_sci_input(PARA_DATA *para, REAL **var, int **BINDEX) {
       | Get the boundary conditions
       .......................................................................*/
       fgets(string, 400, file_params);
-      sscanf(string,"%d%d%d%d%d%d%lf%lf%lf%lf%lf", &SI, &SJ, &SK, &EI, 
+      sscanf(string,"%d%d%d%d%d%d%lf%lf%lf%lf%lf", &SI, &SJ, &SK, &EI,
              &EJ, &EK, &TMP, &MASS, &U, &V, &W);
-      sprintf(msg, "read_sci_input(): VX=%f, VY=%f, VZ=%f, T=%f, Xi=%f", 
+      sprintf(msg, "read_sci_input(): VX=%f, VY=%f, VZ=%f, T=%f, Xi=%f",
               U, V, W, TMP, MASS);
       ffd_log(msg, FFD_NORMAL);
-      if(EI==0) { 
+      if(EI==0) {
         if(SI==1) SI = 0;
-        EI = SI + EI; 
-        EJ = SJ + EJ - 1; 
+        EI = SI + EI;
+        EJ = SJ + EJ - 1;
         EK = SK + EK - 1;
       }
 
-      if(EJ==0) { 
+      if(EJ==0) {
         if(SJ==1) SJ = 0;
         EI = SI + EI - 1;
         EJ = SJ + EJ;
         EK = SK + EK - 1;
       }
 
-      if(EK==0) { 
+      if(EK==0) {
         if(SK==1) SK = 0;
         EI = SI + EI - 1;
         EJ = SJ + EJ - 1;
@@ -278,10 +278,10 @@ int read_sci_input(PARA_DATA *para, REAL **var, int **BINDEX) {
             BINDEX[2][index] = ik;
             BINDEX[4][index] = i;
             index++;
-            
+
             var[TEMPBC][IX(ii,ij,ik)] = TMP;
-            var[VXBC][IX(ii,ij,ik)] = U; 
-            var[VYBC][IX(ii,ij,ik)] = V; 
+            var[VXBC][IX(ii,ij,ik)] = U;
+            var[VYBC][IX(ii,ij,ik)] = V;
             var[VZBC][IX(ii,ij,ik)] = W;
             var[Xi1BC][IX(ii,ij,ik)] = MASS;
 
@@ -292,19 +292,19 @@ int read_sci_input(PARA_DATA *para, REAL **var, int **BINDEX) {
               ffd_log(msg, FFD_NORMAL);
             }
 
-          } // End of assigning the inlet B.C. for each cell 
+          } // End of assigning the inlet B.C. for each cell
 
     } // End of loop for each inlet boundary
   } // End of setting inlet boundary
-    
+
   /*****************************************************************************
   | Read the outlet boundary conditions
   *****************************************************************************/
   fgets(string, 400, file_params);
-  sscanf(string, "%d", &para->bc->nb_outlet); 
+  sscanf(string, "%d", &para->bc->nb_outlet);
   sprintf(msg, "read_sci_input(): para->bc->nb_outlet=%d", para->bc->nb_outlet);
   ffd_log(msg, FFD_NORMAL);
-   
+
   if(para->bc->nb_outlet!=0) {
     para->bc->outletName = (char**) malloc(para->bc->nb_outlet*sizeof(char*));
     if(para->bc->outletName==NULL) {
@@ -342,29 +342,29 @@ int read_sci_input(PARA_DATA *para, REAL **var, int **BINDEX) {
       | Get the boundary conditions
       .......................................................................*/
       fgets(string, 400, file_params);
-      sscanf(string,"%d%d%d%d%d%d%lf%lf%lf%lf%lf", 
-             &SI, &SJ, &SK, &EI, 
+      sscanf(string,"%d%d%d%d%d%d%lf%lf%lf%lf%lf",
+             &SI, &SJ, &SK, &EI,
              &EJ, &EK, &TMP, &MASS, &U, &V, &W);
 
-      sprintf(msg, "read_sci_input(): VX=%f, VY=%f, VX=%f, T=%f, Xi=%f", 
+      sprintf(msg, "read_sci_input(): VX=%f, VY=%f, VX=%f, T=%f, Xi=%f",
               U, V, W, TMP, MASS);
       ffd_log(msg, FFD_NORMAL);
 
-      if(EI==0) { 
+      if(EI==0) {
         if(SI==1) SI=0;
         EI = SI + EI;
         EJ = SJ + EJ - 1;
         EK = SK + EK - 1;
       }
 
-      if(EJ==0) { 
+      if(EJ==0) {
         if(SJ==1) SJ=0;
         EI = SI+EI-1;
         EJ = SJ+EJ;
         EK = SK+EK-1;
       }
 
-      if(EK==0) { 
+      if(EK==0) {
         if(SK==1) SK = 0;
         EI = SI+EI-1;
         EJ = SJ+EJ-1;
@@ -382,8 +382,8 @@ int read_sci_input(PARA_DATA *para, REAL **var, int **BINDEX) {
 
             // Give the initial value, but the value will be overwritten later
             var[TEMPBC][IX(ii,ij,ik)] = TMP;
-            var[VXBC][IX(ii,ij,ik)] = U; 
-            var[VYBC][IX(ii,ij,ik)] = V; 
+            var[VXBC][IX(ii,ij,ik)] = U;
+            var[VYBC][IX(ii,ij,ik)] = V;
             var[VZBC][IX(ii,ij,ik)] = W;
             var[Xi1BC][IX(ii,ij,ik)] = MASS;
             flagp[IX(ii,ij,ik)] = OUTLET;
@@ -392,7 +392,7 @@ int read_sci_input(PARA_DATA *para, REAL **var, int **BINDEX) {
                 ii, ij, ik, flagp[IX(ii,ij,ik)]);
               ffd_log(msg, FFD_NORMAL);
             }
-          } // End of assigning the outlet B.C. for each cell 
+          } // End of assigning the outlet B.C. for each cell
     } // End of loop for each outlet boundary
   } // End of setting outlet boundary
 
@@ -415,7 +415,7 @@ int read_sci_input(PARA_DATA *para, REAL **var, int **BINDEX) {
     --------------------------------------------------------------------------*/
     for(i=0; i<para->bc->nb_inlet; i++) {
       // Allocate memory for inlet name
-      para->bc->portName[i] = 
+      para->bc->portName[i] =
         (char*) malloc(sizeof(char)*(sizeof(para->bc->inletName[i])+1));
 
       if(para->bc->portName[i]==NULL) {
@@ -427,7 +427,7 @@ int read_sci_input(PARA_DATA *para, REAL **var, int **BINDEX) {
 
       // Copy the inlet name
       strcpy(para->bc->portName[i], para->bc->inletName[i]);
-      sprintf(msg, "read_sci_input(): Port[%d]:%s", 
+      sprintf(msg, "read_sci_input(): Port[%d]:%s",
               i, para->bc->portName[i]);
       ffd_log(msg, FFD_NORMAL);
     }
@@ -438,7 +438,7 @@ int read_sci_input(PARA_DATA *para, REAL **var, int **BINDEX) {
     j = para->bc->nb_inlet;
     for(i=0; i<para->bc->nb_outlet; i++) {
       // Allocate memory for outlet name
-      para->bc->portName[i+j] = 
+      para->bc->portName[i+j] =
         (char*) malloc(sizeof(char)*(sizeof(para->bc->outletName[i])+1));
       if(para->bc->portName[i+j]==NULL) {
         ffd_log("read_sci_input(): "
@@ -448,7 +448,7 @@ int read_sci_input(PARA_DATA *para, REAL **var, int **BINDEX) {
       }
       else {
         strcpy(para->bc->portName[i+j], para->bc->outletName[i]);
-        sprintf(msg, "read_sci_input(): Port[%d]:%s", 
+        sprintf(msg, "read_sci_input(): Port[%d]:%s",
                 i+j, para->bc->portName[i+j]);
         ffd_log(msg, FFD_NORMAL);
       }
@@ -462,7 +462,7 @@ int read_sci_input(PARA_DATA *para, REAL **var, int **BINDEX) {
               "Could not allocate memory for para->bc->APort.",
       FFD_ERROR);
       return 1;
-    }    
+    }
     /*--------------------------------------------------------------------------
     | Allocate memory for the velocity (used for inlet only)
     --------------------------------------------------------------------------*/
@@ -539,7 +539,7 @@ int read_sci_input(PARA_DATA *para, REAL **var, int **BINDEX) {
   | Read the internal solid block boundary conditions
   *****************************************************************************/
   fgets(string, 400, file_params);
-  sscanf(string, "%d", &para->bc->nb_block); 
+  sscanf(string, "%d", &para->bc->nb_block);
   sprintf(msg, "read_sci_input(): para->bc->nb_block=%d", para->bc->nb_block);
   ffd_log(msg, FFD_NORMAL);
 
@@ -580,21 +580,21 @@ int read_sci_input(PARA_DATA *para, REAL **var, int **BINDEX) {
       | Get the boundary conditions
       .......................................................................*/
       fgets(string, 400, file_params);
-      // X_index_start, Y_index_Start, Z_index_Start, 
-      // X_index_End, Y_index_End, Z_index_End, 
+      // X_index_start, Y_index_Start, Z_index_Start,
+      // X_index_End, Y_index_End, Z_index_End,
       // Thermal Condition (0: Flux; 1:Temperature), Value of thermal condition
-      sscanf(string,"%d%d%d%d%d%d%d%lf", &SI, &SJ, &SK, &EI, &EJ, &EK, 
+      sscanf(string,"%d%d%d%d%d%d%d%lf", &SI, &SJ, &SK, &EI, &EJ, &EK,
                                         &FLTMP, &TMP);
-      sprintf(msg, "read_sci_input(): VX=%f, VY=%f, VX=%f, ThermalBC=%d, T/q_dot=%f, Xi=%f", 
+      sprintf(msg, "read_sci_input(): VX=%f, VY=%f, VX=%f, ThermalBC=%d, T/q_dot=%f, Xi=%f",
               U, V, W, FLTMP, TMP, MASS);
       ffd_log(msg, FFD_NORMAL);
 
-      if(SI==1) {   
+      if(SI==1) {
         SI=0;
         if(EI>=imax) EI=EI+SI+1;
         else EI=EI+SI;
       }
-      else 
+      else
         EI=EI+SI-1;
 
       if(SJ==1) {
@@ -602,7 +602,7 @@ int read_sci_input(PARA_DATA *para, REAL **var, int **BINDEX) {
         if(EJ>=jmax) EJ=EJ+SJ+1;
         else EJ=EJ+SJ;
       }
-      else 
+      else
         EJ=EJ+SJ-1;
 
       if(SK==1) {
@@ -610,7 +610,7 @@ int read_sci_input(PARA_DATA *para, REAL **var, int **BINDEX) {
         if(EK>=kmax) EK=EK+SK+1;
         else EK=EK+SK;
       }
-      else 
+      else
         EK=EK+SK-1;
 
       for(ii=SI; ii<=EI; ii++)
@@ -624,7 +624,7 @@ int read_sci_input(PARA_DATA *para, REAL **var, int **BINDEX) {
             index++;
 
             switch(FLTMP) {
-              case 1: 
+              case 1:
                 var[TEMPBC][IX(ii,ij,ik)] = TMP;
                 break;
               case 0:
@@ -647,7 +647,7 @@ int read_sci_input(PARA_DATA *para, REAL **var, int **BINDEX) {
   | Read the wall boundary conditions
   *****************************************************************************/
   fgets(string, 400, file_params);
-  sscanf(string,"%d", &para->bc->nb_wall); 
+  sscanf(string,"%d", &para->bc->nb_wall);
   sprintf(msg, "read_sci_input(): para->bc->nb_wall=%d", para->bc->nb_wall);
   ffd_log(msg, FFD_NORMAL);
 
@@ -730,13 +730,13 @@ int read_sci_input(PARA_DATA *para, REAL **var, int **BINDEX) {
       /*.......................................................................
       | Get the boundary conditions
       .......................................................................*/
-      // X_index_start, Y_index_Start, Z_index_Start, 
-      // X_index_End, Y_index_End, Z_index_End, 
+      // X_index_start, Y_index_Start, Z_index_Start,
+      // X_index_End, Y_index_End, Z_index_End,
       // Thermal Condition (0: Flux; 1:Temperature), Value of thermal condition
       fgets(string, 400, file_params);
-      sscanf(string,"%d%d%d%d%d%d%d%lf", &SI, &SJ, &SK, &EI, 
+      sscanf(string,"%d%d%d%d%d%d%d%lf", &SI, &SJ, &SK, &EI,
              &EJ, &EK, &FLTMP, &TMP);
-      sprintf(msg, "read_sci_input(): ThermalBC=%d, T/q_dot=%f", 
+      sprintf(msg, "read_sci_input(): ThermalBC=%d, T/q_dot=%f",
               FLTMP, TMP);
       ffd_log(msg, FFD_NORMAL);
 
@@ -781,31 +781,31 @@ int read_sci_input(PARA_DATA *para, REAL **var, int **BINDEX) {
               // Define the thermal boundary property
               BINDEX[3][index] = FLTMP;
               BINDEX[4][index] = i;
-              index++;  
+              index++;
 
               // Set the cell to solid
-              flagp[IX(ii,ij,ik)] = SOLID; 
-              if(FLTMP==1) var[TEMPBC][IX(ii,ij,ik)] = TMP; 
+              flagp[IX(ii,ij,ik)] = SOLID;
+              if(FLTMP==1) var[TEMPBC][IX(ii,ij,ik)] = TMP;
               if(FLTMP==0) var[QFLUXBC][IX(ii,ij,ik)] = TMP;
             }
           } // End of assigning value for each wall cell
     } // End of assigning value for each wall surface
-  } // End of assigning value for wall boundary 
+  } // End of assigning value for wall boundary
 
   /*****************************************************************************
   | Read the boundary conditions for contaminant source
   | Warning: The data is ignored in current version
   *****************************************************************************/
   fgets(string, 400, file_params);
-  sscanf(string,"%d", &para->bc->nb_source); 
+  sscanf(string,"%d", &para->bc->nb_source);
   sprintf(msg, "read_sci_input(): para->bc->nb_source=%d", para->bc->nb_source);
   ffd_log(msg, FFD_NORMAL);
-  
+
   if(para->bc->nb_source!=0) {
-    sscanf(string,"%s%d%d%d%d%d%d%lf", 
+    sscanf(string,"%s%d%d%d%d%d%d%lf",
            name, &SI, &SJ, &SK, &EI, &EJ, &EK, &MASS);
     bcnameid++;
- 
+
     sprintf(msg, "read_sci_input(): Source %s is not used in current version.",
             name);
     ffd_log(msg, FFD_WARNING);
@@ -847,9 +847,9 @@ int read_sci_input(PARA_DATA *para, REAL **var, int **BINDEX) {
   // Discard physical properties
   fgets(string, 400, file_params);
   /*
-  sscanf(string,"%f %f %f %f %f %f %f %f %f", &para->prob->rho, 
-         &para->prob->nu, &para->prob->cond, 
-         &para->prob->gravx, &para->prob->gravy, &para->prob->gravz, 
+  sscanf(string,"%f %f %f %f %f %f %f %f %f", &para->prob->rho,
+         &para->prob->nu, &para->prob->cond,
+         &para->prob->gravx, &para->prob->gravy, &para->prob->gravz,
          &para->prob->beta, &trefmax, &para->prob->Cp);
 
   sprintf(msg, "read_sci_input(): para->prob->rho=%f", para->prob->rho);
@@ -883,14 +883,14 @@ int read_sci_input(PARA_DATA *para, REAL **var, int **BINDEX) {
   sscanf(string,"%lf %lf %d", &para->mytime->t_start, &para->mytime->dt,
     &para->mytime->step_total);
 
-  sprintf(msg, "read_sci_input(): para->mytime->t_start=%f", 
+  sprintf(msg, "read_sci_input(): para->mytime->t_start=%f",
           para->mytime->t_start);
   ffd_log(msg, FFD_NORMAL);
 
   sprintf(msg, "read_sci_input(): para->mytime->dt=%f", para->mytime->dt);
   ffd_log(msg, FFD_NORMAL);
 
-  sprintf(msg, "read_sci_input(): para->mytime->step_total=%d", 
+  sprintf(msg, "read_sci_input(): para->mytime->step_total=%d",
           para->mytime->step_total);
   ffd_log(msg, FFD_NORMAL);
 
@@ -904,8 +904,8 @@ int read_sci_input(PARA_DATA *para, REAL **var, int **BINDEX) {
   free(delx);
   free(dely);
   free(delz);
-  
-  sprintf(msg, "read_sci_input(): Read sci input file %s", 
+
+  sprintf(msg, "read_sci_input(): Read sci input file %s",
           para->inpu->parameter_file_name);
   ffd_log(msg, FFD_NORMAL);
   return 0;
@@ -915,7 +915,7 @@ int read_sci_input(PARA_DATA *para, REAL **var, int **BINDEX) {
 ///////////////////////////////////////////////////////////////////////////////
 /// Read the file to identify the block cells in space
 ///
-/// The default name used by SCi is zeroone.dat. The user can change the file 
+/// The default name used by SCi is zeroone.dat. The user can change the file
 /// name and give the new name in the FFD input file *.ffd.
 ///
 ///\param para Pointer to FFD parameters
@@ -932,24 +932,24 @@ int read_sci_zeroone(PARA_DATA *para, REAL **var, int **BINDEX) {
   int jmax = para->geom->jmax;
   int kmax = para->geom->kmax;
   int index = para->geom->index;
-  int IMAX = imax+2, IJMAX = (imax+2)*(jmax+2); 
+  int IMAX = imax+2, IJMAX = (imax+2)*(jmax+2);
   REAL *flagp = var[FLAGP];
 
   if( (file_params=fopen(para->inpu->block_file_name,"r")) == NULL ) {
-    sprintf(msg, "read_sci_input():Could not open file \"%s\"!\n", 
+    sprintf(msg, "read_sci_input():Could not open file \"%s\"!\n",
             para->inpu->block_file_name);
     ffd_log(msg, FFD_ERROR);
     return 1;
   }
 
-  sprintf(msg, "read_sci_input(): start to read block information from \"%s\".", 
+  sprintf(msg, "read_sci_input(): start to read block information from \"%s\".",
           para->inpu->block_file_name);
   ffd_log(msg, FFD_NORMAL);
 
   for(k=1;k<=kmax;k++)
     for(j=1;j<=jmax;j++)
       for(i=1;i<=imax;i++) {
-        fscanf(file_params,"%d" ,&mark); 
+        fscanf(file_params,"%d" ,&mark);
 
         // mark=1 block cell;mark=0 fluid cell
 
@@ -961,10 +961,10 @@ int read_sci_zeroone(PARA_DATA *para, REAL **var, int **BINDEX) {
           index++;
         }
         delcount++;
-        
+
         if(delcount==25) {
-          fscanf(file_params,"\n"); 
-          delcount=0; 
+          fscanf(file_params,"\n");
+          delcount=0;
         }
       }
 
@@ -991,7 +991,7 @@ void mark_cell(PARA_DATA *para, REAL **var) {
   int imax = para->geom->imax;
   int jmax = para->geom->jmax;
   int kmax = para->geom->kmax;
-  int IMAX = imax+2, IJMAX = (imax+2)*(jmax+2); 
+  int IMAX = imax+2, IJMAX = (imax+2)*(jmax+2);
   REAL *flagu = var[FLAGU],*flagv = var[FLAGV],*flagw = var[FLAGW];
   REAL *flagp = var[FLAGP];
 

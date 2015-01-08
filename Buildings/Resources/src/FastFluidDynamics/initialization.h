@@ -54,7 +54,7 @@
 #endif
 
 ///////////////////////////////////////////////////////////////////////////////
-/// Initialize the parameters 
+/// Initialize the parameters
 ///
 ///\param para Pointer to FFD parameters
 ///
@@ -63,7 +63,7 @@
 int initialize(PARA_DATA *para);
 
 ///////////////////////////////////////////////////////////////////////////////
-/// Set the default value for parameters 
+/// Set the default value for parameters
 ///
 ///\param para Pointer to FFD parameters
 ///
@@ -72,7 +72,7 @@ int initialize(PARA_DATA *para);
 void set_default_parameter(PARA_DATA *para);
 
 ///////////////////////////////////////////////////////////////////////////////
-/// Set default initial values for simulation variables 
+/// Set default initial values for simulation variables
 ///
 ///\param para Pointer to FFD parameters
 ///\param var Pointer to FFD simulation variables

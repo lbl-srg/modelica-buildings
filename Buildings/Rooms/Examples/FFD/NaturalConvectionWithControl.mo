@@ -56,7 +56,7 @@ equation
 This model tests the coupled simulation of
 <a href=\"modelica://Buildings.Rooms.CFD\">
 Buildings.Rooms.CFD</a>
-with the FFD program by simulating natural convection in an empty room with a PI controller and 
+with the FFD program by simulating natural convection in an empty room with a PI controller and
 a heater to maintain the temperature at room center to be <i>2</i>&circ;C.
 </p>
 <p>

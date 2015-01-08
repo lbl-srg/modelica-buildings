@@ -20,7 +20,7 @@
 #include "data_writer.h"
 
 ///////////////////////////////////////////////////////////////////////////////
-/// Write standard output data in a format for tecplot 
+/// Write standard output data in a format for tecplot
 ///
 ///\param para Pointer to FFD parameters
 ///\param var Pointer to FFD simulation variables
@@ -47,8 +47,8 @@ int write_tecplot_data(PARA_DATA *para, REAL **var, char *name) {
   ****************************************************************************/
   filename = (char *) malloc((strlen(name)+5)*sizeof(char));
   if(filename==NULL) {
-    ffd_log("write_tecplot_data(): Failed to allocate memory for file name", 
-            FFD_ERROR); 
+    ffd_log("write_tecplot_data(): Failed to allocate memory for file name",
+            FFD_ERROR);
     return 1;
   }
 
@@ -65,15 +65,15 @@ int write_tecplot_data(PARA_DATA *para, REAL **var, char *name) {
 
   fprintf(datafile, "TITLE = ");
   fprintf(datafile, "\"dt=%fs, t=%fs, nu=%f, Lx=%f, Ly=%f, Lz=%f, ",
-           para->mytime->dt, para->mytime->t, para->prob->nu, 
+           para->mytime->dt, para->mytime->t, para->prob->nu,
            para->geom->Lx, para->geom->Ly, para->geom->Lz);
     fprintf(datafile, "Nx=%d, Ny=%d, Nz=%d \"\n",
            imax+2, jmax+2, kmax+2);
 
-  fprintf( datafile, 
+  fprintf( datafile,
            "VARIABLES =X, Y, Z, I, J, K, U, V, W, T, Xi, FlagP, P \n");
   fprintf( datafile, "ZONE F=POINT, I=%d, J=%d, K=%d\n", imax+2, jmax+2, kmax+2 );
- 
+
   FOR_ALL_CELL
     fprintf(datafile, "%f\t%f\t%f\t%d\t%d\t%d\t",
        x[IX(i,j,k)], y[IX(i,j,k)], z[IX(i,j,k)], i, j, k);
@@ -91,7 +91,7 @@ int write_tecplot_data(PARA_DATA *para, REAL **var, char *name) {
 } //write_tecplot_data()
 
 ///////////////////////////////////////////////////////////////////////////////
-/// Write all available data in a format for tecplot 
+/// Write all available data in a format for tecplot
 ///
 ///\param para Pointer to FFD parameters
 ///\param var Pointer to FFD simulation variables
@@ -115,8 +115,8 @@ int write_tecplot_all_data(PARA_DATA *para, REAL **var, char *name) {
   ****************************************************************************/
   filename = (char *) malloc((strlen(name)+5)*sizeof(char));
   if(filename==NULL) {
-    ffd_log("write_tecplot_all_data(): Failed to allocate memory for file name", 
-            FFD_ERROR); 
+    ffd_log("write_tecplot_all_data(): Failed to allocate memory for file name",
+            FFD_ERROR);
     return 1;
   }
 
@@ -136,11 +136,11 @@ int write_tecplot_all_data(PARA_DATA *para, REAL **var, char *name) {
 
   // Print simulation, dimension and mesh information
   fprintf(dataFile, "\"dt=%fs, t=%fs, nu=%f, Lx=%f, Ly=%f, Lz%f, ",
-          para->mytime->dt, para->mytime->t, para->prob->nu, 
+          para->mytime->dt, para->mytime->t, para->prob->nu,
           para->geom->Lx, para->geom->Ly, para->geom->Lz);
   fprintf(dataFile, "Nx=%d, Ny=%d, Nz=%d \"\n", imax+2, jmax+2, kmax+2);
 
-  // Print variables 
+  // Print variables
   fprintf(dataFile, "VARIABLES = X, Y, Z, I, J, K, ");
   fprintf(dataFile, "U, V, W, UM, VM, WM, US, VS, WS, ");
   fprintf(dataFile, "P, ");
@@ -152,32 +152,32 @@ int write_tecplot_all_data(PARA_DATA *para, REAL **var, char *name) {
   fprintf(dataFile, "AP, AN, AS, AW, AE, AF, AB, B, AP0, PP");
   fprintf(dataFile, "\n");
   fprintf(dataFile, "ZONE F=POINT, I=%d, J=%d, K=%d\n", imax+2, jmax+2, kmax+2 );
- 
+
   FOR_ALL_CELL
     // Coordinates
     fprintf(dataFile, "%f\t%f\t%f\t%d\t%d\t%d\t",
             x[IX(i,j,k)], y[IX(i,j,k)], z[IX(i,j,k)], i, j, k);
     // Velocities
-    fprintf(dataFile, "%f\t%f\t%f\t%f\t%f\t%f\t%f\t%f\t%f\t", 
-            var[VX][IX(i,j,k)], var[VY][IX(i,j,k)], var[VZ][IX(i,j,k)], 
+    fprintf(dataFile, "%f\t%f\t%f\t%f\t%f\t%f\t%f\t%f\t%f\t",
+            var[VX][IX(i,j,k)], var[VY][IX(i,j,k)], var[VZ][IX(i,j,k)],
             var[VXM][IX(i,j,k)], var[VYM][IX(i,j,k)], var[VZM][IX(i,j,k)],
             var[VXS][IX(i,j,k)], var[VYS][IX(i,j,k)], var[VZS][IX(i,j,k)]);
     // Pressure
     fprintf(dataFile, "%f\t", var[IP][IX(i,j,k)]);
     // Temperature
     fprintf(dataFile, "%f\t%f\t%f\t",
-            var[TEMP][IX(i,j,k)], var[TEMPM][IX(i,j,k)], 
+            var[TEMP][IX(i,j,k)], var[TEMPM][IX(i,j,k)],
             var[TEMPS][IX(i,j,k)]);
     // Gravity
     fprintf(dataFile, "%f\t%f\t%f\t",
             var[GX][IX(i,j,k)], var[GY][IX(i,j,k)], var[GZ][IX(i,j,k)]);
     // Flags for simulation
     fprintf(dataFile, "%f\t%f\t%f\t%f\t",
-            var[FLAGU][IX(i,j,k)], var[FLAGV][IX(i,j,k)], 
+            var[FLAGU][IX(i,j,k)], var[FLAGV][IX(i,j,k)],
             var[FLAGW][IX(i,j,k)], var[FLAGP][IX(i,j,k)]);
     // Boundary conditions
     fprintf(dataFile, "%f\t%f\t%f\t%f\t",
-            var[VXBC][IX(i,j,k)], var[VYBC][IX(i,j,k)], 
+            var[VXBC][IX(i,j,k)], var[VYBC][IX(i,j,k)],
             var[VZBC][IX(i,j,k)], var[TEMPBC][IX(i,j,k)]);
     fprintf(dataFile, "%f\t%f\t%f\t%f\t",
             var[Xi1BC][IX(i,j,k)], var[Xi2BC][IX(i,j,k)],
@@ -188,9 +188,9 @@ int write_tecplot_all_data(PARA_DATA *para, REAL **var, char *name) {
 
     // Coefficients
     fprintf(dataFile, "%f\t%f\t%f\t%f\t%f\t%f\t%f\t%f\t%f\t%f\n",
-            var[AP][IX(i,j,k)], var[AN][IX(i,j,k)], var[AS][IX(i,j,k)], 
-            var[AW][IX(i,j,k)], var[AE][IX(i,j,k)], var[AF][IX(i,j,k)], 
-            var[AB][IX(i,j,k)], var[B][IX(i,j,k)], var[AP0][IX(i,j,k)], 
+            var[AP][IX(i,j,k)], var[AN][IX(i,j,k)], var[AS][IX(i,j,k)],
+            var[AW][IX(i,j,k)], var[AE][IX(i,j,k)], var[AF][IX(i,j,k)],
+            var[AB][IX(i,j,k)], var[B][IX(i,j,k)], var[AP0][IX(i,j,k)],
             var[PP][IX(i,j,k)]);
 
   END_FOR
@@ -204,10 +204,10 @@ int write_tecplot_all_data(PARA_DATA *para, REAL **var, char *name) {
 } //write_tecplot_all_data()
 
 ///////////////////////////////////////////////////////////////////////////////
-/// Convert the data to the format for Tecplot 
+/// Convert the data to the format for Tecplot
 ///
-/// FFD uses staggered grid and Tecplot data is for collocated grid. 
-/// This subroutine transfers the data from FFD format to Tecplot format. 
+/// FFD uses staggered grid and Tecplot data is for collocated grid.
+/// This subroutine transfers the data from FFD format to Tecplot format.
 ///
 ///\param para Pointer to FFD parameters
 ///\param var Pointer to FFD simulation variables
@@ -226,7 +226,7 @@ void convert_to_tecplot(PARA_DATA *para, REAL **var) {
   REAL *T = var[TEMP], *Tm = var[TEMPM];
 
   /****************************************************************************
-  | Convert velocities 
+  | Convert velocities
   ****************************************************************************/
   for(j=0; j<=jmax+1; j++)
     for(k=0; k<=kmax+1; k++) {
@@ -241,7 +241,7 @@ void convert_to_tecplot(PARA_DATA *para, REAL **var) {
   for(i=0; i<=imax+1; i++)
     for(k=0; k<=kmax+1; k++) {
       v[IX(i,jmax+1,k)] = v[IX(i,jmax,k)];
-      vm[IX(i,jmax+1,k)] = vm[IX(i,jmax,k)];  
+      vm[IX(i,jmax+1,k)] = vm[IX(i,jmax,k)];
       for(j=jmax; j>=1; j--) {
         v[IX(i,j,k)] = (REAL) (0.5 * (v[IX(i,j,k)]+v[IX(i,j-1,k)]));
         vm[IX(i,j,k)] = (REAL) (0.5 * (vm[IX(i,j,k)]+vm[IX(i,j-1,k)]));
@@ -251,7 +251,7 @@ void convert_to_tecplot(PARA_DATA *para, REAL **var) {
   for(i=0; i<=imax+1; i++)
     for(j=0; j<=jmax+1; j++) {
       w[IX(i,j,kmax+1)] = w[IX(i,j,kmax)];
-      wm[IX(i,j,kmax+1)] = wm[IX(i,j,kmax)];  
+      wm[IX(i,j,kmax+1)] = wm[IX(i,j,kmax)];
       for(k=kmax; k>=1; k--) {
         w[IX(i,j,k)] = (REAL) (0.5 * (w[IX(i,j,k)]+w[IX(i,j,k-1)]));
         wm[IX(i,j,k)] = (REAL) (0.5 * (wm[IX(i,j,k)]+wm[IX(i,j,k-1)]));
@@ -268,10 +268,10 @@ void convert_to_tecplot(PARA_DATA *para, REAL **var) {
 } // End of convert_to_tecplot()
 
 ///////////////////////////////////////////////////////////////////////////////
-/// Convert the data at 8 corners to the format for Tecplot 
+/// Convert the data at 8 corners to the format for Tecplot
 ///
-/// FFD uses staggered grid and Tecplot data is for collocated grid. 
-/// This subroutine transfers the data from FFD format to Tecplot format. 
+/// FFD uses staggered grid and Tecplot data is for collocated grid.
+/// This subroutine transfers the data from FFD format to Tecplot format.
 ///
 ///\param para Pointer to FFD parameters
 ///\param var Pointer to FFD simulation variables
@@ -297,7 +297,7 @@ void convert_to_tecplot_corners(PARA_DATA *para, REAL **var, REAL *psi) {
                              + psi[IX(imax+1,jmax+1,1)]) / (REAL) 3.0;
   //West-South-Front
   psi[IX(0,0,kmax+1)] = ( psi[IX(0,1,kmax+1)] + psi[IX(1,0,kmax+1)]
-                        + psi[IX(0,0,kmax)]) / (REAL) 3.0;  
+                        + psi[IX(0,0,kmax)]) / (REAL) 3.0;
   //West-North-Front
   psi[IX(0,jmax+1,kmax+1)] = ( psi[IX(1,jmax+1,kmax+1)] + psi[IX(0,jmax,kmax+1)]
                              + psi[IX(0,jmax+1,kmax)]) / (REAL) 3.0;
@@ -336,8 +336,8 @@ int write_unsteady(PARA_DATA *para, REAL **var, char *name){
   ****************************************************************************/
   filename = (char *) malloc((strlen(name)+5)*sizeof(char));
   if(filename==NULL) {
-    ffd_log("write_unsteady(): Failed to allocate memory for file name", 
-            FFD_ERROR); 
+    ffd_log("write_unsteady(): Failed to allocate memory for file name",
+            FFD_ERROR);
     return 1;
   }
 
@@ -393,8 +393,8 @@ int write_SCI(PARA_DATA *para, REAL **var, char *name) {
   ****************************************************************************/
   filename = (char *) malloc((strlen(name)+5)*sizeof(char));
   if(filename==NULL) {
-    ffd_log("write_SCI(): Failed to allocate memory for file name", 
-            FFD_ERROR); 
+    ffd_log("write_SCI(): Failed to allocate memory for file name",
+            FFD_ERROR);
     return 1;
   }
 
@@ -410,7 +410,7 @@ int write_SCI(PARA_DATA *para, REAL **var, char *name) {
 
   /****************************************************************************
   | Identify the output variable: 1 Yes; 0 No.
-  | IPR: Pressure; IU,IV,IW: velocity in x,y,z direction; 
+  | IPR: Pressure; IU,IV,IW: velocity in x,y,z direction;
   | IT: Temperature; IC1,IC2,IC3,IC4,IC5,IC6,IC6: other scalars
   ****************************************************************************/
   IPR = 1;
@@ -443,7 +443,7 @@ int write_SCI(PARA_DATA *para, REAL **var, char *name) {
   for(i=0; i<=imax+1; i++) {
     for(k=0; k<=kmax+1; k++) {
       v[IX(i,jmax+1,k)] = v[IX(i,jmax,k)];
-      vm[IX(i,jmax+1,k)] = vm[IX(i,jmax,k)];  
+      vm[IX(i,jmax+1,k)] = vm[IX(i,jmax,k)];
       for(j=jmax; j>=1; j--) {
           v[IX(i,j,k)] = (REAL) 0.5 * (v[IX(i,j,k)]+v[IX(i,j-1,k)]);
           vm[IX(i,j,k)] = (REAL) 0.5 * (vm[IX(i,j,k)]+vm[IX(i,j-1,k)]);
@@ -454,7 +454,7 @@ int write_SCI(PARA_DATA *para, REAL **var, char *name) {
   for(i=0; i<=imax+1; i++) {
     for(j=0; j<=jmax+1; j++) {
       w[IX(i,j,kmax+1)] = w[IX(i,j,kmax)];
-      wm[IX(i,j,kmax+1)] = wm[IX(i,j,kmax)];  
+      wm[IX(i,j,kmax+1)] = wm[IX(i,j,kmax)];
       for(k=kmax; k>=1; k--) {
         w[IX(i,j,k)] = (REAL) 0.5 * (w[IX(i,j,k)]+w[IX(i,j,k-1)]);
         wm[IX(i,j,k)] = (REAL) 0.5 * (wm[IX(i,j,k)]+wm[IX(i,j,k-1)]);
@@ -478,7 +478,7 @@ int write_SCI(PARA_DATA *para, REAL **var, char *name) {
                             +p[IX(imax+1,jmax+1,1)]) / (REAL) 3.0;
   //W-S-F
   p[IX(0,0,kmax+1)] = ( p[IX(0,1,kmax+1)]+p[IX(1,0,kmax+1)]
-                       +p[IX(0,0,kmax)]) / (REAL) 3.0;  
+                       +p[IX(0,0,kmax)]) / (REAL) 3.0;
   //W-N-F
   p[IX(0,jmax+1,kmax+1)] = ( p[IX(1,jmax+1,kmax+1)]+p[IX(0,jmax,kmax+1)]
                             +p[IX(0,jmax+1,kmax)]) / (REAL) 3.0;
@@ -506,7 +506,7 @@ int write_SCI(PARA_DATA *para, REAL **var, char *name) {
 
    /****************************************************************************
   | Output the coordinates of cell center in x, y, z direction
-  ****************************************************************************/ 
+  ****************************************************************************/
   for(i=1; i<=imax; i++)
     fprintf(dataFile, "%e\t", x[IX(i,j,k)]);
   fprintf(dataFile, "\n");
@@ -519,23 +519,23 @@ int write_SCI(PARA_DATA *para, REAL **var, char *name) {
 
    /****************************************************************************
   | Output the variables
-  | p: Pressure          
+  | p: Pressure
   | U: Velocity in X direction
   | V: Velocity in Y direction
   | W: Velocity in Z direction
   | T: Temperature
-  ****************************************************************************/ 
+  ****************************************************************************/
   for(j=1; j<=jmax; j++)
     for(i=1; i<=imax; i++) {
       fprintf(dataFile, "%d\t%d\n", i,j);
       if(IPR==1) {
-        for(k=1; k<=kmax; k++) 
-          fprintf(dataFile, "%e\t", p[IX(i,j,k)]);   
+        for(k=1; k<=kmax; k++)
+          fprintf(dataFile, "%e\t", p[IX(i,j,k)]);
         fprintf(dataFile, "\n");
       }
       if(IU==1) {
-        for(k=1; k<=kmax; k++) 
-          fprintf(dataFile, "%e\t", u[IX(i,j,k)]);   
+        for(k=1; k<=kmax; k++)
+          fprintf(dataFile, "%e\t", u[IX(i,j,k)]);
         fprintf(dataFile, "\n");
       }
       if(IV==1) {

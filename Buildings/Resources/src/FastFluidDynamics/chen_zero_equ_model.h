@@ -10,11 +10,11 @@
 ///         Wangda Zuo
 ///         University of Miami
 ///         W.Zuo@miami.edu
-/// 
+///
 /// \date   8/3/2013
 ///
-/// This file provides function that computes the turbulent viscosity using 
-/// Chen's zero equation model 
+/// This file provides function that computes the turbulent viscosity using
+/// Chen's zero equation model
 ///
 ///////////////////////////////////////////////////////////////////////////////
 #ifndef _CHEN_ZERO_EQU_MODEL_H_

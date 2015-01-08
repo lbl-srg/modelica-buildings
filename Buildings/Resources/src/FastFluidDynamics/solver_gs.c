@@ -32,7 +32,7 @@ REAL GS_P(PARA_DATA *para, REAL **var, int Type, REAL *x) {
   REAL *ap = var[AP], *af = var[AF], *ab = var[AB], *b = var[B];
   int imax = para->geom->imax, jmax= para->geom->jmax;
   int kmax = para->geom->kmax;
-  int IMAX = imax+2, IJMAX = (imax+2)*(jmax+2);  
+  int IMAX = imax+2, IJMAX = (imax+2)*(jmax+2);
   int i, j, k, it;
   REAL tmp1, tmp2, residual;
   REAL *flagp = var[FLAGP];
@@ -50,7 +50,7 @@ REAL GS_P(PARA_DATA *para, REAL **var, int Type, REAL *x) {
           if (flagp[IX(i,j,k)]>=0) continue;
           //if (i==imax && j==jmax && k==kmax) continue;
 
-          x[IX(i,j,k)] = (  ae[IX(i,j,k)]*x[IX(i+1,j,k)] 
+          x[IX(i,j,k)] = (  ae[IX(i,j,k)]*x[IX(i+1,j,k)]
                           + aw[IX(i,j,k)]*x[IX(i-1,j,k)]
                           + an[IX(i,j,k)]*x[IX(i,j+1,k)]
                           + as[IX(i,j,k)]*x[IX(i,j-1,k)]
@@ -68,7 +68,7 @@ REAL GS_P(PARA_DATA *para, REAL **var, int Type, REAL *x) {
           if (flagp[IX(i,j,k)]>=0) continue;
           //if (i==imax && j==jmax && k==kmax) continue;
 
-          x[IX(i,j,k)] = (  ae[IX(i,j,k)]*x[IX(i+1,j,k)] 
+          x[IX(i,j,k)] = (  ae[IX(i,j,k)]*x[IX(i+1,j,k)]
                           + aw[IX(i,j,k)]*x[IX(i-1,j,k)]
                           + an[IX(i,j,k)]*x[IX(i,j+1,k)]
                           + as[IX(i,j,k)]*x[IX(i,j-1,k)]
@@ -85,7 +85,7 @@ REAL GS_P(PARA_DATA *para, REAL **var, int Type, REAL *x) {
           if (flagp[IX(i,j,k)]>=0) continue;
           //if (i==imax && j==jmax && k==kmax) continue;
 
-          x[IX(i,j,k)] = (  ae[IX(i,j,k)]*x[IX(i+1,j,k)] 
+          x[IX(i,j,k)] = (  ae[IX(i,j,k)]*x[IX(i+1,j,k)]
                           + aw[IX(i,j,k)]*x[IX(i-1,j,k)]
                           + an[IX(i,j,k)]*x[IX(i,j+1,k)]
                           + as[IX(i,j,k)]*x[IX(i,j-1,k)]
@@ -102,7 +102,7 @@ REAL GS_P(PARA_DATA *para, REAL **var, int Type, REAL *x) {
           if (flagp[IX(i,j,k)]>=0) continue;
           //if (i==imax && j==jmax && k==kmax) continue;
 
-          x[IX(i,j,k)] = (  ae[IX(i,j,k)]*x[IX(i+1,j,k)] 
+          x[IX(i,j,k)] = (  ae[IX(i,j,k)]*x[IX(i+1,j,k)]
                           + aw[IX(i,j,k)]*x[IX(i-1,j,k)]
                           + an[IX(i,j,k)]*x[IX(i,j+1,k)]
                           + as[IX(i,j,k)]*x[IX(i,j-1,k)]
@@ -121,7 +121,7 @@ REAL GS_P(PARA_DATA *para, REAL **var, int Type, REAL *x) {
   FOR_EACH_CELL
     if (flagp[IX(i,j,k)]>=0) continue;
     //if (i==imax && j==jmax && k==kmax) continue;
-    tmp1 += (REAL) fabs(ap[IX(i,j,k)]*x[IX(i,j,k)] 
+    tmp1 += (REAL) fabs(ap[IX(i,j,k)]*x[IX(i,j,k)]
         - ae[IX(i,j,k)]*x[IX(i+1,j,k)] - aw[IX(i,j,k)]*x[IX(i-1,j,k)]
         - an[IX(i,j,k)]*x[IX(i,j+1,k)] - as[IX(i,j,k)]*x[IX(i,j-1,k)]
         - af[IX(i,j,k)]*x[IX(i,j,k+1)] - ab[IX(i,j,k)]*x[IX(i,j,k-1)]
@@ -153,7 +153,7 @@ REAL Gauss_Seidel(PARA_DATA *para, REAL **var, REAL *flag, REAL *x) {
   REAL *ap = var[AP], *af = var[AF], *ab = var[AB], *b = var[B];
   int imax = para->geom->imax, jmax= para->geom->jmax;
   int kmax = para->geom->kmax;
-  int IMAX = imax+2, IJMAX = (imax+2)*(jmax+2);  
+  int IMAX = imax+2, IJMAX = (imax+2)*(jmax+2);
   int i, j, k, it=0;
   REAL tmp1, tmp2, residual;
 
@@ -165,9 +165,9 @@ REAL Gauss_Seidel(PARA_DATA *para, REAL **var, REAL *flag, REAL *x) {
       for(j=1; j<=jmax; j++)
         for(k=1; k<=kmax; k++) {
           if (flag[IX(i,j,k)]>=0) continue;
-          
 
-          x[IX(i,j,k)] = (  ae[IX(i,j,k)]*x[IX(i+1,j,k)] 
+
+          x[IX(i,j,k)] = (  ae[IX(i,j,k)]*x[IX(i+1,j,k)]
                           + aw[IX(i,j,k)]*x[IX(i-1,j,k)]
                           + an[IX(i,j,k)]*x[IX(i,j+1,k)]
                           + as[IX(i,j,k)]*x[IX(i,j-1,k)]
@@ -176,20 +176,20 @@ REAL Gauss_Seidel(PARA_DATA *para, REAL **var, REAL *flag, REAL *x) {
                           + b[IX(i,j,k)] ) / ap[IX(i,j,k)];
 
         }
-    
+
     for(i=imax; i>=1; i--)
       for(j=jmax; j>=1; j--)
         for(k=kmax; k>=1; k--) {
           if (flag[IX(i,j,k)]>=0) continue;
 
-          x[IX(i,j,k)] = (  ae[IX(i,j,k)]*x[IX(i+1,j,k)] 
+          x[IX(i,j,k)] = (  ae[IX(i,j,k)]*x[IX(i+1,j,k)]
                           + aw[IX(i,j,k)]*x[IX(i-1,j,k)]
                           + an[IX(i,j,k)]*x[IX(i,j+1,k)]
                           + as[IX(i,j,k)]*x[IX(i,j-1,k)]
                           + af[IX(i,j,k)]*x[IX(i,j,k+1)]
                           + ab[IX(i,j,k)]*x[IX(i,j,k-1)]
                           + b[IX(i,j,k)] ) / ap[IX(i,j,k)];
-        }    
+        }
   }
 
   /****************************************************************************
@@ -200,7 +200,7 @@ REAL Gauss_Seidel(PARA_DATA *para, REAL **var, REAL *flag, REAL *x) {
 
   FOR_EACH_CELL
     if (flag[IX(i,j,k)]>=0) continue;
-    tmp1 += (REAL) fabs(ap[IX(i,j,k)]*x[IX(i,j,k)] 
+    tmp1 += (REAL) fabs(ap[IX(i,j,k)]*x[IX(i,j,k)]
         - ae[IX(i,j,k)]*x[IX(i+1,j,k)] - aw[IX(i,j,k)]*x[IX(i-1,j,k)]
         - an[IX(i,j,k)]*x[IX(i,j+1,k)] - as[IX(i,j,k)]*x[IX(i,j-1,k)]
         - af[IX(i,j,k)]*x[IX(i,j,k+1)] - ab[IX(i,j,k)]*x[IX(i,j,k-1)]

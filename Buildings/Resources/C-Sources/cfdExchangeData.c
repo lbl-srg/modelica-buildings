@@ -32,16 +32,16 @@ int cfdExchangeData(double t0, double dt, double *u, int nU, int nY,
 
   /*--------------------------------------------------------------------------
   | Write data to CFD
-  | Command: 
+  | Command:
   | -1: feak data
   |  0: data has been read by the other program
   |  1: data waiting for the other program to read
   --------------------------------------------------------------------------*/
   // If previous data hasn't been read, wait
   while(cosim->modelica->flag==1) {
-    if(cosim->para->ffdError==1) 
+    if(cosim->para->ffdError==1)
       ModelicaError(cosim->ffd->msg);
-    else 
+    else
       Sleep(1000);
   }
 
@@ -61,15 +61,15 @@ int cfdExchangeData(double t0, double dt, double *u, int nU, int nY,
     i = i + 2*cosim->para->nConExtWin;
   }
 
-  cosim->modelica->sensibleHeat = (REAL) u[i]; 
+  cosim->modelica->sensibleHeat = (REAL) u[i];
   i++;
-  
+
   cosim->modelica->latentHeat = (REAL) u[i];
   i++;
 
   cosim->modelica->p = (REAL) u[i];
   i++;
- 
+
   for(j=0; j<cosim->para->nPorts; j++) {
     cosim->modelica->mFloRatPor[j] = (REAL) u[i+j];
     cosim->modelica->TPor[j] = (REAL) u[i+j+cosim->para->nPorts];
@@ -86,7 +86,7 @@ int cfdExchangeData(double t0, double dt, double *u, int nU, int nY,
     for(k=0; k<cosim->para->nC; k++) {
       cosim->modelica->CPor[j][k] = (REAL) u[i+j*cosim->para->nC+k];
     }
-  
+
   // Set the flag to new data
   cosim->modelica->flag = 1;
 
@@ -95,9 +95,9 @@ int cfdExchangeData(double t0, double dt, double *u, int nU, int nY,
   ****************************************************************************/
   // If the data is not ready or not updated, check again
   while(cosim->ffd->flag!=1) {
-    if(cosim->para->ffdError==1) 
+    if(cosim->para->ffdError==1)
       ModelicaError(cosim->ffd->msg);
-    else 
+    else
       Sleep(1000);
   }
 

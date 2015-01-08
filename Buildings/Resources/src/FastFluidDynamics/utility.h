@@ -2,7 +2,7 @@
 ///
 /// \file   utility.h
 ///
-/// \brief  Some frequently used functions for FFD 
+/// \brief  Some frequently used functions for FFD
 ///
 /// \author Wangda Zuo, Ana Cohen
 ///         University of Miami
@@ -154,7 +154,7 @@ int average_time(PARA_DATA *para, REAL **var);
 ///
 ///\return 0 if no error occurred
 ///////////////////////////////////////////////////////////////////////////////
-int reset_time_averaged_data (PARA_DATA *para, REAL **var); 
+int reset_time_averaged_data (PARA_DATA *para, REAL **var);
 
 ///////////////////////////////////////////////////////////////////////////////
 /// Add time averaged value for the time average later on
@@ -194,7 +194,7 @@ void free_index(int **BINDEX);
 ///
 ///\return 0 if no error occurred
 ///////////////////////////////////////////////////////////////////////////////
-void free_data(REAL **var); 
+void free_data(REAL **var);
 
 ///////////////////////////////////////////////////////////////////////////////
 /// Determine the maximum value of given scalar variable

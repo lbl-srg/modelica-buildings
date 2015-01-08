@@ -22,14 +22,12 @@ model RoomOnlyConstructionBoundary
       each T=283.15) "Boundary condition for the other walls" annotation (
       Placement(transformation(
         extent={{10,-10},{-10,10}},
-        rotation=0,
         origin={110,-30})));
 
   HeatTransfer.Sources.FixedTemperature TEasWal(each T=313.15)
     "Temperature of the east wall"
     annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
-        rotation=0,
         origin={110,0})));
 equation
   for i in 1:nConBou - 1 loop

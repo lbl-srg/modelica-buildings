@@ -20,7 +20,7 @@
 ///////////////////////////////////////////////////////////////////////////////
 int cfdReceiveFeedback( ) {
   int i = 0, imax = 10000, flag;
-  
+
   // Wait for the feedback from FFD
   while(cosim->para->flag==0 && i<imax) {
     if(cosim->para->ffdError==1) {
@@ -31,7 +31,7 @@ int cfdReceiveFeedback( ) {
       i++;
     }
   }
-  
+
   if(i<imax) {
     if(cosim->para->ffdError==1) {
       ModelicaError(cosim->ffd->msg);

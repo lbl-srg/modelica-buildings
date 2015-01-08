@@ -23,7 +23,7 @@
 ///\return Volume weighted average
 ///////////////////////////////////////////////////////////////////////////////
 REAL fluid_volume(PARA_DATA *para, REAL **var) {
-  int imax = para->geom->imax, jmax = para->geom->jmax; 
+  int imax = para->geom->imax, jmax = para->geom->jmax;
   int kmax = para->geom->kmax;
   int i, j, k;
   int IMAX = imax+2, IJMAX = (imax+2)*(jmax+2);
@@ -33,7 +33,7 @@ REAL fluid_volume(PARA_DATA *para, REAL **var) {
     if(var[FLAGP][IX(i,j,k)]==FLUID) {
       V += vol(para, var, i, j, k);
     }
-    else 
+    else
       continue;
   END_FOR
 
@@ -53,7 +53,7 @@ REAL fluid_volume(PARA_DATA *para, REAL **var) {
 ///////////////////////////////////////////////////////////////////////////////
 REAL vol(PARA_DATA *para, REAL **var, int i, int j, int k) {
 
-  return area_xy(para, var, i, j, k) 
+  return area_xy(para, var, i, j, k)
        * length_z(para, var, i, j, k);
 } // End of vol()
 
@@ -70,7 +70,7 @@ REAL vol(PARA_DATA *para, REAL **var, int i, int j, int k) {
 ///\return Area of XY surface
 ///////////////////////////////////////////////////////////////////////////////
 REAL area_xy(PARA_DATA *para, REAL **var, int i, int j, int k) {
-  return length_x(para, var, i, j, k) 
+  return length_x(para, var, i, j, k)
        * length_y(para, var, i, j, k);
 } // End of area_xy()
 
@@ -86,7 +86,7 @@ REAL area_xy(PARA_DATA *para, REAL **var, int i, int j, int k) {
 ///\return Area of YZ surface
 ///////////////////////////////////////////////////////////////////////////////
 REAL area_yz(PARA_DATA *para, REAL **var, int i, int j, int k) {
-  return length_y(para, var, i, j, k) 
+  return length_y(para, var, i, j, k)
        * length_z(para, var, i, j, k);
 } // End of area_yz();
 
@@ -102,7 +102,7 @@ REAL area_yz(PARA_DATA *para, REAL **var, int i, int j, int k) {
 ///\return Area of ZX surface
 ///////////////////////////////////////////////////////////////////////////////
 REAL area_zx(PARA_DATA *para, REAL **var, int i, int j, int k) {
-  return length_z(para, var, i, j, k) 
+  return length_z(para, var, i, j, k)
        * length_x(para, var, i, j, k);
 } // End of area_zx()
 
@@ -118,13 +118,13 @@ REAL area_zx(PARA_DATA *para, REAL **var, int i, int j, int k) {
 ///\return Length in X-direction
 ///////////////////////////////////////////////////////////////////////////////
 REAL length_x(PARA_DATA *para, REAL **var, int i, int j, int k) {
-  int imax = para->geom->imax, jmax = para->geom->jmax; 
+  int imax = para->geom->imax, jmax = para->geom->jmax;
   int IMAX = imax+2, IJMAX = (imax+2)*(jmax+2);
 
   if(i==0)
     return 0;
   else
-    return (REAL) fabs(var[GX][IX(i,j,k)]-var[GX][IX(i-1,j,k)]); 
+    return (REAL) fabs(var[GX][IX(i,j,k)]-var[GX][IX(i-1,j,k)]);
 } // End of length_x()
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -139,13 +139,13 @@ REAL length_x(PARA_DATA *para, REAL **var, int i, int j, int k) {
 ///\return Length in Y-direction
 ///////////////////////////////////////////////////////////////////////////////
 REAL length_y(PARA_DATA *para, REAL **var, int i, int j, int k) {
-  int imax = para->geom->imax, jmax = para->geom->jmax; 
+  int imax = para->geom->imax, jmax = para->geom->jmax;
   int IMAX = imax+2, IJMAX = (imax+2)*(jmax+2);
 
   if(j==0)
     return 0;
-  else 
-    return (REAL) fabs(var[GY][IX(i,j,k)]-var[GY][IX(i,j-1,k)]); 
+  else
+    return (REAL) fabs(var[GY][IX(i,j,k)]-var[GY][IX(i,j-1,k)]);
 } // End of length_y()
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -160,13 +160,13 @@ REAL length_y(PARA_DATA *para, REAL **var, int i, int j, int k) {
 ///\return Length in Z-direction
 ///////////////////////////////////////////////////////////////////////////////
 REAL length_z(PARA_DATA *para, REAL **var, int i, int j, int k) {
-  int imax = para->geom->imax, jmax = para->geom->jmax; 
+  int imax = para->geom->imax, jmax = para->geom->jmax;
   int IMAX = imax+2, IJMAX = (imax+2)*(jmax+2);
 
   if(k==0)
     return 0;
-  else 
-    return (REAL) fabs(var[GZ][IX(i,j,k)]-var[GZ][IX(i,j,k-1)]); 
+  else
+    return (REAL) fabs(var[GZ][IX(i,j,k)]-var[GZ][IX(i,j,k-1)]);
 } // End of length_z()
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -180,7 +180,7 @@ REAL length_z(PARA_DATA *para, REAL **var, int i, int j, int k) {
 ///\return 0 if no error occurred
 ///////////////////////////////////////////////////////////////////////////////
 int bounary_area(PARA_DATA *para, REAL **var, int **BINDEX) {
-   
+
   int i, j, k, it, id;
   //int id0;
   int index= para->geom->index, imax = para->geom->imax,
@@ -206,7 +206,7 @@ int bounary_area(PARA_DATA *para, REAL **var, int **BINDEX) {
     /*
     if(id!=id0) {
        sprintf(msg, "bounary_area(): Area of cells on %s are:",
-               para->bc->wallName[id]); 
+               para->bc->wallName[id]);
        ffd_log(msg, FFD_NORMAL);
        id0 = id;
     }

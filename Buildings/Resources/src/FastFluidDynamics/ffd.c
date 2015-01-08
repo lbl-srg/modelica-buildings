@@ -60,7 +60,7 @@ int allocate_memory (PARA_DATA *para) {
   for(i=0; i<nb_var; i++) {
     var[i] = (REAL *) calloc(size, sizeof(REAL));
     if(var[i]==NULL) {
-      sprintf(msg, 
+      sprintf(msg,
               "allocate_memory(): Could not allocate memory for var[%d]", i);
       ffd_log(msg, FFD_ERROR);
       return 1;
@@ -85,7 +85,7 @@ int allocate_memory (PARA_DATA *para) {
   for(i=0; i<5; i++) {
     BINDEX[i] = (int *) malloc(size*sizeof(int));
     if(BINDEX[i]==NULL) {
-      sprintf(msg, 
+      sprintf(msg,
               "allocate_memory(): Could not allocate memory for BINDEX[%d]", i);
       ffd_log(msg, FFD_ERROR);
       return 1;
@@ -105,7 +105,7 @@ static void display_func(void) {
 } // End of display_func()
 
 ///////////////////////////////////////////////////////////////////////////////
-/// GLUT keyboard callback routines 
+/// GLUT keyboard callback routines
 ///
 ///\param key Character of the key
 ///\param x X-position
@@ -119,7 +119,7 @@ static void key_func(unsigned char key, int x, int y) {
 } // End of key_func()
 
 ///////////////////////////////////////////////////////////////////////////////
-/// GLUT idle callback routines  
+/// GLUT idle callback routines
 ///
 ///\return No return needed
 ///////////////////////////////////////////////////////////////////////////////
@@ -128,7 +128,7 @@ static void idle_func(void) {
 } // End of idle_func()
 
 ///////////////////////////////////////////////////////////////////////////////
-/// GLUT motion callback routines  
+/// GLUT motion callback routines
 ///
 ///\param x X-position
 ///\param y Y-Position
@@ -140,7 +140,7 @@ static void motion_func(int x, int y) {
 } // End of motion_func()
 
 ///////////////////////////////////////////////////////////////////////////////
-/// GLUT mouse callback routines  
+/// GLUT mouse callback routines
 ///
 ///\param button Button of the mouse
 ///\param x X-position
@@ -166,7 +166,7 @@ static void reshape_func(int width, int height) {
 */
 
 ///////////////////////////////////////////////////////////////////////////////
-/// Open_glut_window --- open a glut compatible window and set callbacks 
+/// Open_glut_window --- open a glut compatible window and set callbacks
 ///
 ///\return No return needed
 ///////////////////////////////////////////////////////////////////////////////
@@ -175,18 +175,18 @@ static void reshape_func(int width, int height) {
 //
 //  /*---------------------------------------------------------------------------
 //  | void glutInitWindowPosition(int x, int y);
-//  | x: Window X location in pixels. 
+//  | x: Window X location in pixels.
 //  | y: Window Y location in pixels.
-//  ---------------------------------------------------------------------------*/ 
+//  ---------------------------------------------------------------------------*/
 //  glutInitWindowPosition(0, 0);
 //
 //  /*---------------------------------------------------------------------------
-//  | Initialize the size of window 
+//  | Initialize the size of window
 //  | void glutInitWindowSize(int width, int height);
 //  | width: Width in pixels; height: Height in pixels
 //  ---------------------------------------------------------------------------*/
 //  glutInitWindowSize(para.outp->winx, para.outp->winy);
-//  
+//
 //
 //  para.outp->win_id = glutCreateWindow("FFD");
 //
@@ -197,12 +197,12 @@ static void reshape_func(int width, int height) {
 //  |white    :1.0, 1.0, 1.0, 0.0
 //  |black    :0.0, 0.0, 0.0, 0.0
 //  |most blue:0.0, 0.0, 1.0, 0.0
-//  |most red :1.0, 0.0, 0.0, 0.0 
+//  |most red :1.0, 0.0, 0.0, 0.0
 //  ---------------------------------------------------------------------------*/
 //  glClearColor(0.0, 0.0, 0.0, 1.0);
 //
 //  /*--------------------------------------------------------------------------
-//  | clear buffers within the view port 
+//  | clear buffers within the view port
 //  ---------------------------------------------------------------------------*/
 //  glClear(GL_COLOR_BUFFER_BIT);
 //
@@ -218,21 +218,21 @@ static void reshape_func(int width, int height) {
 //
 //  /*---------------------------------------------------------------------------
 //  | void glutKeyboardFunc(void (*func)(unsigned char key, int x, int y));
-//  | sets the keyboard callback for the current window. 
-//  | When a user types into the window, each key press generating an ASCII 
-//  | character will generate a keyboard callback. 
+//  | sets the keyboard callback for the current window.
+//  | When a user types into the window, each key press generating an ASCII
+//  | character will generate a keyboard callback.
 //	---------------------------------------------------------------------------*/
 //  glutKeyboardFunc(key_func);
 //
 //  /*---------------------------------------------------------------------------
 //  | void glutMouseFunc(void (*func)(int button, int state, int x, int y));
-//  | sets the mouse callback for the current window. 
+//  | sets the mouse callback for the current window.
 //  ---------------------------------------------------------------------------*/
 //	glutMouseFunc(mouse_func);
 //
 //  /*---------------------------------------------------------------------------
 //  | void glutMotionFunc(void (*func)(int x, int y));
-//  | The motion callback for a window is called when the mouse moves within 
+//  | The motion callback for a window is called when the mouse moves within
 //  | the window while one or more mouse buttons are pressed
 //  ---------------------------------------------------------------------------*/
 //  glutMotionFunc(motion_func);
@@ -245,8 +245,8 @@ static void reshape_func(int width, int height) {
 //
 //  /*---------------------------------------------------------------------------
 //  | void glutIdleFunc(void (*func)(void));
-//  | sets the global idle callback to be func so a GLUT program can perform 
-//  | background processing tasks or continuous animation when window system 
+//  | sets the global idle callback to be func so a GLUT program can perform
+//  | background processing tasks or continuous animation when window system
 //  | events are not being received
 //  ---------------------------------------------------------------------------*/
 //  glutIdleFunc(idle_func);
@@ -269,7 +269,7 @@ static void reshape_func(int width, int height) {
 ///\return 0 if no error occurred
 ///////////////////////////////////////////////////////////////////////////////
 int ffd_cosimulation(CosimulationData *cosim) {
-  para.cosim = (CosimulationData *) malloc(sizeof(CosimulationData)); 
+  para.cosim = (CosimulationData *) malloc(sizeof(CosimulationData));
   para.cosim = cosim;
 
   if(ffd(1)!=0) {
@@ -307,7 +307,7 @@ int ffd(int cosimulation) {
   para.sens   = &sens;
   para.init   = &init;
   // Stand alone simulation: 0; Cosimulaiton: 1
-  para.solv->cosimulation = cosimulation; 
+  para.solv->cosimulation = cosimulation;
 
   if(initialize(&para)!=0) {
     ffd_log("ffd(): Could not initialize simulation parameters.", FFD_ERROR);
@@ -321,7 +321,7 @@ int ffd(int cosimulation) {
       return 1;
     }
   }
-  
+
   // Allocate memory for the variables
   if(allocate_memory(&para)!=0) {
     ffd_log("ffd(): Could not allocate memory for the simulation.", FFD_ERROR);
@@ -378,9 +378,9 @@ int ffd(int cosimulation) {
   free_data(var);
   free_index(BINDEX);
 
-  // Inform Modelica the stopping command has been received 
+  // Inform Modelica the stopping command has been received
   if(para.solv->cosimulation==1) {
-    para.cosim->para->flag = 2; 
+    para.cosim->para->flag = 2;
     ffd_log("ffd(): Sent stopping signal to Modelica", FFD_NORMAL);
   }
 

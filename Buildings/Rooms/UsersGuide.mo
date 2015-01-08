@@ -6,7 +6,7 @@ package UsersGuide "User's Guide"
     extends Modelica.Icons.Information;
     annotation (preferredView="info", Documentation(info=
                      "<html>
-<p>The model <a href=\"modelica://Buildings.Rooms.MixedAir\">Buildings.Rooms.MixedAir</a> is 
+<p>The model <a href=\"modelica://Buildings.Rooms.MixedAir\">Buildings.Rooms.MixedAir</a> is
 a model of a room with completely mixed air.
 The room can have any number of constructions and surfaces that participate in the
 heat exchange through convection, conduction, infrared radiation and solar radiation.</p>
@@ -558,12 +558,12 @@ Proc. of the 12th IBPSA Conference, p. 1096-1103. Sydney, Australia, November 20
   annotation (preferredView="info",
   Documentation(info="<html>
 <p>
-The model <a href=\"modelica://Buildings.Rooms.CFD\">Buildings.Rooms.CFD</a> is 
+The model <a href=\"modelica://Buildings.Rooms.CFD\">Buildings.Rooms.CFD</a> is
 a room model in which the room air heat and mass balance is computed
 using the Computational Fluid Dynamics (CFD).
 </p>
 <p>
-The model is identical with 
+The model is identical with
 <a href=\"modelica://Buildings.Rooms.MixedAir\">
 Buildings.Rooms.MixedAir</a>, except
 for the following points:
@@ -579,7 +579,7 @@ The same names must be used in the CFD input file.
 </li>
 <li>
 To get access to properties of the control volumes in the CFD simulation,
-this model allows declaring a sensor using the parameter 
+this model allows declaring a sensor using the parameter
 <code>sensorName</code>.
 This parameter is an array of strings. The same strings must be used
 in the CFD input file when declaring the sensor in order to send the
@@ -587,15 +587,15 @@ CFD results to the output signal of Modelica.
 </li>
 <li>
 To link the fluid ports in Modelica to the boundary conditions of CFD,
-this model requires declaring names for the fluid ports 
-<code>ports</code> using the parameter 
+this model requires declaring names for the fluid ports
+<code>ports</code> using the parameter
 <code>portName</code>.
 This parameter is an array of strings. The same strings must be used
 in the CFD input file when declaring the inlet and outlet boundary conditions.
 </li>
 <li>
 The control signal of window shades is a constant rather than an input.
-Its value cannot be changed during the simulation as the FFD implemementation 
+Its value cannot be changed during the simulation as the FFD implemementation
 does not support moving areas for the boundary conditions.
 </li>
 <li>
@@ -636,7 +636,7 @@ cells. The amount of heat flow rate that each cell exchanges with <code>heaPorAi
 proportional to its volume.
 </li>
 <li>
-The flow resistance of the diffusor or exhaust grill must be computed in the 
+The flow resistance of the diffusor or exhaust grill must be computed in the
 Modelica HVAC system that is connected to the room model, because the CFD
 program assumes the same total pressure at all fluid ports.
 </li>
@@ -646,11 +646,11 @@ The quantities that are exchanged between the programs are defined as follows:
 </p>
 <ul>
 <li>
-For the mass flow rate of the fluid port, 
+For the mass flow rate of the fluid port,
 we exchange <i>m<sub>e</sub> = 1 &frasl; &Delta; t &int;<sub>&Delta; t</sub> m(s) dt</i>.
 </li>
 <li>
-For the temperature, species concentration and trace substances of the fluid port, we exchange 
+For the temperature, species concentration and trace substances of the fluid port, we exchange
 <i>X = 1 &frasl; (m<sub>e</sub> &nbsp; &Delta; t) &int;<sub>&Delta; t</sub> m(s) &nbsp; X(s) dt</i>.
 Note that for the first implementation, CFD does only compute a bulk mass balance for <code>Xi</code>.
 It does not do a moisture balance for each cell.
@@ -658,11 +658,11 @@ However, for trace substances <code>C</code>, CFD does a contaminant balance for
 and return <code>C_outflow</code> to be the contaminant concentration of that cell.
 </li>
 <li>
-For the surface temperatures, 
+For the surface temperatures,
 we exchange <i>T<sub>e</sub> = 1 &frasl; &Delta; t &int;<sub>&Delta; t</sub> T(s) dt</i>.
 </li>
 <li>
-For the surface heat flow rates, 
+For the surface heat flow rates,
 we exchange <i>Q<sub>e</sub> = 1 &frasl; &Delta; t &int;<sub>&Delta; t</sub> Q(s) dt</i>.
 </li>
 </ul>
@@ -685,7 +685,7 @@ conventions are used in this model.
 </p>
 <ul>
 <li>
-If a construction is not present, or if no shade is present, or 
+If a construction is not present, or if no shade is present, or
 if no air stream is connected to <code>ports</code>,
 then no variables are exchanged for this quantity with the block <code>cfd</code>.
 </li>
@@ -696,7 +696,7 @@ These variables are connected to the surface heat ports
 through instances of the model
 <a href=\"modelica://Buildings.Rooms.BaseClasses.CFDSurfaceInterface\">
 Buildings.Rooms.BaseClasses.CFDSurfaceInterface</a>.
-This model has four ports. 
+This model has four ports.
 Depepending on the parameter
 <code>bouCon</code>, two of these ports are conditionally removed.
 This allows to use the parameter <code>bouCon</code> to specify whether
@@ -710,19 +710,19 @@ type of boundary condition is used.
 </li>
 <li>
 The variables of the connector <code>ports</code> are exchanged with the CFD block
-through the instance <code>intFlu</code>. 
-This interface is implemented in 
+through the instance <code>intFlu</code>.
+This interface is implemented in
 <a href=\"modelica://Buildings.Rooms.BaseClasses.CFDFluidInterface\">
 Buildings.Rooms.BaseClasses.CFDFluidInterface</a>.
 Its output and input signals are connected to the <code>cfd</code> block as follows:
 <ul>
 <li>
-Input to the <code>cfd</code> block is a vector 
-<code>[p, m_flow[nPorts], T_inflow[nPorts], X_inflow[nPorts*Medium.nXi], 
+Input to the <code>cfd</code> block is a vector
+<code>[p, m_flow[nPorts], T_inflow[nPorts], X_inflow[nPorts*Medium.nXi],
 C_inflow[nPorts*Medium.nC]]</code>.
 The quantity <code>p</code> is the total pressure of the fluid ports (all fluid ports have the same
-total pressure). 
-Therefore, the flow resistance of the diffusor or exhaust grill must be computed in the 
+total pressure).
+Therefore, the flow resistance of the diffusor or exhaust grill must be computed in the
 Modelica HVAC system that is connected to the room model.
 The quantities <code>X_inflow</code> and <code>C_inflow</code> (or <code>X_inflow</code> and <code>C_inflow</code>)
 are vectors with components <code>X_inflow[1:Medium.nXi]</code> and <code>C_inflow[1:Medium.nC]</code>.
@@ -730,13 +730,13 @@ For example, for moist air, <code>X_inflow</code> has one element which is equal
 relative to the total air mass and not the dry air.
 </li>
 <li>
-Output from the CFD block is a vector 
+Output from the CFD block is a vector
 <code>[T_outflow[nPorts], X_outflow[nPorts*Medium.nXi], C_outflow[nPorts*Medium.nC]]</code>.
 The quantities <code>*_outflow</code> are the fluid properties of the cell to which the port is
-connected. 
+connected.
 </li>
 <li>
-If <code>Medium.nXi=0</code> (e.g., for dry air) or <code>Medium.nC=0</code>, 
+If <code>Medium.nXi=0</code> (e.g., for dry air) or <code>Medium.nC=0</code>,
 then these signals are not present as input/output signals of the CFD block.
 </li>
 </ul>
@@ -755,7 +755,7 @@ During the initialzation, the following data are sent from Modelica to CFD:
 </p>
 <ul>
 <li>
-An array of strings where each element is the name of the surface, 
+An array of strings where each element is the name of the surface,
 as declared by
 the user when instantiating the model
 <a href=\"Buildings.Rooms.CFD\">Buildings.Rooms.CFD</a>.
@@ -763,19 +763,19 @@ Let us call this array <code>name</code>.
 The orders of elements in this array are as follows:
 <ol>
 <li>
-The first 
-<code>nConExt</code> elements are the names of the exterior constructions 
-declared as <code>datConExt</code>. The order is the same as 
+The first
+<code>nConExt</code> elements are the names of the exterior constructions
+declared as <code>datConExt</code>. The order is the same as
 in the declaration of <code>datConExt</code>.
 </li>
 <li>
-<code>nConExtWin</code> elements are the names of the exterior constructions 
+<code>nConExtWin</code> elements are the names of the exterior constructions
 declared as <code>datConExtWin</code>. These constructions embed windows
 and a frame. Therefore, what follows are
-<code>nConExtWin</code> elements where each string is the same as above, 
-but <code>' (glass, unshaded)'</code> has been appended, 
+<code>nConExtWin</code> elements where each string is the same as above,
+but <code>' (glass, unshaded)'</code> has been appended,
 then -- if and only if the window has a shade --
-<code>nConExtWin</code> elements follow with 
+<code>nConExtWin</code> elements follow with
 <code>' (glass, shaded)'</code> appended, and,
 finally,
 <code>nConExtWin</code> elements follow with <code>' (frame)'</code> appended.
@@ -797,7 +797,7 @@ Next, there are <code>nConPar</code> elements with  <code>' (surface b)'</code> 
 Using the same order, there is also an array for the areas of the surfaces <code>A</code>,
 an array for the surface tilt <code>til</code>
 and the type of the boundary conditions <code>bouCon</code> for each of these surfaces.
-If <code>bouCon[i] = 1</code>, 
+If <code>bouCon[i] = 1</code>,
 then temperature is sent from Modelica to CFD.
 If <code>bouCon[i] = 2</code>, then
 heat flow rate is sent from Modelica to CFD.
@@ -812,13 +812,13 @@ How many sensor are declared in Modelica can be checked through the variable <co
 which is sent from Modelica to CFD.
 </li>
 <li>
-There is also an array <code>AirProperty</code> that contains the properties of the air. 
+There is also an array <code>AirProperty</code> that contains the properties of the air.
 The orders of elements in this array are as follows:
 <ol>
 <li>
 The density of air at the initial state (CFD will accept it only when there is a mass exchange between the two programs).
 </li>
-</ol> 
+</ol>
 </li>
 </ul>
 <p>
@@ -828,25 +828,25 @@ The elements of the array <code>u</code> are as follows:
 </p>
 <ol>
 <li>
-Either temperature or heat flow rate boundary conditions, 
+Either temperature or heat flow rate boundary conditions,
 in the same order as the array <code>name</code>. The units are <i>[K]</i> or <i>[W]</i>.
-The array <code>bouCon</code> that is sent during the 
+The array <code>bouCon</code> that is sent during the
 initialization declares the type of boundary
 condition.
 There are <code>nSur</code> elements for surfaces.
 </li>
 <li>
-If at least one window in the room has a shade, then the next 
+If at least one window in the room has a shade, then the next
 <code>nConExtWin</code>
-elements are the shading control signals. <code>u=0</code> means 
+elements are the shading control signals. <code>u=0</code> means
 that the shade is not deployed,
-and <code>u=1</code> means that the shade is 
+and <code>u=1</code> means that the shade is
 completely deployed (blocking solar radiation).
 If there is no window in the room, then these elements are not present.
 </li>
 <li>
 If at least one window in the room has a shade, then the next <code>nConExtWin</code>
-elements are the radiations in <i>[W]</i> that are absorbed by the 
+elements are the radiations in <i>[W]</i> that are absorbed by the
 respective shades.
 If there is no window in the room, then these elements are not present.
 </li>
@@ -863,31 +863,31 @@ The next element is the room average static pressure in <i>[Pa]</i>.
 </li>
 <li>
 The next <code>nPorts</code> elements are the mass flow rates
-into the room in <i>[kg/s]</i>. 
+into the room in <i>[kg/s]</i>.
 A positive value is used if the air flows into the room,
 otherwise the value is negative.
 The first element is connected to <code>ports[1]</code>, the second to
 <code>ports[2]</code> etc.
 </li>
 <li>
-The next <code>nPorts</code> elements are the air temperatures 
+The next <code>nPorts</code> elements are the air temperatures
 that the medium has
-<i>if it were flowing into the room</i>, e.g., the \"inflowing medium\" 
+<i>if it were flowing into the room</i>, e.g., the \"inflowing medium\"
 computed based on <code>inStream(h_outflow)</code>.
 </li>
 <li>
-The next <code>nPorts*Medium.nXi</code> elements are the 
+The next <code>nPorts*Medium.nXi</code> elements are the
 species concentration of the inflowing
-medium. 
-The first <code>Medium.nXi</code> elements are for port <i>1</i>, then for 
+medium.
+The first <code>Medium.nXi</code> elements are for port <i>1</i>, then for
 port <i>2</i> etc.
 The units are in <i>[kg/kg]</i> total mass, and not in  <i>[kg/kg]</i> dry air.
 </li>
 <li>
-The next <code>nPorts*Medium.nC</code> elements are the trace substances 
+The next <code>nPorts*Medium.nC</code> elements are the trace substances
 of the inflowing
-medium. 
-The first <code>Medium.nC</code> elements are for port <i>1</i>, then for 
+medium.
+The first <code>Medium.nC</code> elements are for port <i>1</i>, then for
 port <i>2</i> etc.
 </li>
 </ol>
@@ -896,7 +896,7 @@ The elements of the array <code>y</code> that is sent from CFD to Modelica are a
 <li>
 Either temperature or heat flow rate at the surfaces,
 in the same order as the array <code>name</code>.
-The array <code>bouCon</code> that is sent during the 
+The array <code>bouCon</code> that is sent during the
 initialization declares the type of boundary
 condition.
 If <code>bouCon[i] = 1</code>, then heat flow rate in <i>[W]</i>
@@ -916,28 +916,28 @@ shade in <i>[K]</i>.
 <li>
 The next <code>nPorts</code> elements are the air temperatures
 in <i>[K]</i>
-of the cells that are connected to the inlet or outlet diffusor 
+of the cells that are connected to the inlet or outlet diffusor
 of <code>ports[1], ports[2], etc.</code>.
 </li>
 <li>
-The next <code>nPorts*Medium.nXi</code> elements are the 
-species concentration of the cells to which the ports are 
+The next <code>nPorts*Medium.nXi</code> elements are the
+species concentration of the cells to which the ports are
 connected.
-The first <code>Medium.nXi</code> elements are for port <i>1</i>, then for 
+The first <code>Medium.nXi</code> elements are for port <i>1</i>, then for
 port <i>2</i> etc.
 The units are in <i>[kg/kg]</i> total mass, and not in <i>[kg/kg]</i> dry air.
 </li>
 <li>
-The next <code>nPorts*Medium.nC</code> elements are the trace substances 
+The next <code>nPorts*Medium.nC</code> elements are the trace substances
 of the cells to which the ports are connected to.
-The first <code>Medium.nC</code> elements are for port <i>1</i>, then for 
+The first <code>Medium.nC</code> elements are for port <i>1</i>, then for
 port <i>2</i> etc.
 </li>
 </ol>
 <h4>References</h4>
 <p>
-<a NAME=\"ZuoEtAl2014\"/> 
-Wangda Zuo, Michael Wetter, Dan Li, Mingang Jin, Wei Tian, Qingyan Chen.<br/> 
+<a NAME=\"ZuoEtAl2014\"/>
+Wangda Zuo, Michael Wetter, Dan Li, Mingang Jin, Wei Tian, Qingyan Chen.<br/>
 <a href=\"modelica://Buildings/Resources/Images/Rooms/Examples/FFD/Zuo2014.pdf\">
 Coupled Simulation of Indoor Environment, HVAC and Control System by Using Fast Fluid Dynamics and the Modelica Buildings Library. </a><br/>
 Proc. of the 2014 ASHRAE/IBPSA-USA Building Simulation Conference, Atlanta, GA, September 10-12, 2014.
@@ -948,12 +948,12 @@ Proc. of the 2014 ASHRAE/IBPSA-USA Building Simulation Conference, Atlanta, GA, 
   annotation (preferredView="info",
   Documentation(info="<html>
 <p>
-The package <b>Buildings.Rooms</b> contains models for heat transfer 
+The package <b>Buildings.Rooms</b> contains models for heat transfer
 through the building envelope.
 Multiple instances of these models can be connected to create
 a multi-zone building model.
 To compute the air exchange between rooms and between a room
-and the exterior, the room models can be connected to 
+and the exterior, the room models can be connected to
 multi-zone air exchange models from the package
 <a href=\"modelica://Buildings.Airflow\">
 Buildings.Airflow</a>.

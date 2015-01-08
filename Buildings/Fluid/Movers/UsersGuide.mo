@@ -291,8 +291,8 @@ the hydraulic power input <i>W<sub>hyd</sub></i>, the flow work
 <p>
 where <i>V&#775;</i> is the volume flow rate and
 <i>&Delta;p</i> is the pressure rise.
-The heat dissipated into the medium is as follows: 
-If the motor is cooled by the fluid, as indicated by 
+The heat dissipated into the medium is as follows:
+If the motor is cooled by the fluid, as indicated by
 <code>per.motorCooledByFluid=true</code>, then the heat dissipated into the medium is
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
@@ -338,7 +338,7 @@ and <i>&eta;<sub>mot</sub></i> are computed as
 </p>
 <p>
 However, if <code>per.use_powerCharacteristic=false</code>, then
-performance data for 
+performance data for
 <i>&eta;<sub>hyd</sub></i> and
  <i>&eta;<sub>mot</sub></i> need to be provided by the user, and hence
 the model computes
@@ -363,7 +363,7 @@ initialization and time integration of large models.
 <h5>Enthalpy change of the component</h5>
 <p>
 If <code>per.motorCooledByFluid=true</code>, then
-the enthalpy change between the inlet and outlet fluid port is equal 
+the enthalpy change between the inlet and outlet fluid port is equal
 to the electrical power <i>P<sub>ele</sub></i> that is consumed by the component.
 Otherwise, it is equal to the hydraulic work <i>W<sub>hyd</sub></i>.
 The parameter <code>addPowerToMedium</code>, which is by default set to
@@ -399,19 +399,19 @@ pressure difference between the two ports, and not the absolute
 pressure at <code>port_b</code>.
 </li>
 <li>
-The pressure calculations are based on total pressure in Pascals instead of the pump head in meters. 
-This change was done to avoid ambiguities in the parameterization if the models are used as a fan 
-with air as the medium. The original formulation in 
-<a href=\"Modelica.Fluid.Machines\">Modelica.Fluid.Machines</a> converts head 
-to pressure using the density <code>medium.d</code>. Therefore, for fans, 
-head would be converted to pressure using the density of air. However, for fans, 
-manufacturers typically publish the head in millimeters water (mmH20). 
-Therefore, to avoid confusion when using these models with media other than water, 
+The pressure calculations are based on total pressure in Pascals instead of the pump head in meters.
+This change was done to avoid ambiguities in the parameterization if the models are used as a fan
+with air as the medium. The original formulation in
+<a href=\"Modelica.Fluid.Machines\">Modelica.Fluid.Machines</a> converts head
+to pressure using the density <code>medium.d</code>. Therefore, for fans,
+head would be converted to pressure using the density of air. However, for fans,
+manufacturers typically publish the head in millimeters water (mmH20).
+Therefore, to avoid confusion when using these models with media other than water,
 we changed the models to use total pressure in Pascals instead of head in meters.
 </li>
 <li>
 The performance data are interpolated using cubic hermite splines instead of polynomials.
-These functions are implemented at 
+These functions are implemented at
 <a href=\"modelica://Buildings.Fluid.Movers.BaseClasses.Characteristics\">
 Buildings.Fluid.Movers.BaseClasses.Characteristics</a>.
 </li>

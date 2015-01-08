@@ -20,16 +20,16 @@ typedef struct {
   int nConExtWin; // Number of exterior construction with windows
   int nPorts; // Number of fluid ports
   int nXi; // Number of species
-  int nC; // Number of trace substances 
-  int sha; // 1: have shade ; 0: no shade 
+  int nC; // Number of trace substances
+  int sha; // 1: have shade ; 0: no shade
   REAL rho_start; // Density at initial state
   char *fileName; // Name of FFD input file
   char **name; // *name[nSur]: Name of surfaces and flow ports
   char **portName; // *name[nPorts]: Name of fluid ports
   REAL *are; // area of surface in the same order of name
   REAL *til; // tilt of surface in the same order of name
-  int *bouCon; // Type of thermal boundary condition in the same order of name 
-                 // 1: fixed temperature, 
+  int *bouCon; // Type of thermal boundary condition in the same order of name
+                 // 1: fixed temperature,
                  // 2: fixed heat flow rate through the surface
   char **sensorName; // *sensorName[nSen]: Name of sensor in FFD
 } ParameterSharedData;
@@ -41,13 +41,13 @@ typedef struct {
   REAL *temHea; // temHea[nSur]: Temperature or heat flow rate depending on surBou.bouCon
   REAL sensibleHeat; // Convective sensible heat input into the room
   REAL latentHeat; // Latent heat input into the room
-  REAL *shaConSig; // shaConSig[nConExtWin], valid only when there is a shade 
+  REAL *shaConSig; // shaConSig[nConExtWin], valid only when there is a shade
                     // 0: shade not deployed; 1: shade completely deployed
   REAL *shaAbsRad; // shaAbsRad[nConExtWin]: Radiation absorbed by shades
   REAL p; // Room average static pressure
   REAL *mFloRatPor; // mFloRatPor[nPorts]: Mass flow rates into the room
                       // positive: into the room; negative out of the room
-  REAL *TPor; // TPor[nPorts] Air temperatures of the medium 
+  REAL *TPor; // TPor[nPorts] Air temperatures of the medium
                // flowing through the inlet and outlet
   REAL **XiPor; // XiPor[nPorts][Medium.nXi]: species concentration of inflowing medium at the port
              // First Medium.nXi elements are for port 1

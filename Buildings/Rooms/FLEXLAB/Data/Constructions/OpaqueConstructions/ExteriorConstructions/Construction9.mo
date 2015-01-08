@@ -17,7 +17,7 @@ Documentation(info="<html>
 <li>
 December 12, 2014, by Michael Wetter:<br/>
 Corrected wrong number of layers.
-</li>    
+</li>
 <li>
 September 17, 2013, by Peter Grant:<br/>
 First implementation.
