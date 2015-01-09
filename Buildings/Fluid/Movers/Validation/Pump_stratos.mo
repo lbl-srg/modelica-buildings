@@ -2,7 +2,8 @@ within Buildings.Fluid.Movers.Validation;
 model Pump_stratos "Stratos pum with speed as input"
   extends Modelica.Icons.Example;
  extends Buildings.Fluid.Movers.Validation.BaseClasses.FlowMachine_ZeroFlow(
-    redeclare package Medium = Buildings.Media.ConstantPropertyLiquidWater,
+    redeclare package Medium =
+        Buildings.Media.ConstantPropertyLiquidWater,
     gain(k=floMacSta.per.N_nominal),
     m_flow_nominal=floMacSta.per.pressure.V_flow[3]*1000,
     dp_nominal=floMacSta.per.pressure.dp[3]/2,
