@@ -1,6 +1,6 @@
 within Buildings.Fluid.HeatExchangers.Radiators;
 model RadiatorEN442_2 "Dynamic radiator for space heating"
-   extends Fluid.Interfaces.PartialTwoPortInterface(
+   extends Buildings.Fluid.Interfaces.PartialTwoPortInterface(
    showDesignFlowDirection = false,
    show_T=true,
    m_flow_nominal=abs(Q_flow_nominal/cp_nominal/(T_a_nominal-T_b_nominal)));
@@ -134,7 +134,7 @@ protected
         Buildings.Utilities.Math.Functions.regNonZeroPower(
         x=dTRad,
         n=n - 1,
-        delta=0.05)) "Convective heat flow rate"
+        delta=0.05)) "Radiative heat flow rate"
     annotation (Placement(transformation(extent={{-100,-80},{-80,-60}})));
 
   Buildings.HeatTransfer.Sources.PrescribedHeatFlow preSumCon
@@ -147,19 +147,19 @@ protected
     "Sum of radiative heat flow rate"
     annotation (Placement(transformation(extent={{20,-90},{40,-70}})));
   Buildings.HeatTransfer.Sources.PrescribedHeatFlow preSumRad
-    "Heat input into radiator from convective heat transfer"
+    "Heat input into radiator from radiative heat transfer"
     annotation (Placement(transformation(extent={{52,-90},{72,-70}})));
 initial equation
   if T_b_nominal > TAir_nominal then
      assert(T_a_nominal > T_b_nominal,
-       "In RadiatorEN442_2, T_a_nominal must be higher than T_b_nominal");
+       "In RadiatorEN442_2, T_a_nominal must be higher than T_b_nominal.");
      assert(Q_flow_nominal > 0,
-       "In RadiatorEN442_2, nominal power must be bigger than zero if T_b_nominal > TAir_nominal");
+       "In RadiatorEN442_2, nominal power must be bigger than zero if T_b_nominal > TAir_nominal.");
   else
      assert(T_a_nominal < T_b_nominal,
-       "In RadiatorEN442_2, T_a_nominal must be lower than T_b_nominal");
+       "In RadiatorEN442_2, T_a_nominal must be lower than T_b_nominal.");
      assert(Q_flow_nominal < 0,
-       "In RadiatorEN442_2, nominal power must be smaller than zero if T_b_nominal < TAir_nominal");
+       "In RadiatorEN442_2, nominal power must be smaller than zero if T_b_nominal < TAir_nominal.");
   end if;
   TWat_nominal[1] = T_a_nominal - QEle_flow_nominal[1]/m_flow_nominal/
   Medium.specificHeatCapacityCp(
@@ -174,11 +174,11 @@ initial equation
   Q_flow_nominal = sum(QEle_flow_nominal);
 
   for i in 1:nEle loop
-    QEle_flow_nominal[i] = k * UAEle * ((1-fraRad) *
+    QEle_flow_nominal[i] = k * UAEle * (fraRad *
                    Buildings.Utilities.Math.Functions.powerLinearized(x=k*dTRad_nominal[i],
                    n=n,
                    x0=0.1*k*(T_b_nominal-TRad_nominal))
-                   + fraRad *
+                   + (1-fraRad) *
                    Buildings.Utilities.Math.Functions.powerLinearized(x=k*dTCon_nominal[i],
                    n=n,
                    x0=0.1*k*(T_b_nominal-TAir_nominal)));
@@ -351,6 +351,11 @@ with one plate of water carying fluid, and a height of 0.42 meters.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+November 25, 2014, by Carles Ribas Tugores:<br/>
+Interchange position of <code>fraRad</code> parameter and the complementary <code>(1-fraRad)</code>
+in the equation used to calculate the nominal heating power of each element, <code>QEle_flow_nominal[i]</code>.
+</li>
 <li>
 October 29, 2014, by Michael Wetter:<br/>
 Made assignment of <code>mFactor</code> final, and changed computation of

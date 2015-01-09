@@ -3,7 +3,6 @@ partial model PartialThreeWayResistance
   "Flow splitter with partial resistance model at each port"
   extends Buildings.Fluid.Interfaces.LumpedVolumeDeclarations;
 
-
   Modelica.Fluid.Interfaces.FluidPort_a port_1(redeclare package Medium =
         Medium, m_flow(min=if (portFlowDirection_1 == Modelica.Fluid.Types.PortFlowDirection.Entering) then
                 0.0 else -Modelica.Constants.inf, max=if (portFlowDirection_1
@@ -111,7 +110,7 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   end if;
-  annotation (     extent=[40,-10; 60,10],
+  annotation (
     Documentation(info="<html>
 <p>
 Partial model for flow resistances with three ports such as a

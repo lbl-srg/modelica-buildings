@@ -2,7 +2,7 @@ within Buildings.Fluid.Movers.Validation;
 model SpeedControlled_y
   "Fan with zero mass flow rate and control signal y as input"
   extends Modelica.Icons.Example;
- extends Buildings.Fluid.Movers.Examples.BaseClasses.FlowMachine_ZeroFlow(
+ extends Buildings.Fluid.Movers.Validation.BaseClasses.FlowMachine_ZeroFlow(
     gain(k=1),
     redeclare Buildings.Fluid.Movers.SpeedControlled_y floMacSta(
       redeclare package Medium = Medium,

@@ -1,9 +1,9 @@
-within Buildings.Fluid.Movers.Examples.BaseClasses;
+within Buildings.Fluid.Movers.Validation.BaseClasses;
 partial model FlowMachine_ZeroFlow
   "Base class to test flow machines with zero flow rate"
 
   replaceable package Medium =
-    Buildings.Media.GasesPTDecoupled.MoistAirUnsaturated
+    Buildings.Media.Air
       constrainedby Modelica.Media.Interfaces.PartialMedium "Medium model";
 
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal= 1

@@ -11,11 +11,13 @@ equation
       + "  abs(u1-u2) = " + String(abs(u1-u2)) + "\n"
       + "  threShold  = " + String(threShold));
   end if;
-  annotation (Icon(graphics={Text(
+annotation (
+defaultComponentName="assIne",
+Icon(graphics={Text(
           extent={{-84,108},{90,-28}},
           lineColor={255,0,0},
-          textString="u1 > u2")}),Documentation(
-defaultComponentName="assIne",
+          textString="u1 > u2")}),
+Documentation(
 info="<html>
 <p>
 Model that triggers an assert if

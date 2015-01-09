@@ -28,7 +28,7 @@ This function computes new coefficients<br/>
 and then calls recursively
 <a href=\"modelica://Buildings.Utilities.Math.Functions.polynomial\">
 Buildings.Utilities.Math.polynomial</a>
-</html>"),
+</html>",
 revisions="<html>
 <ul>
 <li>
@@ -36,5 +36,5 @@ April 5, 2009 by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
-</html>");
+</html>"));
 end der_polynomial;

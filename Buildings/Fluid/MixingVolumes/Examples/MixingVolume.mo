@@ -65,12 +65,12 @@ model MixingVolume
          annotation (Placement(transformation(extent={{0,60},{22,80}})));
   Buildings.Utilities.Diagnostics.AssertEquality assertEquality
     annotation (Placement(transformation(extent={{160,72},{180,92}})));
-  Buildings.Fluid.Sensors.EnthalpyFlowRate entFloRat(redeclare package Medium
-      = Medium, m_flow_nominal=2) "Enthalpy flow rate"
+  Buildings.Fluid.Sensors.EnthalpyFlowRate entFloRat(redeclare package Medium =
+        Medium, m_flow_nominal=2) "Enthalpy flow rate"
                                      annotation (Placement(transformation(
           extent={{40,50},{60,70}})));
-  Buildings.Fluid.Sensors.EnthalpyFlowRate entFloRat1(redeclare package Medium
-      = Medium, m_flow_nominal=2) "Enthalpy flow rate"
+  Buildings.Fluid.Sensors.EnthalpyFlowRate entFloRat1(redeclare package Medium =
+        Medium, m_flow_nominal=2) "Enthalpy flow rate"
                                      annotation (Placement(transformation(
           extent={{40,0},{60,20}})));
   Buildings.Fluid.MixingVolumes.MixingVolumeMoistAir vol2(
@@ -95,8 +95,8 @@ model MixingVolume
              annotation (Placement(transformation(extent={{80,-92},{100,-72}})));
   Buildings.Utilities.Diagnostics.AssertEquality assertEquality1
     annotation (Placement(transformation(extent={{156,10},{176,30}})));
-  Buildings.Fluid.Sensors.EnthalpyFlowRate entFloRat2(redeclare package Medium
-      = Medium, m_flow_nominal=2) "Enthalpy flow rate"
+  Buildings.Fluid.Sensors.EnthalpyFlowRate entFloRat2(redeclare package Medium =
+        Medium, m_flow_nominal=2) "Enthalpy flow rate"
                                      annotation (Placement(transformation(
           extent={{40,-92},{60,-72}})));
     Modelica.Blocks.Sources.Constant zero(k=0)
@@ -105,7 +105,7 @@ model MixingVolume
       annotation (Placement(transformation(extent={{-40,-60},{-20,-40}})));
 
   inner Modelica.Fluid.System system
-    annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
+    annotation (Placement(transformation(extent={{-60,80},{-40,100}})));
 equation
   connect(P.y, sou.p_in) annotation (Line(points={{-79,70},{-72,70},{-72,66}},
                     color={0,0,127}));

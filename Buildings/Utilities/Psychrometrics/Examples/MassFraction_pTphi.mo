@@ -9,8 +9,7 @@ model MassFraction_pTphi "Unit test for dew point temperature calculation"
     duration=0.5,
     height=1) "Relative humidity"
                  annotation (Placement(transformation(extent={{-80,-60},{-60,-40}})));
-  Buildings.Utilities.Psychrometrics.X_pTphi masFra1
-    "Mass fraction computation"
+  Buildings.Utilities.Psychrometrics.X_pTphi masFra1 "Mass fraction computation"
     annotation (Placement(transformation(extent={{-20,0},{0,20}})));
     Modelica.Blocks.Sources.Ramp T(
     height=10,
