@@ -548,6 +548,11 @@ have been <b style=\"color:blue\">improved</b> in a
                        not affected by this change.
     </td>
 </tr>
+<tr><td valign=\"top\">Buildings.Rooms.Examples.BESTEST
+    </td>
+    <td valign=\"top\">Moved the package to <code>Buildings.Rooms.Validation.BESTEST</code>.
+    </td>
+</tr>    
 
 </table>
 <!-- Errors that have been fixed -->

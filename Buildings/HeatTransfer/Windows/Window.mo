@@ -443,7 +443,7 @@ and the glazing layer.
 The window model has been validated by using measurement data at LBNL's Test Cell 71T and by using
 a comparative model validation with the WINDOW 6 program. These validations are described in Nouidui et al. (2012).
 The window model has also been validated as part of the BESTEST validations that are implemented in
-<a href=\"modelica://Buildings.Rooms.Examples.BESTEST\">
+<a href=\"modelica://Buildings.Rooms.Validation.BESTEST\">
 Buildings.Rooms.Examples.BESTEST</a>.
 </p>
 
