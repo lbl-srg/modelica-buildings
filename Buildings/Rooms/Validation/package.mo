@@ -1,4 +1,3 @@
-
 within Buildings.Rooms;
 package Validation "Collection of validation models"
   extends Modelica.Icons.ExamplesPackage;
