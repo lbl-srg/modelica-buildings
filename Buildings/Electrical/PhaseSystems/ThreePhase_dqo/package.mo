@@ -87,7 +87,7 @@ protected
   redeclare function extends systemVoltage
   "Return system voltage as function of phase voltages"
   algorithm
-    V := Modelica.Fluid.Utilities.regRoot(v*v, delta=  0.01);
+    V := Modelica.Fluid.Utilities.regRoot(v*v, delta=  1e-5);
     annotation(Inline=true);
   end systemVoltage;
 
@@ -95,7 +95,7 @@ protected
   redeclare function extends systemCurrent
   "Return system current as function of phase currents"
   algorithm
-    I := Modelica.Fluid.Utilities.regRoot(i*i, delta=  0.01);
+    I := Modelica.Fluid.Utilities.regRoot(i*i, delta=  1e-5);
     annotation(Inline=true);
   end systemCurrent;
 
