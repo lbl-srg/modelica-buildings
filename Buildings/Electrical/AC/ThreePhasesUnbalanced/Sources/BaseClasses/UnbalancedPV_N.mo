@@ -3,31 +3,41 @@ model UnbalancedPV_N
   "Base model for an unbalanced PV source with neutral cable"
   extends
     Buildings.Electrical.AC.ThreePhasesUnbalanced.Sources.BaseClasses.BaseUnbalancedPV;
-  extends
-    Buildings.Electrical.AC.ThreePhasesUnbalanced.Sources.BaseClasses.PartialSource_N;
+  Interfaces.Terminal4_p terminal
+    "Connector for three phases unbalanced systems with neutral cable"
+    annotation (Placement(transformation(extent={{90,-10},{110,10}})));
+  Interfaces.Connection3to4_p conn3to4 "Connection between 3 to 4 wire"
+    annotation (Placement(transformation(
+        extent={{10,-10},{-10,10}},
+        rotation=0,
+        origin={40,0})));
 equation
 
   if plugPhase1 then
-    connect(terminal.phase[1], pv_phase1.terminal) annotation (Line(
-        points={{100,4.44089e-16},{0,4.44089e-16},{0,50},{-18,50}},
-        color={127,0,127},
-        smooth=Smooth.None));
+    connect(pv_phase1.terminal,conn3to4.terminal3.phase[1]) annotation (
+    Line(points={{-18,50},{6,50},{6,0},{30,0}},
+    color={0,120,120},
+    smooth=Smooth.None));
   end if;
 
   if plugPhase2 then
-    connect(terminal.phase[2], pv_phase2.terminal) annotation (Line(
-      points={{100,0},{20,0},{20,4.44089e-16},{-20,4.44089e-16}},
+    connect(pv_phase2.terminal,conn3to4.terminal3.phase[2]) annotation (
+    Line(points={{-20,0},{6,0},{6,0},{30,0}},
+    color={0,120,120},
+    smooth=Smooth.None));
+  end if;
+
+    if plugPhase3 then
+    connect(pv_phase3.terminal,conn3to4.terminal3.phase[3]) annotation (
+    Line(points={{-20,-50},{6,-50},{6,0},{30,0}},
+    color={0,120,120},
+    smooth=Smooth.None));
+  end if;
+
+  connect(conn3to4.terminal4, terminal) annotation (Line(
+      points={{50,0},{100,0}},
       color={127,0,127},
       smooth=Smooth.None));
-  end if;
-
-  if plugPhase3 then
-    connect(terminal.phase[3], pv_phase3.terminal) annotation (Line(
-        points={{100,0},{0,0},{0,-50},{-20,-50}},
-        color={127,0,127},
-        smooth=Smooth.None));
-  end if;
-
   annotation ( Icon(coordinateSystem(
           preserveAspectRatio=false, extent={{-100,-100},{100,100}}), graphics={
         Line(points={{58,0},{92,0}},   color={0,0,0}),
@@ -116,5 +126,7 @@ August 27, 2014, by Marco Bonvini:<br/>
 Revised documentation.
 </li>
 </ul>
-</html>"));
+</html>"),
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
+            100}}), graphics));
 end UnbalancedPV_N;

@@ -55,15 +55,15 @@ equation
       color={0,120,120},
       smooth=Smooth.None));
   connect(load2.y, loadRL.Pow2) annotation (Line(
-      points={{61,66},{90,66},{90,10},{74,10}},
+      points={{61,66},{90,66},{90,10},{76,10}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(load3.y, loadRL.Pow3) annotation (Line(
-      points={{35,84},{94,84},{94,4},{74,4}},
+      points={{35,84},{94,84},{94,2},{76,2}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(load1.y, loadRL.Pow1) annotation (Line(
-      points={{81,38},{86,38},{86,16},{74,16}},
+      points={{81,38},{86,38},{86,18},{76,18}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(pf1.y, loadRL.pf_in_1) annotation (Line(
@@ -77,6 +77,22 @@ equation
   connect(pf3.y, loadRL.pf_in_3) annotation (Line(
       points={{65,-62},{70.2,-62},{70.2,-4.44089e-16}},
       color={0,0,127},
+      smooth=Smooth.None));
+  connect(node1.term, line1.terminal_n) annotation (Line(
+      points={{-74,29},{-74,10},{-68,10}},
+      color={0,120,120},
+      smooth=Smooth.None));
+  connect(node2.term, transformer.terminal_n) annotation (Line(
+      points={{-42,29},{-42,10},{-26,10}},
+      color={0,120,120},
+      smooth=Smooth.None));
+  connect(node3.term, line2.terminal_n) annotation (Line(
+      points={{6,29},{6,10},{12,10}},
+      color={0,120,120},
+      smooth=Smooth.None));
+  connect(node4.term, loadRL.terminal) annotation (Line(
+      points={{38,29},{38,10},{54,10}},
+      color={0,120,120},
       smooth=Smooth.None));
   annotation (experiment(StopTime=1.0, Tolerance=1e-06),
   __Dymola_Commands(file=
@@ -113,5 +129,7 @@ IEEE 4 nodes validation test case with the following characteristics
 <i>V<sub>Sec</sub> = 4.16kV</i>),</li>
 <li>Y-D transformer</li>
 </ul>
-</html>"));
+</html>"),
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
+            100,100}}), graphics));
 end YD;

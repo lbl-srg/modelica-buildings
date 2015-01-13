@@ -68,11 +68,11 @@ equation
       thickness=0.5,
       smooth=Smooth.None));
   connect(load.y, RL.y2) annotation (Line(
-      points={{57,-40},{50,-40},{50,-42},{42,-42}},
+      points={{57,-40},{50,-40},{50,-40},{42,-40}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(load.y, RL.y1) annotation (Line(
-      points={{57,-40},{50,-40},{50,-34},{42,-34}},
+      points={{57,-40},{50,-40},{50,-32},{42,-32}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(grid.terminal, RL.terminal) annotation (Line(

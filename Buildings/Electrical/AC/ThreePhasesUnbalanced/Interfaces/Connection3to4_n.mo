@@ -7,6 +7,14 @@ model Connection3to4_n "Adapter between Terminal4 and Terminal3 N"
             10}}), iconTransformation(extent={{90,-10},{110,10}})));
 equation
 
+  // Connection branches required to propagate the reference angle
+  Connections.branch(terminal4.phase[1].theta, terminal4.phase[4].theta);
+  terminal4.phase[1].theta = terminal4.phase[4].theta;
+  for i in 1:3 loop
+    Connections.branch(terminal3.phase[i].theta, terminal4.phase[i].theta);
+    terminal3.phase[i].theta = terminal4.phase[i].theta;
+  end for;
+
   // KVL and KCL
   terminal3.phase[1].v[:] = terminal4.phase[1].v[:] - terminal4.phase[4].v[:];
   terminal3.phase[2].v[:] = terminal4.phase[2].v[:] - terminal4.phase[4].v[:];

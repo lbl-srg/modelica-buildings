@@ -2,10 +2,13 @@ within Buildings.Electrical.AC.ThreePhasesUnbalanced.Sensors;
 model ProbeWye_N
   "Model of a probe that measures voltage magnitude and angle (Wye configuration) witn neutral cable connection"
   extends
-    Buildings.Electrical.AC.ThreePhasesUnbalanced.Sensors.BaseClasses.GeneralizedProbe(
-   redeclare final
-      Buildings.Electrical.AC.ThreePhasesUnbalanced.Interfaces.Terminal4_n
-                                                                        term);
+    Buildings.Electrical.AC.ThreePhasesUnbalanced.Sensors.BaseClasses.GeneralizedProbe;
+  Buildings.Electrical.AC.ThreePhasesUnbalanced.Interfaces.Terminal4_n
+    term "Electrical connector" annotation (
+      Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=90,
+        origin={0,-90})));
 equation
 
   for i in 1:4 loop

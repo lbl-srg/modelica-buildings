@@ -9,14 +9,6 @@ partial model Impedance_N
     "Connection from three phases + neutral to three phases" annotation (Placement(transformation(extent={{-88,-10},{-68,10}})));
 equation
 
-  // Connection branches required to propagate the reference angle
-  Connections.branch(connection3to4.terminal4.phase[1].theta, connection3to4.terminal4.phase[4].theta);
-  connection3to4.terminal4.phase[1].theta = connection3to4.terminal4.phase[4].theta;
-  for i in 1:3 loop
-    Connections.branch(connection3to4.terminal3.phase[i].theta, connection3to4.terminal4.phase[i].theta);
-    connection3to4.terminal3.phase[i].theta = connection3to4.terminal4.phase[i].theta;
-  end for;
-
   connect(connection3to4.terminal3, wyeToDelta.wye) annotation (Line(
       points={{-68,6.66134e-16},{-68,10},{-64,10}},
       color={0,120,120},

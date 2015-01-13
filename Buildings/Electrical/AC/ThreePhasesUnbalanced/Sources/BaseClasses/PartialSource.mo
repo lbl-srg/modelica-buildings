@@ -11,12 +11,6 @@ partial model PartialSource
     "Connector for three phases unbalanced systems"
     annotation (Placement(transformation(extent={{90,-10},{110,10}})));
 equation
-  Connections.branch(connection3to4.terminal4.phase[1].theta, connection3to4.terminal4.phase[4].theta);
-  connection3to4.terminal4.phase[1].theta = connection3to4.terminal4.phase[4].theta;
-  for i in 1:3 loop
-    Connections.branch(connection3to4.terminal3.phase[i].theta, connection3to4.terminal4.phase[i].theta);
-    connection3to4.terminal3.phase[i].theta = connection3to4.terminal4.phase[i].theta;
-  end for;
 
   connect(connection3to4.terminal3,terminal)  annotation (Line(
       points={{60,0},{100,0}},

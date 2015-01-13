@@ -4,9 +4,15 @@ model Converter "Test for the AC/AC converter model"
   V_primary = 480,
   V_secondary = 240,
   redeclare Buildings.Electrical.AC.ThreePhasesUnbalanced.Sensors.ProbeWye probe_2,
-  redeclare  Buildings.Electrical.AC.ThreePhasesUnbalanced.Conversion.ACACConverter
+  redeclare
+      Buildings.Electrical.AC.ThreePhasesUnbalanced.Conversion.ACACConverter
   tra(conversionFactor=0.5,eta=0.9));
-    
+
+equation
+  connect(probe_2.term, tra.terminal_p) annotation (Line(
+      points={{30,31},{30,4.44089e-16},{10,4.44089e-16}},
+      color={0,120,120},
+      smooth=Smooth.None));
 annotation (Documentation(revisions="<html>
 <ul>
 <li>
@@ -24,5 +30,7 @@ Buildings.Electrical.AC.ThreePhasesUnbalanced.Conversion.ACACConverter</a> model
 experiment(Tolerance=1e-05, __Dymola_Algorithm="Radau"),
 __Dymola_Commands(file=
  "modelica://Buildings/Resources/Scripts/Dymola/Electrical/AC/ThreePhasesUnbalanced/Conversion/Examples/Converter.mos"
-        "Simulate and plot"));
+        "Simulate and plot"),
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
+            100,100}}), graphics));
 end Converter;

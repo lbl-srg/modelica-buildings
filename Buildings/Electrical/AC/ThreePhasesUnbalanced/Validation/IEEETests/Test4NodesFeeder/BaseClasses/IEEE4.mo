@@ -135,22 +135,6 @@ equation
       points={{32,10},{54,10}},
       color={0,120,120},
       smooth=Smooth.None));
-  connect(line1.terminal_p, node2.term) annotation (Line(
-      points={{-48,10},{-42,10},{-42,29}},
-      color={0,120,120},
-      smooth=Smooth.None));
-  connect(source.terminal, node1.term) annotation (Line(
-      points={{-78,10},{-74,10},{-74,29}},
-      color={0,120,120},
-      smooth=Smooth.None));
-  connect(line2.terminal_n, node3.term) annotation (Line(
-      points={{12,10},{6,10},{6,29}},
-      color={0,120,120},
-      smooth=Smooth.None));
-  connect(line2.terminal_p, node4.term) annotation (Line(
-      points={{32,10},{38,10},{38,29}},
-      color={0,120,120},
-      smooth=Smooth.None));
   annotation ( Documentation(revisions="<html>
 <ul>
 <li>

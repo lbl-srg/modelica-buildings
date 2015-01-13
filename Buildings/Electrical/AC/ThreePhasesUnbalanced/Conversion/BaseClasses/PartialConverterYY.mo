@@ -15,18 +15,6 @@ partial model PartialConverterYY "Model of a transformer with Y connection prima
     annotation (Placement(transformation(extent={{50,-90},{70,-70}})));
 equation
 
-  Connections.branch(connection3to4_n.terminal4.phase[1].theta, connection3to4_n.terminal4.phase[4].theta);
-  connection3to4_n.terminal4.phase[1].theta = connection3to4_n.terminal4.phase[4].theta;
-  Connections.branch(connection3to4_p.terminal4.phase[1].theta, connection3to4_p.terminal4.phase[4].theta);
-  connection3to4_p.terminal4.phase[1].theta = connection3to4_p.terminal4.phase[4].theta;
-  for i in 1:3 loop
-    Connections.branch(connection3to4_n.terminal3.phase[i].theta, connection3to4_n.terminal4.phase[i].theta);
-    connection3to4_n.terminal3.phase[i].theta = connection3to4_n.terminal4.phase[i].theta;
-
-    Connections.branch(connection3to4_p.terminal3.phase[i].theta, connection3to4_p.terminal4.phase[i].theta);
-    connection3to4_p.terminal3.phase[i].theta = connection3to4_p.terminal4.phase[i].theta;
-  end for;
-
   connect(connection3to4_n.terminal4.phase[1],conv1. terminal_n) annotation (Line(
       points={{-60,6.66134e-16},{-50,6.66134e-16},{-50,52},{-10,52}},
       color={0,120,120},

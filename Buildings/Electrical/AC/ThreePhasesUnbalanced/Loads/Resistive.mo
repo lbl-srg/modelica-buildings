@@ -9,7 +9,8 @@ equation
 
   annotation (
   defaultComponentName="loa",
-  Icon(graphics={      Rectangle(extent={{-100,100},{100,-100}},
+  Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
+       graphics={      Rectangle(extent={{-100,100},{100,-100}},
             lineColor={255,255,255}),
           Rectangle(
             extent={{-80,80},{80,-80}},

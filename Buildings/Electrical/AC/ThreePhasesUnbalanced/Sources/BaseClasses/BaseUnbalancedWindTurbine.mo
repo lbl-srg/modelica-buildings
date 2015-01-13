@@ -62,12 +62,33 @@ equation
   level=AssertionLevel.error);
 
   if plugPhase1 then
+    connect(wt_phase1.P, sumBlock.u1) annotation (Line(
+      points={{-39,56},{-60,56},{-60,82},{20,82},{20,68},{30,68}},
+      color={0,0,127},
+      smooth=Smooth.None,
+      pattern=LinePattern.Dash));
+  else
+    sumBlock.u1 = 0;
   end if;
 
   if plugPhase2 then
+    connect(wt_phase2.P, sumBlock.u2) annotation (Line(
+      points={{-41,6},{-64,6},{-64,86},{12,86},{12,60},{30,60}},
+      color={0,0,127},
+      smooth=Smooth.None,
+      pattern=LinePattern.Dash));
+  else
+    sumBlock.u2 = 0;
   end if;
 
   if plugPhase3 then
+    connect(wt_phase3.P, sumBlock.u3) annotation (Line(
+      points={{-41,-44},{-68,-44},{-68,90},{4,90},{4,52},{30,52}},
+      color={0,0,127},
+      smooth=Smooth.None,
+      pattern=LinePattern.Dash));
+  else
+    sumBlock.u3 = 0;
   end if;
 
   connect(sumBlock.y, P) annotation (Line(
@@ -75,21 +96,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None,
       pattern=LinePattern.Dash));
-  connect(wt_phase1.P, sumBlock.u1) annotation (Line(
-      points={{-39,56},{-60,56},{-60,82},{20,82},{20,68},{30,68}},
-      color={0,0,127},
-      smooth=Smooth.None,
-      pattern=LinePattern.Dash));
-  connect(wt_phase2.P, sumBlock.u2) annotation (Line(
-      points={{-41,6},{-64,6},{-64,86},{12,86},{12,60},{30,60}},
-      color={0,0,127},
-      smooth=Smooth.None,
-      pattern=LinePattern.Dash));
-  connect(wt_phase3.P, sumBlock.u3) annotation (Line(
-      points={{-41,-44},{-68,-44},{-68,90},{4,90},{4,52},{30,52}},
-      color={0,0,127},
-      smooth=Smooth.None,
-      pattern=LinePattern.Dash));
+
   connect(vWin, wt_phase1.vWin) annotation (Line(
       points={{0,120},{0,72},{-28,72},{-28,62}},
       color={0,0,127},

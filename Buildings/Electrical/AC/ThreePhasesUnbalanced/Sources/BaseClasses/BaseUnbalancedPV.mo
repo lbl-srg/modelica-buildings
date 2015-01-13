@@ -78,21 +78,36 @@ equation
         smooth=Smooth.None));
   end if;
 
-  connect(pv_phase1.P, sumBlock.u1) annotation (Line(
+  if plugPhase1 then
+    connect(pv_phase1.P, sumBlock.u1) annotation (Line(
       points={{-39,57},{-48,57},{-48,76},{10,76},{10,66},{38,66}},
       color={0,0,127},
       smooth=Smooth.None,
       pattern=LinePattern.Dash));
-  connect(pv_phase2.P, sumBlock.u2) annotation (Line(
+  else
+    sumBlock.u1 = 0;
+  end if;
+
+  if plugPhase2 then
+    connect(pv_phase2.P, sumBlock.u2) annotation (Line(
       points={{-41,7},{-50,7},{-50,78},{18,78},{18,74},{38,74}},
       color={0,0,127},
       smooth=Smooth.None,
       pattern=LinePattern.Dash));
-  connect(pv_phase3.P, sumBlock.u3) annotation (Line(
+  else
+    sumBlock.u2 = 0;
+  end if;
+
+  if plugPhase3 then
+    connect(pv_phase3.P, sumBlock.u3) annotation (Line(
       points={{-41,-43},{-52,-43},{-52,82},{38,82}},
       color={0,0,127},
       smooth=Smooth.None,
       pattern=LinePattern.Dash));
+  else
+    sumBlock.u3 = 0;
+  end if;
+
   connect(sumBlock.y, P) annotation (Line(
       points={{61,74},{86,74},{86,70},{110,70}},
       color={0,0,127},

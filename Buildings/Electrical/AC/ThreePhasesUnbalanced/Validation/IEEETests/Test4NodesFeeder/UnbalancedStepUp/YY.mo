@@ -46,15 +46,15 @@ model YY
     annotation (Placement(transformation(extent={{-28,0},{-8,20}})));
 equation
   connect(load2.y, loadRL.Pow2) annotation (Line(
-      points={{51,68},{86,68},{86,10},{74,10}},
+      points={{51,68},{86,68},{86,10},{76,10}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(load3.y, loadRL.Pow3) annotation (Line(
-      points={{25,84},{88,84},{88,4},{74,4}},
+      points={{25,84},{88,84},{88,2},{76,2}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(load1.y, loadRL.Pow1) annotation (Line(
-      points={{77,40},{84,40},{84,16},{74,16}},
+      points={{77,40},{84,40},{84,18},{76,18}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(pf1.y, loadRL.pf_in_1) annotation (Line(
@@ -75,6 +75,22 @@ equation
       smooth=Smooth.None));
   connect(transformer.terminal_p, line2.terminal_n) annotation (Line(
       points={{-8,10},{12,10}},
+      color={0,120,120},
+      smooth=Smooth.None));
+  connect(node1.term, line1.terminal_n) annotation (Line(
+      points={{-74,29},{-74,10},{-68,10}},
+      color={0,120,120},
+      smooth=Smooth.None));
+  connect(node2.term, transformer.terminal_n) annotation (Line(
+      points={{-42,29},{-42,10},{-28,10}},
+      color={0,120,120},
+      smooth=Smooth.None));
+  connect(node3.term, line2.terminal_n) annotation (Line(
+      points={{6,29},{6,10},{12,10}},
+      color={0,120,120},
+      smooth=Smooth.None));
+  connect(node4.term, loadRL.terminal) annotation (Line(
+      points={{38,29},{38,10},{54,10}},
       color={0,120,120},
       smooth=Smooth.None));
   annotation (experiment(StopTime=1.0, Tolerance=1e-06),
@@ -112,5 +128,7 @@ IEEE 4 nodes validation test case with the following characteristics
 <i>V<sub>Sec</sub> = 24.9kV</i>),</li>
 <li>Y-Y transformer</li>
 </ul>
-</html>"));
+</html>"),
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
+            100,100}}), graphics));
 end YY;

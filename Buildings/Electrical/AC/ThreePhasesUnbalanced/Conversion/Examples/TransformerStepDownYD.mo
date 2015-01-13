@@ -3,13 +3,19 @@ model TransformerStepDownYD
   "Test for the AC/AC transformer model with Wye-Delta configuration (step-down voltage)"
   extends BaseClasses.TransformerExample(
   redeclare Buildings.Electrical.AC.ThreePhasesUnbalanced.Sensors.ProbeDelta probe_2,
-  redeclare Buildings.Electrical.AC.ThreePhasesUnbalanced.Conversion.ACACTransformerStepDownYD
+  redeclare
+      Buildings.Electrical.AC.ThreePhasesUnbalanced.Conversion.ACACTransformerStepDownYD
   tra(VHigh=V_primary,
       VLow=V_secondary,
       XoverR=6,
       Zperc=sqrt(0.01^2 + 0.06^2),
       VABase=6000000));
 
+equation
+  connect(probe_2.term, load.terminal) annotation (Line(
+      points={{30,31},{30,0},{50,0},{50,5.55112e-16}},
+      color={0,120,120},
+      smooth=Smooth.None));
 annotation (Documentation(revisions="<html>
 <ul>
 <li>
@@ -33,5 +39,7 @@ in the connector do not have a neutral reference.
 experiment(Tolerance=1e-05, __Dymola_Algorithm="Radau"),
 __Dymola_Commands(file=
  "modelica://Buildings/Resources/Scripts/Dymola/Electrical/AC/ThreePhasesUnbalanced/Conversion/Examples/TransformerStepDownYD.mos"
-        "Simulate and plot"));
+        "Simulate and plot"),
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
+            100,100}}), graphics));
 end TransformerStepDownYD;

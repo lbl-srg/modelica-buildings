@@ -5,13 +5,6 @@ partial model GeneralizedProbe
   parameter Modelica.SIunits.Voltage V_nominal(min=0, start=480)
     "RMS Nominal voltage (V_nominal >= 0)";
   parameter Boolean perUnit = true "This flag display voltage in p.u.";
-  replaceable
-    Buildings.Electrical.AC.ThreePhasesUnbalanced.Interfaces.Terminal_n
-    term "Electrical connector" annotation (
-      Placement(transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=90,
-        origin={0,-90})));
   Modelica.Blocks.Interfaces.RealOutput V[3](unit="1") "Voltage in per unit" annotation (Placement(
         transformation(extent={{60,20},{80,40}}), iconTransformation(extent={{60,
             20},{80,40}})));

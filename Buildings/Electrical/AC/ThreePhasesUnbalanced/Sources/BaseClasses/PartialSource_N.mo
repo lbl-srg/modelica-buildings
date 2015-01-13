@@ -33,5 +33,6 @@ August 27, 2014, by Marco Bonvini:<br/>
 Revised documentation.
 </li>
 </ul>
-</html>"));
+</html>"), Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
+            -100},{100,100}}), graphics));
 end PartialSource_N;
