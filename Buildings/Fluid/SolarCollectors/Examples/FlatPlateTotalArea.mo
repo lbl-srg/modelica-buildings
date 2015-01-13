@@ -29,9 +29,7 @@ model FlatPlateTotalArea "Example showing the use of TotalArea and nSeg"
     use_p_in=false,
     p(displayUnit="Pa") = 101325,
     nPorts=2) "Outlet for water flow"
-    annotation (Placement(transformation(extent={{80,0},{60,20}},rotation=0)));
-  inner Modelica.Fluid.System system(p_ambient=101325)
-    annotation (Placement(transformation(extent={{60,60},{80,80}}, rotation=0)));
+    annotation (Placement(transformation(extent={{80,0},{60,20}})));
   Buildings.Fluid.Sensors.TemperatureTwoPort TOut(
     redeclare package Medium = Medium,
     T_start(displayUnit="K"),
@@ -123,24 +121,28 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   annotation (
-    Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-100,-100},{100,
-            100}}), graphics),
     Documentation(info="<html>
       <p>
-        This model uses <code>TotalArea</code> instead of <code>nPanels</code> to 
-        define the system size. Aside from that change, this model is identical to 
+        This model uses <code>TotalArea</code> instead of <code>nPanels</code> to
+        define the system size. Aside from that change, this model is identical to
         <a href=\"modelica://Buildings.Fluid.SolarCollectors.Examples.FlatPlate\">
         Buildings.Fluid.SolarCollectors.Examples.FlatPlate</a>.
       </p>
     </html>",
-    revisions="<html>
-      <ul>
-        <li>
-          Mar 27, 2013, by Peter Grant:<br/>
-          First implementation.
-        </li>
-      </ul>
-    </html>"),
+revisions="<html>
+<ul>
+<li>
+December 22, 2014 by Michael Wetter:<br/>
+Removed <code>Modelica.Fluid.System</code>
+to address issue
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/311\">#311</a>.
+</li>
+<li>
+Mar 27, 2013, by Peter Grant:<br/>
+First implementation.
+</li>
+</ul>
+</html>"),
     __Dymola_Commands(file=
           "modelica://Buildings/Resources/Scripts/Dymola/Fluid/SolarCollectors/Examples/FlatPlateTotalArea.mos"
         "Simulate and Plot"),

@@ -9,7 +9,7 @@ First implementation.
 </ul>
 </html>", info="<html>
 This package contains functions that are used in the
-package 
+package
 <a href=\"modelica://Buildings.HeatTransfer\">
 Buildings.HeatTransfer</a>.
 </html>"));

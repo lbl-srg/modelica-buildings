@@ -68,7 +68,7 @@ model X3BWithRadiantFloor "Example model showing a use of X3B"
         c=1100,
         d=2400)}) "Construction of the slab"
     annotation (Placement(transformation(extent={{-196,-196},{-176,-176}})));
-  parameter Buildings.Fluid.Data.Pipes.PEX_RADTEST pipe(dOut=0.015875, dIn=0.01905)
+  parameter Buildings.Fluid.Data.Pipes.PEX_RADTEST pipe(dIn=0.015875, dOut=0.01905)
     annotation (Placement(transformation(extent={{-196,-174},{-176,-154}})));
 
   Buildings.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam=
@@ -106,7 +106,6 @@ model X3BWithRadiantFloor "Example model showing a use of X3B"
     columns=2:5)
     "Inlet air conditions for the connected electrical room (y[1] = m_flow, y[2] = T)"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
-        rotation=0,
         origin={-58,-38})));
 
   Modelica.Blocks.Sources.CombiTimeTable airConClo(
@@ -117,7 +116,6 @@ model X3BWithRadiantFloor "Example model showing a use of X3B"
     columns=2:5)
     "Inlet air conditions for the connected closet (y[1] = m_flow, y[2] = T)"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
-        rotation=0,
         origin={-2,112})));
 
   Buildings.Fluid.Sources.MassFlowSource_T airInEle(
@@ -126,7 +124,6 @@ model X3BWithRadiantFloor "Example model showing a use of X3B"
     redeclare package Medium = Air,
     nPorts=1) "Inlet air conditions (from AHU) for the electrical room"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
-        rotation=0,
         origin={-6,-42})));
   Buildings.Fluid.Sources.Boundary_pT airOutEle(nPorts=1, redeclare package
       Medium = Air) "Air outlet from the electrical room"
@@ -142,14 +139,11 @@ model X3BWithRadiantFloor "Example model showing a use of X3B"
   Buildings.Fluid.Sources.Boundary_pT airOutClo(
     redeclare package Medium = Air, nPorts=1) "Air outlet from the closet"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
-        rotation=0,
         origin={50,80})));
   Modelica.Blocks.Sources.CombiTimeTable intGaiClo(
     table=[0,0,0,0; 86400,0,0,0], tableOnFile=false)
     "Internal gain heat flow for the closet"
     annotation (Placement(transformation(extent={{-12,132},{8,152}})));
-  inner Modelica.Fluid.System system
-    annotation (Placement(transformation(extent={{180,-220},{200,-200}})));
   Modelica.Blocks.Sources.CombiTimeTable watCon4B2(tableOnFile=false, table=[0,
         0.504,293.15; 86400,0.504,293.15])
     "Inlet water conditions (y[1] = m_flow, y[2] =  T)"
@@ -177,7 +171,7 @@ model X3BWithRadiantFloor "Example model showing a use of X3B"
     "Inlet water conditions (from central plant)"
     annotation (Placement(transformation(extent={{-252,-16},{-232,4}})));
   Buildings.Fluid.HeatExchangers.RadiantSlabs.SingleCircuitSlab sla4B4(
-    sysTyp=Buildings.Fluid.HeatExchangers.RadiantSlabs.BaseClasses.Types.SystemType.Floor,
+    sysTyp=Buildings.Fluid.HeatExchangers.RadiantSlabs.Types.SystemType.Floor,
     iLayPip=1,
     redeclare package Medium = Water,
     pipe=pipe,
@@ -196,7 +190,7 @@ model X3BWithRadiantFloor "Example model showing a use of X3B"
         rotation=180,
         origin={-182,-6})));
   Buildings.Fluid.HeatExchangers.RadiantSlabs.SingleCircuitSlab sla4B3(
-    sysTyp=Buildings.Fluid.HeatExchangers.RadiantSlabs.BaseClasses.Types.SystemType.Floor,
+    sysTyp=Buildings.Fluid.HeatExchangers.RadiantSlabs.Types.SystemType.Floor,
     iLayPip=1,
     redeclare package Medium = Water,
     pipe=pipe,
@@ -222,7 +216,7 @@ model X3BWithRadiantFloor "Example model showing a use of X3B"
     "Inlet water conditions (from central plant)"
     annotation (Placement(transformation(extent={{-206,-100},{-186,-80}})));
   Buildings.Fluid.HeatExchangers.RadiantSlabs.SingleCircuitSlab sla4B2(
-    sysTyp=Buildings.Fluid.HeatExchangers.RadiantSlabs.BaseClasses.Types.SystemType.Floor,
+    sysTyp=Buildings.Fluid.HeatExchangers.RadiantSlabs.Types.SystemType.Floor,
     iLayPip=1,
     redeclare package Medium = Water,
     pipe=pipe,
@@ -252,7 +246,7 @@ model X3BWithRadiantFloor "Example model showing a use of X3B"
     "Inlet water conditions (from central plant)"
     annotation (Placement(transformation(extent={{-172,-136},{-152,-116}})));
   Buildings.Fluid.HeatExchangers.RadiantSlabs.SingleCircuitSlab sla4B1(
-    sysTyp=Buildings.Fluid.HeatExchangers.RadiantSlabs.BaseClasses.Types.SystemType.Floor,
+    sysTyp=Buildings.Fluid.HeatExchangers.RadiantSlabs.Types.SystemType.Floor,
     iLayPip=1,
     redeclare package Medium = Water,
     pipe=pipe,
@@ -347,15 +341,15 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(intGai.y,X3B. qGai_flow) annotation (Line(
-      points={{-175,102},{-140,102},{-140,68},{-118,68}},
+      points={{-175,102},{-140,102},{-140,66},{-112,66}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(intGaiEle.y, ele.qGai_flow)    annotation (Line(
-      points={{-47,-6},{20,-6},{20,-50},{46,-50}},
+      points={{-47,-6},{20,-6},{20,-52},{52,-52}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(intGaiClo.y,clo. qGai_flow) annotation (Line(
-      points={{9,142},{120,142},{120,122},{148,122}},
+      points={{9,142},{120,142},{120,120},{154,120}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(preT.port,clo. surf_conBou[3]) annotation (Line(
@@ -507,16 +501,25 @@ equation
           <li>The room models were changed from X3A models to X3B models.</li>
           <li><a href=\"modelica://Buildings.Rooms.FLEXLAB.Rooms.X3B.TestCell\">
           Buildings.Rooms.FLEXLAB.Rooms.X3B.TestCell</a> has one external wall (modeled in datConExt)
-          which was a dividing wall (modeled in datConBou) in 
+          which was a dividing wall (modeled in datConBou) in
           <a href=\"modelica://Buildings.Rooms.FLEXLAB.Rooms.X3A.TestCell\">
           Buildings.Rooms.FLEXLAB.Rooms.X3A.TestCell</a>. Because of this, a few construction indexes
-          changed. Connections were made according to the table in 
+          changed. Connections were made according to the table in
           <a href=\"modelica://Buildings.Rooms.FLEXLAB.Rooms.X3B\">
           Buildings.Rooms.FLEXLAB.Rooms.X3B</a>.</li>
           </ul>
           </html>",
           revisions = "<html>
           <ul>
+          <li>
+          December 22, 2014 by Michael Wetter:<br/>
+          Removed <code>Modelica.Fluid.System</code>
+          to address issue
+          <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/311\">#311</a>.
+          </li>
+          <li>September 2, 2014, by Michael Wetter:<br/>
+          Corrected wrong pipe diameter.
+          </li>
           <li>June 30, 2014, by Michael Wetter:<br/>
           Specified equations to be used to compute the initial conditions.</li>
           <li>October 11, 2013, by Michael Wetter:<br/>

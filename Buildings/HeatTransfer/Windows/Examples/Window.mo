@@ -10,6 +10,7 @@ model Window "Test model for the window"
   parameter Modelica.SIunits.Angle lat=0.34906585039887 "Latitude";
   parameter Modelica.SIunits.Angle azi=0 "Surface azimuth";
   parameter Modelica.SIunits.Angle til=1.5707963267949 "Surface tilt";
+
   Buildings.HeatTransfer.Windows.Window window(
     A=A,
     fFra=fFra,
@@ -35,7 +36,7 @@ model Window "Test model for the window"
   Buildings.HeatTransfer.Sources.PrescribedTemperature TOuts
     "Outside air temperature"
     annotation (Placement(transformation(extent={{-20,40},{0,60}})));
-  Buildings.HeatTransfer.Sources.FixedTemperature      TRAir(T=293.15)
+  Buildings.HeatTransfer.Sources.FixedTemperature TRAir(T=293.15)
     "Room air temperature"
     annotation (Placement(transformation(extent={{300,20},{280,40}})));
   Buildings.HeatTransfer.Radiosity.IndoorRadiosity indRad(A=A)
@@ -59,8 +60,7 @@ model Window "Test model for the window"
                til=til)
     annotation (Placement(transformation(extent={{60,20},{80,40}})));
   Buildings.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(
-                                                        filNam=
-        "modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos")
+    filNam="modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos")
     annotation (Placement(transformation(extent={{-20,-20},{0,0}})));
   Modelica.Blocks.Math.Gain HRoo(k=0.1) "Solar irradiation from room"
     annotation (Placement(transformation(extent={{60,-60},{80,-40}})));
@@ -78,13 +78,10 @@ model Window "Test model for the window"
     haveExteriorShade=glaSys.haveExteriorShade,
     haveInteriorShade=glaSys.haveInteriorShade)
     annotation (Placement(transformation(extent={{100,-20},{120,0}})));
+
   Buildings.BoundaryConditions.WeatherData.Bus weaBus
     annotation (Placement(transformation(extent={{10,-20},{30,0}})));
-protected
-  Modelica.Blocks.Math.Sum sumJ(nin=if glaSys.haveShade then 2 else 1)
-    "Sum of radiosity fom glass to outside"
-    annotation (Placement(transformation(extent={{260,60},{280,80}})));
-public
+
   Buildings.HeatTransfer.Windows.BaseClasses.ShadeRadiation intShaRad(
     thisSideHasShade=glaSys.haveInteriorShade,
     linearize=linearize,
@@ -95,16 +92,11 @@ public
     A=AGla) if
      glaSys.haveShade "Interior shade radiation model"
     annotation (Placement(transformation(extent={{240,106},{220,126}})));
-public
-  Buildings.HeatTransfer.Windows.BaseClasses.ShadingSignal
-                shaSig(haveShade=glaSys.haveInteriorShade)
-    "Conversion for shading signal"
+
+  Buildings.HeatTransfer.Windows.BaseClasses.ShadingSignal shaSig(
+    haveShade=glaSys.haveInteriorShade) "Conversion for shading signal"
     annotation (Placement(transformation(extent={{120,180},{140,160}})));
-protected
-  Buildings.HeatTransfer.Radiosity.RadiositySplitter
-                              radShaOut "Radiosity that strikes shading device"
-    annotation (Placement(transformation(extent={{280,100},{260,120}})));
-public
+
   Buildings.HeatTransfer.Windows.InteriorHeatTransferConvective intShaCon(
     A=A,
     fFra=fFra,
@@ -112,6 +104,15 @@ public
     haveInteriorShade=glaSys.haveInteriorShade)
     "Model for interior shade heat transfer"
     annotation (Placement(transformation(extent={{248,20},{228,40}})));
+protected
+  Modelica.Blocks.Math.Sum sumJ(nin=if glaSys.haveShade then 2 else 1)
+    "Sum of radiosity fom glass to outside"
+    annotation (Placement(transformation(extent={{260,60},{280,80}})));
+
+  Buildings.HeatTransfer.Radiosity.RadiositySplitter radShaOut
+    "Radiosity that strikes shading device"
+    annotation (Placement(transformation(extent={{280,100},{260,120}})));
+
 equation
   connect(uSha.y, extCon.uSha) annotation (Line(
       points={{-69,130},{20,130},{20,98},{39.2,98}},
@@ -349,7 +350,7 @@ to be parameters does not imply that the whole record has the variability of a p
 <p>
 This model demonstrates the implementation of a window model.
 On the left hand side is a model for the combined convective and radiative heat
-transfer on the outside facing side of the window. 
+transfer on the outside facing side of the window.
 In the top middle is the window model, and below is a model that
 computes the solar radiation balance of the window. Output of the solar
 radiation balance model are the absorbed solar heat flow rates, which are
@@ -357,7 +358,7 @@ input to the heat balance models.
 On the right hand side are models for the inside surface heat balance.
 As opposed to the outside surface heat balance models, these models are
 implemented using separate components for the radiative balance and for the convective
-balance. This has been done to allow separating radiation from convection, 
+balance. This has been done to allow separating radiation from convection,
 which is required when the room model is used with room air heat balance models
 that use computational fluid dynamics.
 </p>

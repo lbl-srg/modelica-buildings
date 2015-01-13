@@ -8,7 +8,8 @@ model FixedResistanceDpM
                        deltaM * m_flow_nominal_pos
          else 0);
   parameter Boolean use_dh = false "Set to true to specify hydraulic diameter"
-       annotation(Dialog(enable = not linearized));
+       annotation(Evaluate=true,
+                  Dialog(enable = not linearized));
   parameter Modelica.SIunits.Length dh=1 "Hydraulic diameter"
        annotation(Dialog(enable = use_dh and not linearized));
   parameter Real ReC(min=0)=4000
@@ -16,7 +17,8 @@ model FixedResistanceDpM
        annotation(Dialog(enable = use_dh and not linearized));
   parameter Real deltaM(min=0.01) = 0.3
     "Fraction of nominal mass flow rate where transition to turbulent occurs"
-       annotation(Dialog(enable = not use_dh and not linearized));
+       annotation(Evaluate=true,
+                  Dialog(enable = not use_dh and not linearized));
 
   final parameter Real k(unit="") = if computeFlowResistance then
         m_flow_nominal_pos / sqrt(dp_nominal_pos) else 0
@@ -31,16 +33,15 @@ initial equation
  end if;
 
  assert(m_flow_nominal_pos > 0, "m_flow_nominal_pos must be non-zero. Check parameters.");
- if ( m_flow_turbulent > m_flow_nominal_pos) then
-   Modelica.Utilities.Streams.print("Warning: In FixedResistanceDpM, m_flow_nominal is smaller than m_flow_turbulent."
-           + "\n"
-           + "  m_flow_nominal = " + String(m_flow_nominal) + "\n"
-           + "  dh      = " + String(dh) + "\n"
-           + "  To fix, set dh < " +
-                String(     4*m_flow_nominal/eta_default/Modelica.Constants.pi/ReC) + "\n"
-           + "  Suggested value: dh = " +
-                String(1/10*4*m_flow_nominal/eta_default/Modelica.Constants.pi/ReC));
- end if;
+ assert(m_flow_nominal_pos > m_flow_turbulent,
+   "In FixedResistanceDpM, m_flow_nominal is smaller than m_flow_turbulent.
+  m_flow_nominal = " + String(m_flow_nominal) + "
+  dh      = " + String(dh) + "
+ To correct it, set dh < " +
+     String(     4*m_flow_nominal/eta_default/Modelica.Constants.pi/ReC) + "
+  Suggested value:   dh = " +
+                String(1/10*4*m_flow_nominal/eta_default/Modelica.Constants.pi/ReC),
+                AssertionLevel.warning);
 
 equation
   // Pressure drop calculation
@@ -72,29 +73,26 @@ equation
     dp = 0;
   end if;  // computeFlowResistance
 
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=true,  extent={{-100,
-            -100},{100,100}}),
-                      graphics),
-defaultComponentName="res",
+  annotation (defaultComponentName="res",
 Documentation(info="<html>
 <p>
 This is a model of a resistance with a fixed flow coefficient.
 The mass flow rate is computed as
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
-m&#775; = k  
+m&#775; = k
 &radic;<span style=\"text-decoration:overline;\">&Delta;P</span>,
 </p>
 <p>
-where 
-<i>k</i> is a constant and 
+where
+<i>k</i> is a constant and
 <i>&Delta;P</i> is the pressure drop.
 The constant <i>k</i> is equal to
 <code>k=m_flow_nominal/sqrt(dp_nominal)</code>,
 where <code>m_flow_nominal</code> and <code>dp_nominal</code>
 are parameters.
 In the region
-<code>abs(m_flow) &lt; m_flow_turbulent</code>, 
+<code>abs(m_flow) &lt; m_flow_turbulent</code>,
 the square root is replaced by a differentiable function
 with finite slope.
 The value of <code>m_flow_turbulent</code> is
@@ -103,16 +101,16 @@ computed as follows:
 <ul>
 <li>
 If the parameter <code>use_dh</code> is <code>false</code>
-(the default setting), 
-the equation 
+(the default setting),
+the equation
 <code>m_flow_turbulent = deltaM * abs(m_flow_nominal)</code>,
-where <code>deltaM=0.3</code> and 
+where <code>deltaM=0.3</code> and
 <code>m_flow_nominal</code> are parameters that can be set by the user.
 </li>
 <li>
 Otherwise, the equation
 <code>m_flow_turbulent = eta_nominal*dh/4*&pi;*ReC</code> is used,
-where 
+where
 <code>eta_nominal</code> is the dynamic viscosity, obtained from
 the medium model. The parameter
 <code>dh</code> is the hydraulic diameter and
@@ -139,7 +137,7 @@ which can increase computing time.
 </p>
 <p>
 The parameter <code>from_dp</code> is used to determine
-whether the mass flow rate is computed as a function of the 
+whether the mass flow rate is computed as a function of the
 pressure drop (if <code>from_dp=true</code>), or vice versa.
 This setting can affect the size of the nonlinear system of equations.
 </p>
@@ -152,17 +150,17 @@ mass flow rate.
 Setting <code>allowFlowReversal=false</code> can lead to simpler
 equations. However, this should only be set to <code>false</code>
 if one can guarantee that the flow never reverses its direction.
-This can be difficult to guarantee, as pressure imbalance after 
+This can be difficult to guarantee, as pressure imbalance after
 the initialization, or due to medium expansion and contraction,
 can lead to reverse flow.
 </p>
 <h4>Notes</h4>
 <p>
-For more detailed models that compute the actual flow friction, 
-models from the package 
+For more detailed models that compute the actual flow friction,
+models from the package
 <a href=\"modelica://Modelica.Fluid\">
 Modelica.Fluid</a>
-can be used and combined with models from the 
+can be used and combined with models from the
 <code>Buildings</code> library.
 </p>
 <h4>Implementation</h4>
@@ -186,6 +184,20 @@ This leads to simpler equations.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+November 26, 2014, by Michael Wetter:<br/>
+Added the required <code>annotation(Evaluate=true)</code> so
+that the system of nonlinear equations in
+<a href=\"modelica://Buildings.Fluid.FixedResistances.Examples.FixedResistancesExplicit\">
+Buildings.Fluid.FixedResistances.Examples.FixedResistancesExplicit</a>
+remains the same.
+</li>
+<li>
+November 20, 2014, by Michael Wetter:<br/>
+Rewrote the warning message using an <code>assert</code> with
+<code>AssertionLevel.warning</code>
+as this is the proper way to write warnings in Modelica.
+</li>
 <li>
 August 5, 2014, by Michael Wetter:<br/>
 Corrected error in documentation of computation of <code>k</code>.

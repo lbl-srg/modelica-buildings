@@ -71,12 +71,10 @@ Obtained CvData = " + String(CvData) + ".");
     dpValve_nominal =  (m_flow_nominal/Kv_SI)^2;
   end if;
 
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}})),
-Documentation(info="<html>
+  annotation (Documentation(info="<html>
 <p>
 Model that computes the flow coefficients of valves. This base class allows the following modeling options,
-which have been adapted from the valve implementation 
+which have been adapted from the valve implementation
 in <a href=\"modelica://Modelica.Fluid\">
 Modelica.Fluid</a>
 to specify the valve flow coefficient in fully open conditions:
@@ -89,23 +87,23 @@ to specify the valve flow coefficient in fully open conditions:
 </ul>
 <p>
 The treatment of parameters <code>Kv</code> and <code>Cv</code> is
-explained in detail in the 
+explained in detail in the
 <a href=\"modelica://Modelica.Fluid.UsersGuide.ComponentDefinition.ValveCharacteristics\">Users Guide</a>.
 </p>
 <p>
 In contrast to the model in <a href=\"modelica://Modelica.Fluid\">
 Modelica.Fluid</a>, this model uses the protected parameter <code>Kv_SI</code>,
-which is the flow coefficient in SI units, i.e., 
-it is the ratio between mass flow rate in <code>kg/s</code> and square root 
+which is the flow coefficient in SI units, i.e.,
+it is the ratio between mass flow rate in <code>kg/s</code> and square root
 of pressure drop in <code>Pa</code>.
 The value of <code>Kv_SI</code> is computed based on the parameters
 <code>Av</code>,
 <code>Kv</code>,
-<code>Cv</code>, or, if 
+<code>Cv</code>, or, if
 <code>CvData = Buildings.Fluid.Types.CvTypes.OpPoint</code>, based on
 <code>m_flow_nominal</code> and <code>dpValve_nominal</code>.
-Conversely, if 
-<code>CvData &lt;&gt; Buildings.Fluid.Types.CvTypes.OpPoint</code>, then 
+Conversely, if
+<code>CvData &lt;&gt; Buildings.Fluid.Types.CvTypes.OpPoint</code>, then
 <code>dpValve_nominal</code> is computed based on
 <code>Av</code>,
 <code>Kv</code>, or
@@ -120,7 +118,7 @@ then specifying a value for <code>dpValve_nominal</code> is a syntax error.
 August 12, 2014, by Michael Wetter:<br/>
 Changed attribute <code>min</code> of <code>dpValve_nominal</code>
 to <code>0</code>.
-This is needed as for example in 
+This is needed as for example in
 <a href=\"modelica://Buildings.Fluid.Actuators.Valves.Examples.TwoWayValveTable\">
 Buildings.Fluid.Actuators.Valves.Examples.TwoWayValveTable</a>,
 <code>dpValve_nominal=0</code>.

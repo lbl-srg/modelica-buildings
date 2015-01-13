@@ -54,8 +54,6 @@ public
   Modelica.Blocks.Sources.Constant QRadAbs_flow[NConExtWin](each k=0)
     "Radiation absorbed by shade"
     annotation (Placement(transformation(extent={{-140,40},{-120,60}})));
-  inner Modelica.Fluid.System system
-    annotation (Placement(transformation(extent={{-100,-200},{-80,-180}})));
 equation
   connect(conConExt.port_a, air.conExt)          annotation (Line(
       points={{40,90},{30,90},{30,38.3333},{-42,38.3333}},
@@ -126,6 +124,12 @@ stay at <i>20</i>&deg;C.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+December 22, 2014 by Michael Wetter:<br/>
+Removed <code>Modelica.Fluid.System</code>
+to address issue
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/311\">#311</a>.
+</li>
 <li>
 June 9, 2010, by Michael Wetter:<br/>
 First implementation.

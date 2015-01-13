@@ -48,11 +48,10 @@ model PartialHexElement "Element of a heat exchanger 2"
 
   Modelica.Thermal.HeatTransfer.Components.Convection con1(dT(min=-200))
     "Convection (and conduction) on fluid side 1"
-    annotation (Placement(transformation(extent={{-60,10},{-40,30}}, rotation=0)));
+    annotation (Placement(transformation(extent={{-60,10},{-40,30}})));
   Modelica.Thermal.HeatTransfer.Components.Convection con2(dT(min=-200))
     "Convection (and conduction) on fluid side 2"
-    annotation (Placement(transformation(extent={{-60,-30},{-40,-10}}, rotation=
-           0)));
+    annotation (Placement(transformation(extent={{-60,-30},{-40,-10}})));
 equation
   connect(Gc_1, con1.Gc) annotation (Line(points={{-40,100},{-40,40},{-50,40},{
           -50,30}}, color={0,0,127}));
@@ -182,10 +181,7 @@ March 25, 2008, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
-</html>"), Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}}),
-                   graphics),
-    Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
+</html>"),    Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
             100}}), graphics={Text(
           extent={{-84,114},{-62,86}},
           lineColor={0,0,255},

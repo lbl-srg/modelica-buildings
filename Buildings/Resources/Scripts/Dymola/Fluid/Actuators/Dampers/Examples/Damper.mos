@@ -12,4 +12,3 @@ createPlot(id = 4,
  filename = "Damper.mat",
  leftTitleType = 1,
  bottomTitleType = 1);
-

@@ -71,8 +71,6 @@ equation
       points={{-120,8.88178e-16},{-95,8.88178e-16},{-95,0},{-70,0}},
       color={0,0,127},
       smooth=Smooth.None));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}}), graphics));
 end lightingController;
 equation
   connect(setPoint.y[1], feedback.u1) annotation (Line(
@@ -93,9 +91,7 @@ equation
       points={{-21,0},{-2,0}},
       color={0,0,127},
       smooth=Smooth.None));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}}), graphics),
-            Documentation(info="<html>
+  annotation (            Documentation(info="<html>
             <p>
             This example demonstrates how a Python script and model of a controller
             can be used to control experiments in the FLEXLAB test cells. It uses
@@ -104,16 +100,16 @@ equation
             Buildings.Utilities.IO.Python27.Real_Real</a> to communicate with the
             CalBay adapter. The Python script is located at
             <a href=\"file://Buildings/Resources/Python-Sources/CalBayComm.py\">
-            Buildings/Resources/Python-Sources/CalBayComm.py</a>. The script must be 
+            Buildings/Resources/Python-Sources/CalBayComm.py</a>. The script must be
             edited before it will effectively communicate with the CalBay adapter.
             The necessary changes include:
             </p>
             <ul>
             <li>The script currently does not have valid login or password credentials.
-            The credentials will have to be replaced before communication with the 
+            The credentials will have to be replaced before communication with the
             CalBay adapter will succeed.</li>
             <li>To avoid accidental manipulation of controls, the script currently does
-            not include effective commands. The desired commands must be added to the 
+            not include effective commands. The desired commands must be added to the
             program before it will have any effect.</li>
             </ul>
             <p>
@@ -122,7 +118,7 @@ equation
             </p>
             <p>
             <b>Note:</b>
-            This model is marked as under construction because the 
+            This model is marked as under construction because the
             application programming interface for data exchange with the CalBay adaptor
             of FLEXLAB has not yet been finalized.
             The model works, however, with the CalBay infrastructure as of October 2013.

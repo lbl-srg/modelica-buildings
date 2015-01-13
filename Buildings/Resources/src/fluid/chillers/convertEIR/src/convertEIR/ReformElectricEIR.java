@@ -5,15 +5,15 @@ import java.util.StringTokenizer;
 
 /**
  * This class represents a chiller from type "reformulated ElectricEIR".
- * 
+ *
  * <h3>License agreement</h3>
- * 
+ *
  * The use of this program is subjected to the following <A
  * HREF="../../../../../../../legal.html">license terms</A>.
- * 
+ *
  * @author <A HREF="mailto:TSNouidui@lbl.gov">Thierry Nouidui</A>
  * @version 1.0, October 10, 2010
- * 
+ *
  */
 public class ReformElectricEIR {
 
@@ -44,18 +44,21 @@ public class ReformElectricEIR {
 
     /**
      * This method is used to convert chillers data into a String.
-     * 
+     *
      * @return the converted chillers data as a string.
      */
     public String toMoRecordString() {
         String format = "%1$-5s %2$-1s %3$-2s %4$-1s\n";
-        stringHeaderBeginOfReformElectricEIRObject = "  record  "
+        stringHeaderBeginOfReformElectricEIRObject = "  record "
                 + replaceTokenCharacter(name)
                 + " ="
                 + "\n"
-                + "    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic (";
+                + "    Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic(";
 
-        stringAnnotationOfReformElectricEIRObjectBegin = "annotation (Documentation(info=\"<html>"
+        stringAnnotationOfReformElectricEIRObjectBegin = "annotation(\n"
+        		+ "defaultComponentName=\"datChi\",\n"
+        		+ "defaultComponentPrefixes=\"parameter\",\n"
+        		+ "Documentation(info=\"<html>"
                 + "\n"
                 + "Performance data for chiller model."
                 + "\n"
@@ -319,7 +322,7 @@ public class ReformElectricEIR {
     /**
      * this method is used to removed token strings from the name of the chiller
      * and to print it in a format that can be used in Modelica.
-     * 
+     *
      * @param name
      *            input string.
      * @return name without token strings.

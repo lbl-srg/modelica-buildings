@@ -10,7 +10,7 @@ model Manifold "Test model for coil manifold"
     T=283.15,
     redeclare package Medium = Medium1)
                           annotation (Placement(transformation(extent={{170,24},
-            {150,44}}, rotation=0)));
+            {150,44}})));
   Buildings.Fluid.Sources.Boundary_pT sou_1(
     use_p_in=true,
     use_T_in=true,
@@ -19,29 +19,28 @@ model Manifold "Test model for coil manifold"
     nPorts=1,
     redeclare package Medium = Medium1)
                           annotation (Placement(transformation(extent={{-60,24},
-            {-40,44}}, rotation=0)));
+            {-40,44}})));
     Fluid.FixedResistances.FixedResistanceDpM res_1(
     m_flow_nominal=5,
     use_dh=true,
     from_dp=false,
     dp_nominal=3000,
     redeclare package Medium = Medium1)
-             annotation (Placement(transformation(extent={{120,24},{140,44}},
-          rotation=0)));
+             annotation (Placement(transformation(extent={{120,24},{140,44}})));
   Buildings.Fluid.Sensors.MassFlowRate[nPipPar] mfr_1(redeclare package Medium
       = Medium1)
-    annotation (Placement(transformation(extent={{30,24},{50,44}}, rotation=0)));
+    annotation (Placement(transformation(extent={{30,24},{50,44}})));
   Modelica.Blocks.Sources.Ramp TDb(
     height=1,
     duration=1,
     offset=293.15) annotation (Placement(transformation(extent={{-100,26},{-80,
-            46}}, rotation=0)));
+            46}})));
   Modelica.Blocks.Sources.Ramp P(
     duration=1,
     height=12E3,
     offset=3E5 - 6E3)
                    annotation (Placement(transformation(extent={{-100,60},{-80,
-            80}}, rotation=0)));
+            80}})));
   Buildings.Fluid.HeatExchangers.BaseClasses.PipeManifoldFixedResistance
     pipFixRes_1(
     nPipPar=nPipPar,
@@ -50,24 +49,22 @@ model Manifold "Test model for coil manifold"
     mStart_flow_a=5,
     dp_nominal(displayUnit="Pa") = 3000,
     redeclare package Medium = Medium1)
-            annotation (Placement(transformation(extent={{-30,24},{-10,44}},
-          rotation=0)));
+            annotation (Placement(transformation(extent={{-30,24},{-10,44}})));
   Buildings.Fluid.HeatExchangers.BaseClasses.PipeManifoldNoResistance
     pipNoRes_1(                          nPipPar=nPipPar,
     mStart_flow_a=5,
     redeclare package Medium = Medium1)
-    annotation (Placement(transformation(extent={{114,24},{94,44}}, rotation=0)));
+    annotation (Placement(transformation(extent={{114,24},{94,44}})));
     Fluid.FixedResistances.FixedResistanceDpM res_2(
     m_flow_nominal=5,
     dp_nominal=10,
     use_dh=true,
     from_dp=false,
     redeclare package Medium = Medium2)
-             annotation (Placement(transformation(extent={{120,-40},{140,-20}},
-          rotation=0)));
+             annotation (Placement(transformation(extent={{120,-40},{140,-20}})));
   Buildings.Fluid.Sensors.MassFlowRate[nPipPar, nPipSeg] mfr_2(redeclare
       package Medium = Medium2)
-    annotation (Placement(transformation(extent={{30,-40},{50,-20}}, rotation=0)));
+    annotation (Placement(transformation(extent={{30,-40},{50,-20}})));
   Buildings.Fluid.HeatExchangers.BaseClasses.DuctManifoldFixedResistance
     ducFixRes_2(
     nPipPar=nPipPar,
@@ -77,30 +74,26 @@ model Manifold "Test model for coil manifold"
     mStart_flow_a=5,
     dp_nominal=10,
     redeclare package Medium = Medium2)
-            annotation (Placement(transformation(extent={{-30,-40},{-10,-20}},
-          rotation=0)));
+            annotation (Placement(transformation(extent={{-30,-40},{-10,-20}})));
   Buildings.Fluid.HeatExchangers.BaseClasses.DuctManifoldNoResistance
     ducNoRes_2(
       nPipPar=nPipPar,
       nPipSeg=nPipSeg,
     mStart_flow_a=5,
     redeclare package Medium = Medium2)
-    annotation (Placement(transformation(extent={{114,-40},{94,-20}}, rotation=
-            0)));
+    annotation (Placement(transformation(extent={{114,-40},{94,-20}})));
   Buildings.Fluid.HeatExchangers.BaseClasses.CoilHeader hea1(
       nPipPar=nPipPar,
     mStart_flow_a=5,
     redeclare package Medium = Medium1)
     "Header for water-side heat exchanger register"
-    annotation (Placement(transformation(extent={{0,24},{20,44}}, rotation=0)));
+    annotation (Placement(transformation(extent={{0,24},{20,44}})));
   Buildings.Fluid.HeatExchangers.BaseClasses.CoilHeader hea2(
       nPipPar=nPipPar,
     mStart_flow_a=5,
     redeclare package Medium = Medium1)
     "Header for water-side heat exchanger register"
-    annotation (Placement(transformation(extent={{60,24},{80,44}}, rotation=0)));
-  inner Modelica.Fluid.System system
-    annotation (Placement(transformation(extent={{140,60},{160,80}})));
+    annotation (Placement(transformation(extent={{60,24},{80,44}})));
   Buildings.Fluid.Sources.Boundary_pT sou_2(
     use_p_in=true,
     use_T_in=true,
@@ -109,18 +102,18 @@ model Manifold "Test model for coil manifold"
     nPorts=1,
     redeclare package Medium = Medium2)
                           annotation (Placement(transformation(extent={{-62,-40},
-            {-42,-20}},rotation=0)));
+            {-42,-20}})));
   Buildings.Fluid.Sources.Boundary_pT sin_2(
     nPorts=1,
     T=283.15,
     redeclare package Medium = Medium2)
                           annotation (Placement(transformation(extent={{168,-40},
-            {148,-20}},rotation=0)));
+            {148,-20}})));
   Modelica.Blocks.Sources.Ramp P1(
     duration=1,
     height=40,
     offset=101305) annotation (Placement(transformation(extent={{-100,-32},{-80,
-            -12}},rotation=0)));
+            -12}})));
 equation
   connect(TDb.y, sou_1.T_in) annotation (Line(points={{-79,36},{-62,36},{-62,38}},
                      color={0,0,127}));

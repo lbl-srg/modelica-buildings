@@ -12,7 +12,10 @@ record TestBedDividingWall =
     Buildings.HeatTransfer.Data.Solids.InsulationBoard(x=0.1016),
     Buildings.HeatTransfer.Data.Solids.GypsumBoard(x=0.1588)},
     nLay = 10) "Wall separating test beds"
-    annotation(Documentation(info="<html>
+    annotation(
+defaultComponentPrefixes="parameter",
+defaultComponentName="datOpaCon",
+Documentation(info="<html>
     <p>
     This is a dividing wall commonly found in FLEXLAB test cells.
     It is used to separate one test cell from another (For example,

@@ -15,7 +15,7 @@ package Examples "Examples for BaseClasses models"
       m_flow_nominal=3000/20/4200,
       volHexFlu=0.0004,
       dExtHex=0.01905,
-      redeclare package Medium = Medium,
+      redeclare package MediumTan = Medium,
       redeclare package MediumHex = Medium,
       dp_nominal=10000,
       energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
@@ -40,8 +40,6 @@ package Examples "Examples for BaseClasses models"
           extent={{-10,-10},{10,10}},
           rotation=180,
           origin={30,8})));
-    inner Modelica.Fluid.System system
-      annotation (Placement(transformation(extent={{40,60},{60,80}})));
   equation
     connect(bou1.ports[1], indTanHex.port_a)
                                             annotation (Line(
@@ -59,9 +57,7 @@ package Examples "Examples for BaseClasses models"
         points={{20,8},{-7.89333,8}},
         color={191,0,0},
         smooth=Smooth.None));
-    annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-              -100},{100,100}}), graphics),
-                                  __Dymola_Commands(file=
+    annotation (                                  __Dymola_Commands(file=
             "modelica://Buildings/Resources/Scripts/Dymola/Fluid/Storage/BaseClasses/Examples/IndirectTankHeatExchanger.mos"
           "Simulate and Plot"),
           experiment(StopTime=15.0),
@@ -70,15 +66,21 @@ package Examples "Examples for BaseClasses models"
         This model provides an example of how the <a href=\"modelica://Buildings.Fluid.Storage.BaseClasses.IndirectTankHeatExchanger\"> Buildings.Fluid.Storage.BaseClasses.IndirectTankHeatExchanger</a> model is used. In the model water flows from a flow source through the heat exchanger to a low
          pressure environment. The stagnant fluid on the outside of the heat exchanger is modeled as a constant temperature.<br/>
          </p>
-         </html>
-        ",revisions="<html>
-        <ul>
-        <li>
-        Mar 27, 2013 by Peter Grant:<br/>
-        First implementation        
-        </li>
-        </ul>
-        </html>"));
+         </html>",
+  revisions="<html>
+<ul>
+<li>
+December 22, 2014 by Michael Wetter:<br/>
+Removed <code>Modelica.Fluid.System</code>
+to address issue
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/311\">#311</a>.
+</li>
+<li>
+March 27, 2013 by Peter Grant:<br/>
+First implementation
+</li>
+</ul>
+</html>"));
   end IndirectTankHeatExchanger;
   annotation(Documentation(info="<html>
   <p>

@@ -35,8 +35,7 @@ equation
 <p>
 This component computes the solar incidence angle on a tilted surface using the solar hour angle and the declination angle as input.
 </p>
-</html>
-", revisions="<html>
+</html>", revisions="<html>
 <ul>
 <li>
 Dec 7, 2010, by Michael Wetter:<br/>
@@ -48,8 +47,6 @@ First implementation.
 </li>
 </ul>
 </html>"),
-    Diagram(coordinateSystem(preserveAspectRatio=true,extent={{-100,-100},{100,
-            100}})),
     Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,
             100}}), graphics={
         Text(

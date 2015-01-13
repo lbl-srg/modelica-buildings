@@ -7,7 +7,7 @@ model FixedApproach "Cooling tower with constant approach temperature"
   Modelica.Blocks.Interfaces.RealInput TAir(min=0, unit="K")
     "Entering air dry or wet bulb temperature"
      annotation (Placement(transformation(
-          extent={{-140,20},{-100,60}}, rotation=0)));
+          extent={{-140,20},{-100,60}})));
 equation
   TAppAct=TApp;
   TAirHT=TAir;
@@ -19,21 +19,18 @@ equation
           extent={{-98,70},{-64,32}},
           lineColor={0,0,127},
           textString="TAir")}),
-                          Diagram(coordinateSystem(preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}}),
-                                  graphics),
     Documentation(info="<html>
 <p>
 Model for a steady-state or dynamic cooling tower with constant approach temperature.
 The approach temperature is the difference between the leaving water temperature and
 the entering air temperature.
-The entering air temperature is used from the signal <code>TAir</code>. If 
+The entering air temperature is used from the signal <code>TAir</code>. If
 connected to the a dry-bulb temperature, then a dry cooling tower is modeled.
 If connected to a wet-bulb temperature, then a wet cooling tower is modeled.
 </p><p>
 By connecting a signal that contains either the dry-bulb or the wet-bulb
 temperature, this model can be used to estimate the water return temperature
-from a cooling tower. 
+from a cooling tower.
 For a more detailed model, use for example the
 <a href=\"modelica://Buildings.Fluid.HeatExchangers.CoolingTowers.YorkCalc\">YorkCalc</a>
 model.

@@ -15,13 +15,17 @@ model GasConvection
     "Surface tilt (only 0, 90 and 180 degrees are implemented)";
   parameter Boolean linearize=false "Set to true to linearize emissive power";
 
+  parameter Modelica.SIunits.Temperature T0 = 293.15
+    "Temperature used to compute thermophysical properties";
+
+  parameter Boolean homotopyInitialization = true "= true, use homotopy method"
+    annotation(Evaluate=true, Dialog(tab="Advanced"));
+
   Modelica.Blocks.Interfaces.RealInput u
     "Input connector, used to scale the surface area to take into account an operable shading device"
     annotation (Placement(transformation(extent={{-140,50},{-100,90}}),
         iconTransformation(extent={{-120,70},{-100,90}})));
 
-  parameter Modelica.SIunits.Temperature T0 = 293.15
-    "Temperature used to compute thermophysical properties";
   Modelica.SIunits.CoefficientOfHeatTransfer hCon(min=0, start=3)
     "Convective heat transfer coefficient";
   Modelica.SIunits.HeatFlux q_flow "Convective heat flux";
@@ -51,19 +55,17 @@ protected
     "Convective heat transfer coefficient";
   parameter Real Nu0(fixed=false, min=0) "Nusselt number";
   parameter Real Ra0(fixed=false, min=0) "Rayleigh number";
-  parameter Boolean homotopyInitialization = true "= true, use homotopy method"
-    annotation(Evaluate=true, Dialog(tab="Advanced"));
 
 initial equation
   assert(isVertical or isHorizontal, "Only vertical and horizontal windows are implemented.");
-initial equation
+
   // Computations that are used in the linearized model only
   Ra0 = Buildings.HeatTransfer.Convection.Functions.HeatFlux.rayleigh(
     x=gas.x,
-    rho=Buildings.HeatTransfer.Data.Gases.density(gas, T0),
-    c_p=Buildings.HeatTransfer.Data.Gases.specificHeatCapacity(gas, T0),
-    mu=Buildings.HeatTransfer.Data.Gases.dynamicViscosity(gas, T0),
-    k=Buildings.HeatTransfer.Data.Gases.thermalConductivity(gas, T0),
+    rho=Buildings.HeatTransfer.Data.Gases.density(gas=gas, T=T0),
+    c_p=Buildings.HeatTransfer.Data.Gases.specificHeatCapacity(gas=gas, T=T0),
+    mu=Buildings.HeatTransfer.Data.Gases.dynamicViscosity(gas=gas, T=T0),
+    k=Buildings.HeatTransfer.Data.Gases.thermalConductivity(gas=gas, T=T0),
     T_a=T0-5,
     T_b=T0+5,
     Ra_min=100);
@@ -109,8 +111,7 @@ equation
   else
     Q_flow = u*A*q_flow;
   end if;
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},
-            {100,100}}),       graphics), Icon(coordinateSystem(
+  annotation ( Icon(coordinateSystem(
           preserveAspectRatio=true, extent={{-100,-100},{100,100}}),
        graphics={
         Rectangle(
@@ -169,7 +170,7 @@ except that this implementation computes the convection coefficient
 as a function that is differentiable in the temperatures.
 <p>
 To use this model, set the parameter <code>til</code>
-to a value defined in 
+to a value defined in
 <a href=\"modelica://Buildings.HeatTransfer.Types.Tilt\">
 Buildings.HeatTransfer.Types.Tilt</a>.
 </p>
@@ -186,6 +187,10 @@ of thermal performance of glazing systems with our without
 shading devices, Technical Report, Oct. 17, 2006.
 </html>", revisions="<html>
 <ul>
+<li>
+October 17, 2014, by Michael Wetter:<br/>
+Removed duplicate <code>initial equation</code> section.
+</li>
 <li>
 May 30, 2014, by Michael Wetter:<br/>
 Removed undesirable annotation <code>Evaluate=true</code>.

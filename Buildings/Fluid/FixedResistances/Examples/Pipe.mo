@@ -8,24 +8,20 @@ model Pipe "Test of a pipe with multiple segments"
     duration=1,
     height=2*pip.dp_nominal,
     offset=101325 - pip.dp_nominal) annotation (Placement(transformation(extent={{-80,-2},
-            {-60,18}},     rotation=0)));
+            {-60,18}})));
   Buildings.Fluid.Sources.Boundary_pT sou(
     redeclare package Medium = Medium,
     use_p_in=true,
     T=273.15 + 50,
-    nPorts=2) annotation (Placement(transformation(extent={{-40,-10},{-20,10}},
-          rotation=0)));
+    nPorts=2) annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
   Buildings.Fluid.Sources.Boundary_pT sin(
     redeclare package Medium = Medium,
     T=273.15 + 10,
     nPorts=2,
     use_p_in=false,
     p(displayUnit="Pa") = 101325)
-              annotation (Placement(transformation(extent={{102,-10},{82,10}},
-          rotation=0)));
+              annotation (Placement(transformation(extent={{102,-10},{82,10}})));
 
-  inner Modelica.Fluid.System system(p_ambient=101325) annotation (Placement(
-        transformation(extent={{-80,-80},{-60,-60}}, rotation=0)));
   HeatTransfer.Sources.FixedTemperature TEnv(T=263.15)
     annotation (Placement(transformation(extent={{-38,30},{-18,50}})));
   Buildings.Fluid.FixedResistances.Pipe pip(
@@ -122,6 +118,12 @@ through the pipe.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+December 22, 2014 by Michael Wetter:<br/>
+Removed <code>Modelica.Fluid.System</code>
+to address issue
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/311\">#311</a>.
+</li>
 <li>
 February 22, 2012 by Michael Wetter:<br/>
 Revised implementation.

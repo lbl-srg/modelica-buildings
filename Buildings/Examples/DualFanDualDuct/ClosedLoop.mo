@@ -103,23 +103,23 @@ model ClosedLoop "Closed loop model of a dual-fan dual-duct system"
     dp1_nominal=0,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial) "Cooling coil"
     annotation (Placement(transformation(extent={{372,-146},{352,-166}})));
-  Buildings.Fluid.Movers.FlowMachine_y fanSupHot(
+  Buildings.Fluid.Movers.SpeedControlled_y fanSupHot(
     redeclare package Medium = MediumA,
-    pressure(V_flow=mAirHot_flow_nominal/1.2*{0,2}, dp=600*{2,0}),
+    per(pressure(V_flow=mAirHot_flow_nominal/1.2*{0,2}, dp=600*{2,0})),
     dynamicBalance=true,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     "Supply air fan for hot deck"
     annotation (Placement(transformation(extent={{300,-10},{320,10}})));
-  Buildings.Fluid.Movers.FlowMachine_y fanSupCol(
+  Buildings.Fluid.Movers.SpeedControlled_y fanSupCol(
     redeclare package Medium = MediumA,
-    pressure(V_flow=mAirCol_flow_nominal/1.2*{0,2}, dp=600*{2,0}),
+    per(pressure(V_flow=mAirCol_flow_nominal/1.2*{0,2}, dp=600*{2,0})),
     dynamicBalance=true,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     "Supply air fan for cold deck"
     annotation (Placement(transformation(extent={{302,-160},{322,-140}})));
-  Buildings.Fluid.Movers.FlowMachine_y fanRet(
+  Buildings.Fluid.Movers.SpeedControlled_y fanRet(
     redeclare package Medium = MediumA,
-    pressure(V_flow=m_flow_nominal/1.2*{0,2}, dp=100*{2,0}),
+    per(pressure(V_flow=m_flow_nominal/1.2*{0,2}, dp=100*{2,0})),
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     dynamicBalance=true) "Return air fan"
     annotation (Placement(transformation(extent={{360,150},{340,170}})));
@@ -145,11 +145,6 @@ model ClosedLoop "Closed loop model of a dual-fan dual-duct system"
       displayUnit="degC",
       min=0))
     annotation (Placement(transformation(extent={{-300,138},{-280,158}})));
-  inner Modelica.Fluid.System system(
-    p_ambient(displayUnit="Pa"),
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    m_flow_small=1E-4*m_flow_nominal)
-    annotation (Placement(transformation(extent={{-340,100},{-320,120}})));
   Buildings.Examples.DualFanDualDuct.Controls.HeatingCoilTemperatureSetpoint
     TSupSetHea(TOn=284.15, TOff=279.15)
     "Supply air temperature setpoint for heating"
@@ -450,7 +445,7 @@ model ClosedLoop "Closed loop model of a dual-fan dual-duct system"
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={120,-170})));
-  Fluid.Movers.FlowMachine_m_flow pumPreHea(
+  Fluid.Movers.FlowControlled_m_flow pumPreHea(
     redeclare package Medium = MediumW,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     m_flow_nominal=mWatPre_flow_nominal)
@@ -1156,13 +1151,13 @@ equation
             1400,600}}), graphics),
     Documentation(info="<html>
 <p>
-This model consist of an HVAC system, a building envelope model and a model 
+This model consist of an HVAC system, a building envelope model and a model
 for air flow through building leakage and through open doors.
 </p>
 <p>
-The HVAC system is a dual-fan, dual-duct system with economizer and a heating and 
-cooling coil in the air handler unit. 
-One of the supply air streams is called the hot-deck 
+The HVAC system is a dual-fan, dual-duct system with economizer and a heating and
+cooling coil in the air handler unit.
+One of the supply air streams is called the hot-deck
 and has a heating coil, the other is called
 the cold-deck and has a cooling coil. There is also one return fan and
 an economizer. The figure below shows the schematic diagram of the dual-fan,
@@ -1184,13 +1179,13 @@ Hence, at low room temperatures, the amount
 of hot air is increased, and at high room temperatures, the amount
 of cold air is increased. In addition, whenever the air mass flow rate
 is below a prescribed limit, the hot air deck damper opens to track
-the minimum air flow rate. The temperature of the hot-deck is reset 
+the minimum air flow rate. The temperature of the hot-deck is reset
 based on the outside air temperature. The temperature of the
-cold-deck is constant. The revolutions of both supply fans are controlled 
+cold-deck is constant. The revolutions of both supply fans are controlled
 in order to track a pressure difference between VAV damper
 inlet and room pressure of 30 Pascals. The return fan is controlled
 to track a building pressure of 30 Pascals above outside air pressure.
-There is also an economizer. 
+There is also an economizer.
 During night-time, the fans are switched off.
 The coils are controlled as follows: The preheat coil is controlled to
 maintain an air outlet temperature of 11&deg;C during day-time, and
@@ -1201,30 +1196,30 @@ air outlet temperature shown in the figure below.
 <img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Examples/DualFanDualDuct/hotDeckTemperatureSetPoint.png\" border=\"1\"/>
 </p>
 <p>
-The cooling coil is controlled to maintain a constant outlet temperature 
+The cooling coil is controlled to maintain a constant outlet temperature
 of 12&deg; during day-time, and 40&deg;C during night-time
 </p>
 <p>
-There is also a 
-finite state machine that transitions the mode of operation of 
-the HVAC system between the modes 
+There is also a
+finite state machine that transitions the mode of operation of
+the HVAC system between the modes
 <i>occupied</i>, <i>unoccupied off</i>, <i>unoccupied night set back</i>,
-<i>unoccupied warm-up</i> and <i>unoccupied pre-cool</i>. 
+<i>unoccupied warm-up</i> and <i>unoccupied pre-cool</i>.
 </p>
 <p>
-All air flows are computed based on the 
-duct static pressure distribution and the performance curves of the fans. 
-Local loop control is implemented using proportional and proportional-integral 
-controllers, while the supervisory control is implemented 
+All air flows are computed based on the
+duct static pressure distribution and the performance curves of the fans.
+Local loop control is implemented using proportional and proportional-integral
+controllers, while the supervisory control is implemented
 using a finite state machine.
 </p>
 <p>
-To model the heat transfer through the building envelope, 
+To model the heat transfer through the building envelope,
 a model of five interconnected rooms is used.
-The five room model is representative of one floor of the 
-new construction medium office building for Chicago, IL, 
-as described in the set of DOE Commercial Building Benchmarks 
-(Deru et al, 2009). There are four perimeter zones and one core zone. 
+The five room model is representative of one floor of the
+new construction medium office building for Chicago, IL,
+as described in the set of DOE Commercial Building Benchmarks
+(Deru et al, 2009). There are four perimeter zones and one core zone.
 The envelope thermal properties meet ASHRAE Standard 90.1-2004.
 The thermal room model computes transient heat conduction through
 walls, floors and ceilings and long-wave radiative heat exchange between
@@ -1232,7 +1227,7 @@ surfaces. The convective heat transfer coefficient is computed based
 on the temperature difference between the surface and the room air.
 There is also a layer-by-layer short-wave radiation,
 long-wave radiation, convection and conduction heat transfer model for the
-windows. The model is similar to the 
+windows. The model is similar to the
 Window 5 model and described in TARCOG 2006.
 </p>
 <p>
@@ -1261,6 +1256,12 @@ shading devices, Technical Report, Oct. 17, 2006.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+December 22, 2014 by Michael Wetter:<br/>
+Removed <code>Modelica.Fluid.System</code>
+to address issue
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/311\">#311</a>.
+</li>
 <li>
 December 6, 2011, by Michael Wetter:<br/>
 Improved control for minimum zone flow rate.

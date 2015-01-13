@@ -42,9 +42,9 @@ algorithm
            delta=0.01*m_flow_nominal*k);
   R := 1/(2*Modelica.Constants.pi*rTub*hSeg*h);
 
-  annotation (Diagram(graphics), Documentation(info="<html>
+  annotation ( Documentation(info="<html>
 <p>
-This model computes the convection resistance in the pipes of a borehole segment 
+This model computes the convection resistance in the pipes of a borehole segment
 with heigth <i>h<sub>Seg</sub></i>.
 </p>
 <p>
@@ -54,10 +54,10 @@ The correlation of Dittus-Boelter (1930) is used to find the convection heat tra
   Nu = 0.023 &nbsp; Re<sup>0.8</sup> &nbsp; Pr<sup>n</sup>,
 </p>
 <p>
-where <i>Nu</i> is the Nusselt number, 
-<i>Re</i> is the Reynolds number and 
+where <i>Nu</i> is the Nusselt number,
+<i>Re</i> is the Reynolds number and
 <i>Pr</i> is the Prandlt number.
-We selected <i>n=0.35</i>, as the reference uses <i>n=0.4</i> for heating and 
+We selected <i>n=0.35</i>, as the reference uses <i>n=0.4</i> for heating and
 <i>n=0.3</i> for cooling.
 Dittus-Boelter&apos;s correlation is valid for turbulent flow in cylindrical smooth pipe.
 </p>
@@ -72,7 +72,6 @@ of the tubular type</a>.
 DOI:10.1016/0735-1933(85)90003-X.
 </p>
 </html>", revisions="<html>
-<p>
 <ul>
 <li>
 February 14, 2014, by Michael Wetter:<br/>
@@ -81,7 +80,7 @@ Revised documentation.
 </li>
 <li>
 January 24, 2014, by Michael Wetter:<br/>
-Revised implementation. 
+Revised implementation.
 Changed <code>cpFluid</code> to <code>cpMed</code> to use consistent notation.
 Added regularization for computation of convective heat transfer coefficient to
 avoid an event and a non-differentiability.
@@ -91,6 +90,5 @@ January 23, 2014, by Damien Picard:<br/>
 First implementation.
 </li>
 </ul>
-</p>
 </html>"));
 end convectionResistance;

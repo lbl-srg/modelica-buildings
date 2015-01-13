@@ -21,7 +21,7 @@ model WetCoilDiscretizedPControl
     p=101325,
     T=303.15,
     nPorts=1)             annotation (Placement(transformation(extent={{-58,-26},
-            {-38,-6}}, rotation=0)));
+            {-38,-6}})));
   Buildings.Fluid.Sources.Boundary_pT sou_2(
     redeclare package Medium = Medium2,
     nPorts=1,
@@ -29,46 +29,42 @@ model WetCoilDiscretizedPControl
     use_T_in=true,
     p(displayUnit="Pa") = 101525,
     T=293.15)             annotation (Placement(transformation(extent={{160,8},
-            {140,28}},  rotation=0)));
+            {140,28}})));
   Buildings.Fluid.Sources.Boundary_pT sin_1(
     redeclare package Medium = Medium1,
     p=300000,
     T=293.15,
     use_p_in=true,
     nPorts=1)             annotation (Placement(transformation(extent={{160,40},
-            {140,60}}, rotation=0)));
+            {140,60}})));
   Buildings.Fluid.Sources.Boundary_pT sou_1(
     redeclare package Medium = Medium1,
     nPorts=1,
     use_T_in=true,
     p=300000 + 7000,
     T=278.15)             annotation (Placement(transformation(extent={{-24,38},
-            {-4,58}},  rotation=0)));
+            {-4,58}})));
     Modelica.Blocks.Sources.Ramp PSin(
     duration=60,
     height=5000,
     startTime=240,
     offset=300000)
-                 annotation (Placement(transformation(extent={{140,80},{160,100}},
-          rotation=0)));
+                 annotation (Placement(transformation(extent={{140,80},{160,100}})));
   Buildings.Fluid.Sensors.TemperatureTwoPort temSen(
     redeclare package Medium = Medium2,
     m_flow_nominal=m2_flow_nominal)
-    annotation (Placement(transformation(extent={{40,-26},{20,-6}},
-          rotation=0)));
+    annotation (Placement(transformation(extent={{40,-26},{20,-6}})));
   Buildings.Fluid.Actuators.Valves.TwoWayLinear val(
     redeclare package Medium = Medium1,
     m_flow_nominal=m1_flow_nominal,
     filteredOpening=false,
     dpFixed_nominal=2000,
     dpValve_nominal=5000)
-             annotation (Placement(transformation(extent={{18,38},{38,58}},
-          rotation=0)));
+             annotation (Placement(transformation(extent={{18,38},{38,58}})));
   Modelica.Blocks.Sources.TimeTable TSet(table=[0,293.15; 600,293.15; 600,
         288.15; 1200,288.15; 1800,288.15; 2400,295.15; 2400,295.15])
     "Setpoint temperature"
-    annotation (Placement(transformation(extent={{-80,120},{-60,140}}, rotation=
-           0)));
+    annotation (Placement(transformation(extent={{-80,120},{-60,140}})));
   Buildings.Fluid.HeatExchangers.WetCoilDiscretized hex(
     redeclare package Medium1 = Medium1,
     redeclare package Medium2 = Medium2,
@@ -88,9 +84,7 @@ model WetCoilDiscretizedPControl
     dp1_nominal(displayUnit="Pa") = 0,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
                          annotation (Placement(transformation(extent={{60,16},{
-            80,36}}, rotation=0)));
-  inner Modelica.Fluid.System system
-    annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
+            80,36}})));
   Modelica.Blocks.Sources.Step TSou_2(
     startTime=3000,
     offset=T_a2_nominal,
@@ -107,9 +101,9 @@ model WetCoilDiscretizedPControl
     controllerType=Modelica.Blocks.Types.SimpleController.P,
     Td=60,
     reverseAction=true) "Controller"  annotation (Placement(transformation(
-          extent={{-40,120},{-20,140}}, rotation=0)));
+          extent={{-40,120},{-20,140}})));
   Buildings.Fluid.Actuators.Motors.IdealMotor mot(tOpe=60) "Motor model"
-    annotation (Placement(transformation(extent={{0,120},{20,140}},rotation=0)));
+    annotation (Placement(transformation(extent={{0,120},{20,140}})));
 equation
   connect(PSin.y, sin_1.p_in)   annotation (Line(points={{161,90},{180,90},{180,
           58},{162,58}}, color={0,0,127}));
@@ -186,6 +180,12 @@ of modeling detail is not justified.
 </html>",
 revisions="<html>
 <ul>
+<li>
+December 22, 2014 by Michael Wetter:<br/>
+Removed <code>Modelica.Fluid.System</code>
+to address issue
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/311\">#311</a>.
+</li>
 <li>
 July 3, 2014, by Michael Wetter:<br/>
 Changed pressure sink to mass flow rate sink to avoid an overdetermined

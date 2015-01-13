@@ -29,8 +29,7 @@ model MoistAirEnthalpyFlowRate
     offset=1,
     duration=60)
     annotation (Placement(transformation(extent={{-100,60},{-80,80}})));
-  inner Modelica.Fluid.System system
-    annotation (Placement(transformation(extent={{-100,-100},{-80,-80}})));
+
   Buildings.Fluid.Sensors.SpecificEnthalpyTwoPort senH(
     redeclare package Medium = Medium,
     m_flow_nominal=1) "Specific enthalpy sensor"
@@ -123,8 +122,6 @@ equation
 experiment(StopTime=60.0),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Sensors/Examples/MoistAirEnthalpyFlowRate.mos"
         "Simulate and plot"),
-        Diagram(
-        coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,100}})),
     Documentation(
     info="<html>
 <p>

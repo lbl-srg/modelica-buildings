@@ -1,6 +1,6 @@
 within models;
 model PartialFluidLoop
-  Buildings.Fluid.Movers.FlowMachine_m_flow fan
+  Buildings.Fluid.Movers.FlowControlled_m_flow fan
     annotation (Placement(transformation(extent={{-20,-50},{0,-30}})));
   Modelica.Blocks.Sources.Constant const
     annotation (Placement(transformation(extent={{-40,-20},{-20,0}})));

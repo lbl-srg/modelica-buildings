@@ -6,15 +6,15 @@ import java.util.StringTokenizer;
 
 /**
  * This class represents a chiller from type "ElectricEIR".
- * 
+ *
  * <h3>License agreement</h3>
- * 
+ *
  * The use of this program is subjected to the following <A
  * HREF="../../../../../../../legal.html">license terms</A>.
- * 
+ *
  * @author <A HREF="mailto:TSNouidui@lbl.gov">Thierry Nouidui</A>
  * @version 1.0, October 10, 2010
- * 
+ *
  */
 public class ElectricEIR {
 
@@ -45,17 +45,20 @@ public class ElectricEIR {
 
     /**
      * This method is used to convert chillers data into a String.
-     * 
+     *
      * @return the converted chillers data as a string.
      */
     public String toMoRecordString() {
 
         String format = "%1$-5s %2$-1s %3$-2s %4$-1s\n";
-        stringHeaderBeginOfElectricEIRObject = "  record  "
+        stringHeaderBeginOfElectricEIRObject = "  record "
                 + replaceTokenCharacter(name) + " =" + "\n"
                 + "    Buildings.Fluid.Chillers.Data.ElectricEIR.Generic (";
 
-        stringAnnotationOfElectricEIRObjectBegin = "annotation (Documentation(info=\"<html>"
+        stringAnnotationOfElectricEIRObjectBegin = "annotation(\n"
+        		+ "defaultComponentName=\"datChi\",\n"
+        		+ "defaultComponentPrefixes=\"parameter\",\n"
+        		+ "Documentation(info=\"<html>"
                 + "\n"
                 + "Performance data for chiller model."
                 + "\n"
@@ -333,7 +336,7 @@ public class ElectricEIR {
     /**
      * this method is used to removed token strings from the name of the chiller
      * and to print it in a format that can be used in Modelica.
-     * 
+     *
      * @param name
      *            input string.
      * @return name without token strings.
@@ -352,7 +355,7 @@ public class ElectricEIR {
      * this method is used to find the string ,,Autosize'' in the reference
      * capacity of the chiller and to replace it with a value that has a valid
      * Modelica syntax.
-     * 
+     *
      * @param name
      *            input string.
      * @return string value.
@@ -370,7 +373,7 @@ public class ElectricEIR {
     /**
      * this method is used to find the string ,,Autosize'' in the reference
      * chilled water flowrate and to replace it with the computed mass flow rate
-     * 
+     *
      * @param name
      *            input string.
      * @param refCapacity
@@ -399,7 +402,7 @@ public class ElectricEIR {
      * this method is used to find the string ,,Autosize'' in the reference
      * condenser water flowrate and to replace it with the computed mass flow
      * rate.
-     * 
+     *
      * @param name
      *            input string.
      * @param refCapacity
@@ -427,10 +430,10 @@ public class ElectricEIR {
 
     /**
      * This method converts a string in a float.
-     * 
+     *
      * @param number
      *            string value.
-     * 
+     *
      * @return float value.
      */
     static float getFloat(String number) {
@@ -442,10 +445,10 @@ public class ElectricEIR {
 
     /**
      * This method rounds a double to four decimals.
-     * 
+     *
      * @param d
      *            double value.
-     * 
+     *
      * @return double rounded value.
      */
     static double roundFourDecimals(double d) {

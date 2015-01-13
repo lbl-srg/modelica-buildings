@@ -23,7 +23,7 @@
 //////////////////////////////////////////////////////////////////////////////
 #ifdef _MSC_VER
 // 3/27/2013- TN: MS_NO_COREDLL prevents the compiler to link to python27_d.lib,
-// the debug version of python which is not available in the release. 
+// the debug version of python which is not available in the release.
 #ifndef MS_NO_COREDLL
 #define MS_NO_COREDLL
 #endif

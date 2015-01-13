@@ -13,7 +13,7 @@ There are three storage tank models in the this package.
 <td>
 <a href=\"modelica://Buildings.Fluid.Storage.Stratified\">
 Buildings.Fluid.Storage.Stratified</a>
-</td>         
+</td>
 <td>
 <p>
 This is a model of a stratified storage tank as shown in the figure below.
@@ -38,12 +38,12 @@ Thus, to add a heating element to the bottom element, connect a heat input to
 <code>heaPorVol[nSeg]</code>.
 </p>
 <p>
-The heat ports outside the tank insulation can be 
+The heat ports outside the tank insulation can be
 used to specify an ambient temperature.
 Leave these ports unconnected to force adiabatic boundary conditions.
-Note, however, that all heat conduction elements through the tank wall (but not the top and bottom) are connected to the 
+Note, however, that all heat conduction elements through the tank wall (but not the top and bottom) are connected to the
 heat port <code>heaPorSid</code>. Thus, not connecting
-<code>heaPorSid</code> means an adiabatic boundary condition in the sense 
+<code>heaPorSid</code> means an adiabatic boundary condition in the sense
 that <code>heaPorSid.Q_flow = 0</code>. This, however, still allows heat to flow
 through the tank walls, modeled by <code>conWal</code>, from one fluid volume
 to another one.
@@ -54,17 +54,17 @@ to another one.
 <td>
 <a href=\"modelica://Buildings.Fluid.Storage.StratifiedEnhanced\">
 Buildings.Fluid.Storage.StratifiedEnhanced</a>
-</td>         
+</td>
 <td>
 <p>
 The model is identical to
 <a href=\"modelica://Buildings.Fluid.Storage.Stratified\">
-Buildings.Fluid.Storage.Stratified</a>, 
+Buildings.Fluid.Storage.Stratified</a>,
 except that it adds a correction that reduces the numerical
 dissipation.
 </p>
 <p>
-The correction uses a third order upwind scheme to compute the 
+The correction uses a third order upwind scheme to compute the
 outlet temperatures of the segments in the tank. This model
 is implemented in
 <a href=\"modelica://Buildings.Fluid.Storage.BaseClasses.ThirdOrderStratifier\">
@@ -76,27 +76,27 @@ Buildings.Fluid.Storage.BaseClasses.ThirdOrderStratifier</a>.
 <td>
 <a href=\"modelica://Buildings.Fluid.Storage.StratifiedEnhancedInternalHex\">
 Buildings.Fluid.Storage.StratifiedEnhancedInternalHex</a>
-</td>         
+</td>
 <td>
 <p>
-This model is identical to 
+This model is identical to
 <a href=\"modelica://Buildings.Fluid.Storage.StratifiedEnhanced\">
 Buildings.Fluid.Storage.StratifiedEnhanced</a>
 except that it adds a heat exchanger to the tank.
 </p>
 <p>
-The modifications consist of adding a heat exchanger 
+The modifications consist of adding a heat exchanger
 and fluid ports to connect to the heat exchanger.
-The modifications allow to run a fluid through the tank causing heat transfer to the stored fluid. 
+The modifications allow to run a fluid through the tank causing heat transfer to the stored fluid.
 A typical example is a storage tank in a solar hot water system.
 </p>
 <p>
-The heat exchanger model assumes flow through the inside of a helical coil heat exchanger, 
-and stagnant fluid on the outside. Parameters are used to describe the 
-heat transfer on the inside of the heat exchanger at nominal conditions, and 
-geometry of the outside of the heat exchanger. This information is used to compute 
-an <i>hA</i>-value for each side of the coil. 
-Convection calculations are then performed to identify heat transfer 
+The heat exchanger model assumes flow through the inside of a helical coil heat exchanger,
+and stagnant fluid on the outside. Parameters are used to describe the
+heat transfer on the inside of the heat exchanger at nominal conditions, and
+geometry of the outside of the heat exchanger. This information is used to compute
+an <i>hA</i>-value for each side of the coil.
+Convection calculations are then performed to identify heat transfer
 between the heat transfer fluid and the fluid in the tank.
 </p>
 <p>
@@ -107,7 +107,7 @@ measured from the bottom of the tank.
 For example, to place the port <code>portHex_b</code> at the bottom of the tank,
 set <code>hHexB_b=0</code>.
 The parameters <code>hHex_a</code> and <code>hHex_b</code> are then used to provide
-a default value for the parameters 
+a default value for the parameters
 <code>segHex_a</code> and <code>segHex_b</code>, which are the numbers of the tank
 segments to which the heat exchanger ports <code>portHex_a</code> and <code>portHex_b</code>
 are connected.
@@ -120,19 +120,19 @@ width=\"458\" height=\"456\"/>
 <p>
 Optionally, this model computes a dynamic response of the heat exchanger.
 This can be configured using the parameters
-<code>energyDynamicsHex</code> and 
+<code>energyDynamicsHex</code> and
 <code>massDynamicsHex</code>.
 For this computation, the fluid volume inside the heat exchanger
-and the heat capacity of the heat 
+and the heat capacity of the heat
 exchanger wall <code>CHex</code> are approximated.
 Both depend on the length <code>lHex</code>
 of the heat exchanger.
 The model provides default values for these
 parameters, as well as for the heat exchanger material which is
 assumed to be steel. These default values can be overwritten by the user.
-The default values for the heat exchanger geometry are computed assuming 
-that there is a cylindrical heat exchanger 
-made of steel whose diameter is half the diameter of the tank, e.g., 
+The default values for the heat exchanger geometry are computed assuming
+that there is a cylindrical heat exchanger
+made of steel whose diameter is half the diameter of the tank, e.g.,
 <i>r<sub>Hex</sub>=r<sub>Tan</sub>/2</i>.
 Hence, the length of the heat exchanger is approximated as
 <i>l<sub>Hex</sub> = 2 r<sub>Hex</sub> &pi; h = 2 r<sub>Tan</sub>/2 &pi; h</i>,

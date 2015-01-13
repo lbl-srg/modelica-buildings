@@ -32,8 +32,6 @@ model HeatGain "Test model for the HeatGain model"
     redeclare package Medium = MediumA,
     nPorts=1)
     annotation (Placement(transformation(extent={{0,-80},{20,-60}})));
-  inner Modelica.Fluid.System system
-    annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
   Buildings.Utilities.Diagnostics.AssertEquality assertEquality
     annotation (Placement(transformation(extent={{60,64},{80,84}})));
   Modelica.Blocks.Math.Gain gainLat(k=AFlo)
@@ -122,10 +120,7 @@ equation
       points={{20,-70},{30,-70}},
       color={0,127,255},
       smooth=Smooth.None));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}}),
-                      graphics),
-experiment(StopTime=3600),
+  annotation (experiment(StopTime=3600),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Rooms/BaseClasses/Examples/HeatGain.mos"
         "Simulate and plot"),
     Documentation(info="<html>
@@ -137,6 +132,12 @@ stop with an error.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+December 22, 2014 by Michael Wetter:<br/>
+Removed <code>Modelica.Fluid.System</code>
+to address issue
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/311\">#311</a>.
+</li>
 <li>
 June 30, 2014, by Michael Wetter:<br/>
 Added resistance to decouple the pressure in the volume and the ambient.

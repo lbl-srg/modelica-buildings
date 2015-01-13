@@ -31,8 +31,6 @@ model System7
     Q_flow_nominal/4200/(TBoiSup_nominal-TRadRet_nominal)
     "Radiator nominal mass flow rate";
 
-  inner Modelica.Fluid.System system
-    annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
   Buildings.Fluid.MixingVolumes.MixingVolume vol(
     redeclare package Medium = MediumA,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
@@ -76,9 +74,8 @@ model System7
   Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor temRoo
     "Room temperature" annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
-        rotation=0,
         origin={-40,30})));
-  Buildings.Fluid.Movers.FlowMachine_m_flow pumRad(
+  Buildings.Fluid.Movers.FlowControlled_m_flow pumRad(
     redeclare package Medium = MediumW,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     m_flow_nominal=mRad_flow_nominal) "Pump for radiator"
@@ -141,7 +138,7 @@ model System7
         origin={60,-150})));
 //----------------------------------------------------------------------------//
 
-  Buildings.Fluid.Movers.FlowMachine_m_flow pumBoi(
+  Buildings.Fluid.Movers.FlowControlled_m_flow pumBoi(
       redeclare package Medium = MediumW,
       energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
       m_flow_nominal=mBoi_flow_nominal) "Pump for boiler"
@@ -593,7 +590,7 @@ This part of the system model changes the implementation of the control in
 <a href=\"modelica://Buildings.Examples.Tutorial.Boiler.System6\">
 Buildings.Examples.Tutorial.Boiler.System6</a>
 to use a state machine to switch the pumps and the boiler on and off.
-State machines provide an alternate way to implement discrete event, 
+State machines provide an alternate way to implement discrete event,
 reactive and hybrid systems.
 The state machine that is implemented in this model is shown in
 the figure below.
@@ -624,14 +621,14 @@ and called it
 We implemented the state machine using blocks from the library
 <a href=\"modelica://Modelica_StateGraph2\">
 Modelica_StateGraph2</a>.
-How to use these blocks is explained in the 
-user's guide of the 
+How to use these blocks is explained in the
+user's guide of the
 <a href=\"modelica://Modelica_StateGraph2\">
 Modelica_StateGraph2</a>
 library.
 </p>
 <p>
-The figure below shows the state machine. 
+The figure below shows the state machine.
 The oval icons are states, and the black bars
 are transitions. The transitions are enabled when their input signal is true.
 The red numbers to the right of the transition indicate the delay in seconds.
@@ -645,10 +642,10 @@ for a transition to fire.
 In our implementation, the state <code>allOff</code> is the initial state,
 indicated by its black arrow.
 The transition <code>T1</code> is used to switch the pumps on.
-Once the pumps are on, transition <code>T2</code> may fire, which 
+Once the pumps are on, transition <code>T2</code> may fire, which
 would switch the boiler on.
 Hence, the boiler can only be on when the pumps are on.
-From the state <code>boilerOn</code>, the only next step can be to 
+From the state <code>boilerOn</code>, the only next step can be to
 transition to the state <code>pumpsOn</code>.
 Once this state has been reached (and hence the boiler is off),
 the pumps can be switched off when transition <code>T4</code> fires.
@@ -671,6 +668,12 @@ response shown below should be seen.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+December 22, 2014 by Michael Wetter:<br/>
+Removed <code>Modelica.Fluid.System</code>
+to address issue
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/311\">#311</a>.
+</li>
 <li>
 March 1, 2013, by Michael Wetter:<br/>
 Added nominal pressure drop for valves as

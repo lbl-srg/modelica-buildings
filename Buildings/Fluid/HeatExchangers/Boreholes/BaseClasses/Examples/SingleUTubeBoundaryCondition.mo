@@ -58,8 +58,6 @@ equation
 experiment(StopTime=1.5768e+08),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/Boreholes/BaseClasses/Examples/SingleUTubeBoundaryCondition.mos"
         "Simulate and plot"),
-        Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{
-            100,100}}),        graphics),
     Documentation(info="<html>
 This example tests the temperature boundary condition at the external part of a cylinder.
 

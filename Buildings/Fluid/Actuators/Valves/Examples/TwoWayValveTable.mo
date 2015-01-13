@@ -8,8 +8,7 @@ model TwoWayValveTable
     height=1,
     duration=1,
     offset=0) "Control signal"
-    annotation (Placement(transformation(extent={{-40,50},{-20,70}},
-          rotation=0)));
+    annotation (Placement(transformation(extent={{-40,50},{-20,70}})));
   Buildings.Fluid.Sources.Boundary_pT sou(
     redeclare package Medium = Medium,
     use_p_in=false,
@@ -17,14 +16,14 @@ model TwoWayValveTable
     T=293.15,
     nPorts=1) "Boundary condition for flow source"
     annotation (Placement(
-        transformation(extent={{-90,10},{-70,30}}, rotation=0)));
+        transformation(extent={{-90,10},{-70,30}})));
   Buildings.Fluid.Sources.Boundary_pT sin(
     redeclare package Medium = Medium,
     p(displayUnit="Pa") = 3E5,
     T=293.15,
     nPorts=1) "Boundary condition for flow sink"
     annotation (Placement(
-        transformation(extent={{72,10},{52,30}}, rotation=0)));
+        transformation(extent={{72,10},{52,30}})));
   Valves.TwoWayTable valTab(
     redeclare package Medium = Medium,
     filteredOpening=false,
@@ -34,10 +33,8 @@ model TwoWayValveTable
     Kv=0.65,
     m_flow_nominal=0.04)
     "Valve model with opening characteristics based on a table"
-         annotation (Placement(transformation(extent={{-20,10},{0,30}},
-          rotation=0)));
-    inner Modelica.Fluid.System system
-    annotation (Placement(transformation(extent={{-90,70},{-70,90}})));
+         annotation (Placement(transformation(extent={{-20,10},{0,30}})));
+
   parameter Data.Generic datVal(
     y={0,0.1667,0.3333,0.5,0.6667,1},
     phi={0, 0.19, 0.35, 0.45, 0.5, 0.65}/0.65) "Valve characteristics"
@@ -101,10 +98,7 @@ equation
       points={{49,-36},{54,-36},{54,-76},{58,-76}},
       color={0,0,127},
       smooth=Smooth.None));
-    annotation (Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-100,
-            -100},{100,100}}),
-                        graphics),
-experiment(StopTime=1.0),
+    annotation (experiment(StopTime=1.0),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Actuators/Valves/Examples/TwoWayValveTable.mos"
         "Simulate and plot"),
     Documentation(info="<html>
@@ -116,9 +110,9 @@ of the IEA EBC Annex 60 project.
 </p>
 <table summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
 <tr><td><i>y</i></td>
-  <td>0</td>  <td>0.1667</td>  <td>0.3333</td>  <td>0.5</td>  <td>0.6667</td>  <td>1</td>   
+  <td>0</td>  <td>0.1667</td>  <td>0.3333</td>  <td>0.5</td>  <td>0.6667</td>  <td>1</td>
 </tr>
-<tr><td><i>K<sub>v</sub></i></td> 
+<tr><td><i>K<sub>v</sub></i></td>
   <td>0</td>  <td>0.19</td>  <td>0.35</td>  <td>0.45</td>  <td>0.5</td>  <td>0.65</td>       </tr>
 </table>
 <p>

@@ -17,7 +17,7 @@ protected
     annotation (Placement(transformation(extent={{60,50},{80,70}})));
 
 equation
-  connect(weaBus.sol.alt, walSolAzi.alt) annotation (Line(
+  connect(weaBus.solAlt, walSolAzi.alt) annotation (Line(
       points={{-100,5.55112e-16},{-80,5.55112e-16},{-80,-45.2},{-62,-45.2}},
       color={255,204,51},
       thickness=0.5,
@@ -37,8 +37,7 @@ equation
       points={{58,66},{-80,66},{-80,60},{-120,60}},
       color={0,0,127},
       smooth=Smooth.None));
-  annotation (Diagram(graphics),
-Documentation(info="<html>
+  annotation (Documentation(info="<html>
 <p>
 Partial model to implement overhang and side fin model with weather bus as a connector.
 </p>
@@ -47,7 +46,7 @@ revisions="<html>
 <ul>
 <li>
 Feb 25, 2012, by Michael Wetter:<br/>
-First implementation. 
+First implementation.
 </li>
 </ul>
 </html>"));

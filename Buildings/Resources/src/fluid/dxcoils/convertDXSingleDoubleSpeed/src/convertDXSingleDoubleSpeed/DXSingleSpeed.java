@@ -9,15 +9,15 @@ import convertDXSingleDoubleSpeed.BiQuadraticCurve;
 
 /**
  * This class represents a cooling coil from type "DXSingleSpeedR".
- * 
+ *
  * <h3>License agreement</h3>
- * 
+ *
  * The use of this program is subjected to the following <A
  * HREF="../../../../../../../legal.html">license terms</A>.
- * 
+ *
  * @author <A HREF="mailto:TSNouidui@lbl.gov">Thierry Nouidui</A>
  * @version 1.0, November 20, 2012
- * 
+ *
  */
 public class DXSingleSpeed {
 
@@ -44,7 +44,7 @@ public class DXSingleSpeed {
     private List<String> floFractionMin = new ArrayList<String>();
     private List<String> floFractionMax = new ArrayList<String>();
 
-    
+
     // private final static String LS = System.getProperty("line.separator");
 
     public DXSingleSpeed() {
@@ -52,7 +52,7 @@ public class DXSingleSpeed {
 
     /**
      * This method is used to convert single speed dx coils data into a String.
-     * 
+     *
      * @return the converted cooling coil data as a string.
      */
     public String toMoRecordString() {
@@ -60,14 +60,18 @@ public class DXSingleSpeed {
         String format = "%1$-5s %2$-1s %3$-2s %4$-1s\n";
         stringHeaderBeginOfDXSingleSpeedObject = "  record  "
                 + replaceTokenCharacter(name) + " =" + "\n"
-                + "    Buildings.Fluid.HeatExchangers.DXCoils.Data.SingleSpeed.Generic (";
+                + "    Buildings.Fluid.HeatExchangers.DXCoils.Data.SingleSpeed.Generic(";
 
-        stringAnnotationOfDXSingleSpeedObjectBegin = "annotation (Documentation(info=\"<html>"
+        stringAnnotationOfDXSingleSpeedObjectBegin = "annotation(\n"
+        		+ "defaultComponentName=\"datCoi\",\n"
+        		+ "defaultComponentPrefixes=\"parameter\",\n"
+        		+ "Documentation(info=\"<html>"
                 + "\n"
+        		+ "<p>"
                 + "Performance data for DX single speed cooling coil model."
                 + "\n"
                 + "This data corresponds to the following EnergyPlus model:"
-                + "\n" + "<pre>";
+                + "\n</p>\n" + "<pre>";
 
         stringAnnotationOfDXSingleSpeedObjectEnd = "</pre>" + "\n"
                 + "</html>\"))" + ";";
@@ -79,20 +83,20 @@ public class DXSingleSpeed {
                 floFractionMin.add(qCurve.getMinValX());
                 floFractionMax.add(qCurve.getMaxValX());
             }
-            else if (curve instanceof BiQuadraticCurve) 
+            else if (curve instanceof BiQuadraticCurve)
             {
                 BiQuadraticCurve biqCurve = (BiQuadraticCurve) curve;
                 evaporatorFluidTempMin.add(biqCurve.getMinValX());
                 evaporatorFluidTempMax.add(biqCurve.getMaxValX());
                 condenserFluidTempMin.add(biqCurve.getMinValY());
-                condenserFluidTempMax.add(biqCurve.getMaxValY()); 
+                condenserFluidTempMax.add(biqCurve.getMaxValY());
             }
         }
 
         for (int i = 0; i < curves.size(); i++) {
             CurveToString[i] = curves.get(i).curveToString();
         }
-        dxSingleSpeedSpecificParameters = 
+        dxSingleSpeedSpecificParameters =
                 String.format(format, "", "TConInMin", "=        ", "   "
                         + "273.15 + " + condenserFluidTempMin.get(0) + ",")
                 + String.format(format, "", "TConInMax", "=        ", "   "
@@ -143,14 +147,14 @@ public class DXSingleSpeed {
     public String getName() {
         return name;
     }
-    
+
     /**
      * This method sets the name of the cooling coil.
      */
     public void setName(String name) {
         this.name = name;
     }
-    
+
     /**
      * This method gets the rated total cooling capacity of the cooling coil.
      */
@@ -163,8 +167,8 @@ public class DXSingleSpeed {
      */
     public void setRatTotCooCapacity(String ratTotCooCapacity) {
         this.ratTotCooCapacity = ratTotCooCapacity;
-    } 
-    
+    }
+
     /**
      * This method gets the rated sensible heat ratio of the cooling coil.
      */
@@ -178,7 +182,7 @@ public class DXSingleSpeed {
     public void setRatSenHeaRatio(String ratSenHeaRatio) {
         this.ratSenHeaRatio = ratSenHeaRatio;
     }
-    
+
     /**
      * This method gets the reference COP of the cooling coil.
      */
@@ -208,7 +212,7 @@ public class DXSingleSpeed {
     public void setRatAirFlowRate(String ratAirFlowRate) {
         this.ratAirFlowRate = ratAirFlowRate;
     }
-    
+
     /**
      * This method gets the rated evaporator fan Power per volume flow rate of the cooling coil.
      */
@@ -222,7 +226,7 @@ public class DXSingleSpeed {
     public void setRatEvaFanPowPerVolFlowRate(String ratEvaFanPowPerVolFlowRate) {
         this.ratEvaFanPowPerVolFlowRate = ratEvaFanPowPerVolFlowRate;
     }
-    
+
     /**
      * This method gets the functions names of the cooling coil.
      */
@@ -269,7 +273,7 @@ public class DXSingleSpeed {
     /**
      * this method is used to removed token strings from the name of the cooling coil
      * and to print it in a format that can be used in Modelica.
-     * 
+     *
      * @param name
      *            input string.
      * @return name without token strings.
@@ -287,10 +291,10 @@ public class DXSingleSpeed {
 
     /**
      * This method converts a string in a float.
-     * 
+     *
      * @param number
      *            string value.
-     * 
+     *
      * @return float value.
      */
     static float getFloat(String number) {
@@ -302,10 +306,10 @@ public class DXSingleSpeed {
 
     /**
      * This method rounds a double to four decimals.
-     * 
+     *
      * @param d
      *            double value.
-     * 
+     *
      * @return double rounded value.
      */
     static double roundFourDecimals(double d) {

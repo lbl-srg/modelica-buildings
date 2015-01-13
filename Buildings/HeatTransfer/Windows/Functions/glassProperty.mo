@@ -48,9 +48,9 @@ algorithm
   annotation (Documentation(info="<html>
 <p>
 This function computes the angular variation and the hemispherical integration of the transmittance and reflectance for each glass pane.
-There are two schemes for the calculation. One is for coated glass and the other is for uncoated glass. 
-The function checks the difference between front and back reflectances. 
-If the difference is less than the tolerance (0.005), it uses the formula for uncoated glass. 
+There are two schemes for the calculation. One is for coated glass and the other is for uncoated glass.
+The function checks the difference between front and back reflectances.
+If the difference is less than the tolerance (0.005), it uses the formula for uncoated glass.
 Otherwise, the formula for coated glass will be used.
 </p>
 </html>", revisions="<html>

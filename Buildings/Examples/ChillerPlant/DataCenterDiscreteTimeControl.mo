@@ -2,10 +2,10 @@ within Buildings.Examples.ChillerPlant;
 model DataCenterDiscreteTimeControl
   "Primary only chiller plant system with water-side economizer"
   extends Modelica.Icons.Example;
-  package MediumAir = Buildings.Media.GasesPTDecoupled.SimpleAir "Medium model";
-  package MediumCHW = Buildings.Media.ConstantPropertyLiquidWater
+  replaceable package MediumA = Buildings.Media.GasesPTDecoupled.SimpleAir
     "Medium model";
-  package MediumCW = Buildings.Media.ConstantPropertyLiquidWater "Medium model";
+  replaceable package MediumW = Buildings.Media.ConstantPropertyLiquidWater
+    "Medium model";
   parameter Modelica.SIunits.MassFlowRate mAir_flow_nominal=roo.QRoo_flow/(1005
       *15) "Nominal mass flow rate at fan";
   parameter Modelica.SIunits.Power P_nominal=80E3
@@ -23,8 +23,8 @@ model DataCenterDiscreteTimeControl
 
   parameter Modelica.SIunits.Pressure dp_nominal=500
     "Nominal pressure difference";
-  Buildings.Fluid.Movers.FlowMachine_m_flow fan(
-    redeclare package Medium = MediumAir,
+  Buildings.Fluid.Movers.FlowControlled_m_flow fan(
+    redeclare package Medium = MediumA,
     m_flow_nominal=mAir_flow_nominal,
     dp(start=249),
     m_flow(start=mAir_flow_nominal),
@@ -33,8 +33,8 @@ model DataCenterDiscreteTimeControl
     T_start=293.15) "Fan for air flow through the data center"
     annotation (Placement(transformation(extent={{348,-235},{328,-215}})));
   Buildings.Fluid.HeatExchangers.DryCoilCounterFlow cooCoi(
-    redeclare package Medium1 = MediumCHW,
-    redeclare package Medium2 = MediumAir,
+    redeclare package Medium1 = MediumW,
+    redeclare package Medium2 = MediumA,
     m2_flow_nominal=mAir_flow_nominal,
     m1_flow_nominal=mCHW_flow_nominal,
     m1_flow(start=mCHW_flow_nominal),
@@ -47,10 +47,9 @@ model DataCenterDiscreteTimeControl
     annotation (Placement(transformation(extent={{298,-185},{278,-165}})));
   Modelica.Blocks.Sources.Constant mFanFlo(k=mAir_flow_nominal)
     "Mass flow rate of fan" annotation (Placement(transformation(extent={{298,
-            -210},{318,-190}},
-                         rotation=0)));
+            -210},{318,-190}})));
   BaseClasses.SimplifiedRoom roo(
-    redeclare package Medium = MediumAir,
+    redeclare package Medium = MediumA,
     nPorts=2,
     rooLen=50,
     rooWid=30,
@@ -58,12 +57,9 @@ model DataCenterDiscreteTimeControl
     m_flow_nominal=mAir_flow_nominal,
     QRoo_flow=500000) "Room model" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
-        rotation=0,
         origin={248,-238})));
-  inner Modelica.Fluid.System system(T_ambient=283.15)
-    annotation (Placement(transformation(extent={{-322,-151},{-302,-131}})));
-  Fluid.Movers.FlowMachine_dp pumCHW(
-    redeclare package Medium = MediumCHW,
+  Fluid.Movers.FlowControlled_dp pumCHW(
+    redeclare package Medium = MediumW,
     m_flow_nominal=mCHW_flow_nominal,
     m_flow(start=mCHW_flow_nominal),
     dp(start=325474),
@@ -75,10 +71,10 @@ model DataCenterDiscreteTimeControl
         rotation=270,
         origin={218,-120})));
   Buildings.Fluid.Storage.ExpansionVessel expVesCHW(redeclare package Medium =
-        MediumCHW, V_start=1) "Expansion vessel"
+        MediumW, V_start=1) "Expansion vessel"
     annotation (Placement(transformation(extent={{248,-147},{268,-127}})));
   Buildings.Fluid.HeatExchangers.CoolingTowers.YorkCalc cooTow(
-    redeclare package Medium = MediumCW,
+    redeclare package Medium = MediumW,
     m_flow_nominal=mCW_flow_nominal,
     PFan_nominal=6000,
     TAirInWB_nominal(displayUnit="degC") = 283.15,
@@ -88,10 +84,9 @@ model DataCenterDiscreteTimeControl
     "Cooling tower"                                   annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
-        rotation=0,
         origin={269,239})));
-  Buildings.Fluid.Movers.FlowMachine_m_flow pumCW(
-    redeclare package Medium = MediumCW,
+  Buildings.Fluid.Movers.FlowControlled_m_flow pumCW(
+    redeclare package Medium = MediumW,
     m_flow_nominal=mCW_flow_nominal,
     dp(start=214992),
     filteredSpeed=false,
@@ -102,8 +97,8 @@ model DataCenterDiscreteTimeControl
         rotation=270,
         origin={358,200})));
   Buildings.Fluid.HeatExchangers.ConstantEffectiveness wse(
-    redeclare package Medium1 = MediumCW,
-    redeclare package Medium2 = MediumCHW,
+    redeclare package Medium1 = MediumW,
+    redeclare package Medium2 = MediumW,
     m1_flow_nominal=mCW_flow_nominal,
     m2_flow_nominal=mCHW_flow_nominal,
     eps=0.8,
@@ -111,7 +106,7 @@ model DataCenterDiscreteTimeControl
     dp1_nominal=0) "Water side economizer (Heat exchanger)"
     annotation (Placement(transformation(extent={{126,83},{106,103}})));
   Fluid.Actuators.Valves.TwoWayLinear val5(
-    redeclare package Medium = MediumCW,
+    redeclare package Medium = MediumW,
     m_flow_nominal=mCW_flow_nominal,
     dpValve_nominal=20902,
     dpFixed_nominal=89580,
@@ -122,7 +117,7 @@ model DataCenterDiscreteTimeControl
         rotation=90,
         origin={218,180})));
   Fluid.Actuators.Valves.TwoWayLinear val1(
-    redeclare package Medium = MediumCHW,
+    redeclare package Medium = MediumW,
     m_flow_nominal=mCHW_flow_nominal,
     dpValve_nominal=20902,
     filteredOpening=false)
@@ -132,21 +127,19 @@ model DataCenterDiscreteTimeControl
         rotation=90,
         origin={218,-40})));
   Buildings.Fluid.Storage.ExpansionVessel expVesChi(redeclare package Medium =
-        MediumCW, V_start=1)
+        MediumW, V_start=1)
     annotation (Placement(transformation(extent={{236,143},{256,163}})));
   Buildings.Examples.ChillerPlant.BaseClasses.Controls.WSEControl wseCon
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
-        rotation=0,
         origin={-150,-29})));
   Modelica.Blocks.Sources.RealExpression expTowTApp(y=cooTow.TApp_nominal)
     "Cooling tower approach" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
-        rotation=0,
         origin={-212,-20})));
   Fluid.Chillers.ElectricEIR chi(
-    redeclare package Medium1 = MediumCW,
-    redeclare package Medium2 = MediumCHW,
+    redeclare package Medium1 = MediumW,
+    redeclare package Medium2 = MediumW,
     m1_flow_nominal=mCW_flow_nominal,
     m2_flow_nominal=mCHW_flow_nominal,
     dp2_nominal=0,
@@ -155,7 +148,7 @@ model DataCenterDiscreteTimeControl
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyStateInitial)
     annotation (Placement(transformation(extent={{274,83},{254,103}})));
   Fluid.Actuators.Valves.TwoWayLinear val6(
-    redeclare package Medium = MediumCHW,
+    redeclare package Medium = MediumW,
     m_flow_nominal=mCHW_flow_nominal,
     dpValve_nominal=20902,
     dpFixed_nominal=14930 + 89580,
@@ -192,12 +185,11 @@ model DataCenterDiscreteTimeControl
   Modelica.Blocks.Sources.Constant TAirSet(k=273.15 + 27)
     "Set temperature for air supply to the room" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
-        rotation=0,
         origin={-230,170})));
   Modelica.Blocks.Math.BooleanToReal chiCon "Contorl signal for chiller"
     annotation (Placement(transformation(extent={{-160,40},{-140,60}})));
   Fluid.Actuators.Valves.TwoWayLinear val4(
-    redeclare package Medium = MediumCW,
+    redeclare package Medium = MediumW,
     m_flow_nominal=mCW_flow_nominal,
     dpValve_nominal=20902,
     dpFixed_nominal=59720,
@@ -209,33 +201,30 @@ model DataCenterDiscreteTimeControl
         rotation=90,
         origin={98,180})));
   Buildings.Fluid.Sensors.TemperatureTwoPort TAirSup(redeclare package Medium
-      = MediumAir, m_flow_nominal=mAir_flow_nominal)
+      = MediumA, m_flow_nominal=mAir_flow_nominal)
     "Supply air temperature to data center" annotation (Placement(
         transformation(
         extent={{10,-10},{-10,10}},
-        rotation=0,
         origin={288,-225})));
   Buildings.Fluid.Sensors.TemperatureTwoPort TCHWEntChi(redeclare package
-      Medium = MediumCHW, m_flow_nominal=mCHW_flow_nominal)
+      Medium = MediumW, m_flow_nominal=mCHW_flow_nominal)
     "Temperature of chilled water entering chiller" annotation (Placement(
         transformation(
         extent={{10,10},{-10,-10}},
         rotation=270,
         origin={218,0})));
   Buildings.Fluid.Sensors.TemperatureTwoPort TCWLeaTow(redeclare package Medium
-      = MediumCW, m_flow_nominal=mCW_flow_nominal)
+      = MediumW, m_flow_nominal=mCW_flow_nominal)
     "Temperature of condenser water leaving the cooling tower"      annotation (
      Placement(transformation(
         extent={{10,-10},{-10,10}},
-        rotation=0,
         origin={330,119})));
   Modelica.Blocks.Sources.Constant cooTowFanCon(k=1)
     "Control singal for cooling tower fan" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
-        rotation=0,
         origin={230,271})));
   Fluid.Actuators.Valves.TwoWayEqualPercentage valByp(
-    redeclare package Medium = MediumCHW,
+    redeclare package Medium = MediumW,
     m_flow_nominal=mCHW_flow_nominal,
     dpValve_nominal=20902,
     dpFixed_nominal=14930,
@@ -243,12 +232,11 @@ model DataCenterDiscreteTimeControl
     filteredOpening=false) "Bypass valve for chiller."
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
-        rotation=0,
         origin={288,20})));
   Buildings.Examples.ChillerPlant.BaseClasses.Controls.KMinusU KMinusU(k=1)
     annotation (Placement(transformation(extent={{-60,28},{-40,48}})));
   Fluid.Actuators.Valves.TwoWayLinear val3(
-    redeclare package Medium = MediumCHW,
+    redeclare package Medium = MediumW,
     m_flow_nominal=mCHW_flow_nominal,
     dpValve_nominal=20902,
     dpFixed_nominal=59720 + 1000,
@@ -256,10 +244,9 @@ model DataCenterDiscreteTimeControl
     "Control valve for economizer. 0: disable economizer, 1: enable economoizer"
     annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
-        rotation=0,
         origin={118,-60})));
   Buildings.Fluid.Sensors.TemperatureTwoPort TCHWLeaCoi(redeclare package
-      Medium = MediumCHW, m_flow_nominal=mCHW_flow_nominal)
+      Medium = MediumW, m_flow_nominal=mCHW_flow_nominal)
     "Temperature of chilled water leaving the cooling coil"
                                                      annotation (Placement(
         transformation(
@@ -272,7 +259,7 @@ model DataCenterDiscreteTimeControl
   BoundaryConditions.WeatherData.Bus weaBus
     annotation (Placement(transformation(extent={{-332,-98},{-312,-78}})));
   Fluid.FixedResistances.FixedResistanceDpM res(
-    redeclare package Medium = MediumCHW,
+    redeclare package Medium = MediumW,
     m_flow_nominal=mCHW_flow_nominal,
     dp_nominal=89580)
     annotation (Placement(transformation(extent={{328,-170},{348,-150}})));
@@ -291,12 +278,10 @@ model DataCenterDiscreteTimeControl
         cooTow.PFan + chi.P) "Power consumed by HVAC system"
                              annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
-        rotation=0,
         origin={-290,-250})));
   Modelica.Blocks.Sources.RealExpression PIT(y=roo.QSou.Q_flow)
     "Power consumed by IT"   annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
-        rotation=0,
         origin={-290,-280})));
   Modelica.Blocks.Continuous.Integrator EHVAC(initType=Modelica.Blocks.Types.Init.InitialState,
       y_start=0) "Energy consumed by HVAC"
@@ -646,9 +631,20 @@ trim and response logic for a data center. The model is described at
 <a href=\"Buildings.Examples.ChillerPlant\">
 Buildings.Examples.ChillerPlant</a>.
 </p>
-</HTML>
-", revisions="<html>
+</html>", revisions="<html>
 <ul>
+<li>
+January 12, 2015 by Michael Wetter:<br/>
+Made media instances replaceable, and used the same instance for both
+water loops.
+This was done to simplify the numerical benchmarks.
+</li>
+<li>
+December 22, 2014 by Michael Wetter:<br/>
+Removed <code>Modelica.Fluid.System</code>
+to address issue
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/311\">#311</a>.
+</li>
 <li>
 March 25, 2014, by Michael Wetter:<br/>
 Updated model with new expansion vessel.

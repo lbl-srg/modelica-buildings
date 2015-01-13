@@ -55,15 +55,15 @@ equation
       points={{-75.5,-91},{-16,-91},{-16,-16},{-4.2,-16},{-4.2,-14.7}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(weaBus.sol.zen, skyCle.zen) annotation (Line(
+  connect(weaBus.solZen, skyCle.zen) annotation (Line(
       points={{-100,5.55112e-16},{-86,5.55112e-16},{-86,17.6},{-62.8,17.6}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(weaBus.sol.zen, relAirMas.zen) annotation (Line(
+  connect(weaBus.solZen, relAirMas.zen) annotation (Line(
       points={{-100,5.55112e-16},{-86,5.55112e-16},{-86,-40},{-80.8,-40}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(weaBus.sol.zen, briCoe.zen) annotation (Line(
+  connect(weaBus.solZen, briCoe.zen) annotation (Line(
       points={{-100,5.55112e-16},{-86,5.55112e-16},{-86,-20},{-66,-20},{-66,-32},
           {-40.8,-32},{-40.8,-32.4}},
       color={0,0,127},
@@ -126,7 +126,7 @@ equation
       string="%first",
       index=-1,
       extent={{-6,3},{-6,3}}));
-  connect(weaBus.sol.zen, HDifTil.zen) annotation (Line(
+  connect(weaBus.solZen, HDifTil.zen) annotation (Line(
       points={{-100,5.55112e-16},{-86,5.55112e-16},{-86,-58},{-20,-58},{-20,
           -8.4},{-4.2,-8.4}},
       color={255,204,51},
@@ -161,9 +161,9 @@ equation
     defaultComponentName="HDifTil",
     Documentation(info="<html>
 <p>
-This component computes the hemispherical diffuse irradiation on a tilted surface using an anisotropic 
-sky model proposed by Perez. 
-For a definition of the parameters, see the 
+This component computes the hemispherical diffuse irradiation on a tilted surface using an anisotropic
+sky model proposed by Perez.
+For a definition of the parameters, see the
 <a href=\"modelica://Buildings.BoundaryConditions.UsersGuide\">User's Guide</a>.
 </p>
 <h4>References</h4>
@@ -184,8 +184,7 @@ R. Perez, P. Ineichen, R. Seals, J. Michalsky and R. Stewart (1990).
 Solar Energy, 44(5):271-289.
 </li>
 </ul>
-</html>
-", revisions="<html>
+</html>", revisions="<html>
 <ul>
 <li>
 June 6, 2012, by Wangda Zuo:<br/>
@@ -201,8 +200,6 @@ First implementation.
 </li>
 </ul>
 </html>"),
-    Diagram(coordinateSystem(preserveAspectRatio=true,extent={{-100,-100},{100,
-            100}})),
     Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,
             100}}), graphics={Text(
           extent={{-150,110},{150,150}},

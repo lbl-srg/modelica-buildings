@@ -24,8 +24,7 @@ equation
       points={{-53,-18},{-32,-18},{-32,6.96},{-12.4,6.96}},
       color={0,0,127},
       smooth=Smooth.None));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}}), graphics), __Dymola_Commands(file=
+  annotation ( __Dymola_Commands(file=
           "modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/BaseClasses/Examples/RayleighNumber.mos"
         "Simulate and Plot"),
         experiment(StopTime=50.0),

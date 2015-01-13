@@ -29,9 +29,7 @@ model FlatPlateShaCoeTrue "Test model for FlatPlate with use_shaCoe_in = true"
     use_p_in=false,
     p(displayUnit="Pa") = 101325,
     nPorts=1) "Outlet for water flow"
-    annotation (Placement(transformation(extent={{80,-20},{60,0}},rotation=0)));
-  inner Modelica.Fluid.System system(p_ambient=101325)
-  annotation (Placement(transformation(extent={{60,60},{80,80}}, rotation=0)));
+    annotation (Placement(transformation(extent={{80,-20},{60,0}})));
   Buildings.Fluid.Sensors.TemperatureTwoPort TOut(
     redeclare package Medium = Medium,
     T_start(displayUnit="K"),
@@ -84,24 +82,28 @@ equation
       thickness=0.5,
       smooth=Smooth.None));
   annotation (
-    Diagram(coordinateSystem(preserveAspectRatio=false,
-      extent={{-100,-100},{100,100}}), graphics),
-    Documentation(info="<html>   
+    Documentation(info="<html>
       <p>
-        This example demonstrates the use of <code>use_shaCoe_in</code>. Aside from 
+        This example demonstrates the use of <code>use_shaCoe_in</code>. Aside from
         changed use of <code>use_shaCoe_in</code> it is identical to
-        <a href=\"modelica://Buildings.Fluid.SolarCollectors.Examples.FlatPlate\"> 
+        <a href=\"modelica://Buildings.Fluid.SolarCollectors.Examples.FlatPlate\">
         Buildings.Fluid.SolarCollectors.Examples.FlatPlate</a>.
       </p>
     </html>",
-    revisions="<html>
-      <ul>
-        <li>
-          May 13, 2013, by Peter Grant:<br/>
-          First implementation.
-        </li>
-      </ul>
-    </html>"),
+revisions="<html>
+<ul>
+<li>
+December 22, 2014 by Michael Wetter:<br/>
+Removed <code>Modelica.Fluid.System</code>
+to address issue
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/311\">#311</a>.
+</li>
+<li>
+May 13, 2013, by Peter Grant:<br/>
+First implementation.
+</li>
+</ul>
+</html>"),
     __Dymola_Commands(file=
           "modelica://Buildings/Resources/Scripts/Dymola/Fluid/SolarCollectors/Examples/FlatPlateShaCoeTrue.mos"
         "Simulate and Plot"),

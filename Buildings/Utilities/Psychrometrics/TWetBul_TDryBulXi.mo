@@ -16,24 +16,20 @@ block TWetBul_TDryBulXi
     final quantity="ThermodynamicTemperature",
     final unit="K",
     min=0) "Dry bulb temperature"
-    annotation (Placement(transformation(extent={{-120,70},{-100,90}},rotation=
-            0)));
+    annotation (Placement(transformation(extent={{-120,70},{-100,90}})));
   Modelica.Blocks.Interfaces.RealInput p(  final quantity="Pressure",
                                            final unit="Pa",
                                            min = 0) "Pressure"
-    annotation (Placement(transformation(extent={{-120,-90},{-100,-70}},
-                                                                       rotation=
-           0)));
+    annotation (Placement(transformation(extent={{-120,-90},{-100,-70}})));
   Modelica.Blocks.Interfaces.RealOutput TWetBul(
     start=293,
     final quantity="ThermodynamicTemperature",
     final unit="K",
     min=0) "Wet bulb temperature"
-    annotation (Placement(transformation(extent={{100,-10},{120,10}},rotation=0)));
+    annotation (Placement(transformation(extent={{100,-10},{120,10}})));
   Modelica.Blocks.Interfaces.RealInput Xi[Medium.nXi]
     "Species concentration at dry bulb temperature"
-    annotation (Placement(transformation(extent={{-120,-10},{-100,10}},
-          rotation=0)));
+    annotation (Placement(transformation(extent={{-120,-10},{-100,10}})));
 
 protected
   Modelica.SIunits.Conversions.NonSIunits.Temperature_degC TDryBul_degC
@@ -60,10 +56,8 @@ equation
   if approximateWetBulb then
     TDryBul_degC = TDryBul - 273.15;
     rh_per       = 100 * p/
-      Buildings.Utilities.Math.Functions.smoothMin(
-         x1=Buildings.Utilities.Psychrometrics.Functions.saturationPressure(TDryBul),
-         x2=0.999*p,
-         deltaX=1E-4)*Xi[iWat]/(Xi[iWat] +
+         Buildings.Utilities.Psychrometrics.Functions.saturationPressure(TDryBul)
+         *Xi[iWat]/(Xi[iWat] +
          Buildings.Utilities.Psychrometrics.Constants.k_mair*(1-Xi[iWat]));
     TWetBul      = 273.15 + TDryBul_degC
        * Modelica.Math.atan(0.151977 * sqrt(rh_per + 8.313659))
@@ -87,9 +81,6 @@ equation
   end if;
 
 annotation (
-  Diagram(coordinateSystem(preserveAspectRatio=true,  extent={{-100,-100},{100,
-            100}}),
-          graphics),
     Icon(coordinateSystem(preserveAspectRatio=true,  extent={{-100,-100},{100,
             100}}), graphics={
         Ellipse(
@@ -139,7 +130,7 @@ annotation (
     defaultComponentName="wetBul",
     Documentation(info="<html>
 <p>
-This block computes the the wet bulb temperature for a given dry bulb temperature, mass fraction
+This block computes the wet bulb temperature for a given dry bulb temperature, mass fraction
 and atmospheric pressure.
 </p>
 <p>
@@ -150,8 +141,8 @@ Otherwise, the model will introduce one nonlinear equation.
 </p>
 <p>
 The approximation by Stull is valid for a relative humidity of <i>5%</i> to <i>99%</i>,
-a temperature range from <i>-20&circ;C</i> to <i>50&circ;C</i> 
-and standard sea level pressure. 
+a temperature range from <i>-20&circ;C</i> to <i>50&circ;C</i>
+and standard sea level pressure.
 For this range of data, the approximation error is <i>-1</i> Kelvin to <i>+0.65</i> Kelvin,
 with a mean error of less than <i>0.3</i> Kelvin.
 </p>
@@ -171,13 +162,20 @@ Stull, Roland.
 Wet-Bulb Temperature from Relative Humidity and Air Temperature
 Roland Stull.</a></i>
 Journal of Applied Meteorology and Climatology.
-Volume 50, Issue 11, pp. 2267-2269. November 2011 
+Volume 50, Issue 11, pp. 2267-2269. November 2011
 DOI: 10.1175/JAMC-D-11-0143.1
 </p>
-</html>
-",
+</html>",
 revisions="<html>
 <ul>
+<li>
+November 17, 2014, by Michael Wetter:<br/>
+Removed test on saturation pressure that avoids it to be larger than
+<code>p</code>.
+This test is not needed as it is only active near or above the boiling temperature,
+and the result is only used in the computation of <code>rh_per</code>.
+I do not see any negative impact from removing this test.
+</li>
 <li>
 July 24, 2014 by Michael Wetter:<br/>
 Revised computation of <code>rh_per</code> to use

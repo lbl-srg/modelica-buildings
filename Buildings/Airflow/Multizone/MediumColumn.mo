@@ -2,7 +2,6 @@ within Buildings.Airflow.Multizone;
 model MediumColumn
   "Vertical shaft with no friction and no storage of heat and mass"
   import Modelica.Constants;
-  outer Modelica.Fluid.System system "System wide properties";
 
   replaceable package Medium = Modelica.Media.Interfaces.PartialMedium
     "Medium in the component" annotation (choicesAllMatching=true);
@@ -10,24 +9,23 @@ model MediumColumn
   parameter Modelica.SIunits.Length h(min=0) = 3 "Height of shaft";
   parameter Buildings.Airflow.Multizone.Types.densitySelection densitySelection
     "Select how to pick density" annotation (Evaluate=true);
-  parameter Boolean allowFlowReversal=system.allowFlowReversal
+  parameter Boolean allowFlowReversal=true
     "= true to allow flow reversal, false restricts to design direction (port_a -> port_b)"
     annotation (Dialog(tab="Assumptions"),Evaluate=true);
 
   Modelica.Fluid.Interfaces.FluidPort_a port_a(
     redeclare package Medium = Medium,
     m_flow(min=if allowFlowReversal then -Constants.inf else 0),
-    p(start=Medium.p_default, nominal=Medium.p_default))
+    p(start=Medium.p_default))
     "Fluid connector a (positive design flow direction is from port_a to port_b)"
-    annotation (Placement(transformation(extent={{-10,90},{10,110}}, rotation=0),
+    annotation (Placement(transformation(extent={{-10,90},{10,110}}),
         iconTransformation(extent={{-10,90},{10,110}})));
   Modelica.Fluid.Interfaces.FluidPort_b port_b(
     redeclare package Medium = Medium,
     m_flow(max=if allowFlowReversal then +Constants.inf else 0),
-    p(start=Medium.p_default, nominal=Medium.p_default))
+    p(start=Medium.p_default))
     "Fluid connector b (positive design flow direction is from port_a to port_b)"
-    annotation (Placement(transformation(extent={{10,-110},{-10,-90}}, rotation=
-           0), iconTransformation(extent={{10,-110},{-10,-90}})));
+    annotation (Placement(transformation(extent={{10,-110},{-10,-90}}), iconTransformation(extent={{10,-110},{-10,-90}})));
 
   Modelica.SIunits.VolumeFlowRate V_flow=m_flow/Medium.density(sta_a)
     "Volume flow rate at inflowing port (positive when flow from port_a to port_b)";
@@ -156,7 +154,7 @@ defaultComponentName="col",
 Documentation(info="<html>
 <p>
 This model describes the pressure difference of a vertical medium
-column. It can be used to model the pressure difference caused by 
+column. It can be used to model the pressure difference caused by
 stack effect.
 </p>
 <p>
@@ -167,21 +165,21 @@ controlled by the setting of the parameter <code>densitySelection</code>:
 <li>
 <code>top</code>:
 Use this setting to use the density from the volume that is connected
-to <code>port_a</code>. 
+to <code>port_a</code>.
 </li>
 <li>
 <code>bottom</code>:
 Use this setting to use the density from the volume that is connected
-to <code>port_b</code>. 
+to <code>port_b</code>.
 </li>
 <li>
 <code>actual</code>:
-Use this setting to use the density based on the actual flow direction. 
+Use this setting to use the density based on the actual flow direction.
 </li>
 </ul>
 <p>
 The settings <code>top</code> and <code>bottom</code>
-should be used when rooms or different floors of a building are 
+should be used when rooms or different floors of a building are
 connected since multizone airflow models assume that each floor is completely mixed.
 For these two seetings, this model will compute the pressure between the center of the room
 and an opening that is at height <code>h</code> relative to the center of the room.
@@ -200,6 +198,16 @@ Buildings.Airflow.Multizone.MediumColumnDynamic</a> instead of this model.
 </html>",
 revisions="<html>
 <ul>
+<li>
+December 22, 2014 by Michael Wetter:<br/>
+Removed <code>Modelica.Fluid.System</code>
+to address issue
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/311\">#311</a>.
+</li>
+<li><i>October 4, 2014</i> by Michael Wetter:<br/>
+Removed assignment of <code>port_?.p.nominal</code> to avoid a warning in OpenModelica because
+alias sets have different nominal values.
+</li>
 <li><i>April 17, 2013</i> by Michael Wetter:<br/>
        Reformulated the assert statement that checks for the correct value of <code>densitySelection</code>.
 </li>
@@ -213,6 +221,5 @@ revisions="<html>
 <li><i>February 24, 2005</i> by Michael Wetter:<br/>
        Released first version.
 </ul>
-</html>"),
-    Diagram(graphics));
+</html>"));
 end MediumColumn;

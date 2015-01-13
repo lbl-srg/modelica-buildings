@@ -1,65 +1,59 @@
 within Buildings.Fluid.FixedResistances.Examples;
-model FixedResistance
+model FixedResistance "Test model for the fixed resistance model"
   extends Modelica.Icons.Example;
 
  package Medium = Buildings.Media.ConstantPropertyLiquidWater;
     Modelica.Blocks.Sources.Constant PAtm(k=101325)
-      annotation (Placement(transformation(extent={{66,76},{86,96}}, rotation=0)));
+      annotation (Placement(transformation(extent={{66,76},{86,96}})));
     Modelica.Blocks.Sources.Ramp P(
       duration=1,
     height=20,
     offset=101315)
-                 annotation (Placement(transformation(extent={{-100,70},{-80,90}},
-          rotation=0)));
+                 annotation (Placement(transformation(extent={{-100,70},{-80,90}})));
     Buildings.Fluid.FixedResistances.FixedResistanceDpM res1(
     redeclare package Medium = Medium,
     from_dp=true,
     m_flow_nominal=5,
-    dp_nominal=10)  annotation (Placement(transformation(extent={{-28,30},{-8,50}},
-          rotation=0)));
+    dp_nominal=10)  annotation (Placement(transformation(extent={{-28,30},{-8,50}})));
   Buildings.Fluid.Sources.Boundary_pT sou1(          redeclare package Medium
       = Medium,
     use_p_in=true,
     T=293.15,
     nPorts=3)             annotation (Placement(transformation(extent={{-60,-10},
-            {-40,10}}, rotation=0)));
+            {-40,10}})));
   Buildings.Fluid.Sources.Boundary_pT sin1(          redeclare package Medium
       = Medium, T=283.15,
     use_p_in=true,
     nPorts=3)             annotation (Placement(transformation(extent={{90,-10},
-            {70,10}}, rotation=0)));
+            {70,10}})));
     Buildings.Fluid.FixedResistances.FixedResistanceDpM res2(
     redeclare package Medium = Medium,
     from_dp=true,
     m_flow_nominal=5,
     dp_nominal=10,
     use_dh=true)
-             annotation (Placement(transformation(extent={{-28,-10},{-8,10}},
-          rotation=0)));
+             annotation (Placement(transformation(extent={{-28,-10},{-8,10}})));
     Buildings.Fluid.FixedResistances.FixedResistanceDpM res3(
     redeclare package Medium = Medium,
     from_dp=true,
     m_flow_nominal=5,
     dp_nominal=10,
     use_dh=true)
-             annotation (Placement(transformation(extent={{-28,-50},{-8,-30}},
-          rotation=0)));
+             annotation (Placement(transformation(extent={{-28,-50},{-8,-30}})));
   FixedResistances.LosslessPipe pipCon(redeclare package Medium = Medium,
       m_flow_nominal=5) "Lossless pipe connection"
                                annotation (Placement(transformation(extent={{34,
-            -50},{54,-30}}, rotation=0)));
+            -50},{54,-30}})));
   Buildings.Fluid.Sensors.MassFlowRate masFlo2(redeclare package Medium = Medium)
     "Mass flow rate sensor" annotation (Placement(transformation(extent={{20,-10},
-            {40,10}}, rotation=0)));
+            {40,10}})));
   Buildings.Fluid.Sensors.MassFlowRate masFlo3(redeclare package Medium = Medium)
     "Mass flow rate sensor" annotation (Placement(transformation(extent={{0,-50},
-            {20,-30}}, rotation=0)));
+            {20,-30}})));
   Buildings.Utilities.Diagnostics.AssertEquality assEqu(threShold=1E-4, message=
         "Inputs differ, check that lossless pipe is correctly implemented.")
     "Assert equality of the two mass flow rates"
-    annotation (Placement(transformation(extent={{40,60},{60,80}},   rotation=0)));
-  inner Modelica.Fluid.System system
-    annotation (Placement(transformation(extent={{-100,-100},{-80,-80}})));
+    annotation (Placement(transformation(extent={{40,60},{60,80}})));
 equation
   connect(res2.port_b, masFlo2.port_a) annotation (Line(points={{-8,6.10623e-16},
           {-1,6.10623e-16},{-1,1.22125e-15},{6,1.22125e-15},{6,6.10623e-16},{20,
@@ -110,9 +104,7 @@ equation
       points={{70,-2.66667},{60,-2.66667},{60,-40},{54,-40}},
       color={0,127,255},
       smooth=Smooth.None));
-    annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
-            -100},{100,100}}),
-                        graphics),
-experiment(StopTime=1.0),
-__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/FixedResistances/Examples/FixedResistance.mos" "Simulate and plot"));
+    annotation (experiment(StopTime=1.0),
+__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/FixedResistances/Examples/FixedResistance.mos"
+        "Simulate and plot"));
 end FixedResistance;

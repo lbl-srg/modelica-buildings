@@ -7,7 +7,7 @@ model ClosedDoors "Model with three closed doors"
     redeclare package Medium = Medium,
     LClo=20*1E-4,
     forceErrorControlOnFlow=true) "Discretized door" annotation (Placement(
-        transformation(extent={{10,-30},{30,-10}},rotation=0)));
+        transformation(extent={{10,-30},{30,-10}})));
 
   Buildings.Fluid.MixingVolumes.MixingVolume volA(
     redeclare package Medium = Medium,
@@ -16,7 +16,7 @@ model ClosedDoors "Model with three closed doors"
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     massDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     m_flow_nominal=0.01)                                     annotation (
-      Placement(transformation(extent={{-80,0},{-60,20}}, rotation=0)));
+      Placement(transformation(extent={{-80,0},{-60,20}})));
   Buildings.Fluid.MixingVolumes.MixingVolume volB(
     redeclare package Medium = Medium,
     V=2.5*5*5,
@@ -24,13 +24,13 @@ model ClosedDoors "Model with three closed doors"
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     massDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     m_flow_nominal=0.01)                                     annotation (
-      Placement(transformation(extent={{40,40},{60,60}}, rotation=0)));
+      Placement(transformation(extent={{40,40},{60,60}})));
   Buildings.HeatTransfer.Sources.PrescribedHeatFlow PrescribedHeatFlow1
-    annotation (Placement(transformation(extent={{4,40},{24,60}}, rotation=0)));
+    annotation (Placement(transformation(extent={{4,40},{24,60}})));
   Modelica.Blocks.Sources.Sine Sine1(freqHz=1/3600) annotation (Placement(
-        transformation(extent={{-68,40},{-48,60}}, rotation=0)));
+        transformation(extent={{-68,40},{-48,60}})));
   Modelica.Blocks.Math.Gain Gain1(k=100) annotation (Placement(transformation(
-          extent={{-28,40},{-8,60}}, rotation=0)));
+          extent={{-28,40},{-8,60}})));
   Buildings.Fluid.MixingVolumes.MixingVolume volC(
     redeclare package Medium = Medium,
     V=2.5*5*5,
@@ -38,22 +38,20 @@ model ClosedDoors "Model with three closed doors"
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     massDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     m_flow_nominal=0.01)                                     annotation (
-      Placement(transformation(extent={{70,-40},{90,-20}}, rotation=0)));
+      Placement(transformation(extent={{70,-40},{90,-20}})));
   Buildings.Airflow.Multizone.DoorDiscretizedOperable dooAC(
     redeclare package Medium = Medium,
     LClo=20*1E-4,
     forceErrorControlOnFlow=true) "Discretized door" annotation (Placement(
-        transformation(extent={{10,-60},{30,-40}}, rotation=0)));
+        transformation(extent={{10,-60},{30,-40}})));
   Modelica.Blocks.Sources.Constant yDoor(k=0) "Input signal for door opening"
                                              annotation (Placement(
-        transformation(extent={{-60,-90},{-40,-70}}, rotation=0)));
+        transformation(extent={{-60,-90},{-40,-70}})));
   Buildings.Airflow.Multizone.DoorDiscretizedOperable dooBC(
     redeclare package Medium = Medium,
     LClo=20*1E-4,
     forceErrorControlOnFlow=true) "Discretized door" annotation (Placement(
-        transformation(extent={{10,-90},{30,-70}}, rotation=0)));
-  inner Modelica.Fluid.System system
-    annotation (Placement(transformation(extent={{70,68},{90,88}})));
+        transformation(extent={{10,-90},{30,-70}})));
 equation
   connect(Gain1.y, PrescribedHeatFlow1.Q_flow)
     annotation (Line(points={{-7,50},{4,50}}, color={0,0,255}));
@@ -130,10 +128,16 @@ This model consists of three volumes that are connected among
 each other through three doors that all have the same geometry.
 All doors are closed, but they are not air-tight.
 Heat is added and removed from <code>volB</code> which induces
-a small air flow through the doors. 
+a small air flow through the doors.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+December 22, 2014 by Michael Wetter:<br/>
+Removed <code>Modelica.Fluid.System</code>
+to address issue
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/311\">#311</a>.
+</li>
 <li>
 November 10, 2011, by Michael Wetter:<br/>
 Added documentation.

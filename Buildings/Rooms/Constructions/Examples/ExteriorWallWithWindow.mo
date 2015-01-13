@@ -18,6 +18,10 @@ model ExteriorWallWithWindow "Test model for an exterior wall with a window"
     haveInteriorShade=false) "Record for glazing system"
     annotation (Placement(transformation(extent={{-120,60},{-100,80}})));
 
+  parameter HeatTransfer.Data.OpaqueConstructions.Insulation100Concrete200 extConMat
+    "Record for material layers"
+    annotation (Placement(transformation(extent={{-160,60},{-140,80}})));
+
   parameter Buildings.Rooms.BaseClasses.ParameterConstructionWithWindow conPar(
     til=Buildings.HeatTransfer.Types.Tilt.Wall,
     azi=0,
@@ -27,10 +31,6 @@ model ExteriorWallWithWindow "Test model for an exterior wall with a window"
     hWin=hWin,
     wWin=wWin) "Data for construction with window"
     annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
-
-  parameter HeatTransfer.Data.OpaqueConstructions.Insulation100Concrete200 extConMat
-    "Record for material layers"
-    annotation (Placement(transformation(extent={{-160,60},{-140,80}})));
 
   ConstructionWithWindow conExt[1](
     layers={conPar.layers},
@@ -291,7 +291,7 @@ which was set to an interior instead of an exterior convection model.
 June 12, 2013, by Michael Wetter:<br/>
 Redesigned model to separate convection from radiation, which is
 required for the implementation of a CFD model.
-Corrected wrong connection to frame heat transfer. The previous implementation accounted 
+Corrected wrong connection to frame heat transfer. The previous implementation accounted
 twice for the convective resistance of the frame on the room-side.
 </li>
 <li>
@@ -301,7 +301,7 @@ to be parameters does not imply that the whole record has the variability of a p
 </li>
 <li>
 March 7, 2012, by Michael Wetter:<br/>
-Updated example to use new data model 
+Updated example to use new data model
 <a href=\"modelica://Buildings.Rooms.BaseClasses.ParameterConstructionWithWindow\">
 Buildings.Rooms.BaseClasses.ParameterConstructionWithWindow</a>
 in model for boundary conditions.

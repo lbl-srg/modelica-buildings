@@ -8,9 +8,6 @@ model BoilerPolynomialClosedLoop "Boiler with closed loop control"
  parameter Modelica.SIunits.MassFlowRate m_flow_nominal = Q_flow_nominal/dT_nominal/4200
     "Nominal mass flow rate";
 
-  inner Modelica.Fluid.System system
-    annotation (Placement(transformation(extent={{-120,-140},{-100,-120}})));
-
   Buildings.Fluid.Boilers.BoilerPolynomial boi(
     a={0.9},
     effCur=Buildings.Fluid.Types.EfficiencyCurves.Constant,
@@ -36,14 +33,14 @@ model BoilerPolynomialClosedLoop "Boiler with closed loop control"
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={0,40})));
-  Movers.FlowMachine_m_flow pumLoa(redeclare package Medium = Medium,
+  Movers.FlowControlled_m_flow pumLoa(redeclare package Medium = Medium,
     dynamicBalance=false,
     m_flow_nominal=2*m_flow_nominal) "Pump for heating load"
                                 annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={0,110})));
-  Movers.FlowMachine_m_flow pumBoi(redeclare package Medium = Medium,
+  Movers.FlowControlled_m_flow pumBoi(redeclare package Medium = Medium,
       m_flow_nominal=m_flow_nominal,
     dynamicBalance=false) "Pump for boiler loop"
                                 annotation (Placement(transformation(
@@ -93,7 +90,7 @@ model BoilerPolynomialClosedLoop "Boiler with closed loop control"
     redeclare package Medium = Medium,
     dp_nominal=0*{1,1,1},
     dynamicBalance=false,
-    m_flow_nominal=m_flow_nominal*{1,2,1}) "Splitter/mixer"
+    m_flow_nominal=m_flow_nominal*{2,1,1}) "Splitter/mixer"
                                            annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=270,
@@ -248,18 +245,16 @@ equation
     experiment(
       StopTime=14400,
       Tolerance=1e-05),
-    Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,
-            100}})),
     Documentation(info="<html>
 <p>
 This model illustrates how to use a boiler model
-with closed loop control. 
+with closed loop control.
 The controller modulates the boiler temperature between
 60&deg;C and 80&deg;C.
 A three-way valve mixes recirculated water with boiler water
 to regulate the temperature of the volume at a constant temperature
 of 40&deg;C.
-There is also a bypass in the boiler loop to ensure circulation when the 
+There is also a bypass in the boiler loop to ensure circulation when the
 valve position is such that it only recirculates water from the load.
 The bypass between valve and pump mixes recirculated water, thereby
 allowing the valve to work over a larger operating range.
@@ -268,6 +263,16 @@ and it is used to accomodate for the thermal expansion of the water.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+December 22, 2014 by Michael Wetter:<br/>
+Removed <code>Modelica.Fluid.System</code>
+to address issue
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/311\">#311</a>.
+</li>
+<li>
+October 6, 2014, by Michael Wetter:<br/>
+Corrected wrong value of <code>m_flow_nominal</code> for <code>spl3</code>.
+</li>
 <li>
 March 25, 2014, by Michael Wetter:<br/>
 Updated model with new expansion vessel.

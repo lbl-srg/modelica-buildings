@@ -194,12 +194,12 @@ equation
           fillPattern=FillPattern.Backward)}),
     Documentation(info="<html>
 <p>
-Horizontal layer that is used to model a U-tube borehole heat exchanger. 
-This model combines three models, each simulating a different aspect 
-of a borehole heat exchanger. 
+Horizontal layer that is used to model a U-tube borehole heat exchanger.
+This model combines three models, each simulating a different aspect
+of a borehole heat exchanger.
 </p>
 <p>
-The instance <code>pipFil</code> computes the heat transfer in the pipes and the filling material. 
+The instance <code>pipFil</code> computes the heat transfer in the pipes and the filling material.
 This computation is done using the model
 <a href=\"modelica://Buildings.Fluid.HeatExchangers.Boreholes.BaseClasses.HexInternalElement\">
 Buildings.Fluid.HeatExchangers.Boreholes.BaseClasses.HexInternalElement</a>.
@@ -210,7 +210,7 @@ The computation is done using the model <a href=\"modelica://Buildings.HeatTrans
 Buildings.HeatTransfer.Conduction.SingleLayerCylinder</a>.
 </p>
 <p>
-The model <code>TBouCon</code> computes the far-field temperature boundary condition, 
+The model <code>TBouCon</code> computes the far-field temperature boundary condition,
 i.e., the temperature at the outer
 surface of the above cylindrical heat transfer computation.
 The computation is done using the model

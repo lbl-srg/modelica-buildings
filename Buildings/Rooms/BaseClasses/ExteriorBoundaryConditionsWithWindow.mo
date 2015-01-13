@@ -16,14 +16,22 @@ model ExteriorBoundaryConditionsWithWindow
     "Set to true if window has interior shade (at surface b)"
     annotation (Dialog(group="Shading"));
 
+  // fixme: this should use Modelica.Math.BooleanVectors.anyTrue
   final parameter Boolean haveShade=
-    haveExteriorShade[1] or haveInteriorShade[1]
+    Modelica.Math.BooleanVectors.anyTrue(haveExteriorShade) or
+    Modelica.Math.BooleanVectors.anyTrue(haveInteriorShade)
     "Set to true if window system has a shade"
     annotation (Dialog(group="Shading"), Evaluate=true);
 
-  Buildings.HeatTransfer.Windows.FixedShade sha[nCon](final conPar=conPar,
+  final parameter Boolean haveOverhangOrSideFins=
+    Modelica.Math.BooleanVectors.anyTrue(conPar.haveOverhangOrSideFins)
+    "Flag, true if the room has at least one window with either an overhang or side fins";
+
+  Buildings.HeatTransfer.Windows.FixedShade sha[nCon](
+    final conPar=conPar,
     each lat=lat,
-    azi=conPar.azi) "Shade due to overhang or side fins"
+    azi=conPar.azi) if
+       haveOverhangOrSideFins "Shade due to overhang or side fins"
     annotation (Placement(transformation(extent={{140,100},{120,120}})));
 
   Modelica.Blocks.Interfaces.RealInput uSha[nCon](min=0, max=1) if
@@ -79,18 +87,16 @@ model ExteriorBoundaryConditionsWithWindow
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a glaUns[nCon]
     "Heat port at unshaded glass of exterior-facing surface"
                                                     annotation (Placement(transformation(extent={{-310,
-            -90},{-290,-70}},
-                       rotation=0), iconTransformation(extent={{-310,-90},{-290,
+            -90},{-290,-70}}), iconTransformation(extent={{-310,-90},{-290,
             -70}})));
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a glaSha[nCon] if
        haveShade "Heat port at shaded glass of exterior-facing surface"
-    annotation (Placement(transformation(extent={{-310,-130},{-290,-110}}, rotation=0),
+    annotation (Placement(transformation(extent={{-310,-130},{-290,-110}}),
         iconTransformation(extent={{-310,-130},{-290,-110}})));
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a fra[nCon](T(each nominal=
           300, each start=283.15))
     "Heat port at frame of exterior-facing surface"                                   annotation (Placement(transformation(extent={{-310,
-            -270},{-290,-250}},
-                       rotation=0), iconTransformation(extent={{-310,-270},{-290,
+            -270},{-290,-250}}), iconTransformation(extent={{-310,-270},{-290,
             -250}})));
   Modelica.Blocks.Math.Add HTotConExtWinFra[nCon](
      final k1=conPar[:].fFra .* conPar[:].glaSys.absSolFra .* conPar[:].AWin,
@@ -127,7 +133,6 @@ protected
   Modelica.Blocks.Routing.Replicator repConExtWinTSkyBla(final nout=nCon)
     "Signal replicator"
     annotation (Placement(transformation(extent={{220,-112},{200,-92}})));
-
 equation
   connect(uSha, conExtWin.uSha)
                           annotation (Line(
@@ -255,18 +260,7 @@ equation
       index=1,
       extent={{6,3},{6,3}}));
   end for;
-  connect(sha.HDirTil, HTotConExtWinFra.u1) annotation (Line(
-      points={{119,116},{100,116},{100,76},{42,76}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(sha.HDirTil, HDir) annotation (Line(
-      points={{119,116},{100,116},{100,70},{280,70},{280,120},{310,120}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(sha.HDirTilUns, HDirTil.H) annotation (Line(
-      points={{142,116},{160,116},{160,130},{199,130}},
-      color={0,0,127},
-      smooth=Smooth.None));
+
   connect(HDirTil.inc, sha.incAng) annotation (Line(
       points={{199,126},{168,126},{168,104},{142,104}},
       color={0,0,127},
@@ -275,6 +269,32 @@ equation
       points={{-320,60},{-160,60},{-160,-140},{-10,-140},{-10,-123}},
       color={0,0,127},
       smooth=Smooth.None));
+
+  connect(sha.HDirTilUns, HDirTil.H) annotation (Line(
+      points={{142,116},{160,116},{160,130},{199,130}},
+      color={0,0,127},
+      smooth=Smooth.None));
+
+  if haveOverhangOrSideFins then
+    connect(sha.HDirTil, HTotConExtWinFra.u1) annotation (Line(
+      points={{119,116},{100,116},{100,76},{42,76}},
+      color={0,0,127},
+      smooth=Smooth.None));
+    connect(sha.HDirTil, HDir) annotation (Line(
+      points={{119,116},{100,116},{100,70},{280,70},{280,120},{310,120}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  else
+    connect(HDirTil.H, HTotConExtWinFra.u1) annotation (Line(
+        points={{199,130},{100,130},{100,76},{42,76}},
+        color={0,0,127},
+        smooth=Smooth.None));
+    connect(HDirTil.H, HDir) annotation (Line(
+      points={{199,130},{100,130},{100,70},{280,70},{280,120},{310,120}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  end if;
+
   annotation (Icon(graphics={
         Rectangle(
           extent={{-220,180},{-160,-102}},
@@ -317,12 +337,25 @@ Buildings.HeatTransfer.Windows.ExteriorHeatTransfer</a>.
 </html>", revisions="<html>
 <ul>
 <li>
+October 28, 2014, by Michael Wetter:<br/>
+Replaced
+<code>final parameter Boolean haveShade=haveExteriorShade[1] or haveInteriorShade[1]</code>
+with a test for all elements of the vector.
+This was not possible in earlier versions of Dymola, but now works.
+</li>
+<li>
+October 20, 2014, by Michael Wetter:<br/>
+Conditionally removed shade if not present. This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/234\">
+issue 234</a>.
+</li>
+<li>
 February 8 2012, by Michael Wetter:<br/>
 Changed model to use new implementation of
 <a href=\"modelica://Buildings.HeatTransfer.Radiosity.OutdoorRadiosity\">
 Buildings.HeatTransfer.Radiosity.OutdoorRadiosity</a>.
 This change leads to the use of the same equations for the radiative
-heat transfer between window and ambient as is used for 
+heat transfer between window and ambient as is used for
 the opaque constructions.
 </li>
 <li>

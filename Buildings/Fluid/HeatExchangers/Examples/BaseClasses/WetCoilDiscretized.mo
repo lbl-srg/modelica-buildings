@@ -38,43 +38,40 @@ partial model WetCoilDiscretized
         T_b1_nominal,
         T_a2_nominal,
         T_b2_nominal),
-    show_T=true,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
-    "Coil with fixed initial conditions" annotation (Placement(transformation(
-          extent={{-10,40},{10,60}}, rotation=0)));
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    show_T=true) "Coil with fixed initial conditions"
+                                         annotation (Placement(transformation(
+          extent={{-10,40},{10,60}})));
   Sources.MassFlowSource_T            sin_2(
     redeclare package Medium = Medium2,
     nPorts=1,
     use_m_flow_in=true,
     T=303.15)             annotation (Placement(transformation(extent={{-50,30},
-            {-30,50}}, rotation=0)));
+            {-30,50}})));
   Buildings.Fluid.Sources.Boundary_pT sou_2(
     redeclare package Medium = Medium2,
     nPorts=1,
     T=293.15)             annotation (Placement(transformation(extent={{50,30},
-            {30,50}},  rotation=0)));
+            {30,50}})));
     Modelica.Blocks.Sources.Ramp TWat(
     duration=60,
     height=15,
     offset=273.15 + 5,
     startTime=0) "Water temperature"
-                 annotation (Placement(transformation(extent={{-100,64},{-80,84}},
-          rotation=0)));
+                 annotation (Placement(transformation(extent={{-100,64},{-80,84}})));
   Sources.MassFlowSource_T            sin_1(
     redeclare package Medium = Medium1,
     nPorts=1,
     use_m_flow_in=true,
     T=293.15)             annotation (Placement(transformation(extent={{50,60},
-            {30,80}},rotation=0)));
+            {30,80}})));
   Buildings.Fluid.Sources.Boundary_pT sou_1(
     redeclare package Medium = Medium1,
     p=300000 + 5000,
     use_T_in=true,
     T=293.15,
     nPorts=1)             annotation (Placement(transformation(extent={{-50,60},
-            {-30,80}}, rotation=0)));
-  inner Modelica.Fluid.System system
-    annotation (Placement(transformation(extent={{-100,-100},{-80,-80}})));
+            {-30,80}})));
   Buildings.Fluid.HeatExchangers.WetCoilDiscretized hexSteStaIni(
     redeclare package Medium1 = Medium1,
     redeclare package Medium2 = Medium2,
@@ -91,34 +88,34 @@ partial model WetCoilDiscretized
         T_b1_nominal,
         T_a2_nominal,
         T_b2_nominal),
-    show_T=true,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyStateInitial)
-    "Coil with fixed initial conditions" annotation (Placement(transformation(
-          extent={{-10,-20},{10,0}}, rotation=0)));
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyStateInitial,
+    show_T=true) "Coil with fixed initial conditions"
+                                         annotation (Placement(transformation(
+          extent={{-10,-20},{10,0}})));
   Sources.MassFlowSource_T            sin_3(
     redeclare package Medium = Medium2,
     nPorts=1,
     use_m_flow_in=true,
     T=303.15)             annotation (Placement(transformation(extent={{-50,-28},
-            {-30,-8}}, rotation=0)));
+            {-30,-8}})));
   Buildings.Fluid.Sources.Boundary_pT sou_3(
     redeclare package Medium = Medium2,
     nPorts=1,
     T=293.15)             annotation (Placement(transformation(extent={{50,-30},
-            {30,-10}}, rotation=0)));
+            {30,-10}})));
   Sources.MassFlowSource_T            sin_4(
     redeclare package Medium = Medium1,
     nPorts=1,
     use_m_flow_in=true,
     T=293.15)             annotation (Placement(transformation(extent={{50,0},{
-            30,20}}, rotation=0)));
+            30,20}})));
   Buildings.Fluid.Sources.Boundary_pT sou_4(
     redeclare package Medium = Medium1,
     p=300000 + 5000,
     use_T_in=true,
     T=293.15,
     nPorts=1)             annotation (Placement(transformation(extent={{-50,0},
-            {-30,20}}, rotation=0)));
+            {-30,20}})));
   Buildings.Fluid.HeatExchangers.WetCoilDiscretized hexSteSta(
     redeclare package Medium1 = Medium1,
     redeclare package Medium2 = Medium2,
@@ -135,47 +132,46 @@ partial model WetCoilDiscretized
         T_b1_nominal,
         T_a2_nominal,
         T_b2_nominal),
-    show_T=true,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState)
-    "Coil with fixed initial conditions" annotation (Placement(transformation(
-          extent={{-10,-80},{10,-60}}, rotation=0)));
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
+    show_T=true) "Coil with fixed initial conditions"
+                                         annotation (Placement(transformation(
+          extent={{-10,-80},{10,-60}})));
   Sources.MassFlowSource_T            sin_5(
     redeclare package Medium = Medium2,
     nPorts=1,
     use_m_flow_in=true,
     T=303.15)             annotation (Placement(transformation(extent={{-50,-86},
-            {-30,-66}},rotation=0)));
+            {-30,-66}})));
   Buildings.Fluid.Sources.Boundary_pT sou_5(
     redeclare package Medium = Medium2,
     nPorts=1,
     T=293.15)             annotation (Placement(transformation(extent={{50,-90},
-            {30,-70}}, rotation=0)));
+            {30,-70}})));
   Sources.MassFlowSource_T            sin_6(
     redeclare package Medium = Medium1,
     nPorts=1,
     use_m_flow_in=true,
     T=293.15)             annotation (Placement(transformation(extent={{50,-60},
-            {30,-40}},
-                     rotation=0)));
+            {30,-40}})));
   Buildings.Fluid.Sources.Boundary_pT sou_6(
     redeclare package Medium = Medium1,
     p=300000 + 5000,
     use_T_in=true,
     T=293.15,
     nPorts=1)             annotation (Placement(transformation(extent={{-50,-60},
-            {-30,-40}},rotation=0)));
+            {-30,-40}})));
     Modelica.Blocks.Sources.Ramp m2_flow(
     duration=60,
     startTime=60,
     height=1.1*m2_flow_nominal,
     offset=-m2_flow_nominal) "Air mass flow rate" annotation (Placement(
-        transformation(extent={{-100,30},{-80,50}}, rotation=0)));
+        transformation(extent={{-100,30},{-80,50}})));
     Modelica.Blocks.Sources.Ramp m1_flow(
     duration=60,
     startTime=180,
     height=1.1*m1_flow_nominal,
     offset=-m1_flow_nominal) "Water mass flow rate" annotation (Placement(
-        transformation(extent={{90,60},{70,80}}, rotation=0)));
+        transformation(extent={{90,60},{70,80}})));
 equation
   connect(TWat.y, sou_1.T_in)
     annotation (Line(points={{-79,74},{-79,74},{-52,74}},
@@ -258,8 +254,7 @@ equation
       points={{69,70},{60,70},{60,-42},{50,-42}},
       color={0,0,127},
       smooth=Smooth.None));
-  annotation(Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-100,
-            -100},{100,100}}), graphics), Documentation(info="<html>
+  annotation (Documentation(info="<html>
 <p>
 This is the base model that is used to test the initialization of the coil model.
 There are three instances of the coil model, each having different settings
@@ -267,6 +262,12 @@ for the initial conditions.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+December 22, 2014 by Michael Wetter:<br/>
+Removed <code>Modelica.Fluid.System</code>
+to address issue
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/311\">#311</a>.
+</li>
 <li>
 June 28, 2014, by Michael Wetter:<br/>
 First implementation.

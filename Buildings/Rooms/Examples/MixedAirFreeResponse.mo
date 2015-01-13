@@ -4,9 +4,6 @@ model MixedAirFreeResponse "Free response of room model"
   package MediumA = Buildings.Media.GasesConstantDensity.MoistAirUnsaturated
     "Medium model";
 
-  inner Modelica.Fluid.System system
-    annotation (Placement(transformation(extent={{-72,-32},{-52,-12}})));
-
   parameter
     Buildings.HeatTransfer.Data.OpaqueConstructions.Insulation100Concrete200
     matLayExt "Construction material for exterior walls"
@@ -100,16 +97,14 @@ model MixedAirFreeResponse "Free response of room model"
   Buildings.HeatTransfer.Sources.FixedTemperature TSoi[nConBou](each T=283.15)
     "Boundary condition for construction" annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
-        rotation=0,
         origin={110,-10})));
   Buildings.HeatTransfer.Sources.FixedTemperature TBou[nSurBou](each T=288.15)
     "Boundary condition for construction" annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
-        rotation=0,
         origin={150,-50})));
   HeatTransfer.Conduction.MultiLayer conOut[nSurBou](
-    redeclare Buildings.HeatTransfer.Data.OpaqueConstructions.Brick120 layers,
-    each A=6*4) "Construction that is modeled outside of room"
+    each A=6*4, each layers=matLayPar)
+    "Construction that is modeled outside of room"
     annotation (Placement(transformation(extent={{100,-60},{120,-40}})));
 
   Fluid.Sources.FixedBoundary boundary(
@@ -117,6 +112,7 @@ model MixedAirFreeResponse "Free response of room model"
     redeclare package Medium = MediumA,
     T=293.15) "Boundary condition"
     annotation (Placement(transformation(extent={{0,0},{20,20}})));
+
 equation
   connect(qRadGai_flow.y, multiplex3_1.u1[1])  annotation (Line(
       points={{-39,90},{-32,90},{-32,57},{-22,57}},
@@ -132,7 +128,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(multiplex3_1.y, roo.qGai_flow) annotation (Line(
-      points={{1,50},{38,50}},
+      points={{1,50},{22,50},{22,48},{44,48}},
       color={0,0,127},
       smooth=Smooth.None));
 
@@ -175,6 +171,17 @@ This model illustrates the use of the room model
 Buildings.Rooms.MixedAir</a>.
 </html>", revisions="<html>
 <ul>
+<li>
+December 22, 2014 by Michael Wetter:<br/>
+Removed <code>Modelica.Fluid.System</code>
+to address issue
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/311\">#311</a>.
+</li>
+<li>
+September 11, 2014, by Michael Wetter:<br/>
+Changed assignment of <code>layers</code> in <code>conOut</code>
+as <code>layers</code> is no longer replaceable.
+</li>
 <li>
 May 1, 2013, by Michael Wetter:<br/>
 Declared the parameter record to be a parameter, as declaring its elements

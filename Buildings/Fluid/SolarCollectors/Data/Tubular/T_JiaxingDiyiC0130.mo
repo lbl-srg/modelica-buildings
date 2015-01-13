@@ -16,7 +16,10 @@ record T_JiaxingDiyiC0130 =
     final C2=0,
     final G_nominal=1000,
     final dT_nominal=10) "T - Jiaxing Diyi New Energy Co., Ltd., DIYI-C01-30"
-    annotation(Documentation(info = "<html>
+    annotation(
+defaultComponentPrefixes="parameter",
+defaultComponentName="datSolCol",
+Documentation(info = "<html>
     <h4>References</h4>
       <p>
         Ratings data taken from the <a href=\"http://www.solar-rating.org\">
@@ -26,5 +29,5 @@ record T_JiaxingDiyiC0130 =
       <p>
         The ratings provided for <code>dp_nominal</code> were suspicious
         so 100 Pa is used instead.<br/>
-      </p>    
+      </p>
     </html>"));

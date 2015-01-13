@@ -24,8 +24,6 @@ model SingleSpeedValidation
     use_X_in=true,
     T=299.85) "Source"
     annotation (Placement(transformation(extent={{-40,-20},{-20,0}})));
-  inner Modelica.Fluid.System system
-    annotation (Placement(transformation(extent={{140,-140},{160,-120}})));
   Buildings.Fluid.HeatExchangers.DXCoils.SingleSpeed sinSpeDX(
     redeclare package Medium = Medium,
     dp_nominal=dp_nominal,
@@ -326,12 +324,12 @@ equation
     Documentation(info="<html>
 <p>
 This model validates the model
-<a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.SingleSpeed\"> 
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.SingleSpeed\">
 Buildings.Fluid.HeatExchangers.DXCoils.SingleSpeed</a>.
 </p>
-<p> 
-The difference in results of 
-<i>T<sub>Out</sub></i> and 
+<p>
+The difference in results of
+<i>T<sub>Out</sub></i> and
 <i>X<sub>Out</sub></i>
 at the beginning and end of the simulation is because the mass flow rate is zero.
 For zero mass flow rate, EnergyPlus assumes steady state condition,
@@ -340,26 +338,32 @@ are equal to the state variables of the model.
 </p>
 <p>
 The EnergyPlus results were generated using the example file <code>DXCoilSystemAuto.idf</code>
-from EnergyPlus 7.1, 
+from EnergyPlus 7.1,
 with a nominal cooling capacity of <i>10500</i> Watts instead of using
 autosizing. This allowed to have a part load ratio of one.
 </p>
 <p>
 Note that EnergyPlus mass fractions (<code>X</code>) are in mass of water vapor per mass of dry air,
 whereas Modelica uses the total mass as a reference. Hence, the EnergyPlus values
-are corrected by dividing them by 
+are corrected by dividing them by
 <code>1+X</code>.
 </p>
 </html>",
 revisions="<html>
 <ul>
 <li>
+December 22, 2014 by Michael Wetter:<br/>
+Removed <code>Modelica.Fluid.System</code>
+to address issue
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/311\">#311</a>.
+</li>
+<li>
 September 4, 2012 by Michael Wetter:<br/>
 Modified example to avoid having to access protected data.
 </li>
 <li>
 August 20, 2012 by Kaustubh Phalak:<br/>
-First implementation. 
+First implementation.
 </li>
 </ul>
 

@@ -29,7 +29,7 @@ algorithm
       Documentation(info="<html>
 <p>
 For <i>x<sub>1</sub> &lt; x &lt; x<sub>2</sub></i>, this function interpolates
-using cubic hermite spline. For <i>x</i> outside this interval, the function 
+using cubic hermite spline. For <i>x</i> outside this interval, the function
 linearly extrapolates.
 </p>
 <p>

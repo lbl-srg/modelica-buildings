@@ -22,10 +22,10 @@ algorithm
 Dew point temperature calculation for moist air above freezing temperature.
 </p>
 <p>
-The correlation used in this model is valid for dew point temperatures between 
+The correlation used in this model is valid for dew point temperatures between
 <i>0</i>&deg;C and <i>200</i>&deg;C. It is the correlation from 2005
 ASHRAE Handbook, p. 6.2. In an earlier version of this model, the equation from
-Peppers has been used, but this equation yielded about <i>15</i> Kelvin lower dew point 
+Peppers has been used, but this equation yielded about <i>15</i> Kelvin lower dew point
 temperatures.
 </p>
 </html>", revisions="<html>
@@ -59,9 +59,5 @@ First implementation.
 </li>
 </ul>
 </html>"),
-    Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
-            100}}), graphics),
-    Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,
-            100}}), graphics),
         Inline=true);
 end TDewPoi_pW;

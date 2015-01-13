@@ -3,4 +3,3 @@ createPlot(id = 1,
  x = "wetBul.Xi[1]",
  y = {"wetBul.TWetBul", "wetBulApp.TWetBul"},
  grid = true);
-

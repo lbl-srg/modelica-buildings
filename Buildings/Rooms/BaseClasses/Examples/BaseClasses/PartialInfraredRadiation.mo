@@ -114,5 +114,4 @@ equation
       points={{80,-90},{60,-90}},
       color={191,0,0},
       smooth=Smooth.None));
-  annotation (Diagram(graphics));
 end PartialInfraredRadiation;

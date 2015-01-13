@@ -11,8 +11,7 @@ model EffectiveAirLeakageArea "Effective air leakage area"
 
   parameter Modelica.SIunits.Area L(min=0) "Effective leakage area";
 
-  annotation (Diagram(graphics),
-                       Icon(graphics={
+  annotation (                       Icon(graphics={
         Rectangle(
           extent={{-50,48},{50,-42}},
           lineColor={0,0,255},
@@ -87,12 +86,12 @@ reported with the test results.
 <h4>References</h4>
 <UL>
 <LI>
-<B>ASHRAE, 1997.</B> 
-<i>ASHRAE Fundamentals</i>, 
+<B>ASHRAE, 1997.</B>
+<i>ASHRAE Fundamentals</i>,
 American Society of Heating, Refrigeration and Air-Conditioning
 Engineers, 1997.
 <LI>
-<B>Dols and Walton, 2002.</B> 
+<B>Dols and Walton, 2002.</B>
 W. Stuart Dols and George N. Walton, <I>CONTAMW 2.0 User Manual,
 Multizone Airflow and Contaminant Transport Analysis Software</I>,
 Building and Fire Research Laboratory,

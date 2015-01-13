@@ -21,11 +21,7 @@ model PartialConstruction "Partial model for multi-layer constructions"
   parameter Modelica.SIunits.Temperature T_b_start=293.15
     "Initial temperature at port_b, used if steadyStateInitial = false"
     annotation (Dialog(group="Initialization", enable=not steadyStateInitial));
-
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
-            -100},{100,100}}), graphics), Icon(coordinateSystem(
-          preserveAspectRatio=true, extent={{-100,-100},{100,100}}), graphics),
-    Documentation(info="<html>
+  annotation (    Documentation(info="<html>
 Partial model for constructions and multi-layer heat conductors.
 </html>", revisions="<html>
 <ul>

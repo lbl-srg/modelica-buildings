@@ -74,14 +74,13 @@ equation
 
   end if;
   annotation (
-    Icon(graphics),
     defaultComponentName="pip",
     Documentation(info="<html>
 <p>
 Model of a pipe with flow resistance and optional heat exchange with environment.
 </p>
 <p>
-If <code>useMultipleHeatPorts=false</code> (default option), the pipe uses a single heat port 
+If <code>useMultipleHeatPorts=false</code> (default option), the pipe uses a single heat port
 for the heat exchange with the environment.
 If <code>useMultipleHeatPorts=true</code>, then one heat port for each segment of the pipe is
 used for the heat exchange with the environment.
@@ -99,7 +98,7 @@ These fittings could also be explicitely modeled outside of this component using
 the package
 <a href=\"modelica://Modelica.Fluid.Fittings\">
 Modelica.Fluid.Fittings</a>.
-For mass flow rates other than <code>m_flow_nominal</code>, the model 
+For mass flow rates other than <code>m_flow_nominal</code>, the model
 <a href=\"modelica://Buildings.Fluid.FixedResistances.FixedResistanceDpM\">
 Buildings.Fluid.FixedResistances.FixedResistanceDpM</a> is used to
 compute the pressure drop.
@@ -118,7 +117,7 @@ as they are computed using the default Medium values.
 </li>
 <li>
 February 22, 2012 by Michael Wetter:<br/>
-Renamed <code>useMultipleHeatPort</code> to <code>useMultipleHeatPorts</code> and 
+Renamed <code>useMultipleHeatPort</code> to <code>useMultipleHeatPorts</code> and
 used heat port connector from <code>Modelica.Fluid</code> package for vector of heat ports.
 </li>
 <li>

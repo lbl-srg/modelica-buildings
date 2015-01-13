@@ -9,33 +9,18 @@ partial model PowerInterface
      annotation(Evaluate=true,Dialog(group="Characteristics"));
 
   parameter Boolean motorCooledByFluid = true
-    "If true, then motor heat is added to fluid stream"
+    "If true (and if addPowerToMedium = true), then motor heat is added to fluid stream"
     annotation(Dialog(group="Characteristics"));
+
   parameter Boolean homotopyInitialization = true "= true, use homotopy method"
     annotation(Evaluate=true, Dialog(tab="Advanced"));
-
-  parameter
-    Buildings.Fluid.Movers.BaseClasses.Characteristics.efficiencyParameters
-      motorEfficiency(r_V={1}, eta={0.7})
-    "Normalized volume flow rate vs. efficiency"
-    annotation(Placement(transformation(extent={{60,-40},{80,-20}})),
-               Dialog(group="Characteristics"),
-               enable = not use_powerCharacteristic);
-  parameter
-    Buildings.Fluid.Movers.BaseClasses.Characteristics.efficiencyParameters
-      hydraulicEfficiency(r_V={1}, eta={0.7})
-    "Normalized volume flow rate vs. efficiency"
-    annotation(Placement(transformation(extent={{60,-80},{80,-60}})),
-               Dialog(group="Characteristics"),
-               enable = not use_powerCharacteristic);
 
   parameter Modelica.SIunits.Density rho_default
     "Fluid density at medium default state";
 
   Modelica.Blocks.Interfaces.RealOutput P(quantity="Modelica.SIunits.Power",
    unit="W") "Electrical power consumed"
-  annotation (Placement(transformation(extent={{100,70},{120,90}},
-        rotation=0)));
+  annotation (Placement(transformation(extent={{100,70},{120,90}})));
 
   Modelica.SIunits.Power WHyd
     "Hydraulic power input (converted to flow work and heat)";
@@ -47,15 +32,18 @@ partial model PowerInterface
 
   Modelica.SIunits.Pressure dpMachine(displayUnit="Pa") "Pressure increase";
   Modelica.SIunits.VolumeFlowRate VMachine_flow "Volume flow rate";
-protected
-  parameter Modelica.SIunits.VolumeFlowRate V_flow_max(fixed=false)
-    "Maximum volume flow rate, used for smoothing";
   //Modelica.SIunits.HeatFlowRate QThe_flow "Heat input into the medium";
-  parameter Modelica.SIunits.VolumeFlowRate delta_V_flow = 1E-3*V_flow_max
+protected
+  parameter Data.FlowControlled _perPow
+    "Record with performance data for power"
+    annotation (choicesAllMatching=true,
+      Placement(transformation(extent={{60,-80},{80,-60}})));
+
+  parameter Modelica.SIunits.VolumeFlowRate delta_V_flow
     "Factor used for setting heat input into medium to zero at very small flows";
-  final parameter Real motDer[size(motorEfficiency.r_V, 1)](each fixed=false)
+  final parameter Real motDer[size(_perPow.motorEfficiency.V_flow, 1)](each fixed=false)
     "Coefficients for polynomial of pressure vs. flow rate";
-  final parameter Real hydDer[size(hydraulicEfficiency.r_V,1)](each fixed=false)
+  final parameter Real hydDer[size(_perPow.hydraulicEfficiency.V_flow,1)](each fixed=false)
     "Coefficients for polynomial of pressure vs. flow rate";
 
   Modelica.SIunits.HeatFlowRate QThe_flow
@@ -64,25 +52,26 @@ protected
 initial algorithm
  // Compute derivatives for cubic spline
  motDer :=
-   if use_powerCharacteristic then
-     zeros(size(motorEfficiency.r_V, 1))
-   elseif ( size(motorEfficiency.r_V, 1) == 1)  then
+   if _perPow.use_powerCharacteristic then
+     zeros(size(_perPow.motorEfficiency.V_flow, 1))
+   elseif ( size(_perPow.motorEfficiency.V_flow, 1) == 1)  then
        {0}
    else
       Buildings.Utilities.Math.Functions.splineDerivatives(
-      x=motorEfficiency.r_V,
-      y=motorEfficiency.eta,
-      ensureMonotonicity=Buildings.Utilities.Math.Functions.isMonotonic(x=motorEfficiency.eta,
+      x=_perPow.motorEfficiency.V_flow,
+      y=_perPow.motorEfficiency.eta,
+      ensureMonotonicity=Buildings.Utilities.Math.Functions.isMonotonic(x=_perPow.motorEfficiency.eta,
                                                                         strict=false));
   hydDer :=
-     if use_powerCharacteristic then
-       zeros(size(hydraulicEfficiency.r_V, 1))
-     elseif ( size(hydraulicEfficiency.r_V, 1) == 1)  then
+     if _perPow.use_powerCharacteristic then
+       zeros(size(_perPow.hydraulicEfficiency.V_flow, 1))
+     elseif ( size(_perPow.hydraulicEfficiency.V_flow, 1) == 1)  then
        {0}
      else
        Buildings.Utilities.Math.Functions.splineDerivatives(
-                   x=hydraulicEfficiency.r_V,
-                   y=hydraulicEfficiency.eta);
+                   x=_perPow.hydraulicEfficiency.V_flow,
+                   y=_perPow.hydraulicEfficiency.eta);
+
 equation
   eta = etaHyd * etaMot;
 //  WFlo = eta * P;
@@ -91,7 +80,7 @@ equation
   // Hydraulic power (transmitted by shaft), etaHyd = WFlo/WHyd
   etaHyd * WHyd   = WFlo;
   // Heat input into medium
-  QThe_flow +  WFlo = if motorCooledByFluid then P else WHyd;
+  QThe_flow +  WFlo = if _perPow.motorCooledByFluid then P else WHyd;
   // At m_flow = 0, the solver may still obtain positive values for QThe_flow.
   // The next statement sets the heat input into the medium to zero for very small flow rates.
   if homotopyInitialization then
@@ -111,12 +100,9 @@ equation
           points={{0,80},{100,80}},
           color={0,0,0},
           smooth=Smooth.None)}),
-    Diagram(coordinateSystem(preserveAspectRatio=true,  extent={{-100,-100},{
-            100,100}}),
-            graphics),
     Documentation(info="<html>
 <p>This is an interface that implements the functions to compute the power draw and the
-heat dissipation of fans and pumps. It is used by the model 
+heat dissipation of fans and pumps. It is used by the model
 <a href=\"modelica://Buildings.Fluid.Movers.BaseClasses.FlowMachineInterface\">
 Buildings.Fluid.Movers.BaseClasses.FlowMachineInterface</a>.
 </p>
@@ -131,8 +117,18 @@ to properly guard against division by zero.
       revisions="<html>
 <ul>
 <li>
+January 6, 2015, by Michael Wetter:<br/>
+Revised model for OpenModelica.
+</li>
+<li>
 May 29, 2014, by Michael Wetter:<br/>
 Removed undesirable annotation <code>Evaluate=true</code>.
+</li>
+<li>
+April 21, 2014, by Filip Jorisson and Michael Wetter:<br/>
+Changed model to use
+<a href=\"modelica://Buildings.Fluid.Movers.Data.Generic\">
+Buildings.Fluid.Movers.Data.Generic</a>.
 </li>
 <li>
 September 17, 2013, by Michael Wetter:<br/>
@@ -155,7 +151,7 @@ Renamed protected parameters for consistency with the naming conventions.
     Changed model so that it is based on total pressure in Pascals instead of the pump head in meters.
     This change is needed if the device is used with air as a medium. The original formulation in Modelica.Fluid
     converts head to pressure using the density medium.d. Therefore, for fans, head would be converted to pressure
-    using the density of air. However, for fans, manufacturers typically publish the head in 
+    using the density of air. However, for fans, manufacturers typically publish the head in
     millimeters water (mmH20). Therefore, to avoid confusion and to make this model applicable for any medium,
     the model has been changed to use total pressure in Pascals instead of head in meters.
 </li>

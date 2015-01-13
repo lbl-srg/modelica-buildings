@@ -8,7 +8,7 @@ algorithm
  y := Buildings.Utilities.Math.Functions.spliceFunction(1, 0, x, delta);
  annotation (Documentation(info="<html>
 <p>
-Once Lipschitz continuously differentiable approximation to the 
+Once Lipschitz continuously differentiable approximation to the
 <code>Heaviside(.,.)</code> function.
 </p>
 </html>", revisions="<html>

@@ -112,8 +112,8 @@ This model transfers heat and moisture in the amount of </p>
   m = epsL * mWat_max,
 </pre>
 <p>
-where <code>epsS</code> and <code>epsL</code> are constant effectiveness 
-for the sensible and latent heat transfer,  
+where <code>epsS</code> and <code>epsL</code> are constant effectiveness
+for the sensible and latent heat transfer,
 <code>Q_max</code> is the maximum heat that can be transferred and
 <code>mWat_max</code> is the maximum moisture that can be transferred.
 </p>
@@ -125,7 +125,7 @@ instead of this model.
 </p>
 <p>
 This model can only be used with medium models that define the integer constant
-<code>Water</code> which needs to be equal to the index of the water mass fraction 
+<code>Water</code> which needs to be equal to the index of the water mass fraction
 in the species vector.
 </p>
 </html>",
@@ -154,7 +154,7 @@ Added regularization near zero flow.
 </li>
 <li>
 October 21, 2008, by Michael Wetter:<br/>
-First implementation, based on 
+First implementation, based on
 <a href=\"modelica://Buildings.Fluid.HeatExchangers.ConstantEffectiveness\">
 Buildings.Fluid.HeatExchangers.ConstantEffectiveness</a>.
 </li>

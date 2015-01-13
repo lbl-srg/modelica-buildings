@@ -8,48 +8,42 @@ model VAVBoxExponential
   Buildings.Fluid.Actuators.Dampers.Exponential dam(
          redeclare package Medium = Medium, A=1.8,
     m_flow_nominal=2)
-         annotation (Placement(transformation(extent={{20,10},{40,30}},
-          rotation=0)));
+         annotation (Placement(transformation(extent={{20,10},{40,30}})));
     Modelica.Blocks.Sources.Step yDam(
     height=-1,
     offset=1,
     startTime=60)
-                 annotation (Placement(transformation(extent={{-60,60},{-40,80}},
-          rotation=0)));
+                 annotation (Placement(transformation(extent={{-60,60},{-40,80}})));
     Modelica.Blocks.Sources.Ramp P(
     height=-10,
     offset=101330,
     startTime=0,
-    duration=60) annotation (Placement(transformation(extent={{-100,40},{-80,60}},
-          rotation=0)));
+    duration=60) annotation (Placement(transformation(extent={{-100,40},{-80,60}})));
   Buildings.Fluid.Sources.Boundary_pT sou(             redeclare package Medium
       =        Medium, T=273.15 + 20,
     nPorts=2,
     use_p_in=true)                      annotation (Placement(transformation(
-          extent={{-70,-20},{-50,0}}, rotation=0)));
+          extent={{-70,-20},{-50,0}})));
   Buildings.Fluid.Sources.Boundary_pT sin(             redeclare package Medium
       =        Medium, T=273.15 + 20,
     nPorts=2,
     use_p_in=true)                      annotation (Placement(transformation(
-          extent={{72,-20},{52,0}}, rotation=0)));
+          extent={{72,-20},{52,0}})));
     Modelica.Blocks.Sources.Constant PAtm(k=101325)
-      annotation (Placement(transformation(extent={{60,60},{80,80}}, rotation=0)));
+      annotation (Placement(transformation(extent={{60,60},{80,80}})));
   Buildings.Fluid.Actuators.Dampers.VAVBoxExponential vav(
     redeclare package Medium = Medium,
     dp_nominal=5,
     A=1.8,
     m_flow_nominal=2)
-         annotation (Placement(transformation(extent={{-2,-50},{18,-30}},
-          rotation=0)));
+         annotation (Placement(transformation(extent={{-2,-50},{18,-30}})));
     Buildings.Fluid.FixedResistances.FixedResistanceDpM res(
     from_dp=true,
     m_flow_nominal=2,
     redeclare package Medium = Medium,
     dp_nominal=5 - 0.45*2^2/1.2/1.8^2/2)
-             annotation (Placement(transformation(extent={{-36,10},{-16,30}},
-          rotation=0)));
-  inner Modelica.Fluid.System system
-    annotation (Placement(transformation(extent={{-100,-100},{-80,-80}})));
+             annotation (Placement(transformation(extent={{-36,10},{-16,30}})));
+
 equation
   connect(yDam.y,dam. y) annotation (Line(
       points={{-39,70},{-12,70},{-12,40},{30,40},{30,32}},
@@ -81,10 +75,7 @@ equation
       points={{52,-12},{46,-12},{46,-40},{18,-40}},
       color={0,127,255},
       smooth=Smooth.None));
- annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
-            -100},{100,100}}),
-                     graphics),
-             __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Actuators/Dampers/Examples/VAVBoxExponential.mos"
+ annotation (             __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Actuators/Dampers/Examples/VAVBoxExponential.mos"
         "Simulate and plot"),
     experiment(StopTime=240),
 Documentation(info="<html>
@@ -94,8 +85,8 @@ The model has two flow legs, both are connected to models for constant inlet and
 pressures.
 The top flow leg has a flow resistance and an air damper, and
 the bottom flow leg combines both of these resistances into one model.
-Both flow legs have identical mass flow rates, except at very small 
-flow rates. The reason for this difference is that the equations 
+Both flow legs have identical mass flow rates, except at very small
+flow rates. The reason for this difference is that the equations
 are regularized for numerical reasons, and combining the two components
 within one component leads to a slightly different equation for the
 regularization.
