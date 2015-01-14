@@ -7,7 +7,9 @@ TwoPortRL_N
 TwoPortRLC
 TwoPortRLC_N
 TwoPortMatrixRL
+TwoPortMatrixRL_N
 TwoPortMatrixRLC
+TwoPortMatrixRLC_N
 Line
 Line_N
 Network
