@@ -50,7 +50,7 @@ Some models connect to the whole weather data bus, such as
 Buildings.BoundaryConditions.SolarGeometry.Examples.IncidenceAngle</a>,
 in which case the connection will directly be drawn.
 Other models require only an individual signal from the weather data bus,
-such as 
+such as
 <a href=\"modelica://Buildings.BoundaryConditions.SkyTemperature.Examples.BlackBody\">
 Buildings.BoundaryConditions.SkyTemperature.Examples.BlackBody</a>.
 In this situation, Modelica modeling environments typically show a window that allows you to
