@@ -7,7 +7,9 @@ ACLine_RL_N
 ACLine_RLC
 ACLine_RLC_N
 ACLineMatrix_RL
+ACLineMatrix_RL_N
 ACLineMatrix_RLC
+ACLineMatrix_RLC_N
 ACLine
 ACLine_N
 ACSimpleGrid
