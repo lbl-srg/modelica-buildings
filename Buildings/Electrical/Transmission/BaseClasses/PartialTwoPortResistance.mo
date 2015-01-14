@@ -19,8 +19,6 @@ equation
   R_actual = R*(M + Modelica.SIunits.Conversions.to_degC(T_heatPort))/
   (M + Modelica.SIunits.Conversions.to_degC(T_ref));
 
-  LossPower = 0;
-
   terminal_p.i = - terminal_n.i;
 
   annotation (Diagram(graphics={

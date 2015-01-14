@@ -27,7 +27,8 @@ model TwoPortResistance "Model of a resistance with two electrical ports"
     final useHeatPort=useHeatPort) "Resistance line 3"
     annotation (Placement(transformation(extent={{-10,-40},{10,-20}})));
 equation
-  LossPower = 0;
+  // Joule Losses
+  LossPower = phase1.LossPower + phase2.LossPower + phase3.LossPower;
   connect(terminal_n.phase[1], phase1.terminal_n) annotation (Line(
       points={{-100,0},{-20,0},{-20,30},{-10,30}},
       color={0,120,120},
@@ -105,6 +106,10 @@ each line has a resistance equal to <i>R/3</i>.
 
 </html>", revisions="<html>
 <ul>
+<li>
+January 14, 2015, by Marco Bonvini:<br/>
+Added equation that represents Joule losses
+</li>
 <li>
 October 3, 2014, by Marco Bonvini:<br/>
 Added model and documentation.

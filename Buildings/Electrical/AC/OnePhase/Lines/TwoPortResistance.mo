@@ -9,6 +9,8 @@ model TwoPortResistance "Model of a resistance with two electrical ports"
 equation
   terminal_p.v - terminal_n.v = terminal_p.i*diagonal(ones(PhaseSystem_p.n)*R_actual);
 
+  // Joule losses
+  LossPower = R_actual*(terminal_p.i[1]^2 + terminal_p.i[2]^2);
   annotation (
     defaultComponentName="lineR",
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
@@ -37,6 +39,10 @@ The model represents the lumped resistance as shown in the figure below.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+January 14, 2015, by Marco Bonvini:<br/>
+Added equation that represents Joule losses
+</li>
 <li>
 August 5, 2014, by Marco Bonvini:<br/>
 Revised model and documentation.

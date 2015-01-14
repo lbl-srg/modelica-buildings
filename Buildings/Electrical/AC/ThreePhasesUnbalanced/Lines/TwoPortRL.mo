@@ -41,9 +41,9 @@ model TwoPortRL
     final useHeatPort=useHeatPort) "Impedance line 3"
     annotation (Placement(transformation(extent={{-10,-40},{10,-20}})));
 equation
-  LossPower = 0;
-  // fixme: should LossPower be an input in the base class? We want to avoid
-  // mixing graphical and textual modeling
+  // Joule Losses
+  LossPower = phase1.LossPower + phase2.LossPower + phase3.LossPower;
+
   connect(terminal_n.phase[1], phase1.terminal_n) annotation (Line(
       points={{-100,0},{-20,0},{-20,30},{-10,30}},
       color={0,120,120},
@@ -152,6 +152,10 @@ equal to <i>R/3</i>.
 
 </html>", revisions="<html>
 <ul>
+<li>
+January 14, 2015, by Marco Bonvini:<br/>
+Added equation that represents Joule losses
+</li>
 <li>
 October 6, 2014, by Marco Bonvini:<br/>
 Revised documentation and model.

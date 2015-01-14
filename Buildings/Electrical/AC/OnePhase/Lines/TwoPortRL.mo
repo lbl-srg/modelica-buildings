@@ -36,6 +36,9 @@ equation
       = terminal_p.v - terminal_n.v;
   end if;
 
+  // Joule losses
+  LossPower = R_actual*(terminal_p.i[1]^2 + terminal_p.i[2]^2);
+
   annotation (
 defaultComponentName="lineRL",
 Diagram(graphics={
@@ -61,6 +64,10 @@ The model represents the lumped RL cable as shown in the figure below.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+January 14, 2015, by Marco Bonvini:<br/>
+Added equation that represents Joule losses
+</li>
 <li>
 August 5, 2014, by Marco Bonvini:<br/>
 Revised model and documentation.

@@ -46,6 +46,10 @@ equation
     Vc = (terminal_p.v + terminal_n.v)/2;
   end if;
 
+  // Joule losses
+  LossPower = R_actual/2*(terminal_p.i[1]^2 + terminal_p.i[2]^2) +
+              R_actual/2*(terminal_n.i[1]^2 + terminal_n.i[2]^2);
+
   annotation (
   defaultComponentName="lineRLC",
 Diagram(graphics={
@@ -80,6 +84,10 @@ presence of the capacitive effect.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+January 14, 2015, by Marco Bonvini:<br/>
+Added equation that represents Joule losses
+</li>
 <li>
 August 5, 2014, by Marco Bonvini:<br/>
 Revised model and documentation.

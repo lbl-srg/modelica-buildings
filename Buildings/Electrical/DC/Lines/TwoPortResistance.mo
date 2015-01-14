@@ -13,6 +13,10 @@ equation
   // p.v[1] and n.v[1]
   terminal_p.v[1] - terminal_n.v[1] = terminal_p.i[1]*R_actual;
   terminal_p.v[2] = terminal_n.v[2];
+
+  // Joule losses
+  LossPower = R_actual*terminal_p.i[1]^2;
+
   annotation (Diagram(graphics={
           Rectangle(extent={{-70,30},{70,-30}}, lineColor={0,0,255}),
           Line(points={{-90,0},{-70,0}}, color={0,0,255}),
@@ -47,6 +51,10 @@ The model represents the lumped resistance as shown in the figure below.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+January 14, 2015, by Marco Bonvini:<br/>
+Added equation that represents Joule losses
+</li>
 <li>
 June 2, 2014, by Marco Bonvini:<br/>
 Revised documentation.
