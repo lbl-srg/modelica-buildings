@@ -5,13 +5,19 @@ model TransformerStepUpDY
   V_primary = 4160,
   V_secondary = 12470,
   redeclare Buildings.Electrical.AC.ThreePhasesUnbalanced.Sensors.ProbeWye probe_2,
-  redeclare Buildings.Electrical.AC.ThreePhasesUnbalanced.Conversion.ACACTransformerStepUpDY
+  redeclare
+      Buildings.Electrical.AC.ThreePhasesUnbalanced.Conversion.ACACTransformerStepUpDY
   tra(VHigh=V_primary,
       VLow=V_secondary,
       XoverR=6,
       Zperc=sqrt(0.01^2 + 0.06^2),
       VABase=6000000));
 
+equation
+  connect(probe_2.term, load.terminal) annotation (Line(
+      points={{30,31},{30,0},{50,0}},
+      color={0,120,120},
+      smooth=Smooth.None));
 annotation (Documentation(revisions="<html>
 <ul>
 <li>
@@ -29,5 +35,7 @@ Buildings.Electrical.AC.ThreePhasesUnbalanced.Conversion.ACACTransformerStepUpDY
 experiment(Tolerance=1e-05, __Dymola_Algorithm="Radau"),
 __Dymola_Commands(file=
  "modelica://Buildings/Resources/Scripts/Dymola/Electrical/AC/ThreePhasesUnbalanced/Conversion/Examples/TransformerStepUpDY.mos"
-        "Simulate and plot"));
+        "Simulate and plot"),
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
+            100,100}}), graphics));
 end TransformerStepUpDY;

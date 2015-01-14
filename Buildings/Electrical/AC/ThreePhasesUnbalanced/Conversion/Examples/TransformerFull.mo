@@ -2,7 +2,8 @@ within Buildings.Electrical.AC.ThreePhasesUnbalanced.Conversion.Examples;
 model TransformerFull "Test for the AC/AC transformer full model"
   extends BaseClasses.TransformerExample(
   redeclare Buildings.Electrical.AC.ThreePhasesUnbalanced.Sensors.ProbeWye probe_2,
-  redeclare Buildings.Electrical.AC.ThreePhasesUnbalanced.Conversion.ACACTransformerFull
+  redeclare
+      Buildings.Electrical.AC.ThreePhasesUnbalanced.Conversion.ACACTransformerFull
   tra(VHigh=V_primary,
       VLow=V_secondary,
       VABase=6000000,
@@ -16,6 +17,11 @@ model TransformerFull "Test for the AC/AC transformer full model"
       Lm=10),
       load(initMode=Buildings.Electrical.Types.InitMode.linearized));
 
+equation
+  connect(probe_2.term, load.terminal) annotation (Line(
+      points={{30,31},{30,0},{50,0}},
+      color={0,120,120},
+      smooth=Smooth.None));
 annotation (Documentation(revisions="<html>
 <ul>
 <li>
@@ -33,5 +39,7 @@ Buildings.Electrical.AC.ThreePhasesUnbalanced.Conversion.ACACTransformerFull</a>
 experiment(Tolerance=1e-05, __Dymola_Algorithm="Radau"),
 __Dymola_Commands(file=
  "modelica://Buildings/Resources/Scripts/Dymola/Electrical/AC/ThreePhasesUnbalanced/Conversion/Examples/TransformerFull.mos"
-        "Simulate and plot"));
+        "Simulate and plot"),
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
+            100,100}}), graphics));
 end TransformerFull;

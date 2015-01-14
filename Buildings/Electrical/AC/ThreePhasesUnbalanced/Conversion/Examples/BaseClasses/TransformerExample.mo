@@ -44,10 +44,6 @@ equation
       points={{-30,-31},{-30,0},{-10,0}},
       color={0,120,120},
       smooth=Smooth.None));
-  connect(tra.terminal_p, probe_2.term) annotation (Line(
-      points={{10,0},{30,0},{30,31}},
-      color={0,120,120},
-      smooth=Smooth.None));
   connect(tra.terminal_p, load.terminal) annotation (Line(
       points={{10,0},{50,0}},
       color={0,120,120},
