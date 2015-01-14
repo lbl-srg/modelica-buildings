@@ -34,11 +34,11 @@ equation
       color={0,120,120},
       smooth=Smooth.None));
   connect(load_inputs.y, load.Pow1) annotation (Line(
-      points={{-69,20},{-62,20},{-62,26},{-54,26}},
+      points={{-69,20},{-62,20},{-62,28},{-56,28}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(load_inputs.y, load.Pow2) annotation (Line(
-      points={{-69,20},{-54,20}},
+      points={{-69,20},{-56,20}},
       color={0,0,127},
       smooth=Smooth.None));
   annotation (experiment(StopTime=1.0, Tolerance=1e-06),

@@ -1,7 +1,11 @@
 TwoPortResistance
+TwoPortResistance_N
 TwoPortInductance
+TwoPortInductance_N
 TwoPortRL
+TwoPortRL_N
 TwoPortRLC
+TwoPortRLC_N
 TwoPortMatrixRL
 TwoPortMatrixRLC
 Line
