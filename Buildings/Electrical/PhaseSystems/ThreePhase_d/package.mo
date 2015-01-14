@@ -28,5 +28,10 @@ package ThreePhase_d "AC system covering only resistive loads with three symmetr
           points={{-70,-10},{-58,10},{-38,30},{-22,10},{-10,-10},{2,-30},{22,
               -50},{40,-30},{50,-10}},
           color={95,95,95},
-          smooth=Smooth.Bezier)}));
+          smooth=Smooth.Bezier)}), Documentation(info="<html>
+<p>
+This package declares the functions that are used to implement
+the AC three phases balanced and purely resistive models.
+</p>
+</html>"));
 end ThreePhase_d;

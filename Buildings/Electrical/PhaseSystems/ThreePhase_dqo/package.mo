@@ -125,5 +125,10 @@ protected
         Line(
           points={{-70,-28},{50,-28}},
           color={95,95,95},
-          smooth=Smooth.None)}));
+          smooth=Smooth.None)}), Documentation(info="<html>
+<p>
+This package declares the functions that are used to implement
+the AC three phases balanced models using the DQ0 representation.
+</p>
+</html>"));
 end ThreePhase_dqo;

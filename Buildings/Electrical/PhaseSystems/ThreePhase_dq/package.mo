@@ -98,5 +98,10 @@ package ThreePhase_dq "AC system, symmetrically loaded three phases"
         Line(
           points={{-70,-46},{50,-46}},
           color={95,95,95},
-          smooth=Smooth.None)}));
+          smooth=Smooth.None)}), Documentation(info="<html>
+<p>
+This package declares the functions that are used to implement
+the AC three phases balanced models using the DQ representation.
+</p>
+</html>"));
 end ThreePhase_dq;

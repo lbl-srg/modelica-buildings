@@ -101,5 +101,10 @@ package TwoConductor "Two conductors for DC components"
                              Line(
           points={{-70,6},{50,6}},
           color={95,95,95},
-          smooth=Smooth.None)}));
+          smooth=Smooth.None)}), Documentation(info="<html>
+<p>
+This package declares the functions that are used to implement
+the DC models with double conductors.
+</p>
+</html>"));
 end TwoConductor;
