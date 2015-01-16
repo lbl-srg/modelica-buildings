@@ -13,7 +13,7 @@ protected
     annotation (Placement(transformation(extent={{0,-10},{20,10}})));
 public
   WeatherData.Bus weaBus
-    annotation (Placement(transformation(extent={{-112,-10},{-92,10}})));
+    annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
 equation
   connect(zen.zen, y) annotation (Line(
       points={{21,6.10623e-16},{88.25,6.10623e-16},{88.25,1.16573e-15},{95.5,
@@ -21,12 +21,12 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(weaBus.solDec, zen.decAng) annotation (Line(
-      points={{-102,0},{-40,0},{-40,5.4},{-2,5.4}},
+      points={{-100,0},{-40,0},{-40,5.4},{-2,5.4}},
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None));
   connect(weaBus.solHouAng, zen.solHouAng) annotation (Line(
-      points={{-102,0},{-40,0},{-40,-4.8},{-2,-4.8}},
+      points={{-100,0},{-40,0},{-40,-4.8},{-2,-4.8}},
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None));

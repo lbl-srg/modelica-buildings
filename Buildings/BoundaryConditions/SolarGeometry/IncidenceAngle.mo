@@ -26,7 +26,7 @@ protected
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
 public
   WeatherData.Bus weaBus
-    annotation (Placement(transformation(extent={{-110,-6},{-90,14}})));
+    annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
 equation
   connect(incAng.incAng, y) annotation (Line(
       points={{61,0},{88.25,0},{88.25,1.16573e-015},{95.5,1.16573e-015},{95.5,0},
@@ -42,7 +42,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(weaBus.cloTim, decAng.nDay) annotation (Line(
-      points={{-100,4},{-80,4},{-80,40},{-42,40}},
+      points={{-100,0},{-80,0},{-80,40},{-42,40}},
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None), Text(
@@ -50,7 +50,7 @@ equation
       index=-1,
       extent={{-6,3},{-6,3}}));
   connect(weaBus.solTim, solHouAng.solTim) annotation (Line(
-      points={{-100,4},{-80,4},{-80,-40},{-42,-40}},
+      points={{-100,0},{-80,0},{-80,-40},{-42,-40}},
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None), Text(
