@@ -19,12 +19,12 @@ public
     displayUnit="deg") "Incidence angle on a tilted surfce"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 protected
-  Real dec_c=Modelica.Math.cos(decAng);
-  Real dec_s=Modelica.Math.sin(decAng);
-  Real sol_c=Modelica.Math.cos(solHouAng);
-  Real sol_s=Modelica.Math.sin(solHouAng);
-  Real lat_c=Modelica.Math.cos(lat);
-  Real lat_s=Modelica.Math.sin(lat);
+  Real dec_c=Modelica.Math.cos(decAng) "Cosine of declination angle";
+  Real dec_s=Modelica.Math.sin(decAng) "Sine of declination angle";
+  Real sol_c=Modelica.Math.cos(solHouAng) "Cosine of solar hour angle";
+  Real sol_s=Modelica.Math.sin(solHouAng) "Sine of solar hour angle";
+  Real lat_c=Modelica.Math.cos(lat) "Cosine of latitude";
+  Real lat_s=Modelica.Math.sin(lat) "Sine of latitude";
 equation
   incAng = Modelica.Math.acos(Modelica.Math.cos(til)*(dec_c*sol_c*lat_c + dec_s
     *lat_s) + Modelica.Math.sin(til)*(Modelica.Math.sin(azi)*dec_c*sol_s +

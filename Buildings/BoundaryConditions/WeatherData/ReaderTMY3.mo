@@ -1261,8 +1261,14 @@ made propagation of parameter final.
 </li>
 <li>
 October 27, 2011, by Wangda Zuo:<br/>
-1. Added optional connectors for dry bulb temperature, relative humidity, wind speed, wind direction, global horizontal radiation, diffuse horizontal radiation.<br/>
-2. Separate the unit convertion for TMY3 data and data validity check.
+<ol>
+<li>
+Added optional connectors for dry bulb temperature, relative humidity, wind speed, wind direction, global horizontal radiation, diffuse horizontal radiation.<br/>
+</li>
+<li>
+Separate the unit convertion for TMY3 data and data validity check.
+</li>
+</ol>
 </li>
 <li>
 October 3, 2011, by Michael Wetter:<br/>
@@ -1293,7 +1299,6 @@ First implementation.
 </ul>
 </html>"),
     Diagram(coordinateSystem(preserveAspectRatio=false,
-                                                      extent={{-200,-300},{300,
-            300}}),
+     extent={{-200,-300},{300,300}}),
         graphics));
 end ReaderTMY3;

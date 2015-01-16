@@ -13,7 +13,6 @@ public
 protected
   constant Modelica.SIunits.Time year=31536000 "Number of seconds in a year";
   discrete Modelica.SIunits.Time tStart "Start time of period";
-  //Integer count "Period count";
 
 initial algorithm
   tStart := integer(simTim/year)*year;

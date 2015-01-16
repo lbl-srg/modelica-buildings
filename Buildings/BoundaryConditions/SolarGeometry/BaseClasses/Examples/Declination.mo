@@ -11,7 +11,21 @@ equation
       points={{1,10},{18,10}},
       color={0,0,127},
       smooth=Smooth.None));
-  annotation (experiment(StopTime=3.1536e+007),
+  annotation (
+  Documentation(info="<html>
+<p>
+This component computes the solar declination, which is the angle between 
+the equatorial plane and the solar beam.
+</p>
+</html>", revisions="<html>
+<ul>
+<li>
+May 17, 2010, by Wangda Zuo:<br/>
+First implementation.
+</li>
+</ul>
+</html>"),
+  experiment(StopTime=3.1536e+007),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/BoundaryConditions/SolarGeometry/BaseClasses/Examples/Declination.mos"
         "Simulate and plot"));
 end Declination;

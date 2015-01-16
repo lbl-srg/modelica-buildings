@@ -34,9 +34,11 @@ equation
     defaultComponentName="zen",
     Documentation(info="<html>
 <p>
-This component computes the zenith angle, which is the angle between the earth surface normal and the sun beam.
+This component computes the zenith angle,
+which is the angle between the earth surface normal and the sun beam.
 For a definition of the parameters, see the User's Guide
-<a href=\"modelica://Buildings.BoundaryConditions.UsersGuide\">Buildings.BoundaryConditions.UsersGuide</a>.
+<a href=\"modelica://Buildings.BoundaryConditions.UsersGuide\">
+Buildings.BoundaryConditions.UsersGuide</a>.
 </p>
 </html>", revisions="<html>
 <ul>

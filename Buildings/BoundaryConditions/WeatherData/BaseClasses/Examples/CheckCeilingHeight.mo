@@ -20,7 +20,7 @@ public
     annotation (Placement(transformation(extent={{-60,0},{-40,20}})));
 equation
   connect(datRea.y[20], cheCeiHei.ceiHeiIn) annotation (Line(
-      points={{1,10},{18,10}},
+      points={{1,10.3448},{10,10.3448},{10,10},{18,10}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(simTim.y, conTim.simTim) annotation (Line(
@@ -31,7 +31,9 @@ equation
       points={{-39,10},{-22,10}},
       color={0,0,127},
       smooth=Smooth.None));
-  annotation (experiment(StopTime=8640000),
+  annotation (
+  experiment(StopTime=8640000),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/BoundaryConditions/WeatherData/BaseClasses/Examples/CheckCeilingHeight.mos"
         "Simulate and plot"));
+ // fixme: add documentation
 end CheckCeilingHeight;
