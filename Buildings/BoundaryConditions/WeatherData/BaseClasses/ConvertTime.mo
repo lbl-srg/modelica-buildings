@@ -14,8 +14,8 @@ protected
   constant Modelica.SIunits.Time year=31536000 "Number of seconds in a year";
   discrete Modelica.SIunits.Time tStart "Start time of period";
 
-initial algorithm
-  tStart := integer(simTim/year)*year;
+initial equation
+  tStart = integer(simTim/year)*year;
 equation
   when simTim - pre(tStart) > year then
     tStart = integer(simTim/year)*year;

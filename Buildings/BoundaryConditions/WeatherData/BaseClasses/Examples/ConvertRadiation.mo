@@ -3,15 +3,16 @@ model ConvertRadiation "Test model for ConvertRadiation"
   extends Modelica.Icons.Example;
   Buildings.BoundaryConditions.WeatherData.BaseClasses.ConvertRadiation
     conGloRad "Convert units for global horizontal radiation"
-    annotation (Placement(transformation(extent={{20,20},{40,40}})));
+    annotation (Placement(transformation(extent={{40,10},{60,30}})));
   Buildings.BoundaryConditions.WeatherData.BaseClasses.ConvertRadiation
     conDifRad "Convert units for diffuse horizontal radiation"
-    annotation (Placement(transformation(extent={{20,-20},{40,0}})));
+    annotation (Placement(transformation(extent={{40,-30},{60,-10}})));
   Buildings.Utilities.SimulationTime simTim
-    annotation (Placement(transformation(extent={{-100,0},{-80,20}})));
+    "Block that outputs simulation time"
+    annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
   Buildings.BoundaryConditions.WeatherData.BaseClasses.ConvertTime timCon
     "Convert simmulation time to calendar time"
-    annotation (Placement(transformation(extent={{-60,0},{-40,20}})));
+    annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
 protected
   Modelica.Blocks.Tables.CombiTable1Ds datRea(
     tableOnFile=true,
@@ -21,26 +22,40 @@ protected
     columns=2:30,
     smoothness=Modelica.Blocks.Types.Smoothness.ContinuousDerivative)
     "Data reader"
-    annotation (Placement(transformation(extent={{-20,0},{0,20}})));
+    annotation (Placement(transformation(extent={{0,-10},{20,10}})));
 
 equation
   connect(timCon.calTim, datRea.u) annotation (Line(
-      points={{-39,10},{-22,10}},
+      points={{-19,0},{-2,0}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(datRea.y[8], conGloRad.HIn) annotation (Line(
-      points={{1,10},{10,10},{10,30},{18,30}},
+      points={{21,-0.482759},{30,-0.482759},{30,20},{38,20}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(datRea.y[10], conDifRad.HIn) annotation (Line(
-      points={{1,10},{10,10},{10,-10},{18,-10}},
+      points={{21,-0.344828},{30,-0.344828},{30,-20},{38,-20}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(simTim.y, timCon.simTim) annotation (Line(
-      points={{-79,10},{-62,10}},
+      points={{-59,0},{-42,0}},
       color={0,0,127},
       smooth=Smooth.None));
-  annotation (experiment(StopTime=8640000),
+  annotation (
+Documentation(info="<html>
+<p>
+This example tests the model that converts radiation.
+</p>
+</html>",
+revisions="<html>
+<ul>
+<li>
+July 14, 2010, by Wangda Zuo:<br/>
+First implementation.
+</li>
+</ul>
+</html>"),
+  experiment(StopTime=8640000),
 __Dymola_Commands(file=
           "modelica://Buildings/Resources/Scripts/Dymola/BoundaryConditions/WeatherData/BaseClasses/Examples/ConvertRadiation.mos"
         "Simulate and plot"));
