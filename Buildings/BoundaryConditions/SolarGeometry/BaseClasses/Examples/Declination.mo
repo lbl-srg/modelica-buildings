@@ -14,7 +14,7 @@ equation
   annotation (
   Documentation(info="<html>
 <p>
-This component computes the solar declination, which is the angle between 
+This component computes the solar declination, which is the angle between
 the equatorial plane and the solar beam.
 </p>
 </html>", revisions="<html>

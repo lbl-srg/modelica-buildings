@@ -17,8 +17,8 @@ equation
     defaultComponentName="solHouAng",
     Documentation(info="<html>
 <p>
-This component computes the solar hour angle, 
-which is defined as the angle between the circle 
+This component computes the solar hour angle,
+which is defined as the angle between the circle
 that passes through an observer, the north pole and the south pole,
 and the circle that passes through the sun, the north and the south pole.
 </p>

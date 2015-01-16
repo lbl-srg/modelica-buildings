@@ -32,8 +32,8 @@ equation
   annotation (experiment(StopTime=86400),
 Documentation(info="<html>
 <p>
-This example computes the solar hour angle, 
-which is defined as the angle between the circle 
+This example computes the solar hour angle,
+which is defined as the angle between the circle
 that passes through an observer, the north pole and the south pole,
 and the circle that passes through the sun, the north and the south pole.
 </p>
