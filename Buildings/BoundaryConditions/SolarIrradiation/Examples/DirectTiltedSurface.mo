@@ -16,7 +16,7 @@ model DirectTiltedSurface
     lat=0.6457718232379,
     azi=0.78539816339745) "Direct irradiation on floor"
     annotation (Placement(transformation(extent={{20,-60},{40,-40}})));
-  Buildings.BoundaryConditions.SolarIrradiation.DirectTiltedSurface DirWal(
+  Buildings.BoundaryConditions.SolarIrradiation.DirectTiltedSurface HDirWal(
     til=Buildings.HeatTransfer.Types.Tilt.Wall,
     lat=0.6457718232379,
     azi=0.78539816339745) "Direct irradiation on wall"
@@ -40,7 +40,7 @@ equation
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None));
-  connect(DirWal.weaBus, weaDat.weaBus) annotation (Line(
+  connect(HDirWal.weaBus, weaDat.weaBus) annotation (Line(
       points={{20,-10},{-10,-10},{-10,30},{-40,30}},
       color={255,204,51},
       thickness=0.5,
