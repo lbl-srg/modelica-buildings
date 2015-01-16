@@ -28,5 +28,4 @@ First implementation.
   experiment(StopTime=86400),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/BoundaryConditions/WeatherData/BaseClasses/Examples/EquationOfTime.mos"
         "Simulate and plot"));
-
 end EquationOfTime;
