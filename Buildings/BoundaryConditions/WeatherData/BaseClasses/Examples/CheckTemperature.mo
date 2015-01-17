@@ -9,7 +9,7 @@ public
     cheTemDewPoi "Check dew point temperature"
     annotation (Placement(transformation(extent={{60,-20},{80,0}})));
   Buildings.Utilities.Time.ModelTime simTim
-    "Block that outputs the simulation time"
+    "Block that outputs the model time"
     annotation (Placement(transformation(extent={{-100,0},{-80,20}})));
 protected
   Modelica.Blocks.Tables.CombiTable1Ds datRea(
