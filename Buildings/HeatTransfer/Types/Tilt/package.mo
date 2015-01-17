@@ -1,10 +1,14 @@
 within Buildings.HeatTransfer.Types;
 package Tilt "Enumeration for surface tilt"
-  constant Modelica.SIunits.Angle Ceiling=0 "Tilt for ceiling";
-  constant Modelica.SIunits.Angle Wall =    Modelica.Constants.pi/2
-    "Tilt for wall";
+  extends Modelica.Icons.TypesPackage;
+
+  constant Modelica.SIunits.Angle Ceiling = 0
+    "Tilt for ceiling";
   constant Modelica.SIunits.Angle Floor =   Modelica.Constants.pi
     "Tilt for floor";
+  constant Modelica.SIunits.Angle Wall =    Modelica.Constants.pi/2
+    "Tilt for wall";
+
 annotation(preferredView="info", Documentation(info="<html>
 <p>
  Enumeration to define the tilt of a surface for the room model.

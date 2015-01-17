@@ -1,13 +1,16 @@
 within Buildings.HeatTransfer.Types;
 package Azimuth "Enumeration for surface azimuth"
-   constant Modelica.SIunits.Angle S = 0
-    "Azimuth for an exterior wall whose outer surface faces south";
+   extends Modelica.Icons.TypesPackage;
+
    constant Modelica.SIunits.Angle E = -Modelica.Constants.pi/2
-    "Azimuth for an exterior wall whose outer surface faces east";
+  "Azimuth for an exterior wall whose outer surface faces east";
    constant Modelica.SIunits.Angle N = Modelica.Constants.pi
-    "Azimuth for an exterior wall whose outer surface faces north";
+  "Azimuth for an exterior wall whose outer surface faces north";
+   constant Modelica.SIunits.Angle S = 0
+  "Azimuth for an exterior wall whose outer surface faces south";
    constant Modelica.SIunits.Angle W = +Modelica.Constants.pi/2
-    "Azimuth for an exterior wall whose outer surface faces west";
+  "Azimuth for an exterior wall whose outer surface faces west";
+
   annotation(preferredView="info",
 Documentation(info="<html>
 <p>
