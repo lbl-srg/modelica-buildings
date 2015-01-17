@@ -1,7 +1,7 @@
 within Buildings.BoundaryConditions.WeatherData.BaseClasses.Examples;
 model EquationOfTime "Test model for equation of time"
   extends Modelica.Icons.Example;
-  Utilities.SimulationTime simTim "Block that outputs simulation time"
+  Utilities.Time.ModelTime simTim "Block that outputs simulation time"
     annotation (Placement(transformation(extent={{-40,0},{-20,20}})));
   Buildings.BoundaryConditions.WeatherData.BaseClasses.EquationOfTime eqnTim
     "Block that computes the equation of time"

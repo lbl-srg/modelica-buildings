@@ -1,7 +1,7 @@
 within Buildings.BoundaryConditions.WeatherData.BaseClasses.Examples;
 model ConvertTime "Test model for converting time"
   extends Modelica.Icons.Example;
-  Buildings.Utilities.SimulationTime simTim
+  Buildings.Utilities.Time.ModelTime simTim
     "Block that outputs simulation time"
     annotation (Placement(transformation(extent={{-40,0},{-20,20}})));
   Buildings.BoundaryConditions.WeatherData.BaseClasses.ConvertTime conTim

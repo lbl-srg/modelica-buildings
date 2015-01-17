@@ -5,7 +5,7 @@ model CheckPressure "Test model for pressure check"
   Buildings.BoundaryConditions.WeatherData.BaseClasses.CheckPressure chePre
     "Block that checks the pressure"
     annotation (Placement(transformation(extent={{20,0},{40,20}})));
-  Buildings.Utilities.SimulationTime simTim
+  Buildings.Utilities.Time.ModelTime simTim
     "Block that outputs simulation time"
     annotation (Placement(transformation(extent={{-100,0},{-80,20}})));
 protected

@@ -249,7 +249,7 @@ protected
   SkyTemperature.BlackBody TBlaSky(final calTSky=calTSky)
     "Check the sky black-body temperature"
     annotation (Placement(transformation(extent={{240,-220},{260,-200}})));
-  Utilities.SimulationTime simTim "Simulation time"
+  Utilities.Time.ModelTime simTim "Simulation time"
     annotation (Placement(transformation(extent={{-180,-10},{-160,10}})));
   Modelica.Blocks.Math.Add add
     "Add 30 minutes to time to shift weather data reader"

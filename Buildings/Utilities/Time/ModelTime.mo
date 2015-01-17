@@ -1,10 +1,10 @@
-within Buildings.Utilities;
-block SimulationTime "Simulation time"
+within Buildings.Utilities.Time;
+block ModelTime "Model time"
   extends Modelica.Blocks.Interfaces.SO;
 equation
   y = time;
   annotation (
-    defaultComponentName="simTim",
+    defaultComponentName="modTim",
     Icon(coordinateSystem(
         preserveAspectRatio=true,
         extent={{-100,-100},{100,100}},
@@ -34,7 +34,13 @@ equation
           thickness=0.5)}),
     Documentation(info="<html>
 <p>
-This component generates a time signal by using the simulation time.
+This component outputs the model time, which starts at the
+value at which the simulation starts.
+For example, if a simulation starts at <i>t=-1</i>,
+then this block outputs first <i>t=-1</i>, and its
+output is advanced at the same rate as the simulation time.
+</li>
+<li>
 The model is used to allow the simulation to start from any
 time without having to set the parameters for the clock, as
 would be necessairy for the model
@@ -44,9 +50,16 @@ Modelica.Blocks.Sources.Clock</a>.
 </html>", revisions="<html>
 <ul>
 <li>
+January 16, 2015, by Michael Wetter:<br/>
+Moved block from
+<code>Buildings.Utilities.SimulationTime</code>
+to
+<code>Buildings.Utilities.Time.ModelTime</code>.
+</li>
+<li>
 May 18, 2010, by Wangda Zuo:<br/>
 First implementation.
 </li>
 </ul>
 </html>"));
-end SimulationTime;
+end ModelTime;
