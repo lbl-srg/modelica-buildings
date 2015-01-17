@@ -1,7 +1,7 @@
 within Buildings.BoundaryConditions.WeatherData.BaseClasses.Examples;
 model CheckCeilingHeight "Test model for ceiling height check"
   extends Modelica.Icons.Example;
-  Buildings.Utilities.Time.ModelTime simTim
+  Buildings.Utilities.Time.ModelTime modTim
     annotation (Placement(transformation(extent={{-80,-20},{-60,0}})));
 protected
   Modelica.Blocks.Tables.CombiTable1Ds datRea(
@@ -25,7 +25,7 @@ equation
       points={{21,-9.65517},{30,-9.65517},{30,-10},{38,-10}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(simTim.y, conTim.simTim) annotation (Line(
+  connect(modTim.y, conTim.modTim) annotation (Line(
       points={{-59,-10},{-42,-10}},
       color={0,0,127},
       smooth=Smooth.None));

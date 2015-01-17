@@ -249,7 +249,7 @@ protected
   SkyTemperature.BlackBody TBlaSky(final calTSky=calTSky)
     "Check the sky black-body temperature"
     annotation (Placement(transformation(extent={{240,-220},{260,-200}})));
-  Utilities.Time.ModelTime simTim "Model time"
+  Utilities.Time.ModelTime modTim "Model time"
     annotation (Placement(transformation(extent={{-180,-10},{-160,10}})));
   Modelica.Blocks.Math.Add add
     "Add 30 minutes to time to shift weather data reader"
@@ -617,7 +617,7 @@ equation
       string="%second",
       index=1,
       extent={{6,3},{6,3}}));
-  connect(simTim.y, weaBus.cloTim) annotation (Line(
+  connect(modTim.y, weaBus.cloTim) annotation (Line(
       points={{-159,6.10623e-16},{34.75,6.10623e-16},{34.75,0},{124.5,0},{124.5,
           5.55112e-16},{304,5.55112e-16}},
       color={0,0,127},
@@ -625,7 +625,7 @@ equation
       string="%second",
       index=1,
       extent={{6,3},{6,3}}));
-  connect(simTim.y, add.u2) annotation (Line(
+  connect(modTim.y, add.u2) annotation (Line(
       points={{-159,6.10623e-16},{-150,6.10623e-16},{-150,164},{-142,164}},
       color={0,0,127},
       smooth=Smooth.None));
@@ -633,7 +633,7 @@ equation
       points={{-159,202},{-150,202},{-150,176},{-142,176}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(add.y, conTim1.simTim) annotation (Line(
+  connect(add.y, conTim1.modTim) annotation (Line(
       points={{-119,170},{-112,170}},
       color={0,0,127},
       smooth=Smooth.None));
@@ -641,11 +641,11 @@ equation
       points={{-89,170},{-82,170}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(simTim.y, locTim.cloTim) annotation (Line(
+  connect(modTim.y, locTim.cloTim) annotation (Line(
       points={{-159,6.10623e-16},{-150,6.10623e-16},{-150,-150},{-122,-150}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(simTim.y, conTim.simTim) annotation (Line(
+  connect(modTim.y, conTim.modTim) annotation (Line(
       points={{-159,6.10623e-16},{-150,6.10623e-16},{-150,-30},{-122,-30}},
       color={0,0,127},
       smooth=Smooth.None));
@@ -653,7 +653,7 @@ equation
       points={{-99,-30},{-82,-30}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(simTim.y, eqnTim.nDay) annotation (Line(
+  connect(modTim.y, eqnTim.nDay) annotation (Line(
       points={{-159,6.10623e-16},{-150,6.10623e-16},{-150,-110},{-122,-110}},
       color={0,0,127},
       smooth=Smooth.None));
@@ -747,7 +747,7 @@ equation
       points={{-142,-240},{-154,-240},{-154,-172},{-20,-172},{-20,-130},{-59,-130}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(decAng.nDay, simTim.y) annotation (Line(
+  connect(decAng.nDay, modTim.y) annotation (Line(
       points={{-142,-210},{-150,-210},{-150,-180},{0,-180},{0,6.10623e-16},{
           -159,6.10623e-16}},
       color={0,0,127},

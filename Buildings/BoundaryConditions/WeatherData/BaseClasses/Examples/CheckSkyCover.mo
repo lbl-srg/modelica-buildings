@@ -9,7 +9,7 @@ public
     cheOpaSkyCov "Check opaque sky cover"
     annotation (Placement(transformation(extent={{60,-20},{80,0}})));
 protected
-  Buildings.Utilities.Time.ModelTime simTim "Generate simulation time"
+  Buildings.Utilities.Time.ModelTime modTim "Generate simulation time"
     annotation (Placement(transformation(extent={{-100,0},{-80,20}})));
 
   Modelica.Blocks.Tables.CombiTable1Ds datRea(
@@ -32,7 +32,7 @@ protected
     "Convert sky cover from [0...10] to [0...1]"
     annotation (Placement(transformation(extent={{20,-20},{40,0}})));
 equation
-  connect(simTim.y, conTim.simTim) annotation (Line(
+  connect(modTim.y, conTim.modTim) annotation (Line(
       points={{-79,10},{-62,10}},
       color={0,0,127},
       smooth=Smooth.None));

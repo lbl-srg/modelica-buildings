@@ -1,7 +1,7 @@
 within Buildings.BoundaryConditions.WeatherData.BaseClasses.Examples;
 model SolarTime "Test model for solar time"
   extends Modelica.Icons.Example;
-  Utilities.Time.ModelTime simTim "Block that outputs simulation time"
+  Utilities.Time.ModelTime modTim "Block that outputs simulation time"
     annotation (Placement(transformation(extent={{-60,-20},{-40,0}})));
   Buildings.BoundaryConditions.WeatherData.BaseClasses.LocalCivilTime locTim(
       timZon=-21600,
@@ -14,7 +14,7 @@ model SolarTime "Test model for solar time"
     "Block that computes the equation of time"
     annotation (Placement(transformation(extent={{-20,0},{0,20}})));
 equation
-  connect(simTim.y, locTim.cloTim) annotation (Line(
+  connect(modTim.y, locTim.cloTim) annotation (Line(
       points={{-39,-10},{-30,-10},{-30,-30},{-22,-30}},
       color={0,0,127},
       smooth=Smooth.None));
@@ -22,7 +22,7 @@ equation
       points={{1,-30},{8,-30},{8,-15.4},{18,-15.4}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(simTim.y, eqnTim.nDay) annotation (Line(
+  connect(modTim.y, eqnTim.nDay) annotation (Line(
       points={{-39,-10},{-30,-10},{-30,10},{-22,10}},
       color={0,0,127},
       smooth=Smooth.None));

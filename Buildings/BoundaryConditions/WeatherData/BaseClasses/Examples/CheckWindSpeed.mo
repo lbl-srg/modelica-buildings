@@ -1,7 +1,7 @@
 within Buildings.BoundaryConditions.WeatherData.BaseClasses.Examples;
 model CheckWindSpeed "Test model for wind speed check"
   extends Modelica.Icons.Example;
-  Buildings.Utilities.Time.ModelTime simTim
+  Buildings.Utilities.Time.ModelTime modTim
     "Block that outputs simulation time"
     annotation (Placement(transformation(extent={{-60,0},{-40,20}})));
   Buildings.BoundaryConditions.WeatherData.BaseClasses.CheckWindSpeed cheWinSpe
@@ -25,7 +25,7 @@ equation
       points={{41,10.069},{50,10.069},{50,10},{58,10}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(simTim.y, conTim.simTim) annotation (Line(
+  connect(modTim.y, conTim.modTim) annotation (Line(
       points={{-39,10},{-22,10}},
       color={0,0,127},
       smooth=Smooth.None));

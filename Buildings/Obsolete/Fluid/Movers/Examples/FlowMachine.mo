@@ -40,7 +40,7 @@ model FlowMachine "Fan with polynomial performance curve"
     annotation (Placement(transformation(extent={{16,-42},{36,-22}})));
   Modelica.Blocks.Sources.RealExpression fan_mFlow(y=fan.m_flow)
     annotation (Placement(transformation(extent={{-40,-94},{-20,-74}})));
-  Modelica.Blocks.Sources.RealExpression simTim2(y=time)
+  Modelica.Blocks.Sources.RealExpression modTim2(y=time)
     annotation (Placement(transformation(extent={{-40,-32},{-20,-12}})));
   Modelica.Blocks.Sources.RealExpression fan_dp(y=fan.dp)
     annotation (Placement(transformation(extent={{-40,-48},{-20,-28}})));
@@ -60,7 +60,7 @@ model FlowMachine "Fan with polynomial performance curve"
     annotation (Placement(transformation(extent={{30,-10},{50,10}})));
 equation
 
-  connect(simTim2.y, printer.x[1]) annotation (Line(points={{-19,-22},{-2,-22},
+  connect(modTim2.y, printer.x[1]) annotation (Line(points={{-19,-22},{-2,-22},
           {-2,-33.6667},{14,-33.6667}}, color={0,0,127}));
   connect(fan_dp.y, printer.x[2]) annotation (Line(points={{-19,-38},{-4,-38},{
           -4,-33},{14,-33}}, color={0,0,127}));

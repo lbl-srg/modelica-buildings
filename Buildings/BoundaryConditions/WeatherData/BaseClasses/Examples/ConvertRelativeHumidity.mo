@@ -5,7 +5,7 @@ model ConvertRelativeHumidity
   Buildings.BoundaryConditions.WeatherData.BaseClasses.ConvertRelativeHumidity conRelHum
     "Block that converts relative humidity"
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
-  Buildings.Utilities.Time.ModelTime simTim
+  Buildings.Utilities.Time.ModelTime modTim
     "Block that outputs simulation time"
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
   Buildings.BoundaryConditions.WeatherData.BaseClasses.ConvertTime conTim
@@ -27,7 +27,7 @@ equation
       points={{21,-0.827586},{30,-0.827586},{30,0},{38,0}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(simTim.y, conTim.simTim) annotation (Line(
+  connect(modTim.y, conTim.modTim) annotation (Line(
       points={{-59,0},{-42,0}},
       color={0,0,127},
       smooth=Smooth.None));

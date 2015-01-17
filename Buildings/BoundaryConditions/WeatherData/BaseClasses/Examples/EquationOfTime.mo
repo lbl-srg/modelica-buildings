@@ -1,13 +1,13 @@
 within Buildings.BoundaryConditions.WeatherData.BaseClasses.Examples;
 model EquationOfTime "Test model for equation of time"
   extends Modelica.Icons.Example;
-  Utilities.Time.ModelTime simTim "Block that outputs simulation time"
+  Utilities.Time.ModelTime modTim "Block that outputs simulation time"
     annotation (Placement(transformation(extent={{-40,0},{-20,20}})));
   Buildings.BoundaryConditions.WeatherData.BaseClasses.EquationOfTime eqnTim
     "Block that computes the equation of time"
     annotation (Placement(transformation(extent={{0,0},{20,20}})));
 equation
-  connect(simTim.y, eqnTim.nDay) annotation (Line(
+  connect(modTim.y, eqnTim.nDay) annotation (Line(
       points={{-19,10},{-2,10}},
       color={0,0,127},
       smooth=Smooth.None));

@@ -8,7 +8,7 @@ public
   Buildings.BoundaryConditions.WeatherData.BaseClasses.CheckTemperature
     cheTemDewPoi "Check dew point temperature"
     annotation (Placement(transformation(extent={{60,-20},{80,0}})));
-  Buildings.Utilities.Time.ModelTime simTim
+  Buildings.Utilities.Time.ModelTime modTim
     "Block that outputs the model time"
     annotation (Placement(transformation(extent={{-100,0},{-80,20}})));
 protected
@@ -33,7 +33,7 @@ public
     "Block that converts temperature"
     annotation (Placement(transformation(extent={{20,-20},{42,0}})));
 equation
-  connect(simTim.y, conTim.simTim) annotation (Line(
+  connect(modTim.y, conTim.modTim) annotation (Line(
       points={{-79,10},{-62,10}},
       color={0,0,127},
       smooth=Smooth.None));

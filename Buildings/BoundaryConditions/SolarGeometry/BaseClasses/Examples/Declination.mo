@@ -4,10 +4,10 @@ model Declination "Test model for declination"
   Buildings.BoundaryConditions.SolarGeometry.BaseClasses.Declination decAng
     "Declination angle"
     annotation (Placement(transformation(extent={{20,0},{40,20}})));
-  Buildings.Utilities.Time.ModelTime simTim "Model time"
+  Buildings.Utilities.Time.ModelTime modTim "Model time"
     annotation (Placement(transformation(extent={{-20,0},{0,20}})));
 equation
-  connect(simTim.y, decAng.nDay) annotation (Line(
+  connect(modTim.y, decAng.nDay) annotation (Line(
       points={{1,10},{18,10}},
       color={0,0,127},
       smooth=Smooth.None));

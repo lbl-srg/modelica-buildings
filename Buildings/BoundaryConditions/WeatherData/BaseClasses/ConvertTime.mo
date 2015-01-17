@@ -3,7 +3,7 @@ block ConvertTime
   "Converts the simulation time to calendar time in scale of 1 year (365 days)"
   extends Modelica.Blocks.Icons.Block;
 public
-  Modelica.Blocks.Interfaces.RealInput simTim(final quantity="Time", final unit=
+  Modelica.Blocks.Interfaces.RealInput modTim(final quantity="Time", final unit=
        "s") "Simulation time"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
   Modelica.Blocks.Interfaces.RealOutput calTim(final quantity="Time", final
@@ -15,12 +15,12 @@ protected
   discrete Modelica.SIunits.Time tStart "Start time of period";
 
 initial equation
-  tStart = integer(simTim/year)*year;
+  tStart = integer(modTim/year)*year;
 equation
-  when simTim - pre(tStart) > year then
-    tStart = integer(simTim/year)*year;
+  when modTim - pre(tStart) > year then
+    tStart = integer(modTim/year)*year;
   end when;
-  calTim = simTim - tStart;
+  calTim = modTim - tStart;
   annotation (
     defaultComponentName="conTim",
     Documentation(info="<html>
@@ -49,7 +49,7 @@ First implementation.
         Text(
           extent={{-98,6},{-74,-4}},
           lineColor={0,0,127},
-          textString="simTim"),
+          textString="modTim"),
         Text(
           extent={{74,6},{98,-4}},
           lineColor={0,0,127},

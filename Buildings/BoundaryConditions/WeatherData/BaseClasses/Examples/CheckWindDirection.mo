@@ -1,7 +1,7 @@
 within Buildings.BoundaryConditions.WeatherData.BaseClasses.Examples;
 model CheckWindDirection "Test model for wind direction check"
   extends Modelica.Icons.Example;
-  Buildings.Utilities.Time.ModelTime simTim
+  Buildings.Utilities.Time.ModelTime modTim
     annotation (Placement(transformation(extent={{-100,0},{-80,20}})));
 protected
   Modelica.Blocks.Tables.CombiTable1Ds datRea(
@@ -24,7 +24,7 @@ public
     "Block that converts temperature"
     annotation (Placement(transformation(extent={{20,0},{42,20}})));
 equation
-  connect(simTim.y, conTim.simTim) annotation (Line(
+  connect(modTim.y, conTim.modTim) annotation (Line(
       points={{-79,10},{-62,10}},
       color={0,0,127},
       smooth=Smooth.None));
