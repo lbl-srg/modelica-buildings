@@ -194,8 +194,8 @@ block ReaderTMY3 "Reader for TMY3 weather data"
   final parameter Modelica.SIunits.Time timZon(displayUnit="h")=
     Buildings.BoundaryConditions.WeatherData.BaseClasses.getTimeZoneTMY3(filNam)
     "Time zone";
-  Bus weaBus "Weather Data Bus" annotation (Placement(transformation(extent={{
-            294,-10},{314,10}}), iconTransformation(extent={{190,-10},{210,10}})));
+  Bus weaBus "Weather data bus" annotation (Placement(transformation(extent={{
+            290,-10},{310,10}}), iconTransformation(extent={{190,-10},{210,10}})));
 
   parameter Buildings.BoundaryConditions.Types.SkyTemperatureCalculation
     calTSky=Buildings.BoundaryConditions.Types.SkyTemperatureCalculation.TemperaturesAndSkyCover
@@ -532,70 +532,70 @@ equation
   connect(HInfHor_in_internal, cheHorRad.HIn);
 
   connect(chePre.POut, weaBus.pAtm) annotation (Line(
-      points={{181,70},{220,70},{220,5.55112e-16},{304,5.55112e-16}},
+      points={{181,70},{220,70},{220,0},{300,0}},
       color={0,0,127},
       smooth=Smooth.None), Text(
       string="%second",
       index=1,
       extent={{6,3},{6,3}}));
   connect(cheTotSkyCov.nOut, weaBus.nTot) annotation (Line(
-      points={{181,-30},{220,-30},{220,5.55112e-16},{304,5.55112e-16}},
+      points={{181,-30},{220,-30},{220,0},{300,0}},
       color={0,0,127},
       smooth=Smooth.None), Text(
       string="%second",
       index=1,
       extent={{6,3},{6,3}}));
   connect(cheOpaSkyCov.nOut, weaBus.nOpa) annotation (Line(
-      points={{183,-150},{220,-150},{220,5.55112e-016},{304,5.55112e-016}},
+      points={{183,-150},{220,-150},{220,0},{300,0}},
       color={0,0,127},
       smooth=Smooth.None), Text(
       string="%second",
       index=1,
       extent={{6,3},{6,3}}));
   connect(cheGloHorRad.HOut, weaBus.HGloHor) annotation (Line(
-      points={{181,170},{220,170},{220,5.55112e-16},{304,5.55112e-16}},
+      points={{181,170},{220,170},{220,0},{300,0}},
       color={0,0,127},
       smooth=Smooth.None), Text(
       string="%second",
       index=1,
       extent={{6,3},{6,3}}));
   connect(cheDifHorRad.HOut, weaBus.HDifHor) annotation (Line(
-      points={{181,130},{220,130},{220,5.55112e-16},{304,5.55112e-16}},
+      points={{181,130},{220,130},{220,0},{300,0}},
       color={0,0,127},
       smooth=Smooth.None), Text(
       string="%second",
       index=1,
       extent={{6,3},{6,3}}));
   connect(cheDirNorRad.HOut, weaBus.HDirNor) annotation (Line(
-      points={{181,210},{220,210},{220,5.55112e-16},{304,5.55112e-16}},
+      points={{181,210},{220,210},{220,0},{300,0}},
       color={0,0,127},
       smooth=Smooth.None), Text(
       string="%second",
       index=1,
       extent={{6,3},{6,3}}));
   connect(cheCeiHei.ceiHeiOut, weaBus.celHei) annotation (Line(
-      points={{181,-110},{220,-110},{220,5.55112e-16},{304,5.55112e-16}},
+      points={{181,-110},{220,-110},{220,0},{300,0}},
       color={0,0,127},
       smooth=Smooth.None), Text(
       string="%second",
       index=1,
       extent={{6,3},{6,3}}));
   connect(cheWinSpe.winSpeOut, weaBus.winSpe) annotation (Line(
-      points={{181,-70},{220,-70},{220,5.55112e-16},{304,5.55112e-16}},
+      points={{181,-70},{220,-70},{220,0},{300,0}},
       color={0,0,127},
       smooth=Smooth.None), Text(
       string="%second",
       index=1,
       extent={{6,3},{6,3}}));
   connect(cheHorRad.HOut, weaBus.radHorIR) annotation (Line(
-      points={{181,250},{220,250},{220,5.55112e-16},{304,5.55112e-16}},
+      points={{181,250},{220,250},{220,0},{300,0}},
       color={0,0,127},
       smooth=Smooth.None), Text(
       string="%second",
       index=1,
       extent={{6,3},{6,3}}));
   connect(cheWinDir.nOut, weaBus.winDir) annotation (Line(
-      points={{181,-270},{280,-270},{280,5.55112e-16},{304,5.55112e-16}},
+      points={{181,-270},{280,-270},{280,0},{300,0}},
       color={0,0,127},
       smooth=Smooth.None), Text(
       string="%second",
@@ -610,8 +610,8 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(TBlaSky.TBlaSky, weaBus.TBlaSky) annotation (Line(
-      points={{261,-210},{280,-210},{280,0},{292,0},{292,5.55112e-16},{304,
-          5.55112e-16}},
+      points={{261,-210},{280,-210},{280,0},{292,0},{292,0},{300,
+          0}},
       color={0,0,127},
       smooth=Smooth.None), Text(
       string="%second",
@@ -619,7 +619,7 @@ equation
       extent={{6,3},{6,3}}));
   connect(modTim.y, weaBus.cloTim) annotation (Line(
       points={{-159,6.10623e-16},{34.75,6.10623e-16},{34.75,0},{124.5,0},{124.5,
-          5.55112e-16},{304,5.55112e-16}},
+          0},{300,0}},
       color={0,0,127},
       smooth=Smooth.None), Text(
       string="%second",
@@ -666,8 +666,8 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(solTim.solTim, weaBus.solTim) annotation (Line(
-      points={{-59,-130},{-20,-130},{-20,0},{284,0},{284,5.55112e-16},{304,
-          5.55112e-16}},
+      points={{-59,-130},{-20,-130},{-20,0},{284,0},{284,0},{300,
+          0}},
       color={0,0,127},
       smooth=Smooth.None), Text(
       string="%second",
@@ -694,7 +694,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(cheTemDewPoi.TOut, weaBus.TDewPoi) annotation (Line(
-      points={{181,-230},{280,-230},{280,5.55112e-16},{304,5.55112e-16}},
+      points={{181,-230},{280,-230},{280,0},{300,0}},
       color={0,0,127},
       smooth=Smooth.None), Text(
       string="%second",
@@ -721,14 +721,14 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(cheRelHum.relHumOut, weaBus.relHum) annotation (Line(
-      points={{181,30},{280,30},{280,5.55112e-16},{304,5.55112e-16}},
+      points={{181,30},{280,30},{280,0},{300,0}},
       color={0,0,127},
       smooth=Smooth.None), Text(
       string="%second",
       index=1,
       extent={{6,3},{6,3}}));
   connect(cheTemDryBul.TOut, weaBus.TDryBul) annotation (Line(
-      points={{181,-190},{280,-190},{280,5.55112e-16},{304,5.55112e-16}},
+      points={{181,-190},{280,-190},{280,0},{300,0}},
       color={0,0,127},
       smooth=Smooth.None), Text(
       string="%second",
@@ -764,8 +764,8 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(tWetBul_TDryBulXi.TWetBul, weaBus.TWetBul) annotation (Line(
-      points={{265,-56},{280,-56},{280,0},{292,0},{292,5.55112e-16},{304,
-          5.55112e-16}},
+      points={{265,-56},{280,-56},{280,0},{292,0},{292,0},{300,
+          0}},
       color={0,0,127},
       smooth=Smooth.None), Text(
       string="%second",
@@ -781,29 +781,29 @@ equation
       smooth=Smooth.None));
 
   connect(altAng.alt, weaBus.solAlt) annotation (Line(
-      points={{-9,-270},{8,-270},{8,-290},{290,-290},{290,0},{304,0}},
+      points={{-9,-270},{8,-270},{8,-290},{290,-290},{290,0},{300,0}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(zenAng.zen, weaBus.solZen) annotation (Line(
-      points={{-59,-216},{-40,-216},{-40,-290},{290,-290},{290,0},{304,0}},
+      points={{-59,-216},{-40,-216},{-40,-290},{290,-290},{290,0},{300,0}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(decAng.decAng, weaBus.solDec) annotation (Line(
       points={{-119,-210},{-110,-210},{-110,-208},{-100,-208},{-100,-290},{290,
-          -290},{290,0},{304,0}},
+          -290},{290,0},{300,0}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(solHouAng.solHouAng, weaBus.solHouAng) annotation (Line(
       points={{-119,-240},{-108,-240},{-108,-238},{-100,-238},{-100,-290},{290,
-          -290},{290,0},{304,0}},
+          -290},{290,0},{300,0}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(longitude.y, weaBus.lon) annotation (Line(
-      points={{-119,-270},{-100,-270},{-100,-290},{290,-290},{290,0},{304,0}},
+      points={{-119,-270},{-100,-270},{-100,-290},{290,-290},{290,0},{300,0}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(latitude.y, weaBus.lat) annotation (Line(
-      points={{-159,-270},{-150,-270},{-150,-290},{290,-290},{290,0},{304,0}},
+      points={{-159,-270},{-150,-270},{-150,-290},{290,-290},{290,0},{300,0}},
       color={0,0,127},
       smooth=Smooth.None));
   annotation (
