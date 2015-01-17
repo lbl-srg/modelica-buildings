@@ -45,7 +45,7 @@ equation
       extent={{-6,3},{-6,3}}));
 
   connect(weaBus, HDifFlo.weaBus) annotation (Line(
-      points={{11,10},{30.5,10},{30.5,-70},{40,-70}},
+      points={{11,10},{30,10},{30,-70},{40,-70}},
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None), Text(
