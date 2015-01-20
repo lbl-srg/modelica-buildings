@@ -54,6 +54,30 @@ First implementation.
           extent={{74,6},{98,-4}},
           lineColor={0,0,127},
           textString="calTim"),
-        Bitmap(extent={{-50,60},{52,-60}}, fileName=
-              "modelica://Buildings/Resources/Images/Utilities/IO/WeatherData/BaseClasses/calendar.png")}));
+        Rectangle(
+          extent={{-66,76},{60,58}},
+          lineColor={0,0,0},
+          fillPattern=FillPattern.Solid,
+          fillColor={120,120,120}),
+        Rectangle(extent={{-66,58},{60,-62}}, lineColor={0,0,0}),
+        Line(
+          points={{-24,-62},{-24,58}},
+          color={0,0,0},
+          smooth=Smooth.None),
+        Line(
+          points={{18,-62},{18,58}},
+          color={0,0,0},
+          smooth=Smooth.None),
+        Line(
+          points={{60,28},{-66,28}},
+          color={0,0,0},
+          smooth=Smooth.None),
+        Line(
+          points={{60,-2},{-66,-2}},
+          color={0,0,0},
+          smooth=Smooth.None),
+        Line(
+          points={{60,-32},{-66,-32}},
+          color={0,0,0},
+          smooth=Smooth.None)}));
 end ConvertTime;
