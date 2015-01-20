@@ -13,7 +13,8 @@ model ClosedLoop
   parameter Modelica.SIunits.Volume VRooEas=360.08 "Room volume east";
   parameter Modelica.SIunits.Volume VRooWes=360.08 "Room volume west";
 
-  constant Real conv=1.2/3600 "Conversion factor for nominal mass flow rate";
+  constant Real conv=1.2/3600*1.3
+    "Conversion factor for nominal mass flow rate";
   parameter Modelica.SIunits.MassFlowRate m0_flow_cor=5*VRooCor*conv
     "Design mass flow rate core";
   parameter Modelica.SIunits.MassFlowRate m0_flow_sou=5.5*VRooSou*conv
