@@ -8,7 +8,8 @@ public
   Buildings.BoundaryConditions.WeatherData.BaseClasses.CheckTemperature
     cheTemDewPoi "Check dew point temperature"
     annotation (Placement(transformation(extent={{60,-20},{80,0}})));
-  Buildings.Utilities.SimulationTime simTim
+  Buildings.Utilities.Time.ModelTime modTim
+    "Block that outputs the model time"
     annotation (Placement(transformation(extent={{-100,0},{-80,20}})));
 protected
   Modelica.Blocks.Tables.CombiTable1Ds datRea(
@@ -23,13 +24,16 @@ protected
 
 public
   Buildings.BoundaryConditions.WeatherData.BaseClasses.ConvertTime conTim
+    "Block that converts time"
     annotation (Placement(transformation(extent={{-60,0},{-40,20}})));
   Modelica.Blocks.Math.UnitConversions.From_degC from_degC
+    "Block that converts temperature"
     annotation (Placement(transformation(extent={{20,20},{42,40}})));
   Modelica.Blocks.Math.UnitConversions.From_degC from_degC1
+    "Block that converts temperature"
     annotation (Placement(transformation(extent={{20,-20},{42,0}})));
 equation
-  connect(simTim.y, conTim.simTim) annotation (Line(
+  connect(modTim.y, conTim.modTim) annotation (Line(
       points={{-79,10},{-62,10}},
       color={0,0,127},
       smooth=Smooth.None));
@@ -38,7 +42,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(datRea.y[1], from_degC.u) annotation (Line(
-      points={{1,10},{10,10},{10,30},{17.8,30}},
+      points={{1,9.03448},{10,9.03448},{10,30},{17.8,30}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(from_degC.y, cheTemDryBul.TIn) annotation (Line(
@@ -46,14 +50,28 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(datRea.y[2], from_degC1.u) annotation (Line(
-      points={{1,10},{10,10},{10,-10},{17.8,-10}},
+      points={{1,9.10345},{10,9.10345},{10,-10},{17.8,-10}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(from_degC1.y, cheTemDewPoi.TIn) annotation (Line(
       points={{43.1,-10},{58,-10}},
       color={0,0,127},
       smooth=Smooth.None));
-  annotation (experiment(StopTime=8640000),
+  annotation (
+Documentation(info="<html>
+<p>
+This example tests the model that checks the temperature.
+</p>
+</html>",
+revisions="<html>
+<ul>
+<li>
+July 14, 2010, by Wangda Zuo:<br/>
+First implementation.
+</li>
+</ul>
+</html>"),
+  experiment(StopTime=8640000),
 __Dymola_Commands(file=
           "modelica://Buildings/Resources/Scripts/Dymola/BoundaryConditions/WeatherData/BaseClasses/Examples/CheckTemperature.mos"
         "Simulate and plot"));

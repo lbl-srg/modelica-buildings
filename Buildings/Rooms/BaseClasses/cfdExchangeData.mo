@@ -7,16 +7,16 @@ function cfdExchangeData "Exchange data between CFD and Modelica"
   input Real[nU] u "Input to CFD";
   input Integer nU "Number of inputs to CFD";
   input Integer nY "Number of outputs from CFD";
-  output Modelica.SIunits.Time simTimRea "Current CFD simulation time from CFD";
+  output Modelica.SIunits.Time modTimRea "Current model time from CFD";
   output Real[nY] y "Output computed by CFD";
-  output Integer retVal "Return vlaue for CFD simulation status";
+  output Integer retVal "Return value for CFD simulation status";
 external"C" retVal = cfdExchangeData(
     t,
     dt,
     u,
     nU,
     nY,
-    simTimRea,
+    modTimRea,
     y) annotation (Include="#include <cfdExchangeData.c>", IncludeDirectory=
         "modelica://Buildings/Resources/C-Sources");
   annotation (Documentation(info="<html>

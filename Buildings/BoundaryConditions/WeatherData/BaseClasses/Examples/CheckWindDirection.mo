@@ -1,7 +1,7 @@
 within Buildings.BoundaryConditions.WeatherData.BaseClasses.Examples;
 model CheckWindDirection "Test model for wind direction check"
   extends Modelica.Icons.Example;
-  Buildings.Utilities.SimulationTime simTim
+  Buildings.Utilities.Time.ModelTime modTim
     annotation (Placement(transformation(extent={{-100,0},{-80,20}})));
 protected
   Modelica.Blocks.Tables.CombiTable1Ds datRea(
@@ -15,13 +15,16 @@ protected
     annotation (Placement(transformation(extent={{-20,0},{0,20}})));
 public
   Buildings.BoundaryConditions.WeatherData.BaseClasses.CheckWindDirection
-    cheWinDir annotation (Placement(transformation(extent={{60,0},{80,20}})));
+    cheWinDir "Block that constrains the wind direction"
+    annotation (Placement(transformation(extent={{60,0},{80,20}})));
   Buildings.BoundaryConditions.WeatherData.BaseClasses.ConvertTime conTim
+    "Block that converts time"
     annotation (Placement(transformation(extent={{-60,0},{-40,20}})));
   Modelica.Blocks.Math.UnitConversions.From_deg from_deg
+    "Block that converts temperature"
     annotation (Placement(transformation(extent={{20,0},{42,20}})));
 equation
-  connect(simTim.y, conTim.simTim) annotation (Line(
+  connect(modTim.y, conTim.modTim) annotation (Line(
       points={{-79,10},{-62,10}},
       color={0,0,127},
       smooth=Smooth.None));
@@ -37,7 +40,21 @@ equation
       points={{43.1,10},{58,10}},
       color={0,0,127},
       smooth=Smooth.None));
-  annotation (experiment(StopTime=8640000),
+  annotation (
+  Documentation(info="<html>
+<p>
+This example tests the model that constrains the wind direction.
+</p>
+</html>",
+revisions="<html>
+<ul>
+<li>
+July 14, 2010, by Wangda Zuo:<br/>
+First implementation.
+</li>
+</ul>
+</html>"),
+  experiment(StopTime=8640000),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/BoundaryConditions/WeatherData/BaseClasses/Examples/CheckWindDirection.mos"
         "Simulate and plot"));
 end CheckWindDirection;

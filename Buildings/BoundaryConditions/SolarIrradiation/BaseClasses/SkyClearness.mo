@@ -19,7 +19,7 @@ public
     "Sky clearness. skyCle=1: overast sky; skyCle=8: clear sky"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 protected
-  Real tmp1;
+  Real tmp1 "Intermediate variable";
 algorithm
   tmp1 := 5.534e-6*(zen*180/Modelica.Constants.pi)^3;
 

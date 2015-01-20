@@ -9,7 +9,7 @@ public
     cheOpaSkyCov "Check opaque sky cover"
     annotation (Placement(transformation(extent={{60,-20},{80,0}})));
 protected
-  Buildings.Utilities.SimulationTime simTim "Generate simulation time"
+  Buildings.Utilities.Time.ModelTime modTim "Generate simulation time"
     annotation (Placement(transformation(extent={{-100,0},{-80,20}})));
 
   Modelica.Blocks.Tables.CombiTable1Ds datRea(
@@ -32,7 +32,7 @@ protected
     "Convert sky cover from [0...10] to [0...1]"
     annotation (Placement(transformation(extent={{20,-20},{40,0}})));
 equation
-  connect(simTim.y, conTim.simTim) annotation (Line(
+  connect(modTim.y, conTim.modTim) annotation (Line(
       points={{-79,10},{-62,10}},
       color={0,0,127},
       smooth=Smooth.None));
@@ -56,7 +56,21 @@ equation
       points={{41,-10},{58,-10}},
       color={0,0,127},
       smooth=Smooth.None));
-  annotation (experiment(StopTime=8640000),
+  annotation (
+Documentation(info="<html>
+<p>
+This example tests the model that constrains the sky cover.
+</p>
+</html>",
+revisions="<html>
+<ul>
+<li>
+July 14, 2010, by Wangda Zuo:<br/>
+First implementation.
+</li>
+</ul>
+</html>"),
+  experiment(StopTime=8640000),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/BoundaryConditions/WeatherData/BaseClasses/Examples/CheckSkyCover.mos"
         "Simulate and plot"));
 end CheckSkyCover;
