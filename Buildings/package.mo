@@ -552,7 +552,13 @@ have been <b style=\"color:blue\">improved</b> in a
     </td>
     <td valign=\"top\">Moved the package to <code>Buildings.Rooms.Validation.BESTEST</code>.
     </td>
-</tr>    
+</tr>
+<tr><td valign=\"top\">Buildings.Utilities
+    </td>
+    <td valign=\"top\">Moved the block <code>Buildings.Utilities.SimulationTime</code>
+                       to <code>Buildings.Utilities.Time.ModelTime</code>.
+    </td>
+</tr>
 
 </table>
 <!-- Errors that have been fixed -->

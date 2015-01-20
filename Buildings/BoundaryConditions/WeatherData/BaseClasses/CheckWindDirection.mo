@@ -18,7 +18,6 @@ protected
   constant Real nMin=0 "Lower bound";
   constant Real nMax=2*Modelica.Constants.pi "Upper bound";
 equation
-
   nOut = Buildings.Utilities.Math.Functions.smoothLimit(
     nIn,
     nMin,

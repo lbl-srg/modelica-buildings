@@ -45,6 +45,19 @@ equation
       index=-1,
       extent={{-6,3},{-6,3}}));
   annotation (
+  Documentation(info="<html>
+<p>
+This example computes the black-body sky temperature
+for Chicago.
+</p>
+</html>", revisions="<html>
+<ul>
+<li>
+June 1, 2010, by Wangda Zuo:<br/>
+First implementation.
+</li>
+</ul>
+</html>"),
 experiment(StopTime=86400),
     __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/BoundaryConditions/SkyTemperature/Examples/BlackBody.mos"
         "Simulate and plot"));

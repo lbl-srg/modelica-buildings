@@ -45,7 +45,7 @@ equation
       extent={{-6,3},{-6,3}}));
 
   connect(weaBus, zen.weaBus) annotation (Line(
-      points={{8,30},{8,12},{-54,12},{-54,-10},{-40.2,-10}},
+      points={{8,30},{8,12},{-54,12},{-54,-10},{-40,-10}},
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None), Text(
@@ -53,6 +53,19 @@ equation
       index=-1,
       extent={{-6,3},{-6,3}}));
   annotation (
+Documentation(info="<html>
+<p>
+This example computes the sky clearness.
+</p>
+</html>",
+revisions="<html>
+<ul>
+<li>
+July 07, 2010, by Wangda Zuo:<br/>
+First implementation.
+</li>
+</ul>
+</html>"),
 experiment(StartTime=100000, StopTime=300000),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/BoundaryConditions/SolarIrradiation/BaseClasses/Examples/SkyClearness.mos"
         "Simulate and plot"));
