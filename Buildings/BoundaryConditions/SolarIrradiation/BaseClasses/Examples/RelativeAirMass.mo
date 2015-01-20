@@ -15,10 +15,24 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(weaDat.weaBus, zen.weaBus) annotation (Line(
-      points={{-40,10},{-20.2,10}},
+      points={{-40,10},{-20,10}},
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None));
-  annotation (experiment(StopTime=864000),
-__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/BoundaryConditions/SolarIrradiation/BaseClasses/Examples/RelativeAirMass.mos" "Simulate and plot"));
+  annotation (
+Documentation(info="<html>
+<p>
+This example computes the relative air mass for sky brightness.
+</p>
+</html>", revisions="<html>
+<ul>
+<li>
+July 07, 2010, by Wangda Zuo:<br/>
+First implementation.
+</li>
+</ul>
+</html>"),
+  experiment(StopTime=864000),
+__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/BoundaryConditions/SolarIrradiation/BaseClasses/Examples/RelativeAirMass.mos"
+        "Simulate and plot"));
 end RelativeAirMass;

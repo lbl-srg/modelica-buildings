@@ -73,6 +73,18 @@ equation
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{150,
             100}})),
+Documentation(info="<html>
+<p>
+This example computes the solar azimuth angle.
+</p>
+</html>", revisions="<html>
+<ul>
+<li>
+May 18, 2010, by Wangda Zuo:<br/>
+First implementation.
+</li>
+</ul>
+</html>"),
 experiment(StopTime=864000),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/BoundaryConditions/SolarGeometry/BaseClasses/Examples/SolarAzimuth.mos"
         "Simulate and plot"));

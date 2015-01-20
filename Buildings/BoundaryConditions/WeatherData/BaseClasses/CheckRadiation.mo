@@ -12,7 +12,6 @@ public
   constant Modelica.SIunits.RadiantEnergyFluenceRate HMin=0.0001
     "Minimum value for radiation";
 equation
-
   HOut = Buildings.Utilities.Math.Functions.smoothMax(
     x1=HIn,
     x2=HMin,

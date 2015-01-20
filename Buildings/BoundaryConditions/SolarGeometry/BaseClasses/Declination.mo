@@ -18,7 +18,8 @@ equation
     defaultComponentName="decAng",
     Documentation(info="<html>
 <p>
-This component computes the angle between the equatorial plane and the solar beam.
+This component computes the solar declinatino, which is
+the angle between the equatorial plane and the solar beam.
 </p>
 </html>", revisions="<html>
 <ul>

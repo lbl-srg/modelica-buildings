@@ -52,8 +52,8 @@ protected
   final parameter Real _uStart[nWri]={if (flaWri[i] <= 1) then uStart[i] else
       uStart[i]*samplePeriod for i in 1:nWri}
     "Initial input signal, used during first data transfer with CFD";
-  output Modelica.SIunits.Time simTimRea
-    "Current simulation time received from CFD";
+  output Modelica.SIunits.Time modTimRea
+    "Current model time received from CFD";
 
   output Integer retVal "Return value from CFD";
 
@@ -129,8 +129,8 @@ protected
     input Integer nU "Number of inputs for CFD";
     input Real[nY] yFixed "Fixed values (used for debugging only)";
     input Integer nY "Number of outputs from CFD";
-    output Modelica.SIunits.Time simTimRea
-      "Current simulation time in seconds read from CFD";
+    output Modelica.SIunits.Time modTimRea
+      "Current model time in seconds read from CFD";
     input Boolean verbose "Set to true for verbose output";
     output Real[nY] y "Output computed by CFD";
     output Integer retVal
@@ -140,14 +140,14 @@ protected
       Modelica.Utilities.Streams.print("CFDExchange:exchange at t=" + String(t));
     end if;
 
-    (simTimRea,y,retVal) := cfdExchangeData(
+    (modTimRea,y,retVal) := cfdExchangeData(
         flag,
         t,
         dt,
         u,
         nU,
         nY);
-    //simTimRea := t + dt;
+    //modTimRea := t + dt;
     //y := yFixed;
     //retVal := 0;
   end exchange;
@@ -316,7 +316,7 @@ algorithm
 
     // Exchange data
     if (activateInterface and (not terminal())) then
-      (simTimRea,y,retVal) := exchange(
+      (modTimRea,y,retVal) := exchange(
         flag=0,
         t=time,
         dt=samplePeriod,
@@ -326,7 +326,7 @@ algorithm
         nY=size(y, 1),
         verbose=verbose);
     else
-      simTimRea := time;
+      modTimRea := time;
       y := yFixed;
       retVal := 0;
     end if;
@@ -356,7 +356,7 @@ algorithm
 
     // Last exchange of data
     if activateInterface then
-      (simTimRea,y,retVal) := exchange(
+      (modTimRea,y,retVal) := exchange(
         flag=0,
         t=time,
         dt=samplePeriod,
@@ -366,7 +366,7 @@ algorithm
         nY=size(y, 1),
         verbose=verbose);
     else
-      simTimRea := time;
+      modTimRea := time;
       y := yFixed;
       retVal := 0;
     end if;

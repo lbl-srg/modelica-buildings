@@ -1,7 +1,7 @@
 within Buildings.Fluid.HeatExchangers.CoolingTowers.BaseClasses.Characteristics;
 record efficiencyParameters "Record for efficiency parameters"
   extends Modelica.Icons.Record;
-  parameter Real r_V[:](each min=0, unit="1")
+  parameter Real r_V[:](each min=0, each unit="1")
     "Volumetric flow rate divided by nominal flow rate at user-selected operating points";
   parameter Real eta[size(r_V,1)](
      each min=0, each max=1, each displayUnit="1")

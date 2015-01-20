@@ -1,7 +1,6 @@
 within Buildings.BoundaryConditions.WeatherData.BaseClasses;
 block SolarTime "Solar time"
   extends Modelica.Blocks.Icons.Block;
-public
   Modelica.Blocks.Interfaces.RealInput locTim(quantity="Time", unit="s")
     "Local time" annotation (Placement(transformation(extent={{-140,-74},{-100,
             -34}}), iconTransformation(extent={{-140,-74},{-100,-34}})));
@@ -13,8 +12,8 @@ public
     final unit="s",
     displayUnit="s") "Solar time"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
-algorithm
-  solTim := locTim + equTim "Our unit is s in stead of h in (A.4.3)";
+equation
+  solTim = locTim + equTim "Our unit is s in stead of h in (A.4.3)";
 
   annotation (
     defaultComponentName="solTim",
