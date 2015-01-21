@@ -14,15 +14,15 @@ model ClosedLoop
   parameter Modelica.SIunits.Volume VRooWes=360.08 "Room volume west";
 
   constant Real conv=1.2/3600 "Conversion factor for nominal mass flow rate";
-  parameter Modelica.SIunits.MassFlowRate m0_flow_cor=5*VRooCor*conv
+  parameter Modelica.SIunits.MassFlowRate m0_flow_cor=6*VRooCor*conv
     "Design mass flow rate core";
-  parameter Modelica.SIunits.MassFlowRate m0_flow_sou=5.5*VRooSou*conv
+  parameter Modelica.SIunits.MassFlowRate m0_flow_sou=7*VRooSou*conv
     "Design mass flow rate perimeter 1";
-  parameter Modelica.SIunits.MassFlowRate m0_flow_eas=8*VRooEas*conv
+  parameter Modelica.SIunits.MassFlowRate m0_flow_eas=10*VRooEas*conv
     "Design mass flow rate perimeter 2";
-  parameter Modelica.SIunits.MassFlowRate m0_flow_nor=5.5*VRooNor*conv
+  parameter Modelica.SIunits.MassFlowRate m0_flow_nor=7*VRooNor*conv
     "Design mass flow rate perimeter 3";
-  parameter Modelica.SIunits.MassFlowRate m0_flow_wes=8*VRooWes*conv
+  parameter Modelica.SIunits.MassFlowRate m0_flow_wes=10*VRooWes*conv
     "Design mass flow rate perimeter 4";
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal=m0_flow_cor +
       m0_flow_sou + m0_flow_eas + m0_flow_nor + m0_flow_wes
@@ -149,7 +149,7 @@ model ClosedLoop
         extent={{-10,10},{10,-10}},
         rotation=90,
         origin={320,50})));
-  Controls.FanVFD conFanSup(xSet_nominal(displayUnit="Pa") = 410, r_N_min=0.0)
+  Controls.FanVFD conFanSup(xSet_nominal(displayUnit="Pa") = 410, r_N_min=0.2)
     "Controller for fan"
     annotation (Placement(transformation(extent={{240,0},{260,20}})));
   Buildings.Fluid.Sensors.VolumeFlowRate senSupFlo(redeclare package Medium =
@@ -277,7 +277,7 @@ model ClosedLoop
     VRoo=VRooWes) "West-facing thermal zone"
     annotation (Placement(transformation(extent={{1104,6},{1172,74}})));
   Controls.FanVFD conFanRet(xSet_nominal(displayUnit="m3/s") = m_flow_nominal/
-      1.2, r_N_min=0.0) "Controller for fan"
+      1.2, r_N_min=0.2) "Controller for fan"
     annotation (Placement(transformation(extent={{240,140},{260,160}})));
   Buildings.Fluid.Sensors.VolumeFlowRate senRetFlo(redeclare package Medium =
         MediumA, m_flow_nominal=m_flow_nominal)
