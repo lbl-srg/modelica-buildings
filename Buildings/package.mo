@@ -586,7 +586,13 @@ that can lead to wrong simulation results):
     <td valign=\"top\">Corrected wrong entries for inner and outer diameter
                        of PEX pipes.
     </td>
-</tr>
+    </tr>
+<tr><td valign=\"top\">Buildings.Fluid.HeatExchangers.Boreholes.BaseClasses.singleUTubeResistances
+    </td>
+    <td valign=\"top\">Corrected error in function that used <code>beta</code>
+                       before it was assigned a value.
+    </td>
+</tr>    
 <tr><td valign=\"top\">Buildings.Fluid.Storage.Stratified<br/>
                        Buildings.Fluid.Storage.StratifiedEnhanced<br/>
                        Buildings.Fluid.Storage.StratifiedEnhancedInternalHex
