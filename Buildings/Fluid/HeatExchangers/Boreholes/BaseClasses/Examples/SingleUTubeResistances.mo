@@ -34,8 +34,8 @@ model SingleUTubeResistances "Model that tests the resistances in the borehole"
     "Thermal resistance of the pipe wall";
   parameter Real x(fixed=false) "Capacity location";
 
-initial algorithm
-  (Rgb, Rgg, RCondGro, x) :=
+initial equation
+  (Rgb, Rgg, RCondGro, x) =
     Buildings.Fluid.HeatExchangers.Boreholes.BaseClasses.singleUTubeResistances(
     hSeg=hSeg,
     rBor=rBor,
