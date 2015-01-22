@@ -156,28 +156,27 @@ initial equation
 
   // Potential difference in moisture concentration that drives mass transfer at nominal condition
   dX_nominal = XEvaOut_nominal-XEvaWetBulOut_nominal;
-  if (dX_nominal > 1E-10) then
-     Modelica.Utilities.Streams.print("Warning: In DX coil model, dX_nominal = " + String(dX_nominal) + "
-       This means that the coil is not dehumidifying air at the nominal conditions.
-       Check nominal parameters.
-         " + Buildings.Fluid.HeatExchangers.DXCoils.Data.Generic.BaseClasses.nominalValuesToString(
-                                                                                           nomVal));
-  end if;
+  assert(dX_nominal > 1E-10,
+     "Warning: In DX coil model, dX_nominal = " + String(dX_nominal) + "
+  This means that the coil is not dehumidifying air at the nominal conditions.
+  Check nominal parameters.
+  " + Buildings.Fluid.HeatExchangers.DXCoils.Data.Generic.BaseClasses.nominalValuesToString(nomVal),
+      AssertionLevel.warning);
 
   gammaMax = 0.8 * nomVal.m_flow_nominal * dX_nominal * h_fg / QLat_flow_nominal;
 
   // If gamma is bigger than a maximum value, write a warning and then
   // use the smaller value.
-  if (nomVal.gamma > gammaMax) then
-     Modelica.Utilities.Streams.print("Warning: In DX coil model, gamma is too large for these coil conditions.
+  assert(nomVal.gamma <= gammaMax,
+  "Warning: In DX coil model, gamma is too large for these coil conditions.
   Instead of gamma = " + String(nomVal.gamma) + ", a value of " + String(gammaMax) + ", which
   corresponds to a mass transfer effectiveness of 0.8, will be used.
   Coil nominal performance data are:
    nomVal.m_flow_nominal = " + String(nomVal.m_flow_nominal) + "
    dX_nominal = XEvaOut_nominal-XEvaWetBulOut_nominal = " + String(XEvaOut_nominal) + " - " +
       String(XEvaWetBulOut_nominal) + " = " + String(dX_nominal) + "
-   QLat_flow_nominal  = " + String(QLat_flow_nominal) + "\n");
-  end if;
+   QLat_flow_nominal  = " + String(QLat_flow_nominal) + "\n",
+   AssertionLevel.warning);
 
   logArg = 1-min(nomVal.gamma, gammaMax)*QLat_flow_nominal/nomVal.m_flow_nominal/h_fg/dX_nominal;
 
@@ -548,6 +547,10 @@ Florida Solar Energy Center, Technical Report FSEC-CR-1537-05, January 2006.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+January 21, 2015 by Michael Wetter:<br/>
+Converted print statements to assertions with <code>AssertionLevel.warning</code>.
+</li>
 <li>
 June 18, 2014 by Michael Wetter:<br/>
 Added <code>fixed=true</code> for start value of <code>m</code>
