@@ -12,21 +12,21 @@ model SplitterFixedResistanceDpM
     dp_nominal(each displayUnit="Pa") = {5,10,15},
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial) "Splitter"
     annotation (Placement(transformation(extent={{-16,-10},{4,10}})));
-  Buildings.Fluid.Sorces.Boundary_pT bou1(
-    redeclare package Medium = Medium, 
+  Buildings.Fluid.Sources.Boundary_pT bou1(
+    redeclare package Medium = Medium,
     T=273.15 + 10,
     use_p_in=true,
     nPorts=1)
      annotation (Placement(transformation(extent={{-58,-10},{-38,10}})));
   Buildings.Fluid.Sources.Boundary_pT bou2(
-    redeclare package Medium = Medium, 
+    redeclare package Medium = Medium,
     T=273.15 + 20,
     use_p_in=true,
     nPorts=1)
     annotation (Placement(transformation(
           extent={{52,-10},{32,10}})));
   Buildings.Fluid.Sources.Boundary_pT bou3(
-    redeclare package Medium = Medium, 
+    redeclare package Medium = Medium,
     T=273.15 + 30,
     use_p_in=true,
     nPorts=1)
