@@ -1,6 +1,8 @@
 within Buildings.Examples.VAVReheat.Controls;
 block RoomVAV "Controller for room VAV box"
   extends Modelica.Blocks.Icons.Block;
+  parameter Real kPDamHea = 0.5
+    "Proportional gain for VAV damper in heating mode";
   Buildings.Controls.Continuous.LimPID conHea(
     yMax=1,
     xi_start=0.1,
@@ -36,7 +38,7 @@ block RoomVAV "Controller for room VAV box"
     annotation (Placement(transformation(extent={{12,-14},{32,6}})));
   Modelica.Blocks.Sources.Constant one(k=1)
     annotation (Placement(transformation(extent={{-60,-76},{-40,-56}})));
-  Modelica.Blocks.Math.Add3 yDamHea(k3=-1)
+  Modelica.Blocks.Math.Add3 yDamHea(k2=kPDamHea, k3=-kPDamHea)
     "Outputs (unlimited) damper signal for heating."
     annotation (Placement(transformation(extent={{-20,-20},{0,0}})));
   Modelica.Blocks.Math.Add add

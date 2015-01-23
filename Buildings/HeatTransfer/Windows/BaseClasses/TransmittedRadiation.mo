@@ -15,15 +15,14 @@ block TransmittedRadiation "Transmitted radiation through window"
     "Transmitted solar radiation through shaded part of window";
 
 protected
-  Integer k=1;
-  Real x;
+  Real x "Intermediate variable";
   final parameter Integer NDIR=radDat.NDIR;
   final parameter Integer HEM=radDat.HEM;
   constant Integer NoShade=1;
   constant Integer Shade=2;
   constant Integer Interior=1;
   constant Integer Exterior=2;
-  final parameter Real coeTraWinExtIrr[2, radDat.HEM + 2](fixed=false);
+  final parameter Real coeTraWinExtIrr[2, radDat.HEM + 2](each fixed=false);
   Real tmpNoSha;
   Real tmpSha;
   Real incAng2;
