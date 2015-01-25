@@ -7,8 +7,6 @@ model ConservationEquation "Lumped volume with mass and energy balance"
     annotation(Evaluate=true, Dialog(connectorSizing=true, tab="General",group="Ports"));
   parameter Boolean initialize_p = not Medium.singleState
     "= true to set up initial equations for pressure";
-  parameter Real mFactor = 1
-    "Factor to scale the thermal mass of the volume";
   Modelica.Fluid.Vessels.BaseClasses.VesselFluidPorts_b ports[nPorts](
       redeclare each final package Medium = Medium) "Fluid inlets and outlets"
     annotation (Placement(transformation(extent={{-40,-10},{40,10}},
@@ -49,8 +47,10 @@ model ConservationEquation "Lumped volume with mass and energy balance"
     "Enthalpy flow across boundaries or energy source/sink";
 
   // Inputs that need to be defined by an extending class
-  input Modelica.SIunits.Volume fluidVolume "Volume";
-
+  parameter Modelica.SIunits.Volume fluidVolume "Volume";
+  final parameter Modelica.SIunits.HeatCapacity CSen=
+    (mSenFac - 1)*rho_default*cp_default*fluidVolume
+    "Aditional heat capacity for implementing mFactor";
   Modelica.Blocks.Interfaces.RealInput Q_flow(unit="W")
     "Sensible plus latent heat flow rate transfered into the medium"
     annotation (Placement(transformation(extent={{-140,40},{-100,80}})));
@@ -81,13 +81,25 @@ protected
   Medium.EnthalpyFlowRate ports_H_flow[nPorts];
   Modelica.SIunits.MassFlowRate ports_mXi_flow[nPorts,Medium.nXi];
   Medium.ExtraPropertyFlowRate ports_mC_flow[nPorts,Medium.nC];
-
+  parameter Modelica.SIunits.SpecificHeatCapacity cp_default=
+  Medium.specificHeatCapacityCp(state=state_default)
+    "Heat capacity, to compute additional dry mass";
   parameter Modelica.SIunits.Density rho_nominal=Medium.density(
    Medium.setState_pTX(
      T=T_start,
      p=p_start,
      X=X_start[1:Medium.nXi])) "Density, used to compute fluid mass";
 
+  // Parameter for avoiding extra overhead calculations when CSen==0
+  final parameter Boolean computeCSen = CSen > Modelica.Constants.eps
+    annotation(Evaluate=true);
+  final parameter Medium.ThermodynamicState state_default = Medium.setState_pTX(
+      T=Medium.T_default,
+      p=Medium.p_default,
+      X=Medium.X_default[1:Medium.nXi]) "Medium state at default values";
+  // Density at medium default values, used to compute the size of control volumes
+  final parameter Modelica.SIunits.Density rho_default=Medium.density(
+    state=state_default) "Density, used to compute fluid mass";
   // Parameter that is used to construct the vector mXi_flow
   final parameter Real s[Medium.nXi] = {if Modelica.Utilities.Strings.isEqual(string1=Medium.substanceNames[i],
                                             string2="Water",
@@ -156,7 +168,11 @@ equation
   // Total quantities
   m = fluidVolume*medium.d;
   mXi = m*medium.Xi;
-  U = m*medium.u*mFactor;
+  if computeCSen then
+    U = m*medium.u + CSen*(medium.T-Medium.reference_T);
+  else
+    U = m*medium.u;
+  end if;
   mC = m*C;
 
   hOut = medium.h;
