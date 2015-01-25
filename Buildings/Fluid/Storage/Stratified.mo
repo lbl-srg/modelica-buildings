@@ -54,13 +54,16 @@ model Stratified "Model of a stratified tank for thermal energy storage"
                               annotation (Placement(transformation(extent={{6,-16},
             {26,4}})));
   Sensors.EnthalpyFlowRate hA_flow(redeclare package Medium = Medium,
-      m_flow_nominal=m_flow_nominal) "Enthalpy flow rate at port a"
+      m_flow_nominal=m_flow_nominal,
+      tau=0) "Enthalpy flow rate at port a"
     annotation (Placement(transformation(extent={{-60,-90},{-40,-70}})));
   Sensors.EnthalpyFlowRate[nSeg-1] hVol_flow(redeclare package Medium = Medium,
-      each m_flow_nominal=m_flow_nominal)
+      each m_flow_nominal=m_flow_nominal,
+      each tau=0)
     annotation (Placement(transformation(extent={{-20,-50},{0,-30}})));
   Sensors.EnthalpyFlowRate hB_flow(redeclare package Medium = Medium,
-      m_flow_nominal=m_flow_nominal) "Enthalpy flow rate at port b"
+      m_flow_nominal=m_flow_nominal,
+      tau=0) "Enthalpy flow rate at port b"
     annotation (Placement(transformation(extent={{50,-90},{70,-70}})));
   BaseClasses.Buoyancy buo(
     redeclare package Medium = Medium,
@@ -68,8 +71,7 @@ model Stratified "Model of a stratified tank for thermal energy storage"
     nSeg=nSeg,
     tau=tau) "Model to prevent unstable tank stratification"
     annotation (Placement(transformation(extent={{-60,50},{-40,70}})));
-  parameter Modelica.SIunits.Time tau=1
-    "Time constant for mixing due to temperature inversion";
+  parameter Modelica.SIunits.Time tau=1 "Time constant for thermal dynamics";
   Modelica.Thermal.HeatTransfer.Components.ThermalConductor[
                                                  nSeg - 1] conFlu(each G=
         conFluSeg) "Thermal conductance in fluid between the segments"
@@ -234,6 +236,11 @@ Buildings.Fluid.Storage.StratifiedEnhanced</a>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+January 25, 2015, by Filip Jorissen:<br/>
+Set <code>tau = 0</code> in <code>EnthalpyFlowRate</code> 
+sensors for increased simulation speed.
+</li>
 <li>
 August 29, 2014, by Michael Wetter:<br/>
 Replaced the use of <code>Medium.lambda_const</code> with

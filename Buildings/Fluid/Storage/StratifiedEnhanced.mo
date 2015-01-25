@@ -1,6 +1,9 @@
 within Buildings.Fluid.Storage;
 model StratifiedEnhanced "Stratified tank model with enhanced discretization"
-  extends Stratified(nSeg=4, nPorts=3, vol(each prescribedHeatFlowRate=true));
+  extends Stratified(nSeg=4, nPorts=3, vol(each prescribedHeatFlowRate=true),
+    hVol_flow(each tau=tau),
+    hA_flow(tau=tau),
+    hB_flow(tau=tau));
   BaseClasses.ThirdOrderStratifier str(
     redeclare package Medium = Medium,
     nSeg=nSeg,
@@ -51,6 +54,11 @@ The model requires at least 4 fluid segments. Hence, set <code>nSeg</code> to 4 
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+January 25, 2015, by Filip Jorissen:<br/>
+Propagated <code>tau</code> in <code>EnthalpyFlowRate</code> 
+sensors for increased simulation speed.
+</li>
 <li>
 March 29, 2012 by Wangda Zuo:<br/>
 Revised the implementation to reduce the temperature overshoot.
