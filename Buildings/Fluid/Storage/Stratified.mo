@@ -54,30 +54,28 @@ model Stratified "Model of a stratified tank for thermal energy storage"
                               annotation (Placement(transformation(extent={{6,-16},
             {26,4}})));
   Sensors.EnthalpyFlowRate hA_flow(redeclare package Medium = Medium,
-      m_flow_nominal=m_flow_nominal,
-      tau=0) "Enthalpy flow rate at port a"
+      final m_flow_nominal=m_flow_nominal,
+      final tau=0) "Enthalpy flow rate at port a"
     annotation (Placement(transformation(extent={{-60,-90},{-40,-70}})));
   Sensors.EnthalpyFlowRate[nSeg-1] hVol_flow(redeclare package Medium = Medium,
-      each m_flow_nominal=m_flow_nominal,
-      each tau=0)
+      each final m_flow_nominal=m_flow_nominal,
+      each final tau=0)
     annotation (Placement(transformation(extent={{-20,-50},{0,-30}})));
   Sensors.EnthalpyFlowRate hB_flow(redeclare package Medium = Medium,
       m_flow_nominal=m_flow_nominal,
-      tau=0) "Enthalpy flow rate at port b"
+      final tau=0) "Enthalpy flow rate at port b"
     annotation (Placement(transformation(extent={{50,-90},{70,-70}})));
   BaseClasses.Buoyancy buo(
-    redeclare package Medium = Medium,
-    V=VTan,
-    nSeg=nSeg,
-    tau=tau) "Model to prevent unstable tank stratification"
+    redeclare final package Medium = Medium,
+    final V=VTan,
+    final nSeg=nSeg,
+    final tau=tau) "Model to prevent unstable tank stratification"
     annotation (Placement(transformation(extent={{-60,50},{-40,70}})));
   parameter Modelica.SIunits.Time tau=1 "Time constant for thermal dynamics";
-  Modelica.Thermal.HeatTransfer.Components.ThermalConductor[
-                                                 nSeg - 1] conFlu(each G=
-        conFluSeg) "Thermal conductance in fluid between the segments"
+  Modelica.Thermal.HeatTransfer.Components.ThermalConductor[nSeg - 1] conFlu(
+    each G=conFluSeg) "Thermal conductance in fluid between the segments"
     annotation (Placement(transformation(extent={{-56,4},{-42,18}})));
-  Modelica.Thermal.HeatTransfer.Components.ThermalConductor[
-                                                 nSeg] conWal(
+  Modelica.Thermal.HeatTransfer.Components.ThermalConductor[nSeg] conWal(
      each G=2*Modelica.Constants.pi*kIns*hSeg/Modelica.Math.log((rTan+dIns)/rTan))
     "Thermal conductance through tank wall"
     annotation (Placement(transformation(extent={{10,34},{20,46}})));
@@ -93,8 +91,7 @@ model Stratified "Model of a stratified tank for thermal energy storage"
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heaPorSid
     "Heat port tank side (outside insulation)"
                     annotation (Placement(transformation(extent={{50,-6},{62,6}})));
-  Modelica.Thermal.HeatTransfer.Sensors.HeatFlowSensor heaFloSid[
-                                                         nSeg]
+  Modelica.Thermal.HeatTransfer.Sensors.HeatFlowSensor heaFloSid[nSeg]
     "Heat flow at wall of tank (outside insulation)"
     annotation (Placement(transformation(extent={{30,34},{42,46}})));
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heaPorTop
@@ -117,9 +114,10 @@ model Stratified "Model of a stratified tank for thermal energy storage"
 protected
   constant Integer nPorts = 2 "Number of ports of volume";
 
-  parameter Medium.ThermodynamicState sta_default = Medium.setState_pTX(T=Medium.T_default,
-         p=Medium.p_default, X=Medium.X_default[1:Medium.nXi])
-    "Medium state at default properties";
+  parameter Medium.ThermodynamicState sta_default = Medium.setState_pTX(
+    T=Medium.T_default,
+    p=Medium.p_default,
+    X=Medium.X_default[1:Medium.nXi]) "Medium state at default properties";
   parameter Modelica.SIunits.Length hSeg = hTan / nSeg
     "Height of a tank segment";
   parameter Modelica.SIunits.Area ATan = VTan/hTan
@@ -236,6 +234,16 @@ Buildings.Fluid.Storage.StratifiedEnhanced</a>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+January 25, 2015, by Filip Jorissen:<br/>
+Added <code>final</code> to <code>tau = 0</code> in <code>EnthalpyFlowRate</code>.
+These sensors do not need dynamics as the enthalpy flow rate
+is used to compute a heat flow which is then added to the volume of the tank.
+Thus, if there were high frequency oscillations of small mass flow rates,
+then they have a small effect on <code>H_flow</code>, and they are
+not used in any control loop. Rather, the oscillations are further damped
+by the differential equation of the fluid volume.
+</li>
 <li>
 January 25, 2015, by Filip Jorissen:<br/>
 Set <code>tau = 0</code> in <code>EnthalpyFlowRate</code> 

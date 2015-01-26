@@ -1,9 +1,6 @@
 within Buildings.Fluid.Storage;
 model StratifiedEnhanced "Stratified tank model with enhanced discretization"
-  extends Stratified(nSeg=4, nPorts=3, vol(each prescribedHeatFlowRate=true),
-    hVol_flow(each tau=tau),
-    hA_flow(tau=tau),
-    hB_flow(tau=tau));
+  extends Stratified(nSeg=4, nPorts=3, vol(each prescribedHeatFlowRate=true));
   BaseClasses.ThirdOrderStratifier str(
     redeclare package Medium = Medium,
     nSeg=nSeg,
