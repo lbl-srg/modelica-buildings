@@ -71,7 +71,7 @@ model Stratified "Model of a stratified tank for thermal energy storage"
     final nSeg=nSeg,
     final tau=tau) "Model to prevent unstable tank stratification"
     annotation (Placement(transformation(extent={{-60,50},{-40,70}})));
-  parameter Modelica.SIunits.Time tau=1 "Time constant for thermal dynamics";
+  parameter Modelica.SIunits.Time tau=1 "Time constant for mixing";
   Modelica.Thermal.HeatTransfer.Components.ThermalConductor[nSeg - 1] conFlu(
     each G=conFluSeg) "Thermal conductance in fluid between the segments"
     annotation (Placement(transformation(extent={{-56,4},{-42,18}})));
