@@ -59,7 +59,7 @@ model Stratified "Model of a stratified tank for thermal energy storage"
     annotation (Placement(transformation(extent={{-60,-90},{-40,-70}})));
   Sensors.EnthalpyFlowRate[nSeg-1] hVol_flow(redeclare package Medium = Medium,
       each final m_flow_nominal=m_flow_nominal,
-      each final tau=0)
+      each final tau=0) "Enthalpy flow rate between the volumes"
     annotation (Placement(transformation(extent={{-20,-50},{0,-30}})));
   Sensors.EnthalpyFlowRate hB_flow(redeclare package Medium = Medium,
       m_flow_nominal=m_flow_nominal,
@@ -235,7 +235,7 @@ Buildings.Fluid.Storage.StratifiedEnhanced</a>.
 </html>", revisions="<html>
 <ul>
 <li>
-January 25, 2015, by Filip Jorissen:<br/>
+January 25, 2015, by Michael Wetter:<br/>
 Added <code>final</code> to <code>tau = 0</code> in <code>EnthalpyFlowRate</code>.
 These sensors do not need dynamics as the enthalpy flow rate
 is used to compute a heat flow which is then added to the volume of the tank.

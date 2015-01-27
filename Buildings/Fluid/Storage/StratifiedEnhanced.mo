@@ -6,6 +6,7 @@ model StratifiedEnhanced "Stratified tank model with enhanced discretization"
     nSeg=nSeg,
     m_flow_small=m_flow_small) "Model to reduce numerical dissipation"
     annotation (Placement(transformation(extent={{-60,-50},{-40,-30}})));
+
   Modelica.Blocks.Sources.RealExpression mTan_flow(y=port_a.m_flow)
     "Mass flow rate at port a" annotation (Placement(transformation(extent={{-94,-42},
             {-74,-22}})));
@@ -51,11 +52,6 @@ The model requires at least 4 fluid segments. Hence, set <code>nSeg</code> to 4 
 </p>
 </html>", revisions="<html>
 <ul>
-<li>
-January 25, 2015, by Filip Jorissen:<br/>
-Propagated <code>tau</code> in <code>EnthalpyFlowRate</code> 
-sensors for increased simulation speed.
-</li>
 <li>
 March 29, 2012 by Wangda Zuo:<br/>
 Revised the implementation to reduce the temperature overshoot.
