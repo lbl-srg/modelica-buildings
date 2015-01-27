@@ -82,6 +82,10 @@ this base class.
 </html>", revisions="<html>
 <ul>
 <li>
+January 13, 2015, by Marcus Fuchs:<br/>
+Revised revisions section (there were two revisions statements)
+</li>
+<li>
 November 20, 2014 by Michael Wetter:<br/>
 Removed <code>start</code> attribute for <code>m_flow</code>
 as this is already set in its base class.
@@ -135,24 +139,16 @@ values of flow splitters which may have negative flow rates and pressure drop
 at the initial condition.
 </li>
 <li>
+March 27, 2011, by Michael Wetter:<br/>
+Added <code>homotopy</code> operator.
+</li>
+<li>
 March 23, 2011 by Michael Wetter:<br/>
 Added homotopy operator.
 </li>
 <li>
 March 30, 2010 by Michael Wetter:<br/>
 Changed base classes to allow easier initialization.
-</li>
-<li>
-July 20, 2007 by Michael Wetter:<br/>
-First implementation.
-</li>
-</ul>
-</html>",
-revisions="<html>
-<ul>
-<li>
-March 27, 2011, by Michael Wetter:<br/>
-Added <code>homotopy</code> operator.
 </li>
 <li>
 April 13, 2009, by Michael Wetter:<br/>
