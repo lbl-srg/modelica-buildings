@@ -45,8 +45,8 @@ protected
     "Sign used to implement the third order upwind scheme without triggering a state event";
 
 equation
-  assert(nSeg >= 4, "
-Number of segments of the enhanced stratified tank should be no less than 4 (nSeg>=4).");
+  assert(nSeg >= 4,
+  "Number of segments of the enhanced stratified tank should be no less than 4 (nSeg>=4).");
 
   // assign zero flow conditions at port
   fluidPort[:].m_flow = zeros(nSeg + 2);

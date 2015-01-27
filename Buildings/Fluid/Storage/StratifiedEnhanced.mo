@@ -1,11 +1,14 @@
 within Buildings.Fluid.Storage;
 model StratifiedEnhanced "Stratified tank model with enhanced discretization"
   extends Stratified(nSeg=4, nPorts=3, vol(each prescribedHeatFlowRate=true));
+
+protected
   BaseClasses.ThirdOrderStratifier str(
     redeclare package Medium = Medium,
     nSeg=nSeg,
     m_flow_small=m_flow_small) "Model to reduce numerical dissipation"
     annotation (Placement(transformation(extent={{-60,-50},{-40,-30}})));
+
   Modelica.Blocks.Sources.RealExpression mTan_flow(y=port_a.m_flow)
     "Mass flow rate at port a" annotation (Placement(transformation(extent={{-94,-42},
             {-74,-22}})));
@@ -14,14 +17,14 @@ equation
                                                         annotation (Line(points={{16,-16},
           {16,-20},{-72,-20},{-72,-40},{-60,-40}},
                  color={0,127,255}));
-  connect(hA_flow.H_flow, str.H_flow[1]) annotation (Line(points={{-50,-69},{-50,
+  connect(H_a_flow.H_flow, str.H_flow[1]) annotation (Line(points={{-50,-69},{-50,
           -62},{-68,-62},{-68,-48},{-62,-48}},
                                           color={0,0,127}));
-  connect(hVol_flow[1:nSeg-1].H_flow, str.H_flow[2:nSeg])   annotation (Line(
+  connect(H_vol_flow[1:nSeg-1].H_flow, str.H_flow[2:nSeg])   annotation (Line(
         points={{-10,-29},{-10,-26},{-24,-26},{-24,-62},{-68,-62},{-68,-48},{
           -62,-48}},                                                color={0,0,
           127}));
-  connect(hB_flow.H_flow, str.H_flow[nSeg + 1]) annotation (Line(points={{60,-69},
+  connect(H_b_flow.H_flow, str.H_flow[nSeg + 1]) annotation (Line(points={{60,-69},
           {60,-62},{-52,-62},{-68,-62},{-68,-48},{-62,-48}},
                                                   color={0,0,127}));
   connect(str.heatPort, vol.heatPort)    annotation (Line(points={{-40,-40},{
