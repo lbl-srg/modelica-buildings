@@ -4,8 +4,7 @@ model WetCoilDiscretizedGasesConstantDensity
   extends
     Buildings.Fluid.HeatExchangers.Examples.BaseClasses.WetCoilDiscretized(
    redeclare package Medium2 =
-        Buildings.Media.GasesConstantDensity.MoistAirUnsaturated, hexSteSta(
-        from_dp2=true));
+        Buildings.Media.GasesConstantDensity.MoistAirUnsaturated);
   extends Modelica.Icons.Example;
   annotation (
 experiment(StopTime=360),
