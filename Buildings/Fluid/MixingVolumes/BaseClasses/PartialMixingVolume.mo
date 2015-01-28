@@ -37,7 +37,7 @@ partial model PartialMixingVolume
   Medium.ExtraProperty C[Medium.nC](nominal=C_nominal)
     "Trace substance mixture content";
    // Models for the steady-state and dynamic energy balance.
-// removed protected for experiments
+protected
   Buildings.Fluid.Interfaces.StaticTwoPortConservationEquation steBal(
     sensibleOnly = true,
     redeclare final package Medium=Medium,
@@ -58,24 +58,23 @@ partial model PartialMixingVolume
     final fluidVolume = V,
     final initialize_p = initialize_p,
     m(start=V*rho_start),
-    U(start=V*rho_start*Medium.specificInternalEnergy(
-        state_start)),
     nPorts=nPorts,
-    final mFactor=mFactor) if
+    U(start=V*rho_start*Medium.specificInternalEnergy(state_start) + (T_start -
+          Medium.reference_T)*dynBal.CSen),
+    final mSenFac=mSenFac) if
         not useSteadyStateTwoPort "Model for dynamic energy balance"
     annotation (Placement(transformation(extent={{40,0},{60,20}})));
-  // Density at medium default values, used to compute the size of control volumes
-protected
-  parameter Modelica.SIunits.Density rho_default=Medium.density(
-    state=state_default) "Density, used to compute fluid mass";
+
   // Density at start values, used to compute initial values and start guesses
   parameter Modelica.SIunits.Density rho_start=Medium.density(
    state=state_start) "Density, used to compute start and guess values";
-
   final parameter Medium.ThermodynamicState state_default = Medium.setState_pTX(
       T=Medium.T_default,
       p=Medium.p_default,
       X=Medium.X_default[1:Medium.nXi]) "Medium state at default values";
+  // Density at medium default values, used to compute the size of control volumes
+  final parameter Modelica.SIunits.Density rho_default=Medium.density(
+    state=state_default) "Density, used to compute fluid mass";
   final parameter Medium.ThermodynamicState state_start = Medium.setState_pTX(
       T=T_start,
       p=p_start,

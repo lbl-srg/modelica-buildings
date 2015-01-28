@@ -8,7 +8,7 @@ model RadiatorEN442_2 "Dynamic radiator for space heating"
      final X_start = Medium.X_default,
      final C_start = fill(0, Medium.nC),
      final C_nominal = fill(1E-2, Medium.nC),
-     final mFactor = 1 + 500*mDry/(VWat*cp_nominal*Medium.density(
+     final mSenFac = 1 + 500*mDry/(VWat*cp_nominal*Medium.density(
         Medium.setState_pTX(Medium.p_default, Medium.T_default, Medium.X_default))));
 
   parameter Integer nEle(min=1) = 5
@@ -69,7 +69,7 @@ model RadiatorEN442_2 "Dynamic radiator for space heating"
     each final T_start=T_start,
     each final X_start=X_start,
     each final C_start=C_start,
-    each final mFactor=mFactor) "Volume for fluid stream"
+    each final mSenFac=mSenFac) "Volume for fluid stream"
     annotation (Placement(transformation(extent={{-9,0},{11,-20}})));
 protected
    parameter Modelica.SIunits.SpecificHeatCapacity cp_nominal=

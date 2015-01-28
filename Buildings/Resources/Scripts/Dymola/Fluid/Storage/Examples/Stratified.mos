@@ -48,15 +48,4 @@ createPlot(id = 3,
  subPlot = 2,
  leftTitleType = 1,
  bottomTitleType = 1);
-createPlot(id = 7,
- position = {28, 30, 504, 282},
- y = {"tanSim.buo.Q_flow[1]", "tanSim.buo.Q_flow[2]"},
- range = {0, 11000.0, 800000.0, (-100000.0)},
- autoscale = true,
- autoerase = true,
- autoreplot = true,
- grid = true,
- color = true,
- leftTitleType = 1,
- bottomTitleType = 1);
 

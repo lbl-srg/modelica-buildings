@@ -52,32 +52,14 @@ The input <code>m_flow_turbulent</code> determines the location of the regulariz
 </html>", revisions="<html>
 <ul>
 <li>
+January 9, 2014, by Michael Wetter:<br/>
+Correct revision section, of which there were two.
+</li>
+<li>
 August 10, 2011, by Michael Wetter:<br/>
 Removed <code>if-then</code> optimization that set <code>m_flow=0</code> if <code>dp=0</code>,
 as this causes the derivative to be discontinuous at <code>dp=0</code>.
 </li>
-<li>
-August 4, 2011, by Michael Wetter:<br/>
-Implemented linearized model in this model instead of
-in the functions
-<a href=\"modelica://Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp\">
-Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp</a>
-and
-<a href=\"modelica://Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow\">
-Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow</a>.
-With the previous implementation,
-the symbolic processor may not rearrange the equations, which can lead
-to coupled equations instead of an explicit solution.
-</li>
-<li>
-March 29, 2010 by Michael Wetter:<br/>
-Changed implementation to allow <code>k=0</code>, which is
-the case for a closed valve with no leakage
-</li>
-</ul>
-</html>"),
-revisions="<html>
-<ul>
 <li>
 August 4, 2011, by Michael Wetter:<br/>
 Removed option to use a linear function. The linear implementation is now done
@@ -86,9 +68,14 @@ the symbolic processor may not rearrange the equations, which can lead
 to coupled equations instead of an explicit solution.
 </li>
 <li>
+March 29, 2010 by Michael Wetter:<br/>
+Changed implementation to allow <code>k=0</code>, which is
+the case for a closed valve with no leakage
+</li>
+<li>
 April 13, 2009, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
-</html>");
+</html>"));
 end basicFlowFunction_dp;
