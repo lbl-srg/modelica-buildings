@@ -13,7 +13,8 @@ model System2
     m_flow_nominal=mA_flow_nominal,
     V=V,
     nPorts=2,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    mSenFac=3)
     annotation (Placement(transformation(extent={{60,20},{80,40}})));
   Modelica.Thermal.HeatTransfer.Components.ThermalConductor theCon(G=10000/30)
     "Thermal conductance with the ambient"
@@ -134,9 +135,6 @@ model System2
         MediumA, m_flow_nominal=mA_flow_nominal)
     "Temperature sensor for supply air"
     annotation (Placement(transformation(extent={{6,-26},{18,-14}})));
-  Modelica.Thermal.HeatTransfer.Components.HeatCapacitor heaCap(C=2*V*1.2*1006)
-    "Heat capacity for furniture and walls"
-    annotation (Placement(transformation(extent={{60,50},{80,70}})));
 equation
   connect(theCon.port_b, vol.heatPort) annotation (Line(
       points={{40,50},{50,50},{50,30},{60,30}},
@@ -218,10 +216,6 @@ equation
       smooth=Smooth.None));
   connect(TOut.port, theCon.port_a) annotation (Line(
       points={{5.55112e-16,50},{20,50}},
-      color={191,0,0},
-      smooth=Smooth.None));
-  connect(heaCap.port, vol.heatPort) annotation (Line(
-      points={{70,50},{50,50},{50,30},{60,30}},
       color={191,0,0},
       smooth=Smooth.None));
   annotation (Documentation(info="<html>
@@ -542,6 +536,11 @@ from the model.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+January 28, 2015 by Michael Wetter:<br/>
+Added thermal mass of furniture directly to air volume.
+This avoids an index reduction.
+</li>
 <li>
 December 22, 2014 by Michael Wetter:<br/>
 Removed <code>Modelica.Fluid.System</code>
