@@ -1,0 +1,4 @@
+compareVars :=
+  {
+    "inverseXRegularized.y"
+  };

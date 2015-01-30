@@ -1,0 +1,7 @@
+compareVars :=
+  {
+    "rooA.Xi[1]",
+    "rooB.Xi[1]",
+    "rooA.T",
+    "rooB.T"
+  };

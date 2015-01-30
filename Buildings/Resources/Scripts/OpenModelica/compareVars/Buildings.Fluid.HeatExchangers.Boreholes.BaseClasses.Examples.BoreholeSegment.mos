@@ -1,0 +1,14 @@
+compareVars :=
+  {
+    "seg.port_a1.m_flow",
+    "seg.TBouCon.port.T",
+    "seg.soi.T[1]",
+    "seg.soi.T[2]",
+    "seg.soi.T[3]",
+    "seg.soi.T[4]",
+    "seg.soi.T[5]",
+    "seg.soi.T[6]",
+    "seg.soi.T[7]",
+    "seg.soi.T[8]",
+    "seg.soi.T[9]"
+  };

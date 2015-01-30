@@ -1,0 +1,6 @@
+compareVars :=
+  {
+    "pip.vol[1].T",
+    "pip.vol[5].T",
+    "pip.vol[10].T"
+  };

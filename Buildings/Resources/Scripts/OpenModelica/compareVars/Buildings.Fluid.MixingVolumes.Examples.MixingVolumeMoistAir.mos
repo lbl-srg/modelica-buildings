@@ -1,0 +1,8 @@
+compareVars :=
+  {
+    "vol1.T",
+    "vol1.X_w",
+    "QSen.u",
+    "QLat.u",
+    "vol1.p"
+  };

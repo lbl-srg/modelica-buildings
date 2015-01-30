@@ -1,0 +1,9 @@
+compareVars :=
+  {
+    "oriOutTop.port_a.m_flow",
+    "oriOutBot.port_a.m_flow",
+    "volEas.T",
+    "volOut.T",
+    "oriOutTop.dp",
+    "oriOutBot.dp"
+  };

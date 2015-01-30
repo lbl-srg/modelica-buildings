@@ -1,0 +1,8 @@
+compareVars :=
+  {
+    "winRad.HDif",
+    "winRad.HDir",
+    "winRad.QTra_flow",
+    "winRad.QAbsGlaUns_flow[2]",
+    "winRad.QAbsGlaSha_flow[2]"
+  };

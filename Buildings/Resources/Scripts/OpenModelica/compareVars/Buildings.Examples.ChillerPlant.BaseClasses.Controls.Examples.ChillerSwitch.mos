@@ -1,0 +1,6 @@
+compareVars :=
+  {
+    "chiSwi.TSet",
+    "chiSwi.chiCHWST",
+    "chiSwi.y"
+  };
