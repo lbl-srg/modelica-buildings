@@ -5,8 +5,7 @@ model OneOpenDoor "Model with one open and one closed door"
   package Medium = Modelica.Media.Air.SimpleAir;
 
   Buildings.Airflow.Multizone.DoorDiscretizedOpen dooOpe(redeclare package
-      Medium = Medium) "Discretized door"
-                                          annotation (Placement(transformation(
+      Medium = Medium) "Discretized door" annotation (Placement(transformation(
           extent={{10,-8},{30,12}})));
 
   Buildings.Fluid.MixingVolumes.MixingVolume volA(
@@ -41,8 +40,6 @@ model OneOpenDoor "Model with one open and one closed door"
     offset=0,
     startTime=1000) annotation (Placement(transformation(extent={{-60,-44},{-40,
             -24}})));
-  inner Modelica.Fluid.System system
-    annotation (Placement(transformation(extent={{60,-80},{80,-60}})));
 equation
   connect(Gain1.y, preHeaFlo.Q_flow)
     annotation (Line(points={{1,70},{14,70}}, color={0,0,255}));
@@ -105,6 +102,12 @@ Both doors have exactly the same bi-directional airflow rates.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+December 22, 2014 by Michael Wetter:<br/>
+Removed <code>Modelica.Fluid.System</code>
+to address issue
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/311\">#311</a>.
+</li>
 <li>
 October 8, 2013, by Michael Wetter:<br/>
 Removed parameter <code>show_V_flow</code>.

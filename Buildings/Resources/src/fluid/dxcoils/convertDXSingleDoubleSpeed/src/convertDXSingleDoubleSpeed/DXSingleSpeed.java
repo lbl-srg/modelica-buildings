@@ -60,14 +60,18 @@ public class DXSingleSpeed {
         String format = "%1$-5s %2$-1s %3$-2s %4$-1s\n";
         stringHeaderBeginOfDXSingleSpeedObject = "  record  "
                 + replaceTokenCharacter(name) + " =" + "\n"
-                + "    Buildings.Fluid.HeatExchangers.DXCoils.Data.SingleSpeed.Generic (";
+                + "    Buildings.Fluid.HeatExchangers.DXCoils.Data.SingleSpeed.Generic(";
 
-        stringAnnotationOfDXSingleSpeedObjectBegin = "annotation (Documentation(info=\"<html>"
+        stringAnnotationOfDXSingleSpeedObjectBegin = "annotation(\n"
+        		+ "defaultComponentName=\"datCoi\",\n"
+        		+ "defaultComponentPrefixes=\"parameter\",\n"
+        		+ "Documentation(info=\"<html>"
                 + "\n"
+        		+ "<p>"
                 + "Performance data for DX single speed cooling coil model."
                 + "\n"
                 + "This data corresponds to the following EnergyPlus model:"
-                + "\n" + "<pre>";
+                + "\n</p>\n" + "<pre>";
 
         stringAnnotationOfDXSingleSpeedObjectEnd = "</pre>" + "\n"
                 + "</html>\"))" + ";";

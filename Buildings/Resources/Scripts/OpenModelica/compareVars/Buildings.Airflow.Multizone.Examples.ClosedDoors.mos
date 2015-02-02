@@ -1,0 +1,9 @@
+compareVars :=
+  {
+    "dooAB.vAB",
+    "dooAB.vBA",
+    "dooAC.vAB",
+    "dooAC.vBA",
+    "dooBC.vAB",
+    "dooBC.vBA"
+  };

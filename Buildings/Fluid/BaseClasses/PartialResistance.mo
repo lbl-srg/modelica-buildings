@@ -2,8 +2,8 @@ within Buildings.Fluid.BaseClasses;
 partial model PartialResistance "Partial model for a hydraulic resistance"
     extends Buildings.Fluid.Interfaces.PartialTwoPortInterface(
      show_T=false,
-     m_flow(start=0, nominal=m_flow_nominal_pos),
      dp(start=0, nominal=dp_nominal_pos),
+     m_flow(nominal=m_flow_nominal_pos),
      final m_flow_small = 1E-4*abs(m_flow_nominal));
 
   parameter Boolean from_dp = false
@@ -26,7 +26,7 @@ protected
      Medium.setState_pTX(T=Medium.T_default, p=Medium.p_default, X=Medium.X_default);
   parameter Modelica.SIunits.DynamicViscosity eta_default=Medium.dynamicViscosity(sta_default)
     "Dynamic viscosity, used to compute transition to turbulent flow regime";
-protected
+
   final parameter Modelica.SIunits.MassFlowRate m_flow_nominal_pos = abs(m_flow_nominal)
     "Absolute value of nominal flow rate";
   final parameter Modelica.SIunits.Pressure dp_nominal_pos = abs(dp_nominal)
@@ -82,6 +82,15 @@ this base class.
 </html>", revisions="<html>
 <ul>
 <li>
+January 13, 2015, by Marcus Fuchs:<br/>
+Revised revisions section (there were two revisions statements)
+</li>
+<li>
+November 20, 2014 by Michael Wetter:<br/>
+Removed <code>start</code> attribute for <code>m_flow</code>
+as this is already set in its base class.
+</li>
+<li>
 October 8, 2013 by Michael Wetter:<br/>
 Removed propagation of <code>show_V_flow</code>
 to base class as it has no longer this parameter.
@@ -130,24 +139,16 @@ values of flow splitters which may have negative flow rates and pressure drop
 at the initial condition.
 </li>
 <li>
+March 27, 2011, by Michael Wetter:<br/>
+Added <code>homotopy</code> operator.
+</li>
+<li>
 March 23, 2011 by Michael Wetter:<br/>
 Added homotopy operator.
 </li>
 <li>
 March 30, 2010 by Michael Wetter:<br/>
 Changed base classes to allow easier initialization.
-</li>
-<li>
-July 20, 2007 by Michael Wetter:<br/>
-First implementation.
-</li>
-</ul>
-</html>"),
-revisions="<html>
-<ul>
-<li>
-March 27, 2011, by Michael Wetter:<br/>
-Added <code>homotopy</code> operator.
 </li>
 <li>
 April 13, 2009, by Michael Wetter:<br/>
@@ -166,5 +167,5 @@ July 20, 2007 by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
-</html>");
+</html>"));
 end PartialResistance;

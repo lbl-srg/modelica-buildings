@@ -1,0 +1,8 @@
+compareVars :=
+  {
+    "TAirSup.T",
+    "wseCon.TWetBul",
+    "wseCon.y1",
+    "chiCon.y",
+    "pumCHW.m_flow"
+  };

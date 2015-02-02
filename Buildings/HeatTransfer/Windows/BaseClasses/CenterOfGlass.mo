@@ -9,7 +9,8 @@ model CenterOfGlass "Model for center of glass of a window construction"
     "Glazing system"
     annotation (HideResult=true, choicesAllMatching=true, Placement(transformation(extent={{60,60},
             {80,80}})));
-
+  parameter Boolean homotopyInitialization = true "= true, use homotopy method"
+    annotation(Evaluate=true, Dialog(tab="Advanced"));
   Modelica.Blocks.Interfaces.RealInput u
     "Input connector, used to scale the surface area to take into account an operable shading device"
     annotation (Placement(transformation(extent={{-140,60},{-100,100}}),
@@ -22,13 +23,17 @@ model CenterOfGlass "Model for center of glass of a window construction"
     final absIR_a=glaSys.glass.absIR_a,
     final absIR_b=glaSys.glass.absIR_b,
     final tauIR=glaSys.glass.tauIR,
-    each final linearize=linearize) "Window glass layer"
+    each final linearize=linearize,
+    each final homotopyInitialization=homotopyInitialization)
+    "Window glass layer"
     annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
   Buildings.HeatTransfer.Windows.BaseClasses.GasConvection gas[glaSys.nLay-1](
     each final A=A,
     final gas=glaSys.gas,
     each final til=til,
-    each linearize=linearize) "Window gas layer"
+    each linearize=linearize,
+    each final homotopyInitialization=homotopyInitialization)
+    "Window gas layer"
     annotation (Placement(transformation(extent={{20,10},{40,30}})));
 
   // Note that the interior shade is flipped horizontally. Hence, surfaces a and b are exchanged,
@@ -197,6 +202,10 @@ Buildings.HeatTransfer.Windows.ExteriorHeatTransfer</a>, and
 Buildings.HeatTransfer.Windows.InteriorHeatTransfer</a>
 </html>", revisions="<html>
 <ul>
+<li>
+July 25, 2014, by Michael Wetter:<br/>
+Propagated parameter <code>homotopyInitialization</code>.
+</li>
 <li>
 May 30, 2014, by Michael Wetter:<br/>
 Removed undesirable annotation <code>Evaluate=true</code>.

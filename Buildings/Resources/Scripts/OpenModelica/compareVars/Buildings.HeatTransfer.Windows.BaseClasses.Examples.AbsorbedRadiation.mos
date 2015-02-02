@@ -1,0 +1,8 @@
+compareVars :=
+  {
+    "winAbs.QAbsIntSha_flow",
+    "winAbs.QAbsGlaUns_flow[1]",
+    "winAbs.QAbsGlaUns_flow[2]",
+    "winAbs.QAbsGlaSha_flow[1]",
+    "winAbs.QAbsGlaSha_flow[2]"
+  };

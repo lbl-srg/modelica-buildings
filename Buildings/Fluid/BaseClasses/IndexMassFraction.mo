@@ -4,7 +4,7 @@ block IndexMassFraction
   replaceable package Medium =
       Modelica.Media.Interfaces.PartialCondensingGases "Medium model"
       annotation (choicesAllMatching = true);
-  parameter String substanceName "Name of species substance";
+  parameter String substanceName="" "Name of species substance";
 
 protected
   parameter Integer i_x(fixed=false) "Index of substance";

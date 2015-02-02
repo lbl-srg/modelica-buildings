@@ -1,0 +1,12 @@
+compareVars :=
+  {
+    "chi.sta_a1.T",
+    "chi.sta_b1.T",
+    "chi.sta_a2.T",
+    "chi.sta_b2.T",
+    "chi.TCon",
+    "chi.TEva",
+    "chi.COP",
+    "P_nominal",
+    "chi.P"
+  };

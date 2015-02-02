@@ -1,0 +1,15 @@
+compareVars :=
+  {
+    "conVer.hCon",
+    "conCei.hCon",
+    "conFlo.hCon",
+    "conVer.q_flow",
+    "conCei.q_flow",
+    "conFlo.q_flow",
+    "conVer.Ra",
+    "conCei.Ra",
+    "conFlo.Ra",
+    "conVer.Nu",
+    "conCei.Nu",
+    "conFlo.Nu"
+  };

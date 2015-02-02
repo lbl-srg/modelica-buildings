@@ -1,0 +1,17 @@
+compareVars :=
+  {
+    "borHol.port_a.m_flow",
+    "borHol.sta_a.T",
+    "borHol.sta_b.T",
+    "borHol.borHol[1].TBouCon.port.T",
+    "borHol.borHol[2].TBouCon.port.T",
+    "borHol.borHol[3].TBouCon.port.T",
+    "borHol.borHol[4].TBouCon.port.T",
+    "borHol.borHol[5].TBouCon.port.T",
+    "borHol.borHol[6].TBouCon.port.T",
+    "borHol.borHol[7].TBouCon.port.T",
+    "borHol.borHol[8].TBouCon.port.T",
+    "borHol.borHol[9].TBouCon.port.T",
+    "borHol.borHol[10].TBouCon.port.T",
+    "borHol.borHol[10].soi.T[5]"
+  };

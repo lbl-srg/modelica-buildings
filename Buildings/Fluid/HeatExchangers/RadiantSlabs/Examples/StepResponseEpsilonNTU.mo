@@ -3,8 +3,6 @@ model StepResponseEpsilonNTU
   "Model that tests the radiant slab with epsilon-NTU configuration"
   extends Modelica.Icons.Example;
  package Medium = Buildings.Media.ConstantPropertyLiquidWater;
-      inner Modelica.Fluid.System system
-    annotation (Placement(transformation(extent={{60,-80},{80,-60}})));
   Sources.Boundary_ph sin(redeclare package Medium = Medium, nPorts=1) "Sink"
     annotation (Placement(transformation(extent={{90,-30},{70,-10}})));
   Sources.MassFlowSource_T sou(
@@ -155,6 +153,12 @@ an epsilon-NTU model.
 </html>",
 revisions="<html>
 <ul>
+<li>
+December 22, 2014 by Michael Wetter:<br/>
+Removed <code>Modelica.Fluid.System</code>
+to address issue
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/311\">#311</a>.
+</li>
 <li>
 October 7, 2014, by Michael Wetter:<br/>
 First implementation.

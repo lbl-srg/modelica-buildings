@@ -1,7 +1,6 @@
 within Buildings.Airflow.Multizone.Examples;
 model CO2TransportStep "Model that transport CO2 through buoyancy driven flow"
   extends Buildings.Airflow.Multizone.Examples.Validation3Rooms(
-    Medium(extraPropertiesNames={"CO2"}),
     volWes(nPorts=5),
     volTop(nPorts=3),
     volEas(nPorts=6));
@@ -34,11 +33,11 @@ equation
       smooth=Smooth.None));
   connect(sou.ports[1], volWes.ports[4])
     annotation (Line(
-      points={{-80,-70},{-74,-70},{-74,-38},{-90,-38},{-90,-30}},
+      points={{-80,-70},{-74,-70},{-74,-38},{-80,-38},{-80,-30}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(CO2SenWes.port, volWes.ports[5]) annotation (Line(
-      points={{-92,10},{-92,0},{-72,0},{-72,-34},{-90,-34},{-90,-30}},
+      points={{-92,10},{-92,0},{-72,0},{-72,-34},{-80,-34},{-80,-30}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(CO2SenTop.port, volTop.ports[3]) annotation (Line(

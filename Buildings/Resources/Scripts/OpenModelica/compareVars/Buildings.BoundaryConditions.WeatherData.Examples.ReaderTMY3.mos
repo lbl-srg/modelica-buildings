@@ -1,0 +1,11 @@
+compareVars :=
+  {
+    "weaDat.weaBus.TDryBul",
+    "weaDat.weaBus.TDewPoi",
+    "weaDat.weaBus.HGloHor",
+    "weaDat.weaBus.HDifHor",
+    "weaDat.weaBus.HDirNor",
+    "weaDatInpCon.weaBus.HGloHor",
+    "weaDatInpCon.weaBus.HDifHor",
+    "weaDatInpCon.weaBus.HDirNor"
+  };

@@ -13,8 +13,11 @@ package OpaqueSurfaces
    final parameter Boolean isFloor=til > 2.74889125 and til < 3.53428875
       "Flag, true if construction is a floor" annotation (Evaluate=true);
 
-    annotation (defaultComponentName="opaSur", Documentation(info=
-                   "<html>
+   annotation (
+defaultComponentPrefixes="parameter",
+defaultComponentName="datOpaSur",
+Documentation(info=
+"<html>
 <p>
 This record implements thermophysical properties for opaque surfaces.
 </p>
@@ -36,13 +39,22 @@ First implementation.
   end Generic;
 
   record Black=Buildings.HeatTransfer.Data.OpaqueSurfaces.Generic (absIR=1.0,
-        absSol=1.0) "Black surface with absIR=1.0, absSol=1.0";
+        absSol=1.0) "Black surface with absIR=1.0, absSol=1.0"
+    annotation(
+      defaultComponentPrefixes="parameter",
+      defaultComponentName="datOpaSur");
 
   record Gray=Buildings.HeatTransfer.Data.OpaqueSurfaces.Generic (absIR=0.5,
-        absSol=0.5) "Gray surface with absIR=0.5, absSol=0.5";
+        absSol=0.5) "Gray surface with absIR=0.5, absSol=0.5"
+    annotation(
+      defaultComponentPrefixes="parameter",
+      defaultComponentName="datOpaSur");
 
   record White=Buildings.HeatTransfer.Data.OpaqueSurfaces.Generic (absIR=0.0,
-        absSol=0.0) "White surface with absIR=0.0, absSol=0.0";
+        absSol=0.0) "White surface with absIR=0.0, absSol=0.0"
+    annotation(
+      defaultComponentPrefixes="parameter",
+      defaultComponentName="datOpaSur");
 
   annotation (
 preferredView="info",

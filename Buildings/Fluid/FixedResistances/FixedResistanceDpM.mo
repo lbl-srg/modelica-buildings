@@ -8,7 +8,8 @@ model FixedResistanceDpM
                        deltaM * m_flow_nominal_pos
          else 0);
   parameter Boolean use_dh = false "Set to true to specify hydraulic diameter"
-       annotation(Dialog(enable = not linearized));
+       annotation(Evaluate=true,
+                  Dialog(enable = not linearized));
   parameter Modelica.SIunits.Length dh=1 "Hydraulic diameter"
        annotation(Dialog(enable = use_dh and not linearized));
   parameter Real ReC(min=0)=4000
@@ -16,7 +17,8 @@ model FixedResistanceDpM
        annotation(Dialog(enable = use_dh and not linearized));
   parameter Real deltaM(min=0.01) = 0.3
     "Fraction of nominal mass flow rate where transition to turbulent occurs"
-       annotation(Dialog(enable = not use_dh and not linearized));
+       annotation(Evaluate=true,
+                  Dialog(enable = not use_dh and not linearized));
 
   final parameter Real k(unit="") = if computeFlowResistance then
         m_flow_nominal_pos / sqrt(dp_nominal_pos) else 0
@@ -31,16 +33,15 @@ initial equation
  end if;
 
  assert(m_flow_nominal_pos > 0, "m_flow_nominal_pos must be non-zero. Check parameters.");
- if ( m_flow_turbulent > m_flow_nominal_pos) then
-   Modelica.Utilities.Streams.print("Warning: In FixedResistanceDpM, m_flow_nominal is smaller than m_flow_turbulent."
-           + "\n"
-           + "  m_flow_nominal = " + String(m_flow_nominal) + "\n"
-           + "  dh      = " + String(dh) + "\n"
-           + "  To fix, set dh < " +
-                String(     4*m_flow_nominal/eta_default/Modelica.Constants.pi/ReC) + "\n"
-           + "  Suggested value: dh = " +
-                String(1/10*4*m_flow_nominal/eta_default/Modelica.Constants.pi/ReC));
- end if;
+ assert(m_flow_nominal_pos > m_flow_turbulent,
+   "In FixedResistanceDpM, m_flow_nominal is smaller than m_flow_turbulent.
+  m_flow_nominal = " + String(m_flow_nominal) + "
+  dh      = " + String(dh) + "
+ To correct it, set dh < " +
+     String(     4*m_flow_nominal/eta_default/Modelica.Constants.pi/ReC) + "
+  Suggested value:   dh = " +
+                String(1/10*4*m_flow_nominal/eta_default/Modelica.Constants.pi/ReC),
+                AssertionLevel.warning);
 
 equation
   // Pressure drop calculation
@@ -183,6 +184,20 @@ This leads to simpler equations.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+November 26, 2014, by Michael Wetter:<br/>
+Added the required <code>annotation(Evaluate=true)</code> so
+that the system of nonlinear equations in
+<a href=\"modelica://Buildings.Fluid.FixedResistances.Examples.FixedResistancesExplicit\">
+Buildings.Fluid.FixedResistances.Examples.FixedResistancesExplicit</a>
+remains the same.
+</li>
+<li>
+November 20, 2014, by Michael Wetter:<br/>
+Rewrote the warning message using an <code>assert</code> with
+<code>AssertionLevel.warning</code>
+as this is the proper way to write warnings in Modelica.
+</li>
 <li>
 August 5, 2014, by Michael Wetter:<br/>
 Corrected error in documentation of computation of <code>k</code>.

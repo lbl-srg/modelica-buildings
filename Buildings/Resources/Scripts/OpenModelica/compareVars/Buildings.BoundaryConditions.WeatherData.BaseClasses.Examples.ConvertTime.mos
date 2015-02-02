@@ -1,0 +1,5 @@
+compareVars :=
+  {
+    "conTim.modTim",
+    "conTim.calTim"
+  };

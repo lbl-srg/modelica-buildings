@@ -72,8 +72,6 @@ partial model WetCoilDiscretized
     T=293.15,
     nPorts=1)             annotation (Placement(transformation(extent={{-50,60},
             {-30,80}})));
-  inner Modelica.Fluid.System system
-    annotation (Placement(transformation(extent={{-100,-100},{-80,-80}})));
   Buildings.Fluid.HeatExchangers.WetCoilDiscretized hexSteStaIni(
     redeclare package Medium1 = Medium1,
     redeclare package Medium2 = Medium2,
@@ -264,6 +262,12 @@ for the initial conditions.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+December 22, 2014 by Michael Wetter:<br/>
+Removed <code>Modelica.Fluid.System</code>
+to address issue
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/311\">#311</a>.
+</li>
 <li>
 June 28, 2014, by Michael Wetter:<br/>
 First implementation.

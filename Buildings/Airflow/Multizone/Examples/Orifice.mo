@@ -35,8 +35,6 @@ model Orifice "Model with an orifice"
       m_flow_nominal=0.1,
     initType=Modelica.Blocks.Types.Init.InitialState) "Density sensor"
                      annotation (Placement(transformation(extent={{30,20},{50,40}})));
-  inner Modelica.Fluid.System system
-    annotation (Placement(transformation(extent={{60,-80},{80,-60}})));
 equation
   connect(Pre.y, Add1.u1) annotation (Line(points={{-79,-10},{-42,-10},{-42,-14},
           {42,-14}}, color={0,0,255}));
@@ -79,6 +77,12 @@ causes air to flow through the orifice.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+December 22, 2014 by Michael Wetter:<br/>
+Removed <code>Modelica.Fluid.System</code>
+to address issue
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/311\">#311</a>.
+</li>
 <li>
 November 10, 2011, by Michael Wetter:<br/>
 Added documentation.

@@ -29,8 +29,6 @@ model Tubular "Example showing the use of Tubular"
     p(displayUnit="Pa") = 101325,
     nPorts=1) "Inlet for fluid flow" annotation (Placement(transformation(extent={{100,-20},
             {80,0}})));
-  inner Modelica.Fluid.System system(p_ambient=101325) annotation (Placement(
-        transformation(extent={{68,60},{88,80}})));
   Buildings.Fluid.Sensors.TemperatureTwoPort TOut(
     redeclare package Medium = Medium,
     T_start(displayUnit="K"),
@@ -93,12 +91,18 @@ equation
         Buildings.Fluid.SolarCollectors.Data.Tubular</a> package.
       </p>
     </html>",
-    revisions="<html>
-      <ul>
-        <li>
-          Mar 27, 2013 by Peter Grant:<br/>
-          First implementation
-        </li>
-      </ul>
-    </html>"));
+revisions="<html>
+<ul>
+<li>
+December 22, 2014 by Michael Wetter:<br/>
+Removed <code>Modelica.Fluid.System</code>
+to address issue
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/311\">#311</a>.
+</li>
+<li>
+March 27, 2013 by Peter Grant:<br/>
+First implementation
+</li>
+</ul>
+</html>"));
 end Tubular;

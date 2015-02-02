@@ -82,8 +82,6 @@ model HexElementSensible
              annotation (Placement(transformation(extent={{70,-30},{50,-10}})));
   Modelica.Blocks.Sources.Constant hACon(k=10000) "Convective heat transfer"
     annotation (Placement(transformation(extent={{-20,60},{0,80}})));
-  inner Modelica.Fluid.System system
-    annotation (Placement(transformation(extent={{-100,-100},{-80,-80}})));
 equation
   connect(TDb.y, sou_1.T_in) annotation (Line(
       points={{-79,54},{-79,54},{-62,54}},

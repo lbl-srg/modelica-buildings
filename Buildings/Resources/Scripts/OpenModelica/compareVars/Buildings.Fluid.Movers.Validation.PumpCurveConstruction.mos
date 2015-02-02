@@ -1,0 +1,7 @@
+compareVars :=
+  {
+    "pum.dpMachine",
+    "pum_dp.dpMachine",
+    "pum_m_flow.dpMachine",
+    "pum_no.dpMachine"
+  };

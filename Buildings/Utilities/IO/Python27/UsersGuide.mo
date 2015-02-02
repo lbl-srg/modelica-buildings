@@ -212,7 +212,7 @@ This will be fixed in Dymola 2014.
 </p>
 <h4>Known Issues</h4>
 <p>
-The Python installation of Ubuntu 14.04 has a bug that causes Dymola 
+The Python installation of Ubuntu 14.04 has a bug that causes Dymola
 to produce output of the following form:
 </p>
 <pre>

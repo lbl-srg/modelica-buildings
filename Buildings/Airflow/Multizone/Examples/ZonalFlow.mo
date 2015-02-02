@@ -27,8 +27,6 @@ model ZonalFlow
         transformation(extent={{-98,48},{-78,68}})));
   ZonalFlow_ACS zonFlo(redeclare package Medium = Medium, V=min(volA, volB))
     annotation (Placement(transformation(extent={{-10,-22},{10,-2}})));
-  inner Modelica.Fluid.System system
-    annotation (Placement(transformation(extent={{60,-80},{80,-60}})));
 equation
   connect(rooA.ports[1], zonFlo.port_a1) annotation (Line(
       points={{-72,-5.55112e-16},{-72,-6},{-10,-6}},
@@ -67,6 +65,12 @@ from <code>rooB</code> to <code>rooA</code>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+December 22, 2014 by Michael Wetter:<br/>
+Removed <code>Modelica.Fluid.System</code>
+to address issue
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/311\">#311</a>.
+</li>
 <li>
 November 10, 2011, by Michael Wetter:<br/>
 Added documentation.

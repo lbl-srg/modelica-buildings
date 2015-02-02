@@ -32,8 +32,11 @@ package GlazingSystems
     final parameter Boolean haveShade = haveInteriorShade or haveExteriorShade
       "Parameter that is true if the construction has a shade";
 
-    annotation (defaultComponentName="glaSys", Documentation(info=
-                   "<html>
+    annotation (
+    defaultComponentPrefixes="parameter",
+    defaultComponentName="datGlaSys",
+Documentation(info=
+"<html>
 Generic record that implements thermophysical properties for glazing systems.
 </html>",
   revisions="<html>
@@ -58,14 +61,20 @@ First implementation.
       Buildings.HeatTransfer.Data.GlazingSystems.Generic (
          glass={Glasses.ID102()},
          UFra=3,
-         final nLay=1) "Single pane, clear glass 3mm";
+         final nLay=1) "Single pane, clear glass 3mm"
+    annotation(
+      defaultComponentPrefixes="parameter",
+      defaultComponentName="datGlaSys");
 
   record DoubleClearAir13Clear =
       Buildings.HeatTransfer.Data.GlazingSystems.Generic (
       final glass={Glasses.ID102(), Glasses.ID102()},
       final gas={Gases.Air(x=0.0127)},
       UFra=1.4,
-      final nLay=2) "Double pane, clear glass 3mm, air 12.7, clear glass 3mm";
+      final nLay=2) "Double pane, clear glass 3mm, air 12.7, clear glass 3mm"
+    annotation(
+      defaultComponentPrefixes="parameter",
+      defaultComponentName="datGlaSys");
 
   record TripleClearAir13ClearAir13Clear =
       Buildings.HeatTransfer.Data.GlazingSystems.Generic (
@@ -73,7 +82,10 @@ First implementation.
       final gas={Gases.Air(x=0.0127),Gases.Air(x=0.0127)},
       UFra=1.4,
       final nLay=3)
-    "Triple pane, clear glass 3mm, air 12.7, clear glass 3mm, air 12.7, clear glass 3mm";
+    "Triple pane, clear glass 3mm, air 12.7, clear glass 3mm, air 12.7, clear glass 3mm"
+    annotation(
+      defaultComponentPrefixes="parameter",
+      defaultComponentName="datGlaSys");
 
 annotation (preferredView="info",
 Documentation(info="<html>

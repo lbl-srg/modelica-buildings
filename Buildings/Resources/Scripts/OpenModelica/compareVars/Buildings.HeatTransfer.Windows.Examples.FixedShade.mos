@@ -1,0 +1,11 @@
+compareVars :=
+  {
+    "sha[1].HDirTil",
+    "sha[2].HDirTil",
+    "sha[3].HDirTil",
+    "sha[4].HDirTil",
+    "sha[1].fraSun",
+    "sha[2].fraSun",
+    "sha[3].fraSun",
+    "sha[4].fraSun"
+  };

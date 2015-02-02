@@ -1,0 +1,6 @@
+compareVars :=
+  {
+    "preErr.u1",
+    "preErr.u2",
+    "preErr.y"
+  };

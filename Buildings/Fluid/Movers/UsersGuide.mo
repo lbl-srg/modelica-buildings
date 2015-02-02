@@ -14,23 +14,126 @@ found in
 <a href=\"modelica://Buildings/Resources/Images/Fluid/Movers/UsersGuide/2013-IBPSA-Wetter.pdf\">Wetter (2013)</a>.
 Below, the models are briefly described.
 </p>
+<h5>Performance data</h5>
 <p>
 The models use
 performance curves that compute pressure rise,
 electrical power draw and efficiency as a function
 of the volume flow rate and the speed.
-These performance curves are described in
-<a href=\"modelica://Buildings.Fluid.Movers.BaseClasses.Characteristics\">
-Buildings.Fluid.Movers.BaseClasses.Characteristics</a>.
+The following performance curves are implemented:
 </p>
-
+<table summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+<tr>
+<th>Independent variable</th>
+<th>Dependent variable</th>
+<th>Record for performance data</th>
+<th>Function</th>
+</tr>
+<tr>
+<td>Volume flow rate</td>
+<td>Pressure</td>
+<td><a href=\"modelica://Buildings.Fluid.Movers.BaseClasses.Characteristics.flowParameters\">
+flowParameters</a></td>
+<td><a href=\"modelica://Buildings.Fluid.Movers.BaseClasses.Characteristics.pressure\">
+pressure</a></td>
+</tr>
+<tr>
+<td>Relative volumetric flow rate</td>
+<td>Efficiency</td>
+<td><a href=\"modelica://Buildings.Fluid.Movers.BaseClasses.Characteristics.efficiencyParameters\">
+efficiencyParameters</a></td>
+<td><a href=\"modelica://Buildings.Fluid.Movers.BaseClasses.Characteristics.efficiency\">
+efficiency</a></td>
+</tr>
+<tr>
+<td>Volume flow rate</td>
+<td>Power</td>
+<td><a href=\"modelica://Buildings.Fluid.Movers.BaseClasses.Characteristics.powerParameters\">
+powerParameters</a></td>
+<td><a href=\"modelica://Buildings.Fluid.Movers.BaseClasses.Characteristics.power\">
+power</a></td>
+</tr>
+</table>
+<p>
+These performance curves are implemented in
+<a href=\"modelica://Buildings.Fluid.Movers.BaseClasses.Characteristics\">
+Buildings.Fluid.Movers.BaseClasses.Characteristics</a>,
+and are used in the performance records in the package
+<a href=\"modelica://Buildings.Fluid.Movers.Data\">
+Buildings.Fluid.Movers.Data</a>.
+The package
+<a href=\"modelica://Buildings.Fluid.Movers.Data\">
+Buildings.Fluid.Movers.Data</a>
+contains different data records. The table below shows
+which data records can be used for what models.
+Note that not all records can be used with all models, as
+the records only declare the minimum set of required data.
+</p>
+<!-- Table for performance data -->
+<table summary=\"Performance data\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+<tr>
+<th></th>
+<th style=\"text-align:left\">
+<a href=\"modelica://Buildings.Fluid.Movers.Data.FlowControlled\">
+Data.FlowControlled</a>
+</th>
+<th style=\"text-align:left\">
+<a href=\"modelica://Buildings.Fluid.Movers.Data.SpeedControlled_y\">
+Data.SpeedControlled_y</a>
+</th>
+<th style=\"text-align:left\">
+<a href=\"modelica://Buildings.Fluid.Movers.Data.SpeedControlled_Nrpm\">
+Data.SpeedControlled_Nrpm</a>
+</th>
+</tr>
+<tr>
+<th style=\"text-align:left\">
+<a href=\"modelica://Buildings.Fluid.Movers.FlowControlled_m_flow\">
+FlowControlled_m_flow</a>
+</th>
+<td style=\"background-color:DarkGreen\"/>
+<td style=\"background-color:DarkRed\"/>
+<td style=\"background-color:DarkRed\"/>
+</tr>
+<tr>
+<th>
+<a href=\"modelica://Buildings.Fluid.Movers.FlowControlled_dp\">
+FlowControlled_dp</a>
+</th>
+<td style=\"background-color:DarkGreen\"/>
+<td style=\"background-color:DarkRed\"/>
+<td style=\"background-color:DarkRed\"/>
+</tr>
+<tr>
+<th>
+<a href=\"modelica://Buildings.Fluid.Movers.SpeedControlled_y\">
+SpeedControlled_y</a>
+</th>
+<td style=\"background-color:DarkRed\"/>
+<td style=\"background-color:DarkGreen\"/>
+<td style=\"background-color:DarkRed\"/>
+</tr>
+<tr>
+<th>
+<a href=\"modelica://Buildings.Fluid.Movers.SpeedControlled_Nrpm\">
+SpeedControlled_Nrpm</a>
+</th>
+<td style=\"background-color:DarkRed\"/>
+<td style=\"background-color:DarkRed\"/>
+<td style=\"background-color:DarkGreen\"/>
+</tr>
+</table>
+<p>
+&nbsp;
+<!-- empty paragraph to add spacing below table -->
+</p>
 <h5>Models that use performance curves for pressure rise</h5>
 <p>
 The models
-<a href=\"modelica://Buildings.Fluid.Movers.FlowMachine_y\">
-Buildings.Fluid.Movers.FlowMachine_y</a> and
-<a href=\"modelica://Buildings.Fluid.Movers.FlowMachine_Nrpm\">
-Buildings.Fluid.Movers.FlowMachine_Nrpm</a>
+<a href=\"modelica://Buildings.Fluid.Movers.SpeedControlled_y\">
+Buildings.Fluid.Movers.SpeedControlled_y</a> and
+<a href=\"modelica://Buildings.Fluid.Movers.SpeedControlled_Nrpm\">
+Buildings.Fluid.Movers.SpeedControlled_Nrpm</a>
 take as an input either a control signal between <i>0</i> and <i>1</i>, or the
 rotational speed in units of <i>[1/min]</i>. From this input and the current flow rate,
 they compute the pressure rise.
@@ -44,7 +147,8 @@ Buildings.Fluid.Movers.BaseClasses.Characteristics.pressure</a>.
 
 <p>
 For example, suppose a pump needs to be modeled whose pressure versus flow relation crosses, at
-full speed, the points shown in the table below.</p>
+full speed, the points shown in the table below.
+</p>
   <table summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
   <tr>
       <th>Volume flow rate [m<sup>3</sup>&frasl;h] </th>
@@ -67,25 +171,26 @@ full speed, the points shown in the table below.</p>
 Then, a declaration would be
 </p>
 <pre>
-  Buildings.Fluid.Movers.FlowMachine_y pum(
+  Buildings.Fluid.Movers.SpeedControlled_y pum(
     redeclare package Medium = Medium,
-    pressure(V_flow={0.0003,0.0006,0.0008},
-             dp    ={45,35,15}*1000))
+    per.pressure(V_flow={0.0003,0.0006,0.0008},
+                 dp    ={45,35,15}*1000))
     \"Circulation pump\";
 </pre>
 
 <p>
-This will model the following pump curve for the pump input signal <code>y=1</code>.</p>
+This will model the following pump curve for the pump input signal <code>y=1</code>.
+</p>
 <p align=\"center\">
 <img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Fluid/Movers/UsersGuide/pumpCurve.png\"/>
 </p>
 
 <h5>Models that have idealized perfect controls</h5>
 <p>
-The models <a href=\"modelica://Buildings.Fluid.Movers.FlowMachine_dp\">
-Buildings.Fluid.Movers.FlowMachine_dp</a> and
-<a href=\"modelica://Buildings.Fluid.Movers.FlowMachine_m_flow\">
-Buildings.Fluid.Movers.FlowMachine_m_flow</a>
+The models <a href=\"modelica://Buildings.Fluid.Movers.FlowControlled_dp\">
+Buildings.Fluid.Movers.FlowControlled_dp</a> and
+<a href=\"modelica://Buildings.Fluid.Movers.FlowControlled_m_flow\">
+Buildings.Fluid.Movers.FlowControlled_m_flow</a>
 take as an input the pressure difference or the mass flow rate.
 This pressure difference or mass flow rate will be provided by the fan or pump,
 i.e., the fan or pump has idealized perfect control and infinite capacity.
@@ -181,19 +286,21 @@ the hydraulic power input <i>W<sub>hyd</sub></i>, the flow work
 <i>Q</i>. Based on the first law, the flow work is
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
-  W<sub>flo</sub> = | V &Delta;p |.
+  W<sub>flo</sub> = | V&#775; &Delta;p |,
 </p>
 <p>
+where <i>V&#775;</i> is the volume flow rate and
+<i>&Delta;p</i> is the pressure rise.
 The heat dissipated into the medium is as follows:
 If the motor is cooled by the fluid, as indicated by
-<code>motorCooledByFluid=true</code>, then the heat dissipated into the medium is
+<code>per.motorCooledByFluid=true</code>, then the heat dissipated into the medium is
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
   Q = P<sub>ele</sub> - W<sub>flo</sub>.
 </p>
 
 <p>
-If <code>motorCooledByFluid=false</code>, then the motor is outside the fluid stream,
+If <code>per.motorCooledByFluid=false</code>, then the motor is outside the fluid stream,
 and only the shaft, or hydraulic, work <i>W<sub>hyd</sub></i> enters the thermodynamic
 control volume. Hence,
 </p>
@@ -212,7 +319,7 @@ control volume. Hence,
 <i>Q</i> is the heat released by the motor.
 </p>
 <p>
-If <code>use_powerCharacteristic=true</code>,
+If <code>per.use_powerCharacteristic=true</code>,
 then a set of data points for the power <i>P<sub>ele</sub></i> for different
 volume flow rates at full speed needs to be provided by the user.
 Using the flow work <i>W<sub>flo</sub></i> and the electrical power input
@@ -230,7 +337,7 @@ and <i>&eta;<sub>mot</sub></i> are computed as
   &radic;&eta;<sub>hyd</sub> = &radic;&eta;<sub>mot</sub> = &eta;.
 </p>
 <p>
-However, if <code>use_powerCharacteristic=false</code>, then
+However, if <code>per.use_powerCharacteristic=false</code>, then
 performance data for
 <i>&eta;<sub>hyd</sub></i> and
  <i>&eta;<sub>mot</sub></i> need to be provided by the user, and hence
@@ -243,37 +350,7 @@ the model computes
 
 <p>
 The efficiency data for the motor are a list of points
-<i>r<sub>V</sub></i> and <i>&eta;<sub>mot</sub></i>,
-where <i>r<sub>V</sub></i> is the ratio of actual volume flow rate divided by the
-maximum volume flow rate <code>V_flow_max</code>,
-which is the volume flow rate at full speed and zero pressure rise.
-The maximum flow rate <code>V_flow_max</code> is obtained as follows:
-The models
-<a href=\"modelica://Buildings.Fluid.Movers.FlowMachine_y\">
-Buildings.Fluid.Movers.FlowMachine_y</a> and
-<a href=\"modelica://Buildings.Fluid.Movers.FlowMachine_Nrpm\">
-Buildings.Fluid.Movers.FlowMachine_Nrpm</a> set
-</p>
-<pre>
-  V_flow_max = V_flow(dp=0, r_N=1);
-</pre>
-
-<p>
-where <code>r_N</code> is the ratio of actual to nominal speed.
-Since <a href=\"modelica://Buildings.Fluid.Movers.FlowMachine_dp\">
-Buildings.Fluid.Movers.FlowMachine_dp</a> and
-<a href=\"modelica://Buildings.Fluid.Movers.FlowMachine_m_flow\">
-Buildings.Fluid.Movers.FlowMachine_m_flow</a>
-do not have a flow versus pressure performance curve, the parameter
-<code>V_flow_max</code> is assigned in these two models as
-</p>
-<pre>
-  V_flow_max = m_flow_nominal/rho_nominal,
-</pre>
-<p>
-where <code>m_flow_nominal</code> is the maximum flow rate, which needs to be
-provided by the user as a parameter for these models, and <code>rho_nominal</code> is the
-density at the nominal operating point.
+<i>V&#775;</i> and <i>&eta;<sub>mot</sub></i>.
 </p>
 
 <h5>Fluid volume of the component</h5>
@@ -285,7 +362,7 @@ initialization and time integration of large models.
 
 <h5>Enthalpy change of the component</h5>
 <p>
-If <code>motorCooledByFluid=true</code>, then
+If <code>per.motorCooledByFluid=true</code>, then
 the enthalpy change between the inlet and outlet fluid port is equal
 to the electrical power <i>P<sub>ele</sub></i> that is consumed by the component.
 Otherwise, it is equal to the hydraulic work <i>W<sub>hyd</sub></i>.
@@ -325,12 +402,18 @@ pressure at <code>port_b</code>.
 The pressure calculations are based on total pressure in Pascals instead of the pump head in meters.
 This change was done to avoid ambiguities in the parameterization if the models are used as a fan
 with air as the medium. The original formulation in
-<a href=\"Modelica.Fluid.Machines\">Modelica.Fluid.Machines</a> converts head to pressure using the density <code>medium.d</code>. Therefore, for fans, head would be converted to pressure using the density of air. However, for fans, manufacturers typically publish the head in millimeters water (mmH20). Therefore, to avoid confusion when using these models with media other than water,
+<a href=\"Modelica.Fluid.Machines\">Modelica.Fluid.Machines</a> converts head
+to pressure using the density <code>medium.d</code>. Therefore, for fans,
+head would be converted to pressure using the density of air. However, for fans,
+manufacturers typically publish the head in millimeters water (mmH20).
+Therefore, to avoid confusion when using these models with media other than water,
 we changed the models to use total pressure in Pascals instead of head in meters.
 </li>
 <li>
 The performance data are interpolated using cubic hermite splines instead of polynomials.
-These functions are implemented at <a href=\"modelica://Buildings.Fluid.Movers.BaseClasses.Characteristics\">Buildings.Fluid.Movers.BaseClasses.Characteristics</a>.
+These functions are implemented at
+<a href=\"modelica://Buildings.Fluid.Movers.BaseClasses.Characteristics\">
+Buildings.Fluid.Movers.BaseClasses.Characteristics</a>.
 </li>
 </ul>
 <h4>References</h4>

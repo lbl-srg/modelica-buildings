@@ -20,8 +20,6 @@ model MoistAir
     p(displayUnit="Pa") = 101325,
     T=293.15)             annotation (Placement(transformation(extent={{96,60},
             {116,80}})));
-  inner Modelica.Fluid.System system
-    annotation (Placement(transformation(extent={{-80,160},{-60,180}})));
   Buildings.Fluid.FixedResistances.FixedResistanceDpM dp2(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
@@ -38,7 +36,7 @@ model MoistAir
     use_m_flow_in=false,
     m_flow_nominal=m_flow_nominal)
     annotation (Placement(transformation(extent={{204,-4},{224,16}})));
-  Buildings.Fluid.MassExchangers.HumidifierPrescribed hum(
+  Buildings.Fluid.MassExchangers.Humidifier_u hum(
     m_flow_nominal=m_flow_nominal,
     dp_nominal=200,
     redeclare package Medium = Medium,
@@ -47,7 +45,7 @@ model MoistAir
     allowFlowReversal=false,
     use_T_in=false) "Humidifier"
     annotation (Placement(transformation(extent={{240,62},{260,82}})));
-  Buildings.Fluid.HeatExchangers.HeaterCoolerPrescribed hex(
+  Buildings.Fluid.HeatExchangers.HeaterCooler_u hex(
     m_flow_nominal=m_flow_nominal,
     dp_nominal=200,
     redeclare package Medium = Medium,
@@ -105,9 +103,9 @@ model MoistAir
                                       TSup(redeclare package Medium = Medium,
       m_flow_nominal=m_flow_nominal) "Supply air temperature"
     annotation (Placement(transformation(extent={{310,62},{330,82}})));
-  Buildings.Fluid.Movers.FlowMachine_y fan(redeclare package Medium = Medium,
-        pressure(V_flow={0,m_flow_nominal/1.2},
-          dp={2*400,400}),
+  Buildings.Fluid.Movers.SpeedControlled_y fan(redeclare package Medium = Medium,
+        per(pressure(V_flow={0,m_flow_nominal/1.2},
+          dp={2*400,400})),
         dynamicBalance=false)
     annotation (Placement(transformation(extent={{140,62},{160,82}})));
   Modelica.Blocks.Sources.Constant yFan(k=1) "Fan control signal"
@@ -318,6 +316,12 @@ This model is implemented in <code>bcvtb\\examples\\dymolaEPlusXY-singleZone</co
 where <code>XY</code> denotes the EnergyPlus version number.
 </html>", revisions="<html>
 <ul>
+<li>
+December 22, 2014 by Michael Wetter:<br/>
+Removed <code>Modelica.Fluid.System</code>
+to address issue
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/311\">#311</a>.
+</li>
 <li>
 May 1, 2013, by Michael Wetter:<br/>
 Removed the medium declaration in the instance

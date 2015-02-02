@@ -20,8 +20,11 @@ package Shades "Package with thermophysical properties for window shades"
    parameter Modelica.SIunits.TransmissionCoefficient tauIR_b=0
       "Infrared transmissivity of surface b (surface that faces the glass)";
 
-    annotation (defaultComponentName="sha", Documentation(info=
-                               "<html>
+    annotation (
+defaultComponentPrefixes="parameter",
+defaultComponentName="datSha",
+Documentation(info=
+"<html>
 Records that implements thermophysical properties for window shades.
 </html>",
   revisions="<html>
@@ -40,9 +43,14 @@ First implementation.
       rhoSol_a = 0.25,
       rhoSol_b = 0.25,
       absIR_a = 0.25,
-      absIR_b = 0.25) "Gray";
+      absIR_b = 0.25) "Gray"
+    annotation(
+      defaultComponentPrefixes="parameter",
+      defaultComponentName="datSha");
 
-annotation (Documentation(info="<html>
+annotation (
+preferredView="info",
+Documentation(info="<html>
 Package with records that implement thermophysical properties for window shades.
 </html>",
   revisions="<html>
@@ -52,8 +60,5 @@ Sep. 3 2010, by Michael Wetter, Wangda Zuo:<br/>
 First implementation.
 </li>
 </ul>
-</html>"),   preferredView="info",
-            Documentation(info="<html>
-This package implements thermophysical properties for window shades.
 </html>"));
 end Shades;

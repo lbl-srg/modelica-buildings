@@ -1,0 +1,4 @@
+compareVars :=
+  {
+    "sur.heatPort.T"
+  };

@@ -3,7 +3,7 @@ model YorkCalc
   "Test model for cooling tower using the York performance correlation"
   extends Modelica.Icons.Example;
   extends BaseClasses.PartialStaticTwoPortCoolingTowerWetBulb(
-    redeclare CoolingTowers.YorkCalc tow,
+    redeclare CoolingTowers.YorkCalc tow(energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial),
     onOffController(bandwidth=2));
 
   Modelica.Blocks.Sources.Constant TSetLea(k=273.15 + 18)

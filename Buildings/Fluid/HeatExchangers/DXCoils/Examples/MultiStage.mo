@@ -20,8 +20,6 @@ model MultiStage "Test model for multi stage DX coil"
     use_p_in=true,
     T=299.85) "Source"
     annotation (Placement(transformation(extent={{-40,-20},{-20,0}})));
-  inner Modelica.Fluid.System system
-    annotation (Placement(transformation(extent={{40,-80},{60,-60}})));
   Buildings.Fluid.HeatExchangers.DXCoils.MultiStage mulStaDX(
     redeclare package Medium = Medium,
     dp_nominal=dp_nominal,
@@ -139,10 +137,15 @@ The model has open-loop control and time-varying input conditions.
 revisions="<html>
 <ul>
 <li>
+December 22, 2014 by Michael Wetter:<br/>
+Removed <code>Modelica.Fluid.System</code>
+to address issue
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/311\">#311</a>.
+</li>
+<li>
 July 26, 2012 by Kaustubh Phalak:<br/>
 First implementation.
 </li>
 </ul>
-
 </html>"));
 end MultiStage;

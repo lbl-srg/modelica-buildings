@@ -1,7 +1,8 @@
 within Buildings.Fluid.Movers.BaseClasses;
 partial model PartialFlowMachine
   "Partial model to interface fan or pump models with the medium"
-  extends Buildings.Fluid.Interfaces.LumpedVolumeDeclarations;
+  extends Buildings.Fluid.Interfaces.LumpedVolumeDeclarations(
+    final mSenFac=1);
   import Modelica.Constants;
 
   extends Buildings.Fluid.Interfaces.PartialTwoPortInterface(show_T=false,
@@ -15,18 +16,19 @@ partial model PartialFlowMachine
       final showDesignFlowDirection=false);
 
   Delays.DelayFirstOrder vol(
-    redeclare package Medium = Medium,
-    tau=tau,
-    energyDynamics=if dynamicBalance then energyDynamics else Modelica.Fluid.Types.Dynamics.SteadyState,
-    massDynamics=if dynamicBalance then massDynamics else Modelica.Fluid.Types.Dynamics.SteadyState,
-    T_start=T_start,
-    X_start=X_start,
-    C_start=C_start,
-    m_flow_nominal=m_flow_nominal,
-    p_start=p_start,
-    prescribedHeatFlowRate=true,
-    allowFlowReversal=allowFlowReversal,
-    nPorts=2) "Fluid volume for dynamic model"
+    redeclare final package Medium = Medium,
+    final tau=tau,
+    final energyDynamics=if dynamicBalance then energyDynamics else Modelica.Fluid.Types.Dynamics.SteadyState,
+    final massDynamics=if dynamicBalance then massDynamics else Modelica.Fluid.Types.Dynamics.SteadyState,
+    final T_start=T_start,
+    final X_start=X_start,
+    final C_start=C_start,
+    final m_flow_nominal=m_flow_nominal,
+    final m_flow_small=m_flow_small,
+    final p_start=p_start,
+    final prescribedHeatFlowRate=true,
+    final allowFlowReversal=allowFlowReversal,
+    final nPorts=2) "Fluid volume for dynamic model"
     annotation (Placement(transformation(extent={{-40,0},{-20,20}})));
    parameter Boolean dynamicBalance = true
     "Set to true to use a dynamic balance, which often leads to smaller systems of equations"
@@ -166,6 +168,11 @@ and more robust simulation, in particular if the mass flow is equal to zero.
 </html>",
       revisions="<html>
 <ul>
+<li>
+January 24, 2015, by Michael Wetter:<br/>
+Propagated <code>m_flow_small</code> of instance <code>vol</code> and made
+all its parameters final.
+</li>
 <li>
 May 25, 2011, by Michael Wetter:<br/>
 Revised implementation of energy balance to avoid having to use conditionally removed models.

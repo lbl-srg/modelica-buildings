@@ -1,0 +1,7 @@
+compareVars :=
+  {
+    "res1.m_flow",
+    "res1.m_flow_turbulent",
+    "res2.m_flow",
+    "res2.m_flow_turbulent"
+  };

@@ -2,9 +2,10 @@ within Buildings.Examples.HydronicHeating;
 model TwoRoomsWithStorage
   "Model of a hydronic heating system with energy storage"
   extends Modelica.Icons.Example;
- package MediumA = Buildings.Media.GasesConstantDensity.SimpleAir
+ replaceable package MediumA = Buildings.Media.GasesConstantDensity.SimpleAir
     "Medium model for air";
- package Medium = Buildings.Media.ConstantPropertyLiquidWater "Medium model";
+ replaceable package MediumW = Buildings.Media.ConstantPropertyLiquidWater
+    "Medium model";
  parameter Integer nRoo = 2 "Number of rooms";
  parameter Modelica.SIunits.Volume VRoo = 4*6*3 "Volume of one room";
  parameter Modelica.SIunits.Power Q_flow_nominal = 2200
@@ -38,19 +39,19 @@ model TwoRoomsWithStorage
     "Pressure difference of loop";
   // Room model
 
-  Fluid.Movers.FlowMachine_y pumBoi(
-    redeclare package Medium = Medium,
-    pressure(V_flow=mBoi_flow_nominal/1000*{0.5, 1},
-             dp=(3000+2000)*{2,1}),
+  Fluid.Movers.SpeedControlled_y pumBoi(
+    redeclare package Medium = MediumW,
+    per(pressure(V_flow=mBoi_flow_nominal/1000*{0.5, 1},
+                  dp=(3000+2000)*{2,1})),
     dynamicBalance=false)
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         origin={70,-120})));
 
-  Fluid.Movers.FlowMachine_y pumRad(
-    redeclare package Medium = Medium,
-    pressure(
+  Fluid.Movers.SpeedControlled_y pumRad(
+    redeclare package Medium = MediumW,
+    per(pressure(
           V_flow=mRad_flow_nominal/1000*{0,2},
-          dp=dp_nominal*{2,0}),
+          dp=dp_nominal*{2,0})),
     dynamicBalance=false) "Pump that serves the radiators"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=90,
@@ -148,7 +149,7 @@ model TwoRoomsWithStorage
   Buildings.Fluid.Boilers.BoilerPolynomial boi(
     a={0.9},
     effCur=Buildings.Fluid.Types.EfficiencyCurves.Constant,
-    redeclare package Medium = Medium,
+    redeclare package Medium = MediumW,
     Q_flow_nominal=Q_flow_nominal,
     m_flow_nominal=mBoi_flow_nominal,
     fue=Buildings.Fluid.Data.Fuels.HeatingOilLowerHeatingValue(),
@@ -156,8 +157,6 @@ model TwoRoomsWithStorage
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     T_start=293.15) "Boiler"
     annotation (Placement(transformation(extent={{2,-130},{22,-110}})));
-  inner Modelica.Fluid.System system
-    annotation (Placement(transformation(extent={{-80,540},{-60,560}})));
   Buildings.HeatTransfer.Sources.FixedTemperature TAmb(T=288.15)
     "Ambient temperature in boiler room"
     annotation (Placement(transformation(extent={{-40,-100},{-20,-80}})));
@@ -175,12 +174,12 @@ model TwoRoomsWithStorage
     Ti=15) "Controller for pump"
     annotation (Placement(transformation(extent={{120,100},{140,120}})));
   Buildings.Fluid.Sensors.RelativePressure dpSen(redeclare package Medium =
-        Medium)
+        MediumW)
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=270,
         origin={180,50})));
   Fluid.Actuators.Valves.TwoWayEqualPercentage val2(
-    redeclare package Medium = Medium,
+    redeclare package Medium = MediumW,
     dpValve_nominal(displayUnit="Pa") = dpVal_nominal,
     m_flow_nominal=mRad_flow_nominal/nRoo,
     dpFixed_nominal=dpRoo_nominal,
@@ -197,7 +196,7 @@ model TwoRoomsWithStorage
   Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor TRoo1
     annotation (Placement(transformation(extent={{480,474},{500,494}})));
   Fluid.Actuators.Valves.TwoWayEqualPercentage val1(
-    redeclare package Medium = Medium,
+    redeclare package Medium = MediumW,
     dpValve_nominal(displayUnit="Pa") = dpVal_nominal,
     m_flow_nominal=mRad_flow_nominal/nRoo,
     dpFixed_nominal=dpRoo_nominal,
@@ -212,21 +211,21 @@ model TwoRoomsWithStorage
     k=0.5) "Controller for room temperature"
     annotation (Placement(transformation(extent={{540,500},{560,520}})));
   Fluid.HeatExchangers.Radiators.RadiatorEN442_2 rad1(
-    redeclare package Medium = Medium,
+    redeclare package Medium = MediumW,
     Q_flow_nominal=scaFacRad*Q_flow_nominal/nRoo,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     T_a_nominal=323.15,
     T_b_nominal=313.15) "Radiator"
     annotation (Placement(transformation(extent={{392,390},{412,410}})));
   Fluid.HeatExchangers.Radiators.RadiatorEN442_2 rad2(
-    redeclare package Medium = Medium,
+    redeclare package Medium = MediumW,
     Q_flow_nominal=scaFacRad*Q_flow_nominal/nRoo,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     T_a_nominal=323.15,
     T_b_nominal=313.15) "Radiator"
     annotation (Placement(transformation(extent={{392,118},{412,138}})));
   Buildings.Fluid.Actuators.Valves.ThreeWayEqualPercentageLinear thrWayVal(
-    redeclare package Medium = Medium,
+    redeclare package Medium = MediumW,
     dpValve_nominal=dpThrWayVal_nominal,
     l={0.01,0.01},
     tau=10,
@@ -251,7 +250,7 @@ model TwoRoomsWithStorage
   Fluid.Storage.Stratified tan(
     m_flow_nominal=mRad_flow_nominal,
     dIns=0.3,
-    redeclare package Medium = Medium,
+    redeclare package Medium = MediumW,
     hTan=2,
     nSeg=5,
     show_T=true,
@@ -271,12 +270,12 @@ model TwoRoomsWithStorage
     annotation (Placement(transformation(extent={{350,-84},{330,-64}})));
   Modelica.Blocks.Logical.Greater lesThr
     annotation (Placement(transformation(extent={{400,-122},{420,-102}})));
-  Fluid.Sensors.TemperatureTwoPort temSup(   redeclare package Medium = Medium,
+  Fluid.Sensors.TemperatureTwoPort temSup(   redeclare package Medium = MediumW,
       m_flow_nominal=mRad_flow_nominal)
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=90,
         origin={220,80})));
-  Fluid.Sensors.TemperatureTwoPort temRet(   redeclare package Medium = Medium,
+  Fluid.Sensors.TemperatureTwoPort temRet(   redeclare package Medium = MediumW,
       m_flow_nominal=mRad_flow_nominal)
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=270,
@@ -383,7 +382,7 @@ model TwoRoomsWithStorage
     dp2_nominal=100,
     eps=0.9) "Heat recovery"
     annotation (Placement(transformation(extent={{180,478},{200,498}})));
-  Fluid.Movers.FlowMachine_m_flow fanSup(
+  Fluid.Movers.FlowControlled_m_flow fanSup(
     redeclare package Medium = MediumA,
     dynamicBalance=false,
     m_flow_nominal=2*VRoo*1.2*0.37/3600) "Supply air fan"
@@ -391,7 +390,7 @@ model TwoRoomsWithStorage
   Modelica.Blocks.Sources.Constant m_flow_out(k=2*VRoo*1.2*0.37/3600)
     "Outside air mass flow rate"
     annotation (Placement(transformation(extent={{0,500},{20,520}})));
-  Fluid.Movers.FlowMachine_m_flow fanRet(
+  Fluid.Movers.FlowControlled_m_flow fanRet(
     redeclare package Medium = MediumA,
     dynamicBalance=false,
     m_flow_nominal=2*VRoo*1.2*0.37/3600) "Return air fan"
@@ -446,7 +445,7 @@ model TwoRoomsWithStorage
   Modelica.Blocks.Sources.Constant TOutSwi(k=16 + 293.15)
     "Outside air temperature to switch heating on or off"
     annotation (Placement(transformation(extent={{540,340},{560,360}})));
-  Fluid.Sources.FixedBoundary bou(nPorts=1, redeclare package Medium = Medium)
+  Fluid.Sources.FixedBoundary bou(nPorts=1, redeclare package Medium = MediumW)
     "Fixed boundary condition, needed to provide a pressure in the system"
     annotation (Placement(transformation(extent={{-82,-130},{-62,-110}})));
   Modelica.Blocks.Math.Gain gain(k=1/dp_nominal)
@@ -455,7 +454,7 @@ model TwoRoomsWithStorage
   Fluid.FixedResistances.SplitterFixedResistanceDpM splVal(
     dp_nominal={dpPip_nominal,0,0},
     m_flow_nominal=mRad_flow_nominal*{1,-1,-1},
-    redeclare package Medium = Medium,
+    redeclare package Medium = MediumW,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyStateInitial)
     "Flow splitter"                                    annotation (Placement(
         transformation(
@@ -464,7 +463,7 @@ model TwoRoomsWithStorage
         origin={260,0})));
   Fluid.FixedResistances.SplitterFixedResistanceDpM splVal1(
     m_flow_nominal=mRad_flow_nominal*{1,-1,-1},
-    redeclare package Medium = Medium,
+    redeclare package Medium = MediumW,
     dp_nominal={0,0,0},
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyStateInitial)
     "Flow splitter"                     annotation (Placement(transformation(
@@ -473,7 +472,7 @@ model TwoRoomsWithStorage
         origin={220,128})));
   Fluid.FixedResistances.SplitterFixedResistanceDpM splVal2(
     m_flow_nominal=mRad_flow_nominal*{1,-1,-1},
-    redeclare package Medium = Medium,
+    redeclare package Medium = MediumW,
     dp_nominal={0,0,0},
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyStateInitial)
     "Flow splitter"                     annotation (Placement(transformation(
@@ -902,8 +901,8 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(gai1.y, roo1.qGai_flow) annotation (Line(
-      points={{401,560},{410,560},{410,540},{346,540},{346,494},{346,494},{346,
-          494},{348,494},{348,494}},
+      points={{401,560},{410,560},{410,540},{346,540},{346,494},{346,494},{346,494},
+          {354,494},{354,492}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(switch2.y, gai2.u[1]) annotation (Line(
@@ -911,7 +910,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(gai2.y, roo2.qGai_flow) annotation (Line(
-      points={{401,290},{410,290},{410,260},{350,260},{350,236},{360,236}},
+      points={{401,290},{410,290},{410,260},{350,260},{350,234},{366,234}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(heaCha.TSup, lesThr.u1) annotation (Line(
@@ -1227,6 +1226,17 @@ Buildings.Examples.HydronicHeating.TwoRoomsWithStorage.CoolingControl</a>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+January 12, 2015 by Michael Wetter:<br/>
+Made media instances replaceable.
+This was done to simplify the numerical benchmarks.
+</li>
+<li>
+December 22, 2014 by Michael Wetter:<br/>
+Removed <code>Modelica.Fluid.System</code>
+to address issue
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/311\">#311</a>.
+</li>
 <li>
 October 15, 2013, by Michael Wetter:<br/>
 Added free cooling and mechanical cooling.

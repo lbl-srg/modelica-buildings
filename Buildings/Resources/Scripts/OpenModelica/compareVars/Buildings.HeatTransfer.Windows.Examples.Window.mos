@@ -1,0 +1,9 @@
+compareVars :=
+  {
+    "window.glaUns.u",
+    "window.glaUns.glass_a.T",
+    "window.glaUns.glass_b.T",
+    "window.glaSha.glass_a.T",
+    "window.glaSha.glass_b.T",
+    "extCon.radOut.TRad"
+  };

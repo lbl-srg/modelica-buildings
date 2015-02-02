@@ -8,14 +8,13 @@ model System3
   replaceable package MediumW =
       Buildings.Media.ConstantPropertyLiquidWater;
 
-  inner Modelica.Fluid.System system
-    annotation (Placement(transformation(extent={{60,-120},{80,-100}})));
   Fluid.MixingVolumes.MixingVolume vol(
     redeclare package Medium = MediumA,
     m_flow_nominal=mA_flow_nominal,
     V=V,
     nPorts=2,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyStateInitial)
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyStateInitial,
+    mSenFac=3)
     annotation (Placement(transformation(extent={{60,20},{80,40}})));
   Modelica.Thermal.HeatTransfer.Components.ThermalConductor theCon(G=10000/30)
     "Thermal conductance with the ambient"
@@ -70,7 +69,7 @@ model System3
   Modelica.Thermal.HeatTransfer.Sources.FixedHeatFlow preHea(Q_flow=
         QRooInt_flow) "Prescribed heat flow"
     annotation (Placement(transformation(extent={{20,70},{40,90}})));
-  Fluid.Movers.FlowMachine_m_flow fan(redeclare package Medium = MediumA,
+  Fluid.Movers.FlowControlled_m_flow fan(redeclare package Medium = MediumA,
       m_flow_nominal=mA_flow_nominal,
     dynamicBalance=false) "Supply air fan"
     annotation (Placement(transformation(extent={{40,-30},{60,-10}})));
@@ -144,9 +143,6 @@ model System3
   Modelica.Blocks.Math.BooleanToReal mWat_flow(realTrue=0, realFalse=
         mW_flow_nominal) "Conversion from boolean to real for water flow rate"
     annotation (Placement(transformation(extent={{-80,-110},{-60,-90}})));
-  Modelica.Thermal.HeatTransfer.Components.HeatCapacitor heaCap(C=2*V*1.2*1006)
-    "Heat capacity for furniture and walls"
-    annotation (Placement(transformation(extent={{60,50},{80,70}})));
 equation
   connect(theCon.port_b, vol.heatPort) annotation (Line(
       points={{40,50},{50,50},{50,30},{60,30}},
@@ -245,10 +241,6 @@ equation
   connect(mWat_flow.y, souWat.m_flow_in) annotation (Line(
       points={{-59,-100},{-50,-100},{-50,-92},{-40,-92}},
       color={0,0,127},
-      smooth=Smooth.None));
-  connect(heaCap.port, vol.heatPort) annotation (Line(
-      points={{70,50},{50,50},{50,30},{60,30}},
-      color={191,0,0},
       smooth=Smooth.None));
   annotation (Documentation(info="<html>
 <p>
@@ -362,6 +354,17 @@ Buildings.Controls.Continuous.LimPID</a>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+January 28, 2015 by Michael Wetter:<br/>
+Added thermal mass of furniture directly to air volume.
+This avoids an index reduction.
+</li>
+<li>
+December 22, 2014 by Michael Wetter:<br/>
+Removed <code>Modelica.Fluid.System</code>
+to address issue
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/311\">#311</a>.
+</li>
 <li>
 January 11, 2012, by Michael Wetter:<br/>
 First implementation.

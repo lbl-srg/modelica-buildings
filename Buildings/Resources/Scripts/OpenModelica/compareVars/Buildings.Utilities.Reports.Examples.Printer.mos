@@ -1,0 +1,5 @@
+compareVars :=
+  {
+    "pri1.x[1]",
+    "pri1.x[2]"
+  };

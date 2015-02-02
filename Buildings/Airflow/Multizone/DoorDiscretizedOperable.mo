@@ -16,7 +16,8 @@ model DoorDiscretizedOperable
 
   parameter Real mOpe = 0.5 "|Open aperture|Flow exponent for door";
   parameter Real mClo= 0.65 "|Closed aperture|Flow exponent for crack";
-  Modelica.Blocks.Interfaces.RealInput y "Opening signal, 0=closed, 1=open"
+  Modelica.Blocks.Interfaces.RealInput y(min=0, max=1, unit="1")
+    "Opening signal, 0=closed, 1=open"
     annotation (Placement(transformation(extent={{-120,-10},{-100,10}}), iconTransformation(extent={{-120,-10},{-100,10}})));
 protected
  parameter Modelica.SIunits.Area AOpe=wOpe*hOpe "Open aperture area";
@@ -29,10 +30,6 @@ protected
 initial equation
   AClo=CDClo/CDCloRat * LClo * dpCloRat^(0.5-mClo);
 equation
-  assert(y           >= 0, "Input error. Opening signal must be between 0 and 1.\n"
-    + "  Received y.signal[1] = " + String(y));
-  assert(y           <= 1, "Input error. Opening signal must be between 0 and 1.\n"
-    + "  Received y.signal[1] = " + String(y));
   fraOpe =y;
   kClo = CDClo * AClo/nCom * sqrt(2/rho_default);
   kOpe = CDOpe * AOpe/nCom * sqrt(2/rho_default);

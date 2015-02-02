@@ -1,5 +1,5 @@
 within Buildings.Fluid.FixedResistances.Examples;
-model FixedResistance
+model FixedResistance "Test model for the fixed resistance model"
   extends Modelica.Icons.Example;
 
  package Medium = Buildings.Media.ConstantPropertyLiquidWater;
@@ -54,8 +54,6 @@ model FixedResistance
         "Inputs differ, check that lossless pipe is correctly implemented.")
     "Assert equality of the two mass flow rates"
     annotation (Placement(transformation(extent={{40,60},{60,80}})));
-  inner Modelica.Fluid.System system
-    annotation (Placement(transformation(extent={{-100,-100},{-80,-80}})));
 equation
   connect(res2.port_b, masFlo2.port_a) annotation (Line(points={{-8,6.10623e-16},
           {-1,6.10623e-16},{-1,1.22125e-15},{6,1.22125e-15},{6,6.10623e-16},{20,
@@ -107,5 +105,6 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
     annotation (experiment(StopTime=1.0),
-__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/FixedResistances/Examples/FixedResistance.mos" "Simulate and plot"));
+__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/FixedResistances/Examples/FixedResistance.mos"
+        "Simulate and plot"));
 end FixedResistance;

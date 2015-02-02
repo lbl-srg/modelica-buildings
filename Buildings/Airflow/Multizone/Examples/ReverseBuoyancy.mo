@@ -144,8 +144,6 @@ model ReverseBuoyancy
         extent={{-10,-10},{10,10}},
         rotation=180,
         origin={130,-50})));
-  inner Modelica.Fluid.System system
-    annotation (Placement(transformation(extent={{160,140},{180,160}})));
 equation
   connect(ope.y, dooOpeClo.y) annotation (Line(points={{-81,-13},{-74,-13},{-74,
           -45},{-62,-45}}, color={0,0,255}));
@@ -244,7 +242,7 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   annotation (
-    Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-200,-100},{200,
+    Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-200,-100},{160,
             200}}), graphics={
         Rectangle(
           extent={{-52,48},{48,-96}},
@@ -282,6 +280,12 @@ bottom floor directly exchanges air with the outside.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+December 22, 2014 by Michael Wetter:<br/>
+Removed <code>Modelica.Fluid.System</code>
+to address issue
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/311\">#311</a>.
+</li>
 <li>
 November 10, 2011, by Michael Wetter:<br/>
 Added documentation.

@@ -36,8 +36,6 @@ model TestBedX3WithRadiantFloor
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     "Electrical room in test cell X3A"
     annotation (Placement(transformation(extent={{-212,124},{-172,164}})));
-  inner Modelica.Fluid.System system
-    annotation (Placement(transformation(extent={{280,-300},{300,-280}})));
   Buildings.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam="/Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos")
     annotation (Placement(transformation(extent={{-240,260},{-220,280}})));
   Modelica.Blocks.Sources.CombiTimeTable intGaiCloB(table=[0,0,0,0; 86400,0,0,0],
@@ -562,19 +560,19 @@ equation
       smooth=Smooth.None));
 
   connect(intGaiCloB.y, BClo.qGai_flow) annotation (Line(
-      points={{-9,250},{50,250},{50,154},{60,154}},
+      points={{-9,250},{50,250},{50,152},{66,152}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(intGaiCloA.y, AClo.qGai_flow) annotation (Line(
-      points={{-129,250},{-100,250},{-100,154},{-94,154}},
+      points={{-129,250},{-100,250},{-100,152},{-88,152}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(intGaiEleA.y, AEle.qGai_flow) annotation (Line(
-      points={{-269,250},{-230,250},{-230,154},{-220,154}},
+      points={{-269,250},{-230,250},{-230,152},{-214,152}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(intGaiEleB.y, BEle.qGai_flow) annotation (Line(
-      points={{153,250},{226,250},{226,154},{236,154}},
+      points={{153,250},{226,250},{226,152},{242,152}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(shaPosA.y, X3A.uSha) annotation (Line(
@@ -586,11 +584,11 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(intGaiA.y, X3A.qGai_flow) annotation (Line(
-      points={{-149,44},{-100,44},{-100,54},{-84,54}},
+      points={{-149,44},{-100,44},{-100,52},{-78,52}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(intGaiB.y, X3B.qGai_flow) annotation (Line(
-      points={{11,62},{46,62},{46,54},{74,54}},
+      points={{11,62},{46,62},{46,52},{80,52}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(airOutCloA.ports[1], AClo.ports[1]) annotation (Line(
@@ -973,6 +971,12 @@ equation
         </html>",
         revisions="<html>
         <ul>
+        <li>
+        December 22, 2014 by Michael Wetter:<br/>
+        Removed <code>Modelica.Fluid.System</code>
+        to address issue
+        <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/311\">#311</a>.
+        </li>
         <li>September 2, 2014, by Michael Wetter:<br/>
         Corrected wrong pipe diameter.
         </li>

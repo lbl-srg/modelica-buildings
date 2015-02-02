@@ -1,9 +1,12 @@
 within Buildings.BoundaryConditions.WeatherData.BaseClasses.Examples;
 model GetHeaderElement "Test model to get header element"
   extends Modelica.Icons.Example;
-  parameter Modelica.SIunits.Angle longitude(fixed=false, displayUnit="deg");
-  parameter Modelica.SIunits.Angle latitude(fixed=false, displayUnit="deg");
-  parameter Modelica.SIunits.Time timeZone(fixed=false, displayUnit="h");
+  parameter Modelica.SIunits.Angle longitude(fixed=false, displayUnit="deg")
+    "Longitude";
+  parameter Modelica.SIunits.Angle latitude(fixed=false, displayUnit="deg")
+    "Latitude";
+  parameter Modelica.SIunits.Time timeZone(fixed=false, displayUnit="h")
+    "Time zone";
 
 initial equation
   longitude = Buildings.BoundaryConditions.WeatherData.BaseClasses.getLongitudeTMY3(
@@ -20,6 +23,19 @@ initial equation
     + String(timeZone));
 
   annotation (
+    Documentation(info="<html>
+<p>
+This example tests getting the header of the TMY3 weather data file.
+</p>
+</html>",
+revisions="<html>
+<ul>
+<li>
+July 14, 2010, by Wangda Zuo:<br/>
+First implementation.
+</li>
+</ul>
+</html>"),
 experiment(StopTime=1.0),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/BoundaryConditions/WeatherData/BaseClasses/Examples/GetHeaderElement.mos"
         "Simulate and plot"));
