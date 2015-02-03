@@ -9,7 +9,7 @@ model FlowControlled_dp
     "Set to true to switch device on/off using external signal";
 
   parameter Boolean onOff=true "Set to true if device is on"
-  annotation (Dialog(enable= not useOnIn));
+  annotation (Dialog(enable= not useOnIn), evaluate = true);
 
   parameter Boolean useDpIn = true
     "Set to false for setting a constant pressure head using parameter dpSet";
@@ -45,7 +45,7 @@ model FlowControlled_dp
         transformation(
         extent={{-20,-20},{20,20}},
         rotation=270,
-        origin={-20,108})));
+        origin={-20,120})));
   Modelica.Blocks.Interfaces.RealOutput dp_actual(min=0, final unit="Pa")
     annotation (Placement(transformation(extent={{100,40},{120,60}}),
         iconTransformation(extent={{100,40},{120,60}})));
@@ -68,43 +68,52 @@ protected
     annotation (Placement(transformation(extent={{20,81},{34,95}})));
   Modelica.Blocks.Interfaces.BooleanInput on_internal
     "Needed to connect to conditional connector on_in";
-  Modelica.Blocks.Interfaces.RealInput dp_internal(min=0, final unit="Pa")
-    "Needed to connect to conditional connector dp_in";
-  Modelica.SIunits.Pressure dpSwitched
-    "Internal variable for switching control signal between on and off input";
+
   Modelica.Blocks.Interfaces.RealOutput dp_filtered(min=0, final unit="Pa") if
      filteredSpeed "Filtered pressure"
     annotation (Placement(transformation(extent={{40,78},{60,98}}),
         iconTransformation(extent={{60,50},{80,70}})));
 public
-  Modelica.Blocks.Sources.RealExpression dpExpr(y=dpSwitched)
-    annotation (Placement(transformation(extent={{-40,40},{-20,60}})));
+  Modelica.Blocks.Math.Product dpSetProd
+    "Pressure setpoint calculation including on/off" annotation (Placement(
+        transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=270,
+        origin={-6,68})));
+  Modelica.Blocks.Math.BooleanToReal booleanOnToReal(realTrue=-1)
+    annotation (Placement(transformation(extent={{-64,72},{-48,88}})));
+  Modelica.Blocks.Sources.BooleanExpression booleanOn(y=on_internal)
+    "BooleanExpression for on_internal signal"
+    annotation (Placement(transformation(extent={{-94,70},{-74,90}})));
+  Modelica.Blocks.Sources.Constant dpConst(k=dpSet) if
+                                              not useDpIn
+    "Constant set point for dp"
+    annotation (Placement(transformation(extent={{-36,84},{-22,98}})));
 equation
-  assert(dp_internal >= -Modelica.Constants.eps,
-    "dp_in cannot be negative. Obtained dp_in = " + String(dp_internal));
-  connect(dp_internal, dp_in);
+  assert(dp_actual >= -Modelica.Constants.eps,
+    "dp_in cannot be negative. Obtained dp_in = " + String(dp_actual));
   connect(on_in,on_internal);
 
   if not useOnIn then
     on_internal=onOff;
   end if;
-  if useOnIn then
-    if on_internal then
-      dpSwitched = -dp_internal;
-    else
-      dpSwitched=0;
-    end if;
-  else
-    if onOff then
-      dpSwitched = -dp_internal;
-    else
-      dpSwitched=0;
-    end if;
-  end if;
+//   if useOnIn then
+//     if on_internal then
+//       dpSwitched = -dp_internal;
+//     else
+//       dpSwitched=0;
+//     end if;
+//   else
+//     if onOff then
+//       dpSwitched = -dp_internal;
+//     else
+//       dpSwitched=0;
+//     end if;
+//   end if;
 
   if filteredSpeed then
-    connect(dpExpr.y, filter.u) annotation (Line(
-      points={{-19,50},{10,50},{10,88},{18.6,88}},
+    connect(dpSetProd.y, filter.u) annotation (Line(
+      points={{-6,57},{10,57},{10,88},{18.6,88}},
       color={0,0,127},
       smooth=Smooth.None));
     connect(filter.y, gain.u) annotation (Line(
@@ -117,8 +126,8 @@ equation
       pattern=LinePattern.None,
       smooth=Smooth.None));
   else
-    connect(dpExpr.y, gain.u) annotation (Line(
-      points={{-19,50},{70,50}},
+    connect(dpSetProd.y, gain.u) annotation (Line(
+      points={{-6,57},{-6,50},{70,50}},
       color={0,0,127},
       smooth=Smooth.None));
   end if;
@@ -129,6 +138,22 @@ equation
       smooth=Smooth.None));
   connect(gain.u, preSou.dp_in) annotation (Line(
       points={{70,50},{60,50},{60,40},{36,40},{36,8}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(booleanOn.y, booleanOnToReal.u) annotation (Line(
+      points={{-73,80},{-65.6,80}},
+      color={255,0,255},
+      smooth=Smooth.None));
+  connect(dpSetProd.u1, dp_in) annotation (Line(
+      points={{1.77636e-15,80},{1.77636e-15,92},{0,92},{0,120}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(booleanOnToReal.y, dpSetProd.u2) annotation (Line(
+      points={{-47.2,80},{-12,80}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(dpConst.y, dpSetProd.u1) annotation (Line(
+      points={{-21.3,91},{0,91},{0,80}},
       color={0,0,127},
       smooth=Smooth.None));
   annotation (defaultComponentName="fan",
@@ -195,5 +220,7 @@ Revised implementation to allow zero flow rate.
         Text(extent={{64,68},{114,54}},
           lineColor={0,0,127},
           textString="dp")}),
-    Diagram(graphics));
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
+            100}}),
+            graphics));
 end FlowControlled_dp;
