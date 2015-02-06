@@ -327,8 +327,6 @@ Buildings/Fluid/Storage/package.order
 Buildings/Fluid/Types.mo
 Buildings/Fluid/package.mo
 Buildings/Fluid/package.order
-Buildings/MixingVolumeMFactor.mat
-Buildings/ModelTime.mat
 Buildings/Resources/Images/Controls/Continuous/Examples/NumberOfRequests.png
 Buildings/Resources/Images/Controls/Continuous/Examples/OffTimer1.png
 Buildings/Resources/Images/Controls/Continuous/Examples/OffTimer2.png
@@ -513,7 +511,6 @@ Buildings/Resources/Scripts/Dymola/Utilities/Psychrometrics/Functions/Examples/p
 Buildings/Resources/Scripts/Dymola/Utilities/Psychrometrics/Functions/Examples/pW_X.mos
 Buildings/Resources/Scripts/Dymola/Utilities/Psychrometrics/Functions/Examples/phi_pTX.mos
 Buildings/Resources/Scripts/Dymola/Utilities/Psychrometrics/Functions/Examples/saturationPressure.mos
-Buildings/TwoWayValvePressureIndependent.mat
 Buildings/Utilities/Diagnostics/AssertEquality.mo
 Buildings/Utilities/Diagnostics/AssertInequality.mo
 Buildings/Utilities/Diagnostics/BaseClasses/PartialInputCheck.mo
