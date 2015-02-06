@@ -162,6 +162,11 @@ to <b style=\"color:blue\">existing</b> libraries:
 <tr><td colspan=\"2\"><b>Buildings.Fluid</b>
     </td>
 </tr>
+<tr><td valign=\"top\">Buildings.Fluid.Actuators.Valves.TwoWayPressureIndependent
+    </td>
+    <td valign=\"top\">Model of a pressure-independent two way valve.
+    </td>
+    </tr>
 <tr><td valign=\"top\">Buildings.Fluid.HeatExchangers.HeaterCooler_T
     </td>
     <td valign=\"top\">Model of a heater or cooler that takes as an input

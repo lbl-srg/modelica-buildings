@@ -29,39 +29,7 @@ protected
 initial equation
   assert(dpFixed_nominal > -Modelica.Constants.small, "Require dpFixed_nominal >= 0. Received dpFixed_nominal = "
         + String(dpFixed_nominal) + " Pa.");
-equation
- kVal = phi*Kv_SI;
- if (dpFixed_nominal > Modelica.Constants.eps) then
-   k = sqrt(1/(1/kFixed^2 + 1/kVal^2));
- else
-   k = kVal;
- end if;
 
- if linearized then
-   // This implementation yields m_flow_nominal = phi*kv_SI * sqrt(dp_nominal)
-   // if m_flow = m_flow_nominal and dp = dp_nominal
-   m_flow*m_flow_nominal_pos = k^2 * dp;
- else
-   if homotopyInitialization then
-     if from_dp then
-         m_flow=homotopy(actual=Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp(dp=dp, k=k,
-                                m_flow_turbulent=m_flow_turbulent),
-                                simplified=m_flow_nominal_pos*dp/dp_nominal_pos);
-      else
-         dp=homotopy(actual=Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow(m_flow=m_flow, k=k,
-                                m_flow_turbulent=m_flow_turbulent),
-                                simplified=dp_nominal_pos*m_flow/m_flow_nominal_pos);
-     end if;
-   else // do not use homotopy
-     if from_dp then
-       m_flow=Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp(dp=dp, k=k,
-                                m_flow_turbulent=m_flow_turbulent);
-      else
-        dp=Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow(m_flow=m_flow, k=k,
-                                m_flow_turbulent=m_flow_turbulent);
-      end if;
-    end if; // homotopyInitialization
- end if; // linearized
   annotation (Icon(coordinateSystem(preserveAspectRatio=true,  extent={{-100,-100},
             {100,100}}),       graphics={
         Polygon(
@@ -98,8 +66,8 @@ equation
 Documentation(info="<html>
 <p>
 Partial model for a two way valve. This is the base model for valves
-with different opening characteristics, such as linear, equal percentage
-or quick opening.
+with different opening characteristics, such as linear, equal percentage, 
+quick opening or pressure-independent.
 </p>
 <p>
 To prevent the derivative <code>d/dP (m_flow)</code> to be infinite near
@@ -134,17 +102,18 @@ The two way valve models are implemented using this partial model, as opposed to
 different functions for the valve opening characteristics, because
 each valve opening characteristics has different parameters.
 </p>
-<h4>Implementation</h4>
-<p>
-Models that extend this model need to provide a binding equation
-for the flow function <code>phi</code>.
-An example of such a code can be found in
-<a href=\"modelica://Buildings.Fluid.Actuators.Valves.TwoWayLinear\">
-Buildings.Fluid.Actuators.Valves.TwoWayLinear</a>.
-</p>
 </html>",
 revisions="<html>
 <ul>
+<li>
+January 29, 2015, by Filip Jorissen:<br/>
+Moved the governing equations to 
+<a href=\"modelica://Buildings.Fluid.Actuators.BaseClasses.PartialTwoWayValveKv\">
+PartialTwoWayValveKv</a>
+in order to be able to extend from this partial in 
+<a href=\"modelica://Buildings.Fluid.Actuators.Valves.TwoWayPressureIndependent\">
+TwoWayPressureIndepedent</a>
+</li>
 <li>
 August 8, 2014, by Michael Wetter:<br/>
 Reformulated the computation of <code>k</code> to make the model

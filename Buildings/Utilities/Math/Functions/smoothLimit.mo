@@ -13,13 +13,18 @@ algorithm
   cor :=deltaX/10;
   y := Buildings.Utilities.Math.Functions.smoothMax(x,l+deltaX,cor);
   y := Buildings.Utilities.Math.Functions.smoothMin(y,u-deltaX,cor);
-  annotation (Documentation(info="<html>
+  annotation (smoothOrder = 1,
+  Documentation(info="<html>
 <p>
 Once continuously differentiable approximation to the <code>limit(.,.)</code> function.
 The output is bounded to be in <i>[l, u]</i>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+February 5, 2015, by Filip Jorissen:<br/>
+Added <code>smoothOrder = 1</code>.
+</li>
 <li>
 Sept 1, 2010, by Michael Wetter:<br/>
 Changed scaling to make sure that bounds are never violated.
