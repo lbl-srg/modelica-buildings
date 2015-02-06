@@ -72,7 +72,7 @@ required from medium model \""     + mediumName + "\".");
     X_steam  = Xi[Water]; // There is no liquid in this medium model
     X_air    = 1-Xi[Water];
 
-    h = specificEnthalpy_pTX(p,T,Xi);
+    h = (T - 273.15)*dryair.cp * (1 - Xi[Water]) + ((T-273.15) * steam.cp + 2501014.5) * Xi[Water];
     R = dryair.R*(1 - Xi[Water]) + steam.R*Xi[Water];
 
     // Equation for ideal gas, from h=u+p*v and R*T=p*v, from which follows that  u = h-R*T.
@@ -419,6 +419,11 @@ because it allows to invert the function <code>T_phX</code> analytically.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+February 6, 2015, by Michael Wetter:<br/>
+Inserted equation for enthalpy in the base properties calculuation
+as this leads to fewer nonlinear equations.
+</li>
 <li>
 November 13, 2014, by Michael Wetter:<br/>
 Removed <code>phi</code> and removed non-required computations.
