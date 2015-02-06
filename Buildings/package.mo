@@ -398,10 +398,13 @@ have been <b style=\"color:blue\">improved</b> in a
     </tr>
     
 <tr><td valign=\"top\">Buildings.Fluid.FixedResistances.Pipe<br/>
-                       Buildings.Fluid.FixedResistances.BaseClasses.Pipe
+                       Buildings.Fluid.FixedResistances.BaseClasses.Pipe<br/>
+                       Buildings.Fluid.HeatExchangers.RadiantSlabs.SingleCircuitSlab
     </td>
     <td valign=\"top\">Renamed pressure drop from <code>res</code> to
                        <code>preDro</code> to use the same name as in other models.
+                       This corrects
+                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/271\">#271</a>.
                        For Dymola, the conversion script will automatically
                        update existing models.
     </td>
