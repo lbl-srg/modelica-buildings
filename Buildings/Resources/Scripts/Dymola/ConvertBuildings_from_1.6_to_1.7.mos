@@ -32,6 +32,7 @@ convertClear();
 // or dynamic.
 
 
+
 // Buildings.Fluid.HeatExchangers.DryCoilDiscretized
 // Buildings.Fluid.HeatExchangers.WetCoilDiscretized
 // Removed energyDynamics1 energyDynamics2, and ductConnectionDynamics,
@@ -66,3 +67,10 @@ convertClass("Buildings.Fluid.Movers.FlowMachine_Nrpm",
 convertClass("Buildings.Fluid.Movers.FlowMachine_y",
              "Buildings.Obsolete.Fluid.Movers.FlowMachine_y");
 
+
+// Buildings.Fluid.FixedResistances.Pipe and
+// Buildings.Fluid.FixedResistances.BaseClasses.Pipe
+// Renamed res to preDro
+convertElement({"Buildings.Fluid.FixedResistances.Pipe"},
+                "Buildings.Fluid.FixedResistances.BaseClasses.Pipe"},
+                "res", "preDro");

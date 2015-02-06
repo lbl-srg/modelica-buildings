@@ -395,7 +395,18 @@ have been <b style=\"color:blue\">improved</b> in a
 
 <tr><td colspan=\"2\"><b>Buildings.Fluid</b>
     </td>
-</tr>
+    </tr>
+    
+<tr><td valign=\"top\">Buildings.Fluid.FixedResistances.Pipe<br/>
+                       Buildings.Fluid.FixedResistances.BaseClasses.Pipe
+    </td>
+    <td valign=\"top\">Renamed pressure drop from <code>res</code> to
+                       <code>preDro</code> to use the same name as in other models.
+                       For Dymola, the conversion script will automatically
+                       update existing models.
+    </td>
+</tr>    
+    
 <tr><td valign=\"top\">Buildings.Fluid.HeatExchangers.DryCoilDiscretized<br/>
                        Buildings.Fluid.HeatExchangers.WetCoilDiscretized
     </td>

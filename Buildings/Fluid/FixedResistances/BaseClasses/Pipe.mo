@@ -23,7 +23,7 @@ model Pipe
   parameter Boolean homotopyInitialization = true "= true, use homotopy method"
     annotation(Evaluate=true, Dialog(tab="Advanced"));
 
-  Buildings.Fluid.FixedResistances.FixedResistanceDpM res(
+  Buildings.Fluid.FixedResistances.FixedResistanceDpM preDro(
     redeclare final package Medium = Medium,
     final from_dp=from_dp,
     use_dh=true,
@@ -35,8 +35,7 @@ model Pipe
     final linearized=linearizeFlowResistance,
     final ReC=ReC,
     final homotopyInitialization=homotopyInitialization) "Flow resistance"
-                                 annotation (Placement(transformation(extent={{-30,-10},
-            {-10,10}})));
+    annotation (Placement(transformation(extent={{-30,-10},{-10,10}})));
   Buildings.Fluid.MixingVolumes.MixingVolume[nSeg] vol(
     redeclare each final package Medium = Medium,
     each energyDynamics=energyDynamics,
@@ -66,12 +65,12 @@ protected
   parameter Modelica.SIunits.DynamicViscosity mu_default = Medium.dynamicViscosity(state_default)
     "Dynamic viscosity at nominal condition";
 equation
-  connect(port_a, res.port_a) annotation (Line(
-      points={{-100,5.55112e-16},{-72,5.55112e-16},{-72,1.16573e-15},{-58,
-          1.16573e-15},{-58,6.10623e-16},{-30,6.10623e-16}},
+  connect(port_a, preDro.port_a) annotation (Line(
+      points={{-100,5.55112e-16},{-72,5.55112e-16},{-72,1.16573e-15},{-58,1.16573e-15},
+          {-58,6.10623e-16},{-30,6.10623e-16}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(res.port_b, vol[1].ports[1]) annotation (Line(
+  connect(preDro.port_b, vol[1].ports[1]) annotation (Line(
       points={{-10,6.10623e-16},{7,6.10623e-16},{7,-18}},
       color={0,127,255},
       smooth=Smooth.None));
@@ -113,6 +112,11 @@ Buildings.Fluid.MixingVolumes.MixingVolume</a>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+February 5, 2015, by Michael Wetter:<br/>
+Renamed <code>res</code> to <code>preDro</code> for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/292\">#292</a>.
+</li>
 <li>
 October 10, 2014, by Michael Wetter:<br/>
 Changed minimum attribute for <code>nSeg</code> from 2 to 1.
