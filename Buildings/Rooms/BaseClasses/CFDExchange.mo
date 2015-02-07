@@ -52,8 +52,7 @@ protected
   final parameter Real _uStart[nWri]={if (flaWri[i] <= 1) then uStart[i] else
       uStart[i]*samplePeriod for i in 1:nWri}
     "Initial input signal, used during first data transfer with CFD";
-  output Modelica.SIunits.Time modTimRea
-    "Current model time received from CFD";
+  output Modelica.SIunits.Time modTimRea "Current model time received from CFD";
 
   output Integer retVal "Return value from CFD";
 
@@ -219,7 +218,6 @@ protected
   end assertStringsAreUnique;
 
 initial equation
-  y=yFixed;
   // Diagnostics output
   if verbose then
    Modelica.Utilities.Streams.print(string="
@@ -276,20 +274,20 @@ end if;
     rho_start=rho_start,
     verbose=verbose);
 
-initial algorithm
   // Assignment of parameters and start values
-  uInt := zeros(nWri);
-  uIntPre := zeros(nWri);
+  uInt = zeros(nWri);
+  uIntPre = zeros(nWri);
   for i in 1:nWri loop
     assert(flaWri[i] >= 0 and flaWri[i] <= 2,
       "Parameter flaWri out of range for " + String(i) + "-th component.");
   end for;
 
-  // Assign uWri. This avoids a translation warning in Dymola
+  // Assign uWri and y. This avoids a translation warning in Dymola
   // as otherwise, not all initial values are specified.
-  // However, uWri is only used below in the body of the 'when'
-  // block after it has been assigned.
-  uWri := fill(0, nWri);
+  // However, uWri and y are only used below in the body of the 'when'
+  // block after they have been assigned.
+  uWri = fill(0, nWri);
+  y=yFixed;
 equation
   for i in 1:nWri loop
     der(uInt[i]) = if (flaWri[i] > 0) then u[i] else 0;
@@ -387,6 +385,10 @@ Buildings.Rooms.UsersGuide.CFD</a>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+February 6, 2015, by Michael Wetter:<br/>
+Changed <code>initial algorithm</code> to <code>initial equation</code>.
+</li>
 <li>
 January 24, 2014, by Wangda Zuo:<br/>
 Enabled the transfer of Xi and X to CFD.
