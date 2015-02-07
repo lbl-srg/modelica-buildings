@@ -146,24 +146,7 @@ protected
         u,
         nU,
         nY);
-    //modTimRea := t + dt;
-    //y := yFixed;
-    //retVal := 0;
   end exchange;
-
-  //   ///////////////////////////////////////////////////////////////////////////
-  //   // Function that terminates the CFD simulation.
-  //   function terminate
-  //     input Modelica.SIunits.Time t "Current simulation time in seconds to write";
-  //     input Boolean activateInterface
-  //       "Set to false to deactivate interface and use instead yFixed as output";
-  //     input Boolean verbose "Set to true for verbose output";
-  //
-  //   algorithm
-  //
-  //
-  //
-  //   end terminate;
 
   ///////////////////////////////////////////////////////////////////////////
   // Function that returns strings that are not unique.
