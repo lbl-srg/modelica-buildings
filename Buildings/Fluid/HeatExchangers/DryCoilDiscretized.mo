@@ -8,6 +8,13 @@ model DryCoilDiscretized
     from_dp1 = false,
     from_dp2 = false);
 
+  constant Boolean initialize_p1 = not Medium1.singleState
+    "Set to true to initialize the pressure of volume 1"
+    annotation(HideResult=true);
+  constant Boolean initialize_p2 = not Medium2.singleState
+    "Set to true to initialize the pressure of volume 2"
+    annotation(HideResult=true);
+
   constant Boolean airSideTemperatureDependent = false
     "Set to false to make air-side hA independent of temperature"
     annotation(Dialog(tab="Heat transfer"));
@@ -39,13 +46,6 @@ model DryCoilDiscretized
   parameter Modelica.Fluid.Types.Dynamics energyDynamics=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial
     "Formulation of energy balance"
     annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Equations"));
-
-  parameter Boolean initialize_p1 = not Medium1.singleState
-    "Set to true to initialize the pressure of volume 1"
-    annotation(Dialog(tab = "Initialization", group = "Medium 1"));
-  parameter Boolean initialize_p2 = not Medium2.singleState
-    "Set to true to initialize the pressure of volume 2"
-    annotation(Dialog(tab = "Initialization", group = "Medium 2"));
 
   parameter Modelica.SIunits.Length dh1=0.025
     "Hydraulic diameter for a single pipe"
@@ -347,6 +347,13 @@ this model computes only sensible heat transfer.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+February 5, 2015, by Michael Wetter:<br/>
+Changed <code>initalize_p</code> from a <code>parameter</code> to a
+<code>constant</code>. This is only required in finite volume models
+of heat exchangers (to avoid consistent but redundant initial conditions)
+and hence it should be set as a <code>constant</code>.
+</li>
 <li>
 August 10, 2014, by Michael Wetter:<br/>
 Removed parameter <code>m1_flow_nominal</code>, as this parameter is already

@@ -4,11 +4,11 @@ block FanVFD "Controller for fan revolution"
   import Buildings.Examples.VAVReheat.Controls.OperationModes;
   Buildings.Controls.Continuous.LimPID con(
     yMax=1,
-    yMin=0,
     controllerType=Modelica.Blocks.Types.SimpleController.PI,
     Td=60,
     k=0.5,
-    Ti=15) "Controller"
+    Ti=15,
+    yMin=r_N_min) "Controller"
     annotation (Placement(transformation(extent={{-20,20},{0,40}})));
   Modelica.Blocks.Math.Gain gaiMea(k=1/xSet_nominal)
     "Gain to normalize measurement signal"
@@ -20,7 +20,7 @@ block FanVFD "Controller for fan revolution"
     nin=6,
     index(start=1, fixed=true)) "Extractor for control signal"
     annotation (Placement(transformation(extent={{20,-40},{40,-20}})));
-  Modelica.Blocks.Sources.Constant off(k=r_N_min) "Off signal"
+  Modelica.Blocks.Sources.Constant off(k=0) "Off signal"
     annotation (Placement(transformation(extent={{-60,-80},{-40,-60}})));
   Modelica.Blocks.Sources.Constant on(k=1) "On signal"
     annotation (Placement(transformation(extent={{-60,-40},{-40,-20}})));

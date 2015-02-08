@@ -1,0 +1,7 @@
+compareVars :=
+  {
+    "solCol.vol[3].T",
+    "solCol.vol[6].T",
+    "solCol.vol[9].T",
+    "shaCoe.y"
+  };

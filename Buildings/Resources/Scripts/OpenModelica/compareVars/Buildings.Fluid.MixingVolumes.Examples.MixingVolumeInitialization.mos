@@ -1,0 +1,8 @@
+compareVars :=
+  {
+    "vol1.T_start",
+    "vol1.T",
+    "vol1.ports[1].h_outflow",
+    "vol1.ports[2].h_outflow",
+    "pipe1.port_b.h_outflow"
+  };

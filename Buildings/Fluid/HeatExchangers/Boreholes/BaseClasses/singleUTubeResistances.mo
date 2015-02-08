@@ -58,6 +58,7 @@ algorithm
   // ********** Rb and Ra from multipole **********
   // Help variables
   RCondPipe :=Modelica.Math.log((rTub + eTub)/rTub)/(2*Modelica.Constants.pi*hSeg*kTub);
+  beta :=2*Modelica.Constants.pi*kFil*RCondPipe;
   sigma :=(kFil - kSoi)/(kFil + kSoi);
   R_1delta_LS :=1/(2*Modelica.Constants.pi*kFil)*(log(rBor/(rTub + eTub)) + log(rBor/(2*xC)) +
     sigma*log(rBor^4/(rBor^4 - xC^4)));
@@ -68,7 +69,6 @@ algorithm
     rBor^2 + xC^2)/(rBor^2 - xC^2)));
 
   //Rb and Ra
-  beta :=2*Modelica.Constants.pi*kFil*RCondPipe;
   Rb :=R_1delta_MP/2;
   Ra :=Ra_LS - 1/(Modelica.Constants.pi*kFil)*(rTub^2/(4*xC^2)*(1 + sigma*
     4*rBor^4*xC^2/(rBor^4 - xC^4))/((1 + beta)/(1 - beta) - rTub^2/(4*xC^2) +
@@ -236,6 +236,10 @@ International Journal Of Energy Research, 35:312&ndash;320, 2011.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+January 21, 2015 by Michael Wetter:<br/>
+Fixed bug in <code>beta</code> being used before it was assigned.
+</li>
 <li>
 February 14, 2014 by Michael Wetter:<br/>
 Added an assert statement to test for non-physical values.

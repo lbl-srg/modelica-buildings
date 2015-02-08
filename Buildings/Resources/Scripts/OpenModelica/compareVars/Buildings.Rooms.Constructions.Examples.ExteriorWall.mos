@@ -1,0 +1,9 @@
+compareVars :=
+  {
+    "conExt[1].opa.T[1]",
+    "conExt[1].opa.T[2]",
+    "conExt[1].opa.T[3]",
+    "conExt[1].opa.T[4]",
+    "conExt[1].opa.T[5]",
+    "bouConExt.weaBus.TDryBul"
+  };

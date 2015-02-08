@@ -45,7 +45,7 @@ Therefore, the flow coefficient is
 <p>
 The input <code>m_flow_turbulent</code> determines the location of the regularization.
 </p>
-</html>"),
+</html>",
 revisions="<html>
 <ul>
 <li>
@@ -65,5 +65,5 @@ April 13, 2009, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
-</html>");
+</html>"));
 end basicFlowFunction_m_flow;

@@ -1,0 +1,8 @@
+compareVars :=
+  {
+    "TEvaIn.y",
+    "dxCoo.TCoiSur",
+    "dxCoo.Q_flow",
+    "dxCoo.mWat_flow",
+    "dxCoo.SHR"
+  };

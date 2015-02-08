@@ -1,0 +1,12 @@
+compareVars :=
+  {
+    "varSpeDX.vol.T",
+    "TEvaIn.y",
+    "varSpeDX.dxCoo.mWat_flow",
+    "varSpeDX.vol.ports[2].h_outflow",
+    "sou.ports[1].h_outflow",
+    "varSpeDX.vol.X_w",
+    "varSpeDX.dxCoo.XEvaIn",
+    "varSpeDX.P",
+    "varSpeDX.dxCoo.Q_flow"
+  };

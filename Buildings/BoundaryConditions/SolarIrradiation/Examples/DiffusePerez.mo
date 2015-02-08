@@ -45,7 +45,7 @@ equation
       extent={{-6,3},{-6,3}}));
 
   connect(weaBus, HDifFlo.weaBus) annotation (Line(
-      points={{11,10},{30.5,10},{30.5,-70},{40,-70}},
+      points={{11,10},{30,10},{30,-70},{40,-70}},
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None), Text(
@@ -73,5 +73,13 @@ Since the floor only sees the ground but not the radiative heat flow that is
 scattered in the atmosphere, it receives the lowest amount of
 diffuse solar irradiation.
 </p>
+</html>",
+revisions="<html>
+<ul>
+<li>
+May 24, 2010, by Wangda Zuo:<br/>
+First implementation.
+</li>
+</ul>
 </html>"));
 end DiffusePerez;

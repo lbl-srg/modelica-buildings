@@ -1,0 +1,9 @@
+compareVars :=
+  {
+    "sine.y",
+    "sine1.y",
+    "sine2.y",
+    "minVec.y",
+    "maxVec.y",
+    "aveVec.y"
+  };

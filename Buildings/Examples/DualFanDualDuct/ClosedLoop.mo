@@ -171,8 +171,8 @@ model ClosedLoop "Closed loop model of a dual-fan dual-duct system"
   Buildings.Examples.VAVReheat.Controls.FanVFD conFanSupHot(
     initType=Modelica.Blocks.Types.Init.InitialState,
     y_start=yFan_start,
-    r_N_min=0,
-    xSet_nominal(displayUnit="Pa") = 30) "Controller for fan of hot deck"
+    xSet_nominal(displayUnit="Pa") = 30,
+    r_N_min=0.2) "Controller for fan of hot deck"
     annotation (Placement(transformation(extent={{120,80},{140,100}})));
   Buildings.Controls.SetPoints.OccupancySchedule occSch(occupancy=3600*{6,19})
     "Occupancy schedule"
@@ -299,7 +299,7 @@ model ClosedLoop "Closed loop model of a dual-fan dual-duct system"
                         xSet_nominal(displayUnit="Pa") = 30,
     initType=Modelica.Blocks.Types.Init.InitialState,
     y_start=yFan_start,
-    r_N_min=0) "Controller for return air fan"
+    r_N_min=0.2) "Controller for return air fan"
     annotation (Placement(transformation(extent={{240,220},{260,240}})));
   Buildings.Fluid.FixedResistances.SplitterFixedResistanceDpM splRetRoo1(
     redeclare package Medium = MediumA,
@@ -547,8 +547,8 @@ model ClosedLoop "Closed loop model of a dual-fan dual-duct system"
   Buildings.Examples.VAVReheat.Controls.FanVFD conFanSupCol(
     initType=Modelica.Blocks.Types.Init.InitialState,
     y_start=yFan_start,
-    r_N_min=0,
-    xSet_nominal(displayUnit="Pa") = 30) "Controller for fan of cold deck"
+    xSet_nominal(displayUnit="Pa") = 30,
+    r_N_min=0.2) "Controller for fan of cold deck"
     annotation (Placement(transformation(extent={{100,40},{120,60}})));
   Modelica.Blocks.Logical.Switch swiPumPreCoi "Switch for preheat coil pump"
     annotation (Placement(transformation(extent={{40,-100},{60,-80}})));

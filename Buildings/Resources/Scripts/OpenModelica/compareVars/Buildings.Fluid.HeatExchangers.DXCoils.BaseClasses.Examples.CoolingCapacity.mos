@@ -1,0 +1,8 @@
+compareVars :=
+  {
+    "cooCap.TConIn",
+    "cooCap.TEvaIn",
+    "cooCap.m_flow",
+    "cooCap.Q_flow[1]",
+    "cooCap.EIR[1]"
+  };

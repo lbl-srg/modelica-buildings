@@ -1,0 +1,9 @@
+compareVars :=
+  {
+    "senEnt1.h_out",
+    "senEnt2.h_out",
+    "senMas1.X",
+    "senMas2.X",
+    "senTem1.T",
+    "senTem2.T"
+  };

@@ -10,8 +10,8 @@ public
   Modelica.Blocks.Interfaces.RealOutput relAirMas "Relative air mass"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 protected
-  Real zenLim;
-  Real zenDeg;
+  Real zenLim "Zenith angle bounded from above by 90 degree";
+  Real zenDeg "Zenith angle in degree";
 equation
   zenLim = Buildings.Utilities.Math.Functions.smoothMin(
     zen,

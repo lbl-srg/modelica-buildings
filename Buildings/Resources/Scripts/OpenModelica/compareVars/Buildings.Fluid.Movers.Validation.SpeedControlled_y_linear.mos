@@ -1,0 +1,5 @@
+compareVars :=
+  {
+    "pumFixDp.m_flow",
+    "pumFixM_flow.dp"
+  };

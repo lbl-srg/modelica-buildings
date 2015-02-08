@@ -1,0 +1,11 @@
+compareVars :=
+  {
+    "conExt[1].opa.T[1]",
+    "conExt[1].opa.T[2]",
+    "conExt[1].opa.T[3]",
+    "conExt[1].opa.T[4]",
+    "conExt[1].opa.T[5]",
+    "conExt[1].win.glaUns.glass_a.T",
+    "conExt[1].win.glaUns.glass_b.T",
+    "bouConExt.weaBus.TDryBul"
+  };

@@ -1,0 +1,6 @@
+compareVars :=
+  {
+    "vol.T_start",
+    "vol.T",
+    "TOut.T"
+  };

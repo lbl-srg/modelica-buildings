@@ -38,7 +38,7 @@ partial model PartialDamperExponential
   annotation(Dialog(tab="Damper coefficients"));
  parameter Boolean use_constant_density=true
     "Set to true to use constant density for flow friction"
-   annotation (Dialog(tab="Advanced"));
+   annotation (Evaluate=true, Dialog(tab="Advanced"));
  Medium.Density rho "Medium density";
  parameter Real kFixed(unit="")
     "Flow coefficient of fixed resistance that may be in series with damper, k=m_flow/sqrt(dp), with unit=(kg.m)^(1/2).";
@@ -67,8 +67,9 @@ initial equation
   assert(m_flow_turbulent > 0, "m_flow_turbulent must be bigger than zero.");
 equation
   rho = if use_constant_density then
-         rho_default else
-         Medium.density(Medium.setState_phX(port_a.p, inStream(port_a.h_outflow), inStream(port_a.Xi_outflow)));
+          rho_default
+        else
+          Medium.density(Medium.setState_phX(port_a.p, inStream(port_a.h_outflow), inStream(port_a.Xi_outflow)));
   // flow coefficient, k=m_flow/sqrt(dp)
   kDam=sqrt(2*rho)*area/Buildings.Fluid.Actuators.BaseClasses.exponentialDamper(
     y=y_actual,
@@ -124,6 +125,15 @@ Exponential</a>.
 </html>",
 revisions="<html>
 <ul>
+<li>
+January 27, 2015 by Michael Wetter:<br/>
+Set <code>Evaluate=true</code> for <code>use_constant_density</code>.
+This is a structural parameter. Adding this annotation leads to fewer
+numerical Jacobians for
+<code>Buildings.Examples.VAVReheat.ClosedLoop</code>
+with
+<code>Buildings.Media.PerfectGases.MoistAirUnsaturated</code>.
+</li>
 <li>
 December 14, 2012 by Michael Wetter:<br/>
 Renamed protected parameters for consistency with the naming conventions.

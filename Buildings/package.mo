@@ -162,6 +162,11 @@ to <b style=\"color:blue\">existing</b> libraries:
 <tr><td colspan=\"2\"><b>Buildings.Fluid</b>
     </td>
 </tr>
+<tr><td valign=\"top\">Buildings.Fluid.Actuators.Valves.TwoWayPressureIndependent
+    </td>
+    <td valign=\"top\">Model of a pressure-independent two way valve.
+    </td>
+    </tr>
 <tr><td valign=\"top\">Buildings.Fluid.HeatExchangers.HeaterCooler_T
     </td>
     <td valign=\"top\">Model of a heater or cooler that takes as an input
@@ -390,7 +395,21 @@ have been <b style=\"color:blue\">improved</b> in a
 
 <tr><td colspan=\"2\"><b>Buildings.Fluid</b>
     </td>
-</tr>
+    </tr>
+    
+<tr><td valign=\"top\">Buildings.Fluid.FixedResistances.Pipe<br/>
+                       Buildings.Fluid.FixedResistances.BaseClasses.Pipe<br/>
+                       Buildings.Fluid.HeatExchangers.RadiantSlabs.SingleCircuitSlab
+    </td>
+    <td valign=\"top\">Renamed pressure drop from <code>res</code> to
+                       <code>preDro</code> to use the same name as in other models.
+                       This corrects
+                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/271\">#271</a>.
+                       For Dymola, the conversion script will automatically
+                       update existing models.
+    </td>
+</tr>    
+    
 <tr><td valign=\"top\">Buildings.Fluid.HeatExchangers.DryCoilDiscretized<br/>
                        Buildings.Fluid.HeatExchangers.WetCoilDiscretized
     </td>
@@ -552,7 +571,13 @@ have been <b style=\"color:blue\">improved</b> in a
     </td>
     <td valign=\"top\">Moved the package to <code>Buildings.Rooms.Validation.BESTEST</code>.
     </td>
-</tr>    
+</tr>
+<tr><td valign=\"top\">Buildings.Utilities
+    </td>
+    <td valign=\"top\">Moved the block <code>Buildings.Utilities.SimulationTime</code>
+                       to <code>Buildings.Utilities.Time.ModelTime</code>.
+    </td>
+</tr>
 
 </table>
 <!-- Errors that have been fixed -->
@@ -580,7 +605,13 @@ that can lead to wrong simulation results):
     <td valign=\"top\">Corrected wrong entries for inner and outer diameter
                        of PEX pipes.
     </td>
-</tr>
+    </tr>
+<tr><td valign=\"top\">Buildings.Fluid.HeatExchangers.Boreholes.BaseClasses.singleUTubeResistances
+    </td>
+    <td valign=\"top\">Corrected error in function that used <code>beta</code>
+                       before it was assigned a value.
+    </td>
+</tr>    
 <tr><td valign=\"top\">Buildings.Fluid.Storage.Stratified<br/>
                        Buildings.Fluid.Storage.StratifiedEnhanced<br/>
                        Buildings.Fluid.Storage.StratifiedEnhancedInternalHex
