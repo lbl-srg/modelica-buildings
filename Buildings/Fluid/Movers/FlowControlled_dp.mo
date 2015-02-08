@@ -41,7 +41,8 @@ model FlowControlled_dp
         extent={{-20,-20},{20,20}},
         rotation=-90,
         origin={-2,120})));
-  Modelica.Blocks.Interfaces.BooleanInput on_in if useOnIn annotation (Placement(
+  Modelica.Blocks.Interfaces.BooleanInput on_in if useOnIn
+    "Prescribed on/off status"                             annotation (Placement(
         transformation(
         extent={{-20,-20},{20,20}},
         rotation=270,
@@ -66,8 +67,6 @@ protected
      final filterType=Modelica.Blocks.Types.FilterType.LowPass) if filteredSpeed
     "Second order filter to approximate transient of rotor, and to improve numerics"
     annotation (Placement(transformation(extent={{20,81},{34,95}})));
-  Modelica.Blocks.Interfaces.BooleanInput on_internal
-    "Needed to connect to conditional connector on_in";
 
   Modelica.Blocks.Interfaces.RealOutput dp_filtered(min=0, final unit="Pa") if
      filteredSpeed "Filtered pressure"
@@ -75,47 +74,31 @@ protected
         iconTransformation(extent={{60,50},{80,70}})));
 public
   Modelica.Blocks.Math.Product dpSetProd
-    "Pressure setpoint calculation including on/off" annotation (Placement(
+    "Set point taking into account mover on/off status" annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
-        rotation=270,
-        origin={-6,68})));
-  Modelica.Blocks.Math.BooleanToReal booleanOnToReal(realTrue=-1)
-    annotation (Placement(transformation(extent={{-64,72},{-48,88}})));
-  Modelica.Blocks.Sources.BooleanExpression booleanOn(y=on_internal)
-    "BooleanExpression for on_internal signal"
-    annotation (Placement(transformation(extent={{-94,70},{-74,90}})));
+        rotation=0,
+        origin={-10,50})));
+  Modelica.Blocks.Math.BooleanToReal onToReal(realTrue=-1)
+    "Conversion to real for on/off signal"
+    annotation (Placement(transformation(extent={{-56,36},{-40,52}})));
+
   Modelica.Blocks.Sources.Constant dpConst(k=dpSet) if
                                               not useDpIn
-    "Constant set point for dp"
-    annotation (Placement(transformation(extent={{-36,84},{-22,98}})));
+    "Constant set point for dp when not using input"
+    annotation (Placement(transformation(extent={{-40,60},{-26,74}})));
+  Modelica.Blocks.Sources.BooleanConstant onConst(k=onOff) if not useOnIn
+    "Constant on/off value when not using input"
+    annotation (Placement(transformation(extent={{-80,36},{-64,52}})));
 equation
   assert(dp_actual >= -Modelica.Constants.eps,
     "dp_in cannot be negative. Obtained dp_in = " + String(dp_actual));
-  connect(on_in,on_internal);
-
-  if not useOnIn then
-    on_internal=onOff;
-  end if;
-//   if useOnIn then
-//     if on_internal then
-//       dpSwitched = -dp_internal;
-//     else
-//       dpSwitched=0;
-//     end if;
-//   else
-//     if onOff then
-//       dpSwitched = -dp_internal;
-//     else
-//       dpSwitched=0;
-//     end if;
-//   end if;
 
   if filteredSpeed then
     connect(dpSetProd.y, filter.u) annotation (Line(
-      points={{-6,57},{10,57},{10,88},{18.6,88}},
-      color={0,0,127},
-      smooth=Smooth.None));
+        points={{1,50},{10,50},{10,88},{18.6,88}},
+        color={0,0,127},
+        smooth=Smooth.None));
     connect(filter.y, gain.u) annotation (Line(
       points={{34.7,88},{38,88},{38,50},{70,50}},
       color={0,0,127},
@@ -127,9 +110,9 @@ equation
       smooth=Smooth.None));
   else
     connect(dpSetProd.y, gain.u) annotation (Line(
-      points={{-6,57},{-6,50},{70,50}},
-      color={0,0,127},
-      smooth=Smooth.None));
+        points={{1,50},{70,50}},
+        color={0,0,127},
+        smooth=Smooth.None));
   end if;
 
   connect(dp_actual, gain.y) annotation (Line(
@@ -140,21 +123,25 @@ equation
       points={{70,50},{60,50},{60,40},{36,40},{36,8}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(booleanOn.y, booleanOnToReal.u) annotation (Line(
-      points={{-73,80},{-65.6,80}},
-      color={255,0,255},
-      smooth=Smooth.None));
   connect(dpSetProd.u1, dp_in) annotation (Line(
-      points={{1.77636e-15,80},{1.77636e-15,92},{0,92},{0,120}},
+      points={{-22,56},{-22,68},{0,68},{0,120}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(booleanOnToReal.y, dpSetProd.u2) annotation (Line(
-      points={{-47.2,80},{-12,80}},
+  connect(onToReal.y, dpSetProd.u2) annotation (Line(
+      points={{-39.2,44},{-22,44}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(dpConst.y, dpSetProd.u1) annotation (Line(
-      points={{-21.3,91},{0,91},{0,80}},
+      points={{-25.3,67},{-22,67},{-22,56}},
       color={0,0,127},
+      smooth=Smooth.None));
+  connect(on_in, onToReal.u) annotation (Line(
+      points={{-20,120},{-20,96},{-57.6,96},{-57.6,44}},
+      color={255,0,255},
+      smooth=Smooth.None));
+  connect(onConst.y, onToReal.u) annotation (Line(
+      points={{-63.2,44},{-57.6,44}},
+      color={255,0,255},
       smooth=Smooth.None));
   annotation (defaultComponentName="fan",
   Documentation(info="<html>
