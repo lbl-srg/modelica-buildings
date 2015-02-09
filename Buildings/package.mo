@@ -271,6 +271,10 @@ have been <b style=\"color:blue\">improved</b> in a
     <td valign=\"top\">Reformulated the model to avoid an translation error
                        if glycol is used.
     </td>
+    <td valign=\"top\">Propagated parameters for initialization in base class 
+                       <code>Buildings.Fluid.SolarCollectors.BaseClasses.PartialSolarCollector</code>
+                       and set <code>prescribedHeatFlowRate=true</code>.
+    </td>
     </tr>
 
     <tr>
