@@ -92,8 +92,15 @@ model PartialSolarCollector "Partial model for solar collectors"
     each final energyDynamics=energyDynamics,
     each final p_start=p_start,
     each final T_start=T_start,
-    each m_flow_small=m_flow_small,
-    each final V=(perPar.V+C/cp_default/rho_default)*nPanels_internal/nSeg)
+    each final m_flow_small=m_flow_small,
+    each final V=(perPar.V+C/cp_default/rho_default)*nPanels_internal/nSeg,
+    each final massDynamics=massDynamics,
+    each final X_start=X_start,
+    each final C_start=C_start,
+    each final C_nominal=C_nominal,
+    each final mSenFac=mSenFac,
+    each final allowFlowReversal=allowFlowReversal,
+    each final prescribedHeatFlowRate=true)
     "Volume of fluid in one segment of the solar collector"
     annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
@@ -232,6 +239,11 @@ CEN 2006, European Standard 12975-1:2006, European Committee for Standardization
 revisions="<html>
 <ul>
 <li>
+February 8, 2015, by Filip Jorissen:<br/>
+Propagated multiple parameters from <code>LumpedVolumeDeclarations</code>, 
+set <code>prescribedHeatFlowRate = true</code> in <code>vol</code>.
+</li>
+<li>
 September 18, 2014, by Michael Wetter:<br/>
 Removed the separate instance of
 <code>Modelica.Thermal.HeatTransfer.Components.HeatCapacitor</code> and
@@ -239,7 +251,6 @@ added this capacity to the volume.
 This is in response to
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/276\">
 https://github.com/lbl-srg/modelica-buildings/issues/276</a>.
-
 </li>
 <li>
 June 25, 2014, by Michael Wetter:<br/>
