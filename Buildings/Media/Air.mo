@@ -1,4 +1,4 @@
-within Annex60.Experimental.Media;
+within Buildings.Media;
 package Air
   "Package with moist air model that decouples pressure and temperature"
   extends Modelica.Media.Interfaces.PartialCondensingGases(
@@ -249,7 +249,7 @@ redeclare function extends saturationPressure
     "Saturation curve valid for 223.16 <= T <= 373.16 (and slightly outside with less accuracy)"
 
 algorithm
-  psat := Annex60.Utilities.Psychrometrics.Functions.saturationPressure(Tsat);
+  psat := Buildings.Utilities.Psychrometrics.Functions.saturationPressure(Tsat);
   annotation(Inline=false,smoothOrder=5);
 end saturationPressure;
 
@@ -313,8 +313,8 @@ where <i>R</i> is the gas constant,
 </p>
 <p>
 To obtain the state for a given pressure, entropy and mass fraction, use
-<a href=\"modelica://Annex60.Media.Air.setState_psX\">
-Annex60.Media.Air.setState_psX</a>.
+<a href=\"modelica://Buildings.Media.Air.setState_psX\">
+Buildings.Media.Air.setState_psX</a>.
 </p>
 <h4>Limitations</h4>
 <p>
@@ -491,8 +491,8 @@ specific entropy and mass fraction.
 </p>
 <p>
 The state is computed by symbolically solving
-<a href=\"modelica://Annex60.Media.Air.specificEntropy\">
-Annex60.Media.Air.specificEntropy</a>
+<a href=\"modelica://Buildings.Media.Air.specificEntropy\">
+Buildings.Media.Air.specificEntropy</a>
 for temperature.
 </p>
 </html>", revisions="<html>
@@ -670,15 +670,15 @@ First implementation.
   constant GasProperties dryair(
     R =    Modelica.Media.IdealGases.Common.SingleGasesData.Air.R,
     MM =   Modelica.Media.IdealGases.Common.SingleGasesData.Air.MM,
-    cp =   Annex60.Utilities.Psychrometrics.Constants.cpAir,
-    cv =   Annex60.Utilities.Psychrometrics.Constants.cpAir
+    cp =   Buildings.Utilities.Psychrometrics.Constants.cpAir,
+    cv =   Buildings.Utilities.Psychrometrics.Constants.cpAir
              -Modelica.Media.IdealGases.Common.SingleGasesData.Air.R)
     "Dry air properties";
   constant GasProperties steam(
     R =    Modelica.Media.IdealGases.Common.SingleGasesData.H2O.R,
     MM =   Modelica.Media.IdealGases.Common.SingleGasesData.H2O.MM,
-    cp =   Annex60.Utilities.Psychrometrics.Constants.cpSte,
-    cv =   Annex60.Utilities.Psychrometrics.Constants.cpSte
+    cp =   Buildings.Utilities.Psychrometrics.Constants.cpSte,
+    cv =   Buildings.Utilities.Psychrometrics.Constants.cpSte
              -Modelica.Media.IdealGases.Common.SingleGasesData.H2O.R)
     "Steam properties";
 
@@ -688,10 +688,10 @@ First implementation.
     "Molar masses of components";
 
    constant Modelica.SIunits.SpecificEnergy h_fg=
-    Annex60.Utilities.Psychrometrics.Constants.h_fg
+    Buildings.Utilities.Psychrometrics.Constants.h_fg
     "Latent heat of evaporation of water";
   constant Modelica.SIunits.SpecificHeatCapacity cpWatLiq=
-    Annex60.Utilities.Psychrometrics.Constants.cpWatLiq
+    Buildings.Utilities.Psychrometrics.Constants.cpWatLiq
     "Specific heat capacity of liquid water";
 
 replaceable function der_enthalpyOfLiquid
@@ -785,8 +785,8 @@ This is for
 <li>
 July 24, 2014, by Michael Wetter:<br/>
 Changed implementation to use
-<a href=\"modelica://Annex60.Utilities.Psychrometrics.Constants\">
-Annex60.Utilities.Psychrometrics.Constants</a>.
+<a href=\"modelica://Buildings.Utilities.Psychrometrics.Constants\">
+Buildings.Utilities.Psychrometrics.Constants</a>.
 This was done to use consistent values throughout the library.
 </li>
 <li>
@@ -833,7 +833,7 @@ that lead to a run-time error when the constructor of this function was called.
 <li>
 January 22, 2010, by Michael Wetter:<br/>
 Added implementation of function
-<a href=\"modelica://Annex60.Media.GasesPTDecoupled.MoistAirUnsaturated.enthalpyOfNonCondensingGas\">
+<a href=\"modelica://Buildings.Media.GasesPTDecoupled.MoistAirUnsaturated.enthalpyOfNonCondensingGas\">
 enthalpyOfNonCondensingGas</a> and its derivative.
 <li>
 January 13, 2010, by Michael Wetter:<br/>
