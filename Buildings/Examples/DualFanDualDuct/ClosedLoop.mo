@@ -3,7 +3,7 @@ model ClosedLoop "Closed loop model of a dual-fan dual-duct system"
   extends Modelica.Icons.Example;
 
   replaceable package MediumA =
-      Buildings.Media.GasesPTDecoupled.MoistAirUnsaturated;
+      Buildings.Media.Air;
   package MediumW = Buildings.Media.ConstantPropertyLiquidWater
     "Medium model for water";
 

@@ -4,7 +4,7 @@ model WetCoilDiscretizedGasesPTDecoupled
   extends
     Buildings.Fluid.HeatExchangers.Examples.BaseClasses.WetCoilDiscretized(
    redeclare package Medium2 =
-        Buildings.Media.GasesPTDecoupled.MoistAirUnsaturated);
+        Buildings.Media.Air);
   extends Modelica.Icons.Example;
   annotation (
 experiment(StopTime=360),
@@ -16,8 +16,8 @@ This model is used to test the initialization of the coil model.
 There are three instances of the coil model, each having different settings
 for the initial conditions.
 Each of the coil uses for the medium
-<a href=\"modelica://Buildings.Media.GasesPTDecoupled.MoistAirUnsaturated\">
-Buildings.Media.GasesPTDecoupled.MoistAirUnsaturated</a>.
+<a href=\"modelica://Buildings.Media.Air\">
+Buildings.Media.Air</a>.
 </p>
 </html>", revisions="<html>
 <ul>

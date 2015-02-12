@@ -2309,7 +2309,7 @@ have been <b style=\"color:blue\">improved</b> in a
     </td>
 </tr>
 <tr><td valign=\"top\">Buildings.Media.GasesPTDecoupled.MoistAir<br/>
-                       Buildings.Media.GasesPTDecoupled.MoistAirUnsaturated<br/>
+                       Buildings.Media.Air<br/>
                        Buildings.Media.PerfectGases.MoistAir<br/>
                        Buildings.Media.PerfectGases.MoistAirUnsaturated<br/>
                        Buildings.Media.GasesConstantDensity.MoistAir<br/>
@@ -3839,8 +3839,8 @@ to
 Buildings.Media.PerfectGases.MoistAirUnsaturated</a>
 and <code>Buildings.Media.GasesPTDecoupled.MoistAirNoLiquid</code>
 to
-<a href=\"modelica://Buildings.Media.GasesPTDecoupled.MoistAirUnsaturated\">
-Buildings.Media.GasesPTDecoupled.MoistAirUnsaturated</a>,
+<a href=\"modelica://Buildings.Media.Air\">
+Buildings.Media.Air</a>,
 and added <code>assert</code> statements if saturation occurs.
 </li>
 <li>
@@ -3858,8 +3858,8 @@ Buildings.Media.PerfectGases.MoistAirUnsaturated.T_phX</a>.
 </li>
 <li>
 Added implementation of function
-<a href=\"modelica://Buildings.Media.GasesPTDecoupled.MoistAirUnsaturated.enthalpyOfNonCondensingGas\">
-Buildings.Media.GasesPTDecoupled.MoistAirUnsaturated.enthalpyOfNonCondensingGas</a> and its derivative.
+<a href=\"modelica://Buildings.Media.Air.enthalpyOfNonCondensingGas\">
+Buildings.Media.Air.enthalpyOfNonCondensingGas</a> and its derivative.
 </li>
 <li>
 In <a href=\"modelica://Buildings.Media.PerfectGases.MoistAir\">

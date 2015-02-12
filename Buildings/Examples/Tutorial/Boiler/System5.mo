@@ -3,7 +3,7 @@ model System5
   "5th part of the system model, which adds closed-loop control for the valves"
   extends Modelica.Icons.Example;
   replaceable package MediumA =
-      Buildings.Media.GasesPTDecoupled.MoistAirUnsaturated;
+      Buildings.Media.Air;
   replaceable package MediumW =
       Buildings.Media.ConstantPropertyLiquidWater "Medium model";
 

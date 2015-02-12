@@ -3,7 +3,7 @@ model System7
   "7th part of the system model, which implements the on/off control using a state machine"
   extends Modelica.Icons.Example;
   replaceable package MediumA =
-      Buildings.Media.GasesPTDecoupled.MoistAirUnsaturated;
+      Buildings.Media.Air;
   replaceable package MediumW =
       Buildings.Media.ConstantPropertyLiquidWater "Medium model";
 

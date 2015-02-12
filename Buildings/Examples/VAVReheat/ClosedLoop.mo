@@ -3,7 +3,7 @@ model ClosedLoop
   "Variable air volume flow system with terminal reheat and five thermal zones"
   extends Modelica.Icons.Example;
   replaceable package MediumA =
-      Buildings.Media.GasesPTDecoupled.MoistAirUnsaturated;
+      Buildings.Media.Air;
   package MediumW = Buildings.Media.ConstantPropertyLiquidWater
     "Medium model for water";
 

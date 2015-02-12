@@ -2,7 +2,7 @@ within Buildings.Fluid.HeatExchangers.Validation;
 model HeaterCooler_u "Model that demonstrates the ideal heater model"
   extends Modelica.Icons.Example;
 
-  package Medium = Buildings.Media.GasesPTDecoupled.MoistAirUnsaturated;
+  package Medium = Buildings.Media.Air;
 
 
   parameter Modelica.SIunits.MassFlowRate

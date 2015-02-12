@@ -3,7 +3,7 @@ model TestMoistAirUnsaturated
   extends Modelica.Icons.Example;
   extends Modelica.Media.Examples.Tests.Components.PartialTestModel(
      redeclare package Medium =
-          Buildings.Media.GasesPTDecoupled.MoistAirUnsaturated);
+          Buildings.Media.Air);
 
       annotation (experiment(StopTime=1.0),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Media/GasesPTDecoupled/Examples/TestMoistAirUnsaturated.mos"

@@ -5,7 +5,7 @@ model WetCoilCounterFlowPControl
   package Medium1 = Buildings.Media.ConstantPropertyLiquidWater;
   package Medium2 = Buildings.Media.PerfectGases.MoistAirUnsaturated;
   //package Medium2 = Buildings.Media.GasesPTDecoupled.MoistAir;
-  //package Medium2 = Buildings.Media.GasesPTDecoupled.MoistAirUnsaturated;
+  //package Medium2 = Buildings.Media.Air;
   //package Medium2 = Buildings.Media.GasesConstantDensity.MoistAir;
   parameter Modelica.SIunits.Temperature T_a1_nominal=5 + 273.15;
   parameter Modelica.SIunits.Temperature T_b1_nominal=10 + 273.15;
