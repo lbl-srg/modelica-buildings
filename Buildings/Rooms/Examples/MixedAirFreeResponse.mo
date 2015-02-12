@@ -75,7 +75,8 @@ model MixedAirFreeResponse "Free response of room model"
     linearizeRadiation = false,
     nPorts=1,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    lat=0.73268921998722) "Room model"
+    lat=0.73268921998722,
+    T_start=295.15) "Room model"
     annotation (Placement(transformation(extent={{46,20},{86,60}})));
 
   Modelica.Blocks.Sources.Constant qConGai_flow(k=0) "Convective heat gain"
@@ -171,6 +172,11 @@ This model illustrates the use of the room model
 Buildings.Rooms.MixedAir</a>.
 </html>", revisions="<html>
 <ul>
+<li>
+February 12, 2015, by Michael Wetter:<br/>
+Set initial temperature to be <i>22</i>&deg;C to add
+propagation of the initial temperature to this test case.
+</li>
 <li>
 December 22, 2014 by Michael Wetter:<br/>
 Removed <code>Modelica.Fluid.System</code>
