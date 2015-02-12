@@ -33,7 +33,6 @@ partial package PartialSimpleMedium
     "Reference pressure for default medium pressure";
 
   redeclare replaceable model extends BaseProperties(
-     T(stateSelect=if preferredMediumStates then StateSelect.prefer else StateSelect.default),
      p(stateSelect=if preferredMediumStates then StateSelect.prefer else StateSelect.default))
     "Base properties"
   equation
