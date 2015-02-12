@@ -4,10 +4,27 @@ model MixedAir "Model of a room in which the air is completely mixed"
   redeclare Buildings.Rooms.BaseClasses.MixedAirHeatMassBalance air(
     final energyDynamics=energyDynamics,
     final massDynamics = massDynamics,
+    final p_start=p_start,
+    final T_start=T_start,
+    final X_start=X_start,
+    final C_start=C_start,
+    final C_nominal=C_nominal,
     final m_flow_nominal=m_flow_nominal,
     final homotopyInitialization=homotopyInitialization,
     final conMod=intConMod,
-    final hFixed=hIntFixed));
+    final hFixed=hIntFixed),
+    datConExt(
+    each T_a_start =         T_start,
+    each T_b_start =         T_start),
+    datConExtWin(
+    each T_a_start =            T_start,
+    each T_b_start =            T_start),
+    datConBou(
+    each T_a_start =         T_start,
+    each T_b_start =         T_start),
+    datConPar(
+    each T_a_start =         T_start,
+    each T_b_start =         T_start));
   extends Buildings.Fluid.Interfaces.LumpedVolumeDeclarations;
 
 protected
@@ -85,6 +102,10 @@ for detailed explanations.
 </html>",
 revisions="<html>
 <ul>
+<li>
+February 12, 2015, by Michael Wetter:<br/>
+Propagated initial states to the fluid volume.
+</li>
 <li>
 August 1, 2013, by Michael Wetter:<br/>
 Introduced base class
