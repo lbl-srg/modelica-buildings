@@ -1,4 +1,0 @@
-simulateModel("Buildings.Media.GasesConstantDensity.Examples.TestMoistAir", method="dassl", resultFile="TestMoistAirConDen");
-createPlot(id = 1,
- y = {"volume.medium.T"},
- grid = true);
