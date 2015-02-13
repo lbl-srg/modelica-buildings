@@ -6,7 +6,7 @@ model ACACConverter "AC AC converter three phase balanced systems"
   annotation (Documentation(info="<html>
 <p>
 This is an AC AC converter, based on a power balance between both QS circuit sides.
-The paramater <i>conversionFactor</i> defines the ratio between averaged the QS rms voltages.
+The parameter <i>conversionFactor</i> defines the ratio between averaged the QS rms voltages.
 The loss of the converter is proportional to the power transmitted at the second circuit side.
 The parameter <code>eps</code> is the efficiency of the transfer.
 The loss is computed as

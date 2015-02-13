@@ -7,7 +7,7 @@ model StaticTwoPortConservationEquation
   constant Boolean sensibleOnly "Set to true if sensible exchange only";
 
   Modelica.Blocks.Interfaces.RealInput Q_flow(unit="W")
-    "Sensible plus latent heat flow rate transfered into the medium"
+    "Sensible plus latent heat flow rate transferred into the medium"
     annotation (Placement(transformation(extent={{-140,60},{-100,100}})));
   Modelica.Blocks.Interfaces.RealInput mWat_flow(unit="kg/s")
     "Moisture mass flow rate added to the medium"

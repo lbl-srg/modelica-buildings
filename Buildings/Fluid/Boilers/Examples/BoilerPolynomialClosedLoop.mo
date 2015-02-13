@@ -259,7 +259,7 @@ valve position is such that it only recirculates water from the load.
 The bypass between valve and pump mixes recirculated water, thereby
 allowing the valve to work over a larger operating range.
 The expansion vessel near the boiler is used to set a reference pressure,
-and it is used to accomodate for the thermal expansion of the water.
+and it is used to accommodate for the thermal expansion of the water.
 </p>
 </html>", revisions="<html>
 <ul>

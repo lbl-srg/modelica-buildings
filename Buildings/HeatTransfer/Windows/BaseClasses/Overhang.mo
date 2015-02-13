@@ -103,7 +103,7 @@ equation
     for i in 1:4 loop
       y2[i] = tmpH[i];
       // For the equation below, Dymola generated the following code in MixedAirFreeResponse.
-      // This led to a division by zero as y1 crosses zero. The problem occured in an
+      // This led to a division by zero as y1 crosses zero. The problem occurred in an
       // FMU simulation. Therefore, we guard against division by zero when computing
       // x2[i].
       //  roo.bouConExtWin.sha[1].ove.x2[1] := roo.bouConExtWin.sha[1].ove.x1*

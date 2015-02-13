@@ -133,7 +133,7 @@ protected
     input Boolean verbose "Set to true for verbose output";
     output Real[nY] y "Output computed by CFD";
     output Integer retVal
-      "The exit value, which is negative if an error occured";
+      "The exit value, which is negative if an error occurred";
   algorithm
     if verbose then
       Modelica.Utilities.Streams.print("CFDExchange:exchange at t=" + String(t));

@@ -130,7 +130,7 @@ equation
     Documentation(info="<html>
 <p>
 This is an AC DC converter, based on a power balance between QS circuit and DC side.
-The paramater <i>conversionFactor</i> defines the ratio between averaged DC voltage and QS rms voltage.
+The parameter <i>conversionFactor</i> defines the ratio between averaged DC voltage and QS rms voltage.
 The loss of the converter is proportional to the power transmitted at the DC side.
 The parameter <code>eps</code> is the efficiency of the transfer.
 The loss is computed as

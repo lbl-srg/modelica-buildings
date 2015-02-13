@@ -216,7 +216,7 @@ alias sets have different nominal values.
 </li>
 <li><i>July 20, 2010</i> by Michael Wetter:<br/>
        Migrated model to Modelica 3.1 and integrated it into the Buildings library.
-       Reimplemented assigment of density based on flow direction or based on outflowing state.
+       Reimplemented assignment of density based on flow direction or based on outflowing state.
 </li>
 <li><i>February 24, 2005</i> by Michael Wetter:<br/>
        Released first version.

@@ -112,7 +112,7 @@ Moved the governing equations to
 PartialTwoWayValveKv</a>
 in order to be able to extend from this partial in 
 <a href=\"modelica://Buildings.Fluid.Actuators.Valves.TwoWayPressureIndependent\">
-TwoWayPressureIndepedent</a>
+TwoWayPressureIndependent</a>
 </li>
 <li>
 August 8, 2014, by Michael Wetter:<br/>
