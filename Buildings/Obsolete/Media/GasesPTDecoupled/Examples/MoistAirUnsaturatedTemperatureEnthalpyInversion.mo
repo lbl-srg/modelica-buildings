@@ -2,7 +2,7 @@ within Buildings.Obsolete.Media.GasesPTDecoupled.Examples;
 model MoistAirUnsaturatedTemperatureEnthalpyInversion
   "Model to check computation of h(T) and its inverse"
   extends Modelica.Icons.Example;
-  extends Buildings.Obsolete.Media.BaseClasses.TestTemperatureEnthalpyInversion(
+  extends Buildings.Media.Examples.BaseClasses.TestTemperatureEnthalpyInversion(
     redeclare package Medium =
         Buildings.Obsolete.Media.Air);
   annotation (

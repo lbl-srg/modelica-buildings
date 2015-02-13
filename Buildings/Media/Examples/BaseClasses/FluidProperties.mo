@@ -1,4 +1,4 @@
-within Buildings.Media.Specialized.Water.Examples.BaseClasses;
+within Buildings.Media.Examples.BaseClasses;
 partial model FluidProperties
   "Model that tests the implementation of the fluid properties"
 
