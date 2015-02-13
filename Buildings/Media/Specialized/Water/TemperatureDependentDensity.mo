@@ -9,6 +9,7 @@ package TemperatureDependentDensity
      reference_X={1},
      final singleState=true,
      ThermoStates=Modelica.Media.Interfaces.Choices.IndependentVariables.T);
+   extends Modelica.Icons.Package;
 
   redeclare record FluidConstants =
     Modelica.Media.Interfaces.Types.Basic.FluidConstants (
@@ -802,11 +803,38 @@ First implementation.
 </li>
 </ul>
 </html>"),
-    Icon(graphics={
-        Ellipse(
-          lineColor={102,102,102},
-          fillColor={250,250,250},
-          pattern=LinePattern.None,
+    Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
+            100}}),
+        graphics={
+        Polygon(
+          points={{16,-28},{32,-42},{26,-48},{10,-36},{16,-28}},
+          lineColor={95,95,95},
           fillPattern=FillPattern.Sphere,
-          extent={{-60,-60},{60,60}})}));
+          smooth=Smooth.None,
+          fillColor={95,95,95}),
+        Polygon(
+          points={{10,34},{26,44},{30,36},{14,26},{10,34}},
+          lineColor={95,95,95},
+          fillPattern=FillPattern.Sphere,
+          smooth=Smooth.None,
+          fillColor={95,95,95}),
+        Ellipse(
+          extent={{-82,52},{24,-54}},
+          lineColor={95,95,95},
+          fillPattern=FillPattern.Sphere,
+          fillColor={0,0,0}),
+        Ellipse(
+          extent={{22,82},{80,24}},
+          lineColor={0,0,0},
+          fillPattern=FillPattern.Sphere,
+          fillColor={95,95,95}),
+        Ellipse(
+          extent={{20,-30},{78,-88}},
+          lineColor={0,0,0},
+          fillPattern=FillPattern.Sphere,
+          fillColor={95,95,95}),
+        Text(
+          extent={{-64,88},{-42,58}},
+          lineColor={255,0,0},
+          textString="T")}));
 end TemperatureDependentDensity;

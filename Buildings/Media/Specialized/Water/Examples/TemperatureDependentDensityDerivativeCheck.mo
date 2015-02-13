@@ -1,5 +1,6 @@
 within Buildings.Media.Specialized.Water.Examples;
-model TemperatureDependentDensityDerivativeCheck "Model that tests the derivative implementation"
+model TemperatureDependentDensityDerivativeCheck
+  "Model that tests the derivative implementation"
   extends Modelica.Icons.Example;
 
    package Medium = Annex60.Media.Water.Detailed;

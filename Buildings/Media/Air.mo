@@ -11,6 +11,7 @@ package Air
                              Modelica.Media.IdealGases.Common.FluidData.N2},
      reference_T=273.15,
      reference_p=101325);
+  extends Modelica.Icons.Package;
 
   constant Integer Water=1
     "Index of water (in substanceNames, massFractions X, etc.)";
@@ -774,6 +775,44 @@ are independent, which often leads to significantly faster and more robust compu
 The specific heat capacities at constant pressure and at constant volume are constant.
 The air is assumed to be not saturated.
 </p>
+<p>
+This medium uses the gas law
+</p>
+<p align=\"center\" style=\"font-style:italic;\">
+d/d<sub>stp</sub> = p/p<sub>stp</sub>
+</p>,
+where
+<i>p<sub>std</sub></i> and <i>d<sub>stp</sub></i> are constant reference
+temperature and density, rathern than the ideal gas law
+</p>
+<p align=\"center\" style=\"font-style:italic;\">
+&rho; = p &frasl;(R T).
+</p>
+<p>
+This formulation often leads to smaller systems of nonlinear equations
+because pressure and temperature are decoupled.
+</p>
+<p>
+Note that models in this package implement the equation for the internal energy as
+<p align=\"center\" style=\"font-style:italic;\">
+  u = h - p<sub>stp</sub> &frasl; &rho;<sub>stp</sub>,
+</p>
+where
+<i>u</i> is the internal energy per unit mass,
+<i>h</i> is the enthalpy per unit mass,
+<i>p<sub>stp</sub></i> is the static pressure and
+<i>&rho;<sub>stp</sub></i> is the mass density at standard pressure and temperature.
+The reason for this implementation is that in general,
+<p align=\"center\" style=\"font-style:italic;\">
+  h = u + p v,
+</p>
+from which follows that
+<p align=\"center\" style=\"font-style:italic;\">
+  u = h - p v = h - p &frasl; &rho; = h - p<sub>stp</sub> &frasl; &rho;<sub>std</sub>,
+</p>
+because <i>p &frasl; &rho; = p<sub>stp</sub> &frasl; &rho;<sub>stp</sub></i> in this medium model.
+
+</p>
 </html>", revisions="<html>
 <ul>
 <li>
@@ -844,5 +883,41 @@ August 28, 2008, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
-</html>"));
+</html>"),
+    Icon(graphics={
+        Ellipse(
+          extent={{-78,78},{-34,34}},
+          lineColor={0,0,0},
+          fillPattern=FillPattern.Sphere,
+          fillColor={120,120,120}),
+        Ellipse(
+          extent={{-18,86},{26,42}},
+          lineColor={0,0,0},
+          fillPattern=FillPattern.Sphere,
+          fillColor={120,120,120}),
+        Ellipse(
+          extent={{48,58},{92,14}},
+          lineColor={0,0,0},
+          fillPattern=FillPattern.Sphere,
+          fillColor={120,120,120}),
+        Ellipse(
+          extent={{-22,32},{22,-12}},
+          lineColor={0,0,0},
+          fillPattern=FillPattern.Sphere,
+          fillColor={120,120,120}),
+        Ellipse(
+          extent={{36,-32},{80,-76}},
+          lineColor={0,0,0},
+          fillPattern=FillPattern.Sphere,
+          fillColor={120,120,120}),
+        Ellipse(
+          extent={{-36,-30},{8,-74}},
+          lineColor={0,0,0},
+          fillPattern=FillPattern.Sphere,
+          fillColor={120,120,120}),
+        Ellipse(
+          extent={{-90,-6},{-46,-50}},
+          lineColor={0,0,0},
+          fillPattern=FillPattern.Sphere,
+          fillColor={120,120,120})}));
 end Air;

@@ -74,7 +74,8 @@ required from medium model \""     + mediumName + "\".");
     state.X = X;
   end BaseProperties;
 
-  function Xsaturation = Buildings.Obsolete.Media.PerfectGases.MoistAir.Xsaturation
+  function Xsaturation =
+      Buildings.Obsolete.Media.PerfectGases.MoistAir.Xsaturation
     "Steam water mass fraction of saturation boundary in kg_water/kg_moistair";
 
   redeclare function setState_pTX
@@ -432,5 +433,41 @@ August 18, 2008, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
-</html>"));
+</html>"),
+    Icon(graphics={
+        Ellipse(
+          extent={{-78,78},{-34,34}},
+          lineColor={0,0,0},
+          fillPattern=FillPattern.Sphere,
+          fillColor={120,120,120}),
+        Ellipse(
+          extent={{-18,86},{26,42}},
+          lineColor={0,0,0},
+          fillPattern=FillPattern.Sphere,
+          fillColor={120,120,120}),
+        Ellipse(
+          extent={{48,58},{92,14}},
+          lineColor={0,0,0},
+          fillPattern=FillPattern.Sphere,
+          fillColor={120,120,120}),
+        Ellipse(
+          extent={{-22,32},{22,-12}},
+          lineColor={0,0,0},
+          fillPattern=FillPattern.Sphere,
+          fillColor={120,120,120}),
+        Ellipse(
+          extent={{36,-32},{80,-76}},
+          lineColor={0,0,0},
+          fillPattern=FillPattern.Sphere,
+          fillColor={120,120,120}),
+        Ellipse(
+          extent={{-36,-30},{8,-74}},
+          lineColor={0,0,0},
+          fillPattern=FillPattern.Sphere,
+          fillColor={120,120,120}),
+        Ellipse(
+          extent={{-90,-6},{-46,-50}},
+          lineColor={0,0,0},
+          fillPattern=FillPattern.Sphere,
+          fillColor={120,120,120})}));
 end PerfectGas;

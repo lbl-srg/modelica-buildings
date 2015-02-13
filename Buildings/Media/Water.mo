@@ -7,6 +7,7 @@ package Water "Package with model for liquid water with constant density"
      reference_T=273.15,
      reference_X={1});
   // cp_const and cv_const have been made final because the model sets u=h.
+  extends Modelica.Icons.Package;
 
   // For the ThermodynamicState, we set start values to the default medium states
   // to provide better guesses for solvers
@@ -110,8 +111,8 @@ This medium package models liquid water.
 <p>
 The mass density is computed using a constant value of <i>995.586</i> kg/s.
 For a medium model in which the density is a function of temperature, use
-<a href=\"modelica://Buildings.Media.Water.Detailed\">
-Buildings.Media.Water.Detailed</a> which may have considerably higher computing time.
+<a href=\"modelica://Buildings.Media.Specialized.Water.TemperatureDependentDensity\">
+Buildings.Media.Specialized.Water.TemperatureDependentDensity</a> which may have considerably higher computing time.
 </p>
 <p>
 For the specific heat capacities at constant pressure and at constant volume,
@@ -148,5 +149,34 @@ had the option to add a compressibility to the medium, which
 has never been used.
 </li>
 </ul>
-</html>"));
+</html>"),
+    Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
+        graphics={
+        Polygon(
+          points={{16,-28},{32,-42},{26,-48},{10,-36},{16,-28}},
+          lineColor={95,95,95},
+          fillPattern=FillPattern.Sphere,
+          smooth=Smooth.None,
+          fillColor={95,95,95}),
+        Polygon(
+          points={{10,34},{26,44},{30,36},{14,26},{10,34}},
+          lineColor={95,95,95},
+          fillPattern=FillPattern.Sphere,
+          smooth=Smooth.None,
+          fillColor={95,95,95}),
+        Ellipse(
+          extent={{-82,52},{24,-54}},
+          lineColor={95,95,95},
+          fillPattern=FillPattern.Sphere,
+          fillColor={0,0,0}),
+        Ellipse(
+          extent={{22,82},{80,24}},
+          lineColor={0,0,0},
+          fillPattern=FillPattern.Sphere,
+          fillColor={95,95,95}),
+        Ellipse(
+          extent={{20,-30},{78,-88}},
+          lineColor={0,0,0},
+          fillPattern=FillPattern.Sphere,
+          fillColor={95,95,95})}));
 end Water;
