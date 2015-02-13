@@ -7,6 +7,6 @@ model MoistAirUnsaturatedTemperatureEnthalpyInversion
         Buildings.Obsolete.Media.GasesConstantDensity.MoistAirUnsaturated);
   annotation (
 experiment(StopTime=1.0),
-__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Media/GasesConstantDensity/Examples/MoistAirUnsaturatedTemperatureEnthalpyInversion.mos"
+__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Obsolete/Media/GasesConstantDensity/Examples/MoistAirUnsaturatedTemperatureEnthalpyInversion.mos"
         "Simulate and plot"));
 end MoistAirUnsaturatedTemperatureEnthalpyInversion;

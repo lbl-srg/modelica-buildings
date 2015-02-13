@@ -6,7 +6,7 @@ model TestSimpleAir
           Buildings.Obsolete.Media.GasesPTDecoupled.SimpleAir);
 
       annotation (experiment(StopTime=1.0),
-__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Media/GasesPTDecoupled/Examples/TestSimpleAir.mos"
+__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Obsolete/Media/GasesPTDecoupled/Examples/TestSimpleAir.mos"
         "Simulate and plot"),
     Documentation(info="<html>
 This is a simple test for the medium model. It uses the test model described in

@@ -30,7 +30,7 @@ equation
     assert(abs(hAirCod-hAirSym) < 1E-2, "Model has an error");
 
    annotation(experiment(StartTime=273.15, StopTime=373.15),
-__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Media/PerfectGases/Examples/MoistAirDerivativeCheck.mos"
+__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Obsolete/Media/PerfectGases/Examples/MoistAirDerivativeCheck.mos"
         "Simulate and plot"),
       Documentation(info="<html>
 <p>

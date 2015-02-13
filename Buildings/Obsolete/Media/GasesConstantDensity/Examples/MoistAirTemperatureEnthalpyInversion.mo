@@ -6,6 +6,6 @@ model MoistAirTemperatureEnthalpyInversion
     redeclare package Medium = Buildings.Obsolete.Media.GasesConstantDensity.MoistAir);
   annotation (
 experiment(StopTime=1.0),
-__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Media/GasesConstantDensity/Examples/MoistAirTemperatureEnthalpyInversion.mos"
+__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Obsolete/Media/GasesConstantDensity/Examples/MoistAirTemperatureEnthalpyInversion.mos"
         "Simulate and plot"));
 end MoistAirTemperatureEnthalpyInversion;

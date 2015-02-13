@@ -6,7 +6,7 @@ model TestMoistAirUnsaturated
           Buildings.Obsolete.Media.Air);
 
       annotation (experiment(StopTime=1.0),
-__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Media/GasesPTDecoupled/Examples/TestMoistAirUnsaturated.mos"
+__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Obsolete/Media/GasesPTDecoupled/Examples/TestMoistAirUnsaturated.mos"
         "Simulate and plot"),
     Documentation(info="<html>
 This is a simple test for the medium model. It uses the test model described in
