@@ -12,7 +12,7 @@ equation
 <ul>
 <li>
 November 29, 2013 by Marcus Fuchs:<br/>
-Implementation based on Funtions.quadraticLinear.
+Implementation based on Functions.quadraticLinear.
 </li>
 </ul>
 </html>"), Icon(graphics={   Text(

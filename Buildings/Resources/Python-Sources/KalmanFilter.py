@@ -37,7 +37,7 @@ def filter(u):
         xhat = d['xhat']
         P    = d['P']
     else:
-        # intial guesses
+        # initial guesses
         xhat = 0.0
         P    = 1.0
 

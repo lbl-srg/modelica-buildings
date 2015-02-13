@@ -124,7 +124,7 @@ This example tests and demonstrates the implementation of the specific internal
 energy versus temperature <i>T(u)</i> relationship for phase-change problems.
 Cubic hermite interpolation and linear extrapolation is used to approximate
 the piece-wise linear <i>T(u)</i> relationship.
-A piece-wise linear <i>T(u)</i> relationship is assumed in all three chracteristic regions (solid, mushy and liquid).
+A piece-wise linear <i>T(u)</i> relationship is assumed in all three characteristic regions (solid, mushy and liquid).
 The example uses the functions
 <a href=\"modelica://Buildings.HeatTransfer.Conduction.BaseClasses.der_temperature_u\">
 Buildings.HeatTransfer.Conduction.BaseClasses.der_temperature_u</a>

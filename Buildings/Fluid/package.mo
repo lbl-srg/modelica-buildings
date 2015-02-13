@@ -149,7 +149,7 @@ computation of the pressure drop would require detailed knowledge of the duct or
 dimensions and the flow bends and junctions. This information is often not available during
 early design. However, if a more detailed pressure drop calculation is required, then models from
 <a href=\"modelica://Modelica.Fluid\">
-Modelica.Fluid</a> can be used in conjuction with models from the <code>Buildings</code> library.
+Modelica.Fluid</a> can be used in conjunction with models from the <code>Buildings</code> library.
 </p>
 
 <p>

@@ -5,7 +5,7 @@ model DataCenterContinuousTimeControl
   extends Modelica.Icons.Example;
 
   BaseClasses.Controls.TrimAndRespondContinuousTimeApproximation triAndRes
-    "Continous time approximation for trim and response controller"
+    "Continuous time approximation for trim and response controller"
     annotation (Placement(transformation(extent={{-194,216},{-174,236}})));
 equation
   connect(feedback.y, triAndRes.u) annotation (Line(
