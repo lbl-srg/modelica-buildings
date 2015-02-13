@@ -3,13 +3,12 @@ package Water "Specialized implementation of water"
   extends Modelica.Icons.Package;
 
 
-
 annotation (preferredView="info", Documentation(info="<html>
 <p>
 This package contains specialized implementations of water.
 For typical building simulations, the media
 <a href=\"modelica://Buildings.Media.Water\">Buildings.Media.Water</a>
-should be used.
+should be used as it leads generally to faster simulation.
 </p>
 </html>"),
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),

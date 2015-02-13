@@ -384,22 +384,34 @@ end T_phX;
 
   annotation (preferredView="info", Documentation(info="<html>
 <p>
-This is a medium model that is similar to
-<a href=\"modelica://Buildings.Obsolete.Media.PerfectGases.MoistAir\">
-Buildings.Obsolete.Media.PerfectGases.MoistAir</a> but
-in this model, the air must not be saturated. If the air is saturated,
-use the medium model
-<a href=\"modelica://Buildings.Obsolete.Media.PerfectGases.MoistAir\">
-Buildings.Obsolete.Media.PerfectGases.MoistAir</a> instead of this one.
+This package contains a <i>thermally perfect</i> model of moist air.
 </p>
 <p>
-This medium model has been added to allow an explicit computation of
-the function
-<code>T_phX</code> so that it is once differentiable in <code>h</code>
-with a continuous derivative. This allows obtaining an analytic
-expression for the Jacobian, and therefore simplifies the computation
-of initial conditions that can be numerically challenging for
-thermo-fluid systems.
+A medium is called thermally perfect if
+<ul>
+<li>
+it is in thermodynamic equilibrium,
+</li><li>
+it is chemically not reacting, and
+</li><li>
+internal energy and enthalpy are functions of temperature only.
+</li>
+</ul>
+<p>
+In addition, the this medium model is <i>calorically perfect</i>, i.e., the
+specific heat capacities at constant pressure <i>c<sub>p</sub></i>
+and constant volume <i>c<sub>v</sub></i> are both constant (Bower 1998).
+</p>
+<p>
+Note that for typical building simulations, the media
+<a href=\"modelica://Buildings.Media.Air\">Buildings.Media.Air</a>
+should be used as it leads generally to faster simulation.
+</p>
+<h4>References</h4>
+<p>
+Bower, William B. <i>A primer in fluid mechanics: Dynamics of flows in one
+space dimension</i>. CRC Press. 1998.
+</p>
 </html>", revisions="<html>
 <ul>
 <li>
