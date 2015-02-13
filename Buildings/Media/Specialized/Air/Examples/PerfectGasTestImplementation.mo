@@ -6,7 +6,7 @@ model TestPerfectGas
           Buildings.Media.Specialized.Air.PerfectGas);
 
       annotation (experiment(StopTime=1.0),
-__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Media/Specialized/Air/Examples/TestPerfectGas.mos"
+__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Media/Specialized/Air/Examples/PerfectGasTestImplementation.mos"
         "Simulate and plot"),
     Documentation(info="<html>
 This is a simple test for the medium model. It uses the test model described in

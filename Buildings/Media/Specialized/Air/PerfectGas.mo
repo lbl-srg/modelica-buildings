@@ -8,6 +8,7 @@ package PerfectGas
      reference_X={0.01,0.99},
      fluidConstants = {Modelica.Media.IdealGases.Common.FluidData.H2O,
                        Modelica.Media.IdealGases.Common.FluidData.N2});
+  extends Modelica.Icons.Package;
 
   constant Integer Water=1
     "Index of water (in substanceNames, massFractions X, etc.)";
