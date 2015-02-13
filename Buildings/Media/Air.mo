@@ -779,8 +779,9 @@ The air is assumed to be not saturated.
 This medium uses the gas law
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
-d/d<sub>stp</sub> = p/p<sub>stp</sub>
-</p>,
+d/d<sub>stp</sub> = p/p<sub>stp</sub>,
+</p>
+<p>
 where
 <i>p<sub>std</sub></i> and <i>d<sub>stp</sub></i> are constant reference
 temperature and density, rathern than the ideal gas law
@@ -797,21 +798,25 @@ Note that models in this package implement the equation for the internal energy 
 <p align=\"center\" style=\"font-style:italic;\">
   u = h - p<sub>stp</sub> &frasl; &rho;<sub>stp</sub>,
 </p>
+<p>
 where
 <i>u</i> is the internal energy per unit mass,
 <i>h</i> is the enthalpy per unit mass,
 <i>p<sub>stp</sub></i> is the static pressure and
 <i>&rho;<sub>stp</sub></i> is the mass density at standard pressure and temperature.
 The reason for this implementation is that in general,
+</p>
 <p align=\"center\" style=\"font-style:italic;\">
   h = u + p v,
 </p>
+<p>
 from which follows that
+</p>
 <p align=\"center\" style=\"font-style:italic;\">
   u = h - p v = h - p &frasl; &rho; = h - p<sub>stp</sub> &frasl; &rho;<sub>std</sub>,
 </p>
+<p>
 because <i>p &frasl; &rho; = p<sub>stp</sub> &frasl; &rho;<sub>stp</sub></i> in this medium model.
-
 </p>
 </html>", revisions="<html>
 <ul>
