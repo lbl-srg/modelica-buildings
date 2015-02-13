@@ -3,7 +3,9 @@ model TemperatureDependentDensityDerivativeCheck
   "Model that tests the derivative implementation"
   extends Modelica.Icons.Example;
 
-   package Medium = Annex60.Media.Water.Detailed;
+   package Medium =
+      Buildings.Media.Specialized.Water.TemperatureDependentDensity
+    "Medium model";
 
     Modelica.SIunits.SpecificEnthalpy hLiqSym "Liquid phase enthalpy";
     Modelica.SIunits.SpecificEnthalpy hLiqCod "Liquid phase enthalpy";

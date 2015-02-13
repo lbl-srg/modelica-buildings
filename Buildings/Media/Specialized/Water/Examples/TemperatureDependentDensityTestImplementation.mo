@@ -3,7 +3,8 @@ model TemperatureDependentDensityTestImplementation
   "Model that tests the medium implementation"
   extends Modelica.Icons.Example;
   extends Modelica.Media.Examples.Tests.Components.PartialTestModel(
-     redeclare package Medium = Annex60.Media.Water.Detailed);
+     redeclare package Medium =
+        Buildings.Media.Specialized.Water.TemperatureDependentDensity);
 
       annotation (experiment(StopTime=1.0),
 __Dymola_Commands(file="modelica://Annex60/Resources/Scripts/Dymola/Media/Water/Examples/DetailedTestImplementation.mos"

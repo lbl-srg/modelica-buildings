@@ -2,8 +2,9 @@ within Buildings.Media.Specialized.Water.Examples;
 model TemperatureDependentDensityProperties
   "Model that tests the implementation of the fluid properties"
   extends Modelica.Icons.Example;
-  extends Annex60.Media.Water.Examples.BaseClasses.FluidProperties(
-    redeclare package Medium = Annex60.Media.Water.Detailed,
+  extends Buildings.Media.Water.Examples.BaseClasses.FluidProperties(
+    redeclare package Medium =
+        Buildings.Media.Specialized.Water.TemperatureDependentDensity,
     TMin=273.15,
     TMax=373.15);
 equation
