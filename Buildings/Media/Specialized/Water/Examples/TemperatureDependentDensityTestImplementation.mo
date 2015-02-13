@@ -1,4 +1,4 @@
-within Annex60.Media.Water.Examples;
+within Buildings.Media.Specialized.Water.Examples;
 model TemperatureDependentDensityTestImplementation "Model that tests the medium implementation"
   extends Modelica.Icons.Example;
   extends Modelica.Media.Examples.Tests.Components.PartialTestModel(

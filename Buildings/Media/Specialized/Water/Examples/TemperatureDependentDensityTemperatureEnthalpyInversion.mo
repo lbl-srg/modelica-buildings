@@ -1,4 +1,4 @@
-within Annex60.Media.Water.Examples;
+within Buildings.Media.Specialized.Water.Examples;
 model TemperatureDependentDensityTemperatureEnthalpyInversion
   "Model to check computation of h(T) and its inverse"
   extends Modelica.Icons.Example;

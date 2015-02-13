@@ -1,4 +1,4 @@
-within Annex60.Media.Water.Examples.BaseClasses;
+within Buildings.Media.Specialized.Water.Examples.BaseClasses;
 partial model TestTemperatureEnthalpyInversion
   "Model to check computation of h(T) and its inverse"
    replaceable package Medium =

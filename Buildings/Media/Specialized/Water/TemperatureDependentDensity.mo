@@ -1,4 +1,4 @@
-within Annex60.Media.Water;
+within Buildings.Media.Specialized.Water;
 package TemperatureDependentDensity
   "Package with model for liquid water with temperature-dependent density"
    extends Modelica.Media.Interfaces.PartialPureSubstance(

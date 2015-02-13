@@ -1,4 +1,4 @@
-within Annex60.Media.Water.Examples;
+within Buildings.Media.Specialized.Water.Examples;
 model TemperatureDependentDensityProperties
   "Model that tests the implementation of the fluid properties"
   extends Modelica.Icons.Example;

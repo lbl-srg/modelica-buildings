@@ -1,4 +1,4 @@
-within Annex60.Media.Water.Examples;
+within Buildings.Media.Specialized.Water.Examples;
 package BaseClasses "Package with base classes for Annex60.Media.Examples"
   extends Modelica.Icons.BasesPackage;
 
