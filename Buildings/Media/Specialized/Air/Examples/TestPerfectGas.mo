@@ -1,12 +1,12 @@
-within Buildings.Obsolete.Media.PerfectGases.Examples;
-model TestMoistAirUnsaturated
+within Buildings.Media.Specialized.Air.Examples;
+model TestPerfectGas
   extends Modelica.Icons.Example;
   extends Modelica.Media.Examples.Tests.Components.PartialTestModel(
      redeclare package Medium =
-          Buildings.Obsolete.Media.PerfectGases.MoistAirUnsaturated);
+          Buildings.Media.Specialized.Air.PerfectGas);
 
       annotation (experiment(StopTime=1.0),
-__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Media/PerfectGases/Examples/TestMoistAirUnsaturated.mos"
+__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Media/Specialized/Air/Examples/TestPerfectGas.mos"
         "Simulate and plot"),
     Documentation(info="<html>
 This is a simple test for the medium model. It uses the test model described in
@@ -20,4 +20,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end TestMoistAirUnsaturated;
+end TestPerfectGas;

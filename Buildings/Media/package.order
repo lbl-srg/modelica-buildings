@@ -1,8 +1,4 @@
 Air
-ConstantPropertyLiquidWater
-GasesConstantDensity
-GasesPTDecoupled
-IdealGases
-PerfectGases
-Interfaces
-BaseClasses
+Water
+Specialized
+Examples

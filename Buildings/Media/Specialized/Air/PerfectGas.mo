@@ -1,5 +1,5 @@
-within Buildings.Obsolete.Media.PerfectGases;
-package MoistAirUnsaturated
+within Buildings.Media.Specialized.Air;
+package PerfectGas
   extends Modelica.Media.Interfaces.PartialCondensingGases(
      mediumName="Moist air unsaturated perfect gas",
      substanceNames={"water", "air"},
@@ -122,7 +122,7 @@ function saturationPressureLiquid
   // Buildings.Fluid.Sensors.Examples.MassFraction
 algorithm
   psat := 611.657*Modelica.Math.exp(17.2799 - 4102.99/(Tsat - 35.719));
-  annotation(Inline=false,smoothOrder=5,derivative=Buildings.Obsolete.Media.PerfectGases.MoistAirUnsaturated.saturationPressureLiquid_der,
+  annotation(Inline=false,smoothOrder=5,derivative=Buildings.Media.Specialized.Air.PerfectGas.saturationPressureLiquid_der,
     Documentation(info="<html>
 Saturation pressure of water above the triple point temperature is computed from temperature. It's range of validity is between
 273.16 and 373.16 K. Outside these limits a less accurate result is returned.
@@ -433,4 +433,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end MoistAirUnsaturated;
+end PerfectGas;

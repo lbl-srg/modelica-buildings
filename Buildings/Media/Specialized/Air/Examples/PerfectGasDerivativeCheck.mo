@@ -1,8 +1,8 @@
-within Buildings.Obsolete.Media.PerfectGases.Examples;
-model MoistAirUnsaturatedDerivativeCheck
+within Buildings.Media.Specialized.Air.Examples;
+model PerfectGasDerivativeCheck
   extends Modelica.Icons.Example;
 
-   package Medium = Buildings.Obsolete.Media.PerfectGases.MoistAirUnsaturated;
+   package Medium = Buildings.Media.Specialized.Air.PerfectGas;
 
     Modelica.SIunits.SpecificEnthalpy hLiqSym "Liquid phase enthalpy";
     Modelica.SIunits.SpecificEnthalpy hLiqCod "Liquid phase enthalpy";
@@ -30,7 +30,7 @@ equation
     assert(abs(hAirCod-hAirSym) < 1E-2, "Model has an error");
 
    annotation(experiment(StartTime=273.15, StopTime=373.15),
-__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Media/PerfectGases/Examples/MoistAirUnsaturatedDerivativeCheck.mos"
+__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Media/Specialized/Air/Examples/PerfectGasDerivativeCheck.mos"
         "Simulate and plot"),
       Documentation(info="<html>
 <p>
@@ -46,4 +46,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end MoistAirUnsaturatedDerivativeCheck;
+end PerfectGasDerivativeCheck;
