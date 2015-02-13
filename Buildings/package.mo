@@ -269,9 +269,8 @@ have been <b style=\"color:blue\">improved</b> in a
                        Buildings.Fluid.SolarCollectors.EN12975
     </td>
     <td valign=\"top\">Reformulated the model to avoid an translation error
-                       if glycol is used.
-    </td>
-    <td valign=\"top\">Propagated parameters for initialization in base class 
+                       if glycol is used.<br/>
+                       Propagated parameters for initialization in base class 
                        <code>Buildings.Fluid.SolarCollectors.BaseClasses.PartialSolarCollector</code>
                        and set <code>prescribedHeatFlowRate=true</code>.
     </td>
@@ -552,8 +551,39 @@ have been <b style=\"color:blue\">improved</b> in a
 <tr><td colspan=\"2\"><b>Buildings.Media</b>
     </td>
 </tr>
-<tr><td valign=\"top\">Buildings.Media.ConstantPropertyLiquidWater<br/>
-                       Buildings.Media.Interfaces.PartialSimpleMedium
+<tr><td valign=\"top\">Buildings.Media
+    </td>
+<td>
+                       Renamed all media to simplify the media selection.
+                       For typical building energy simulation,
+                       <a href=\"modelica://Buildings.Media.Air\">Buildings.Media.Air</a> and
+                       <a href=\"modelica://Buildings.Media.Water\">Buildings.Media.Water</a>
+                       should be used.<br/><br/>
+                       The following changes were made.<br/>
+                       Renamed <code>Buildings.Media.GasesPTDecoupled.MoistAir</code><br/>
+                       to <code>Buildings.Media.Air</code>.<br/>
+                       Renamed <code>Buildings.Media.ConstantPropertyLiquidWater</code><br/>
+                       to <code>Buildings.Media.Water</code>.<br/>
+                       Renamed <code>Buildings.Media.PerfectGases.MoistAir</code><br/>
+                       to <code>Buildings.Obsolete.Media.PerfectGases.MoistAir</code>.<br/>
+                       Renamed <code>Buildings.Media.GasesConstantDensity.MoistAirUnsaturated</code><br/>
+                       to <code>Buildings.Obsolete.Media.GasesConstantDensity.MoistAirUnsaturated</code>.<br/>
+                       Renamed <code>Buildings.Media.GasesConstantDensity.MoistAir</code><br/>
+                       to <code>Buildings.Obsolete.Media.GasesConstantDensity.MoistAir</code>.<br/>
+                       Renamed <code>Buildings.Media.GasesConstantDensity.SimpleAir</code><br/>
+                       to <code>Buildings.Obsolete.Media.GasesConstantDensity.SimpleAir</code>.<br/>
+                       Renamed <code>Buildings.Media.IdealGases.SimpleAir</code><br/>
+                       to <code>Buildings.Obsolete.Media.IdealGases.SimpleAir</code>.<br/>
+                       Renamed <code>Buildings.Media.GasesPTDecoupled.SimpleAir</code><br/>
+                       to <code>Buildings.Obsolete.Media.GasesPTDecoupled.SimpleAir</code>.<br/><br/>
+                       For Dymola, the conversion script will
+                       update existing models according to the above list.
+
+</td>
+</tr>
+
+
+<tr><td valign=\"top\">Buildings.Media.Water
     </td>
     <td valign=\"top\">Removed option to model water as a compressible medium as
                        this option was not useful.
