@@ -1,5 +1,5 @@
 within Annex60.Media.Water.Examples;
-model DetailedTestImplementation "Model that tests the medium implementation"
+model TemperatureDependentDensityTestImplementation "Model that tests the medium implementation"
   extends Modelica.Icons.Example;
   extends Modelica.Media.Examples.Tests.Components.PartialTestModel(
      redeclare package Medium = Annex60.Media.Water.Detailed);
@@ -21,4 +21,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end DetailedTestImplementation;
+end TemperatureDependentDensityTestImplementation;

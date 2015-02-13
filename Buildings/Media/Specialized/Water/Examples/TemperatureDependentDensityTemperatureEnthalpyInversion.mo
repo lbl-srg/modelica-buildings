@@ -1,5 +1,5 @@
 within Annex60.Media.Water.Examples;
-model DetailedTemperatureEnthalpyInversion
+model TemperatureDependentDensityTemperatureEnthalpyInversion
   "Model to check computation of h(T) and its inverse"
   extends Modelica.Icons.Example;
   extends Annex60.Media.Examples.BaseClasses.TestTemperatureEnthalpyInversion(
@@ -22,4 +22,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end DetailedTemperatureEnthalpyInversion;
+end TemperatureDependentDensityTemperatureEnthalpyInversion;

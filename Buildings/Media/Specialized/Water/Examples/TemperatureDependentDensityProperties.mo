@@ -1,5 +1,5 @@
 within Annex60.Media.Water.Examples;
-model DetailedProperties
+model TemperatureDependentDensityProperties
   "Model that tests the implementation of the fluid properties"
   extends Modelica.Icons.Example;
   extends Annex60.Media.Water.Examples.BaseClasses.FluidProperties(
@@ -26,4 +26,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end DetailedProperties;
+end TemperatureDependentDensityProperties;

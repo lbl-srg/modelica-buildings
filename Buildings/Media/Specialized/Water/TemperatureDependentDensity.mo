@@ -1,5 +1,5 @@
 within Annex60.Media.Water;
-package Detailed
+package TemperatureDependentDensity
   "Package with model for liquid water with temperature-dependent density"
    extends Modelica.Media.Interfaces.PartialPureSubstance(
      mediumName="WaterDetailed",
@@ -809,4 +809,4 @@ First implementation.
           pattern=LinePattern.None,
           fillPattern=FillPattern.Sphere,
           extent={{-60,-60},{60,60}})}));
-end Detailed;
+end TemperatureDependentDensity;
