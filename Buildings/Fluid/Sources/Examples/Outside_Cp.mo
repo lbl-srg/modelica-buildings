@@ -2,8 +2,7 @@ within Buildings.Fluid.Sources.Examples;
 model Outside_Cp
   "Test model for source and sink with outside weather data and wind pressure"
   extends Modelica.Icons.Example;
-  package Medium = Buildings.Media.GasesConstantDensity.MoistAirUnsaturated
-    "Medium model for air";
+  package Medium = Buildings.Media.Air "Medium model for air";
   Buildings.Fluid.Sources.Outside_Cp bou1(
     redeclare package Medium = Medium,
     nPorts=1,

@@ -1,8 +1,8 @@
 within Buildings.Fluid.Chillers.Examples.BaseClasses;
 partial model PartialElectric
   "Base class for test model of chiller electric EIR"
- package Medium1 = Buildings.Media.ConstantPropertyLiquidWater "Medium model";
- package Medium2 = Buildings.Media.ConstantPropertyLiquidWater "Medium model";
+ package Medium1 = Buildings.Media.Water "Medium model";
+ package Medium2 = Buildings.Media.Water "Medium model";
 
   parameter Modelica.SIunits.Power P_nominal
     "Nominal compressor power (at y=1)";

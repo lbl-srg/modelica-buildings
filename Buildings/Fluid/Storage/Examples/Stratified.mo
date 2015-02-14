@@ -2,7 +2,7 @@ within Buildings.Fluid.Storage.Examples;
 model Stratified "Test model for stratified tank"
   extends Modelica.Icons.Example;
 
- package Medium = Buildings.Media.ConstantPropertyLiquidWater "Medium model";
+ package Medium = Buildings.Media.Water "Medium model";
 
   Buildings.Fluid.Storage.Stratified tanSim(
     redeclare package Medium = Medium,

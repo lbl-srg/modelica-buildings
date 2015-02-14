@@ -1,6 +1,6 @@
 within Buildings.Fluid.HeatExchangers.DXCoils.Examples;
 model MultiStage "Test model for multi stage DX coil"
-  package Medium = Buildings.Media.GasesConstantDensity.MoistAirUnsaturated;
+  package Medium = Buildings.Media.Air;
   extends Modelica.Icons.Example;
  parameter Modelica.SIunits.MassFlowRate m_flow_nominal = datCoi.sta[datCoi.nSta].nomVal.m_flow_nominal
     "Nominal mass flow rate";

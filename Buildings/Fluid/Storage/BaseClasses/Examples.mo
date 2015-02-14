@@ -5,8 +5,7 @@ package Examples "Examples for BaseClasses models"
     "Example showing the use of IndirectTankHeatExchanger"
     extends Modelica.Icons.Example;
 
-    package Medium = Buildings.Media.ConstantPropertyLiquidWater
-      "Buildings library model for water";
+    package Medium = Buildings.Media.Water "Buildings library model for water";
 
     Buildings.Fluid.Storage.BaseClasses.IndirectTankHeatExchanger indTanHex(
       nSeg=3,

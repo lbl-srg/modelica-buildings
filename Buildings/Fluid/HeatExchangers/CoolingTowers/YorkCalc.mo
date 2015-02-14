@@ -49,8 +49,7 @@ model YorkCalc
   Modelica.SIunits.Power PFan "Fan power";
 
 protected
-  package Water =  Buildings.Media.ConstantPropertyLiquidWater
-    "Medium package for water";
+  package Water =  Buildings.Media.Water "Medium package for water";
   parameter Modelica.SIunits.MassFraction FRWat0(min=0, start=1, fixed=false)
     "Ratio actual over design water mass flow ratio at nominal condition";
   parameter Modelica.SIunits.Temperature TWatIn0(fixed=false)

@@ -2,7 +2,7 @@ within Buildings.Fluid.HeatExchangers.BaseClasses.Examples;
 model HexElementLatent
   "Model that tests the basic element that is used to built heat exchanger models"
   extends Modelica.Icons.Example;
- package Medium_W = Buildings.Media.ConstantPropertyLiquidWater;
+ package Medium_W = Buildings.Media.Water;
  package Medium_A = Buildings.Media.PerfectGases.MoistAirUnsaturated;
   Buildings.Fluid.Sources.Boundary_pT sin_2(
     redeclare package Medium = Medium_A,

@@ -1,7 +1,7 @@
 within Buildings.Fluid.HeatExchangers.Radiators.Examples;
 model RadiatorEN442_2 "Test model for radiator"
   extends Modelica.Icons.Example;
- package Medium = Buildings.Media.ConstantPropertyLiquidWater "Medium model";
+ package Medium = Buildings.Media.Water "Medium model";
  parameter Modelica.SIunits.Temperature TRoo = 20+273.15 "Room temperature"
     annotation (Evaluate=false);
  parameter Modelica.SIunits.Power Q_flow_nominal = 500 "Nominal power";

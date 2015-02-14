@@ -1,8 +1,7 @@
 within Buildings.Fluid.HeatExchangers.Examples.BaseClasses;
 partial model EffectivenessNTUMassFlow
   "Partial model of epsilon-NTU coil that tests variable mass flow rates"
-  package Medium1 = Buildings.Media.ConstantPropertyLiquidWater
-    "Medium model for water";
+  package Medium1 = Buildings.Media.Water "Medium model for water";
   package Medium2 = Buildings.Media.PerfectGases.MoistAirUnsaturated
     "Medium model for air";
   parameter Modelica.SIunits.Temperature T_a1_nominal=5 + 273.15
@@ -43,7 +42,6 @@ partial model EffectivenessNTUMassFlow
     use_T_in=false,
     T=T_a1_nominal) "Source for water"
     annotation (Placement(transformation(extent={{-2,52},{18,72}})));
-
 
   Modelica.Blocks.Sources.Constant relHum(k=0.8) "Relative humidity"
     annotation (Placement(transformation(extent={{100,-70},{120,-50}})));

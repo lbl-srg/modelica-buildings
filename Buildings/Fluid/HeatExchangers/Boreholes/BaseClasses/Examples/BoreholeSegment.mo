@@ -2,8 +2,7 @@ within Buildings.Fluid.HeatExchangers.Boreholes.BaseClasses.Examples;
 model BoreholeSegment
   "Model that tests a basic segment that is used to build a borehole"
   extends Modelica.Icons.Example;
- package Medium = Buildings.Media.ConstantPropertyLiquidWater
-    "Medium in the pipes";
+ package Medium = Buildings.Media.Water "Medium in the pipes";
  parameter Buildings.HeatTransfer.Data.BoreholeFillings.Bentonite bento
     "Borehole filling material";
  Buildings.Fluid.HeatExchangers.Boreholes.BaseClasses.BoreholeSegment seg(

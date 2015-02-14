@@ -2,7 +2,7 @@ within Buildings.Fluid.Actuators.Valves.Examples;
 model TwoWayValveTable
   "Two way valve with nonlinear opening characteristics based on a table"
   extends Modelica.Icons.Example;
-  package Medium = Buildings.Media.ConstantPropertyLiquidWater "Medium";
+  package Medium = Buildings.Media.Water "Medium";
 
     Modelica.Blocks.Sources.Ramp y(
     height=1,

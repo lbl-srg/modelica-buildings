@@ -2,7 +2,7 @@ within Buildings.Fluid.Storage.Examples;
 model StratifiedLoadingUnloading "Test model for stratified tank"
   extends Modelica.Icons.Example;
 
- package Medium = Buildings.Media.ConstantPropertyLiquidWater "Medium model";
+ package Medium = Buildings.Media.Water "Medium model";
  constant Integer nSeg = 7 "Number of segments in tank";
 
  parameter Modelica.SIunits.MassFlowRate m_flow_nominal= 1*1000/3600/4;
