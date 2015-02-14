@@ -40,7 +40,7 @@ initial equation
 //---------------------------------------Eq.2---------------------------------------//
   if homotopyInitialization then
     psat_ADP_nominal=homotopy(
-      actual=Buildings.Utilities.Psychrometrics.Functions.saturationPressureLiquid(Tsat=TADP_nominal),
+      actual=Buildings.Utilities.Psychrometrics.Functions.saturationPressureLiquid(TADP_nominal),
       simplified=1252.393+83.933*(TADP_nominal-283.15));
   else // do not use homotopy
     psat_ADP_nominal=Buildings.Utilities.Psychrometrics.Functions.saturationPressureLiquid(TADP_nominal);
@@ -65,7 +65,7 @@ initial equation
         phi=phiADP_nominal);
   end if;
 //-----------------------------------uACp calculations-----------------------------//
-  hADP_nominal = Medium.h_pTX(
+  hADP_nominal = Medium.specificEnthalpy_pTX(
               p=per.p_nominal,
               T=TADP_nominal,
               X=cat(1,{XADP_nominal}, {1-sum({XADP_nominal})}));

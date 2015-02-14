@@ -17,7 +17,7 @@ record NominalCondition
         phi=per.phiIn_nominal)
     "Rated/Nominal mass fraction of air entering coil";
   final parameter Modelica.SIunits.SpecificEnthalpy hEvaIn_nominal=
-   Medium.h_pTX(
+   Medium.specificEnthalpy_pTX(
      p=per.p_nominal,
      T=per.TEvaIn_nominal,
      X=cat(1,{XEvaIn_nominal}, {1-sum({XEvaIn_nominal})}))
