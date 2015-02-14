@@ -146,7 +146,7 @@ initial equation
   // be used here because blocks cannot be used to assign parameter
   // values.
   XEvaWetBulOut_nominal   = Buildings.Utilities.Psychrometrics.Functions.X_pSatpphi(
-      pSat=  Medium.saturationPressureLiquid(Tsat=TEvaWetBulOut_nominal),
+      pSat=  Buildings.Utilities.Psychrometrics.Functions.saturationPressureLiquid(Tsat=TEvaWetBulOut_nominal),
       p=     nomVal.p_nominal,
       phi=   1);
   TEvaWetBulOut_nominal = (TEvaOut_nominal
@@ -219,7 +219,7 @@ equation
       // an iteration would be done. This would be inefficient because
       // the wet bulb conditions are only needed in this branch.
       XEvaWetBulOut = Buildings.Utilities.Psychrometrics.Functions.X_pSatpphi(
-        pSat=  Medium.saturationPressureLiquid(Tsat=TEvaWetBulOut),
+        pSat=  Buildings.Utilities.Psychrometrics.Functions.saturationPressureLiquid(Tsat=TEvaWetBulOut),
         p=     nomVal.p_nominal,
         phi=   1);
       TEvaWetBulOut = (TEvaOut * ((1-XEvaOut) * cpAir_nominal + XEvaOut * cpSte_nominal)
