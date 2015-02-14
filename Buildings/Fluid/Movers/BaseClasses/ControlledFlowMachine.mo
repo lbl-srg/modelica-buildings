@@ -23,7 +23,7 @@ model ControlledFlowMachine
   constant Boolean control_m_flow "= false to control head instead of m_flow"
     annotation(Evaluate=true);
 
-  parameter Data.FlowControlled per "Record with performance data"
+  replaceable parameter Data.FlowControlled per "Record with performance data"
     annotation (choicesAllMatching=true,
       Placement(transformation(extent={{60,-80},{80,-60}})));
 
