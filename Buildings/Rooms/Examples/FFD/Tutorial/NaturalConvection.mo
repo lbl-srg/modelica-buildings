@@ -2,7 +2,7 @@ within Buildings.Rooms.Examples.FFD.Tutorial;
 model NaturalConvection "Tutorial for Natural Convection case"
   extends Modelica.Icons.Example;
   package MediumA =
-      Buildings.Media.GasesConstantDensity.MoistAirUnsaturated (
+      Buildings.Media.Air (
         T_default=283.15) "Medium model";
   parameter Integer nConExtWin=0 "Number of constructions with a window";
   parameter Integer nConBou=0

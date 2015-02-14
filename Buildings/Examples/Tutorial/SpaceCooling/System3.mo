@@ -6,7 +6,7 @@ model System3
       Buildings.Media.Air;
 
   replaceable package MediumW =
-      Buildings.Media.ConstantPropertyLiquidWater;
+      Buildings.Media.Water;
 
   Fluid.MixingVolumes.MixingVolume vol(
     redeclare package Medium = MediumA,

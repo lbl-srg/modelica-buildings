@@ -7,7 +7,7 @@ model System2
 
 //-------------------------Step 2: Water as medium-------------------------//
   replaceable package MediumW =
-      Buildings.Media.ConstantPropertyLiquidWater "Medium model";
+      Buildings.Media.Water "Medium model";
 //-------------------------------------------------------------------------//
 
 //------------------------Step 4: Design conditions------------------------//

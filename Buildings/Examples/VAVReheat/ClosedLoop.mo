@@ -4,8 +4,7 @@ model ClosedLoop
   extends Modelica.Icons.Example;
   replaceable package MediumA =
       Buildings.Media.Air;
-  package MediumW = Buildings.Media.ConstantPropertyLiquidWater
-    "Medium model for water";
+  package MediumW = Buildings.Media.Water "Medium model for water";
 
   parameter Modelica.SIunits.Volume VRooCor=2698 "Room volume corridor";
   parameter Modelica.SIunits.Volume VRooSou=568.77 "Room volume south";

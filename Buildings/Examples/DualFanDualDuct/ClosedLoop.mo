@@ -4,8 +4,7 @@ model ClosedLoop "Closed loop model of a dual-fan dual-duct system"
 
   replaceable package MediumA =
       Buildings.Media.Air;
-  package MediumW = Buildings.Media.ConstantPropertyLiquidWater
-    "Medium model for water";
+  package MediumW = Buildings.Media.Water "Medium model for water";
 
   parameter Real yFan_start=0.0 "Initial or guess value of output (= state)";
   parameter Boolean dynamicBalanceJunction=true

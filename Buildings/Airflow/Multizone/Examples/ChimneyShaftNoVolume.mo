@@ -2,7 +2,7 @@ within Buildings.Airflow.Multizone.Examples;
 model ChimneyShaftNoVolume
   "Model that demonstrates the chimney effect with a steady-state model of a shaft"
   extends Modelica.Icons.Example;
-  package Medium = Buildings.Media.IdealGases.SimpleAir;
+  package Medium = Buildings.Media.Air;
 
   Fluid.MixingVolumes.MixingVolume roo(
     V=2.5*5*5,

@@ -16,7 +16,7 @@ model AirHeatMassBalance "Test model for air heat and mass balance"
     final datConPar=datConPar,
     final datConBou=datConBou,
     final surBou=surBou,
-    redeclare package Medium = Buildings.Media.IdealGases.SimpleAir,
+    redeclare package Medium = Buildings.Media.Air,
     m_flow_nominal=0.1,
     V=10,
     conMod=Buildings.HeatTransfer.Types.InteriorConvection.Fixed,

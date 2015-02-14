@@ -5,7 +5,7 @@ model System4
   replaceable package MediumA =
       Buildings.Media.Air;
   replaceable package MediumW =
-      Buildings.Media.ConstantPropertyLiquidWater "Medium model";
+      Buildings.Media.Water "Medium model";
 
   parameter Modelica.SIunits.HeatFlowRate Q_flow_nominal = 20000
     "Nominal heat flow rate of radiator";

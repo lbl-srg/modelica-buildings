@@ -1,7 +1,7 @@
 within Buildings.Airflow.Multizone.Examples;
 model ClosedDoors "Model with three closed doors"
   extends Modelica.Icons.Example;
-  package Medium = Buildings.Media.IdealGases.SimpleAir;
+  package Medium = Buildings.Media.Air;
 
   Buildings.Airflow.Multizone.DoorDiscretizedOperable dooAB(
     redeclare package Medium = Medium,
