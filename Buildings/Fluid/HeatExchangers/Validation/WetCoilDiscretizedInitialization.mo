@@ -1,5 +1,5 @@
-within Buildings.Fluid.HeatExchangers.Examples;
-model WetCoilDiscretizedGasesPTDecoupled
+within Buildings.Fluid.HeatExchangers.Validation;
+model WetCoilDiscretizedInitialization
   "Model that demonstrates use of a finite volume model of a heat exchanger with condensation"
   extends
     Buildings.Fluid.HeatExchangers.Examples.BaseClasses.WetCoilDiscretized(
@@ -8,7 +8,7 @@ model WetCoilDiscretizedGasesPTDecoupled
   extends Modelica.Icons.Example;
   annotation (
 experiment(StopTime=360),
-__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/Examples/WetCoilDiscretizedGasesPTDecoupled.mos"
+__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/Validation/WetCoilDiscretizedInitialization.mos"
         "Simulate and plot"),
     Documentation(info="<html>
 <p>
@@ -27,4 +27,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end WetCoilDiscretizedGasesPTDecoupled;
+end WetCoilDiscretizedInitialization;
