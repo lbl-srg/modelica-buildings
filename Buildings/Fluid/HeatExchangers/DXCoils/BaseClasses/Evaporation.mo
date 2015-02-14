@@ -109,10 +109,10 @@ protected
     "Difference in water vapor concentration that drives mass transfer";
 
   constant Modelica.SIunits.SpecificHeatCapacity cpAir_nominal=
-     Buildings.Media.PerfectGases.Common.SingleGasData.Air.cp
+     Buildings.Utilities.Psychrometrics.Constants.cpAir
     "Specific heat capacity of air";
   constant Modelica.SIunits.SpecificHeatCapacity cpSte_nominal=
-     Buildings.Media.PerfectGases.Common.SingleGasData.H2O.cp
+     Buildings.Utilities.Psychrometrics.Constants.cpSte
     "Specific heat capacity of water vapor";
 initial equation
   QSen_flow_nominal=nomVal.SHR_nominal * nomVal.Q_flow_nominal;
