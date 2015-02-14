@@ -242,7 +242,7 @@ and the heat storage within the fluid and the borehole filling.
 <p>
 This model computes the different thermal resistances present
 in a single-U-tube borehole using the method of Bauer et al. (2011)
-and computing explicitely the fluid-to-ground thermal resistance
+and computing explicitly the fluid-to-ground thermal resistance
 <i>R<sub>b</sub></i> and the
 grout-to-grout resistance
 <i>R<sub>a</sub></i> as defined by Hellstroem (1991)

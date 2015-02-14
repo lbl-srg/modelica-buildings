@@ -172,7 +172,7 @@ to compute the efficiency, which is defined as
 </p>
 <p>
 where
-<i>Q&#775;</i> is the heat transfered to the working fluid (typically water or air), and
+<i>Q&#775;</i> is the heat transferred to the working fluid (typically water or air), and
 <i>Q&#775;<sub>f</sub></i> is the heat of combustion released by the fuel.
 </p>
 <p>

@@ -144,7 +144,7 @@ equation
     Documentation(info="<html>
 <p>
 This is an DC DC converter, based on a power balance between DC and DC side.
-The paramater <i>conversionFactor</i> defines the ratio between the two averaged DC voltages
+The parameter <i>conversionFactor</i> defines the ratio between the two averaged DC voltages
 The loss of the converter is proportional to the power transmitted to the second DC side.
 The parameter <code>eps</code> is the efficiency of the transfer.
 The loss is computed as

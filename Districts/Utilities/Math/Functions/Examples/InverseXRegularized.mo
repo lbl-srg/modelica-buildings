@@ -2,7 +2,7 @@ within Districts.Utilities.Math.Functions.Examples;
 model InverseXRegularized
   "Test problem for function that replaces 1/x around the origin by a twice continuously differentiable function"
   extends Modelica.Icons.Example;
-  Real x "Indepedent variable";
+  Real x "Independent variable";
   parameter Real delta = 0.5 "Small value for approximation";
   Real y "Function value";
   Real xInv "Function value";

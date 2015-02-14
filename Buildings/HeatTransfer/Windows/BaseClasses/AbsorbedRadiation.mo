@@ -64,7 +64,7 @@ protected
 initial equation
   //**************************************************************
   // Assign coefficients.
-  // Data dimension changes from Orginal ([1 : HEM]) to New ([2 : HEM+1])
+  // Data dimension changes from Original ([1 : HEM]) to New ([2 : HEM+1])
   // with 2 dummy variable for interpolation.
   //**************************************************************
   // Glass

@@ -7,7 +7,7 @@ model ACDCConverter "AC DC converter"
 <p>
 This is a converter from 3 phase AC to DC power, based on a power balance between both circuit sides.
 All three AC phases will have the same power transmitted.
-The paramater <i>conversionFactor</i> defines the ratio between the DC voltage and the averaged QS rms.
+The parameter <i>conversionFactor</i> defines the ratio between the DC voltage and the averaged QS rms.
 The loss of the converter is proportional to the power transmitted at the DC side.
 The parameter <code>eps</code> is the efficiency of the transfer.
 The loss is computed as

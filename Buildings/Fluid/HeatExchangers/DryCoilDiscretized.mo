@@ -85,9 +85,9 @@ model DryCoilDiscretized
     annotation(Dialog(tab="General", group="Initialization"));
 
   Modelica.SIunits.HeatFlowRate Q1_flow
-    "Heat transfered from solid into medium 1";
+    "Heat transferred from solid into medium 1";
   Modelica.SIunits.HeatFlowRate Q2_flow
-    "Heat transfered from solid into medium 2";
+    "Heat transferred from solid into medium 2";
 
   Buildings.Fluid.HeatExchangers.BaseClasses.CoilRegister hexReg[nReg](
     redeclare each package Medium1 = Medium1,
