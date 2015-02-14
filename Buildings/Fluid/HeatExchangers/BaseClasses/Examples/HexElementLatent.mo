@@ -3,7 +3,7 @@ model HexElementLatent
   "Model that tests the basic element that is used to built heat exchanger models"
   extends Modelica.Icons.Example;
  package Medium_W = Buildings.Media.Water;
- package Medium_A = Buildings.Media.PerfectGases.MoistAirUnsaturated;
+ package Medium_A = Buildings.Media.Air;
   Buildings.Fluid.Sources.Boundary_pT sin_2(
     redeclare package Medium = Medium_A,
     use_p_in=true,

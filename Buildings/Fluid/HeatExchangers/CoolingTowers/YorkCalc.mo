@@ -104,8 +104,8 @@ initial equation
          abs(Medium.specificEnthalpy_pTX(p=101325, T=293.15, X=Medium.X_default) -
              Water.specificEnthalpy_pTX(p=101325, T=293.15, X=Medium.X_default)) < 1E-5,
          "The selected medium has an enthalpy computation that is not consistent
-  with the one in Buildings.Media.ConstantPropertyLiquidWater
-  Use a different medium, such as Buildings.Media.ConstantPropertyLiquidWater.");
+  with the one in Buildings.Media.Water
+  Use a different medium, such as Buildings.Media.Water.");
 equation
   // States at the inlet and outlet
 
@@ -268,8 +268,8 @@ control law to compute the input signal <code>y</code>.
 <h4>Assumptions and limitations</h4>
 <p>
 This model requires a medium that has the same computation of the enthalpy as
-<a href=\"Buildings.Media.ConstantPropertyLiquidWater\">
-Buildings.Media.ConstantPropertyLiquidWater</a>,
+<a href=\"Buildings.Media.Water\">
+Buildings.Media.Water</a>,
 which computes
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
