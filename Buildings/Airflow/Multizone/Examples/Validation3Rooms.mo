@@ -3,7 +3,7 @@ model Validation3Rooms
   "Model with three rooms for the validation of the multizone air exchange models"
   extends Modelica.Icons.Example;
 
-  package Medium = Buildings.Media.Air (                extraPropertiesNames={"CO2"});
+  package Medium = Buildings.Media.Air(extraPropertiesNames={"CO2"});
 
   Buildings.Fluid.MixingVolumes.MixingVolume volEas(
     redeclare package Medium = Medium,
