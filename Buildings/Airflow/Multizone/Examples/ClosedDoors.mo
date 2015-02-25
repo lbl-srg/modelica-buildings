@@ -1,7 +1,7 @@
 within Buildings.Airflow.Multizone.Examples;
 model ClosedDoors "Model with three closed doors"
   extends Modelica.Icons.Example;
-  package Medium = Buildings.Media.Air;
+  package Medium = Buildings.Media.Specialized.Air.PerfectGas;
 
   Buildings.Airflow.Multizone.DoorDiscretizedOperable dooAB(
     redeclare package Medium = Medium,
@@ -129,6 +129,15 @@ each other through three doors that all have the same geometry.
 All doors are closed, but they are not air-tight.
 Heat is added and removed from <code>volB</code> which induces
 a small air flow through the doors.
+</p>
+<p>
+This model uses
+<a href=\"modelica://Buildings.Media.Specialized.Air.PerfectGas\">
+Buildings.Media.Specialized.Air.PerfectGas</a>
+as the medium because
+<a href=\"modelica://Buildings.Media.Air\">
+Buildings.Media.Air</a>
+does not account for expansion if air the air is heated.
 </p>
 </html>", revisions="<html>
 <ul>
