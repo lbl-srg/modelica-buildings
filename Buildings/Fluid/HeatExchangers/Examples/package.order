@@ -9,6 +9,5 @@ Heater_T
 Heater_u
 WetCoilCounterFlowMassFlow
 WetCoilCounterFlowPControl
-WetCoilDiscretizedGasesConstantDensity
 WetCoilDiscretizedPControl
 BaseClasses
