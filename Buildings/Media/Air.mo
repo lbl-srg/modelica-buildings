@@ -629,7 +629,7 @@ end thermalConductivity;
 //////////////////////////////////////////////////////////////////////
 // Protected classes.
 // These classes are only of use within this medium model.
-// Equipment models generally have no need to access them.
+// Models generally have no need to access them.
 // Therefore, they are made protected. This also allows to redeclare the
 // medium model with another medium model that does not provide an
 // implementation of these classes.
@@ -688,7 +688,7 @@ First implementation.
   constant Modelica.SIunits.MolarMass[2] MMX={steam.MM,dryair.MM}
     "Molar masses of components";
 
-   constant Modelica.SIunits.SpecificEnergy h_fg=
+  constant Modelica.SIunits.SpecificEnergy h_fg=
     Buildings.Utilities.Psychrometrics.Constants.h_fg
     "Latent heat of evaporation of water";
   constant Modelica.SIunits.SpecificHeatCapacity cpWatLiq=
