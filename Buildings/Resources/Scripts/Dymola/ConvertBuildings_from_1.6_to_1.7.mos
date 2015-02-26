@@ -76,7 +76,7 @@ convertElement({"Buildings.Fluid.FixedResistances.Pipe"},
                 "res", "preDro");
 
 // Media conversion.
-convertClass("Buildings.Media.GasesPTDecoupled.MoistAir",
+convertClass("Buildings.Media.GasesPTDecoupled.MoistAirUnsaturated",
              "Buildings.Media.Air");
 convertClass("Buildings.Media.ConstantPropertyLiquidWater",
              "Buildings.Media.Water");
@@ -91,5 +91,7 @@ convertClass("Buildings.Media.GasesConstantDensity.SimpleAir",
              "Buildings.Obsolete.Media.GasesConstantDensity.SimpleAir");
 convertClass("Buildings.Media.IdealGases.SimpleAir",
              "Buildings.Obsolete.Media.IdealGases.SimpleAir");
+convertClass("Buildings.Media.GasesPTDecoupled.MoistAir",
+             "Buildings.Obsolete.Media.GasesPTDecoupled.MoistAir");
 convertClass("Buildings.Media.GasesPTDecoupled.SimpleAir",
              "Buildings.Obsolete.Media.GasesPTDecoupled.SimpleAir");

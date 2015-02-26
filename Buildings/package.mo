@@ -559,21 +559,23 @@ have been <b style=\"color:blue\">improved</b> in a
                        <a href=\"modelica://Buildings.Media.Air\">Buildings.Media.Air</a> and
                        <a href=\"modelica://Buildings.Media.Water\">Buildings.Media.Water</a>
                        should be used.<br/><br/>
-                       The following changes were made.<br/>
-                       Renamed <code>Buildings.Media.GasesPTDecoupled.MoistAir</code><br/>
-                       to <code>Buildings.Media.Air</code>.<br/>
+                       The following changes were made.<br/><br/>
+                       Renamed <code>Buildings.Media.GasesPTDecoupled.MoistAirUnsaturated</code><br/>
+                       to <code>Buildings.Media.Air</code>.<br/><br/>
                        Renamed <code>Buildings.Media.ConstantPropertyLiquidWater</code><br/>
-                       to <code>Buildings.Media.Water</code>.<br/>
+                       to <code>Buildings.Media.Water</code>.<br/><br/>
                        Renamed <code>Buildings.Media.PerfectGases.MoistAir</code><br/>
-                       to <code>Buildings.Obsolete.Media.PerfectGases.MoistAir</code>.<br/>
+                       to <code>Buildings.Obsolete.Media.PerfectGases.MoistAir</code>.<br/><br/>
                        Renamed <code>Buildings.Media.GasesConstantDensity.MoistAirUnsaturated</code><br/>
-                       to <code>Buildings.Obsolete.Media.GasesConstantDensity.MoistAirUnsaturated</code>.<br/>
+                       to <code>Buildings.Obsolete.Media.GasesConstantDensity.MoistAirUnsaturated</code>.<br/><br/>
                        Renamed <code>Buildings.Media.GasesConstantDensity.MoistAir</code><br/>
-                       to <code>Buildings.Obsolete.Media.GasesConstantDensity.MoistAir</code>.<br/>
+                       to <code>Buildings.Obsolete.Media.GasesConstantDensity.MoistAir</code>.<br/><br/>
                        Renamed <code>Buildings.Media.GasesConstantDensity.SimpleAir</code><br/>
-                       to <code>Buildings.Obsolete.Media.GasesConstantDensity.SimpleAir</code>.<br/>
+                       to <code>Buildings.Obsolete.Media.GasesConstantDensity.SimpleAir</code>.<br/><br/>
                        Renamed <code>Buildings.Media.IdealGases.SimpleAir</code><br/>
-                       to <code>Buildings.Obsolete.Media.IdealGases.SimpleAir</code>.<br/>
+                       to <code>Buildings.Obsolete.Media.IdealGases.SimpleAir</code>.<br/><br/>
+                       Renamed <code>Buildings.Media.GasesPTDecoupled.MoistAir</code><br/>
+                       to <code>Buildings.Obsolete.Media.GasesPTDecoupled.MoistAir</code>.<br/><br/>
                        Renamed <code>Buildings.Media.GasesPTDecoupled.SimpleAir</code><br/>
                        to <code>Buildings.Obsolete.Media.GasesPTDecoupled.SimpleAir</code>.<br/><br/>
                        For Dymola, the conversion script will
