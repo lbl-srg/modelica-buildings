@@ -779,19 +779,33 @@ The air is assumed to be not saturated.
 This medium uses the gas law
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
-d/d<sub>stp</sub> = p/p<sub>stp</sub>,
+&rho;/&rho;<sub>stp</sub> = p/p<sub>stp</sub>,
 </p>
 <p>
 where
-<i>p<sub>std</sub></i> and <i>d<sub>stp</sub></i> are constant reference
+<i>p<sub>std</sub></i> and <i>&rho;<sub>stp</sub></i> are constant reference
 temperature and density, rathern than the ideal gas law
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
-&rho; = p &frasl;(R T).
+&rho; = p &frasl;(R T),
+</p>
+<p>
+where <i>R</i> is the gas constant and <i>T</i> is the temperature.
 </p>
 <p>
 This formulation often leads to smaller systems of nonlinear equations
-because pressure and temperature are decoupled.
+because equations for pressure and temperature are decoupled.
+Therefore, if air inside a control volume such as room air is heated, it
+does not increase its specific volume. Consequently, merely heating or cooling
+a control volume does not affect the air flow calculations in a duct network
+that may be connected to that volume.
+Note that multizone air exchange simulation in which buoyancy drives the
+air flow is still possible as the models in
+<a href=\"modelica://Buildings.Airflow.Multizone\">
+Buildings.Airflow.Multizone</a> compute the mass density using the function
+<a href=\"modelica://Buildings.Utilities.Psychrometrics.Functions.density_pTX\">
+Buildings.Utilities.Psychrometrics.Functions.density_pTX</a> in which density
+is a function of temperature.
 </p>
 <p>
 Note that models in this package implement the equation for the internal energy as
@@ -817,6 +831,10 @@ from which follows that
 </p>
 <p>
 because <i>p &frasl; &rho; = p<sub>stp</sub> &frasl; &rho;<sub>stp</sub></i> in this medium model.
+</p>
+<p>
+The enthalpy is computed using the convention that <i>h=0</i>
+if <i>T=0</i> &deg;C and no water vapor is present.
 </p>
 </html>", revisions="<html>
 <ul>

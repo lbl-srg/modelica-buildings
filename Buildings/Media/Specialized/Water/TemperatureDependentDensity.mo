@@ -758,6 +758,9 @@ a constant value of <i>4184</i> J/(kg K), which corresponds to <i>20</i>&deg;C
 is used.
 The figure below shows the relative error of the specific heat capacity that
 is introduced by this simplification.
+Using a constant value for the specific heat capacity allows to compute
+temperature from enthalpy without having to solve an implicit equation,
+and therefore leads to faster simulation.
 </p>
 <p align=\"center\">
 <img src=\"modelica://Buildings/Resources/Images/Media/Water/plotCp.png\" border=\"1\"

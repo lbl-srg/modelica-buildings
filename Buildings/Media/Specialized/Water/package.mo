@@ -5,7 +5,7 @@ package Water "Specialized implementation of water"
 
 annotation (preferredView="info", Documentation(info="<html>
 <p>
-This package contains specialized implementations of water.
+This package contains a specialized implementation of water.
 For typical building simulations, the media
 <a href=\"modelica://Buildings.Media.Water\">Buildings.Media.Water</a>
 should be used as it leads generally to faster simulation.
