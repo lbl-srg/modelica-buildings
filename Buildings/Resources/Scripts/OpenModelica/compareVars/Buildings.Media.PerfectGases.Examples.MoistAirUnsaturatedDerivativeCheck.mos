@@ -1,9 +1,0 @@
-compareVars :=
-  {
-    "der(hLiqSym)",
-    "der(hLiqCod)",
-    "der(hSteSym)",
-    "der(hSteCod)",
-    "der(hAirSym)",
-    "der(hAirCod)"
-  };

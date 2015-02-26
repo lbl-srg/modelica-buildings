@@ -4,8 +4,7 @@ model MixedAirHeatMassBalance "Test model for air heat and mass balance"
   extends
     Buildings.Rooms.BaseClasses.Examples.BaseClasses.PartialInfraredRadiation(
     nConExt=1, nConExtWin=0, nConBou=0, nSurBou=0, nConPar=0);
-  package Medium = Buildings.Media.GasesConstantDensity.MoistAirUnsaturated
-    "Medium model";
+  package Medium = Buildings.Media.Air "Medium model";
 
   Buildings.Rooms.BaseClasses.MixedAirHeatMassBalance air(
     nConExt=nConExt,

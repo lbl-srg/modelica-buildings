@@ -3,9 +3,8 @@ model TestBedX3WithRadiantFloor
   "Example model of test cells X3A and X3B connected to form test bed X3"
   extends Modelica.Icons.Example;
 
-  package Air = Buildings.Media.GasesConstantDensity.MoistAirUnsaturated
-    "Air model used in the example model";
-  package Water = Buildings.Media.ConstantPropertyLiquidWater
+  package Air = Buildings.Media.Air "Air model used in the example model";
+  package Water = Buildings.Media.Water
     "Water model used in the radiant slab loop";
 
   Buildings.Rooms.FLEXLAB.Rooms.X3B.TestCell X3B(redeclare package Medium = Air,

@@ -9,13 +9,17 @@ algorithm
   y := Buildings.Utilities.Math.Functions.spliceFunction(
        pos=x1, neg=x2, x=x2-x1, deltax=deltaX);
   annotation (
-Documentation(info="<html>
+Documentation(smoothOrder = 1,info="<html>
 <p>
 Once continuously differentiable approximation to the <code>min(.,.)</code> function.
 </p>
 </html>",
 revisions="<html>
 <ul>
+<li>
+February 5, 2015, by Filip Jorissen:<br/>
+Added <code>smoothOrder = 1</code>.
+</li>
 <li>
 August 15, 2008, by Michael Wetter:<br/>
 First implementation.

@@ -3,7 +3,7 @@ model Pipe "Pipe with finite volume discretization along flow path"
   extends Buildings.Fluid.FixedResistances.BaseClasses.Pipe(
    diameter=sqrt(4*m_flow_nominal/rho_default/v_nominal/Modelica.Constants.pi),
    dp_nominal=2*dpStraightPipe_nominal,
-   res(dp(nominal=length*10)));
+   preDro(dp(nominal=length*10)));
   // Because dp_nominal is a non-literal value, we set
   // dp.nominal=100 instead of the default dp.nominal=dp_nominal,
   // because the latter is ignored by Dymola 2012 FD 01.
@@ -94,7 +94,7 @@ by the user.
 The default value for <code>dp_nominal</code> is two times the pressure drop that the pipe
 would have if it were straight with no fittings.
 The factor of two that takes into account the pressure loss of fittings can be overwritten.
-These fittings could also be explicitely modeled outside of this component using models from
+These fittings could also be explicitly modeled outside of this component using models from
 the package
 <a href=\"modelica://Modelica.Fluid.Fittings\">
 Modelica.Fluid.Fittings</a>.
@@ -110,6 +110,11 @@ Buildings.Fluid.FixedResistances.FixedResistanceDpM</a> instead of this model.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+February 5, 2015, by Michael Wetter:<br/>
+Renamed <code>res</code> to <code>preDro</code> for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/292\">#292</a>.
+</li>
 <li>
 September 13, 2013 by Michael Wetter:<br/>
 Replaced <code>nominal</code> with <code>default</code> values

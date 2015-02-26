@@ -4,7 +4,7 @@ function establishClientSocket "Establishes the client socket connection"
   input String xmlFileName = "socket.cfg"
     "Name of xml file that contains the socket information";
   output Integer socketFD
-    "Socket file descripter, or a negative value if an error occured";
+    "Socket file descripter, or a negative value if an error occurred";
   external "C"
      socketFD=establishModelicaClient(xmlFileName)
        annotation(Library="bcvtb_modelica",

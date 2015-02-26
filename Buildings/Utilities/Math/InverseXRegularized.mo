@@ -12,7 +12,7 @@ equation
 <ul>
 <li>
 November 29, 2013, by Marcus Fuchs:<br/>
-Implementation based on Funtions.inverseXRegularized.
+Implementation based on Functions.inverseXRegularized.
 </li>
 </ul>
 </html>"), Icon(graphics={   Text(

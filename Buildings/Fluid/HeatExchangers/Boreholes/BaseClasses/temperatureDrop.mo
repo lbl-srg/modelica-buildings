@@ -18,7 +18,7 @@ input Modelica.SIunits.SpecificHeatCapacity c
 output Modelica.SIunits.TemperatureDifference dT "Temperature drop of the soil";
 protected
  Modelica.SIunits.Time minSamplePeriod= rExt^2/(4*(k/c/d)*3.8)
-    "Minimal lenght of the sampling period";
+    "Minimal length of the sampling period";
  Modelica.SIunits.HeatFlowRate QL_flow
     "Intermediate variable for heat flow rate at the lower bound of the time interval";
  Modelica.SIunits.HeatFlowRate QU_flow
@@ -70,7 +70,7 @@ where <i>r</i> is the radius for which the temperature is computed,
 <i>k</i> is the thermal conductivity of the material,
 <i>W</i> is a solution of the heat conduction in polar coordinates and
 <i>q<sub>i</sub>=Q<sub>i</sub>/h</i> is
-the specific rate of heat extraction per unit lenght at time
+the specific rate of heat extraction per unit length at time
 <i>t=i &Delta;t</i>.
 The value of
 <i>W</i> is obtained using

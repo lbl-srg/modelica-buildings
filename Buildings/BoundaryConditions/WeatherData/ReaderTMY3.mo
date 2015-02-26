@@ -364,7 +364,7 @@ protected
   // By default, it is enabled. This introduces a nonlinear equation, but
   // we have not observed an increase in computing time because of this equation.
   Buildings.Utilities.Psychrometrics.TWetBul_TDryBulPhi tWetBul_TDryBulXi(
-      redeclare package Medium = Buildings.Media.PerfectGases.MoistAir,
+      redeclare package Medium = Buildings.Media.Air,
       TDryBul(displayUnit="degC")) if computeWetBulbTemperature
     annotation (Placement(transformation(extent={{244,-66},{264,-46}})));
 

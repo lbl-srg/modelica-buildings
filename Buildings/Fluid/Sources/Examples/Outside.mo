@@ -1,8 +1,7 @@
 within Buildings.Fluid.Sources.Examples;
 model Outside "Test model for source and sink with outside weather data"
   extends Modelica.Icons.Example;
-  package Medium = Buildings.Media.GasesConstantDensity.MoistAirUnsaturated
-    "Medium model for air";
+  package Medium = Buildings.Media.Air "Medium model for air";
   Buildings.Fluid.Sources.Outside bou(redeclare package Medium = Medium, nPorts=
        1) "Model with outside conditions"
     annotation (Placement(transformation(extent={{-50,20},{-30,40}})));

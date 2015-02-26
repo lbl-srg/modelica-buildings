@@ -4,15 +4,13 @@ package Media "Package with medium models"
 
   annotation (preferredView="info", Documentation(info="<html>
 <p>
-This package contains different implementations for
-various media.
+This package contains media models for water and moist air.
 The media models in this package are
 compatible with
 <a href=\"modelica://Modelica.Media\">
 Modelica.Media</a>
 but the implementation is in general simpler, which often
-leads to easier numerical problems and better convergence of the
-models.
+leads to more efficient simulation.
 Due to the simplifications, the media model of this package
 are generally accurate for a smaller temperature range than the
 models in <a href=\"modelica://Modelica.Media\">

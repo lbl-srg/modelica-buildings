@@ -162,6 +162,11 @@ to <b style=\"color:blue\">existing</b> libraries:
 <tr><td colspan=\"2\"><b>Buildings.Fluid</b>
     </td>
 </tr>
+<tr><td valign=\"top\">Buildings.Fluid.Actuators.Valves.TwoWayPressureIndependent
+    </td>
+    <td valign=\"top\">Model of a pressure-independent two way valve.
+    </td>
+    </tr>
 <tr><td valign=\"top\">Buildings.Fluid.HeatExchangers.HeaterCooler_T
     </td>
     <td valign=\"top\">Model of a heater or cooler that takes as an input
@@ -264,7 +269,10 @@ have been <b style=\"color:blue\">improved</b> in a
                        Buildings.Fluid.SolarCollectors.EN12975
     </td>
     <td valign=\"top\">Reformulated the model to avoid an translation error
-                       if glycol is used.
+                       if glycol is used.<br/>
+                       Propagated parameters for initialization in base class 
+                       <code>Buildings.Fluid.SolarCollectors.BaseClasses.PartialSolarCollector</code>
+                       and set <code>prescribedHeatFlowRate=true</code>.
     </td>
     </tr>
 
@@ -390,7 +398,21 @@ have been <b style=\"color:blue\">improved</b> in a
 
 <tr><td colspan=\"2\"><b>Buildings.Fluid</b>
     </td>
-</tr>
+    </tr>
+    
+<tr><td valign=\"top\">Buildings.Fluid.FixedResistances.Pipe<br/>
+                       Buildings.Fluid.FixedResistances.BaseClasses.Pipe<br/>
+                       Buildings.Fluid.HeatExchangers.RadiantSlabs.SingleCircuitSlab
+    </td>
+    <td valign=\"top\">Renamed pressure drop from <code>res</code> to
+                       <code>preDro</code> to use the same name as in other models.
+                       This corrects
+                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/271\">#271</a>.
+                       For Dymola, the conversion script will automatically
+                       update existing models.
+    </td>
+</tr>    
+    
 <tr><td valign=\"top\">Buildings.Fluid.HeatExchangers.DryCoilDiscretized<br/>
                        Buildings.Fluid.HeatExchangers.WetCoilDiscretized
     </td>
@@ -529,8 +551,41 @@ have been <b style=\"color:blue\">improved</b> in a
 <tr><td colspan=\"2\"><b>Buildings.Media</b>
     </td>
 </tr>
-<tr><td valign=\"top\">Buildings.Media.ConstantPropertyLiquidWater<br/>
-                       Buildings.Media.Interfaces.PartialSimpleMedium
+<tr><td valign=\"top\">Buildings.Media
+    </td>
+<td>
+                       Renamed all media to simplify the media selection.
+                       For typical building energy simulation,
+                       <a href=\"modelica://Buildings.Media.Air\">Buildings.Media.Air</a> and
+                       <a href=\"modelica://Buildings.Media.Water\">Buildings.Media.Water</a>
+                       should be used.<br/><br/>
+                       The following changes were made.<br/><br/>
+                       Renamed <code>Buildings.Media.GasesPTDecoupled.MoistAirUnsaturated</code><br/>
+                       to <code>Buildings.Media.Air</code>.<br/><br/>
+                       Renamed <code>Buildings.Media.ConstantPropertyLiquidWater</code><br/>
+                       to <code>Buildings.Media.Water</code>.<br/><br/>
+                       Renamed <code>Buildings.Media.PerfectGases.MoistAir</code><br/>
+                       to <code>Buildings.Obsolete.Media.PerfectGases.MoistAir</code>.<br/><br/>
+                       Renamed <code>Buildings.Media.GasesConstantDensity.MoistAirUnsaturated</code><br/>
+                       to <code>Buildings.Obsolete.Media.GasesConstantDensity.MoistAirUnsaturated</code>.<br/><br/>
+                       Renamed <code>Buildings.Media.GasesConstantDensity.MoistAir</code><br/>
+                       to <code>Buildings.Obsolete.Media.GasesConstantDensity.MoistAir</code>.<br/><br/>
+                       Renamed <code>Buildings.Media.GasesConstantDensity.SimpleAir</code><br/>
+                       to <code>Buildings.Obsolete.Media.GasesConstantDensity.SimpleAir</code>.<br/><br/>
+                       Renamed <code>Buildings.Media.IdealGases.SimpleAir</code><br/>
+                       to <code>Buildings.Obsolete.Media.IdealGases.SimpleAir</code>.<br/><br/>
+                       Renamed <code>Buildings.Media.GasesPTDecoupled.MoistAir</code><br/>
+                       to <code>Buildings.Obsolete.Media.GasesPTDecoupled.MoistAir</code>.<br/><br/>
+                       Renamed <code>Buildings.Media.GasesPTDecoupled.SimpleAir</code><br/>
+                       to <code>Buildings.Obsolete.Media.GasesPTDecoupled.SimpleAir</code>.<br/><br/>
+                       For Dymola, the conversion script will
+                       update existing models according to the above list.
+
+</td>
+</tr>
+
+
+<tr><td valign=\"top\">Buildings.Media.Water
     </td>
     <td valign=\"top\">Removed option to model water as a compressible medium as
                        this option was not useful.
@@ -2286,7 +2341,7 @@ have been <b style=\"color:blue\">improved</b> in a
     </td>
 </tr>
 <tr><td valign=\"top\">Buildings.Media.GasesPTDecoupled.MoistAir<br/>
-                       Buildings.Media.GasesPTDecoupled.MoistAirUnsaturated<br/>
+                       Buildings.Media.Air<br/>
                        Buildings.Media.PerfectGases.MoistAir<br/>
                        Buildings.Media.PerfectGases.MoistAirUnsaturated<br/>
                        Buildings.Media.GasesConstantDensity.MoistAir<br/>
@@ -3816,8 +3871,8 @@ to
 Buildings.Media.PerfectGases.MoistAirUnsaturated</a>
 and <code>Buildings.Media.GasesPTDecoupled.MoistAirNoLiquid</code>
 to
-<a href=\"modelica://Buildings.Media.GasesPTDecoupled.MoistAirUnsaturated\">
-Buildings.Media.GasesPTDecoupled.MoistAirUnsaturated</a>,
+<a href=\"modelica://Buildings.Media.Air\">
+Buildings.Media.Air</a>,
 and added <code>assert</code> statements if saturation occurs.
 </li>
 <li>
@@ -3835,8 +3890,8 @@ Buildings.Media.PerfectGases.MoistAirUnsaturated.T_phX</a>.
 </li>
 <li>
 Added implementation of function
-<a href=\"modelica://Buildings.Media.GasesPTDecoupled.MoistAirUnsaturated.enthalpyOfNonCondensingGas\">
-Buildings.Media.GasesPTDecoupled.MoistAirUnsaturated.enthalpyOfNonCondensingGas</a> and its derivative.
+<a href=\"modelica://Buildings.Media.Air.enthalpyOfNonCondensingGas\">
+Buildings.Media.Air.enthalpyOfNonCondensingGas</a> and its derivative.
 </li>
 <li>
 In <a href=\"modelica://Buildings.Media.PerfectGases.MoistAir\">

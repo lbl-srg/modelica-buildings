@@ -2,7 +2,7 @@ within Buildings.Fluid.Sensors.Examples;
 model MassFraction "Test model for the mass fraction sensor"
   extends Modelica.Icons.Example;
 
-  package Medium = Buildings.Media.PerfectGases.MoistAirUnsaturated
+  package Medium = Buildings.Media.Air
     "Medium model";
 
   Buildings.Fluid.Sources.Boundary_pT sin(

@@ -3,6 +3,10 @@ partial model PartialMixingVolume
   "Partial mixing volume with inlet and outlet ports (flow reversal is allowed)"
 
   extends Buildings.Fluid.Interfaces.LumpedVolumeDeclarations;
+  constant Boolean initialize_p = not Medium.singleState
+    "= true to set up initial equations for pressure"
+    annotation(HideResult=true);
+
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal(min=0)
     "Nominal mass flow rate"
     annotation(Dialog(group = "Nominal condition"));
@@ -21,8 +25,6 @@ partial model PartialMixingVolume
    annotation(Evaluate=true, Dialog(tab="Assumptions",
       enable=use_HeatTransfer,
       group="Heat transfer"));
-  parameter Boolean initialize_p = not Medium.singleState
-    "= true to set up initial equations for pressure";
   Modelica.Fluid.Vessels.BaseClasses.VesselFluidPorts_b ports[nPorts](
       redeclare each package Medium = Medium) "Fluid inlets and outlets"
     annotation (Placement(transformation(extent={{-40,-10},{40,10}},
@@ -170,6 +172,13 @@ Buildings.Fluid.MixingVolumes</a>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+February 5, 2015, by Michael Wetter:<br/>
+Changed <code>initalize_p</code> from a <code>parameter</code> to a
+<code>constant</code>. This is only required in finite volume models
+of heat exchangers (to avoid consistent but redundant initial conditions)
+and hence it should be set as a <code>constant</code>.
+</li>
 <li>
 October 29, 2014, by Michael Wetter:<br/>
 Made assignment of <code>mFactor</code> final, and changed computation of

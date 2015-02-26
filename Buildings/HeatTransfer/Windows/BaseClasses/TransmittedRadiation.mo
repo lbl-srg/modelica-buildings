@@ -30,7 +30,7 @@ protected
 initial algorithm
   //**************************************************************
   // Assign coefficients.
-  // Data dimension from Orginal ([1 : HEM]) to New ([2 : HEM+1])
+  // Data dimension from Original ([1 : HEM]) to New ([2 : HEM+1])
   // with 2 dummy variable for interpolation.
   //**************************************************************
   // Glass

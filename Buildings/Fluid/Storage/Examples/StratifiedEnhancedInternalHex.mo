@@ -3,8 +3,7 @@ model StratifiedEnhancedInternalHex
   "Example showing the use of StratifiedEnhancedInternalHex"
   extends Modelica.Icons.Example;
 
-  package MediumTan = Buildings.Media.ConstantPropertyLiquidWater
-    "Medium in the tank";
+  package MediumTan = Buildings.Media.Water "Medium in the tank";
   package MediumHex = Modelica.Media.Incompressible.Examples.Glycol47
     "Medium in the heat exchanger";
 

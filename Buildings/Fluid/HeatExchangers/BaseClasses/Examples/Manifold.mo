@@ -1,7 +1,7 @@
 within Buildings.Fluid.HeatExchangers.BaseClasses.Examples;
 model Manifold "Test model for coil manifold"
- package Medium1 = Buildings.Media.ConstantPropertyLiquidWater "Water";
- package Medium2 = Buildings.Media.PerfectGases.MoistAirUnsaturated "Air";
+ package Medium1 = Buildings.Media.Water "Water";
+ package Medium2 = Buildings.Media.Air "Air";
   extends Modelica.Icons.Example;
  parameter Integer nPipPar = 3 "Number of parallel pipes";
  parameter Integer nPipSeg = 4 "Number of pipe segments";

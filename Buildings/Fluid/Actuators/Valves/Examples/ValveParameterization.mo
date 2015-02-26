@@ -3,7 +3,7 @@ model ValveParameterization
   "Model to test and illustrate different parameterization for valves"
   extends Modelica.Icons.Example;
 
- package Medium = Buildings.Media.ConstantPropertyLiquidWater;
+ package Medium = Buildings.Media.Water;
 
   Buildings.Fluid.Actuators.Valves.TwoWayLinear valOPPoi(
     redeclare package Medium = Medium,
@@ -18,14 +18,14 @@ model ValveParameterization
       = Medium,
     use_p_in=true,
     nPorts=3,
-    T=293.15)                                       annotation (Placement(
+    T=293.15) "Boundary condition for flow source"  annotation (Placement(
         transformation(extent={{-70,-10},{-50,10}})));
   Buildings.Fluid.Sources.Boundary_pT sin(             redeclare package Medium
       = Medium,
     nPorts=3,
     use_p_in=false,
     p=300000,
-    T=293.15)                                       annotation (Placement(
+    T=293.15) "Boundary condition for flow sink"    annotation (Placement(
         transformation(extent={{90,-10},{70,10}})));
     Modelica.Blocks.Sources.Ramp PSou(
     duration=1,

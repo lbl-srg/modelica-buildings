@@ -17,7 +17,7 @@ model SingleCircuitSlab "Model of a single circuit of a radiant slab"
       diameter=pipe.dIn,
       roughness=pipe.roughness,
       m_flow_small=m_flow_small),
-      res(dp(nominal=200*length)));
+      preDro(dp(nominal=200*length)));
 
   parameter Modelica.SIunits.Area A "Surface area of radiant slab"
   annotation(Dialog(group="Construction"));
@@ -101,8 +101,7 @@ protected
         d_hyd=pipe.dIn,
         L=length/nSeg,
         K=pipe.roughness),
-    each heatTransfer=heatTransfer)
-    "Conductance between fluid and the slab"
+    each heatTransfer=heatTransfer) "Conductance between fluid and the slab"
     annotation (Placement(transformation(extent={{-28,-80},{-8,-60}})));
 
   Modelica.SIunits.MassFraction Xi_in_a[Medium.nXi] = inStream(port_a.Xi_outflow)
@@ -219,6 +218,11 @@ user's guide</a> for more information.
 </html>",
 revisions="<html>
 <ul>
+<li>
+February 5, 2015, by Michael Wetter:<br/>
+Renamed <code>res</code> to <code>preDro</code> for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/292\">#292</a>.
+</li>
 <li>
 September 12, 2014, by Michael Wetter:<br/>
 Set start value for <code>hPip(fluid(T))</code> to avoid

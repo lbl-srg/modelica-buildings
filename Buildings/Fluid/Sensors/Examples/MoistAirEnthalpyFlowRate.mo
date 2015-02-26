@@ -3,7 +3,7 @@ model MoistAirEnthalpyFlowRate
   "Test model for the sensible and latent enthalpy flow rate sensors"
   extends Modelica.Icons.Example;
 
-  package Medium = Buildings.Media.PerfectGases.MoistAirUnsaturated;
+  package Medium = Buildings.Media.Air;
 
   Buildings.Fluid.Sensors.EnthalpyFlowRate senH_flow(
     redeclare package Medium = Medium,

@@ -1,7 +1,7 @@
 within Buildings.Fluid.Movers.Validation;
 model Pump_Nrpm_stratos "Model validation using a Wilo Stratos 80/1-12 pump"
   extends Modelica.Icons.Example;
-  package Medium = Modelica.Media.Water.ConstantPropertyLiquidWater;
+  package Medium = Buildings.Media.Water;
 
   parameter Data.Pumps.Stratos80slash1to12 per "Pump performance data"
     annotation (Placement(transformation(extent={{-120,80},{-100,100}})));

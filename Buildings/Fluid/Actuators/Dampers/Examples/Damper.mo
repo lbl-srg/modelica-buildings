@@ -2,7 +2,7 @@ within Buildings.Fluid.Actuators.Dampers.Examples;
 model Damper
   "Damper with constant pressure difference and varying control signal"
   extends Modelica.Icons.Example;
-  package Medium = Buildings.Media.IdealGases.SimpleAir;
+  package Medium = Buildings.Media.Air;
 
   Buildings.Fluid.Actuators.Dampers.Exponential res(
     A=1,

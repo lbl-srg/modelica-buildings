@@ -12,7 +12,7 @@ function exchangeReals "Exchanges values of type Real with the socket"
   output Modelica.SIunits.Time simTimRea
     "Current simulation time in seconds read from socket";
   output Real[nDblRea] dblValRea "Double values read from socket";
-  output Integer retVal "The exit value, which is negative if an error occured";
+  output Integer retVal "The exit value, which is negative if an error occurred";
   external "C"
      retVal=exchangeModelicaClient(socketFD,
        flaWri, flaRea,

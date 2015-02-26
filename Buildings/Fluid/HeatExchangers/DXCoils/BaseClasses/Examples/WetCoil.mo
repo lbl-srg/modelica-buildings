@@ -2,7 +2,7 @@ within Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.Examples;
 model WetCoil "Test model for WetCoil"
  extends Modelica.Icons.Example;
  package Medium =
-      Buildings.Media.GasesConstantDensity.MoistAirUnsaturated;
+      Buildings.Media.Air;
   Modelica.Blocks.Sources.Constant p(
     k=101325) "Pressure"
     annotation (Placement(transformation(extent={{-80,-60},{-60,-40}})));

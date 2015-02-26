@@ -1,7 +1,7 @@
 within Buildings.Fluid.Actuators.Valves.Examples;
 model TwoWayValvesTable "Two way valve with linear opening characteristics"
   extends Modelica.Icons.Example;
-  package Medium = Buildings.Media.ConstantPropertyLiquidWater "Medium";
+  package Medium = Buildings.Media.Water "Medium";
 
     Modelica.Blocks.Sources.Ramp y(
     height=1,

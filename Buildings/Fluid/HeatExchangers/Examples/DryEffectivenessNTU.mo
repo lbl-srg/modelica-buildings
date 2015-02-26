@@ -3,8 +3,8 @@ model DryEffectivenessNTU
   "Model that demonstrates use of a heat exchanger without condensation that uses the epsilon-NTU relation"
   extends Modelica.Icons.Example;
 
- package Medium1 = Buildings.Media.ConstantPropertyLiquidWater;
- package Medium2 = Buildings.Media.IdealGases.SimpleAir;
+ package Medium1 = Buildings.Media.Water;
+ package Medium2 = Buildings.Media.Air;
 
  parameter Modelica.SIunits.SpecificHeatCapacity cp1=
  Medium1.specificHeatCapacityCp(

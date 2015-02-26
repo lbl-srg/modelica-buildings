@@ -1,9 +1,9 @@
 within Buildings.Fluid.Interfaces.Examples;
 model ConservationEquation "Model that tests the conservation equation"
 extends Modelica.Icons.Example;
- package Medium = Buildings.Media.ConstantPropertyLiquidWater "Medium model";
-  Buildings.Fluid.Interfaces.ConservationEquation dyn(redeclare package Medium =
-        Medium, energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+ package Medium = Buildings.Media.Water "Medium model";
+  Buildings.Fluid.Interfaces.ConservationEquation dyn(redeclare package Medium
+      = Medium, energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     nPorts=2,
     fluidVolume=0.01) "Dynamic conservation equation"
     annotation (Placement(transformation(extent={{-10,30},{10,50}})));

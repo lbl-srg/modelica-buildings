@@ -2,7 +2,7 @@ within Buildings.Fluid.Sensors.Examples;
 model EnthalpyFlowRate "Test model for the enthalpy flow rate sensors"
   extends Modelica.Icons.Example;
 
-  package Medium = Buildings.Media.IdealGases.SimpleAir "Medium model";
+  package Medium = Buildings.Media.Air "Medium model";
 
   Buildings.Fluid.Sensors.EnthalpyFlowRate senH_flow(
     redeclare package Medium = Medium,
