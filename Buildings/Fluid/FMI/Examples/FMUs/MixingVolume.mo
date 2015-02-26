@@ -1,7 +1,6 @@
 within Buildings.Fluid.FMI.Examples.FMUs;
 block MixingVolume "Container to export a control volume as an FMU"
-  extends TwoPort(redeclare package Medium =
-        Buildings.Media.GasesConstantDensity.MoistAirUnsaturated);
+  extends TwoPort(redeclare package Medium = Buildings.Media.Air);
 
   parameter Modelica.SIunits.Volume V=1 "Volume";
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal = 0.1

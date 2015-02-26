@@ -2,7 +2,7 @@ within Buildings.Fluid.FMI.Examples.FMUs;
 block FlowSplitter_u "FMU declaration for a flow splitter"
    extends Buildings.Fluid.FMI.FlowSplitter_u(
      redeclare replaceable package Medium =
-        Buildings.Media.GasesConstantDensity.MoistAirUnsaturated,
+        Buildings.Media.Air,
         nout=2,
         m_flow_nominal={0.1, 0.2},
         allowFlowReversal=false);

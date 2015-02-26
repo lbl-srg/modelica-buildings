@@ -3,7 +3,7 @@ block HeaterCooler_T
   "FMU declaration for an ideal heater or cooler with prescribed outlet temperature"
    extends Buildings.Fluid.FMI.TwoPortComponent(
      redeclare replaceable package Medium =
-        Buildings.Media.GasesConstantDensity.MoistAirUnsaturated,
+        Buildings.Media.Air,
      redeclare final Buildings.Fluid.HeatExchangers.HeaterCooler_T com(
       final m_flow_nominal=m_flow_nominal,
       final dp_nominal=dp_nominal,

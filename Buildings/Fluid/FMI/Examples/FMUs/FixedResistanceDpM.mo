@@ -2,7 +2,7 @@ within Buildings.Fluid.FMI.Examples.FMUs;
 block FixedResistanceDpM "FMU declaration for a fixed resistance"
    extends Buildings.Fluid.FMI.TwoPortComponent(
      redeclare replaceable package Medium =
-        Buildings.Media.GasesConstantDensity.MoistAirUnsaturated,
+        Buildings.Media.Air,
      redeclare final Buildings.Fluid.FixedResistances.FixedResistanceDpM com(
       final m_flow_nominal=m_flow_nominal,
       final dp_nominal=dp_nominal));

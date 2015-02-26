@@ -2,8 +2,7 @@ within Buildings.Fluid.FMI.Examples;
 model HeaterFan
   "Heater and fan in series, model configured to allow flow reversal"
   extends Modelica.Icons.Example;
-  package Medium =
-        Buildings.Media.GasesConstantDensity.MoistAirUnsaturated "Medium model";
+  package Medium = Buildings.Media.Air "Medium model";
 
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal=Q_flow_nominal/1000/10
     "Nominal mass flow rate";

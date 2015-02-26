@@ -1,8 +1,7 @@
 within Buildings.Fluid.FMI.Examples.FMUs;
 block ResistanceVolume
   "Container to export a flow resistance and control volume as an FMU"
-  extends TwoPort(redeclare package Medium =
-        Buildings.Media.GasesConstantDensity.MoistAirUnsaturated);
+  extends TwoPort(redeclare package Medium = Buildings.Media.Air);
 
   parameter Modelica.SIunits.Volume V=1 "Volume";
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal = 0.1

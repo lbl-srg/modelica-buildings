@@ -3,7 +3,7 @@ model HeaterFan_noReverseFlow
   "Heater and fan in series, model configured to not allow flow reversal"
   extends Modelica.Icons.Example;
   package Medium =
-        Buildings.Media.GasesConstantDensity.MoistAirUnsaturated "Medium model";
+        Buildings.Media.Air "Medium model";
 
   final parameter Boolean allowFlowReversal = false
     "= true to allow flow reversal, false restricts to design direction (inlet -> outlet)";
