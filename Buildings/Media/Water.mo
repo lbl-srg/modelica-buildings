@@ -18,9 +18,7 @@ package Water "Package with model for liquid water with constant density"
 
   redeclare model BaseProperties "Base properties"
     Modelica.SIunits.Temperature T "Temperature of medium";
-    InputAbsolutePressure p(stateSelect=if
-          preferredMediumStates then StateSelect.prefer else StateSelect.default)
-      "Absolute pressure of medium";
+    InputAbsolutePressure p "Absolute pressure of medium";
     InputMassFraction[nXi] Xi=fill(0, 0)
       "Structurally independent mass fractions";
     InputSpecificEnthalpy h "Specific enthalpy of medium";
@@ -137,6 +135,14 @@ There are no phase changes.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+February 25, 2015, by Michael Wetter:<br/>
+Removed <code>stateSelect</code> attribute on pressure as this caused
+<a href=\"modelica://Buildings.Examples.Tutorial.SpaceCooling.System3\">
+Buildings.Examples.Tutorial.SpaceCooling.System3</a>
+to fail with the error message
+\"differentiated if-then-else was not continuous\".
+</li>
 <li>
 October 15, 2014, by Michael Wetter:<br/>
 Reimplemented media based on
