@@ -28,8 +28,6 @@ package TemperatureDependentDensity
     "Specific heat capacity at constant pressure";
 
   redeclare model extends BaseProperties(
-     p(stateSelect=if
-          preferredMediumStates then StateSelect.prefer else StateSelect.default),
      preferredMediumStates=true) "Base properties"
   equation
     h = (T - reference_T)*cp_const;
@@ -777,6 +775,14 @@ There are no phase changes.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+February 25, 2015, by Michael Wetter:<br/>
+Removed <code>stateSelect</code> attribute on pressure as this caused
+<a href=\"modelica://Buildings.Examples.Tutorial.SpaceCooling.System3\">
+Buildings.Examples.Tutorial.SpaceCooling.System3</a>
+to fail with the error message
+\"differentiated if-then-else was not continuous\".
+</li>
 <li>
 February 3, 2015, by Michael Wetter:<br/>
 Removed <code>stateSelect.prefer</code> for temperature.
