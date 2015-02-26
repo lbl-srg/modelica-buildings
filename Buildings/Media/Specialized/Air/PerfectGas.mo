@@ -50,7 +50,9 @@ required from medium model \""     + mediumName + "\".");
     X_steam  = Xi[Water];
     X_air    = 1-Xi[Water];
 
-    h = specificEnthalpy_pTX(p,T,Xi);
+    h = (T - reference_T)*dryair.cp * (1 - Xi[Water]) +
+        ((T-reference_T) * steam.cp + h_fg) * Xi[Water];
+
     R = dryair.R*(1 - X_steam) + steam.R*X_steam;
     //
     u = h - R*T;
@@ -527,9 +529,26 @@ internal energy and enthalpy are functions of temperature only.
 </li>
 </ul>
 <p>
-In addition, the this medium model is <i>calorically perfect</i>, i.e., the
+In addition, this medium model is <i>calorically perfect</i>, i.e., the
 specific heat capacities at constant pressure <i>c<sub>p</sub></i>
 and constant volume <i>c<sub>v</sub></i> are both constant (Bower 1998).
+</p>
+<p>
+This medium uses the ideal gas law
+</p>
+<p align=\"center\" style=\"font-style:italic;\">
+&rho; = p &frasl;(R T),
+</p>
+<p>
+where 
+<i>&rho;</i> is the density,
+<i>p</i> is the pressure,
+<i>R</i> is the gas constant and
+<i>T</i> is the temperature.
+</p>
+<p>
+The enthalpy is computed using the convention that <i>h=0</i>
+if <i>T=0</i> &deg;C and no water vapor is present.
 </p>
 <p>
 Note that for typical building simulations, the media
