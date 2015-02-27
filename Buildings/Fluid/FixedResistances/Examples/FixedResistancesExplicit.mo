@@ -2,7 +2,7 @@ within Buildings.Fluid.FixedResistances.Examples;
 model FixedResistancesExplicit "Test of multiple resistances in series"
   extends Modelica.Icons.Example;
 
- package Medium = Buildings.Media.IdealGases.SimpleAir;
+ package Medium = Buildings.Media.Air;
   Buildings.Fluid.Sources.Boundary_ph sou(
    redeclare package Medium = Medium,
     nPorts=1,

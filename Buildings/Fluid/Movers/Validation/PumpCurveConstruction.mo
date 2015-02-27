@@ -3,7 +3,7 @@ model PumpCurveConstruction
   "Validation model that tests that the pump curve is properly extrapolated to V=0 and dp=0"
   extends Modelica.Icons.Example;
 
-  package Medium = Buildings.Media.ConstantPropertyLiquidWater "Medium model";
+  package Medium = Buildings.Media.Water "Medium model";
 
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal = 1
     "Nominal mass flow rate at zero pump head";

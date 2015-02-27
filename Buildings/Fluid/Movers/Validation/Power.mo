@@ -2,7 +2,7 @@ within Buildings.Fluid.Movers.Validation;
 model Power "Power calculation comparison among three mover types"
   extends Modelica.Icons.Example;
 
-  package Medium = Buildings.Media.ConstantPropertyLiquidWater "Medium model";
+  package Medium = Buildings.Media.Water "Medium model";
 
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal=3
     "Nominal mass flow rate";

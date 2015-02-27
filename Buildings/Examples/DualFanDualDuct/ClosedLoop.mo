@@ -3,9 +3,8 @@ model ClosedLoop "Closed loop model of a dual-fan dual-duct system"
   extends Modelica.Icons.Example;
 
   replaceable package MediumA =
-      Buildings.Media.GasesPTDecoupled.MoistAirUnsaturated;
-  package MediumW = Buildings.Media.ConstantPropertyLiquidWater
-    "Medium model for water";
+      Buildings.Media.Air;
+  package MediumW = Buildings.Media.Water "Medium model for water";
 
   parameter Real yFan_start=0.0 "Initial or guess value of output (= state)";
   parameter Boolean dynamicBalanceJunction=true

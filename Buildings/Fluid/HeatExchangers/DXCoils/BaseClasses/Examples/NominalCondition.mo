@@ -2,7 +2,7 @@ within Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.Examples;
 model NominalCondition "Test model for NominalCondition"
   extends Modelica.Icons.Example;
   package Medium =
-      Buildings.Media.GasesConstantDensity.MoistAirUnsaturated;
+      Buildings.Media.Air;
   parameter Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.NominalCondition
      nomCon(redeclare package Medium = Medium, per=nomVal)
     "Calculates nominal values"

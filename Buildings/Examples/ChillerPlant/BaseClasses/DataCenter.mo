@@ -1,10 +1,8 @@
 within Buildings.Examples.ChillerPlant.BaseClasses;
 partial model DataCenter
   "Primary only chiller plant system with water-side economizer"
-  replaceable package MediumA = Buildings.Media.GasesPTDecoupled.SimpleAir
-    "Medium model";
-  replaceable package MediumW = Buildings.Media.ConstantPropertyLiquidWater
-    "Medium model";
+  replaceable package MediumA = Buildings.Media.Air "Medium model";
+  replaceable package MediumW = Buildings.Media.Water "Medium model";
   parameter Modelica.SIunits.MassFlowRate mAir_flow_nominal=roo.QRoo_flow/(1005
       *15) "Nominal mass flow rate at fan";
   parameter Modelica.SIunits.Power P_nominal=80E3

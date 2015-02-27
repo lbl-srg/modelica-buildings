@@ -74,3 +74,24 @@ convertClass("Buildings.Fluid.Movers.FlowMachine_y",
 convertElement({"Buildings.Fluid.FixedResistances.Pipe"},
                 "Buildings.Fluid.FixedResistances.BaseClasses.Pipe"},
                 "res", "preDro");
+
+// Media conversion.
+convertClass("Buildings.Media.GasesPTDecoupled.MoistAirUnsaturated",
+             "Buildings.Media.Air");
+convertClass("Buildings.Media.ConstantPropertyLiquidWater",
+             "Buildings.Media.Water");
+
+convertClass("Buildings.Media.PerfectGases.MoistAir",
+             "Buildings.Obsolete.Media.PerfectGases.MoistAir");
+convertClass("Buildings.Media.GasesConstantDensity.MoistAirUnsaturated",
+             "Buildings.Obsolete.Media.GasesConstantDensity.MoistAirUnsaturated");
+convertClass("Buildings.Media.GasesConstantDensity.MoistAir",
+             "Buildings.Obsolete.Media.GasesConstantDensity.MoistAir");
+convertClass("Buildings.Media.GasesConstantDensity.SimpleAir",
+             "Buildings.Obsolete.Media.GasesConstantDensity.SimpleAir");
+convertClass("Buildings.Media.IdealGases.SimpleAir",
+             "Buildings.Obsolete.Media.IdealGases.SimpleAir");
+convertClass("Buildings.Media.GasesPTDecoupled.MoistAir",
+             "Buildings.Obsolete.Media.GasesPTDecoupled.MoistAir");
+convertClass("Buildings.Media.GasesPTDecoupled.SimpleAir",
+             "Buildings.Obsolete.Media.GasesPTDecoupled.SimpleAir");

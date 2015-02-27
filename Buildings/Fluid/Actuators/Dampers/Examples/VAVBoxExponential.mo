@@ -3,7 +3,7 @@ model VAVBoxExponential
   "VAV box with constant pressure difference and varying control signal"
   extends Modelica.Icons.Example;
 
- package Medium = Buildings.Media.IdealGases.SimpleAir;
+ package Medium = Buildings.Media.Air;
 
   Buildings.Fluid.Actuators.Dampers.Exponential dam(
          redeclare package Medium = Medium, A=1.8,

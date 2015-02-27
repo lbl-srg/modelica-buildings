@@ -1,8 +1,7 @@
 within Buildings.Rooms.Examples;
 model MixedAirFreeResponse "Free response of room model"
   extends Modelica.Icons.Example;
-  package MediumA = Buildings.Media.GasesConstantDensity.MoistAirUnsaturated
-    "Medium model";
+  package MediumA = Buildings.Media.Air "Medium model";
 
   parameter
     Buildings.HeatTransfer.Data.OpaqueConstructions.Insulation100Concrete200

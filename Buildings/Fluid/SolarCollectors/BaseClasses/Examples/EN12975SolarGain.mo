@@ -14,7 +14,7 @@ model EN12975SolarGain "Example showing the use of EN12975SolarGain"
     iamDiff=per.IAMDiff,
     shaCoe=0,
     use_shaCoe_in=true,
-    redeclare package Medium = Buildings.Media.ConstantPropertyLiquidWater)
+    redeclare package Medium = Buildings.Media.Water)
     "Solar heat gain model using EN12975 calculations"
     annotation (Placement(transformation(extent={{60,0},{80,20}})));
   Modelica.Blocks.Sources.Ramp incAng(duration=86400,

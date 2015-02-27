@@ -2,7 +2,7 @@ within Buildings.Fluid.Actuators.Valves.Examples;
 model TwoWayValvePressureIndependent
   "Two way valves with pressure independent opening characteristic"
   extends Modelica.Icons.Example;
-  package Medium = Buildings.Media.ConstantPropertyLiquidWater;
+  package Medium = Buildings.Media.Water;
 
     Modelica.Blocks.Sources.Ramp y(
     height=1,

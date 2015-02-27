@@ -2,8 +2,7 @@ within Buildings.Fluid.HeatExchangers.Boreholes.BaseClasses.Examples;
 model ConvectionResistance
   "Model that tests a basic segment that is used to build a borehole"
   extends Modelica.Icons.Example;
- package Medium = Buildings.Media.ConstantPropertyLiquidWater
-    "Medium in the pipes";
+ package Medium = Buildings.Media.Water "Medium in the pipes";
 
   parameter Modelica.SIunits.SpecificHeatCapacity cpMed=
       Medium.specificHeatCapacityCp(Medium.setState_pTX(

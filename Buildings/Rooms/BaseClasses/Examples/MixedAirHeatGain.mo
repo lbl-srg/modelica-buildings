@@ -2,7 +2,7 @@ within Buildings.Rooms.BaseClasses.Examples;
 model MixedAirHeatGain "Test model for the MixedAirHeatGain model"
   extends Modelica.Icons.Example;
 
-  package MediumA = Buildings.Media.GasesPTDecoupled.MoistAirUnsaturated
+  package MediumA = Buildings.Media.Air
     "Medium model";
 
   Buildings.Rooms.BaseClasses.MixedAirHeatGain heatGain(redeclare package
