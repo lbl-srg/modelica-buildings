@@ -10,15 +10,21 @@ model HeaterFan
   parameter Modelica.SIunits.HeatFlowRate Q_flow_nominal = 1000
     "Heat flow rate at u=1, positive for heating";
 
+  parameter Boolean use_p_in = true
+    "= true to use a pressure connector, false to remove pressure from the connector"
+    annotation(Evaluate=true);
+
   FMUs.Fan floMac(
     m_flow_nominal=m_flow_nominal,
-    dp_nominal=dp_nominal) "Flow machine with pressure raise as an input"
+    dp_nominal=dp_nominal,
+    use_p_in=use_p_in) "Flow machine with pressure raise as an input"
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
 
   FMUs.HeaterCooler_u hea(
     m_flow_nominal=m_flow_nominal,
     dp_nominal=dp_nominal,
-    Q_flow_nominal=Q_flow_nominal) "Heater"
+    Q_flow_nominal=Q_flow_nominal,
+    use_p_in=use_p_in) "Heater"
     annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
 
   Modelica.Blocks.Sources.Constant dp(k=1000) "Pressure raise of fan"
@@ -27,7 +33,7 @@ model HeaterFan
   Modelica.Blocks.Sources.Constant uHea(k=0.2) "Control signal for heater"
     annotation (Placement(transformation(extent={{-60,40},{-40,60}})));
 
-  Source_T sou(redeclare package Medium = Medium)
+  Source_T sou(redeclare package Medium = Medium, use_p_in=use_p_in)
     "Source for mass flow rate and pressure"
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
 

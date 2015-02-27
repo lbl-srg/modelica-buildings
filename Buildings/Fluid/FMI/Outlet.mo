@@ -9,9 +9,14 @@ model Outlet "Model for exposing a fluid outlet to the FMI interface"
     "= true to allow flow reversal, false restricts to design direction (inlet -> outlet)"
     annotation(Dialog(tab="Assumptions"), Evaluate=true);
 
+  parameter Boolean use_p_in = true
+    "= true to use a pressure connector, false to remove pressure from the connector"
+    annotation(Evaluate=true);
+
   Buildings.Fluid.FMI.Interfaces.Outlet outlet(
     redeclare final package Medium = Medium,
-    final allowFlowReversal=allowFlowReversal) "Fluid outlet" annotation (Placement(transformation(extent={{
+    final allowFlowReversal=allowFlowReversal) "Fluid outlet"
+                   annotation (Placement(transformation(extent={{
             100,-10},{120,10}}), iconTransformation(extent={{100,-10},{120,10}})));
 
   Modelica.Fluid.Interfaces.FluidPort_a port_a(
@@ -20,8 +25,8 @@ model Outlet "Model for exposing a fluid outlet to the FMI interface"
         transformation(extent={{-110,-10},{-90,10}}),
           iconTransformation(extent={{-110,
             -10},{-90,10}})));
-  Modelica.Blocks.Interfaces.RealInput p(unit="Pa")
-    "Pressure to be sent to outlet"
+  Modelica.Blocks.Interfaces.RealInput p(unit="Pa") if
+       use_p_in "Pressure to be sent to outlet"
               annotation (
       Placement(transformation(
         extent={{-20,-20},{20,20}},
@@ -31,13 +36,10 @@ protected
   Buildings.Fluid.FMI.Interfaces.FluidProperties bacPro_internal(
     redeclare final package Medium = Medium)
     "Internal connector for fluid properties for back flow";
+  Modelica.Blocks.Interfaces.RealOutput p_in_internal(unit="Pa")
+    "Internal connector for pressure";
 
 equation
-  // Set outlet pressure and port pressure to pressure
-  // of signal port
-
-  port_a.p = p;
-  outlet.p = p;
   port_a.m_flow = outlet.m_flow;
 
   inStream(port_a.h_outflow)  = outlet.forward.h;
@@ -54,6 +56,15 @@ equation
   bacPro_internal.h  = port_a.h_outflow;
   bacPro_internal.Xi = port_a.Xi_outflow;
   bacPro_internal.C  = port_a.C_outflow;
+
+  // Conditional connectors for pressure
+  outlet.p = p_in_internal;
+  port_a.p = p_in_internal;
+  if use_p_in then
+     connect(p_in_internal, p);
+  else
+     p_in_internal = Medium.p_default;
+  end if;
 
     annotation (defaultComponentName="bouOut",
     Icon(coordinateSystem(

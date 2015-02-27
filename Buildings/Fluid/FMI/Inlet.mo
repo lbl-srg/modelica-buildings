@@ -9,6 +9,10 @@ model Inlet "Model for exposing a fluid inlet to the FMI interface"
     "= true to allow flow reversal, false restricts to design direction (inlet -> outlet)"
     annotation(Dialog(tab="Assumptions"), Evaluate=true);
 
+  parameter Boolean use_p_in = true
+    "= true to use a pressure connector, false to remove pressure from the connector"
+    annotation(Evaluate=true);
+
   Buildings.Fluid.FMI.Interfaces.Inlet inlet(
     redeclare final package Medium = Medium,
     final allowFlowReversal=allowFlowReversal) "Fluid inlet"
@@ -19,7 +23,9 @@ model Inlet "Model for exposing a fluid inlet to the FMI interface"
                 annotation (Placement(
         transformation(extent={{90,-10},{110,10}}), iconTransformation(extent={{90,-10},
             {110,10}})));
-  Modelica.Blocks.Interfaces.RealOutput p(unit="Pa") "Pressure" annotation (
+  Modelica.Blocks.Interfaces.RealOutput p(unit="Pa") if
+     use_p_in "Pressure"
+  annotation (
       Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=270,
@@ -28,6 +34,9 @@ protected
   Buildings.Fluid.FMI.Interfaces.FluidProperties bacPro_internal(
     redeclare final package Medium = Medium)
     "Internal connector for fluid properties for back flow";
+  Modelica.Blocks.Interfaces.RealOutput p_in_internal(unit="Pa")
+    "Internal connector for pressure";
+
 equation
   // To locally balance the model, the pressure is only imposed at the
   // oulet model.
@@ -51,7 +60,13 @@ equation
     bacPro_internal.C  = fill(0, Medium.nC);
   end if;
 
-  p = inlet.p;
+  // Conditional connectors for pressure
+  if use_p_in then
+    inlet.p = p_in_internal;
+  else
+    p_in_internal = Medium.p_default;
+  end if;
+  connect(p, p_in_internal);
 
   annotation (defaultComponentName="bouInl",
     Icon(coordinateSystem(

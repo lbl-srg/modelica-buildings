@@ -8,6 +8,10 @@ model HeaterFan_noReverseFlow
   final parameter Boolean allowFlowReversal = false
     "= true to allow flow reversal, false restricts to design direction (inlet -> outlet)";
 
+  parameter Boolean use_p_in = false
+    "= true to use a pressure connector, false to remove pressure from the connector"
+    annotation(Evaluate=true);
+
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal=Q_flow_nominal/1000/10
     "Nominal mass flow rate";
   parameter Modelica.SIunits.Pressure dp_nominal=2000 "Pressure";
@@ -17,15 +21,16 @@ model HeaterFan_noReverseFlow
   FMUs.Fan floMac(
     m_flow_nominal=m_flow_nominal,
     dp_nominal=dp_nominal,
-    final allowFlowReversal=allowFlowReversal)
-    "Flow machine with pressure raise as an input"
+    final allowFlowReversal=allowFlowReversal,
+    use_p_in=use_p_in) "Flow machine with pressure raise as an input"
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
 
   FMUs.HeaterCooler_u hea(
     m_flow_nominal=m_flow_nominal,
     dp_nominal=dp_nominal,
     Q_flow_nominal=Q_flow_nominal,
-    final allowFlowReversal=allowFlowReversal) "Heater"
+    final allowFlowReversal=allowFlowReversal,
+    use_p_in=use_p_in) "Heater"
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
 
   Modelica.Blocks.Sources.Constant dp(k=1000) "Pressure raise of fan"
@@ -36,8 +41,8 @@ model HeaterFan_noReverseFlow
 
   Source_T sou(
     redeclare package Medium = Medium,
-    final allowFlowReversal=allowFlowReversal)
-    "Source for mass flow rate and pressure"
+    final allowFlowReversal=allowFlowReversal,
+    use_p_in=use_p_in) "Source for mass flow rate and pressure"
     annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
 
   Modelica.Blocks.Sources.Constant m_flow(k=m_flow_nominal) "Mass flow rate"

@@ -3,7 +3,7 @@ block Fan "FMU declaration for a fixed resistance"
    extends Buildings.Fluid.FMI.TwoPortComponent(
      redeclare replaceable package Medium =
         Buildings.Media.Air,
-     redeclare final Movers.FlowMachine_dp com(
+     redeclare final Movers.FlowControlled_dp com(
       final m_flow_nominal=m_flow_nominal,
       final dynamicBalance=false,
       final filteredSpeed=false));

@@ -10,6 +10,10 @@ model Source_T
     "= true to allow flow reversal, false restricts to design direction (inlet -> outlet)"
     annotation(Dialog(tab="Assumptions"), Evaluate=true);
 
+  parameter Boolean use_p_in = true
+    "= true to use a pressure connector, false to remove pressure from the connector"
+    annotation(Evaluate=true);
+
   Modelica.Blocks.Interfaces.RealInput m_flow_in(unit="kg/s")
     "Prescribed mass flow source"
     annotation (Placement(transformation(extent={{-140,80},{-100,120}}),
@@ -40,7 +44,7 @@ model Source_T
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 equation
   outlet.m_flow = m_flow_in;
-  outlet.p = p_in;
+  outlet.p = if use_p_in then p_in else Medium.p_default;
   outlet.forward.h  = Medium.specificEnthalpy_pTX(p=p_in, T=T_in, X=X_in);
   outlet.forward.Xi = X_in[1:Medium.nXi];
   outlet.forward.C  = C_in;
