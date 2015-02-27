@@ -2,7 +2,7 @@ within Buildings.Obsolete.Fluid.Movers.Examples.BaseClasses;
 partial model FlowMachine_ZeroFlow
   "Base class to test flow machines with zero flow rate"
 
-  package Medium = Buildings.Media.GasesPTDecoupled.MoistAirUnsaturated;
+  package Medium = Buildings.Media.Air;
 
 
 

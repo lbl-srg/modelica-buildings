@@ -1,7 +1,7 @@
 within Buildings.Airflow.Multizone.Examples;
 model Orifice "Model with an orifice"
   extends Modelica.Icons.Example;
-  package Medium = Buildings.Media.PerfectGases.MoistAirUnsaturated;
+  package Medium = Buildings.Media.Air;
   Buildings.Airflow.Multizone.Orifice ori(redeclare package Medium = Medium, A=
         0.2) annotation (Placement(transformation(extent={{0,20},{20,40}})));
   Buildings.Fluid.Sources.Boundary_pT roo1(

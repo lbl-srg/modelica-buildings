@@ -2,7 +2,7 @@ within Buildings.Fluid.Sensors.Examples;
 model TemperatureDryBulb "Test model for the dry bulb temperature sensor"
   extends Modelica.Icons.Example;
 
- package Medium = Buildings.Media.PerfectGases.MoistAirUnsaturated
+ package Medium = Buildings.Media.Air
     "Medium model";
   Buildings.Fluid.Sources.Boundary_pT amb(
     redeclare package Medium = Medium,

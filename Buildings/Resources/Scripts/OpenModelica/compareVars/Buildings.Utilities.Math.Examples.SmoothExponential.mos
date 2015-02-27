@@ -1,0 +1,4 @@
+compareVars :=
+  {
+    "smoothExponential.y"
+  };

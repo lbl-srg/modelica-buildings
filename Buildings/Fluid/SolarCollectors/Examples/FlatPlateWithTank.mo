@@ -2,11 +2,10 @@ within Buildings.Fluid.SolarCollectors.Examples;
 model FlatPlateWithTank
   "Example showing use of the flat plate solar collector in a complete solar thermal system"
   extends Modelica.Icons.Example;
-  replaceable package Medium = Buildings.Media.ConstantPropertyLiquidWater
+  replaceable package Medium = Buildings.Media.Water
     "Fluid in the storage tank";
   replaceable package Medium_2 =
-      Buildings.Media.ConstantPropertyLiquidWater
-    "Fluid flowing through the collector";
+      Buildings.Media.Water "Fluid flowing through the collector";
 
   Buildings.Fluid.SolarCollectors.ASHRAE93  solCol(
     shaCoe=0,

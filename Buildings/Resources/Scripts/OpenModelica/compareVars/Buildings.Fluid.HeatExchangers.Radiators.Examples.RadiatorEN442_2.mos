@@ -1,0 +1,12 @@
+compareVars :=
+  {
+    "rad1.sta_a.T",
+    "rad1.sta_b.T",
+    "rad1.vol[3].T",
+    "rad2.sta_a.T",
+    "rad2.sta_b.T",
+    "rad2.vol[3].T",
+    "sou.T",
+    "rad1.Q_flow",
+    "rad2.Q_flow"
+  };

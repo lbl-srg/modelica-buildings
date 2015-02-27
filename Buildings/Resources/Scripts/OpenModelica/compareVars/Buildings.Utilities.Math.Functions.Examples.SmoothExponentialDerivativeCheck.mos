@@ -1,0 +1,8 @@
+compareVars :=
+  {
+    "x",
+    "y",
+    "ex",
+    "der(x)",
+    "der(y)"
+  };

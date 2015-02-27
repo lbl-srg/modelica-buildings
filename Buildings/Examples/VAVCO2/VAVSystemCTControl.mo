@@ -2,7 +2,7 @@ within Buildings.Examples.VAVCO2;
 model VAVSystemCTControl
   "Variable air volume flow system of MIT building with CO2 control and continuous time control for static pressure reset"
   extends Modelica.Icons.Example;
- package Medium = Buildings.Media.GasesPTDecoupled.SimpleAir(extraPropertiesNames={"CO2"});
+ package Medium = Buildings.Media.Air (                      extraPropertiesNames={"CO2"});
  parameter Modelica.SIunits.MassFlowRate mMIT_flow = roo.m0Tot_flow
     "Nominal mass flow rate of MIT system model as in ASHRAE 825-RP";
 parameter Modelica.SIunits.Pressure dpSuiSup_nominal = 95

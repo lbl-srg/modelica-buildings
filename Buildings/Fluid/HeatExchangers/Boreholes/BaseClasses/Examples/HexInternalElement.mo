@@ -2,7 +2,7 @@ within Buildings.Fluid.HeatExchangers.Boreholes.BaseClasses.Examples;
 model HexInternalElement
   "Model that tests the basic element that is used to built borehole models"
   extends Modelica.Icons.Example;
-  package Medium = Buildings.Media.ConstantPropertyLiquidWater "Fluid";
+  package Medium = Buildings.Media.Water "Fluid";
 
   Buildings.Fluid.HeatExchangers.Boreholes.BaseClasses.HexInternalElement hex(
     redeclare package Medium = Medium,

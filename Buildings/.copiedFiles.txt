@@ -41,6 +41,7 @@ Buildings/Fluid/Actuators/BaseClasses/Examples/package.order
 Buildings/Fluid/Actuators/BaseClasses/PartialDamperExponential.mo
 Buildings/Fluid/Actuators/BaseClasses/PartialThreeWayValve.mo
 Buildings/Fluid/Actuators/BaseClasses/PartialTwoWayValve.mo
+Buildings/Fluid/Actuators/BaseClasses/PartialTwoWayValveKv.mo
 Buildings/Fluid/Actuators/BaseClasses/ValveParameters.mo
 Buildings/Fluid/Actuators/BaseClasses/der_equalPercentage.mo
 Buildings/Fluid/Actuators/BaseClasses/equalPercentage.mo
@@ -68,6 +69,7 @@ Buildings/Fluid/Actuators/Valves/Data/Linear.mo
 Buildings/Fluid/Actuators/Valves/Data/package.mo
 Buildings/Fluid/Actuators/Valves/Data/package.order
 Buildings/Fluid/Actuators/Valves/Examples/ThreeWayValves.mo
+Buildings/Fluid/Actuators/Valves/Examples/TwoWayValvePressureIndependent.mo
 Buildings/Fluid/Actuators/Valves/Examples/TwoWayValveTable.mo
 Buildings/Fluid/Actuators/Valves/Examples/TwoWayValves.mo
 Buildings/Fluid/Actuators/Valves/Examples/TwoWayValvesMotor.mo
@@ -79,6 +81,7 @@ Buildings/Fluid/Actuators/Valves/ThreeWayEqualPercentageLinear.mo
 Buildings/Fluid/Actuators/Valves/ThreeWayLinear.mo
 Buildings/Fluid/Actuators/Valves/TwoWayEqualPercentage.mo
 Buildings/Fluid/Actuators/Valves/TwoWayLinear.mo
+Buildings/Fluid/Actuators/Valves/TwoWayPressureIndependent.mo
 Buildings/Fluid/Actuators/Valves/TwoWayQuickOpening.mo
 Buildings/Fluid/Actuators/Valves/TwoWayTable.mo
 Buildings/Fluid/Actuators/Valves/package.mo
@@ -324,7 +327,6 @@ Buildings/Fluid/Storage/package.order
 Buildings/Fluid/Types.mo
 Buildings/Fluid/package.mo
 Buildings/Fluid/package.order
-Buildings/ModelTime.mat
 Buildings/Resources/Images/Controls/Continuous/Examples/NumberOfRequests.png
 Buildings/Resources/Images/Controls/Continuous/Examples/OffTimer1.png
 Buildings/Resources/Images/Controls/Continuous/Examples/OffTimer2.png
@@ -367,7 +369,7 @@ Buildings/Resources/ReferenceResults/Dymola/Buildings_Experimental_Media_Example
 Buildings/Resources/ReferenceResults/Dymola/Buildings_Experimental_Media_Examples_AirPTDecoupledProperties.txt
 Buildings/Resources/ReferenceResults/Dymola/Buildings_Experimental_Media_Examples_AirPTDecoupledTemperatureEnthalpyInversion.txt
 Buildings/Resources/ReferenceResults/Dymola/Buildings_Experimental_Media_Examples_AirPTDecoupledTestImplementation.txt
-Buildings/Resources/ReferenceResults/Dymola/Buildings_Fluid_MixingVolumes_Examples_MixingVolumeMFactor.txt
+Buildings/Resources/ReferenceResults/Dymola/Buildings_Fluid_Actuators_Valves_Examples_TwoWayValvePressureIndependent.txt
 Buildings/Resources/ReferenceResults/Dymola/Buildings_Media_Examples_AirDerivativeCheck.txt
 Buildings/Resources/ReferenceResults/Dymola/Buildings_Media_Examples_AirProperties.txt
 Buildings/Resources/ReferenceResults/Dymola/Buildings_Media_Examples_AirTemperatureEnthalpyInversion.txt
@@ -396,6 +398,7 @@ Buildings/Resources/Scripts/Dymola/Fluid/Actuators/Dampers/Examples/MixingBox.mo
 Buildings/Resources/Scripts/Dymola/Fluid/Actuators/Dampers/Examples/VAVBoxExponential.mos
 Buildings/Resources/Scripts/Dymola/Fluid/Actuators/Motors/Examples/IdealMotor.mos
 Buildings/Resources/Scripts/Dymola/Fluid/Actuators/Valves/Examples/ThreeWayValves.mos
+Buildings/Resources/Scripts/Dymola/Fluid/Actuators/Valves/Examples/TwoWayValvePressureIndependent.mos
 Buildings/Resources/Scripts/Dymola/Fluid/Actuators/Valves/Examples/TwoWayValveTable.mos
 Buildings/Resources/Scripts/Dymola/Fluid/Actuators/Valves/Examples/TwoWayValves.mos
 Buildings/Resources/Scripts/Dymola/Fluid/Actuators/Valves/Examples/TwoWayValvesMotor.mos

@@ -1,6 +1,6 @@
 within Buildings.Rooms.Examples.FFD.BaseClasses;
 partial model PartialRoom "Partial model for a room"
-  package MediumA = Buildings.Media.GasesConstantDensity.MoistAirUnsaturated (
+  package MediumA = Buildings.Media.Air (
         T_default=283.15) "Medium model";
   parameter Buildings.HeatTransfer.Data.OpaqueConstructions.Generic matLayRoo(
       final nLay=1, material={HeatTransfer.Data.Solids.Steel(x=0.001)},

@@ -2,10 +2,8 @@ within Buildings.Examples.HydronicHeating;
 model TwoRoomsWithStorage
   "Model of a hydronic heating system with energy storage"
   extends Modelica.Icons.Example;
- replaceable package MediumA = Buildings.Media.GasesConstantDensity.SimpleAir
-    "Medium model for air";
- replaceable package MediumW = Buildings.Media.ConstantPropertyLiquidWater
-    "Medium model";
+ replaceable package MediumA = Buildings.Media.Air "Medium model for air";
+ replaceable package MediumW = Buildings.Media.Water "Medium model";
  parameter Integer nRoo = 2 "Number of rooms";
  parameter Modelica.SIunits.Volume VRoo = 4*6*3 "Volume of one room";
  parameter Modelica.SIunits.Power Q_flow_nominal = 2200

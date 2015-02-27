@@ -3,7 +3,7 @@ model HeaterCooler_u
   "Model that tests a heat exchanger model with reverse flow"
   extends Modelica.Icons.Example;
 
- package Medium = Buildings.Media.ConstantPropertyLiquidWater;
+ package Medium = Buildings.Media.Water;
 
   Buildings.Fluid.HeatExchangers.HeaterCooler_u hea1(
     redeclare package Medium = Medium,

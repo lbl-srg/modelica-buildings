@@ -1,0 +1,4 @@
+simulateModel("Buildings.Obsolete.Media.PerfectGases.Examples.TestMoistAir", method="dassl", resultFile="TestMoistAirPerGas");
+createPlot(id = 1,
+ y = {"volume.medium.T"},
+ grid = true);

@@ -13,7 +13,7 @@ model ASHRAESolarGain "Example showing the use of ASHRAESolarGain"
     y_intercept=per.y_intercept,
     B0=per.B0,
     B1=per.B1,
-    redeclare package Medium = Buildings.Media.ConstantPropertyLiquidWater,
+    redeclare package Medium = Buildings.Media.Water,
     til=0.78539816339745) "Solar heat gain model using ASHRAE 93 calculations"
     annotation (Placement(transformation(extent={{72,0},{92,20}})));
   Modelica.Blocks.Sources.Sine     HGroDifTil(

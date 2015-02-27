@@ -2,8 +2,7 @@ within Buildings.Fluid.HeatExchangers.Examples.BaseClasses;
 partial model WetCoilDiscretized
   "Model that demonstrates use of a finite volume model of a heat exchanger with condensation"
 
-  package Medium1 = Buildings.Media.ConstantPropertyLiquidWater
-    "Medium for water-side";
+  package Medium1 = Buildings.Media.Water "Medium for water-side";
   replaceable package Medium2 = Modelica.Media.Interfaces.PartialMedium
     "Medium for air-side"
       annotation (choicesAllMatching = true);

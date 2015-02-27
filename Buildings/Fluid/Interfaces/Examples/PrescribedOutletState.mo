@@ -3,7 +3,7 @@ model PrescribedOutletState "Test model for prescribed outlet state"
   import Buildings;
   extends Modelica.Icons.Example;
 
-  package Medium = Buildings.Media.ConstantPropertyLiquidWater;
+  package Medium = Buildings.Media.Water;
 
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal=0.1
     "Nominal mass flow rate";

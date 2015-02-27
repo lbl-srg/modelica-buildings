@@ -2,7 +2,7 @@ within Buildings.Fluid.HeatExchangers.DXCoils.Examples;
 model SpaceCooling "Space cooling with DX coils"
   extends Modelica.Icons.Example;
   replaceable package Medium =
-      Buildings.Media.GasesPTDecoupled.MoistAirUnsaturated;
+      Buildings.Media.Air;
 
   parameter Modelica.SIunits.Volume V=6*10*3 "Room volume";
   //////////////////////////////////////////////////////////

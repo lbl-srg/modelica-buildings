@@ -1,0 +1,7 @@
+compareVars :=
+  {
+    "dp.port_a.m_flow",
+    "senRelPre.p_rel",
+    "senPre_a.p",
+    "senPre_b.p"
+  };

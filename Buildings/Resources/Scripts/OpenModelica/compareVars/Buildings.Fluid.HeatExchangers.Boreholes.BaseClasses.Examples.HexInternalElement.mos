@@ -1,0 +1,7 @@
+compareVars :=
+  {
+    "hex.vol1.T",
+    "hex.vol2.T",
+    "hex.vol1.heatPort.Q_flow",
+    "hex.vol2.heatPort.Q_flow"
+  };

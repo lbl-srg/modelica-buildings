@@ -2,7 +2,7 @@ within Buildings.Fluid.HeatExchangers.RadiantSlabs.Examples;
 model StepResponseEpsilonNTU
   "Model that tests the radiant slab with epsilon-NTU configuration"
   extends Modelica.Icons.Example;
- package Medium = Buildings.Media.ConstantPropertyLiquidWater;
+ package Medium = Buildings.Media.Water;
   Sources.Boundary_ph sin(redeclare package Medium = Medium, nPorts=1) "Sink"
     annotation (Placement(transformation(extent={{90,-30},{70,-10}})));
   Sources.MassFlowSource_T sou(

@@ -2,7 +2,7 @@ within Buildings.Obsolete.Fluid.Movers.Examples;
 model FlowMachine "Fan with polynomial performance curve"
   extends Modelica.Icons.Example;
 
-   package Medium = Buildings.Media.IdealGases.SimpleAir;
+   package Medium = Buildings.Media.Air;
     Modelica.Blocks.Sources.Ramp P(
     height=-1500,
     offset=101325,

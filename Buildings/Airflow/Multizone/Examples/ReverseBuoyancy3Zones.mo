@@ -2,7 +2,7 @@ within Buildings.Airflow.Multizone.Examples;
 model ReverseBuoyancy3Zones
   "Model with three rooms and buoyancy-driven air circulation that reverses direction"
   extends Modelica.Icons.Example;
-  package Medium = Buildings.Media.IdealGases.SimpleAir;
+  package Medium = Buildings.Media.Air;
   Buildings.Fluid.MixingVolumes.MixingVolume volEas(
     redeclare package Medium = Medium,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,

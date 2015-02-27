@@ -3,10 +3,10 @@ model System2
   "Second part of the system model with air supply and open loop control"
   extends Modelica.Icons.Example;
   replaceable package MediumA =
-      Buildings.Media.GasesPTDecoupled.MoistAirUnsaturated;
+      Buildings.Media.Air;
 
   replaceable package MediumW =
-      Buildings.Media.ConstantPropertyLiquidWater;
+      Buildings.Media.Water;
 
   Fluid.MixingVolumes.MixingVolume vol(
     redeclare package Medium = MediumA,
@@ -523,7 +523,7 @@ If we were interested in computing electricity use for the pump,
 we could have used the same model as for the fan.
 </p>
 <p>
-To explicitely model duct pressure drop, we could have added
+To explicitly model duct pressure drop, we could have added
 <a href=\"modelica://Buildings.Fluid.FixedResistances.FixedResistanceDpM\">
 Buildings.Fluid.FixedResistances.FixedResistanceDpM</a> to the model.
 However, computationally it is cheaper to lump these pressure drops into other component models.

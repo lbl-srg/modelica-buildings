@@ -1,0 +1,9 @@
+compareVars :=
+  {
+    "vol.T",
+    "boi.vol.T",
+    "val.y",
+    "conPID.u_s",
+    "conPID.u_m",
+    "conPID.y"
+  };

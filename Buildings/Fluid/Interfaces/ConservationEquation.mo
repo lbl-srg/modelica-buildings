@@ -2,11 +2,13 @@ within Buildings.Fluid.Interfaces;
 model ConservationEquation "Lumped volume with mass and energy balance"
 
   extends Buildings.Fluid.Interfaces.LumpedVolumeDeclarations;
+  constant Boolean initialize_p = not Medium.singleState
+    "= true to set up initial equations for pressure"
+    annotation(HideResult=true);
+
   // Port definitions
   parameter Integer nPorts=0 "Number of ports"
     annotation(Evaluate=true, Dialog(connectorSizing=true, tab="General",group="Ports"));
-  parameter Boolean initialize_p = not Medium.singleState
-    "= true to set up initial equations for pressure";
   Modelica.Fluid.Vessels.BaseClasses.VesselFluidPorts_b ports[nPorts](
       redeclare each final package Medium = Medium) "Fluid inlets and outlets"
     annotation (Placement(transformation(extent={{-40,-10},{40,10}},
@@ -19,9 +21,7 @@ model ConservationEquation "Lumped volume with mass and energy balance"
       stateSelect=if not (massDynamics == Modelica.Fluid.Types.Dynamics.SteadyState)
                      then StateSelect.prefer else StateSelect.default),
     h(start=hStart),
-    T(start=T_start,
-      stateSelect=if (not (energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState))
-                     then StateSelect.prefer else StateSelect.default),
+    T(start=T_start),
     Xi(start=X_start[1:Medium.nXi],
        each stateSelect=if (not (substanceDynamics == Modelica.Fluid.Types.Dynamics.SteadyState))
                      then StateSelect.prefer else StateSelect.default),
@@ -52,7 +52,7 @@ model ConservationEquation "Lumped volume with mass and energy balance"
     (mSenFac - 1)*rho_default*cp_default*fluidVolume
     "Aditional heat capacity for implementing mFactor";
   Modelica.Blocks.Interfaces.RealInput Q_flow(unit="W")
-    "Sensible plus latent heat flow rate transfered into the medium"
+    "Sensible plus latent heat flow rate transferred into the medium"
     annotation (Placement(transformation(extent={{-140,40},{-100,80}})));
   Modelica.Blocks.Interfaces.RealInput mWat_flow(unit="kg/s")
     "Moisture mass flow rate added to the medium"
@@ -270,6 +270,13 @@ Buildings.Fluid.MixingVolumes.MixingVolume</a>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+February 5, 2015, by Michael Wetter:<br/>
+Changed <code>initalize_p</code> from a <code>parameter</code> to a
+<code>constant</code>. This is only required in finite volume models
+of heat exchangers (to avoid consistent but redundant initial conditions)
+and hence it should be set as a <code>constant</code>.
+</li>
 <li>
 October 21, 2014, by Filip Jorissen:<br/>
 Added parameter <code>mFactor</code> to increase the thermal capacity.

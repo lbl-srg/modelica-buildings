@@ -10,11 +10,11 @@ model StaticFourPortHeatMassExchanger
     annotation(Evaluate=true, Dialog(tab="Advanced"));
 
   input Modelica.SIunits.HeatFlowRate Q1_flow
-    "Heat transfered into the medium 1";
+    "Heat transferred into the medium 1";
   input Medium1.MassFlowRate mWat1_flow
     "Moisture mass flow rate added to the medium 1";
   input Modelica.SIunits.HeatFlowRate Q2_flow
-    "Heat transfered into the medium 2";
+    "Heat transferred into the medium 2";
   input Medium2.MassFlowRate mWat2_flow
     "Moisture mass flow rate added to the medium 2";
   constant Boolean sensibleOnly1

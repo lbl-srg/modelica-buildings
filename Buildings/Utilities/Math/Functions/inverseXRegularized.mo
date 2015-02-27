@@ -16,7 +16,7 @@ algorithm
     y      := x/delta2 + x*abs(x/delta2/delta*(2 - x2_d2*(3 - x2_d2)));
   end if;
 
-  annotation (
+  annotation (smoothOrder = 1,
     Documentation(info="<html>
 <p>
 Function that approximates <i>y=1 &frasl; x</i>
@@ -28,6 +28,10 @@ See the package <code>Examples</code> for the graph.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+February 5, 2015, by Filip Jorissen:<br/>
+Added <code>smoothOrder = 1</code>.
+</li>
 <li>
 May 10, 2013, by Michael Wetter:<br/>
 Reformulated implementation to avoid unrequired computations.

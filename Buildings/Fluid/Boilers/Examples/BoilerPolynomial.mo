@@ -1,7 +1,7 @@
 within Buildings.Fluid.Boilers.Examples;
 model BoilerPolynomial "Test model"
   extends Modelica.Icons.Example;
- package Medium = Buildings.Media.ConstantPropertyLiquidWater "Medium model";
+ package Medium = Buildings.Media.Water "Medium model";
  parameter Modelica.SIunits.Power Q_flow_nominal = 3000 "Nominal power";
  parameter Modelica.SIunits.Temperature dT_nominal = 20
     "Nominal temperature difference";

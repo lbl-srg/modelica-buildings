@@ -98,7 +98,7 @@ equation
   Q_flow[nSta+1] = G[nSta+1] * (T[nSta]-port_b.T);
   for i in 2:nSta loop
     Q_flow[i]=G[i]*(T[i-1]-T[i]);
-    // Q_flow[i] represents the heat flowing betwen two nodes
+    // Q_flow[i] represents the heat flowing between two nodes
   end for;
   if material.steadyState then
     for i in 2:nSta+1 loop

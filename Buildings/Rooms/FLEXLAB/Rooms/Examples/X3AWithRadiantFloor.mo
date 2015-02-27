@@ -2,9 +2,8 @@ within Buildings.Rooms.FLEXLAB.Rooms.Examples;
 model X3AWithRadiantFloor "Example model showing a use of X3A"
   extends Modelica.Icons.Example;
 
-  package Air = Buildings.Media.GasesConstantDensity.MoistAirUnsaturated
-    "Air model used in the example model";
-  package Water = Buildings.Media.ConstantPropertyLiquidWater
+  package Air = Buildings.Media.Air "Air model used in the example model";
+  package Water = Buildings.Media.Water
     "Water model used in the radiant slab loop";
 
   Buildings.Rooms.FLEXLAB.Rooms.X3A.TestCell X3A(
@@ -792,7 +791,7 @@ equation
           </tr>
           </table>
           <p>
-          In the above table blank entires either show that there is no data to describe, or that the data
+          In the above table blank entries either show that there is no data to describe, or that the data
           is describing a quantity for a separate model. Two examples are:
           <ul>
           <li>The table for shaPos only contains data for shade position. Because it only has a y[1] value
@@ -800,7 +799,7 @@ equation
           <li> airCon, airConClo, and airConEle all share an external data file. They all use the same
           temperature data, located in y[4] of the external data file. The three room models use different
           air mass flow rates. airCon uses the flow rate from y[1] in the data file, airConClo uses the
-          flow rate from y[2], and airConEle uses the flow rate from y[3]. Thus, the other entires
+          flow rate from y[2], and airConEle uses the flow rate from y[3]. Thus, the other entries
           for each row in the table are left blank because the data is innapropriate for that particular
           model.</li>
           </ul>

@@ -1,7 +1,7 @@
 within Buildings.Obsolete.Fluid.Movers.Examples;
 model FlowMachineSeries_y "Two flow machines in series"
   extends Modelica.Icons.Example;
-  package Medium = Buildings.Media.ConstantPropertyLiquidWater;
+  package Medium = Buildings.Media.Water;
 
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal=
      1 "Nominal mass flow rate";

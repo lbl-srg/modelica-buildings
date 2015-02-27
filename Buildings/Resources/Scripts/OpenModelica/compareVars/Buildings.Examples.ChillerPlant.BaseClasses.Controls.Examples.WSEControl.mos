@@ -1,0 +1,8 @@
+compareVars :=
+  {
+    "wseCon.wseCWST",
+    "wseCon.wseCHWST",
+    "wseCon.TWetBul",
+    "wseCon.y1",
+    "wseCon.y2"
+  };

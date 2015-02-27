@@ -1,0 +1,7 @@
+compareVars :=
+  {
+    "T",
+    "TInv",
+    "p_w",
+    "dT"
+  };

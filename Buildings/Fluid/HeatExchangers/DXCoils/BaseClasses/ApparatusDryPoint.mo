@@ -22,7 +22,7 @@ equation
   XEvaInVec =cat(1,{XEvaIn},{1-sum({XEvaIn})});
 
   XEvaIn = Buildings.Utilities.Psychrometrics.Functions.X_pW(
-     p_w=Medium.saturationPressureLiquid(TADP), p=p);
+     p_w=Buildings.Utilities.Psychrometrics.Functions.saturationPressureLiquid(TADP), p=p);
 
   hMin = Medium.specificEnthalpy(Medium.setState_pTX(p=p, T=TADP, X=XEvaInVec));
 

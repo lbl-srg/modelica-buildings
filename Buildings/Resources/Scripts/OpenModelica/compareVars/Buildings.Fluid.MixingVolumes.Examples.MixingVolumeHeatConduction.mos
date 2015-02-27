@@ -1,0 +1,6 @@
+compareVars :=
+  {
+    "vol.ports[1].m_flow",
+    "vol.heatPort.Q_flow",
+    "vol.heatPort.T"
+  };
