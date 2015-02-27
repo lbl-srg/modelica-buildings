@@ -486,13 +486,12 @@ model TwoRoomsWithStorage
     m_flow_nominal=2*VRoo*1.2*0.37/3600)
     "Supply air damper that bypasses the heat recovery"
     annotation (Placement(transformation(extent={{160,510},{180,530}})));
-  Fluid.HeatExchangers.HeaterCooler_u coo(
-    Q_flow_nominal=-3000,
+  Fluid.HeatExchangers.HeaterCooler_T coo(
     redeclare package Medium = MediumA,
     m_flow_nominal=2*VRoo*1.2*0.37/3600,
     dp_nominal=0,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
-    "Coil for mechanical cooling"
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    Q_flow_maxHeat=0) "Coil for mechanical cooling"
     annotation (Placement(transformation(extent={{240,500},{260,520}})));
   Modelica.Blocks.Logical.LessThreshold lesThrTRoo(threshold=18 + 273.15)
     "Test to block boiler if room air temperature is sufficiently high"
@@ -520,8 +519,8 @@ model TwoRoomsWithStorage
      Modelica.Blocks.Interfaces.RealInput TOut(unit="K")
       "Outside air temperature"
        annotation (Placement(transformation(extent={{-140,-80},{-100,-40}})));
-     Modelica.Blocks.Interfaces.RealOutput yC
-      "Control signal for mechanical cooling"
+     Modelica.Blocks.Interfaces.RealOutput TSupCoo
+      "Control signal for set point for leaving air temperature of cooling coil"
        annotation (Placement(transformation(extent={{100,50},{120,70}}),
            iconTransformation(extent={{100,50},{120,70}})));
      Modelica.Blocks.Interfaces.RealOutput yF
@@ -544,7 +543,11 @@ model TwoRoomsWithStorage
        yF   := 0;
        yHex := 1;
      end when;
-     yC :=max(0, min(1, Kp*(TRoo - TRooCoo)));
+     TSupCoo :=273.15 + Buildings.Utilities.Math.Functions.smoothLimit(
+                 x=30 - 20*Kp*(TRoo - TRooCoo),
+                 l=10,
+                 u=30,
+                 deltaX=0.1);
 
      annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
                {100,100}}), graphics={
@@ -575,6 +578,13 @@ model TwoRoomsWithStorage
 <p>
 This block computes a control signal for free cooling and for mechanical cooling.
 </p>
+</html>", revisions="<html>
+<ul>
+<li>
+February 27, 2015, by Michael Wetter:<br/>
+Changed controller to output setpoint for supply air temperature for cooling coil.
+</li>
+</ul>
 </html>"));
   end CoolingControl;
   Fluid.Actuators.Dampers.Exponential damHex(
@@ -1085,10 +1095,6 @@ equation
       points={{121,540},{170,540},{170,532}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(cooCon.yC, coo.u) annotation (Line(
-      points={{121,546},{200,546},{200,516},{238,516}},
-      color={0,0,127},
-      smooth=Smooth.None));
   connect(hex.port_b1, coo.port_a) annotation (Line(
       points={{200,494},{220,494},{220,510},{240,510}},
       color={0,127,255},
@@ -1148,6 +1154,10 @@ equation
       smooth=Smooth.None));
   connect(damRetByp.y, cooCon.yF) annotation (Line(
       points={{170,472},{170,478},{154,478},{154,540},{121,540}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(cooCon.TSupCoo, coo.TSet) annotation (Line(
+      points={{121,546},{220,546},{220,516},{238,516}},
       color={0,0,127},
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-120,
