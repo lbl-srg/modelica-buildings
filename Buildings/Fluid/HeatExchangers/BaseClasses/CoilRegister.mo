@@ -58,22 +58,22 @@ model CoilRegister "Register for a heat exchanger"
 
   Modelica.Fluid.Interfaces.FluidPort_a[nPipPar] port_a1(
         redeclare each package Medium = Medium1,
-        each m_flow(start=0, min=if allowFlowReversal1 then -Constants.inf else 0))
+        each m_flow(min=if allowFlowReversal1 then -Constants.inf else 0))
     "Fluid connector a for medium 1 (positive design flow direction is from port_a1 to port_b1)"
     annotation (Placement(transformation(extent={{-110,50},{-90,70}})));
   Modelica.Fluid.Interfaces.FluidPort_b[nPipPar] port_b1(
         redeclare each package Medium = Medium1,
-        each m_flow(start=0, max=if allowFlowReversal1 then +Constants.inf else 0))
+        each m_flow(max=if allowFlowReversal1 then +Constants.inf else 0))
     "Fluid connector b for medium 1 (positive design flow direction is from port_a to port_b)"
     annotation (Placement(transformation(extent={{110,50},{90,70}})));
   Modelica.Fluid.Interfaces.FluidPort_a[nPipPar,nPipSeg] port_a2(
         redeclare each package Medium = Medium2,
-        each m_flow(start=0, min=if allowFlowReversal2 then -Constants.inf else 0))
+        each m_flow(min=if allowFlowReversal2 then -Constants.inf else 0))
     "Fluid connector a for medium 2 (positive design flow direction is from port_a2 to port_b2)"
     annotation (Placement(transformation(extent={{90,-70},{110,-50}})));
   Modelica.Fluid.Interfaces.FluidPort_b[nPipPar,nPipSeg] port_b2(
         redeclare each package Medium = Medium2,
-        each m_flow(start=0, max=if allowFlowReversal2 then +Constants.inf else 0))
+        each m_flow(max=if allowFlowReversal2 then +Constants.inf else 0))
     "Fluid connector b for medium 2 (positive design flow direction is from port_a to port_b)"
     annotation (Placement(transformation(extent={{-90,-72},{-110,-52}})));
 
@@ -182,6 +182,10 @@ between the fluid volumes and the solid in each heat exchanger element.
 </html>",
 revisions="<html>
 <ul>
+<li>
+March 2, 2015, by Michael Wetter:<br/>
+Removed <code>start=0</code> for <code>m_flow</code> and <code>dp</code>.
+</li>
 <li>
 February 5, 2015, by Michael Wetter:<br/>
 Changed <code>initalize_p</code> from a <code>parameter</code> to a

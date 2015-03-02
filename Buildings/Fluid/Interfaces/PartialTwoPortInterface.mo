@@ -16,9 +16,9 @@ partial model PartialTwoPortInterface
     "= true, if actual temperature at port is computed"
     annotation(Dialog(tab="Advanced",group="Diagnostics"));
 
-  Modelica.SIunits.MassFlowRate m_flow(start=0) = port_a.m_flow
+  Modelica.SIunits.MassFlowRate m_flow = port_a.m_flow
     "Mass flow rate from port_a to port_b (m_flow > 0 is design flow direction)";
-  Modelica.SIunits.Pressure dp(start=0, displayUnit="Pa")
+  Modelica.SIunits.Pressure dp(displayUnit="Pa")
     "Pressure difference between port_a and port_b";
 
   Medium.ThermodynamicState sta_a=
@@ -58,6 +58,10 @@ Buildings.Fluid.Interfaces.StaticTwoPortHeatMassExchanger</a>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+March 2, 2015, by Michael Wetter:<br/>
+Removed <code>start=0</code> for <code>m_flow</code> and <code>dp</code>.
+</li>
 <li>
 October 3, 2014, by Michael Wetter:<br/>
 Changed assignment of nominal value to avoid in OpenModelica the warning

@@ -2,7 +2,7 @@ within Buildings.Fluid.BaseClasses;
 partial model PartialResistance "Partial model for a hydraulic resistance"
     extends Buildings.Fluid.Interfaces.PartialTwoPortInterface(
      show_T=false,
-     dp(start=0, nominal=dp_nominal_pos),
+     dp(nominal=dp_nominal_pos),
      m_flow(nominal=m_flow_nominal_pos),
      final m_flow_small = 1E-4*abs(m_flow_nominal));
 
@@ -81,6 +81,10 @@ this base class.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+March 2, 2015, by Michael Wetter:<br/>
+Removed <code>start=0</code> for <code>dp</code>.
+</li>
 <li>
 January 13, 2015, by Marcus Fuchs:<br/>
 Revised revisions section (there were two revisions statements)

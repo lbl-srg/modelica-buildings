@@ -6,7 +6,7 @@ partial model PartialConvection "Partial model for heat convection"
     "Constant convection coefficient";
   Modelica.SIunits.HeatFlowRate Q_flow "Heat flow rate from solid -> fluid";
   Modelica.SIunits.HeatFlux q_flow "Convective heat flux from solid -> fluid";
-  Modelica.SIunits.TemperatureDifference dT(start=0) "= solid.T - fluid.T";
+  Modelica.SIunits.TemperatureDifference dT "= solid.T - fluid.T";
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a solid
                               annotation (Placement(transformation(extent={{-110,
             -10},{-90,10}})));
@@ -71,6 +71,10 @@ equation
 Partial model for a convective heat transfer model.
 </html>", revisions="<html>
 <ul>
+<li>
+March 2, 2015, by Michael Wetter:<br/>
+Removed <code>start=0</code> for <code>dT</code>.
+</li>
 <li>
 May 30, 2014, by Michael Wetter:<br/>
 Removed undesirable annotation <code>Evaluate=true</code>.

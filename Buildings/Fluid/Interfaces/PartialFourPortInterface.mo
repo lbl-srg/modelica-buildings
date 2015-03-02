@@ -18,13 +18,13 @@ partial model PartialFourPortInterface
   parameter Boolean show_T = false
     "= true, if actual temperature at port is computed"
     annotation(Dialog(tab="Advanced",group="Diagnostics"));
-  Medium1.MassFlowRate m1_flow(start=0) = port_a1.m_flow
+  Medium1.MassFlowRate m1_flow = port_a1.m_flow
     "Mass flow rate from port_a1 to port_b1 (m1_flow > 0 is design flow direction)";
-  Modelica.SIunits.Pressure dp1(start=0, displayUnit="Pa")
+  Modelica.SIunits.Pressure dp1(displayUnit="Pa")
     "Pressure difference between port_a1 and port_b1";
-  Medium2.MassFlowRate m2_flow(start=0) = port_a2.m_flow
+  Medium2.MassFlowRate m2_flow = port_a2.m_flow
     "Mass flow rate from port_a2 to port_b2 (m2_flow > 0 is design flow direction)";
-  Modelica.SIunits.Pressure dp2(start=0, displayUnit="Pa")
+  Modelica.SIunits.Pressure dp2(displayUnit="Pa")
     "Pressure difference between port_a2 and port_b2";
   Medium1.ThermodynamicState sta_a1=
       Medium1.setState_phX(port_a1.p,
@@ -78,6 +78,11 @@ mass transfer and pressure drop equations.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+March 2, 2015, by Michael Wetter:<br/>
+Removed <code>start=0</code> for <code>m1_flow</code>, <code>m2_flow</code>, 
+<code>dp1</code> and <code>dp2</code>.
+</li>
 <li>
 November 13, 2013 by Michael Wetter:<br/>
 Removed assignment of <code>min</code> and <code>max</code>

@@ -160,22 +160,22 @@ model MixingBox "Outside air mixing box with interlocked air dampers"
     annotation (Dialog(tab="Damper coefficients"));
 
   Modelica.Fluid.Interfaces.FluidPort_a port_Out(redeclare package Medium =
-        Medium, m_flow(start=0, min=if allowFlowReversal then -Constants.inf else
+        Medium, m_flow(min=if allowFlowReversal then -Constants.inf else
                 0))
     "Fluid connector a (positive design flow direction is from port_a to port_b)"
     annotation (Placement(transformation(extent={{-110,50},{-90,70}})));
   Modelica.Fluid.Interfaces.FluidPort_b port_Exh(redeclare package Medium =
-        Medium, m_flow(start=0, max=if allowFlowReversal then +Constants.inf else
+        Medium, m_flow(max=if allowFlowReversal then +Constants.inf else
                 0))
     "Fluid connector b (positive design flow direction is from port_a to port_b)"
     annotation (Placement(transformation(extent={{-90,-70},{-110,-50}})));
   Modelica.Fluid.Interfaces.FluidPort_a port_Ret(redeclare package Medium =
-        Medium, m_flow(start=0, min=if allowFlowReversal then -Constants.inf else
+        Medium, m_flow(min=if allowFlowReversal then -Constants.inf else
                 0))
     "Fluid connector a (positive design flow direction is from port_a to port_b)"
     annotation (Placement(transformation(extent={{110,-70},{90,-50}})));
   Modelica.Fluid.Interfaces.FluidPort_b port_Sup(redeclare package Medium =
-        Medium, m_flow(start=0, max=if allowFlowReversal then +Constants.inf else
+        Medium, m_flow(max=if allowFlowReversal then +Constants.inf else
                 0))
     "Fluid connector b (positive design flow direction is from port_a to port_b)"
     annotation (Placement(transformation(extent={{110,50},{90,70}})));
@@ -314,6 +314,10 @@ equation
 defaultComponentName="eco",
 Documentation(revisions="<html>
 <ul>
+<li>
+March 2, 2015, by Michael Wetter:<br/>
+Removed <code>start=0</code> for <code>m_flow</code>.
+</li>
 <li>
 December 14, 2012 by Michael Wetter:<br/>
 Renamed protected parameters for consistency with the naming conventions.

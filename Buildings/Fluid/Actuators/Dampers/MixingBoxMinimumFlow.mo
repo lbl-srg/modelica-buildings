@@ -19,8 +19,7 @@ model MixingBoxMinimumFlow
     annotation(Dialog(tab="Dynamics", group="Filtered opening",enable=filteredOpening));
 
   Modelica.Fluid.Interfaces.FluidPort_a port_OutMin(redeclare package Medium =
-        Medium, m_flow(start=0, min=if allowFlowReversal then -Constants.inf else
-                0))
+        Medium, m_flow(min=if allowFlowReversal then -Constants.inf else 0))
     "Fluid connector a (positive design flow direction is from port_a to port_b)"
     annotation (Placement(transformation(extent={{-110,90},{-90,110}}), iconTransformation(extent={{-110,90},{-90,110}})));
   Modelica.Blocks.Interfaces.RealInput yOutMin
@@ -141,6 +140,10 @@ equation
 defaultComponentName="eco",
 Documentation(revisions="<html>
 <ul>
+<li>
+March 2, 2015, by Michael Wetter:<br/>
+Removed <code>start=0</code> for <code>m_flow</code> and <code>dp</code>.
+</li>
 <li>
 February 14, 2012 by Michael Wetter:<br/>
 Added filter to approximate the travel time of the actuator.

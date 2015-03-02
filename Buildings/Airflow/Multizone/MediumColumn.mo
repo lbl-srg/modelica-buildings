@@ -29,9 +29,9 @@ model MediumColumn
 
   Modelica.SIunits.VolumeFlowRate V_flow
     "Volume flow rate at inflowing port (positive when flow from port_a to port_b)";
-  Modelica.SIunits.MassFlowRate m_flow(start=0)
+  Modelica.SIunits.MassFlowRate m_flow
     "Mass flow rate from port_a to port_b (m_flow > 0 is design flow direction)";
-  Modelica.SIunits.Pressure dp(start=0, displayUnit="Pa")
+  Modelica.SIunits.Pressure dp(displayUnit="Pa")
     "Pressure difference between port_a and port_b";
   Modelica.SIunits.Density rho "Density in medium column";
 protected
@@ -219,6 +219,10 @@ Buildings.Airflow.Multizone.MediumColumnDynamic</a> instead of this model.
 </html>",
 revisions="<html>
 <ul>
+<li>
+March 2, 2015, by Michael Wetter:<br/>
+Removed <code>start=0</code> for <code>m_flow</code> and <code>dp</code>.
+</li>
 <li>
 February 24, 2015 by Michael Wetter:<br/>
 Changed model to use
