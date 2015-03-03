@@ -2,14 +2,17 @@ within Buildings.HeatTransfer.Windows;
 model InteriorHeatTransferConvective
   "Model for heat convection at the interior surface of a window that may have a shading device"
   extends BaseClasses.PartialWindowBoundaryCondition(final thisSideHasShade=haveInteriorShade);
+
+  parameter Modelica.SIunits.CoefficientOfHeatTransfer hFixed=4
+    "Constant convection coefficient";
+  parameter Types.InteriorConvection conMod=Buildings.HeatTransfer.Types.InteriorConvection.Fixed
+    "Convective heat transfer model";
+  parameter Modelica.SIunits.Angle til "Surface tilt";
+
   Buildings.HeatTransfer.Windows.BaseClasses.InteriorConvectionCoefficient
     conCoeGla(final A=AGla)
     "Model for the inside convective heat transfer coefficient of the glass"
-    annotation (Placement(transformation(extent={{-90,40},{-70,60}})));
-  Buildings.HeatTransfer.Windows.BaseClasses.InteriorConvectionCoefficient
-    conCoeFra(final A=AFra)
-    "Model for the inside convective heat transfer coefficient of the frame"
-    annotation (Placement(transformation(extent={{-20,-80},{0,-60}})));
+    annotation (Placement(transformation(extent={{-92,26},{-72,46}})));
 
   BaseClasses.ShadeConvection conSha(
     final A=AGla,
@@ -36,17 +39,22 @@ model InteriorHeatTransferConvective
         extent={{-10,-10},{10,10}},
         rotation=270,
         origin={0,-110})));
+  BaseClasses.InteriorConvection conFra(
+    final A=AFra,
+    final til=til,
+    final conMod=conMod,
+    hFixed=hFixed) "Convective heat transfer between air and frame"
+    annotation (Placement(transformation(extent={{50,-98},{30,-78}})));
+  BaseClasses.InteriorConvection conWinUns(
+    final A=AGla,
+    final til=til,
+    final conMod=conMod,
+    hFixed=hFixed)
+    "Convection from unshaded part of window to outside or room air"
+    annotation (Placement(transformation(extent={{60,0},{40,20}})));
 equation
-  connect(conCoeFra.GCon, conFra.Gc) annotation (Line(
-      points={{1,-70},{40,-70},{40,-78}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(conCoeGla.GCon, proUns.u2) annotation (Line(
-      points={{-69,50},{8,50},{8,74},{18,74}},
-      color={0,0,127},
-      smooth=Smooth.None));
   connect(conCoeGla.GCon, proSha.u1) annotation (Line(
-      points={{-69,50},{-56,50},{-56,36},{-52,36}},
+      points={{-71,36},{-52,36}},
       color={0,0,127},
       smooth=Smooth.None));
 
@@ -76,6 +84,31 @@ equation
       points={{-100,0},{-80,0},{-80,-10},{-8,-10}},
       color={191,0,0},
       smooth=Smooth.None));
+  connect(conFra.fluid, air) annotation (Line(
+      points={{30,-88},{-80,-88},{-80,0},{-100,0}},
+      color={191,0,0},
+      smooth=Smooth.None));
+  connect(conWinUns.fluid, air)
+                             annotation (Line(
+      points={{40,10},{-80,10},{-80,0},{-100,0}},
+      color={191,0,0},
+      smooth=Smooth.None));
+  connect(glaUns,conWinUns. solid) annotation (Line(
+      points={{100,20},{76,20},{76,10},{60,10}},
+      color={191,0,0},
+      smooth=Smooth.None));
+  connect(conFra.solid, frame) annotation (Line(
+      points={{50,-88},{70,-88},{70,-100}},
+      color={191,0,0},
+      smooth=Smooth.None));
+  connect(shaSig.yCom, conWinUns.u) annotation (Line(
+      points={{-69,74},{70,74},{70,18},{61,18}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(shaSig.yCom, conFra.u) annotation (Line(
+      points={{-69,74},{70,74},{70,-80},{51,-80}},
+      color={0,0,127},
+      smooth=Smooth.None));
   annotation (defaultComponentName="intConSha",
 Documentation(info="<html>
 <p>
@@ -92,6 +125,13 @@ This model adds the convective heat transfer coefficient to its base model.
 </html>", revisions="<html>
 <ul>
 <li>
+March 2, 2015, by Michael Wetter:<br/>
+Refactored model to allow a temperature dependent convective heat transfer
+on the room side.
+This is for issue
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/52\">52</a>.
+</li>
+<li>
 July 11, 2013, by Michael Wetter:<br/>
 First implementation.
 </li>
@@ -106,5 +146,7 @@ First implementation.
         Text(
           extent={{-28,-84},{34,-100}},
           lineColor={0,0,127},
-          textString="TSha")}));
+          textString="TSha")}),
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
+            100}}), graphics));
 end InteriorHeatTransferConvective;

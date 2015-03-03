@@ -296,8 +296,17 @@ have been <b style=\"color:blue\">improved</b> in a
                        This is needed to avoid an error during model check
                        and translation in Dymola 2015 FD01 beta1.
     </td>
-</tr>
-
+    </tr>
+    
+<tr><td valign=\"top\">Buildings.HeatTransfer.Windows.InteriorHeatTransferConvective
+    </td>
+    <td valign=\"top\">Changed model to allow a temperature dependent convective heat transfer
+                       on the room side.
+                       This is for issue
+                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/52\">52</a>.
+    </td>
+    </tr>
+    
 <tr><td colspan=\"2\"><b>Buildings.Media</b>
     </td>
 </tr>
@@ -316,7 +325,17 @@ have been <b style=\"color:blue\">improved</b> in a
 
 <tr><td colspan=\"2\"><b>Buildings.Rooms</b>
     </td>
-</tr>
+    </tr>
+    
+<tr><td valign=\"top\">Buildings.Rooms.MixedAir
+    </td>
+    <td valign=\"top\">Changed model to allow a temperature dependent convective heat transfer
+                       on the room side for windows.
+                       This is for issue
+                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/52\">52</a>.
+    </td>
+    </tr>    
+    
 <tr><td valign=\"top\">Rooms.BaseClasses.ExteriorBoundaryConditionsWithWindow
     </td>
     <td valign=\"top\">Conditionally removed the shade model if no shade is present.
