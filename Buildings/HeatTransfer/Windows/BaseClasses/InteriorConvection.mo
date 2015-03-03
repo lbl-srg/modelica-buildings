@@ -18,10 +18,6 @@ model InteriorConvection
 protected
   constant Modelica.SIunits.Temperature dT0 = 2
     "Initial temperature used in homotopy method";
-
-public
-  InteriorHeatTransferConvective intConSha
-    annotation (Placement(transformation(extent={{146,14},{166,34}})));
 equation
   if (conMod == Buildings.HeatTransfer.Types.InteriorConvection.Fixed) then
     q_flow = u*hFixed * dT;
