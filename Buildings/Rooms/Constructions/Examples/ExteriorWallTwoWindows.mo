@@ -120,6 +120,7 @@ model ExteriorWallTwoWindows
   Buildings.HeatTransfer.Windows.InteriorHeatTransferConvective intShaCon[nCon](
     A=A,
     fFra=fFra,
+    til=conPar[:].til,
     haveExteriorShade={glaSys1.haveExteriorShade, glaSys2.haveExteriorShade},
     haveInteriorShade={glaSys1.haveInteriorShade, glaSys2.haveInteriorShade})
     "Model for interior shade heat transfer"
