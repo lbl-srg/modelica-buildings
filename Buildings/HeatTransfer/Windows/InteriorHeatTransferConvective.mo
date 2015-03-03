@@ -9,16 +9,6 @@ model InteriorHeatTransferConvective
     "Convective heat transfer model";
   parameter Modelica.SIunits.Angle til "Surface tilt";
 
-  Buildings.HeatTransfer.Windows.BaseClasses.InteriorConvectionCoefficient
-    conCoeGla(final A=AGla)
-    "Model for the inside convective heat transfer coefficient of the glass"
-    annotation (Placement(transformation(extent={{-92,26},{-72,46}})));
-
-  BaseClasses.ShadeConvection conSha(
-    final A=AGla,
-    final thisSideHasShade=thisSideHasShade) if
-       haveShade "Convection model for shade"
-    annotation (Placement(transformation(extent={{-8,-20},{12,0}})));
  Modelica.Blocks.Interfaces.RealInput QRadAbs_flow(final unit="W") if
        haveShade
     "Total net radiation that is absorbed by the shade (positive if absorbed)"
@@ -39,6 +29,17 @@ model InteriorHeatTransferConvective
         extent={{-10,-10},{10,10}},
         rotation=270,
         origin={0,-110})));
+
+  Buildings.HeatTransfer.Windows.BaseClasses.InteriorConvectionCoefficient
+    conCoeGla(final A=AGla)
+    "Model for the inside convective heat transfer coefficient of the glass"
+    annotation (Placement(transformation(extent={{-92,26},{-72,46}})));
+
+  BaseClasses.ShadeConvection conSha(
+    final A=AGla,
+    final thisSideHasShade=thisSideHasShade) if
+       haveShade "Convection model for shade"
+    annotation (Placement(transformation(extent={{-8,-20},{12,0}})));
   BaseClasses.InteriorConvection conFra(
     final A=AFra,
     final til=til,
