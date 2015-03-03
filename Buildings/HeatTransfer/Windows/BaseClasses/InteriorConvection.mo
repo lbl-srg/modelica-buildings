@@ -95,21 +95,18 @@ equation
 This is a model for a convective heat transfer for interior, room-facing surfaces.
 The parameter <code>conMod</code> determines the model that is used to compute
 the heat transfer coefficient:
-<p/>
+</p>
 <ul>
-<li><p>If <code>conMod=<a href=\"modelica://Buildings.HeatTransfer.Types.InteriorConvection\">
+<li>If <code>conMod=<a href=\"modelica://Buildings.HeatTransfer.Types.InteriorConvection\">
 Buildings.HeatTransfer.Types.InteriorConvection.Fixed</a></code>, then
 the convective heat transfer coefficient is set to the value specified by the parameter
 <code>hFixed</code>.
-</p>
 </li>
 <li>
-
 If <code>conMod=<a href=\"modelica://Buildings.HeatTransfer.Types.InteriorConvection\">
 Buildings.HeatTransfer.Types.InteriorConvection.Temperature</a></code>, then
 the convective heat tranfer coefficient is a function of the temperature difference.
 The convective heat flux is computed using
-<br/>
 <ul>
 <li>
 for floors the function
@@ -129,7 +126,6 @@ Buildings.HeatTransfer.Convection.Functions.HeatFlux.wall</a>
 </ul>
 </li>
 </ul>
-</p>
 <p>
 This model is identical to
 <a href=\"modelica://Buildings.HeatTransfer.Convection.Interior\">
