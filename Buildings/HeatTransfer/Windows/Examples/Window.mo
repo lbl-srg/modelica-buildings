@@ -100,6 +100,7 @@ model Window "Test model for the window"
   Buildings.HeatTransfer.Windows.InteriorHeatTransferConvective intShaCon(
     A=A,
     fFra=fFra,
+    til=Buildings.HeatTransfer.Types.Tilt.Wall,
     haveExteriorShade=glaSys.haveExteriorShade,
     haveInteriorShade=glaSys.haveInteriorShade)
     "Model for interior shade heat transfer"

@@ -36,21 +36,7 @@ partial model PartialWindowBoundaryCondition
     "Heat port that connects to shaded part of glass"
     annotation (Placement(transformation(extent={{90,-30},{110,-10}})));
 
-  Modelica.Thermal.HeatTransfer.Components.Convection conWinUns
-    "Convection from unshaded part of window to outside or room air"
-    annotation (Placement(transformation(extent={{60,0},{40,20}})));
-
-  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a frame
-    "Heat port at window frame"  annotation (Placement(transformation(extent={{60,-110},
-            {80,-90}})));
-  Modelica.Thermal.HeatTransfer.Components.Convection conFra
-    "Convective heat transfer between air and frame"
-    annotation (Placement(transformation(extent={{50,-98},{30,-78}})));
-
 protected
-  Modelica.Blocks.Math.Product proUns "Product for unshaded part of window"
-    annotation (Placement(transformation(extent={{20,70},{40,90}})));
-
   Modelica.Blocks.Math.Product proSha if haveShade
     "Product for shaded part of window"
     annotation (Placement(transformation(extent={{-50,20},{-30,40}})));
@@ -58,45 +44,22 @@ protected
   ShadingSignal shaSig(final haveShade=haveShade)
     "Conversion for shading signal"
     annotation (Placement(transformation(extent={{-90,70},{-70,90}})));
+public
+  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a frame
+    "Heat port at window frame"  annotation (Placement(transformation(extent={{60,-110},
+            {80,-90}})));
 initial equation
   assert(( thisSideHasShade and haveShade)  or (not thisSideHasShade),
     "Parameters \"thisSideHasShade\" and \"haveShade\" are not consistent. Check parameters");
 
 equation
-  connect(conWinUns.fluid, air)
-                             annotation (Line(
-      points={{40,10},{-80,10},{-80,5.55112e-16},{-100,5.55112e-16}},
-      color={191,0,0},
-      smooth=Smooth.None));
-
-  connect(conFra.fluid, air) annotation (Line(
-      points={{30,-88},{-80,-88},{-80,5.55112e-16},{-100,5.55112e-16}},
-      color={191,0,0},
-      smooth=Smooth.None));
-
-  connect(conFra.solid, frame) annotation (Line(
-      points={{50,-88},{70,-88},{70,-100}},
-      color={191,0,0},
-      smooth=Smooth.None));
-  connect(glaUns, conWinUns.solid) annotation (Line(
-      points={{100,20},{76,20},{76,10},{60,10}},
-      color={191,0,0},
-      smooth=Smooth.None));
-  connect(proUns.y, conWinUns.Gc) annotation (Line(
-      points={{41,80},{50,80},{50,20}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(uSha, shaSig.u)
+   connect(uSha, shaSig.u)
                        annotation (Line(
       points={{-120,80},{-92,80}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(proSha.u2, shaSig.y) annotation (Line(
       points={{-52,24},{-60,24},{-60,80},{-69,80}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(shaSig.yCom, proUns.u1) annotation (Line(
-      points={{-69,74},{-50,74},{-50,86},{18,86}},
       color={0,0,127},
       smooth=Smooth.None));
 
@@ -193,6 +156,13 @@ This allows using the model as a base class for windows with inside shade, outsi
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+March 2, 2015, by Michael Wetter:<br/>
+Refactored model to allow a temperature dependent convective heat transfer
+on the room side.
+This is for issue
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/52\">52</a>.
+</li>
 <li>
 August 25 2010, by Michael Wetter:<br/>
 First implementation.

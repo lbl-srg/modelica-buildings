@@ -1,5 +1,6 @@
-within Buildings.HeatTransfer.Convection;
-model Interior "Model for a interior (room-side) convective heat transfer"
+within Buildings.HeatTransfer.Windows.BaseClasses;
+model InteriorConvection
+  "Model for a interior (room-side) convective heat transfer with variable surface area"
   extends Buildings.HeatTransfer.Convection.BaseClasses.PartialConvection;
 
   parameter Buildings.HeatTransfer.Types.InteriorConvection conMod=
@@ -8,34 +9,40 @@ model Interior "Model for a interior (room-side) convective heat transfer"
   annotation(Evaluate=true);
   parameter Boolean homotopyInitialization = true "= true, use homotopy method"
     annotation(Evaluate=true, Dialog(tab="Advanced"));
+
+  Modelica.Blocks.Interfaces.RealInput u
+    "Input connector, used to scale the surface area to take into account an operable shading device"
+    annotation (Placement(transformation(extent={{-140,60},{-100,100}}),
+        iconTransformation(extent={{-120,70},{-100,90}})));
+
 protected
   constant Modelica.SIunits.Temperature dT0 = 2
     "Initial temperature used in homotopy method";
 equation
   if (conMod == Buildings.HeatTransfer.Types.InteriorConvection.Fixed) then
-    q_flow = hFixed * dT;
+    q_flow = u*hFixed * dT;
   else
     // Even if hCon is a step function with a step at zero,
     // the product hCon*dT is differentiable at zero with
     // a continuous first derivative
     if homotopyInitialization then
       if isCeiling then
-         q_flow = homotopy(actual=Buildings.HeatTransfer.Convection.Functions.HeatFlux.ceiling(dT=dT),
-                    simplified=dT/dT0*Buildings.HeatTransfer.Convection.Functions.HeatFlux.ceiling(dT=dT0));
+         q_flow = u*homotopy(actual=Buildings.HeatTransfer.Convection.Functions.HeatFlux.ceiling(dT=dT),
+                      simplified=dT/dT0*Buildings.HeatTransfer.Convection.Functions.HeatFlux.ceiling(dT=dT0));
       elseif isFloor then
-         q_flow = homotopy(actual=Buildings.HeatTransfer.Convection.Functions.HeatFlux.floor(dT=dT),
-                    simplified=dT/dT0*Buildings.HeatTransfer.Convection.Functions.HeatFlux.floor(dT=dT0));
+         q_flow = u*homotopy(actual=Buildings.HeatTransfer.Convection.Functions.HeatFlux.floor(dT=dT),
+                      simplified=dT/dT0*Buildings.HeatTransfer.Convection.Functions.HeatFlux.floor(dT=dT0));
       else
-         q_flow = homotopy(actual=Buildings.HeatTransfer.Convection.Functions.HeatFlux.wall(dT=dT),
-                    simplified=dT/dT0*Buildings.HeatTransfer.Convection.Functions.HeatFlux.wall(dT=dT0));
+         q_flow = u*homotopy(actual=Buildings.HeatTransfer.Convection.Functions.HeatFlux.wall(dT=dT),
+                      simplified=dT/dT0*Buildings.HeatTransfer.Convection.Functions.HeatFlux.wall(dT=dT0));
       end if;
     else
       if isCeiling then
-         q_flow = Buildings.HeatTransfer.Convection.Functions.HeatFlux.ceiling(dT=dT);
+         q_flow = u*Buildings.HeatTransfer.Convection.Functions.HeatFlux.ceiling(dT=dT);
       elseif isFloor then
-         q_flow = Buildings.HeatTransfer.Convection.Functions.HeatFlux.floor(dT=dT);
+         q_flow = u*Buildings.HeatTransfer.Convection.Functions.HeatFlux.floor(dT=dT);
       else
-         q_flow = Buildings.HeatTransfer.Convection.Functions.HeatFlux.wall(dT=dT);
+         q_flow = u*Buildings.HeatTransfer.Convection.Functions.HeatFlux.wall(dT=dT);
       end if;
     end if;
 
@@ -115,16 +122,23 @@ Buildings.HeatTransfer.Convection.Functions.HeatFlux.wall</a>
 </ul>
 </li>
 </ul>
+<p>
+This model is identical to
+<a href=\"modelica://Buildings.HeatTransfer.Convection.Interior\">
+Buildings.HeatTransfer.Convection.Interior</a>
+except that it has an input <code>u</code> that is used to scale the
+heat transfer.
+This can be used if the heat transfer area is variable.
+An example usage is for a window with shade, in which
+the surface area of a shaded part of a window changes depending on the shading
+control signal.
+</p>
 </html>", revisions="<html>
 <ul>
 <li>
-April 2, 2011 by Michael Wetter:<br/>
-Added <code>homotopy</code> operator.
-</li>
-<li>
-March 10 2010, by Michael Wetter:<br/>
+March 2, 2015, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
 </html>"));
-end Interior;
+end InteriorConvection;
