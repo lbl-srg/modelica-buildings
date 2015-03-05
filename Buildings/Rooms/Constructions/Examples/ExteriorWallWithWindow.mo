@@ -91,6 +91,7 @@ model ExteriorWallWithWindow "Test model for an exterior wall with a window"
   Buildings.HeatTransfer.Windows.InteriorHeatTransferConvective intShaCon[1](
     each A=A,
     each fFra=fFra,
+    each til=conPar.til,
     each haveExteriorShade=glaSys.haveExteriorShade,
     each haveInteriorShade=glaSys.haveInteriorShade)
     "Model for interior shade heat transfer"

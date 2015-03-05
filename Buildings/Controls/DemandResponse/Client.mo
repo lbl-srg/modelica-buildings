@@ -216,7 +216,6 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   annotation (
-      experiment(StopTime=7200),
     Icon(graphics={                      Text(
           extent={{-70,54},{74,-64}},
           lineColor={0,0,255},
