@@ -10,7 +10,7 @@ partial block TwoPort
     annotation(Dialog(tab="Assumptions"), Evaluate=true);
 
   parameter Boolean use_p_in = true
-    "= true to use a pressure connector, false to remove pressure from the connector"
+    "= true to use a pressure from connector, false to output Medium.p_default"
     annotation(Evaluate=true);
 
   Interfaces.Inlet inlet(

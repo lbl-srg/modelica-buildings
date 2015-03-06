@@ -9,7 +9,7 @@ model HeaterFan_noReverseFlow
     "= true to allow flow reversal, false restricts to design direction (inlet -> outlet)";
 
   parameter Boolean use_p_in = false
-    "= true to use a pressure connector, false to remove pressure from the connector"
+    "= true to use a pressure from connector, false to output Medium.p_default"
     annotation(Evaluate=true);
 
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal=Q_flow_nominal/1000/10
