@@ -1,5 +1,5 @@
 within Buildings.Fluid.Movers.BaseClasses;
-model ControlledFlowMachine
+model FlowControlled
   "Partial model for fan or pump with ideally controlled mass flow rate or head as input signal"
 
   extends Buildings.Fluid.Movers.BaseClasses.PartialFlowMachine(
@@ -15,10 +15,7 @@ model ControlledFlowMachine
      final rho_default = Medium.density(sta_default));
 
   import cha = Buildings.Fluid.Movers.BaseClasses.Characteristics;
-//  parameter Modelica.SIunits.MassFlowRate m_flow_nominal
-//    "Nominal mass flow rate, used as flow rate if control_m_flow";
-//  parameter Modelica.SIunits.MassFlowRate m_flow_max = m_flow_nominal
-//    "Maximum mass flow rate (at zero head)";
+
   // what to control
   constant Boolean control_m_flow "= false to control head instead of m_flow"
     annotation(Evaluate=true);
@@ -51,7 +48,7 @@ equation
   etaHyd = cha.efficiency(per=per.hydraulicEfficiency, V_flow=VMachine_flow, d=hydDer, r_N=1, delta=1E-4);
   etaMot = cha.efficiency(per=per.motorEfficiency,     V_flow=VMachine_flow, d=motDer, r_N=1, delta=1E-4);
   dpMachine = -dp;
-  VMachine_flow = -port_b.m_flow/rho_in;
+  VMachine_flow = port_a.m_flow/rho_in;
   // To compute the electrical power, we set a lower bound for eta to avoid
   // a division by zero.
   P = WFlo / Buildings.Utilities.Math.Functions.smoothMax(x1=eta, x2=1E-5, deltaX=1E-6);
@@ -113,4 +110,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end ControlledFlowMachine;
+end FlowControlled;

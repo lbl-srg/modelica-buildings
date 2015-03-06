@@ -74,7 +74,6 @@ initial algorithm
 
 equation
   eta = etaHyd * etaMot;
-//  WFlo = eta * P;
   // Flow work
   WFlo = dpMachine*VMachine_flow;
   // Hydraulic power (transmitted by shaft), etaHyd = WFlo/WHyd

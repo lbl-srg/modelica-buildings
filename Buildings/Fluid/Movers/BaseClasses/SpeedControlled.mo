@@ -1,5 +1,5 @@
 within Buildings.Fluid.Movers.BaseClasses;
-partial model FlowControlledMachine
+partial model SpeedControlled
   "Partial model for fan or pump with speed (y or Nrpm) as input signal"
   extends Buildings.Fluid.Movers.BaseClasses.PartialFlowMachine(
       final m_flow_nominal = max(_per_y.pressure.V_flow)*rho_default,
@@ -58,4 +58,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end FlowControlledMachine;
+end SpeedControlled;
