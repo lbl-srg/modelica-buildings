@@ -1,5 +1,5 @@
 within Buildings.Fluid.Movers.BaseClasses;
-model ControlledFlowMachine
+model FlowControlled
   "Partial model for fan or pump with ideally controlled mass flow rate or head as input signal"
 
   extends Buildings.Fluid.Movers.BaseClasses.PartialFlowMachine(
@@ -113,4 +113,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end ControlledFlowMachine;
+end FlowControlled;
