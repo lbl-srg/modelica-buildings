@@ -118,7 +118,7 @@ protected
     "Volume flow rate vs. total pressure rise with correction for pump resistance added";
 
   parameter
-    Buildings.Fluid.Movers.BaseClasses.Characteristics.flowParametersInternal pCur2(
+    Buildings.Fluid.Movers.BaseClasses.Characteristics.flowParametersInternal         pCur2(
     final n = nOri + 1,
     V_flow = if (haveVMax and haveDPMax) or (nOri == 2) then
                 zeros(nOri + 1)
@@ -137,10 +137,8 @@ protected
              else
                zeros(nOri+1))
     "Volume flow rate vs. total pressure rise with correction for pump resistance added";
-                                  // fixme check whether these branches are correct
-                                  // fixme check whether these branches are correct
   parameter
-    Buildings.Fluid.Movers.BaseClasses.Characteristics.flowParametersInternal pCur3(
+    Buildings.Fluid.Movers.BaseClasses.Characteristics.flowParametersInternal         pCur3(
     final n = nOri + 2,
     V_flow = if (haveVMax and haveDPMax) or (nOri == 2) then
                zeros(nOri + 2)
