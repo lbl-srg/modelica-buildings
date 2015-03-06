@@ -12,6 +12,10 @@ block FlowSplitter_u "Container to export a flow splitter as an FMU"
 
   parameter Integer nout(min=1) "Number of outlets";
 
+ parameter Boolean use_p_in=true
+    "= true to use a pressure from connector, false to output Medium.p_default"
+    annotation(Evaluate=true);
+
   Interfaces.Inlet inlet(
     redeclare final package Medium = Medium,
     final allowFlowReversal=allowFlowReversal) "Fluid inlet"
@@ -40,10 +44,15 @@ initial equation
 equation
   for i in 1:nout loop
     assert(u[i] >= 0, "Control signal must be non-negative.");
-    outlet[i].p = inlet.p;
+    if use_p_in then
+      outlet[i].p = inlet.p;
+    else
+      outlet[i].p = Medium.p_default;
+    end if;
     outlet[i].m_flow = u[i]*m_flow_nominal[i];
     outlet[i].forward = inlet.forward;
   end for;
+
   // As reverse flow is not supported, we assign
   // default values for the inlet.backward properties
   bacPro_internal.h = Medium.h_default;
