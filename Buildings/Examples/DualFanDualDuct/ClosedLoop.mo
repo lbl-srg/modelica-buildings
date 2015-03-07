@@ -301,8 +301,10 @@ model ClosedLoop "Closed loop model of a dual-fan dual-duct system"
     initType=Modelica.Blocks.Types.Init.InitialState,
     y_start=yFan_start,
     r_N_min=0.2,
-    Ti=30,
-    k=0.2) "Controller for return air fan"
+    k=1,
+    Ti=15,
+    controllerType=Modelica.Blocks.Types.SimpleController.PI)
+    "Controller for return air fan"
     annotation (Placement(transformation(extent={{240,220},{260,240}})));
   Buildings.Fluid.FixedResistances.SplitterFixedResistanceDpM splRetRoo1(
     redeclare package Medium = MediumA,
