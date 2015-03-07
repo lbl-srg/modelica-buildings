@@ -1362,7 +1362,7 @@ have been <b style=\"color:blue\">improved</b> in a
                        Buildings.Fluid.Interfaces.StaticTwoPortHeatMassExchanger<br/>
                        Buildings.Fluid.Interfaces.TwoPortHeatMassExchanger<br/>
                        Buildings.Fluid.MixingVolumes.BaseClasses.PartialMixingVolume<br/>
-                       Buildings.Fluid.Movers.BaseClasses.ControlledFlowMachine<br/>
+                       Buildings.Fluid.Movers.BaseClasses.FlowControlled<br/>
                        Buildings.Fluid.Movers.BaseClasses.IdealSource<br/>
                        Buildings.Fluid.Movers.BaseClasses.PrescribedFlowMachine<br/>
     </td>
@@ -1414,7 +1414,7 @@ have been <b style=\"color:blue\">improved</b> in a
                        Buildings.Fluid.FixedResistances.Pipe<br/>
                        Buildings.Fluid.HeatExchangers.RadiantSlabs.ParallelCircuitsSlab<br/>
                        Buildings.Fluid.HeatExchangers.RadiantSlabs.SingleCircuitSlab<br/>
-                       Buildings.Fluid.Movers.BaseClasses.ControlledFlowMachine
+                       Buildings.Fluid.Movers.BaseClasses.FlowControlled
     </td>
     <td valign=\"top\">Renamed <code>X_nominal</code> to <code>X_default</code>
                        or <code>X_start</code>, where <code>X</code> may be

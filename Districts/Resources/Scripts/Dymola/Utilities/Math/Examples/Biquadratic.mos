@@ -1,4 +1,0 @@
-simulateModel("Districts.Utilities.Math.Examples.Biquadratic", method="euler", resultFile="Biquadratic");
-createPlot(id = 1,
- y = {"biquadratic.y"},
- grid = true);
