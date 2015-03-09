@@ -80,12 +80,29 @@ The cables are usually defined using the <code>LowVoltageCable.Generic</code> ty
 medium voltage cable it is necessary to redeclare the type of the record <code>commercialCable</code>.
 </p>
 
-<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'Courier New,courier'; color:#ff0000;\">ThreePhasesBalanced.Lines.Network</span><span style=\" font-family:'Courier New,courier';\"> network(</span></p>
-<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:8;\"><span style=\" font-family:'Courier New,courier'; color:#0000ff;\">     </span><span style=\" font-family:'Courier New,courier'; color:#000000;\"> </span><span style=\" font-family:'Courier New,courier'; color:#0000ff;\">redeclare </span><span style=\" font-family:'Courier New,courier'; color:#ff0000;\">Buildings.Electrical.Transmission.Grids.TestGrid2NodesMedium</span><span style=\" font-family:'Courier New,courier';\"> grid,</span></p>
-<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:8;\"><span style=\" font-family:'Courier New,courier';\">      lines(</span><span style=\" font-family:'Courier New,courier'; color:#0000ff;\">redeclare </span><span style=\" font-family:'Courier New,courier'; color:#ff0000;\">Buildings.Electrical.Transmission.MediumVoltageCables.Generic</span></p>
-<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:8;\"><span style=\" font-family:'Courier New,courier';\">        commercialCable = network.grid.cables,</span></p>
-<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:8;\"><span style=\" font-family:'Courier New,courier';\">        </span><span style=\" font-family:'Courier New,courier'; color:#0000ff;\">each </span><span style=\" font-family:'Courier New,courier';\">V_nominal = network.V_nominal),</span></p>
-<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:8;\"><span style=\" font-family:'Courier New,courier';\">    V_nominal=15000) </span>
+<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">
+<span style=\" font-family:'Courier New,courier'; color:#ff0000;\">ThreePhasesBalanced.Lines.Network</span>
+<span style=\" font-family:'Courier New,courier';\"> network(</span>
+</p>
+<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:8;\">
+<span style=\" font-family:'Courier New,courier'; color:#0000ff;\">redeclare </span>
+<span style=\" font-family:'Courier New,courier'; color:#ff0000;\">Buildings.Electrical.Transmission.Grids.TestGrid2NodesMedium</span>
+<span style=\" font-family:'Courier New,courier';\"> grid,</span>
+</p>
+<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:8;\">
+<span style=\" font-family:'Courier New,courier';\">      lines(</span>
+<span style=\" font-family:'Courier New,courier'; color:#0000ff;\">redeclare </span>
+<span style=\" font-family:'Courier New,courier'; color:#ff0000;\">Buildings.Electrical.Transmission.MediumVoltageCables.Generic</span>
+</p>
+<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:8;\">
+<span style=\" font-family:'Courier New,courier';\">        commercialCable = network.grid.cables,</span>
+</p>
+<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:8;\">
+<span style=\" font-family:'Courier New,courier'; color:#0000ff;\">each </span>
+<span style=\" font-family:'Courier New,courier';\">V_nominal = network.V_nominal),</span>
+</p>
+<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:8;\">
+<span style=\" font-family:'Courier New,courier';\">    V_nominal=15000) </span>
 </p>
 
 <p>

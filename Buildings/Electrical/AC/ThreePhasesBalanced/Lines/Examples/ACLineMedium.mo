@@ -130,13 +130,31 @@ Since the equivalent impedances are the same, each load draws the same current.
 
 <h4>Note:</h4>
 
-<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'Courier New,courier'; color:#ff0000;\">ThreePhasesBalanced.Lines.Line</span><span style=\" font-family:'Courier New,courier';\"> line_1(</span></p>
-<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:8;\"><span style=\" font-family:'Courier New,courier';\">    V_nominal=220,</span></p>
-<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:8;\"><span style=\" font-family:'Courier New,courier';\">    P_nominal=5000,</span></p>
-<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:8;\"><span style=\" font-family:'Courier New,courier';\">    l=2000,</span></p>
-<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:8;\"><span style=\" font-family:'Courier New,courier';\">    </span><span style=\" font-family:'Courier New,courier'; color:#0000ff;\">redeclare </span><span style=\" font-family:'Courier New,courier'; color:#ff0000;\">Buildings.Electrical.Transmission.MediumVoltageCables.Generic</span></p>
-<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:8;\"><span style=\" font-family:'Courier New,courier';\">          commercialCable =</span><span style=\" font-family:'Courier New,courier'; color:#ff0000;\"> Buildings.Electrical.Transmission.MediumVoltageCables.Annealed_Al_10</span><span style=\" font-family:'Courier New,courier';\">()) </span></p>
-<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:8;\"><span style=\" font-family:'Courier New,courier'; color:#006400;\">    &quot;Resistive line that connects to load 1&quot;</span></p>
+<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">
+<span style=\" font-family:'Courier New,courier'; color:#ff0000;\">ThreePhasesBalanced.Lines.Line</span>
+<span style=\" font-family:'Courier New,courier';\"> line_1(</span>
+</p>
+<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:8;\">
+<span style=\" font-family:'Courier New,courier';\">    V_nominal=220,</span>
+</p>
+<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:8;\">
+<span style=\" font-family:'Courier New,courier';\">    P_nominal=5000,</span>
+</p>
+<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:8;\">
+<span style=\" font-family:'Courier New,courier';\">    l=2000,</span>
+</p>
+<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:8;\">
+<span style=\" font-family:'Courier New,courier'; color:#0000ff;\">redeclare </span>
+<span style=\" font-family:'Courier New,courier'; color:#ff0000;\">Buildings.Electrical.Transmission.MediumVoltageCables.Generic</span>
+</p>
+<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:8;\">
+<span style=\" font-family:'Courier New,courier';\">          commercialCable =</span>
+<span style=\" font-family:'Courier New,courier'; color:#ff0000;\"> Buildings.Electrical.Transmission.MediumVoltageCables.Annealed_Al_10</span>
+<span style=\" font-family:'Courier New,courier';\">()) </span>
+</p>
+<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:8;\">
+<span style=\" font-family:'Courier New,courier'; color:#006400;\">    &quot;Resistive line that connects to load 1&quot;</span>
+</p>
 
 <p>
 The code snippet shows how a line model <code>line_1</code> redeclared its
