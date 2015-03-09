@@ -71,9 +71,11 @@ Below and above these wind speeds, the generated power is zero.
 <img alt=\"alt-image\" src=\"modelica://Buildings/Resources/Images/Electrical/DC/Sources/WindTurbine_Table.png\"/>
 </p>
 </html>", revisions="<html>
+<ul>
 <li>
 August 5, 2014, by Marco Bonvini:<br/>
 Revised documentation.
 </li>
+</ul>
 </html>"));
 end WindTurbine;

@@ -71,6 +71,7 @@ For a model that implements this conversion, use
 Buildings.Electrical.AC.OnePhase.Sources.PVSimpleOriented</a>.
 </p>
 </html>", revisions="<html>
+<ul>
 <li>
 September 4, 2014, by Michael Wetter:<br/>
 Revised model.
@@ -79,5 +80,6 @@ Revised model.
 August 5, 2014, by Marco Bonvini:<br/>
 Revised documentation.
 </li>
+</ul>
 </html>"));
 end PVSimple;
