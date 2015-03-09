@@ -31,7 +31,7 @@ This function computes the Geometric Mean Radius (GMR) of a cable.
 The GMR is computed as follow, depending on the number of conductors <i>N</i>
 that are part of the cable, and the diamater of the conductor <i>d</i>.
 </p>
-<p>
+
 <table summary=\"equations\" border = \"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collape;\">
 <tr><th>Equation</th><th>Condition</th></tr>
 <tr>
@@ -55,6 +55,6 @@ that are part of the cable, and the diamater of the conductor <i>d</i>.
 </tr>
 <!-- ************ -->
 </table>
-</p>
+
 </html>"));
 end computeGMR;

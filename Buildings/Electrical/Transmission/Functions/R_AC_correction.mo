@@ -120,7 +120,7 @@ when working with AC voltages. The correction factor assumes <i>f = 60 Hz</i>.
 <p>
 The correction is based on the type of cabel (AWG or kcmil) and the material.
 </p>
-<p>
+
 <table summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
 <tr>
 <th>Type (AWG or kcmil)</th>
@@ -204,9 +204,7 @@ The correction is based on the type of cabel (AWG or kcmil) and the material.
 <td>2500</td><td>Aluminium</td><td>1.142</td>
 </tr>
 </table>
-</p>
 
-<p>
 <table summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
 <tr>
 <th>Type (AWG or kcmil)</th>
@@ -290,7 +288,6 @@ The correction is based on the type of cabel (AWG or kcmil) and the material.
 <td>2500</td><td>Copper</td><td>1.326</td>
 </tr>
 </table>
-</p>
 
 </html>"));
 end R_AC_correction;
