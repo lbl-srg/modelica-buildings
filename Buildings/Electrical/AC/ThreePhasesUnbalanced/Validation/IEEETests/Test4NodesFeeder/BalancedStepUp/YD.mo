@@ -100,7 +100,7 @@ IEEE 4 nodes validation test case with the following characteristics
   <li>power factor on each phase <i>cos&phi;<sub>1,2,3</sub> = 0.9</i></li>
   </ul>
 </li>
-<li>voltage step-up transformer (<i>V<sub>Pri</sub>=12.47 kV,
+<li>voltage step-up transformer (<i>V<sub>Pri</sub>=12.47 kV</i>,
 <i>V<sub>Sec</sub> = 24.9kV</i>),</li>
 <li>Y-D transformer</li>
 </ul>

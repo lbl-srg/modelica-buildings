@@ -124,7 +124,7 @@ IEEE 4 nodes validation test case with the following characteristics
   <i>cos&phi;<sub>2</sub> = 0.9</i>, and <i>cos&phi;<sub>3</sub> = 0.95</i></li>
   </ul>
 </li>
-<li>voltage step-down transformer (<i>V<sub>Pri</sub>=12.47 kV,
+<li>voltage step-down transformer (<i>V<sub>Pri</sub>=12.47 kV</i>,
 <i>V<sub>Sec</sub> = 4.16kV</i>),</li>
 <li>Y-Y transformer</li>
 </ul>
