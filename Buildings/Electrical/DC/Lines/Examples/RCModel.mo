@@ -55,6 +55,9 @@ equation
       color={0,0,255},
       smooth=Smooth.None));
   annotation (
+    __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Electrical/DC/Lines/Examples/RCmodel.mos"
+        "Simulate and plot"),
+        experiment(StopTime=15.0,Tolerance=1e-06),
     Documentation(info="<html>
 <p>
 This model shows how to use a two port resistance-capacitance model.
@@ -88,7 +91,5 @@ June 4, 2014, by Marco Bonvini:<br/>
 Added model, documentation and results for regression test.
 </li>
 </ul>
-</html>"),
-    __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Electrical/DC/Lines/Examples/RCmodel.mos"
-        "Simulate and plot"));
+</html>"));
 end RCModel;
