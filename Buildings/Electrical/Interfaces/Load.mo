@@ -140,7 +140,7 @@ The generalized load is modeled as an impedance whose value can change. The valu
 can change depending on the value of the parameter <code>mode</code>, which is of type
 <a href=\"Buildings.Electrical.Types.Load\">Buildings.Electrical.Types.Load</a>:
 </p>
-<p>
+
 <table summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
 <tr>
 <th>Mode</th>
@@ -187,7 +187,7 @@ The load consumes exactly the a fraction of the nominal power
 </tr>
 <!-- ************ -->
 </table>
-</p>
+
 
 <h4>Conventions</h4>
 <p>

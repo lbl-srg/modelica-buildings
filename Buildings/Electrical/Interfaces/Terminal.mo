@@ -32,6 +32,7 @@ multi phases balanced and unbalanced AC systems with the same connector.
 </p>
 <p>
 This connector is compatible with the following Modelica libraries:
+</p>
 <ul>
 <li><a href=\"http://www.modelon.com/products/modelica-libraries/electric-power-library\">
 Electric Power Library</a>
@@ -42,7 +43,6 @@ developed by Modelon, and
 developed by <a href=\"mailto:Ruediger.Franke@de.abb.com\">Ruediger Franke</a> (ABB).
 </li>
 </ul>
-</p>
 <p>
 The connector is overdetermined since the number of effort variables
 is higher than the number of flow variables.
