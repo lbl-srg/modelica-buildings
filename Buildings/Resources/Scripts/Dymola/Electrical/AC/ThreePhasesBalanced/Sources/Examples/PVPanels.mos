@@ -2,7 +2,7 @@
 // Plot commands
 simulateModel("Buildings.Electrical.AC.ThreePhasesBalanced.Sources.Examples.PVPanels", method="Radau", stopTime=172800, resultFile="PVPanels3ph");
 createPlot(id = 1,
- position = {0, 0, 1674, 725},
+ position = position={20, 20, 600, 400},
  y = {"grid.P.real", "grid.P.apparent"},
  range = {0.0, 175000.0, -400.0, 1600.0},
  autoscale = true,
@@ -17,7 +17,7 @@ createPlot(id = 1,
  bottomTitleType = 1,
  colors = {{0,0,255}, {255,0,0}});
 createPlot(id = 1,
- position = {0, 0, 1674, 359},
+ position = position={20, 20, 600, 400},
  y = {"pvSimple.load.S[1]", "pvSimple.load.S[2]", "RL.S[1]", "RL.S[2]", "pvOriented.panel.load.S[1]", "pvOriented.panel.load.S[2]"},
  range = {0.0, 175000.0, -800.0, 1200.0},
  autoscale = true,

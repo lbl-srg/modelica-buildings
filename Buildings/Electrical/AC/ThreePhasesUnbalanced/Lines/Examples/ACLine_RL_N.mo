@@ -66,7 +66,8 @@ equation
       points={{-76,0},{-70,0},{-70,-30},{-48,-30}},
       color={127,0,127},
       smooth=Smooth.None));
-  annotation (experiment(StopTime=1.0, Tolerance=1e-06),
+  annotation ( Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}), graphics),
+  experiment(StopTime=1.0,Tolerance=1e-06),
   __Dymola_Commands(file=
           "modelica://Buildings/Resources/Scripts/Dymola/Electrical/AC/ThreePhasesUnbalanced/Lines/Examples/ACLine_RL_N.mos"
         "Simulate and plot"),
@@ -97,7 +98,5 @@ Since the equivalent impedances are the same, each load draw the same current.
 The line model <code>RL_3</code> is the same as <code>RL_2</code> but it uses
 dynamic phasors.
 </p>
-</html>"),
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
-            100}}), graphics));
+</html>"));
 end ACLine_RL_N;
