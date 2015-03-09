@@ -1,5 +1,5 @@
 within Buildings.Electrical.PhaseSystems;
-package ThreePhase_dqo "AC system in dqo representation"
+package ThreePhase_dq0 "AC system in dqo representation"
   extends PartialPhaseSystem(phaseSystemName="ThreePhase_dqo", n=3, m=2);
 
 
@@ -131,4 +131,4 @@ This package declares the functions that are used to implement
 the AC three phases balanced models using the DQ0 representation.
 </p>
 </html>"));
-end ThreePhase_dqo;
+end ThreePhase_dq0;
