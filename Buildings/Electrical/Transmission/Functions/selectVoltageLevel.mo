@@ -44,19 +44,16 @@ The computation is as follows:
 <tr>
 <td><i>0 &le; V &lt; 1 kV</i></td>
 <td>Low voltage</td>
-</td>
 </tr>
 <!-- ************ -->
 <tr>
 <td><i>1 kV &le; V &lt; 50 kV</i></td>
 <td>Medium voltage</td>
-</td>
 </tr>
 <!-- ************ -->
 <tr>
 <td><i> V &ge; 50 kV</i></td>
 <td>HIgh voltage</td>
-</td>
 </tr>
 </table>
 
