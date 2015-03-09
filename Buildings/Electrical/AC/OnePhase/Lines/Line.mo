@@ -79,12 +79,12 @@ either using commercial cables or using default values.
 <li>
 September 23, 2014, by Marco Bonvini:<br/>
 Moved here the default declaration of the parameter <code>commercialCable</code>.<br/>
-</li>
 <p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">
 <span style=\" font-family:'Courier New,courier';\">commercialCable = </span>
 <span style=\" font-family:'Courier New,courier'; color:#ff0000;\"> Buildings.Electrical.Transmission.Functions.selectCable_low</span>
 <span style=\" font-family:'Courier New,courier';\">(P_nominal, V_nominal)</span>
 </p>
+</li>
 </ul>
 
 <ul>

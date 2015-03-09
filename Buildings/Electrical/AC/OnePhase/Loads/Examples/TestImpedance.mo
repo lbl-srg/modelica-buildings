@@ -59,9 +59,11 @@ This model shows how to use the impedance model in different configurations:
 <li>Resistive-Capacitive (model <code>Z5</code>)</li>
 </ul>
 </html>", revisions="<html>
+<ul>
 <li>
 August 5, 2014, by Marco Bonvini:<br/>
 Revised model and documentation.
 </li>
+</ul>
 </html>"));
 end TestImpedance;

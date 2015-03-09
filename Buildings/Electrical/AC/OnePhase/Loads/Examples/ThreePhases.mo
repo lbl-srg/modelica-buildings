@@ -56,9 +56,11 @@ This model shows how a balanced three phases system can be represented with thre
 independent single phase circuits.
 </p>
 </html>", revisions="<html>
+<ul>
 <li>
 August 5, 2014, by Marco Bonvini:<br/>
 Revised model and documentation.
 </li>
+</ul>
 </html>"));
 end ThreePhases;
