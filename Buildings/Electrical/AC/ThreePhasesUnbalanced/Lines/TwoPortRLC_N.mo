@@ -14,6 +14,15 @@ model TwoPortRLC_N
                             annotation(Evaluate=true);
   parameter Modelica.SIunits.Temperature M = 507.65
     "Temperature constant (R_actual = R*(M + T_heatPort)/(M + T_ref))" annotation(Evaluate=true);
+  parameter Modelica.SIunits.Voltage Vc1_start[2] = V_nominal/sqrt(3)*{1,0}
+    "Initial voltage phasor of the capacitance located in the middle of phase 1"
+    annotation (Dialog(enable = (mode==Buildings.Electrical.Types.Load.FixedZ_dynamic)));
+  parameter Modelica.SIunits.Voltage Vc2_start[2] = V_nominal/sqrt(3)*{-1/2,-sqrt(3)/2}
+    "Initial voltage phasor of the capacitance located in the middle of phase 1"
+    annotation (Dialog(enable = (mode==Buildings.Electrical.Types.Load.FixedZ_dynamic)));
+  parameter Modelica.SIunits.Voltage Vc3_start[2] = V_nominal/sqrt(3)*{-1/2,+sqrt(3)/2}
+    "Initial voltage phasor of the capacitance located in the middle of phase 1"
+    annotation (Dialog(enable = (mode==Buildings.Electrical.Types.Load.FixedZ_dynamic)));
   parameter Buildings.Electrical.Types.Load mode(
     min=Buildings.Electrical.Types.Load.FixedZ_steady_state,
     max=Buildings.Electrical.Types.Load.FixedZ_dynamic)=
@@ -34,7 +43,8 @@ model TwoPortRLC_N
     final C=C/3,
     final mode=mode,
     final V_nominal = V_nominal/sqrt(3),
-    final useHeatPort=useHeatPort) "Impedance line 1"
+    final useHeatPort=useHeatPort,
+    Vc_start=Vc1_start) "Impedance line 1"
     annotation (Placement(transformation(extent={{-10,20},{10,40}})));
   OnePhase.Lines.TwoPortRLC phase2(
     final T_ref=T_ref,
@@ -44,7 +54,8 @@ model TwoPortRLC_N
     final C=C/3,
     final mode=mode,
     final V_nominal = V_nominal/sqrt(3),
-    final useHeatPort=useHeatPort) "Impedance line 2"
+    final useHeatPort=useHeatPort,
+    Vc_start=Vc2_start) "Impedance line 2"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   OnePhase.Lines.TwoPortRLC phase3(
     final T_ref=T_ref,
@@ -54,7 +65,8 @@ model TwoPortRLC_N
     final C=C/3,
     final mode=mode,
     final V_nominal = V_nominal/sqrt(3),
-    final useHeatPort=useHeatPort) "Impedance line 3"
+    final useHeatPort=useHeatPort,
+    Vc_start=Vc3_start) "Impedance line 3"
     annotation (Placement(transformation(extent={{-10,-40},{10,-20}})));
   OnePhase.Lines.TwoPortRLC neutral(
     final T_ref=T_ref,
@@ -64,7 +76,8 @@ model TwoPortRLC_N
     final useHeatPort=useHeatPort,
     final R=Rn,
     final C=Cn,
-    final L=Ln) "Neutral line RLC model"
+    final L=Ln,
+    Vc_start=-Vc1_start - Vc2_start - Vc3_start) "Neutral line RLC model"
     annotation (Placement(transformation(extent={{-10,-64},{10,-44}})));
 equation
   // Joule Losses
@@ -218,6 +231,10 @@ The resistance, capacitance and inductance of the neutral cable are defined sepa
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+March 9, 2015, by Marco Bonvini:<br/>
+Added parameter for start value of the voltage.
+</li>
 <li>
 January 14, 2015, by Marco Bonvini:<br/>
 Added model and user guide

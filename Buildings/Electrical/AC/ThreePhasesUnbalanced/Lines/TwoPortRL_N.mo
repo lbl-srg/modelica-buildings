@@ -13,6 +13,15 @@ model TwoPortRL_N
     annotation(Evaluate=true);
   parameter Modelica.SIunits.Inductance L "Inductance";
   parameter Modelica.SIunits.Inductance Ln "Inductance of neutral cable";
+  parameter Modelica.SIunits.Current i1_start[2] = {0,0}
+    "Initial current phasor of phase 1 (positive if entering from terminal p)"
+    annotation (Dialog(enable = (mode==Buildings.Electrical.Types.Load.FixedZ_dynamic)));
+  parameter Modelica.SIunits.Current i2_start[2] = {0,0}
+    "Initial current phasor of phase 2 (positive if entering from terminal p)"
+    annotation (Dialog(enable = (mode==Buildings.Electrical.Types.Load.FixedZ_dynamic)));
+  parameter Modelica.SIunits.Current i3_start[2] = {0,0}
+    "Initial current phasor of phase 3 (positive if entering from terminal p)"
+    annotation (Dialog(enable = (mode==Buildings.Electrical.Types.Load.FixedZ_dynamic)));
   parameter Buildings.Electrical.Types.Load mode(
     min=Buildings.Electrical.Types.Load.FixedZ_steady_state,
     max=Buildings.Electrical.Types.Load.FixedZ_dynamic) = Buildings.Electrical.Types.Load.FixedZ_steady_state
@@ -24,7 +33,8 @@ model TwoPortRL_N
     final R=R/3,
     final L=L/3,
     final mode=mode,
-    final useHeatPort=useHeatPort) "Impedance line 1"
+    final useHeatPort=useHeatPort,
+    i_start=i1_start) "Impedance line 1"
     annotation (Placement(transformation(extent={{-10,20},{10,40}})));
   OnePhase.Lines.TwoPortRL phase2(
     final T_ref=T_ref,
@@ -32,7 +42,8 @@ model TwoPortRL_N
     final R=R/3,
     final L=L/3,
     final mode=mode,
-    final useHeatPort=useHeatPort) "Impedance line 2"
+    final useHeatPort=useHeatPort,
+    i_start=i2_start) "Impedance line 2"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   OnePhase.Lines.TwoPortRL phase3(
     final T_ref=T_ref,
@@ -40,7 +51,8 @@ model TwoPortRL_N
     final R=R/3,
     final L=L/3,
     final mode=mode,
-    final useHeatPort=useHeatPort) "Impedance line 3"
+    final useHeatPort=useHeatPort,
+    i_start=i3_start) "Impedance line 3"
     annotation (Placement(transformation(extent={{-10,-40},{10,-20}})));
   OnePhase.Lines.TwoPortRL neutral(
     final T_ref=T_ref,
@@ -48,7 +60,8 @@ model TwoPortRL_N
     final mode=mode,
     final useHeatPort=useHeatPort,
     final R=Rn,
-    final L=Ln) "neutral cable RL model"
+    final L=Ln,
+    i_start=-i1_start - i2_start - i3_start) "neutral cable RL model"
     annotation (Placement(transformation(extent={{-10,-66},{10,-46}})));
 equation
   // Joule Losses
@@ -84,8 +97,7 @@ equation
       color={191,0,0},
       smooth=Smooth.None));
   connect(phase3.heatPort, heatPort) annotation (Line(
-      points={{0,-40},{0,-40},{0,-42},{0,-42},{0,-44},{-32,-44},{-32,-72},{0,-72},
-          {0,-100}},
+      points={{0,-40},{0,-44},{-32,-44},{-32,-72},{0,-72},{0,-100}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(phase2.heatPort, heatPort) annotation (Line(
@@ -178,6 +190,10 @@ The resistance and the inductance of the neutral cable are defined separately us
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+March 9, 2015, by Marco Bonvini:<br/>
+Added parameter for start value of the current.
+</li>
 <li>
 January 14, 2015, by Marco Bonvini:<br/>
 Added model and user guide

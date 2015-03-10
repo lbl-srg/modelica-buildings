@@ -11,6 +11,15 @@ model TwoPortRL
     "Temperature constant (R_actual = R*(M + T_heatPort)/(M + T_ref))"
     annotation(Evaluate=true);
   parameter Modelica.SIunits.Inductance L "Inductance";
+  parameter Modelica.SIunits.Current i1_start[2] = {0,0}
+    "Initial current phasor of phase 1 (positive if entering from terminal p)"
+    annotation (Dialog(enable = (mode==Buildings.Electrical.Types.Load.FixedZ_dynamic)));
+  parameter Modelica.SIunits.Current i2_start[2] = {0,0}
+    "Initial current phasor of phase 2 (positive if entering from terminal p)"
+    annotation (Dialog(enable = (mode==Buildings.Electrical.Types.Load.FixedZ_dynamic)));
+  parameter Modelica.SIunits.Current i3_start[2] = {0,0}
+    "Initial current phasor of phase 3 (positive if entering from terminal p)"
+    annotation (Dialog(enable = (mode==Buildings.Electrical.Types.Load.FixedZ_dynamic)));
   parameter Buildings.Electrical.Types.Load mode(
     min=Buildings.Electrical.Types.Load.FixedZ_steady_state,
     max=Buildings.Electrical.Types.Load.FixedZ_dynamic) = Buildings.Electrical.Types.Load.FixedZ_steady_state
@@ -22,7 +31,8 @@ model TwoPortRL
     final R=R/3,
     final L=L/3,
     final mode=mode,
-    final useHeatPort=useHeatPort) "Impedance line 1"
+    final useHeatPort=useHeatPort,
+    i_start=i1_start) "Impedance line 1"
     annotation (Placement(transformation(extent={{-10,20},{10,40}})));
   OnePhase.Lines.TwoPortRL phase2(
     final T_ref=T_ref,
@@ -30,7 +40,8 @@ model TwoPortRL
     final R=R/3,
     final L=L/3,
     final mode=mode,
-    final useHeatPort=useHeatPort) "Impedance line 2"
+    final useHeatPort=useHeatPort,
+    i_start=i2_start) "Impedance line 2"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   OnePhase.Lines.TwoPortRL phase3(
     final T_ref=T_ref,
@@ -38,7 +49,8 @@ model TwoPortRL
     final R=R/3,
     final L=L/3,
     final mode=mode,
-    final useHeatPort=useHeatPort) "Impedance line 3"
+    final useHeatPort=useHeatPort,
+    i_start=i3_start) "Impedance line 3"
     annotation (Placement(transformation(extent={{-10,-40},{10,-20}})));
 equation
   // Joule Losses
@@ -152,6 +164,10 @@ equal to <i>R/3</i>.
 
 </html>", revisions="<html>
 <ul>
+<li>
+March 9, 2015, by Marco Bonvini:<br/>
+Added parameter for start value of the current.
+</li>
 <li>
 January 14, 2015, by Marco Bonvini:<br/>
 Added equation that represents Joule losses
