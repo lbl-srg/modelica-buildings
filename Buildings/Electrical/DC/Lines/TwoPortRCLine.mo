@@ -16,7 +16,9 @@ model TwoPortRCLine "Model of a two port DC resistance and capacity (T-model)"
   Modelica.SIunits.Voltage Vc(start = Vc_start, stateSelect = StateSelect.prefer)
     "Voltage of the capacitor";
 initial equation
-  Vc = Vc_start;
+  if C>0 and use_C then
+    Vc = Vc_start;
+  end if;
 equation
   terminal_p.v[1] - (Vc+terminal_p.v[2]) = terminal_p.i[1]*R_actual/2;
   terminal_n.v[1] - (Vc+terminal_p.v[2]) = terminal_n.i[1]*R_actual/2;
