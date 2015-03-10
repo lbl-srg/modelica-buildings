@@ -3,7 +3,7 @@ model VariableVoltageSource
   "Partial model of a generic variable voltage source."
   extends Buildings.Electrical.Interfaces.Source;
   parameter Boolean use_V_in = true "If true, the voltage is an input";
-  parameter Modelica.SIunits.Voltage V(start=1) "Value of constant voltage"
+  parameter Modelica.SIunits.Voltage V = 1 "Value of constant voltage"
    annotation (Dialog(enable= not use_V_in));
   Modelica.Blocks.Interfaces.RealInput V_in(unit="V", min=0, start = 1) if
        use_V_in "Input voltage"
