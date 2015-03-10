@@ -8,6 +8,9 @@ model TwoPortRLC "Model of an RLC element with two electrical ports"
       redeclare package PhaseSystem = PhaseSystem_n),
     redeclare Interfaces.Terminal_p terminal_p(
       redeclare package PhaseSystem = PhaseSystem_p));
+  parameter Modelica.SIunits.Voltage Vc_start[2] = {V_nominal,0}
+    "Initial voltage phasor of the capacitance located in the middle of the line"
+    annotation (Dialog(enable = (mode==Buildings.Electrical.Types.Load.FixedZ_dynamic)));
   parameter Buildings.Electrical.Types.Load mode(
     min=Buildings.Electrical.Types.Load.FixedZ_steady_state,
     max=Buildings.Electrical.Types.Load.FixedZ_dynamic)=
@@ -15,12 +18,16 @@ model TwoPortRLC "Model of an RLC element with two electrical ports"
     "Type of model (e.g., steady state, dynamic, prescribed power consumption, etc.)"
     annotation (Evaluate=true, Dialog(group="Modelling assumption"));
 protected
-  Modelica.SIunits.Voltage Vc[2](start = {V_nominal,0})
+  Modelica.SIunits.Voltage Vc[2](start = Vc_start, stateSelect=StateSelect.prefer)
     "Voltage of the Capacitance located in the middle of the line";
   Modelica.SIunits.Current Ic[2]
     "Currenbt of the capacitance located in the middle of the line";
   Modelica.SIunits.AngularVelocity omega
     "Frequency of the quasi-stationary sine waves";
+initial equation
+  if C > 0 and mode == Buildings.Electrical.Types.Load.FixedZ_dynamic then
+    Vc = Vc_start;
+  end if;
 equation
 
   omega = der(PhaseSystem_p.thetaRef(terminal_p.theta));
@@ -85,8 +92,8 @@ presence of the capacitive effect.
 </html>", revisions="<html>
 <ul>
 <li>
-January 14, 2015, by Marco Bonvini:<br/>
-Added equation that represents Joule losses
+March 9, 2015, by Marco Bonvini:<br/>
+Added parameter for start value of the voltage.
 </li>
 <li>
 August 5, 2014, by Marco Bonvini:<br/>

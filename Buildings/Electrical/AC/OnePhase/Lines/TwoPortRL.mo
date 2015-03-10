@@ -8,6 +8,9 @@ model TwoPortRL
     redeclare Interfaces.Terminal_n terminal_n,
     redeclare Interfaces.Terminal_p terminal_p,
     final C=0);
+  parameter Modelica.SIunits.Current i_start[2] = {0,0}
+    "Initial current phasor of the line (positive if entering from terminal p)"
+    annotation (Dialog(enable = (mode==Buildings.Electrical.Types.Load.FixedZ_dynamic)));
   parameter Buildings.Electrical.Types.Load mode(
     min=Buildings.Electrical.Types.Load.FixedZ_steady_state,
     max=Buildings.Electrical.Types.Load.FixedZ_dynamic)=
@@ -15,29 +18,36 @@ model TwoPortRL
     "Type of model (e.g., steady state, dynamic, prescribed power consumption, etc.)"
     annotation (Evaluate=true, Dialog(group="Modelling assumption"));
 protected
+  Modelica.SIunits.Current i_p[2](start = i_start, stateSelect=StateSelect.prefer)
+    "Current phasor at terminal p";
   Modelica.SIunits.AngularVelocity omega
     "Frequency of the quasi-stationary sine waves";
+initial equation
+  if mode==Buildings.Electrical.Types.Load.FixedZ_dynamic then
+    i_p = i_start;
+  end if;
 equation
 
   omega = der(PhaseSystem_p.thetaRef(terminal_p.theta));
 
   terminal_p.i = - terminal_n.i;
+  i_p = terminal_p.i;
 
   if mode==Buildings.Electrical.Types.Load.FixedZ_dynamic then
     // Dynamics of the system
-    der(L*terminal_p.i) + L*omega*PhaseSystem_p.j(terminal_p.i) +
-      terminal_p.i*diagonal(ones(PhaseSystem_p.n)*R_actual)
+    der(L*i_p) + L*omega*PhaseSystem_p.j(i_p) +
+      i_p*diagonal(ones(PhaseSystem_p.n)*R_actual)
        = terminal_p.v - terminal_n.v;
 
   else
     // steady state relationship
-    L*omega*PhaseSystem_p.j(terminal_p.i) +
-      terminal_p.i*diagonal(ones(PhaseSystem_p.n)*R_actual)
+    L*omega*PhaseSystem_p.j(i_p) +
+      i_p*diagonal(ones(PhaseSystem_p.n)*R_actual)
       = terminal_p.v - terminal_n.v;
   end if;
 
   // Joule losses
-  LossPower = R_actual*(terminal_p.i[1]^2 + terminal_p.i[2]^2);
+  LossPower = R_actual*(i_p[1]^2 + i_p[2]^2);
 
   annotation (
 defaultComponentName="lineRL",
@@ -64,6 +74,10 @@ The model represents the lumped RL cable as shown in the figure below.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+March 9, 2015, by Marco Bonvini:<br/>
+Added parameter for start value of the current.
+</li>
 <li>
 January 14, 2015, by Marco Bonvini:<br/>
 Added equation that represents Joule losses

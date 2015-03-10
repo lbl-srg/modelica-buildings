@@ -23,7 +23,8 @@ model ACLine_RL "Test model for a single phase inductive-resistive line"
   TwoPortRL RL_3(
     R=Rbase,
     L=Lbase,
-    mode=Buildings.Electrical.Types.Load.FixedZ_dynamic)
+    mode=Buildings.Electrical.Types.Load.FixedZ_dynamic,
+    i_start={0,0})
     "Dynamic resistive-inductive line connected to short circuit 3"
     annotation (Placement(transformation(extent={{-48,-40},{-28,-20}})));
   Loads.Impedance load_sc_3(R=0) "Short circuit 3"
@@ -57,12 +58,10 @@ equation
       points={{-28,-30},{0,-30}},
       color={0,120,120},
       smooth=Smooth.None));
-  annotation (Diagram,
-    experiment(StopTime=1.0, Tolerance=1e-06),
-      __Dymola_Commands(file=
-          "modelica://Buildings/Resources/Scripts/Dymola/Electrical/AC/OnePhase/Lines/Examples/ACLine_RL.mos"
+  annotation (experiment(StopTime=1.0, Tolerance=1e-06),
+  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Electrical/AC/OnePhase/Lines/Examples/ACLine_RL.mos"
         "Simulate and plot"),
-    Documentation(revisions="<html>
+  Documentation(revisions="<html>
 <ul>
 <li>
 August 24, 2014, by Marco Bonvini:<br/>
