@@ -43,11 +43,11 @@ model LoadCtrl
     annotation (Placement(transformation(extent={{-46,-40},{-26,-20}})));
 equation
   connect(pow_1.y, load_ctrl.Pow1) annotation (Line(
-      points={{39,20},{30,20},{30,6},{12,6}},
+      points={{39,20},{30,20},{30,8},{14,8}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(pow_1.y, load.Pow1) annotation (Line(
-      points={{39,20},{30,20},{30,-24},{12,-24}},
+      points={{39,20},{30,20},{30,-22},{14,-22}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(sou.terminal, line1.terminal_n) annotation (Line(
@@ -75,16 +75,23 @@ Documentation(info="<html>
 This example model shows how the voltage controller can act on a three phases unbalanced load.
 </p>
 <p>
-This model contains two loads (one with voltage control and one without)
-that produce power just on the first phase connected through a transmission line to a voltage
-source. When the power production increases the losses on the line cause a voltage increase
-at the load. The load that has the voltage controller activated when detects the problem
-unplug the load for a period of time equal to 2 seconds. The load is attached again after it
-passed the threshold after a period equal to 2 seconds.
+This model contains two loads: one with voltage control and one without.
+The loads produce power only on the first phase that is connected through a transmission line to a voltage
+source. When the power production increases, the losses on the line cause an increase of the voltage
+at the load. The load with voltage controller detects when the overvoltage happens
+and unplugs the load for 2 seconds. After 2 seconds the load is plugged again and if this causes an other 
+overvoltage it will be unplugged again. 
 </p>
 <p>
 The model contains both a controlled and a not controlled load so the user can
 compare the difference in the voltages and powers when the load is unplugged.
 </p>
+</html>", revisions="<html>
+<ul>
+<li>
+March 10, 2015, by Marco Bonvini:<br/>
+Revised documentation of the example.
+</li>
+</ul>
 </html>"));
 end LoadCtrl;
