@@ -11,7 +11,12 @@ model TwoPortRCLine "Model of a two port DC resistance and capacity (T-model)"
   parameter Boolean use_C = false
     "Set to true to add a capacitance in the center of the line"
     annotation(Dialog(tab="Model", group="Assumptions"));
-  Modelica.SIunits.Voltage Vc(start = V_nominal) "Voltage of the capacitor";
+  parameter Modelica.SIunits.Voltage Vc_start = V_nominal
+    "Initial value of the voltage of the capacitance in the middle of the line";
+  Modelica.SIunits.Voltage Vc(start = Vc_start, stateSelect = StateSelect.prefer)
+    "Voltage of the capacitor";
+initial equation
+  Vc = Vc_start;
 equation
   terminal_p.v[1] - (Vc+terminal_p.v[2]) = terminal_p.i[1]*R_actual/2;
   terminal_n.v[1] - (Vc+terminal_p.v[2]) = terminal_n.i[1]*R_actual/2;
@@ -65,6 +70,10 @@ presence of the capacitive effect.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+March 10, 2015, by Marco Bonvini:<br/>
+Added initial equation and parameter <code>Vc_start</code>.
+</li>
 <li>
 January 14, 2015, by Marco Bonvini:<br/>
 Added equation that represents Joule losses
