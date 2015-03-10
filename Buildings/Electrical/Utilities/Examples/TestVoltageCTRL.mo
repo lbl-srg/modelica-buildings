@@ -38,6 +38,11 @@ equation
   annotation (Documentation(revisions="<html>
 <ul>
 <li>
+March 10, 2015, by Marco Bonvini:<br/>
+Revised image of the example after modification to the voltage controller
+(added first order dynamics in the switch).
+</li>
+<li>
 Oct 14, 2014, by Marco Bonvini:<br/>
 Added model and documentation.
 </li>

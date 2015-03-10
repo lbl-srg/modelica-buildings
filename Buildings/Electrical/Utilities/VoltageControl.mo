@@ -10,11 +10,15 @@ model VoltageControl "Voltage controller"
     "Threshold that activates voltage ctrl (ratio of nominal voltage)";
   parameter Modelica.SIunits.Time tDelay = 300
     "Time to wait before plugging the load back";
+  parameter Modelica.SIunits.Time T = 0.01
+    "Time constant representing the switching time";
+  parameter Real y_start = 1.0 "Initial value of the control output signal";
   final parameter Modelica.SIunits.Voltage Vmin = V_nominal*(1-vThresh)
     "Low threshold";
   final parameter Modelica.SIunits.Voltage Vmax = V_nominal*(1+vThresh)
     "High threshold";
-  Modelica.Blocks.Interfaces.RealOutput y "Control signal"
+  Modelica.Blocks.Interfaces.RealOutput y(start = y_start, stateSelect = StateSelect.prefer)
+    "Control signal"
     annotation (Placement(transformation(extent={{96,-10},{116,10}})));
   replaceable Buildings.Electrical.Interfaces.Terminal terminal(
     redeclare replaceable package PhaseSystem = PhaseSystem)
@@ -25,10 +29,12 @@ model VoltageControl "Voltage controller"
     vThresh=vThresh,
     tDelay=tDelay)
     "Model that implements the state machines voltage controller";
+initial equation
+  y = y_start;
 equation
 
   // Output of the control block
-  ctrl.y = y;
+  y + T*der(y) = ctrl.y;
 
   // Voltage measurements
   ctrl.V = terminal.PhaseSystem.systemVoltage(terminal.v);
@@ -57,6 +63,11 @@ CTRL"),                                   Text(
           textString="%name")}), Documentation(revisions="<html>
 <ul>
 <li>
+March 10, 2014, by Marco Bonvini:<br/>
+Added time constant <code>T</code> and first order filer to avoid
+differentiation of the outputs of the finite state machine.
+</li>
+<li>
 Oct 14, 2014, by Marco Bonvini:<br/>
 Revised model and documentation.
 </li>
@@ -77,6 +88,11 @@ nominal value <code>V_nominal</code> by more than <i>1+V<sub>tr</sub></i>
 then the control signal <code>y</code> becomes zero for
 a period <code>t = tDelay</code>. If after this period the voltage is still
 higher than the thresholds the output remains equal to zero.
+The model has a parameter <code>T</code> that represents the time constant
+associated to the electrical switch. This time constant is used to parametrize
+a first order filter that represents such a dynamic effect. The presence of the first order
+filter avoids that the output of the finite state machine controller
+are differentiated (causing runtime errors).
 </p>
 </html>"),
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
