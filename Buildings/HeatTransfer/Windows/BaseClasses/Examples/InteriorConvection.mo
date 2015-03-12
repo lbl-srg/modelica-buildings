@@ -1,7 +1,6 @@
 within Buildings.HeatTransfer.Windows.BaseClasses.Examples;
 model InteriorConvection
   "Test model for the interior heat transfer due to convection"
-  import Buildings;
   extends Modelica.Icons.Example;
 
   Modelica.Blocks.Sources.Ramp uSha(
