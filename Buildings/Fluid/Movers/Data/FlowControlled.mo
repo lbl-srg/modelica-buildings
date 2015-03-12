@@ -65,9 +65,7 @@ Buildings.Fluid.Movers.SpeedControlled_Nrpm</a>,
 use the record
 <a href=\"modelica://Buildings.Fluid.Movers.Data.Generic_Nrpm\">
 Buildings.Fluid.Movers.Data.Generic_Nrpm</a>
-
-
-
+</p>
 </html>",
 revisions="<html>
 <ul>

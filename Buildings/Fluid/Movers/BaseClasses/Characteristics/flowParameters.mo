@@ -8,11 +8,6 @@ record flowParameters "Record for flow parameters"
      each min=0, each displayUnit="Pa")
     "Fan or pump total pressure at these flow rates";
 
-  // This is needed for OpenModelica.
-  // fixme: Check if this can be put into FlowMachineInterface instead of here.
-  final parameter Integer n = size(V_flow,1)
-    "Number of data points for flow rate in V_flow vs. pressure data";
-
   annotation (Documentation(info="<html>
 <p>
 Data record for performance data that describe volume flow rate versus

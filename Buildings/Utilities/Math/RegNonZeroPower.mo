@@ -11,8 +11,8 @@ equation
 Function that approximates <i>y=|x|<sup>n</sup></i> where <i>n &gt; 0</i>
 so that
 <ul>
-<li><i>y(0)</i> is not equal to zero.
-<li><i>dy/dx</i> is bounded and continuous everywhere.
+<li><i>y(0)</i> is not equal to zero.</li>
+<li><i>dy/dx</i> is bounded and continuous everywhere.</li>
 </ul>
 
 <p>

@@ -123,7 +123,7 @@ as port of the correction of issue
 <li>
 December 18, 2013 by Michael Wetter:<br/>
 Changed computation of <code>s</code> to allow this model to also be used
-with <code>Buildings.Media.Water.Simple</code>.
+with <code>Buildings.Media.Water</code>.
 </li>
 <li>
 October 21, 2013 by Michael Wetter:<br/>

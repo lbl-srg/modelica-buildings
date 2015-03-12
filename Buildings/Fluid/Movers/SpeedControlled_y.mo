@@ -14,7 +14,7 @@ model SpeedControlled_y
   replaceable parameter Data.SpeedControlled_y per
     "Record with performance data"
     annotation (choicesAllMatching=true,
-      Placement(transformation(extent={{20,-80},{40,-60}})));
+      Placement(transformation(extent={{60,-80},{80,-60}})));
 
   Modelica.Blocks.Interfaces.RealInput y(min=0, unit="1")
     "Constant normalized rotational speed"

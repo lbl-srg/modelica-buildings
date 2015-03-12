@@ -19,11 +19,12 @@ defaultComponentName="sigRan",
 Documentation(info="<html>
 <p>
 Block that sorts the input signal <code>u[:]</code> such that the output
-signal satisfies <code>y[i] >= y[i+1]</code> for all <code>i=1, ..., nin-1</code>.
+signal satisfies <code>y[i] &gt;= y[i+1]</code> for all <code>i=1, ..., nin-1</code>.
 </p>
 <p>
 This block may for example be used in a variable air volume flow
 controller to access the position of the dampers that are most open.
+</p>
 </html>",
 revisions="<html>
 <ul>

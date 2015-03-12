@@ -30,6 +30,7 @@ The approximation error of this simplified function is below 5% for a
 temperature of <i>0</i>&deg;C to <i>30</i>&deg;C.
 The benefit of this simpler function is that it can be inverted analytically,
 whereas the other function requires a numerical solution.
+</p>
 </html>", revisions="<html>
 <ul>
 <li>

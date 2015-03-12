@@ -27,9 +27,10 @@ Example that demonstrates the use of the signal ranker model.
 The figure below shows the input and output signals of the block.
 Note that
 <code>sigRan.y[1] &ge; sigRan.y[2] &ge; sigRan.y[3]</code>.
+</p>
 <p align=\"center\">
 <img src=\"modelica://Buildings/Resources/Images/Controls/Continuous/Examples/SignalRankerU.png\" border=\"1\" alt=\"Input to signal ranker.\"/><br/>
-		  <img src=\"modelica://Buildings/Resources/Images/Controls/Continuous/Examples/SignalRankerY.png\" border=\"1\" alt=\"Output of signal ranker.\"/>
+<img src=\"modelica://Buildings/Resources/Images/Controls/Continuous/Examples/SignalRankerY.png\" border=\"1\" alt=\"Output of signal ranker.\"/>
 </p>
 </html>", revisions="<html>
 <ul>

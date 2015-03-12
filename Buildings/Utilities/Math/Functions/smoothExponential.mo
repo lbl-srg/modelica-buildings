@@ -28,7 +28,7 @@ algorithm
 <p>
 Function to provide a once continuously differentiable approximation
 to <i>exp(- |x| )</i>
-in the interval <i>|x| < &delta;</i> for some positive <i>&delta;</i>
+in the interval <i>|x| &lt; &delta;</i> for some positive <i>&delta;</i>
 </p>
 </html>", revisions="<html>
 <ul>

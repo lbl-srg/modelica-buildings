@@ -57,7 +57,7 @@ protected
     annotation (Placement(transformation(extent={{40,78},{60,98}}),
         iconTransformation(extent={{60,50},{80,70}})));
 equation
-  assert(dp_in >= -Modelica.Constants.eps,
+  assert(dp_in >= -1E-3,
     "dp_in cannot be negative. Obtained dp_in = " + String(dp_in));
 
   connect(dp_in, gain.u) annotation (Line(

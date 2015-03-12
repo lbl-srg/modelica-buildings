@@ -12,8 +12,8 @@ model SmoothBlocks "Test model for smooth min and smooth max functions"
           extent={{-100,0},{-80,20}})));
   Diagnostics.AssertEquality assEquMax(threShold=0.08)
     annotation (Placement(transformation(extent={{40,20},{60,40}})));
-  SmoothMin smoMin(deltaX=0.5) annotation (Placement(transformation(extent={{
-            -20,-40},{0,-20}})));
+  Buildings.Utilities.Math.SmoothMin smoMin(deltaX=0.5)
+    annotation (Placement(transformation(extent={{-20,-40},{0,-20}})));
   Modelica.Blocks.Math.Min Min annotation (Placement(transformation(extent={{
             -20,-80},{0,-60}})));
   Diagnostics.AssertEquality assEquMin(threShold=0.08)
