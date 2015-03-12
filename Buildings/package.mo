@@ -210,6 +210,16 @@ have been <b style=\"color:blue\">improved</b> in a
     </td>
 </tr>
 
+<tr><td valign=\"top\">Buildings.Chillers.ElectricEIR<br/>
+                       Buildings.Chillers.ElectricReformulatedEIR
+    </td>
+    <td valign=\"top\">Changed implementation so that the model
+                       is continuously differentiable.
+                       This is for issue
+                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/373\">373</a>.
+    </td>
+    </tr>
+
 <tr><td valign=\"top\">Buildings.Fluid.HeatExchangers.DryCoilCounterFlow
     </td>
     <td valign=\"top\">Changed assignment of <code>T_m</code> to avoid using the conditionally
