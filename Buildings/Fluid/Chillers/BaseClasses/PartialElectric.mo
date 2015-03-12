@@ -35,15 +35,15 @@ partial model PartialElectric
     annotation (Placement(transformation(extent={{100,80},{120,100}}),
         iconTransformation(extent={{100,80},{120,100}})));
 
-  Real capFunT(min=0, nominal=1, start=1)
+  Real capFunT(min=0, nominal=1, start=1, unit="1")
     "Cooling capacity factor function of temperature curve";
-  Real EIRFunT(min=0, nominal=1, start=1)
+  Real EIRFunT(min=0, nominal=1, start=1, unit="1")
     "Power input to cooling capacity ratio function of temperature curve";
-  Real EIRFunPLR(min=0, nominal=1, start=1)
+  Real EIRFunPLR(min=0, nominal=1, start=1, unit="1")
     "Power input to cooling capacity ratio function of part load ratio";
-  Real PLR1(min=0, nominal=1, start=1) "Part load ratio";
-  Real PLR2(min=0, nominal=1, start=1) "Part load ratio";
-  Real CR(min=0, nominal=1,  start=1) "Cycling ratio";
+  Real PLR1(min=0, nominal=1, start=1, unit="1") "Part load ratio";
+  Real PLR2(min=0, nominal=1, start=1, unit="1") "Part load ratio";
+  Real CR(min=0, nominal=1,  start=1, unit="1") "Cycling ratio";
 
 protected
   Modelica.SIunits.HeatFlowRate QEva_flow_ava(nominal=QEva_flow_nominal,start=QEva_flow_nominal)
@@ -55,11 +55,11 @@ protected
   // Performance data
   parameter Modelica.SIunits.HeatFlowRate QEva_flow_nominal(max=0)
     "Reference capacity (negative number)";
-  parameter Real COP_nominal "Reference coefficient of performance";
-  parameter Real PLRMax(min=0) "Maximum part load ratio";
-  parameter Real PLRMinUnl(min=0) "Minimum part unload ratio";
-  parameter Real PLRMin(min=0) "Minimum part load ratio";
-  parameter Real etaMotor(min=0, max=1)
+  parameter Real COP_nominal(min=0, unit="1") "Reference coefficient of performance";
+  parameter Real PLRMax(min=0, unit="1") "Maximum part load ratio";
+  parameter Real PLRMinUnl(min=0, unit="1") "Minimum part unload ratio";
+  parameter Real PLRMin(min=0, unit="1") "Minimum part load ratio";
+  parameter Real etaMotor(min=0, max=1, unit="1")
     "Fraction of compressor motor heat entering refrigerant";
   parameter Modelica.SIunits.MassFlowRate mEva_flow_nominal
     "Nominal mass flow at evaporator";
