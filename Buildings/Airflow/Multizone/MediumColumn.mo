@@ -77,19 +77,19 @@ equation
       Xi = inStream(port_a.Xi_outflow);
       rho = Buildings.Utilities.Psychrometrics.Functions.density_pTX(
         p=port_a.p,
-        T=Medium.temperature_phX(port_a.p, inStream(port_a.h_outflow), Xi),
+        T=Medium.temperature(Medium.setState_phX(port_a.p, inStream(port_a.h_outflow), Xi)),
         X_w=if Medium.nXi == 0 then 0 else Xi[1]);
     elseif (densitySelection == Buildings.Airflow.Multizone.Types.densitySelection.fromBottom) then
       Xi = inStream(port_b.Xi_outflow);
       rho = Buildings.Utilities.Psychrometrics.Functions.density_pTX(
         p=port_b.p,
-        T=Medium.temperature_phX(port_b.p, inStream(port_b.h_outflow), Xi),
+        T=Medium.temperature(Medium.setState_phX(port_b.p, inStream(port_b.h_outflow), Xi)),
         X_w=if Medium.nXi == 0 then 0 else Xi[1]);
    else
       Xi = actualStream(port_a.Xi_outflow);
       rho = Buildings.Utilities.Psychrometrics.Functions.density_pTX(
         p=port_a.p,
-        T=Medium.temperature_phX(port_a.p, actualStream(port_a.h_outflow), Xi),
+        T=Medium.temperature(Medium.setState_phX(port_a.p, actualStream(port_a.h_outflow), Xi)),
         X_w=if Medium.nXi == 0 then 0 else Xi[1]);
   end if;
 
