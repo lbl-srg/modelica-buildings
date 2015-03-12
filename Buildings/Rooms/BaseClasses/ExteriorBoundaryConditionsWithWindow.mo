@@ -16,7 +16,6 @@ model ExteriorBoundaryConditionsWithWindow
     "Set to true if window has interior shade (at surface b)"
     annotation (Dialog(group="Shading"));
 
-  // fixme: this should use Modelica.Math.BooleanVectors.anyTrue
   final parameter Boolean haveShade=
     Modelica.Math.BooleanVectors.anyTrue(haveExteriorShade) or
     Modelica.Math.BooleanVectors.anyTrue(haveInteriorShade)
