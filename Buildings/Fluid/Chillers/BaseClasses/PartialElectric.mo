@@ -27,7 +27,7 @@ partial model PartialElectric
   Modelica.SIunits.Temperature TConEnt "Condenser entering temperature";
   Modelica.SIunits.Temperature TConLvg "Condenser leaving temperature";
 
-  Real COP(min=0) "Coefficient of performance";
+  Real COP(min=0, unit="1") "Coefficient of performance";
   Modelica.SIunits.HeatFlowRate QCon_flow "Condenser heat input";
   Modelica.SIunits.HeatFlowRate QEva_flow "Evaporator heat input";
   Modelica.Blocks.Interfaces.RealOutput P(final quantity="Power", unit="W")
@@ -90,6 +90,7 @@ protected
 
 initial equation
   assert(QEva_flow_nominal < 0, "Parameter QEva_flow_nominal must be smaller than zero.");
+  assert(Q_flow_small < 0, "Parameter Q_flow_small must be smaller than zero.");
   assert(PLRMinUnl >= PLRMin, "Parameter PLRMinUnl must be bigger or equal to PLRMin");
   assert(PLRMax > PLRMinUnl, "Parameter PLRMax must be bigger than PLRMinUnl");
 equation
@@ -111,22 +112,42 @@ equation
     // Available cooling capacity
     QEva_flow_ava = QEva_flow_nominal*capFunT;
     // Cooling capacity required to chill water to setpoint
-    QEva_flow_set = min(m2_flow*(hSet-inStream(port_a2.h_outflow)),0);
+    QEva_flow_set = Buildings.Utilities.Math.Functions.smoothMin(
+      x1=  m2_flow*(hSet-inStream(port_a2.h_outflow)),
+      x2= Q_flow_small,
+      deltaX=-Q_flow_small/100);
 
     // Part load ratio
-    PLR1 = min(QEva_flow_set/(QEva_flow_ava+Q_flow_small), PLRMax);
+    PLR1 = Buildings.Utilities.Math.Functions.smoothMin(
+      x1=  QEva_flow_set/(QEva_flow_ava+Q_flow_small),
+      x2=  PLRMax,
+      deltaX=PLRMax/100);
     // PLR2 is the compressor part load ratio. The lower bound PLRMinUnl is
     // since for PLR1<PLRMinUnl, the chiller uses hot gas bypass, under which
     // condition the compressor power is assumed to be the same as if the chiller
     // were to operate at PLRMinUnl
-    PLR2 = max(PLRMinUnl, PLR1);
-    // Cycling ratio
-    CR = min(PLR1/PLRMin,1.0);
+    PLR2 = Buildings.Utilities.Math.Functions.smoothMax(
+      x1=  PLRMinUnl,
+      x2=  PLR1,
+      deltaX=  PLRMinUnl/100);
+
+    // Cycling ratio.
+    // Due to smoothing, this can be about deltaX/10 above 1.0
+    CR = Buildings.Utilities.Math.Functions.smoothMin(
+      x1=  PLR1/PLRMin,
+      x2=  1,
+      deltaX=0.001);
 
     // Compressor power.
     P = -QEva_flow_ava/COP_nominal*EIRFunT*EIRFunPLR*CR;
     // Heat flow rates into evaporator and condenser
-    QEva_flow = max(QEva_flow_set, QEva_flow_ava);
+    // Q_flow_small is a negative number.
+    QEva_flow = Buildings.Utilities.Math.Functions.smoothMax(
+      x1=  QEva_flow_set,
+      x2=  QEva_flow_ava,
+      deltaX= -Q_flow_small/10);
+
+  //QEva_flow = max(QEva_flow_set, QEva_flow_ava);
     QCon_flow = -QEva_flow + P*etaMotor;
     // Coefficient of performance
     COP = -QEva_flow/(P-Q_flow_small);
@@ -307,6 +328,11 @@ The function value needs to be assigned to <code>EIRFunPLR</code>.
 </html>",
 revisions="<html>
 <ul>
+<li>
+March 12, 2015, by Michael Wetter:<br/>
+Refactored model to make it once continuously differentiable.
+This is for issue <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/373\">373</a>.
+</li>
 <li>
 Jan. 10, 2011, by Michael Wetter:<br/>
 Added input signal to switch chiller off, and changed base class to use a dynamic model.
