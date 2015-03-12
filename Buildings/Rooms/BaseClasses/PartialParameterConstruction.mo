@@ -4,9 +4,8 @@ record PartialParameterConstruction "Partial record for constructions"
 
   parameter String name = ""
     "Surface name. Optional for MixedAir, required for FFD.";
-// fixme: Check why the parameter below is replaceable. This is no longer needed I think,
-// and not used for other data either.
-  replaceable parameter Buildings.HeatTransfer.Data.OpaqueConstructions.Generic
+
+  parameter Buildings.HeatTransfer.Data.OpaqueConstructions.Generic
     layers "Material properties of opaque construction"
     annotation(Dialog(group="Opaque construction"),
                choicesAllMatching=true, Placement(transformation(extent={{146,258},
