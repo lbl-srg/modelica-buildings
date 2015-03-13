@@ -4,7 +4,6 @@ model MixingBox
   extends Modelica.Icons.Example;
 
  package Medium = Buildings.Media.Air "Medium in the component"
-    "Medium in the component"
          annotation (choicesAllMatching = true);
 
   Dampers.MixingBox mixBox(
