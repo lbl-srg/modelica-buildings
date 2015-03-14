@@ -415,7 +415,16 @@ have been <b style=\"color:blue\">improved</b> in a
 
 <tr><td colspan=\"2\"><b>Buildings.HeatTransfer</b>
     </td>
-</tr>
+    </tr>
+    
+<tr><td valign=\"top\">Buildings.HeatTransfer.Data.GlazingSystems.Generic
+    </td>
+    <td valign=\"top\">Removed parameter <code>nLay</code> as OpenModelica
+                       could not assign it during translation.
+                       For Dymola, the conversion script will automatically
+                       update existing models.
+    </td>
+</tr>        
 <tr><td valign=\"top\">Buildings.HeatTransfer.Conduction.BaseClasses.der_temperature_u
     </td>
     <td valign=\"top\">Changed the input argument for this function from type
