@@ -138,3 +138,7 @@ convertClass("Buildings.Media.GasesPTDecoupled.MoistAir",
              "Buildings.Obsolete.Media.GasesPTDecoupled.MoistAir");
 convertClass("Buildings.Media.GasesPTDecoupled.SimpleAir",
              "Buildings.Obsolete.Media.GasesPTDecoupled.SimpleAir");
+
+// Change of material constructions
+convertModifiers("Buildings.HeatTransfer.Data.GlazingSystems.Generic",
+                 {"nLay"}, fill("",0), true);
