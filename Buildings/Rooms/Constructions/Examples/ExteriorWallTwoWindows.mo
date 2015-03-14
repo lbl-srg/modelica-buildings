@@ -100,7 +100,7 @@ model ExteriorWallTwoWindows
   Modelica.Blocks.Sources.Constant QAbsSha[nCon](each k=0)
     "Solar radiation absorbed by interior shade"
     annotation (Placement(transformation(extent={{-90,-120},{-70,-100}})));
-  Modelica.Blocks.Sources.Constant QAbs[nCon,glaSys1.nLay](each k=0)
+  Modelica.Blocks.Sources.Constant QAbs[nCon, size(glaSys1.glass, 1)](each k=0)
     "Solar radiation absorbed by glass"
     annotation (Placement(transformation(extent={{-20,-180},{0,-160}})));
   Modelica.Blocks.Sources.Constant QTra[nCon](each k=0)
@@ -298,6 +298,10 @@ This model tests the exterior construction with two windows.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+March 13, 2015, by Michael Wetter:<br/>
+Changed model for OpenModelica.
+</li>
 <li>
 April 29, 2013, by Michael Wetter:<br/>
 Corrected wrong assignment of parameter in instance <code>bouConExt(conMod=...)</code>

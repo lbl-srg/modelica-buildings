@@ -136,7 +136,7 @@ partial model RoomHeatMassBalance "Base model for a room"
 
   HeatTransfer.Windows.BaseClasses.WindowRadiation conExtWinRad[NConExtWin](
     final AWin=(1 .- datConExtWin.fFra) .* datConExtWin.AWin,
-    final N=datConExtWin.glaSys.nLay,
+    final N={size(datConExtWin[i].glaSys.glass, 1) for i in 1:NConExtWin},
     final tauGlaSol=datConExtWin.glaSys.glass.tauSol,
     final rhoGlaSol_a=datConExtWin.glaSys.glass.rhoSol_a,
     final rhoGlaSol_b=datConExtWin.glaSys.glass.rhoSol_b,
@@ -188,7 +188,7 @@ partial model RoomHeatMassBalance "Base model for a room"
     final isFloorConPar_b=isFloorConPar_b,
     final isFloorConBou=isFloorConBou,
     final isFloorSurBou=isFloorSurBou,
-    final tauGla={datConExtWin[i].glaSys.glass[datConExtWin[i].glaSys.nLay].tauSol for i in 1:NConExtWin}) if
+    final tauGla={datConExtWin[i].glaSys.glass[size(datConExtWin[i].glaSys.glass, 1)].tauSol for i in 1:NConExtWin}) if
        haveConExtWin "Solar radiative heat exchange"
     annotation (Placement(transformation(extent={{-100,40},{-80,60}})));
 
@@ -797,6 +797,11 @@ for detailed explanations.
 </p>
 </html>",   revisions="<html>
 <ul>
+<li>
+March 13, 2015, by Michael Wetter:<br/>
+Changed model to avoid a translation error
+in OpenModelica.
+</li>
 <li>
 July 25, 2014, by Michael Wetter:<br/>
 Propagated parameter <code>homotopyInitialization</code>.

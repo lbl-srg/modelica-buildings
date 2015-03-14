@@ -66,7 +66,7 @@ model Window "Test model for the window"
     annotation (Placement(transformation(extent={{60,-60},{80,-40}})));
   Buildings.HeatTransfer.Windows.BaseClasses.WindowRadiation winRad(
     AWin=1,
-    N=glaSys.nLay,
+    N=size(glaSys.glass, 1),
     tauGlaSol=glaSys.glass.tauSol,
     rhoGlaSol_a=glaSys.glass.rhoSol_a,
     rhoGlaSol_b=glaSys.glass.rhoSol_b,
@@ -336,6 +336,11 @@ __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/HeatTransf
         "Simulate and plot"),
     Documentation(revisions="<html>
 <ul>
+<li>
+March 13, 2015, by Michael Wetter:<br/>
+Changed model to avoid a translation error
+in OpenModelica.
+</li>
 <li>
 June 11, 2013, by Michael Wetter:<br/>
 Redesigned model to separate convection from radiation, which is

@@ -10,9 +10,9 @@ model MultiLayer
   extends Buildings.HeatTransfer.Conduction.BaseClasses.PartialConstruction;
 
 protected
-  Buildings.HeatTransfer.Conduction.SingleLayer[layers.nLay] lay(
+  Buildings.HeatTransfer.Conduction.SingleLayer[nLay] lay(
    each final A=A,
-   material = {layers.material[i] for i in 1:layers.nLay},
+   material = {layers.material[i] for i in 1:nLay},
    T_a_start = _T_a_start,
    T_b_start = _T_b_start,
    each steadyStateInitial = steadyStateInitial) "Material layer"
@@ -164,6 +164,11 @@ and the temperature state.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+March 13, 2015, by Michael Wetter:<br/>
+Changed assignment of <code>nLay</code> to avoid a translation error
+in OpenModelica.
+</li>
 <li>
 October 15, 2014, by Michael Wetter:<br/>
 Changed assignment of <code>R</code> to be in the <code>extends</code> statement
