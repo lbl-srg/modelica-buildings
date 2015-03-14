@@ -6,7 +6,7 @@ package OpaqueConstructions
 
    parameter Integer nLay(min=1) "Number of layers";
 
-    parameter Buildings.HeatTransfer.Data.BaseClasses.Material material[nLay]
+   parameter Buildings.HeatTransfer.Data.BaseClasses.Material material[nLay]
       "Layer by layer declaration of material, starting from outside to room-side"
       annotation (choicesAllMatching=true, Evaluate=false, Placement(transformation(extent={{60,60},{80,80}})));
    final parameter Real R(unit="m2.K/W")=sum(material[i].R for i in 1:nLay)
@@ -110,7 +110,7 @@ First implementation.
                   Solids.Concrete(x=0.2)},
                   final nLay=2)
     "Construction with 100 mm insulation and 200 mm concrete"
-    annotation(
+    annotation (
       defaultComponentPrefixes="parameter",
       defaultComponentName="datOpaCon");
 
@@ -118,7 +118,7 @@ First implementation.
       Buildings.HeatTransfer.Data.OpaqueConstructions.Generic (
         material={Solids.Brick(x=0.12)},
         final nLay=1) "Construction with 120mm brick"
-    annotation(
+    annotation (
       defaultComponentPrefixes="parameter",
       defaultComponentName="datOpaCon");
 
@@ -126,7 +126,7 @@ First implementation.
       Buildings.HeatTransfer.Data.OpaqueConstructions.Generic (
         material={Solids.Concrete(x=0.2)},
         final nLay=1) "Construction with 200mm concrete"
-    annotation(
+    annotation (
       defaultComponentPrefixes="parameter",
       defaultComponentName="datOpaCon");
 
