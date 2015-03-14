@@ -23,7 +23,9 @@ model MixedAirHeatMassBalance "Test model for air heat and mass balance"
     hFixed=3,
     haveShade=datConExtWin[1].glaSys.haveShade,
     redeclare package Medium = Medium,
-    nPorts=1) "Convective heat balance of air"
+    nPorts=1,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+    "Convective heat balance of air"
     annotation (Placement(transformation(extent={{-82,0},{-42,40}})));
 protected
   Modelica.Thermal.HeatTransfer.Components.ThermalConductor conGlaSha[
