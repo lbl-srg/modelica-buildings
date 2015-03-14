@@ -240,7 +240,7 @@ partial model RoomHeatMassBalance "Base model for a room"
     final A=(1 .- datConExtWin.fFra) .* datConExtWin.AWin,
     final thisSideHasShade=haveInteriorShade,
     final absIR_air=datConExtWin.glaSys.shade.absIR_a,
-    final absIR_glass={(datConExtWin[i].glaSys.glass[datConExtWin[i].glaSys.nLay].absIR_b) for i in 1:NConExtWin},
+    final absIR_glass={(datConExtWin[i].glaSys.glass[size(datConExtWin[i].glaSys.glass, 1)].absIR_b) for i in 1:NConExtWin},
     final tauIR_air=tauIRSha_air,
     final tauIR_glass=tauIRSha_glass,
     each final linearize = linearizeRadiation,
