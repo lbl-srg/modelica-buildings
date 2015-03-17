@@ -14,8 +14,8 @@ model SideFins "This example demonstrates the use of side fins for a window"
     annotation (Placement(transformation(extent={{20,0},{40,20}})));
   Buildings.BoundaryConditions.SolarIrradiation.DirectTiltedSurface HDirTil(
     lat=weaDat.lat,
-    til=Buildings.HeatTransfer.Types.Tilt.Wall,
-    azi=Buildings.HeatTransfer.Types.Azimuth.S) "Direct solar irradiation"
+    til=Buildings.Types.Tilt.Wall,
+    azi=Buildings.Types.Azimuth.S) "Direct solar irradiation"
     annotation (Placement(transformation(extent={{-20,20},{0,40}})));
 equation
   connect(weaDat.weaBus, fin.weaBus)    annotation (Line(

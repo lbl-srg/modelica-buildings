@@ -29,7 +29,7 @@ model ExteriorWallTwoWindows
 
   parameter Buildings.Rooms.BaseClasses.ParameterConstructionWithWindow conPar[nCon](
     each layers = extConMat,
-    each til=Buildings.HeatTransfer.Types.Tilt.Wall,
+    each til=Buildings.Types.Tilt.Wall,
     each azi=0.017453292519943,
     A=A,
     hWin=hWin,
@@ -64,8 +64,8 @@ model ExteriorWallTwoWindows
     "Room temperature"
     annotation (Placement(transformation(extent={{-160,10},{-140,30}})));
   Buildings.HeatTransfer.Convection.Interior con[nCon](A=A - AWin,
-    til={Buildings.HeatTransfer.Types.Tilt.Wall,
-         Buildings.HeatTransfer.Types.Tilt.Wall}) "Model for heat convection"
+    til={Buildings.Types.Tilt.Wall,
+         Buildings.Types.Tilt.Wall}) "Model for heat convection"
     annotation (Placement(transformation(extent={{-40,10},{-60,30}})));
   Modelica.Thermal.HeatTransfer.Components.ThermalCollector theCol(m=2)
     "Thermal collector to link a vector of models to a single model"

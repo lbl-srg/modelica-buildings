@@ -86,18 +86,18 @@ model Floor "Model of a floor of the building"
       wWin={winWalRat/hWin*49.91*hRoo},
       each hWin=hWin,
       fFra={0.1},
-      til={Buildings.HeatTransfer.Types.Tilt.Wall},
-      azi={Buildings.HeatTransfer.Types.Azimuth.S}),
+      til={Buildings.Types.Tilt.Wall},
+      azi={Buildings.Types.Azimuth.S}),
     nConPar=2,
     datConPar(
       layers={conFlo,conFur},
       A={568.77/hRoo,414.68},
-      til={Buildings.HeatTransfer.Types.Tilt.Floor,Buildings.HeatTransfer.Types.Tilt.Wall}),
+      til={Buildings.Types.Tilt.Floor,Buildings.Types.Tilt.Wall}),
     nConBou=3,
     datConBou(
       layers={conIntWal,conIntWal,conIntWal},
       A={6.47,40.76,6.47}*hRoo,
-      til={Buildings.HeatTransfer.Types.Tilt.Wall, Buildings.HeatTransfer.Types.Tilt.Wall, Buildings.HeatTransfer.Types.Tilt.Wall}),
+      til={Buildings.Types.Tilt.Wall, Buildings.Types.Tilt.Wall, Buildings.Types.Tilt.Wall}),
     nSurBou=0,
     nPorts=5,
     intConMod=intConMod,
@@ -117,24 +117,24 @@ model Floor "Model of a floor of the building"
       wWin={winWalRat/hWin*33.27*hRoo},
       each hWin=hWin,
       fFra={0.1},
-      til={Buildings.HeatTransfer.Types.Tilt.Wall},
-      azi={Buildings.HeatTransfer.Types.Azimuth.E}),
+      til={Buildings.Types.Tilt.Wall},
+      azi={Buildings.Types.Azimuth.E}),
     nConPar=2,
     datConPar(
       layers={conFlo,conFur},
       A={360.0785/hRoo,262.52},
-      til={Buildings.HeatTransfer.Types.Tilt.Floor,Buildings.HeatTransfer.Types.Tilt.Wall}),
+      til={Buildings.Types.Tilt.Floor,Buildings.Types.Tilt.Wall}),
     nConBou=1,
     datConBou(
       layers={conIntWal},
       A={24.13}*hRoo,
-      til={Buildings.HeatTransfer.Types.Tilt.Wall}),
+      til={Buildings.Types.Tilt.Wall}),
     nSurBou=2,
     surBou(
       each A=6.47*hRoo,
       each absIR=0.9,
       each absSol=0.9,
-      til={Buildings.HeatTransfer.Types.Tilt.Wall, Buildings.HeatTransfer.Types.Tilt.Wall}),
+      til={Buildings.Types.Tilt.Wall, Buildings.Types.Tilt.Wall}),
     nPorts=5,
     intConMod=intConMod,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial) "East zone"
@@ -153,18 +153,18 @@ model Floor "Model of a floor of the building"
       wWin={winWalRat/hWin*49.91*hRoo},
       each hWin=hWin,
       fFra={0.1},
-      til={Buildings.HeatTransfer.Types.Tilt.Wall},
-      azi={Buildings.HeatTransfer.Types.Azimuth.N}),
+      til={Buildings.Types.Tilt.Wall},
+      azi={Buildings.Types.Azimuth.N}),
     nConPar=2,
     datConPar(
       layers={conFlo,conFur},
       A={568.77/hRoo,414.68},
-      til={Buildings.HeatTransfer.Types.Tilt.Floor,Buildings.HeatTransfer.Types.Tilt.Wall}),
+      til={Buildings.Types.Tilt.Floor,Buildings.Types.Tilt.Wall}),
     nConBou=3,
     datConBou(
       layers={conIntWal,conIntWal,conIntWal},
       A={6.47,40.76,6.47}*hRoo,
-      til={Buildings.HeatTransfer.Types.Tilt.Wall, Buildings.HeatTransfer.Types.Tilt.Wall, Buildings.HeatTransfer.Types.Tilt.Wall}),
+      til={Buildings.Types.Tilt.Wall, Buildings.Types.Tilt.Wall, Buildings.Types.Tilt.Wall}),
     nSurBou=0,
     nPorts=5,
     intConMod=intConMod,
@@ -184,24 +184,24 @@ model Floor "Model of a floor of the building"
       wWin={winWalRat/hWin*33.27*hRoo},
       each hWin=hWin,
       fFra={0.1},
-      til={Buildings.HeatTransfer.Types.Tilt.Wall},
-      azi={Buildings.HeatTransfer.Types.Azimuth.W}),
+      til={Buildings.Types.Tilt.Wall},
+      azi={Buildings.Types.Azimuth.W}),
     nConPar=2,
     datConPar(
       layers={conFlo,conFur},
       A={360.0785/hRoo,262.52},
-      til={Buildings.HeatTransfer.Types.Tilt.Floor,Buildings.HeatTransfer.Types.Tilt.Wall}),
+      til={Buildings.Types.Tilt.Floor,Buildings.Types.Tilt.Wall}),
     nConBou=1,
     datConBou(
       layers={conIntWal},
       A={24.13}*hRoo,
-      til={Buildings.HeatTransfer.Types.Tilt.Wall}),
+      til={Buildings.Types.Tilt.Wall}),
     nSurBou=2,
     surBou(
       each A=6.47*hRoo,
       each absIR=0.9,
       each absSol=0.9,
-      til={Buildings.HeatTransfer.Types.Tilt.Wall, Buildings.HeatTransfer.Types.Tilt.Wall}),
+      til={Buildings.Types.Tilt.Wall, Buildings.Types.Tilt.Wall}),
     nPorts=5,
     intConMod=intConMod,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial) "West zone"
@@ -217,14 +217,14 @@ model Floor "Model of a floor of the building"
     datConPar(
       layers={conFlo,conFur},
       A={360.0785/hRoo,262.52},
-      til={Buildings.HeatTransfer.Types.Tilt.Floor,Buildings.HeatTransfer.Types.Tilt.Wall}),
+      til={Buildings.Types.Tilt.Floor,Buildings.Types.Tilt.Wall}),
     nConBou=0,
     nSurBou=4,
     surBou(
       A={40.76,24.13,40.76,24.13}*hRoo,
       each absIR=0.9,
       each absSol=0.9,
-      til={Buildings.HeatTransfer.Types.Tilt.Wall, Buildings.HeatTransfer.Types.Tilt.Wall, Buildings.HeatTransfer.Types.Tilt.Wall, Buildings.HeatTransfer.Types.Tilt.Wall}),
+      til={Buildings.Types.Tilt.Wall, Buildings.Types.Tilt.Wall, Buildings.Types.Tilt.Wall, Buildings.Types.Tilt.Wall}),
     nPorts=11,
     intConMod=intConMod,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial) "Core zone"
@@ -256,22 +256,22 @@ model Floor "Model of a floor of the building"
     annotation (Placement(transformation(extent={{200,190},{220,210}})));
   RoomLeakage leaSou(redeclare package Medium = Medium, VRoo=568.77,
     s=49.91/33.27,
-    azi=Buildings.HeatTransfer.Types.Azimuth.S)
+    azi=Buildings.Types.Azimuth.S)
     "Model for air infiltration through the envelope"
     annotation (Placement(transformation(extent={{-58,380},{-22,420}})));
   RoomLeakage leaEas(redeclare package Medium = Medium, VRoo=360.0785,
     s=33.27/49.91,
-    azi=Buildings.HeatTransfer.Types.Azimuth.E)
+    azi=Buildings.Types.Azimuth.E)
     "Model for air infiltration through the envelope"
     annotation (Placement(transformation(extent={{-58,340},{-22,380}})));
   RoomLeakage leaNor(redeclare package Medium = Medium, VRoo=568.77,
     s=49.91/33.27,
-    azi=Buildings.HeatTransfer.Types.Azimuth.N)
+    azi=Buildings.Types.Azimuth.N)
     "Model for air infiltration through the envelope"
     annotation (Placement(transformation(extent={{-56,300},{-20,340}})));
   RoomLeakage leaWes(redeclare package Medium = Medium, VRoo=360.0785,
     s=33.27/49.91,
-    azi=Buildings.HeatTransfer.Types.Azimuth.W)
+    azi=Buildings.Types.Azimuth.W)
     "Model for air infiltration through the envelope"
     annotation (Placement(transformation(extent={{-56,260},{-20,300}})));
   Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor temAirSou

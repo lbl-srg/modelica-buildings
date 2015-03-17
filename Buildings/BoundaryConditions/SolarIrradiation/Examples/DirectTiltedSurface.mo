@@ -7,17 +7,17 @@ model DirectTiltedSurface
         "modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos")
     annotation (Placement(transformation(extent={{-60,20},{-40,40}})));
   Buildings.BoundaryConditions.SolarIrradiation.DirectTiltedSurface HDirRoo(
-    til=Buildings.HeatTransfer.Types.Tilt.Ceiling,
+    til=Buildings.Types.Tilt.Ceiling,
     lat=0.6457718232379,
     azi=0.78539816339745) "Direct irradiation on roof"
     annotation (Placement(transformation(extent={{20,20},{40,40}})));
   Buildings.BoundaryConditions.SolarIrradiation.DirectTiltedSurface HDirFlo(
-    til=Buildings.HeatTransfer.Types.Tilt.Floor,
+    til=Buildings.Types.Tilt.Floor,
     lat=0.6457718232379,
     azi=0.78539816339745) "Direct irradiation on floor"
     annotation (Placement(transformation(extent={{20,-60},{40,-40}})));
   Buildings.BoundaryConditions.SolarIrradiation.DirectTiltedSurface HDirWal(
-    til=Buildings.HeatTransfer.Types.Tilt.Wall,
+    til=Buildings.Types.Tilt.Wall,
     lat=0.6457718232379,
     azi=0.78539816339745) "Direct irradiation on wall"
     annotation (Placement(transformation(extent={{20,-20},{40,0}})));

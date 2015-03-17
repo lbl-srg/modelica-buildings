@@ -43,10 +43,10 @@ This data record is used to set the parameters of constructions that do not have
 </p>
 <p>
 The surface azimuth is defined in
-<a href=\"modelica://Buildings.HeatTransfer.Types.Azimuth\">
-Buildings.HeatTransfer.Types.Azimuth</a>
-and the surface tilt is defined in <a href=\"modelica://Buildings.HeatTransfer.Types.Tilt\">
-Buildings.HeatTransfer.Types.Tilt</a>
+<a href=\"modelica://Buildings.Types.Azimuth\">
+Buildings.Types.Azimuth</a>
+and the surface tilt is defined in <a href=\"modelica://Buildings.Types.Tilt\">
+Buildings.Types.Tilt</a>
 </p>
 </html>", revisions="<html>
 <ul>

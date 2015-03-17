@@ -23,7 +23,7 @@ model ExteriorWallWithWindow "Test model for an exterior wall with a window"
     annotation (Placement(transformation(extent={{-160,60},{-140,80}})));
 
   parameter Buildings.Rooms.BaseClasses.ParameterConstructionWithWindow conPar(
-    til=Buildings.HeatTransfer.Types.Tilt.Wall,
+    til=Buildings.Types.Tilt.Wall,
     azi=0,
     layers=extConMat,
     glaSys=glaSys,
@@ -55,7 +55,7 @@ model ExteriorWallWithWindow "Test model for an exterior wall with a window"
     annotation (Placement(transformation(extent={{-160,20},{-140,40}})));
   Buildings.HeatTransfer.Convection.Interior con[1](
       each A=A .- AWin,
-      til={Buildings.HeatTransfer.Types.Tilt.Wall}) "Model for heat convection"
+      til={Buildings.Types.Tilt.Wall}) "Model for heat convection"
     annotation (Placement(transformation(extent={{-20,20},{-40,40}})));
   Modelica.Thermal.HeatTransfer.Components.ThermalCollector theCol(m=1)
     "Thermal collector to link a vector of models to a single model"

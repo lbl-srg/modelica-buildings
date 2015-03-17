@@ -176,8 +176,8 @@ as a function that is differentiable in the temperatures.
 <p>
 To use this model, set the parameter <code>til</code>
 to a value defined in
-<a href=\"modelica://Buildings.HeatTransfer.Types.Tilt\">
-Buildings.HeatTransfer.Types.Tilt</a>.
+<a href=\"modelica://Buildings.Types.Tilt\">
+Buildings.Types.Tilt</a>.
 </p>
 <br/>
 

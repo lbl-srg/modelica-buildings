@@ -17,7 +17,7 @@ Documentation(info="<html>
 Enumeration to define the azimuth of a surface.
 For example, if an exterior wall is South oriented, i.e., its outside-facing
 surface is towards South, use
- <code>Buildings.HeatTransfer.Types.Azimuth.S</code>.
+ <code>Buildings.Types.Azimuth.S</code>.
 </p>
 </html>",
   revisions="<html>
