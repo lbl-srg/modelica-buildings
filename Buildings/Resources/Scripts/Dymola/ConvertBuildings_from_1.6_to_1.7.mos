@@ -146,3 +146,10 @@ convertModifiers("Buildings.HeatTransfer.Data.GlazingSystems.Generic",
 // SimulationTime
 convertClass("Buildings.Utilities.SimulationTime",
              "Buildings.Utilities.Time.ModelTime");
+
+
+// Types for heat transfer, room model and boundary conditions
+convertClass("Buildings.HeatTransfer.Types.Azimuth",
+             "Buildings.Types.Azimuth");
+convertClass("Buildings.HeatTransfer.Types.Tilt",
+             "Buildings.Types.Tilt");
