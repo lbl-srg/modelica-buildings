@@ -189,6 +189,23 @@ to <b style=\"color:blue\">existing</b> libraries:
     </td>
     </tr>
 
+<tr><td colspan=\"2\"><b>Buildings.Rooms</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Rooms.CFD
+    </td>
+    <td valign=\"top\">Room model that computes the room air flow 
+                       using computational fluid dynamics (CFD).
+                       The CFD simulation is coupled to the thermal simulation of the room
+                       and, through the fluid port, to the air conditioning system.
+                       Currently, the supported CFD program is the
+                       Fast Fluid Dynamics (FFD) program.
+                       See
+                       <a href=\"modelica://Buildings.Rooms.UsersGuide.CFD\">Buildings.Rooms.UsersGuide.CFD</a>
+                       for detailed explanations.
+    </td>
+    </tr>
+
 </table>
 <!-- Backward compatible changes -->
 <p>
