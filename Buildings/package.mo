@@ -450,6 +450,18 @@ have been <b style=\"color:blue\">improved</b> in a
                        model if the input to this function is a record.
     </td>
 </tr>
+<tr><td valign=\"top\">Buildings.HeatTransfer.Types.Azimuth<br/>
+                       Buildings.HeatTransfer.Types.Tilt
+    </td>
+    <td valign=\"top\">Moved these types from <code>Buildings.HeatTransfer</code>
+                       to the top-level package <code>Buildings</code> because
+                       they are used in <code>Buildings.BoundaryConditions</code>,
+                       <code>Buildings.HeatTransfer</code> and <code>Buildings.Rooms</code>.<br/>
+                       For Dymola, the conversion script will automatically
+                       update existing models.
+    </td>
+</tr>        
+
 
 <tr><td colspan=\"2\"><b>Buildings.Fluid</b>
     </td>
