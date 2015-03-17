@@ -646,10 +646,15 @@ have been <b style=\"color:blue\">improved</b> in a
     <td valign=\"top\">Moved the package to <code>Buildings.Rooms.Validation.BESTEST</code>.
     </td>
 </tr>
-<tr><td valign=\"top\">Buildings.Utilities
+<tr><td colspan=\"2\"><b>Buildings.Utilities</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Utilities.SimulationTime
     </td>
     <td valign=\"top\">Moved the block <code>Buildings.Utilities.SimulationTime</code>
-                       to <code>Buildings.Utilities.Time.ModelTime</code>.
+                       to <code>Buildings.Utilities.Time.ModelTime</code>.<br/>
+                       For Dymola, the conversion script will
+                       update existing models according to the above list.
     </td>
 </tr>
 

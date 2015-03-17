@@ -142,3 +142,7 @@ convertClass("Buildings.Media.GasesPTDecoupled.SimpleAir",
 // Change of material constructions
 convertModifiers("Buildings.HeatTransfer.Data.GlazingSystems.Generic",
                  {"nLay"}, fill("",0), true);
+
+// SimulationTime
+convertClass("Buildings.Utilities.SimulationTime",
+             "Buildings.Utilities.Time.ModelTime");
