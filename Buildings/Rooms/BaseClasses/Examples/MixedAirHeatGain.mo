@@ -2,8 +2,7 @@ within Buildings.Rooms.BaseClasses.Examples;
 model MixedAirHeatGain "Test model for the MixedAirHeatGain model"
   extends Modelica.Icons.Example;
 
-  package MediumA = Buildings.Media.Air
-    "Medium model";
+  package MediumA = Buildings.Media.Air "Medium model";
 
   Buildings.Rooms.BaseClasses.MixedAirHeatGain heatGain(redeclare package
       Medium =
@@ -39,7 +38,8 @@ model MixedAirHeatGain "Test model for the MixedAirHeatGain model"
     nPorts=2,
     redeclare package Medium = MediumA,
     V=AFlo*2.5,
-    m_flow_nominal=1E-3)
+    m_flow_nominal=1E-3,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     annotation (Placement(transformation(extent={{60,-70},{80,-50}})));
   Modelica.Blocks.Sources.Constant qSenAir_flow(k=0)
     "Sensible heat flow of air stream (must be zero)"
@@ -106,5 +106,17 @@ equation
       smooth=Smooth.None));
   annotation (experiment(StopTime=3600),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Rooms/BaseClasses/Examples/MixedAirHeatGain.mos"
-        "Simulate and plot"));
+        "Simulate and plot"),
+    Documentation(info="<html>
+<p>
+This example tests the model for the internal heat gain that is used in the mixed air room model.
+</p>
+</html>", revisions="<html>
+<ul>
+<li>
+March 17, 2015, by Michael Wetter:<br/>
+First implementation.
+</li>
+</ul>
+</html>"));
 end MixedAirHeatGain;

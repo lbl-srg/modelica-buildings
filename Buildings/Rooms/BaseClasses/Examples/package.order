@@ -1,5 +1,5 @@
 AirHeatMassBalance
-HeatGain
+CFDHeatGain
 InfraredRadiationExchange
 InfraredRadiationGainDistribution
 MixedAirHeatGain

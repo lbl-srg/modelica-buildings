@@ -161,5 +161,10 @@ equation
                       graphics),
 experiment(StopTime=3600),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Rooms/BaseClasses/Examples/MixedAirHeatMassBalance.mos"
-        "Simulate and plot"));
+        "Simulate and plot"),
+    Documentation(info="<html>
+<p>
+Test model for the heat and mass balance of the room air.
+</p>
+</html>"));
 end MixedAirHeatMassBalance;

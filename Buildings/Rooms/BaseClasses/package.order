@@ -6,7 +6,6 @@ CFDHeatGain
 CFDSurfaceInterface
 ExteriorBoundaryConditions
 ExteriorBoundaryConditionsWithWindow
-HeatGain
 InfraredRadiationExchange
 InfraredRadiationGainDistribution
 MixedAirHeatGain
