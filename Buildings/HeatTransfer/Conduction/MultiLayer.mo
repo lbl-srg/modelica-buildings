@@ -9,25 +9,30 @@ model MultiLayer
     "Heat flow rate from state i to i+1";
   extends Buildings.HeatTransfer.Conduction.BaseClasses.PartialConstruction;
 
+// fixme: OpenModelica produces the wrong results if the instance lay is protected.
+//public// fixme protected
 protected
+
   Buildings.HeatTransfer.Conduction.SingleLayer[nLay] lay(
    each final A=A,
    material = {layers.material[i] for i in 1:nLay},
-   T_a_start = _T_a_start,
-   T_b_start = _T_b_start,
+   T_a_start = { T_b_start+(T_a_start-T_b_start) * 1/R *
+    sum(layers.material[k].R for k in i:nLay) for i in 1:nLay},
+   T_b_start = { T_a_start+(T_b_start-T_a_start) * 1/R *
+    sum(layers.material[k].R for k in 1:i) for i in 1:nLay},
    each steadyStateInitial = steadyStateInitial) "Material layer"
     annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
 
-  final parameter Modelica.SIunits.Temperature _T_a_start[nLay](each fixed=false)
-    "Initial temperature at port_a of respective layer, used if steadyStateInitial = false";
-  final parameter Modelica.SIunits.Temperature _T_b_start[nLay](each fixed=false)
-    "Initial temperature at port_b of respective layer, used if steadyStateInitial = false";
-
-initial equation
-  _T_a_start = { T_b_start+(T_a_start-T_b_start) * 1/R *
-    sum(layers.material[k].R for k in i:nLay) for i in 1:nLay};
-  _T_b_start = { T_a_start+(T_b_start-T_a_start) * 1/R *
-    sum(layers.material[k].R for k in 1:i) for i in 1:nLay};
+//  final parameter Modelica.SIunits.Temperature _T_a_start[nLay](each fixed=false)
+//    "Initial temperature at port_a of respective layer, used if steadyStateInitial = false";
+//  final parameter Modelica.SIunits.Temperature _T_b_start[nLay](each fixed=false)
+//    "Initial temperature at port_b of respective layer, used if steadyStateInitial = false";
+//
+//initial equation
+//  _T_a_start = { T_b_start+(T_a_start-T_b_start) * 1/R *
+//    sum(layers.material[k].R for k in i:nLay) for i in 1:nLay};
+//  _T_b_start = { T_a_start+(T_b_start-T_a_start) * 1/R *
+//    sum(layers.material[k].R for k in 1:i) for i in 1:nLay};
 equation
   // This section assigns the temperatures and heat flow rates of the layer models to
   // an array that makes plotting the results easier.

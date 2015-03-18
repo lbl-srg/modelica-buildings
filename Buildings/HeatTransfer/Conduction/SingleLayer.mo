@@ -53,6 +53,11 @@ protected
     "Derivatives dT/du at the support points (used for PCM)";
 
 initial equation
+
+ assert(abs(T_a_start-T_b_start)< 0.001, "fixme: for openmodelica
+   T_a_start= " + String(T_a_start) + "
+   T_b_start= " + String(T_b_start));
+
   // The initialization is only done for materials that store energy.
     if not material.steadyState then
       if steadyStateInitial then
