@@ -47,7 +47,7 @@ model ConductorSteadyStateTransient "Test model for heat conductor"
     annotation (Placement(transformation(extent={{0,-16},{12,-4}})));
   Modelica.Thermal.HeatTransfer.Sensors.HeatFlowSensor heaFlo2
     annotation (Placement(transformation(extent={{14,-56},{26,-44}})));
-  Buildings.Utilities.Diagnostics.AssertEquality assertEquality(threShold=1E-8)
+  Buildings.Utilities.Diagnostics.AssertEquality assertEquality(threShold=1E-4)
     annotation (Placement(transformation(extent={{60,-100},{80,-80}})));
   Buildings.HeatTransfer.Convection.Interior conv1(A=2, til=Buildings.Types.Tilt.Wall)
     "Convective heat transfer"
