@@ -1,7 +1,7 @@
 ConstantVoltage
-VoltageSource
 PVSimple
 PVSimpleOriented
+VoltageSource
 WindTurbine
 Examples
 BaseClasses

@@ -1,8 +1,8 @@
-PerUnit
-Load
 CableMode
-VoltageLevel
 CharacteristicReactance
 CharacteristicResistance
-LoadConnection
 InitMode
+Load
+LoadConnection
+PerUnit
+VoltageLevel
