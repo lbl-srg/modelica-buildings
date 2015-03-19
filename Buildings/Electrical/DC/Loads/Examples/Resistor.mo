@@ -1,6 +1,5 @@
 within Buildings.Electrical.DC.Loads.Examples;
 model Resistor "Example model for resistor"
-  import Buildings;
   extends Modelica.Icons.Example;
   Buildings.Electrical.DC.Loads.Resistor res2(R=2, V_nominal=12) "Resistor"
     annotation (Placement(transformation(extent={{40,20},{60,40}})));

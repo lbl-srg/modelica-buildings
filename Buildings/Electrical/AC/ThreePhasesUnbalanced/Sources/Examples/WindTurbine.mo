@@ -1,6 +1,5 @@
 within Buildings.Electrical.AC.ThreePhasesUnbalanced.Sources.Examples;
 model WindTurbine "Example for the WindTurbine AC model"
-  import Buildings;
   extends Modelica.Icons.Example;
   Buildings.Electrical.AC.ThreePhasesUnbalanced.Sources.WindTurbine tur(
     table=[3.5, 0;
@@ -62,9 +61,8 @@ equation
       color={0,120,120},
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}}),      graphics),
+            -100},{100,100}})),
     experiment(StopTime=172800, Tolerance=1e-05),
-    __Dymola_experimentSetupOutput,
     Documentation(info="<html>
 <p>
 This model illustrates the use of the wind turbine model,

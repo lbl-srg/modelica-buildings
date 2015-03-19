@@ -1,9 +1,8 @@
 within Buildings.Examples.ChillerPlant.BaseClasses.Controls.Examples;
 model BatteryControl "Test model for battery control"
-  import Buildings;
   extends Modelica.Icons.Example;
   Buildings.Examples.ChillerPlant.BaseClasses.Controls.BatteryControl
-                                                con "Battery control"
+    con "Battery control"
     annotation (Placement(transformation(extent={{0,0},{20,20}})));
   Modelica.Blocks.Sources.Sine SOC(
     freqHz=1/86400,
@@ -20,9 +19,7 @@ equation
             {100,100}}), graphics),
     experiment(
       StopTime=604800,
-      Tolerance=1e-05,
-      __Dymola_Algorithm="Radau"),
-    __Dymola_experimentSetupOutput,
+      Tolerance=1e-05),
     Commands(file=
           "modelica://Buildings/Resources/Scripts/Dymola/Examples/ChillerPlant/BaseClasses/Controls/Examples/BatteryControl.mos"
         "Simulate and plot"),

@@ -1,6 +1,5 @@
 within Buildings.Electrical.DC.Sources.Examples;
 model PVSimple "Example for the PVSimple model with constant load"
-  import Buildings;
   extends Modelica.Icons.Example;
   Buildings.Electrical.DC.Sources.PVSimple     pv(A=10, V_nominal=12)
     "PV module"

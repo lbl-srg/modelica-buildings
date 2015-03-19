@@ -1,6 +1,5 @@
 within Buildings.Electrical.AC.OnePhase.Examples;
 model GridDCLoad "Model of a DC load connected to the grid"
-  import Buildings;
   extends Modelica.Icons.Example;
   Buildings.Electrical.AC.OnePhase.Sources.Grid
                grid(

@@ -1,6 +1,5 @@
 within Buildings.Electrical.DC.Sources.Examples;
 model WindTurbine "Example for the WindTurbine model"
-  import Buildings;
   extends Modelica.Icons.Example;
   Buildings.Electrical.DC.Sources.WindTurbine           tur(
     table=[3.5, 0;

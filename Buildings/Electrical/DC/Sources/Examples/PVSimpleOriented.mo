@@ -1,7 +1,6 @@
 within Buildings.Electrical.DC.Sources.Examples;
 model PVSimpleOriented
   "Example for the PVSimpleOriented model with constant load"
-  import Buildings;
   extends Modelica.Icons.Example;
   Buildings.Electrical.DC.Sources.PVSimpleOriented
                                                pv(A=10,

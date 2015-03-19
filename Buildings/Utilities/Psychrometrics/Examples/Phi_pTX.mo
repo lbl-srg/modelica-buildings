@@ -1,6 +1,5 @@
 within Buildings.Utilities.Psychrometrics.Examples;
 model Phi_pTX "Model to test the relative humidity computation"
-  import Buildings;
   extends Modelica.Icons.Example;
 
  package Medium = Buildings.Media.Air "Medium model"

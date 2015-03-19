@@ -1,6 +1,5 @@
 within Buildings.Electrical.AC.ThreePhasesUnbalanced.Sources.Examples;
 model WindTurbine_N "Example for the WindTurbine AC model with neutral cable"
-  import Buildings;
   extends Modelica.Icons.Example;
   Buildings.Electrical.AC.ThreePhasesUnbalanced.Sources.WindTurbine_N tur(
     table=[3.5, 0;
@@ -65,7 +64,6 @@ equation
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}),      graphics),
     experiment(StopTime=172800, Tolerance=1e-05),
-    __Dymola_experimentSetupOutput,
     Documentation(info="<html>
 <p>
 This model illustrates the use of the wind turbine model with neutral cable,

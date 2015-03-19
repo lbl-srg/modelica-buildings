@@ -1,6 +1,5 @@
 within Buildings.Electrical.DC.Sources.Examples;
 model VoltageSource "Example for the variable voltage source model"
-  import Buildings;
   extends Modelica.Icons.Example;
   Modelica.Electrical.Analog.Basic.Ground ground
     annotation (Placement(transformation(extent={{-92,-40},{-72,-20}})));

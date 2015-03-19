@@ -1,6 +1,5 @@
 within Buildings.Electrical.AC.OnePhase.Examples;
 model GeneratorLoadGrid "Generator with a load and grid connection"
-  import Buildings;
   extends Modelica.Icons.Example;
 
   Sources.Grid grid(

@@ -1,6 +1,5 @@
 within Buildings.Fluid.Interfaces.Examples;
 model PrescribedOutletState "Test model for prescribed outlet state"
-  import Buildings;
   extends Modelica.Icons.Example;
 
   package Medium = Buildings.Media.ConstantPropertyLiquidWater;

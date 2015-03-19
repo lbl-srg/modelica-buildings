@@ -103,7 +103,6 @@ equation
       StopTime=604800,
       Tolerance=1e-05,
       __Dymola_Algorithm="Radau"),
-    __Dymola_experimentSetupOutput,
     Commands(file=
           "modelica://Buildings/Resources/Scripts/Dymola/Examples/ChillerPlant/DataCenterRenewables.mos"
         "Simulate and plot"),

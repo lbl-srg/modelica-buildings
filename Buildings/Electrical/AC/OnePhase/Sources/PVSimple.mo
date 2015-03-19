@@ -1,6 +1,5 @@
 within Buildings.Electrical.AC.OnePhase.Sources;
 model PVSimple "Simple PV model"
-  import Buildings;
   extends Buildings.Electrical.Interfaces.PartialAcDcParameters;
   extends Buildings.Electrical.Interfaces.PartialPV(
     redeclare package PhaseSystem = Buildings.Electrical.PhaseSystems.OnePhase,
@@ -17,7 +16,8 @@ model PVSimple "Simple PV model"
     annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
 protected
   Modelica.Blocks.Math.Gain gain_DCAC(final k=eta_DCAC)
-    "Gain that represents the DCAC conversion losses"                                                     annotation (Placement(
+    "Gain that represents the DCAC conversion losses"
+    annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=180,

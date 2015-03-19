@@ -1,6 +1,5 @@
 within Buildings.Electrical.DC.Loads.Examples;
 model LinearizedLoad "Example model to check the linearized load model"
-  import Buildings;
   extends Modelica.Icons.Example;
   Real error = (sen_nlin.P - sen_lin.P)*100/sen_nlin.P
     "Percentage of error between the linearized and actual power consumption";
