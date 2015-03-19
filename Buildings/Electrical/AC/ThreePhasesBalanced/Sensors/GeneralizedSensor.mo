@@ -71,7 +71,7 @@ Fixed bug. The model was referencing the wrong PhaseSystem.
 </li>
 <li>
 August 25, 2014, by Marco Bonvini:<br/>
-revised documentation.
+Revised documentation.
 </li>
 <li>
 July 24, 2013, by Michael Wetter:<br/>

@@ -87,7 +87,7 @@ Added equation that represents Joule losses
 </li>
 <li>
 June 2, 2014, by Marco Bonvini:<br/>
-revised documentation.
+Revised documentation.
 </li>
 <li>
 October 31, 2013, by Marco Bonvini:<br/>
