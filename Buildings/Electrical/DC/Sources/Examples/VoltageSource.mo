@@ -45,7 +45,7 @@ equation
     experiment(StopTime=1, Tolerance=1e-05),
 Documentation(info="<html>
 <p>
-This model illustrates the use of the varaible voltage source model.
+This model illustrates the use of the variable voltage source model.
 </p>
 </html>",
       revisions="<html>
