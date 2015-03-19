@@ -1,7 +1,7 @@
 within Buildings.Airflow.Multizone.Examples;
 model OneEffectiveAirLeakageArea "Model with an effective air leakage area"
   extends Modelica.Icons.Example;
-  package Medium = Buildings.Media.IdealGases.SimpleAir;
+  package Medium = Buildings.Media.Air;
 
   Buildings.Fluid.MixingVolumes.MixingVolume volA(
     redeclare package Medium = Medium,
@@ -39,8 +39,6 @@ model OneEffectiveAirLeakageArea "Model with an effective air leakage area"
     offset=0,
     startTime=1800) annotation (Placement(transformation(extent={{-80,-32},{-60,
             -12}})));
-  inner Modelica.Fluid.System system
-    annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
 equation
   connect(sou.ports[1], volA.ports[1]) annotation (Line(
       points={{5.55112e-16,-30},{28,-30},{28,-20},{28,-20}},
@@ -84,6 +82,12 @@ and because heat is exchanged with <code>volB</code>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+December 22, 2014 by Michael Wetter:<br/>
+Removed <code>Modelica.Fluid.System</code>
+to address issue
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/311\">#311</a>.
+</li>
 <li>
 November 10, 2011, by Michael Wetter:<br/>
 Added documentation.

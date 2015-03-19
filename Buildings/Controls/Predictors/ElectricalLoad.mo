@@ -91,7 +91,7 @@ protected
 
   discrete output Modelica.SIunits.Energy ELast "Energy at the last sample";
   discrete output Modelica.SIunits.Time tLast
-    "Time at which last sample occured";
+    "Time at which last sample occurred";
   output Integer[nPre] iSam "Index for power of the current sampling interval";
 
   discrete output Modelica.SIunits.Power P[Buildings.Controls.Types.nDayTypes,nSam,nHis]
@@ -152,7 +152,7 @@ protected
     input Modelica.SIunits.Time t "Simulation time";
     input Buildings.Controls.Types.Day[:] typeOfDay
       "Type of day as received from input connector";
-    input Modelica.SIunits.Time dt "Lenght of one sampling interval";
+    input Modelica.SIunits.Time dt "Length of one sampling interval";
     input Integer nPre "Number of predictions to be made";
     output Integer[nPre] tod "Type of day for each prediction interval";
   protected

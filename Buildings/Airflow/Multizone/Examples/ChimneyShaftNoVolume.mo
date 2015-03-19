@@ -2,7 +2,7 @@ within Buildings.Airflow.Multizone.Examples;
 model ChimneyShaftNoVolume
   "Model that demonstrates the chimney effect with a steady-state model of a shaft"
   extends Modelica.Icons.Example;
-  package Medium = Buildings.Media.IdealGases.SimpleAir;
+  package Medium = Modelica.Media.Air.SimpleAir;
 
   Fluid.MixingVolumes.MixingVolume roo(
     V=2.5*5*5,
@@ -79,8 +79,6 @@ model ChimneyShaftNoVolume
         origin={-80,0})));
   Modelica.Blocks.Math.Gain gain(k=3000)
     annotation (Placement(transformation(extent={{-28,20},{-8,40}})));
-  inner Modelica.Fluid.System system
-    annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
   Buildings.Airflow.Multizone.MediumColumn sha(redeclare package Medium =
         Medium, densitySelection=Buildings.Airflow.Multizone.Types.densitySelection.actual)
     "Shaft of chimney"
@@ -214,6 +212,19 @@ up the other flow path.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+February 24, 2015 by Michael Wetter:<br/>
+Changed media to
+<a href=\"modelica://Modelica.Media.Air.SimpleAir\">
+Modelica.Media.Air.SimpleAir</a>
+in order to test the medium column for a media that has no moisture.
+</li>
+<li>
+December 22, 2014 by Michael Wetter:<br/>
+Removed <code>Modelica.Fluid.System</code>
+to address issue
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/311\">#311</a>.
+</li>
 <li>
 November 10, 2011, by Michael Wetter:<br/>
 Added documentation.

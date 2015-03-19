@@ -1,0 +1,9 @@
+compareVars :=
+  {
+    "senTem1.T",
+    "senTem2.T",
+    "senTem3.T",
+    "sla1.surf_a.T",
+    "sla2.surf_a.T",
+    "sla3.surf_a.T"
+  };

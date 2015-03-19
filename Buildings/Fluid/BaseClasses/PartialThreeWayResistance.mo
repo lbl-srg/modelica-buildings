@@ -1,8 +1,8 @@
 within Buildings.Fluid.BaseClasses;
 partial model PartialThreeWayResistance
   "Flow splitter with partial resistance model at each port"
-  extends Buildings.Fluid.Interfaces.LumpedVolumeDeclarations;
-
+  extends Buildings.Fluid.Interfaces.LumpedVolumeDeclarations(
+    final mSenFac=1);
 
   Modelica.Fluid.Interfaces.FluidPort_a port_1(redeclare package Medium =
         Medium, m_flow(min=if (portFlowDirection_1 == Modelica.Fluid.Types.PortFlowDirection.Entering) then
@@ -88,8 +88,8 @@ equation
           -6.12323e-016,-79},{0,-79},{0,-100}},                      color={0,
           127,255}));
   connect(res1.port_b,vol. ports[1]) annotation (Line(
-      points={{-40,0},{-30.6666,0},{-30.6666,5.55115e-017},{-21.3333,
-          5.55115e-017},{-21.3333,0},{-2.66667,0}},
+      points={{-40,0},{-30.6666,0},{-30.6666,5.55115e-17},{-21.3333,5.55115e-17},
+          {-21.3333,0},{-2.66667,0}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(res2.port_b,vol. ports[2]) annotation (Line(
@@ -98,7 +98,7 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(res3.port_b,vol. ports[3]) annotation (Line(
-      points={{6.12323e-016,-40},{2.66667,-40},{2.66667,0}},
+      points={{6.12323e-16,-40},{2.66667,-40},{2.66667,0}},
       color={0,127,255},
       smooth=Smooth.None));
   if not dynamicBalance then
@@ -111,7 +111,7 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   end if;
-  annotation (     extent=[40,-10; 60,10],
+  annotation (
     Documentation(info="<html>
 <p>
 Partial model for flow resistances with three ports such as a
@@ -122,6 +122,7 @@ If <code>dynamicBalance=true</code>, then at the junction of the three flows,
 a mixing volume will be present. This will introduce a dynamic energy and momentum
 balance, which often breaks algebraic loops.
 The time constant of the mixing volume is determined by the parameter <code>tau</code>.
+</p>
 </html>", revisions="<html>
 <ul>
 <li>

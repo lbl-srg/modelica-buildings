@@ -2,7 +2,6 @@ within Buildings.Airflow.Multizone;
 model MediumColumn
   "Vertical shaft with no friction and no storage of heat and mass"
   import Modelica.Constants;
-  outer Modelica.Fluid.System system "System wide properties";
 
   replaceable package Medium = Modelica.Media.Interfaces.PartialMedium
     "Medium in the component" annotation (choicesAllMatching=true);
@@ -10,7 +9,7 @@ model MediumColumn
   parameter Modelica.SIunits.Length h(min=0) = 3 "Height of shaft";
   parameter Buildings.Airflow.Multizone.Types.densitySelection densitySelection
     "Select how to pick density" annotation (Evaluate=true);
-  parameter Boolean allowFlowReversal=system.allowFlowReversal
+  parameter Boolean allowFlowReversal=true
     "= true to allow flow reversal, false restricts to design direction (port_a -> port_b)"
     annotation (Dialog(tab="Assumptions"),Evaluate=true);
 
@@ -28,7 +27,7 @@ model MediumColumn
     "Fluid connector b (positive design flow direction is from port_a to port_b)"
     annotation (Placement(transformation(extent={{10,-110},{-10,-90}}), iconTransformation(extent={{10,-110},{-10,-90}})));
 
-  Modelica.SIunits.VolumeFlowRate V_flow=m_flow/Medium.density(sta_a)
+  Modelica.SIunits.VolumeFlowRate V_flow
     "Volume flow rate at inflowing port (positive when flow from port_a to port_b)";
   Modelica.SIunits.MassFlowRate m_flow(start=0)
     "Mass flow rate from port_a to port_b (m_flow > 0 is design flow direction)";
@@ -40,8 +39,10 @@ protected
       port_a.p,
       actualStream(port_a.h_outflow),
       actualStream(port_a.Xi_outflow)) "Medium properties in port_a";
+  Medium.MassFraction Xi[Medium.nXi] "Mass fraction used to compute density";
 initial equation
-  assert(abs(Medium.density(Medium.setState_pTX(
+  /*
+   assert(abs(Medium.density(Medium.setState_pTX(
     Medium.p_default,
     Medium.T_default,
     Medium.X_default)) - Medium.density(Medium.setState_pTX(
@@ -49,7 +50,8 @@ initial equation
     Medium.T_default + 5,
     Medium.X_default))) > 1E-10,
     "Error: The density of the medium that is used to compute buoyancy force is independent of temperature."
-     + "\n       You need to select a different medium model.");
+    + "\n       You need to select a different medium model.");
+    */
   // The next assert tests for all allowed values of the enumeration.
   // Testing against densitySelection > 0 gives an error in OpenModelica as enumerations start with 1.
   assert(densitySelection == Buildings.Airflow.Multizone.Types.densitySelection.fromTop
@@ -63,18 +65,36 @@ equation
   m_flow = port_a.m_flow;
 
   // Pressure difference between ports
-  rho = if (densitySelection == Buildings.Airflow.Multizone.Types.densitySelection.fromTop) then
-          Medium.density(Medium.setState_phX(
-    port_a.p,
-    inStream(port_a.h_outflow),
-    inStream(port_a.Xi_outflow))) else if (densitySelection == Buildings.Airflow.Multizone.Types.densitySelection.fromBottom) then
-          Medium.density(Medium.setState_phX(
-    port_b.p,
-    inStream(port_b.h_outflow),
-    inStream(port_b.Xi_outflow))) else Medium.density(Medium.setState_phX(
-    port_a.p,
-    actualStream(port_a.h_outflow),
-    actualStream(port_a.Xi_outflow)));
+  // Xi is computed first as it is used in two expression, and in one
+  // of them only one component is used.
+  // We test for Medium.nXi == 0 as Modelica.Media.Air.SimpleAir has no
+  // moisture and hence Xi[1] is an illegal statement.
+  // We first compute temperature and then invoke a density function that
+  // takes temperature as an argument. Simply calling a density function
+  // of a medium that takes enthalpy as an argument would be dangerous
+  // as different media can have different datum for the enthalpy.
+  if (densitySelection == Buildings.Airflow.Multizone.Types.densitySelection.fromTop) then
+      Xi = inStream(port_a.Xi_outflow);
+      rho = Buildings.Utilities.Psychrometrics.Functions.density_pTX(
+        p=port_a.p,
+        T=Medium.temperature(Medium.setState_phX(port_a.p, inStream(port_a.h_outflow), Xi)),
+        X_w=if Medium.nXi == 0 then 0 else Xi[1]);
+    elseif (densitySelection == Buildings.Airflow.Multizone.Types.densitySelection.fromBottom) then
+      Xi = inStream(port_b.Xi_outflow);
+      rho = Buildings.Utilities.Psychrometrics.Functions.density_pTX(
+        p=port_b.p,
+        T=Medium.temperature(Medium.setState_phX(port_b.p, inStream(port_b.h_outflow), Xi)),
+        X_w=if Medium.nXi == 0 then 0 else Xi[1]);
+   else
+      Xi = actualStream(port_a.Xi_outflow);
+      rho = Buildings.Utilities.Psychrometrics.Functions.density_pTX(
+        p=port_a.p,
+        T=Medium.temperature(Medium.setState_phX(port_a.p, actualStream(port_a.h_outflow), Xi)),
+        X_w=if Medium.nXi == 0 then 0 else Xi[1]);
+  end if;
+
+  V_flow = m_flow/Medium.density(sta_a);
+
   dp = port_a.p - port_b.p;
   dp = -h*rho*Modelica.Constants.g_n;
 
@@ -199,6 +219,23 @@ Buildings.Airflow.Multizone.MediumColumnDynamic</a> instead of this model.
 </html>",
 revisions="<html>
 <ul>
+<li>
+February 24, 2015 by Michael Wetter:<br/>
+Changed model to use
+<a href=\"modelica://Buildings.Utilities.Psychrometrics.Functions.density_pTX\">
+Buildings.Utilities.Psychrometrics.Functions.density_pTX</a>
+for the density computation
+as 
+<a href=\"modelica://Buildings.Media.Air.density\">
+Buildings.Media.Air.density</a>
+does not depend on temperature.
+</li>
+<li>
+December 22, 2014 by Michael Wetter:<br/>
+Removed <code>Modelica.Fluid.System</code>
+to address issue
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/311\">#311</a>.
+</li>
 <li><i>October 4, 2014</i> by Michael Wetter:<br/>
 Removed assignment of <code>port_?.p.nominal</code> to avoid a warning in OpenModelica because
 alias sets have different nominal values.
@@ -211,7 +248,7 @@ alias sets have different nominal values.
 </li>
 <li><i>July 20, 2010</i> by Michael Wetter:<br/>
        Migrated model to Modelica 3.1 and integrated it into the Buildings library.
-       Reimplemented assigment of density based on flow direction or based on outflowing state.
+       Reimplemented assignment of density based on flow direction or based on outflowing state.
 </li>
 <li><i>February 24, 2005</i> by Michael Wetter:<br/>
        Released first version.

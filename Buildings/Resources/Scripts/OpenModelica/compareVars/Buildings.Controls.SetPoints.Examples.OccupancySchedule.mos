@@ -1,0 +1,7 @@
+compareVars :=
+  {
+    "occSchDay.tNexNonOcc",
+    "occSchWee.tNexNonOcc",
+    "occSchDay.occupied",
+    "occSchWee.occupied"
+  };

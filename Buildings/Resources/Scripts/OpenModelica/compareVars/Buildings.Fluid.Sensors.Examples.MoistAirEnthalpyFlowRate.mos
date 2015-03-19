@@ -1,0 +1,8 @@
+compareVars :=
+  {
+    "senM_flow.m_flow",
+    "senH_flow.H_flow",
+    "senHSen_flow.H_flow",
+    "senHLat_flow.H_flow",
+    "senH.h_out"
+  };

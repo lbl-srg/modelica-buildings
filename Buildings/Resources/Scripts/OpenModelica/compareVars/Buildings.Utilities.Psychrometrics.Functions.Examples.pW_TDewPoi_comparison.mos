@@ -1,0 +1,6 @@
+compareVars :=
+  {
+    "p_w",
+    "p_w_ashrae",
+    "r_p"
+  };

@@ -1,0 +1,12 @@
+compareVars :=
+  {
+    "theCom.M",
+    "theCom.TOpe",
+    "theCom.TAir",
+    "theCom.TRad",
+    "theCom.TClo",
+    "theCom.TSki",
+    "theCom.PMV",
+    "theCom.PPD",
+    "theCom.vAir"
+  };

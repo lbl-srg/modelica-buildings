@@ -1,11 +1,7 @@
 within Buildings.Rooms.Examples;
 model MixedAirFreeResponse "Free response of room model"
   extends Modelica.Icons.Example;
-  package MediumA = Buildings.Media.GasesConstantDensity.MoistAirUnsaturated
-    "Medium model";
-
-  inner Modelica.Fluid.System system
-    annotation (Placement(transformation(extent={{-72,-32},{-52,-12}})));
+  package MediumA = Buildings.Media.Air "Medium model";
 
   parameter
     Buildings.HeatTransfer.Data.OpaqueConstructions.Insulation100Concrete200
@@ -51,8 +47,8 @@ model MixedAirFreeResponse "Free response of room model"
     nConExt=2,
     datConExt(layers={matLayRoo, matLayExt},
            A={6*4, 6*3},
-           til={Buildings.HeatTransfer.Types.Tilt.Ceiling, Buildings.HeatTransfer.Types.Tilt.Wall},
-           azi={Buildings.HeatTransfer.Types.Azimuth.S, Buildings.HeatTransfer.Types.Azimuth.W}),
+           til={Buildings.Types.Tilt.Ceiling, Buildings.Types.Tilt.Wall},
+           azi={Buildings.Types.Azimuth.S, Buildings.Types.Azimuth.W}),
     nConExtWin=nConExtWin,
     datConExtWin(
               layers={matLayExt},
@@ -62,23 +58,24 @@ model MixedAirFreeResponse "Free response of room model"
               each wWin=4,
               ove(wR={0},wL={0}, gap={0.1}, dep={1}),
               each fFra=0.1,
-              each til=Buildings.HeatTransfer.Types.Tilt.Wall,
-              azi={Buildings.HeatTransfer.Types.Azimuth.S}),
+              each til=Buildings.Types.Tilt.Wall,
+              azi={Buildings.Types.Azimuth.S}),
     nConPar=1,
     datConPar(layers={matLayPar}, each A=10,
-           each til=Buildings.HeatTransfer.Types.Tilt.Wall),
+           each til=Buildings.Types.Tilt.Wall),
     nConBou=1,
     datConBou(layers={matLayFlo}, each A=6*4,
-           each til=Buildings.HeatTransfer.Types.Tilt.Floor),
+           each til=Buildings.Types.Tilt.Floor),
     nSurBou=1,
     surBou(each A=6*3,
            each absIR=0.9,
            each absSol=0.9,
-           each til=Buildings.HeatTransfer.Types.Tilt.Wall),
+           each til=Buildings.Types.Tilt.Wall),
     linearizeRadiation = false,
     nPorts=1,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    lat=0.73268921998722) "Room model"
+    lat=0.73268921998722,
+    T_start=295.15) "Room model"
     annotation (Placement(transformation(extent={{46,20},{86,60}})));
 
   Modelica.Blocks.Sources.Constant qConGai_flow(k=0) "Convective heat gain"
@@ -131,7 +128,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(multiplex3_1.y, roo.qGai_flow) annotation (Line(
-      points={{1,50},{38,50}},
+      points={{1,50},{22,50},{22,48},{44,48}},
       color={0,0,127},
       smooth=Smooth.None));
 
@@ -174,6 +171,17 @@ This model illustrates the use of the room model
 Buildings.Rooms.MixedAir</a>.
 </html>", revisions="<html>
 <ul>
+<li>
+February 12, 2015, by Michael Wetter:<br/>
+Set initial temperature to be <i>22</i>&deg;C to add
+propagation of the initial temperature to this test case.
+</li>
+<li>
+December 22, 2014 by Michael Wetter:<br/>
+Removed <code>Modelica.Fluid.System</code>
+to address issue
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/311\">#311</a>.
+</li>
 <li>
 September 11, 2014, by Michael Wetter:<br/>
 Changed assignment of <code>layers</code> in <code>conOut</code>

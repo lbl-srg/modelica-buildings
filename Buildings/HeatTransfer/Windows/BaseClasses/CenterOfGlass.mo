@@ -10,25 +10,33 @@ model CenterOfGlass "Model for center of glass of a window construction"
     annotation (HideResult=true, choicesAllMatching=true, Placement(transformation(extent={{60,60},
             {80,80}})));
 
+  parameter Boolean linearize=false "Set to true to linearize emissive power"
+    annotation(Evaluate=true);
+  parameter Boolean homotopyInitialization = true "= true, use homotopy method"
+    annotation(Evaluate=true, Dialog(tab="Advanced"));
   Modelica.Blocks.Interfaces.RealInput u
     "Input connector, used to scale the surface area to take into account an operable shading device"
     annotation (Placement(transformation(extent={{-140,60},{-100,100}}),
         iconTransformation(extent={{-120,70},{-100,90}})));
 
-  Buildings.HeatTransfer.Windows.BaseClasses.GlassLayer[glaSys.nLay] glass(
+  Buildings.HeatTransfer.Windows.BaseClasses.GlassLayer[nGlaLay] glass(
     each final A=A,
     final x=glaSys.glass.x,
     final k=glaSys.glass.k,
     final absIR_a=glaSys.glass.absIR_a,
     final absIR_b=glaSys.glass.absIR_b,
     final tauIR=glaSys.glass.tauIR,
-    each final linearize=linearize) "Window glass layer"
+    each final linearize=linearize,
+    each final homotopyInitialization=homotopyInitialization)
+    "Window glass layer"
     annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
-  Buildings.HeatTransfer.Windows.BaseClasses.GasConvection gas[glaSys.nLay-1](
+  Buildings.HeatTransfer.Windows.BaseClasses.GasConvection gas[nGlaLay-1](
     each final A=A,
     final gas=glaSys.gas,
     each final til=til,
-    each linearize=linearize) "Window gas layer"
+    each linearize=linearize,
+    each final homotopyInitialization=homotopyInitialization)
+    "Window gas layer"
     annotation (Placement(transformation(extent={{20,10},{40,30}})));
 
   // Note that the interior shade is flipped horizontally. Hence, surfaces a and b are exchanged,
@@ -41,18 +49,21 @@ model CenterOfGlass "Model for center of glass of a window construction"
     "Heat port connected to the room-facing surface of the glass"
     annotation (Placement(transformation(extent={{90,-10},{110,10}})));
 
-  parameter Boolean linearize=false "Set to true to linearize emissive power";
-  Modelica.Blocks.Interfaces.RealInput QAbs_flow[size(glass, 1)](each unit="W", each
-      quantity =                                                                              "Power")
-    "Solar radiation absorbed by glass" annotation (Placement(transformation(
+  Modelica.Blocks.Interfaces.RealInput QAbs_flow[nGlaLay](
+    each unit="W",
+    each quantity = "Power") "Solar radiation absorbed by glass"
+                                        annotation (Placement(transformation(
         extent={{-20,-20},{20,20}},
         rotation=90,
         origin={0,-120}), iconTransformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={0,-110})));
+protected
+  final parameter Integer nGlaLay = size(glaSys.glass, 1)
+    "Number of glass layers";
 equation
-  for i in 1:glaSys.nLay-1 loop
+  for i in 1:nGlaLay-1 loop
     connect(glass[i].port_b, gas[i].port_a)                        annotation (Line(
       points={{5.55112e-16,6.10623e-16},{0,0},{10,0},{10,20},{20,20}},
       color={191,0,0},
@@ -81,14 +92,14 @@ equation
 
   end for;
 
-  for i in 1:glaSys.nLay loop
+  for i in 1:nGlaLay loop
     connect(u, glass[i].u)  annotation (Line(
       points={{-120,80},{-86,80},{-86,44},{-48,44},{-48,8},{-21,8}},
       color={0,0,127},
       smooth=Smooth.None));
   end for;
 
-  connect(glass_b, glass[glaSys.nLay].port_b) annotation (Line(
+  connect(glass_b, glass[nGlaLay].port_b) annotation (Line(
       points={{100,5.55112e-16},{100,5.55112e-16},{0,0}},
       color={191,0,0},
       smooth=Smooth.None));
@@ -108,11 +119,11 @@ equation
       points={{-21,-4},{-60,-4},{-60,-40},{-110,-40}},
       color={0,127,0},
       smooth=Smooth.None));
-  connect(glass[glaSys.nLay].JOut_b, JOut_b) annotation (Line(
+  connect(glass[nGlaLay].JOut_b, JOut_b) annotation (Line(
       points={{1,4},{80,4},{80,40},{110,40}},
       color={0,127,0},
       smooth=Smooth.None));
-  connect(JIn_b, glass[glaSys.nLay].JIn_b) annotation (Line(
+  connect(JIn_b, glass[nGlaLay].JIn_b) annotation (Line(
       points={{110,-40},{80,-40},{80,-4},{1,-4}},
       color={0,0,0},
       pattern=LinePattern.None,
@@ -197,6 +208,15 @@ Buildings.HeatTransfer.Windows.ExteriorHeatTransfer</a>, and
 Buildings.HeatTransfer.Windows.InteriorHeatTransfer</a>
 </html>", revisions="<html>
 <ul>
+<li>
+March 13, 2015, by Michael Wetter:<br/>
+Changed assignment of <code>nLay</code> to avoid a translation error
+in OpenModelica.
+</li>
+<li>
+July 25, 2014, by Michael Wetter:<br/>
+Propagated parameter <code>homotopyInitialization</code>.
+</li>
 <li>
 May 30, 2014, by Michael Wetter:<br/>
 Removed undesirable annotation <code>Evaluate=true</code>.

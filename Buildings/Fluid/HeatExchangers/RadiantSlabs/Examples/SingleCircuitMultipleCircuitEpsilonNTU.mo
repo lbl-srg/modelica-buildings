@@ -2,9 +2,7 @@ within Buildings.Fluid.HeatExchangers.RadiantSlabs.Examples;
 model SingleCircuitMultipleCircuitEpsilonNTU
   "Model that tests the radiant slab with multiple parallel circuits and epsilon-NTU configuration"
   extends Modelica.Icons.Example;
- package Medium = Buildings.Media.ConstantPropertyLiquidWater;
-    inner Modelica.Fluid.System system
-      annotation (Placement(transformation(extent={{80,-120},{100,-100}})));
+ package Medium = Buildings.Media.Water;
   Sources.Boundary_ph sin(redeclare package Medium = Medium, nPorts=3,
     p(displayUnit="Pa") = 300000) "Sink"
     annotation (Placement(transformation(extent={{132,-30},{112,-10}})));
@@ -230,6 +228,12 @@ an epsilon-NTU model.
 </html>",
 revisions="<html>
 <ul>
+<li>
+December 22, 2014 by Michael Wetter:<br/>
+Removed <code>Modelica.Fluid.System</code>
+to address issue
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/311\">#311</a>.
+</li>
 <li>
 October 7, 2014, by Michael Wetter:<br/>
 First implementation.

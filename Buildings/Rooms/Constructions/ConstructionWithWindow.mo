@@ -17,6 +17,8 @@ model ConstructionWithWindow
   parameter Boolean linearizeRadiation = true
     "Set to true to linearize emissive power"
     annotation (Dialog(group="Glazing system"));
+  parameter Boolean homotopyInitialization = true "= true, use homotopy method"
+    annotation(Evaluate=true, Dialog(tab="Advanced"));
 
  replaceable parameter HeatTransfer.Data.GlazingSystems.Generic glaSys
     "Material properties of glazing system"
@@ -28,7 +30,8 @@ model ConstructionWithWindow
     final A=AWin,
     final fFra=fFra,
     final linearize = linearizeRadiation,
-    final til=til) "Window model"
+    final til=til,
+    final homotopyInitialization=homotopyInitialization) "Window model"
     annotation (Placement(transformation(extent={{-114,-184},{112,42}})));
 
   HeatTransfer.Interfaces.RadiosityOutflow JOutUns_a
@@ -57,7 +60,8 @@ model ConstructionWithWindow
     annotation (Placement(transformation(extent={{-310,-130},{-290,-110}}),
         iconTransformation(extent={{-310,-130},{-290,-110}})));
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a fra_a
-    "Heat port at frame of exterior-facing surface"                                   annotation (Placement(transformation(extent={{-310,
+    "Heat port at frame of exterior-facing surface"
+     annotation (Placement(transformation(extent={{-310,
             -270},{-290,-250}}), iconTransformation(extent={{-310,-270},{-290,
             -250}})));
   Modelica.Blocks.Interfaces.RealInput uSha(min=0, max=1) if
@@ -83,7 +87,7 @@ model ConstructionWithWindow
         iconTransformation(extent={{320,-210},{300,-190}})));
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_b glaUns_b
     "Heat port at unshaded glass of room-facing surface"
-                                                annotation (Placement(transformation(extent={{290,-90},
+    annotation (Placement(transformation(extent={{290,-90},
             {310,-70}}), iconTransformation(extent={{290,-90},{310,-70}})));
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_b glaSha_b if haveShade
     "Heat port at shaded glass of room-facing surface"
@@ -93,15 +97,9 @@ model ConstructionWithWindow
     "Heat port at frame of room-facing surface"
     annotation (Placement(transformation(extent={{292,-270},{312,-250}}), iconTransformation(extent={{292,-270},{312,-250}})));
 
-protected
-  final parameter Boolean haveShade = glaSys.haveExteriorShade or glaSys.haveInteriorShade
-    "Parameter, equal to true if the window has a shade"
-    annotation(Evaluate=true);
-
-public
-  Modelica.Blocks.Interfaces.RealInput QAbsUns_flow[glaSys.nLay](each unit="W",
-      each quantity="Power")
-    "Solar radiation absorbed by unshaded part of glass"
+  Modelica.Blocks.Interfaces.RealInput QAbsUns_flow[size(glaSys.glass, 1)](
+    each unit="W",
+    each quantity="Power") "Solar radiation absorbed by unshaded part of glass"
                                                        annotation (Placement(
         transformation(
         extent={{-20,-20},{20,20}},
@@ -110,16 +108,22 @@ public
         extent={{-20,-20},{20,20}},
         rotation=90,
         origin={-80,-320})));
-  Modelica.Blocks.Interfaces.RealInput QAbsSha_flow[glaSys.nLay](each unit="W",
-      each quantity="Power") if haveShade
+  Modelica.Blocks.Interfaces.RealInput QAbsSha_flow[size(glaSys.glass, 1)](
+    each unit="W",
+    each quantity="Power") if haveShade
     "Solar radiation absorbed by shaded part of glass"
-                                        annotation (Placement(transformation(
+    annotation (Placement(transformation(
         extent={{-20,-20},{20,20}},
         rotation=90,
         origin={100,-320}),iconTransformation(
         extent={{-20,-20},{20,20}},
         rotation=90,
         origin={80,-320})));
+
+protected
+  final parameter Boolean haveShade = glaSys.haveExteriorShade or glaSys.haveInteriorShade
+    "Parameter, equal to true if the window has a shade"
+    annotation(Evaluate=true);
 
 equation
   connect(win.uSha, uSha) annotation (Line(
@@ -370,6 +374,15 @@ equation
 defaultComponentName="conWin",
 Documentation(revisions="<html>
 <ul>
+<li>
+March 13, 2015, by Michael Wetter:<br/>
+Changed model to avoid a translation error
+in OpenModelica.
+</li>
+<li>
+July 25, 2014, by Michael Wetter:<br/>
+Propagated parameter <code>homotopyInitialization</code>.
+</li>
 <li>
 May 30, 2014, by Michael Wetter:<br/>
 Removed undesirable annotation <code>Evaluate=true</code>.

@@ -3,15 +3,14 @@ model System1
   "First part of the system model, consisting of the room with heat transfer"
   extends Modelica.Icons.Example;
   replaceable package MediumA =
-      Buildings.Media.GasesPTDecoupled.MoistAirUnsaturated;
+      Buildings.Media.Air;
 
-  inner Modelica.Fluid.System system
-    annotation (Placement(transformation(extent={{60,-80},{80,-60}})));
   Fluid.MixingVolumes.MixingVolume vol(
     redeclare package Medium = MediumA,
     m_flow_nominal=mA_flow_nominal,
     V=V,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    mSenFac=3)
     annotation (Placement(transformation(extent={{60,20},{80,40}})));
   Modelica.Thermal.HeatTransfer.Components.ThermalConductor theCon(G=10000/30)
     "Thermal conductance with the ambient"
@@ -27,9 +26,6 @@ model System1
   Modelica.Thermal.HeatTransfer.Sources.FixedHeatFlow preHea(Q_flow=
         QRooInt_flow) "Prescribed heat flow"
     annotation (Placement(transformation(extent={{20,70},{40,90}})));
-  Modelica.Thermal.HeatTransfer.Components.HeatCapacitor heaCap(C=2*V*1.2*1006)
-    "Heat capacity for furniture and walls"
-    annotation (Placement(transformation(extent={{60,50},{80,70}})));
 equation
   connect(TOut.port, theCon.port_a) annotation (Line(
       points={{5.55112e-16,50},{20,50}},
@@ -41,10 +37,6 @@ equation
       smooth=Smooth.None));
   connect(preHea.port, vol.heatPort) annotation (Line(
       points={{40,80},{50,80},{50,30},{60,30}},
-      color={191,0,0},
-      smooth=Smooth.None));
-  connect(heaCap.port, vol.heatPort) annotation (Line(
-      points={{70,50},{50,50},{50,30},{60,30}},
       color={191,0,0},
       smooth=Smooth.None));
   annotation (Documentation(info="<html>
@@ -66,21 +58,11 @@ This section describes step by step how we implemented the model.
 <ol>
 <li>
 <p>
-First, we dragged
-<a href=\"modelica://Modelica.Fluid.System\">
-Modelica.Fluid.System</a> into the model and keep its name at
-its default setting, which is <code>system</code>.
-This model is required for all fluid flow models to set
-global properties.
-</p>
-</li>
-<li>
-<p>
-Next, to define the medium properties, we added the declaration
+First, to define the medium properties, we added the declaration
 </p>
 <pre>
   replaceable package MediumA =
-      Buildings.Media.GasesPTDecoupled.MoistAirUnsaturated;
+      Buildings.Media.Air;
 </pre>
 <p>
 This will allow the propagation of the medium model to all models that contain air.
@@ -92,8 +74,8 @@ We called the medium <code>MediumA</code> to distinguish it from
 <code>MediumW</code> that we will use in later versions of the model for components that
 have water as a medium. Because we do not anticipate saturated air, we used
 the medium model
-<a href=\"modelica://Buildings.Media.GasesPTDecoupled.MoistAirUnsaturated\">
-Buildings.Media.GasesPTDecoupled.MoistAirUnsaturated</a>
+<a href=\"modelica://Buildings.Media.Air\">
+Buildings.Media.Air</a>
 instead of
 <a href=\"modelica://Buildings.Media.GasesPTDecoupled.MoistAir\">
 Buildings.Media.GasesPTDecoupled.MoistAir</a>
@@ -152,11 +134,10 @@ for an explanation of the purpose of <code>m_flow_small</code>.
 </li>
 <li>
 <p>
-Since we need to increase the heat capacity of the room air to approximate
-energy storage in furniture and building constructions, we connected the instance
-<code>heaCap</code> to the heat port of the room air.
-The model <code>heaCap</code> models energy storage. We set its capacity to
-<i>C=2*V*1.2*1006</i> J/K. This will increase the total heat capacity
+To increase the heat capacity of the room air to approximate
+energy storage in furniture and building constructions, we set the parameter
+<code>mSenFac=3</code> in the instance <code>vol</code>.
+This will increase the sensible heat capacity
 of the room air by a factor of three.
 </p>
 </li>
@@ -219,6 +200,17 @@ could have been used.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+January 28, 2015 by Michael Wetter:<br/>
+Added thermal mass of furniture directly to air volume.
+This avoids an index reduction.
+</li>
+<li>
+December 22, 2014 by Michael Wetter:<br/>
+Removed <code>Modelica.Fluid.System</code>
+to address issue
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/311\">#311</a>.
+</li>
 <li>
 January 11, 2012, by Michael Wetter:<br/>
 First implementation.

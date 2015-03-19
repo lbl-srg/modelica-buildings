@@ -160,7 +160,5 @@ First implementation.
           lineColor={0,0,255},
           smooth=Smooth.None,
           fillPattern=FillPattern.Solid,
-          fillColor={0,0,255})}),
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
-            100}}), graphics));
+          fillColor={0,0,255})}));
 end DuctManifoldFlowDistributor;

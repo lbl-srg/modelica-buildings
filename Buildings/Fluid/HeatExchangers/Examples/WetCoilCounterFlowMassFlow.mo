@@ -28,8 +28,6 @@ model WetCoilCounterFlowMassFlow
                              annotation (Placement(transformation(extent={{80,20},
             {100,40}})));
 
-  inner Modelica.Fluid.System system
-    annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
   Sensors.RelativeHumidityTwoPort senRelHum(
     redeclare package Medium = Medium2,
     m_flow_nominal=m2_flow_nominal)
@@ -69,6 +67,12 @@ for different inlet conditions.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+December 22, 2014 by Michael Wetter:<br/>
+Removed <code>Modelica.Fluid.System</code>
+to address issue
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/311\">#311</a>.
+</li>
 <li>
 May 27, 2010, by Michael Wetter:<br/>
 First implementation.

@@ -30,7 +30,8 @@ record ConstructionRecords "Data records for construction data"
     each til=0,
     each azi=0) "Data for construction boundary"
     annotation (Placement(transformation(extent={{-100,-120},{-80,-100}})), HideResult=true);
-  parameter Buildings.HeatTransfer.Data.OpaqueSurfaces.Generic surBou[NSurBou](
+
+  parameter Buildings.Rooms.BaseClasses.OpaqueSurface surBou[NSurBou](
     each A=0,
     each til=0)
     "Record for data of surfaces whose heat conduction is modeled outside of this room"

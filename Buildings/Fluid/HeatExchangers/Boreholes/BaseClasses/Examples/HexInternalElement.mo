@@ -2,9 +2,7 @@ within Buildings.Fluid.HeatExchangers.Boreholes.BaseClasses.Examples;
 model HexInternalElement
   "Model that tests the basic element that is used to built borehole models"
   extends Modelica.Icons.Example;
-  inner Modelica.Fluid.System system
-    annotation (Placement(transformation(extent={{-100,-100},{-80,-80}})));
-  package Medium = Buildings.Media.ConstantPropertyLiquidWater "Fluid";
+  package Medium = Buildings.Media.Water "Fluid";
 
   Buildings.Fluid.HeatExchangers.Boreholes.BaseClasses.HexInternalElement hex(
     redeclare package Medium = Medium,
@@ -59,6 +57,12 @@ This example illustrates modeling the internal part of a borehole heat exchanger
 The borehole is constitued with two pipes that are symetricaly spaced in the borehole.
 </html>", revisions="<html>
 <ul>
+<li>
+December 22, 2014 by Michael Wetter:<br/>
+Removed <code>Modelica.Fluid.System</code>
+to address issue
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/311\">#311</a>.
+</li>
 <li>
 January 24, 2014, by Michael Wetter:<br/>
 Added declaration of soil properties as this is needed for the new

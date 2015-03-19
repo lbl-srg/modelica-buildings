@@ -2,9 +2,7 @@ within Buildings.Fluid.HeatExchangers.RadiantSlabs.Examples;
 model StepResponseEpsilonNTU
   "Model that tests the radiant slab with epsilon-NTU configuration"
   extends Modelica.Icons.Example;
- package Medium = Buildings.Media.ConstantPropertyLiquidWater;
-      inner Modelica.Fluid.System system
-    annotation (Placement(transformation(extent={{60,-80},{80,-60}})));
+ package Medium = Buildings.Media.Water;
   Sources.Boundary_ph sin(redeclare package Medium = Medium, nPorts=1) "Sink"
     annotation (Placement(transformation(extent={{90,-30},{70,-10}})));
   Sources.MassFlowSource_T sou(
@@ -51,14 +49,14 @@ model StepResponseEpsilonNTU
   HeatTransfer.Convection.Interior conAbo(
     A=A,
     conMod=Buildings.HeatTransfer.Types.InteriorConvection.Temperature,
-    til=Buildings.HeatTransfer.Types.Tilt.Floor)
+    til=Buildings.Types.Tilt.Floor)
     "Convective heat transfer above the slab"
     annotation (Placement(transformation(extent={{0,60},{-20,80}})));
   parameter Modelica.SIunits.Area A=10 "Heat transfer area";
   HeatTransfer.Convection.Interior conBel(
     A=A,
     conMod=Buildings.HeatTransfer.Types.InteriorConvection.Temperature,
-    til=Buildings.HeatTransfer.Types.Tilt.Ceiling)
+    til=Buildings.Types.Tilt.Ceiling)
     "Convective heat transfer below the slab"
     annotation (Placement(transformation(extent={{0,-60},{-20,-40}})));
   Modelica.Thermal.HeatTransfer.Components.BodyRadiation hRadAbo(Gr=A/(1/0.7 + 1
@@ -155,6 +153,12 @@ an epsilon-NTU model.
 </html>",
 revisions="<html>
 <ul>
+<li>
+December 22, 2014 by Michael Wetter:<br/>
+Removed <code>Modelica.Fluid.System</code>
+to address issue
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/311\">#311</a>.
+</li>
 <li>
 October 7, 2014, by Michael Wetter:<br/>
 First implementation.

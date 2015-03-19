@@ -18,7 +18,9 @@ record DXCoil
     "Small mass flow rate for regularization near zero flow"
     annotation (Dialog(group="Minimum conditions"));
 annotation (preferredView="info",
-defaultComponentName="datCoi", Documentation(info="<html>
+defaultComponentName="datCoi",
+defaultComponentPrefixes="parameter",
+Documentation(info="<html>
 <p>
 This record declares the performance data for the DX cooling coil model.
 The performance data are structured as follows:

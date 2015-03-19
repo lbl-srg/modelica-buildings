@@ -11,7 +11,7 @@ public
     displayUnit="min") "Equation of time"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 protected
-  Real Bt;
+  Real Bt "Intermediate variable";
 equation
   Bt = Modelica.Constants.pi*((nDay + 86400)/86400 - 81)/182
     "Our unit is s instead of day in (A.4.2b)";

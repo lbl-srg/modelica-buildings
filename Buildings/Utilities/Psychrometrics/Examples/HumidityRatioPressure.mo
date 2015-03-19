@@ -1,7 +1,7 @@
 within Buildings.Utilities.Psychrometrics.Examples;
 model HumidityRatioPressure "Unit test for humidity ratio model"
   extends Modelica.Icons.Example;
- package Medium = Buildings.Media.PerfectGases.MoistAir "Medium model"
+ package Medium = Buildings.Media.Air "Medium model"
            annotation (choicesAllMatching = true);
   Buildings.Utilities.Psychrometrics.pW_X vapPre(
                          use_p_in=true) "Model for humidity ratio"

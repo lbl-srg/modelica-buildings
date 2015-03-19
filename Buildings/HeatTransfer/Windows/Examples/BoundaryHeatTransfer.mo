@@ -5,6 +5,25 @@ model BoundaryHeatTransfer
   parameter Modelica.SIunits.Area A=1 "Window surface area";
   parameter Real fFra=0.2
     "Fraction of frame, = frame area divided by total area";
+  parameter
+    Buildings.HeatTransfer.Data.GlazingSystems.TripleClearAir13ClearAir13Clear
+    glaSys3(UFra=1) "Parameters for glazing system"
+    annotation (Placement(transformation(extent={{80,-80},{100,-60}})));
+  parameter Buildings.HeatTransfer.Data.GlazingSystems.DoubleClearAir13Clear glaSys(
+    shade=Buildings.HeatTransfer.Data.Shades.Gray(),
+    UFra=1.5,
+    haveExteriorShade=true,
+    haveInteriorShade=false) "Parameters for glazing system"
+    annotation (Placement(transformation(extent={{80,-56},{100,-36}})));
+  parameter Buildings.HeatTransfer.Data.GlazingSystems.SingleClear3 glaSys1(UFra=2)
+    "Parameters for glazing system"
+    annotation (Placement(transformation(extent={{0,-80},{20,-60}})));
+  parameter Buildings.HeatTransfer.Data.GlazingSystems.DoubleClearAir13Clear glaSys2(
+    shade=Buildings.HeatTransfer.Data.Shades.Gray(),
+    UFra=2,
+    haveInteriorShade=false,
+    haveExteriorShade=false) "Parameters for glazing system"
+    annotation (Placement(transformation(extent={{40,-80},{60,-60}})));
   parameter Boolean linearizeRadiation = false
     "Set to true to linearize emissive power";
 
@@ -36,24 +55,6 @@ model BoundaryHeatTransfer
     "Room air temperature"
     annotation (Placement(transformation(extent={{60,60},{80,80}})));
 
-  parameter Buildings.HeatTransfer.Data.GlazingSystems.DoubleClearAir13Clear glaSys2(
-    shade=Buildings.HeatTransfer.Data.Shades.Gray(),
-    UFra=2,
-    haveInteriorShade=false,
-    haveExteriorShade=false) "Parameters for glazing system"
-    annotation (Placement(transformation(extent={{40,-80},{60,-60}})));
-  parameter Buildings.HeatTransfer.Data.GlazingSystems.SingleClear3 glaSys1(UFra=2)
-    annotation (Placement(transformation(extent={{0,-80},{20,-60}})));
-  parameter
-    Buildings.HeatTransfer.Data.GlazingSystems.TripleClearAir13ClearAir13Clear
-    glaSys3(UFra=1) "Parameters for glazing system"
-    annotation (Placement(transformation(extent={{80,-80},{100,-60}})));
-  parameter Buildings.HeatTransfer.Data.GlazingSystems.DoubleClearAir13Clear glaSys(
-    shade=Buildings.HeatTransfer.Data.Shades.Gray(),
-    UFra=1.5,
-    haveExteriorShade=true,
-    haveInteriorShade=false) "Parameters for glazing system"
-    annotation (Placement(transformation(extent={{80,-56},{100,-36}})));
  Buildings.HeatTransfer.Radiosity.IndoorRadiosity radIn(
     final linearize=linearizeRadiation, final A=A) "Indoor radiosity"
     annotation (Placement(transformation(extent={{44,-30},{24,-10}})));
@@ -181,6 +182,10 @@ experiment(StopTime=1.0),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/HeatTransfer/Windows/Examples/BoundaryHeatTransfer.mos"
         "Simulate and plot"),    Documentation(revisions="<html>
 <ul>
+<li>
+March 13, 2015, by Michael Wetter:<br/>
+Reordered declaration of parameters.
+</li>
 <li>
 June 27, 2013, by Michael Wetter:<br/>
 Changed model because the outflowing radiosity has been changed to be a non-negative quantity.

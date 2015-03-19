@@ -2,7 +2,7 @@ within Buildings.Fluid.Movers.Validation;
 model SpeedControlled_y_linear
   "Pump with linear characteristic for pressure vs. flow rate"
   extends Modelica.Icons.Example;
-  package Medium = Buildings.Media.ConstantPropertyLiquidWater "Medium model";
+  package Medium = Buildings.Media.Water "Medium model";
 
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal = 0.5
     "Nominal mass flow rate";

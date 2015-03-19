@@ -2,9 +2,9 @@ within Buildings.Examples.ChillerPlant.BaseClasses.Controls.Examples;
 model ChillerSetPointControl
   "Test model for chiller setpoint control using TrimAndResponse and LinearPieceWiseTwo"
   extends Modelica.Icons.Example;
-  package Medium1 = Buildings.Media.ConstantPropertyLiquidWater;
-  package Medium2 = Buildings.Media.ConstantPropertyLiquidWater;
-  package MediumAir = Buildings.Media.GasesPTDecoupled.SimpleAir "Medium model";
+  package Medium1 = Buildings.Media.Water;
+  package Medium2 = Buildings.Media.Water;
+  package MediumAir = Buildings.Media.Air "Medium model";
   parameter Modelica.SIunits.MassFlowRate mAir_flow_nominal=61.6*2
     "Nominal mass flow rate at fan";
   parameter Real COPc_nominal=3 "Chiller COP";
@@ -60,8 +60,6 @@ model ChillerSetPointControl
     use_T_in=false,
     m_flow=mCW_flow_nominal,
     T=283.15) annotation (Placement(transformation(extent={{-16,78},{4,98}})));
-  inner Modelica.Fluid.System system
-    annotation (Placement(transformation(extent={{-180,-80},{-160,-60}})));
   Modelica.Blocks.Sources.Constant const(k=273.15 + 20) annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
@@ -217,6 +215,12 @@ equation
       Tolerance=1e-06),
     Documentation(revisions="<html>
 <ul>
+<li>
+December 22, 2014 by Michael Wetter:<br/>
+Removed <code>Modelica.Fluid.System</code>
+to address issue
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/311\">#311</a>.
+</li>
 <li>
 March 25, 2014, by Michael Wetter:<br/>
 Updated model with new expansion vessel.

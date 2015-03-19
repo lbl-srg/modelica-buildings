@@ -1,6 +1,6 @@
 within Buildings.Utilities.Psychrometrics.Examples;
 model Phi_pTX "Model to test the relative humidity computation"
-  extends Modelica.Icons.Example;
+ extends Modelica.Icons.Example;
 
  package Medium = Buildings.Media.Air "Medium model"
            annotation (choicesAllMatching = true);
@@ -48,7 +48,5 @@ November 13, 2014, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
-</html>"),
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
-            100,100}}), graphics));
+</html>"));
 end Phi_pTX;

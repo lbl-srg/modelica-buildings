@@ -2,7 +2,8 @@ within Buildings.Fluid.Storage;
 model ExpansionVessel "Expansion vessel with fixed pressure"
  extends Buildings.Fluid.Interfaces.LumpedVolumeDeclarations(
    final energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-   final massDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial);
+   final massDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+   final mSenFac=1);
  parameter Modelica.SIunits.Volume V_start(start=1)
     "Volume of liquid stored in the vessel at the start of the simulation";
  parameter Modelica.SIunits.Pressure p = Medium.p_default

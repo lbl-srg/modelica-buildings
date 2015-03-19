@@ -21,7 +21,7 @@ package UsersGuide "User's Guide"
   </p>
   <p>
   The wall and window constructions in the models match the walls
-  and windows installed during the intial FLEXLAB construction. The data records for
+  and windows installed during the initial FLEXLAB construction. The data records for
   walls can be found in
   <a href=\"modelica://Buildings.Rooms.FLEXLAB.Data.Constructions.OpaqueConstructions\">
   Buildings.Rooms.FLEXLAB.Data.Constructions.OpaqueConstructions</a>. The data
@@ -170,7 +170,7 @@ package UsersGuide "User's Guide"
   <li>Length of tube in each radiant slab model in the examples is based on the numbers
   in drawing M3.02. These numbers may include tube  running to/from the manifold,
   instead of only the tube in the slab itself. Worth determining?</li>
-  <li>The heat conduction through the steel beams is not explicitely modeled.
+  <li>The heat conduction through the steel beams is not explicitly modeled.
   During model calibration, an effective heat conductivity would need to be identified.
   </li>
   </ul>

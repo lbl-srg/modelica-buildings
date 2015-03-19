@@ -3,18 +3,16 @@ model DryCoilDiscretizedPControl
   "Model that demonstrates use of a finite volume model of a heat exchanger without condensation and with feedback control"
   extends Modelica.Icons.Example;
 
- package Medium1 = Buildings.Media.ConstantPropertyLiquidWater;
- //package Medium2 = Buildings.Media.PerfectGases.MoistAir;
- //package Medium2 = Buildings.Media.GasesPTDecoupled.MoistAir;
- // package Medium2 = Buildings.Media.GasesPTDecoupled.MoistAirUnsaturated;
- package Medium2 = Buildings.Media.GasesPTDecoupled.SimpleAir;
+  package Medium1 = Buildings.Media.Water "Medium model for water";
+  package Medium2 = Buildings.Media.Air "Medium model for air";
   parameter Modelica.SIunits.Temperature T_a1_nominal = 60+273.15;
   parameter Modelica.SIunits.Temperature T_b1_nominal = 50+273.15;
   parameter Modelica.SIunits.Temperature T_a2_nominal = 20+273.15;
   parameter Modelica.SIunits.Temperature T_b2_nominal = 40+273.15;
   parameter Modelica.SIunits.MassFlowRate m1_flow_nominal = 5
     "Nominal mass flow rate medium 1";
-  parameter Modelica.SIunits.MassFlowRate m2_flow_nominal = m1_flow_nominal*4200/1000*(T_a1_nominal-T_b1_nominal)/(T_b2_nominal-T_a2_nominal)
+  parameter Modelica.SIunits.MassFlowRate m2_flow_nominal = 
+    m1_flow_nominal*4200/1000*(T_a1_nominal-T_b1_nominal)/(T_b2_nominal-T_a2_nominal)
     "Nominal mass flow rate medium 2";
 
   Sources.MassFlowSource_T            sin_2(                       redeclare
@@ -89,8 +87,6 @@ model DryCoilDiscretizedPControl
             80,36}})));
   Buildings.Fluid.Actuators.Motors.IdealMotor mot(tOpe=60) "Motor model"
     annotation (Placement(transformation(extent={{12,90},{32,110}})));
-  inner Modelica.Fluid.System system
-    annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
   Buildings.Controls.Continuous.LimPID con(
     k=1,
     Ti=60,
@@ -164,6 +160,12 @@ of modeling detail is not justified.
 </html>",
 revisions="<html>
 <ul>
+<li>
+December 22, 2014 by Michael Wetter:<br/>
+Removed <code>Modelica.Fluid.System</code>
+to address issue
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/311\">#311</a>.
+</li>
 <li>
 July 3, 2014, by Michael Wetter:<br/>
 Changed pressure sink to mass flow rate sink to avoid an overdetermined

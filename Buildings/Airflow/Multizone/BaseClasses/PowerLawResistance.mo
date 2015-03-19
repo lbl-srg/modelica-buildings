@@ -54,7 +54,7 @@ protected
 
   Medium.ThermodynamicState sta "State of the medium in the component";
   Modelica.SIunits.DynamicViscosity dynVis "Dynamic viscosity";
-  Modelica.SIunits.Mass mExc
+  Real mExc(quantity="Mass", final unit="kg")
     "Air mass exchanged (for purpose of error control only)";
 initial equation
   mExc=0;
@@ -129,6 +129,11 @@ The model is used as a base for the interzonal air flow models.
 </html>",
 revisions="<html>
 <ul>
+<li>
+January 21, 2015 by Michael Wetter:<br/>
+Changed type of <code>mExc</code> as <code>Modelica.SIunits.Mass</code>
+sets <code>min=0</code>, but <code>mExc</code> can be negative.
+</li>
 <li>
 October 8, 2013 by Michael Wetter:<br/>
 Changed the parameter <code>useConstantDensity</code> to

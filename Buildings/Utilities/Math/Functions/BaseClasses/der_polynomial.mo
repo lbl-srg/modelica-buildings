@@ -20,7 +20,8 @@ The original polynomial has the form<br/>
   y = a<sub>1</sub> + a<sub>2</sub> x + a<sub>3</sub> x<sup>2</sup> + ...
 </p>
 <p>
-This function computes new coefficients<br/>
+This function computes new coefficients
+</p>
 <p align=\"center\" style=\"font-style:italic;\">
    b<sub>1</sub> = a<sub>2</sub>, b<sub>2</sub> = 2 a<sub>3</sub>, ...
 </p>
@@ -28,7 +29,8 @@ This function computes new coefficients<br/>
 and then calls recursively
 <a href=\"modelica://Buildings.Utilities.Math.Functions.polynomial\">
 Buildings.Utilities.Math.polynomial</a>
-</html>"),
+</p>
+</html>",
 revisions="<html>
 <ul>
 <li>
@@ -36,5 +38,5 @@ April 5, 2009 by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
-</html>");
+</html>"));
 end der_polynomial;

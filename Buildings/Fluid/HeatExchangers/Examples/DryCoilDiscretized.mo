@@ -3,8 +3,8 @@ model DryCoilDiscretized
   "Model that demonstrates use of a finite volume model of a heat exchanger without condensation"
   extends Modelica.Icons.Example;
 
-  package Medium1 = Buildings.Media.ConstantPropertyLiquidWater;
-  package Medium2 = Buildings.Media.GasesPTDecoupled.MoistAirUnsaturated;
+  package Medium1 = Buildings.Media.Water;
+  package Medium2 = Buildings.Media.Air;
 
   parameter Modelica.SIunits.Temperature T_a1_nominal = 60+273.15;
   parameter Modelica.SIunits.Temperature T_b1_nominal = 40+273.15;
@@ -83,8 +83,6 @@ model DryCoilDiscretized
     offset=300000,
     height=4990,
     duration=60) annotation (Placement(transformation(extent={{40,60},{60,80}})));
-  inner Modelica.Fluid.System system
-    annotation (Placement(transformation(extent={{-100,-100},{-80,-80}})));
     Modelica.Blocks.Sources.Ramp m_flow_2(
     duration=60,
     startTime=120,
@@ -130,6 +128,12 @@ __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Heat
         "Simulate and plot"),
     Documentation(revisions="<html>
 <ul>
+<li>
+December 22, 2014 by Michael Wetter:<br/>
+Removed <code>Modelica.Fluid.System</code>
+to address issue
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/311\">#311</a>.
+</li>
 <li>
 July 3, 2014, by Michael Wetter:<br/>
 Changed pressure sink to mass flow rate sink to avoid an overdetermined

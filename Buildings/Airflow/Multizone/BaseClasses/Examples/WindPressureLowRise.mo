@@ -11,7 +11,7 @@ equation
   Cp = Buildings.Airflow.Multizone.BaseClasses.windPressureLowRise(Cp0=Cp0, G=G, incAng=incAng);
   annotation (
 experiment(StartTime=-2, StopTime=2),
-  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Airflow/Multizone/BaseClasses/Examples/windPressureLowRise.mos"
+  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Airflow/Multizone/BaseClasses/Examples/WindPressureLowRise.mos"
         "Simulate and plot"), Documentation(info="<html>
 <p>
 This examples demonstrates the

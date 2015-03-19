@@ -3,8 +3,7 @@ model MixingBox
   "Mixing box with constant pressure difference and varying control signal"
   extends Modelica.Icons.Example;
 
- package Medium = Buildings.Media.GasesConstantDensity.SimpleAir
-    "Medium in the component"
+ package Medium = Buildings.Media.Air "Medium in the component"
          annotation (choicesAllMatching = true);
 
   Dampers.MixingBox mixBox(

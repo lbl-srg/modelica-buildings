@@ -9,7 +9,7 @@ model OnlyExteriorWallNoWindow "Test model for room model"
    nSurBou=0,
    roo(
     datConExt(layers={matLayExt}, each A=10,
-           each til=Buildings.HeatTransfer.Types.Tilt.Floor, each azi=Buildings.HeatTransfer.Types.Azimuth.W)));
+           each til=Buildings.Types.Tilt.Floor, each azi=Buildings.Types.Azimuth.W)));
    annotation(__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Rooms/Examples/TestConditionalConstructions/OnlyExteriorWallNoWindow.mos"
         "Simulate and plot"),
    Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{

@@ -13,17 +13,17 @@ model Electrical "Model of the electrical room attached to test cell X3A"
     A = {3.6576 * 1.2641, 3.6576 * 1.524},
     each absIR = 0.9,
     each absSol = 0.9,
-    each til = Buildings.HeatTransfer.Types.Tilt.Wall),
+    each til = Buildings.Types.Tilt.Wall),
   datConExt(
     layers = {eleExt, eleExt, extDooUn, roo},
     A = {3.6576 * 1.26413, 3.6576 * 1.524 - 2.38658 * 1.524, 2.38658*1.524, 2.39},
-    til = {Buildings.HeatTransfer.Types.Tilt.Wall, Buildings.HeatTransfer.Types.Tilt.Wall, Buildings.HeatTransfer.Types.Tilt.Wall, Buildings.HeatTransfer.Types.Tilt.Ceiling},
-    azi = {Buildings.HeatTransfer.Types.Azimuth.N, Buildings.HeatTransfer.Types.Azimuth.W, Buildings.HeatTransfer.Types.Azimuth.W, Buildings.HeatTransfer.Types.Azimuth.N}),
+    til = {Buildings.Types.Tilt.Wall, Buildings.Types.Tilt.Wall, Buildings.Types.Tilt.Wall, Buildings.Types.Tilt.Ceiling},
+    azi = {Buildings.Types.Azimuth.N, Buildings.Types.Azimuth.W, Buildings.Types.Azimuth.W, Buildings.Types.Azimuth.N}),
    datConBou(
      layers = {slaCon},
      A = {2.39},
-     til = {Buildings.HeatTransfer.Types.Tilt.Floor},
-     azi = {Buildings.HeatTransfer.Types.Azimuth.N}));
+     til = {Buildings.Types.Tilt.Floor},
+     azi = {Buildings.Types.Azimuth.N}));
   replaceable
     Data.Constructions.OpaqueConstructions.ExteriorConstructions.Construction3
     eleExt "Construction describing the exterior walls in the electrical room"

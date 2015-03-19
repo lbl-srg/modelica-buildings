@@ -61,53 +61,60 @@ protected
   Real tmpSha;
   Real incAng2;
 
-initial algorithm
+initial equation
   //**************************************************************
   // Assign coefficients.
-  // Data dimension changes from Orginal ([1 : HEM]) to New ([2 : HEM+1])
+  // Data dimension changes from Original ([1 : HEM]) to New ([2 : HEM+1])
   // with 2 dummy variable for interpolation.
   //**************************************************************
   // Glass
   for i in 1:N loop
+    coeAbsIn[NoShade, i] =  radDat.absIntIrrNoSha[i];
+    // Properties for glass with shading
+    if haveInteriorShade then
+      coeAbsIn[Shade, i] =  radDat.absIntIrrIntSha[i];
+    elseif haveExteriorShade then
+      coeAbsIn[Shade, i] =  radDat.absIntIrrExtSha[i];
+    else
+      // No Shade
+      coeAbsIn[Shade, i] =  0.0;
+    end if;
+
     for j in 1:HEM loop
       // Properties for glass without shading
-      coeAbsEx[NoShade, i, j + 1] := radDat.absExtIrrNoSha[i, j];
-      coeAbsIn[NoShade, i] := radDat.absIntIrrNoSha[i];
+      coeAbsEx[NoShade, i, j + 1] =  radDat.absExtIrrNoSha[i, j];
       // Properties for glass with shading
       if haveInteriorShade then
-        coeAbsEx[Shade, i, j + 1] := radDat.absExtIrrIntSha[i, j];
-        coeAbsIn[Shade, i] := radDat.absIntIrrIntSha[i];
+        coeAbsEx[Shade, i, j + 1] =  radDat.absExtIrrIntSha[i, j];
       elseif haveExteriorShade then
-        coeAbsEx[Shade, i, j + 1] := radDat.absExtIrrExtSha[i, j];
-        coeAbsIn[Shade, i] := radDat.absIntIrrExtSha[i];
+        coeAbsEx[Shade, i, j + 1] =  radDat.absExtIrrExtSha[i, j];
       else
         // No Shade
-        coeAbsEx[Shade, i, j + 1] := 0.0;
-        coeAbsIn[Shade, i] := 0.0;
+        coeAbsEx[Shade, i, j + 1] =  0.0;
       end if;
     end for;
     // Dummy variables at 1 and HEM+2
     for k in NoShade:Shade loop
-      coeAbsEx[k, i, 1] := coeAbsEx[k, i, 2];
-      coeAbsEx[k, i, HEM + 2] := coeAbsEx[k, i, HEM + 1];
+      coeAbsEx[k, i, 1] =  coeAbsEx[k, i, 2];
+      coeAbsEx[k, i, HEM + 2] =  coeAbsEx[k, i, HEM + 1];
     end for;
   end for;
 
   // Glass Pane 1: Reflectivity
   for j in 1:HEM loop
-    coeRefExtPan1[j + 1] := radDat.traRef[2, 1, N, j];
+    coeRefExtPan1[j + 1] =  radDat.traRef[2, 1, N, j];
   end for;
 
   // Interior shades
   for j in 1:HEM loop
-    coeAbsDevExtIrrIntSha[j + 1] := radDat.devAbsExtIrrIntShaDev[j];
+    coeAbsDevExtIrrIntSha[j + 1] =  radDat.devAbsExtIrrIntShaDev[j];
   end for;
 
   // Dummy variables at 1 and HEM+2
-  coeRefExtPan1[1] := coeRefExtPan1[2];
-  coeRefExtPan1[HEM + 2] := coeRefExtPan1[HEM + 1];
-  coeAbsDevExtIrrIntSha[1] := coeAbsDevExtIrrIntSha[2];
-  coeAbsDevExtIrrIntSha[HEM + 2] := coeAbsDevExtIrrIntSha[HEM + 1];
+  coeRefExtPan1[1] =  coeRefExtPan1[2];
+  coeRefExtPan1[HEM + 2] =  coeRefExtPan1[HEM + 1];
+  coeAbsDevExtIrrIntSha[1] =  coeAbsDevExtIrrIntSha[2];
+  coeAbsDevExtIrrIntSha[HEM + 2] =  coeAbsDevExtIrrIntSha[HEM + 1];
 
 algorithm
   absRad[NoShade, 1] := 0.0;
@@ -266,6 +273,13 @@ Dissertation. University of California at Berkeley. 2004.
 </ul>
 </html>", revisions="<html>
 <ul>
+<li>
+January 21, 2015, by Michael Wetter:<br/>
+Changed <code>initial algorithm</code> to
+<code>initial equation</code> section and removed
+dublicate assignments.
+This is required for OpenModelica.
+</li>
 <li>
 October 17, 2014, by Michael Wetter:<br/>
 Added missing <code>each</code> keywords in parameter declarations.

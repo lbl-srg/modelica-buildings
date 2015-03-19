@@ -1,0 +1,8 @@
+compareVars :=
+  {
+    "sla.sta_b.T",
+    "sla.surf_a.T",
+    "sla.surf_b.T",
+    "sla.surf_a.Q_flow",
+    "sla.surf_b.Q_flow"
+  };

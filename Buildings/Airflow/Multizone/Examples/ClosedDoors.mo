@@ -1,7 +1,7 @@
 within Buildings.Airflow.Multizone.Examples;
 model ClosedDoors "Model with three closed doors"
   extends Modelica.Icons.Example;
-  package Medium = Buildings.Media.IdealGases.SimpleAir;
+  package Medium = Buildings.Media.Specialized.Air.PerfectGas;
 
   Buildings.Airflow.Multizone.DoorDiscretizedOperable dooAB(
     redeclare package Medium = Medium,
@@ -52,8 +52,6 @@ model ClosedDoors "Model with three closed doors"
     LClo=20*1E-4,
     forceErrorControlOnFlow=true) "Discretized door" annotation (Placement(
         transformation(extent={{10,-90},{30,-70}})));
-  inner Modelica.Fluid.System system
-    annotation (Placement(transformation(extent={{70,68},{90,88}})));
 equation
   connect(Gain1.y, PrescribedHeatFlow1.Q_flow)
     annotation (Line(points={{-7,50},{4,50}}, color={0,0,255}));
@@ -132,8 +130,23 @@ All doors are closed, but they are not air-tight.
 Heat is added and removed from <code>volB</code> which induces
 a small air flow through the doors.
 </p>
+<p>
+This model uses
+<a href=\"modelica://Buildings.Media.Specialized.Air.PerfectGas\">
+Buildings.Media.Specialized.Air.PerfectGas</a>
+as the medium because
+<a href=\"modelica://Buildings.Media.Air\">
+Buildings.Media.Air</a>
+does not account for expansion if air the air is heated.
+</p>
 </html>", revisions="<html>
 <ul>
+<li>
+December 22, 2014 by Michael Wetter:<br/>
+Removed <code>Modelica.Fluid.System</code>
+to address issue
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/311\">#311</a>.
+</li>
 <li>
 November 10, 2011, by Michael Wetter:<br/>
 Added documentation.

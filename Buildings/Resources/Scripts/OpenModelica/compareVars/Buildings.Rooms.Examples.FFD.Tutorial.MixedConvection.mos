@@ -1,0 +1,8 @@
+compareVars :=
+  {
+    "roo.yCFD[1]",
+    "roo.yCFD[2]",
+    "TFlo.port.Q_flow",
+    "TOthWal[1].port.Q_flow",
+    "TOthWal[2].port.Q_flow"
+  };

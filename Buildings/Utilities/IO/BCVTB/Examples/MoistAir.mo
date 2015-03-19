@@ -2,7 +2,7 @@ within Buildings.Utilities.IO.BCVTB.Examples;
 model MoistAir
   "Model with interfaces for media with moist air that will be linked to the BCVTB which models the response of the room"
   extends Modelica.Icons.Example;
-  package Medium = Buildings.Media.GasesPTDecoupled.MoistAirUnsaturated;
+  package Medium = Buildings.Media.Air;
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal=
       259.2*6/1.2/3600 "Nominal mass flow rate";
   Buildings.Fluid.FixedResistances.FixedResistanceDpM dp1(
@@ -20,8 +20,6 @@ model MoistAir
     p(displayUnit="Pa") = 101325,
     T=293.15)             annotation (Placement(transformation(extent={{96,60},
             {116,80}})));
-  inner Modelica.Fluid.System system
-    annotation (Placement(transformation(extent={{-80,160},{-60,180}})));
   Buildings.Fluid.FixedResistances.FixedResistanceDpM dp2(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
@@ -38,7 +36,7 @@ model MoistAir
     use_m_flow_in=false,
     m_flow_nominal=m_flow_nominal)
     annotation (Placement(transformation(extent={{204,-4},{224,16}})));
-  Buildings.Fluid.MassExchangers.HumidifierPrescribed hum(
+  Buildings.Fluid.MassExchangers.Humidifier_u hum(
     m_flow_nominal=m_flow_nominal,
     dp_nominal=200,
     redeclare package Medium = Medium,
@@ -47,7 +45,7 @@ model MoistAir
     allowFlowReversal=false,
     use_T_in=false) "Humidifier"
     annotation (Placement(transformation(extent={{240,62},{260,82}})));
-  Buildings.Fluid.HeatExchangers.HeaterCoolerPrescribed hex(
+  Buildings.Fluid.HeatExchangers.HeaterCooler_u hex(
     m_flow_nominal=m_flow_nominal,
     dp_nominal=200,
     redeclare package Medium = Medium,
@@ -318,6 +316,12 @@ This model is implemented in <code>bcvtb\\examples\\dymolaEPlusXY-singleZone</co
 where <code>XY</code> denotes the EnergyPlus version number.
 </html>", revisions="<html>
 <ul>
+<li>
+December 22, 2014 by Michael Wetter:<br/>
+Removed <code>Modelica.Fluid.System</code>
+to address issue
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/311\">#311</a>.
+</li>
 <li>
 May 1, 2013, by Michael Wetter:<br/>
 Removed the medium declaration in the instance

@@ -1,8 +1,21 @@
 within Buildings.Fluid.Movers;
 model SpeedControlled_Nrpm
   "Fan or pump with ideally controlled speed Nrpm as input signal"
-  extends Buildings.Fluid.Movers.BaseClasses.FlowControlledMachine(
-  redeclare replaceable Data.SpeedControlled_Nrpm per);
+  extends Buildings.Fluid.Movers.BaseClasses.SpeedControlled(
+    _per_y(hydraulicEfficiency=per.hydraulicEfficiency,
+            motorEfficiency=per.motorEfficiency,
+            power=per.power,
+            pressure(
+              V_flow = per.pressure.V_flow,
+              dp =     per.pressure.dp),
+            motorCooledByFluid=per.motorCooledByFluid,
+            use_powerCharacteristic=per.use_powerCharacteristic));
+
+  replaceable parameter Data.SpeedControlled_Nrpm per
+    "Record with performance data"
+    annotation (choicesAllMatching=true,
+      Placement(transformation(extent={{60,-80},{80,-60}})));
+
   Modelica.Blocks.Interfaces.RealInput Nrpm(unit="1/min")
     "Prescribed rotational speed"
     annotation (Placement(transformation(
@@ -72,6 +85,15 @@ User's Guide</a> for more information.
       revisions="<html>
 <ul>
 <li>
+March 6, 2015, by Michael Wetter<br/>
+Made performance record <code>per</code> replaceable
+as for the other models.
+</li>      
+<li>
+January 6, 2015, by Michael Wetter:<br/>
+Revised model for OpenModelica.
+</li>
+<li>
 April 17, 2014, by Filip Jorissen:<br/>
 Implemented records for supplying pump/fan parameters
 </li>
@@ -98,7 +120,5 @@ Revised implementation to allow zero flow rate.
     by <a href=\"mailto:francesco.casella@polimi.it\">Francesco Casella</a>:<br/>
        Model added to the Fluid library</li>
 </ul>
-</html>"),
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
-            100}}), graphics));
+</html>"));
 end SpeedControlled_Nrpm;

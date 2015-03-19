@@ -125,17 +125,19 @@ public class ParserResultObject {
         // Date date = new Date();
         String fileHeader = "within Buildings.Fluid.Chillers.Data;"
                 + "\n"
-                + "package ElectricEIR \"Performance data for chiller ElectricEIR\""
-                + "\n" + " annotation(preferredView=" + "\"" + "info" + "\""
-                + ", Documentation(info=\"<html>"
-                + "Package with performance data for chillers."
-                + "</html>\","
-                + " revisions=\"<html>"
+                + "package ElectricEIR \"Performance data for chiller ElectricEIR\"\n"
+                + "  extends Modelica.Icons.MaterialPropertiesPackage;\n"
+                + " annotation(preferredView=\"info\",\n"
+                + " Documentation(info=\"<html>\n"
+                + "<p>\n"
+                + "Package with performance data for chillers.\n"
+                + "</p>\n"
+                + "</html>\n\","
+                + " revisions=\"<html>\n"
                 + "Generated on "
                 + getDateTime()
                 + " by "
-                // + System.getProperty("user.name")
-                + "mwetter."
+                + System.getProperty("user.name")
                 + "</html>\"));"
                 + "\n"
                 + "  "
@@ -181,11 +183,12 @@ public class ParserResultObject {
                 + "annotation (Dialog(group=\"Performance curves\"));"
                 + "\n"
                 + "\n"
-                +
-
-                "    "
-                + "annotation (Documentation(info=\"<html>"
+                + "annotation(\n"
+                + "defaultComponentName=\"datChi\",\n"
+                + "defaultComponentPrefixes=\"parameter\",\n"
+                + "Documentation(info=\"<html>"
                 + "\n"
+                + "<p>"
                 + "This record is used as a template for performance data"
                 + "\n"
                 + "for the chiller model"
@@ -198,13 +201,22 @@ public class ParserResultObject {
                 + "\n"
                 + "Buildings.Fluid.Chillers.ElectricEIR</a>."
                 + "\n"
+                + "</p>"
+                + "\n"
                 + "</html>\", revisions=\"<html>"
                 + "\n"
                 + "<ul>"
                 + "\n"
                 + "<li>"
                 + "\n"
-                + "September 17, 2010 by Michael Wetter:<br>"
+                + "December 19, 2014 by Michael Wetter:<br/>"
+                + "\n"
+                + "Added <code>defaultComponentName</code> and <code>defaultComponentPrefixes</code>."
+                + "\n"
+                + "</li>"
+                + "<li>"
+                + "\n"
+                + "September 17, 2010 by Michael Wetter:<br/>"
                 + "\n"
                 + "First implementation."
                 + "\n"
@@ -249,6 +261,10 @@ public class ParserResultObject {
 
         // print the header + ElectricEIR + footer in the output file
         OutputStreamWriter fw = new FileWriter(fileName);
+        // Some E+ fields have string such as Trane CVHG670-44&86 2490kW/6.5COP
+        // The & sign needs to be converted to &amp; as it is inside an html section.
+        cleanRecordedElectricEirs = cleanRecordedElectricEirs.replaceAll("&", "&amp;");
+
         fw.write(fileHeader + cleanRecordedElectricEirs + fileFooter);
         fw.close();
     }
@@ -347,18 +363,18 @@ public class ParserResultObject {
         // defines the header of the output file
         String fileHeader = "within Buildings.Fluid.Chillers.Data;"
                 + "\n"
-                + "package ElectricReformulatedEIR \"Performance data for chiller ElectricReformulatedEIR\""
-                + "\n" + " annotation(preferredView=" + "\"" + "info" + "\""
-                + ", Documentation(info=\"<html>"
-                + " Package with performance data for chillers."
-                + "</html>\","
-                + " revisions=\"<html>"
-                + " Generated on "
+                + "package ElectricReformulatedEIR \"Performance data for chiller ElectricReformulatedEIR\"\n"
+                + "  extends Modelica.Icons.MaterialPropertiesPackage;\n"
+                + " annotation(preferredView=" + "\"" + "info" + "\""
+                + ",\n Documentation(info=\"<html>\n"
+                + "<p>\nPackage with performance data for chillers."
+                + "\n</p>\n</html>\","
+                + " revisions=\"<html>\n"
+                + "<p>\nGenerated on "
                 + getDateTime()
                 + " by "
-                // + System.getProperty("user.name")
-                + "mwetter."
-                + "</html>\"));"
+                + System.getProperty("user.name")
+                + "\n</p>\n</html>\"));"
                 + "\n"
                 + "  "
                 + "record Generic \"Generic data record for chiller ElectricReformulatedEIR\""
@@ -403,10 +419,10 @@ public class ParserResultObject {
                 + "annotation (Dialog(group=\"Performance curves\"));"
                 + "\n"
                 + "\n"
-                +
-
-                "    "
-                + "annotation (Documentation(info=\"<html>"
+                + "annotation(\n"
+                + "defaultComponentName=\"datChi\",\n"
+                + "defaultComponentPrefixes=\"parameter\",\n"
+                + "Documentation(info=\"<html>"
                 + "\n"
                 + "This record is used as a template for performance data"
                 + "\n"
@@ -426,7 +442,14 @@ public class ParserResultObject {
                 + "\n"
                 + "<li>"
                 + "\n"
-                + "September 17, 2010 by Michael Wetter:<br>"
+                + "December 19, 2014 by Michael Wetter:<br/>"
+                + "\n"
+                + "Added <code>defaultComponentName</code> and <code>defaultComponentPrefixes</code>."
+                + "\n"
+                + "</li>"
+                + "<li>"
+                + "\n"
+                + "September 17, 2010 by Michael Wetter:<br/>"
                 + "\n"
                 + "First implementation."
                 + "\n"
@@ -472,6 +495,11 @@ public class ParserResultObject {
         // print the header + ReformulatedElectricEIR + footer in the output
         // file
         OutputStreamWriter fw = new FileWriter(fileName);
+
+        // Some E+ fields have string such as Trane CVHG670-44&86 2490kW/6.5COP
+        // The & sign needs to be converted to &amp; as it is inside an html section.
+        cleanRecordedReformElectricEirs = cleanRecordedReformElectricEirs.replaceAll("&", "&amp;");
+
         fw.write(fileHeader + cleanRecordedReformElectricEirs + fileFooter);
         fw.close();
     }

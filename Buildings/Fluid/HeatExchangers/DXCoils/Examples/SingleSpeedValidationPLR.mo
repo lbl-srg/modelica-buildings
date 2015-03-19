@@ -1,7 +1,7 @@
 within Buildings.Fluid.HeatExchangers.DXCoils.Examples;
 model SingleSpeedValidationPLR
   "Validation model for single speed DX coil with PLR=1"
-  package Medium = Buildings.Media.GasesConstantDensity.MoistAirUnsaturated;
+  package Medium = Buildings.Media.Air;
   extends Modelica.Icons.Example;
  parameter Modelica.SIunits.Power Q_flow_nominal = datCoi.sta[1].nomVal.Q_flow_nominal
     "Nominal power";
@@ -24,8 +24,6 @@ model SingleSpeedValidationPLR
     use_X_in=true,
     T=299.85) "Source"
     annotation (Placement(transformation(extent={{-40,-20},{-20,0}})));
-  inner Modelica.Fluid.System system
-    annotation (Placement(transformation(extent={{140,-140},{160,-120}})));
   Buildings.Fluid.HeatExchangers.DXCoils.SingleSpeed sinSpeDX(
     redeclare package Medium = Medium,
     dp_nominal=dp_nominal,
@@ -485,6 +483,12 @@ are corrected by dividing them by
 </html>",
 revisions="<html>
 <ul>
+<li>
+December 22, 2014 by Michael Wetter:<br/>
+Removed <code>Modelica.Fluid.System</code>
+to address issue
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/311\">#311</a>.
+</li>
 <li>
 September 4, 2012 by Michael Wetter:<br/>
 Modified example to avoid having to access protected data.

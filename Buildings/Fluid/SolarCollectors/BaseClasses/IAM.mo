@@ -7,7 +7,7 @@ function IAM "Function for incident angle modifer"
   output Real incAngMod "Incident angle modifier coefficient";
 protected
   constant Modelica.SIunits.Angle incAngMin = Modelica.Constants.pi / 2 -0.1
-    "Minimum incidence angle to avoid divison by zero";
+    "Minimum incidence angle to avoid division by zero";
   constant Real delta = 0.0001 "Width of the smoothing function";
   Real cosIncAngMin(min=Modelica.Constants.eps)=
   Modelica.Math.cos(incAngMin) "Cosine of minimum incidence angle";

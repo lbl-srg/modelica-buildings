@@ -1,6 +1,6 @@
 within Buildings.Fluid.HeatExchangers.DXCoils.Examples;
 model VariableSpeed "Test model for variable speed DX coil"
-  package Medium = Buildings.Media.GasesConstantDensity.MoistAirUnsaturated;
+  package Medium = Buildings.Media.Air;
   extends Modelica.Icons.Example;
  parameter Modelica.SIunits.MassFlowRate m_flow_nominal = datCoi.sta[datCoi.nSta].nomVal.m_flow_nominal
     "Nominal mass flow rate";
@@ -20,8 +20,6 @@ model VariableSpeed "Test model for variable speed DX coil"
     use_p_in=true,
     T=299.85) "Source"
     annotation (Placement(transformation(extent={{-40,-20},{-20,0}})));
-  inner Modelica.Fluid.System system
-    annotation (Placement(transformation(extent={{40,-80},{60,-60}})));
   Buildings.Fluid.HeatExchangers.DXCoils.VariableSpeed varSpeDX(
     redeclare package Medium = Medium,
     dp_nominal=dp_nominal,
@@ -135,6 +133,12 @@ The model has open-loop control and time-varying input conditions.
 </html>",
 revisions="<html>
 <ul>
+<li>
+December 22, 2014 by Michael Wetter:<br/>
+Removed <code>Modelica.Fluid.System</code>
+to address issue
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/311\">#311</a>.
+</li>
 <li>
 July 26, 2012 by Kaustubh Phalak:<br/>
 First implementation.

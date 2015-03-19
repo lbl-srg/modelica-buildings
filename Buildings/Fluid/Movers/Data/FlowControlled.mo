@@ -32,7 +32,7 @@ info="<html>
 <p>
 Record containing parameters for pumps or fans
 that have either the mass flow rate or the pressure rise
-as an input signal. 
+as an input signal.
 </p>
 <p>
 This record may be used to assign for example fan performance data using
@@ -44,17 +44,12 @@ declaration such as
 </pre>
 <p>
 This data record can be used with
-</p>
-<ul>
-<li>
 <a href=\"modelica://Buildings.Fluid.Movers.FlowControlled_dp\">
 Buildings.Fluid.Movers.FlowControlled_dp</a>
-</li>
-<li>
+and with
 <a href=\"modelica://Buildings.Fluid.Movers.FlowControlled_m_flow\">
-Buildings.Fluid.Movers.FlowControlled_m_flow</a>
-</li>
-</ul>
+Buildings.Fluid.Movers.FlowControlled_m_flow</a>.
+</p>
 <p>
 For
 <a href=\"modelica://Buildings.Fluid.Movers.SpeedControlled_y\">
@@ -70,12 +65,14 @@ Buildings.Fluid.Movers.SpeedControlled_Nrpm</a>,
 use the record
 <a href=\"modelica://Buildings.Fluid.Movers.Data.Generic_Nrpm\">
 Buildings.Fluid.Movers.Data.Generic_Nrpm</a>
-
-
-
+</p>
 </html>",
 revisions="<html>
 <ul>
+<li>
+January 6, 2015, by Michael Wetter:<br/>
+Revised record for OpenModelica.
+</li>
 <li>
 November 22, 2014, by Michael Wetter:<br/>
 First implementation.

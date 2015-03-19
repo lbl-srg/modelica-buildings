@@ -1,0 +1,7 @@
+compareVars :=
+  {
+    "solCol.vol[9].T",
+    "tan.vol[1].T",
+    "TIn.T",
+    "pumCon.y"
+  };

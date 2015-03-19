@@ -1,0 +1,5 @@
+compareVars :=
+  {
+    "speShi.y",
+    "speShi.speRat"
+  };

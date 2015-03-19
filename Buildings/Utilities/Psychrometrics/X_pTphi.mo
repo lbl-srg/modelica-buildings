@@ -4,7 +4,7 @@ block X_pTphi
   extends
     Buildings.Utilities.Psychrometrics.BaseClasses.HumidityRatioVaporPressure;
 
-  package Medium = Buildings.Media.PerfectGases.MoistAirUnsaturated "Medium model";
+  package Medium = Buildings.Media.Air "Medium model";
 
 public
   Modelica.Blocks.Interfaces.RealInput T(final unit="K",
@@ -37,7 +37,7 @@ initial algorithm
   i_nw := if i_w == 1 then 2 else 1;
   assert(found, "Did not find medium species 'water' in the medium model. Change medium model.");
 algorithm
-  pSat := Buildings.Media.PerfectGases.MoistAirUnsaturated.saturationPressure(T);
+  pSat := Buildings.Media.Air.saturationPressure(T);
   X[i_w] := Buildings.Utilities.Psychrometrics.Functions.X_pSatpphi(
      pSat=pSat, p=p_in_internal, phi=phi);
   //sum(X[:]) = 1; // The formulation with a sum in an equation section leads to a nonlinear equation system

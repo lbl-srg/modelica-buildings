@@ -3,7 +3,7 @@ model Validation3Rooms
   "Model with three rooms for the validation of the multizone air exchange models"
   extends Modelica.Icons.Example;
 
-  package Medium = Buildings.Media.IdealGases.SimpleAir;
+  package Medium = Buildings.Media.Air(extraPropertiesNames={"CO2"});
 
   Buildings.Fluid.MixingVolumes.MixingVolume volEas(
     redeclare package Medium = Medium,
@@ -119,8 +119,6 @@ model Validation3Rooms
                            annotation (Placement(transformation(extent={{-20,120},
             {0,140}})));
 
-  inner Modelica.Fluid.System system
-    annotation (Placement(transformation(extent={{-180,200},{-160,220}})));
   Buildings.HeatTransfer.Sources.FixedTemperature TTop(T=293.15)
     "Fixed temperature"
     annotation (Placement(transformation(extent={{-80,120},{-60,140}})));
@@ -248,8 +246,8 @@ equation
       color={191,0,0},
       smooth=Smooth.None));
   annotation (
-    Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-200,-150},{300,
-            250}}), graphics={
+    Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-200,-150},{260,
+            200}}), graphics={
         Rectangle(
           extent={{8,48},{152,-100}},
           lineColor={135,135,135},
@@ -286,6 +284,12 @@ Proc. of the 5th International Modelica Conference, p. 431-440. Vienna, Austria,
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+December 22, 2014 by Michael Wetter:<br/>
+Removed <code>Modelica.Fluid.System</code>
+to address issue
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/311\">#311</a>.
+</li>
 <li>
 June 26, 2014, by Michael Wetter:<br/>
 Set the initial conditions to be fixed to avoid a translation warning.

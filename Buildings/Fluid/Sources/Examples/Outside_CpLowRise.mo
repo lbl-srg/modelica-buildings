@@ -2,35 +2,32 @@ within Buildings.Fluid.Sources.Examples;
 model Outside_CpLowRise
   "Test model for source and sink with outside weather data and wind pressure"
   extends Modelica.Icons.Example;
-  package Medium = Buildings.Media.GasesConstantDensity.MoistAirUnsaturated
-    "Medium model for air";
+  package Medium = Buildings.Media.Air "Medium model for air";
   Buildings.Fluid.Sources.Outside_CpLowRise west(
     redeclare package Medium = Medium,
     s=5,
-    azi=Buildings.HeatTransfer.Types.Azimuth.W,
+    azi=Buildings.Types.Azimuth.W,
     Cp0=0.6) "Model with outside conditions"
     annotation (Placement(transformation(extent={{-40,0},{-20,20}})));
   Buildings.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(
     filNam="modelica://Buildings/Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos")
     annotation (Placement(transformation(extent={{-80,0},{-60,20}})));
-  inner Modelica.Fluid.System system(energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
-    annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
   Buildings.Fluid.Sources.Outside_CpLowRise north(
     redeclare package Medium = Medium,
     s=1/5,
-    azi=Buildings.HeatTransfer.Types.Azimuth.N,
+    azi=Buildings.Types.Azimuth.N,
     Cp0=0.6) "Model with outside conditions"
     annotation (Placement(transformation(extent={{-20,40},{0,60}})));
   Buildings.Fluid.Sources.Outside_CpLowRise south(
     redeclare package Medium = Medium,
     s=1/5,
-    azi=Buildings.HeatTransfer.Types.Azimuth.S,
+    azi=Buildings.Types.Azimuth.S,
     Cp0=0.6) "Model with outside conditions"
     annotation (Placement(transformation(extent={{-20,-40},{0,-20}})));
   Buildings.Fluid.Sources.Outside_CpLowRise east(
     redeclare package Medium = Medium,
     s=5,
-    azi=Buildings.HeatTransfer.Types.Azimuth.E,
+    azi=Buildings.Types.Azimuth.E,
     Cp0=0.6) "Model with outside conditions"
     annotation (Placement(transformation(extent={{40,0},{60,20}})));
 equation
@@ -68,6 +65,12 @@ whereas it is negative for the south- and east-facing facades.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+December 22, 2014 by Michael Wetter:<br/>
+Removed <code>Modelica.Fluid.System</code>
+to address issue
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/311\">#311</a>.
+</li>
 <li>
 October 26, 2011 by Michael Wetter:<br/>
 First implementation.

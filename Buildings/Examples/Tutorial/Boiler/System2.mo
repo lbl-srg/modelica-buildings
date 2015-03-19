@@ -3,11 +3,11 @@ model System2
   "2nd part of the system model, consisting of the room with heat transfer and a radiator"
   extends Modelica.Icons.Example;
   replaceable package MediumA =
-      Buildings.Media.GasesPTDecoupled.MoistAirUnsaturated;
+      Buildings.Media.Air;
 
 //-------------------------Step 2: Water as medium-------------------------//
   replaceable package MediumW =
-      Buildings.Media.ConstantPropertyLiquidWater "Medium model";
+      Buildings.Media.Water "Medium model";
 //-------------------------------------------------------------------------//
 
 //------------------------Step 4: Design conditions------------------------//
@@ -22,8 +22,6 @@ model System2
     "Radiator nominal mass flow rate";
 //------------------------------------------------------------------------//
 
-  inner Modelica.Fluid.System system
-    annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
   Fluid.MixingVolumes.MixingVolume vol(
     redeclare package Medium = MediumA,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
@@ -388,6 +386,12 @@ could have been used.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+December 22, 2014 by Michael Wetter:<br/>
+Removed <code>Modelica.Fluid.System</code>
+to address issue
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/311\">#311</a>.
+</li>
 <li>
 January 27, 2012, by Michael Wetter:<br/>
 First implementation.

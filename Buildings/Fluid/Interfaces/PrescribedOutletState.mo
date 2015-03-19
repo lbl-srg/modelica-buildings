@@ -165,7 +165,7 @@ equation
           extent={{48,102},{92,74}},
           lineColor={0,0,127},
           textString="Q_flow")}),
-  Documentation(info="<HTML>
+  Documentation(info="<html>
 <p>
 This model sets the temperature of the medium that leaves <code>port_a</code>
 to the value given by the input <code>TSet</code>, subject to optional

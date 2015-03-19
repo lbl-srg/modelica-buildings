@@ -2,7 +2,7 @@ within Buildings.Fluid.FixedResistances.Examples;
 model FixedResistancesExplicit "Test of multiple resistances in series"
   extends Modelica.Icons.Example;
 
- package Medium = Buildings.Media.IdealGases.SimpleAir;
+ package Medium = Buildings.Media.Air;
   Buildings.Fluid.Sources.Boundary_ph sou(
    redeclare package Medium = Medium,
     nPorts=1,
@@ -110,9 +110,9 @@ model FixedResistancesExplicit "Test of multiple resistances in series"
   Buildings.Fluid.Sensors.MassFlowRate senMasFlo4(redeclare package Medium =
         Medium) "Mass flow rate sensor"
     annotation (Placement(transformation(extent={{60,-60},{80,-40}})));
-  Buildings.Utilities.Diagnostics.AssertEquality assertEquality
+  Buildings.Utilities.Diagnostics.AssertEquality assertEquality(threShold=1E-1)
     annotation (Placement(transformation(extent={{120,120},{140,140}})));
-  Buildings.Utilities.Diagnostics.AssertEquality assertEquality1
+  Buildings.Utilities.Diagnostics.AssertEquality assertEquality1(threShold=1E-1)
     annotation (Placement(transformation(extent={{120,0},{140,20}})));
 equation
   connect(res11.port_b, res12.port_a)

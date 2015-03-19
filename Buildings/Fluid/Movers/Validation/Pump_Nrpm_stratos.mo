@@ -1,7 +1,10 @@
 within Buildings.Fluid.Movers.Validation;
 model Pump_Nrpm_stratos "Model validation using a Wilo Stratos 80/1-12 pump"
   extends Modelica.Icons.Example;
-  package Medium = Modelica.Media.Water.ConstantPropertyLiquidWater;
+  package Medium = Buildings.Media.Water;
+
+  parameter Data.Pumps.Stratos80slash1to12 per "Pump performance data"
+    annotation (Placement(transformation(extent={{-120,80},{-100,100}})));
 
   Buildings.Fluid.Sources.Boundary_pT sou(
     redeclare package Medium = Medium,
@@ -23,37 +26,32 @@ model Pump_Nrpm_stratos "Model validation using a Wilo Stratos 80/1-12 pump"
   Buildings.Fluid.Movers.SpeedControlled_Nrpm pump1(
     y_start=1,
     redeclare package Medium = Medium,
-    redeclare Buildings.Fluid.Movers.Data.Pumps.Stratos80slash1to12 per,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState)
-    "Wilo Stratos pump"
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
+    per=per) "Wilo Stratos pump"
     annotation (Placement(transformation(extent={{-60,60},{-40,80}})));
   Buildings.Fluid.Movers.SpeedControlled_Nrpm pump2(
     y_start=1,
     redeclare package Medium = Medium,
-    redeclare Buildings.Fluid.Movers.Data.Pumps.Stratos80slash1to12 per,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState)
-    "Wilo Stratos pump"
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
+    per=per) "Wilo Stratos pump"
     annotation (Placement(transformation(extent={{-60,10},{-40,30}})));
   Buildings.Fluid.Movers.SpeedControlled_Nrpm pump3(
     y_start=1,
     redeclare package Medium = Medium,
-    redeclare Buildings.Fluid.Movers.Data.Pumps.Stratos80slash1to12 per,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState)
-    "Wilo Stratos pump"
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
+    per=per) "Wilo Stratos pump"
     annotation (Placement(transformation(extent={{-60,-36},{-40,-16}})));
   Buildings.Fluid.Movers.SpeedControlled_Nrpm pump4(
     y_start=1,
     redeclare package Medium = Medium,
-    redeclare Buildings.Fluid.Movers.Data.Pumps.Stratos80slash1to12 per,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState)
-    "Wilo Stratos pump"
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
+    per=per) "Wilo Stratos pump"
     annotation (Placement(transformation(extent={{-60,-80},{-40,-60}})));
   Buildings.Fluid.Movers.SpeedControlled_Nrpm pump5(
     y_start=1,
     redeclare package Medium = Medium,
-    redeclare Buildings.Fluid.Movers.Data.Pumps.Stratos80slash1to12 per,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState)
-    "Wilo Stratos pump"
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
+    per=per) "Wilo Stratos pump"
     annotation (Placement(transformation(extent={{-60,-130},{-40,-110}})));
 
   Buildings.Fluid.Movers.FlowControlled_m_flow forcedPump1(redeclare package
@@ -97,31 +95,26 @@ model Pump_Nrpm_stratos "Model validation using a Wilo Stratos 80/1-12 pump"
     "Minimum for not going outside of the figure range (see documentation)"
                                 annotation (Placement(transformation(
         extent={{-5,-5},{5,5}},
-        rotation=0,
         origin={35,91})));
   Modelica.Blocks.Math.Min min2
     "Minimum for not going outside of the figure range (see documentation)"
                                 annotation (Placement(transformation(
         extent={{-5,-5},{5,5}},
-        rotation=0,
         origin={35,45})));
   Modelica.Blocks.Math.Min min3
     "Minimum for not going outside of the figure range (see documentation)"
                                 annotation (Placement(transformation(
         extent={{-5,-5},{5,5}},
-        rotation=0,
         origin={35,-5})));
   Modelica.Blocks.Math.Min min4
     "Minimum for not going outside of the figure range (see documentation)"
                                 annotation (Placement(transformation(
         extent={{-5,-5},{5,5}},
-        rotation=0,
         origin={35,-49})));
   Modelica.Blocks.Math.Min min5
     "Minimum for not going outside of the figure range (see documentation)"
                                 annotation (Placement(transformation(
         extent={{-5,-5},{5,5}},
-        rotation=0,
         origin={35,-97})));
 
   Modelica.Blocks.Sources.Constant mMax_flow1(k=40/3.6)
@@ -322,6 +315,5 @@ for a discussion and validation.
 </ul>
 </html>"),
     Diagram(coordinateSystem(extent={{-140,-140},{140,120}},
-          preserveAspectRatio=false)),
-    Icon(coordinateSystem(extent={{-100,-100},{100,100}})));
+          preserveAspectRatio=false)));
 end Pump_Nrpm_stratos;

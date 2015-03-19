@@ -2,7 +2,7 @@ within Buildings.Fluid.Movers.Examples;
 model ClosedLoop_y "Flow machine with feedback control"
   extends Modelica.Icons.Example;
 
-  package Medium = Buildings.Media.GasesPTDecoupled.MoistAirUnsaturated;
+  package Medium = Buildings.Media.Air;
 
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal= 0.1
     "Nominal mass flow rate";

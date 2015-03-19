@@ -58,6 +58,7 @@ carbon dioxide concentration is typically so small that it need not be
 added to the room mass balance, and since the mass flow rate can be
 made small compared to the room volume if the medium that leaves this
 component has a carbon dioxide concentration of <i>1</i>.
+</p>
 </html>", revisions="<html>
 <ul>
 <li>

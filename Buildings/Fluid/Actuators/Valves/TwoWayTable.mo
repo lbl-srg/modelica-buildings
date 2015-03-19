@@ -1,6 +1,6 @@
 within Buildings.Fluid.Actuators.Valves;
 model TwoWayTable "Two way valve with linear flow characteristics"
-  extends BaseClasses.PartialTwoWayValve(
+  extends BaseClasses.PartialTwoWayValveKv(
     phi=phiLooUp.y[1],
     final l = phiLooUp.table[1, 2]);
   parameter Data.Generic flowCharacteristics "Table with flow characteristics"
@@ -57,7 +57,7 @@ scaled by the values of the parameter
 <code>flowCharacteristics</code>.
 The parameter <code>flowCharacteristics</code> declares a table of the form
 </p>
-<table summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+<table summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
 <tr>
 <td><i>y</i></td>  <td>0</td>  <td>...</td>  <td>1</td>
 </tr>

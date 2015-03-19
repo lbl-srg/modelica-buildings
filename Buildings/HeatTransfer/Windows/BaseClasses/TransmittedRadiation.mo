@@ -15,49 +15,48 @@ block TransmittedRadiation "Transmitted radiation through window"
     "Transmitted solar radiation through shaded part of window";
 
 protected
-  Integer k=1;
-  Real x;
+  Real x "Intermediate variable";
   final parameter Integer NDIR=radDat.NDIR;
   final parameter Integer HEM=radDat.HEM;
   constant Integer NoShade=1;
   constant Integer Shade=2;
   constant Integer Interior=1;
   constant Integer Exterior=2;
-  final parameter Real coeTraWinExtIrr[2, radDat.HEM + 2](fixed=false);
+  final parameter Real coeTraWinExtIrr[2, radDat.HEM + 2](each fixed=false);
   Real tmpNoSha;
   Real tmpSha;
   Real incAng2;
 
-initial algorithm
+initial equation
   //**************************************************************
   // Assign coefficients.
-  // Data dimension from Orginal ([1 : HEM]) to New ([2 : HEM+1])
+  // Data dimension from Original ([1 : HEM]) to New ([2 : HEM+1])
   // with 2 dummy variable for interpolation.
   //**************************************************************
   // Glass
   for j in 1:HEM loop
     // Properties for glass without shading
-    coeTraWinExtIrr[NoShade, j + 1] := radDat.traRef[1, 1, N, j];
+    coeTraWinExtIrr[NoShade, j + 1] =  radDat.traRef[1, 1, N, j];
     // Properties for glass with shading
     if haveInteriorShade then
-      coeTraWinExtIrr[Shade, j + 1] := radDat.winTraExtIrrIntSha[j];
+      coeTraWinExtIrr[Shade, j + 1] =  radDat.winTraExtIrrIntSha[j];
     elseif haveExteriorShade then
-      coeTraWinExtIrr[Shade, j + 1] := radDat.winTraExtIrrExtSha[j];
+      coeTraWinExtIrr[Shade, j + 1] =  radDat.winTraExtIrrExtSha[j];
     else
       // No Shade
-      coeTraWinExtIrr[Shade, j + 1] := 0.0;
+      coeTraWinExtIrr[Shade, j + 1] =  0.0;
     end if;
   end for;
   // Dummy variables at 1 and HEM+2
   for k in NoShade:Shade loop
-    coeTraWinExtIrr[k, 1] := coeTraWinExtIrr[k, 2];
-    coeTraWinExtIrr[k, HEM + 2] := coeTraWinExtIrr[k, HEM + 1];
+    coeTraWinExtIrr[k, 1] =  coeTraWinExtIrr[k, 2];
+    coeTraWinExtIrr[k, HEM + 2] =  coeTraWinExtIrr[k, HEM + 1];
   end for;
 
   //**************************************************************
   // Glass: transmissivity for interior irradiation
   //**************************************************************
-  traCoeRoo := radDat.traRef[1, N, 1, HEM];
+  traCoeRoo =  radDat.traRef[1, N, 1, HEM];
 
 algorithm
   QTraUns_flow := AWin*HDif*(1 - uSha_internal)*coeTraWinExtIrr[NoShade, HEM +
@@ -120,6 +119,12 @@ Dissertation. University of California at Berkeley. 2004.
 </ul>
 </html>", revisions="<html>
 <ul>
+<li>
+March 13, 2015, by Michael Wetter:<br/>
+Changed <code>initial algorithm</code>
+to <code>initial equation</code> section
+to avoid a translation error in OpenModelica.
+</li>
 <li>
 March 4, 2011, by Wangda Zuo:<br/>
 Remove the if-statement and integer function that can trigger events.

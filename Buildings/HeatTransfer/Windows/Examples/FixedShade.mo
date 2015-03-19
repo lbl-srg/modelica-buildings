@@ -12,16 +12,16 @@ model FixedShade "Test model for the fixed shade model"
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
   Buildings.BoundaryConditions.SolarIrradiation.DirectTiltedSurface HDirTil(
     lat=weaDat.lat,
-    til=Buildings.HeatTransfer.Types.Tilt.Wall,
-    azi=Buildings.HeatTransfer.Types.Azimuth.S) "Direct solar irradiation"
+    til=Buildings.Types.Tilt.Wall,
+    azi=Buildings.Types.Azimuth.S) "Direct solar irradiation"
     annotation (Placement(transformation(extent={{-20,60},{0,80}})));
   Modelica.Blocks.Routing.Replicator H(nout=4) "Replicator"
     annotation (Placement(transformation(extent={{20,60},{40,80}})));
   Modelica.Blocks.Routing.Replicator incAng(nout=4) "Replicator"
     annotation (Placement(transformation(extent={{20,20},{40,40}})));
   parameter Buildings.Rooms.BaseClasses.ParameterConstructionWithWindow conPar[4](
-    each til=Buildings.HeatTransfer.Types.Tilt.Wall,
-    each azi=Buildings.HeatTransfer.Types.Azimuth.S,
+    each til=Buildings.Types.Tilt.Wall,
+    each azi=Buildings.Types.Azimuth.S,
     each A=20,
     each hWin=1.5,
     each wWin=2,

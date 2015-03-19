@@ -1,0 +1,6 @@
+compareVars :=
+  {
+    "dyn.Q_flow",
+    "dyn.medium.T",
+    "ste.sta_b.T"
+  };

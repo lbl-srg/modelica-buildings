@@ -1,8 +1,7 @@
 within Buildings.Fluid.HeatExchangers.Boreholes.BaseClasses.Examples;
 model SingleUTubeResistances "Model that tests the resistances in the borehole"
   extends Modelica.Icons.Example;
- package Medium = Buildings.Media.ConstantPropertyLiquidWater
-    "Medium in the pipes";
+ package Medium = Buildings.Media.Water "Medium in the pipes";
 
   replaceable parameter Buildings.HeatTransfer.Data.Soil.Granite matSoi
     "Thermal properties of soil"
@@ -34,8 +33,8 @@ model SingleUTubeResistances "Model that tests the resistances in the borehole"
     "Thermal resistance of the pipe wall";
   parameter Real x(fixed=false) "Capacity location";
 
-initial algorithm
-  (Rgb, Rgg, RCondGro, x) :=
+initial equation
+  (Rgb, Rgg, RCondGro, x) =
     Buildings.Fluid.HeatExchangers.Boreholes.BaseClasses.singleUTubeResistances(
     hSeg=hSeg,
     rBor=rBor,

@@ -2,7 +2,7 @@ within Buildings.Fluid.FixedResistances.Examples;
 model Pipe "Test of a pipe with multiple segments"
   extends Modelica.Icons.Example;
 
-  replaceable package Medium = Buildings.Media.ConstantPropertyLiquidWater;
+  replaceable package Medium = Buildings.Media.Water;
 
   Modelica.Blocks.Sources.Ramp P(
     duration=1,
@@ -22,8 +22,6 @@ model Pipe "Test of a pipe with multiple segments"
     p(displayUnit="Pa") = 101325)
               annotation (Placement(transformation(extent={{102,-10},{82,10}})));
 
-  inner Modelica.Fluid.System system(p_ambient=101325) annotation (Placement(
-        transformation(extent={{-80,-80},{-60,-60}})));
   HeatTransfer.Sources.FixedTemperature TEnv(T=263.15)
     annotation (Placement(transformation(extent={{-38,30},{-18,50}})));
   Buildings.Fluid.FixedResistances.Pipe pip(
@@ -120,6 +118,12 @@ through the pipe.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+December 22, 2014 by Michael Wetter:<br/>
+Removed <code>Modelica.Fluid.System</code>
+to address issue
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/311\">#311</a>.
+</li>
 <li>
 February 22, 2012 by Michael Wetter:<br/>
 Revised implementation.

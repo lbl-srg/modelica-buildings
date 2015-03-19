@@ -2,7 +2,7 @@ within Buildings.Fluid.Storage.Examples;
 model StratifiedLoadingUnloading "Test model for stratified tank"
   extends Modelica.Icons.Example;
 
- package Medium = Buildings.Media.ConstantPropertyLiquidWater "Medium model";
+ package Medium = Buildings.Media.Water "Medium model";
  constant Integer nSeg = 7 "Number of segments in tank";
 
  parameter Modelica.SIunits.MassFlowRate m_flow_nominal= 1*1000/3600/4;
@@ -31,8 +31,6 @@ model StratifiedLoadingUnloading "Test model for stratified tank"
                                annotation (Placement(transformation(extent={{-30,-2},
             {-10,18}})));
 
-  inner Modelica.Fluid.System system
-    annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
   Sources.MassFlowSource_T sin_2(
     redeclare package Medium = Medium,
     T=273.15 + 20,
@@ -148,7 +146,7 @@ equation
       points={{41,90},{90,90},{90,-22},{78,-22}},
       color={0,0,127},
       smooth=Smooth.None));
-  annotation(                      __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Storage/Examples/StratifiedLoadingUnloading.mos"
+  annotation (                     __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Storage/Examples/StratifiedLoadingUnloading.mos"
         "Simulate and plot"),
     Documentation(info="<html>
 This test model compares two tank models. The only difference between

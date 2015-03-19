@@ -9,14 +9,13 @@ model CoilRegister "Register for a heat exchanger"
   replaceable package Medium2 =
       Modelica.Media.Interfaces.PartialMedium "Medium 2 in the component"
       annotation (choicesAllMatching = true);
-  outer Modelica.Fluid.System system "System wide properties";
 
-  parameter Boolean allowFlowReversal1 = system.allowFlowReversal
-    "= true to allow flow reversal in medium 1, false restricts to design direction (port_a -> port_b)"
-    annotation(Dialog(tab="Assumptions"), Evaluate=true);
-  parameter Boolean allowFlowReversal2 = system.allowFlowReversal
-    "= true to allow flow reversal in medium 2, false restricts to design direction (port_a -> port_b)"
-    annotation(Dialog(tab="Assumptions"), Evaluate=true);
+  constant Boolean initialize_p1 = not Medium1.singleState
+    "Set to true to initialize the pressure of volume 1"
+    annotation(HideResult=true);
+  constant Boolean initialize_p2 = not Medium2.singleState
+    "Set to true to initialize the pressure of volume 2"
+    annotation(HideResult=true);
 
   parameter Integer nPipPar(min=1)=2
     "Number of parallel pipes in each register";
@@ -25,12 +24,12 @@ model CoilRegister "Register for a heat exchanger"
   final parameter Integer nEle = nPipPar * nPipSeg
     "Number of heat exchanger elements";
 
-  parameter Boolean initialize_p1 = not Medium1.singleState
-    "Set to true to initialize the pressure of volume 1"
-    annotation(Dialog(tab = "Initialization", group = "Medium 1"));
-  parameter Boolean initialize_p2 = not Medium2.singleState
-    "Set to true to initialize the pressure of volume 2"
-    annotation(Dialog(tab = "Initialization", group = "Medium 2"));
+  parameter Boolean allowFlowReversal1 = true
+    "= true to allow flow reversal in medium 1, false restricts to design direction (port_a -> port_b)"
+    annotation(Dialog(tab="Assumptions"), Evaluate=true);
+  parameter Boolean allowFlowReversal2 = true
+    "= true to allow flow reversal in medium 2, false restricts to design direction (port_a -> port_b)"
+    annotation(Dialog(tab="Assumptions"), Evaluate=true);
 
   replaceable Buildings.Fluid.HeatExchangers.BaseClasses.HexElementSensible ele[nPipPar, nPipSeg]
     constrainedby Buildings.Fluid.HeatExchangers.BaseClasses.PartialHexElement(
@@ -97,9 +96,9 @@ model CoilRegister "Register for a heat exchanger"
   annotation(Dialog(group = "Nominal condition", enable=not (energyDynamics==Modelica.Fluid.Types.Dynamics.SteadyState)));
 
   Modelica.SIunits.HeatFlowRate Q1_flow
-    "Heat transfered from solid into medium 1";
+    "Heat transferred from solid into medium 1";
   Modelica.SIunits.HeatFlowRate Q2_flow
-    "Heat transfered from solid into medium 2";
+    "Heat transferred from solid into medium 2";
   parameter Modelica.SIunits.Time tau_m=60
     "Time constant of metal at nominal UA value"
     annotation (Dialog(group="Nominal condition"));
@@ -183,6 +182,19 @@ between the fluid volumes and the solid in each heat exchanger element.
 </html>",
 revisions="<html>
 <ul>
+<li>
+February 5, 2015, by Michael Wetter:<br/>
+Changed <code>initalize_p</code> from a <code>parameter</code> to a
+<code>constant</code>. This is only required in finite volume models
+of heat exchangers (to avoid consistent but redundant initial conditions)
+and hence it should be set as a <code>constant</code>.
+</li>
+<li>
+December 22, 2014 by Michael Wetter:<br/>
+Removed <code>Modelica.Fluid.System</code>
+to address issue
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/311\">#311</a>.
+</li>
 <li>
 August 10, 2014, by Michael Wetter:<br/>
 Reformulated the multiple iterators in the <code>sum</code> function

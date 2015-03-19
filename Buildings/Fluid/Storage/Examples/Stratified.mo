@@ -2,7 +2,7 @@ within Buildings.Fluid.Storage.Examples;
 model Stratified "Test model for stratified tank"
   extends Modelica.Icons.Example;
 
- package Medium = Buildings.Media.ConstantPropertyLiquidWater "Medium model";
+ package Medium = Buildings.Media.Water "Medium model";
 
   Buildings.Fluid.Storage.Stratified tanSim(
     redeclare package Medium = Medium,
@@ -83,8 +83,6 @@ model Stratified "Test model for stratified tank"
   Buildings.HeatTransfer.Sources.PrescribedTemperature TBCTop2
     "Boundary condition for tank" annotation (Placement(transformation(extent={
             {-40,32},{-28,44}})));
-  inner Modelica.Fluid.System system
-    annotation (Placement(transformation(extent={{-100,-100},{-80,-80}})));
 equation
   connect(TWat.y, sou_1.T_in) annotation (Line(
       points={{-79,12},{-62,12}},

@@ -1,7 +1,7 @@
 within Buildings.Fluid.HeatExchangers.Boreholes.Examples;
 model UTube "Model that tests the borehole model"
   extends Modelica.Icons.Example;
- package Medium = Buildings.Media.ConstantPropertyLiquidWater;
+ package Medium = Buildings.Media.Water;
   Buildings.Fluid.HeatExchangers.Boreholes.UTube borHol(
     redeclare each package Medium = Medium,
     hBor=150,
@@ -15,33 +15,31 @@ model UTube "Model that tests the borehole model"
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     TExt0_start=283.15,
     TFil0_start=283.15) "Borehole heat exchanger"
-    annotation (Placement(transformation(extent={{-16,-36},{16,-4}})));
-      inner Modelica.Fluid.System system
-    annotation (Placement(transformation(extent={{-100,-100},{-80,-80}})));
+    annotation (Placement(transformation(extent={{-16,-16},{16,16}})));
   Sources.Boundary_ph sin(nPorts=1, redeclare package Medium = Medium) "Sink"
-    annotation (Placement(transformation(extent={{56,-30},{36,-10}})));
+    annotation (Placement(transformation(extent={{56,-10},{36,10}})));
   Sources.MassFlowSource_T sou(
     nPorts=1,
     redeclare package Medium = Medium,
     use_m_flow_in=true,
     T=298.15) "Source"
-    annotation (Placement(transformation(extent={{-50,-30},{-30,-10}})));
+    annotation (Placement(transformation(extent={{-50,-10},{-30,10}})));
   Modelica.Blocks.Sources.Pulse pulse(
     amplitude=0.3,
     period=365*86400,
     startTime=365*86400/4)
-    annotation (Placement(transformation(extent={{-90,-30},{-70,-10}})));
+    annotation (Placement(transformation(extent={{-90,-10},{-70,10}})));
 equation
   connect(sou.ports[1], borHol.port_a)       annotation (Line(
-      points={{-30,-20},{-16,-20}},
+      points={{-30,0},{-16,0}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(borHol.port_b, sin.ports[1])      annotation (Line(
-      points={{16,-20},{36,-20}},
+      points={{16,0},{36,0}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(pulse.y, sou.m_flow_in)       annotation (Line(
-      points={{-69,-20},{-60,-20},{-60,-12},{-50,-12}},
+      points={{-69,0},{-60,0},{-60,8},{-50,8}},
       color={0,0,127},
       smooth=Smooth.None));
  annotation(__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/Boreholes/Examples/UTube.mos"
@@ -61,6 +59,12 @@ and
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+December 22, 2014 by Michael Wetter:<br/>
+Removed <code>Modelica.Fluid.System</code>
+to address issue
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/311\">#311</a>.
+</li>
 <li>
 September 27, 2013, by Michael Wetter:<br/>
 Corrected <code>StopTime</code> annotation.

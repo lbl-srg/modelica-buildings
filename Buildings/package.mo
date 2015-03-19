@@ -163,6 +163,11 @@ to <b style=\"color:blue\">existing</b> libraries:
 <tr><td colspan=\"2\"><b>Buildings.Fluid</b>
     </td>
 </tr>
+<tr><td valign=\"top\">Buildings.Fluid.Actuators.Valves.TwoWayPressureIndependent
+    </td>
+    <td valign=\"top\">Model of a pressure-independent two way valve.
+    </td>
+    </tr>
 <tr><td valign=\"top\">Buildings.Fluid.HeatExchangers.HeaterCooler_T
     </td>
     <td valign=\"top\">Model of a heater or cooler that takes as an input
@@ -182,6 +187,23 @@ to <b style=\"color:blue\">existing</b> libraries:
     </td>
     <td valign=\"top\">Block and function that computes the relative humidity
                        for given pressure, temperature and water vapor mass fraction.
+    </td>
+    </tr>
+
+<tr><td colspan=\"2\"><b>Buildings.Rooms</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Rooms.CFD
+    </td>
+    <td valign=\"top\">Room model that computes the room air flow 
+                       using computational fluid dynamics (CFD).
+                       The CFD simulation is coupled to the thermal simulation of the room
+                       and, through the fluid port, to the air conditioning system.
+                       Currently, the supported CFD program is the
+                       Fast Fluid Dynamics (FFD) program.
+                       See
+                       <a href=\"modelica://Buildings.Rooms.UsersGuide.CFD\">Buildings.Rooms.UsersGuide.CFD</a>
+                       for detailed explanations.
     </td>
     </tr>
 
@@ -205,6 +227,16 @@ have been <b style=\"color:blue\">improved</b> in a
 <tr><td colspan=\"2\"><b>Buildings.Fluid</b>
     </td>
 </tr>
+
+<tr><td valign=\"top\">Buildings.Chillers.ElectricEIR<br/>
+                       Buildings.Chillers.ElectricReformulatedEIR
+    </td>
+    <td valign=\"top\">Changed implementation so that the model
+                       is continuously differentiable.
+                       This is for issue
+                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/373\">373</a>.
+    </td>
+    </tr>
 
 <tr><td valign=\"top\">Buildings.Fluid.HeatExchangers.DryCoilCounterFlow
     </td>
@@ -265,7 +297,10 @@ have been <b style=\"color:blue\">improved</b> in a
                        Buildings.Fluid.SolarCollectors.EN12975
     </td>
     <td valign=\"top\">Reformulated the model to avoid an translation error
-                       if glycol is used.
+                       if glycol is used.<br/>
+                       Propagated parameters for initialization in base class 
+                       <code>Buildings.Fluid.SolarCollectors.BaseClasses.PartialSolarCollector</code>
+                       and set <code>prescribedHeatFlowRate=true</code>.
     </td>
     </tr>
 
@@ -289,8 +324,17 @@ have been <b style=\"color:blue\">improved</b> in a
                        This is needed to avoid an error during model check
                        and translation in Dymola 2015 FD01 beta1.
     </td>
-</tr>
-
+    </tr>
+    
+<tr><td valign=\"top\">Buildings.HeatTransfer.Windows.InteriorHeatTransferConvective
+    </td>
+    <td valign=\"top\">Changed model to allow a temperature dependent convective heat transfer
+                       on the room side.
+                       This is for issue
+                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/52\">52</a>.
+    </td>
+    </tr>
+    
 <tr><td colspan=\"2\"><b>Buildings.Media</b>
     </td>
 </tr>
@@ -309,7 +353,17 @@ have been <b style=\"color:blue\">improved</b> in a
 
 <tr><td colspan=\"2\"><b>Buildings.Rooms</b>
     </td>
-</tr>
+    </tr>
+    
+<tr><td valign=\"top\">Buildings.Rooms.MixedAir
+    </td>
+    <td valign=\"top\">Changed model to allow a temperature dependent convective heat transfer
+                       on the room side for windows.
+                       This is for issue
+                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/52\">52</a>.
+    </td>
+    </tr>    
+    
 <tr><td valign=\"top\">Rooms.BaseClasses.ExteriorBoundaryConditionsWithWindow
     </td>
     <td valign=\"top\">Conditionally removed the shade model if no shade is present.
@@ -379,7 +433,16 @@ have been <b style=\"color:blue\">improved</b> in a
 
 <tr><td colspan=\"2\"><b>Buildings.HeatTransfer</b>
     </td>
-</tr>
+    </tr>
+    
+<tr><td valign=\"top\">Buildings.HeatTransfer.Data.GlazingSystems.Generic
+    </td>
+    <td valign=\"top\">Removed parameter <code>nLay</code> as OpenModelica
+                       could not assign it during translation.
+                       For Dymola, the conversion script will automatically
+                       update existing models.
+    </td>
+</tr>        
 <tr><td valign=\"top\">Buildings.HeatTransfer.Conduction.BaseClasses.der_temperature_u
     </td>
     <td valign=\"top\">Changed the input argument for this function from type
@@ -388,10 +451,36 @@ have been <b style=\"color:blue\">improved</b> in a
                        model if the input to this function is a record.
     </td>
 </tr>
+<tr><td valign=\"top\">Buildings.HeatTransfer.Types.Azimuth<br/>
+                       Buildings.HeatTransfer.Types.Tilt
+    </td>
+    <td valign=\"top\">Moved these types from <code>Buildings.HeatTransfer</code>
+                       to the top-level package <code>Buildings</code> because
+                       they are used in <code>Buildings.BoundaryConditions</code>,
+                       <code>Buildings.HeatTransfer</code> and <code>Buildings.Rooms</code>.<br/>
+                       For Dymola, the conversion script will automatically
+                       update existing models.
+    </td>
+</tr>        
+
 
 <tr><td colspan=\"2\"><b>Buildings.Fluid</b>
     </td>
-</tr>
+    </tr>
+    
+<tr><td valign=\"top\">Buildings.Fluid.FixedResistances.Pipe<br/>
+                       Buildings.Fluid.FixedResistances.BaseClasses.Pipe<br/>
+                       Buildings.Fluid.HeatExchangers.RadiantSlabs.SingleCircuitSlab
+    </td>
+    <td valign=\"top\">Renamed pressure drop from <code>res</code> to
+                       <code>preDro</code> to use the same name as in other models.
+                       This corrects
+                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/271\">#271</a>.
+                       For Dymola, the conversion script will automatically
+                       update existing models.
+    </td>
+</tr>    
+    
 <tr><td valign=\"top\">Buildings.Fluid.HeatExchangers.DryCoilDiscretized<br/>
                        Buildings.Fluid.HeatExchangers.WetCoilDiscretized
     </td>
@@ -413,7 +502,7 @@ have been <b style=\"color:blue\">improved</b> in a
 
 <tr><td valign=\"top\">Buildings.Fluid.HeatExchangers.HeaterCoolerPrescribed
     </td>
-    <td valign=\"top\">Renamed the model to <code>HeaterCooler_u</code> due to 
+    <td valign=\"top\">Renamed the model to <code>HeaterCooler_u</code> due to
                        the introduction of the new model <code>HeaterCooler_T</code>.<br/>
                        For Dymola, the conversion script will automatically
                        update existing models.
@@ -467,7 +556,7 @@ have been <b style=\"color:blue\">improved</b> in a
 
 <tr><td valign=\"top\">Buildings.Fluid.MassExchangers.HumidifierPrescribed
     </td>
-    <td valign=\"top\">Renamed the model to <code>Humidifier_u</code> due to 
+    <td valign=\"top\">Renamed the model to <code>Humidifier_u</code> due to
                        the introduction of the new model <code>HeaterCooler_T</code>
                        and to use the same naming pattern as <code>HeaterCooler_u</code>.<br/>
                        For Dymola, the conversion script will automatically
@@ -530,8 +619,41 @@ have been <b style=\"color:blue\">improved</b> in a
 <tr><td colspan=\"2\"><b>Buildings.Media</b>
     </td>
 </tr>
-<tr><td valign=\"top\">Buildings.Media.ConstantPropertyLiquidWater<br/>
-                       Buildings.Media.Interfaces.PartialSimpleMedium
+<tr><td valign=\"top\">Buildings.Media
+    </td>
+<td>
+                       Renamed all media to simplify the media selection.
+                       For typical building energy simulation,
+                       <a href=\"modelica://Buildings.Media.Air\">Buildings.Media.Air</a> and
+                       <a href=\"modelica://Buildings.Media.Water\">Buildings.Media.Water</a>
+                       should be used.<br/><br/>
+                       The following changes were made.<br/><br/>
+                       Renamed <code>Buildings.Media.GasesPTDecoupled.MoistAirUnsaturated</code><br/>
+                       to <code>Buildings.Media.Air</code>.<br/><br/>
+                       Renamed <code>Buildings.Media.ConstantPropertyLiquidWater</code><br/>
+                       to <code>Buildings.Media.Water</code>.<br/><br/>
+                       Renamed <code>Buildings.Media.PerfectGases.MoistAir</code><br/>
+                       to <code>Buildings.Obsolete.Media.PerfectGases.MoistAir</code>.<br/><br/>
+                       Renamed <code>Buildings.Media.GasesConstantDensity.MoistAirUnsaturated</code><br/>
+                       to <code>Buildings.Obsolete.Media.GasesConstantDensity.MoistAirUnsaturated</code>.<br/><br/>
+                       Renamed <code>Buildings.Media.GasesConstantDensity.MoistAir</code><br/>
+                       to <code>Buildings.Obsolete.Media.GasesConstantDensity.MoistAir</code>.<br/><br/>
+                       Renamed <code>Buildings.Media.GasesConstantDensity.SimpleAir</code><br/>
+                       to <code>Buildings.Obsolete.Media.GasesConstantDensity.SimpleAir</code>.<br/><br/>
+                       Renamed <code>Buildings.Media.IdealGases.SimpleAir</code><br/>
+                       to <code>Buildings.Obsolete.Media.IdealGases.SimpleAir</code>.<br/><br/>
+                       Renamed <code>Buildings.Media.GasesPTDecoupled.MoistAir</code><br/>
+                       to <code>Buildings.Obsolete.Media.GasesPTDecoupled.MoistAir</code>.<br/><br/>
+                       Renamed <code>Buildings.Media.GasesPTDecoupled.SimpleAir</code><br/>
+                       to <code>Buildings.Obsolete.Media.GasesPTDecoupled.SimpleAir</code>.<br/><br/>
+                       For Dymola, the conversion script will
+                       update existing models according to the above list.
+
+</td>
+</tr>
+
+
+<tr><td valign=\"top\">Buildings.Media.Water
     </td>
     <td valign=\"top\">Removed option to model water as a compressible medium as
                        this option was not useful.
@@ -547,6 +669,22 @@ have been <b style=\"color:blue\">improved</b> in a
                        <code>ove</code> and <code>sidFin</code>.<br/>
                        Models that instantiate <code>Buildings.Rooms.MixedAir</code> are
                        not affected by this change.
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Rooms.Examples.BESTEST
+    </td>
+    <td valign=\"top\">Moved the package to <code>Buildings.Rooms.Validation.BESTEST</code>.
+    </td>
+</tr>
+<tr><td colspan=\"2\"><b>Buildings.Utilities</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Utilities.SimulationTime
+    </td>
+    <td valign=\"top\">Moved the block <code>Buildings.Utilities.SimulationTime</code>
+                       to <code>Buildings.Utilities.Time.ModelTime</code>.<br/>
+                       For Dymola, the conversion script will
+                       update existing models according to the above list.
     </td>
 </tr>
 
@@ -576,7 +714,13 @@ that can lead to wrong simulation results):
     <td valign=\"top\">Corrected wrong entries for inner and outer diameter
                        of PEX pipes.
     </td>
-</tr>
+    </tr>
+<tr><td valign=\"top\">Buildings.Fluid.HeatExchangers.Boreholes.BaseClasses.singleUTubeResistances
+    </td>
+    <td valign=\"top\">Corrected error in function that used <code>beta</code>
+                       before it was assigned a value.
+    </td>
+</tr>    
 <tr><td valign=\"top\">Buildings.Fluid.Storage.Stratified<br/>
                        Buildings.Fluid.Storage.StratifiedEnhanced<br/>
                        Buildings.Fluid.Storage.StratifiedEnhancedInternalHex
@@ -1277,7 +1421,7 @@ have been <b style=\"color:blue\">improved</b> in a
                        Buildings.Fluid.Interfaces.StaticTwoPortHeatMassExchanger<br/>
                        Buildings.Fluid.Interfaces.TwoPortHeatMassExchanger<br/>
                        Buildings.Fluid.MixingVolumes.BaseClasses.PartialMixingVolume<br/>
-                       Buildings.Fluid.Movers.BaseClasses.ControlledFlowMachine<br/>
+                       Buildings.Fluid.Movers.BaseClasses.FlowControlled<br/>
                        Buildings.Fluid.Movers.BaseClasses.IdealSource<br/>
                        Buildings.Fluid.Movers.BaseClasses.PrescribedFlowMachine<br/>
     </td>
@@ -1329,7 +1473,7 @@ have been <b style=\"color:blue\">improved</b> in a
                        Buildings.Fluid.FixedResistances.Pipe<br/>
                        Buildings.Fluid.HeatExchangers.RadiantSlabs.ParallelCircuitsSlab<br/>
                        Buildings.Fluid.HeatExchangers.RadiantSlabs.SingleCircuitSlab<br/>
-                       Buildings.Fluid.Movers.BaseClasses.ControlledFlowMachine
+                       Buildings.Fluid.Movers.BaseClasses.FlowControlled
     </td>
     <td valign=\"top\">Renamed <code>X_nominal</code> to <code>X_default</code>
                        or <code>X_start</code>, where <code>X</code> may be
@@ -2275,7 +2419,7 @@ have been <b style=\"color:blue\">improved</b> in a
     </td>
 </tr>
 <tr><td valign=\"top\">Buildings.Media.GasesPTDecoupled.MoistAir<br/>
-                       Buildings.Media.GasesPTDecoupled.MoistAirUnsaturated<br/>
+                       Buildings.Media.Air<br/>
                        Buildings.Media.PerfectGases.MoistAir<br/>
                        Buildings.Media.PerfectGases.MoistAirUnsaturated<br/>
                        Buildings.Media.GasesConstantDensity.MoistAir<br/>
@@ -3805,8 +3949,8 @@ to
 Buildings.Media.PerfectGases.MoistAirUnsaturated</a>
 and <code>Buildings.Media.GasesPTDecoupled.MoistAirNoLiquid</code>
 to
-<a href=\"modelica://Buildings.Media.GasesPTDecoupled.MoistAirUnsaturated\">
-Buildings.Media.GasesPTDecoupled.MoistAirUnsaturated</a>,
+<a href=\"modelica://Buildings.Media.Air\">
+Buildings.Media.Air</a>,
 and added <code>assert</code> statements if saturation occurs.
 </li>
 <li>
@@ -3824,8 +3968,8 @@ Buildings.Media.PerfectGases.MoistAirUnsaturated.T_phX</a>.
 </li>
 <li>
 Added implementation of function
-<a href=\"modelica://Buildings.Media.GasesPTDecoupled.MoistAirUnsaturated.enthalpyOfNonCondensingGas\">
-Buildings.Media.GasesPTDecoupled.MoistAirUnsaturated.enthalpyOfNonCondensingGas</a> and its derivative.
+<a href=\"modelica://Buildings.Media.Air.enthalpyOfNonCondensingGas\">
+Buildings.Media.Air.enthalpyOfNonCondensingGas</a> and its derivative.
 </li>
 <li>
 In <a href=\"modelica://Buildings.Media.PerfectGases.MoistAir\">
@@ -4342,6 +4486,8 @@ The following people have directly contributed to the implementation of the Buil
 </li>
 <li>Roman Ilk, University of Applied Sciences Technikum Wien, Austria
 </li>
+<li>Dan Li, University of Miami, Florida, USA
+</li>
 <li>Filip Mathadon, KU Leuven, Belgium
 </li>
 <li>Thierry S. Nouidui, Lawrence Berkeley National Laboratory, USA
@@ -4354,7 +4500,11 @@ The following people have directly contributed to the implementation of the Buil
 </li>
 <li>Kaustubh Phalak, Lawrence Berkeley National Laboratory, USA
 </li>
+<li>Thomas Sevilla, University of Miami, Florida, USA
+</li>
 <li>Martin Sj&ouml;lund, Link&ouml;ping University, Sweden
+</li>
+<li>Wei Tian, University of Miami, Florida, USA
 </li>
 <li>Armin Teskeredzic, Mechanical Engineering Faculty Sarajevo and GIZ, Bosnia and Herzegovina
 </li>
@@ -4368,7 +4518,7 @@ The following people have directly contributed to the implementation of the Buil
 </li>
 <li>Michael Wetter, Lawrence Berkeley National Laboratory, USA
 </li>
-<li>Wangda Zuo, Lawrence Berkeley National Laboratory, USA
+<li>Wangda Zuo, University of Miami, Florida, USA
 </li>
 </ul>
 </html>"));
@@ -4605,16 +4755,16 @@ is available at
 <a href=\"http://simulationresearch.lbl.gov/modelica/userGuide\">
 http://simulationresearch.lbl.gov/modelica/userGuide</a>.
 This web site covers general information that is not specific to the
-use of individual sublibraries or models.
+use of individual packages or models.
 Discussed topics include
 how to get started, best practices, how to post-process results using Python,
 work-around for problems and how to develop models.<br/>
 </li>
 <li>
-Some of the main sublibraries have their own
+Some of packages have their own
 User's Guides that can be accessed by the links below.
-These User's Guides are discussing items that are specific to the
-individual libraries.<br/>
+These User's Guides are explaining items that are specific to the
+particular package.<br/>
 <table summary=\"summary\" border=1 cellspacing=0 cellpadding=2>
 <tr><td valign=\"top\"><a href=\"modelica://Buildings.Airflow.Multizone.UsersGuide\">Airflow.Multizone</a>
    </td>
@@ -4662,10 +4812,23 @@ individual libraries.<br/>
    </td>
    <td valign=\"top\">Package for heat transfer in building constructions.</td>
 </tr>
-<tr><td valign=\"top\"><a href=\"modelica://Buildings.Rooms.UsersGuide\">Rooms</a>
+<tr><td valign=\"top\"><a href=\"modelica://Buildings.Rooms.UsersGuide.MixedAir\">Rooms.MixedAir</a>
    </td>
-   <td valign=\"top\">Package for heat transfer in rooms and through the building envelope.</td>
+   <td valign=\"top\">Package for heat transfer in rooms and through the building envelope with the
+                      room air being modeled using the mixed air assumption.</td>
 </tr>
+<tr><td valign=\"top\"><a href=\"modelica://Buildings.Rooms.UsersGuide.MixedAir\">Rooms.CFD</a>
+   </td>
+   <td valign=\"top\">Package for heat transfer in rooms and through the building envelope with the
+                      room air being modeled using computational fluid dynamics.</td>
+</tr>
+
+<tr><td valign=\"top\"><a href=\"modelica://Buildings.Rooms.Examples.FFD.UsersGuide\">Rooms.Examples.FFD</a>
+   </td>
+   <td valign=\"top\">Package with examples that use the Fast Fluid Dynamics program for
+                      the computational fluid dynamics.</td>
+</tr>
+
 <tr><td valign=\"top\"><a href=\"modelica://Buildings.Utilities.IO.Python27.UsersGuide\">Utilities.IO.Python27</a>
    </td>
    <td valign=\"top\">Package to call Python functions from Modelica.</td>

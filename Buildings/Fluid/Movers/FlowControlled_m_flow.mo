@@ -1,7 +1,7 @@
 within Buildings.Fluid.Movers;
 model FlowControlled_m_flow
   "Fan or pump with ideally controlled mass flow rate as input signal"
-  extends Buildings.Fluid.Movers.BaseClasses.ControlledFlowMachine(
+  extends Buildings.Fluid.Movers.BaseClasses.FlowControlled(
     final control_m_flow=true,
     preSou(m_flow_start=m_flow_start));
 
@@ -101,6 +101,10 @@ User's Guide</a> for more information.
 </html>",
       revisions="<html>
 <ul>
+<li>
+January 6, 2015, by Michael Wetter:<br/>
+Revised model for OpenModelica.
+</li>
 <li>
 February 14, 2012, by Michael Wetter:<br/>
 Added filter for start-up and shut-down transient.

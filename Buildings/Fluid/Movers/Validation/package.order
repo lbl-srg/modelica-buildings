@@ -3,6 +3,7 @@ ControlledFlowMachineDynamic
 FlowControlled_dp
 FlowControlled_m_flow
 Power
+PumpCurveConstruction
 Pump_Nrpm_stratos
 Pump_stratos
 SpeedControlled_Nrpm

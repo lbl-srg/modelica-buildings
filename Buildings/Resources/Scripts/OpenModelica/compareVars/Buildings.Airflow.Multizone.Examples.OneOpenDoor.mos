@@ -1,0 +1,11 @@
+compareVars :=
+  {
+    "dooOpe.vAB",
+    "dooOpe.vBA",
+    "dooOpeClo.vAB",
+    "dooOpeClo.vBA",
+    "dooOpe.mAB_flow",
+    "dooOpe.mBA_flow",
+    "dooOpeClo.mAB_flow",
+    "dooOpeClo.mBA_flow"
+  };

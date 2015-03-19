@@ -39,6 +39,7 @@ See
 <a href=\"modelica://Buildings.Fluid.HeatExchangers.Examples.Heater_T\">
 Buildings.Fluid.HeatExchangers.Examples.Heater_T</a>
 for a model that takes the leaving air temperature as an input.
+</p>
 </html>", revisions="<html>
 <ul>
 <li>
@@ -51,6 +52,5 @@ First implementation.
         "Simulate and plot"),
     experiment(
       StopTime=172800,
-      Tolerance=1e-05,
-      __Dymola_Algorithm="Radau"));
+      Tolerance=1e-05));
 end Heater_u;

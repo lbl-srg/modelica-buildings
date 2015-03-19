@@ -2,10 +2,10 @@ within Buildings.Fluid.HeatExchangers.Examples;
 model WetCoilCounterFlowPControl
   "Model that demonstrates use of a heat exchanger with condensation and with feedback control"
   extends Modelica.Icons.Example;
-  package Medium1 = Buildings.Media.ConstantPropertyLiquidWater;
-  package Medium2 = Buildings.Media.PerfectGases.MoistAirUnsaturated;
+  package Medium1 = Buildings.Media.Water;
+  package Medium2 = Buildings.Media.Air;
   //package Medium2 = Buildings.Media.GasesPTDecoupled.MoistAir;
-  //package Medium2 = Buildings.Media.GasesPTDecoupled.MoistAirUnsaturated;
+  //package Medium2 = Buildings.Media.Air;
   //package Medium2 = Buildings.Media.GasesConstantDensity.MoistAir;
   parameter Modelica.SIunits.Temperature T_a1_nominal=5 + 273.15;
   parameter Modelica.SIunits.Temperature T_b1_nominal=10 + 273.15;
@@ -88,8 +88,6 @@ model WetCoilCounterFlowPControl
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
                              annotation (Placement(transformation(extent={{60,
             16},{80,36}})));
-  inner Modelica.Fluid.System system
-    annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
   Modelica.Blocks.Sources.Constant const(k=0.8)
     annotation (Placement(transformation(extent={{100,-70},{120,-50}})));
   Buildings.Utilities.Psychrometrics.X_pTphi x_pTphi(use_p_in=false)
@@ -187,6 +185,12 @@ for the air outlet.
 </html>",
 revisions="<html>
 <ul>
+<li>
+December 22, 2014 by Michael Wetter:<br/>
+Removed <code>Modelica.Fluid.System</code>
+to address issue
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/311\">#311</a>.
+</li>
 <li>
 March 1, 2013, by Michael Wetter:<br/>
 Added nominal pressure drop for valve as

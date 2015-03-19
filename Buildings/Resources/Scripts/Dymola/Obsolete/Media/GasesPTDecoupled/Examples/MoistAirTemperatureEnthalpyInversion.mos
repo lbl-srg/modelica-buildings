@@ -1,0 +1,11 @@
+simulateModel("Buildings.Obsolete.Media.GasesPTDecoupled.Examples.MoistAirTemperatureEnthalpyInversion", method="dassl", resultFile="GasesPTDecoupledMoistAirTemperatureEnthalpyInversion");
+createPlot(id = 1,
+ position = {31, 30, 400, 280},
+ y = {"T"},
+ grid = true,
+ subPlot = 2);
+createPlot(id = 1,
+ position = {31, 30, 400, 137},
+ y = {"h"},
+ grid = true,
+ subPlot = 2);

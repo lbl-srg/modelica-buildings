@@ -1,6 +1,6 @@
 within Buildings.Controls.Predictors.Examples;
 model BESTEST "This example applies the load prediction to a BESTEST model"
-  extends Buildings.Rooms.Examples.BESTEST.Case600;
+  extends Buildings.Rooms.Validation.BESTEST.Case600;
   ElectricalLoad preReg(predictionModel=Buildings.Controls.Predictors.Types.PredictionModel.WeatherRegression)
     "Load prediction based on regression"
     annotation (Placement(transformation(extent={{160,10},{180,30}})));
@@ -44,8 +44,7 @@ equation
           preserveAspectRatio=false), graphics),
     experiment(
       StopTime=2678400,
-      Tolerance=1e-05,
-      __Dymola_Algorithm="Radau"),
+      Tolerance=1e-05),
     __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/Predictors/Examples/BESTEST.mos"
         "Simulate and plot"),
     Documentation(info="<html>

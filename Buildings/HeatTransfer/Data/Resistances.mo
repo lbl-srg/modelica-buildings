@@ -24,8 +24,9 @@ package Resistances "Package with thermal resistances"
             extent={{-98,-72},{96,-94}},
             lineColor={0,0,255},
             textString="R=%R")}),
-      defaultComponentName="mat",
-                Documentation(info="<html>
+defaultComponentPrefixes="parameter",
+defaultComponentName="datTheRes",
+Documentation(info="<html>
 Generic record for thermal properties of
 heat resistances.
 </html>",
@@ -39,8 +40,13 @@ First implementation.
 </html>"));
   end Generic;
 
-  record Carpet = Buildings.HeatTransfer.Data.Resistances.Generic (R=0.2165) "Carpet";
-    annotation (Documentation(info="<html>
+  record Carpet = Buildings.HeatTransfer.Data.Resistances.Generic (R=0.2165) "Carpet"
+    annotation(
+      defaultComponentPrefixes="parameter",
+      defaultComponentName="datTheRes");
+
+annotation (
+Documentation(info="<html>
 Package with records that implement thermal properties of
 heat resistances.
 </html>",

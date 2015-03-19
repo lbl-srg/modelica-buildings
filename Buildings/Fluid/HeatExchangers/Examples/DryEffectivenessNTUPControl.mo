@@ -3,11 +3,8 @@ model DryEffectivenessNTUPControl
   "Model that demonstrates use of a heat exchanger without condensation that uses the epsilon-NTU relation with feedback control"
   extends Modelica.Icons.Example;
 
- package Medium1 = Buildings.Media.ConstantPropertyLiquidWater;
- //package Medium2 = Buildings.Media.PerfectGases.MoistAir;
- //package Medium2 = Buildings.Media.GasesPTDecoupled.MoistAir;
- // package Medium2 = Buildings.Media.GasesPTDecoupled.MoistAirUnsaturated;
- package Medium2 = Buildings.Media.GasesPTDecoupled.SimpleAir;
+ package Medium1 = Buildings.Media.Water "Medium model for water";
+ package Medium2 = Buildings.Media.Air "Medium model for air";
   parameter Modelica.SIunits.Temperature T_a1_nominal = 60+273.15
     "Temperature at nominal conditions as port a1";
   parameter Modelica.SIunits.Temperature T_b1_nominal = 50+273.15
@@ -86,8 +83,6 @@ model DryEffectivenessNTUPControl
                          annotation (Placement(transformation(extent={{60,16},{
             80,36}})));
 
-  inner Modelica.Fluid.System system
-    annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
 equation
   connect(val.port_b, hex.port_a1)                   annotation (Line(points={{50,60},
           {52,60},{52,32},{60,32}},        color={0,127,255}));
@@ -139,6 +134,12 @@ for the air outlet.
 </html>",
 revisions="<html>
 <ul>
+<li>
+December 22, 2014 by Michael Wetter:<br/>
+Removed <code>Modelica.Fluid.System</code>
+to address issue
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/311\">#311</a>.
+</li>
 <li>
 July 3, 2014, by Michael Wetter:<br/>
 Changed pressure sink to mass flow rate sink to avoid an overdetermined

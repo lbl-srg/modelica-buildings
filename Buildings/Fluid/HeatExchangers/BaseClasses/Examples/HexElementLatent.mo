@@ -2,8 +2,8 @@ within Buildings.Fluid.HeatExchangers.BaseClasses.Examples;
 model HexElementLatent
   "Model that tests the basic element that is used to built heat exchanger models"
   extends Modelica.Icons.Example;
- package Medium_W = Buildings.Media.ConstantPropertyLiquidWater;
- package Medium_A = Buildings.Media.PerfectGases.MoistAirUnsaturated;
+ package Medium_W = Buildings.Media.Water;
+ package Medium_A = Buildings.Media.Air;
   Buildings.Fluid.Sources.Boundary_pT sin_2(
     redeclare package Medium = Medium_A,
     use_p_in=true,
@@ -82,8 +82,6 @@ model HexElementLatent
              annotation (Placement(transformation(extent={{70,-30},{50,-10}})));
   Modelica.Blocks.Sources.Constant hACon(k=10000) "Convective heat transfer"
     annotation (Placement(transformation(extent={{-20,60},{0,80}})));
-  inner Modelica.Fluid.System system
-    annotation (Placement(transformation(extent={{-100,-100},{-80,-80}})));
 equation
   connect(TDb.y, sou_1.T_in) annotation (Line(
       points={{-79,54},{-79,54},{-62,54}},

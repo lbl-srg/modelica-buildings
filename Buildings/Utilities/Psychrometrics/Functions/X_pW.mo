@@ -3,8 +3,7 @@ function X_pW "Humidity ratio for given water vapor pressure"
   extends Modelica.Icons.Function;
   input Modelica.SIunits.Pressure p_w(displayUnit="Pa",
                                       min=0.003,
-                                      nominal=1000)
-    "Water vapor pressure";
+                                      nominal=1000) "Water vapor pressure";
   input Modelica.SIunits.Pressure p=101325 "Total pressure";
   output Modelica.SIunits.MassFraction X_w(
     min=0,

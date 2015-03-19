@@ -3,8 +3,8 @@ model Overhang "Test model for the overhang"
   extends Modelica.Icons.Example;
   Buildings.BoundaryConditions.SolarGeometry.IncidenceAngle incAng(
     lat=weaDat.lat,
-    azi=Buildings.HeatTransfer.Types.Azimuth.S,
-    til=Buildings.HeatTransfer.Types.Tilt.Wall)
+    azi=Buildings.Types.Azimuth.S,
+    til=Buildings.Types.Tilt.Wall)
     "Solar incidence angle on a tilted surface"
     annotation (Placement(transformation(extent={{-40,0},{-20,20}})));
   Buildings.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam="modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos")
@@ -12,7 +12,7 @@ model Overhang "Test model for the overhang"
     annotation (Placement(transformation(extent={{-100,20},{-80,40}})));
   Buildings.HeatTransfer.Windows.BaseClasses.Overhang ove(
     gap=0.1,
-    azi=Buildings.HeatTransfer.Types.Azimuth.S,
+    azi=Buildings.Types.Azimuth.S,
     lat=weaDat.lat,
     wL=0,
     wR=0.95,

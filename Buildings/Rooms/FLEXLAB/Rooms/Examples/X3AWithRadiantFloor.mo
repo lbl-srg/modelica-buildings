@@ -2,9 +2,8 @@ within Buildings.Rooms.FLEXLAB.Rooms.Examples;
 model X3AWithRadiantFloor "Example model showing a use of X3A"
   extends Modelica.Icons.Example;
 
-  package Air = Buildings.Media.GasesConstantDensity.MoistAirUnsaturated
-    "Air model used in the example model";
-  package Water = Buildings.Media.ConstantPropertyLiquidWater
+  package Air = Buildings.Media.Air "Air model used in the example model";
+  package Water = Buildings.Media.Water
     "Water model used in the radiant slab loop";
 
   Buildings.Rooms.FLEXLAB.Rooms.X3A.TestCell X3A(
@@ -175,8 +174,6 @@ model X3AWithRadiantFloor "Example model showing a use of X3A"
     table=[0,0,0,0; 86400,0,0,0], tableOnFile=false)
     "Internal gain heat flow for the closet"
     annotation (Placement(transformation(extent={{-12,132},{8,152}})));
-  inner Modelica.Fluid.System system
-    annotation (Placement(transformation(extent={{180,-210},{200,-190}})));
   Modelica.Blocks.Sources.CombiTimeTable watCon4A2(tableOnFile=false, table=[0,
         0.504,293.15; 86400,0.504,293.15])
     "Inlet water conditions (y[1] = m_flow, y[2] =  T)"
@@ -399,15 +396,15 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(intGai.y, X3A.qGai_flow) annotation (Line(
-      points={{-175,102},{-140,102},{-140,68},{-118,68}},
+      points={{-175,102},{-140,102},{-140,66},{-112,66}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(intGaiEle.y, ele.qGai_flow)    annotation (Line(
-      points={{-47,-6},{20,-6},{20,-50},{46,-50}},
+      points={{-47,-6},{20,-6},{20,-52},{52,-52}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(intGaiClo.y,clo. qGai_flow) annotation (Line(
-      points={{9,142},{120,142},{120,122},{148,122}},
+      points={{9,142},{120,142},{120,120},{154,120}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(preT.port,clo. surf_conBou[3]) annotation (Line(
@@ -794,7 +791,7 @@ equation
           </tr>
           </table>
           <p>
-          In the above table blank entires either show that there is no data to describe, or that the data
+          In the above table blank entries either show that there is no data to describe, or that the data
           is describing a quantity for a separate model. Two examples are:
           <ul>
           <li>The table for shaPos only contains data for shade position. Because it only has a y[1] value
@@ -802,7 +799,7 @@ equation
           <li> airCon, airConClo, and airConEle all share an external data file. They all use the same
           temperature data, located in y[4] of the external data file. The three room models use different
           air mass flow rates. airCon uses the flow rate from y[1] in the data file, airConClo uses the
-          flow rate from y[2], and airConEle uses the flow rate from y[3]. Thus, the other entires
+          flow rate from y[2], and airConEle uses the flow rate from y[3]. Thus, the other entries
           for each row in the table are left blank because the data is innapropriate for that particular
           model.</li>
           </ul>
@@ -814,6 +811,12 @@ equation
           </html>",
           revisions = "<html>
           <ul>
+          <li>
+          December 22, 2014 by Michael Wetter:<br/>
+          Removed <code>Modelica.Fluid.System</code>
+          to address issue
+          <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/311\">#311</a>.
+          </li>
           <li>September 2, 2014, by Michael Wetter:<br/>
           Corrected wrong pipe diameter.
           </li>

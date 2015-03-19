@@ -1,8 +1,9 @@
 within Buildings.Airflow.Multizone.Examples;
 model NaturalVentilation
+  "Test model for flow reversal due to density difference"
   extends Modelica.Icons.Example;
 
-  package Medium = Buildings.Media.IdealGases.SimpleAir;
+  package Medium = Buildings.Media.Air;
 
   Buildings.Fluid.MixingVolumes.MixingVolume volA(
     redeclare package Medium = Medium,
@@ -52,8 +53,6 @@ model NaturalVentilation
     offset=100,
     startTime=3600) annotation (Placement(transformation(extent={{-84,-20},{-64,
             0}})));
-  inner Modelica.Fluid.System system
-    annotation (Placement(transformation(extent={{120,-80},{140,-60}})));
 equation
   connect(q_flow.y, preHeaFlo.Q_flow)
     annotation (Line(points={{-63,-10},{-49,-10}}, color={0,0,255}));
@@ -105,6 +104,12 @@ heat is added to the room air volume, its temperature raises above the temperatu
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+December 22, 2014 by Michael Wetter:<br/>
+Removed <code>Modelica.Fluid.System</code>
+to address issue
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/311\">#311</a>.
+</li>
 <li>
 November 10, 2011, by Michael Wetter:<br/>
 Added documentation.

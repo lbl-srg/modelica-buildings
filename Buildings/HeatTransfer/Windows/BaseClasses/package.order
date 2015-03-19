@@ -3,6 +3,7 @@ CenterOfGlass
 ExteriorConvectionCoefficient
 GasConvection
 GlassLayer
+InteriorConvection
 InteriorConvectionCoefficient
 Overhang
 PartialRadiation

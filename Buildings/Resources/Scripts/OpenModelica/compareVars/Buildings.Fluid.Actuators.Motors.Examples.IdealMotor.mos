@@ -1,0 +1,11 @@
+compareVars :=
+  {
+    "mot.y",
+    "mot.uppHys.y",
+    "mot.delta",
+    "ySet.y",
+    "mot.lowHys.u",
+    "mot.lowHys.y",
+    "mot.uppHys.u",
+    "mot.uppHys.y"
+  };

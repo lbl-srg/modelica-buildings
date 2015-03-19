@@ -2,10 +2,7 @@ within Buildings.Fluid.HeatExchangers.Boreholes.BaseClasses.Examples;
 model BoreholeSegment
   "Model that tests a basic segment that is used to build a borehole"
   extends Modelica.Icons.Example;
-   inner Modelica.Fluid.System system
-    annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
- package Medium = Buildings.Media.ConstantPropertyLiquidWater
-    "Medium in the pipes";
+ package Medium = Buildings.Media.Water "Medium in the pipes";
  parameter Buildings.HeatTransfer.Data.BoreholeFillings.Bentonite bento
     "Borehole filling material";
  Buildings.Fluid.HeatExchangers.Boreholes.BaseClasses.BoreholeSegment seg(
@@ -67,6 +64,12 @@ It simulates the behavior of the borehole on a single horizontal section includi
 boundary condition.
 </html>", revisions="<html>
 <ul>
+<li>
+December 22, 2014 by Michael Wetter:<br/>
+Removed <code>Modelica.Fluid.System</code>
+to address issue
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/311\">#311</a>.
+</li>
 <li>
 August 30, 2011, by Pierre Vigouroux:<br/>
 First implementation.

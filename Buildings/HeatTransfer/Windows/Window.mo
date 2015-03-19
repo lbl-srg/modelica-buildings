@@ -11,6 +11,8 @@ model Window "Model for a window"
   final parameter Modelica.SIunits.Area AGla = A-AFra "Glass area";
   parameter Boolean linearize=false "Set to true to linearize emissive power";
   parameter Modelica.SIunits.Angle til(displayUnit="deg") "Surface tilt";
+  parameter Boolean homotopyInitialization = true "= true, use homotopy method"
+    annotation(Evaluate=true, Dialog(tab="Advanced"));
 
   Interfaces.RadiosityOutflow JOutUns_a
     "Outgoing radiosity that connects to unshaded part of glass at exterior side"
@@ -42,14 +44,18 @@ model Window "Model for a window"
     final glaSys=glaSys,
     final A=AGla,
     final til=til,
-    final linearize=linearize) "Model for unshaded center of glass"
+    final linearize=linearize,
+    final homotopyInitialization=homotopyInitialization)
+    "Model for unshaded center of glass"
     annotation (Placement(transformation(extent={{-10,10},{10,30}})));
 
   Buildings.HeatTransfer.Windows.BaseClasses.CenterOfGlass glaSha(
     final glaSys=glaSys,
     final A=AGla,
     final til=til,
-    final linearize=linearize) if haveShade "Model for shaded center of glass"
+    final linearize=linearize,
+    final homotopyInitialization=homotopyInitialization) if
+       haveShade "Model for shaded center of glass"
     annotation (Placement(transformation(extent={{-10,-30},{10,-10}})));
 
   Modelica.Thermal.HeatTransfer.Components.ThermalConductor frame(G=AFra*
@@ -82,7 +88,7 @@ model Window "Model for a window"
     "Control signal for the shading device. 0: unshaded; 1: fully shaded (removed if no shade is present)"
     annotation (Placement(transformation(extent={{-240,140},{-200,180}})));
 
-  Modelica.Blocks.Interfaces.RealInput QAbsUns_flow[glaSys.nLay](each unit="W",
+  Modelica.Blocks.Interfaces.RealInput QAbsUns_flow[size(glaSys.glass, 1)](each unit="W",
       each quantity="Power")
     "Solar radiation absorbed by unshaded part of glass"
                                                        annotation (Placement(
@@ -93,8 +99,9 @@ model Window "Model for a window"
         extent={{-20,-20},{20,20}},
         rotation=90,
         origin={-80,-220})));
-  Modelica.Blocks.Interfaces.RealInput QAbsSha_flow[glaSys.nLay](each unit="W",
-      each quantity="Power") if haveShade
+  Modelica.Blocks.Interfaces.RealInput QAbsSha_flow[size(glaSys.glass, 1)](
+     each unit="W",
+     each quantity="Power") if haveShade
     "Solar radiation absorbed by shaded part of glass"
                                         annotation (Placement(transformation(
         extent={{-20,-20},{20,20}},
@@ -437,7 +444,7 @@ and the glazing layer.
 The window model has been validated by using measurement data at LBNL's Test Cell 71T and by using
 a comparative model validation with the WINDOW 6 program. These validations are described in Nouidui et al. (2012).
 The window model has also been validated as part of the BESTEST validations that are implemented in
-<a href=\"modelica://Buildings.Rooms.Examples.BESTEST\">
+<a href=\"modelica://Buildings.Rooms.Validation.BESTEST\">
 Buildings.Rooms.Examples.BESTEST</a>.
 </p>
 
@@ -456,6 +463,15 @@ Validation of the window model of the Modelica Buildings library.</a>
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+March 13, 2015, by Michael Wetter:<br/>
+Changed model to avoid a translation error
+in OpenModelica.
+</li>
+<li>
+July 25, 2014, by Michael Wetter:<br/>
+Propagated parameter <code>homotopyInitialization</code>.
+</li>
 <li>
 May 30, 2014, by Michael Wetter:<br/>
 Removed undesirable annotation <code>Evaluate=true</code>.

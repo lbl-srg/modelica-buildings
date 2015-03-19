@@ -2,9 +2,8 @@ within Buildings.Rooms.FLEXLAB.Rooms.Examples;
 model X3BWithRadiantFloor "Example model showing a use of X3B"
   extends Modelica.Icons.Example;
 
-  package Air = Buildings.Media.GasesConstantDensity.MoistAirUnsaturated
-    "Air model used in the example model";
-  package Water = Buildings.Media.ConstantPropertyLiquidWater
+  package Air = Buildings.Media.Air "Air model used in the example model";
+  package Water = Buildings.Media.Water
     "Water model used in the radiant slab loop";
 
   Buildings.Rooms.FLEXLAB.Rooms.X3B.TestCell X3B(
@@ -144,8 +143,6 @@ model X3BWithRadiantFloor "Example model showing a use of X3B"
     table=[0,0,0,0; 86400,0,0,0], tableOnFile=false)
     "Internal gain heat flow for the closet"
     annotation (Placement(transformation(extent={{-12,132},{8,152}})));
-  inner Modelica.Fluid.System system
-    annotation (Placement(transformation(extent={{180,-220},{200,-200}})));
   Modelica.Blocks.Sources.CombiTimeTable watCon4B2(tableOnFile=false, table=[0,
         0.504,293.15; 86400,0.504,293.15])
     "Inlet water conditions (y[1] = m_flow, y[2] =  T)"
@@ -343,15 +340,15 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(intGai.y,X3B. qGai_flow) annotation (Line(
-      points={{-175,102},{-140,102},{-140,68},{-118,68}},
+      points={{-175,102},{-140,102},{-140,66},{-112,66}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(intGaiEle.y, ele.qGai_flow)    annotation (Line(
-      points={{-47,-6},{20,-6},{20,-50},{46,-50}},
+      points={{-47,-6},{20,-6},{20,-52},{52,-52}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(intGaiClo.y,clo. qGai_flow) annotation (Line(
-      points={{9,142},{120,142},{120,122},{148,122}},
+      points={{9,142},{120,142},{120,120},{154,120}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(preT.port,clo. surf_conBou[3]) annotation (Line(
@@ -513,6 +510,12 @@ equation
           </html>",
           revisions = "<html>
           <ul>
+          <li>
+          December 22, 2014 by Michael Wetter:<br/>
+          Removed <code>Modelica.Fluid.System</code>
+          to address issue
+          <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/311\">#311</a>.
+          </li>
           <li>September 2, 2014, by Michael Wetter:<br/>
           Corrected wrong pipe diameter.
           </li>

@@ -2,7 +2,7 @@ within Buildings.Fluid.Interfaces.Examples;
 model PrescribedOutletState "Test model for prescribed outlet state"
   extends Modelica.Icons.Example;
 
-  package Medium = Buildings.Media.ConstantPropertyLiquidWater;
+  package Medium = Buildings.Media.Water;
 
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal=0.1
     "Nominal mass flow rate";
@@ -135,6 +135,7 @@ Model that demonstrates the use of an ideal heater and an ideal cooler.
 <p>
 The heater model has an almost unlimited positive capacity (<code>Q_flow_nominal = 1.0e10</code> Watts),
 and hence its outlet temperature always reaches the set point temperatures.
+</p>
 <p>
 The cooler model has a limited negative capacitiy (<code>Q_flow_nominal = 1000</code> Watts), and hence
 its outlet temperature reaches only a limited value corresponding to its

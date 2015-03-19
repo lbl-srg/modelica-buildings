@@ -10,19 +10,28 @@ record SpeedControlled_Nrpm "Generic data record for FlowMachine_Nrpm"
   defaultComponentName = "per",
   Documentation(revisions="<html>
 <ul>
-<li>November 22, 2014 by Michael Wetter:<br/>
+<li>
+February 13, 2015, by Michael Wetter:<br/>
+Updated documentation.
+</li>
+<li>
+January 6, 2015, by Michael Wetter:<br/>
+Revised record for OpenModelica.
+</li>
+<li>
+November 22, 2014 by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
 </html>", info="<html>
 <p>
 Record containing parameters for pumps or fans of
-type 
+type
 <a href=\"modelica://Buildings.Fluid.Movers.SpeedControlled_Nrpm\">
 Buildings.Fluid.Movers.SpeedControlled_Nrpm</a>.
 </p>
 <p>
-This record is identical to 
+This record is identical to
 <a href=\"modelica://Buildings.Fluid.Movers.Data.Generic\">Buildings.Fluid.Movers.Data.Generic
 Buildings.Fluid.Movers.Data.Generic</a>.
 except that it also declares the nominal speed which is required
@@ -41,34 +50,10 @@ declaration such as
 </pre>
 <p>
 This data record can be used with
-</p>
-<ul>
-<li>
 <a href=\"modelica://Buildings.Fluid.Movers.SpeedControlled_Nrpm\">
-Buildings.Fluid.Movers.SpeedControlled_Nrpm</a>
-</li>
-<li>
-<a href=\"modelica://Buildings.Fluid.Movers.FlowControlled_dp\">
-Buildings.Fluid.Movers.FlowControlled_dp</a>
-</li>
-<li>
-<a href=\"modelica://Buildings.Fluid.Movers.FlowControlled_m_flow\">
-Buildings.Fluid.Movers.FlowControlled_m_flow</a>
-</li>
-<li>
+Buildings.Fluid.Movers.SpeedControlled_Nrpm</a> and
 <a href=\"modelica://Buildings.Fluid.Movers.SpeedControlled_y\">
-Buildings.Fluid.Movers.SpeedControlled_y</a>
-</li>
-</ul>
-<p>
-However, for the second and third model, the record
-<a href=\"modelica://Buildings.Fluid.Movers.Data.FlowControlled\">
-Buildings.Fluid.Movers.Data.FlowControlled</a>
-is sufficient,
-and for the last model,
-<a href=\"modelica://Buildings.Fluid.Movers.Data.SpeedControlled_y\">
-Buildings.Fluid.Movers.Data.SpeedControlled_y</a>
-is sufficient.
+Buildings.Fluid.Movers.SpeedControlled_y</a>.
 </p>
 <p>
 An example that uses manufacturer data can be found in

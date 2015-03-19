@@ -5,8 +5,7 @@ package Examples "Examples for BaseClasses models"
     "Example showing the use of IndirectTankHeatExchanger"
     extends Modelica.Icons.Example;
 
-    package Medium = Buildings.Media.ConstantPropertyLiquidWater
-      "Buildings library model for water";
+    package Medium = Buildings.Media.Water "Buildings library model for water";
 
     Buildings.Fluid.Storage.BaseClasses.IndirectTankHeatExchanger indTanHex(
       nSeg=3,
@@ -40,8 +39,6 @@ package Examples "Examples for BaseClasses models"
           extent={{-10,-10},{10,10}},
           rotation=180,
           origin={30,8})));
-    inner Modelica.Fluid.System system
-      annotation (Placement(transformation(extent={{40,60},{60,80}})));
   equation
     connect(bou1.ports[1], indTanHex.port_a)
                                             annotation (Line(
@@ -68,14 +65,21 @@ package Examples "Examples for BaseClasses models"
         This model provides an example of how the <a href=\"modelica://Buildings.Fluid.Storage.BaseClasses.IndirectTankHeatExchanger\"> Buildings.Fluid.Storage.BaseClasses.IndirectTankHeatExchanger</a> model is used. In the model water flows from a flow source through the heat exchanger to a low
          pressure environment. The stagnant fluid on the outside of the heat exchanger is modeled as a constant temperature.<br/>
          </p>
-         </html>",revisions="<html>
-        <ul>
-        <li>
-        Mar 27, 2013 by Peter Grant:<br/>
-        First implementation
-        </li>
-        </ul>
-        </html>"));
+         </html>",
+  revisions="<html>
+<ul>
+<li>
+December 22, 2014 by Michael Wetter:<br/>
+Removed <code>Modelica.Fluid.System</code>
+to address issue
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/311\">#311</a>.
+</li>
+<li>
+March 27, 2013 by Peter Grant:<br/>
+First implementation
+</li>
+</ul>
+</html>"));
   end IndirectTankHeatExchanger;
   annotation(Documentation(info="<html>
   <p>

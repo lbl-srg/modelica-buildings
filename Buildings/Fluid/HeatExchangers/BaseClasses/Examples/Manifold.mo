@@ -1,7 +1,7 @@
 within Buildings.Fluid.HeatExchangers.BaseClasses.Examples;
 model Manifold "Test model for coil manifold"
- package Medium1 = Buildings.Media.ConstantPropertyLiquidWater "Water";
- package Medium2 = Buildings.Media.PerfectGases.MoistAirUnsaturated "Air";
+ package Medium1 = Buildings.Media.Water "Water";
+ package Medium2 = Buildings.Media.Air "Air";
   extends Modelica.Icons.Example;
  parameter Integer nPipPar = 3 "Number of parallel pipes";
  parameter Integer nPipSeg = 4 "Number of pipe segments";
@@ -94,8 +94,6 @@ model Manifold "Test model for coil manifold"
     redeclare package Medium = Medium1)
     "Header for water-side heat exchanger register"
     annotation (Placement(transformation(extent={{60,24},{80,44}})));
-  inner Modelica.Fluid.System system
-    annotation (Placement(transformation(extent={{140,60},{160,80}})));
   Buildings.Fluid.Sources.Boundary_pT sou_2(
     use_p_in=true,
     use_T_in=true,

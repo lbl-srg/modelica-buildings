@@ -38,7 +38,7 @@ protected
   final parameter Modelica.SIunits.Area AGla[NWin] = datConExtWin.AGla
     "Surface area of opaque surfaces";
   final parameter Real epsGla[NWin](min=0, max=1)=
-    {datConExtWin[i].glaSys.glass[datConExtWin[i].glaSys.nLay].absIR_b for i in 1:NWin}
+    {datConExtWin[i].glaSys.glass[size(datConExtWin[i].glaSys.glass, 1)].absIR_b for i in 1:NWin}
     "Absorptivity of glass";
   final parameter Real epsSha[NWin](min=0, max=1)=
     {datConExtWin[i].glaSys.shade.absIR_a for i in 1:NWin}
@@ -272,6 +272,11 @@ For the unshaded part of the window, the radiative power is
 </html>",
 revisions="<html>
 <ul>
+<li>
+March 13, 2015, by Michael Wetter:<br/>
+Changed model to avoid a translation error
+in OpenModelica.
+</li>
 <li>
 July 16, 2013, by Michael Wetter:<br/>
 Added assignment of heat port temperature instead of heat flow rate

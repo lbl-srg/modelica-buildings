@@ -1,8 +1,7 @@
 within Buildings.Fluid.SolarCollectors.Examples;
 model FlatPlateTotalArea "Example showing the use of TotalArea and nSeg"
   extends Modelica.Icons.Example;
-  replaceable package Medium = Buildings.Media.ConstantPropertyLiquidWater
-    "Medium in the system";
+  replaceable package Medium = Buildings.Media.Water "Medium in the system";
 
   Buildings.Fluid.SolarCollectors.ASHRAE93          solCol(
     redeclare package Medium = Medium,
@@ -30,8 +29,6 @@ model FlatPlateTotalArea "Example showing the use of TotalArea and nSeg"
     p(displayUnit="Pa") = 101325,
     nPorts=2) "Outlet for water flow"
     annotation (Placement(transformation(extent={{80,0},{60,20}})));
-  inner Modelica.Fluid.System system(p_ambient=101325)
-    annotation (Placement(transformation(extent={{60,60},{80,80}})));
   Buildings.Fluid.Sensors.TemperatureTwoPort TOut(
     redeclare package Medium = Medium,
     T_start(displayUnit="K"),
@@ -131,14 +128,20 @@ equation
         Buildings.Fluid.SolarCollectors.Examples.FlatPlate</a>.
       </p>
     </html>",
-    revisions="<html>
-      <ul>
-        <li>
-          Mar 27, 2013, by Peter Grant:<br/>
-          First implementation.
-        </li>
-      </ul>
-    </html>"),
+revisions="<html>
+<ul>
+<li>
+December 22, 2014 by Michael Wetter:<br/>
+Removed <code>Modelica.Fluid.System</code>
+to address issue
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/311\">#311</a>.
+</li>
+<li>
+Mar 27, 2013, by Peter Grant:<br/>
+First implementation.
+</li>
+</ul>
+</html>"),
     __Dymola_Commands(file=
           "modelica://Buildings/Resources/Scripts/Dymola/Fluid/SolarCollectors/Examples/FlatPlateTotalArea.mos"
         "Simulate and Plot"),

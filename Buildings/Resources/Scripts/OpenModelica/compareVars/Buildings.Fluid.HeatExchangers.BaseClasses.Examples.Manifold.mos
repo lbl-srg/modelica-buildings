@@ -1,0 +1,9 @@
+compareVars :=
+  {
+    "mfr_1[1].m_flow",
+    "mfr_1[2].m_flow",
+    "mfr_1[3].m_flow",
+    "mfr_2[1, 1].m_flow",
+    "mfr_2[1, 3].m_flow",
+    "mfr_2[2, 1].m_flow"
+  };

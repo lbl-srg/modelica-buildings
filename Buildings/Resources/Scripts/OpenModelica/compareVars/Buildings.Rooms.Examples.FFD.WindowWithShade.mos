@@ -1,0 +1,17 @@
+compareVars :=
+  {
+    "roo.yCFD[1]",
+    "roo.yCFD[2]",
+    "roo.air.conExt[1].Q_flow",
+    "roo.air.conExt[2].Q_flow",
+    "roo.air.conExt[3].Q_flow",
+    "roo.air.conExt[4].Q_flow",
+    "roo.air.conExtWin[1].Q_flow",
+    "roo.air.conExtWin[2].Q_flow",
+    "roo.air.conExt[1].T",
+    "roo.air.conExt[2].T",
+    "roo.air.conExt[3].T",
+    "roo.air.conExt[4].T",
+    "roo.air.conExtWin[1].T",
+    "roo.air.conExtWin[2].T"
+  };

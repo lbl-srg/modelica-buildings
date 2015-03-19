@@ -2,8 +2,7 @@ within Buildings.Fluid.Movers.Validation;
 model Power "Power calculation comparison among three mover types"
   extends Modelica.Icons.Example;
 
-  package Medium = Buildings.Media.ConstantPropertyLiquidWater
-    "Medium model";
+  package Medium = Buildings.Media.Water "Medium model";
 
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal=3
     "Nominal mass flow rate";
@@ -11,6 +10,15 @@ model Power "Power calculation comparison among three mover types"
   parameter Data.Pumps.Stratos30slash1to8 per "Pump performance data"
     annotation (Placement(transformation(extent={{40,60},{60,80}})));
 
+  parameter Data.FlowControlled perMod(
+    use_powerCharacteristic = true,
+    hydraulicEfficiency=efficiency,
+    motorEfficiency=efficiency,
+    power=per.power)
+    "Pump performance data with data from the instance efficiency"
+    annotation (Placement(transformation(extent={{40,60},{60,80}})));
+
+  // Compute the actual efficiencies
   parameter
     Buildings.Fluid.Movers.BaseClasses.Characteristics.efficiencyParameters
     efficiency(V_flow=per.pressure.V_flow, eta=sqrt(per.pressure.V_flow.*per.pressure.dp./
@@ -33,10 +41,7 @@ model Power "Power calculation comparison among three mover types"
     annotation (Placement(transformation(extent={{-60,50},{-40,70}})));
   Buildings.Fluid.Movers.FlowControlled_dp  pump_dp(
     redeclare package Medium = Medium,
-    redeclare Data.Pumps.Stratos30slash1to8 per(
-     use_powerCharacteristic=true,
-     hydraulicEfficiency=efficiency,
-     motorEfficiency=efficiency),
+    per=perMod,
     filteredSpeed=false,
     m_flow_nominal=m_flow_nominal,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyStateInitial)
@@ -45,10 +50,7 @@ model Power "Power calculation comparison among three mover types"
   Buildings.Fluid.Movers.FlowControlled_m_flow pump_m_flow(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
-    redeclare Data.Pumps.Stratos30slash1to8 per(
-     use_powerCharacteristic=true,
-     hydraulicEfficiency=efficiency,
-     motorEfficiency=efficiency),
+    per=perMod,
     filteredSpeed=false,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyStateInitial)
     "Pump with mass flow rate as control signal"
@@ -135,9 +137,7 @@ equation
       points={{2.2,40},{-50.2,40},{-50.2,32}},
       color={0,0,127},
       smooth=Smooth.None));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}}), graphics),
-    experiment(StopTime=200),
+  annotation (    experiment(StopTime=200),
     __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Movers/Validation/Power.mos"
         "Simulate and plot"),
     Documentation(info="<html>
@@ -163,19 +163,22 @@ This would yield an error at operating points in which
 the speed is different from the nominal speed <code>N_nominal</code>
 because similarity laws are valid for speed and not for
 mass flow rate.
-To see the error, change the assignments
+To see the error, change the assignment
 </p>
 <pre>
- redeclare Data.Pumps.Stratos30slash1to8 per(
-     use_powerCharacteristic=true,
-     hydraulicEfficiency=efficiency,
-     motorEfficiency=efficiency)
+  parameter Data.FlowControlled perMod(
+    use_powerCharacteristic = true,
+    hydraulicEfficiency=efficiency,
+    motorEfficiency=efficiency,
+    power=per.power)
+    \"Pump performance data with data from the instance efficiency\";
 </pre>
 <p>
 to
 </p>
 <pre>
- redeclare Data.Pumps.Stratos30slash1to8 per
+  parameter Data.FlowControlled perMod
+    \"Pump performance data with data from the instance efficiency\";
 </pre>
 </html>", revisions="<html>
 <ul>

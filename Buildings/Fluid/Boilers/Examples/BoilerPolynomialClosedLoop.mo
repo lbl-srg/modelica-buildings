@@ -1,15 +1,12 @@
 within Buildings.Fluid.Boilers.Examples;
 model BoilerPolynomialClosedLoop "Boiler with closed loop control"
   extends Modelica.Icons.Example;
- package Medium = Buildings.Media.ConstantPropertyLiquidWater "Medium model";
+ package Medium = Buildings.Media.Water "Medium model";
  parameter Modelica.SIunits.Power Q_flow_nominal = 20000 "Nominal power";
  parameter Modelica.SIunits.Temperature dT_nominal = 20
     "Nominal temperature difference";
  parameter Modelica.SIunits.MassFlowRate m_flow_nominal = Q_flow_nominal/dT_nominal/4200
     "Nominal mass flow rate";
-
-  inner Modelica.Fluid.System system
-    annotation (Placement(transformation(extent={{-120,-140},{-100,-120}})));
 
   Buildings.Fluid.Boilers.BoilerPolynomial boi(
     a={0.9},
@@ -262,10 +259,16 @@ valve position is such that it only recirculates water from the load.
 The bypass between valve and pump mixes recirculated water, thereby
 allowing the valve to work over a larger operating range.
 The expansion vessel near the boiler is used to set a reference pressure,
-and it is used to accomodate for the thermal expansion of the water.
+and it is used to accommodate for the thermal expansion of the water.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+December 22, 2014 by Michael Wetter:<br/>
+Removed <code>Modelica.Fluid.System</code>
+to address issue
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/311\">#311</a>.
+</li>
 <li>
 October 6, 2014, by Michael Wetter:<br/>
 Corrected wrong value of <code>m_flow_nominal</code> for <code>spl3</code>.

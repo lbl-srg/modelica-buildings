@@ -2,12 +2,13 @@ UsersGuide
 Airflow
 BoundaryConditions
 Controls
+Electrical
 Fluid
 HeatTransfer
 Media
 Rooms
 Utilities
-Electrical
+Types
 Examples
 BaseClasses
 Obsolete

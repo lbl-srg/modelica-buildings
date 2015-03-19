@@ -4,8 +4,8 @@ package GlazingSystems
     extends Modelica.Icons.MaterialPropertiesPackage;
   record Generic "Thermal properties of glazing systems"
       extends Modelica.Icons.Record;
-    parameter Integer nLay(min=1, fixed=true) "Number of glass layers"
-      annotation (Evaluate=true);
+  //  parameter Integer nLay(min=1, fixed=true) "Number of glass layers"
+  //    annotation (Evaluate=true);
     parameter Boolean haveExteriorShade = false
       "Set to true if window has an exterior shade (at surface a)"
       annotation (Evaluate=true);
@@ -13,13 +13,17 @@ package GlazingSystems
       "Set to true if window has an interior shade (at surface b)"
       annotation (Evaluate=true);
 
-    parameter Glasses.Generic glass[nLay]
+    parameter Glasses.Generic glass[:]
       "Layer by layer declaration of glass layers, starting from outside to room-side"
-      annotation (choicesAllMatching=true, Placement(transformation(extent={{60,60},{80,80}})));
-    parameter Gases.Generic gas[nLay-1]
+      annotation (choicesAllMatching=true,
+                  Placement(transformation(extent={{60,60},{80,80}})));
+    // Zero array sizes are not supported in Dymola. Therefore, we assign
+    // a dummy layer. The model for heat conduction in gases will
+    // write an assert if the thickness is negative.
+    // Therefore, we ensure that any model overwrites this default setting.
+    parameter Gases.Generic gas[:] = {Buildings.HeatTransfer.Data.Gases.Air(x=-1)}
       "Layer by layer declaration of glass layers, starting from outside to room-side"
-      annotation (choicesAllMatching=true, Placement(transformation(extent={{60,20},
-              {80,40}})));
+      annotation (choicesAllMatching=true, Placement(transformation(extent={{60,20},{80,40}})));
     parameter Shades.Generic shade "Shade"
       annotation (choicesAllMatching=true,
       Dialog(enable=haveInteriorShade or haveExteriorShade));
@@ -32,12 +36,19 @@ package GlazingSystems
     final parameter Boolean haveShade = haveInteriorShade or haveExteriorShade
       "Parameter that is true if the construction has a shade";
 
-    annotation (defaultComponentName="glaSys", Documentation(info=
-                   "<html>
+    annotation (
+    defaultComponentPrefixes="parameter",
+    defaultComponentName="datGlaSys",
+      Documentation(info="<html>
 Generic record that implements thermophysical properties for glazing systems.
 </html>",
   revisions="<html>
 <ul>
+<li>
+March 13, 2015, by Michael Wetter:<br/>
+Refactored model to avoid a translation error
+in OpenModelica.
+</li>
 <li>
 May 30, 2014, by Michael Wetter:<br/>
 Removed undesirable annotation <code>Evaluate=true</code>.
@@ -57,23 +68,29 @@ First implementation.
   record SingleClear3 =
       Buildings.HeatTransfer.Data.GlazingSystems.Generic (
          glass={Glasses.ID102()},
-         UFra=3,
-         final nLay=1) "Single pane, clear glass 3mm";
+         UFra=3) "Single pane, clear glass 3mm"
+    annotation (
+      defaultComponentPrefixes="parameter",
+      defaultComponentName="datGlaSys");
 
   record DoubleClearAir13Clear =
       Buildings.HeatTransfer.Data.GlazingSystems.Generic (
       final glass={Glasses.ID102(), Glasses.ID102()},
       final gas={Gases.Air(x=0.0127)},
-      UFra=1.4,
-      final nLay=2) "Double pane, clear glass 3mm, air 12.7, clear glass 3mm";
+      UFra=1.4) "Double pane, clear glass 3mm, air 12.7, clear glass 3mm"
+    annotation (
+      defaultComponentPrefixes="parameter",
+      defaultComponentName="datGlaSys");
 
   record TripleClearAir13ClearAir13Clear =
       Buildings.HeatTransfer.Data.GlazingSystems.Generic (
       final glass={Glasses.ID102(),Glasses.ID102(),Glasses.ID102()},
       final gas={Gases.Air(x=0.0127),Gases.Air(x=0.0127)},
-      UFra=1.4,
-      final nLay=3)
-    "Triple pane, clear glass 3mm, air 12.7, clear glass 3mm, air 12.7, clear glass 3mm";
+      UFra=1.4)
+    "Triple pane, clear glass 3mm, air 12.7, clear glass 3mm, air 12.7, clear glass 3mm"
+    annotation (
+      defaultComponentPrefixes="parameter",
+      defaultComponentName="datGlaSys");
 
 annotation (preferredView="info",
 Documentation(info="<html>

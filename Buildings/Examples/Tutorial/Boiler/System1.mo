@@ -3,10 +3,8 @@ model System1
   "1st part of the system model, consisting of the room with heat transfer"
   extends Modelica.Icons.Example;
   replaceable package MediumA =
-      Buildings.Media.GasesPTDecoupled.MoistAirUnsaturated;
+      Buildings.Media.Air;
 
-  inner Modelica.Fluid.System system
-    annotation (Placement(transformation(extent={{60,-80},{80,-60}})));
   Fluid.MixingVolumes.MixingVolume vol(
     redeclare package Medium = MediumA,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
@@ -77,21 +75,11 @@ This section describes step by step how we implemented the model.
 <ol>
 <li>
 <p>
-First, we dragged
-<a href=\"modelica://Modelica.Fluid.System\">
-Modelica.Fluid.System</a> into the model and keep its name at
-its default setting, which is <code>system</code>.
-This model is required for all fluid flow models to set
-global properties.
-</p>
-</li>
-<li>
-<p>
-Next, to define the medium properties, we added the declaration
+First, to define the medium properties, we added the declaration
 </p>
 <pre>
   replaceable package MediumA =
-      Buildings.Media.GasesPTDecoupled.MoistAirUnsaturated;
+      Buildings.Media.Air;
 </pre>
 <p>
 This will allow the propagation of the medium model to all models that contain air.
@@ -102,8 +90,8 @@ We called the medium <code>MediumA</code> to distinguish it from
 <code>MediumW</code> that we will use in later versions of the model for components that
 have water as a medium. Because we do not anticipate saturated air, we used
 the medium model
-<a href=\"modelica://Buildings.Media.GasesPTDecoupled.MoistAirUnsaturated\">
-Buildings.Media.GasesPTDecoupled.MoistAirUnsaturated</a>
+<a href=\"modelica://Buildings.Media.Air\">
+Buildings.Media.Air</a>
 instead of
 <a href=\"modelica://Buildings.Media.GasesPTDecoupled.MoistAir\">
 Buildings.Media.GasesPTDecoupled.MoistAir</a>
@@ -289,6 +277,12 @@ could have been used.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+December 22, 2014 by Michael Wetter:<br/>
+Removed <code>Modelica.Fluid.System</code>
+to address issue
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/311\">#311</a>.
+</li>
 <li>
 January 27, 2012, by Michael Wetter:<br/>
 First implementation.
