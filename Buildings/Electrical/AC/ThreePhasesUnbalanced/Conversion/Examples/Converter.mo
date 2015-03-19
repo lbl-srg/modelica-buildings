@@ -27,7 +27,7 @@ This example model tests the
 Buildings.Electrical.AC.ThreePhasesUnbalanced.Conversion.ACACConverter</a> model.
 </p>
 </html>"),
-experiment(Tolerance=1e-05, __Dymola_Algorithm="Radau"),
+experiment(Tolerance=1e-05),
 __Dymola_Commands(file=
  "modelica://Buildings/Resources/Scripts/Dymola/Electrical/AC/ThreePhasesUnbalanced/Conversion/Examples/Converter.mos"
         "Simulate and plot"),

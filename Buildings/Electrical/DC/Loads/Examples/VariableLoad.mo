@@ -70,7 +70,7 @@ equation
       points={{-80,30},{-80,18}},
       color={0,0,255},
       smooth=Smooth.None));
-  annotation (            experiment(StopTime=1.0, Tolerance=1e-06, __Dymola_Algorithm="Radau"),
+  annotation (            experiment(StopTime=1.0, Tolerance=1e-06),
             __Dymola_Commands(file=
           "modelica://Buildings/Resources/Scripts/Dymola/Electrical/DC/Loads/Examples/VariableLoad.mos"
         "Simulate and plot"),
