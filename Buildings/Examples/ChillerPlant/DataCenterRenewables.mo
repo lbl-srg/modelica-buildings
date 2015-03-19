@@ -100,8 +100,7 @@ equation
             -100},{100,100}}, preserveAspectRatio=false)),
     experiment(
       StopTime=604800,
-      Tolerance=1e-05,
-      __Dymola_Algorithm="Radau"),
+      Tolerance=1e-05),
     Commands(file=
           "modelica://Buildings/Resources/Scripts/Dymola/Examples/ChillerPlant/DataCenterRenewables.mos"
         "Simulate and plot"),
