@@ -3,10 +3,8 @@ model DCDCConverter "DC DC converter"
   extends Buildings.Electrical.Interfaces.PartialConversion(
     redeclare package PhaseSystem_p = PhaseSystems.TwoConductor,
     redeclare package PhaseSystem_n = PhaseSystems.TwoConductor,
-    redeclare Interfaces.Terminal_n terminal_n(
-      redeclare package PhaseSystem = PhaseSystem_n),
-    redeclare Interfaces.Terminal_p terminal_p(
-      redeclare package PhaseSystem = PhaseSystem_p));
+    redeclare Interfaces.Terminal_n terminal_n,
+    redeclare Interfaces.Terminal_p terminal_p);
   parameter Modelica.SIunits.Voltage VHigh
     "DC voltage on side 1 of the transformer (primary side)";
   parameter Modelica.SIunits.Voltage VLow
@@ -154,6 +152,13 @@ of the power flow.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+March 19, 2015, by Michael Wetter:<br/>
+Removed redeclaration of phase system in <code>Terminal_n</code> and
+<code>Terminal_p</code> as it is already declared to the be the same
+phase system, and it is not declared to be replaceable.
+This avoids a translation error in OpenModelica.
+</li>
 <li>
 June 2, 2014, by Marco Bonvini:<br/>
 Revised model and documentation. Changed parameter sof the model,

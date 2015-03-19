@@ -4,10 +4,8 @@ model TwoPortResistance "Model of a two port DC resistance"
     Buildings.Electrical.Transmission.BaseClasses.PartialTwoPortResistance(
     redeclare package PhaseSystem_p = PhaseSystems.TwoConductor,
     redeclare package PhaseSystem_n = PhaseSystems.TwoConductor,
-    redeclare Interfaces.Terminal_n terminal_n(
-      redeclare package PhaseSystem = PhaseSystem_n),
-    redeclare Interfaces.Terminal_p terminal_p(
-      redeclare package PhaseSystem = PhaseSystem_p));
+    redeclare Interfaces.Terminal_n terminal_n,
+    redeclare Interfaces.Terminal_p terminal_p);
 equation
   // Voltage drop on the resistance lumped on connection between terminals
   // p.v[1] and n.v[1]
@@ -51,6 +49,13 @@ The model represents the lumped resistance as shown in the figure below.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+March 19, 2015, by Michael Wetter:<br/>
+Removed redeclaration of phase system in <code>Terminal_n</code> and
+<code>Terminal_p</code> as it is already declared to the be the same
+phase system, and it is not declared to be replaceable.
+This avoids a translation error in OpenModelica.
+</li>
 <li>
 January 14, 2015, by Marco Bonvini:<br/>
 Added equation that represents Joule losses

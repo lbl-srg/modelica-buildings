@@ -4,10 +4,8 @@ model GeneralizedSensor "Sensor for power, voltage and current"
   extends Buildings.Electrical.Interfaces.PartialTwoPort(
     redeclare package PhaseSystem_p = PhaseSystems.TwoConductor,
     redeclare package PhaseSystem_n = PhaseSystems.TwoConductor,
-    redeclare Interfaces.Terminal_n terminal_n(
-      redeclare package PhaseSystem = PhaseSystem_n),
-    redeclare Interfaces.Terminal_p terminal_p(
-      redeclare package PhaseSystem = PhaseSystem_p));
+    redeclare Interfaces.Terminal_n terminal_n,
+    redeclare Interfaces.Terminal_p terminal_p);
   Modelica.Blocks.Interfaces.RealOutput V(final quantity="ElectricPotential",
                                           final unit="V") "Voltage"
     annotation (Placement(
@@ -58,6 +56,13 @@ As this sensor is configured to measure DC power, the reactive power is always z
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+March 19, 2015, by Michael Wetter:<br/>
+Removed redeclaration of phase system in <code>Terminal_n</code> and
+<code>Terminal_p</code> as it is already declared to the be the same
+phase system, and it is not declared to be replaceable.
+This avoids a translation error in OpenModelica.
+</li>
 <li>
 July 24, 2013, by Michael Wetter:<br/>
 First implementation.

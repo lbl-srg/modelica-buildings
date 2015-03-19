@@ -20,10 +20,7 @@ model Battery "Simple model of a battery"
   Modelica.Blocks.Interfaces.RealOutput SOC(min=0, max=1, unit="1")
     "State of charge"
     annotation (Placement(transformation(extent={{100,50},{120,70}})));
-  Buildings.Electrical.DC.Interfaces.Terminal_p
-                                             terminal(redeclare package
-      PhaseSystem = Buildings.Electrical.PhaseSystems.TwoConductor)
-    "Generalized terminal"
+  Buildings.Electrical.DC.Interfaces.Terminal_p terminal "Generalized terminal"
     annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
 protected
   Buildings.Electrical.DC.Storage.BaseClasses.Charge cha(
@@ -152,7 +149,14 @@ and that the state of charge remains between zero and one.
 </p>
 </html>",
         revisions="<html>
-<ul>
+        <ul>
+<li>
+March 19, 2015, by Michael Wetter:<br/>
+Removed redeclaration of phase system in <code>Terminal_n</code> and
+<code>Terminal_p</code> as it is already declared to the be the same
+phase system, and it is not declared to be replaceable.
+This avoids a translation error in OpenModelica.
+</li>
 <li>
 June 2, 2014, by Marco Bonvini:<br/>
 Revised documentation.
