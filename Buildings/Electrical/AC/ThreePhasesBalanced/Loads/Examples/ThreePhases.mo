@@ -202,7 +202,7 @@ This model illustrates the use of the impedance models and how the three phases 
 can reproduce the same results obtained using three separate one phase circuits.
 </p>
 </html>"),
-    experiment(Tolerance=1e-05, __Dymola_Algorithm="Radau", StopTime=1.0),
+    experiment(Tolerance=1e-05, StopTime=1.0),
     __Dymola_Commands(file=
           "modelica://Buildings/Resources/Scripts/Dymola/Electrical/AC/ThreePhasesBalanced/Loads/Examples/ThreePhases.mos"
         "Simulate and plot"));

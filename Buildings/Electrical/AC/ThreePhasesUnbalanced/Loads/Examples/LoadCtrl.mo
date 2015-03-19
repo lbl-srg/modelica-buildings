@@ -66,7 +66,7 @@ equation
       points={{-26,0},{-8,0}},
       color={127,0,127},
       smooth=Smooth.None));
-  annotation (    experiment(Tolerance=1e-05, __Dymola_Algorithm="Radau", StopTime=10.0),
+  annotation (    experiment(Tolerance=1e-05, StopTime=10.0),
     __Dymola_Commands(file=
           "modelica://Buildings/Resources/Scripts/Dymola/Electrical/AC/ThreePhasesUnbalanced/Loads/Examples/LoadCtrl.mos"
         "Simulate and plot"),

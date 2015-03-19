@@ -113,7 +113,7 @@ Created model from previus version and added documentation.
 </li>
 </ul>
 </html>"),
-    experiment(Tolerance=1e-05, __Dymola_Algorithm="Radau", StopTime=1.0),
+    experiment(Tolerance=1e-05, StopTime=1.0),
     __Dymola_Commands(file=
           "modelica://Buildings/Resources/Scripts/Dymola/Electrical/AC/ThreePhasesUnbalanced/Loads/Examples/Loads_N.mos"
         "Simulate and plot"));

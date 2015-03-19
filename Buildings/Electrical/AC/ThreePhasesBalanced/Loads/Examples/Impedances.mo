@@ -61,7 +61,7 @@ This model illustrates the use of the impedance models.
 The impedances have unitary values such that the RMS value of the voltage and of the current are the same.
 </p>
 </html>"),
-    experiment(Tolerance=1e-05, __Dymola_Algorithm="Radau", StopTime=1.0),
+    experiment(Tolerance=1e-05, StopTime=1.0),
     __Dymola_Commands(file=
           "modelica://Buildings/Resources/Scripts/Dymola/Electrical/AC/ThreePhasesBalanced/Loads/Examples/Impedances.mos"
         "Simulate and plot"));
