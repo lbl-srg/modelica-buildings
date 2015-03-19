@@ -88,6 +88,5 @@ The figure shows that the signal <code>y</code> becomes zero around <i>t = 1</i>
         "Simulate and plot"),
     experiment(
       StopTime=10,
-      Tolerance=1e-05,
-      __Dymola_Algorithm="Radau"));
+      Tolerance=1e-05));
 end TestVoltageCTRL;

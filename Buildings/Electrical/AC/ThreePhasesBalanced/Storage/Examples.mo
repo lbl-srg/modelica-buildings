@@ -62,8 +62,7 @@ package Examples "Package with example models"
         smooth=Smooth.None));
     annotation (              experiment(
         StopTime=3600,
-        Tolerance=1e-05,
-        __Dymola_Algorithm="Radau"),
+        Tolerance=1e-05),
               __Dymola_Commands(file=
             "modelica://Buildings/Resources/Scripts/Dymola/Electrical/AC/ThreePhasesBalanced/Storage/Examples/ACOnePhaseBattery.mos"
           "Simulate and plot"),

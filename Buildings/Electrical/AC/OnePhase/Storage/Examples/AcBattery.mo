@@ -62,8 +62,7 @@ equation
             -100},{100,100}}), graphics),
             experiment(
       StopTime=3600,
-      Tolerance=1e-05,
-      __Dymola_Algorithm="Radau"),
+      Tolerance=1e-05),
             __Dymola_Commands(file=
           "modelica://Buildings/Resources/Scripts/Dymola/Electrical/AC/OnePhase/Storage/Examples/ACOnePhaseBattery.mos"
         "Simulate and plot"),
