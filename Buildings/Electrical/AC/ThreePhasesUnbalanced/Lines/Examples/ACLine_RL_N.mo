@@ -27,24 +27,7 @@ model ACLine_RL_N
   Lines.TwoPortInductance_N L_1(L=Lbase, Ln=0.5*Lbase)
     "Inductance line connected to short circuit 1"
     annotation (Placement(transformation(extent={{-30,20},{-10,40}})));
-  Lines.TwoPortRL_N RL_3(
-    R=Rbase,
-    L=Lbase,
-    mode=Buildings.Electrical.Types.Load.FixedZ_dynamic,
-    Rn=0.5*Rbase,
-    Ln=0.5*Lbase,
-    i1_start={-1,1},
-    i2_start={-1,-1},
-    i3_start={1,0})
-    "Dynamic resistive-inductive line connected to short circuit 3"
-    annotation (Placement(transformation(extent={{-46,-40},{-26,-20}})));
-  Loads.Impedance_N load_sc_3(R=0) "Short circuit 3"
-    annotation (Placement(transformation(extent={{0,-40},{20,-20}})));
 equation
-  connect(RL_3.terminal_p, load_sc_3.terminal) annotation (Line(
-      points={{-26,-30},{0,-30}},
-      color={127,0,127},
-      smooth=Smooth.None));
   connect(RL_2.terminal_p, load_sc_2.terminal) annotation (Line(
       points={{-28,0},{0,0}},
       color={127,0,127},
@@ -65,10 +48,6 @@ equation
       points={{-76,0},{-48,0}},
       color={127,0,127},
       smooth=Smooth.None));
-  connect(E.terminal, RL_3.terminal_n) annotation (Line(
-      points={{-76,0},{-70,0},{-70,-30},{-46,-30}},
-      color={127,0,127},
-      smooth=Smooth.None));
   annotation ( Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}), graphics),
   experiment(StopTime=1.0,Tolerance=1e-06),
   __Dymola_Commands(file=
@@ -76,6 +55,11 @@ equation
         "Simulate and plot"),
     Documentation(revisions="<html>
 <ul>
+<li>
+March 20, 2015, by Michael Wetter:<br/>
+Removed dynamic load model as this caused divergence.
+(Dassault SR00259003.)
+</li>    
 <li>
 March 19, 2015, by Marco Bonvini:<br/>
 Added initial conditions for the dynamic load model.
@@ -91,20 +75,14 @@ This example demonstrates how to use a resistive-inductive line model with neutr
 a source to a load.
 </p>
 <p>
-The model has three loads <code>load_sc_1</code>, <code>load_sc_2</code>,
-and <code>load_sc_3</code> representing short circuits <i>R=0</i>.
+The model has two loads <code>load_sc_1</code> and <code>load_sc_2</code>
+representing short circuits <i>R=0</i>.
 The current that flows through the load depends on the impedance of the line.
 </p>
 <p>
 Each load is connected to the source with different configurations,
 but the equivalent impedance between each load and the source is the same.
 Since the equivalent impedances are the same, each load draw the same current.
-</p>
-<p>
-<b>Note:</b>
-The line model <code>RL_3</code> is the same as <code>RL_2</code> but it uses
-dynamic phasors. Also, the initial currents of the dynamic line model are unbalanced
-at time <i>t = 0</i>, causing a current in the neutral cable.
 </p>
 </html>"));
 end ACLine_RL_N;
