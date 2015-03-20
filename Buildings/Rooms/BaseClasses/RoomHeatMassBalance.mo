@@ -107,7 +107,7 @@ partial model RoomHeatMassBalance "Base model for a room"
     haveSurBou "Heat port of surface that is connected to the room air"
     annotation (Placement(transformation(extent={{-270,-150},{-250,-130}}),
         iconTransformation(extent={{-48,-150},{-28,-130}})));
-  Modelica.Blocks.Interfaces.RealInput qGai_flow[3](unit="W/m2")
+  Modelica.Blocks.Interfaces.RealInput qGai_flow[3](each unit="W/m2")
     "Radiant, convective and latent heat input into room (positive if heat gain)"
     annotation (Placement(transformation(extent={{-300,60},{-260,100}}),
         iconTransformation(extent={{-240,60},{-200,100}})));
