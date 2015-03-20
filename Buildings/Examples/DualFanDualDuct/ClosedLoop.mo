@@ -303,7 +303,7 @@ model ClosedLoop "Closed loop model of a dual-fan dual-duct system"
     r_N_min=0.2,
     k=1,
     Ti=15,
-    controllerType=Modelica.Blocks.Types.SimpleController.PI)
+    controllerType=Modelica.Blocks.Types.SimpleController.P)
     "Controller for return air fan"
     annotation (Placement(transformation(extent={{240,220},{260,240}})));
   Buildings.Fluid.FixedResistances.SplitterFixedResistanceDpM splRetRoo1(
