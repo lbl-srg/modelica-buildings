@@ -7,10 +7,22 @@ package PartialPhaseSystem "Base package of all phase systems"
   constant Integer m "Number of reference angles";
 
   type Current = Real(unit = "A", quantity = "Current." + phaseSystemName)
-    "Current for connector";
+    "Current for connector" annotation (Documentation(revisions="<html>
+This type defines he current for a specific connector that extends the
+<a href=\"modelica://Buildings.Electrical.PhaseSystems.PartialPhaseSystem\">
+Buildings.Electrical.PhaseSystems.PartialPhaseSystem</a>.
+</html>", info="<html>
+This type defines the current for a specific connector that extends the
+<a href=\"modelica://Buildings.Electrical.PhaseSystems.PartialPhaseSystem\">
+Buildings.Electrical.PhaseSystems.PartialPhaseSystem</a>.
+</html>"));
 
   type Voltage = Real(unit = "V", quantity = "Voltage." + phaseSystemName)
-    "Voltage for connector";
+    "Voltage for connector" annotation (Documentation(info="<html>
+This type defines the voltage for a specific connector that extends the
+<a href=\"modelica://Buildings.Electrical.PhaseSystems.PartialPhaseSystem\">
+Buildings.Electrical.PhaseSystems.PartialPhaseSystem</a>.
+</html>"));
 
   type ReferenceAngle "Reference angle for connector"
     extends SI.Angle;
@@ -26,6 +38,11 @@ package PartialPhaseSystem "Base package of all phase systems"
           "Angles theta1 and theta2 are not equal over the connection.");
       end for;
     end equalityConstraint;
+    annotation (Documentation(info="<html>
+This type defines the voltage angle (used by the phasorial approach) for a specific connector that extends the
+<a href=\"modelica://Buildings.Electrical.PhaseSystems.PartialPhaseSystem\">
+Buildings.Electrical.PhaseSystems.PartialPhaseSystem</a>.
+</html>"));
   end ReferenceAngle;
 
   replaceable partial function j "Return vector rotated by 90 degrees"

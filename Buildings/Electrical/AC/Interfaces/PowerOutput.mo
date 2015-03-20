@@ -18,5 +18,16 @@ connector PowerOutput
           fillPattern=FillPattern.Solid), Text(
           extent={{30,110},{30,60}},
           lineColor={0,0,127},
-          textString="%name")}));
+          textString="%name")}),
+    Documentation(info="<html>
+This connector contains multiple quantities that can be used to monitor
+the power consumption of a generic AC systems.
+</html>", revisions="<html>
+<ul>
+<li>
+March 19, 2015, by Marco Bonvini:<br/>
+Added documentation.
+</li>
+</ul>
+</html>"));
 end PowerOutput;
