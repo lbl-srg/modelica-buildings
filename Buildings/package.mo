@@ -127,17 +127,70 @@ its class name ends with the string <code>Beta</code>.
   package ReleaseNotes "Release notes"
     extends Modelica.Icons.ReleaseNotes;
 
-    class Version_1_7_build1 "Version 1.7 build 1"
+    class Version_2_0_build1 "Version 2.0 build 1"
       extends Modelica.Icons.ReleaseNotes;
         annotation (Documentation(info="<html>
 <p>
-Version 1.7 build 1 is ... xxx
+Version 2.0 build 1 is a major release that contains various new packages, models
+and improvements.
+</p>
+<p>
+The following major additions have been done in version 2.0:
+</p>
+<ul>
+<li>
+A CFD model 
+that is embedded in a thermal zone has been added.
+This model is implemented in <a href=\"modelica://Buildings.Rooms.CFD\">Buildings.Rooms.CFD</a>.
+The CFD model is an implementation of the Fast Fluid Dynamics code
+that allows three-dimensional CFD inside a thermal zone,
+coupled to building heat transfer, HVAC components and feedback control loops.
+</li>
+<li>
+A new package
+<a href=\"modelica://Buildings.Electrical\">Buildings.Electrical</a>
+has been added.
+This package allows studying
+buildings to electrical grid integration. It includes models for loads, transformers, 
+cables, batteries, PV and wind turbines.
+Models exist for DC and AC systems with two or three phases that can be balanced and unbalanced.
+The models compute voltage, current, active and reactive power
+based on the quasi-stationary assumption or using the dynamic phasorial representation.
+</li>
+<li>
+The new package
+<a href=\"modelica://Buildings.Controls.DemandResponse\">
+Buildings.Controls.DemandResponse</a>
+contains models for demand response simulation.
+</li>
+<li>
+The new package
+<a href=\"modelica://Buildings.Controls.Predictors\">
+Buildings.Controls.Predictors</a>
+contains a data-driven model that predicts the electrical load
+of a building. The prediction can be done
+either using an average baseline or
+a linear regression with respect to outside temperature.
+For both, optionally a day-of adjustment can be made.
+</li>
+</ul>
+<p>
+The tables below give more detailed information to the revisions
+of this library compared to the previous release 1.6 build 1.
 </p>
 <!-- New libraries -->
 <p>
 The following <b style=\"color:blue\">new libraries</b> have been added:
 </p>
 <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2>
+<tr><td valign=\"top\">Buildings.Electrical
+    </td>
+    <td valign=\"top\">Library for electrical grid simulation that
+                       allows to study building to electrical grid integration.
+                       The library contains models of loads, generation and transmission
+                       for DC and AC systems.
+    </td>
+    </tr>
 <tr><td valign=\"top\">Buildings.Controls.DemandResponse
     </td>
     <td valign=\"top\">Library with a model for demand response prediction.
@@ -817,7 +870,7 @@ xxx
 </li>
 </ul>
 </html>"));
-    end Version_1_7_build1;
+    end Version_2_0_build1;
 
     class Version_1_6_build1 "Version 1.6 build 1"
       extends Modelica.Icons.ReleaseNotes;
@@ -4359,7 +4412,7 @@ on the Buildings library.
 </p>
 <ul>
 <li>
-<a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_1_7_build1\">Version 1.7 build1</a>(xxx, 2014)
+<a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_2_0_build1\">Version 2.0 build1</a>(xxx, 2015)
 </li>
 <li>
 <a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_1_6_build1\">Version 1.6 build1</a>(June 19, 2014)
@@ -4847,7 +4900,7 @@ end UsersGuide;
 
 annotation (
 preferredView="info",
-version="1.7",
+version="2.0",
 versionBuild=0,
 versionDate="2014-06-19",
 dateModified = "2014-06-19",
@@ -4855,7 +4908,7 @@ uses(Modelica(version="3.2.1"),
      Modelica_StateGraph2(version="2.0.2")),
 conversion(
  from(version="1.6",
-      script="modelica://Buildings/Resources/Scripts/Dymola/ConvertBuildings_from_1.6_to_1.7.mos"),
+      script="modelica://Buildings/Resources/Scripts/Dymola/ConvertBuildings_from_1.6_to_2.0.mos"),
  from(version="1.5",
       script="modelica://Buildings/Resources/Scripts/Dymola/ConvertBuildings_from_1.5_to_1.6.mos"),
  from(version="1.4",
