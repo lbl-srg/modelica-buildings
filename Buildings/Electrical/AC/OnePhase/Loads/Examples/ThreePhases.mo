@@ -52,7 +52,7 @@ equation
         "Simulate and plot"),
     Documentation(info="<html>
 <p>
-This model shows how a balanced three phases system can be represented with three
+This model shows how a balanced three phase system can be represented with three
 independent single phase circuits.
 </p>
 </html>", revisions="<html>

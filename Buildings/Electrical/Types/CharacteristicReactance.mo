@@ -8,6 +8,6 @@ Added documentation.
 </li>
 </ul>
 </html>", info="<html>
-This type defines the reactance per unit length and it typically used
-to describe physical properties of the line cables.
+This type defines the reactance per unit length. It is typically used
+to describe physical properties of line cables.
 </html>"));

@@ -9,7 +9,7 @@ Added documentation.
 </li>
 </ul>
 </html>", info="<html>
-This type is used to define if an electric quantity such as voltage
+This type is used to declare whether an electric quantity such as voltage
 is expressed in SI units or in per units (i.e., the value divided by its nominal 
 value).
 </html>"));

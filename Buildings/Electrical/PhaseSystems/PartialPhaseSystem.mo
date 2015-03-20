@@ -7,19 +7,15 @@ package PartialPhaseSystem "Base package of all phase systems"
   constant Integer m "Number of reference angles";
 
   type Current = Real(unit = "A", quantity = "Current." + phaseSystemName)
-    "Current for connector" annotation (Documentation(revisions="<html>
-This type defines he current for a specific connector that extends the
-<a href=\"modelica://Buildings.Electrical.PhaseSystems.PartialPhaseSystem\">
-Buildings.Electrical.PhaseSystems.PartialPhaseSystem</a>.
-</html>", info="<html>
-This type defines the current for a specific connector that extends the
+    "Current for connector" annotation (Documentation(info="<html>
+This type defines the current for a specific connector that extends
 <a href=\"modelica://Buildings.Electrical.PhaseSystems.PartialPhaseSystem\">
 Buildings.Electrical.PhaseSystems.PartialPhaseSystem</a>.
 </html>"));
 
   type Voltage = Real(unit = "V", quantity = "Voltage." + phaseSystemName)
     "Voltage for connector" annotation (Documentation(info="<html>
-This type defines the voltage for a specific connector that extends the
+This type defines the voltage for a specific connector that extends
 <a href=\"modelica://Buildings.Electrical.PhaseSystems.PartialPhaseSystem\">
 Buildings.Electrical.PhaseSystems.PartialPhaseSystem</a>.
 </html>"));
@@ -39,7 +35,7 @@ Buildings.Electrical.PhaseSystems.PartialPhaseSystem</a>.
       end for;
     end equalityConstraint;
     annotation (Documentation(info="<html>
-This type defines the voltage angle (used by the phasorial approach) for a specific connector that extends the
+This type defines the voltage angle (used by the phasorial approach) for a specific connector that extends
 <a href=\"modelica://Buildings.Electrical.PhaseSystems.PartialPhaseSystem\">
 Buildings.Electrical.PhaseSystems.PartialPhaseSystem</a>.
 </html>"));
