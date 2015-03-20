@@ -32,14 +32,17 @@ model ACLine_RL_N
     L=Lbase,
     mode=Buildings.Electrical.Types.Load.FixedZ_dynamic,
     Rn=0.5*Rbase,
-    Ln=0.5*Lbase)
+    Ln=0.5*Lbase,
+    i1_start={-1,1},
+    i2_start={-1,-1},
+    i3_start={1,0})
     "Dynamic resistive-inductive line connected to short circuit 3"
-    annotation (Placement(transformation(extent={{-48,-40},{-28,-20}})));
+    annotation (Placement(transformation(extent={{-46,-40},{-26,-20}})));
   Loads.Impedance_N load_sc_3(R=0) "Short circuit 3"
     annotation (Placement(transformation(extent={{0,-40},{20,-20}})));
 equation
   connect(RL_3.terminal_p, load_sc_3.terminal) annotation (Line(
-      points={{-28,-30},{0,-30}},
+      points={{-26,-30},{0,-30}},
       color={127,0,127},
       smooth=Smooth.None));
   connect(RL_2.terminal_p, load_sc_2.terminal) annotation (Line(
@@ -63,7 +66,7 @@ equation
       color={127,0,127},
       smooth=Smooth.None));
   connect(E.terminal, RL_3.terminal_n) annotation (Line(
-      points={{-76,0},{-70,0},{-70,-30},{-48,-30}},
+      points={{-76,0},{-70,0},{-70,-30},{-46,-30}},
       color={127,0,127},
       smooth=Smooth.None));
   annotation ( Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}), graphics),
@@ -73,6 +76,10 @@ equation
         "Simulate and plot"),
     Documentation(revisions="<html>
 <ul>
+<li>
+March 19, 2015, by Marco Bonvini:<br/>
+Added initial conditions for the dynamic load model.
+</li>
 <li>
 January 14, 2015, by Marco Bonvini:<br/>
 Created model and documentation.
@@ -96,7 +103,8 @@ Since the equivalent impedances are the same, each load draw the same current.
 <p>
 <b>Note:</b>
 The line model <code>RL_3</code> is the same as <code>RL_2</code> but it uses
-dynamic phasors.
+dynamic phasors. Also, the initial currents of the dynamic line model are unbalanced
+at time <i>t = 0</i>, causing a current in the neutral cable.
 </p>
 </html>"));
 end ACLine_RL_N;
