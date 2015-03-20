@@ -1,0 +1,10 @@
+compareVars :=
+  {
+    "error",
+    "sen_nlin.I",
+    "sen_lin.I",
+    "sen_nlin.V",
+    "sen_lin.V",
+    "sen_nlin.P",
+    "sen_lin.P"
+  };

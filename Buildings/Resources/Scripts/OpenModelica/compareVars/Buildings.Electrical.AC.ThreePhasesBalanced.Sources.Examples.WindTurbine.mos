@@ -1,0 +1,8 @@
+compareVars :=
+  {
+    "tur.P",
+    "res.P",
+    "sen.V",
+    "sou.P.real",
+    "sou.P.apparent"
+  };
