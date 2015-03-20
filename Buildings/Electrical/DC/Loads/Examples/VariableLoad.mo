@@ -20,9 +20,10 @@ model VariableLoad "Example using variable loads models"
     startTime=0.3,
     offset=0) "Power signal"
     annotation (Placement(transformation(extent={{60,0},{40,20}})));
-  Conductor loa3(              mode=Types.Load.VariableZ_P_input,
+  Conductor loa3(
     V_nominal=12,
-    P_nominal=0) "Load"
+    P_nominal=0,
+    mode=Buildings.Electrical.Types.Load.VariableZ_P_input) "Load"
     annotation (Placement(transformation(extent={{0,-40},{20,-20}})));
   Modelica.Blocks.Sources.Ramp varLoad_P(
     duration=0.5,
