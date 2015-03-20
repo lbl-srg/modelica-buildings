@@ -1,0 +1,11 @@
+compareVars :=
+  {
+    "Rline_1.terminal_n.phase[1].i[1]",
+    "Rline_1.terminal_n.phase[1].i[2]",
+    "Rline_2a.terminal_n.phase[1].i[1]",
+    "Rline_2a.terminal_n.phase[1].i[2]",
+    "Rline_3a.terminal_n.phase[1].i[1]",
+    "Rline_3a.terminal_n.phase[1].i[2]",
+    "Rline_3b.terminal_n.phase[1].i[1]",
+    "Rline_3b.terminal_n.phase[1].i[2]"
+  };

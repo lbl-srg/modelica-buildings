@@ -1,0 +1,11 @@
+compareVars :=
+  {
+    "grid.P.real",
+    "grid.P.apparent",
+    "pvSimple.load.S[1]",
+    "pvSimple.load.S[2]",
+    "RL.S[1]",
+    "RL.S[2]",
+    "pvOriented.panel.load.S[1]",
+    "pvOriented.panel.load.S[2]"
+  };
