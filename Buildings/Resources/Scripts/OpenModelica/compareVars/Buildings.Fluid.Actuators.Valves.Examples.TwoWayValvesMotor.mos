@@ -2,5 +2,6 @@ compareVars :=
   {
     "valLin.phi",
     "valQui.phi",
-    "valEqu.phi"
+    "valEqu.phi",
+    "valInd.phi"
   };
