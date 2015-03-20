@@ -19,8 +19,17 @@ algorithm
 Once continuously differentiable approximation to the <code>limit(.,.)</code> function.
 The output is bounded to be in <i>[l, u]</i>.
 </p>
+<p>
+Note that the limit need not be respected, such as illustrated in
+<a href=\"modelica://Buildings.Utilities.Math.Examples.SmoothMin\">
+Buildings.Utilities.Math.Examples.SmoothMin</a>.
+</p>
 </html>", revisions="<html>
 <ul>
+<li>
+March 12, 2015, by Filip Jorissen:<br/>
+Added documentation reference demonstrating overshoot.
+</li>
 <li>
 February 5, 2015, by Filip Jorissen:<br/>
 Added <code>smoothOrder = 1</code>.

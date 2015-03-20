@@ -1,6 +1,5 @@
 within Buildings.Utilities.Time.Examples;
 model ModelTime "Test model for the ModelTime block"
-  import Buildings;
   extends Modelica.Icons.Example;
   Buildings.Utilities.Time.ModelTime modTim "Model time"
     annotation (Placement(transformation(extent={{-12,-10},{8,10}})));

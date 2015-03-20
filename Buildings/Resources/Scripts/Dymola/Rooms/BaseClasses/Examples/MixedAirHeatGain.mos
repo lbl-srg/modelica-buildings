@@ -1,4 +1,4 @@
-simulateModel("Buildings.Rooms.BaseClasses.Examples.HeatGain", stopTime=3600, method="dassl", resultFile="HeatGain");
+simulateModel("Buildings.Rooms.BaseClasses.Examples.MixedAirHeatGain", stopTime=3600, method="dassl", resultFile="MixedAirHeatGain");
 
 createPlot(id = 6,
  position = {15, 6, 744, 504},

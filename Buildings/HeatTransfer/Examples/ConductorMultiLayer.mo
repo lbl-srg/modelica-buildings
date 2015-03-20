@@ -17,7 +17,7 @@ model ConductorMultiLayer "Test model for heat conductor"
       layers,
     A=0.1)
     annotation (Placement(transformation(extent={{20,0},{40,20}})));
-  Buildings.HeatTransfer.Convection.Interior conv(      A=0.1, til=Buildings.HeatTransfer.Types.Tilt.Wall)
+  Buildings.HeatTransfer.Convection.Interior conv(      A=0.1, til=Buildings.Types.Tilt.Wall)
     "Convective heat transfer"
     annotation (Placement(transformation(extent={{0,0},{-20,20}})));
 equation

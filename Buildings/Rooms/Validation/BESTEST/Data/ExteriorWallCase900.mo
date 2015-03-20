@@ -24,4 +24,9 @@ record ExteriorWallCase900 =
         nStaRef=nStaRef)}) "High Mass Case: Exterior Wall"
     annotation (
       defaultComponentPrefixes="parameter",
-      defaultComponentName="datOpaCon");
+      defaultComponentName="datOpaCon",
+  Documentation(info="<html>
+<p>
+This construction is for the exterior wall of the 900 test series.
+</p>
+</html>"));

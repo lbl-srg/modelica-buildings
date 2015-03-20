@@ -4,9 +4,8 @@ record Win600 =
     final glass={Buildings.Rooms.Validation.BESTEST.Data.Glass600(),
                             Buildings.Rooms.Validation.BESTEST.Data.Glass600()},
     final gas={Buildings.HeatTransfer.Data.Gases.Air(x=0.013)},
-    UFra=1.4,
-    final nLay=2)
-  "Double pane, clear glass 3.175mm, air 13mm, clear glass 3.175mm" annotation (
+    UFra=1.4) "Double pane, clear glass 3.175mm, air 13mm, clear glass 3.175mm"
+                                                                    annotation (
 defaultComponentPrefixes="parameter",
 defaultComponentName="datThePro",
 Documentation(info="<html>
@@ -16,6 +15,10 @@ for the BESTEST.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+March 13, 2015, by Michael Wetter:<br/>
+Removed assignment of <code>nLay</code> which no longer exists.
+</li>
 <li>
 October 6, 2011, by Michael Wetter:<br/>
 First implementation.

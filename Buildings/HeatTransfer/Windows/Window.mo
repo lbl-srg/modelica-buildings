@@ -88,7 +88,7 @@ model Window "Model for a window"
     "Control signal for the shading device. 0: unshaded; 1: fully shaded (removed if no shade is present)"
     annotation (Placement(transformation(extent={{-240,140},{-200,180}})));
 
-  Modelica.Blocks.Interfaces.RealInput QAbsUns_flow[glaSys.nLay](each unit="W",
+  Modelica.Blocks.Interfaces.RealInput QAbsUns_flow[size(glaSys.glass, 1)](each unit="W",
       each quantity="Power")
     "Solar radiation absorbed by unshaded part of glass"
                                                        annotation (Placement(
@@ -99,8 +99,9 @@ model Window "Model for a window"
         extent={{-20,-20},{20,20}},
         rotation=90,
         origin={-80,-220})));
-  Modelica.Blocks.Interfaces.RealInput QAbsSha_flow[glaSys.nLay](each unit="W",
-      each quantity="Power") if haveShade
+  Modelica.Blocks.Interfaces.RealInput QAbsSha_flow[size(glaSys.glass, 1)](
+     each unit="W",
+     each quantity="Power") if haveShade
     "Solar radiation absorbed by shaded part of glass"
                                         annotation (Placement(transformation(
         extent={{-20,-20},{20,20}},
@@ -462,6 +463,11 @@ Validation of the window model of the Modelica Buildings library.</a>
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+March 13, 2015, by Michael Wetter:<br/>
+Changed model to avoid a translation error
+in OpenModelica.
+</li>
 <li>
 July 25, 2014, by Michael Wetter:<br/>
 Propagated parameter <code>homotopyInitialization</code>.

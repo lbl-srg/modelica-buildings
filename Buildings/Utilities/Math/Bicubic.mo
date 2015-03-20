@@ -11,6 +11,7 @@ equation
 Documentation(info="<html>
 <p>
 This block computes
+</p>
 <p align=\"center\" style=\"font-style:italic;\">
  y = a<sub>1</sub>
     + a<sub>2</sub>  x<sub>1</sub> + a<sub>3</sub>  x<sub>1</sub><sup>2</sup>

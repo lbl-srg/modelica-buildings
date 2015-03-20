@@ -13,8 +13,8 @@ model OnlyExteriorWallWithWindowInteriorShade "Test model for room model"
                  each wWin=2,
                  each hWin=2,
                  each fFra=0.1,
-                 til={Buildings.HeatTransfer.Types.Tilt.Floor, Buildings.HeatTransfer.Types.Tilt.Ceiling},
-                 each azi=Buildings.HeatTransfer.Types.Azimuth.W)),
+                 til={Buildings.Types.Tilt.Floor, Buildings.Types.Tilt.Ceiling},
+                 each azi=Buildings.Types.Azimuth.W)),
     glaSys(haveInteriorShade=true));
   Modelica.Blocks.Sources.Constant uSha(k=0.5)
     "Control signal for the shading device"

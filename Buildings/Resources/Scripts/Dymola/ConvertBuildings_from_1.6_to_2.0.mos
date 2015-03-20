@@ -1,6 +1,6 @@
 // Conversion script for Buildings library
 //  from: Version 1.6
-//  to:   Version 1.7
+//  to:   Version 2.0
 clear
 
 convertClear();
@@ -138,3 +138,18 @@ convertClass("Buildings.Media.GasesPTDecoupled.MoistAir",
              "Buildings.Obsolete.Media.GasesPTDecoupled.MoistAir");
 convertClass("Buildings.Media.GasesPTDecoupled.SimpleAir",
              "Buildings.Obsolete.Media.GasesPTDecoupled.SimpleAir");
+
+// Change of material constructions
+convertModifiers("Buildings.HeatTransfer.Data.GlazingSystems.Generic",
+                 {"nLay"}, fill("",0), true);
+
+// SimulationTime
+convertClass("Buildings.Utilities.SimulationTime",
+             "Buildings.Utilities.Time.ModelTime");
+
+
+// Types for heat transfer, room model and boundary conditions
+convertClass("Buildings.HeatTransfer.Types.Azimuth",
+             "Buildings.Types.Azimuth");
+convertClass("Buildings.HeatTransfer.Types.Tilt",
+             "Buildings.Types.Tilt");

@@ -122,6 +122,7 @@ If <code>dynamicBalance=true</code>, then at the junction of the three flows,
 a mixing volume will be present. This will introduce a dynamic energy and momentum
 balance, which often breaks algebraic loops.
 The time constant of the mixing volume is determined by the parameter <code>tau</code>.
+</p>
 </html>", revisions="<html>
 <ul>
 <li>

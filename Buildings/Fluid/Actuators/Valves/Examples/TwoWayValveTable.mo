@@ -108,7 +108,7 @@ opening characteristics.
 The valve has the following opening characteristics, which is taken from a test case
 of the IEA EBC Annex 60 project.
 </p>
-<table summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+<table summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
 <tr><td><i>y</i></td>
   <td>0</td>  <td>0.1667</td>  <td>0.3333</td>  <td>0.5</td>  <td>0.6667</td>  <td>1</td>
 </tr>

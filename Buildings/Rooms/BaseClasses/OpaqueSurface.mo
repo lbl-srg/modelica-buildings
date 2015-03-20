@@ -15,8 +15,8 @@ Documentation(info="<html>
 This data record is used to set the parameters of opaque surfaces.
 </p>
 <p>
-The surface tilt is defined in <a href=\"modelica://Buildings.HeatTransfer.Types.Tilt\">
-Buildings.HeatTransfer.Types.Tilt</a>
+The surface tilt is defined in <a href=\"modelica://Buildings.Types.Tilt\">
+Buildings.Types.Tilt</a>
 </p>
 </html>", revisions="<html>
 <ul>

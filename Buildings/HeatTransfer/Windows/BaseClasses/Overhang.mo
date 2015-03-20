@@ -226,8 +226,8 @@ The overhang must completely cover the window (i.e.,
 </p>
 <p>
 The surface azimuth <code>azi</code> is as defined in
-<a href=\"modelica://Buildings.HeatTransfer.Types.Azimuth\">
-Buildings.HeatTransfer.Types.Azimuth</a>.
+<a href=\"modelica://Buildings.Types.Azimuth\">
+Buildings.Types.Azimuth</a>.
 </p>
 <h4>Implementation</h4>
 <p>

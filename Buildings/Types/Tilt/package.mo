@@ -1,4 +1,4 @@
-within Buildings.HeatTransfer.Types;
+within Buildings.Types;
 package Tilt "Enumeration for surface tilt"
   extends Modelica.Icons.TypesPackage;
 
@@ -11,9 +11,9 @@ package Tilt "Enumeration for surface tilt"
 
 annotation(preferredView="info", Documentation(info="<html>
 <p>
- Enumeration to define the tilt of a surface for the room model.
-  For example, for a construction that is a floor, use
- <code>Buildings.HeatTransfer.Types.Tilt.Floor</code>.
+numeration to define the tilt of a surface.
+For example, for a construction that is a floor, use
+<code>Buildings.Types.Tilt.Floor</code>.
 </p>
 <p>
 Note that a ceiling has a tilt of <i>0</i>, and also the solar collector models

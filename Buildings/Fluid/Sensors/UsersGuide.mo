@@ -32,7 +32,7 @@ For an explanation, see
 Modelica.Fluid.Examples.Explanatory.MeasuringTemperature</a>.
 </p>
 
-<table summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2>
+<table summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\">
 <tr><th valign=\"top\" align=\"left\">Correct use</th>
     <td valign=\"top\">
     <img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Fluid/Sensors/twoPortHex.png\" />
@@ -76,7 +76,7 @@ ports can be used for all connection topologies.
 <p>
 The table below summarizes the recommendations for the use of sensors.
 </p>
-<table summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2>
+<table summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\">
 <tr><th rowspan=\"2\" valign=\"top\">Measured quantity</th>
     <th rowspan=\"2\" valign=\"top\">One port sensor</th>
     <th colspan=\"2\" valign=\"top\">Two port sensor</th>

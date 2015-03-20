@@ -23,7 +23,7 @@ model ExteriorWallWithWindow "Test model for an exterior wall with a window"
     annotation (Placement(transformation(extent={{-160,60},{-140,80}})));
 
   parameter Buildings.Rooms.BaseClasses.ParameterConstructionWithWindow conPar(
-    til=Buildings.HeatTransfer.Types.Tilt.Wall,
+    til=Buildings.Types.Tilt.Wall,
     azi=0,
     layers=extConMat,
     glaSys=glaSys,
@@ -55,7 +55,7 @@ model ExteriorWallWithWindow "Test model for an exterior wall with a window"
     annotation (Placement(transformation(extent={{-160,20},{-140,40}})));
   Buildings.HeatTransfer.Convection.Interior con[1](
       each A=A .- AWin,
-      til={Buildings.HeatTransfer.Types.Tilt.Wall}) "Model for heat convection"
+      til={Buildings.Types.Tilt.Wall}) "Model for heat convection"
     annotation (Placement(transformation(extent={{-20,20},{-40,40}})));
   Modelica.Thermal.HeatTransfer.Components.ThermalCollector theCol(m=1)
     "Thermal collector to link a vector of models to a single model"
@@ -78,13 +78,13 @@ model ExteriorWallWithWindow "Test model for an exterior wall with a window"
   HeatTransfer.Radiosity.IndoorRadiosity indRad(A=AWin, linearize=
         linearizeRadiation) "Model for indoor radiosity"
     annotation (Placement(transformation(extent={{-122,-100},{-102,-80}})));
-  Modelica.Blocks.Sources.Constant QAbs[1,glaSys.nLay](each k=0)
+  Modelica.Blocks.Sources.Constant QAbs[1,size(glaSys.glass, 1)](each k=0)
     "Solar radiation absorbed by glass"
     annotation (Placement(transformation(extent={{-180,-180},{-160,-160}})));
-  Modelica.Blocks.Sources.Constant QAbsSha(each k=0)
+  Modelica.Blocks.Sources.Constant QAbsSha(k=0)
     "Solar radiation absorbed by interior shade"
     annotation (Placement(transformation(extent={{-180,-120},{-160,-100}})));
-  Modelica.Blocks.Sources.Constant QTra(each k=0)
+  Modelica.Blocks.Sources.Constant QTra(k=0)
     "Solar radiation absorbed by exterior shade"
     annotation (Placement(transformation(extent={{60,40},{80,60}})));
 
@@ -142,18 +142,31 @@ equation
           {92.6667,12.6667}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(uSha.y, conExt[1].uSha) annotation (Line(
+
+  if glaSys.haveShade then
+    connect(uSha.y, conExt[1].uSha) annotation (Line(
       points={{-159,-50},{-140,-50},{-140,6},{54,6},{54,12},{66,12},{66,6},{62,6}},
       color={0,0,127},
       smooth=Smooth.None));
+    connect(QAbs.y, conExt.QAbsSha_flow) annotation (Line(
+      points={{-159,-170},{22,-170},{22,-32}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(intShaCon.glaSha, conExt.glaSha_b) annotation (Line(
+      points={{-20,-132},{-6,-132},{-6,-12},{0,-12}},
+      color={191,0,0},
+      smooth=Smooth.None));
+  connect(intShaCon[1].uSha, uSha.y) annotation (Line(
+      points={{-40.8,-122},{-140,-122},{-140,-50},{-159,-50}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  end if;
+
   connect(QAbs.y, conExt.QAbsUns_flow) annotation (Line(
       points={{-159,-170},{38,-170},{38,-32}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(QAbs.y, conExt.QAbsSha_flow) annotation (Line(
-      points={{-159,-170},{22,-170},{22,-32}},
-      color={0,0,127},
-      smooth=Smooth.None));
+
   connect(QTra.y, bouConExt.QAbsSolSha_flow[1]) annotation (Line(
       points={{81,50},{88,50},{88,10},{92.6667,10}},
       color={0,0,127},
@@ -218,17 +231,9 @@ equation
       points={{0,-8},{-8,-8},{-8,-128},{-20,-128}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(intShaCon.glaSha, conExt.glaSha_b) annotation (Line(
-      points={{-20,-132},{-6,-132},{-6,-12},{0,-12}},
-      color={191,0,0},
-      smooth=Smooth.None));
   connect(theCol1.port_a, intShaCon.air) annotation (Line(
       points={{-64,-130},{-40,-130}},
       color={191,0,0},
-      smooth=Smooth.None));
-  connect(intShaCon[1].uSha, uSha.y) annotation (Line(
-      points={{-40.8,-122},{-140,-122},{-140,-50},{-159,-50}},
-      color={0,0,127},
       smooth=Smooth.None));
   connect(uSha.y, intShaRad[1].u) annotation (Line(
       points={{-159,-50},{-60,-50},{-60,-42},{-41,-42}},
@@ -283,6 +288,10 @@ This model tests the exterior constructions with windows.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+March 13, 2015, by Michael Wetter:<br/>
+Changed model for OpenModelica.
+</li>
 <li>
 April 29, 2013, by Michael Wetter:<br/>
 Corrected wrong assignment of parameter in instance <code>bouConExt(conMod=...)</code>

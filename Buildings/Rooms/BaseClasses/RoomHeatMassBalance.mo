@@ -107,7 +107,7 @@ partial model RoomHeatMassBalance "Base model for a room"
     haveSurBou "Heat port of surface that is connected to the room air"
     annotation (Placement(transformation(extent={{-270,-150},{-250,-130}}),
         iconTransformation(extent={{-48,-150},{-28,-130}})));
-  Modelica.Blocks.Interfaces.RealInput qGai_flow[3](unit="W/m2")
+  Modelica.Blocks.Interfaces.RealInput qGai_flow[3](each unit="W/m2")
     "Radiant, convective and latent heat input into room (positive if heat gain)"
     annotation (Placement(transformation(extent={{-300,60},{-260,100}}),
         iconTransformation(extent={{-240,60},{-200,100}})));
@@ -136,7 +136,7 @@ partial model RoomHeatMassBalance "Base model for a room"
 
   HeatTransfer.Windows.BaseClasses.WindowRadiation conExtWinRad[NConExtWin](
     final AWin=(1 .- datConExtWin.fFra) .* datConExtWin.AWin,
-    final N=datConExtWin.glaSys.nLay,
+    final N={size(datConExtWin[i].glaSys.glass, 1) for i in 1:NConExtWin},
     final tauGlaSol=datConExtWin.glaSys.glass.tauSol,
     final rhoGlaSol_a=datConExtWin.glaSys.glass.rhoSol_a,
     final rhoGlaSol_b=datConExtWin.glaSys.glass.rhoSol_b,
@@ -188,7 +188,7 @@ partial model RoomHeatMassBalance "Base model for a room"
     final isFloorConPar_b=isFloorConPar_b,
     final isFloorConBou=isFloorConBou,
     final isFloorSurBou=isFloorSurBou,
-    final tauGla={datConExtWin[i].glaSys.glass[datConExtWin[i].glaSys.nLay].tauSol for i in 1:NConExtWin}) if
+    final tauGla={datConExtWin[i].glaSys.glass[size(datConExtWin[i].glaSys.glass, 1)].tauSol for i in 1:NConExtWin}) if
        haveConExtWin "Solar radiative heat exchange"
     annotation (Placement(transformation(extent={{-100,40},{-80,60}})));
 
@@ -240,7 +240,7 @@ partial model RoomHeatMassBalance "Base model for a room"
     final A=(1 .- datConExtWin.fFra) .* datConExtWin.AWin,
     final thisSideHasShade=haveInteriorShade,
     final absIR_air=datConExtWin.glaSys.shade.absIR_a,
-    final absIR_glass={(datConExtWin[i].glaSys.glass[datConExtWin[i].glaSys.nLay].absIR_b) for i in 1:NConExtWin},
+    final absIR_glass={(datConExtWin[i].glaSys.glass[size(datConExtWin[i].glaSys.glass, 1)].absIR_b) for i in 1:NConExtWin},
     final tauIR_air=tauIRSha_air,
     final tauIR_glass=tauIRSha_glass,
     each final linearize = linearizeRadiation,
@@ -797,6 +797,11 @@ for detailed explanations.
 </p>
 </html>",   revisions="<html>
 <ul>
+<li>
+March 13, 2015, by Michael Wetter:<br/>
+Changed model to avoid a translation error
+in OpenModelica.
+</li>
 <li>
 July 25, 2014, by Michael Wetter:<br/>
 Propagated parameter <code>homotopyInitialization</code>.

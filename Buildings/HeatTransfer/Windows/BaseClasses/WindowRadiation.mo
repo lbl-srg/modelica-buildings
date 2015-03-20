@@ -219,6 +219,10 @@ Dissertation. University of California at Berkeley. 2004.
 </html>", revisions="<html>
 <ul>
 <li>
+March 13, 2015, by Michael Wetter:<br/>
+Removed duplicate text annotation.
+</li>
+<li>
 December 12, 2011, by Wangda Zuo:<br/>
 Add glass thickness as a parameter for tra and abs. It is needed by the claculation of property for uncoated glass.
 </li>
@@ -254,10 +258,6 @@ First implementation.
           extent={{0,86},{90,72}},
           lineColor={0,0,127},
           textString="QAbsExtSha"),
-        Text(
-          extent={{-32,-80},{22,-96}},
-          lineColor={0,0,127},
-          textString="uSha"),
         Text(
           extent={{-4,-22},{92,-36}},
           lineColor={0,0,127},

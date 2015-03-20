@@ -30,10 +30,10 @@ model ConductorSingleLayerPCM "Test model for heat conductor"
   parameter Buildings.HeatTransfer.Data.Solids.Concrete concrete100(x=0.1, nStaRef=4)
     "Non-PCM material"
     annotation (Placement(transformation(extent={{62,70},{82,90}})));
-  Buildings.HeatTransfer.Convection.Interior conv1(      A=1, til=Buildings.HeatTransfer.Types.Tilt.Wall)
+  Buildings.HeatTransfer.Convection.Interior conv1(      A=1, til=Buildings.Types.Tilt.Wall)
     "Convective heat transfer"
     annotation (Placement(transformation(extent={{-12,0},{-32,20}})));
-  Buildings.HeatTransfer.Convection.Interior conv2(      A=1, til=Buildings.HeatTransfer.Types.Tilt.Wall)
+  Buildings.HeatTransfer.Convection.Interior conv2(      A=1, til=Buildings.Types.Tilt.Wall)
     "Convective heat transfer"
     annotation (Placement(transformation(extent={{-12,-40},{-32,-20}})));
   Buildings.HeatTransfer.Conduction.SingleLayer conPCM(
@@ -59,7 +59,7 @@ model ConductorSingleLayerPCM "Test model for heat conductor"
   Buildings.HeatTransfer.Sources.PrescribedTemperature TA2
     "Temperature boundary condition"
     annotation (Placement(transformation(extent={{-60,34},{-40,54}})));
-  Buildings.HeatTransfer.Convection.Interior conv3(      A=1, til=Buildings.HeatTransfer.Types.Tilt.Wall)
+  Buildings.HeatTransfer.Convection.Interior conv3(      A=1, til=Buildings.Types.Tilt.Wall)
     "Convective heat transfer"
     annotation (Placement(transformation(extent={{-12,34},{-32,54}})));
   Buildings.HeatTransfer.Conduction.SingleLayer conPCM2(

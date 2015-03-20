@@ -13,17 +13,17 @@ model Closet "Model of the closet connected to test cell X3A"
     A = {3.6576 * 2.886075 - 2.39*1.22, 2.39 * 1.22},
     each absIR = 0.9,
     each absSol = 0.9,
-    each til=Buildings.HeatTransfer.Types.Tilt.Wall),
+    each til=Buildings.Types.Tilt.Wall),
   datConExt(
     layers = {higIns, roo},
     A = {3.6576 * 1.667, AFlo},
-    til = {Buildings.HeatTransfer.Types.Tilt.Wall, Buildings.HeatTransfer.Types.Tilt.Ceiling},
-    azi = {Buildings.HeatTransfer.Types.Azimuth.N, Buildings.HeatTransfer.Types.Azimuth.N}),
+    til = {Buildings.Types.Tilt.Wall, Buildings.Types.Tilt.Ceiling},
+    azi = {Buildings.Types.Azimuth.N, Buildings.Types.Azimuth.N}),
   datConBou(
     layers = {higIns, celDiv, slaCon},
     A = {3.6576*1.524, 3.6576 * 1.524, 3.93},
-    til = {Buildings.HeatTransfer.Types.Tilt.Wall, Buildings.HeatTransfer.Types.Tilt.Wall, Buildings.HeatTransfer.Types.Tilt.Floor},
-    azi = {Buildings.HeatTransfer.Types.Azimuth.W, Buildings.HeatTransfer.Types.Azimuth.E, Buildings.HeatTransfer.Types.Azimuth.N}));
+    til = {Buildings.Types.Tilt.Wall, Buildings.Types.Tilt.Wall, Buildings.Types.Tilt.Floor},
+    azi = {Buildings.Types.Azimuth.W, Buildings.Types.Azimuth.E, Buildings.Types.Azimuth.N}));
 
   replaceable
     Data.Constructions.OpaqueConstructions.DividingWalls.CellAndElectricalDividingWall

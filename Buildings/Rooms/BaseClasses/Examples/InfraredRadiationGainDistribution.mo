@@ -64,5 +64,10 @@ equation
   annotation (experiment(StopTime=1.0),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Rooms/BaseClasses/Examples/InfraredRadiationGainDistribution.mos"
         "Simulate and plot"),
-  Diagram(coordinateSystem(extent={{-160,-220},{120,120}})));
+  Diagram(coordinateSystem(extent={{-160,-220},{120,120}})),
+    Documentation(info="<html>
+<p>
+Test model for the distribution of the infrared radiation heat gain.
+</p>
+</html>"));
 end InfraredRadiationGainDistribution;

@@ -1,5 +1,5 @@
 within Buildings.Fluid.Movers.Validation;
-model Pump_stratos "Stratos pum with speed as input"
+model Pump_stratos "Stratos pumps with speed as input"
   extends Modelica.Icons.Example;
  extends Buildings.Fluid.Movers.Validation.BaseClasses.FlowMachine_ZeroFlow(
     redeclare package Medium = Buildings.Media.Water,

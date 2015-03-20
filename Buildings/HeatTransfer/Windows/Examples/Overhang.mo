@@ -9,15 +9,15 @@ model Overhang "This example tests the window overhang model"
     gap=0.1,
     hWin=1.0,
     wWin=1.0,
-    azi=Buildings.HeatTransfer.Types.Azimuth.S,
+    azi=Buildings.Types.Azimuth.S,
     wR=0.1,
     wL=0.1,
     lat=weaDat.lat) "Calculates fraction of window area exposed to the sun"
     annotation (Placement(transformation(extent={{20,0},{40,20}})));
   Buildings.BoundaryConditions.SolarIrradiation.DirectTiltedSurface HDirTil(
     lat=weaDat.lat,
-    til=Buildings.HeatTransfer.Types.Tilt.Wall,
-    azi=Buildings.HeatTransfer.Types.Azimuth.S) "Direct solar irradiation"
+    til=Buildings.Types.Tilt.Wall,
+    azi=Buildings.Types.Azimuth.S) "Direct solar irradiation"
     annotation (Placement(transformation(extent={{-20,20},{0,40}})));
 equation
   connect(weaDat.weaBus, ove.weaBus)      annotation (Line(

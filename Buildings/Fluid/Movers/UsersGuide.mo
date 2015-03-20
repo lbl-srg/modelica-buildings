@@ -22,7 +22,7 @@ electrical power draw and efficiency as a function
 of the volume flow rate and the speed.
 The following performance curves are implemented:
 </p>
-<table summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+<table summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
 <tr>
 <th>Independent variable</th>
 <th>Dependent variable</th>
@@ -70,7 +70,7 @@ Note that not all records can be used with all models, as
 the records only declare the minimum set of required data.
 </p>
 <!-- Table for performance data -->
-<table summary=\"Performance data\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+<table summary=\"Performance data\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
 <tr>
 <th></th>
 <th style=\"text-align:left\">
@@ -149,7 +149,7 @@ Buildings.Fluid.Movers.BaseClasses.Characteristics.pressure</a>.
 For example, suppose a pump needs to be modeled whose pressure versus flow relation crosses, at
 full speed, the points shown in the table below.
 </p>
-  <table summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+  <table summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
   <tr>
       <th>Volume flow rate [m<sup>3</sup>&frasl;h] </th>
       <th>Head [Pa]</th>
