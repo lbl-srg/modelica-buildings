@@ -15,7 +15,7 @@ Documentation(info="<html>
     to model the roof in test bed X1.
     </p>
     <p>
-    This model is not currently completed. For more information, see the future work list at
+    This model is not currently completed. For more information see the future work list at
     <a href=\"modelica://Buildings.Rooms.FLEXLAB.UsersGuide\">
     Buildings.Rooms.FLEXLAB.UsersGuide</a>.
 </html>",

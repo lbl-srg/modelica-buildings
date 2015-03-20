@@ -206,7 +206,6 @@ The following <b style=\"color:blue\">new libraries</b> have been added:
     </td>
     </tr>
 </table>
-
 <!-- New components for existing libraries -->
 <p>
 The following <b style=\"color:blue\">new components</b> have been added
@@ -956,7 +955,6 @@ to <b style=\"color:blue\">existing</b> libraries:
     </td>
     </tr>
 </table>
-
 <!-- Backward compatible changes -->
 <p>
 The following <b style=\"color:blue\">existing components</b>
@@ -993,7 +991,6 @@ have been <b style=\"color:blue\">improved</b> in a
     </td>
 </tr>
 </table>
-
 <!-- Non-backward compatible changes to existing components -->
 <p>
 The following <b style=\"color:blue\">existing components</b>
@@ -1055,7 +1052,6 @@ have been <b style=\"color:blue\">improved</b> in a
     </td>
 </tr>
 </table>
-
 <!-- Errors that have been fixed -->
 <p>
 The following <b style=\"color:red\">critical errors</b> have been fixed (i.e., errors
@@ -1075,7 +1071,6 @@ that can lead to wrong simulation results):
     </td>
 </tr>
 </table>
-
 <!-- Uncritical errors -->
 <p>
 The following <b style=\"color:red\">uncritical errors</b> have been fixed (i.e., errors
@@ -1118,7 +1113,6 @@ units are wrong or errors in documentation):
                        to avoid a warning during model check in Dymola 2015.
     </td>
 </table>
-
 <!-- Github issues -->
 <p>
 The following

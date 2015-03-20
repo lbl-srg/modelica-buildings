@@ -310,7 +310,7 @@ that can be used to take into account a change in <i>COP</i> at part load
 conditions.
 </p>
 <p>
-On the <code>Dynamics</code> tag, the model can be parameterized to compute a transient
+On the <code>Dynamics</code> tag, the model can be parametrized to compute a transient
 or steady-state response.
 The transient response of the model is computed using a first
 order differential equation for the evaporator and condenser fluid volumes.
