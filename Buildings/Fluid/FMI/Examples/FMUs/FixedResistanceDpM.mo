@@ -5,7 +5,7 @@ block FixedResistanceDpM "FMU declaration for a fixed resistance"
         Buildings.Media.Air,
      redeclare final Buildings.Fluid.FixedResistances.FixedResistanceDpM com(
       final m_flow_nominal=m_flow_nominal,
-      final dp_nominal=dp_nominal));
+      final dp_nominal=if use_p_in then dp_nominal else 0));
 
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal(start=1) = 1
     "Nominal mass flow rate";

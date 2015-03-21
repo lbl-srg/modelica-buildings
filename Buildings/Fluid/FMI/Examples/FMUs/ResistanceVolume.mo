@@ -24,7 +24,7 @@ protected
   FixedResistances.FixedResistanceDpM res(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
-    dp_nominal=dp_nominal,
+    dp_nominal=if use_p_in then dp_nominal else 0,
     allowFlowReversal=allowFlowReversal) "Flow resistance"
     annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
   Buildings.Fluid.MixingVolumes.MixingVolume vol(

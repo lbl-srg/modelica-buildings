@@ -6,7 +6,7 @@ block HeaterCooler_T
         Buildings.Media.Air,
      redeclare final Buildings.Fluid.HeatExchangers.HeaterCooler_T com(
       final m_flow_nominal=m_flow_nominal,
-      final dp_nominal=dp_nominal,
+      final dp_nominal=if use_p_in then dp_nominal else 0,
       final Q_flow_maxHeat=Q_flow_maxHeat,
       final Q_flow_maxCool=Q_flow_maxCool,
       final energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState));

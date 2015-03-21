@@ -6,7 +6,7 @@ block HeaterCooler_u
         Buildings.Media.Air,
      redeclare final Buildings.Fluid.HeatExchangers.HeaterCooler_u com(
       final m_flow_nominal=m_flow_nominal,
-      final dp_nominal=dp_nominal,
+      final dp_nominal=if use_p_in then dp_nominal else 0,
       final Q_flow_nominal=Q_flow_nominal,
       final energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState));
       // fixme: for Buildings.Media.GasesConstantDensity.MoistAirUnsaturated and
