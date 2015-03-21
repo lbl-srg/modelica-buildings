@@ -35,6 +35,15 @@ by first setting all inputs, then computing the model, and then obtaining
 all outputs before proceeding to the next downstream component.
 </p>
 <p>
+All components have a boolean parameter <code>use_p_in</code>.
+If <code>use_p_in=true</code>, then the pressure is used from the
+connector, and based on the mass flow rate, the outlet pressure
+is computed and assigned to the outlet connectors.
+If <code>use_p_in=false</code>, then the pressure as declared
+by the contant <code>p_default</code> of the medium model is
+used, and the component computes no pressure drop. 
+</p>
+<p>
 Users who want to export a single fluid flow component, or a
 subsystem of components, can use the container
 <a href=\"modelica://Buildings.Fluid.FMI.TwoPortComponent\">
