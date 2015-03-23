@@ -27,5 +27,13 @@ equation
           lineColor={0,0,120},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid,
-          textString="[0,0,0]")}));
+          textString="[0,0,0]")}),
+    Documentation(revisions="<html>
+<ul>
+<li>
+March 23, 2015, by Marco Bonvini:<br/>
+First implementation.
+</li>
+</ul>
+</html>"));
 end ZeroInternalHeatGain;

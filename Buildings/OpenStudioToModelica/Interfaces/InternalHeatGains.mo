@@ -11,5 +11,13 @@ partial model InternalHeatGains
           lineColor={0,0,120},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid)}), Diagram(coordinateSystem(
-          preserveAspectRatio=false, extent={{-100,-100},{100,100}}), graphics));
+          preserveAspectRatio=false, extent={{-100,-100},{100,100}}), graphics),
+    Documentation(revisions="<html>
+<ul>
+<li>
+March 23, 2015, by Marco Bonvini:<br/>
+First implementation.
+</li>
+</ul>
+</html>"));
 end InternalHeatGains;

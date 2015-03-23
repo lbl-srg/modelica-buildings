@@ -1,5 +1,6 @@
 within Buildings.OpenStudioToModelica.Interfaces;
 connector RoomConnector_out
+  "Room connector that allows to specify IHG and boundary conditions to fluid ports"
   parameter Integer nPorts=0 "Number of ports"
     annotation(Evaluate=true, Dialog(connectorSizing=true, tab="General",group="Ports"));
   Modelica.Blocks.Interfaces.RealOutput qGai[3]
@@ -22,5 +23,12 @@ connector RoomConnector_out
           extent={{-30,-10},{48,-88}},
           lineColor={0,127,255},
           fillColor={255,255,255},
-          fillPattern=FillPattern.Solid)}));
+          fillPattern=FillPattern.Solid)}), Documentation(revisions="<html>
+<ul>
+<li>
+March 23, 2015, by Marco Bonvini:<br/>
+First implementation.
+</li>
+</ul>
+</html>"));
 end RoomConnector_out;

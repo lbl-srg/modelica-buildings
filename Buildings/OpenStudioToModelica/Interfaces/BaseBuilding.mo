@@ -95,5 +95,13 @@ partial model BaseBuilding "Building model that contains all the parameters and 
 
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
             {100,100}}), graphics), Diagram(coordinateSystem(
-          preserveAspectRatio=false, extent={{-100,-100},{100,100}}), graphics));
+          preserveAspectRatio=false, extent={{-100,-100},{100,100}}), graphics),
+    Documentation(revisions="<html>
+<ul>
+<li>
+March 23, 2015, by Marco Bonvini:<br/>
+First implementation.
+</li>
+</ul>
+</html>"));
 end BaseBuilding;

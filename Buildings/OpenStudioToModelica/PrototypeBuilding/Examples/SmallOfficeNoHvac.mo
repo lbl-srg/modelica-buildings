@@ -7,4 +7,12 @@ model SmallOfficeNoHvac
       Buildings.OpenStudioToModelica.PrototypeBuilding.SmallOfficeBuilding           building,
       redeclare
       Buildings.OpenStudioToModelica.InternalHeatGains.ZeroInternalHeatGain           ihg);
+  annotation (Documentation(revisions="<html>
+<ul>
+<li>
+March 23, 2015, by Marco Bonvini:<br/>
+First implementation.
+</li>
+</ul>
+</html>"));
 end SmallOfficeNoHvac;

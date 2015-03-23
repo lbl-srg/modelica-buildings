@@ -1,5 +1,6 @@
 within Buildings.OpenStudioToModelica.Interfaces;
 partial model SimulationExample
+  "Base model that can be extended to create simulation examples for room models"
   extends Modelica.Icons.Example;
   replaceable BaseBuilding building(
     lon=weaDat.lon,
@@ -26,5 +27,13 @@ equation
       color={0,0,120},
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}}), graphics), experiment(StopTime=86400));
+            -100},{100,100}}), graphics), experiment(StopTime=86400),
+    Documentation(revisions="<html>
+<ul>
+<li>
+March 23, 2015, by Marco Bonvini:<br/>
+First implementation.
+</li>
+</ul>
+</html>"));
 end SimulationExample;

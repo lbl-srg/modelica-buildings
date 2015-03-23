@@ -571,6 +571,11 @@ info = "<html><p>This Modelica model have been generated using the <b>openstudio
     Buildings.OpenStudioToModelica.Interfaces.SimulationExample</a>.
     </p>
     </html>",
-revisions = "<html><ul><li>Model generated 23/03/2015 15:05 by openstudio_to_modelica.<br/>
-Look here for more info...</li></ul></html>"));
+revisions="<html>
+<ul>
+<li>Model generated 23/03/2015 15:05 by openstudio_to_modelica.<br/>
+Look here for more info...
+</li>
+</ul>
+</html>"));
 end SmallOfficeBuilding;
