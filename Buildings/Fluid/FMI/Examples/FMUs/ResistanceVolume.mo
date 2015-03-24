@@ -3,42 +3,46 @@ block ResistanceVolume
   "Container to export a flow resistance and control volume as an FMU"
   extends TwoPort(redeclare package Medium = Buildings.Media.Air);
 
-  parameter Modelica.SIunits.Volume V=1 "Volume";
-  parameter Modelica.SIunits.MassFlowRate m_flow_nominal = 0.1
+  parameter Modelica.SIunits.Volume V(start=1) "Volume";
+  parameter Modelica.SIunits.MassFlowRate m_flow_nominal(start=0.01)
     "Nominal mass flow rate";
-  parameter Modelica.SIunits.Pressure dp_nominal = 100 "Nominal pressure drop";
+  parameter Modelica.SIunits.Pressure dp_nominal(start=100)
+    "Nominal pressure drop";
 
-  Modelica.Blocks.Math.Feedback pOut "Pressure at component outlet"
-    annotation (Placement(transformation(extent={{10,-70},{30,-50}})));
+  Modelica.Blocks.Sources.RealExpression dpCom(y=res.port_a.p - res.port_b.p) if
+       use_p_in "Pressure drop of the component"
+    annotation (Placement(transformation(extent={{-40,-90},{-20,-70}})));
 
 protected
   Inlet bouIn(
     redeclare final package Medium=Medium,
-    final allowFlowReversal=allowFlowReversal) "Boundary model for inlet"
+    final allowFlowReversal=allowFlowReversal,
+    final use_p_in=use_p_in) "Boundary model for inlet"
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
   Outlet bouOut(
     redeclare final package Medium=Medium,
-    final allowFlowReversal=allowFlowReversal) "Boundary component for outlet"
+    final allowFlowReversal=allowFlowReversal,
+    final use_p_in=use_p_in) "Boundary component for outlet"
     annotation (Placement(transformation(extent={{68,-10},{88,10}})));
 
+  Modelica.Blocks.Math.Feedback pOut if use_p_in "Pressure at component outlet"
+    annotation (Placement(transformation(extent={{10,-70},{30,-50}})));
+
   FixedResistances.FixedResistanceDpM res(
-    redeclare package Medium = Medium,
-    m_flow_nominal=m_flow_nominal,
-    dp_nominal=if use_p_in then dp_nominal else 0,
-    allowFlowReversal=allowFlowReversal) "Flow resistance"
+    redeclare final package Medium = Medium,
+    final m_flow_nominal=m_flow_nominal,
+    final dp_nominal=if use_p_in then dp_nominal else 0,
+    final allowFlowReversal=allowFlowReversal) "Flow resistance"
     annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
   Buildings.Fluid.MixingVolumes.MixingVolume vol(
     nPorts=2,
-    redeclare package Medium = Medium,
-    m_flow_nominal=m_flow_nominal,
-    allowFlowReversal=allowFlowReversal,
-    V=V,
+    redeclare final package Medium = Medium,
+    final m_flow_nominal=m_flow_nominal,
+    final allowFlowReversal=allowFlowReversal,
+    final V=V,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState) "Control volume"
     annotation (Placement(transformation(extent={{10,0},{30,20}})));
-public
-  Modelica.Blocks.Sources.RealExpression dpCom(y=res.port_a.p - res.port_b.p)
-    "Pressure drop of the component"
-    annotation (Placement(transformation(extent={{-40,-90},{-20,-70}})));
+
 equation
   connect(inlet, bouIn.inlet) annotation (Line(
       points={{-110,0},{-81,0}},

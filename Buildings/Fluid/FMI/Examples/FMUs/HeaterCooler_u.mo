@@ -2,21 +2,18 @@ within Buildings.Fluid.FMI.Examples.FMUs;
 block HeaterCooler_u
   "FMU declaration for an ideal heater or cooler with prescribed heat flow rate"
    extends Buildings.Fluid.FMI.TwoPortComponent(
-     redeclare replaceable package Medium =
-        Buildings.Media.Air,
+     redeclare replaceable package Medium = Buildings.Media.Air,
      redeclare final Buildings.Fluid.HeatExchangers.HeaterCooler_u com(
       final m_flow_nominal=m_flow_nominal,
       final dp_nominal=if use_p_in then dp_nominal else 0,
       final Q_flow_nominal=Q_flow_nominal,
       final energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState));
-      // fixme: for Buildings.Media.GasesConstantDensity.MoistAirUnsaturated and
-      // dynamic balance with fixed initial values, this model does not translate
-      // due to the index reduction requiring derivatives for the inputs.
-  parameter Modelica.SIunits.MassFlowRate m_flow_nominal=1
+
+  parameter Modelica.SIunits.MassFlowRate m_flow_nominal(start=0.01)
     "Nominal mass flow rate";
-  parameter Modelica.SIunits.Pressure dp_nominal(displayUnit="Pa")=1000
+  parameter Modelica.SIunits.Pressure dp_nominal(displayUnit="Pa", start=0)
     "Pressure";
-  parameter Modelica.SIunits.HeatFlowRate Q_flow_nominal = 1000
+  parameter Modelica.SIunits.HeatFlowRate Q_flow_nominal(start=100)
     "Heat flow rate at u=1, positive for heating";
   Modelica.Blocks.Interfaces.RealInput u(min=0, max=1, unit="1")
     "Control input"

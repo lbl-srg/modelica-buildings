@@ -1,16 +1,15 @@
 within Buildings.Fluid.FMI.Examples.FMUs;
 block Fan "FMU declaration for a fixed resistance"
    extends Buildings.Fluid.FMI.TwoPortComponent(
-     redeclare replaceable package Medium =
-        Buildings.Media.Air,
+     redeclare replaceable package Medium =  Buildings.Media.Air,
      redeclare final Movers.FlowControlled_dp com(
       final m_flow_nominal=m_flow_nominal,
       final dynamicBalance=false,
       final filteredSpeed=false));
-      // fixme: This fails to export as an FMU. Contact support.
-  parameter Modelica.SIunits.MassFlowRate m_flow_nominal
+
+  parameter Modelica.SIunits.MassFlowRate m_flow_nominal(start=0.01)
     "Nominal mass flow rate";
-  parameter Modelica.SIunits.Pressure dp_nominal(displayUnit="Pa")
+  parameter Modelica.SIunits.Pressure dp_nominal(displayUnit="Pa", start=500)
     "Pressure drop at nominal mass flow rate";
 
   Modelica.Blocks.Interfaces.RealInput dp_in(min=0, final unit="Pa")

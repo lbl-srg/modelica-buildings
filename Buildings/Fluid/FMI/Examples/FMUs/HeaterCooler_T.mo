@@ -10,13 +10,15 @@ block HeaterCooler_T
       final Q_flow_maxHeat=Q_flow_maxHeat,
       final Q_flow_maxCool=Q_flow_maxCool,
       final energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState));
-  parameter Modelica.SIunits.HeatFlowRate Q_flow_maxHeat = Modelica.Constants.inf
+
+  parameter Modelica.SIunits.HeatFlowRate Q_flow_maxHeat(start=Modelica.Constants.inf)
     "Maximum heat flow rate for heating (positive)";
-  parameter Modelica.SIunits.HeatFlowRate Q_flow_maxCool = -Modelica.Constants.inf
+  parameter Modelica.SIunits.HeatFlowRate Q_flow_maxCool(start=-Modelica.Constants.inf)
     "Maximum heat flow rate for cooling (negative)";
-  parameter Modelica.SIunits.MassFlowRate m_flow_nominal=1
+  parameter Modelica.SIunits.MassFlowRate m_flow_nominal(start=0.01)
     "Nominal mass flow rate";
-  parameter Modelica.SIunits.Pressure dp_nominal(displayUnit="Pa")=0 "Pressure";
+  parameter Modelica.SIunits.Pressure dp_nominal(displayUnit="Pa", start=0)
+    "Pressure";
 
   Modelica.Blocks.Interfaces.RealInput TSet(unit="K", displayUnit="degC")
     "Set point temperature of the fluid that leaves port_b"

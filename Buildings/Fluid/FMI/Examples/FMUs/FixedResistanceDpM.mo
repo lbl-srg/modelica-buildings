@@ -1,15 +1,14 @@
 within Buildings.Fluid.FMI.Examples.FMUs;
 block FixedResistanceDpM "FMU declaration for a fixed resistance"
    extends Buildings.Fluid.FMI.TwoPortComponent(
-     redeclare replaceable package Medium =
-        Buildings.Media.Air,
+     redeclare replaceable package Medium = Buildings.Media.Air,
      redeclare final Buildings.Fluid.FixedResistances.FixedResistanceDpM com(
       final m_flow_nominal=m_flow_nominal,
       final dp_nominal=if use_p_in then dp_nominal else 0));
 
-  parameter Modelica.SIunits.MassFlowRate m_flow_nominal(start=1) = 1
+  parameter Modelica.SIunits.MassFlowRate m_flow_nominal(start=0.01)
     "Nominal mass flow rate";
-  parameter Modelica.SIunits.Pressure dp_nominal=10
+  parameter Modelica.SIunits.Pressure dp_nominal(start=100)
     "Pressure drop at nominal mass flow rate";
   annotation (
   Documentation(info="<html>
