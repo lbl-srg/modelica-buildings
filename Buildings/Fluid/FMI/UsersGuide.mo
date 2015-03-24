@@ -7,32 +7,67 @@ package UsersGuide "User's Guide"
 This user's guide describes the FMI package.
 The FMI package has been implemented to facilitate the export
 of thermofluid flow models as Functional Mockup Units (FMUs).
-The goal is to export such models as FMUs so that they can be
+This allows to export thermofluid flow models as FMUs so that they can be
 imported in other simulators. 
-The challenge is that thermofluid flow components have
-acausal connectors, whereas FMUs require input and outputs
-to be defined.
+To export thermofluid flow components, a container is needed
+in order for the model to only have input and output signals
+rathern than fluid connectors which do not impose any causality
+on the signal flow.
 </p>
 <p>
-This package introduces connectors that can be used to wrap the
-acausal models within an input/output block. It also contains
-various examples in which thermofluid flow components and subsystems
-are exported as FMUs.
+This package implements such a container and its connectors,
+and it provides models that can be exported as an FMU
+and it implements examples that illustrate how these components
+can be connected with each other.
+The container can be used to encapsulate various
+acausal thermofluid flow models.
+The package
+<a href=\"modelica://Buildings.Fluid.FMI.Examples\">
+Buildings.Fluid.FMI.Examples</a>
+contains system models in which multiple of these containers
+are connected to form a complete model. This package is meant
+as an illustration and for testing the connectivity of these
+containers. If one were to use actual FMU rathern than the
+input-output blocks, then one would export these input-output blocks
+as FMUs and build a similar system model in the target simulator.
 </p>
 <p>
 The connectors that define the input and output signals of
 the FMUs can be found in the package
 <a href=\"modelica://Buildings.Fluid.FMI.Interfaces\">
 Buildings.Fluid.FMI.Interfaces</a>.
-They have been designed in such a way that an FMU, if exported
-with <code>allowFlowReversal=false</code> (and hence mass can only
+</p>
+<h4>Typical use</h4>
+<p>
+Users who want to export a single fluid flow component, or a
+subsystem of components, can use the container
+<a href=\"modelica://Buildings.Fluid.FMI.TwoPortComponent\">
+Buildings.Fluid.FMI.TwoPortComponent</a>.
+</p>
+<p>
+The package
+<a href=\"modelica://Buildings.Fluid.FMI.Examples.FMUs\">
+Buildings.Fluid.FMI.Examples.FMUs</a>
+contains various examples that demonstrate how
+thermofluid flow components and subsystems
+can be exported as FMUs.
+Each model has a Dymola script that exports the FMU.
+The script can be invoked from the pull
+down menu <code>Commands -&gt; Export FMU</code>.
+</p>
+<h4>Options</h4>
+<p>
+The models and connectors have been designed in such a way that an FMU,
+if exported with <code>allowFlowReversal=false</code> (and hence mass can only
 flow from the inlet to the outlet), has as input the 
 mass flow rate, pressure and fluid properties of the inflowing fluid.
 At the outlet, there will be mass flow rate, outlet pressure and 
 the fluid properties of the outflowing medium. This allows simulators
 such as TRNSYS to evaluate the FMUs in the direction of the mass flow
 by first setting all inputs, then computing the model, and then obtaining
-all outputs before proceeding to the next downstream component.
+all outputs before proceeding the simulation with the next downstream component.
+If <code>allowFlowReversal=true</code>, then the connectors have additional
+components for the properties of the fluid if it flows backwards.
 </p>
 <p>
 All components have a boolean parameter <code>use_p_in</code>.
@@ -42,18 +77,13 @@ is computed and assigned to the outlet connectors.
 If <code>use_p_in=false</code>, then the pressure as declared
 by the contant <code>p_default</code> of the medium model is
 used, and the component computes no pressure drop. 
+Setting <code>use_p_in=false</code> therefore leads to fewer
+equations, but it requires a component that specifies the mass
+flow rate, such as 
+<a href=\"modelica://Buildings.Fluid.FMI.Examples.FMUs.IdealSource_m_flow\">
+Buildings.Fluid.FMI.Examples.FMUs.IdealSource_m_flow</a>.
 </p>
-<p>
-Users who want to export a single fluid flow component, or a
-subsystem of components, can use the container
-<a href=\"modelica://Buildings.Fluid.FMI.TwoPortComponent\">
-Buildings.Fluid.FMI.TwoPortComponent</a>.
-The package
-<a href=\"modelica://Buildings.Fluid.FMI.Examples.FMUs\">
-Buildings.Fluid.FMI.Examples.FMUs</a>
-has various examples in which fluid flow models or subsystems of
-such models are exported as FMUs.
-</p>
+<h4>Notes</h4>
 <p>
 Note the following when exporting FMUs:
 </p>
@@ -61,7 +91,7 @@ Note the following when exporting FMUs:
 <li>
 Volumes, if configured with a dynamic balance,
 cannot be exported as an FMU as they would require the derivatives
-of pressure and mass flow rate as an input.
+of the pressure as an input.
 </li>
 <li>
 The model
