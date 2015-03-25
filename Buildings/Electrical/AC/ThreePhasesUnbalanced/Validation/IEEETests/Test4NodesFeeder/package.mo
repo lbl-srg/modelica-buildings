@@ -28,7 +28,7 @@ of the validation test. The table below summarizes the examples that are part of
 package.
 </p>
 
-<table summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+<table summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
 <tr>
   <th>Transformer</th>
   <th>Load</th>

@@ -178,7 +178,7 @@ parameters are used differently, and the respective model documentation or code
 should be consulted for details. However, the table below shows the typical use of 
 the parameters in various models to help the user understand how they are used.
 </p>
-<table summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+<table summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
 <tr>
 <th>Parameter</th>
 <th>Model</th>

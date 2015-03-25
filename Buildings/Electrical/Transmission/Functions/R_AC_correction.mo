@@ -121,7 +121,7 @@ when working with AC voltages. The correction factor assumes <i>f = 60 Hz</i>.
 The correction is based on the type of cabel (AWG or kcmil) and the material.
 </p>
 
-<table summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+<table summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
 <tr>
 <th>Type (AWG or kcmil)</th>
 <th>Material</th>
@@ -205,7 +205,7 @@ The correction is based on the type of cabel (AWG or kcmil) and the material.
 </tr>
 </table>
 
-<table summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+<table summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
 <tr>
 <th>Type (AWG or kcmil)</th>
 <th>Material</th>

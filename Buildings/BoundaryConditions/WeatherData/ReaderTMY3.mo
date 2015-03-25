@@ -993,7 +993,7 @@ the enumeration
 Buildings.BoundaryConditions.Types.DataSource</a>
 is used as follows:
 </p>
-<table summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+<table summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
 <!-- ============================================== -->
 <tr>
   <th>Parameter <code>*Sou</code>
@@ -1037,7 +1037,7 @@ It is set to a value of the enumeration
 Buildings.BoundaryConditions.Types.RadiationDataSource</a>,
 and allows the following configurations:
 </p>
-<table summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+<table summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
 <!-- ============================================== -->
 <tr>
   <th>Parameter <code>HSou</code>

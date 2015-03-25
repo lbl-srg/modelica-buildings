@@ -180,7 +180,7 @@ Err<sub>%</sub> = Err<sub>abs</sub> / X<sub>ref</sub>
 <p>The variables that store the results of the comparison are listed in the
 table below</p>
 
-<table summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+<table summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
 <tr>
   <th>Variable</th>
   <th>Description</th>

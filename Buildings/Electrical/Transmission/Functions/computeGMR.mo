@@ -32,7 +32,7 @@ The GMR is computed as follow, depending on the number of conductors <i>N</i>
 that are part of the cable, and the diamater of the conductor <i>d</i>.
 </p>
 
-<table summary=\"equations\" border = \"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collape;\">
+<table summary=\"equations\" border = \"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collape;\">
 <tr><th>Equation</th><th>Condition</th></tr>
 <tr>
 <td>0.7788 (d/2) </td>

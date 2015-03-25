@@ -361,7 +361,7 @@ Please note that some of the physical properties were manipulated to obtaine the
 </p>
 </li>
 <li>
-Store <Code>NaturalConvection.ffd</code>, <Code>NaturalConvection.dat</code>, and <Code>NaturalConvection.cfd</code> at <code>Buildings/Resources/Data/Rooms/FFD/Tutorial</code>.
+Store <code>NaturalConvection.ffd</code>, <code>NaturalConvection.dat</code>, and <code>NaturalConvection.cfd</code> at <code>Buildings/Resources/Data/Rooms/FFD/Tutorial</code>.
 </li>
 <li>
 Set simulation the stop time of the Modelica model <code>7200</code> seconds and choose for example the Radau solver.

@@ -359,7 +359,7 @@ Revise the FFD parameter input file <code>MixedConvection.ffd</code> (an example
 </pre>
 </li>
 <li>
-Put the files <Code>MixedConvection.ffd</code>, <Code>MixedConvection.dat</code>, and <Code>MixedConvection.cfd</code> in the
+Put the files <code>MixedConvection.ffd</code>, <code>MixedConvection.dat</code>, and <code>MixedConvection.cfd</code> in the
 directory <code>Buildings/Resources/Data/Rooms/FFD/Tutorial/</code>.
 </li>
 <li>
