@@ -35,7 +35,7 @@ This function computes the voltage level for a given voltage.
 The computation is as follows:
 </p>
 
-<table summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+<table summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
 <tr>
 <th>Condition</th>
 <th>Voltage Level</th>

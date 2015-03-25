@@ -182,7 +182,7 @@ of this library compared to the previous release 1.6 build 1.
 <p>
 The following <b style=\"color:blue\">new libraries</b> have been added:
 </p>
-<table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2>
+<table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\">
 <tr><td valign=\"top\">Buildings.Electrical
     </td>
     <td valign=\"top\">Library for electrical grid simulation that
@@ -211,7 +211,7 @@ The following <b style=\"color:blue\">new libraries</b> have been added:
 The following <b style=\"color:blue\">new components</b> have been added
 to <b style=\"color:blue\">existing</b> libraries:
 </p>
-<table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+<table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
 <tr><td colspan=\"2\"><b>Buildings.Fluid</b>
     </td>
 </tr>
@@ -266,7 +266,7 @@ The following <b style=\"color:blue\">existing components</b>
 have been <b style=\"color:blue\">improved</b> in a
 <b style=\"color:blue\">backward compatible</b> way:
 </p>
-<table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+<table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
 <tr><td colspan=\"2\"><b>Buildings.BoundaryConditions</b>
     </td>
 </tr>
@@ -439,7 +439,7 @@ The following <b style=\"color:blue\">existing components</b>
 have been <b style=\"color:blue\">improved</b> in a
 <b style=\"color:blue\">non-backward compatible</b> way:
 </p>
-<table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+<table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
 <tr><td colspan=\"2\"><b>Buildings.Airflow</b>
    </td>
 </tr>
@@ -746,7 +746,7 @@ have been <b style=\"color:blue\">improved</b> in a
 The following <b style=\"color:red\">critical errors</b> have been fixed (i.e., errors
 that can lead to wrong simulation results):
 </p>
-<table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+<table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
 <tr><td colspan=\"2\"><b>Buildings.BoundaryConditions</b>
     </td>
 </tr>
@@ -822,7 +822,7 @@ The following <b style=\"color:red\">uncritical errors</b> have been fixed (i.e.
 that do <b style=\"color:red\">not</b> lead to wrong simulation results, e.g.,
 units are wrong or errors in documentation):
 </p>
-<table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+<table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
 <tr><td colspan=\"2\"><b>Buildings.Fluid</b>
     </td>
 </tr>
@@ -850,7 +850,7 @@ The following
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues\">issues</a>
 have been fixed:
 </p>
-<table border=\"1\" summary=\"github issues\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+<table border=\"1\" summary=\"github issues\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
 <tr><td colspan=\"2\"><b>Buildings.Rooms</b>
     </td>
 </tr>
@@ -898,7 +898,7 @@ International Energy Agency (IEA).
 The following <b style=\"color:blue\">new components</b> have been added
 to <b style=\"color:blue\">existing</b> libraries:
 </p>
-<table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+<table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
 <tr><td colspan=\"2\"><b>Buildings.Fluid</b>
     </td>
 </tr>
@@ -961,7 +961,7 @@ The following <b style=\"color:blue\">existing components</b>
 have been <b style=\"color:blue\">improved</b> in a
 <b style=\"color:blue\">backward compatible</b> way:
 </p>
-<table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+<table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
 <tr><td colspan=\"2\"><b>Buildings.Fluid</b>
     </td>
 </tr>
@@ -997,7 +997,7 @@ The following <b style=\"color:blue\">existing components</b>
 have been <b style=\"color:blue\">improved</b> in a
 <b style=\"color:blue\">non-backward compatible</b> way:
 </p>
-<table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+<table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
 
 <tr><td colspan=\"2\"><b>Buildings.Fluid</b>
     </td>
@@ -1057,7 +1057,7 @@ have been <b style=\"color:blue\">improved</b> in a
 The following <b style=\"color:red\">critical errors</b> have been fixed (i.e., errors
 that can lead to wrong simulation results):
 </p>
-<table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+<table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
 <tr><td colspan=\"2\"><b>Buildings.Fluid</b>
     </td>
 </tr>
@@ -1077,7 +1077,7 @@ The following <b style=\"color:red\">uncritical errors</b> have been fixed (i.e.
 that do <b style=\"color:red\">not</b> lead to wrong simulation results, e.g.,
 units are wrong or errors in documentation):
 </p>
-<table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+<table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
 <tr><td colspan=\"2\"><b>Buildings.Fluid</b>
     </td>
 </tr>
@@ -1119,7 +1119,7 @@ The following
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues\">issues</a>
 have been fixed:
 </p>
-<table border=\"1\" summary=\"github issues\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+<table border=\"1\" summary=\"github issues\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
 <tr><td colspan=\"2\"><b>Buildings.Fluid</b>
     </td>
 </tr>
@@ -1146,7 +1146,7 @@ It is fully compatible with version 1.5 build 2.
 <p>
 The following <b style=\"color:red\">critical errors</b> have been fixed (i.e., errors
 that can lead to wrong simulation results):
-<table summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+<table summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
 <tr><td colspan=\"2\"><b>Buildings.Fluid</b>
     </td>
 </tr>
@@ -1165,7 +1165,7 @@ The following
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues\">issues</a>
 have been fixed:
 </p>
-<table summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+<table summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
 <tr><td colspan=\"2\"><b>HumidifierPrescribed accounts twice for latent heat gain</b>
     </td>
 </tr>
@@ -1195,7 +1195,7 @@ It is fully compatible with version 1.5 build 1.
 The following <b style=\"color:red\">critical errors</b> have been fixed (i.e., errors
 that can lead to wrong simulation results):
 </p>
-<table summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+<table summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
 <tr><td colspan=\"2\"><b>Buildings.Fluid</b>
     </td>
 </tr>
@@ -1215,7 +1215,7 @@ The following
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues\">issues</a>
 have been fixed:
 </p>
-<table summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+<table summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
 <tr><td colspan=\"2\"><b>DryCoilDiscretized model not using last register, liquid flow path</b>
     </td>
 </tr>
@@ -1252,7 +1252,7 @@ However, currently only a subset of the models work with OpenModelica.
 <p>
 The following <b style=\"color:blue\">new libraries</b> have been added:
 </p>
-<table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2>
+<table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\">
 <tr><td valign=\"top\">Buildings.Fluid.SolarCollectors
     </td>
     <td valign=\"top\">Library with solar collectors.
@@ -1277,7 +1277,7 @@ The following <b style=\"color:blue\">new libraries</b> have been added:
 The following <b style=\"color:blue\">new components</b> have been added
 to <b style=\"color:blue\">existing</b> libraries:
 </p>
-<table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+<table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
 <tr><td colspan=\"2\"><b>Buildings.Fluid.Storage</b>
     </td>
 </tr>
@@ -1303,7 +1303,7 @@ The following <b style=\"color:blue\">existing components</b>
 have been <b style=\"color:blue\">improved</b> in a
 <b style=\"color:blue\">backward compatible</b> way:
 </p>
-<table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+<table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
 
 <tr><td colspan=\"2\"><b>Buildings.BoundaryConditions</b>
     </td>
@@ -1399,7 +1399,7 @@ The following <b style=\"color:blue\">existing components</b>
 have been <b style=\"color:blue\">improved</b> in a
 <b style=\"color:blue\">non-backward compatible</b> way:
 </p>
-<table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+<table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
 
 <tr><td colspan=\"2\"><b>Buildings.Airflow</b>
     </td>
@@ -1613,7 +1613,7 @@ have been <b style=\"color:blue\">improved</b> in a
 The following <b style=\"color:red\">critical errors</b> have been fixed (i.e., errors
 that can lead to wrong simulation results):
 </p>
-<table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+<table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
 <tr><td colspan=\"2\"><b>Buildings.Fluid</b>
     </td>
 </tr>
@@ -1641,7 +1641,7 @@ The following <b style=\"color:red\">uncritical errors</b> have been fixed (i.e.
 that do <b style=\"color:red\">not</b> lead to wrong simulation results, e.g.,
 units are wrong or errors in documentation):
 </p>
-<table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+<table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
 <tr><td colspan=\"2\"><b>Buildings</b>
     </td>
 </tr>
@@ -1763,7 +1763,7 @@ The following
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues\">issues</a>
 have been fixed:
 </p>
-<table summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+<table summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
 <tr><td colspan=\"2\"><b>Verify mass and species balance</b>
     </td>
 </tr>
@@ -1818,7 +1818,7 @@ See below for details.
 <p>
 The following <b style=\"color:blue\">new libraries</b> have been added:
 </p>
-<table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2>
+<table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\">
 <tr><td valign=\"top\">Buildings.Utilities.IO.Python27
     </td>
     <td valign=\"top\">
@@ -1835,7 +1835,7 @@ The following <b style=\"color:blue\">new libraries</b> have been added:
 The following <b style=\"color:blue\">new components</b> have been added
 to <b style=\"color:blue\">existing</b> libraries:
 </p>
-<table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+<table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
 <tr><td colspan=\"2\"><b>Buildings.BoundaryConditions.WeatherData</b>
     </td>
 </tr>
@@ -1853,7 +1853,7 @@ The following <b style=\"color:blue\">existing components</b>
 have been <b style=\"color:blue\">improved</b> in a
 <b style=\"color:blue\">backward compatible</b> way:
 </p>
-<table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+<table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
 <tr><td colspan=\"2\"><b>Buildings.Fluid</b>
     </td>
 </tr>
@@ -1888,7 +1888,7 @@ The following <b style=\"color:blue\">existing components</b>
 have been <b style=\"color:blue\">improved</b> in a
 <b style=\"color:blue\">non-backward compatible</b> way:
 </p>
-<table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+<table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
 
 <tr><td colspan=\"2\"><b>Buildings.Fluid</b>
     </td>
@@ -1945,7 +1945,7 @@ have been <b style=\"color:blue\">improved</b> in a
 The following <b style=\"color:red\">critical errors</b> have been fixed (i.e., errors
 that can lead to wrong simulation results):
 </p>
-<table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+<table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
 
 <tr><td colspan=\"2\"><b>Buildings.Controls</b>
     </td>
@@ -1991,7 +1991,7 @@ The following <b style=\"color:red\">uncritical errors</b> have been fixed (i.e.
 that do <b style=\"color:red\">not</b> lead to wrong simulation results, e.g.,
 units are wrong or errors in documentation):
 </p>
-<table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+<table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
 <tr><td colspan=\"2\"><b>Buildings.Fluid</b>
     </td>
 </tr>
@@ -2031,7 +2031,7 @@ The following
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues\">issues</a>
 have been fixed:
 </p>
-<table summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+<table summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
 <tr><td colspan=\"2\"><b>Add explanation of nStaRef.</b>
     </td>
 </tr>
@@ -2113,7 +2113,7 @@ A detailed list of changes is shown below.
 <p>
 The following <b style=\"color:blue\">new libraries</b> have been added:
 </p>
-<table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2>
+<table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\">
 <tr><td valign=\"top\">Buildings.Fluid.HeatExchangers.DXCoils
     </td>
     <td valign=\"top\">Library with direct evaporative cooling coils.
@@ -2125,7 +2125,7 @@ The following <b style=\"color:blue\">new libraries</b> have been added:
 The following <b style=\"color:blue\">new components</b> have been added
 to <b style=\"color:blue\">existing</b> libraries:
 </p>
-<table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+<table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
 <tr><td colspan=\"2\"><b>Buildings.Examples</b>
     </td>
 </tr>
@@ -2166,7 +2166,7 @@ The following <b style=\"color:blue\">existing components</b>
 have been <b style=\"color:blue\">improved</b> in a
 <b style=\"color:blue\">backward compatible</b> way:
 </p>
-<table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+<table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
 <tr><td colspan=\"2\"><b>Buildings.BoundaryConditions</b>
     </td>
 </tr>
@@ -2223,7 +2223,7 @@ The following <b style=\"color:blue\">existing components</b>
 have been <b style=\"color:blue\">improved</b> in a
 <b style=\"color:blue\">non-backward compatible</b> way:
 </p>
-<table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+<table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
 <tr><td colspan=\"2\"><b>Buildings.BoundaryConditions</b>
     </td>
 </tr>
@@ -2296,7 +2296,7 @@ have been <b style=\"color:blue\">improved</b> in a
 The following <b style=\"color:red\">critical errors</b> have been fixed (i.e., errors
 that can lead to wrong simulation results):
 </p>
-<table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+<table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
 <tr><td colspan=\"2\"><b>Buildings.Examples</b>
     </td>
 </tr>
@@ -2314,7 +2314,7 @@ The following <b style=\"color:red\">uncritical errors</b> have been fixed (i.e.
 that do <b style=\"color:red\">not</b> lead to wrong simulation results, e.g.,
 units are wrong or errors in documentation):
 </p>
-<table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+<table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
 <tr><td colspan=\"2\"><b>Buildings.BoundaryConditions</b>
     </td>
 </tr>
@@ -2375,7 +2375,7 @@ A detailed list of changes is shown below.
 <p>
 The following <b style=\"color:blue\">new libraries</b> have been added:
 </p>
-<table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2>
+<table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\">
 <tr><td valign=\"top\">Buildings.Fluid.HeatExchangers.RadiantSlabs
     </td>
     <td valign=\"top\">Package with models for radiant slabs
@@ -2395,7 +2395,7 @@ The following <b style=\"color:blue\">new libraries</b> have been added:
 The following <b style=\"color:blue\">new components</b> have been added
 to <b style=\"color:blue\">existing</b> libraries:
 </p>
-<table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+<table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
 <tr><td colspan=\"2\"><b>Buildings.HeatTransfer</b>
     </td>
 </tr>
@@ -2425,7 +2425,7 @@ The following <b style=\"color:blue\">existing components</b>
 have been <b style=\"color:blue\">improved</b> in a
 <b style=\"color:blue\">backward compatible</b> way:
 </p>
-<table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+<table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
 <tr><td colspan=\"2\"><b>Buildings.BoundaryConditions</b>
     </td>
 </tr>
@@ -2497,7 +2497,7 @@ The following <b style=\"color:blue\">existing components</b>
 have been <b style=\"color:blue\">improved</b> in a
 <b style=\"color:blue\">non-backward compatible</b> way:
 </p>
-<table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+<table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
 <tr><td colspan=\"2\"><b>Buildings.Rooms</b>
     </td>
 </tr>
@@ -2527,7 +2527,7 @@ have been <b style=\"color:blue\">improved</b> in a
 The following <b style=\"color:red\">critical errors</b> have been fixed (i.e., errors
 that can lead to wrong simulation results):
 </p>
-<table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+<table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
 <tr><td colspan=\"2\"><b>Buildings.Controls</b>
     </td>
 </tr>
@@ -2581,7 +2581,7 @@ The following <b style=\"color:red\">uncritical errors</b> have been fixed (i.e.
 that do <b style=\"color:red\">not</b> lead to wrong simulation results, e.g.,
 units are wrong or errors in documentation):
 </p>
-<table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+<table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
 <tr><td colspan=\"2\"><b>Buildings.BoundaryConditions</b>
     </td>
 </tr>
@@ -2621,7 +2621,7 @@ The following
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues\">issues</a>
 have been fixed:
 </p>
-<table summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+<table summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
 <tr><td colspan=\"2\"><b>Heat transfer in glass layer</b>
     </td>
 </tr>
@@ -2664,7 +2664,7 @@ system models.
 <p>
 The following <b style=\"color:blue\">new libraries</b> have been added:
 </p>
-<table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2>
+<table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\">
 <tr><td valign=\"top\">Buildings.Examples.Tutorial
     </td>
     <td valign=\"top\">Tutorial with step by step instructions for how to
@@ -2677,7 +2677,7 @@ The following <b style=\"color:blue\">new libraries</b> have been added:
 The following <b style=\"color:blue\">new components</b> have been added
 to <b style=\"color:blue\">existing</b> libraries:
 </p>
-<table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+<table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
 <tr><td colspan=\"2\"><b>Buildings.Fluid</b>
     </td>
 </tr>
@@ -2712,7 +2712,7 @@ The following <b style=\"color:blue\">existing components</b>
 have been <b style=\"color:blue\">improved</b> in a
 <b style=\"color:blue\">backward compatible</b> way:
 </p>
-<table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+<table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
 <tr><td colspan=\"2\"><b>Buildings.Fluid</b>
     </td>
 </tr>
@@ -2807,7 +2807,7 @@ The following <b style=\"color:blue\">existing components</b>
 have been <b style=\"color:blue\">improved</b> in a
 <b style=\"color:blue\">non-backward compatible</b> way:
 </p>
-<table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+<table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
 
 <tr><td colspan=\"2\"><b>Buildings.Fluid</b>
     </td>
@@ -2868,7 +2868,7 @@ have been <b style=\"color:blue\">improved</b> in a
 The following <b style=\"color:red\">critical errors</b> have been fixed (i.e., errors
 that can lead to wrong simulation results):
 </p>
-<table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+<table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
 <tr><td colspan=\"2\"><b>Buildings.Controls</b>
     </td>
 </tr>
@@ -2898,7 +2898,7 @@ The following <b style=\"color:red\">uncritical errors</b> have been fixed (i.e.
 that do <b style=\"color:red\">not</b> lead to wrong simulation results, e.g.,
 units are wrong or errors in documentation):
 </p>
-<table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+<table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
 <tr><td colspan=\"2\"><b>Buildings.BoundaryConditions</b>
     </td>
 </tr>
@@ -2933,7 +2933,7 @@ The following
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues\">issues</a>
 have been fixed:
 </p>
-<table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+<table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
 <tr><td colspan=\"2\"><b>Exterior longwave radiation exchange in window model</b>
     </td>
 </tr>
@@ -2991,7 +2991,7 @@ The following <b style=\"color:blue\">existing components</b>
 have been <b style=\"color:blue\">improved</b> in a
 <b style=\"color:blue\">backward compatible</b> way:
 </p>
-<table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+<table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
 <tr><td colspan=\"2\"><b>Buildings.Controls</b>
     </td>
 </tr>
@@ -3035,7 +3035,7 @@ have been <b style=\"color:blue\">improved</b> in a
 The following <b style=\"color:red\">critical errors</b> have been fixed (i.e., errors
 that can lead to wrong simulation results):
 </p>
-<table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+<table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
 
 <tr><td colspan=\"2\"><b>Buildings.HeatTransfer</b>
     </td>
@@ -3079,7 +3079,7 @@ The following
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues\">issues</a>
 have been fixed:
 </p>
-<table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+<table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
 <tr><td colspan=\"2\"><b>Buildings.Fluid.HeatExchangers.Boreholes</b>
     </td>
 </tr>
@@ -3124,7 +3124,7 @@ in converting old models to this version of the library.
 <p>
 The following <b style=\"color:blue\">new libraries</b> have been added:
 </p>
-<table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2>
+<table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\">
 <tr><td valign=\"top\">Buildings.Fluid.HeatExchangers.Boreholes</td>
     <td valign=\"top\">
     This is a library with a model for a borehole heat exchanger.
@@ -3134,7 +3134,7 @@ The following <b style=\"color:blue\">new libraries</b> have been added:
 The following <b style=\"color:blue\">new components</b> have been added
 to <b style=\"color:blue\">existing</b> libraries:
 </p>
-<table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+<table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
 <tr><td colspan=\"2\"><b>Buildings.Airflow.Multizone</b></td></tr>
 <tr><td valign=\"top\">Buildings.Airflow.Multizone.BaseClasses.windPressureLowRise
                       </td>
@@ -3182,7 +3182,7 @@ The following <b style=\"color:blue\">existing components</b>
 have been <b style=\"color:blue\">improved</b> in a
 <b style=\"color:blue\">backward compatible</b> way:
 </p>
-<table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+<table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
 
 <tr><td colspan=\"2\"><b>Buildings.Airflow.Multizone</b></td></tr>
 <tr><td valign=\"top\">Buildings.Airflow.Multizone.BaseClasses.powerLaw</td>
@@ -3301,7 +3301,7 @@ The following <b style=\"color:blue\">existing components</b>
 have been <b style=\"color:blue\">improved</b> in a
 <b style=\"color:blue\">non-backward compatible</b> way:
 </p>
-<table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+<table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
 
 <tr><td colspan=\"2\"><b>Buildings.Airflow.Multizone</b></td></tr>
 <tr><td valign=\"top\">Buildings.Airflow.Multizone.MediumColumnDynamic</td>
@@ -3422,7 +3422,7 @@ near zero flow if the components have exactly two fluid ports connected.</td>
 The following <b style=\"color:red\">critical errors</b> have been fixed (i.e., errors
 that can lead to wrong simulation results):
 </p>
-<table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+<table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
 
 
 <tr><td colspan=\"2\"><b>Buildings.BoundaryConditions</b></td></tr>
@@ -3491,7 +3491,7 @@ The following <b style=\"color:red\">uncritical errors</b> have been fixed (i.e.
 that do <b style=\"color:red\">not</b> lead to wrong simulation results, but, e.g.,
 units are wrong or errors in documentation):
 </p>
-<table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+<table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
 <tr><td colspan=\"2\"><b>Buildings.BoundaryConditions</b></td></tr>
 <tr><td valign=\"top\">Buildings.BoundaryConditions.WeatherData.BaseClasses.ConvertRadiation</td>
     <td>Corrected wrong unit label.
@@ -3504,7 +3504,7 @@ The following
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues\">issues</a>
 have been fixed:
 </p>
-<table summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+<table summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
 <tr><td colspan=\"2\"><b>Buildings.BoundaryConditions</b></td></tr>
 <tr><td valign=\"top\">
     <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/8\">&#35;8</a></td>
@@ -3604,7 +3604,7 @@ The following <b style=\"color:red\">critical error</b> has been fixed (i.e. err
 that can lead to wrong simulation results):
 </p>
 
-<table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+<table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
   <tr><td colspan=\"2\"><b>Buildings.Rooms</b></td></tr>
   <tr><td valign=\"top\"><a href=\"modelica://Buildings.Rooms.BaseClasses.InfraredRadiationExchange\">
   Buildings.Rooms.BaseClasses.InfraredRadiationExchange</a></td>
@@ -3834,7 +3834,7 @@ The following <b style=\"color:red\">critical error</b> has been fixed (i.e. err
 that can lead to wrong simulation results):
 </p>
 
-<table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+<table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
   <tr><td colspan=\"2\"><b>Buildings.Fluid.Storage.</b></td></tr>
   <tr><td valign=\"top\"><a href=\"modelica://Buildings.Fluid.Storage.StratifiedEnhanced\">
   Buildings.Fluid.Storage.StratifiedEnhanced</a></td>
@@ -4812,7 +4812,7 @@ Some of packages have their own
 User's Guides that can be accessed by the links below.
 These User's Guides are explaining items that are specific to the
 particular package.<br/>
-<table summary=\"summary\" border=1 cellspacing=0 cellpadding=2>
+<table summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\">
 <tr><td valign=\"top\"><a href=\"modelica://Buildings.Airflow.Multizone.UsersGuide\">Airflow.Multizone</a>
    </td>
    <td valign=\"top\">Package for multizone airflow and contaminant transport.</td>

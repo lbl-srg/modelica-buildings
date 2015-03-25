@@ -141,7 +141,7 @@ can change depending on the value of the parameter <code>mode</code>, which is o
 <a href=\"Buildings.Electrical.Types.Load\">Buildings.Electrical.Types.Load</a>:
 </p>
 
-<table summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+<table summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
 <tr>
 <th>Mode</th>
 <th>Description</th>

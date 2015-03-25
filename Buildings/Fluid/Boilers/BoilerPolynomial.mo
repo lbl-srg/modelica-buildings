@@ -178,7 +178,7 @@ where
 <p>
 The following polynomials can be selected to compute the efficiency:
 </p>
-<table summary=\"summary\"  border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+<table summary=\"summary\"  border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
 <tr>
 <th>Parameter <code>effCur</code></th>
 <th>Efficiency curve</th>
