@@ -679,7 +679,7 @@ The section is only of interest to developers. Users may skip this section.
 Interfacing CFD with the Modelica room air heat and mass balance is done
 in the model
 <a href=\"modelica://Buildings.Rooms.BaseClasses.AirHeatMassBalanceCFD\">
-Buildings.Rooms.BaseClasses.AirHeatMassBalanceCFD</a>
+Buildings.Rooms.BaseClasses.AirHeatMassBalanceCFD</a>.
 To interface variables from Modelica and CFD, the following classes and
 conventions are used in this model.
 </p>
