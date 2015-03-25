@@ -4551,6 +4551,8 @@ The following people have directly contributed to the implementation of the Buil
 </li>
 <li>Martin Sj&ouml;lund, Link&ouml;ping University, Sweden
 </li>
+<li>Matthis Thorade, Berlin University of the Arts, Germany
+</li>
 <li>Wei Tian, University of Miami, Florida, USA
 </li>
 <li>Armin Teskeredzic, Mechanical Engineering Faculty Sarajevo and GIZ, Bosnia and Herzegovina
