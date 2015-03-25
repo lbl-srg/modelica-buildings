@@ -305,7 +305,7 @@ The following table is obtained from ASHRAE page 8.8
 One met is defined as <i>58.2</i> Watts per square meter which is equal to the energy produced
 per unit surface area of a seated person at rest.</p>
 <p>The following table is obtained from ASHRAE page 8.6.</p>
-<tablesummary=\"summary\" border=\"1\">
+<table summary=\"summary\" border=\"1\">
 <tr><th>Activity</th><th>W/m2 body surface area</th></tr>
 <tr><td>ASHRAE Standard 55</td><td>58.2</td></tr>
 <tr><td> reclining  </td><td>45</td></tr>
