@@ -282,7 +282,7 @@ where <i>1</i> clo = <i>0.155</i> (m^2*K/W) (ASHRAE 55-92).
 The following table is obtained from ASHRAE page 8.8
 </p>
 <table summary=\"summary\" border=\"1\">
-<tr><TH>Clothing ensemble</TH><TH>clo</TH></tr>
+<tr><th>Clothing ensemble</th><th>clo</th></tr>
 <tr><td>ASHRAE Standard 55 Winter</td><td>0.90</td></tr>
 <tr><td>ASHRAE Standard 55 Summer</td><td>0.50</td></tr>
 <tr><td>Walking shorts, short-sleeve shirt</td><td>  0.36</td></tr>
@@ -306,7 +306,7 @@ One met is defined as <i>58.2</i> Watts per square meter which is equal to the e
 per unit surface area of a seated person at rest.</p>
 <p>The following table is obtained from ASHRAE page 8.6.</p>
 <tablesummary=\"summary\" border=\"1\">
-<tr><TH>Activity</TH><TH>W/m2 body surface area</TH></tr>
+<tr><th>Activity</th><th>W/m2 body surface area</th></tr>
 <tr><td>ASHRAE Standard 55</td><td>58.2</td></tr>
 <tr><td> reclining  </td><td>45</td></tr>
 <tr><td> seated and quiet </td><td>60</td></tr>
