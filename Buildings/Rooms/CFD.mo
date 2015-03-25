@@ -25,17 +25,20 @@ model CFD
 
   parameter Boolean useCFD = true
     "Set to false to deactivate the CFD computation and use instead yFixed as output"
-    annotation(Evaluate = true);
+    annotation(Dialog(group = "CFD"), Evaluate = true);
   parameter Modelica.SIunits.Time samplePeriod(min=100*Modelica.Constants.eps)
     "Sample period of component"
     annotation(Dialog(group = "Sampling"));
   parameter Real uSha_fixed[nConExtWin] = zeros(nConExtWin)
     "Constant control signal for the shading device (0: unshaded; 1: fully shaded)";
   parameter String sensorName[:]
-    "Names of sensors as declared in the CFD input file";
+    "Names of sensors as declared in the CFD input file"
+    annotation(Dialog(group = "CFD"));
   parameter String portName[nPorts] = {"port_" + String(i) for i in 1:nPorts}
-    "Names of fluid ports as declared in the CFD input file";
-  parameter String cfdFilNam "CFD input file name" annotation (Dialog(
+    "Names of fluid ports as declared in the CFD input file"
+    annotation(Dialog(group = "CFD"));
+  parameter String cfdFilNam "CFD input file name"
+    annotation (Dialog(group = "CFD",
         __Dymola_loadSelector(caption=
             "Select CFD input file")));
   Modelica.Blocks.Interfaces.RealOutput yCFD[nSen] if
