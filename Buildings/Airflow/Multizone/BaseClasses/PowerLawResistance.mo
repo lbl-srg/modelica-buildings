@@ -117,9 +117,9 @@ equation
 <p>
 This model describes the mass flow rate and pressure difference relation
 of an orifice in the form
-<PRE>
+<pre>
     V_flow = k * dp^m,
-</PRE>
+</pre>
 where <code>k</code> is a variable and
 <code>m</code> a parameter.
 For turbulent flow, set <code>m=1/2</code> and
