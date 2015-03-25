@@ -4483,7 +4483,7 @@ The development of the Buildings library is organized by<br/>
     Bldg. 90-3147<br/>
     Berkeley, CA 94720<br/>
     USA<br/>
-    email: <A HREF=\"mailto:MWetter@lbl.gov\">MWetter@lbl.gov</A><br/>
+    email: <a href=\"mailto:MWetter@lbl.gov\">MWetter@lbl.gov</a><br/>
 </p>
 </html>"));
   end Contact;
@@ -4769,7 +4769,7 @@ Copyright (c) 2009-2013, The Regents of the University of California, through La
 </p>
 <p>
 If you have questions about your rights to use or distribute this software, please contact Berkeley Lab's Technology Transfer Department at
-<A HREF=\"mailto:TTD@lbl.gov\">TTD@lbl.gov</A>
+<a href=\"mailto:TTD@lbl.gov\">TTD@lbl.gov</a>
 </p>
 <p>
 NOTICE. This software was developed under partial funding from the U.S. Department of Energy. As such, the U.S. Government has been granted for itself and others acting on its behalf a paid-up, nonexclusive, irrevocable, worldwide license in the Software to reproduce, prepare derivative works, and perform publicly and display publicly. Beginning five (5) years after the date permission to assert copyright is obtained from the U.S. Department of Energy, and subject to any subsequent five (5) year renewals, the U.S. Government is granted for itself and others acting on its behalf a paid-up, nonexclusive, irrevocable, worldwide license in the Software to reproduce, prepare derivative works, distribute copies to the public, perform publicly and display publicly, and to permit others to do so.
