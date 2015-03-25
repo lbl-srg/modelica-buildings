@@ -48,7 +48,7 @@ crack-like openings (Dols and Walton, 2002).
 
 <h4>References</h4>
 <ul>
-<LI>
+<li>
 W. Stuart Dols and George N. Walton, <I>CONTAMW 2.0 User Manual,
 Multizone Airflow and Contaminant Transport Analysis Software</I>,
 Building and Fire Research Laboratory,
