@@ -281,7 +281,7 @@ where <i>1</i> clo = <i>0.155</i> (m^2*K/W) (ASHRAE 55-92).
 <p>
 The following table is obtained from ASHRAE page 8.8
 </p>
-<TABLE  summary=\"summary\" border=\"1\">
+<table summary=\"summary\" border=\"1\">
 <tr><TH>Clothing ensemble</TH><TH>clo</TH></tr>
 <tr><td>ASHRAE Standard 55 Winter</td><td>0.90</td></tr>
 <tr><td>ASHRAE Standard 55 Summer</td><td>0.50</td></tr>
@@ -297,7 +297,7 @@ The following table is obtained from ASHRAE page 8.8
 <tr><td>Knee-length skirt, long-sleeve shirt, half slip, panty hose, long sleeve sweater</td><td> 1.10</td></tr>
 <tr><td>Long-sleeve coveralls, T-shirt</td><td>   0.72</td></tr>
 <tr><td>Insulated coveralls, long-sleeve, thermal underwear, long underwear bottoms</td><td> 1.37</td></tr>
-</TABLE>
+</table>
 <br/>
 
 <h4> Metabolic rates</h4>
@@ -305,7 +305,7 @@ The following table is obtained from ASHRAE page 8.8
 One met is defined as <i>58.2</i> Watts per square meter which is equal to the energy produced
 per unit surface area of a seated person at rest.</p>
 <p>The following table is obtained from ASHRAE page 8.6.</p>
-<TABLE summary=\"summary\" border=\"1\">
+<tablesummary=\"summary\" border=\"1\">
 <tr><TH>Activity</TH><TH>W/m2 body surface area</TH></tr>
 <tr><td>ASHRAE Standard 55</td><td>58.2</td></tr>
 <tr><td> reclining  </td><td>45</td></tr>
@@ -332,7 +332,7 @@ per unit surface area of a seated person at rest.</p>
 <tr><td>Calisthenics</td><td>  175-235</td></tr>
 <tr><td>Basketball</td><td>  290-440</td></tr>
 <tr><td>Wrestling</td><td>  410-505</td></tr>
-</TABLE>
+</table>
 <br/>
 <h4>References</h4>
 
