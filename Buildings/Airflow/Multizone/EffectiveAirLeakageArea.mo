@@ -84,7 +84,7 @@ Dols and Walton (2002) recommend to use for the flow exponent
 reported with the test results.
 
 <h4>References</h4>
-<UL>
+<ul>
 <LI>
 <B>ASHRAE, 1997.</B>
 <i>ASHRAE Fundamentals</i>,
@@ -98,7 +98,7 @@ Building and Fire Research Laboratory,
 National Institute of Standards and Technology,
 Tech. Report NISTIR 6921,
 November, 2002.
-</UL>
+</ul>
 </html>",
 revisions="<html>
 <ul>

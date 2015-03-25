@@ -47,7 +47,7 @@ while values near <code>0.65</code> have been found for small
 crack-like openings (Dols and Walton, 2002).
 
 <h4>References</h4>
-<UL>
+<ul>
 <LI>
 W. Stuart Dols and George N. Walton, <I>CONTAMW 2.0 User Manual,
 Multizone Airflow and Contaminant Transport Analysis Software</I>,
@@ -55,7 +55,7 @@ Building and Fire Research Laboratory,
 National Institute of Standards and Technology,
 Tech. Report NISTIR 6921,
 November, 2002.
-</UL>
+</ul>
 </html>",
 revisions="<html>
 <ul>
