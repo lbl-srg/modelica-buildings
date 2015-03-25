@@ -246,7 +246,7 @@ and the mean radiant temperature, weighted by their respective heat transfer coe
 
 <h4>Optimum operative temperatures</h4>
 <p>
-<B>Winter:</B>
+<b>Winter:</b>
 activity <i>1.2</i> met,<br/>
 clothing = <i>0.9</i> clo (sweater, long sleeve shirt, heavy pants),<br/>
 air flow = <i>30</i> fpm (<i>0.15</i> m/sec),<br/>
@@ -254,7 +254,7 @@ mean radiant temperature equal to air temperature,<br/>
 Optimum Operative Temperature (top) = <i>22.7</i>&#176; C (<i>71</i>&#176; F)
 </p>
 <p>
-<B>Summer:</B>
+<b>Summer:</b>
 clothing = <i>0.5</i> clo,<br/>
 air flow = <i>50</i> fpm (<i>0.25</i> m/sec),<br/>
 Optimum Operative Temperature (top) = <i>24.4</i>&#176; C (<i>76</i>&#176; F).
