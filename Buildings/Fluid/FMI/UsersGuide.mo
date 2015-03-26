@@ -9,17 +9,17 @@ The FMI package has been implemented to facilitate the export
 of thermofluid flow models as Functional Mockup Units (FMUs).
 This allows to export thermofluid flow models as FMUs so that they can be
 imported in other simulators. 
-To export thermofluid flow components, a container is needed
+To export thermofluid flow components, a Modelica block is needed
 in order for the model to only have input and output signals
-rathern than fluid connectors which do not impose any causality
+rather than fluid connectors, as fluid connectors do not impose any causality
 on the signal flow.
 </p>
 <p>
-This package implements such a container and its connectors,
-and it provides models that can be exported as an FMU
-and it implements examples that illustrate how these components
+This package implements such blocks and its connectors,
+and it provides thermofluid flow components that can be exported as an FMU.
+It also implements examples that illustrate how these components
 can be connected with each other.
-The container can be used to encapsulate various
+The blocks can be used to encapsulate various
 acausal thermofluid flow models.
 The package
 <a href=\"modelica://Buildings.Fluid.FMI.Examples\">
@@ -39,8 +39,8 @@ Buildings.Fluid.FMI.Interfaces</a>.
 </p>
 <h4>Typical use</h4>
 <p>
-Users who want to export a single fluid flow component, or a
-subsystem of components, can use the container
+Users who want to export a single thermofluid flow component, or a
+subsystem of thermofluid flow components, can use the block
 <a href=\"modelica://Buildings.Fluid.FMI.TwoPortComponent\">
 Buildings.Fluid.FMI.TwoPortComponent</a>.
 </p>
@@ -57,7 +57,7 @@ down menu <code>Commands -&gt; Export FMU</code>.
 </p>
 <h4>Options</h4>
 <p>
-The models and connectors have been designed in such a way that an FMU,
+The package was designed in such a way that an FMU,
 if exported with <code>allowFlowReversal=false</code> (and hence mass can only
 flow from the inlet to the outlet), has as input the 
 mass flow rate, pressure and fluid properties of the inflowing fluid.
@@ -67,7 +67,7 @@ such as TRNSYS to evaluate the FMUs in the direction of the mass flow
 by first setting all inputs, then computing the model, and then obtaining
 all outputs before proceeding the simulation with the next downstream component.
 If <code>allowFlowReversal=true</code>, then the connectors have additional
-components for the properties of the fluid if it flows backwards.
+signals for the properties of the fluid if it flows backwards.
 </p>
 <p>
 All components have a boolean parameter <code>use_p_in</code>.
