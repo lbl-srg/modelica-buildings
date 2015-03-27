@@ -70,7 +70,7 @@ model TwoPortMatrixRLC_N
   final parameter Modelica.SIunits.Admittance B43 = B34
     "Element [4,3] of admittance matrix";
 protected
-  function product = Buildings.Electrical.PhaseSystems.OnePhase.product
+  function productAC1p = Buildings.Electrical.PhaseSystems.OnePhase.product
     "Product between complex quantities";
   Modelica.SIunits.Current Isr[4,2](
     start = zeros(4,Buildings.Electrical.PhaseSystems.OnePhase.n),
@@ -135,58 +135,58 @@ equation
   Isr[4,:] + terminal_p.phase[4].i = Ish_p[4,:];
 
   // Voltage drop caused by the impedance matrix
-  terminal_n.phase[1].v - terminal_p.phase[1].v = product(Z11, terminal_n.phase[1].i)
-                                                + product(Z12, terminal_n.phase[2].i)
-                                                + product(Z13, terminal_n.phase[3].i)
-                                                + product(Z14, terminal_n.phase[4].i);
-  terminal_n.phase[2].v - terminal_p.phase[2].v = product(Z21, terminal_n.phase[1].i)
-                                                + product(Z22, terminal_n.phase[2].i)
-                                                + product(Z23, terminal_n.phase[3].i)
-                                                + product(Z24, terminal_n.phase[4].i);
-  terminal_n.phase[3].v - terminal_p.phase[3].v = product(Z31, terminal_n.phase[1].i)
-                                                + product(Z32, terminal_n.phase[2].i)
-                                                + product(Z33, terminal_n.phase[3].i)
-                                                + product(Z34, terminal_n.phase[4].i);
-  terminal_n.phase[4].v - terminal_p.phase[4].v = product(Z41, terminal_n.phase[1].i)
-                                                + product(Z42, terminal_n.phase[2].i)
-                                                + product(Z43, terminal_n.phase[3].i)
-                                                + product(Z44, terminal_n.phase[4].i);
+  terminal_n.phase[1].v - terminal_p.phase[1].v = productAC1p(Z11, terminal_n.phase[1].i)
+                                                + productAC1p(Z12, terminal_n.phase[2].i)
+                                                + productAC1p(Z13, terminal_n.phase[3].i)
+                                                + productAC1p(Z14, terminal_n.phase[4].i);
+  terminal_n.phase[2].v - terminal_p.phase[2].v = productAC1p(Z21, terminal_n.phase[1].i)
+                                                + productAC1p(Z22, terminal_n.phase[2].i)
+                                                + productAC1p(Z23, terminal_n.phase[3].i)
+                                                + productAC1p(Z24, terminal_n.phase[4].i);
+  terminal_n.phase[3].v - terminal_p.phase[3].v = productAC1p(Z31, terminal_n.phase[1].i)
+                                                + productAC1p(Z32, terminal_n.phase[2].i)
+                                                + productAC1p(Z33, terminal_n.phase[3].i)
+                                                + productAC1p(Z34, terminal_n.phase[4].i);
+  terminal_n.phase[4].v - terminal_p.phase[4].v = productAC1p(Z41, terminal_n.phase[1].i)
+                                                + productAC1p(Z42, terminal_n.phase[2].i)
+                                                + productAC1p(Z43, terminal_n.phase[3].i)
+                                                + productAC1p(Z44, terminal_n.phase[4].i);
 
   // Current loss at the terminal n
-  Ish_n[1,:] = product({0, B11/2}, v1_n)
-             + product({0, B12/2}, v2_n)
-             + product({0, B13/2}, v3_n)
-             + product({0, B14/2}, v4_n);
-  Ish_n[2,:] = product({0, B21/2}, v1_n)
-             + product({0, B22/2}, v2_n)
-             + product({0, B23/2}, v3_n)
-             + product({0, B24/2}, v4_n);
-  Ish_n[3,:] = product({0, B31/2}, v1_n)
-             + product({0, B32/2}, v2_n)
-             + product({0, B33/2}, v3_n)
-             + product({0, B34/2}, v4_n);
-  Ish_n[4,:] = product({0, B41/2}, v1_n)
-             + product({0, B42/2}, v2_n)
-             + product({0, B43/2}, v3_n)
-             + product({0, B44/2}, v4_n);
+  Ish_n[1,:] = productAC1p({0, B11/2}, v1_n)
+             + productAC1p({0, B12/2}, v2_n)
+             + productAC1p({0, B13/2}, v3_n)
+             + productAC1p({0, B14/2}, v4_n);
+  Ish_n[2,:] = productAC1p({0, B21/2}, v1_n)
+             + productAC1p({0, B22/2}, v2_n)
+             + productAC1p({0, B23/2}, v3_n)
+             + productAC1p({0, B24/2}, v4_n);
+  Ish_n[3,:] = productAC1p({0, B31/2}, v1_n)
+             + productAC1p({0, B32/2}, v2_n)
+             + productAC1p({0, B33/2}, v3_n)
+             + productAC1p({0, B34/2}, v4_n);
+  Ish_n[4,:] = productAC1p({0, B41/2}, v1_n)
+             + productAC1p({0, B42/2}, v2_n)
+             + productAC1p({0, B43/2}, v3_n)
+             + productAC1p({0, B44/2}, v4_n);
 
   // Current loss at the terminal n
-  Ish_p[1,:] = product({0, B11/2}, v1_p)
-             + product({0, B12/2}, v2_p)
-             + product({0, B13/2}, v3_p)
-             + product({0, B14/2}, v4_p);
-  Ish_p[2,:] = product({0, B21/2}, v1_p)
-             + product({0, B22/2}, v2_p)
-             + product({0, B23/2}, v3_p)
-             + product({0, B24/2}, v4_p);
-  Ish_p[3,:] = product({0, B31/2}, v1_p)
-             + product({0, B32/2}, v2_p)
-             + product({0, B33/2}, v3_p)
-             + product({0, B34/2}, v4_p);
-  Ish_p[4,:] = product({0, B41/2}, v1_p)
-             + product({0, B42/2}, v2_p)
-             + product({0, B43/2}, v3_p)
-             + product({0, B44/2}, v4_p);
+  Ish_p[1,:] = productAC1p({0, B11/2}, v1_p)
+             + productAC1p({0, B12/2}, v2_p)
+             + productAC1p({0, B13/2}, v3_p)
+             + productAC1p({0, B14/2}, v4_p);
+  Ish_p[2,:] = productAC1p({0, B21/2}, v1_p)
+             + productAC1p({0, B22/2}, v2_p)
+             + productAC1p({0, B23/2}, v3_p)
+             + productAC1p({0, B24/2}, v4_p);
+  Ish_p[3,:] = productAC1p({0, B31/2}, v1_p)
+             + productAC1p({0, B32/2}, v2_p)
+             + productAC1p({0, B33/2}, v3_p)
+             + productAC1p({0, B34/2}, v4_p);
+  Ish_p[4,:] = productAC1p({0, B41/2}, v1_p)
+             + productAC1p({0, B42/2}, v2_p)
+             + productAC1p({0, B43/2}, v3_p)
+             + productAC1p({0, B44/2}, v4_p);
 
   annotation (
   defaultComponentName="line",

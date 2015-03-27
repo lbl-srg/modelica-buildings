@@ -23,7 +23,7 @@ model TwoPortMatrixRL
   final parameter Modelica.SIunits.Impedance[2] Z32 = Z23
     "Element [3,1] of impedance matrix";
 protected
-  function product = Buildings.Electrical.PhaseSystems.OnePhase.product
+  function productAC1p = Buildings.Electrical.PhaseSystems.OnePhase.product
     "Product between complex quantities";
   Modelica.SIunits.Current i1[2](
     start = zeros(Buildings.Electrical.PhaseSystems.OnePhase.n),
@@ -73,9 +73,9 @@ equation
   end for;
 
   // Voltage drop caused by the impedance matrix
-  v1_n - v1_p = product(Z11, i1) + product(Z12, i2) + product(Z13, i3);
-  v2_n - v2_p = product(Z21, i1) + product(Z22, i2) + product(Z23, i3);
-  v3_n - v3_p = product(Z31, i1) + product(Z32, i2) + product(Z33, i3);
+  v1_n - v1_p = productAC1p(Z11, i1) + productAC1p(Z12, i2) + productAC1p(Z13, i3);
+  v2_n - v2_p = productAC1p(Z21, i1) + productAC1p(Z22, i2) + productAC1p(Z23, i3);
+  v3_n - v3_p = productAC1p(Z31, i1) + productAC1p(Z32, i2) + productAC1p(Z33, i3);
 
   annotation (
   defaultComponentName="line",
