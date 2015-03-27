@@ -1,4 +1,4 @@
-within Buildings.Fluid.Movers.Data.Pumps;
+within Buildings.Fluid.Movers.Data.Pumps.Wilo;
 record Stratos25slash1to8 "Pump data for a Wilo Stratos 25/1-8 pump"
   extends SpeedControlled_Nrpm(
     N_nominal=3040,
@@ -21,8 +21,8 @@ Documentation(info="<html>
   </a>
   </p>
   <p>See
-  <a href=\"modelica://Buildings.Fluid.Movers.Data.Pumps.Stratos25slash1to6\">
-  Buildings.Fluid.Movers.Data.Pumps.Stratos25slash1to6
+  <a href=\"modelica://Buildings.Fluid.Movers.Data.Pumps.Wilo.Stratos25slash1to6\">
+  Buildings.Fluid.Movers.Data.Pumps.Wilo.Stratos25slash1to6
   </a>
   for more information about how the data is derived.
   </p>

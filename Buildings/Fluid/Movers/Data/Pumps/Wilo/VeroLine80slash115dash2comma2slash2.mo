@@ -1,4 +1,4 @@
-within Buildings.Fluid.Movers.Data.Pumps;
+within Buildings.Fluid.Movers.Data.Pumps.Wilo;
 record VeroLine80slash115dash2comma2slash2
   "Pump data for a Wilo Veroline IP-E 80/115-2,2/2 pump"
   extends SpeedControlled_Nrpm(
@@ -12,7 +12,7 @@ defaultComponentPrefixes="parameter",
 defaultComponentName="per",
 Documentation(info="<html>
 <p>Data from:<a href=\"http://productfinder.wilo.com/nl/BE/product/0000001d000149e80001003a/fc_product_datasheet\"> http://productfinder.wilo.com/nl/BE/product/0000001d000149e80001003a/fc_product_datasheet</a></p>
-<p>See <a href=\"modelica://Buildings.Fluid.Movers.Data.Pumps.Stratos25slash1to6\">Buildings.Fluid.Movers.Data.Pumps.Stratos25slash1to6 </a>for more information about how the data is derived. </p>
+<p>See <a href=\"modelica://Buildings.Fluid.Movers.Data.Pumps.Wilo.Stratos25slash1to6\">Buildings.Fluid.Movers.Data.Pumps.Wilo.Stratos25slash1to6 </a>for more information about how the data is derived. </p>
 </html>",   revisions="<html>
 <ul>
 <li>

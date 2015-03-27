@@ -1,10 +1,10 @@
-Resistive
-Resistive_N
-Inductive
-Inductive_N
 Capacitive
 Capacitive_N
 Impedance
 Impedance_N
-BaseClasses
+Inductive
+Inductive_N
+Resistive
+Resistive_N
 Examples
+BaseClasses
