@@ -91,18 +91,18 @@ model MixedAirInitialization
     annotation (Placement(transformation(extent={{-62,2},{-42,22}})));
   Buildings.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(
     filNam="modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos",
-    TDryBulSou=Buildings.BoundaryConditions.Types.DataSource.Parameter,
-    TDryBul=T_start,
     HInfHorSou=Buildings.BoundaryConditions.Types.DataSource.Parameter,
     HSou=Buildings.BoundaryConditions.Types.RadiationDataSource.Input_HGloHor_HDifHor,
-
     TDewPoiSou=Buildings.BoundaryConditions.Types.DataSource.Parameter,
     calTSky=Buildings.BoundaryConditions.Types.SkyTemperatureCalculation.TemperaturesAndSkyCover,
-
     relHumSou=Buildings.BoundaryConditions.Types.DataSource.Parameter,
     relHum=0,
-    TDewPoi(displayUnit="K") = T_start)
+    TDewPoi(displayUnit="K") = T_start,
+    TBlaSky=T_start,
+    TDryBulSou=Buildings.BoundaryConditions.Types.DataSource.Input,
+    TBlaSkySou=Buildings.BoundaryConditions.Types.DataSource.Input)
     annotation (Placement(transformation(extent={{160,140},{180,160}})));
+
   Modelica.Blocks.Sources.Constant uSha(k=0)
     "Control signal for the shading device"
     annotation (Placement(transformation(extent={{-20,90},{0,110}})));
@@ -131,7 +131,10 @@ model MixedAirInitialization
     annotation (Placement(transformation(extent={{0,0},{20,20}})));
 
   Modelica.Blocks.Sources.Constant HSol(k=0) "Solar irradition"
-    annotation (Placement(transformation(extent={{130,140},{150,160}})));
+    annotation (Placement(transformation(extent={{130,110},{150,130}})));
+  Modelica.Blocks.Sources.Constant T(k=T_start)
+    "Dry bulb and black body sky temperature"
+    annotation (Placement(transformation(extent={{130,150},{150,170}})));
 equation
   connect(qRadGai_flow.y, multiplex3_1.u1[1])  annotation (Line(
       points={{-39,90},{-32,90},{-32,57},{-22,57}},
@@ -181,16 +184,24 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(HSol.y, weaDat.HGloHor_in) annotation (Line(
-      points={{151,150},{154,150},{154,141.4},{159,141.4}},
+      points={{151,120},{154,120},{154,137},{159,137}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(HSol.y, weaDat.HDifHor_in) annotation (Line(
-      points={{151,150},{156,150},{156,142.4},{159,142.4}},
+      points={{151,120},{154,120},{154,142.4},{159,142.4}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(T.y, weaDat.TDryBul_in) annotation (Line(
+      points={{151,160},{154,160},{154,159},{159,159}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(weaDat.TBlaSky_in, T.y) annotation (Line(
+      points={{159,157},{155.5,157},{155.5,160},{151,160}},
       color={0,0,127},
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-100,
             -100},{200,200}}),
-                      graphics), __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Rooms/Examples/MixedAirFreeResponse.mos"
+                      graphics), __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Rooms/Validation/MixedAirInitialization.mos"
         "Simulate and plot"),
     Documentation(info="<html>
 <p>
@@ -199,6 +210,27 @@ This model tests the correct initialization of
 Buildings.Rooms.MixedAir</a>.
 The air temperature should start at <i>10</i>&circ; C
 and remain there.
+</p>
+<p>
+Note that there are still very small heat flows even if all solar radiation
+is set to zero and all boundary conditions and start values are set to
+<i>10</i>&circ; C.
+The reasons are as follows:
+<ul>
+<li>
+The block
+<a href=\"modelica://Buildings.BoundaryConditions.WeatherData.BaseClasses.CheckRadiation\">
+Buildings.BoundaryConditions.WeatherData.BaseClasses.CheckRadiation</a>
+avoids that the radiation becomes negative, which may happen due to the
+smooth interpolation in the weather data reader.
+To achieve this, it sets a minimum radiation of <i>0.0001</i> W/m<sup>2</sup>.
+</li>
+<li>
+The model requires the numerical solution of nonlinear systems of equations
+and of systems of ordinary differential equations.
+These are of course only solved within the solver tolerance.
+</li>
+</ul>
 </p>
 </html>", revisions="<html>
 <ul>
