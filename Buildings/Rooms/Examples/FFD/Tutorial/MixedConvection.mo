@@ -20,11 +20,6 @@ model MixedConvection "Tutorial for Mixed Convection case"
     annotation (Placement(transformation(extent={{-40,-60},{-20,-40}})));
   Modelica.Blocks.Routing.Multiplex3 multiplex3_1
     annotation (Placement(transformation(extent={{20,-20},{40,0}})));
-  parameter HeatTransfer.Data.OpaqueConstructions.Generic matLayRoo(final nLay=1,
-    material={HeatTransfer.Data.Solids.Steel(x=0.001)},
-    roughness_a=Buildings.HeatTransfer.Types.SurfaceRoughness.Smooth)
-    "Construction material for roof"
-    annotation (Placement(transformation(extent={{60,82},{80,102}})));
   BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam="modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos",
       TDryBul=293.15)
     annotation (Placement(transformation(extent={{140,80},{160,100}})));
@@ -174,9 +169,6 @@ Use weather data from OHare Intl. Airport, Chicago, Illinoi, U.S.A.
 Name it as <code>weaDat</code>.
 </li>
 <li>
-<a href=\"modelica://Buildings.HeatTransfer.Data.OpaqueConstructions.Generic\">Buildings.HeatTransfer.Data.OpaqueConstructions.Generic</a>. This model provides room construction properties. Name it as <code>matLayRoo</code>.
-</li>
-<li>
 <a href=\"modelica://Modelica.Blocks.Sources.Constant\">Modelica.Blocks.Sources.Constant</a>.
 Three models are needed to specify that internal radiation, internal convective heat gain and internal latent heat gain are zero.
 Name these models as <code>qRadGai_flow</code>, <code>qConGai_flow</code> and <code>qLatGai_flow</code>, respectively.
@@ -251,16 +243,6 @@ Buildings.Rooms.CFD roo(
     nPorts = 2,
     portName={\"Inlet\",\"Outlet\"},
     samplePeriod = 6);
-</pre>
-</li>
-<li>
-<p>
-Edit <code>matLayRoo</code> as below:
-</p>
-<pre>
-parameter HeatTransfer.Data.OpaqueConstructions.Generic matLayRoo(
-final nLay=1, material={HeatTransfer.Data.Solids.Steel(x=0.001)},
-roughness_a=Buildings.HeatTransfer.Types.SurfaceRoughness.Smooth);
 </pre>
 </li>
 <li>
