@@ -54,7 +54,8 @@ partial model RoomHeatMassBalance "Base model for a room"
     final AWin=datConExtWin.AWin,
     final fFra=datConExtWin.fFra,
     final glaSys=datConExtWin.glaSys,
-    each final homotopyInitialization=homotopyInitialization) if haveConExtWin
+    each final homotopyInitialization=homotopyInitialization,
+    each final linearizeRadiation=linearizeRadiation) if haveConExtWin
     "Heat conduction through exterior construction that have a window"
     annotation (Placement(transformation(extent={{280,44},{250,74}})));
   Constructions.Construction conPar[NConPar](
