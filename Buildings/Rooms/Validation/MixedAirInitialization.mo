@@ -199,8 +199,8 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-100,
-            -100},{200,200}}),
-                      graphics), __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Rooms/Validation/MixedAirInitialization.mos"
+            -100},{200,200}})),
+ __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Rooms/Validation/MixedAirInitialization.mos"
         "Simulate and plot"),
     Documentation(info="<html>
 <p>
@@ -237,7 +237,7 @@ These are of course only solved within the solver tolerance.
 March 26, 2015, by Michael Wetter:<br/>
 First implementation based on
 <a href=\"modelica://Buildings.Rooms.Validation.MixedAirInitialization\">
-Buildings.Rooms.Examples.MixedAirInitialization\</a>.
+Buildings.Rooms.Examples.MixedAirInitialization</a>.
 </li>
 </ul>
 </html>"),
