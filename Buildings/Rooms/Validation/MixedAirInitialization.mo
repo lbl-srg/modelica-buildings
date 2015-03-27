@@ -4,7 +4,7 @@ model MixedAirInitialization
   extends Modelica.Icons.Example;
   package MediumA = Buildings.Media.Air "Medium model";
 
-  parameter Modelica.SIunits.Temperature T_start=273.15+10 "Initial value";
+  parameter Modelica.SIunits.Temperature T_start=273.15-15 "Initial value";
 
   parameter
     Buildings.HeatTransfer.Data.OpaqueConstructions.Insulation100Concrete200
@@ -57,7 +57,7 @@ model MixedAirInitialization
               layers={matLayExt},
               each A=4*3,
               glaSys={glaSys},
-              each hWin=0.2,
+              each hWin=2,
               each wWin=4,
               ove(wR={0},wL={0}, gap={0.1}, dep={1}),
               each fFra=0.1,
@@ -98,7 +98,6 @@ model MixedAirInitialization
     relHumSou=Buildings.BoundaryConditions.Types.DataSource.Parameter,
     relHum=0,
     TDewPoi(displayUnit="K") = T_start,
-    TBlaSky=T_start,
     TDryBulSou=Buildings.BoundaryConditions.Types.DataSource.Input,
     TBlaSkySou=Buildings.BoundaryConditions.Types.DataSource.Input)
     annotation (Placement(transformation(extent={{160,140},{180,160}})));
@@ -214,7 +213,7 @@ and remain there.
 <p>
 Note that there are still very small heat flows even if all solar radiation
 is set to zero and all boundary conditions and start values are set to
-<i>10</i>&circ; C.
+<i>-15</i>&circ; C.
 The reasons are as follows:
 </p>
 <ul>
