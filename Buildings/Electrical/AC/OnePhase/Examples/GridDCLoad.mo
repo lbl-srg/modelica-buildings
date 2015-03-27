@@ -5,7 +5,7 @@ model GridDCLoad "Model of a DC load connected to the grid"
                grid(
     V=380,
     f=60,
-    Phi=0)
+    phiSou=0)
     annotation (Placement(transformation(extent={{-80,-20},{-60,0}})));
   Buildings.Electrical.AC.OnePhase.Conversion.ACDCConverter
                                                    idealACDCConverter1(
@@ -46,6 +46,6 @@ First implementation.
 </ul>
 </html>"),
     __Dymola_Commands(file=
-          "modelica://Buildings/Resources/Scripts/Dymola/Electrical/AC/Examples/GridDCLoad.mos"
+          "file://Buildings/Resources/Scripts/Dymola/Electrical/AC/OnePhase/Examples/GridDCLoad.mos"
         "Simulate and plot"));
 end GridDCLoad;

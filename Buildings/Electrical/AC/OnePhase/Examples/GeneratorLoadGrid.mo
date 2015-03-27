@@ -5,10 +5,10 @@ model GeneratorLoadGrid "Generator with a load and grid connection"
   Sources.Grid grid(
     f=60,
     V=220,
-    Phi=0.5235987755983)
+    phiSou=0.5235987755983)
     annotation (Placement(transformation(extent={{0,40},{20,60}})));
-  Sources.Generator                sou(f=60, Phi=0.17453292519943)
-    "Gas turbine"   annotation (Placement(transformation(
+  Sources.Generator sou(f=60, phiGen=0.17453292519943) "Gas turbine"
+                    annotation (Placement(transformation(
         extent={{-10,10},{10,-10}},
         origin={-30,-10})));
   Buildings.Electrical.AC.OnePhase.Loads.Inductive res(
@@ -53,6 +53,6 @@ First implementation.
 </ul>
 </html>"),
     __Dymola_Commands(file=
-          "modelica://Buildings/Resources/Scripts/Dymola/Electrical/AC/Examples/GeneratorLoadGrid.mos"
+          "file://Buildings/Resources/Scripts/Dymola/Electrical/AC/OnePhase/Examples/GeneratorLoadGrid.mos"
         "Simulate and plot"));
 end GeneratorLoadGrid;
