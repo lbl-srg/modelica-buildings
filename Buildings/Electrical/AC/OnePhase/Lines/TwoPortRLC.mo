@@ -18,7 +18,7 @@ model TwoPortRLC "Model of an RLC element with two electrical ports"
     "Type of model (e.g., steady state, dynamic, prescribed power consumption, etc.)"
     annotation (Evaluate=true, Dialog(group="Modelling assumption"));
 protected
-  Modelica.SIunits.Voltage Vc[2](start = Vc_start, stateSelect=StateSelect.prefer)
+  Modelica.SIunits.Voltage Vc[2](start = Vc_start, each stateSelect=StateSelect.prefer)
     "Voltage of the Capacitance located in the middle of the line";
   Modelica.SIunits.Current Ic[2]
     "Currenbt of the capacitance located in the middle of the line";
