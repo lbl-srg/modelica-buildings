@@ -216,6 +216,7 @@ Note that there are still very small heat flows even if all solar radiation
 is set to zero and all boundary conditions and start values are set to
 <i>10</i>&circ; C.
 The reasons are as follows:
+</p>
 <ul>
 <li>
 The block
@@ -231,7 +232,6 @@ and of systems of ordinary differential equations.
 These are of course only solved within the solver tolerance.
 </li>
 </ul>
-</p>
 </html>", revisions="<html>
 <ul>
 <li>
