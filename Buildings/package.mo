@@ -272,7 +272,10 @@ have been <b style=\"color:blue\">improved</b> in a
 </tr>
 <tr><td valign=\"top\">Buildings.BoundaryConditions.WeatherData.ReaderTMY3
     </td>
-    <td valign=\"top\">Removed redundant connection
+    <td valign=\"top\">Added option to obtain the black body sky temperature
+                       from a parameter or an input signal rather than
+                       computing it in the weather data reader.<br/><br/>
+                       Removed redundant connection
                        <code>connect(conHorRad.HOut, cheHorRad.HIn);</code>.
     </td>
 </tr>
@@ -807,6 +810,12 @@ that can lead to wrong simulation results):
 <tr><td colspan=\"2\"><b>Buildings.Rooms</b>
     </td>
 </tr>
+<tr><td valign=\"top\">Buildings.Rooms.MixedAir
+    </td>
+    <td valign=\"top\">Added propagation of the parameter value <code>linearizeRadiation</code>
+                       to the window model. Prior to this change, the radiation
+                       was never linearized for computing the glass long-wave radiation.
+    </td>
 <tr><td valign=\"top\">Buildings.Rooms.FLEXLAB.Rooms.Examples.TestBedX3WithRadiantFloor<br/>
                             Buildings.Rooms.FLEXLAB.Rooms.Examples.X3AWithRadiantFloor<br/>
                             Buildings.Rooms.FLEXLAB.Rooms.Examples.X3BWithRadiantFloor
