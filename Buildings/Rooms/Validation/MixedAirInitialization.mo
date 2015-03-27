@@ -1,7 +1,10 @@
-within Buildings.Rooms.Examples;
-model MixedAirFreeResponse "Free response of room model"
+within Buildings.Rooms.Validation;
+model MixedAirInitialization
+  "Validation model for the correct initialization of the mixed air model"
   extends Modelica.Icons.Example;
   package MediumA = Buildings.Media.Air "Medium model";
+
+  parameter Modelica.SIunits.Temperature T_start=273.15-15 "Initial value";
 
   parameter
     Buildings.HeatTransfer.Data.OpaqueConstructions.Insulation100Concrete200
@@ -75,7 +78,7 @@ model MixedAirFreeResponse "Free response of room model"
     nPorts=1,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     lat=0.73268921998722,
-    T_start=273.15+22) "Room model"
+    T_start=T_start) "Room model"
     annotation (Placement(transformation(extent={{46,20},{86,60}})));
 
   Modelica.Blocks.Sources.Constant qConGai_flow(k=0) "Convective heat gain"
@@ -87,19 +90,29 @@ model MixedAirFreeResponse "Free response of room model"
   Modelica.Blocks.Sources.Constant qLatGai_flow(k=0) "Latent heat gain"
     annotation (Placement(transformation(extent={{-62,2},{-42,22}})));
   Buildings.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(
-    filNam="modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos")
+    filNam="modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos",
+    HInfHorSou=Buildings.BoundaryConditions.Types.DataSource.Parameter,
+    HSou=Buildings.BoundaryConditions.Types.RadiationDataSource.Input_HGloHor_HDifHor,
+    TDewPoiSou=Buildings.BoundaryConditions.Types.DataSource.Parameter,
+    calTSky=Buildings.BoundaryConditions.Types.SkyTemperatureCalculation.TemperaturesAndSkyCover,
+    relHumSou=Buildings.BoundaryConditions.Types.DataSource.Parameter,
+    relHum=0,
+    TDewPoi(displayUnit="K") = T_start,
+    TDryBulSou=Buildings.BoundaryConditions.Types.DataSource.Input,
+    TBlaSkySou=Buildings.BoundaryConditions.Types.DataSource.Input)
     annotation (Placement(transformation(extent={{160,140},{180,160}})));
+
   Modelica.Blocks.Sources.Constant uSha(k=0)
     "Control signal for the shading device"
     annotation (Placement(transformation(extent={{-20,90},{0,110}})));
   Modelica.Blocks.Routing.Replicator replicator(nout=max(1,nConExtWin))
     annotation (Placement(transformation(extent={{10,90},{30,110}})));
-  Buildings.HeatTransfer.Sources.FixedTemperature TSoi[nConBou](each T = 283.15)
+  Buildings.HeatTransfer.Sources.FixedTemperature TSoi[nConBou](each T=T_start)
     "Boundary condition for construction"
     annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         origin={110,-10})));
-  Buildings.HeatTransfer.Sources.FixedTemperature TBou[nSurBou](each T=288.15)
+  Buildings.HeatTransfer.Sources.FixedTemperature TBou[nSurBou](each T=T_start)
     "Boundary condition for construction" annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         origin={150,-50})));
@@ -113,9 +126,14 @@ model MixedAirFreeResponse "Free response of room model"
   Fluid.Sources.FixedBoundary boundary(
     nPorts=1,
     redeclare package Medium = MediumA,
-    T=293.15) "Boundary condition"
+    T=T_start) "Boundary condition"
     annotation (Placement(transformation(extent={{0,0},{20,20}})));
 
+  Modelica.Blocks.Sources.Constant HSol(k=0) "Solar irradition"
+    annotation (Placement(transformation(extent={{130,110},{150,130}})));
+  Modelica.Blocks.Sources.Constant T(k=T_start)
+    "Dry bulb and black body sky temperature"
+    annotation (Placement(transformation(extent={{130,150},{150,170}})));
 equation
   connect(qRadGai_flow.y, multiplex3_1.u1[1])  annotation (Line(
       points={{-39,90},{-32,90},{-32,57},{-22,57}},
@@ -164,48 +182,65 @@ equation
       points={{51,30},{34,30},{34,10},{20,10}},
       color={0,127,255},
       smooth=Smooth.None));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},
-            {200,200}}),
-                      graphics), __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Rooms/Examples/MixedAirFreeResponse.mos"
+  connect(HSol.y, weaDat.HGloHor_in) annotation (Line(
+      points={{151,120},{154,120},{154,137},{159,137}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(HSol.y, weaDat.HDifHor_in) annotation (Line(
+      points={{151,120},{154,120},{154,142.4},{159,142.4}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(T.y, weaDat.TDryBul_in) annotation (Line(
+      points={{151,160},{154,160},{154,159},{159,159}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(weaDat.TBlaSky_in, T.y) annotation (Line(
+      points={{159,157},{155.5,157},{155.5,160},{151,160}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  annotation (Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-100,
+            -100},{200,200}}),
+                      graphics), __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Rooms/Validation/MixedAirInitialization.mos"
         "Simulate and plot"),
     Documentation(info="<html>
-This model illustrates the use of the room model
+<p>
+This model tests the correct initialization of
 <a href=\"modelica://Buildings.Rooms.MixedAir\">
 Buildings.Rooms.MixedAir</a>.
+The air temperature should start at <i>10</i>&circ; C
+and remain there.
+</p>
+<p>
+Note that there are still very small heat flows even if all solar radiation
+is set to zero and all boundary conditions and start values are set to
+<i>-15</i>&circ; C.
+The reasons are as follows:
+</p>
+<ul>
+<li>
+The block
+<a href=\"modelica://Buildings.BoundaryConditions.WeatherData.BaseClasses.CheckRadiation\">
+Buildings.BoundaryConditions.WeatherData.BaseClasses.CheckRadiation</a>
+avoids that the radiation becomes negative, which may happen due to the
+smooth interpolation in the weather data reader.
+To achieve this, it sets a minimum radiation of <i>0.0001</i> W/m<sup>2</sup>.
+</li>
+<li>
+The model requires the numerical solution of nonlinear systems of equations
+and of systems of ordinary differential equations.
+These are of course only solved within the solver tolerance.
+</li>
+</ul>
 </html>", revisions="<html>
 <ul>
 <li>
 March 26, 2015, by Michael Wetter:<br/>
-Set initialization of <code>conOut</code>
-to be steady-state initialization.
-</li>
-<li>
-February 12, 2015, by Michael Wetter:<br/>
-Set initial temperature to be <i>22</i>&deg;C to add
-propagation of the initial temperature to this test case.
-</li>
-<li>
-December 22, 2014 by Michael Wetter:<br/>
-Removed <code>Modelica.Fluid.System</code>
-to address issue
-<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/311\">#311</a>.
-</li>
-<li>
-September 11, 2014, by Michael Wetter:<br/>
-Changed assignment of <code>layers</code> in <code>conOut</code>
-as <code>layers</code> is no longer replaceable.
-</li>
-<li>
-May 1, 2013, by Michael Wetter:<br/>
-Declared the parameter record to be a parameter, as declaring its elements
-to be parameters does not imply that the whole record has the variability of a parameter.
-</li>
-<li>
-December 14, 2010, by Michael Wetter:<br/>
-First implementation.
+First implementation based on
+<a href=\"modelica://Buildings.Rooms.Validation.MixedAirInitialization\">
+Buildings.Rooms.Examples.MixedAirInitialization\</a>.
 </li>
 </ul>
 </html>"),
     experiment(
       StopTime=172800));
-end MixedAirFreeResponse;
+end MixedAirInitialization;
