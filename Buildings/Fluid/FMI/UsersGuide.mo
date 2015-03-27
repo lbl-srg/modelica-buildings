@@ -57,15 +57,25 @@ down menu <code>Commands -&gt; Export FMU</code>.
 </p>
 <h4>Options</h4>
 <p>
+In the 
+<a href=\"modelica://Buildings.Fluid\">Buildings.Fluid</a> package,
+most models a boolean parameter called <code>allowFlowReversal</code>.
+If set to <code>true</code>, then the flow can be in either direction,
+otherwise it needs to be from the inlet to the outlet port.
+This parameter is also used in the
+<a href=\"modelica://Buildings.Fluid.FMI\">Buildings.Fluid.FMI</a> package.
 The package was designed in such a way that an FMU,
-if exported with <code>allowFlowReversal=false</code> (and hence mass can only
-flow from the inlet to the outlet), has as input the 
-mass flow rate, pressure and fluid properties of the inflowing fluid.
-At the outlet, there will be mass flow rate, outlet pressure and 
-the fluid properties of the outflowing medium. This allows simulators
-such as TRNSYS to evaluate the FMUs in the direction of the mass flow
-by first setting all inputs, then computing the model, and then obtaining
-all outputs before proceeding the simulation with the next downstream component.
+if exported with <code>allowFlowReversal=false</code>
+has as input the mass flow rate,
+pressure and fluid properties of the inflowing fluid. The outputs
+are the outlet mass flow rate, outlet pressure and the fluid
+properties of the outflowing medium. This allows simulators
+such as Ptolemy II
+to evaluate the FMUs in the direction of the mass flow by first
+setting all inputs, then evaluating the model equations,
+and finally retrieving the
+outputs before proceeding the simulation with the next downstream
+component.
 If <code>allowFlowReversal=true</code>, then the connectors have additional
 signals for the properties of the fluid if it flows backwards.
 </p>
