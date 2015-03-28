@@ -1,8 +1,7 @@
 within Buildings.Rooms.Validation.TestConditionalConstructions.BaseClasses;
 partial model PartialTestModel
   "Partial model that is used to build the test cases"
-  package MediumA = Buildings.Media.Air
-    "Medium model";
+  package MediumA = Buildings.Media.Air "Medium model";
   parameter Integer nConExt
     "Number of exterior constructions that do not have a window";
   parameter Integer nConExtWin
@@ -62,7 +61,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(multiplex3_1.y, roo.qGai_flow) annotation (Line(
-      points={{1,-6},{36,-6}},
+      points={{1,-6},{22,-6},{22,-8},{42,-8}},
       color={0,0,127},
       smooth=Smooth.None));
 

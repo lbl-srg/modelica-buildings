@@ -15,5 +15,12 @@ model OnlyExteriorWallNoWindow "Test model for room model"
    Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{
             200,160}})),
     experiment(
-      StopTime=86400));
+      StopTime=86400),
+    Documentation(info="<html>
+<p>
+This model tests
+<a href=\"modelica://Buildings.Rooms.MixedAir\">Buildings.Rooms.MixedAir</a>
+for the case of having only one exterior construction with no window.
+</p>
+</html>"));
 end OnlyExteriorWallNoWindow;

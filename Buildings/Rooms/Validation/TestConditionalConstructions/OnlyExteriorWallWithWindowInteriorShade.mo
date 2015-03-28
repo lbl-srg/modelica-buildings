@@ -36,5 +36,13 @@ equation
             200,160}})),
     experiment(
       StopTime=86400,
-      Tolerance=1e-05));
+      Tolerance=1e-05),
+    Documentation(info="<html>
+<p>
+This model tests
+<a href=\"modelica://Buildings.Rooms.MixedAir\">Buildings.Rooms.MixedAir</a>
+for the case of having only one exterior construction with window
+and interior shade.
+</p>
+</html>"));
 end OnlyExteriorWallWithWindowInteriorShade;
