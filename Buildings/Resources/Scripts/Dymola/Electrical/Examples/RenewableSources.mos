@@ -1,0 +1,18 @@
+simulateModel("Buildings.Electrical.Examples.RenewableSources", stopTime=2678400, tolerance=1e-05, resultFile="RenewableSources");
+createPlot(id=2, position={38, 10, 622, 440}, 
+y={"sen_a.V", "sen_b.V"},
+range={0.0, 32000000.0, 0.8, 1.2000000000000002}, grid=true, filename="RenewableSources.mat", leftTitleType=1, bottomTitleType=1, colors={{0,0,255}, {255,0,0}});
+createPlot(id=2, position={38, 10, 622, 142},
+y={"winTur.P"},
+range={0.0, 32000000.0, -10000.0, 20000.0}, grid=true, subPlot=2, leftTitleType=1, bottomTitleType=1, colors={{0,0,255}});
+createPlot(id=2, position={38, 10, 622, 143},
+y={"PSol.y"},
+range={0.0, 32000000.0, -20000.0, 40000.0}, grid=true, subPlot=3, leftTitleType=1, bottomTitleType=1, colors={{0,0,255}});
+
+createPlot(id=3, position={405, 96, 482, 336},
+y={"EWin.y", "ESol.y", "ELoa.y"},
+range={0.0, 2800000.0, -10000000000.0, 30000000000.0}, grid=true, filename="RenewableSources.mat", leftTitleType=1, bottomTitleType=1, colors={{0,0,255}, {255,0,0}, {0,128,0}});
+createPlot(id=3, position={405, 96, 482, 165},
+y={"ERat.y"},
+range={0.0, 2800000.0, -0.5, 1.0}, grid=true, subPlot=2, leftTitleType=1, bottomTitleType=1, colors={{0,0,255}});
+
