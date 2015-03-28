@@ -4,8 +4,9 @@ extends Modelica.Icons.ExamplesPackage;
 
 annotation (Documentation(info="<html>
 <p>
-This package contains basic classes that are used to demonstrate
-the use of the models of the Electric pakage.
+This package contains examples for the use of models that can be found in
+<a href=\"modelica://Buildings.Electrical\">
+Buildings.Electrical</a>.
 </p>
 </html>", revisions="<html>
 <ul>
