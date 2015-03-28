@@ -75,24 +75,34 @@ model Stratified "Model of a stratified tank for thermal energy storage"
     each C_start=C_start,
     each V=VTan/nSeg,
     each nPorts=nPorts,
-    each m_flow_nominal = m_flow_nominal) "Tank segment"
+    each m_flow_nominal = m_flow_nominal,
+    each final mSenFac=1,
+    each final m_flow_small=m_flow_small,
+    each final allowFlowReversal=allowFlowReversal) "Tank segment"
                               annotation (Placement(transformation(extent={{6,-16},
             {26,4}})));
 protected
   Sensors.EnthalpyFlowRate H_a_flow(
     redeclare package Medium = Medium,
     final m_flow_nominal=m_flow_nominal,
-    final tau=0) "Enthalpy flow rate at port a"
+    final tau=0,
+    final allowFlowReversal=allowFlowReversal,
+    final m_flow_small=m_flow_small) "Enthalpy flow rate at port a"
     annotation (Placement(transformation(extent={{-60,-90},{-40,-70}})));
   Sensors.EnthalpyFlowRate[nSeg - 1] H_vol_flow(
     redeclare package Medium = Medium,
     each final m_flow_nominal=m_flow_nominal,
-    each final tau=0) "Enthalpy flow rate between the volumes"
+    each final tau=0,
+    each final allowFlowReversal=allowFlowReversal,
+    each final m_flow_small=m_flow_small)
+    "Enthalpy flow rate between the volumes"
     annotation (Placement(transformation(extent={{-20,-50},{0,-30}})));
   Sensors.EnthalpyFlowRate H_b_flow(
     redeclare package Medium = Medium,
-    m_flow_nominal=m_flow_nominal,
-    final tau=0) "Enthalpy flow rate at port b"
+    final m_flow_nominal=m_flow_nominal,
+    final tau=0,
+    final allowFlowReversal=allowFlowReversal,
+    final m_flow_small=m_flow_small) "Enthalpy flow rate at port b"
     annotation (Placement(transformation(extent={{50,-90},{70,-70}})));
   BaseClasses.Buoyancy buo(
     redeclare final package Medium = Medium,
@@ -237,6 +247,11 @@ Buildings.Fluid.Storage.StratifiedEnhanced</a>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+March 28, 2015, by Filip Jorissen:<br/>
+Propagated <code>allowFlowReversal</code> and <code>m_flow_small</code>
+and set <code>mSenFac=1</code>.
+</li>
 <li>
 January 26, 2015, by Michael Wetter:<br/>
 Renamed
