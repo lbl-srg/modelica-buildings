@@ -2,7 +2,7 @@ within Buildings.Electrical.Transmission.BaseClasses;
 partial model PartialLine "Partial cable line dispersion model"
   extends Buildings.Electrical.Interfaces.PartialTwoPort;
   extends Buildings.Electrical.Transmission.BaseClasses.PartialBaseLine;
-  Real VoltageLosses = 100*abs(PhaseSystem_p.systemVoltage(terminal_p.v) -
+  Real VoltageLosses(unit = "1") = abs(PhaseSystem_p.systemVoltage(terminal_p.v) -
     PhaseSystem_n.systemVoltage(terminal_n.v))/
     Buildings.Utilities.Math.Functions.smoothMax(
       PhaseSystem_p.systemVoltage(terminal_p.v),
