@@ -18,8 +18,8 @@ Annealed aluminium cable with a cross-sectional kcmil 1500
 This type of cable has the following properties
 </p>
 <pre>
-Rdc  = 3.87139e-5 // Characteristic DC resistance at T = Tref[Ohm/m]
-Tref = 298.15      // Reference temperature of the material [K]
+Rdc  = 3.87139e-5 // Characteristic DC resistance at T = T_ref[Ohm/m]
+T_ref = 298.15      // Reference temperature of the material [K]
 d    = 34.798e-3   // Inner diameter [m]
 D    = 53.34e-3   // Outer diameter [m]
 Amp  = 800         // Ampacity [A]
