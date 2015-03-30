@@ -2,6 +2,11 @@ within Buildings.Rooms.Examples.FFD;
 model RoomOnlyExteriorWallNoWindow
   "Natural convection in an empty room with only exterior walls without windows."
   extends Modelica.Icons.Example;
+  parameter Buildings.HeatTransfer.Data.OpaqueConstructions.Generic matLayWal(
+      final nLay=1, material={HeatTransfer.Data.Solids.Steel(x=0.001)},
+    roughness_a=Buildings.HeatTransfer.Types.SurfaceRoughness.Smooth)
+    "Construction material for all the envelopes"
+    annotation (Placement(transformation(extent={{20,140},{40,160}})));
   extends Buildings.Rooms.Examples.FFD.BaseClasses.PartialRoom(
     nConExt=6,
     nConExtWin=0,
@@ -10,7 +15,7 @@ model RoomOnlyExteriorWallNoWindow
     nSurBou=0,
     roo(nConExt=nConExt, datConExt(
         name={"East Wall","West Wall","North Wall","South Wall","Floor","Ceiling"},
-        layers={matLayRoo,matLayRoo,matLayRoo,matLayRoo,matLayRoo,matLayRoo},
+        layers={matLayWal,matLayWal,matLayWal,matLayWal,matLayWal,matLayWal},
         each A=1*1,
         til={Buildings.Types.Tilt.Wall,
             Buildings.Types.Tilt.Wall,

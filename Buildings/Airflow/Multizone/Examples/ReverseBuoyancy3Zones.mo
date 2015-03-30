@@ -237,8 +237,8 @@ Added documentation.
 </html>", info="<html>
 <p>
 This model is similar than
-<a href=\"modelica://Buildings.Airflow.Multizone.Examples.Validation3Rooms\">
-Buildings.Airflow.Multizone.Examples.Validation3Rooms</a>.
+<a href=\"modelica://Buildings.Airflow.Multizone.Validation.ThreeRoomsContam\">
+Buildings.Airflow.Multizone.Validation.ThreeRoomsContam</a>.
 However, the initial temperatures are such that at the start of the
 simulation, the flow direction between the three rooms reverses direction.
 </p>
