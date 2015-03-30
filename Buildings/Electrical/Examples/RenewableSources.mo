@@ -597,6 +597,5 @@ experiment(
           "modelica://Buildings/Resources/Scripts/Dymola/Electrical/Examples/RenewableSources.mos"
         "Simulate and plot"),
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-120,-100},{320,
-            100}}), graphics),
-    Icon(coordinateSystem(preserveAspectRatio=false, extent={{-120,-100},{320,100}})));
+            100}})));
 end RenewableSources;
