@@ -4,7 +4,7 @@ model Probe "Model of a probe that measures RMS voltage and angle"
   parameter Modelica.SIunits.Voltage V_nominal(min=0, start=120)
     "Nominal voltage (V_nominal >= 0)";
   parameter Boolean perUnit = true "If true, display voltage in p.u.";
-  Interfaces.Terminal_n term "Electrical connector" annotation (Placement(
+  replaceable Interfaces.Terminal_n term "Electrical connector" annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,

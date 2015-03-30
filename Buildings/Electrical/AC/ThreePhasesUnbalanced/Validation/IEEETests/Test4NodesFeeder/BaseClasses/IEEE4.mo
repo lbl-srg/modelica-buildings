@@ -20,11 +20,11 @@ partial model IEEE4 "Base model of the IEEE 4 nodes test feeder"
     "Reference RMS voltage node 3 - IEEE results";
   parameter Modelica.SIunits.Voltage V4_ref[3] = {1918, 2061, 1981}
     "Reference RMS voltage node 4 - IEEE results";
-  parameter Modelica.SIunits.Angle Theta2_ref[3](displayUnit="deg") = {-0.3, -120.3, 119.6}
+  parameter Modelica.SIunits.Angle Theta2_ref[3](each displayUnit="deg") = {-0.3, -120.3, 119.6}
     "Reference voltage phase angle node 2 - IEEE results";
-  parameter Modelica.SIunits.Angle Theta3_ref[3](displayUnit="deg") = {-3.7, -123.5, 116.4}
+  parameter Modelica.SIunits.Angle Theta3_ref[3](each displayUnit="deg") = {-3.7, -123.5, 116.4}
     "Reference voltage phase angle node 3 - IEEE results";
-  parameter Modelica.SIunits.Angle Theta4_ref[3](displayUnit="deg") = {-9.1, -128.3, 110.9}
+  parameter Modelica.SIunits.Angle Theta4_ref[3](each displayUnit="deg") = {-9.1, -128.3, 110.9}
     "Reference voltage phase angle node 4 - IEEE results";
   Modelica.SIunits.Voltage err_V2[3] = node2.V - V2_ref
     "Error on voltage at node 2";
@@ -32,11 +32,11 @@ partial model IEEE4 "Base model of the IEEE 4 nodes test feeder"
     "Error on voltage at node 3";
   Modelica.SIunits.Voltage err_V4[3] = node4.V - V4_ref
     "Error on voltage at node 4";
-  Modelica.SIunits.Angle err_Theta2[3](displayUnit="deg") = node2.theta - Theta2_ref
+  Modelica.SIunits.Angle err_Theta2[3](each displayUnit="deg") = node2.theta - Theta2_ref
     "Error on voltage at node 2";
-  Modelica.SIunits.Angle err_Theta3[3](displayUnit="deg") = node3.theta - Theta3_ref
+  Modelica.SIunits.Angle err_Theta3[3](each displayUnit="deg") = node3.theta - Theta3_ref
     "Error on voltage at node 3";
-  Modelica.SIunits.Angle err_Theta4[3](displayUnit="deg") = node4.theta - Theta4_ref
+  Modelica.SIunits.Angle err_Theta4[3](each displayUnit="deg") = node4.theta - Theta4_ref
     "Error on voltage at node 4";
   Real err_V2_percent[3] = 100*{err_V2[i]/V2_ref[i] for i in 1:3}
     "Error in RMS voltage at node 2 -- percent";
