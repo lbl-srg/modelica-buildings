@@ -4,7 +4,7 @@ record BaseCable "Record that contains the properties of a generic cable"
     "Material of the cable";
   parameter Modelica.SIunits.Current Amp(start=0.0)=0.0
     "Ampacitance of the cable";
-  parameter Modelica.SIunits.Temperature Tref = 298.15
+  parameter Modelica.SIunits.Temperature T_ref = 298.15
     "Reference cable temperature";
   parameter Modelica.SIunits.Temperature M = 228.1 + 273.15
     "Temperature constant of the material";

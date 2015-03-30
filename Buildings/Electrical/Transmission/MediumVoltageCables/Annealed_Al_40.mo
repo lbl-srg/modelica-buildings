@@ -5,7 +5,7 @@ record Annealed_Al_40 "Annealed Al cable - AWG 4/0"
     M = 228.1 + 273.15,
     size="4/0",
     Rdc=0.274278e-3,
-    Tref=298.15,
+    T_ref=298.15,
     d=13.005e-3,
     D=30.353e-3,
     GMR=Buildings.Electrical.Transmission.Functions.computeGMR(d),

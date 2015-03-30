@@ -5,7 +5,7 @@ record Annealed_Al_1000 "Annealed Al cable - AWG 1000"
     M = 228.1 + 273.15,
     size="1000",
     Rdc=5.80709e-5,
-    Tref=298.15,
+    T_ref=298.15,
     d=28.372e-3,
     D=46.101e-3,
     GMR=Buildings.Electrical.Transmission.Functions.computeGMR(d),
