@@ -129,11 +129,11 @@ For medium voltage cables, the geometric properties of the cable and the materia
 specified. For example some of the properties that are specified are:
 </p>
 <pre>
-Rdc  : Characteristic DC resistance at T = T_ref[Ohm/m]
+Rdc   : Characteristic DC resistance at T = T_ref[Ohm/m]
 T_ref : Reference temperature of the material [K]
-d    : Inner diameter [m]
-D    : Outer diameter [m]
-Amp  : Ampacity [A]
+d     : Inner diameter [m]
+D     : Outer diameter [m]
+Amp   : Ampacity [A]
 </pre>
 <p>
 other properties such as the geometric mean diameter GMD and the 

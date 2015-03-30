@@ -19,7 +19,7 @@ This type of cable has the following properties
 </p>
 <pre>
 Rdc  = 5.80709e-5  // Characteristic DC resistance at T = T_ref[Ohm/m]
-T_ref = 298.15      // Reference temperature of the material [K]
+T_ref= 298.15      // Reference temperature of the material [K]
 d    = 28.372e-3   // Inner diameter [m]
 D    = 46.101e-3   // Outer diameter [m]
 Amp  = 640         // Ampacity [A]
