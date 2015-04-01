@@ -77,7 +77,8 @@ model IndirectTankHeatExchanger
     each T_start=T_start,
     each X_start=X_start,
     each C_start=C_start,
-    each C_nominal=C_nominal) "Heat exchanger fluid"
+    each C_nominal=C_nominal,
+    each final allowFlowReversal=allowFlowReversal) "Heat exchanger fluid"
     annotation (Placement(transformation(extent={{-32,-40},{-12,-20}})));
   Modelica.Thermal.HeatTransfer.Components.HeatCapacitor cap[nSeg](each C=CHex/
         nSeg,
@@ -89,7 +90,8 @@ model IndirectTankHeatExchanger
     "Thermal mass of the heat exchanger"
     annotation (Placement(transformation(extent={{-6,6},{14,26}})));
 protected
-  Sensors.MassFlowRate senMasFlo(redeclare package Medium = MediumHex)
+  Sensors.MassFlowRate senMasFlo(redeclare package Medium = MediumHex,
+      allowFlowReversal=allowFlowReversal)
     "Mass flow rate of the heat transfer fluid"
     annotation (Placement(transformation(extent={{-80,-40},{-60,-60}})));
   Modelica.Thermal.HeatTransfer.Components.Convection htfToHex[nSeg]
@@ -279,8 +281,12 @@ equation
           while the heat port is intended to be connected to a stagnant fluid.
           </p>
           </html>",
-          revisions = "<html>
+          revisions="<html>
           <ul>
+<li>
+March 28, 2015, by Filip Jorissen:<br/>
+Propagated <code>allowFlowReversal</code>.
+</li>
           <li>
           August 29, 2014, by Michael Wetter:<br/>
           Introduced <code>MediumTan</code> for the tank medium, and assigned <code>Medium</code>
