@@ -3,7 +3,7 @@ model Network "Three phases balanced AC network"
   extends Buildings.Electrical.Transmission.BaseClasses.PartialNetwork(
     V_nominal(start = 480),
     redeclare Interfaces.Terminal_p terminal,
-    redeclare Transmission.Grids.TestGrid2Nodes grid,
+    redeclare replaceable Transmission.Grids.TestGrid2Nodes grid,
     redeclare Lines.Line lines(
     redeclare replaceable
         Buildings.Electrical.Transmission.LowVoltageCables.Generic commercialCable=grid.cables));
@@ -31,6 +31,11 @@ equation
           color={215,215,215},
           smooth=Smooth.Bezier)}), Documentation(revisions="<html>
 <ul>
+<li>
+March 30, 2015, by Michael Wetter:<br/>
+Made <code>grid</code> replaceable. This error was caught by
+the regression tests of OpenModelica.
+</li>
 <li>
 September 23, 2014, by Marco Bonvini:<br/>
 Maintained replaceable the parameter <code>commercialCable</code> when redeclaring

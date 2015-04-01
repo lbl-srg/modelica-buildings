@@ -32,7 +32,7 @@ partial model PartialBaseLine "Partial cable line dispersion model"
     enable = mode == Buildings.Electrical.Types.CableMode.commercial),
                choicesAllMatching = true);
 
-  final parameter Modelica.SIunits.Temperature T_ref = commercialCable.Tref
+  final parameter Modelica.SIunits.Temperature T_ref = commercialCable.T_ref
     "Reference temperature of the line" annotation(Evaluate=True);
   final parameter Modelica.SIunits.Temperature M = commercialCable.M
     "Temperature constant (R_actual = R*(M + T_heatPort)/(M + T_ref))";

@@ -41,51 +41,51 @@ protected
     "Product between complex quantities";
   Modelica.SIunits.Current i1[2](
     start = zeros(Buildings.Electrical.PhaseSystems.OnePhase.n),
-    stateSelect = StateSelect.prefer) = terminal_n.phase[1].i
+    each stateSelect = StateSelect.prefer) = terminal_n.phase[1].i
     "Current in line 1";
   Modelica.SIunits.Current i2[2](
     start = zeros(Buildings.Electrical.PhaseSystems.OnePhase.n),
-    stateSelect = StateSelect.prefer) = terminal_n.phase[2].i
+    each stateSelect = StateSelect.prefer) = terminal_n.phase[2].i
     "Current in line 2";
   Modelica.SIunits.Current i3[2](
     start = zeros(Buildings.Electrical.PhaseSystems.OnePhase.n),
-    stateSelect = StateSelect.prefer) = terminal_n.phase[3].i
+    each stateSelect = StateSelect.prefer) = terminal_n.phase[3].i
     "Current in line 3";
   Modelica.SIunits.Current i4[2](
     start = zeros(Buildings.Electrical.PhaseSystems.OnePhase.n),
-    stateSelect = StateSelect.prefer) = terminal_n.phase[4].i
+    each stateSelect = StateSelect.prefer) = terminal_n.phase[4].i
     "Current in line 4 (neutral)";
   Modelica.SIunits.Voltage v1_n[2](
     start = Buildings.Electrical.PhaseSystems.OnePhase.phaseVoltages(V_nominal/sqrt(3), phi= 0),
-    stateSelect = StateSelect.never) = terminal_n.phase[1].v
+    each stateSelect = StateSelect.never) = terminal_n.phase[1].v
     "Voltage in line 1 at connector N";
   Modelica.SIunits.Voltage v2_n[2](
     start = Buildings.Electrical.PhaseSystems.OnePhase.phaseVoltages(V_nominal/sqrt(3), phi= -2*Modelica.Constants.pi/3),
-    stateSelect = StateSelect.never) = terminal_n.phase[2].v
+    each stateSelect = StateSelect.never) = terminal_n.phase[2].v
     "Voltage in line 2 at connector N";
   Modelica.SIunits.Voltage v3_n[2](
     start = Buildings.Electrical.PhaseSystems.OnePhase.phaseVoltages(V_nominal/sqrt(3), phi= 2*Modelica.Constants.pi/3),
-    stateSelect = StateSelect.never) = terminal_n.phase[3].v
+    each stateSelect = StateSelect.never) = terminal_n.phase[3].v
     "Voltage in line 3 at connector N";
   Modelica.SIunits.Voltage v4_n[2](
     start = Buildings.Electrical.PhaseSystems.OnePhase.phaseVoltages(0),
-    stateSelect = StateSelect.never) = terminal_n.phase[4].v
+    each stateSelect = StateSelect.never) = terminal_n.phase[4].v
     "Voltage in line 4 (neutral) at connector N";
   Modelica.SIunits.Voltage v1_p[2](
     start = Buildings.Electrical.PhaseSystems.OnePhase.phaseVoltages(V_nominal/sqrt(3), phi= 0),
-    stateSelect = StateSelect.never) = terminal_p.phase[1].v
+    each stateSelect = StateSelect.never) = terminal_p.phase[1].v
     "Voltage in line 1 at connector P";
   Modelica.SIunits.Voltage v2_p[2](
     start = Buildings.Electrical.PhaseSystems.OnePhase.phaseVoltages(V_nominal/sqrt(3), phi= -2*Modelica.Constants.pi/3),
-    stateSelect = StateSelect.never) = terminal_p.phase[2].v
+    each stateSelect = StateSelect.never) = terminal_p.phase[2].v
     "Voltage in line 2 at connector P";
   Modelica.SIunits.Voltage v3_p[2](
     start = Buildings.Electrical.PhaseSystems.OnePhase.phaseVoltages(V_nominal/sqrt(3), phi= 2*Modelica.Constants.pi/3),
-    stateSelect = StateSelect.never) = terminal_p.phase[3].v
+    each stateSelect = StateSelect.never) = terminal_p.phase[3].v
     "Voltage in line 3 at connector P";
   Modelica.SIunits.Voltage v4_p[2](
     start = Buildings.Electrical.PhaseSystems.OnePhase.phaseVoltages(0),
-    stateSelect = StateSelect.never) = terminal_p.phase[4].v
+    each stateSelect = StateSelect.never) = terminal_p.phase[4].v
     "Voltage in line 4 (neutral) at connector P";
 equation
 

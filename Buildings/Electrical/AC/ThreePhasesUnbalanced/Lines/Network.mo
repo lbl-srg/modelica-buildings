@@ -3,7 +3,7 @@ model Network "Three phases unbalanced AC network without neutral cable"
   extends Transmission.BaseClasses.PartialNetwork(
     redeclare
       Buildings.Electrical.AC.ThreePhasesUnbalanced.Interfaces.Terminal_p terminal,
-    redeclare Transmission.Grids.TestGrid2Nodes grid,
+    redeclare replaceable Transmission.Grids.TestGrid2Nodes grid,
     redeclare Buildings.Electrical.AC.ThreePhasesUnbalanced.Lines.Line lines(commercialCable=grid.cables));
     Modelica.SIunits.Voltage VAbs[3,grid.nNodes]
     "RMS voltage of the grid nodes";
@@ -21,7 +21,12 @@ equation
   annotation (
   defaultComponentName="net",
  Documentation(revisions="<html>
-<ul>
+ <ul>
+ <li>
+March 30, 2015, by Michael Wetter:<br/>
+Made <code>network</code> replaceable. This was detected
+by the OpenModelica regression tests.
+</li>
 <li>
 October 6, 2014, by Marco Bonvini:<br/>
 Revised documentation and model.
