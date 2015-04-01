@@ -66,7 +66,7 @@ protected
               inStream(port_b.h_outflow),
               inStream(port_b.Xi_outflow)) if
                  show_T or show_V_flow
-    "state for medium inflowing through port_b";
+    "State for medium inflowing through port_b";
 equation
   // Pressure drop in design flow direction
   dp = port_a.p - port_b.p;
