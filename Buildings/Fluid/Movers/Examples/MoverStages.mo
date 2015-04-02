@@ -1,5 +1,5 @@
 within Buildings.Fluid.Movers.Examples;
-model PumpsStages "Example model of pump using stages"
+model MoverStages "Example model of mover using stages"
   extends Modelica.Icons.Example;
   package Medium = Buildings.Media.Water;
 
@@ -43,7 +43,8 @@ equation
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-100,-100},{100,
             100}}), graphics),
-    __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Movers/Examples/PumpsSeries.mos"
+    __Dymola_Commands(file=
+          "modelica://Buildings/Resources/Scripts/Dymola/Fluid/Movers/Examples/MoverStages.mos"
         "Simulate and plot"),
     Documentation(info="<html>
 <p>
@@ -60,4 +61,4 @@ First implementation.
 </html>"),
     experiment(Tolerance=1e-06),
     __Dymola_experimentSetupOutput(events=false));
-end PumpsStages;
+end MoverStages;

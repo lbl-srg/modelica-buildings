@@ -1,5 +1,5 @@
 ClosedLoop_y
 PumpsParallel
 PumpsSeries
-PumpsStages
+MoverStages
 SpeedControlled_y_pumpCurves

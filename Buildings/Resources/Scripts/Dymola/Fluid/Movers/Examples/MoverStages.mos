@@ -1,0 +1,9 @@
+simulateModel("Buildings.Fluid.Movers.Examples.MoverStages", stopTime=1, method="Radau", tolerance=1e-06, resultFile="MoverStages");
+createPlot(id=1, 
+position={15, 10, 482, 336}, 
+y={"floMac.m_flow"}, 
+range={0.0, 1.0, -0.5, 2.5}, 
+grid=true, 
+leftTitleType=1, 
+bottomTitleType=1, 
+colors={{0,0,255}});
