@@ -97,6 +97,7 @@ User's Guide</a> for more information.
 April 2, 2015, by Filip Jorissen:<br/>
 Added code for supporting stage input and constant input.
 </li>
+<li>
 March 6, 2015, by Michael Wetter<br/>
 Made performance record <code>per</code> replaceable
 as for the other models.
