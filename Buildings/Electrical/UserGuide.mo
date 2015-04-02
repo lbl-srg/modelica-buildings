@@ -246,7 +246,7 @@ award at the BauSIM 2014 conference.
 Marco Bonvini, Michael Wetter, and Thierry Stephane Nouidui.<br/>
 <a href=\"modelica://Buildings/Resources/Papers/Bausim2014_ElectricalPackage.pdf\">
 A Modelica package for building-to-electrical grid integration</a><br/>
-<i>BauSIM 2014 Conference</i>, Aachen, Germany, September 2012.<br/>
+<i>BauSIM 2014 Conference</i>, Aachen, Germany, September 2014.<br/>
 </p>
 
 <p>
