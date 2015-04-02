@@ -9,13 +9,15 @@ model SpeedControlled_y
               V_flow = per.pressure.V_flow,
               dp =     per.pressure.dp),
             motorCooledByFluid=per.motorCooledByFluid,
-            use_powerCharacteristic=per.use_powerCharacteristic));
-
+            use_powerCharacteristic=per.use_powerCharacteristic),
+    stageInputs(each final unit="1"),
+    constInput(final unit="1"));
   parameter Data.SpeedControlled_y per "Record with performance data"
     annotation (choicesAllMatching=true,
       Placement(transformation(extent={{60,-80},{80,-60}})));
 
-  Modelica.Blocks.Interfaces.RealInput y(min=0, unit="1")
+  Modelica.Blocks.Interfaces.RealInput y(min=0, unit="1") if
+    inputType == Buildings.Fluid.Types.InputType.Continuous
     "Constant normalized rotational speed"
     annotation (Placement(transformation(
         extent={{-20,-20},{20,20}},
@@ -23,13 +25,14 @@ model SpeedControlled_y
         origin={0,120}), iconTransformation(
         extent={{-20,-20},{20,20}},
         rotation=-90,
-        origin={0,120})));
+        origin={-2,120})));
 
   // We set the nominal value to 3000 as this is the
   // right order of magnitude. Using per.N_nominal
   // would yield to a translation warning
   // Non-literal value.
   // In nominal attribute for fan.filter.u.
+
 equation
   connect(filter.y, y_filtered) annotation (Line(
       points={{34.7,88},{50,88}},
@@ -37,8 +40,8 @@ equation
       smooth=Smooth.None));
 
   if filteredSpeed then
-    connect(y, filter.u) annotation (Line(
-      points={{0,120},{0,88},{18.6,88}},
+    connect(inputSwitch.y, filter.u) annotation (Line(
+      points={{1,50},{1,88},{18.6,88}},
       color={0,0,127},
       smooth=Smooth.None));
     connect(filter.y, y_actual) annotation (Line(
@@ -46,16 +49,24 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   else
-    connect(y, y_actual) annotation (Line(
-      points={{0,120},{0,50},{110,50}},
+    connect(inputSwitch.y, y_actual) annotation (Line(
+      points={{1,50},{110,50}},
       color={0,0,127},
       smooth=Smooth.None));
   end if;
 
+  connect(inputSwitch.u, y) annotation (Line(
+      points={{-22,50},{-22,80},{0,80},{0,120}},
+      color={0,0,127},
+      smooth=Smooth.None));
   annotation (defaultComponentName="fan",
     Icon(coordinateSystem(preserveAspectRatio=true,  extent={{-100,-100},{100,
-            100}}), graphics={Text(extent={{10,124},{102,102}},textString=
-              "y_in [0, 1]")}),
+            100}}),
+            graphics={
+            Text(
+              visible = inputType == Buildings.Fluid.Types.InputType.Continuous,
+              extent={{10,124},{102,102}},
+              textString="y [0, 1]")}),
     Documentation(info="<html>
 <p>
 This model describes a fan or pump with prescribed normalized speed.
@@ -76,6 +87,10 @@ User's Guide</a> for more information.
 </html>",
       revisions="<html>
 <ul>
+<li>
+April 2, 2015, by Filip Jorissen:<br/>
+Added code for supporting stage input and constant input.
+</li>
 <li>
 January 6, 2015, by Michael Wetter:<br/>
 Revised model for OpenModelica.
@@ -106,5 +121,7 @@ Revised implementation to allow zero flow rate.
     by <a href=\"mailto:francesco.casella@polimi.it\">Francesco Casella</a>:<br/>
        Model added to the Fluid library</li>
 </ul>
-</html>"));
+</html>"),
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
+            100}}), graphics));
 end SpeedControlled_y;

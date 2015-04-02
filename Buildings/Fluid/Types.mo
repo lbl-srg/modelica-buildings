@@ -123,6 +123,26 @@ The following heat exchanger flow regimes are available in this enumeration:
 <tr><td>CrossFlowCMinUnmixedCMaxMixed</td><td>Cross flow, CMin unmixed, CMax mixed</td></tr>
 </table>
 </html>"));
+  type InputType = enumeration(
+      Constant "Use constant, real parameter input",
+      Stage "Use stage, integer input",
+      Continuous "Use continuous, real input") "Input options for movers"
+    annotation (Documentation(info="<html>
+<p>
+This type allows defining which type of input should be used for movers. 
+This can either be 
+1) a constant set point, 
+2) a series of possible set points that can be switched using an integer input or 
+3) a continuously variable set point.
+</p>
+</html>", revisions="<html>
+<ul>
+<li>
+April 2, 2015, by Filip Jorissen:<br/>
+First implementation.
+</li>
+</ul>
+</html>"));
 annotation (preferredView="info", Documentation(info="<html>
 This package contains type definitions.
 </html>"));
