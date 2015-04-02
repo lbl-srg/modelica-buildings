@@ -136,7 +136,7 @@ D     : Outer diameter [m]
 Amp   : Ampacity [A]
 </pre>
 <p>
-other properties such as the geometric mean diameter GMD and the 
+other properties such as the geometric mean diameter GMD and the
 geometric mean radius GMR are by default computed using functions,
 but this can be overriden.
 </p>

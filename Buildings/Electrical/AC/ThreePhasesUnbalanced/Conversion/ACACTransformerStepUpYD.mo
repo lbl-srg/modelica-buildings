@@ -213,9 +213,9 @@ First implementation.
 <p>
 This is a simplified equivalent transformer model with Y-Delta connection
 (voltage step up).
-The model accounts for winding Joule losses and leakage reactances 
+The model accounts for winding Joule losses and leakage reactances
 that are represented by a series of a resistance <i>R</i> and an
-inductance <i>L</i>. The resistance and the inductance represent the 
+inductance <i>L</i>. The resistance and the inductance represent the
 effects of the secondary and primary side of the transformer.
 </p>
 <p>

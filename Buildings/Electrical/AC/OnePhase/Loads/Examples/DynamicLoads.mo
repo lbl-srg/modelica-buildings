@@ -45,7 +45,7 @@ phasors.
 </p>
 <p>
 The loads at nominal conditions should consume an active power equal
-to <i>1.2</i> kW. Because of the line resistance the voltage at the load is 
+to <i>1.2</i> kW. Because of the line resistance the voltage at the load is
 attenuated and they consume less power.
 </p>
 <p>

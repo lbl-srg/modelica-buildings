@@ -60,7 +60,7 @@ Created model and documentation.
 </html>", info="<html>
 <p>
 This example demonstrates how to use a network model to connect
-a source to a load. In this simple case the network has two nodes 
+a source to a load. In this simple case the network has two nodes
 that are connected by a commercial cable with neutral line.
 </p>
 <p>

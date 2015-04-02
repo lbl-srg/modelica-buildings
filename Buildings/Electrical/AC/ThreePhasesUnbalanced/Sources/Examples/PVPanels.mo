@@ -111,6 +111,6 @@ the grid.
 The PV produces different amounts of power on each phase according to the fractions
 specified by the vector <code>areaFraction={0.5,0.3,0.2}</code>. In this example, 50%
 of the power generation is on phase 1, 30% on phase 2 and 20% on phase 3.
-</p> 
+</p>
 </html>"));
 end PVPanels;

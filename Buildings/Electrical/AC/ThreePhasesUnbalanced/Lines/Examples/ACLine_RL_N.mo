@@ -59,7 +59,7 @@ equation
 March 20, 2015, by Michael Wetter:<br/>
 Removed dynamic load model as this caused divergence.
 (Dassault SR00259003.)
-</li>    
+</li>
 <li>
 March 19, 2015, by Marco Bonvini:<br/>
 Added initial conditions for the dynamic load model.

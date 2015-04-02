@@ -139,7 +139,7 @@ The following major additions have been done in version 2.0:
 </p>
 <ul>
 <li>
-A CFD model 
+A CFD model
 that is embedded in a thermal zone has been added.
 This model is implemented in <a href=\"modelica://Buildings.Rooms.CFD\">Buildings.Rooms.CFD</a>.
 The CFD model is an implementation of the Fast Fluid Dynamics code
@@ -151,7 +151,7 @@ A new package
 <a href=\"modelica://Buildings.Electrical\">Buildings.Electrical</a>
 has been added.
 This package allows studying
-buildings to electrical grid integration. It includes models for loads, transformers, 
+buildings to electrical grid integration. It includes models for loads, transformers,
 cables, batteries, PV and wind turbines.
 Models exist for DC and AC systems with two or three phases that can be balanced and unbalanced.
 The models compute voltage, current, active and reactive power
@@ -247,7 +247,7 @@ to <b style=\"color:blue\">existing</b> libraries:
 </tr>
 <tr><td valign=\"top\">Buildings.Rooms.CFD
     </td>
-    <td valign=\"top\">Room model that computes the room air flow 
+    <td valign=\"top\">Room model that computes the room air flow
                        using computational fluid dynamics (CFD).
                        The CFD simulation is coupled to the thermal simulation of the room
                        and, through the fluid port, to the air conditioning system.
@@ -353,7 +353,7 @@ have been <b style=\"color:blue\">improved</b> in a
     </td>
     <td valign=\"top\">Reformulated the model to avoid an translation error
                        if glycol is used.<br/>
-                       Propagated parameters for initialization in base class 
+                       Propagated parameters for initialization in base class
                        <code>Buildings.Fluid.SolarCollectors.BaseClasses.PartialSolarCollector</code>
                        and set <code>prescribedHeatFlowRate=true</code>.
     </td>
@@ -380,7 +380,7 @@ have been <b style=\"color:blue\">improved</b> in a
                        and translation in Dymola 2015 FD01 beta1.
     </td>
     </tr>
-    
+
 <tr><td valign=\"top\">Buildings.HeatTransfer.Windows.InteriorHeatTransferConvective
     </td>
     <td valign=\"top\">Changed model to allow a temperature dependent convective heat transfer
@@ -389,7 +389,7 @@ have been <b style=\"color:blue\">improved</b> in a
                        <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/52\">52</a>.
     </td>
     </tr>
-    
+
 <tr><td colspan=\"2\"><b>Buildings.Media</b>
     </td>
 </tr>
@@ -409,7 +409,7 @@ have been <b style=\"color:blue\">improved</b> in a
 <tr><td colspan=\"2\"><b>Buildings.Rooms</b>
     </td>
     </tr>
-    
+
 <tr><td valign=\"top\">Buildings.Rooms.MixedAir
     </td>
     <td valign=\"top\">Changed model to allow a temperature dependent convective heat transfer
@@ -417,8 +417,8 @@ have been <b style=\"color:blue\">improved</b> in a
                        This is for issue
                        <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/52\">52</a>.
     </td>
-    </tr>    
-    
+    </tr>
+
 <tr><td valign=\"top\">Rooms.BaseClasses.ExteriorBoundaryConditionsWithWindow
     </td>
     <td valign=\"top\">Conditionally removed the shade model if no shade is present.
@@ -489,7 +489,7 @@ have been <b style=\"color:blue\">improved</b> in a
 <tr><td colspan=\"2\"><b>Buildings.HeatTransfer</b>
     </td>
     </tr>
-    
+
 <tr><td valign=\"top\">Buildings.HeatTransfer.Data.GlazingSystems.Generic
     </td>
     <td valign=\"top\">Removed parameter <code>nLay</code> as OpenModelica
@@ -497,7 +497,7 @@ have been <b style=\"color:blue\">improved</b> in a
                        For Dymola, the conversion script will automatically
                        update existing models.
     </td>
-</tr>        
+</tr>
 <tr><td valign=\"top\">Buildings.HeatTransfer.Conduction.BaseClasses.der_temperature_u
     </td>
     <td valign=\"top\">Changed the input argument for this function from type
@@ -516,13 +516,13 @@ have been <b style=\"color:blue\">improved</b> in a
                        For Dymola, the conversion script will automatically
                        update existing models.
     </td>
-</tr>        
+</tr>
 
 
 <tr><td colspan=\"2\"><b>Buildings.Fluid</b>
     </td>
     </tr>
-    
+
 <tr><td valign=\"top\">Buildings.Fluid.FixedResistances.Pipe<br/>
                        Buildings.Fluid.FixedResistances.BaseClasses.Pipe<br/>
                        Buildings.Fluid.HeatExchangers.RadiantSlabs.SingleCircuitSlab
@@ -534,8 +534,8 @@ have been <b style=\"color:blue\">improved</b> in a
                        For Dymola, the conversion script will automatically
                        update existing models.
     </td>
-</tr>    
-    
+</tr>
+
 <tr><td valign=\"top\">Buildings.Fluid.HeatExchangers.DryCoilDiscretized<br/>
                        Buildings.Fluid.HeatExchangers.WetCoilDiscretized
     </td>
@@ -775,7 +775,7 @@ that can lead to wrong simulation results):
     <td valign=\"top\">Corrected error in function that used <code>beta</code>
                        before it was assigned a value.
     </td>
-</tr>    
+</tr>
 <tr><td valign=\"top\">Buildings.Fluid.Storage.Stratified<br/>
                        Buildings.Fluid.Storage.StratifiedEnhanced<br/>
                        Buildings.Fluid.Storage.StratifiedEnhancedInternalHex

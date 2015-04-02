@@ -271,7 +271,7 @@ by the differential equation of the fluid volume.
 </li>
 <li>
 January 25, 2015, by Filip Jorissen:<br/>
-Set <code>tau = 0</code> in <code>EnthalpyFlowRate</code> 
+Set <code>tau = 0</code> in <code>EnthalpyFlowRate</code>
 sensors for increased simulation speed.
 </li>
 <li>

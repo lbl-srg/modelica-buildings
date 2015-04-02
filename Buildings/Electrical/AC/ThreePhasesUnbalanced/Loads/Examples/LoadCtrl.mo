@@ -79,8 +79,8 @@ This model contains two loads: one with voltage control and one without.
 The loads produce power only on the first phase that is connected through a transmission line to a voltage
 source. When the power production increases, the losses on the line cause an increase of the voltage
 at the load. The load with voltage controller detects when the overvoltage happens
-and unplugs the load for 2 seconds. After 2 seconds the load is plugged again and if this causes an other 
-overvoltage it will be unplugged again. 
+and unplugs the load for 2 seconds. After 2 seconds the load is plugged again and if this causes an other
+overvoltage it will be unplugged again.
 </p>
 <p>
 The model contains both a controlled and a not controlled load so the user can

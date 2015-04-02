@@ -68,7 +68,7 @@ equation
 <p>
 This model illustrates the use of the wind turbine model with neutral cable,
 which is connected to a AC voltage source and a resistive load.
-This voltage source can represent the grid to which the 
+This voltage source can represent the grid to which the
 circuit is connected.
 Wind data for San Francisco, CA, are used.
 The turbine cut-in wind speed is <i>3.5</i> m/s,
@@ -78,9 +78,9 @@ and hence it is off in the first day when the wind speed is low.
 The wind turbines produce different amounts of power on each phase according to the fractions
 specified by the vector <code>scaleFraction={0.4,0.0,0.6}</code>. In this example, 40%
 of the power generation is on phase 1, 0% on phase 2 (disconnected) and 60% on phase 3.
-As expected the phase with the higher power production has the higher voltage deviation 
+As expected the phase with the higher power production has the higher voltage deviation
 from the nominal condition.
-</p> 
+</p>
 </html>",
       revisions="<html>
 <ul>

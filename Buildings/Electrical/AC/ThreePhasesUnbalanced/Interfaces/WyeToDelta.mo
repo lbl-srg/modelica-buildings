@@ -48,7 +48,7 @@ A three phases unbalanced connector has three AC single phase
 connectors. Each AC single phase connector contains the phase voltage,
 which is measured between the phase and the neutral.
 This model converts the phase voltage to the line voltage, measured between
-the phases. 
+the phases.
 </p>
 <p>
 The image below show how the phasors are computed when converting from Y to D.

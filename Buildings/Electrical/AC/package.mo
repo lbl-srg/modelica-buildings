@@ -83,11 +83,11 @@ where the subscripts indicates a
 The AC connector has an additional vector that represents the
 reference angle <code>theta[PhaseSystem.m]</code>. The reference angl eis used, for example in the
 AC single phase systems to describe the phase angle of the reference voltage.
-This extra information in the connector makes it overdetermined 
+This extra information in the connector makes it overdetermined
 because the number of effort variables is higher than the number of flow variables.
 The over-determined connectors are defined and used in such a way that a Modelica tool is able
 to remove the superfluous but consistent equations, arriving at a balanced set of equations based on a
-graph analysis of the connection structure. The models in the library uses constructs specified 
+graph analysis of the connection structure. The models in the library uses constructs specified
 by the Modelica language to handle this situation <a href=\"#Olsson2008\">Olsson Et Al. (2008)</a>.
 </p>
 <p>
@@ -96,13 +96,13 @@ the value of their reference angles need to be propagated to all the components 
 If more generators are connected to the same network the Modelica tool is able to remove the superfluous equations,
 arriving at a balanced set of equations based on a graph analysis of the connection structure.
 The flags <code>potentialReference</code> and <code>definiteReference</code> are used to help the
-Modelica tool during the selection of the reference angle. If <code>definiteReference</code> is set to 
-<code>True</code> means that the reference angle of the source has to be used as reference, while if 
+Modelica tool during the selection of the reference angle. If <code>definiteReference</code> is set to
+<code>True</code> means that the reference angle of the source has to be used as reference, while if
 <code>definiteReference</code> is set to <code>True</code> the reference angle is used just if there are no
 definite sources defined.
 </p>
 <p>
-When a model is set as definite source an icon representing a phase angle is placed close to its 
+When a model is set as definite source an icon representing a phase angle is placed close to its
 electrical terminal.
 </p>
 

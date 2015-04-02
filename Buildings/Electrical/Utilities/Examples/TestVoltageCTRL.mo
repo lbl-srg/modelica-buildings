@@ -53,7 +53,7 @@ This example shows the use of the voltage controller.
 </p>
 <p>
 The voltage controller is connected to a variable voltage source
-that oscillates between <i>140</i> and <i>100</i> V. The nominal voltage is 
+that oscillates between <i>140</i> and <i>100</i> V. The nominal voltage is
 <i>V<sub>nom</sub> = 120 </i> V. The controller has the following settings:
 </p>
 <ul>
@@ -62,11 +62,11 @@ that oscillates between <i>140</i> and <i>100</i> V. The nominal voltage is
 <li>tdelay <i>T<sub>delay</sub> = 2 </i> s.</li>
 </ul>
 <p>
-Therefore, when the voltage controller measures a voltage that 
+Therefore, when the voltage controller measures a voltage that
 is 10% higher that 120 V (that is 132 V), it sets its output signal <code>y</code> to zero.
 The output signal stays at zero for <i>T<sub>delay</sub></i>,
 after which it expires.
-Then, the controllers check again if the voltage is within the 
+Then, the controllers check again if the voltage is within the
 accepted thresholds.
 </p>
 <p>
@@ -77,7 +77,7 @@ voltage exceeds the threshold.
 <img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Electrical/Utilities/Examples/VoltCTRL.png\"/>
 </p>
 <p>
-The figure shows that the signal <code>y</code> becomes zero around <i>t = 1</i> s. After 
+The figure shows that the signal <code>y</code> becomes zero around <i>t = 1</i> s. After
 <i>T<sub>delay</sub></i> the voltage is still higher that 123 V and thus the controller waits until
 <i>t = 5</i> s to change the signal to one.
 </p>

@@ -41,29 +41,29 @@ electrical networks.
 <h4>Commercial cables</h4>
 <p>
 The package contains several low voltage and medium voltage cable with
-pre-defined physical and geometrical properties like characteristic resistances and 
+pre-defined physical and geometrical properties like characteristic resistances and
 diameters. There are different conventions to measure the cables.
 </p>
 
 <h5>Cross-sectional area</h5>
 <p>
-A measure of cross-sectional area in square mm. E.g. 50 mm<sup>2</sup> 
+A measure of cross-sectional area in square mm. E.g. 50 mm<sup>2</sup>
 wire has a nominal circula area of 50 mm<sup>2</sup> and a diameter of
 7.98 mm.
 </p>
 
 <h5>AWG (American Wire Gauge)</h5>
 <p>
-A measure of wire thickness (which also dictates cross-sectional area, and 
-for a given material, ampacity). E.g. 24 AWG wire has a nominal diameter of 
+A measure of wire thickness (which also dictates cross-sectional area, and
+for a given material, ampacity). E.g. 24 AWG wire has a nominal diameter of
 0.0201 in or 0.511 mm.
 </p>
 
 <h5>kcmil (thousand of Circular Mils)</h5>
 <p>
-kcmil is an abbreviation for thousands of circular mils, an old measurement of 
-wire gauge. 1 kcmil = 0.5067 square millimeters. A mil is 1/1000 inch. 
-A wire 200 mils in diameter is 40 kcmil. kcmil is generally used for very 
+kcmil is an abbreviation for thousands of circular mils, an old measurement of
+wire gauge. 1 kcmil = 0.5067 square millimeters. A mil is 1/1000 inch.
+A wire 200 mils in diameter is 40 kcmil. kcmil is generally used for very
 large-diameter wire. Most wires use AWG.
 </p>
 

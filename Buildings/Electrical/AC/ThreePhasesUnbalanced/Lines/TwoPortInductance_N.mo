@@ -117,7 +117,7 @@ Assuming that the inductance <i>L</i> is the overall inductance of the cable,
 each line has an inductance equal to <i>L/3</i>.
 </p>
 <p>
-The inductance of the neutral cable is defined separately using the parameter 
+The inductance of the neutral cable is defined separately using the parameter
 <code>Ln</code>.
 </p>
 </html>", revisions="<html>

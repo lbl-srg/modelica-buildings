@@ -37,11 +37,11 @@ First implementation.
 </ul>
 </html>", info="<html>
 <p>
-This model contains the parameters and connectors that are used by 
+This model contains the parameters and connectors that are used by
 probe models such as <a href=\"modelica://Buildings.Electrical.AC.ThreePhasesUnbalanced.Sensors.ProbeWye\">
 Buildings.Electrical.AC.ThreePhasesUnbalanced.Sensors.ProbeWye</a> and
 <a href=\"modelica://Buildings.Electrical.AC.ThreePhasesUnbalanced.Sensors.ProbeDelta\">
-Buildings.Electrical.AC.ThreePhasesUnbalanced.Sensors.ProbeDelta</a>). 
+Buildings.Electrical.AC.ThreePhasesUnbalanced.Sensors.ProbeDelta</a>).
 The output connectors are for the RMS voltage and the angle of the voltage phasors.
 </p>
 </html>"));

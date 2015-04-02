@@ -36,7 +36,7 @@ This model tests the implementation of
 Buildings.Utilities.Math.SmoothMin</a>.
 </p>
 <p>
-This model also illustrates that the output can be larger than 
+This model also illustrates that the output can be larger than
 the minimum of the two input signals. Smaller values for <code>deltaX</code>
 will reduce this effect. Therefore do not use this function when the minimum
 output value should be respected.

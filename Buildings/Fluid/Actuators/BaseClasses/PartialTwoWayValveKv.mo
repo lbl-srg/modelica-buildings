@@ -71,8 +71,8 @@ equation
           smooth=Smooth.None)}),
 Documentation(info="<html>
 <p>
-Partial model for valves with different opening characteristics, 
-such as linear, equal percentage or quick opening. This partial extends from 
+Partial model for valves with different opening characteristics,
+such as linear, equal percentage or quick opening. This partial extends from
 <a href=\"modelica://Buildings.Fluid.Actuators.BaseClasses.PartialTwoWayValve\">PartialTwoWayValve</a>
 and also contains the governing equations for these three two way valve models.
 </p>

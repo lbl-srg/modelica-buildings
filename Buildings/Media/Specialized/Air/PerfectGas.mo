@@ -520,7 +520,7 @@ This medium uses the ideal gas law
 &rho; = p &frasl;(R T),
 </p>
 <p>
-where 
+where
 <i>&rho;</i> is the density,
 <i>p</i> is the pressure,
 <i>R</i> is the gas constant and

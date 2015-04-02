@@ -276,7 +276,7 @@ Buildings.Fluid.MixingVolumes.MixingVolume</a>.
 <ul>
 <li>
 February 16, 2015, by Filip Jorissen:<br/>
-Fixed SteadyState massDynamics implementation for compressible media. 
+Fixed SteadyState massDynamics implementation for compressible media.
 Mass <code>m</code> is now constant.
 </li>
 <li>

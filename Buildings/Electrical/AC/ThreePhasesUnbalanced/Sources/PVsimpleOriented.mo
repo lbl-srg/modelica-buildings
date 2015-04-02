@@ -73,7 +73,7 @@ Simple PV model with orientation for three phases unbalanced systems
 without neutral cable connection.
 </p>
 <p>
-For more information, see 
+For more information, see
 <a href=\"modelica://Buildings.Electrical.AC.OnePhase.Sources.PVSimpleOriented\">
 Buildings.Electrical.AC.OnePhase.Sources.PVSimpleOriented</a>.
 </p>

@@ -57,6 +57,6 @@ Created model and documentation.
 </html>", info="<html>
 <p>
 This example shows how to use a fixed voltage generator model.
-</p> 
+</p>
 </html>"));
 end FixedVoltageSource;

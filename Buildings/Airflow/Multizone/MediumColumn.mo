@@ -225,7 +225,7 @@ Changed model to use
 <a href=\"modelica://Buildings.Utilities.Psychrometrics.Functions.density_pTX\">
 Buildings.Utilities.Psychrometrics.Functions.density_pTX</a>
 for the density computation
-as 
+as
 <a href=\"modelica://Buildings.Media.Air.density\">
 Buildings.Media.Air.density</a>
 does not depend on temperature.

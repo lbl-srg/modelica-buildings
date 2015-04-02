@@ -56,12 +56,12 @@ equation
 <p>This model contains two verifications for the implementation of <code>mSenFac</code>:</p>
 <ol>
 <li>
-The mixingVolume temperature <code>vol.T</code> should be constant. 
+The mixingVolume temperature <code>vol.T</code> should be constant.
 This is to check the correct implementation of the parameter <code>mSenFac</code> for moist air media.
 </li>
 <li>
 The temperature response of <code>volMFactor.T</code> and <code>vol1.T</code> should be nearly identical.
-Furthermore the response of the species concentration <code>Xi</code> demonstrates the 
+Furthermore the response of the species concentration <code>Xi</code> demonstrates the
 difference between using an <code>mSenFac = 10</code> and multiplying volume by <i>10</i>.
 </li>
 </ol>
