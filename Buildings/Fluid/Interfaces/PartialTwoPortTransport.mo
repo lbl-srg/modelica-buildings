@@ -123,7 +123,7 @@ users have not used this global definition to assign parameters.
 April 1, 2015, by Michael Wetter:<br/>
 Made computation of <code>state_a</code> and <code>state_p</code>
 conditional on <code>show_T</code> or <code>show_V_flow</code>.
-This avoids computating temperature from enthalpy if temperature is
+This avoids computing temperature from enthalpy if temperature is
 a state of the medium, and the result is not used.
 </li>
 <li>
