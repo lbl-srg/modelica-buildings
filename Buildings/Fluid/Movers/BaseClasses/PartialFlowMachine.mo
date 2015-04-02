@@ -53,9 +53,17 @@ partial model PartialFlowMachine
     "Heat dissipation to environment"
     annotation (Placement(transformation(extent={{-70,-90},{-50,-70}}),
         iconTransformation(extent={{-10,-78},{10,-58}})));
+  Modelica.Blocks.Interfaces.IntegerInput stage if
+       inputType == Buildings.Fluid.Types.InputType.Stage
+    "Stage input signal for the pressure head"
+    annotation (Placement(
+        transformation(
+        extent={{-20,-20},{20,20}},
+        rotation=270,
+        origin={0,120})));
 
 protected
-  Modelica.Blocks.Sources.Constant[size(stageSet, 1)] stageVals(k=stageInputs) if
+  Modelica.Blocks.Sources.Constant[size(stageInputs, 1)] stageVals(k=stageInputs) if
        inputType == Buildings.Fluid.Types.InputType.Stage "Stage input values"
     annotation (Placement(transformation(extent={{-80,40},{-60,60}})));
   Modelica.Blocks.Sources.Constant setConst(k=constInput) if
@@ -73,15 +81,6 @@ protected
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-10,50})));
-  Modelica.Blocks.Interfaces.IntegerInput stage if
-       inputType == Buildings.Fluid.Types.InputType.Stage
-    "Stage input signal for the pressure head"
-    annotation (Placement(
-        transformation(
-        extent={{-20,-20},{20,20}},
-        rotation=270,
-        origin={0,120})));
-
   Modelica.SIunits.Density rho_in "Density of inflowing fluid";
 
   Buildings.Fluid.Movers.BaseClasses.IdealSource preSou(
