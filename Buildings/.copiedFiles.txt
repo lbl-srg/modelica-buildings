@@ -548,11 +548,6 @@ Buildings/Resources/Images/Utilities/Math/Functions/SmoothExponentialXPower.png
 Buildings/Resources/Images/iea-ebc-logo-text.png
 Buildings/Resources/Images/iea-ebc-logo.pdf
 Buildings/Resources/Images/iea-ebc-logo.png
-Buildings/Resources/ReferenceResults/Dymola/Buildings_Fluid_Actuators_Valves_Examples_TwoWayValvePressureIndependent.txt
-Buildings/Resources/ReferenceResults/Dymola/Buildings_Media_Examples_AirDerivativeCheck.txt
-Buildings/Resources/ReferenceResults/Dymola/Buildings_Media_Examples_AirProperties.txt
-Buildings/Resources/ReferenceResults/Dymola/Buildings_Media_Examples_AirTemperatureEnthalpyInversion.txt
-Buildings/Resources/ReferenceResults/Dymola/Buildings_Media_Examples_AirTestImplementation.txt
 Buildings/Resources/Scripts/Dymola/BoundaryConditions/SkyTemperature/Examples/BlackBody.mos
 Buildings/Resources/Scripts/Dymola/BoundaryConditions/SolarGeometry/BaseClasses/Examples/AltitudeAngle.mos
 Buildings/Resources/Scripts/Dymola/BoundaryConditions/SolarGeometry/BaseClasses/Examples/Declination.mos
