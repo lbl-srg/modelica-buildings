@@ -33,20 +33,8 @@ equation
           color={0,0,0},
           thickness=0.5)}),
     Documentation(info="<html>
-<p>
-This component outputs the model time, which starts at the
-value at which the simulation starts.
-For example, if a simulation starts at <i>t=-1</i>,
-then this block outputs first <i>t=-1</i>, and its
-output is advanced at the same rate as the simulation time.
-</p>
-<p>
-The model is used to allow the simulation to start from any
-time without having to set the parameters for the clock, as
-would be necessairy for the model
-<a href=\"modelica://Modelica.Blocks.Sources.Clock\">
-Modelica.Blocks.Sources.Clock</a>.
-</p>
+<p>This component outputs the model time, which starts at the value at which the simulation starts. For example, if a simulation starts at <i>t=-1</i>, then this block outputs first <i>t=-1</i>, and its output is advanced at the same rate as the simulation time. </p>
+<p>The model is used to allow the simulation to start from any time without having to set the parameters for the clock, as would be necessary for the model <a href=\"modelica://Modelica.Blocks.Sources.Clock\">Modelica.Blocks.Sources.Clock</a>. </p>
 </html>", revisions="<html>
 <ul>
 <li>

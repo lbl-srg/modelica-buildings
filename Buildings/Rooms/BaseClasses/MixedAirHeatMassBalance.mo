@@ -59,6 +59,9 @@ model MixedAirHeatMassBalance
     final fFra=datConExtWin.fFra,
     final haveExteriorShade={datConExtWin[i].glaSys.haveExteriorShade for i in 1:NConExtWin},
     final haveInteriorShade={datConExtWin[i].glaSys.haveInteriorShade for i in 1:NConExtWin},
+    final til=datConExtWin.til,
+    each conMod=conMod,
+    each hFixed=hFixed,
     final A=AConExtWinGla + AConExtWinFra) if
        haveConExtWin "Model for convective heat transfer at window"
     annotation (Placement(transformation(extent={{98,110},{118,130}})));
@@ -297,6 +300,13 @@ The model assumes a completely mixed air volume.
 </html>",
 revisions="<html>
 <ul>
+<li>
+March 2, 2015, by Michael Wetter:<br/>
+Refactored model to allow a temperature dependent convective heat transfer
+on the room side.
+This is for issue
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/52\">52</a>.
+</li>
 <li>
 July 17, 2013, by Michael Wetter:<br/>
 Separated the model into a partial base class and a model that uses the mixed air assumption.

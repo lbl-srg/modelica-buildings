@@ -8,7 +8,7 @@ model PartialConstruction "Partial model for multi-layer constructions"
     annotation (choicesAllMatching=true, Placement(transformation(extent={{60,60},
             {80,80}})));
 
-  final parameter Integer nLay(min=1, fixed=true) = layers.nLay
+  final parameter Integer nLay(min=1, fixed=true) = size(layers.material, 1)
     "Number of layers";
   final parameter Integer nSta[nLay](each min=1)={layers.material[i].nSta for i in 1:nLay}
     "Number of states"  annotation(Evaluate=true);
@@ -25,6 +25,11 @@ model PartialConstruction "Partial model for multi-layer constructions"
 Partial model for constructions and multi-layer heat conductors.
 </html>", revisions="<html>
 <ul>
+<li>
+March 13, 2015, by Michael Wetter:<br/>
+Changed assignment of <code>nLay</code> to avoid a translation error
+in OpenModelica.
+</li>
 <li>
 August 12, 2014, by Michael Wetter:<br/>
 Added missing <code>each</code> keyword in <code>min</code>

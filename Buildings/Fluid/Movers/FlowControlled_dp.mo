@@ -1,7 +1,7 @@
 within Buildings.Fluid.Movers;
 model FlowControlled_dp
   "Fan or pump with ideally controlled head dp as input signal"
-  extends Buildings.Fluid.Movers.BaseClasses.ControlledFlowMachine(
+  extends Buildings.Fluid.Movers.BaseClasses.FlowControlled(
   final control_m_flow = false,
   preSou(dp_start=dp_start),
   stageInputs(each final unit="Pa"),
@@ -62,10 +62,11 @@ protected
     annotation (Placement(transformation(extent={{40,78},{60,98}}),
         iconTransformation(extent={{60,50},{80,70}})));
 
-equation
-  assert(dp_actual >= -Modelica.Constants.eps,
-    "dp_in cannot be negative. Obtained dp_in = " + String(dp_actual));
 
+equation
+  assert(dp_in >= -1E-3,
+    "dp_in cannot be negative. Obtained dp_in = " + String(dp_in));
+	
   if filteredSpeed then
     connect(filter.y, gain.u) annotation (Line(
       points={{34.7,88},{36,88},{36,50}},

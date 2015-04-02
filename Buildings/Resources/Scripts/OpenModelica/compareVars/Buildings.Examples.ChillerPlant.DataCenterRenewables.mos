@@ -1,0 +1,8 @@
+compareVars :=
+  {
+    "winTur.vWin",
+    "winTur.P",
+    "pv.P",
+    "gri.P.real",
+    "gri.P.cosPhi"
+  };

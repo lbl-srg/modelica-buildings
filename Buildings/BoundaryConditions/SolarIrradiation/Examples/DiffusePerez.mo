@@ -12,17 +12,17 @@ model DiffusePerez
         transformation(extent={{1,-1},{21,21}}), iconTransformation(extent={{20,
             20},{21,21}})));
   Buildings.BoundaryConditions.SolarIrradiation.DiffusePerez HDifRoo(
-    til=Buildings.HeatTransfer.Types.Tilt.Ceiling,
+    til=Buildings.Types.Tilt.Ceiling,
     lat=0.6457718232379,
     azi=0.78539816339745) "Diffuse irradiation on roof"
     annotation (Placement(transformation(extent={{40,0},{60,20}})));
   Buildings.BoundaryConditions.SolarIrradiation.DiffusePerez HDifFlo(
-    til=Buildings.HeatTransfer.Types.Tilt.Floor,
+    til=Buildings.Types.Tilt.Floor,
     lat=0.6457718232379,
     azi=0.78539816339745) "Diffuse irradiation on floor"
     annotation (Placement(transformation(extent={{40,-80},{60,-60}})));
   Buildings.BoundaryConditions.SolarIrradiation.DiffusePerez HDifWal(
-    til=Buildings.HeatTransfer.Types.Tilt.Wall,
+    til=Buildings.Types.Tilt.Wall,
     lat=0.6457718232379,
     azi=0.78539816339745) "Diffuse irradiation on wall"
     annotation (Placement(transformation(extent={{40,-40},{60,-20}})));

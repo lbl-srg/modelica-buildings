@@ -1,6 +1,6 @@
 within Buildings.Airflow.Multizone.Examples;
 model CO2TransportStep "Model that transport CO2 through buoyancy driven flow"
-  extends Buildings.Airflow.Multizone.Examples.Validation3Rooms(
+  extends Buildings.Airflow.Multizone.Validation.ThreeRoomsContam(
     volWes(nPorts=5),
     volTop(nPorts=3),
     volEas(nPorts=6));
@@ -59,8 +59,8 @@ equation
     Documentation(info="<html>
 <p>
 This model is based on
-<a href=\"modelica://Buildings.Airflow.Multizone.Examples.Validation3Rooms\">
-Buildings.Airflow.Multizone.Examples.Validation3Rooms</a>.
+<a href=\"modelica://Buildings.Airflow.Multizone.Validation.ThreeRoomsContam\">
+Buildings.Airflow.Multizone.Validation.ThreeRoomsContam</a>.
 In addition, a CO<sub>2</sub> source has been added to the left room
 in the bottom floor.
 At initial time, all volumes have zero CO<sub>2</sub> concentration.
@@ -73,8 +73,8 @@ the other rooms, and eventually its concentration decays.
 <li>
 November 10, 2011, by Michael Wetter:<br/>
 Extended model from
-<a href=\"modelica://Buildings.Airflow.Multizone.Examples.Validation3Rooms\">
-Buildings.Airflow.Multizone.Examples.Validation3Rooms</a>
+<a href=\"modelica://Buildings.Airflow.Multizone.Validation.ThreeRoomsContam\">
+Buildings.Airflow.Multizone.Validation.ThreeRoomsContam</a>
 and added documentation.
 </li>
 </ul>

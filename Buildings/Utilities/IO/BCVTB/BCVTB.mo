@@ -37,7 +37,7 @@ model BCVTB
  Integer retVal "Return value from the BSD socket data exchange";
 protected
   parameter Integer socketFD(fixed=false)
-    "Socket file descripter, or a negative value if an error occured";
+    "Socket file descripter, or a negative value if an error occurred";
   parameter Real _uStart[nDblWri](fixed=false)
     "Initial input signal, used during first data transfer with BCVTB";
   constant Integer flaWri=0;

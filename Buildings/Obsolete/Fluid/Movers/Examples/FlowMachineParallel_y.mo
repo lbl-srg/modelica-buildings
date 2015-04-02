@@ -2,7 +2,7 @@ within Buildings.Obsolete.Fluid.Movers.Examples;
 model FlowMachineParallel_y "Two flow machines in parallel"
   extends Modelica.Icons.Example;
 
-  package Medium = Buildings.Media.GasesPTDecoupled.MoistAirUnsaturated "Medium model";
+  package Medium = Buildings.Media.Air "Medium model";
 
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal=
      1 "Nominal mass flow rate";

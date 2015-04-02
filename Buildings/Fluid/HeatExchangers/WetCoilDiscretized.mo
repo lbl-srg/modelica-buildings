@@ -29,8 +29,8 @@ implement the function <code>enthalpyOfLiquid</code> and that contain
 an integer variable <code>Water</code> whose value is the element number where
 the water vapor is stored in the species concentration vector. Examples for
 such media are
-<a href=\"modelica://Buildings.Media.PerfectGases.MoistAir\">
-Buildings.Media.PerfectGases.MoistAir</a> and
+<a href=\"modelica://Buildings.Media.Air\">
+Buildings.Media.Air</a> and
 <a href=\"modelica://Modelica.Media.Air.MoistAir\">
 Modelica.Media.Air.MoistAir</a>.
 </p>

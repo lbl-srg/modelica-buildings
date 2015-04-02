@@ -172,13 +172,13 @@ to compute the efficiency, which is defined as
 </p>
 <p>
 where
-<i>Q&#775;</i> is the heat transfered to the working fluid (typically water or air), and
+<i>Q&#775;</i> is the heat transferred to the working fluid (typically water or air), and
 <i>Q&#775;<sub>f</sub></i> is the heat of combustion released by the fuel.
 </p>
 <p>
 The following polynomials can be selected to compute the efficiency:
 </p>
-<table summary=\"summary\"  border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+<table summary=\"summary\"  border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
 <tr>
 <th>Parameter <code>effCur</code></th>
 <th>Efficiency curve</th>

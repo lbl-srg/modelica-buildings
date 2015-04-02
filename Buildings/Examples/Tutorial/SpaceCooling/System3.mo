@@ -3,10 +3,10 @@ model System3
   "Third part of the system model with air supply and closed loop control"
   extends Modelica.Icons.Example;
   replaceable package MediumA =
-      Buildings.Media.GasesPTDecoupled.MoistAirUnsaturated;
+      Buildings.Media.Air;
 
   replaceable package MediumW =
-      Buildings.Media.ConstantPropertyLiquidWater;
+      Buildings.Media.Water;
 
   Fluid.MixingVolumes.MixingVolume vol(
     redeclare package Medium = MediumA,

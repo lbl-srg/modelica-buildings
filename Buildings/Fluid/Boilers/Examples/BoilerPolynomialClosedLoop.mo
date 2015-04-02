@@ -1,7 +1,7 @@
 within Buildings.Fluid.Boilers.Examples;
 model BoilerPolynomialClosedLoop "Boiler with closed loop control"
   extends Modelica.Icons.Example;
- package Medium = Buildings.Media.ConstantPropertyLiquidWater "Medium model";
+ package Medium = Buildings.Media.Water "Medium model";
  parameter Modelica.SIunits.Power Q_flow_nominal = 20000 "Nominal power";
  parameter Modelica.SIunits.Temperature dT_nominal = 20
     "Nominal temperature difference";
@@ -259,7 +259,7 @@ valve position is such that it only recirculates water from the load.
 The bypass between valve and pump mixes recirculated water, thereby
 allowing the valve to work over a larger operating range.
 The expansion vessel near the boiler is used to set a reference pressure,
-and it is used to accomodate for the thermal expansion of the water.
+and it is used to accommodate for the thermal expansion of the water.
 </p>
 </html>", revisions="<html>
 <ul>

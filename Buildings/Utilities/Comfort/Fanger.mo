@@ -229,8 +229,8 @@ The PMV index predicts the mean value of the votes of a large group of
 people on the following 7-point thermal sensation scale:
 </p>
 <table summary=\"summary\" border=\"1\">
-<TR><TD>Cold  </TD><TD>  Cool  </TD><TD>  Slightly cool  </TD><TD>  Neutral  </TD><TD>  Slightly warm  </TD><TD>  Warm   </TD><TD>  Hot </TD></TR>
-<TR><TD>-3 </TD><TD> -2 </TD><TD> -1 </TD><TD> 0 </TD><TD> +1 </TD><TD> +2 </TD><TD> +3 </TD></TR>
+<tr><td>Cold  </td><td>  Cool  </td><td>  Slightly cool  </td><td>  Neutral  </td><td>  Slightly warm  </td><td>  Warm   </td><td>  Hot </td></tr>
+<tr><td>-3 </td><td> -2 </td><td> -1 </td><td> 0 </td><td> +1 </td><td> +2 </td><td> +3 </td></tr>
 </table>
 
 <h4>Operative temperature</h4>
@@ -246,7 +246,7 @@ and the mean radiant temperature, weighted by their respective heat transfer coe
 
 <h4>Optimum operative temperatures</h4>
 <p>
-<B>Winter:</B>
+<b>Winter:</b>
 activity <i>1.2</i> met,<br/>
 clothing = <i>0.9</i> clo (sweater, long sleeve shirt, heavy pants),<br/>
 air flow = <i>30</i> fpm (<i>0.15</i> m/sec),<br/>
@@ -254,7 +254,7 @@ mean radiant temperature equal to air temperature,<br/>
 Optimum Operative Temperature (top) = <i>22.7</i>&#176; C (<i>71</i>&#176; F)
 </p>
 <p>
-<B>Summer:</B>
+<b>Summer:</b>
 clothing = <i>0.5</i> clo,<br/>
 air flow = <i>50</i> fpm (<i>0.25</i> m/sec),<br/>
 Optimum Operative Temperature (top) = <i>24.4</i>&#176; C (<i>76</i>&#176; F).
@@ -281,23 +281,23 @@ where <i>1</i> clo = <i>0.155</i> (m^2*K/W) (ASHRAE 55-92).
 <p>
 The following table is obtained from ASHRAE page 8.8
 </p>
-<TABLE  summary=\"summary\" border=\"1\">
-<TR><TH>Clothing ensemble</TH><TH>clo</TH></TR>
-<TR><TD>ASHRAE Standard 55 Winter</TD><TD>0.90</TD></TR>
-<TR><TD>ASHRAE Standard 55 Summer</TD><TD>0.50</TD></TR>
-<TR><TD>Walking shorts, short-sleeve shirt</TD><TD>  0.36</TD></TR>
-<TR><TD>Trousers, long-sleeve shirt</TD><TD> 0.61</TD></TR>
-<TR><TD>Trousers, long-sleeve shirt, suit jacket</TD><TD> 0.96</TD></TR>
-<TR><TD>Trousers, long-sleeve shirt, suit jacket, T-shirt</TD><TD> 1.14</TD></TR>
-<TR><TD>Trousers, long-sleeve shirt, long-sleeve sweater, T-shirt</TD><TD> 1.01</TD></TR>
-<TR><TD>Same as above + suit jacket, long underwear bottoms</TD><TD> 1.30</TD></TR>
-<TR><TD>Sweat pants, sweat shirt</TD><TD> 0.74</TD></TR>
-<TR><TD>Knee-length skirt, short-sleeve shirt, panty hose, sandals</TD><TD> 0.54</TD></TR>
-<TR><TD>Knee-length skirt, long-sleeve shirt, full slip, panty hose</TD><TD> 0.67</TD></TR>
-<TR><TD>Knee-length skirt, long-sleeve shirt, half slip, panty hose, long sleeve sweater</TD><TD> 1.10</TD></TR>
-<TR><TD>Long-sleeve coveralls, T-shirt</TD><TD>   0.72</TD></TR>
-<TR><TD>Insulated coveralls, long-sleeve, thermal underwear, long underwear bottoms</TD><TD> 1.37</TD></TR>
-</TABLE>
+<table summary=\"summary\" border=\"1\">
+<tr><th>Clothing ensemble</th><th>clo</th></tr>
+<tr><td>ASHRAE Standard 55 Winter</td><td>0.90</td></tr>
+<tr><td>ASHRAE Standard 55 Summer</td><td>0.50</td></tr>
+<tr><td>Walking shorts, short-sleeve shirt</td><td>  0.36</td></tr>
+<tr><td>Trousers, long-sleeve shirt</td><td> 0.61</td></tr>
+<tr><td>Trousers, long-sleeve shirt, suit jacket</td><td> 0.96</td></tr>
+<tr><td>Trousers, long-sleeve shirt, suit jacket, T-shirt</td><td> 1.14</td></tr>
+<tr><td>Trousers, long-sleeve shirt, long-sleeve sweater, T-shirt</td><td> 1.01</td></tr>
+<tr><td>Same as above + suit jacket, long underwear bottoms</td><td> 1.30</td></tr>
+<tr><td>Sweat pants, sweat shirt</td><td> 0.74</td></tr>
+<tr><td>Knee-length skirt, short-sleeve shirt, panty hose, sandals</td><td> 0.54</td></tr>
+<tr><td>Knee-length skirt, long-sleeve shirt, full slip, panty hose</td><td> 0.67</td></tr>
+<tr><td>Knee-length skirt, long-sleeve shirt, half slip, panty hose, long sleeve sweater</td><td> 1.10</td></tr>
+<tr><td>Long-sleeve coveralls, T-shirt</td><td>   0.72</td></tr>
+<tr><td>Insulated coveralls, long-sleeve, thermal underwear, long underwear bottoms</td><td> 1.37</td></tr>
+</table>
 <br/>
 
 <h4> Metabolic rates</h4>
@@ -305,34 +305,34 @@ The following table is obtained from ASHRAE page 8.8
 One met is defined as <i>58.2</i> Watts per square meter which is equal to the energy produced
 per unit surface area of a seated person at rest.</p>
 <p>The following table is obtained from ASHRAE page 8.6.</p>
-<TABLE summary=\"summary\" border=\"1\">
-<TR><TH>Activity</TH><TH>W/m2 body surface area</TH></TR>
-<TR><TD>ASHRAE Standard 55</TD><TD>58.2</TD></TR>
-<TR><TD> reclining  </TD><TD>45</TD></TR>
-<TR><TD> seated and quiet </TD><TD>60</TD></TR>
-<TR><TD> sedentary activity (reading, writing) </TD><TD>60</TD></TR>
-<TR><TD> standing, relaxed </TD><TD>70</TD></TR>
-<TR><TD> office (filling while standing)</TD><TD>80</TD></TR>
-<TR><TD> office (walking)</TD><TD>100</TD></TR>
-<TR><TD>Sleeping</TD><TD>         40     </TD></TR>
-<TR><TD>Seated quiet</TD><TD>   60 </TD></TR>
-<TR><TD>Standing Relaxed</TD><TD>  70  </TD></TR>
-<TR><TD>Walking 3.2 - 6.4km/h</TD><TD> 115-220   </TD></TR>
-<TR><TD>Reading</TD><TD> 55</TD></TR>
-<TR><TD>Writing</TD><TD> 60</TD></TR>
-<TR><TD>Typing</TD><TD> 65</TD></TR>
-<TR><TD>Lifting/packing</TD><TD>  120</TD></TR>
-<TR><TD>Driving Car</TD><TD> 60-115</TD></TR>
-<TR><TD>Driving Heavy vehicle</TD><TD> 185</TD></TR>
-<TR><TD>Cooking</TD><TD> 95-115</TD></TR>
-<TR><TD>Housecleaning</TD><TD> 115-200</TD></TR>
-<TR><TD>Machine work</TD><TD> 105-235</TD></TR>
-<TR><TD>Pick and shovel work</TD><TD> 235-280</TD></TR>
-<TR><TD>Dancing-Social</TD><TD> 140-225</TD></TR>
-<TR><TD>Calisthenics</TD><TD>  175-235</TD></TR>
-<TR><TD>Basketball</TD><TD>  290-440</TD></TR>
-<TR><TD>Wrestling</TD><TD>  410-505</TD></TR>
-</TABLE>
+<table summary=\"summary\" border=\"1\">
+<tr><th>Activity</th><th>W/m2 body surface area</th></tr>
+<tr><td>ASHRAE Standard 55</td><td>58.2</td></tr>
+<tr><td> reclining  </td><td>45</td></tr>
+<tr><td> seated and quiet </td><td>60</td></tr>
+<tr><td> sedentary activity (reading, writing) </td><td>60</td></tr>
+<tr><td> standing, relaxed </td><td>70</td></tr>
+<tr><td> office (filling while standing)</td><td>80</td></tr>
+<tr><td> office (walking)</td><td>100</td></tr>
+<tr><td>Sleeping</td><td>         40     </td></tr>
+<tr><td>Seated quiet</td><td>   60 </td></tr>
+<tr><td>Standing Relaxed</td><td>  70  </td></tr>
+<tr><td>Walking 3.2 - 6.4km/h</td><td> 115-220   </td></tr>
+<tr><td>Reading</td><td> 55</td></tr>
+<tr><td>Writing</td><td> 60</td></tr>
+<tr><td>Typing</td><td> 65</td></tr>
+<tr><td>Lifting/packing</td><td>  120</td></tr>
+<tr><td>Driving Car</td><td> 60-115</td></tr>
+<tr><td>Driving Heavy vehicle</td><td> 185</td></tr>
+<tr><td>Cooking</td><td> 95-115</td></tr>
+<tr><td>Housecleaning</td><td> 115-200</td></tr>
+<tr><td>Machine work</td><td> 105-235</td></tr>
+<tr><td>Pick and shovel work</td><td> 235-280</td></tr>
+<tr><td>Dancing-Social</td><td> 140-225</td></tr>
+<tr><td>Calisthenics</td><td>  175-235</td></tr>
+<tr><td>Basketball</td><td>  290-440</td></tr>
+<tr><td>Wrestling</td><td>  410-505</td></tr>
+</table>
 <br/>
 <h4>References</h4>
 

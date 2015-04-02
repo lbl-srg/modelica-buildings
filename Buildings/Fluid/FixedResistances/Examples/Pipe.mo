@@ -2,7 +2,7 @@ within Buildings.Fluid.FixedResistances.Examples;
 model Pipe "Test of a pipe with multiple segments"
   extends Modelica.Icons.Example;
 
-  replaceable package Medium = Buildings.Media.ConstantPropertyLiquidWater;
+  replaceable package Medium = Buildings.Media.Water;
 
   Modelica.Blocks.Sources.Ramp P(
     duration=1,

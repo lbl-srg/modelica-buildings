@@ -2,7 +2,7 @@ within Buildings.Airflow.Multizone.Examples;
 model ReverseBuoyancy
   "Model with four rooms and buoyancy-driven air circulation that reverses direction"
   extends Modelica.Icons.Example;
-  package Medium = Buildings.Media.IdealGases.SimpleAir;
+  package Medium = Buildings.Media.Air;
   Buildings.Fluid.MixingVolumes.MixingVolume volBotEas(
     redeclare package Medium = Medium,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
@@ -266,8 +266,8 @@ experiment(StopTime=3600),
     Documentation(info="<html>
 <p>
 This model is similar than
-<a href=\"modelica://Buildings.Airflow.Multizone.Examples.Validation3Rooms\">
-Buildings.Airflow.Multizone.Examples.Validation3Rooms</a> but it has four
+<a href=\"modelica://Buildings.Airflow.Multizone.Validation.ThreeRoomsContam\">
+Buildings.Airflow.Multizone.Validation.ThreeRoomsContam</a> but it has four
 instead of three rooms.
 The outdoor conditions are held constant at <i>10</i>&deg;C and
 atmospheric pressure.

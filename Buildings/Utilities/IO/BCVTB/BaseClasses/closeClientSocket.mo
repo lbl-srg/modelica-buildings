@@ -3,7 +3,7 @@ function closeClientSocket
   "Closes the socket for the inter process communication"
 
   input Integer socketFD
-    "Socket file descripter, or a negative value if an error occured";
+    "Socket file descripter, or a negative value if an error occurred";
   output Integer retVal
     "Return value of the function that closes the socket connection";
   external "C"

@@ -1,7 +1,7 @@
 within Buildings.Fluid.Movers;
 model SpeedControlled_Nrpm
   "Fan or pump with ideally controlled speed Nrpm as input signal"
-  extends Buildings.Fluid.Movers.BaseClasses.FlowControlledMachine(
+  extends Buildings.Fluid.Movers.BaseClasses.SpeedControlled(
     _per_y(hydraulicEfficiency=per.hydraulicEfficiency,
             motorEfficiency=per.motorEfficiency,
             power=per.power,
@@ -13,7 +13,8 @@ model SpeedControlled_Nrpm
     stageInputs(each final unit="1/min"),
     constInput(final unit="1/min"));
 
-  parameter Data.SpeedControlled_Nrpm per "Record with performance data"
+  replaceable parameter Data.SpeedControlled_Nrpm per
+    "Record with performance data"
     annotation (choicesAllMatching=true,
       Placement(transformation(extent={{60,-80},{80,-60}})));
   Modelica.Blocks.Interfaces.RealInput Nrpm(final unit="1/min") if
@@ -96,6 +97,10 @@ User's Guide</a> for more information.
 April 2, 2015, by Filip Jorissen:<br/>
 Added code for supporting stage input and constant input.
 </li>
+March 6, 2015, by Michael Wetter<br/>
+Made performance record <code>per</code> replaceable
+as for the other models.
+</li>      
 <li>
 January 6, 2015, by Michael Wetter:<br/>
 Revised model for OpenModelica.

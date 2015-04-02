@@ -1,5 +1,5 @@
 within Buildings.Rooms.Validation;
-package BESTEST "fixme: add brief description"
+package BESTEST "This package contains the models for the BESTEST validation"
   extends Modelica.Icons.ExamplesPackage;
 
   constant Integer nStaRef = 6 "Number of states in a reference material";

@@ -105,7 +105,7 @@ Classes that extend this model need to implement heat and
 mass balance equations in a form like
 </p>
 <pre>
-  // transfered heat
+  // transferred heat
   Q1_flow = eps * QMax_flow;
   // no heat loss to ambient
   0 = Q1_flow + Q2_flow;

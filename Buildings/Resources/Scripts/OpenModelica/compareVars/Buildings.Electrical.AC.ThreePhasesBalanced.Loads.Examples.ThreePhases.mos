@@ -1,0 +1,9 @@
+compareVars :=
+  {
+    "sen_Y.S[1]",
+    "sen_Y.S[2]",
+    "sen_D.S[1]",
+    "sen_D.S[2]",
+    "errorY",
+    "errorD"
+  };

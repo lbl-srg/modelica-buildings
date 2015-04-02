@@ -3,7 +3,7 @@ model SplitterFixedResistanceDpM
   "Test model for the three way splitter/mixer model"
   extends Modelica.Icons.Example;
 
- package Medium = Buildings.Media.IdealGases.SimpleAir;
+ package Medium = Buildings.Media.Air;
 
   Buildings.Fluid.FixedResistances.SplitterFixedResistanceDpM spl(
     m_flow_nominal={1,2,3},

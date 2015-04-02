@@ -8,12 +8,12 @@ model RoomOnlySurfaceBoundary
       surBou(
         name={"East Wall","West Wall","North Wall","South Wall","Floor","Ceiling"},
         each A=1*1,
-        til={Buildings.HeatTransfer.Types.Tilt.Wall,
-            Buildings.HeatTransfer.Types.Tilt.Wall,
-            Buildings.HeatTransfer.Types.Tilt.Wall,
-            Buildings.HeatTransfer.Types.Tilt.Wall,
-            Buildings.HeatTransfer.Types.Tilt.Floor,
-            Buildings.HeatTransfer.Types.Tilt.Ceiling},
+        til={Buildings.Types.Tilt.Wall,
+            Buildings.Types.Tilt.Wall,
+            Buildings.Types.Tilt.Wall,
+            Buildings.Types.Tilt.Wall,
+            Buildings.Types.Tilt.Floor,
+            Buildings.Types.Tilt.Ceiling},
         each absIR=1e-5,
         each absSol=1e-5,
         boundaryCondition={

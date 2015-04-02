@@ -15,7 +15,7 @@ if __name__ == "__main__":
                  'dsmodel*', 'dymosim', 'dymosim.lib', 'dymosim.exp', 
                  'dymosim.dll', 'dymola.log', 'dymosim.exe', '*.mat', '*.mof', 
                  '*.bak-mo', 'request.', 'status.', 'status', 'failure', 
-                 'success.',
+                 'success.','*.log',
                  'stop', 'stop.',
                  'fmiModelIdentifier.h', 'modelDescription.xml',
                  'fmiFunctions.o']

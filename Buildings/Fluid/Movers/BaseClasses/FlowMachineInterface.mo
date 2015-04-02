@@ -9,7 +9,6 @@ partial model FlowMachineInterface
             power=_per_y.power,
             motorCooledByFluid=_per_y.motorCooledByFluid,
             use_powerCharacteristic=_per_y.use_powerCharacteristic));
-    // fixme    redeclare replaceable Data.SpeedControlled_y per);
 
   import Modelica.Constants;
   import cha = Buildings.Fluid.Movers.BaseClasses.Characteristics;
@@ -63,9 +62,7 @@ protected
     "Second order filter to approximate valve opening time, and to improve numerics"
     annotation (Placement(transformation(extent={{20,81},{34,95}})));
 
-  parameter Data.SpeedControlled_y _per_y "Record with performance data"
-    annotation (choicesAllMatching=true,
-      Placement(transformation(extent={{60,-80},{80,-60}})));
+  parameter Data.SpeedControlled_y _per_y "Record with performance data";
 
   parameter Modelica.SIunits.VolumeFlowRate V_flow_max=
     if haveVMax then
@@ -100,7 +97,7 @@ protected
      elseif haveVMax or haveDPMax then 2
      else 3
     "Flag, used to pick the right representatio of the fan or pump pressure curve";
-  final parameter Integer nOri = _per_y.pressure.n
+  final parameter Integer nOri = size(_per_y.pressure.V_flow, 1)
     "Number of data points for pressure curve"
     annotation(Evaluate=true);
 
@@ -118,7 +115,7 @@ protected
     "Volume flow rate vs. total pressure rise with correction for pump resistance added";
 
   parameter
-    Buildings.Fluid.Movers.BaseClasses.Characteristics.flowParametersInternal pCur2(
+    Buildings.Fluid.Movers.BaseClasses.Characteristics.flowParametersInternal         pCur2(
     final n = nOri + 1,
     V_flow = if (haveVMax and haveDPMax) or (nOri == 2) then
                 zeros(nOri + 1)
@@ -137,10 +134,8 @@ protected
              else
                zeros(nOri+1))
     "Volume flow rate vs. total pressure rise with correction for pump resistance added";
-                                  // fixme check whether these branches are correct
-                                  // fixme check whether these branches are correct
   parameter
-    Buildings.Fluid.Movers.BaseClasses.Characteristics.flowParametersInternal pCur3(
+    Buildings.Fluid.Movers.BaseClasses.Characteristics.flowParametersInternal         pCur3(
     final n = nOri + 2,
     V_flow = if (haveVMax and haveDPMax) or (nOri == 2) then
                zeros(nOri + 2)

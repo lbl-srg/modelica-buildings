@@ -25,7 +25,7 @@ model AbsorbedRadiation "Test model for absorbed radiation by windows"
     annotation (Placement(transformation(extent={{60,-40},{80,-20}})));
   Buildings.HeatTransfer.Windows.BaseClasses.AbsorbedRadiation winAbs(
     AWin=1,
-    N=glaSys.nLay,
+    N=size(glaSys.glass, 1),
     tauGlaSol=glaSys.glass.tauSol,
     rhoGlaSol_a=glaSys.glass.rhoSol_a,
     rhoGlaSol_b=glaSys.glass.rhoSol_b,
@@ -98,6 +98,11 @@ __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/HeatTransf
 This example illustrates modeling of window radiation.
 </html>", revisions="<html>
 <ul>
+<li>
+March 13, 2015, by Michael Wetter:<br/>
+Changed assignment of <code>nLay</code> to avoid a translation error
+in OpenModelica.
+</li>
 <li>
 October 17, 2014, by Michael Wetter:<br/>
 Changed weather data reader to not compute wet bulb temperature.

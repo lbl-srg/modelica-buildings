@@ -1,7 +1,7 @@
 within Buildings.Fluid.Movers;
 model FlowControlled_m_flow
   "Fan or pump with ideally controlled mass flow rate as input signal"
-  extends Buildings.Fluid.Movers.BaseClasses.ControlledFlowMachine(
+  extends Buildings.Fluid.Movers.BaseClasses.FlowControlled(
     final control_m_flow=true,
     preSou(m_flow_start=m_flow_start),
     stageInputs(each final unit="kg/s"),

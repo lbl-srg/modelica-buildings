@@ -21,7 +21,7 @@ Documentation(
 info="<html>
 <p>
 Model that triggers an assert if
-<i>u1 > u2 - threShold</i>
+<i>u1 &gt; u2 - threShold</i>
 and <i>t &gt; t<sub>0</sub></i>.
 </p>
 </html>",

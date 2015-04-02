@@ -1,0 +1,13 @@
+compareVars :=
+  {
+    "E.vPhase[1].S[1]",
+    "E.vPhase[1].S[2]",
+    "E.vPhase[2].S[1]",
+    "E.vPhase[2].S[2]",
+    "E.vPhase[3].S[1]",
+    "E.vPhase[3].S[2]",
+    "load.terminal.phase[4].v[1]",
+    "load.terminal.phase[4].v[2]",
+    "load.terminal.phase[4].i[1]",
+    "load.terminal.phase[4].i[2]"
+  };

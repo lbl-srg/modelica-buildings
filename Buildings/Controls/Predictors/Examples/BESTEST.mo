@@ -44,8 +44,7 @@ equation
           preserveAspectRatio=false), graphics),
     experiment(
       StopTime=2678400,
-      Tolerance=1e-05,
-      __Dymola_Algorithm="Radau"),
+      Tolerance=1e-05),
     __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/Predictors/Examples/BESTEST.mos"
         "Simulate and plot"),
     Documentation(info="<html>

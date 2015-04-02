@@ -41,7 +41,7 @@ algorithm
   //Coil on-off condition
   if on then
    //Calculate enthalpy at inlet air temperature and absolute humidity at ADP i.e. h_TEvaIn_wADP
-    h_TEvaIn_XADP := Medium.h_pTX(
+    h_TEvaIn_XADP := Medium.specificEnthalpy_pTX(
       p=p,
       T=TEvaIn,
       X=cat(1, {XADP}, {1-XADP}));

@@ -8,16 +8,17 @@ model WindowRadiation "Test model for window radiation"
   BoundaryConditions.SolarIrradiation.DirectTiltedSurface HDirTil(
     til=til,
     lat=lat,
-    azi=azi)
+    azi=azi) "Direct irradiation on the tilted surface"
     annotation (Placement(transformation(extent={{20,0},{40,20}})));
-  BoundaryConditions.WeatherData.Bus weaBus
+  BoundaryConditions.WeatherData.Bus weaBus "Weather data bus"
     annotation (Placement(transformation(extent={{-38,0},{-18,20}})));
   BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam=
         "modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos")
+    "Weather data reader"
     annotation (Placement(transformation(extent={{-70,0},{-50,20}})));
 
   BoundaryConditions.SolarIrradiation.DiffuseIsotropic HDifTilIso(
-               til=til)
+    til=til) "Diffuse isotropic irradiation"
     annotation (Placement(transformation(extent={{20,40},{40,60}})));
   Modelica.Blocks.Sources.Constant shaCon(k=if (glaSys.haveShade) then 0.5 else
               0)
@@ -26,7 +27,7 @@ model WindowRadiation "Test model for window radiation"
     annotation (Placement(transformation(extent={{20,-40},{40,-20}})));
   Buildings.HeatTransfer.Windows.BaseClasses.WindowRadiation winRad(
     AWin=1,
-    N=glaSys.nLay,
+    N=size(glaSys.glass, 1),
     tauGlaSol=glaSys.glass.tauSol,
     rhoGlaSol_a=glaSys.glass.rhoSol_a,
     rhoGlaSol_b=glaSys.glass.rhoSol_b,
@@ -102,6 +103,11 @@ __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/HeatTransf
 This example illustrates modeling of window radiation.
 </html>", revisions="<html>
 <ul>
+<li>
+March 13, 2015, by Michael Wetter:<br/>
+Changed model to avoid a translation error
+in OpenModelica.
+</li>
 <li>
 May 1, 2013, by Michael Wetter:<br/>
 Declared the parameter record to be a parameter, as declaring its elements

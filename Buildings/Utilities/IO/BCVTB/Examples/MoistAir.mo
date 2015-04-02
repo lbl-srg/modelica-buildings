@@ -2,7 +2,7 @@ within Buildings.Utilities.IO.BCVTB.Examples;
 model MoistAir
   "Model with interfaces for media with moist air that will be linked to the BCVTB which models the response of the room"
   extends Modelica.Icons.Example;
-  package Medium = Buildings.Media.GasesPTDecoupled.MoistAirUnsaturated;
+  package Medium = Buildings.Media.Air;
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal=
       259.2*6/1.2/3600 "Nominal mass flow rate";
   Buildings.Fluid.FixedResistances.FixedResistanceDpM dp1(

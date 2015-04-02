@@ -2,8 +2,7 @@ within Buildings.Fluid.Chillers;
 model Carnot
   "Chiller with performance curve adjusted based on Carnot efficiency"
  extends Interfaces.FourPortHeatMassExchanger(
-    vol1(
-      final prescribedHeatFlowRate = true),
+    vol1(final prescribedHeatFlowRate = true),
     redeclare final Buildings.Fluid.MixingVolumes.MixingVolume vol2);
 
   parameter Buildings.Fluid.Types.EfficiencyInput effInpEva=

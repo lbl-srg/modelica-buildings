@@ -47,6 +47,7 @@ See
 <a href=\"modelica://Buildings.Fluid.HeatExchangers.Examples.Heater_u\">
 Buildings.Fluid.HeatExchangers.Examples.Heater_u</a>
 for a model that takes the heating power as an input.
+</p>
 </html>", revisions="<html>
 <ul>
 <li>
@@ -59,6 +60,5 @@ First implementation.
         "Simulate and plot"),
     experiment(
       StopTime=172800,
-      Tolerance=1e-05,
-      __Dymola_Algorithm="Radau"));
+      Tolerance=1e-05));
 end Heater_T;

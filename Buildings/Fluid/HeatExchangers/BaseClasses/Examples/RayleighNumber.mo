@@ -3,7 +3,7 @@ model RayleighNumber "Test model for RayleighNumber"
   extends Modelica.Icons.Example;
   Buildings.Fluid.HeatExchangers.BaseClasses.RayleighNumber rayleighNumber(ChaLen=
         0.1, redeclare package Medium =
-        Buildings.Media.ConstantPropertyLiquidWater)
+        Buildings.Media.Water)
     annotation (Placement(transformation(extent={{-10,0},{14,24}})));
   Modelica.Blocks.Sources.Sine     TSur(
     amplitude=50,

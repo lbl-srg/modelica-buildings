@@ -2,7 +2,7 @@ within Buildings.Fluid.Actuators.Valves.Examples;
 model TwoWayValvesMotor
   "Two way valves with different opening characteristics and motor"
   extends Modelica.Icons.Example;
-  package Medium = Buildings.Media.ConstantPropertyLiquidWater;
+  package Medium = Buildings.Media.Water;
 
   Buildings.Fluid.Actuators.Valves.TwoWayLinear valLin(
     redeclare package Medium = Medium,

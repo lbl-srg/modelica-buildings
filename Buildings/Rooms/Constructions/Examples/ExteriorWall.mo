@@ -7,7 +7,7 @@ model ExteriorWall "Test model for an exterior wall without a window"
     annotation (Placement(transformation(extent={{-160,60},{-140,80}})));
 
   parameter Buildings.Rooms.BaseClasses.ParameterConstruction conPar[1](
-    each til=Buildings.HeatTransfer.Types.Tilt.Wall,
+    each til=Buildings.Types.Tilt.Wall,
     each azi=0,
     each A=3*10,
     layers={extConMat}) "Data for construction"
@@ -16,7 +16,7 @@ model ExteriorWall "Test model for an exterior wall without a window"
   Buildings.Rooms.Constructions.Construction conExt[1](
     A=conPar[:].A,
     layers=conPar[:].layers,
-    til={Buildings.HeatTransfer.Types.Tilt.Wall})
+    til={Buildings.Types.Tilt.Wall})
     "Construction of an exterior wall without a window"
     annotation (Placement(transformation(extent={{0,-64},{60,-4}})));
   Buildings.Rooms.BaseClasses.ExteriorBoundaryConditions bouConExt(
@@ -30,7 +30,7 @@ model ExteriorWall "Test model for an exterior wall without a window"
   Buildings.HeatTransfer.Sources.PrescribedTemperature prescribedTemperature
     annotation (Placement(transformation(extent={{-120,10},{-100,30}})));
   Buildings.HeatTransfer.Convection.Interior con[
-                              1](A={3*10}, til={Buildings.HeatTransfer.Types.Tilt.Wall})
+                              1](A={3*10}, til={Buildings.Types.Tilt.Wall})
     "Model for heat convection"
     annotation (Placement(transformation(extent={{-20,10},{-40,30}})));
   Modelica.Thermal.HeatTransfer.Components.ThermalCollector theCol(m=1)

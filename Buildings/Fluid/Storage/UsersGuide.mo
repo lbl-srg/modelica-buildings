@@ -7,7 +7,7 @@ package UsersGuide "User's Guide"
 This user's guide describes the storage tank models.
 There are three storage tank models in the this package.
 </p>
-<table summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+<table summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
 <tr><th>Model name</th>       <th>Description</th>     </tr>
 <tr>
 <td>

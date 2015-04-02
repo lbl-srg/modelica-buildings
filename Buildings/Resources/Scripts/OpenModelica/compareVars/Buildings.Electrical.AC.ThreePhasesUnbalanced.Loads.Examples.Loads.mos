@@ -1,0 +1,15 @@
+compareVars :=
+  {
+    "sen.S[1, 1]",
+    "sen.S[1, 2]",
+    "sen.S[2, 1]",
+    "sen.S[2, 2]",
+    "sen.S[3, 1]",
+    "sen.S[3, 2]",
+    "senSingleConn.S[1, 1]",
+    "senSingleConn.S[1, 2]",
+    "senSingleConn.S[2, 1]",
+    "senSingleConn.S[2, 2]",
+    "senSingleConn.S[3, 1]",
+    "senSingleConn.S[3, 2]"
+  };

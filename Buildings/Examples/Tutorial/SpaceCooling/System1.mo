@@ -3,7 +3,7 @@ model System1
   "First part of the system model, consisting of the room with heat transfer"
   extends Modelica.Icons.Example;
   replaceable package MediumA =
-      Buildings.Media.GasesPTDecoupled.MoistAirUnsaturated;
+      Buildings.Media.Air;
 
   Fluid.MixingVolumes.MixingVolume vol(
     redeclare package Medium = MediumA,
@@ -62,7 +62,7 @@ First, to define the medium properties, we added the declaration
 </p>
 <pre>
   replaceable package MediumA =
-      Buildings.Media.GasesPTDecoupled.MoistAirUnsaturated;
+      Buildings.Media.Air;
 </pre>
 <p>
 This will allow the propagation of the medium model to all models that contain air.
@@ -74,8 +74,8 @@ We called the medium <code>MediumA</code> to distinguish it from
 <code>MediumW</code> that we will use in later versions of the model for components that
 have water as a medium. Because we do not anticipate saturated air, we used
 the medium model
-<a href=\"modelica://Buildings.Media.GasesPTDecoupled.MoistAirUnsaturated\">
-Buildings.Media.GasesPTDecoupled.MoistAirUnsaturated</a>
+<a href=\"modelica://Buildings.Media.Air\">
+Buildings.Media.Air</a>
 instead of
 <a href=\"modelica://Buildings.Media.GasesPTDecoupled.MoistAir\">
 Buildings.Media.GasesPTDecoupled.MoistAir</a>

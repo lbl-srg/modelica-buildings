@@ -2,7 +2,7 @@ within Buildings.Fluid.Actuators.Valves.Examples;
 model TwoWayValvePressureIndependent
   "Two way valves with pressure independent opening characteristic"
   extends Modelica.Icons.Example;
-  package Medium = Buildings.Media.ConstantPropertyLiquidWater;
+  package Medium = Buildings.Media.Water;
 
     Modelica.Blocks.Sources.Ramp y(
     height=1,
@@ -118,7 +118,5 @@ First implementation.
 </li>
 </ul>
 </html>"),
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
-            100}}), graphics),
-    __Dymola_experimentSetupOutput);
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}})));
 end TwoWayValvePressureIndependent;

@@ -4,10 +4,10 @@ model SolarRadiationExchange
   extends Buildings.Rooms.BaseClasses.PartialSurfaceInterfaceRadiative(
   final epsConExt = datConExt.layers.absSol_b,
   final epsConExtWinOpa = datConExtWin.layers.absSol_b,
-  final epsConExtWinUns={(1-datConExtWin[i].glaSys.glass[datConExtWin[i].glaSys.nLay].tauSol
-                     -datConExtWin[i].glaSys.glass[datConExtWin[i].glaSys.nLay].rhoSol_b) for i in 1:NConExtWin},
-  final epsConExtWinSha = {(1-datConExtWin[i].glaSys.glass[datConExtWin[i].glaSys.nLay].tauSol
-                       -datConExtWin[i].glaSys.glass[datConExtWin[i].glaSys.nLay].rhoSol_b) for i in 1:NConExtWin},
+  final epsConExtWinUns={(1-datConExtWin[i].glaSys.glass[size(datConExtWin[i].glaSys.glass, 1)].tauSol
+                     -datConExtWin[i].glaSys.glass[size(datConExtWin[i].glaSys.glass, 1)].rhoSol_b) for i in 1:NConExtWin},
+  final epsConExtWinSha = {(1-datConExtWin[i].glaSys.glass[size(datConExtWin[i].glaSys.glass, 1)].tauSol
+                       -datConExtWin[i].glaSys.glass[size(datConExtWin[i].glaSys.glass, 1)].rhoSol_b) for i in 1:NConExtWin},
   final epsConExtWinFra = datConExtWin.glaSys.absSolFra,
   final epsConPar_a = datConPar.layers.absSol_a,
   final epsConPar_b = datConPar.layers.absSol_b,
@@ -334,6 +334,11 @@ radiation.
 </html>",
         revisions="<html>
 <ul>
+<li>
+March 13, 2015, by Michael Wetter:<br/>
+Changed model to avoid a translation error
+in OpenModelica.
+</li>
 <li>
 July 16, 2013, by Michael Wetter:<br/>
 Added assignment of heat port temperature instead of heat flow rate

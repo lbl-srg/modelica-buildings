@@ -85,7 +85,7 @@ the current value, the average over the sampling interval or the integral
 over the sampling interval is sent to Python. The following three options are allowed:
 </p>
 <br/>
-<table summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+<table summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
 <tr>
 <td>
 flaDblWri[i]

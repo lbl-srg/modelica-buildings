@@ -48,9 +48,9 @@ model DryCoilCounterFlow
     annotation (Dialog(tab="Heat transfer"));
 
   Modelica.SIunits.HeatFlowRate Q1_flow = sum(ele[i].Q1_flow for i in 1:nEle)
-    "Heat transfered from solid into medium 1";
+    "Heat transferred from solid into medium 1";
   Modelica.SIunits.HeatFlowRate Q2_flow = sum(ele[i].Q2_flow for i in 1:nEle)
-    "Heat transfered from solid into medium 2";
+    "Heat transferred from solid into medium 2";
 
   Modelica.SIunits.Temperature T1[nEle] = ele[:].vol1.T "Water temperature";
   Modelica.SIunits.Temperature T2[nEle] = ele[:].vol2.T "Air temperature";

@@ -1,5 +1,5 @@
 within Buildings.Rooms.Validation.BESTEST;
-package Data "fixme: add brief description"
+package Data "This package contains the data for the BESTEST validation"
   extends Modelica.Icons.MaterialPropertiesPackage;
 
 annotation (preferredView="info", Documentation(info="<html>

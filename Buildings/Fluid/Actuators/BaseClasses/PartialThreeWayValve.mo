@@ -45,7 +45,7 @@ partial model PartialThreeWayValve "Partial three way valve"
     annotation(Dialog(group="Nominal condition"));
 
   parameter Real fraK(min=0, max=1) = 0.7
-    "Fraction Kv(port_3->port_2)/Kv(port_1->port_2)";
+    "Fraction Kv(port_3&rarr;port_2)/Kv(port_1&rarr;port_2)";
   parameter Real[2] l(each min=0, each max=1) = {0, 0}
     "Valve leakage, l=Kv(y=0)/Kv(y=1)";
   parameter Real deltaM = 0.02
@@ -158,15 +158,15 @@ with different opening characteristics, such as linear, equal percentage
 or quick opening. The three way valve model consists of a mixer where
 valves are placed in two of the flow legs. The third flow leg
 has no friction.
-The flow coefficient <code>Kv</code> for flow from <code>port_1 -> port_2</code> is
+The flow coefficient <code>Kv</code> for flow from <code>port_1 &rarr; port_2</code> is
 a parameter.
-The flow coefficient for the bypass flow from <code>port_3 -> port_2</code>
+The flow coefficient for the bypass flow from <code>port_3 &rarr; port_2</code>
 is computed as
 </p>
 <pre>
-         Kv(port_3 -> port_2)
+         Kv(port_3 &rarr; port_2)
   fraK = ----------------------
-         Kv(port_1 -> port_2)
+         Kv(port_1 &rarr; port_2)
 </pre>
 <p>
 where <code>0 &lt; fraK &le; 1</code> is a parameter with a default value
@@ -188,8 +188,8 @@ parameter has the attribute <code>fixed=false</code> for some values
 of <code>CvData</code>. In this case, assigning a value is not allowed.
 Corrected wrong documentation of parameter <code>fraK(min=0, max=1) = 0.7</code>.
 The documenation was
-<i>Fraction Kv(port_1->port_2)/Kv(port_3->port_2)</i> instead of
-<i>Fraction Kv(port_3->port_2)/Kv(port_1->port_2)</i>.
+<i>Fraction Kv(port_1&rarr;port_2)/Kv(port_3&rarr;port_2)</i> instead of
+<i>Fraction Kv(port_3&rarr;port_2)/Kv(port_1&rarr;port_2)</i>.
 Because the parameter set correctly its attributes <code>min=0</code> and <code>max=1</code>,
 instances of this model used the correct value.
 </li>

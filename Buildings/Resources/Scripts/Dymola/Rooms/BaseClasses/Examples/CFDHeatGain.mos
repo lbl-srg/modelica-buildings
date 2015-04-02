@@ -1,0 +1,6 @@
+simulateModel("Buildings.Rooms.BaseClasses.Examples.CFDHeatGain", stopTime=3600, method="dassl", resultFile="CFDHeatGain");
+
+createPlot(id=1, position={15, 10, 482, 336},
+ y={"heatGain.QRad_flow", "heatGain.QCon_flow", "heatGain.QLat_flow"},
+range={0.0, 4000.0, 200.0, 650.0}, grid=true, filename="CFDHeatGain.mat", leftTitleType=1, bottomTitleType=1, colors={{0,0,255}, {255,0,0}, {0,128,0}});
+

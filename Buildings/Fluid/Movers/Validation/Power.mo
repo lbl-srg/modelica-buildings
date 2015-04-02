@@ -2,12 +2,12 @@ within Buildings.Fluid.Movers.Validation;
 model Power "Power calculation comparison among three mover types"
   extends Modelica.Icons.Example;
 
-  package Medium = Buildings.Media.ConstantPropertyLiquidWater "Medium model";
+  package Medium = Buildings.Media.Water "Medium model";
 
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal=3
     "Nominal mass flow rate";
 
-  parameter Data.Pumps.Stratos30slash1to8 per "Pump performance data"
+  parameter Data.Pumps.Wilo.Stratos30slash1to8 per "Pump performance data"
     annotation (Placement(transformation(extent={{40,60},{60,80}})));
 
   parameter Data.FlowControlled perMod(

@@ -2,7 +2,7 @@ within Buildings.Controls.Predictors.Validation.BaseClasses;
 partial model PartialSimpleTestCase
   "Partial base class for simple test case of base load prediction"
   extends Modelica.Icons.Example;
-  // fixme: scaling factor for easier debugging
+
   parameter Modelica.SIunits.Time tPeriod = 24*3600 "Period";
   parameter Modelica.SIunits.Time tSample = 3600 "Sampling period";
   parameter Integer nPre(min=1) = 12 "Number of time steps to predict";

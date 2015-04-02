@@ -1,0 +1,17 @@
+compareVars :=
+  {
+    "varRL.i[1]",
+    "varRL.i[2]",
+    "RL.i[1]",
+    "RL.i[2]",
+    "varRC.i[1]",
+    "varRC.i[2]",
+    "RC.i[1]",
+    "RC.i[2]",
+    "R.i[1]",
+    "R.i[2]",
+    "RL.S[1]",
+    "RL.S[2]",
+    "RC.S[1]",
+    "RC.S[2]"
+  };
