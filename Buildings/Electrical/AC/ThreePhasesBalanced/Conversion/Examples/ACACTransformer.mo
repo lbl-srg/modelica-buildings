@@ -89,8 +89,7 @@ The example shows three different configurations:
 <li>without a load connected, and</li>
 <li>with a short circuit connection.</li>
 </ul>
-</html>
-",    revisions="<html>
+</html>",    revisions="<html>
 <ul>
 <li>
 August 5, 2014, by Marco Bonvini:<br/>

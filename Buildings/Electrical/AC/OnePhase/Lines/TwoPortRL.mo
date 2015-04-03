@@ -8,7 +8,7 @@ model TwoPortRL
     redeclare Interfaces.Terminal_n terminal_n,
     redeclare Interfaces.Terminal_p terminal_p,
     final C=0);
-  parameter Modelica.SIunits.Current i_start[2] = {0,0}
+  parameter Modelica.SIunits.Current i_start[PhaseSystem_p.n] = zeros(PhaseSystem_p.n)
     "Initial current phasor of the line (positive if entering from terminal p)"
     annotation (Dialog(enable = (mode==Buildings.Electrical.Types.Load.FixedZ_dynamic)));
   parameter Buildings.Electrical.Types.Load mode(
@@ -18,7 +18,7 @@ model TwoPortRL
     "Type of model (e.g., steady state, dynamic, prescribed power consumption, etc.)"
     annotation (Evaluate=true, Dialog(group="Modelling assumption"));
 protected
-  Modelica.SIunits.Current i_p[2](start = i_start, stateSelect=StateSelect.prefer)
+  Modelica.SIunits.Current i_p[2](start = i_start, each stateSelect=StateSelect.prefer)
     "Current phasor at terminal p";
   Modelica.SIunits.AngularVelocity omega
     "Frequency of the quasi-stationary sine waves";

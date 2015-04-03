@@ -132,7 +132,7 @@ This is a structural parameter. Adding this annotation leads to fewer
 numerical Jacobians for
 <code>Buildings.Examples.VAVReheat.ClosedLoop</code>
 with
-<code>Buildings.Media.Air</code>.
+<code>Buildings.Media.PerfectGases.MoistAirUnsaturated</code>.
 </li>
 <li>
 December 14, 2012 by Michael Wetter:<br/>

@@ -116,7 +116,7 @@ equation
 <p>
 This is a partial model for models that describe the bi-directional
 air flow through large openings.
-<P>
+<p>
 Models that extend this model need to compute
 <code>mAB_flow</code> and <code>mBA_flow</code>,
 or alternatively <code>VAB_flow</code> and <code>VBA_flow</code>,
@@ -132,7 +132,7 @@ Changed model to use
 <a href=\"modelica://Buildings.Utilities.Psychrometrics.Functions.density_pTX\">
 Buildings.Utilities.Psychrometrics.Functions.density_pTX</a>
 for the density computation
-as 
+as
 <a href=\"modelica://Buildings.Media.Air.density\">
 Buildings.Media.Air.density</a>
 does not depend on temperature.

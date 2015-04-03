@@ -2,7 +2,6 @@ within Buildings.Rooms.Examples.FFD;
 model NaturalConvectionWithControl
   "A case of natural convection with feedback loop control"
   extends Buildings.Rooms.Examples.FFD.Tutorial.NaturalConvection(
-    matLayRoo(material={HeatTransfer.Data.Solids.Steel(x=0.001)}),
       roo(
         nPorts=0,
         useCFD=true,

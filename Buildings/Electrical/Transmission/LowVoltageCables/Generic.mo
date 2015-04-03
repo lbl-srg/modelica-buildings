@@ -26,7 +26,7 @@ This function computes the overall resistance of a cable.
 </p>
 
 <p>
-The low voltage cable is described by a characteristic resistance per unit 
+The low voltage cable is described by a characteristic resistance per unit
 length, given this value the overall resistance is computed as
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
@@ -57,7 +57,7 @@ Added function and documentation
 This function computes the overall inductance of a cable.
 </p>
 <p>
-When the voltage level is low, the cables have a characteristic reactance per unit 
+When the voltage level is low, the cables have a characteristic reactance per unit
 length, which is specified at <i>f = 50 Hz</i>.
 The overall inductance is computed as
 </p>
@@ -65,8 +65,8 @@ The overall inductance is computed as
 L = (X<sub>CHA</sub>/&omega;) l<sub>CABLE</sub>,
 </p>
 <p>
-where <i>X<sub>CHA</sub></i> is the characteristic reactance per unit lenght, 
-<i>&omega; = 2 &pi; f</i> is the angular velocity, and <i>l<sub>CABLE</sub></i> is 
+where <i>X<sub>CHA</sub></i> is the characteristic reactance per unit lenght,
+<i>&omega; = 2 &pi; f</i> is the angular velocity, and <i>l<sub>CABLE</sub></i> is
 the length of the cable.
 </p>
 </html>"));

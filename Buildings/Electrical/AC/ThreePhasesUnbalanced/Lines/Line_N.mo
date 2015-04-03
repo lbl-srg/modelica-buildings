@@ -139,7 +139,5 @@ Buildings.Electrical.AC.ThreePhasesUnbalanced.Lines.TwoPortRLC</a>
 and provides functionalities to parametrize the values of <i>R</i>, <i>L</i> and <i>C</i>
 using either commercial cables or default values.
 </p>
-</html>"),
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
-            100,100}}), graphics));
+</html>"));
 end Line_N;

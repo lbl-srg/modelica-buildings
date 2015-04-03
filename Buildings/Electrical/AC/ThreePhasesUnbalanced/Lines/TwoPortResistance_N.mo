@@ -125,7 +125,7 @@ Assuming that the resistance <i>R</i> is the overall resistance of the cable,
 each line has a resistance equal to <i>R/3</i>.
 </p>
 <p>
-The resistance of the neutral cable is defined separately using the parameter 
+The resistance of the neutral cable is defined separately using the parameter
 <code>Rn</code>.
 </p>
 </html>", revisions="<html>
@@ -135,7 +135,5 @@ January 14, 2015, by Marco Bonvini:<br/>
 Added model and user guide
 </li>
 </ul>
-</html>"),
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
-            100}}), graphics));
+</html>"));
 end TwoPortResistance_N;

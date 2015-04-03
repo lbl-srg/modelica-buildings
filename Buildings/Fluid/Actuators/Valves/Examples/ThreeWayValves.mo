@@ -2,7 +2,7 @@ within Buildings.Fluid.Actuators.Valves.Examples;
 model ThreeWayValves "Three way valves with different opening characteristics"
   extends Modelica.Icons.Example;
 
- package Medium = Buildings.Media.Water "Medium model";
+  package Medium = Buildings.Media.Water "Medium in the component";
 
   Buildings.Fluid.Actuators.Valves.ThreeWayLinear valLin(
     redeclare package Medium = Medium,
@@ -114,7 +114,5 @@ June 16, 2008 by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
-</html>"),
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
-            100}}), graphics));
+</html>"));
 end ThreeWayValves;

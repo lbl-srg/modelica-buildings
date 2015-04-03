@@ -88,7 +88,7 @@ User's Guide</a> for more information.
 March 6, 2015, by Michael Wetter<br/>
 Made performance record <code>per</code> replaceable
 as for the other models.
-</li>      
+</li>
 <li>
 January 6, 2015, by Michael Wetter:<br/>
 Revised model for OpenModelica.

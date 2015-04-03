@@ -3,14 +3,15 @@ model GridDCLoad "Model of a DC load connected to the grid"
   extends Modelica.Icons.Example;
   Buildings.Electrical.AC.OnePhase.Sources.Grid
                grid(
-    V=380,
     f=60,
-    Phi=0)
+    phiSou=0,
+    V=120)
     annotation (Placement(transformation(extent={{-80,-20},{-60,0}})));
   Buildings.Electrical.AC.OnePhase.Conversion.ACDCConverter
                                                    idealACDCConverter1(
-      conversionFactor=12/380, eta=0.9,
-    ground_AC=false)
+                               eta=0.9,
+    ground_AC=false,
+    conversionFactor=12/120)
     annotation (Placement(transformation(extent={{-50,-40},{-30,-20}})));
   Buildings.Electrical.DC.Loads.Resistor    resistor(R=1, V_nominal=12)
                                                           annotation (Placement(
@@ -26,8 +27,12 @@ equation
       points={{-30,-30},{0,-30}},
       color={0,0,255},
       smooth=Smooth.None));
-  annotation (
-    experiment(StopTime=3600, Tolerance=1e-05),
+  annotation (experiment(
+      StopTime=1.0,
+      Tolerance=1e-05),
+    __Dymola_Commands(file=
+          "modelica://Buildings/Resources/Scripts/Dymola/Electrical/AC/OnePhase/Examples/GridDCLoad.mos"
+        "Simulate and plot"),
 Documentation(info="<html>
 <p>
 This model illustrates the use of a model for inductive load. The circuit on the left hand side
@@ -44,8 +49,5 @@ January 2, 2013, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
-</html>"),
-    __Dymola_Commands(file=
-          "modelica://Buildings/Resources/Scripts/Dymola/Electrical/AC/Examples/GridDCLoad.mos"
-        "Simulate and plot"));
+</html>"));
 end GridDCLoad;

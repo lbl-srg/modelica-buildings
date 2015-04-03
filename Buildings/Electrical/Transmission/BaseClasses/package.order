@@ -1,7 +1,7 @@
 PartialBaseLine
 PartialLine
-PartialTwoPortResistance
+PartialNetwork
 PartialTwoPortInductance
 PartialTwoPortRLC
-PartialNetwork
+PartialTwoPortResistance
 BaseCable

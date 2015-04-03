@@ -20,11 +20,6 @@ model NaturalConvection "Tutorial for Natural Convection case"
     annotation (Placement(transformation(extent={{-60,-80},{-40,-60}})));
   Modelica.Blocks.Routing.Multiplex3 multiplex3_1
     annotation (Placement(transformation(extent={{0,-40},{20,-20}})));
-  parameter HeatTransfer.Data.OpaqueConstructions.Generic matLayRoo(final nLay=
-        1, material={HeatTransfer.Data.Solids.Steel(x=0.001)},
-    roughness_a=Buildings.HeatTransfer.Types.SurfaceRoughness.Smooth)
-    "Construction material for roof"
-    annotation (Placement(transformation(extent={{-20,42},{0,62}})));
   BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam="modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos",
       TDryBul=293.15)
     annotation (Placement(transformation(extent={{120,40},{140,60}})));
@@ -200,11 +195,6 @@ This model is used to implement the data exchange between Modelica and FFD. Name
 Use weather data from OHare Intl. Airport, Chicago, Illinoi, U.S.A. Name it as <code>weaDat</code>.
 </li>
 <li>
-<a href=\"modelica://Buildings.HeatTransfer.Data.OpaqueConstructions.Generic\">Buildings.HeatTransfer.Data.OpaqueConstructions.Generic</a>.
-This model provides room construction properties.
-Name it as <code>matLayRoo</code>.
-</li>
-<li>
 <a href=\"modelica://Modelica.Blocks.Sources.Constant\">Modelica.Blocks.Sources.Constant</a>. Three models are needed to specify that internal radiation, internal convective heat gain and internal latent heat gain  zero.
 Name these models as <code>qRadGai_flow</code>, <code>qConGai_flow</code> and <code>qLatGai_flow</code>, respectively.
 </li>
@@ -283,16 +273,6 @@ surBou(
 </li>
 <li>
 <p>
-Edit <code>matLayRoo</code> as below:
-</p>
-<pre>
-parameter HeatTransfer.Data.OpaqueConstructions.Generic matLayRoo(
-final nLay=1, material={HeatTransfer.Data.Solids.Steel(x=0.001)},
-roughness_a=Buildings.HeatTransfer.Types.SurfaceRoughness.Smooth);
-</pre>
-</li>
-<li>
-<p>
 Connect components as shown in the figure below.
 </p>
 <p align=\"center\">
@@ -361,7 +341,7 @@ Please note that some of the physical properties were manipulated to obtaine the
 </p>
 </li>
 <li>
-Store <Code>NaturalConvection.ffd</code>, <Code>NaturalConvection.dat</code>, and <Code>NaturalConvection.cfd</code> at <code>Buildings/Resources/Data/Rooms/FFD/Tutorial</code>.
+Store <code>NaturalConvection.ffd</code>, <code>NaturalConvection.dat</code>, and <code>NaturalConvection.cfd</code> at <code>Buildings/Resources/Data/Rooms/FFD/Tutorial</code>.
 </li>
 <li>
 Set simulation the stop time of the Modelica model <code>7200</code> seconds and choose for example the Radau solver.

@@ -1,7 +1,7 @@
 within Buildings.Fluid.MixingVolumes.Examples;
 model MixingVolumeHeatConduction "Test model for heat transfer to volume"
   extends Modelica.Icons.Example;
-    package Medium = Modelica.Media.Air.SimpleAir;
+    package Medium = Buildings.Media.Air;
   Modelica.Thermal.HeatTransfer.Components.ThermalConductor theCon(G=10)
     "Thermal conductor"
     annotation (Placement(transformation(extent={{-50,20},{-30,40}})));

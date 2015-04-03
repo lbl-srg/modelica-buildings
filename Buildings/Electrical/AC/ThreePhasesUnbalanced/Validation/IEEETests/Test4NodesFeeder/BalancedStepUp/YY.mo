@@ -104,7 +104,5 @@ IEEE 4 nodes validation test case with the following characteristics
 <i>V<sub>Sec</sub> = 24.9kV</i>),</li>
 <li>Y-Y transformer</li>
 </ul>
-</html>"),
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
-            100,100}}), graphics));
+</html>"));
 end YY;

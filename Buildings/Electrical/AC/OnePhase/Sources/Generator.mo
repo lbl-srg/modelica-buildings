@@ -79,7 +79,7 @@ angle of the voltage.
 </p>
 <p>
 The boolean flags <code>potentialReference</code> and
-<code>definiteReference</code> allows to select the phase angle of the 
+<code>definiteReference</code> allows to select the phase angle of the
 generator as reference for the models connected to it. More info about
 these flags are available in
 <a href=\"modelica://Buildings.Electrical.AC.UsersGuide\">

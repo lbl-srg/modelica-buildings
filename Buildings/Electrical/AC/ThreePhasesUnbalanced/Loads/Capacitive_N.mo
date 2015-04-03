@@ -192,7 +192,7 @@ Revised documentation.
 </html>", info="<html>
 <p>
 This model represents a three phases unbalanced capacitive load.
-The model extends from 
+The model extends from
 <a href=\"modelica://Buildings.Electrical.AC.ThreePhasesUnbalanced.Loads.BaseClasses.LoadCtrl_N\">
 Buildings.Electrical.AC.ThreePhasesUnbalanced.Loads.BaseClasses.LoadCtrl_N</a>
 and uses the load model from the package
@@ -207,7 +207,7 @@ of the loads.
 </p>
 <p>
 For more information, see <a href=\"modelica://Buildings.Electrical.AC.ThreePhasesUnbalanced.Loads.BaseClasses.LoadCtrl_N\">
-Buildings.Electrical.AC.ThreePhasesUnbalanced.Loads.BaseClasses.LoadCtrl_N</a> and 
+Buildings.Electrical.AC.ThreePhasesUnbalanced.Loads.BaseClasses.LoadCtrl_N</a> and
 <a href=\"modelica://Buildings.Electrical.AC.OnePhase.Loads.Capacitive\">
 Buildings.Electrical.AC.OnePhase.Loads.Capacitive</a>.
 </p>

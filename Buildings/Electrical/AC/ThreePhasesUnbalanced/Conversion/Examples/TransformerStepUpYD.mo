@@ -41,7 +41,5 @@ in the connector do not have a neutral reference.
 experiment(Tolerance=1e-05),
 __Dymola_Commands(file=
  "modelica://Buildings/Resources/Scripts/Dymola/Electrical/AC/ThreePhasesUnbalanced/Conversion/Examples/TransformerStepUpYD.mos"
-        "Simulate and plot"),
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
-            100,100}}), graphics));
+        "Simulate and plot"));
 end TransformerStepUpYD;

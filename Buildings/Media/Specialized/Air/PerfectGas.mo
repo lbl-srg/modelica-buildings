@@ -132,7 +132,7 @@ function saturationPressureLiquid
   // Buildings.Fluid.Sensors.Examples.MassFraction
 algorithm
   psat := 611.657*Modelica.Math.exp(17.2799 - 4102.99/(Tsat - 35.719));
-  annotation(Inline=false,smoothOrder=5,derivative=Buildings.Media.Specialized.Air.PerfectGas.saturationPressureLiquid_der,
+  annotation(smoothOrder=5,derivative=Buildings.Media.Specialized.Air.PerfectGas.saturationPressureLiquid_der,
     Documentation(info="<html>
 Saturation pressure of water above the triple point temperature is computed from temperature. It's range of validity is between
 273.16 and 373.16 K. Outside these limits a less accurate result is returned.
@@ -150,7 +150,7 @@ function saturationPressureLiquid_der
 algorithm
   psat_der:=611.657*Modelica.Math.exp(17.2799 - 4102.99/(Tsat - 35.719))*4102.99*dTsat/(Tsat - 35.719)/(Tsat - 35.719);
 
-  annotation(Inline=false,smoothOrder=5,
+  annotation(smoothOrder=5,
 Documentation(info="<html>
 Derivative function of
 <a href=\"modelica://Buildings.Media.Specialized.Air.PerfectGases.saturationPressureLiquid\">
@@ -172,7 +172,7 @@ redeclare function extends saturationPressure
 algorithm
   psat := Buildings.Utilities.Math.Functions.spliceFunction(
                                                   saturationPressureLiquid(Tsat),sublimationPressureIce(Tsat),Tsat-273.16,1.0);
-  annotation(Inline=false,smoothOrder=5);
+  annotation(smoothOrder=5);
 end saturationPressure;
 
  redeclare function extends pressure "Gas pressure"
@@ -207,7 +207,6 @@ Density is computed from pressure, temperature and composition in the thermodyna
         state.T,
         state.X);
   annotation (
-    Inline=false,
     smoothOrder=2,
     Documentation(info="<html>
 Specific entropy is calculated from the thermodynamic state record, assuming ideal gas behavior and including entropy of mixing. Liquid or solid water is not taken into account, the entire water content X[1] is assumed to be in the vapor state (relative humidity below 1.0).
@@ -380,8 +379,7 @@ algorithm
   hDryAir := (T - reference_T)*dryair.cp;
   h := hDryAir * (1 - X[Water]) +
        ((T-reference_T) * steam.cp + h_fg) * X[Water];
-  annotation(Inline=false,smoothOrder=5,
-             smoothOrder=5,
+  annotation(smoothOrder=5,
              inverse(T=temperature_phX(p, h, X)));
 end specificEnthalpy_pTX;
 
@@ -421,24 +419,6 @@ The pressure is input for compatibility with the medium models, but the temperat
 is independent of the pressure.
 </html>"));
 end temperature_phX;
-
-// This should be replaced with temperature_phX
-//function T_phX
-//    "Compute temperature from specific enthalpy and mass fraction"
-//  input AbsolutePressure p "Pressure";
-//  input SpecificEnthalpy h "specific enthalpy";
-//  input MassFraction[:] X "mass fractions of composition";
-//  output Temperature T "temperature";
-//algorithm
-//  T := reference_T + (h - 2501014.5 * X[Water])/((1 - X[Water])*dryair.cp + X[Water] * steam.cp);
-//
-//  annotation(Inline=false, smoothOrder=5,
-//      Documentation(info="<html>
-//Temperature as a function of specific enthalpy and species concentration.
-//The pressure is input for compatibility with the medium models, but the temperature
-//is independent of the pressure.
-//</html>"));
-//end T_phX;
 
 //////////////////////////////////////////////////////////////////////
 // Protected classes.
@@ -540,7 +520,7 @@ This medium uses the ideal gas law
 &rho; = p &frasl;(R T),
 </p>
 <p>
-where 
+where
 <i>&rho;</i> is the density,
 <i>p</i> is the pressure,
 <i>R</i> is the gas constant and

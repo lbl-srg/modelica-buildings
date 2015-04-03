@@ -1,9 +1,9 @@
 Converter
 Transformer
-TransformerFull
 TransformerDD
-TransformerStepDownYD
-TransformerStepUpYD
+TransformerFull
 TransformerStepDownDY
+TransformerStepDownYD
 TransformerStepUpDY
+TransformerStepUpYD
 BaseClasses

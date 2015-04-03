@@ -9,7 +9,6 @@ model UnbalancedWindTurbine_N
   Interfaces.Connection3to4_p conn3to4 "Connection between 3 to 4 wire"
     annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
-        rotation=0,
         origin={40,0})));
 equation
 
@@ -126,7 +125,5 @@ August 27, 2014, by Marco Bonvini:<br/>
 Revised documentation.
 </li>
 </ul>
-</html>"),
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
-            100}}), graphics));
+</html>"));
 end UnbalancedWindTurbine_N;

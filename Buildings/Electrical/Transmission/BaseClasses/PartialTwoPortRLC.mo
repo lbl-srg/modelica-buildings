@@ -1,7 +1,7 @@
 within Buildings.Electrical.Transmission.BaseClasses;
 partial model PartialTwoPortRLC
   "Partial model of an RLC element that links two electrical connectors"
-  extends Interfaces.PartialTwoPort;
+  extends Buildings.Electrical.Interfaces.PartialTwoPort;
   extends Modelica.Electrical.Analog.Interfaces.ConditionalHeatPort(T = T_ref);
   parameter Modelica.SIunits.Resistance R "Resistance at temperature T_ref"
                                       annotation(Evaluate=true);

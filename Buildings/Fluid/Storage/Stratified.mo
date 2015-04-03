@@ -54,15 +54,14 @@ model Stratified "Model of a stratified tank for thermal energy storage"
 
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heaPorSid
     "Heat port tank side (outside insulation)"
-                    annotation (Placement(transformation(extent={{50,-6},{62,6}})));
+    annotation (Placement(transformation(extent={{50,-6},{62,6}})));
 
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heaPorTop
     "Heat port tank top (outside insulation)"
-                    annotation (Placement(transformation(extent={{14,68},{26,80}})));
+    annotation (Placement(transformation(extent={{14,68},{26,80}})));
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heaPorBot
     "Heat port tank bottom (outside insulation). Leave unconnected for adiabatic condition"
-                    annotation (Placement(transformation(extent={{14,-80},{26,
-            -68}})));
+    annotation (Placement(transformation(extent={{14,-80},{26,-68}})));
 
   // Models
   MixingVolumes.MixingVolume[nSeg] vol(
@@ -75,24 +74,50 @@ model Stratified "Model of a stratified tank for thermal energy storage"
     each C_start=C_start,
     each V=VTan/nSeg,
     each nPorts=nPorts,
-    each m_flow_nominal = m_flow_nominal) "Tank segment"
-                              annotation (Placement(transformation(extent={{6,-16},
-            {26,4}})));
+    each m_flow_nominal = m_flow_nominal,
+    each final mSenFac=1,
+    each final m_flow_small=m_flow_small,
+    each final allowFlowReversal=allowFlowReversal) "Tank segment"
+      annotation (Placement(transformation(extent={{6,-16},{26,4}})));
 protected
+  constant Integer nPorts = 2 "Number of ports of volume";
+
+  parameter Medium.ThermodynamicState sta_default = Medium.setState_pTX(
+    T=Medium.T_default,
+    p=Medium.p_default,
+    X=Medium.X_default[1:Medium.nXi]) "Medium state at default properties";
+  parameter Modelica.SIunits.Length hSeg = hTan / nSeg
+    "Height of a tank segment";
+  parameter Modelica.SIunits.Area ATan = VTan/hTan
+    "Tank cross-sectional area (without insulation)";
+  parameter Modelica.SIunits.Length rTan = sqrt(ATan/Modelica.Constants.pi)
+    "Tank diameter (without insulation)";
+  parameter Modelica.SIunits.ThermalConductance conFluSeg = ATan*Medium.thermalConductivity(sta_default)/hSeg
+    "Thermal conductance between fluid volumes";
+  parameter Modelica.SIunits.ThermalConductance conTopSeg = ATan*kIns/dIns
+    "Thermal conductance from center of top (or bottom) volume through tank insulation at top (or bottom)";
+
   Sensors.EnthalpyFlowRate H_a_flow(
     redeclare package Medium = Medium,
     final m_flow_nominal=m_flow_nominal,
-    final tau=0) "Enthalpy flow rate at port a"
+    final tau=0,
+    final allowFlowReversal=allowFlowReversal,
+    final m_flow_small=m_flow_small) "Enthalpy flow rate at port a"
     annotation (Placement(transformation(extent={{-60,-90},{-40,-70}})));
   Sensors.EnthalpyFlowRate[nSeg - 1] H_vol_flow(
     redeclare package Medium = Medium,
     each final m_flow_nominal=m_flow_nominal,
-    each final tau=0) "Enthalpy flow rate between the volumes"
+    each final tau=0,
+    each final allowFlowReversal=allowFlowReversal,
+    each final m_flow_small=m_flow_small)
+    "Enthalpy flow rate between the volumes"
     annotation (Placement(transformation(extent={{-20,-50},{0,-30}})));
   Sensors.EnthalpyFlowRate H_b_flow(
     redeclare package Medium = Medium,
-    m_flow_nominal=m_flow_nominal,
-    final tau=0) "Enthalpy flow rate at port b"
+    final m_flow_nominal=m_flow_nominal,
+    final tau=0,
+    final allowFlowReversal=allowFlowReversal,
+    final m_flow_small=m_flow_small) "Enthalpy flow rate at port b"
     annotation (Placement(transformation(extent={{50,-90},{70,-70}})));
   BaseClasses.Buoyancy buo(
     redeclare final package Medium = Medium,
@@ -124,30 +149,13 @@ protected
     "Heat flow at wall of tank (outside insulation)"
     annotation (Placement(transformation(extent={{30,34},{42,46}})));
 
-  constant Integer nPorts = 2 "Number of ports of volume";
-
-  parameter Medium.ThermodynamicState sta_default = Medium.setState_pTX(
-    T=Medium.T_default,
-    p=Medium.p_default,
-    X=Medium.X_default[1:Medium.nXi]) "Medium state at default properties";
-  parameter Modelica.SIunits.Length hSeg = hTan / nSeg
-    "Height of a tank segment";
-  parameter Modelica.SIunits.Area ATan = VTan/hTan
-    "Tank cross-sectional area (without insulation)";
-  parameter Modelica.SIunits.Length rTan = sqrt(ATan/Modelica.Constants.pi)
-    "Tank diameter (without insulation)";
-  parameter Modelica.SIunits.ThermalConductance conFluSeg = ATan*Medium.thermalConductivity(sta_default)/hSeg
-    "Thermal conductance between fluid volumes";
-  parameter Modelica.SIunits.ThermalConductance conTopSeg = ATan*kIns/dIns
-    "Thermal conductance from center of top (or bottom) volume through tank insulation at top (or bottom)";
-
   Modelica.Blocks.Routing.Multiplex3 mul(
     n1=1,
     n2=nSeg,
-    n3=1) annotation (Placement(transformation(extent={{62,44},{70,54}})));
+    n3=1) "Multiplex to collect heat flow rates"
+    annotation (Placement(transformation(extent={{62,44},{70,54}})));
   Modelica.Blocks.Math.Sum sum1(nin=nSeg + 2)
-                                          annotation (Placement(transformation(
-          extent={{78,42},{90,56}})));
+  annotation (Placement(transformation(extent={{78,42},{90,56}})));
 
   Modelica.Thermal.HeatTransfer.Components.ThermalCollector theCol(m=nSeg)
     "Connector to assign multiple heat ports to one heat port"
@@ -238,6 +246,11 @@ Buildings.Fluid.Storage.StratifiedEnhanced</a>.
 </html>", revisions="<html>
 <ul>
 <li>
+March 28, 2015, by Filip Jorissen:<br/>
+Propagated <code>allowFlowReversal</code> and <code>m_flow_small</code>
+and set <code>mSenFac=1</code>.
+</li>
+<li>
 January 26, 2015, by Michael Wetter:<br/>
 Renamed
 <code>hA_flow</code> to <code>H_a_flow</code>,
@@ -258,7 +271,7 @@ by the differential equation of the fluid volume.
 </li>
 <li>
 January 25, 2015, by Filip Jorissen:<br/>
-Set <code>tau = 0</code> in <code>EnthalpyFlowRate</code> 
+Set <code>tau = 0</code> in <code>EnthalpyFlowRate</code>
 sensors for increased simulation speed.
 </li>
 <li>

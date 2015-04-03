@@ -251,7 +251,7 @@ redeclare function extends saturationPressure
 
 algorithm
   psat := Buildings.Utilities.Psychrometrics.Functions.saturationPressure(Tsat);
-  annotation(Inline=false,smoothOrder=5);
+  annotation(smoothOrder=5);
 end saturationPressure;
 
 redeclare function extends specificEntropy
@@ -265,15 +265,15 @@ algorithm
     s := specificHeatCapacityCp(state) * Modelica.Math.log(state.T/reference_T)
          - Modelica.Constants.R *
          sum(state.X[i]/MMX[i]*
-             Modelica.Math.log(max(Y[i], Modelica.Constants.eps)) for i in 1:2);
+             Modelica.Math.log(max(Y[i], Modelica.Constants.eps)*state.p/reference_p) for i in 1:2);
   annotation (
-    Inline=false,
     Documentation(info="<html>
 <p>
 This function computes the specific entropy.
 </p>
 <p>
 The specific entropy of the mixture is obtained from
+</p>
 <p align=\"center\" style=\"font-style:italic;\">
 s = s<sub>s</sub> + s<sub>m</sub>,
 </p>
@@ -286,6 +286,7 @@ of the dry air and water vapor.
 </p>
 <p>
 The entropy change due to change in state is obtained from
+</p>
 <p align=\"center\" style=\"font-style:italic;\">
 s<sub>s</sub> = c<sub>v</sub> ln(T/T<sub>0</sub>) + R ln(v/v<sub>0</sub>) <br/>
 = c<sub>v</sub> ln(T/T<sub>0</sub>) + R ln(&rho;<sub>0</sub>/&rho;)
@@ -304,7 +305,7 @@ expansion process. Hence,
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
   s<sub>m</sub> = -R &sum;<sub>i</sub>( X<sub>i</sub> &frasl; M<sub>i</sub>
-  ln(Y<sub>i</sub>)),
+  ln(Y<sub>i</sub> p/p<sub>0</sub>)),
 </p>
 <p>
 where <i>R</i> is the gas constant,
@@ -484,7 +485,6 @@ algorithm
                                 X=X_int);
 
 annotation (
-Inline=false,
 Documentation(info="<html>
 <p>
 This function returns the thermodynamic state based on pressure,
@@ -511,7 +511,7 @@ redeclare replaceable function extends specificEnthalpy
 algorithm
   h := (state.T - reference_T)*dryair.cp * (1 - state.X[Water]) +
        ((state.T-reference_T) * steam.cp + h_fg) * state.X[Water];
-  annotation(Inline=false,smoothOrder=5);
+  annotation(smoothOrder=5);
 end specificEnthalpy;
 
 redeclare replaceable function specificEnthalpy_pTX "Specific enthalpy"
@@ -838,6 +838,12 @@ if <i>T=0</i> &deg;C and no water vapor is present.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+March 20, 2015, by Michael Wetter:<br/>
+Added missing term <code>state.p/reference_p</code> in function
+<code>specificEntropy</code>.
+<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/193\">#193</a>.
+</li>
 <li>
 February 3, 2015, by Michael Wetter:<br/>
 Removed <code>stateSelect.prefer</code> for temperature.

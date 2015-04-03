@@ -95,10 +95,7 @@ equation
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None));
-  annotation (Diagram(coordinateSystem(extent={{-100,-100},{100,100}},
-          preserveAspectRatio=false), graphics), Icon(coordinateSystem(extent={{-100,
-            -100},{100,100}}, preserveAspectRatio=false)),
-    experiment(
+  annotation (    experiment(
       StopTime=604800,
       Tolerance=1e-05),
     Commands(file=

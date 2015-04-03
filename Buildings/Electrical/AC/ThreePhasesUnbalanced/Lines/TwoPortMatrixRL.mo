@@ -23,43 +23,43 @@ model TwoPortMatrixRL
   final parameter Modelica.SIunits.Impedance[2] Z32 = Z23
     "Element [3,1] of impedance matrix";
 protected
-  function product = Buildings.Electrical.PhaseSystems.OnePhase.product
+  function productAC1p = Buildings.Electrical.PhaseSystems.OnePhase.product
     "Product between complex quantities";
   Modelica.SIunits.Current i1[2](
     start = zeros(Buildings.Electrical.PhaseSystems.OnePhase.n),
-    stateSelect = StateSelect.prefer) = terminal_n.phase[1].i
+    each stateSelect = StateSelect.prefer) = terminal_n.phase[1].i
     "Current in line 1";
   Modelica.SIunits.Current i2[2](
     start = zeros(Buildings.Electrical.PhaseSystems.OnePhase.n),
-    stateSelect = StateSelect.prefer) = terminal_n.phase[2].i
+    each stateSelect = StateSelect.prefer) = terminal_n.phase[2].i
     "Current in line 2";
   Modelica.SIunits.Current i3[2](
     start = zeros(Buildings.Electrical.PhaseSystems.OnePhase.n),
-    stateSelect = StateSelect.prefer) = terminal_n.phase[3].i
+    each stateSelect = StateSelect.prefer) = terminal_n.phase[3].i
     "Current in line 3";
   Modelica.SIunits.Voltage v1_n[2](
     start = Buildings.Electrical.PhaseSystems.OnePhase.phaseVoltages(V_nominal/sqrt(3), phi=  0),
-    stateSelect = StateSelect.never) = terminal_n.phase[1].v
+    each stateSelect = StateSelect.never) = terminal_n.phase[1].v
     "Voltage in line 1 at connector N";
   Modelica.SIunits.Voltage v2_n[2](
     start = Buildings.Electrical.PhaseSystems.OnePhase.phaseVoltages(V_nominal/sqrt(3), phi=  -2*Modelica.Constants.pi/3),
-    stateSelect = StateSelect.never) = terminal_n.phase[2].v
+    each stateSelect = StateSelect.never) = terminal_n.phase[2].v
     "Voltage in line 2 at connector N";
   Modelica.SIunits.Voltage v3_n[2](
     start = Buildings.Electrical.PhaseSystems.OnePhase.phaseVoltages(V_nominal/sqrt(3), phi=  2*Modelica.Constants.pi/3),
-    stateSelect = StateSelect.never) = terminal_n.phase[3].v
+    each stateSelect = StateSelect.never) = terminal_n.phase[3].v
     "Voltage in line 3 at connector N";
   Modelica.SIunits.Voltage v1_p[2](
     start = Buildings.Electrical.PhaseSystems.OnePhase.phaseVoltages(V_nominal/sqrt(3), phi=  0),
-    stateSelect = StateSelect.never) = terminal_p.phase[1].v
+    each stateSelect = StateSelect.never) = terminal_p.phase[1].v
     "Voltage in line 1 at connector P";
   Modelica.SIunits.Voltage v2_p[2](
     start = Buildings.Electrical.PhaseSystems.OnePhase.phaseVoltages(V_nominal/sqrt(3), phi=  -2*Modelica.Constants.pi/3),
-    stateSelect = StateSelect.never) = terminal_p.phase[2].v
+    each stateSelect = StateSelect.never) = terminal_p.phase[2].v
     "Voltage in line 2 at connector P";
   Modelica.SIunits.Voltage v3_p[2](
     start = Buildings.Electrical.PhaseSystems.OnePhase.phaseVoltages(V_nominal/sqrt(3), phi=  2*Modelica.Constants.pi/3),
-    stateSelect = StateSelect.never) = terminal_p.phase[3].v
+    each stateSelect = StateSelect.never) = terminal_p.phase[3].v
     "Voltage in line 3 at connector P";
 equation
 
@@ -73,9 +73,9 @@ equation
   end for;
 
   // Voltage drop caused by the impedance matrix
-  v1_n - v1_p = product(Z11, i1) + product(Z12, i2) + product(Z13, i3);
-  v2_n - v2_p = product(Z21, i1) + product(Z22, i2) + product(Z23, i3);
-  v3_n - v3_p = product(Z31, i1) + product(Z32, i2) + product(Z33, i3);
+  v1_n - v1_p = productAC1p(Z11, i1) + productAC1p(Z12, i2) + productAC1p(Z13, i3);
+  v2_n - v2_p = productAC1p(Z21, i1) + productAC1p(Z22, i2) + productAC1p(Z23, i3);
+  v3_n - v3_p = productAC1p(Z31, i1) + productAC1p(Z32, i2) + productAC1p(Z33, i3);
 
   annotation (
   defaultComponentName="line",

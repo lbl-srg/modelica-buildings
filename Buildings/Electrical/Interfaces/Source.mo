@@ -28,8 +28,7 @@ equation
         Connections.potentialRoot(terminal.theta);
       end if;
   end if;
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}}), graphics), Documentation(revisions="<html>
+  annotation ( Documentation(revisions="<html>
 <ul>
 <li>
 May 15, 2014, by Marco Bonvini:<br/>
@@ -45,12 +44,12 @@ Model included into the Buildings library.
 This model represents a generic source.
 </p>
 <p>
-In case the phase system has <code>PhaseSystem.m &gt; 0</code> and 
-thus the connectors are over determined, 
+In case the phase system has <code>PhaseSystem.m &gt; 0</code> and
+thus the connectors are over determined,
 the source can be selected to serve as reference point.
 The parameters <code>potentialReference</code> and <code>definiteReference</code> are used to define if the
 source model should be selected as source for the reference angles or not.
-More information about overdetermined connectors can be found 
+More information about overdetermined connectors can be found
 in <a href=\"#Olsson2008\">Olsson Et Al. (2008)</a>.
 </p>
 

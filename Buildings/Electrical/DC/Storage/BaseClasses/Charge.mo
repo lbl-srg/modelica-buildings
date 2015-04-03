@@ -53,7 +53,7 @@ The model given the power <i>P</i> that should be provide or taken from the batt
 and compute the actual power flowing through the battery as
 </p>
 
-<table summary=\"equations\" border = \"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collape;\">
+<table summary=\"equations\" border = \"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collape;\">
 <tr><th>Equation</th><th>Condition</th></tr>
 <tr>
 <td>P<sub>actual</sub> = P &eta;<sub>CHA</sub></td>

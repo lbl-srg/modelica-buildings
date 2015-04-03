@@ -4,6 +4,8 @@ partial model PartialBaseLine "Partial cable line dispersion model"
   parameter Modelica.SIunits.Power P_nominal(min=0) "Nominal power of the line";
   parameter Modelica.SIunits.Voltage V_nominal(min=0, start=220)
     "Nominal voltage of the line";
+  final parameter Modelica.SIunits.Frequency f_n = 50
+    "Frequency considered in the definition of cables properties";
 
   parameter Boolean use_C = false
     "Set to true to add a capacitance in the center of the line"
@@ -30,15 +32,15 @@ partial model PartialBaseLine "Partial cable line dispersion model"
     enable = mode == Buildings.Electrical.Types.CableMode.commercial),
                choicesAllMatching = true);
 
-  final parameter Modelica.SIunits.Temperature T_ref = commercialCable.Tref
+  final parameter Modelica.SIunits.Temperature T_ref = commercialCable.T_ref
     "Reference temperature of the line" annotation(Evaluate=True);
   final parameter Modelica.SIunits.Temperature M = commercialCable.M
     "Temperature constant (R_actual = R*(M + T_heatPort)/(M + T_ref))";
-  final parameter Modelica.SIunits.Resistance R = commercialCable.lineResistance(l, commercialCable)
+  final parameter Modelica.SIunits.Resistance R = commercialCable.lineResistance(l, f_n, commercialCable)
     "Resistance of the cable" annotation(Evaluate=True);
-  final parameter Modelica.SIunits.Inductance L = commercialCable.lineInductance(l, commercialCable)
+  final parameter Modelica.SIunits.Inductance L = commercialCable.lineInductance(l, f_n, commercialCable)
     "Inductance of the cable due to mutual and self inductance" annotation(Evaluate = True);
-  final parameter Modelica.SIunits.Capacitance C = commercialCable.lineCapacitance(l, commercialCable)
+  final parameter Modelica.SIunits.Capacitance C = commercialCable.lineCapacitance(l, f_n, commercialCable)
     "Capacitance of the cable" annotation(Evaluate = True);
   Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature cableTemp
     "Temperature of the cable"

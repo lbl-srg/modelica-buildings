@@ -199,7 +199,5 @@ January 14, 2015, by Marco Bonvini:<br/>
 Added model and user guide
 </li>
 </ul>
-</html>"),
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
-            100}}), graphics));
+</html>"));
 end TwoPortRL_N;
