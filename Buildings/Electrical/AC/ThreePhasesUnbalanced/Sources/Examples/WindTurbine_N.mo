@@ -13,7 +13,6 @@ model WindTurbine_N "Example for the WindTurbine AC model with neutral cable"
     scaleFraction={0.4,0.0,0.6}) "Wind turbine"
     annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
-        rotation=0,
         origin={60,0})));
   Buildings.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(
       computeWetBulbTemperature=false,
@@ -61,9 +60,7 @@ equation
       points={{-22,-20},{-70,-20},{-70,10}},
       color={127,0,127},
       smooth=Smooth.None));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}}),      graphics),
-    experiment(StopTime=172800, Tolerance=1e-05),
+  annotation (    experiment(StopTime=172800, Tolerance=1e-05),
     Documentation(info="<html>
 <p>
 This model illustrates the use of the wind turbine model with neutral cable,
@@ -92,7 +89,5 @@ Created model and documentation
 </html>"),
     __Dymola_Commands(file=
           "modelica://Buildings/Resources/Scripts/Dymola/Electrical/AC/ThreePhasesUnbalanced/Sources/Examples/WindTurbineAC_N.mos"
-        "Simulate and plot"),
-    Icon(coordinateSystem(extent={{-100,-100},{100,100}}, preserveAspectRatio=
-            false)));
+        "Simulate and plot"));
 end WindTurbine_N;

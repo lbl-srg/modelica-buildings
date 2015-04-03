@@ -45,8 +45,7 @@ equation
 
   annotation (
   defaultComponentName="tra",
-  Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}}), graphics), Icon(coordinateSystem(
+ Icon(coordinateSystem(
           preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
                                                graphics={
         Text(

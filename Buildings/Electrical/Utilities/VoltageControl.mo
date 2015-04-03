@@ -94,7 +94,5 @@ a first order filter that represents such a dynamic effect. The presence of the 
 filter avoids that the output of the finite state machine controller
 are differentiated (causing runtime errors).
 </p>
-</html>"),
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
-            100,100}}), graphics));
+</html>"));
 end VoltageControl;

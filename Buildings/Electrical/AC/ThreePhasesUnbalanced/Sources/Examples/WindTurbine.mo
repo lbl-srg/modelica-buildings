@@ -12,7 +12,6 @@ model WindTurbine "Example for the WindTurbine AC model"
     scaleFraction={0.5,0.25,0.25}) "Wind turbine"
     annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
-        rotation=0,
         origin={60,0})));
   Buildings.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(
       computeWetBulbTemperature=false,
@@ -60,9 +59,7 @@ equation
       points={{-20,5.55112e-16},{8,0},{8,6.66134e-16}},
       color={0,120,120},
       smooth=Smooth.None));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}})),
-    experiment(StopTime=172800, Tolerance=1e-05),
+  annotation (    experiment(StopTime=172800, Tolerance=1e-05),
     Documentation(info="<html>
 <p>
 This model illustrates the use of the wind turbine model,
@@ -91,7 +88,5 @@ Created model and documentation
 </html>"),
     __Dymola_Commands(file=
           "modelica://Buildings/Resources/Scripts/Dymola/Electrical/AC/ThreePhasesUnbalanced/Sources/Examples/WindTurbineAC.mos"
-        "Simulate and plot"),
-    Icon(coordinateSystem(extent={{-100,-100},{100,100}}, preserveAspectRatio=
-            false)));
+        "Simulate and plot"));
 end WindTurbine;

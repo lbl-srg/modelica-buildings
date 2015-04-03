@@ -94,8 +94,5 @@ First implementation.
 </ul>
 </html>"), __Dymola_Commands(file=
           "modelica://Buildings/Resources/Scripts/Dymola/Fluid/MixingVolumes/Examples/MixingVolumeMFactor.mos"
-        "Simulate and plot"),
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
-            100,100}}),
-                    graphics));
+        "Simulate and plot"));
 end MixingVolumeMFactor;

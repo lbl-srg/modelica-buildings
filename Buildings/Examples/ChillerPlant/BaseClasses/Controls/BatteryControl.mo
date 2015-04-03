@@ -168,8 +168,7 @@ equation
       points={{96.4,0},{110,0}},
       color={0,0,127},
       smooth=Smooth.None));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}}),      graphics), Documentation(info="<html>
+  annotation ( Documentation(info="<html>
 <p>
 Block for a battery controller. The battery is charged during night if its charge is below
 a threshold. It remains charging until it is full.

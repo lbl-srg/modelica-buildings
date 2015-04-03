@@ -81,9 +81,7 @@ The figure shows that the signal <code>y</code> becomes zero around <i>t = 1</i>
 <i>T<sub>delay</sub></i> the voltage is still higher that 123 V and thus the controller waits until
 <i>t = 5</i> s to change the signal to one.
 </p>
-</html>"), Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
-            {100,100}}), graphics),
-    __Dymola_Commands(file=
+</html>"),    __Dymola_Commands(file=
           "modelica://Buildings/Resources/Scripts/Dymola/Electrical/Utilities/Examples/TestVoltageCTRL.mos"
         "Simulate and plot"),
     experiment(

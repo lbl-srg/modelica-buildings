@@ -362,9 +362,5 @@ September 24, 2014, by Marco Bonvini:<br/>
 Created model and documentation.
 </li>
 </ul>
-</html>"), Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}}),
-                         graphics),
-    Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
-            100}}), graphics));
+</html>"));
 end BaseLoadCtrl;

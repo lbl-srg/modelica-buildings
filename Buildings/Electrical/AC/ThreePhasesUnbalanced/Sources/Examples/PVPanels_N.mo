@@ -92,8 +92,6 @@ equation
       color={127,0,127},
       smooth=Smooth.None));
   annotation (experiment(StopTime=172800, Tolerance=1e-05),
-  Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
-                               graphics),
     __Dymola_Commands(file=
           "modelica://Buildings/Resources/Scripts/Dymola/Electrical/AC/ThreePhasesUnbalanced/Sources/Examples/PVPanels_N.mos"
         "Simulate and plot"),

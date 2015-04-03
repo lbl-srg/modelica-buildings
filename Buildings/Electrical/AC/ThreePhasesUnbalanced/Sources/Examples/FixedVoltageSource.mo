@@ -41,9 +41,7 @@ equation
       points={{-20,-60},{0,-60},{0,-39}},
       color={127,0,127},
       smooth=Smooth.None));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}}), graphics),
-    experiment(StopTime=1, Tolerance=1e-05),
+  annotation (    experiment(StopTime=1, Tolerance=1e-05),
     __Dymola_Commands(file=
           "modelica://Buildings/Resources/Scripts/Dymola/Electrical/AC/ThreePhasesUnbalanced/Sources/Examples/FixedVoltageSource.mos"
         "Simulate and plot"),

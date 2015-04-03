@@ -105,7 +105,5 @@ January 14, 2015, by Marco Bonvini:<br/>
 Created model and documentation.
 </li>
 </ul>
-</html>"),
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
-            100}}), graphics));
+</html>"));
 end ACLine_R_N;

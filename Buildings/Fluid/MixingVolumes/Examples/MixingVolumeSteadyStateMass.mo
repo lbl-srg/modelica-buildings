@@ -79,6 +79,5 @@ First implementation.
 experiment(StopTime=1.0),
 __Dymola_Commands(file=
           "modelica://Buildings/Resources/Scripts/Dymola/Fluid/MixingVolumes/Examples/MixingVolumeSteadyStateMass.mos"
-        "Simulate and plot"),
-    Diagram(graphics));
+        "Simulate and plot"));
 end MixingVolumeSteadyStateMass;

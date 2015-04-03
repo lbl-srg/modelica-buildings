@@ -179,9 +179,7 @@ equation
           points={{0,0},{32,3.91873e-15}},
           color={0,0,0},
           origin={10,-52},
-          rotation=180)}), Diagram(coordinateSystem(preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}}), graphics),
-    Documentation(revisions="<html>
+          rotation=180)}),    Documentation(revisions="<html>
 <ul>
 <li>
 September 24, 2014, by Marco Bonvini:<br/>

@@ -5,7 +5,6 @@ model DynamicLoads "Example that illustrates the use of dynamic loads"
     f=60,
     V=120) "Voltage source" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
-        rotation=0,
         origin={-70,10})));
   Buildings.Electrical.AC.OnePhase.Loads.Capacitive dynRC(
     pf=0.8,
@@ -36,8 +35,6 @@ equation
       color={0,120,120},
       smooth=Smooth.None));
   annotation (experiment(StopTime=1.0, Tolerance=1e-06),
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
-            100}}), graphics),
     Documentation(info="<html>
 <p>
 This model compares two dynamic load models that use the dynamic

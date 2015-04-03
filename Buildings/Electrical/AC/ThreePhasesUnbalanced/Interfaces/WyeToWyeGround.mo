@@ -42,8 +42,7 @@ equation
       smooth=Smooth.None));
   annotation (
   defaultComponentName="y2yg",
-  Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
-            {100,100}}),       graphics), Icon(coordinateSystem(
+ Icon(coordinateSystem(
           preserveAspectRatio=false, extent={{-100,-100},{100,100}}), graphics={
         Line(
           points={{0,40},{0,0},{-30,-30}},

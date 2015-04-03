@@ -261,13 +261,11 @@ model RenewableSources
     "Voltage probe"
     annotation (Placement(transformation(
         extent={{-10,10},{10,-10}},
-        rotation=0,
         origin={90,8})));
   AC.ThreePhasesBalanced.Sensors.Probe sen_b(V_nominal=V_nominal, perUnit=true)
     "Voltage probe"
     annotation (Placement(transformation(
         extent={{-10,10},{10,-10}},
-        rotation=0,
         origin={110,-40})));
   Modelica.Blocks.Continuous.Integrator EWin
     "Energy produced by the wind turbine"

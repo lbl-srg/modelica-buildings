@@ -56,9 +56,6 @@ equation
       smooth=Smooth.None));
   annotation (
   defaultComponentName="pv",
-  Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
-            {100,100}}), graphics), Diagram(coordinateSystem(
-          preserveAspectRatio=false, extent={{-100,-100},{100,100}}), graphics),
     Documentation(revisions="<html>
 <ul>
 <li>

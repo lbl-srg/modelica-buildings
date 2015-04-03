@@ -48,8 +48,7 @@ equation
       points={{-76,0},{-48,0}},
       color={127,0,127},
       smooth=Smooth.None));
-  annotation ( Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}), graphics),
-  experiment(StopTime=1.0,Tolerance=1e-06),
+  annotation (  experiment(StopTime=1.0,Tolerance=1e-06),
   __Dymola_Commands(file=
           "modelica://Buildings/Resources/Scripts/Dymola/Electrical/AC/ThreePhasesUnbalanced/Lines/Examples/ACLine_RL_N.mos"
         "Simulate and plot"),

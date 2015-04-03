@@ -28,8 +28,7 @@ equation
         Connections.potentialRoot(terminal.theta);
       end if;
   end if;
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}}), graphics), Documentation(revisions="<html>
+  annotation ( Documentation(revisions="<html>
 <ul>
 <li>
 May 15, 2014, by Marco Bonvini:<br/>

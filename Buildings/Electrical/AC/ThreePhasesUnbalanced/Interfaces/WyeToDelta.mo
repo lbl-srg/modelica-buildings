@@ -22,8 +22,7 @@ equation
 
   annotation (
   defaultComponentName="y2d",
-  Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
-            {100,100}}),       graphics), Icon(coordinateSystem(
+ Icon(coordinateSystem(
           preserveAspectRatio=false, extent={{-100,-100},{100,100}}), graphics={
         Line(
           points={{-40,-26},{0,34},{40,-26},{-40,-26}},

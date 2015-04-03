@@ -39,7 +39,5 @@ Buildings.Electrical.AC.ThreePhasesUnbalanced.Conversion.ACACTransformerFull</a>
 experiment(Tolerance=1e-05),
 __Dymola_Commands(file=
  "modelica://Buildings/Resources/Scripts/Dymola/Electrical/AC/ThreePhasesUnbalanced/Conversion/Examples/TransformerFull.mos"
-        "Simulate and plot"),
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
-            100,100}}), graphics));
+        "Simulate and plot"));
 end TransformerFull;

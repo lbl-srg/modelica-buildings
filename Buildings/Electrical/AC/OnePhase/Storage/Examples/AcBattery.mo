@@ -58,9 +58,7 @@ equation
       points={{1,70},{66,70},{66,-10},{30,-10},{30,-20}},
       color={0,0,127},
       smooth=Smooth.None));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}}), graphics),
-            experiment(
+  annotation (            experiment(
       StopTime=3600,
       Tolerance=1e-05),
             __Dymola_Commands(file=

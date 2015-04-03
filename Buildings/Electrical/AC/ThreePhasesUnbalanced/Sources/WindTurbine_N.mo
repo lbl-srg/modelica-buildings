@@ -6,8 +6,7 @@ model WindTurbine_N "Simple wind turbine source with neutral cable"
   redeclare Buildings.Electrical.AC.OnePhase.Sources.WindTurbine wt_phase3);
   annotation (
   defaultComponentName="winTur",
-  Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}}), graphics), Documentation(revisions="<html>
+ Documentation(revisions="<html>
 <ul>
 <li>
 August 27, 2014, by Marco Bonvini:<br/>
