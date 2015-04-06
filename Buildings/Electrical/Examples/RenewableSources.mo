@@ -254,19 +254,15 @@ model RenewableSources
         16*3600,0.3; 18*3600,0.2; 20*3600,0.7; 22*3600,0.3; 24*3600,0.2])
     "Power consumption profile for load 7"
     annotation (Placement(transformation(extent={{96,-46},{84,-34}})));
-  AC.ThreePhasesBalanced.Sensors.Probe sen(V_nominal=V_nominal, perUnit=true)
+  AC.ThreePhasesBalanced.Sensors.Probe sen1(V_nominal=V_nominal, perUnit=true)
     "Voltage probe"
     annotation (Placement(transformation(extent={{-70,0},{-50,-20}})));
-  AC.ThreePhasesBalanced.Sensors.Probe sen_a(V_nominal=V_nominal, perUnit=true)
-    "Voltage probe"
-    annotation (Placement(transformation(
-        extent={{-10,10},{10,-10}},
-        origin={90,8})));
-  AC.ThreePhasesBalanced.Sensors.Probe sen_b(V_nominal=V_nominal, perUnit=true)
-    "Voltage probe"
-    annotation (Placement(transformation(
-        extent={{-10,10},{10,-10}},
-        origin={110,-40})));
+  AC.ThreePhasesBalanced.Sensors.Probe sen2(V_nominal=V_nominal, perUnit=true)
+    "Voltage probe" annotation (Placement(transformation(extent={{-10,10},{10,-10}},
+          origin={90,8})));
+  AC.ThreePhasesBalanced.Sensors.Probe sen3(V_nominal=V_nominal, perUnit=true)
+    "Voltage probe" annotation (Placement(transformation(extent={{-10,10},{10,-10}},
+          origin={110,-40})));
   Modelica.Blocks.Continuous.Integrator EWin
     "Energy produced by the wind turbine"
     annotation (Placement(transformation(extent={{200,-14},{220,6}})));
@@ -459,16 +455,16 @@ equation
       points={{80,-40},{83.4,-40}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(sen.term, line1.terminal_p) annotation (Line(
+  connect(sen1.term, line1.terminal_p) annotation (Line(
       points={{-60,-1},{-60,20}},
       color={0,120,120},
       smooth=Smooth.None));
-  connect(sen_a.term, line4.terminal_p) annotation (Line(
+  connect(sen2.term, line4.terminal_p) annotation (Line(
       points={{90,17},{90,20},{80,20}},
       color={0,120,120},
       smooth=Smooth.None));
-  connect(sen_b.term, line8.terminal_p) annotation (Line(
-      points={{110,-31},{110,-32},{110,-32},{110,-32},{110,-10},{100,-10},{100,-10}},
+  connect(sen3.term, line8.terminal_p) annotation (Line(
+      points={{110,-31},{110,-10},{100,-10}},
       color={0,120,120},
       smooth=Smooth.None));
   connect(EWin.u, winTur.P) annotation (Line(
