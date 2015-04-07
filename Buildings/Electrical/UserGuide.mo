@@ -12,7 +12,7 @@ to study building-to-grid integration such as the effect of large scale PV on th
 voltage of the electrical distribution grid.
 The package contains models for different types of sources, loads, storage equipment,
 and transmission lines for electric power. The package contains models that can be used to
-represent DC, AC one-phase, and AC-three phases balanced and unbalanced systems.
+represent DC, AC one-phase, and AC three-phase balanced and unbalanced systems.
 The models can be used to scale from the building level up to the distribution level.
 The models have been successfully validated against the IEEE four nodes test feeder.
 </p>
