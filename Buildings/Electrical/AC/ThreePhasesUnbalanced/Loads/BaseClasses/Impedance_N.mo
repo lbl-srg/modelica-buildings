@@ -6,7 +6,7 @@ partial model Impedance_N
   Interfaces.Terminal4_n terminal "Electrical connector"
     annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
   Interfaces.Connection3to4_n connection3to4
-    "Connection from three phases + neutral to three phases" annotation (Placement(transformation(extent={{-88,-10},{-68,10}})));
+    "Connection from three phases and neutral to three phases" annotation (Placement(transformation(extent={{-88,-10},{-68,10}})));
 equation
 
   connect(connection3to4.terminal3, wyeToDelta.wye) annotation (Line(
