@@ -153,7 +153,7 @@ has been added.
 This package allows studying
 buildings to electrical grid integration. It includes models for loads, transformers,
 cables, batteries, PV and wind turbines.
-Models exist for DC and AC systems with two or three phases that can be balanced and unbalanced.
+Models exist for DC and AC systems with two- or three-phase that can be balanced and unbalanced.
 The models compute voltage, current, active and reactive power
 based on the quasi-stationary assumption or using the dynamic phasorial representation.
 </li>
