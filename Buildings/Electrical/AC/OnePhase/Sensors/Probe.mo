@@ -1,7 +1,7 @@
 within Buildings.Electrical.AC.OnePhase.Sensors;
 model Probe "Model of a probe that measures RMS voltage and angle"
   extends Icons.GeneralizedProbe;
-  parameter Modelica.SIunits.Voltage V_nominal(min=0, start=120)
+  parameter Modelica.SIunits.Voltage V_nominal(min=0, start = 110)
     "Nominal voltage (V_nominal >= 0)";
   parameter Boolean perUnit = true "If true, display voltage in p.u.";
   replaceable Interfaces.Terminal_n term "Electrical connector" annotation (Placement(

@@ -4,7 +4,7 @@ model PVSimple "Simple PV model"
   extends Buildings.Electrical.Interfaces.PartialPV(
     redeclare package PhaseSystem = Buildings.Electrical.PhaseSystems.OnePhase,
     redeclare Interfaces.Terminal_p terminal,
-    V_nominal(start = 120));
+    V_nominal(start = 110));
   parameter Boolean linearized=false
     "If =true, introduce a linearization in the load";
   replaceable Buildings.Electrical.AC.OnePhase.Loads.Capacitive load(

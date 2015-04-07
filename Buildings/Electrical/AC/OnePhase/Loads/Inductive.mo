@@ -3,7 +3,7 @@ model Inductive "Model of an inductive and resistive load"
   extends Buildings.Electrical.Interfaces.InductiveLoad(
     redeclare package PhaseSystem = PhaseSystems.OnePhase,
     redeclare Interfaces.Terminal_n terminal,
-    V_nominal(start=120));
+    V_nominal(start = 110));
 initial equation
   if mode == Buildings.Electrical.Types.Load.FixedZ_dynamic then
     // psi = Z[2]*{P_nominal/V_nominal, 0}/omega;

@@ -3,7 +3,7 @@ model WindTurbine "Simple wind turbine model"
   extends Buildings.Electrical.Interfaces.PartialWindTurbine(
     redeclare package PhaseSystem = Buildings.Electrical.PhaseSystems.OnePhase,
     redeclare Interfaces.Terminal_p terminal,
-    V_nominal(start = 120));
+    V_nominal(start = 110));
 
   parameter Real pf(min=0, max=1) = 0.9 "Power factor"
     annotation (Dialog(group="AC-Conversion"));

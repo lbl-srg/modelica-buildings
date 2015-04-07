@@ -4,7 +4,7 @@ model FixedVoltage "Fixed single phase AC voltage source"
     redeclare package PhaseSystem = PhaseSystems.OnePhase,
     redeclare Interfaces.Terminal_p terminal);
   parameter Modelica.SIunits.Frequency f(start=60) "Frequency of the source";
-  parameter Modelica.SIunits.Voltage V(start=120) "RMS voltage of the source";
+  parameter Modelica.SIunits.Voltage V(start = 110) "RMS voltage of the source";
   parameter Modelica.SIunits.Angle phiSou = 0 "Phase shift of the source";
 protected
   Modelica.SIunits.Angle thetaRel
