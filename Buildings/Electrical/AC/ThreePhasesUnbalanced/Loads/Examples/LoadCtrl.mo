@@ -72,7 +72,7 @@ equation
         "Simulate and plot"),
 Documentation(info="<html>
 <p>
-This example model shows how the voltage controller can act on a three phases unbalanced load.
+This example model shows how the voltage controller can act on a three-phase unbalanced load.
 </p>
 <p>
 This model contains two loads: one with voltage control and one without.

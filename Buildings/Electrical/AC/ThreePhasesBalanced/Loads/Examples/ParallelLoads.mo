@@ -88,7 +88,7 @@ Added documentation and revised the example.
 </ul>
 </html>", info="<html>
 <p>
-This model illustrates the use of the three phases unbalanced load models.
+This model illustrates the use of the three-phase unbalanced load models.
 </p>
 </html>"),
     experiment(Tolerance=1e-05, StopTime=1.0),

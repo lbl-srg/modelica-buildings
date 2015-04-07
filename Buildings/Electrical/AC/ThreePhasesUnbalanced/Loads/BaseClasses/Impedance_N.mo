@@ -1,12 +1,12 @@
 within Buildings.Electrical.AC.ThreePhasesUnbalanced.Loads.BaseClasses;
 partial model Impedance_N
-  "Partial model of a three phases unbalanced impedance with neutral cable"
+  "Partial model of a three-phase unbalanced impedance with neutral cable"
   extends
     Buildings.Electrical.AC.ThreePhasesUnbalanced.Loads.BaseClasses.BaseImpedance;
   Interfaces.Terminal4_n terminal "Electrical connector"
     annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
   Interfaces.Connection3to4_n connection3to4
-    "Connection from three phases and neutral to three phases" annotation (Placement(transformation(extent={{-88,-10},{-68,10}})));
+    "Connection from three-phase and neutral to three-phase" annotation (Placement(transformation(extent={{-88,-10},{-68,10}})));
 equation
 
   connect(connection3to4.terminal3, wyeToDelta.wye) annotation (Line(
@@ -23,7 +23,7 @@ equation
       smooth=Smooth.None));
   annotation (    Documentation(info="<html>
 <p>
-This model represents a partial interface for a three phases AC
+This model represents a partial interface for a three-phase AC
 unbalanced impedance with a neutral cable. The current in the neutral
 cable is computed as the algebraic sum of the currents in the loads.
 </p>

@@ -1,6 +1,6 @@
 within Buildings.Electrical.AC.ThreePhasesUnbalanced.Lines.Examples;
 model ACLineMatrix_RLC
-  "Test model for a three phases unbalanced RLC line specified by Z and B matrices"
+  "Test model for a three-phase unbalanced RLC line specified by Z and B matrices"
   extends Modelica.Icons.Example;
   Sources.FixedVoltage E(
     definiteReference=true,

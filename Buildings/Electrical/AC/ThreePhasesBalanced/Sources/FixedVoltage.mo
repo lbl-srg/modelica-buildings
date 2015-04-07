@@ -1,5 +1,5 @@
 within Buildings.Electrical.AC.ThreePhasesBalanced.Sources;
-model FixedVoltage "Fixed three phases balanced AC voltage source"
+model FixedVoltage "Fixed three-phase balanced AC voltage source"
   extends Buildings.Electrical.AC.OnePhase.Sources.FixedVoltage(
     redeclare Interfaces.Terminal_p terminal,
     f(start=60),

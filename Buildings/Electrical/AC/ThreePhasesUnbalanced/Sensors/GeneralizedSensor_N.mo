@@ -112,7 +112,7 @@ equation
           textString="%name")}),
     Documentation(info="<html>
 <p>
-Ideal sensor that measures power, voltage and current in a three phases unbalanced system
+Ideal sensor that measures power, voltage and current in a three-phase unbalanced system
 with neutral cable.
 The two components of the power <i>S</i> are the active and reactive power for each phase.
 </p>

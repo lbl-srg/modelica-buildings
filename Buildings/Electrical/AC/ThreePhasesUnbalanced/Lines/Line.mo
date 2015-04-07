@@ -110,7 +110,7 @@ Revised documentation and model.
 </ul>
 </html>", info="<html>
 <p>
-This model represents an AC three phases unbalanced cable without
+This model represents an AC three-phase unbalanced cable without
 neutral connection. The model is based on
 <a href=\"Buildings.Electrical.AC.ThreePhasesUnbalanced.Lines.TwoPortRLC\">
 Buildings.Electrical.AC.ThreePhasesUnbalanced.Lines.TwoPortRLC</a>

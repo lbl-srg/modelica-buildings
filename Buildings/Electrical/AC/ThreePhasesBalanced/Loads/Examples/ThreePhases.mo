@@ -1,6 +1,6 @@
 within Buildings.Electrical.AC.ThreePhasesBalanced.Loads.Examples;
 model ThreePhases
-  "Example that provides a comparison between AC one phase and three phases balanced"
+  "Example that provides a comparison between AC one phase and three-phase balanced"
   extends Modelica.Icons.Example;
   Modelica.SIunits.Power errorY=
     sqrt((sen_Y.S[1] - (sen_a.S[1] + sen_b.S[1] + sen_c.S[1]))^2 +
@@ -198,7 +198,7 @@ Added documentation and revised the example.
 </ul>
 </html>", info="<html>
 <p>
-This model illustrates the use of the impedance models and how the three phases balanced model
+This model illustrates the use of the impedance models and how the three-phase balanced model
 can reproduce the same results obtained using three separate one phase circuits.
 </p>
 </html>"),

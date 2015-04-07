@@ -8,7 +8,7 @@ annotation (Documentation(info="<html>
 Package with models for alternate current (AC) three phase unbalanced systems.<br/>
 The models in this package use the models of the package
 <a href=\"modelica://Buildings.Electrical.AC.OnePhase\">
-Buildings.Electrical.AC.OnePhase</a> to fully describe the three phases.
+Buildings.Electrical.AC.OnePhase</a> to fully describe the three-phase.
 </p>
 <p>
 The models that are part of this package assume by default <i>480</i> V

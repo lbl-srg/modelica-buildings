@@ -15,9 +15,9 @@ Revised documentation.
 </ul>
 </html>", info="<html>
 <p>
-Resistive-inductive impedance that connects two AC three phases
+Resistive-inductive impedance that connects two AC three-phase
 balanced interfaces. This model can be used to represent a
-cable in a three phases balanced AC system.
+cable in a three-phase balanced AC system.
 </p>
 <p>
 See model

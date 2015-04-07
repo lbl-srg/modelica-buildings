@@ -1,6 +1,6 @@
 within Buildings.Electrical.AC.ThreePhasesUnbalanced.Lines.Examples;
 model ACLineMatrix_RL_N
-  "Test model for a three phases unbalanced inductive-resistive line with neutral cable specified by a Z matrix"
+  "Test model for a three-phase unbalanced inductive-resistive line with neutral cable specified by a Z matrix"
   extends Modelica.Icons.Example;
   Sources.FixedVoltage_N E(
     definiteReference=true,

@@ -183,7 +183,7 @@ equation
           pattern=LinePattern.None)}),
     Documentation(info="<html>
 <p>
-This model is a partial class extended by three phases unbalanced
+This model is a partial class extended by three-phase unbalanced
 PV power sources.
 </p>
 <p>
@@ -193,7 +193,7 @@ unbalanced configuration.
 </p>
 <p>
 The model has an array <code>areaFraction[3]</code> that is used to determine how
-to partition the power of the PVs on the three phases. By default it is assumed
+to partition the power of the PVs on the three-phase. By default it is assumed
 a uniform partition <code>areaFraction[3] = {1/3, 1/3, 1/3}</code>.
 </p>
 </html>",

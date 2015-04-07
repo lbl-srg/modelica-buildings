@@ -43,7 +43,7 @@ Added model.
 </html>", info="<html>
 <p>
 Adapter from Wye (Y) to Delta (D) connector.
-A three phases unbalanced connector has three AC single phase
+A three-phase unbalanced connector has three AC single phase
 connectors. Each AC single phase connector contains the phase voltage,
 which is measured between the phase and the neutral.
 This model converts the phase voltage to the line voltage, measured between

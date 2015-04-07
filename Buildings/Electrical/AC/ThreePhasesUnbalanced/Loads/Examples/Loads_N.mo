@@ -91,7 +91,7 @@ equation
       smooth=Smooth.None));
   annotation ( Documentation(info="<html>
 <p>
-This example model shows how three phases unbalanced loads with the neutral cable can be used.
+This example model shows how three-phase unbalanced loads with the neutral cable can be used.
 </p>
 <p>
 This model contains three different loads of different type. They start in a balanced configuration

@@ -1,6 +1,6 @@
 within Buildings.Electrical.AC.ThreePhasesUnbalanced.Loads;
 model Impedance
-  "Model of a three phases unbalanced impedance without neutral cable"
+  "Model of a three-phase unbalanced impedance without neutral cable"
   extends BaseClasses.Impedance(
     redeclare Buildings.Electrical.AC.OnePhase.Loads.Impedance load1,
     redeclare Buildings.Electrical.AC.OnePhase.Loads.Impedance load2,
@@ -87,7 +87,7 @@ First implementation.
 </ul>
 </html>", info="<html>
 <p>
-This model represents a three phases unbalanced impedance without neutral cable.
+This model represents a three-phase unbalanced impedance without neutral cable.
 The model extends from
 <a href=\"modelica://Buildings.Electrical.AC.ThreePhasesUnbalanced.Loads.BaseClasses.Impedance\">
 Buildings.Electrical.AC.ThreePhasesUnbalanced.Loads.BaseClasses.Impedance</a>

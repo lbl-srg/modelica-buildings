@@ -167,9 +167,9 @@ Added model.
 </ul>
 </html>", info="<html>
 <p>
-RLC line model (&pi;-model) that connects two AC three phases
+RLC line model (&pi;-model) that connects two AC three-phase
 unbalanced interfaces. This model can be used to represent a
-cable in a three phases unbalanced AC system.
+cable in a three-phase unbalanced AC system.
 </p>
 
 <p align=\"center\">

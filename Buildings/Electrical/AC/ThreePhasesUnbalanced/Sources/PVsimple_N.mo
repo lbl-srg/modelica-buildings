@@ -30,7 +30,7 @@ Revised documentation.
 </ul>
 </html>", info="<html>
 <p>
-Simple PV model for three phases unbalanced systems with neutral cable connection.
+Simple PV model for three-phase unbalanced systems with neutral cable connection.
 </p>
 <p>
 For more information, see

@@ -100,7 +100,7 @@ First implementation.
 </html>", info="<html>
 <p>
 This example shows how different types of sensors and probes can be used
-to measure the voltages, currents and powers in a three phases
+to measure the voltages, currents and powers in a three-phase
 unbalanced system.
 </p>
 <p>

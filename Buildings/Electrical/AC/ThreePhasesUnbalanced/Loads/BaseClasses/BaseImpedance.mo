@@ -1,6 +1,6 @@
 within Buildings.Electrical.AC.ThreePhasesUnbalanced.Loads.BaseClasses;
 partial model BaseImpedance
-  "Partial model of a three phases unbalanced impedance"
+  "Partial model of a three-phase unbalanced impedance"
   extends Buildings.Electrical.Interfaces.PartialPluggableUnbalanced;
   replaceable Buildings.Electrical.AC.OnePhase.Loads.Impedance
     load1(
@@ -215,7 +215,7 @@ equation
 
   annotation (    Documentation(info="<html>
 <p>
-This model represents a partial interface for a three phases AC
+This model represents a partial interface for a three-phase AC
 unbalanced impedance.
 </p>
 <p>

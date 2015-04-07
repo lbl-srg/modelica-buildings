@@ -1,6 +1,6 @@
 within Buildings.Electrical.AC.ThreePhasesUnbalanced.Lines.Examples;
 model ACLine_RL
-  "Test model for a three phases unbalanced inductive-resistive line"
+  "Test model for a three-phase unbalanced inductive-resistive line"
   extends Modelica.Icons.Example;
   parameter Modelica.SIunits.Resistance Rbase = 3*10
     "Base value for the line resistance";

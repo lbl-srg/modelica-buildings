@@ -48,7 +48,7 @@ Revised documentation.
 </ul>
 </html>", info="<html>
 <p>
-This model represents a generalized electrical AC three phases balanced network.
+This model represents a generalized electrical AC three-phase balanced network.
 </p>
 <p>
 See <a href=\"modelica://Buildings.Electrical.Transmission.BaseClasses.PartialNetwork\">

@@ -6,8 +6,8 @@ record PartialPluggableUnbalanced "Partial interface for unbalanced loads"
   annotation (Documentation(info="<html>
 <p>
 This record contains a set of parameters that are used when
-modeling three phases unbalanced systems. The record contains three boolean flags
-that are used to determine which of the three phases are connected to the network.
+modeling three-phase unbalanced systems. The record contains three boolean flags
+that are used to determine which of the three-phase are connected to the network.
 </p>
 </html>", revisions="<html>
 <ul>

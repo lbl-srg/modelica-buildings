@@ -135,7 +135,7 @@ equation
       smooth=Smooth.None));
   annotation ( Documentation(info="<html>
 <p>
-This example model shows how three phases unbalanced loads can be used.
+This example model shows how three-phase unbalanced loads can be used.
 </p>
 <p>
 This model contains two set of loads (one for each type: resistive, inductive and capacitive)

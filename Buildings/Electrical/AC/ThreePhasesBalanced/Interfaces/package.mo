@@ -1,5 +1,5 @@
 within Buildings.Electrical.AC.ThreePhasesBalanced;
-package Interfaces "Package interfaces for three phases balanced AC systems"
+package Interfaces "Package interfaces for three-phase balanced AC systems"
   extends Modelica.Icons.InterfacesPackage;
 
 

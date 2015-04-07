@@ -4,7 +4,7 @@ model UnbalancedPV_N
   extends
     Buildings.Electrical.AC.ThreePhasesUnbalanced.Sources.BaseClasses.BaseUnbalancedPV;
   Interfaces.Terminal4_p terminal
-    "Connector for three phases unbalanced systems with neutral cable"
+    "Connector for three-phase unbalanced systems with neutral cable"
     annotation (Placement(transformation(extent={{90,-10},{110,10}})));
   Interfaces.Connection3to4_p conn3to4 "Connection between 3 to 4 wire"
     annotation (Placement(transformation(
@@ -107,7 +107,7 @@ equation
           pattern=LinePattern.None)}),
     Documentation(info="<html>
 <p>
-This model is a class extended by three phases unbalanced
+This model is a class extended by three-phase unbalanced
 PV power sources with neutral cable connection.
 </p>
 <p>
