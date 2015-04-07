@@ -397,10 +397,6 @@ This allows models to be fully compatible with
 Modelica.Fluid</a>, and it allows the implementation of
 component models that reuse base classes for heat transfer, mass transfer and
 flow resistance.
-The class inheritance is as follows:
-</p>
-<p align=\"center\">
-<img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Fluid/UsersGuide/a60.png\"/>
 </p>
 
 </html>"));
