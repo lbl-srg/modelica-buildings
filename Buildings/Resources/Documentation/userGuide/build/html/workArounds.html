@@ -5,12 +5,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-
+    
     <title>3. Work-Arounds &mdash; Buildings Library User Guide</title>
-
+    
     <link rel="stylesheet" href="_static/sphinxdoc.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-
+    
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
@@ -26,7 +26,7 @@
     <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <link rel="top" title="Buildings Library User Guide" href="index.html" />
     <link rel="next" title="4. Pre- and Post-Processing" href="prePostProcessing.html" />
-    <link rel="prev" title="2. Best Practice" href="bestPractice.html" />
+    <link rel="prev" title="2. Best Practice" href="bestPractice.html" /> 
   </head>
   <body>
 <div class="headerStyle">
@@ -48,9 +48,9 @@
     <li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt;
     <a href="http://simulationresearch.lbl.gov/modelica/userGuide">User Guide</a></li>
     </br>
-<!--
+<!--    
         <li><a href="index.html">Buildings Library User Guide</a> &raquo;</li> -->
-
+ 
       </ul>
     </div>
       <div class="sphinxsidebar">
@@ -101,7 +101,7 @@
       <div class="documentwrapper">
         <div class="bodywrapper">
           <div class="body">
-
+            
   <div class="section" id="work-arounds">
 <h1>3. Work-Arounds<a class="headerlink" href="#work-arounds" title="Permalink to this headline">¶</a></h1>
 <p>This section describes work-arounds that often help if there are problems during the model translation, initialization or simulation.</p>
@@ -148,7 +148,7 @@ closed loop control performance.</p>
 <div class="section" id="breaking-algebraic-loops">
 <h2>3.2. Breaking algebraic loops<a class="headerlink" href="#breaking-algebraic-loops" title="Permalink to this headline">¶</a></h2>
 <p>In fluid flow systems, flow junctions where mass flow rates separate and mix can couple non-linear systems of equations. This leads to larger systems of coupled equations that need to be solved, which often causes larger computing time and can sometimes cause convergence problems.
-To decouple these systems of equations, in the model of a flow splitter or mixer (model <a class="reference external" href="http://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Fluid_FixedResistances.html#Buildings.Fluid.FixedResistances.SplitterFixedResistanceDpM">Buildings.Fluid.FixedResistances.SplitterFixedResistanceDpM</a>), or in models for fans or pumps (such as the model <a class="reference external" href="http://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Fluid_Movers.html#Buildings.Fluid.Movers.FlowMachine_y">Buildings.Fluid.Movers.FlowMachine_y</a>), the parameter <tt class="docutils literal"><span class="pre">dynamicBalance</span></tt> can be set to <tt class="docutils literal"><span class="pre">true</span></tt>. This adds a control volume at the fluid junction that can decouple the system of equations.</p>
+To decouple these systems of equations, in the model of a flow splitter or mixer (model <a class="reference external" href="http://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Fluid_FixedResistances.html#Buildings.Fluid.FixedResistances.SplitterFixedResistanceDpM">Buildings.Fluid.FixedResistances.SplitterFixedResistanceDpM</a>), or in models for fans or pumps (such as the model <a class="reference external" href="http://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Fluid_Movers.html#Buildings.Fluid.Movers.SpeedControlled_y">Buildings.Fluid.Movers.SpeedControlled_y</a>), the parameter <tt class="docutils literal"><span class="pre">dynamicBalance</span></tt> can be set to <tt class="docutils literal"><span class="pre">true</span></tt>. This adds a control volume at the fluid junction that can decouple the system of equations.</p>
 </div>
 <div class="section" id="reducing-nonlinear-equations-of-serially-connected-flow-resistances">
 <h2>3.3. Reducing nonlinear equations of serially connected flow resistances<a class="headerlink" href="#reducing-nonlinear-equations-of-serially-connected-flow-resistances" title="Permalink to this headline">¶</a></h2>
@@ -214,7 +214,7 @@ Thus, the composite model has the same <a class="reference internal" href="gloss
 </div>
 <div class="section" id="prescribed-mass-flow-rate">
 <h2>3.4. Prescribed mass flow rate<a class="headerlink" href="#prescribed-mass-flow-rate" title="Permalink to this headline">¶</a></h2>
-<p>For some system models, the mass flow rate can be prescribed by using an idealized pump or fan (model <a class="reference external" href="http://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Fluid_Movers.html#Buildings.Fluid.Movers.FlowMachine_m_flow">Buildings.Fluid.Movers.FlowMachine_m_flow</a>) or a source element that outputs the required mass flow rate (such as the model <a class="reference external" href="http://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Fluid_Sources.html#Buildings.Fluid.Sources.MassFlowSource_T">Buildings.Fluid.Sources.MassFlowSource_T</a>). Using these models avoids having to compute the intersection of the fan curve and the flow resistance. In some situations, this can lead to faster and more robust simulation.</p>
+<p>For some system models, the mass flow rate can be prescribed by using an idealized pump or fan (model <a class="reference external" href="http://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Fluid_Movers.html#Buildings.Fluid.Movers.FlowControlled_m_flow">Buildings.Fluid.Movers.FlowControlled_m_flow</a>) or a source element that outputs the required mass flow rate (such as the model <a class="reference external" href="http://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Fluid_Sources.html#Buildings.Fluid.Sources.MassFlowSource_T">Buildings.Fluid.Sources.MassFlowSource_T</a>). Using these models avoids having to compute the intersection of the fan curve and the flow resistance. In some situations, this can lead to faster and more robust simulation.</p>
 </div>
 <div class="section" id="avoiding-overspecified-initialization-problems">
 <h2>3.5. Avoiding overspecified initialization problems<a class="headerlink" href="#avoiding-overspecified-initialization-problems" title="Permalink to this headline">¶</a></h2>
@@ -258,9 +258,9 @@ See also the section <a class="reference internal" href="bestPractice.html#refer
     <li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt;
     <a href="http://simulationresearch.lbl.gov/modelica/userGuide">User Guide</a></li>
     </br>
-<!--
+<!--    
         <li><a href="index.html">Buildings Library User Guide</a> &raquo;</li> -->
-
+ 
       </ul>
     </div>
     <div class="footer">
