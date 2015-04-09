@@ -1,0 +1,153 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>Buildings.Fluid.Actuators.Valves.Data</title>
+<meta name="HTML-Generator" content="Dymola">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="description" content="&quot;Data files for valves&quot;">
+<style type="text/css">
+*       { font-size: 10pt; font-family: Arial, sans-serif; }
+.modelica, .modelica * { font-size: 9pt; font-family: Courier, monospace; white-space: pre; }
+h4      { font-size: 10pt; font-weight: bold; color: green; }
+h3      { font-size: 11pt; font-weight: bold; color: green; }
+h2      { font-size: 13pt; font-weight: bold; color: green; }
+address { font-weight: normal; }
+td      { border: 1px solid #808080; vertical-align: top; }
+th      { border: 1px solid #808080; vertical-align: top; font-weight: bold; }
+table   { border: 1px solid #808080; border-collapse: collapse; }
+</style>
+<link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../Resources/www/modelicaDoc.css">
+</HEAD>
+<body>
+<!-- --- header ------ -->
+<div class="headerStyle">
+<img src="../Resources/www/lbl-logo.png" alt="LBL logo"/>
+</div>
+<div class="headerLinks">
+<ul><li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt; <a href="Buildings.html">Modelica</a></li></ul>
+</div>
+<!-- --- end header -- -->
+
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE Data<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><a name="Buildings.Fluid.Actuators.Valves.Data"></a><a href="Buildings_Fluid_Actuators_Valves.html#Buildings.Fluid.Actuators.Valves"
+>Buildings.Fluid.Actuators.Valves</a>.Data</h2>
+<p>
+<b>Data files for valves</b><br>
+</p>
+<h3>Information</h3>
+
+<p>
+This package contains data for the valve
+<a href="Buildings_Fluid_Actuators_Valves.html#Buildings.Fluid.Actuators.Valves.TwoWayTable"
+>
+Buildings.Fluid.Actuators.Valves.TwoWayTable</a>.
+</p>
+
+<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons_MaterialPropertiesPackage.html#Modelica.Icons.MaterialPropertiesPackage"
+>Modelica.Icons.MaterialPropertiesPackage</a> (Icon for package containing property classes).</p>
+<h3>Package Content</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Package Content">
+<tr>
+<th>Name</th>
+<th>Description</th>
+</tr>
+<tr>
+<td><img src="Buildings.Fluid.Actuators4ad9dddb5afafd05nericS.png" alt="Buildings.Fluid.Actuators.Valves.Data.Generic" width="20" height="20" align="top">&nbsp;<a href="Buildings_Fluid_Actuators_Valves_Data.html#Buildings.Fluid.Actuators.Valves.Data.Generic"
+>Generic</a>
+</td>
+<td>Generic record for valve parameters</td>
+</tr>
+<tr>
+<td><img src="Buildings.Fluid.Actuators4ad9dddb5afafd05nericS.png" alt="Buildings.Fluid.Actuators.Valves.Data.Linear" width="20" height="20" align="top">&nbsp;<a href="Buildings_Fluid_Actuators_Valves_Data.html#Buildings.Fluid.Actuators.Valves.Data.Linear"
+>Linear</a>
+</td>
+<td>Linear opening curve</td>
+</tr>
+</table>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE Generic<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Fluid.Actuators4ad9dddb5afafd05nericI.png" alt="Buildings.Fluid.Actuators.Valves.Data.Generic" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Fluid.Actuators.Valves.Data.Generic"></a><a href="Buildings_Fluid_Actuators_Valves_Data.html#Buildings.Fluid.Actuators.Valves.Data"
+>Buildings.Fluid.Actuators.Valves.Data</a>.Generic</h2>
+<p>
+<b>Generic record for valve parameters</b>
+</p>
+<h3>Information</h3>
+
+<p>
+This is a generic record for the normalized volume flow
+rates for different valve opening positions.
+See the documentation of
+<a href="Buildings_Fluid_Actuators_Valves_Data.html#Buildings.Fluid.Actuators.Valves.Data"
+>
+Buildings.Fluid.Actuators.Valves.Data</a>
+for how to use this record.
+</p>
+
+<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Record"
+>Modelica.Icons.Record</a> (Icon for records).</p>
+<h3>Parameters</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td>Real</td><td>y[:]</td><td>&nbsp;</td><td>Valve position, starting with 0 and ending with 1</td></tr>
+<tr><td>Real</td><td>phi[size(y, 1)]</td><td>&nbsp;</td><td>Normalized volume flow rates for the positions y</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">record</span> Generic <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Generic record for valve parameters&quot;</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Record"
+>Modelica.Icons.Record</a>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Real y[:](<span style="color: blue; font-weight: normal; font-style: normal;">each </span>min=0, <span style="color: blue; font-weight: normal; font-style: normal;">each </span>max=1) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Valve position, starting with 0 and ending with 1&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Real phi[<span style="color: red; font-weight: normal; font-style: normal;">size</span>(y,1)](<span style="color: blue; font-weight: normal; font-style: normal;">each </span>min=0, <span style="color: blue; font-weight: normal; font-style: normal;">each </span>max=1) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Normalized volume flow rates for the positions y&quot;</span>;
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>Generic;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE Linear<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Fluid.Actuators4ad9dddb5afafd05nericI.png" alt="Buildings.Fluid.Actuators.Valves.Data.Linear" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Fluid.Actuators.Valves.Data.Linear"></a><a href="Buildings_Fluid_Actuators_Valves_Data.html#Buildings.Fluid.Actuators.Valves.Data"
+>Buildings.Fluid.Actuators.Valves.Data</a>.Linear</h2>
+<p>
+<b>Linear opening curve</b>
+</p>
+<h3>Information</h3>
+
+<p>
+Linear valve opening characteristics with
+a normalized leakage flow rate of <i>0.0001</i>.
+</p>
+<p>
+<b>Note</b>: This record is only for demonstration,
+as the implementation in
+<a href="Buildings_Fluid_Actuators_Valves.html#Buildings.Fluid.Actuators.Valves.TwoWayLinear"
+>
+Buildings.Fluid.Actuators.Valves.TwoWayLinear</a>
+is more efficient.
+</p>
+
+<p>Extends from <a href="Buildings_Fluid_Actuators_Valves_Data.html#Buildings.Fluid.Actuators.Valves.Data.Generic"
+>Generic</a> (Generic record for valve parameters).</p>
+<h3>Parameters</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td>Real</td><td>y[:]</td><td>{0,1}</td><td>Valve position, starting with 0 and ending with 1</td></tr>
+<tr><td>Real</td><td>phi[size(y, 1)]</td><td>{0.0001,1}</td><td>Normalized volume flow rates for the positions y</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">record</span> Linear = <a href="Buildings_Fluid_Actuators_Valves_Data.html#Buildings.Fluid.Actuators.Valves.Data.Generic"
+>Generic</a> (
+    y =  {0, 1},
+    phi = {0.0001, 1}) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Linear opening curve&quot;</span>;
+</div>
+<hr>
+<address>
+<a href="http://www.3ds.com/">Automatically generated</a> Thu Apr  9 09:34:27 2015.
+</address>
+</body>
+</html>

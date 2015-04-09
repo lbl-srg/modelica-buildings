@@ -1,0 +1,634 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>Buildings.Fluid.Movers.Examples</title>
+<meta name="HTML-Generator" content="Dymola">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="description" content="&quot;Collection of models that illustrate model use and test models&quot;">
+<style type="text/css">
+*       { font-size: 10pt; font-family: Arial, sans-serif; }
+.modelica, .modelica * { font-size: 9pt; font-family: Courier, monospace; white-space: pre; }
+h4      { font-size: 10pt; font-weight: bold; color: green; }
+h3      { font-size: 11pt; font-weight: bold; color: green; }
+h2      { font-size: 13pt; font-weight: bold; color: green; }
+address { font-weight: normal; }
+td      { border: 1px solid #808080; vertical-align: top; }
+th      { border: 1px solid #808080; vertical-align: top; font-weight: bold; }
+table   { border: 1px solid #808080; border-collapse: collapse; }
+</style>
+<link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../Resources/www/modelicaDoc.css">
+</HEAD>
+<body>
+<!-- --- header ------ -->
+<div class="headerStyle">
+<img src="../Resources/www/lbl-logo.png" alt="LBL logo"/>
+</div>
+<div class="headerLinks">
+<ul><li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt; <a href="Buildings.html">Modelica</a></li></ul>
+</div>
+<!-- --- end header -- -->
+
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE Examples<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><a name="Buildings.Fluid.Movers.Examples"></a><a href="Buildings_Fluid_Movers.html#Buildings.Fluid.Movers"
+>Buildings.Fluid.Movers</a>.Examples</h2>
+<p>
+<b>Collection of models that illustrate model use and test models</b><br>
+</p>
+<h3>Information</h3>
+
+<p>
+This package contains examples for the use of models that can be found in
+<a href="Buildings_Fluid_Movers.html#Buildings.Fluid.Movers"
+>
+Buildings.Fluid.Movers</a>.
+</p>
+
+<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons_ExamplesPackage.html#Modelica.Icons.ExamplesPackage"
+>Modelica.Icons.ExamplesPackage</a> (Icon for packages containing runnable examples).</p>
+<h3>Package Content</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Package Content">
+<tr>
+<th>Name</th>
+<th>Description</th>
+</tr>
+<tr>
+<td><img src="Buildings.Fluid.Movers.Ex486ea5aab9be82c4oop_yS.png" alt="Buildings.Fluid.Movers.Examples.ClosedLoop_y" width="20" height="20" align="top">&nbsp;<a href="Buildings_Fluid_Movers_Examples.html#Buildings.Fluid.Movers.Examples.ClosedLoop_y"
+>ClosedLoop_y</a>
+</td>
+<td>Flow machine with feedback control</td>
+</tr>
+<tr>
+<td><img src="Buildings.Fluid.Movers.Ex486ea5aab9be82c4oop_yS.png" alt="Buildings.Fluid.Movers.Examples.PumpsParallel" width="20" height="20" align="top">&nbsp;<a href="Buildings_Fluid_Movers_Examples.html#Buildings.Fluid.Movers.Examples.PumpsParallel"
+>PumpsParallel</a>
+</td>
+<td>Two flow machines in parallel</td>
+</tr>
+<tr>
+<td><img src="Buildings.Fluid.Movers.Ex486ea5aab9be82c4oop_yS.png" alt="Buildings.Fluid.Movers.Examples.PumpsSeries" width="20" height="20" align="top">&nbsp;<a href="Buildings_Fluid_Movers_Examples.html#Buildings.Fluid.Movers.Examples.PumpsSeries"
+>PumpsSeries</a>
+</td>
+<td>Two flow machines in series</td>
+</tr>
+<tr>
+<td><img src="Buildings.Fluid.Movers.Ex486ea5aab9be82c4oop_yS.png" alt="Buildings.Fluid.Movers.Examples.SpeedControlled_y_pumpCurves" width="20" height="20" align="top">&nbsp;<a href="Buildings_Fluid_Movers_Examples.html#Buildings.Fluid.Movers.Examples.SpeedControlled_y_pumpCurves"
+>SpeedControlled_y_pumpCurves</a>
+</td>
+<td>Pumps that illustrates the use of the pump curves</td>
+</tr>
+</table>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE ClosedLoop_y<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Fluid.Movers.Ex486ea5aab9be82c4oop_yI.png" alt="Buildings.Fluid.Movers.Examples.ClosedLoop_y" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Fluid.Movers.Examples.ClosedLoop_y"></a><a href="Buildings_Fluid_Movers_Examples.html#Buildings.Fluid.Movers.Examples"
+>Buildings.Fluid.Movers.Examples</a>.ClosedLoop_y</h2>
+<p>
+<b>Flow machine with feedback control</b>
+<br>
+<br><img src="Buildings.Fluid.Movers.Ex486ea5aab9be82c4oop_yD.png" alt="Buildings.Fluid.Movers.Examples.ClosedLoop_y">
+</p>
+<h3>Information</h3>
+
+<p>
+This example demonstrates the use of a fan with closed loop control.
+The fan is controlled to track a required mass flow rate.
+</p>
+
+<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</a> (Icon for runnable examples).</p>
+<h3>Parameters</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+>MassFlowRate</a></td><td>m_flow_nominal</td><td>0.1</td><td>Nominal mass flow rate [kg/s]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
+>Pressure</a></td><td>dp_nominal</td><td>500</td><td>Nominal pressure difference [Pa]</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">model</span> ClosedLoop_y <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Flow machine with feedback control&quot;</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</a>;
+
+  <span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = <a href="Buildings_Media_Air.html#Buildings.Media.Air"
+>Buildings.Media.Air</a>;
+
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+>Modelica.SIunits.MassFlowRate</a> m_flow_nominal= 0.1 <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Nominal mass flow rate&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
+>Modelica.SIunits.Pressure</a> dp_nominal = 500 <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Nominal pressure difference&quot;</span>;
+
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Pulse"
+>Modelica.Blocks.Sources.Pulse</a> y(
+    offset=0.25,
+    startTime=0,
+    amplitude=0.5,
+    period=15*60) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Input signal&quot;</span>;
+  <a href="Buildings_Fluid_Sources.html#Buildings.Fluid.Sources.Boundary_pT"
+>Buildings.Fluid.Sources.Boundary_pT</a> sou(
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = Medium,
+    use_p_in=false,
+    p=101325,
+    T=293.15,
+    nPorts=2);
+  <a href="Buildings_Fluid_FixedResistances.html#Buildings.Fluid.FixedResistances.FixedResistanceDpM"
+>FixedResistances.FixedResistanceDpM</a> dp1(
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = Medium,
+    m_flow_nominal=m_flow_nominal,
+    dp_nominal=dp_nominal/2) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Pressure drop&quot;</span>;
+  <a href="Buildings_Fluid_FixedResistances.html#Buildings.Fluid.FixedResistances.FixedResistanceDpM"
+>Buildings.Fluid.FixedResistances.FixedResistanceDpM</a> dp2(
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = Medium,
+    m_flow_nominal=m_flow_nominal,
+    dp_nominal=dp_nominal/2) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Pressure drop&quot;</span>;
+  <a href="Buildings_Fluid_Movers.html#Buildings.Fluid.Movers.SpeedControlled_y"
+>Buildings.Fluid.Movers.SpeedControlled_y</a> fan(
+      <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = Medium,
+      per(pressure(V_flow={0,m_flow_nominal,2*m_flow_nominal}/1.2,
+                   dp={2*dp_nominal,dp_nominal,0})),
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Fan&quot;</span>;
+  <a href="Buildings_Fluid_Sensors.html#Buildings.Fluid.Sensors.MassFlowRate"
+>Buildings.Fluid.Sensors.MassFlowRate</a> senMasFlo(<span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium =
+        Medium);
+  <a href="Buildings_Controls_Continuous.html#Buildings.Controls.Continuous.LimPID"
+>Buildings.Controls.Continuous.LimPID</a> conPID(
+    Td=1,
+    controllerType=Modelica.Blocks.Types.SimpleController.PI,
+    k=0.5,
+    Ti=15);
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Math.html#Modelica.Blocks.Math.Gain"
+>Modelica.Blocks.Math.Gain</a> gain1(k=1/m_flow_nominal);
+<span style="color: blue; font-weight: normal; font-style: normal;">equation </span>
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(sou.ports[1], senMasFlo.port_a);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(senMasFlo.port_b, dp1.port_a);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(dp1.port_b, fan.port_a);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(fan.port_b, dp2.port_a);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(dp2.port_b, sou.ports[2]);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(senMasFlo.m_flow, gain1.u);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(gain1.y, conPID.u_m);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(y.y, conPID.u_s);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(conPID.y, fan.y);
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>ClosedLoop_y;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE PumpsParallel<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Fluid.Movers.Ex486ea5aab9be82c4oop_yI.png" alt="Buildings.Fluid.Movers.Examples.PumpsParallel" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Fluid.Movers.Examples.PumpsParallel"></a><a href="Buildings_Fluid_Movers_Examples.html#Buildings.Fluid.Movers.Examples"
+>Buildings.Fluid.Movers.Examples</a>.PumpsParallel</h2>
+<p>
+<b>Two flow machines in parallel</b>
+<br>
+<br><img src="Buildings.Fluid.Movers.Ex7ec604f671b6e0d3allelD.png" alt="Buildings.Fluid.Movers.Examples.PumpsParallel">
+</p>
+<h3>Information</h3>
+
+This example tests the configuration of two flow machines that are installed in parallel.
+Both flow machines start with full speed.
+At <i>t=150</i> second, the speed of the flow machine on the top is reduced to zero.
+As its speed is reduced, the mass flow rate changes its direction in such a way that the flow machine
+at the top has reverse flow.
+
+<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</a> (Icon for runnable examples).</p>
+<h3>Parameters</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+>MassFlowRate</a></td><td>m_flow_nominal</td><td>1</td><td>Nominal mass flow rate [kg/s]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Density"
+>Density</a></td><td>rho_nominal</td><td>1000</td><td>Density, used to compute fluid mass [kg/m3]</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">model</span> PumpsParallel <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Two flow machines in parallel&quot;</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</a>;
+
+  <span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = <a href="Buildings_Media_Water.html#Buildings.Media.Water"
+>Buildings.Media.Water</a> <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Medium model&quot;</span>;
+
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+>Modelica.SIunits.MassFlowRate</a> m_flow_nominal= 1 <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Nominal mass flow rate&quot;</span>;
+
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Density"
+>Modelica.SIunits.Density</a> rho_nominal=1000 <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Density, used to compute fluid mass&quot;</span>;
+
+  <a href="Buildings_Fluid_FixedResistances.html#Buildings.Fluid.FixedResistances.FixedResistanceDpM"
+>Buildings.Fluid.FixedResistances.FixedResistanceDpM</a> dpIn1(
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = Medium,
+    dp_nominal=1000,
+    m_flow_nominal=0.5*m_flow_nominal) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Pressure drop&quot;</span>;
+  <a href="Buildings_Fluid_Movers.html#Buildings.Fluid.Movers.SpeedControlled_y"
+>Buildings.Fluid.Movers.SpeedControlled_y</a> floMac1(
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = Medium,
+    per(pressure(V_flow={0, m_flow_nominal/rho_nominal}, dp={2*4*1000, 0})),
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Model of a flow machine&quot;</span>;
+
+  <a href="Buildings_Fluid_FixedResistances.html#Buildings.Fluid.FixedResistances.FixedResistanceDpM"
+>Buildings.Fluid.FixedResistances.FixedResistanceDpM</a> dpOut1(
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = Medium,
+    dp_nominal=1000,
+    m_flow_nominal=0.5*m_flow_nominal) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Pressure drop&quot;</span>;
+  <a href="Buildings_Fluid_Sources.html#Buildings.Fluid.Sources.Boundary_pT"
+>Buildings.Fluid.Sources.Boundary_pT</a> sou(
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = Medium,
+    use_p_in=false,
+    nPorts=2,
+    T=293.15);
+
+  <a href="Buildings_Fluid_FixedResistances.html#Buildings.Fluid.FixedResistances.FixedResistanceDpM"
+>Buildings.Fluid.FixedResistances.FixedResistanceDpM</a> dpIn(
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = Medium,
+    m_flow_nominal=m_flow_nominal,
+    dp_nominal=1000) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Pressure drop&quot;</span>;
+  <a href="Buildings_Fluid_FixedResistances.html#Buildings.Fluid.FixedResistances.FixedResistanceDpM"
+>Buildings.Fluid.FixedResistances.FixedResistanceDpM</a> dpOut3(
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = Medium,
+    m_flow_nominal=m_flow_nominal,
+    dp_nominal=1000) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Pressure drop&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+>Modelica.Blocks.Sources.Constant</a> const2(k=1) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Constant source&quot;</span>;
+
+  <a href="Buildings_Fluid_FixedResistances.html#Buildings.Fluid.FixedResistances.FixedResistanceDpM"
+>Buildings.Fluid.FixedResistances.FixedResistanceDpM</a> dpIn2(
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = Medium,
+    dp_nominal=1000,
+    m_flow_nominal=0.5*m_flow_nominal) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Pressure drop&quot;</span>;
+  <a href="Buildings_Fluid_Movers.html#Buildings.Fluid.Movers.SpeedControlled_y"
+>Buildings.Fluid.Movers.SpeedControlled_y</a> floMac2(
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = Medium,
+    per(pressure(V_flow={0, m_flow_nominal/rho_nominal}, dp={2*4*1000, 0})),
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Model of a flow machine&quot;</span>;
+  <a href="Buildings_Fluid_FixedResistances.html#Buildings.Fluid.FixedResistances.FixedResistanceDpM"
+>Buildings.Fluid.FixedResistances.FixedResistanceDpM</a> dpOut2(
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = Medium,
+    dp_nominal=1000,
+    m_flow_nominal=0.5*m_flow_nominal) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Pressure drop&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Step"
+>Modelica.Blocks.Sources.Step</a> const1(
+    height=-1,
+    offset=1,
+    startTime=150);
+<span style="color: blue; font-weight: normal; font-style: normal;">equation </span>
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(dpIn1.port_b, floMac1.port_a);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(floMac1.port_b, dpOut1.port_a);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(sou.ports[1], dpIn.port_a);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(dpIn.port_b, dpIn1.port_a);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(dpOut1.port_b, dpOut3.port_a);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(dpOut3.port_b, sou.ports[2]);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(dpIn2.port_b,floMac2. port_a);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(floMac2.port_b,dpOut2. port_a);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(const2.y, floMac2.y);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(dpIn.port_b, dpIn2.port_a);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(dpOut2.port_b, dpOut3.port_a);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(const1.y, floMac1.y);
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>PumpsParallel;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE PumpsSeries<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Fluid.Movers.Ex486ea5aab9be82c4oop_yI.png" alt="Buildings.Fluid.Movers.Examples.PumpsSeries" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Fluid.Movers.Examples.PumpsSeries"></a><a href="Buildings_Fluid_Movers_Examples.html#Buildings.Fluid.Movers.Examples"
+>Buildings.Fluid.Movers.Examples</a>.PumpsSeries</h2>
+<p>
+<b>Two flow machines in series</b>
+<br>
+<br><img src="Buildings.Fluid.Movers.Exc7edca1a029c4c84eriesD.png" alt="Buildings.Fluid.Movers.Examples.PumpsSeries">
+</p>
+<h3>Information</h3>
+
+This example tests the configuration of two flow machines that are installed in series.
+Both flow machines start with full speed.
+At <i>t=150</i> seconds, the speed of the flow machine on the left is reduced to zero.
+As its speed is reduced, the mass flow rate is reduced. Note that even at zero input, the mass flow rate is non-zero,
+but the pressure drop of the pump <code>floMac1.dp</code> is positive, which means that this pump has a flow resistance.
+However, <code>flowMac2.dp</code> is always negative, as this pump has a constant control input of 1.
+
+<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</a> (Icon for runnable examples).</p>
+<h3>Parameters</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+>MassFlowRate</a></td><td>m_flow_nominal</td><td>1</td><td>Nominal mass flow rate [kg/s]</td></tr>
+<tr><td><a href="Buildings_Media_Water.html#Buildings.Media.Water.ThermodynamicState"
+>ThermodynamicState</a></td><td>state_start</td><td>Medium.setState_pTX(T=Medium...</td><td>Start state</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Density"
+>Density</a></td><td>rho_nominal</td><td>Medium.density(state_start)</td><td>Density, used to compute fluid mass [kg/m3]</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">model</span> PumpsSeries <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Two flow machines in series&quot;</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</a>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = <a href="Buildings_Media_Water.html#Buildings.Media.Water"
+>Buildings.Media.Water</a>;
+
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+>Modelica.SIunits.MassFlowRate</a> m_flow_nominal=
+     1 <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Nominal mass flow rate&quot;</span>;
+
+  <a href="Buildings_Fluid_Movers.html#Buildings.Fluid.Movers.SpeedControlled_y"
+>Buildings.Fluid.Movers.SpeedControlled_y</a> floMac1(
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = Medium,
+    per(pressure(V_flow={0, m_flow_nominal/1000}, dp={2*4*1000, 0})),
+    dynamicBalance=false) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Model of a flow machine&quot;</span>;
+
+  <a href="Buildings_Fluid_Sources.html#Buildings.Fluid.Sources.Boundary_pT"
+>Buildings.Fluid.Sources.Boundary_pT</a> sou(
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = Medium,
+    use_p_in=false,
+    p(displayUnit=&quot;Pa&quot;) = 300000,
+    T=293.15,
+    nPorts=1);
+
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+>Modelica.Blocks.Sources.Constant</a> const2(k=1);
+
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="Buildings_Media_Water.html#Buildings.Media.Water.ThermodynamicState"
+>Medium.ThermodynamicState</a> state_start =<span style="color: red; font-weight: normal; font-style: normal;"> Medium.setState_pTX</span>(
+      T=Medium.T_default,
+      p=Medium.p_default,
+      X=Medium.X_default) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Start state&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Density"
+>Modelica.SIunits.Density</a> rho_nominal=<span style="color: red; font-weight: normal; font-style: normal;">Medium.density</span>(
+     state_start) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Density, used to compute fluid mass&quot;</span>;
+
+  <a href="Buildings_Fluid_Movers.html#Buildings.Fluid.Movers.SpeedControlled_y"
+>Buildings.Fluid.Movers.SpeedControlled_y</a> floMac2(
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = Medium,
+    per(pressure(V_flow={0, m_flow_nominal/1000}, dp={2*4*1000, 0})),
+    dynamicBalance=false) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Model of a flow machine&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Step"
+>Modelica.Blocks.Sources.Step</a> const1(
+    height=-1,
+    offset=1,
+    startTime=150);
+  <a href="Buildings_Fluid_Sources.html#Buildings.Fluid.Sources.Boundary_pT"
+>Buildings.Fluid.Sources.Boundary_pT</a> sou1(
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = Medium,
+    use_p_in=false,
+    p(displayUnit=&quot;Pa&quot;) = 300000 + 4000,
+    T=293.15,
+    nPorts=1);
+<span style="color: blue; font-weight: normal; font-style: normal;">equation </span>
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(const2.y, floMac2.y);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(const1.y, floMac1.y);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(floMac1.port_b, floMac2.port_a);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(sou.ports[1], floMac1.port_a);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(floMac2.port_b, sou1.ports[1]);
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>PumpsSeries;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE SpeedControlled_y_pumpCurves<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Fluid.Movers.Ex486ea5aab9be82c4oop_yI.png" alt="Buildings.Fluid.Movers.Examples.SpeedControlled_y_pumpCurves" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Fluid.Movers.Examples.SpeedControlled_y_pumpCurves"></a><a href="Buildings_Fluid_Movers_Examples.html#Buildings.Fluid.Movers.Examples"
+>Buildings.Fluid.Movers.Examples</a>.SpeedControlled_y_pumpCurves</h2>
+<p>
+<b>Pumps that illustrates the use of the pump curves</b>
+<br>
+<br><img src="Buildings.Fluid.Movers.Ex7ce938f81648ecf8urvesD.png" alt="Buildings.Fluid.Movers.Examples.SpeedControlled_y_pumpCurves">
+</p>
+<h3>Information</h3>
+
+<p>
+This example demonstrates how the pump curves changes for different (constant) input
+signal <code>y</code>.
+If <code>y &ge; delta = 0.05</code>, the pump curves are polynomials.
+For <code>y &lt; delta = 0.05</code>, the pump curves convert to linear functions to
+avoid a singularity at the origin.
+</p>
+
+<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</a> (Icon for runnable examples).</p>
+<h3>Parameters</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+>MassFlowRate</a></td><td>m_flow_nominal</td><td>0.5</td><td>Nominal mass flow rate [kg/s]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
+>Pressure</a></td><td>dp_nominal</td><td>10000</td><td>Nominal pressure [Pa]</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">model</span> SpeedControlled_y_pumpCurves <span style="color: #006400; font-weight: normal; font-style: normal;">
+  &quot;Pumps that illustrates the use of the pump curves&quot;</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</a>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = <a href="Buildings_Media_Water.html#Buildings.Media.Water"
+>Buildings.Media.Water</a> <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Medium model&quot;</span>;
+
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+>Modelica.SIunits.MassFlowRate</a> m_flow_nominal = 0.5 <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Nominal mass flow rate&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
+>Modelica.SIunits.Pressure</a> dp_nominal = 10000 <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Nominal pressure&quot;</span>;
+
+   <span style="color: blue; font-weight: normal; font-style: normal;">model</span> pumpModel = <a href="Buildings_Fluid_Movers.html#Buildings.Fluid.Movers.SpeedControlled_y"
+>Buildings.Fluid.Movers.SpeedControlled_y</a> (
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = Medium,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
+    dynamicBalance=false,
+    per(pressure(V_flow=2/1000*m_flow_nominal*{0.2, 0.4, 0.6, 0.8},
+                  dp=dp_nominal*{0.9, 0.85, 0.6, 0.2}))) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Declaration of pump model&quot;</span>;
+
+  <a href="Buildings_Fluid_Movers_Examples.html#Buildings.Fluid.Movers.Examples.SpeedControlled_y_pumpCurves.pumpModel"
+>pumpModel</a> pum(filteredSpeed=false) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Pump&quot;</span>;
+  <a href="Buildings_Fluid_Movers_Examples.html#Buildings.Fluid.Movers.Examples.SpeedControlled_y_pumpCurves.pumpModel"
+>pumpModel</a> pum1(filteredSpeed=false) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Pump&quot;</span>;
+  <a href="Buildings_Fluid_Movers_Examples.html#Buildings.Fluid.Movers.Examples.SpeedControlled_y_pumpCurves.pumpModel"
+>pumpModel</a> pum2(filteredSpeed=false) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Pump&quot;</span>;
+  <a href="Buildings_Fluid_Movers_Examples.html#Buildings.Fluid.Movers.Examples.SpeedControlled_y_pumpCurves.pumpModel"
+>pumpModel</a> pum3(filteredSpeed=false) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Pump&quot;</span>;
+
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Ramp"
+>Modelica.Blocks.Sources.Ramp</a> y(
+    offset=1,
+    duration=0.5,
+    startTime=0.25,
+    height=-1) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Input signal&quot;</span>;
+  <a href="Buildings_Fluid_Sources.html#Buildings.Fluid.Sources.Boundary_pT"
+>Buildings.Fluid.Sources.Boundary_pT</a> sou(
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = Medium,
+    use_p_in=false,
+    p=300000,
+    T=293.15,
+    nPorts=4);
+
+  <a href="Buildings_Fluid_Sources.html#Buildings.Fluid.Sources.Boundary_pT"
+>Buildings.Fluid.Sources.Boundary_pT</a> sou1(
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = Medium,
+    use_p_in=false,
+    nPorts=4,
+    p(displayUnit=&quot;Pa&quot;) = 300000,
+    T=293.15);
+  <a href="Buildings_Fluid_Actuators_Valves.html#Buildings.Fluid.Actuators.Valves.TwoWayLinear"
+>Buildings.Fluid.Actuators.Valves.TwoWayLinear</a> dp1(
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = Medium,
+    m_flow_nominal=m_flow_nominal,
+    dpValve_nominal=0.01*dp_nominal,
+    filteredOpening=false) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Pressure drop&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+>Modelica.Blocks.Sources.Constant</a>
+                               y1(k=1) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Input signal&quot;</span>;
+
+  <a href="Buildings_Fluid_Actuators_Valves.html#Buildings.Fluid.Actuators.Valves.TwoWayLinear"
+>Buildings.Fluid.Actuators.Valves.TwoWayLinear</a> dp2(
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = Medium,
+    m_flow_nominal=m_flow_nominal,
+    dpValve_nominal=0.01*dp_nominal,
+    filteredOpening=false) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Pressure drop&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+>Modelica.Blocks.Sources.Constant</a>
+                               y2(k=0.5) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Input signal&quot;</span>;
+
+  <a href="Buildings_Fluid_Actuators_Valves.html#Buildings.Fluid.Actuators.Valves.TwoWayLinear"
+>Buildings.Fluid.Actuators.Valves.TwoWayLinear</a> dp3(
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = Medium,
+    m_flow_nominal=m_flow_nominal,
+    dpValve_nominal=0.01*dp_nominal,
+    filteredOpening=false) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Pressure drop&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+>Modelica.Blocks.Sources.Constant</a>
+                               y3(k=0.05) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Input signal&quot;</span>;
+  <a href="Buildings_Fluid_Actuators_Valves.html#Buildings.Fluid.Actuators.Valves.TwoWayLinear"
+>Buildings.Fluid.Actuators.Valves.TwoWayLinear</a> dp4(
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = Medium,
+    m_flow_nominal=m_flow_nominal,
+    dpValve_nominal=0.01*dp_nominal,
+    filteredOpening=false) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Pressure drop&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+>Modelica.Blocks.Sources.Constant</a>
+                               y4(k=0.01) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Input signal&quot;</span>;
+<span style="color: blue; font-weight: normal; font-style: normal;">equation </span>
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(dp1.port_b, pum.port_a);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(dp1.port_a, sou.ports[1]);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(y1.y, pum.y);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(y.y, dp1.y);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(dp2.port_b, pum1.port_a);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(y.y,dp2. y);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(sou.ports[2], dp2.port_a);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(y2.y, pum1.y);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(dp3.port_b, pum2.port_a);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(y.y,dp3. y);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(y3.y, pum2.y);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(dp3.port_a, sou.ports[3]);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(dp4.port_b, pum3.port_a);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(y.y,dp4. y);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(y4.y, pum3.y);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(dp4.port_a, sou.ports[4]);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(pum3.port_b, sou1.ports[1]);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(pum2.port_b, sou1.ports[2]);
+
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(pum1.port_b, sou1.ports[3]);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(pum.port_b, sou1.ports[4]);
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>SpeedControlled_y_pumpCurves;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE pumpModel<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Fluid.Movers.Ex1ba66cdf9703f642ModelI.png" alt="Buildings.Fluid.Movers.Examples.SpeedControlled_y_pumpCurves.pumpModel" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Fluid.Movers.Examples.SpeedControlled_y_pumpCurves.pumpModel"></a><a href="Buildings_Fluid_Movers_Examples.html#Buildings.Fluid.Movers.Examples.SpeedControlled_y_pumpCurves"
+>Buildings.Fluid.Movers.Examples.SpeedControlled_y_pumpCurves</a>.pumpModel</h2>
+<p>
+<b>Declaration of pump model</b>
+<br>
+<br><img src="Buildings.Fluid.Movers.Ex1ba66cdf9703f642ModelD.png" alt="Buildings.Fluid.Movers.Examples.SpeedControlled_y_pumpCurves.pumpModel">
+</p>
+<h3>Parameters</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td colspan="2">replaceable package Medium</td><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium"
+>PartialMedium</a></td><td>Medium in the component</td></tr>
+<tr><td>Boolean</td><td>addPowerToMedium</td><td>true</td><td>Set to false to avoid any power (=heat and flow work) being added to medium (may give simpler equations)</td></tr>
+<tr style="background-color: #e0e0e0"><td colspan="4">Initialization</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+>MassFlowRate</a></td><td>m_flow.start</td><td>0</td><td>Mass flow rate from port_a to port_b (m_flow &gt; 0 is design flow direction) [kg/s]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
+>Pressure</a></td><td>dp.start</td><td>0</td><td>Pressure difference between port_a and port_b [Pa]</td></tr>
+<tr><td>Real</td><td>r_V.start</td><td>1</td><td>Ratio V_flow/V_flow_max [1]</td></tr>
+<tr style="background-color: #e0e0e0"><td colspan="4">Characteristics</td></tr>
+<tr><td>Boolean</td><td>use_powerCharacteristic</td><td>false</td><td>Use powerCharacteristic (vs. efficiencyCharacteristic)</td></tr>
+<tr><td>Boolean</td><td>motorCooledByFluid</td><td>true</td><td>If true (and if addPowerToMedium = true), then motor heat is added to fluid stream</td></tr>
+<tr style="background-color: #c0c0c0"><td colspan="4"><b>Dynamics</b></td></tr>
+<tr style="background-color: #e0e0e0"><td colspan="4">Equations</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Fluid_Types.html#Modelica.Fluid.Types.Dynamics"
+>Dynamics</a></td><td>energyDynamics</td><td>Modelica.Fluid.Types.Dynamic...</td><td>Formulation of energy balance</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Fluid_Types.html#Modelica.Fluid.Types.Dynamics"
+>Dynamics</a></td><td>massDynamics</td><td>energyDynamics</td><td>Formulation of mass balance</td></tr>
+<tr><td>Boolean</td><td>dynamicBalance</td><td>false</td><td>Set to true to use a dynamic balance, which often leads to smaller systems of equations</td></tr>
+<tr style="background-color: #e0e0e0"><td colspan="4">Nominal condition</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Time"
+>Time</a></td><td>tau</td><td>1</td><td>Time constant of fluid volume for nominal flow, used if dynamicBalance=true [s]</td></tr>
+<tr style="background-color: #e0e0e0"><td colspan="4">Filtered speed</td></tr>
+<tr><td>Boolean</td><td>filteredSpeed</td><td>true</td><td>= true, if speed is filtered with a 2nd order CriticalDamping filter</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Time"
+>Time</a></td><td>riseTime</td><td>30</td><td>Rise time of the filter (time to reach 99.6 % of the speed) [s]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Types.html#Modelica.Blocks.Types.Init"
+>Init</a></td><td>init</td><td>Modelica.Blocks.Types.Init.I...</td><td>Type of initialization (no init/steady state/initial state/initial output)</td></tr>
+<tr><td>Real</td><td>y_start</td><td>0</td><td>Initial value of speed [1]</td></tr>
+<tr style="background-color: #c0c0c0"><td colspan="4"><b>Initialization</b></td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.AbsolutePressure"
+>AbsolutePressure</a></td><td>p_start</td><td>Medium.p_default</td><td>Start value of pressure [Pa]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.Temperature"
+>Temperature</a></td><td>T_start</td><td>Medium.T_default</td><td>Start value of temperature [K]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.MassFraction"
+>MassFraction</a></td><td>X_start[Medium.nX]</td><td>Medium.X_default</td><td>Start value of mass fractions m_i/m [kg/kg]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.ExtraProperty"
+>ExtraProperty</a></td><td>C_start[Medium.nC]</td><td>fill(0, Medium.nC)</td><td>Start value of trace substances</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.ExtraProperty"
+>ExtraProperty</a></td><td>C_nominal[Medium.nC]</td><td>fill(1E-2, Medium.nC)</td><td>Nominal value of trace substances. (Set to typical order of magnitude.)</td></tr>
+<tr style="background-color: #c0c0c0"><td colspan="4"><b>Assumptions</b></td></tr>
+<tr><td>Boolean</td><td>allowFlowReversal</td><td>true</td><td>= true to allow flow reversal, false restricts to design direction (port_a -&gt; port_b)</td></tr>
+<tr style="background-color: #c0c0c0"><td colspan="4"><b>Advanced</b></td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+>MassFlowRate</a></td><td>m_flow_small</td><td>1E-4*abs(m_flow_nominal)</td><td>Small mass flow rate for regularization of zero flow [kg/s]</td></tr>
+<tr><td>Boolean</td><td>homotopyInitialization</td><td>true</td><td>= true, use homotopy method</td></tr>
+<tr style="background-color: #e0e0e0"><td colspan="4">Diagnostics</td></tr>
+<tr><td>Boolean</td><td>show_T</td><td>false</td><td>= true, if actual temperature at port is computed</td></tr>
+</table>
+<h3>Connectors</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Connectors">
+<tr><th>Type</th><th>Name</th><th>Description</th></tr>
+<tr><td colspan="2">replaceable package Medium</td><td>Medium in the component</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_a"
+>FluidPort_a</a></td><td>port_a</td><td>Fluid connector a (positive design flow direction is from port_a to port_b)</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_b"
+>FluidPort_b</a></td><td>port_b</td><td>Fluid connector b (positive design flow direction is from port_a to port_b)</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Thermal_HeatTransfer_Interfaces.html#Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a"
+>HeatPort_a</a></td><td>heatPort</td><td>Heat dissipation to environment</td></tr>
+<tr><td>output <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+>RealOutput</a></td><td>P</td><td>Electrical power consumed [W]</td></tr>
+<tr><td>output <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+>RealOutput</a></td><td>y_actual</td><td>[1]</td></tr>
+<tr><td>input <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>RealInput</a></td><td>y</td><td>Constant normalized rotational speed [1]</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">model</span> pumpModel = <a href="Buildings_Fluid_Movers.html#Buildings.Fluid.Movers.SpeedControlled_y"
+>Buildings.Fluid.Movers.SpeedControlled_y</a> (
+ <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = Medium,
+ energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
+ dynamicBalance=false,
+ per(pressure(V_flow=2/1000*m_flow_nominal*{0.2, 0.4, 0.6, 0.8},
+               dp=dp_nominal*{0.9, 0.85, 0.6, 0.2}))) <span style="color: #006400; font-weight: normal; font-style: normal;">
+  &quot;Declaration of pump model&quot;</span>;
+</div>
+<hr>
+<address>
+<a href="http://www.3ds.com/">Automatically generated</a> Thu Apr  9 09:36:24 2015.
+</address>
+</body>
+</html>

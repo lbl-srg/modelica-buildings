@@ -1,0 +1,388 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>Buildings.Electrical.AC.OnePhase.Conversion.Examples</title>
+<meta name="HTML-Generator" content="Dymola">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="description" content="&quot;Package with example models&quot;">
+<style type="text/css">
+*       { font-size: 10pt; font-family: Arial, sans-serif; }
+.modelica, .modelica * { font-size: 9pt; font-family: Courier, monospace; white-space: pre; }
+h4      { font-size: 10pt; font-weight: bold; color: green; }
+h3      { font-size: 11pt; font-weight: bold; color: green; }
+h2      { font-size: 13pt; font-weight: bold; color: green; }
+address { font-weight: normal; }
+td      { border: 1px solid #808080; vertical-align: top; }
+th      { border: 1px solid #808080; vertical-align: top; font-weight: bold; }
+table   { border: 1px solid #808080; border-collapse: collapse; }
+</style>
+<link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../Resources/www/modelicaDoc.css">
+</HEAD>
+<body>
+<!-- --- header ------ -->
+<div class="headerStyle">
+<img src="../Resources/www/lbl-logo.png" alt="LBL logo"/>
+</div>
+<div class="headerLinks">
+<ul><li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt; <a href="Buildings.html">Modelica</a></li></ul>
+</div>
+<!-- --- end header -- -->
+
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE Examples<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><a name="Buildings.Electrical.AC.OnePhase.Conversion.Examples"></a><a href="Buildings_Electrical_AC_OnePhase_Conversion.html#Buildings.Electrical.AC.OnePhase.Conversion"
+>Buildings.Electrical.AC.OnePhase.Conversion</a>.Examples</h2>
+<p>
+<b>Package with example models</b><br>
+</p>
+<h3>Information</h3>
+
+<p>
+This package contains examples for the use of models that can be found in
+<a href="Buildings_Electrical_AC_OnePhase_Conversion.html#Buildings.Electrical.AC.OnePhase.Conversion"
+>
+Buildings.Electrical.AC.OnePhase.Conversion</a>.
+</p>
+
+<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons_ExamplesPackage.html#Modelica.Icons.ExamplesPackage"
+>Modelica.Icons.ExamplesPackage</a> (Icon for packages containing runnable examples).</p>
+<h3>Package Content</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Package Content">
+<tr>
+<th>Name</th>
+<th>Description</th>
+</tr>
+<tr>
+<td><img src="Buildings.Electrical.AC.O310b01df723f4812erterS.png" alt="Buildings.Electrical.AC.OnePhase.Conversion.Examples.ACACConverter" width="20" height="20" align="top">&nbsp;<a href="Buildings_Electrical_AC_OnePhase_Conversion_Examples.html#Buildings.Electrical.AC.OnePhase.Conversion.Examples.ACACConverter"
+>ACACConverter</a>
+</td>
+<td>This example illustrates how to use the AC/AC converter model</td>
+</tr>
+<tr>
+<td><img src="Buildings.Electrical.AC.O310b01df723f4812erterS.png" alt="Buildings.Electrical.AC.OnePhase.Conversion.Examples.ACACTransformer" width="20" height="20" align="top">&nbsp;<a href="Buildings_Electrical_AC_OnePhase_Conversion_Examples.html#Buildings.Electrical.AC.OnePhase.Conversion.Examples.ACACTransformer"
+>ACACTransformer</a>
+</td>
+<td>This example illustrates how to use the AC/AC simplified transformer model</td>
+</tr>
+<tr>
+<td><img src="Buildings.Electrical.AC.O310b01df723f4812erterS.png" alt="Buildings.Electrical.AC.OnePhase.Conversion.Examples.ACACTransformerFull" width="20" height="20" align="top">&nbsp;<a href="Buildings_Electrical_AC_OnePhase_Conversion_Examples.html#Buildings.Electrical.AC.OnePhase.Conversion.Examples.ACACTransformerFull"
+>ACACTransformerFull</a>
+</td>
+<td>This example illustrates how to use the AC/AC transformer model</td>
+</tr>
+<tr>
+<td><img src="Buildings.Electrical.AC.O310b01df723f4812erterS.png" alt="Buildings.Electrical.AC.OnePhase.Conversion.Examples.ACDCConverter" width="20" height="20" align="top">&nbsp;<a href="Buildings_Electrical_AC_OnePhase_Conversion_Examples.html#Buildings.Electrical.AC.OnePhase.Conversion.Examples.ACDCConverter"
+>ACDCConverter</a>
+</td>
+<td>This example illustrates how to use the AC/DC converter model</td>
+</tr>
+</table>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE ACACConverter<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Electrical.AC.O310b01df723f4812erterI.png" alt="Buildings.Electrical.AC.OnePhase.Conversion.Examples.ACACConverter" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Electrical.AC.OnePhase.Conversion.Examples.ACACConverter"></a><a href="Buildings_Electrical_AC_OnePhase_Conversion_Examples.html#Buildings.Electrical.AC.OnePhase.Conversion.Examples"
+>Buildings.Electrical.AC.OnePhase.Conversion.Examples</a>.ACACConverter</h2>
+<p>
+<b>This example illustrates how to use the AC/AC converter model</b>
+<br>
+<br><img src="Buildings.Electrical.AC.O310b01df723f4812erterD.png" alt="Buildings.Electrical.AC.OnePhase.Conversion.Examples.ACACConverter">
+</p>
+<h3>Information</h3>
+
+<p>
+This example illustrates the use of a model that converts AC voltage to AC voltage.
+The transformer model assumes a linear loss when transmitting the power.
+</p>
+
+<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</a> (Icon for runnable examples).</p>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">model</span> ACACConverter <span style="color: #006400; font-weight: normal; font-style: normal;">
+  &quot;This example illustrates how to use the AC/AC converter model&quot;</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</a>;
+  <a href="Buildings_Electrical_AC_OnePhase_Conversion.html#Buildings.Electrical.AC.OnePhase.Conversion.ACACConverter"
+>Buildings.Electrical.AC.OnePhase.Conversion.ACACConverter</a>
+    conACAC(eta=0.9, conversionFactor=60/120) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;ACAC transformer&quot;</span>;
+  <a href="Buildings_Electrical_AC_OnePhase_Sources.html#Buildings.Electrical.AC.OnePhase.Sources.FixedVoltage"
+>Buildings.Electrical.AC.OnePhase.Sources.FixedVoltage</a>                 sou(
+    definiteReference=true,
+    f=60,
+    V=120) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Voltage source&quot;</span>;
+  <a href="Buildings_Electrical_AC_OnePhase_Loads.html#Buildings.Electrical.AC.OnePhase.Loads.Inductive"
+>Buildings.Electrical.AC.OnePhase.Loads.Inductive</a> load(
+    mode=Buildings.Electrical.Types.Load.VariableZ_P_input,
+    P_nominal=-1000,
+    V_nominal=60) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Load model&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Ramp"
+>Modelica.Blocks.Sources.Ramp</a> ramp(
+    duration=0.5,
+    startTime=0.3,
+    height=2000,
+    offset=-1000) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Power consumed by the model&quot;</span>;
+<span style="color: blue; font-weight: normal; font-style: normal;">equation </span>
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(sou.terminal, conACAC.terminal_n);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(conACAC.terminal_p, load.terminal);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(ramp.y, load.Pow);
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>ACACConverter;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE ACACTransformer<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Electrical.AC.O310b01df723f4812erterI.png" alt="Buildings.Electrical.AC.OnePhase.Conversion.Examples.ACACTransformer" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Electrical.AC.OnePhase.Conversion.Examples.ACACTransformer"></a><a href="Buildings_Electrical_AC_OnePhase_Conversion_Examples.html#Buildings.Electrical.AC.OnePhase.Conversion.Examples"
+>Buildings.Electrical.AC.OnePhase.Conversion.Examples</a>.ACACTransformer</h2>
+<p>
+<b>This example illustrates how to use the AC/AC simplified transformer model</b>
+<br>
+<br><img src="Buildings.Electrical.AC.Oaafcfb6c54a416dformerD.png" alt="Buildings.Electrical.AC.OnePhase.Conversion.Examples.ACACTransformer">
+</p>
+<h3>Information</h3>
+
+<p>
+This example illustrates the use of a the AC/AC transformer model.
+The example shows three different configurations:
+</p>
+<ul>
+<li>With a load connected,</li>
+<li>without a load connected, and</li>
+<li>with a short circuit connection.</li>
+</ul>
+
+<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</a> (Icon for runnable examples).</p>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">model</span> ACACTransformer <span style="color: #006400; font-weight: normal; font-style: normal;">
+  &quot;This example illustrates how to use the AC/AC simplified transformer model&quot;</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</a>;
+  <a href="Buildings_Electrical_AC_OnePhase_Conversion.html#Buildings.Electrical.AC.OnePhase.Conversion.ACACTransformer"
+>Buildings.Electrical.AC.OnePhase.Conversion.ACACTransformer</a> tra_load(
+    Zperc=0.03,
+    VABase=4000,
+    XoverR=8,
+    VHigh=120,
+    VLow=60) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Transformer with load&quot;</span>;
+  <a href="Buildings_Electrical_AC_OnePhase_Sources.html#Buildings.Electrical.AC.OnePhase.Sources.FixedVoltage"
+>Buildings.Electrical.AC.OnePhase.Sources.FixedVoltage</a> sou(
+    definiteReference=true,
+    f=60,
+    V=120) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Voltage source&quot;</span>;
+  <a href="Buildings_Electrical_AC_OnePhase_Loads.html#Buildings.Electrical.AC.OnePhase.Loads.Inductive"
+>Buildings.Electrical.AC.OnePhase.Loads.Inductive</a> load(
+    mode=Buildings.Electrical.Types.Load.VariableZ_P_input,
+    P_nominal=-2000,
+    pf=0.8,
+    V_nominal=60) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Load model&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Ramp"
+>Modelica.Blocks.Sources.Ramp</a> ramp(
+    duration=0.5,
+    startTime=0.3,
+    offset=0,
+    height=-4000*0.8) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Load power consumption profile&quot;</span>;
+  <a href="Buildings_Electrical_AC_OnePhase_Conversion.html#Buildings.Electrical.AC.OnePhase.Conversion.ACACTransformer"
+>Buildings.Electrical.AC.OnePhase.Conversion.ACACTransformer</a> tra_cc(
+    XoverR=8,
+    Zperc=0.03,
+    VABase=4000,
+    VHigh=120,
+    VLow=60) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Transformer with short circuit&quot;</span>;
+  <a href="Buildings_Electrical_AC_OnePhase_Loads.html#Buildings.Electrical.AC.OnePhase.Loads.Impedance"
+>Buildings.Electrical.AC.OnePhase.Loads.Impedance</a> shortCircuit(R=1e-8) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Short circuit&quot;</span>;
+  <a href="Buildings_Electrical_AC_OnePhase_Conversion.html#Buildings.Electrical.AC.OnePhase.Conversion.ACACTransformer"
+>Buildings.Electrical.AC.OnePhase.Conversion.ACACTransformer</a> tra_void(
+    XoverR=8,
+    Zperc=0.03,
+    VABase=4000,
+    VHigh=120,
+    VLow=60) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Transformer with secondary not connected&quot;</span>;
+  <a href="Buildings_Electrical_AC_OnePhase_Sources.html#Buildings.Electrical.AC.OnePhase.Sources.FixedVoltage"
+>Buildings.Electrical.AC.OnePhase.Sources.FixedVoltage</a> sou1(
+    definiteReference=true,
+    f=60,
+    V=120) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Voltage source for open and short circuit tests&quot;</span>;
+<span style="color: blue; font-weight: normal; font-style: normal;">equation </span>
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(sou.terminal, tra_load.terminal_n);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(tra_load.terminal_p, load.terminal);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(ramp.y, load.Pow);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(tra_cc.terminal_p, shortCircuit.terminal);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(sou1.terminal, tra_cc.terminal_n);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(sou1.terminal, tra_void.terminal_n);
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>ACACTransformer;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE ACACTransformerFull<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Electrical.AC.O310b01df723f4812erterI.png" alt="Buildings.Electrical.AC.OnePhase.Conversion.Examples.ACACTransformerFull" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Electrical.AC.OnePhase.Conversion.Examples.ACACTransformerFull"></a><a href="Buildings_Electrical_AC_OnePhase_Conversion_Examples.html#Buildings.Electrical.AC.OnePhase.Conversion.Examples"
+>Buildings.Electrical.AC.OnePhase.Conversion.Examples</a>.ACACTransformerFull</h2>
+<p>
+<b>This example illustrates how to use the AC/AC transformer model</b>
+<br>
+<br><img src="Buildings.Electrical.AC.Oa4c6685b6dd79fadrFullD.png" alt="Buildings.Electrical.AC.OnePhase.Conversion.Examples.ACACTransformerFull">
+</p>
+<h3>Information</h3>
+
+<p>
+This example illustrates the use of the AC/AC transformer model
+that includes losses at the primary and secondary side and magnetization
+effects.
+The example shows three different configurations:
+</p>
+<ul>
+<li>With a load connected,</li>
+<li>without a load connected, and</li>
+<li>with a short circuit connection.</li>
+</ul>
+
+<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</a> (Icon for runnable examples).</p>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">model</span> ACACTransformerFull <span style="color: #006400; font-weight: normal; font-style: normal;">
+  &quot;This example illustrates how to use the AC/AC transformer model&quot;</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</a>;
+  <a href="Buildings_Electrical_AC_OnePhase_Conversion.html#Buildings.Electrical.AC.OnePhase.Conversion.ACACTransformerFull"
+>Buildings.Electrical.AC.OnePhase.Conversion.ACACTransformerFull</a> tra_load(
+    R1=0.0001,
+    L1=0.0001,
+    R2=0.0001,
+    L2=0.0001,
+    VABase=4000,
+    magEffects=true,
+    Rm=10,
+    Lm=10,
+    VHigh=120,
+    VLow=60,
+    f=60) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Transformer with load&quot;</span>;
+  <a href="Buildings_Electrical_AC_OnePhase_Sources.html#Buildings.Electrical.AC.OnePhase.Sources.FixedVoltage"
+>Buildings.Electrical.AC.OnePhase.Sources.FixedVoltage</a> sou(
+    definiteReference=true,
+    f=60,
+    V=120) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Voltage source&quot;</span>;
+  <a href="Buildings_Electrical_AC_OnePhase_Loads.html#Buildings.Electrical.AC.OnePhase.Loads.Inductive"
+>Buildings.Electrical.AC.OnePhase.Loads.Inductive</a> load(
+    mode=Buildings.Electrical.Types.Load.VariableZ_P_input,
+    P_nominal=-2000,
+    pf=0.8,
+    V_nominal=60) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Load model&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Ramp"
+>Modelica.Blocks.Sources.Ramp</a> ramp(
+    duration=0.5,
+    startTime=0.3,
+    offset=0,
+    height=-4000*0.8) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Load power consumption profile&quot;</span>;
+  <a href="Buildings_Electrical_AC_OnePhase_Conversion.html#Buildings.Electrical.AC.OnePhase.Conversion.ACACTransformerFull"
+>Buildings.Electrical.AC.OnePhase.Conversion.ACACTransformerFull</a>
+                                                              tra_cc(
+    VABase=4000,
+    R1=0.01,
+    L1=0.01,
+    R2=0.01,
+    L2=0.01,
+    magEffects=false,
+    Rm=100,
+    Lm=100,
+    VHigh=120,
+    VLow=60,
+    f=60) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Transformer with short circuit connection&quot;</span>;
+  <a href="Buildings_Electrical_AC_OnePhase_Loads.html#Buildings.Electrical.AC.OnePhase.Loads.Impedance"
+>Buildings.Electrical.AC.OnePhase.Loads.Impedance</a> shortCircuit(R=1e-8) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Short circuit&quot;</span>;
+  <a href="Buildings_Electrical_AC_OnePhase_Conversion.html#Buildings.Electrical.AC.OnePhase.Conversion.ACACTransformerFull"
+>Buildings.Electrical.AC.OnePhase.Conversion.ACACTransformerFull</a> tra_void(
+    VABase=4000,
+    R1=0.01,
+    L1=0.01,
+    R2=0.01,
+    L2=0.01,
+    magEffects=false,
+    Rm=100,
+    Lm=100,
+    VHigh=120,
+    VLow=60,
+    f=60) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Transformer with open connection&quot;</span>;
+  <a href="Buildings_Electrical_AC_OnePhase_Sources.html#Buildings.Electrical.AC.OnePhase.Sources.FixedVoltage"
+>Buildings.Electrical.AC.OnePhase.Sources.FixedVoltage</a> sou1(
+    definiteReference=true,
+    f=60,
+    V=120) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Voltage source for short circuit and open tests &quot;</span>;
+<span style="color: blue; font-weight: normal; font-style: normal;">equation </span>
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(sou.terminal, tra_load.terminal_n);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(tra_load.terminal_p, load.terminal);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(ramp.y, load.Pow);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(tra_cc.terminal_p, shortCircuit.terminal);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(sou1.terminal, tra_cc.terminal_n);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(sou1.terminal, tra_void.terminal_n);
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>ACACTransformerFull;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE ACDCConverter<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Electrical.AC.O310b01df723f4812erterI.png" alt="Buildings.Electrical.AC.OnePhase.Conversion.Examples.ACDCConverter" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Electrical.AC.OnePhase.Conversion.Examples.ACDCConverter"></a><a href="Buildings_Electrical_AC_OnePhase_Conversion_Examples.html#Buildings.Electrical.AC.OnePhase.Conversion.Examples"
+>Buildings.Electrical.AC.OnePhase.Conversion.Examples</a>.ACDCConverter</h2>
+<p>
+<b>This example illustrates how to use the AC/DC converter model</b>
+<br>
+<br><img src="Buildings.Electrical.AC.O6588c2da722b4812erterD.png" alt="Buildings.Electrical.AC.OnePhase.Conversion.Examples.ACDCConverter">
+</p>
+<h3>Information</h3>
+
+<p>
+This example illustrates the use of a model that converts AC voltage to DC voltage.
+The transformer model assumes a linear loss when transmitting the power.
+</p>
+
+<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</a> (Icon for runnable examples).</p>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">model</span> ACDCConverter <span style="color: #006400; font-weight: normal; font-style: normal;">
+  &quot;This example illustrates how to use the AC/DC converter model&quot;</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</a>;
+
+  <a href="Buildings_Electrical_DC_Loads.html#Buildings.Electrical.DC.Loads.Resistor"
+>Buildings.Electrical.DC.Loads.Resistor</a> res(R=1, V_nominal=60) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Resistive load&quot;</span>;
+  <a href="Buildings_Electrical_AC_OnePhase_Conversion.html#Buildings.Electrical.AC.OnePhase.Conversion.ACDCConverter"
+>Buildings.Electrical.AC.OnePhase.Conversion.ACDCConverter</a> conversion(
+    eta=0.9,
+    ground_AC=false,
+    ground_DC=true,
+    conversionFactor=60/120) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;AC/DC transformer&quot;</span>;
+  <a href="Buildings_Electrical_AC_OnePhase_Sources.html#Buildings.Electrical.AC.OnePhase.Sources.FixedVoltage"
+>Buildings.Electrical.AC.OnePhase.Sources.FixedVoltage</a> sou(
+    definiteReference=true,
+    f=60,
+    V=120) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Voltage source&quot;</span>;
+  <a href="Buildings_Electrical_DC_Loads.html#Buildings.Electrical.DC.Loads.Conductor"
+>Buildings.Electrical.DC.Loads.Conductor</a> load(mode=Buildings.Electrical.Types.Load.VariableZ_P_input,
+    P_nominal=-200,
+    V_nominal=60) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Variable resistive load&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Ramp"
+>Modelica.Blocks.Sources.Ramp</a> pow(
+    duration=0.5,
+    startTime=0.2,
+    offset=-200,
+    height=5200) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Variable load profile&quot;</span>;
+<span style="color: blue; font-weight: normal; font-style: normal;">equation </span>
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(sou.terminal, conversion.terminal_n);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(conversion.terminal_p, res.terminal);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(conversion.terminal_p, load.terminal);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(pow.y, load.Pow);
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>ACDCConverter;
+</div>
+<hr>
+<address>
+<a href="http://www.3ds.com/">Automatically generated</a> Thu Apr  9 09:33:01 2015.
+</address>
+</body>
+</html>

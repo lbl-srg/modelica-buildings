@@ -1,0 +1,767 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>Buildings.Rooms.Examples.FFD.Tutorial</title>
+<meta name="HTML-Generator" content="Dymola">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="description" content="&quot;Tutorial with step by step instructions for how to do coupled simulation&quot;">
+<style type="text/css">
+*       { font-size: 10pt; font-family: Arial, sans-serif; }
+.modelica, .modelica * { font-size: 9pt; font-family: Courier, monospace; white-space: pre; }
+h4      { font-size: 10pt; font-weight: bold; color: green; }
+h3      { font-size: 11pt; font-weight: bold; color: green; }
+h2      { font-size: 13pt; font-weight: bold; color: green; }
+address { font-weight: normal; }
+td      { border: 1px solid #808080; vertical-align: top; }
+th      { border: 1px solid #808080; vertical-align: top; font-weight: bold; }
+table   { border: 1px solid #808080; border-collapse: collapse; }
+</style>
+<link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../Resources/www/modelicaDoc.css">
+</HEAD>
+<body>
+<!-- --- header ------ -->
+<div class="headerStyle">
+<img src="../Resources/www/lbl-logo.png" alt="LBL logo"/>
+</div>
+<div class="headerLinks">
+<ul><li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt; <a href="Buildings.html">Modelica</a></li></ul>
+</div>
+<!-- --- end header -- -->
+
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE Tutorial<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><a name="Buildings.Rooms.Examples.FFD.Tutorial"></a><a href="Buildings_Rooms_Examples_FFD.html#Buildings.Rooms.Examples.FFD"
+>Buildings.Rooms.Examples.FFD</a>.Tutorial</h2>
+<p>
+<b>Tutorial with step by step instructions for how to do coupled simulation</b><br>
+</p>
+<h3>Information</h3>
+
+<p>
+This package contains the tutorials
+<a href="modelica://Buildings.Rooms.Examples.FFD.NaturalConvection">NaturalConvection</a> and
+<a href="modelica://Buildings.Rooms.Examples.FFD.MixedConvection">MixedConvection</a> with step by step
+instructions for how to build such models.
+</p>
+
+<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Information"
+>Modelica.Icons.Information</a> (Icon for general information packages).</p>
+<h3>Package Content</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Package Content">
+<tr>
+<th>Name</th>
+<th>Description</th>
+</tr>
+<tr>
+<td><img src="Buildings.Rooms.Examples.c74add571588925bctionS.png" alt="Buildings.Rooms.Examples.FFD.Tutorial.MixedConvection" width="20" height="20" align="top">&nbsp;<a href="Buildings_Rooms_Examples_FFD_Tutorial.html#Buildings.Rooms.Examples.FFD.Tutorial.MixedConvection"
+>MixedConvection</a>
+</td>
+<td>Tutorial for Mixed Convection case</td>
+</tr>
+<tr>
+<td><img src="Buildings.Rooms.Examples.c74add571588925bctionS.png" alt="Buildings.Rooms.Examples.FFD.Tutorial.NaturalConvection" width="20" height="20" align="top">&nbsp;<a href="Buildings_Rooms_Examples_FFD_Tutorial.html#Buildings.Rooms.Examples.FFD.Tutorial.NaturalConvection"
+>NaturalConvection</a>
+</td>
+<td>Tutorial for Natural Convection case</td>
+</tr>
+</table>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE MixedConvection<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Rooms.Examples.c74add571588925bctionI.png" alt="Buildings.Rooms.Examples.FFD.Tutorial.MixedConvection" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Rooms.Examples.FFD.Tutorial.MixedConvection"></a><a href="Buildings_Rooms_Examples_FFD_Tutorial.html#Buildings.Rooms.Examples.FFD.Tutorial"
+>Buildings.Rooms.Examples.FFD.Tutorial</a>.MixedConvection</h2>
+<p>
+<b>Tutorial for Mixed Convection case</b>
+<br>
+<br><img src="Buildings.Rooms.Examples.c74add571588925bctionD.png" alt="Buildings.Rooms.Examples.FFD.Tutorial.MixedConvection">
+</p>
+<h3>Information</h3>
+
+<p>
+This tutorial gives step by step instructions on building and simulating a mixed convection model. The model tests the coupled simulation of
+<a href="Buildings_Rooms.html#Buildings.Rooms.CFD"
+>
+Buildings.Rooms.CFD</a>
+with the FFD program by simulating ventilation with mixed convection in an empty room.
+</p>
+<h4>Case Description</h4>
+<p>
+The temperature of the floor is fixed at <i>30</i>&circ;C and the temperature of the walls and the ceiling are fixed at <i>10</i>&circ;C.
+The supply air temperature is fixed at <i>10</i>&circ;C.
+</p>
+<p>
+Figure (a) shows the schematic of the FFD simulation and Figure (b) shows the velocity vectors and temperatures on the X-Z plane at <i>Y = 0.5</i> m as simulated by the FFD.
+</p>
+<p align="center">
+<img alt="image" src="../Resources/Images/Rooms/Examples/FFD/Tutorial/MixedConvectionSchematic.png" border="1"/>
+</p>
+<p align="center">
+Figure (a)
+</p>
+<p align="center">
+<img alt="image" src="../Resources/Images/Rooms/Examples/FFD/Tutorial/MixedConvection.png" border="1"/>
+</p>
+<p align="center">
+Figure (b)
+</p>
+<h4>Step by Step Guide</h4>
+<p>
+This section describes step by step how to build and simulate the model.
+</p>
+<ol>
+<li>
+<p>
+Add the following model components into the <code>MixedConvection</code> model:
+</p>
+<ul>
+<li>
+<a href="Buildings_Rooms.html#Buildings.Rooms.CFD"
+>Buildings.Rooms.CFD</a>.
+This model is used to implement data exchange between Modelica and FFD.
+Name it as <code>roo</code>.
+</li>
+<li>
+<a href="Buildings_BoundaryConditions_WeatherData.html#Buildings.BoundaryConditions.WeatherData.ReaderTMY3"
+>Buildings.BoundaryConditions.WeatherData.ReaderTMY3</a>.
+Use weather data from OHare Intl. Airport, Chicago, Illinoi, U.S.A.
+Name it as <code>weaDat</code>.
+</li>
+<li>
+<a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+>Modelica.Blocks.Sources.Constant</a>.
+Three models are needed to specify that internal radiation, internal convective heat gain and internal latent heat gain are zero.
+Name these models as <code>qRadGai_flow</code>, <code>qConGai_flow</code> and <code>qLatGai_flow</code>, respectively.
+</li>
+<li>
+<a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Routing.html#Modelica.Blocks.Routing.Multiplex3"
+>Modelica.Blocks.Routing.Multiplex3</a>.
+This block is used to convert three numbers into a vector.
+Name it as <code>multiple_x3</code>.
+</li>
+<li>
+<a href="modelica://Buildings.HeatTransfer.Source.FixedTemperature">Buildings.HeatTransfer.Source.FixedTemperature</a>.
+Two models are needed to specify the temperature on the floor and other walls.
+Name them as <code>TFlo</code> and <code>TOthWal</code> respectively.
+Please note that it is necessary to declare <code>TOthWal</code> as a vector of <i>5</i> elements.
+</li>
+<li>
+<a href="Buildings_Fluid_Sources.html#Buildings.Fluid.Sources.MassFlowSource_T"
+>Buildings.Fluid.Sources.MassFlowSource_T</a>.
+This model provides inlet air for the <code>roo</code>.
+Name it as <code>bouIn</code>.
+</li>
+<li>
+<a href="Buildings_Fluid_Sources.html#Buildings.Fluid.Sources.FixedBoundary"
+>Buildings.Fluid.Sources.FixedBoundary</a>.
+This model is the outdoor environment to which the outlet of <code>roo</code> is connected.
+Name it as <code>bouOut</code>.
+</li>
+</ul>
+</li>
+<li>
+<p>
+In the textual editor mode, add the medium and the number of surfaces as below:
+</p>
+<pre>
+package MediumA = Buildings.Media.GasesConstantDensity.MoistAirUnsaturated (T_default=283.15);
+  parameter Integer nConExtWin=0;
+  parameter Integer nConBou=0;
+  parameter Integer nSurBou=6;
+  parameter Integer nConExt=0;
+  parameter Integer nConPar=0;
+</pre>
+</li>
+<li>
+<p>
+Edit <code>roo</code> as below:
+</p>
+<pre>
+Buildings.Rooms.CFD roo(
+  redeclare package Medium = MediumA,
+  surBou(
+    name={"East Wall","West Wall","North Wall","South Wall","Ceiling","Floor"},
+    A={0.9,0.9,1,1,1,1},
+    til={Buildings.Types.Tilt.Wall,
+        Buildings.Types.Tilt.Wall,
+        Buildings.Types.Tilt.Wall,
+        Buildings.Types.Tilt.Wall,
+        Buildings.Types.Tilt.Ceiling,
+        Buildings.Types.Tilt.Floor},
+    each absIR=1e-5,
+    each absSol=1e-5,
+    each boundaryCondition=Buildings.Rooms.Types.CFDBoundaryConditions.Temperature),
+    lat = 0.012787839282646,
+    AFlo = 1*1,
+    hRoo = 1,
+    linearizeRadiation = false,
+    useCFD = true,
+    sensorName = {"Occupied zone air temperature", "Velocity"},
+    cfdFilNam = "modelica://Buildings/Resources/Data/Rooms/FFD/Tutorial/MixedConvection.ffd",
+    nConExt = nConExt,
+    nConExtWin = nConExtWin,
+    nConPar = nConPar,
+    nConBou = nConBou,
+    nSurBou = nSurBou,
+    nPorts = 2,
+    portName={"Inlet","Outlet"},
+    samplePeriod = 6);
+</pre>
+</li>
+<li>
+<p>
+Set the parameters for the following components:
+</p>
+<ul>
+<li>
+Set <code>qRadGai_flow</code>, <code>qConGai_flow</code> and <code>qLatGai_flow</code> to <i>0</i>.
+</li>
+<li>
+Set <code>TFlo</code> to <i>303.15</i> Kelvin.
+</li>
+<li>
+Set <code>TOthWal</code> to <i>283.15</i> Kelvin.
+</li>
+</ul>
+</li>
+<li>
+<p>
+Set the values for the parameters of <code>bouIn</code> and <code>bouOut</code> as below:
+</p>
+<pre>
+Fluid.Sources.MassFlowSource_T bouIn(
+  redeclare package Medium = MediumA,
+  nPorts=1,
+  m_flow=0.1,
+  T=283.15);
+</pre>
+<pre>
+Fluid.Sources.FixedBoundary bouOut(
+  redeclare package Medium = MediumA,
+  nPorts=1);
+</pre>
+</li>
+<li>
+<p>
+Connect the components as shown in the figure below.
+</p>
+<p align="center">
+<img alt="image" src="../Resources/Images/Rooms/Examples/FFD/Tutorial/MixedConvectionModel.png"/>
+</p>
+</li>
+<li>
+<p>
+Confirm in the textual editor that the connections to
+<code>roo.ports</code> are as follows:
+</p>
+<pre>
+connect(bouIn.ports[1], roo.ports[1]);
+connect(bouOut.ports[1], roo.ports[2]);
+</pre>
+</li>
+<li>
+<p>
+Use the Simplified CFD Interface (SCI) to generate the input file for the FFD.
+</p>
+<ul>
+<li>
+Use a 20 X 20 X 20 stretched grid.
+</li>
+<li>
+Set the time step size of the FFD to <i>0.1</i> seconds.
+</li>
+<li>
+Generate the input files, which have by default the names
+<code>input.cfd</code> (mesh file) and <code>zeroone.dat</code> (obstacles file).
+</li>
+<li>
+Rename the files as <code>MixedConvection.cfd</code> and <code>MixedConvection.dat</code>, respectively.
+</li>
+</ul>
+</li>
+<li>
+<p>
+Revise the FFD parameter input file <code>MixedConvection.ffd</code> (an example file is available in <code>Buildings/Resources/Data/Rooms/FFD/Tutorial/</code>):  </p>
+<pre>
+  inpu.parameter_file_format SCI
+  inpu.parameter_file_name Resources/Data/Rooms/FFD/Tutorial/MixedlConvection.cfd
+  inpu.block_file_name Resources/Data/Rooms/FFD/Tutorial/MixedConvection.dat
+  prob.nu 0.000015 // Kinematic viscosity
+  prob.rho 1.205 // Density
+  prob.gravx 0 // Gravity in x direction
+  prob.gravy 0 // Gravity in y direction
+  prob.gravz -9.81 // Gravity in z direction
+  prob.cond 0.0257 // Conductivity
+  prob.Cp 1006.0 // Specific heat capacity
+  prob.beta 0.00343 // Thermal expansion coefficient
+  prob.diff 0.00001 // Diffusivity for contaminants
+  prob.coeff_h 0.0004 // Convective heat transfer coefficient near the wall
+  prob.Temp_Buoyancy 10.0 // Reference temperature for calculating buoyance  force
+  init.T 10.0 // Initial condition for Temperature
+  init.u 0.0 // Initial condition for velocity u
+  init.v 0.0 // Initial condition for velocity v
+  init.w 0.0 // Initial condition for velocity w
+</pre>
+</li>
+<li>
+Put the files <code>MixedConvection.ffd</code>, <code>MixedConvection.dat</code>, and <code>MixedConvection.cfd</code> in the
+directory <code>Buildings/Resources/Data/Rooms/FFD/Tutorial/</code>.
+</li>
+<li>
+Set the simulation stop time of the Modelica model to <code>180</code> seconds and choose, for example, the Radau solver.
+</li>
+<li>
+Translate the model and start the simulation.
+</li>
+<li>
+Post-process: click the Tecplot macro script <code>Buildings/Resources/Image/Rooms/Examples/FFD/Tutorial/MixedConvection.mcr</code> that will generate the temperature contour and velocity vectors shown in the Figure (b).
+Note: Tecplot is needed for this.
+</li>
+</ol>
+
+<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</a> (Icon for runnable examples).</p>
+<h3>Parameters</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td>Integer</td><td>nConExtWin</td><td>0</td><td>Number of constructions with a window</td></tr>
+<tr><td>Integer</td><td>nConBou</td><td>0</td><td>Number of surface that are connected to constructions that are modeled inside the room</td></tr>
+<tr><td>Integer</td><td>nSurBou</td><td>6</td><td>Number of surface that are connected to the room air volume</td></tr>
+<tr><td>Integer</td><td>nConExt</td><td>0</td><td>Number of exterior constructions withour a window</td></tr>
+<tr><td>Integer</td><td>nConPar</td><td>0</td><td>Number of partition constructions</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">model</span> MixedConvection <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Tutorial for Mixed Convection case&quot;</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</a>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">package</span> MediumA =
+      <a href="Buildings_Media_Air.html#Buildings.Media.Air"
+>Buildings.Media.Air</a> (
+        T_default=283.15) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Medium model&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Integer nConExtWin=0 <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Number of constructions with a window&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Integer nConBou=0 <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Number of surface that are connected to constructions that are modeled inside the room&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Integer nSurBou=6 <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Number of surface that are connected to the room air volume&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Integer nConExt=0 <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Number of exterior constructions withour a window&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Integer nConPar=0 <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Number of partition constructions&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+>Modelica.Blocks.Sources.Constant</a> qRadGai_flow(k=0) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Radiative heat gain&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+>Modelica.Blocks.Sources.Constant</a> qConGai_flow(k=0) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Convective heat gain&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+>Modelica.Blocks.Sources.Constant</a> qLatGai_flow(k=0) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Latent heat gain&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Routing.html#Modelica.Blocks.Routing.Multiplex3"
+>Modelica.Blocks.Routing.Multiplex3</a> multiplex3_1;
+  <a href="Buildings_BoundaryConditions_WeatherData.html#Buildings.BoundaryConditions.WeatherData.ReaderTMY3"
+>BoundaryConditions.WeatherData.ReaderTMY3</a> weaDat(filNam=&quot;modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos&quot;,
+      TDryBul=293.15);
+  <a href="Buildings_Rooms.html#Buildings.Rooms.CFD"
+>Buildings.Rooms.CFD</a> roo(
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = MediumA,
+    surBou(
+     name={&quot;East Wall&quot;,&quot;West Wall&quot;,&quot;North Wall&quot;,&quot;South Wall&quot;,&quot;Ceiling&quot;,&quot;Floor&quot;},
+     A={0.9,0.9,1,1,1,1},
+     til={Buildings.Types.Tilt.Wall,Buildings.Types.Tilt.Wall,
+        Buildings.Types.Tilt.Wall,Buildings.Types.Tilt.Wall,
+        Buildings.Types.Tilt.Ceiling,Buildings.Types.Tilt.Floor},
+     <span style="color: blue; font-weight: normal; font-style: normal;">each </span>absIR=1e-5,
+     <span style="color: blue; font-weight: normal; font-style: normal;">each </span>absSol=1e-5,
+     <span style="color: blue; font-weight: normal; font-style: normal;">each </span>boundaryCondition=Buildings.Rooms.Types.CFDBoundaryConditions.Temperature),
+    lat = 0.012787839282646,
+    AFlo = 1*1,
+    hRoo = 1,
+    linearizeRadiation = false,
+    useCFD = true,
+    sensorName = {&quot;Occupied zone air temperature&quot;, &quot;Velocity&quot;},
+    cfdFilNam = &quot;modelica://Buildings/Resources/Data/Rooms/FFD/Tutorial/MixedConvection.ffd&quot;,
+    nConExt = nConExt,
+    nConExtWin = nConExtWin,
+    nConPar = nConPar,
+    nConBou = nConBou,
+    nSurBou = nSurBou,
+    nPorts=2,
+    portName={&quot;Inlet&quot;,&quot;Outlet&quot;},
+    samplePeriod = 6);
+  <a href="Buildings_HeatTransfer_Sources.html#Buildings.HeatTransfer.Sources.FixedTemperature"
+>HeatTransfer.Sources.FixedTemperature</a> TOthWal[nSurBou-1](<span style="color: blue; font-weight: normal; font-style: normal;">each </span>T=283.15) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Temperature for other walls&quot;</span>;
+  <a href="Buildings_HeatTransfer_Sources.html#Buildings.HeatTransfer.Sources.FixedTemperature"
+>HeatTransfer.Sources.FixedTemperature</a> TFlo(T=303.15) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Temperature of floor&quot;</span>;
+  <a href="Buildings_Fluid_Sources.html#Buildings.Fluid.Sources.MassFlowSource_T"
+>Fluid.Sources.MassFlowSource_T</a> bouIn(
+    nPorts=1,
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = MediumA,
+    m_flow=0.1,
+    T=283.15);
+  <a href="Buildings_Fluid_Sources.html#Buildings.Fluid.Sources.FixedBoundary"
+>Fluid.Sources.FixedBoundary</a> bouOut(nPorts=1,<span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium =
+        MediumA);
+<span style="color: blue; font-weight: normal; font-style: normal;">equation </span>
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(qRadGai_flow.y,multiplex3_1. u1[1]);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(qConGai_flow.y,multiplex3_1. u2[1]);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(qLatGai_flow.y,multiplex3_1. u3[1]);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(multiplex3_1.y,roo. qGai_flow);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(weaDat.weaBus,roo. weaBus);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(TFlo.port, roo.surf_surBou[6]);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(TOthWal[1].port, roo.surf_surBou[1]);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(TOthWal[2].port, roo.surf_surBou[2]);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(TOthWal[3].port, roo.surf_surBou[3]);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(TOthWal[4].port, roo.surf_surBou[4]);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(TOthWal[5].port, roo.surf_surBou[5]);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(bouIn.ports[1], roo.ports[1]);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(bouOut.ports[1], roo.ports[2]);
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>MixedConvection;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE NaturalConvection<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Rooms.Examples.c74add571588925bctionI.png" alt="Buildings.Rooms.Examples.FFD.Tutorial.NaturalConvection" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Rooms.Examples.FFD.Tutorial.NaturalConvection"></a><a href="Buildings_Rooms_Examples_FFD_Tutorial.html#Buildings.Rooms.Examples.FFD.Tutorial"
+>Buildings.Rooms.Examples.FFD.Tutorial</a>.NaturalConvection</h2>
+<p>
+<b>Tutorial for Natural Convection case</b>
+<br>
+<br><img src="Buildings.Rooms.Examples.bbbaa1c931fe07a4ctionD.png" alt="Buildings.Rooms.Examples.FFD.Tutorial.NaturalConvection">
+</p>
+<h3>Information</h3>
+
+<p>
+This tutorial gives step by step instructions for building and simulating a natural convection model. The model tests the coupled simulation of
+<a href="Buildings_Rooms.html#Buildings.Rooms.CFD"
+>
+Buildings.Rooms.CFD</a>
+with the FFD program by simulating the natural convection in an empty room with only surface boundary conditions.
+</p>
+<h4>Case Description</h4>
+<p>
+The Rayleigh number is a dimensionless number associated with natural convection, defined as
+<p align="center" style="font-style:italic;">
+  R<sub>a</sub> = g &beta; (T<sub>w</sub>-T<sub>e</sub>)L<sup>3</sup> &frasl; (&nu; &alpha;)
+</p>
+<p>
+To get a Rayleigh number of <i>1E5</i>, the flow properties are manually set as
+acceleration due to gravity <i>g<sub>z</sub>=-0.01</i> m/s<sup>2</sup>,
+thermal expansion coefficient <i>&beta;=3e-3</i> K<sup>-1</sup>,
+kinematic viscosity <i>&nu;=1.5e-5</i> m<sup>2</sup>/s,
+thermal diffusivity <i>&alpha;=2e-5</i> m<sup>2</sup>/s, and
+characteristic length <i>L=1</i> m.
+</p>
+<p>
+Figure (a) shows the schematic of the FFD simulation.
+The following conditions are applied in Modelica.:
+</p>
+<ul>
+<li>
+East wall: Fixed temperature at <i>T<sub>e</sub>=0</i>&circ;C,
+</li>
+<li>
+West wall: Fixed temperature at <i>T<sub>w</sub>=1</i>&circ;C,
+</li>
+<li>
+North &amp; South wall, Ceiling, Floor: Fixed heat flux at <i>0</i> W/m<sup>2</sup>.
+</li>
+</ul>
+<p align="center">
+<img alt="image" src="../Resources/Images/Rooms/Examples/FFD/Tutorial/NaturalConvectionSchematic.png" border="1"/>
+</p>
+<p align="center">
+Figure (a)
+</p>
+<p>
+Figure (b) shows the velocity vectors and temperature contour in degree Celsius on the X-Z plane at <i>Y = 0.5</i> m as simulated by the FFD.
+</p>
+<p align="center">
+<img alt="image" src="../Resources/Images/Rooms/Examples/FFD/Tutorial/NaturalConvection.png" border="1"/>
+</p>
+<p align="center">
+Figure (b)
+</p>
+<p align="left">
+More details of the case description can be found in
+<a href="Buildings_Rooms_Examples_FFD_Tutorial.html#ZuoEtAl2012"
+>Zuo et al. (2012)</a>.
+</p>
+<h4>Step by Step Guide</h4>
+<p>
+This section describes step by step how to build and simulate the model.
+</p>
+<ol>
+<li>
+<p>
+Add the following component models to the <code>NaturalConvection</code> model:
+</p>
+<ul>
+<li>
+<a href="Buildings_Rooms.html#Buildings.Rooms.CFD"
+>Buildings.Rooms.CFD</a>.
+This model is used to implement the data exchange between Modelica and FFD. Name it as <code>roo</code>.
+</li>
+<li>
+<a href="Buildings_BoundaryConditions_WeatherData.html#Buildings.BoundaryConditions.WeatherData.ReaderTMY3"
+>Buildings.BoundaryConditions.WeatherData.ReaderTMY3</a>.
+Use weather data from OHare Intl. Airport, Chicago, Illinoi, U.S.A. Name it as <code>weaDat</code>.
+</li>
+<li>
+<a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+>Modelica.Blocks.Sources.Constant</a>. Three models are needed to specify that internal radiation, internal convective heat gain and internal latent heat gain  zero.
+Name these models as <code>qRadGai_flow</code>, <code>qConGai_flow</code> and <code>qLatGai_flow</code>, respectively.
+</li>
+<li>
+<a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Routing.html#Modelica.Blocks.Routing.Multiplex3"
+>Modelica.Blocks.Routing.Multiplex3</a>.
+This block is used to combine three scalar signals to a vector. Name it as <code>multiple_x3</code>.
+</li>
+<li>
+<a href="modelica://Buildings.HeatTransfer.Source.FixedTemperature">Buildings.HeatTransfer.Source.FixedTemperature</a>.
+Two models are needed to specify the temperatures on the east and west walls.
+Name them as <code>TeasWal</code> and <code>TwesWal</code>, respectively.
+</li>
+<li>
+<a href="modelica://Buildings.HeatTransfer.Source.FixedHeatFlow">Buildings.HeatTransfer.Source.FixedHeatFlow</a>.
+This model is used to specify that the other four walls are adiabatic. Please note that it is necessary
+to declare it as a vector with <i>4</i> elements.
+Define it as <code>fixedHeatFlow[nSurBou - 2]</code>.
+</li>
+</ul>
+</li>
+<li>
+<p>
+In the textual editor mode, add the medium and the number of surfaces as shown below:
+</p>
+<pre>
+Buildings.Rooms.CFD roo(
+  package MediumA = Buildings.Media.GasesConstantDensity.MoistAirUnsaturated(
+    T_default=283.15);
+  parameter Integer nConExtWin=0;
+  parameter Integer nConBou=0;
+  parameter Integer nSurBou=6;
+  parameter Integer nConExt=0;
+  parameter Integer nConPar=0;
+
+</pre>
+</li>
+<li>
+<p>
+Edit <code>roo</code> as below:
+</p>
+<pre>
+ edeclare package Medium = MediumA,
+surBou(
+  name={"East Wall","West Wall","North Wall","South Wall","Ceiling","Floor"},
+  each A=1*1,
+  til={Buildings.Types.Tilt.Wall,
+    Buildings.Types.Tilt.Wall,
+    Buildings.Types.Tilt.Wall,
+    Buildings.Types.Tilt.Wall,
+    Buildings.Types.Tilt.Ceiling,
+    Buildings.Types.Tilt.Floor},
+  each absIR=1e-5,
+  each absSol=1e-5,
+  boundaryCondition={
+    Buildings.Rooms.Types.CFDBoundaryConditions.Temperature,
+    Buildings.Rooms.Types.CFDBoundaryConditions.Temperature,
+    Buildings.Rooms.Types.CFDBoundaryConditions.HeatFlowRate,
+    Buildings.Rooms.Types.CFDBoundaryConditions.HeatFlowRate,
+    Buildings.Rooms.Types.CFDBoundaryConditions.HeatFlowRate,
+    Buildings.Rooms.Types.CFDBoundaryConditions.HeatFlowRate}),
+  lat = 0.012787839282646,
+  AFlo = 1*1,
+  hRoo = 1,
+  linearizeRadiation = false,
+  useCFD = true,
+  sensorName = {"Occupied zone air temperature", "Velocity"},
+  cfdFilNam = "modelica://Buildings/Resources/Data/Rooms/FFD/Tutorial/NaturalConvection.ffd",
+  nConExt = nConExt,
+  nConExtWin = nConExtWin,
+  nConPar = nConPar,
+  nConBou = nConBou,
+  nSurBou = nSurBou,
+  T_start=273.15,
+  samplePeriod = 60);
+</pre>
+</li>
+<li>
+<p>
+Connect components as shown in the figure below.
+</p>
+<p align="center">
+<img alt="image" src="../Resources/Images/Rooms/Examples/FFD/Tutorial/NaturalConvectionModel.png"/>
+</p>
+</li>
+<li>
+Set the values for the following components:
+<ul>
+<li>
+Set <code>qRadGai_flow</code>, <code>qConGai_flow</code> and <code>qLatGai_flow</code> to <i>0</i>.
+</li>
+<li>
+Set <code>fixedHeatFlow</code> to <i>0</i>.
+</li>
+<li>
+Set <code>TEasWal</code> to <i>273.15</i> Kelvin.
+</li>
+<li>
+Set <code>TWesWal</code> to <i>274.15</i> Kelvin.
+</li>
+</ul>
+</li>
+<li>
+Use the Simplified CFD Interface (SCI) to generate the input file for FFD.
+<ul>
+<li>
+Use a 20 x 20 x 20 uniform grid.
+</li>
+<li>
+Set the time step size of the FFD to <i>10</i> seconds.
+</li>
+<li>
+Generate the input files which have the default names <code>input.cfd</code> (mesh file) and <code>zeroone.dat</code> (obstacles file).
+</li>
+<li>
+Rename the files as <code>NaturalConvection.cfd</code> and <code>NaturalConvection.dat</code>, respectively.
+</li>
+</ul>
+</li>
+<li>
+Revise the FFD parameter input file <code>NaturalConvection.ffd</code> (an example file is provided in <code>Buildings/Resources/Data/Rooms/FFD/Tutorial/</code>):
+<pre>
+  inpu.parameter_file_format SCI
+  inpu.parameter_file_name Resources/Data/Rooms/FFD/Tutorial/NaturalConvection.cfd
+  inpu.block_file_name Resources/Data/Rooms/FFD/Tutorial/NaturalConvection.dat
+  prob.nu 1.5e-5 // Kinematic viscosity
+  prob.rho 1 // Density
+  prob.gravx 0 // Gravity in x direction
+  prob.gravy 0 // Gravity in y direction
+  prob.gravz -0.01 // Gravity in z direction
+  prob.cond 0.02 // Conductivity
+  prob.Cp 1000.0 // Specific heat capacity
+  prob.beta 3e-3 // Thermal expansion coefficient
+  prob.diff 0.00001 // Diffusivity for contaminants
+  prob.alpha 2e-5 // Thermal diffusivity
+  prob.coeff_h 0.0004 // Convective heat transfer coefficient near the wall
+  prob.Temp_Buoyancy 0.0 // Reference temperature for calculating buoyance force
+  init.T 0.0 // Initial condition for Temperature
+  init.u 0.0 // Initial condition for velocity u
+  init.v 0.0 // Initial condition for velocity v
+  init.w 0.0 // Initial condition for velocity w
+</pre>
+<p>
+Please note that some of the physical properties were manipulated to obtaine the desired Rayleigh Number of <i>10<sup>5</sup></i>.
+</p>
+</li>
+<li>
+Store <code>NaturalConvection.ffd</code>, <code>NaturalConvection.dat</code>, and <code>NaturalConvection.cfd</code> at <code>Buildings/Resources/Data/Rooms/FFD/Tutorial</code>.
+</li>
+<li>
+Set simulation the stop time of the Modelica model <code>7200</code> seconds and choose for example the Radau solver.
+</li>
+<li>
+Translate the model and start the simulation.
+</li>
+<li>
+Post-process: click the Tecplot macro script <code>Buildings/Resources/Image/Rooms/Examples/FFD/Tutorial/NaturalConvection.mcr</code> that will generate the temperature contour and velocity vectors shown in the Figure (b).
+Note: Tecplot is needed for this.
+</li>
+</ol>
+
+<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</a> (Icon for runnable examples).</p>
+<h3>Parameters</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td>Integer</td><td>nConExtWin</td><td>0</td><td>Number of constructions with a window</td></tr>
+<tr><td>Integer</td><td>nConBou</td><td>0</td><td>Number of surface that are connected to constructions that are modeled inside the room</td></tr>
+<tr><td>Integer</td><td>nSurBou</td><td>6</td><td>Number of surface that are connected to the room air volume</td></tr>
+<tr><td>Integer</td><td>nConExt</td><td>0</td><td>Number of exterior constructions withour a window</td></tr>
+<tr><td>Integer</td><td>nConPar</td><td>0</td><td>Number of partition constructions</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">model</span> NaturalConvection <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Tutorial for Natural Convection case&quot;</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</a>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">package</span> MediumA =
+      <a href="Buildings_Media_Air.html#Buildings.Media.Air"
+>Buildings.Media.Air</a> (
+        T_default=283.15) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Medium model&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Integer nConExtWin=0 <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Number of constructions with a window&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Integer nConBou=0 <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Number of surface that are connected to constructions that are modeled inside the room&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Integer nSurBou=6 <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Number of surface that are connected to the room air volume&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Integer nConExt=0 <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Number of exterior constructions withour a window&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Integer nConPar=0 <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Number of partition constructions&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+>Modelica.Blocks.Sources.Constant</a> qRadGai_flow(k=0) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Radiative heat gain&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+>Modelica.Blocks.Sources.Constant</a> qConGai_flow(k=0) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Convective heat gain&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+>Modelica.Blocks.Sources.Constant</a> qLatGai_flow(k=0) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Latent heat gain&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Routing.html#Modelica.Blocks.Routing.Multiplex3"
+>Modelica.Blocks.Routing.Multiplex3</a> multiplex3_1;
+  <a href="Buildings_BoundaryConditions_WeatherData.html#Buildings.BoundaryConditions.WeatherData.ReaderTMY3"
+>BoundaryConditions.WeatherData.ReaderTMY3</a> weaDat(filNam=&quot;modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos&quot;,
+      TDryBul=293.15);
+  <a href="Buildings_Rooms.html#Buildings.Rooms.CFD"
+>Buildings.Rooms.CFD</a> roo(
+   <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = MediumA,
+   surBou(
+   name={&quot;East Wall&quot;,&quot;West Wall&quot;,&quot;North Wall&quot;,&quot;South Wall&quot;,&quot;Ceiling&quot;,&quot;Floor&quot;},
+   <span style="color: blue; font-weight: normal; font-style: normal;">each </span>A=1*1,
+   til={Buildings.Types.Tilt.Wall,Buildings.Types.Tilt.Wall,
+        Buildings.Types.Tilt.Wall,Buildings.Types.Tilt.Wall,
+        Buildings.Types.Tilt.Ceiling,Buildings.Types.Tilt.Floor},
+   <span style="color: blue; font-weight: normal; font-style: normal;">each </span>absIR=1e-5,
+   <span style="color: blue; font-weight: normal; font-style: normal;">each </span>absSol=1e-5,
+   boundaryCondition={Buildings.Rooms.Types.CFDBoundaryConditions.Temperature,
+       Buildings.Rooms.Types.CFDBoundaryConditions.Temperature,Buildings.Rooms.Types.CFDBoundaryConditions.HeatFlowRate,
+       Buildings.Rooms.Types.CFDBoundaryConditions.HeatFlowRate,
+       Buildings.Rooms.Types.CFDBoundaryConditions.HeatFlowRate,
+       Buildings.Rooms.Types.CFDBoundaryConditions.HeatFlowRate}),
+   AFlo = 1*1,
+   hRoo = 1,
+   linearizeRadiation = false,
+   useCFD = true,
+   sensorName = {&quot;Occupied zone air temperature&quot;, &quot;Velocity&quot;},
+   cfdFilNam = &quot;modelica://Buildings/Resources/Data/Rooms/FFD/Tutorial/NaturalConvection.ffd&quot;,
+   nConExt = nConExt,
+   nConExtWin = nConExtWin,
+   nConPar = nConPar,
+   nConBou = nConBou,
+   nSurBou = nSurBou,
+   samplePeriod = 60,
+    lat=0.012787839282646,
+    massDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial);
+  <a href="Buildings_HeatTransfer_Sources.html#Buildings.HeatTransfer.Sources.FixedHeatFlow"
+>HeatTransfer.Sources.FixedHeatFlow</a> fixedHeatFlow[nSurBou - 2](<span style="color: blue; font-weight: normal; font-style: normal;">each </span>Q_flow=0);
+  <a href="Buildings_HeatTransfer_Sources.html#Buildings.HeatTransfer.Sources.FixedTemperature"
+>HeatTransfer.Sources.FixedTemperature</a>           TWesWal(T=274.15) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Boundary condition for the west wall&quot;</span>;
+  <a href="Buildings_HeatTransfer_Sources.html#Buildings.HeatTransfer.Sources.FixedTemperature"
+>HeatTransfer.Sources.FixedTemperature</a>           TEasWal(T=273.15) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Temperature of east wall&quot;</span>;
+<span style="color: blue; font-weight: normal; font-style: normal;">equation </span>
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(qRadGai_flow.y, multiplex3_1.u1[1]);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(qConGai_flow.y, multiplex3_1.u2[1]);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(qLatGai_flow.y, multiplex3_1.u3[1]);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(multiplex3_1.y, roo.qGai_flow);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(TEasWal.port, roo.surf_surBou[1]);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(TWesWal.port, roo.surf_surBou[2]);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(fixedHeatFlow[1].port, roo.surf_surBou[3]);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(fixedHeatFlow[2].port, roo.surf_surBou[4]);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(fixedHeatFlow[3].port, roo.surf_surBou[5]);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(fixedHeatFlow[4].port, roo.surf_surBou[6]);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(weaDat.weaBus, roo.weaBus);
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>NaturalConvection;
+</div>
+<hr>
+<address>
+<a href="http://www.3ds.com/">Automatically generated</a> Thu Apr  9 09:40:12 2015.
+</address>
+</body>
+</html>

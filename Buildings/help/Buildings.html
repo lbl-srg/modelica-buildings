@@ -1,0 +1,169 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>Buildings</title>
+<meta name="HTML-Generator" content="Dymola">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="description" content="&quot;Library with models for building energy and control systems&quot;">
+<style type="text/css">
+*       { font-size: 10pt; font-family: Arial, sans-serif; }
+.modelica, .modelica * { font-size: 9pt; font-family: Courier, monospace; white-space: pre; }
+h4      { font-size: 10pt; font-weight: bold; color: green; }
+h3      { font-size: 11pt; font-weight: bold; color: green; }
+h2      { font-size: 13pt; font-weight: bold; color: green; }
+address { font-weight: normal; }
+td      { border: 1px solid #808080; vertical-align: top; }
+th      { border: 1px solid #808080; vertical-align: top; font-weight: bold; }
+table   { border: 1px solid #808080; border-collapse: collapse; }
+</style>
+<link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../Resources/www/modelicaDoc.css">
+</HEAD>
+<body>
+<!-- --- header ------ -->
+<div class="headerStyle">
+<img src="../Resources/www/lbl-logo.png" alt="LBL logo"/>
+</div>
+<div class="headerLinks">
+<ul><li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt; <a href="Buildings.html">Modelica</a></li></ul>
+</div>
+<!-- --- end header -- -->
+
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE Buildings<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><a name="Buildings"></a>Buildings</h2>
+<p>
+<b>Library with models for building energy and control systems</b><br>
+</p>
+<h3>Information</h3>
+
+<p>
+The <code>Buildings</code> library is a free library
+for modeling building energy and control systems.
+Many models are based on models from the package
+<code>Modelica.Fluid</code> and use
+the same ports to ensure compatibility with the Modelica Standard
+Library.
+</p>
+<p>
+The figure below shows a section of the schematic view of the model
+<a href="Buildings_Examples_HydronicHeating.html#Buildings.Examples.HydronicHeating"
+>
+Buildings.Examples.HydronicHeating</a>.
+In the lower part of the figure, there is a dynamic model of a boiler, a pump and a stratified energy storage tank. Based on the temperatures of the storage tank, a finite state machine switches the boiler and its pump on and off.
+The heat distribution is done using a hydronic heating system with a three way valve and a pump with variable revolutions. The upper right hand corner shows a room model that is connected to a radiator whose flow is controlled by a thermostatic valve.
+</p>
+<p align="center">
+<img alt="image" src="../Resources/Images/UsersGuide/HydronicHeating.png" border="1"/>
+</p>
+<p>
+The web page for this library is
+<a href="http://simulationresearch.lbl.gov/modelica">http://simulationresearch.lbl.gov/modelica</a>,
+and the development page is
+<a href="https://github.com/lbl-srg/modelica-buildings">https://github.com/lbl-srg/modelica-buildings</a>.
+Contributions to further advance the library are welcomed.
+Contributions may not only be in the form of model development, but also
+through model use, model testing,
+requirements definition or providing feedback regarding the model applicability
+to solve specific problems.
+</p>
+
+<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons_Package.html#Modelica.Icons.Package"
+>Modelica.Icons.Package</a> (Icon for standard packages).</p>
+<h3>Package Content</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Package Content">
+<tr>
+<th>Name</th>
+<th>Description</th>
+</tr>
+<tr>
+<td><img src="Buildings.UsersGuideS.png" alt="Buildings.UsersGuide" width="20" height="20" align="top">&nbsp;<a href="Buildings_UsersGuide.html#Buildings.UsersGuide"
+>UsersGuide</a>
+</td>
+<td>User&#39;s Guide</td>
+</tr>
+<tr>
+<td><img src="Buildings.AirflowS.png" alt="Buildings.Airflow" width="20" height="20" align="top">&nbsp;<a href="Buildings_Airflow.html#Buildings.Airflow"
+>Airflow</a>
+</td>
+<td>Package to compute airflow and contaminant transport between rooms</td>
+</tr>
+<tr>
+<td><img src="Buildings.BoundaryConditionsS.png" alt="Buildings.BoundaryConditions" width="20" height="20" align="top">&nbsp;<a href="Buildings_BoundaryConditions.html#Buildings.BoundaryConditions"
+>BoundaryConditions</a>
+</td>
+<td>Package with models for boundary conditions</td>
+</tr>
+<tr>
+<td><img src="Buildings.ControlsS.png" alt="Buildings.Controls" width="20" height="20" align="top">&nbsp;<a href="Buildings_Controls.html#Buildings.Controls"
+>Controls</a>
+</td>
+<td>Package with models for controls</td>
+</tr>
+<tr>
+<td><img src="Buildings.ElectricalS.png" alt="Buildings.Electrical" width="20" height="20" align="top">&nbsp;<a href="Buildings_Electrical.html#Buildings.Electrical"
+>Electrical</a>
+</td>
+<td>Package with models for electrical systems</td>
+</tr>
+<tr>
+<td><img src="Buildings.FluidS.png" alt="Buildings.Fluid" width="20" height="20" align="top">&nbsp;<a href="Buildings_Fluid.html#Buildings.Fluid"
+>Fluid</a>
+</td>
+<td>Package with models for fluid flow systems</td>
+</tr>
+<tr>
+<td><img src="Buildings.HeatTransferS.png" alt="Buildings.HeatTransfer" width="20" height="20" align="top">&nbsp;<a href="Buildings_HeatTransfer.html#Buildings.HeatTransfer"
+>HeatTransfer</a>
+</td>
+<td>Package with heat transfer models</td>
+</tr>
+<tr>
+<td><img src="Buildings.MediaS.png" alt="Buildings.Media" width="20" height="20" align="top">&nbsp;<a href="Buildings_Media.html#Buildings.Media"
+>Media</a>
+</td>
+<td>Package with medium models</td>
+</tr>
+<tr>
+<td><img src="Buildings.RoomsS.png" alt="Buildings.Rooms" width="20" height="20" align="top">&nbsp;<a href="Buildings_Rooms.html#Buildings.Rooms"
+>Rooms</a>
+</td>
+<td>Package with models for rooms</td>
+</tr>
+<tr>
+<td><img src="Buildings.UtilitiesS.png" alt="Buildings.Utilities" width="20" height="20" align="top">&nbsp;<a href="Buildings_Utilities.html#Buildings.Utilities"
+>Utilities</a>
+</td>
+<td>Package with utility functions such as for I/O</td>
+</tr>
+<tr>
+<td><img src="Buildings.TypesS.png" alt="Buildings.Types" width="20" height="20" align="top">&nbsp;<a href="Buildings_Types.html#Buildings.Types"
+>Types</a>
+</td>
+<td>Package with type definitions</td>
+</tr>
+<tr>
+<td><img src="Buildings.ExamplesS.png" alt="Buildings.Examples" width="20" height="20" align="top">&nbsp;<a href="Buildings_Examples.html#Buildings.Examples"
+>Examples</a>
+</td>
+<td>Collection of models that illustrate model use and test models</td>
+</tr>
+<tr>
+<td><img src="Buildings.BaseClassesS.png" alt="Buildings.BaseClasses" width="20" height="20" align="top">&nbsp;<a href="Buildings_BaseClasses.html#Buildings.BaseClasses"
+>BaseClasses</a>
+</td>
+<td>Package with base classes for the Buildings library</td>
+</tr>
+<tr>
+<td><img src="Buildings.ObsoleteS.png" alt="Buildings.Obsolete" width="20" height="20" align="top">&nbsp;<a href="Buildings_Obsolete.html#Buildings.Obsolete"
+>Obsolete</a>
+</td>
+<td>Package with obsolete models that will be removed</td>
+</tr>
+</table>
+<hr>
+<address>
+<a href="http://www.3ds.com/">Automatically generated</a> Thu Apr  9 09:32:25 2015.
+</address>
+</body>
+</html>

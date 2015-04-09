@@ -1,0 +1,294 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>Buildings.BoundaryConditions.SolarIrradiation.Examples</title>
+<meta name="HTML-Generator" content="Dymola">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="description" content="&quot;Collection of models that illustrate model use and test models&quot;">
+<style type="text/css">
+*       { font-size: 10pt; font-family: Arial, sans-serif; }
+.modelica, .modelica * { font-size: 9pt; font-family: Courier, monospace; white-space: pre; }
+h4      { font-size: 10pt; font-weight: bold; color: green; }
+h3      { font-size: 11pt; font-weight: bold; color: green; }
+h2      { font-size: 13pt; font-weight: bold; color: green; }
+address { font-weight: normal; }
+td      { border: 1px solid #808080; vertical-align: top; }
+th      { border: 1px solid #808080; vertical-align: top; font-weight: bold; }
+table   { border: 1px solid #808080; border-collapse: collapse; }
+</style>
+<link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../Resources/www/modelicaDoc.css">
+</HEAD>
+<body>
+<!-- --- header ------ -->
+<div class="headerStyle">
+<img src="../Resources/www/lbl-logo.png" alt="LBL logo"/>
+</div>
+<div class="headerLinks">
+<ul><li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt; <a href="Buildings.html">Modelica</a></li></ul>
+</div>
+<!-- --- end header -- -->
+
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE Examples<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><a name="Buildings.BoundaryConditions.SolarIrradiation.Examples"></a><a href="Buildings_BoundaryConditions_SolarIrradiation.html#Buildings.BoundaryConditions.SolarIrradiation"
+>Buildings.BoundaryConditions.SolarIrradiation</a>.Examples</h2>
+<p>
+<b>Collection of models that illustrate model use and test models</b><br>
+</p>
+<h3>Information</h3>
+
+<p>
+This package contains examples for the use of models that can be found in
+<a href="Buildings_BoundaryConditions_SolarIrradiation.html#Buildings.BoundaryConditions.SolarIrradiation"
+>
+Buildings.BoundaryConditions.SolarIrradiation</a>.
+</p>
+
+<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons_ExamplesPackage.html#Modelica.Icons.ExamplesPackage"
+>Modelica.Icons.ExamplesPackage</a> (Icon for packages containing runnable examples).</p>
+<h3>Package Content</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Package Content">
+<tr>
+<th>Name</th>
+<th>Description</th>
+</tr>
+<tr>
+<td><img src="Buildings.BoundaryConditiff89ca779a372bddropicS.png" alt="Buildings.BoundaryConditions.SolarIrradiation.Examples.DiffuseIsotropic" width="20" height="20" align="top">&nbsp;<a href="Buildings_BoundaryConditions_SolarIrradiation_Examples.html#Buildings.BoundaryConditions.SolarIrradiation.Examples.DiffuseIsotropic"
+>DiffuseIsotropic</a>
+</td>
+<td>Test model for diffuse solar irradiation on a tilted surface using the isotropic model</td>
+</tr>
+<tr>
+<td><img src="Buildings.BoundaryConditia627c52717f09f88PerezS.png" alt="Buildings.BoundaryConditions.SolarIrradiation.Examples.DiffusePerez" width="20" height="20" align="top">&nbsp;<a href="Buildings_BoundaryConditions_SolarIrradiation_Examples.html#Buildings.BoundaryConditions.SolarIrradiation.Examples.DiffusePerez"
+>DiffusePerez</a>
+</td>
+<td>Test model for diffuse solar irradiation on a tilted surface using the Perez model</td>
+</tr>
+<tr>
+<td><img src="Buildings.BoundaryConditid3c369499e02a92crfaceS.png" alt="Buildings.BoundaryConditions.SolarIrradiation.Examples.DirectTiltedSurface" width="20" height="20" align="top">&nbsp;<a href="Buildings_BoundaryConditions_SolarIrradiation_Examples.html#Buildings.BoundaryConditions.SolarIrradiation.Examples.DirectTiltedSurface"
+>DirectTiltedSurface</a>
+</td>
+<td>Test model for direct solar irradiation on a tilted surface</td>
+</tr>
+</table>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE DiffuseIsotropic<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.BoundaryConditiff89ca779a372bddropicI.png" alt="Buildings.BoundaryConditions.SolarIrradiation.Examples.DiffuseIsotropic" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.BoundaryConditions.SolarIrradiation.Examples.DiffuseIsotropic"></a><a href="Buildings_BoundaryConditions_SolarIrradiation_Examples.html#Buildings.BoundaryConditions.SolarIrradiation.Examples"
+>Buildings.BoundaryConditions.SolarIrradiation.Examples</a>.DiffuseIsotropic</h2>
+<p>
+<b>Test model for diffuse solar irradiation on a tilted surface using the isotropic model</b>
+<br>
+<br><img src="Buildings.BoundaryConditiff89ca779a372bddropicD.png" alt="Buildings.BoundaryConditions.SolarIrradiation.Examples.DiffuseIsotropic">
+</p>
+<h3>Information</h3>
+
+<p>
+This example computes the hemispherical diffuse irradiation
+on a roof, wall and a floor, using an isotropic sky model.
+Since the floor only sees the ground,
+it receives the lowest amount of diffuse solar irradiation.
+</p>
+
+<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</a> (Icon for runnable examples).</p>
+<h3>Parameters</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td>Real</td><td>rho</td><td>0.2</td><td>Ground reflectance</td></tr>
+</table>
+<h3>Connectors</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Connectors">
+<tr><th>Type</th><th>Name</th><th>Description</th></tr>
+<tr><td><a href="Buildings_BoundaryConditions_WeatherData.html#Buildings.BoundaryConditions.WeatherData.Bus"
+>Bus</a></td><td>weaBus</td><td>Weather data bus</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">model</span> DiffuseIsotropic <span style="color: #006400; font-weight: normal; font-style: normal;">
+  &quot;Test model for diffuse solar irradiation on a tilted surface using the isotropic model&quot;</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</a>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Real rho=0.2 <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Ground reflectance&quot;</span>;
+
+  <a href="Buildings_BoundaryConditions_WeatherData.html#Buildings.BoundaryConditions.WeatherData.ReaderTMY3"
+>Buildings.BoundaryConditions.WeatherData.ReaderTMY3</a> weaDat(filNam=
+        &quot;modelica://Buildings/Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos&quot;);
+  <a href="Buildings_BoundaryConditions_WeatherData.html#Buildings.BoundaryConditions.WeatherData.Bus"
+>Buildings.BoundaryConditions.WeatherData.Bus</a> weaBus <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Weather data bus&quot;</span>;
+  <a href="Buildings_BoundaryConditions_SolarIrradiation.html#Buildings.BoundaryConditions.SolarIrradiation.DiffuseIsotropic"
+>Buildings.BoundaryConditions.SolarIrradiation.DiffuseIsotropic</a>
+        HDifRoo(til=Buildings.Types.Tilt.Ceiling,
+                rho=rho) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Diffuse irradiation on roof&quot;</span>;
+  <a href="Buildings_BoundaryConditions_SolarIrradiation.html#Buildings.BoundaryConditions.SolarIrradiation.DiffuseIsotropic"
+>Buildings.BoundaryConditions.SolarIrradiation.DiffuseIsotropic</a>
+        HDifFlo(til=Buildings.Types.Tilt.Floor,
+                rho=rho) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Diffuse irradiation on floor&quot;</span>;
+  <a href="Buildings_BoundaryConditions_SolarIrradiation.html#Buildings.BoundaryConditions.SolarIrradiation.DiffuseIsotropic"
+>Buildings.BoundaryConditions.SolarIrradiation.DiffuseIsotropic</a>
+        HDifWal(
+        til=Buildings.Types.Tilt.Wall,
+        rho=rho) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Diffuse irradiation on wall&quot;</span>;
+
+<span style="color: blue; font-weight: normal; font-style: normal;">equation </span>
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(weaDat.weaBus, weaBus);
+
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(weaBus,HDifRoo. weaBus);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(HDifWal.weaBus, weaBus);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(HDifFlo.weaBus, weaBus);
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>DiffuseIsotropic;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE DiffusePerez<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.BoundaryConditia627c52717f09f88PerezI.png" alt="Buildings.BoundaryConditions.SolarIrradiation.Examples.DiffusePerez" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.BoundaryConditions.SolarIrradiation.Examples.DiffusePerez"></a><a href="Buildings_BoundaryConditions_SolarIrradiation_Examples.html#Buildings.BoundaryConditions.SolarIrradiation.Examples"
+>Buildings.BoundaryConditions.SolarIrradiation.Examples</a>.DiffusePerez</h2>
+<p>
+<b>Test model for diffuse solar irradiation on a tilted surface using the Perez model</b>
+<br>
+<br><img src="Buildings.BoundaryConditia627c52717f09f88PerezD.png" alt="Buildings.BoundaryConditions.SolarIrradiation.Examples.DiffusePerez">
+</p>
+<h3>Information</h3>
+
+<p>
+This model tests the implementation of Perez' model for diffuse solar radiation.
+The three instances of Perez' model compute the diffuse solar
+irradiation on a roof, a wall and a floor.
+Since the floor only sees the ground but not the radiative heat flow that is
+scattered in the atmosphere, it receives the lowest amount of
+diffuse solar irradiation.
+</p>
+
+<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</a> (Icon for runnable examples).</p>
+<h3>Parameters</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
+>Angle</a></td><td>lat</td><td>37/180*Modelica.Constants.pi</td><td>Latitude [rad]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
+>Angle</a></td><td>azi</td><td>0.3</td><td>Azi angle [rad]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
+>Angle</a></td><td>til</td><td>0.5</td><td>Tilted angle [rad]</td></tr>
+</table>
+<h3>Connectors</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Connectors">
+<tr><th>Type</th><th>Name</th><th>Description</th></tr>
+<tr><td><a href="Buildings_BoundaryConditions_WeatherData.html#Buildings.BoundaryConditions.WeatherData.Bus"
+>Bus</a></td><td>weaBus</td><td>&nbsp;</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">model</span> DiffusePerez <span style="color: #006400; font-weight: normal; font-style: normal;">
+  &quot;Test model for diffuse solar irradiation on a tilted surface using the Perez model&quot;</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</a>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
+>Modelica.SIunits.Angle</a> lat=37/180*Modelica.Constants.pi <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Latitude&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
+>Modelica.SIunits.Angle</a> azi=0.3 <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Azi angle&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
+>Modelica.SIunits.Angle</a> til=0.5 <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Tilted angle&quot;</span>;
+  <a href="Buildings_BoundaryConditions_WeatherData.html#Buildings.BoundaryConditions.WeatherData.ReaderTMY3"
+>Buildings.BoundaryConditions.WeatherData.ReaderTMY3</a> weaDat(filNam=
+        &quot;modelica://Buildings/Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos&quot;);
+  <a href="Buildings_BoundaryConditions_WeatherData.html#Buildings.BoundaryConditions.WeatherData.Bus"
+>Buildings.BoundaryConditions.WeatherData.Bus</a> weaBus;
+  <a href="Buildings_BoundaryConditions_SolarIrradiation.html#Buildings.BoundaryConditions.SolarIrradiation.DiffusePerez"
+>Buildings.BoundaryConditions.SolarIrradiation.DiffusePerez</a> HDifRoo(
+    til=Buildings.Types.Tilt.Ceiling,
+    lat=0.6457718232379,
+    azi=0.78539816339745) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Diffuse irradiation on roof&quot;</span>;
+  <a href="Buildings_BoundaryConditions_SolarIrradiation.html#Buildings.BoundaryConditions.SolarIrradiation.DiffusePerez"
+>Buildings.BoundaryConditions.SolarIrradiation.DiffusePerez</a> HDifFlo(
+    til=Buildings.Types.Tilt.Floor,
+    lat=0.6457718232379,
+    azi=0.78539816339745) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Diffuse irradiation on floor&quot;</span>;
+  <a href="Buildings_BoundaryConditions_SolarIrradiation.html#Buildings.BoundaryConditions.SolarIrradiation.DiffusePerez"
+>Buildings.BoundaryConditions.SolarIrradiation.DiffusePerez</a> HDifWal(
+    til=Buildings.Types.Tilt.Wall,
+    lat=0.6457718232379,
+    azi=0.78539816339745) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Diffuse irradiation on wall&quot;</span>;
+<span style="color: blue; font-weight: normal; font-style: normal;">equation </span>
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(weaDat.weaBus, weaBus);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(weaBus,HDifRoo. weaBus);
+
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(weaBus, HDifFlo.weaBus);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(weaBus, HDifWal.weaBus);
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>DiffusePerez;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE DirectTiltedSurface<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.BoundaryConditid3c369499e02a92crfaceI.png" alt="Buildings.BoundaryConditions.SolarIrradiation.Examples.DirectTiltedSurface" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.BoundaryConditions.SolarIrradiation.Examples.DirectTiltedSurface"></a><a href="Buildings_BoundaryConditions_SolarIrradiation_Examples.html#Buildings.BoundaryConditions.SolarIrradiation.Examples"
+>Buildings.BoundaryConditions.SolarIrradiation.Examples</a>.DirectTiltedSurface</h2>
+<p>
+<b>Test model for direct solar irradiation on a tilted surface</b>
+<br>
+<br><img src="Buildings.BoundaryConditid3c369499e02a92crfaceD.png" alt="Buildings.BoundaryConditions.SolarIrradiation.Examples.DirectTiltedSurface">
+</p>
+<h3>Information</h3>
+
+<p>
+This model tests the direct solar irradiation received on a ceiling, a wall and a floor.
+The assert statement will stop the simulation if the floor receives
+any direct solar irradiation.
+</p>
+
+<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</a> (Icon for runnable examples).</p>
+<h3>Parameters</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
+>Angle</a></td><td>lat</td><td>37/180*Modelica.Constants.pi</td><td>Latitude [rad]</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">model</span> DirectTiltedSurface <span style="color: #006400; font-weight: normal; font-style: normal;">
+  &quot;Test model for direct solar irradiation on a tilted surface&quot;</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</a>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
+>Modelica.SIunits.Angle</a> lat=37/180*Modelica.Constants.pi <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Latitude&quot;</span>;
+  <a href="Buildings_BoundaryConditions_WeatherData.html#Buildings.BoundaryConditions.WeatherData.ReaderTMY3"
+>Buildings.BoundaryConditions.WeatherData.ReaderTMY3</a> weaDat(filNam=
+        &quot;modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos&quot;);
+  <a href="Buildings_BoundaryConditions_SolarIrradiation.html#Buildings.BoundaryConditions.SolarIrradiation.DirectTiltedSurface"
+>Buildings.BoundaryConditions.SolarIrradiation.DirectTiltedSurface</a> HDirRoo(
+    til=Buildings.Types.Tilt.Ceiling,
+    lat=0.6457718232379,
+    azi=0.78539816339745) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Direct irradiation on roof&quot;</span>;
+  <a href="Buildings_BoundaryConditions_SolarIrradiation.html#Buildings.BoundaryConditions.SolarIrradiation.DirectTiltedSurface"
+>Buildings.BoundaryConditions.SolarIrradiation.DirectTiltedSurface</a> HDirFlo(
+    til=Buildings.Types.Tilt.Floor,
+    lat=0.6457718232379,
+    azi=0.78539816339745) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Direct irradiation on floor&quot;</span>;
+  <a href="Buildings_BoundaryConditions_SolarIrradiation.html#Buildings.BoundaryConditions.SolarIrradiation.DirectTiltedSurface"
+>Buildings.BoundaryConditions.SolarIrradiation.DirectTiltedSurface</a> HDirWal(
+    til=Buildings.Types.Tilt.Wall,
+    lat=0.6457718232379,
+    azi=0.78539816339745) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Direct irradiation on wall&quot;</span>;
+  <a href="Buildings_Utilities_Diagnostics.html#Buildings.Utilities.Diagnostics.AssertEquality"
+>Buildings.Utilities.Diagnostics.AssertEquality</a> assEqu <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Assert to ensure that direct radiation received by floor construction is zero&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+>Modelica.Blocks.Sources.Constant</a> const(k=0) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Block that outputs zero&quot;</span>;
+<span style="color: blue; font-weight: normal; font-style: normal;">equation </span>
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(assEqu.u1, HDirFlo.H);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(const.y, assEqu.u2);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(weaDat.weaBus, HDirRoo.weaBus);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(HDirWal.weaBus, weaDat.weaBus);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(HDirFlo.weaBus, weaDat.weaBus);
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>DirectTiltedSurface;
+</div>
+<hr>
+<address>
+<a href="http://www.3ds.com/">Automatically generated</a> Thu Apr  9 09:32:36 2015.
+</address>
+</body>
+</html>

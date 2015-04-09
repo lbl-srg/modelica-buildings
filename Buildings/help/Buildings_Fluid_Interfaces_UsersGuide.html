@@ -1,0 +1,270 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>Buildings.Fluid.Interfaces.UsersGuide</title>
+<meta name="HTML-Generator" content="Dymola">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="description" content="&quot;User&#39;s Guide&quot;">
+<style type="text/css">
+*       { font-size: 10pt; font-family: Arial, sans-serif; }
+.modelica, .modelica * { font-size: 9pt; font-family: Courier, monospace; white-space: pre; }
+h4      { font-size: 10pt; font-weight: bold; color: green; }
+h3      { font-size: 11pt; font-weight: bold; color: green; }
+h2      { font-size: 13pt; font-weight: bold; color: green; }
+address { font-weight: normal; }
+td      { border: 1px solid #808080; vertical-align: top; }
+th      { border: 1px solid #808080; vertical-align: top; font-weight: bold; }
+table   { border: 1px solid #808080; border-collapse: collapse; }
+</style>
+<link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../Resources/www/modelicaDoc.css">
+</HEAD>
+<body>
+<!-- --- header ------ -->
+<div class="headerStyle">
+<img src="../Resources/www/lbl-logo.png" alt="LBL logo"/>
+</div>
+<div class="headerLinks">
+<ul><li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt; <a href="Buildings.html">Modelica</a></li></ul>
+</div>
+<!-- --- end header -- -->
+
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE UsersGuide<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><a name="Buildings.Fluid.Interfaces.UsersGuide"></a><a href="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces"
+>Buildings.Fluid.Interfaces</a>.UsersGuide</h2>
+<p>
+<b>User&#39;s Guide</b><br>
+</p>
+<h3>Information</h3>
+
+<p>
+The package <code>Buildings.Fluid.Interface</code> consists of basic
+classes that can be used by developers to create new component models.
+</p>
+<p>
+The classes whose name contains <code>TwoPort</code> or
+<code>FourPort</code> can be used for components with
+two or four fluid ports, respectively. If a class name contains
+<code>Static</code>, then it can only be used for a steady-state model.
+Otherwise, it may be used for a steady-state or a dynamic model.
+</p>
+<p>
+The most basic classes are the records
+<a href="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces.TwoPortFlowResistanceParameters"
+>
+Buildings.Fluid.Interfaces.TwoPortFlowResistanceParameters</a>,
+<a href="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces.FourPortFlowResistanceParameters"
+>
+Buildings.Fluid.Interfaces.FourPortFlowResistanceParameters</a> and
+<a href="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces.LumpedVolumeDeclarations"
+>
+Buildings.Fluid.Interfaces.LumpedVolumeDeclarations</a>.
+These define parameters that are needed by many fluid flow components.
+</p>
+
+<p>
+Next, we describe the basic classes. For a more detailed description,
+see the <i>info</i> section of the class.
+</p>
+<table summary="summary" border="1" cellspacing="0" cellpadding="2" style="border-collapse:collapse;">
+<tr>
+<!-- ============================================== -->
+  <td><a href="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces.ConservationEquation"
+>
+      Buildings.Fluid.Interfaces.ConservationEquation</a>
+  </td>
+  <td><p>
+      This is a basic model for an ideally mixed fluid volume.
+      It implements conservation equations for mass and energy.
+      The conservation equations can be dynamic or steady-state.
+      The model can have an arbitrary number of fluid ports.
+      Models that instanciate this model need to define the input
+      <code>fluidVolume</code>, which is the actual volume occupied by the fluid.
+      For most components, this can be set to a parameter. However, for components such as
+      expansion vessels, the fluid volume can change in time.
+      </p>
+
+      The model has the following input connectors:<br/>
+<ul>
+<li>
+<code>Q_flow</code>, which is the sensible plus latent heat flow rate added to the medium, and
+</li>
+<li>
+<code>mXi_flow</code>, which is the species mass flow rate added to the medium.
+</li>
+</ul>
+
+  <p>
+  Models that instanciate this model can used these connectors to interface with the conservation equations.
+  </p>
+  </td>
+</tr>
+<!-- ============================================== -->
+<tr>
+  <td><a href="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces.StaticTwoPortConservationEquation"
+>
+      Buildings.Fluid.Interfaces.StaticTwoPortConservationEquation</a>
+  </td>
+  <td><p>
+      This is a basic model for steady-state conservation equations
+      for mass and energy of a component with two fluid ports.
+      </p>
+
+      The model has the following input connectors:<br/>
+<ul>
+<li>
+<code>Q_flow</code>, which is the sensible plus latent heat flow rate added to the medium, and
+</li>
+<li>
+<code>mXi_flow</code>, which is the species mass flow rate added to the medium.
+</li>
+</ul>
+
+  <p>
+  Models that instanciate this model can used these connectors to interface with the conservation equations.
+  </p>
+ <p>
+  Compared to
+  <a href="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces.ConservationEquation"
+>
+      Buildings.Fluid.Interfaces.ConservationEquation</a>
+  this model provides a more efficient implementation of the steady-state conservation equations for
+  models with two fluid ports.
+  </p>
+  </td>
+</tr>
+<!-- ============================================== -->
+<tr>
+  <td>
+     <a href="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces.FourPort"
+>
+                          Buildings.Fluid.Interfaces.FourPort</a>
+  </td>
+  <td>
+     This model defines an interface for components with four ports.
+     Only parameters and fluid definitions are provided, but no
+     equations.
+     The model is identical to
+     <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.PartialTwoPort"
+>
+     Modelica.Fluid.Interfaces.PartialTwoPort</a>, except that it has
+     four ports.
+  </td>
+</tr>
+<!-- ============================================== -->
+<tr>
+  <td>
+    <a href="modelica://Buildings.Fluid.Interfaces.TemperatureControlledHeatFlow">
+                         Buildings.Fluid.Interfaces.TemperatureControlledHeatFlow</a>
+  </td>
+  <td>
+    This model calculates a prescribed heat flow (e.g. for an ideal heater or cooler),
+    depending on a set temperature TSet.
+  </td>
+</tr>
+<!-- ============================================== -->
+<tr>
+  <td>
+     <a href="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces.PartialTwoPortInterface"
+>
+                          Buildings.Fluid.Interfaces.PartialTwoPortInterface</a>
+  </td>
+  <td>
+     This model defines the interface for component models that transport
+     fluid, and that can exchange heat and mass.
+     It also defines the port pressure difference as
+     <i>&Delta;p = p<sub>a</sub>-p<sub>b</sub></i>. However, no equation is
+     implemented to compute <i>&Delta;p(&sdot;)</i> as a function of the
+     mass flow rate. The model also implements equations to obtain the
+     thermodynamic state at the ports.
+  </td>
+</tr>
+<!-- ============================================== -->
+<tr>
+  <td>
+     <a href="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces.PartialFourPortInterface"
+>
+                          Buildings.Fluid.Interfaces.PartialFourPortInterface</a>
+  </td>
+  <td>
+     This model is identical to
+     <a href="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces.PartialTwoPortInterface"
+>
+                          Buildings.Fluid.Interfaces.PartialTwoPortInterface</a>
+     but it can be used for components with four fluid ports.
+  </td>
+</tr>
+<!-- ============================================== -->
+<tr>
+  <td>
+     <a href="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces.StaticTwoPortHeatMassExchanger"
+>
+                          Buildings.Fluid.Interfaces.StaticTwoPortHeatMassExchanger</a>
+  </td>
+  <td>
+     This model implements the pressure drop as a function of the mass flow rate.
+     It also implements the steady-state energy and mass conservation
+     equations. However, it does not implement an equation that computes
+     <code>Q_flow</code>, the
+     sensible and latent heat transfer to the medium flow, nor
+     does it implement an equation for <code>mXi_flow</code>,
+     the species mass flow rate added to or removed from the medium.
+     Models that extend this model need to provide equations
+     for <code>Q_flow</code> and <code>mXi_flow</code>.
+  </td>
+</tr>
+<!-- ============================================== -->
+<tr>
+  <td>
+     <a href="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces.StaticFourPortHeatMassExchanger"
+>
+                          Buildings.Fluid.Interfaces.StaticFourPortHeatMassExchanger</a>
+  </td>
+  <td>
+     This model is identical to
+     <a href="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces.StaticTwoPortHeatMassExchanger"
+>
+                          Buildings.Fluid.Interfaces.StaticTwoPortHeatMassExchanger</a>
+     except that it has four ports.
+  </td>
+</tr>
+<!-- ============================================== -->
+<tr>
+  <td>
+     <a href="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces.TwoPortHeatMassExchanger"
+>
+                          Buildings.Fluid.Interfaces.TwoPortHeatMassExchanger</a>
+  </td>
+  <td>
+     This model implements the pressure drop as a function of the mass flow rate.
+     It also implements the energy and mass conservation equations, which may be
+     configured as steady-state or dynamic balances based on a parameter.
+  </td>
+</tr>
+<!-- ============================================== -->
+<tr>
+  <td>
+     <a href="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces.FourPortHeatMassExchanger"
+>
+                          Buildings.Fluid.Interfaces.FourPortHeatMassExchanger</a>
+  </td>
+  <td>
+     This model is identical to
+     <a href="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces.TwoPortHeatMassExchanger"
+>
+                          Buildings.Fluid.Interfaces.TwoPortHeatMassExchanger</a>
+     except that it has four ports.
+  </td>
+</tr>
+</table>
+
+
+<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Information"
+>Modelica.Icons.Information</a> (Icon for general information packages).</p>
+<hr>
+<address>
+<a href="http://www.3ds.com/">Automatically generated</a> Thu Apr  9 09:36:54 2015.
+</address>
+</body>
+</html>

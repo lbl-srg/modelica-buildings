@@ -1,0 +1,570 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>Buildings.Utilities.IO.BCVTB</title>
+<meta name="HTML-Generator" content="Dymola">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="description" content="&quot;Package with functions to communicate with the Building Controls Virtual Test Bed&quot;">
+<style type="text/css">
+*       { font-size: 10pt; font-family: Arial, sans-serif; }
+.modelica, .modelica * { font-size: 9pt; font-family: Courier, monospace; white-space: pre; }
+h4      { font-size: 10pt; font-weight: bold; color: green; }
+h3      { font-size: 11pt; font-weight: bold; color: green; }
+h2      { font-size: 13pt; font-weight: bold; color: green; }
+address { font-weight: normal; }
+td      { border: 1px solid #808080; vertical-align: top; }
+th      { border: 1px solid #808080; vertical-align: top; font-weight: bold; }
+table   { border: 1px solid #808080; border-collapse: collapse; }
+</style>
+<link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../Resources/www/modelicaDoc.css">
+</HEAD>
+<body>
+<!-- --- header ------ -->
+<div class="headerStyle">
+<img src="../Resources/www/lbl-logo.png" alt="LBL logo"/>
+</div>
+<div class="headerLinks">
+<ul><li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt; <a href="Buildings.html">Modelica</a></li></ul>
+</div>
+<!-- --- end header -- -->
+
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE BCVTB<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><a name="Buildings.Utilities.IO.BCVTB"></a><a href="Buildings_Utilities_IO.html#Buildings.Utilities.IO"
+>Buildings.Utilities.IO</a>.BCVTB</h2>
+<p>
+<b>Package with functions to communicate with the Building Controls Virtual Test Bed</b><br>
+</p>
+<h3>Information</h3>
+<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons_VariantsPackage.html#Modelica.Icons.VariantsPackage"
+>Modelica.Icons.VariantsPackage</a> (Icon for package containing variants).</p>
+<h3>Package Content</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Package Content">
+<tr>
+<th>Name</th>
+<th>Description</th>
+</tr>
+<tr>
+<td><img src="Buildings.Utilities.IO.BCVTB.UsersGuideS.png" alt="Buildings.Utilities.IO.BCVTB.UsersGuide" width="20" height="20" align="top">&nbsp;<a href="Buildings_Utilities_IO_BCVTB_UsersGuide.html#Buildings.Utilities.IO.BCVTB.UsersGuide"
+>UsersGuide</a>
+</td>
+<td>User&#39;s Guide</td>
+</tr>
+<tr>
+<td><img src="Buildings.Utilities.IO.BCVTB.BCVTBS.png" alt="Buildings.Utilities.IO.BCVTB.BCVTB" width="20" height="20" align="top">&nbsp;<a href="Buildings_Utilities_IO_BCVTB.html#Buildings.Utilities.IO.BCVTB.BCVTB"
+>BCVTB</a>
+</td>
+<td>Block that exchanges data with the Building Controls Virtual Test Bed</td>
+</tr>
+<tr>
+<td><img src="Buildings.Utilities.IO.BCVTB.From_degCS.png" alt="Buildings.Utilities.IO.BCVTB.From_degC" width="20" height="20" align="top">&nbsp;<a href="Buildings_Utilities_IO_BCVTB.html#Buildings.Utilities.IO.BCVTB.From_degC"
+>From_degC</a>
+</td>
+<td>Converts Celsius to Kelvin</td>
+</tr>
+<tr>
+<td><img src="Buildings.Utilities.IO.BC7a3aa3d7dbf53696rfaceS.png" alt="Buildings.Utilities.IO.BCVTB.MoistAirInterface" width="20" height="20" align="top">&nbsp;<a href="Buildings_Utilities_IO_BCVTB.html#Buildings.Utilities.IO.BCVTB.MoistAirInterface"
+>MoistAirInterface</a>
+</td>
+<td>Fluid interface that can be coupled to BCVTB for medium that model the air humidity</td>
+</tr>
+<tr>
+<td><img src="Buildings.Utilities.IO.BCVTB.To_degCS.png" alt="Buildings.Utilities.IO.BCVTB.To_degC" width="20" height="20" align="top">&nbsp;<a href="Buildings_Utilities_IO_BCVTB.html#Buildings.Utilities.IO.BCVTB.To_degC"
+>To_degC</a>
+</td>
+<td>Converts Kelvin to Celsius</td>
+</tr>
+<tr>
+<td><img src="Buildings.Utilities.IO.BCVTB.ExamplesS.png" alt="Buildings.Utilities.IO.BCVTB.Examples" width="20" height="20" align="top">&nbsp;<a href="Buildings_Utilities_IO_BCVTB_Examples.html#Buildings.Utilities.IO.BCVTB.Examples"
+>Examples</a>
+</td>
+<td>Collection of models that illustrate model use and test models</td>
+</tr>
+<tr>
+<td><img src="Buildings.Utilities.IO.BCVTB.BaseClassesS.png" alt="Buildings.Utilities.IO.BCVTB.BaseClasses" width="20" height="20" align="top">&nbsp;<a href="Buildings_Utilities_IO_BCVTB_BaseClasses.html#Buildings.Utilities.IO.BCVTB.BaseClasses"
+>BaseClasses</a>
+</td>
+<td>Package with base classes for Buildings.Utilities.IO.BCVTB</td>
+</tr>
+</table>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE BCVTB<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Utilities.IO.BCVTB.BCVTBI.png" alt="Buildings.Utilities.IO.BCVTB.BCVTB" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Utilities.IO.BCVTB.BCVTB"></a><a href="Buildings_Utilities_IO_BCVTB.html#Buildings.Utilities.IO.BCVTB"
+>Buildings.Utilities.IO.BCVTB</a>.BCVTB</h2>
+<p>
+<b>Block that exchanges data with the Building Controls Virtual Test Bed</b>
+<br>
+<br><img src="Buildings.Utilities.IO.BCVTB.BCVTBD.png" alt="Buildings.Utilities.IO.BCVTB.BCVTB">
+</p>
+<h3>Information</h3>
+
+Block that exchanges data with the
+<a href="http://simulationresearch.lbl.gov/bcvtb">Building Controls Virtual Test Bed</a> (BCVTB).
+<p>
+At the start of the simulation, this block establishes a socket connection
+using the Berkeley Software Distribution socket (BSD socket).
+At each sampling interval, data are exchanged between Modelica
+and the BCVTB.
+When Dymola terminates, a signal is sent to the BCVTB
+so that it can terminate gracefully.
+</p>
+<p>
+For each element in the input vector <code>uR[nDblWri]</code>,
+the value of the flag <code>flaDblWri[nDblWri]</code> determines whether
+the current value, the average over the sampling interval or the integral
+over the sampling interval is sent to the BCVTB. The following three options are allowed:
+<table summary="summary" border="1">
+<tr>
+<td>
+flaDblWri[i]
+</td>
+<td>
+Value sent to the BCVTB
+</td>
+</tr>
+<tr>
+<td>
+0
+</td>
+<td>
+Current value of uR[i]
+</td>
+</tr>
+<tr>
+<td>
+1
+</td>
+<td>
+Average value of uR[i] over the sampling interval
+</td>
+</tr>
+<tr>
+<td>
+2
+</td>
+<td>
+Integral of uR[i] over the sampling interval
+</td>
+</tr>
+</table>
+<br/>
+<p>
+For the first call to the BCVTB interface, the value of the parameter <code>uStart[nDblWri]</code>
+will be used instead of <code>uR[nDblWri]</code>. This avoids an algebraic loop when determining
+the initial conditions. If <code>uR[nDblWri]</code> were to be used, then computing the initial conditions
+may require an iterative solution in which the function <code>exchangeWithSocket</code> may be called
+multiple times.
+Unfortunately, it does not seem possible to use a parameter that would give a user the option to either
+select <code>uR[i]</code> or <code>uStart[i]</code> in the first data exchange. The reason is that the symbolic solver does not evaluate
+the test that picks <code>uR[i]</code> or <code>uStart[i]</code>, and hence there would be an algebraic loop.
+</p>
+<p>
+If the parameter <code>activateInterface</code> is set to false, then no data is exchanged with the BCVTB.
+The output of this block is then equal to the value of the parameter <code>yRFixed[nDblRea]</code>.
+This option can be helpful during debugging. Since during model translation, the functions are
+still linked to the C library, the header files and libraries need to be present in the current working
+directory even if <code>activateInterface=false</code>.
+</p>
+
+<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.DiscreteBlock"
+>Modelica.Blocks.Interfaces.DiscreteBlock</a> (Base class of discrete control blocks).</p>
+<h3>Parameters</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Time"
+>Time</a></td><td>samplePeriod</td><td>if activateInterface then ti...</td><td>Sample period of component [s]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Time"
+>Time</a></td><td>startTime</td><td>0</td><td>First sample time instant [s]</td></tr>
+<tr><td>Boolean</td><td>activateInterface</td><td>true</td><td>Set to false to deactivate interface and use instead yFixed as output</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Time"
+>Time</a></td><td>timeStep</td><td>&nbsp;</td><td>Time step used for the synchronization [s]</td></tr>
+<tr><td>String</td><td>xmlFileName</td><td>&quot;socket.cfg&quot;</td><td>Name of the file that is generated by the BCVTB and that contains the socket information</td></tr>
+<tr><td>Integer</td><td>nDblWri</td><td>&nbsp;</td><td>Number of double values to write to the BCVTB</td></tr>
+<tr><td>Integer</td><td>nDblRea</td><td>&nbsp;</td><td>Number of double values to be read from the BCVTB</td></tr>
+<tr><td>Integer</td><td>flaDblWri[nDblWri]</td><td>zeros(nDblWri)</td><td>Flag for double values (0: use current value, 1: use average over interval, 2: use integral over interval)</td></tr>
+<tr><td>Real</td><td>uStart[nDblWri]</td><td>&nbsp;</td><td>Initial input signal, used during first data transfer with BCVTB</td></tr>
+<tr><td>Real</td><td>yRFixed[nDblRea]</td><td>zeros(nDblRea)</td><td>Fixed output, used if activateInterface=false</td></tr>
+</table>
+<h3>Connectors</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Connectors">
+<tr><th>Type</th><th>Name</th><th>Description</th></tr>
+<tr><td>input <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>RealInput</a></td><td>uR[nDblWri]</td><td>Real inputs to be sent to the BCVTB</td></tr>
+<tr><td>output <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+>RealOutput</a></td><td>yR[nDblRea]</td><td>Real outputs received from the BCVTB</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">model</span> BCVTB <span style="color: #006400; font-weight: normal; font-style: normal;">
+  &quot;Block that exchanges data with the Building Controls Virtual Test Bed&quot;</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.DiscreteBlock"
+>Modelica.Blocks.Interfaces.DiscreteBlock</a>(<span style="color: blue; font-weight: normal; font-style: normal;">final </span>startTime=0,
+  <span style="color: blue; font-weight: normal; font-style: normal;">final </span>samplePeriod = <span style="color: blue; font-weight: normal; font-style: normal;">if </span>activateInterface<span style="color: blue; font-weight: normal; font-style: normal;"> then </span>timeStep<span style="color: blue; font-weight: normal; font-style: normal;"> else </span>Modelica.Constants.inf);
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Boolean activateInterface = true <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Set to false to deactivate interface and use instead yFixed as output&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Time"
+>Modelica.SIunits.Time</a> timeStep <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Time step used for the synchronization&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>String xmlFileName = &quot;socket.cfg&quot; <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Name of the file that is generated by the BCVTB and that contains the socket information&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Integer nDblWri(min=0) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Number of double values to write to the BCVTB&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Integer nDblRea(min=0) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Number of double values to be read from the BCVTB&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Integer flaDblWri[nDblWri] =<span style="color: red; font-weight: normal; font-style: normal;"> zeros</span>(nDblWri) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Flag for double values (0: use current value, 1: use average over interval, 2: use integral over interval)&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Real uStart[nDblWri] <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Initial input signal, used during first data transfer with BCVTB&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Real yRFixed[nDblRea] =<span style="color: red; font-weight: normal; font-style: normal;"> zeros</span>(nDblRea) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Fixed output, used if activateInterface=false&quot;</span>;
+
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>Modelica.Blocks.Interfaces.RealInput</a> uR[nDblWri] <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Real inputs to be sent to the BCVTB&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+>Modelica.Blocks.Interfaces.RealOutput</a> yR[nDblRea] <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Real outputs received from the BCVTB&quot;</span>;
+
+ Integer flaRea <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Flag received from BCVTB&quot;</span>;
+ <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Time"
+>Modelica.SIunits.Time</a> simTimRea <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Current simulation time received from the BCVTB&quot;</span>;
+ Integer retVal <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Return value from the BSD socket data exchange&quot;</span>;
+<span style="color: blue; font-weight: normal; font-style: normal;">protected </span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Integer socketFD(fixed=false) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Socket file descripter, or a negative value if an error occurred&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Real _uStart[nDblWri](fixed=false) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Initial input signal, used during first data transfer with BCVTB&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">constant </span>Integer flaWri=0;
+  Real uRInt[nDblWri] <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Value of integral&quot;</span>;
+  Real uRIntPre[nDblWri] <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Value of integral at previous sampling instance&quot;</span>;
+<span style="color: blue; font-weight: normal; font-style: normal;">public </span>
+  Real uRWri[nDblWri] <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Value to be sent to the interface&quot;</span>;
+<span style="color: blue; font-weight: normal; font-style: normal;">initial </span><span style="color: blue; font-weight: normal; font-style: normal;">algorithm </span>
+  socketFD :=<span style="color: blue; font-weight: normal; font-style: normal;">if </span>activateInterface<span style="color: blue; font-weight: normal; font-style: normal;"> then </span>
+      <span style="color: red; font-weight: normal; font-style: normal;">Buildings.Utilities.IO.BCVTB.BaseClasses.establishClientSocket</span>(xmlFileName=xmlFileName)<span style="color: blue; font-weight: normal; font-style: normal;"> else </span>
+      0;
+  <span style="color: #006400; font-weight: normal; font-style: normal;">  // check for valid socketFD</span>
+  <span style="color: red; font-weight: normal; font-style: normal;">   assert</span>(socketFD &gt;= 0, &quot;Socket file descripter for BCVTB must be positive.\n&quot; +
+                         &quot;   A negative value indicates that no connection\n&quot; +
+                         &quot;   could be established. Check file &#39;utilSocket.log&#39;.\n&quot; +
+                         &quot;   Received: socketFD = &quot; +<span style="color: red; font-weight: normal; font-style: normal;"> String</span>(socketFD));
+   flaRea   := 0;
+   uRInt    :=<span style="color: red; font-weight: normal; font-style: normal;"> zeros</span>(nDblWri);
+   uRIntPre :=<span style="color: red; font-weight: normal; font-style: normal;"> zeros</span>(nDblWri);
+   <span style="color: blue; font-weight: normal; font-style: normal;">for </span>i<span style="color: blue; font-weight: normal; font-style: normal;"> in </span>1:nDblWri<span style="color: blue; font-weight: normal; font-style: normal;"> loop</span>
+    <span style="color: red; font-weight: normal; font-style: normal;"> assert</span>(flaDblWri[i]&gt;=0<span style="color: blue; font-weight: normal; font-style: normal;"> and </span>flaDblWri[i]&lt;=2,
+        &quot;Parameter flaDblWri out of range for &quot; +<span style="color: red; font-weight: normal; font-style: normal;"> String</span>(i) + &quot;-th component.&quot;);
+     <span style="color: blue; font-weight: normal; font-style: normal;">if </span>(flaDblWri[i] == 0)<span style="color: blue; font-weight: normal; font-style: normal;"> then</span>
+        _uStart[i] := uStart[i];<span style="color: #006400; font-weight: normal; font-style: normal;">               // Current value.</span>
+     <span style="color: blue; font-weight: normal; font-style: normal;">elseif </span>(flaDblWri[i] == 1)<span style="color: blue; font-weight: normal; font-style: normal;"> then</span>
+        _uStart[i] := uStart[i];<span style="color: #006400; font-weight: normal; font-style: normal;">                // Average over interval</span>
+     <span style="color: blue; font-weight: normal; font-style: normal;">else</span>
+        _uStart[i] := uStart[i]*samplePeriod;<span style="color: #006400; font-weight: normal; font-style: normal;">  // Integral over the sampling interval</span>
+      <span style="color: #006400; font-weight: normal; font-style: normal;">                                         // This is multiplied with samplePeriod because if</span>
+      <span style="color: #006400; font-weight: normal; font-style: normal;">                                         // u is power, then uRWri needs to be energy.</span>
+
+     <span style="color: blue; font-weight: normal; font-style: normal;">end if</span>;
+   <span style="color: blue; font-weight: normal; font-style: normal;">end for</span>;
+  <span style="color: #006400; font-weight: normal; font-style: normal;"> // Exchange initial values</span>
+    <span style="color: blue; font-weight: normal; font-style: normal;">if </span>activateInterface<span style="color: blue; font-weight: normal; font-style: normal;"> then</span>
+      (flaRea, simTimRea, yR, retVal) :=
+        <span style="color: red; font-weight: normal; font-style: normal;">Buildings.Utilities.IO.BCVTB.BaseClasses.exchangeReals</span>(
+        socketFD=socketFD,
+        flaWri=flaWri,
+        simTimWri=time,
+        dblValWri=_uStart,
+        nDblWri=<span style="color: red; font-weight: normal; font-style: normal;">size</span>(uRWri, 1),
+        nDblRea=<span style="color: red; font-weight: normal; font-style: normal;">size</span>(yR, 1));
+    <span style="color: blue; font-weight: normal; font-style: normal;">else</span>
+      flaRea := 0;
+      simTimRea := time;
+      yR := yRFixed;
+      retVal := 0;
+      <span style="color: blue; font-weight: normal; font-style: normal;">end if</span>;
+
+<span style="color: blue; font-weight: normal; font-style: normal;">equation </span>
+   <span style="color: blue; font-weight: normal; font-style: normal;">for </span>i<span style="color: blue; font-weight: normal; font-style: normal;"> in </span>1:nDblWri<span style="color: blue; font-weight: normal; font-style: normal;"> loop</span>
+    <span style="color: red; font-weight: normal; font-style: normal;">  der</span>(uRInt[i]) = <span style="color: blue; font-weight: normal; font-style: normal;">if </span>(flaDblWri[i] &gt; 0)<span style="color: blue; font-weight: normal; font-style: normal;"> then </span>uR[i]<span style="color: blue; font-weight: normal; font-style: normal;"> else </span>0;
+   <span style="color: blue; font-weight: normal; font-style: normal;">end for</span>;
+<span style="color: blue; font-weight: normal; font-style: normal;">algorithm </span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">when </span>{sampleTrigger}<span style="color: blue; font-weight: normal; font-style: normal;"> then</span>
+    <span style="color: red; font-weight: normal; font-style: normal;">assert</span>(flaRea == 0, &quot;BCVTB interface attempts to exchange data after Ptolemy reached its final time.\n&quot; +
+                        &quot;   Aborting simulation. Check final time in Modelica and in Ptolemy.\n&quot; +
+                        &quot;   Received: flaRea = &quot; +<span style="color: red; font-weight: normal; font-style: normal;"> String</span>(flaRea));
+    <span style="color: #006400; font-weight: normal; font-style: normal;"> // Compute value that will be sent to the BCVTB interface</span>
+     <span style="color: blue; font-weight: normal; font-style: normal;">for </span>i<span style="color: blue; font-weight: normal; font-style: normal;"> in </span>1:nDblWri<span style="color: blue; font-weight: normal; font-style: normal;"> loop</span>
+       <span style="color: blue; font-weight: normal; font-style: normal;">if </span>(flaDblWri[i] == 0)<span style="color: blue; font-weight: normal; font-style: normal;"> then</span>
+         uRWri[i] :=<span style="color: red; font-weight: normal; font-style: normal;">pre</span>(uR[i]);<span style="color: #006400; font-weight: normal; font-style: normal;">  // Send the current value.</span>
+        <span style="color: #006400; font-weight: normal; font-style: normal;">                         // Without the pre(), Dymola 7.2 crashes during translation of Examples.MoistAir</span>
+       <span style="color: blue; font-weight: normal; font-style: normal;">else</span>
+         uRWri[i] :=uRInt[i] - uRIntPre[i];<span style="color: #006400; font-weight: normal; font-style: normal;"> // Integral over the sampling interval</span>
+         <span style="color: blue; font-weight: normal; font-style: normal;">if </span>(flaDblWri[i] == 1)<span style="color: blue; font-weight: normal; font-style: normal;"> then</span>
+            uRWri[i] := uRWri[i]/samplePeriod;<span style="color: #006400; font-weight: normal; font-style: normal;">   // Average value over the sampling interval</span>
+         <span style="color: blue; font-weight: normal; font-style: normal;">end if</span>;
+       <span style="color: blue; font-weight: normal; font-style: normal;">end if</span>;
+      <span style="color: blue; font-weight: normal; font-style: normal;">end for</span>;
+
+    <span style="color: #006400; font-weight: normal; font-style: normal;">// Exchange data</span>
+    <span style="color: blue; font-weight: normal; font-style: normal;">if </span>activateInterface<span style="color: blue; font-weight: normal; font-style: normal;"> then</span>
+      (flaRea, simTimRea, yR, retVal) :=
+        <span style="color: red; font-weight: normal; font-style: normal;">Buildings.Utilities.IO.BCVTB.BaseClasses.exchangeReals</span>(
+        socketFD=socketFD,
+        flaWri=flaWri,
+        simTimWri=time,
+        dblValWri=uRWri,
+        nDblWri=<span style="color: red; font-weight: normal; font-style: normal;">size</span>(uRWri, 1),
+        nDblRea=<span style="color: red; font-weight: normal; font-style: normal;">size</span>(yR, 1));
+    <span style="color: blue; font-weight: normal; font-style: normal;">else</span>
+      flaRea := 0;
+      simTimRea := time;
+      yR := yRFixed;
+      retVal := 0;
+      <span style="color: blue; font-weight: normal; font-style: normal;">end if</span>;
+    <span style="color: #006400; font-weight: normal; font-style: normal;">// Check for valid return flags</span>
+    <span style="color: red; font-weight: normal; font-style: normal;">assert</span>(flaRea &gt;= 0, &quot;BCVTB sent a negative flag to Modelica during data transfer.\n&quot; +
+                        &quot;   Aborting simulation. Check file &#39;utilSocket.log&#39;.\n&quot; +
+                        &quot;   Received: flaRea = &quot; +<span style="color: red; font-weight: normal; font-style: normal;"> String</span>(flaRea));
+    <span style="color: red; font-weight: normal; font-style: normal;">assert</span>(retVal &gt;= 0, &quot;Obtained negative return value during data transfer with BCVTB.\n&quot; +
+                        &quot;   Aborting simulation. Check file &#39;utilSocket.log&#39;.\n&quot; +
+                        &quot;   Received: retVal = &quot; +<span style="color: red; font-weight: normal; font-style: normal;"> String</span>(retVal));
+
+    <span style="color: #006400; font-weight: normal; font-style: normal;">// Store current value of integral</span>
+  uRIntPre:=uRInt;
+  <span style="color: blue; font-weight: normal; font-style: normal;">end when</span>;
+  <span style="color: #006400; font-weight: normal; font-style: normal;"> // Close socket connnection</span>
+   <span style="color: blue; font-weight: normal; font-style: normal;">when </span><span style="color: red; font-weight: normal; font-style: normal;">terminal</span>()<span style="color: blue; font-weight: normal; font-style: normal;"> then</span>
+     <span style="color: blue; font-weight: normal; font-style: normal;">if </span>activateInterface<span style="color: blue; font-weight: normal; font-style: normal;"> then</span>
+      <span style="color: red; font-weight: normal; font-style: normal;">  Buildings.Utilities.IO.BCVTB.BaseClasses.closeClientSocket</span>(
+                                                          socketFD);
+     <span style="color: blue; font-weight: normal; font-style: normal;">end if</span>;
+   <span style="color: blue; font-weight: normal; font-style: normal;">end when</span>;
+
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>BCVTB;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE From_degC<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Utilities.IO.BCVTB.From_degCI.png" alt="Buildings.Utilities.IO.BCVTB.From_degC" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Utilities.IO.BCVTB.From_degC"></a><a href="Buildings_Utilities_IO_BCVTB.html#Buildings.Utilities.IO.BCVTB"
+>Buildings.Utilities.IO.BCVTB</a>.From_degC</h2>
+<p>
+<b>Converts Celsius to Kelvin</b>
+<br>
+<br><img src="Buildings.Utilities.IO.BCVTB.From_degCD.png" alt="Buildings.Utilities.IO.BCVTB.From_degC">
+</p>
+<h3>Information</h3>
+
+<p>
+Converts the input from Kelvin to degree Celsius.
+Note that inside Modelica, by convention, all models use
+Kelvin. This block is provided for convenience since the BCVTB
+interface may couple Modelica to programs that use Celsius
+as the unit for temperature.
+</p>
+
+<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Icons.html#Modelica.Blocks.Icons.Block"
+>Modelica.Blocks.Icons.Block</a> (Basic graphical layout of input/output block).</p>
+<h3>Connectors</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Connectors">
+<tr><th>Type</th><th>Name</th><th>Description</th></tr>
+<tr><td>input <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>RealInput</a></td><td>Celsius</td><td>Temperature in Celsius [degC]</td></tr>
+<tr><td>output <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+>RealOutput</a></td><td>Kelvin</td><td>Temperature in Kelvin [K]</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">block</span> From_degC <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Converts Celsius to Kelvin&quot;</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Icons.html#Modelica.Blocks.Icons.Block"
+>Modelica.Blocks.Icons.Block</a>;
+
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>Modelica.Blocks.Interfaces.RealInput</a> Celsius(<span style="color: blue; font-weight: normal; font-style: normal;">final </span>quantity=&quot;ThermodynamicTemperature&quot;,
+                                               <span style="color: blue; font-weight: normal; font-style: normal;">final </span>unit = &quot;degC&quot;, displayUnit = &quot;degC&quot;, min=-273.15) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Temperature in Celsius&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+>Modelica.Blocks.Interfaces.RealOutput</a> Kelvin(<span style="color: blue; font-weight: normal; font-style: normal;">final </span>quantity=&quot;ThermodynamicTemperature&quot;,
+                                               <span style="color: blue; font-weight: normal; font-style: normal;">final </span>unit = &quot;K&quot;, displayUnit = &quot;degC&quot;, min=0) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Temperature in Kelvin&quot;</span>;
+<span style="color: blue; font-weight: normal; font-style: normal;">equation </span>
+  Celsius =<span style="color: red; font-weight: normal; font-style: normal;"> Modelica.SIunits.Conversions.to_degC</span>(Kelvin);
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>From_degC;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE MoistAirInterface<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Utilities.IO.BC7a3aa3d7dbf53696rfaceI.png" alt="Buildings.Utilities.IO.BCVTB.MoistAirInterface" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Utilities.IO.BCVTB.MoistAirInterface"></a><a href="Buildings_Utilities_IO_BCVTB.html#Buildings.Utilities.IO.BCVTB"
+>Buildings.Utilities.IO.BCVTB</a>.MoistAirInterface</h2>
+<p>
+<b>Fluid interface that can be coupled to BCVTB for medium that model the air humidity</b>
+<br>
+<br><img src="Buildings.Utilities.IO.BC7a3aa3d7dbf53696rfaceD.png" alt="Buildings.Utilities.IO.BCVTB.MoistAirInterface">
+</p>
+<h3>Information</h3>
+
+This model allows interfacing to the
+<a href="http://simulationresearch.lbl.gov/bcvtb">Building Controls Virtual Test Bed</a>
+an air-conditioning system
+that uses a medium model with water vapor concentration.
+<br/>
+<p>
+The model takes as input signals the temperature and water vapor
+concentration and, optionally, a bulk mass flow rate into or
+out of the system boundary. The state of the fluid
+that flows out of this model will be at this temperature and
+water vapor concentration. The output of this model are the sensible and
+latent heat exchanged across the system boundary.
+</p>
+<p>
+When used with the BCVTB, a building
+simulation program such as EnergyPlus
+may compute the room air temperatures and
+room air humidity rate, which is then used as an input
+to this model. The sensible and latent heat flow rates may be
+sent to EnergyPlus to couple the air-conditioning system to
+the energy balance of the building model.
+</p>
+<p>
+<b>Note:</b> The EnergyPlus building simulation program outputs the
+absolute humidity ratio in units of [kg/kg dry air]. Since
+<code>Modelica.Media</code> uses [kg/kg total mass of air], this quantity
+needs to be converted. The conversion can be done with the model
+<a href="Buildings_Utilities_Psychrometrics.html#Buildings.Utilities.Psychrometrics.ToTotalAir"
+>
+Buildings.Utilities.Psychrometrics.ToTotalAir</a>.
+
+<p>Extends from <a href="Buildings_Utilities_IO_BCVTB_BaseClasses.html#Buildings.Utilities.IO.BCVTB.BaseClasses.FluidInterface"
+>Buildings.Utilities.IO.BCVTB.BaseClasses.FluidInterface</a> (Partial class for fluid interface that can be coupled to BCVTB).</p>
+<h3>Parameters</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td colspan="2">replaceable package Medium</td><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium"
+>PartialMedium</a></td><td>Medium model within the source</td></tr>
+<tr><td>Boolean</td><td>use_m_flow_in</td><td>false</td><td>Get the mass flow rate from the input connector</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+>MassFlowRate</a></td><td>m_flow</td><td>0</td><td>Fixed mass flow rate going out of the fluid port [kg/s]</td></tr>
+<tr style="background-color: #e0e0e0"><td colspan="4">Nominal condition</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+>MassFlowRate</a></td><td>m_flow_nominal</td><td>&nbsp;</td><td>Nominal mass flow rate, used for regularization near zero flow [kg/s]</td></tr>
+<tr style="background-color: #e0e0e0"><td colspan="4">Advanced</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+>MassFlowRate</a></td><td>m_flow_small</td><td>1E-4*m_flow_nominal</td><td>For bi-directional flow, temperature is regularized in the region |m_flow| &lt; m_flow_small (m_flow_small &gt; 0 required) [kg/s]</td></tr>
+</table>
+<h3>Connectors</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Connectors">
+<tr><th>Type</th><th>Name</th><th>Description</th></tr>
+<tr><td>input <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>RealInput</a></td><td>m_flow_in</td><td>Prescribed mass flow rate</td></tr>
+<tr><td>input <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>RealInput</a></td><td>T_in</td><td>Prescribed boundary temperature</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPorts_b"
+>FluidPorts_b</a></td><td>ports[nPorts]</td><td>&nbsp;</td></tr>
+<tr><td>output <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+>RealOutput</a></td><td>HSen_flow</td><td>Sensible enthalpy flow rate, positive if flow into the component [W]</td></tr>
+<tr><td>output <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+>RealOutput</a></td><td>HLat_flow</td><td>Latent enthalpy flow rate, positive if flow into the component [W]</td></tr>
+<tr><td>input <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>RealInput</a></td><td>phi</td><td>Medium relative humidity</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">model</span> MoistAirInterface <span style="color: #006400; font-weight: normal; font-style: normal;">
+  &quot;Fluid interface that can be coupled to BCVTB for medium that model the air humidity&quot;</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="Buildings_Utilities_IO_BCVTB_BaseClasses.html#Buildings.Utilities.IO.BCVTB.BaseClasses.FluidInterface"
+>Buildings.Utilities.IO.BCVTB.BaseClasses.FluidInterface</a>(bou(
+        <span style="color: blue; font-weight: normal; font-style: normal;">final </span>use_X_in=true));
+
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+>Modelica.Blocks.Interfaces.RealOutput</a> HLat_flow(unit=&quot;W&quot;) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Latent enthalpy flow rate, positive if flow into the component&quot;</span>;
+  <a href="Buildings_Fluid_Sensors.html#Buildings.Fluid.Sensors.SensibleEnthalpyFlowRate"
+>Buildings.Fluid.Sensors.SensibleEnthalpyFlowRate</a> senEntFloRat[nPorts](
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">final </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = <a href="Buildings_Utilities_IO_BCVTB_BaseClasses_Medium.html#Buildings.Utilities.IO.BCVTB.BaseClasses.FluidInterface.Medium"
+>Medium</a>,
+    <span style="color: blue; font-weight: normal; font-style: normal;">each </span><span style="color: blue; font-weight: normal; font-style: normal;">final </span>m_flow_nominal=m_flow_nominal) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Sensible enthalpy flow rates&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Math.html#Modelica.Blocks.Math.Sum"
+>Modelica.Blocks.Math.Sum</a> sumHSen_flow(nin=nPorts) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Sum of sensible enthalpy flow rates&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Math.html#Modelica.Blocks.Math.Feedback"
+>Modelica.Blocks.Math.Feedback</a> diff <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Difference between total and sensible enthalpy flow rate&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>Modelica.Blocks.Interfaces.RealInput</a> phi <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Medium relative humidity&quot;</span>;
+  <a href="Buildings_Utilities_Psychrometrics.html#Buildings.Utilities.Psychrometrics.X_pTphi"
+>Buildings.Utilities.Psychrometrics.X_pTphi</a> masFra(use_p_in=false) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Mass fraction&quot;</span>;
+<span style="color: blue; font-weight: normal; font-style: normal;">equation </span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">for </span>i<span style="color: blue; font-weight: normal; font-style: normal;"> in </span>1:nPorts<span style="color: blue; font-weight: normal; font-style: normal;"> loop</span>
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(senEntFloRat[i].port_a, ports[i]);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(senEntFloRat[i].H_flow, sumHSen_flow.u[i]);
+  <span style="color: blue; font-weight: normal; font-style: normal;">end for</span>;
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(senEntFloRat.port_b, totEntFloRat.port_a);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(sumHSen_flow.y, HSen_flow);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(sumHTot_flow.y, diff.u1);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(diff.y, HLat_flow);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(diff.u2, sumHSen_flow.y);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(masFra.T, T_in);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(masFra.phi, phi);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(masFra.X, bou.X_in);
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>MoistAirInterface;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE To_degC<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Utilities.IO.BCVTB.To_degCI.png" alt="Buildings.Utilities.IO.BCVTB.To_degC" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Utilities.IO.BCVTB.To_degC"></a><a href="Buildings_Utilities_IO_BCVTB.html#Buildings.Utilities.IO.BCVTB"
+>Buildings.Utilities.IO.BCVTB</a>.To_degC</h2>
+<p>
+<b>Converts Kelvin to Celsius</b>
+<br>
+<br><img src="Buildings.Utilities.IO.BCVTB.To_degCD.png" alt="Buildings.Utilities.IO.BCVTB.To_degC">
+</p>
+<h3>Information</h3>
+
+<p>
+Converts the input from degree Celsius to Kelvin.
+Note that inside Modelica, it is strongly recommended to use
+Kelvin. This block is provided for convenience since the BCVTB
+interface may couple Modelica to programs that use Celsius
+as the unit for temperature.
+</p>
+
+<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Icons.html#Modelica.Blocks.Icons.Block"
+>Modelica.Blocks.Icons.Block</a> (Basic graphical layout of input/output block).</p>
+<h3>Connectors</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Connectors">
+<tr><th>Type</th><th>Name</th><th>Description</th></tr>
+<tr><td>input <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>RealInput</a></td><td>Kelvin</td><td>Temperature in Kelvin [K]</td></tr>
+<tr><td>output <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+>RealOutput</a></td><td>Celsius</td><td>Temperature in Celsius [degC]</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">block</span> To_degC <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Converts Kelvin to Celsius&quot;</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Icons.html#Modelica.Blocks.Icons.Block"
+>Modelica.Blocks.Icons.Block</a>;
+
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>Modelica.Blocks.Interfaces.RealInput</a> Kelvin(<span style="color: blue; font-weight: normal; font-style: normal;">final </span>quantity=&quot;ThermodynamicTemperature&quot;,
+                                              <span style="color: blue; font-weight: normal; font-style: normal;">final </span>unit = &quot;K&quot;, displayUnit = &quot;degC&quot;, min=0) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Temperature in Kelvin&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+>Modelica.Blocks.Interfaces.RealOutput</a> Celsius(<span style="color: blue; font-weight: normal; font-style: normal;">final </span>quantity=&quot;ThermodynamicTemperature&quot;,
+                                                <span style="color: blue; font-weight: normal; font-style: normal;">final </span>unit = &quot;degC&quot;, displayUnit = &quot;degC&quot;, min=-273.15) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Temperature in Celsius&quot;</span>;
+<span style="color: blue; font-weight: normal; font-style: normal;">equation </span>
+  Kelvin =<span style="color: red; font-weight: normal; font-style: normal;"> Modelica.SIunits.Conversions.from_degC</span>(Celsius);
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>To_degC;
+</div>
+<hr>
+<address>
+<a href="http://www.3ds.com/">Automatically generated</a> Thu Apr  9 09:41:28 2015.
+</address>
+</body>
+</html>

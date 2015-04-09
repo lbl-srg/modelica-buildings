@@ -1,0 +1,89 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>Buildings.Fluid.SolarCollectors.Types</title>
+<meta name="HTML-Generator" content="Dymola">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="description" content="&quot;Package with type definitions used in solar collector data records&quot;">
+<style type="text/css">
+*       { font-size: 10pt; font-family: Arial, sans-serif; }
+.modelica, .modelica * { font-size: 9pt; font-family: Courier, monospace; white-space: pre; }
+h4      { font-size: 10pt; font-weight: bold; color: green; }
+h3      { font-size: 11pt; font-weight: bold; color: green; }
+h2      { font-size: 13pt; font-weight: bold; color: green; }
+address { font-weight: normal; }
+td      { border: 1px solid #808080; vertical-align: top; }
+th      { border: 1px solid #808080; vertical-align: top; font-weight: bold; }
+table   { border: 1px solid #808080; border-collapse: collapse; }
+</style>
+<link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../Resources/www/modelicaDoc.css">
+</HEAD>
+<body>
+<!-- --- header ------ -->
+<div class="headerStyle">
+<img src="../Resources/www/lbl-logo.png" alt="LBL logo"/>
+</div>
+<div class="headerLinks">
+<ul><li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt; <a href="Buildings.html">Modelica</a></li></ul>
+</div>
+<!-- --- end header -- -->
+
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE Types<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><a name="Buildings.Fluid.SolarCollectors.Types"></a><a href="Buildings_Fluid_SolarCollectors.html#Buildings.Fluid.SolarCollectors"
+>Buildings.Fluid.SolarCollectors</a>.Types</h2>
+<p>
+<b>Package with type definitions used in solar collector data records</b><br>
+</p>
+<h3>Information</h3>
+
+  <p>
+    This package contains type definitions used in solar thermal collector models.
+  </p>
+
+<h3>Package Content</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Package Content">
+<tr>
+<th>Name</th>
+<th>Description</th>
+</tr>
+<tr>
+<td><a href="Buildings_Fluid_SolarCollectors_Types.html#Buildings.Fluid.SolarCollectors.Types.Area"
+>Area</a>
+</td>
+<td>Enumeration to define the area type used in solar collector calculation</td>
+</tr>
+<tr>
+<td><a href="Buildings_Fluid_SolarCollectors_Types.html#Buildings.Fluid.SolarCollectors.Types.NumberSelection"
+>NumberSelection</a>
+</td>
+<td>Enumeration of options for how users will specify
+      the number of solar collectors in a system</td>
+</tr>
+<tr>
+<td><a href="Buildings_Fluid_SolarCollectors_Types.html#Buildings.Fluid.SolarCollectors.Types.SystemConfiguration"
+>SystemConfiguration</a>
+</td>
+<td>Enumeration of options for how the panels are connected</td>
+</tr>
+</table>
+<h3>Types and constants</h3>
+<a name="Buildings.Fluid.SolarCollectors.Types.Area"></a><pre>  <span style="color: blue; font-weight: normal; font-style: normal;">type</span> Area = <span style="color: blue; font-weight: normal; font-style: normal;">enumeration</span>(
+    Gross <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Gross area&quot;</span>,
+    Aperture <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Net aperture area&quot;</span>) <span style="color: #006400; font-weight: normal; font-style: normal;">
+  &quot;Enumeration to define the area type used in solar collector calculation&quot;</span>;</pre>
+<a name="Buildings.Fluid.SolarCollectors.Types.NumberSelection"></a><pre>  <span style="color: blue; font-weight: normal; font-style: normal;">type</span> NumberSelection = <span style="color: blue; font-weight: normal; font-style: normal;">enumeration</span>(
+    Number <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Number of panels&quot;</span>,
+    Area <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Total panel area&quot;</span>) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Enumeration of options for how users will specify
+      the number of solar collectors in a system&quot;</span>;</pre>
+<a name="Buildings.Fluid.SolarCollectors.Types.SystemConfiguration"></a><pre>  <span style="color: blue; font-weight: normal; font-style: normal;">type</span> SystemConfiguration = <span style="color: blue; font-weight: normal; font-style: normal;">enumeration</span>(
+    Parallel <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Panels connected in parallel&quot;</span>,
+    Series <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Panels connected in series&quot;</span>) <span style="color: #006400; font-weight: normal; font-style: normal;">
+  &quot;Enumeration of options for how the panels are connected&quot;</span>;</pre>
+<hr>
+<address>
+<a href="http://www.3ds.com/">Automatically generated</a> Thu Apr  9 09:36:41 2015.
+</address>
+</body>
+</html>

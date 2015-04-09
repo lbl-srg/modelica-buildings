@@ -1,0 +1,839 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>Buildings.Fluid.SolarCollectors.Examples</title>
+<meta name="HTML-Generator" content="Dymola">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="description" content="&quot;Examples demonstrating the use of models in the SolarCollectors package&quot;">
+<style type="text/css">
+*       { font-size: 10pt; font-family: Arial, sans-serif; }
+.modelica, .modelica * { font-size: 9pt; font-family: Courier, monospace; white-space: pre; }
+h4      { font-size: 10pt; font-weight: bold; color: green; }
+h3      { font-size: 11pt; font-weight: bold; color: green; }
+h2      { font-size: 13pt; font-weight: bold; color: green; }
+address { font-weight: normal; }
+td      { border: 1px solid #808080; vertical-align: top; }
+th      { border: 1px solid #808080; vertical-align: top; font-weight: bold; }
+table   { border: 1px solid #808080; border-collapse: collapse; }
+</style>
+<link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../Resources/www/modelicaDoc.css">
+</HEAD>
+<body>
+<!-- --- header ------ -->
+<div class="headerStyle">
+<img src="../Resources/www/lbl-logo.png" alt="LBL logo"/>
+</div>
+<div class="headerLinks">
+<ul><li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt; <a href="Buildings.html">Modelica</a></li></ul>
+</div>
+<!-- --- end header -- -->
+
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE Examples<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><a name="Buildings.Fluid.SolarCollectors.Examples"></a><a href="Buildings_Fluid_SolarCollectors.html#Buildings.Fluid.SolarCollectors"
+>Buildings.Fluid.SolarCollectors</a>.Examples</h2>
+<p>
+<b>Examples demonstrating the use of models in the SolarCollectors package</b><br>
+</p>
+<h3>Information</h3>
+
+    <p>
+      This package contains example model demonstrating the use of models in
+      the SolarCollectors package.
+    </p>
+  
+<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons_ExamplesPackage.html#Modelica.Icons.ExamplesPackage"
+>Modelica.Icons.ExamplesPackage</a> (Icon for packages containing runnable examples).</p>
+<h3>Package Content</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Package Content">
+<tr>
+<th>Name</th>
+<th>Description</th>
+</tr>
+<tr>
+<td><img src="Buildings.Fluid.SolarColl850367d0f2a3dcd4atingS.png" alt="Buildings.Fluid.SolarCollectors.Examples.Concentrating" width="20" height="20" align="top">&nbsp;<a href="Buildings_Fluid_SolarCollectors_Examples.html#Buildings.Fluid.SolarCollectors.Examples.Concentrating"
+>Concentrating</a>
+</td>
+<td>Example showing the use of Concentrating</td>
+</tr>
+<tr>
+<td><img src="Buildings.Fluid.SolarColl850367d0f2a3dcd4atingS.png" alt="Buildings.Fluid.SolarCollectors.Examples.FlatPlate" width="20" height="20" align="top">&nbsp;<a href="Buildings_Fluid_SolarCollectors_Examples.html#Buildings.Fluid.SolarCollectors.Examples.FlatPlate"
+>FlatPlate</a>
+</td>
+<td>Test model for FlatPlate</td>
+</tr>
+<tr>
+<td><img src="Buildings.Fluid.SolarColl850367d0f2a3dcd4atingS.png" alt="Buildings.Fluid.SolarCollectors.Examples.FlatPlateShaCoeTrue" width="20" height="20" align="top">&nbsp;<a href="Buildings_Fluid_SolarCollectors_Examples.html#Buildings.Fluid.SolarCollectors.Examples.FlatPlateShaCoeTrue"
+>FlatPlateShaCoeTrue</a>
+</td>
+<td>Test model for FlatPlate with use_shaCoe_in = true</td>
+</tr>
+<tr>
+<td><img src="Buildings.Fluid.SolarColl850367d0f2a3dcd4atingS.png" alt="Buildings.Fluid.SolarCollectors.Examples.FlatPlateTotalArea" width="20" height="20" align="top">&nbsp;<a href="Buildings_Fluid_SolarCollectors_Examples.html#Buildings.Fluid.SolarCollectors.Examples.FlatPlateTotalArea"
+>FlatPlateTotalArea</a>
+</td>
+<td>Example showing the use of TotalArea and nSeg</td>
+</tr>
+<tr>
+<td><img src="Buildings.Fluid.SolarColl850367d0f2a3dcd4atingS.png" alt="Buildings.Fluid.SolarCollectors.Examples.FlatPlateWithTank" width="20" height="20" align="top">&nbsp;<a href="Buildings_Fluid_SolarCollectors_Examples.html#Buildings.Fluid.SolarCollectors.Examples.FlatPlateWithTank"
+>FlatPlateWithTank</a>
+</td>
+<td>Example showing use of the flat plate solar collector in a complete solar thermal system</td>
+</tr>
+<tr>
+<td><img src="Buildings.Fluid.SolarColl850367d0f2a3dcd4atingS.png" alt="Buildings.Fluid.SolarCollectors.Examples.Tubular" width="20" height="20" align="top">&nbsp;<a href="Buildings_Fluid_SolarCollectors_Examples.html#Buildings.Fluid.SolarCollectors.Examples.Tubular"
+>Tubular</a>
+</td>
+<td>Example showing the use of Tubular</td>
+</tr>
+</table>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE Concentrating<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Fluid.SolarColl850367d0f2a3dcd4atingI.png" alt="Buildings.Fluid.SolarCollectors.Examples.Concentrating" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Fluid.SolarCollectors.Examples.Concentrating"></a><a href="Buildings_Fluid_SolarCollectors_Examples.html#Buildings.Fluid.SolarCollectors.Examples"
+>Buildings.Fluid.SolarCollectors.Examples</a>.Concentrating</h2>
+<p>
+<b>Example showing the use of Concentrating</b>
+<br>
+<br><img src="Buildings.Fluid.SolarColl850367d0f2a3dcd4atingD.png" alt="Buildings.Fluid.SolarCollectors.Examples.Concentrating">
+</p>
+<h3>Information</h3>
+
+      <p>
+        This model demonstrates the implementation of
+        <a href="Buildings_Fluid_SolarCollectors.html#Buildings.Fluid.SolarCollectors.EN12975"
+>
+        Buildings.Fluid.SolarCollectors.EN12975</a>.
+        In it water is passed through the solar thermal collector while
+        being heated by the sun in the San Francisco, CA, USA climate.
+      </p>
+    
+<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</a> (Icon for runnable examples).</p>
+<h3>Parameters</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td colspan="2">replaceable package Medium</td><td>Buildings.Media.Water</td><td>Medium in the system</td></tr>
+</table>
+<h3>Connectors</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Connectors">
+<tr><th>Type</th><th>Name</th><th>Description</th></tr>
+<tr><td colspan="2">replaceable package Medium</td><td>Medium in the system</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">model</span> Concentrating <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Example showing the use of Concentrating&quot;</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</a>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">replaceable </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = <a href="Buildings_Media_Water.html#Buildings.Media.Water"
+>Buildings.Media.Water</a> <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Medium in the system&quot;</span>;
+  <a href="Buildings_Fluid_SolarCollectors.html#Buildings.Fluid.SolarCollectors.EN12975"
+>Buildings.Fluid.SolarCollectors.EN12975</a>           solCol(
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = <a href="Buildings_Fluid_SolarCollectors_Examples_Medium.html#Buildings.Fluid.SolarCollectors.Examples.Concentrating.Medium"
+>Medium</a>,
+    shaCoe=0,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    use_shaCoe_in=false,
+    per=<span style="color: red; font-weight: normal; font-style: normal;">Buildings.Fluid.SolarCollectors.Data.Concentrating.C_VerificationModel</span>(),
+    sysConfig=Buildings.Fluid.SolarCollectors.Types.SystemConfiguration.Series,
+    rho=0.2,
+    nColType=Buildings.Fluid.SolarCollectors.Types.NumberSelection.Number,
+    nPanels=5,
+    nSeg=9,
+    lat=0.73097781993588,
+    azi=0.3,
+    til=0.5) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Concentrating solar collector model&quot;</span>;
+
+  <a href="Buildings_BoundaryConditions_WeatherData.html#Buildings.BoundaryConditions.WeatherData.ReaderTMY3"
+>Buildings.BoundaryConditions.WeatherData.ReaderTMY3</a> weaDat(filNam=
+    &quot;modelica://Buildings/Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos&quot;) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Weather data input file&quot;</span>;
+  <a href="Buildings_Fluid_Sources.html#Buildings.Fluid.Sources.Boundary_pT"
+>Buildings.Fluid.Sources.Boundary_pT</a> sin(
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = <a href="Buildings_Fluid_SolarCollectors_Examples_Medium.html#Buildings.Fluid.SolarCollectors.Examples.Concentrating.Medium"
+>Medium</a>,
+    use_p_in=false,
+    p(displayUnit=&quot;Pa&quot;) = 101325,
+    nPorts=1) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Inlet for fluid flow&quot;</span>;
+  <a href="Buildings_Fluid_Sensors.html#Buildings.Fluid.Sensors.TemperatureTwoPort"
+>Buildings.Fluid.Sensors.TemperatureTwoPort</a> TOut(
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = <a href="Buildings_Fluid_SolarCollectors_Examples_Medium.html#Buildings.Fluid.SolarCollectors.Examples.Concentrating.Medium"
+>Medium</a>,
+    T_start(displayUnit=&quot;K&quot;),
+    m_flow_nominal=solCol.m_flow_nominal) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Temperature sensor&quot;</span>;
+  <a href="Buildings_Fluid_Sensors.html#Buildings.Fluid.Sensors.TemperatureTwoPort"
+>Buildings.Fluid.Sensors.TemperatureTwoPort</a> TIn(<span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium =
+    <a href="Buildings_Fluid_SolarCollectors_Examples_Medium.html#Buildings.Fluid.SolarCollectors.Examples.Concentrating.Medium"
+>Medium</a>, m_flow_nominal=solCol.m_flow_nominal) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Temperature sensor&quot;</span>;
+  <a href="Buildings_Fluid_Sources.html#Buildings.Fluid.Sources.Boundary_pT"
+>Buildings.Fluid.Sources.Boundary_pT</a> sou(
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = <a href="Buildings_Fluid_SolarCollectors_Examples_Medium.html#Buildings.Fluid.SolarCollectors.Examples.Concentrating.Medium"
+>Medium</a>,
+    T=273.15 + 10,
+    nPorts=1,
+    use_p_in=true,
+    p(displayUnit=&quot;Pa&quot;)) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Inlet for water flow&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Sine"
+>Modelica.Blocks.Sources.Sine</a> sine(
+    freqHz=3/86400,
+    offset=101325,
+    amplitude=-2*solCol.dp_nominal);
+<span style="color: blue; font-weight: normal; font-style: normal;">equation </span>
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(solCol.port_b,TOut. port_a);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(TOut.port_b,sin. ports[1]);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(TIn.port_b,solCol. port_a);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(weaDat.weaBus, solCol.weaBus);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(sine.y, sou.p_in);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(sou.ports[1], TIn.port_a);
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>Concentrating;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE FlatPlate<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Fluid.SolarColl850367d0f2a3dcd4atingI.png" alt="Buildings.Fluid.SolarCollectors.Examples.FlatPlate" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Fluid.SolarCollectors.Examples.FlatPlate"></a><a href="Buildings_Fluid_SolarCollectors_Examples.html#Buildings.Fluid.SolarCollectors.Examples"
+>Buildings.Fluid.SolarCollectors.Examples</a>.FlatPlate</h2>
+<p>
+<b>Test model for FlatPlate</b>
+<br>
+<br><img src="Buildings.Fluid.SolarColl4172ed767a066ef6PlateD.png" alt="Buildings.Fluid.SolarCollectors.Examples.FlatPlate">
+</p>
+<h3>Information</h3>
+
+<p>
+This example demonstrates the implementation of
+<a href="Buildings_Fluid_SolarCollectors.html#Buildings.Fluid.SolarCollectors.ASHRAE93"
+>
+Buildings.Fluid.SolarCollectors.ASHRAE93</a>.
+In it water is passed through a flat plate solar thermal collector while
+being heated by the sun in the San Francisco, CA, USA climate.
+</p>
+
+<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</a> (Icon for runnable examples).</p>
+<h3>Parameters</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td colspan="2">replaceable package Medium</td><td>Modelica.Media.Incompressibl...</td><td>Medium in the system</td></tr>
+</table>
+<h3>Connectors</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Connectors">
+<tr><th>Type</th><th>Name</th><th>Description</th></tr>
+<tr><td colspan="2">replaceable package Medium</td><td>Medium in the system</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">model</span> FlatPlate <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Test model for FlatPlate&quot;</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</a>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">replaceable </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Incompressible_Examples_Glycol47.html#Modelica.Media.Incompressible.Examples.Glycol47"
+>Modelica.Media.Incompressible.Examples.Glycol47</a> <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Medium in the system&quot;</span>;
+
+  <a href="Buildings_Fluid_SolarCollectors.html#Buildings.Fluid.SolarCollectors.ASHRAE93"
+>Buildings.Fluid.SolarCollectors.ASHRAE93</a>          solCol(
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = <a href="Buildings_Fluid_SolarCollectors_Examples_Medium.html#Buildings.Fluid.SolarCollectors.Examples.FlatPlate.Medium"
+>Medium</a>,
+    shaCoe=0,
+    from_dp=true,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    rho=0.2,
+    nColType=Buildings.Fluid.SolarCollectors.Types.NumberSelection.Number,
+    sysConfig=Buildings.Fluid.SolarCollectors.Types.SystemConfiguration.Series,
+    per=<span style="color: red; font-weight: normal; font-style: normal;">Buildings.Fluid.SolarCollectors.Data.GlazedFlatPlate.FP_GuangdongFSPTY95</span>(),
+    nPanels=1,
+    nSeg=9,
+    lat=0.73097781993588,
+    azi=0.3,
+    til=0.5) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Flat plate solar collector model&quot;</span>;
+
+  <a href="Buildings_BoundaryConditions_WeatherData.html#Buildings.BoundaryConditions.WeatherData.ReaderTMY3"
+>Buildings.BoundaryConditions.WeatherData.ReaderTMY3</a> weaDat(filNam=
+    &quot;modelica://Buildings/Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos&quot;) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Weather data input file&quot;</span>;
+  <a href="Buildings_Fluid_Sources.html#Buildings.Fluid.Sources.Boundary_pT"
+>Buildings.Fluid.Sources.Boundary_pT</a> sin(
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = <a href="Buildings_Fluid_SolarCollectors_Examples_Medium.html#Buildings.Fluid.SolarCollectors.Examples.FlatPlate.Medium"
+>Medium</a>,
+    nPorts=1,
+    p(displayUnit=&quot;bar&quot;) = 100000) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Outlet for water flow&quot;</span>;
+  <a href="Buildings_Fluid_Sensors.html#Buildings.Fluid.Sensors.TemperatureTwoPort"
+>Buildings.Fluid.Sensors.TemperatureTwoPort</a> TOut(
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = <a href="Buildings_Fluid_SolarCollectors_Examples_Medium.html#Buildings.Fluid.SolarCollectors.Examples.FlatPlate.Medium"
+>Medium</a>,
+    T_start(displayUnit=&quot;K&quot;),
+    m_flow_nominal=solCol.m_flow_nominal) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Temperature sensor&quot;</span>;
+  <a href="Buildings_Fluid_Sensors.html#Buildings.Fluid.Sensors.TemperatureTwoPort"
+>Buildings.Fluid.Sensors.TemperatureTwoPort</a> TIn(<span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium =
+    <a href="Buildings_Fluid_SolarCollectors_Examples_Medium.html#Buildings.Fluid.SolarCollectors.Examples.FlatPlate.Medium"
+>Medium</a>, m_flow_nominal=solCol.m_flow_nominal) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Temperature sensor&quot;</span>;
+  <a href="Buildings_Fluid_Sources.html#Buildings.Fluid.Sources.Boundary_pT"
+>Buildings.Fluid.Sources.Boundary_pT</a> sou(
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = <a href="Buildings_Fluid_SolarCollectors_Examples_Medium.html#Buildings.Fluid.SolarCollectors.Examples.FlatPlate.Medium"
+>Medium</a>,
+    T=273.15 + 10,
+    nPorts=1,
+    use_p_in=true,
+    p(displayUnit=&quot;Pa&quot;)) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Inlet for water flow&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Sine"
+>Modelica.Blocks.Sources.Sine</a> sine(
+    freqHz=3/86400,
+    offset=100000,
+    amplitude=-solCol.dp_nominal);
+<span style="color: blue; font-weight: normal; font-style: normal;">equation </span>
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(solCol.port_b, TOut.port_a);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(TOut.port_b, sin.ports[1]);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(TIn.port_b, solCol.port_a);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(sou.ports[1], TIn.port_a);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(weaDat.weaBus, solCol.weaBus);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(sine.y, sou.p_in);
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>FlatPlate;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE FlatPlateShaCoeTrue<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Fluid.SolarColl850367d0f2a3dcd4atingI.png" alt="Buildings.Fluid.SolarCollectors.Examples.FlatPlateShaCoeTrue" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Fluid.SolarCollectors.Examples.FlatPlateShaCoeTrue"></a><a href="Buildings_Fluid_SolarCollectors_Examples.html#Buildings.Fluid.SolarCollectors.Examples"
+>Buildings.Fluid.SolarCollectors.Examples</a>.FlatPlateShaCoeTrue</h2>
+<p>
+<b>Test model for FlatPlate with use_shaCoe_in = true</b>
+<br>
+<br><img src="Buildings.Fluid.SolarColl2f58cd51a3a8c5c4eTrueD.png" alt="Buildings.Fluid.SolarCollectors.Examples.FlatPlateShaCoeTrue">
+</p>
+<h3>Information</h3>
+
+      <p>
+        This example demonstrates the use of <code>use_shaCoe_in</code>. Aside from
+        changed use of <code>use_shaCoe_in</code> it is identical to
+        <a href="Buildings_Fluid_SolarCollectors_Examples.html#Buildings.Fluid.SolarCollectors.Examples.FlatPlate"
+>
+        Buildings.Fluid.SolarCollectors.Examples.FlatPlate</a>.
+      </p>
+    
+<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</a> (Icon for runnable examples).</p>
+<h3>Parameters</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td colspan="2">replaceable package Medium</td><td>Buildings.Media.Water</td><td>Medium in the system</td></tr>
+</table>
+<h3>Connectors</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Connectors">
+<tr><th>Type</th><th>Name</th><th>Description</th></tr>
+<tr><td colspan="2">replaceable package Medium</td><td>Medium in the system</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">model</span> FlatPlateShaCoeTrue <span style="color: #006400; font-weight: normal; font-style: normal;">
+  &quot;Test model for FlatPlate with use_shaCoe_in = true&quot;</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</a>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">replaceable </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = <a href="Buildings_Media_Water.html#Buildings.Media.Water"
+>Buildings.Media.Water</a> <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Medium in the system&quot;</span>;
+  <a href="Buildings_Fluid_SolarCollectors.html#Buildings.Fluid.SolarCollectors.ASHRAE93"
+>Buildings.Fluid.SolarCollectors.ASHRAE93</a>          solCol(
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = <a href="Buildings_Fluid_SolarCollectors_Examples_Medium.html#Buildings.Fluid.SolarCollectors.Examples.FlatPlateShaCoeTrue.Medium"
+>Medium</a>,
+    shaCoe=0,
+    from_dp=true,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    use_shaCoe_in=true,
+    per=<span style="color: red; font-weight: normal; font-style: normal;">Buildings.Fluid.SolarCollectors.Data.GlazedFlatPlate.FP_GuangdongFSPTY95</span>(),
+    rho=0.2,
+    azi=0,
+    nColType=Buildings.Fluid.SolarCollectors.Types.NumberSelection.Number,
+    nPanels=5,
+    sysConfig=Buildings.Fluid.SolarCollectors.Types.SystemConfiguration.Series,
+    nSeg=9,
+    lat=0.65938539140346,
+    til=0.5235987755983) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Flat plate solar collector with 3 segments&quot;</span>;
+
+  <a href="Buildings_BoundaryConditions_WeatherData.html#Buildings.BoundaryConditions.WeatherData.ReaderTMY3"
+>Buildings.BoundaryConditions.WeatherData.ReaderTMY3</a> weaDat(filNam=
+    &quot;modelica://Buildings/Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos&quot;) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Weather data input file&quot;</span>;
+  <a href="Buildings_Fluid_Sources.html#Buildings.Fluid.Sources.Boundary_pT"
+>Buildings.Fluid.Sources.Boundary_pT</a> sin(
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = <a href="Buildings_Fluid_SolarCollectors_Examples_Medium.html#Buildings.Fluid.SolarCollectors.Examples.FlatPlateShaCoeTrue.Medium"
+>Medium</a>,
+    use_p_in=false,
+    p(displayUnit=&quot;Pa&quot;) = 101325,
+    nPorts=1) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Outlet for water flow&quot;</span>;
+  <a href="Buildings_Fluid_Sensors.html#Buildings.Fluid.Sensors.TemperatureTwoPort"
+>Buildings.Fluid.Sensors.TemperatureTwoPort</a> TOut(
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = <a href="Buildings_Fluid_SolarCollectors_Examples_Medium.html#Buildings.Fluid.SolarCollectors.Examples.FlatPlateShaCoeTrue.Medium"
+>Medium</a>,
+    T_start(displayUnit=&quot;K&quot;),
+    m_flow_nominal=solCol.m_flow_nominal) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Temperature sensor&quot;</span>;
+  <a href="Buildings_Fluid_Sensors.html#Buildings.Fluid.Sensors.TemperatureTwoPort"
+>Buildings.Fluid.Sensors.TemperatureTwoPort</a> TIn(<span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium =
+    <a href="Buildings_Fluid_SolarCollectors_Examples_Medium.html#Buildings.Fluid.SolarCollectors.Examples.FlatPlateShaCoeTrue.Medium"
+>Medium</a>, m_flow_nominal=solCol.m_flow_nominal) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Temperature sensor&quot;</span>;
+  <a href="Buildings_Fluid_Sources.html#Buildings.Fluid.Sources.Boundary_pT"
+>Buildings.Fluid.Sources.Boundary_pT</a> sou(
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = <a href="Buildings_Fluid_SolarCollectors_Examples_Medium.html#Buildings.Fluid.SolarCollectors.Examples.FlatPlateShaCoeTrue.Medium"
+>Medium</a>,
+    use_p_in=false,
+    nPorts=1,
+    T=273.15 + 10,
+    p(displayUnit=&quot;Pa&quot;) = 101325 + 5*solCol.per.dp_nominal) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Inlet for water flow&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Ramp"
+>Modelica.Blocks.Sources.Ramp</a> shaCoe(
+    startTime=34040,
+    height=1,
+    duration=24193) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Varying shading coefficient&quot;</span>;
+<span style="color: blue; font-weight: normal; font-style: normal;">equation </span>
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(solCol.port_b, TOut.port_a);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(TOut.port_b, sin.ports[1]);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(TIn.port_b, solCol.port_a);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(sou.ports[1], TIn.port_a);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(shaCoe.y, solCol.shaCoe_in);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(weaDat.weaBus, solCol.weaBus);
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>FlatPlateShaCoeTrue;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE FlatPlateTotalArea<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Fluid.SolarColl850367d0f2a3dcd4atingI.png" alt="Buildings.Fluid.SolarCollectors.Examples.FlatPlateTotalArea" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Fluid.SolarCollectors.Examples.FlatPlateTotalArea"></a><a href="Buildings_Fluid_SolarCollectors_Examples.html#Buildings.Fluid.SolarCollectors.Examples"
+>Buildings.Fluid.SolarCollectors.Examples</a>.FlatPlateTotalArea</h2>
+<p>
+<b>Example showing the use of TotalArea and nSeg</b>
+<br>
+<br><img src="Buildings.Fluid.SolarCollf6e209bb093fd864lAreaD.png" alt="Buildings.Fluid.SolarCollectors.Examples.FlatPlateTotalArea">
+</p>
+<h3>Information</h3>
+
+      <p>
+        This model uses <code>TotalArea</code> instead of <code>nPanels</code> to
+        define the system size. Aside from that change, this model is identical to
+        <a href="Buildings_Fluid_SolarCollectors_Examples.html#Buildings.Fluid.SolarCollectors.Examples.FlatPlate"
+>
+        Buildings.Fluid.SolarCollectors.Examples.FlatPlate</a>.
+      </p>
+    
+<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</a> (Icon for runnable examples).</p>
+<h3>Parameters</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td colspan="2">replaceable package Medium</td><td>Buildings.Media.Water</td><td>Medium in the system</td></tr>
+</table>
+<h3>Connectors</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Connectors">
+<tr><th>Type</th><th>Name</th><th>Description</th></tr>
+<tr><td colspan="2">replaceable package Medium</td><td>Medium in the system</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">model</span> FlatPlateTotalArea <span style="color: #006400; font-weight: normal; font-style: normal;">
+  &quot;Example showing the use of TotalArea and nSeg&quot;</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</a>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">replaceable </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = <a href="Buildings_Media_Water.html#Buildings.Media.Water"
+>Buildings.Media.Water</a> <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Medium in the system&quot;</span>;
+
+  <a href="Buildings_Fluid_SolarCollectors.html#Buildings.Fluid.SolarCollectors.ASHRAE93"
+>Buildings.Fluid.SolarCollectors.ASHRAE93</a>          solCol(
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = <a href="Buildings_Fluid_SolarCollectors_Examples_Medium.html#Buildings.Fluid.SolarCollectors.Examples.FlatPlateTotalArea.Medium"
+>Medium</a>,
+    shaCoe=0,
+    from_dp=true,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    rho=0.2,
+    sysConfig=Buildings.Fluid.SolarCollectors.Types.SystemConfiguration.Series,
+    per=<span style="color: red; font-weight: normal; font-style: normal;">Buildings.Fluid.SolarCollectors.Data.GlazedFlatPlate.FP_SolahartKf</span>(),
+    nColType=Buildings.Fluid.SolarCollectors.Types.NumberSelection.Number,
+    nPanels=10,
+    nSeg=9,
+    lat=0.73097781993588,
+    azi=0.3,
+    til=0.5) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Flat plate solar collector model&quot;</span>;
+
+  <a href="Buildings_BoundaryConditions_WeatherData.html#Buildings.BoundaryConditions.WeatherData.ReaderTMY3"
+>Buildings.BoundaryConditions.WeatherData.ReaderTMY3</a> weaDat(filNam=
+    &quot;modelica://Buildings/Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos&quot;) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Weather data input file&quot;</span>;
+  <a href="Buildings_Fluid_Sources.html#Buildings.Fluid.Sources.Boundary_pT"
+>Buildings.Fluid.Sources.Boundary_pT</a> sin(
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = <a href="Buildings_Fluid_SolarCollectors_Examples_Medium.html#Buildings.Fluid.SolarCollectors.Examples.FlatPlateTotalArea.Medium"
+>Medium</a>,
+    use_p_in=false,
+    p(displayUnit=&quot;Pa&quot;) = 101325,
+    nPorts=2) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Outlet for water flow&quot;</span>;
+  <a href="Buildings_Fluid_Sensors.html#Buildings.Fluid.Sensors.TemperatureTwoPort"
+>Buildings.Fluid.Sensors.TemperatureTwoPort</a> TOut(
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = <a href="Buildings_Fluid_SolarCollectors_Examples_Medium.html#Buildings.Fluid.SolarCollectors.Examples.FlatPlateTotalArea.Medium"
+>Medium</a>,
+    T_start(displayUnit=&quot;K&quot;),
+    m_flow_nominal=solCol.m_flow_nominal) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Temperature sensor&quot;</span>;
+  <a href="Buildings_Fluid_Sensors.html#Buildings.Fluid.Sensors.TemperatureTwoPort"
+>Buildings.Fluid.Sensors.TemperatureTwoPort</a> TIn(<span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium =
+    <a href="Buildings_Fluid_SolarCollectors_Examples_Medium.html#Buildings.Fluid.SolarCollectors.Examples.FlatPlateTotalArea.Medium"
+>Medium</a>, m_flow_nominal=solCol.m_flow_nominal) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Temperature sensor&quot;</span>;
+  <a href="Buildings_Fluid_Sources.html#Buildings.Fluid.Sources.Boundary_pT"
+>Buildings.Fluid.Sources.Boundary_pT</a> sou(
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = <a href="Buildings_Fluid_SolarCollectors_Examples_Medium.html#Buildings.Fluid.SolarCollectors.Examples.FlatPlateTotalArea.Medium"
+>Medium</a>,
+    T=273.15 + 10,
+    use_p_in=false,
+    nPorts=2,
+    p(displayUnit=&quot;Pa&quot;) = 101325 + solCol.dp_nominal) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Inlet for water flow&quot;</span>;
+
+  <a href="Buildings_Fluid_SolarCollectors.html#Buildings.Fluid.SolarCollectors.ASHRAE93"
+>Buildings.Fluid.SolarCollectors.ASHRAE93</a> solCol1(
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = <a href="Buildings_Fluid_SolarCollectors_Examples_Medium.html#Buildings.Fluid.SolarCollectors.Examples.FlatPlateTotalArea.Medium"
+>Medium</a>,
+    shaCoe=0,
+    from_dp=true,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    rho=0.2,
+    sysConfig=Buildings.Fluid.SolarCollectors.Types.SystemConfiguration.Series,
+    per=<span style="color: red; font-weight: normal; font-style: normal;">Buildings.Fluid.SolarCollectors.Data.GlazedFlatPlate.FP_SolahartKf</span>(),
+    nColType=Buildings.Fluid.SolarCollectors.Types.NumberSelection.Number,
+    nPanels=10,
+    nSeg=27,
+    lat=0.73097781993588,
+    azi=0.3,
+    til=0.5) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Flat plate solar collector model&quot;</span>;
+  <a href="Buildings_Fluid_Sensors.html#Buildings.Fluid.Sensors.TemperatureTwoPort"
+>Buildings.Fluid.Sensors.TemperatureTwoPort</a> TOut1(
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = <a href="Buildings_Fluid_SolarCollectors_Examples_Medium.html#Buildings.Fluid.SolarCollectors.Examples.FlatPlateTotalArea.Medium"
+>Medium</a>,
+    T_start(displayUnit=&quot;K&quot;),
+    m_flow_nominal=solCol.m_flow_nominal) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Temperature sensor&quot;</span>;
+  <a href="Buildings_Fluid_Sensors.html#Buildings.Fluid.Sensors.TemperatureTwoPort"
+>Buildings.Fluid.Sensors.TemperatureTwoPort</a> TIn1(
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium =
+    <a href="Buildings_Fluid_SolarCollectors_Examples_Medium.html#Buildings.Fluid.SolarCollectors.Examples.FlatPlateTotalArea.Medium"
+>Medium</a>, m_flow_nominal=solCol.m_flow_nominal) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Temperature sensor&quot;</span>;
+<span style="color: blue; font-weight: normal; font-style: normal;">equation </span>
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(solCol.port_b, TOut.port_a);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(TOut.port_b, sin.ports[1]);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(TIn.port_b, solCol.port_a);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(sou.ports[1], TIn.port_a);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(weaDat.weaBus, solCol.weaBus);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(solCol1.port_b, TOut1.port_a);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(TIn1.port_b, solCol1.port_a);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(weaDat.weaBus, solCol1.weaBus);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(sou.ports[2], TIn1.port_a);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(TOut1.port_b, sin.ports[2]);
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>FlatPlateTotalArea;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE FlatPlateWithTank<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Fluid.SolarColl850367d0f2a3dcd4atingI.png" alt="Buildings.Fluid.SolarCollectors.Examples.FlatPlateWithTank" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Fluid.SolarCollectors.Examples.FlatPlateWithTank"></a><a href="Buildings_Fluid_SolarCollectors_Examples.html#Buildings.Fluid.SolarCollectors.Examples"
+>Buildings.Fluid.SolarCollectors.Examples</a>.FlatPlateWithTank</h2>
+<p>
+<b>Example showing use of the flat plate solar collector in a complete solar thermal system</b>
+<br>
+<br><img src="Buildings.Fluid.SolarColl43d3abf2a8c57d53hTankD.png" alt="Buildings.Fluid.SolarCollectors.Examples.FlatPlateWithTank">
+</p>
+<h3>Information</h3>
+
+          <p>
+            This example shows how several different models can be combined to create
+            an entire solar water heating system. The
+            <a href="Buildings_Fluid_Storage.html#Buildings.Fluid.Storage.StratifiedEnhancedInternalHex"
+>
+            Buildings.Fluid.Storage.StratifiedEnhancedInternalHex</a> (tan) model is
+            used to represent the tank filled with hot water. A loop, powered by a pump
+            (<a href="Buildings_Fluid_Movers.html#Buildings.Fluid.Movers.FlowControlled_m_flow"
+>
+            Buildings.Fluid.Movers.FlowControlled_m_flow</a>, pum), passes the water
+            through an expansion tank
+            (<a href="Buildings_Fluid_Storage.html#Buildings.Fluid.Storage.ExpansionVessel"
+>
+            Buildings.Fluid.Storage.ExpansionVessel</a>, exp), a temperature sensor
+            (<a href="Buildings_Fluid_Sensors.html#Buildings.Fluid.Sensors.TemperatureTwoPort"
+>
+            Buildings.Fluid.Sensors.TemperatureTwoPort</a>, TIn), the solar collector
+            (<a href="Buildings_Fluid_SolarCollectors.html#Buildings.Fluid.SolarCollectors.ASHRAE93"
+>
+            Buildings.Fluid.SolarCollectors.ASHRAE93,</a> solCol) and a second temperature
+            sensor
+            (<a href="Buildings_Fluid_Sensors.html#Buildings.Fluid.Sensors.TemperatureTwoPort"
+>
+            Buildings.Fluid.Sensors.TemperatureTwoPort</a>, TOut) before re-entering the
+            tank.
+          </p>
+          <p>
+            The solar collector is connected to the weather model
+            (<a href="Buildings_BoundaryConditions_WeatherData.html#Buildings.BoundaryConditions.WeatherData.ReaderTMY3"
+>
+            Buildings.BoundaryConditions.WeatherData.ReaderTMY3</a>, weaDat) which passes
+            information for the San Francisco, CA, USA climate. This information is used to
+            identify both the heat gain in the water from the sun and the heat loss to the
+            ambient conditions.
+          </p>
+          <p>
+            The flow rate through the pump is controlled by a solar pump controller model
+            (<a href="Buildings_Fluid_SolarCollectors_Controls.html#Buildings.Fluid.SolarCollectors.Controls.SolarPumpController"
+>
+            Buildings.Fluid.SolarCollectors.Controls.SolarPumpController</a>, pumCon) and a
+            gain model. The controller outputs a binary on (1) / off (0) signal. The on/off
+            signal is passed through the gain model, multiplying by 0.04, to represent a
+            flow rate of 0.04 kg/s when the pump is active.
+          </p>
+          <p>
+            The heat ports for the tank are connected to an ambient temperature of 20
+            degrees C representing the temperature of the room the tank is stored in.
+          </p>
+          <p>
+            bou1 (<a href="Buildings_Fluid_Sources.html#Buildings.Fluid.Sources.MassFlowSource_T"
+>
+            Buildings.Fluid.Sources.MassFlowSource_T)</a> provides a constant mass flow
+            rate for a hot water draw while bou
+            (<a href="Buildings_Fluid_Sources.html#Buildings.Fluid.Sources.Boundary_pT"
+>
+            Buildings.Fluid.Sources.Boundary_pT)</a> provides a boundary
+            condition for the outlet of the draw.
+          </p>
+      
+<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</a> (Icon for runnable examples).</p>
+<h3>Parameters</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td colspan="2">replaceable package Medium</td><td>Buildings.Media.Water</td><td>Fluid in the storage tank</td></tr>
+<tr><td colspan="2">replaceable package Medium_2</td><td>Buildings.Media.Water</td><td>Fluid flowing through the collector</td></tr>
+</table>
+<h3>Connectors</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Connectors">
+<tr><th>Type</th><th>Name</th><th>Description</th></tr>
+<tr><td colspan="2">replaceable package Medium</td><td>Fluid in the storage tank</td></tr>
+<tr><td colspan="2">replaceable package Medium_2</td><td>Fluid flowing through the collector</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">model</span> FlatPlateWithTank <span style="color: #006400; font-weight: normal; font-style: normal;">
+  &quot;Example showing use of the flat plate solar collector in a complete solar thermal system&quot;</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</a>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">replaceable </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = <a href="Buildings_Media_Water.html#Buildings.Media.Water"
+>Buildings.Media.Water</a> <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Fluid in the storage tank&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">replaceable </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium_2 =
+      <a href="Buildings_Media_Water.html#Buildings.Media.Water"
+>Buildings.Media.Water</a> <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Fluid flowing through the collector&quot;</span>;
+
+  <a href="Buildings_Fluid_SolarCollectors.html#Buildings.Fluid.SolarCollectors.ASHRAE93"
+>Buildings.Fluid.SolarCollectors.ASHRAE93</a>  solCol(
+    shaCoe=0,
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = <a href="Buildings_Fluid_SolarCollectors_Examples_Medium_2.html#Buildings.Fluid.SolarCollectors.Examples.FlatPlateWithTank.Medium_2"
+>Medium_2</a>,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    rho=0.2,
+    nColType=Buildings.Fluid.SolarCollectors.Types.NumberSelection.Number,
+    nPanels=5,
+    sysConfig=Buildings.Fluid.SolarCollectors.Types.SystemConfiguration.Series,
+    per=<span style="color: red; font-weight: normal; font-style: normal;">Buildings.Fluid.SolarCollectors.Data.GlazedFlatPlate.FP_SolahartKf</span>(),
+    nSeg=9,
+    lat=0.73097781993588,
+    azi=0.3,
+    til=0.78539816339745) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Flat plate solar collector model&quot;</span>;
+
+  <a href="Buildings_BoundaryConditions_WeatherData.html#Buildings.BoundaryConditions.WeatherData.ReaderTMY3"
+>Buildings.BoundaryConditions.WeatherData.ReaderTMY3</a> weaDat(filNam=
+    &quot;modelica://Buildings/Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos&quot;,
+    computeWetBulbTemperature=false) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Weather data file reader&quot;</span>;
+  <a href="Buildings_Fluid_Sensors.html#Buildings.Fluid.Sensors.TemperatureTwoPort"
+>Buildings.Fluid.Sensors.TemperatureTwoPort</a> TOut(
+    T_start(displayUnit=&quot;K&quot;),
+    m_flow_nominal=solCol.m_flow_nominal,
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = <a href="Buildings_Fluid_SolarCollectors_Examples_Medium_2.html#Buildings.Fluid.SolarCollectors.Examples.FlatPlateWithTank.Medium_2"
+>Medium_2</a>) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Temperature sensor&quot;</span>;
+  <a href="Buildings_Fluid_Sensors.html#Buildings.Fluid.Sensors.TemperatureTwoPort"
+>Buildings.Fluid.Sensors.TemperatureTwoPort</a> TIn(m_flow_nominal=solCol.m_flow_nominal,
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = <a href="Buildings_Fluid_SolarCollectors_Examples_Medium_2.html#Buildings.Fluid.SolarCollectors.Examples.FlatPlateWithTank.Medium_2"
+>Medium_2</a>) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Temperature sensor&quot;</span>;
+  <a href="Buildings_Fluid_Storage.html#Buildings.Fluid.Storage.StratifiedEnhancedInternalHex"
+>Buildings.Fluid.Storage.StratifiedEnhancedInternalHex</a>
+   tan(
+    nSeg=4,
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = <a href="Buildings_Fluid_SolarCollectors_Examples_Medium.html#Buildings.Fluid.SolarCollectors.Examples.FlatPlateWithTank.Medium"
+>Medium</a>,
+    hTan=1.8,
+    m_flow_nominal=0.1,
+    VTan=1.5,
+    dIns=0.07,
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> MediumHex = <a href="Buildings_Fluid_SolarCollectors_Examples_Medium_2.html#Buildings.Fluid.SolarCollectors.Examples.FlatPlateWithTank.Medium_2"
+>Medium_2</a>,
+    CHex=200,
+    dExtHex=0.01905,
+    hHex_a=0.9,
+    hHex_b=0.65,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    Q_flow_nominal=3000,
+    mHex_flow_nominal=3000/20/4200,
+    T_start=293.15,
+    TTan_nominal=293.15,
+    THex_nominal=323.15,
+    energyDynamicsHex=Modelica.Fluid.Types.Dynamics.FixedInitial) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Storage tank model&quot;</span>;
+  <a href="Buildings_Fluid_SolarCollectors_Controls.html#Buildings.Fluid.SolarCollectors.Controls.SolarPumpController"
+>Buildings.Fluid.SolarCollectors.Controls.SolarPumpController</a>
+    pumCon(per=<span style="color: red; font-weight: normal; font-style: normal;">Buildings.Fluid.SolarCollectors.Data.GlazedFlatPlate.FP_ThermaLiteHS20</span>()) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Pump controller&quot;</span>;
+  <a href="Buildings_HeatTransfer_Sources.html#Buildings.HeatTransfer.Sources.FixedTemperature"
+>Buildings.HeatTransfer.Sources.FixedTemperature</a> rooT(T=293.15) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Room temperature&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Math.html#Modelica.Blocks.Math.Gain"
+>Modelica.Blocks.Math.Gain</a> gain(k=0.04) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Flow rate of the system in kg/s&quot;</span>;
+  <a href="Buildings_Fluid_Sources.html#Buildings.Fluid.Sources.Boundary_pT"
+>Buildings.Fluid.Sources.Boundary_pT</a> bou(<span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium =
+    <a href="Buildings_Fluid_SolarCollectors_Examples_Medium.html#Buildings.Fluid.SolarCollectors.Examples.FlatPlateWithTank.Medium"
+>Medium</a>, nPorts=1) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Outlet for hot water draw&quot;</span>;
+  <a href="Buildings_Fluid_Sources.html#Buildings.Fluid.Sources.MassFlowSource_T"
+>Buildings.Fluid.Sources.MassFlowSource_T</a> bou1(
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = <a href="Buildings_Fluid_SolarCollectors_Examples_Medium.html#Buildings.Fluid.SolarCollectors.Examples.FlatPlateWithTank.Medium"
+>Medium</a>,
+    use_m_flow_in=false,
+    nPorts=1,
+    m_flow=0.001,
+    T=288.15) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Inlet and flow rate for hot water draw&quot;</span>;
+  <a href="Buildings_Fluid_Movers.html#Buildings.Fluid.Movers.FlowControlled_m_flow"
+>Buildings.Fluid.Movers.FlowControlled_m_flow</a> pum(<span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium =
+    <a href="Buildings_Fluid_SolarCollectors_Examples_Medium_2.html#Buildings.Fluid.SolarCollectors.Examples.FlatPlateWithTank.Medium_2"
+>Medium_2</a>, m_flow_nominal=0.1,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
+    dynamicBalance=false) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Pump forcing circulation through the system&quot;</span>;
+  <a href="Buildings_Fluid_Storage.html#Buildings.Fluid.Storage.ExpansionVessel"
+>Buildings.Fluid.Storage.ExpansionVessel</a> exp(
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = <a href="Buildings_Fluid_SolarCollectors_Examples_Medium_2.html#Buildings.Fluid.SolarCollectors.Examples.FlatPlateWithTank.Medium_2"
+>Medium_2</a>, V_start=0.1) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Expansion tank&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Thermal_HeatTransfer_Sensors.html#Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor"
+>Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor</a> TTan <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Temperature in the tank water that surrounds the heat exchanger&quot;</span>;
+<span style="color: blue; font-weight: normal; font-style: normal;">equation </span>
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(solCol.port_b,TOut. port_a);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(TIn.port_b,solCol. port_a);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(weaDat.weaBus,solCol. weaBus);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(weaDat.weaBus, pumCon.weaBus);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(rooT.port, tan.heaPorTop);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(rooT.port, tan.heaPorSid);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(pumCon.y, gain.u);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(gain.y, pum.m_flow_in);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(pum.port_b, TIn.port_a);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(pum.port_a, exp.port_a);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(exp.port_a, tan.portHex_b);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(TOut.port_b, tan.portHex_a);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(bou.ports[1], tan.port_a);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(bou1.ports[1], tan.port_b);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(tan.heaPorVol[3], TTan.port);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(TTan.T, pumCon.TIn);
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>FlatPlateWithTank;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE Tubular<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Fluid.SolarColl850367d0f2a3dcd4atingI.png" alt="Buildings.Fluid.SolarCollectors.Examples.Tubular" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Fluid.SolarCollectors.Examples.Tubular"></a><a href="Buildings_Fluid_SolarCollectors_Examples.html#Buildings.Fluid.SolarCollectors.Examples"
+>Buildings.Fluid.SolarCollectors.Examples</a>.Tubular</h2>
+<p>
+<b>Example showing the use of Tubular</b>
+<br>
+<br><img src="Buildings.Fluid.SolarColl9286c88eb6ecf02fbularD.png" alt="Buildings.Fluid.SolarCollectors.Examples.Tubular">
+</p>
+<h3>Information</h3>
+
+      <p>
+        This example models a tubular solar thermal collector. It uses the
+        <a href="Buildings_Fluid_SolarCollectors.html#Buildings.Fluid.SolarCollectors.ASHRAE93"
+>
+        Buildings.Fluid.SolarCollectors.ASHRAE93</a> model and references
+        data in the <a href="Buildings_Fluid_SolarCollectors_Data_Tubular.html#Buildings.Fluid.SolarCollectors.Data.Tubular"
+>
+        Buildings.Fluid.SolarCollectors.Data.Tubular</a> package.
+      </p>
+    
+<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</a> (Icon for runnable examples).</p>
+<h3>Parameters</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td colspan="2">replaceable package Medium</td><td>Buildings.Media.Water</td><td>Medium in the system</td></tr>
+</table>
+<h3>Connectors</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Connectors">
+<tr><th>Type</th><th>Name</th><th>Description</th></tr>
+<tr><td colspan="2">replaceable package Medium</td><td>Medium in the system</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">model</span> Tubular <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Example showing the use of Tubular&quot;</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</a>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">replaceable </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = <a href="Buildings_Media_Water.html#Buildings.Media.Water"
+>Buildings.Media.Water</a> <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Medium in the system&quot;</span>;
+  <a href="Buildings_Fluid_SolarCollectors.html#Buildings.Fluid.SolarCollectors.ASHRAE93"
+>Buildings.Fluid.SolarCollectors.ASHRAE93</a>          solCol(
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = <a href="Buildings_Fluid_SolarCollectors_Examples_Medium.html#Buildings.Fluid.SolarCollectors.Examples.Tubular.Medium"
+>Medium</a>,
+    shaCoe=0,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    use_shaCoe_in=false,
+    per=<span style="color: red; font-weight: normal; font-style: normal;">Buildings.Fluid.SolarCollectors.Data.Tubular.T_AMKCollectraAGOWR20</span>(),
+    nPanels=10,
+    sysConfig=Buildings.Fluid.SolarCollectors.Types.SystemConfiguration.Parallel,
+    nColType=Buildings.Fluid.SolarCollectors.Types.NumberSelection.Number,
+    rho=0.2,
+    nSeg=9,
+    lat=0.73097781993588,
+    azi=0.3,
+    til=0.5) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Tubular solar collector model&quot;</span>;
+
+  <a href="Buildings_BoundaryConditions_WeatherData.html#Buildings.BoundaryConditions.WeatherData.ReaderTMY3"
+>Buildings.BoundaryConditions.WeatherData.ReaderTMY3</a> weaDat(filNam=
+    &quot;modelica://Buildings/Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos&quot;) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Weather data input file&quot;</span>;
+  <a href="Buildings_Fluid_Sources.html#Buildings.Fluid.Sources.Boundary_pT"
+>Buildings.Fluid.Sources.Boundary_pT</a> sin(
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = <a href="Buildings_Fluid_SolarCollectors_Examples_Medium.html#Buildings.Fluid.SolarCollectors.Examples.Tubular.Medium"
+>Medium</a>,
+    use_p_in=false,
+    p(displayUnit=&quot;Pa&quot;) = 101325,
+    nPorts=1) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Inlet for fluid flow&quot;</span>;
+  <a href="Buildings_Fluid_Sensors.html#Buildings.Fluid.Sensors.TemperatureTwoPort"
+>Buildings.Fluid.Sensors.TemperatureTwoPort</a> TOut(
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = <a href="Buildings_Fluid_SolarCollectors_Examples_Medium.html#Buildings.Fluid.SolarCollectors.Examples.Tubular.Medium"
+>Medium</a>,
+    T_start(displayUnit=&quot;K&quot;),
+    m_flow_nominal=solCol.m_flow_nominal) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Temperature sensor&quot;</span>;
+  <a href="Buildings_Fluid_Sensors.html#Buildings.Fluid.Sensors.TemperatureTwoPort"
+>Buildings.Fluid.Sensors.TemperatureTwoPort</a> TIn(<span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium =
+    <a href="Buildings_Fluid_SolarCollectors_Examples_Medium.html#Buildings.Fluid.SolarCollectors.Examples.Tubular.Medium"
+>Medium</a>, m_flow_nominal=solCol.m_flow_nominal) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Temperature sensor&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Sine"
+>Modelica.Blocks.Sources.Sine</a> sine(
+    freqHz=3/86400,
+    offset=101325,
+    amplitude=-1.5*solCol.dp_nominal);
+  <a href="Buildings_Fluid_Sources.html#Buildings.Fluid.Sources.Boundary_pT"
+>Buildings.Fluid.Sources.Boundary_pT</a> sou(
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = <a href="Buildings_Fluid_SolarCollectors_Examples_Medium.html#Buildings.Fluid.SolarCollectors.Examples.Tubular.Medium"
+>Medium</a>,
+    T=273.15 + 10,
+    nPorts=1,
+    use_p_in=true,
+    p(displayUnit=&quot;Pa&quot;)) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Inlet for water flow&quot;</span>;
+<span style="color: blue; font-weight: normal; font-style: normal;">equation </span>
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(solCol.port_b,TOut. port_a);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(TOut.port_b,sin. ports[1]);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(TIn.port_b,solCol. port_a);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(weaDat.weaBus, solCol.weaBus);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(sine.y, sou.p_in);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(sou.ports[1], TIn.port_a);
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>Tubular;
+</div>
+<hr>
+<address>
+<a href="http://www.3ds.com/">Automatically generated</a> Thu Apr  9 09:36:42 2015.
+</address>
+</body>
+</html>

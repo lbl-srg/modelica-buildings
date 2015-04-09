@@ -1,0 +1,839 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>Buildings.Rooms.Examples.FFD</title>
+<meta name="HTML-Generator" content="Dymola">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="description" content="&quot;Package that tests the models for coupled simulation between Modelica and Fast Fluid Dynamics&quot;">
+<style type="text/css">
+*       { font-size: 10pt; font-family: Arial, sans-serif; }
+.modelica, .modelica * { font-size: 9pt; font-family: Courier, monospace; white-space: pre; }
+h4      { font-size: 10pt; font-weight: bold; color: green; }
+h3      { font-size: 11pt; font-weight: bold; color: green; }
+h2      { font-size: 13pt; font-weight: bold; color: green; }
+address { font-weight: normal; }
+td      { border: 1px solid #808080; vertical-align: top; }
+th      { border: 1px solid #808080; vertical-align: top; font-weight: bold; }
+table   { border: 1px solid #808080; border-collapse: collapse; }
+</style>
+<link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../Resources/www/modelicaDoc.css">
+</HEAD>
+<body>
+<!-- --- header ------ -->
+<div class="headerStyle">
+<img src="../Resources/www/lbl-logo.png" alt="LBL logo"/>
+</div>
+<div class="headerLinks">
+<ul><li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt; <a href="Buildings.html">Modelica</a></li></ul>
+</div>
+<!-- --- end header -- -->
+
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE FFD<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><a name="Buildings.Rooms.Examples.FFD"></a><a href="Buildings_Rooms_Examples.html#Buildings.Rooms.Examples"
+>Buildings.Rooms.Examples</a>.FFD</h2>
+<p>
+<b>Package that tests the models for coupled simulation between Modelica and Fast Fluid Dynamics</b><br>
+</p>
+<h3>Information</h3>
+
+<p>
+This package tests the coupled simulation of the model
+<a href="Buildings_Rooms.html#Buildings.Rooms.CFD"
+>Buildings.Rooms.CFD</a> with the Fast Fluid Dynamics (FFD) program.
+Different cases with various boundary conditions are evaluated.
+The models in this package do not represent realistic buildings, but
+are rather designed to test the coupled simulation.
+</p>
+
+<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons_ExamplesPackage.html#Modelica.Icons.ExamplesPackage"
+>Modelica.Icons.ExamplesPackage</a> (Icon for packages containing runnable examples).</p>
+<h3>Package Content</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Package Content">
+<tr>
+<th>Name</th>
+<th>Description</th>
+</tr>
+<tr>
+<td><img src="Buildings.Rooms.Examples.FFD.UsersGuideS.png" alt="Buildings.Rooms.Examples.FFD.UsersGuide" width="20" height="20" align="top">&nbsp;<a href="Buildings_Rooms_Examples_FFD_UsersGuide.html#Buildings.Rooms.Examples.FFD.UsersGuide"
+>UsersGuide</a>
+</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td><img src="Buildings.Rooms.Examples.FFD.UsersGuideS.png" alt="Buildings.Rooms.Examples.FFD.Tutorial" width="20" height="20" align="top">&nbsp;<a href="Buildings_Rooms_Examples_FFD_Tutorial.html#Buildings.Rooms.Examples.FFD.Tutorial"
+>Tutorial</a>
+</td>
+<td>Tutorial with step by step instructions for how to do coupled simulation</td>
+</tr>
+<tr>
+<td><img src="Buildings.Rooms.Examples.9adb418daa51e50bctionS.png" alt="Buildings.Rooms.Examples.FFD.ForcedConvection" width="20" height="20" align="top">&nbsp;<a href="Buildings_Rooms_Examples_FFD.html#Buildings.Rooms.Examples.FFD.ForcedConvection"
+>ForcedConvection</a>
+</td>
+<td>Ventilation with forced convection in an empty room</td>
+</tr>
+<tr>
+<td><img src="Buildings.Rooms.Examples.9adb418daa51e50bctionS.png" alt="Buildings.Rooms.Examples.FFD.NaturalConvectionWithControl" width="20" height="20" align="top">&nbsp;<a href="Buildings_Rooms_Examples_FFD.html#Buildings.Rooms.Examples.FFD.NaturalConvectionWithControl"
+>NaturalConvectionWithControl</a>
+</td>
+<td>A case of natural convection with feedback loop control</td>
+</tr>
+<tr>
+<td><img src="Buildings.Rooms.Examples.9adb418daa51e50bctionS.png" alt="Buildings.Rooms.Examples.FFD.RoomOnlyConstructionBoundary" width="20" height="20" align="top">&nbsp;<a href="Buildings_Rooms_Examples_FFD.html#Buildings.Rooms.Examples.FFD.RoomOnlyConstructionBoundary"
+>RoomOnlyConstructionBoundary</a>
+</td>
+<td>Test model for natural convection in an empty room with only construction boundary.</td>
+</tr>
+<tr>
+<td><img src="Buildings.Rooms.Examples.9adb418daa51e50bctionS.png" alt="Buildings.Rooms.Examples.FFD.RoomOnlyExteriorWallNoWindow" width="20" height="20" align="top">&nbsp;<a href="Buildings_Rooms_Examples_FFD.html#Buildings.Rooms.Examples.FFD.RoomOnlyExteriorWallNoWindow"
+>RoomOnlyExteriorWallNoWindow</a>
+</td>
+<td>Natural convection in an empty room with only exterior walls without windows.</td>
+</tr>
+<tr>
+<td><img src="Buildings.Rooms.Examples.9adb418daa51e50bctionS.png" alt="Buildings.Rooms.Examples.FFD.RoomOnlySurfaceBoundary" width="20" height="20" align="top">&nbsp;<a href="Buildings_Rooms_Examples_FFD.html#Buildings.Rooms.Examples.FFD.RoomOnlySurfaceBoundary"
+>RoomOnlySurfaceBoundary</a>
+</td>
+<td>Natural convection in an empty room with only surface boundary</td>
+</tr>
+<tr>
+<td><img src="Buildings.Rooms.Examples.9adb418daa51e50bctionS.png" alt="Buildings.Rooms.Examples.FFD.WindowWithShade" width="20" height="20" align="top">&nbsp;<a href="Buildings_Rooms_Examples_FFD.html#Buildings.Rooms.Examples.FFD.WindowWithShade"
+>WindowWithShade</a>
+</td>
+<td>Natural convection in an empty room with exterior walls, windows and shades</td>
+</tr>
+<tr>
+<td><img src="Buildings.Rooms.Examples.9adb418daa51e50bctionS.png" alt="Buildings.Rooms.Examples.FFD.WindowWithoutShade" width="20" height="20" align="top">&nbsp;<a href="Buildings_Rooms_Examples_FFD.html#Buildings.Rooms.Examples.FFD.WindowWithoutShade"
+>WindowWithoutShade</a>
+</td>
+<td>Natural convection in an empty room with exterior walls, windows without shade</td>
+</tr>
+<tr>
+<td><img src="Buildings.Rooms.Examples.FFD.BaseClassesS.png" alt="Buildings.Rooms.Examples.FFD.BaseClasses" width="20" height="20" align="top">&nbsp;<a href="Buildings_Rooms_Examples_FFD_BaseClasses.html#Buildings.Rooms.Examples.FFD.BaseClasses"
+>BaseClasses</a>
+</td>
+<td>Package with base classes for Buildings.Rooms.Examples.FFD</td>
+</tr>
+</table>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE ForcedConvection<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Rooms.Examples.9adb418daa51e50bctionI.png" alt="Buildings.Rooms.Examples.FFD.ForcedConvection" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Rooms.Examples.FFD.ForcedConvection"></a><a href="Buildings_Rooms_Examples_FFD.html#Buildings.Rooms.Examples.FFD"
+>Buildings.Rooms.Examples.FFD</a>.ForcedConvection</h2>
+<p>
+<b>Ventilation with forced convection in an empty room</b>
+<br>
+<br><img src="Buildings.Rooms.Examples.9adb418daa51e50bctionD.png" alt="Buildings.Rooms.Examples.FFD.ForcedConvection">
+</p>
+<h3>Information</h3>
+
+<p>
+This model tests the coupled simulation of
+<a href="Buildings_Rooms.html#Buildings.Rooms.CFD"
+>
+Buildings.Rooms.CFD</a>
+with the FFD program by simulating the ventilation with forced convection in an empty room.
+Figure (a) shows the schematic of the FFD simulation and Figure (b) shows streamlines and contours of the horizontal velocity U as simulated by the FFD.
+</p>
+<p align="center">
+<img alt="image" src="../Resources/Images/Rooms/Examples/FFD/ConvectionSchematic.png" border="1"/>
+</p>
+<p align="center">
+Figure (a)
+</p>
+<p align="center">
+<img alt="image" src="../Resources/Images/Rooms/Examples/FFD/ForcedConvection.png" border="1"/>
+</p>
+<p align="center">
+Figure (b)
+</p>
+<p align="left">
+
+<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</a> (Icon for runnable examples), <a href="Buildings_Rooms_Examples_FFD_BaseClasses.html#Buildings.Rooms.Examples.FFD.BaseClasses.PartialRoom"
+>Buildings.Rooms.Examples.FFD.BaseClasses.PartialRoom</a> (Partial model for a room).</p>
+<h3>Parameters</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td>Integer</td><td>nConExtWin</td><td>0</td><td>Number of constructions with a window</td></tr>
+<tr><td>Integer</td><td>nConBou</td><td>0</td><td>Number of surface that are connected to constructions that are modeled inside the room</td></tr>
+<tr><td>Integer</td><td>nSurBou</td><td>6</td><td>Number of surface that are connected to the room air volume</td></tr>
+<tr><td>Integer</td><td>nConExt</td><td>0</td><td>Number of exterior constructions withour a window</td></tr>
+<tr><td>Integer</td><td>nConPar</td><td>0</td><td>Number of partition constructions</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">model</span> ForcedConvection <span style="color: #006400; font-weight: normal; font-style: normal;">
+  &quot;Ventilation with forced convection in an empty room&quot;</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</a>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="Buildings_Rooms_Examples_FFD_BaseClasses.html#Buildings.Rooms.Examples.FFD.BaseClasses.PartialRoom"
+>Buildings.Rooms.Examples.FFD.BaseClasses.PartialRoom</a>(
+    roo(
+      surBou(
+        name={&quot;East Wall&quot;,&quot;West Wall&quot;,&quot;North Wall&quot;,&quot;South Wall&quot;,&quot;Ceiling&quot;,&quot;Floor&quot;},
+        A={0.9,0.9,1,1,1,1},
+        til={Buildings.Types.Tilt.Wall,
+            Buildings.Types.Tilt.Wall,
+            Buildings.Types.Tilt.Wall,
+            Buildings.Types.Tilt.Wall,
+            Buildings.Types.Tilt.Ceiling,
+            Buildings.Types.Tilt.Floor},
+        <span style="color: blue; font-weight: normal; font-style: normal;">each </span>absIR=1e-5,
+        <span style="color: blue; font-weight: normal; font-style: normal;">each </span>absSol=1e-5,
+        <span style="color: blue; font-weight: normal; font-style: normal;">each </span>boundaryCondition= Buildings.Rooms.Types.CFDBoundaryConditions.Temperature),
+      nPorts=2,
+      portName={&quot;Inlet&quot;,&quot;Outlet&quot;},
+      cfdFilNam=&quot;modelica://Buildings/Resources/Data/Rooms/FFD/ForcedConvection.ffd&quot;,
+      samplePeriod=6,
+      linearizeRadiation=true,
+      massDynamics=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial),
+      nSurBou=6);
+  <a href="Buildings_HeatTransfer_Sources.html#Buildings.HeatTransfer.Sources.FixedTemperature"
+>HeatTransfer.Sources.FixedTemperature</a> TWal[nSurBou](<span style="color: blue; font-weight: normal; font-style: normal;">each </span>T=283.15) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Temperature of other walls&quot;</span>;
+  <a href="Buildings_Fluid_Sources.html#Buildings.Fluid.Sources.FixedBoundary"
+>Fluid.Sources.FixedBoundary</a> bouOut(nPorts=1, <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium =
+        MediumA);
+  <a href="Buildings_Fluid_Sources.html#Buildings.Fluid.Sources.MassFlowSource_T"
+>Fluid.Sources.MassFlowSource_T</a> bounIn(
+    nPorts=1,
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = MediumA,
+    m_flow=0.01,
+    T=283.15);
+<span style="color: blue; font-weight: normal; font-style: normal;">equation </span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">for </span>i<span style="color: blue; font-weight: normal; font-style: normal;"> in </span>1:nSurBou<span style="color: blue; font-weight: normal; font-style: normal;"> loop</span>
+    <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(TWal[i].port, roo.surf_surBou[i]);
+  <span style="color: blue; font-weight: normal; font-style: normal;">end for</span>;
+  <span style="color: red; font-weight: normal; font-style: normal;">  connect</span>(bounIn.ports[1], roo.ports[1]);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(bouOut.ports[1], roo.ports[2]);
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>ForcedConvection;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE NaturalConvectionWithControl<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Rooms.Examples.9adb418daa51e50bctionI.png" alt="Buildings.Rooms.Examples.FFD.NaturalConvectionWithControl" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Rooms.Examples.FFD.NaturalConvectionWithControl"></a><a href="Buildings_Rooms_Examples_FFD.html#Buildings.Rooms.Examples.FFD"
+>Buildings.Rooms.Examples.FFD</a>.NaturalConvectionWithControl</h2>
+<p>
+<b>A case of natural convection with feedback loop control</b>
+<br>
+<br><img src="Buildings.Rooms.Examples.7824c80e30f02b3antrolD.png" alt="Buildings.Rooms.Examples.FFD.NaturalConvectionWithControl">
+</p>
+<h3>Information</h3>
+
+<p>
+This model tests the coupled simulation of
+<a href="Buildings_Rooms.html#Buildings.Rooms.CFD"
+>
+Buildings.Rooms.CFD</a>
+with the FFD program by simulating natural convection in an empty room with a PI controller and
+a heater to maintain the temperature at room center to be <i>2</i>&circ;C.
+</p>
+<p>
+The configuration of the simulation is the same as
+<a href="Buildings_Rooms_Examples_FFD_Tutorial.html#Buildings.Rooms.Examples.FFD.Tutorial.NaturalConvection"
+>
+Buildings.Rooms.Examples.FFD.Tutorial.NaturalConvection</a>, except that a heater with PI controller is added to maintain the desired room temperature.
+</p>
+<p>
+The temperature at the central room is sent to the PI controller as measured temperature. Based on the difference of set temperature and measured temperaure PI
+controller sends signal to the heater to yield the heat flow.
+The heat flow is then injected into the room through the heat port as convective heat flow.
+After receving the heat flow from Modelica, the FFD uniformly distributes it into the space.
+</p>
+<p>
+Figure (a) shows the velocity vectors and temperature contours in degree Celsius on the X-Z plane at <i>Y = 0.5</i> m as simulated by the FFD.
+</p>
+<p align="center">
+<img alt="image" src="../Resources/Images/Rooms/Examples/FFD/NaturalConvectionWithControl.png" border="1"/>
+</p>
+<p align="center">
+Figure (a)
+</p>
+<p align="left">
+
+<p>Extends from <a href="Buildings_Rooms_Examples_FFD_Tutorial.html#Buildings.Rooms.Examples.FFD.Tutorial.NaturalConvection"
+>Buildings.Rooms.Examples.FFD.Tutorial.NaturalConvection</a> (Tutorial for Natural Convection case).</p>
+<h3>Parameters</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td>Integer</td><td>nConExtWin</td><td>0</td><td>Number of constructions with a window</td></tr>
+<tr><td>Integer</td><td>nConBou</td><td>0</td><td>Number of surface that are connected to constructions that are modeled inside the room</td></tr>
+<tr><td>Integer</td><td>nSurBou</td><td>6</td><td>Number of surface that are connected to the room air volume</td></tr>
+<tr><td>Integer</td><td>nConExt</td><td>0</td><td>Number of exterior constructions withour a window</td></tr>
+<tr><td>Integer</td><td>nConPar</td><td>0</td><td>Number of partition constructions</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">model</span> NaturalConvectionWithControl <span style="color: #006400; font-weight: normal; font-style: normal;">
+  &quot;A case of natural convection with feedback loop control&quot;</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="Buildings_Rooms_Examples_FFD_Tutorial.html#Buildings.Rooms.Examples.FFD.Tutorial.NaturalConvection"
+>Buildings.Rooms.Examples.FFD.Tutorial.NaturalConvection</a>(
+      roo(
+        nPorts=0,
+        useCFD=true,
+        samplePeriod=30,
+        cfdFilNam = &quot;modelica://Buildings/Resources/Data/Rooms/FFD/NaturalConvectionWithControl.ffd&quot;,
+        massDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial));
+
+  <a href="Buildings_HeatTransfer_Sources.html#Buildings.HeatTransfer.Sources.PrescribedHeatFlow"
+>HeatTransfer.Sources.PrescribedHeatFlow</a> preHeatFlo;
+  <a href="Buildings_Controls_Continuous.html#Buildings.Controls.Continuous.LimPID"
+>Controls.Continuous.LimPID</a> conPID(
+    yMin=0,
+    controllerType=Modelica.Blocks.Types.SimpleController.PI,
+    Ti=120,
+    yMax=1,
+    k=0.001);
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+>Modelica.Blocks.Sources.Constant</a> TSet(k=275.15) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Temperature set point&quot;</span>;
+<span style="color: blue; font-weight: normal; font-style: normal;">equation </span>
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(roo.yCFD[1], conPID.u_m);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(TSet.y, conPID.u_s);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(preHeatFlo.port, roo.heaPorAir);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(conPID.y, preHeatFlo.Q_flow);
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>NaturalConvectionWithControl;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE RoomOnlyConstructionBoundary<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Rooms.Examples.9adb418daa51e50bctionI.png" alt="Buildings.Rooms.Examples.FFD.RoomOnlyConstructionBoundary" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Rooms.Examples.FFD.RoomOnlyConstructionBoundary"></a><a href="Buildings_Rooms_Examples_FFD.html#Buildings.Rooms.Examples.FFD"
+>Buildings.Rooms.Examples.FFD</a>.RoomOnlyConstructionBoundary</h2>
+<p>
+<b>Test model for natural convection in an empty room with only construction boundary.</b>
+<br>
+<br><img src="Buildings.Rooms.Examples.91fb1f70b7fdcbe1ndaryD.png" alt="Buildings.Rooms.Examples.FFD.RoomOnlyConstructionBoundary">
+</p>
+<h3>Information</h3>
+
+<p>
+This model tests the copuled simulation of
+<a href="Buildings_Rooms.html#Buildings.Rooms.CFD"
+>
+Buildings.Rooms.CFD</a>
+with the FFD program by simulating the natural convection in an empty room with only construction boundaries.
+</p>
+<p>
+Figure (a) shows the schematic of the FFD simulation.
+The room is <i>1</i> meter in length, width and height.
+The temperature of the east wall is set to <i>40</i>&circ;C and the rest walls are at <i>10</i>&circ;C.
+The initial value for the temperature of the room air is <i>30</i>&circ;C.
+Two sensors are placed in the room center at (<i>0.5</i> m, <i>0.5</i> m, <i>0.5</i> m)
+that measure the temperature and the velocity.
+</p>
+<p align="center">
+<img alt="image" src="../Resources/Images/Rooms/Examples/FFD/OnlyWallSchematic.png" border="1"/>
+</p>
+<p align="center">
+Figure (a)
+</p>
+<p>
+Figure (b) shows the velocity vectors and temperature contours in degree Celsius
+on the X-Z plane at <i>Y = 0.5</i> m as simulated by the FFD.
+</p>
+<p align="center">
+<img alt="image" src="../Resources/Images/Rooms/Examples/FFD/RoomOnlyConstructionBoundary.png" border="1"/>
+</p>
+<p align="center">
+Figure (b)
+</p>
+
+<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</a> (Icon for runnable examples), <a href="Buildings_Rooms_Examples_FFD_BaseClasses.html#Buildings.Rooms.Examples.FFD.BaseClasses.PartialRoom"
+>Buildings.Rooms.Examples.FFD.BaseClasses.PartialRoom</a> (Partial model for a room).</p>
+<h3>Parameters</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td><a href="Buildings_HeatTransfer_Data_OpaqueConstructions.html#Buildings.HeatTransfer.Data.OpaqueConstructions.Generic"
+>Generic</a></td><td>matLayWal</td><td>&nbsp;</td><td>Construction material for all the envelopes</td></tr>
+<tr><td>Integer</td><td>nConExtWin</td><td>0</td><td>Number of constructions with a window</td></tr>
+<tr><td>Integer</td><td>nConBou</td><td>6</td><td>Number of surface that are connected to constructions that are modeled inside the room</td></tr>
+<tr><td>Integer</td><td>nSurBou</td><td>0</td><td>Number of surface that are connected to the room air volume</td></tr>
+<tr><td>Integer</td><td>nConExt</td><td>0</td><td>Number of exterior constructions withour a window</td></tr>
+<tr><td>Integer</td><td>nConPar</td><td>0</td><td>Number of partition constructions</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">model</span> RoomOnlyConstructionBoundary <span style="color: #006400; font-weight: normal; font-style: normal;">
+  &quot;Test model for natural convection in an empty room with only construction boundary.&quot;</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</a>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="Buildings_HeatTransfer_Data_OpaqueConstructions.html#Buildings.HeatTransfer.Data.OpaqueConstructions.Generic"
+>Buildings.HeatTransfer.Data.OpaqueConstructions.Generic</a> matLayWal(
+      <span style="color: blue; font-weight: normal; font-style: normal;">final </span>nLay=1, material={<span style="color: red; font-weight: normal; font-style: normal;">HeatTransfer.Data.Solids.Steel</span>(x=0.001)},
+    roughness_a=Buildings.HeatTransfer.Types.SurfaceRoughness.Smooth) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Construction material for all the envelopes&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="Buildings_Rooms_Examples_FFD_BaseClasses.html#Buildings.Rooms.Examples.FFD.BaseClasses.PartialRoom"
+>Buildings.Rooms.Examples.FFD.BaseClasses.PartialRoom</a>(
+    roo(
+      datConBou(
+        name={&quot;East Wall&quot;,&quot;West Wall&quot;,&quot;North Wall&quot;,&quot;South Wall&quot;,&quot;Floor&quot;,&quot;Ceiling&quot;},
+      layers={matLayWal,matLayWal,matLayWal,matLayWal,matLayWal,matLayWal},
+      <span style="color: blue; font-weight: normal; font-style: normal;">each </span>A=1*1,
+        til={Buildings.Types.Tilt.Wall,Buildings.Types.Tilt.Wall,
+            Buildings.Types.Tilt.Wall,Buildings.Types.Tilt.Wall,
+            Buildings.Types.Tilt.Floor,Buildings.Types.Tilt.Ceiling},
+        boundaryCondition={Buildings.Rooms.Types.CFDBoundaryConditions.Temperature,
+            Buildings.Rooms.Types.CFDBoundaryConditions.Temperature,Buildings.Rooms.Types.CFDBoundaryConditions.Temperature,
+            Buildings.Rooms.Types.CFDBoundaryConditions.Temperature,Buildings.Rooms.Types.CFDBoundaryConditions.Temperature,
+            Buildings.Rooms.Types.CFDBoundaryConditions.Temperature}),
+        homotopyInitialization=false),
+      nConBou=6);
+
+  <a href="Buildings_HeatTransfer_Sources.html#Buildings.HeatTransfer.Sources.FixedTemperature"
+>Buildings.HeatTransfer.Sources.FixedTemperature</a> TWalRes[nConBou - 1](
+      <span style="color: blue; font-weight: normal; font-style: normal;">each </span>T=283.15) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Boundary condition for the other walls&quot;</span>;
+
+  <a href="Buildings_HeatTransfer_Sources.html#Buildings.HeatTransfer.Sources.FixedTemperature"
+>HeatTransfer.Sources.FixedTemperature</a> TEasWal(<span style="color: blue; font-weight: normal; font-style: normal;">each </span>T=313.15) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Temperature of the east wall&quot;</span>;
+<span style="color: blue; font-weight: normal; font-style: normal;">equation </span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">for </span>i<span style="color: blue; font-weight: normal; font-style: normal;"> in </span>1:nConBou - 1<span style="color: blue; font-weight: normal; font-style: normal;"> loop</span>
+    <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(TWalRes[i].port, roo.surf_conBou[i + 1]);
+
+  <span style="color: blue; font-weight: normal; font-style: normal;">end for</span>;
+
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(TEasWal.port, roo.surf_conBou[1]);
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>RoomOnlyConstructionBoundary;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE RoomOnlyExteriorWallNoWindow<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Rooms.Examples.9adb418daa51e50bctionI.png" alt="Buildings.Rooms.Examples.FFD.RoomOnlyExteriorWallNoWindow" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Rooms.Examples.FFD.RoomOnlyExteriorWallNoWindow"></a><a href="Buildings_Rooms_Examples_FFD.html#Buildings.Rooms.Examples.FFD"
+>Buildings.Rooms.Examples.FFD</a>.RoomOnlyExteriorWallNoWindow</h2>
+<p>
+<b>Natural convection in an empty room with only exterior walls without windows.</b>
+<br>
+<br><img src="Buildings.Rooms.Examples.a7191142ad7e88d9indowD.png" alt="Buildings.Rooms.Examples.FFD.RoomOnlyExteriorWallNoWindow">
+</p>
+<h3>Information</h3>
+
+<p>
+This model tests the coupled simulation of
+<a href="Buildings_Rooms.html#Buildings.Rooms.CFD"
+>
+Buildings.Rooms.CFD</a>
+with the FFD program by simulating the natural convection in an empty room with only exterior walls and without windows.
+</p>
+<p>
+Figure (a) shows the schematic of the FFD simulation.
+The room is <i>1</i> meter in length, width and height.
+The walls are exposed to the ambient environment (cold winter night in Chicago) and the insulation is very poor.
+The initial values are for the temperatures of the walls <i>20</i>&circ;C and for temperature of the air <i>30</i>&circ;C.
+All temperature drop quickly due to the heat loss.
+Two sensors are placed in the room center at (<i>0.5</i> m, <i>0.5</i> m, <i>0.5</i> m)
+that measure the temperature and the velocity.
+</p>
+<p align="center">
+<img alt="image" src="../Resources/Images/Rooms/Examples/FFD/OnlyWallSchematic.png" border="1"/>
+</p>
+<p align="center">
+Figure (a)
+</p>
+<p>
+Figure (b) shows the velocity vectors and temperature contours in degree Celsius on the X-Z plane at <i>Y = 0.5</i> m as simulated by the FFD.
+In the cold mid-night of Chicago, the temperature of the ceiling is the lowest and the temperature of the ground floor is the highest.
+</p>
+<p align="center">
+<img alt="image" src="../Resources/Images/Rooms/Examples/FFD/RoomOnlyExteriorWallNoWindow.png" border="1"/>
+</p>
+<p align="center">
+Figure (b)
+</p>
+<p align="left">
+
+<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</a> (Icon for runnable examples), <a href="Buildings_Rooms_Examples_FFD_BaseClasses.html#Buildings.Rooms.Examples.FFD.BaseClasses.PartialRoom"
+>Buildings.Rooms.Examples.FFD.BaseClasses.PartialRoom</a> (Partial model for a room).</p>
+<h3>Parameters</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td><a href="Buildings_HeatTransfer_Data_OpaqueConstructions.html#Buildings.HeatTransfer.Data.OpaqueConstructions.Generic"
+>Generic</a></td><td>matLayWal</td><td>&nbsp;</td><td>Construction material for all the envelopes</td></tr>
+<tr><td>Integer</td><td>nConExtWin</td><td>0</td><td>Number of constructions with a window</td></tr>
+<tr><td>Integer</td><td>nConBou</td><td>0</td><td>Number of surface that are connected to constructions that are modeled inside the room</td></tr>
+<tr><td>Integer</td><td>nSurBou</td><td>0</td><td>Number of surface that are connected to the room air volume</td></tr>
+<tr><td>Integer</td><td>nConExt</td><td>6</td><td>Number of exterior constructions withour a window</td></tr>
+<tr><td>Integer</td><td>nConPar</td><td>0</td><td>Number of partition constructions</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">model</span> RoomOnlyExteriorWallNoWindow <span style="color: #006400; font-weight: normal; font-style: normal;">
+  &quot;Natural convection in an empty room with only exterior walls without windows.&quot;</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</a>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="Buildings_HeatTransfer_Data_OpaqueConstructions.html#Buildings.HeatTransfer.Data.OpaqueConstructions.Generic"
+>Buildings.HeatTransfer.Data.OpaqueConstructions.Generic</a> matLayWal(
+      <span style="color: blue; font-weight: normal; font-style: normal;">final </span>nLay=1, material={<span style="color: red; font-weight: normal; font-style: normal;">HeatTransfer.Data.Solids.Steel</span>(x=0.001)},
+    roughness_a=Buildings.HeatTransfer.Types.SurfaceRoughness.Smooth) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Construction material for all the envelopes&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="Buildings_Rooms_Examples_FFD_BaseClasses.html#Buildings.Rooms.Examples.FFD.BaseClasses.PartialRoom"
+>Buildings.Rooms.Examples.FFD.BaseClasses.PartialRoom</a>(
+    nConExt=6,
+    nConExtWin=0,
+    nConPar=0,
+    nConBou=0,
+    nSurBou=0,
+    roo(nConExt=nConExt, datConExt(
+        name={&quot;East Wall&quot;,&quot;West Wall&quot;,&quot;North Wall&quot;,&quot;South Wall&quot;,&quot;Floor&quot;,&quot;Ceiling&quot;},
+        layers={matLayWal,matLayWal,matLayWal,matLayWal,matLayWal,matLayWal},
+        <span style="color: blue; font-weight: normal; font-style: normal;">each </span>A=1*1,
+        til={Buildings.Types.Tilt.Wall,
+            Buildings.Types.Tilt.Wall,
+            Buildings.Types.Tilt.Wall,
+            Buildings.Types.Tilt.Wall,
+            Buildings.Types.Tilt.Floor,
+            Buildings.Types.Tilt.Ceiling},
+        boundaryCondition={
+            Buildings.Rooms.Types.CFDBoundaryConditions.Temperature,
+            Buildings.Rooms.Types.CFDBoundaryConditions.Temperature,
+            Buildings.Rooms.Types.CFDBoundaryConditions.Temperature,
+            Buildings.Rooms.Types.CFDBoundaryConditions.Temperature,
+            Buildings.Rooms.Types.CFDBoundaryConditions.Temperature,
+            Buildings.Rooms.Types.CFDBoundaryConditions.Temperature}),
+        samplePeriod=30));
+
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>RoomOnlyExteriorWallNoWindow;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE RoomOnlySurfaceBoundary<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Rooms.Examples.9adb418daa51e50bctionI.png" alt="Buildings.Rooms.Examples.FFD.RoomOnlySurfaceBoundary" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Rooms.Examples.FFD.RoomOnlySurfaceBoundary"></a><a href="Buildings_Rooms_Examples_FFD.html#Buildings.Rooms.Examples.FFD"
+>Buildings.Rooms.Examples.FFD</a>.RoomOnlySurfaceBoundary</h2>
+<p>
+<b>Natural convection in an empty room with only surface boundary</b>
+<br>
+<br><img src="Buildings.Rooms.Examples.cd647bcaa5e3561fndaryD.png" alt="Buildings.Rooms.Examples.FFD.RoomOnlySurfaceBoundary">
+</p>
+<h3>Information</h3>
+
+<p>
+This model tests the coupled simulation of
+<a href="Buildings_Rooms.html#Buildings.Rooms.CFD"
+>
+Buildings.Rooms.CFD</a>
+with the FFD program by simulating the natural convection in an empty room with only surface boundaries.
+It is also used to test the adiabatic boundary conditon in the FFD code.
+</p>
+<p>
+Figure (a) shows the schematic of the FFD simulation.
+The following conditions are applied in the Modelica model:
+</p>
+<ul>
+<li>
+East Wall: Fixed temperature at <i>40</i>&circ;C,
+</li>
+<li>
+West Wall: Fixed temperature at <i>10</i>&circ;C,
+</li>
+<li>
+North and South Wall, Ceiling, Floor: Fixed heat flux at <i>0</i> W/m<sup>2</sup>.
+</li>
+</ul>
+<p align="center">
+<img alt="image" src="../Resources/Images/Rooms/Examples/FFD/OnlyWallSchematic.png" border="1"/>
+</p>
+<p align="center">
+Figure (a)
+</p>
+<p>
+Figure (b) shows the velocity vectors and temperature contours in degree Celsius
+on the X-Z plane at <i>Y = 0.5</i> m as simulated by the FFD.
+</p>
+<p align="center">
+<img alt="image" src="../Resources/Images/Rooms/Examples/FFD/RoomOnlySurfaceBoundary.png" border="1"/>
+</p>
+<p align="center">
+Figure (b)
+</p>
+<p align="left">
+
+<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</a> (Icon for runnable examples), <a href="Buildings_Rooms_Examples_FFD_BaseClasses.html#Buildings.Rooms.Examples.FFD.BaseClasses.PartialRoom"
+>Buildings.Rooms.Examples.FFD.BaseClasses.PartialRoom</a> (Partial model for a room).</p>
+<h3>Parameters</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td>Integer</td><td>nConExtWin</td><td>0</td><td>Number of constructions with a window</td></tr>
+<tr><td>Integer</td><td>nConBou</td><td>0</td><td>Number of surface that are connected to constructions that are modeled inside the room</td></tr>
+<tr><td>Integer</td><td>nSurBou</td><td>6</td><td>Number of surface that are connected to the room air volume</td></tr>
+<tr><td>Integer</td><td>nConExt</td><td>0</td><td>Number of exterior constructions withour a window</td></tr>
+<tr><td>Integer</td><td>nConPar</td><td>0</td><td>Number of partition constructions</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">model</span> RoomOnlySurfaceBoundary <span style="color: #006400; font-weight: normal; font-style: normal;">
+  &quot;Natural convection in an empty room with only surface boundary&quot;</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</a>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="Buildings_Rooms_Examples_FFD_BaseClasses.html#Buildings.Rooms.Examples.FFD.BaseClasses.PartialRoom"
+>Buildings.Rooms.Examples.FFD.BaseClasses.PartialRoom</a>(roo(
+      linearizeRadiation=false,
+      samplePeriod=60,
+      surBou(
+        name={&quot;East Wall&quot;,&quot;West Wall&quot;,&quot;North Wall&quot;,&quot;South Wall&quot;,&quot;Floor&quot;,&quot;Ceiling&quot;},
+        <span style="color: blue; font-weight: normal; font-style: normal;">each </span>A=1*1,
+        til={Buildings.Types.Tilt.Wall,
+            Buildings.Types.Tilt.Wall,
+            Buildings.Types.Tilt.Wall,
+            Buildings.Types.Tilt.Wall,
+            Buildings.Types.Tilt.Floor,
+            Buildings.Types.Tilt.Ceiling},
+        <span style="color: blue; font-weight: normal; font-style: normal;">each </span>absIR=1e-5,
+        <span style="color: blue; font-weight: normal; font-style: normal;">each </span>absSol=1e-5,
+        boundaryCondition={
+            Buildings.Rooms.Types.CFDBoundaryConditions.Temperature,
+            Buildings.Rooms.Types.CFDBoundaryConditions.Temperature,
+            Buildings.Rooms.Types.CFDBoundaryConditions.HeatFlowRate,
+            Buildings.Rooms.Types.CFDBoundaryConditions.HeatFlowRate,
+            Buildings.Rooms.Types.CFDBoundaryConditions.HeatFlowRate,
+            Buildings.Rooms.Types.CFDBoundaryConditions.HeatFlowRate})),
+        nSurBou=6);
+
+  <a href="Buildings_HeatTransfer_Sources.html#Buildings.HeatTransfer.Sources.FixedTemperature"
+>Buildings.HeatTransfer.Sources.FixedTemperature</a> TWesWal(<span style="color: blue; font-weight: normal; font-style: normal;">each </span>T=283.15) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Boundary condition for the west wall&quot;</span>;
+
+  <a href="Buildings_HeatTransfer_Sources.html#Buildings.HeatTransfer.Sources.FixedHeatFlow"
+>HeatTransfer.Sources.FixedHeatFlow</a> fixedHeatFlow[nSurBou - 2](<span style="color: blue; font-weight: normal; font-style: normal;">each </span>Q_flow=0);
+  <a href="Buildings_HeatTransfer_Sources.html#Buildings.HeatTransfer.Sources.FixedTemperature"
+>HeatTransfer.Sources.FixedTemperature</a> TEasWal(<span style="color: blue; font-weight: normal; font-style: normal;">each </span>T=313.15) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Temperature of the east wall&quot;</span>;
+<span style="color: blue; font-weight: normal; font-style: normal;">equation </span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">for </span>i<span style="color: blue; font-weight: normal; font-style: normal;"> in </span>1:nSurBou - 2<span style="color: blue; font-weight: normal; font-style: normal;"> loop</span>
+    <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(fixedHeatFlow[i].port, roo.surf_surBou[i+2]);
+  <span style="color: blue; font-weight: normal; font-style: normal;">end for</span>;
+
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(TEasWal.port, roo.surf_surBou[1]);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(TWesWal.port, roo.surf_surBou[2]);
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>RoomOnlySurfaceBoundary;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE WindowWithShade<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Rooms.Examples.9adb418daa51e50bctionI.png" alt="Buildings.Rooms.Examples.FFD.WindowWithShade" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Rooms.Examples.FFD.WindowWithShade"></a><a href="Buildings_Rooms_Examples_FFD.html#Buildings.Rooms.Examples.FFD"
+>Buildings.Rooms.Examples.FFD</a>.WindowWithShade</h2>
+<p>
+<b>Natural convection in an empty room with exterior walls, windows and shades</b>
+<br>
+<br><img src="Buildings.Rooms.Examples.400bda25419d2afaShadeD.png" alt="Buildings.Rooms.Examples.FFD.WindowWithShade">
+</p>
+<h3>Information</h3>
+
+<p>This model tests the cosimulation of <a href="Buildings_Rooms.html#Buildings.Rooms.CFD"
+>Buildings.Rooms.CFD</a> with the FFD program by simulating natural convection in a room with only exterior walls and windows with shades. </p>
+<p>Figure (a) show the schematic of FFD simulation. The walls and the windows are exposed to the ambient environment. The wall is well insulated and the initial temperature is <i>20</i>&circ;C. The initial temperature for the room air is 17&circ;C.</p>
+<p align="center"><img src="../Resources/Images/Rooms/Examples/FFD/WindowWithShadeSchematic.png" alt="image"/> </p>
+<p align="center">Figure (a) </p>
+<p>Figure (b) shows the velocity vectors and temperature contours in degree Celsius on the X-Z plane at <i>Y = 0.5</i> m, at <i>t = 300</i> s as simulated by the FFD. </p>
+<p align="center"><img src="../Resources/Images/Rooms/Examples/FFD/WindowWithShade.png" alt="image"/> </p>
+<p align="center">Figure (b) </p>
+<p><b>Note</b>: The current version of the FFD program does not support a moving boundary. Thus, the shade can only be at a fixed position as determined by the parameter <code>uSha_fixed={0.5,0.5}</code>. </p>
+
+<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</a> (Icon for runnable examples), <a href="Buildings_Rooms_Examples_FFD_BaseClasses.html#Buildings.Rooms.Examples.FFD.BaseClasses.PartialRoom"
+>Buildings.Rooms.Examples.FFD.BaseClasses.PartialRoom</a> (Partial model for a room).</p>
+<h3>Parameters</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td>Integer</td><td>nConExtWin</td><td>2</td><td>Number of constructions with a window</td></tr>
+<tr><td>Integer</td><td>nConBou</td><td>0</td><td>Number of surface that are connected to constructions that are modeled inside the room</td></tr>
+<tr><td>Integer</td><td>nSurBou</td><td>0</td><td>Number of surface that are connected to the room air volume</td></tr>
+<tr><td>Integer</td><td>nConExt</td><td>4</td><td>Number of exterior constructions withour a window</td></tr>
+<tr><td>Integer</td><td>nConPar</td><td>0</td><td>Number of partition constructions</td></tr>
+<tr><td><a href="Buildings_HeatTransfer_Data_OpaqueConstructions.html#Buildings.HeatTransfer.Data.OpaqueConstructions.Insulation100Concrete200"
+>Insulation100Concrete200</a></td><td>matLayExt</td><td>&nbsp;</td><td>Construction material for exterior walls</td></tr>
+<tr><td><a href="Buildings_HeatTransfer_Data_GlazingSystems.html#Buildings.HeatTransfer.Data.GlazingSystems.DoubleClearAir13Clear"
+>DoubleClearAir13Clear</a></td><td>glaSys</td><td>&nbsp;</td><td>Data record for the glazing system</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">model</span> WindowWithShade <span style="color: #006400; font-weight: normal; font-style: normal;">
+  &quot;Natural convection in an empty room with exterior walls, windows and shades&quot;</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</a>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="Buildings_Rooms_Examples_FFD_BaseClasses.html#Buildings.Rooms.Examples.FFD.BaseClasses.PartialRoom"
+>Buildings.Rooms.Examples.FFD.BaseClasses.PartialRoom</a>(
+    nConExt=4,
+    nConExtWin=2,
+    nConPar=0,
+    nConBou=0,
+    nSurBou=0,
+    roo(
+      nConExt=nConExt,
+      nConExtWin=nConExtWin,
+      datConExt(
+        name={&quot;North Wall&quot;,&quot;South Wall&quot;,&quot;Floor&quot;,&quot;Ceiling&quot;},
+        <span style="color: blue; font-weight: normal; font-style: normal;">each </span>A=1,
+        layers={matLayExt,matLayExt,matLayExt,matLayExt},
+        til={
+            Buildings.Types.Tilt.Wall,
+            Buildings.Types.Tilt.Wall,
+            Buildings.Types.Tilt.Floor,
+            Buildings.Types.Tilt.Ceiling},
+        boundaryCondition={
+            Buildings.Rooms.Types.CFDBoundaryConditions.Temperature,
+            Buildings.Rooms.Types.CFDBoundaryConditions.Temperature,
+            Buildings.Rooms.Types.CFDBoundaryConditions.Temperature,
+            Buildings.Rooms.Types.CFDBoundaryConditions.Temperature}),
+      datConExtWin(
+        name={&quot;East Wall&quot;,&quot;West Wall&quot;},
+        layers={matLayExt,matLayExt},
+        <span style="color: blue; font-weight: normal; font-style: normal;">each </span>A=1,
+        glaSys={glaSys,glaSys},
+        <span style="color: blue; font-weight: normal; font-style: normal;">each </span>wWin=1,
+        <span style="color: blue; font-weight: normal; font-style: normal;">each </span>hWin=0.5,
+        <span style="color: blue; font-weight: normal; font-style: normal;">each </span>fFra=0.2,
+        til={
+            Buildings.Types.Tilt.Wall,
+            Buildings.Types.Tilt.Wall},
+        azi={
+            Buildings.Types.Azimuth.E,
+            Buildings.Types.Azimuth.W},
+        boundaryCondition={
+            Buildings.Rooms.Types.CFDBoundaryConditions.Temperature,
+            Buildings.Rooms.Types.CFDBoundaryConditions.Temperature}),
+        uSha_fixed={0.5,0.5},
+        samplePeriod=10,
+        linearizeRadiation=true,
+        cfdFilNam=&quot;modelica://Buildings/Resources/Data/Rooms/FFD/WindowWithShade.ffd&quot;));
+
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="Buildings_HeatTransfer_Data_OpaqueConstructions.html#Buildings.HeatTransfer.Data.OpaqueConstructions.Insulation100Concrete200"
+>HeatTransfer.Data.OpaqueConstructions.Insulation100Concrete200</a> matLayExt <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Construction material for exterior walls&quot;</span>;
+
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="Buildings_HeatTransfer_Data_GlazingSystems.html#Buildings.HeatTransfer.Data.GlazingSystems.DoubleClearAir13Clear"
+>HeatTransfer.Data.GlazingSystems.DoubleClearAir13Clear</a> glaSys(UFra=2,
+    shade=<span style="color: red; font-weight: normal; font-style: normal;">Buildings.HeatTransfer.Data.Shades.Gray</span>(),
+    haveExteriorShade=false,
+    haveInteriorShade=true) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Data record for the glazing system&quot;</span>;
+
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>WindowWithShade;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE WindowWithoutShade<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Rooms.Examples.9adb418daa51e50bctionI.png" alt="Buildings.Rooms.Examples.FFD.WindowWithoutShade" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Rooms.Examples.FFD.WindowWithoutShade"></a><a href="Buildings_Rooms_Examples_FFD.html#Buildings.Rooms.Examples.FFD"
+>Buildings.Rooms.Examples.FFD</a>.WindowWithoutShade</h2>
+<p>
+<b>Natural convection in an empty room with exterior walls, windows without shade</b>
+<br>
+<br><img src="Buildings.Rooms.Examples.400bda25419d2afaShadeD.png" alt="Buildings.Rooms.Examples.FFD.WindowWithoutShade">
+</p>
+<h3>Information</h3>
+
+<p>
+This model tests the coupled simulation of
+<a href="Buildings_Rooms.html#Buildings.Rooms.CFD"
+>
+Buildings.Rooms.CFD</a>
+with the FFD program by simulating natural convection in a room with only exterior walls and windows.
+</p>
+<p>
+Figure (a) shows the schematic of FFD simulation.
+The walls are exposed to the ambient environment.
+Both the wall and window are well insulated and the initial temperature of the walls and the window
+is <i>20</i>&circ;C.
+</p>
+<p align="center">
+<img alt="image" src="../Resources/Images/Rooms/Examples/FFD/WindowWithoutShadeSchematic.png" border="1"/>
+</p>
+<p align="center">
+Figure (a)
+</p>
+Figure (b) shows the velocity vectors and temperature contour in degree Celsius
+on the X-Z plane at <i>Y = 0.5</i> m as simulated by the FFD.
+<p align="center">
+<img alt="image" src="../Resources/Images/Rooms/Examples/FFD/WindowWithoutShade.png" border="1"/>
+</p>
+<p align="left">
+
+<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</a> (Icon for runnable examples), <a href="Buildings_Rooms_Examples_FFD_BaseClasses.html#Buildings.Rooms.Examples.FFD.BaseClasses.PartialRoom"
+>Buildings.Rooms.Examples.FFD.BaseClasses.PartialRoom</a> (Partial model for a room).</p>
+<h3>Parameters</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td>Integer</td><td>nConExtWin</td><td>2</td><td>Number of constructions with a window</td></tr>
+<tr><td>Integer</td><td>nConBou</td><td>0</td><td>Number of surface that are connected to constructions that are modeled inside the room</td></tr>
+<tr><td>Integer</td><td>nSurBou</td><td>0</td><td>Number of surface that are connected to the room air volume</td></tr>
+<tr><td>Integer</td><td>nConExt</td><td>4</td><td>Number of exterior constructions withour a window</td></tr>
+<tr><td>Integer</td><td>nConPar</td><td>0</td><td>Number of partition constructions</td></tr>
+<tr><td><a href="Buildings_HeatTransfer_Data_OpaqueConstructions.html#Buildings.HeatTransfer.Data.OpaqueConstructions.Insulation100Concrete200"
+>Insulation100Concrete200</a></td><td>matLayExt</td><td>&nbsp;</td><td>Construction material for exterior walls</td></tr>
+<tr><td><a href="Buildings_HeatTransfer_Data_GlazingSystems.html#Buildings.HeatTransfer.Data.GlazingSystems.DoubleClearAir13Clear"
+>DoubleClearAir13Clear</a></td><td>glaSys</td><td>&nbsp;</td><td>Data record for the glazing system</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">model</span> WindowWithoutShade <span style="color: #006400; font-weight: normal; font-style: normal;">
+  &quot;Natural convection in an empty room with exterior walls, windows without shade&quot;</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</a>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="Buildings_Rooms_Examples_FFD_BaseClasses.html#Buildings.Rooms.Examples.FFD.BaseClasses.PartialRoom"
+>Buildings.Rooms.Examples.FFD.BaseClasses.PartialRoom</a>(
+    nConExt=4,
+    nConExtWin=2,
+    nConPar=0,
+    nConBou=0,
+    nSurBou=0,
+    roo(
+      nConExt=nConExt,
+      nConExtWin=nConExtWin,
+      datConExt(
+        name={&quot;North Wall&quot;,&quot;South Wall&quot;,&quot;Floor&quot;,&quot;Ceiling&quot;},
+        <span style="color: blue; font-weight: normal; font-style: normal;">each </span>A=1,
+        layers={matLayExt,matLayExt,matLayExt,matLayExt},
+        til={Buildings.Types.Tilt.Wall,
+            Buildings.Types.Tilt.Wall,
+            Buildings.Types.Tilt.Floor,
+            Buildings.Types.Tilt.Ceiling},
+        boundaryCondition={
+            Buildings.Rooms.Types.CFDBoundaryConditions.Temperature,
+            Buildings.Rooms.Types.CFDBoundaryConditions.Temperature,
+            Buildings.Rooms.Types.CFDBoundaryConditions.Temperature,
+            Buildings.Rooms.Types.CFDBoundaryConditions.Temperature}),
+      datConExtWin(
+        name={&quot;East Wall&quot;,&quot;West Wall&quot;},
+        layers={matLayExt,matLayExt},
+        <span style="color: blue; font-weight: normal; font-style: normal;">each </span>A=1,
+        glaSys={glaSys,glaSys},
+        <span style="color: blue; font-weight: normal; font-style: normal;">each </span>wWin=1,
+        <span style="color: blue; font-weight: normal; font-style: normal;">each </span>hWin=0.5,
+        <span style="color: blue; font-weight: normal; font-style: normal;">each </span>fFra=0.2,
+        til={
+            Buildings.Types.Tilt.Wall,
+            Buildings.Types.Tilt.Wall},
+        azi={
+            Buildings.Types.Azimuth.E,
+            Buildings.Types.Azimuth.W},
+        boundaryCondition={
+            Buildings.Rooms.Types.CFDBoundaryConditions.Temperature,
+            Buildings.Rooms.Types.CFDBoundaryConditions.Temperature}),
+      cfdFilNam=&quot;modelica://Buildings/Resources/Data/Rooms/FFD/WindowWithoutShade.ffd&quot;,
+      uSha_fixed={0, 0}));
+
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="Buildings_HeatTransfer_Data_OpaqueConstructions.html#Buildings.HeatTransfer.Data.OpaqueConstructions.Insulation100Concrete200"
+>HeatTransfer.Data.OpaqueConstructions.Insulation100Concrete200</a> matLayExt <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Construction material for exterior walls&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="Buildings_HeatTransfer_Data_GlazingSystems.html#Buildings.HeatTransfer.Data.GlazingSystems.DoubleClearAir13Clear"
+>HeatTransfer.Data.GlazingSystems.DoubleClearAir13Clear</a> glaSys(UFra=2,
+    shade=<span style="color: red; font-weight: normal; font-style: normal;">Buildings.HeatTransfer.Data.Shades.Gray</span>(),
+    haveExteriorShade=false,
+    haveInteriorShade=false) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Data record for the glazing system&quot;</span>;
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>WindowWithoutShade;
+</div>
+<hr>
+<address>
+<a href="http://www.3ds.com/">Automatically generated</a> Thu Apr  9 09:40:10 2015.
+</address>
+</body>
+</html>

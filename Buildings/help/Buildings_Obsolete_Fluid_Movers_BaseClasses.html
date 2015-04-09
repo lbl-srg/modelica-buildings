@@ -1,0 +1,1490 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>Buildings.Obsolete.Fluid.Movers.BaseClasses</title>
+<meta name="HTML-Generator" content="Dymola">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="description" content="&quot;Package with base classes for Buildings.Obsolete.Fluid.Movers&quot;">
+<style type="text/css">
+*       { font-size: 10pt; font-family: Arial, sans-serif; }
+.modelica, .modelica * { font-size: 9pt; font-family: Courier, monospace; white-space: pre; }
+h4      { font-size: 10pt; font-weight: bold; color: green; }
+h3      { font-size: 11pt; font-weight: bold; color: green; }
+h2      { font-size: 13pt; font-weight: bold; color: green; }
+address { font-weight: normal; }
+td      { border: 1px solid #808080; vertical-align: top; }
+th      { border: 1px solid #808080; vertical-align: top; font-weight: bold; }
+table   { border: 1px solid #808080; border-collapse: collapse; }
+</style>
+<link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../Resources/www/modelicaDoc.css">
+</HEAD>
+<body>
+<!-- --- header ------ -->
+<div class="headerStyle">
+<img src="../Resources/www/lbl-logo.png" alt="LBL logo"/>
+</div>
+<div class="headerLinks">
+<ul><li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt; <a href="Buildings.html">Modelica</a></li></ul>
+</div>
+<!-- --- end header -- -->
+
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE BaseClasses<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><a name="Buildings.Obsolete.Fluid.Movers.BaseClasses"></a><a href="Buildings_Obsolete_Fluid_Movers.html#Buildings.Obsolete.Fluid.Movers"
+>Buildings.Obsolete.Fluid.Movers</a>.BaseClasses</h2>
+<p>
+<b>Package with base classes for Buildings.Obsolete.Fluid.Movers</b><br>
+</p>
+<h3>Information</h3>
+
+<p>
+This package contains base classes that are used to construct the models in
+<a href="Buildings_Obsolete_Fluid_Movers.html#Buildings.Obsolete.Fluid.Movers"
+>Buildings.Obsolete.Fluid.Movers</a>.
+</p>
+
+<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons_BasesPackage.html#Modelica.Icons.BasesPackage"
+>Modelica.Icons.BasesPackage</a> (Icon for packages containing base classes).</p>
+<h3>Package Content</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Package Content">
+<tr>
+<th>Name</th>
+<th>Description</th>
+</tr>
+<tr>
+<td><img src="Buildings.Obsolete.Fluid.40a38e1d58c11eb6sticsS.png" alt="Buildings.Obsolete.Fluid.Movers.BaseClasses.Characteristics" width="20" height="20" align="top">&nbsp;<a href="Buildings_Obsolete_Fluid_Movers_BaseClasses_Characteristics.html#Buildings.Obsolete.Fluid.Movers.BaseClasses.Characteristics"
+>Characteristics</a>
+</td>
+<td>Functions for fan or pump characteristics</td>
+</tr>
+<tr>
+<td><img src="Buildings.Obsolete.Fluid.9586965818b181f7chineS.png" alt="Buildings.Obsolete.Fluid.Movers.BaseClasses.ControlledFlowMachine" width="20" height="20" align="top">&nbsp;<a href="Buildings_Obsolete_Fluid_Movers_BaseClasses.html#Buildings.Obsolete.Fluid.Movers.BaseClasses.ControlledFlowMachine"
+>ControlledFlowMachine</a>
+</td>
+<td>Partial model for fan or pump with ideally controlled mass flow rate or head as input signal</td>
+</tr>
+<tr>
+<td><img src="Buildings.Obsolete.Fluid.330dd653cbf997d2rfaceS.png" alt="Buildings.Obsolete.Fluid.Movers.BaseClasses.FlowMachineInterface" width="20" height="20" align="top">&nbsp;<a href="Buildings_Obsolete_Fluid_Movers_BaseClasses.html#Buildings.Obsolete.Fluid.Movers.BaseClasses.FlowMachineInterface"
+>FlowMachineInterface</a>
+</td>
+<td>Partial model with performance curves for fans or pumps</td>
+</tr>
+<tr>
+<td><img src="Buildings.Obsolete.Fluid.d25a1c258a9bd042ourceS.png" alt="Buildings.Obsolete.Fluid.Movers.BaseClasses.IdealSource" width="20" height="20" align="top">&nbsp;<a href="Buildings_Obsolete_Fluid_Movers_BaseClasses.html#Buildings.Obsolete.Fluid.Movers.BaseClasses.IdealSource"
+>IdealSource</a>
+</td>
+<td>Base class for pressure and mass flow source with optional power input</td>
+</tr>
+<tr>
+<td><img src="Buildings.Obsolete.Fluid.18265dd3f0f15a7bchineS.png" alt="Buildings.Obsolete.Fluid.Movers.BaseClasses.PartialFlowMachine" width="20" height="20" align="top">&nbsp;<a href="Buildings_Obsolete_Fluid_Movers_BaseClasses.html#Buildings.Obsolete.Fluid.Movers.BaseClasses.PartialFlowMachine"
+>PartialFlowMachine</a>
+</td>
+<td>Partial model to interface fan or pump models with the medium</td>
+</tr>
+<tr>
+<td><img src="Buildings.Obsolete.Fluid.5fba036f3e229746rfaceS.png" alt="Buildings.Obsolete.Fluid.Movers.BaseClasses.PowerInterface" width="20" height="20" align="top">&nbsp;<a href="Buildings_Obsolete_Fluid_Movers_BaseClasses.html#Buildings.Obsolete.Fluid.Movers.BaseClasses.PowerInterface"
+>PowerInterface</a>
+</td>
+<td>Partial model to compute power draw and heat dissipation of fans and pumps</td>
+</tr>
+<tr>
+<td><img src="Buildings.Obsolete.Fluid.51d56e3bb4406995chineS.png" alt="Buildings.Obsolete.Fluid.Movers.BaseClasses.PrescribedFlowMachine" width="20" height="20" align="top">&nbsp;<a href="Buildings_Obsolete_Fluid_Movers_BaseClasses.html#Buildings.Obsolete.Fluid.Movers.BaseClasses.PrescribedFlowMachine"
+>PrescribedFlowMachine</a>
+</td>
+<td>Partial model for fan or pump with speed (y or Nrpm) as input signal</td>
+</tr>
+</table>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE ControlledFlowMachine<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Obsolete.Fluid.9586965818b181f7chineI.png" alt="Buildings.Obsolete.Fluid.Movers.BaseClasses.ControlledFlowMachine" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Obsolete.Fluid.Movers.BaseClasses.ControlledFlowMachine"></a><a href="Buildings_Obsolete_Fluid_Movers_BaseClasses.html#Buildings.Obsolete.Fluid.Movers.BaseClasses"
+>Buildings.Obsolete.Fluid.Movers.BaseClasses</a>.ControlledFlowMachine</h2>
+<p>
+<b>Partial model for fan or pump with ideally controlled mass flow rate or head as input signal</b>
+<br>
+<br><img src="Buildings.Obsolete.Fluid.9586965818b181f7chineD.png" alt="Buildings.Obsolete.Fluid.Movers.BaseClasses.ControlledFlowMachine">
+</p>
+<h3>Information</h3>
+
+<p>
+This model describes a fan or pump that takes as an input
+the head or the mass flow rate.
+</p>
+
+<p>Extends from <a href="Buildings_Obsolete_Fluid_Movers_BaseClasses.html#Buildings.Obsolete.Fluid.Movers.BaseClasses.PowerInterface"
+>Buildings.Obsolete.Fluid.Movers.BaseClasses.PowerInterface</a> (Partial model to compute power draw and heat dissipation of fans and pumps), <a href="Buildings_Obsolete_Fluid_Movers_BaseClasses.html#Buildings.Obsolete.Fluid.Movers.BaseClasses.PartialFlowMachine"
+>Buildings.Obsolete.Fluid.Movers.BaseClasses.PartialFlowMachine</a> (Partial model to interface fan or pump models with the medium).</p>
+<h3>Parameters</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Density"
+>Density</a></td><td>rho_default</td><td>Medium.density(sta_default)</td><td>Fluid density at medium default state [kg/m3]</td></tr>
+<tr><td colspan="2">replaceable package Medium</td><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium"
+>PartialMedium</a></td><td>Medium in the component</td></tr>
+<tr><td>Boolean</td><td>addPowerToMedium</td><td>true</td><td>Set to false to avoid any power (=heat and flow work) being added to medium (may give simpler equations)</td></tr>
+<tr><td>Boolean</td><td>control_m_flow</td><td>&nbsp;</td><td>= false to control head instead of m_flow</td></tr>
+<tr style="background-color: #e0e0e0"><td colspan="4">Characteristics</td></tr>
+<tr><td>Boolean</td><td>use_powerCharacteristic</td><td>false</td><td>Use powerCharacteristic (vs. efficiencyCharacteristic)</td></tr>
+<tr><td>Boolean</td><td>motorCooledByFluid</td><td>true</td><td>If true, then motor heat is added to fluid stream</td></tr>
+<tr><td><a href="Buildings_Obsolete_Fluid_Movers_BaseClasses_Characteristics.html#Buildings.Obsolete.Fluid.Movers.BaseClasses.Characteristics.efficiencyParameters"
+>efficiencyParameters</a></td><td>motorEfficiency</td><td>&nbsp;</td><td>Normalized volume flow rate vs. efficiency</td></tr>
+<tr><td><a href="Buildings_Obsolete_Fluid_Movers_BaseClasses_Characteristics.html#Buildings.Obsolete.Fluid.Movers.BaseClasses.Characteristics.efficiencyParameters"
+>efficiencyParameters</a></td><td>hydraulicEfficiency</td><td>&nbsp;</td><td>Normalized volume flow rate vs. efficiency</td></tr>
+<tr style="background-color: #e0e0e0"><td colspan="4">Nominal condition</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+>MassFlowRate</a></td><td>m_flow_nominal</td><td>&nbsp;</td><td>Nominal mass flow rate [kg/s]</td></tr>
+<tr style="background-color: #e0e0e0"><td colspan="4">Initialization</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+>MassFlowRate</a></td><td>m_flow.start</td><td>0</td><td>Mass flow rate from port_a to port_b (m_flow &gt; 0 is design flow direction) [kg/s]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
+>Pressure</a></td><td>dp.start</td><td>0</td><td>Pressure difference between port_a and port_b [Pa]</td></tr>
+<tr style="background-color: #c0c0c0"><td colspan="4"><b>Advanced</b></td></tr>
+<tr><td>Boolean</td><td>homotopyInitialization</td><td>true</td><td>= true, use homotopy method</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+>MassFlowRate</a></td><td>m_flow_small</td><td>1E-4*abs(m_flow_nominal)</td><td>Small mass flow rate for regularization of zero flow [kg/s]</td></tr>
+<tr style="background-color: #e0e0e0"><td colspan="4">Diagnostics</td></tr>
+<tr><td>Boolean</td><td>show_T</td><td>false</td><td>= true, if actual temperature at port is computed</td></tr>
+<tr style="background-color: #c0c0c0"><td colspan="4"><b>Dynamics</b></td></tr>
+<tr style="background-color: #e0e0e0"><td colspan="4">Equations</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Fluid_Types.html#Modelica.Fluid.Types.Dynamics"
+>Dynamics</a></td><td>energyDynamics</td><td>Modelica.Fluid.Types.Dynamic...</td><td>Formulation of energy balance</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Fluid_Types.html#Modelica.Fluid.Types.Dynamics"
+>Dynamics</a></td><td>massDynamics</td><td>energyDynamics</td><td>Formulation of mass balance</td></tr>
+<tr><td>Boolean</td><td>dynamicBalance</td><td>true</td><td>Set to true to use a dynamic balance, which often leads to smaller systems of equations</td></tr>
+<tr><td>Real</td><td>mSenFac</td><td>1</td><td>Factor for scaling the sensible thermal mass of the volume</td></tr>
+<tr style="background-color: #e0e0e0"><td colspan="4">Nominal condition</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Time"
+>Time</a></td><td>tau</td><td>1</td><td>Time constant of fluid volume for nominal flow, used if dynamicBalance=true [s]</td></tr>
+<tr style="background-color: #c0c0c0"><td colspan="4"><b>Initialization</b></td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.AbsolutePressure"
+>AbsolutePressure</a></td><td>p_start</td><td>Medium.p_default</td><td>Start value of pressure [Pa]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.Temperature"
+>Temperature</a></td><td>T_start</td><td>Medium.T_default</td><td>Start value of temperature [K]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.MassFraction"
+>MassFraction</a></td><td>X_start[Medium.nX]</td><td>Medium.X_default</td><td>Start value of mass fractions m_i/m [kg/kg]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.ExtraProperty"
+>ExtraProperty</a></td><td>C_start[Medium.nC]</td><td>fill(0, Medium.nC)</td><td>Start value of trace substances</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.ExtraProperty"
+>ExtraProperty</a></td><td>C_nominal[Medium.nC]</td><td>fill(1E-2, Medium.nC)</td><td>Nominal value of trace substances. (Set to typical order of magnitude.)</td></tr>
+<tr style="background-color: #c0c0c0"><td colspan="4"><b>Assumptions</b></td></tr>
+<tr><td>Boolean</td><td>allowFlowReversal</td><td>true</td><td>= true to allow flow reversal, false restricts to design direction (port_a -&gt; port_b)</td></tr>
+</table>
+<h3>Connectors</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Connectors">
+<tr><th>Type</th><th>Name</th><th>Description</th></tr>
+<tr><td>output <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+>RealOutput</a></td><td>P</td><td>Electrical power consumed [W]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_a"
+>FluidPort_a</a></td><td>port_a</td><td>Fluid connector a (positive design flow direction is from port_a to port_b)</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_b"
+>FluidPort_b</a></td><td>port_b</td><td>Fluid connector b (positive design flow direction is from port_a to port_b)</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Thermal_HeatTransfer_Interfaces.html#Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a"
+>HeatPort_a</a></td><td>heatPort</td><td>Heat dissipation to environment</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">model</span> ControlledFlowMachine <span style="color: #006400; font-weight: normal; font-style: normal;">
+  &quot;Partial model for fan or pump with ideally controlled mass flow rate or head as input signal&quot;</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="Buildings_Obsolete_Fluid_Movers_BaseClasses.html#Buildings.Obsolete.Fluid.Movers.BaseClasses.PowerInterface"
+>Buildings.Obsolete.Fluid.Movers.BaseClasses.PowerInterface</a>(
+     <span style="color: blue; font-weight: normal; font-style: normal;">final </span>use_powerCharacteristic = false,
+     <span style="color: blue; font-weight: normal; font-style: normal;">final </span>rho_default =<span style="color: red; font-weight: normal; font-style: normal;"> Medium.density</span>(sta_default));
+
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="Buildings_Obsolete_Fluid_Movers_BaseClasses.html#Buildings.Obsolete.Fluid.Movers.BaseClasses.PartialFlowMachine"
+>Buildings.Obsolete.Fluid.Movers.BaseClasses.PartialFlowMachine</a>(
+   preSou(<span style="color: blue; font-weight: normal; font-style: normal;">final </span>control_m_flow=control_m_flow));
+
+  <span style="color: blue; font-weight: normal; font-style: normal;">import </span>cha = <a href="Buildings_Obsolete_Fluid_Movers_BaseClasses_Characteristics.html#Buildings.Obsolete.Fluid.Movers.BaseClasses.Characteristics"
+>Buildings.Obsolete.Fluid.Movers.BaseClasses.Characteristics</a>;
+<span style="color: #006400; font-weight: normal; font-style: normal;">//  parameter Modelica.SIunits.MassFlowRate m_flow_nominal</span>
+<span style="color: #006400; font-weight: normal; font-style: normal;">//    &quot;Nominal mass flow rate, used as flow rate if control_m_flow&quot;;</span>
+<span style="color: #006400; font-weight: normal; font-style: normal;">//  parameter Modelica.SIunits.MassFlowRate m_flow_max = m_flow_nominal</span>
+<span style="color: #006400; font-weight: normal; font-style: normal;">//    &quot;Maximum mass flow rate (at zero head)&quot;;</span>
+  <span style="color: #006400; font-weight: normal; font-style: normal;">// what to control</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">constant </span>Boolean control_m_flow <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;= false to control head instead of m_flow&quot;</span>;
+
+  Real r_V(start=1) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Ratio V_flow/V_flow_max = V_flow/V_flow(dp=0, N=N_nominal)&quot;</span>;
+
+<span style="color: blue; font-weight: normal; font-style: normal;">protected </span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">final </span><span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.AbsolutePressure"
+>Medium.AbsolutePressure</a> p_a_default(displayUnit=&quot;Pa&quot;) = Medium.p_default <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Nominal inlet pressure for predefined fan or pump characteristics&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.ThermodynamicState"
+>Medium.ThermodynamicState</a> sta_default =<span style="color: red; font-weight: normal; font-style: normal;"> Medium.setState_pTX</span>(
+     T=Medium.T_default,
+     p=Medium.p_default,
+     X=Medium.X_default[1:Medium.nXi]) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Default medium state&quot;</span>;
+
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.RealExpression"
+>Modelica.Blocks.Sources.RealExpression</a> PToMedium_flow(y=Q_flow + WFlo) <span style="color: blue; font-weight: normal; font-style: normal;">if </span> addPowerToMedium <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Heat and work input into medium&quot;</span>;
+<span style="color: blue; font-weight: normal; font-style: normal;">initial </span><span style="color: blue; font-weight: normal; font-style: normal;">equation </span>
+  V_flow_max=m_flow_nominal/rho_default;
+<span style="color: blue; font-weight: normal; font-style: normal;">equation </span>
+  r_V = VMachine_flow/V_flow_max;
+  etaHyd =<span style="color: red; font-weight: normal; font-style: normal;"> cha.efficiency</span>(data=hydraulicEfficiency, r_V=r_V, d=hydDer);
+  etaMot =<span style="color: red; font-weight: normal; font-style: normal;"> cha.efficiency</span>(data=motorEfficiency,     r_V=r_V, d=motDer);
+  dpMachine = -dp;
+  VMachine_flow = -port_b.m_flow/rho_in;
+  <span style="color: #006400; font-weight: normal; font-style: normal;">// To compute the electrical power, we set a lower bound for eta to avoid</span>
+  <span style="color: #006400; font-weight: normal; font-style: normal;">// a division by zero.</span>
+  P = WFlo /<span style="color: red; font-weight: normal; font-style: normal;"> Buildings.Utilities.Math.Functions.smoothMax</span>(x1=eta, x2=1E-5, deltaX=1E-6);
+
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(PToMedium_flow.y, prePow.Q_flow);
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>ControlledFlowMachine;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE FlowMachineInterface<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Obsolete.Fluid.330dd653cbf997d2rfaceI.png" alt="Buildings.Obsolete.Fluid.Movers.BaseClasses.FlowMachineInterface" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Obsolete.Fluid.Movers.BaseClasses.FlowMachineInterface"></a><a href="Buildings_Obsolete_Fluid_Movers_BaseClasses.html#Buildings.Obsolete.Fluid.Movers.BaseClasses"
+>Buildings.Obsolete.Fluid.Movers.BaseClasses</a>.FlowMachineInterface</h2>
+<p>
+<b>Partial model with performance curves for fans or pumps</b>
+<br>
+<br><img src="Buildings.Obsolete.Fluid.330dd653cbf997d2rfaceD.png" alt="Buildings.Obsolete.Fluid.Movers.BaseClasses.FlowMachineInterface">
+</p>
+<h3>Information</h3>
+
+<p>
+This is an interface that implements the functions to compute the head, power draw
+and efficiency of fans and pumps. It is used by the model
+<a href="modelica://Buildings.Fluids.Movers.BaseClasses.PrescribedFlowMachine">PrescribedFlowMachine</a>.
+</p>
+<p>
+The nominal hydraulic characteristic (volume flow rate versus total pressure) is given by a set of data points.
+A cubic hermite spline with linear extrapolation is used to compute the performance at other
+operating points.
+</p>
+<p>The fan or pump energy balance can be specified in two alternative ways: </p>
+
+<ul>
+<li>
+If <code>use_powerCharacteristic = false</code>, then the data points for
+normalized volume flow rate versus efficiency is used to determine the efficiency,
+and then the power consumption. The default is a constant efficiency of 0.8.
+</li>
+<li>
+If <code>use_powerCharacteristic = true</code>, then the data points for
+normalized volume flow rate versus power consumption
+is used to determine the power consumption, and then the efficiency
+is computed based on the actual power consumption and the flow work.
+</li>
+</ul>
+
+<h4>Implementation</h4>
+<p>
+For numerical reasons, the user-provided data points for volume flow rate
+versus pressure rise are modified to add a fan internal flow resistance.
+Because this flow resistance is subtracted during the simulation when
+computing the fan pressure rise, the model reproduces the exact points
+that were provided by the user.
+</p>
+<p>
+Also for numerical reasons, the pressure rise at zero flow rate and
+the flow rate at zero pressure rise is added to the user-provided data,
+unless the user already provides these data points.
+Since Modelica 3.2 does not allow dynamic memory allocation, this
+implementation required the use of three different arrays for the
+situation where no additional point is added, where one additional
+point is added and where two additional points are added.
+The parameter <code>curve</code> causes the correct data record
+to be used during the simulation.
+</p>
+
+<p>Extends from <a href="Buildings_Obsolete_Fluid_Movers_BaseClasses.html#Buildings.Obsolete.Fluid.Movers.BaseClasses.PowerInterface"
+>Buildings.Obsolete.Fluid.Movers.BaseClasses.PowerInterface</a> (Partial model to compute power draw and heat dissipation of fans and pumps).</p>
+<h3>Parameters</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Density"
+>Density</a></td><td>rho_default</td><td>&nbsp;</td><td>Fluid density at medium default state [kg/m3]</td></tr>
+<tr style="background-color: #e0e0e0"><td colspan="4">Characteristics</td></tr>
+<tr><td>Boolean</td><td>use_powerCharacteristic</td><td>false</td><td>Use powerCharacteristic (vs. efficiencyCharacteristic)</td></tr>
+<tr><td>Boolean</td><td>motorCooledByFluid</td><td>true</td><td>If true, then motor heat is added to fluid stream</td></tr>
+<tr><td><a href="Buildings_Obsolete_Fluid_Movers_BaseClasses_Characteristics.html#Buildings.Obsolete.Fluid.Movers.BaseClasses.Characteristics.efficiencyParameters"
+>efficiencyParameters</a></td><td>motorEfficiency</td><td>&nbsp;</td><td>Normalized volume flow rate vs. efficiency</td></tr>
+<tr><td><a href="Buildings_Obsolete_Fluid_Movers_BaseClasses_Characteristics.html#Buildings.Obsolete.Fluid.Movers.BaseClasses.Characteristics.efficiencyParameters"
+>efficiencyParameters</a></td><td>hydraulicEfficiency</td><td>&nbsp;</td><td>Normalized volume flow rate vs. efficiency</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits_Conversions_NonSIunits.html#Modelica.SIunits.Conversions.NonSIunits.AngularVelocity_rpm"
+>AngularVelocity_rpm</a></td><td>N_nominal</td><td>1500</td><td>Nominal rotational speed for flow characteristic [1/min]</td></tr>
+<tr><td><a href="Buildings_Obsolete_Fluid_Movers_BaseClasses_Characteristics.html#Buildings.Obsolete.Fluid.Movers.BaseClasses.Characteristics.flowParameters"
+>flowParameters</a></td><td>pressure</td><td>&nbsp;</td><td>Volume flow rate vs. total pressure rise</td></tr>
+<tr><td><a href="Buildings_Obsolete_Fluid_Movers_BaseClasses_Characteristics.html#Buildings.Obsolete.Fluid.Movers.BaseClasses.Characteristics.powerParameters"
+>powerParameters</a></td><td>power</td><td>&nbsp;</td><td>Volume flow rate vs. electrical power consumption</td></tr>
+<tr style="background-color: #c0c0c0"><td colspan="4"><b>Advanced</b></td></tr>
+<tr><td>Boolean</td><td>homotopyInitialization</td><td>true</td><td>= true, use homotopy method</td></tr>
+<tr style="background-color: #c0c0c0"><td colspan="4"><b>Dynamics</b></td></tr>
+<tr style="background-color: #e0e0e0"><td colspan="4">Filtered speed</td></tr>
+<tr><td>Boolean</td><td>filteredSpeed</td><td>true</td><td>= true, if speed is filtered with a 2nd order CriticalDamping filter</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Time"
+>Time</a></td><td>riseTime</td><td>30</td><td>Rise time of the filter (time to reach 99.6 % of the speed) [s]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Types.html#Modelica.Blocks.Types.Init"
+>Init</a></td><td>init</td><td>Modelica.Blocks.Types.Init.I...</td><td>Type of initialization (no init/steady state/initial state/initial output)</td></tr>
+<tr><td>Real</td><td>N_start</td><td>0</td><td>Initial value of speed</td></tr>
+</table>
+<h3>Connectors</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Connectors">
+<tr><th>Type</th><th>Name</th><th>Description</th></tr>
+<tr><td>output <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+>RealOutput</a></td><td>P</td><td>Electrical power consumed [W]</td></tr>
+<tr><td>output <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+>RealOutput</a></td><td>N_actual</td><td>[1/min]</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">partial </span><span style="color: blue; font-weight: normal; font-style: normal;">model</span> FlowMachineInterface <span style="color: #006400; font-weight: normal; font-style: normal;">
+  &quot;Partial model with performance curves for fans or pumps&quot;</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="Buildings_Obsolete_Fluid_Movers_BaseClasses.html#Buildings.Obsolete.Fluid.Movers.BaseClasses.PowerInterface"
+>Buildings.Obsolete.Fluid.Movers.BaseClasses.PowerInterface</a>(
+    VMachine_flow(nominal=V_flow_nominal, start=V_flow_nominal),
+    V_flow_max(nominal=V_flow_nominal, start=V_flow_nominal));
+
+  <span style="color: blue; font-weight: normal; font-style: normal;">import </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Constants.html#Modelica.Constants"
+>Modelica.Constants</a>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">import </span>cha = <a href="Buildings_Obsolete_Fluid_Movers_BaseClasses_Characteristics.html#Buildings.Obsolete.Fluid.Movers.BaseClasses.Characteristics"
+>Buildings.Obsolete.Fluid.Movers.BaseClasses.Characteristics</a>;
+
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits_Conversions_NonSIunits.html#Modelica.SIunits.Conversions.NonSIunits.AngularVelocity_rpm"
+>Modelica.SIunits.Conversions.NonSIunits.AngularVelocity_rpm</a>
+    N_nominal = 1500 <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Nominal rotational speed for flow characteristic&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">final </span><span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.VolumeFlowRate"
+>Modelica.SIunits.VolumeFlowRate</a> V_flow_nominal=
+    pressure.V_flow[<span style="color: red; font-weight: normal; font-style: normal;">size</span>(pressure.V_flow,1)] <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Nominal volume flow rate, used for homotopy&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="Buildings_Obsolete_Fluid_Movers_BaseClasses_Characteristics.html#Buildings.Obsolete.Fluid.Movers.BaseClasses.Characteristics.flowParameters"
+>Buildings.Obsolete.Fluid.Movers.BaseClasses.Characteristics.flowParameters</a>
+                                                                                       pressure <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Volume flow rate vs. total pressure rise&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="Buildings_Obsolete_Fluid_Movers_BaseClasses_Characteristics.html#Buildings.Obsolete.Fluid.Movers.BaseClasses.Characteristics.powerParameters"
+>Buildings.Obsolete.Fluid.Movers.BaseClasses.Characteristics.powerParameters</a>
+                                                                                        power <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Volume flow rate vs. electrical power consumption&quot;</span>;
+
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Boolean homotopyInitialization = true <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;= true, use homotopy method&quot;</span>;
+
+  <span style="color: #006400; font-weight: normal; font-style: normal;">// Classes used to implement the filtered speed</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Boolean filteredSpeed=true <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;= true, if speed is filtered with a 2nd order CriticalDamping filter&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Time"
+>Modelica.SIunits.Time</a> riseTime=30 <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Rise time of the filter (time to reach 99.6 % of the speed)&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Types.html#Modelica.Blocks.Types.Init"
+>Modelica.Blocks.Types.Init</a> init=Modelica.Blocks.Types.Init.InitialOutput <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Type of initialization (no init/steady state/initial state/initial output)&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Real N_start=0 <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Initial value of speed&quot;</span>;
+
+  <span style="color: #006400; font-weight: normal; font-style: normal;">// Speed</span>
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+>Modelica.Blocks.Interfaces.RealOutput</a> N_actual(min=0, max=N_nominal,
+                                                 <span style="color: blue; font-weight: normal; font-style: normal;">final </span>quantity=&quot;AngularVelocity&quot;,
+                                                 <span style="color: blue; font-weight: normal; font-style: normal;">final </span>unit=&quot;1/min&quot;,
+                                                 nominal=N_nominal);
+
+  <span style="color: #006400; font-weight: normal; font-style: normal;">// &quot;Shaft rotational speed in rpm&quot;;</span>
+  Real r_N(min=0, start=N_start/N_nominal, unit=&quot;1&quot;) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Ratio N_actual/N_nominal&quot;</span>;
+  Real r_V(start=1, unit=&quot;1&quot;) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Ratio V_flow/V_flow_max&quot;</span>;
+
+<span style="color: blue; font-weight: normal; font-style: normal;">protected </span>
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+>Modelica.Blocks.Interfaces.RealOutput</a> N_filtered(min=0, start=N_start, max=N_nominal) <span style="color: blue; font-weight: normal; font-style: normal;">if </span>
+     filteredSpeed <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Filtered speed in the range 0..N_nominal&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Continuous.html#Modelica.Blocks.Continuous.Filter"
+>Modelica.Blocks.Continuous.Filter</a> filter(
+     order=2,
+     f_cut=5/(2*Modelica.Constants.pi*riseTime),
+     <span style="color: blue; font-weight: normal; font-style: normal;">final </span>init=init,
+     <span style="color: blue; font-weight: normal; font-style: normal;">final </span>y_start=N_start,
+     x(<span style="color: blue; font-weight: normal; font-style: normal;">each </span>stateSelect=StateSelect.always),
+     u_nominal=N_nominal,
+     u(<span style="color: blue; font-weight: normal; font-style: normal;">final </span>quantity=&quot;AngularVelocity&quot;, <span style="color: blue; font-weight: normal; font-style: normal;">final </span>unit=&quot;1/min&quot;, nominal=N_nominal),
+     y(<span style="color: blue; font-weight: normal; font-style: normal;">final </span>quantity=&quot;AngularVelocity&quot;, <span style="color: blue; font-weight: normal; font-style: normal;">final </span>unit=&quot;1/min&quot;, nominal=N_nominal),
+     <span style="color: blue; font-weight: normal; font-style: normal;">final </span>analogFilter=Modelica.Blocks.Types.AnalogFilter.CriticalDamping,
+     <span style="color: blue; font-weight: normal; font-style: normal;">final </span>filterType=Modelica.Blocks.Types.FilterType.LowPass) <span style="color: blue; font-weight: normal; font-style: normal;">if </span>
+        filteredSpeed <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Second order filter to approximate valve opening time, and to improve numerics&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.VolumeFlowRate"
+>Modelica.SIunits.VolumeFlowRate</a> VDelta_flow(fixed=false, start=delta*V_flow_nominal) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Small volume flow rate&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
+>Modelica.SIunits.Pressure</a> dpDelta(fixed=false, start=100) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Small pressure&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Real delta = 0.05 <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Small value used to transition to other fan curve&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Real cBar[2](<span style="color: blue; font-weight: normal; font-style: normal;">each </span>fixed=false) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Coefficients for linear approximation of pressure vs. flow rate&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
+>Modelica.SIunits.Pressure</a> dpMax(min=0, fixed=false);
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Real kRes(min=0, unit=&quot;kg/(s.m4)&quot;, fixed=false) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Coefficient for internal pressure drop of fan or pump&quot;</span>;
+
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Integer curve(min=1, max=3, fixed=false) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Flag, used to pick the right representatio of the fan or pump pressure curve&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Integer nOri =<span style="color: red; font-weight: normal; font-style: normal;"> size</span>(pressure.V_flow,1) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Number of data points for pressure curve&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="Buildings_Obsolete_Fluid_Movers_BaseClasses_Characteristics.html#Buildings.Obsolete.Fluid.Movers.BaseClasses.Characteristics.flowParametersInternal"
+>Buildings.Obsolete.Fluid.Movers.BaseClasses.Characteristics.flowParametersInternal</a>
+                                                                                       pCur1(
+    <span style="color: blue; font-weight: normal; font-style: normal;">final </span>n = nOri,
+    V_flow(<span style="color: blue; font-weight: normal; font-style: normal;">each </span>fixed=false), dp(<span style="color: blue; font-weight: normal; font-style: normal;">each </span>fixed=false)) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Volume flow rate vs. total pressure rise with correction for pump resistance added&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="Buildings_Obsolete_Fluid_Movers_BaseClasses_Characteristics.html#Buildings.Obsolete.Fluid.Movers.BaseClasses.Characteristics.flowParametersInternal"
+>Buildings.Obsolete.Fluid.Movers.BaseClasses.Characteristics.flowParametersInternal</a>
+                                                                                       pCur2(
+   <span style="color: blue; font-weight: normal; font-style: normal;">final </span>n = nOri + 1,
+    V_flow(<span style="color: blue; font-weight: normal; font-style: normal;">each </span>fixed=false), dp(<span style="color: blue; font-weight: normal; font-style: normal;">each </span>fixed=false)) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Volume flow rate vs. total pressure rise with correction for pump resistance added&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="Buildings_Obsolete_Fluid_Movers_BaseClasses_Characteristics.html#Buildings.Obsolete.Fluid.Movers.BaseClasses.Characteristics.flowParametersInternal"
+>Buildings.Obsolete.Fluid.Movers.BaseClasses.Characteristics.flowParametersInternal</a>
+                                                                                       pCur3(
+   <span style="color: blue; font-weight: normal; font-style: normal;">final </span>n = nOri + 2,
+    V_flow(<span style="color: blue; font-weight: normal; font-style: normal;">each </span>fixed=false), dp(<span style="color: blue; font-weight: normal; font-style: normal;">each </span>fixed=false)) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Volume flow rate vs. total pressure rise with correction for pump resistance added&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Real preDer1[nOri](<span style="color: blue; font-weight: normal; font-style: normal;">each </span>fixed=false) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Derivatives of flow rate vs. pressure at the support points&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Real preDer2[nOri+1](<span style="color: blue; font-weight: normal; font-style: normal;">each </span>fixed=false) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Derivatives of flow rate vs. pressure at the support points&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Real preDer3[nOri+2](<span style="color: blue; font-weight: normal; font-style: normal;">each </span>fixed=false) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Derivatives of flow rate vs. pressure at the support points&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Real powDer[<span style="color: red; font-weight: normal; font-style: normal;">size</span>(power.V_flow,1)]=
+   <span style="color: blue; font-weight: normal; font-style: normal;">if </span>use_powerCharacteristic<span style="color: blue; font-weight: normal; font-style: normal;"> then </span>
+     <span style="color: red; font-weight: normal; font-style: normal;">Buildings.Utilities.Math.Functions.splineDerivatives</span>(
+                   x=power.V_flow,
+                   y=power.P,
+                   ensureMonotonicity=<span style="color: red; font-weight: normal; font-style: normal;">Buildings.Utilities.Math.Functions.isMonotonic</span>(x=power.P,
+                                                                                     strict=false))<span style="color: blue; font-weight: normal; font-style: normal;">
+   else </span>
+     <span style="color: red; font-weight: normal; font-style: normal;">zeros</span>(<span style="color: red; font-weight: normal; font-style: normal;">size</span>(power.V_flow,1)) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Coefficients for polynomial of pressure vs. flow rate&quot;</span>;
+
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Boolean haveMinimumDecrease(fixed=false) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Flag used for reporting&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Boolean haveDPMax(fixed=false) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Flag, true if user specified data that contain dpMax&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Boolean haveVMax(fixed=false) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Flag, true if user specified data that contain V_flow_max&quot;</span>;
+
+  <span style="color: #006400; font-weight: normal; font-style: normal;">// Variables</span>
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Density"
+>Modelica.SIunits.Density</a> rho <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Medium density&quot;</span>;
+
+<span style="color: blue; font-weight: normal; font-style: normal;">function</span> getPerformanceDataAsString
+  <span style="color: blue; font-weight: normal; font-style: normal;">input </span><a href="Buildings_Obsolete_Fluid_Movers_BaseClasses_Characteristics.html#Buildings.Obsolete.Fluid.Movers.BaseClasses.Characteristics.flowParameters"
+>Buildings.Obsolete.Fluid.Movers.BaseClasses.Characteristics.flowParameters</a>
+                                                                                   pressure <span style="color: #006400; font-weight: normal; font-style: normal;">
+      &quot;Performance data&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">input </span>Real derivative[:](unit=&quot;kg/(s.m4)&quot;) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Derivative&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">input </span>Integer minimumLength =  6 <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Minimum width of result&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">input </span>Integer significantDigits = 6 <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Number of significant digits&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">output </span>String str <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;String representation&quot;</span>;
+<span style="color: blue; font-weight: normal; font-style: normal;">algorithm </span>
+  str :=&quot;&quot;;
+  <span style="color: blue; font-weight: normal; font-style: normal;">for </span>i<span style="color: blue; font-weight: normal; font-style: normal;"> in </span>1:<span style="color: red; font-weight: normal; font-style: normal;">size</span>(derivative, 1)<span style="color: blue; font-weight: normal; font-style: normal;"> loop</span>
+    str :=str + &quot;  V_flow[&quot; +<span style="color: red; font-weight: normal; font-style: normal;"> String</span>(i) + &quot;]=&quot; +<span style="color: red; font-weight: normal; font-style: normal;"> String</span>(
+        pressure.V_flow[i],
+        minimumLength=minimumLength,
+        significantDigits=significantDigits) + &quot;\t&quot; + &quot;dp[&quot; +<span style="color: red; font-weight: normal; font-style: normal;"> String</span>(i) + &quot;]=&quot; +
+        <span style="color: red; font-weight: normal; font-style: normal;">String</span>(
+        pressure.dp[i],
+        minimumLength=minimumLength,
+        significantDigits=significantDigits) + &quot;\tResulting derivative dp/dV_flow = &quot;
+         +<span style="color: red; font-weight: normal; font-style: normal;"> String</span>(
+        derivative[i],
+        minimumLength=minimumLength,
+        significantDigits=significantDigits) + &quot;\n&quot;;
+  <span style="color: blue; font-weight: normal; font-style: normal;">end for</span>;
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>getPerformanceDataAsString;
+
+<span style="color: blue; font-weight: normal; font-style: normal;">function</span> getArrayAsString
+  <span style="color: blue; font-weight: normal; font-style: normal;">input </span>Real array[:] <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Array to be printed&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">input </span>String varName <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Variable name&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">input </span>Integer minimumLength =  6 <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Minimum width of result&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">input </span>Integer significantDigits = 6 <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Number of significant digits&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">output </span>String str <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;String representation&quot;</span>;
+<span style="color: blue; font-weight: normal; font-style: normal;">algorithm </span>
+  str :=&quot;&quot;;
+  <span style="color: blue; font-weight: normal; font-style: normal;">for </span>i<span style="color: blue; font-weight: normal; font-style: normal;"> in </span>1:<span style="color: red; font-weight: normal; font-style: normal;">size</span>(array, 1)<span style="color: blue; font-weight: normal; font-style: normal;"> loop</span>
+    str :=str + &quot;  &quot; + varName + &quot;[&quot; +<span style="color: red; font-weight: normal; font-style: normal;"> String</span>(i) + &quot;]=&quot; +<span style="color: red; font-weight: normal; font-style: normal;"> String</span>(
+        array[i],
+        minimumLength=minimumLength,
+        significantDigits=significantDigits) + &quot;\n&quot;;
+  <span style="color: blue; font-weight: normal; font-style: normal;">end for</span>;
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>getArrayAsString;
+
+<span style="color: blue; font-weight: normal; font-style: normal;">initial </span><span style="color: blue; font-weight: normal; font-style: normal;">algorithm </span>
+  <span style="color: #006400; font-weight: normal; font-style: normal;">// Check validity of data</span>
+  <span style="color: red; font-weight: normal; font-style: normal;">assert</span>(<span style="color: red; font-weight: normal; font-style: normal;">size</span>(pressure.V_flow, 1) &gt; 1, &quot;Must have at least two data points for pressure.V_flow.&quot;);
+  <span style="color: red; font-weight: normal; font-style: normal;">assert</span>(<span style="color: red; font-weight: normal; font-style: normal;">Buildings.Utilities.Math.Functions.isMonotonic</span>(x=pressure.V_flow, strict=true)<span style="color: blue; font-weight: normal; font-style: normal;"> and </span>
+  pressure.V_flow[1] &gt; -Modelica.Constants.eps,
+  &quot;The volume flow rate for the fan pressure rise must be a strictly decreasing sequence
+  with the first element being non-zero.
+The following performance data have been entered:
+&quot; +<span style="color: red; font-weight: normal; font-style: normal;"> getArrayAsString</span>(pressure.V_flow, &quot;pressure.V_flow&quot;));
+
+  <span style="color: #006400; font-weight: normal; font-style: normal;">// Check if V_flow_max or dpMax are provided by user</span>
+  haveVMax  :=(<span style="color: red; font-weight: normal; font-style: normal;">abs</span>(pressure.dp[nOri])   &lt; Modelica.Constants.eps);
+  haveDPMax :=(<span style="color: red; font-weight: normal; font-style: normal;">abs</span>(pressure.V_flow[1])  &lt; Modelica.Constants.eps);
+  <span style="color: #006400; font-weight: normal; font-style: normal;">// Assign V_flow_max and dpMax</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">if </span>haveVMax<span style="color: blue; font-weight: normal; font-style: normal;"> then</span>
+    V_flow_max :=pressure.V_flow[nOri];
+  <span style="color: blue; font-weight: normal; font-style: normal;">else</span>
+    <span style="color: red; font-weight: normal; font-style: normal;">assert</span>((pressure.V_flow[nOri]-pressure.V_flow[nOri-1])/((pressure.dp[nOri]-pressure.dp[nOri-1]))&lt;0,
+    &quot;The last two pressure points for the fan or pump performance curve must be decreasing.
+    You need to set more reasonable parameters.
+Received
+&quot; +<span style="color: red; font-weight: normal; font-style: normal;"> getArrayAsString</span>(pressure.dp, &quot;dp&quot;));
+    V_flow_max :=pressure.V_flow[nOri] - (pressure.V_flow[nOri] - pressure.V_flow[
+      nOri - 1])/((pressure.dp[nOri] - pressure.dp[nOri - 1]))*pressure.dp[nOri];
+  <span style="color: blue; font-weight: normal; font-style: normal;">end if</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">if </span>haveDPMax<span style="color: blue; font-weight: normal; font-style: normal;"> then</span>
+    dpMax :=pressure.dp[1];
+  <span style="color: blue; font-weight: normal; font-style: normal;">else</span>
+    dpMax :=pressure.dp[1] - ((pressure.dp[2] - pressure.dp[1])/(pressure.V_flow[
+      2] - pressure.V_flow[1]))*pressure.V_flow[1];
+  <span style="color: blue; font-weight: normal; font-style: normal;">end if</span>;
+
+  <span style="color: #006400; font-weight: normal; font-style: normal;">// Check if minimum decrease condition is satisfied</span>
+  haveMinimumDecrease :=true;
+  kRes :=dpMax/V_flow_max*delta^2/10;
+  <span style="color: blue; font-weight: normal; font-style: normal;">for </span>i<span style="color: blue; font-weight: normal; font-style: normal;"> in </span>1:nOri-1<span style="color: blue; font-weight: normal; font-style: normal;"> loop</span>
+    <span style="color: blue; font-weight: normal; font-style: normal;">if </span>((pressure.dp[i+1]-pressure.dp[i])/(pressure.V_flow[i+1]-pressure.V_flow[i]) &gt;= -kRes)<span style="color: blue; font-weight: normal; font-style: normal;"> then</span>
+      haveMinimumDecrease :=false;
+    <span style="color: blue; font-weight: normal; font-style: normal;">end if</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">end for</span>;
+  <span style="color: #006400; font-weight: normal; font-style: normal;">// Write warning if the volumetric flow rate versus pressure curve does not satisfy</span>
+  <span style="color: #006400; font-weight: normal; font-style: normal;">// the minimum decrease condition</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">if </span>(<span style="color: blue; font-weight: normal; font-style: normal;">not </span>haveMinimumDecrease)<span style="color: blue; font-weight: normal; font-style: normal;"> then</span>
+    <span style="color: red; font-weight: normal; font-style: normal;">Modelica.Utilities.Streams.print</span>(&quot;
+Warning:
+========
+It is recommended that the volume flow rate versus pressure relation
+of the fan or pump satisfies the minimum decrease condition
+
+        (pressure.dp[i+1]-pressure.dp[i])
+d[i] = ----------------------------------------- &lt; &quot; +<span style="color: red; font-weight: normal; font-style: normal;"> String</span>(-kRes) + &quot;
+       (pressure.V_flow[i+1]-pressure.V_flow[i])
+
+is &quot; +<span style="color: red; font-weight: normal; font-style: normal;"> getArrayAsString</span>({(pressure.dp[i+1]-pressure.dp[i])/(pressure.V_flow[i+1]-pressure.V_flow[i]) <span style="color: blue; font-weight: normal; font-style: normal;">for </span>i<span style="color: blue; font-weight: normal; font-style: normal;"> in </span>1:nOri-1}, &quot;d&quot;) + &quot;
+Otherwise, a solution to the equations may not exist if the fan or pump speed is reduced.
+In this situation, the solver will fail due to non-convergence and
+the simulation stops.&quot;);
+  <span style="color: blue; font-weight: normal; font-style: normal;">end if</span>;
+
+  <span style="color: #006400; font-weight: normal; font-style: normal;">// Correction for flow resistance of pump or fan</span>
+  <span style="color: #006400; font-weight: normal; font-style: normal;">// Case 1:</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">if </span>(haveVMax<span style="color: blue; font-weight: normal; font-style: normal;"> and </span>haveDPMax)<span style="color: blue; font-weight: normal; font-style: normal;"> or </span>(nOri == 2)<span style="color: blue; font-weight: normal; font-style: normal;"> then</span><span style="color: #006400; font-weight: normal; font-style: normal;">  // ----- Curve 1</span>
+    curve :=1;<span style="color: #006400; font-weight: normal; font-style: normal;"> // V_flow_max and dpMax are provided by the user, or we only have two data points</span>
+    <span style="color: blue; font-weight: normal; font-style: normal;">for </span>i<span style="color: blue; font-weight: normal; font-style: normal;"> in </span>1:nOri<span style="color: blue; font-weight: normal; font-style: normal;"> loop</span>
+      pCur1.dp[i]  :=pressure.dp[i] + pressure.V_flow[i] * kRes;
+      pCur1.V_flow[i] := pressure.V_flow[i];
+    <span style="color: blue; font-weight: normal; font-style: normal;">end for</span>;
+    pCur2.V_flow :=<span style="color: red; font-weight: normal; font-style: normal;"> zeros</span>(nOri + 1);
+    pCur2.dp     :=<span style="color: red; font-weight: normal; font-style: normal;"> zeros</span>(nOri + 1);
+    pCur3.V_flow :=<span style="color: red; font-weight: normal; font-style: normal;"> zeros</span>(nOri + 2);
+    pCur3.dp     :=<span style="color: red; font-weight: normal; font-style: normal;"> zeros</span>(nOri + 2);
+    preDer1:=<span style="color: red; font-weight: normal; font-style: normal;">Buildings.Utilities.Math.Functions.splineDerivatives</span>(x=pCur1.V_flow, y=pCur1.dp);
+    preDer2:=<span style="color: red; font-weight: normal; font-style: normal;">zeros</span>(nOri+1);
+    preDer3:=<span style="color: red; font-weight: normal; font-style: normal;">zeros</span>(nOri+2);
+
+    <span style="color: #006400; font-weight: normal; font-style: normal;">// Equation to compute dpDelta</span>
+    dpDelta :=<span style="color: red; font-weight: normal; font-style: normal;">cha.pressure</span>(
+      data=pCur1,
+      V_flow=0,
+      r_N=delta,
+      VDelta_flow=0,
+      dpDelta=0,
+      V_flow_max=Modelica.Constants.eps,
+      dpMax=0,
+      delta=0,
+      d=preDer1,
+      cBar=<span style="color: red; font-weight: normal; font-style: normal;">zeros</span>(2),
+      kRes=  kRes);
+
+    <span style="color: #006400; font-weight: normal; font-style: normal;">// Equation to compute VDelta_flow. By the affinity laws, the volume flow rate is proportional to the speed.</span>
+    VDelta_flow :=V_flow_max*delta;
+
+    <span style="color: #006400; font-weight: normal; font-style: normal;">// Linear equations to determine cBar</span>
+    <span style="color: #006400; font-weight: normal; font-style: normal;">// Conditions for r_N=delta, V_flow = VDelta_flow</span>
+    <span style="color: #006400; font-weight: normal; font-style: normal;">// Conditions for r_N=delta, V_flow = 0</span>
+    cBar[1] :=<span style="color: red; font-weight: normal; font-style: normal;">cha.pressure</span>(
+      data=pCur1,
+      V_flow=0,
+      r_N=delta,
+      VDelta_flow=0,
+      dpDelta=0,
+      V_flow_max=Modelica.Constants.eps,
+      dpMax=0,
+      delta=0,
+      d=preDer1,
+      cBar=<span style="color: red; font-weight: normal; font-style: normal;">zeros</span>(2),
+      kRes=  kRes) * (1-delta)/delta^2;
+
+    cBar[2] :=((<span style="color: red; font-weight: normal; font-style: normal;">cha.pressure</span>(
+      data=pCur1,
+      V_flow=VDelta_flow,
+      r_N=delta,
+      VDelta_flow=0,
+      dpDelta=0,
+      V_flow_max=Modelica.Constants.eps,
+      dpMax=0,
+      delta=0,
+      d=preDer1,
+      cBar=<span style="color: red; font-weight: normal; font-style: normal;">zeros</span>(2),
+      kRes=  kRes) - delta*dpDelta)/delta^2 - cBar[1])/VDelta_flow;
+
+  <span style="color: blue; font-weight: normal; font-style: normal;">elseif </span>haveVMax<span style="color: blue; font-weight: normal; font-style: normal;"> or </span>haveDPMax<span style="color: blue; font-weight: normal; font-style: normal;"> then</span><span style="color: #006400; font-weight: normal; font-style: normal;">  // ----- Curve 2</span>
+    curve :=2;<span style="color: #006400; font-weight: normal; font-style: normal;"> // V_flow_max or dpMax is provided by the user, but not both</span>
+    <span style="color: blue; font-weight: normal; font-style: normal;">if </span>haveVMax<span style="color: blue; font-weight: normal; font-style: normal;"> then</span>
+      pCur2.V_flow[1] := 0;
+      pCur2.dp[1]     := dpMax;
+      <span style="color: blue; font-weight: normal; font-style: normal;">for </span>i<span style="color: blue; font-weight: normal; font-style: normal;"> in </span>1:nOri<span style="color: blue; font-weight: normal; font-style: normal;"> loop</span>
+        pCur2.dp[i+1]  :=pressure.dp[i] + pressure.V_flow[i] * kRes;
+        pCur2.V_flow[i+1] := pressure.dp[i];
+      <span style="color: blue; font-weight: normal; font-style: normal;">end for</span>;
+    <span style="color: blue; font-weight: normal; font-style: normal;">else</span>
+      <span style="color: blue; font-weight: normal; font-style: normal;">for </span>i<span style="color: blue; font-weight: normal; font-style: normal;"> in </span>1:nOri<span style="color: blue; font-weight: normal; font-style: normal;"> loop</span>
+        pCur2.dp[i]  :=pressure.dp[i] + pressure.V_flow[i] * kRes;
+        pCur2.V_flow[i] := pressure.V_flow[i];
+      <span style="color: blue; font-weight: normal; font-style: normal;">end for</span>;
+      pCur2.V_flow[nOri+1] := V_flow_max;
+      pCur2.dp[nOri+1]     := 0;
+    <span style="color: blue; font-weight: normal; font-style: normal;">end if</span>;
+    pCur1.V_flow :=<span style="color: red; font-weight: normal; font-style: normal;"> zeros</span>(nOri);
+    pCur1.dp     :=<span style="color: red; font-weight: normal; font-style: normal;"> zeros</span>(nOri);
+    pCur3.V_flow :=<span style="color: red; font-weight: normal; font-style: normal;"> zeros</span>(nOri + 2);
+    pCur3.dp     :=<span style="color: red; font-weight: normal; font-style: normal;"> zeros</span>(nOri + 2);
+    preDer1:=<span style="color: red; font-weight: normal; font-style: normal;">zeros</span>(nOri);
+    preDer2:=<span style="color: red; font-weight: normal; font-style: normal;">Buildings.Utilities.Math.Functions.splineDerivatives</span>(x=pCur2.V_flow, y=pCur2.dp);
+    preDer3:=<span style="color: red; font-weight: normal; font-style: normal;">zeros</span>(nOri+2);
+
+    <span style="color: #006400; font-weight: normal; font-style: normal;">// Equation to compute dpDelta</span>
+    dpDelta :=<span style="color: red; font-weight: normal; font-style: normal;">cha.pressure</span>(
+      data=pCur2,
+      V_flow=0,
+      r_N=delta,
+      VDelta_flow=0,
+      dpDelta=0,
+      V_flow_max=Modelica.Constants.eps,
+      dpMax=0,
+      delta=0,
+      d=preDer2,
+      cBar=<span style="color: red; font-weight: normal; font-style: normal;">zeros</span>(2),
+      kRes=  kRes);
+
+    <span style="color: #006400; font-weight: normal; font-style: normal;">// Equation to compute VDelta_flow. By the affinity laws, the volume flow rate is proportional to the speed.</span>
+    VDelta_flow :=V_flow_max*delta;
+
+    <span style="color: #006400; font-weight: normal; font-style: normal;">// Linear equations to determine cBar</span>
+    <span style="color: #006400; font-weight: normal; font-style: normal;">// Conditions for r_N=delta, V_flow = VDelta_flow</span>
+    <span style="color: #006400; font-weight: normal; font-style: normal;">// Conditions for r_N=delta, V_flow = 0</span>
+    cBar[1] :=<span style="color: red; font-weight: normal; font-style: normal;">cha.pressure</span>(
+      data=pCur2,
+      V_flow=0,
+      r_N=delta,
+      VDelta_flow=0,
+      dpDelta=0,
+      V_flow_max=Modelica.Constants.eps,
+      dpMax=0,
+      delta=0,
+      d=preDer2,
+      cBar=<span style="color: red; font-weight: normal; font-style: normal;">zeros</span>(2),
+      kRes=  kRes) * (1-delta)/delta^2;
+
+    cBar[2] :=((<span style="color: red; font-weight: normal; font-style: normal;">cha.pressure</span>(
+      data=pCur2,
+      V_flow=VDelta_flow,
+      r_N=delta,
+      VDelta_flow=0,
+      dpDelta=0,
+      V_flow_max=Modelica.Constants.eps,
+      dpMax=0,
+      delta=0,
+      d=preDer2,
+      cBar=<span style="color: red; font-weight: normal; font-style: normal;">zeros</span>(2),
+      kRes=  kRes) - delta*dpDelta)/delta^2 - cBar[1])/VDelta_flow;
+
+  <span style="color: blue; font-weight: normal; font-style: normal;">else</span><span style="color: #006400; font-weight: normal; font-style: normal;">  // ----- Curve 3</span>
+    curve :=3;<span style="color: #006400; font-weight: normal; font-style: normal;"> // Neither V_flow_max nor dpMax are provided by the user</span>
+    pCur3.V_flow[1] := 0;
+    pCur3.dp[1]     := dpMax;
+    <span style="color: blue; font-weight: normal; font-style: normal;">for </span>i<span style="color: blue; font-weight: normal; font-style: normal;"> in </span>1:nOri<span style="color: blue; font-weight: normal; font-style: normal;"> loop</span>
+      pCur3.dp[i+1]  :=pressure.dp[i] + pressure.V_flow[i] * kRes;
+      pCur3.V_flow[i+1] := pressure.V_flow[i];
+    <span style="color: blue; font-weight: normal; font-style: normal;">end for</span>;
+    pCur3.V_flow[nOri+2] := V_flow_max;
+    pCur3.dp[nOri+2]     := 0;
+    pCur1.V_flow :=<span style="color: red; font-weight: normal; font-style: normal;"> zeros</span>(nOri);
+    pCur1.dp     :=<span style="color: red; font-weight: normal; font-style: normal;"> zeros</span>(nOri);
+    pCur2.V_flow :=<span style="color: red; font-weight: normal; font-style: normal;"> zeros</span>(nOri + 1);
+    pCur2.dp     :=<span style="color: red; font-weight: normal; font-style: normal;"> zeros</span>(nOri + 1);
+    preDer1:=<span style="color: red; font-weight: normal; font-style: normal;">zeros</span>(nOri);
+    preDer2:=<span style="color: red; font-weight: normal; font-style: normal;">zeros</span>(nOri+1);
+    preDer3:=<span style="color: red; font-weight: normal; font-style: normal;">Buildings.Utilities.Math.Functions.splineDerivatives</span>(x=pCur3.V_flow, y=pCur3.dp);
+
+    <span style="color: #006400; font-weight: normal; font-style: normal;">// Equation to compute dpDelta</span>
+    dpDelta :=<span style="color: red; font-weight: normal; font-style: normal;">cha.pressure</span>(
+      data=pCur3,
+      V_flow=0,
+      r_N=delta,
+      VDelta_flow=0,
+      dpDelta=0,
+      V_flow_max=Modelica.Constants.eps,
+      dpMax=0,
+      delta=0,
+      d=preDer3,
+      cBar=<span style="color: red; font-weight: normal; font-style: normal;">zeros</span>(2),
+      kRes=  kRes);
+
+    <span style="color: #006400; font-weight: normal; font-style: normal;">// Equation to compute VDelta_flow. By the affinity laws, the volume flow rate is proportional to the speed.</span>
+    VDelta_flow :=V_flow_max*delta;
+
+    <span style="color: #006400; font-weight: normal; font-style: normal;">// Linear equations to determine cBar</span>
+    <span style="color: #006400; font-weight: normal; font-style: normal;">// Conditions for r_N=delta, V_flow = VDelta_flow</span>
+    <span style="color: #006400; font-weight: normal; font-style: normal;">// Conditions for r_N=delta, V_flow = 0</span>
+    cBar[1] :=<span style="color: red; font-weight: normal; font-style: normal;">cha.pressure</span>(
+      data=pCur3,
+      V_flow=0,
+      r_N=delta,
+      VDelta_flow=0,
+      dpDelta=0,
+      V_flow_max=Modelica.Constants.eps,
+      dpMax=0,
+      delta=0,
+      d=preDer3,
+      cBar=<span style="color: red; font-weight: normal; font-style: normal;">zeros</span>(2),
+      kRes=  kRes) * (1-delta)/delta^2;
+
+    cBar[2] :=((<span style="color: red; font-weight: normal; font-style: normal;">cha.pressure</span>(
+      data=pCur3,
+      V_flow=VDelta_flow,
+      r_N=delta,
+      VDelta_flow=0,
+      dpDelta=0,
+      V_flow_max=Modelica.Constants.eps,
+      dpMax=0,
+      delta=0,
+      d=preDer3,
+      cBar=<span style="color: red; font-weight: normal; font-style: normal;">zeros</span>(2),
+      kRes=  kRes) - delta*dpDelta)/delta^2 - cBar[1])/VDelta_flow;
+
+  <span style="color: blue; font-weight: normal; font-style: normal;">end if</span>;
+
+<span style="color: blue; font-weight: normal; font-style: normal;">equation </span>
+
+  <span style="color: #006400; font-weight: normal; font-style: normal;">// Hydraulic equations</span>
+  r_N = N_actual/N_nominal;
+  r_V = VMachine_flow/V_flow_max;
+  <span style="color: #006400; font-weight: normal; font-style: normal;">// For the homotopy method, we approximate dpMachine by an equation</span>
+  <span style="color: #006400; font-weight: normal; font-style: normal;">// that is linear in VMachine_flow, and that goes linearly to 0 as r_N goes to 0.</span>
+  <span style="color: #006400; font-weight: normal; font-style: normal;">// The three branches below are identical, except that we pass either</span>
+  <span style="color: #006400; font-weight: normal; font-style: normal;">// pCur1, pCur2 or pCur3, and preDer1, preDer2 or preDer3</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">if </span>(curve == 1)<span style="color: blue; font-weight: normal; font-style: normal;"> then</span>
+    <span style="color: blue; font-weight: normal; font-style: normal;">if </span>homotopyInitialization<span style="color: blue; font-weight: normal; font-style: normal;"> then</span>
+       dpMachine =<span style="color: red; font-weight: normal; font-style: normal;"> homotopy</span>(actual=<span style="color: red; font-weight: normal; font-style: normal;">cha.pressure</span>(data=pCur1,
+                                                    V_flow=VMachine_flow, r_N=r_N,
+                                                    VDelta_flow=VDelta_flow, dpDelta=dpDelta,
+                                                    V_flow_max=V_flow_max, dpMax=dpMax,
+                                                    delta=delta, d=preDer1, cBar=cBar, kRes=kRes),
+                          simplified=r_N*
+                              (<span style="color: red; font-weight: normal; font-style: normal;">cha.pressure</span>(data=pCur1,
+                                                    V_flow=V_flow_nominal, r_N=1,
+                                                    VDelta_flow=VDelta_flow, dpDelta=dpDelta,
+                                                    V_flow_max=V_flow_max, dpMax=dpMax,
+                                                    delta=delta, d=preDer1, cBar=cBar, kRes=kRes)
+                               +(VMachine_flow-V_flow_nominal)*
+                                (<span style="color: red; font-weight: normal; font-style: normal;">cha.pressure</span>(data=pCur1,
+                                                    V_flow=(1+delta)*V_flow_nominal, r_N=1,
+                                                    VDelta_flow=VDelta_flow, dpDelta=dpDelta,
+                                                    V_flow_max=V_flow_max, dpMax=dpMax,
+                                                    delta=delta, d=preDer1, cBar=cBar, kRes=kRes)
+                                -<span style="color: red; font-weight: normal; font-style: normal;">cha.pressure</span>(data=pCur1,
+                                                    V_flow=(1-delta)*V_flow_nominal, r_N=1,
+                                                    VDelta_flow=VDelta_flow, dpDelta=dpDelta,
+                                                    V_flow_max=V_flow_max, dpMax=dpMax,
+                                                    delta=delta, d=preDer1, cBar=cBar, kRes=kRes))
+                                 /(2*delta*V_flow_nominal)));
+
+     <span style="color: blue; font-weight: normal; font-style: normal;">else</span>
+       dpMachine =<span style="color: red; font-weight: normal; font-style: normal;"> cha.pressure</span>(data=pCur1, V_flow=VMachine_flow, r_N=r_N,
+                                                VDelta_flow=VDelta_flow, dpDelta=dpDelta, V_flow_max=V_flow_max, dpMax=dpMax,
+                                                delta=delta, d=preDer1, cBar=cBar, kRes=kRes);
+     <span style="color: blue; font-weight: normal; font-style: normal;">end if</span>;
+    <span style="color: #006400; font-weight: normal; font-style: normal;"> // end of computation for this branch</span>
+   <span style="color: blue; font-weight: normal; font-style: normal;">elseif </span>(curve == 2)<span style="color: blue; font-weight: normal; font-style: normal;"> then</span>
+    <span style="color: blue; font-weight: normal; font-style: normal;">if </span>homotopyInitialization<span style="color: blue; font-weight: normal; font-style: normal;"> then</span>
+       dpMachine =<span style="color: red; font-weight: normal; font-style: normal;"> homotopy</span>(actual=<span style="color: red; font-weight: normal; font-style: normal;">cha.pressure</span>(data=pCur2,
+                                                    V_flow=VMachine_flow, r_N=r_N,
+                                                    VDelta_flow=VDelta_flow, dpDelta=dpDelta,
+                                                    V_flow_max=V_flow_max, dpMax=dpMax,
+                                                    delta=delta, d=preDer2, cBar=cBar, kRes=kRes),
+                          simplified=r_N*
+                              (<span style="color: red; font-weight: normal; font-style: normal;">cha.pressure</span>(data=pCur2,
+                                                    V_flow=V_flow_nominal, r_N=1,
+                                                    VDelta_flow=VDelta_flow, dpDelta=dpDelta,
+                                                    V_flow_max=V_flow_max, dpMax=dpMax,
+                                                    delta=delta, d=preDer2, cBar=cBar, kRes=kRes)
+                               +(VMachine_flow-V_flow_nominal)*
+                                (<span style="color: red; font-weight: normal; font-style: normal;">cha.pressure</span>(data=pCur2,
+                                                    V_flow=(1+delta)*V_flow_nominal, r_N=1,
+                                                    VDelta_flow=VDelta_flow, dpDelta=dpDelta,
+                                                    V_flow_max=V_flow_max, dpMax=dpMax,
+                                                    delta=delta, d=preDer2, cBar=cBar, kRes=kRes)
+                                -<span style="color: red; font-weight: normal; font-style: normal;">cha.pressure</span>(data=pCur2,
+                                                    V_flow=(1-delta)*V_flow_nominal, r_N=1,
+                                                    VDelta_flow=VDelta_flow, dpDelta=dpDelta,
+                                                    V_flow_max=V_flow_max, dpMax=dpMax,
+                                                    delta=delta, d=preDer2, cBar=cBar, kRes=kRes))
+                                 /(2*delta*V_flow_nominal)));
+
+     <span style="color: blue; font-weight: normal; font-style: normal;">else</span>
+       dpMachine =<span style="color: red; font-weight: normal; font-style: normal;"> cha.pressure</span>(data=pCur2, V_flow=VMachine_flow, r_N=r_N,
+                                                VDelta_flow=VDelta_flow, dpDelta=dpDelta, V_flow_max=V_flow_max, dpMax=dpMax,
+                                                delta=delta, d=preDer2, cBar=cBar, kRes=kRes);
+     <span style="color: blue; font-weight: normal; font-style: normal;">end if</span>;
+    <span style="color: #006400; font-weight: normal; font-style: normal;"> // end of computation for this branch</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">else</span>
+    <span style="color: blue; font-weight: normal; font-style: normal;">if </span>homotopyInitialization<span style="color: blue; font-weight: normal; font-style: normal;"> then</span>
+       dpMachine =<span style="color: red; font-weight: normal; font-style: normal;"> homotopy</span>(actual=<span style="color: red; font-weight: normal; font-style: normal;">cha.pressure</span>(data=pCur3,
+                                                    V_flow=VMachine_flow, r_N=r_N,
+                                                    VDelta_flow=VDelta_flow, dpDelta=dpDelta,
+                                                    V_flow_max=V_flow_max, dpMax=dpMax,
+                                                    delta=delta, d=preDer3, cBar=cBar, kRes=kRes),
+                          simplified=r_N*
+                              (<span style="color: red; font-weight: normal; font-style: normal;">cha.pressure</span>(data=pCur3,
+                                                    V_flow=V_flow_nominal, r_N=1,
+                                                    VDelta_flow=VDelta_flow, dpDelta=dpDelta,
+                                                    V_flow_max=V_flow_max, dpMax=dpMax,
+                                                    delta=delta, d=preDer3, cBar=cBar, kRes=kRes)
+                               +(VMachine_flow-V_flow_nominal)*
+                                (<span style="color: red; font-weight: normal; font-style: normal;">cha.pressure</span>(data=pCur3,
+                                                    V_flow=(1+delta)*V_flow_nominal, r_N=1,
+                                                    VDelta_flow=VDelta_flow, dpDelta=dpDelta,
+                                                    V_flow_max=V_flow_max, dpMax=dpMax,
+                                                    delta=delta, d=preDer3, cBar=cBar, kRes=kRes)
+                                -<span style="color: red; font-weight: normal; font-style: normal;">cha.pressure</span>(data=pCur3,
+                                                    V_flow=(1-delta)*V_flow_nominal, r_N=1,
+                                                    VDelta_flow=VDelta_flow, dpDelta=dpDelta,
+                                                    V_flow_max=V_flow_max, dpMax=dpMax,
+                                                    delta=delta, d=preDer3, cBar=cBar, kRes=kRes))
+                                 /(2*delta*V_flow_nominal)));
+
+     <span style="color: blue; font-weight: normal; font-style: normal;">else</span>
+       dpMachine =<span style="color: red; font-weight: normal; font-style: normal;"> cha.pressure</span>(data=pCur3, V_flow=VMachine_flow, r_N=r_N,
+                                                VDelta_flow=VDelta_flow, dpDelta=dpDelta, V_flow_max=V_flow_max, dpMax=dpMax,
+                                                delta=delta, d=preDer3, cBar=cBar, kRes=kRes);
+     <span style="color: blue; font-weight: normal; font-style: normal;">end if</span>;
+    <span style="color: #006400; font-weight: normal; font-style: normal;"> // end of computation for this branch</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">end if</span>;
+  <span style="color: #006400; font-weight: normal; font-style: normal;">// Power consumption</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">if </span>use_powerCharacteristic<span style="color: blue; font-weight: normal; font-style: normal;"> then</span>
+    <span style="color: #006400; font-weight: normal; font-style: normal;">// For the homotopy, we want P/V_flow to be bounded as V_flow -&gt; 0 to avoid a very high medium</span>
+    <span style="color: #006400; font-weight: normal; font-style: normal;">// temperature near zero flow.</span>
+    <span style="color: blue; font-weight: normal; font-style: normal;">if </span>homotopyInitialization<span style="color: blue; font-weight: normal; font-style: normal;"> then</span>
+      P =<span style="color: red; font-weight: normal; font-style: normal;"> homotopy</span>(actual=<span style="color: red; font-weight: normal; font-style: normal;">cha.power</span>(data=power, V_flow=VMachine_flow, r_N=r_N, d=powDer),
+                      simplified=VMachine_flow/V_flow_nominal*
+                            <span style="color: red; font-weight: normal; font-style: normal;">cha.power</span>(data=power, V_flow=V_flow_nominal, r_N=1, d=powDer));
+    <span style="color: blue; font-weight: normal; font-style: normal;">else</span>
+      P = (rho/rho_default)*<span style="color: red; font-weight: normal; font-style: normal;">cha.power</span>(data=power, V_flow=VMachine_flow, r_N=r_N, d=powDer);
+    <span style="color: blue; font-weight: normal; font-style: normal;">end if</span>;
+    <span style="color: #006400; font-weight: normal; font-style: normal;">// To compute the efficiency, we set a lower bound on the electricity consumption.</span>
+    <span style="color: #006400; font-weight: normal; font-style: normal;">// This is needed because WFlo can be close to zero when P is zero, thereby</span>
+    <span style="color: #006400; font-weight: normal; font-style: normal;">// causing a division by zero.</span>
+    <span style="color: #006400; font-weight: normal; font-style: normal;">// Earlier versions of the model computed WFlo = eta * P, but this caused</span>
+    <span style="color: #006400; font-weight: normal; font-style: normal;">// a division by zero.</span>
+    eta = WFlo /<span style="color: red; font-weight: normal; font-style: normal;"> Buildings.Utilities.Math.Functions.smoothMax</span>(x1=P, x2=1E-5, deltaX=1E-6);
+    <span style="color: #006400; font-weight: normal; font-style: normal;">// In this configuration, we only now the total power consumption.</span>
+    <span style="color: #006400; font-weight: normal; font-style: normal;">// Because nothing is known about etaMot versus etaHyd, we set etaHyd=1. This will</span>
+    <span style="color: #006400; font-weight: normal; font-style: normal;">// cause etaMot=eta, because eta=etaHyd*etaMot.</span>
+    <span style="color: #006400; font-weight: normal; font-style: normal;">// Earlier versions used etaMot=sqrt(eta), but as eta-&gt;0, this function has</span>
+    <span style="color: #006400; font-weight: normal; font-style: normal;">// and infinite derivative.</span>
+    etaHyd = 1;
+  <span style="color: blue; font-weight: normal; font-style: normal;">else</span>
+    <span style="color: blue; font-weight: normal; font-style: normal;">if </span>homotopyInitialization<span style="color: blue; font-weight: normal; font-style: normal;"> then</span>
+      etaHyd =<span style="color: red; font-weight: normal; font-style: normal;"> homotopy</span>(actual=<span style="color: red; font-weight: normal; font-style: normal;">cha.efficiency</span>(data=hydraulicEfficiency,     r_V=r_V, d=hydDer),
+                        simplified=<span style="color: red; font-weight: normal; font-style: normal;">cha.efficiency</span>(data=hydraulicEfficiency, r_V=1,   d=hydDer));
+      etaMot =<span style="color: red; font-weight: normal; font-style: normal;"> homotopy</span>(actual=<span style="color: red; font-weight: normal; font-style: normal;">cha.efficiency</span>(data=motorEfficiency,     r_V=r_V, d=motDer),
+                        simplified=<span style="color: red; font-weight: normal; font-style: normal;">cha.efficiency</span>(data=motorEfficiency, r_V=1,   d=motDer));
+    <span style="color: blue; font-weight: normal; font-style: normal;">else</span>
+      etaHyd =<span style="color: red; font-weight: normal; font-style: normal;"> cha.efficiency</span>(data=hydraulicEfficiency, r_V=r_V, d=hydDer);
+      etaMot =<span style="color: red; font-weight: normal; font-style: normal;"> cha.efficiency</span>(data=motorEfficiency,     r_V=r_V, d=motDer);
+    <span style="color: blue; font-weight: normal; font-style: normal;">end if</span>;
+    <span style="color: #006400; font-weight: normal; font-style: normal;">// To compute the electrical power, we set a lower bound for eta to avoid</span>
+    <span style="color: #006400; font-weight: normal; font-style: normal;">// a division by zero.</span>
+    P = WFlo /<span style="color: red; font-weight: normal; font-style: normal;"> Buildings.Utilities.Math.Functions.smoothMax</span>(x1=eta, x2=1E-5, deltaX=1E-6);
+
+  <span style="color: blue; font-weight: normal; font-style: normal;">end if</span>;
+
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>FlowMachineInterface;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE IdealSource<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Obsolete.Fluid.d25a1c258a9bd042ourceI.png" alt="Buildings.Obsolete.Fluid.Movers.BaseClasses.IdealSource" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Obsolete.Fluid.Movers.BaseClasses.IdealSource"></a><a href="Buildings_Obsolete_Fluid_Movers_BaseClasses.html#Buildings.Obsolete.Fluid.Movers.BaseClasses"
+>Buildings.Obsolete.Fluid.Movers.BaseClasses</a>.IdealSource</h2>
+<p>
+<b>Base class for pressure and mass flow source with optional power input</b>
+<br>
+<br><img src="Buildings.Obsolete.Fluid.d25a1c258a9bd042ourceD.png" alt="Buildings.Obsolete.Fluid.Movers.BaseClasses.IdealSource">
+</p>
+<h3>Information</h3>
+
+<p>
+Model of a fictious pipe that is used as a base class
+for a pressure source or to prescribe a mass flow rate.
+</p>
+<p>
+Note that for fans and pumps with dynamic balance,
+both the heat and the flow work are added to the volume of
+air or water. This simplifies the equations compared to
+adding heat to the volume, and flow work to this model.
+</p>
+
+<p>Extends from <a href="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces.PartialTwoPortTransport"
+>Buildings.Fluid.Interfaces.PartialTwoPortTransport</a> (Partial element transporting fluid between two ports without storage of mass or energy).</p>
+<h3>Parameters</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td colspan="2">replaceable package Medium</td><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium"
+>PartialMedium</a></td><td>Medium in the component</td></tr>
+<tr><td>Boolean</td><td>control_m_flow</td><td>&nbsp;</td><td>= false to control dp instead of m_flow</td></tr>
+<tr style="background-color: #c0c0c0"><td colspan="4"><b>Assumptions</b></td></tr>
+<tr><td>Boolean</td><td>allowFlowReversal</td><td>true</td><td>= true to allow flow reversal, false restricts to design direction (port_a -&gt; port_b)</td></tr>
+<tr style="background-color: #c0c0c0"><td colspan="4"><b>Advanced</b></td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.AbsolutePressure"
+>AbsolutePressure</a></td><td>dp_start</td><td>0</td><td>Guess value of dp = port_a.p - port_b.p [Pa]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.MassFlowRate"
+>MassFlowRate</a></td><td>m_flow_start</td><td>0</td><td>Guess value of m_flow = port_a.m_flow [kg/s]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.MassFlowRate"
+>MassFlowRate</a></td><td>m_flow_small</td><td>&nbsp;</td><td>Small mass flow rate for regularization of zero flow [kg/s]</td></tr>
+<tr style="background-color: #e0e0e0"><td colspan="4">Diagnostics</td></tr>
+<tr><td>Boolean</td><td>show_T</td><td>false</td><td>= true, if temperatures at port_a and port_b are computed</td></tr>
+<tr><td>Boolean</td><td>show_V_flow</td><td>true</td><td>= true, if volume flow rate at inflowing port is computed</td></tr>
+</table>
+<h3>Connectors</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Connectors">
+<tr><th>Type</th><th>Name</th><th>Description</th></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_a"
+>FluidPort_a</a></td><td>port_a</td><td>Fluid connector a (positive design flow direction is from port_a to port_b)</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_b"
+>FluidPort_b</a></td><td>port_b</td><td>Fluid connector b (positive design flow direction is from port_a to port_b)</td></tr>
+<tr><td>input <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>RealInput</a></td><td>m_flow_in</td><td>Prescribed mass flow rate</td></tr>
+<tr><td>input <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>RealInput</a></td><td>dp_in</td><td>Prescribed outlet pressure</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">model</span> IdealSource <span style="color: #006400; font-weight: normal; font-style: normal;">
+  &quot;Base class for pressure and mass flow source with optional power input&quot;</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces.PartialTwoPortTransport"
+>Buildings.Fluid.Interfaces.PartialTwoPortTransport</a>(show_T=false);
+
+  <span style="color: #006400; font-weight: normal; font-style: normal;">// what to control</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Boolean control_m_flow <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;= false to control dp instead of m_flow&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>Modelica.Blocks.Interfaces.RealInput</a> m_flow_in <span style="color: blue; font-weight: normal; font-style: normal;">if </span>control_m_flow <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Prescribed mass flow rate&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>Modelica.Blocks.Interfaces.RealInput</a> dp_in <span style="color: blue; font-weight: normal; font-style: normal;">if </span><span style="color: blue; font-weight: normal; font-style: normal;">not </span>control_m_flow <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Prescribed outlet pressure&quot;</span>;
+
+<span style="color: blue; font-weight: normal; font-style: normal;">protected </span>
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>Modelica.Blocks.Interfaces.RealInput</a> m_flow_internal <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Needed to connect to conditional connector&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>Modelica.Blocks.Interfaces.RealInput</a> dp_internal <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Needed to connect to conditional connector&quot;</span>;
+<span style="color: blue; font-weight: normal; font-style: normal;">equation </span>
+
+  <span style="color: #006400; font-weight: normal; font-style: normal;">// Ideal control</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">if </span>control_m_flow<span style="color: blue; font-weight: normal; font-style: normal;"> then</span>
+    m_flow = m_flow_internal;
+    dp_internal = 0;
+  <span style="color: blue; font-weight: normal; font-style: normal;">else</span>
+    dp = dp_internal;
+    m_flow_internal = 0;
+  <span style="color: blue; font-weight: normal; font-style: normal;">end if</span>;
+
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(dp_internal, dp_in);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(m_flow_internal, m_flow_in);
+
+  <span style="color: #006400; font-weight: normal; font-style: normal;">// Energy balance (no storage)</span>
+  port_a.h_outflow =<span style="color: red; font-weight: normal; font-style: normal;"> inStream</span>(port_b.h_outflow);
+  port_b.h_outflow =<span style="color: red; font-weight: normal; font-style: normal;"> inStream</span>(port_a.h_outflow);
+
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>IdealSource;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE PartialFlowMachine<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Obsolete.Fluid.18265dd3f0f15a7bchineI.png" alt="Buildings.Obsolete.Fluid.Movers.BaseClasses.PartialFlowMachine" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Obsolete.Fluid.Movers.BaseClasses.PartialFlowMachine"></a><a href="Buildings_Obsolete_Fluid_Movers_BaseClasses.html#Buildings.Obsolete.Fluid.Movers.BaseClasses"
+>Buildings.Obsolete.Fluid.Movers.BaseClasses</a>.PartialFlowMachine</h2>
+<p>
+<b>Partial model to interface fan or pump models with the medium</b>
+<br>
+<br><img src="Buildings.Obsolete.Fluid.18265dd3f0f15a7bchineD.png" alt="Buildings.Obsolete.Fluid.Movers.BaseClasses.PartialFlowMachine">
+</p>
+<h3>Information</h3>
+
+<p>This is the base model for fans and pumps.
+It provides an interface
+between the equations that compute head and power consumption,
+and the implementation of the energy and pressure balance
+of the fluid.
+</p>
+<p>
+Depending on the value of
+the parameter <code>dynamicBalance</code>, the fluid volume
+is computed using a dynamic balance or a steady-state balance.
+</p>
+<p>
+The parameter <code>addPowerToMedium</code> determines whether
+any power is added to the fluid. The default is <code>addPowerToMedium=true</code>,
+and hence the outlet enthalpy is higher than the inlet enthalpy if the
+flow device is operating.
+The setting <code>addPowerToMedium=false</code> is physically incorrect
+(since the flow work, the flow friction and the fan heat do not increase
+the enthalpy of the medium), but this setting does in some cases lead to simpler equations
+and more robust simulation, in particular if the mass flow is equal to zero.
+</p>
+
+<p>Extends from <a href="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces.LumpedVolumeDeclarations"
+>Buildings.Fluid.Interfaces.LumpedVolumeDeclarations</a> (Declarations for lumped volumes), <a href="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces.PartialTwoPortInterface"
+>Buildings.Fluid.Interfaces.PartialTwoPortInterface</a> (Partial model transporting fluid between two ports without storing mass or energy).</p>
+<h3>Parameters</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td colspan="2">replaceable package Medium</td><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium"
+>PartialMedium</a></td><td>Medium in the component</td></tr>
+<tr><td>Boolean</td><td>addPowerToMedium</td><td>true</td><td>Set to false to avoid any power (=heat and flow work) being added to medium (may give simpler equations)</td></tr>
+<tr style="background-color: #e0e0e0"><td colspan="4">Nominal condition</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+>MassFlowRate</a></td><td>m_flow_nominal</td><td>&nbsp;</td><td>Nominal mass flow rate [kg/s]</td></tr>
+<tr style="background-color: #e0e0e0"><td colspan="4">Initialization</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+>MassFlowRate</a></td><td>m_flow.start</td><td>0</td><td>Mass flow rate from port_a to port_b (m_flow &gt; 0 is design flow direction) [kg/s]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
+>Pressure</a></td><td>dp.start</td><td>0</td><td>Pressure difference between port_a and port_b [Pa]</td></tr>
+<tr style="background-color: #c0c0c0"><td colspan="4"><b>Dynamics</b></td></tr>
+<tr style="background-color: #e0e0e0"><td colspan="4">Equations</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Fluid_Types.html#Modelica.Fluid.Types.Dynamics"
+>Dynamics</a></td><td>energyDynamics</td><td>Modelica.Fluid.Types.Dynamic...</td><td>Formulation of energy balance</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Fluid_Types.html#Modelica.Fluid.Types.Dynamics"
+>Dynamics</a></td><td>massDynamics</td><td>energyDynamics</td><td>Formulation of mass balance</td></tr>
+<tr><td>Boolean</td><td>dynamicBalance</td><td>true</td><td>Set to true to use a dynamic balance, which often leads to smaller systems of equations</td></tr>
+<tr><td>Real</td><td>mSenFac</td><td>1</td><td>Factor for scaling the sensible thermal mass of the volume</td></tr>
+<tr style="background-color: #e0e0e0"><td colspan="4">Nominal condition</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Time"
+>Time</a></td><td>tau</td><td>1</td><td>Time constant of fluid volume for nominal flow, used if dynamicBalance=true [s]</td></tr>
+<tr style="background-color: #c0c0c0"><td colspan="4"><b>Initialization</b></td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.AbsolutePressure"
+>AbsolutePressure</a></td><td>p_start</td><td>Medium.p_default</td><td>Start value of pressure [Pa]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.Temperature"
+>Temperature</a></td><td>T_start</td><td>Medium.T_default</td><td>Start value of temperature [K]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.MassFraction"
+>MassFraction</a></td><td>X_start[Medium.nX]</td><td>Medium.X_default</td><td>Start value of mass fractions m_i/m [kg/kg]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.ExtraProperty"
+>ExtraProperty</a></td><td>C_start[Medium.nC]</td><td>fill(0, Medium.nC)</td><td>Start value of trace substances</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.ExtraProperty"
+>ExtraProperty</a></td><td>C_nominal[Medium.nC]</td><td>fill(1E-2, Medium.nC)</td><td>Nominal value of trace substances. (Set to typical order of magnitude.)</td></tr>
+<tr style="background-color: #c0c0c0"><td colspan="4"><b>Assumptions</b></td></tr>
+<tr><td>Boolean</td><td>allowFlowReversal</td><td>true</td><td>= true to allow flow reversal, false restricts to design direction (port_a -&gt; port_b)</td></tr>
+<tr style="background-color: #c0c0c0"><td colspan="4"><b>Advanced</b></td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+>MassFlowRate</a></td><td>m_flow_small</td><td>1E-4*abs(m_flow_nominal)</td><td>Small mass flow rate for regularization of zero flow [kg/s]</td></tr>
+<tr style="background-color: #e0e0e0"><td colspan="4">Diagnostics</td></tr>
+<tr><td>Boolean</td><td>show_T</td><td>false</td><td>= true, if actual temperature at port is computed</td></tr>
+</table>
+<h3>Connectors</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Connectors">
+<tr><th>Type</th><th>Name</th><th>Description</th></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Thermal_HeatTransfer_Interfaces.html#Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a"
+>HeatPort_a</a></td><td>heatPort</td><td>Heat dissipation to environment</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">partial </span><span style="color: blue; font-weight: normal; font-style: normal;">model</span> PartialFlowMachine <span style="color: #006400; font-weight: normal; font-style: normal;">
+  &quot;Partial model to interface fan or pump models with the medium&quot;</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces.LumpedVolumeDeclarations"
+>Buildings.Fluid.Interfaces.LumpedVolumeDeclarations</a>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">import </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Constants.html#Modelica.Constants"
+>Modelica.Constants</a>;
+
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces.PartialTwoPortInterface"
+>Buildings.Fluid.Interfaces.PartialTwoPortInterface</a>(show_T=false,
+    port_a(
+      h_outflow(start=h_outflow_start),
+      <span style="color: blue; font-weight: normal; font-style: normal;">final </span>m_flow(min = <span style="color: blue; font-weight: normal; font-style: normal;">if </span>allowFlowReversal<span style="color: blue; font-weight: normal; font-style: normal;"> then </span>-Constants.inf<span style="color: blue; font-weight: normal; font-style: normal;"> else </span>0)),
+    port_b(
+      h_outflow(start=h_outflow_start),
+      p(start=p_start),
+      <span style="color: blue; font-weight: normal; font-style: normal;">final </span>m_flow(max = <span style="color: blue; font-weight: normal; font-style: normal;">if </span>allowFlowReversal<span style="color: blue; font-weight: normal; font-style: normal;"> then </span>+Constants.inf<span style="color: blue; font-weight: normal; font-style: normal;"> else </span>0)),
+      <span style="color: blue; font-weight: normal; font-style: normal;">final </span>showDesignFlowDirection=false);
+
+ <a href="Buildings_Fluid_Delays.html#Buildings.Fluid.Delays.DelayFirstOrder"
+>Buildings.Fluid.Delays.DelayFirstOrder</a> vol(
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = <a href="Buildings_Fluid_Interfaces_Medium.html#Buildings.Fluid.Interfaces.LumpedVolumeDeclarations.Medium"
+>Medium</a>,
+    tau=tau,
+    energyDynamics=<span style="color: blue; font-weight: normal; font-style: normal;">if </span>dynamicBalance<span style="color: blue; font-weight: normal; font-style: normal;"> then </span>energyDynamics<span style="color: blue; font-weight: normal; font-style: normal;"> else </span>Modelica.Fluid.Types.Dynamics.SteadyState,
+    massDynamics=<span style="color: blue; font-weight: normal; font-style: normal;">if </span>dynamicBalance<span style="color: blue; font-weight: normal; font-style: normal;"> then </span>massDynamics<span style="color: blue; font-weight: normal; font-style: normal;"> else </span>Modelica.Fluid.Types.Dynamics.SteadyState,
+    T_start=T_start,
+    X_start=X_start,
+    C_start=C_start,
+    m_flow_nominal=m_flow_nominal,
+    p_start=p_start,
+    prescribedHeatFlowRate=true,
+    allowFlowReversal=allowFlowReversal,
+    nPorts=2) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Fluid volume for dynamic model&quot;</span>;
+   <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Boolean dynamicBalance = true <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Set to true to use a dynamic balance, which often leads to smaller systems of equations&quot;</span>;
+
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Boolean addPowerToMedium=true <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Set to false to avoid any power (=heat and flow work) being added to medium (may give simpler equations)&quot;</span>;
+
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Time"
+>Modelica.SIunits.Time</a> tau=1 <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Time constant of fluid volume for nominal flow, used if dynamicBalance=true&quot;</span>;
+
+  <span style="color: #006400; font-weight: normal; font-style: normal;">// Models</span>
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Thermal_HeatTransfer_Interfaces.html#Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a"
+>Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a</a> heatPort <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Heat dissipation to environment&quot;</span>;
+
+<span style="color: blue; font-weight: normal; font-style: normal;">protected </span>
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Density"
+>Modelica.SIunits.Density</a> rho_in <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Density of inflowing fluid&quot;</span>;
+
+  <a href="Buildings_Obsolete_Fluid_Movers_BaseClasses.html#Buildings.Obsolete.Fluid.Movers.BaseClasses.IdealSource"
+>Buildings.Obsolete.Fluid.Movers.BaseClasses.IdealSource</a> preSou(
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">final </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = <a href="Buildings_Fluid_Interfaces_Medium.html#Buildings.Fluid.Interfaces.LumpedVolumeDeclarations.Medium"
+>Medium</a>,
+    <span style="color: blue; font-weight: normal; font-style: normal;">final </span>m_flow_small=m_flow_small,
+    <span style="color: blue; font-weight: normal; font-style: normal;">final </span>allowFlowReversal=allowFlowReversal) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Pressure source&quot;</span>;
+
+  <a href="Buildings_HeatTransfer_Sources.html#Buildings.HeatTransfer.Sources.PrescribedHeatFlow"
+>Buildings.HeatTransfer.Sources.PrescribedHeatFlow</a> prePow <span style="color: blue; font-weight: normal; font-style: normal;">if </span>addPowerToMedium <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Prescribed power (=heat and flow work) flow for dynamic model&quot;</span>;
+
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.ThermodynamicState"
+>Medium.ThermodynamicState</a> sta_start=<span style="color: red; font-weight: normal; font-style: normal;">Medium.setState_pTX</span>(
+      T=T_start, p=p_start, X=X_start) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Medium state at start values&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.SpecificEnthalpy"
+>Modelica.SIunits.SpecificEnthalpy</a> h_outflow_start =<span style="color: red; font-weight: normal; font-style: normal;"> Medium.specificEnthalpy</span>(sta_start) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Start value for outflowing enthalpy&quot;</span>;
+
+<span style="color: blue; font-weight: normal; font-style: normal;">equation </span>
+  <span style="color: #006400; font-weight: normal; font-style: normal;">// For computing the density, we assume that the fan operates in the design flow direction.</span>
+  rho_in =<span style="color: red; font-weight: normal; font-style: normal;"> Medium.density</span>(
+       <span style="color: red; font-weight: normal; font-style: normal;">Medium.setState_phX</span>(port_a.p,<span style="color: red; font-weight: normal; font-style: normal;"> inStream</span>(port_a.h_outflow),<span style="color: red; font-weight: normal; font-style: normal;"> inStream</span>(port_a.Xi_outflow)));
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(prePow.port, vol.heatPort);
+
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(vol.heatPort, heatPort);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(port_a, vol.ports[1]);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(vol.ports[2], preSou.port_a);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(preSou.port_b, port_b);
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>PartialFlowMachine;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE PowerInterface<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Obsolete.Fluid.5fba036f3e229746rfaceI.png" alt="Buildings.Obsolete.Fluid.Movers.BaseClasses.PowerInterface" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Obsolete.Fluid.Movers.BaseClasses.PowerInterface"></a><a href="Buildings_Obsolete_Fluid_Movers_BaseClasses.html#Buildings.Obsolete.Fluid.Movers.BaseClasses"
+>Buildings.Obsolete.Fluid.Movers.BaseClasses</a>.PowerInterface</h2>
+<p>
+<b>Partial model to compute power draw and heat dissipation of fans and pumps</b>
+<br>
+<br><img src="Buildings.Obsolete.Fluid.5fba036f3e229746rfaceD.png" alt="Buildings.Obsolete.Fluid.Movers.BaseClasses.PowerInterface">
+</p>
+<h3>Information</h3>
+
+<p>This is an interface that implements the functions to compute the power draw and the
+heat dissipation of fans and pumps. It is used by the model
+<a href="Buildings_Obsolete_Fluid_Movers_BaseClasses.html#Buildings.Obsolete.Fluid.Movers.BaseClasses.FlowMachineInterface"
+>
+Buildings.Obsolete.Fluid.Movers.BaseClasses.FlowMachineInterface</a>.
+</p>
+<h4>Implementation</h4>
+<p>
+Models that extend this model need to provide an implementation of
+<code>WFlo = eta * P</code>.
+This equation is not implemented in this model to allow other models
+to properly guard against division by zero.
+</p>
+
+<h3>Parameters</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Density"
+>Density</a></td><td>rho_default</td><td>&nbsp;</td><td>Fluid density at medium default state [kg/m3]</td></tr>
+<tr style="background-color: #e0e0e0"><td colspan="4">Characteristics</td></tr>
+<tr><td>Boolean</td><td>use_powerCharacteristic</td><td>false</td><td>Use powerCharacteristic (vs. efficiencyCharacteristic)</td></tr>
+<tr><td>Boolean</td><td>motorCooledByFluid</td><td>true</td><td>If true, then motor heat is added to fluid stream</td></tr>
+<tr><td><a href="Buildings_Obsolete_Fluid_Movers_BaseClasses_Characteristics.html#Buildings.Obsolete.Fluid.Movers.BaseClasses.Characteristics.efficiencyParameters"
+>efficiencyParameters</a></td><td>motorEfficiency</td><td>&nbsp;</td><td>Normalized volume flow rate vs. efficiency</td></tr>
+<tr><td><a href="Buildings_Obsolete_Fluid_Movers_BaseClasses_Characteristics.html#Buildings.Obsolete.Fluid.Movers.BaseClasses.Characteristics.efficiencyParameters"
+>efficiencyParameters</a></td><td>hydraulicEfficiency</td><td>&nbsp;</td><td>Normalized volume flow rate vs. efficiency</td></tr>
+<tr style="background-color: #c0c0c0"><td colspan="4"><b>Advanced</b></td></tr>
+<tr><td>Boolean</td><td>homotopyInitialization</td><td>true</td><td>= true, use homotopy method</td></tr>
+</table>
+<h3>Connectors</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Connectors">
+<tr><th>Type</th><th>Name</th><th>Description</th></tr>
+<tr><td>output <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+>RealOutput</a></td><td>P</td><td>Electrical power consumed [W]</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">partial </span><span style="color: blue; font-weight: normal; font-style: normal;">model</span> PowerInterface <span style="color: #006400; font-weight: normal; font-style: normal;">
+  &quot;Partial model to compute power draw and heat dissipation of fans and pumps&quot;</span>
+
+  <span style="color: blue; font-weight: normal; font-style: normal;">import </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Constants.html#Modelica.Constants"
+>Modelica.Constants</a>;
+
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Boolean use_powerCharacteristic = false <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Use powerCharacteristic (vs. efficiencyCharacteristic)&quot;</span>;
+
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Boolean motorCooledByFluid = true <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;If true, then motor heat is added to fluid stream&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Boolean homotopyInitialization = true <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;= true, use homotopy method&quot;</span>;
+
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="Buildings_Obsolete_Fluid_Movers_BaseClasses_Characteristics.html#Buildings.Obsolete.Fluid.Movers.BaseClasses.Characteristics.efficiencyParameters"
+>Buildings.Obsolete.Fluid.Movers.BaseClasses.Characteristics.efficiencyParameters</a>
+      motorEfficiency(r_V={1}, eta={0.7}) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Normalized volume flow rate vs. efficiency&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="Buildings_Obsolete_Fluid_Movers_BaseClasses_Characteristics.html#Buildings.Obsolete.Fluid.Movers.BaseClasses.Characteristics.efficiencyParameters"
+>Buildings.Obsolete.Fluid.Movers.BaseClasses.Characteristics.efficiencyParameters</a>
+      hydraulicEfficiency(r_V={1}, eta={0.7}) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Normalized volume flow rate vs. efficiency&quot;</span>;
+
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Density"
+>Modelica.SIunits.Density</a> rho_default <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Fluid density at medium default state&quot;</span>;
+
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+>Modelica.Blocks.Interfaces.RealOutput</a> P(quantity=&quot;Modelica.SIunits.Power&quot;,
+   unit=&quot;W&quot;) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Electrical power consumed&quot;</span>;
+
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Power"
+>Modelica.SIunits.Power</a> WHyd <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Hydraulic power input (converted to flow work and heat)&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Power"
+>Modelica.SIunits.Power</a> WFlo <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Flow work&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.HeatFlowRate"
+>Modelica.SIunits.HeatFlowRate</a> Q_flow <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Heat input from fan or pump to medium&quot;</span>;
+  Real eta(min=0, max=1) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Global efficiency&quot;</span>;
+  Real etaHyd(min=0, max=1) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Hydraulic efficiency&quot;</span>;
+  Real etaMot(min=0, max=1) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Motor efficiency&quot;</span>;
+
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
+>Modelica.SIunits.Pressure</a> dpMachine(displayUnit=&quot;Pa&quot;) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Pressure increase&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.VolumeFlowRate"
+>Modelica.SIunits.VolumeFlowRate</a> VMachine_flow <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Volume flow rate&quot;</span>;
+<span style="color: blue; font-weight: normal; font-style: normal;">protected </span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.VolumeFlowRate"
+>Modelica.SIunits.VolumeFlowRate</a> V_flow_max(fixed=false) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Maximum volume flow rate, used for smoothing&quot;</span>;
+  <span style="color: #006400; font-weight: normal; font-style: normal;">//Modelica.SIunits.HeatFlowRate QThe_flow &quot;Heat input into the medium&quot;;</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.VolumeFlowRate"
+>Modelica.SIunits.VolumeFlowRate</a> delta_V_flow = 1E-3*V_flow_max <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Factor used for setting heat input into medium to zero at very small flows&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">final </span><span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Real motDer[<span style="color: red; font-weight: normal; font-style: normal;">size</span>(motorEfficiency.r_V, 1)](<span style="color: blue; font-weight: normal; font-style: normal;">each </span>fixed=false) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Coefficients for polynomial of pressure vs. flow rate&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">final </span><span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Real hydDer[<span style="color: red; font-weight: normal; font-style: normal;">size</span>(hydraulicEfficiency.r_V,1)](<span style="color: blue; font-weight: normal; font-style: normal;">each </span>fixed=false) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Coefficients for polynomial of pressure vs. flow rate&quot;</span>;
+
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.HeatFlowRate"
+>Modelica.SIunits.HeatFlowRate</a> QThe_flow <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Heat input from fan or pump to medium&quot;</span>;
+
+<span style="color: blue; font-weight: normal; font-style: normal;">initial </span><span style="color: blue; font-weight: normal; font-style: normal;">algorithm </span>
+ <span style="color: #006400; font-weight: normal; font-style: normal;">// Compute derivatives for cubic spline</span>
+ motDer :=
+   <span style="color: blue; font-weight: normal; font-style: normal;">if </span>use_powerCharacteristic<span style="color: blue; font-weight: normal; font-style: normal;"> then </span>
+     <span style="color: red; font-weight: normal; font-style: normal;">zeros</span>(<span style="color: red; font-weight: normal; font-style: normal;">size</span>(motorEfficiency.r_V, 1))<span style="color: blue; font-weight: normal; font-style: normal;">
+   elseif </span>(<span style="color: red; font-weight: normal; font-style: normal;"> size</span>(motorEfficiency.r_V, 1) == 1)<span style="color: blue; font-weight: normal; font-style: normal;">  then </span>
+       {0}<span style="color: blue; font-weight: normal; font-style: normal;">
+   else </span>
+      <span style="color: red; font-weight: normal; font-style: normal;">Buildings.Utilities.Math.Functions.splineDerivatives</span>(
+      x=motorEfficiency.r_V,
+      y=motorEfficiency.eta,
+      ensureMonotonicity=<span style="color: red; font-weight: normal; font-style: normal;">Buildings.Utilities.Math.Functions.isMonotonic</span>(x=motorEfficiency.eta,
+                                                                        strict=false));
+  hydDer :=
+     <span style="color: blue; font-weight: normal; font-style: normal;">if </span>use_powerCharacteristic<span style="color: blue; font-weight: normal; font-style: normal;"> then </span>
+       <span style="color: red; font-weight: normal; font-style: normal;">zeros</span>(<span style="color: red; font-weight: normal; font-style: normal;">size</span>(hydraulicEfficiency.r_V, 1))<span style="color: blue; font-weight: normal; font-style: normal;">
+     elseif </span>(<span style="color: red; font-weight: normal; font-style: normal;"> size</span>(hydraulicEfficiency.r_V, 1) == 1)<span style="color: blue; font-weight: normal; font-style: normal;">  then </span>
+       {0}<span style="color: blue; font-weight: normal; font-style: normal;">
+     else </span>
+       <span style="color: red; font-weight: normal; font-style: normal;">Buildings.Utilities.Math.Functions.splineDerivatives</span>(
+                   x=hydraulicEfficiency.r_V,
+                   y=hydraulicEfficiency.eta);
+<span style="color: blue; font-weight: normal; font-style: normal;">equation </span>
+  eta = etaHyd * etaMot;
+<span style="color: #006400; font-weight: normal; font-style: normal;">//  WFlo = eta * P;</span>
+  <span style="color: #006400; font-weight: normal; font-style: normal;">// Flow work</span>
+  WFlo = dpMachine*VMachine_flow;
+  <span style="color: #006400; font-weight: normal; font-style: normal;">// Hydraulic power (transmitted by shaft), etaHyd = WFlo/WHyd</span>
+  etaHyd * WHyd   = WFlo;
+  <span style="color: #006400; font-weight: normal; font-style: normal;">// Heat input into medium</span>
+  QThe_flow +  WFlo = <span style="color: blue; font-weight: normal; font-style: normal;">if </span>motorCooledByFluid<span style="color: blue; font-weight: normal; font-style: normal;"> then </span>P<span style="color: blue; font-weight: normal; font-style: normal;"> else </span>WHyd;
+  <span style="color: #006400; font-weight: normal; font-style: normal;">// At m_flow = 0, the solver may still obtain positive values for QThe_flow.</span>
+  <span style="color: #006400; font-weight: normal; font-style: normal;">// The next statement sets the heat input into the medium to zero for very small flow rates.</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">if </span>homotopyInitialization<span style="color: blue; font-weight: normal; font-style: normal;"> then</span>
+    Q_flow =<span style="color: red; font-weight: normal; font-style: normal;"> homotopy</span>(actual=<span style="color: red; font-weight: normal; font-style: normal;">Buildings.Utilities.Math.Functions.spliceFunction</span>(pos=QThe_flow, neg=0,
+                       x=<span style="color: red; font-weight: normal; font-style: normal;">noEvent</span>(<span style="color: red; font-weight: normal; font-style: normal;">abs</span>(VMachine_flow))-2*delta_V_flow, deltax=delta_V_flow),
+                     simplified=0);
+  <span style="color: blue; font-weight: normal; font-style: normal;">else</span>
+    Q_flow =<span style="color: red; font-weight: normal; font-style: normal;"> Buildings.Utilities.Math.Functions.spliceFunction</span>(pos=QThe_flow, neg=0,
+                       x=<span style="color: red; font-weight: normal; font-style: normal;">noEvent</span>(<span style="color: red; font-weight: normal; font-style: normal;">abs</span>(VMachine_flow))-2*delta_V_flow, deltax=delta_V_flow);
+  <span style="color: blue; font-weight: normal; font-style: normal;">end if</span>;
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>PowerInterface;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE PrescribedFlowMachine<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Obsolete.Fluid.51d56e3bb4406995chineI.png" alt="Buildings.Obsolete.Fluid.Movers.BaseClasses.PrescribedFlowMachine" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Obsolete.Fluid.Movers.BaseClasses.PrescribedFlowMachine"></a><a href="Buildings_Obsolete_Fluid_Movers_BaseClasses.html#Buildings.Obsolete.Fluid.Movers.BaseClasses"
+>Buildings.Obsolete.Fluid.Movers.BaseClasses</a>.PrescribedFlowMachine</h2>
+<p>
+<b>Partial model for fan or pump with speed (y or Nrpm) as input signal</b>
+<br>
+<br><img src="Buildings.Obsolete.Fluid.51d56e3bb4406995chineD.png" alt="Buildings.Obsolete.Fluid.Movers.BaseClasses.PrescribedFlowMachine">
+</p>
+<h3>Information</h3>
+
+<p>This is the base model for fans and pumps that take as
+input a control signal in the form of the pump speed <code>Nrpm</code>
+or the normalized pump speed <code>y=Nrpm/N_nominal</code>.
+</p>
+
+<p>Extends from <a href="Buildings_Obsolete_Fluid_Movers_BaseClasses.html#Buildings.Obsolete.Fluid.Movers.BaseClasses.FlowMachineInterface"
+>Buildings.Obsolete.Fluid.Movers.BaseClasses.FlowMachineInterface</a> (Partial model with performance curves for fans or pumps), <a href="Buildings_Obsolete_Fluid_Movers_BaseClasses.html#Buildings.Obsolete.Fluid.Movers.BaseClasses.PartialFlowMachine"
+>Buildings.Obsolete.Fluid.Movers.BaseClasses.PartialFlowMachine</a> (Partial model to interface fan or pump models with the medium).</p>
+<h3>Parameters</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Density"
+>Density</a></td><td>rho_default</td><td>Medium.density_pTX(p=Medium....</td><td>Fluid density at medium default state [kg/m3]</td></tr>
+<tr><td colspan="2">replaceable package Medium</td><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium"
+>PartialMedium</a></td><td>Medium in the component</td></tr>
+<tr><td>Boolean</td><td>addPowerToMedium</td><td>true</td><td>Set to false to avoid any power (=heat and flow work) being added to medium (may give simpler equations)</td></tr>
+<tr style="background-color: #e0e0e0"><td colspan="4">Characteristics</td></tr>
+<tr><td>Boolean</td><td>use_powerCharacteristic</td><td>false</td><td>Use powerCharacteristic (vs. efficiencyCharacteristic)</td></tr>
+<tr><td>Boolean</td><td>motorCooledByFluid</td><td>true</td><td>If true, then motor heat is added to fluid stream</td></tr>
+<tr><td><a href="Buildings_Obsolete_Fluid_Movers_BaseClasses_Characteristics.html#Buildings.Obsolete.Fluid.Movers.BaseClasses.Characteristics.efficiencyParameters"
+>efficiencyParameters</a></td><td>motorEfficiency</td><td>&nbsp;</td><td>Normalized volume flow rate vs. efficiency</td></tr>
+<tr><td><a href="Buildings_Obsolete_Fluid_Movers_BaseClasses_Characteristics.html#Buildings.Obsolete.Fluid.Movers.BaseClasses.Characteristics.efficiencyParameters"
+>efficiencyParameters</a></td><td>hydraulicEfficiency</td><td>&nbsp;</td><td>Normalized volume flow rate vs. efficiency</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits_Conversions_NonSIunits.html#Modelica.SIunits.Conversions.NonSIunits.AngularVelocity_rpm"
+>AngularVelocity_rpm</a></td><td>N_nominal</td><td>1500</td><td>Nominal rotational speed for flow characteristic [1/min]</td></tr>
+<tr><td><a href="Buildings_Obsolete_Fluid_Movers_BaseClasses_Characteristics.html#Buildings.Obsolete.Fluid.Movers.BaseClasses.Characteristics.flowParameters"
+>flowParameters</a></td><td>pressure</td><td>&nbsp;</td><td>Volume flow rate vs. total pressure rise</td></tr>
+<tr><td><a href="Buildings_Obsolete_Fluid_Movers_BaseClasses_Characteristics.html#Buildings.Obsolete.Fluid.Movers.BaseClasses.Characteristics.powerParameters"
+>powerParameters</a></td><td>power</td><td>&nbsp;</td><td>Volume flow rate vs. electrical power consumption</td></tr>
+<tr style="background-color: #e0e0e0"><td colspan="4">Initialization</td></tr>
+<tr><td>Real</td><td>r_V.start</td><td>1</td><td>Ratio V_flow/V_flow_max [1]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+>MassFlowRate</a></td><td>m_flow.start</td><td>0</td><td>Mass flow rate from port_a to port_b (m_flow &gt; 0 is design flow direction) [kg/s]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
+>Pressure</a></td><td>dp.start</td><td>0</td><td>Pressure difference between port_a and port_b [Pa]</td></tr>
+<tr style="background-color: #e0e0e0"><td colspan="4">Nominal condition</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+>MassFlowRate</a></td><td>m_flow_nominal</td><td>max(pressure.V_flow)*rho_def...</td><td>Nominal mass flow rate [kg/s]</td></tr>
+<tr style="background-color: #c0c0c0"><td colspan="4"><b>Advanced</b></td></tr>
+<tr><td>Boolean</td><td>homotopyInitialization</td><td>true</td><td>= true, use homotopy method</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+>MassFlowRate</a></td><td>m_flow_small</td><td>1E-4*abs(m_flow_nominal)</td><td>Small mass flow rate for regularization of zero flow [kg/s]</td></tr>
+<tr style="background-color: #e0e0e0"><td colspan="4">Diagnostics</td></tr>
+<tr><td>Boolean</td><td>show_T</td><td>false</td><td>= true, if actual temperature at port is computed</td></tr>
+<tr style="background-color: #c0c0c0"><td colspan="4"><b>Dynamics</b></td></tr>
+<tr style="background-color: #e0e0e0"><td colspan="4">Filtered speed</td></tr>
+<tr><td>Boolean</td><td>filteredSpeed</td><td>true</td><td>= true, if speed is filtered with a 2nd order CriticalDamping filter</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Time"
+>Time</a></td><td>riseTime</td><td>30</td><td>Rise time of the filter (time to reach 99.6 % of the speed) [s]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Types.html#Modelica.Blocks.Types.Init"
+>Init</a></td><td>init</td><td>Modelica.Blocks.Types.Init.I...</td><td>Type of initialization (no init/steady state/initial state/initial output)</td></tr>
+<tr><td>Real</td><td>N_start</td><td>0</td><td>Initial value of speed</td></tr>
+<tr style="background-color: #e0e0e0"><td colspan="4">Equations</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Fluid_Types.html#Modelica.Fluid.Types.Dynamics"
+>Dynamics</a></td><td>energyDynamics</td><td>Modelica.Fluid.Types.Dynamic...</td><td>Formulation of energy balance</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Fluid_Types.html#Modelica.Fluid.Types.Dynamics"
+>Dynamics</a></td><td>massDynamics</td><td>energyDynamics</td><td>Formulation of mass balance</td></tr>
+<tr><td>Boolean</td><td>dynamicBalance</td><td>true</td><td>Set to true to use a dynamic balance, which often leads to smaller systems of equations</td></tr>
+<tr><td>Real</td><td>mSenFac</td><td>1</td><td>Factor for scaling the sensible thermal mass of the volume</td></tr>
+<tr style="background-color: #e0e0e0"><td colspan="4">Nominal condition</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Time"
+>Time</a></td><td>tau</td><td>1</td><td>Time constant of fluid volume for nominal flow, used if dynamicBalance=true [s]</td></tr>
+<tr style="background-color: #c0c0c0"><td colspan="4"><b>Initialization</b></td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.AbsolutePressure"
+>AbsolutePressure</a></td><td>p_start</td><td>Medium.p_default</td><td>Start value of pressure [Pa]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.Temperature"
+>Temperature</a></td><td>T_start</td><td>Medium.T_default</td><td>Start value of temperature [K]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.MassFraction"
+>MassFraction</a></td><td>X_start[Medium.nX]</td><td>Medium.X_default</td><td>Start value of mass fractions m_i/m [kg/kg]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.ExtraProperty"
+>ExtraProperty</a></td><td>C_start[Medium.nC]</td><td>fill(0, Medium.nC)</td><td>Start value of trace substances</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.ExtraProperty"
+>ExtraProperty</a></td><td>C_nominal[Medium.nC]</td><td>fill(1E-2, Medium.nC)</td><td>Nominal value of trace substances. (Set to typical order of magnitude.)</td></tr>
+<tr style="background-color: #c0c0c0"><td colspan="4"><b>Assumptions</b></td></tr>
+<tr><td>Boolean</td><td>allowFlowReversal</td><td>true</td><td>= true to allow flow reversal, false restricts to design direction (port_a -&gt; port_b)</td></tr>
+</table>
+<h3>Connectors</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Connectors">
+<tr><th>Type</th><th>Name</th><th>Description</th></tr>
+<tr><td>output <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+>RealOutput</a></td><td>P</td><td>Electrical power consumed [W]</td></tr>
+<tr><td>output <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+>RealOutput</a></td><td>N_actual</td><td>[1/min]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_a"
+>FluidPort_a</a></td><td>port_a</td><td>Fluid connector a (positive design flow direction is from port_a to port_b)</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_b"
+>FluidPort_b</a></td><td>port_b</td><td>Fluid connector b (positive design flow direction is from port_a to port_b)</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Thermal_HeatTransfer_Interfaces.html#Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a"
+>HeatPort_a</a></td><td>heatPort</td><td>Heat dissipation to environment</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">partial </span><span style="color: blue; font-weight: normal; font-style: normal;">model</span> PrescribedFlowMachine <span style="color: #006400; font-weight: normal; font-style: normal;">
+  &quot;Partial model for fan or pump with speed (y or Nrpm) as input signal&quot;</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="Buildings_Obsolete_Fluid_Movers_BaseClasses.html#Buildings.Obsolete.Fluid.Movers.BaseClasses.FlowMachineInterface"
+>Buildings.Obsolete.Fluid.Movers.BaseClasses.FlowMachineInterface</a>(
+    V_flow_max(start=V_flow_nominal),
+    <span style="color: blue; font-weight: normal; font-style: normal;">final </span>rho_default =<span style="color: red; font-weight: normal; font-style: normal;"> Medium.density_pTX</span>(
+      p=Medium.p_default,
+      T=Medium.T_default,
+      X=Medium.X_default));
+
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="Buildings_Obsolete_Fluid_Movers_BaseClasses.html#Buildings.Obsolete.Fluid.Movers.BaseClasses.PartialFlowMachine"
+>Buildings.Obsolete.Fluid.Movers.BaseClasses.PartialFlowMachine</a>(
+      <span style="color: blue; font-weight: normal; font-style: normal;">final </span>m_flow_nominal =<span style="color: red; font-weight: normal; font-style: normal;"> max</span>(pressure.V_flow)*rho_default,
+      preSou(<span style="color: blue; font-weight: normal; font-style: normal;">final </span>control_m_flow=false));
+
+  <span style="color: #006400; font-weight: normal; font-style: normal;">// Models</span>
+<span style="color: blue; font-weight: normal; font-style: normal;">protected </span>
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.RealExpression"
+>Modelica.Blocks.Sources.RealExpression</a> dpMac(y=-dpMachine) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Pressure drop of the pump or fan&quot;</span>;
+
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.RealExpression"
+>Modelica.Blocks.Sources.RealExpression</a> PToMedium_flow(y=Q_flow + WFlo) <span style="color: blue; font-weight: normal; font-style: normal;">if </span>
+       addPowerToMedium <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Heat and work input into medium&quot;</span>;
+<span style="color: blue; font-weight: normal; font-style: normal;">equation </span>
+ VMachine_flow = -port_b.m_flow/rho;
+ rho = rho_in;
+
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(preSou.dp_in, dpMac.y);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(PToMedium_flow.y, prePow.Q_flow);
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>PrescribedFlowMachine;
+</div>
+<hr>
+<address>
+<a href="http://www.3ds.com/">Automatically generated</a> Thu Apr  9 09:47:34 2015.
+</address>
+</body>
+</html>

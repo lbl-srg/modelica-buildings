@@ -1,0 +1,848 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>Buildings.Electrical.Transmission.Functions</title>
+<meta name="HTML-Generator" content="Dymola">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="description" content="&quot;Package that contains functions to compute cable properties&quot;">
+<style type="text/css">
+*       { font-size: 10pt; font-family: Arial, sans-serif; }
+.modelica, .modelica * { font-size: 9pt; font-family: Courier, monospace; white-space: pre; }
+h4      { font-size: 10pt; font-weight: bold; color: green; }
+h3      { font-size: 11pt; font-weight: bold; color: green; }
+h2      { font-size: 13pt; font-weight: bold; color: green; }
+address { font-weight: normal; }
+td      { border: 1px solid #808080; vertical-align: top; }
+th      { border: 1px solid #808080; vertical-align: top; font-weight: bold; }
+table   { border: 1px solid #808080; border-collapse: collapse; }
+</style>
+<link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../Resources/www/modelicaDoc.css">
+</HEAD>
+<body>
+<!-- --- header ------ -->
+<div class="headerStyle">
+<img src="../Resources/www/lbl-logo.png" alt="LBL logo"/>
+</div>
+<div class="headerLinks">
+<ul><li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt; <a href="Buildings.html">Modelica</a></li></ul>
+</div>
+<!-- --- end header -- -->
+
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE Functions<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><a name="Buildings.Electrical.Transmission.Functions"></a><a href="Buildings_Electrical_Transmission.html#Buildings.Electrical.Transmission"
+>Buildings.Electrical.Transmission</a>.Functions</h2>
+<p>
+<b>Package that contains functions to compute cable properties</b><br>
+</p>
+<h3>Information</h3>
+
+<p>
+This package contains various functions that are used to compute
+cable properties and select the default cable during
+automatic parametrization.
+</p>
+
+<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons_Package.html#Modelica.Icons.Package"
+>Modelica.Icons.Package</a> (Icon for standard packages).</p>
+<h3>Package Content</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Package Content">
+<tr>
+<th>Name</th>
+<th>Description</th>
+</tr>
+<tr>
+<td><img src="Buildings.Electrical.Tran030aca78489ca3c0ctionS.png" alt="Buildings.Electrical.Transmission.Functions.R_AC_correction" width="20" height="20" align="top">&nbsp;<a href="Buildings_Electrical_Transmission_Functions.html#Buildings.Electrical.Transmission.Functions.R_AC_correction"
+>R_AC_correction</a>
+</td>
+<td>This function computes the correction factor of the DC resistance for AC systems at 60 Hz</td>
+</tr>
+<tr>
+<td><img src="Buildings.Electrical.Tran030aca78489ca3c0ctionS.png" alt="Buildings.Electrical.Transmission.Functions.computeGMD" width="20" height="20" align="top">&nbsp;<a href="Buildings_Electrical_Transmission_Functions.html#Buildings.Electrical.Transmission.Functions.computeGMD"
+>computeGMD</a>
+</td>
+<td>This function computes the geometric mean distance of a three-phase transmission line</td>
+</tr>
+<tr>
+<td><img src="Buildings.Electrical.Tran030aca78489ca3c0ctionS.png" alt="Buildings.Electrical.Transmission.Functions.computeGMR" width="20" height="20" align="top">&nbsp;<a href="Buildings_Electrical_Transmission_Functions.html#Buildings.Electrical.Transmission.Functions.computeGMR"
+>computeGMR</a>
+</td>
+<td>This function computes the geometric mean radius of a cable with 1 to 4 conductors</td>
+</tr>
+<tr>
+<td><img src="Buildings.Electrical.Tran030aca78489ca3c0ctionS.png" alt="Buildings.Electrical.Transmission.Functions.selectCable_low" width="20" height="20" align="top">&nbsp;<a href="Buildings_Electrical_Transmission_Functions.html#Buildings.Electrical.Transmission.Functions.selectCable_low"
+>selectCable_low</a>
+</td>
+<td>This function is used to automatically select the
+    type of cable for low voltages</td>
+</tr>
+<tr>
+<td><img src="Buildings.Electrical.Tran030aca78489ca3c0ctionS.png" alt="Buildings.Electrical.Transmission.Functions.selectCable_med" width="20" height="20" align="top">&nbsp;<a href="Buildings_Electrical_Transmission_Functions.html#Buildings.Electrical.Transmission.Functions.selectCable_med"
+>selectCable_med</a>
+</td>
+<td>This function is used to automatically select the
+    type of cable for medium voltages</td>
+</tr>
+<tr>
+<td><img src="Buildings.Electrical.Tran030aca78489ca3c0ctionS.png" alt="Buildings.Electrical.Transmission.Functions.selectVoltageLevel" width="20" height="20" align="top">&nbsp;<a href="Buildings_Electrical_Transmission_Functions.html#Buildings.Electrical.Transmission.Functions.selectVoltageLevel"
+>selectVoltageLevel</a>
+</td>
+<td>This function computes the voltage level (low, medium or high) given the nominal voltage</td>
+</tr>
+</table>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE R_AC_correction<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><a name="Buildings.Electrical.Transmission.Functions.R_AC_correction"></a><a href="Buildings_Electrical_Transmission_Functions.html#Buildings.Electrical.Transmission.Functions"
+>Buildings.Electrical.Transmission.Functions</a>.R_AC_correction</h2>
+<p>
+<b>This function computes the correction factor of the DC resistance for AC systems at 60 Hz</b>
+</p>
+<h3>Information</h3>
+
+<p>
+This function computes a correction factor for adapting the DC resistance
+when working with AC voltages. The correction factor assumes <i>f = 60 Hz</i>.
+</p>
+<p>
+The correction is based on the type of cabel (AWG or kcmil) and the material.
+</p>
+
+<table summary="summary" border="1" cellspacing="0" cellpadding="2" style="border-collapse:collapse;">
+<tr>
+<th>Type (AWG or kcmil)</th>
+<th>Material</th>
+<th>Correction factor</th>
+</tr>
+<!-- ************ -->
+<tr>
+<td>1/0</td><td>Aluminium</td><td>1.0</td>
+</tr>
+<!-- ************ -->
+<tr>
+<td>2/0</td><td>Aluminium</td><td>1.001</td>
+</tr>
+<!-- ************ -->
+<tr>
+<td>3/0</td><td>Aluminium</td><td>1.001</td>
+</tr>
+<!-- ************ -->
+<tr>
+<td>4/0</td><td>Aluminium</td><td>1.001</td>
+</tr>
+<!-- ************ -->
+<tr>
+<td>250</td><td>Aluminium</td><td>1.002</td>
+</tr>
+<!-- ************ -->
+<tr>
+<td>300</td><td>Aluminium</td><td>1.003</td>
+</tr>
+<!-- ************ -->
+<tr>
+<td>350</td><td>Aluminium</td><td>1.004</td>
+</tr>
+<!-- ************ -->
+<tr>
+<td>400</td><td>Aluminium</td><td>1.005</td>
+</tr>
+<!-- ************ -->
+<tr>
+<td>500</td><td>Aluminium</td><td>1.007</td>
+</tr>
+<!-- ************ -->
+<tr>
+<td>600</td><td>Aluminium</td><td>1.010</td>
+</tr>
+<!-- ************ -->
+<tr>
+<td>700</td><td>Aluminium</td><td>1.013</td>
+</tr>
+<!-- ************ -->
+<tr>
+<td>750</td><td>Aluminium</td><td>1.015</td>
+</tr>
+<!-- ************ -->
+<tr>
+<td>800</td><td>Aluminium</td><td>1.017</td>
+</tr>
+<!-- ************ -->
+<tr>
+<td>1000</td><td>Aluminium</td><td>1.026</td>
+</tr>
+<!-- ************ -->
+<tr>
+<td>1250</td><td>Aluminium</td><td>1.040</td>
+</tr>
+<!-- ************ -->
+<tr>
+<td>1500</td><td>Aluminium</td><td>1.058</td>
+</tr>
+<!-- ************ -->
+<tr>
+<td>1750</td><td>Aluminium</td><td>1.079</td>
+</tr>
+<!-- ************ -->
+<tr>
+<td>2000</td><td>Aluminium</td><td>1.100</td>
+</tr>
+<!-- ************ -->
+<tr>
+<td>2500</td><td>Aluminium</td><td>1.142</td>
+</tr>
+</table>
+
+<table summary="summary" border="1" cellspacing="0" cellpadding="2" style="border-collapse:collapse;">
+<tr>
+<th>Type (AWG or kcmil)</th>
+<th>Material</th>
+<th>Correction factor</th>
+</tr>
+<!-- ************ -->
+<tr>
+<td>1/0</td><td>Copper</td><td>1.0</td>
+</tr>
+<!-- ************ -->
+<tr>
+<td>2/0</td><td>Copper</td><td>1.001</td>
+</tr>
+<!-- ************ -->
+<tr>
+<td>3/0</td><td>Copper</td><td>1.002</td>
+</tr>
+<!-- ************ -->
+<tr>
+<td>4/0</td><td>Copper</td><td>1.004</td>
+</tr>
+<!-- ************ -->
+<tr>
+<td>250</td><td>Copper</td><td>1.005</td>
+</tr>
+<!-- ************ -->
+<tr>
+<td>300</td><td>Copper</td><td>1.006</td>
+</tr>
+<!-- ************ -->
+<tr>
+<td>350</td><td>Copper</td><td>1.009</td>
+</tr>
+<!-- ************ -->
+<tr>
+<td>400</td><td>Copper</td><td>1.011</td>
+</tr>
+<!-- ************ -->
+<tr>
+<td>500</td><td>Copper</td><td>1.018</td>
+</tr>
+<!-- ************ -->
+<tr>
+<td>600</td><td>Copper</td><td>1.025</td>
+</tr>
+<!-- ************ -->
+<tr>
+<td>700</td><td>Copper</td><td>1.034</td>
+</tr>
+<!-- ************ -->
+<tr>
+<td>750</td><td>Copper</td><td>1.039</td>
+</tr>
+<!-- ************ -->
+<tr>
+<td>800</td><td>Copper</td><td>1.044</td>
+</tr>
+<!-- ************ -->
+<tr>
+<td>1000</td><td>Copper</td><td>1.067</td>
+</tr>
+<!-- ************ -->
+<tr>
+<td>1250</td><td>Copper</td><td>1.102</td>
+</tr>
+<!-- ************ -->
+<tr>
+<td>1500</td><td>Copper</td><td>1.142</td>
+</tr>
+<!-- ************ -->
+<tr>
+<td>1750</td><td>Copper</td><td>1.185</td>
+</tr>
+<!-- ************ -->
+<tr>
+<td>2000</td><td>Copper</td><td>1.233</td>
+</tr>
+<!-- ************ -->
+<tr>
+<td>2500</td><td>Copper</td><td>1.326</td>
+</tr>
+</table>
+
+
+<h3>Inputs</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Inputs">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td>String</td><td>size</td><td>&nbsp;</td><td>Size of the commercial cable (AWG or kcmil)</td></tr>
+<tr><td><a href="Buildings_Electrical_Transmission_Types.html#Buildings.Electrical.Transmission.Types.Material"
+>Material</a></td><td>material</td><td>&nbsp;</td><td>Material of the cable</td></tr>
+</table>
+<h3>Outputs</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Outputs">
+<tr><th>Type</th><th>Name</th><th>Description</th></tr>
+<tr><td>Real</td><td>correction</td><td>Correction factor</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">function</span> R_AC_correction <span style="color: #006400; font-weight: normal; font-style: normal;">
+  &quot;This function computes the correction factor of the DC resistance for AC systems at 60 Hz&quot;</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">input </span>String size <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Size of the commercial cable (AWG or kcmil)&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">input </span><a href="Buildings_Electrical_Transmission_Types.html#Buildings.Electrical.Transmission.Types.Material"
+>Buildings.Electrical.Transmission.Types.Material</a> material <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Material of the cable&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">output </span>Real correction <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Correction factor&quot;</span>;
+<span style="color: blue; font-weight: normal; font-style: normal;">algorithm </span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">if </span>material == Buildings.Electrical.Transmission.Types.Material.Al<span style="color: blue; font-weight: normal; font-style: normal;"> then</span>
+    <span style="color: blue; font-weight: normal; font-style: normal;">if </span>size == &quot;1/0&quot;<span style="color: blue; font-weight: normal; font-style: normal;"> then</span>
+      correction := 1.0;
+    <span style="color: blue; font-weight: normal; font-style: normal;">elseif </span>size == &quot;2/0&quot;<span style="color: blue; font-weight: normal; font-style: normal;"> then</span>
+      correction := 1.001;
+    <span style="color: blue; font-weight: normal; font-style: normal;">elseif </span>size == &quot;3/0&quot;<span style="color: blue; font-weight: normal; font-style: normal;"> then</span>
+      correction := 1.001;
+    <span style="color: blue; font-weight: normal; font-style: normal;">elseif </span>size == &quot;4/0&quot;<span style="color: blue; font-weight: normal; font-style: normal;"> then</span>
+      correction := 1.001;
+    <span style="color: blue; font-weight: normal; font-style: normal;">elseif </span>size == &quot;250&quot;<span style="color: blue; font-weight: normal; font-style: normal;"> then</span>
+      correction := 1.002;
+    <span style="color: blue; font-weight: normal; font-style: normal;">elseif </span>size == &quot;300&quot;<span style="color: blue; font-weight: normal; font-style: normal;"> then</span>
+      correction := 1.003;
+    <span style="color: blue; font-weight: normal; font-style: normal;">elseif </span>size == &quot;350&quot;<span style="color: blue; font-weight: normal; font-style: normal;"> then</span>
+      correction := 1.004;
+    <span style="color: blue; font-weight: normal; font-style: normal;">elseif </span>size == &quot;400&quot;<span style="color: blue; font-weight: normal; font-style: normal;"> then</span>
+      correction := 1.005;
+    <span style="color: blue; font-weight: normal; font-style: normal;">elseif </span>size == &quot;500&quot;<span style="color: blue; font-weight: normal; font-style: normal;"> then</span>
+      correction := 1.007;
+    <span style="color: blue; font-weight: normal; font-style: normal;">elseif </span>size == &quot;600&quot;<span style="color: blue; font-weight: normal; font-style: normal;"> then</span>
+      correction := 1.01;
+    <span style="color: blue; font-weight: normal; font-style: normal;">elseif </span>size == &quot;700&quot;<span style="color: blue; font-weight: normal; font-style: normal;"> then</span>
+      correction := 1.013;
+    <span style="color: blue; font-weight: normal; font-style: normal;">elseif </span>size == &quot;750&quot;<span style="color: blue; font-weight: normal; font-style: normal;"> then</span>
+      correction := 1.015;
+    <span style="color: blue; font-weight: normal; font-style: normal;">elseif </span>size == &quot;800&quot;<span style="color: blue; font-weight: normal; font-style: normal;"> then</span>
+      correction := 1.017;
+    <span style="color: blue; font-weight: normal; font-style: normal;">elseif </span>size == &quot;1000&quot;<span style="color: blue; font-weight: normal; font-style: normal;"> then</span>
+      correction := 1.026;
+    <span style="color: blue; font-weight: normal; font-style: normal;">elseif </span>size == &quot;1250&quot;<span style="color: blue; font-weight: normal; font-style: normal;"> then</span>
+      correction := 1.04;
+    <span style="color: blue; font-weight: normal; font-style: normal;">elseif </span>size == &quot;1500&quot;<span style="color: blue; font-weight: normal; font-style: normal;"> then</span>
+      correction := 1.058;
+    <span style="color: blue; font-weight: normal; font-style: normal;">elseif </span>size == &quot;1750&quot;<span style="color: blue; font-weight: normal; font-style: normal;"> then</span>
+      correction := 1.079;
+    <span style="color: blue; font-weight: normal; font-style: normal;">elseif </span>size == &quot;2000&quot;<span style="color: blue; font-weight: normal; font-style: normal;"> then</span>
+      correction := 1.1;
+    <span style="color: blue; font-weight: normal; font-style: normal;">elseif </span>size == &quot;2500&quot;<span style="color: blue; font-weight: normal; font-style: normal;"> then</span>
+      correction := 1.142;
+    <span style="color: blue; font-weight: normal; font-style: normal;">else</span>
+      correction := 1.0;
+    <span style="color: blue; font-weight: normal; font-style: normal;">end if</span>;
+
+  <span style="color: blue; font-weight: normal; font-style: normal;">elseif </span>material == Buildings.Electrical.Transmission.Types.Material.Cu<span style="color: blue; font-weight: normal; font-style: normal;"> then</span>
+    <span style="color: blue; font-weight: normal; font-style: normal;">if </span>size == &quot;1/0&quot;<span style="color: blue; font-weight: normal; font-style: normal;"> then</span>
+      correction := 1.0;
+    <span style="color: blue; font-weight: normal; font-style: normal;">elseif </span>size == &quot;2/0&quot;<span style="color: blue; font-weight: normal; font-style: normal;"> then</span>
+      correction := 1.001;
+    <span style="color: blue; font-weight: normal; font-style: normal;">elseif </span>size == &quot;3/0&quot;<span style="color: blue; font-weight: normal; font-style: normal;"> then</span>
+      correction := 1.002;
+    <span style="color: blue; font-weight: normal; font-style: normal;">elseif </span>size == &quot;4/0&quot;<span style="color: blue; font-weight: normal; font-style: normal;"> then</span>
+      correction := 1.004;
+    <span style="color: blue; font-weight: normal; font-style: normal;">elseif </span>size == &quot;250&quot;<span style="color: blue; font-weight: normal; font-style: normal;"> then</span>
+      correction := 1.005;
+    <span style="color: blue; font-weight: normal; font-style: normal;">elseif </span>size == &quot;300&quot;<span style="color: blue; font-weight: normal; font-style: normal;"> then</span>
+      correction := 1.006;
+    <span style="color: blue; font-weight: normal; font-style: normal;">elseif </span>size == &quot;350&quot;<span style="color: blue; font-weight: normal; font-style: normal;"> then</span>
+      correction := 1.009;
+    <span style="color: blue; font-weight: normal; font-style: normal;">elseif </span>size == &quot;400&quot;<span style="color: blue; font-weight: normal; font-style: normal;"> then</span>
+      correction := 1.011;
+    <span style="color: blue; font-weight: normal; font-style: normal;">elseif </span>size == &quot;500&quot;<span style="color: blue; font-weight: normal; font-style: normal;"> then</span>
+      correction := 1.018;
+    <span style="color: blue; font-weight: normal; font-style: normal;">elseif </span>size == &quot;600&quot;<span style="color: blue; font-weight: normal; font-style: normal;"> then</span>
+      correction := 1.025;
+    <span style="color: blue; font-weight: normal; font-style: normal;">elseif </span>size == &quot;700&quot;<span style="color: blue; font-weight: normal; font-style: normal;"> then</span>
+      correction := 1.034;
+    <span style="color: blue; font-weight: normal; font-style: normal;">elseif </span>size == &quot;750&quot;<span style="color: blue; font-weight: normal; font-style: normal;"> then</span>
+      correction := 1.039;
+    <span style="color: blue; font-weight: normal; font-style: normal;">elseif </span>size == &quot;800&quot;<span style="color: blue; font-weight: normal; font-style: normal;"> then</span>
+      correction := 1.044;
+    <span style="color: blue; font-weight: normal; font-style: normal;">elseif </span>size == &quot;1000&quot;<span style="color: blue; font-weight: normal; font-style: normal;"> then</span>
+      correction := 1.067;
+    <span style="color: blue; font-weight: normal; font-style: normal;">elseif </span>size == &quot;1250&quot;<span style="color: blue; font-weight: normal; font-style: normal;"> then</span>
+      correction := 1.102;
+    <span style="color: blue; font-weight: normal; font-style: normal;">elseif </span>size == &quot;1500&quot;<span style="color: blue; font-weight: normal; font-style: normal;"> then</span>
+      correction := 1.142;
+    <span style="color: blue; font-weight: normal; font-style: normal;">elseif </span>size == &quot;1750&quot;<span style="color: blue; font-weight: normal; font-style: normal;"> then</span>
+      correction := 1.185;
+    <span style="color: blue; font-weight: normal; font-style: normal;">elseif </span>size == &quot;2000&quot;<span style="color: blue; font-weight: normal; font-style: normal;"> then</span>
+      correction := 1.233;
+    <span style="color: blue; font-weight: normal; font-style: normal;">elseif </span>size == &quot;2500&quot;<span style="color: blue; font-weight: normal; font-style: normal;"> then</span>
+      correction := 1.326;
+    <span style="color: blue; font-weight: normal; font-style: normal;">else</span>
+      correction := 1.0;
+    <span style="color: blue; font-weight: normal; font-style: normal;">end if</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">else</span>
+    <span style="color: red; font-weight: normal; font-style: normal;">assert</span>(material &lt;&gt; Buildings.Electrical.Transmission.Types.Material.Al<span style="color: blue; font-weight: normal; font-style: normal;"> and </span>
+           material &lt;&gt; Buildings.Electrical.Transmission.Types.Material.Cu,
+    &quot;In function Buildings.Electrical.Transmission.Functions.R_AC_Correction,
+    does not support material &quot; +<span style="color: red; font-weight: normal; font-style: normal;"> String</span>(material) + &quot;.
+    The selected cable has the R_AC_Correction of the Copper.&quot;,
+    level=  AssertionLevel.warning);
+
+    correction := 1.0;
+  <span style="color: blue; font-weight: normal; font-style: normal;">end if</span>;
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>R_AC_correction;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE computeGMD<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><a name="Buildings.Electrical.Transmission.Functions.computeGMD"></a><a href="Buildings_Electrical_Transmission_Functions.html#Buildings.Electrical.Transmission.Functions"
+>Buildings.Electrical.Transmission.Functions</a>.computeGMD</h2>
+<p>
+<b>This function computes the geometric mean distance of a three-phase transmission line</b>
+</p>
+<h3>Information</h3>
+
+<p>
+This function computes the Geometric Mean Distance of a cable.
+</p>
+<p>
+The GMD is computed as
+</p>
+<p align="center" style="font-style:italic;">
+GMD = (d<sub>1</sub> d<sub>2</sub> d<sub>3</sub>)<sup>1/3</sup>,
+</p>
+<p>
+where <i>d<sub>1</sub></i>, <i>d<sub>2</sub></i>, and <i>d<sub>3</sub></i> are
+ the distances between the conductors.
+</p>
+
+<h3>Inputs</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Inputs">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Length"
+>Length</a></td><td>d1</td><td>&nbsp;</td><td>Distance between conductors [m]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Length"
+>Length</a></td><td>d2</td><td>d1</td><td>Distance between conductors [m]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Length"
+>Length</a></td><td>d3</td><td>2*d1</td><td>Distance between conductors [m]</td></tr>
+</table>
+<h3>Outputs</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Outputs">
+<tr><th>Type</th><th>Name</th><th>Description</th></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Length"
+>Length</a></td><td>GMD</td><td>Geometric Mean Distance [m]</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">function</span> computeGMD <span style="color: #006400; font-weight: normal; font-style: normal;">
+  &quot;This function computes the geometric mean distance of a three-phase transmission line&quot;</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">input </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Length"
+>Modelica.SIunits.Length</a> d1 <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Distance between conductors&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">input </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Length"
+>Modelica.SIunits.Length</a> d2 = d1 <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Distance between conductors&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">input </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Length"
+>Modelica.SIunits.Length</a> d3 = 2*d1 <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Distance between conductors&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">output </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Length"
+>Modelica.SIunits.Length</a> GMD <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Geometric Mean Distance&quot;</span>;
+<span style="color: blue; font-weight: normal; font-style: normal;">algorithm </span>
+  GMD := (d1*d2*d3)^(1.0/3.0);
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>computeGMD;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE computeGMR<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><a name="Buildings.Electrical.Transmission.Functions.computeGMR"></a><a href="Buildings_Electrical_Transmission_Functions.html#Buildings.Electrical.Transmission.Functions"
+>Buildings.Electrical.Transmission.Functions</a>.computeGMR</h2>
+<p>
+<b>This function computes the geometric mean radius of a cable with 1 to 4 conductors</b>
+</p>
+<h3>Information</h3>
+
+<p>
+This function computes the Geometric Mean Radius (GMR) of a cable.
+</p>
+<p>
+The GMR is computed as follow, depending on the number of conductors <i>N</i>
+that are part of the cable, and the diamater of the conductor <i>d</i>.
+</p>
+
+<table summary="equations" border = "1" cellspacing="0" cellpadding="2" style="border-collapse:collape;">
+<tr><th>Equation</th><th>Condition</th></tr>
+<tr>
+<td>0.7788 (d/2) </td>
+<td>N = 1</td>
+</tr>
+<!-- ************ -->
+<tr>
+<td>d<sup>1/2</sup></td>
+<td>N = 2</td>
+</tr>
+<!-- ************ -->
+<tr>
+<td>d<sup>2/3</sup></td>
+<td>N = 3</td>
+</tr>
+<!-- ************ -->
+<tr>
+<td>d<sup>2/3</sup></td>
+<td>N = 4</td>
+</tr>
+<!-- ************ -->
+</table>
+
+
+<h3>Inputs</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Inputs">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Length"
+>Length</a></td><td>d</td><td>&nbsp;</td><td>Diameter of the conductor [m]</td></tr>
+<tr><td>Integer</td><td>N</td><td>1</td><td>Number of conductors</td></tr>
+</table>
+<h3>Outputs</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Outputs">
+<tr><th>Type</th><th>Name</th><th>Description</th></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Length"
+>Length</a></td><td>GMR</td><td>Geometric Mean Radius [m]</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">function</span> computeGMR <span style="color: #006400; font-weight: normal; font-style: normal;">
+  &quot;This function computes the geometric mean radius of a cable with 1 to 4 conductors&quot;</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">input </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Length"
+>Modelica.SIunits.Length</a> d <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Diameter of the conductor&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">input </span>Integer N = 1 <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Number of conductors&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">output </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Length"
+>Modelica.SIunits.Length</a> GMR <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Geometric Mean Radius&quot;</span>;
+<span style="color: blue; font-weight: normal; font-style: normal;">algorithm </span>
+  <span style="color: red; font-weight: normal; font-style: normal;">assert</span>(N &gt; 0<span style="color: blue; font-weight: normal; font-style: normal;"> and </span>N &lt; 5,
+    &quot;The number of conductors N must be between 1 and 4, received N=&quot; +<span style="color: red; font-weight: normal; font-style: normal;"> String</span>(N) + &quot;.&quot;);
+  <span style="color: blue; font-weight: normal; font-style: normal;">if </span>N==1<span style="color: blue; font-weight: normal; font-style: normal;"> then</span>
+    GMR := 0.5*d*0.7788;
+  <span style="color: blue; font-weight: normal; font-style: normal;">elseif </span>N==2<span style="color: blue; font-weight: normal; font-style: normal;"> then</span>
+    GMR :=<span style="color: red; font-weight: normal; font-style: normal;"> sqrt</span>(d);
+  <span style="color: blue; font-weight: normal; font-style: normal;">elseif </span>N==3<span style="color: blue; font-weight: normal; font-style: normal;"> then</span>
+    GMR := (d^2)^(1/3);
+  <span style="color: blue; font-weight: normal; font-style: normal;">else</span><span style="color: #006400; font-weight: normal; font-style: normal;"> // N == 4</span>
+    GMR := 1.09*(d^3)^(1/4);
+  <span style="color: blue; font-weight: normal; font-style: normal;">end if</span>;
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>computeGMR;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE selectCable_low<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><a name="Buildings.Electrical.Transmission.Functions.selectCable_low"></a><a href="Buildings_Electrical_Transmission_Functions.html#Buildings.Electrical.Transmission.Functions"
+>Buildings.Electrical.Transmission.Functions</a>.selectCable_low</h2>
+<p>
+<b>This function is used to automatically select the
+    type of cable for low voltages</b>
+</p>
+<h3>Information</h3>
+
+<p>
+This function selects the default cable for a low voltage
+transmission line.
+</p>
+<p>
+The function takes as inputs the nominal voltage <i>V<sub>nominal</sub></i> and the
+nominal power <i>P<sub>nominal</sub></i>. It computes the maximum current current that
+can flow through the cable as
+</p>
+<p align="center" style="font-style:italic;">
+I<sub>MAX</sub> = S<sub>F</sub> P<sub>nominal</sub> / V<sub>nominal</sub>,
+</p>
+<p>
+where <i>S<sub>F</sub></i> is the safety factor. By default the safety factor is equal to <i>1.2</i>.
+</p>
+<p>
+Using <i>I<sub>MAX</sub></i>, the function selects the smallest cable that has an ampacity
+higher than I<sub>MAX</sub>. The cables are selected from
+<a href="Buildings_Electrical_Transmission_LowVoltageCables.html#Buildings.Electrical.Transmission.LowVoltageCables"
+>
+Buildings.Electrical.Transmission.LowVoltageCables</a>.
+</p>
+
+<h3>Inputs</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Inputs">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Power"
+>Power</a></td><td>P_nominal</td><td>0</td><td>Rated power [W]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Voltage"
+>Voltage</a></td><td>V_nominal</td><td>0</td><td>Rated voltage [V]</td></tr>
+</table>
+<h3>Outputs</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Outputs">
+<tr><th>Type</th><th>Name</th><th>Description</th></tr>
+<tr><td><a href="Buildings_Electrical_Transmission_LowVoltageCables.html#Buildings.Electrical.Transmission.LowVoltageCables.Generic"
+>Generic</a></td><td>cable</td><td>Cable</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">function</span> selectCable_low <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;This function is used to automatically select the
+    type of cable for low voltages&quot;</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">input </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Power"
+>Modelica.SIunits.Power</a> P_nominal = 0 <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Rated power&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">input </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Voltage"
+>Modelica.SIunits.Voltage</a> V_nominal = 0 <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Rated voltage&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">output </span><a href="Buildings_Electrical_Transmission_LowVoltageCables.html#Buildings.Electrical.Transmission.LowVoltageCables.Generic"
+>Buildings.Electrical.Transmission.LowVoltageCables.Generic</a> cable <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Cable&quot;</span>;
+<span style="color: blue; font-weight: normal; font-style: normal;">protected </span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Real safety_factor = 1.2;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Current"
+>Modelica.SIunits.Current</a> I_nominal <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Nominal current flowing through the line&quot;</span>;
+  <a href="Buildings_Electrical_Transmission_LowVoltageCables.html#Buildings.Electrical.Transmission.LowVoltageCables.Cu10"
+>Buildings.Electrical.Transmission.LowVoltageCables.Cu10</a> cu10;
+  <a href="Buildings_Electrical_Transmission_LowVoltageCables.html#Buildings.Electrical.Transmission.LowVoltageCables.Cu20"
+>Buildings.Electrical.Transmission.LowVoltageCables.Cu20</a> cu20;
+  <a href="Buildings_Electrical_Transmission_LowVoltageCables.html#Buildings.Electrical.Transmission.LowVoltageCables.Cu25"
+>Buildings.Electrical.Transmission.LowVoltageCables.Cu25</a> cu25;
+  <a href="Buildings_Electrical_Transmission_LowVoltageCables.html#Buildings.Electrical.Transmission.LowVoltageCables.Cu35"
+>Buildings.Electrical.Transmission.LowVoltageCables.Cu35</a> cu35;
+  <a href="Buildings_Electrical_Transmission_LowVoltageCables.html#Buildings.Electrical.Transmission.LowVoltageCables.Cu50"
+>Buildings.Electrical.Transmission.LowVoltageCables.Cu50</a> cu50;
+  <a href="Buildings_Electrical_Transmission_LowVoltageCables.html#Buildings.Electrical.Transmission.LowVoltageCables.Cu95"
+>Buildings.Electrical.Transmission.LowVoltageCables.Cu95</a> cu95;
+  <a href="Buildings_Electrical_Transmission_LowVoltageCables.html#Buildings.Electrical.Transmission.LowVoltageCables.Cu100"
+>Buildings.Electrical.Transmission.LowVoltageCables.Cu100</a> cu100;
+<span style="color: blue; font-weight: normal; font-style: normal;">algorithm </span>
+
+  <span style="color: red; font-weight: normal; font-style: normal;">assert</span>(<span style="color: red; font-weight: normal; font-style: normal;">Transmission.Functions.selectVoltageLevel</span>(V_nominal) == Buildings.Electrical.Types.VoltageLevel.Low,
+  &quot;In function Buildings.Electrical.Transmission.Functions.selectCable_low,
+  cable autosizing has a nominal Voltage &quot; +<span style="color: red; font-weight: normal; font-style: normal;"> String</span>(V_nominal) + &quot; [V].
+  The low voltage cables do not support such a voltage level.&quot;,
+  level=AssertionLevel.error);
+
+  <span style="color: #006400; font-weight: normal; font-style: normal;">// Check if it&#39;s possible to compute the current</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">if </span>V_nominal &gt; 0<span style="color: blue; font-weight: normal; font-style: normal;"> then</span>
+    I_nominal :=safety_factor*P_nominal/V_nominal;
+  <span style="color: blue; font-weight: normal; font-style: normal;">else</span>
+    I_nominal :=0;
+  <span style="color: blue; font-weight: normal; font-style: normal;">end if</span>;
+
+  <span style="color: #006400; font-weight: normal; font-style: normal;">// Assumed the material is Copper</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">if </span>I_nominal &lt; cu10.Amp<span style="color: blue; font-weight: normal; font-style: normal;"> then</span>
+        cable := cu10;
+  <span style="color: blue; font-weight: normal; font-style: normal;">elseif </span>I_nominal &gt;= cu10.Amp<span style="color: blue; font-weight: normal; font-style: normal;"> and </span>I_nominal &lt; cu20.Amp<span style="color: blue; font-weight: normal; font-style: normal;"> then</span>
+        cable := cu20;
+  <span style="color: blue; font-weight: normal; font-style: normal;">elseif </span>I_nominal &gt;= cu20.Amp<span style="color: blue; font-weight: normal; font-style: normal;"> and </span>I_nominal &lt; cu25.Amp<span style="color: blue; font-weight: normal; font-style: normal;"> then</span>
+        cable := cu25;
+  <span style="color: blue; font-weight: normal; font-style: normal;">elseif </span>I_nominal &gt;= cu25.Amp<span style="color: blue; font-weight: normal; font-style: normal;"> and </span>I_nominal &lt; cu35.Amp<span style="color: blue; font-weight: normal; font-style: normal;"> then</span>
+        cable := cu35;
+  <span style="color: blue; font-weight: normal; font-style: normal;">elseif </span>I_nominal &gt;= cu35.Amp<span style="color: blue; font-weight: normal; font-style: normal;"> and </span>I_nominal &lt; cu50.Amp<span style="color: blue; font-weight: normal; font-style: normal;"> then</span>
+        cable := cu50;
+  <span style="color: blue; font-weight: normal; font-style: normal;">elseif </span>I_nominal &gt;= cu50.Amp<span style="color: blue; font-weight: normal; font-style: normal;"> and </span>I_nominal &lt; cu95.Amp<span style="color: blue; font-weight: normal; font-style: normal;"> then</span>
+        cable := cu95;
+  <span style="color: blue; font-weight: normal; font-style: normal;">elseif </span>I_nominal &gt;= cu95.Amp<span style="color: blue; font-weight: normal; font-style: normal;"> and </span>I_nominal &lt; cu100.Amp<span style="color: blue; font-weight: normal; font-style: normal;"> then</span>
+        cable := cu100;
+  <span style="color: blue; font-weight: normal; font-style: normal;">else</span>
+    <span style="color: red; font-weight: normal; font-style: normal;">assert</span>(I_nominal &lt; cu100.Amp,
+&quot;In function Buildings.Electrical.Transmission.Functions.selectCable_low,
+  cable autosizing does not support a current of &quot; +<span style="color: red; font-weight: normal; font-style: normal;"> String</span>(I_nominal) + &quot; [A].
+  The selected cable will be undersized.&quot;,
+  level=AssertionLevel.warning);
+        cable := cu100;
+  <span style="color: blue; font-weight: normal; font-style: normal;">end if</span>;
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>selectCable_low;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE selectCable_med<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><a name="Buildings.Electrical.Transmission.Functions.selectCable_med"></a><a href="Buildings_Electrical_Transmission_Functions.html#Buildings.Electrical.Transmission.Functions"
+>Buildings.Electrical.Transmission.Functions</a>.selectCable_med</h2>
+<p>
+<b>This function is used to automatically select the
+    type of cable for medium voltages</b>
+</p>
+<h3>Information</h3>
+
+<p>
+This function selects the default cable for a medium voltage
+transmission line.
+</p>
+<p>
+The function takes as inputs the nominal voltage <i>V<sub>nominal</sub></i> and the
+nominal power <i>P<sub>nominal</sub></i>. It computes the maximum current current that
+can flow through the cable as
+</p>
+<p align="center" style="font-style:italic;">
+I<sub>MAX</sub> = S<sub>F</sub> P<sub>nominal</sub> / V<sub>nominal</sub>,
+</p>
+<p>
+where <i>S<sub>F</sub></i> is the safety factor. By default the safety factor is equal to <i>1.2</i>.
+</p>
+<p>
+Using <i>I<sub>MAX</sub></i>, the function selects the smallest cable that has an ampacity
+higher than I<sub>MAX</sub>. The cables are selected from
+<a href="Buildings_Electrical_Transmission_MediumVoltageCables.html#Buildings.Electrical.Transmission.MediumVoltageCables"
+>
+Buildings.Electrical.Transmission.MediumVoltageCables</a>.
+</p>
+
+<h3>Inputs</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Inputs">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Power"
+>Power</a></td><td>P_nominal</td><td>0</td><td>Rated power [W]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Voltage"
+>Voltage</a></td><td>V_nominal</td><td>0</td><td>Rated voltage [V]</td></tr>
+</table>
+<h3>Outputs</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Outputs">
+<tr><th>Type</th><th>Name</th><th>Description</th></tr>
+<tr><td><a href="Buildings_Electrical_Transmission_MediumVoltageCables.html#Buildings.Electrical.Transmission.MediumVoltageCables.Generic"
+>Generic</a></td><td>cable</td><td>Cable</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">function</span> selectCable_med <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;This function is used to automatically select the
+    type of cable for medium voltages&quot;</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">input </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Power"
+>Modelica.SIunits.Power</a> P_nominal = 0 <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Rated power&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">input </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Voltage"
+>Modelica.SIunits.Voltage</a> V_nominal = 0 <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Rated voltage&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">output </span><a href="Buildings_Electrical_Transmission_MediumVoltageCables.html#Buildings.Electrical.Transmission.MediumVoltageCables.Generic"
+>Buildings.Electrical.Transmission.MediumVoltageCables.Generic</a> cable <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Cable&quot;</span>;
+<span style="color: blue; font-weight: normal; font-style: normal;">protected </span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Real safety_factor = 1.2;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Current"
+>Modelica.SIunits.Current</a> I_nominal <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Nominal current flowing through the line&quot;</span>;
+  <a href="Buildings_Electrical_Transmission_MediumVoltageCables.html#Buildings.Electrical.Transmission.MediumVoltageCables.Annealed_Al_10"
+>Buildings.Electrical.Transmission.MediumVoltageCables.Annealed_Al_10</a> Al10;
+  <a href="Buildings_Electrical_Transmission_MediumVoltageCables.html#Buildings.Electrical.Transmission.MediumVoltageCables.Annealed_Al_30"
+>Buildings.Electrical.Transmission.MediumVoltageCables.Annealed_Al_30</a> Al30;
+  <a href="Buildings_Electrical_Transmission_MediumVoltageCables.html#Buildings.Electrical.Transmission.MediumVoltageCables.Annealed_Al_40"
+>Buildings.Electrical.Transmission.MediumVoltageCables.Annealed_Al_40</a> Al40;
+  <a href="Buildings_Electrical_Transmission_MediumVoltageCables.html#Buildings.Electrical.Transmission.MediumVoltageCables.Annealed_Al_350"
+>Buildings.Electrical.Transmission.MediumVoltageCables.Annealed_Al_350</a> Al350;
+  <a href="Buildings_Electrical_Transmission_MediumVoltageCables.html#Buildings.Electrical.Transmission.MediumVoltageCables.Annealed_Al_500"
+>Buildings.Electrical.Transmission.MediumVoltageCables.Annealed_Al_500</a> Al500;
+  <a href="Buildings_Electrical_Transmission_MediumVoltageCables.html#Buildings.Electrical.Transmission.MediumVoltageCables.Annealed_Al_1000"
+>Buildings.Electrical.Transmission.MediumVoltageCables.Annealed_Al_1000</a> Al1000;
+  <a href="Buildings_Electrical_Transmission_MediumVoltageCables.html#Buildings.Electrical.Transmission.MediumVoltageCables.Annealed_Al_1500"
+>Buildings.Electrical.Transmission.MediumVoltageCables.Annealed_Al_1500</a> Al1500;
+<span style="color: blue; font-weight: normal; font-style: normal;">algorithm </span>
+
+  <span style="color: red; font-weight: normal; font-style: normal;">assert</span>(<span style="color: red; font-weight: normal; font-style: normal;">Transmission.Functions.selectVoltageLevel</span>(V_nominal) == Buildings.Electrical.Types.VoltageLevel.Medium,
+  &quot;In function Buildings.Electrical.Transmission.Functions.selectCable_med,
+  cable autosizing has a nominal Voltage &quot; +<span style="color: red; font-weight: normal; font-style: normal;"> String</span>(V_nominal) + &quot; [V].
+  The medium voltage cables do not support such a voltage level.&quot;,
+  level=AssertionLevel.error);
+
+  <span style="color: #006400; font-weight: normal; font-style: normal;">// Check if it&#39;s possible to compute the current</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">if </span>V_nominal &gt; 0<span style="color: blue; font-weight: normal; font-style: normal;"> then</span>
+    I_nominal :=safety_factor*P_nominal/V_nominal;
+  <span style="color: blue; font-weight: normal; font-style: normal;">else</span>
+    I_nominal :=0;
+  <span style="color: blue; font-weight: normal; font-style: normal;">end if</span>;
+
+  <span style="color: #006400; font-weight: normal; font-style: normal;">// Assumed the material is Copper</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">if </span>I_nominal &lt; Al10.Amp<span style="color: blue; font-weight: normal; font-style: normal;"> then</span>
+        cable := Al10;
+  <span style="color: blue; font-weight: normal; font-style: normal;">elseif </span>I_nominal &gt;= Al10.Amp<span style="color: blue; font-weight: normal; font-style: normal;"> and </span>I_nominal &lt; Al30.Amp<span style="color: blue; font-weight: normal; font-style: normal;"> then</span>
+        cable := Al30;
+  <span style="color: blue; font-weight: normal; font-style: normal;">elseif </span>I_nominal &gt;= Al30.Amp<span style="color: blue; font-weight: normal; font-style: normal;"> and </span>I_nominal &lt; Al40.Amp<span style="color: blue; font-weight: normal; font-style: normal;"> then</span>
+        cable := Al40;
+  <span style="color: blue; font-weight: normal; font-style: normal;">elseif </span>I_nominal &gt;= Al40.Amp<span style="color: blue; font-weight: normal; font-style: normal;"> and </span>I_nominal &lt; Al350.Amp<span style="color: blue; font-weight: normal; font-style: normal;"> then</span>
+        cable := Al350;
+  <span style="color: blue; font-weight: normal; font-style: normal;">elseif </span>I_nominal &gt;= Al350.Amp<span style="color: blue; font-weight: normal; font-style: normal;"> and </span>I_nominal &lt; Al500.Amp<span style="color: blue; font-weight: normal; font-style: normal;"> then</span>
+        cable := Al500;
+  <span style="color: blue; font-weight: normal; font-style: normal;">elseif </span>I_nominal &gt;= Al500.Amp<span style="color: blue; font-weight: normal; font-style: normal;"> and </span>I_nominal &lt; Al1000.Amp<span style="color: blue; font-weight: normal; font-style: normal;"> then</span>
+        cable := Al1000;
+  <span style="color: blue; font-weight: normal; font-style: normal;">elseif </span>I_nominal &gt;= Al1000.Amp<span style="color: blue; font-weight: normal; font-style: normal;"> and </span>I_nominal &lt; Al1500.Amp<span style="color: blue; font-weight: normal; font-style: normal;"> then</span>
+        cable := Al1500;
+  <span style="color: blue; font-weight: normal; font-style: normal;">else</span>
+    <span style="color: red; font-weight: normal; font-style: normal;">assert</span>(I_nominal &lt; Al1500.Amp,
+&quot;Warning: In function Buildings.Electrical.Transmission.Functions.selectCable_med,
+  cable autosizing does not support a current of &quot; +<span style="color: red; font-weight: normal; font-style: normal;"> String</span>(I_nominal) + &quot; [A].
+  The selected cable will be undersized.&quot;,
+  level=AssertionLevel.warning);
+
+        cable := Al10;
+  <span style="color: blue; font-weight: normal; font-style: normal;">end if</span>;
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>selectCable_med;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE selectVoltageLevel<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><a name="Buildings.Electrical.Transmission.Functions.selectVoltageLevel"></a><a href="Buildings_Electrical_Transmission_Functions.html#Buildings.Electrical.Transmission.Functions"
+>Buildings.Electrical.Transmission.Functions</a>.selectVoltageLevel</h2>
+<p>
+<b>This function computes the voltage level (low, medium or high) given the nominal voltage</b>
+</p>
+<h3>Information</h3>
+
+<p>
+This function computes the voltage level for a given voltage.
+The computation is as follows:
+</p>
+
+<table summary="summary" border="1" cellspacing="0" cellpadding="2" style="border-collapse:collapse;">
+<tr>
+<th>Condition</th>
+<th>Voltage Level</th>
+</tr>
+<!-- ************ -->
+<tr>
+<td><i>0 &le; V &lt; 1 kV</i></td>
+<td>Low voltage</td>
+</tr>
+<!-- ************ -->
+<tr>
+<td><i>1 kV &le; V &lt; 50 kV</i></td>
+<td>Medium voltage</td>
+</tr>
+<!-- ************ -->
+<tr>
+<td><i> V &ge; 50 kV</i></td>
+<td>HIgh voltage</td>
+</tr>
+</table>
+
+
+<h3>Inputs</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Inputs">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Voltage"
+>Voltage</a></td><td>V</td><td>&nbsp;</td><td>Nominal voltage [V]</td></tr>
+</table>
+<h3>Outputs</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Outputs">
+<tr><th>Type</th><th>Name</th><th>Description</th></tr>
+<tr><td><a href="Buildings_Electrical_Types.html#Buildings.Electrical.Types.VoltageLevel"
+>VoltageLevel</a></td><td>level</td><td>Type of voltage level</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">function</span> selectVoltageLevel <span style="color: #006400; font-weight: normal; font-style: normal;">
+  &quot;This function computes the voltage level (low, medium or high) given the nominal voltage&quot;</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">input </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Voltage"
+>Modelica.SIunits.Voltage</a> V <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Nominal voltage&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">output </span><a href="Buildings_Electrical_Types.html#Buildings.Electrical.Types.VoltageLevel"
+>Buildings.Electrical.Types.VoltageLevel</a> level <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Type of voltage level&quot;</span>;
+<span style="color: blue; font-weight: normal; font-style: normal;">algorithm </span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">if </span>V &lt;= 0<span style="color: blue; font-weight: normal; font-style: normal;"> then</span>
+    <span style="color: red; font-weight: normal; font-style: normal;">assert</span>(V &gt; 0,
+     &quot;In function Buildings.Electrical.Transmission.Functions.selectVoltageLevel,
+      does not support a voltage of &quot; +<span style="color: red; font-weight: normal; font-style: normal;"> String</span>(V) + &quot; [V].
+      The selected voltage level will be assumed to be low.&quot;,
+      level=  AssertionLevel.warning);
+    level := Buildings.Electrical.Types.VoltageLevel.Low;
+  <span style="color: blue; font-weight: normal; font-style: normal;">elseif </span>V &lt;= 1000<span style="color: blue; font-weight: normal; font-style: normal;"> then</span>
+    level := Buildings.Electrical.Types.VoltageLevel.Low;
+  <span style="color: blue; font-weight: normal; font-style: normal;">elseif </span>V &gt; 1000<span style="color: blue; font-weight: normal; font-style: normal;"> and </span>V &lt;= 50000<span style="color: blue; font-weight: normal; font-style: normal;"> then</span>
+    level := Buildings.Electrical.Types.VoltageLevel.Medium;
+  <span style="color: blue; font-weight: normal; font-style: normal;">else</span>
+    level := Buildings.Electrical.Types.VoltageLevel.High;
+  <span style="color: blue; font-weight: normal; font-style: normal;">end if</span>;
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>selectVoltageLevel;
+</div>
+<hr>
+<address>
+<a href="http://www.3ds.com/">Automatically generated</a> Thu Apr  9 09:34:19 2015.
+</address>
+</body>
+</html>

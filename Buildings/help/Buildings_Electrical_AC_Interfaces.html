@@ -1,0 +1,108 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>Buildings.Electrical.AC.Interfaces</title>
+<meta name="HTML-Generator" content="Dymola">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="description" content="&quot;Package that contains some useful interfaces&quot;">
+<style type="text/css">
+*       { font-size: 10pt; font-family: Arial, sans-serif; }
+.modelica, .modelica * { font-size: 9pt; font-family: Courier, monospace; white-space: pre; }
+h4      { font-size: 10pt; font-weight: bold; color: green; }
+h3      { font-size: 11pt; font-weight: bold; color: green; }
+h2      { font-size: 13pt; font-weight: bold; color: green; }
+address { font-weight: normal; }
+td      { border: 1px solid #808080; vertical-align: top; }
+th      { border: 1px solid #808080; vertical-align: top; font-weight: bold; }
+table   { border: 1px solid #808080; border-collapse: collapse; }
+</style>
+<link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../Resources/www/modelicaDoc.css">
+</HEAD>
+<body>
+<!-- --- header ------ -->
+<div class="headerStyle">
+<img src="../Resources/www/lbl-logo.png" alt="LBL logo"/>
+</div>
+<div class="headerLinks">
+<ul><li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt; <a href="Buildings.html">Modelica</a></li></ul>
+</div>
+<!-- --- end header -- -->
+
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE Interfaces<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><a name="Buildings.Electrical.AC.Interfaces"></a><a href="Buildings_Electrical_AC.html#Buildings.Electrical.AC"
+>Buildings.Electrical.AC</a>.Interfaces</h2>
+<p>
+<b>Package that contains some useful interfaces</b><br>
+</p>
+<h3>Information</h3>
+
+<p>
+This package contains interfaces that are used by the models in the
+<a href="Buildings_Electrical_AC.html#Buildings.Electrical.AC"
+>Buildings.Electrical.AC</a> package.
+</p>
+
+<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons_InterfacesPackage.html#Modelica.Icons.InterfacesPackage"
+>Modelica.Icons.InterfacesPackage</a> (Icon for packages containing interfaces).</p>
+<h3>Package Content</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Package Content">
+<tr>
+<th>Name</th>
+<th>Description</th>
+</tr>
+<tr>
+<td><img src="Buildings.Electrical.AC.I40e9094fdbbb82a9utputS.png" alt="Buildings.Electrical.AC.Interfaces.PowerOutput" width="20" height="20" align="top">&nbsp;<a href="Buildings_Electrical_AC_Interfaces.html#Buildings.Electrical.AC.Interfaces.PowerOutput"
+>PowerOutput</a>
+</td>
+<td>Connector with real power, reactive power and power factor</td>
+</tr>
+</table>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE PowerOutput<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Electrical.AC.I40e9094fdbbb82a9utputI.png" alt="Buildings.Electrical.AC.Interfaces.PowerOutput" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Electrical.AC.Interfaces.PowerOutput"></a><a href="Buildings_Electrical_AC_Interfaces.html#Buildings.Electrical.AC.Interfaces"
+>Buildings.Electrical.AC.Interfaces</a>.PowerOutput</h2>
+<p>
+<b>Connector with real power, reactive power and power factor</b>
+<br>
+<br><img src="Buildings.Electrical.AC.I40e9094fdbbb82a9utputD.png" alt="Buildings.Electrical.AC.Interfaces.PowerOutput">
+</p>
+<h3>Information</h3>
+
+This connector contains multiple quantities that can be used to monitor
+the power consumption of a generic AC systems.
+
+<h3>Contents</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Contents">
+<tr><th>Type</th><th>Name</th><th>Description</th></tr>
+<tr><td>output <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Power"
+>Power</a></td><td>real</td><td>Real power [W]</td></tr>
+<tr><td>output <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.ReactivePower"
+>ReactivePower</a></td><td>apparent</td><td>Apparent power [var]</td></tr>
+<tr><td>output <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
+>Angle</a></td><td>phi</td><td>Phase shift [rad]</td></tr>
+<tr><td>output Real</td><td>cosPhi</td><td>Power factor</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">connector</span> PowerOutput <span style="color: #006400; font-weight: normal; font-style: normal;">
+  &quot;Connector with real power, reactive power and power factor&quot;</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">output </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Power"
+>Modelica.SIunits.Power</a> real <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Real power&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">output </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.ReactivePower"
+>Modelica.SIunits.ReactivePower</a> apparent <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Apparent power&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">output </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
+>Modelica.SIunits.Angle</a> phi <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Phase shift&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">output </span>Real cosPhi <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Power factor&quot;</span>;
+
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>PowerOutput;
+</div>
+<hr>
+<address>
+<a href="http://www.3ds.com/">Automatically generated</a> Thu Apr  9 09:34:11 2015.
+</address>
+</body>
+</html>

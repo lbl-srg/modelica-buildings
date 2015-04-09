@@ -1,0 +1,203 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>Buildings.Utilities.IO.Python27.Functions.Examples</title>
+<meta name="HTML-Generator" content="Dymola">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="description" content="&quot;Collection of models that illustrate model use and test models&quot;">
+<style type="text/css">
+*       { font-size: 10pt; font-family: Arial, sans-serif; }
+.modelica, .modelica * { font-size: 9pt; font-family: Courier, monospace; white-space: pre; }
+h4      { font-size: 10pt; font-weight: bold; color: green; }
+h3      { font-size: 11pt; font-weight: bold; color: green; }
+h2      { font-size: 13pt; font-weight: bold; color: green; }
+address { font-weight: normal; }
+td      { border: 1px solid #808080; vertical-align: top; }
+th      { border: 1px solid #808080; vertical-align: top; font-weight: bold; }
+table   { border: 1px solid #808080; border-collapse: collapse; }
+</style>
+<link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../Resources/www/modelicaDoc.css">
+</HEAD>
+<body>
+<!-- --- header ------ -->
+<div class="headerStyle">
+<img src="../Resources/www/lbl-logo.png" alt="LBL logo"/>
+</div>
+<div class="headerLinks">
+<ul><li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt; <a href="Buildings.html">Modelica</a></li></ul>
+</div>
+<!-- --- end header -- -->
+
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE Examples<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><a name="Buildings.Utilities.IO.Python27.Functions.Examples"></a><a href="Buildings_Utilities_IO_Python27_Functions.html#Buildings.Utilities.IO.Python27.Functions"
+>Buildings.Utilities.IO.Python27.Functions</a>.Examples</h2>
+<p>
+<b>Collection of models that illustrate model use and test models</b><br>
+</p>
+<h3>Information</h3>
+
+<p>
+This package contains examples for the use of models that can be found in
+<a href="modelica://Buildings.Utilities.IO.Python.Functions">
+Buildings.Utilities.IO.Python.Functions</a>.
+</p>
+<p>
+The examples demonstrate how to call Python functions from Modelica.
+</p>
+
+<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons_ExamplesPackage.html#Modelica.Icons.ExamplesPackage"
+>Modelica.Icons.ExamplesPackage</a> (Icon for packages containing runnable examples).</p>
+<h3>Package Content</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Package Content">
+<tr>
+<th>Name</th>
+<th>Description</th>
+</tr>
+<tr>
+<td><img src="Buildings.Utilities.IO.Py85484a3964c158bdhangeS.png" alt="Buildings.Utilities.IO.Python27.Functions.Examples.Exchange" width="20" height="20" align="top">&nbsp;<a href="Buildings_Utilities_IO_Python27_Functions_Examples.html#Buildings.Utilities.IO.Python27.Functions.Examples.Exchange"
+>Exchange</a>
+</td>
+<td>Test model for exchange function</td>
+</tr>
+</table>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE Exchange<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Utilities.IO.Py85484a3964c158bdhangeI.png" alt="Buildings.Utilities.IO.Python27.Functions.Examples.Exchange" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Utilities.IO.Python27.Functions.Examples.Exchange"></a><a href="Buildings_Utilities_IO_Python27_Functions_Examples.html#Buildings.Utilities.IO.Python27.Functions.Examples"
+>Buildings.Utilities.IO.Python27.Functions.Examples</a>.Exchange</h2>
+<p>
+<b>Test model for exchange function</b>
+</p>
+<h3>Information</h3>
+
+<p>
+This example calls various functions in the Python module <code>testFunctions.py</code>.
+It tests whether arguments and return values are passed correctly.
+The functions in  <code>testFunctions.py</code> are very simple in order to test
+whether they compute correctly, and whether the data conversion between Modelica and
+Python is implemented correctly.
+Each call to Python is followed by an <code>assert</code> statement which terminates
+the simulation if the return value is different from the expected value.
+</p>
+
+<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</a> (Icon for runnable examples).</p>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">model</span> Exchange <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Test model for exchange function&quot;</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</a>;
+
+  Real    yR1[1] <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Real function value&quot;</span>;
+  Integer yI1[1] <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Integer function value&quot;</span>;
+  Real    yR2[2] <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Real function value&quot;</span>;
+  Integer yI2[2] <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Integer function value&quot;</span>;
+<span style="color: blue; font-weight: normal; font-style: normal;">algorithm </span>
+  yR1 :=<span style="color: red; font-weight: normal; font-style: normal;"> Buildings.Utilities.IO.Python27.Functions.exchange</span>(
+      moduleName=&quot;testFunctions&quot;,
+      functionName=&quot;r1_r1&quot;,
+      dblWri={2},
+      intWri={0},
+      nDblWri=1,
+      nDblRea=1,
+      nIntWri=0,
+      nIntRea=0,
+      nStrWri=0,
+      strWri={&quot;&quot;});
+  <span style="color: red; font-weight: normal; font-style: normal;">  assert</span>(<span style="color: red; font-weight: normal; font-style: normal;">abs</span>(4-yR1[1]) &lt; 1e-5, &quot;Error in function r1_r1&quot;);
+
+    yR1 :=<span style="color: red; font-weight: normal; font-style: normal;"> Buildings.Utilities.IO.Python27.Functions.exchange</span>(
+      moduleName=&quot;testFunctions&quot;,
+      functionName=&quot;r2_r1&quot;,
+      dblWri={2, 3},
+      intWri={0},
+      nDblWri=2,
+      nDblRea=1,
+      nIntWri=0,
+      nIntRea=0,
+      nStrWri=0,
+      strWri={&quot;&quot;});
+  <span style="color: red; font-weight: normal; font-style: normal;">  assert</span>(<span style="color: red; font-weight: normal; font-style: normal;">abs</span>(6-yR1[1]) &lt; 1e-5, &quot;Error in function r2_r1&quot;);
+
+  yR2 :=<span style="color: red; font-weight: normal; font-style: normal;"> Buildings.Utilities.IO.Python27.Functions.exchange</span>(
+      moduleName=&quot;testFunctions&quot;,
+      functionName=&quot;r1_r2&quot;,
+      dblWri={2},
+      intWri={0},
+      nDblWri=1,
+      nDblRea=2,
+      nIntWri=0,
+      nIntRea=0,
+      nStrWri=0,
+      strWri={&quot;&quot;});
+  <span style="color: red; font-weight: normal; font-style: normal;">assert</span>(<span style="color: red; font-weight: normal; font-style: normal;">abs</span>(yR2[1]-2) +<span style="color: red; font-weight: normal; font-style: normal;"> abs</span>(yR2[2]-4) &lt; 1E-5, &quot;Error in function r1_r2&quot;);
+
+  <span style="color: #006400; font-weight: normal; font-style: normal;">// In the call below, yR1 is a dummy variable, as exchange returns (Real[1], Integer[1])</span>
+  (yR1, yI1) :=<span style="color: red; font-weight: normal; font-style: normal;"> Buildings.Utilities.IO.Python27.Functions.exchange</span>(
+      moduleName=&quot;testFunctions&quot;,
+      functionName=&quot;i1_i1&quot;,
+      dblWri={0},
+      intWri={3},
+      nDblWri=0,
+      nDblRea=0,
+      nIntWri=1,
+      nIntRea=1,
+      nStrWri=0,
+      strWri={&quot;&quot;});
+  <span style="color: red; font-weight: normal; font-style: normal;">assert</span>((6-yI1[1]) &lt; 1e-5, &quot;Error in function i1_i1&quot;);
+
+  <span style="color: #006400; font-weight: normal; font-style: normal;">// In the call below, yR1 is a dummy variable, as exchange returns (Real[1], Integer[2])</span>
+  (yR1, yI2) :=<span style="color: red; font-weight: normal; font-style: normal;"> Buildings.Utilities.IO.Python27.Functions.exchange</span>(
+      moduleName=&quot;testFunctions&quot;,
+      functionName=&quot;i1_i2&quot;,
+      dblWri={0},
+      intWri={2},
+      nDblWri=0,
+      nDblRea=0,
+      nIntWri=1,
+      nIntRea=2,
+      nStrWri=0,
+      strWri={&quot;&quot;});
+  <span style="color: red; font-weight: normal; font-style: normal;">assert</span>(<span style="color: red; font-weight: normal; font-style: normal;">abs</span>(yI2[1]-2) +<span style="color: red; font-weight: normal; font-style: normal;"> abs</span>(yI2[2]-4) &lt; 1E-5, &quot;Error in function i1_i2&quot;);
+
+  yR2 :=<span style="color: red; font-weight: normal; font-style: normal;"> Buildings.Utilities.IO.Python27.Functions.exchange</span>(
+      moduleName=&quot;testFunctions&quot;,
+      functionName=&quot;r1i1_r2&quot;,
+      dblWri={0.3},
+      intWri={2},
+      nDblWri=1,
+      nDblRea=2,
+      nIntWri=1,
+      nIntRea=0,
+      nStrWri=0,
+      strWri={&quot;&quot;});
+  <span style="color: red; font-weight: normal; font-style: normal;">assert</span>(<span style="color: red; font-weight: normal; font-style: normal;">abs</span>(yR2[1]-0.6) +<span style="color: red; font-weight: normal; font-style: normal;"> abs</span>(yI2[2]-4) &lt; 1E-5, &quot;Error in function r1i1_r2&quot;);
+
+  <span style="color: #006400; font-weight: normal; font-style: normal;">// From Modelica, write a number to a text file, and from Python, read the text file</span>
+  <span style="color: #006400; font-weight: normal; font-style: normal;">// and return the number.</span>
+  <span style="color: red; font-weight: normal; font-style: normal;">Modelica.Utilities.Files.removeFile</span>(fileName=&quot;tmp-TestPythonInterface.txt&quot;);
+  <span style="color: red; font-weight: normal; font-style: normal;">Modelica.Utilities.Streams.print</span>(string=&quot;1.23&quot;, fileName=&quot;tmp-TestPythonInterface.txt&quot;);
+  yR1 :=<span style="color: red; font-weight: normal; font-style: normal;"> Buildings.Utilities.IO.Python27.Functions.exchange</span>(
+      moduleName=&quot;testFunctions&quot;,
+      functionName=&quot;s2_r1&quot;,
+      dblWri={0},
+      intWri={0},
+      nDblWri=0,
+      nDblRea=1,
+      nIntWri=0,
+      nIntRea=0,
+      nStrWri=2,
+      strWri={&quot;tmp-TestPythonInterface&quot;, &quot;txt&quot;});
+  <span style="color: red; font-weight: normal; font-style: normal;"> assert</span>(<span style="color: red; font-weight: normal; font-style: normal;">abs</span>(yR1[1]-1.23) &lt; 1E-5, &quot;Error in function s2_r1&quot;);
+
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>Exchange;
+</div>
+<hr>
+<address>
+<a href="http://www.3ds.com/">Automatically generated</a> Thu Apr  9 09:41:30 2015.
+</address>
+</body>
+</html>

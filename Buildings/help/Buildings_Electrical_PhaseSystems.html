@@ -1,0 +1,147 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>Buildings.Electrical.PhaseSystems</title>
+<meta name="HTML-Generator" content="Dymola">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="description" content="&quot;Phase systems used in power connectors&quot;">
+<style type="text/css">
+*       { font-size: 10pt; font-family: Arial, sans-serif; }
+.modelica, .modelica * { font-size: 9pt; font-family: Courier, monospace; white-space: pre; }
+h4      { font-size: 10pt; font-weight: bold; color: green; }
+h3      { font-size: 11pt; font-weight: bold; color: green; }
+h2      { font-size: 13pt; font-weight: bold; color: green; }
+address { font-weight: normal; }
+td      { border: 1px solid #808080; vertical-align: top; }
+th      { border: 1px solid #808080; vertical-align: top; font-weight: bold; }
+table   { border: 1px solid #808080; border-collapse: collapse; }
+</style>
+<link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../Resources/www/modelicaDoc.css">
+</HEAD>
+<body>
+<!-- --- header ------ -->
+<div class="headerStyle">
+<img src="../Resources/www/lbl-logo.png" alt="LBL logo"/>
+</div>
+<div class="headerLinks">
+<ul><li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt; <a href="Buildings.html">Modelica</a></li></ul>
+</div>
+<!-- --- end header -- -->
+
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE PhaseSystems<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><a name="Buildings.Electrical.PhaseSystems"></a><a href="Buildings_Electrical.html#Buildings.Electrical"
+>Buildings.Electrical</a>.PhaseSystems</h2>
+<p>
+<b>Phase systems used in power connectors</b><br>
+</p>
+<h3>Information</h3>
+
+<p>
+This package contains a list of packages that represent different type of electric systems.
+Each package inherits from <a href="Buildings_Electrical_PhaseSystems_PartialPhaseSystem.html#Buildings.Electrical.PhaseSystems.PartialPhaseSystem"
+>
+Buildings.Electrical.PhaseSystems.PartialPhaseSystem</a>.
+</p>
+<p>
+The packages represent various types of electrical systems. The basic idea behind this
+approach is to use the same connector for different electrical domains.
+Each connector has a replaceable package that inherits from
+<a href="Buildings_Electrical_PhaseSystems_PartialPhaseSystem.html#Buildings.Electrical.PhaseSystems.PartialPhaseSystem"
+>
+Buildings.Electrical.PhaseSystems.PartialPhaseSystem</a>
+depending on the type of electrical system.
+The electrical systems represented are:
+</p>
+
+<ul>
+<li>DC systems,</li>
+<li>DC systems with two conductors,</li>
+<li>one-phase AC systems,</li>
+<li>three-phase resistive balanced AC systems,</li>
+<li>three-phase balanced AC systems,</li>
+<li>three-phase unbalanced AC systems (dq0 representation).</li>
+</ul>
+
+<p>
+This approach has been used by the following Modelica libraries:
+</p>
+
+<ul>
+<li><a href="http://www.modelon.com/products/modelica-libraries/electric-power-library">Electric Power Library</a>,
+developed by Modelon,</li>
+<li><a href="https://github.com/modelica/PowerSystems">Power Systems Library</a>, and
+developed by <a href="mailto:Ruediger.Franke@de.abb.com">Rudiger Franke</a> (ABB).</li>
+</ul>
+
+<p>
+More details about the phase system packages can be found in <a href="Buildings_Electrical_PhaseSystems.html#RuedigerEtAl2014"
+>Franke and Wiesmann (2014)</a>.
+</p>
+<h4>References</h4>
+<p>
+<a NAME="RuedigerEtAl2014"/>
+Ruediger Franke and Hansjurg Wiesmann.<br/>
+<a href="https://www.modelica.org/events/modelica2014/proceedings/html/submissions/ECP14096515_FrankeWiesmann.pdf">
+Flexible modeling of electrical power systems - the Modelica PowerSystems library</a>.<br/>
+Proc. of the 10th Modelica Conference, Lund, Sweden, March 2014.
+</p>
+
+<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons_Package.html#Modelica.Icons.Package"
+>Modelica.Icons.Package</a> (Icon for standard packages).</p>
+<h3>Package Content</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Package Content">
+<tr>
+<th>Name</th>
+<th>Description</th>
+</tr>
+<tr>
+<td><img src="Buildings.Electrical.Phas33ed5f5ac4d5b97crrentS.png" alt="Buildings.Electrical.PhaseSystems.DirectCurrent" width="20" height="20" align="top">&nbsp;<a href="Buildings_Electrical_PhaseSystems_DirectCurrent.html#Buildings.Electrical.PhaseSystems.DirectCurrent"
+>DirectCurrent</a>
+</td>
+<td>DC system</td>
+</tr>
+<tr>
+<td><img src="Buildings.Electrical.Phas821fbc830bd1b628PhaseS.png" alt="Buildings.Electrical.PhaseSystems.OnePhase" width="20" height="20" align="top">&nbsp;<a href="Buildings_Electrical_PhaseSystems_OnePhase.html#Buildings.Electrical.PhaseSystems.OnePhase"
+>OnePhase</a>
+</td>
+<td>Single phase two connectors AC system</td>
+</tr>
+<tr>
+<td><img src="Buildings.Electrical.Phasf0ad0ba735bea1e8ystemS.png" alt="Buildings.Electrical.PhaseSystems.PartialPhaseSystem" width="20" height="20" align="top">&nbsp;<a href="Buildings_Electrical_PhaseSystems_PartialPhaseSystem.html#Buildings.Electrical.PhaseSystems.PartialPhaseSystem"
+>PartialPhaseSystem</a>
+</td>
+<td>Base package of all phase systems</td>
+</tr>
+<tr>
+<td><img src="Buildings.Electrical.Phas5906e890196276fbase_dS.png" alt="Buildings.Electrical.PhaseSystems.ThreePhase_d" width="20" height="20" align="top">&nbsp;<a href="Buildings_Electrical_PhaseSystems_ThreePhase_d.html#Buildings.Electrical.PhaseSystems.ThreePhase_d"
+>ThreePhase_d</a>
+</td>
+<td>AC system covering only resistive loads with three symmetric phases</td>
+</tr>
+<tr>
+<td><img src="Buildings.Electrical.Phas8e8902212c4ed712se_dqS.png" alt="Buildings.Electrical.PhaseSystems.ThreePhase_dq" width="20" height="20" align="top">&nbsp;<a href="Buildings_Electrical_PhaseSystems_ThreePhase_dq.html#Buildings.Electrical.PhaseSystems.ThreePhase_dq"
+>ThreePhase_dq</a>
+</td>
+<td>AC system, symmetrically loaded three-phase</td>
+</tr>
+<tr>
+<td><img src="Buildings.Electrical.Phasf01c171389c5e275e_dq0S.png" alt="Buildings.Electrical.PhaseSystems.ThreePhase_dq0" width="20" height="20" align="top">&nbsp;<a href="Buildings_Electrical_PhaseSystems_ThreePhase_dq0.html#Buildings.Electrical.PhaseSystems.ThreePhase_dq0"
+>ThreePhase_dq0</a>
+</td>
+<td>AC system in dqo representation</td>
+</tr>
+<tr>
+<td><img src="Buildings.Electrical.Phasd5747a658055b2b2uctorS.png" alt="Buildings.Electrical.PhaseSystems.TwoConductor" width="20" height="20" align="top">&nbsp;<a href="Buildings_Electrical_PhaseSystems_TwoConductor.html#Buildings.Electrical.PhaseSystems.TwoConductor"
+>TwoConductor</a>
+</td>
+<td>Two conductors for DC components</td>
+</tr>
+</table>
+<hr>
+<address>
+<a href="http://www.3ds.com/">Automatically generated</a> Thu Apr  9 09:34:19 2015.
+</address>
+</body>
+</html>

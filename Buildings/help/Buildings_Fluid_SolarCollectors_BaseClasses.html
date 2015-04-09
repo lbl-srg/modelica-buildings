@@ -1,0 +1,1462 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>Buildings.Fluid.SolarCollectors.BaseClasses</title>
+<meta name="HTML-Generator" content="Dymola">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="description" content="&quot;Package with base classes for Buildings.Fluid.SolarCollectors&quot;">
+<style type="text/css">
+*       { font-size: 10pt; font-family: Arial, sans-serif; }
+.modelica, .modelica * { font-size: 9pt; font-family: Courier, monospace; white-space: pre; }
+h4      { font-size: 10pt; font-weight: bold; color: green; }
+h3      { font-size: 11pt; font-weight: bold; color: green; }
+h2      { font-size: 13pt; font-weight: bold; color: green; }
+address { font-weight: normal; }
+td      { border: 1px solid #808080; vertical-align: top; }
+th      { border: 1px solid #808080; vertical-align: top; font-weight: bold; }
+table   { border: 1px solid #808080; border-collapse: collapse; }
+</style>
+<link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../Resources/www/modelicaDoc.css">
+</HEAD>
+<body>
+<!-- --- header ------ -->
+<div class="headerStyle">
+<img src="../Resources/www/lbl-logo.png" alt="LBL logo"/>
+</div>
+<div class="headerLinks">
+<ul><li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt; <a href="Buildings.html">Modelica</a></li></ul>
+</div>
+<!-- --- end header -- -->
+
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE BaseClasses<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><a name="Buildings.Fluid.SolarCollectors.BaseClasses"></a><a href="Buildings_Fluid_SolarCollectors.html#Buildings.Fluid.SolarCollectors"
+>Buildings.Fluid.SolarCollectors</a>.BaseClasses</h2>
+<p>
+<b>Package with base classes for Buildings.Fluid.SolarCollectors</b><br>
+</p>
+<h3>Information</h3>
+
+  <p>
+    This package contains base classes that are used to construct the models in
+    <a href="Buildings_Fluid_SolarCollectors.html#Buildings.Fluid.SolarCollectors"
+>Buildings.Fluid.SolarCollectors</a>.
+   </p>
+
+<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons_BasesPackage.html#Modelica.Icons.BasesPackage"
+>Modelica.Icons.BasesPackage</a> (Icon for packages containing base classes).</p>
+<h3>Package Content</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Package Content">
+<tr>
+<th>Name</th>
+<th>Description</th>
+</tr>
+<tr>
+<td><img src="Buildings.Fluid.SolarCollc5680d6253d24bb8tLossS.png" alt="Buildings.Fluid.SolarCollectors.BaseClasses.ASHRAEHeatLoss" width="20" height="20" align="top">&nbsp;<a href="Buildings_Fluid_SolarCollectors_BaseClasses.html#Buildings.Fluid.SolarCollectors.BaseClasses.ASHRAEHeatLoss"
+>ASHRAEHeatLoss</a>
+</td>
+<td>Calculate the heat loss of a solar collector per ASHRAE standard 93</td>
+</tr>
+<tr>
+<td><img src="Buildings.Fluid.SolarColl7079a4c513bd27f7rGainS.png" alt="Buildings.Fluid.SolarCollectors.BaseClasses.ASHRAESolarGain" width="20" height="20" align="top">&nbsp;<a href="Buildings_Fluid_SolarCollectors_BaseClasses.html#Buildings.Fluid.SolarCollectors.BaseClasses.ASHRAESolarGain"
+>ASHRAESolarGain</a>
+</td>
+<td>Calculate the solar heat gain of a solar collector per ASHRAE Standard 93</td>
+</tr>
+<tr>
+<td><img src="Buildings.Fluid.SolarCollf4bbdd21f236baadtLossS.png" alt="Buildings.Fluid.SolarCollectors.BaseClasses.EN12975HeatLoss" width="20" height="20" align="top">&nbsp;<a href="Buildings_Fluid_SolarCollectors_BaseClasses.html#Buildings.Fluid.SolarCollectors.BaseClasses.EN12975HeatLoss"
+>EN12975HeatLoss</a>
+</td>
+<td>Calculate the heat loss of a solar collector per EN12975</td>
+</tr>
+<tr>
+<td><img src="Buildings.Fluid.SolarColla85cf3822f2375c3rGainS.png" alt="Buildings.Fluid.SolarCollectors.BaseClasses.EN12975SolarGain" width="20" height="20" align="top">&nbsp;<a href="Buildings_Fluid_SolarCollectors_BaseClasses.html#Buildings.Fluid.SolarCollectors.BaseClasses.EN12975SolarGain"
+>EN12975SolarGain</a>
+</td>
+<td>Model calculating solar gains per the EN12975 standard</td>
+</tr>
+<tr>
+<td><img src="Buildings.Fluid.SolarColl84b96016eb3d6feas.IAMS.png" alt="Buildings.Fluid.SolarCollectors.BaseClasses.IAM" width="20" height="20" align="top">&nbsp;<a href="Buildings_Fluid_SolarCollectors_BaseClasses.html#Buildings.Fluid.SolarCollectors.BaseClasses.IAM"
+>IAM</a>
+</td>
+<td>Function for incident angle modifer</td>
+</tr>
+<tr>
+<td><img src="Buildings.Fluid.SolarCollc77ae1e9e07c26b7tLossS.png" alt="Buildings.Fluid.SolarCollectors.BaseClasses.PartialHeatLoss" width="20" height="20" align="top">&nbsp;<a href="Buildings_Fluid_SolarCollectors_BaseClasses.html#Buildings.Fluid.SolarCollectors.BaseClasses.PartialHeatLoss"
+>PartialHeatLoss</a>
+</td>
+<td>Partial heat loss model on which ASHRAEHeatLoss and EN12975HeatLoss are based</td>
+</tr>
+<tr>
+<td><a href="Buildings_Fluid_SolarCollectors_BaseClasses.html#Buildings.Fluid.SolarCollectors.BaseClasses.PartialParameters"
+>PartialParameters</a>
+</td>
+<td>Partial model for parameters</td>
+</tr>
+<tr>
+<td><img src="Buildings.Fluid.SolarColl65a6cfe240acb7aeectorS.png" alt="Buildings.Fluid.SolarCollectors.BaseClasses.PartialSolarCollector" width="20" height="20" align="top">&nbsp;<a href="Buildings_Fluid_SolarCollectors_BaseClasses.html#Buildings.Fluid.SolarCollectors.BaseClasses.PartialSolarCollector"
+>PartialSolarCollector</a>
+</td>
+<td>Partial model for solar collectors</td>
+</tr>
+<tr>
+<td><img src="Buildings.Fluid.SolarColl2f580c8ccb3fc7d2mplesS.png" alt="Buildings.Fluid.SolarCollectors.BaseClasses.Examples" width="20" height="20" align="top">&nbsp;<a href="Buildings_Fluid_SolarCollectors_BaseClasses_Examples.html#Buildings.Fluid.SolarCollectors.BaseClasses.Examples"
+>Examples</a>
+</td>
+<td>Collection of models that illustrate model use and test models</td>
+</tr>
+</table>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE ASHRAEHeatLoss<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Fluid.SolarCollc5680d6253d24bb8tLossI.png" alt="Buildings.Fluid.SolarCollectors.BaseClasses.ASHRAEHeatLoss" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Fluid.SolarCollectors.BaseClasses.ASHRAEHeatLoss"></a><a href="Buildings_Fluid_SolarCollectors_BaseClasses.html#Buildings.Fluid.SolarCollectors.BaseClasses"
+>Buildings.Fluid.SolarCollectors.BaseClasses</a>.ASHRAEHeatLoss</h2>
+<p>
+<b>Calculate the heat loss of a solar collector per ASHRAE standard 93</b>
+<br>
+<br><img src="Buildings.Fluid.SolarCollc5680d6253d24bb8tLossD.png" alt="Buildings.Fluid.SolarCollectors.BaseClasses.ASHRAEHeatLoss">
+</p>
+<h3>Information</h3>
+
+      <p>
+        This component computes the heat loss from the solar thermal collector to the
+        environment. It is designed for use with ratings data collected in accordance
+        with ASHRAE Standard 93. A negative <code>QLos[i]</code> indicates that heat
+        is being lost to the environment.
+      </p>
+      <p>
+        This model calculates the heat lost from a multiple-segment model using ratings
+        data based solely on the inlet temperature. As a result, the slope from the
+        ratings data is converted to a <i>UA</i> value which, for a given number of
+        segments, yields the same heat loss as the ratings data would at nominal conditions.
+        The first three equations, which perform calculations at nominal conditions without
+        a <i>UA</i> value, are based on equations 6.17.1 through 6.17.3 in Duffie and Beckman
+        (2006). The <i>UA</i> value is identified using the system of equations below:
+      </p>
+      <p align="center" style="font-style:italic;">
+        Q<sub>Use,nom</sub> = G<sub>nom</sub> A<sub>c</sub> F<sub>R</sub>(&tau;&alpha;) +
+          F<sub>R</sub>U<sub>L</sub> A<sub>c</sub> (T<sub>In,nom</sub> - T<sub>Env,nom
+          </sub>)<br/>
+        T<sub>Fluid,nom</sub>[nSeg]=T<sub>In,nom</sub>+Q<sub>Use,nom</sub>/(m<sub>
+          Flow,nom</sub>C<sub>p</sub>)<br/>
+        Q<sub>Los,nom</sub>=-F<sub>R</sub>U<sub>L</sub> A<sub>c</sub> (T<sub>In,nom</sub>
+          -T<sub>Env,nom</sub>)<br/>
+        T<sub>Fluid,nom</sub>[i] = T<sub>Fluid,nom</sub>[i-1] + (G<sub>nom</sub> F<sub>
+          R</sub>(&tau;&alpha;) A<sub>c</sub>/nSeg - UA/nSeg (T<sub>Fluid,nom</sub>[i-1]
+          -T<sub>Env,nom</sub>))/(m<sub>Flow,nom</sub> c<sub>p</sub>)<br/>
+        Q<sub>Loss,UA</sub>=UA/nSeg (T<sub>Fluid,nom</sub>[i]-T<sub>Env,nom</sub>)<br/>
+        sum(Q<sub>Loss,UA</sub>[1:nSeg])=Q<sub>Loss,nom</sub>
+      </p>
+      <p>
+        where <i>Q<sub>Use,nom</sub></i> is the useful heat gain at nominal conditions,
+        <i>G<sub>nom</sub></i> is the nominal solar irradiance, <i>A<sub>c</sub></i>
+        is the area of the collector, <i>F<sub>R</sub>(&tau;&alpha;)</i> is the collector
+        maximum efficiency, <i>F<sub>R</sub> U<sub>L</sub></i> is the collector heat loss
+        coefficient,<i>T<sub>In,nom</sub></i> is the nominal inlet temperature, <i>T<sub>
+        Env,nom</sub></i> is the ambient temperature at nominal conditions, <i>T<sub>
+        Fluid,nom</sub>[i]</i> is the temperature of fluid in a given segment of the
+        collector, <i>m<sub>Flow,nom</sub></i> is the fluid flow at nominal conditions,
+        <i>C<sub>p</sub></i> is the specific heat of the heated fluid, <i>Q<sub>
+        Loss,nom</sub></i> is the heat loss identified using the default value <i>UA</i>
+        is the identified heat loss coefficient for a multiple-segment equivalent solar
+        collector, <i>nSeg</i> is the number of segments in the simulation, and <i>Q
+        <sub>Loss,UA</sub></i> is the heat loss identified using the <i>UA</i> value.
+      </p>
+      <p>
+        The effective <i>UA</i> value is calculated at the beginning of the simulation
+        and used as a constant through the rest of the simulation. The actual heat
+        loss from the collector is calculated using
+      </p>
+      <p align="center" style="font-style:italic;">
+        -Q<sub>Loss</sub>[i] = UA/nSeg (T<sub>Fluid</sub>[i] - T<sub>Env</sub>)
+      </p>
+      <p>
+        where <i>Q<sub>Loss</sub>[i]</i> is the heat loss from a given segment,
+        <i>UA</i> is the heat loss coefficient for a multiple segments model, <i>nSeg</i>
+        is the number of segments in the simulation, <i>T<sub>Fluid</sub>[i]</i> is the
+        temperature of the fluid in a given segment, and <i>T<sub>Env
+        </sub></i> is the temperature of the surrounding air.
+      </p>
+      <p>
+        This model reduces the heat loss rate to 0 W when the fluid temperature is within
+        1 degree C of the minimum temperature of the medium model. The calucation is
+        performed using the
+        <a href="Buildings_Utilities_Math_Functions.html#Buildings.Utilities.Math.Functions.smoothHeaviside"
+>
+        Buildings.Utilities.Math.Functions.smoothHeaviside</a> function.
+      </p>
+    <h4>References</h4>
+      <p>
+        J.A. Duffie and W.A. Beckman 2006, Solar Engineering of Thermal Processes (3rd Edition),
+        John Wiley &amp; Sons, Inc. <br/>
+        ASHRAE 93-2010 -- Methods of Testing to Determine the Thermal Performance of Solar
+        Collectors (ANSI approved)
+      </p>
+    
+<p>Extends from <a href="Buildings_Fluid_SolarCollectors_BaseClasses.html#Buildings.Fluid.SolarCollectors.BaseClasses.PartialHeatLoss"
+>Buildings.Fluid.SolarCollectors.BaseClasses.PartialHeatLoss</a> (Partial heat loss model on which ASHRAEHeatLoss and EN12975HeatLoss are based).</p>
+<h3>Parameters</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Area"
+>Area</a></td><td>A_c</td><td>&nbsp;</td><td>Area of the collector [m2]</td></tr>
+<tr><td>Integer</td><td>nSeg</td><td>3</td><td>Number of segments</td></tr>
+<tr><td>Real</td><td>y_intercept</td><td>&nbsp;</td><td>Y intercept (Maximum efficiency)</td></tr>
+<tr><td colspan="2">replaceable package Medium</td><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium"
+>PartialMedium</a></td><td>Medium in the component</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.SpecificHeatCapacity"
+>SpecificHeatCapacity</a></td><td>cp_default</td><td>&nbsp;</td><td>Specific heat capacity of the fluid at the default temperature [J/(kg.K)]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.CoefficientOfHeatTransfer"
+>CoefficientOfHeatTransfer</a></td><td>slope</td><td>&nbsp;</td><td>Slope from ratings data [W/(m2.K)]</td></tr>
+<tr style="background-color: #e0e0e0"><td colspan="4">Nominal condition</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Irradiance"
+>Irradiance</a></td><td>G_nominal</td><td>&nbsp;</td><td>Irradiance at nominal conditions [W/m2]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.TemperatureDifference"
+>TemperatureDifference</a></td><td>dT_nominal</td><td>&nbsp;</td><td>Ambient temperature at nomincal conditions [K]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+>MassFlowRate</a></td><td>m_flow_nominal</td><td>&nbsp;</td><td>Fluid flow rate at nominal conditions [kg/s]</td></tr>
+</table>
+<h3>Connectors</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Connectors">
+<tr><th>Type</th><th>Name</th><th>Description</th></tr>
+<tr><td>input <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>RealInput</a></td><td>TEnv</td><td>Temperature of surrounding environment [K]</td></tr>
+<tr><td>input <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>RealInput</a></td><td>TFlu[nSeg]</td><td>Temperature of the heat transfer fluid [K]</td></tr>
+<tr><td>output <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+>RealOutput</a></td><td>QLos[nSeg]</td><td>Limited heat loss rate at current conditions [W]</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">block</span> ASHRAEHeatLoss <span style="color: #006400; font-weight: normal; font-style: normal;">
+  &quot;Calculate the heat loss of a solar collector per ASHRAE standard 93&quot;</span>
+
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="Buildings_Fluid_SolarCollectors_BaseClasses.html#Buildings.Fluid.SolarCollectors.BaseClasses.PartialHeatLoss"
+>Buildings.Fluid.SolarCollectors.BaseClasses.PartialHeatLoss</a>;
+
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.CoefficientOfHeatTransfer"
+>Modelica.SIunits.CoefficientOfHeatTransfer</a> slope <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Slope from ratings data&quot;</span>;
+
+<span style="color: blue; font-weight: normal; font-style: normal;">protected </span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">final </span><span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.ThermalConductance"
+>Modelica.SIunits.ThermalConductance</a> UA(
+      start = -slope*A_c,
+      fixed = false) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Coefficient describing heat loss to ambient conditions&quot;</span>;
+<span style="color: blue; font-weight: normal; font-style: normal;">initial </span><span style="color: blue; font-weight: normal; font-style: normal;">equation </span>
+  <span style="color: #006400; font-weight: normal; font-style: normal;"> //Identifies useful heat gain at nominal conditions</span>
+   QUse_nominal = G_nominal * A_c * y_intercept + slope * A_c * (dT_nominal);
+  <span style="color: #006400; font-weight: normal; font-style: normal;"> //Identifies TFlu[nSeg] at nominal conditions</span>
+   m_flow_nominal * cp_default * (dT_nominal_fluid[nSeg]) = QUse_nominal;
+  <span style="color: #006400; font-weight: normal; font-style: normal;"> //Identifies heat lost to environment at nominal conditions</span>
+   QLos_nominal = -slope * A_c * (dT_nominal);
+  <span style="color: #006400; font-weight: normal; font-style: normal;"> //Governing equation for the first segment (i=1)</span>
+   G_nominal * y_intercept * A_c/nSeg - UA/nSeg * (dT_nominal) = m_flow_nominal * cp_default
+   * (dT_nominal_fluid[1]);
+  <span style="color: #006400; font-weight: normal; font-style: normal;"> //Loop with the governing equations for segments 2:nSeg-1</span>
+   <span style="color: blue; font-weight: normal; font-style: normal;">for </span>i<span style="color: blue; font-weight: normal; font-style: normal;"> in </span>2:nSeg-1<span style="color: blue; font-weight: normal; font-style: normal;"> loop</span>
+     G_nominal * y_intercept * A_c/nSeg - UA/nSeg * (dT_nominal_fluid[i-1]+dT_nominal) =
+     m_flow_nominal * cp_default * (dT_nominal_fluid[i]-dT_nominal_fluid[i-1]);
+   <span style="color: blue; font-weight: normal; font-style: normal;">end for</span>;
+   <span style="color: blue; font-weight: normal; font-style: normal;">for </span>i<span style="color: blue; font-weight: normal; font-style: normal;"> in </span>1:nSeg<span style="color: blue; font-weight: normal; font-style: normal;"> loop</span>
+     nSeg * QLosUA[i] = UA * (dT_nominal_fluid[i]+dT_nominal);
+   <span style="color: blue; font-weight: normal; font-style: normal;">end for</span>;
+  <span style="color: red; font-weight: normal; font-style: normal;"> sum</span>(QLosUA[1:nSeg]) = QLos_nominal;
+<span style="color: blue; font-weight: normal; font-style: normal;">equation </span>
+   <span style="color: blue; font-weight: normal; font-style: normal;">for </span>i<span style="color: blue; font-weight: normal; font-style: normal;"> in </span>1:nSeg<span style="color: blue; font-weight: normal; font-style: normal;"> loop</span>
+     -QLosInt[i] * nSeg = UA * (TFlu[i] - TEnv);
+   <span style="color: blue; font-weight: normal; font-style: normal;">end for</span>;
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>ASHRAEHeatLoss;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE ASHRAESolarGain<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Fluid.SolarColl7079a4c513bd27f7rGainI.png" alt="Buildings.Fluid.SolarCollectors.BaseClasses.ASHRAESolarGain" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Fluid.SolarCollectors.BaseClasses.ASHRAESolarGain"></a><a href="Buildings_Fluid_SolarCollectors_BaseClasses.html#Buildings.Fluid.SolarCollectors.BaseClasses"
+>Buildings.Fluid.SolarCollectors.BaseClasses</a>.ASHRAESolarGain</h2>
+<p>
+<b>Calculate the solar heat gain of a solar collector per ASHRAE Standard 93</b>
+<br>
+<br><img src="Buildings.Fluid.SolarColl7079a4c513bd27f7rGainD.png" alt="Buildings.Fluid.SolarCollectors.BaseClasses.ASHRAESolarGain">
+</p>
+<h3>Information</h3>
+
+      <p>
+        This component computes the solar heat gain of the solar thermal collector.
+        It only calculates the solar heat gain without considering the heat loss
+        to the environment. This model uses ratings data according to ASHRAE93.
+        The solar heat gain is calculated using Equations 555 - 559 in the referenced
+        EnergyPlus documentation.
+      </p>
+      <p>
+        The solar radiation absorbed by the panel is identified using Eq 559 from
+        the EnergyPlus documentation. It is
+      </p>
+      <p align="center" style="font-style:italic;">
+        Q<sub>Flow</sub>[i]=A<sub>c</sub>/nSeg (F<sub>R</sub>(&tau;&alpha;)
+          K<sub>(&tau;&alpha;)<sub>net</sub></sub> (G<sub>Dir</sub>
+          (1-shaCoe)+G<sub>Dif,Sky</sub>+G<sub>Dif,Gnd</sub>))
+      </p>
+      <p>
+        where <i>Q<sub>Flow</sub>[i]</i> is the heat gain in each segment, <i>A<sub>
+        c</sub></i> is the area of the collector, <i>nSeg</i> is the user-specified
+        number of segments in the simulation, <i>F<sub>R</sub>(&tau;&alpha;)</i> is
+        the maximum collector efficiency, <i>K<sub>(&tau;&alpha;)<sub>net></sub>
+        </sub></i> is the incidence angle modifier, <i>G<sub>Dir</sub></i> is the
+        direct solar radiation, <i>shaCoe</i> is the user-specified shading
+        coefficient, <i>G<sub>Dif,Sky</sub></i> is the diffuse solar radiation from
+        the sky, and <i>G<sub>Dif,Gnd</sub></i> is the diffuse radiation from the
+        ground.
+      </p>
+      <p>
+        The solar radiation equation indicates that the collector is divided into
+        multiple segments. The number of segments used in the simulation is specified
+        by the user (parameter: <code>nSeg</code>). The area of an individual segment
+        is identified by dividing the collector area by the total number of segments.
+        The term <code>shaCoe</code> is used to define the percentage of the collector
+        that is shaded.
+      </p>
+      <p>
+        The incidence angle modifier used in the solar radiation equation is found using
+        Eq 556 from the EnergyPlus documentation. It is
+      </p>
+      <p align="center" style="font-style:italic;">
+        K<sub>(&tau;&alpha;),net</sub>=(G<sub>Beam</sub> K<sub>(&tau;&alpha;),
+          Beam</sub>+G<sub>Dif,Sky</sub> K<sub>(&tau;&alpha;),Sky</sub>+G<sub>Dif,Gnd</sub>
+          K<sub>(&tau;&alpha;),Gnd</sub>) / (G<sub>beam</sub>+G<sub>Dif,Sky</sub>+G<sub>
+          Dif,Gnd</sub>)
+      </p>
+      <p>
+        where <i>K<sub>(&tau;&alpha;),net</sub></i> is the net incidence angle modified,
+        <i>G<sub>Beam</sub></i> is the beam radiation, <i>K<sub>(&tau;&alpha;),Beam</sub>
+        </i> is the incidence angle modifier for beam radiation, <i>G<sub>Dif,Sky</sub></i>
+        is the diffuse radiation from the sky, <i>K<sub>(&tau;&alpha;),Sky</sub></i> is the
+        incidence angle modifier for radiation from the sky, <i>G<sub>Dif, Gnd</sub></i> is
+        the diffuse radiation from the ground, and <i>K<sub>(&tau;&alpha;),Gnd</sub></i> is
+        the incidence angle modifier for diffuse radiation from the ground.
+      </p>
+      <p>
+        Each incidence angle modifier is calculated using Eq 555 from the EnergyPlus
+        documentation. It is
+      </p>
+      <p align="center" style="font-style:italic;">
+        K<sub>(&tau;&alpha;),x</sub>=1+b<sub>0</sub> (1/cos(&theta;)-1)+b<sub>1</sub>
+          (1/cos(&theta;)-1)<sup>2</sup>
+      </p>
+      <p>
+        where x can refer to beam, sky or ground. <i>&theta;</i> is
+        the incidence angle. For beam radiation <i>&theta;</i> is found via standard
+        geometry. The incidence angle for sky and ground diffuse radiation are found
+        using, respectively, Eq 557 and 558 from the EnergyPlus documentation. They are
+      </p>
+      <p align="center" style="font-style:italic;">
+        &theta;<sub>sky</sub>=59.68-0.1388 til+0.001497 til<sup>2</sup><br/>
+        &theta;<sub>gnd</sub>=90.0-0.5788 til+0.002693 til<sup>2</sup>
+      </p>
+      <p>
+        where <i>&theta;<sub>sky</sub></i> is the incidence angle for diffuse radiation from the
+        sky, <i>til</i> is the tilt of the solar thermal collector, and <i>&theta;<sub>gnd</sub></i>
+        is the incidence angle for diffuse radiation from the ground.
+      </p>
+      <p>
+        These two equations must be evaluated in degrees. The necessary unit conversions are made
+        internally.
+      </p>
+      <p>
+        This model reduces the heat gain rate to 0 W when the fluid temperature is within 1 degree
+        C of the maximum temperature of the medium model. The calucation is performed using the
+        <a href="Buildings_Utilities_Math_Functions.html#Buildings.Utilities.Math.Functions.smoothHeaviside"
+>
+        Buildings.Utilities.Math.Functions.smoothHeaviside</a> function.
+      </p>
+    <h4>References</h4>
+      <p>
+      <a href="http://www.energyplus.gov">EnergyPlus 7.0.0 Engineering Reference</a>,
+        October 13, 2011.<br/>
+      ASHRAE 93-2010 -- Methods of Testing to Determine the Thermal Performance of Solar
+        Collectors (ANSI approved)
+      </p>
+    
+<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Icons.html#Modelica.Blocks.Icons.Block"
+>Modelica.Blocks.Icons.Block</a> (Basic graphical layout of input/output block), <a href="Buildings_Fluid_SolarCollectors_BaseClasses.html#Buildings.Fluid.SolarCollectors.BaseClasses.PartialParameters"
+>SolarCollectors.BaseClasses.PartialParameters</a> (Partial model for parameters).</p>
+<h3>Parameters</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Area"
+>Area</a></td><td>A_c</td><td>&nbsp;</td><td>Area of the collector [m2]</td></tr>
+<tr><td>Integer</td><td>nSeg</td><td>3</td><td>Number of segments</td></tr>
+<tr><td>Real</td><td>y_intercept</td><td>&nbsp;</td><td>Y intercept (Maximum efficiency)</td></tr>
+<tr><td>Real</td><td>B0</td><td>&nbsp;</td><td>1st incident angle modifer coefficient</td></tr>
+<tr><td>Real</td><td>B1</td><td>&nbsp;</td><td>2nd incident angle modifer coefficient</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
+>Angle</a></td><td>til</td><td>&nbsp;</td><td>Surface tilt [rad]</td></tr>
+<tr><td colspan="2">replaceable package Medium</td><td>Modelica.Media.Interfaces.Pa...</td><td>Medium in the system</td></tr>
+<tr style="background-color: #e0e0e0"><td colspan="4">Shading</td></tr>
+<tr><td>Boolean</td><td>use_shaCoe_in</td><td>false</td><td>Enable input connector for shaCoe</td></tr>
+<tr><td>Real</td><td>shaCoe</td><td>0</td><td>Shading coefficient 0.0: no shading, 1.0: full shading</td></tr>
+</table>
+<h3>Connectors</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Connectors">
+<tr><th>Type</th><th>Name</th><th>Description</th></tr>
+<tr><td colspan="2">replaceable package Medium</td><td>Medium in the system</td></tr>
+<tr><td>input <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>RealInput</a></td><td>shaCoe_in</td><td>Shading coefficient</td></tr>
+<tr><td>input <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>RealInput</a></td><td>TFlu[nSeg]</td><td>[K]</td></tr>
+<tr><td>input <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>RealInput</a></td><td>HSkyDifTil</td><td>Diffuse solar irradiation on a tilted surfce from the sky [W/m2]</td></tr>
+<tr><td>input <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>RealInput</a></td><td>HGroDifTil</td><td>Diffuse solar irradiation on a tilted surfce from the ground [W/m2]</td></tr>
+<tr><td>input <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>RealInput</a></td><td>incAng</td><td>Incidence angle of the sun beam on a tilted surface [rad]</td></tr>
+<tr><td>input <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>RealInput</a></td><td>HDirTil</td><td>Direct solar irradiation on a tilted surfce [W/m2]</td></tr>
+<tr><td>output <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+>RealOutput</a></td><td>QSol_flow[nSeg]</td><td>Solar heat gain [W]</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">block</span> ASHRAESolarGain <span style="color: #006400; font-weight: normal; font-style: normal;">
+  &quot;Calculate the solar heat gain of a solar collector per ASHRAE Standard 93&quot;</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Icons.html#Modelica.Blocks.Icons.Block"
+>Modelica.Blocks.Icons.Block</a>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="Buildings_Fluid_SolarCollectors_BaseClasses.html#Buildings.Fluid.SolarCollectors.BaseClasses.PartialParameters"
+>SolarCollectors.BaseClasses.PartialParameters</a>;
+
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Real B0 <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;1st incident angle modifer coefficient&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Real B1 <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;2nd incident angle modifer coefficient&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Boolean use_shaCoe_in = false <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Enable input connector for shaCoe&quot;</span>;
+
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Real shaCoe(
+    min=0.0,
+    max=1.0) = 0 <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Shading coefficient 0.0: no shading, 1.0: full shading&quot;</span>;
+
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
+>Modelica.SIunits.Angle</a> til <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Surface tilt&quot;</span>;
+
+  <span style="color: blue; font-weight: normal; font-style: normal;">replaceable </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium"
+>Modelica.Media.Interfaces.PartialMedium</a> <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Medium in the system&quot;</span>;
+
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>Modelica.Blocks.Interfaces.RealInput</a> shaCoe_in <span style="color: blue; font-weight: normal; font-style: normal;">if </span>use_shaCoe_in <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Shading coefficient&quot;</span>;
+   <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>Modelica.Blocks.Interfaces.RealInput</a> TFlu[nSeg](
+   <span style="color: blue; font-weight: normal; font-style: normal;">each </span>unit = &quot;K&quot;,
+   <span style="color: blue; font-weight: normal; font-style: normal;">each </span>displayUnit=&quot;degC&quot;,
+   <span style="color: blue; font-weight: normal; font-style: normal;">each </span>quantity=&quot;Temperature&quot;);
+   <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>Modelica.Blocks.Interfaces.RealInput</a> HSkyDifTil(
+     unit=&quot;W/m2&quot;, quantity=&quot;RadiantEnergyFluenceRate&quot;) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Diffuse solar irradiation on a tilted surfce from the sky&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>Modelica.Blocks.Interfaces.RealInput</a> HGroDifTil(
+    unit=&quot;W/m2&quot;, quantity=&quot;RadiantEnergyFluenceRate&quot;) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Diffuse solar irradiation on a tilted surfce from the ground&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>Modelica.Blocks.Interfaces.RealInput</a> incAng(
+    quantity=&quot;Angle&quot;,
+    unit=&quot;rad&quot;,
+    displayUnit=&quot;degree&quot;) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Incidence angle of the sun beam on a tilted surface&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>Modelica.Blocks.Interfaces.RealInput</a> HDirTil(
+    unit=&quot;W/m2&quot;, quantity=&quot;RadiantEnergyFluenceRate&quot;) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Direct solar irradiation on a tilted surfce&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+>Modelica.Blocks.Interfaces.RealOutput</a> QSol_flow[nSeg](<span style="color: blue; font-weight: normal; font-style: normal;">each </span><span style="color: blue; font-weight: normal; font-style: normal;">final </span>unit=&quot;W&quot;) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Solar heat gain&quot;</span>;
+
+<span style="color: blue; font-weight: normal; font-style: normal;">protected </span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">final </span><span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Real iamSky(fixed = false) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Incident angle modifier for diffuse solar radiation from the sky&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">final </span><span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Real iamGro(fixed = false) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Incident angle modifier for diffuse solar radiation from the ground&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">final </span><span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
+>Modelica.SIunits.Angle</a> incAngSky(fixed = false) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Incident angle of diffuse radiation from the sky&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">final </span><span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
+>Modelica.SIunits.Angle</a> incAngGro(fixed = false) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Incident angle of diffuse radiation from the ground&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">final </span><span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Real tilDeg(
+    unit = &quot;deg&quot;) =<span style="color: red; font-weight: normal; font-style: normal;"> Modelica.SIunits.Conversions.to_deg</span>(til) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Surface tilt angle in degrees&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">final </span><span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.HeatFlux"
+>Modelica.SIunits.HeatFlux</a> HTotMin = 1 <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Minimum HTot to avoid div/0&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">final </span><span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Real HMinDel = 0.001 <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Delta of the smoothing function for HTot&quot;</span>;
+
+  Real iamBea <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Incident angle modifier for director solar radiation&quot;</span>;
+  Real iam <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Weighted incident angle modifier&quot;</span>;
+
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>Modelica.Blocks.Interfaces.RealInput</a> shaCoe_internal <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Internally used shading coefficient&quot;</span>;
+
+<span style="color: blue; font-weight: normal; font-style: normal;">initial </span><span style="color: blue; font-weight: normal; font-style: normal;">equation </span>
+  <span style="color: #006400; font-weight: normal; font-style: normal;">// E+ Equ (557)</span>
+  incAngSky =<span style="color: red; font-weight: normal; font-style: normal;"> Modelica.SIunits.Conversions.from_deg</span>(59.68 - 0.1388*(tilDeg) +
+  0.001497*(tilDeg)^2);
+  <span style="color: #006400; font-weight: normal; font-style: normal;">// Diffuse radiation from the sky</span>
+  <span style="color: #006400; font-weight: normal; font-style: normal;">// E+ Equ (555)</span>
+  iamSky =<span style="color: red; font-weight: normal; font-style: normal;"> SolarCollectors.BaseClasses.IAM</span>(incAngSky, B0, B1);
+  <span style="color: #006400; font-weight: normal; font-style: normal;">// E+ Equ (558)</span>
+  incAngGro =<span style="color: red; font-weight: normal; font-style: normal;"> Modelica.SIunits.Conversions.from_deg</span>(90 - 0.5788*(tilDeg)+
+  0.002693*(tilDeg)^2);
+  <span style="color: #006400; font-weight: normal; font-style: normal;">// Diffuse radiation from the ground</span>
+  <span style="color: #006400; font-weight: normal; font-style: normal;">// E+ Equ (555)</span>
+  iamGro =<span style="color: red; font-weight: normal; font-style: normal;"> SolarCollectors.BaseClasses.IAM</span>(
+    incAngGro,
+    B0,
+    B1);
+
+<span style="color: blue; font-weight: normal; font-style: normal;">equation </span>
+
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(shaCoe_internal, shaCoe_in);
+
+  <span style="color: blue; font-weight: normal; font-style: normal;">if </span><span style="color: blue; font-weight: normal; font-style: normal;">not </span>use_shaCoe_in<span style="color: blue; font-weight: normal; font-style: normal;"> then</span>
+    shaCoe_internal = shaCoe;
+  <span style="color: blue; font-weight: normal; font-style: normal;">end if</span>;
+
+  <span style="color: #006400; font-weight: normal; font-style: normal;">// E+ Equ (555)</span>
+  iamBea =<span style="color: red; font-weight: normal; font-style: normal;"> Buildings.Utilities.Math.Functions.smoothHeaviside</span>(1/3*
+  Modelica.Constants.pi- incAng, Modelica.Constants.pi/60)*
+  <span style="color: red; font-weight: normal; font-style: normal;">SolarCollectors.BaseClasses.IAM</span>(
+    incAng,
+    B0,
+    B1);
+  <span style="color: #006400; font-weight: normal; font-style: normal;">// E+ Equ (556)</span>
+  iam =<span style="color: red; font-weight: normal; font-style: normal;"> Buildings.Utilities.Math.Functions.smoothHeaviside</span>(
+      1/3*Modelica.Constants.pi-incAng,Modelica.Constants.pi/60)*
+      ((HDirTil*iamBea + HSkyDifTil*iamSky + HGroDifTil*iamGro)/
+      <span style="color: red; font-weight: normal; font-style: normal;">Buildings.Utilities.Math.Functions.smoothMax</span>((HDirTil +
+      HSkyDifTil + HGroDifTil), HTotMin, HMinDel));
+  <span style="color: #006400; font-weight: normal; font-style: normal;">// Modified from EnergyPlus Equ (559) by applying shade effect for</span>
+  <span style="color: #006400; font-weight: normal; font-style: normal;">//direct solar radiation</span>
+  <span style="color: #006400; font-weight: normal; font-style: normal;">// Only solar heat gain is considered here</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">for </span>i<span style="color: blue; font-weight: normal; font-style: normal;"> in </span>1 : nSeg<span style="color: blue; font-weight: normal; font-style: normal;"> loop</span>
+    QSol_flow[i] = A_c/nSeg*(y_intercept*iam*(HDirTil*(1.0 -
+    shaCoe_internal) + HSkyDifTil + HGroDifTil))*
+    <span style="color: red; font-weight: normal; font-style: normal;">Buildings.Utilities.Math.Functions.smoothHeaviside</span>(
+     (Medium.T_max+1)-TFlu[i],1);
+  <span style="color: blue; font-weight: normal; font-style: normal;">end for</span>;
+
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>ASHRAESolarGain;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE EN12975HeatLoss<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Fluid.SolarCollf4bbdd21f236baadtLossI.png" alt="Buildings.Fluid.SolarCollectors.BaseClasses.EN12975HeatLoss" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Fluid.SolarCollectors.BaseClasses.EN12975HeatLoss"></a><a href="Buildings_Fluid_SolarCollectors_BaseClasses.html#Buildings.Fluid.SolarCollectors.BaseClasses"
+>Buildings.Fluid.SolarCollectors.BaseClasses</a>.EN12975HeatLoss</h2>
+<p>
+<b>Calculate the heat loss of a solar collector per EN12975</b>
+<br>
+<br><img src="Buildings.Fluid.SolarCollf4bbdd21f236baadtLossD.png" alt="Buildings.Fluid.SolarCollectors.BaseClasses.EN12975HeatLoss">
+</p>
+<h3>Information</h3>
+
+    <p>
+      This component computes the heat loss from the solar thermal collector
+      to the environment. It is designed anticipating ratings data collected in
+      accordance with EN12975. A negative <code>QLos[i]</code> indicates that
+      heat is being lost to the environment.
+    </p>
+    <p>
+      This model calculates the heat lost from a multiple-segment model using
+      ratings data based on the mean collector temperature. As a result, the
+      slope from the ratings data must be converted to a <i>UA</i> value which,
+      for a given number of segments, returns the same heat loss as the ratings
+      data would at nominal conditions. The <i>UA</i> value is identified using
+      the system of equations below:
+    </p>
+    <p align="center" style="font-style:italic;">
+      Q<sub>Use,nom</sub> = G<sub>nom</sub> A<sub>c</sub> F<sub>R</sub>
+        (&tau;&alpha;) - C<sub>1</sub> A<sub>c</sub> (T<sub>Mean,nom</sub>-
+        T<sub>Env,nom</sub>)-C<sub>2</sub> A<sub>c</sub> (T<sub>Mean,nom</sub>
+        -T<sub>Env,nom</sub>)<sup>2</sup><br/>
+      T<sub>Fluid,nom</sub>[nSeg]=T<sub>Mean,nom</sub>+Q<sub>Use,nom</sub>/
+        (m<sub>Flow,nom</sub> C<sub>p</sub>)<br/>
+      Q<sub>Los,nom</sub>=-C<sub>1</sub> A<sub>c</sub> (T<sub>Mean,nom</sub>-T
+        <sub>Env,nom</sub>)-C<sub>2</sub> A<sub>c</sub> (T<sub>Mean,nom</sub>-
+        T<sub>Env,nom</sub>)<sup>2</sup><br/>
+      T<sub>Fluid,nom</sub>[i] = T<sub>Fluid,nom</sub>[i-1] + (G<sub>nom</sub>
+        F<sub>R</sub>(&tau;&alpha;) A<sub>c</sub>/nSeg - UA/nSeg (T<sub>Fluid,
+        nom</sub>[i-1]-T<sub>Env,nom</sub>))/(m<sub>Flow,nom</sub> c<sub>p
+        </sub>)<br/>
+      Q<sub>Loss,UA</sub>=UA/nSeg (T<sub>Fluid,nom</sub>[i]-T<sub>Env,nom
+        </sub>)<br/>
+      sum(Q<sub>Loss,UA</sub>[1:nSeg])=Q<sub>Loss,nom</sub>
+    </p>
+    <p>
+      where <i>Q<sub>Use,nom</sub></i> is the useful heat gain at nominal
+      conditions,<i>G<sub>nom</sub></i> is the nominal solar irradiance,
+      <i>A<sub>c</sub></i> is the area of the collector, <i>F<sub>R</sub>
+      (&tau;&alpha;)</i> is the collector maximum efficiency, <i>C<sub>1
+      </sub></i> is the collector heat loss coefficient, <i>C<sub>2</sub></i>
+      is the temperature dependance of the heat loss coefficient, <i>T<sub>Mean,
+      nom</sub></i> is the nominal mean temperature of the solar collector, <i>T
+      <sub>Env,nom</sub></i> is the ambient temperature at nominal conditions,
+      <i>T<sub>Fluid,nom</sub>[i]</i> is the temperature of fluid in a given
+      segment of the collector, <i>m<sub>Flow,nom</sub></i> is the fluid flow at
+      nominal conditions, <i>C<sub>p</sub></i> is the specific heat of the heated
+      fluid, <i>Q<sub>Loss,nom</sub></i> is the heat loss identified using
+      the default value <i>UA</i> is the identified heat loss coefficient for a
+      multiple-segment equivalent solar collector, <i>nSeg</i> is the number of
+      segments in the simulation, and <i>Q<sub>Loss,UA</sub></i> is the heat
+      loss identified using the <i>UA</i> value.
+    </p>
+    <p>
+      The effective <i>UA</i> value is calculated at the beginning of the
+      simulation and used as a constant through the rest of the simulation. The
+      actual heat loss from the collector is calculated using
+    </p>
+    <p align="center" style="font-style:italic;">
+      Q<sub>Loss</sub>[i] = UA/nSeg (T<sub>Fluid</sub>[i] - T<sub>Env</sub>).
+    </p>
+    <p>
+      where <i>Q<sub>Loss</sub>[i]</i> is the heat loss from a given segment,
+      <i>UA</i> is the heat loss coefficient for a multiple segments model,
+      <i>nSeg</i> is the number of segments in the simulation,<i>T<sub>Fluid
+      </sub>[i]</i> is the temperature of the fluid in a given segment, and
+      <i>T<sub>Env</sub></i> is the temperature of the surrounding air.
+    </p>
+    <p>
+      This model reduces the heat loss rate to 0 W when the fluid temperature
+      is within 1 degree C of the minimum temperature of the medium model.
+      The calucation is performed using the
+      <a href="Buildings_Utilities_Math_Functions.html#Buildings.Utilities.Math.Functions.smoothHeaviside"
+>
+      Buildings.Utilities.Math.Functions.smoothHeaviside</a> function.
+    </p>
+  <h4>References</h4>
+    <p>
+      CEN 2006, European Standard 12975-1:2006, European Committee for Standardization
+    </p>
+  
+<p>Extends from <a href="Buildings_Fluid_SolarCollectors_BaseClasses.html#Buildings.Fluid.SolarCollectors.BaseClasses.PartialHeatLoss"
+>Buildings.Fluid.SolarCollectors.BaseClasses.PartialHeatLoss</a> (Partial heat loss model on which ASHRAEHeatLoss and EN12975HeatLoss are based).</p>
+<h3>Parameters</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Area"
+>Area</a></td><td>A_c</td><td>&nbsp;</td><td>Area of the collector [m2]</td></tr>
+<tr><td>Integer</td><td>nSeg</td><td>3</td><td>Number of segments</td></tr>
+<tr><td>Real</td><td>y_intercept</td><td>&nbsp;</td><td>Y intercept (Maximum efficiency)</td></tr>
+<tr><td colspan="2">replaceable package Medium</td><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium"
+>PartialMedium</a></td><td>Medium in the component</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.SpecificHeatCapacity"
+>SpecificHeatCapacity</a></td><td>cp_default</td><td>&nbsp;</td><td>Specific heat capacity of the fluid at the default temperature [J/(kg.K)]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.CoefficientOfHeatTransfer"
+>CoefficientOfHeatTransfer</a></td><td>C1</td><td>&nbsp;</td><td>C1 from ratings data [W/(m2.K)]</td></tr>
+<tr><td>Real</td><td>C2</td><td>&nbsp;</td><td>C2 from ratings data [W/(m2.K2)]</td></tr>
+<tr style="background-color: #e0e0e0"><td colspan="4">Nominal condition</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Irradiance"
+>Irradiance</a></td><td>G_nominal</td><td>&nbsp;</td><td>Irradiance at nominal conditions [W/m2]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.TemperatureDifference"
+>TemperatureDifference</a></td><td>dT_nominal</td><td>&nbsp;</td><td>Ambient temperature at nomincal conditions [K]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+>MassFlowRate</a></td><td>m_flow_nominal</td><td>&nbsp;</td><td>Fluid flow rate at nominal conditions [kg/s]</td></tr>
+</table>
+<h3>Connectors</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Connectors">
+<tr><th>Type</th><th>Name</th><th>Description</th></tr>
+<tr><td>input <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>RealInput</a></td><td>TEnv</td><td>Temperature of surrounding environment [K]</td></tr>
+<tr><td>input <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>RealInput</a></td><td>TFlu[nSeg]</td><td>Temperature of the heat transfer fluid [K]</td></tr>
+<tr><td>output <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+>RealOutput</a></td><td>QLos[nSeg]</td><td>Limited heat loss rate at current conditions [W]</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">block</span> EN12975HeatLoss <span style="color: #006400; font-weight: normal; font-style: normal;">
+  &quot;Calculate the heat loss of a solar collector per EN12975&quot;</span>
+
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="Buildings_Fluid_SolarCollectors_BaseClasses.html#Buildings.Fluid.SolarCollectors.BaseClasses.PartialHeatLoss"
+>Buildings.Fluid.SolarCollectors.BaseClasses.PartialHeatLoss</a>;
+
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.CoefficientOfHeatTransfer"
+>Modelica.SIunits.CoefficientOfHeatTransfer</a> C1 <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;C1 from ratings data&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Real C2(
+  <span style="color: blue; font-weight: normal; font-style: normal;">final </span>unit = &quot;W/(m2.K2)&quot;) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;C2 from ratings data&quot;</span>;
+
+<span style="color: blue; font-weight: normal; font-style: normal;">protected </span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">final </span><span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.ThermalConductance"
+>Modelica.SIunits.ThermalConductance</a> UA(
+     fixed = false,
+     start=QLos_nominal/(dT_nominal)) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Coefficient describing heat loss to ambient conditions&quot;</span>;
+<span style="color: blue; font-weight: normal; font-style: normal;">initial </span><span style="color: blue; font-weight: normal; font-style: normal;">equation </span>
+  <span style="color: #006400; font-weight: normal; font-style: normal;"> //Identifies useful heat gain at nominal conditions</span>
+   QUse_nominal = G_nominal * A_c * y_intercept -C1 * A_c *
+      (dT_nominal) - C2 * A_c * (dT_nominal)^2;
+  <span style="color: #006400; font-weight: normal; font-style: normal;"> //Identifies TFlu[nSeg] at nominal conditions</span>
+   m_flow_nominal * cp_default * (dT_nominal_fluid[nSeg]) = QUse_nominal;
+  <span style="color: #006400; font-weight: normal; font-style: normal;"> //Identifies heat lost to environment at nominal conditions</span>
+   QLos_nominal = -C1 * A_c * (dT_nominal)-C2 * A_c * (dT_nominal)^2;
+  <span style="color: #006400; font-weight: normal; font-style: normal;"> //Governing equation for the first segment (i=1)</span>
+   G_nominal * y_intercept * A_c/nSeg - UA/nSeg * (dT_nominal)
+     = m_flow_nominal * cp_default * (dT_nominal_fluid[1]);
+  <span style="color: #006400; font-weight: normal; font-style: normal;"> //Loop with the governing equations for segments 2:nSeg-1</span>
+   <span style="color: blue; font-weight: normal; font-style: normal;">for </span>i<span style="color: blue; font-weight: normal; font-style: normal;"> in </span>2:nSeg-1<span style="color: blue; font-weight: normal; font-style: normal;"> loop</span>
+     G_nominal * y_intercept * A_c/nSeg - UA/nSeg * (dT_nominal_fluid[i-1]
+     +dT_nominal)= m_flow_nominal * cp_default * (dT_nominal_fluid[i]-
+     dT_nominal_fluid[i-1]);
+   <span style="color: blue; font-weight: normal; font-style: normal;">end for</span>;
+   <span style="color: blue; font-weight: normal; font-style: normal;">for </span>i<span style="color: blue; font-weight: normal; font-style: normal;"> in </span>1:nSeg<span style="color: blue; font-weight: normal; font-style: normal;"> loop</span>
+     nSeg * QLosUA[i] = UA * (dT_nominal_fluid[i]+dT_nominal);
+   <span style="color: blue; font-weight: normal; font-style: normal;">end for</span>;
+  <span style="color: red; font-weight: normal; font-style: normal;"> sum</span>(QLosUA) = QLos_nominal;
+<span style="color: blue; font-weight: normal; font-style: normal;">equation </span>
+   <span style="color: blue; font-weight: normal; font-style: normal;">for </span>i<span style="color: blue; font-weight: normal; font-style: normal;"> in </span>1:nSeg<span style="color: blue; font-weight: normal; font-style: normal;"> loop</span>
+     QLosInt[i] * nSeg = UA * (TFlu[i] - TEnv);
+   <span style="color: blue; font-weight: normal; font-style: normal;">end for</span>;
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>EN12975HeatLoss;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE EN12975SolarGain<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Fluid.SolarColla85cf3822f2375c3rGainI.png" alt="Buildings.Fluid.SolarCollectors.BaseClasses.EN12975SolarGain" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Fluid.SolarCollectors.BaseClasses.EN12975SolarGain"></a><a href="Buildings_Fluid_SolarCollectors_BaseClasses.html#Buildings.Fluid.SolarCollectors.BaseClasses"
+>Buildings.Fluid.SolarCollectors.BaseClasses</a>.EN12975SolarGain</h2>
+<p>
+<b>Model calculating solar gains per the EN12975 standard</b>
+<br>
+<br><img src="Buildings.Fluid.SolarColla85cf3822f2375c3rGainD.png" alt="Buildings.Fluid.SolarCollectors.BaseClasses.EN12975SolarGain">
+</p>
+<h3>Information</h3>
+
+      <p>
+        This component computes the solar heat gain of the solar thermal collector. It
+        only calculates the solar heat gain without considering the heat loss to the
+        environment. This model performs calculations using ratings data from EN12975.
+        The solar heat gain is calculated using Equation 559 in the referenced EnergyPlus
+        documentation. The calculation is modified somewhat to use coefficients from EN12975.
+      </p>
+      <p>
+        The equation used to calculate solar gain is a modified version of Eq 559 from
+        the EnergyPlus documentation. It is
+      </p>
+      <p align="center" style="font-style:italic;">
+        Q<sub>Flow</sub>[i] = A<sub>c</sub>/nSeg F<sub>R</sub>(&tau;&alpha;) (K<sub>
+        (&tau;&alpha;),Beam</sub> G<sub>Beam</sub> (1-shaCoe)+K<sub>Diff</sub> G<sub>
+        Diff</sub>),
+      </p>
+      <p>
+        where <i>Q<sub>Flow</sub>[i]</i> is the heat gained in each segment, <i>A<sub>
+        c</sub></i> is the area of the collector, <code>nSeg</code> is the number of
+        segments in the collector, <i>F<sub>R</sub>(&tau;&alpha;)</i> is the maximum
+        efficiency of the collector, <i>K<sub>(&tau;&alpha;),Beam</sub> </i>is the
+        incidence angle modifier for beam radiation, <i>G<sub>Beam</sub></i> is the
+        current beam radiation on the collector, <code>shaCoe</code> is the shading
+        coefficient, <i>K<sub>Diff</sub></i> is the incidence angle modifier for
+        diffuse radiation and <i>G<sub>Diff</sub></i> is the diffuse
+        radiation striking the surface.
+      </p>
+      <p>
+        The solar radiation equation indicates that the collector is divided into
+        multiple segments. The number of segments used in the simulation is specified
+        using the parameter <code>nSeg</code>. The area of an individual segment is
+        identified by dividing the collector area by the total number of segments. The
+        parameter <code>shaCoe</code> is used to define the percentage of the collector
+        which is shaded. The main difference between this model and the ASHRAE model
+        is the handling of diffuse radiation. The ASHRAE model contains calculated
+        incidence angle modifiers for both sky and ground diffuse radiation
+        while this model uses a coefficient from test data for diffuse radiation.
+      </p>
+      <p>
+        The incidence angle modifier for beam radiation is calculated using Eq 555
+        from the EnergyPlus documentation, as
+      </p>
+      <p align="center" style="font-style:italic;">
+        K<sub>(&tau;&alpha;),Beam</sub>=1+b<sub>0</sub> (1/cos(&theta;)-1)+b<sub>1</sub>
+        (1/cos(&theta;)-1)<sup>2</sup>,
+      </p>
+      <p>
+        where <i>K<sub>(&tau;&alpha;),Beam</sub></i> is the incidence angle modifier
+        for beam radiation, <i>b<sub>0</sub></i> is the first incidence angle modifier
+        coefficient, <i>&theta;</i> is the incidence angle and <i>b<sub>1</sub></i>
+        is the second incidence angle modifier coefficient.
+      </p>
+      <p>
+        This model reduces the heat gain rate to 0 W when the fluid temperature is
+        within 1 degree C of the maximum temperature of the medium model. The
+        calucation is performed using the
+        <a href="Buildings_Utilities_Math_Functions.html#Buildings.Utilities.Math.Functions.smoothHeaviside"
+>
+        Buildings.Utilities.Math.Functions.smoothHeaviside</a> function.
+      </p>
+    <h4>References</h4>
+      <p>
+      <a href="http://www.energyplus.gov">EnergyPlus 7.0.0 Engineering Reference</a>,
+        October 13, 2011.<br/>
+      CEN 2006, European Standard 12975-1:2006, European Committee for Standardization
+      </p>
+    
+<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Icons.html#Modelica.Blocks.Icons.Block"
+>Modelica.Blocks.Icons.Block</a> (Basic graphical layout of input/output block), <a href="Buildings_Fluid_SolarCollectors_BaseClasses.html#Buildings.Fluid.SolarCollectors.BaseClasses.PartialParameters"
+>SolarCollectors.BaseClasses.PartialParameters</a> (Partial model for parameters).</p>
+<h3>Parameters</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Area"
+>Area</a></td><td>A_c</td><td>&nbsp;</td><td>Area of the collector [m2]</td></tr>
+<tr><td>Integer</td><td>nSeg</td><td>3</td><td>Number of segments</td></tr>
+<tr><td>Real</td><td>y_intercept</td><td>&nbsp;</td><td>Y intercept (Maximum efficiency)</td></tr>
+<tr><td>Real</td><td>B0</td><td>&nbsp;</td><td>1st incident angle modifer coefficient</td></tr>
+<tr><td>Real</td><td>B1</td><td>&nbsp;</td><td>2nd incident angle modifer coefficient</td></tr>
+<tr><td>Real</td><td>iamDiff</td><td>&nbsp;</td><td>Incidence angle modifier for diffuse radiation</td></tr>
+<tr><td colspan="2">replaceable package Medium</td><td>Modelica.Media.Interfaces.Pa...</td><td>Medium in the system</td></tr>
+<tr style="background-color: #e0e0e0"><td colspan="4">Shading</td></tr>
+<tr><td>Boolean</td><td>use_shaCoe_in</td><td>false</td><td>Enables an input connector for shaCoe</td></tr>
+<tr><td>Real</td><td>shaCoe</td><td>0</td><td>Shading coefficient 0.0: no shading, 1.0: full shading</td></tr>
+</table>
+<h3>Connectors</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Connectors">
+<tr><th>Type</th><th>Name</th><th>Description</th></tr>
+<tr><td colspan="2">replaceable package Medium</td><td>Medium in the system</td></tr>
+<tr><td>input <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>RealInput</a></td><td>shaCoe_in</td><td>Time varying input for the shading coefficient</td></tr>
+<tr><td>input <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>RealInput</a></td><td>HSkyDifTil</td><td>Diffuse solar irradiation on a tilted surfce from the sky [W/m2]</td></tr>
+<tr><td>input <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>RealInput</a></td><td>incAng</td><td>Incidence angle of the sun beam on a tilted surface [rad]</td></tr>
+<tr><td>input <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>RealInput</a></td><td>HDirTil</td><td>Direct solar irradiation on a tilted surfce [W/m2]</td></tr>
+<tr><td>output <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+>RealOutput</a></td><td>QSol_flow[nSeg]</td><td>Solar heat gain [W]</td></tr>
+<tr><td>input <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>RealInput</a></td><td>TFlu[nSeg]</td><td>[K]</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">model</span> EN12975SolarGain <span style="color: #006400; font-weight: normal; font-style: normal;">
+  &quot;Model calculating solar gains per the EN12975 standard&quot;</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Icons.html#Modelica.Blocks.Icons.Block"
+>Modelica.Blocks.Icons.Block</a>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="Buildings_Fluid_SolarCollectors_BaseClasses.html#Buildings.Fluid.SolarCollectors.BaseClasses.PartialParameters"
+>SolarCollectors.BaseClasses.PartialParameters</a>;
+
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Real B0 <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;1st incident angle modifer coefficient&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Real B1 <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;2nd incident angle modifer coefficient&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Boolean use_shaCoe_in = false <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Enables an input connector for shaCoe&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Real shaCoe(
+    min=0.0,
+    max=1.0) = 0 <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Shading coefficient 0.0: no shading, 1.0: full shading&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Real iamDiff <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Incidence angle modifier for diffuse radiation&quot;</span>;
+
+  <span style="color: blue; font-weight: normal; font-style: normal;">replaceable </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium"
+>Modelica.Media.Interfaces.PartialMedium</a> <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Medium in the system&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>Modelica.Blocks.Interfaces.RealInput</a> shaCoe_in <span style="color: blue; font-weight: normal; font-style: normal;">if </span>use_shaCoe_in <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Time varying input for the shading coefficient&quot;</span>;
+
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>Modelica.Blocks.Interfaces.RealInput</a> HSkyDifTil(
+    unit=&quot;W/m2&quot;, quantity=&quot;RadiantEnergyFluenceRate&quot;) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Diffuse solar irradiation on a tilted surfce from the sky&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>Modelica.Blocks.Interfaces.RealInput</a> incAng(
+    quantity=&quot;Angle&quot;,
+    unit=&quot;rad&quot;,
+    displayUnit=&quot;degree&quot;) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Incidence angle of the sun beam on a tilted surface&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>Modelica.Blocks.Interfaces.RealInput</a> HDirTil(
+    unit=&quot;W/m2&quot;, quantity=&quot;RadiantEnergyFluenceRate&quot;) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Direct solar irradiation on a tilted surfce&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+>Modelica.Blocks.Interfaces.RealOutput</a> QSol_flow[nSeg](<span style="color: blue; font-weight: normal; font-style: normal;">final </span>unit=&quot;W&quot;) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Solar heat gain&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>Modelica.Blocks.Interfaces.RealInput</a> TFlu[nSeg](
+     unit=&quot;K&quot;,
+     displayUnit=&quot;degC&quot;,
+     quantity=&quot;Temperature&quot;);
+
+<span style="color: blue; font-weight: normal; font-style: normal;">protected </span>
+  Real iamBea <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Incidence angle modifier for director solar radiation&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>Modelica.Blocks.Interfaces.RealInput</a> shaCoe_internal <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Internally used shaCoe&quot;</span>;
+
+<span style="color: blue; font-weight: normal; font-style: normal;">equation </span>
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(shaCoe_internal, shaCoe_in);
+
+  <span style="color: #006400; font-weight: normal; font-style: normal;">// E+ Equ (555)</span>
+  iamBea =<span style="color: red; font-weight: normal; font-style: normal;"> Buildings.Utilities.Math.Functions.smoothHeaviside</span>(x=Modelica.Constants.pi
+    /3 - incAng, delta=Modelica.Constants.pi/60)*
+    <span style="color: red; font-weight: normal; font-style: normal;">SolarCollectors.BaseClasses.IAM</span>(
+    incAng,
+    B0,
+    B1);
+  <span style="color: #006400; font-weight: normal; font-style: normal;">// Modified from EnergyPlus Equ (559) by applying shade effect for direct solar radiation</span>
+  <span style="color: #006400; font-weight: normal; font-style: normal;">// Only solar heat gain is considered here</span>
+
+  <span style="color: blue; font-weight: normal; font-style: normal;">if </span><span style="color: blue; font-weight: normal; font-style: normal;">not </span>use_shaCoe_in<span style="color: blue; font-weight: normal; font-style: normal;"> then</span>
+    shaCoe_internal = shaCoe;
+  <span style="color: blue; font-weight: normal; font-style: normal;">end if</span>;
+
+  <span style="color: blue; font-weight: normal; font-style: normal;">for </span>i<span style="color: blue; font-weight: normal; font-style: normal;"> in </span>1 : nSeg<span style="color: blue; font-weight: normal; font-style: normal;"> loop</span>
+  QSol_flow[i] = A_c/nSeg*(y_intercept*(iamBea*HDirTil*(1.0 - shaCoe_internal) + iamDiff *
+  HSkyDifTil))*<span style="color: red; font-weight: normal; font-style: normal;">Buildings.Utilities.Math.Functions.smoothHeaviside</span>((Medium.T_max+1)-TFlu[i],1);
+  <span style="color: blue; font-weight: normal; font-style: normal;">end for</span>;
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>EN12975SolarGain;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE IAM<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><a name="Buildings.Fluid.SolarCollectors.BaseClasses.IAM"></a><a href="Buildings_Fluid_SolarCollectors_BaseClasses.html#Buildings.Fluid.SolarCollectors.BaseClasses"
+>Buildings.Fluid.SolarCollectors.BaseClasses</a>.IAM</h2>
+<p>
+<b>Function for incident angle modifer</b>
+</p>
+<h3>Information</h3>
+
+<h4>Overview</h4>
+<p>
+This function computes the incidence angle modifier for solar insolation
+striking the surface of the solar thermal collector. It is calculated using
+Eq 555 in the EnergyPlus 7.0.0 Engineering Reference.
+</p>
+<h4>Notice</h4>
+<p>
+As stated in EnergyPlus7.0.0 the incidence angle equation performs poorly
+at angles greater than 60 degrees. This model outputs 0 whenever the incidence
+angle is greater than 60 degrees.
+</p>
+<h4>References</h4>
+<p>
+<a href="http://www.energyplus.gov">EnergyPlus 7.0.0 Engineering Reference</a>,
+October 13, 2011.
+</p>
+
+<h3>Inputs</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Inputs">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
+>Angle</a></td><td>incAng</td><td>&nbsp;</td><td>Incident angle [rad]</td></tr>
+<tr><td>Real</td><td>B0</td><td>&nbsp;</td><td>1st incident angle modifer coefficient</td></tr>
+<tr><td>Real</td><td>B1</td><td>&nbsp;</td><td>2nd incident angle modifer coefficient</td></tr>
+</table>
+<h3>Outputs</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Outputs">
+<tr><th>Type</th><th>Name</th><th>Description</th></tr>
+<tr><td>Real</td><td>incAngMod</td><td>Incident angle modifier coefficient</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">function</span> IAM <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Function for incident angle modifer&quot;</span>
+
+  <span style="color: blue; font-weight: normal; font-style: normal;">input </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
+>Modelica.SIunits.Angle</a> incAng <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Incident angle&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">input </span>Real B0 <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;1st incident angle modifer coefficient&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">input </span>Real B1 <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;2nd incident angle modifer coefficient&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">output </span>Real incAngMod <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Incident angle modifier coefficient&quot;</span>;
+<span style="color: blue; font-weight: normal; font-style: normal;">protected </span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">constant </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
+>Modelica.SIunits.Angle</a> incAngMin = Modelica.Constants.pi / 2 -0.1 <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Minimum incidence angle to avoid division by zero&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">constant </span>Real delta = 0.0001 <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Width of the smoothing function&quot;</span>;
+  Real cosIncAngMin(min=Modelica.Constants.eps)=
+  <span style="color: red; font-weight: normal; font-style: normal;">Modelica.Math.cos</span>(incAngMin) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Cosine of minimum incidence angle&quot;</span>;
+
+<span style="color: blue; font-weight: normal; font-style: normal;">algorithm </span>
+  <span style="color: #006400; font-weight: normal; font-style: normal;">// E+ Equ (555)</span>
+
+  incAngMod :=
+  <span style="color: red; font-weight: normal; font-style: normal;">Buildings.Utilities.Math.Functions.smoothHeaviside</span>(
+  Modelica.Constants.pi/3-incAng, delta)*
+  (1 + B0*(1/<span style="color: red; font-weight: normal; font-style: normal;">Buildings.Utilities.Math.Functions.smoothMax</span>(
+  <span style="color: red; font-weight: normal; font-style: normal;">Modelica.Math.cos</span>(incAng),<span style="color: red; font-weight: normal; font-style: normal;"> Modelica.Math.cos</span>(incAngMin), delta) - 1) +
+  B1*(1/<span style="color: red; font-weight: normal; font-style: normal;">Buildings.Utilities.Math.Functions.smoothMax</span>(<span style="color: red; font-weight: normal; font-style: normal;">Modelica.Math.cos</span>(incAng),
+  cosIncAngMin, delta) - 1)^2);
+
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>IAM;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE PartialHeatLoss<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Fluid.SolarCollc77ae1e9e07c26b7tLossI.png" alt="Buildings.Fluid.SolarCollectors.BaseClasses.PartialHeatLoss" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Fluid.SolarCollectors.BaseClasses.PartialHeatLoss"></a><a href="Buildings_Fluid_SolarCollectors_BaseClasses.html#Buildings.Fluid.SolarCollectors.BaseClasses"
+>Buildings.Fluid.SolarCollectors.BaseClasses</a>.PartialHeatLoss</h2>
+<p>
+<b>Partial heat loss model on which ASHRAEHeatLoss and EN12975HeatLoss are based</b>
+<br>
+<br><img src="Buildings.Fluid.SolarCollc77ae1e9e07c26b7tLossD.png" alt="Buildings.Fluid.SolarCollectors.BaseClasses.PartialHeatLoss">
+</p>
+<h3>Information</h3>
+
+      <p>
+        This component is a partial model used as the base for
+        <a href="Buildings_Fluid_SolarCollectors_BaseClasses.html#Buildings.Fluid.SolarCollectors.BaseClasses.ASHRAEHeatLoss"
+>
+        Buildings.Fluid.SolarCollectors.BaseClasses.ASHRAEHeatLoss</a> and
+        <a href="Buildings_Fluid_SolarCollectors_BaseClasses.html#Buildings.Fluid.SolarCollectors.BaseClasses.EN12975HeatLoss"
+>
+        Buildings.Fluid.SolarCollectors.BaseClasses.EN12975HeatLoss</a>. It contains the
+        input, output and parameter declarations which are common to both models. More
+        detailed information is available in the documentation for the extending classes.
+      </p>
+    
+<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Icons.html#Modelica.Blocks.Icons.Block"
+>Modelica.Blocks.Icons.Block</a> (Basic graphical layout of input/output block), <a href="Buildings_Fluid_SolarCollectors_BaseClasses.html#Buildings.Fluid.SolarCollectors.BaseClasses.PartialParameters"
+>SolarCollectors.BaseClasses.PartialParameters</a> (Partial model for parameters).</p>
+<h3>Parameters</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Area"
+>Area</a></td><td>A_c</td><td>&nbsp;</td><td>Area of the collector [m2]</td></tr>
+<tr><td>Integer</td><td>nSeg</td><td>3</td><td>Number of segments</td></tr>
+<tr><td>Real</td><td>y_intercept</td><td>&nbsp;</td><td>Y intercept (Maximum efficiency)</td></tr>
+<tr><td colspan="2">replaceable package Medium</td><td>Modelica.Media.Interfaces.Pa...</td><td>Medium in the component</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.SpecificHeatCapacity"
+>SpecificHeatCapacity</a></td><td>cp_default</td><td>&nbsp;</td><td>Specific heat capacity of the fluid at the default temperature [J/(kg.K)]</td></tr>
+<tr style="background-color: #e0e0e0"><td colspan="4">Nominal condition</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Irradiance"
+>Irradiance</a></td><td>G_nominal</td><td>&nbsp;</td><td>Irradiance at nominal conditions [W/m2]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.TemperatureDifference"
+>TemperatureDifference</a></td><td>dT_nominal</td><td>&nbsp;</td><td>Ambient temperature at nomincal conditions [K]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+>MassFlowRate</a></td><td>m_flow_nominal</td><td>&nbsp;</td><td>Fluid flow rate at nominal conditions [kg/s]</td></tr>
+</table>
+<h3>Connectors</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Connectors">
+<tr><th>Type</th><th>Name</th><th>Description</th></tr>
+<tr><td colspan="2">replaceable package Medium</td><td>Medium in the component</td></tr>
+<tr><td>input <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>RealInput</a></td><td>TEnv</td><td>Temperature of surrounding environment [K]</td></tr>
+<tr><td>input <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>RealInput</a></td><td>TFlu[nSeg]</td><td>Temperature of the heat transfer fluid [K]</td></tr>
+<tr><td>output <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+>RealOutput</a></td><td>QLos[nSeg]</td><td>Limited heat loss rate at current conditions [W]</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">block</span> PartialHeatLoss <span style="color: #006400; font-weight: normal; font-style: normal;">
+  &quot;Partial heat loss model on which ASHRAEHeatLoss and EN12975HeatLoss are based&quot;</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Icons.html#Modelica.Blocks.Icons.Block"
+>Modelica.Blocks.Icons.Block</a>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="Buildings_Fluid_SolarCollectors_BaseClasses.html#Buildings.Fluid.SolarCollectors.BaseClasses.PartialParameters"
+>SolarCollectors.BaseClasses.PartialParameters</a>;
+
+  <span style="color: blue; font-weight: normal; font-style: normal;">replaceable </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium"
+>Modelica.Media.Interfaces.PartialMedium</a> <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Medium in the component&quot;</span>;
+
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Irradiance"
+>Modelica.SIunits.Irradiance</a> G_nominal <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Irradiance at nominal conditions&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.TemperatureDifference"
+>Modelica.SIunits.TemperatureDifference</a> dT_nominal <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Ambient temperature at nomincal conditions&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+>Modelica.SIunits.MassFlowRate</a> m_flow_nominal <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Fluid flow rate at nominal conditions&quot;</span>;
+
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.SpecificHeatCapacity"
+>Modelica.SIunits.SpecificHeatCapacity</a> cp_default <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Specific heat capacity of the fluid at the default temperature&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>Modelica.Blocks.Interfaces.RealInput</a> TEnv(
+    quantity=&quot;ThermodynamicTemperature&quot;,
+    unit=&quot;K&quot;,
+    displayUnit=&quot;degC&quot;) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Temperature of surrounding environment&quot;</span>;
+
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>Modelica.Blocks.Interfaces.RealInput</a> TFlu[nSeg](
+    <span style="color: blue; font-weight: normal; font-style: normal;">each </span>quantity=&quot;ThermodynamicTemperature&quot;,
+    <span style="color: blue; font-weight: normal; font-style: normal;">each </span>unit = &quot;K&quot;,
+    <span style="color: blue; font-weight: normal; font-style: normal;">each </span>displayUnit=&quot;degC&quot;) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Temperature of the heat transfer fluid&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+>Modelica.Blocks.Interfaces.RealOutput</a> QLos[nSeg](
+    <span style="color: blue; font-weight: normal; font-style: normal;">each </span>quantity=&quot;HeatFlowRate&quot;,
+    <span style="color: blue; font-weight: normal; font-style: normal;">each </span>unit=&quot;W&quot;,
+    <span style="color: blue; font-weight: normal; font-style: normal;">each </span>displayUnit=&quot;W&quot;) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Limited heat loss rate at current conditions&quot;</span>;
+
+<span style="color: blue; font-weight: normal; font-style: normal;">protected </span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">final </span><span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.HeatFlowRate"
+>Modelica.SIunits.HeatFlowRate</a> QUse_nominal(fixed = false) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Useful heat gain at nominal conditions&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">final </span><span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.HeatFlowRate"
+>Modelica.SIunits.HeatFlowRate</a> QLos_nominal(fixed = false) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Heat loss at nominal conditions&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">final </span><span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.HeatFlowRate"
+>Modelica.SIunits.HeatFlowRate</a> QLosUA[nSeg](<span style="color: blue; font-weight: normal; font-style: normal;">each </span>fixed = false) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Heat loss at current conditions&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">final </span><span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+>Modelica.SIunits.Temperature</a> dT_nominal_fluid[nSeg](
+    <span style="color: blue; font-weight: normal; font-style: normal;">each </span>start = 293.15,
+    <span style="color: blue; font-weight: normal; font-style: normal;">each </span>fixed = false) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Temperature of each semgent in the collector at nominal conditions&quot;</span>;
+
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.HeatFlowRate"
+>Modelica.SIunits.HeatFlowRate</a> QLosInt[nSeg] <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Heat loss rate at current conditions&quot;</span>;
+
+<span style="color: blue; font-weight: normal; font-style: normal;">equation </span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">for </span>i<span style="color: blue; font-weight: normal; font-style: normal;"> in </span>1:nSeg<span style="color: blue; font-weight: normal; font-style: normal;"> loop</span>
+    QLos[i] = QLosInt[i] *<span style="color: red; font-weight: normal; font-style: normal;"> Buildings.Utilities.Math.Functions.smoothHeaviside</span>(
+     TFlu[i]-(Medium.T_min+1), 1);
+  <span style="color: blue; font-weight: normal; font-style: normal;">end for</span>;
+
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>PartialHeatLoss;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE PartialParameters<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><a name="Buildings.Fluid.SolarCollectors.BaseClasses.PartialParameters"></a><a href="Buildings_Fluid_SolarCollectors_BaseClasses.html#Buildings.Fluid.SolarCollectors.BaseClasses"
+>Buildings.Fluid.SolarCollectors.BaseClasses</a>.PartialParameters</h2>
+<p>
+<b>Partial model for parameters</b>
+</p>
+<h3>Information</h3>
+
+    <p>
+      Partial parameters used in all solar collector models
+    </p>
+  
+<h3>Parameters</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Area"
+>Area</a></td><td>A_c</td><td>&nbsp;</td><td>Area of the collector [m2]</td></tr>
+<tr><td>Integer</td><td>nSeg</td><td>3</td><td>Number of segments</td></tr>
+<tr><td>Real</td><td>y_intercept</td><td>&nbsp;</td><td>Y intercept (Maximum efficiency)</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">block</span> PartialParameters <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Partial model for parameters&quot;</span>
+
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Area"
+>Modelica.SIunits.Area</a> A_c <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Area of the collector&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Integer nSeg(min=3)=3 <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Number of segments&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Real y_intercept <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Y intercept (Maximum efficiency)&quot;</span>;
+
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>PartialParameters;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE PartialSolarCollector<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Fluid.SolarColl65a6cfe240acb7aeectorI.png" alt="Buildings.Fluid.SolarCollectors.BaseClasses.PartialSolarCollector" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Fluid.SolarCollectors.BaseClasses.PartialSolarCollector"></a><a href="Buildings_Fluid_SolarCollectors_BaseClasses.html#Buildings.Fluid.SolarCollectors.BaseClasses"
+>Buildings.Fluid.SolarCollectors.BaseClasses</a>.PartialSolarCollector</h2>
+<p>
+<b>Partial model for solar collectors</b>
+<br>
+<br><img src="Buildings.Fluid.SolarColl65a6cfe240acb7aeectorD.png" alt="Buildings.Fluid.SolarCollectors.BaseClasses.PartialSolarCollector">
+</p>
+<h3>Information</h3>
+
+<p>
+This component is a partial model of a solar thermal collector. It can be
+expanded to create solar collector models based on either ASHRAE93 or
+EN12975 ratings data.
+</p>
+<h4>Notice</h4>
+<p>
+As mentioned in the reference, the SRCC incident angle modifier equation
+coefficients are only valid for incident angles of 60 degrees or less.
+Because these curves behave poorly for angles greater than 60 degrees
+the model does not calculatue either direct or diffuse solar radiation gains
+when the incidence angle is greater than 60 degrees.
+</p>
+<p>
+The heat capacity of the collector without fluid is
+estimated based on the dry mass and the specific heat capacity of copper.
+This heat capacity is then added to the model by increasing the size of the fluid
+volume. Note that in earlier implementations, there was a separate model to take into
+account this heat capacity. However, this led to a translation error if glycol
+was used as the medium, because during the translation, the function
+<a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Incompressible_TableBased.html#Modelica.Media.Incompressible.TableBased.T_ph"
+>
+Modelica.Media.Incompressible.Examples.Glycol47.T_ph</a> had to be differentiated,
+but this function is not differentiable.
+</p>
+<h4>References</h4>
+<p>
+<a href="http://www.energyplus.gov">EnergyPlus 7.0.0 Engineering Reference</a>,
+October 13, 2011.<br/>
+CEN 2006, European Standard 12975-1:2006, European Committee for Standardization
+</p>
+
+<p>Extends from <a href="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces.LumpedVolumeDeclarations"
+>Buildings.Fluid.Interfaces.LumpedVolumeDeclarations</a> (Declarations for lumped volumes), <a href="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces.TwoPortFlowResistanceParameters"
+>Buildings.Fluid.Interfaces.TwoPortFlowResistanceParameters</a> (Parameters for flow resistance for models with two ports), <a href="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces.PartialTwoPortInterface"
+>Buildings.Fluid.Interfaces.PartialTwoPortInterface</a> (Partial model transporting fluid between two ports without storing mass or energy).</p>
+<h3>Parameters</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td colspan="2">replaceable package Medium</td><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium"
+>PartialMedium</a></td><td>Medium in the component</td></tr>
+<tr><td>Integer</td><td>nSeg</td><td>3</td><td>Number of segments used to discretize the collector model</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
+>Angle</a></td><td>lat</td><td>&nbsp;</td><td>Latitude [rad]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
+>Angle</a></td><td>azi</td><td>&nbsp;</td><td>Surface azimuth (0 for south-facing; -90 degree for east-facing; +90 degree for west facing [rad]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
+>Angle</a></td><td>til</td><td>&nbsp;</td><td>Surface tilt (0 for horizontally mounted collector) [rad]</td></tr>
+<tr><td>Real</td><td>rho</td><td>&nbsp;</td><td>Ground reflectance</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.HeatCapacity"
+>HeatCapacity</a></td><td>C</td><td>385*perPar.mDry</td><td>Heat capacity of solar collector without fluid (default: cp_copper*mDry*nPanels) [J/K]</td></tr>
+<tr style="background-color: #e0e0e0"><td colspan="4">Nominal condition</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
+>Pressure</a></td><td>dp_nominal</td><td>dp_nominal_final</td><td>Pressure difference [Pa]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+>MassFlowRate</a></td><td>m_flow_nominal</td><td>perPar.mperA_flow_nominal*pe...</td><td>Nominal mass flow rate [kg/s]</td></tr>
+<tr style="background-color: #e0e0e0"><td colspan="4">Initialization</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+>MassFlowRate</a></td><td>m_flow.start</td><td>0</td><td>Mass flow rate from port_a to port_b (m_flow &gt; 0 is design flow direction) [kg/s]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
+>Pressure</a></td><td>dp.start</td><td>0</td><td>Pressure difference between port_a and port_b [Pa]</td></tr>
+<tr style="background-color: #e0e0e0"><td colspan="4">Shading</td></tr>
+<tr><td>Boolean</td><td>use_shaCoe_in</td><td>false</td><td>Enables an input connector for shaCoe</td></tr>
+<tr><td>Real</td><td>shaCoe</td><td>0</td><td>Shading coefficient. 0.0: no shading, 1.0: full shading</td></tr>
+<tr style="background-color: #e0e0e0"><td colspan="4">Area declarations</td></tr>
+<tr><td><a href="Buildings_Fluid_SolarCollectors_Types.html#Buildings.Fluid.SolarCollectors.Types.NumberSelection"
+>NumberSelection</a></td><td>nColType</td><td>Buildings.Fluid.SolarCollect...</td><td>Selection of area specification format</td></tr>
+<tr><td>Integer</td><td>nPanels</td><td>0</td><td>Desired number of panels in the simulation</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Area"
+>Area</a></td><td>totalArea</td><td>0</td><td>Total area of panels in the simulation [m2]</td></tr>
+<tr style="background-color: #e0e0e0"><td colspan="4">Configuration declarations</td></tr>
+<tr><td><a href="Buildings_Fluid_SolarCollectors_Types.html#Buildings.Fluid.SolarCollectors.Types.SystemConfiguration"
+>SystemConfiguration</a></td><td>sysConfig</td><td>Buildings.Fluid.SolarCollect...</td><td>Selection of system configuration</td></tr>
+<tr style="background-color: #c0c0c0"><td colspan="4"><b>Dynamics</b></td></tr>
+<tr style="background-color: #e0e0e0"><td colspan="4">Equations</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Fluid_Types.html#Modelica.Fluid.Types.Dynamics"
+>Dynamics</a></td><td>energyDynamics</td><td>Modelica.Fluid.Types.Dynamic...</td><td>Formulation of energy balance</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Fluid_Types.html#Modelica.Fluid.Types.Dynamics"
+>Dynamics</a></td><td>massDynamics</td><td>energyDynamics</td><td>Formulation of mass balance</td></tr>
+<tr><td>Real</td><td>mSenFac</td><td>1</td><td>Factor for scaling the sensible thermal mass of the volume</td></tr>
+<tr style="background-color: #c0c0c0"><td colspan="4"><b>Initialization</b></td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.AbsolutePressure"
+>AbsolutePressure</a></td><td>p_start</td><td>Medium.p_default</td><td>Start value of pressure [Pa]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.Temperature"
+>Temperature</a></td><td>T_start</td><td>Medium.T_default</td><td>Start value of temperature [K]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.MassFraction"
+>MassFraction</a></td><td>X_start[Medium.nX]</td><td>Medium.X_default</td><td>Start value of mass fractions m_i/m [kg/kg]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.ExtraProperty"
+>ExtraProperty</a></td><td>C_start[Medium.nC]</td><td>fill(0, Medium.nC)</td><td>Start value of trace substances</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.ExtraProperty"
+>ExtraProperty</a></td><td>C_nominal[Medium.nC]</td><td>fill(1E-2, Medium.nC)</td><td>Nominal value of trace substances. (Set to typical order of magnitude.)</td></tr>
+<tr style="background-color: #c0c0c0"><td colspan="4"><b>Flow resistance</b></td></tr>
+<tr><td>Boolean</td><td>computeFlowResistance</td><td>true</td><td>=true, compute flow resistance. Set to false to assume no friction</td></tr>
+<tr><td>Boolean</td><td>from_dp</td><td>false</td><td>= true, use m_flow = f(dp) else dp = f(m_flow)</td></tr>
+<tr><td>Boolean</td><td>linearizeFlowResistance</td><td>false</td><td>= true, use linear relation between m_flow and dp for any flow rate</td></tr>
+<tr><td>Real</td><td>deltaM</td><td>0.1</td><td>Fraction of nominal flow rate where flow transitions to laminar</td></tr>
+<tr style="background-color: #c0c0c0"><td colspan="4"><b>Assumptions</b></td></tr>
+<tr><td>Boolean</td><td>allowFlowReversal</td><td>true</td><td>= true to allow flow reversal, false restricts to design direction (port_a -&gt; port_b)</td></tr>
+<tr style="background-color: #c0c0c0"><td colspan="4"><b>Advanced</b></td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+>MassFlowRate</a></td><td>m_flow_small</td><td>1E-4*abs(m_flow_nominal)</td><td>Small mass flow rate for regularization of zero flow [kg/s]</td></tr>
+<tr><td>Boolean</td><td>homotopyInitialization</td><td>true</td><td>= true, use homotopy method</td></tr>
+<tr style="background-color: #e0e0e0"><td colspan="4">Diagnostics</td></tr>
+<tr><td>Boolean</td><td>show_T</td><td>false</td><td>= true, if actual temperature at port is computed</td></tr>
+</table>
+<h3>Connectors</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Connectors">
+<tr><th>Type</th><th>Name</th><th>Description</th></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_a"
+>FluidPort_a</a></td><td>port_a</td><td>Fluid connector a (positive design flow direction is from port_a to port_b)</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_b"
+>FluidPort_b</a></td><td>port_b</td><td>Fluid connector b (positive design flow direction is from port_a to port_b)</td></tr>
+<tr><td>input <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>RealInput</a></td><td>shaCoe_in</td><td>Shading coefficient</td></tr>
+<tr><td><a href="Buildings_BoundaryConditions_WeatherData.html#Buildings.BoundaryConditions.WeatherData.Bus"
+>Bus</a></td><td>weaBus</td><td>Weather data bus</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">model</span> PartialSolarCollector <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Partial model for solar collectors&quot;</span>
+ <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces.LumpedVolumeDeclarations"
+>Buildings.Fluid.Interfaces.LumpedVolumeDeclarations</a>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces.TwoPortFlowResistanceParameters"
+>Buildings.Fluid.Interfaces.TwoPortFlowResistanceParameters</a>(<span style="color: blue; font-weight: normal; font-style: normal;">final </span>dp_nominal = dp_nominal_final);
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces.PartialTwoPortInterface"
+>Buildings.Fluid.Interfaces.PartialTwoPortInterface</a>(
+    showDesignFlowDirection=false,
+    <span style="color: blue; font-weight: normal; font-style: normal;">final </span>m_flow_nominal=perPar.mperA_flow_nominal*perPar.A);
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Integer nSeg(min=3) = 3 <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Number of segments used to discretize the collector model&quot;</span>;
+
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
+>Modelica.SIunits.Angle</a> lat(displayUnit=&quot;degree&quot;) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Latitude&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
+>Modelica.SIunits.Angle</a> azi(displayUnit=&quot;degree&quot;) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Surface azimuth (0 for south-facing; -90 degree for east-facing; +90 degree for west facing&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
+>Modelica.SIunits.Angle</a> til(displayUnit=&quot;degree&quot;) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Surface tilt (0 for horizontally mounted collector)&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Real rho <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Ground reflectance&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.HeatCapacity"
+>Modelica.SIunits.HeatCapacity</a> C=385*perPar.mDry <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Heat capacity of solar collector without fluid (default: cp_copper*mDry*nPanels)&quot;</span>;
+
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Boolean use_shaCoe_in = false <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Enables an input connector for shaCoe&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Real shaCoe(
+    min=0.0,
+    max=1.0) = 0 <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Shading coefficient. 0.0: no shading, 1.0: full shading&quot;</span>;
+
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="Buildings_Fluid_SolarCollectors_Types.html#Buildings.Fluid.SolarCollectors.Types.NumberSelection"
+>Buildings.Fluid.SolarCollectors.Types.NumberSelection</a> nColType=
+  Buildings.Fluid.SolarCollectors.Types.NumberSelection.Number <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Selection of area specification format&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Integer nPanels= 0 <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Desired number of panels in the simulation&quot;</span>;
+
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Area"
+>Modelica.SIunits.Area</a> totalArea=0 <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Total area of panels in the simulation&quot;</span>;
+
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="Buildings_Fluid_SolarCollectors_Types.html#Buildings.Fluid.SolarCollectors.Types.SystemConfiguration"
+>Buildings.Fluid.SolarCollectors.Types.SystemConfiguration</a> sysConfig=
+  Buildings.Fluid.SolarCollectors.Types.SystemConfiguration.Series <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Selection of system configuration&quot;</span>;
+
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Boolean homotopyInitialization = true <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;= true, use homotopy method&quot;</span>;
+
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>Modelica.Blocks.Interfaces.RealInput</a> shaCoe_in <span style="color: blue; font-weight: normal; font-style: normal;">if </span>use_shaCoe_in <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Shading coefficient&quot;</span>;
+
+  <a href="Buildings_BoundaryConditions_WeatherData.html#Buildings.BoundaryConditions.WeatherData.Bus"
+>Buildings.BoundaryConditions.WeatherData.Bus</a> weaBus <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Weather data bus&quot;</span>;
+  <a href="Buildings_BoundaryConditions_SolarIrradiation.html#Buildings.BoundaryConditions.SolarIrradiation.DiffusePerez"
+>Buildings.BoundaryConditions.SolarIrradiation.DiffusePerez</a> HDifTilIso(
+    <span style="color: blue; font-weight: normal; font-style: normal;">final </span>outSkyCon=true,
+    <span style="color: blue; font-weight: normal; font-style: normal;">final </span>outGroCon=true,
+    <span style="color: blue; font-weight: normal; font-style: normal;">final </span>til=til,
+    <span style="color: blue; font-weight: normal; font-style: normal;">final </span>lat=lat,
+    <span style="color: blue; font-weight: normal; font-style: normal;">final </span>azi=azi,
+    <span style="color: blue; font-weight: normal; font-style: normal;">final </span>rho=rho) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Diffuse solar irradiation on a tilted surface&quot;</span>;
+
+  <a href="Buildings_BoundaryConditions_SolarIrradiation.html#Buildings.BoundaryConditions.SolarIrradiation.DirectTiltedSurface"
+>Buildings.BoundaryConditions.SolarIrradiation.DirectTiltedSurface</a> HDirTil(
+    <span style="color: blue; font-weight: normal; font-style: normal;">final </span>til=til,
+    <span style="color: blue; font-weight: normal; font-style: normal;">final </span>lat=lat,
+    <span style="color: blue; font-weight: normal; font-style: normal;">final </span>azi=azi) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Direct solar irradiation on a tilted surface&quot;</span>;
+
+  <a href="Buildings_Fluid_Sensors.html#Buildings.Fluid.Sensors.MassFlowRate"
+>Buildings.Fluid.Sensors.MassFlowRate</a> senMasFlo(<span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium =
+    <a href="Buildings_Fluid_Interfaces_Medium.html#Buildings.Fluid.Interfaces.LumpedVolumeDeclarations.Medium"
+>Medium</a>, allowFlowReversal=allowFlowReversal) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Mass flow rate sensor&quot;</span>;
+  <a href="Buildings_Fluid_FixedResistances.html#Buildings.Fluid.FixedResistances.FixedResistanceDpM"
+>Buildings.Fluid.FixedResistances.FixedResistanceDpM</a> res(
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">final </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = <a href="Buildings_Fluid_Interfaces_Medium.html#Buildings.Fluid.Interfaces.LumpedVolumeDeclarations.Medium"
+>Medium</a>,
+    <span style="color: blue; font-weight: normal; font-style: normal;">final </span>from_dp=from_dp,
+    <span style="color: blue; font-weight: normal; font-style: normal;">final </span>show_T=show_T,
+    <span style="color: blue; font-weight: normal; font-style: normal;">final </span>m_flow_nominal=m_flow_nominal,
+    <span style="color: blue; font-weight: normal; font-style: normal;">final </span>allowFlowReversal=allowFlowReversal,
+    <span style="color: blue; font-weight: normal; font-style: normal;">final </span>linearized=linearizeFlowResistance,
+    <span style="color: blue; font-weight: normal; font-style: normal;">final </span>homotopyInitialization=homotopyInitialization,
+    use_dh=false,
+    deltaM=deltaM,
+    <span style="color: blue; font-weight: normal; font-style: normal;">final </span>dp_nominal=dp_nominal_final) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Flow resistance&quot;</span>;
+
+  <span style="color: #006400; font-weight: normal; font-style: normal;">// The size of the liquid volume has been increased to also</span>
+  <span style="color: #006400; font-weight: normal; font-style: normal;">// add the heat capacity of the metal. See the info section</span>
+  <span style="color: #006400; font-weight: normal; font-style: normal;">// for an explanation.</span>
+  <a href="Buildings_Fluid_MixingVolumes.html#Buildings.Fluid.MixingVolumes.MixingVolume"
+>Buildings.Fluid.MixingVolumes.MixingVolume</a> vol[nSeg](
+    <span style="color: blue; font-weight: normal; font-style: normal;">each </span>nPorts=2,
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = <a href="Buildings_Fluid_Interfaces_Medium.html#Buildings.Fluid.Interfaces.LumpedVolumeDeclarations.Medium"
+>Medium</a>,
+    <span style="color: blue; font-weight: normal; font-style: normal;">each </span><span style="color: blue; font-weight: normal; font-style: normal;">final </span>m_flow_nominal=m_flow_nominal,
+    <span style="color: blue; font-weight: normal; font-style: normal;">each </span><span style="color: blue; font-weight: normal; font-style: normal;">final </span>energyDynamics=energyDynamics,
+    <span style="color: blue; font-weight: normal; font-style: normal;">each </span><span style="color: blue; font-weight: normal; font-style: normal;">final </span>p_start=p_start,
+    <span style="color: blue; font-weight: normal; font-style: normal;">each </span><span style="color: blue; font-weight: normal; font-style: normal;">final </span>T_start=T_start,
+    <span style="color: blue; font-weight: normal; font-style: normal;">each </span><span style="color: blue; font-weight: normal; font-style: normal;">final </span>m_flow_small=m_flow_small,
+    <span style="color: blue; font-weight: normal; font-style: normal;">each </span><span style="color: blue; font-weight: normal; font-style: normal;">final </span>V=(perPar.V+C/cp_default/rho_default)*nPanels_internal/nSeg,
+    <span style="color: blue; font-weight: normal; font-style: normal;">each </span><span style="color: blue; font-weight: normal; font-style: normal;">final </span>massDynamics=massDynamics,
+    <span style="color: blue; font-weight: normal; font-style: normal;">each </span><span style="color: blue; font-weight: normal; font-style: normal;">final </span>X_start=X_start,
+    <span style="color: blue; font-weight: normal; font-style: normal;">each </span><span style="color: blue; font-weight: normal; font-style: normal;">final </span>C_start=C_start,
+    <span style="color: blue; font-weight: normal; font-style: normal;">each </span><span style="color: blue; font-weight: normal; font-style: normal;">final </span>C_nominal=C_nominal,
+    <span style="color: blue; font-weight: normal; font-style: normal;">each </span><span style="color: blue; font-weight: normal; font-style: normal;">final </span>mSenFac=mSenFac,
+    <span style="color: blue; font-weight: normal; font-style: normal;">each </span><span style="color: blue; font-weight: normal; font-style: normal;">final </span>allowFlowReversal=allowFlowReversal,
+    <span style="color: blue; font-weight: normal; font-style: normal;">each </span><span style="color: blue; font-weight: normal; font-style: normal;">final </span>prescribedHeatFlowRate=true) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Volume of fluid in one segment of the solar collector&quot;</span>;
+
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Thermal_HeatTransfer_Sensors.html#Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor"
+>Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor</a> temSen[nSeg] <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Temperature sensor&quot;</span>;
+
+  <a href="Buildings_HeatTransfer_Sources.html#Buildings.HeatTransfer.Sources.PrescribedHeatFlow"
+>Buildings.HeatTransfer.Sources.PrescribedHeatFlow</a> heaGai[nSeg] <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Rate of solar heat gain&quot;</span>;
+  <a href="Buildings_HeatTransfer_Sources.html#Buildings.HeatTransfer.Sources.PrescribedHeatFlow"
+>Buildings.HeatTransfer.Sources.PrescribedHeatFlow</a> QLos[nSeg] <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Rate of solar heat gain&quot;</span>;
+
+<span style="color: blue; font-weight: normal; font-style: normal;">protected </span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="Buildings_Fluid_SolarCollectors_Data.html#Buildings.Fluid.SolarCollectors.Data.GenericSolarCollector"
+>Buildings.Fluid.SolarCollectors.Data.GenericSolarCollector</a> perPar <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Partial performance data&quot;</span>;
+
+    <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>Modelica.Blocks.Interfaces.RealInput</a> shaCoe_internal <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Internally used shading coefficient&quot;</span>;
+
+    <span style="color: blue; font-weight: normal; font-style: normal;">final </span><span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
+>Modelica.SIunits.Pressure</a> dp_nominal_final=
+    <span style="color: blue; font-weight: normal; font-style: normal;">if </span>sysConfig == Buildings.Fluid.SolarCollectors.Types.SystemConfiguration.Series<span style="color: blue; font-weight: normal; font-style: normal;"> then </span>
+       nPanels_internal*perPar.dp_nominal<span style="color: blue; font-weight: normal; font-style: normal;">
+    else </span>
+      perPar.dp_nominal <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Nominal pressure loss across the system of collectors&quot;</span>;
+
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Area"
+>Modelica.SIunits.Area</a> TotalArea_internal=
+      nPanels_internal * perPar.A <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Area used in the simulation&quot;</span>;
+
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Real nPanels_internal=
+    <span style="color: blue; font-weight: normal; font-style: normal;">if </span>nColType == Buildings.Fluid.SolarCollectors.Types.NumberSelection.Number<span style="color: blue; font-weight: normal; font-style: normal;"> then </span>
+      nPanels<span style="color: blue; font-weight: normal; font-style: normal;">
+    else </span>
+      totalArea/perPar.A <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Number of panels used in the simulation&quot;</span>;
+
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.ThermodynamicState"
+>Medium.ThermodynamicState</a> sta_default =<span style="color: red; font-weight: normal; font-style: normal;"> Medium.setState_pTX</span>(
+    T=Medium.T_default,
+    p=Medium.p_default,
+    X=Medium.X_default[1:Medium.nXi]) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Medium state at default properties&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.SpecificHeatCapacity"
+>Modelica.SIunits.SpecificHeatCapacity</a> cp_default=
+    <span style="color: red; font-weight: normal; font-style: normal;">Medium.specificHeatCapacityCp</span>(sta_default) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Specific heat capacity of the fluid&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Density"
+>Modelica.SIunits.Density</a> rho_default=
+    <span style="color: red; font-weight: normal; font-style: normal;">Medium.density</span>(sta_default) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Density, used to compute fluid mass&quot;</span>;
+
+<span style="color: blue; font-weight: normal; font-style: normal;">equation </span>
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(shaCoe_internal,shaCoe_in);
+
+  <span style="color: blue; font-weight: normal; font-style: normal;">if </span><span style="color: blue; font-weight: normal; font-style: normal;">not </span>use_shaCoe_in<span style="color: blue; font-weight: normal; font-style: normal;"> then</span>
+    shaCoe_internal=shaCoe;
+  <span style="color: blue; font-weight: normal; font-style: normal;">end if</span>;
+
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(weaBus, HDifTilIso.weaBus);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(weaBus, HDirTil.weaBus);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(port_a, senMasFlo.port_a);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(senMasFlo.port_b, res.port_a);
+  <span style="color: red; font-weight: normal; font-style: normal;">    connect</span>(vol[nSeg].ports[2], port_b);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(vol[1].ports[1], res.port_b);
+      <span style="color: blue; font-weight: normal; font-style: normal;">for </span>i<span style="color: blue; font-weight: normal; font-style: normal;"> in </span>1:(nSeg - 1)<span style="color: blue; font-weight: normal; font-style: normal;"> loop</span>
+    <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(vol[i].ports[2], vol[i + 1].ports[1]);
+  <span style="color: blue; font-weight: normal; font-style: normal;">end for</span>;
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(vol.heatPort, temSen.port);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(heaGai.port, vol.heatPort);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(QLos.port, vol.heatPort);
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>PartialSolarCollector;
+</div>
+<hr>
+<address>
+<a href="http://www.3ds.com/">Automatically generated</a> Thu Apr  9 09:36:43 2015.
+</address>
+</body>
+</html>

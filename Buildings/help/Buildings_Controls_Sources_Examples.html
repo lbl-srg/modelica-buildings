@@ -1,0 +1,129 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>Buildings.Controls.Sources.Examples</title>
+<meta name="HTML-Generator" content="Dymola">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="description" content="&quot;Collection of models that illustrate model use and test models&quot;">
+<style type="text/css">
+*       { font-size: 10pt; font-family: Arial, sans-serif; }
+.modelica, .modelica * { font-size: 9pt; font-family: Courier, monospace; white-space: pre; }
+h4      { font-size: 10pt; font-weight: bold; color: green; }
+h3      { font-size: 11pt; font-weight: bold; color: green; }
+h2      { font-size: 13pt; font-weight: bold; color: green; }
+address { font-weight: normal; }
+td      { border: 1px solid #808080; vertical-align: top; }
+th      { border: 1px solid #808080; vertical-align: top; font-weight: bold; }
+table   { border: 1px solid #808080; border-collapse: collapse; }
+</style>
+<link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../Resources/www/modelicaDoc.css">
+</HEAD>
+<body>
+<!-- --- header ------ -->
+<div class="headerStyle">
+<img src="../Resources/www/lbl-logo.png" alt="LBL logo"/>
+</div>
+<div class="headerLinks">
+<ul><li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt; <a href="Buildings.html">Modelica</a></li></ul>
+</div>
+<!-- --- end header -- -->
+
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE Examples<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><a name="Buildings.Controls.Sources.Examples"></a><a href="Buildings_Controls_Sources.html#Buildings.Controls.Sources"
+>Buildings.Controls.Sources</a>.Examples</h2>
+<p>
+<b>Collection of models that illustrate model use and test models</b><br>
+</p>
+<h3>Information</h3>
+
+<p>
+This package contains examples for the use of models that can be found in
+<a href="Buildings_Controls_Sources.html#Buildings.Controls.Sources"
+>
+Buildings.Controls.Sources</a>.
+</p>
+
+<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons_ExamplesPackage.html#Modelica.Icons.ExamplesPackage"
+>Modelica.Icons.ExamplesPackage</a> (Icon for packages containing runnable examples).</p>
+<h3>Package Content</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Package Content">
+<tr>
+<th>Name</th>
+<th>Description</th>
+</tr>
+<tr>
+<td><img src="Buildings.Controls.Sourcef2b0a7c0d9f3b617yTypeS.png" alt="Buildings.Controls.Sources.Examples.DayType" width="20" height="20" align="top">&nbsp;<a href="Buildings_Controls_Sources_Examples.html#Buildings.Controls.Sources.Examples.DayType"
+>DayType</a>
+</td>
+<td>Example model for the source that outputs the type of the day</td>
+</tr>
+</table>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE DayType<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Controls.Sourcef2b0a7c0d9f3b617yTypeI.png" alt="Buildings.Controls.Sources.Examples.DayType" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Controls.Sources.Examples.DayType"></a><a href="Buildings_Controls_Sources_Examples.html#Buildings.Controls.Sources.Examples"
+>Buildings.Controls.Sources.Examples</a>.DayType</h2>
+<p>
+<b>Example model for the source that outputs the type of the day</b>
+<br>
+<br><img src="Buildings.Controls.Sourcef2b0a7c0d9f3b617yTypeD.png" alt="Buildings.Controls.Sources.Examples.DayType">
+</p>
+<h3>Information</h3>
+
+<p>
+This example generates signals for three different work weeks.
+The instance <code>dayTypMon</code> outputs a signal with five working
+days, followed by two non-working days.
+The instance <code>dayTypSat</code> does the same, except that the first
+days is a non-working day.
+The instance <code>dayTypTwoWeeks</code> outputs six working days, followed
+by 8 non-working days.
+The instance <code>dayTypMonThr</code> is configured the same as
+<code>dayTypMon</code>, except that it outputs the type of the day
+for three days, starting with the current day, then the next day and
+the day after.
+</p>
+
+<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</a> (Icon for runnable examples).</p>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">model</span> DayType <span style="color: #006400; font-weight: normal; font-style: normal;">
+  &quot;Example model for the source that outputs the type of the day&quot;</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</a>;
+  <a href="Buildings_Controls_Sources.html#Buildings.Controls.Sources.DayType"
+>Buildings.Controls.Sources.DayType</a> dayTypMon <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Model that outputs the type of the day, starting with Monday&quot;</span>;
+  <a href="Buildings_Controls_Sources.html#Buildings.Controls.Sources.DayType"
+>Buildings.Controls.Sources.DayType</a> dayTypSat(iStart=6) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Model that outputs the type of the day, starting with Saturday&quot;</span>;
+  <a href="Buildings_Controls_Sources.html#Buildings.Controls.Sources.DayType"
+>Buildings.Controls.Sources.DayType</a> dayTypTwoWeeks(
+    days={
+        Buildings.Controls.Types.Day.WorkingDay,
+        Buildings.Controls.Types.Day.WorkingDay,
+        Buildings.Controls.Types.Day.WorkingDay,
+        Buildings.Controls.Types.Day.WorkingDay,
+        Buildings.Controls.Types.Day.WorkingDay,
+        Buildings.Controls.Types.Day.WorkingDay,
+        Buildings.Controls.Types.Day.NonWorkingDay,Buildings.Controls.Types.Day.NonWorkingDay,
+        Buildings.Controls.Types.Day.NonWorkingDay,Buildings.Controls.Types.Day.NonWorkingDay,
+        Buildings.Controls.Types.Day.NonWorkingDay,Buildings.Controls.Types.Day.NonWorkingDay,
+        Buildings.Controls.Types.Day.NonWorkingDay,Buildings.Controls.Types.Day.NonWorkingDay},
+    nout=14) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Model that outputs the type of the day, starting with 6 workdays, then 8 non-working days&quot;</span>;
+  <a href="Buildings_Controls_Sources.html#Buildings.Controls.Sources.DayType"
+>Buildings.Controls.Sources.DayType</a> dayTypMonThr(nout=3) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Model that outputs the type of the day for 3 days, starting with Monday&quot;</span>;
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>DayType;
+</div>
+<hr>
+<address>
+<a href="http://www.3ds.com/">Automatically generated</a> Thu Apr  9 09:33:00 2015.
+</address>
+</body>
+</html>

@@ -1,0 +1,136 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>Buildings.Fluid.Delays.Examples</title>
+<meta name="HTML-Generator" content="Dymola">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="description" content="&quot;Collection of models that illustrate model use and test models&quot;">
+<style type="text/css">
+*       { font-size: 10pt; font-family: Arial, sans-serif; }
+.modelica, .modelica * { font-size: 9pt; font-family: Courier, monospace; white-space: pre; }
+h4      { font-size: 10pt; font-weight: bold; color: green; }
+h3      { font-size: 11pt; font-weight: bold; color: green; }
+h2      { font-size: 13pt; font-weight: bold; color: green; }
+address { font-weight: normal; }
+td      { border: 1px solid #808080; vertical-align: top; }
+th      { border: 1px solid #808080; vertical-align: top; font-weight: bold; }
+table   { border: 1px solid #808080; border-collapse: collapse; }
+</style>
+<link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../Resources/www/modelicaDoc.css">
+</HEAD>
+<body>
+<!-- --- header ------ -->
+<div class="headerStyle">
+<img src="../Resources/www/lbl-logo.png" alt="LBL logo"/>
+</div>
+<div class="headerLinks">
+<ul><li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt; <a href="Buildings.html">Modelica</a></li></ul>
+</div>
+<!-- --- end header -- -->
+
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE Examples<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><a name="Buildings.Fluid.Delays.Examples"></a><a href="Buildings_Fluid_Delays.html#Buildings.Fluid.Delays"
+>Buildings.Fluid.Delays</a>.Examples</h2>
+<p>
+<b>Collection of models that illustrate model use and test models</b><br>
+</p>
+<h3>Information</h3>
+
+<p>
+This package contains examples for the use of models that can be found in
+<a href="Buildings_Fluid_Delays.html#Buildings.Fluid.Delays"
+>
+Buildings.Fluid.Delays</a>.
+</p>
+
+<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons_ExamplesPackage.html#Modelica.Icons.ExamplesPackage"
+>Modelica.Icons.ExamplesPackage</a> (Icon for packages containing runnable examples).</p>
+<h3>Package Content</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Package Content">
+<tr>
+<th>Name</th>
+<th>Description</th>
+</tr>
+<tr>
+<td><img src="Buildings.Fluid.Delays.Examples.DelayS.png" alt="Buildings.Fluid.Delays.Examples.Delay" width="20" height="20" align="top">&nbsp;<a href="Buildings_Fluid_Delays_Examples.html#Buildings.Fluid.Delays.Examples.Delay"
+>Delay</a>
+</td>
+<td>&nbsp;</td>
+</tr>
+</table>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE Delay<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Fluid.Delays.Examples.DelayI.png" alt="Buildings.Fluid.Delays.Examples.Delay" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Fluid.Delays.Examples.Delay"></a><a href="Buildings_Fluid_Delays_Examples.html#Buildings.Fluid.Delays.Examples"
+>Buildings.Fluid.Delays.Examples</a>.Delay</h2>
+<p>
+<br><img src="Buildings.Fluid.Delays.Examples.DelayD.png" alt="Buildings.Fluid.Delays.Examples.Delay">
+</p>
+<h3>Information</h3>
+<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</a> (Icon for runnable examples).</p>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">model</span> Delay
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</a>;
+<span style="color: #006400; font-weight: normal; font-style: normal;">// We set X_default to a small enough value to avoid saturation at the medium temperature</span>
+<span style="color: #006400; font-weight: normal; font-style: normal;">// that is used in this model.</span>
+ <span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = <a href="Buildings_Media_Air.html#Buildings.Media.Air"
+>Buildings.Media.Air</a>(X_default={0.001, 0.999});
+
+    <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+>Modelica.Blocks.Sources.Constant</a> PAtm(k=101325);
+    <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Ramp"
+>Modelica.Blocks.Sources.Ramp</a> P(
+      duration=1,
+    height=20,
+    offset=101315);
+    <a href="Buildings_Fluid_FixedResistances.html#Buildings.Fluid.FixedResistances.FixedResistanceDpM"
+>Buildings.Fluid.FixedResistances.FixedResistanceDpM</a> res1(
+    from_dp=true,
+    m_flow_nominal=5,
+    dp_nominal=5,
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = Medium);
+  <a href="Buildings_Fluid_Sources.html#Buildings.Fluid.Sources.Boundary_pT"
+>Buildings.Fluid.Sources.Boundary_pT</a> sou(
+                T=293.15, <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = Medium,
+    use_p_in=true,
+    nPorts=1);
+  <a href="Buildings_Fluid_Sources.html#Buildings.Fluid.Sources.Boundary_pT"
+>Buildings.Fluid.Sources.Boundary_pT</a> sin(
+                T=283.15, <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = Medium,
+    use_p_in=true,
+    nPorts=1);
+    <a href="Buildings_Fluid_FixedResistances.html#Buildings.Fluid.FixedResistances.FixedResistanceDpM"
+>Buildings.Fluid.FixedResistances.FixedResistanceDpM</a> res2(
+    from_dp=true,
+    m_flow_nominal=5,
+    dp_nominal=5,
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = Medium);
+  <a href="Buildings_Fluid_Delays.html#Buildings.Fluid.Delays.DelayFirstOrder"
+>Buildings.Fluid.Delays.DelayFirstOrder</a> del(         m_flow_nominal=5, <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">
+      package</span> Medium = Medium,
+    nPorts=2,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    T_start=283.15) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Fluid volume that is a first order approximation of the transport delay&quot;</span>;
+
+<span style="color: blue; font-weight: normal; font-style: normal;">equation </span>
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(P.y, sou.p_in);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(PAtm.y, sin.p_in);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(sou.ports[1], res1.port_a);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(sin.ports[1], res2.port_b);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(res1.port_b, del.ports[1]);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(res2.port_a, del.ports[2]);
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>Delay;
+</div>
+<hr>
+<address>
+<a href="http://www.3ds.com/">Automatically generated</a> Thu Apr  9 09:34:55 2015.
+</address>
+</body>
+</html>

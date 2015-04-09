@@ -1,0 +1,1108 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>Buildings.Utilities.Math</title>
+<meta name="HTML-Generator" content="Dymola">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="description" content="&quot;Library with functions such as for smoothing&quot;">
+<style type="text/css">
+*       { font-size: 10pt; font-family: Arial, sans-serif; }
+.modelica, .modelica * { font-size: 9pt; font-family: Courier, monospace; white-space: pre; }
+h4      { font-size: 10pt; font-weight: bold; color: green; }
+h3      { font-size: 11pt; font-weight: bold; color: green; }
+h2      { font-size: 13pt; font-weight: bold; color: green; }
+address { font-weight: normal; }
+td      { border: 1px solid #808080; vertical-align: top; }
+th      { border: 1px solid #808080; vertical-align: top; font-weight: bold; }
+table   { border: 1px solid #808080; border-collapse: collapse; }
+</style>
+<link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../Resources/www/modelicaDoc.css">
+</HEAD>
+<body>
+<!-- --- header ------ -->
+<div class="headerStyle">
+<img src="../Resources/www/lbl-logo.png" alt="LBL logo"/>
+</div>
+<div class="headerLinks">
+<ul><li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt; <a href="Buildings.html">Modelica</a></li></ul>
+</div>
+<!-- --- end header -- -->
+
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE Math<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><a name="Buildings.Utilities.Math"></a><a href="Buildings_Utilities.html#Buildings.Utilities"
+>Buildings.Utilities</a>.Math</h2>
+<p>
+<b>Library with functions such as for smoothing</b><br>
+</p>
+<h3>Information</h3>
+
+<p>
+This package contains blocks and functions for commonly used
+mathematical operations.
+The classes in this package augment the classes
+<a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks.html#Modelica.Blocks"
+>
+Modelica.Blocks</a>.
+</p>
+
+<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons_Package.html#Modelica.Icons.Package"
+>Modelica.Icons.Package</a> (Icon for standard packages).</p>
+<h3>Package Content</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Package Content">
+<tr>
+<th>Name</th>
+<th>Description</th>
+</tr>
+<tr>
+<td><img src="Buildings.Utilities.Math.AverageS.png" alt="Buildings.Utilities.Math.Average" width="20" height="20" align="top">&nbsp;<a href="Buildings_Utilities_Math.html#Buildings.Utilities.Math.Average"
+>Average</a>
+</td>
+<td>Average of a vector</td>
+</tr>
+<tr>
+<td><img src="Buildings.Utilities.Math.BicubicS.png" alt="Buildings.Utilities.Math.Bicubic" width="20" height="20" align="top">&nbsp;<a href="Buildings_Utilities_Math.html#Buildings.Utilities.Math.Bicubic"
+>Bicubic</a>
+</td>
+<td>Bicubic function</td>
+</tr>
+<tr>
+<td><img src="Buildings.Utilities.Math.BicubicS.png" alt="Buildings.Utilities.Math.Biquadratic" width="20" height="20" align="top">&nbsp;<a href="Buildings_Utilities_Math.html#Buildings.Utilities.Math.Biquadratic"
+>Biquadratic</a>
+</td>
+<td>Biquadratic function</td>
+</tr>
+<tr>
+<td><img src="Buildings.Utilities.Math.3edf2d802df3557ecatorS.png" alt="Buildings.Utilities.Math.BooleanReplicator" width="20" height="20" align="top">&nbsp;<a href="Buildings_Utilities_Math.html#Buildings.Utilities.Math.BooleanReplicator"
+>BooleanReplicator</a>
+</td>
+<td>Boolean signal replicator</td>
+</tr>
+<tr>
+<td><img src="Buildings.Utilities.Math.ede1c4e60f885baccatorS.png" alt="Buildings.Utilities.Math.IntegerReplicator" width="20" height="20" align="top">&nbsp;<a href="Buildings_Utilities_Math.html#Buildings.Utilities.Math.IntegerReplicator"
+>IntegerReplicator</a>
+</td>
+<td>Integer signal replicator</td>
+</tr>
+<tr>
+<td><img src="Buildings.Utilities.Math.aae28045f4d13274rizedS.png" alt="Buildings.Utilities.Math.InverseXRegularized" width="20" height="20" align="top">&nbsp;<a href="Buildings_Utilities_Math.html#Buildings.Utilities.Math.InverseXRegularized"
+>InverseXRegularized</a>
+</td>
+<td>Function that approximates 1/x by a twice continuously differentiable function</td>
+</tr>
+<tr>
+<td><img src="Buildings.Utilities.Math.aae28045f4d13274rizedS.png" alt="Buildings.Utilities.Math.Max" width="20" height="20" align="top">&nbsp;<a href="Buildings_Utilities_Math.html#Buildings.Utilities.Math.Max"
+>Max</a>
+</td>
+<td>Maximum element of a vector</td>
+</tr>
+<tr>
+<td><img src="Buildings.Utilities.Math.aae28045f4d13274rizedS.png" alt="Buildings.Utilities.Math.Min" width="20" height="20" align="top">&nbsp;<a href="Buildings_Utilities_Math.html#Buildings.Utilities.Math.Min"
+>Min</a>
+</td>
+<td>Minimum element of a vector</td>
+</tr>
+<tr>
+<td><img src="Buildings.Utilities.Math.aae28045f4d13274rizedS.png" alt="Buildings.Utilities.Math.Polynominal" width="20" height="20" align="top">&nbsp;<a href="Buildings_Utilities_Math.html#Buildings.Utilities.Math.Polynominal"
+>Polynominal</a>
+</td>
+<td>Polynominal function</td>
+</tr>
+<tr>
+<td><img src="Buildings.Utilities.Math.aae28045f4d13274rizedS.png" alt="Buildings.Utilities.Math.PowerLinearized" width="20" height="20" align="top">&nbsp;<a href="Buildings_Utilities_Math.html#Buildings.Utilities.Math.PowerLinearized"
+>PowerLinearized</a>
+</td>
+<td>Power function that is linearized below a user-defined threshold</td>
+</tr>
+<tr>
+<td><img src="Buildings.Utilities.Math.QuadraticLinearS.png" alt="Buildings.Utilities.Math.QuadraticLinear" width="20" height="20" align="top">&nbsp;<a href="Buildings_Utilities_Math.html#Buildings.Utilities.Math.QuadraticLinear"
+>QuadraticLinear</a>
+</td>
+<td>Function that is quadratic in first argument and linear in second argument</td>
+</tr>
+<tr>
+<td><img src="Buildings.Utilities.Math.RegNonZeroPowerS.png" alt="Buildings.Utilities.Math.RegNonZeroPower" width="20" height="20" align="top">&nbsp;<a href="Buildings_Utilities_Math.html#Buildings.Utilities.Math.RegNonZeroPower"
+>RegNonZeroPower</a>
+</td>
+<td>Power function, regularized near zero, but nonzero value for x=0</td>
+</tr>
+<tr>
+<td><img src="Buildings.Utilities.Math.RegNonZeroPowerS.png" alt="Buildings.Utilities.Math.SmoothExponential" width="20" height="20" align="top">&nbsp;<a href="Buildings_Utilities_Math.html#Buildings.Utilities.Math.SmoothExponential"
+>SmoothExponential</a>
+</td>
+<td>Once continuously differentiable approximation to exp(-|x|) in interval |x| &lt; delta</td>
+</tr>
+<tr>
+<td><img src="Buildings.Utilities.Math.SmoothHeavisideS.png" alt="Buildings.Utilities.Math.SmoothHeaviside" width="20" height="20" align="top">&nbsp;<a href="Buildings_Utilities_Math.html#Buildings.Utilities.Math.SmoothHeaviside"
+>SmoothHeaviside</a>
+</td>
+<td>Once continuously differentiable approximation to the Heaviside function</td>
+</tr>
+<tr>
+<td><img src="Buildings.Utilities.Math.SmoothLimitS.png" alt="Buildings.Utilities.Math.SmoothLimit" width="20" height="20" align="top">&nbsp;<a href="Buildings_Utilities_Math.html#Buildings.Utilities.Math.SmoothLimit"
+>SmoothLimit</a>
+</td>
+<td>Once continuously differentiable approximation to the limit function</td>
+</tr>
+<tr>
+<td><img src="Buildings.Utilities.Math.SmoothMaxS.png" alt="Buildings.Utilities.Math.SmoothMax" width="20" height="20" align="top">&nbsp;<a href="Buildings_Utilities_Math.html#Buildings.Utilities.Math.SmoothMax"
+>SmoothMax</a>
+</td>
+<td>Once continuously differentiable approximation to the maximum function</td>
+</tr>
+<tr>
+<td><img src="Buildings.Utilities.Math.SmoothMaxS.png" alt="Buildings.Utilities.Math.SmoothMin" width="20" height="20" align="top">&nbsp;<a href="Buildings_Utilities_Math.html#Buildings.Utilities.Math.SmoothMin"
+>SmoothMin</a>
+</td>
+<td>Once continuously differentiable approximation to the minimum function</td>
+</tr>
+<tr>
+<td><img src="Buildings.Utilities.Math.SpliceS.png" alt="Buildings.Utilities.Math.Splice" width="20" height="20" align="top">&nbsp;<a href="Buildings_Utilities_Math.html#Buildings.Utilities.Math.Splice"
+>Splice</a>
+</td>
+<td>Block for splice function opertation</td>
+</tr>
+<tr>
+<td><img src="Buildings.Utilities.Math.a6e208249aeaf9baationS.png" alt="Buildings.Utilities.Math.TrapezoidalIntegration" width="20" height="20" align="top">&nbsp;<a href="Buildings_Utilities_Math.html#Buildings.Utilities.Math.TrapezoidalIntegration"
+>TrapezoidalIntegration</a>
+</td>
+<td>Integration using the trapezoidal rule</td>
+</tr>
+<tr>
+<td><img src="Buildings.Utilities.Math.FunctionsS.png" alt="Buildings.Utilities.Math.Functions" width="20" height="20" align="top">&nbsp;<a href="Buildings_Utilities_Math_Functions.html#Buildings.Utilities.Math.Functions"
+>Functions</a>
+</td>
+<td>Package with mathematical functions</td>
+</tr>
+<tr>
+<td><img src="Buildings.Utilities.Math.ExamplesS.png" alt="Buildings.Utilities.Math.Examples" width="20" height="20" align="top">&nbsp;<a href="Buildings_Utilities_Math_Examples.html#Buildings.Utilities.Math.Examples"
+>Examples</a>
+</td>
+<td>Collection of models that illustrate model use and test models</td>
+</tr>
+</table>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE Average<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Utilities.Math.AverageI.png" alt="Buildings.Utilities.Math.Average" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Utilities.Math.Average"></a><a href="Buildings_Utilities_Math.html#Buildings.Utilities.Math"
+>Buildings.Utilities.Math</a>.Average</h2>
+<p>
+<b>Average of a vector</b>
+<br>
+<br><img src="Buildings.Utilities.Math.AverageD.png" alt="Buildings.Utilities.Math.Average">
+</p>
+<h3>Information</h3>
+
+<p>This block outputs the average of the vector. </p>
+
+<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.MISO"
+>Modelica.Blocks.Interfaces.MISO</a> (Multiple Input Single Output continuous control block).</p>
+<h3>Parameters</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td>Integer</td><td>nin</td><td>1</td><td>Number of inputs</td></tr>
+</table>
+<h3>Connectors</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Connectors">
+<tr><th>Type</th><th>Name</th><th>Description</th></tr>
+<tr><td>input <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>RealInput</a></td><td>u[nin]</td><td>Connector of Real input signals</td></tr>
+<tr><td>output <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+>RealOutput</a></td><td>y</td><td>Connector of Real output signal</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">block</span> Average <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Average of a vector&quot;</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.MISO"
+>Modelica.Blocks.Interfaces.MISO</a>;
+<span style="color: blue; font-weight: normal; font-style: normal;">equation </span>
+ y =<span style="color: red; font-weight: normal; font-style: normal;"> Buildings.Utilities.Math.Functions.average</span>(u=u, nin=nin);
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>Average;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE Bicubic<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Utilities.Math.BicubicI.png" alt="Buildings.Utilities.Math.Bicubic" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Utilities.Math.Bicubic"></a><a href="Buildings_Utilities_Math.html#Buildings.Utilities.Math"
+>Buildings.Utilities.Math</a>.Bicubic</h2>
+<p>
+<b>Bicubic function</b>
+<br>
+<br><img src="Buildings.Utilities.Math.BicubicD.png" alt="Buildings.Utilities.Math.Bicubic">
+</p>
+<h3>Information</h3>
+
+<p>
+This block computes
+</p>
+<p align="center" style="font-style:italic;">
+ y = a<sub>1</sub>
+    + a<sub>2</sub>  x<sub>1</sub> + a<sub>3</sub>  x<sub>1</sub><sup>2</sup>
+    + a<sub>4</sub>  x<sub>2</sub> + a<sub>5</sub>  x<sub>2</sub><sup>2</sup>
+    + a<sub>6</sub>  x<sub>1</sub>  x<sub>2</sub>
+    + a<sub>7</sub>  x<sub>1</sub>^3
+    + a<sub>8</sub>  x<sub>2</sub>^3
+    + a<sub>9</sub>  x<sub>1</sub><sup>2</sup>  x<sub>2</sub>
+    + a<sub>1</sub>0  x<sub>1</sub>  x<sub>2</sub><sup>2</sup>
+</p>
+
+<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.SI2SO"
+>Modelica.Blocks.Interfaces.SI2SO</a> (2 Single Input / 1 Single Output continuous control block).</p>
+<h3>Connectors</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Connectors">
+<tr><th>Type</th><th>Name</th><th>Description</th></tr>
+<tr><td>input <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>RealInput</a></td><td>u1</td><td>Connector of Real input signal 1</td></tr>
+<tr><td>input <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>RealInput</a></td><td>u2</td><td>Connector of Real input signal 2</td></tr>
+<tr><td>output <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+>RealOutput</a></td><td>y</td><td>Connector of Real output signal</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">block</span> Bicubic <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Bicubic function&quot;</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.SI2SO"
+>Modelica.Blocks.Interfaces.SI2SO</a>;
+ <span style="color: blue; font-weight: normal; font-style: normal;">input </span>Real a[10] <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Coefficients&quot;</span>;
+<span style="color: blue; font-weight: normal; font-style: normal;">equation </span>
+  y =<span style="color: red; font-weight: normal; font-style: normal;">  Buildings.Utilities.Math.Functions.bicubic</span>(a=a, x1=u1, x2=u2);
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>Bicubic;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE Biquadratic<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Utilities.Math.BicubicI.png" alt="Buildings.Utilities.Math.Biquadratic" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Utilities.Math.Biquadratic"></a><a href="Buildings_Utilities_Math.html#Buildings.Utilities.Math"
+>Buildings.Utilities.Math</a>.Biquadratic</h2>
+<p>
+<b>Biquadratic function</b>
+<br>
+<br><img src="Buildings.Utilities.Math.BicubicD.png" alt="Buildings.Utilities.Math.Biquadratic">
+</p>
+<h3>Information</h3>
+
+<p>
+This block computes
+</p>
+<p align="center" style="font-style:italic;">
+  y =   a<sub>1</sub> + a<sub>2</sub>  x<sub>1</sub>
+        + a<sub>3</sub>  x<sub>1</sub><sup>2</sup>
+        + a<sub>4</sub>  x<sub>2</sub> + a<sub>5</sub>  x<sub>2</sub><sup>2</sup>
+        + a<sub>6</sub>  x<sub>1</sub>  x<sub>2</sub>
+</p>
+
+<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.SI2SO"
+>Modelica.Blocks.Interfaces.SI2SO</a> (2 Single Input / 1 Single Output continuous control block).</p>
+<h3>Parameters</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td>Real</td><td>a[6]</td><td>&nbsp;</td><td>Coefficients</td></tr>
+</table>
+<h3>Connectors</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Connectors">
+<tr><th>Type</th><th>Name</th><th>Description</th></tr>
+<tr><td>input <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>RealInput</a></td><td>u1</td><td>Connector of Real input signal 1</td></tr>
+<tr><td>input <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>RealInput</a></td><td>u2</td><td>Connector of Real input signal 2</td></tr>
+<tr><td>output <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+>RealOutput</a></td><td>y</td><td>Connector of Real output signal</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">block</span> Biquadratic <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Biquadratic function&quot;</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.SI2SO"
+>Modelica.Blocks.Interfaces.SI2SO</a>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Real a[6] <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Coefficients&quot;</span>;
+<span style="color: blue; font-weight: normal; font-style: normal;">equation </span>
+  y =<span style="color: red; font-weight: normal; font-style: normal;">  Buildings.Utilities.Math.Functions.biquadratic</span>(a=a, x1=u1, x2=u2);
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>Biquadratic;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE BooleanReplicator<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Utilities.Math.3edf2d802df3557ecatorI.png" alt="Buildings.Utilities.Math.BooleanReplicator" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Utilities.Math.BooleanReplicator"></a><a href="Buildings_Utilities_Math.html#Buildings.Utilities.Math"
+>Buildings.Utilities.Math</a>.BooleanReplicator</h2>
+<p>
+<b>Boolean signal replicator</b>
+<br>
+<br><img src="Buildings.Utilities.Math.3edf2d802df3557ecatorD.png" alt="Buildings.Utilities.Math.BooleanReplicator">
+</p>
+<h3>Information</h3>
+
+<p>
+This block replicates the boolean input signal to an array of <code>nout</code> identical output signals.
+</p>
+
+<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Icons.html#Modelica.Blocks.Icons.BooleanBlock"
+>Modelica.Blocks.Icons.BooleanBlock</a> (Basic graphical layout of Boolean block).</p>
+<h3>Parameters</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td>Integer</td><td>nout</td><td>1</td><td>Number of outputs</td></tr>
+</table>
+<h3>Connectors</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Connectors">
+<tr><th>Type</th><th>Name</th><th>Description</th></tr>
+<tr><td>input <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BooleanInput"
+>BooleanInput</a></td><td>u</td><td>Connector of boolean input signal</td></tr>
+<tr><td>output <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BooleanOutput"
+>BooleanOutput</a></td><td>y[nout]</td><td>Connector of boolean output signals</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">block</span> BooleanReplicator <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Boolean signal replicator&quot;</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Icons.html#Modelica.Blocks.Icons.BooleanBlock"
+>Modelica.Blocks.Icons.BooleanBlock</a>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Integer nout=1 <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Number of outputs&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BooleanInput"
+>Modelica.Blocks.Interfaces.BooleanInput</a> u <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Connector of boolean input signal&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BooleanOutput"
+>Modelica.Blocks.Interfaces.BooleanOutput</a> y[nout] <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Connector of boolean output signals&quot;</span>;
+<span style="color: blue; font-weight: normal; font-style: normal;">equation </span>
+  y =<span style="color: red; font-weight: normal; font-style: normal;"> Buildings.Utilities.Math.Functions.booleanReplicator</span>(u=u, nout=nout);
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>BooleanReplicator;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE IntegerReplicator<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Utilities.Math.ede1c4e60f885baccatorI.png" alt="Buildings.Utilities.Math.IntegerReplicator" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Utilities.Math.IntegerReplicator"></a><a href="Buildings_Utilities_Math.html#Buildings.Utilities.Math"
+>Buildings.Utilities.Math</a>.IntegerReplicator</h2>
+<p>
+<b>Integer signal replicator</b>
+<br>
+<br><img src="Buildings.Utilities.Math.ede1c4e60f885baccatorD.png" alt="Buildings.Utilities.Math.IntegerReplicator">
+</p>
+<h3>Information</h3>
+
+<p>
+This block replicates the integer input signal to an array of <code>nout</code> identical output signals.
+</p>
+
+<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Icons.html#Modelica.Blocks.Icons.IntegerBlock"
+>Modelica.Blocks.Icons.IntegerBlock</a> (Basic graphical layout of Integer block).</p>
+<h3>Parameters</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td>Integer</td><td>nout</td><td>1</td><td>Number of outputs</td></tr>
+</table>
+<h3>Connectors</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Connectors">
+<tr><th>Type</th><th>Name</th><th>Description</th></tr>
+<tr><td>input <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.IntegerInput"
+>IntegerInput</a></td><td>u</td><td>Connector of integer input signal</td></tr>
+<tr><td>output <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.IntegerOutput"
+>IntegerOutput</a></td><td>y[nout]</td><td>Connector of integer output signals</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">block</span> IntegerReplicator <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Integer signal replicator&quot;</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Icons.html#Modelica.Blocks.Icons.IntegerBlock"
+>Modelica.Blocks.Icons.IntegerBlock</a>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Integer nout=1 <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Number of outputs&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.IntegerInput"
+>Modelica.Blocks.Interfaces.IntegerInput</a> u <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Connector of integer input signal&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.IntegerOutput"
+>Modelica.Blocks.Interfaces.IntegerOutput</a> y[nout] <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Connector of integer output signals&quot;</span>;
+<span style="color: blue; font-weight: normal; font-style: normal;">equation </span>
+  y =<span style="color: red; font-weight: normal; font-style: normal;"> Buildings.Utilities.Math.Functions.integerReplicator</span>(u=u, nout=nout);
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>IntegerReplicator;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE InverseXRegularized<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Utilities.Math.aae28045f4d13274rizedI.png" alt="Buildings.Utilities.Math.InverseXRegularized" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Utilities.Math.InverseXRegularized"></a><a href="Buildings_Utilities_Math.html#Buildings.Utilities.Math"
+>Buildings.Utilities.Math</a>.InverseXRegularized</h2>
+<p>
+<b>Function that approximates 1/x by a twice continuously differentiable function</b>
+<br>
+<br><img src="Buildings.Utilities.Math.aae28045f4d13274rizedD.png" alt="Buildings.Utilities.Math.InverseXRegularized">
+</p>
+<h3>Information</h3>
+
+<p>Function that approximates <i>y=1 &frasl; x</i> inside the interval <i>-&delta; &le; x &le; &delta;</i>. The approximation is twice continuously differentiable with a bounded derivative on the whole real line. </p>
+<p>See the package <code>Examples</code> for the graph. </p>
+
+<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.SISO"
+>Modelica.Blocks.Interfaces.SISO</a> (Single Input Single Output continuous control block).</p>
+<h3>Parameters</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td>Real</td><td>delta</td><td>&nbsp;</td><td>Abscissa value below which approximation occurs</td></tr>
+</table>
+<h3>Connectors</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Connectors">
+<tr><th>Type</th><th>Name</th><th>Description</th></tr>
+<tr><td>input <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>RealInput</a></td><td>u</td><td>Connector of Real input signal</td></tr>
+<tr><td>output <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+>RealOutput</a></td><td>y</td><td>Connector of Real output signal</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">block</span> InverseXRegularized <span style="color: #006400; font-weight: normal; font-style: normal;">
+  &quot;Function that approximates 1/x by a twice continuously differentiable function&quot;</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.SISO"
+>Modelica.Blocks.Interfaces.SISO</a>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Real delta(min=0) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Abscissa value below which approximation occurs&quot;</span>;
+<span style="color: blue; font-weight: normal; font-style: normal;">equation </span>
+  y =<span style="color: red; font-weight: normal; font-style: normal;"> Buildings.Utilities.Math.Functions.inverseXRegularized</span>(x=u, delta=delta);
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>InverseXRegularized;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE Max<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Utilities.Math.aae28045f4d13274rizedI.png" alt="Buildings.Utilities.Math.Max" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Utilities.Math.Max"></a><a href="Buildings_Utilities_Math.html#Buildings.Utilities.Math"
+>Buildings.Utilities.Math</a>.Max</h2>
+<p>
+<b>Maximum element of a vector</b>
+<br>
+<br><img src="Buildings.Utilities.Math.aae28045f4d13274rizedD.png" alt="Buildings.Utilities.Math.Max">
+</p>
+<h3>Information</h3>
+
+<p>
+Outputs the maximum of the vector.
+</p>
+
+<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.MISO"
+>Modelica.Blocks.Interfaces.MISO</a> (Multiple Input Single Output continuous control block).</p>
+<h3>Parameters</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td>Integer</td><td>nin</td><td>1</td><td>Number of inputs</td></tr>
+</table>
+<h3>Connectors</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Connectors">
+<tr><th>Type</th><th>Name</th><th>Description</th></tr>
+<tr><td>input <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>RealInput</a></td><td>u[nin]</td><td>Connector of Real input signals</td></tr>
+<tr><td>output <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+>RealOutput</a></td><td>y</td><td>Connector of Real output signal</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">block</span> Max <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Maximum element of a vector&quot;</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.MISO"
+>Modelica.Blocks.Interfaces.MISO</a>;
+<span style="color: blue; font-weight: normal; font-style: normal;">equation </span>
+ y =<span style="color: red; font-weight: normal; font-style: normal;"> max</span>(u);
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>Max;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE Min<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Utilities.Math.aae28045f4d13274rizedI.png" alt="Buildings.Utilities.Math.Min" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Utilities.Math.Min"></a><a href="Buildings_Utilities_Math.html#Buildings.Utilities.Math"
+>Buildings.Utilities.Math</a>.Min</h2>
+<p>
+<b>Minimum element of a vector</b>
+<br>
+<br><img src="Buildings.Utilities.Math.aae28045f4d13274rizedD.png" alt="Buildings.Utilities.Math.Min">
+</p>
+<h3>Information</h3>
+
+<p>
+Outputs the minimum of the vector.
+</p>
+
+<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.MISO"
+>Modelica.Blocks.Interfaces.MISO</a> (Multiple Input Single Output continuous control block).</p>
+<h3>Parameters</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td>Integer</td><td>nin</td><td>1</td><td>Number of inputs</td></tr>
+</table>
+<h3>Connectors</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Connectors">
+<tr><th>Type</th><th>Name</th><th>Description</th></tr>
+<tr><td>input <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>RealInput</a></td><td>u[nin]</td><td>Connector of Real input signals</td></tr>
+<tr><td>output <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+>RealOutput</a></td><td>y</td><td>Connector of Real output signal</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">block</span> Min <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Minimum element of a vector&quot;</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.MISO"
+>Modelica.Blocks.Interfaces.MISO</a>;
+<span style="color: blue; font-weight: normal; font-style: normal;">equation </span>
+ y =<span style="color: red; font-weight: normal; font-style: normal;"> min</span>(u);
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>Min;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE Polynominal<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Utilities.Math.aae28045f4d13274rizedI.png" alt="Buildings.Utilities.Math.Polynominal" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Utilities.Math.Polynominal"></a><a href="Buildings_Utilities_Math.html#Buildings.Utilities.Math"
+>Buildings.Utilities.Math</a>.Polynominal</h2>
+<p>
+<b>Polynominal function</b>
+<br>
+<br><img src="Buildings.Utilities.Math.aae28045f4d13274rizedD.png" alt="Buildings.Utilities.Math.Polynominal">
+</p>
+<h3>Information</h3>
+
+<p>This block computes a polynomial of arbitrary order. The polynomial has the form </p>
+<p align="center"><i>y = a1 + a2 x + a3 x2 + ... </i></p>
+
+<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.SISO"
+>Modelica.Blocks.Interfaces.SISO</a> (Single Input Single Output continuous control block).</p>
+<h3>Parameters</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td>Real</td><td>a[:]</td><td>&nbsp;</td><td>Coefficients</td></tr>
+</table>
+<h3>Connectors</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Connectors">
+<tr><th>Type</th><th>Name</th><th>Description</th></tr>
+<tr><td>input <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>RealInput</a></td><td>u</td><td>Connector of Real input signal</td></tr>
+<tr><td>output <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+>RealOutput</a></td><td>y</td><td>Connector of Real output signal</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">block</span> Polynominal <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Polynominal function&quot;</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.SISO"
+>Modelica.Blocks.Interfaces.SISO</a>;
+ <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Real a[:] <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Coefficients&quot;</span>;
+<span style="color: blue; font-weight: normal; font-style: normal;">equation </span>
+  y =<span style="color: red; font-weight: normal; font-style: normal;"> Buildings.Utilities.Math.Functions.polynomial</span>(a=a, x=u);
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>Polynominal;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE PowerLinearized<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Utilities.Math.aae28045f4d13274rizedI.png" alt="Buildings.Utilities.Math.PowerLinearized" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Utilities.Math.PowerLinearized"></a><a href="Buildings_Utilities_Math.html#Buildings.Utilities.Math"
+>Buildings.Utilities.Math</a>.PowerLinearized</h2>
+<p>
+<b>Power function that is linearized below a user-defined threshold</b>
+<br>
+<br><img src="Buildings.Utilities.Math.aae28045f4d13274rizedD.png" alt="Buildings.Utilities.Math.PowerLinearized">
+</p>
+<h3>Information</h3>
+
+Function that approximates <i>y=x<sup>n</sup></i>
+where <i>0 &lt; n</i> so that
+<ul>
+<li>the function is defined and monotone increasing for all <i>x</i>.</li>
+<li><i>dy/dx</i> is bounded and continuous everywhere (for <i>n &lt; 1</i>).</li>
+</ul>
+<p>
+For <i>x &lt; x<sub>0</sub></i>, this function replaces
+<i>y=x<sup>n</sup></i> by
+a linear function that is continuously differentiable everywhere.
+</p>
+<p>
+A typical use of this function is to replace
+<i>T = T4<sup>(1/4)</sup></i> in a radiation balance to ensure that the
+function is defined everywhere. This can help solving the initialization problem
+when a solver may be far from a solution and hence <i>T4 &lt; 0</i>.
+</p>
+<p>
+See the package <code>Examples</code> for the graph.
+</p>
+
+<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.SISO"
+>Modelica.Blocks.Interfaces.SISO</a> (Single Input Single Output continuous control block).</p>
+<h3>Parameters</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td>Real</td><td>n</td><td>&nbsp;</td><td>Exponent</td></tr>
+<tr><td>Real</td><td>x0</td><td>&nbsp;</td><td>Abscissa value below which linearization occurs</td></tr>
+</table>
+<h3>Connectors</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Connectors">
+<tr><th>Type</th><th>Name</th><th>Description</th></tr>
+<tr><td>input <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>RealInput</a></td><td>u</td><td>Connector of Real input signal</td></tr>
+<tr><td>output <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+>RealOutput</a></td><td>y</td><td>Connector of Real output signal</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">block</span> PowerLinearized <span style="color: #006400; font-weight: normal; font-style: normal;">
+  &quot;Power function that is linearized below a user-defined threshold&quot;</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.SISO"
+>Modelica.Blocks.Interfaces.SISO</a>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Real n <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Exponent&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Real x0 <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Abscissa value below which linearization occurs&quot;</span>;
+
+<span style="color: blue; font-weight: normal; font-style: normal;">equation </span>
+  y =<span style="color: red; font-weight: normal; font-style: normal;"> Buildings.Utilities.Math.Functions.powerLinearized</span>(x=u, n=n, x0=x0);
+
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>PowerLinearized;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE QuadraticLinear<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Utilities.Math.QuadraticLinearI.png" alt="Buildings.Utilities.Math.QuadraticLinear" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Utilities.Math.QuadraticLinear"></a><a href="Buildings_Utilities_Math.html#Buildings.Utilities.Math"
+>Buildings.Utilities.Math</a>.QuadraticLinear</h2>
+<p>
+<b>Function that is quadratic in first argument and linear in second argument</b>
+<br>
+<br><img src="Buildings.Utilities.Math.QuadraticLinearD.png" alt="Buildings.Utilities.Math.QuadraticLinear">
+</p>
+<h3>Information</h3>
+
+<p>Block for function quadraticLinear, which computes </p>
+<p align="center"><i>y = a1 + a2 x1 + a3 x12 + (a4 + a5 x1 + a6 x12) x2 </i></p>
+
+<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.SI2SO"
+>Modelica.Blocks.Interfaces.SI2SO</a> (2 Single Input / 1 Single Output continuous control block).</p>
+<h3>Parameters</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td>Real</td><td>a[6]</td><td>&nbsp;</td><td>Coefficients</td></tr>
+</table>
+<h3>Connectors</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Connectors">
+<tr><th>Type</th><th>Name</th><th>Description</th></tr>
+<tr><td>input <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>RealInput</a></td><td>u1</td><td>Connector of Real input signal 1</td></tr>
+<tr><td>input <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>RealInput</a></td><td>u2</td><td>Connector of Real input signal 2</td></tr>
+<tr><td>output <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+>RealOutput</a></td><td>y</td><td>Connector of Real output signal</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">block</span> QuadraticLinear <span style="color: #006400; font-weight: normal; font-style: normal;">
+  &quot;Function that is quadratic in first argument and linear in second argument&quot;</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.SI2SO"
+>Modelica.Blocks.Interfaces.SI2SO</a>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Real a[6] <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Coefficients&quot;</span>;
+<span style="color: blue; font-weight: normal; font-style: normal;">equation </span>
+  y =<span style="color: red; font-weight: normal; font-style: normal;"> Buildings.Utilities.Math.Functions.quadraticLinear</span>(a=a, x1=u1, x2=u2);
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>QuadraticLinear;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE RegNonZeroPower<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Utilities.Math.RegNonZeroPowerI.png" alt="Buildings.Utilities.Math.RegNonZeroPower" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Utilities.Math.RegNonZeroPower"></a><a href="Buildings_Utilities_Math.html#Buildings.Utilities.Math"
+>Buildings.Utilities.Math</a>.RegNonZeroPower</h2>
+<p>
+<b>Power function, regularized near zero, but nonzero value for x=0</b>
+<br>
+<br><img src="Buildings.Utilities.Math.RegNonZeroPowerD.png" alt="Buildings.Utilities.Math.RegNonZeroPower">
+</p>
+<h3>Information</h3>
+
+
+Function that approximates <i>y=|x|<sup>n</sup></i> where <i>n &gt; 0</i>
+so that
+<ul>
+<li><i>y(0)</i> is not equal to zero.</li>
+<li><i>dy/dx</i> is bounded and continuous everywhere.</li>
+</ul>
+
+<p>
+This function replaces <i>y=|x|<sup>n</sup></i> in the interval
+<i>-&delta;...+&delta;</i> by a 4-th order polynomial that has the same
+function value and the first and second derivative at <i>x=&plusmn; &delta;</i>.
+</p>
+<p>
+A typical use of this function is to replace the
+function for the convective heat transfer
+coefficient for forced or free convection that is of the form
+<i>h=c |dT|<sup>n</sup></i> for some constant <i>c</i> and exponent
+<i>0 &le; n &le; 1</i>.
+By using this function, the original function
+that has an infinite derivative near zero and that takes on zero
+at the origin is replaced by a function with a bounded derivative and
+a non-zero value at the origin. Physically,
+the region <i>-&delta;...+&delta;</i> may be interpreted as the region
+where heat conduction dominates convection in the boundary layer.
+</p>
+See the package <code>Examples</code> for the graph.
+
+<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.SISO"
+>Modelica.Blocks.Interfaces.SISO</a> (Single Input Single Output continuous control block).</p>
+<h3>Parameters</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td>Real</td><td>n</td><td>&nbsp;</td><td>Exponent</td></tr>
+<tr><td>Real</td><td>delta</td><td>0.01</td><td>Abscissa value where transition occurs</td></tr>
+</table>
+<h3>Connectors</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Connectors">
+<tr><th>Type</th><th>Name</th><th>Description</th></tr>
+<tr><td>input <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>RealInput</a></td><td>u</td><td>Connector of Real input signal</td></tr>
+<tr><td>output <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+>RealOutput</a></td><td>y</td><td>Connector of Real output signal</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">block</span> RegNonZeroPower <span style="color: #006400; font-weight: normal; font-style: normal;">
+  &quot;Power function, regularized near zero, but nonzero value for x=0&quot;</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.SISO"
+>Modelica.Blocks.Interfaces.SISO</a>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Real n <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Exponent&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Real delta = 0.01 <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Abscissa value where transition occurs&quot;</span>;
+<span style="color: blue; font-weight: normal; font-style: normal;">equation </span>
+  y =<span style="color: red; font-weight: normal; font-style: normal;"> Buildings.Utilities.Math.Functions.regNonZeroPower</span>(x=u, n=n, delta=delta);
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>RegNonZeroPower;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE SmoothExponential<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Utilities.Math.RegNonZeroPowerI.png" alt="Buildings.Utilities.Math.SmoothExponential" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Utilities.Math.SmoothExponential"></a><a href="Buildings_Utilities_Math.html#Buildings.Utilities.Math"
+>Buildings.Utilities.Math</a>.SmoothExponential</h2>
+<p>
+<b>Once continuously differentiable approximation to exp(-|x|) in interval |x| &lt; delta</b>
+<br>
+<br><img src="Buildings.Utilities.Math.RegNonZeroPowerD.png" alt="Buildings.Utilities.Math.SmoothExponential">
+</p>
+<h3>Information</h3>
+
+<p>Function to provide a once continuously differentiable approximation to <i>exp(- |x| )</i> in the interval <i>|x| for some positive &delta; </i></p>
+
+<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.SISO"
+>Modelica.Blocks.Interfaces.SISO</a> (Single Input Single Output continuous control block).</p>
+<h3>Parameters</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td>Real</td><td>delta</td><td>&nbsp;</td><td>Transition point where approximation occurs</td></tr>
+</table>
+<h3>Connectors</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Connectors">
+<tr><th>Type</th><th>Name</th><th>Description</th></tr>
+<tr><td>input <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>RealInput</a></td><td>u</td><td>Connector of Real input signal</td></tr>
+<tr><td>output <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+>RealOutput</a></td><td>y</td><td>Connector of Real output signal</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">block</span> SmoothExponential <span style="color: #006400; font-weight: normal; font-style: normal;">
+  &quot;Once continuously differentiable approximation to exp(-|x|) in interval |x| &lt; delta&quot;</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.SISO"
+>Modelica.Blocks.Interfaces.SISO</a>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Real delta <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Transition point where approximation occurs&quot;</span>;
+<span style="color: blue; font-weight: normal; font-style: normal;">equation </span>
+  y =<span style="color: red; font-weight: normal; font-style: normal;"> Buildings.Utilities.Math.Functions.smoothExponential</span>(x=u, delta=delta);
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>SmoothExponential;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE SmoothHeaviside<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Utilities.Math.SmoothHeavisideI.png" alt="Buildings.Utilities.Math.SmoothHeaviside" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Utilities.Math.SmoothHeaviside"></a><a href="Buildings_Utilities_Math.html#Buildings.Utilities.Math"
+>Buildings.Utilities.Math</a>.SmoothHeaviside</h2>
+<p>
+<b>Once continuously differentiable approximation to the Heaviside function</b>
+<br>
+<br><img src="Buildings.Utilities.Math.RegNonZeroPowerD.png" alt="Buildings.Utilities.Math.SmoothHeaviside">
+</p>
+<h3>Information</h3>
+
+<p>
+Once Lipschitz continuously differentiable approximation to the <i>Heaviside(.,.)</i> function.
+</p>
+
+<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.SISO"
+>Modelica.Blocks.Interfaces.SISO</a> (Single Input Single Output continuous control block).</p>
+<h3>Parameters</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td>Real</td><td>delta</td><td>&nbsp;</td><td>Width of transition interval</td></tr>
+</table>
+<h3>Connectors</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Connectors">
+<tr><th>Type</th><th>Name</th><th>Description</th></tr>
+<tr><td>input <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>RealInput</a></td><td>u</td><td>Connector of Real input signal</td></tr>
+<tr><td>output <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+>RealOutput</a></td><td>y</td><td>Connector of Real output signal</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">block</span> SmoothHeaviside <span style="color: #006400; font-weight: normal; font-style: normal;">
+  &quot;Once continuously differentiable approximation to the Heaviside function&quot;</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.SISO"
+>Modelica.Blocks.Interfaces.SISO</a>;
+ <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Real delta <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Width of transition interval&quot;</span>;
+<span style="color: blue; font-weight: normal; font-style: normal;">equation </span>
+  y =<span style="color: red; font-weight: normal; font-style: normal;"> Buildings.Utilities.Math.Functions.smoothHeaviside</span>(x=u, delta=delta);
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>SmoothHeaviside;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE SmoothLimit<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Utilities.Math.SmoothLimitI.png" alt="Buildings.Utilities.Math.SmoothLimit" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Utilities.Math.SmoothLimit"></a><a href="Buildings_Utilities_Math.html#Buildings.Utilities.Math"
+>Buildings.Utilities.Math</a>.SmoothLimit</h2>
+<p>
+<b>Once continuously differentiable approximation to the limit function</b>
+<br>
+<br><img src="Buildings.Utilities.Math.RegNonZeroPowerD.png" alt="Buildings.Utilities.Math.SmoothLimit">
+</p>
+<h3>Information</h3>
+
+<p>
+Once continuously differentiable approximation to the <i>limit(.,.)</i> function.
+The output is bounded to be in <i>[lower, upper]</i>.
+</p>
+<p>
+Note that the limit need not be respected, such as illustrated in
+<a href="Buildings_Utilities_Math_Examples.html#Buildings.Utilities.Math.Examples.SmoothMin"
+>
+Buildings.Utilities.Math.Examples.SmoothMin</a>.
+</p>
+
+<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.SISO"
+>Modelica.Blocks.Interfaces.SISO</a> (Single Input Single Output continuous control block).</p>
+<h3>Parameters</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td>Real</td><td>deltaX</td><td>&nbsp;</td><td>Width of transition interval</td></tr>
+<tr><td>Real</td><td>upper</td><td>&nbsp;</td><td>Upper limit</td></tr>
+<tr><td>Real</td><td>lower</td><td>&nbsp;</td><td>Lower limit</td></tr>
+</table>
+<h3>Connectors</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Connectors">
+<tr><th>Type</th><th>Name</th><th>Description</th></tr>
+<tr><td>input <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>RealInput</a></td><td>u</td><td>Connector of Real input signal</td></tr>
+<tr><td>output <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+>RealOutput</a></td><td>y</td><td>Connector of Real output signal</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">block</span> SmoothLimit <span style="color: #006400; font-weight: normal; font-style: normal;">
+  &quot;Once continuously differentiable approximation to the limit function&quot;</span>
+ <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.SISO"
+>Modelica.Blocks.Interfaces.SISO</a>;
+ <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Real deltaX <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Width of transition interval&quot;</span>;
+ <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Real upper <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Upper limit&quot;</span>;
+ <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Real lower <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Lower limit&quot;</span>;
+<span style="color: blue; font-weight: normal; font-style: normal;">equation </span>
+  y =<span style="color: red; font-weight: normal; font-style: normal;"> Buildings.Utilities.Math.Functions.smoothLimit</span>(u, lower, upper, deltaX);
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>SmoothLimit;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE SmoothMax<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Utilities.Math.SmoothMaxI.png" alt="Buildings.Utilities.Math.SmoothMax" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Utilities.Math.SmoothMax"></a><a href="Buildings_Utilities_Math.html#Buildings.Utilities.Math"
+>Buildings.Utilities.Math</a>.SmoothMax</h2>
+<p>
+<b>Once continuously differentiable approximation to the maximum function</b>
+<br>
+<br><img src="Buildings.Utilities.Math.SmoothMaxD.png" alt="Buildings.Utilities.Math.SmoothMax">
+</p>
+<h3>Information</h3>
+
+<p>
+Once continuously differentiable approximation to the <i>max(.,.)</i> function.
+</p>
+<p>
+Note that the maximum need not be respected, such as illustrated in
+<a href="Buildings_Utilities_Math_Examples.html#Buildings.Utilities.Math.Examples.SmoothMin"
+>
+Buildings.Utilities.Math.Examples.SmoothMin</a>.
+</p>
+
+<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.SI2SO"
+>Modelica.Blocks.Interfaces.SI2SO</a> (2 Single Input / 1 Single Output continuous control block).</p>
+<h3>Parameters</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td>Real</td><td>deltaX</td><td>&nbsp;</td><td>Width of transition interval</td></tr>
+</table>
+<h3>Connectors</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Connectors">
+<tr><th>Type</th><th>Name</th><th>Description</th></tr>
+<tr><td>input <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>RealInput</a></td><td>u1</td><td>Connector of Real input signal 1</td></tr>
+<tr><td>input <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>RealInput</a></td><td>u2</td><td>Connector of Real input signal 2</td></tr>
+<tr><td>output <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+>RealOutput</a></td><td>y</td><td>Connector of Real output signal</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">block</span> SmoothMax <span style="color: #006400; font-weight: normal; font-style: normal;">
+  &quot;Once continuously differentiable approximation to the maximum function&quot;</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.SI2SO"
+>Modelica.Blocks.Interfaces.SI2SO</a>;
+ <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Real deltaX <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Width of transition interval&quot;</span>;
+<span style="color: blue; font-weight: normal; font-style: normal;">equation </span>
+  y =<span style="color: red; font-weight: normal; font-style: normal;">  Buildings.Utilities.Math.Functions.smoothMax</span>(x1=u1, x2=u2, deltaX=deltaX);
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>SmoothMax;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE SmoothMin<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Utilities.Math.SmoothMaxI.png" alt="Buildings.Utilities.Math.SmoothMin" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Utilities.Math.SmoothMin"></a><a href="Buildings_Utilities_Math.html#Buildings.Utilities.Math"
+>Buildings.Utilities.Math</a>.SmoothMin</h2>
+<p>
+<b>Once continuously differentiable approximation to the minimum function</b>
+<br>
+<br><img src="Buildings.Utilities.Math.SmoothMaxD.png" alt="Buildings.Utilities.Math.SmoothMin">
+</p>
+<h3>Information</h3>
+
+<p>
+Once continuously differentiable approximation to the <i>min(.,.)</i> function.
+</p>
+<p>
+Note that the minimum need not be respected, such as illustrated in
+<a href="Buildings_Utilities_Math_Examples.html#Buildings.Utilities.Math.Examples.SmoothMin"
+>
+Buildings.Utilities.Math.Examples.SmoothMin</a>.
+</p>
+
+<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.SI2SO"
+>Modelica.Blocks.Interfaces.SI2SO</a> (2 Single Input / 1 Single Output continuous control block).</p>
+<h3>Parameters</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td>Real</td><td>deltaX</td><td>&nbsp;</td><td>Width of transition interval</td></tr>
+</table>
+<h3>Connectors</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Connectors">
+<tr><th>Type</th><th>Name</th><th>Description</th></tr>
+<tr><td>input <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>RealInput</a></td><td>u1</td><td>Connector of Real input signal 1</td></tr>
+<tr><td>input <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>RealInput</a></td><td>u2</td><td>Connector of Real input signal 2</td></tr>
+<tr><td>output <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+>RealOutput</a></td><td>y</td><td>Connector of Real output signal</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">block</span> SmoothMin <span style="color: #006400; font-weight: normal; font-style: normal;">
+  &quot;Once continuously differentiable approximation to the minimum function&quot;</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.SI2SO"
+>Modelica.Blocks.Interfaces.SI2SO</a>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Real deltaX <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Width of transition interval&quot;</span>;
+<span style="color: blue; font-weight: normal; font-style: normal;">equation </span>
+  y =<span style="color: red; font-weight: normal; font-style: normal;"> Buildings.Utilities.Math.Functions.smoothMin</span>(x1=u1, x2=u2, deltaX=deltaX);
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>SmoothMin;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE Splice<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Utilities.Math.SpliceI.png" alt="Buildings.Utilities.Math.Splice" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Utilities.Math.Splice"></a><a href="Buildings_Utilities_Math.html#Buildings.Utilities.Math"
+>Buildings.Utilities.Math</a>.Splice</h2>
+<p>
+<b>Block for splice function opertation</b>
+<br>
+<br><img src="Buildings.Utilities.Math.SpliceD.png" alt="Buildings.Utilities.Math.Splice">
+</p>
+<h3>Information</h3>
+
+<p>
+This block implements <a href="Buildings_Utilities_Math_Functions.html#Buildings.Utilities.Math.Functions.spliceFunction"
+>
+Buildings.Utilities.Math.Functions.spliceFunction</a>, which provides a continuously differentiable transition between two arguments.
+</p>
+
+<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Icons.html#Modelica.Blocks.Icons.Block"
+>Modelica.Blocks.Icons.Block</a> (Basic graphical layout of input/output block).</p>
+<h3>Parameters</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td>Real</td><td>deltax</td><td>&nbsp;</td><td>Half width of transition interval</td></tr>
+</table>
+<h3>Connectors</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Connectors">
+<tr><th>Type</th><th>Name</th><th>Description</th></tr>
+<tr><td>input <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>RealInput</a></td><td>x</td><td>Independent value</td></tr>
+<tr><td>input <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>RealInput</a></td><td>u1</td><td>Argument of u &gt; 0 (pos)</td></tr>
+<tr><td>input <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>RealInput</a></td><td>u2</td><td>Argument of u &lt; 0 (neg)</td></tr>
+<tr><td>output <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+>RealOutput</a></td><td>y</td><td>Smoothed value</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">block</span> Splice <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Block for splice function opertation&quot;</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Icons.html#Modelica.Blocks.Icons.Block"
+>Modelica.Blocks.Icons.Block</a>;
+
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>Modelica.Blocks.Interfaces.RealInput</a> x <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Independent value&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>Modelica.Blocks.Interfaces.RealInput</a> u1 <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Argument of u &gt; 0 (pos)&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>Modelica.Blocks.Interfaces.RealInput</a> u2 <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Argument of u &lt; 0 (neg)&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+>Modelica.Blocks.Interfaces.RealOutput</a> y <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Smoothed value&quot;</span>;
+<span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Real deltax <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Half width of transition interval&quot;</span>;
+<span style="color: blue; font-weight: normal; font-style: normal;">equation </span>
+  y=<span style="color: red; font-weight: normal; font-style: normal;">Buildings.Utilities.Math.Functions.spliceFunction</span>(
+    pos=u1,
+    neg= u2,
+    x= x,
+    deltax= deltax);
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>Splice;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE TrapezoidalIntegration<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Utilities.Math.a6e208249aeaf9baationI.png" alt="Buildings.Utilities.Math.TrapezoidalIntegration" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Utilities.Math.TrapezoidalIntegration"></a><a href="Buildings_Utilities_Math.html#Buildings.Utilities.Math"
+>Buildings.Utilities.Math</a>.TrapezoidalIntegration</h2>
+<p>
+<b>Integration using the trapezoidal rule</b>
+<br>
+<br><img src="Buildings.Utilities.Math.a6e208249aeaf9baationD.png" alt="Buildings.Utilities.Math.TrapezoidalIntegration">
+</p>
+<h3>Information</h3>
+
+<p>This function computes a definite integral using the trapezoidal rule. </p>
+
+<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.MISO"
+>Modelica.Blocks.Interfaces.MISO</a> (Multiple Input Single Output continuous control block).</p>
+<h3>Parameters</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td>Integer</td><td>nin</td><td>1</td><td>Number of inputs</td></tr>
+<tr><td>Integer</td><td>N</td><td>&nbsp;</td><td>Number of integrand points</td></tr>
+<tr><td>Real</td><td>deltaX</td><td>&nbsp;</td><td>Width of interval for Trapezoidal integration</td></tr>
+</table>
+<h3>Connectors</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Connectors">
+<tr><th>Type</th><th>Name</th><th>Description</th></tr>
+<tr><td>input <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>RealInput</a></td><td>u[nin]</td><td>Connector of Real input signals</td></tr>
+<tr><td>output <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+>RealOutput</a></td><td>y</td><td>Connector of Real output signal</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">model</span> TrapezoidalIntegration <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Integration using the trapezoidal rule&quot;</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.MISO"
+>Modelica.Blocks.Interfaces.MISO</a>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Integer N <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Number of integrand points&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Real deltaX <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Width of interval for Trapezoidal integration&quot;</span>;
+<span style="color: blue; font-weight: normal; font-style: normal;">equation </span>
+  y =<span style="color: red; font-weight: normal; font-style: normal;"> Buildings.Utilities.Math.Functions.trapezoidalIntegration</span>(N=N, f=u, deltaX=deltaX);
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>TrapezoidalIntegration;
+</div>
+<hr>
+<address>
+<a href="http://www.3ds.com/">Automatically generated</a> Thu Apr  9 09:41:31 2015.
+</address>
+</body>
+</html>

@@ -1,0 +1,984 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>Buildings.Examples.DualFanDualDuct</title>
+<meta name="HTML-Generator" content="Dymola">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="description" content="&quot;Dual fan dual duct HVAC system with five thermal zones&quot;">
+<style type="text/css">
+*       { font-size: 10pt; font-family: Arial, sans-serif; }
+.modelica, .modelica * { font-size: 9pt; font-family: Courier, monospace; white-space: pre; }
+h4      { font-size: 10pt; font-weight: bold; color: green; }
+h3      { font-size: 11pt; font-weight: bold; color: green; }
+h2      { font-size: 13pt; font-weight: bold; color: green; }
+address { font-weight: normal; }
+td      { border: 1px solid #808080; vertical-align: top; }
+th      { border: 1px solid #808080; vertical-align: top; font-weight: bold; }
+table   { border: 1px solid #808080; border-collapse: collapse; }
+</style>
+<link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../Resources/www/modelicaDoc.css">
+</HEAD>
+<body>
+<!-- --- header ------ -->
+<div class="headerStyle">
+<img src="../Resources/www/lbl-logo.png" alt="LBL logo"/>
+</div>
+<div class="headerLinks">
+<ul><li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt; <a href="Buildings.html">Modelica</a></li></ul>
+</div>
+<!-- --- end header -- -->
+
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE DualFanDualDuct<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><a name="Buildings.Examples.DualFanDualDuct"></a><a href="Buildings_Examples.html#Buildings.Examples"
+>Buildings.Examples</a>.DualFanDualDuct</h2>
+<p>
+<b>Dual fan dual duct HVAC system with five thermal zones</b><br>
+</p>
+<h3>Information</h3>
+<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons_ExamplesPackage.html#Modelica.Icons.ExamplesPackage"
+>Modelica.Icons.ExamplesPackage</a> (Icon for packages containing runnable examples).</p>
+<h3>Package Content</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Package Content">
+<tr>
+<th>Name</th>
+<th>Description</th>
+</tr>
+<tr>
+<td><img src="Buildings.Examples.Chille0bc0c7c8211a55bantrolS.png" alt="Buildings.Examples.DualFanDualDuct.ClosedLoop" width="20" height="20" align="top">&nbsp;<a href="Buildings_Examples_DualFanDualDuct.html#Buildings.Examples.DualFanDualDuct.ClosedLoop"
+>ClosedLoop</a>
+</td>
+<td>Closed loop model of a dual-fan dual-duct system</td>
+</tr>
+<tr>
+<td><img src="Buildings.Examples.DualFab6afd601bd099debtrolsS.png" alt="Buildings.Examples.DualFanDualDuct.Controls" width="20" height="20" align="top">&nbsp;<a href="Buildings_Examples_DualFanDualDuct_Controls.html#Buildings.Examples.DualFanDualDuct.Controls"
+>Controls</a>
+</td>
+<td>Package with controller models</td>
+</tr>
+<tr>
+<td><img src="Buildings.Examples.DualFab6afd601bd099debtrolsS.png" alt="Buildings.Examples.DualFanDualDuct.ThermalZones" width="20" height="20" align="top">&nbsp;<a href="Buildings_Examples_DualFanDualDuct_ThermalZones.html#Buildings.Examples.DualFanDualDuct.ThermalZones"
+>ThermalZones</a>
+</td>
+<td>Package with models for the thermal zones</td>
+</tr>
+</table>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE ClosedLoop<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Examples.DualFa5d96ebbfc8d7d061dLoopI.png" alt="Buildings.Examples.DualFanDualDuct.ClosedLoop" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Examples.DualFanDualDuct.ClosedLoop"></a><a href="Buildings_Examples_DualFanDualDuct.html#Buildings.Examples.DualFanDualDuct"
+>Buildings.Examples.DualFanDualDuct</a>.ClosedLoop</h2>
+<p>
+<b>Closed loop model of a dual-fan dual-duct system</b>
+<br>
+<br><img src="Buildings.Examples.DualFa5d96ebbfc8d7d061dLoopD.png" alt="Buildings.Examples.DualFanDualDuct.ClosedLoop">
+</p>
+<h3>Information</h3>
+
+<p>
+This model consist of an HVAC system, a building envelope model and a model
+for air flow through building leakage and through open doors.
+</p>
+<p>
+The HVAC system is a dual-fan, dual-duct system with economizer and a heating and
+cooling coil in the air handler unit.
+One of the supply air streams is called the hot-deck
+and has a heating coil, the other is called
+the cold-deck and has a cooling coil. There is also one return fan and
+an economizer. The figure below shows the schematic diagram of the dual-fan,
+dual-duct system.
+</p>
+<p align="center">
+<img alt="image" src="../Resources/Images/Examples/DualFanDualDuct/dualFanDualDuctSchematics.png" border="1"/>
+</p>
+<p>
+Each thermal zone inlet branch has a flow mixer and an air damper
+in the hot deck and the cold deck. The air damper control signals are
+as shown in the figure below.
+</p>
+<p align="center">
+<img alt="image" src="../Resources/Images/Examples/DualFanDualDuct/hotColdDeckControl.png" border="1"/>
+</p>
+<p>
+Hence, at low room temperatures, the amount
+of hot air is increased, and at high room temperatures, the amount
+of cold air is increased. In addition, whenever the air mass flow rate
+is below a prescribed limit, the hot air deck damper opens to track
+the minimum air flow rate. The temperature of the hot-deck is reset
+based on the outside air temperature. The temperature of the
+cold-deck is constant. The revolutions of both supply fans are controlled
+in order to track a pressure difference between VAV damper
+inlet and room pressure of 30 Pascals. The return fan is controlled
+to track a building pressure of 30 Pascals above outside air pressure.
+There is also an economizer.
+During night-time, the fans are switched off.
+The coils are controlled as follows: The preheat coil is controlled to
+maintain an air outlet temperature of 11&deg;C during day-time, and
+6&deg;C during night-time. The heating coil is controlled to maintain the
+air outlet temperature shown in the figure below.
+</p>
+<p align="center">
+<img alt="image" src="../Resources/Images/Examples/DualFanDualDuct/hotDeckTemperatureSetPoint.png" border="1"/>
+</p>
+<p>
+The cooling coil is controlled to maintain a constant outlet temperature
+of 12&deg; during day-time, and 40&deg;C during night-time
+</p>
+<p>
+There is also a
+finite state machine that transitions the mode of operation of
+the HVAC system between the modes
+<i>occupied</i>, <i>unoccupied off</i>, <i>unoccupied night set back</i>,
+<i>unoccupied warm-up</i> and <i>unoccupied pre-cool</i>.
+</p>
+<p>
+All air flows are computed based on the
+duct static pressure distribution and the performance curves of the fans.
+Local loop control is implemented using proportional and proportional-integral
+controllers, while the supervisory control is implemented
+using a finite state machine.
+</p>
+<p>
+To model the heat transfer through the building envelope,
+a model of five interconnected rooms is used.
+The five room model is representative of one floor of the
+new construction medium office building for Chicago, IL,
+as described in the set of DOE Commercial Building Benchmarks
+(Deru et al, 2009). There are four perimeter zones and one core zone.
+The envelope thermal properties meet ASHRAE Standard 90.1-2004.
+The thermal room model computes transient heat conduction through
+walls, floors and ceilings and long-wave radiative heat exchange between
+surfaces. The convective heat transfer coefficient is computed based
+on the temperature difference between the surface and the room air.
+There is also a layer-by-layer short-wave radiation,
+long-wave radiation, convection and conduction heat transfer model for the
+windows. The model is similar to the
+Window 5 model and described in TARCOG 2006.
+</p>
+<p>
+Each thermal zone can have air flow from the HVAC system, through leakages of the building envelope (except for the core zone) and through bi-directional air exchange through open doors that connect adjacent zones. The bi-directional air exchange is modeled based on the differences in static pressure between adjacent rooms at a reference height plus the difference in static pressure across the door height as a function of the difference in air density.
+There is also wind pressure acting on each facade. The wind pressure is a function
+of the wind speed and wind direction. Therefore, infiltration is a function of the
+flow imbalance of the HVAC system and of the wind conditions.
+</p>
+<h4>References</h4>
+<p>
+ASHRAE.
+<i>Sequences of Operation for Common HVAC Systems</i>.
+ASHRAE, Atlanta, GA, 2006.
+</p>
+<p>
+Deru M., K. Field, D. Studer, K. Benne, B. Griffith, P. Torcellini,
+ M. Halverson, D. Winiarski, B. Liu, M. Rosenberg, J. Huang, M. Yazdanian, and D. Crawley.
+<i>DOE commercial building research benchmarks for commercial buildings</i>.
+Technical report, U.S. Department of Energy, Energy Efficiency and
+Renewable Energy, Office of Building Technologies, Washington, DC, 2009.
+</p>
+<p>
+TARCOG 2006: Carli, Inc., TARCOG: Mathematical models for calculation
+of thermal performance of glazing systems with our without
+shading devices, Technical Report, Oct. 17, 2006.
+</p>
+
+<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</a> (Icon for runnable examples).</p>
+<h3>Parameters</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td colspan="2">replaceable package MediumA</td><td>Buildings.Media.Air</td><td>&nbsp;</td></tr>
+<tr><td>Real</td><td>yFan_start</td><td>0.0</td><td>Initial or guess value of output (= state)</td></tr>
+<tr><td>Boolean</td><td>dynamicBalanceJunction</td><td>true</td><td>Set to true to use a dynamic balance for junction volumes, which often leads to smaller systems of equations</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Fluid_Types.html#Modelica.Fluid.Types.Dynamics"
+>Dynamics</a></td><td>energyDynamicsJunctions</td><td>Modelica.Fluid.Types.Dynamic...</td><td>Formulation of energy balance in junction volumes</td></tr>
+<tr><td>Boolean</td><td>from_dp</td><td>true</td><td>= true, use m_flow = f(dp) else dp = f(m_flow)</td></tr>
+<tr><td>Boolean</td><td>linearizeFlowResistance</td><td>false</td><td>= true, use linear relation between m_flow and dp for any flow rate</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Volume"
+>Volume</a></td><td>VRooCor</td><td>2698</td><td>Room volume corridor [m3]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Volume"
+>Volume</a></td><td>VRooSou</td><td>568.77</td><td>Room volume south [m3]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Volume"
+>Volume</a></td><td>VRooNor</td><td>568.77</td><td>Room volume north [m3]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Volume"
+>Volume</a></td><td>VRooEas</td><td>360.08</td><td>Room volume east [m3]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Volume"
+>Volume</a></td><td>VRooWes</td><td>360.08</td><td>Room volume west [m3]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+>MassFlowRate</a></td><td>m0_flow_cor</td><td>3*VRooCor*conv</td><td>Design mass flow rate core [kg/s]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+>MassFlowRate</a></td><td>m0_flow_sou</td><td>8*VRooSou*conv</td><td>Design mass flow rate perimeter 1 [kg/s]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+>MassFlowRate</a></td><td>m0_flow_eas</td><td>9*VRooEas*conv</td><td>Design mass flow rate perimeter 2 [kg/s]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+>MassFlowRate</a></td><td>m0_flow_nor</td><td>11*VRooNor*conv</td><td>Design mass flow rate perimeter 3 [kg/s]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+>MassFlowRate</a></td><td>m0_flow_wes</td><td>10*VRooWes*conv</td><td>Design mass flow rate perimeter 4 [kg/s]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+>MassFlowRate</a></td><td>m_flow_nominal</td><td>m0_flow_cor + m0_flow_sou + ...</td><td>Nominal air mass flow rate [kg/s]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+>MassFlowRate</a></td><td>mAirOut_flow_nominal</td><td>0.3*m_flow_nominal</td><td>Nominal outside air mass flow rate [kg/s]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+>MassFlowRate</a></td><td>mAirHot_flow_nominal</td><td>0.3*m_flow_nominal</td><td>Nominal air mass flow rate for hot deck [kg/s]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+>MassFlowRate</a></td><td>mAirCol_flow_nominal</td><td>m_flow_nominal</td><td>Nominal air mass flow rate for cold deck [kg/s]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+>MassFlowRate</a></td><td>mWatPre_flow_nominal</td><td>(TMixHea_nominal - 273.15 - ...</td><td>Nominal water mass flow rate for preheat coil [kg/s]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+>MassFlowRate</a></td><td>mWatCol_flow_nominal</td><td>(28 - 13)*1000*1.3/4200/15*m...</td><td>Nominal water mass flow rate for cooling coil of cold deck [kg/s]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+>MassFlowRate</a></td><td>mWatHot_flow_nominal</td><td>(40 - (TMixHea_nominal - 273...</td><td>Nominal water mass flow rate for heating coil of cold deck [kg/s]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+>Temperature</a></td><td>TMixHea_nominal</td><td>0.3*(273.15 + (-20)) + 0.7*(...</td><td>Mixed air temperature at winter design conditions [K]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+>Temperature</a></td><td>TMixCoo_nominal</td><td>0.3*(273.15 + (33)) + 0.7*(2...</td><td>Mixed air temperature at summer design conditions [K]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+>Temperature</a></td><td>TSupCol_nominal</td><td>12 + 273.15</td><td>Cold deck temperature at nominal condition [K]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
+>Angle</a></td><td>lat</td><td>41.98*3.14159/180</td><td>Latitude [rad]</td></tr>
+</table>
+<h3>Connectors</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Connectors">
+<tr><th>Type</th><th>Name</th><th>Description</th></tr>
+<tr><td colspan="2">replaceable package MediumA</td><td>&nbsp;</td></tr>
+<tr><td><a href="Buildings_Examples_VAVReheat_Controls.html#Buildings.Examples.VAVReheat.Controls.ControlBus"
+>ControlBus</a></td><td>controlBus</td><td>&nbsp;</td></tr>
+<tr><td><a href="Buildings_BoundaryConditions_WeatherData.html#Buildings.BoundaryConditions.WeatherData.Bus"
+>Bus</a></td><td>weaBus</td><td>Weather Data Bus</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">model</span> ClosedLoop <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Closed loop model of a dual-fan dual-duct system&quot;</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</a>;
+
+  <span style="color: blue; font-weight: normal; font-style: normal;">replaceable </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> MediumA =
+      <a href="Buildings_Media_Air.html#Buildings.Media.Air"
+>Buildings.Media.Air</a>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">package</span> MediumW = <a href="Buildings_Media_Water.html#Buildings.Media.Water"
+>Buildings.Media.Water</a> <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Medium model for water&quot;</span>;
+
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Real yFan_start=0.0 <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Initial or guess value of output (= state)&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Boolean dynamicBalanceJunction=true <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Set to true to use a dynamic balance for junction volumes, which often leads to smaller systems of equations&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Fluid_Types.html#Modelica.Fluid.Types.Dynamics"
+>Modelica.Fluid.Types.Dynamics</a> energyDynamicsJunctions=Modelica.Fluid.Types.Dynamics.FixedInitial <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Formulation of energy balance in junction volumes&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Boolean from_dp=true <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;= true, use m_flow = f(dp) else dp = f(m_flow)&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Boolean linearizeFlowResistance=false <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;= true, use linear relation between m_flow and dp for any flow rate&quot;</span>;
+
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Volume"
+>Modelica.SIunits.Volume</a> VRooCor=2698 <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Room volume corridor&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Volume"
+>Modelica.SIunits.Volume</a> VRooSou=568.77 <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Room volume south&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Volume"
+>Modelica.SIunits.Volume</a> VRooNor=568.77 <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Room volume north&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Volume"
+>Modelica.SIunits.Volume</a> VRooEas=360.08 <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Room volume east&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Volume"
+>Modelica.SIunits.Volume</a> VRooWes=360.08 <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Room volume west&quot;</span>;
+
+  <span style="color: blue; font-weight: normal; font-style: normal;">constant </span>Real conv=1.2/3600 <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Conversion factor for nominal mass flow rate&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+>Modelica.SIunits.MassFlowRate</a> m0_flow_cor=3*VRooCor*conv <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Design mass flow rate core&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+>Modelica.SIunits.MassFlowRate</a> m0_flow_sou=8*VRooSou*conv <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Design mass flow rate perimeter 1&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+>Modelica.SIunits.MassFlowRate</a> m0_flow_eas=9*VRooEas*conv <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Design mass flow rate perimeter 2&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+>Modelica.SIunits.MassFlowRate</a> m0_flow_nor=11*VRooNor*conv <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Design mass flow rate perimeter 3&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+>Modelica.SIunits.MassFlowRate</a> m0_flow_wes=10*VRooWes*conv <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Design mass flow rate perimeter 4&quot;</span>;
+
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+>Modelica.SIunits.MassFlowRate</a> m_flow_nominal=m0_flow_cor +
+      m0_flow_sou + m0_flow_eas + m0_flow_nor + m0_flow_wes <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Nominal air mass flow rate&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+>Modelica.SIunits.MassFlowRate</a> mAirOut_flow_nominal = 0.3*m_flow_nominal <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Nominal outside air mass flow rate&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+>Modelica.SIunits.MassFlowRate</a> mAirHot_flow_nominal = 0.3*m_flow_nominal <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Nominal air mass flow rate for hot deck&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+>Modelica.SIunits.MassFlowRate</a> mAirCol_flow_nominal = m_flow_nominal <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Nominal air mass flow rate for cold deck&quot;</span>;
+  <span style="color: #006400; font-weight: normal; font-style: normal;">///////////////////////////////////////////////////////////////////////////////////////</span>
+  <span style="color: #006400; font-weight: normal; font-style: normal;">// Water mass flow rates</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+>Modelica.SIunits.MassFlowRate</a> mWatPre_flow_nominal = (TMixHea_nominal-273.15-(-20))*1000/15/4200*mAirOut_flow_nominal <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Nominal water mass flow rate for preheat coil&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+>Modelica.SIunits.MassFlowRate</a> mWatCol_flow_nominal = (28-13)*1000*1.3/4200/15*mAirCol_flow_nominal <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Nominal water mass flow rate for cooling coil of cold deck&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+>Modelica.SIunits.MassFlowRate</a> mWatHot_flow_nominal = (40-(TMixHea_nominal-273.15))*1000/15/4200*mAirHot_flow_nominal <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Nominal water mass flow rate for heating coil of cold deck&quot;</span>;
+  <span style="color: #006400; font-weight: normal; font-style: normal;">// Water temperatures</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+>Modelica.SIunits.Temperature</a> TMixHea_nominal = 0.3*(273.15+(-20)) + 0.7 * (273.15+20) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Mixed air temperature at winter design conditions&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+>Modelica.SIunits.Temperature</a> TMixCoo_nominal = 0.3*(273.15+(33)) + 0.7 * (273.15+26) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Mixed air temperature at summer design conditions&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+>Modelica.SIunits.Temperature</a> TSupCol_nominal = 12+273.15 <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Cold deck temperature at nominal condition&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
+>Modelica.SIunits.Angle</a> lat=41.98*3.14159/180 <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Latitude&quot;</span>;
+
+  <a href="Buildings_Fluid_Sources.html#Buildings.Fluid.Sources.Outside"
+>Fluid.Sources.Outside</a> amb(<span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = <a href="Buildings_Examples_DualFanDualDuct_MediumA.html#Buildings.Examples.DualFanDualDuct.ClosedLoop.MediumA"
+>MediumA</a>, nPorts=2) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Ambient conditions&quot;</span>;
+  <a href="Buildings_Fluid_FixedResistances.html#Buildings.Fluid.FixedResistances.FixedResistanceDpM"
+>Buildings.Fluid.FixedResistances.FixedResistanceDpM</a> fil(
+    m_flow_nominal=m_flow_nominal,
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = <a href="Buildings_Examples_DualFanDualDuct_MediumA.html#Buildings.Examples.DualFanDualDuct.ClosedLoop.MediumA"
+>MediumA</a>,
+    dp_nominal=200 + 200 + 100,
+    from_dp=from_dp,
+    linearized=linearizeFlowResistance) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Filter&quot;</span>;
+  <a href="Buildings_Fluid_HeatExchangers.html#Buildings.Fluid.HeatExchangers.DryEffectivenessNTU"
+>Buildings.Fluid.HeatExchangers.DryEffectivenessNTU</a> preHeaCoi(
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium1 = <a href="Buildings_Examples_DualFanDualDuct_MediumA.html#Buildings.Examples.DualFanDualDuct.ClosedLoop.MediumA"
+>MediumA</a>,
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium2 = MediumW,
+    allowFlowReversal2=false,
+    dp2_nominal=6000,
+    m1_flow_nominal=mAirOut_flow_nominal,
+    m2_flow_nominal=mWatPre_flow_nominal,
+    dp1_nominal=200,
+    Q_flow_nominal=mAirOut_flow_nominal*1006*(TMixHea_nominal - TSupCol_nominal),
+    T_a1_nominal=281.65,
+    T_a2_nominal=323.15,
+    configuration=Buildings.Fluid.Types.HeatExchangerConfiguration.ParallelFlow) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Preheat coil&quot;</span>;
+
+  <a href="Buildings_Fluid_HeatExchangers.html#Buildings.Fluid.HeatExchangers.WetCoilCounterFlow"
+>Buildings.Fluid.HeatExchangers.WetCoilCounterFlow</a> cooCoi(
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium1 = MediumW,
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium2 = <a href="Buildings_Examples_DualFanDualDuct_MediumA.html#Buildings.Examples.DualFanDualDuct.ClosedLoop.MediumA"
+>MediumA</a>,
+    m1_flow_nominal=mWatCol_flow_nominal,
+    m2_flow_nominal=mAirCol_flow_nominal,
+    UA_nominal=-mAirCol_flow_nominal*1000*15/
+        <span style="color: red; font-weight: normal; font-style: normal;">Buildings.Fluid.HeatExchangers.BaseClasses.lmtd</span>(
+        T_a1=6,
+        T_b1=12,
+        T_a2=28,
+        T_b2=13),
+    dp2_nominal=0,
+    from_dp2=from_dp,
+    linearizeFlowResistance2=linearizeFlowResistance,
+    dp1_nominal=0,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Cooling coil&quot;</span>;
+  <a href="Buildings_Fluid_Movers.html#Buildings.Fluid.Movers.SpeedControlled_y"
+>Buildings.Fluid.Movers.SpeedControlled_y</a> fanSupHot(
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = <a href="Buildings_Examples_DualFanDualDuct_MediumA.html#Buildings.Examples.DualFanDualDuct.ClosedLoop.MediumA"
+>MediumA</a>,
+    per(pressure(V_flow=mAirHot_flow_nominal/1.2*{0,2}, dp=600*{2,0})),
+    dynamicBalance=true,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Supply air fan for hot deck&quot;</span>;
+  <a href="Buildings_Fluid_Movers.html#Buildings.Fluid.Movers.SpeedControlled_y"
+>Buildings.Fluid.Movers.SpeedControlled_y</a> fanSupCol(
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = <a href="Buildings_Examples_DualFanDualDuct_MediumA.html#Buildings.Examples.DualFanDualDuct.ClosedLoop.MediumA"
+>MediumA</a>,
+    per(pressure(V_flow=mAirCol_flow_nominal/1.2*{0,2}, dp=600*{2,0})),
+    dynamicBalance=true,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Supply air fan for cold deck&quot;</span>;
+  <a href="Buildings_Fluid_Movers.html#Buildings.Fluid.Movers.SpeedControlled_y"
+>Buildings.Fluid.Movers.SpeedControlled_y</a> fanRet(
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = <a href="Buildings_Examples_DualFanDualDuct_MediumA.html#Buildings.Examples.DualFanDualDuct.ClosedLoop.MediumA"
+>MediumA</a>,
+    per(pressure(V_flow=m_flow_nominal/1.2*{0,2}, dp=100*{2,0})),
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    dynamicBalance=true) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Return air fan&quot;</span>;
+  <a href="Buildings_Fluid_Sources.html#Buildings.Fluid.Sources.FixedBoundary"
+>Buildings.Fluid.Sources.FixedBoundary</a> sinHea(
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = MediumW,
+    nPorts=2,
+    p=300000,
+    T=308.15) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Sink for heating coil&quot;</span>;
+  <a href="Buildings_Fluid_Sources.html#Buildings.Fluid.Sources.FixedBoundary"
+>Buildings.Fluid.Sources.FixedBoundary</a> sinCoo(
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = MediumW,
+    p=300000,
+    T=285.15,
+    nPorts=1) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Sink for cooling coil&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Routing.html#Modelica.Blocks.Routing.RealPassThrough"
+>Modelica.Blocks.Routing.RealPassThrough</a> TOut(y(
+      <span style="color: blue; font-weight: normal; font-style: normal;">final </span>quantity=&quot;ThermodynamicTemperature&quot;,
+      <span style="color: blue; font-weight: normal; font-style: normal;">final </span>unit=&quot;K&quot;,
+      displayUnit=&quot;degC&quot;,
+      min=0));
+  <a href="Buildings_Examples_DualFanDualDuct_Controls.html#Buildings.Examples.DualFanDualDuct.Controls.HeatingCoilTemperatureSetpoint"
+>Buildings.Examples.DualFanDualDuct.Controls.HeatingCoilTemperatureSetpoint</a>
+    TSupSetHea(TOn=284.15, TOff=279.15) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Supply air temperature setpoint for heating&quot;</span>;
+  <a href="Buildings_Controls_Continuous.html#Buildings.Controls.Continuous.LimPID"
+>Buildings.Controls.Continuous.LimPID</a> preHeaCoiCon(
+    yMax=1,
+    yMin=0,
+    Td=60,
+    initType=Modelica.Blocks.Types.InitPID.InitialState,
+    controllerType=Modelica.Blocks.Types.SimpleController.PI,
+    Ti=120,
+    k=0.1) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Controller for pre-heating coil&quot;</span>;
+  <a href="Buildings_Controls_Continuous.html#Buildings.Controls.Continuous.LimPID"
+>Buildings.Controls.Continuous.LimPID</a> cooCoiCon(
+    reverseAction=true,
+    Td=60,
+    initType=Modelica.Blocks.Types.InitPID.InitialState,
+    yMax=1,
+    yMin=0,
+    controllerType=Modelica.Blocks.Types.SimpleController.PI,
+    k=0.1,
+    Ti=120) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Controller for cooling coil&quot;</span>;
+  <a href="Buildings_Examples_VAVReheat_Controls.html#Buildings.Examples.VAVReheat.Controls.FanVFD"
+>Buildings.Examples.VAVReheat.Controls.FanVFD</a> conFanSupHot(
+    initType=Modelica.Blocks.Types.Init.InitialState,
+    y_start=yFan_start,
+    xSet_nominal(displayUnit=&quot;Pa&quot;) = 30,
+    r_N_min=0.2,
+    controllerType=Modelica.Blocks.Types.SimpleController.P,
+    k=1) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Controller for fan of hot deck&quot;</span>;
+  <a href="Buildings_Controls_SetPoints.html#Buildings.Controls.SetPoints.OccupancySchedule"
+>Buildings.Controls.SetPoints.OccupancySchedule</a> occSch(occupancy=3600*{6,19}) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Occupancy schedule&quot;</span>;
+  <a href="Buildings_Examples_VAVReheat_Controls.html#Buildings.Examples.VAVReheat.Controls.ModeSelector"
+>Buildings.Examples.VAVReheat.Controls.ModeSelector</a> modeSelector;
+  <a href="Buildings_Examples_VAVReheat_Controls.html#Buildings.Examples.VAVReheat.Controls.ControlBus"
+>Buildings.Examples.VAVReheat.Controls.ControlBus</a> controlBus;
+  <a href="Buildings_Fluid_Sensors.html#Buildings.Fluid.Sensors.TemperatureTwoPort"
+>Buildings.Fluid.Sensors.TemperatureTwoPort</a> TPreHeaCoi(<span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span>
+      Medium = <a href="Buildings_Examples_DualFanDualDuct_MediumA.html#Buildings.Examples.DualFanDualDuct.ClosedLoop.MediumA"
+>MediumA</a>, m_flow_nominal=m_flow_nominal) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Preheating coil outlet temperature&quot;</span>;
+  <a href="Buildings_Utilities_Math.html#Buildings.Utilities.Math.Min"
+>Buildings.Utilities.Math.Min</a> min(nin=5) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Computes lowest room temperature&quot;</span>;
+  <a href="Buildings_Utilities_Math.html#Buildings.Utilities.Math.Average"
+>Buildings.Utilities.Math.Average</a> ave(nin=5) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Compute average of room temperatures&quot;</span>;
+  <a href="Buildings_Fluid_Actuators_Valves.html#Buildings.Fluid.Actuators.Valves.TwoWayLinear"
+>Buildings.Fluid.Actuators.Valves.TwoWayLinear</a> valCoo(
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = MediumW,
+    CvData=Buildings.Fluid.Types.CvTypes.OpPoint,
+    m_flow_nominal=m_flow_nominal*1000*15/4200/10,
+    dpValve_nominal=6000,
+    from_dp=true,
+    dpFixed_nominal=6000) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Cooling coil valve&quot;</span>;
+  <a href="Buildings_Fluid_Sources.html#Buildings.Fluid.Sources.FixedBoundary"
+>Buildings.Fluid.Sources.FixedBoundary</a> souCoo(
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = MediumW,
+    p=3E5 + 12000,
+    nPorts=1,
+    T=279.15) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Source for cooling coil&quot;</span>;
+  <a href="Buildings_Examples_VAVReheat_Controls.html#Buildings.Examples.VAVReheat.Controls.Economizer"
+>Buildings.Examples.VAVReheat.Controls.Economizer</a> conEco(
+    dT=1,
+    Ti=60,
+    VOut_flow_min=0.3*m_flow_nominal/1.2,
+    k=0.1) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Controller for economizer&quot;</span>;
+  <a href="Buildings_Fluid_Sensors.html#Buildings.Fluid.Sensors.TemperatureTwoPort"
+>Buildings.Fluid.Sensors.TemperatureTwoPort</a> TRet(<span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium =
+        <a href="Buildings_Examples_DualFanDualDuct_MediumA.html#Buildings.Examples.DualFanDualDuct.ClosedLoop.MediumA"
+>MediumA</a>, m_flow_nominal=m_flow_nominal) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Return air temperature sensor&quot;</span>;
+  <a href="Buildings_Fluid_Sensors.html#Buildings.Fluid.Sensors.TemperatureTwoPort"
+>Buildings.Fluid.Sensors.TemperatureTwoPort</a> TMix(<span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium =
+        <a href="Buildings_Examples_DualFanDualDuct_MediumA.html#Buildings.Examples.DualFanDualDuct.ClosedLoop.MediumA"
+>MediumA</a>, m_flow_nominal=m_flow_nominal) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Mixed air temperature sensor&quot;</span>;
+  <a href="Buildings_Examples_VAVReheat_Controls.html#Buildings.Examples.VAVReheat.Controls.RoomTemperatureSetpoint"
+>Buildings.Examples.VAVReheat.Controls.RoomTemperatureSetpoint</a> TSetRoo(THeaOff=
+        289.15);
+  <a href="Buildings_Fluid_Sources.html#Buildings.Fluid.Sources.FixedBoundary"
+>Buildings.Fluid.Sources.FixedBoundary</a> souHea(
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = MediumW,
+    p(displayUnit=&quot;Pa&quot;) = 300000 + 12000,
+    T=318.15,
+    nPorts=2) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Source for heating coil&quot;</span>;
+  <a href="Buildings_Fluid_Actuators_Dampers.html#Buildings.Fluid.Actuators.Dampers.MixingBox"
+>Buildings.Fluid.Actuators.Dampers.MixingBox</a> eco(
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = <a href="Buildings_Examples_DualFanDualDuct_MediumA.html#Buildings.Examples.DualFanDualDuct.ClosedLoop.MediumA"
+>MediumA</a>,
+    mOut_flow_nominal=m_flow_nominal,
+    mRec_flow_nominal=m_flow_nominal,
+    mExh_flow_nominal=m_flow_nominal,
+    dpOut_nominal=10,
+    dpRec_nominal=10,
+    dpExh_nominal=10,
+    from_dp=from_dp,
+    linearized=linearizeFlowResistance) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Economizer&quot;</span>;
+  <a href="Buildings_Fluid_Sensors.html#Buildings.Fluid.Sensors.TemperatureTwoPort"
+>Buildings.Fluid.Sensors.TemperatureTwoPort</a> TCoiCoo(
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = <a href="Buildings_Examples_DualFanDualDuct_MediumA.html#Buildings.Examples.DualFanDualDuct.ClosedLoop.MediumA"
+>MediumA</a>,
+    m_flow_nominal=mAirCol_flow_nominal) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Cooling coil outlet temperature&quot;</span>;
+  <a href="Buildings_Fluid_Sensors.html#Buildings.Fluid.Sensors.VolumeFlowRate"
+>Buildings.Fluid.Sensors.VolumeFlowRate</a> VOut1(<span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium =
+        <a href="Buildings_Examples_DualFanDualDuct_MediumA.html#Buildings.Examples.DualFanDualDuct.ClosedLoop.MediumA"
+>MediumA</a>, m_flow_nominal=m_flow_nominal) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Outside air volume flow rate&quot;</span>;
+  <a href="Buildings_Examples_DualFanDualDuct_ThermalZones.html#Buildings.Examples.DualFanDualDuct.ThermalZones.SupplyBranch"
+>Buildings.Examples.DualFanDualDuct.ThermalZones.SupplyBranch</a>
+                                                    cor(
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> MediumA = <a href="Buildings_Examples_DualFanDualDuct_MediumA.html#Buildings.Examples.DualFanDualDuct.ClosedLoop.MediumA"
+>MediumA</a>,
+    m_flow_nominal=m0_flow_cor,
+    VRoo=2698,
+    energyDynamicsJunctions=energyDynamicsJunctions,
+    dynamicBalanceJunction=dynamicBalanceJunction,
+    from_dp=true) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Zone for core of buildings (azimuth will be neglected)&quot;</span>;
+  <a href="Buildings_Examples_DualFanDualDuct_ThermalZones.html#Buildings.Examples.DualFanDualDuct.ThermalZones.SupplyBranch"
+>Buildings.Examples.DualFanDualDuct.ThermalZones.SupplyBranch</a>
+                                                    sou(
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> MediumA = <a href="Buildings_Examples_DualFanDualDuct_MediumA.html#Buildings.Examples.DualFanDualDuct.ClosedLoop.MediumA"
+>MediumA</a>,
+    m_flow_nominal=m0_flow_sou,
+    VRoo=568.77,
+    energyDynamicsJunctions=energyDynamicsJunctions,
+    dynamicBalanceJunction=dynamicBalanceJunction,
+    from_dp=true) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;South-facing thermal zone&quot;</span>;
+  <a href="Buildings_Examples_DualFanDualDuct_ThermalZones.html#Buildings.Examples.DualFanDualDuct.ThermalZones.SupplyBranch"
+>Buildings.Examples.DualFanDualDuct.ThermalZones.SupplyBranch</a>
+                                                    eas(
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> MediumA = <a href="Buildings_Examples_DualFanDualDuct_MediumA.html#Buildings.Examples.DualFanDualDuct.ClosedLoop.MediumA"
+>MediumA</a>,
+    m_flow_nominal=m0_flow_eas,
+    VRoo=360.08,
+    energyDynamicsJunctions=energyDynamicsJunctions,
+    dynamicBalanceJunction=dynamicBalanceJunction,
+    from_dp=true) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;East-facing thermal zone&quot;</span>;
+  <a href="Buildings_Examples_DualFanDualDuct_ThermalZones.html#Buildings.Examples.DualFanDualDuct.ThermalZones.SupplyBranch"
+>Buildings.Examples.DualFanDualDuct.ThermalZones.SupplyBranch</a>
+                                                    nor(
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> MediumA = <a href="Buildings_Examples_DualFanDualDuct_MediumA.html#Buildings.Examples.DualFanDualDuct.ClosedLoop.MediumA"
+>MediumA</a>,
+    m_flow_nominal=m0_flow_nor,
+    VRoo=568.77,
+    energyDynamicsJunctions=energyDynamicsJunctions,
+    dynamicBalanceJunction=dynamicBalanceJunction,
+    from_dp=true) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;North-facing thermal zone&quot;</span>;
+  <a href="Buildings_Examples_DualFanDualDuct_ThermalZones.html#Buildings.Examples.DualFanDualDuct.ThermalZones.SupplyBranch"
+>Buildings.Examples.DualFanDualDuct.ThermalZones.SupplyBranch</a>
+                                                    wes(
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> MediumA = <a href="Buildings_Examples_DualFanDualDuct_MediumA.html#Buildings.Examples.DualFanDualDuct.ClosedLoop.MediumA"
+>MediumA</a>,
+    m_flow_nominal=m0_flow_wes,
+    VRoo=360.08,
+    energyDynamicsJunctions=energyDynamicsJunctions,
+    dynamicBalanceJunction=dynamicBalanceJunction,
+    from_dp=true) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;West-facing thermal zone&quot;</span>;
+  <a href="Buildings_Examples_VAVReheat_Controls.html#Buildings.Examples.VAVReheat.Controls.FanVFD"
+>Buildings.Examples.VAVReheat.Controls.FanVFD</a> conFanRet(
+                        xSet_nominal(displayUnit=&quot;Pa&quot;) = 30,
+    initType=Modelica.Blocks.Types.Init.InitialState,
+    y_start=yFan_start,
+    r_N_min=0.2,
+    k=1,
+    Ti=15,
+    controllerType=Modelica.Blocks.Types.SimpleController.P) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Controller for return air fan&quot;</span>;
+  <a href="Buildings_Fluid_FixedResistances.html#Buildings.Fluid.FixedResistances.SplitterFixedResistanceDpM"
+>Buildings.Fluid.FixedResistances.SplitterFixedResistanceDpM</a> splRetRoo1(
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = <a href="Buildings_Examples_DualFanDualDuct_MediumA.html#Buildings.Examples.DualFanDualDuct.ClosedLoop.MediumA"
+>MediumA</a>,
+    m_flow_nominal={m_flow_nominal,m_flow_nominal - m0_flow_cor,m0_flow_cor},
+    energyDynamics=energyDynamicsJunctions,
+    massDynamics=energyDynamicsJunctions,
+    dynamicBalance=dynamicBalanceJunction,
+    from_dp=from_dp,
+    linearized=linearizeFlowResistance,
+    dp_nominal(displayUnit=&quot;Pa&quot;) = {30,0,70}) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Splitter for room return&quot;</span>;
+  <a href="Buildings_Fluid_FixedResistances.html#Buildings.Fluid.FixedResistances.SplitterFixedResistanceDpM"
+>Buildings.Fluid.FixedResistances.SplitterFixedResistanceDpM</a> splRetSou(
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = <a href="Buildings_Examples_DualFanDualDuct_MediumA.html#Buildings.Examples.DualFanDualDuct.ClosedLoop.MediumA"
+>MediumA</a>,
+    m_flow_nominal={m0_flow_sou + m0_flow_eas + m0_flow_nor + m0_flow_wes,
+        m0_flow_eas + m0_flow_nor + m0_flow_wes,m0_flow_sou},
+    energyDynamics=energyDynamicsJunctions,
+    massDynamics=energyDynamicsJunctions,
+    dynamicBalance=dynamicBalanceJunction,
+    from_dp=from_dp,
+    linearized=linearizeFlowResistance,
+    dp_nominal(displayUnit=&quot;Pa&quot;) = {20,0,50}) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Splitter for room return&quot;</span>;
+  <a href="Buildings_Fluid_FixedResistances.html#Buildings.Fluid.FixedResistances.SplitterFixedResistanceDpM"
+>Buildings.Fluid.FixedResistances.SplitterFixedResistanceDpM</a> splRetEas(
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = <a href="Buildings_Examples_DualFanDualDuct_MediumA.html#Buildings.Examples.DualFanDualDuct.ClosedLoop.MediumA"
+>MediumA</a>,
+    m_flow_nominal={m0_flow_eas + m0_flow_nor + m0_flow_wes,m0_flow_nor +
+        m0_flow_wes,m0_flow_eas},
+    energyDynamics=energyDynamicsJunctions,
+    massDynamics=energyDynamicsJunctions,
+    dynamicBalance=dynamicBalanceJunction,
+    from_dp=from_dp,
+    linearized=linearizeFlowResistance,
+    dp_nominal(displayUnit=&quot;Pa&quot;) = {20,0,30}) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Splitter for room return&quot;</span>;
+  <a href="Buildings_Fluid_FixedResistances.html#Buildings.Fluid.FixedResistances.SplitterFixedResistanceDpM"
+>Buildings.Fluid.FixedResistances.SplitterFixedResistanceDpM</a> splRetNor(
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = <a href="Buildings_Examples_DualFanDualDuct_MediumA.html#Buildings.Examples.DualFanDualDuct.ClosedLoop.MediumA"
+>MediumA</a>,
+    m_flow_nominal={m0_flow_nor + m0_flow_wes,m0_flow_wes,m0_flow_nor},
+    energyDynamics=energyDynamicsJunctions,
+    massDynamics=energyDynamicsJunctions,
+    dynamicBalance=dynamicBalanceJunction,
+    from_dp=from_dp,
+    linearized=linearizeFlowResistance,
+    dp_nominal(displayUnit=&quot;Pa&quot;) = {20,10,10}) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Splitter for room return&quot;</span>;
+  <a href="Buildings_Fluid_FixedResistances.html#Buildings.Fluid.FixedResistances.SplitterFixedResistanceDpM"
+>Buildings.Fluid.FixedResistances.SplitterFixedResistanceDpM</a> splSupRoo1Hot(
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = <a href="Buildings_Examples_DualFanDualDuct_MediumA.html#Buildings.Examples.DualFanDualDuct.ClosedLoop.MediumA"
+>MediumA</a>,
+    m_flow_nominal={m_flow_nominal,m_flow_nominal - m0_flow_cor,m0_flow_cor},
+    energyDynamics=energyDynamicsJunctions,
+    massDynamics=energyDynamicsJunctions,
+    dynamicBalance=dynamicBalanceJunction,
+    from_dp=from_dp,
+    linearized=linearizeFlowResistance,
+    dp_nominal(displayUnit=&quot;Pa&quot;) = {240,0,-80}) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Splitter for room supply&quot;</span>;
+  <a href="Buildings_Fluid_FixedResistances.html#Buildings.Fluid.FixedResistances.SplitterFixedResistanceDpM"
+>Buildings.Fluid.FixedResistances.SplitterFixedResistanceDpM</a> splSupSouHot(
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = <a href="Buildings_Examples_DualFanDualDuct_MediumA.html#Buildings.Examples.DualFanDualDuct.ClosedLoop.MediumA"
+>MediumA</a>,
+    m_flow_nominal={m0_flow_sou + m0_flow_eas + m0_flow_nor + m0_flow_wes,
+        m0_flow_eas + m0_flow_nor + m0_flow_wes,m0_flow_sou},
+    energyDynamics=energyDynamicsJunctions,
+    massDynamics=energyDynamicsJunctions,
+    dynamicBalance=dynamicBalanceJunction,
+    from_dp=from_dp,
+    linearized=linearizeFlowResistance,
+    dp_nominal={20,0,-60}) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Splitter for room supply&quot;</span>;
+  <a href="Buildings_Fluid_FixedResistances.html#Buildings.Fluid.FixedResistances.SplitterFixedResistanceDpM"
+>Buildings.Fluid.FixedResistances.SplitterFixedResistanceDpM</a> splSupEasHot(
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = <a href="Buildings_Examples_DualFanDualDuct_MediumA.html#Buildings.Examples.DualFanDualDuct.ClosedLoop.MediumA"
+>MediumA</a>,
+    m_flow_nominal={m0_flow_eas + m0_flow_nor + m0_flow_wes,m0_flow_nor +
+        m0_flow_wes,m0_flow_eas},
+    energyDynamics=energyDynamicsJunctions,
+    massDynamics=energyDynamicsJunctions,
+    dynamicBalance=dynamicBalanceJunction,
+    from_dp=from_dp,
+    linearized=linearizeFlowResistance,
+    dp_nominal={20,0,-40}) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Splitter for room supply&quot;</span>;
+  <a href="Buildings_Fluid_FixedResistances.html#Buildings.Fluid.FixedResistances.SplitterFixedResistanceDpM"
+>Buildings.Fluid.FixedResistances.SplitterFixedResistanceDpM</a> splSupNorHot(
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = <a href="Buildings_Examples_DualFanDualDuct_MediumA.html#Buildings.Examples.DualFanDualDuct.ClosedLoop.MediumA"
+>MediumA</a>,
+    m_flow_nominal={m0_flow_nor + m0_flow_wes,m0_flow_wes,m0_flow_nor},
+    energyDynamics=energyDynamicsJunctions,
+    massDynamics=energyDynamicsJunctions,
+    dynamicBalance=dynamicBalanceJunction,
+    from_dp=from_dp,
+    linearized=linearizeFlowResistance,
+    dp_nominal={20,0,-20}) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Splitter for room supply&quot;</span>;
+  <a href="Buildings_Examples_DualFanDualDuct_Controls.html#Buildings.Examples.DualFanDualDuct.Controls.CoolingCoilTemperatureSetpoint"
+>Buildings.Examples.DualFanDualDuct.Controls.CoolingCoilTemperatureSetpoint</a>
+    TSetCoo(
+      TOn=285.15,
+      TOff=313.15) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Setpoint for cooling coil&quot;</span>;
+  <a href="Buildings_BoundaryConditions_WeatherData.html#Buildings.BoundaryConditions.WeatherData.ReaderTMY3"
+>BoundaryConditions.WeatherData.ReaderTMY3</a> weaDat(filNam=
+        &quot;modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos&quot;);
+  <a href="Buildings_BoundaryConditions_WeatherData.html#Buildings.BoundaryConditions.WeatherData.Bus"
+>BoundaryConditions.WeatherData.Bus</a> weaBus <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Weather Data Bus&quot;</span>;
+  <a href="Buildings_Examples_VAVReheat_ThermalZones.html#Buildings.Examples.VAVReheat.ThermalZones.Floor"
+>Buildings.Examples.VAVReheat.ThermalZones.Floor</a> flo(
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = <a href="Buildings_Examples_DualFanDualDuct_MediumA.html#Buildings.Examples.DualFanDualDuct.ClosedLoop.MediumA"
+>MediumA</a>,
+    lat=lat) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Model of a floor of the building that is served by this VAV system&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Routing.html#Modelica.Blocks.Routing.DeMultiplex5"
+>Modelica.Blocks.Routing.DeMultiplex5</a> TRooAir <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Demultiplex for room air temperature&quot;</span>;
+
+  <a href="Buildings_Fluid_HeatExchangers.html#Buildings.Fluid.HeatExchangers.DryEffectivenessNTU"
+>Fluid.HeatExchangers.DryEffectivenessNTU</a>          heaCoi(
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium1 = MediumW,
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium2 = <a href="Buildings_Examples_DualFanDualDuct_MediumA.html#Buildings.Examples.DualFanDualDuct.ClosedLoop.MediumA"
+>MediumA</a>,
+    m1_flow_nominal=mWatHot_flow_nominal,
+    m2_flow_nominal=mAirHot_flow_nominal,
+    Q_flow_nominal=mAirHot_flow_nominal*1000*(45 - 12),
+    configuration=Buildings.Fluid.Types.HeatExchangerConfiguration.CounterFlow,
+    dp2_nominal=0,
+    from_dp2=from_dp,
+    linearizeFlowResistance2=linearizeFlowResistance,
+    dp1_nominal=0,
+    T_a1_nominal=285.15,
+    T_a2_nominal=318.15) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Heating coil for hot deck&quot;</span>;
+  <a href="Buildings_Fluid_Sensors.html#Buildings.Fluid.Sensors.TemperatureTwoPort"
+>Buildings.Fluid.Sensors.TemperatureTwoPort</a> TCoiHea(
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = <a href="Buildings_Examples_DualFanDualDuct_MediumA.html#Buildings.Examples.DualFanDualDuct.ClosedLoop.MediumA"
+>MediumA</a>,
+    m_flow_nominal=mAirHot_flow_nominal) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Heating coil outlet temperature&quot;</span>;
+  <a href="Buildings_Fluid_FixedResistances.html#Buildings.Fluid.FixedResistances.SplitterFixedResistanceDpM"
+>Buildings.Fluid.FixedResistances.SplitterFixedResistanceDpM</a> splHotColDec(
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = <a href="Buildings_Examples_DualFanDualDuct_MediumA.html#Buildings.Examples.DualFanDualDuct.ClosedLoop.MediumA"
+>MediumA</a>,
+    m_flow_nominal=m_flow_nominal*{1,1,1},
+    dp_nominal(displayUnit=&quot;Pa&quot;) = {0,0,0},
+    energyDynamics=energyDynamicsJunctions,
+    massDynamics=energyDynamicsJunctions,
+    dynamicBalance=dynamicBalanceJunction,
+    from_dp=from_dp,
+    linearized=linearizeFlowResistance) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Splitter for cold deck&quot;</span>;
+  <a href="Buildings_Fluid_Actuators_Valves.html#Buildings.Fluid.Actuators.Valves.TwoWayLinear"
+>Buildings.Fluid.Actuators.Valves.TwoWayLinear</a> valPreHea(
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = MediumW,
+    CvData=Buildings.Fluid.Types.CvTypes.OpPoint,
+    dpValve_nominal=6000,
+    from_dp=true,
+    m_flow_nominal=mWatPre_flow_nominal,
+    riseTime=10) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Preheating coil valve&quot;</span>;
+  <a href="Buildings_Fluid_Movers.html#Buildings.Fluid.Movers.FlowControlled_m_flow"
+>Fluid.Movers.FlowControlled_m_flow</a> pumPreHea(
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = MediumW,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    m_flow_nominal=mWatPre_flow_nominal) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Pump for preheat coil (to ensure constant flow through the coil)&quot;</span>;
+  <a href="Buildings_Fluid_FixedResistances.html#Buildings.Fluid.FixedResistances.SplitterFixedResistanceDpM"
+>Buildings.Fluid.FixedResistances.SplitterFixedResistanceDpM</a> splCol1(
+    from_dp=true,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    massDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    linearized=true,
+    dp_nominal(displayUnit=&quot;Pa&quot;) = {0,0,0},
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = MediumW,
+    m_flow_nominal=mWatPre_flow_nominal*{1,1,1}) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Splitter for cold deck&quot;</span>;
+  <a href="Buildings_Fluid_FixedResistances.html#Buildings.Fluid.FixedResistances.SplitterFixedResistanceDpM"
+>Buildings.Fluid.FixedResistances.SplitterFixedResistanceDpM</a> splCol2(
+    from_dp=true,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    massDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    linearized=true,
+    dp_nominal(displayUnit=&quot;Pa&quot;) = {0,0,0},
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = MediumW,
+    m_flow_nominal=mWatPre_flow_nominal*{1,1,1}) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Splitter for cold deck&quot;</span>;
+  <a href="Buildings_Fluid_Actuators_Valves.html#Buildings.Fluid.Actuators.Valves.TwoWayLinear"
+>Buildings.Fluid.Actuators.Valves.TwoWayLinear</a> valHea(
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = MediumW,
+    CvData=Buildings.Fluid.Types.CvTypes.OpPoint,
+    dpValve_nominal=6000,
+    from_dp=true,
+    m_flow_nominal=mWatPre_flow_nominal,
+    dpFixed_nominal=6000) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Heating coil valve&quot;</span>;
+  <a href="Buildings_Controls_Continuous.html#Buildings.Controls.Continuous.LimPID"
+>Buildings.Controls.Continuous.LimPID</a> heaCoiCon(
+    Td=60,
+    initType=Modelica.Blocks.Types.InitPID.InitialState,
+    yMax=1,
+    yMin=0,
+    controllerType=Modelica.Blocks.Types.SimpleController.PI,
+    Ti=120,
+    k=0.1) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Controller for heating coil&quot;</span>;
+  <a href="Buildings_Controls_SetPoints.html#Buildings.Controls.SetPoints.Table"
+>Buildings.Controls.SetPoints.Table</a> TSetHot(table=[273.15 + 5,273.15 + 40; 273.15
+         + 22,273.15 + 22]) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Setpoint for hot deck temperature&quot;</span>;
+  <a href="Buildings_Fluid_FixedResistances.html#Buildings.Fluid.FixedResistances.SplitterFixedResistanceDpM"
+>Buildings.Fluid.FixedResistances.SplitterFixedResistanceDpM</a> splSupRoo1Col(
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = <a href="Buildings_Examples_DualFanDualDuct_MediumA.html#Buildings.Examples.DualFanDualDuct.ClosedLoop.MediumA"
+>MediumA</a>,
+    m_flow_nominal={m_flow_nominal,m_flow_nominal - m0_flow_cor,m0_flow_cor},
+    energyDynamics=energyDynamicsJunctions,
+    massDynamics=energyDynamicsJunctions,
+    dynamicBalance=dynamicBalanceJunction,
+    from_dp=from_dp,
+    linearized=linearizeFlowResistance,
+    dp_nominal(displayUnit=&quot;Pa&quot;) = {240,0,-80}) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Splitter for room supply&quot;</span>;
+  <a href="Buildings_Fluid_FixedResistances.html#Buildings.Fluid.FixedResistances.SplitterFixedResistanceDpM"
+>Buildings.Fluid.FixedResistances.SplitterFixedResistanceDpM</a> splSupSouCol(
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = <a href="Buildings_Examples_DualFanDualDuct_MediumA.html#Buildings.Examples.DualFanDualDuct.ClosedLoop.MediumA"
+>MediumA</a>,
+    m_flow_nominal={m0_flow_sou + m0_flow_eas + m0_flow_nor + m0_flow_wes,
+        m0_flow_eas + m0_flow_nor + m0_flow_wes,m0_flow_sou},
+    energyDynamics=energyDynamicsJunctions,
+    massDynamics=energyDynamicsJunctions,
+    dynamicBalance=dynamicBalanceJunction,
+    from_dp=from_dp,
+    linearized=linearizeFlowResistance,
+    dp_nominal={20,0,-60}) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Splitter for room supply&quot;</span>;
+  <a href="Buildings_Fluid_FixedResistances.html#Buildings.Fluid.FixedResistances.SplitterFixedResistanceDpM"
+>Buildings.Fluid.FixedResistances.SplitterFixedResistanceDpM</a> splSupEasCol(
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = <a href="Buildings_Examples_DualFanDualDuct_MediumA.html#Buildings.Examples.DualFanDualDuct.ClosedLoop.MediumA"
+>MediumA</a>,
+    m_flow_nominal={m0_flow_eas + m0_flow_nor + m0_flow_wes,m0_flow_nor +
+        m0_flow_wes,m0_flow_eas},
+    energyDynamics=energyDynamicsJunctions,
+    massDynamics=energyDynamicsJunctions,
+    dynamicBalance=dynamicBalanceJunction,
+    from_dp=from_dp,
+    linearized=linearizeFlowResistance,
+    dp_nominal={20,0,-40}) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Splitter for room supply&quot;</span>;
+  <a href="Buildings_Fluid_FixedResistances.html#Buildings.Fluid.FixedResistances.SplitterFixedResistanceDpM"
+>Buildings.Fluid.FixedResistances.SplitterFixedResistanceDpM</a> splSupNorCol(
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = <a href="Buildings_Examples_DualFanDualDuct_MediumA.html#Buildings.Examples.DualFanDualDuct.ClosedLoop.MediumA"
+>MediumA</a>,
+    m_flow_nominal={m0_flow_nor + m0_flow_wes,m0_flow_wes,m0_flow_nor},
+    energyDynamics=energyDynamicsJunctions,
+    massDynamics=energyDynamicsJunctions,
+    dynamicBalance=dynamicBalanceJunction,
+    from_dp=from_dp,
+    linearized=linearizeFlowResistance,
+    dp_nominal={20,0,-20}) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Splitter for room supply&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+>Modelica.Blocks.Sources.Constant</a> pStaPre_Set(      y(<span style="color: blue; font-weight: normal; font-style: normal;">final </span>unit=&quot;Pa&quot;, min=0), k=30) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Setpoint for static pressure&quot;</span>;
+  <a href="Buildings_Examples_VAVReheat_Controls.html#Buildings.Examples.VAVReheat.Controls.FanVFD"
+>Buildings.Examples.VAVReheat.Controls.FanVFD</a> conFanSupCol(
+    initType=Modelica.Blocks.Types.Init.InitialState,
+    y_start=yFan_start,
+    xSet_nominal(displayUnit=&quot;Pa&quot;) = 30,
+    r_N_min=0.2) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Controller for fan of cold deck&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Logical.html#Modelica.Blocks.Logical.Switch"
+>Modelica.Blocks.Logical.Switch</a> swiPumPreCoi <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Switch for preheat coil pump&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Logical.html#Modelica.Blocks.Logical.LessThreshold"
+>Modelica.Blocks.Logical.LessThreshold</a> lessThreshold(threshold=273.15 + 10);
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+>Modelica.Blocks.Sources.Constant</a> mWatPreOn(k=mWatPre_flow_nominal) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Water flow rate at preheat coil if on&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+>Modelica.Blocks.Sources.Constant</a> mWatPreOff(k=0) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Water flow rate at preheat coil if off&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+>Modelica.Blocks.Sources.Constant</a> pStaBui_Set(y(<span style="color: blue; font-weight: normal; font-style: normal;">final </span>unit=&quot;Pa&quot;, min=0), k=30) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Setpoint for static pressure of building&quot;</span>;
+
+<span style="color: blue; font-weight: normal; font-style: normal;">equation </span>
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(fil.port_b, preHeaCoi.port_a1);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(controlBus, modeSelector.cb);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(occSch.tNexOcc, controlBus.dTNexOcc);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(TOut.y, controlBus.TOut);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(occSch.occupied, controlBus.occupied);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(min.y, controlBus.TRooMin);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(ave.y, controlBus.TRooAve);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(controlBus, conFanSupHot.controlBus);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(TRet.T, conEco.TRet);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(TMix.T, conEco.TMix);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(controlBus, conEco.controlBus);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(TSetRoo.controlBus, controlBus);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(fil.port_a, TMix.port_b);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(cor.controlBus, controlBus);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(sou.controlBus, controlBus);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(eas.controlBus, controlBus);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(nor.controlBus, controlBus);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(wes.controlBus, controlBus);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(TPreHeaCoi.T, preHeaCoiCon.u_m);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(conEco.yOA, eco.y);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(eco.port_Exh, amb.ports[1]);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(TCoiCoo.T, cooCoiCon.u_m);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(amb.ports[2], VOut1.port_a);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(VOut1.port_b, eco.port_Out);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(eco.port_Sup, TMix.port_a);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(preHeaCoi.port_b1, TPreHeaCoi.port_a);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(controlBus, conFanRet.controlBus);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(TRet.port_b, eco.port_Ret);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(splRetNor.port_1, splRetEas.port_2);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(splRetEas.port_1, splRetSou.port_2);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(splRetSou.port_1, splRetRoo1.port_2);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(splSupRoo1Hot.port_2, splSupSouHot.port_1);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(splSupSouHot.port_2, splSupEasHot.port_1);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(splSupEasHot.port_2, splSupNorHot.port_1);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(cooCoi.port_b2, TCoiCoo.port_a);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(valCoo.port_b, cooCoi.port_a1);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(cooCoi.port_b1, sinCoo.ports[1]);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(TSetCoo.TSet, cooCoiCon.u_s);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(TSetCoo.TSet, conEco.TSupCooSet);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(modeSelector.cb, TSetCoo.controlBus);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(conEco.VOut_flow, VOut1.V_flow);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(weaDat.weaBus, weaBus);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(weaBus.TDryBul, TOut.u);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(amb.weaBus, weaBus);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(cor.port_b, flo.portsCor[1]);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(splRetRoo1.port_3, flo.portsCor[2]);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(sou.port_b, flo.portsSou[1]);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(splRetSou.port_3, flo.portsSou[2]);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(eas.port_b, flo.portsEas[1]);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(splRetEas.port_3, flo.portsEas[2]);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(nor.port_b, flo.portsNor[1]);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(splRetNor.port_3, flo.portsNor[2]);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(wes.port_b, flo.portsWes[1]);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(splRetNor.port_2, flo.portsWes[2]);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(weaBus, flo.weaBus);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(flo.TRooAir, min.u);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(flo.TRooAir, ave.u);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(TRooAir.y1[1], sou.TRoo);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(TRooAir.y2[1], eas.TRoo);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(TRooAir.y3[1], nor.TRoo);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(TRooAir.y4[1], wes.TRoo);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(TRooAir.y5[1], cor.TRoo);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(TRooAir.u, flo.TRooAir);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(fanSupCol.port_b, cooCoi.port_a2);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(fanSupHot.port_b, heaCoi.port_a2);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(heaCoi.port_b2, TCoiHea.port_a);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(TPreHeaCoi.port_b, splHotColDec.port_3);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(splHotColDec.port_1, fanSupCol.port_a);
+
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(pumPreHea.port_b, preHeaCoi.port_a2);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(souHea.ports[1], valPreHea.port_a);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(valPreHea.port_b, splCol1.port_1);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(splCol1.port_2, pumPreHea.port_a);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(splCol2.port_3, splCol1.port_3);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(splCol2.port_1, preHeaCoi.port_b2);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(splCol2.port_2, sinHea.ports[1]);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(heaCoi.port_a1, valHea.port_b);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(valHea.port_a, souHea.ports[2]);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(heaCoi.port_b1, sinHea.ports[2]);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(TSetHot.y, heaCoiCon.u_s);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(heaCoiCon.u_m, TCoiHea.T);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(heaCoiCon.y, valHea.y);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(valCoo.port_a, souCoo.ports[1]);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(splSupRoo1Col.port_2, splSupSouCol.port_1);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(splSupSouCol.port_2, splSupEasCol.port_1);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(splSupEasCol.port_2, splSupNorCol.port_1);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(cor.port_aHot, splSupRoo1Hot.port_3);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(cor.port_aCol, splSupRoo1Col.port_3);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(sou.port_aHot, splSupSouHot.port_3);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(sou.port_aCol, splSupSouCol.port_3);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(eas.port_aHot, splSupEasHot.port_3);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(eas.port_aCol, splSupEasCol.port_3);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(nor.port_aHot, splSupNorHot.port_3);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(nor.port_aCol, splSupNorCol.port_3);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(splSupNorHot.port_2, wes.port_aHot);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(splSupNorCol.port_2, wes.port_aCol);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(nor.p_relHot, conFanSupHot.u_m);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(pStaPre_Set.y, conFanSupHot.u);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(pStaPre_Set.y, conFanSupCol.u);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(conFanSupCol.controlBus, conFanSupHot.controlBus);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(nor.p_relCol, conFanSupCol.u_m);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(flo.p_rel, conFanRet.u_m);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(controlBus.TOut, TSetHot.u);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(cooCoiCon.y, valCoo.y);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(preHeaCoiCon.y, valPreHea.y);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(TSupSetHea.TSet, conEco.TSupHeaSet);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(modeSelector.cb, TSupSetHea.controlBus);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(TSupSetHea.TSet, preHeaCoiCon.u_s);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(lessThreshold.y, swiPumPreCoi.u2);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(lessThreshold.u, TMix.T);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(mWatPreOn.y, swiPumPreCoi.u1);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(swiPumPreCoi.y, pumPreHea.m_flow_in);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(mWatPreOff.y, swiPumPreCoi.u3);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(conFanRet.y, fanRet.y);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(conFanSupHot.y, fanSupHot.y);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(conFanSupCol.y, fanSupCol.y);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(pStaBui_Set.y, conFanRet.u);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(TCoiCoo.port_b, splSupRoo1Col.port_1);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(TCoiHea.port_b, splSupRoo1Hot.port_1);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(splRetRoo1.port_1, fanRet.port_a);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(TRet.port_a, fanRet.port_b);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(splHotColDec.port_2, fanSupHot.port_a);
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>ClosedLoop;
+</div>
+<hr>
+<address>
+<a href="http://www.3ds.com/">Automatically generated</a> Thu Apr  9 09:44:31 2015.
+</address>
+</body>
+</html>

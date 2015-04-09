@@ -1,0 +1,1322 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>Buildings.Utilities.Psychrometrics</title>
+<meta name="HTML-Generator" content="Dymola">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="description" content="&quot;Library with psychrometric functions&quot;">
+<style type="text/css">
+*       { font-size: 10pt; font-family: Arial, sans-serif; }
+.modelica, .modelica * { font-size: 9pt; font-family: Courier, monospace; white-space: pre; }
+h4      { font-size: 10pt; font-weight: bold; color: green; }
+h3      { font-size: 11pt; font-weight: bold; color: green; }
+h2      { font-size: 13pt; font-weight: bold; color: green; }
+address { font-weight: normal; }
+td      { border: 1px solid #808080; vertical-align: top; }
+th      { border: 1px solid #808080; vertical-align: top; font-weight: bold; }
+table   { border: 1px solid #808080; border-collapse: collapse; }
+</style>
+<link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../Resources/www/modelicaDoc.css">
+</HEAD>
+<body>
+<!-- --- header ------ -->
+<div class="headerStyle">
+<img src="../Resources/www/lbl-logo.png" alt="LBL logo"/>
+</div>
+<div class="headerLinks">
+<ul><li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt; <a href="Buildings.html">Modelica</a></li></ul>
+</div>
+<!-- --- end header -- -->
+
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE Psychrometrics<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><a name="Buildings.Utilities.Psychrometrics"></a><a href="Buildings_Utilities.html#Buildings.Utilities"
+>Buildings.Utilities</a>.Psychrometrics</h2>
+<p>
+<b>Library with psychrometric functions</b><br>
+</p>
+<h3>Information</h3>
+
+<p>
+This package contains blocks and functions for psychrometric calculations.
+</p>
+
+The nomenclature used in this package is described at
+<a href="Buildings_UsersGuide.html#Buildings.UsersGuide.Conventions"
+>
+Buildings.UsersGuide.Conventions</a>.
+
+<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons_VariantsPackage.html#Modelica.Icons.VariantsPackage"
+>Modelica.Icons.VariantsPackage</a> (Icon for package containing variants).</p>
+<h3>Package Content</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Package Content">
+<tr>
+<th>Name</th>
+<th>Description</th>
+</tr>
+<tr>
+<td><img src="Buildings.Utilities.Psych7922f007616fbf82tantsS.png" alt="Buildings.Utilities.Psychrometrics.Constants" width="20" height="20" align="top">&nbsp;<a href="Buildings_Utilities_Psychrometrics_Constants.html#Buildings.Utilities.Psychrometrics.Constants"
+>Constants</a>
+</td>
+<td>Library of constants for psychometric functions</td>
+</tr>
+<tr>
+<td><img src="Buildings.Utilities.Psych2ce94e3dd586cfday_pTXS.png" alt="Buildings.Utilities.Psychrometrics.Density_pTX" width="20" height="20" align="top">&nbsp;<a href="Buildings_Utilities_Psychrometrics.html#Buildings.Utilities.Psychrometrics.Density_pTX"
+>Density_pTX</a>
+</td>
+<td>Block to compute the density for given pressure, dry bulb temperature and moisture mass fraction</td>
+</tr>
+<tr>
+<td><img src="Buildings.Utilities.Psych95532fc692264d7ei_pTXS.png" alt="Buildings.Utilities.Psychrometrics.Phi_pTX" width="20" height="20" align="top">&nbsp;<a href="Buildings_Utilities_Psychrometrics.html#Buildings.Utilities.Psychrometrics.Phi_pTX"
+>Phi_pTX</a>
+</td>
+<td>Block to compute the relative humidity for given pressure, dry bulb temperature and moisture mass fraction</td>
+</tr>
+<tr>
+<td><img src="Buildings.Utilities.Psych231a5fb3b5811918ssureS.png" alt="Buildings.Utilities.Psychrometrics.SaturationPressure" width="20" height="20" align="top">&nbsp;<a href="Buildings_Utilities_Psychrometrics.html#Buildings.Utilities.Psychrometrics.SaturationPressure"
+>SaturationPressure</a>
+</td>
+<td>Saturation pressure as a function of temperature</td>
+</tr>
+<tr>
+<td><img src="Buildings.Utilities.Psych231a5fb3b5811918ssureS.png" alt="Buildings.Utilities.Psychrometrics.SaturationPressureLiquid" width="20" height="20" align="top">&nbsp;<a href="Buildings_Utilities_Psychrometrics.html#Buildings.Utilities.Psychrometrics.SaturationPressureLiquid"
+>SaturationPressureLiquid</a>
+</td>
+<td>Saturation pressure as a function of temperature</td>
+</tr>
+<tr>
+<td><img src="Buildings.Utilities.Psych231a5fb3b5811918ssureS.png" alt="Buildings.Utilities.Psychrometrics.SublimationPressureIce" width="20" height="20" align="top">&nbsp;<a href="Buildings_Utilities_Psychrometrics.html#Buildings.Utilities.Psychrometrics.SublimationPressureIce"
+>SublimationPressureIce</a>
+</td>
+<td>Saturation pressure as a function of temperature</td>
+</tr>
+<tr>
+<td><img src="Buildings.Utilities.Psych0ee5df6a65161720oi_pWS.png" alt="Buildings.Utilities.Psychrometrics.TDewPoi_pW" width="20" height="20" align="top">&nbsp;<a href="Buildings_Utilities_Psychrometrics.html#Buildings.Utilities.Psychrometrics.TDewPoi_pW"
+>TDewPoi_pW</a>
+</td>
+<td>Model to compute the dew point temperature for given water vapor pressure of moist air</td>
+</tr>
+<tr>
+<td><img src="Buildings.Utilities.Psychdbde90cf77e7cd67ulPhiS.png" alt="Buildings.Utilities.Psychrometrics.TWetBul_TDryBulPhi" width="20" height="20" align="top">&nbsp;<a href="Buildings_Utilities_Psychrometrics.html#Buildings.Utilities.Psychrometrics.TWetBul_TDryBulPhi"
+>TWetBul_TDryBulPhi</a>
+</td>
+<td>Model to compute the wet bulb temperature based on relative humidity</td>
+</tr>
+<tr>
+<td><img src="Buildings.Utilities.Psychdbde90cf77e7cd67ulPhiS.png" alt="Buildings.Utilities.Psychrometrics.TWetBul_TDryBulXi" width="20" height="20" align="top">&nbsp;<a href="Buildings_Utilities_Psychrometrics.html#Buildings.Utilities.Psychrometrics.TWetBul_TDryBulXi"
+>TWetBul_TDryBulXi</a>
+</td>
+<td>Model to compute the wet bulb temperature based on mass fraction</td>
+</tr>
+<tr>
+<td><img src="Buildings.Utilities.Psych2ca01fbedc9d7da1ryAirS.png" alt="Buildings.Utilities.Psychrometrics.ToDryAir" width="20" height="20" align="top">&nbsp;<a href="Buildings_Utilities_Psychrometrics.html#Buildings.Utilities.Psychrometrics.ToDryAir"
+>ToDryAir</a>
+</td>
+<td>Block to convert absolute humidity from [kg/kg total air] to [kg/kg dry air]</td>
+</tr>
+<tr>
+<td><img src="Buildings.Utilities.Psych1aaf9ff92df4c6abalAirS.png" alt="Buildings.Utilities.Psychrometrics.ToTotalAir" width="20" height="20" align="top">&nbsp;<a href="Buildings_Utilities_Psychrometrics.html#Buildings.Utilities.Psychrometrics.ToTotalAir"
+>ToTotalAir</a>
+</td>
+<td>Block to convert absolute humidity from [kg/kg dry air] to [kg/kg total air]</td>
+</tr>
+<tr>
+<td><img src="Buildings.Utilities.Psych7fc2dbf06f3dee2al_pTXS.png" alt="Buildings.Utilities.Psychrometrics.WetBul_pTX" width="20" height="20" align="top">&nbsp;<a href="Buildings_Utilities_Psychrometrics.html#Buildings.Utilities.Psychrometrics.WetBul_pTX"
+>WetBul_pTX</a>
+</td>
+<td>Block to compute the wet bulb condition for given dry bulb temperature and humidity</td>
+</tr>
+<tr>
+<td><img src="Buildings.Utilities.Psychdca8185efdb3cacdpTphiS.png" alt="Buildings.Utilities.Psychrometrics.X_pTphi" width="20" height="20" align="top">&nbsp;<a href="Buildings_Utilities_Psychrometrics.html#Buildings.Utilities.Psychrometrics.X_pTphi"
+>X_pTphi</a>
+</td>
+<td>Return steam mass fraction as a function of relative humidity phi and temperature T</td>
+</tr>
+<tr>
+<td><img src="Buildings.Utilities.Psychrometrics.X_pWS.png" alt="Buildings.Utilities.Psychrometrics.X_pW" width="20" height="20" align="top">&nbsp;<a href="Buildings_Utilities_Psychrometrics.html#Buildings.Utilities.Psychrometrics.X_pW"
+>X_pW</a>
+</td>
+<td>Humidity ratio for given water vapor pressure</td>
+</tr>
+<tr>
+<td><img src="Buildings.Utilities.Psych1df98a388dbdba26ewPoiS.png" alt="Buildings.Utilities.Psychrometrics.pW_TDewPoi" width="20" height="20" align="top">&nbsp;<a href="Buildings_Utilities_Psychrometrics.html#Buildings.Utilities.Psychrometrics.pW_TDewPoi"
+>pW_TDewPoi</a>
+</td>
+<td>Model to compute the water vapor pressure for a given dew point temperature of moist air</td>
+</tr>
+<tr>
+<td><img src="Buildings.Utilities.Psychrometrics.pW_XS.png" alt="Buildings.Utilities.Psychrometrics.pW_X" width="20" height="20" align="top">&nbsp;<a href="Buildings_Utilities_Psychrometrics.html#Buildings.Utilities.Psychrometrics.pW_X"
+>pW_X</a>
+</td>
+<td>Water vapor pressure for given humidity ratio</td>
+</tr>
+<tr>
+<td><img src="Buildings.Utilities.Psychd98736cb416bbd12tionsS.png" alt="Buildings.Utilities.Psychrometrics.Functions" width="20" height="20" align="top">&nbsp;<a href="Buildings_Utilities_Psychrometrics_Functions.html#Buildings.Utilities.Psychrometrics.Functions"
+>Functions</a>
+</td>
+<td>Package with psychrometric functions</td>
+</tr>
+<tr>
+<td><img src="Buildings.Utilities.Psychacffdc31576948admplesS.png" alt="Buildings.Utilities.Psychrometrics.Examples" width="20" height="20" align="top">&nbsp;<a href="Buildings_Utilities_Psychrometrics_Examples.html#Buildings.Utilities.Psychrometrics.Examples"
+>Examples</a>
+</td>
+<td>Collection of models that illustrate model use and test models</td>
+</tr>
+<tr>
+<td><img src="Buildings.Utilities.Psychb46bc5896408586bassesS.png" alt="Buildings.Utilities.Psychrometrics.BaseClasses" width="20" height="20" align="top">&nbsp;<a href="Buildings_Utilities_Psychrometrics_BaseClasses.html#Buildings.Utilities.Psychrometrics.BaseClasses"
+>BaseClasses</a>
+</td>
+<td>Package with base classes for Buildings.Utilities.Psychrometrics</td>
+</tr>
+</table>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE Density_pTX<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Utilities.Psych2ce94e3dd586cfday_pTXI.png" alt="Buildings.Utilities.Psychrometrics.Density_pTX" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Utilities.Psychrometrics.Density_pTX"></a><a href="Buildings_Utilities_Psychrometrics.html#Buildings.Utilities.Psychrometrics"
+>Buildings.Utilities.Psychrometrics</a>.Density_pTX</h2>
+<p>
+<b>Block to compute the density for given pressure, dry bulb temperature and moisture mass fraction</b>
+<br>
+<br><img src="Buildings.Utilities.Psych2ce94e3dd586cfday_pTXD.png" alt="Buildings.Utilities.Psychrometrics.Density_pTX">
+</p>
+<h3>Information</h3>
+
+<p>
+Block to compute the mass density of air for given
+pressure, temperature and water vapor mass fraction.
+</p>
+<p>
+Note that the water vapor mass fraction must be in <i>kg/kg</i>
+total air, and not dry air.
+</p>
+
+<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Icons.html#Modelica.Blocks.Icons.Block"
+>Modelica.Blocks.Icons.Block</a> (Basic graphical layout of input/output block).</p>
+<h3>Connectors</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Connectors">
+<tr><th>Type</th><th>Name</th><th>Description</th></tr>
+<tr><td>input <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>RealInput</a></td><td>T</td><td>Dry bulb temperature [K]</td></tr>
+<tr><td>input <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>RealInput</a></td><td>X_w</td><td>Water vapor mass fraction per unit mass total air [1]</td></tr>
+<tr><td>input <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>RealInput</a></td><td>p</td><td>Pressure [Pa]</td></tr>
+<tr><td>output <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+>RealOutput</a></td><td>d</td><td>Density [kg/m3]</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">block</span> Density_pTX <span style="color: #006400; font-weight: normal; font-style: normal;">
+  &quot;Block to compute the density for given pressure, dry bulb temperature and moisture mass fraction&quot;</span>
+   <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Icons.html#Modelica.Blocks.Icons.Block"
+>Modelica.Blocks.Icons.Block</a>;
+
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>Modelica.Blocks.Interfaces.RealInput</a> T(
+    <span style="color: blue; font-weight: normal; font-style: normal;">final </span>quantity=&quot;ThermodynamicTemperature&quot;,
+    <span style="color: blue; font-weight: normal; font-style: normal;">final </span>unit=&quot;K&quot;,
+    min=0) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Dry bulb temperature&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>Modelica.Blocks.Interfaces.RealInput</a> X_w(
+    <span style="color: blue; font-weight: normal; font-style: normal;">final </span>unit=&quot;1&quot;,
+    min=0) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Water vapor mass fraction per unit mass total air&quot;</span>;
+
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>Modelica.Blocks.Interfaces.RealInput</a> p(<span style="color: blue; font-weight: normal; font-style: normal;">final </span>quantity=&quot;Pressure&quot;,
+                                         <span style="color: blue; font-weight: normal; font-style: normal;">final </span>unit=&quot;Pa&quot;,
+                                         displayUnit=&quot;Pa&quot;,
+                                         min = 0) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Pressure&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+>Modelica.Blocks.Interfaces.RealOutput</a> d(
+    <span style="color: blue; font-weight: normal; font-style: normal;">final </span>unit=&quot;kg/m3&quot;,
+    <span style="color: blue; font-weight: normal; font-style: normal;">final </span>quantity=&quot;Density&quot;,
+    <span style="color: blue; font-weight: normal; font-style: normal;">final </span>min=0) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Density&quot;</span>;
+
+<span style="color: blue; font-weight: normal; font-style: normal;">equation </span>
+  d =<span style="color: red; font-weight: normal; font-style: normal;"> Buildings.Utilities.Psychrometrics.Functions.density_pTX</span>(
+    p=p,
+    T=T,
+    X_w=X_w);
+
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>Density_pTX;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE Phi_pTX<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Utilities.Psych95532fc692264d7ei_pTXI.png" alt="Buildings.Utilities.Psychrometrics.Phi_pTX" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Utilities.Psychrometrics.Phi_pTX"></a><a href="Buildings_Utilities_Psychrometrics.html#Buildings.Utilities.Psychrometrics"
+>Buildings.Utilities.Psychrometrics</a>.Phi_pTX</h2>
+<p>
+<b>Block to compute the relative humidity for given pressure, dry bulb temperature and moisture mass fraction</b>
+<br>
+<br><img src="Buildings.Utilities.Psych95532fc692264d7ei_pTXD.png" alt="Buildings.Utilities.Psychrometrics.Phi_pTX">
+</p>
+<h3>Information</h3>
+
+<p>
+Block to compute the relative humidity of air for given
+pressure, temperature and water vapor mass fraction.
+</p>
+<p>
+Note that the water vapor mass fraction must be in <i>kg/kg</i>
+total air, and not dry air.
+</p>
+
+<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Icons.html#Modelica.Blocks.Icons.Block"
+>Modelica.Blocks.Icons.Block</a> (Basic graphical layout of input/output block).</p>
+<h3>Connectors</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Connectors">
+<tr><th>Type</th><th>Name</th><th>Description</th></tr>
+<tr><td>input <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>RealInput</a></td><td>T</td><td>Dry bulb temperature [K]</td></tr>
+<tr><td>input <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>RealInput</a></td><td>X_w</td><td>Water vapor mass fraction per unit mass total air [1]</td></tr>
+<tr><td>input <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>RealInput</a></td><td>p</td><td>Pressure [Pa]</td></tr>
+<tr><td>output <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+>RealOutput</a></td><td>phi</td><td>Relative humidity [1]</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">block</span> Phi_pTX <span style="color: #006400; font-weight: normal; font-style: normal;">
+  &quot;Block to compute the relative humidity for given pressure, dry bulb temperature and moisture mass fraction&quot;</span>
+   <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Icons.html#Modelica.Blocks.Icons.Block"
+>Modelica.Blocks.Icons.Block</a>;
+
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>Modelica.Blocks.Interfaces.RealInput</a> T(
+    <span style="color: blue; font-weight: normal; font-style: normal;">final </span>quantity=&quot;ThermodynamicTemperature&quot;,
+    <span style="color: blue; font-weight: normal; font-style: normal;">final </span>unit=&quot;K&quot;,
+    min=0) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Dry bulb temperature&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>Modelica.Blocks.Interfaces.RealInput</a> X_w(
+    <span style="color: blue; font-weight: normal; font-style: normal;">final </span>unit=&quot;1&quot;,
+    min=0) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Water vapor mass fraction per unit mass total air&quot;</span>;
+
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>Modelica.Blocks.Interfaces.RealInput</a> p(<span style="color: blue; font-weight: normal; font-style: normal;">final </span>quantity=&quot;Pressure&quot;,
+                                         <span style="color: blue; font-weight: normal; font-style: normal;">final </span>unit=&quot;Pa&quot;,
+                                         displayUnit=&quot;Pa&quot;,
+                                         min = 0) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Pressure&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+>Modelica.Blocks.Interfaces.RealOutput</a> phi(
+    <span style="color: blue; font-weight: normal; font-style: normal;">final </span>unit=&quot;1&quot;) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Relative humidity&quot;</span>;
+
+<span style="color: blue; font-weight: normal; font-style: normal;">equation </span>
+  phi =<span style="color: red; font-weight: normal; font-style: normal;"> Buildings.Utilities.Psychrometrics.Functions.phi_pTX</span>(
+    p=p,
+    T=T,
+    X_w=X_w);
+
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>Phi_pTX;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE SaturationPressure<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Utilities.Psych231a5fb3b5811918ssureI.png" alt="Buildings.Utilities.Psychrometrics.SaturationPressure" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Utilities.Psychrometrics.SaturationPressure"></a><a href="Buildings_Utilities_Psychrometrics.html#Buildings.Utilities.Psychrometrics"
+>Buildings.Utilities.Psychrometrics</a>.SaturationPressure</h2>
+<p>
+<b>Saturation pressure as a function of temperature</b>
+<br>
+<br><img src="Buildings.Utilities.Psych231a5fb3b5811918ssureD.png" alt="Buildings.Utilities.Psychrometrics.SaturationPressure">
+</p>
+<h3>Information</h3>
+
+<p>
+Saturation pressure of water, computed from temperature,
+according to Wagner <i>et al.</i> (1993).
+The range of validity is between
+<i>190</i> and <i>373.16</i> Kelvin.
+</p>
+<h4>References</h4>
+<p>
+Wagner W., A. Saul, A. Pruss.
+ <i>International equations for the pressure along the melting and along the sublimation curve of ordinary water substance</i>,
+equation 3.5. 1993.
+<a href="http://www.nist.gov/data/PDFfiles/jpcrd477.pdf">
+http://www.nist.gov/data/PDFfiles/jpcrd477.pdf</a>.
+</p>
+
+<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Icons.html#Modelica.Blocks.Icons.Block"
+>Modelica.Blocks.Icons.Block</a> (Basic graphical layout of input/output block).</p>
+<h3>Connectors</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Connectors">
+<tr><th>Type</th><th>Name</th><th>Description</th></tr>
+<tr><td>input <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>RealInput</a></td><td>TSat</td><td>Saturation temperature [K]</td></tr>
+<tr><td>output <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+>RealOutput</a></td><td>pSat</td><td>Saturation pressure [Pa]</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">block</span> SaturationPressure <span style="color: #006400; font-weight: normal; font-style: normal;">
+  &quot;Saturation pressure as a function of temperature&quot;</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Icons.html#Modelica.Blocks.Icons.Block"
+>Modelica.Blocks.Icons.Block</a>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>Modelica.Blocks.Interfaces.RealInput</a> TSat(unit=&quot;K&quot;,
+                                            displayUnit=&quot;degC&quot;,
+                                            nominal=300) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Saturation temperature&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+>Modelica.Blocks.Interfaces.RealOutput</a> pSat(unit=&quot;Pa&quot;,
+                                             displayUnit=&quot;Pa&quot;,
+                                             nominal=1000) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Saturation pressure&quot;</span>;
+
+<span style="color: blue; font-weight: normal; font-style: normal;">equation </span>
+  pSat =<span style="color: red; font-weight: normal; font-style: normal;"> Buildings.Utilities.Psychrometrics.Functions.saturationPressure</span>(TSat);
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>SaturationPressure;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE SaturationPressureLiquid<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Utilities.Psych231a5fb3b5811918ssureI.png" alt="Buildings.Utilities.Psychrometrics.SaturationPressureLiquid" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Utilities.Psychrometrics.SaturationPressureLiquid"></a><a href="Buildings_Utilities_Psychrometrics.html#Buildings.Utilities.Psychrometrics"
+>Buildings.Utilities.Psychrometrics</a>.SaturationPressureLiquid</h2>
+<p>
+<b>Saturation pressure as a function of temperature</b>
+<br>
+<br><img src="Buildings.Utilities.Psych231a5fb3b5811918ssureD.png" alt="Buildings.Utilities.Psychrometrics.SaturationPressureLiquid">
+</p>
+<h3>Information</h3>
+
+<p>
+Saturation pressure of water above the triple point temperature computed from temperature
+according to Wagner <i>et al.</i> (1993). The range of validity is between
+<i>273.16</i> and <i>373.16</i> Kelvin.
+</p>
+<h4>References</h4>
+<p>
+Wagner W., A. Saul, A. Pruss.
+ <i>International equations for the pressure along the melting and along the sublimation curve of ordinary water substance</i>,
+equation 3.5. 1993.
+<a href="http://www.nist.gov/data/PDFfiles/jpcrd477.pdf">
+http://www.nist.gov/data/PDFfiles/jpcrd477.pdf</a>.
+</p>
+
+<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Icons.html#Modelica.Blocks.Icons.Block"
+>Modelica.Blocks.Icons.Block</a> (Basic graphical layout of input/output block).</p>
+<h3>Connectors</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Connectors">
+<tr><th>Type</th><th>Name</th><th>Description</th></tr>
+<tr><td>input <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>RealInput</a></td><td>TSat</td><td>Saturation temperature [K]</td></tr>
+<tr><td>output <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+>RealOutput</a></td><td>pSat</td><td>Saturation pressure [Pa]</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">block</span> SaturationPressureLiquid <span style="color: #006400; font-weight: normal; font-style: normal;">
+  &quot;Saturation pressure as a function of temperature&quot;</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Icons.html#Modelica.Blocks.Icons.Block"
+>Modelica.Blocks.Icons.Block</a>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>Modelica.Blocks.Interfaces.RealInput</a> TSat(unit=&quot;K&quot;,
+                                            displayUnit=&quot;degC&quot;,
+                                            nominal=300) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Saturation temperature&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+>Modelica.Blocks.Interfaces.RealOutput</a> pSat(unit=&quot;Pa&quot;,
+                                             displayUnit=&quot;Pa&quot;,
+                                             nominal=1000) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Saturation pressure&quot;</span>;
+
+<span style="color: blue; font-weight: normal; font-style: normal;">equation </span>
+  pSat =<span style="color: red; font-weight: normal; font-style: normal;"> Buildings.Utilities.Psychrometrics.Functions.saturationPressureLiquid</span>(TSat);
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>SaturationPressureLiquid;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE SublimationPressureIce<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Utilities.Psych231a5fb3b5811918ssureI.png" alt="Buildings.Utilities.Psychrometrics.SublimationPressureIce" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Utilities.Psychrometrics.SublimationPressureIce"></a><a href="Buildings_Utilities_Psychrometrics.html#Buildings.Utilities.Psychrometrics"
+>Buildings.Utilities.Psychrometrics</a>.SublimationPressureIce</h2>
+<p>
+<b>Saturation pressure as a function of temperature</b>
+<br>
+<br><img src="Buildings.Utilities.Psych231a5fb3b5811918ssureD.png" alt="Buildings.Utilities.Psychrometrics.SublimationPressureIce">
+</p>
+<h3>Information</h3>
+
+<p>
+Sublimation pressure of water below the triple point temperature, computed from temperature,
+according to Wagner <i>et al.</i> (1993).
+The range of validity is between
+<i>190</i> and <i>273.16</i> Kelvin.
+</p>
+<h4>References</h4>
+<p>
+Wagner W., A. Saul, A. Pruss.
+ <i>International equations for the pressure along the melting and along the sublimation curve of ordinary water substance</i>,
+equation 3.5. 1993.
+<a href="http://www.nist.gov/data/PDFfiles/jpcrd477.pdf">
+http://www.nist.gov/data/PDFfiles/jpcrd477.pdf</a>.
+</p>
+
+<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Icons.html#Modelica.Blocks.Icons.Block"
+>Modelica.Blocks.Icons.Block</a> (Basic graphical layout of input/output block).</p>
+<h3>Connectors</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Connectors">
+<tr><th>Type</th><th>Name</th><th>Description</th></tr>
+<tr><td>input <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>RealInput</a></td><td>TSat</td><td>Saturation temperature [K]</td></tr>
+<tr><td>output <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+>RealOutput</a></td><td>pSat</td><td>Saturation pressure [Pa]</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">block</span> SublimationPressureIce <span style="color: #006400; font-weight: normal; font-style: normal;">
+  &quot;Saturation pressure as a function of temperature&quot;</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Icons.html#Modelica.Blocks.Icons.Block"
+>Modelica.Blocks.Icons.Block</a>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>Modelica.Blocks.Interfaces.RealInput</a> TSat(unit=&quot;K&quot;,
+                                            displayUnit=&quot;degC&quot;,
+                                            nominal=300) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Saturation temperature&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+>Modelica.Blocks.Interfaces.RealOutput</a> pSat(unit=&quot;Pa&quot;,
+                                             displayUnit=&quot;Pa&quot;,
+                                             nominal=1000) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Saturation pressure&quot;</span>;
+
+<span style="color: blue; font-weight: normal; font-style: normal;">equation </span>
+  pSat =<span style="color: red; font-weight: normal; font-style: normal;"> Buildings.Utilities.Psychrometrics.Functions.sublimationPressureIce</span>(TSat);
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>SublimationPressureIce;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE TDewPoi_pW<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Utilities.Psych0ee5df6a65161720oi_pWI.png" alt="Buildings.Utilities.Psychrometrics.TDewPoi_pW" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Utilities.Psychrometrics.TDewPoi_pW"></a><a href="Buildings_Utilities_Psychrometrics.html#Buildings.Utilities.Psychrometrics"
+>Buildings.Utilities.Psychrometrics</a>.TDewPoi_pW</h2>
+<p>
+<b>Model to compute the dew point temperature for given water vapor pressure of moist air</b>
+<br>
+<br><img src="Buildings.Utilities.Psych0ee5df6a65161720oi_pWD.png" alt="Buildings.Utilities.Psychrometrics.TDewPoi_pW">
+</p>
+<h3>Information</h3>
+
+<p>
+Dew point temperature calculation for moist air above freezing temperature.
+</p>
+<p>
+The correlation used in this model is valid for dew point temperatures between
+<i>0</i>&deg;C and <i>200</i>&deg;C. It is the correlation from 2005
+ASHRAE Handbook, p. 6.2. In an earlier version of this model, the equation from
+Peppers has been used, but this equation yielded about <i>15</i> Kelvin lower dew point
+temperatures.
+</p>
+
+<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Icons.html#Modelica.Blocks.Icons.Block"
+>Modelica.Blocks.Icons.Block</a> (Basic graphical layout of input/output block).</p>
+<h3>Connectors</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Connectors">
+<tr><th>Type</th><th>Name</th><th>Description</th></tr>
+<tr><td>input <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>RealInput</a></td><td>p_w</td><td>Water vapor partial pressure [Pa]</td></tr>
+<tr><td>output <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+>RealOutput</a></td><td>T</td><td>Dew point temperature [K]</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">block</span> TDewPoi_pW <span style="color: #006400; font-weight: normal; font-style: normal;">
+  &quot;Model to compute the dew point temperature for given water vapor pressure of moist air&quot;</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Icons.html#Modelica.Blocks.Icons.Block"
+>Modelica.Blocks.Icons.Block</a>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>Modelica.Blocks.Interfaces.RealInput</a> p_w(<span style="color: blue; font-weight: normal; font-style: normal;">final </span>quantity=&quot;Pressure&quot;,
+                                           <span style="color: blue; font-weight: normal; font-style: normal;">final </span>unit=&quot;Pa&quot;,
+                                           displayUnit=&quot;Pa&quot;) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Water vapor partial pressure&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+>Modelica.Blocks.Interfaces.RealOutput</a> T(start=278.15,
+                                         <span style="color: blue; font-weight: normal; font-style: normal;">final </span>quantity=&quot;ThermodynamicTemperature&quot;,
+                                         <span style="color: blue; font-weight: normal; font-style: normal;">final </span>unit=&quot;K&quot;,
+                                         min = 0,
+                                         displayUnit=&quot;degC&quot;) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Dew point temperature&quot;</span>;
+
+<span style="color: blue; font-weight: normal; font-style: normal;">equation </span>
+ p_w =<span style="color: red; font-weight: normal; font-style: normal;"> Buildings.Utilities.Psychrometrics.Functions.pW_TDewPoi</span>(T=T);
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>TDewPoi_pW;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE TWetBul_TDryBulPhi<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Utilities.Psychdbde90cf77e7cd67ulPhiI.png" alt="Buildings.Utilities.Psychrometrics.TWetBul_TDryBulPhi" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Utilities.Psychrometrics.TWetBul_TDryBulPhi"></a><a href="Buildings_Utilities_Psychrometrics.html#Buildings.Utilities.Psychrometrics"
+>Buildings.Utilities.Psychrometrics</a>.TWetBul_TDryBulPhi</h2>
+<p>
+<b>Model to compute the wet bulb temperature based on relative humidity</b>
+<br>
+<br><img src="Buildings.Utilities.Psychdbde90cf77e7cd67ulPhiD.png" alt="Buildings.Utilities.Psychrometrics.TWetBul_TDryBulPhi">
+</p>
+<h3>Information</h3>
+
+<p>
+This block computes the wet bulb temperature for a given dry bulb temperature, relative air humidity
+and atmospheric pressure.
+</p>
+<p>
+If the constant <code>approximateWetBulb</code> is <code>true</code>,
+then the block uses the approximation of Stull (2011) to compute
+the wet bulb temperature without requiring a nonlinear equation.
+Otherwise, the model will introduce one nonlinear equation.
+</p>
+<p>
+The approximation by Stull is valid for a relative humidity of <i>5%</i> to <i>99%</i>,
+a temperature range from <i>-20</i>&deg;C to <i>50</i>&deg;C
+and standard sea level pressure.
+For this range of data, the approximation error is <i>-1</i> Kelvin to <i>+0.65</i> Kelvin,
+with a mean error of less than <i>0.3</i> Kelvin.
+</p>
+<p>
+For a model that takes the mass fraction instead of the relative humidity as an input, see
+<a href="Buildings_Utilities_Psychrometrics.html#Buildings.Utilities.Psychrometrics.TWetBul_TDryBulXi"
+>
+Buildings.Utilities.Psychrometrics.TWetBul_TDryBulXi</a>.
+</p>
+<h4>References</h4>
+<p>
+Stull, Roland.
+<i><a href="http://dx.doi.org/10.1175/JAMC-D-11-0143.1">
+Wet-Bulb Temperature from Relative Humidity and Air Temperature
+Roland Stull.</a></i>
+Journal of Applied Meteorology and Climatology.
+Volume 50, Issue 11, pp. 2267-2269. November 2011
+DOI: 10.1175/JAMC-D-11-0143.1
+</p>
+
+<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Icons.html#Modelica.Blocks.Icons.Block"
+>Modelica.Blocks.Icons.Block</a> (Basic graphical layout of input/output block).</p>
+<h3>Parameters</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td colspan="2">replaceable package Medium</td><td>Modelica.Media.Interfaces.Pa...</td><td>Medium model</td></tr>
+<tr><td>Boolean</td><td>approximateWetBulb</td><td>false</td><td>Set to true to approximate wet bulb temperature</td></tr>
+</table>
+<h3>Connectors</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Connectors">
+<tr><th>Type</th><th>Name</th><th>Description</th></tr>
+<tr><td colspan="2">replaceable package Medium</td><td>Medium model</td></tr>
+<tr><td>input <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>RealInput</a></td><td>TDryBul</td><td>Dry bulb temperature [K]</td></tr>
+<tr><td>input <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>RealInput</a></td><td>phi</td><td>Relative air humidity</td></tr>
+<tr><td>input <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>RealInput</a></td><td>p</td><td>Pressure [Pa]</td></tr>
+<tr><td>output <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+>RealOutput</a></td><td>TWetBul</td><td>Wet bulb temperature [K]</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">block</span> TWetBul_TDryBulPhi <span style="color: #006400; font-weight: normal; font-style: normal;">
+  &quot;Model to compute the wet bulb temperature based on relative humidity&quot;</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Icons.html#Modelica.Blocks.Icons.Block"
+>Modelica.Blocks.Icons.Block</a>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">replaceable </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium =
+    <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_PartialCondensingGases.html#Modelica.Media.Interfaces.PartialCondensingGases"
+>Modelica.Media.Interfaces.PartialCondensingGases</a> <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Medium model&quot;</span>;
+
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Boolean approximateWetBulb=false <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Set to true to approximate wet bulb temperature&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>Modelica.Blocks.Interfaces.RealInput</a> TDryBul(
+    start=Medium.T_default,
+    <span style="color: blue; font-weight: normal; font-style: normal;">final </span>quantity=&quot;ThermodynamicTemperature&quot;,
+    <span style="color: blue; font-weight: normal; font-style: normal;">final </span>unit=&quot;K&quot;,
+    min=0) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Dry bulb temperature&quot;</span>;
+
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>Modelica.Blocks.Interfaces.RealInput</a> phi(min=0, max=1) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Relative air humidity&quot;</span>;
+
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>Modelica.Blocks.Interfaces.RealInput</a> p(<span style="color: blue; font-weight: normal; font-style: normal;">final </span>quantity=&quot;Pressure&quot;,
+                                         <span style="color: blue; font-weight: normal; font-style: normal;">final </span>unit=&quot;Pa&quot;,
+                                         min = 0) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Pressure&quot;</span>;
+
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+>Modelica.Blocks.Interfaces.RealOutput</a> TWetBul(
+    start=Medium.T_default-2,
+    <span style="color: blue; font-weight: normal; font-style: normal;">final </span>quantity=&quot;ThermodynamicTemperature&quot;,
+    <span style="color: blue; font-weight: normal; font-style: normal;">final </span>unit=&quot;K&quot;,
+    min=0) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Wet bulb temperature&quot;</span>;
+
+<span style="color: blue; font-weight: normal; font-style: normal;">protected </span>
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits_Conversions_NonSIunits.html#Modelica.SIunits.Conversions.NonSIunits.Temperature_degC"
+>Modelica.SIunits.Conversions.NonSIunits.Temperature_degC</a> TDryBul_degC <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Dry bulb temperature in degree Celsius&quot;</span>;
+  Real rh_per(min=0) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Relative humidity in percentage&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.MassFraction"
+>Modelica.SIunits.MassFraction</a> XiDryBul <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Water vapor mass fraction at dry bulb state&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.MassFraction"
+>Modelica.SIunits.MassFraction</a> XiSat <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Water vapor mass fraction at saturation&quot;</span>;
+<span style="color: blue; font-weight: normal; font-style: normal;">equation </span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">if </span>approximateWetBulb<span style="color: blue; font-weight: normal; font-style: normal;"> then</span>
+    TDryBul_degC = TDryBul - 273.15;
+    rh_per       = 100*phi;
+    TWetBul      = 273.15 + TDryBul_degC
+       *<span style="color: red; font-weight: normal; font-style: normal;"> Modelica.Math.atan</span>(0.151977 *<span style="color: red; font-weight: normal; font-style: normal;"> sqrt</span>(rh_per + 8.313659))
+       +<span style="color: red; font-weight: normal; font-style: normal;"> Modelica.Math.atan</span>(TDryBul_degC + rh_per)
+       -<span style="color: red; font-weight: normal; font-style: normal;"> Modelica.Math.atan</span>(rh_per-1.676331)
+       + 0.00391838 * rh_per^(1.5) *<span style="color: red; font-weight: normal; font-style: normal;"> Modelica.Math.atan</span>( 0.023101 * rh_per)  - 4.686035;
+    XiSat    = 0;
+    XiDryBul = 0;
+  <span style="color: blue; font-weight: normal; font-style: normal;">else</span>
+    XiSat  =<span style="color: red; font-weight: normal; font-style: normal;"> Buildings.Utilities.Psychrometrics.Functions.X_pSatpphi</span>(
+      pSat=<span style="color: red; font-weight: normal; font-style: normal;">  Buildings.Utilities.Psychrometrics.Functions.saturationPressureLiquid</span>(TWetBul),
+      p=     p,
+      phi=   1);
+    XiDryBul =<span style="color: red; font-weight: normal; font-style: normal;">Buildings.Utilities.Psychrometrics.Functions.X_pSatpphi</span>(
+      p=     p,
+      pSat=<span style="color: red; font-weight: normal; font-style: normal;">  Buildings.Utilities.Psychrometrics.Functions.saturationPressureLiquid</span>(TDryBul),
+      phi=   phi);
+    TWetBul = (TDryBul * ((1-XiDryBul) *
+               Buildings.Utilities.Psychrometrics.Constants.cpAir + XiDryBul *
+               Buildings.Utilities.Psychrometrics.Constants.cpSte) + (XiDryBul-XiSat) *
+               Buildings.Utilities.Psychrometrics.Constants.h_fg)/
+            ( (1-XiSat)*Buildings.Utilities.Psychrometrics.Constants.cpAir + XiSat *
+            Buildings.Utilities.Psychrometrics.Constants.cpSte);
+    TDryBul_degC = 0;
+    rh_per       = 0;
+  <span style="color: blue; font-weight: normal; font-style: normal;">end if</span>;
+
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>TWetBul_TDryBulPhi;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE TWetBul_TDryBulXi<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Utilities.Psychdbde90cf77e7cd67ulPhiI.png" alt="Buildings.Utilities.Psychrometrics.TWetBul_TDryBulXi" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Utilities.Psychrometrics.TWetBul_TDryBulXi"></a><a href="Buildings_Utilities_Psychrometrics.html#Buildings.Utilities.Psychrometrics"
+>Buildings.Utilities.Psychrometrics</a>.TWetBul_TDryBulXi</h2>
+<p>
+<b>Model to compute the wet bulb temperature based on mass fraction</b>
+<br>
+<br><img src="Buildings.Utilities.Psych7111593b73bf3f79BulXiD.png" alt="Buildings.Utilities.Psychrometrics.TWetBul_TDryBulXi">
+</p>
+<h3>Information</h3>
+
+<p>
+This block computes the wet bulb temperature for a given dry bulb temperature, mass fraction
+and atmospheric pressure.
+</p>
+<p>
+If the constant <code>approximateWetBulb</code> is <code>true</code>,
+then the block uses the approximation of Stull (2011) to compute
+the wet bulb temperature without requiring a nonlinear equation.
+Otherwise, the model will introduce one nonlinear equation.
+</p>
+<p>
+The approximation by Stull is valid for a relative humidity of <i>5%</i> to <i>99%</i>,
+a temperature range from <i>-20&circ;C</i> to <i>50&circ;C</i>
+and standard sea level pressure.
+For this range of data, the approximation error is <i>-1</i> Kelvin to <i>+0.65</i> Kelvin,
+with a mean error of less than <i>0.3</i> Kelvin.
+</p>
+<p>
+For a model that takes the relative humidity instead of the mass fraction as an input, see
+<a href="Buildings_Utilities_Psychrometrics.html#Buildings.Utilities.Psychrometrics.TWetBul_TDryBulPhi"
+>
+Buildings.Utilities.Psychrometrics.TWetBul_TDryBulPhi</a>.
+</p>
+<p>
+For a use of this model, see for example
+<a href="modelica://Buildings.Fluid.Sensors.WetBulbTemperature">Buildings.Fluid.Sensors.WetBulbTemperature</a>
+</p>
+<h4>References</h4>
+<p>
+Stull, Roland.
+<i><a href="http://dx.doi.org/10.1175/JAMC-D-11-0143.1">
+Wet-Bulb Temperature from Relative Humidity and Air Temperature
+Roland Stull.</a></i>
+Journal of Applied Meteorology and Climatology.
+Volume 50, Issue 11, pp. 2267-2269. November 2011
+DOI: 10.1175/JAMC-D-11-0143.1
+</p>
+
+<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Icons.html#Modelica.Blocks.Icons.Block"
+>Modelica.Blocks.Icons.Block</a> (Basic graphical layout of input/output block).</p>
+<h3>Parameters</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td colspan="2">replaceable package Medium</td><td>Modelica.Media.Interfaces.Pa...</td><td>Medium model</td></tr>
+<tr><td>Boolean</td><td>approximateWetBulb</td><td>false</td><td>Set to true to approximate wet bulb temperature</td></tr>
+</table>
+<h3>Connectors</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Connectors">
+<tr><th>Type</th><th>Name</th><th>Description</th></tr>
+<tr><td colspan="2">replaceable package Medium</td><td>Medium model</td></tr>
+<tr><td>input <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>RealInput</a></td><td>TDryBul</td><td>Dry bulb temperature [K]</td></tr>
+<tr><td>input <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>RealInput</a></td><td>p</td><td>Pressure [Pa]</td></tr>
+<tr><td>output <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+>RealOutput</a></td><td>TWetBul</td><td>Wet bulb temperature [K]</td></tr>
+<tr><td>input <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>RealInput</a></td><td>Xi[Medium.nXi]</td><td>Species concentration at dry bulb temperature</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">block</span> TWetBul_TDryBulXi <span style="color: #006400; font-weight: normal; font-style: normal;">
+  &quot;Model to compute the wet bulb temperature based on mass fraction&quot;</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Icons.html#Modelica.Blocks.Icons.Block"
+>Modelica.Blocks.Icons.Block</a>;
+
+  <span style="color: blue; font-weight: normal; font-style: normal;">replaceable </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium =
+    <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_PartialCondensingGases.html#Modelica.Media.Interfaces.PartialCondensingGases"
+>Modelica.Media.Interfaces.PartialCondensingGases</a> <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Medium model&quot;</span>;
+
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Boolean approximateWetBulb=false <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Set to true to approximate wet bulb temperature&quot;</span>;
+
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>Modelica.Blocks.Interfaces.RealInput</a> TDryBul(
+    start=303,
+    <span style="color: blue; font-weight: normal; font-style: normal;">final </span>quantity=&quot;ThermodynamicTemperature&quot;,
+    <span style="color: blue; font-weight: normal; font-style: normal;">final </span>unit=&quot;K&quot;,
+    min=0) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Dry bulb temperature&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>Modelica.Blocks.Interfaces.RealInput</a> p(  <span style="color: blue; font-weight: normal; font-style: normal;">final </span>quantity=&quot;Pressure&quot;,
+                                           <span style="color: blue; font-weight: normal; font-style: normal;">final </span>unit=&quot;Pa&quot;,
+                                           min = 0) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Pressure&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+>Modelica.Blocks.Interfaces.RealOutput</a> TWetBul(
+    start=293,
+    <span style="color: blue; font-weight: normal; font-style: normal;">final </span>quantity=&quot;ThermodynamicTemperature&quot;,
+    <span style="color: blue; font-weight: normal; font-style: normal;">final </span>unit=&quot;K&quot;,
+    min=0) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Wet bulb temperature&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>Modelica.Blocks.Interfaces.RealInput</a> Xi[Medium.nXi] <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Species concentration at dry bulb temperature&quot;</span>;
+
+<span style="color: blue; font-weight: normal; font-style: normal;">protected </span>
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits_Conversions_NonSIunits.html#Modelica.SIunits.Conversions.NonSIunits.Temperature_degC"
+>Modelica.SIunits.Conversions.NonSIunits.Temperature_degC</a> TDryBul_degC <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Dry bulb temperature in degree Celsius&quot;</span>;
+  Real rh_per(min=0) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Relative humidity in percentage&quot;</span>;
+
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.MassFraction"
+>Modelica.SIunits.MassFraction</a> XiSat(start=0.01,
+                                      nominal=0.01) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Water vapor mass fraction at saturation&quot;</span>;
+
+ <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Integer iWat(fixed=false) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Index of water in medium composition vector&quot;</span>;
+<span style="color: blue; font-weight: normal; font-style: normal;">initial </span><span style="color: blue; font-weight: normal; font-style: normal;">algorithm </span>
+  iWat:=-1;
+    <span style="color: blue; font-weight: normal; font-style: normal;">for </span>i<span style="color: blue; font-weight: normal; font-style: normal;"> in </span>1:Medium.nX<span style="color: blue; font-weight: normal; font-style: normal;"> loop</span>
+      <span style="color: blue; font-weight: normal; font-style: normal;">if </span><span style="color: red; font-weight: normal; font-style: normal;">Modelica.Utilities.Strings.isEqual</span>(string1=Medium.substanceNames[i],
+                                            string2=&quot;Water&quot;, caseSensitive=false)<span style="color: blue; font-weight: normal; font-style: normal;"> then</span>
+        iWat :=i;
+      <span style="color: blue; font-weight: normal; font-style: normal;">end if</span>;
+    <span style="color: blue; font-weight: normal; font-style: normal;">end for</span>;
+  <span style="color: red; font-weight: normal; font-style: normal;">assert</span>(iWat &gt; 0, &quot;Did not find medium species &#39;water&#39; in the medium model. Change medium model.&quot;);
+
+<span style="color: blue; font-weight: normal; font-style: normal;">equation </span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">if </span>approximateWetBulb<span style="color: blue; font-weight: normal; font-style: normal;"> then</span>
+    TDryBul_degC = TDryBul - 273.15;
+    rh_per       = 100 * p/
+         <span style="color: red; font-weight: normal; font-style: normal;">Buildings.Utilities.Psychrometrics.Functions.saturationPressure</span>(TDryBul)
+         *Xi[iWat]/(Xi[iWat] +
+         Buildings.Utilities.Psychrometrics.Constants.k_mair*(1-Xi[iWat]));
+    TWetBul      = 273.15 + TDryBul_degC
+       *<span style="color: red; font-weight: normal; font-style: normal;"> Modelica.Math.atan</span>(0.151977 *<span style="color: red; font-weight: normal; font-style: normal;"> sqrt</span>(rh_per + 8.313659))
+       +<span style="color: red; font-weight: normal; font-style: normal;"> Modelica.Math.atan</span>(TDryBul_degC + rh_per)
+       -<span style="color: red; font-weight: normal; font-style: normal;"> Modelica.Math.atan</span>(rh_per-1.676331)
+       + 0.00391838 * rh_per^(1.5) *<span style="color: red; font-weight: normal; font-style: normal;"> Modelica.Math.atan</span>( 0.023101 * rh_per)  - 4.686035;
+    XiSat = 0;
+  <span style="color: blue; font-weight: normal; font-style: normal;">else</span>
+    XiSat  =<span style="color: red; font-weight: normal; font-style: normal;"> Buildings.Utilities.Psychrometrics.Functions.X_pSatpphi</span>(
+      pSat=<span style="color: red; font-weight: normal; font-style: normal;">  Buildings.Utilities.Psychrometrics.Functions.saturationPressureLiquid</span>(TWetBul),
+      p=     p,
+      phi=   1);
+    TWetBul = (TDryBul *
+                ((1-Xi[iWat]) * Buildings.Utilities.Psychrometrics.Constants.cpAir +
+                Xi[iWat] * Buildings.Utilities.Psychrometrics.Constants.cpSte) +
+                (Xi[iWat]-XiSat) * Buildings.Utilities.Psychrometrics.Constants.h_fg)/
+            ( (1-XiSat)*Buildings.Utilities.Psychrometrics.Constants.cpAir +
+            XiSat * Buildings.Utilities.Psychrometrics.Constants.cpSte);
+    TDryBul_degC = 0;
+    rh_per       = 0;
+  <span style="color: blue; font-weight: normal; font-style: normal;">end if</span>;
+
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>TWetBul_TDryBulXi;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE ToDryAir<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Utilities.Psych2ca01fbedc9d7da1ryAirI.png" alt="Buildings.Utilities.Psychrometrics.ToDryAir" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Utilities.Psychrometrics.ToDryAir"></a><a href="Buildings_Utilities_Psychrometrics.html#Buildings.Utilities.Psychrometrics"
+>Buildings.Utilities.Psychrometrics</a>.ToDryAir</h2>
+<p>
+<b>Block to convert absolute humidity from [kg/kg total air] to [kg/kg dry air]</b>
+<br>
+<br><img src="Buildings.Utilities.Psych2ca01fbedc9d7da1ryAirD.png" alt="Buildings.Utilities.Psychrometrics.ToDryAir">
+</p>
+<h3>Information</h3>
+
+<p>
+Block that converts humidity concentration from [kg/kg total air] to [kg/kg dry air].
+</p>
+
+<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Icons.html#Modelica.Blocks.Icons.Block"
+>Modelica.Blocks.Icons.Block</a> (Basic graphical layout of input/output block).</p>
+<h3>Connectors</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Connectors">
+<tr><th>Type</th><th>Name</th><th>Description</th></tr>
+<tr><td>output <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+>RealOutput</a></td><td>XiDry</td><td>Water vapor concentration in [kg/kg dry air]</td></tr>
+<tr><td>input <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>RealInput</a></td><td>XiTotalAir</td><td>Water vapor concentration in [kg/kg total air]</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">block</span> ToDryAir <span style="color: #006400; font-weight: normal; font-style: normal;">
+  &quot;Block to convert absolute humidity from [kg/kg total air] to [kg/kg dry air]&quot;</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Icons.html#Modelica.Blocks.Icons.Block"
+>Modelica.Blocks.Icons.Block</a>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+>Modelica.Blocks.Interfaces.RealOutput</a> XiDry <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Water vapor concentration in [kg/kg dry air]&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>Modelica.Blocks.Interfaces.RealInput</a> XiTotalAir <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Water vapor concentration in [kg/kg total air]&quot;</span>;
+
+<span style="color: blue; font-weight: normal; font-style: normal;">equation </span>
+  XiDry = XiTotalAir / (1-XiTotalAir);
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>ToDryAir;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE ToTotalAir<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Utilities.Psych1aaf9ff92df4c6abalAirI.png" alt="Buildings.Utilities.Psychrometrics.ToTotalAir" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Utilities.Psychrometrics.ToTotalAir"></a><a href="Buildings_Utilities_Psychrometrics.html#Buildings.Utilities.Psychrometrics"
+>Buildings.Utilities.Psychrometrics</a>.ToTotalAir</h2>
+<p>
+<b>Block to convert absolute humidity from [kg/kg dry air] to [kg/kg total air]</b>
+<br>
+<br><img src="Buildings.Utilities.Psych1aaf9ff92df4c6abalAirD.png" alt="Buildings.Utilities.Psychrometrics.ToTotalAir">
+</p>
+<h3>Information</h3>
+
+<p>
+Block that converts humidity concentration from [kg/kg dry air] to [kg/kg total air].
+</p>
+<p>
+This block may be used, for example, to convert absolute humidity that is received from
+EnergyPlus to [kg/kg total air], which is the convention used by Modelica.Media.
+</p>
+
+<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Icons.html#Modelica.Blocks.Icons.Block"
+>Modelica.Blocks.Icons.Block</a> (Basic graphical layout of input/output block).</p>
+<h3>Connectors</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Connectors">
+<tr><th>Type</th><th>Name</th><th>Description</th></tr>
+<tr><td>output <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+>RealOutput</a></td><td>XiTotalAir</td><td>Water vapor concentration in [kg/kg total air]</td></tr>
+<tr><td>input <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>RealInput</a></td><td>XiDry</td><td>Water vapor concentration in [kg/kg dry air]</td></tr>
+<tr><td>output <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+>RealOutput</a></td><td>XNonVapor</td><td>Mass fraction of remaining substances</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">block</span> ToTotalAir <span style="color: #006400; font-weight: normal; font-style: normal;">
+  &quot;Block to convert absolute humidity from [kg/kg dry air] to [kg/kg total air]&quot;</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Icons.html#Modelica.Blocks.Icons.Block"
+>Modelica.Blocks.Icons.Block</a>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+>Modelica.Blocks.Interfaces.RealOutput</a> XiTotalAir <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Water vapor concentration in [kg/kg total air]&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>Modelica.Blocks.Interfaces.RealInput</a> XiDry <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Water vapor concentration in [kg/kg dry air]&quot;</span>;
+
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+>Modelica.Blocks.Interfaces.RealOutput</a> XNonVapor <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Mass fraction of remaining substances&quot;</span>;
+<span style="color: blue; font-weight: normal; font-style: normal;">equation </span>
+  XiTotalAir = XiDry / (1+XiDry);
+  XNonVapor = 1 - XiTotalAir;
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>ToTotalAir;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE WetBul_pTX<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Utilities.Psych7fc2dbf06f3dee2al_pTXI.png" alt="Buildings.Utilities.Psychrometrics.WetBul_pTX" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Utilities.Psychrometrics.WetBul_pTX"></a><a href="Buildings_Utilities_Psychrometrics.html#Buildings.Utilities.Psychrometrics"
+>Buildings.Utilities.Psychrometrics</a>.WetBul_pTX</h2>
+<p>
+<b>Block to compute the wet bulb condition for given dry bulb temperature and humidity</b>
+<br>
+<br><img src="Buildings.Utilities.Psych7fc2dbf06f3dee2al_pTXD.png" alt="Buildings.Utilities.Psychrometrics.WetBul_pTX">
+</p>
+<h3>Information</h3>
+
+<p>
+Block to compute the temperature and mass fraction at the wet bulb condition
+for a given dry bulb state.
+</p>
+
+<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Icons.html#Modelica.Blocks.Icons.Block"
+>Modelica.Blocks.Icons.Block</a> (Basic graphical layout of input/output block).</p>
+<h3>Connectors</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Connectors">
+<tr><th>Type</th><th>Name</th><th>Description</th></tr>
+<tr><td>input <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>RealInput</a></td><td>TDryBul</td><td>Dry bulb temperature [K]</td></tr>
+<tr><td>input <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>RealInput</a></td><td>XDryBul</td><td>Dry bulb temperature [1]</td></tr>
+<tr><td>input <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>RealInput</a></td><td>p</td><td>Pressure [Pa]</td></tr>
+<tr><td>output <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+>RealOutput</a></td><td>TWetBul</td><td>Wet bulb temperature [K]</td></tr>
+<tr><td>output <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+>RealOutput</a></td><td>XWetBul</td><td>Water vapor mass fraction at wet bulb temperature [1]</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">block</span> WetBul_pTX <span style="color: #006400; font-weight: normal; font-style: normal;">
+  &quot;Block to compute the wet bulb condition for given dry bulb temperature and humidity&quot;</span>
+   <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Icons.html#Modelica.Blocks.Icons.Block"
+>Modelica.Blocks.Icons.Block</a>;
+
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>Modelica.Blocks.Interfaces.RealInput</a> TDryBul(
+    start=303,
+    <span style="color: blue; font-weight: normal; font-style: normal;">final </span>quantity=&quot;ThermodynamicTemperature&quot;,
+    <span style="color: blue; font-weight: normal; font-style: normal;">final </span>unit=&quot;K&quot;,
+    min=0) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Dry bulb temperature&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>Modelica.Blocks.Interfaces.RealInput</a> XDryBul(
+    start=0.01,
+    <span style="color: blue; font-weight: normal; font-style: normal;">final </span>unit=&quot;1&quot;,
+    min=0) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Dry bulb temperature&quot;</span>;
+
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>Modelica.Blocks.Interfaces.RealInput</a> p(
+    <span style="color: blue; font-weight: normal; font-style: normal;">final </span>quantity=&quot;Pressure&quot;,
+    <span style="color: blue; font-weight: normal; font-style: normal;">final </span>unit=&quot;Pa&quot;,
+    min = 0) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Pressure&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+>Modelica.Blocks.Interfaces.RealOutput</a> TWetBul(
+    start=293,
+    <span style="color: blue; font-weight: normal; font-style: normal;">final </span>quantity=&quot;ThermodynamicTemperature&quot;,
+    <span style="color: blue; font-weight: normal; font-style: normal;">final </span>unit=&quot;K&quot;,
+    min=0) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Wet bulb temperature&quot;</span>;
+
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+>Modelica.Blocks.Interfaces.RealOutput</a> XWetBul(
+    min=0,
+    max=1,
+    start=0.012,
+    unit=&quot;1&quot;,
+    nominal=0.01) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Water vapor mass fraction at wet bulb temperature&quot;</span>;
+<span style="color: blue; font-weight: normal; font-style: normal;">equation </span>
+  XWetBul   =<span style="color: red; font-weight: normal; font-style: normal;"> Buildings.Utilities.Psychrometrics.Functions.X_pSatpphi</span>(
+      pSat=<span style="color: red; font-weight: normal; font-style: normal;">   Buildings.Utilities.Psychrometrics.Functions.saturationPressureLiquid</span>(TWetBul),
+      p=     p,
+      phi=   1);
+  TWetBul = (TDryBul * ((1-XDryBul) * Buildings.Utilities.Psychrometrics.Constants.cpAir +
+             XDryBul * Buildings.Utilities.Psychrometrics.Constants.cpSte) +
+             (XDryBul-XWetBul) * Buildings.Utilities.Psychrometrics.Constants.h_fg)/
+              ( (1-XWetBul)*Buildings.Utilities.Psychrometrics.Constants.cpAir +
+              XWetBul * Buildings.Utilities.Psychrometrics.Constants.cpSte);
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>WetBul_pTX;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE X_pTphi<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Utilities.Psychdca8185efdb3cacdpTphiI.png" alt="Buildings.Utilities.Psychrometrics.X_pTphi" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Utilities.Psychrometrics.X_pTphi"></a><a href="Buildings_Utilities_Psychrometrics.html#Buildings.Utilities.Psychrometrics"
+>Buildings.Utilities.Psychrometrics</a>.X_pTphi</h2>
+<p>
+<b>Return steam mass fraction as a function of relative humidity phi and temperature T</b>
+<br>
+<br><img src="Buildings.Utilities.Psychdca8185efdb3cacdpTphiD.png" alt="Buildings.Utilities.Psychrometrics.X_pTphi">
+</p>
+<h3>Information</h3>
+
+<p>
+Block to compute the water vapor concentration based on
+pressure, temperature and relative humidity.
+</p>
+<p>If <code>use_p_in</code> is false (default option), the <code>p</code> parameter
+is used as atmospheric pressure,
+and the <code>p_in</code> input connector is disabled;
+if <code>use_p_in</code> is true, then the <code>p</code> parameter is ignored,
+and the value provided by the input connector is used instead.
+</p>
+
+<p>Extends from <a href="Buildings_Utilities_Psychrometrics_BaseClasses.html#Buildings.Utilities.Psychrometrics.BaseClasses.HumidityRatioVaporPressure"
+>Buildings.Utilities.Psychrometrics.BaseClasses.HumidityRatioVaporPressure</a> (Humidity ratio for given water vapor pressure).</p>
+<h3>Parameters</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td>Boolean</td><td>use_p_in</td><td>true</td><td>Get the pressure from the input connector</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
+>Pressure</a></td><td>p</td><td>101325</td><td>Fixed value of pressure [Pa]</td></tr>
+</table>
+<h3>Connectors</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Connectors">
+<tr><th>Type</th><th>Name</th><th>Description</th></tr>
+<tr><td>input <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>RealInput</a></td><td>p_in</td><td>Atmospheric Pressure [Pa]</td></tr>
+<tr><td>input <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>RealInput</a></td><td>T</td><td>Temperature [K]</td></tr>
+<tr><td>input <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>RealInput</a></td><td>phi</td><td>Relative humidity (0...1)</td></tr>
+<tr><td>output <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+>RealOutput</a></td><td>X[Medium.nX]</td><td>Steam mass fraction</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">block</span> X_pTphi <span style="color: #006400; font-weight: normal; font-style: normal;">
+  &quot;Return steam mass fraction as a function of relative humidity phi and temperature T&quot;</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="Buildings_Utilities_Psychrometrics_BaseClasses.html#Buildings.Utilities.Psychrometrics.BaseClasses.HumidityRatioVaporPressure"
+>Buildings.Utilities.Psychrometrics.BaseClasses.HumidityRatioVaporPressure</a>;
+
+  <span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = <a href="Buildings_Media_Air.html#Buildings.Media.Air"
+>Buildings.Media.Air</a> <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Medium model&quot;</span>;
+
+<span style="color: blue; font-weight: normal; font-style: normal;">public </span>
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>Modelica.Blocks.Interfaces.RealInput</a> T(<span style="color: blue; font-weight: normal; font-style: normal;">final </span>unit=&quot;K&quot;,
+                                           displayUnit=&quot;degC&quot;,
+                                           min = 0) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Temperature&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>Modelica.Blocks.Interfaces.RealInput</a> phi(min = 0, max=1) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Relative humidity (0...1)&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+>Modelica.Blocks.Interfaces.RealOutput</a> X[Medium.nX](<span style="color: blue; font-weight: normal; font-style: normal;">each </span>min=0, <span style="color: blue; font-weight: normal; font-style: normal;">each </span>max=1) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Steam mass fraction&quot;</span>;
+<span style="color: blue; font-weight: normal; font-style: normal;">protected </span>
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.AbsolutePressure"
+>Modelica.SIunits.AbsolutePressure</a> pSat <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Saturation pressure&quot;</span>;
+ <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Integer i_w(min=1, fixed=false) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Index for water substance&quot;</span>;
+ <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Integer i_nw(min=1, fixed=false) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Index for non-water substance&quot;</span>;
+ <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Boolean found(fixed=false) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Flag, used for error checking&quot;</span>;
+<span style="color: blue; font-weight: normal; font-style: normal;">initial </span><span style="color: blue; font-weight: normal; font-style: normal;">algorithm </span>
+  <span style="color: red; font-weight: normal; font-style: normal;">assert</span>(Medium.nX==2, &quot;The implementation is only valid if Medium.nX=2.&quot;);
+  found:=false;
+  i_w :=1;
+    <span style="color: blue; font-weight: normal; font-style: normal;">for </span>i<span style="color: blue; font-weight: normal; font-style: normal;"> in </span>1:Medium.nXi<span style="color: blue; font-weight: normal; font-style: normal;"> loop</span>
+      <span style="color: blue; font-weight: normal; font-style: normal;">if </span><span style="color: red; font-weight: normal; font-style: normal;">Modelica.Utilities.Strings.isEqual</span>(string1=Medium.substanceNames[i],
+                                            string2=&quot;water&quot;,
+                                            caseSensitive=false)<span style="color: blue; font-weight: normal; font-style: normal;"> then</span>
+        i_w :=i;
+        found:=true;
+      <span style="color: blue; font-weight: normal; font-style: normal;">end if</span>;
+    <span style="color: blue; font-weight: normal; font-style: normal;">end for</span>;
+  i_nw := <span style="color: blue; font-weight: normal; font-style: normal;">if </span>i_w == 1<span style="color: blue; font-weight: normal; font-style: normal;"> then </span>2<span style="color: blue; font-weight: normal; font-style: normal;"> else </span>1;
+  <span style="color: red; font-weight: normal; font-style: normal;">assert</span>(found, &quot;Did not find medium species &#39;water&#39; in the medium model. Change medium model.&quot;);
+<span style="color: blue; font-weight: normal; font-style: normal;">algorithm </span>
+  pSat :=<span style="color: red; font-weight: normal; font-style: normal;"> Buildings.Media.Air.saturationPressure</span>(T);
+  X[i_w] :=<span style="color: red; font-weight: normal; font-style: normal;"> Buildings.Utilities.Psychrometrics.Functions.X_pSatpphi</span>(
+     pSat=pSat, p=p_in_internal, phi=phi);
+  <span style="color: #006400; font-weight: normal; font-style: normal;">//sum(X[:]) = 1; // The formulation with a sum in an equation section leads to a nonlinear equation system</span>
+  X[i_nw] := 1 - X[i_w];
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>X_pTphi;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE X_pW<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Utilities.Psychrometrics.X_pWI.png" alt="Buildings.Utilities.Psychrometrics.X_pW" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Utilities.Psychrometrics.X_pW"></a><a href="Buildings_Utilities_Psychrometrics.html#Buildings.Utilities.Psychrometrics"
+>Buildings.Utilities.Psychrometrics</a>.X_pW</h2>
+<p>
+<b>Humidity ratio for given water vapor pressure</b>
+<br>
+<br><img src="Buildings.Utilities.Psychrometrics.X_pWD.png" alt="Buildings.Utilities.Psychrometrics.X_pW">
+</p>
+<h3>Information</h3>
+
+<p>
+Block to compute the humidity ratio for a given water vapor partial pressure.
+</p>
+<p>If <code>use_p_in</code> is false (default option), the <code>p</code> parameter
+is used as atmospheric pressure,
+and the <code>p_in</code> input connector is disabled;
+if <code>use_p_in</code> is true, then the <code>p</code> parameter is ignored,
+and the value provided by the input connector is used instead.
+</p>
+
+<p>Extends from <a href="Buildings_Utilities_Psychrometrics_BaseClasses.html#Buildings.Utilities.Psychrometrics.BaseClasses.HumidityRatioVaporPressure"
+>Buildings.Utilities.Psychrometrics.BaseClasses.HumidityRatioVaporPressure</a> (Humidity ratio for given water vapor pressure).</p>
+<h3>Parameters</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td>Boolean</td><td>use_p_in</td><td>true</td><td>Get the pressure from the input connector</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
+>Pressure</a></td><td>p</td><td>101325</td><td>Fixed value of pressure [Pa]</td></tr>
+</table>
+<h3>Connectors</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Connectors">
+<tr><th>Type</th><th>Name</th><th>Description</th></tr>
+<tr><td>input <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>RealInput</a></td><td>p_in</td><td>Atmospheric Pressure [Pa]</td></tr>
+<tr><td>output <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+>RealOutput</a></td><td>X_w</td><td>Species concentration at dry bulb temperature</td></tr>
+<tr><td>input <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>RealInput</a></td><td>p_w</td><td>Water vapor pressure [Pa]</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">block</span> X_pW <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Humidity ratio for given water vapor pressure&quot;</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="Buildings_Utilities_Psychrometrics_BaseClasses.html#Buildings.Utilities.Psychrometrics.BaseClasses.HumidityRatioVaporPressure"
+>Buildings.Utilities.Psychrometrics.BaseClasses.HumidityRatioVaporPressure</a>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+>Modelica.Blocks.Interfaces.RealOutput</a> X_w(min=0, max=1, nominal=0.01) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Species concentration at dry bulb temperature&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>Modelica.Blocks.Interfaces.RealInput</a> p_w(<span style="color: blue; font-weight: normal; font-style: normal;">final </span>quantity=&quot;Pressure&quot;,
+                                           <span style="color: blue; font-weight: normal; font-style: normal;">final </span>unit=&quot;Pa&quot;,
+                                           displayUnit=&quot;Pa&quot;,
+                                           min = 0.003,
+                                           start=2000,
+                                           nominal=1000) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Water vapor pressure&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">output </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.MassFraction"
+>Modelica.SIunits.MassFraction</a> x_w(min=0, max=1, nominal=0.01, start=0.001) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Water mass fraction per mass of dry air&quot;</span>;
+<span style="color: blue; font-weight: normal; font-style: normal;">equation </span>
+  X_w =<span style="color: red; font-weight: normal; font-style: normal;"> Buildings.Utilities.Psychrometrics.Functions.X_pW</span>(p_w=p_w, p=p_in_internal);
+  x_w = X_w/(1-X_w);
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>X_pW;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE pW_TDewPoi<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Utilities.Psych1df98a388dbdba26ewPoiI.png" alt="Buildings.Utilities.Psychrometrics.pW_TDewPoi" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Utilities.Psychrometrics.pW_TDewPoi"></a><a href="Buildings_Utilities_Psychrometrics.html#Buildings.Utilities.Psychrometrics"
+>Buildings.Utilities.Psychrometrics</a>.pW_TDewPoi</h2>
+<p>
+<b>Model to compute the water vapor pressure for a given dew point temperature of moist air</b>
+<br>
+<br><img src="Buildings.Utilities.Psych1df98a388dbdba26ewPoiD.png" alt="Buildings.Utilities.Psychrometrics.pW_TDewPoi">
+</p>
+<h3>Information</h3>
+
+<p>
+Block to compute the water vapor pressure for a given dew point temperature.
+</p>
+<p>
+The correlation used in this model is valid for dew point temperatures between
+<i>0</i>&deg;C and <i>30</i>&deg;C. It is an approximation to the correlation from 2005
+ASHRAE Handbook, p. 6.2, which is valid in a wider range of temperatures and implemented
+in
+<a href="Buildings_Utilities_Psychrometrics_Functions.html#Buildings.Utilities.Psychrometrics.Functions.pW_TDewPoi"
+>
+Buildings.Utilities.Psychrometrics.Functions.pW_TDewPoi</a>.
+The approximation error of this simplified function is below 5% for a
+temperature of <i>0</i>&deg;C to <i>30</i>&deg;C.
+The benefit of this simpler function is that it can be inverted analytically,
+whereas the other function requires a numerical solution.
+</p>
+
+<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Icons.html#Modelica.Blocks.Icons.Block"
+>Modelica.Blocks.Icons.Block</a> (Basic graphical layout of input/output block).</p>
+<h3>Connectors</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Connectors">
+<tr><th>Type</th><th>Name</th><th>Description</th></tr>
+<tr><td>output <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+>RealOutput</a></td><td>p_w</td><td>Water vapor partial pressure</td></tr>
+<tr><td>input <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>RealInput</a></td><td>T</td><td>Dew point temperature [K]</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">block</span> pW_TDewPoi <span style="color: #006400; font-weight: normal; font-style: normal;">
+  &quot;Model to compute the water vapor pressure for a given dew point temperature of moist air&quot;</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Icons.html#Modelica.Blocks.Icons.Block"
+>Modelica.Blocks.Icons.Block</a>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+>Modelica.Blocks.Interfaces.RealOutput</a> p_w <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Water vapor partial pressure&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>Modelica.Blocks.Interfaces.RealInput</a> T(<span style="color: blue; font-weight: normal; font-style: normal;">final </span>quantity=&quot;ThermodynamicTemperature&quot;,
+                                         <span style="color: blue; font-weight: normal; font-style: normal;">final </span>unit=&quot;K&quot;,
+                                         min = 0,
+                                         displayUnit=&quot;degC&quot;) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Dew point temperature&quot;</span>;
+
+<span style="color: blue; font-weight: normal; font-style: normal;">equation </span>
+ p_w =<span style="color: red; font-weight: normal; font-style: normal;"> Buildings.Utilities.Psychrometrics.Functions.pW_TDewPoi_amb</span>(T=T);
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>pW_TDewPoi;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE pW_X<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Utilities.Psychrometrics.pW_XI.png" alt="Buildings.Utilities.Psychrometrics.pW_X" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Utilities.Psychrometrics.pW_X"></a><a href="Buildings_Utilities_Psychrometrics.html#Buildings.Utilities.Psychrometrics"
+>Buildings.Utilities.Psychrometrics</a>.pW_X</h2>
+<p>
+<b>Water vapor pressure for given humidity ratio</b>
+<br>
+<br><img src="Buildings.Utilities.Psychrometrics.pW_XD.png" alt="Buildings.Utilities.Psychrometrics.pW_X">
+</p>
+<h3>Information</h3>
+
+<p>
+Block to compute the water vapor partial pressure for a given humidity ratio.
+</p>
+<p>If <code>use_p_in</code> is false (default option), the <code>p</code> parameter
+is used as atmospheric pressure,
+and the <code>p_in</code> input connector is disabled;
+if <code>use_p_in</code> is true, then the <code>p</code> parameter is ignored,
+and the value provided by the input connector is used instead.
+</p>
+
+<p>Extends from <a href="Buildings_Utilities_Psychrometrics_BaseClasses.html#Buildings.Utilities.Psychrometrics.BaseClasses.HumidityRatioVaporPressure"
+>Buildings.Utilities.Psychrometrics.BaseClasses.HumidityRatioVaporPressure</a> (Humidity ratio for given water vapor pressure).</p>
+<h3>Parameters</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td>Boolean</td><td>use_p_in</td><td>true</td><td>Get the pressure from the input connector</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
+>Pressure</a></td><td>p</td><td>101325</td><td>Fixed value of pressure [Pa]</td></tr>
+</table>
+<h3>Connectors</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Connectors">
+<tr><th>Type</th><th>Name</th><th>Description</th></tr>
+<tr><td>input <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>RealInput</a></td><td>p_in</td><td>Atmospheric Pressure [Pa]</td></tr>
+<tr><td>input <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>RealInput</a></td><td>X_w</td><td>Water concentration at dry bulb temperature</td></tr>
+<tr><td>output <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+>RealOutput</a></td><td>p_w</td><td>Water vapor pressure [Pa]</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">block</span> pW_X <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Water vapor pressure for given humidity ratio&quot;</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="Buildings_Utilities_Psychrometrics_BaseClasses.html#Buildings.Utilities.Psychrometrics.BaseClasses.HumidityRatioVaporPressure"
+>Buildings.Utilities.Psychrometrics.BaseClasses.HumidityRatioVaporPressure</a>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>Modelica.Blocks.Interfaces.RealInput</a> X_w(min=0, max=0.99999, nominal=0.1) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Water concentration at dry bulb temperature&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+>Modelica.Blocks.Interfaces.RealOutput</a> p_w(<span style="color: blue; font-weight: normal; font-style: normal;">final </span>quantity=&quot;Pressure&quot;,
+                                           <span style="color: blue; font-weight: normal; font-style: normal;">final </span>unit=&quot;Pa&quot;,
+                                           displayUnit=&quot;Pa&quot;,
+                                           min = 0) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Water vapor pressure&quot;</span>;
+
+  <span style="color: blue; font-weight: normal; font-style: normal;">output </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.MassFraction"
+>Modelica.SIunits.MassFraction</a> x_w(min=0, max=1, nominal=0.1, start=0.001) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Water mass fraction per mass of dry air&quot;</span>;
+
+<span style="color: blue; font-weight: normal; font-style: normal;">equation </span>
+  p_w =<span style="color: red; font-weight: normal; font-style: normal;"> Buildings.Utilities.Psychrometrics.Functions.pW_X</span>(X_w=X_w, p=p_in_internal);
+  x_w = X_w/(1-X_w);
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>pW_X;
+</div>
+<hr>
+<address>
+<a href="http://www.3ds.com/">Automatically generated</a> Thu Apr  9 09:41:33 2015.
+</address>
+</body>
+</html>

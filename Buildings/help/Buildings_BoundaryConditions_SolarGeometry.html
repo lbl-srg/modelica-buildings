@@ -1,0 +1,226 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>Buildings.BoundaryConditions.SolarGeometry</title>
+<meta name="HTML-Generator" content="Dymola">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="description" content="&quot;Package with models to compute solar geometry&quot;">
+<style type="text/css">
+*       { font-size: 10pt; font-family: Arial, sans-serif; }
+.modelica, .modelica * { font-size: 9pt; font-family: Courier, monospace; white-space: pre; }
+h4      { font-size: 10pt; font-weight: bold; color: green; }
+h3      { font-size: 11pt; font-weight: bold; color: green; }
+h2      { font-size: 13pt; font-weight: bold; color: green; }
+address { font-weight: normal; }
+td      { border: 1px solid #808080; vertical-align: top; }
+th      { border: 1px solid #808080; vertical-align: top; font-weight: bold; }
+table   { border: 1px solid #808080; border-collapse: collapse; }
+</style>
+<link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../Resources/www/modelicaDoc.css">
+</HEAD>
+<body>
+<!-- --- header ------ -->
+<div class="headerStyle">
+<img src="../Resources/www/lbl-logo.png" alt="LBL logo"/>
+</div>
+<div class="headerLinks">
+<ul><li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt; <a href="Buildings.html">Modelica</a></li></ul>
+</div>
+<!-- --- end header -- -->
+
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE SolarGeometry<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><a name="Buildings.BoundaryConditions.SolarGeometry"></a><a href="Buildings_BoundaryConditions.html#Buildings.BoundaryConditions"
+>Buildings.BoundaryConditions</a>.SolarGeometry</h2>
+<p>
+<b>Package with models to compute solar geometry</b><br>
+</p>
+<h3>Information</h3>
+
+This package contains models to compute the solar geometry and incidence
+angles on tilted surfaces.
+
+<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons_VariantsPackage.html#Modelica.Icons.VariantsPackage"
+>Modelica.Icons.VariantsPackage</a> (Icon for package containing variants).</p>
+<h3>Package Content</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Package Content">
+<tr>
+<th>Name</th>
+<th>Description</th>
+</tr>
+<tr>
+<td><img src="Buildings.BoundaryConditia107dbbf6e757576AngleS.png" alt="Buildings.BoundaryConditions.SolarGeometry.IncidenceAngle" width="20" height="20" align="top">&nbsp;<a href="Buildings_BoundaryConditions_SolarGeometry.html#Buildings.BoundaryConditions.SolarGeometry.IncidenceAngle"
+>IncidenceAngle</a>
+</td>
+<td>Solar incidence angle on a tilted surface</td>
+</tr>
+<tr>
+<td><img src="Buildings.BoundaryConditia5646c5dd19efc46AngleS.png" alt="Buildings.BoundaryConditions.SolarGeometry.ZenithAngle" width="20" height="20" align="top">&nbsp;<a href="Buildings_BoundaryConditions_SolarGeometry.html#Buildings.BoundaryConditions.SolarGeometry.ZenithAngle"
+>ZenithAngle</a>
+</td>
+<td>Zenith angle</td>
+</tr>
+<tr>
+<td><img src="Buildings.BoundaryConditic676ccd90505b75emplesS.png" alt="Buildings.BoundaryConditions.SolarGeometry.Examples" width="20" height="20" align="top">&nbsp;<a href="Buildings_BoundaryConditions_SolarGeometry_Examples.html#Buildings.BoundaryConditions.SolarGeometry.Examples"
+>Examples</a>
+</td>
+<td>Collection of models that illustrate model use and test models</td>
+</tr>
+<tr>
+<td><img src="Buildings.BoundaryConditidc2203411bf0b01dassesS.png" alt="Buildings.BoundaryConditions.SolarGeometry.BaseClasses" width="20" height="20" align="top">&nbsp;<a href="Buildings_BoundaryConditions_SolarGeometry_BaseClasses.html#Buildings.BoundaryConditions.SolarGeometry.BaseClasses"
+>BaseClasses</a>
+</td>
+<td>Package with base classes for Buildings.BoundaryConditions.SolarGeometry</td>
+</tr>
+</table>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE IncidenceAngle<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.BoundaryConditia107dbbf6e757576AngleI.png" alt="Buildings.BoundaryConditions.SolarGeometry.IncidenceAngle" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.BoundaryConditions.SolarGeometry.IncidenceAngle"></a><a href="Buildings_BoundaryConditions_SolarGeometry.html#Buildings.BoundaryConditions.SolarGeometry"
+>Buildings.BoundaryConditions.SolarGeometry</a>.IncidenceAngle</h2>
+<p>
+<b>Solar incidence angle on a tilted surface</b>
+<br>
+<br><img src="Buildings.BoundaryConditia107dbbf6e757576AngleD.png" alt="Buildings.BoundaryConditions.SolarGeometry.IncidenceAngle">
+</p>
+<h3>Information</h3>
+
+<p>
+This component computes the solar incidence angle on a tilted surface.
+For a definition of the parameters, see the User's Guide
+<a href="Buildings_BoundaryConditions_UsersGuide.html#Buildings.BoundaryConditions.UsersGuide"
+>Buildings.BoundaryConditions.UsersGuide</a>.
+</p>
+
+<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Icons.html#Modelica.Blocks.Icons.Block"
+>Modelica.Blocks.Icons.Block</a> (Basic graphical layout of input/output block).</p>
+<h3>Parameters</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
+>Angle</a></td><td>lat</td><td>&nbsp;</td><td>Latitude [rad]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
+>Angle</a></td><td>azi</td><td>&nbsp;</td><td>Surface azimuth [rad]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
+>Angle</a></td><td>til</td><td>&nbsp;</td><td>Surface tilt [rad]</td></tr>
+</table>
+<h3>Connectors</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Connectors">
+<tr><th>Type</th><th>Name</th><th>Description</th></tr>
+<tr><td>output <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+>RealOutput</a></td><td>y</td><td>Incidence angle [rad]</td></tr>
+<tr><td><a href="Buildings_BoundaryConditions_WeatherData.html#Buildings.BoundaryConditions.WeatherData.Bus"
+>Bus</a></td><td>weaBus</td><td>&nbsp;</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">block</span> IncidenceAngle <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Solar incidence angle on a tilted surface&quot;</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Icons.html#Modelica.Blocks.Icons.Block"
+>Modelica.Blocks.Icons.Block</a>;
+<span style="color: blue; font-weight: normal; font-style: normal;">public </span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
+>Modelica.SIunits.Angle</a> lat <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Latitude&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
+>Modelica.SIunits.Angle</a> azi <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Surface azimuth&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
+>Modelica.SIunits.Angle</a> til <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Surface tilt&quot;</span>;
+
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+>Modelica.Blocks.Interfaces.RealOutput</a> y(
+    <span style="color: blue; font-weight: normal; font-style: normal;">final </span>quantity=&quot;Angle&quot;,
+    <span style="color: blue; font-weight: normal; font-style: normal;">final </span>unit=&quot;rad&quot;,
+    displayUnit=&quot;deg&quot;) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Incidence angle&quot;</span>;
+<span style="color: blue; font-weight: normal; font-style: normal;">protected </span>
+  <a href="Buildings_BoundaryConditions_SolarGeometry_BaseClasses.html#Buildings.BoundaryConditions.SolarGeometry.BaseClasses.Declination"
+>Buildings.BoundaryConditions.SolarGeometry.BaseClasses.Declination</a> decAng <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Declination angle&quot;</span>;
+  <a href="Buildings_BoundaryConditions_SolarGeometry_BaseClasses.html#Buildings.BoundaryConditions.SolarGeometry.BaseClasses.SolarHourAngle"
+>Buildings.BoundaryConditions.SolarGeometry.BaseClasses.SolarHourAngle</a>
+    solHouAng <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Solar hour angle&quot;</span>;
+  <a href="Buildings_BoundaryConditions_SolarGeometry_BaseClasses.html#Buildings.BoundaryConditions.SolarGeometry.BaseClasses.IncidenceAngle"
+>Buildings.BoundaryConditions.SolarGeometry.BaseClasses.IncidenceAngle</a> incAng(
+    <span style="color: blue; font-weight: normal; font-style: normal;">final </span>lat=lat,
+    <span style="color: blue; font-weight: normal; font-style: normal;">final </span>azi=azi,
+    <span style="color: blue; font-weight: normal; font-style: normal;">final </span>til=til) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Incidence angle&quot;</span>;
+<span style="color: blue; font-weight: normal; font-style: normal;">public </span>
+  <a href="Buildings_BoundaryConditions_WeatherData.html#Buildings.BoundaryConditions.WeatherData.Bus"
+>WeatherData.Bus</a> weaBus;
+<span style="color: blue; font-weight: normal; font-style: normal;">equation </span>
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(incAng.incAng, y);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(decAng.decAng, incAng.decAng);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(solHouAng.solHouAng, incAng.solHouAng);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(weaBus.cloTim, decAng.nDay);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(weaBus.solTim, solHouAng.solTim);
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>IncidenceAngle;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE ZenithAngle<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.BoundaryConditia5646c5dd19efc46AngleI.png" alt="Buildings.BoundaryConditions.SolarGeometry.ZenithAngle" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.BoundaryConditions.SolarGeometry.ZenithAngle"></a><a href="Buildings_BoundaryConditions_SolarGeometry.html#Buildings.BoundaryConditions.SolarGeometry"
+>Buildings.BoundaryConditions.SolarGeometry</a>.ZenithAngle</h2>
+<p>
+<b>Zenith angle</b>
+<br>
+<br><img src="Buildings.BoundaryConditia5646c5dd19efc46AngleD.png" alt="Buildings.BoundaryConditions.SolarGeometry.ZenithAngle">
+</p>
+<h3>Information</h3>
+
+<p>
+This component computes the zenith angle,
+which is the angle between the earth surface normal and the sun beam.
+For a definition of the parameters, see the User's Guide
+<a href="Buildings_BoundaryConditions_UsersGuide.html#Buildings.BoundaryConditions.UsersGuide"
+>
+Buildings.BoundaryConditions.UsersGuide</a>.
+</p>
+
+<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Icons.html#Modelica.Blocks.Icons.Block"
+>Modelica.Blocks.Icons.Block</a> (Basic graphical layout of input/output block).</p>
+<h3>Parameters</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
+>Angle</a></td><td>lat</td><td>&nbsp;</td><td>Latitude [rad]</td></tr>
+</table>
+<h3>Connectors</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Connectors">
+<tr><th>Type</th><th>Name</th><th>Description</th></tr>
+<tr><td>output <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+>RealOutput</a></td><td>y</td><td>Zenith angle [rad]</td></tr>
+<tr><td><a href="Buildings_BoundaryConditions_WeatherData.html#Buildings.BoundaryConditions.WeatherData.Bus"
+>Bus</a></td><td>weaBus</td><td>&nbsp;</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">block</span> ZenithAngle <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Zenith angle&quot;</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Icons.html#Modelica.Blocks.Icons.Block"
+>Modelica.Blocks.Icons.Block</a>;
+<span style="color: blue; font-weight: normal; font-style: normal;">public </span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
+>Modelica.SIunits.Angle</a> lat <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Latitude&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+>Modelica.Blocks.Interfaces.RealOutput</a> y(
+    <span style="color: blue; font-weight: normal; font-style: normal;">final </span>quantity=&quot;Angle&quot;,
+    <span style="color: blue; font-weight: normal; font-style: normal;">final </span>unit=&quot;rad&quot;,
+    displayUnit=&quot;deg&quot;) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Zenith angle&quot;</span>;
+<span style="color: blue; font-weight: normal; font-style: normal;">protected </span>
+   <a href="Buildings_BoundaryConditions_SolarGeometry_BaseClasses.html#Buildings.BoundaryConditions.SolarGeometry.BaseClasses.ZenithAngle"
+>Buildings.BoundaryConditions.SolarGeometry.BaseClasses.ZenithAngle</a> zen(<span style="color: blue; font-weight: normal; font-style: normal;">final </span>lat=lat);
+<span style="color: blue; font-weight: normal; font-style: normal;">public </span>
+  <a href="Buildings_BoundaryConditions_WeatherData.html#Buildings.BoundaryConditions.WeatherData.Bus"
+>WeatherData.Bus</a> weaBus;
+<span style="color: blue; font-weight: normal; font-style: normal;">equation </span>
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(zen.zen, y);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(weaBus.solDec, zen.decAng);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(weaBus.solHouAng, zen.solHouAng);
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>ZenithAngle;
+</div>
+<hr>
+<address>
+<a href="http://www.3ds.com/">Automatically generated</a> Thu Apr  9 09:32:32 2015.
+</address>
+</body>
+</html>

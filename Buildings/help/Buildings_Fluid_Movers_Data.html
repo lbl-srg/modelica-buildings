@@ -1,0 +1,378 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>Buildings.Fluid.Movers.Data</title>
+<meta name="HTML-Generator" content="Dymola">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="description" content="&quot;Package containing data for real pumps/fans&quot;">
+<style type="text/css">
+*       { font-size: 10pt; font-family: Arial, sans-serif; }
+.modelica, .modelica * { font-size: 9pt; font-family: Courier, monospace; white-space: pre; }
+h4      { font-size: 10pt; font-weight: bold; color: green; }
+h3      { font-size: 11pt; font-weight: bold; color: green; }
+h2      { font-size: 13pt; font-weight: bold; color: green; }
+address { font-weight: normal; }
+td      { border: 1px solid #808080; vertical-align: top; }
+th      { border: 1px solid #808080; vertical-align: top; font-weight: bold; }
+table   { border: 1px solid #808080; border-collapse: collapse; }
+</style>
+<link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../Resources/www/modelicaDoc.css">
+</HEAD>
+<body>
+<!-- --- header ------ -->
+<div class="headerStyle">
+<img src="../Resources/www/lbl-logo.png" alt="LBL logo"/>
+</div>
+<div class="headerLinks">
+<ul><li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt; <a href="Buildings.html">Modelica</a></li></ul>
+</div>
+<!-- --- end header -- -->
+
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE Data<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><a name="Buildings.Fluid.Movers.Data"></a><a href="Buildings_Fluid_Movers.html#Buildings.Fluid.Movers"
+>Buildings.Fluid.Movers</a>.Data</h2>
+<p>
+<b>Package containing data for real pumps/fans</b><br>
+</p>
+<h3>Information</h3>
+
+<p>
+This package contains data for fans and pumps.
+</p>
+<p>
+See the
+<a href="Buildings_Fluid_Movers_UsersGuide.html#Buildings.Fluid.Movers.UsersGuide"
+>
+User's Guide</a> for more information.
+</p>
+
+<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons_MaterialPropertiesPackage.html#Modelica.Icons.MaterialPropertiesPackage"
+>Modelica.Icons.MaterialPropertiesPackage</a> (Icon for package containing property classes).</p>
+<h3>Package Content</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Package Content">
+<tr>
+<th>Name</th>
+<th>Description</th>
+</tr>
+<tr>
+<td><img src="Buildings.Fluid.Movers.Da7d30c4eb2187162bolledS.png" alt="Buildings.Fluid.Movers.Data.FlowControlled" width="20" height="20" align="top">&nbsp;<a href="Buildings_Fluid_Movers_Data.html#Buildings.Fluid.Movers.Data.FlowControlled"
+>FlowControlled</a>
+</td>
+<td>Generic data record for pumps and fans with prescribed m_flow or dp</td>
+</tr>
+<tr>
+<td><img src="Buildings.Fluid.Movers.Da7d30c4eb2187162bolledS.png" alt="Buildings.Fluid.Movers.Data.SpeedControlled_Nrpm" width="20" height="20" align="top">&nbsp;<a href="Buildings_Fluid_Movers_Data.html#Buildings.Fluid.Movers.Data.SpeedControlled_Nrpm"
+>SpeedControlled_Nrpm</a>
+</td>
+<td>Generic data record for FlowMachine_Nrpm</td>
+</tr>
+<tr>
+<td><img src="Buildings.Fluid.Movers.Da7d30c4eb2187162bolledS.png" alt="Buildings.Fluid.Movers.Data.SpeedControlled_y" width="20" height="20" align="top">&nbsp;<a href="Buildings_Fluid_Movers_Data.html#Buildings.Fluid.Movers.Data.SpeedControlled_y"
+>SpeedControlled_y</a>
+</td>
+<td>Generic data record for pumps and fans that take y as an input signal</td>
+</tr>
+<tr>
+<td><img src="Buildings.Fluid.Movers.Data.PumpsS.png" alt="Buildings.Fluid.Movers.Data.Pumps" width="20" height="20" align="top">&nbsp;<a href="Buildings_Fluid_Movers_Data_Pumps.html#Buildings.Fluid.Movers.Data.Pumps"
+>Pumps</a>
+</td>
+<td>Package containing data for pumps</td>
+</tr>
+</table>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE FlowControlled<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Fluid.Movers.Da7d30c4eb2187162bolledI.png" alt="Buildings.Fluid.Movers.Data.FlowControlled" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Fluid.Movers.Data.FlowControlled"></a><a href="Buildings_Fluid_Movers_Data.html#Buildings.Fluid.Movers.Data"
+>Buildings.Fluid.Movers.Data</a>.FlowControlled</h2>
+<p>
+<b>Generic data record for pumps and fans with prescribed m_flow or dp</b>
+</p>
+<h3>Information</h3>
+
+<p>
+Record containing parameters for pumps or fans
+that have either the mass flow rate or the pressure rise
+as an input signal.
+</p>
+<p>
+This record may be used to assign for example fan performance data using
+declaration such as
+</p>
+<pre>
+  Buildings.Fluid.Movers.FlowControlled_m_flow fan(
+      redeclare package Medium = Medium) "Fan";
+</pre>
+<p>
+This data record can be used with
+<a href="Buildings_Fluid_Movers.html#Buildings.Fluid.Movers.FlowControlled_dp"
+>
+Buildings.Fluid.Movers.FlowControlled_dp</a>
+and with
+<a href="Buildings_Fluid_Movers.html#Buildings.Fluid.Movers.FlowControlled_m_flow"
+>
+Buildings.Fluid.Movers.FlowControlled_m_flow</a>.
+</p>
+<p>
+For
+<a href="Buildings_Fluid_Movers.html#Buildings.Fluid.Movers.SpeedControlled_y"
+>
+Buildings.Fluid.Movers.SpeedControlled_y</a>,
+use the record
+<a href="Buildings_Fluid_Movers_Data.html#Buildings.Fluid.Movers.Data.SpeedControlled_y"
+>
+Buildings.Fluid.Movers.Data.SpeedControlled_y</a>.
+</p>
+<p>
+For
+<a href="Buildings_Fluid_Movers.html#Buildings.Fluid.Movers.SpeedControlled_Nrpm"
+>
+Buildings.Fluid.Movers.SpeedControlled_Nrpm</a>,
+use the record
+<a href="modelica://Buildings.Fluid.Movers.Data.Generic_Nrpm">
+Buildings.Fluid.Movers.Data.Generic_Nrpm</a>
+</p>
+
+<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Record"
+>Modelica.Icons.Record</a> (Icon for records).</p>
+<h3>Parameters</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td><a href="Buildings_Fluid_Movers_BaseClasses_Characteristics.html#Buildings.Fluid.Movers.BaseClasses.Characteristics.efficiencyParameters"
+>efficiencyParameters</a></td><td>hydraulicEfficiency</td><td>&nbsp;</td><td>Hydraulic efficiency</td></tr>
+<tr><td><a href="Buildings_Fluid_Movers_BaseClasses_Characteristics.html#Buildings.Fluid.Movers.BaseClasses.Characteristics.efficiencyParameters"
+>efficiencyParameters</a></td><td>motorEfficiency</td><td>&nbsp;</td><td>Electric motor efficiency</td></tr>
+<tr><td><a href="Buildings_Fluid_Movers_BaseClasses_Characteristics.html#Buildings.Fluid.Movers.BaseClasses.Characteristics.powerParameters"
+>powerParameters</a></td><td>power</td><td>&nbsp;</td><td>Volume flow rate vs. electrical power consumption</td></tr>
+<tr><td>Boolean</td><td>motorCooledByFluid</td><td>true</td><td>If true, then motor heat is added to fluid stream</td></tr>
+<tr><td>Boolean</td><td>use_powerCharacteristic</td><td>false</td><td>Use powerCharacteristic instead of efficiencyCharacteristic</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">record</span> FlowControlled <span style="color: #006400; font-weight: normal; font-style: normal;">
+  &quot;Generic data record for pumps and fans with prescribed m_flow or dp&quot;</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Record"
+>Modelica.Icons.Record</a>;
+
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="Buildings_Fluid_Movers_BaseClasses_Characteristics.html#Buildings.Fluid.Movers.BaseClasses.Characteristics.efficiencyParameters"
+>Buildings.Fluid.Movers.BaseClasses.Characteristics.efficiencyParameters</a>
+    hydraulicEfficiency(
+      V_flow={0},
+      eta={0.7}) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Hydraulic efficiency&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="Buildings_Fluid_Movers_BaseClasses_Characteristics.html#Buildings.Fluid.Movers.BaseClasses.Characteristics.efficiencyParameters"
+>Buildings.Fluid.Movers.BaseClasses.Characteristics.efficiencyParameters</a>
+    motorEfficiency(
+      V_flow={0},
+      eta={0.7}) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Electric motor efficiency&quot;</span>;
+
+  <span style="color: #006400; font-weight: normal; font-style: normal;">// Power requires default values to avoid in Dymola the message</span>
+  <span style="color: #006400; font-weight: normal; font-style: normal;">// Failed to expand the variable Power.V_flow</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="Buildings_Fluid_Movers_BaseClasses_Characteristics.html#Buildings.Fluid.Movers.BaseClasses.Characteristics.powerParameters"
+>BaseClasses.Characteristics.powerParameters</a> power(V_flow={0}, P={0}) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Volume flow rate vs. electrical power consumption&quot;</span>;
+
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Boolean motorCooledByFluid=true <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;If true, then motor heat is added to fluid stream&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Boolean use_powerCharacteristic=false <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Use powerCharacteristic instead of efficiencyCharacteristic&quot;</span>;
+
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>FlowControlled;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE SpeedControlled_Nrpm<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Fluid.Movers.Da7d30c4eb2187162bolledI.png" alt="Buildings.Fluid.Movers.Data.SpeedControlled_Nrpm" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Fluid.Movers.Data.SpeedControlled_Nrpm"></a><a href="Buildings_Fluid_Movers_Data.html#Buildings.Fluid.Movers.Data"
+>Buildings.Fluid.Movers.Data</a>.SpeedControlled_Nrpm</h2>
+<p>
+<b>Generic data record for FlowMachine_Nrpm</b>
+</p>
+<h3>Information</h3>
+
+<p>
+Record containing parameters for pumps or fans of
+type
+<a href="Buildings_Fluid_Movers.html#Buildings.Fluid.Movers.SpeedControlled_Nrpm"
+>
+Buildings.Fluid.Movers.SpeedControlled_Nrpm</a>.
+</p>
+<p>
+This record is identical to
+<a href="modelica://Buildings.Fluid.Movers.Data.Generic">Buildings.Fluid.Movers.Data.Generic
+Buildings.Fluid.Movers.Data.Generic</a>.
+except that it also declares the nominal speed which is required
+for models that take the RPM as an input.
+</p>
+<p>
+This record may be used to assign for example fan performance data using
+declaration such as
+</p>
+<pre>
+  Buildings.Fluid.Movers.SpeedControlled_y fan(
+  redeclare package Medium = Medium,
+    N_nominal = 1800,
+    per(pressure(V_flow={0,m_flow_nominal,2*m_flow_nominal}/1.2,
+                 dp={2*dp_nominal,dp_nominal,0}))) "Fan";
+</pre>
+<p>
+This data record can be used with
+<a href="Buildings_Fluid_Movers.html#Buildings.Fluid.Movers.SpeedControlled_Nrpm"
+>
+Buildings.Fluid.Movers.SpeedControlled_Nrpm</a> and
+<a href="Buildings_Fluid_Movers.html#Buildings.Fluid.Movers.SpeedControlled_y"
+>
+Buildings.Fluid.Movers.SpeedControlled_y</a>.
+</p>
+<p>
+An example that uses manufacturer data can be found in
+<a href="modelica://Buildings.Fluid.Movers.Validation.SpeedControlled_Nrpm_Data">
+Buildings.Fluid.Movers.Validation.SpeedControlled_Nrpm_Data</a>.
+</p>
+
+<p>Extends from <a href="Buildings_Fluid_Movers_Data.html#Buildings.Fluid.Movers.Data.SpeedControlled_y"
+>SpeedControlled_y</a> (Generic data record for pumps and fans that take y as an input signal).</p>
+<h3>Parameters</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td><a href="Buildings_Fluid_Movers_BaseClasses_Characteristics.html#Buildings.Fluid.Movers.BaseClasses.Characteristics.efficiencyParameters"
+>efficiencyParameters</a></td><td>hydraulicEfficiency</td><td>&nbsp;</td><td>Hydraulic efficiency</td></tr>
+<tr><td><a href="Buildings_Fluid_Movers_BaseClasses_Characteristics.html#Buildings.Fluid.Movers.BaseClasses.Characteristics.efficiencyParameters"
+>efficiencyParameters</a></td><td>motorEfficiency</td><td>&nbsp;</td><td>Electric motor efficiency</td></tr>
+<tr><td><a href="Buildings_Fluid_Movers_BaseClasses_Characteristics.html#Buildings.Fluid.Movers.BaseClasses.Characteristics.powerParameters"
+>powerParameters</a></td><td>power</td><td>&nbsp;</td><td>Volume flow rate vs. electrical power consumption</td></tr>
+<tr><td>Boolean</td><td>motorCooledByFluid</td><td>true</td><td>If true, then motor heat is added to fluid stream</td></tr>
+<tr><td>Boolean</td><td>use_powerCharacteristic</td><td>false</td><td>Use powerCharacteristic instead of efficiencyCharacteristic</td></tr>
+<tr><td><a href="Buildings_Fluid_Movers_BaseClasses_Characteristics.html#Buildings.Fluid.Movers.BaseClasses.Characteristics.flowParameters"
+>flowParameters</a></td><td>pressure</td><td>&nbsp;</td><td>Volume flow rate vs. total pressure rise</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits_Conversions_NonSIunits.html#Modelica.SIunits.Conversions.NonSIunits.AngularVelocity_rpm"
+>AngularVelocity_rpm</a></td><td>N_nominal</td><td>1500</td><td>Nominal rotational speed for flow characteristic [1/min]</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">record</span> SpeedControlled_Nrpm <span style="color: #006400; font-weight: normal; font-style: normal;">
+  &quot;Generic data record for FlowMachine_Nrpm&quot;</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="Buildings_Fluid_Movers_Data.html#Buildings.Fluid.Movers.Data.SpeedControlled_y"
+>SpeedControlled_y</a>;
+
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits_Conversions_NonSIunits.html#Modelica.SIunits.Conversions.NonSIunits.AngularVelocity_rpm"
+>Modelica.SIunits.Conversions.NonSIunits.AngularVelocity_rpm</a> N_nominal = 1500 <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Nominal rotational speed for flow characteristic&quot;</span>;
+
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>SpeedControlled_Nrpm;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE SpeedControlled_y<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Fluid.Movers.Da7d30c4eb2187162bolledI.png" alt="Buildings.Fluid.Movers.Data.SpeedControlled_y" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Fluid.Movers.Data.SpeedControlled_y"></a><a href="Buildings_Fluid_Movers_Data.html#Buildings.Fluid.Movers.Data"
+>Buildings.Fluid.Movers.Data</a>.SpeedControlled_y</h2>
+<p>
+<b>Generic data record for pumps and fans that take y as an input signal</b>
+</p>
+<h3>Information</h3>
+
+<p>
+Record containing parameters for pumps or fans as can be found in data sheets.
+</p>
+<p>
+This record may be used to assign for example fan performance data using
+declaration such as
+</p>
+<pre>
+  Buildings.Fluid.Movers.SpeedControlled_y fan(
+      redeclare package Medium = Medium,
+      per(pressure(V_flow={0,m_flow_nominal,2*m_flow_nominal}/1.2,
+                   dp={2*dp_nominal,dp_nominal,0}))) "Fan";
+</pre>
+<p>
+This data record can be used with
+<a href="Buildings_Fluid_Movers.html#Buildings.Fluid.Movers.SpeedControlled_y"
+>
+Buildings.Fluid.Movers.SpeedControlled_y</a>.
+</p>
+<p>
+For
+<a href="Buildings_Fluid_Movers.html#Buildings.Fluid.Movers.SpeedControlled_Nrpm"
+>
+Buildings.Fluid.Movers.SpeedControlled_Nrpm</a>,
+use the record
+<a href="modelica://Buildings.Fluid.Movers.Data.Generic_Nrpm">
+Buildings.Fluid.Movers.Data.Generic_Nrpm</a>.
+</p>
+
+<p>Extends from <a href="Buildings_Fluid_Movers_Data.html#Buildings.Fluid.Movers.Data.FlowControlled"
+>FlowControlled</a> (Generic data record for pumps and fans with prescribed m_flow or dp).</p>
+<h3>Parameters</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td><a href="Buildings_Fluid_Movers_BaseClasses_Characteristics.html#Buildings.Fluid.Movers.BaseClasses.Characteristics.efficiencyParameters"
+>efficiencyParameters</a></td><td>hydraulicEfficiency</td><td>&nbsp;</td><td>Hydraulic efficiency</td></tr>
+<tr><td><a href="Buildings_Fluid_Movers_BaseClasses_Characteristics.html#Buildings.Fluid.Movers.BaseClasses.Characteristics.efficiencyParameters"
+>efficiencyParameters</a></td><td>motorEfficiency</td><td>&nbsp;</td><td>Electric motor efficiency</td></tr>
+<tr><td><a href="Buildings_Fluid_Movers_BaseClasses_Characteristics.html#Buildings.Fluid.Movers.BaseClasses.Characteristics.powerParameters"
+>powerParameters</a></td><td>power</td><td>&nbsp;</td><td>Volume flow rate vs. electrical power consumption</td></tr>
+<tr><td>Boolean</td><td>motorCooledByFluid</td><td>true</td><td>If true, then motor heat is added to fluid stream</td></tr>
+<tr><td>Boolean</td><td>use_powerCharacteristic</td><td>false</td><td>Use powerCharacteristic instead of efficiencyCharacteristic</td></tr>
+<tr><td><a href="Buildings_Fluid_Movers_BaseClasses_Characteristics.html#Buildings.Fluid.Movers.BaseClasses.Characteristics.flowParameters"
+>flowParameters</a></td><td>pressure</td><td>&nbsp;</td><td>Volume flow rate vs. total pressure rise</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">record</span> SpeedControlled_y <span style="color: #006400; font-weight: normal; font-style: normal;">
+  &quot;Generic data record for pumps and fans that take y as an input signal&quot;</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="Buildings_Fluid_Movers_Data.html#Buildings.Fluid.Movers.Data.FlowControlled"
+>FlowControlled</a>;
+
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="Buildings_Fluid_Movers_BaseClasses_Characteristics.html#Buildings.Fluid.Movers.BaseClasses.Characteristics.flowParameters"
+>Buildings.Fluid.Movers.BaseClasses.Characteristics.flowParameters</a> pressure <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Volume flow rate vs. total pressure rise&quot;</span>;
+
+  <span style="color: #006400; font-weight: normal; font-style: normal;">/*
+  This does not translate in OpenModelica (even if FlowControlled is copied
+  into this model rather than extended).
+
+  parameter
+    Buildings.Fluid.Movers.BaseClasses.Characteristics.efficiencyParameters
+    hydraulicEfficiency(
+      V_flow=power.V_flow,
+      eta=if use_powerCharacteristic then
+       {sqrt(power.V_flow[i]*pressure.dp[i]/
+        Buildings.Fluid.Movers.BaseClasses.Characteristics.power(
+          per=power,
+          V_flow=power.V_flow[i],
+          r_N=1,
+          delta=0.01,
+          d=Buildings.Utilities.Math.Functions.splineDerivatives(
+          x=power.V_flow,
+          y=power.P))
+          ) for i in 1:size(power.V_flow, 1)}
+       else {0.7 for i in 1:size(power.V_flow, 1)}) &quot;Hydraulic efficiency&quot;;
+
+   parameter
+    Buildings.Fluid.Movers.BaseClasses.Characteristics.efficiencyParameters
+    motorEfficiency(V_flow=power.V_flow,
+      eta=if use_powerCharacteristic then
+        sqrt(power.V_flow.*pressure.dp./
+        {Buildings.Fluid.Movers.BaseClasses.Characteristics.power(
+          per=power,
+          V_flow=i,
+          r_N=1,
+          delta=0.01,
+          d=Buildings.Utilities.Math.Functions.splineDerivatives(
+          x=power.V_flow,
+          y=power.P))
+          for i in power.V_flow})
+          else
+          {0.7 for i in power.V_flow}) &quot;Electric motor efficiency&quot;;
+*/</span>
+
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>SpeedControlled_y;
+</div>
+<hr>
+<address>
+<a href="http://www.3ds.com/">Automatically generated</a> Thu Apr  9 09:36:23 2015.
+</address>
+</body>
+</html>

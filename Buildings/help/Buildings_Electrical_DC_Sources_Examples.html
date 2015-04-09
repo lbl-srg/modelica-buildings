@@ -1,0 +1,346 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>Buildings.Electrical.DC.Sources.Examples</title>
+<meta name="HTML-Generator" content="Dymola">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="description" content="&quot;Package with example models&quot;">
+<style type="text/css">
+*       { font-size: 10pt; font-family: Arial, sans-serif; }
+.modelica, .modelica * { font-size: 9pt; font-family: Courier, monospace; white-space: pre; }
+h4      { font-size: 10pt; font-weight: bold; color: green; }
+h3      { font-size: 11pt; font-weight: bold; color: green; }
+h2      { font-size: 13pt; font-weight: bold; color: green; }
+address { font-weight: normal; }
+td      { border: 1px solid #808080; vertical-align: top; }
+th      { border: 1px solid #808080; vertical-align: top; font-weight: bold; }
+table   { border: 1px solid #808080; border-collapse: collapse; }
+</style>
+<link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../Resources/www/modelicaDoc.css">
+</HEAD>
+<body>
+<!-- --- header ------ -->
+<div class="headerStyle">
+<img src="../Resources/www/lbl-logo.png" alt="LBL logo"/>
+</div>
+<div class="headerLinks">
+<ul><li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt; <a href="Buildings.html">Modelica</a></li></ul>
+</div>
+<!-- --- end header -- -->
+
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE Examples<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><a name="Buildings.Electrical.DC.Sources.Examples"></a><a href="Buildings_Electrical_DC_Sources.html#Buildings.Electrical.DC.Sources"
+>Buildings.Electrical.DC.Sources</a>.Examples</h2>
+<p>
+<b>Package with example models</b><br>
+</p>
+<h3>Information</h3>
+
+<p>
+This package contains examples for the use of models that can be found in
+<a href="Buildings_Electrical_DC_Sources.html#Buildings.Electrical.DC.Sources"
+>
+Buildings.Electrical.DC.Sources</a>.
+</p>
+
+<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons_ExamplesPackage.html#Modelica.Icons.ExamplesPackage"
+>Modelica.Icons.ExamplesPackage</a> (Icon for packages containing runnable examples).</p>
+<h3>Package Content</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Package Content">
+<tr>
+<th>Name</th>
+<th>Description</th>
+</tr>
+<tr>
+<td><img src="Buildings.Electrical.DC.Sa59168fb2371c632impleS.png" alt="Buildings.Electrical.DC.Sources.Examples.PVSimple" width="20" height="20" align="top">&nbsp;<a href="Buildings_Electrical_DC_Sources_Examples.html#Buildings.Electrical.DC.Sources.Examples.PVSimple"
+>PVSimple</a>
+</td>
+<td>Example for the PVSimple model with constant load</td>
+</tr>
+<tr>
+<td><img src="Buildings.Electrical.DC.Sa59168fb2371c632impleS.png" alt="Buildings.Electrical.DC.Sources.Examples.PVSimpleOriented" width="20" height="20" align="top">&nbsp;<a href="Buildings_Electrical_DC_Sources_Examples.html#Buildings.Electrical.DC.Sources.Examples.PVSimpleOriented"
+>PVSimpleOriented</a>
+</td>
+<td>Example for the PVSimpleOriented model with constant load</td>
+</tr>
+<tr>
+<td><img src="Buildings.Electrical.DC.Sa59168fb2371c632impleS.png" alt="Buildings.Electrical.DC.Sources.Examples.VoltageSource" width="20" height="20" align="top">&nbsp;<a href="Buildings_Electrical_DC_Sources_Examples.html#Buildings.Electrical.DC.Sources.Examples.VoltageSource"
+>VoltageSource</a>
+</td>
+<td>Example for the variable voltage source model</td>
+</tr>
+<tr>
+<td><img src="Buildings.Electrical.DC.S72b30e38a8e0e52brbineS.png" alt="Buildings.Electrical.DC.Sources.Examples.WindTurbine" width="20" height="20" align="top">&nbsp;<a href="Buildings_Electrical_DC_Sources_Examples.html#Buildings.Electrical.DC.Sources.Examples.WindTurbine"
+>WindTurbine</a>
+</td>
+<td>Example for the WindTurbine model</td>
+</tr>
+</table>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE PVSimple<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Electrical.DC.Sa59168fb2371c632impleI.png" alt="Buildings.Electrical.DC.Sources.Examples.PVSimple" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Electrical.DC.Sources.Examples.PVSimple"></a><a href="Buildings_Electrical_DC_Sources_Examples.html#Buildings.Electrical.DC.Sources.Examples"
+>Buildings.Electrical.DC.Sources.Examples</a>.PVSimple</h2>
+<p>
+<b>Example for the PVSimple model with constant load</b>
+<br>
+<br><img src="Buildings.Electrical.DC.Sa59168fb2371c632impleD.png" alt="Buildings.Electrical.DC.Sources.Examples.PVSimple">
+</p>
+<h3>Information</h3>
+
+<p>
+This model illustrates the use of the photovoltaic model.
+The total solar irradiation is computed based
+on a weather data file.
+The PV is connected to a circuit that has a constant voltage
+source and a resistance.
+This voltage source may be a DC grid to which the
+circuit is connected.
+The power sensor shows how much electrical power is consumed or fed into the voltage source.
+In actual systems, the voltage source may be an AC/DC converter.
+</p>
+
+<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</a> (Icon for runnable examples).</p>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">model</span> PVSimple <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Example for the PVSimple model with constant load&quot;</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</a>;
+  <a href="Buildings_Electrical_DC_Sources.html#Buildings.Electrical.DC.Sources.PVSimple"
+>Buildings.Electrical.DC.Sources.PVSimple</a>     pv(A=10, V_nominal=12) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;PV module&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Electrical_Analog_Basic.html#Modelica.Electrical.Analog.Basic.Ground"
+>Modelica.Electrical.Analog.Basic.Ground</a> ground;
+  <a href="Buildings_Electrical_DC_Loads.html#Buildings.Electrical.DC.Loads.Resistor"
+>Buildings.Electrical.DC.Loads.Resistor</a>    res(R=0.5, V_nominal=12) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Resistance&quot;</span>;
+  <a href="Buildings_Electrical_DC_Sources.html#Buildings.Electrical.DC.Sources.ConstantVoltage"
+>Buildings.Electrical.DC.Sources.ConstantVoltage</a>    sou(V=12) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Voltage source&quot;</span>;
+  <a href="Buildings_BoundaryConditions_SolarIrradiation.html#Buildings.BoundaryConditions.SolarIrradiation.DiffusePerez"
+>Buildings.BoundaryConditions.SolarIrradiation.DiffusePerez</a> HDifTil(
+    til=0.34906585039887,
+    lat=0.65798912800186,
+    azi=-0.78539816339745) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Diffuse irradiation on tilted surface&quot;</span>;
+  <a href="Buildings_BoundaryConditions_SolarIrradiation.html#Buildings.BoundaryConditions.SolarIrradiation.DirectTiltedSurface"
+>Buildings.BoundaryConditions.SolarIrradiation.DirectTiltedSurface</a> HDirTil(
+    til=0.34906585039887,
+    lat=0.65798912800186,
+    azi=-0.78539816339745) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Direct irradiation on tilted surface&quot;</span>;
+  <a href="Buildings_BoundaryConditions_WeatherData.html#Buildings.BoundaryConditions.WeatherData.ReaderTMY3"
+>Buildings.BoundaryConditions.WeatherData.ReaderTMY3</a> weaDat(
+      computeWetBulbTemperature=false,
+      filNam=&quot;modelica://Buildings/Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos&quot;);
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Math.html#Modelica.Blocks.Math.Add"
+>Modelica.Blocks.Math.Add</a> G <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Total irradiation on tilted surface&quot;</span>;
+  <a href="Buildings_Electrical_DC_Lines.html#Buildings.Electrical.DC.Lines.TwoPortResistance"
+>Buildings.Electrical.DC.Lines.TwoPortResistance</a> lin(R=0.05) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Transmission line&quot;</span>;
+  <a href="Buildings_Electrical_DC_Sensors.html#Buildings.Electrical.DC.Sensors.GeneralizedSensor"
+>Buildings.Electrical.DC.Sensors.GeneralizedSensor</a> sen <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Sensor&quot;</span>;
+<span style="color: blue; font-weight: normal; font-style: normal;">equation </span>
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(weaDat.weaBus, HDifTil.weaBus);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(weaDat.weaBus, HDirTil.weaBus);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(HDifTil.H, G.u1);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(HDirTil.H, G.u2);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(G.y, pv.G);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(sou.terminal, res.terminal);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(lin.terminal_n, res.terminal);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(lin.terminal_p, sen.terminal_n);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(sen.terminal_p, pv.terminal);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(sou.n, ground.p);
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>PVSimple;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE PVSimpleOriented<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Electrical.DC.Sa59168fb2371c632impleI.png" alt="Buildings.Electrical.DC.Sources.Examples.PVSimpleOriented" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Electrical.DC.Sources.Examples.PVSimpleOriented"></a><a href="Buildings_Electrical_DC_Sources_Examples.html#Buildings.Electrical.DC.Sources.Examples"
+>Buildings.Electrical.DC.Sources.Examples</a>.PVSimpleOriented</h2>
+<p>
+<b>Example for the PVSimpleOriented model with constant load</b>
+<br>
+<br><img src="Buildings.Electrical.DC.S426123c325a0ec82entedD.png" alt="Buildings.Electrical.DC.Sources.Examples.PVSimpleOriented">
+</p>
+<h3>Information</h3>
+
+<p>
+This model illustrates the use of the photovoltaic model.
+The total solar irradiation is computed internally by the PV
+model through a connection to the weather bus.
+The PV is connected to a circuit that has a constant voltage
+source and a resistance.
+This voltage source may be a DC grid to which the
+circuit is connected.
+The power sensor shows how much electrical power is consumed or fed into the voltage source.
+In actual systems, the voltage source may be an AC/DC converter.
+</p>
+
+<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</a> (Icon for runnable examples).</p>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">model</span> PVSimpleOriented <span style="color: #006400; font-weight: normal; font-style: normal;">
+  &quot;Example for the PVSimpleOriented model with constant load&quot;</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</a>;
+  <a href="Buildings_Electrical_DC_Sources.html#Buildings.Electrical.DC.Sources.PVSimpleOriented"
+>Buildings.Electrical.DC.Sources.PVSimpleOriented</a>
+                                               pv(A=10,
+    V_nominal=12,
+    til=0.34906585039887,
+    lat=0.65798912800186,
+    azi=-0.78539816339745) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;PV module&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Electrical_Analog_Basic.html#Modelica.Electrical.Analog.Basic.Ground"
+>Modelica.Electrical.Analog.Basic.Ground</a> ground;
+  <a href="Buildings_Electrical_DC_Loads.html#Buildings.Electrical.DC.Loads.Resistor"
+>Buildings.Electrical.DC.Loads.Resistor</a>    res(R=0.5, V_nominal=12) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Resistance&quot;</span>;
+  <a href="Buildings_Electrical_DC_Sources.html#Buildings.Electrical.DC.Sources.ConstantVoltage"
+>Buildings.Electrical.DC.Sources.ConstantVoltage</a>    sou(V=12) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Voltage source&quot;</span>;
+  <a href="Buildings_BoundaryConditions_WeatherData.html#Buildings.BoundaryConditions.WeatherData.ReaderTMY3"
+>Buildings.BoundaryConditions.WeatherData.ReaderTMY3</a> weaDat(
+      computeWetBulbTemperature=false, filNam=&quot;modelica://Buildings/Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos&quot;);
+  <a href="Buildings_Electrical_DC_Lines.html#Buildings.Electrical.DC.Lines.TwoPortResistance"
+>Buildings.Electrical.DC.Lines.TwoPortResistance</a> lin(R=0.05) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Transmission line&quot;</span>;
+  <a href="Buildings_Electrical_DC_Sensors.html#Buildings.Electrical.DC.Sensors.GeneralizedSensor"
+>Buildings.Electrical.DC.Sensors.GeneralizedSensor</a> sen <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Sensor&quot;</span>;
+<span style="color: blue; font-weight: normal; font-style: normal;">equation </span>
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(sou.terminal, res.terminal);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(lin.terminal_n, res.terminal);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(lin.terminal_p, sen.terminal_n);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(sen.terminal_p, pv.terminal);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(sou.n, ground.p);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(weaDat.weaBus, pv.weaBus);
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>PVSimpleOriented;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE VoltageSource<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Electrical.DC.Sa59168fb2371c632impleI.png" alt="Buildings.Electrical.DC.Sources.Examples.VoltageSource" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Electrical.DC.Sources.Examples.VoltageSource"></a><a href="Buildings_Electrical_DC_Sources_Examples.html#Buildings.Electrical.DC.Sources.Examples"
+>Buildings.Electrical.DC.Sources.Examples</a>.VoltageSource</h2>
+<p>
+<b>Example for the variable voltage source model</b>
+<br>
+<br><img src="Buildings.Electrical.DC.S0b97c83e32f3cb33ourceD.png" alt="Buildings.Electrical.DC.Sources.Examples.VoltageSource">
+</p>
+<h3>Information</h3>
+
+<p>
+This model illustrates the use of the variable voltage source model.
+</p>
+
+<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</a> (Icon for runnable examples).</p>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">model</span> VoltageSource <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Example for the variable voltage source model&quot;</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</a>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Electrical_Analog_Basic.html#Modelica.Electrical.Analog.Basic.Ground"
+>Modelica.Electrical.Analog.Basic.Ground</a> ground;
+  <a href="Buildings_Electrical_DC_Loads.html#Buildings.Electrical.DC.Loads.Resistor"
+>Buildings.Electrical.DC.Loads.Resistor</a>    res(R=0.5, V_nominal=12) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Resistance&quot;</span>;
+  <a href="Buildings_Electrical_DC_Sources.html#Buildings.Electrical.DC.Sources.VoltageSource"
+>Buildings.Electrical.DC.Sources.VoltageSource</a>      sou <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Voltage source&quot;</span>;
+  <a href="Buildings_Electrical_DC_Lines.html#Buildings.Electrical.DC.Lines.TwoPortResistance"
+>Buildings.Electrical.DC.Lines.TwoPortResistance</a> lin(R=0.5) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Transmission line&quot;</span>;
+  <a href="Buildings_Electrical_DC_Sensors.html#Buildings.Electrical.DC.Sensors.GeneralizedSensor"
+>Buildings.Electrical.DC.Sensors.GeneralizedSensor</a> sen <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Sensor&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Sine"
+>Modelica.Blocks.Sources.Sine</a> cosine(
+    phase=0,
+    freqHz=1,
+    offset=12,
+    amplitude=3) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Variable voltage signal&quot;</span>;
+<span style="color: blue; font-weight: normal; font-style: normal;">equation </span>
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(lin.terminal_p, sen.terminal_n);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(sou.n, ground.p);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(sen.terminal_p, res.terminal);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(sou.terminal, lin.terminal_n);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(cosine.y, sou.V_in);
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>VoltageSource;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE WindTurbine<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Electrical.DC.S72b30e38a8e0e52brbineI.png" alt="Buildings.Electrical.DC.Sources.Examples.WindTurbine" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Electrical.DC.Sources.Examples.WindTurbine"></a><a href="Buildings_Electrical_DC_Sources_Examples.html#Buildings.Electrical.DC.Sources.Examples"
+>Buildings.Electrical.DC.Sources.Examples</a>.WindTurbine</h2>
+<p>
+<b>Example for the WindTurbine model</b>
+<br>
+<br><img src="Buildings.Electrical.DC.S72b30e38a8e0e52brbineD.png" alt="Buildings.Electrical.DC.Sources.Examples.WindTurbine">
+</p>
+<h3>Information</h3>
+
+<p>
+This model illustrates the use of the wind turbine model which is connected to a DC voltage source and a resistance.
+This voltage source may be a DC grid to which the
+circuit is connected.
+Wind data for San Francisco, CA, are used.
+The turbine cut-in wind speed is <i>3.5</i> m/s,
+and hence it is off in the first day when the wind speed is low.
+</p>
+
+<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</a> (Icon for runnable examples).</p>
+<h3>Connectors</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Connectors">
+<tr><th>Type</th><th>Name</th><th>Description</th></tr>
+<tr><td><a href="Buildings_BoundaryConditions_WeatherData.html#Buildings.BoundaryConditions.WeatherData.Bus"
+>Bus</a></td><td>weaBus</td><td>&nbsp;</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">model</span> WindTurbine <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Example for the WindTurbine model&quot;</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</a>;
+  <a href="Buildings_Electrical_DC_Sources.html#Buildings.Electrical.DC.Sources.WindTurbine"
+>Buildings.Electrical.DC.Sources.WindTurbine</a>           tur(
+    table=[3.5, 0;
+           5.5,   100;
+           12, 900;
+           14, 1000;
+           25, 1000], h=10,
+    V_nominal=12) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Wind turbine&quot;</span>;
+  <a href="Buildings_BoundaryConditions_WeatherData.html#Buildings.BoundaryConditions.WeatherData.ReaderTMY3"
+>Buildings.BoundaryConditions.WeatherData.ReaderTMY3</a> weaDat(
+      computeWetBulbTemperature=false, filNam=&quot;modelica://Buildings/Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos&quot;);
+  <a href="Buildings_BoundaryConditions_WeatherData.html#Buildings.BoundaryConditions.WeatherData.Bus"
+>Buildings.BoundaryConditions.WeatherData.Bus</a> weaBus;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Electrical_Analog_Basic.html#Modelica.Electrical.Analog.Basic.Ground"
+>Modelica.Electrical.Analog.Basic.Ground</a> ground;
+  <a href="Buildings_Electrical_DC_Loads.html#Buildings.Electrical.DC.Loads.Resistor"
+>Buildings.Electrical.DC.Loads.Resistor</a>    res(R=0.5, V_nominal=12) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Resistance&quot;</span>;
+  <a href="Buildings_Electrical_DC_Sources.html#Buildings.Electrical.DC.Sources.ConstantVoltage"
+>Buildings.Electrical.DC.Sources.ConstantVoltage</a>    sou(V=12) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Voltage source&quot;</span>;
+  <a href="Buildings_Electrical_DC_Lines.html#Buildings.Electrical.DC.Lines.TwoPortResistance"
+>Buildings.Electrical.DC.Lines.TwoPortResistance</a> lin(R=0.05) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Transmission line&quot;</span>;
+  <a href="Buildings_Electrical_DC_Sensors.html#Buildings.Electrical.DC.Sensors.GeneralizedSensor"
+>Buildings.Electrical.DC.Sensors.GeneralizedSensor</a> sen <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Sensor&quot;</span>;
+<span style="color: blue; font-weight: normal; font-style: normal;">equation </span>
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(weaDat.weaBus,weaBus);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(weaBus.winSpe,tur. vWin);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(sou.terminal, res.terminal);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(lin.terminal_n, res.terminal);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(lin.terminal_p, sen.terminal_n);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(sen.terminal_p, tur.terminal);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(sou.n, ground.p);
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>WindTurbine;
+</div>
+<hr>
+<address>
+<a href="http://www.3ds.com/">Automatically generated</a> Thu Apr  9 09:34:16 2015.
+</address>
+</body>
+</html>

@@ -1,0 +1,134 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>Buildings.Electrical.Types</title>
+<meta name="HTML-Generator" content="Dymola">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="description" content="&quot;This package contains new types used within the Electrical package&quot;">
+<style type="text/css">
+*       { font-size: 10pt; font-family: Arial, sans-serif; }
+.modelica, .modelica * { font-size: 9pt; font-family: Courier, monospace; white-space: pre; }
+h4      { font-size: 10pt; font-weight: bold; color: green; }
+h3      { font-size: 11pt; font-weight: bold; color: green; }
+h2      { font-size: 13pt; font-weight: bold; color: green; }
+address { font-weight: normal; }
+td      { border: 1px solid #808080; vertical-align: top; }
+th      { border: 1px solid #808080; vertical-align: top; font-weight: bold; }
+table   { border: 1px solid #808080; border-collapse: collapse; }
+</style>
+<link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../Resources/www/modelicaDoc.css">
+</HEAD>
+<body>
+<!-- --- header ------ -->
+<div class="headerStyle">
+<img src="../Resources/www/lbl-logo.png" alt="LBL logo"/>
+</div>
+<div class="headerLinks">
+<ul><li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt; <a href="Buildings.html">Modelica</a></li></ul>
+</div>
+<!-- --- end header -- -->
+
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE Types<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><a name="Buildings.Electrical.Types"></a><a href="Buildings_Electrical.html#Buildings.Electrical"
+>Buildings.Electrical</a>.Types</h2>
+<p>
+<b>This package contains new types used within the Electrical package</b><br>
+</p>
+<h3>Information</h3>
+
+This package contains type definitions.
+
+<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons_TypesPackage.html#Modelica.Icons.TypesPackage"
+>Modelica.Icons.TypesPackage</a> (Icon for packages containing type definitions).</p>
+<h3>Package Content</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Package Content">
+<tr>
+<th>Name</th>
+<th>Description</th>
+</tr>
+<tr>
+<td><a href="Buildings_Electrical_Types.html#Buildings.Electrical.Types.CableMode"
+>CableMode</a>
+</td>
+<td>Enumeration that defines how a cable can be parameterized</td>
+</tr>
+<tr>
+<td><a href="Buildings_Electrical_Types.html#Buildings.Electrical.Types.CharacteristicReactance"
+>CharacteristicReactance</a>
+</td>
+<td>Reactance per unit length</td>
+</tr>
+<tr>
+<td><a href="Buildings_Electrical_Types.html#Buildings.Electrical.Types.CharacteristicResistance"
+>CharacteristicResistance</a>
+</td>
+<td>Resistance per unit length</td>
+</tr>
+<tr>
+<td><a href="Buildings_Electrical_Types.html#Buildings.Electrical.Types.InitMode"
+>InitMode</a>
+</td>
+<td>Enumeration that defines the type of initialization assumption can be used for a load model</td>
+</tr>
+<tr>
+<td><a href="Buildings_Electrical_Types.html#Buildings.Electrical.Types.Load"
+>Load</a>
+</td>
+<td>Enumeration that defines the modelling assumption of the load.</td>
+</tr>
+<tr>
+<td><a href="Buildings_Electrical_Types.html#Buildings.Electrical.Types.LoadConnection"
+>LoadConnection</a>
+</td>
+<td>Enumeration that defines the type of connection can be used for three-phase unbalanced systems</td>
+</tr>
+<tr>
+<td><a href="Buildings_Electrical_Types.html#Buildings.Electrical.Types.PerUnit"
+>PerUnit</a>
+</td>
+<td>Used to represent electric quantities with respect to reference value</td>
+</tr>
+<tr>
+<td><a href="Buildings_Electrical_Types.html#Buildings.Electrical.Types.VoltageLevel"
+>VoltageLevel</a>
+</td>
+<td>Enumeration that defines the type of voltage level</td>
+</tr>
+</table>
+<h3>Types and constants</h3>
+<a name="Buildings.Electrical.Types.CableMode"></a><pre>  <span style="color: blue; font-weight: normal; font-style: normal;">type</span> CableMode = <span style="color: blue; font-weight: normal; font-style: normal;">enumeration</span>(
+    automatic <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Select automatically the size of the cable&quot;</span>,
+    commercial <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Select the cable from a list of commercial options&quot;</span>) <span style="color: #006400; font-weight: normal; font-style: normal;">
+  &quot;Enumeration that defines how a cable can be parameterized&quot;</span>;</pre>
+<a name="Buildings.Electrical.Types.CharacteristicReactance"></a><pre>  <span style="color: blue; font-weight: normal; font-style: normal;">type</span> CharacteristicReactance =  Real (<span style="color: blue; font-weight: normal; font-style: normal;">final </span>quantity=&quot;Reactance per meter&quot;,  <span style="color: blue; font-weight: normal; font-style: normal;">final </span>unit=&quot;Ohm/m&quot;) <span style="color: #006400; font-weight: normal; font-style: normal;">
+  &quot;Reactance per unit length&quot;</span>;</pre>
+<a name="Buildings.Electrical.Types.CharacteristicResistance"></a><pre>  <span style="color: blue; font-weight: normal; font-style: normal;">type</span> CharacteristicResistance = Real (<span style="color: blue; font-weight: normal; font-style: normal;">final </span>quantity=&quot;Resistance per meter&quot;, <span style="color: blue; font-weight: normal; font-style: normal;">final </span>unit=&quot;Ohm/m&quot;) <span style="color: #006400; font-weight: normal; font-style: normal;">
+  &quot;Resistance per unit length&quot;</span>;</pre>
+<a name="Buildings.Electrical.Types.InitMode"></a><pre>  <span style="color: blue; font-weight: normal; font-style: normal;">type</span> InitMode = <span style="color: blue; font-weight: normal; font-style: normal;">enumeration</span>(
+    zero_current <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Assume i=0 during homotopy initialization&quot;</span>,
+    linearized <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Uses linear model during homotopy initialization&quot;</span>) <span style="color: #006400; font-weight: normal; font-style: normal;">
+  &quot;Enumeration that defines the type of initialization assumption can be used for a load model&quot;</span>;</pre>
+<a name="Buildings.Electrical.Types.Load"></a><pre>  <span style="color: blue; font-weight: normal; font-style: normal;">type</span> Load = <span style="color: blue; font-weight: normal; font-style: normal;">enumeration</span>(
+    FixedZ_steady_state <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Fixed Z, steady-state&quot;</span>,
+    FixedZ_dynamic <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Fixed Z, dynamic&quot;</span>,
+    VariableZ_P_input <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Variable Z, P input&quot;</span>,
+    VariableZ_y_input <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Variable Z, y input&quot;</span>) <span style="color: #006400; font-weight: normal; font-style: normal;">
+  &quot;Enumeration that defines the modelling assumption of the load.&quot;</span>;</pre>
+<a name="Buildings.Electrical.Types.LoadConnection"></a><pre>  <span style="color: blue; font-weight: normal; font-style: normal;">type</span> LoadConnection = <span style="color: blue; font-weight: normal; font-style: normal;">enumeration</span>(
+    wye_to_wyeg <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Wye to wye grounded&quot;</span>,
+    wye_to_delta <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Wye to delta&quot;</span>) <span style="color: #006400; font-weight: normal; font-style: normal;">
+  &quot;Enumeration that defines the type of connection can be used for three-phase unbalanced systems&quot;</span>;</pre>
+<a name="Buildings.Electrical.Types.PerUnit"></a><pre>  <span style="color: blue; font-weight: normal; font-style: normal;">type</span> PerUnit = Real (<span style="color: blue; font-weight: normal; font-style: normal;">final </span>quantity=&quot;Per unit&quot;, <span style="color: blue; font-weight: normal; font-style: normal;">final </span>unit=&quot;1&quot;, min=0) <span style="color: #006400; font-weight: normal; font-style: normal;">
+  &quot;Used to represent electric quantities with respect to reference value&quot;</span>;</pre>
+<a name="Buildings.Electrical.Types.VoltageLevel"></a><pre>  <span style="color: blue; font-weight: normal; font-style: normal;">type</span> VoltageLevel = <span style="color: blue; font-weight: normal; font-style: normal;">enumeration</span>(
+    Low <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Low voltage&quot;</span>,
+    Medium <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Medium voltage&quot;</span>,
+    High <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;High voltage&quot;</span>) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Enumeration that defines the type of voltage level&quot;</span>;</pre>
+<hr>
+<address>
+<a href="http://www.3ds.com/">Automatically generated</a> Thu Apr  9 09:34:20 2015.
+</address>
+</body>
+</html>

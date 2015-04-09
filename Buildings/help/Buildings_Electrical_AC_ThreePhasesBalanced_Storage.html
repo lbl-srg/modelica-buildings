@@ -1,0 +1,144 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>Buildings.Electrical.AC.ThreePhasesBalanced.Storage</title>
+<meta name="HTML-Generator" content="Dymola">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="description" content="&quot;Package with models for electrical storage with a AC three-phase balanced connector&quot;">
+<style type="text/css">
+*       { font-size: 10pt; font-family: Arial, sans-serif; }
+.modelica, .modelica * { font-size: 9pt; font-family: Courier, monospace; white-space: pre; }
+h4      { font-size: 10pt; font-weight: bold; color: green; }
+h3      { font-size: 11pt; font-weight: bold; color: green; }
+h2      { font-size: 13pt; font-weight: bold; color: green; }
+address { font-weight: normal; }
+td      { border: 1px solid #808080; vertical-align: top; }
+th      { border: 1px solid #808080; vertical-align: top; font-weight: bold; }
+table   { border: 1px solid #808080; border-collapse: collapse; }
+</style>
+<link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../Resources/www/modelicaDoc.css">
+</HEAD>
+<body>
+<!-- --- header ------ -->
+<div class="headerStyle">
+<img src="../Resources/www/lbl-logo.png" alt="LBL logo"/>
+</div>
+<div class="headerLinks">
+<ul><li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt; <a href="Buildings.html">Modelica</a></li></ul>
+</div>
+<!-- --- end header -- -->
+
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE Storage<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><a name="Buildings.Electrical.AC.ThreePhasesBalanced.Storage"></a><a href="Buildings_Electrical_AC_ThreePhasesBalanced.html#Buildings.Electrical.AC.ThreePhasesBalanced"
+>Buildings.Electrical.AC.ThreePhasesBalanced</a>.Storage</h2>
+<p>
+<b>Package with models for electrical storage with a AC three-phase balanced connector</b><br>
+</p>
+<h3>Information</h3>
+
+<p>
+This package contains models for storage elements with an AC three-phase
+balanced connector.
+</p>
+
+<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons_Package.html#Modelica.Icons.Package"
+>Modelica.Icons.Package</a> (Icon for standard packages).</p>
+<h3>Package Content</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Package Content">
+<tr>
+<th>Name</th>
+<th>Description</th>
+</tr>
+<tr>
+<td><img src="Buildings.Electrical.AC.T3667c2a510a9bbdetteryS.png" alt="Buildings.Electrical.AC.ThreePhasesBalanced.Storage.Battery" width="20" height="20" align="top">&nbsp;<a href="Buildings_Electrical_AC_ThreePhasesBalanced_Storage.html#Buildings.Electrical.AC.ThreePhasesBalanced.Storage.Battery"
+>Battery</a>
+</td>
+<td>Simple model of a battery</td>
+</tr>
+<tr>
+<td><img src="Buildings.Electrical.AC.T551bfef97eadf00fmplesS.png" alt="Buildings.Electrical.AC.ThreePhasesBalanced.Storage.Examples" width="20" height="20" align="top">&nbsp;<a href="Buildings_Electrical_AC_ThreePhasesBalanced_Storage_Examples.html#Buildings.Electrical.AC.ThreePhasesBalanced.Storage.Examples"
+>Examples</a>
+</td>
+<td>Package with example models</td>
+</tr>
+</table>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE Battery<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Electrical.AC.T3667c2a510a9bbdetteryI.png" alt="Buildings.Electrical.AC.ThreePhasesBalanced.Storage.Battery" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Electrical.AC.ThreePhasesBalanced.Storage.Battery"></a><a href="Buildings_Electrical_AC_ThreePhasesBalanced_Storage.html#Buildings.Electrical.AC.ThreePhasesBalanced.Storage"
+>Buildings.Electrical.AC.ThreePhasesBalanced.Storage</a>.Battery</h2>
+<p>
+<b>Simple model of a battery</b>
+<br>
+<br><img src="Buildings.Electrical.AC.T3667c2a510a9bbdetteryD.png" alt="Buildings.Electrical.AC.ThreePhasesBalanced.Storage.Battery">
+</p>
+<h3>Information</h3>
+
+<p>
+Simple model of a battery.
+</p>
+<p>
+This model takes as an input the power to be stored in the battery (if <i>P &gt; 0</i>)
+or to be extracted from the battery. This model takes into account the efficiency of the conversion
+between DC and AC <i>&eta;<sub>DCAC</sub></i>.
+</p>
+<p>
+The output connector <code>SOC</code> is the state of charge of the battery.
+This model does not enforce that the state of charge is between zero and one.
+However, each time the state of charge crosses zero or one, a warning will
+be written to the simulation log file.
+The model also does not limit the current through the battery. The user should
+provide a control so that only a reasonable amount of power is exchanged,
+and that the state of charge remains between zero and one.
+</p>
+
+<p>Extends from <a href="Buildings_Electrical_AC_OnePhase_Storage.html#Buildings.Electrical.AC.OnePhase.Storage.Battery"
+>Buildings.Electrical.AC.OnePhase.Storage.Battery</a> (Simple model of a battery).</p>
+<h3>Parameters</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td colspan="2">replaceable package PhaseSystem</td><td><a href="Buildings_Electrical_PhaseSystems_OnePhase.html#Buildings.Electrical.PhaseSystems.OnePhase"
+>OnePhase</a></td><td>Phase system</td></tr>
+<tr><td>Real</td><td>etaCha</td><td>0.9</td><td>Efficiency during charging [1]</td></tr>
+<tr><td>Real</td><td>etaDis</td><td>0.9</td><td>Efficiency during discharging [1]</td></tr>
+<tr><td>Real</td><td>SOC_start</td><td>&nbsp;</td><td>Initial charge</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Energy"
+>Energy</a></td><td>EMax</td><td>&nbsp;</td><td>Maximum available charge [J]</td></tr>
+<tr><td>Boolean</td><td>linearized</td><td>false</td><td>If =true introduce a linearization in the load</td></tr>
+<tr style="background-color: #e0e0e0"><td colspan="4">AC-Conversion</td></tr>
+<tr><td>Real</td><td>pf</td><td>0.9</td><td>Power factor</td></tr>
+<tr><td>Real</td><td>eta_DCAC</td><td>0.9</td><td>Efficiency of DC/AC conversion</td></tr>
+<tr style="background-color: #c0c0c0"><td colspan="4"><b>Initialization</b></td></tr>
+<tr><td><a href="Buildings_Electrical_Types.html#Buildings.Electrical.Types.InitMode"
+>InitMode</a></td><td>initMode</td><td>Buildings.Electrical.Types.I...</td><td>Initialization mode for homotopy operator</td></tr>
+</table>
+<h3>Connectors</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Connectors">
+<tr><th>Type</th><th>Name</th><th>Description</th></tr>
+<tr><td>input <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>RealInput</a></td><td>P</td><td>Power stored in battery (if positive), or extracted from battery (if negative) [W]</td></tr>
+<tr><td>output <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+>RealOutput</a></td><td>SOC</td><td>State of charge</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">model</span> Battery <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Simple model of a battery&quot;</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="Buildings_Electrical_AC_OnePhase_Storage.html#Buildings.Electrical.AC.OnePhase.Storage.Battery"
+>Buildings.Electrical.AC.OnePhase.Storage.Battery</a>(<span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><a href="Buildings_Electrical_AC_ThreePhasesBalanced_Interfaces.html#Buildings.Electrical.AC.ThreePhasesBalanced.Interfaces.Terminal_p"
+>Interfaces.Terminal_p</a>
+                            terminal,
+      V_nominal(start=480),
+      <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><a href="Buildings_Electrical_AC_ThreePhasesBalanced_Loads.html#Buildings.Electrical.AC.ThreePhasesBalanced.Loads.Resistive"
+>Buildings.Electrical.AC.ThreePhasesBalanced.Loads.Resistive</a> bat);
+
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>Battery;
+</div>
+<hr>
+<address>
+<a href="http://www.3ds.com/">Automatically generated</a> Thu Apr  9 09:33:17 2015.
+</address>
+</body>
+</html>

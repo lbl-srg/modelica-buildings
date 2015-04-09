@@ -1,0 +1,445 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>Buildings.Examples.ChillerPlant</title>
+<meta name="HTML-Generator" content="Dymola">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="description" content="&quot;Chiller plant with water side economizer for data center&quot;">
+<style type="text/css">
+*       { font-size: 10pt; font-family: Arial, sans-serif; }
+.modelica, .modelica * { font-size: 9pt; font-family: Courier, monospace; white-space: pre; }
+h4      { font-size: 10pt; font-weight: bold; color: green; }
+h3      { font-size: 11pt; font-weight: bold; color: green; }
+h2      { font-size: 13pt; font-weight: bold; color: green; }
+address { font-weight: normal; }
+td      { border: 1px solid #808080; vertical-align: top; }
+th      { border: 1px solid #808080; vertical-align: top; font-weight: bold; }
+table   { border: 1px solid #808080; border-collapse: collapse; }
+</style>
+<link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../Resources/www/modelicaDoc.css">
+</HEAD>
+<body>
+<!-- --- header ------ -->
+<div class="headerStyle">
+<img src="../Resources/www/lbl-logo.png" alt="LBL logo"/>
+</div>
+<div class="headerLinks">
+<ul><li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt; <a href="Buildings.html">Modelica</a></li></ul>
+</div>
+<!-- --- end header -- -->
+
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE ChillerPlant<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><a name="Buildings.Examples.ChillerPlant"></a><a href="Buildings_Examples.html#Buildings.Examples"
+>Buildings.Examples</a>.ChillerPlant</h2>
+<p>
+<b>Chiller plant with water side economizer for data center</b><br>
+</p>
+<h3>Information</h3>
+
+<h4>System Configuration</h4>
+<p>This example demonstrates the implementation of a chiller plant with water-side economizer (WSE) to cool a data center.
+The system schematics is as shown below.
+</p>
+<p align="center">
+<img alt="image" src="../Resources/Images/Examples/ChillerPlant/chillerSchematics.png" border="1"/>
+</p>
+<p>
+The system is a primary-only chiller plant with integrated WSE.
+The objective was to improve the energy efficiency of the chilled water plant by optimizing the control setpoints.
+The room of the data center was modeled using a mixed air volume with a heat source.
+Heat conduction and air infiltration through the building envelope were neglected since the heat exchange between the room and the ambient environment was small compared to the heat released by the computers.
+</p>
+<p>
+The control objective was to maintain the temperature of the supply air to the room, while reducing energy consumption of the chilled water plant.
+The control was based on the control sequence proposed by Stein (2009).
+To simplify the implementation, we only applied the controls for the differential pressure of the chilled water loop, the setpoint temperature of the chilled water leaving the chiller, and the chiller and WSE on/off control.
+</p>
+<h4>Enabling/Disabling the WSE</h4>
+<p>
+The WSE is enabled when
+</p>
+<ol>
+<li>The WSE has been disabled for at least 20 minutes, and</li>
+<li>
+<i>
+  T<sub>ws</sub> &gt; 0.9 T<sub>wet</sub> + &Delta;T<sub>t</sub> + &Delta;T<sub>w</sub>
+</i>
+</li>
+</ol>
+<p>
+where <i>T<sub>ws</sub></i> is the temperature of chilled water leaving the cooling coil,
+<i>T<sub>wet</sub></i> is the wet bulb temperature,
+<i>&Delta;T<sub>t</sub></i> is the temperature difference between the water leaving the cooling tower and the air entering the cooling tower,
+<i>&Delta;T<sub>w</sub></i> is the temperature difference between the chilled water leaving the WSE and the condenser water entering the WSE.
+</p>
+<p>
+The WSE is disabled when
+</p>
+<ol>
+<li>The WSE has been enabled for at least 20 minutes, and</li>
+<li><i>
+  T<sub>ws</sub> &lt; T<sub>wc</sub> + &Delta;T<sub>wse,off</sub>
+</i>
+</li>
+</ol>
+<p>
+where <i>T<sub>wc</sub></i> is the temperature of condenser water leaving the cooling tower,  <i>&Delta;T<sub>wse,off</sub> = 0.6 K</i> is the offset temperature.
+</p>
+<h4>Enabling/Disabling the Chiller</h4>
+<p>
+The control strategy is as follows:
+</p>
+<ul>
+<li>The chiller is enabled when
+<i>
+  T<sub>chw,ent</sub> &gt; T<sub>chi,set</sub> + &Delta;T<sub>chi,ban</sub> </i>
+<li>The chiller is disabled when
+<i>
+  T<sub>chw,ent</sub> &le; T<sub>chi,set</sub></i>
+</li>
+</ul>
+<p>
+where <i>T<sub>chw,ent</sub></i> is the tempearture of chilled water entering the chiller, <i>T<sub>chi,set</sub></i> is the setpoint temperature of the chilled water leaving the chiller, and <i>&Delta;T<sub>chi,ban</sub></i> is the dead-band to prevent short cycling.
+</p>
+<h4>Setpoint Reset</h4>
+<p>
+The setpoint reset strategy is to first increase the different pressure, <i>&Delta;p</i>, of the chilled water loop to increase the mass flow rate.
+If <i>&Delta;p</i> reaches the maximum value and further cooling is still needed, the chiller remperature setpoint, <i>T<sub>chi,set</sub></i>, is reduced.
+If there is too much cooling, the <i>T<sub>chi,set</sub></i> and <i>&Delta;p</i>  will be changed in the reverse direction.
+</p>
+<p>
+There are two implementations for the setpoint reset.
+</p>
+<p>
+The model
+<a href="Buildings_Examples_ChillerPlant.html#Buildings.Examples.ChillerPlant.DataCenterDiscreteTimeControl"
+>
+Buildings.Examples.ChillerPlant.DataCenterDiscreteTimeControl</a>
+implements a discrete time trim and response logic as follows:
+</p>
+<ul>
+<li>A cooling request is triggered if the input signal, <i>y</i>, is larger than 0.
+<i>y</i> is the difference between the actual and set temperature of the suppuly air to the data center room.</li>
+<li>The request is sampled every 2 minutes. If there is a cooling request, the control signal <i>u</i> is increased by <i>0.03</i>, where <i>0 &le; u &le; 1</i>.
+If there is no cooling request,  <i>u</i> is decreased by <i>0.03</i>. </li>
+</ul>
+<p>
+The model
+<a href="Buildings_Examples_ChillerPlant.html#Buildings.Examples.ChillerPlant.DataCenterContinuousTimeControl"
+>
+Buildings.Examples.ChillerPlant.DataCenterContinuousTimeControl</a> uses a PI-controller to
+approximate the above trim and response logic. This significantly reduces computing time.
+</p>
+<p>
+For both models, the control signal <i>u</i> is converted to setpoints for <i>&Delta;p</i> and <i>T<sub>chi,set</sub></i> as follows:
+</p>
+<ul>
+<li>
+If <i>u &isin; [0, x]</i> then <i>&Delta;p = &Delta;p<sub>min</sub> + u &nbsp;(&Delta;p<sub>max</sub>-&Delta;p<sub>min</sub>)/x</i>
+and <i>T = T<sub>max</sub></i></li>
+<li>
+If <i>u &isin; (x, 1]</i> then <i>&Delta;p = &Delta;p<sub>max</sub></i>
+and
+<i>T = T<sub>max</sub> - (u-x)&nbsp;(T<sub>max</sub>-T<sub>min</sub>)/(1-x)
+</i></li>
+</ul>
+<p>
+where <i>&Delta;p<sub>min</sub></i> and <i>&Delta;p<sub>max</sub></i> are minimum and maximum values for <i>&Delta;p</i>,
+and <i>T<sub>min</sub></i> and <i>T<sub>max</sub></i> are the minimum and maximum values for <i>T<sub>chi,set</sub></i>.
+</p>
+<h4>Reference</h4>
+<p>
+Stein, J. (2009). Waterside Economizing in Data Centers: Design and Control Considerations. ASHRAE Transactions, 115(2), 192-200.<br/>
+Taylor, S.T. (2007). Increasing Efficiency with VAV System Static Pressure Setpoint Reset. ASHRAE Journal, June, 24-32.
+</p>
+
+<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons_ExamplesPackage.html#Modelica.Icons.ExamplesPackage"
+>Modelica.Icons.ExamplesPackage</a> (Icon for packages containing runnable examples).</p>
+<h3>Package Content</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Package Content">
+<tr>
+<th>Name</th>
+<th>Description</th>
+</tr>
+<tr>
+<td><img src="Buildings.Examples.Chille7a424d00a711b732ntrolS.png" alt="Buildings.Examples.ChillerPlant.DataCenterContinuousTimeControl" width="20" height="20" align="top">&nbsp;<a href="Buildings_Examples_ChillerPlant.html#Buildings.Examples.ChillerPlant.DataCenterContinuousTimeControl"
+>DataCenterContinuousTimeControl</a>
+</td>
+<td>Model of data center that approximates the trim and response logic</td>
+</tr>
+<tr>
+<td><img src="Buildings.Examples.Chille7a424d00a711b732ntrolS.png" alt="Buildings.Examples.ChillerPlant.DataCenterDiscreteTimeControl" width="20" height="20" align="top">&nbsp;<a href="Buildings_Examples_ChillerPlant.html#Buildings.Examples.ChillerPlant.DataCenterDiscreteTimeControl"
+>DataCenterDiscreteTimeControl</a>
+</td>
+<td>Model of data center with trim and response control</td>
+</tr>
+<tr>
+<td><img src="Buildings.Examples.Chilledf784e8d5280a9c9ablesS.png" alt="Buildings.Examples.ChillerPlant.DataCenterRenewables" width="20" height="20" align="top">&nbsp;<a href="Buildings_Examples_ChillerPlant.html#Buildings.Examples.ChillerPlant.DataCenterRenewables"
+>DataCenterRenewables</a>
+</td>
+<td>Model of a data center connected to renewable energy generation</td>
+</tr>
+<tr>
+<td><img src="Buildings.Examples.Chille173f746b86f408e2assesS.png" alt="Buildings.Examples.ChillerPlant.BaseClasses" width="20" height="20" align="top">&nbsp;<a href="Buildings_Examples_ChillerPlant_BaseClasses.html#Buildings.Examples.ChillerPlant.BaseClasses"
+>BaseClasses</a>
+</td>
+<td>Package with base classes for Buildings.Examples.ChillerPlant</td>
+</tr>
+</table>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE DataCenterContinuousTimeControl<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Examples.Chille7a424d00a711b732ntrolI.png" alt="Buildings.Examples.ChillerPlant.DataCenterContinuousTimeControl" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Examples.ChillerPlant.DataCenterContinuousTimeControl"></a><a href="Buildings_Examples_ChillerPlant.html#Buildings.Examples.ChillerPlant"
+>Buildings.Examples.ChillerPlant</a>.DataCenterContinuousTimeControl</h2>
+<p>
+<b>Model of data center that approximates the trim and response logic</b>
+<br>
+<br><img src="Buildings.Examples.Chille7a424d00a711b732ntrolD.png" alt="Buildings.Examples.ChillerPlant.DataCenterContinuousTimeControl">
+</p>
+<h3>Information</h3>
+
+<p>
+This model is the chilled water plant with continuous time control.
+The trim and response logic is approximated by a PI controller which
+significantly reduces computing time. The model is described at
+<a href="Buildings_Examples_ChillerPlant.html#Buildings.Examples.ChillerPlant"
+>
+Buildings.Examples.ChillerPlant</a>.
+</p>
+<p>
+See
+<a href="Buildings_Examples_ChillerPlant.html#Buildings.Examples.ChillerPlant.DataCenterContinuousTimeControl"
+>
+Buildings.Examples.ChillerPlant.DataCenterContinuousTimeControl</a>
+for an implementation with the discrete time trim and response logic.
+</p>
+
+<p>Extends from <a href="Buildings_Examples_ChillerPlant_BaseClasses.html#Buildings.Examples.ChillerPlant.BaseClasses.DataCenter"
+>Buildings.Examples.ChillerPlant.BaseClasses.DataCenter</a> (Primary only chiller plant system with water-side economizer), <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</a> (Icon for runnable examples).</p>
+<h3>Parameters</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td colspan="2">replaceable package MediumA</td><td><a href="Buildings_Media_Air.html#Buildings.Media.Air"
+>Air</a></td><td>Medium model</td></tr>
+<tr><td colspan="2">replaceable package MediumW</td><td><a href="Buildings_Media_Water.html#Buildings.Media.Water"
+>Water</a></td><td>Medium model</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+>MassFlowRate</a></td><td>mAir_flow_nominal</td><td>roo.QRoo_flow/(1005*15)</td><td>Nominal mass flow rate at fan [kg/s]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Power"
+>Power</a></td><td>P_nominal</td><td>80E3</td><td>Nominal compressor power (at y=1) [W]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.TemperatureDifference"
+>TemperatureDifference</a></td><td>dTEva_nominal</td><td>10</td><td>Temperature difference evaporator inlet-outlet [K]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.TemperatureDifference"
+>TemperatureDifference</a></td><td>dTCon_nominal</td><td>10</td><td>Temperature difference condenser outlet-inlet [K]</td></tr>
+<tr><td>Real</td><td>COPc_nominal</td><td>3</td><td>Chiller COP</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+>MassFlowRate</a></td><td>mCHW_flow_nominal</td><td>2*roo.QRoo_flow/(4200*20)</td><td>Nominal mass flow rate at chilled water [kg/s]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+>MassFlowRate</a></td><td>mCW_flow_nominal</td><td>2*roo.QRoo_flow/(4200*6)</td><td>Nominal mass flow rate at condenser water [kg/s]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
+>Pressure</a></td><td>dp_nominal</td><td>500</td><td>Nominal pressure difference [Pa]</td></tr>
+</table>
+<h3>Connectors</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Connectors">
+<tr><th>Type</th><th>Name</th><th>Description</th></tr>
+<tr><td><a href="Buildings_BoundaryConditions_WeatherData.html#Buildings.BoundaryConditions.WeatherData.Bus"
+>Bus</a></td><td>weaBus</td><td>&nbsp;</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">model</span> DataCenterContinuousTimeControl <span style="color: #006400; font-weight: normal; font-style: normal;">
+  &quot;Model of data center that approximates the trim and response logic&quot;</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="Buildings_Examples_ChillerPlant_BaseClasses.html#Buildings.Examples.ChillerPlant.BaseClasses.DataCenter"
+>Buildings.Examples.ChillerPlant.BaseClasses.DataCenter</a>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</a>;
+
+  <a href="Buildings_Examples_ChillerPlant_BaseClasses_Controls.html#Buildings.Examples.ChillerPlant.BaseClasses.Controls.TrimAndRespondContinuousTimeApproximation"
+>BaseClasses.Controls.TrimAndRespondContinuousTimeApproximation</a> triAndRes <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Continuous time approximation for trim and response controller&quot;</span>;
+<span style="color: blue; font-weight: normal; font-style: normal;">equation </span>
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(feedback.y, triAndRes.u);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(triAndRes.y, linPieTwo.u);
+
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>DataCenterContinuousTimeControl;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE DataCenterDiscreteTimeControl<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Examples.Chille7a424d00a711b732ntrolI.png" alt="Buildings.Examples.ChillerPlant.DataCenterDiscreteTimeControl" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Examples.ChillerPlant.DataCenterDiscreteTimeControl"></a><a href="Buildings_Examples_ChillerPlant.html#Buildings.Examples.ChillerPlant"
+>Buildings.Examples.ChillerPlant</a>.DataCenterDiscreteTimeControl</h2>
+<p>
+<b>Model of data center with trim and response control</b>
+<br>
+<br><img src="Buildings.Examples.Chillebac61742302af0adntrolD.png" alt="Buildings.Examples.ChillerPlant.DataCenterDiscreteTimeControl">
+</p>
+<h3>Information</h3>
+
+<p>
+This model is the chilled water plant with trim and response control,
+which is a discrete time control logic.
+</p>
+<p>
+The trim and response logic is approximated by a PI controller which
+significantly reduces computing time. The model is described at
+<a href="Buildings_Examples_ChillerPlant.html#Buildings.Examples.ChillerPlant"
+>
+Buildings.Examples.ChillerPlant</a>.
+</p>
+<p>
+See
+<a href="Buildings_Examples_ChillerPlant.html#Buildings.Examples.ChillerPlant.DataCenterContinuousTimeControl"
+>
+Buildings.Examples.ChillerPlant.DataCenterContinuousTimeControl</a>
+for an implementation that approximates the trim and response
+logic by a continuous time controller.
+</p>
+
+<p>Extends from <a href="Buildings_Examples_ChillerPlant_BaseClasses.html#Buildings.Examples.ChillerPlant.BaseClasses.DataCenter"
+>Buildings.Examples.ChillerPlant.BaseClasses.DataCenter</a> (Primary only chiller plant system with water-side economizer), <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</a> (Icon for runnable examples).</p>
+<h3>Parameters</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td colspan="2">replaceable package MediumA</td><td><a href="Buildings_Media_Air.html#Buildings.Media.Air"
+>Air</a></td><td>Medium model</td></tr>
+<tr><td colspan="2">replaceable package MediumW</td><td><a href="Buildings_Media_Water.html#Buildings.Media.Water"
+>Water</a></td><td>Medium model</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+>MassFlowRate</a></td><td>mAir_flow_nominal</td><td>roo.QRoo_flow/(1005*15)</td><td>Nominal mass flow rate at fan [kg/s]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Power"
+>Power</a></td><td>P_nominal</td><td>80E3</td><td>Nominal compressor power (at y=1) [W]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.TemperatureDifference"
+>TemperatureDifference</a></td><td>dTEva_nominal</td><td>10</td><td>Temperature difference evaporator inlet-outlet [K]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.TemperatureDifference"
+>TemperatureDifference</a></td><td>dTCon_nominal</td><td>10</td><td>Temperature difference condenser outlet-inlet [K]</td></tr>
+<tr><td>Real</td><td>COPc_nominal</td><td>3</td><td>Chiller COP</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+>MassFlowRate</a></td><td>mCHW_flow_nominal</td><td>2*roo.QRoo_flow/(4200*20)</td><td>Nominal mass flow rate at chilled water [kg/s]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+>MassFlowRate</a></td><td>mCW_flow_nominal</td><td>2*roo.QRoo_flow/(4200*6)</td><td>Nominal mass flow rate at condenser water [kg/s]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
+>Pressure</a></td><td>dp_nominal</td><td>500</td><td>Nominal pressure difference [Pa]</td></tr>
+</table>
+<h3>Connectors</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Connectors">
+<tr><th>Type</th><th>Name</th><th>Description</th></tr>
+<tr><td><a href="Buildings_BoundaryConditions_WeatherData.html#Buildings.BoundaryConditions.WeatherData.Bus"
+>Bus</a></td><td>weaBus</td><td>&nbsp;</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">model</span> DataCenterDiscreteTimeControl <span style="color: #006400; font-weight: normal; font-style: normal;">
+  &quot;Model of data center with trim and response control&quot;</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="Buildings_Examples_ChillerPlant_BaseClasses.html#Buildings.Examples.ChillerPlant.BaseClasses.DataCenter"
+>Buildings.Examples.ChillerPlant.BaseClasses.DataCenter</a>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</a>;
+
+  <a href="Buildings_Examples_ChillerPlant_BaseClasses_Controls.html#Buildings.Examples.ChillerPlant.BaseClasses.Controls.TrimAndRespond"
+>BaseClasses.Controls.TrimAndRespond</a> triAndRes(
+    yEqu0=0,
+    samplePeriod=120,
+    uTri=0,
+    yDec=-0.03,
+    yInc=0.03) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Trim and response controller&quot;</span>;
+<span style="color: blue; font-weight: normal; font-style: normal;">equation </span>
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(feedback.y, triAndRes.u);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(triAndRes.y, linPieTwo.u);
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>DataCenterDiscreteTimeControl;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE DataCenterRenewables<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Examples.Chilledf784e8d5280a9c9ablesI.png" alt="Buildings.Examples.ChillerPlant.DataCenterRenewables" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Examples.ChillerPlant.DataCenterRenewables"></a><a href="Buildings_Examples_ChillerPlant.html#Buildings.Examples.ChillerPlant"
+>Buildings.Examples.ChillerPlant</a>.DataCenterRenewables</h2>
+<p>
+<b>Model of a data center connected to renewable energy generation</b>
+<br>
+<br><img src="Buildings.Examples.Chilledf784e8d5280a9c9ablesD.png" alt="Buildings.Examples.ChillerPlant.DataCenterRenewables">
+</p>
+<h3>Information</h3>
+
+<p>
+This model illustrates a data center with DC and AC load.
+The electrical supply is from a grid, from wind turbines and from PV.
+The battery is charged during the night and discharged during
+the day in such a way that it is fully charged and discharged.
+This control logic is implemented using a finite state machine
+inside the model <code>con</code>.
+</p>
+
+<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</a> (Icon for runnable examples).</p>
+<h3>Connectors</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Connectors">
+<tr><th>Type</th><th>Name</th><th>Description</th></tr>
+<tr><td><a href="Buildings_BoundaryConditions_WeatherData.html#Buildings.BoundaryConditions.WeatherData.Bus"
+>Bus</a></td><td>weaBus</td><td>Weather data bus</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">model</span> DataCenterRenewables <span style="color: #006400; font-weight: normal; font-style: normal;">
+  &quot;Model of a data center connected to renewable energy generation&quot;</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</a>;
+  <a href="Buildings_Examples_ChillerPlant_BaseClasses.html#Buildings.Examples.ChillerPlant.BaseClasses.DataCenterContinuousTimeControl"
+>BaseClasses.DataCenterContinuousTimeControl</a> dataCenterContinuousTimeControl;
+  <a href="Buildings_Electrical_DC_Sources.html#Buildings.Electrical.DC.Sources.WindTurbine"
+>Buildings.Electrical.DC.Sources.WindTurbine</a> winTur(scale=200e3, h=50) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Wind turbines&quot;</span>;
+  <a href="Buildings_Electrical_DC_Sources.html#Buildings.Electrical.DC.Sources.PVSimpleOriented"
+>Electrical.DC.Sources.PVSimpleOriented</a> pv(A=200e3/800/0.12,
+    til=0.34906585039887,
+    lat=0.65798912800186,
+    azi=-0.78539816339745) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;PV array&quot;</span>;
+  <a href="Buildings_Electrical_DC_Storage.html#Buildings.Electrical.DC.Storage.Battery"
+>Buildings.Electrical.DC.Storage.Battery</a> bat(EMax=500e3*4*3600, V_nominal=
+        480) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Battery&quot;</span>;
+  <a href="Buildings_Electrical_AC_OnePhase_Conversion.html#Buildings.Electrical.AC.OnePhase.Conversion.ACDCConverter"
+>Buildings.Electrical.AC.OnePhase.Conversion.ACDCConverter</a>                 conv(
+      conversionFactor=480/480, eta=0.9) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;AC/DC converter&quot;</span>;
+  <a href="Buildings_Electrical_AC_OnePhase_Sources.html#Buildings.Electrical.AC.OnePhase.Sources.Grid"
+>Buildings.Electrical.AC.OnePhase.Sources.Grid</a> gri(
+    f=60,
+    V=480,
+    phiSou=0);
+  <a href="Buildings_BoundaryConditions_WeatherData.html#Buildings.BoundaryConditions.WeatherData.Bus"
+>Buildings.BoundaryConditions.WeatherData.Bus</a>
+    weaBus <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Weather data bus&quot;</span>;
+  <a href="Buildings_Examples_ChillerPlant_BaseClasses_Controls.html#Buildings.Examples.ChillerPlant.BaseClasses.Controls.BatteryControl"
+>BaseClasses.Controls.BatteryControl</a> con <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Battery controller&quot;</span>;
+  <a href="Buildings_Electrical_DC_Loads.html#Buildings.Electrical.DC.Loads.Conductor"
+>Buildings.Electrical.DC.Loads.Conductor</a> dcLoad(mode=Buildings.Electrical.Types.Load.VariableZ_P_input);
+  <a href="Buildings_Electrical_AC_OnePhase_Loads.html#Buildings.Electrical.AC.OnePhase.Loads.Inductive"
+>Buildings.Electrical.AC.OnePhase.Loads.Inductive</a> acLoad(
+    mode=Buildings.Electrical.Types.Load.VariableZ_P_input);
+<span style="color: blue; font-weight: normal; font-style: normal;">equation </span>
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(dataCenterContinuousTimeControl.weaBus, weaBus);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(weaBus.winSpe, winTur.vWin);
+
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(bat.SOC, con.SOC);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(con.y, bat.P);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(dataCenterContinuousTimeControl.PDC, dcLoad.Pow);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(pv.terminal, conv.terminal_p);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(winTur.terminal, conv.terminal_p);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(bat.terminal, conv.terminal_p);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(dcLoad.terminal, conv.terminal_p);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(dataCenterContinuousTimeControl.PAC, acLoad.Pow);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(acLoad.terminal, gri.terminal);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(conv.terminal_n, gri.terminal);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(dataCenterContinuousTimeControl.weaBus, pv.weaBus);
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>DataCenterRenewables;
+</div>
+<hr>
+<address>
+<a href="http://www.3ds.com/">Automatically generated</a> Thu Apr  9 09:42:21 2015.
+</address>
+</body>
+</html>

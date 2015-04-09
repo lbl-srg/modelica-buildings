@@ -1,0 +1,1004 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>Buildings.Fluid.Storage</title>
+<meta name="HTML-Generator" content="Dymola">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="description" content="&quot;Package with thermal energy storage models&quot;">
+<style type="text/css">
+*       { font-size: 10pt; font-family: Arial, sans-serif; }
+.modelica, .modelica * { font-size: 9pt; font-family: Courier, monospace; white-space: pre; }
+h4      { font-size: 10pt; font-weight: bold; color: green; }
+h3      { font-size: 11pt; font-weight: bold; color: green; }
+h2      { font-size: 13pt; font-weight: bold; color: green; }
+address { font-weight: normal; }
+td      { border: 1px solid #808080; vertical-align: top; }
+th      { border: 1px solid #808080; vertical-align: top; font-weight: bold; }
+table   { border: 1px solid #808080; border-collapse: collapse; }
+</style>
+<link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../Resources/www/modelicaDoc.css">
+</HEAD>
+<body>
+<!-- --- header ------ -->
+<div class="headerStyle">
+<img src="../Resources/www/lbl-logo.png" alt="LBL logo"/>
+</div>
+<div class="headerLinks">
+<ul><li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt; <a href="Buildings.html">Modelica</a></li></ul>
+</div>
+<!-- --- end header -- -->
+
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE Storage<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><a name="Buildings.Fluid.Storage"></a><a href="Buildings_Fluid.html#Buildings.Fluid"
+>Buildings.Fluid</a>.Storage</h2>
+<p>
+<b>Package with thermal energy storage models</b><br>
+</p>
+<h3>Information</h3>
+
+This package contains thermal energy storage models.
+
+<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons_VariantsPackage.html#Modelica.Icons.VariantsPackage"
+>Modelica.Icons.VariantsPackage</a> (Icon for package containing variants).</p>
+<h3>Package Content</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Package Content">
+<tr>
+<th>Name</th>
+<th>Description</th>
+</tr>
+<tr>
+<td><img src="Buildings.Fluid.Storage.UsersGuideS.png" alt="Buildings.Fluid.Storage.UsersGuide" width="20" height="20" align="top">&nbsp;<a href="Buildings_Fluid_Storage_UsersGuide.html#Buildings.Fluid.Storage.UsersGuide"
+>UsersGuide</a>
+</td>
+<td>User&#39;s Guide</td>
+</tr>
+<tr>
+<td><img src="Buildings.Fluid.Storage.ExpansionVesselS.png" alt="Buildings.Fluid.Storage.ExpansionVessel" width="20" height="20" align="top">&nbsp;<a href="Buildings_Fluid_Storage.html#Buildings.Fluid.Storage.ExpansionVessel"
+>ExpansionVessel</a>
+</td>
+<td>Expansion vessel with fixed pressure</td>
+</tr>
+<tr>
+<td><img src="Buildings.Fluid.Storage.StratifiedS.png" alt="Buildings.Fluid.Storage.Stratified" width="20" height="20" align="top">&nbsp;<a href="Buildings_Fluid_Storage.html#Buildings.Fluid.Storage.Stratified"
+>Stratified</a>
+</td>
+<td>Model of a stratified tank for thermal energy storage</td>
+</tr>
+<tr>
+<td><img src="Buildings.Fluid.Storage.S0445f3df34178cb6ancedS.png" alt="Buildings.Fluid.Storage.StratifiedEnhanced" width="20" height="20" align="top">&nbsp;<a href="Buildings_Fluid_Storage.html#Buildings.Fluid.Storage.StratifiedEnhanced"
+>StratifiedEnhanced</a>
+</td>
+<td>Stratified tank model with enhanced discretization</td>
+</tr>
+<tr>
+<td><img src="Buildings.Fluid.Storage.Sfc3500fb0014ae2aalHexS.png" alt="Buildings.Fluid.Storage.StratifiedEnhancedInternalHex" width="20" height="20" align="top">&nbsp;<a href="Buildings_Fluid_Storage.html#Buildings.Fluid.Storage.StratifiedEnhancedInternalHex"
+>StratifiedEnhancedInternalHex</a>
+</td>
+<td>A model of a water storage tank with a secondary loop and intenral heat exchanger</td>
+</tr>
+<tr>
+<td><img src="Buildings.Fluid.Storage.ExamplesS.png" alt="Buildings.Fluid.Storage.Examples" width="20" height="20" align="top">&nbsp;<a href="Buildings_Fluid_Storage_Examples.html#Buildings.Fluid.Storage.Examples"
+>Examples</a>
+</td>
+<td>Collection of models that illustrate model use and test models</td>
+</tr>
+<tr>
+<td><img src="Buildings.Fluid.Storage.BaseClassesS.png" alt="Buildings.Fluid.Storage.BaseClasses" width="20" height="20" align="top">&nbsp;<a href="Buildings_Fluid_Storage_BaseClasses.html#Buildings.Fluid.Storage.BaseClasses"
+>BaseClasses</a>
+</td>
+<td>Package with base classes for Buildings.Fluid.Storage</td>
+</tr>
+</table>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE ExpansionVessel<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Fluid.Storage.ExpansionVesselI.png" alt="Buildings.Fluid.Storage.ExpansionVessel" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Fluid.Storage.ExpansionVessel"></a><a href="Buildings_Fluid_Storage.html#Buildings.Fluid.Storage"
+>Buildings.Fluid.Storage</a>.ExpansionVessel</h2>
+<p>
+<b>Expansion vessel with fixed pressure</b>
+<br>
+<br><img src="Buildings.Fluid.Storage.ExpansionVesselD.png" alt="Buildings.Fluid.Storage.ExpansionVessel">
+</p>
+<h3>Information</h3>
+
+<p>
+This is a model of a pressure expansion vessel. The vessel has a constant pressure
+that is equal to the value of the parameter <code>p_start</code>.
+The model takes into account the energy and mass balance of the medium.
+It has no heat exchange with the ambient.
+</p>
+<p>
+The expansion vessel needs to be used in closed loops that contain
+water to set a reference pressure and, for liquids where the
+density is modeled as a function of temperature, to allow for
+the thermal expansion of the liquid.
+</p>
+<p>
+Note that alternatively, the model
+<a href="Buildings_Fluid_Sources.html#Buildings.Fluid.Sources.FixedBoundary"
+>
+Buildings.Fluid.Sources.FixedBoundary</a> may be used to set
+a reference pressure. The main difference between these two models
+is that in this model, there is an energy and mass balance for the volume.
+In contrast, for
+<a href="Buildings_Fluid_Sources.html#Buildings.Fluid.Sources.FixedBoundary"
+>
+Buildings.Fluid.Sources.FixedBoundary</a>,
+any mass flow rate that flows out of the model will be at a user-specified temperature.
+Therefore, <a href="Buildings_Fluid_Sources.html#Buildings.Fluid.Sources.FixedBoundary"
+>
+Buildings.Fluid.Sources.FixedBoundary</a> leads to smaller systems
+of equations, which may result in faster simulation.
+</p>
+
+<p>Extends from <a href="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces.LumpedVolumeDeclarations"
+>Buildings.Fluid.Interfaces.LumpedVolumeDeclarations</a> (Declarations for lumped volumes).</p>
+<h3>Parameters</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td colspan="2">replaceable package Medium</td><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium"
+>PartialMedium</a></td><td>Medium in the component</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Volume"
+>Volume</a></td><td>V_start</td><td>&nbsp;</td><td>Volume of liquid stored in the vessel at the start of the simulation [m3]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
+>Pressure</a></td><td>p</td><td>Medium.p_default</td><td>Constant pressure of the expansion vessel [Pa]</td></tr>
+<tr style="background-color: #c0c0c0"><td colspan="4"><b>Dynamics</b></td></tr>
+<tr style="background-color: #e0e0e0"><td colspan="4">Equations</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Fluid_Types.html#Modelica.Fluid.Types.Dynamics"
+>Dynamics</a></td><td>energyDynamics</td><td>Modelica.Fluid.Types.Dynamic...</td><td>Formulation of energy balance</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Fluid_Types.html#Modelica.Fluid.Types.Dynamics"
+>Dynamics</a></td><td>massDynamics</td><td>Modelica.Fluid.Types.Dynamic...</td><td>Formulation of mass balance</td></tr>
+<tr><td>Real</td><td>mSenFac</td><td>1</td><td>Factor for scaling the sensible thermal mass of the volume</td></tr>
+<tr style="background-color: #c0c0c0"><td colspan="4"><b>Initialization</b></td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.AbsolutePressure"
+>AbsolutePressure</a></td><td>p_start</td><td>Medium.p_default</td><td>Start value of pressure [Pa]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.Temperature"
+>Temperature</a></td><td>T_start</td><td>Medium.T_default</td><td>Start value of temperature [K]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.MassFraction"
+>MassFraction</a></td><td>X_start[Medium.nX]</td><td>Medium.X_default</td><td>Start value of mass fractions m_i/m [kg/kg]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.ExtraProperty"
+>ExtraProperty</a></td><td>C_start[Medium.nC]</td><td>fill(0, Medium.nC)</td><td>Start value of trace substances</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.ExtraProperty"
+>ExtraProperty</a></td><td>C_nominal[Medium.nC]</td><td>fill(1E-2, Medium.nC)</td><td>Nominal value of trace substances. (Set to typical order of magnitude.)</td></tr>
+</table>
+<h3>Connectors</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Connectors">
+<tr><th>Type</th><th>Name</th><th>Description</th></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_a"
+>FluidPort_a</a></td><td>port_a</td><td>Fluid port</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">model</span> ExpansionVessel <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Expansion vessel with fixed pressure&quot;</span>
+ <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces.LumpedVolumeDeclarations"
+>Buildings.Fluid.Interfaces.LumpedVolumeDeclarations</a>(
+   <span style="color: blue; font-weight: normal; font-style: normal;">final </span>energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+   <span style="color: blue; font-weight: normal; font-style: normal;">final </span>massDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+   <span style="color: blue; font-weight: normal; font-style: normal;">final </span>mSenFac=1);
+ <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Volume"
+>Modelica.SIunits.Volume</a> V_start(start=1) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Volume of liquid stored in the vessel at the start of the simulation&quot;</span>;
+ <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
+>Modelica.SIunits.Pressure</a> p = Medium.p_default <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Constant pressure of the expansion vessel&quot;</span>;
+
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_a"
+>Modelica.Fluid.Interfaces.FluidPort_a</a> port_a(
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = <a href="Buildings_Fluid_Interfaces_Medium.html#Buildings.Fluid.Interfaces.LumpedVolumeDeclarations.Medium"
+>Medium</a>) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Fluid port&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Mass"
+>Modelica.SIunits.Mass</a> m <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Mass of liquid in the vessel&quot;</span>;
+
+<span style="color: blue; font-weight: normal; font-style: normal;">protected </span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">final </span><span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.ThermodynamicState"
+>Medium.ThermodynamicState</a> state_start =<span style="color: red; font-weight: normal; font-style: normal;"> Medium.setState_pTX</span>(
+      T=T_start,
+      p=p_start,
+      X=X_start[1:Medium.nXi]) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Medium state at start values&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">final </span><span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Density"
+>Modelica.SIunits.Density</a> rho_start=<span style="color: red; font-weight: normal; font-style: normal;">Medium.density</span>(
+   state=state_start) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Density, used to compute start and guess values&quot;</span>;
+
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Energy"
+>Modelica.SIunits.Energy</a> H <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Internal energy of fluid&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Mass"
+>Modelica.SIunits.Mass</a>[Medium.nXi] mXi <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Masses of independent components in the fluid&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Mass"
+>Modelica.SIunits.Mass</a>[Medium.nC] mC <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Masses of trace substances in the fluid&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.ExtraProperty"
+>Medium.ExtraProperty</a> C[Medium.nC](nominal=C_nominal) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Trace substance mixture content&quot;</span>;
+
+<span style="color: blue; font-weight: normal; font-style: normal;">initial </span><span style="color: blue; font-weight: normal; font-style: normal;">equation </span>
+  m = V_start * rho_start;
+  H = m*<span style="color: red; font-weight: normal; font-style: normal;">Medium.specificInternalEnergy</span>(
+          <span style="color: red; font-weight: normal; font-style: normal;">Medium.setState_pTX</span>(p=p_start, T=T_start, X= X_start[1:Medium.nXi]));
+  mXi = m*X_start[1:Medium.nXi];
+  mC = m*C_start[1:Medium.nC];
+<span style="color: blue; font-weight: normal; font-style: normal;">equation </span>
+  <span style="color: red; font-weight: normal; font-style: normal;">assert</span>(m &gt; 1.0E-8,
+    &quot;Expansion vessel is undersized. You need to increase the value of the parameter V_start.&quot;);
+  <span style="color: #006400; font-weight: normal; font-style: normal;">// Conservation equations</span>
+  <span style="color: red; font-weight: normal; font-style: normal;">der</span>(m)   = port_a.m_flow;
+  <span style="color: red; font-weight: normal; font-style: normal;">der</span>(H)   = port_a.m_flow *<span style="color: red; font-weight: normal; font-style: normal;"> actualStream</span>(port_a.h_outflow);
+  <span style="color: red; font-weight: normal; font-style: normal;">der</span>(mXi) = port_a.m_flow *<span style="color: red; font-weight: normal; font-style: normal;"> actualStream</span>(port_a.Xi_outflow);
+  <span style="color: red; font-weight: normal; font-style: normal;">der</span>(mC)  = port_a.m_flow *<span style="color: red; font-weight: normal; font-style: normal;"> actualStream</span>(port_a.C_outflow);
+  <span style="color: #006400; font-weight: normal; font-style: normal;">// Properties of outgoing flow.</span>
+  <span style="color: #006400; font-weight: normal; font-style: normal;">// The port pressure is set to a constant value.</span>
+  port_a.p          = p_start;
+  m*port_a.h_outflow  = H;
+  m*port_a.Xi_outflow = mXi;
+  m*port_a.C_outflow  = mC;
+
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>ExpansionVessel;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE Stratified<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Fluid.Storage.StratifiedI.png" alt="Buildings.Fluid.Storage.Stratified" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Fluid.Storage.Stratified"></a><a href="Buildings_Fluid_Storage.html#Buildings.Fluid.Storage"
+>Buildings.Fluid.Storage</a>.Stratified</h2>
+<p>
+<b>Model of a stratified tank for thermal energy storage</b>
+<br>
+<br><img src="Buildings.Fluid.Storage.StratifiedD.png" alt="Buildings.Fluid.Storage.Stratified">
+</p>
+<h3>Information</h3>
+
+<p>
+This is a model of a stratified storage tank.
+</p>
+<p>
+See the
+<a href="Buildings_Fluid_Storage_UsersGuide.html#Buildings.Fluid.Storage.UsersGuide"
+>
+Buildings.Fluid.Storage.UsersGuide</a>
+for more information.
+</p>
+<p>
+For a model with enhanced stratification, use
+<a href="Buildings_Fluid_Storage.html#Buildings.Fluid.Storage.StratifiedEnhanced"
+>
+Buildings.Fluid.Storage.StratifiedEnhanced</a>.
+</p>
+
+<p>Extends from <a href="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces.PartialTwoPortInterface"
+>Buildings.Fluid.Interfaces.PartialTwoPortInterface</a> (Partial model transporting fluid between two ports without storing mass or energy).</p>
+<h3>Parameters</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td colspan="2">replaceable package Medium</td><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium"
+>PartialMedium</a></td><td>Medium in the component</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Volume"
+>Volume</a></td><td>VTan</td><td>&nbsp;</td><td>Tank volume [m3]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Length"
+>Length</a></td><td>hTan</td><td>&nbsp;</td><td>Height of tank (without insulation) [m]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Length"
+>Length</a></td><td>dIns</td><td>&nbsp;</td><td>Thickness of insulation [m]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.ThermalConductivity"
+>ThermalConductivity</a></td><td>kIns</td><td>0.04</td><td>Specific heat conductivity of insulation [W/(m.K)]</td></tr>
+<tr><td>Integer</td><td>nSeg</td><td>2</td><td>Number of volume segments</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Time"
+>Time</a></td><td>tau</td><td>1</td><td>Time constant for mixing [s]</td></tr>
+<tr style="background-color: #e0e0e0"><td colspan="4">Nominal condition</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+>MassFlowRate</a></td><td>m_flow_nominal</td><td>&nbsp;</td><td>Nominal mass flow rate [kg/s]</td></tr>
+<tr style="background-color: #e0e0e0"><td colspan="4">Initialization</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+>MassFlowRate</a></td><td>m_flow.start</td><td>0</td><td>Mass flow rate from port_a to port_b (m_flow &gt; 0 is design flow direction) [kg/s]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
+>Pressure</a></td><td>dp.start</td><td>0</td><td>Pressure difference between port_a and port_b [Pa]</td></tr>
+<tr style="background-color: #c0c0c0"><td colspan="4"><b>Assumptions</b></td></tr>
+<tr><td>Boolean</td><td>allowFlowReversal</td><td>true</td><td>= true to allow flow reversal, false restricts to design direction (port_a -&gt; port_b)</td></tr>
+<tr style="background-color: #c0c0c0"><td colspan="4"><b>Advanced</b></td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+>MassFlowRate</a></td><td>m_flow_small</td><td>1E-4*abs(m_flow_nominal)</td><td>Small mass flow rate for regularization of zero flow [kg/s]</td></tr>
+<tr style="background-color: #e0e0e0"><td colspan="4">Diagnostics</td></tr>
+<tr><td>Boolean</td><td>show_T</td><td>false</td><td>= true, if actual temperature at port is computed</td></tr>
+<tr style="background-color: #c0c0c0"><td colspan="4"><b>Dynamics</b></td></tr>
+<tr style="background-color: #e0e0e0"><td colspan="4">Equations</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Fluid_Types.html#Modelica.Fluid.Types.Dynamics"
+>Dynamics</a></td><td>energyDynamics</td><td>Modelica.Fluid.Types.Dynamic...</td><td>Formulation of energy balance</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Fluid_Types.html#Modelica.Fluid.Types.Dynamics"
+>Dynamics</a></td><td>massDynamics</td><td>energyDynamics</td><td>Formulation of mass balance</td></tr>
+<tr style="background-color: #c0c0c0"><td colspan="4"><b>Initialization</b></td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.AbsolutePressure"
+>AbsolutePressure</a></td><td>p_start</td><td>Medium.p_default</td><td>Start value of pressure [Pa]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.Temperature"
+>Temperature</a></td><td>T_start</td><td>Medium.T_default</td><td>Start value of temperature [K]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.MassFraction"
+>MassFraction</a></td><td>X_start[Medium.nX]</td><td>Medium.X_default</td><td>Start value of mass fractions m_i/m [kg/kg]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.ExtraProperty"
+>ExtraProperty</a></td><td>C_start[Medium.nC]</td><td>fill(0, Medium.nC)</td><td>Start value of trace substances</td></tr>
+</table>
+<h3>Connectors</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Connectors">
+<tr><th>Type</th><th>Name</th><th>Description</th></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_a"
+>FluidPort_a</a></td><td>port_a</td><td>Fluid connector a (positive design flow direction is from port_a to port_b)</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_b"
+>FluidPort_b</a></td><td>port_b</td><td>Fluid connector b (positive design flow direction is from port_a to port_b)</td></tr>
+<tr><td colspan="2">replaceable package Medium</td><td>&nbsp;</td></tr>
+<tr><td>output <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+>RealOutput</a></td><td>Ql_flow</td><td>Heat loss of tank (positive if heat flows from tank to ambient)</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Thermal_HeatTransfer_Interfaces.html#Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a"
+>HeatPort_a</a></td><td>heaPorVol[nSeg]</td><td>Heat port of fluid volumes</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Thermal_HeatTransfer_Interfaces.html#Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a"
+>HeatPort_a</a></td><td>heaPorSid</td><td>Heat port tank side (outside insulation)</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Thermal_HeatTransfer_Interfaces.html#Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a"
+>HeatPort_a</a></td><td>heaPorTop</td><td>Heat port tank top (outside insulation)</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Thermal_HeatTransfer_Interfaces.html#Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a"
+>HeatPort_a</a></td><td>heaPorBot</td><td>Heat port tank bottom (outside insulation). Leave unconnected for adiabatic condition</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">model</span> Stratified <span style="color: #006400; font-weight: normal; font-style: normal;">
+  &quot;Model of a stratified tank for thermal energy storage&quot;</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces.PartialTwoPortInterface"
+>Buildings.Fluid.Interfaces.PartialTwoPortInterface</a>(
+      showDesignFlowDirection=false);
+
+  <span style="color: blue; font-weight: normal; font-style: normal;">replaceable </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium =
+      <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_PartialSimpleMedium.html#Modelica.Media.Interfaces.PartialSimpleMedium"
+>Modelica.Media.Interfaces.PartialSimpleMedium</a>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">import </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Fluid_Types.html#Modelica.Fluid.Types"
+>Modelica.Fluid.Types</a>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">import </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Fluid_Types.html#Modelica.Fluid.Types.Dynamics"
+>Modelica.Fluid.Types.Dynamics</a>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Volume"
+>Modelica.SIunits.Volume</a> VTan <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Tank volume&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Length"
+>Modelica.SIunits.Length</a> hTan <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Height of tank (without insulation)&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Length"
+>Modelica.SIunits.Length</a> dIns <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Thickness of insulation&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.ThermalConductivity"
+>Modelica.SIunits.ThermalConductivity</a> kIns = 0.04 <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Specific heat conductivity of insulation&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Integer nSeg(min=2) = 2 <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Number of volume segments&quot;</span>;
+
+  <span style="color: #006400; font-weight: normal; font-style: normal;">////////////////////////////////////////////////////////////////////</span>
+  <span style="color: #006400; font-weight: normal; font-style: normal;">// Assumptions</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Fluid_Types.html#Modelica.Fluid.Types.Dynamics"
+>Types.Dynamics</a> energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Formulation of energy balance&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Fluid_Types.html#Modelica.Fluid.Types.Dynamics"
+>Types.Dynamics</a> massDynamics=energyDynamics <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Formulation of mass balance&quot;</span>;
+
+  <span style="color: #006400; font-weight: normal; font-style: normal;">// Initialization</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.AbsolutePressure"
+>Medium.AbsolutePressure</a> p_start = Medium.p_default <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Start value of pressure&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.Temperature"
+>Medium.Temperature</a> T_start=Medium.T_default <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Start value of temperature&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.MassFraction"
+>Medium.MassFraction</a> X_start[Medium.nX] = Medium.X_default <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Start value of mass fractions m_i/m&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.ExtraProperty"
+>Medium.ExtraProperty</a> C_start[Medium.nC](
+       quantity=Medium.extraPropertiesNames)=<span style="color: red; font-weight: normal; font-style: normal;">fill</span>(0, Medium.nC) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Start value of trace substances&quot;</span>;
+
+  <span style="color: #006400; font-weight: normal; font-style: normal;">// Dynamics</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Time"
+>Modelica.SIunits.Time</a> tau=1 <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Time constant for mixing&quot;</span>;
+
+  <span style="color: #006400; font-weight: normal; font-style: normal;">////////////////////////////////////////////////////////////////////</span>
+  <span style="color: #006400; font-weight: normal; font-style: normal;">// Connectors</span>
+
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+>Modelica.Blocks.Interfaces.RealOutput</a> Ql_flow <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Heat loss of tank (positive if heat flows from tank to ambient)&quot;</span>;
+
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Thermal_HeatTransfer_Interfaces.html#Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a"
+>Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a</a>[nSeg] heaPorVol <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Heat port of fluid volumes&quot;</span>;
+
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Thermal_HeatTransfer_Interfaces.html#Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a"
+>Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a</a> heaPorSid <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Heat port tank side (outside insulation)&quot;</span>;
+
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Thermal_HeatTransfer_Interfaces.html#Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a"
+>Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a</a> heaPorTop <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Heat port tank top (outside insulation)&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Thermal_HeatTransfer_Interfaces.html#Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a"
+>Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a</a> heaPorBot <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Heat port tank bottom (outside insulation). Leave unconnected for adiabatic condition&quot;</span>;
+
+  <span style="color: #006400; font-weight: normal; font-style: normal;">// Models</span>
+  <a href="Buildings_Fluid_MixingVolumes.html#Buildings.Fluid.MixingVolumes.MixingVolume"
+>MixingVolumes.MixingVolume</a>[nSeg] vol(
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">each </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = <a href="Buildings_Fluid_Storage_Medium.html#Buildings.Fluid.Storage.Stratified.Medium"
+>Medium</a>,
+    <span style="color: blue; font-weight: normal; font-style: normal;">each </span>energyDynamics=energyDynamics,
+    <span style="color: blue; font-weight: normal; font-style: normal;">each </span>massDynamics=massDynamics,
+    <span style="color: blue; font-weight: normal; font-style: normal;">each </span>p_start=p_start,
+    <span style="color: blue; font-weight: normal; font-style: normal;">each </span>T_start=T_start,
+    <span style="color: blue; font-weight: normal; font-style: normal;">each </span>X_start=X_start,
+    <span style="color: blue; font-weight: normal; font-style: normal;">each </span>C_start=C_start,
+    <span style="color: blue; font-weight: normal; font-style: normal;">each </span>V=VTan/nSeg,
+    <span style="color: blue; font-weight: normal; font-style: normal;">each </span>nPorts=nPorts,
+    <span style="color: blue; font-weight: normal; font-style: normal;">each </span>m_flow_nominal = m_flow_nominal,
+    <span style="color: blue; font-weight: normal; font-style: normal;">each </span><span style="color: blue; font-weight: normal; font-style: normal;">final </span>mSenFac=1,
+    <span style="color: blue; font-weight: normal; font-style: normal;">each </span><span style="color: blue; font-weight: normal; font-style: normal;">final </span>m_flow_small=m_flow_small,
+    <span style="color: blue; font-weight: normal; font-style: normal;">each </span><span style="color: blue; font-weight: normal; font-style: normal;">final </span>allowFlowReversal=allowFlowReversal) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Tank segment&quot;</span>;
+<span style="color: blue; font-weight: normal; font-style: normal;">protected </span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">constant </span>Integer nPorts = 2 <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Number of ports of volume&quot;</span>;
+
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_PartialSimpleMedium.html#Modelica.Media.Interfaces.PartialSimpleMedium.ThermodynamicState"
+>Medium.ThermodynamicState</a> sta_default =<span style="color: red; font-weight: normal; font-style: normal;"> Medium.setState_pTX</span>(
+    T=Medium.T_default,
+    p=Medium.p_default,
+    X=Medium.X_default[1:Medium.nXi]) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Medium state at default properties&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Length"
+>Modelica.SIunits.Length</a> hSeg = hTan / nSeg <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Height of a tank segment&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Area"
+>Modelica.SIunits.Area</a> ATan = VTan/hTan <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Tank cross-sectional area (without insulation)&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Length"
+>Modelica.SIunits.Length</a> rTan =<span style="color: red; font-weight: normal; font-style: normal;"> sqrt</span>(ATan/Modelica.Constants.pi) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Tank diameter (without insulation)&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.ThermalConductance"
+>Modelica.SIunits.ThermalConductance</a> conFluSeg = ATan*<span style="color: red; font-weight: normal; font-style: normal;">Medium.thermalConductivity</span>(sta_default)/hSeg <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Thermal conductance between fluid volumes&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.ThermalConductance"
+>Modelica.SIunits.ThermalConductance</a> conTopSeg = ATan*kIns/dIns <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Thermal conductance from center of top (or bottom) volume through tank insulation at top (or bottom)&quot;</span>;
+
+  <a href="Buildings_Fluid_Sensors.html#Buildings.Fluid.Sensors.EnthalpyFlowRate"
+>Sensors.EnthalpyFlowRate</a> H_a_flow(
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = <a href="Buildings_Fluid_Storage_Medium.html#Buildings.Fluid.Storage.Stratified.Medium"
+>Medium</a>,
+    <span style="color: blue; font-weight: normal; font-style: normal;">final </span>m_flow_nominal=m_flow_nominal,
+    <span style="color: blue; font-weight: normal; font-style: normal;">final </span>tau=0,
+    <span style="color: blue; font-weight: normal; font-style: normal;">final </span>allowFlowReversal=allowFlowReversal,
+    <span style="color: blue; font-weight: normal; font-style: normal;">final </span>m_flow_small=m_flow_small) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Enthalpy flow rate at port a&quot;</span>;
+  <a href="Buildings_Fluid_Sensors.html#Buildings.Fluid.Sensors.EnthalpyFlowRate"
+>Sensors.EnthalpyFlowRate</a>[nSeg - 1] H_vol_flow(
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = <a href="Buildings_Fluid_Storage_Medium.html#Buildings.Fluid.Storage.Stratified.Medium"
+>Medium</a>,
+    <span style="color: blue; font-weight: normal; font-style: normal;">each </span><span style="color: blue; font-weight: normal; font-style: normal;">final </span>m_flow_nominal=m_flow_nominal,
+    <span style="color: blue; font-weight: normal; font-style: normal;">each </span><span style="color: blue; font-weight: normal; font-style: normal;">final </span>tau=0,
+    <span style="color: blue; font-weight: normal; font-style: normal;">each </span><span style="color: blue; font-weight: normal; font-style: normal;">final </span>allowFlowReversal=allowFlowReversal,
+    <span style="color: blue; font-weight: normal; font-style: normal;">each </span><span style="color: blue; font-weight: normal; font-style: normal;">final </span>m_flow_small=m_flow_small) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Enthalpy flow rate between the volumes&quot;</span>;
+  <a href="Buildings_Fluid_Sensors.html#Buildings.Fluid.Sensors.EnthalpyFlowRate"
+>Sensors.EnthalpyFlowRate</a> H_b_flow(
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = <a href="Buildings_Fluid_Storage_Medium.html#Buildings.Fluid.Storage.Stratified.Medium"
+>Medium</a>,
+    <span style="color: blue; font-weight: normal; font-style: normal;">final </span>m_flow_nominal=m_flow_nominal,
+    <span style="color: blue; font-weight: normal; font-style: normal;">final </span>tau=0,
+    <span style="color: blue; font-weight: normal; font-style: normal;">final </span>allowFlowReversal=allowFlowReversal,
+    <span style="color: blue; font-weight: normal; font-style: normal;">final </span>m_flow_small=m_flow_small) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Enthalpy flow rate at port b&quot;</span>;
+  <a href="Buildings_Fluid_Storage_BaseClasses.html#Buildings.Fluid.Storage.BaseClasses.Buoyancy"
+>BaseClasses.Buoyancy</a> buo(
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">final </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = <a href="Buildings_Fluid_Storage_Medium.html#Buildings.Fluid.Storage.Stratified.Medium"
+>Medium</a>,
+    <span style="color: blue; font-weight: normal; font-style: normal;">final </span>V=VTan,
+    <span style="color: blue; font-weight: normal; font-style: normal;">final </span>nSeg=nSeg,
+    <span style="color: blue; font-weight: normal; font-style: normal;">final </span>tau=tau) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Model to prevent unstable tank stratification&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Thermal_HeatTransfer_Components.html#Modelica.Thermal.HeatTransfer.Components.ThermalConductor"
+>Modelica.Thermal.HeatTransfer.Components.ThermalConductor</a>[nSeg - 1] conFlu(
+    <span style="color: blue; font-weight: normal; font-style: normal;">each </span>G=conFluSeg) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Thermal conductance in fluid between the segments&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Thermal_HeatTransfer_Components.html#Modelica.Thermal.HeatTransfer.Components.ThermalConductor"
+>Modelica.Thermal.HeatTransfer.Components.ThermalConductor</a>[nSeg] conWal(
+     <span style="color: blue; font-weight: normal; font-style: normal;">each </span>G=2*Modelica.Constants.pi*kIns*hSeg/<span style="color: red; font-weight: normal; font-style: normal;">Modelica.Math.log</span>((rTan+dIns)/rTan)) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Thermal conductance through tank wall&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Thermal_HeatTransfer_Components.html#Modelica.Thermal.HeatTransfer.Components.ThermalConductor"
+>Modelica.Thermal.HeatTransfer.Components.ThermalConductor</a> conTop(
+     G=conTopSeg) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Thermal conductance through tank top&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Thermal_HeatTransfer_Components.html#Modelica.Thermal.HeatTransfer.Components.ThermalConductor"
+>Modelica.Thermal.HeatTransfer.Components.ThermalConductor</a> conBot(
+     G=conTopSeg) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Thermal conductance through tank bottom&quot;</span>;
+
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Thermal_HeatTransfer_Sensors.html#Modelica.Thermal.HeatTransfer.Sensors.HeatFlowSensor"
+>Modelica.Thermal.HeatTransfer.Sensors.HeatFlowSensor</a> heaFloTop <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Heat flow at top of tank (outside insulation)&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Thermal_HeatTransfer_Sensors.html#Modelica.Thermal.HeatTransfer.Sensors.HeatFlowSensor"
+>Modelica.Thermal.HeatTransfer.Sensors.HeatFlowSensor</a> heaFloBot <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Heat flow at bottom of tank (outside insulation)&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Thermal_HeatTransfer_Sensors.html#Modelica.Thermal.HeatTransfer.Sensors.HeatFlowSensor"
+>Modelica.Thermal.HeatTransfer.Sensors.HeatFlowSensor</a> heaFloSid[nSeg] <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Heat flow at wall of tank (outside insulation)&quot;</span>;
+
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Routing.html#Modelica.Blocks.Routing.Multiplex3"
+>Modelica.Blocks.Routing.Multiplex3</a> mul(
+    n1=1,
+    n2=nSeg,
+    n3=1) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Multiplex to collect heat flow rates&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Math.html#Modelica.Blocks.Math.Sum"
+>Modelica.Blocks.Math.Sum</a> sum1(nin=nSeg + 2);
+
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Thermal_HeatTransfer_Components.html#Modelica.Thermal.HeatTransfer.Components.ThermalCollector"
+>Modelica.Thermal.HeatTransfer.Components.ThermalCollector</a> theCol(m=nSeg) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Connector to assign multiple heat ports to one heat port&quot;</span>;
+<span style="color: blue; font-weight: normal; font-style: normal;">equation </span>
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(H_a_flow.port_b, vol[1].ports[1]);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(vol[nSeg].ports[2], H_b_flow.port_a);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(H_b_flow.port_b, port_b);
+  <span style="color: blue; font-weight: normal; font-style: normal;">for </span>i<span style="color: blue; font-weight: normal; font-style: normal;"> in </span>1:(nSeg-1)<span style="color: blue; font-weight: normal; font-style: normal;"> loop</span>
+
+    <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(vol[i].ports[2], H_vol_flow[i].port_a);
+    <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(H_vol_flow[i].port_b, vol[i + 1].ports[1]);
+  <span style="color: blue; font-weight: normal; font-style: normal;">end for</span>;
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(port_a, H_a_flow.port_a);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(buo.heatPort, vol.heatPort);
+  <span style="color: blue; font-weight: normal; font-style: normal;">for </span>i<span style="color: blue; font-weight: normal; font-style: normal;"> in </span>1:nSeg-1<span style="color: blue; font-weight: normal; font-style: normal;"> loop</span>
+  <span style="color: #006400; font-weight: normal; font-style: normal;">// heat conduction between fluid nodes</span>
+    <span style="color: red; font-weight: normal; font-style: normal;"> connect</span>(vol[i].heatPort, conFlu[i].port_a);
+    <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(vol[i+1].heatPort, conFlu[i].port_b);
+  <span style="color: blue; font-weight: normal; font-style: normal;">end for</span>;
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(vol[1].heatPort, conTop.port_a);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(vol.heatPort, conWal.port_a);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(conBot.port_a, vol[nSeg].heatPort);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(vol.heatPort, heaPorVol);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(conWal.port_b, heaFloSid.port_a);
+
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(conTop.port_b, heaFloTop.port_a);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(conBot.port_b, heaFloBot.port_a);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(heaFloTop.port_b, heaPorTop);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(heaFloBot.port_b, heaPorBot);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(heaFloTop.Q_flow, mul.u1[1]);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(heaFloSid.Q_flow, mul.u2);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(heaFloBot.Q_flow, mul.u3[1]);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(mul.y, sum1.u);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(sum1.y, Ql_flow);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(heaFloSid.port_b, theCol.port_a);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(theCol.port_b, heaPorSid);
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>Stratified;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE StratifiedEnhanced<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Fluid.Storage.S0445f3df34178cb6ancedI.png" alt="Buildings.Fluid.Storage.StratifiedEnhanced" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Fluid.Storage.StratifiedEnhanced"></a><a href="Buildings_Fluid_Storage.html#Buildings.Fluid.Storage"
+>Buildings.Fluid.Storage</a>.StratifiedEnhanced</h2>
+<p>
+<b>Stratified tank model with enhanced discretization</b>
+<br>
+<br><img src="Buildings.Fluid.Storage.S0445f3df34178cb6ancedD.png" alt="Buildings.Fluid.Storage.StratifiedEnhanced">
+</p>
+<h3>Information</h3>
+
+<p>
+This is a model of a stratified storage tank for thermal energy storage.
+</p>
+<p>
+See the
+<a href="Buildings_Fluid_Storage_UsersGuide.html#Buildings.Fluid.Storage.UsersGuide"
+>
+Buildings.Fluid.Storage.UsersGuide</a>
+for more information.
+</p>
+<h4>Limitations</h4>
+<p>
+The model requires at least 4 fluid segments. Hence, set <code>nSeg</code> to 4 or higher.
+</p>
+
+<p>Extends from <a href="Buildings_Fluid_Storage.html#Buildings.Fluid.Storage.Stratified"
+>Stratified</a> (Model of a stratified tank for thermal energy storage).</p>
+<h3>Parameters</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td colspan="2">replaceable package Medium</td><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium"
+>PartialMedium</a></td><td>Medium in the component</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Volume"
+>Volume</a></td><td>VTan</td><td>&nbsp;</td><td>Tank volume [m3]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Length"
+>Length</a></td><td>hTan</td><td>&nbsp;</td><td>Height of tank (without insulation) [m]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Length"
+>Length</a></td><td>dIns</td><td>&nbsp;</td><td>Thickness of insulation [m]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.ThermalConductivity"
+>ThermalConductivity</a></td><td>kIns</td><td>0.04</td><td>Specific heat conductivity of insulation [W/(m.K)]</td></tr>
+<tr><td>Integer</td><td>nSeg</td><td>4</td><td>Number of volume segments</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Time"
+>Time</a></td><td>tau</td><td>1</td><td>Time constant for mixing [s]</td></tr>
+<tr style="background-color: #e0e0e0"><td colspan="4">Nominal condition</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+>MassFlowRate</a></td><td>m_flow_nominal</td><td>&nbsp;</td><td>Nominal mass flow rate [kg/s]</td></tr>
+<tr style="background-color: #e0e0e0"><td colspan="4">Initialization</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+>MassFlowRate</a></td><td>m_flow.start</td><td>0</td><td>Mass flow rate from port_a to port_b (m_flow &gt; 0 is design flow direction) [kg/s]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
+>Pressure</a></td><td>dp.start</td><td>0</td><td>Pressure difference between port_a and port_b [Pa]</td></tr>
+<tr style="background-color: #c0c0c0"><td colspan="4"><b>Assumptions</b></td></tr>
+<tr><td>Boolean</td><td>allowFlowReversal</td><td>true</td><td>= true to allow flow reversal, false restricts to design direction (port_a -&gt; port_b)</td></tr>
+<tr style="background-color: #c0c0c0"><td colspan="4"><b>Advanced</b></td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+>MassFlowRate</a></td><td>m_flow_small</td><td>1E-4*abs(m_flow_nominal)</td><td>Small mass flow rate for regularization of zero flow [kg/s]</td></tr>
+<tr style="background-color: #e0e0e0"><td colspan="4">Diagnostics</td></tr>
+<tr><td>Boolean</td><td>show_T</td><td>false</td><td>= true, if actual temperature at port is computed</td></tr>
+<tr style="background-color: #c0c0c0"><td colspan="4"><b>Dynamics</b></td></tr>
+<tr style="background-color: #e0e0e0"><td colspan="4">Equations</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Fluid_Types.html#Modelica.Fluid.Types.Dynamics"
+>Dynamics</a></td><td>energyDynamics</td><td>Modelica.Fluid.Types.Dynamic...</td><td>Formulation of energy balance</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Fluid_Types.html#Modelica.Fluid.Types.Dynamics"
+>Dynamics</a></td><td>massDynamics</td><td>energyDynamics</td><td>Formulation of mass balance</td></tr>
+<tr style="background-color: #c0c0c0"><td colspan="4"><b>Initialization</b></td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.AbsolutePressure"
+>AbsolutePressure</a></td><td>p_start</td><td>Medium.p_default</td><td>Start value of pressure [Pa]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.Temperature"
+>Temperature</a></td><td>T_start</td><td>Medium.T_default</td><td>Start value of temperature [K]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.MassFraction"
+>MassFraction</a></td><td>X_start[Medium.nX]</td><td>Medium.X_default</td><td>Start value of mass fractions m_i/m [kg/kg]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.ExtraProperty"
+>ExtraProperty</a></td><td>C_start[Medium.nC]</td><td>fill(0, Medium.nC)</td><td>Start value of trace substances</td></tr>
+</table>
+<h3>Connectors</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Connectors">
+<tr><th>Type</th><th>Name</th><th>Description</th></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_a"
+>FluidPort_a</a></td><td>port_a</td><td>Fluid connector a (positive design flow direction is from port_a to port_b)</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_b"
+>FluidPort_b</a></td><td>port_b</td><td>Fluid connector b (positive design flow direction is from port_a to port_b)</td></tr>
+<tr><td>output <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+>RealOutput</a></td><td>Ql_flow</td><td>Heat loss of tank (positive if heat flows from tank to ambient)</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Thermal_HeatTransfer_Interfaces.html#Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a"
+>HeatPort_a</a></td><td>heaPorVol[nSeg]</td><td>Heat port of fluid volumes</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Thermal_HeatTransfer_Interfaces.html#Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a"
+>HeatPort_a</a></td><td>heaPorSid</td><td>Heat port tank side (outside insulation)</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Thermal_HeatTransfer_Interfaces.html#Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a"
+>HeatPort_a</a></td><td>heaPorTop</td><td>Heat port tank top (outside insulation)</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Thermal_HeatTransfer_Interfaces.html#Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a"
+>HeatPort_a</a></td><td>heaPorBot</td><td>Heat port tank bottom (outside insulation). Leave unconnected for adiabatic condition</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">model</span> StratifiedEnhanced <span style="color: #006400; font-weight: normal; font-style: normal;">
+  &quot;Stratified tank model with enhanced discretization&quot;</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="Buildings_Fluid_Storage.html#Buildings.Fluid.Storage.Stratified"
+>Stratified</a>(nSeg=4, nPorts=3, vol(<span style="color: blue; font-weight: normal; font-style: normal;">each </span>prescribedHeatFlowRate=true));
+
+<span style="color: blue; font-weight: normal; font-style: normal;">protected </span>
+  <a href="Buildings_Fluid_Storage_BaseClasses.html#Buildings.Fluid.Storage.BaseClasses.ThirdOrderStratifier"
+>BaseClasses.ThirdOrderStratifier</a> str(
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = <a href="Buildings_Fluid_Storage_Medium.html#Buildings.Fluid.Storage.Stratified.Medium"
+>Medium</a>,
+    nSeg=nSeg,
+    m_flow_small=m_flow_small) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Model to reduce numerical dissipation&quot;</span>;
+
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.RealExpression"
+>Modelica.Blocks.Sources.RealExpression</a> mTan_flow(y=port_a.m_flow) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Mass flow rate at port a&quot;</span>;
+<span style="color: blue; font-weight: normal; font-style: normal;">equation </span>
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(vol[1:nSeg].ports[3], str.fluidPort[2:nSeg+1]);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(H_a_flow.H_flow, str.H_flow[1]);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(H_vol_flow[1:nSeg-1].H_flow, str.H_flow[2:nSeg]);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(H_b_flow.H_flow, str.H_flow[nSeg + 1]);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(str.heatPort, vol.heatPort);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(port_a, str.fluidPort[1]);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(port_b, str.fluidPort[nSeg + 2]);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(mTan_flow.y, str.m_flow);
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>StratifiedEnhanced;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE StratifiedEnhancedInternalHex<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Fluid.Storage.Sfc3500fb0014ae2aalHexI.png" alt="Buildings.Fluid.Storage.StratifiedEnhancedInternalHex" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Fluid.Storage.StratifiedEnhancedInternalHex"></a><a href="Buildings_Fluid_Storage.html#Buildings.Fluid.Storage"
+>Buildings.Fluid.Storage</a>.StratifiedEnhancedInternalHex</h2>
+<p>
+<b>A model of a water storage tank with a secondary loop and intenral heat exchanger</b>
+<br>
+<br><img src="Buildings.Fluid.Storage.Sfc3500fb0014ae2aalHexD.png" alt="Buildings.Fluid.Storage.StratifiedEnhancedInternalHex">
+</p>
+<h3>Information</h3>
+
+<p>
+This is a model of a stratified storage tank for thermal energy storage with built-in heat exchanger.
+</p>
+<p>
+See the
+<a href="Buildings_Fluid_Storage_UsersGuide.html#Buildings.Fluid.Storage.UsersGuide"
+>
+Buildings.Fluid.Storage.UsersGuide</a>
+for more information.
+</p>
+<h4>Limitations</h4>
+<p>
+The model requires at least 4 fluid segments. Hence, set <code>nSeg</code> to 4 or higher.
+</p>
+
+<p>Extends from <a href="Buildings_Fluid_Storage.html#Buildings.Fluid.Storage.StratifiedEnhanced"
+>StratifiedEnhanced</a> (Stratified tank model with enhanced discretization).</p>
+<h3>Parameters</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td colspan="2">replaceable package Medium</td><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium"
+>PartialMedium</a></td><td>Medium in the component</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Volume"
+>Volume</a></td><td>VTan</td><td>&nbsp;</td><td>Tank volume [m3]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Length"
+>Length</a></td><td>hTan</td><td>&nbsp;</td><td>Height of tank (without insulation) [m]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Length"
+>Length</a></td><td>dIns</td><td>&nbsp;</td><td>Thickness of insulation [m]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.ThermalConductivity"
+>ThermalConductivity</a></td><td>kIns</td><td>0.04</td><td>Specific heat conductivity of insulation [W/(m.K)]</td></tr>
+<tr><td>Integer</td><td>nSeg</td><td>4</td><td>Number of volume segments</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Time"
+>Time</a></td><td>tau</td><td>1</td><td>Time constant for mixing [s]</td></tr>
+<tr style="background-color: #e0e0e0"><td colspan="4">Nominal condition</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+>MassFlowRate</a></td><td>m_flow_nominal</td><td>&nbsp;</td><td>Nominal mass flow rate [kg/s]</td></tr>
+<tr style="background-color: #e0e0e0"><td colspan="4">Initialization</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+>MassFlowRate</a></td><td>m_flow.start</td><td>0</td><td>Mass flow rate from port_a to port_b (m_flow &gt; 0 is design flow direction) [kg/s]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
+>Pressure</a></td><td>dp.start</td><td>0</td><td>Pressure difference between port_a and port_b [Pa]</td></tr>
+<tr style="background-color: #e0e0e0"><td colspan="4">Heat exchanger</td></tr>
+<tr><td colspan="2">replaceable package MediumHex</td><td>Modelica.Media.Interfaces.Pa...</td><td>Medium in the heat exchanger</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Height"
+>Height</a></td><td>hHex_a</td><td>&nbsp;</td><td>Height of portHex_a of the heat exchanger, measured from tank bottom [m]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Height"
+>Height</a></td><td>hHex_b</td><td>&nbsp;</td><td>Height of portHex_b of the heat exchanger, measured from tank bottom [m]</td></tr>
+<tr><td>Integer</td><td>hexSegMult</td><td>2</td><td>Number of heat exchanger segments in each tank segment</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Diameter"
+>Diameter</a></td><td>dExtHex</td><td>0.025</td><td>Exterior diameter of the heat exchanger pipe [m]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.HeatFlowRate"
+>HeatFlowRate</a></td><td>Q_flow_nominal</td><td>&nbsp;</td><td>Heat transfer at nominal conditions [W]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+>Temperature</a></td><td>TTan_nominal</td><td>&nbsp;</td><td>Temperature of fluid inside the tank at nominal heat transfer conditions [K]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+>Temperature</a></td><td>THex_nominal</td><td>&nbsp;</td><td>Temperature of fluid inside the heat exchanger at nominal heat transfer conditions [K]</td></tr>
+<tr><td>Real</td><td>r_nominal</td><td>0.5</td><td>Ratio between coil inside and outside convective heat transfer at nominal heat transfer conditions</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+>MassFlowRate</a></td><td>mHex_flow_nominal</td><td>&nbsp;</td><td>Nominal mass flow rate through the heat exchanger [kg/s]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
+>Pressure</a></td><td>dpHex_nominal</td><td>2500</td><td>Pressure drop across the heat exchanger at nominal conditions [Pa]</td></tr>
+<tr style="background-color: #c0c0c0"><td colspan="4"><b>Assumptions</b></td></tr>
+<tr><td>Boolean</td><td>allowFlowReversal</td><td>true</td><td>= true to allow flow reversal, false restricts to design direction (port_a -&gt; port_b)</td></tr>
+<tr style="background-color: #e0e0e0"><td colspan="4">Heat exchanger</td></tr>
+<tr><td>Boolean</td><td>allowFlowReversalHex</td><td>true</td><td>= true to allow flow reversal in heat exchanger, false restricts to design direction (portHex_a -&gt; portHex_b)</td></tr>
+<tr style="background-color: #c0c0c0"><td colspan="4"><b>Advanced</b></td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+>MassFlowRate</a></td><td>m_flow_small</td><td>1E-4*abs(m_flow_nominal)</td><td>Small mass flow rate for regularization of zero flow [kg/s]</td></tr>
+<tr style="background-color: #e0e0e0"><td colspan="4">Diagnostics</td></tr>
+<tr><td>Boolean</td><td>show_T</td><td>false</td><td>= true, if actual temperature at port is computed</td></tr>
+<tr style="background-color: #c0c0c0"><td colspan="4"><b>Dynamics</b></td></tr>
+<tr style="background-color: #e0e0e0"><td colspan="4">Equations</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Fluid_Types.html#Modelica.Fluid.Types.Dynamics"
+>Dynamics</a></td><td>energyDynamics</td><td>Modelica.Fluid.Types.Dynamic...</td><td>Formulation of energy balance</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Fluid_Types.html#Modelica.Fluid.Types.Dynamics"
+>Dynamics</a></td><td>massDynamics</td><td>energyDynamics</td><td>Formulation of mass balance</td></tr>
+<tr style="background-color: #c0c0c0"><td colspan="4"><b>Initialization</b></td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.AbsolutePressure"
+>AbsolutePressure</a></td><td>p_start</td><td>Medium.p_default</td><td>Start value of pressure [Pa]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.Temperature"
+>Temperature</a></td><td>T_start</td><td>Medium.T_default</td><td>Start value of temperature [K]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.MassFraction"
+>MassFraction</a></td><td>X_start[Medium.nX]</td><td>Medium.X_default</td><td>Start value of mass fractions m_i/m [kg/kg]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.ExtraProperty"
+>ExtraProperty</a></td><td>C_start[Medium.nC]</td><td>fill(0, Medium.nC)</td><td>Start value of trace substances</td></tr>
+<tr style="background-color: #c0c0c0"><td colspan="4"><b>Flow resistance heat exchanger</b></td></tr>
+<tr><td>Boolean</td><td>computeFlowResistance</td><td>true</td><td>=true, compute flow resistance. Set to false to assume no friction</td></tr>
+<tr><td>Boolean</td><td>from_dp</td><td>false</td><td>= true, use m_flow = f(dp) else dp = f(m_flow)</td></tr>
+<tr><td>Boolean</td><td>linearizeFlowResistance</td><td>false</td><td>= true, use linear relation between m_flow and dp for any flow rate</td></tr>
+<tr><td>Real</td><td>deltaM</td><td>0.1</td><td>Fraction of nominal flow rate where flow transitions to laminar</td></tr>
+<tr style="background-color: #c0c0c0"><td colspan="4"><b>Dynamics heat exchanger</b></td></tr>
+<tr style="background-color: #e0e0e0"><td colspan="4">Equations</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Fluid_Types.html#Modelica.Fluid.Types.Dynamics"
+>Dynamics</a></td><td>energyDynamicsHex</td><td>Modelica.Fluid.Types.Dynamic...</td><td>Formulation of energy balance</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Fluid_Types.html#Modelica.Fluid.Types.Dynamics"
+>Dynamics</a></td><td>massDynamicsHex</td><td>energyDynamicsHex</td><td>Formulation of mass balance</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Length"
+>Length</a></td><td>lHex</td><td>rTan*abs(segHex_a - segHex_b...</td><td>Approximate length of the heat exchanger [m]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Area"
+>Area</a></td><td>ACroHex</td><td>(dExtHex^2 - (0.8*dExtHex)^2...</td><td>Cross sectional area of the heat exchanger [m2]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.SpecificHeatCapacity"
+>SpecificHeatCapacity</a></td><td>cHex</td><td>490</td><td>Specific heat capacity of the heat exchanger material [J/(kg.K)]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Density"
+>Density</a></td><td>dHex</td><td>8000</td><td>Density of the heat exchanger material [kg/m3]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.HeatCapacity"
+>HeatCapacity</a></td><td>CHex</td><td>ACroHex*lHex*dHex*cHex</td><td>Capacitance of the heat exchanger without the fluid [J/K]</td></tr>
+</table>
+<h3>Connectors</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Connectors">
+<tr><th>Type</th><th>Name</th><th>Description</th></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_a"
+>FluidPort_a</a></td><td>port_a</td><td>Fluid connector a (positive design flow direction is from port_a to port_b)</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_b"
+>FluidPort_b</a></td><td>port_b</td><td>Fluid connector b (positive design flow direction is from port_a to port_b)</td></tr>
+<tr><td>output <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+>RealOutput</a></td><td>Ql_flow</td><td>Heat loss of tank (positive if heat flows from tank to ambient)</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Thermal_HeatTransfer_Interfaces.html#Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a"
+>HeatPort_a</a></td><td>heaPorVol[nSeg]</td><td>Heat port of fluid volumes</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Thermal_HeatTransfer_Interfaces.html#Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a"
+>HeatPort_a</a></td><td>heaPorSid</td><td>Heat port tank side (outside insulation)</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Thermal_HeatTransfer_Interfaces.html#Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a"
+>HeatPort_a</a></td><td>heaPorTop</td><td>Heat port tank top (outside insulation)</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Thermal_HeatTransfer_Interfaces.html#Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a"
+>HeatPort_a</a></td><td>heaPorBot</td><td>Heat port tank bottom (outside insulation). Leave unconnected for adiabatic condition</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_a"
+>FluidPort_a</a></td><td>portHex_a</td><td>Heat exchanger inlet</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_b"
+>FluidPort_b</a></td><td>portHex_b</td><td>Heat exchanger outlet</td></tr>
+<tr style="background-color: #e0e0e0"><td colspan="3">Heat exchanger</td></tr>
+<tr><td colspan="2">replaceable package MediumHex</td><td>Medium in the heat exchanger</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">model</span> StratifiedEnhancedInternalHex <span style="color: #006400; font-weight: normal; font-style: normal;">
+  &quot;A model of a water storage tank with a secondary loop and intenral heat exchanger&quot;</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="Buildings_Fluid_Storage.html#Buildings.Fluid.Storage.StratifiedEnhanced"
+>StratifiedEnhanced</a>;
+
+  <span style="color: blue; font-weight: normal; font-style: normal;">replaceable </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> MediumHex =
+      <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium"
+>Modelica.Media.Interfaces.PartialMedium</a> <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Medium in the heat exchanger&quot;</span>;
+
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Height"
+>Modelica.SIunits.Height</a> hHex_a <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Height of portHex_a of the heat exchanger, measured from tank bottom&quot;</span>;
+
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Height"
+>Modelica.SIunits.Height</a> hHex_b <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Height of portHex_b of the heat exchanger, measured from tank bottom&quot;</span>;
+
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Integer hexSegMult(min=1) = 2 <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Number of heat exchanger segments in each tank segment&quot;</span>;
+
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Diameter"
+>Modelica.SIunits.Diameter</a> dExtHex = 0.025 <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Exterior diameter of the heat exchanger pipe&quot;</span>;
+
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.HeatFlowRate"
+>Modelica.SIunits.HeatFlowRate</a> Q_flow_nominal <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Heat transfer at nominal conditions&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+>Modelica.SIunits.Temperature</a> TTan_nominal <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Temperature of fluid inside the tank at nominal heat transfer conditions&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+>Modelica.SIunits.Temperature</a> THex_nominal <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Temperature of fluid inside the heat exchanger at nominal heat transfer conditions&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Real r_nominal(min=0, max=1)=0.5 <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Ratio between coil inside and outside convective heat transfer at nominal heat transfer conditions&quot;</span>;
+
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+>Modelica.SIunits.MassFlowRate</a> mHex_flow_nominal <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Nominal mass flow rate through the heat exchanger&quot;</span>;
+
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
+>Modelica.SIunits.Pressure</a> dpHex_nominal(displayUnit=&quot;Pa&quot;) = 2500 <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Pressure drop across the heat exchanger at nominal conditions&quot;</span>;
+
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Boolean computeFlowResistance=true <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;=true, compute flow resistance. Set to false to assume no friction&quot;</span>;
+
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Boolean from_dp=false <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;= true, use m_flow = f(dp) else dp = f(m_flow)&quot;</span>;
+
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Boolean linearizeFlowResistance=false <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;= true, use linear relation between m_flow and dp for any flow rate&quot;</span>;
+
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Real deltaM=0.1 <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Fraction of nominal flow rate where flow transitions to laminar&quot;</span>;
+
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Fluid_Types.html#Modelica.Fluid.Types.Dynamics"
+>Modelica.Fluid.Types.Dynamics</a> energyDynamicsHex=
+    Modelica.Fluid.Types.Dynamics.DynamicFreeInitial <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Formulation of energy balance&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Fluid_Types.html#Modelica.Fluid.Types.Dynamics"
+>Modelica.Fluid.Types.Dynamics</a> massDynamicsHex=
+    energyDynamicsHex <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Formulation of mass balance&quot;</span>;
+
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Length"
+>Modelica.SIunits.Length</a> lHex=
+    rTan*<span style="color: red; font-weight: normal; font-style: normal;">abs</span>(segHex_a-segHex_b)*Modelica.Constants.pi <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Approximate length of the heat exchanger&quot;</span>;
+
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Area"
+>Modelica.SIunits.Area</a> ACroHex=
+    (dExtHex^2-(0.8*dExtHex)^2)*Modelica.Constants.pi/4 <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Cross sectional area of the heat exchanger&quot;</span>;
+
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.SpecificHeatCapacity"
+>Modelica.SIunits.SpecificHeatCapacity</a> cHex=490 <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Specific heat capacity of the heat exchanger material&quot;</span>;
+
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Density"
+>Modelica.SIunits.Density</a> dHex=8000 <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Density of the heat exchanger material&quot;</span>;
+
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.HeatCapacity"
+>Modelica.SIunits.HeatCapacity</a> CHex=
+    ACroHex*lHex*dHex*cHex <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Capacitance of the heat exchanger without the fluid&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Boolean allowFlowReversalHex = true <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;= true to allow flow reversal in heat exchanger, false restricts to design direction (portHex_a -&gt; portHex_b)&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_a"
+>Modelica.Fluid.Interfaces.FluidPort_a</a> portHex_a(
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">final </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium =<a href="Buildings_Fluid_Storage_MediumHex.html#Buildings.Fluid.Storage.StratifiedEnhancedInternalHex.MediumHex"
+>MediumHex</a>,
+     m_flow(min=<span style="color: blue; font-weight: normal; font-style: normal;">if </span>allowFlowReversalHex<span style="color: blue; font-weight: normal; font-style: normal;"> then </span>-Modelica.Constants.inf<span style="color: blue; font-weight: normal; font-style: normal;"> else </span>0)) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Heat exchanger inlet&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_b"
+>Modelica.Fluid.Interfaces.FluidPort_b</a> portHex_b(
+     <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">final </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = <a href="Buildings_Fluid_Storage_MediumHex.html#Buildings.Fluid.Storage.StratifiedEnhancedInternalHex.MediumHex"
+>MediumHex</a>,
+     m_flow(max=<span style="color: blue; font-weight: normal; font-style: normal;">if </span>allowFlowReversalHex<span style="color: blue; font-weight: normal; font-style: normal;"> then </span>Modelica.Constants.inf<span style="color: blue; font-weight: normal; font-style: normal;"> else </span>0)) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Heat exchanger outlet&quot;</span>;
+
+  <a href="Buildings_Fluid_Storage_BaseClasses.html#Buildings.Fluid.Storage.BaseClasses.IndirectTankHeatExchanger"
+>BaseClasses.IndirectTankHeatExchanger</a> indTanHex(
+    <span style="color: blue; font-weight: normal; font-style: normal;">final </span>nSeg=nSegHex,
+    <span style="color: blue; font-weight: normal; font-style: normal;">final </span>CHex=CHex,
+    <span style="color: blue; font-weight: normal; font-style: normal;">final </span>volHexFlu=volHexFlu,
+    <span style="color: blue; font-weight: normal; font-style: normal;">final </span>Q_flow_nominal=Q_flow_nominal,
+    <span style="color: blue; font-weight: normal; font-style: normal;">final </span>TTan_nominal=TTan_nominal,
+    <span style="color: blue; font-weight: normal; font-style: normal;">final </span>THex_nominal=THex_nominal,
+    <span style="color: blue; font-weight: normal; font-style: normal;">final </span>r_nominal=r_nominal,
+    <span style="color: blue; font-weight: normal; font-style: normal;">final </span>dExtHex=dExtHex,
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">final </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> MediumTan = <a href="Buildings_Fluid_Storage_Medium.html#Buildings.Fluid.Storage.Stratified.Medium"
+>Medium</a>,
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">final </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> MediumHex = <a href="Buildings_Fluid_Storage_MediumHex.html#Buildings.Fluid.Storage.StratifiedEnhancedInternalHex.MediumHex"
+>MediumHex</a>,
+    <span style="color: blue; font-weight: normal; font-style: normal;">final </span>dp_nominal=dpHex_nominal,
+    <span style="color: blue; font-weight: normal; font-style: normal;">final </span>m_flow_nominal=mHex_flow_nominal,
+    <span style="color: blue; font-weight: normal; font-style: normal;">final </span>energyDynamics=energyDynamicsHex,
+    <span style="color: blue; font-weight: normal; font-style: normal;">final </span>massDynamics=massDynamicsHex,
+    <span style="color: blue; font-weight: normal; font-style: normal;">final </span>computeFlowResistance=computeFlowResistance,
+    from_dp=from_dp,
+    <span style="color: blue; font-weight: normal; font-style: normal;">final </span>linearizeFlowResistance=linearizeFlowResistance,
+    <span style="color: blue; font-weight: normal; font-style: normal;">final </span>deltaM=deltaM,
+    <span style="color: blue; font-weight: normal; font-style: normal;">final </span>allowFlowReversal=allowFlowReversalHex,
+    <span style="color: blue; font-weight: normal; font-style: normal;">final </span>m_flow_small=1e-4*<span style="color: red; font-weight: normal; font-style: normal;">abs</span>(mHex_flow_nominal)) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Heat exchanger inside the tank&quot;</span>;
+
+<span style="color: blue; font-weight: normal; font-style: normal;">protected </span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">final </span><span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Integer segHex_a = nSeg-<span style="color: red; font-weight: normal; font-style: normal;">integer</span>(hHex_a/segHeight) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Tank segment in which port a1 of the heat exchanger is located in&quot;</span>;
+
+  <span style="color: blue; font-weight: normal; font-style: normal;">final </span><span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Integer segHex_b = nSeg-<span style="color: red; font-weight: normal; font-style: normal;">integer</span>(hHex_b/segHeight) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Tank segment in which port b1 of the heat exchanger is located in&quot;</span>;
+
+  <span style="color: blue; font-weight: normal; font-style: normal;">final </span><span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Height"
+>Modelica.SIunits.Height</a> segHeight = hTan/nSeg <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Height of each tank segment (relative to bottom of same segment)&quot;</span>;
+
+  <span style="color: blue; font-weight: normal; font-style: normal;">final </span><span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Length"
+>Modelica.SIunits.Length</a> dHHex =<span style="color: red; font-weight: normal; font-style: normal;"> abs</span>(hHex_a-hHex_b) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Vertical distance between the heat exchanger inlet and outlet&quot;</span>;
+
+  <span style="color: blue; font-weight: normal; font-style: normal;">final </span><span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Volume"
+>Modelica.SIunits.Volume</a> volHexFlu=
+    Modelica.Constants.pi * (0.8*dExtHex)^2/4 *lHex <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Volume of the heat exchanger&quot;</span>;
+
+  <span style="color: blue; font-weight: normal; font-style: normal;">final </span><span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Integer nSegHexTan=
+    <span style="color: blue; font-weight: normal; font-style: normal;">if </span>segHex_a &gt; segHex_b<span style="color: blue; font-weight: normal; font-style: normal;"> then </span>segHex_a-segHex_b + 1<span style="color: blue; font-weight: normal; font-style: normal;"> else </span>segHex_b-segHex_a + 1 <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Number of tank segments the heat exchanger resides in&quot;</span>;
+
+  <span style="color: blue; font-weight: normal; font-style: normal;">final </span><span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Integer nSegHex = nSegHexTan*hexSegMult <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Number of heat exchanger segments&quot;</span>;
+<span style="color: blue; font-weight: normal; font-style: normal;">initial </span><span style="color: blue; font-weight: normal; font-style: normal;">equation </span>
+  <span style="color: red; font-weight: normal; font-style: normal;">assert</span>(hHex_a &gt;= 0<span style="color: blue; font-weight: normal; font-style: normal;"> and </span>hHex_a &lt;= hTan,
+    &quot;The parameter hHex_a is outside its valid range.&quot;);
+
+  <span style="color: red; font-weight: normal; font-style: normal;">assert</span>(hHex_b &gt;= 0<span style="color: blue; font-weight: normal; font-style: normal;"> and </span>hHex_b &lt;= hTan,
+    &quot;The parameter hHex_b is outside its valid range.&quot;);
+
+  <span style="color: red; font-weight: normal; font-style: normal;">assert</span>(dHHex &gt; 0,
+    &quot;The parameters hHex_a and hHex_b must not be equal.&quot;);
+<span style="color: blue; font-weight: normal; font-style: normal;">equation </span>
+   <span style="color: blue; font-weight: normal; font-style: normal;">for </span>j<span style="color: blue; font-weight: normal; font-style: normal;"> in </span>1:nSegHexTan<span style="color: blue; font-weight: normal; font-style: normal;"> loop</span>
+     <span style="color: blue; font-weight: normal; font-style: normal;">for </span>i<span style="color: blue; font-weight: normal; font-style: normal;"> in </span>1:hexSegMult<span style="color: blue; font-weight: normal; font-style: normal;"> loop</span>
+      <span style="color: red; font-weight: normal; font-style: normal;"> connect</span>(indTanHex.port[(j-1)*hexSegMult+i], heaPorVol[segHex_a+j-1]);
+     <span style="color: blue; font-weight: normal; font-style: normal;">end for</span>;
+   <span style="color: blue; font-weight: normal; font-style: normal;">end for</span>;
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(portHex_a, indTanHex.port_a);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(indTanHex.port_b, portHex_b);
+
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>StratifiedEnhancedInternalHex;
+</div>
+<hr>
+<address>
+<a href="http://www.3ds.com/">Automatically generated</a> Thu Apr  9 09:36:51 2015.
+</address>
+</body>
+</html>

@@ -1,0 +1,316 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>Buildings.Media.Specialized.Water.Examples</title>
+<meta name="HTML-Generator" content="Dymola">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="description" content="&quot;Collection of models that test the water models&quot;">
+<style type="text/css">
+*       { font-size: 10pt; font-family: Arial, sans-serif; }
+.modelica, .modelica * { font-size: 9pt; font-family: Courier, monospace; white-space: pre; }
+h4      { font-size: 10pt; font-weight: bold; color: green; }
+h3      { font-size: 11pt; font-weight: bold; color: green; }
+h2      { font-size: 13pt; font-weight: bold; color: green; }
+address { font-weight: normal; }
+td      { border: 1px solid #808080; vertical-align: top; }
+th      { border: 1px solid #808080; vertical-align: top; font-weight: bold; }
+table   { border: 1px solid #808080; border-collapse: collapse; }
+</style>
+<link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../Resources/www/modelicaDoc.css">
+</HEAD>
+<body>
+<!-- --- header ------ -->
+<div class="headerStyle">
+<img src="../Resources/www/lbl-logo.png" alt="LBL logo"/>
+</div>
+<div class="headerLinks">
+<ul><li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt; <a href="Buildings.html">Modelica</a></li></ul>
+</div>
+<!-- --- end header -- -->
+
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE Examples<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><a name="Buildings.Media.Specialized.Water.Examples"></a><a href="Buildings_Media_Specialized_Water.html#Buildings.Media.Specialized.Water"
+>Buildings.Media.Specialized.Water</a>.Examples</h2>
+<p>
+<b>Collection of models that test the water models</b><br>
+</p>
+<h3>Information</h3>
+
+<p>
+This package contains examples that test the media packages in
+<a href="Buildings_Media_Water.html#Buildings.Media.Water"
+>
+Buildings.Media.Water</a>.
+</p>
+
+<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons_ExamplesPackage.html#Modelica.Icons.ExamplesPackage"
+>Modelica.Icons.ExamplesPackage</a> (Icon for packages containing runnable examples).</p>
+<h3>Package Content</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Package Content">
+<tr>
+<th>Name</th>
+<th>Description</th>
+</tr>
+<tr>
+<td><img src="Buildings.Media.Specializb92c41d46bf19b91CheckS.png" alt="Buildings.Media.Specialized.Water.Examples.TemperatureDependentDensityDerivativeCheck" width="20" height="20" align="top">&nbsp;<a href="Buildings_Media_Specialized_Water_Examples.html#Buildings.Media.Specialized.Water.Examples.TemperatureDependentDensityDerivativeCheck"
+>TemperatureDependentDensityDerivativeCheck</a>
+</td>
+<td>Model that tests the derivative implementation</td>
+</tr>
+<tr>
+<td><img src="Buildings.Media.Specializb92c41d46bf19b91CheckS.png" alt="Buildings.Media.Specialized.Water.Examples.TemperatureDependentDensityProperties" width="20" height="20" align="top">&nbsp;<a href="Buildings_Media_Specialized_Water_Examples.html#Buildings.Media.Specialized.Water.Examples.TemperatureDependentDensityProperties"
+>TemperatureDependentDensityProperties</a>
+</td>
+<td>Model that tests the implementation of the fluid properties</td>
+</tr>
+<tr>
+<td><img src="Buildings.Media.Specializb92c41d46bf19b91CheckS.png" alt="Buildings.Media.Specialized.Water.Examples.TemperatureDependentDensityTemperatureEnthalpyInversion" width="20" height="20" align="top">&nbsp;<a href="Buildings_Media_Specialized_Water_Examples.html#Buildings.Media.Specialized.Water.Examples.TemperatureDependentDensityTemperatureEnthalpyInversion"
+>TemperatureDependentDensityTemperatureEnthalpyInversion</a>
+</td>
+<td>Model to check computation of h(T) and its inverse</td>
+</tr>
+<tr>
+<td><img src="Buildings.Media.Specializb92c41d46bf19b91CheckS.png" alt="Buildings.Media.Specialized.Water.Examples.TemperatureDependentDensityTestImplementation" width="20" height="20" align="top">&nbsp;<a href="Buildings_Media_Specialized_Water_Examples.html#Buildings.Media.Specialized.Water.Examples.TemperatureDependentDensityTestImplementation"
+>TemperatureDependentDensityTestImplementation</a>
+</td>
+<td>Model that tests the medium implementation</td>
+</tr>
+</table>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE TemperatureDependentDensityDerivativeCheck<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Media.Specializb92c41d46bf19b91CheckI.png" alt="Buildings.Media.Specialized.Water.Examples.TemperatureDependentDensityDerivativeCheck" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Media.Specialized.Water.Examples.TemperatureDependentDensityDerivativeCheck"></a><a href="Buildings_Media_Specialized_Water_Examples.html#Buildings.Media.Specialized.Water.Examples"
+>Buildings.Media.Specialized.Water.Examples</a>.TemperatureDependentDensityDerivativeCheck</h2>
+<p>
+<b>Model that tests the derivative implementation</b>
+</p>
+<h3>Information</h3>
+
+<p>
+This example checks whether the function derivative
+is implemented correctly. If the derivative implementation
+is not correct, the model will stop with an assert statement.
+</p>
+
+<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</a> (Icon for runnable examples).</p>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">model</span> TemperatureDependentDensityDerivativeCheck <span style="color: #006400; font-weight: normal; font-style: normal;">
+  &quot;Model that tests the derivative implementation&quot;</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</a>;
+
+   <span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium =
+      <a href="Buildings_Media_Specialized_Water_TemperatureDependentDensity.html#Buildings.Media.Specialized.Water.TemperatureDependentDensity"
+>Buildings.Media.Specialized.Water.TemperatureDependentDensity</a> <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Medium model&quot;</span>;
+
+    <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.SpecificEnthalpy"
+>Modelica.SIunits.SpecificEnthalpy</a> hLiqSym <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Liquid phase enthalpy&quot;</span>;
+    <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.SpecificEnthalpy"
+>Modelica.SIunits.SpecificEnthalpy</a> hLiqCod <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Liquid phase enthalpy&quot;</span>;
+    <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.SpecificHeatCapacity"
+>Modelica.SIunits.SpecificHeatCapacity</a> cpSym <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Specific heat capacity&quot;</span>;
+    <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.SpecificHeatCapacity"
+>Modelica.SIunits.SpecificHeatCapacity</a> cpCod <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Specific heat capacity&quot;</span>;
+    <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.SpecificHeatCapacity"
+>Modelica.SIunits.SpecificHeatCapacity</a> cvSym <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Specific heat capacity&quot;</span>;
+    <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.SpecificHeatCapacity"
+>Modelica.SIunits.SpecificHeatCapacity</a> cvCod <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Specific heat capacity&quot;</span>;
+    <span style="color: blue; font-weight: normal; font-style: normal;">constant </span>Real conv(unit=&quot;K/s&quot;) = 1 <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Conversion factor to satisfy unit check&quot;</span>;
+<span style="color: blue; font-weight: normal; font-style: normal;">initial </span><span style="color: blue; font-weight: normal; font-style: normal;">equation </span>
+     hLiqSym = hLiqCod;
+     cpSym   = cpCod;
+     cvSym   = cvCod;
+<span style="color: blue; font-weight: normal; font-style: normal;">equation </span>
+    hLiqCod=<span style="color: red; font-weight: normal; font-style: normal;">Medium.enthalpyOfLiquid</span>(conv*time);
+  <span style="color: red; font-weight: normal; font-style: normal;">  der</span>(hLiqCod)=<span style="color: red; font-weight: normal; font-style: normal;">der</span>(hLiqSym);
+  <span style="color: red; font-weight: normal; font-style: normal;">  assert</span>(<span style="color: red; font-weight: normal; font-style: normal;">abs</span>(hLiqCod-hLiqSym) &lt; 1E-2, &quot;Model has an error&quot;);
+
+    cpCod=<span style="color: red; font-weight: normal; font-style: normal;">Medium.specificHeatCapacityCp</span>(
+      <span style="color: red; font-weight: normal; font-style: normal;">Medium.setState_pTX</span>(
+         p=1e5,
+         T=conv*time,
+         X={0.1}));
+  <span style="color: red; font-weight: normal; font-style: normal;">  der</span>(cpCod)=<span style="color: red; font-weight: normal; font-style: normal;">der</span>(cpSym);
+  <span style="color: red; font-weight: normal; font-style: normal;">  assert</span>(<span style="color: red; font-weight: normal; font-style: normal;">abs</span>(cpCod-cpSym) &lt; 1E-2, &quot;Model has an error&quot;);
+
+     cvCod=<span style="color: red; font-weight: normal; font-style: normal;">Medium.specificHeatCapacityCv</span>(
+      <span style="color: red; font-weight: normal; font-style: normal;">Medium.setState_pTX</span>(
+         p=1e5,
+         T=conv*time,
+         X={0.1}));
+  <span style="color: red; font-weight: normal; font-style: normal;">  der</span>(cvCod)=<span style="color: red; font-weight: normal; font-style: normal;">der</span>(cvSym);
+  <span style="color: red; font-weight: normal; font-style: normal;">  assert</span>(<span style="color: red; font-weight: normal; font-style: normal;">abs</span>(cvCod-cvSym) &lt; 1E-2, &quot;Model has an error&quot;);
+
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>TemperatureDependentDensityDerivativeCheck;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE TemperatureDependentDensityProperties<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Media.Specializb92c41d46bf19b91CheckI.png" alt="Buildings.Media.Specialized.Water.Examples.TemperatureDependentDensityProperties" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Media.Specialized.Water.Examples.TemperatureDependentDensityProperties"></a><a href="Buildings_Media_Specialized_Water_Examples.html#Buildings.Media.Specialized.Water.Examples"
+>Buildings.Media.Specialized.Water.Examples</a>.TemperatureDependentDensityProperties</h2>
+<p>
+<b>Model that tests the implementation of the fluid properties</b>
+</p>
+<h3>Information</h3>
+
+<p>
+This example checks thermophysical properties of the medium.
+</p>
+
+<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</a> (Icon for runnable examples), <a href="Buildings_Media_Examples_BaseClasses.html#Buildings.Media.Examples.BaseClasses.FluidProperties"
+>Buildings.Media.Examples.BaseClasses.FluidProperties</a> (Model that tests the implementation of the fluid properties).</p>
+<h3>Parameters</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td colspan="2">replaceable package Medium</td><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium"
+>PartialMedium</a></td><td>&nbsp;</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+>Temperature</a></td><td>TMin</td><td>273.15</td><td>Minimum temperature for the simulation [K]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+>Temperature</a></td><td>TMax</td><td>373.15</td><td>Maximum temperature for the simulation [K]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
+>Pressure</a></td><td>p</td><td>Medium.p_default</td><td>Pressure [Pa]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.MassFraction"
+>MassFraction</a></td><td>X[Medium.nX]</td><td>Medium.X_default</td><td>Mass fraction [1]</td></tr>
+</table>
+<h3>Connectors</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Connectors">
+<tr><th>Type</th><th>Name</th><th>Description</th></tr>
+<tr><td colspan="2">replaceable package Medium</td><td>&nbsp;</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">model</span> TemperatureDependentDensityProperties <span style="color: #006400; font-weight: normal; font-style: normal;">
+  &quot;Model that tests the implementation of the fluid properties&quot;</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</a>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="Buildings_Media_Examples_BaseClasses.html#Buildings.Media.Examples.BaseClasses.FluidProperties"
+>Buildings.Media.Examples.BaseClasses.FluidProperties</a>(
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium =
+        <a href="Buildings_Media_Specialized_Water_TemperatureDependentDensity.html#Buildings.Media.Specialized.Water.TemperatureDependentDensity"
+>Buildings.Media.Specialized.Water.TemperatureDependentDensity</a>,
+    TMin=273.15,
+    TMax=373.15);
+<span style="color: blue; font-weight: normal; font-style: normal;">equation </span>
+  <span style="color: #006400; font-weight: normal; font-style: normal;">// Check the implementation of the base properties</span>
+  basPro.state.p=p;
+  basPro.state.T=T;
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>TemperatureDependentDensityProperties;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE TemperatureDependentDensityTemperatureEnthalpyInversion<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Media.Specializb92c41d46bf19b91CheckI.png" alt="Buildings.Media.Specialized.Water.Examples.TemperatureDependentDensityTemperatureEnthalpyInversion" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Media.Specialized.Water.Examples.TemperatureDependentDensityTemperatureEnthalpyInversion"></a><a href="Buildings_Media_Specialized_Water_Examples.html#Buildings.Media.Specialized.Water.Examples"
+>Buildings.Media.Specialized.Water.Examples</a>.TemperatureDependentDensityTemperatureEnthalpyInversion</h2>
+<p>
+<b>Model to check computation of h(T) and its inverse</b>
+</p>
+<h3>Information</h3>
+
+<p>
+This model tests whether the inversion of temperature and enthalpy
+is implemented correctly.
+If <i>T &ne; T(h(T))</i>, the model stops with an error.
+</p>
+
+<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</a> (Icon for runnable examples), <a href="Buildings_Media_Examples_BaseClasses.html#Buildings.Media.Examples.BaseClasses.TestTemperatureEnthalpyInversion"
+>Buildings.Media.Examples.BaseClasses.TestTemperatureEnthalpyInversion</a> (Model to check computation of h(T) and its inverse).</p>
+<h3>Parameters</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td colspan="2">replaceable package Medium</td><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_PartialCondensingGases.html#Modelica.Media.Interfaces.PartialCondensingGases"
+>PartialCondensingGases</a></td><td>&nbsp;</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+>Temperature</a></td><td>T0</td><td>273.15 + 20</td><td>Temperature [K]</td></tr>
+</table>
+<h3>Connectors</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Connectors">
+<tr><th>Type</th><th>Name</th><th>Description</th></tr>
+<tr><td colspan="2">replaceable package Medium</td><td>&nbsp;</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">model</span> TemperatureDependentDensityTemperatureEnthalpyInversion <span style="color: #006400; font-weight: normal; font-style: normal;">
+  &quot;Model to check computation of h(T) and its inverse&quot;</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</a>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="Buildings_Media_Examples_BaseClasses.html#Buildings.Media.Examples.BaseClasses.TestTemperatureEnthalpyInversion"
+>Buildings.Media.Examples.BaseClasses.TestTemperatureEnthalpyInversion</a>
+    (
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium =
+        <a href="Buildings_Media_Specialized_Water_TemperatureDependentDensity.html#Buildings.Media.Specialized.Water.TemperatureDependentDensity"
+>Buildings.Media.Specialized.Water.TemperatureDependentDensity</a>);
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>TemperatureDependentDensityTemperatureEnthalpyInversion;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE TemperatureDependentDensityTestImplementation<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Media.Specializb92c41d46bf19b91CheckI.png" alt="Buildings.Media.Specialized.Water.Examples.TemperatureDependentDensityTestImplementation" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Media.Specialized.Water.Examples.TemperatureDependentDensityTestImplementation"></a><a href="Buildings_Media_Specialized_Water_Examples.html#Buildings.Media.Specialized.Water.Examples"
+>Buildings.Media.Specialized.Water.Examples</a>.TemperatureDependentDensityTestImplementation</h2>
+<p>
+<b>Model that tests the medium implementation</b>
+<br>
+<br><img src="Buildings.Media.Specializ0526ea6f54950976ationD.png" alt="Buildings.Media.Specialized.Water.Examples.TemperatureDependentDensityTestImplementation">
+</p>
+<h3>Information</h3>
+
+<p>
+This is a simple test for the medium model. It uses the test model described in
+<a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_UsersGuide_MediumDefinition.html#Modelica.Media.UsersGuide.MediumDefinition.TestOfMedium"
+>
+Modelica.Media.UsersGuide.MediumDefinition.TestOfMedium</a>.
+</p>
+
+<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</a> (Icon for runnable examples), <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Examples_Tests_Components.html#Modelica.Media.Examples.Tests.Components.PartialTestModel"
+>Modelica.Media.Examples.Tests.Components.PartialTestModel</a> (Basic test model to test a medium).</p>
+<h3>Parameters</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td colspan="2">replaceable package Medium</td><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium"
+>PartialMedium</a></td><td>Medium model</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.AbsolutePressure"
+>AbsolutePressure</a></td><td>p_start</td><td>Medium.p_default</td><td>Initial value of pressure [Pa]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+>Temperature</a></td><td>T_start</td><td>Medium.T_default</td><td>Initial value of temperature [K]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.SpecificEnthalpy"
+>SpecificEnthalpy</a></td><td>h_start</td><td>Medium.h_default</td><td>Initial value of specific enthalpy [J/kg]</td></tr>
+<tr><td>Real</td><td>X_start[Medium.nX]</td><td>Medium.X_default</td><td>Initial value of mass fractions</td></tr>
+</table>
+<h3>Connectors</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Connectors">
+<tr><th>Type</th><th>Name</th><th>Description</th></tr>
+<tr><td colspan="2">replaceable package Medium</td><td>Medium model</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">model</span> TemperatureDependentDensityTestImplementation <span style="color: #006400; font-weight: normal; font-style: normal;">
+  &quot;Model that tests the medium implementation&quot;</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</a>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Examples_Tests_Components.html#Modelica.Media.Examples.Tests.Components.PartialTestModel"
+>Modelica.Media.Examples.Tests.Components.PartialTestModel</a>(
+     <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium =
+        <a href="Buildings_Media_Specialized_Water_TemperatureDependentDensity.html#Buildings.Media.Specialized.Water.TemperatureDependentDensity"
+>Buildings.Media.Specialized.Water.TemperatureDependentDensity</a>);
+
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>TemperatureDependentDensityTestImplementation;
+</div>
+<hr>
+<address>
+<a href="http://www.3ds.com/">Automatically generated</a> Thu Apr  9 09:37:40 2015.
+</address>
+</body>
+</html>

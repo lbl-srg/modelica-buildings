@@ -1,0 +1,286 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>Buildings.HeatTransfer.Data.OpaqueConstructions</title>
+<meta name="HTML-Generator" content="Dymola">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="description" content="&quot;Package with opaque constructions for floors, walls, etc.&quot;">
+<style type="text/css">
+*       { font-size: 10pt; font-family: Arial, sans-serif; }
+.modelica, .modelica * { font-size: 9pt; font-family: Courier, monospace; white-space: pre; }
+h4      { font-size: 10pt; font-weight: bold; color: green; }
+h3      { font-size: 11pt; font-weight: bold; color: green; }
+h2      { font-size: 13pt; font-weight: bold; color: green; }
+address { font-weight: normal; }
+td      { border: 1px solid #808080; vertical-align: top; }
+th      { border: 1px solid #808080; vertical-align: top; font-weight: bold; }
+table   { border: 1px solid #808080; border-collapse: collapse; }
+</style>
+<link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../Resources/www/modelicaDoc.css">
+</HEAD>
+<body>
+<!-- --- header ------ -->
+<div class="headerStyle">
+<img src="../Resources/www/lbl-logo.png" alt="LBL logo"/>
+</div>
+<div class="headerLinks">
+<ul><li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt; <a href="Buildings.html">Modelica</a></li></ul>
+</div>
+<!-- --- end header -- -->
+
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE OpaqueConstructions<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><a name="Buildings.HeatTransfer.Data.OpaqueConstructions"></a><a href="Buildings_HeatTransfer_Data.html#Buildings.HeatTransfer.Data"
+>Buildings.HeatTransfer.Data</a>.OpaqueConstructions</h2>
+<p>
+<b>Package with opaque constructions for floors, walls, etc.</b><br>
+</p>
+<h3>Information</h3>
+
+<p>
+Package with material definitions for constructions
+with one or more layers of material.
+By convention, <code>layer[1]</code> is facing the outside, and the last
+layer is facing the room-side.
+This is the same convention as is used in EnergyPlus and in Window 6.
+</p>
+<p>
+The parameters <code>absIR_a</code> and <code>absIR_b</code>
+are used to compute infrared heat radiation (in the infrared spectrum).
+The parameters <code>absSol_a</code> and <code>absSol_b</code>
+are used to compute solar heat radiation (in the solar spectrum).
+</p>
+
+<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons_MaterialPropertiesPackage.html#Modelica.Icons.MaterialPropertiesPackage"
+>Modelica.Icons.MaterialPropertiesPackage</a> (Icon for package containing property classes).</p>
+<h3>Package Content</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Package Content">
+<tr>
+<th>Name</th>
+<th>Description</th>
+</tr>
+<tr>
+<td><img src="Buildings.HeatTransfer.Da1e3fe4d6a123f74cnericS.png" alt="Buildings.HeatTransfer.Data.OpaqueConstructions.Generic" width="20" height="20" align="top">&nbsp;<a href="Buildings_HeatTransfer_Data_OpaqueConstructions.html#Buildings.HeatTransfer.Data.OpaqueConstructions.Generic"
+>Generic</a>
+</td>
+<td>Thermal properties of opaque constructions</td>
+</tr>
+<tr>
+<td><img src="Buildings.HeatTransfer.Da1e3fe4d6a123f74cnericS.png" alt="Buildings.HeatTransfer.Data.OpaqueConstructions.Insulation100Concrete200" width="20" height="20" align="top">&nbsp;<a href="Buildings_HeatTransfer_Data_OpaqueConstructions.html#Buildings.HeatTransfer.Data.OpaqueConstructions.Insulation100Concrete200"
+>Insulation100Concrete200</a>
+</td>
+<td>Construction with 100 mm insulation and 200 mm concrete</td>
+</tr>
+<tr>
+<td><img src="Buildings.HeatTransfer.Da1e3fe4d6a123f74cnericS.png" alt="Buildings.HeatTransfer.Data.OpaqueConstructions.Brick120" width="20" height="20" align="top">&nbsp;<a href="Buildings_HeatTransfer_Data_OpaqueConstructions.html#Buildings.HeatTransfer.Data.OpaqueConstructions.Brick120"
+>Brick120</a>
+</td>
+<td>Construction with 120mm brick</td>
+</tr>
+<tr>
+<td><img src="Buildings.HeatTransfer.Da1e3fe4d6a123f74cnericS.png" alt="Buildings.HeatTransfer.Data.OpaqueConstructions.Concrete200" width="20" height="20" align="top">&nbsp;<a href="Buildings_HeatTransfer_Data_OpaqueConstructions.html#Buildings.HeatTransfer.Data.OpaqueConstructions.Concrete200"
+>Concrete200</a>
+</td>
+<td>Construction with 200mm concrete</td>
+</tr>
+</table>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE Generic<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.HeatTransfer.Da1e3fe4d6a123f74cnericI.png" alt="Buildings.HeatTransfer.Data.OpaqueConstructions.Generic" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.HeatTransfer.Data.OpaqueConstructions.Generic"></a><a href="Buildings_HeatTransfer_Data_OpaqueConstructions.html#Buildings.HeatTransfer.Data.OpaqueConstructions"
+>Buildings.HeatTransfer.Data.OpaqueConstructions</a>.Generic</h2>
+<p>
+<b>Thermal properties of opaque constructions</b>
+<br>
+<br><img src="Buildings.HeatTransfer.Da1e3fe4d6a123f74cnericD.png" alt="Buildings.HeatTransfer.Data.OpaqueConstructions.Generic">
+</p>
+<h3>Information</h3>
+
+Generic record with material definitions for constructions
+with one or more layers of material.
+By convention, <code>layer[1]</code> is facing the outside, and the last
+layer is facing the room-side.
+This is the same convention as is used in EnergyPlus and in Window 6.
+
+<p>
+The parameters <code>absIR_a</code> and <code>absIR_b</code>
+are used to compute infrared heat radiation (in the infrared spectrum).
+The parameters <code>absSol_a</code> and <code>absSol_b</code>
+are used to compute solar heat radiation (in the solar spectrum).
+</p>
+<p>
+The parameter <code>roughness_a</code> is used if the convective heat transfer
+coefficient of the exterior surface is computed based on the wind-speed, wind-direction
+and temperature difference. See
+<a href="Buildings_HeatTransfer_Convection.html#Buildings.HeatTransfer.Convection.Exterior"
+>
+Buildings.HeatTransfer.Convection.Exterior</a>.
+</p>
+
+<h3>Parameters</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td>Integer</td><td>nLay</td><td>&nbsp;</td><td>Number of layers</td></tr>
+<tr><td><a href="Buildings_HeatTransfer_Data_BaseClasses.html#Buildings.HeatTransfer.Data.BaseClasses.Material"
+>Material</a></td><td>material[nLay]</td><td>&nbsp;</td><td>Layer by layer declaration of material, starting from outside to room-side</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Emissivity"
+>Emissivity</a></td><td>absIR_a</td><td>0.9</td><td>Infrared absorptivity of surface a (usually outside-facing surface) [1]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Emissivity"
+>Emissivity</a></td><td>absIR_b</td><td>0.9</td><td>Infrared absorptivity of surface b (usually room-facing surface) [1]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Emissivity"
+>Emissivity</a></td><td>absSol_a</td><td>0.5</td><td>Solar absorptivity of surface a (usually outside-facing surface) [1]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Emissivity"
+>Emissivity</a></td><td>absSol_b</td><td>0.5</td><td>Solar absorptivity of surface b (usually room-facing surface) [1]</td></tr>
+<tr><td><a href="Buildings_HeatTransfer_Types.html#Buildings.HeatTransfer.Types.SurfaceRoughness"
+>SurfaceRoughness</a></td><td>roughness_a</td><td>Buildings.HeatTransfer.Types...</td><td>Exterior surface roughness</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">record</span> Generic <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Thermal properties of opaque constructions&quot;</span>
+
+ <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Integer nLay(min=1) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Number of layers&quot;</span>;
+
+ <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="Buildings_HeatTransfer_Data_BaseClasses.html#Buildings.HeatTransfer.Data.BaseClasses.Material"
+>Buildings.HeatTransfer.Data.BaseClasses.Material</a> material[nLay] <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Layer by layer declaration of material, starting from outside to room-side&quot;</span>;
+ <span style="color: blue; font-weight: normal; font-style: normal;">final </span><span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Real R(unit=&quot;m2.K/W&quot;)=<span style="color: red; font-weight: normal; font-style: normal;">sum</span>(material[i].R <span style="color: blue; font-weight: normal; font-style: normal;">for </span>i<span style="color: blue; font-weight: normal; font-style: normal;"> in </span>1:nLay) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Thermal resistance per unit area&quot;</span>;
+
+ <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Emissivity"
+>Modelica.SIunits.Emissivity</a> absIR_a=0.9 <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Infrared absorptivity of surface a (usually outside-facing surface)&quot;</span>;
+ <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Emissivity"
+>Modelica.SIunits.Emissivity</a> absIR_b=0.9 <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Infrared absorptivity of surface b (usually room-facing surface)&quot;</span>;
+ <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Emissivity"
+>Modelica.SIunits.Emissivity</a> absSol_a=0.5 <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Solar absorptivity of surface a (usually outside-facing surface)&quot;</span>;
+ <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Emissivity"
+>Modelica.SIunits.Emissivity</a> absSol_b=0.5 <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Solar absorptivity of surface b (usually room-facing surface)&quot;</span>;
+ <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="Buildings_HeatTransfer_Types.html#Buildings.HeatTransfer.Types.SurfaceRoughness"
+>Buildings.HeatTransfer.Types.SurfaceRoughness</a> roughness_a=
+    Buildings.HeatTransfer.Types.SurfaceRoughness.Medium <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Exterior surface roughness&quot;</span>;
+
+
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>Generic;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE Insulation100Concrete200<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.HeatTransfer.Da1e3fe4d6a123f74cnericI.png" alt="Buildings.HeatTransfer.Data.OpaqueConstructions.Insulation100Concrete200" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.HeatTransfer.Data.OpaqueConstructions.Insulation100Concrete200"></a><a href="Buildings_HeatTransfer_Data_OpaqueConstructions.html#Buildings.HeatTransfer.Data.OpaqueConstructions"
+>Buildings.HeatTransfer.Data.OpaqueConstructions</a>.Insulation100Concrete200</h2>
+<p>
+<b>Construction with 100 mm insulation and 200 mm concrete</b>
+<br>
+<br><img src="Buildings.HeatTransfer.Da1e3fe4d6a123f74cnericD.png" alt="Buildings.HeatTransfer.Data.OpaqueConstructions.Insulation100Concrete200">
+</p>
+<h3>Parameters</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td>Integer</td><td>nLay</td><td>2</td><td>Number of layers</td></tr>
+<tr><td><a href="Buildings_HeatTransfer_Data_BaseClasses.html#Buildings.HeatTransfer.Data.BaseClasses.Material"
+>Material</a></td><td>material[nLay]</td><td>{Solids.InsulationBoard(x=0....</td><td>Layer by layer declaration of material, starting from outside to room-side</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Emissivity"
+>Emissivity</a></td><td>absIR_a</td><td>0.9</td><td>Infrared absorptivity of surface a (usually outside-facing surface) [1]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Emissivity"
+>Emissivity</a></td><td>absIR_b</td><td>0.9</td><td>Infrared absorptivity of surface b (usually room-facing surface) [1]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Emissivity"
+>Emissivity</a></td><td>absSol_a</td><td>0.5</td><td>Solar absorptivity of surface a (usually outside-facing surface) [1]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Emissivity"
+>Emissivity</a></td><td>absSol_b</td><td>0.5</td><td>Solar absorptivity of surface b (usually room-facing surface) [1]</td></tr>
+<tr><td><a href="Buildings_HeatTransfer_Types.html#Buildings.HeatTransfer.Types.SurfaceRoughness"
+>SurfaceRoughness</a></td><td>roughness_a</td><td>Buildings.HeatTransfer.Types...</td><td>Exterior surface roughness</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">record</span> Insulation100Concrete200 =
+    <a href="Buildings_HeatTransfer_Data_OpaqueConstructions.html#Buildings.HeatTransfer.Data.OpaqueConstructions.Generic"
+>Buildings.HeatTransfer.Data.OpaqueConstructions.Generic</a> (
+      material={<span style="color: red; font-weight: normal; font-style: normal;">Solids.InsulationBoard</span>(x=0.1),
+                <span style="color: red; font-weight: normal; font-style: normal;">Solids.Concrete</span>(x=0.2)},
+                <span style="color: blue; font-weight: normal; font-style: normal;">final </span>nLay=2) <span style="color: #006400; font-weight: normal; font-style: normal;">
+  &quot;Construction with 100 mm insulation and 200 mm concrete&quot;</span>;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE Brick120<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.HeatTransfer.Da1e3fe4d6a123f74cnericI.png" alt="Buildings.HeatTransfer.Data.OpaqueConstructions.Brick120" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.HeatTransfer.Data.OpaqueConstructions.Brick120"></a><a href="Buildings_HeatTransfer_Data_OpaqueConstructions.html#Buildings.HeatTransfer.Data.OpaqueConstructions"
+>Buildings.HeatTransfer.Data.OpaqueConstructions</a>.Brick120</h2>
+<p>
+<b>Construction with 120mm brick</b>
+<br>
+<br><img src="Buildings.HeatTransfer.Da1e3fe4d6a123f74cnericD.png" alt="Buildings.HeatTransfer.Data.OpaqueConstructions.Brick120">
+</p>
+<h3>Parameters</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td>Integer</td><td>nLay</td><td>1</td><td>Number of layers</td></tr>
+<tr><td><a href="Buildings_HeatTransfer_Data_BaseClasses.html#Buildings.HeatTransfer.Data.BaseClasses.Material"
+>Material</a></td><td>material[nLay]</td><td>{Solids.Brick(x=0.12)}</td><td>Layer by layer declaration of material, starting from outside to room-side</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Emissivity"
+>Emissivity</a></td><td>absIR_a</td><td>0.9</td><td>Infrared absorptivity of surface a (usually outside-facing surface) [1]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Emissivity"
+>Emissivity</a></td><td>absIR_b</td><td>0.9</td><td>Infrared absorptivity of surface b (usually room-facing surface) [1]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Emissivity"
+>Emissivity</a></td><td>absSol_a</td><td>0.5</td><td>Solar absorptivity of surface a (usually outside-facing surface) [1]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Emissivity"
+>Emissivity</a></td><td>absSol_b</td><td>0.5</td><td>Solar absorptivity of surface b (usually room-facing surface) [1]</td></tr>
+<tr><td><a href="Buildings_HeatTransfer_Types.html#Buildings.HeatTransfer.Types.SurfaceRoughness"
+>SurfaceRoughness</a></td><td>roughness_a</td><td>Buildings.HeatTransfer.Types...</td><td>Exterior surface roughness</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">record</span> Brick120 =
+    <a href="Buildings_HeatTransfer_Data_OpaqueConstructions.html#Buildings.HeatTransfer.Data.OpaqueConstructions.Generic"
+>Buildings.HeatTransfer.Data.OpaqueConstructions.Generic</a> (
+      material={<span style="color: red; font-weight: normal; font-style: normal;">Solids.Brick</span>(x=0.12)},
+      <span style="color: blue; font-weight: normal; font-style: normal;">final </span>nLay=1) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Construction with 120mm brick&quot;</span>;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE Concrete200<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.HeatTransfer.Da1e3fe4d6a123f74cnericI.png" alt="Buildings.HeatTransfer.Data.OpaqueConstructions.Concrete200" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.HeatTransfer.Data.OpaqueConstructions.Concrete200"></a><a href="Buildings_HeatTransfer_Data_OpaqueConstructions.html#Buildings.HeatTransfer.Data.OpaqueConstructions"
+>Buildings.HeatTransfer.Data.OpaqueConstructions</a>.Concrete200</h2>
+<p>
+<b>Construction with 200mm concrete</b>
+<br>
+<br><img src="Buildings.HeatTransfer.Da1e3fe4d6a123f74cnericD.png" alt="Buildings.HeatTransfer.Data.OpaqueConstructions.Concrete200">
+</p>
+<h3>Parameters</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td>Integer</td><td>nLay</td><td>1</td><td>Number of layers</td></tr>
+<tr><td><a href="Buildings_HeatTransfer_Data_BaseClasses.html#Buildings.HeatTransfer.Data.BaseClasses.Material"
+>Material</a></td><td>material[nLay]</td><td>{Solids.Concrete(x=0.2)}</td><td>Layer by layer declaration of material, starting from outside to room-side</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Emissivity"
+>Emissivity</a></td><td>absIR_a</td><td>0.9</td><td>Infrared absorptivity of surface a (usually outside-facing surface) [1]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Emissivity"
+>Emissivity</a></td><td>absIR_b</td><td>0.9</td><td>Infrared absorptivity of surface b (usually room-facing surface) [1]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Emissivity"
+>Emissivity</a></td><td>absSol_a</td><td>0.5</td><td>Solar absorptivity of surface a (usually outside-facing surface) [1]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Emissivity"
+>Emissivity</a></td><td>absSol_b</td><td>0.5</td><td>Solar absorptivity of surface b (usually room-facing surface) [1]</td></tr>
+<tr><td><a href="Buildings_HeatTransfer_Types.html#Buildings.HeatTransfer.Types.SurfaceRoughness"
+>SurfaceRoughness</a></td><td>roughness_a</td><td>Buildings.HeatTransfer.Types...</td><td>Exterior surface roughness</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">record</span> Concrete200 =
+    <a href="Buildings_HeatTransfer_Data_OpaqueConstructions.html#Buildings.HeatTransfer.Data.OpaqueConstructions.Generic"
+>Buildings.HeatTransfer.Data.OpaqueConstructions.Generic</a> (
+      material={<span style="color: red; font-weight: normal; font-style: normal;">Solids.Concrete</span>(x=0.2)},
+      <span style="color: blue; font-weight: normal; font-style: normal;">final </span>nLay=1) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Construction with 200mm concrete&quot;</span>;
+</div>
+<hr>
+<address>
+<a href="http://www.3ds.com/">Automatically generated</a> Thu Apr  9 09:37:34 2015.
+</address>
+</body>
+</html>

@@ -1,0 +1,286 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>Buildings.Fluid.Sensors.BaseClasses</title>
+<meta name="HTML-Generator" content="Dymola">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="description" content="&quot;Package with base classes for Buildings.Fluid.Sensors&quot;">
+<style type="text/css">
+*       { font-size: 10pt; font-family: Arial, sans-serif; }
+.modelica, .modelica * { font-size: 9pt; font-family: Courier, monospace; white-space: pre; }
+h4      { font-size: 10pt; font-weight: bold; color: green; }
+h3      { font-size: 11pt; font-weight: bold; color: green; }
+h2      { font-size: 13pt; font-weight: bold; color: green; }
+address { font-weight: normal; }
+td      { border: 1px solid #808080; vertical-align: top; }
+th      { border: 1px solid #808080; vertical-align: top; font-weight: bold; }
+table   { border: 1px solid #808080; border-collapse: collapse; }
+</style>
+<link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../Resources/www/modelicaDoc.css">
+</HEAD>
+<body>
+<!-- --- header ------ -->
+<div class="headerStyle">
+<img src="../Resources/www/lbl-logo.png" alt="LBL logo"/>
+</div>
+<div class="headerLinks">
+<ul><li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt; <a href="Buildings.html">Modelica</a></li></ul>
+</div>
+<!-- --- end header -- -->
+
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE BaseClasses<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><a name="Buildings.Fluid.Sensors.BaseClasses"></a><a href="Buildings_Fluid_Sensors.html#Buildings.Fluid.Sensors"
+>Buildings.Fluid.Sensors</a>.BaseClasses</h2>
+<p>
+<b>Package with base classes for Buildings.Fluid.Sensors</b><br>
+</p>
+<h3>Information</h3>
+
+<p>
+This package contains base classes that are used to construct the models in
+<a href="Buildings_Fluid_Sensors.html#Buildings.Fluid.Sensors"
+>Buildings.Fluid.Sensors</a>.
+</p>
+
+<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons_BasesPackage.html#Modelica.Icons.BasesPackage"
+>Modelica.Icons.BasesPackage</a> (Icon for packages containing base classes).</p>
+<h3>Package Content</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Package Content">
+<tr>
+<th>Name</th>
+<th>Description</th>
+</tr>
+<tr>
+<td><img src="Buildings.Fluid.Sensors.B622c2e39ea7a1c8bensorS.png" alt="Buildings.Fluid.Sensors.BaseClasses.PartialAbsoluteSensor" width="20" height="20" align="top">&nbsp;<a href="Buildings_Fluid_Sensors_BaseClasses.html#Buildings.Fluid.Sensors.BaseClasses.PartialAbsoluteSensor"
+>PartialAbsoluteSensor</a>
+</td>
+<td>Partial component to model a sensor that measures a potential variable</td>
+</tr>
+<tr>
+<td><img src="Buildings.Fluid.Sensors.Bf9bc578f10b7e4a5ensorS.png" alt="Buildings.Fluid.Sensors.BaseClasses.PartialDynamicFlowSensor" width="20" height="20" align="top">&nbsp;<a href="Buildings_Fluid_Sensors_BaseClasses.html#Buildings.Fluid.Sensors.BaseClasses.PartialDynamicFlowSensor"
+>PartialDynamicFlowSensor</a>
+</td>
+<td>Partial component to model sensors that measure flow properties using a dynamic model</td>
+</tr>
+<tr>
+<td><img src="Buildings.Fluid.Sensors.B0f17258cb2dc37d5ensorS.png" alt="Buildings.Fluid.Sensors.BaseClasses.PartialFlowSensor" width="20" height="20" align="top">&nbsp;<a href="Buildings_Fluid_Sensors_BaseClasses.html#Buildings.Fluid.Sensors.BaseClasses.PartialFlowSensor"
+>PartialFlowSensor</a>
+</td>
+<td>Partial component to model sensors that measure flow properties</td>
+</tr>
+</table>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE PartialAbsoluteSensor<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Fluid.Sensors.B622c2e39ea7a1c8bensorI.png" alt="Buildings.Fluid.Sensors.BaseClasses.PartialAbsoluteSensor" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Fluid.Sensors.BaseClasses.PartialAbsoluteSensor"></a><a href="Buildings_Fluid_Sensors_BaseClasses.html#Buildings.Fluid.Sensors.BaseClasses"
+>Buildings.Fluid.Sensors.BaseClasses</a>.PartialAbsoluteSensor</h2>
+<p>
+<b>Partial component to model a sensor that measures a potential variable</b>
+<br>
+<br><img src="Buildings.Fluid.Sensors.B622c2e39ea7a1c8bensorD.png" alt="Buildings.Fluid.Sensors.BaseClasses.PartialAbsoluteSensor">
+</p>
+<h3>Information</h3>
+
+<p>
+Partial component to model an absolute sensor.
+The component can be used for pressure sensor models.
+Use for other properties such as temperature or density is discouraged, because the enthalpy at the connector can have different meanings, depending on the connection topology. For these properties, use
+<a href="Buildings_Fluid_Sensors_BaseClasses.html#Buildings.Fluid.Sensors.BaseClasses.PartialFlowSensor"
+>
+Buildings.Fluid.Sensors.BaseClasses.PartialFlowSensor</a>.
+</p>
+
+<h3>Parameters</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td colspan="2">replaceable package Medium</td><td>Modelica.Media.Interfaces.Pa...</td><td>Medium in the sensor</td></tr>
+</table>
+<h3>Connectors</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Connectors">
+<tr><th>Type</th><th>Name</th><th>Description</th></tr>
+<tr><td colspan="2">replaceable package Medium</td><td>Medium in the sensor</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_a"
+>FluidPort_a</a></td><td>port</td><td>&nbsp;</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">partial </span><span style="color: blue; font-weight: normal; font-style: normal;">model</span> PartialAbsoluteSensor <span style="color: #006400; font-weight: normal; font-style: normal;">
+  &quot;Partial component to model a sensor that measures a potential variable&quot;</span>
+
+  <span style="color: blue; font-weight: normal; font-style: normal;">replaceable </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium=<a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium"
+>Modelica.Media.Interfaces.PartialMedium</a> <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Medium in the sensor&quot;</span>;
+
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_a"
+>Modelica.Fluid.Interfaces.FluidPort_a</a> port(<span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium=<a href="Buildings_Fluid_Sensors_BaseClasses_Medium.html#Buildings.Fluid.Sensors.BaseClasses.PartialAbsoluteSensor.Medium"
+>Medium</a>, m_flow(min=0));
+
+<span style="color: blue; font-weight: normal; font-style: normal;">equation </span>
+  port.m_flow = 0;
+  port.h_outflow = 0;
+  port.Xi_outflow =<span style="color: red; font-weight: normal; font-style: normal;"> zeros</span>(Medium.nXi);
+  port.C_outflow =<span style="color: red; font-weight: normal; font-style: normal;"> zeros</span>(Medium.nC);
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>PartialAbsoluteSensor;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE PartialDynamicFlowSensor<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Fluid.Sensors.Bf9bc578f10b7e4a5ensorI.png" alt="Buildings.Fluid.Sensors.BaseClasses.PartialDynamicFlowSensor" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Fluid.Sensors.BaseClasses.PartialDynamicFlowSensor"></a><a href="Buildings_Fluid_Sensors_BaseClasses.html#Buildings.Fluid.Sensors.BaseClasses"
+>Buildings.Fluid.Sensors.BaseClasses</a>.PartialDynamicFlowSensor</h2>
+<p>
+<b>Partial component to model sensors that measure flow properties using a dynamic model</b>
+<br>
+<br><img src="Buildings.Fluid.Sensors.Bf9bc578f10b7e4a5ensorD.png" alt="Buildings.Fluid.Sensors.BaseClasses.PartialDynamicFlowSensor">
+</p>
+<h3>Information</h3>
+
+<p>
+Partial component to model a sensor that measures any intensive properties
+of a flow, e.g., to get temperature or density in the flow
+between fluid connectors.</p>
+<p>
+The sensor computes a gain that is zero at zero mass flow rate.
+This avoids fast transients if the flow is close to zero, thereby
+improving the numerical efficiency.
+</p>
+
+<p>Extends from <a href="Buildings_Fluid_Sensors_BaseClasses.html#Buildings.Fluid.Sensors.BaseClasses.PartialFlowSensor"
+>PartialFlowSensor</a> (Partial component to model sensors that measure flow properties).</p>
+<h3>Parameters</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td colspan="2">replaceable package Medium</td><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium"
+>PartialMedium</a></td><td>Medium in the component</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Time"
+>Time</a></td><td>tau</td><td>1</td><td>Time constant at nominal flow rate [s]</td></tr>
+<tr style="background-color: #e0e0e0"><td colspan="4">Nominal condition</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+>MassFlowRate</a></td><td>m_flow_nominal</td><td>&nbsp;</td><td>Nominal mass flow rate, used for regularization near zero flow [kg/s]</td></tr>
+<tr style="background-color: #e0e0e0"><td colspan="4">Advanced</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+>MassFlowRate</a></td><td>m_flow_small</td><td>1E-4*m_flow_nominal</td><td>For bi-directional flow, temperature is regularized in the region |m_flow| &lt; m_flow_small (m_flow_small &gt; 0 required) [kg/s]</td></tr>
+<tr style="background-color: #e0e0e0"><td colspan="4">Initialization</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Types.html#Modelica.Blocks.Types.Init"
+>Init</a></td><td>initType</td><td>Modelica.Blocks.Types.Init.I...</td><td>Type of initialization (InitialState and InitialOutput are identical)</td></tr>
+<tr style="background-color: #c0c0c0"><td colspan="4"><b>Assumptions</b></td></tr>
+<tr><td>Boolean</td><td>allowFlowReversal</td><td>true</td><td>= true to allow flow reversal, false restricts to design direction (port_a -&gt; port_b)</td></tr>
+</table>
+<h3>Connectors</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Connectors">
+<tr><th>Type</th><th>Name</th><th>Description</th></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_a"
+>FluidPort_a</a></td><td>port_a</td><td>Fluid connector a (positive design flow direction is from port_a to port_b)</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_b"
+>FluidPort_b</a></td><td>port_b</td><td>Fluid connector b (positive design flow direction is from port_a to port_b)</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">partial </span><span style="color: blue; font-weight: normal; font-style: normal;">model</span> PartialDynamicFlowSensor <span style="color: #006400; font-weight: normal; font-style: normal;">
+  &quot;Partial component to model sensors that measure flow properties using a dynamic model&quot;</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="Buildings_Fluid_Sensors_BaseClasses.html#Buildings.Fluid.Sensors.BaseClasses.PartialFlowSensor"
+>PartialFlowSensor</a>;
+
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Time"
+>Modelica.SIunits.Time</a> tau(min=0) = 1 <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Time constant at nominal flow rate&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Types.html#Modelica.Blocks.Types.Init"
+>Modelica.Blocks.Types.Init</a> initType = Modelica.Blocks.Types.Init.InitialState <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Type of initialization (InitialState and InitialOutput are identical)&quot;</span>;
+<span style="color: blue; font-weight: normal; font-style: normal;">protected </span>
+  Real k(start=1) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Gain to take flow rate into account for sensor time constant&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">final </span><span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Boolean dynamic = tau &gt; 1E-10<span style="color: blue; font-weight: normal; font-style: normal;"> or </span>tau &lt; -1E-10 <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Flag, true if the sensor is a dynamic sensor&quot;</span>;
+  Real mNor_flow <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Normalized mass flow rate&quot;</span>;
+<span style="color: blue; font-weight: normal; font-style: normal;">equation </span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">if </span>dynamic<span style="color: blue; font-weight: normal; font-style: normal;"> then</span>
+    mNor_flow = port_a.m_flow/m_flow_nominal;
+    k =<span style="color: red; font-weight: normal; font-style: normal;"> Modelica.Fluid.Utilities.regStep</span>(x=port_a.m_flow,
+                                         y1= mNor_flow,
+                                         y2=-mNor_flow,
+                                         x_small=m_flow_small);
+  <span style="color: blue; font-weight: normal; font-style: normal;">else</span>
+    mNor_flow = 1;
+    k = 1;
+  <span style="color: blue; font-weight: normal; font-style: normal;">end if</span>;
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>PartialDynamicFlowSensor;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE PartialFlowSensor<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Fluid.Sensors.B0f17258cb2dc37d5ensorI.png" alt="Buildings.Fluid.Sensors.BaseClasses.PartialFlowSensor" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Fluid.Sensors.BaseClasses.PartialFlowSensor"></a><a href="Buildings_Fluid_Sensors_BaseClasses.html#Buildings.Fluid.Sensors.BaseClasses"
+>Buildings.Fluid.Sensors.BaseClasses</a>.PartialFlowSensor</h2>
+<p>
+<b>Partial component to model sensors that measure flow properties</b>
+<br>
+<br><img src="Buildings.Fluid.Sensors.Bf9bc578f10b7e4a5ensorD.png" alt="Buildings.Fluid.Sensors.BaseClasses.PartialFlowSensor">
+</p>
+<h3>Information</h3>
+
+<p>
+Partial component to model a sensor.
+The sensor is ideal. It does not influence mass, energy,
+species or substance balance, and it has no flow friction.
+</p>
+
+<p>Extends from <a href="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces.PartialTwoPort"
+>Buildings.Fluid.Interfaces.PartialTwoPort</a> (Partial component with two ports).</p>
+<h3>Parameters</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td colspan="2">replaceable package Medium</td><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium"
+>PartialMedium</a></td><td>Medium in the component</td></tr>
+<tr style="background-color: #e0e0e0"><td colspan="4">Nominal condition</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+>MassFlowRate</a></td><td>m_flow_nominal</td><td>&nbsp;</td><td>Nominal mass flow rate, used for regularization near zero flow [kg/s]</td></tr>
+<tr style="background-color: #e0e0e0"><td colspan="4">Advanced</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+>MassFlowRate</a></td><td>m_flow_small</td><td>1E-4*m_flow_nominal</td><td>For bi-directional flow, temperature is regularized in the region |m_flow| &lt; m_flow_small (m_flow_small &gt; 0 required) [kg/s]</td></tr>
+<tr style="background-color: #c0c0c0"><td colspan="4"><b>Assumptions</b></td></tr>
+<tr><td>Boolean</td><td>allowFlowReversal</td><td>true</td><td>= true to allow flow reversal, false restricts to design direction (port_a -&gt; port_b)</td></tr>
+</table>
+<h3>Connectors</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Connectors">
+<tr><th>Type</th><th>Name</th><th>Description</th></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_a"
+>FluidPort_a</a></td><td>port_a</td><td>Fluid connector a (positive design flow direction is from port_a to port_b)</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_b"
+>FluidPort_b</a></td><td>port_b</td><td>Fluid connector b (positive design flow direction is from port_a to port_b)</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">partial </span><span style="color: blue; font-weight: normal; font-style: normal;">model</span> PartialFlowSensor <span style="color: #006400; font-weight: normal; font-style: normal;">
+  &quot;Partial component to model sensors that measure flow properties&quot;</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces.PartialTwoPort"
+>Buildings.Fluid.Interfaces.PartialTwoPort</a>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+>Modelica.SIunits.MassFlowRate</a> m_flow_nominal(min=0) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Nominal mass flow rate, used for regularization near zero flow&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+>Modelica.SIunits.MassFlowRate</a> m_flow_small(min=0) = 1E-4*m_flow_nominal <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;For bi-directional flow, temperature is regularized in the region |m_flow| &lt; m_flow_small (m_flow_small &gt; 0 required)&quot;</span>;
+<span style="color: blue; font-weight: normal; font-style: normal;">equation </span>
+  <span style="color: #006400; font-weight: normal; font-style: normal;">// mass balance</span>
+  port_b.m_flow = -port_a.m_flow;
+  <span style="color: #006400; font-weight: normal; font-style: normal;">// momentum equation (no pressure loss)</span>
+  port_a.p = port_b.p;
+  <span style="color: #006400; font-weight: normal; font-style: normal;">// isenthalpic state transformation (no storage and no loss of energy)</span>
+  port_a.h_outflow =<span style="color: red; font-weight: normal; font-style: normal;"> inStream</span>(port_b.h_outflow);
+  port_b.h_outflow =<span style="color: red; font-weight: normal; font-style: normal;"> inStream</span>(port_a.h_outflow);
+  port_a.Xi_outflow =<span style="color: red; font-weight: normal; font-style: normal;"> inStream</span>(port_b.Xi_outflow);
+  port_b.Xi_outflow =<span style="color: red; font-weight: normal; font-style: normal;"> inStream</span>(port_a.Xi_outflow);
+  port_a.C_outflow =<span style="color: red; font-weight: normal; font-style: normal;"> inStream</span>(port_b.C_outflow);
+  port_b.C_outflow =<span style="color: red; font-weight: normal; font-style: normal;"> inStream</span>(port_a.C_outflow);
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>PartialFlowSensor;
+</div>
+<hr>
+<address>
+<a href="http://www.3ds.com/">Automatically generated</a> Thu Apr  9 09:36:40 2015.
+</address>
+</body>
+</html>

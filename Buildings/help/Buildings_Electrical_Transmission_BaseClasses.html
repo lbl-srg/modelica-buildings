@@ -1,0 +1,835 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>Buildings.Electrical.Transmission.BaseClasses</title>
+<meta name="HTML-Generator" content="Dymola">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="description" content="&quot;Package that contains partial models for lines and cables&quot;">
+<style type="text/css">
+*       { font-size: 10pt; font-family: Arial, sans-serif; }
+.modelica, .modelica * { font-size: 9pt; font-family: Courier, monospace; white-space: pre; }
+h4      { font-size: 10pt; font-weight: bold; color: green; }
+h3      { font-size: 11pt; font-weight: bold; color: green; }
+h2      { font-size: 13pt; font-weight: bold; color: green; }
+address { font-weight: normal; }
+td      { border: 1px solid #808080; vertical-align: top; }
+th      { border: 1px solid #808080; vertical-align: top; font-weight: bold; }
+table   { border: 1px solid #808080; border-collapse: collapse; }
+</style>
+<link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../Resources/www/modelicaDoc.css">
+</HEAD>
+<body>
+<!-- --- header ------ -->
+<div class="headerStyle">
+<img src="../Resources/www/lbl-logo.png" alt="LBL logo"/>
+</div>
+<div class="headerLinks">
+<ul><li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt; <a href="Buildings.html">Modelica</a></li></ul>
+</div>
+<!-- --- end header -- -->
+
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE BaseClasses<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><a name="Buildings.Electrical.Transmission.BaseClasses"></a><a href="Buildings_Electrical_Transmission.html#Buildings.Electrical.Transmission"
+>Buildings.Electrical.Transmission</a>.BaseClasses</h2>
+<p>
+<b>Package that contains partial models for lines and cables</b><br>
+</p>
+<h3>Information</h3>
+
+This package contains partial models that describe electric
+lines and cables.
+
+<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons_BasesPackage.html#Modelica.Icons.BasesPackage"
+>Modelica.Icons.BasesPackage</a> (Icon for packages containing base classes).</p>
+<h3>Package Content</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Package Content">
+<tr>
+<th>Name</th>
+<th>Description</th>
+</tr>
+<tr>
+<td><img src="Buildings.Electrical.Tran46f00b3e33b7a945eLineS.png" alt="Buildings.Electrical.Transmission.BaseClasses.PartialBaseLine" width="20" height="20" align="top">&nbsp;<a href="Buildings_Electrical_Transmission_BaseClasses.html#Buildings.Electrical.Transmission.BaseClasses.PartialBaseLine"
+>PartialBaseLine</a>
+</td>
+<td>Partial cable line dispersion model</td>
+</tr>
+<tr>
+<td><img src="Buildings.Electrical.Tran81cf018180092099lLineS.png" alt="Buildings.Electrical.Transmission.BaseClasses.PartialLine" width="20" height="20" align="top">&nbsp;<a href="Buildings_Electrical_Transmission_BaseClasses.html#Buildings.Electrical.Transmission.BaseClasses.PartialLine"
+>PartialLine</a>
+</td>
+<td>Partial cable line dispersion model</td>
+</tr>
+<tr>
+<td><img src="Buildings.Electrical.Tranf618c67509e4222ftworkS.png" alt="Buildings.Electrical.Transmission.BaseClasses.PartialNetwork" width="20" height="20" align="top">&nbsp;<a href="Buildings_Electrical_Transmission_BaseClasses.html#Buildings.Electrical.Transmission.BaseClasses.PartialNetwork"
+>PartialNetwork</a>
+</td>
+<td>Partial model that represent an electric network</td>
+</tr>
+<tr>
+<td><img src="Buildings.Electrical.Tran32d949ee89a2c838tanceS.png" alt="Buildings.Electrical.Transmission.BaseClasses.PartialTwoPortInductance" width="20" height="20" align="top">&nbsp;<a href="Buildings_Electrical_Transmission_BaseClasses.html#Buildings.Electrical.Transmission.BaseClasses.PartialTwoPortInductance"
+>PartialTwoPortInductance</a>
+</td>
+<td>Partial model of an inductive element that links two electrical connectors</td>
+</tr>
+<tr>
+<td><img src="Buildings.Electrical.Tranaf91e3b1c91a17e0rtRLCS.png" alt="Buildings.Electrical.Transmission.BaseClasses.PartialTwoPortRLC" width="20" height="20" align="top">&nbsp;<a href="Buildings_Electrical_Transmission_BaseClasses.html#Buildings.Electrical.Transmission.BaseClasses.PartialTwoPortRLC"
+>PartialTwoPortRLC</a>
+</td>
+<td>Partial model of an RLC element that links two electrical connectors</td>
+</tr>
+<tr>
+<td><img src="Buildings.Electrical.Tran02a52d69a9a1a387tanceS.png" alt="Buildings.Electrical.Transmission.BaseClasses.PartialTwoPortResistance" width="20" height="20" align="top">&nbsp;<a href="Buildings_Electrical_Transmission_BaseClasses.html#Buildings.Electrical.Transmission.BaseClasses.PartialTwoPortResistance"
+>PartialTwoPortResistance</a>
+</td>
+<td>Partial model of a resistive element that links two electrical connectors</td>
+</tr>
+<tr>
+<td><img src="Buildings.Electrical.Tran94c3e00c2ff02c47CableS.png" alt="Buildings.Electrical.Transmission.BaseClasses.BaseCable" width="20" height="20" align="top">&nbsp;<a href="Buildings_Electrical_Transmission_BaseClasses.html#Buildings.Electrical.Transmission.BaseClasses.BaseCable"
+>BaseCable</a>
+</td>
+<td>Record that contains the properties of a generic cable</td>
+</tr>
+</table>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE PartialBaseLine<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Electrical.Tran46f00b3e33b7a945eLineI.png" alt="Buildings.Electrical.Transmission.BaseClasses.PartialBaseLine" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Electrical.Transmission.BaseClasses.PartialBaseLine"></a><a href="Buildings_Electrical_Transmission_BaseClasses.html#Buildings.Electrical.Transmission.BaseClasses"
+>Buildings.Electrical.Transmission.BaseClasses</a>.PartialBaseLine</h2>
+<p>
+<b>Partial cable line dispersion model</b>
+<br>
+<br><img src="Buildings.Electrical.Tran46f00b3e33b7a945eLineD.png" alt="Buildings.Electrical.Transmission.BaseClasses.PartialBaseLine">
+</p>
+<h3>Information</h3>
+
+<p>
+This partial model contains parameters and variables needed to parametrize a
+generic cable. The resistance, inductance and capacitance
+are computed by the functions associated to the type of cable selected.
+The type of cable is specified using a record that inherits from
+<a href="Buildings_Electrical_Transmission_BaseClasses.html#Buildings.Electrical.Transmission.BaseClasses.BaseCable"
+>
+Buildings.Electrical.Transmission.BaseClasses.BaseCable</a> such as (
+<a href="Buildings_Electrical_Transmission_LowVoltageCables.html#Buildings.Electrical.Transmission.LowVoltageCables.Generic"
+>
+Buildings.Electrical.Transmission.LowVoltageCables.Generic</a> or
+<a href="Buildings_Electrical_Transmission_MediumVoltageCables.html#Buildings.Electrical.Transmission.MediumVoltageCables.Generic"
+>
+Buildings.Electrical.Transmission.MediumVoltageCables.Generic</a>).
+The record contains functions that depending on the properties of cable compute its
+resistance, inductance or capacitance.
+</p>
+<p>
+The model has two parameters <code>use_C</code> and <code>modelMode</code> that
+change the behaviour of the model. It is possible to include the effects
+of a capacity or select the model to be dynamic or steady state. More information
+are available in the line models that extends this partial model.
+</p>
+
+<h4>Commercial cable mode</h4>
+<p>
+If <code>mode = commercial</code>, the user can select the type of cable from a list
+of commercial cables. The cables are divided in three different categories:
+</p>
+<ul>
+<li>Low voltage,</li>
+<li>Medium voltage, and</li>
+<li>High voltage.</li>
+</ul>
+<p>
+The details and type of cables can be found in
+<a href="Buildings_Electrical_Transmission_LowVoltageCables.html#Buildings.Electrical.Transmission.LowVoltageCables"
+>
+Buildings.Electrical.Transmission.LowVoltageCables</a> and
+<a href="Buildings_Electrical_Transmission_MediumVoltageCables.html#Buildings.Electrical.Transmission.MediumVoltageCables"
+>
+Buildings.Electrical.Transmission.MediumVoltageCables</a>.
+</p>
+
+<h4>Automatic cable mode</h4>
+<p>
+If <code>mode = automatic</code>, the type of cable is automatically selected
+depending on the value of the parameters <code>V_nominal</code> and
+<code>P_nominal</code>.
+</p>
+
+<h4>Note:</h4>
+<p>
+More details about the functions that compute the type of cable and its
+properties can be found in <a href="Buildings_Electrical_Transmission_Functions.html#Buildings.Electrical.Transmission.Functions"
+>
+Buildings.Electrical.Transmission.Functions</a>.
+</p>
+<p>
+The parameter <code>commercialCable</code> is assumed to be
+<a href="Buildings_Electrical_Transmission_LowVoltageCables.html#Buildings.Electrical.Transmission.LowVoltageCables.Generic"
+>
+Buildings.Electrical.Transmission.LowVoltageCables.Generic</a>.
+The parameter is replaceable so it can be redeclared using a different type, for example
+<a href="Buildings_Electrical_Transmission_MediumVoltageCables.html#Buildings.Electrical.Transmission.MediumVoltageCables.Generic"
+>
+Buildings.Electrical.Transmission.MediumVoltageCables.Generic</a>.<br/>
+The example models
+<a href="modelica://Buildings.Electrical.AC.ThreePhasesBalanced.Lines.Examples.AClineMedium">
+Buildings.Electrical.AC.ThreePhasesBalanced.Lines.Examples.AClineMedium</a> and
+<a href="Buildings_Electrical_AC_ThreePhasesBalanced_Lines_Examples.html#Buildings.Electrical.AC.ThreePhasesBalanced.Lines.Examples.ACSimpleGridMedium"
+>
+Buildings.Electrical.AC.ThreePhasesBalanced.Lines.Examples.ACSimpleGridMedium</a>
+show how this can be done.
+</p>
+
+
+<h3>Parameters</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Length"
+>Length</a></td><td>l</td><td>&nbsp;</td><td>Length of the line [m]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Power"
+>Power</a></td><td>P_nominal</td><td>&nbsp;</td><td>Nominal power of the line [W]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Voltage"
+>Voltage</a></td><td>V_nominal</td><td>&nbsp;</td><td>Nominal voltage of the line [V]</td></tr>
+<tr style="background-color: #c0c0c0"><td colspan="4"><b>Model</b></td></tr>
+<tr style="background-color: #e0e0e0"><td colspan="4">Assumptions</td></tr>
+<tr><td>Boolean</td><td>use_C</td><td>false</td><td>Set to true to add a capacitance in the center of the line</td></tr>
+<tr><td><a href="Buildings_Electrical_Types.html#Buildings.Electrical.Types.Load"
+>Load</a></td><td>modelMode</td><td>Buildings.Electrical.Types.L...</td><td>Select between steady state and dynamic model</td></tr>
+<tr style="background-color: #e0e0e0"><td colspan="4">Thermal</td></tr>
+<tr><td>Boolean</td><td>use_T</td><td>false</td><td>If true, enables the input for the temperature of the cable</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+>Temperature</a></td><td>TCable</td><td>T_ref</td><td>Fixed temperature of the cable [K]</td></tr>
+<tr style="background-color: #c0c0c0"><td colspan="4"><b>Tech. specification</b></td></tr>
+<tr style="background-color: #e0e0e0"><td colspan="4">Auto/Manual mode</td></tr>
+<tr><td><a href="Buildings_Electrical_Types.html#Buildings.Electrical.Types.CableMode"
+>CableMode</a></td><td>mode</td><td>Buildings.Electrical.Types.C...</td><td>Select if choosing the cable automatically or between a list of commercial options</td></tr>
+<tr style="background-color: #e0e0e0"><td colspan="4">Manual mode</td></tr>
+<tr><td><a href="Buildings_Electrical_Transmission_LowVoltageCables.html#Buildings.Electrical.Transmission.LowVoltageCables.Generic"
+>Generic</a></td><td>commercialCable</td><td>redeclare parameter Building...</td><td>Commercial cables options</td></tr>
+</table>
+<h3>Connectors</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Connectors">
+<tr><th>Type</th><th>Name</th><th>Description</th></tr>
+<tr><td>input <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>RealInput</a></td><td>T</td><td>Temperature of the cable</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">partial </span><span style="color: blue; font-weight: normal; font-style: normal;">model</span> PartialBaseLine <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Partial cable line dispersion model&quot;</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Length"
+>Modelica.SIunits.Length</a> l(min=0) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Length of the line&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Power"
+>Modelica.SIunits.Power</a> P_nominal(min=0) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Nominal power of the line&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Voltage"
+>Modelica.SIunits.Voltage</a> V_nominal(min=0, start=220) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Nominal voltage of the line&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">final </span><span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Frequency"
+>Modelica.SIunits.Frequency</a> f_n = 50 <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Frequency considered in the definition of cables properties&quot;</span>;
+
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Boolean use_C = false <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Set to true to add a capacitance in the center of the line&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="Buildings_Electrical_Types.html#Buildings.Electrical.Types.Load"
+>Buildings.Electrical.Types.Load</a> modelMode=Buildings.Electrical.Types.Load.FixedZ_steady_state <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Select between steady state and dynamic model&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Boolean use_T = false <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;If true, enables the input for the temperature of the cable&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+>Modelica.SIunits.Temperature</a> TCable = T_ref <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Fixed temperature of the cable&quot;</span>;
+
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="Buildings_Electrical_Types.html#Buildings.Electrical.Types.CableMode"
+>Buildings.Electrical.Types.CableMode</a> mode=Buildings.Electrical.Types.CableMode.automatic <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Select if choosing the cable automatically or between a list of commercial options&quot;</span>;
+
+  <span style="color: blue; font-weight: normal; font-style: normal;">replaceable </span><span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="Buildings_Electrical_Transmission_LowVoltageCables.html#Buildings.Electrical.Transmission.LowVoltageCables.Generic"
+>Buildings.Electrical.Transmission.LowVoltageCables.Generic</a>
+     commercialCable <span style="color: blue; font-weight: normal; font-style: normal;">constrainedby </span>
+    Buildings.Electrical.Transmission.BaseClasses.BaseCable <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Commercial cables options&quot;</span>;
+
+  <span style="color: blue; font-weight: normal; font-style: normal;">final </span><span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+>Modelica.SIunits.Temperature</a> T_ref = commercialCable.T_ref <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Reference temperature of the line&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">final </span><span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+>Modelica.SIunits.Temperature</a> M = commercialCable.M <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Temperature constant (R_actual = R*(M + T_heatPort)/(M + T_ref))&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">final </span><span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Resistance"
+>Modelica.SIunits.Resistance</a> R =<span style="color: red; font-weight: normal; font-style: normal;"> commercialCable.lineResistance</span>(l, f_n, commercialCable) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Resistance of the cable&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">final </span><span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Inductance"
+>Modelica.SIunits.Inductance</a> L =<span style="color: red; font-weight: normal; font-style: normal;"> commercialCable.lineInductance</span>(l, f_n, commercialCable) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Inductance of the cable due to mutual and self inductance&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">final </span><span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Capacitance"
+>Modelica.SIunits.Capacitance</a> C =<span style="color: red; font-weight: normal; font-style: normal;"> commercialCable.lineCapacitance</span>(l, f_n, commercialCable) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Capacitance of the cable&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Thermal_HeatTransfer_Sources.html#Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature"
+>Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature</a> cableTemp <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Temperature of the cable&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>Modelica.Blocks.Interfaces.RealInput</a> T <span style="color: blue; font-weight: normal; font-style: normal;">if </span>use_T <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Temperature of the cable&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.RealExpression"
+>Modelica.Blocks.Sources.RealExpression</a> cableTemperature(y=T_in) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Temperature of the cable&quot;</span>;
+<span style="color: blue; font-weight: normal; font-style: normal;">protected </span>
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>Modelica.Blocks.Interfaces.RealInput</a> T_in <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Internal variable for conditional temperature&quot;</span>;
+<span style="color: blue; font-weight: normal; font-style: normal;">equation </span>
+  <span style="color: red; font-weight: normal; font-style: normal;">assert</span>(L&gt;=0<span style="color: blue; font-weight: normal; font-style: normal;"> and </span>R&gt;=0<span style="color: blue; font-weight: normal; font-style: normal;"> and </span>C&gt;=0, &quot;The parameters R,L,C must be positive. Check cable properties and size.&quot;);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(T_in, T);
+
+  <span style="color: blue; font-weight: normal; font-style: normal;">if </span><span style="color: blue; font-weight: normal; font-style: normal;">not </span>use_T<span style="color: blue; font-weight: normal; font-style: normal;"> then</span>
+    T_in = TCable;
+  <span style="color: blue; font-weight: normal; font-style: normal;">end if</span>;
+
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(cableTemperature.y, cableTemp.T);
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>PartialBaseLine;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE PartialLine<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Electrical.Tran81cf018180092099lLineI.png" alt="Buildings.Electrical.Transmission.BaseClasses.PartialLine" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Electrical.Transmission.BaseClasses.PartialLine"></a><a href="Buildings_Electrical_Transmission_BaseClasses.html#Buildings.Electrical.Transmission.BaseClasses"
+>Buildings.Electrical.Transmission.BaseClasses</a>.PartialLine</h2>
+<p>
+<b>Partial cable line dispersion model</b>
+<br>
+<br><img src="Buildings.Electrical.Tran81cf018180092099lLineD.png" alt="Buildings.Electrical.Transmission.BaseClasses.PartialLine">
+</p>
+<h3>Information</h3>
+
+<p>
+This partial model extends the model <a href="modelica://Buildings.Electrical.Transmission.Base.PartialBaseLine">
+Buildings.Electrical.Transmission.Base.PartialBaseLine</a>.
+It adds two generalized electric connectors.
+</p>
+<h4>Note:</h4>
+<p>
+See <a href="modelica://Buildings.Electrical.Transmission.Base.PartialBaseLine">
+Buildings.Electrical.Transmission.Base.PartialBaseLine</a> for more information.
+</p>
+
+<p>Extends from <a href="Buildings_Electrical_Interfaces.html#Buildings.Electrical.Interfaces.PartialTwoPort"
+>Buildings.Electrical.Interfaces.PartialTwoPort</a> (Model of a generic two port component with phase systems), <a href="Buildings_Electrical_Transmission_BaseClasses.html#Buildings.Electrical.Transmission.BaseClasses.PartialBaseLine"
+>Buildings.Electrical.Transmission.BaseClasses.PartialBaseLine</a> (Partial cable line dispersion model).</p>
+<h3>Parameters</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td colspan="2">replaceable package PhaseSystem_p</td><td><a href="Buildings_Electrical_PhaseSystems_PartialPhaseSystem.html#Buildings.Electrical.PhaseSystems.PartialPhaseSystem"
+>PartialPhaseSystem</a></td><td>Phase system of terminal p</td></tr>
+<tr><td colspan="2">replaceable package PhaseSystem_n</td><td><a href="Buildings_Electrical_PhaseSystems_PartialPhaseSystem.html#Buildings.Electrical.PhaseSystems.PartialPhaseSystem"
+>PartialPhaseSystem</a></td><td>Phase system of terminal n</td></tr>
+<tr><td><a href="Buildings_Electrical_Interfaces.html#Buildings.Electrical.Interfaces.Terminal"
+>Terminal</a></td><td>terminal_n</td><td>redeclare replaceable Buildi...</td><td>Electric terminal side p</td></tr>
+<tr><td><a href="Buildings_Electrical_Interfaces.html#Buildings.Electrical.Interfaces.Terminal"
+>Terminal</a></td><td>terminal_p</td><td>redeclare replaceable Buildi...</td><td>Electric terminal side n</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Length"
+>Length</a></td><td>l</td><td>&nbsp;</td><td>Length of the line [m]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Power"
+>Power</a></td><td>P_nominal</td><td>&nbsp;</td><td>Nominal power of the line [W]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Voltage"
+>Voltage</a></td><td>V_nominal</td><td>&nbsp;</td><td>Nominal voltage of the line [V]</td></tr>
+<tr style="background-color: #c0c0c0"><td colspan="4"><b>Model</b></td></tr>
+<tr style="background-color: #e0e0e0"><td colspan="4">Assumptions</td></tr>
+<tr><td>Boolean</td><td>use_C</td><td>false</td><td>Set to true to add a capacitance in the center of the line</td></tr>
+<tr><td><a href="Buildings_Electrical_Types.html#Buildings.Electrical.Types.Load"
+>Load</a></td><td>modelMode</td><td>Buildings.Electrical.Types.L...</td><td>Select between steady state and dynamic model</td></tr>
+<tr style="background-color: #e0e0e0"><td colspan="4">Thermal</td></tr>
+<tr><td>Boolean</td><td>use_T</td><td>false</td><td>If true, enables the input for the temperature of the cable</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+>Temperature</a></td><td>TCable</td><td>T_ref</td><td>Fixed temperature of the cable [K]</td></tr>
+<tr style="background-color: #c0c0c0"><td colspan="4"><b>Tech. specification</b></td></tr>
+<tr style="background-color: #e0e0e0"><td colspan="4">Auto/Manual mode</td></tr>
+<tr><td><a href="Buildings_Electrical_Types.html#Buildings.Electrical.Types.CableMode"
+>CableMode</a></td><td>mode</td><td>Buildings.Electrical.Types.C...</td><td>Select if choosing the cable automatically or between a list of commercial options</td></tr>
+<tr style="background-color: #e0e0e0"><td colspan="4">Manual mode</td></tr>
+<tr><td><a href="Buildings_Electrical_Transmission_LowVoltageCables.html#Buildings.Electrical.Transmission.LowVoltageCables.Generic"
+>Generic</a></td><td>commercialCable</td><td>redeclare parameter Building...</td><td>Commercial cables options</td></tr>
+</table>
+<h3>Connectors</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Connectors">
+<tr><th>Type</th><th>Name</th><th>Description</th></tr>
+<tr><td><a href="Buildings_Electrical_Interfaces.html#Buildings.Electrical.Interfaces.Terminal"
+>Terminal</a></td><td>terminal_n</td><td>Electric terminal side p</td></tr>
+<tr><td><a href="Buildings_Electrical_Interfaces.html#Buildings.Electrical.Interfaces.Terminal"
+>Terminal</a></td><td>terminal_p</td><td>Electric terminal side n</td></tr>
+<tr><td>input <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>RealInput</a></td><td>T</td><td>Temperature of the cable</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">partial </span><span style="color: blue; font-weight: normal; font-style: normal;">model</span> PartialLine <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Partial cable line dispersion model&quot;</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="Buildings_Electrical_Interfaces.html#Buildings.Electrical.Interfaces.PartialTwoPort"
+>Buildings.Electrical.Interfaces.PartialTwoPort</a>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="Buildings_Electrical_Transmission_BaseClasses.html#Buildings.Electrical.Transmission.BaseClasses.PartialBaseLine"
+>Buildings.Electrical.Transmission.BaseClasses.PartialBaseLine</a>;
+  Real VoltageLosses(unit = &quot;1&quot;) =<span style="color: red; font-weight: normal; font-style: normal;"> abs</span>(<span style="color: red; font-weight: normal; font-style: normal;">PhaseSystem_p.systemVoltage</span>(terminal_p.v) -
+    <span style="color: red; font-weight: normal; font-style: normal;">PhaseSystem_n.systemVoltage</span>(terminal_n.v))/
+    <span style="color: red; font-weight: normal; font-style: normal;">Buildings.Utilities.Math.Functions.smoothMax</span>(
+      <span style="color: red; font-weight: normal; font-style: normal;">PhaseSystem_p.systemVoltage</span>(terminal_p.v),
+      <span style="color: red; font-weight: normal; font-style: normal;">PhaseSystem_n.systemVoltage</span>(terminal_n.v),
+      1.0) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Percentage of voltage losses across the line&quot;</span>;
+<span style="color: blue; font-weight: normal; font-style: normal;">protected </span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Integer n_ =<span style="color: red; font-weight: normal; font-style: normal;"> size</span>(terminal_n.i,1) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Number of cables&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Real nominal_i_ = P_nominal / V_nominal <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Nominal current flowing through the line&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Real nominal_v_ = V_nominal <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Nominal voltage of the line&quot;</span>;
+
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>PartialLine;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE PartialNetwork<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Electrical.Tranf618c67509e4222ftworkI.png" alt="Buildings.Electrical.Transmission.BaseClasses.PartialNetwork" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Electrical.Transmission.BaseClasses.PartialNetwork"></a><a href="Buildings_Electrical_Transmission_BaseClasses.html#Buildings.Electrical.Transmission.BaseClasses"
+>Buildings.Electrical.Transmission.BaseClasses</a>.PartialNetwork</h2>
+<p>
+<b>Partial model that represent an electric network</b>
+<br>
+<br><img src="Buildings.Electrical.Tranf618c67509e4222ftworkD.png" alt="Buildings.Electrical.Transmission.BaseClasses.PartialNetwork">
+</p>
+<h3>Information</h3>
+
+<p>
+This partial model represents a generalized electrical network.
+</p>
+<p>
+The model has three main components. The parameter <code>grid</code> declares the type
+<a href="Buildings_Electrical_Transmission_Grids.html#Buildings.Electrical.Transmission.Grids.PartialGrid"
+>
+Buildings.Electrical.Transmission.Grids.PartialGrid</a>
+that contains the information about the topology of the network, such as
+the number of nodes,
+how they are connected, and the length of each connection.
+The parameter <code>terminal[...]</code> declares
+an array of generalized electric connectors that are associated to each node of the grid.
+The parameter <code>lines[...]</code> is an array of type
+<a href="modelica://Buildings.Electrical.Transmission.Base.PartialBaseLine">
+Buildings.Electrical.Transmission.Base.PartialBaseLine</a> that represent the cables
+in the grid.
+</p>
+<h4>Note:</h4>
+<p>
+This is a partial model that once extended can represent either DC or AC networks.
+This model is based on the assumption that the topology of the network does not depend on
+the type of cables that connect the nodes.
+</p>
+
+<h3>Parameters</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Voltage"
+>Voltage</a></td><td>V_nominal</td><td>&nbsp;</td><td>Nominal voltage of the lines in the network [V]</td></tr>
+<tr><td><a href="Buildings_Electrical_Transmission_Grids.html#Buildings.Electrical.Transmission.Grids.PartialGrid"
+>PartialGrid</a></td><td>grid</td><td>redeclare parameter Building...</td><td>Record that describe the grid with the number of nodes, links, connections, etc.</td></tr>
+<tr><td><a href="Buildings_Electrical_Interfaces.html#Buildings.Electrical.Interfaces.BaseTerminal"
+>BaseTerminal</a></td><td>terminal[grid.nNodes]</td><td>redeclare Buildings.Electric...</td><td>Electric terminals for each node of the network</td></tr>
+<tr><td><a href="Buildings_Electrical_Transmission_BaseClasses.html#Buildings.Electrical.Transmission.BaseClasses.PartialBaseLine"
+>PartialBaseLine</a></td><td>lines[grid.nLinks]</td><td>redeclare Buildings.Electric...</td><td>Array of line models, each line connecting two nodes of the grid</td></tr>
+</table>
+<h3>Connectors</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Connectors">
+<tr><th>Type</th><th>Name</th><th>Description</th></tr>
+<tr><td><a href="Buildings_Electrical_Interfaces.html#Buildings.Electrical.Interfaces.BaseTerminal"
+>BaseTerminal</a></td><td>terminal[grid.nNodes]</td><td>Electric terminals for each node of the network</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">partial </span><span style="color: blue; font-weight: normal; font-style: normal;">model</span> PartialNetwork <span style="color: #006400; font-weight: normal; font-style: normal;">
+  &quot;Partial model that represent an electric network&quot;</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Voltage"
+>Modelica.SIunits.Voltage</a> V_nominal(min=0, start = 110) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Nominal voltage of the lines in the network&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">replaceable </span><span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="Buildings_Electrical_Transmission_Grids.html#Buildings.Electrical.Transmission.Grids.PartialGrid"
+>Buildings.Electrical.Transmission.Grids.PartialGrid</a> grid <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Record that describe the grid with the number of nodes, links, connections, etc.&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">replaceable </span><a href="Buildings_Electrical_Interfaces.html#Buildings.Electrical.Interfaces.BaseTerminal"
+>Buildings.Electrical.Interfaces.BaseTerminal</a> terminal[grid.nNodes] <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Electric terminals for each node of the network&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">replaceable </span><a href="Buildings_Electrical_Transmission_BaseClasses.html#Buildings.Electrical.Transmission.BaseClasses.PartialBaseLine"
+>Buildings.Electrical.Transmission.BaseClasses.PartialBaseLine</a> lines[grid.nLinks](
+    <span style="color: blue; font-weight: normal; font-style: normal;">each </span>mode=Buildings.Electrical.Types.CableMode.commercial,
+    l=grid.l[:, 1],
+    <span style="color: blue; font-weight: normal; font-style: normal;">each </span>P_nominal=1000,
+    <span style="color: blue; font-weight: normal; font-style: normal;">each </span>V_nominal=V_nominal) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Array of line models, each line connecting two nodes of the grid&quot;</span>;
+
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>PartialNetwork;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE PartialTwoPortInductance<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Electrical.Tran32d949ee89a2c838tanceI.png" alt="Buildings.Electrical.Transmission.BaseClasses.PartialTwoPortInductance" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Electrical.Transmission.BaseClasses.PartialTwoPortInductance"></a><a href="Buildings_Electrical_Transmission_BaseClasses.html#Buildings.Electrical.Transmission.BaseClasses"
+>Buildings.Electrical.Transmission.BaseClasses</a>.PartialTwoPortInductance</h2>
+<p>
+<b>Partial model of an inductive element that links two electrical connectors</b>
+<br>
+<br><img src="Buildings.Electrical.Tran32d949ee89a2c838tanceD.png" alt="Buildings.Electrical.Transmission.BaseClasses.PartialTwoPortInductance">
+</p>
+<h3>Information</h3>
+
+<p>
+Partial model of an inductance that links two generalized electrical connectors.
+</p>
+
+<p>Extends from <a href="Buildings_Electrical_Interfaces.html#Buildings.Electrical.Interfaces.PartialTwoPort"
+>Interfaces.PartialTwoPort</a> (Model of a generic two port component with phase systems).</p>
+<h3>Parameters</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td colspan="2">replaceable package PhaseSystem_p</td><td><a href="Buildings_Electrical_PhaseSystems_PartialPhaseSystem.html#Buildings.Electrical.PhaseSystems.PartialPhaseSystem"
+>PartialPhaseSystem</a></td><td>Phase system of terminal p</td></tr>
+<tr><td colspan="2">replaceable package PhaseSystem_n</td><td><a href="Buildings_Electrical_PhaseSystems_PartialPhaseSystem.html#Buildings.Electrical.PhaseSystems.PartialPhaseSystem"
+>PartialPhaseSystem</a></td><td>Phase system of terminal n</td></tr>
+<tr><td><a href="Buildings_Electrical_Interfaces.html#Buildings.Electrical.Interfaces.Terminal"
+>Terminal</a></td><td>terminal_n</td><td>redeclare replaceable Buildi...</td><td>Electric terminal side p</td></tr>
+<tr><td><a href="Buildings_Electrical_Interfaces.html#Buildings.Electrical.Interfaces.Terminal"
+>Terminal</a></td><td>terminal_p</td><td>redeclare replaceable Buildi...</td><td>Electric terminal side n</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Inductance"
+>Inductance</a></td><td>L</td><td>&nbsp;</td><td>Inductance [H]</td></tr>
+</table>
+<h3>Connectors</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Connectors">
+<tr><th>Type</th><th>Name</th><th>Description</th></tr>
+<tr><td><a href="Buildings_Electrical_Interfaces.html#Buildings.Electrical.Interfaces.Terminal"
+>Terminal</a></td><td>terminal_n</td><td>Electric terminal side p</td></tr>
+<tr><td><a href="Buildings_Electrical_Interfaces.html#Buildings.Electrical.Interfaces.Terminal"
+>Terminal</a></td><td>terminal_p</td><td>Electric terminal side n</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">partial </span><span style="color: blue; font-weight: normal; font-style: normal;">model</span> PartialTwoPortInductance <span style="color: #006400; font-weight: normal; font-style: normal;">
+  &quot;Partial model of an inductive element that links two electrical connectors&quot;</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="Buildings_Electrical_Interfaces.html#Buildings.Electrical.Interfaces.PartialTwoPort"
+>Interfaces.PartialTwoPort</a>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Inductance"
+>Modelica.SIunits.Inductance</a> L <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Inductance&quot;</span>;
+<span style="color: blue; font-weight: normal; font-style: normal;">equation </span>
+  <span style="color: red; font-weight: normal; font-style: normal;">Connections.branch</span>(terminal_p.theta, terminal_n.theta);
+  terminal_p.theta = terminal_n.theta;
+
+  terminal_p.i = - terminal_n.i;
+
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>PartialTwoPortInductance;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE PartialTwoPortRLC<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Electrical.Tranaf91e3b1c91a17e0rtRLCI.png" alt="Buildings.Electrical.Transmission.BaseClasses.PartialTwoPortRLC" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Electrical.Transmission.BaseClasses.PartialTwoPortRLC"></a><a href="Buildings_Electrical_Transmission_BaseClasses.html#Buildings.Electrical.Transmission.BaseClasses"
+>Buildings.Electrical.Transmission.BaseClasses</a>.PartialTwoPortRLC</h2>
+<p>
+<b>Partial model of an RLC element that links two electrical connectors</b>
+<br>
+<br><img src="Buildings.Electrical.Tranaf91e3b1c91a17e0rtRLCD.png" alt="Buildings.Electrical.Transmission.BaseClasses.PartialTwoPortRLC">
+</p>
+<h3>Information</h3>
+
+<p>
+Partial model of a resistance that links two generalized electrical connectors.
+</p>
+<p>
+The model computes a resistance <i>R(T)</i> that varies depending on the temperature <i>T</i> as
+</p>
+<p align="center" style="font-style:italic;">
+R(T) = R<sub>ref</sub> (M + T)/(M + T<sub>ref</sub>),
+</p>
+<p>
+where the resistance <i>R<sub>ref</sub></i> is the reference value of the resistance,
+<i>M</i> is the temperature coefficient of the cable material, and
+<i>T<sub>ref</sub></i> is the reference temperature.
+The temperature <i>T</i> is the temperature of the heat port if <code>useHeatPort = true</code>.
+</p>
+<p>
+The impedance <i>L</i> and the capacity <i>C</i> do not vary with respect to the temperature
+and are specified by the user.
+</p>
+
+<p>Extends from <a href="Buildings_Electrical_Interfaces.html#Buildings.Electrical.Interfaces.PartialTwoPort"
+>Buildings.Electrical.Interfaces.PartialTwoPort</a> (Model of a generic two port component with phase systems), <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Electrical_Analog_Interfaces.html#Modelica.Electrical.Analog.Interfaces.ConditionalHeatPort"
+>Modelica.Electrical.Analog.Interfaces.ConditionalHeatPort</a> (Partial model to include a conditional HeatPort in order to describe the power loss via a thermal network).</p>
+<h3>Parameters</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td colspan="2">replaceable package PhaseSystem_p</td><td><a href="Buildings_Electrical_PhaseSystems_PartialPhaseSystem.html#Buildings.Electrical.PhaseSystems.PartialPhaseSystem"
+>PartialPhaseSystem</a></td><td>Phase system of terminal p</td></tr>
+<tr><td colspan="2">replaceable package PhaseSystem_n</td><td><a href="Buildings_Electrical_PhaseSystems_PartialPhaseSystem.html#Buildings.Electrical.PhaseSystems.PartialPhaseSystem"
+>PartialPhaseSystem</a></td><td>Phase system of terminal n</td></tr>
+<tr><td><a href="Buildings_Electrical_Interfaces.html#Buildings.Electrical.Interfaces.Terminal"
+>Terminal</a></td><td>terminal_n</td><td>redeclare replaceable Buildi...</td><td>Electric terminal side p</td></tr>
+<tr><td><a href="Buildings_Electrical_Interfaces.html#Buildings.Electrical.Interfaces.Terminal"
+>Terminal</a></td><td>terminal_p</td><td>redeclare replaceable Buildi...</td><td>Electric terminal side n</td></tr>
+<tr><td>Boolean</td><td>useHeatPort</td><td>false</td><td>=true, if HeatPort is enabled</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+>Temperature</a></td><td>T</td><td>T_ref</td><td>Fixed device temperature if useHeatPort = false [K]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Resistance"
+>Resistance</a></td><td>R</td><td>&nbsp;</td><td>Resistance at temperature T_ref [Ohm]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+>Temperature</a></td><td>T_ref</td><td>298.15</td><td>Reference temperature [K]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+>Temperature</a></td><td>M</td><td>507.65</td><td>Temperature constant (R_actual = R*(M + T_heatPort)/(M + T_ref)) [K]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Capacitance"
+>Capacitance</a></td><td>C</td><td>&nbsp;</td><td>Capacity [F]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Inductance"
+>Inductance</a></td><td>L</td><td>&nbsp;</td><td>Inductance [H]</td></tr>
+<tr style="background-color: #e0e0e0"><td colspan="4">Nominal conditions</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Voltage"
+>Voltage</a></td><td>V_nominal</td><td>&nbsp;</td><td>Nominal voltage (V_nominal &gt;= 0) [V]</td></tr>
+</table>
+<h3>Connectors</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Connectors">
+<tr><th>Type</th><th>Name</th><th>Description</th></tr>
+<tr><td><a href="Buildings_Electrical_Interfaces.html#Buildings.Electrical.Interfaces.Terminal"
+>Terminal</a></td><td>terminal_n</td><td>Electric terminal side p</td></tr>
+<tr><td><a href="Buildings_Electrical_Interfaces.html#Buildings.Electrical.Interfaces.Terminal"
+>Terminal</a></td><td>terminal_p</td><td>Electric terminal side n</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Thermal_HeatTransfer_Interfaces.html#Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a"
+>HeatPort_a</a></td><td>heatPort</td><td>&nbsp;</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">partial </span><span style="color: blue; font-weight: normal; font-style: normal;">model</span> PartialTwoPortRLC <span style="color: #006400; font-weight: normal; font-style: normal;">
+  &quot;Partial model of an RLC element that links two electrical connectors&quot;</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="Buildings_Electrical_Interfaces.html#Buildings.Electrical.Interfaces.PartialTwoPort"
+>Buildings.Electrical.Interfaces.PartialTwoPort</a>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Electrical_Analog_Interfaces.html#Modelica.Electrical.Analog.Interfaces.ConditionalHeatPort"
+>Modelica.Electrical.Analog.Interfaces.ConditionalHeatPort</a>(T = T_ref);
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Resistance"
+>Modelica.SIunits.Resistance</a> R <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Resistance at temperature T_ref&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+>Modelica.SIunits.Temperature</a> T_ref = 298.15 <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Reference temperature&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+>Modelica.SIunits.Temperature</a> M = 507.65 <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Temperature constant (R_actual = R*(M + T_heatPort)/(M + T_ref))&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Capacitance"
+>Modelica.SIunits.Capacitance</a> C <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Capacity&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Inductance"
+>Modelica.SIunits.Inductance</a> L <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Inductance&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Voltage"
+>Modelica.SIunits.Voltage</a> V_nominal(min=0, start = 110) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Nominal voltage (V_nominal &gt;= 0)&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Resistance"
+>Modelica.SIunits.Resistance</a> R_actual <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Actual resistance = R*(M + T_heatPort)/(M + T_ref) &quot;</span>;
+<span style="color: blue; font-weight: normal; font-style: normal;">equation </span>
+  <span style="color: red; font-weight: normal; font-style: normal;">Connections.branch</span>(terminal_p.theta, terminal_n.theta);
+  terminal_p.theta = terminal_n.theta;
+
+  <span style="color: red; font-weight: normal; font-style: normal;">assert</span>(R_actual&gt;=0,
+   &quot;The value of R_actual must be positive, check reference and actual temperatures&quot;);
+
+  R_actual = R*(M +<span style="color: red; font-weight: normal; font-style: normal;"> Modelica.SIunits.Conversions.to_degC</span>(T_heatPort))/
+    (M +<span style="color: red; font-weight: normal; font-style: normal;"> Modelica.SIunits.Conversions.to_degC</span>(T_ref));
+
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>PartialTwoPortRLC;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE PartialTwoPortResistance<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Electrical.Tran02a52d69a9a1a387tanceI.png" alt="Buildings.Electrical.Transmission.BaseClasses.PartialTwoPortResistance" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Electrical.Transmission.BaseClasses.PartialTwoPortResistance"></a><a href="Buildings_Electrical_Transmission_BaseClasses.html#Buildings.Electrical.Transmission.BaseClasses"
+>Buildings.Electrical.Transmission.BaseClasses</a>.PartialTwoPortResistance</h2>
+<p>
+<b>Partial model of a resistive element that links two electrical connectors</b>
+<br>
+<br><img src="Buildings.Electrical.Tranaf91e3b1c91a17e0rtRLCD.png" alt="Buildings.Electrical.Transmission.BaseClasses.PartialTwoPortResistance">
+</p>
+<h3>Information</h3>
+
+<p>
+Partial model of a resistance that links two generalized electrical connectors.
+</p>
+<p>
+The model computes a resistance <i>R(T)</i> that varies depending on the temperature <i>T</i> as
+</p>
+<p align="center" style="font-style:italic;">
+R(T) = R<sub>ref</sub> (M + T)/(M + T<sub>ref</sub>),
+</p>
+<p>
+where the resistance <i>R<sub>ref</sub></i> is the reference value of the resistance,
+<i>M</i> is the temperature coefficient of the cable material,
+and <i>T<sub>ref</sub></i> is the reference temperature.
+The temperature <i>T</i> is the temperature of the heat port
+if <code>useHeatPort = true</code>.
+</p>
+
+<p>Extends from <a href="Buildings_Electrical_Interfaces.html#Buildings.Electrical.Interfaces.PartialTwoPort"
+>Interfaces.PartialTwoPort</a> (Model of a generic two port component with phase systems), <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Electrical_Analog_Interfaces.html#Modelica.Electrical.Analog.Interfaces.ConditionalHeatPort"
+>Modelica.Electrical.Analog.Interfaces.ConditionalHeatPort</a> (Partial model to include a conditional HeatPort in order to describe the power loss via a thermal network).</p>
+<h3>Parameters</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td colspan="2">replaceable package PhaseSystem_p</td><td><a href="Buildings_Electrical_PhaseSystems_PartialPhaseSystem.html#Buildings.Electrical.PhaseSystems.PartialPhaseSystem"
+>PartialPhaseSystem</a></td><td>Phase system of terminal p</td></tr>
+<tr><td colspan="2">replaceable package PhaseSystem_n</td><td><a href="Buildings_Electrical_PhaseSystems_PartialPhaseSystem.html#Buildings.Electrical.PhaseSystems.PartialPhaseSystem"
+>PartialPhaseSystem</a></td><td>Phase system of terminal n</td></tr>
+<tr><td><a href="Buildings_Electrical_Interfaces.html#Buildings.Electrical.Interfaces.Terminal"
+>Terminal</a></td><td>terminal_n</td><td>redeclare replaceable Buildi...</td><td>Electric terminal side p</td></tr>
+<tr><td><a href="Buildings_Electrical_Interfaces.html#Buildings.Electrical.Interfaces.Terminal"
+>Terminal</a></td><td>terminal_p</td><td>redeclare replaceable Buildi...</td><td>Electric terminal side n</td></tr>
+<tr><td>Boolean</td><td>useHeatPort</td><td>false</td><td>=true, if HeatPort is enabled</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+>Temperature</a></td><td>T</td><td>T_ref</td><td>Fixed device temperature if useHeatPort = false [K]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Resistance"
+>Resistance</a></td><td>R</td><td>&nbsp;</td><td>Resistance at temperature T_ref [Ohm]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+>Temperature</a></td><td>T_ref</td><td>298.15</td><td>Reference temperature [K]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+>Temperature</a></td><td>M</td><td>507.65</td><td>Temperature constant (R_actual = R*(M + T_heatPort)/(M + T_ref)) [K]</td></tr>
+</table>
+<h3>Connectors</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Connectors">
+<tr><th>Type</th><th>Name</th><th>Description</th></tr>
+<tr><td><a href="Buildings_Electrical_Interfaces.html#Buildings.Electrical.Interfaces.Terminal"
+>Terminal</a></td><td>terminal_n</td><td>Electric terminal side p</td></tr>
+<tr><td><a href="Buildings_Electrical_Interfaces.html#Buildings.Electrical.Interfaces.Terminal"
+>Terminal</a></td><td>terminal_p</td><td>Electric terminal side n</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Thermal_HeatTransfer_Interfaces.html#Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a"
+>HeatPort_a</a></td><td>heatPort</td><td>&nbsp;</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">partial </span><span style="color: blue; font-weight: normal; font-style: normal;">model</span> PartialTwoPortResistance <span style="color: #006400; font-weight: normal; font-style: normal;">
+  &quot;Partial model of a resistive element that links two electrical connectors&quot;</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="Buildings_Electrical_Interfaces.html#Buildings.Electrical.Interfaces.PartialTwoPort"
+>Interfaces.PartialTwoPort</a>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Electrical_Analog_Interfaces.html#Modelica.Electrical.Analog.Interfaces.ConditionalHeatPort"
+>Modelica.Electrical.Analog.Interfaces.ConditionalHeatPort</a>(T = T_ref);
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Resistance"
+>Modelica.SIunits.Resistance</a> R <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Resistance at temperature T_ref&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+>Modelica.SIunits.Temperature</a> T_ref = 298.15 <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Reference temperature&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+>Modelica.SIunits.Temperature</a> M = 507.65 <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Temperature constant (R_actual = R*(M + T_heatPort)/(M + T_ref))&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Resistance"
+>Modelica.SIunits.Resistance</a> R_actual <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Actual resistance = R*(M + T_heatPort)/(M + T_ref) &quot;</span>;
+<span style="color: blue; font-weight: normal; font-style: normal;">equation </span>
+  <span style="color: red; font-weight: normal; font-style: normal;">Connections.branch</span>(terminal_p.theta, terminal_n.theta);
+  terminal_p.theta = terminal_n.theta;
+
+  <span style="color: red; font-weight: normal; font-style: normal;">assert</span>(R_actual&gt;=0,
+   &quot;The value of R_actual must be positive, check reference and actual temperatures.&quot;);
+
+  R_actual = R*(M +<span style="color: red; font-weight: normal; font-style: normal;"> Modelica.SIunits.Conversions.to_degC</span>(T_heatPort))/
+  (M +<span style="color: red; font-weight: normal; font-style: normal;"> Modelica.SIunits.Conversions.to_degC</span>(T_ref));
+
+  terminal_p.i = - terminal_n.i;
+
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>PartialTwoPortResistance;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE BaseCable<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><a name="Buildings.Electrical.Transmission.BaseClasses.BaseCable"></a><a href="Buildings_Electrical_Transmission_BaseClasses.html#Buildings.Electrical.Transmission.BaseClasses"
+>Buildings.Electrical.Transmission.BaseClasses</a>.BaseCable</h2>
+<p>
+<b>Record that contains the properties of a generic cable</b>
+</p>
+<h3>Information</h3>
+
+<p>
+This record contains the basic properties to describe a commercial
+cable.
+</p>
+<p>
+The low voltage and medium voltage cables extends this base records and add
+other specific parameters like the geometrical properties.
+</p>
+<p>
+The record contains four partial replaceable functions used to compute
+the properties of the cable such its resistance, inductance or capacitance.
+</p>
+
+<h3>Parameters</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td><a href="Buildings_Electrical_Transmission_Types.html#Buildings.Electrical.Transmission.Types.Material"
+>Material</a></td><td>material</td><td>Buildings.Electrical.Transmi...</td><td>Material of the cable</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Current"
+>Current</a></td><td>Amp</td><td>0.0</td><td>Ampacitance of the cable [A]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+>Temperature</a></td><td>T_ref</td><td>298.15</td><td>Reference cable temperature [K]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+>Temperature</a></td><td>M</td><td>228.1 + 273.15</td><td>Temperature constant of the material [K]</td></tr>
+<tr><td colspan="2">replaceable function lineResistance</td><td>&nbsp;</td><td>Function that computes the resistance of a cable</td></tr>
+<tr><td colspan="2">replaceable function lineInductance</td><td>&nbsp;</td><td>Function that computes the inductance of a cable</td></tr>
+<tr><td colspan="2">replaceable function lineCapacitance</td><td>&nbsp;</td><td>Function that computes the capacitance of a cable</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">record</span> BaseCable <span style="color: #006400; font-weight: normal; font-style: normal;">
+  &quot;Record that contains the properties of a generic cable&quot;</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="Buildings_Electrical_Transmission_Types.html#Buildings.Electrical.Transmission.Types.Material"
+>Buildings.Electrical.Transmission.Types.Material</a> material = Buildings.Electrical.Transmission.Types.Material.Al <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Material of the cable&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Current"
+>Modelica.SIunits.Current</a> Amp(start=0.0)=0.0 <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Ampacitance of the cable&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+>Modelica.SIunits.Temperature</a> T_ref = 298.15 <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Reference cable temperature&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+>Modelica.SIunits.Temperature</a> M = 228.1 + 273.15 <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Temperature constant of the material&quot;</span>;
+
+  <span style="color: blue; font-weight: normal; font-style: normal;">replaceable </span><span style="color: blue; font-weight: normal; font-style: normal;">partial </span><span style="color: blue; font-weight: normal; font-style: normal;">function</span> lineResistance <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Function that computes the resistance of a cable&quot;</span>
+    <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Function"
+>Modelica.Icons.Function</a>;
+    <span style="color: blue; font-weight: normal; font-style: normal;">input </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Length"
+>Modelica.SIunits.Length</a> l <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Length of the cable&quot;</span>;
+    <span style="color: blue; font-weight: normal; font-style: normal;">input </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Frequency"
+>Modelica.SIunits.Frequency</a> f = 50 <span style="color: #006400; font-weight: normal; font-style: normal;">
+      &quot;Frequency considered in the definition of cables properties&quot;</span>;
+    <span style="color: blue; font-weight: normal; font-style: normal;">output </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Resistance"
+>Modelica.SIunits.Resistance</a> R <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Resistance of the cable&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">protected </span>
+    <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.AngularVelocity"
+>Modelica.SIunits.AngularVelocity</a> omega = 2*Modelica.Constants.pi*f;
+  <span style="color: blue; font-weight: normal; font-style: normal;">end </span>lineResistance;
+
+  <span style="color: blue; font-weight: normal; font-style: normal;">replaceable </span><span style="color: blue; font-weight: normal; font-style: normal;">partial </span><span style="color: blue; font-weight: normal; font-style: normal;">function</span> lineInductance <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Function that computes the inductance of a cable&quot;</span>
+    <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Function"
+>Modelica.Icons.Function</a>;
+    <span style="color: blue; font-weight: normal; font-style: normal;">input </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Length"
+>Modelica.SIunits.Length</a> l <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Length of the cable&quot;</span>;
+    <span style="color: blue; font-weight: normal; font-style: normal;">input </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Frequency"
+>Modelica.SIunits.Frequency</a> f = 50 <span style="color: #006400; font-weight: normal; font-style: normal;">
+      &quot;Frequency considered in the definition of cables properties&quot;</span>;
+    <span style="color: blue; font-weight: normal; font-style: normal;">output </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Inductance"
+>Modelica.SIunits.Inductance</a> L <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Inductance of the cable&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">protected </span>
+    <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.AngularVelocity"
+>Modelica.SIunits.AngularVelocity</a> omega = 2*Modelica.Constants.pi*f;
+  <span style="color: blue; font-weight: normal; font-style: normal;">end </span>lineInductance;
+
+  <span style="color: blue; font-weight: normal; font-style: normal;">replaceable </span><span style="color: blue; font-weight: normal; font-style: normal;">partial </span><span style="color: blue; font-weight: normal; font-style: normal;">function</span> lineCapacitance <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Function that computes the capacitance of a cable&quot;</span>
+    <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Function"
+>Modelica.Icons.Function</a>;
+    <span style="color: blue; font-weight: normal; font-style: normal;">input </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Length"
+>Modelica.SIunits.Length</a> l <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Length of the cable&quot;</span>;
+    <span style="color: blue; font-weight: normal; font-style: normal;">input </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Frequency"
+>Modelica.SIunits.Frequency</a> f = 50 <span style="color: #006400; font-weight: normal; font-style: normal;">
+      &quot;Frequency considered in the definition of cables properties&quot;</span>;
+    <span style="color: blue; font-weight: normal; font-style: normal;">output </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Capacitance"
+>Modelica.SIunits.Capacitance</a> C <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Capacitance of the cable&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">protected </span>
+    <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.AngularVelocity"
+>Modelica.SIunits.AngularVelocity</a> omega = 2*Modelica.Constants.pi*f;
+  <span style="color: blue; font-weight: normal; font-style: normal;">end </span>lineCapacitance;
+
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>BaseCable;
+</div>
+<hr>
+<address>
+<a href="http://www.3ds.com/">Automatically generated</a> Thu Apr  9 09:34:20 2015.
+</address>
+</body>
+</html>

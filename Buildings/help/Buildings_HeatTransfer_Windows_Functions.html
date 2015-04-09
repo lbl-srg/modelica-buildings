@@ -1,0 +1,1736 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>Buildings.HeatTransfer.Windows.Functions</title>
+<meta name="HTML-Generator" content="Dymola">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="description" content="&quot;Functions used in window radiation model&quot;">
+<style type="text/css">
+*       { font-size: 10pt; font-family: Arial, sans-serif; }
+.modelica, .modelica * { font-size: 9pt; font-family: Courier, monospace; white-space: pre; }
+h4      { font-size: 10pt; font-weight: bold; color: green; }
+h3      { font-size: 11pt; font-weight: bold; color: green; }
+h2      { font-size: 13pt; font-weight: bold; color: green; }
+address { font-weight: normal; }
+td      { border: 1px solid #808080; vertical-align: top; }
+th      { border: 1px solid #808080; vertical-align: top; font-weight: bold; }
+table   { border: 1px solid #808080; border-collapse: collapse; }
+</style>
+<link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../Resources/www/modelicaDoc.css">
+</HEAD>
+<body>
+<!-- --- header ------ -->
+<div class="headerStyle">
+<img src="../Resources/www/lbl-logo.png" alt="LBL logo"/>
+</div>
+<div class="headerLinks">
+<ul><li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt; <a href="Buildings.html">Modelica</a></li></ul>
+</div>
+<!-- --- end header -- -->
+
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE Functions<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><a name="Buildings.HeatTransfer.Windows.Functions"></a><a href="Buildings_HeatTransfer_Windows.html#Buildings.HeatTransfer.Windows"
+>Buildings.HeatTransfer.Windows</a>.Functions</h2>
+<p>
+<b>Functions used in window radiation model</b><br>
+</p>
+<h3>Information</h3>
+
+<p>
+This package contains functions that are used to compute
+heat transfer in the window model.
+</p>
+
+<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons_Package.html#Modelica.Icons.Package"
+>Modelica.Icons.Package</a> (Icon for standard packages).</p>
+<h3>Package Content</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Package Content">
+<tr>
+<th>Name</th>
+<th>Description</th>
+</tr>
+<tr>
+<td><img src="Buildings.HeatTransfer.Wifb6591dfbbbd80b1adingS.png" alt="Buildings.HeatTransfer.Windows.Functions.devAbsExteriorIrradiationInteriorShading" width="20" height="20" align="top">&nbsp;<a href="Buildings_HeatTransfer_Windows_Functions.html#Buildings.HeatTransfer.Windows.Functions.devAbsExteriorIrradiationInteriorShading"
+>devAbsExteriorIrradiationInteriorShading</a>
+</td>
+<td>Angular and hemispherical absorptance of a shading device for exterior irradiation with interior shading</td>
+</tr>
+<tr>
+<td><img src="Buildings.HeatTransfer.Wifb6591dfbbbd80b1adingS.png" alt="Buildings.HeatTransfer.Windows.Functions.devAbsInteriorIrradiationInteriorShading" width="20" height="20" align="top">&nbsp;<a href="Buildings_HeatTransfer_Windows_Functions.html#Buildings.HeatTransfer.Windows.Functions.devAbsInteriorIrradiationInteriorShading"
+>devAbsInteriorIrradiationInteriorShading</a>
+</td>
+<td>Hemiperical absorptance of a shading device for interior irradiation with interior shading</td>
+</tr>
+<tr>
+<td><img src="Buildings.HeatTransfer.Wifb6591dfbbbd80b1adingS.png" alt="Buildings.HeatTransfer.Windows.Functions.getAngle" width="20" height="20" align="top">&nbsp;<a href="Buildings_HeatTransfer_Windows_Functions.html#Buildings.HeatTransfer.Windows.Functions.getAngle"
+>getAngle</a>
+</td>
+<td>Generate incident angles</td>
+</tr>
+<tr>
+<td><img src="Buildings.HeatTransfer.Wifb6591dfbbbd80b1adingS.png" alt="Buildings.HeatTransfer.Windows.Functions.getGlassTR" width="20" height="20" align="top">&nbsp;<a href="Buildings_HeatTransfer_Windows_Functions.html#Buildings.HeatTransfer.Windows.Functions.getGlassTR"
+>getGlassTR</a>
+</td>
+<td>Transmittance and reflectance of glass</td>
+</tr>
+<tr>
+<td><img src="Buildings.HeatTransfer.Wifb6591dfbbbd80b1adingS.png" alt="Buildings.HeatTransfer.Windows.Functions.glassAbsExteriorIrradiationExteriorShading" width="20" height="20" align="top">&nbsp;<a href="Buildings_HeatTransfer_Windows_Functions.html#Buildings.HeatTransfer.Windows.Functions.glassAbsExteriorIrradiationExteriorShading"
+>glassAbsExteriorIrradiationExteriorShading</a>
+</td>
+<td>Angular and hemispherical absorptance of each glass pane for exterior irradiation with exterior shading</td>
+</tr>
+<tr>
+<td><img src="Buildings.HeatTransfer.Wifb6591dfbbbd80b1adingS.png" alt="Buildings.HeatTransfer.Windows.Functions.glassAbsExteriorIrradiationInteriorShading" width="20" height="20" align="top">&nbsp;<a href="Buildings_HeatTransfer_Windows_Functions.html#Buildings.HeatTransfer.Windows.Functions.glassAbsExteriorIrradiationInteriorShading"
+>glassAbsExteriorIrradiationInteriorShading</a>
+</td>
+<td>Angular and hemispherical absorptance of each glass pane for exterior irradiation with interior shading</td>
+</tr>
+<tr>
+<td><img src="Buildings.HeatTransfer.Wifb6591dfbbbd80b1adingS.png" alt="Buildings.HeatTransfer.Windows.Functions.glassAbsExteriorIrradiationNoShading" width="20" height="20" align="top">&nbsp;<a href="Buildings_HeatTransfer_Windows_Functions.html#Buildings.HeatTransfer.Windows.Functions.glassAbsExteriorIrradiationNoShading"
+>glassAbsExteriorIrradiationNoShading</a>
+</td>
+<td>Angular and hemispherical absorptance of each glass pane for exterior irradiation without shading</td>
+</tr>
+<tr>
+<td><img src="Buildings.HeatTransfer.Wifb6591dfbbbd80b1adingS.png" alt="Buildings.HeatTransfer.Windows.Functions.glassAbsInteriorIrradiationExteriorShading" width="20" height="20" align="top">&nbsp;<a href="Buildings_HeatTransfer_Windows_Functions.html#Buildings.HeatTransfer.Windows.Functions.glassAbsInteriorIrradiationExteriorShading"
+>glassAbsInteriorIrradiationExteriorShading</a>
+</td>
+<td>Hemispherical absorptance of each glass pane for interior irradiation with exterior shading</td>
+</tr>
+<tr>
+<td><img src="Buildings.HeatTransfer.Wifb6591dfbbbd80b1adingS.png" alt="Buildings.HeatTransfer.Windows.Functions.glassAbsInteriorIrradiationInteriorShading" width="20" height="20" align="top">&nbsp;<a href="Buildings_HeatTransfer_Windows_Functions.html#Buildings.HeatTransfer.Windows.Functions.glassAbsInteriorIrradiationInteriorShading"
+>glassAbsInteriorIrradiationInteriorShading</a>
+</td>
+<td>Hemispherical absorptance of each glass pane for interior irradiation with interior shading</td>
+</tr>
+<tr>
+<td><img src="Buildings.HeatTransfer.Wifb6591dfbbbd80b1adingS.png" alt="Buildings.HeatTransfer.Windows.Functions.glassAbsInteriorIrradiationNoShading" width="20" height="20" align="top">&nbsp;<a href="Buildings_HeatTransfer_Windows_Functions.html#Buildings.HeatTransfer.Windows.Functions.glassAbsInteriorIrradiationNoShading"
+>glassAbsInteriorIrradiationNoShading</a>
+</td>
+<td>Hemispherical absorptance of each glass pane for interior irradiation without shading</td>
+</tr>
+<tr>
+<td><img src="Buildings.HeatTransfer.Wifb6591dfbbbd80b1adingS.png" alt="Buildings.HeatTransfer.Windows.Functions.glassProperty" width="20" height="20" align="top">&nbsp;<a href="Buildings_HeatTransfer_Windows_Functions.html#Buildings.HeatTransfer.Windows.Functions.glassProperty"
+>glassProperty</a>
+</td>
+<td>Compute angular variation and hemispherical integration of the transmittance and reflectance for each glass pane without shading</td>
+</tr>
+<tr>
+<td><img src="Buildings.HeatTransfer.Wifb6591dfbbbd80b1adingS.png" alt="Buildings.HeatTransfer.Windows.Functions.glassPropertyCoated" width="20" height="20" align="top">&nbsp;<a href="Buildings_HeatTransfer_Windows_Functions.html#Buildings.HeatTransfer.Windows.Functions.glassPropertyCoated"
+>glassPropertyCoated</a>
+</td>
+<td>Compute angular variation and hemispherical integration of the transmittance and reflectance for a coated glass pane without shading</td>
+</tr>
+<tr>
+<td><img src="Buildings.HeatTransfer.Wifb6591dfbbbd80b1adingS.png" alt="Buildings.HeatTransfer.Windows.Functions.glassPropertyUncoated" width="20" height="20" align="top">&nbsp;<a href="Buildings_HeatTransfer_Windows_Functions.html#Buildings.HeatTransfer.Windows.Functions.glassPropertyUncoated"
+>glassPropertyUncoated</a>
+</td>
+<td>Compute angular variation and hemispherical integration of the transmittance and reflectance for a uncoated glass pane without shading</td>
+</tr>
+<tr>
+<td><img src="Buildings.HeatTransfer.Wifb6591dfbbbd80b1adingS.png" alt="Buildings.HeatTransfer.Windows.Functions.glassTRExteriorIrradiationNoShading" width="20" height="20" align="top">&nbsp;<a href="Buildings_HeatTransfer_Windows_Functions.html#Buildings.HeatTransfer.Windows.Functions.glassTRExteriorIrradiationNoShading"
+>glassTRExteriorIrradiationNoShading</a>
+</td>
+<td>Transmittance and reflectance of glass panes for exterior irradiation without shading</td>
+</tr>
+<tr>
+<td><img src="Buildings.HeatTransfer.Wifb6591dfbbbd80b1adingS.png" alt="Buildings.HeatTransfer.Windows.Functions.glassTRInteriorIrradiationNoShading" width="20" height="20" align="top">&nbsp;<a href="Buildings_HeatTransfer_Windows_Functions.html#Buildings.HeatTransfer.Windows.Functions.glassTRInteriorIrradiationNoShading"
+>glassTRInteriorIrradiationNoShading</a>
+</td>
+<td>Transmittance and reflectance of each glass pane for interior irradiation without shading</td>
+</tr>
+<tr>
+<td><img src="Buildings.HeatTransfer.Wifb6591dfbbbd80b1adingS.png" alt="Buildings.HeatTransfer.Windows.Functions.winTExteriorIrradiationInteriorShading" width="20" height="20" align="top">&nbsp;<a href="Buildings_HeatTransfer_Windows_Functions.html#Buildings.HeatTransfer.Windows.Functions.winTExteriorIrradiationInteriorShading"
+>winTExteriorIrradiationInteriorShading</a>
+</td>
+<td>Angular and hemispherical transmittance of a window system (glass and shading device) for exterior irradiation with interior shading</td>
+</tr>
+<tr>
+<td><img src="Buildings.HeatTransfer.Wifb6591dfbbbd80b1adingS.png" alt="Buildings.HeatTransfer.Windows.Functions.winTExteriorIrradiatrionExteriorShading" width="20" height="20" align="top">&nbsp;<a href="Buildings_HeatTransfer_Windows_Functions.html#Buildings.HeatTransfer.Windows.Functions.winTExteriorIrradiatrionExteriorShading"
+>winTExteriorIrradiatrionExteriorShading</a>
+</td>
+<td>Angular and hemispherical transmittance of a window system (glass + shading device) for exterior irradiation with exterior shading</td>
+</tr>
+<tr>
+<td><img src="Buildings.HeatTransfer.Wifb6591dfbbbd80b1adingS.png" alt="Buildings.HeatTransfer.Windows.Functions.winTRInteriorIrradiationExteriorShading" width="20" height="20" align="top">&nbsp;<a href="Buildings_HeatTransfer_Windows_Functions.html#Buildings.HeatTransfer.Windows.Functions.winTRInteriorIrradiationExteriorShading"
+>winTRInteriorIrradiationExteriorShading</a>
+</td>
+<td>Hemispherical transmittance and back reflectance of a window system (glass and shading device) for interior irradiation with exterior shading</td>
+</tr>
+<tr>
+<td><img src="Buildings.HeatTransfer.Wifb6591dfbbbd80b1adingS.png" alt="Buildings.HeatTransfer.Windows.Functions.winTRInteriorIrradiationInteriorShading" width="20" height="20" align="top">&nbsp;<a href="Buildings_HeatTransfer_Windows_Functions.html#Buildings.HeatTransfer.Windows.Functions.winTRInteriorIrradiationInteriorShading"
+>winTRInteriorIrradiationInteriorShading</a>
+</td>
+<td>Hemispherical transmittance and back reflectance of a window system (glass and shading device) for interior irradiation with interior shading</td>
+</tr>
+<tr>
+<td><img src="Buildings.HeatTransfer.Wi60266707eb29f775assesS.png" alt="Buildings.HeatTransfer.Windows.Functions.BaseClasses" width="20" height="20" align="top">&nbsp;<a href="Buildings_HeatTransfer_Windows_Functions_BaseClasses.html#Buildings.HeatTransfer.Windows.Functions.BaseClasses"
+>BaseClasses</a>
+</td>
+<td>Package with base classes for Buildings.HeatTransfer.Windows.Functions</td>
+</tr>
+</table>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE devAbsExteriorIrradiationInteriorShading<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><a name="Buildings.HeatTransfer.Windows.Functions.devAbsExteriorIrradiationInteriorShading"></a><a href="Buildings_HeatTransfer_Windows_Functions.html#Buildings.HeatTransfer.Windows.Functions"
+>Buildings.HeatTransfer.Windows.Functions</a>.devAbsExteriorIrradiationInteriorShading</h2>
+<p>
+<b>Angular and hemispherical absorptance of a shading device for exterior irradiation with interior shading</b>
+</p>
+<h3>Information</h3>
+
+<p>
+This function computes the angular and hemispherical absorptance of a shading device for exterior irradiation with interior shading.
+Pane <code>1</code> is facing the outside and pane <code>N</code> is facing the room.
+</p>
+
+<p>Extends from <a href="Buildings_HeatTransfer_Windows_Functions_BaseClasses.html#Buildings.HeatTransfer.Windows.Functions.BaseClasses.partialWindowShadingRadiation"
+>Buildings.HeatTransfer.Windows.Functions.BaseClasses.partialWindowShadingRadiation</a> (Partial function for window radiation property with shading device).</p>
+<h3>Inputs</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Inputs">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td>Real</td><td>traRef[3, N, N, HEM]</td><td>&nbsp;</td><td>Transmittance and reflectance with exterior irradiation and no shading</td></tr>
+<tr><td>Real</td><td>traRefShaDev[2, 2]</td><td>&nbsp;</td><td>Transmittance and reflectance of shading device</td></tr>
+<tr><td>Integer</td><td>N</td><td>&nbsp;</td><td>Number of glass layers</td></tr>
+<tr><td>Integer</td><td>HEM</td><td>&nbsp;</td><td>Index of hemispherical integration</td></tr>
+</table>
+<h3>Outputs</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Outputs">
+<tr><th>Type</th><th>Name</th><th>Description</th></tr>
+<tr><td>Real</td><td>absExtIrrIntShaDev[HEM]</td><td>Absorptance of a shading device for exterior irradiation with interior shading</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">function</span> devAbsExteriorIrradiationInteriorShading <span style="color: #006400; font-weight: normal; font-style: normal;">
+  &quot;Angular and hemispherical absorptance of a shading device for exterior irradiation with interior shading&quot;</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="Buildings_HeatTransfer_Windows_Functions_BaseClasses.html#Buildings.HeatTransfer.Windows.Functions.BaseClasses.partialWindowShadingRadiation"
+>Buildings.HeatTransfer.Windows.Functions.BaseClasses.partialWindowShadingRadiation</a>;
+
+  <span style="color: blue; font-weight: normal; font-style: normal;">output </span>Real absExtIrrIntShaDev[HEM](<span style="color: blue; font-weight: normal; font-style: normal;">each </span>min=0, <span style="color: blue; font-weight: normal; font-style: normal;">each </span>max=1) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Absorptance of a shading device for exterior irradiation with interior shading&quot;</span>;
+
+<span style="color: blue; font-weight: normal; font-style: normal;">algorithm </span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">for </span>iD<span style="color: blue; font-weight: normal; font-style: normal;"> in </span>1:HEM<span style="color: blue; font-weight: normal; font-style: normal;"> loop</span>
+    absExtIrrIntShaDev[iD] := traRef[TRA, 1, N, iD]*(1 - traIntShaDev -
+      refIntShaDev)/(1 - refIntShaDev*traRef[Rb, N, 1, HEM]) <span style="color: #006400; font-weight: normal; font-style: normal;">
+      &quot;Equation (A.4.91)&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">end for</span>;
+
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>devAbsExteriorIrradiationInteriorShading;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE devAbsInteriorIrradiationInteriorShading<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><a name="Buildings.HeatTransfer.Windows.Functions.devAbsInteriorIrradiationInteriorShading"></a><a href="Buildings_HeatTransfer_Windows_Functions.html#Buildings.HeatTransfer.Windows.Functions"
+>Buildings.HeatTransfer.Windows.Functions</a>.devAbsInteriorIrradiationInteriorShading</h2>
+<p>
+<b>Hemiperical absorptance of a shading device for interior irradiation with interior shading</b>
+</p>
+<h3>Information</h3>
+
+<p>
+This function computes the hemiperical absorbtance of a shading device for interior irradiation with interior shading.
+</p>
+
+<p>Extends from <a href="Buildings_HeatTransfer_Windows_Functions_BaseClasses.html#Buildings.HeatTransfer.Windows.Functions.BaseClasses.partialWindowShadingRadiation"
+>Buildings.HeatTransfer.Windows.Functions.BaseClasses.partialWindowShadingRadiation</a> (Partial function for window radiation property with shading device).</p>
+<h3>Inputs</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Inputs">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td>Real</td><td>traRef[3, N, N, HEM]</td><td>&nbsp;</td><td>Transmittance and reflectance with exterior irradiation and no shading</td></tr>
+<tr><td>Real</td><td>traRefShaDev[2, 2]</td><td>&nbsp;</td><td>Transmittance and reflectance of shading device</td></tr>
+<tr><td>Integer</td><td>N</td><td>&nbsp;</td><td>Number of glass layers</td></tr>
+<tr><td>Integer</td><td>HEM</td><td>&nbsp;</td><td>Index of hemispherical integration</td></tr>
+</table>
+<h3>Outputs</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Outputs">
+<tr><th>Type</th><th>Name</th><th>Description</th></tr>
+<tr><td>Real</td><td>absIntIrrIntShaDev</td><td>Hemiperical absorbtance of a shading device for interior irradiation with interior shading</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">function</span> devAbsInteriorIrradiationInteriorShading <span style="color: #006400; font-weight: normal; font-style: normal;">
+  &quot;Hemiperical absorptance of a shading device for interior irradiation with interior shading&quot;</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="Buildings_HeatTransfer_Windows_Functions_BaseClasses.html#Buildings.HeatTransfer.Windows.Functions.BaseClasses.partialWindowShadingRadiation"
+>Buildings.HeatTransfer.Windows.Functions.BaseClasses.partialWindowShadingRadiation</a>;
+
+  <span style="color: blue; font-weight: normal; font-style: normal;">output </span>Real absIntIrrIntShaDev(min=0, max=1) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Hemiperical absorbtance of a shading device for interior irradiation with interior shading&quot;</span>;
+<span style="color: blue; font-weight: normal; font-style: normal;">protected </span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">constant </span>Real rRho=traRef[3, N, 1, HEM]*refIntShaDev <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Part of equation (A.4.103)&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">constant </span>Real rTau=traRef[3, N, 1, HEM]*traIntShaDev <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Part of equation (A.4.103)&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">constant </span>Real c=traIntShaDev*(1 - rRho/(1 - rRho)) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Equation (4.99)&quot;</span>;
+
+<span style="color: blue; font-weight: normal; font-style: normal;">algorithm </span>
+  absIntIrrIntShaDev := (1 - traIntShaDev - refIntShaDev)*(1 + rTau/(1 - rRho)) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Equation (4.103)&quot;</span>;
+
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>devAbsInteriorIrradiationInteriorShading;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE getAngle<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><a name="Buildings.HeatTransfer.Windows.Functions.getAngle"></a><a href="Buildings_HeatTransfer_Windows_Functions.html#Buildings.HeatTransfer.Windows.Functions"
+>Buildings.HeatTransfer.Windows.Functions</a>.getAngle</h2>
+<p>
+<b>Generate incident angles</b>
+</p>
+<h3>Information</h3>
+
+<p>
+This function computes discrete incident angles for the window radiation calculation. The range is from 0 to 90 degree.
+</p>
+
+<h3>Inputs</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Inputs">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td>Integer</td><td>NDIR</td><td>&nbsp;</td><td>Number of incident angles</td></tr>
+</table>
+<h3>Outputs</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Outputs">
+<tr><th>Type</th><th>Name</th><th>Description</th></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
+>Angle</a></td><td>psi[NDIR]</td><td>Array of incident angles [rad]</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">function</span> getAngle <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Generate incident angles&quot;</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">input </span>Integer NDIR <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Number of incident angles&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">output </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
+>Modelica.SIunits.Angle</a> psi[NDIR] <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Array of incident angles&quot;</span>;
+
+<span style="color: blue; font-weight: normal; font-style: normal;">protected </span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">constant </span>Real deltaX=0.5*Modelica.Constants.pi/(NDIR - 1);
+
+<span style="color: blue; font-weight: normal; font-style: normal;">algorithm </span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">for </span>i<span style="color: blue; font-weight: normal; font-style: normal;"> in </span>1:NDIR<span style="color: blue; font-weight: normal; font-style: normal;"> loop</span>
+    psi[i] := (i - 1)*deltaX;
+  <span style="color: blue; font-weight: normal; font-style: normal;">end for</span>;
+
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>getAngle;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE getGlassTR<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><a name="Buildings.HeatTransfer.Windows.Functions.getGlassTR"></a><a href="Buildings_HeatTransfer_Windows_Functions.html#Buildings.HeatTransfer.Windows.Functions"
+>Buildings.HeatTransfer.Windows.Functions</a>.getGlassTR</h2>
+<p>
+<b>Transmittance and reflectance of glass</b>
+</p>
+<h3>Information</h3>
+
+<p>
+This function computes the angular variation of the transmittance and reflectance of each glass pane.
+It accounts for the transmittance and reflectance among different panes.
+Pane <code>1</code> is facing outside and pane <code>N</code> is facing the room.
+For instance, <code>traRef[TRA, 1, N, iD]</code> means transmittance between layer <code>1</code> to <code>N</code> for exterior irradiation and
+<code>traRef[TRA, N, 1, iD]</code> means the transmittance for interior irradiation.
+</p>
+
+<p>Extends from <a href="Buildings_HeatTransfer_Windows_Functions_BaseClasses.html#Buildings.HeatTransfer.Windows.Functions.BaseClasses.partialGlassRadiation"
+>Buildings.HeatTransfer.Windows.Functions.BaseClasses.partialGlassRadiation</a> (Partial function for glass radiation property).</p>
+<h3>Inputs</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Inputs">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td>Integer</td><td>N</td><td>&nbsp;</td><td>Number of glass layers</td></tr>
+<tr><td>Integer</td><td>HEM</td><td>&nbsp;</td><td>Index of hemispherical integration</td></tr>
+<tr><td>Real</td><td>layer[3, N, HEM]</td><td>&nbsp;</td><td>Property of glass pane</td></tr>
+</table>
+<h3>Outputs</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Outputs">
+<tr><th>Type</th><th>Name</th><th>Description</th></tr>
+<tr><td>Real</td><td>traRef[3, N, N, HEM]</td><td>Glass transmittance, front and back reflectance</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">function</span> getGlassTR <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Transmittance and reflectance of glass&quot;</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="Buildings_HeatTransfer_Windows_Functions_BaseClasses.html#Buildings.HeatTransfer.Windows.Functions.BaseClasses.partialGlassRadiation"
+>Buildings.HeatTransfer.Windows.Functions.BaseClasses.partialGlassRadiation</a>;
+
+  <span style="color: blue; font-weight: normal; font-style: normal;">input </span>Real layer[3, N, HEM] <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Property of glass pane&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">output </span>Real traRef[3, N, N, HEM](<span style="color: blue; font-weight: normal; font-style: normal;">each </span>min=0, <span style="color: blue; font-weight: normal; font-style: normal;">each </span>max=1) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Glass transmittance, front and back reflectance&quot;</span>;
+
+<span style="color: blue; font-weight: normal; font-style: normal;">protected </span>
+  Real traRefIntIrr[3, N, N, HEM](<span style="color: blue; font-weight: normal; font-style: normal;">each </span>min=0, <span style="color: blue; font-weight: normal; font-style: normal;">each </span>max=1) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;temporary array for glass transmittance, front and back reflectance for interior irradiation&quot;</span>;
+
+<span style="color: blue; font-weight: normal; font-style: normal;">algorithm </span>
+  traRef :=
+    <span style="color: red; font-weight: normal; font-style: normal;">Buildings.HeatTransfer.Windows.Functions.glassTRExteriorIrradiationNoShading</span>(
+    N,
+    HEM,
+    layer) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;property for exterior irradiation&quot;</span>;
+  traRefIntIrr :=
+    <span style="color: red; font-weight: normal; font-style: normal;">Buildings.HeatTransfer.Windows.Functions.glassTRInteriorIrradiationNoShading</span>(
+    N,
+    HEM,
+    layer) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;property for interior irradiation&quot;</span>;
+
+  <span style="color: #006400; font-weight: normal; font-style: normal;">// Copy the property for interior irradiation to glass property</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">for </span>k<span style="color: blue; font-weight: normal; font-style: normal;"> in </span>TRA:Rb<span style="color: blue; font-weight: normal; font-style: normal;"> loop</span>
+    <span style="color: blue; font-weight: normal; font-style: normal;">for </span>i<span style="color: blue; font-weight: normal; font-style: normal;"> in </span>1:N - 1<span style="color: blue; font-weight: normal; font-style: normal;"> loop</span>
+      <span style="color: blue; font-weight: normal; font-style: normal;">for </span>j<span style="color: blue; font-weight: normal; font-style: normal;"> in </span>i + 1:N<span style="color: blue; font-weight: normal; font-style: normal;"> loop</span>
+        <span style="color: blue; font-weight: normal; font-style: normal;">for </span>iD<span style="color: blue; font-weight: normal; font-style: normal;"> in </span>1:HEM<span style="color: blue; font-weight: normal; font-style: normal;"> loop</span>
+          traRef[k, N + 1 - i, N + 1 - j, iD] := traRefIntIrr[k, N + 1 - i, N
+             + 1 - j, iD];
+        <span style="color: blue; font-weight: normal; font-style: normal;">end for</span>;
+      <span style="color: blue; font-weight: normal; font-style: normal;">end for</span>;
+    <span style="color: blue; font-weight: normal; font-style: normal;">end for</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">end for</span>;
+
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>getGlassTR;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE glassAbsExteriorIrradiationExteriorShading<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><a name="Buildings.HeatTransfer.Windows.Functions.glassAbsExteriorIrradiationExteriorShading"></a><a href="Buildings_HeatTransfer_Windows_Functions.html#Buildings.HeatTransfer.Windows.Functions"
+>Buildings.HeatTransfer.Windows.Functions</a>.glassAbsExteriorIrradiationExteriorShading</h2>
+<p>
+<b>Angular and hemispherical absorptance of each glass pane for exterior irradiation with exterior shading</b>
+</p>
+<h3>Information</h3>
+
+<p>
+This function computes angular and hemispherical absorptance of each glass pane for exterior irradiation with exterior shading.
+Pane <code>1</code> is facing outside and pane <code>N</code> is facing the room.
+</p>
+
+<p>Extends from <a href="Buildings_HeatTransfer_Windows_Functions_BaseClasses.html#Buildings.HeatTransfer.Windows.Functions.BaseClasses.partialWindowShadingRadiation"
+>Buildings.HeatTransfer.Windows.Functions.BaseClasses.partialWindowShadingRadiation</a> (Partial function for window radiation property with shading device).</p>
+<h3>Inputs</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Inputs">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td>Real</td><td>absExtIrrNoSha[N, HEM]</td><td>&nbsp;</td><td>Angular and hemispherical absorptance of each glass pane for exterior irradiation without shading</td></tr>
+<tr><td>Real</td><td>traRef[3, N, N, HEM]</td><td>&nbsp;</td><td>Transmittance and reflectance with exterior irradiation and no shading</td></tr>
+<tr><td>Real</td><td>traRefShaDev[2, 2]</td><td>&nbsp;</td><td>Transmittance and reflectance of shading device</td></tr>
+<tr><td>Integer</td><td>N</td><td>&nbsp;</td><td>Number of glass layers</td></tr>
+<tr><td>Integer</td><td>HEM</td><td>&nbsp;</td><td>Index of hemispherical integration</td></tr>
+</table>
+<h3>Outputs</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Outputs">
+<tr><th>Type</th><th>Name</th><th>Description</th></tr>
+<tr><td>Real</td><td>absExtIrrExtSha[N, HEM]</td><td>Angular and hemispherical absorptance of each glass pane for exterior irradiation with exterior shading</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">function</span> glassAbsExteriorIrradiationExteriorShading <span style="color: #006400; font-weight: normal; font-style: normal;">
+  &quot;Angular and hemispherical absorptance of each glass pane for exterior irradiation with exterior shading&quot;</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">input </span>Real absExtIrrNoSha[N, HEM](<span style="color: blue; font-weight: normal; font-style: normal;">each </span>min=0, <span style="color: blue; font-weight: normal; font-style: normal;">each </span>max=1) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Angular and hemispherical absorptance of each glass pane for exterior irradiation without shading&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="Buildings_HeatTransfer_Windows_Functions_BaseClasses.html#Buildings.HeatTransfer.Windows.Functions.BaseClasses.partialWindowShadingRadiation"
+>Buildings.HeatTransfer.Windows.Functions.BaseClasses.partialWindowShadingRadiation</a>;
+
+  <span style="color: blue; font-weight: normal; font-style: normal;">output </span>Real absExtIrrExtSha[N, HEM](<span style="color: blue; font-weight: normal; font-style: normal;">each </span>min=0, <span style="color: blue; font-weight: normal; font-style: normal;">each </span>max=1) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Angular and hemispherical absorptance of each glass pane for exterior irradiation with exterior shading&quot;</span>;
+
+<span style="color: blue; font-weight: normal; font-style: normal;">protected </span>
+  Real c <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Intermediate variable&quot;</span>;
+
+<span style="color: blue; font-weight: normal; font-style: normal;">algorithm </span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">for </span>iD<span style="color: blue; font-weight: normal; font-style: normal;"> in </span>1:HEM<span style="color: blue; font-weight: normal; font-style: normal;"> loop</span>
+    c := traExtShaDev*(1 + traRef[Ra, 1, N, iD]*refExtShaDev/(1 - traRef[Ra, 1,
+      N, HEM]*refExtShaDev));
+    <span style="color: blue; font-weight: normal; font-style: normal;">for </span>i<span style="color: blue; font-weight: normal; font-style: normal;"> in </span>1:N<span style="color: blue; font-weight: normal; font-style: normal;"> loop</span>
+      absExtIrrExtSha[i, iD] := c*absExtIrrNoSha[i, iD];
+    <span style="color: blue; font-weight: normal; font-style: normal;">end for</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">end for</span>;
+
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>glassAbsExteriorIrradiationExteriorShading;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE glassAbsExteriorIrradiationInteriorShading<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><a name="Buildings.HeatTransfer.Windows.Functions.glassAbsExteriorIrradiationInteriorShading"></a><a href="Buildings_HeatTransfer_Windows_Functions.html#Buildings.HeatTransfer.Windows.Functions"
+>Buildings.HeatTransfer.Windows.Functions</a>.glassAbsExteriorIrradiationInteriorShading</h2>
+<p>
+<b>Angular and hemispherical absorptance of each glass pane for exterior irradiation with interior shading</b>
+</p>
+<h3>Information</h3>
+
+<p>
+This function computes angular and hemispherical absorptance of each glass pane for exterior irradiation with interior shading.
+Pane <code>1</code> is facing the outside and pane <code>N</code> is facing the room.
+</p>
+
+<p>Extends from <a href="Buildings_HeatTransfer_Windows_Functions_BaseClasses.html#Buildings.HeatTransfer.Windows.Functions.BaseClasses.partialWindowShadingRadiation"
+>Buildings.HeatTransfer.Windows.Functions.BaseClasses.partialWindowShadingRadiation</a> (Partial function for window radiation property with shading device).</p>
+<h3>Inputs</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Inputs">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td>Real</td><td>absExtIrrNoSha[N, HEM]</td><td>&nbsp;</td><td>Absorptance for exterior irradiation without shading</td></tr>
+<tr><td>Real</td><td>traRef[3, N, N, HEM]</td><td>&nbsp;</td><td>Transmittance and reflectance with exterior irradiation and no shading</td></tr>
+<tr><td>Real</td><td>traRefShaDev[2, 2]</td><td>&nbsp;</td><td>Transmittance and reflectance of shading device</td></tr>
+<tr><td>Integer</td><td>N</td><td>&nbsp;</td><td>Number of glass layers</td></tr>
+<tr><td>Integer</td><td>HEM</td><td>&nbsp;</td><td>Index of hemispherical integration</td></tr>
+</table>
+<h3>Outputs</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Outputs">
+<tr><th>Type</th><th>Name</th><th>Description</th></tr>
+<tr><td>Real</td><td>absExtIrrNoShaIntSha[N, HEM]</td><td>Angular and hemispherical absorptance of each glass pane for exterior irradiation with interior shading</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">function</span> glassAbsExteriorIrradiationInteriorShading <span style="color: #006400; font-weight: normal; font-style: normal;">
+  &quot;Angular and hemispherical absorptance of each glass pane for exterior irradiation with interior shading&quot;</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">input </span>Real absExtIrrNoSha[N, HEM](<span style="color: blue; font-weight: normal; font-style: normal;">each </span>min=0, <span style="color: blue; font-weight: normal; font-style: normal;">each </span>max=1) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Absorptance for exterior irradiation without shading&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="Buildings_HeatTransfer_Windows_Functions_BaseClasses.html#Buildings.HeatTransfer.Windows.Functions.BaseClasses.partialWindowShadingRadiation"
+>Buildings.HeatTransfer.Windows.Functions.BaseClasses.partialWindowShadingRadiation</a>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">output </span>Real absExtIrrNoShaIntSha[N, HEM](<span style="color: blue; font-weight: normal; font-style: normal;">each </span>min=0, <span style="color: blue; font-weight: normal; font-style: normal;">each </span>max=1) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Angular and hemispherical absorptance of each glass pane for exterior irradiation with interior shading&quot;</span>;
+
+<span style="color: blue; font-weight: normal; font-style: normal;">protected </span>
+  Real fac;
+  Real absFro <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Front (outside-facing) absorptance&quot;</span>;
+  Real absBac <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Back (room-facing) absorptance&quot;</span>;
+  Integer i <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Index of glass pane&quot;</span>;
+
+<span style="color: blue; font-weight: normal; font-style: normal;">algorithm </span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">for </span>iD<span style="color: blue; font-weight: normal; font-style: normal;"> in </span>1:HEM<span style="color: blue; font-weight: normal; font-style: normal;"> loop</span>
+    i := 1;
+    fac := traRef[TRA, 1, N, iD]*refIntShaDev/(1 - traRef[Rb, N, 1, HEM]*
+      refIntShaDev) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Equation (A.4.90)&quot;</span>;
+    absBac := 1 - traRef[TRA, i, i, iD] - traRef[Rb, i, i, iD] <span style="color: #006400; font-weight: normal; font-style: normal;">
+      &quot;Equation (A.4.81b)&quot;</span>;
+
+    <span style="color: blue; font-weight: normal; font-style: normal;">if </span>N &gt;= 2<span style="color: blue; font-weight: normal; font-style: normal;"> then</span>
+      absExtIrrNoShaIntSha[i, iD] := absExtIrrNoSha[i, iD] + fac*traRef[TRA, N,
+        i + 1, HEM]*absBac <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Equation (A.4.90)&quot;</span>;
+
+      <span style="color: blue; font-weight: normal; font-style: normal;">for </span>i<span style="color: blue; font-weight: normal; font-style: normal;"> in </span>2:N - 1<span style="color: blue; font-weight: normal; font-style: normal;"> loop</span>
+        fac := traRef[TRA, 1, N, iD]*refIntShaDev/(1 - traRef[Rb, N, 1, HEM]*
+          refIntShaDev) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Equation (A.4.90)&quot;</span>;
+        absFro := 1 - traRef[TRA, i, i, iD] - traRef[Ra, i, i, iD] <span style="color: #006400; font-weight: normal; font-style: normal;">
+          &quot;Equaiton (A.4.81a)&quot;</span>;
+        absBac := 1 - traRef[TRA, i, i, iD] - traRef[Rb, i, i, iD] <span style="color: #006400; font-weight: normal; font-style: normal;">
+          &quot;Equation (A.4.81b)&quot;</span>;
+        absExtIrrNoShaIntSha[i, iD] := absExtIrrNoSha[i, iD] + fac*(traRef[TRA,
+          N, i, HEM]*traRef[Rb, i - 1, 1, HEM]*absFro + traRef[TRA, N, i + 1,
+          HEM]*absBac) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Equation (A.4.90)&quot;</span>;
+      <span style="color: blue; font-weight: normal; font-style: normal;">end for</span>;
+
+      i := N;
+      fac := traRef[TRA, 1, N, iD]*refIntShaDev/(1 - traRef[Rb, N, 1, HEM]*
+        refIntShaDev) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Equation (A.4.90)&quot;</span>;
+      absFro := 1 - traRef[TRA, i, i, iD] - traRef[Ra, i, i, iD] <span style="color: #006400; font-weight: normal; font-style: normal;">
+        &quot;Equaiton (A.4.81a)&quot;</span>;
+      absBac := 1 - traRef[TRA, i, i, iD] - traRef[Rb, i, i, iD] <span style="color: #006400; font-weight: normal; font-style: normal;">
+        &quot;Equation (A.4.81b)&quot;</span>;
+      absExtIrrNoShaIntSha[i, iD] := absExtIrrNoSha[i, iD] + fac*(traRef[TRA, N,
+        i, HEM]*traRef[Rb, i - 1, 1, HEM]*absFro + absBac) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Equation (A.4.90)&quot;</span>;
+
+    <span style="color: blue; font-weight: normal; font-style: normal;">else</span>
+      absExtIrrNoShaIntSha[i, iD] := absExtIrrNoSha[i, iD] + fac*absBac <span style="color: #006400; font-weight: normal; font-style: normal;">
+        &quot;Equation (A.4.90)&quot;</span>;
+    <span style="color: blue; font-weight: normal; font-style: normal;">end if</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">end for</span>;
+
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>glassAbsExteriorIrradiationInteriorShading;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE glassAbsExteriorIrradiationNoShading<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><a name="Buildings.HeatTransfer.Windows.Functions.glassAbsExteriorIrradiationNoShading"></a><a href="Buildings_HeatTransfer_Windows_Functions.html#Buildings.HeatTransfer.Windows.Functions"
+>Buildings.HeatTransfer.Windows.Functions</a>.glassAbsExteriorIrradiationNoShading</h2>
+<p>
+<b>Angular and hemispherical absorptance of each glass pane for exterior irradiation without shading</b>
+</p>
+<h3>Information</h3>
+
+<p>
+This function computes specular and hemispherical absorptance of each glass pane for exterior irradiation without shading.
+It counts the transmittance and reflectance among different panes.
+Pane <code>1</code> is facing the outside and pane <code>N</code> is facing the room.
+</p>
+
+<p>Extends from <a href="Buildings_HeatTransfer_Windows_Functions_BaseClasses.html#Buildings.HeatTransfer.Windows.Functions.BaseClasses.partialWindowRadiation"
+>Buildings.HeatTransfer.Windows.Functions.BaseClasses.partialWindowRadiation</a> (Partial function for window radiation property).</p>
+<h3>Inputs</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Inputs">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td>Real</td><td>traRef[3, N, N, HEM]</td><td>&nbsp;</td><td>Transmittance and reflectance with exterior irradiation and no shading</td></tr>
+<tr><td>Integer</td><td>N</td><td>&nbsp;</td><td>Number of glass layers</td></tr>
+<tr><td>Integer</td><td>HEM</td><td>&nbsp;</td><td>Index of hemispherical integration</td></tr>
+</table>
+<h3>Outputs</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Outputs">
+<tr><th>Type</th><th>Name</th><th>Description</th></tr>
+<tr><td>Real</td><td>abs[N, HEM]</td><td>Angular and hemispherical absorptance of each glass pane for exterior irradiation without shading.
+     Indices: abs[1 to N : ] -&gt; pane 1 to N;
+     abs[ : 1 to HEM] -&gt; angular (1:HEM-1) and hemispherical (HEM)</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">function</span> glassAbsExteriorIrradiationNoShading <span style="color: #006400; font-weight: normal; font-style: normal;">
+  &quot;Angular and hemispherical absorptance of each glass pane for exterior irradiation without shading&quot;</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="Buildings_HeatTransfer_Windows_Functions_BaseClasses.html#Buildings.HeatTransfer.Windows.Functions.BaseClasses.partialWindowRadiation"
+>Buildings.HeatTransfer.Windows.Functions.BaseClasses.partialWindowRadiation</a>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">output </span>Real[N, HEM] abs(<span style="color: blue; font-weight: normal; font-style: normal;">each </span>min=0, <span style="color: blue; font-weight: normal; font-style: normal;">each </span>max=1) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Angular and hemispherical absorptance of each glass pane for exterior irradiation without shading.
+     Indices: abs[1 to N : ] -&gt; pane 1 to N;
+     abs[ : 1 to HEM] -&gt; angular (1:HEM-1) and hemispherical (HEM)&quot;</span>;
+
+<span style="color: blue; font-weight: normal; font-style: normal;">protected </span>
+  Real af <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Front (outside-facing side) absorptance of a pane&quot;</span>;
+  Real ab <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Back (room-facing side) absorptance of a pane&quot;</span>;
+  Real deno1 <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Denominantor&quot;</span>;
+  Real deno2 <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Denominantor&quot;</span>;
+  Integer j;
+  <span style="color: blue; font-weight: normal; font-style: normal;">constant </span>Real SMALL=Modelica.Constants.small <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Small value&quot;</span>;
+
+<span style="color: blue; font-weight: normal; font-style: normal;">algorithm </span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">if </span>N == 1<span style="color: blue; font-weight: normal; font-style: normal;"> then</span>
+    j := 1;
+    <span style="color: blue; font-weight: normal; font-style: normal;">for </span>iD<span style="color: blue; font-weight: normal; font-style: normal;"> in </span>1:HEM<span style="color: blue; font-weight: normal; font-style: normal;"> loop</span>
+      abs[j, iD] := 1 - traRef[TRA, j, j, iD] - traRef[Ra, j, j, iD] <span style="color: #006400; font-weight: normal; font-style: normal;">
+        &quot;Equation (A.4.79)&quot;</span>;
+    <span style="color: blue; font-weight: normal; font-style: normal;">end for</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">else</span>
+    <span style="color: blue; font-weight: normal; font-style: normal;">for </span>iD<span style="color: blue; font-weight: normal; font-style: normal;"> in </span>1:HEM<span style="color: blue; font-weight: normal; font-style: normal;"> loop</span>
+      j := 1;
+      af := 1 - traRef[TRA, j, j, iD] - traRef[Ra, j, j, iD] <span style="color: #006400; font-weight: normal; font-style: normal;">
+        &quot;Equation (A.4.81a)&quot;</span>;
+      ab := 1 - traRef[TRA, j, j, iD] - traRef[Rb, j, j, iD] <span style="color: #006400; font-weight: normal; font-style: normal;">
+        &quot;Equation (A.4.81b)&quot;</span>;
+      deno2 := 1 - traRef[Rb, j, 1, iD]*traRef[Ra, j + 1, N, iD];
+      <span style="color: blue; font-weight: normal; font-style: normal;">if </span>deno2 &lt; SMALL<span style="color: blue; font-weight: normal; font-style: normal;"> then</span>
+        abs[j, iD] := 0;
+      <span style="color: blue; font-weight: normal; font-style: normal;">else</span>
+        abs[j, iD] := af + ab*traRef[TRA, 1, j, iD]*traRef[Ra, j + 1, N, iD]/
+          deno2 <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Equation (A.4.82) and (A.4.83b)&quot;</span>;
+      <span style="color: blue; font-weight: normal; font-style: normal;">end if</span>;
+
+      <span style="color: blue; font-weight: normal; font-style: normal;">for </span>j<span style="color: blue; font-weight: normal; font-style: normal;"> in </span>2:N - 1<span style="color: blue; font-weight: normal; font-style: normal;"> loop</span>
+        af := 1 - traRef[TRA, j, j, iD] - traRef[Ra, j, j, iD] <span style="color: #006400; font-weight: normal; font-style: normal;">
+          &quot;Equation (A.4.81a)&quot;</span>;
+        ab := 1 - traRef[TRA, j, j, iD] - traRef[Rb, j, j, iD] <span style="color: #006400; font-weight: normal; font-style: normal;">
+          &quot;Equation (A.4.81b)&quot;</span>;
+        deno1 := 1 - traRef[Ra, j, N, iD]*traRef[Rb, j - 1, 1, iD];
+        deno2 := 1 - traRef[Rb, j, 1, iD]*traRef[Ra, j + 1, N, iD];
+        <span style="color: blue; font-weight: normal; font-style: normal;">if </span>deno1 &lt; SMALL<span style="color: blue; font-weight: normal; font-style: normal;"> or </span>deno2 &lt; SMALL<span style="color: blue; font-weight: normal; font-style: normal;"> then</span>
+          abs[j, iD] := 0;
+        <span style="color: blue; font-weight: normal; font-style: normal;">else</span>
+          abs[j, iD] := af*traRef[TRA, 1, j - 1, iD]/deno1 + ab*traRef[TRA, 1,
+            j, iD]*traRef[Ra, j + 1, N, iD]/deno2 <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Equation (A.4.83b)&quot;</span>;
+        <span style="color: blue; font-weight: normal; font-style: normal;">end if</span>;
+      <span style="color: blue; font-weight: normal; font-style: normal;">end for</span>;
+
+      j := N;
+      af := 1 - traRef[TRA, j, j, iD] - traRef[Ra, j, j, iD] <span style="color: #006400; font-weight: normal; font-style: normal;">
+        &quot;Equation (A.4.81a)&quot;</span>;
+      deno1 := 1 - traRef[Ra, j, N, iD]*traRef[Rb, j - 1, 1, iD];
+      <span style="color: blue; font-weight: normal; font-style: normal;">if </span>deno1 &lt; SMALL<span style="color: blue; font-weight: normal; font-style: normal;"> then</span>
+        abs[j, iD] := 0;
+      <span style="color: blue; font-weight: normal; font-style: normal;">else</span>
+        abs[j, iD] := af*traRef[TRA, 1, j - 1, iD]/deno1;
+      <span style="color: blue; font-weight: normal; font-style: normal;">end if</span>;
+    <span style="color: blue; font-weight: normal; font-style: normal;">end for</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">end if</span>;
+
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>glassAbsExteriorIrradiationNoShading;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE glassAbsInteriorIrradiationExteriorShading<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><a name="Buildings.HeatTransfer.Windows.Functions.glassAbsInteriorIrradiationExteriorShading"></a><a href="Buildings_HeatTransfer_Windows_Functions.html#Buildings.HeatTransfer.Windows.Functions"
+>Buildings.HeatTransfer.Windows.Functions</a>.glassAbsInteriorIrradiationExteriorShading</h2>
+<p>
+<b>Hemispherical absorptance of each glass pane for interior irradiation with exterior shading</b>
+</p>
+<h3>Information</h3>
+
+<p>
+This function computes the hemispherical absorptance of each glass pane for interior irradiation with exterior shading.
+Pane <code>1</code> is facing the outside and pane <code>N</code> is facing the room.
+</p>
+
+<p>Extends from <a href="Buildings_HeatTransfer_Windows_Functions_BaseClasses.html#Buildings.HeatTransfer.Windows.Functions.BaseClasses.partialWindowShadingRadiation"
+>Buildings.HeatTransfer.Windows.Functions.BaseClasses.partialWindowShadingRadiation</a> (Partial function for window radiation property with shading device).</p>
+<h3>Inputs</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Inputs">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td>Real</td><td>absIntIrrNoSha[N]</td><td>&nbsp;</td><td>Absorptance for interior irradiation without shading</td></tr>
+<tr><td>Real</td><td>traRef[3, N, N, HEM]</td><td>&nbsp;</td><td>Transmittance and reflectance with exterior irradiation and no shading</td></tr>
+<tr><td>Real</td><td>traRefShaDev[2, 2]</td><td>&nbsp;</td><td>Transmittance and reflectance of shading device</td></tr>
+<tr><td>Integer</td><td>N</td><td>&nbsp;</td><td>Number of glass layers</td></tr>
+<tr><td>Integer</td><td>HEM</td><td>&nbsp;</td><td>Index of hemispherical integration</td></tr>
+</table>
+<h3>Outputs</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Outputs">
+<tr><th>Type</th><th>Name</th><th>Description</th></tr>
+<tr><td>Real</td><td>absIntIrrExtSha[N]</td><td>Hemispherical absorptance of each glass pane for interior irradiation with exterior shading</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">function</span> glassAbsInteriorIrradiationExteriorShading <span style="color: #006400; font-weight: normal; font-style: normal;">
+  &quot;Hemispherical absorptance of each glass pane for interior irradiation with exterior shading&quot;</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">input </span>Real absIntIrrNoSha[N] <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Absorptance for interior irradiation without shading&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="Buildings_HeatTransfer_Windows_Functions_BaseClasses.html#Buildings.HeatTransfer.Windows.Functions.BaseClasses.partialWindowShadingRadiation"
+>Buildings.HeatTransfer.Windows.Functions.BaseClasses.partialWindowShadingRadiation</a>;
+
+  <span style="color: blue; font-weight: normal; font-style: normal;">output </span>Real absIntIrrExtSha[N](<span style="color: blue; font-weight: normal; font-style: normal;">each </span>min=0, <span style="color: blue; font-weight: normal; font-style: normal;">each </span>max=1) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Hemispherical absorptance of each glass pane for interior irradiation with exterior shading&quot;</span>;
+
+<span style="color: blue; font-weight: normal; font-style: normal;">protected </span>
+  Real fac;
+  Real absFro <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Front absorptance&quot;</span>;
+  Real absBac <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Back absorptance&quot;</span>;
+  Integer i <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Pane index&quot;</span>;
+
+<span style="color: blue; font-weight: normal; font-style: normal;">algorithm </span>
+  fac := traRef[TRA, N, 1, HEM]*refExtShaDev/(1 - traRef[Ra, 1, N, HEM]*
+    refExtShaDev);
+
+  i := 1;
+  absFro := 1 - traRef[TRA, i, i, HEM] - traRef[Ra, i, i, HEM] <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Equaiton (A.4.81a)&quot;</span>;
+  absBac := 1 - traRef[TRA, i, i, HEM] - traRef[Rb, i, i, HEM] <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Equation (A.4.81b)&quot;</span>;
+
+  <span style="color: blue; font-weight: normal; font-style: normal;">if </span>N &gt;= 2<span style="color: blue; font-weight: normal; font-style: normal;"> then</span>
+    absIntIrrExtSha[i] := absIntIrrNoSha[i] + fac*absFro + fac*traRef[TRA, 1, i,
+      HEM]*traRef[Ra, i + 1, N, HEM]*absBac <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Equation (A.4.94)&quot;</span>;
+
+    <span style="color: blue; font-weight: normal; font-style: normal;">for </span>i<span style="color: blue; font-weight: normal; font-style: normal;"> in </span>2:N - 1<span style="color: blue; font-weight: normal; font-style: normal;"> loop</span>
+      absFro := 1 - traRef[TRA, i, i, HEM] - traRef[Ra, i, i, HEM] <span style="color: #006400; font-weight: normal; font-style: normal;">
+        &quot;Equaiton (A.4.81a)&quot;</span>;
+      absBac := 1 - traRef[TRA, i, i, HEM] - traRef[Rb, i, i, HEM] <span style="color: #006400; font-weight: normal; font-style: normal;">
+        &quot;Equation (A.4.81b)&quot;</span>;
+      absIntIrrExtSha[i] := absIntIrrNoSha[i] + fac*traRef[TRA, 1, i - 1, HEM]*
+        absFro + fac*traRef[TRA, 1, i, HEM]*traRef[Ra, i + 1, N, HEM]*absBac <span style="color: #006400; font-weight: normal; font-style: normal;">
+        &quot;Equation (A.4.94)&quot;</span>;
+    <span style="color: blue; font-weight: normal; font-style: normal;">end for</span>;
+
+    i := N;
+    absFro := 1 - traRef[TRA, i, i, HEM] - traRef[Ra, i, i, HEM] <span style="color: #006400; font-weight: normal; font-style: normal;">
+      &quot;Equaiton (A.4.81a)&quot;</span>;
+    absIntIrrExtSha[i] := absIntIrrNoSha[i] + fac*traRef[TRA, 1, i - 1, HEM]*
+      absFro <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Equation (A.4.94)&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">else</span>
+    absIntIrrExtSha[i] := absIntIrrNoSha[i] + fac*absFro <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Equation (A.4.94)&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">end if</span>;
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>glassAbsInteriorIrradiationExteriorShading;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE glassAbsInteriorIrradiationInteriorShading<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><a name="Buildings.HeatTransfer.Windows.Functions.glassAbsInteriorIrradiationInteriorShading"></a><a href="Buildings_HeatTransfer_Windows_Functions.html#Buildings.HeatTransfer.Windows.Functions"
+>Buildings.HeatTransfer.Windows.Functions</a>.glassAbsInteriorIrradiationInteriorShading</h2>
+<p>
+<b>Hemispherical absorptance of each glass pane for interior irradiation with interior shading</b>
+</p>
+<h3>Information</h3>
+
+<p>
+This function computes the hemispherical absorbtance of each glass pane for interior irradiation with interior shading.
+Pane <code>1</code> is facing the outside and pane <code>N</code> is facing the room.
+</p>
+
+<p>Extends from <a href="Buildings_HeatTransfer_Windows_Functions_BaseClasses.html#Buildings.HeatTransfer.Windows.Functions.BaseClasses.partialWindowShadingRadiation"
+>Buildings.HeatTransfer.Windows.Functions.BaseClasses.partialWindowShadingRadiation</a> (Partial function for window radiation property with shading device).</p>
+<h3>Inputs</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Inputs">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td>Real</td><td>absIntIrrNoSha[N]</td><td>&nbsp;</td><td>Hemispherical absorptance wfor interior irradiation without interior shading</td></tr>
+<tr><td>Real</td><td>traRef[3, N, N, HEM]</td><td>&nbsp;</td><td>Transmittance and reflectance with exterior irradiation and no shading</td></tr>
+<tr><td>Real</td><td>traRefShaDev[2, 2]</td><td>&nbsp;</td><td>Transmittance and reflectance of shading device</td></tr>
+<tr><td>Integer</td><td>N</td><td>&nbsp;</td><td>Number of glass layers</td></tr>
+<tr><td>Integer</td><td>HEM</td><td>&nbsp;</td><td>Index of hemispherical integration</td></tr>
+</table>
+<h3>Outputs</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Outputs">
+<tr><th>Type</th><th>Name</th><th>Description</th></tr>
+<tr><td>Real</td><td>absIntIrrIntSha[N]</td><td>Hemispherical absorbtance of each glass pane for interior irradiation with interior shading</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">function</span> glassAbsInteriorIrradiationInteriorShading <span style="color: #006400; font-weight: normal; font-style: normal;">
+  &quot;Hemispherical absorptance of each glass pane for interior irradiation with interior shading&quot;</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">input </span>Real absIntIrrNoSha[N](<span style="color: blue; font-weight: normal; font-style: normal;">each </span>min=0, <span style="color: blue; font-weight: normal; font-style: normal;">each </span>max=1) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Hemispherical absorptance wfor interior irradiation without interior shading&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="Buildings_HeatTransfer_Windows_Functions_BaseClasses.html#Buildings.HeatTransfer.Windows.Functions.BaseClasses.partialWindowShadingRadiation"
+>Buildings.HeatTransfer.Windows.Functions.BaseClasses.partialWindowShadingRadiation</a>;
+
+  <span style="color: blue; font-weight: normal; font-style: normal;">output </span>Real absIntIrrIntSha[N](<span style="color: blue; font-weight: normal; font-style: normal;">each </span>min=0, <span style="color: blue; font-weight: normal; font-style: normal;">each </span>max=1) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Hemispherical absorbtance of each glass pane for interior irradiation with interior shading&quot;</span>;
+
+<span style="color: blue; font-weight: normal; font-style: normal;">protected </span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">constant </span>Real rRho=traRef[Rb, N, 1, HEM]*refIntShaDev <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Part of Equation (4.99)&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">constant </span>Real c=traIntShaDev*(1 + rRho/(1 - rRho)) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Equation (4.99)&quot;</span>;
+
+<span style="color: blue; font-weight: normal; font-style: normal;">algorithm </span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">for </span>i<span style="color: blue; font-weight: normal; font-style: normal;"> in </span>1:N<span style="color: blue; font-weight: normal; font-style: normal;"> loop</span>
+    absIntIrrIntSha[i] := c*absIntIrrNoSha[i] <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Equation (A4.100a)&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">end for</span>;
+
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>glassAbsInteriorIrradiationInteriorShading;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE glassAbsInteriorIrradiationNoShading<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><a name="Buildings.HeatTransfer.Windows.Functions.glassAbsInteriorIrradiationNoShading"></a><a href="Buildings_HeatTransfer_Windows_Functions.html#Buildings.HeatTransfer.Windows.Functions"
+>Buildings.HeatTransfer.Windows.Functions</a>.glassAbsInteriorIrradiationNoShading</h2>
+<p>
+<b>Hemispherical absorptance of each glass pane for interior irradiation without shading</b>
+</p>
+<h3>Information</h3>
+
+<p>
+This function computes the hemispherical absorptance of each glass pane for interior irradiation without no shading.
+The angular irradiation is not considered since the interior irradiation (from the room) is assumed to be diffusive.
+It is a reverse of the function
+<a href="modelica://Buildings.HeatTransfer.Windows.Functions.glassAbsInterirorIrradiationNoShading">
+Buildings.HeatTransfer.Windows.Functions.glassAbsInterirorIrradiationNoShading</a>.
+</p>
+
+<p>Extends from <a href="Buildings_HeatTransfer_Windows_Functions_BaseClasses.html#Buildings.HeatTransfer.Windows.Functions.BaseClasses.partialWindowRadiation"
+>Buildings.HeatTransfer.Windows.Functions.BaseClasses.partialWindowRadiation</a> (Partial function for window radiation property).</p>
+<h3>Inputs</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Inputs">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td>Real</td><td>traRef[3, N, N, HEM]</td><td>&nbsp;</td><td>Transmittance and reflectance with exterior irradiation and no shading</td></tr>
+<tr><td>Integer</td><td>N</td><td>&nbsp;</td><td>Number of glass layers</td></tr>
+<tr><td>Integer</td><td>HEM</td><td>&nbsp;</td><td>Index of hemispherical integration</td></tr>
+</table>
+<h3>Outputs</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Outputs">
+<tr><th>Type</th><th>Name</th><th>Description</th></tr>
+<tr><td>Real</td><td>absIntIrrNoSha[N]</td><td>Hemispherical absorptance of each glass layer for interior irradiation without shading</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">function</span> glassAbsInteriorIrradiationNoShading <span style="color: #006400; font-weight: normal; font-style: normal;">
+  &quot;Hemispherical absorptance of each glass pane for interior irradiation without shading&quot;</span>
+
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="Buildings_HeatTransfer_Windows_Functions_BaseClasses.html#Buildings.HeatTransfer.Windows.Functions.BaseClasses.partialWindowRadiation"
+>Buildings.HeatTransfer.Windows.Functions.BaseClasses.partialWindowRadiation</a>;
+
+  <span style="color: blue; font-weight: normal; font-style: normal;">output </span>Real[N] absIntIrrNoSha(<span style="color: blue; font-weight: normal; font-style: normal;">each </span>min=0, <span style="color: blue; font-weight: normal; font-style: normal;">each </span>max=1) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Hemispherical absorptance of each glass layer for interior irradiation without shading&quot;</span>;
+
+<span style="color: blue; font-weight: normal; font-style: normal;">protected </span>
+  Real dTraRef[3, N, N, HEM](<span style="color: blue; font-weight: normal; font-style: normal;">each </span>min=0, <span style="color: blue; font-weight: normal; font-style: normal;">each </span>max=1) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Dummy transmittance and reflectance with exterior irradiation without shading&quot;</span>;
+  Real dAbs[N, HEM](<span style="color: blue; font-weight: normal; font-style: normal;">each </span>min=0, <span style="color: blue; font-weight: normal; font-style: normal;">each </span>max=1) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Dummy absorptance with exterior irradiation and no shading&quot;</span>;
+
+<span style="color: blue; font-weight: normal; font-style: normal;">algorithm </span>
+  <span style="color: #006400; font-weight: normal; font-style: normal;">// Reverse the data srtucture for exterior irradiation and no shading</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">for </span>i<span style="color: blue; font-weight: normal; font-style: normal;"> in </span>1:N<span style="color: blue; font-weight: normal; font-style: normal;"> loop</span>
+    <span style="color: blue; font-weight: normal; font-style: normal;">for </span>j<span style="color: blue; font-weight: normal; font-style: normal;"> in </span>1:N<span style="color: blue; font-weight: normal; font-style: normal;"> loop</span>
+      <span style="color: blue; font-weight: normal; font-style: normal;">for </span>iD<span style="color: blue; font-weight: normal; font-style: normal;"> in </span>1:HEM<span style="color: blue; font-weight: normal; font-style: normal;"> loop</span>
+        dTraRef[TRA, i, j, iD] := traRef[TRA, N + 1 - i, N + 1 - j, iD];
+        dTraRef[Ra, i, j, iD] := traRef[Rb, N + 1 - i, N + 1 - j, iD];
+        dTraRef[Rb, i, j, iD] := traRef[Ra, N + 1 - i, N + 1 - j, iD];
+      <span style="color: blue; font-weight: normal; font-style: normal;">end for</span>;
+    <span style="color: blue; font-weight: normal; font-style: normal;">end for</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">end for</span>;
+
+  dAbs :=
+    <span style="color: red; font-weight: normal; font-style: normal;">Buildings.HeatTransfer.Windows.Functions.glassAbsExteriorIrradiationNoShading</span>(
+    dTraRef,
+    N,
+    HEM) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Dummmy absorptance with exterior irradiation&quot;</span>;
+
+  <span style="color: #006400; font-weight: normal; font-style: normal;">// Only output hemispherical absorptance. Need to change order for interior irradiation.</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">for </span>i<span style="color: blue; font-weight: normal; font-style: normal;"> in </span>1:N<span style="color: blue; font-weight: normal; font-style: normal;"> loop</span>
+    absIntIrrNoSha[i] := dAbs[N + 1 - i, HEM];
+  <span style="color: blue; font-weight: normal; font-style: normal;">end for</span>;
+
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>glassAbsInteriorIrradiationNoShading;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE glassProperty<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><a name="Buildings.HeatTransfer.Windows.Functions.glassProperty"></a><a href="Buildings_HeatTransfer_Windows_Functions.html#Buildings.HeatTransfer.Windows.Functions"
+>Buildings.HeatTransfer.Windows.Functions</a>.glassProperty</h2>
+<p>
+<b>Compute angular variation and hemispherical integration of the transmittance and reflectance for each glass pane without shading</b>
+</p>
+<h3>Information</h3>
+
+<p>
+This function computes the angular variation and the hemispherical integration of the transmittance and reflectance for each glass pane.
+There are two schemes for the calculation. One is for coated glass and the other is for uncoated glass.
+The function checks the difference between front and back reflectances.
+If the difference is less than the tolerance (0.005), it uses the formula for uncoated glass.
+Otherwise, the formula for coated glass will be used.
+</p>
+
+<p>Extends from <a href="Buildings_HeatTransfer_Windows_Functions_BaseClasses.html#Buildings.HeatTransfer.Windows.Functions.BaseClasses.partialGlassRadiation"
+>Buildings.HeatTransfer.Windows.Functions.BaseClasses.partialGlassRadiation</a> (Partial function for glass radiation property).</p>
+<h3>Inputs</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Inputs">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td>Integer</td><td>N</td><td>&nbsp;</td><td>Number of glass layers</td></tr>
+<tr><td>Integer</td><td>HEM</td><td>&nbsp;</td><td>Index of hemispherical integration</td></tr>
+<tr><td>Real</td><td>glass[3, N]</td><td>&nbsp;</td><td>Propertry of each glass pane</td></tr>
+<tr><td>Real</td><td>xGla[N]</td><td>&nbsp;</td><td>Thickness of each glass pane</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
+>Angle</a></td><td>psi[HEM - 1]</td><td>&nbsp;</td><td>Incident angles [rad]</td></tr>
+</table>
+<h3>Outputs</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Outputs">
+<tr><th>Type</th><th>Name</th><th>Description</th></tr>
+<tr><td>Real</td><td>layer[3, N, HEM]</td><td>Transmittance, front and back reflectance</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">function</span> glassProperty <span style="color: #006400; font-weight: normal; font-style: normal;">
+  &quot;Compute angular variation and hemispherical integration of the transmittance and reflectance for each glass pane without shading&quot;</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="Buildings_HeatTransfer_Windows_Functions_BaseClasses.html#Buildings.HeatTransfer.Windows.Functions.BaseClasses.partialGlassRadiation"
+>Buildings.HeatTransfer.Windows.Functions.BaseClasses.partialGlassRadiation</a>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">input </span>Real glass[3, N] <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Propertry of each glass pane&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">input </span>Real xGla[N] <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Thickness of each glass pane&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">input </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
+>Modelica.SIunits.Angle</a> psi[HEM - 1] <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Incident angles&quot;</span>;
+
+  <span style="color: blue; font-weight: normal; font-style: normal;">output </span>Real layer[3, N, HEM] <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Transmittance, front and back reflectance&quot;</span>;
+
+<span style="color: blue; font-weight: normal; font-style: normal;">protected </span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Real tol=0.005 <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Tolerance for difference between front and back reflectance to decide a glass is uncoated or coated&quot;</span>;
+  Real oneLay[3, HEM] <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Temporary storage for glass property of one pane&quot;</span>;
+  Real oneGla[3];
+
+<span style="color: blue; font-weight: normal; font-style: normal;">algorithm </span>
+  <span style="color: #006400; font-weight: normal; font-style: normal;">// Compute specular value for angle 0 to 90 degree (psi[1] to psi[N]) and panes from 1 to N</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">for </span>i<span style="color: blue; font-weight: normal; font-style: normal;"> in </span>1:N<span style="color: blue; font-weight: normal; font-style: normal;"> loop</span>
+    <span style="color: #006400; font-weight: normal; font-style: normal;">// Copy data to temporary place</span>
+    <span style="color: blue; font-weight: normal; font-style: normal;">for </span>j<span style="color: blue; font-weight: normal; font-style: normal;"> in </span>1:3<span style="color: blue; font-weight: normal; font-style: normal;"> loop</span>
+      oneGla[j] := glass[j, i];
+    <span style="color: blue; font-weight: normal; font-style: normal;">end for</span>;
+
+    <span style="color: #006400; font-weight: normal; font-style: normal;">//uncoated galss</span>
+    <span style="color: blue; font-weight: normal; font-style: normal;">if </span>(<span style="color: red; font-weight: normal; font-style: normal;">abs</span>(glass[Ra, i] - glass[Rb, i]) &lt; tol)<span style="color: blue; font-weight: normal; font-style: normal;"> then</span>
+      oneLay :=<span style="color: red; font-weight: normal; font-style: normal;"> Buildings.HeatTransfer.Windows.Functions.glassPropertyUncoated</span>(
+        HEM,
+        oneGla,
+        xGla[i],
+        psi);
+
+    <span style="color: blue; font-weight: normal; font-style: normal;">else</span>
+      <span style="color: #006400; font-weight: normal; font-style: normal;">//coated glass</span>
+      oneLay :=<span style="color: red; font-weight: normal; font-style: normal;"> Buildings.HeatTransfer.Windows.Functions.glassPropertyCoated</span>(
+        HEM,
+        oneGla,
+        psi);
+    <span style="color: blue; font-weight: normal; font-style: normal;">end if</span>;
+
+    <span style="color: blue; font-weight: normal; font-style: normal;">for </span>j<span style="color: blue; font-weight: normal; font-style: normal;"> in </span>1:3<span style="color: blue; font-weight: normal; font-style: normal;"> loop</span>
+      <span style="color: blue; font-weight: normal; font-style: normal;">for </span>k<span style="color: blue; font-weight: normal; font-style: normal;"> in </span>1:HEM<span style="color: blue; font-weight: normal; font-style: normal;"> loop</span>
+        layer[j, i, k] := oneLay[j, k];
+      <span style="color: blue; font-weight: normal; font-style: normal;">end for</span>;
+    <span style="color: blue; font-weight: normal; font-style: normal;">end for</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">end for</span>;
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>glassProperty;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE glassPropertyCoated<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><a name="Buildings.HeatTransfer.Windows.Functions.glassPropertyCoated"></a><a href="Buildings_HeatTransfer_Windows_Functions.html#Buildings.HeatTransfer.Windows.Functions"
+>Buildings.HeatTransfer.Windows.Functions</a>.glassPropertyCoated</h2>
+<p>
+<b>Compute angular variation and hemispherical integration of the transmittance and reflectance for a coated glass pane without shading</b>
+</p>
+<h3>Information</h3>
+
+<p>
+This function computes the angular variation and the hemispherical integration of the transmittance and reflectance for one coated glass pane.
+</p>
+
+<p>Extends from <a href="Buildings_HeatTransfer_Windows_Functions_BaseClasses.html#Buildings.HeatTransfer.Windows.Functions.BaseClasses.partialSingleGlassRadiation"
+>Buildings.HeatTransfer.Windows.Functions.BaseClasses.partialSingleGlassRadiation</a> (Partial function for single glass radiation property).</p>
+<h3>Inputs</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Inputs">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td>Integer</td><td>HEM</td><td>&nbsp;</td><td>Index of hemispherical integration</td></tr>
+<tr><td>Real</td><td>glass[3]</td><td>&nbsp;</td><td>Propertry of one glass pane</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
+>Angle</a></td><td>psi[HEM - 1]</td><td>&nbsp;</td><td>Incident angles [rad]</td></tr>
+</table>
+<h3>Outputs</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Outputs">
+<tr><th>Type</th><th>Name</th><th>Description</th></tr>
+<tr><td>Real</td><td>layer[3, HEM]</td><td>Transmittance, front and back reflectance</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">function</span> glassPropertyCoated <span style="color: #006400; font-weight: normal; font-style: normal;">
+  &quot;Compute angular variation and hemispherical integration of the transmittance and reflectance for a coated glass pane without shading&quot;</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="Buildings_HeatTransfer_Windows_Functions_BaseClasses.html#Buildings.HeatTransfer.Windows.Functions.BaseClasses.partialSingleGlassRadiation"
+>Buildings.HeatTransfer.Windows.Functions.BaseClasses.partialSingleGlassRadiation</a>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">input </span>Real glass[3] <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Propertry of one glass pane&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">input </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
+>Modelica.SIunits.Angle</a> psi[HEM - 1] <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Incident angles&quot;</span>;
+
+  <span style="color: blue; font-weight: normal; font-style: normal;">output </span>Real layer[3, HEM] <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Transmittance, front and back reflectance&quot;</span>;
+
+<span style="color: blue; font-weight: normal; font-style: normal;">protected </span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">constant </span>Real a[4, 5]={{-0.0015,3.355,-3.840,1.460,0.0288},{0.999,-0.563,
+      2.043,-2.532,1.054},{-0.002,2.813,-2.341,-0.05725,0.599},{0.997,-1.868,
+      6.513,-7.862,3.225}} <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Coeffcients in Table A.2&quot;</span>;
+
+  Integer NDIR <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Number of incident angles&quot;</span>;
+
+  Real psi_c <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;cos(psi), psi is incident angle&quot;</span>;
+  Real psi_cs <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;cos(psi)*sin(psi)&quot;</span>;
+  Real angT <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Angular variation of transmittance&quot;</span>;
+  Real angR <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Angular variation of reflectance&quot;</span>;
+  Real f[3, HEM-1] <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Temporary variables for integration in hemispherical transmittance and reflectance&quot;</span>;
+  Real deltaX;
+
+  Integer id1 <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Index of coefficients for transmittance&quot;</span>;
+  Integer id2 <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Index of coefficients for reflectance&quot;</span>;
+
+<span style="color: blue; font-weight: normal; font-style: normal;">algorithm </span>
+  NDIR:=HEM - 1;
+  deltaX := 0.5*Modelica.Constants.pi/(NDIR - 1);
+  <span style="color: #006400; font-weight: normal; font-style: normal;">// Compute specular value for angle 0 to 90 degree (psi[1] to psi[N])</span>
+    <span style="color: blue; font-weight: normal; font-style: normal;">for </span>k<span style="color: blue; font-weight: normal; font-style: normal;"> in </span>TRA:Rb<span style="color: blue; font-weight: normal; font-style: normal;"> loop</span>
+      layer[k, 1] := glass[k] <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Copy the data at 0 degree (normal incidence)&quot;</span>;
+    <span style="color: blue; font-weight: normal; font-style: normal;">end for</span>;
+
+    <span style="color: blue; font-weight: normal; font-style: normal;">for </span>j<span style="color: blue; font-weight: normal; font-style: normal;"> in </span>2:HEM-2<span style="color: blue; font-weight: normal; font-style: normal;"> loop</span>
+      psi_c :=<span style="color: red; font-weight: normal; font-style: normal;"> Modelica.Math.cos</span>(psi[j]);
+       <span style="color: blue; font-weight: normal; font-style: normal;">if </span>layer[TRA, 1] &gt; 0.645<span style="color: blue; font-weight: normal; font-style: normal;"> then</span>
+        id1 := 1;
+        id2 := 2;
+      <span style="color: blue; font-weight: normal; font-style: normal;">else</span>
+        id1 := 3;
+        id2 := 4;
+      <span style="color: blue; font-weight: normal; font-style: normal;">end if</span>;
+      angT := a[id1, 1] + psi_c*(a[id1, 2] + psi_c*(a[id1, 3] + psi_c*(a[id1, 4]
+         + psi_c*a[id1, 5]))) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Equation (A.4.68a)&quot;</span>;
+      angR := a[id2, 1] + psi_c*(a[id2, 2] + psi_c*(a[id2, 3] + psi_c*(a[id2, 4]
+         + psi_c*a[id2, 5]))) - angT <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Equation (A.4.68b)&quot;</span>;
+      layer[TRA, j] := layer[TRA, 1]*angT <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Equation (A4.69a)&quot;</span>;
+      layer[Ra, j] := layer[Ra, 1]*(1 - angR) + angR <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Equation (A4.69b)&quot;</span>;
+      layer[Rb, j] := layer[Rb, 1]*(1 - angR) + angR <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Equation (A4.69b)&quot;</span>;
+
+    <span style="color: blue; font-weight: normal; font-style: normal;">end for</span>;
+
+    layer[TRA, NDIR] := 0;
+    layer[Ra, NDIR] := 1.0;
+    layer[Rb, NDIR] := 1.0;
+
+  <span style="color: #006400; font-weight: normal; font-style: normal;">// Computer hemispherical value: HEM.</span>
+    <span style="color: blue; font-weight: normal; font-style: normal;">for </span>j<span style="color: blue; font-weight: normal; font-style: normal;"> in </span>1:HEM-1<span style="color: blue; font-weight: normal; font-style: normal;"> loop</span>
+      psi_cs :=<span style="color: red; font-weight: normal; font-style: normal;"> Modelica.Math.cos</span>(psi[j])*<span style="color: red; font-weight: normal; font-style: normal;">Modelica.Math.sin</span>(psi[j]);
+      <span style="color: blue; font-weight: normal; font-style: normal;">for </span>k<span style="color: blue; font-weight: normal; font-style: normal;"> in </span>TRA:Rb<span style="color: blue; font-weight: normal; font-style: normal;"> loop</span>
+        f[k, j] := 2*layer[k, j]*psi_cs;
+      <span style="color: blue; font-weight: normal; font-style: normal;">end for</span>;
+    <span style="color: blue; font-weight: normal; font-style: normal;">end for</span>;
+
+    <span style="color: blue; font-weight: normal; font-style: normal;">for </span>k<span style="color: blue; font-weight: normal; font-style: normal;"> in </span>TRA:Rb<span style="color: blue; font-weight: normal; font-style: normal;"> loop</span>
+      layer[k, HEM] :=
+        <span style="color: red; font-weight: normal; font-style: normal;">Buildings.Utilities.Math.Functions.trapezoidalIntegration</span>(
+        NDIR,
+        f[k, :],
+        deltaX) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Equation (A.4.70a) and (A.4.70b)&quot;</span>;
+    <span style="color: blue; font-weight: normal; font-style: normal;">end for</span>;
+
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>glassPropertyCoated;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE glassPropertyUncoated<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><a name="Buildings.HeatTransfer.Windows.Functions.glassPropertyUncoated"></a><a href="Buildings_HeatTransfer_Windows_Functions.html#Buildings.HeatTransfer.Windows.Functions"
+>Buildings.HeatTransfer.Windows.Functions</a>.glassPropertyUncoated</h2>
+<p>
+<b>Compute angular variation and hemispherical integration of the transmittance and reflectance for a uncoated glass pane without shading</b>
+</p>
+<h3>Information</h3>
+
+<p>
+This function computes the angular variation and the hemispherical integration of the transmittance and reflectance for one uncoated glass pane.
+The equations are mainly based on Finlayson et al. (1990) and Fuler et al. (1991) with some modifications.
+</p>
+<h4>Implementation</h4>
+<p>
+Step 1: Compute the reflectivity at normal incidence
+</p>
+<table summary="summary">
+<tr>
+<td><p align="center" style="font-style:italic;">
+   &rho;(0) = {&beta; &minus; sqrt[&beta;<sup>2</sup> &minus; 4(2 &minus; R(0))R(0)]}
+      &frasl;
+   [2(2&minus;R(0))],
+</p></td>
+<td>(1)</td>
+</tr>
+</table>
+where
+<table summary="summary">
+<tr>
+<td><p align="center" style="font-style:italic;">
+  &beta; = T(0)<sup>2</sup> &minus; R(0)<sup>2</sup> + 2R(0) + 1.
+</p></td>
+<td>(2)</td>
+</tr>
+</table>
+
+<p>
+Step 2: Compute the spectral absorption coefficient &alpha; and spectral index of refraction n
+</p>
+<table summary="summary">
+<tr>
+<td><p align="center" style="font-style:italic;">
+  &alpha; = 4 &pi; &kappa;<sub>&lambda;</sub> &frasl;  &lambda;
+  = - ln[(R(0) &minus; &rho;(0)) &frasl; (&rho;(0)T(0))] &frasl; d,
+</p></td>
+<td>(3)</td>
+</tr>
+<tr>
+<td><p align="center" style="font-style:italic;">
+  n = (1 + sqrt(&rho;(0)) &frasl;
+        (1 &minus; sqrt(&rho;(0))).
+</p></td>
+<td>(4)</td>
+</tr>
+</table>
+
+<p>
+Step 3: For each angle of incidence measured in air &phi; (0 &lt; &phi; &lt; 90)
+</p>
+<table summary="summary">
+<tr>
+<td> a. Compute the angle of incidence measured in glass &phi;'</td>
+</tr>
+<tr>
+<td><p align="center" style="font-style:italic;">
+  &phi;' = asin(sin&phi; &frasl;  n).
+</p></td>
+<td>(5)</td>
+</tr>
+<tr>
+<td> b. Compute spectral reflectivities at surface</td>
+</tr>
+<tr>
+<td><p align="center" style="font-style:italic;">
+&rho;<sub>1</sub>(&phi;)=[(n cos&phi; &minus; cos&phi;') &frasl;
+(n cos&phi; + cos&phi;')] <sup>2</sup>,
+</p></td>
+<td>(6)</td>
+</tr>
+<tr>
+<td><p align="center" style="font-style:italic;">
+&rho;<sub>2</sub>(&phi;)=[(n cos&phi;' &minus; cos&phi;) &frasl;
+(n cos&phi;' + cos&phi;)] <sup>2</sup>.
+</p></td>
+<td>(7)</td>
+</tr>
+<tr>
+<td>c. Compute spectral tansmissivities at surface</td>
+<tr>
+<td><p align="center" style="font-style:italic;">
+&tau;<sub>1</sub>(&phi;)= 1 &minus; &rho;<sub>1</sub>(&phi;),
+</p></td>
+<td>(8)</td>
+</tr>
+<tr>
+<td><p align="center" style="font-style:italic;">
+&tau;<sub>2</sub>(&phi;)= 1 &minus; &rho;<sub>2</sub>(&phi;).
+</p></td>
+<td>(9)</td>
+</tr>
+<tr>
+<td>d. Compute spectral tansmittance of the glass</td>
+</tr>
+<tr>
+<td><p align="center" style="font-style:italic;">
+T<sub>1</sub>(&phi;)= &tau;<sub>1</sub>(&phi;)<sup>2</sup> exp(-&alpha; d/cos&phi;') &frasl;
+(1 &minus; &rho;<sub>1</sub>(&phi;)<sup>2</sup> exp(-2&alpha; d/cos&phi;')),
+</p></td>
+<td>(10)</td>
+</tr>
+<tr>
+<td><p align="center" style="font-style:italic;">
+T<sub>2</sub>(&phi;)= &tau;<sub>2</sub>(&phi;)<sup>2</sup> exp(-&alpha; d/cos&phi;') &frasl;
+(1 &minus; &rho;<sub>2</sub>(&phi;)<sup>2</sup> exp(-2&alpha; d/cos&phi;')),
+</p></td>
+<td>(11)</td>
+</tr>
+<tr>
+<td><p align="center" style="font-style:italic;">
+T(&phi;)= (T<sub>1</sub>(&phi;) + T<sub>2</sub>(&phi;)) / 2.
+</p></td>
+<td>(12)</td>
+</tr>
+<tr>
+<td>e. Compute spectral reflectance of the glass</td>
+</tr>
+<tr>
+<td><p align="center" style="font-style:italic;">
+R<sub>1</sub>(&phi;)= &rho;<sub>1</sub>(&phi;)(1+ T<sub>1</sub>(&phi;)exp(-&alpha; d/cos&phi;')),
+</p></td>
+<td>(13)</td>
+</tr>
+<tr>
+<td><p align="center" style="font-style:italic;">
+R<sub>2</sub>(&phi;)= &rho;<sub>2</sub>(&phi;)(1+ T<sub>2</sub>(&phi;)exp(-&alpha; d/cos&phi;')),
+</p></td>
+<td>(14)</td>
+</tr>
+<tr>
+<td><p align="center" style="font-style:italic;">
+R(&phi;)= (R<sub>1</sub>(&phi;) + R<sub>2</sub>(&phi;)) / 2.
+</p></td>
+<td>(15)</td>
+</tr>
+</table>
+<p>
+Step 4: T(90)=0, R(90)=1. (16)
+
+<h4>Limitations</h4>
+WINDOW program calculates the angular property for each wave length based on the spectral data.
+It uses different <code>R<sub>&lambda;</sub>(0)</code> and <code>T<sub>&lambda;</sub>(0)</code> for each wave length.
+Then it integrates the properties over the wave length to get averaged property of <code>R(0)</code> and <code>T(0)</code>.
+<p>
+The current window model in the Buildings library uses averaged <code>R(0)</code> and <code>T(0)</code> directly.
+It can generate the same results as WINDOW for a single pane window and multi-pane window with the same glass.
+However, the results may be slightly different for multi-pane window with different glasses.
+The reason is that different glasses may have different angular properties for the same wave length.
+To precisely calculate the angular properties of the entire window system, one has to calculate the property for each wave length and integrate them as WINDOW does.
+For more details, see the paper of Nouidui et al. (2012).
+
+<h4>References</h4>
+<p>
+Finlayson, E. U., D. K. Arasteh, C. Huizenga, M.D. Rubin, M.S. Reily. 1993. WINDOW 4.0: Documentation of Calcualtion Precedures. <i>Technical Report LBL-33943</i>. Lawrence Berkeley National Laboratory.
+</p>
+<p>
+Fuler, Reto A., Angular dependence of optical properties of homogeneous glasses, <i>ASHRAE Transaction</i>, V.97 Part 2, 1991.
+</p>
+<p>
+Thierry Stephane Nouidui, Michael Wetter, and Wangda Zuo.
+<a href="../Resources/Images/HeatTransfer/Windows/2012-simBuild-windowValidation.pdf">
+Validation of the window model of the Modelica Buildings library.</a>
+<i>Proc. of the 5th SimBuild Conference</i>, Madison, WI, USA, August 2012.
+</p>
+
+<p>Extends from <a href="Buildings_HeatTransfer_Windows_Functions_BaseClasses.html#Buildings.HeatTransfer.Windows.Functions.BaseClasses.partialSingleGlassRadiation"
+>Buildings.HeatTransfer.Windows.Functions.BaseClasses.partialSingleGlassRadiation</a> (Partial function for single glass radiation property).</p>
+<h3>Inputs</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Inputs">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td>Integer</td><td>HEM</td><td>&nbsp;</td><td>Index of hemispherical integration</td></tr>
+<tr><td>Real</td><td>glass[3]</td><td>&nbsp;</td><td>Propertry of one glass pane</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Length"
+>Length</a></td><td>x</td><td>&nbsp;</td><td>Thickness [m]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
+>Angle</a></td><td>psi[HEM - 1]</td><td>&nbsp;</td><td>Incident angles [rad]</td></tr>
+</table>
+<h3>Outputs</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Outputs">
+<tr><th>Type</th><th>Name</th><th>Description</th></tr>
+<tr><td>Real</td><td>layer[3, HEM]</td><td>Transmittance, front and back reflectance</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">function</span> glassPropertyUncoated <span style="color: #006400; font-weight: normal; font-style: normal;">
+  &quot;Compute angular variation and hemispherical integration of the transmittance and reflectance for a uncoated glass pane without shading&quot;</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="Buildings_HeatTransfer_Windows_Functions_BaseClasses.html#Buildings.HeatTransfer.Windows.Functions.BaseClasses.partialSingleGlassRadiation"
+>Buildings.HeatTransfer.Windows.Functions.BaseClasses.partialSingleGlassRadiation</a>;
+
+  <span style="color: blue; font-weight: normal; font-style: normal;">input </span>Real glass[3] <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Propertry of one glass pane&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">input </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Length"
+>Modelica.SIunits.Length</a> x <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Thickness&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">input </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
+>Modelica.SIunits.Angle</a> psi[HEM - 1] <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Incident angles&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">output </span>Real layer[3, HEM] <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Transmittance, front and back reflectance&quot;</span>;
+
+<span style="color: blue; font-weight: normal; font-style: normal;">protected </span>
+  Integer NDIR <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Number of incident angles&quot;</span>;
+  Real psi_c <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;cos(psi), psi is incident angle in air&quot;</span>;
+  Real psi1_c <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;cos(psi1), psi1 is incident angle in glass&quot;</span>;
+  Real angT <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Angular variation of transmittance&quot;</span>;
+  Real angR <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Angular variation of reflectance&quot;</span>;
+  Real f[3, HEM-1] <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Temporary variables for integration in hemispherical transmittance and reflectance&quot;</span>;
+  Real beta <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Temporary coefficient defined in (7.2.1i)&quot;</span>;
+  Real rho0 <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Spectral reflectivity at incident angle of 0 degree at the interface&quot;</span>;
+  Real rho <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Spectral reflectivity at the interface&quot;</span>;
+  Real rho1;
+  Real rho2;
+  Real tau <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Spectral transmissivity at the interface&quot;</span>;
+  Real tau1;
+  Real tau2;
+  Real angT1;
+  Real angT2;
+  Real angR1;
+  Real angR2;
+  Real tmp;
+  Real alpha <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Spectral absorption coefficient defined in (7.2.1e)&quot;</span>;
+  Real n <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Ratio of spectral index of refraction of glass to the index of refraction of air&quot;</span>;
+  Real psi1 <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;The angle od incident angle in glass&quot;</span>;
+  Real deltaX;
+
+<span style="color: blue; font-weight: normal; font-style: normal;">algorithm </span>
+  <span style="color: #006400; font-weight: normal; font-style: normal;">// Check the data</span>
+  <span style="color: red; font-weight: normal; font-style: normal;">assert</span>(glass[TRA] &gt;= 0,
+    &quot;Glass property is not correct with solar transmittance less than 0&quot;);
+  <span style="color: red; font-weight: normal; font-style: normal;">assert</span>(glass[Ra] &gt;= 0,
+    &quot;Glass property is not correct with solar reflectance less than 0&quot;);
+  <span style="color: red; font-weight: normal; font-style: normal;">assert</span>(glass[TRA] + glass[Ra] &lt;= 1,
+    &quot;Glass property is not correct since the summation of solar reflectance and transmittance is larger than 1&quot;);
+
+  NDIR := HEM-1;
+  deltaX := 0.5*Modelica.Constants.pi/(NDIR-1);
+  <span style="color: #006400; font-weight: normal; font-style: normal;">// Compute specular value for angle 0 to 90 degree (psi[1] to psi[N])</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">for </span>k<span style="color: blue; font-weight: normal; font-style: normal;"> in </span>TRA:Rb<span style="color: blue; font-weight: normal; font-style: normal;"> loop</span>
+    layer[k, 1] := glass[k] <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Copy the data at 0 degree (normal incidence)&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">end for</span>;
+
+  beta := glass[TRA]^2 - glass[Ra]^2 + 2*glass[Ra] + 1 <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;(2)&quot;</span>;
+
+  tmp := beta^2 - 4*(2 - glass[Ra])*glass[Ra] <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;part of (1)&quot;</span>;
+  <span style="color: red; font-weight: normal; font-style: normal;">assert</span>(tmp &gt;= 0,
+    &quot;Glass property is wrong. It is not possible to calculate the spectral reflectivity at 0 degree for uncoated glass.&quot;);
+
+  rho0 := 0.5*(beta -<span style="color: red; font-weight: normal; font-style: normal;"> sqrt</span>(tmp))/(2 - glass[Ra]) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;(1)&quot;</span>;
+  <span style="color: red; font-weight: normal; font-style: normal;">assert</span>(rho0 &gt;= 0,
+    &quot;Glass property is wrong. The spectral reflectivity at 0 degree for uncoated glass is less than zero.&quot;);
+
+  tmp := (glass[Ra] - rho0)/(rho0*glass[TRA]) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;part of (3)&quot;</span>;
+  <span style="color: red; font-weight: normal; font-style: normal;">assert</span>(tmp &gt; 0,
+    &quot;Glass property is wrong. It is not possible to calculate the spectral extinction coefficient for uncoated glass.&quot;);
+
+  alpha := -<span style="color: red; font-weight: normal; font-style: normal;">log</span>(tmp)/x <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;(3)&quot;</span>;
+  tmp :=<span style="color: red; font-weight: normal; font-style: normal;"> sqrt</span>(rho0);
+  <span style="color: red; font-weight: normal; font-style: normal;">assert</span>(tmp &lt;&gt; 1,
+    &quot;Glass property is wrong. It is not possible to calculate the spectral index of refraction for uncoated glass.&quot;);
+  n := (1 + tmp)/(1 - tmp) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;(4)&quot;</span>;
+
+  <span style="color: blue; font-weight: normal; font-style: normal;">for </span>j<span style="color: blue; font-weight: normal; font-style: normal;"> in </span>2:HEM-2<span style="color: blue; font-weight: normal; font-style: normal;"> loop</span>
+    psi1 :=<span style="color: red; font-weight: normal; font-style: normal;"> asin</span>(<span style="color: red; font-weight: normal; font-style: normal;">sin</span>(psi[j])/n) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;(5)&quot;</span>;
+    psi_c :=<span style="color: red; font-weight: normal; font-style: normal;"> cos</span>(psi[j]);
+    psi1_c :=<span style="color: red; font-weight: normal; font-style: normal;"> cos</span>(psi1);
+
+    rho1 := ((n*psi_c - psi1_c)/(n*psi_c + psi1_c))^2 <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;(6)&quot;</span>;
+    rho2 := ((n*psi1_c - psi_c)/(n*psi1_c + psi_c))^2 <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;(7)&quot;</span>;
+
+    tau1 := 1 - rho1 <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;(8)&quot;</span>;
+    tau2 := 1 - rho2 <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;(9)&quot;</span>;
+
+    tmp :=<span style="color: red; font-weight: normal; font-style: normal;"> exp</span>(-alpha*x/psi1_c);
+
+    angT1 := tau1^2*tmp/(1 - rho1^2*tmp^2) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;(10)&quot;</span>;
+    angR1 := rho1*(1 + angT1*tmp) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;(13)&quot;</span>;
+    angT2 := tau2^2*tmp/(1 - rho2^2*tmp^2) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;(11)&quot;</span>;
+    angR2 := rho2*(1 + angT2*tmp) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;(14)&quot;</span>;
+
+    layer[TRA, j] := 0.5*(angT1 + angT2) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Tansmittance in (12)&quot;</span>;
+    layer[Ra, j] := 0.5*(angR1 + angR2) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Front reflectance (15)&quot;</span>;
+    layer[Rb, j] := layer[Ra, j] <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Back reflectance in (15)&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">end for</span>;
+
+  <span style="color: #006400; font-weight: normal; font-style: normal;">// When incident angle is equal to 90 degree</span>
+  layer[TRA, NDIR] := 0 <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;(16)&quot;</span>;
+  layer[Ra, NDIR] := 1.0 <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;(16)&quot;</span>;
+  layer[Rb, NDIR] := 1.0 <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;(16)&quot;</span>;
+
+  <span style="color: #006400; font-weight: normal; font-style: normal;">// Computer hemispherical value: HEM.</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">for </span>j<span style="color: blue; font-weight: normal; font-style: normal;"> in </span>1:HEM-1<span style="color: blue; font-weight: normal; font-style: normal;"> loop</span>
+    <span style="color: blue; font-weight: normal; font-style: normal;">for </span>k<span style="color: blue; font-weight: normal; font-style: normal;"> in </span>TRA:Rb<span style="color: blue; font-weight: normal; font-style: normal;"> loop</span>
+      f[k, j] := 2*layer[k, j]*<span style="color: red; font-weight: normal; font-style: normal;">Modelica.Math.cos</span>(psi[j])*<span style="color: red; font-weight: normal; font-style: normal;">Modelica.Math.sin</span>(psi[
+        j]);
+    <span style="color: blue; font-weight: normal; font-style: normal;">end for</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">end for</span>;
+
+  <span style="color: blue; font-weight: normal; font-style: normal;">for </span>k<span style="color: blue; font-weight: normal; font-style: normal;"> in </span>TRA:Rb<span style="color: blue; font-weight: normal; font-style: normal;"> loop</span>
+    layer[k, HEM] :=<span style="color: red; font-weight: normal; font-style: normal;"> Buildings.Utilities.Math.Functions.trapezoidalIntegration</span>(
+      NDIR,
+      f[k, :],
+      deltaX) <span style="color: #006400; font-weight: normal; font-style: normal;">
+      &quot;Equation (A.4.70a) and (A.4.70b) in M. Wetter &#39;s Thesis or (7.3) in Finlayson 1993.&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">end for</span>;
+
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>glassPropertyUncoated;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE glassTRExteriorIrradiationNoShading<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><a name="Buildings.HeatTransfer.Windows.Functions.glassTRExteriorIrradiationNoShading"></a><a href="Buildings_HeatTransfer_Windows_Functions.html#Buildings.HeatTransfer.Windows.Functions"
+>Buildings.HeatTransfer.Windows.Functions</a>.glassTRExteriorIrradiationNoShading</h2>
+<p>
+<b>Transmittance and reflectance of glass panes for exterior irradiation without shading</b>
+</p>
+<h3>Information</h3>
+
+<p>
+This function computes the angular variation of the transmittance and reflectance of each glass pane for exteior irradiation without shading.
+It accounts for the transmittance and reflectance among different panes.
+Pane <code>1</code> is facing outside and pane <code>N</code> is facing the room.
+</p>
+
+<p>Extends from <a href="Buildings_HeatTransfer_Windows_Functions_BaseClasses.html#Buildings.HeatTransfer.Windows.Functions.BaseClasses.partialGlassRadiation"
+>Buildings.HeatTransfer.Windows.Functions.BaseClasses.partialGlassRadiation</a> (Partial function for glass radiation property).</p>
+<h3>Inputs</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Inputs">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td>Integer</td><td>N</td><td>&nbsp;</td><td>Number of glass layers</td></tr>
+<tr><td>Integer</td><td>HEM</td><td>&nbsp;</td><td>Index of hemispherical integration</td></tr>
+<tr><td>Real</td><td>layer[3, N, HEM]</td><td>&nbsp;</td><td>Angular data of glass pane</td></tr>
+</table>
+<h3>Outputs</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Outputs">
+<tr><th>Type</th><th>Name</th><th>Description</th></tr>
+<tr><td>Real</td><td>traRef[3, N, N, HEM]</td><td>Transmittance and reflectance of each glass pane for exterior irradiation without shading</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">function</span> glassTRExteriorIrradiationNoShading <span style="color: #006400; font-weight: normal; font-style: normal;">
+  &quot;Transmittance and reflectance of glass panes for exterior irradiation without shading&quot;</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="Buildings_HeatTransfer_Windows_Functions_BaseClasses.html#Buildings.HeatTransfer.Windows.Functions.BaseClasses.partialGlassRadiation"
+>Buildings.HeatTransfer.Windows.Functions.BaseClasses.partialGlassRadiation</a>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">input </span>Real layer[3, N, HEM] <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Angular data of glass pane&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">output </span>Real traRef[3, N, N, HEM](<span style="color: blue; font-weight: normal; font-style: normal;">each </span>min=0, <span style="color: blue; font-weight: normal; font-style: normal;">each </span>max=1) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Transmittance and reflectance of each glass pane for exterior irradiation without shading&quot;</span>;
+
+<span style="color: blue; font-weight: normal; font-style: normal;">protected </span>
+  Real aij <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Temporary variable&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">constant </span>Real SMALL=Modelica.Constants.small <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Small value&quot;</span>;
+
+<span style="color: blue; font-weight: normal; font-style: normal;">algorithm </span>
+  <span style="color: #006400; font-weight: normal; font-style: normal;">// Property for single pane of glass or the first pane of multiple panes glass</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">for </span>iD<span style="color: blue; font-weight: normal; font-style: normal;"> in </span>1:HEM<span style="color: blue; font-weight: normal; font-style: normal;"> loop</span>
+    <span style="color: blue; font-weight: normal; font-style: normal;">for </span>k<span style="color: blue; font-weight: normal; font-style: normal;"> in </span>TRA:Rb<span style="color: blue; font-weight: normal; font-style: normal;"> loop</span>
+      traRef[k, 1, 1, iD] := layer[k, 1, iD] <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Equation (A.4.71)&quot;</span>;
+    <span style="color: blue; font-weight: normal; font-style: normal;">end for</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">end for</span>;
+
+  <span style="color: #006400; font-weight: normal; font-style: normal;">// Property for multiple panes glass</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">if </span>N &gt; 1<span style="color: blue; font-weight: normal; font-style: normal;"> then</span>
+    <span style="color: blue; font-weight: normal; font-style: normal;">for </span>iD<span style="color: blue; font-weight: normal; font-style: normal;"> in </span>1:HEM<span style="color: blue; font-weight: normal; font-style: normal;"> loop</span>
+      <span style="color: blue; font-weight: normal; font-style: normal;">for </span>i<span style="color: blue; font-weight: normal; font-style: normal;"> in </span>1:N - 1<span style="color: blue; font-weight: normal; font-style: normal;"> loop</span>
+        <span style="color: blue; font-weight: normal; font-style: normal;">for </span>j<span style="color: blue; font-weight: normal; font-style: normal;"> in </span>i + 1:N<span style="color: blue; font-weight: normal; font-style: normal;"> loop</span>
+          <span style="color: blue; font-weight: normal; font-style: normal;">for </span>k<span style="color: blue; font-weight: normal; font-style: normal;"> in </span>TRA:Rb<span style="color: blue; font-weight: normal; font-style: normal;"> loop</span>
+            traRef[k, j, j, iD] := layer[k, j, iD];
+          <span style="color: blue; font-weight: normal; font-style: normal;">end for</span>;
+
+          aij := 1 - traRef[Ra, j, j, iD]*traRef[Rb, j - 1, i, iD] <span style="color: #006400; font-weight: normal; font-style: normal;">
+            &quot;Equation (A.4.77)&quot;</span>;
+          <span style="color: red; font-weight: normal; font-style: normal;">assert</span>(aij &gt; -SMALL,
+            &quot;Glass transmittance and reflectance data was not correct.\n&quot;);
+          <span style="color: blue; font-weight: normal; font-style: normal;">if </span>aij &lt; SMALL<span style="color: blue; font-weight: normal; font-style: normal;"> then</span>
+            traRef[TRA, i, j, iD] := 0;
+            traRef[Ra, i, j, iD] := 1;
+            traRef[Rb, j, i, iD] := 1;
+          <span style="color: blue; font-weight: normal; font-style: normal;">else</span>
+            aij := 1/aij;
+            traRef[TRA, i, j, iD] := aij*traRef[TRA, i, j - 1, iD]*traRef[TRA,
+              j, j, iD] <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Equation (A.4.78a)&quot;</span>;
+            traRef[Ra, i, j, iD] := traRef[Ra, i, j - 1, iD] + aij*traRef[TRA,
+              i, j - 1, iD]*traRef[TRA, i, j - 1, iD]*traRef[Ra, j, j, iD] <span style="color: #006400; font-weight: normal; font-style: normal;">
+              &quot;Equation (A.4.78b)&quot;</span>;
+            traRef[Rb, j, i, iD] := traRef[Rb, j, j, iD] + aij*traRef[TRA, j, j,
+              iD]*traRef[TRA, j, j, iD]*traRef[Rb, j - 1, i, iD] <span style="color: #006400; font-weight: normal; font-style: normal;">
+              &quot;Equation (A.4.78c)&quot;</span>;
+          <span style="color: blue; font-weight: normal; font-style: normal;">end if</span>;
+        <span style="color: blue; font-weight: normal; font-style: normal;">end for</span>;
+      <span style="color: blue; font-weight: normal; font-style: normal;">end for</span>;
+    <span style="color: blue; font-weight: normal; font-style: normal;">end for</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">end if</span>;
+
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>glassTRExteriorIrradiationNoShading;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE glassTRInteriorIrradiationNoShading<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><a name="Buildings.HeatTransfer.Windows.Functions.glassTRInteriorIrradiationNoShading"></a><a href="Buildings_HeatTransfer_Windows_Functions.html#Buildings.HeatTransfer.Windows.Functions"
+>Buildings.HeatTransfer.Windows.Functions</a>.glassTRInteriorIrradiationNoShading</h2>
+<p>
+<b>Transmittance and reflectance of each glass pane for interior irradiation without shading</b>
+</p>
+<h3>Information</h3>
+
+<p>
+This function computes the angular variation of the transmittance and reflectance of each glass pane for interior irradiation without shading.
+It accounts for the transmittance and reflectance among different panes.
+Pane <code>1</code> is facing outside and pane <code>N</code> is facing the room.
+</p>
+
+<p>Extends from <a href="Buildings_HeatTransfer_Windows_Functions_BaseClasses.html#Buildings.HeatTransfer.Windows.Functions.BaseClasses.partialGlassRadiation"
+>Buildings.HeatTransfer.Windows.Functions.BaseClasses.partialGlassRadiation</a> (Partial function for glass radiation property).</p>
+<h3>Inputs</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Inputs">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td>Integer</td><td>N</td><td>&nbsp;</td><td>Number of glass layers</td></tr>
+<tr><td>Integer</td><td>HEM</td><td>&nbsp;</td><td>Index of hemispherical integration</td></tr>
+<tr><td>Real</td><td>layer[3, N, HEM]</td><td>&nbsp;</td><td>Angular data of glass pane</td></tr>
+</table>
+<h3>Outputs</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Outputs">
+<tr><th>Type</th><th>Name</th><th>Description</th></tr>
+<tr><td>Real</td><td>traRef[3, N, N, HEM]</td><td>Glass transmittance, front and back reflectance</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">function</span> glassTRInteriorIrradiationNoShading <span style="color: #006400; font-weight: normal; font-style: normal;">
+  &quot;Transmittance and reflectance of each glass pane for interior irradiation without shading&quot;</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="Buildings_HeatTransfer_Windows_Functions_BaseClasses.html#Buildings.HeatTransfer.Windows.Functions.BaseClasses.partialGlassRadiation"
+>Buildings.HeatTransfer.Windows.Functions.BaseClasses.partialGlassRadiation</a>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">input </span>Real layer[3, N, HEM] <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Angular data of glass pane&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">output </span>Real traRef[3, N, N, HEM](<span style="color: blue; font-weight: normal; font-style: normal;">each </span>min=0, <span style="color: blue; font-weight: normal; font-style: normal;">each </span>max=1) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Glass transmittance, front and back reflectance&quot;</span>;
+
+<span style="color: blue; font-weight: normal; font-style: normal;">protected </span>
+  Real dLayer[3, N, HEM] <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Dummy glass property with Pane 1 facing inside and Pane N facing outside&quot;</span>;
+  Real dTraRef[3, N, N, HEM] <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Dummy transmittance and reflectance for exterior irradiation&quot;</span>;
+
+<span style="color: blue; font-weight: normal; font-style: normal;">algorithm </span>
+  <span style="color: #006400; font-weight: normal; font-style: normal;">// Copy the dummy glass property</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">for </span>iD<span style="color: blue; font-weight: normal; font-style: normal;"> in </span>1:HEM<span style="color: blue; font-weight: normal; font-style: normal;"> loop</span>
+    <span style="color: blue; font-weight: normal; font-style: normal;">for </span>j<span style="color: blue; font-weight: normal; font-style: normal;"> in </span>1:N<span style="color: blue; font-weight: normal; font-style: normal;"> loop</span>
+      dLayer[TRA, j, iD] := layer[TRA, N + 1 - j, iD];
+      dLayer[Ra, j, iD] := layer[Rb, N + 1 - j, iD] <span style="color: #006400; font-weight: normal; font-style: normal;">
+        &quot;swap the front and back reflectance&quot;</span>;
+      dLayer[Rb, j, iD] := layer[Ra, N + 1 - j, iD] <span style="color: #006400; font-weight: normal; font-style: normal;">
+        &quot;swap the front and back reflectance&quot;</span>;
+    <span style="color: blue; font-weight: normal; font-style: normal;">end for</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">end for</span>;
+
+  <span style="color: #006400; font-weight: normal; font-style: normal;">// Calculate transmittance and reflectance of dummy glass for exterior irradiation without shading</span>
+  dTraRef :=
+    <span style="color: red; font-weight: normal; font-style: normal;">Buildings.HeatTransfer.Windows.Functions.glassTRExteriorIrradiationNoShading</span>(
+    N,
+    HEM,
+    dLayer);
+
+  <span style="color: #006400; font-weight: normal; font-style: normal;">// Convert the dummy data to real glass</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">for </span>iD<span style="color: blue; font-weight: normal; font-style: normal;"> in </span>1:HEM<span style="color: blue; font-weight: normal; font-style: normal;"> loop</span>
+    <span style="color: blue; font-weight: normal; font-style: normal;">for </span>i<span style="color: blue; font-weight: normal; font-style: normal;"> in </span>1:N - 1<span style="color: blue; font-weight: normal; font-style: normal;"> loop</span>
+      <span style="color: blue; font-weight: normal; font-style: normal;">for </span>j<span style="color: blue; font-weight: normal; font-style: normal;"> in </span>i + 1:N<span style="color: blue; font-weight: normal; font-style: normal;"> loop</span>
+        traRef[TRA, N + 1 - i, N + 1 - j, iD] := dTraRef[TRA, i, j, iD];
+        traRef[Ra, N + 1 - i, N + 1 - j, iD] := dTraRef[Rb, i, j, iD] <span style="color: #006400; font-weight: normal; font-style: normal;">
+          &quot;swap the front and back reflectance&quot;</span>;
+        traRef[Rb, N + 1 - i, N + 1 - j, iD] := dTraRef[Ra, i, j, iD] <span style="color: #006400; font-weight: normal; font-style: normal;">
+          &quot;swap the front and back reflectance&quot;</span>;
+      <span style="color: blue; font-weight: normal; font-style: normal;">end for</span>;
+    <span style="color: blue; font-weight: normal; font-style: normal;">end for</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">end for</span>;
+
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>glassTRInteriorIrradiationNoShading;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE winTExteriorIrradiationInteriorShading<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><a name="Buildings.HeatTransfer.Windows.Functions.winTExteriorIrradiationInteriorShading"></a><a href="Buildings_HeatTransfer_Windows_Functions.html#Buildings.HeatTransfer.Windows.Functions"
+>Buildings.HeatTransfer.Windows.Functions</a>.winTExteriorIrradiationInteriorShading</h2>
+<p>
+<b>Angular and hemispherical transmittance of a window system (glass and shading device) for exterior irradiation with interior shading</b>
+</p>
+<h3>Information</h3>
+
+<p>
+This function computes the angular and hemispherical transmittance of a window system (glass and shading device) for exterior irradiation with interior shading.
+Pane <code>1</code> is facing outside and pane <code>N</code> is facing the room.
+</p>
+
+<p>Extends from <a href="Buildings_HeatTransfer_Windows_Functions_BaseClasses.html#Buildings.HeatTransfer.Windows.Functions.BaseClasses.partialWindowShadingRadiation"
+>Buildings.HeatTransfer.Windows.Functions.BaseClasses.partialWindowShadingRadiation</a> (Partial function for window radiation property with shading device).</p>
+<h3>Inputs</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Inputs">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td>Real</td><td>traRef[3, N, N, HEM]</td><td>&nbsp;</td><td>Transmittance and reflectance with exterior irradiation and no shading</td></tr>
+<tr><td>Real</td><td>traRefShaDev[2, 2]</td><td>&nbsp;</td><td>Transmittance and reflectance of shading device</td></tr>
+<tr><td>Integer</td><td>N</td><td>&nbsp;</td><td>Number of glass layers</td></tr>
+<tr><td>Integer</td><td>HEM</td><td>&nbsp;</td><td>Index of hemispherical integration</td></tr>
+</table>
+<h3>Outputs</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Outputs">
+<tr><th>Type</th><th>Name</th><th>Description</th></tr>
+<tr><td>Real</td><td>traExtIrrIntSha[HEM]</td><td>Angular and hemispherical transmittance of a window system (glass and shading device) forh exterior irradiation with interior shading</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">function</span> winTExteriorIrradiationInteriorShading <span style="color: #006400; font-weight: normal; font-style: normal;">
+  &quot;Angular and hemispherical transmittance of a window system (glass and shading device) for exterior irradiation with interior shading&quot;</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="Buildings_HeatTransfer_Windows_Functions_BaseClasses.html#Buildings.HeatTransfer.Windows.Functions.BaseClasses.partialWindowShadingRadiation"
+>Buildings.HeatTransfer.Windows.Functions.BaseClasses.partialWindowShadingRadiation</a>;
+
+  <span style="color: blue; font-weight: normal; font-style: normal;">output </span>Real traExtIrrIntSha[HEM](<span style="color: blue; font-weight: normal; font-style: normal;">each </span>min=0, <span style="color: blue; font-weight: normal; font-style: normal;">each </span>max=1) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Angular and hemispherical transmittance of a window system (glass and shading device) forh exterior irradiation with interior shading&quot;</span>;
+
+<span style="color: blue; font-weight: normal; font-style: normal;">algorithm </span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">for </span>iD<span style="color: blue; font-weight: normal; font-style: normal;"> in </span>1:HEM<span style="color: blue; font-weight: normal; font-style: normal;"> loop</span>
+    traExtIrrIntSha[iD] := traRef[TRA, 1, N, iD]*traIntShaDev/(1 - refIntShaDev
+      *traRef[Rb, N, 1, HEM]) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Equation (A.4.92)&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">end for</span>;
+
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>winTExteriorIrradiationInteriorShading;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE winTExteriorIrradiatrionExteriorShading<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><a name="Buildings.HeatTransfer.Windows.Functions.winTExteriorIrradiatrionExteriorShading"></a><a href="Buildings_HeatTransfer_Windows_Functions.html#Buildings.HeatTransfer.Windows.Functions"
+>Buildings.HeatTransfer.Windows.Functions</a>.winTExteriorIrradiatrionExteriorShading</h2>
+<p>
+<b>Angular and hemispherical transmittance of a window system (glass + shading device) for exterior irradiation with exterior shading</b>
+</p>
+<h3>Information</h3>
+
+<p>
+This function computes the angular and hemispherical transmittance of a window system (glass + shading device) for exterior irradiation with exterior shading.
+Pane <code>1</code> is facing outside and pane <code>N</code> is facing the room.
+</p>
+
+<p>Extends from <a href="Buildings_HeatTransfer_Windows_Functions_BaseClasses.html#Buildings.HeatTransfer.Windows.Functions.BaseClasses.partialWindowShadingRadiation"
+>Buildings.HeatTransfer.Windows.Functions.BaseClasses.partialWindowShadingRadiation</a> (Partial function for window radiation property with shading device).</p>
+<h3>Inputs</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Inputs">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td>Real</td><td>traRef[3, N, N, HEM]</td><td>&nbsp;</td><td>Transmittance and reflectance with exterior irradiation and no shading</td></tr>
+<tr><td>Real</td><td>traRefShaDev[2, 2]</td><td>&nbsp;</td><td>Transmittance and reflectance of shading device</td></tr>
+<tr><td>Integer</td><td>N</td><td>&nbsp;</td><td>Number of glass layers</td></tr>
+<tr><td>Integer</td><td>HEM</td><td>&nbsp;</td><td>Index of hemispherical integration</td></tr>
+</table>
+<h3>Outputs</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Outputs">
+<tr><th>Type</th><th>Name</th><th>Description</th></tr>
+<tr><td>Real</td><td>traExtIrrExtSha[HEM]</td><td>Angular and hemispherical transmittance of a window system (glass + shading device) for exterior irradiation with exterior shading</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">function</span> winTExteriorIrradiatrionExteriorShading <span style="color: #006400; font-weight: normal; font-style: normal;">
+  &quot;Angular and hemispherical transmittance of a window system (glass + shading device) for exterior irradiation with exterior shading&quot;</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="Buildings_HeatTransfer_Windows_Functions_BaseClasses.html#Buildings.HeatTransfer.Windows.Functions.BaseClasses.partialWindowShadingRadiation"
+>Buildings.HeatTransfer.Windows.Functions.BaseClasses.partialWindowShadingRadiation</a>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">output </span>Real traExtIrrExtSha[HEM](<span style="color: blue; font-weight: normal; font-style: normal;">each </span>min=0, <span style="color: blue; font-weight: normal; font-style: normal;">each </span>max=1) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Angular and hemispherical transmittance of a window system (glass + shading device) for exterior irradiation with exterior shading&quot;</span>;
+
+<span style="color: blue; font-weight: normal; font-style: normal;">protected </span>
+  Real c;
+
+<span style="color: blue; font-weight: normal; font-style: normal;">algorithm </span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">for </span>iD<span style="color: blue; font-weight: normal; font-style: normal;"> in </span>1:HEM<span style="color: blue; font-weight: normal; font-style: normal;"> loop</span>
+    c := traExtShaDev*(1 + traRef[Ra, 1, N, iD]*refExtShaDev/(1 - traRef[Ra, 1,
+      N, HEM]*refExtShaDev)) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Equation (A.4.88a)&quot;</span>;
+    traExtIrrExtSha[iD] := c*traRef[TRA, 1, N, iD] <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Equation (A.4.88c)&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">end for</span>;
+
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>winTExteriorIrradiatrionExteriorShading;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE winTRInteriorIrradiationExteriorShading<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><a name="Buildings.HeatTransfer.Windows.Functions.winTRInteriorIrradiationExteriorShading"></a><a href="Buildings_HeatTransfer_Windows_Functions.html#Buildings.HeatTransfer.Windows.Functions"
+>Buildings.HeatTransfer.Windows.Functions</a>.winTRInteriorIrradiationExteriorShading</h2>
+<p>
+<b>Hemispherical transmittance and back reflectance of a window system (glass and shading device) for interior irradiation with exterior shading</b>
+</p>
+<h3>Information</h3>
+
+This function computes hemispherical transmittance and back reflectance of a window for interior irradiation with exterior shading.
+Pane <code>1</code> is facing the outside and pane <code>N</code> is facing the room.
+The variables are<br/>
+<pre>
+traRefIntIrrExtSha[1]: Transmittance;
+traRefIntIrrExtSha[2]: Back reflectance;
+traRefIntIrrExtSha[3]: Dummy value
+</pre>
+
+<p>Extends from <a href="Buildings_HeatTransfer_Windows_Functions_BaseClasses.html#Buildings.HeatTransfer.Windows.Functions.BaseClasses.partialWindowShadingRadiation"
+>Buildings.HeatTransfer.Windows.Functions.BaseClasses.partialWindowShadingRadiation</a> (Partial function for window radiation property with shading device).</p>
+<h3>Inputs</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Inputs">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td>Real</td><td>traRef[3, N, N, HEM]</td><td>&nbsp;</td><td>Transmittance and reflectance with exterior irradiation and no shading</td></tr>
+<tr><td>Real</td><td>traRefShaDev[2, 2]</td><td>&nbsp;</td><td>Transmittance and reflectance of shading device</td></tr>
+<tr><td>Integer</td><td>N</td><td>&nbsp;</td><td>Number of glass layers</td></tr>
+<tr><td>Integer</td><td>HEM</td><td>&nbsp;</td><td>Index of hemispherical integration</td></tr>
+</table>
+<h3>Outputs</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Outputs">
+<tr><th>Type</th><th>Name</th><th>Description</th></tr>
+<tr><td>Real</td><td>traRefIntIrrExtSha[3]</td><td>Hemispherical transmittance and back reflectance of a window system (glass and shading device) for interior irradiation with exterior shading</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">function</span> winTRInteriorIrradiationExteriorShading <span style="color: #006400; font-weight: normal; font-style: normal;">
+  &quot;Hemispherical transmittance and back reflectance of a window system (glass and shading device) for interior irradiation with exterior shading&quot;</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="Buildings_HeatTransfer_Windows_Functions_BaseClasses.html#Buildings.HeatTransfer.Windows.Functions.BaseClasses.partialWindowShadingRadiation"
+>Buildings.HeatTransfer.Windows.Functions.BaseClasses.partialWindowShadingRadiation</a>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">output </span>Real traRefIntIrrExtSha[3](<span style="color: blue; font-weight: normal; font-style: normal;">each </span>min=0, <span style="color: blue; font-weight: normal; font-style: normal;">each </span>max=1) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Hemispherical transmittance and back reflectance of a window system (glass and shading device) for interior irradiation with exterior shading&quot;</span>;
+<span style="color: blue; font-weight: normal; font-style: normal;">algorithm </span>
+  traRefIntIrrExtSha[TRA] := traRef[TRA, N, 1, HEM]*traExtShaDev/(1 -
+    refExtShaDev*traRef[Ra, 1, N, HEM]) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Equation (A.4.95)&quot;</span>;
+  traRefIntIrrExtSha[Rb] := traRef[Rb, N, 1, HEM] + traRef[TRA, N, 1, HEM]*
+    refExtShaDev*traRef[1, 1, N, HEM]/(1 - traRef[Ra, 1, N, HEM]*refExtShaDev) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Equation (A.4.97)&quot;</span>;
+  traRefIntIrrExtSha[Ra] := 0 <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Dummy value&quot;</span>;
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>winTRInteriorIrradiationExteriorShading;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE winTRInteriorIrradiationInteriorShading<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><a name="Buildings.HeatTransfer.Windows.Functions.winTRInteriorIrradiationInteriorShading"></a><a href="Buildings_HeatTransfer_Windows_Functions.html#Buildings.HeatTransfer.Windows.Functions"
+>Buildings.HeatTransfer.Windows.Functions</a>.winTRInteriorIrradiationInteriorShading</h2>
+<p>
+<b>Hemispherical transmittance and back reflectance of a window system (glass and shading device) for interior irradiation with interior shading</b>
+</p>
+<h3>Information</h3>
+
+<p>
+This function computes the hemispherical transmittance and back reflectance of a window system (glass and shading device) for interior irradiation with interior shading.
+Pane <code>1</code> is facing the outside and pane <code>N</code> is facing the room.
+</p>
+
+<p>Extends from <a href="Buildings_HeatTransfer_Windows_Functions_BaseClasses.html#Buildings.HeatTransfer.Windows.Functions.BaseClasses.partialWindowShadingRadiation"
+>Buildings.HeatTransfer.Windows.Functions.BaseClasses.partialWindowShadingRadiation</a> (Partial function for window radiation property with shading device).</p>
+<h3>Inputs</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Inputs">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td>Real</td><td>traRef[3, N, N, HEM]</td><td>&nbsp;</td><td>Transmittance and reflectance with exterior irradiation and no shading</td></tr>
+<tr><td>Real</td><td>traRefShaDev[2, 2]</td><td>&nbsp;</td><td>Transmittance and reflectance of shading device</td></tr>
+<tr><td>Integer</td><td>N</td><td>&nbsp;</td><td>Number of glass layers</td></tr>
+<tr><td>Integer</td><td>HEM</td><td>&nbsp;</td><td>Index of hemispherical integration</td></tr>
+</table>
+<h3>Outputs</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Outputs">
+<tr><th>Type</th><th>Name</th><th>Description</th></tr>
+<tr><td>Real</td><td>traRefIntIrrIntSha[3]</td><td>Hemispherical transmittance and back reflectance of a window system (glass and shading device) for interior irradiation with interior shading</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">function</span> winTRInteriorIrradiationInteriorShading <span style="color: #006400; font-weight: normal; font-style: normal;">
+  &quot;Hemispherical transmittance and back reflectance of a window system (glass and shading device) for interior irradiation with interior shading&quot;</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="Buildings_HeatTransfer_Windows_Functions_BaseClasses.html#Buildings.HeatTransfer.Windows.Functions.BaseClasses.partialWindowShadingRadiation"
+>Buildings.HeatTransfer.Windows.Functions.BaseClasses.partialWindowShadingRadiation</a>;
+
+  <span style="color: blue; font-weight: normal; font-style: normal;">output </span>Real traRefIntIrrIntSha[3](<span style="color: blue; font-weight: normal; font-style: normal;">each </span>min=0, <span style="color: blue; font-weight: normal; font-style: normal;">each </span>max=1) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Hemispherical transmittance and back reflectance of a window system (glass and shading device) for interior irradiation with interior shading&quot;</span>;
+
+<span style="color: blue; font-weight: normal; font-style: normal;">protected </span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">constant </span>Real rRho=traRef[Rb, N, 1, HEM]*refIntShaDev <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Part of Equation (A.4.99)&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">constant </span>Real rTau=traRef[Rb, N, 1, HEM]*traIntShaDev <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Part of Equation (A.4.105)&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">constant </span>Real c=traIntShaDev*(1 + rRho/(1 - rRho)) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Equation (A.4.99)&quot;</span>;
+
+<span style="color: blue; font-weight: normal; font-style: normal;">algorithm </span>
+  traRefIntIrrIntSha[TRA] := c*traRef[TRA, N, 1, HEM] <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Equation (A.4.100b)&quot;</span>;
+  traRefIntIrrIntSha[Rb] := refIntShaDev + c*rTau <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Equation (A.4.105)&quot;</span>;
+  traRefIntIrrIntSha[Ra] := 0 <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Dummy value&quot;</span>;
+
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>winTRInteriorIrradiationInteriorShading;
+</div>
+<hr>
+<address>
+<a href="http://www.3ds.com/">Automatically generated</a> Thu Apr  9 09:37:17 2015.
+</address>
+</body>
+</html>

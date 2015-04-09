@@ -1,0 +1,368 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>Buildings.Fluid.Boilers.Examples</title>
+<meta name="HTML-Generator" content="Dymola">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="description" content="&quot;Collection of models that illustrate model use and test models&quot;">
+<style type="text/css">
+*       { font-size: 10pt; font-family: Arial, sans-serif; }
+.modelica, .modelica * { font-size: 9pt; font-family: Courier, monospace; white-space: pre; }
+h4      { font-size: 10pt; font-weight: bold; color: green; }
+h3      { font-size: 11pt; font-weight: bold; color: green; }
+h2      { font-size: 13pt; font-weight: bold; color: green; }
+address { font-weight: normal; }
+td      { border: 1px solid #808080; vertical-align: top; }
+th      { border: 1px solid #808080; vertical-align: top; font-weight: bold; }
+table   { border: 1px solid #808080; border-collapse: collapse; }
+</style>
+<link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../Resources/www/modelicaDoc.css">
+</HEAD>
+<body>
+<!-- --- header ------ -->
+<div class="headerStyle">
+<img src="../Resources/www/lbl-logo.png" alt="LBL logo"/>
+</div>
+<div class="headerLinks">
+<ul><li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt; <a href="Buildings.html">Modelica</a></li></ul>
+</div>
+<!-- --- end header -- -->
+
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE Examples<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><a name="Buildings.Fluid.Boilers.Examples"></a><a href="Buildings_Fluid_Boilers.html#Buildings.Fluid.Boilers"
+>Buildings.Fluid.Boilers</a>.Examples</h2>
+<p>
+<b>Collection of models that illustrate model use and test models</b><br>
+</p>
+<h3>Information</h3>
+
+<p>
+This package contains examples for the use of models that can be found in
+<a href="Buildings_Fluid_Boilers.html#Buildings.Fluid.Boilers"
+>
+Buildings.Fluid.Boilers</a>.
+</p>
+
+<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons_ExamplesPackage.html#Modelica.Icons.ExamplesPackage"
+>Modelica.Icons.ExamplesPackage</a> (Icon for packages containing runnable examples).</p>
+<h3>Package Content</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Package Content">
+<tr>
+<th>Name</th>
+<th>Description</th>
+</tr>
+<tr>
+<td><img src="Buildings.Fluid.Boilers.E1b255f2f3bbf8fa6omialS.png" alt="Buildings.Fluid.Boilers.Examples.BoilerPolynomial" width="20" height="20" align="top">&nbsp;<a href="Buildings_Fluid_Boilers_Examples.html#Buildings.Fluid.Boilers.Examples.BoilerPolynomial"
+>BoilerPolynomial</a>
+</td>
+<td>Test model</td>
+</tr>
+<tr>
+<td><img src="Buildings.Fluid.Boilers.E1b255f2f3bbf8fa6omialS.png" alt="Buildings.Fluid.Boilers.Examples.BoilerPolynomialClosedLoop" width="20" height="20" align="top">&nbsp;<a href="Buildings_Fluid_Boilers_Examples.html#Buildings.Fluid.Boilers.Examples.BoilerPolynomialClosedLoop"
+>BoilerPolynomialClosedLoop</a>
+</td>
+<td>Boiler with closed loop control</td>
+</tr>
+</table>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE BoilerPolynomial<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Fluid.Boilers.E1b255f2f3bbf8fa6omialI.png" alt="Buildings.Fluid.Boilers.Examples.BoilerPolynomial" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Fluid.Boilers.Examples.BoilerPolynomial"></a><a href="Buildings_Fluid_Boilers_Examples.html#Buildings.Fluid.Boilers.Examples"
+>Buildings.Fluid.Boilers.Examples</a>.BoilerPolynomial</h2>
+<p>
+<b>Test model</b>
+<br>
+<br><img src="Buildings.Fluid.Boilers.E1b255f2f3bbf8fa6omialD.png" alt="Buildings.Fluid.Boilers.Examples.BoilerPolynomial">
+</p>
+<h3>Information</h3>
+
+This example demonstrates the open loop response of the boiler
+model for a control signal that is first a ramp from <i>0</i>
+to <i>1</i>, followed by a step that switches the boilers off and
+then on again.
+The instances of the boiler models are parameterized
+so that <code>boi1</code> is a dynamic model and
+<code>boi2</code> is a steady-state model.
+
+<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</a> (Icon for runnable examples).</p>
+<h3>Parameters</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Power"
+>Power</a></td><td>Q_flow_nominal</td><td>3000</td><td>Nominal power [W]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+>Temperature</a></td><td>dT_nominal</td><td>20</td><td>Nominal temperature difference [K]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+>MassFlowRate</a></td><td>m_flow_nominal</td><td>Q_flow_nominal/dT_nominal/4200</td><td>Nominal mass flow rate [kg/s]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
+>Pressure</a></td><td>dp_nominal</td><td>3000</td><td>Pressure drop at m_flow_nominal [Pa]</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">model</span> BoilerPolynomial <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Test model&quot;</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</a>;
+ <span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = <a href="Buildings_Media_Water.html#Buildings.Media.Water"
+>Buildings.Media.Water</a> <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Medium model&quot;</span>;
+ <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Power"
+>Modelica.SIunits.Power</a> Q_flow_nominal = 3000 <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Nominal power&quot;</span>;
+ <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+>Modelica.SIunits.Temperature</a> dT_nominal = 20 <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Nominal temperature difference&quot;</span>;
+ <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+>Modelica.SIunits.MassFlowRate</a> m_flow_nominal = Q_flow_nominal/dT_nominal/4200 <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Nominal mass flow rate&quot;</span>;
+ <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
+>Modelica.SIunits.Pressure</a> dp_nominal = 3000 <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Pressure drop at m_flow_nominal&quot;</span>;
+
+  <a href="Buildings_Fluid_Sources.html#Buildings.Fluid.Sources.Boundary_pT"
+>Buildings.Fluid.Sources.Boundary_pT</a> sin(
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = Medium,
+    nPorts=2,
+    p(displayUnit=&quot;Pa&quot;) = 300000,
+    T=333.15) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Sink&quot;</span>;
+  <a href="Buildings_Fluid_Sources.html#Buildings.Fluid.Sources.Boundary_pT"
+>Buildings.Fluid.Sources.Boundary_pT</a> sou(
+    nPorts=2,
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = Medium,
+    p=300000 + dp_nominal,
+    T=303.15);
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.TimeTable"
+>Modelica.Blocks.Sources.TimeTable</a> y(table=[0,0; 1800,1; 1800,0; 2400,0; 2400,
+        1; 3600,1]);
+  <a href="Buildings_Fluid_Boilers.html#Buildings.Fluid.Boilers.BoilerPolynomial"
+>Buildings.Fluid.Boilers.BoilerPolynomial</a> boi1(
+    a={0.9},
+    effCur=Buildings.Fluid.Types.EfficiencyCurves.Constant,
+    Q_flow_nominal=Q_flow_nominal,
+    m_flow_nominal = m_flow_nominal,
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = Medium,
+    dp_nominal=dp_nominal,
+    fue=<span style="color: red; font-weight: normal; font-style: normal;">Buildings.Fluid.Data.Fuels.NaturalGasLowerHeatingValue</span>(),
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    from_dp=true,
+    T_start=293.15) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Boiler&quot;</span>;
+  <a href="Buildings_HeatTransfer_Sources.html#Buildings.HeatTransfer.Sources.FixedTemperature"
+>Buildings.HeatTransfer.Sources.FixedTemperature</a> TAmb1(      T=288.15) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Ambient temperature in boiler room&quot;</span>;
+  <a href="Buildings_Fluid_Boilers.html#Buildings.Fluid.Boilers.BoilerPolynomial"
+>Buildings.Fluid.Boilers.BoilerPolynomial</a> boi2(
+    a={0.9},
+    effCur=Buildings.Fluid.Types.EfficiencyCurves.Constant,
+    Q_flow_nominal=Q_flow_nominal,
+    m_flow_nominal = m_flow_nominal,
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = Medium,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
+    massDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
+    dp_nominal=dp_nominal,
+    fue=<span style="color: red; font-weight: normal; font-style: normal;">Buildings.Fluid.Data.Fuels.NaturalGasLowerHeatingValue</span>(),
+    from_dp=true,
+    T_start=293.15) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Boiler&quot;</span>;
+  <a href="Buildings_HeatTransfer_Sources.html#Buildings.HeatTransfer.Sources.FixedTemperature"
+>Buildings.HeatTransfer.Sources.FixedTemperature</a> TAmb2(      T=288.15) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Ambient temperature in boiler room&quot;</span>;
+<span style="color: blue; font-weight: normal; font-style: normal;">equation </span>
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(TAmb1.port, boi1.heatPort);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(TAmb2.port, boi2.heatPort);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(sou.ports[1], boi1.port_a);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(sou.ports[2], boi2.port_a);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(boi2.port_b, sin.ports[2]);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(boi1.port_b, sin.ports[1]);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(y.y, boi1.y);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(y.y, boi2.y);
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>BoilerPolynomial;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE BoilerPolynomialClosedLoop<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Fluid.Boilers.E1b255f2f3bbf8fa6omialI.png" alt="Buildings.Fluid.Boilers.Examples.BoilerPolynomialClosedLoop" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Fluid.Boilers.Examples.BoilerPolynomialClosedLoop"></a><a href="Buildings_Fluid_Boilers_Examples.html#Buildings.Fluid.Boilers.Examples"
+>Buildings.Fluid.Boilers.Examples</a>.BoilerPolynomialClosedLoop</h2>
+<p>
+<b>Boiler with closed loop control</b>
+<br>
+<br><img src="Buildings.Fluid.Boilers.E4fa7654732f7550adLoopD.png" alt="Buildings.Fluid.Boilers.Examples.BoilerPolynomialClosedLoop">
+</p>
+<h3>Information</h3>
+
+<p>
+This model illustrates how to use a boiler model
+with closed loop control.
+The controller modulates the boiler temperature between
+60&deg;C and 80&deg;C.
+A three-way valve mixes recirculated water with boiler water
+to regulate the temperature of the volume at a constant temperature
+of 40&deg;C.
+There is also a bypass in the boiler loop to ensure circulation when the
+valve position is such that it only recirculates water from the load.
+The bypass between valve and pump mixes recirculated water, thereby
+allowing the valve to work over a larger operating range.
+The expansion vessel near the boiler is used to set a reference pressure,
+and it is used to accommodate for the thermal expansion of the water.
+</p>
+
+<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</a> (Icon for runnable examples).</p>
+<h3>Parameters</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Power"
+>Power</a></td><td>Q_flow_nominal</td><td>20000</td><td>Nominal power [W]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+>Temperature</a></td><td>dT_nominal</td><td>20</td><td>Nominal temperature difference [K]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+>MassFlowRate</a></td><td>m_flow_nominal</td><td>Q_flow_nominal/dT_nominal/4200</td><td>Nominal mass flow rate [kg/s]</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">model</span> BoilerPolynomialClosedLoop <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Boiler with closed loop control&quot;</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</a>;
+ <span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = <a href="Buildings_Media_Water.html#Buildings.Media.Water"
+>Buildings.Media.Water</a> <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Medium model&quot;</span>;
+ <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Power"
+>Modelica.SIunits.Power</a> Q_flow_nominal = 20000 <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Nominal power&quot;</span>;
+ <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+>Modelica.SIunits.Temperature</a> dT_nominal = 20 <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Nominal temperature difference&quot;</span>;
+ <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+>Modelica.SIunits.MassFlowRate</a> m_flow_nominal = Q_flow_nominal/dT_nominal/4200 <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Nominal mass flow rate&quot;</span>;
+
+  <a href="Buildings_Fluid_Boilers.html#Buildings.Fluid.Boilers.BoilerPolynomial"
+>Buildings.Fluid.Boilers.BoilerPolynomial</a> boi(
+    a={0.9},
+    effCur=Buildings.Fluid.Types.EfficiencyCurves.Constant,
+    Q_flow_nominal=Q_flow_nominal,
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = Medium,
+    dp_nominal=20000,
+    m_flow_nominal=m_flow_nominal,
+    fue=<span style="color: red; font-weight: normal; font-style: normal;">Buildings.Fluid.Data.Fuels.HeatingOilLowerHeatingValue</span>(),
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    T_start=293.15) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Boiler&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Logical.html#Modelica.Blocks.Logical.OnOffController"
+>Modelica.Blocks.Logical.OnOffController</a> onOffController(bandwidth=20);
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Math.html#Modelica.Blocks.Math.BooleanToReal"
+>Modelica.Blocks.Math.BooleanToReal</a> booleanToReal;
+  <a href="Buildings_Fluid_Actuators_Valves.html#Buildings.Fluid.Actuators.Valves.ThreeWayEqualPercentageLinear"
+>Actuators.Valves.ThreeWayEqualPercentageLinear</a> val(
+                          <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = Medium,
+    l={0.01,0.01},
+    dynamicBalance=false,
+    m_flow_nominal=m_flow_nominal,
+    dpValve_nominal=6000);
+  <a href="Buildings_Fluid_Movers.html#Buildings.Fluid.Movers.FlowControlled_m_flow"
+>Movers.FlowControlled_m_flow</a> pumLoa(<span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = Medium,
+    dynamicBalance=false,
+    m_flow_nominal=2*m_flow_nominal) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Pump for heating load&quot;</span>;
+  <a href="Buildings_Fluid_Movers.html#Buildings.Fluid.Movers.FlowControlled_m_flow"
+>Movers.FlowControlled_m_flow</a> pumBoi(<span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = Medium,
+      m_flow_nominal=m_flow_nominal,
+    dynamicBalance=false) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Pump for boiler loop&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+>Modelica.Blocks.Sources.Constant</a> m_flow_pum(k=m_flow_nominal) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Mass flow rate of pump&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+>Modelica.Blocks.Sources.Constant</a> TSetBoi(k=273.15 + 70) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Temperature setpoint for boiler&quot;</span>;
+  <a href="Buildings_Controls_Continuous.html#Buildings.Controls.Continuous.LimPID"
+>Controls.Continuous.LimPID</a> conPID(
+    Td=1,
+    k=0.5,
+    controllerType=Modelica.Blocks.Types.SimpleController.PI,
+    Ti=100);
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+>Modelica.Blocks.Sources.Constant</a> TSetHea(k=273.15 + 40) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Temperature setpoint for heating load&quot;</span>;
+  <a href="Buildings_Fluid_FixedResistances.html#Buildings.Fluid.FixedResistances.SplitterFixedResistanceDpM"
+>FixedResistances.SplitterFixedResistanceDpM</a> spl(
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = Medium,
+    dynamicBalance=false,
+    m_flow_nominal=m_flow_nominal*{1,2,1},
+    dp_nominal={0,0,200}) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Splitter/mixer&quot;</span>;
+  <a href="Buildings_Fluid_FixedResistances.html#Buildings.Fluid.FixedResistances.SplitterFixedResistanceDpM"
+>FixedResistances.SplitterFixedResistanceDpM</a> spl1(
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = Medium,
+    m_flow_nominal=m_flow_nominal*{1,1,1},
+    dynamicBalance=false,
+    dp_nominal={0,0,100}) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Splitter/mixer&quot;</span>;
+  <a href="Buildings_Fluid_FixedResistances.html#Buildings.Fluid.FixedResistances.SplitterFixedResistanceDpM"
+>FixedResistances.SplitterFixedResistanceDpM</a> spl2(
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = Medium,
+    m_flow_nominal=m_flow_nominal*{1,1,1},
+    dp_nominal=0*{1,1,1},
+    dynamicBalance=false) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Splitter/mixer&quot;</span>;
+  <a href="Buildings_Fluid_FixedResistances.html#Buildings.Fluid.FixedResistances.SplitterFixedResistanceDpM"
+>FixedResistances.SplitterFixedResistanceDpM</a> spl3(
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = Medium,
+    dp_nominal=0*{1,1,1},
+    dynamicBalance=false,
+    m_flow_nominal=m_flow_nominal*{2,1,1}) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Splitter/mixer&quot;</span>;
+  <a href="Buildings_Fluid_Storage.html#Buildings.Fluid.Storage.ExpansionVessel"
+>Storage.ExpansionVessel</a> exp(<span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = Medium, V_start=1);
+  <a href="Buildings_Fluid_FixedResistances.html#Buildings.Fluid.FixedResistances.SplitterFixedResistanceDpM"
+>FixedResistances.SplitterFixedResistanceDpM</a> spl4(
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = Medium,
+    m_flow_nominal=m_flow_nominal*{1,1,1},
+    dp_nominal=0*{1,1,1},
+    dynamicBalance=false) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Splitter/mixer&quot;</span>;
+  <a href="Buildings_Fluid_MixingVolumes.html#Buildings.Fluid.MixingVolumes.MixingVolume"
+>MixingVolumes.MixingVolume</a> vol(
+    nPorts=2,
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = Medium,
+    m_flow_nominal=2*m_flow_nominal,
+    V=1,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial);
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Thermal_HeatTransfer_Components.html#Modelica.Thermal.HeatTransfer.Components.ThermalConductor"
+>Modelica.Thermal.HeatTransfer.Components.ThermalConductor</a> thermalConductor(G=0.1
+        *Q_flow_nominal/(40 - 20));
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Thermal_HeatTransfer_Sources.html#Modelica.Thermal.HeatTransfer.Sources.FixedTemperature"
+>Modelica.Thermal.HeatTransfer.Sources.FixedTemperature</a> TBou(T=293.15) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Fixed temperature boundary condition&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Math.html#Modelica.Blocks.Math.Gain"
+>Modelica.Blocks.Math.Gain</a> gain(k=2) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Multiply the mass flow rate as this circuit has a smaller temperature difference&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Thermal_HeatTransfer_Sensors.html#Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor"
+>Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor</a> TVol <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Sensor for volume temperature&quot;</span>;
+<span style="color: blue; font-weight: normal; font-style: normal;">equation </span>
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(onOffController.y, booleanToReal.u);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(boi.port_b, pumBoi.port_a);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(boi.T, onOffController.u);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(conPID.y, val.y);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(TSetHea.y, conPID.u_s);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(TSetBoi.y, onOffController.reference);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(val.port_2, spl.port_1);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(spl.port_2, pumLoa.port_a);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(pumBoi.port_b, spl1.port_1);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(spl1.port_2, val.port_1);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(spl2.port_2, boi.port_a);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(boi.port_a, exp.port_a);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(spl3.port_2, spl4.port_1);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(spl4.port_2, spl2.port_1);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(spl4.port_3, val.port_3);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(booleanToReal.y, boi.y);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(m_flow_pum.y, pumBoi.m_flow_in);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(vol.ports[1], spl3.port_1);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(TBou.port, thermalConductor.port_a);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(thermalConductor.port_b, vol.heatPort);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(gain.y, pumLoa.m_flow_in);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(m_flow_pum.y, gain.u);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(TVol.port, vol.heatPort);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(TVol.T, conPID.u_m);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(pumLoa.port_b, vol.ports[2]);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(spl.port_3, spl3.port_3);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(spl1.port_3, spl2.port_3);
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>BoilerPolynomialClosedLoop;
+</div>
+<hr>
+<address>
+<a href="http://www.3ds.com/">Automatically generated</a> Thu Apr  9 09:34:34 2015.
+</address>
+</body>
+</html>

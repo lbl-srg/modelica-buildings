@@ -1,0 +1,138 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>Buildings.Electrical.Transmission</title>
+<meta name="HTML-Generator" content="Dymola">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="description" content="&quot;Package with models for transmission lines&quot;">
+<style type="text/css">
+*       { font-size: 10pt; font-family: Arial, sans-serif; }
+.modelica, .modelica * { font-size: 9pt; font-family: Courier, monospace; white-space: pre; }
+h4      { font-size: 10pt; font-weight: bold; color: green; }
+h3      { font-size: 11pt; font-weight: bold; color: green; }
+h2      { font-size: 13pt; font-weight: bold; color: green; }
+address { font-weight: normal; }
+td      { border: 1px solid #808080; vertical-align: top; }
+th      { border: 1px solid #808080; vertical-align: top; font-weight: bold; }
+table   { border: 1px solid #808080; border-collapse: collapse; }
+</style>
+<link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../Resources/www/modelicaDoc.css">
+</HEAD>
+<body>
+<!-- --- header ------ -->
+<div class="headerStyle">
+<img src="../Resources/www/lbl-logo.png" alt="LBL logo"/>
+</div>
+<div class="headerLinks">
+<ul><li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt; <a href="Buildings.html">Modelica</a></li></ul>
+</div>
+<!-- --- end header -- -->
+
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE Transmission<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><a name="Buildings.Electrical.Transmission"></a><a href="Buildings_Electrical.html#Buildings.Electrical"
+>Buildings.Electrical</a>.Transmission</h2>
+<p>
+<b>Package with models for transmission lines</b><br>
+</p>
+<h3>Information</h3>
+
+<p>
+This package contains cables that can be used
+to represent a line in a electric grid. The package contains
+several functions and records to parametrize cables either using
+default values or values from commercial cables.
+</p>
+<p>
+The packages
+<a href="Buildings_Electrical_Transmission_Grids.html#Buildings.Electrical.Transmission.Grids"
+>
+Buildings.Electrical.Transmission.Grids</a>
+and
+<a href="modelica://Buildings.Electrical.Transmission.Benchmarks">
+Buildings.Electrical.Transmission.Benchmarks</a>
+contain models of
+electrical networks.
+</p>
+<h4>Commercial cables</h4>
+<p>
+The package contains several low voltage and medium voltage cable with
+pre-defined physical and geometrical properties like characteristic resistances and
+diameters. There are different conventions to measure the cables.
+</p>
+
+<h5>Cross-sectional area</h5>
+<p>
+A measure of cross-sectional area in square mm. E.g. 50 mm<sup>2</sup>
+wire has a nominal circula area of 50 mm<sup>2</sup> and a diameter of
+7.98 mm.
+</p>
+
+<h5>AWG (American Wire Gauge)</h5>
+<p>
+A measure of wire thickness (which also dictates cross-sectional area, and
+for a given material, ampacity). E.g. 24 AWG wire has a nominal diameter of
+0.0201 in or 0.511 mm.
+</p>
+
+<h5>kcmil (thousand of Circular Mils)</h5>
+<p>
+kcmil is an abbreviation for thousands of circular mils, an old measurement of
+wire gauge. 1 kcmil = 0.5067 square millimeters. A mil is 1/1000 inch.
+A wire 200 mils in diameter is 40 kcmil. kcmil is generally used for very
+large-diameter wire. Most wires use AWG.
+</p>
+
+
+<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons_Package.html#Modelica.Icons.Package"
+>Modelica.Icons.Package</a> (Icon for standard packages).</p>
+<h3>Package Content</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Package Content">
+<tr>
+<th>Name</th>
+<th>Description</th>
+</tr>
+<tr>
+<td><img src="Buildings.Electrical.Tran313edb1c6af83466tionsS.png" alt="Buildings.Electrical.Transmission.Functions" width="20" height="20" align="top">&nbsp;<a href="Buildings_Electrical_Transmission_Functions.html#Buildings.Electrical.Transmission.Functions"
+>Functions</a>
+</td>
+<td>Package that contains functions to compute cable properties</td>
+</tr>
+<tr>
+<td><img src="Buildings.Electrical.Transmission.GridsS.png" alt="Buildings.Electrical.Transmission.Grids" width="20" height="20" align="top">&nbsp;<a href="Buildings_Electrical_Transmission_Grids.html#Buildings.Electrical.Transmission.Grids"
+>Grids</a>
+</td>
+<td>Package that contains different types of grids</td>
+</tr>
+<tr>
+<td><img src="Buildings.Electrical.Transmission.GridsS.png" alt="Buildings.Electrical.Transmission.LowVoltageCables" width="20" height="20" align="top">&nbsp;<a href="Buildings_Electrical_Transmission_LowVoltageCables.html#Buildings.Electrical.Transmission.LowVoltageCables"
+>LowVoltageCables</a>
+</td>
+<td>Package of low voltage electricity cables used in distribution grid</td>
+</tr>
+<tr>
+<td><img src="Buildings.Electrical.Transmission.GridsS.png" alt="Buildings.Electrical.Transmission.MediumVoltageCables" width="20" height="20" align="top">&nbsp;<a href="Buildings_Electrical_Transmission_MediumVoltageCables.html#Buildings.Electrical.Transmission.MediumVoltageCables"
+>MediumVoltageCables</a>
+</td>
+<td>Package of medium voltage electricity cables used in distribution grid</td>
+</tr>
+<tr>
+<td><img src="Buildings.Electrical.Transmission.TypesS.png" alt="Buildings.Electrical.Transmission.Types" width="20" height="20" align="top">&nbsp;<a href="Buildings_Electrical_Transmission_Types.html#Buildings.Electrical.Transmission.Types"
+>Types</a>
+</td>
+<td>Package that contains cables materials</td>
+</tr>
+<tr>
+<td><img src="Buildings.Electrical.Trand9e1bf622a2d8849assesS.png" alt="Buildings.Electrical.Transmission.BaseClasses" width="20" height="20" align="top">&nbsp;<a href="Buildings_Electrical_Transmission_BaseClasses.html#Buildings.Electrical.Transmission.BaseClasses"
+>BaseClasses</a>
+</td>
+<td>Package that contains partial models for lines and cables</td>
+</tr>
+</table>
+<hr>
+<address>
+<a href="http://www.3ds.com/">Automatically generated</a> Thu Apr  9 09:34:19 2015.
+</address>
+</body>
+</html>

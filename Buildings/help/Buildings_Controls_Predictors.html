@@ -1,0 +1,598 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>Buildings.Controls.Predictors</title>
+<meta name="HTML-Generator" content="Dymola">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="description" content="&quot;Package with models for load prediction&quot;">
+<style type="text/css">
+*       { font-size: 10pt; font-family: Arial, sans-serif; }
+.modelica, .modelica * { font-size: 9pt; font-family: Courier, monospace; white-space: pre; }
+h4      { font-size: 10pt; font-weight: bold; color: green; }
+h3      { font-size: 11pt; font-weight: bold; color: green; }
+h2      { font-size: 13pt; font-weight: bold; color: green; }
+address { font-weight: normal; }
+td      { border: 1px solid #808080; vertical-align: top; }
+th      { border: 1px solid #808080; vertical-align: top; font-weight: bold; }
+table   { border: 1px solid #808080; border-collapse: collapse; }
+</style>
+<link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../Resources/www/modelicaDoc.css">
+</HEAD>
+<body>
+<!-- --- header ------ -->
+<div class="headerStyle">
+<img src="../Resources/www/lbl-logo.png" alt="LBL logo"/>
+</div>
+<div class="headerLinks">
+<ul><li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt; <a href="Buildings.html">Modelica</a></li></ul>
+</div>
+<!-- --- end header -- -->
+
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE Predictors<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><a name="Buildings.Controls.Predictors"></a><a href="Buildings_Controls.html#Buildings.Controls"
+>Buildings.Controls</a>.Predictors</h2>
+<p>
+<b>Package with models for load prediction</b><br>
+</p>
+<h3>Information</h3>
+
+<p>
+This package contains components models for load prediction.
+</p>
+
+<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons_Package.html#Modelica.Icons.Package"
+>Modelica.Icons.Package</a> (Icon for standard packages).</p>
+<h3>Package Content</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Package Content">
+<tr>
+<th>Name</th>
+<th>Description</th>
+</tr>
+<tr>
+<td><img src="Buildings.Controls.Predic0d714f402e8fe445lLoadS.png" alt="Buildings.Controls.Predictors.ElectricalLoad" width="20" height="20" align="top">&nbsp;<a href="Buildings_Controls_Predictors.html#Buildings.Controls.Predictors.ElectricalLoad"
+>ElectricalLoad</a>
+</td>
+<td>Block that predicts an electrical load</td>
+</tr>
+<tr>
+<td><img src="Buildings.Controls.Predictors.TypesS.png" alt="Buildings.Controls.Predictors.Types" width="20" height="20" align="top">&nbsp;<a href="Buildings_Controls_Predictors_Types.html#Buildings.Controls.Predictors.Types"
+>Types</a>
+</td>
+<td>Types for prediction models</td>
+</tr>
+<tr>
+<td><img src="Buildings.Controls.Predictors.ExamplesS.png" alt="Buildings.Controls.Predictors.Examples" width="20" height="20" align="top">&nbsp;<a href="Buildings_Controls_Predictors_Examples.html#Buildings.Controls.Predictors.Examples"
+>Examples</a>
+</td>
+<td>Collection of models that illustrate model use and test models</td>
+</tr>
+<tr>
+<td><img src="Buildings.Controls.Predictors.ExamplesS.png" alt="Buildings.Controls.Predictors.Validation" width="20" height="20" align="top">&nbsp;<a href="Buildings_Controls_Predictors_Validation.html#Buildings.Controls.Predictors.Validation"
+>Validation</a>
+</td>
+<td>Collection of models that validate the load predictors</td>
+</tr>
+<tr>
+<td><img src="Buildings.Controls.Predic74b392df5497023eassesS.png" alt="Buildings.Controls.Predictors.BaseClasses" width="20" height="20" align="top">&nbsp;<a href="Buildings_Controls_Predictors_BaseClasses.html#Buildings.Controls.Predictors.BaseClasses"
+>BaseClasses</a>
+</td>
+<td>Package with base classes</td>
+</tr>
+</table>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE ElectricalLoad<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Controls.Predic0d714f402e8fe445lLoadI.png" alt="Buildings.Controls.Predictors.ElectricalLoad" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Controls.Predictors.ElectricalLoad"></a><a href="Buildings_Controls_Predictors.html#Buildings.Controls.Predictors"
+>Buildings.Controls.Predictors</a>.ElectricalLoad</h2>
+<p>
+<b>Block that predicts an electrical load</b>
+<br>
+<br><img src="Buildings.Controls.Predic0d714f402e8fe445lLoadD.png" alt="Buildings.Controls.Predictors.ElectricalLoad">
+</p>
+<h3>Information</h3>
+
+<p>
+Data-driven model that predicts the electrical load.
+This load prediction can for example be used in a demand response client.
+</p>
+<p>
+The model computes either an average baseline or
+a linear regression with respect to outside temperature.
+For both, optionally a day-of adjustment can be made.
+</p>
+<h4>Computation of baseline</h4>
+<p>
+Separate loads are computed for any types of days.
+The type of day is an input signal received from the connector
+<code>typeOfDay</code>, and must be equal to any value defined
+in
+<a href="Buildings_Controls_Types.html#Buildings.Controls.Types.Day"
+>
+Buildings.Controls.Types.Day</a>.
+This input is a vector where the first element corresponds to the
+current day, the next element to tomorrow, and so on.
+The dimension of this input vector is typically <i>2</i> if
+the demand is to be predicted for the next <i>24</i> hours.
+If it is for the next <i>48</i> hours, then the dimension is <i>3</i>.
+Using a vector is required as the prediction could be
+from noon of a workday to noon of a holiday or week-end day.
+</p>
+<p>
+The average baseline is the average of the consumed power of the previous
+<i>n<sub>his</sub></i> days for the same time interval. The default value is
+<i>n<sub>his</sub>=10</i> days.
+For example, if the prediction is mode for 1 hour time windows,
+then there are 24 baseline values for each day,
+each being the average power consumed in the past 10 days that have the same
+<code>typeOfDay</code>.
+</p>
+<p>
+The linear regression model computes the predicted power as a linear function of the
+current outside temperature. The two coefficients for the linear function are
+obtained using a regression of the past <i>n<sub>his</sub></i> days.
+</p>
+<p>
+If the input signal <code>storeHistory</code> is <code>true</code>, then
+the prediction is no longer carried out for this day until midnight.
+For example, if used for a demand respond client, on an event day,
+one may want to set <code>storeHistory=true</code> when the building operates
+in demand respond mode. Then any time interval after this signal
+is received is excluded from the baseline computation.
+Storing history terms for the baseline resumes automatically at midnight.
+</p>
+<p>
+If no history term is present for the current time interval and
+the current type of day, then the predicted power consumption
+<code>PPre[:]</code> will be zero.
+</p>
+<h4>Day-of adjustment</h4>
+<p>
+If the parameter <code>use_dayOfAdj = true</code>, then the
+day-of adjustment is computed. (Some literature call this
+morning-of adjustment, but we call it day-of adjustment because
+the adjustment can also be in the afternoon if the peak is
+in the late afternoon hours.)
+The day-of adjustment can be used with any of the above baseline computations.
+The parameters <code>dayOfAdj_start</code> and <code>dayOfAdj_end</code>
+determine the time window during which the day-of adjustment is computed.
+Both need to be negative times, measured in seconds prior to the time
+at which the power consumption is predicted.
+For example, to use a day-of adjustment for the window of <i>4</i> to <i>1</i>
+hours prior to the event time, set
+<code>dayOfAdj_start=-4*3600</code> and <code>dayOfAdj_end=-3600</code>.
+</p>
+<p>
+The day-of adjustment is computed as follows: First,
+the average power <i>P<sub>ave</sub></i> consumed
+over the day-of time window is computed. Next, the average power
+<i>P<sub>his</sub></i>
+is computed for the past <i>n<sub>his</sub></i> days.
+Then, the adjustment factor is computed as
+</p>
+<p align="center" style="font-style:italic;">
+a = min(a<sub>max</sub>, max(a<sub>min</sub>, P<sub>ave</sub> &frasl; P<sub>his</sub>),
+</p>
+<p>
+where <i>a<sub>min</sub></i> and <i>a<sub>max</sub></i> are the minimum
+and maximum adjustment factors as defined by the parameters
+<code>adjFacMin</code> and <code>adjFacMax</code>.
+</p>
+
+<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Icons.html#Modelica.Blocks.Icons.DiscreteBlock"
+>Modelica.Blocks.Icons.DiscreteBlock</a> (Graphical layout of discrete block component icon).</p>
+<h3>Parameters</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td>Integer</td><td>nSam</td><td>24</td><td>Number of intervals in a day for which baseline is computed</td></tr>
+<tr><td>Integer</td><td>nPre</td><td>1</td><td>Number of intervals for which future load need to be predicted (set to one to only predict current time, or to nSam to predict one day)</td></tr>
+<tr><td>Integer</td><td>nHis</td><td>10</td><td>Number of history terms to be stored</td></tr>
+<tr><td><a href="Buildings_Controls_Predictors_Types.html#Buildings.Controls.Predictors.Types.PredictionModel"
+>PredictionModel</a></td><td>predictionModel</td><td>Types.PredictionModel.Weathe...</td><td>Load prediction model</td></tr>
+<tr style="background-color: #e0e0e0"><td colspan="4">Day of adjustment</td></tr>
+<tr><td>Boolean</td><td>use_dayOfAdj</td><td>true</td><td>if true, use the day of adjustment</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Time"
+>Time</a></td><td>dayOfAdj_start</td><td>-14400</td><td>Number of hours prior to current time when day of adjustment starts [s]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Time"
+>Time</a></td><td>dayOfAdj_end</td><td>-3600</td><td>Number of hours prior to current time when day of adjustment ends [s]</td></tr>
+<tr><td>Real</td><td>minAdjFac</td><td>0.8</td><td>Minimum adjustment factor</td></tr>
+<tr><td>Real</td><td>maxAdjFac</td><td>1.2</td><td>Maximum adjustment factor</td></tr>
+</table>
+<h3>Connectors</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Connectors">
+<tr><th>Type</th><th>Name</th><th>Description</th></tr>
+<tr><td>input <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>RealInput</a></td><td>TOut</td><td>Outside air temperature [K]</td></tr>
+<tr><td>input <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>RealInput</a></td><td>TOutFut[nPre - 1]</td><td>Future outside air temperatures [K]</td></tr>
+<tr><td>input <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>RealInput</a></td><td>ECon</td><td>Consumed electrical energy [J]</td></tr>
+<tr><td>output <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+>RealOutput</a></td><td>PPre[nPre]</td><td>Predicted power consumptions (first element is for current time [W]</td></tr>
+<tr><td>input <a href="Buildings_Controls_Interfaces.html#Buildings.Controls.Interfaces.DayTypeInput"
+>DayTypeInput</a></td><td>typeOfDay[integer((nPre - 1)/nSam) + 2]</td><td>Type of day for the current and the future days for which a prediction is to be made.
+    Typically, this has dimension 2 for predictions up to and including 24 hours, and 2+n for any additional day</td></tr>
+<tr><td>input <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BooleanInput"
+>BooleanInput</a></td><td>storeHistory</td><td>If false, history terms are no longer stored for the remainder of the day</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">block</span> ElectricalLoad <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Block that predicts an electrical load&quot;</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Icons.html#Modelica.Blocks.Icons.DiscreteBlock"
+>Modelica.Blocks.Icons.DiscreteBlock</a>;
+
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Integer nSam(min=1) = 24 <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Number of intervals in a day for which baseline is computed&quot;</span>;
+
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Integer nPre(min=1) = 1 <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Number of intervals for which future load need to be predicted (set to one to only predict current time, or to nSam to predict one day)&quot;</span>;
+
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Integer nHis(min=1) = 10 <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Number of history terms to be stored&quot;</span>;
+
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="Buildings_Controls_Predictors_Types.html#Buildings.Controls.Predictors.Types.PredictionModel"
+>Buildings.Controls.Predictors.Types.PredictionModel</a>
+    predictionModel = Types.PredictionModel.WeatherRegression <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Load prediction model&quot;</span>;
+
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Boolean use_dayOfAdj=true <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;if true, use the day of adjustment&quot;</span>;
+
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Time"
+>Modelica.SIunits.Time</a> dayOfAdj_start(
+    max=0,
+    displayUnit=&quot;h&quot;) = -14400 <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Number of hours prior to current time when day of adjustment starts&quot;</span>;
+
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Time"
+>Modelica.SIunits.Time</a> dayOfAdj_end(
+    max=0,
+    displayUnit=&quot;h&quot;) = -3600 <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Number of hours prior to current time when day of adjustment ends&quot;</span>;
+
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Real minAdjFac(min=0) = 0.8 <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Minimum adjustment factor&quot;</span>;
+
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Real maxAdjFac(min=0) = 1.2 <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Maximum adjustment factor&quot;</span>;
+
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>Modelica.Blocks.Interfaces.RealInput</a> TOut(unit=&quot;K&quot;) <span style="color: blue; font-weight: normal; font-style: normal;">if </span>
+     (predictionModel == Buildings.Controls.Predictors.Types.PredictionModel.WeatherRegression) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Outside air temperature&quot;</span>;
+
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>Modelica.Blocks.Interfaces.RealInput</a> TOutFut[nPre-1](<span style="color: blue; font-weight: normal; font-style: normal;">each </span>unit=&quot;K&quot;) <span style="color: blue; font-weight: normal; font-style: normal;">if </span>
+       (predictionModel == Buildings.Controls.Predictors.Types.PredictionModel.WeatherRegression) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Future outside air temperatures&quot;</span>;
+
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>Modelica.Blocks.Interfaces.RealInput</a> ECon(unit=&quot;J&quot;, nominal=1E5) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Consumed electrical energy&quot;</span>;
+
+  <span style="color: blue; font-weight: normal; font-style: normal;">discrete </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+>Modelica.Blocks.Interfaces.RealOutput</a> PPre[nPre](<span style="color: blue; font-weight: normal; font-style: normal;">each </span>unit=&quot;W&quot;) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Predicted power consumptions (first element is for current time&quot;</span>;
+
+  <a href="Buildings_Controls_Interfaces.html#Buildings.Controls.Interfaces.DayTypeInput"
+>Buildings.Controls.Interfaces.DayTypeInput</a> typeOfDay[<span style="color: red; font-weight: normal; font-style: normal;">integer</span>((nPre-1)/nSam)+2] <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Type of day for the current and the future days for which a prediction is to be made.
+    Typically, this has dimension 2 for predictions up to and including 24 hours, and 2+n for any additional day&quot;</span>;
+
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BooleanInput"
+>Modelica.Blocks.Interfaces.BooleanInput</a> storeHistory <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;If false, history terms are no longer stored for the remainder of the day&quot;</span>;
+
+  <span style="color: blue; font-weight: normal; font-style: normal;">discrete </span>Real adj(unit=&quot;1&quot;) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Load adjustment factor&quot;</span>;
+<span style="color: blue; font-weight: normal; font-style: normal;">protected </span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Time"
+>Modelica.SIunits.Time</a> samplePeriod=86400/nSam <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Sample period of the component&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Time"
+>Modelica.SIunits.Time</a> samStart(fixed=false) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Time when the first sampling starts&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Integer iDayOf_start =<span style="color: red; font-weight: normal; font-style: normal;"> integer</span>((nSam*dayOfAdj_start/86400+1E-8)) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Counter where day of look up begins&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Integer iDayOf_end =<span style="color: red; font-weight: normal; font-style: normal;"> integer</span>((nSam*dayOfAdj_end  /86400+1E-8)) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Counter where day of look up ends&quot;</span>;
+
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Integer nDayOf = iDayOf_end-iDayOf_start <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Number of samples used for the day of adjustment&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Time"
+>Modelica.SIunits.Time</a> dt = 86400/nSam <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Length of one sampling interval&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">discrete </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Power"
+>Modelica.SIunits.Power</a> PAve <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Average power over the past interval&quot;</span>;
+  Boolean sampleTrigger <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;True, if sample time instant&quot;</span>;
+
+  <span style="color: blue; font-weight: normal; font-style: normal;">discrete </span><span style="color: blue; font-weight: normal; font-style: normal;">output </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Energy"
+>Modelica.SIunits.Energy</a> ELast <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Energy at the last sample&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">discrete </span><span style="color: blue; font-weight: normal; font-style: normal;">output </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Time"
+>Modelica.SIunits.Time</a> tLast <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Time at which last sample occurred&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">output </span>Integer[nPre] iSam <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Index for power of the current sampling interval&quot;</span>;
+
+  <span style="color: blue; font-weight: normal; font-style: normal;">discrete </span><span style="color: blue; font-weight: normal; font-style: normal;">output </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Power"
+>Modelica.SIunits.Power</a> P[Buildings.Controls.Types.nDayTypes,nSam,nHis] <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Baseline power consumption&quot;</span>;
+  <span style="color: #006400; font-weight: normal; font-style: normal;">// The temperature history is set to a zero array if it is not needed.</span>
+  <span style="color: #006400; font-weight: normal; font-style: normal;">// This significantly reduces the size of the code that needs to be compiled.</span>
+
+  <span style="color: blue; font-weight: normal; font-style: normal;">discrete </span><span style="color: blue; font-weight: normal; font-style: normal;">output </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+>Modelica.SIunits.Temperature</a> T[
+   <span style="color: blue; font-weight: normal; font-style: normal;">if </span>predictionModel == Types.PredictionModel.WeatherRegression<span style="color: blue; font-weight: normal; font-style: normal;"> then </span>Buildings.Controls.Types.nDayTypes<span style="color: blue; font-weight: normal; font-style: normal;"> else </span>0,
+   <span style="color: blue; font-weight: normal; font-style: normal;">if </span>predictionModel == Types.PredictionModel.WeatherRegression<span style="color: blue; font-weight: normal; font-style: normal;"> then </span>nSam<span style="color: blue; font-weight: normal; font-style: normal;"> else </span>0,
+   <span style="color: blue; font-weight: normal; font-style: normal;">if </span>predictionModel == Types.PredictionModel.WeatherRegression<span style="color: blue; font-weight: normal; font-style: normal;"> then </span>nHis<span style="color: blue; font-weight: normal; font-style: normal;"> else </span>0] <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Temperature history&quot;</span>;
+
+  Integer _typeOfDay[nPre] <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Type of day for each time interval for which prediction is to be made&quot;</span>;
+
+  Integer iHis[Buildings.Controls.Types.nDayTypes,nSam] <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Index for power of the current sampling history, for the currrent time interval&quot;</span>;
+  Boolean historyComplete[Buildings.Controls.Types.nDayTypes,nSam](<span style="color: blue; font-weight: normal; font-style: normal;">each </span>start=false, <span style="color: blue; font-weight: normal; font-style: normal;">each </span>fixed=true) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Flage, set to true when all history terms are built up for the given day type and given time interval&quot;</span>;
+
+  Boolean _storeHistory <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Flag, switched to false when block gets an storeHistory=false signal, and remaining false until midnight&quot;</span>;
+
+  <span style="color: blue; font-weight: normal; font-style: normal;">discrete </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Energy"
+>Modelica.SIunits.Energy</a> EActAve <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Actual energy over the day off period&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">discrete </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Energy"
+>Modelica.SIunits.Energy</a> EHisAve <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Actual load over the day off period, summed over all time intervals&quot;</span>;
+
+  <span style="color: blue; font-weight: normal; font-style: normal;">discrete </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Power"
+>Modelica.SIunits.Power</a> PPreHis[Buildings.Controls.Types.nDayTypes, nSam] <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Predicted power consumptions for all day off time intervals&quot;</span>;
+  Boolean PPreHisSet[Buildings.Controls.Types.nDayTypes, nSam](<span style="color: blue; font-weight: normal; font-style: normal;">each </span>start=false, <span style="color: blue; font-weight: normal; font-style: normal;">each </span>fixed=true) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Flag, true if a value in PPreHis has been set for that element&quot;</span>;
+
+  Real intTOut(unit=&quot;K.s&quot;, start=0, fixed=true) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Time integral of outside temperature&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">discrete </span>Real intTOutLast(unit=&quot;K.s&quot;) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Last sampled value of time integral of outside temperature&quot;</span>;
+
+  Integer idxSam <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Index to access iSam[1]&quot;</span>;
+
+  <span style="color: #006400; font-weight: normal; font-style: normal;">// Conditional connectors</span>
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>Modelica.Blocks.Interfaces.RealInput</a> TOut_in_internal(unit=&quot;K&quot;) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Needed to connect to conditional connector&quot;</span>;
+
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>Modelica.Blocks.Interfaces.RealInput</a> TOutFut_in_internal[nPre-1](<span style="color: blue; font-weight: normal; font-style: normal;">each </span>unit=&quot;K&quot;) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Needed to connect to conditional connector&quot;</span>;
+
+  <span style="color: #006400; font-weight: normal; font-style: normal;">// Functions</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">function</span> isMidNight
+    <span style="color: blue; font-weight: normal; font-style: normal;">input </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Time"
+>Modelica.SIunits.Time</a> t <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Simulation time&quot;</span>;
+    <span style="color: blue; font-weight: normal; font-style: normal;">output </span>Boolean r <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;True if time is midnight, false otherwise&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">algorithm </span>
+    r := <span style="color: red; font-weight: normal; font-style: normal;">rem</span>(t, 86400.0) &lt; 1;
+  <span style="color: blue; font-weight: normal; font-style: normal;">end </span>isMidNight;
+
+  <span style="color: blue; font-weight: normal; font-style: normal;">function</span> getTypeOfDays
+    <span style="color: blue; font-weight: normal; font-style: normal;">input </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Time"
+>Modelica.SIunits.Time</a> t <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Simulation time&quot;</span>;
+    <span style="color: blue; font-weight: normal; font-style: normal;">input </span><a href="Buildings_Controls_Types.html#Buildings.Controls.Types.Day"
+>Buildings.Controls.Types.Day</a>[:] typeOfDay <span style="color: #006400; font-weight: normal; font-style: normal;">
+      &quot;Type of day as received from input connector&quot;</span>;
+    <span style="color: blue; font-weight: normal; font-style: normal;">input </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Time"
+>Modelica.SIunits.Time</a> dt <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Length of one sampling interval&quot;</span>;
+    <span style="color: blue; font-weight: normal; font-style: normal;">input </span>Integer nPre <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Number of predictions to be made&quot;</span>;
+    <span style="color: blue; font-weight: normal; font-style: normal;">output </span>Integer[nPre] tod <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Type of day for each prediction interval&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">protected </span>
+    Integer itod <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Pointer to the type of day&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">algorithm </span>
+    tod[1] :=<span style="color: red; font-weight: normal; font-style: normal;">Integer</span>(typeOfDay[1]);
+    <span style="color: blue; font-weight: normal; font-style: normal;">if </span>nPre &gt; 1<span style="color: blue; font-weight: normal; font-style: normal;"> then</span>
+      itod :=1;
+      <span style="color: blue; font-weight: normal; font-style: normal;">for </span>i<span style="color: blue; font-weight: normal; font-style: normal;"> in </span>2:nPre<span style="color: blue; font-weight: normal; font-style: normal;"> loop</span>
+        <span style="color: #006400; font-weight: normal; font-style: normal;">// We reached mid-night. Hence, we need to take the next type of day.</span>
+        <span style="color: blue; font-weight: normal; font-style: normal;">if </span><span style="color: red; font-weight: normal; font-style: normal;">isMidNight</span>(t + (i-1)*dt)<span style="color: blue; font-weight: normal; font-style: normal;"> then</span>
+          itod := itod + 1;
+        <span style="color: blue; font-weight: normal; font-style: normal;">end if</span>;
+        tod[i] :=<span style="color: red; font-weight: normal; font-style: normal;">Integer</span>(typeOfDay[itod]);
+      <span style="color: blue; font-weight: normal; font-style: normal;">end for</span>;
+    <span style="color: blue; font-weight: normal; font-style: normal;">end if</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">end </span>getTypeOfDays;
+
+  <span style="color: blue; font-weight: normal; font-style: normal;">function</span> incrementIndex
+    <span style="color: blue; font-weight: normal; font-style: normal;">input </span>Integer i <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Counter&quot;</span>;
+    <span style="color: blue; font-weight: normal; font-style: normal;">input </span>Integer n <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Maximum value of counter&quot;</span>;
+    <span style="color: blue; font-weight: normal; font-style: normal;">output </span>Integer iNew <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;New value of counter&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">algorithm </span>
+    iNew :=<span style="color: blue; font-weight: normal; font-style: normal;">if </span>i == n<span style="color: blue; font-weight: normal; font-style: normal;"> then </span>1<span style="color: blue; font-weight: normal; font-style: normal;"> else </span>i + 1;
+  <span style="color: blue; font-weight: normal; font-style: normal;">end </span>incrementIndex;
+
+  <span style="color: blue; font-weight: normal; font-style: normal;">function</span> getIndex
+    <span style="color: blue; font-weight: normal; font-style: normal;">input </span>Integer i <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Counter&quot;</span>;
+    <span style="color: blue; font-weight: normal; font-style: normal;">input </span>Integer n <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Maximum value of counter&quot;</span>;
+    <span style="color: blue; font-weight: normal; font-style: normal;">output </span>Integer iNew <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;New value of counter&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">algorithm </span>
+    iNew := <span style="color: red; font-weight: normal; font-style: normal;">mod</span>(i, n);
+    <span style="color: blue; font-weight: normal; font-style: normal;">if </span>iNew == 0<span style="color: blue; font-weight: normal; font-style: normal;"> then</span>
+      iNew := n;
+    <span style="color: blue; font-weight: normal; font-style: normal;">end if</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">end </span>getIndex;
+
+<span style="color: blue; font-weight: normal; font-style: normal;">initial </span><span style="color: blue; font-weight: normal; font-style: normal;">equation </span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">for </span>i<span style="color: blue; font-weight: normal; font-style: normal;"> in </span>1:nPre<span style="color: blue; font-weight: normal; font-style: normal;"> loop</span>
+    iSam[i] = i;
+  <span style="color: blue; font-weight: normal; font-style: normal;">end for</span>;
+
+  P =<span style="color: red; font-weight: normal; font-style: normal;"> zeros</span>(
+    Buildings.Controls.Types.nDayTypes,
+    nSam,
+    nHis);
+  PPre =<span style="color: red; font-weight: normal; font-style: normal;"> zeros</span>(nPre);
+
+  T =<span style="color: red; font-weight: normal; font-style: normal;"> zeros</span>(<span style="color: red; font-weight: normal; font-style: normal;">size</span>(T,1),<span style="color: red; font-weight: normal; font-style: normal;"> size</span>(T,2),<span style="color: red; font-weight: normal; font-style: normal;"> size</span>(T,3));
+
+  EActAve    = 0;
+  EHisAve    = 0;
+  PPreHis    =<span style="color: red; font-weight: normal; font-style: normal;"> zeros</span>(Buildings.Controls.Types.nDayTypes, nSam);
+
+  ELast = 0;
+  intTOutLast = 0;
+  tLast = time;
+  iHis =<span style="color: red; font-weight: normal; font-style: normal;"> zeros</span>(Buildings.Controls.Types.nDayTypes, nSam);
+
+   _storeHistory = true;
+   samStart =<span style="color: red; font-weight: normal; font-style: normal;"> Buildings.Controls.Predictors.BaseClasses.sampleStart</span>(
+     t=time,
+     samplePeriod=samplePeriod);
+
+   <span style="color: blue; font-weight: normal; font-style: normal;">for </span>i<span style="color: blue; font-weight: normal; font-style: normal;"> in </span>1:nPre<span style="color: blue; font-weight: normal; font-style: normal;"> loop</span>
+      _typeOfDay[i] =<span style="color: red; font-weight: normal; font-style: normal;">  Integer</span>(Buildings.Controls.Types.Day.WorkingDay);
+   <span style="color: blue; font-weight: normal; font-style: normal;">end for</span>;
+
+  <span style="color: #006400; font-weight: normal; font-style: normal;"> // Compute the offset of the index that is used to look up the data for</span>
+  <span style="color: #006400; font-weight: normal; font-style: normal;"> // the dayOfAdj</span>
+   <span style="color: blue; font-weight: normal; font-style: normal;">if </span>use_dayOfAdj<span style="color: blue; font-weight: normal; font-style: normal;"> then</span>
+    <span style="color: red; font-weight: normal; font-style: normal;"> assert</span>(iDayOf_start &lt; iDayOf_end, &quot;
+Wrong values for parameters.
+  Require dayOfAdjustement_start &lt; dayOfAdjustement_end + 86400/nSam.
+  Received dayOfAdj_start = &quot; +<span style="color: red; font-weight: normal; font-style: normal;"> String</span>(dayOfAdj_start) + &quot;
+           dayOfAdj_end   = &quot; +<span style="color: red; font-weight: normal; font-style: normal;"> String</span>(dayOfAdj_end));
+   <span style="color: blue; font-weight: normal; font-style: normal;">end if</span>;
+
+<span style="color: blue; font-weight: normal; font-style: normal;">equation </span>
+  <span style="color: #006400; font-weight: normal; font-style: normal;">// Conditional connector</span>
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(TOut,    TOut_in_internal);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(TOutFut, TOutFut_in_internal);
+  <span style="color: blue; font-weight: normal; font-style: normal;">if </span>predictionModel &lt;&gt; Types.PredictionModel.WeatherRegression<span style="color: blue; font-weight: normal; font-style: normal;"> then</span>
+    TOutFut_in_internal =<span style="color: red; font-weight: normal; font-style: normal;"> zeros</span>(nPre-1);
+    TOut_in_internal = 0;
+  <span style="color: blue; font-weight: normal; font-style: normal;">end if</span>;
+
+  <span style="color: #006400; font-weight: normal; font-style: normal;">// Sample trigger</span>
+  sampleTrigger =<span style="color: red; font-weight: normal; font-style: normal;"> sample</span>(samStart, samplePeriod);
+
+  <span style="color: #006400; font-weight: normal; font-style: normal;">// Averaging of outside temperature</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">if </span>predictionModel == Types.PredictionModel.WeatherRegression<span style="color: blue; font-weight: normal; font-style: normal;"> then</span>
+    <span style="color: red; font-weight: normal; font-style: normal;">der</span>(intTOut) = TOut_in_internal;
+  <span style="color: blue; font-weight: normal; font-style: normal;">else</span>
+    intTOut = 0;
+  <span style="color: blue; font-weight: normal; font-style: normal;">end if</span>;
+
+<span style="color: blue; font-weight: normal; font-style: normal;">algorithm </span>
+
+  <span style="color: blue; font-weight: normal; font-style: normal;">when </span>sampleTrigger<span style="color: blue; font-weight: normal; font-style: normal;"> then</span>
+    <span style="color: #006400; font-weight: normal; font-style: normal;">// Set flag for event day.</span>
+    <span style="color: #006400; font-weight: normal; font-style: normal;">// isMidnight is true if time is within 1 second of midnight.</span>
+    _storeHistory :=<span style="color: blue; font-weight: normal; font-style: normal;">if </span><span style="color: blue; font-weight: normal; font-style: normal;">not </span><span style="color: red; font-weight: normal; font-style: normal;">pre</span>(_storeHistory)<span style="color: blue; font-weight: normal; font-style: normal;"> and </span>(<span style="color: blue; font-weight: normal; font-style: normal;">not </span><span style="color: red; font-weight: normal; font-style: normal;">isMidNight</span>(t=time))<span style="color: blue; font-weight: normal; font-style: normal;"> then </span>false<span style="color: blue; font-weight: normal; font-style: normal;"> else </span>storeHistory;
+
+    _typeOfDay :=<span style="color: red; font-weight: normal; font-style: normal;"> getTypeOfDays</span>(t=time, typeOfDay=typeOfDay, dt=dt, nPre=nPre);
+
+    <span style="color: #006400; font-weight: normal; font-style: normal;">// Index to access iSam[1]</span>
+    idxSam :=<span style="color: red; font-weight: normal; font-style: normal;">getIndex</span>(iSam[1] - 1, nSam);
+
+    <span style="color: #006400; font-weight: normal; font-style: normal;">// Update the history terms with the average power of the time interval,</span>
+    <span style="color: #006400; font-weight: normal; font-style: normal;">// unless we have an event day.</span>
+    <span style="color: blue; font-weight: normal; font-style: normal;">if </span>(_storeHistory)<span style="color: blue; font-weight: normal; font-style: normal;"> or </span>(<span style="color: red; font-weight: normal; font-style: normal;">pre</span>(_storeHistory))<span style="color: blue; font-weight: normal; font-style: normal;"> then</span>
+      <span style="color: blue; font-weight: normal; font-style: normal;">if </span>(time - tLast) &gt; 1E-5<span style="color: blue; font-weight: normal; font-style: normal;"> then</span>
+        <span style="color: #006400; font-weight: normal; font-style: normal;">// Update iHis, which points to where the last interval&#39;s power</span>
+        <span style="color: #006400; font-weight: normal; font-style: normal;">// consumption will be stored.</span>
+        iHis[<span style="color: red; font-weight: normal; font-style: normal;">pre</span>(_typeOfDay[1]), idxSam] :=
+          <span style="color: red; font-weight: normal; font-style: normal;">incrementIndex</span>(iHis[<span style="color: red; font-weight: normal; font-style: normal;">pre</span>(_typeOfDay[1]), idxSam], nHis);
+        <span style="color: blue; font-weight: normal; font-style: normal;">if </span>iHis[<span style="color: red; font-weight: normal; font-style: normal;">pre</span>(_typeOfDay[1]), idxSam] == nHis<span style="color: blue; font-weight: normal; font-style: normal;"> then</span>
+          historyComplete[<span style="color: red; font-weight: normal; font-style: normal;">pre</span>(_typeOfDay[1]), idxSam] :=true;
+        <span style="color: blue; font-weight: normal; font-style: normal;">end if</span>;
+        PAve :=(ECon - ELast)/(time - tLast);
+        P[<span style="color: red; font-weight: normal; font-style: normal;">pre</span>(_typeOfDay[1]), idxSam, iHis[<span style="color: red; font-weight: normal; font-style: normal;">pre</span>(_typeOfDay[1]), idxSam]] := PAve;
+        <span style="color: blue; font-weight: normal; font-style: normal;">if </span>predictionModel == Types.PredictionModel.WeatherRegression<span style="color: blue; font-weight: normal; font-style: normal;"> then</span>
+          T[<span style="color: red; font-weight: normal; font-style: normal;">pre</span>(_typeOfDay[1]), idxSam, iHis[<span style="color: red; font-weight: normal; font-style: normal;">pre</span>(_typeOfDay[1]), idxSam]] := (intTOut-intTOutLast)/(time - tLast);
+        <span style="color: blue; font-weight: normal; font-style: normal;">end if</span>;
+      <span style="color: blue; font-weight: normal; font-style: normal;">end if</span>;
+    <span style="color: blue; font-weight: normal; font-style: normal;">end if</span>;
+    <span style="color: #006400; font-weight: normal; font-style: normal;">// Initialize the energy consumed since the last sampling.</span>
+    ELast := ECon;
+    intTOutLast :=intTOut;
+    tLast := time;
+
+    <span style="color: #006400; font-weight: normal; font-style: normal;">// Compute the baseline prediction for the current hour,</span>
+    <span style="color: #006400; font-weight: normal; font-style: normal;">// with k being equal to the number of stored history terms.</span>
+    <span style="color: #006400; font-weight: normal; font-style: normal;">// If in a later implementation, we want more terms into the future, then</span>
+    <span style="color: #006400; font-weight: normal; font-style: normal;">// a loop should be added over for i = iSam[1]...upper_bound, whereas</span>
+    <span style="color: #006400; font-weight: normal; font-style: normal;">// the loop needs to wrap around nSam.</span>
+    <span style="color: blue; font-weight: normal; font-style: normal;">if </span>predictionModel == Types.PredictionModel.Average<span style="color: blue; font-weight: normal; font-style: normal;"> then</span>
+      <span style="color: blue; font-weight: normal; font-style: normal;">for </span>m<span style="color: blue; font-weight: normal; font-style: normal;"> in </span>1:nPre<span style="color: blue; font-weight: normal; font-style: normal;"> loop</span>
+        <span style="color: #006400; font-weight: normal; font-style: normal;">// Note that as this branch does not use TOutFut, at every time step, computations</span>
+        <span style="color: #006400; font-weight: normal; font-style: normal;">// are repeated because PPre[m] = pre(PPre[m+1]). This could be improved</span>
+        <span style="color: #006400; font-weight: normal; font-style: normal;">// in future versions.</span>
+        PPre[m] :=<span style="color: red; font-weight: normal; font-style: normal;">Buildings.Controls.Predictors.BaseClasses.average</span>(
+                    P={P[_typeOfDay[m], iSam[m], i] <span style="color: blue; font-weight: normal; font-style: normal;">for </span>i<span style="color: blue; font-weight: normal; font-style: normal;"> in </span>1:nHis},
+                    k=<span style="color: blue; font-weight: normal; font-style: normal;">if </span>historyComplete[_typeOfDay[m], iSam[m]]<span style="color: blue; font-weight: normal; font-style: normal;"> then </span>nHis<span style="color: blue; font-weight: normal; font-style: normal;"> else </span>iHis[_typeOfDay[m], iSam[m]]);
+      <span style="color: blue; font-weight: normal; font-style: normal;">end for</span>;
+    <span style="color: blue; font-weight: normal; font-style: normal;">elseif </span>predictionModel == Types.PredictionModel.WeatherRegression<span style="color: blue; font-weight: normal; font-style: normal;"> then</span>
+      <span style="color: blue; font-weight: normal; font-style: normal;">for </span>m<span style="color: blue; font-weight: normal; font-style: normal;"> in </span>1:nPre<span style="color: blue; font-weight: normal; font-style: normal;"> loop</span>
+        PPre[m] :=<span style="color: red; font-weight: normal; font-style: normal;">Buildings.Controls.Predictors.BaseClasses.weatherRegression</span>(
+                    TCur=<span style="color: blue; font-weight: normal; font-style: normal;">if </span>m == 1<span style="color: blue; font-weight: normal; font-style: normal;"> then </span>TOut_in_internal<span style="color: blue; font-weight: normal; font-style: normal;"> else </span>TOutFut_in_internal[m-1],
+                    T={T[_typeOfDay[m], iSam[m], i] <span style="color: blue; font-weight: normal; font-style: normal;">for </span>i<span style="color: blue; font-weight: normal; font-style: normal;"> in </span>1:nHis},
+                    P={P[_typeOfDay[m], iSam[m], i] <span style="color: blue; font-weight: normal; font-style: normal;">for </span>i<span style="color: blue; font-weight: normal; font-style: normal;"> in </span>1:nHis},
+                    k=<span style="color: blue; font-weight: normal; font-style: normal;">if </span>historyComplete[_typeOfDay[m], iSam[m]]<span style="color: blue; font-weight: normal; font-style: normal;"> then </span>nHis<span style="color: blue; font-weight: normal; font-style: normal;"> else </span>iHis[_typeOfDay[m], iSam[m]]);
+      <span style="color: blue; font-weight: normal; font-style: normal;">end for</span>;
+    <span style="color: blue; font-weight: normal; font-style: normal;">else</span>
+      PPre:=<span style="color: red; font-weight: normal; font-style: normal;"> zeros</span>(nPre);
+      <span style="color: red; font-weight: normal; font-style: normal;">assert</span>(false, &quot;Wrong value for prediction model.&quot;);
+    <span style="color: blue; font-weight: normal; font-style: normal;">end if</span>;
+
+    <span style="color: blue; font-weight: normal; font-style: normal;">if </span>use_dayOfAdj<span style="color: blue; font-weight: normal; font-style: normal;"> then</span>
+      <span style="color: blue; font-weight: normal; font-style: normal;">if </span>_storeHistory<span style="color: blue; font-weight: normal; font-style: normal;"> or </span><span style="color: red; font-weight: normal; font-style: normal;">pre</span>(_storeHistory)<span style="color: blue; font-weight: normal; font-style: normal;"> then</span>
+
+        <span style="color: #006400; font-weight: normal; font-style: normal;">// Store the predicted power consumption. This variable is stored</span>
+        <span style="color: #006400; font-weight: normal; font-style: normal;">// to avoid having to compute the average or weather regression multiple times.</span>
+        PPreHis[_typeOfDay[1],<span style="color: red; font-weight: normal; font-style: normal;">    getIndex</span>(idxSam+1, nSam)] :=  PPre[1];
+
+        <span style="color: #006400; font-weight: normal; font-style: normal;">// If iHis == 0, then there is no history yet and hence PPre[1] is 0.</span>
+        PPreHisSet[_typeOfDay[1],<span style="color: red; font-weight: normal; font-style: normal;"> getIndex</span>(idxSam+1, nSam)] :=  (iHis[_typeOfDay[1], iSam[1]] &gt; 0);
+      <span style="color: blue; font-weight: normal; font-style: normal;">end if</span>;
+      <span style="color: #006400; font-weight: normal; font-style: normal;">// Compute average historical load.</span>
+      <span style="color: #006400; font-weight: normal; font-style: normal;">// This is a running sum over the past nHis days for the time window from iDayOf_start to iDayOf_end.</span>
+      EHisAve := 0;
+      EActAve := 0;
+      <span style="color: blue; font-weight: normal; font-style: normal;">for </span>i<span style="color: blue; font-weight: normal; font-style: normal;"> in </span>iDayOf_start:iDayOf_end-1<span style="color: blue; font-weight: normal; font-style: normal;"> loop</span>
+        <span style="color: blue; font-weight: normal; font-style: normal;">if </span><span style="color: red; font-weight: normal; font-style: normal;">Modelica.Math.BooleanVectors.allTrue</span>(
+           {PPreHisSet[_typeOfDay[1],<span style="color: red; font-weight: normal; font-style: normal;"> getIndex</span>(iSam[1]+i, nSam)] <span style="color: blue; font-weight: normal; font-style: normal;">for </span>i<span style="color: blue; font-weight: normal; font-style: normal;"> in </span>iDayOf_start:iDayOf_end-1})<span style="color: blue; font-weight: normal; font-style: normal;"> then</span>
+           EHisAve := EHisAve + dt*PPreHis[_typeOfDay[1],
+                        <span style="color: red; font-weight: normal; font-style: normal;">getIndex</span>(idxSam+i+1, nSam)];
+           EActAve := EActAve + dt*P[_typeOfDay[1],
+                        <span style="color: red; font-weight: normal; font-style: normal;">getIndex</span>(idxSam+i+1, nSam), iHis[_typeOfDay[1],<span style="color: red; font-weight: normal; font-style: normal;"> getIndex</span>(idxSam+i+1, nSam)]];
+        <span style="color: blue; font-weight: normal; font-style: normal;">else</span>
+          EHisAve := 0;
+          EActAve := 0;
+        <span style="color: blue; font-weight: normal; font-style: normal;">end if</span>;
+      <span style="color: blue; font-weight: normal; font-style: normal;">end for</span>;
+
+      <span style="color: #006400; font-weight: normal; font-style: normal;">// Compute the load adjustment factor.</span>
+      <span style="color: blue; font-weight: normal; font-style: normal;">if </span>(EHisAve &gt; Modelica.Constants.eps<span style="color: blue; font-weight: normal; font-style: normal;"> or </span>EHisAve &lt; -Modelica.Constants.eps)<span style="color: blue; font-weight: normal; font-style: normal;"> then</span>
+        adj :=<span style="color: red; font-weight: normal; font-style: normal;"> min</span>(maxAdjFac,<span style="color: red; font-weight: normal; font-style: normal;"> max</span>(minAdjFac, EActAve/EHisAve));
+      <span style="color: blue; font-weight: normal; font-style: normal;">else</span>
+        adj := 1;
+      <span style="color: blue; font-weight: normal; font-style: normal;">end if</span>;
+      <span style="color: #006400; font-weight: normal; font-style: normal;">// Apply the load adjustment factor to all predicted loads, not only to the</span>
+      <span style="color: #006400; font-weight: normal; font-style: normal;">// predicted load of the current time step.</span>
+      PPre[:] :=PPre[:]*adj;
+    <span style="color: blue; font-weight: normal; font-style: normal;">else</span>
+      EActAve := 0;
+      EHisAve := 0;
+      PPreHis[_typeOfDay[1],<span style="color: red; font-weight: normal; font-style: normal;"> getIndex</span>(iSam[1], nSam)] := 0;
+      PPreHisSet[_typeOfDay[1],<span style="color: red; font-weight: normal; font-style: normal;"> getIndex</span>(iSam[1], nSam)] :=  false;
+      adj := 1;
+    <span style="color: blue; font-weight: normal; font-style: normal;">end if</span>;
+
+    <span style="color: #006400; font-weight: normal; font-style: normal;">// Update iSam</span>
+    <span style="color: blue; font-weight: normal; font-style: normal;">for </span>i<span style="color: blue; font-weight: normal; font-style: normal;"> in </span>1:nPre<span style="color: blue; font-weight: normal; font-style: normal;"> loop</span>
+      iSam[i]   :=<span style="color: red; font-weight: normal; font-style: normal;"> incrementIndex</span>(iSam[i], nSam);
+    <span style="color: blue; font-weight: normal; font-style: normal;">end for</span>;
+
+  <span style="color: blue; font-weight: normal; font-style: normal;">end when</span>;
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>ElectricalLoad;
+</div>
+<hr>
+<address>
+<a href="http://www.3ds.com/">Automatically generated</a> Thu Apr  9 09:32:55 2015.
+</address>
+</body>
+</html>

@@ -1,0 +1,130 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>Buildings.Electrical.AC.ThreePhasesUnbalanced</title>
+<meta name="HTML-Generator" content="Dymola">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="description" content="&quot;Three phases unbalanced AC systems&quot;">
+<style type="text/css">
+*       { font-size: 10pt; font-family: Arial, sans-serif; }
+.modelica, .modelica * { font-size: 9pt; font-family: Courier, monospace; white-space: pre; }
+h4      { font-size: 10pt; font-weight: bold; color: green; }
+h3      { font-size: 11pt; font-weight: bold; color: green; }
+h2      { font-size: 13pt; font-weight: bold; color: green; }
+address { font-weight: normal; }
+td      { border: 1px solid #808080; vertical-align: top; }
+th      { border: 1px solid #808080; vertical-align: top; font-weight: bold; }
+table   { border: 1px solid #808080; border-collapse: collapse; }
+</style>
+<link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../Resources/www/modelicaDoc.css">
+</HEAD>
+<body>
+<!-- --- header ------ -->
+<div class="headerStyle">
+<img src="../Resources/www/lbl-logo.png" alt="LBL logo"/>
+</div>
+<div class="headerLinks">
+<ul><li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt; <a href="Buildings.html">Modelica</a></li></ul>
+</div>
+<!-- --- end header -- -->
+
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE ThreePhasesUnbalanced<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><a name="Buildings.Electrical.AC.ThreePhasesUnbalanced"></a><a href="Buildings_Electrical_AC.html#Buildings.Electrical.AC"
+>Buildings.Electrical.AC</a>.ThreePhasesUnbalanced</h2>
+<p>
+<b>Three phases unbalanced AC systems</b><br>
+</p>
+<h3>Information</h3>
+
+<p>
+Package with models for alternate current (AC) three phase unbalanced systems.<br/>
+The models in this package use the models of the package
+<a href="Buildings_Electrical_AC_OnePhase.html#Buildings.Electrical.AC.OnePhase"
+>
+Buildings.Electrical.AC.OnePhase</a> to fully describe the three-phase.
+</p>
+<p>
+The models that are part of this package assume by default <i>480</i> V
+as the nominal RMS phase to phase voltage. This default can be changed.
+</p>
+
+<h4>Conventions</h4>
+
+<p>
+In this package the voltage phasors are measured using the convention shown below.
+The phase to phase RMS voltages are by default <i>480</i> V,
+which is equal to <code>sqrt(3)</code> times the
+phase to neutral voltage <i>V</i>, which is <i>277.13</i> V.
+</p>
+
+<p align="center">
+<img alt="image" src="../Resources/Images/Electrical/AC/ThreePhasesUnbalanced/PhaseConvention.png"/>
+</p>
+
+<p>
+In this package the voltage phasors are measured using the convention shown above.
+The phase to phase RMS voltage equal to 480 V, is equal to <code>sqrt(3)</code> times the
+phase to neutral voltage <i>V</i> that is equal to 277.13 V.
+</p>
+
+
+<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons_VariantsPackage.html#Modelica.Icons.VariantsPackage"
+>Modelica.Icons.VariantsPackage</a> (Icon for package containing variants).</p>
+<h3>Package Content</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Package Content">
+<tr>
+<th>Name</th>
+<th>Description</th>
+</tr>
+<tr>
+<td><img src="Buildings.Electrical.AC.Tfcf2770617f90cebrsionS.png" alt="Buildings.Electrical.AC.ThreePhasesUnbalanced.Conversion" width="20" height="20" align="top">&nbsp;<a href="Buildings_Electrical_AC_ThreePhasesUnbalanced_Conversion.html#Buildings.Electrical.AC.ThreePhasesUnbalanced.Conversion"
+>Conversion</a>
+</td>
+<td>Package with converter and transformer models for three-phase
+  unbalanced AC systems</td>
+</tr>
+<tr>
+<td><img src="Buildings.Electrical.AC.Td3eff6cff061b0fbLinesS.png" alt="Buildings.Electrical.AC.ThreePhasesUnbalanced.Lines" width="20" height="20" align="top">&nbsp;<a href="Buildings_Electrical_AC_ThreePhasesUnbalanced_Lines.html#Buildings.Electrical.AC.ThreePhasesUnbalanced.Lines"
+>Lines</a>
+</td>
+<td>Package with transmission line models for three-phase unbalanced AC systems</td>
+</tr>
+<tr>
+<td><img src="Buildings.Electrical.AC.Td4ba6079f0628cdbLoadsS.png" alt="Buildings.Electrical.AC.ThreePhasesUnbalanced.Loads" width="20" height="20" align="top">&nbsp;<a href="Buildings_Electrical_AC_ThreePhasesUnbalanced_Loads.html#Buildings.Electrical.AC.ThreePhasesUnbalanced.Loads"
+>Loads</a>
+</td>
+<td>Package with load models for three-phase unbalanced AC systems</td>
+</tr>
+<tr>
+<td><img src="Buildings.Electrical.AC.T45b85c895ec89df5nsorsS.png" alt="Buildings.Electrical.AC.ThreePhasesUnbalanced.Sensors" width="20" height="20" align="top">&nbsp;<a href="Buildings_Electrical_AC_ThreePhasesUnbalanced_Sensors.html#Buildings.Electrical.AC.ThreePhasesUnbalanced.Sensors"
+>Sensors</a>
+</td>
+<td>Package with sensor models for three-phase unbalanced AC systems</td>
+</tr>
+<tr>
+<td><img src="Buildings.Electrical.AC.T939dd2904b782f15urcesS.png" alt="Buildings.Electrical.AC.ThreePhasesUnbalanced.Sources" width="20" height="20" align="top">&nbsp;<a href="Buildings_Electrical_AC_ThreePhasesUnbalanced_Sources.html#Buildings.Electrical.AC.ThreePhasesUnbalanced.Sources"
+>Sources</a>
+</td>
+<td>Package with sources model for three-phase unbalanced AC systems</td>
+</tr>
+<tr>
+<td><img src="Buildings.Electrical.AC.T15461f3dd4c822fcationS.png" alt="Buildings.Electrical.AC.ThreePhasesUnbalanced.Validation" width="20" height="20" align="top">&nbsp;<a href="Buildings_Electrical_AC_ThreePhasesUnbalanced_Validation.html#Buildings.Electrical.AC.ThreePhasesUnbalanced.Validation"
+>Validation</a>
+</td>
+<td>Package with validation examples and tests for the AC three-phase unbalanced models</td>
+</tr>
+<tr>
+<td><img src="Buildings.Electrical.AC.T98175d66f8b16462facesS.png" alt="Buildings.Electrical.AC.ThreePhasesUnbalanced.Interfaces" width="20" height="20" align="top">&nbsp;<a href="Buildings_Electrical_AC_ThreePhasesUnbalanced_Interfaces.html#Buildings.Electrical.AC.ThreePhasesUnbalanced.Interfaces"
+>Interfaces</a>
+</td>
+<td>Package with interfaces for three-phase unbalanced AC models</td>
+</tr>
+</table>
+<hr>
+<address>
+<a href="http://www.3ds.com/">Automatically generated</a> Thu Apr  9 09:33:18 2015.
+</address>
+</body>
+</html>

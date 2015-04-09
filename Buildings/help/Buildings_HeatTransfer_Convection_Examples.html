@@ -1,0 +1,253 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>Buildings.HeatTransfer.Convection.Examples</title>
+<meta name="HTML-Generator" content="Dymola">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="description" content="&quot;Collection of models that illustrate model use and test models&quot;">
+<style type="text/css">
+*       { font-size: 10pt; font-family: Arial, sans-serif; }
+.modelica, .modelica * { font-size: 9pt; font-family: Courier, monospace; white-space: pre; }
+h4      { font-size: 10pt; font-weight: bold; color: green; }
+h3      { font-size: 11pt; font-weight: bold; color: green; }
+h2      { font-size: 13pt; font-weight: bold; color: green; }
+address { font-weight: normal; }
+td      { border: 1px solid #808080; vertical-align: top; }
+th      { border: 1px solid #808080; vertical-align: top; font-weight: bold; }
+table   { border: 1px solid #808080; border-collapse: collapse; }
+</style>
+<link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../Resources/www/modelicaDoc.css">
+</HEAD>
+<body>
+<!-- --- header ------ -->
+<div class="headerStyle">
+<img src="../Resources/www/lbl-logo.png" alt="LBL logo"/>
+</div>
+<div class="headerLinks">
+<ul><li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt; <a href="Buildings.html">Modelica</a></li></ul>
+</div>
+<!-- --- end header -- -->
+
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE Examples<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><a name="Buildings.HeatTransfer.Convection.Examples"></a><a href="Buildings_HeatTransfer_Convection.html#Buildings.HeatTransfer.Convection"
+>Buildings.HeatTransfer.Convection</a>.Examples</h2>
+<p>
+<b>Collection of models that illustrate model use and test models</b><br>
+</p>
+<h3>Information</h3>
+
+<p>
+This package contains examples for the use of models that can be found in
+<a href="Buildings_HeatTransfer_Convection.html#Buildings.HeatTransfer.Convection"
+>
+Buildings.HeatTransfer.Convection</a>.
+</p>
+
+<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons_ExamplesPackage.html#Modelica.Icons.ExamplesPackage"
+>Modelica.Icons.ExamplesPackage</a> (Icon for packages containing runnable examples).</p>
+<h3>Package Content</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Package Content">
+<tr>
+<th>Name</th>
+<th>Description</th>
+</tr>
+<tr>
+<td><img src="Buildings.HeatTransfer.Co7f48dc4b8119a8e2eriorS.png" alt="Buildings.HeatTransfer.Convection.Examples.Exterior" width="20" height="20" align="top">&nbsp;<a href="Buildings_HeatTransfer_Convection_Examples.html#Buildings.HeatTransfer.Convection.Examples.Exterior"
+>Exterior</a>
+</td>
+<td>Test model for exterior heat transfer coefficients</td>
+</tr>
+<tr>
+<td><img src="Buildings.HeatTransfer.Co7f48dc4b8119a8e2eriorS.png" alt="Buildings.HeatTransfer.Convection.Examples.Interior" width="20" height="20" align="top">&nbsp;<a href="Buildings_HeatTransfer_Convection_Examples.html#Buildings.HeatTransfer.Convection.Examples.Interior"
+>Interior</a>
+</td>
+<td>Test model for convective heat transfer coefficients</td>
+</tr>
+</table>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE Exterior<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.HeatTransfer.Co7f48dc4b8119a8e2eriorI.png" alt="Buildings.HeatTransfer.Convection.Examples.Exterior" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.HeatTransfer.Convection.Examples.Exterior"></a><a href="Buildings_HeatTransfer_Convection_Examples.html#Buildings.HeatTransfer.Convection.Examples"
+>Buildings.HeatTransfer.Convection.Examples</a>.Exterior</h2>
+<p>
+<b>Test model for exterior heat transfer coefficients</b>
+<br>
+<br><img src="Buildings.HeatTransfer.Co7f48dc4b8119a8e2eriorD.png" alt="Buildings.HeatTransfer.Convection.Examples.Exterior">
+</p>
+<h3>Information</h3>
+
+This example tests the convective heat transfer models for exterior surfaces.
+From <i>t=0...3600</i> seconds, the wind traverses from North to West to South to East and back to
+North. The plot shows the influence of the wind direction on the forced convection
+coefficient for wall surfaces that face North, West, East and South.
+
+<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</a> (Icon for runnable examples).</p>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">model</span> Exterior <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Test model for exterior heat transfer coefficients&quot;</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</a>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+>Modelica.Blocks.Sources.Constant</a> T1(k=290.15);
+  <a href="Buildings_HeatTransfer_Sources.html#Buildings.HeatTransfer.Sources.FixedTemperature"
+>Buildings.HeatTransfer.Sources.FixedTemperature</a> TB(T=293.15);
+  <a href="Buildings_HeatTransfer_Convection.html#Buildings.HeatTransfer.Convection.Exterior"
+>Buildings.HeatTransfer.Convection.Exterior</a> nor(
+    A=1,
+    azi=Buildings.Types.Azimuth.N,
+    til=Buildings.Types.Tilt.Wall,
+    conMod=Buildings.HeatTransfer.Types.ExteriorConvection.TemperatureWind) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;North-facing wall&quot;</span>;
+  <a href="Buildings_HeatTransfer_Convection.html#Buildings.HeatTransfer.Convection.Exterior"
+>Buildings.HeatTransfer.Convection.Exterior</a> wes(
+    A=1,
+    azi=Buildings.Types.Azimuth.W,
+    til=Buildings.Types.Tilt.Wall,
+    conMod=Buildings.HeatTransfer.Types.ExteriorConvection.TemperatureWind) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;West facing wall&quot;</span>;
+  <a href="Buildings_HeatTransfer_Sources.html#Buildings.HeatTransfer.Sources.PrescribedTemperature"
+>Buildings.HeatTransfer.Sources.PrescribedTemperature</a> TA1;
+  <a href="Buildings_HeatTransfer_Sources.html#Buildings.HeatTransfer.Sources.PrescribedTemperature"
+>Buildings.HeatTransfer.Sources.PrescribedTemperature</a> TA2;
+  <a href="Buildings_HeatTransfer_Sources.html#Buildings.HeatTransfer.Sources.PrescribedTemperature"
+>Buildings.HeatTransfer.Sources.PrescribedTemperature</a> TA3;
+  <a href="Buildings_HeatTransfer_Sources.html#Buildings.HeatTransfer.Sources.PrescribedTemperature"
+>Buildings.HeatTransfer.Sources.PrescribedTemperature</a> TA4;
+  <a href="Buildings_HeatTransfer_Convection.html#Buildings.HeatTransfer.Convection.Exterior"
+>Buildings.HeatTransfer.Convection.Exterior</a> sou(
+    A=1,
+    azi=Buildings.Types.Azimuth.S,
+    til=Buildings.Types.Tilt.Wall,
+    conMod=Buildings.HeatTransfer.Types.ExteriorConvection.TemperatureWind) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;South facing wall&quot;</span>;
+  <a href="Buildings_HeatTransfer_Convection.html#Buildings.HeatTransfer.Convection.Exterior"
+>Buildings.HeatTransfer.Convection.Exterior</a> eas(
+    A=1,
+    azi=Buildings.Types.Azimuth.E,
+    til=Buildings.Types.Tilt.Wall,
+    conMod=Buildings.HeatTransfer.Types.ExteriorConvection.TemperatureWind) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;East facing wall&quot;</span>;
+  <a href="Buildings_HeatTransfer_Sources.html#Buildings.HeatTransfer.Sources.FixedTemperature"
+>Buildings.HeatTransfer.Sources.FixedTemperature</a> TB1(T=293.15);
+  <a href="Buildings_HeatTransfer_Sources.html#Buildings.HeatTransfer.Sources.FixedTemperature"
+>Buildings.HeatTransfer.Sources.FixedTemperature</a> TB2(T=293.15);
+  <a href="Buildings_HeatTransfer_Sources.html#Buildings.HeatTransfer.Sources.FixedTemperature"
+>Buildings.HeatTransfer.Sources.FixedTemperature</a> TB3(T=293.15);
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Ramp"
+>Modelica.Blocks.Sources.Ramp</a> direction(duration=3600, height=2*3.14159) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Wind direction (0=from north)&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+>Modelica.Blocks.Sources.Constant</a> vWin(k=2) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Wind speed&quot;</span>;
+<span style="color: blue; font-weight: normal; font-style: normal;">equation </span>
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(T1.y, TA4.T);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(T1.y, TA3.T);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(T1.y, TA2.T);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(T1.y, TA1.T);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(TA1.port, nor.solid);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(TA2.port, wes.solid);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(TA3.port, sou.solid);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(TA4.port, eas.solid);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(nor.fluid, TB.port);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(wes.fluid, TB1.port);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(eas.fluid, TB2.port);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(sou.fluid, TB3.port);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(vWin.y, wes.v);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(vWin.y, nor.v);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(vWin.y, eas.v);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(vWin.y, sou.v);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(direction.y, nor.dir);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(direction.y, sou.dir);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(direction.y, wes.dir);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(direction.y, eas.dir);
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>Exterior;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE Interior<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.HeatTransfer.Co7f48dc4b8119a8e2eriorI.png" alt="Buildings.HeatTransfer.Convection.Examples.Interior" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.HeatTransfer.Convection.Examples.Interior"></a><a href="Buildings_HeatTransfer_Convection_Examples.html#Buildings.HeatTransfer.Convection.Examples"
+>Buildings.HeatTransfer.Convection.Examples</a>.Interior</h2>
+<p>
+<b>Test model for convective heat transfer coefficients</b>
+<br>
+<br><img src="Buildings.HeatTransfer.Co4de5c5fd0119a887eriorD.png" alt="Buildings.HeatTransfer.Convection.Examples.Interior">
+</p>
+<h3>Information</h3>
+
+This example tests the convective heat transfer models.
+
+<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</a> (Icon for runnable examples).</p>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">model</span> Interior <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Test model for convective heat transfer coefficients&quot;</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</a>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Ramp"
+>Modelica.Blocks.Sources.Ramp</a> step(
+    duration=1,
+    startTime=0,
+    height=10,
+    offset=293.15 - 5);
+  <a href="Buildings_HeatTransfer_Sources.html#Buildings.HeatTransfer.Sources.FixedTemperature"
+>Buildings.HeatTransfer.Sources.FixedTemperature</a> TB(T=293.15);
+  <a href="Buildings_HeatTransfer_Convection.html#Buildings.HeatTransfer.Convection.Interior"
+>Buildings.HeatTransfer.Convection.Interior</a> conCon(
+                                           A=1,
+  til=Buildings.Types.Tilt.Wall);
+  <a href="Buildings_HeatTransfer_Convection.html#Buildings.HeatTransfer.Convection.Interior"
+>Buildings.HeatTransfer.Convection.Interior</a> conVer(
+                                           A=1,
+  til=Buildings.Types.Tilt.Wall,
+  conMod=Buildings.HeatTransfer.Types.InteriorConvection.Temperature);
+  <a href="Buildings_HeatTransfer_Sources.html#Buildings.HeatTransfer.Sources.PrescribedTemperature"
+>Buildings.HeatTransfer.Sources.PrescribedTemperature</a> TA1;
+  <a href="Buildings_HeatTransfer_Sources.html#Buildings.HeatTransfer.Sources.PrescribedTemperature"
+>Buildings.HeatTransfer.Sources.PrescribedTemperature</a> TA2;
+  <a href="Buildings_HeatTransfer_Sources.html#Buildings.HeatTransfer.Sources.PrescribedTemperature"
+>Buildings.HeatTransfer.Sources.PrescribedTemperature</a> TA3;
+  <a href="Buildings_HeatTransfer_Sources.html#Buildings.HeatTransfer.Sources.PrescribedTemperature"
+>Buildings.HeatTransfer.Sources.PrescribedTemperature</a> TA4;
+  <a href="Buildings_HeatTransfer_Convection.html#Buildings.HeatTransfer.Convection.Interior"
+>Buildings.HeatTransfer.Convection.Interior</a> conHorFluTop(
+    A=1,
+    til=Buildings.Types.Tilt.Floor,
+    conMod=Buildings.HeatTransfer.Types.InteriorConvection.Temperature) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Convection model with fluid on top&quot;</span>;
+  <a href="Buildings_HeatTransfer_Convection.html#Buildings.HeatTransfer.Convection.Interior"
+>Buildings.HeatTransfer.Convection.Interior</a> conHorSolTop(
+    A=1,
+    til=Buildings.Types.Tilt.Ceiling,
+    conMod=Buildings.HeatTransfer.Types.InteriorConvection.Temperature) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Convection model with solid on top&quot;</span>;
+  <a href="Buildings_HeatTransfer_Sources.html#Buildings.HeatTransfer.Sources.FixedTemperature"
+>Buildings.HeatTransfer.Sources.FixedTemperature</a> TB1(T=293.15);
+  <a href="Buildings_HeatTransfer_Sources.html#Buildings.HeatTransfer.Sources.FixedTemperature"
+>Buildings.HeatTransfer.Sources.FixedTemperature</a> TB2(T=293.15);
+  <a href="Buildings_HeatTransfer_Sources.html#Buildings.HeatTransfer.Sources.FixedTemperature"
+>Buildings.HeatTransfer.Sources.FixedTemperature</a> TB3(T=293.15);
+<span style="color: blue; font-weight: normal; font-style: normal;">equation </span>
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(conCon.solid, TB.port);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(step.y, TA4.T);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(step.y, TA3.T);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(step.y, TA2.T);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(step.y, TA1.T);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(TA1.port, conCon.fluid);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(TA2.port, conVer.fluid);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(TA3.port, conHorFluTop.fluid);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(TA4.port, conHorSolTop.fluid);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(TB1.port, conVer.solid);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(TB2.port, conHorFluTop.solid);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(TB3.port, conHorSolTop.solid);
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>Interior;
+</div>
+<hr>
+<address>
+<a href="http://www.3ds.com/">Automatically generated</a> Thu Apr  9 09:37:14 2015.
+</address>
+</body>
+</html>

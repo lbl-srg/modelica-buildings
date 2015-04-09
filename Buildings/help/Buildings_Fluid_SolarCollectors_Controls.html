@@ -1,0 +1,177 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>Buildings.Fluid.SolarCollectors.Controls</title>
+<meta name="HTML-Generator" content="Dymola">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="description" content="&quot;Package for solar thermal collector controllers&quot;">
+<style type="text/css">
+*       { font-size: 10pt; font-family: Arial, sans-serif; }
+.modelica, .modelica * { font-size: 9pt; font-family: Courier, monospace; white-space: pre; }
+h4      { font-size: 10pt; font-weight: bold; color: green; }
+h3      { font-size: 11pt; font-weight: bold; color: green; }
+h2      { font-size: 13pt; font-weight: bold; color: green; }
+address { font-weight: normal; }
+td      { border: 1px solid #808080; vertical-align: top; }
+th      { border: 1px solid #808080; vertical-align: top; font-weight: bold; }
+table   { border: 1px solid #808080; border-collapse: collapse; }
+</style>
+<link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../Resources/www/modelicaDoc.css">
+</HEAD>
+<body>
+<!-- --- header ------ -->
+<div class="headerStyle">
+<img src="../Resources/www/lbl-logo.png" alt="LBL logo"/>
+</div>
+<div class="headerLinks">
+<ul><li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt; <a href="Buildings.html">Modelica</a></li></ul>
+</div>
+<!-- --- end header -- -->
+
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE Controls<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><a name="Buildings.Fluid.SolarCollectors.Controls"></a><a href="Buildings_Fluid_SolarCollectors.html#Buildings.Fluid.SolarCollectors"
+>Buildings.Fluid.SolarCollectors</a>.Controls</h2>
+<p>
+<b>Package for solar thermal collector controllers</b><br>
+</p>
+<h3>Information</h3>
+
+  <p>
+    This package contains a controller for solar thermal collectors.
+  </p>
+  
+<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons_Package.html#Modelica.Icons.Package"
+>Modelica.Icons.Package</a> (Icon for standard packages).</p>
+<h3>Package Content</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Package Content">
+<tr>
+<th>Name</th>
+<th>Description</th>
+</tr>
+<tr>
+<td><img src="Buildings.Fluid.SolarColl22aade6fb8bfc902ollerS.png" alt="Buildings.Fluid.SolarCollectors.Controls.SolarPumpController" width="20" height="20" align="top">&nbsp;<a href="Buildings_Fluid_SolarCollectors_Controls.html#Buildings.Fluid.SolarCollectors.Controls.SolarPumpController"
+>SolarPumpController</a>
+</td>
+<td>Controller which activates a circulation pump when solar radiation is above a critical level</td>
+</tr>
+<tr>
+<td><img src="Buildings.Fluid.SolarColle50cb5c7bb92881cmplesS.png" alt="Buildings.Fluid.SolarCollectors.Controls.Examples" width="20" height="20" align="top">&nbsp;<a href="Buildings_Fluid_SolarCollectors_Controls_Examples.html#Buildings.Fluid.SolarCollectors.Controls.Examples"
+>Examples</a>
+</td>
+<td>Examples for solar thermal collector controller models</td>
+</tr>
+<tr>
+<td><img src="Buildings.Fluid.SolarColl6791a15b8450af06assesS.png" alt="Buildings.Fluid.SolarCollectors.Controls.BaseClasses" width="20" height="20" align="top">&nbsp;<a href="Buildings_Fluid_SolarCollectors_Controls_BaseClasses.html#Buildings.Fluid.SolarCollectors.Controls.BaseClasses"
+>BaseClasses</a>
+</td>
+<td>Package of BaseClass models used to create the models in the Controls package</td>
+</tr>
+</table>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE SolarPumpController<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Fluid.SolarColl22aade6fb8bfc902ollerI.png" alt="Buildings.Fluid.SolarCollectors.Controls.SolarPumpController" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Fluid.SolarCollectors.Controls.SolarPumpController"></a><a href="Buildings_Fluid_SolarCollectors_Controls.html#Buildings.Fluid.SolarCollectors.Controls"
+>Buildings.Fluid.SolarCollectors.Controls</a>.SolarPumpController</h2>
+<p>
+<b>Controller which activates a circulation pump when solar radiation is above a critical level</b>
+<br>
+<br><img src="Buildings.Fluid.SolarColl22aade6fb8bfc902ollerD.png" alt="Buildings.Fluid.SolarCollectors.Controls.SolarPumpController">
+</p>
+<h3>Information</h3>
+
+      <p>
+        This component models a pump controller which might be used in a solar thermal system.
+        It controls whether the pump is active or inactive based on the incident solar radiation
+        and the system parameters. The pump is activated when the incident solar radiation is
+        greater than the critical radiation.
+      </p>
+      <p>
+        The critical radiation is defined per Equation 6.8.2 in Duffie and Beckman (2006). It is
+      </p>
+      <p align="center" style="font-style:italic;">
+        G<sub>TC</sub>=(F<sub>R</sub>U<sub>L</sub> (T<sub>In</sub>-T<sub>Env</sub>))/(F<sub>R</sub>(&tau;&alpha;))
+      </p>
+      <p>
+        where <i>G<sub>TC</sub></i> is the critical solar radiation, <i>F<sub>R</sub>U<sub>L</sub></i>
+        is the heat loss coefficient, <i>T<sub>In</sub></i> is the inlet temperature,
+        <i>T<sub>Env</sub></i> is the ambient temperature, and <i>F<sub>R</sub>(&tau;&alpha;)</i>
+        is the maximum efficiency.
+      </p>
+    <h4>References</h4>
+      <p>
+        J.A. Duffie and W.A. Beckman 2006, Solar Engineering of Thermal Processes (3rd Edition),
+        John Wiley &amp; Sons, Inc.<br/>
+      </p>
+  
+<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Icons.html#Modelica.Blocks.Icons.Block"
+>Modelica.Blocks.Icons.Block</a> (Basic graphical layout of input/output block).</p>
+<h3>Parameters</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td>Real</td><td>delY</td><td>0.01</td><td>Width of the smoothHeaviside function [W/m2]</td></tr>
+<tr><td><a href="Buildings_Fluid_SolarCollectors_Data.html#Buildings.Fluid.SolarCollectors.Data.GenericSolarCollector"
+>GenericSolarCollector</a></td><td>per</td><td>&nbsp;</td><td>Performance data</td></tr>
+</table>
+<h3>Connectors</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Connectors">
+<tr><th>Type</th><th>Name</th><th>Description</th></tr>
+<tr><td>input <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>RealInput</a></td><td>TIn</td><td>Fluid temperature entering the collector [K]</td></tr>
+<tr><td>output <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+>RealOutput</a></td><td>y</td><td>On/off control signal for the pump [1]</td></tr>
+<tr><td><a href="Buildings_BoundaryConditions_WeatherData.html#Buildings.BoundaryConditions.WeatherData.Bus"
+>Bus</a></td><td>weaBus</td><td>Weather data input</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">model</span> SolarPumpController <span style="color: #006400; font-weight: normal; font-style: normal;">
+  &quot;Controller which activates a circulation pump when solar radiation is above a critical level&quot;</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Icons.html#Modelica.Blocks.Icons.Block"
+>Modelica.Blocks.Icons.Block</a>;
+
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Real delY(<span style="color: blue; font-weight: normal; font-style: normal;">final </span>unit = &quot;W/m2&quot;) = 0.01 <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Width of the smoothHeaviside function&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="Buildings_Fluid_SolarCollectors_Data.html#Buildings.Fluid.SolarCollectors.Data.GenericSolarCollector"
+>Buildings.Fluid.SolarCollectors.Data.GenericSolarCollector</a> per <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Performance data&quot;</span>;
+
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>Modelica.Blocks.Interfaces.RealInput</a> TIn(<span style="color: blue; font-weight: normal; font-style: normal;">final </span>unit = &quot;K&quot;,
+  <span style="color: blue; font-weight: normal; font-style: normal;">final </span>displayUnit = &quot;degC&quot;, quantity = &quot;ThermodynamicTemperature&quot;) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Fluid temperature entering the collector&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+>Modelica.Blocks.Interfaces.RealOutput</a> y(min=0, max=1, unit=&quot;1&quot;) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;On/off control signal for the pump&quot;</span>;
+  <a href="Buildings_BoundaryConditions_WeatherData.html#Buildings.BoundaryConditions.WeatherData.Bus"
+>Buildings.BoundaryConditions.WeatherData.Bus</a> weaBus <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Weather data input&quot;</span>;
+
+  <a href="Buildings_Fluid_SolarCollectors_Controls_BaseClasses.html#Buildings.Fluid.SolarCollectors.Controls.BaseClasses.GCritCalc"
+>Buildings.Fluid.SolarCollectors.Controls.BaseClasses.GCritCalc</a> criSol(<span style="color: blue; font-weight: normal; font-style: normal;">final </span>
+      slope=per.slope, <span style="color: blue; font-weight: normal; font-style: normal;">final </span>y_intercept=per.y_intercept) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Calculates the critical insolation based on collector design and current weather conditions&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Math.html#Modelica.Blocks.Math.Add"
+>Modelica.Blocks.Math.Add</a> add(<span style="color: blue; font-weight: normal; font-style: normal;">final </span>k2=-1) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Compares the current insolation to the critical insolation&quot;</span>;
+<span style="color: blue; font-weight: normal; font-style: normal;">protected </span>
+  <a href="Buildings_Utilities_Math.html#Buildings.Utilities.Math.SmoothHeaviside"
+>Buildings.Utilities.Math.SmoothHeaviside</a> smoHea(<span style="color: blue; font-weight: normal; font-style: normal;">final </span>delta=delY) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Creates a smooth 1/0 output&quot;</span>;
+
+<span style="color: blue; font-weight: normal; font-style: normal;">equation </span>
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(TIn, criSol.TIn);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(weaBus.TDryBul, criSol.TEnv);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(weaBus.HDirNor, add.u1);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(smoHea.y, y);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(add.y, smoHea.u);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(criSol.G_TC, add.u2);
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>SolarPumpController;
+</div>
+<hr>
+<address>
+<a href="http://www.3ds.com/">Automatically generated</a> Thu Apr  9 09:36:41 2015.
+</address>
+</body>
+</html>

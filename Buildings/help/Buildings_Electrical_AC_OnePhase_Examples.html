@@ -1,0 +1,176 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>Buildings.Electrical.AC.OnePhase.Examples</title>
+<meta name="HTML-Generator" content="Dymola">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="description" content="&quot;Package with example models&quot;">
+<style type="text/css">
+*       { font-size: 10pt; font-family: Arial, sans-serif; }
+.modelica, .modelica * { font-size: 9pt; font-family: Courier, monospace; white-space: pre; }
+h4      { font-size: 10pt; font-weight: bold; color: green; }
+h3      { font-size: 11pt; font-weight: bold; color: green; }
+h2      { font-size: 13pt; font-weight: bold; color: green; }
+address { font-weight: normal; }
+td      { border: 1px solid #808080; vertical-align: top; }
+th      { border: 1px solid #808080; vertical-align: top; font-weight: bold; }
+table   { border: 1px solid #808080; border-collapse: collapse; }
+</style>
+<link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../Resources/www/modelicaDoc.css">
+</HEAD>
+<body>
+<!-- --- header ------ -->
+<div class="headerStyle">
+<img src="../Resources/www/lbl-logo.png" alt="LBL logo"/>
+</div>
+<div class="headerLinks">
+<ul><li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt; <a href="Buildings.html">Modelica</a></li></ul>
+</div>
+<!-- --- end header -- -->
+
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE Examples<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><a name="Buildings.Electrical.AC.OnePhase.Examples"></a><a href="Buildings_Electrical_AC_OnePhase.html#Buildings.Electrical.AC.OnePhase"
+>Buildings.Electrical.AC.OnePhase</a>.Examples</h2>
+<p>
+<b>Package with example models</b><br>
+</p>
+<h3>Information</h3>
+
+<p>
+This package contains examples for the use of models that can be found in
+<a href="Buildings_Electrical_AC_OnePhase.html#Buildings.Electrical.AC.OnePhase"
+>
+Buildings.Electrical.AC.OnePhase</a>.
+</p>
+
+<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons_ExamplesPackage.html#Modelica.Icons.ExamplesPackage"
+>Modelica.Icons.ExamplesPackage</a> (Icon for packages containing runnable examples).</p>
+<h3>Package Content</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Package Content">
+<tr>
+<th>Name</th>
+<th>Description</th>
+</tr>
+<tr>
+<td><img src="Buildings.Electrical.AC.Of8793cb1f639cffetteryS.png" alt="Buildings.Electrical.AC.OnePhase.Examples.GeneratorLoadGrid" width="20" height="20" align="top">&nbsp;<a href="Buildings_Electrical_AC_OnePhase_Examples.html#Buildings.Electrical.AC.OnePhase.Examples.GeneratorLoadGrid"
+>GeneratorLoadGrid</a>
+</td>
+<td>Generator with a load and grid connection</td>
+</tr>
+<tr>
+<td><img src="Buildings.Electrical.AC.Of8793cb1f639cffetteryS.png" alt="Buildings.Electrical.AC.OnePhase.Examples.GridDCLoad" width="20" height="20" align="top">&nbsp;<a href="Buildings_Electrical_AC_OnePhase_Examples.html#Buildings.Electrical.AC.OnePhase.Examples.GridDCLoad"
+>GridDCLoad</a>
+</td>
+<td>Model of a DC load connected to the grid</td>
+</tr>
+</table>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE GeneratorLoadGrid<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Electrical.AC.Of81bb946e01cc0a8dGridI.png" alt="Buildings.Electrical.AC.OnePhase.Examples.GeneratorLoadGrid" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Electrical.AC.OnePhase.Examples.GeneratorLoadGrid"></a><a href="Buildings_Electrical_AC_OnePhase_Examples.html#Buildings.Electrical.AC.OnePhase.Examples"
+>Buildings.Electrical.AC.OnePhase.Examples</a>.GeneratorLoadGrid</h2>
+<p>
+<b>Generator with a load and grid connection</b>
+<br>
+<br><img src="Buildings.Electrical.AC.Of81bb946e01cc0a8dGridD.png" alt="Buildings.Electrical.AC.OnePhase.Examples.GeneratorLoadGrid">
+</p>
+<h3>Information</h3>
+
+<p>
+This model illustrates a generator, an inductive load and a grid connection.
+The power output of the generator is equal to its input signal, which is
+a ramp function.
+The output <code>grid.P</code> shows
+the actual and apparent power, the power factor and
+the phase angle.
+</p>
+
+<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</a> (Icon for runnable examples).</p>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">model</span> GeneratorLoadGrid <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Generator with a load and grid connection&quot;</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</a>;
+
+  <a href="Buildings_Electrical_AC_OnePhase_Sources.html#Buildings.Electrical.AC.OnePhase.Sources.Grid"
+>Sources.Grid</a> grid(
+    f=60,
+    V=120,
+    phiSou=0.5235987755983) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Electrical grid&quot;</span>;
+  <a href="Buildings_Electrical_AC_OnePhase_Sources.html#Buildings.Electrical.AC.OnePhase.Sources.Generator"
+>Sources.Generator</a> sou(f=60, phiGen(displayUnit=&quot;rad&quot;)) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Gas turbine&quot;</span>;
+  <a href="Buildings_Electrical_AC_OnePhase_Loads.html#Buildings.Electrical.AC.OnePhase.Loads.Inductive"
+>Buildings.Electrical.AC.OnePhase.Loads.Inductive</a> res(
+    mode=Buildings.Electrical.Types.Load.FixedZ_steady_state,
+    P_nominal=-5e3,
+    V_nominal=120,
+    pf=1) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Inductive load&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Ramp"
+>Modelica.Blocks.Sources.Ramp</a> ramp(
+    height=1e4,
+    duration=0.6,
+    startTime=0.1,
+    offset=0);
+<span style="color: blue; font-weight: normal; font-style: normal;">equation </span>
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(ramp.y, sou.P);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(sou.terminal, grid.terminal);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(res.terminal, grid.terminal);
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>GeneratorLoadGrid;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE GridDCLoad<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Electrical.AC.Of81bb946e01cc0a8dGridI.png" alt="Buildings.Electrical.AC.OnePhase.Examples.GridDCLoad" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Electrical.AC.OnePhase.Examples.GridDCLoad"></a><a href="Buildings_Electrical_AC_OnePhase_Examples.html#Buildings.Electrical.AC.OnePhase.Examples"
+>Buildings.Electrical.AC.OnePhase.Examples</a>.GridDCLoad</h2>
+<p>
+<b>Model of a DC load connected to the grid</b>
+<br>
+<br><img src="Buildings.Electrical.AC.Ob74f63f0d2b3c53eCLoadD.png" alt="Buildings.Electrical.AC.OnePhase.Examples.GridDCLoad">
+</p>
+<h3>Information</h3>
+
+<p>
+This model illustrates the use of a model for inductive load. The circuit on the left hand side
+uses an inductive load, whereas the circuit on the right hand side uses a resistor and inductance in
+series.
+The parameters of the inductor and resistor are such that the real power and the phase angle are
+identical (up to the numerical precision of the parameters) for the two systems.
+</p>
+
+<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</a> (Icon for runnable examples).</p>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">model</span> GridDCLoad <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Model of a DC load connected to the grid&quot;</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</a>;
+  <a href="Buildings_Electrical_AC_OnePhase_Sources.html#Buildings.Electrical.AC.OnePhase.Sources.Grid"
+>Buildings.Electrical.AC.OnePhase.Sources.Grid</a>
+               grid(
+    f=60,
+    phiSou=0,
+    V=120);
+  <a href="Buildings_Electrical_AC_OnePhase_Conversion.html#Buildings.Electrical.AC.OnePhase.Conversion.ACDCConverter"
+>Buildings.Electrical.AC.OnePhase.Conversion.ACDCConverter</a>
+                                                   idealACDCConverter1(
+                               eta=0.9,
+    ground_AC=false,
+    conversionFactor=12/120);
+  <a href="Buildings_Electrical_DC_Loads.html#Buildings.Electrical.DC.Loads.Resistor"
+>Buildings.Electrical.DC.Loads.Resistor</a>    resistor(R=1, V_nominal=12);
+<span style="color: blue; font-weight: normal; font-style: normal;">equation </span>
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(grid.terminal, idealACDCConverter1.terminal_n);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(idealACDCConverter1.terminal_p, resistor.terminal);
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>GridDCLoad;
+</div>
+<hr>
+<address>
+<a href="http://www.3ds.com/">Automatically generated</a> Thu Apr  9 09:33:09 2015.
+</address>
+</body>
+</html>

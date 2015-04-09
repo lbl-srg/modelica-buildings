@@ -1,0 +1,148 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>Buildings.Obsolete.Media.Interfaces.Choices</title>
+<meta name="HTML-Generator" content="Dymola">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="description" content="&quot;Types, constants to define menu choices&quot;">
+<style type="text/css">
+*       { font-size: 10pt; font-family: Arial, sans-serif; }
+.modelica, .modelica * { font-size: 9pt; font-family: Courier, monospace; white-space: pre; }
+h4      { font-size: 10pt; font-weight: bold; color: green; }
+h3      { font-size: 11pt; font-weight: bold; color: green; }
+h2      { font-size: 13pt; font-weight: bold; color: green; }
+address { font-weight: normal; }
+td      { border: 1px solid #808080; vertical-align: top; }
+th      { border: 1px solid #808080; vertical-align: top; font-weight: bold; }
+table   { border: 1px solid #808080; border-collapse: collapse; }
+</style>
+<link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../Resources/www/modelicaDoc.css">
+</HEAD>
+<body>
+<!-- --- header ------ -->
+<div class="headerStyle">
+<img src="../Resources/www/lbl-logo.png" alt="LBL logo"/>
+</div>
+<div class="headerLinks">
+<ul><li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt; <a href="Buildings.html">Modelica</a></li></ul>
+</div>
+<!-- --- end header -- -->
+
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE Choices<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><a name="Buildings.Obsolete.Media.Interfaces.Choices"></a><a href="Buildings_Obsolete_Media_Interfaces.html#Buildings.Obsolete.Media.Interfaces"
+>Buildings.Obsolete.Media.Interfaces</a>.Choices</h2>
+<p>
+<b>Types, constants to define menu choices</b><br>
+</p>
+<h3>Information</h3>
+
+<p>
+Enumerations and data types for all types of fluids
+</p>
+
+<p>
+Note: Reference enthalpy might have to be extended with enthalpy of formation.
+</p>
+<h4>Implementation</h4>
+<p>
+This package is a copy from the Modelica Standard Library (MSL) because
+MSL 3.2 stores this package in
+<code>Modelica.Media.Interfaces.PartialMedium.Choices</code>, whereas
+MSL 3.2.1 stores it in
+<code>Modelica.Media.Interfaces.Choices</code> because enumerations
+cannot be done through a partial package.
+The local copy has done to enable compatibility with both versions.
+</p>
+
+<h3>Package Content</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Package Content">
+<tr>
+<th>Name</th>
+<th>Description</th>
+</tr>
+<tr>
+<td><a href="Buildings_Obsolete_Media_Interfaces_Choices.html#Buildings.Obsolete.Media.Interfaces.Choices.IndependentVariables"
+>IndependentVariables</a>
+</td>
+<td>Enumeration defining the independent variables of a medium</td>
+</tr>
+<tr>
+<td><a href="Buildings_Obsolete_Media_Interfaces_Choices.html#Buildings.Obsolete.Media.Interfaces.Choices.Init"
+>Init</a>
+</td>
+<td>Enumeration defining initialization for fluid flow</td>
+</tr>
+<tr>
+<td><a href="Buildings_Obsolete_Media_Interfaces_Choices.html#Buildings.Obsolete.Media.Interfaces.Choices.ReferenceEnthalpy"
+>ReferenceEnthalpy</a>
+</td>
+<td>Enumeration defining the reference enthalpy of a medium</td>
+</tr>
+<tr>
+<td><a href="Buildings_Obsolete_Media_Interfaces_Choices.html#Buildings.Obsolete.Media.Interfaces.Choices.ReferenceEntropy"
+>ReferenceEntropy</a>
+</td>
+<td>Enumeration defining the reference entropy of a medium</td>
+</tr>
+<tr>
+<td><a href="Buildings_Obsolete_Media_Interfaces_Choices.html#Buildings.Obsolete.Media.Interfaces.Choices.pd"
+>pd</a>
+</td>
+<td>Enumeration defining whether p or d are known for the boundary condition</td>
+</tr>
+<tr>
+<td><a href="Buildings_Obsolete_Media_Interfaces_Choices.html#Buildings.Obsolete.Media.Interfaces.Choices.Th"
+>Th</a>
+</td>
+<td>Enumeration defining whether T or h are known as boundary condition</td>
+</tr>
+</table>
+<h3>Types and constants</h3>
+<a name="Buildings.Obsolete.Media.Interfaces.Choices.IndependentVariables"></a><pre>  <span style="color: blue; font-weight: normal; font-style: normal;">type</span> IndependentVariables = <span style="color: blue; font-weight: normal; font-style: normal;">enumeration</span>(
+    T <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Temperature&quot;</span>,
+    pT <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Pressure, Temperature&quot;</span>,
+    ph <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Pressure, Specific Enthalpy&quot;</span>,
+    phX <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Pressure, Specific Enthalpy, Mass Fraction&quot;</span>,
+    pTX <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Pressure, Temperature, Mass Fractions&quot;</span>,
+    dTX <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Density, Temperature, Mass Fractions&quot;</span>) <span style="color: #006400; font-weight: normal; font-style: normal;">
+  &quot;Enumeration defining the independent variables of a medium&quot;</span>;</pre>
+<a name="Buildings.Obsolete.Media.Interfaces.Choices.Init"></a><pre>  <span style="color: blue; font-weight: normal; font-style: normal;">type</span> Init = <span style="color: blue; font-weight: normal; font-style: normal;">enumeration</span>(
+    NoInit <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;NoInit (no initialization)&quot;</span>,
+    InitialStates <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;InitialStates (initialize medium states)&quot;</span>,
+    SteadyState <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;SteadyState (initialize in steady state)&quot;</span>,
+    SteadyMass <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;SteadyMass (initialize density or pressure in steady state)&quot;</span>) <span style="color: #006400; font-weight: normal; font-style: normal;">
+  &quot;Enumeration defining initialization for fluid flow&quot;</span>;</pre>
+<a name="Buildings.Obsolete.Media.Interfaces.Choices.ReferenceEnthalpy"></a><pre>  <span style="color: blue; font-weight: normal; font-style: normal;">type</span> ReferenceEnthalpy = <span style="color: blue; font-weight: normal; font-style: normal;">enumeration</span>(
+    ZeroAt0K <span style="color: #006400; font-weight: normal; font-style: normal;">
+      &quot;The enthalpy is 0 at 0 K (default), if the enthalpy of formation is excluded&quot;</span>,
+
+    ZeroAt25C <span style="color: #006400; font-weight: normal; font-style: normal;">
+      &quot;The enthalpy is 0 at 25 degC, if the enthalpy of formation is excluded&quot;</span>,
+
+    UserDefined <span style="color: #006400; font-weight: normal; font-style: normal;">
+      &quot;The user-defined reference enthalpy is used at 293.15 K (25 degC)&quot;</span>) <span style="color: #006400; font-weight: normal; font-style: normal;">
+  &quot;Enumeration defining the reference enthalpy of a medium&quot;</span>;</pre>
+<a name="Buildings.Obsolete.Media.Interfaces.Choices.ReferenceEntropy"></a><pre>  <span style="color: blue; font-weight: normal; font-style: normal;">type</span> ReferenceEntropy = <span style="color: blue; font-weight: normal; font-style: normal;">enumeration</span>(
+    ZeroAt0K <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;The entropy is 0 at 0 K (default)&quot;</span>,
+    ZeroAt0C <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;The entropy is 0 at 0 degC&quot;</span>,
+    UserDefined <span style="color: #006400; font-weight: normal; font-style: normal;">
+      &quot;The user-defined reference entropy is used at 293.15 K (25 degC)&quot;</span>) <span style="color: #006400; font-weight: normal; font-style: normal;">
+  &quot;Enumeration defining the reference entropy of a medium&quot;</span>;</pre>
+<a name="Buildings.Obsolete.Media.Interfaces.Choices.pd"></a><pre>  <span style="color: blue; font-weight: normal; font-style: normal;">type</span> pd = <span style="color: blue; font-weight: normal; font-style: normal;">enumeration</span>(
+    default <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Default (no boundary condition for p or d)&quot;</span>,
+    p_known <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;p_known (pressure p is known)&quot;</span>,
+    d_known <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;d_known (density d is known)&quot;</span>) <span style="color: #006400; font-weight: normal; font-style: normal;">
+  &quot;Enumeration defining whether p or d are known for the boundary condition&quot;</span>;</pre>
+<a name="Buildings.Obsolete.Media.Interfaces.Choices.Th"></a><pre>  <span style="color: blue; font-weight: normal; font-style: normal;">type</span> Th = <span style="color: blue; font-weight: normal; font-style: normal;">enumeration</span>(
+    default <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Default (no boundary condition for T or h)&quot;</span>,
+    T_known <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;T_known (temperature T is known)&quot;</span>,
+    h_known <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;h_known (specific enthalpy h is known)&quot;</span>) <span style="color: #006400; font-weight: normal; font-style: normal;">
+  &quot;Enumeration defining whether T or h are known as boundary condition&quot;</span>;</pre>
+<hr>
+<address>
+<a href="http://www.3ds.com/">Automatically generated</a> Thu Apr  9 09:47:38 2015.
+</address>
+</body>
+</html>

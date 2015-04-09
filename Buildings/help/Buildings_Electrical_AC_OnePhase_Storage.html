@@ -1,0 +1,214 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>Buildings.Electrical.AC.OnePhase.Storage</title>
+<meta name="HTML-Generator" content="Dymola">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="description" content="&quot;Package with models for electrical storage with a AC one phase connector&quot;">
+<style type="text/css">
+*       { font-size: 10pt; font-family: Arial, sans-serif; }
+.modelica, .modelica * { font-size: 9pt; font-family: Courier, monospace; white-space: pre; }
+h4      { font-size: 10pt; font-weight: bold; color: green; }
+h3      { font-size: 11pt; font-weight: bold; color: green; }
+h2      { font-size: 13pt; font-weight: bold; color: green; }
+address { font-weight: normal; }
+td      { border: 1px solid #808080; vertical-align: top; }
+th      { border: 1px solid #808080; vertical-align: top; font-weight: bold; }
+table   { border: 1px solid #808080; border-collapse: collapse; }
+</style>
+<link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../Resources/www/modelicaDoc.css">
+</HEAD>
+<body>
+<!-- --- header ------ -->
+<div class="headerStyle">
+<img src="../Resources/www/lbl-logo.png" alt="LBL logo"/>
+</div>
+<div class="headerLinks">
+<ul><li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt; <a href="Buildings.html">Modelica</a></li></ul>
+</div>
+<!-- --- end header -- -->
+
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE Storage<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><a name="Buildings.Electrical.AC.OnePhase.Storage"></a><a href="Buildings_Electrical_AC_OnePhase.html#Buildings.Electrical.AC.OnePhase"
+>Buildings.Electrical.AC.OnePhase</a>.Storage</h2>
+<p>
+<b>Package with models for electrical storage with a AC one phase connector</b><br>
+</p>
+<h3>Information</h3>
+
+<p>
+This package contains models for storage elements with an AC one phase connector.
+</p>
+
+<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons_Package.html#Modelica.Icons.Package"
+>Modelica.Icons.Package</a> (Icon for standard packages).</p>
+<h3>Package Content</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Package Content">
+<tr>
+<th>Name</th>
+<th>Description</th>
+</tr>
+<tr>
+<td><img src="Buildings.Electrical.AC.Obc2b926ee4f848b8tteryS.png" alt="Buildings.Electrical.AC.OnePhase.Storage.Battery" width="20" height="20" align="top">&nbsp;<a href="Buildings_Electrical_AC_OnePhase_Storage.html#Buildings.Electrical.AC.OnePhase.Storage.Battery"
+>Battery</a>
+</td>
+<td>Simple model of a battery</td>
+</tr>
+<tr>
+<td><img src="Buildings.Electrical.AC.Oc84f52d4f4b3ecd1mplesS.png" alt="Buildings.Electrical.AC.OnePhase.Storage.Examples" width="20" height="20" align="top">&nbsp;<a href="Buildings_Electrical_AC_OnePhase_Storage_Examples.html#Buildings.Electrical.AC.OnePhase.Storage.Examples"
+>Examples</a>
+</td>
+<td>Package with example models</td>
+</tr>
+</table>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE Battery<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Electrical.AC.Obc2b926ee4f848b8tteryI.png" alt="Buildings.Electrical.AC.OnePhase.Storage.Battery" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Electrical.AC.OnePhase.Storage.Battery"></a><a href="Buildings_Electrical_AC_OnePhase_Storage.html#Buildings.Electrical.AC.OnePhase.Storage"
+>Buildings.Electrical.AC.OnePhase.Storage</a>.Battery</h2>
+<p>
+<b>Simple model of a battery</b>
+<br>
+<br><img src="Buildings.Electrical.AC.Obc2b926ee4f848b8tteryD.png" alt="Buildings.Electrical.AC.OnePhase.Storage.Battery">
+</p>
+<h3>Information</h3>
+
+<p>
+Simple model of a battery.
+</p>
+<p>
+This model takes as an input the power to be stored in the battery (if <i>P &gt; 0</i>)
+or to be extracted from the battery. This model has a one phase AC connector
+and takes into account the efficiency of the conversion
+between DC and AC <i>&eta;<sub>DCAC</sub></i>.
+</p>
+<p>
+The output connector <code>SOC</code> is the state of charge of the battery.
+This model does not enforce that the state of charge is between zero and one.
+However, each time the state of charge crosses zero or one, a warning will
+be written to the simulation log file.
+The model also does not limit the current through the battery. The user should
+provide a control so that only a reasonable amount of power is exchanged,
+and that the state of charge remains between zero and one.
+</p>
+
+<p>Extends from <a href="Buildings_Electrical_Interfaces.html#Buildings.Electrical.Interfaces.PartialAcDcParameters"
+>Buildings.Electrical.Interfaces.PartialAcDcParameters</a> (Partial model that contains basic parameters for a DC/AC conversion system).</p>
+<h3>Parameters</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td colspan="2">replaceable package PhaseSystem</td><td>Buildings.Electrical.PhaseSy...</td><td>Phase system</td></tr>
+<tr><td>Real</td><td>etaCha</td><td>0.9</td><td>Efficiency during charging [1]</td></tr>
+<tr><td>Real</td><td>etaDis</td><td>0.9</td><td>Efficiency during discharging [1]</td></tr>
+<tr><td>Real</td><td>SOC_start</td><td>&nbsp;</td><td>Initial charge</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Energy"
+>Energy</a></td><td>EMax</td><td>&nbsp;</td><td>Maximum available charge [J]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Voltage"
+>Voltage</a></td><td>V_nominal</td><td>&nbsp;</td><td>Nominal voltage (V_nominal &gt;= 0) [V]</td></tr>
+<tr><td>Boolean</td><td>linearized</td><td>false</td><td>If =true introduce a linearization in the load</td></tr>
+<tr><td><a href="Buildings_Electrical_AC_OnePhase_Interfaces.html#Buildings.Electrical.AC.OnePhase.Interfaces.Terminal_p"
+>Terminal_p</a></td><td>terminal</td><td>redeclare Buildings.Electric...</td><td>Generalized terminal</td></tr>
+<tr style="background-color: #e0e0e0"><td colspan="4">AC-Conversion</td></tr>
+<tr><td>Real</td><td>pf</td><td>0.9</td><td>Power factor</td></tr>
+<tr><td>Real</td><td>eta_DCAC</td><td>0.9</td><td>Efficiency of DC/AC conversion</td></tr>
+<tr style="background-color: #c0c0c0"><td colspan="4"><b>Initialization</b></td></tr>
+<tr><td><a href="Buildings_Electrical_Types.html#Buildings.Electrical.Types.InitMode"
+>InitMode</a></td><td>initMode</td><td>Buildings.Electrical.Types.I...</td><td>Initialization mode for homotopy operator</td></tr>
+</table>
+<h3>Connectors</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Connectors">
+<tr><th>Type</th><th>Name</th><th>Description</th></tr>
+<tr><td colspan="2">replaceable package PhaseSystem</td><td>Phase system</td></tr>
+<tr><td>input <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>RealInput</a></td><td>P</td><td>Power stored in battery (if positive), or extracted from battery (if negative) [W]</td></tr>
+<tr><td>output <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+>RealOutput</a></td><td>SOC</td><td>State of charge</td></tr>
+<tr><td><a href="Buildings_Electrical_AC_OnePhase_Interfaces.html#Buildings.Electrical.AC.OnePhase.Interfaces.Terminal_p"
+>Terminal_p</a></td><td>terminal</td><td>Generalized terminal</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">model</span> Battery <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Simple model of a battery&quot;</span>
+ <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="Buildings_Electrical_Interfaces.html#Buildings.Electrical.Interfaces.PartialAcDcParameters"
+>Buildings.Electrical.Interfaces.PartialAcDcParameters</a>;
+ <span style="color: blue; font-weight: normal; font-style: normal;">replaceable </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> PhaseSystem =
+      <a href="Buildings_Electrical_PhaseSystems_OnePhase.html#Buildings.Electrical.PhaseSystems.OnePhase"
+>Buildings.Electrical.PhaseSystems.OnePhase</a> <span style="color: blue; font-weight: normal; font-style: normal;">constrainedby </span>
+    Buildings.Electrical.PhaseSystems.PartialPhaseSystem <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Phase system&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Real etaCha(min=0, max=1, unit=&quot;1&quot;) = 0.9 <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Efficiency during charging&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Real etaDis(min=0, max=1, unit=&quot;1&quot;) = 0.9 <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Efficiency during discharging&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Real SOC_start(start=0.1) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Initial charge&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Energy"
+>Modelica.SIunits.Energy</a> EMax(min=0, displayUnit=&quot;kWh&quot;) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Maximum available charge&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Voltage"
+>Modelica.SIunits.Voltage</a> V_nominal(start = 110) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Nominal voltage (V_nominal &gt;= 0)&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Boolean linearized=false <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;If =true introduce a linearization in the load&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="Buildings_Electrical_Types.html#Buildings.Electrical.Types.InitMode"
+>Buildings.Electrical.Types.InitMode</a> initMode(
+  min=Buildings.Electrical.Types.InitMode.zero_current,
+  max=Buildings.Electrical.Types.InitMode.linearized) = Buildings.Electrical.Types.InitMode.zero_current <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Initialization mode for homotopy operator&quot;</span>;
+ <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>Modelica.Blocks.Interfaces.RealInput</a> P(unit=&quot;W&quot;) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Power stored in battery (if positive), or extracted from battery (if negative)&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+>Modelica.Blocks.Interfaces.RealOutput</a> SOC <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;State of charge&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">replaceable </span><a href="Buildings_Electrical_AC_OnePhase_Interfaces.html#Buildings.Electrical.AC.OnePhase.Interfaces.Terminal_p"
+>Buildings.Electrical.AC.OnePhase.Interfaces.Terminal_p</a>
+     terminal <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Generalized terminal&quot;</span>;
+
+<span style="color: blue; font-weight: normal; font-style: normal;">protected </span>
+  <a href="Buildings_Electrical_DC_Storage_BaseClasses.html#Buildings.Electrical.DC.Storage.BaseClasses.Charge"
+>Buildings.Electrical.DC.Storage.BaseClasses.Charge</a> cha(
+    <span style="color: blue; font-weight: normal; font-style: normal;">final </span>EMax=EMax,
+    <span style="color: blue; font-weight: normal; font-style: normal;">final </span>SOC_start=SOC_start,
+    <span style="color: blue; font-weight: normal; font-style: normal;">final </span>etaCha=etaCha,
+    <span style="color: blue; font-weight: normal; font-style: normal;">final </span>etaDis=etaDis) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Charge model&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">replaceable </span><a href="Buildings_Electrical_AC_OnePhase_Loads.html#Buildings.Electrical.AC.OnePhase.Loads.Resistive"
+>Buildings.Electrical.AC.OnePhase.Loads.Resistive</a> bat
+    <span style="color: blue; font-weight: normal; font-style: normal;">constrainedby </span>Buildings.Electrical.Interfaces.Load(
+    <span style="color: blue; font-weight: normal; font-style: normal;">final </span>initMode = initMode,
+    <span style="color: blue; font-weight: normal; font-style: normal;">final </span>P_nominal=0,
+    <span style="color: blue; font-weight: normal; font-style: normal;">final </span>mode=Buildings.Electrical.Types.Load.VariableZ_P_input,
+    <span style="color: blue; font-weight: normal; font-style: normal;">final </span>V_nominal=V_nominal,
+    <span style="color: blue; font-weight: normal; font-style: normal;">final </span>linearized=linearized) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Power exchanged with battery pack&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Math.html#Modelica.Blocks.Math.Gain"
+>Modelica.Blocks.Math.Gain</a> gain(<span style="color: blue; font-weight: normal; font-style: normal;">final </span>k=-1) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Gain that invert sign of the power (P&lt;0 -&gt; the load is consumed)&quot;</span>;
+
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Math.html#Modelica.Blocks.Math.Gain"
+>Modelica.Blocks.Math.Gain</a> acdc_con_dis(<span style="color: blue; font-weight: normal; font-style: normal;">final </span>k = 2 - eta_DCAC) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Losses when P &lt; 0&quot;</span>;
+  <a href="Buildings_Utilities_Math.html#Buildings.Utilities.Math.Splice"
+>Buildings.Utilities.Math.Splice</a> spl(deltax=1e-2) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Splice function that attributes the losses due to AC/DC conversion&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Math.html#Modelica.Blocks.Math.Gain"
+>Modelica.Blocks.Math.Gain</a> acdc_con_cha(<span style="color: blue; font-weight: normal; font-style: normal;">final </span>k=eta_DCAC) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Losses when P &gt; 0&quot;</span>;
+<span style="color: blue; font-weight: normal; font-style: normal;">equation </span>
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(cha.SOC, SOC);
+
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(gain.y, bat.Pow);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(bat.terminal, terminal);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(P, acdc_con_dis.u);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(P, acdc_con_cha.u);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(acdc_con_cha.y, spl.u1);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(acdc_con_dis.y, spl.u2);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(P, spl.x);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(spl.y, gain.u);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(spl.y, cha.P);
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>Battery;
+</div>
+<hr>
+<address>
+<a href="http://www.3ds.com/">Automatically generated</a> Thu Apr  9 09:33:08 2015.
+</address>
+</body>
+</html>

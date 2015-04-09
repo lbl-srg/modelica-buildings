@@ -1,0 +1,668 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>Buildings.Electrical.DC.Lines.Examples</title>
+<meta name="HTML-Generator" content="Dymola">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="description" content="&quot;Package with example models&quot;">
+<style type="text/css">
+*       { font-size: 10pt; font-family: Arial, sans-serif; }
+.modelica, .modelica * { font-size: 9pt; font-family: Courier, monospace; white-space: pre; }
+h4      { font-size: 10pt; font-weight: bold; color: green; }
+h3      { font-size: 11pt; font-weight: bold; color: green; }
+h2      { font-size: 13pt; font-weight: bold; color: green; }
+address { font-weight: normal; }
+td      { border: 1px solid #808080; vertical-align: top; }
+th      { border: 1px solid #808080; vertical-align: top; font-weight: bold; }
+table   { border: 1px solid #808080; border-collapse: collapse; }
+</style>
+<link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../Resources/www/modelicaDoc.css">
+</HEAD>
+<body>
+<!-- --- header ------ -->
+<div class="headerStyle">
+<img src="../Resources/www/lbl-logo.png" alt="LBL logo"/>
+</div>
+<div class="headerLinks">
+<ul><li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt; <a href="Buildings.html">Modelica</a></li></ul>
+</div>
+<!-- --- end header -- -->
+
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE Examples<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><a name="Buildings.Electrical.DC.Lines.Examples"></a><a href="Buildings_Electrical_DC_Lines.html#Buildings.Electrical.DC.Lines"
+>Buildings.Electrical.DC.Lines</a>.Examples</h2>
+<p>
+<b>Package with example models</b><br>
+</p>
+<h3>Information</h3>
+
+<p>
+This package contains examples for the use of models that can be found in
+<a href="Buildings_Electrical_DC_Lines.html#Buildings.Electrical.DC.Lines"
+>
+Buildings.Electrical.DC.Lines</a>.
+</p>
+
+<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons_ExamplesPackage.html#Modelica.Icons.ExamplesPackage"
+>Modelica.Icons.ExamplesPackage</a> (Icon for packages containing runnable examples).</p>
+<h3>Package Content</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Package Content">
+<tr>
+<th>Name</th>
+<th>Description</th>
+</tr>
+<tr>
+<td><img src="Buildings.Electrical.DC.L826d4eb5e455e897CLineS.png" alt="Buildings.Electrical.DC.Lines.Examples.DCLine" width="20" height="20" align="top">&nbsp;<a href="Buildings_Electrical_DC_Lines_Examples.html#Buildings.Electrical.DC.Lines.Examples.DCLine"
+>DCLine</a>
+</td>
+<td>Example model to test the DC lines</td>
+</tr>
+<tr>
+<td><img src="Buildings.Electrical.DC.L826d4eb5e455e897CLineS.png" alt="Buildings.Electrical.DC.Lines.Examples.DCLines" width="20" height="20" align="top">&nbsp;<a href="Buildings_Electrical_DC_Lines_Examples.html#Buildings.Electrical.DC.Lines.Examples.DCLines"
+>DCLines</a>
+</td>
+<td>Example model to test the possible combinations between line and load models</td>
+</tr>
+<tr>
+<td><img src="Buildings.Electrical.DC.L826d4eb5e455e897CLineS.png" alt="Buildings.Electrical.DC.Lines.Examples.DCLinesLinearized" width="20" height="20" align="top">&nbsp;<a href="Buildings_Electrical_DC_Lines_Examples.html#Buildings.Electrical.DC.Lines.Examples.DCLinesLinearized"
+>DCLinesLinearized</a>
+</td>
+<td>Example model to test the possible combinations between line and load models</td>
+</tr>
+<tr>
+<td><img src="Buildings.Electrical.DC.L826d4eb5e455e897CLineS.png" alt="Buildings.Electrical.DC.Lines.Examples.RCModel" width="20" height="20" align="top">&nbsp;<a href="Buildings_Electrical_DC_Lines_Examples.html#Buildings.Electrical.DC.Lines.Examples.RCModel"
+>RCModel</a>
+</td>
+<td>Example model to test for the DC RC two port model</td>
+</tr>
+<tr>
+<td><img src="Buildings.Electrical.DC.L826d4eb5e455e897CLineS.png" alt="Buildings.Electrical.DC.Lines.Examples.Resistance" width="20" height="20" align="top">&nbsp;<a href="Buildings_Electrical_DC_Lines_Examples.html#Buildings.Electrical.DC.Lines.Examples.Resistance"
+>Resistance</a>
+</td>
+<td>Example model to test for the DC resistance two port model</td>
+</tr>
+</table>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE DCLine<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Electrical.DC.L826d4eb5e455e897CLineI.png" alt="Buildings.Electrical.DC.Lines.Examples.DCLine" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Electrical.DC.Lines.Examples.DCLine"></a><a href="Buildings_Electrical_DC_Lines_Examples.html#Buildings.Electrical.DC.Lines.Examples"
+>Buildings.Electrical.DC.Lines.Examples</a>.DCLine</h2>
+<p>
+<b>Example model to test the DC lines</b>
+<br>
+<br><img src="Buildings.Electrical.DC.L826d4eb5e455e897CLineD.png" alt="Buildings.Electrical.DC.Lines.Examples.DCLine">
+</p>
+<h3>Information</h3>
+
+<p>
+This model is a simple test case that show how to use a line model
+and parametrize it using a commercial cable.
+</p>
+
+<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</a> (Icon for runnable examples).</p>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">model</span> DCLine <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Example model to test the DC lines&quot;</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</a>;
+  <a href="Buildings_Electrical_DC_Lines.html#Buildings.Electrical.DC.Lines.Line"
+>Line</a> line(
+    P_nominal=500,
+    V_nominal=50,
+    mode=Types.CableMode.commercial,
+    commercialCable=<span style="color: red; font-weight: normal; font-style: normal;">Transmission.LowVoltageCables.PvcAl16</span>(),
+    l=100) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Transmission line&quot;</span>;
+  <a href="Buildings_Electrical_DC_Sources.html#Buildings.Electrical.DC.Sources.ConstantVoltage"
+>Sources.ConstantVoltage</a> E(V=50) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Voltage source&quot;</span>;
+  <a href="Buildings_Electrical_DC_Lines.html#Buildings.Electrical.DC.Lines.Line"
+>Line</a> line1(
+    P_nominal=500,
+    V_nominal=50,
+    mode=Types.CableMode.commercial,
+    commercialCable=<span style="color: red; font-weight: normal; font-style: normal;">Transmission.LowVoltageCables.PvcAl16</span>(),
+    l=100) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Transmission line&quot;</span>;
+  <a href="Buildings_Electrical_DC_Lines.html#Buildings.Electrical.DC.Lines.Line"
+>Line</a> line2(
+    P_nominal=500,
+    V_nominal=50,
+    mode=Types.CableMode.commercial,
+    commercialCable=<span style="color: red; font-weight: normal; font-style: normal;">Transmission.LowVoltageCables.PvcAl16</span>(),
+    l=100) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Transmission line&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Electrical_Analog_Basic.html#Modelica.Electrical.Analog.Basic.Ground"
+>Modelica.Electrical.Analog.Basic.Ground</a> ground;
+  <a href="Buildings_Electrical_DC_Loads.html#Buildings.Electrical.DC.Loads.Conductor"
+>Loads.Conductor</a> load1(mode=Types.Load.VariableZ_y_input,
+    V_nominal=50,
+    linearized=false,
+    P_nominal=-50) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Variable load&quot;</span>;
+  <a href="Buildings_Electrical_DC_Loads.html#Buildings.Electrical.DC.Loads.Conductor"
+>Loads.Conductor</a> load2(
+    V_nominal=50,
+    linearized=false,
+    P_nominal=-150) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Load&quot;</span>;
+  <a href="Buildings_Electrical_DC_Loads.html#Buildings.Electrical.DC.Loads.Conductor"
+>Loads.Conductor</a> load3(
+    V_nominal=50,
+    linearized=false,
+    P_nominal=-200) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Load&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Ramp"
+>Modelica.Blocks.Sources.Ramp</a> varLoad(
+    height=0.8,
+    duration=0.5,
+    offset=0.2,
+    startTime=0.3) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Load consumption profile&quot;</span>;
+<span style="color: blue; font-weight: normal; font-style: normal;">equation </span>
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(E.terminal, line.terminal_n);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(E.terminal, line1.terminal_n);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(E.terminal, line2.terminal_n);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(load1.terminal, line.terminal_p);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(line1.terminal_p, load2.terminal);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(line2.terminal_p, load3.terminal);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(varLoad.y, load1.y);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(E.n, ground.p);
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>DCLine;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE DCLines<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Electrical.DC.L826d4eb5e455e897CLineI.png" alt="Buildings.Electrical.DC.Lines.Examples.DCLines" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Electrical.DC.Lines.Examples.DCLines"></a><a href="Buildings_Electrical_DC_Lines_Examples.html#Buildings.Electrical.DC.Lines.Examples"
+>Buildings.Electrical.DC.Lines.Examples</a>.DCLines</h2>
+<p>
+<b>Example model to test the possible combinations between line and load models</b>
+<br>
+<br><img src="Buildings.Electrical.DC.Lbdef47128abd124fLinesD.png" alt="Buildings.Electrical.DC.Lines.Examples.DCLines">
+</p>
+<h3>Information</h3>
+
+<p>
+This model shows a DC grid with 10 loads and 16 cables.
+Each cable is of length <i>l = 10</i> meters, a parameter that can be modified.
+Each load can be either be a full nonlinear model, or be replaced by the
+linearized version. The parameter <code>linearLoads = false</code>
+can be used to switch between linear and nonlinear implementation.
+</p>
+<p>
+This model can be used to test how the linearized loads are affected by the voltage drop
+caused by the lines. The longer the distance between the load and the source,
+the bigger is the voltage drop and thus the error introduced by the linearization.
+</p>
+
+<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</a> (Icon for runnable examples).</p>
+<h3>Parameters</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td>Boolean</td><td>linearLoads</td><td>false</td><td>Flag that selects between linearized or nonlinear load models</td></tr>
+<tr><td>Real</td><td>L</td><td>10</td><td>Lenght of each cable</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">model</span> DCLines <span style="color: #006400; font-weight: normal; font-style: normal;">
+  &quot;Example model to test the possible combinations between line and load models&quot;</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</a>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Boolean linearLoads = false <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Flag that selects between linearized or nonlinear load models&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Real L = 10 <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Lenght of each cable&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Power"
+>Modelica.SIunits.Power</a> Sloads = load1.S[1] + load2.S[1] +load3.S[1] +load4.S[1] +
+                load5.S[1] +load6.S[1] +load7.S[1] +load8.S[1] +load9.S[1] +
+                load10.S[1] <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Sum of the power consumed by the loads&quot;</span>;
+  <a href="Buildings_Electrical_DC_Lines.html#Buildings.Electrical.DC.Lines.Line"
+>Line</a> line(
+    P_nominal=500,
+    V_nominal=50,
+    mode=Types.CableMode.commercial,
+    commercialCable=<span style="color: red; font-weight: normal; font-style: normal;">Transmission.LowVoltageCables.PvcAl16</span>(),
+    l=L) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Transmission line&quot;</span>;
+  <a href="Buildings_Electrical_DC_Sources.html#Buildings.Electrical.DC.Sources.ConstantVoltage"
+>Sources.ConstantVoltage</a> E(V=50) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Voltage source&quot;</span>;
+  <a href="Buildings_Electrical_DC_Lines.html#Buildings.Electrical.DC.Lines.Line"
+>Line</a> line1(
+    P_nominal=500,
+    V_nominal=50,
+    mode=Types.CableMode.commercial,
+    commercialCable=<span style="color: red; font-weight: normal; font-style: normal;">Transmission.LowVoltageCables.PvcAl16</span>(),
+    l=L) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Transmission line&quot;</span>;
+
+  <a href="Buildings_Electrical_DC_Lines.html#Buildings.Electrical.DC.Lines.Line"
+>Line</a> line2(
+    P_nominal=500,
+    V_nominal=50,
+    mode=Types.CableMode.commercial,
+    commercialCable=<span style="color: red; font-weight: normal; font-style: normal;">Transmission.LowVoltageCables.PvcAl16</span>(),
+    l=L) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Transmission line&quot;</span>;
+
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Electrical_Analog_Basic.html#Modelica.Electrical.Analog.Basic.Ground"
+>Modelica.Electrical.Analog.Basic.Ground</a> ground;
+  <a href="Buildings_Electrical_DC_Loads.html#Buildings.Electrical.DC.Loads.Conductor"
+>Loads.Conductor</a> load1(mode=Types.Load.VariableZ_y_input,
+    V_nominal=50,
+    linearized=linearLoads,
+    P_nominal=-150) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Load&quot;</span>;
+  <a href="Buildings_Electrical_DC_Loads.html#Buildings.Electrical.DC.Loads.Conductor"
+>Loads.Conductor</a> load2(
+    V_nominal=50,
+    mode=Types.Load.VariableZ_y_input,
+    linearized=linearLoads,
+    P_nominal=-120) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Load&quot;</span>;
+  <a href="Buildings_Electrical_DC_Loads.html#Buildings.Electrical.DC.Loads.Conductor"
+>Loads.Conductor</a> load3(
+    V_nominal=50,
+    mode=Types.Load.VariableZ_y_input,
+    linearized=linearLoads,
+    P_nominal=-200) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Load&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Trapezoid"
+>Modelica.Blocks.Sources.Trapezoid</a>
+                               varLoad1(
+    offset=0.4,
+    amplitude=0.6,
+    rising=600,
+    width=1000,
+    falling=800,
+    period=3600,
+    startTime=1800) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Power consumption profile&quot;</span>;
+  <a href="Buildings_Electrical_DC_Loads.html#Buildings.Electrical.DC.Loads.Conductor"
+>Loads.Conductor</a> load4(
+    V_nominal=50,
+    mode=Types.Load.VariableZ_y_input,
+    linearized=linearLoads,
+    P_nominal=-120) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Load&quot;</span>;
+  <a href="Buildings_Electrical_DC_Lines.html#Buildings.Electrical.DC.Lines.Line"
+>Line</a> line3(
+    P_nominal=500,
+    V_nominal=50,
+    mode=Types.CableMode.commercial,
+    commercialCable=<span style="color: red; font-weight: normal; font-style: normal;">Transmission.LowVoltageCables.PvcAl16</span>(),
+    l=L) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Transmission line&quot;</span>;
+
+  <a href="Buildings_Electrical_DC_Lines.html#Buildings.Electrical.DC.Lines.Line"
+>Line</a> line4(
+    P_nominal=500,
+    V_nominal=50,
+    mode=Types.CableMode.commercial,
+    commercialCable=<span style="color: red; font-weight: normal; font-style: normal;">Transmission.LowVoltageCables.PvcAl16</span>(),
+    l=L) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Transmission line&quot;</span>;
+
+  <a href="Buildings_Electrical_DC_Lines.html#Buildings.Electrical.DC.Lines.Line"
+>Line</a> line5(
+    P_nominal=500,
+    V_nominal=50,
+    mode=Types.CableMode.commercial,
+    commercialCable=<span style="color: red; font-weight: normal; font-style: normal;">Transmission.LowVoltageCables.PvcAl16</span>(),
+    l=L) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Transmission line&quot;</span>;
+
+  <a href="Buildings_Electrical_DC_Lines.html#Buildings.Electrical.DC.Lines.Line"
+>Line</a> line0(
+    P_nominal=500,
+    V_nominal=50,
+    mode=Types.CableMode.commercial,
+    commercialCable=<span style="color: red; font-weight: normal; font-style: normal;">Transmission.LowVoltageCables.PvcAl16</span>(),
+    l=L) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Transmission line&quot;</span>;
+
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Trapezoid"
+>Modelica.Blocks.Sources.Trapezoid</a>
+                               varLoad2(
+    startTime=1800,
+    amplitude=0.8,
+    rising=400,
+    width=1300,
+    falling=900,
+    period=4000,
+    offset=0.1) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Power consumption profile&quot;</span>;
+  <a href="Buildings_Electrical_DC_Lines.html#Buildings.Electrical.DC.Lines.Line"
+>Line</a> line6(
+    P_nominal=500,
+    V_nominal=50,
+    mode=Types.CableMode.commercial,
+    commercialCable=<span style="color: red; font-weight: normal; font-style: normal;">Transmission.LowVoltageCables.PvcAl16</span>(),
+    l=L) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Transmission line&quot;</span>;
+
+  <a href="Buildings_Electrical_DC_Loads.html#Buildings.Electrical.DC.Loads.Conductor"
+>Loads.Conductor</a> load5(
+    V_nominal=50,
+    mode=Types.Load.VariableZ_y_input,
+    linearized=linearLoads,
+    P_nominal=-200) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Load&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Trapezoid"
+>Modelica.Blocks.Sources.Trapezoid</a>
+                               varLoad3(
+    amplitude=0.7,
+    rising=660,
+    width=900,
+    falling=300,
+    period=3700,
+    offset=0.3,
+    startTime=200) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Power consumption profile&quot;</span>;
+  <a href="Buildings_Electrical_DC_Loads.html#Buildings.Electrical.DC.Loads.Conductor"
+>Loads.Conductor</a> load6(
+    V_nominal=50,
+    mode=Types.Load.VariableZ_y_input,
+    linearized=linearLoads,
+    P_nominal=-120) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Load&quot;</span>;
+  <a href="Buildings_Electrical_DC_Lines.html#Buildings.Electrical.DC.Lines.Line"
+>Line</a> line7(
+    P_nominal=500,
+    V_nominal=50,
+    mode=Types.CableMode.commercial,
+    commercialCable=<span style="color: red; font-weight: normal; font-style: normal;">Transmission.LowVoltageCables.PvcAl16</span>(),
+    l=L) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Transmission line&quot;</span>;
+
+  <a href="Buildings_Electrical_DC_Lines.html#Buildings.Electrical.DC.Lines.Line"
+>Line</a> line8(
+    P_nominal=500,
+    V_nominal=50,
+    mode=Types.CableMode.commercial,
+    commercialCable=<span style="color: red; font-weight: normal; font-style: normal;">Transmission.LowVoltageCables.PvcAl16</span>(),
+    l=L) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Transmission line&quot;</span>;
+
+  <a href="Buildings_Electrical_DC_Lines.html#Buildings.Electrical.DC.Lines.Line"
+>Line</a> line9(
+    P_nominal=500,
+    V_nominal=50,
+    mode=Types.CableMode.commercial,
+    commercialCable=<span style="color: red; font-weight: normal; font-style: normal;">Transmission.LowVoltageCables.PvcAl16</span>(),
+    l=L) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Transmission line&quot;</span>;
+
+  <a href="Buildings_Electrical_DC_Loads.html#Buildings.Electrical.DC.Loads.Conductor"
+>Loads.Conductor</a> load7(
+    V_nominal=50,
+    mode=Types.Load.VariableZ_y_input,
+    linearized=linearLoads,
+    P_nominal=-200) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Load&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Trapezoid"
+>Modelica.Blocks.Sources.Trapezoid</a>
+                               varLoad4(
+    rising=600,
+    width=1000,
+    falling=800,
+    period=3600,
+    amplitude=0.1,
+    offset=0.8,
+    startTime=3300) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Power consumption profile&quot;</span>;
+  <a href="Buildings_Electrical_DC_Loads.html#Buildings.Electrical.DC.Loads.Conductor"
+>Loads.Conductor</a> load8(
+    V_nominal=50,
+    mode=Types.Load.VariableZ_y_input,
+    linearized=linearLoads,
+    P_nominal=-120) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Load&quot;</span>;
+  <a href="Buildings_Electrical_DC_Lines.html#Buildings.Electrical.DC.Lines.Line"
+>Line</a> line10(
+    P_nominal=500,
+    V_nominal=50,
+    mode=Types.CableMode.commercial,
+    commercialCable=<span style="color: red; font-weight: normal; font-style: normal;">Transmission.LowVoltageCables.PvcAl16</span>(),
+    l=L) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Transmission line&quot;</span>;
+
+  <a href="Buildings_Electrical_DC_Lines.html#Buildings.Electrical.DC.Lines.Line"
+>Line</a> line11(
+    P_nominal=500,
+    V_nominal=50,
+    mode=Types.CableMode.commercial,
+    commercialCable=<span style="color: red; font-weight: normal; font-style: normal;">Transmission.LowVoltageCables.PvcAl16</span>(),
+    l=L) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Transmission line&quot;</span>;
+
+  <a href="Buildings_Electrical_DC_Lines.html#Buildings.Electrical.DC.Lines.Line"
+>Line</a> line12(
+    P_nominal=500,
+    V_nominal=50,
+    mode=Types.CableMode.commercial,
+    commercialCable=<span style="color: red; font-weight: normal; font-style: normal;">Transmission.LowVoltageCables.PvcAl16</span>(),
+    l=L) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Transmission line&quot;</span>;
+
+  <a href="Buildings_Electrical_DC_Loads.html#Buildings.Electrical.DC.Loads.Conductor"
+>Loads.Conductor</a> load9(
+    V_nominal=50,
+    mode=Types.Load.VariableZ_y_input,
+    linearized=linearLoads,
+    P_nominal=-200) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Load&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Trapezoid"
+>Modelica.Blocks.Sources.Trapezoid</a>
+                               varLoad5(
+    falling=800,
+    amplitude=0.5,
+    rising=800,
+    width=800,
+    period=3000,
+    offset=0.5,
+    startTime=0) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Power consumption profile&quot;</span>;
+  <a href="Buildings_Electrical_DC_Loads.html#Buildings.Electrical.DC.Loads.Conductor"
+>Loads.Conductor</a> load10(
+    V_nominal=50,
+    mode=Types.Load.VariableZ_y_input,
+    linearized=linearLoads,
+    P_nominal=-120) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Load&quot;</span>;
+  <a href="Buildings_Electrical_DC_Lines.html#Buildings.Electrical.DC.Lines.Line"
+>Line</a> line13(
+    P_nominal=500,
+    V_nominal=50,
+    mode=Types.CableMode.commercial,
+    commercialCable=<span style="color: red; font-weight: normal; font-style: normal;">Transmission.LowVoltageCables.PvcAl16</span>(),
+    l=L) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Transmission line&quot;</span>;
+
+  <a href="Buildings_Electrical_DC_Lines.html#Buildings.Electrical.DC.Lines.Line"
+>Line</a> line14(
+    P_nominal=500,
+    V_nominal=50,
+    mode=Types.CableMode.commercial,
+    commercialCable=<span style="color: red; font-weight: normal; font-style: normal;">Transmission.LowVoltageCables.PvcAl16</span>(),
+    l=100) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Transmission line&quot;</span>;
+
+<span style="color: blue; font-weight: normal; font-style: normal;">equation </span>
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(load1.terminal, line.terminal_p);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(line1.terminal_p, line.terminal_n);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(line2.terminal_p, line3.terminal_n);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(line3.terminal_p, load3.terminal);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(line1.terminal_p, line4.terminal_n);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(line4.terminal_p, load2.terminal);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(load4.terminal, line5.terminal_p);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(line5.terminal_n, line3.terminal_n);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(E.terminal, line0.terminal_n);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(line0.terminal_p, line1.terminal_n);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(varLoad1.y, load3.y);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(varLoad1.y, load4.y);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(varLoad2.y, load1.y);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(varLoad2.y, load2.y);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(line6.terminal_p,line7. terminal_n);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(line7.terminal_p,load5. terminal);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(load6.terminal,line8. terminal_p);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(line8.terminal_n,line7. terminal_n);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(varLoad3.y,load5. y);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(varLoad3.y,load6. y);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(line9.terminal_p, line10.terminal_n);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(line10.terminal_p, load7.terminal);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(load8.terminal, line11.terminal_p);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(line11.terminal_n, line10.terminal_n);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(varLoad4.y,load7. y);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(varLoad4.y,load8. y);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(line12.terminal_p, line13.terminal_n);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(line13.terminal_p, load9.terminal);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(load10.terminal, line14.terminal_p);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(line14.terminal_n, line13.terminal_n);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(varLoad5.y,load9. y);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(varLoad5.y, load10.y);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(line2.terminal_n, line4.terminal_n);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(line6.terminal_n, line3.terminal_n);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(line9.terminal_n, line7.terminal_n);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(line12.terminal_n, line10.terminal_n);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(E.n, ground.p);
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>DCLines;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE DCLinesLinearized<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Electrical.DC.L826d4eb5e455e897CLineI.png" alt="Buildings.Electrical.DC.Lines.Examples.DCLinesLinearized" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Electrical.DC.Lines.Examples.DCLinesLinearized"></a><a href="Buildings_Electrical_DC_Lines_Examples.html#Buildings.Electrical.DC.Lines.Examples"
+>Buildings.Electrical.DC.Lines.Examples</a>.DCLinesLinearized</h2>
+<p>
+<b>Example model to test the possible combinations between line and load models</b>
+<br>
+<br><img src="Buildings.Electrical.DC.Lbdef47128abd124fLinesD.png" alt="Buildings.Electrical.DC.Lines.Examples.DCLinesLinearized">
+</p>
+<h3>Information</h3>
+
+<p>
+This model is the linearized version of the model
+<a href="Buildings_Electrical_DC_Lines_Examples.html#Buildings.Electrical.DC.Lines.Examples.DCLines"
+>
+Buildings.Electrical.DC.Lines.Examples.DCLines</a> and
+can be used to test how the linearized loads are affected by the voltage drop
+caused by the lines. The longer the distance between the load and the source,
+the bigger is the voltage drop and thus the error introduced by the linearization.
+</p>
+
+<p>Extends from <a href="Buildings_Electrical_DC_Lines_Examples.html#Buildings.Electrical.DC.Lines.Examples.DCLines"
+>Buildings.Electrical.DC.Lines.Examples.DCLines</a> (Example model to test the possible combinations between line and load models).</p>
+<h3>Parameters</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td>Boolean</td><td>linearLoads</td><td>true</td><td>Flag that selects between linearized or nonlinear load models</td></tr>
+<tr><td>Real</td><td>L</td><td>10</td><td>Lenght of each cable</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">model</span> DCLinesLinearized <span style="color: #006400; font-weight: normal; font-style: normal;">
+  &quot;Example model to test the possible combinations between line and load models&quot;</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="Buildings_Electrical_DC_Lines_Examples.html#Buildings.Electrical.DC.Lines.Examples.DCLines"
+>Buildings.Electrical.DC.Lines.Examples.DCLines</a>(linearLoads = true);
+
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>DCLinesLinearized;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE RCModel<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Electrical.DC.L826d4eb5e455e897CLineI.png" alt="Buildings.Electrical.DC.Lines.Examples.RCModel" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Electrical.DC.Lines.Examples.RCModel"></a><a href="Buildings_Electrical_DC_Lines_Examples.html#Buildings.Electrical.DC.Lines.Examples"
+>Buildings.Electrical.DC.Lines.Examples</a>.RCModel</h2>
+<p>
+<b>Example model to test for the DC RC two port model</b>
+<br>
+<br><img src="Buildings.Electrical.DC.Lb20cb6820aae3a55ModelD.png" alt="Buildings.Electrical.DC.Lines.Examples.RCModel">
+</p>
+<h3>Information</h3>
+
+<p>
+This model shows how to use a two port resistance-capacitance model.
+The example also shows a comparison between the dynamic and steady state version model
+that can be selected by changing the boolean flag <code>use_C</code>.
+</p>
+<p>
+In this example the RC connects an ideal constant voltage source with
+a short circuit. The steady state current value passing through the RC
+model depends just on the value of <i>R</i>.
+</p>
+<p>
+The RC model implement a T-model to represent the electric connection between the
+two connectors (see <a href="Buildings_Electrical_DC_Lines.html#Buildings.Electrical.DC.Lines.TwoPortRCLine"
+>
+Buildings.Electrical.DC.Lines.TwoPortRCLine</a> for more details).
+</p>
+<p>
+The capacitance <i>C</i> see an equivalent Thevenin's resistance that is equal to
+<i>R<sub>EQ</sub> = 0.5 R</i> and thus the time constant associated to the capacitance is
+</p>
+<p align="center" style="font-style:italic;">
+&tau; = R<sub>EQ</sub> C = 0.5 R C = 2 seconds,
+</p>
+<p>
+thus the duration of transient period is about 10 seconds.
+</p>
+
+<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</a> (Icon for runnable examples).</p>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">model</span> RCModel <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Example model to test for the DC RC two port model&quot;</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</a>;
+
+  <a href="Buildings_Electrical_DC_Lines.html#Buildings.Electrical.DC.Lines.TwoPortRCLine"
+>TwoPortRCLine</a> RC_ss(
+    C=1,
+    V_nominal=50,
+    R=8) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Line resistance&quot;</span>;
+  <a href="Buildings_Electrical_DC_Sources.html#Buildings.Electrical.DC.Sources.ConstantVoltage"
+>Sources.ConstantVoltage</a> constantVoltage(V=50) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Voltage source&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Electrical_Analog_Basic.html#Modelica.Electrical.Analog.Basic.Ground"
+>Modelica.Electrical.Analog.Basic.Ground</a> ground;
+  <a href="Buildings_Electrical_DC_Loads.html#Buildings.Electrical.DC.Loads.Resistor"
+>Loads.Resistor</a> sc_ss(V_nominal=50, R=0) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Short circuit load&quot;</span>;
+  <a href="Buildings_Electrical_DC_Sensors.html#Buildings.Electrical.DC.Sensors.GeneralizedSensor"
+>Sensors.GeneralizedSensor</a> sen_ss <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Sensor&quot;</span>;
+  <a href="Buildings_Electrical_DC_Lines.html#Buildings.Electrical.DC.Lines.TwoPortRCLine"
+>TwoPortRCLine</a> RC_dyn(
+    C=1,
+    V_nominal=50,
+    use_C=true,
+    R=8) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Line resistance&quot;</span>;
+  <a href="Buildings_Electrical_DC_Loads.html#Buildings.Electrical.DC.Loads.Resistor"
+>Loads.Resistor</a> sc_dyn(V_nominal=50, R=0) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Load&quot;</span>;
+  <a href="Buildings_Electrical_DC_Sensors.html#Buildings.Electrical.DC.Sensors.GeneralizedSensor"
+>Sensors.GeneralizedSensor</a> sen_dyn <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Sensor&quot;</span>;
+<span style="color: blue; font-weight: normal; font-style: normal;">equation </span>
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(ground.p, constantVoltage.n);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(constantVoltage.terminal, RC_ss.terminal_n);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(RC_ss.terminal_p, sen_ss.terminal_n);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(sen_ss.terminal_p, sc_ss.terminal);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(RC_dyn.terminal_p, sen_dyn.terminal_n);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(sen_dyn.terminal_p, sc_dyn.terminal);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(constantVoltage.terminal, RC_dyn.terminal_n);
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>RCModel;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE Resistance<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Electrical.DC.L826d4eb5e455e897CLineI.png" alt="Buildings.Electrical.DC.Lines.Examples.Resistance" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Electrical.DC.Lines.Examples.Resistance"></a><a href="Buildings_Electrical_DC_Lines_Examples.html#Buildings.Electrical.DC.Lines.Examples"
+>Buildings.Electrical.DC.Lines.Examples</a>.Resistance</h2>
+<p>
+<b>Example model to test for the DC resistance two port model</b>
+<br>
+<br><img src="Buildings.Electrical.DC.L71c37a63b1dd96a3tanceD.png" alt="Buildings.Electrical.DC.Lines.Examples.Resistance">
+</p>
+<h3>Information</h3>
+
+<p>
+This model shows how to use a two port resistance.
+In this example the resistance connects an ideal constant voltage source with
+a short circuit. The current flowing through the circuit depends just
+on the value of the two port resistance.
+</p>
+
+<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</a> (Icon for runnable examples).</p>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">model</span> Resistance <span style="color: #006400; font-weight: normal; font-style: normal;">
+  &quot;Example model to test for the DC resistance two port model&quot;</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</a>;
+
+  <a href="Buildings_Electrical_DC_Lines.html#Buildings.Electrical.DC.Lines.TwoPortResistance"
+>TwoPortResistance</a> lineR(R=10) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Line resistance&quot;</span>;
+  <a href="Buildings_Electrical_DC_Sources.html#Buildings.Electrical.DC.Sources.ConstantVoltage"
+>Sources.ConstantVoltage</a> constantVoltage(V=50) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Voltage source&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Electrical_Analog_Basic.html#Modelica.Electrical.Analog.Basic.Ground"
+>Modelica.Electrical.Analog.Basic.Ground</a> ground;
+  <a href="Buildings_Electrical_DC_Loads.html#Buildings.Electrical.DC.Loads.Resistor"
+>Loads.Resistor</a> short_circuit(V_nominal=50, R=0) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Short circuit load&quot;</span>;
+  <a href="Buildings_Electrical_DC_Sensors.html#Buildings.Electrical.DC.Sensors.GeneralizedSensor"
+>Sensors.GeneralizedSensor</a> sen <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Power sensor&quot;</span>;
+<span style="color: blue; font-weight: normal; font-style: normal;">equation </span>
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(ground.p, constantVoltage.n);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(constantVoltage.terminal, lineR.terminal_n);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(lineR.terminal_p, sen.terminal_n);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(sen.terminal_p, short_circuit.terminal);
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>Resistance;
+</div>
+<hr>
+<address>
+<a href="http://www.3ds.com/">Automatically generated</a> Thu Apr  9 09:34:13 2015.
+</address>
+</body>
+</html>

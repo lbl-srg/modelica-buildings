@@ -1,0 +1,252 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>Buildings.Utilities.IO.Python27</title>
+<meta name="HTML-Generator" content="Dymola">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="description" content="&quot;Package to call Python functions&quot;">
+<style type="text/css">
+*       { font-size: 10pt; font-family: Arial, sans-serif; }
+.modelica, .modelica * { font-size: 9pt; font-family: Courier, monospace; white-space: pre; }
+h4      { font-size: 10pt; font-weight: bold; color: green; }
+h3      { font-size: 11pt; font-weight: bold; color: green; }
+h2      { font-size: 13pt; font-weight: bold; color: green; }
+address { font-weight: normal; }
+td      { border: 1px solid #808080; vertical-align: top; }
+th      { border: 1px solid #808080; vertical-align: top; font-weight: bold; }
+table   { border: 1px solid #808080; border-collapse: collapse; }
+</style>
+<link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../Resources/www/modelicaDoc.css">
+</HEAD>
+<body>
+<!-- --- header ------ -->
+<div class="headerStyle">
+<img src="../Resources/www/lbl-logo.png" alt="LBL logo"/>
+</div>
+<div class="headerLinks">
+<ul><li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt; <a href="Buildings.html">Modelica</a></li></ul>
+</div>
+<!-- --- end header -- -->
+
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE Python27<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><a name="Buildings.Utilities.IO.Python27"></a><a href="Buildings_Utilities_IO.html#Buildings.Utilities.IO"
+>Buildings.Utilities.IO</a>.Python27</h2>
+<p>
+<b>Package to call Python functions</b><br>
+</p>
+<h3>Information</h3>
+
+<p>
+This package contains blocks and functions that embed Python 2.7 in Modelica.
+Data can be sent to Python functions and received from Python functions.
+This allows for example data analysis in Python as part of a Modelica model,
+or data exchange as part of a hardware-in-the-loop simulation in which
+Python is used to communicate with hardware.
+</p>
+<p>
+See
+<a href="Buildings_Utilities_IO_Python27_UsersGuide.html#Buildings.Utilities.IO.Python27.UsersGuide"
+>
+Buildings.Utilities.IO.Python27.UsersGuide</a>
+for instruction.
+</p>
+
+<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons_VariantsPackage.html#Modelica.Icons.VariantsPackage"
+>Modelica.Icons.VariantsPackage</a> (Icon for package containing variants).</p>
+<h3>Package Content</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Package Content">
+<tr>
+<th>Name</th>
+<th>Description</th>
+</tr>
+<tr>
+<td><img src="Buildings.Utilities.IO.Py8af26f242b6fe46aGuideS.png" alt="Buildings.Utilities.IO.Python27.UsersGuide" width="20" height="20" align="top">&nbsp;<a href="Buildings_Utilities_IO_Python27_UsersGuide.html#Buildings.Utilities.IO.Python27.UsersGuide"
+>UsersGuide</a>
+</td>
+<td>User&#39;s Guide</td>
+</tr>
+<tr>
+<td><img src="Buildings.Utilities.IO.Py68e929374791d999_RealS.png" alt="Buildings.Utilities.IO.Python27.Real_Real" width="20" height="20" align="top">&nbsp;<a href="Buildings_Utilities_IO_Python27.html#Buildings.Utilities.IO.Python27.Real_Real"
+>Real_Real</a>
+</td>
+<td>Block that exchanges a vector of real values with a Python function</td>
+</tr>
+<tr>
+<td><img src="Buildings.Utilities.IO.Py7b98bbef9b3c64e5tionsS.png" alt="Buildings.Utilities.IO.Python27.Functions" width="20" height="20" align="top">&nbsp;<a href="Buildings_Utilities_IO_Python27_Functions.html#Buildings.Utilities.IO.Python27.Functions"
+>Functions</a>
+</td>
+<td>Package with functions that call Python</td>
+</tr>
+<tr>
+<td><img src="Buildings.Utilities.IO.Python27.ExamplesS.png" alt="Buildings.Utilities.IO.Python27.Examples" width="20" height="20" align="top">&nbsp;<a href="Buildings_Utilities_IO_Python27_Examples.html#Buildings.Utilities.IO.Python27.Examples"
+>Examples</a>
+</td>
+<td>Collection of models that illustrate model use and test models</td>
+</tr>
+</table>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE Real_Real<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Utilities.IO.Py68e929374791d999_RealI.png" alt="Buildings.Utilities.IO.Python27.Real_Real" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Utilities.IO.Python27.Real_Real"></a><a href="Buildings_Utilities_IO_Python27.html#Buildings.Utilities.IO.Python27"
+>Buildings.Utilities.IO.Python27</a>.Real_Real</h2>
+<p>
+<b>Block that exchanges a vector of real values with a Python function</b>
+<br>
+<br><img src="Buildings.Utilities.IO.Py68e929374791d999_RealD.png" alt="Buildings.Utilities.IO.Python27.Real_Real">
+</p>
+<h3>Information</h3>
+
+Block that exchanges data with a Python function.<br/>
+<p>
+For each element in the input vector <code>uR[nDblWri]</code>,
+the value of the flag <code>flaDblWri[nDblWri]</code> determines whether
+the current value, the average over the sampling interval or the integral
+over the sampling interval is sent to Python. The following three options are allowed:
+</p>
+<br/>
+<table summary="summary" border="1" cellspacing="0" cellpadding="2" style="border-collapse:collapse;">
+<tr>
+<td>
+flaDblWri[i]
+</td>
+<td>
+Value sent to Python
+</td>
+</tr>
+<tr>
+<td>
+0
+</td>
+<td>
+Current value of uR[i]
+</td>
+</tr>
+<tr>
+<td>
+1
+</td>
+<td>
+Average value of uR[i] over the sampling interval
+</td>
+</tr>
+<tr>
+<td>
+2
+</td>
+<td>
+Integral of uR[i] over the sampling interval
+</td>
+</tr>
+</table>
+<br/>
+
+<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.DiscreteBlock"
+>Modelica.Blocks.Interfaces.DiscreteBlock</a> (Base class of discrete control blocks).</p>
+<h3>Parameters</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Time"
+>Time</a></td><td>samplePeriod</td><td>&nbsp;</td><td>Sample period of component [s]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Time"
+>Time</a></td><td>startTime</td><td>0</td><td>First sample time instant [s]</td></tr>
+<tr><td>String</td><td>moduleName</td><td>&nbsp;</td><td>Name of the python module that contains the function</td></tr>
+<tr><td>String</td><td>functionName</td><td>moduleName</td><td>Name of the python function</td></tr>
+<tr><td>Integer</td><td>nDblWri</td><td>&nbsp;</td><td>Number of double values to write to Python</td></tr>
+<tr><td>Integer</td><td>nDblRea</td><td>&nbsp;</td><td>Number of double values to be read from the Python</td></tr>
+<tr><td>Integer</td><td>flaDblWri[nDblWri]</td><td>zeros(nDblWri)</td><td>Flag for double values (0: use current value, 1: use average over interval, 2: use integral over interval)</td></tr>
+</table>
+<h3>Connectors</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Connectors">
+<tr><th>Type</th><th>Name</th><th>Description</th></tr>
+<tr><td>input <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>RealInput</a></td><td>uR[nDblWri]</td><td>Real inputs to be sent to Python</td></tr>
+<tr><td>output <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+>RealOutput</a></td><td>yR[nDblRea]</td><td>Real outputs received from Python</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">model</span> Real_Real <span style="color: #006400; font-weight: normal; font-style: normal;">
+  &quot;Block that exchanges a vector of real values with a Python function&quot;</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.DiscreteBlock"
+>Modelica.Blocks.Interfaces.DiscreteBlock</a>(startTime=0);
+
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>String moduleName <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Name of the python module that contains the function&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>String functionName=moduleName <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Name of the python function&quot;</span>;
+
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Integer nDblWri(min=1) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Number of double values to write to Python&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Integer nDblRea(min=1) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Number of double values to be read from the Python&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Integer flaDblWri[nDblWri] =<span style="color: red; font-weight: normal; font-style: normal;"> zeros</span>(nDblWri) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Flag for double values (0: use current value, 1: use average over interval, 2: use integral over interval)&quot;</span>;
+
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>Modelica.Blocks.Interfaces.RealInput</a> uR[nDblWri] <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Real inputs to be sent to Python&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+>Modelica.Blocks.Interfaces.RealOutput</a> yR[nDblRea] <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Real outputs received from Python&quot;</span>;
+
+  Real uRInt[nDblWri] <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Value of integral&quot;</span>;
+  Real uRIntPre[nDblWri] <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Value of integral at previous sampling instance&quot;</span>;
+<span style="color: blue; font-weight: normal; font-style: normal;">public </span>
+  Real uRWri[nDblWri] <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Value to be sent to Python&quot;</span>;
+<span style="color: blue; font-weight: normal; font-style: normal;">initial </span><span style="color: blue; font-weight: normal; font-style: normal;">equation </span>
+   uRWri    =<span style="color: red; font-weight: normal; font-style: normal;">  pre</span>(uR);
+   uRInt    =<span style="color: red; font-weight: normal; font-style: normal;">  zeros</span>(nDblWri);
+   uRIntPre =<span style="color: red; font-weight: normal; font-style: normal;">  zeros</span>(nDblWri);
+   <span style="color: blue; font-weight: normal; font-style: normal;">for </span>i<span style="color: blue; font-weight: normal; font-style: normal;"> in </span>1:nDblWri<span style="color: blue; font-weight: normal; font-style: normal;"> loop</span>
+    <span style="color: red; font-weight: normal; font-style: normal;"> assert</span>(flaDblWri[i]&gt;=0<span style="color: blue; font-weight: normal; font-style: normal;"> and </span>flaDblWri[i]&lt;=2,
+        &quot;Parameter flaDblWri out of range for &quot; +<span style="color: red; font-weight: normal; font-style: normal;"> String</span>(i) + &quot;-th component.&quot;);
+   <span style="color: blue; font-weight: normal; font-style: normal;">end for</span>;
+  <span style="color: #006400; font-weight: normal; font-style: normal;"> // The assignment of yR avoids the warning</span>
+  <span style="color: #006400; font-weight: normal; font-style: normal;"> // &quot;initial conditions for variables of type Real are not fully specified&quot;.</span>
+  <span style="color: #006400; font-weight: normal; font-style: normal;"> // At startTime, the sampleTrigger is true and hence this value will</span>
+  <span style="color: #006400; font-weight: normal; font-style: normal;"> // be overwritten.</span>
+   yR =<span style="color: red; font-weight: normal; font-style: normal;"> zeros</span>(nDblRea);
+<span style="color: blue; font-weight: normal; font-style: normal;">equation </span>
+   <span style="color: blue; font-weight: normal; font-style: normal;">for </span>i<span style="color: blue; font-weight: normal; font-style: normal;"> in </span>1:nDblWri<span style="color: blue; font-weight: normal; font-style: normal;"> loop</span>
+    <span style="color: red; font-weight: normal; font-style: normal;">  der</span>(uRInt[i]) = <span style="color: blue; font-weight: normal; font-style: normal;">if </span>(flaDblWri[i] &gt; 0)<span style="color: blue; font-weight: normal; font-style: normal;"> then </span>uR[i]<span style="color: blue; font-weight: normal; font-style: normal;"> else </span>0;
+   <span style="color: blue; font-weight: normal; font-style: normal;">end for</span>;
+
+  <span style="color: blue; font-weight: normal; font-style: normal;">when </span>{sampleTrigger}<span style="color: blue; font-weight: normal; font-style: normal;"> then</span>
+    <span style="color: #006400; font-weight: normal; font-style: normal;"> // Compute value that will be sent to Python</span>
+     <span style="color: blue; font-weight: normal; font-style: normal;">for </span>i<span style="color: blue; font-weight: normal; font-style: normal;"> in </span>1:nDblWri<span style="color: blue; font-weight: normal; font-style: normal;"> loop</span>
+       <span style="color: blue; font-weight: normal; font-style: normal;">if </span>(flaDblWri[i] == 0)<span style="color: blue; font-weight: normal; font-style: normal;"> then</span>
+         uRWri[i] =<span style="color: red; font-weight: normal; font-style: normal;"> pre</span>(uR[i]);<span style="color: #006400; font-weight: normal; font-style: normal;">                 // Send the current value.</span>
+       <span style="color: blue; font-weight: normal; font-style: normal;">else</span>
+         uRWri[i] = uRInt[i] -<span style="color: red; font-weight: normal; font-style: normal;"> pre</span>(uRIntPre[i]);<span style="color: #006400; font-weight: normal; font-style: normal;">     // Integral over the sampling interval</span>
+         <span style="color: blue; font-weight: normal; font-style: normal;">if </span>(flaDblWri[i] == 1)<span style="color: blue; font-weight: normal; font-style: normal;"> then</span>
+            uRWri[i] =  uRWri[i]/samplePeriod;<span style="color: #006400; font-weight: normal; font-style: normal;">  // Average value over the sampling interval</span>
+         <span style="color: blue; font-weight: normal; font-style: normal;">end if</span>;
+       <span style="color: blue; font-weight: normal; font-style: normal;">end if</span>;
+      <span style="color: blue; font-weight: normal; font-style: normal;">end for</span>;
+
+    <span style="color: #006400; font-weight: normal; font-style: normal;">// Exchange data</span>
+    yR =<span style="color: red; font-weight: normal; font-style: normal;"> Buildings.Utilities.IO.Python27.Functions.exchange</span>(
+      moduleName=moduleName,
+      functionName=functionName,
+      dblWri=uRWri,
+      intWri={0},
+      nDblWri=nDblWri,
+      nDblRea=nDblRea,
+      nIntWri=0,
+      nIntRea=0,
+      nStrWri=0,
+      strWri={&quot;&quot;});
+
+    <span style="color: #006400; font-weight: normal; font-style: normal;">// Store current value of integral</span>
+  uRIntPre= uRInt;
+  <span style="color: blue; font-weight: normal; font-style: normal;">end when</span>;
+
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>Real_Real;
+</div>
+<hr>
+<address>
+<a href="http://www.3ds.com/">Automatically generated</a> Thu Apr  9 09:41:30 2015.
+</address>
+</body>
+</html>

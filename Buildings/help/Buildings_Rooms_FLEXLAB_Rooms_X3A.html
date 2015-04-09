@@ -1,0 +1,1470 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>Buildings.Rooms.FLEXLAB.Rooms.X3A</title>
+<meta name="HTML-Generator" content="Dymola">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="description" content="&quot;Models of rooms in test cell X3A&quot;">
+<style type="text/css">
+*       { font-size: 10pt; font-family: Arial, sans-serif; }
+.modelica, .modelica * { font-size: 9pt; font-family: Courier, monospace; white-space: pre; }
+h4      { font-size: 10pt; font-weight: bold; color: green; }
+h3      { font-size: 11pt; font-weight: bold; color: green; }
+h2      { font-size: 13pt; font-weight: bold; color: green; }
+address { font-weight: normal; }
+td      { border: 1px solid #808080; vertical-align: top; }
+th      { border: 1px solid #808080; vertical-align: top; font-weight: bold; }
+table   { border: 1px solid #808080; border-collapse: collapse; }
+</style>
+<link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../Resources/www/modelicaDoc.css">
+</HEAD>
+<body>
+<!-- --- header ------ -->
+<div class="headerStyle">
+<img src="../Resources/www/lbl-logo.png" alt="LBL logo"/>
+</div>
+<div class="headerLinks">
+<ul><li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt; <a href="Buildings.html">Modelica</a></li></ul>
+</div>
+<!-- --- end header -- -->
+
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE X3A<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><a name="Buildings.Rooms.FLEXLAB.Rooms.X3A"></a><a href="Buildings_Rooms_FLEXLAB_Rooms.html#Buildings.Rooms.FLEXLAB.Rooms"
+>Buildings.Rooms.FLEXLAB.Rooms</a>.X3A</h2>
+<p>
+<b>Models of rooms in test cell X3A</b><br>
+</p>
+<h3>Information</h3>
+
+  <p>
+  This package contains models of rooms in test cell X3A of the FLEXLAB at LBNL. The following image is a drawing
+  of test cell X3A. It shows how the different rooms in this example are connected, as well as providing the names
+  used in this example for each of the rooms.
+  </p>
+  <p align="center">
+  <img src="../Resources/Images/Rooms/FLEXLAB/Rooms/X3A.png"border="1" alt="Room locations and names in X3AWithRadiantFloor"/>
+  </p>
+  <p>
+  There are separate models for each room in test cell X3A. The model for the test cell itself is located in
+  <a href="Buildings_Rooms_FLEXLAB_Rooms_X3A.html#Buildings.Rooms.FLEXLAB.Rooms.X3A.TestCell"
+>
+  Buildings.Rooms.FLEXLAB.Rooms.X3A.TestCell</a>, the model for the connected closet is located at
+  <a href="Buildings_Rooms_FLEXLAB_Rooms_X3A.html#Buildings.Rooms.FLEXLAB.Rooms.X3A.Closet"
+>
+  Buildings.Rooms.FLEXLAB.Rooms.X3A.Closet</a>, and the model for the connected electrical room is located at
+  <a href="Buildings_Rooms_FLEXLAB_Rooms_X3A.html#Buildings.Rooms.FLEXLAB.Rooms.X3A.Electrical"
+>
+  Buildings.Rooms.FLEXLAB.Rooms.X3A.Electrical</a>. Each of the models were developed using construction and
+  parameter information taken from architectural drawings. Accurate use of the models will likely require
+  combining all three room models to each other.
+  </p>
+  <p>
+  The models in this package are intended to be connected to each other to develop a model of the entirety
+  of test cell X3A. Several of the connections are to be made between walls connecting the two spaces to each
+  other. Detailed information on the wall in each test cell can be found in the documentation for that test cell.
+  The connections between each room in the test cell are described below.
+  </p>
+  <table border ="1" summary = "Summary of connections between X3A spaces">
+  <tr>
+  <th>Physical significance of connection</th>
+  <th>Port 1</th>
+  <th>Port 2</th>
+  </tr>
+  <tr>
+  <td>Heat transfer through the partition wall between the test cell and the closet</td>
+  <td>TestCell.surf_conBou[3]</td>
+  <td>Closet.surf_surBou[1]</td>
+  </tr>
+  <tr>
+  <td>Heat transfer through the door in the partition wall between the test cell and the closet</td>
+  <td>TestCell.surf_conBou[4]</td>
+  <td>Closet.surf_surBou[2]</td>
+  </tr>
+  <tr>
+  <td>Heat transfer through the wall separating the test cell and the electrical room</td>
+  <td>TestCell.surf_conBou[5]</td>
+  <td>Electrical.surf_surBou[1]</td>
+  </tr>
+  <tr>
+  <td>Heat transfer through the wall separating the closet and the electrical room</td>
+  <td>Closet.surf_conBou[1]</td>
+  <td>Electrical.surf_surBou[2]</td>
+  </tr>
+  </table>
+  <p>
+  An example of how these room models are connected to create full test cell model can be found in
+  <a href="Buildings_Rooms_FLEXLAB_Rooms_Examples.html#Buildings.Rooms.FLEXLAB.Rooms.Examples.X3AWithRadiantFloor"
+>
+  Buildings.Rooms.FLEXLAB.Rooms.Examples.X3AWithRadiantFloor</a>.
+  </p>
+  
+<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons_Package.html#Modelica.Icons.Package"
+>Modelica.Icons.Package</a> (Icon for standard packages).</p>
+<h3>Package Content</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Package Content">
+<tr>
+<th>Name</th>
+<th>Description</th>
+</tr>
+<tr>
+<td><img src="Buildings.Rooms.FLEXLAB.Rooms.X3A.ClosetS.png" alt="Buildings.Rooms.FLEXLAB.Rooms.X3A.Closet" width="20" height="20" align="top">&nbsp;<a href="Buildings_Rooms_FLEXLAB_Rooms_X3A.html#Buildings.Rooms.FLEXLAB.Rooms.X3A.Closet"
+>Closet</a>
+</td>
+<td>Model of the closet connected to test cell X3A</td>
+</tr>
+<tr>
+<td><img src="Buildings.Rooms.FLEXLAB.Rooms.X3A.ClosetS.png" alt="Buildings.Rooms.FLEXLAB.Rooms.X3A.ClosetFullBed" width="20" height="20" align="top">&nbsp;<a href="Buildings_Rooms_FLEXLAB_Rooms_X3A.html#Buildings.Rooms.FLEXLAB.Rooms.X3A.ClosetFullBed"
+>ClosetFullBed</a>
+</td>
+<td>Model of the closet connected to test cell X3A intended to be connected to X3B.Closet</td>
+</tr>
+<tr>
+<td><img src="Buildings.Rooms.FLEXLAB.Rooms.X3A.ClosetS.png" alt="Buildings.Rooms.FLEXLAB.Rooms.X3A.Electrical" width="20" height="20" align="top">&nbsp;<a href="Buildings_Rooms_FLEXLAB_Rooms_X3A.html#Buildings.Rooms.FLEXLAB.Rooms.X3A.Electrical"
+>Electrical</a>
+</td>
+<td>Model of the electrical room attached to test cell X3A</td>
+</tr>
+<tr>
+<td><img src="Buildings.Rooms.FLEXLAB.Rooms.X3A.ClosetS.png" alt="Buildings.Rooms.FLEXLAB.Rooms.X3A.TestCell" width="20" height="20" align="top">&nbsp;<a href="Buildings_Rooms_FLEXLAB_Rooms_X3A.html#Buildings.Rooms.FLEXLAB.Rooms.X3A.TestCell"
+>TestCell</a>
+</td>
+<td>Model of LBNL User Test Facility Cell X3A</td>
+</tr>
+<tr>
+<td><img src="Buildings.Rooms.FLEXLAB.Rooms.X3A.ClosetS.png" alt="Buildings.Rooms.FLEXLAB.Rooms.X3A.TestCellFullBed" width="20" height="20" align="top">&nbsp;<a href="Buildings_Rooms_FLEXLAB_Rooms_X3A.html#Buildings.Rooms.FLEXLAB.Rooms.X3A.TestCellFullBed"
+>TestCellFullBed</a>
+</td>
+<td>Model of LBNL User Test Facility Cell X3A intended for connection with X3B.TestCell</td>
+</tr>
+</table>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE Closet<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Rooms.FLEXLAB.Rooms.X3A.ClosetI.png" alt="Buildings.Rooms.FLEXLAB.Rooms.X3A.Closet" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Rooms.FLEXLAB.Rooms.X3A.Closet"></a><a href="Buildings_Rooms_FLEXLAB_Rooms_X3A.html#Buildings.Rooms.FLEXLAB.Rooms.X3A"
+>Buildings.Rooms.FLEXLAB.Rooms.X3A</a>.Closet</h2>
+<p>
+<b>Model of the closet connected to test cell X3A</b>
+<br>
+<br><img src="Buildings.Rooms.FLEXLAB.Rooms.X3A.ClosetD.png" alt="Buildings.Rooms.FLEXLAB.Rooms.X3A.Closet">
+</p>
+<h3>Information</h3>
+
+    <p>
+    This is a model for the closet attached to test cell 3A in the LBNL User Facility.
+    This documentation describes the wall constructions used in the closet. Documentation
+    describing how it should be connected to other models in the package to form a
+    complete model of test cell X3A can be found in
+    <a href="Buildings_Rooms_FLEXLAB_Rooms_X3A.html#Buildings.Rooms.FLEXLAB.Rooms.X3A"
+>
+    Buildings.Rooms.FLEXLAB.Rooms.X3A</a>.
+    </p>
+    <p>
+    There are four different wall sections connected to the closet modeled here. They are shown
+    in the figure below.
+    </p>
+    <p align="center">
+    <img src="../Resources/Images/Rooms/FLEXLAB/Rooms/X3A/Closet.png" border="1" alt="Wall sections in Closet model"/>
+    </p>
+    <p>
+    The different wall sections are represented in the model according to the following table.
+    </p>
+    <table border = "1" summary = "Wall sections in Closet model">
+    <tr>
+    <th>Wall Section Number</th>
+    <th>Description</th>
+    <th>Location in Model</th>
+    <th>Corresponding Layer</th>
+    </tr>
+    <tr>
+    <td>1</td>
+    <td>North wall on the exterior of the buildings</td>
+    <td>datConExt[1]</td>
+    <td>higIns</td>
+    </tr>
+    <tr>
+    <td>2</td>
+    <td>East wall connected to X3B.Closet</td>
+    <td>datConBou[2]</td>
+    <td>celDiv</td>
+    </tr>
+    <tr>
+    <td>3</td>
+    <td>Air space connected to partition wall and door in TestCell model</td>
+    <td>Wall: datSurBou[1]<br/>
+    Door: datSurBou[2]</td>
+    </tr>
+    <tr>
+    <td>4</td>
+    <td>West wall connected to Electrical</td>
+    <td>datConBou[1]</td>
+    <td>higIns</td>
+    </tr>
+    </table>
+    <p>
+    There are two additional surfaces which are not included in the diagram. One is the model of the roof. It is
+    modeled in datConExt[2] using the layer <code>roo</code>. The other is the floor, which is modeled in
+    datConBou[1] using the layer <code>slaCon</code>.
+    </p>
+    <p>
+    Several of the connections in this model are intended to be connected to specific surfaces in other room models.
+    The following table describes the connections to models outside of the X3A package.. The connections in datConExt
+    are not described in the table because they are connected to the external environment, and no additional heat
+    port connections are necessary. A rationale for why the model is created this way is also provided if it is
+    considered necessary.
+    </p>
+    <table border ="1" summary="Intended connections including the Closet model">
+    <tr>
+    <th>Location in Closet</th>
+    <th>Description of External Connection</th>
+    <th>Location in External Model</th>
+    <th>Rationale</th>
+    </tr>
+    <tr>
+    <td>surf_conBou[2]</td>
+    <td>X3B.Closet</td>
+    <td>References a data table</td>
+    <td>A data table is used, instead of a model of X3B.Closet, because the goal of this model is to be able to perform
+    simulations of TestCell with minimal complexity, by simplifying the neighboring test cells. The wall separating the
+    test cells is highly insulated, and it is believed that the error in simulations caused by using a data table will
+    be negligible.</td>
+    </tr>
+    <tr>
+    <td>surf_conBou[3]</td>
+    <td>Ground temperature</td>
+    <td></td>
+    <td>There is no specific connection which is appropriate connection for this construction. surf_conBou[3] represents
+    the floor of the room, and must be connected to a heat port representing the ground temperature.</td>
+    </tr>
+    </table>
+    
+<p>Extends from <a href="Buildings_Rooms.html#Buildings.Rooms.MixedAir"
+>Buildings.Rooms.MixedAir</a> (Model of a room in which the air is completely mixed).</p>
+<h3>Parameters</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td><a href="Buildings_Rooms_BaseClasses.html#Buildings.Rooms.BaseClasses.ParameterConstructionWithWindow"
+>ParameterConstructionWithWindow</a></td><td>datConExtWin[NConExtWin]</td><td>datConExtWin(each T_a_start=...</td><td>Data for exterior construction with window</td></tr>
+<tr><td><a href="Buildings_Rooms_BaseClasses.html#Buildings.Rooms.BaseClasses.ParameterConstruction"
+>ParameterConstruction</a></td><td>datConPar[NConPar]</td><td>datConPar(each T_a_start=T_s...</td><td>Data for partition construction</td></tr>
+<tr><td><a href="Buildings_HeatTransfer_Data_OpaqueConstructions.html#Buildings.HeatTransfer.Data.OpaqueConstructions.Brick120"
+>Brick120</a></td><td>dummyCon</td><td>&nbsp;</td><td>Dummy construction to assign a parameter to the instance</td></tr>
+<tr><td><a href="Buildings_HeatTransfer_Data_GlazingSystems.html#Buildings.HeatTransfer.Data.GlazingSystems.SingleClear3"
+>SingleClear3</a></td><td>dummyGlaSys</td><td>&nbsp;</td><td>Dummy construction to assign a parameter to the instance</td></tr>
+<tr><td colspan="2">replaceable package Medium</td><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium"
+>PartialMedium</a></td><td>Medium in the component</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
+>Angle</a></td><td>lat</td><td>0.66098585832754</td><td>Latitude [rad]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Area"
+>Area</a></td><td>AFlo</td><td>3.93</td><td>Floor area [m2]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Length"
+>Length</a></td><td>hRoo</td><td>3.6576</td><td>Average room height [m]</td></tr>
+<tr><td>Boolean</td><td>linearizeRadiation</td><td>true</td><td>Set to true to linearize emissive power</td></tr>
+<tr><td><a href="Buildings_Rooms_FLEXLAB_Data_Constructions_OpaqueConstructions_DividingWalls.html#Buildings.Rooms.FLEXLAB.Data.Constructions.OpaqueConstructions.DividingWalls.CellAndElectricalDividingWall"
+>CellAndElectricalDividingWall</a></td><td>higIns</td><td>redeclare Data.Constructions...</td><td>High insulation wall. Between X3A closet and exterior, X3A closet and electrical room</td></tr>
+<tr><td><a href="Buildings_Rooms_FLEXLAB_Data_Constructions_OpaqueConstructions_DividingWalls.html#Buildings.Rooms.FLEXLAB.Data.Constructions.OpaqueConstructions.DividingWalls.TestCellDividngWall"
+>TestCellDividngWall</a></td><td>celDiv</td><td>redeclare Data.Constructions...</td><td>Wall dividing the X3A closet and the X3B closet</td></tr>
+<tr><td><a href="Buildings_Rooms_FLEXLAB_Data_Constructions_OpaqueConstructions_Roofs.html#Buildings.Rooms.FLEXLAB.Data.Constructions.OpaqueConstructions.Roofs.ASHRAE_901_2010Roof"
+>ASHRAE_901_2010Roof</a></td><td>roo</td><td>redeclare Data.Constructions...</td><td>Construction of the roof of the closet in X3A</td></tr>
+<tr style="background-color: #e0e0e0"><td colspan="4">Exterior constructions</td></tr>
+<tr><td>Integer</td><td>nConExt</td><td>2</td><td>Number of exterior constructions</td></tr>
+<tr><td>Integer</td><td>nConExtWin</td><td>0</td><td>Number of window constructions</td></tr>
+<tr style="background-color: #e0e0e0"><td colspan="4">Partition constructions</td></tr>
+<tr><td>Integer</td><td>nConPar</td><td>0</td><td>Number of partition constructions</td></tr>
+<tr style="background-color: #e0e0e0"><td colspan="4">Boundary constructions</td></tr>
+<tr><td>Integer</td><td>nConBou</td><td>3</td><td>Number of constructions that have their outside surface exposed to the boundary of this room</td></tr>
+<tr><td>Integer</td><td>nSurBou</td><td>2</td><td>Number of surface heat transfer models that connect to constructions that are modeled outside of this room</td></tr>
+<tr style="background-color: #e0e0e0"><td colspan="4">Convective heat transfer</td></tr>
+<tr><td><a href="Buildings_HeatTransfer_Types.html#Buildings.HeatTransfer.Types.InteriorConvection"
+>InteriorConvection</a></td><td>intConMod</td><td>Buildings.HeatTransfer.Types...</td><td>Convective heat transfer model for room-facing surfaces of opaque constructions</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.CoefficientOfHeatTransfer"
+>CoefficientOfHeatTransfer</a></td><td>hIntFixed</td><td>3.0</td><td>Constant convection coefficient for room-facing surfaces of opaque constructions [W/(m2.K)]</td></tr>
+<tr><td><a href="Buildings_HeatTransfer_Types.html#Buildings.HeatTransfer.Types.ExteriorConvection"
+>ExteriorConvection</a></td><td>extConMod</td><td>Buildings.HeatTransfer.Types...</td><td>Convective heat transfer model for exterior facing surfaces of opaque constructions</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.CoefficientOfHeatTransfer"
+>CoefficientOfHeatTransfer</a></td><td>hExtFixed</td><td>10.0</td><td>Constant convection coefficient for exterior facing surfaces of opaque constructions [W/(m2.K)]</td></tr>
+<tr style="background-color: #e0e0e0"><td colspan="4">Nominal condition</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+>MassFlowRate</a></td><td>m_flow_nominal</td><td>V*1.2/3600</td><td>Nominal mass flow rate [kg/s]</td></tr>
+<tr style="background-color: #c0c0c0"><td colspan="4"><b>Advanced</b></td></tr>
+<tr><td>Boolean</td><td>homotopyInitialization</td><td>true</td><td>= true, use homotopy method</td></tr>
+<tr style="background-color: #c0c0c0"><td colspan="4"><b>Dynamics</b></td></tr>
+<tr style="background-color: #e0e0e0"><td colspan="4">Equations</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Fluid_Types.html#Modelica.Fluid.Types.Dynamics"
+>Dynamics</a></td><td>energyDynamics</td><td>Modelica.Fluid.Types.Dynamic...</td><td>Formulation of energy balance</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Fluid_Types.html#Modelica.Fluid.Types.Dynamics"
+>Dynamics</a></td><td>massDynamics</td><td>energyDynamics</td><td>Formulation of mass balance</td></tr>
+<tr><td>Real</td><td>mSenFac</td><td>1</td><td>Factor for scaling the sensible thermal mass of the volume</td></tr>
+<tr style="background-color: #c0c0c0"><td colspan="4"><b>Initialization</b></td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.AbsolutePressure"
+>AbsolutePressure</a></td><td>p_start</td><td>Medium.p_default</td><td>Start value of pressure [Pa]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.Temperature"
+>Temperature</a></td><td>T_start</td><td>Medium.T_default</td><td>Start value of temperature [K]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.MassFraction"
+>MassFraction</a></td><td>X_start[Medium.nX]</td><td>Medium.X_default</td><td>Start value of mass fractions m_i/m [kg/kg]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.ExtraProperty"
+>ExtraProperty</a></td><td>C_start[Medium.nC]</td><td>fill(0, Medium.nC)</td><td>Start value of trace substances</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.ExtraProperty"
+>ExtraProperty</a></td><td>C_nominal[Medium.nC]</td><td>fill(1E-2, Medium.nC)</td><td>Nominal value of trace substances. (Set to typical order of magnitude.)</td></tr>
+</table>
+<h3>Connectors</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Connectors">
+<tr><th>Type</th><th>Name</th><th>Description</th></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Fluid_Vessels_BaseClasses.html#Modelica.Fluid.Vessels.BaseClasses.VesselFluidPorts_b"
+>VesselFluidPorts_b</a></td><td>ports[nPorts]</td><td>Fluid inlets and outlets</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Thermal_HeatTransfer_Interfaces.html#Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a"
+>HeatPort_a</a></td><td>heaPorAir</td><td>Heat port to air volume</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Thermal_HeatTransfer_Interfaces.html#Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a"
+>HeatPort_a</a></td><td>heaPorRad</td><td>Heat port for radiative heat gain and radiative temperature</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Thermal_HeatTransfer_Interfaces.html#Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a"
+>HeatPort_a</a></td><td>surf_conBou[nConBou]</td><td>Heat port at surface b of construction conBou</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Thermal_HeatTransfer_Interfaces.html#Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a"
+>HeatPort_a</a></td><td>surf_surBou[nSurBou]</td><td>Heat port of surface that is connected to the room air</td></tr>
+<tr><td>input <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>RealInput</a></td><td>qGai_flow[3]</td><td>Radiant, convective and latent heat input into room (positive if heat gain) [W/m2]</td></tr>
+<tr><td><a href="Buildings_BoundaryConditions_WeatherData.html#Buildings.BoundaryConditions.WeatherData.Bus"
+>Bus</a></td><td>weaBus</td><td>&nbsp;</td></tr>
+<tr><td>input <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>RealInput</a></td><td>uSha[nConExtWin]</td><td>Control signal for the shading device (removed if no shade is present)</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">model</span> Closet <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Model of the closet connected to test cell X3A&quot;</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="Buildings_Rooms.html#Buildings.Rooms.MixedAir"
+>Buildings.Rooms.MixedAir</a>(
+  hRoo = 3.6576,
+  AFlo = 3.93,
+  lat = 0.66098585832754,
+  nConExt = 2,
+  nConBou = 3,
+  nSurBou = 2,
+  nConExtWin = 0,
+  nConPar = 0,
+  surBou(
+    A = {3.6576 * 2.886075 - 2.39*1.22, 2.39 * 1.22},
+    <span style="color: blue; font-weight: normal; font-style: normal;">each </span>absIR = 0.9,
+    <span style="color: blue; font-weight: normal; font-style: normal;">each </span>absSol = 0.9,
+    <span style="color: blue; font-weight: normal; font-style: normal;">each </span>til=Buildings.Types.Tilt.Wall),
+  datConExt(
+    layers = {higIns, roo},
+    A = {3.6576 * 1.667, AFlo},
+    til = {Buildings.Types.Tilt.Wall, Buildings.Types.Tilt.Ceiling},
+    azi = {Buildings.Types.Azimuth.N, Buildings.Types.Azimuth.N}),
+  datConBou(
+    layers = {higIns, celDiv, slaCon},
+    A = {3.6576*1.524, 3.6576 * 1.524, 3.93},
+    til = {Buildings.Types.Tilt.Wall, Buildings.Types.Tilt.Wall, Buildings.Types.Tilt.Floor},
+    azi = {Buildings.Types.Azimuth.W, Buildings.Types.Azimuth.E, Buildings.Types.Azimuth.N}));
+
+  <span style="color: blue; font-weight: normal; font-style: normal;">replaceable </span><a href="Buildings_Rooms_FLEXLAB_Data_Constructions_OpaqueConstructions_DividingWalls.html#Buildings.Rooms.FLEXLAB.Data.Constructions.OpaqueConstructions.DividingWalls.CellAndElectricalDividingWall"
+>Data.Constructions.OpaqueConstructions.DividingWalls.CellAndElectricalDividingWall</a>
+                                                                      higIns <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;High insulation wall. Between X3A closet and exterior, X3A closet and electrical room&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">replaceable </span><a href="Buildings_Rooms_FLEXLAB_Data_Constructions_OpaqueConstructions_DividingWalls.html#Buildings.Rooms.FLEXLAB.Data.Constructions.OpaqueConstructions.DividingWalls.TestCellDividngWall"
+>Data.Constructions.OpaqueConstructions.DividingWalls.TestCellDividngWall</a>
+                                                                         celDiv <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Wall dividing the X3A closet and the X3B closet&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">replaceable </span><a href="Buildings_Rooms_FLEXLAB_Data_Constructions_OpaqueConstructions_Roofs.html#Buildings.Rooms.FLEXLAB.Data.Constructions.OpaqueConstructions.Roofs.ASHRAE_901_2010Roof"
+>Data.Constructions.OpaqueConstructions.Roofs.ASHRAE_901_2010Roof</a>
+                                                                   roo <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Construction of the roof of the closet in X3A&quot;</span>;
+
+  <a href="Buildings_HeatTransfer_Data_OpaqueConstructions.html#Buildings.HeatTransfer.Data.OpaqueConstructions.Generic"
+>HeatTransfer.Data.OpaqueConstructions.Generic</a>
+    slaCon(nLay=3, material={
+      <span style="color: red; font-weight: normal; font-style: normal;">Buildings.HeatTransfer.Data.Solids.Generic</span>(
+        x=0.1524,
+        k=1.13,
+        c=1000,
+        d=1400,
+        nSta=5),
+      <span style="color: red; font-weight: normal; font-style: normal;">Buildings.HeatTransfer.Data.Solids.Generic</span>(
+        x=0.127,
+        k=0.036,
+        c=1200,
+        d=40),
+      <span style="color: red; font-weight: normal; font-style: normal;">Buildings.HeatTransfer.Data.Solids.Generic</span>(
+        x=0.2,
+        k=1.8,
+        c=1100,
+        d=2400)}) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Construction of the slab&quot;</span>;
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>Closet;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE ClosetFullBed<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Rooms.FLEXLAB.Rooms.X3A.ClosetI.png" alt="Buildings.Rooms.FLEXLAB.Rooms.X3A.ClosetFullBed" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Rooms.FLEXLAB.Rooms.X3A.ClosetFullBed"></a><a href="Buildings_Rooms_FLEXLAB_Rooms_X3A.html#Buildings.Rooms.FLEXLAB.Rooms.X3A"
+>Buildings.Rooms.FLEXLAB.Rooms.X3A</a>.ClosetFullBed</h2>
+<p>
+<b>Model of the closet connected to test cell X3A intended to be connected to X3B.Closet</b>
+<br>
+<br><img src="Buildings.Rooms.FLEXLAB.Rooms.X3A.ClosetD.png" alt="Buildings.Rooms.FLEXLAB.Rooms.X3A.ClosetFullBed">
+</p>
+<h3>Information</h3>
+
+    <p>
+    This is a duplicate model of <a href="Buildings_Rooms_FLEXLAB_Rooms_X3A.html#Buildings.Rooms.FLEXLAB.Rooms.X3A.Closet"
+>
+    Buildings.Rooms.FLEXLAB.Rooms.X3A.Closet</a> with the wall separating this model and
+    <a href="Buildings_Rooms_FLEXLAB_Rooms_X3B.html#Buildings.Rooms.FLEXLAB.Rooms.X3B.Closet"
+>
+    Buildings.Rooms.FLEXLAB.Rooms.X3B.Closet</a> removed. It is intended for use in simulations
+    which include both room models to simulate the whole test bed. If the regular models are used
+    the wall separating the closets will be modeled twice, so one model must have the wall removed.
+    This documentation only describes the walls and connections which are different from
+    <a href="Buildings_Rooms_FLEXLAB_Rooms_X3A.html#Buildings.Rooms.FLEXLAB.Rooms.X3A.Closet"
+>
+    Buildings.Rooms.FLEXLAB.Rooms.X3A.Closet</a>. For information on the rest of the walls
+    and connections see that documentation.
+    </p>
+    <p>
+    There are four different wall sections connected to the closet modeled here. They are shown
+    in the figure below. Only wall section 2 is described in this documentation.
+    </p>
+    <p align="center">
+    <img src="../Resources/Images/Rooms/FLEXLAB/Rooms/X3A/Closet.png" border="1" alt="Wall sections in Closet model"/>
+    </p>
+    <p>
+    The different wall sections are represented in the model according to the following table.
+    </p>
+    <table border = "1" summary = "Wall sections in Closet model">
+    <tr>
+    <th>Wall Section Number</th>
+    <th>Description</th>
+    <th>Location in Model</th>
+    <th>Corresponding Layer</th>
+    </tr>
+    <tr>
+    <td>2</td>
+    <td>Dividing wall modeled in X3B.Closet</td>
+    <td>surBou[3]</td>
+    </tr>
+    </table>
+    <p>
+    As a result of removing the dividing wall construction, the location of the construction of the floor has changed.
+    The following table shows the old and new location of this wall construction.
+    </p>
+    <table border ="1" summary="Changes to construction locations">
+    <tr>
+    <th>Physical Description</th>
+    <th>Location in Closet</th>
+    <th>Location in ClosetNoCelDiv</th>
+    </tr>
+    <tr>
+    <td>Construction modeling the floor</td>
+    <td>datConBou[3]</td>
+    <td>datConBou[2]</td>
+    </tr>
+    </table>
+    <p>
+    Several of the connections in this model are intended to be connected to specific surfaces in other room models.
+    The following table describes the connections to models outside of the X3A package. The connections in datConExt
+    are not described in the table because they are connected to the external environment, and no additional heat
+    port connections are necessary. A rationale for why the model is created this way is also provided if it is
+    considered necessary.
+    </p>
+    <table border ="1" summary="Intended connections including the Closet model">
+    <tr>
+    <th>Location in Closet</th>
+    <th>Description of External Connection</th>
+    <th>Location in External Model</th>
+    <th>Rationale</th>
+    </tr>
+    <tr>
+    <td>surf_surBou[3]</td>
+    <td>X3B.Closet</td>
+    <td>X3B.Closet.surf_conBou[2]</td>
+    <td>X3B.Closet.surf_conBou[2] is the location of the cell dividing wall in the neighboring closet. Connecting
+    X3A.ClosetNoCelDiv.surf_surBou[3] to this port models heat transfer from the wall in X3B.Closet to the air in this
+    space.</td>
+    </tr>
+    </table>
+    
+<p>Extends from <a href="Buildings_Rooms.html#Buildings.Rooms.MixedAir"
+>Buildings.Rooms.MixedAir</a> (Model of a room in which the air is completely mixed).</p>
+<h3>Parameters</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td><a href="Buildings_Rooms_BaseClasses.html#Buildings.Rooms.BaseClasses.ParameterConstructionWithWindow"
+>ParameterConstructionWithWindow</a></td><td>datConExtWin[NConExtWin]</td><td>datConExtWin(each T_a_start=...</td><td>Data for exterior construction with window</td></tr>
+<tr><td><a href="Buildings_Rooms_BaseClasses.html#Buildings.Rooms.BaseClasses.ParameterConstruction"
+>ParameterConstruction</a></td><td>datConPar[NConPar]</td><td>datConPar(each T_a_start=T_s...</td><td>Data for partition construction</td></tr>
+<tr><td><a href="Buildings_HeatTransfer_Data_OpaqueConstructions.html#Buildings.HeatTransfer.Data.OpaqueConstructions.Brick120"
+>Brick120</a></td><td>dummyCon</td><td>&nbsp;</td><td>Dummy construction to assign a parameter to the instance</td></tr>
+<tr><td><a href="Buildings_HeatTransfer_Data_GlazingSystems.html#Buildings.HeatTransfer.Data.GlazingSystems.SingleClear3"
+>SingleClear3</a></td><td>dummyGlaSys</td><td>&nbsp;</td><td>Dummy construction to assign a parameter to the instance</td></tr>
+<tr><td colspan="2">replaceable package Medium</td><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium"
+>PartialMedium</a></td><td>Medium in the component</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
+>Angle</a></td><td>lat</td><td>0.66098585832754</td><td>Latitude [rad]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Area"
+>Area</a></td><td>AFlo</td><td>3.93</td><td>Floor area [m2]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Length"
+>Length</a></td><td>hRoo</td><td>3.6576</td><td>Average room height [m]</td></tr>
+<tr><td>Boolean</td><td>linearizeRadiation</td><td>true</td><td>Set to true to linearize emissive power</td></tr>
+<tr><td><a href="Buildings_Rooms_FLEXLAB_Data_Constructions_OpaqueConstructions_DividingWalls.html#Buildings.Rooms.FLEXLAB.Data.Constructions.OpaqueConstructions.DividingWalls.CellAndElectricalDividingWall"
+>CellAndElectricalDividingWall</a></td><td>higIns</td><td>redeclare Data.Constructions...</td><td>High insulation wall. Between X3A closet and exterior, X3A closet and electrical room</td></tr>
+<tr><td><a href="Buildings_Rooms_FLEXLAB_Data_Constructions_OpaqueConstructions_DividingWalls.html#Buildings.Rooms.FLEXLAB.Data.Constructions.OpaqueConstructions.DividingWalls.TestCellDividngWall"
+>TestCellDividngWall</a></td><td>celDiv</td><td>redeclare Data.Constructions...</td><td>Wall dividing the X3A closet and the X3B closet</td></tr>
+<tr><td><a href="Buildings_Rooms_FLEXLAB_Data_Constructions_OpaqueConstructions_Roofs.html#Buildings.Rooms.FLEXLAB.Data.Constructions.OpaqueConstructions.Roofs.ASHRAE_901_2010Roof"
+>ASHRAE_901_2010Roof</a></td><td>roo</td><td>redeclare Data.Constructions...</td><td>Construction of the roof of the closet in X3A</td></tr>
+<tr style="background-color: #e0e0e0"><td colspan="4">Exterior constructions</td></tr>
+<tr><td>Integer</td><td>nConExt</td><td>2</td><td>Number of exterior constructions</td></tr>
+<tr><td>Integer</td><td>nConExtWin</td><td>0</td><td>Number of window constructions</td></tr>
+<tr style="background-color: #e0e0e0"><td colspan="4">Partition constructions</td></tr>
+<tr><td>Integer</td><td>nConPar</td><td>0</td><td>Number of partition constructions</td></tr>
+<tr style="background-color: #e0e0e0"><td colspan="4">Boundary constructions</td></tr>
+<tr><td>Integer</td><td>nConBou</td><td>2</td><td>Number of constructions that have their outside surface exposed to the boundary of this room</td></tr>
+<tr><td>Integer</td><td>nSurBou</td><td>3</td><td>Number of surface heat transfer models that connect to constructions that are modeled outside of this room</td></tr>
+<tr style="background-color: #e0e0e0"><td colspan="4">Convective heat transfer</td></tr>
+<tr><td><a href="Buildings_HeatTransfer_Types.html#Buildings.HeatTransfer.Types.InteriorConvection"
+>InteriorConvection</a></td><td>intConMod</td><td>Buildings.HeatTransfer.Types...</td><td>Convective heat transfer model for room-facing surfaces of opaque constructions</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.CoefficientOfHeatTransfer"
+>CoefficientOfHeatTransfer</a></td><td>hIntFixed</td><td>3.0</td><td>Constant convection coefficient for room-facing surfaces of opaque constructions [W/(m2.K)]</td></tr>
+<tr><td><a href="Buildings_HeatTransfer_Types.html#Buildings.HeatTransfer.Types.ExteriorConvection"
+>ExteriorConvection</a></td><td>extConMod</td><td>Buildings.HeatTransfer.Types...</td><td>Convective heat transfer model for exterior facing surfaces of opaque constructions</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.CoefficientOfHeatTransfer"
+>CoefficientOfHeatTransfer</a></td><td>hExtFixed</td><td>10.0</td><td>Constant convection coefficient for exterior facing surfaces of opaque constructions [W/(m2.K)]</td></tr>
+<tr style="background-color: #e0e0e0"><td colspan="4">Nominal condition</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+>MassFlowRate</a></td><td>m_flow_nominal</td><td>V*1.2/3600</td><td>Nominal mass flow rate [kg/s]</td></tr>
+<tr style="background-color: #c0c0c0"><td colspan="4"><b>Advanced</b></td></tr>
+<tr><td>Boolean</td><td>homotopyInitialization</td><td>true</td><td>= true, use homotopy method</td></tr>
+<tr style="background-color: #c0c0c0"><td colspan="4"><b>Dynamics</b></td></tr>
+<tr style="background-color: #e0e0e0"><td colspan="4">Equations</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Fluid_Types.html#Modelica.Fluid.Types.Dynamics"
+>Dynamics</a></td><td>energyDynamics</td><td>Modelica.Fluid.Types.Dynamic...</td><td>Formulation of energy balance</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Fluid_Types.html#Modelica.Fluid.Types.Dynamics"
+>Dynamics</a></td><td>massDynamics</td><td>energyDynamics</td><td>Formulation of mass balance</td></tr>
+<tr><td>Real</td><td>mSenFac</td><td>1</td><td>Factor for scaling the sensible thermal mass of the volume</td></tr>
+<tr style="background-color: #c0c0c0"><td colspan="4"><b>Initialization</b></td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.AbsolutePressure"
+>AbsolutePressure</a></td><td>p_start</td><td>Medium.p_default</td><td>Start value of pressure [Pa]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.Temperature"
+>Temperature</a></td><td>T_start</td><td>Medium.T_default</td><td>Start value of temperature [K]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.MassFraction"
+>MassFraction</a></td><td>X_start[Medium.nX]</td><td>Medium.X_default</td><td>Start value of mass fractions m_i/m [kg/kg]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.ExtraProperty"
+>ExtraProperty</a></td><td>C_start[Medium.nC]</td><td>fill(0, Medium.nC)</td><td>Start value of trace substances</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.ExtraProperty"
+>ExtraProperty</a></td><td>C_nominal[Medium.nC]</td><td>fill(1E-2, Medium.nC)</td><td>Nominal value of trace substances. (Set to typical order of magnitude.)</td></tr>
+</table>
+<h3>Connectors</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Connectors">
+<tr><th>Type</th><th>Name</th><th>Description</th></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Fluid_Vessels_BaseClasses.html#Modelica.Fluid.Vessels.BaseClasses.VesselFluidPorts_b"
+>VesselFluidPorts_b</a></td><td>ports[nPorts]</td><td>Fluid inlets and outlets</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Thermal_HeatTransfer_Interfaces.html#Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a"
+>HeatPort_a</a></td><td>heaPorAir</td><td>Heat port to air volume</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Thermal_HeatTransfer_Interfaces.html#Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a"
+>HeatPort_a</a></td><td>heaPorRad</td><td>Heat port for radiative heat gain and radiative temperature</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Thermal_HeatTransfer_Interfaces.html#Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a"
+>HeatPort_a</a></td><td>surf_conBou[nConBou]</td><td>Heat port at surface b of construction conBou</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Thermal_HeatTransfer_Interfaces.html#Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a"
+>HeatPort_a</a></td><td>surf_surBou[nSurBou]</td><td>Heat port of surface that is connected to the room air</td></tr>
+<tr><td>input <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>RealInput</a></td><td>qGai_flow[3]</td><td>Radiant, convective and latent heat input into room (positive if heat gain) [W/m2]</td></tr>
+<tr><td><a href="Buildings_BoundaryConditions_WeatherData.html#Buildings.BoundaryConditions.WeatherData.Bus"
+>Bus</a></td><td>weaBus</td><td>&nbsp;</td></tr>
+<tr><td>input <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>RealInput</a></td><td>uSha[nConExtWin]</td><td>Control signal for the shading device (removed if no shade is present)</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">model</span> ClosetFullBed <span style="color: #006400; font-weight: normal; font-style: normal;">
+  &quot;Model of the closet connected to test cell X3A intended to be connected to X3B.Closet&quot;</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="Buildings_Rooms.html#Buildings.Rooms.MixedAir"
+>Buildings.Rooms.MixedAir</a>(
+  hRoo = 3.6576,
+  AFlo = 3.93,
+  lat = 0.66098585832754,
+  nConExt = 2,
+  nConBou = 2,
+  nSurBou = 3,
+  nConExtWin = 0,
+  nConPar = 0,
+  surBou(
+    A = {3.6576 * 2.886075 - 2.39*1.22, 2.39 * 1.22, 3.6576 * 1.524},
+    <span style="color: blue; font-weight: normal; font-style: normal;">each </span>absIR = 0.9,
+    <span style="color: blue; font-weight: normal; font-style: normal;">each </span>absSol = 0.9,
+    <span style="color: blue; font-weight: normal; font-style: normal;">each </span>til=Buildings.Types.Tilt.Wall),
+  datConExt(
+    layers = {higIns, roo},
+    A = {3.6576 * 1.667, AFlo},
+    til = {Buildings.Types.Tilt.Wall, Buildings.Types.Tilt.Ceiling},
+    azi = {Buildings.Types.Azimuth.N, Buildings.Types.Azimuth.N}),
+  datConBou(
+    layers = {higIns, slaCon},
+    A = {3.6576*1.524, 3.93},
+    til = {Buildings.Types.Tilt.Wall, Buildings.Types.Tilt.Floor},
+    azi = {Buildings.Types.Azimuth.W, Buildings.Types.Azimuth.N}));
+
+  <span style="color: blue; font-weight: normal; font-style: normal;">replaceable </span><a href="Buildings_Rooms_FLEXLAB_Data_Constructions_OpaqueConstructions_DividingWalls.html#Buildings.Rooms.FLEXLAB.Data.Constructions.OpaqueConstructions.DividingWalls.CellAndElectricalDividingWall"
+>Data.Constructions.OpaqueConstructions.DividingWalls.CellAndElectricalDividingWall</a>
+                                                                      higIns <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;High insulation wall. Between X3A closet and exterior, X3A closet and electrical room&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">replaceable </span><a href="Buildings_Rooms_FLEXLAB_Data_Constructions_OpaqueConstructions_DividingWalls.html#Buildings.Rooms.FLEXLAB.Data.Constructions.OpaqueConstructions.DividingWalls.TestCellDividngWall"
+>Data.Constructions.OpaqueConstructions.DividingWalls.TestCellDividngWall</a>
+                                                                         celDiv <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Wall dividing the X3A closet and the X3B closet&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">replaceable </span><a href="Buildings_Rooms_FLEXLAB_Data_Constructions_OpaqueConstructions_Roofs.html#Buildings.Rooms.FLEXLAB.Data.Constructions.OpaqueConstructions.Roofs.ASHRAE_901_2010Roof"
+>Data.Constructions.OpaqueConstructions.Roofs.ASHRAE_901_2010Roof</a>
+                                                                   roo <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Construction of the roof of the closet in X3A&quot;</span>;
+
+  <a href="Buildings_HeatTransfer_Data_OpaqueConstructions.html#Buildings.HeatTransfer.Data.OpaqueConstructions.Generic"
+>HeatTransfer.Data.OpaqueConstructions.Generic</a>
+    slaCon(nLay=3, material={
+      <span style="color: red; font-weight: normal; font-style: normal;">Buildings.HeatTransfer.Data.Solids.Generic</span>(
+        x=0.1524,
+        k=1.13,
+        c=1000,
+        d=1400,
+        nSta=5),
+      <span style="color: red; font-weight: normal; font-style: normal;">Buildings.HeatTransfer.Data.Solids.Generic</span>(
+        x=0.127,
+        k=0.036,
+        c=1200,
+        d=40),
+      <span style="color: red; font-weight: normal; font-style: normal;">Buildings.HeatTransfer.Data.Solids.Generic</span>(
+        x=0.2,
+        k=1.8,
+        c=1100,
+        d=2400)}) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Construction of the slab&quot;</span>;
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>ClosetFullBed;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE Electrical<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Rooms.FLEXLAB.Rooms.X3A.ClosetI.png" alt="Buildings.Rooms.FLEXLAB.Rooms.X3A.Electrical" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Rooms.FLEXLAB.Rooms.X3A.Electrical"></a><a href="Buildings_Rooms_FLEXLAB_Rooms_X3A.html#Buildings.Rooms.FLEXLAB.Rooms.X3A"
+>Buildings.Rooms.FLEXLAB.Rooms.X3A</a>.Electrical</h2>
+<p>
+<b>Model of the electrical room attached to test cell X3A</b>
+<br>
+<br><img src="Buildings.Rooms.FLEXLAB.Rb849bbb56def25abricalD.png" alt="Buildings.Rooms.FLEXLAB.Rooms.X3A.Electrical">
+</p>
+<h3>Information</h3>
+
+  <p>
+  This is a model for the electrical room connected to test cell 3A in the LBNL User Facility.
+  Other models are provided for the main space of the test cell and the connected closet. This
+  documentation describes the wall constructions used in the electrical room model. For
+  documentation describing how the room models are to be connected to develop a model of the
+  entire X3A test cell see
+  <a href="Buildings_Rooms_FLEXLAB_Rooms_X3A.html#Buildings.Rooms.FLEXLAB.Rooms.X3A"
+>
+  Buildings.Rooms.FLEXLAB.Rooms.X3A</a>.
+  </p>
+  <p>
+  There are 4 different wall sections described in the model. They are shown in the figure below.
+  </p>
+  <p align="center">
+  <img src="../Resources/Images/Rooms/FLEXLAB/Rooms/X3A/Electrical.png" border="1" alt="Wall sections in TestCell model"/>
+  </p>
+  <p>
+  The different wall sections are entered into the model according to the following table.
+  </p>
+  <table border="1" summary="Description of wall sections in EF90Electrical">
+  <tr>
+  <th>Wall Section Number</th>
+  <th>Description</th>
+  <th>Location in Model</th>
+  <th>Corresponding Layer</th>
+  </tr>
+  <tr>
+  <td>1</td>
+  <td>North exterior wall</td>
+  <td>datConExt[1]</td>
+  <td>eleExt</td>
+  </tr>
+  <tr>
+  <td>2</td>
+  <td>East air space connecting to Closet</td>
+  <td>surBou[2]</td>
+  </tr>
+  <tr>
+  <td>3</td>
+  <td>South air space connecting to TestCell</td>
+  <td>surBou[1]</td>
+  </tr>
+  <tr>
+  <td>4</td>
+  <td>West exterior door and wall</td>
+  <td>Door: datConExt[3]<br/>
+  Wall: datConExt[2]</td>
+  <td>  Door: eleExt<br/>
+  Wall: extDooUn</td>
+  </tr>
+  </table>
+  <p>
+  There are two additional surfaces which are not included in the diagram. One is the model of the roof. It is
+  modeled in datConExt[4] using the layer <code>roo</code>. The other is the floor, which is modeled in
+  datConBou[1] using the layer <code>slaCon</code>.
+  </p>
+  <p>
+  Several of the connections in this model are intended to be connected to specific surfaces in other room models.
+  The following table describes the connections to rooms which are not in the X3A package. The constructions in
+  datConExt are not described in the table because they are connected to the external environment, and no
+  additional heat port connections are necessary. A rationale for why the model is created this way is also
+  provided if it is considered necessary.
+  </p>
+  <table border ="1" summary = "Description of intended connections including Electrical model">
+  <tr>
+  <th>Location in Electrical</th>
+  <th>Description of External Connection</th>
+  <th>Rationale</th>
+  </tr>
+  <tr>
+  <td>surf_conBou[1]</td>
+  <td>Connection to ground temperature model</td>
+  <td>This port represents the bottom of the floor in the space. It is to be connected to a heat port representing
+  the temperature of the ground.</td>
+  </tr>
+  </table>
+  
+<p>Extends from <a href="Buildings_Rooms.html#Buildings.Rooms.MixedAir"
+>Buildings.Rooms.MixedAir</a> (Model of a room in which the air is completely mixed).</p>
+<h3>Parameters</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td><a href="Buildings_Rooms_BaseClasses.html#Buildings.Rooms.BaseClasses.ParameterConstructionWithWindow"
+>ParameterConstructionWithWindow</a></td><td>datConExtWin[NConExtWin]</td><td>datConExtWin(each T_a_start=...</td><td>Data for exterior construction with window</td></tr>
+<tr><td><a href="Buildings_Rooms_BaseClasses.html#Buildings.Rooms.BaseClasses.ParameterConstruction"
+>ParameterConstruction</a></td><td>datConPar[NConPar]</td><td>datConPar(each T_a_start=T_s...</td><td>Data for partition construction</td></tr>
+<tr><td><a href="Buildings_HeatTransfer_Data_OpaqueConstructions.html#Buildings.HeatTransfer.Data.OpaqueConstructions.Brick120"
+>Brick120</a></td><td>dummyCon</td><td>&nbsp;</td><td>Dummy construction to assign a parameter to the instance</td></tr>
+<tr><td><a href="Buildings_HeatTransfer_Data_GlazingSystems.html#Buildings.HeatTransfer.Data.GlazingSystems.SingleClear3"
+>SingleClear3</a></td><td>dummyGlaSys</td><td>&nbsp;</td><td>Dummy construction to assign a parameter to the instance</td></tr>
+<tr><td colspan="2">replaceable package Medium</td><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium"
+>PartialMedium</a></td><td>Medium in the component</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
+>Angle</a></td><td>lat</td><td>0.66098585832754</td><td>Latitude [rad]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Area"
+>Area</a></td><td>AFlo</td><td>2.39</td><td>Floor area [m2]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Length"
+>Length</a></td><td>hRoo</td><td>3.6576</td><td>Average room height [m]</td></tr>
+<tr><td>Boolean</td><td>linearizeRadiation</td><td>true</td><td>Set to true to linearize emissive power</td></tr>
+<tr><td><a href="Buildings_Rooms_FLEXLAB_Data_Constructions_OpaqueConstructions_ExteriorConstructions.html#Buildings.Rooms.FLEXLAB.Data.Constructions.OpaqueConstructions.ExteriorConstructions.Construction3"
+>Construction3</a></td><td>eleExt</td><td>redeclare Data.Constructions...</td><td>Construction describing the exterior walls in the electrical room</td></tr>
+<tr><td><a href="Buildings_Rooms_FLEXLAB_Data_Constructions_OpaqueConstructions_ExteriorConstructions.html#Buildings.Rooms.FLEXLAB.Data.Constructions.OpaqueConstructions.ExteriorConstructions.ExteriorDoorUninsulated"
+>ExteriorDoorUninsulated</a></td><td>extDooUn</td><td>redeclare Data.Constructions...</td><td>Construction describing the door in the electrical room</td></tr>
+<tr><td><a href="Buildings_Rooms_FLEXLAB_Data_Constructions_OpaqueConstructions_Roofs.html#Buildings.Rooms.FLEXLAB.Data.Constructions.OpaqueConstructions.Roofs.ASHRAE_901_2010Roof"
+>ASHRAE_901_2010Roof</a></td><td>roo</td><td>redeclare Data.Constructions...</td><td>Construction describing the roof of the electrical room</td></tr>
+<tr style="background-color: #e0e0e0"><td colspan="4">Exterior constructions</td></tr>
+<tr><td>Integer</td><td>nConExt</td><td>4</td><td>Number of exterior constructions</td></tr>
+<tr><td>Integer</td><td>nConExtWin</td><td>0</td><td>Number of window constructions</td></tr>
+<tr style="background-color: #e0e0e0"><td colspan="4">Partition constructions</td></tr>
+<tr><td>Integer</td><td>nConPar</td><td>0</td><td>Number of partition constructions</td></tr>
+<tr style="background-color: #e0e0e0"><td colspan="4">Boundary constructions</td></tr>
+<tr><td>Integer</td><td>nConBou</td><td>1</td><td>Number of constructions that have their outside surface exposed to the boundary of this room</td></tr>
+<tr><td>Integer</td><td>nSurBou</td><td>2</td><td>Number of surface heat transfer models that connect to constructions that are modeled outside of this room</td></tr>
+<tr style="background-color: #e0e0e0"><td colspan="4">Convective heat transfer</td></tr>
+<tr><td><a href="Buildings_HeatTransfer_Types.html#Buildings.HeatTransfer.Types.InteriorConvection"
+>InteriorConvection</a></td><td>intConMod</td><td>Buildings.HeatTransfer.Types...</td><td>Convective heat transfer model for room-facing surfaces of opaque constructions</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.CoefficientOfHeatTransfer"
+>CoefficientOfHeatTransfer</a></td><td>hIntFixed</td><td>3.0</td><td>Constant convection coefficient for room-facing surfaces of opaque constructions [W/(m2.K)]</td></tr>
+<tr><td><a href="Buildings_HeatTransfer_Types.html#Buildings.HeatTransfer.Types.ExteriorConvection"
+>ExteriorConvection</a></td><td>extConMod</td><td>Buildings.HeatTransfer.Types...</td><td>Convective heat transfer model for exterior facing surfaces of opaque constructions</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.CoefficientOfHeatTransfer"
+>CoefficientOfHeatTransfer</a></td><td>hExtFixed</td><td>10.0</td><td>Constant convection coefficient for exterior facing surfaces of opaque constructions [W/(m2.K)]</td></tr>
+<tr style="background-color: #e0e0e0"><td colspan="4">Nominal condition</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+>MassFlowRate</a></td><td>m_flow_nominal</td><td>V*1.2/3600</td><td>Nominal mass flow rate [kg/s]</td></tr>
+<tr style="background-color: #c0c0c0"><td colspan="4"><b>Advanced</b></td></tr>
+<tr><td>Boolean</td><td>homotopyInitialization</td><td>true</td><td>= true, use homotopy method</td></tr>
+<tr style="background-color: #c0c0c0"><td colspan="4"><b>Dynamics</b></td></tr>
+<tr style="background-color: #e0e0e0"><td colspan="4">Equations</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Fluid_Types.html#Modelica.Fluid.Types.Dynamics"
+>Dynamics</a></td><td>energyDynamics</td><td>Modelica.Fluid.Types.Dynamic...</td><td>Formulation of energy balance</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Fluid_Types.html#Modelica.Fluid.Types.Dynamics"
+>Dynamics</a></td><td>massDynamics</td><td>energyDynamics</td><td>Formulation of mass balance</td></tr>
+<tr><td>Real</td><td>mSenFac</td><td>1</td><td>Factor for scaling the sensible thermal mass of the volume</td></tr>
+<tr style="background-color: #c0c0c0"><td colspan="4"><b>Initialization</b></td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.AbsolutePressure"
+>AbsolutePressure</a></td><td>p_start</td><td>Medium.p_default</td><td>Start value of pressure [Pa]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.Temperature"
+>Temperature</a></td><td>T_start</td><td>Medium.T_default</td><td>Start value of temperature [K]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.MassFraction"
+>MassFraction</a></td><td>X_start[Medium.nX]</td><td>Medium.X_default</td><td>Start value of mass fractions m_i/m [kg/kg]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.ExtraProperty"
+>ExtraProperty</a></td><td>C_start[Medium.nC]</td><td>fill(0, Medium.nC)</td><td>Start value of trace substances</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.ExtraProperty"
+>ExtraProperty</a></td><td>C_nominal[Medium.nC]</td><td>fill(1E-2, Medium.nC)</td><td>Nominal value of trace substances. (Set to typical order of magnitude.)</td></tr>
+</table>
+<h3>Connectors</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Connectors">
+<tr><th>Type</th><th>Name</th><th>Description</th></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Fluid_Vessels_BaseClasses.html#Modelica.Fluid.Vessels.BaseClasses.VesselFluidPorts_b"
+>VesselFluidPorts_b</a></td><td>ports[nPorts]</td><td>Fluid inlets and outlets</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Thermal_HeatTransfer_Interfaces.html#Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a"
+>HeatPort_a</a></td><td>heaPorAir</td><td>Heat port to air volume</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Thermal_HeatTransfer_Interfaces.html#Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a"
+>HeatPort_a</a></td><td>heaPorRad</td><td>Heat port for radiative heat gain and radiative temperature</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Thermal_HeatTransfer_Interfaces.html#Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a"
+>HeatPort_a</a></td><td>surf_conBou[nConBou]</td><td>Heat port at surface b of construction conBou</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Thermal_HeatTransfer_Interfaces.html#Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a"
+>HeatPort_a</a></td><td>surf_surBou[nSurBou]</td><td>Heat port of surface that is connected to the room air</td></tr>
+<tr><td>input <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>RealInput</a></td><td>qGai_flow[3]</td><td>Radiant, convective and latent heat input into room (positive if heat gain) [W/m2]</td></tr>
+<tr><td><a href="Buildings_BoundaryConditions_WeatherData.html#Buildings.BoundaryConditions.WeatherData.Bus"
+>Bus</a></td><td>weaBus</td><td>&nbsp;</td></tr>
+<tr><td>input <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>RealInput</a></td><td>uSha[nConExtWin]</td><td>Control signal for the shading device (removed if no shade is present)</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">model</span> Electrical <span style="color: #006400; font-weight: normal; font-style: normal;">
+  &quot;Model of the electrical room attached to test cell X3A&quot;</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="Buildings_Rooms.html#Buildings.Rooms.MixedAir"
+>Buildings.Rooms.MixedAir</a>(
+  hRoo = 3.6576,
+  AFlo = 2.39,
+  lat = 0.66098585832754,
+  nSurBou = 2,
+  nConExt=4,
+  nConExtWin=0,
+  nConPar=0,
+  nConBou=1,
+  surBou(
+    A = {3.6576 * 1.2641, 3.6576 * 1.524},
+    <span style="color: blue; font-weight: normal; font-style: normal;">each </span>absIR = 0.9,
+    <span style="color: blue; font-weight: normal; font-style: normal;">each </span>absSol = 0.9,
+    <span style="color: blue; font-weight: normal; font-style: normal;">each </span>til = Buildings.Types.Tilt.Wall),
+  datConExt(
+    layers = {eleExt, eleExt, extDooUn, roo},
+    A = {3.6576 * 1.26413, 3.6576 * 1.524 - 2.38658 * 1.524, 2.38658*1.524, 2.39},
+    til = {Buildings.Types.Tilt.Wall, Buildings.Types.Tilt.Wall, Buildings.Types.Tilt.Wall, Buildings.Types.Tilt.Ceiling},
+    azi = {Buildings.Types.Azimuth.N, Buildings.Types.Azimuth.W, Buildings.Types.Azimuth.W, Buildings.Types.Azimuth.N}),
+   datConBou(
+     layers = {slaCon},
+     A = {2.39},
+     til = {Buildings.Types.Tilt.Floor},
+     azi = {Buildings.Types.Azimuth.N}));
+  <span style="color: blue; font-weight: normal; font-style: normal;">replaceable </span><a href="Buildings_Rooms_FLEXLAB_Data_Constructions_OpaqueConstructions_ExteriorConstructions.html#Buildings.Rooms.FLEXLAB.Data.Constructions.OpaqueConstructions.ExteriorConstructions.Construction3"
+>Data.Constructions.OpaqueConstructions.ExteriorConstructions.Construction3</a>
+    eleExt <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Construction describing the exterior walls in the electrical room&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">replaceable </span><a href="Buildings_Rooms_FLEXLAB_Data_Constructions_OpaqueConstructions_ExteriorConstructions.html#Buildings.Rooms.FLEXLAB.Data.Constructions.OpaqueConstructions.ExteriorConstructions.ExteriorDoorUninsulated"
+>Data.Constructions.OpaqueConstructions.ExteriorConstructions.ExteriorDoorUninsulated</a>
+    extDooUn <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Construction describing the door in the electrical room&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">replaceable </span><a href="Buildings_Rooms_FLEXLAB_Data_Constructions_OpaqueConstructions_Roofs.html#Buildings.Rooms.FLEXLAB.Data.Constructions.OpaqueConstructions.Roofs.ASHRAE_901_2010Roof"
+>Data.Constructions.OpaqueConstructions.Roofs.ASHRAE_901_2010Roof</a>
+                                                                   roo <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Construction describing the roof of the electrical room&quot;</span>;
+  <a href="Buildings_HeatTransfer_Data_OpaqueConstructions.html#Buildings.HeatTransfer.Data.OpaqueConstructions.Generic"
+>HeatTransfer.Data.OpaqueConstructions.Generic</a>
+    slaCon(nLay=3, material={
+      <span style="color: red; font-weight: normal; font-style: normal;">Buildings.HeatTransfer.Data.Solids.Generic</span>(
+        x=0.1524,
+        k=1.13,
+        c=1000,
+        d=1400,
+        nSta=5),
+      <span style="color: red; font-weight: normal; font-style: normal;">Buildings.HeatTransfer.Data.Solids.Generic</span>(
+        x=0.127,
+        k=0.036,
+        c=1200,
+        d=40),
+      <span style="color: red; font-weight: normal; font-style: normal;">Buildings.HeatTransfer.Data.Solids.Generic</span>(
+        x=0.2,
+        k=1.8,
+        c=1100,
+        d=2400)}) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Construction of the slab&quot;</span>;
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>Electrical;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE TestCell<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Rooms.FLEXLAB.Rooms.X3A.ClosetI.png" alt="Buildings.Rooms.FLEXLAB.Rooms.X3A.TestCell" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Rooms.FLEXLAB.Rooms.X3A.TestCell"></a><a href="Buildings_Rooms_FLEXLAB_Rooms_X3A.html#Buildings.Rooms.FLEXLAB.Rooms.X3A"
+>Buildings.Rooms.FLEXLAB.Rooms.X3A</a>.TestCell</h2>
+<p>
+<b>Model of LBNL User Test Facility Cell X3A</b>
+<br>
+<br><img src="Buildings.Rooms.FLEXLAB.Rb951e0c914a8a7eftCellD.png" alt="Buildings.Rooms.FLEXLAB.Rooms.X3A.TestCell">
+</p>
+<h3>Information</h3>
+
+  <p>
+  This is a model for test cell 3A in the LBNL User Facility. This model is intended to represent
+  the main space in test cell 3A. This documentation describes the wall constructions used to model
+  test cell X3A. Documentation describing how it is to be combined to other room models to create
+  a model of the full test cell can be found in
+  <a href="Buildings_Rooms_FLEXLAB_Rooms_X3A.html#Buildings.Rooms.FLEXLAB.Rooms.X3A"
+>Buildings.Rooms.FLEXLAB.Rooms.X3A</a>.
+  </p>
+  <p>
+  There are 7 different wall sections described in the model. They are shown in the figure below.
+  </p>
+  <p align="center">
+  <img src="../Resources/Images/Rooms/FLEXLAB/Rooms/X3A/TestCell.png" border="1" alt="Wall sections in test cell model"/>
+  </p>
+  <p>
+  The different wall sections are entered into the model according to the following table.
+  </p>
+  <table border = "1" summary="Description of walls in test cell room model">
+  <tr>
+  <th>Wall Section Number</th>
+  <th>Description</th>
+  <th>Location in Model</th>
+  <th>Corresponding Layer</th>
+  </tr>
+  <tr>
+  <td>1</td>
+  <td>The west wall is modeled in two parts. One part represents the dividing wall between test cells X3A
+  and X2B. The other part represents a portion of the wall exposed to the ambient conditions. Wall
+  1 is the section of wall connected to test cell X2B.</td>
+  <td>datConBou[1]</td>
+  <td>bedDiv</td>
+  </tr>
+  <tr>
+  <td>2</td>
+  <td>The west wall is modeled in two parts. One part represents the dividing wall between test cell X3A
+  and test cell X2B. The other part represents a portion of the wall exposed to the ambient conditions. Wall
+  2 is the section of wall exposed to ambient conditions.</td>
+  <td>datConExt[4]</td>
+  <td>bedDiv</td>
+  </tr>
+  <tr>
+  <td>3</td>
+  <td>This is the north exterior wall of test cell X3A. There are actually two constructions
+  used here. One construction models the wall, the other construction models a door. The area
+  calculation for the wall in the model shows the calculation of the total wall area minus the door area.</td>
+  <td>Door: datConExt[1]; Wall: datConExt[2]</td>
+  <td>Door: extDoo; Wall: R16p8Wal</td>
+  </tr>
+  <tr>
+  <td>4</td>
+  <td>This north wall borders an electrical room. It models the heat transfer between test cell
+  X3A and the externally modeled electrical room. For an example see
+  <a href="Buildings_Rooms_FLEXLAB_Rooms_Examples.html#Buildings.Rooms.FLEXLAB.Rooms.Examples.X3AWithRadiantFloor"
+>
+  Buildings.Rooms.FLEXLAB.Rooms.Examples.X3AWithRadiantFloor</a>.</td>
+  <td>datConBou[5]</td>
+  <td>R52Wal</td>
+  </tr>
+  <tr>
+  <td>5</td>
+  <td>This north wall borders an externally modeled closet. For an example see
+  <a href="Buildings_Rooms_FLEXLAB_Rooms_Examples.html#Buildings.Rooms.FLEXLAB.Rooms.Examples.X3AWithRadiantFloor"
+>
+  Buildings.Rooms.FLEXLAB.Rooms.Examples.X3AWithRadiantFloor</a>. Similar to wall section
+  3 this wall section contains both a wall construction and a door construction. The wall area
+  calculation shows the total wall area minus the door area.</td>
+  <td>Door: datConBou[4]; Wall: datConBou[3]</td>
+  <td>Door: parDoo; Wall: parCon</td>
+  </tr>
+  <tr>
+  <td>6</td>
+  <td>This east wall connects to test cell UF90X3B. This wall is removable, but this model was
+  developed assuming that the wall is installed.</td>
+  <td>datConBou[2]</td>
+  <td>celDiv</td>
+  </tr>
+  <tr>
+  <td>7</td>
+  <td>This is the south wall of test cell X3A. It includes both a wall construction and
+  windows. The bottoms of the windows are 3 ft above the floor.</td>
+  <td>datConExtWin[1]</td>
+  <td>Window: glaSys; Wall: R16p8Wal</td>
+  </tr>
+  </table>
+  <p>
+  An eigth construction, not shown in the figure, models the ceiling. It is modeled in datConExt[3] using
+  the layer <code>R20Wal</code>.
+  </p>
+  <p>
+  The test cell can be configured with several different floor types. The options include radiant conditioning,
+  a slab on grade floor with no conditioning, or a raised floor. Because of this uncertainty in floor design, a
+  model of the floor itself is not included in this model. The user must include a model for the floor in any
+  applications of this model.
+  </p>
+  <p>
+  Several of the connections in this model are intended to be connected to specific surfaces in other room models.
+  The following table describes the connections to models outside of the X3A package. The connections in datConExt
+  are not described in the table because they are connected to the external environment, and no additional heat
+  port connections are necessary. A rationale for why the model is created this way is also provided if it is
+  considered necessary.
+  </p>
+  <table border ="1" summary="Description of intended connections including TestCell model">
+  <tr>
+  <th>Location in TestCell</th>
+  <th>Description of External Connection</th>
+  <th>Location in External Model</th>
+  <th>Rationale</th>
+  </tr>
+  <tr>
+  <td>surf_conBou[1]</td>
+  <td>Temperature of test cell X2B</td>
+  <td>References a data table</td>
+  <td>A data table is used, instead of a model of test cell X2B, because the goal of this model is to be able to perform
+  simulations of TestCell with minimal complexity, by simplifying the neighboring test cells. The wall separating the
+  test beds is highly insulated, and it is believed that the error in simulations caused by using a data table will
+  be negligible.</td>
+  </tr>
+  <tr>
+  <td>surf_conBou[2]</td>
+  <td>Temperature of test cell X3B</td>
+  <td>References a data table</td>
+  <td>See rationale for surf_ConBou[1]</td>
+  </tr>
+  </table>
+  
+<p>Extends from <a href="Buildings_Rooms.html#Buildings.Rooms.MixedAir"
+>Buildings.Rooms.MixedAir</a> (Model of a room in which the air is completely mixed).</p>
+<h3>Parameters</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td><a href="Buildings_Rooms_BaseClasses.html#Buildings.Rooms.BaseClasses.ParameterConstruction"
+>ParameterConstruction</a></td><td>datConPar[NConPar]</td><td>datConPar(each T_a_start=T_s...</td><td>Data for partition construction</td></tr>
+<tr><td><a href="Buildings_HeatTransfer_Data_OpaqueConstructions.html#Buildings.HeatTransfer.Data.OpaqueConstructions.Brick120"
+>Brick120</a></td><td>dummyCon</td><td>&nbsp;</td><td>Dummy construction to assign a parameter to the instance</td></tr>
+<tr><td><a href="Buildings_HeatTransfer_Data_GlazingSystems.html#Buildings.HeatTransfer.Data.GlazingSystems.SingleClear3"
+>SingleClear3</a></td><td>dummyGlaSys</td><td>&nbsp;</td><td>Dummy construction to assign a parameter to the instance</td></tr>
+<tr><td colspan="2">replaceable package Medium</td><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium"
+>PartialMedium</a></td><td>Medium in the component</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
+>Angle</a></td><td>lat</td><td>0.66098585832754</td><td>Latitude [rad]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Area"
+>Area</a></td><td>AFlo</td><td>60.97</td><td>Floor area [m2]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Length"
+>Length</a></td><td>hRoo</td><td>3.6576</td><td>Average room height [m]</td></tr>
+<tr><td>Boolean</td><td>linearizeRadiation</td><td>true</td><td>Set to true to linearize emissive power</td></tr>
+<tr><td><a href="Buildings_Rooms_FLEXLAB_Data_Constructions_OpaqueConstructions_ExteriorConstructions.html#Buildings.Rooms.FLEXLAB.Data.Constructions.OpaqueConstructions.ExteriorConstructions.Construction10and23"
+>Construction10and23</a></td><td>R16p8Wal</td><td>redeclare Data.Constructions...</td><td>&nbsp;</td></tr>
+<tr><td><a href="Buildings_Rooms_FLEXLAB_Data_Constructions_OpaqueConstructions_DividingWalls.html#Buildings.Rooms.FLEXLAB.Data.Constructions.OpaqueConstructions.DividingWalls.CellAndElectricalDividingWall"
+>CellAndElectricalDividingWall</a></td><td>R52Wal</td><td>redeclare Data.Constructions...</td><td>&nbsp;</td></tr>
+<tr><td><a href="Buildings_Rooms_FLEXLAB_Data_Constructions_OpaqueConstructions_Roofs.html#Buildings.Rooms.FLEXLAB.Data.Constructions.OpaqueConstructions.Roofs.ASHRAE_901_2010Roof"
+>ASHRAE_901_2010Roof</a></td><td>R20Wal</td><td>redeclare Data.Constructions...</td><td>&nbsp;</td></tr>
+<tr><td><a href="Buildings_Rooms_FLEXLAB_Data_Constructions_GlazingSystems.html#Buildings.Rooms.FLEXLAB.Data.Constructions.GlazingSystems.ASHRAE901Gla"
+>ASHRAE901Gla</a></td><td>glaSys</td><td>redeclare Data.Constructions...</td><td>&nbsp;</td></tr>
+<tr><td><a href="Buildings_Rooms_FLEXLAB_Data_Constructions_OpaqueConstructions_PartitionConstructions.html#Buildings.Rooms.FLEXLAB.Data.Constructions.OpaqueConstructions.PartitionConstructions.PartitionWall"
+>PartitionWall</a></td><td>parCon</td><td>redeclare Data.Constructions...</td><td>&nbsp;</td></tr>
+<tr><td><a href="Buildings_Rooms_FLEXLAB_Data_Constructions_OpaqueConstructions_DividingWalls.html#Buildings.Rooms.FLEXLAB.Data.Constructions.OpaqueConstructions.DividingWalls.TestCellDividngWall"
+>TestCellDividngWall</a></td><td>celDiv</td><td>redeclare Data.Constructions...</td><td>Construction of wall connecting to cell UF90X3B</td></tr>
+<tr><td><a href="Buildings_Rooms_FLEXLAB_Data_Constructions_OpaqueConstructions_DividingWalls.html#Buildings.Rooms.FLEXLAB.Data.Constructions.OpaqueConstructions.DividingWalls.TestBedDividingWall"
+>TestBedDividingWall</a></td><td>bedDiv</td><td>redeclare Data.Constructions...</td><td>Construction of wall connecting to cell UF90X2B</td></tr>
+<tr><td><a href="Buildings_Rooms_FLEXLAB_Data_Constructions_OpaqueConstructions_PartitionConstructions.html#Buildings.Rooms.FLEXLAB.Data.Constructions.OpaqueConstructions.PartitionConstructions.PartitionDoor"
+>PartitionDoor</a></td><td>parDoo</td><td>redeclare Data.Constructions...</td><td>Door used in partition walls in FLEXLAB test cells</td></tr>
+<tr><td><a href="Buildings_Rooms_FLEXLAB_Data_Constructions_OpaqueConstructions_ExteriorConstructions.html#Buildings.Rooms.FLEXLAB.Data.Constructions.OpaqueConstructions.ExteriorConstructions.ExteriorDoorInsulated"
+>ExteriorDoorInsulated</a></td><td>extDoo</td><td>redeclare Data.Constructions...</td><td>Construction of an exterior door</td></tr>
+<tr style="background-color: #e0e0e0"><td colspan="4">Exterior constructions</td></tr>
+<tr><td>Integer</td><td>nConExt</td><td>4</td><td>Number of exterior constructions</td></tr>
+<tr><td>Integer</td><td>nConExtWin</td><td>1</td><td>Number of window constructions</td></tr>
+<tr style="background-color: #e0e0e0"><td colspan="4">Partition constructions</td></tr>
+<tr><td>Integer</td><td>nConPar</td><td>0</td><td>Number of partition constructions</td></tr>
+<tr style="background-color: #e0e0e0"><td colspan="4">Boundary constructions</td></tr>
+<tr><td>Integer</td><td>nConBou</td><td>5</td><td>Number of constructions that have their outside surface exposed to the boundary of this room</td></tr>
+<tr><td>Integer</td><td>nSurBou</td><td>4</td><td>Number of surface heat transfer models that connect to constructions that are modeled outside of this room</td></tr>
+<tr style="background-color: #e0e0e0"><td colspan="4">Convective heat transfer</td></tr>
+<tr><td><a href="Buildings_HeatTransfer_Types.html#Buildings.HeatTransfer.Types.InteriorConvection"
+>InteriorConvection</a></td><td>intConMod</td><td>Buildings.HeatTransfer.Types...</td><td>Convective heat transfer model for room-facing surfaces of opaque constructions</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.CoefficientOfHeatTransfer"
+>CoefficientOfHeatTransfer</a></td><td>hIntFixed</td><td>3.0</td><td>Constant convection coefficient for room-facing surfaces of opaque constructions [W/(m2.K)]</td></tr>
+<tr><td><a href="Buildings_HeatTransfer_Types.html#Buildings.HeatTransfer.Types.ExteriorConvection"
+>ExteriorConvection</a></td><td>extConMod</td><td>Buildings.HeatTransfer.Types...</td><td>Convective heat transfer model for exterior facing surfaces of opaque constructions</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.CoefficientOfHeatTransfer"
+>CoefficientOfHeatTransfer</a></td><td>hExtFixed</td><td>10.0</td><td>Constant convection coefficient for exterior facing surfaces of opaque constructions [W/(m2.K)]</td></tr>
+<tr style="background-color: #e0e0e0"><td colspan="4">Nominal condition</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+>MassFlowRate</a></td><td>m_flow_nominal</td><td>V*1.2/3600</td><td>Nominal mass flow rate [kg/s]</td></tr>
+<tr style="background-color: #c0c0c0"><td colspan="4"><b>Advanced</b></td></tr>
+<tr><td>Boolean</td><td>homotopyInitialization</td><td>true</td><td>= true, use homotopy method</td></tr>
+<tr style="background-color: #c0c0c0"><td colspan="4"><b>Dynamics</b></td></tr>
+<tr style="background-color: #e0e0e0"><td colspan="4">Equations</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Fluid_Types.html#Modelica.Fluid.Types.Dynamics"
+>Dynamics</a></td><td>energyDynamics</td><td>Modelica.Fluid.Types.Dynamic...</td><td>Formulation of energy balance</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Fluid_Types.html#Modelica.Fluid.Types.Dynamics"
+>Dynamics</a></td><td>massDynamics</td><td>energyDynamics</td><td>Formulation of mass balance</td></tr>
+<tr><td>Real</td><td>mSenFac</td><td>1</td><td>Factor for scaling the sensible thermal mass of the volume</td></tr>
+<tr style="background-color: #c0c0c0"><td colspan="4"><b>Initialization</b></td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.AbsolutePressure"
+>AbsolutePressure</a></td><td>p_start</td><td>Medium.p_default</td><td>Start value of pressure [Pa]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.Temperature"
+>Temperature</a></td><td>T_start</td><td>Medium.T_default</td><td>Start value of temperature [K]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.MassFraction"
+>MassFraction</a></td><td>X_start[Medium.nX]</td><td>Medium.X_default</td><td>Start value of mass fractions m_i/m [kg/kg]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.ExtraProperty"
+>ExtraProperty</a></td><td>C_start[Medium.nC]</td><td>fill(0, Medium.nC)</td><td>Start value of trace substances</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.ExtraProperty"
+>ExtraProperty</a></td><td>C_nominal[Medium.nC]</td><td>fill(1E-2, Medium.nC)</td><td>Nominal value of trace substances. (Set to typical order of magnitude.)</td></tr>
+</table>
+<h3>Connectors</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Connectors">
+<tr><th>Type</th><th>Name</th><th>Description</th></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Fluid_Vessels_BaseClasses.html#Modelica.Fluid.Vessels.BaseClasses.VesselFluidPorts_b"
+>VesselFluidPorts_b</a></td><td>ports[nPorts]</td><td>Fluid inlets and outlets</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Thermal_HeatTransfer_Interfaces.html#Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a"
+>HeatPort_a</a></td><td>heaPorAir</td><td>Heat port to air volume</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Thermal_HeatTransfer_Interfaces.html#Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a"
+>HeatPort_a</a></td><td>heaPorRad</td><td>Heat port for radiative heat gain and radiative temperature</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Thermal_HeatTransfer_Interfaces.html#Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a"
+>HeatPort_a</a></td><td>surf_conBou[nConBou]</td><td>Heat port at surface b of construction conBou</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Thermal_HeatTransfer_Interfaces.html#Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a"
+>HeatPort_a</a></td><td>surf_surBou[nSurBou]</td><td>Heat port of surface that is connected to the room air</td></tr>
+<tr><td>input <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>RealInput</a></td><td>qGai_flow[3]</td><td>Radiant, convective and latent heat input into room (positive if heat gain) [W/m2]</td></tr>
+<tr><td><a href="Buildings_BoundaryConditions_WeatherData.html#Buildings.BoundaryConditions.WeatherData.Bus"
+>Bus</a></td><td>weaBus</td><td>&nbsp;</td></tr>
+<tr><td>input <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>RealInput</a></td><td>uSha[nConExtWin]</td><td>Control signal for the shading device (removed if no shade is present)</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">model</span> TestCell <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Model of LBNL User Test Facility Cell X3A&quot;</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="Buildings_Rooms.html#Buildings.Rooms.MixedAir"
+>Buildings.Rooms.MixedAir</a>(AFlo=60.97,
+      nSurBou=4,
+      nConPar=0,
+      nConBou=5,
+      nConExt=4,
+      nConExtWin=1,
+      hRoo=3.6576,
+      surBou(
+        A = {6.645*3.09, 6.645*1.51, 6.645*0.91, 6.645*3.65},
+        <span style="color: blue; font-weight: normal; font-style: normal;">each </span>absIR=0.9,
+        <span style="color: blue; font-weight: normal; font-style: normal;">each </span>absSol=0.9,
+        <span style="color: blue; font-weight: normal; font-style: normal;">each </span>til=Buildings.Types.Tilt.Floor),
+      datConExt(
+         layers={extDoo,
+         R16p8Wal,
+         R20Wal,
+         bedDiv},
+         A={1.3716 * 2.39, 3.6576*2.52-2.39*1.3716, 6.6675*9.144, 3.6576 * 1.524},
+         til={Buildings.Types.Tilt.Wall, Buildings.Types.Tilt.Wall, Buildings.Types.Tilt.Ceiling, Buildings.Types.Tilt.Wall},
+         azi={Buildings.Types.Azimuth.N,Buildings.Types.Azimuth.N, Buildings.Types.Azimuth.S, Buildings.Types.Azimuth.W}),
+      datConBou(
+         layers = {bedDiv,celDiv, parCon, parDoo, R52Wal},
+         A = {3.6576 * 7.62, 3.6576 * 9.144, 3.6576*2.886075-2.39*1.22, 2.39*1.22, 3.6576*1.2614},
+         til = {Buildings.Types.Tilt.Wall, Buildings.Types.Tilt.Wall, Buildings.Types.Tilt.Wall, Buildings.Types.Tilt.Wall, Buildings.Types.Tilt.Wall},
+         azi = {Buildings.Types.Azimuth.W, Buildings.Types.Azimuth.E, Buildings.Types.Azimuth.N, Buildings.Types.Azimuth.N, Buildings.Types.Azimuth.N}),
+      datConExtWin(
+        layers={R16p8Wal},
+        A={6.6675*3.6576},
+        glaSys={glaSys},
+        hWin={1.8288},
+        wWin={5.88},
+        til={Buildings.Types.Tilt.Wall},
+        azi={Buildings.Types.Azimuth.S}),
+      intConMod=Buildings.HeatTransfer.Types.InteriorConvection.Temperature,
+      extConMod=Buildings.HeatTransfer.Types.ExteriorConvection.TemperatureWind,
+      lat=0.66098585832754);
+
+  <span style="color: blue; font-weight: normal; font-style: normal;">replaceable </span><a href="Buildings_Rooms_FLEXLAB_Data_Constructions_OpaqueConstructions_ExteriorConstructions.html#Buildings.Rooms.FLEXLAB.Data.Constructions.OpaqueConstructions.ExteriorConstructions.Construction10and23"
+>Data.Constructions.OpaqueConstructions.ExteriorConstructions.Construction10and23</a>
+                                                                     R16p8Wal;
+  <span style="color: blue; font-weight: normal; font-style: normal;">replaceable </span><a href="Buildings_Rooms_FLEXLAB_Data_Constructions_OpaqueConstructions_DividingWalls.html#Buildings.Rooms.FLEXLAB.Data.Constructions.OpaqueConstructions.DividingWalls.CellAndElectricalDividingWall"
+>Data.Constructions.OpaqueConstructions.DividingWalls.CellAndElectricalDividingWall</a>
+                                                                      R52Wal;
+  <span style="color: blue; font-weight: normal; font-style: normal;">replaceable </span><a href="Buildings_Rooms_FLEXLAB_Data_Constructions_OpaqueConstructions_Roofs.html#Buildings.Rooms.FLEXLAB.Data.Constructions.OpaqueConstructions.Roofs.ASHRAE_901_2010Roof"
+>Data.Constructions.OpaqueConstructions.Roofs.ASHRAE_901_2010Roof</a>
+                                                                   R20Wal;
+  <span style="color: blue; font-weight: normal; font-style: normal;">replaceable </span><a href="Buildings_Rooms_FLEXLAB_Data_Constructions_GlazingSystems.html#Buildings.Rooms.FLEXLAB.Data.Constructions.GlazingSystems.ASHRAE901Gla"
+>Data.Constructions.GlazingSystems.ASHRAE901Gla</a> glaSys;
+  <span style="color: blue; font-weight: normal; font-style: normal;">replaceable </span><a href="Buildings_Rooms_FLEXLAB_Data_Constructions_OpaqueConstructions_PartitionConstructions.html#Buildings.Rooms.FLEXLAB.Data.Constructions.OpaqueConstructions.PartitionConstructions.PartitionWall"
+>Data.Constructions.OpaqueConstructions.PartitionConstructions.PartitionWall</a>
+    parCon;
+
+  <span style="color: blue; font-weight: normal; font-style: normal;">replaceable </span><a href="Buildings_Rooms_FLEXLAB_Data_Constructions_OpaqueConstructions_DividingWalls.html#Buildings.Rooms.FLEXLAB.Data.Constructions.OpaqueConstructions.DividingWalls.TestCellDividngWall"
+>Data.Constructions.OpaqueConstructions.DividingWalls.TestCellDividngWall</a>
+                                                                         celDiv <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Construction of wall connecting to cell UF90X3B&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">replaceable </span><a href="Buildings_Rooms_FLEXLAB_Data_Constructions_OpaqueConstructions_DividingWalls.html#Buildings.Rooms.FLEXLAB.Data.Constructions.OpaqueConstructions.DividingWalls.TestBedDividingWall"
+>Data.Constructions.OpaqueConstructions.DividingWalls.TestBedDividingWall</a>
+                                                                         bedDiv <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Construction of wall connecting to cell UF90X2B&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">replaceable </span><a href="Buildings_Rooms_FLEXLAB_Data_Constructions_OpaqueConstructions_PartitionConstructions.html#Buildings.Rooms.FLEXLAB.Data.Constructions.OpaqueConstructions.PartitionConstructions.PartitionDoor"
+>Data.Constructions.OpaqueConstructions.PartitionConstructions.PartitionDoor</a>
+                                                                   parDoo <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Door used in partition walls in FLEXLAB test cells&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">replaceable </span><a href="Buildings_Rooms_FLEXLAB_Data_Constructions_OpaqueConstructions_ExteriorConstructions.html#Buildings.Rooms.FLEXLAB.Data.Constructions.OpaqueConstructions.ExteriorConstructions.ExteriorDoorInsulated"
+>Data.Constructions.OpaqueConstructions.ExteriorConstructions.ExteriorDoorInsulated</a>
+    extDoo <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Construction of an exterior door&quot;</span>;
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>TestCell;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE TestCellFullBed<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Rooms.FLEXLAB.Rooms.X3A.ClosetI.png" alt="Buildings.Rooms.FLEXLAB.Rooms.X3A.TestCellFullBed" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Rooms.FLEXLAB.Rooms.X3A.TestCellFullBed"></a><a href="Buildings_Rooms_FLEXLAB_Rooms_X3A.html#Buildings.Rooms.FLEXLAB.Rooms.X3A"
+>Buildings.Rooms.FLEXLAB.Rooms.X3A</a>.TestCellFullBed</h2>
+<p>
+<b>Model of LBNL User Test Facility Cell X3A intended for connection with X3B.TestCell</b>
+<br>
+<br><img src="Buildings.Rooms.FLEXLAB.Rb951e0c914a8a7eftCellD.png" alt="Buildings.Rooms.FLEXLAB.Rooms.X3A.TestCellFullBed">
+</p>
+<h3>Information</h3>
+
+  <p>
+  This is a duplicate model of <a href="Buildings_Rooms_FLEXLAB_Rooms_X3A.html#Buildings.Rooms.FLEXLAB.Rooms.X3A.TestCell"
+>
+  Buildings.Rooms.FLEXLAB.Rooms.X3A.TestCell</a> with the wall separating X3A and X3B removed.
+  It is designed for simulations where both X3A and X3B are used in the simulation to model the
+  whole test bed. If a simulation is created using TestCell from both packages the dividing wall
+  will be modeled twice, so one of the two models used must be created without the dividing wall
+  in the model.
+  </p>
+  <p>
+  This documentation states only the items which are different from the
+  <a href="Buildings_Rooms_FLEXLAB_Rooms_X3A.html#Buildings.Rooms.FLEXLAB.Rooms.X3A.TestCell"
+>
+  Buildings.Rooms.FLEXLAB.Rooms.X3A.TestCell</a> model. For documentation on the rest of the
+  walls and connections see that documentation instead.
+  </p>
+  <p>
+  There are 7 different wall sections described in the model. They are shown in the figure below.
+  This documentation only describes wall section 6.
+  </p>
+  <p align="center">
+  <img src="../Resources/Images/Rooms/FLEXLAB/Rooms/X3A/TestCell.png" border="1" alt="Wall sections in test cell model"/>
+  </p>
+  <p>
+  The different wall sections are entered into the model according to the following table.
+  </p>
+  <table border = "1" summary="Description of walls in test cell room model">
+  <tr>
+  <th>Wall Section Number</th>
+  <th>Description</th>
+  <th>Location in Model</th>
+  <th>Corresponding Layer</th>
+  </tr>
+  <tr>
+  <td>6</td>
+  <td>This east wall connects to test cell X3B. This model contains an air gap instead of a model
+  of the wall. It is intended to be connected to the wall model in X3B.</td>
+  <td>surBou[2]</td>
+  <td></td>
+  </tr>
+  </table>
+  <p>
+  Because wall section 6 was moved from datConBou[2] to surBou[2] the reference for other constructions in
+  datConBou have changed as well. These changes are documented in the following table.
+  </p>
+  <table border ="1" summary="Description of changes to construction locations">
+  <tr>
+  <th>Wall Section Number</th>
+  <th>Physical Description</th>
+  <th>Location in TestCell</th>
+  <th>Location in TestCelNoDiv</th>
+  </tr>
+  <tr>
+  <td>4</td>
+  <td>Insulated wall separating the test cell and the electrical room</td>
+  <td>datConBou[5]</td>
+  <td>datConBou[4]</td>
+  </tr>
+  <tr>
+  <td>5</td>
+  <td>Partition wall and door separating the test cell and the closet</td>
+  <td>Wall: datConBou[3]<br/>
+  Door: datConBou[4]</td>
+  <td>Wall: datConBou[2]<br/>
+  Door: datConBou[3]</td>
+  </tr>
+  </table>
+  <p>
+  Several of the connections in this model are intended to be connected to specific surfaces in other room models.
+  The following table describes the connections to models outside of the X3A package. The connections in datConExt
+  are not described in the table because they are connected to the external environment, and no additional heat
+  port connections are necessary. A rationale for why the model is created this way is also provided if it is
+  considered necessary.
+  </p>
+  <table border ="1" summary="Description of intended connections including TestCell model">
+  <tr>
+  <th>Location in TestCell</th>
+  <th>Description of External Connection</th>
+  <th>Location in External Model</th>
+  <th>Rationale</th>
+  </tr>
+  <tr>
+  <td>surf_surBou[2]</td>
+  <td>Dividing wall modeled in X3B.TestCell</td>
+  <td>X3B.TestCell.surf_conBou[1]</td>
+  <td>X3B.TestCell.surf_conBou[1] is the location of the cell dividing wall in the neighboring test cell. Connecting
+  X3A.TestCellNoCelDiv.surf_surBou[2] to this port models heat transfer from the wall in X3B.TestCell to the air in this
+  space.</td>
+  </tr>
+  </table>
+  
+<p>Extends from <a href="Buildings_Rooms.html#Buildings.Rooms.MixedAir"
+>Buildings.Rooms.MixedAir</a> (Model of a room in which the air is completely mixed).</p>
+<h3>Parameters</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td><a href="Buildings_Rooms_BaseClasses.html#Buildings.Rooms.BaseClasses.ParameterConstruction"
+>ParameterConstruction</a></td><td>datConPar[NConPar]</td><td>datConPar(each T_a_start=T_s...</td><td>Data for partition construction</td></tr>
+<tr><td><a href="Buildings_HeatTransfer_Data_OpaqueConstructions.html#Buildings.HeatTransfer.Data.OpaqueConstructions.Brick120"
+>Brick120</a></td><td>dummyCon</td><td>&nbsp;</td><td>Dummy construction to assign a parameter to the instance</td></tr>
+<tr><td><a href="Buildings_HeatTransfer_Data_GlazingSystems.html#Buildings.HeatTransfer.Data.GlazingSystems.SingleClear3"
+>SingleClear3</a></td><td>dummyGlaSys</td><td>&nbsp;</td><td>Dummy construction to assign a parameter to the instance</td></tr>
+<tr><td colspan="2">replaceable package Medium</td><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium"
+>PartialMedium</a></td><td>Medium in the component</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
+>Angle</a></td><td>lat</td><td>0.66098585832754</td><td>Latitude [rad]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Area"
+>Area</a></td><td>AFlo</td><td>60.97</td><td>Floor area [m2]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Length"
+>Length</a></td><td>hRoo</td><td>3.6576</td><td>Average room height [m]</td></tr>
+<tr><td>Boolean</td><td>linearizeRadiation</td><td>true</td><td>Set to true to linearize emissive power</td></tr>
+<tr><td><a href="Buildings_Rooms_FLEXLAB_Data_Constructions_OpaqueConstructions_ExteriorConstructions.html#Buildings.Rooms.FLEXLAB.Data.Constructions.OpaqueConstructions.ExteriorConstructions.Construction10and23"
+>Construction10and23</a></td><td>R16p8Wal</td><td>redeclare Data.Constructions...</td><td>&nbsp;</td></tr>
+<tr><td><a href="Buildings_Rooms_FLEXLAB_Data_Constructions_OpaqueConstructions_DividingWalls.html#Buildings.Rooms.FLEXLAB.Data.Constructions.OpaqueConstructions.DividingWalls.CellAndElectricalDividingWall"
+>CellAndElectricalDividingWall</a></td><td>R52Wal</td><td>redeclare Data.Constructions...</td><td>&nbsp;</td></tr>
+<tr><td><a href="Buildings_Rooms_FLEXLAB_Data_Constructions_OpaqueConstructions_Roofs.html#Buildings.Rooms.FLEXLAB.Data.Constructions.OpaqueConstructions.Roofs.ASHRAE_901_2010Roof"
+>ASHRAE_901_2010Roof</a></td><td>R20Wal</td><td>redeclare Data.Constructions...</td><td>&nbsp;</td></tr>
+<tr><td><a href="Buildings_Rooms_FLEXLAB_Data_Constructions_GlazingSystems.html#Buildings.Rooms.FLEXLAB.Data.Constructions.GlazingSystems.ASHRAE901Gla"
+>ASHRAE901Gla</a></td><td>glaSys</td><td>redeclare Data.Constructions...</td><td>&nbsp;</td></tr>
+<tr><td><a href="Buildings_Rooms_FLEXLAB_Data_Constructions_OpaqueConstructions_PartitionConstructions.html#Buildings.Rooms.FLEXLAB.Data.Constructions.OpaqueConstructions.PartitionConstructions.PartitionWall"
+>PartitionWall</a></td><td>parCon</td><td>redeclare Data.Constructions...</td><td>&nbsp;</td></tr>
+<tr><td><a href="Buildings_Rooms_FLEXLAB_Data_Constructions_OpaqueConstructions_DividingWalls.html#Buildings.Rooms.FLEXLAB.Data.Constructions.OpaqueConstructions.DividingWalls.TestCellDividngWall"
+>TestCellDividngWall</a></td><td>celDiv</td><td>redeclare Data.Constructions...</td><td>Construction of wall connecting to cell UF90X3B</td></tr>
+<tr><td><a href="Buildings_Rooms_FLEXLAB_Data_Constructions_OpaqueConstructions_DividingWalls.html#Buildings.Rooms.FLEXLAB.Data.Constructions.OpaqueConstructions.DividingWalls.TestBedDividingWall"
+>TestBedDividingWall</a></td><td>bedDiv</td><td>redeclare Data.Constructions...</td><td>Construction of wall connecting to cell UF90X2B</td></tr>
+<tr><td><a href="Buildings_Rooms_FLEXLAB_Data_Constructions_OpaqueConstructions_PartitionConstructions.html#Buildings.Rooms.FLEXLAB.Data.Constructions.OpaqueConstructions.PartitionConstructions.PartitionDoor"
+>PartitionDoor</a></td><td>parDoo</td><td>redeclare Data.Constructions...</td><td>Door used in partition walls in FLEXLAB test cells</td></tr>
+<tr><td><a href="Buildings_Rooms_FLEXLAB_Data_Constructions_OpaqueConstructions_ExteriorConstructions.html#Buildings.Rooms.FLEXLAB.Data.Constructions.OpaqueConstructions.ExteriorConstructions.ExteriorDoorInsulated"
+>ExteriorDoorInsulated</a></td><td>extDoo</td><td>redeclare Data.Constructions...</td><td>Construction of an exterior door</td></tr>
+<tr style="background-color: #e0e0e0"><td colspan="4">Exterior constructions</td></tr>
+<tr><td>Integer</td><td>nConExt</td><td>4</td><td>Number of exterior constructions</td></tr>
+<tr><td>Integer</td><td>nConExtWin</td><td>1</td><td>Number of window constructions</td></tr>
+<tr style="background-color: #e0e0e0"><td colspan="4">Partition constructions</td></tr>
+<tr><td>Integer</td><td>nConPar</td><td>0</td><td>Number of partition constructions</td></tr>
+<tr style="background-color: #e0e0e0"><td colspan="4">Boundary constructions</td></tr>
+<tr><td>Integer</td><td>nConBou</td><td>4</td><td>Number of constructions that have their outside surface exposed to the boundary of this room</td></tr>
+<tr><td>Integer</td><td>nSurBou</td><td>5</td><td>Number of surface heat transfer models that connect to constructions that are modeled outside of this room</td></tr>
+<tr style="background-color: #e0e0e0"><td colspan="4">Convective heat transfer</td></tr>
+<tr><td><a href="Buildings_HeatTransfer_Types.html#Buildings.HeatTransfer.Types.InteriorConvection"
+>InteriorConvection</a></td><td>intConMod</td><td>Buildings.HeatTransfer.Types...</td><td>Convective heat transfer model for room-facing surfaces of opaque constructions</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.CoefficientOfHeatTransfer"
+>CoefficientOfHeatTransfer</a></td><td>hIntFixed</td><td>3.0</td><td>Constant convection coefficient for room-facing surfaces of opaque constructions [W/(m2.K)]</td></tr>
+<tr><td><a href="Buildings_HeatTransfer_Types.html#Buildings.HeatTransfer.Types.ExteriorConvection"
+>ExteriorConvection</a></td><td>extConMod</td><td>Buildings.HeatTransfer.Types...</td><td>Convective heat transfer model for exterior facing surfaces of opaque constructions</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.CoefficientOfHeatTransfer"
+>CoefficientOfHeatTransfer</a></td><td>hExtFixed</td><td>10.0</td><td>Constant convection coefficient for exterior facing surfaces of opaque constructions [W/(m2.K)]</td></tr>
+<tr style="background-color: #e0e0e0"><td colspan="4">Nominal condition</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+>MassFlowRate</a></td><td>m_flow_nominal</td><td>V*1.2/3600</td><td>Nominal mass flow rate [kg/s]</td></tr>
+<tr style="background-color: #c0c0c0"><td colspan="4"><b>Advanced</b></td></tr>
+<tr><td>Boolean</td><td>homotopyInitialization</td><td>true</td><td>= true, use homotopy method</td></tr>
+<tr style="background-color: #c0c0c0"><td colspan="4"><b>Dynamics</b></td></tr>
+<tr style="background-color: #e0e0e0"><td colspan="4">Equations</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Fluid_Types.html#Modelica.Fluid.Types.Dynamics"
+>Dynamics</a></td><td>energyDynamics</td><td>Modelica.Fluid.Types.Dynamic...</td><td>Formulation of energy balance</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Fluid_Types.html#Modelica.Fluid.Types.Dynamics"
+>Dynamics</a></td><td>massDynamics</td><td>energyDynamics</td><td>Formulation of mass balance</td></tr>
+<tr><td>Real</td><td>mSenFac</td><td>1</td><td>Factor for scaling the sensible thermal mass of the volume</td></tr>
+<tr style="background-color: #c0c0c0"><td colspan="4"><b>Initialization</b></td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.AbsolutePressure"
+>AbsolutePressure</a></td><td>p_start</td><td>Medium.p_default</td><td>Start value of pressure [Pa]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.Temperature"
+>Temperature</a></td><td>T_start</td><td>Medium.T_default</td><td>Start value of temperature [K]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.MassFraction"
+>MassFraction</a></td><td>X_start[Medium.nX]</td><td>Medium.X_default</td><td>Start value of mass fractions m_i/m [kg/kg]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.ExtraProperty"
+>ExtraProperty</a></td><td>C_start[Medium.nC]</td><td>fill(0, Medium.nC)</td><td>Start value of trace substances</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.ExtraProperty"
+>ExtraProperty</a></td><td>C_nominal[Medium.nC]</td><td>fill(1E-2, Medium.nC)</td><td>Nominal value of trace substances. (Set to typical order of magnitude.)</td></tr>
+</table>
+<h3>Connectors</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Connectors">
+<tr><th>Type</th><th>Name</th><th>Description</th></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Fluid_Vessels_BaseClasses.html#Modelica.Fluid.Vessels.BaseClasses.VesselFluidPorts_b"
+>VesselFluidPorts_b</a></td><td>ports[nPorts]</td><td>Fluid inlets and outlets</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Thermal_HeatTransfer_Interfaces.html#Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a"
+>HeatPort_a</a></td><td>heaPorAir</td><td>Heat port to air volume</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Thermal_HeatTransfer_Interfaces.html#Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a"
+>HeatPort_a</a></td><td>heaPorRad</td><td>Heat port for radiative heat gain and radiative temperature</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Thermal_HeatTransfer_Interfaces.html#Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a"
+>HeatPort_a</a></td><td>surf_conBou[nConBou]</td><td>Heat port at surface b of construction conBou</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Thermal_HeatTransfer_Interfaces.html#Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a"
+>HeatPort_a</a></td><td>surf_surBou[nSurBou]</td><td>Heat port of surface that is connected to the room air</td></tr>
+<tr><td>input <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>RealInput</a></td><td>qGai_flow[3]</td><td>Radiant, convective and latent heat input into room (positive if heat gain) [W/m2]</td></tr>
+<tr><td><a href="Buildings_BoundaryConditions_WeatherData.html#Buildings.BoundaryConditions.WeatherData.Bus"
+>Bus</a></td><td>weaBus</td><td>&nbsp;</td></tr>
+<tr><td>input <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>RealInput</a></td><td>uSha[nConExtWin]</td><td>Control signal for the shading device (removed if no shade is present)</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">model</span> TestCellFullBed <span style="color: #006400; font-weight: normal; font-style: normal;">
+  &quot;Model of LBNL User Test Facility Cell X3A intended for connection with X3B.TestCell&quot;</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="Buildings_Rooms.html#Buildings.Rooms.MixedAir"
+>Buildings.Rooms.MixedAir</a>(AFlo=60.97,
+      nSurBou=5,
+      nConPar=0,
+      nConBou=4,
+      nConExt=4,
+      nConExtWin=1,
+      hRoo=3.6576,
+      surBou(
+        A = {6.645*3.09, 6.645*1.51, 6.645*0.91, 6.645*3.65, 3.6575 * 9.144},
+        <span style="color: blue; font-weight: normal; font-style: normal;">each </span>absIR=0.9,
+        <span style="color: blue; font-weight: normal; font-style: normal;">each </span>absSol=0.9,
+        til={Buildings.Types.Tilt.Floor, Buildings.Types.Tilt.Floor, Buildings.Types.Tilt.Floor, Buildings.Types.Tilt.Floor, Buildings.Types.Tilt.Wall}),
+      datConExt(
+         layers={extDoo,
+         R16p8Wal,
+         R20Wal,
+         bedDiv},
+         A={1.3716 * 2.39, 3.6576*2.52-2.39*1.3716, 6.6675*9.144, 3.6576 * 1.524},
+         til={Buildings.Types.Tilt.Wall, Buildings.Types.Tilt.Wall, Buildings.Types.Tilt.Ceiling, Buildings.Types.Tilt.Wall},
+         azi={Buildings.Types.Azimuth.N,Buildings.Types.Azimuth.N, Buildings.Types.Azimuth.S, Buildings.Types.Azimuth.W}),
+      datConBou(
+         layers = {bedDiv, parCon, parDoo, R52Wal},
+         A = {3.6576 * 7.62, 3.6576*2.886075-2.39*1.22, 2.39*1.22, 3.6576*1.2614},
+         til = {Buildings.Types.Tilt.Wall, Buildings.Types.Tilt.Wall, Buildings.Types.Tilt.Wall, Buildings.Types.Tilt.Wall},
+         azi = {Buildings.Types.Azimuth.W, Buildings.Types.Azimuth.N, Buildings.Types.Azimuth.N, Buildings.Types.Azimuth.N}),
+      datConExtWin(
+        layers={R16p8Wal},
+        A={6.6675*3.6576},
+        glaSys={glaSys},
+        hWin={1.8288},
+        wWin={5.88},
+        til={Buildings.Types.Tilt.Wall},
+        azi={Buildings.Types.Azimuth.S}),
+      intConMod=Buildings.HeatTransfer.Types.InteriorConvection.Temperature,
+      extConMod=Buildings.HeatTransfer.Types.ExteriorConvection.TemperatureWind,
+      lat=0.66098585832754);
+
+  <span style="color: blue; font-weight: normal; font-style: normal;">replaceable </span><a href="Buildings_Rooms_FLEXLAB_Data_Constructions_OpaqueConstructions_ExteriorConstructions.html#Buildings.Rooms.FLEXLAB.Data.Constructions.OpaqueConstructions.ExteriorConstructions.Construction10and23"
+>Data.Constructions.OpaqueConstructions.ExteriorConstructions.Construction10and23</a>
+                                                                     R16p8Wal;
+  <span style="color: blue; font-weight: normal; font-style: normal;">replaceable </span><a href="Buildings_Rooms_FLEXLAB_Data_Constructions_OpaqueConstructions_DividingWalls.html#Buildings.Rooms.FLEXLAB.Data.Constructions.OpaqueConstructions.DividingWalls.CellAndElectricalDividingWall"
+>Data.Constructions.OpaqueConstructions.DividingWalls.CellAndElectricalDividingWall</a>
+                                                                      R52Wal;
+  <span style="color: blue; font-weight: normal; font-style: normal;">replaceable </span><a href="Buildings_Rooms_FLEXLAB_Data_Constructions_OpaqueConstructions_Roofs.html#Buildings.Rooms.FLEXLAB.Data.Constructions.OpaqueConstructions.Roofs.ASHRAE_901_2010Roof"
+>Data.Constructions.OpaqueConstructions.Roofs.ASHRAE_901_2010Roof</a>
+                                                                   R20Wal;
+  <span style="color: blue; font-weight: normal; font-style: normal;">replaceable </span><a href="Buildings_Rooms_FLEXLAB_Data_Constructions_GlazingSystems.html#Buildings.Rooms.FLEXLAB.Data.Constructions.GlazingSystems.ASHRAE901Gla"
+>Data.Constructions.GlazingSystems.ASHRAE901Gla</a> glaSys;
+  <span style="color: blue; font-weight: normal; font-style: normal;">replaceable </span><a href="Buildings_Rooms_FLEXLAB_Data_Constructions_OpaqueConstructions_PartitionConstructions.html#Buildings.Rooms.FLEXLAB.Data.Constructions.OpaqueConstructions.PartitionConstructions.PartitionWall"
+>Data.Constructions.OpaqueConstructions.PartitionConstructions.PartitionWall</a>
+    parCon;
+
+  <span style="color: blue; font-weight: normal; font-style: normal;">replaceable </span><a href="Buildings_Rooms_FLEXLAB_Data_Constructions_OpaqueConstructions_DividingWalls.html#Buildings.Rooms.FLEXLAB.Data.Constructions.OpaqueConstructions.DividingWalls.TestCellDividngWall"
+>Data.Constructions.OpaqueConstructions.DividingWalls.TestCellDividngWall</a>
+                                                                         celDiv <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Construction of wall connecting to cell UF90X3B&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">replaceable </span><a href="Buildings_Rooms_FLEXLAB_Data_Constructions_OpaqueConstructions_DividingWalls.html#Buildings.Rooms.FLEXLAB.Data.Constructions.OpaqueConstructions.DividingWalls.TestBedDividingWall"
+>Data.Constructions.OpaqueConstructions.DividingWalls.TestBedDividingWall</a>
+                                                                         bedDiv <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Construction of wall connecting to cell UF90X2B&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">replaceable </span><a href="Buildings_Rooms_FLEXLAB_Data_Constructions_OpaqueConstructions_PartitionConstructions.html#Buildings.Rooms.FLEXLAB.Data.Constructions.OpaqueConstructions.PartitionConstructions.PartitionDoor"
+>Data.Constructions.OpaqueConstructions.PartitionConstructions.PartitionDoor</a>
+                                                                   parDoo <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Door used in partition walls in FLEXLAB test cells&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">replaceable </span><a href="Buildings_Rooms_FLEXLAB_Data_Constructions_OpaqueConstructions_ExteriorConstructions.html#Buildings.Rooms.FLEXLAB.Data.Constructions.OpaqueConstructions.ExteriorConstructions.ExteriorDoorInsulated"
+>Data.Constructions.OpaqueConstructions.ExteriorConstructions.ExteriorDoorInsulated</a>
+    extDoo <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Construction of an exterior door&quot;</span>;
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>TestCellFullBed;
+</div>
+<hr>
+<address>
+<a href="http://www.3ds.com/">Automatically generated</a> Thu Apr  9 09:39:05 2015.
+</address>
+</body>
+</html>

@@ -1,0 +1,325 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>Buildings.Obsolete.Fluid.Movers.Examples.BaseClasses</title>
+<meta name="HTML-Generator" content="Dymola">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="description" content="&quot;Package with base classes for Buildings.Obsolete.Fluid.Movers.Examples&quot;">
+<style type="text/css">
+*       { font-size: 10pt; font-family: Arial, sans-serif; }
+.modelica, .modelica * { font-size: 9pt; font-family: Courier, monospace; white-space: pre; }
+h4      { font-size: 10pt; font-weight: bold; color: green; }
+h3      { font-size: 11pt; font-weight: bold; color: green; }
+h2      { font-size: 13pt; font-weight: bold; color: green; }
+address { font-weight: normal; }
+td      { border: 1px solid #808080; vertical-align: top; }
+th      { border: 1px solid #808080; vertical-align: top; font-weight: bold; }
+table   { border: 1px solid #808080; border-collapse: collapse; }
+</style>
+<link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../Resources/www/modelicaDoc.css">
+</HEAD>
+<body>
+<!-- --- header ------ -->
+<div class="headerStyle">
+<img src="../Resources/www/lbl-logo.png" alt="LBL logo"/>
+</div>
+<div class="headerLinks">
+<ul><li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt; <a href="Buildings.html">Modelica</a></li></ul>
+</div>
+<!-- --- end header -- -->
+
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE BaseClasses<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><a name="Buildings.Obsolete.Fluid.Movers.Examples.BaseClasses"></a><a href="Buildings_Obsolete_Fluid_Movers_Examples.html#Buildings.Obsolete.Fluid.Movers.Examples"
+>Buildings.Obsolete.Fluid.Movers.Examples</a>.BaseClasses</h2>
+<p>
+<b>Package with base classes for Buildings.Obsolete.Fluid.Movers.Examples</b><br>
+</p>
+<h3>Information</h3>
+
+<p>
+This package contains base classes that are used to construct the models in
+<a href="Buildings_Obsolete_Fluid_Movers_Examples.html#Buildings.Obsolete.Fluid.Movers.Examples"
+>Buildings.Obsolete.Fluid.Movers.Examples</a>.
+</p>
+
+<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons_BasesPackage.html#Modelica.Icons.BasesPackage"
+>Modelica.Icons.BasesPackage</a> (Icon for packages containing base classes).</p>
+<h3>Package Content</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Package Content">
+<tr>
+<th>Name</th>
+<th>Description</th>
+</tr>
+<tr>
+<td><a href="Buildings_Obsolete_Fluid_Movers_Examples_BaseClasses.html#Buildings.Obsolete.Fluid.Movers.Examples.BaseClasses.ControlledFlowMachine"
+>ControlledFlowMachine</a>
+</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td><a href="Buildings_Obsolete_Fluid_Movers_Examples_BaseClasses.html#Buildings.Obsolete.Fluid.Movers.Examples.BaseClasses.FlowMachine_ZeroFlow"
+>FlowMachine_ZeroFlow</a>
+</td>
+<td>Base class to test flow machines with zero flow rate</td>
+</tr>
+</table>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE ControlledFlowMachine<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><a name="Buildings.Obsolete.Fluid.Movers.Examples.BaseClasses.ControlledFlowMachine"></a><a href="Buildings_Obsolete_Fluid_Movers_Examples_BaseClasses.html#Buildings.Obsolete.Fluid.Movers.Examples.BaseClasses"
+>Buildings.Obsolete.Fluid.Movers.Examples.BaseClasses</a>.ControlledFlowMachine</h2>
+<p>
+<br><img src="Buildings.Obsolete.Fluid.11225db334117263chineD.png" alt="Buildings.Obsolete.Fluid.Movers.Examples.BaseClasses.ControlledFlowMachine">
+</p>
+<h3>Information</h3>
+
+This example demonstrates the use of the flow model with four different configuration.
+At steady-state, all flow models have the same mass flow rate and pressure difference.
+
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">model</span> ControlledFlowMachine
+
+  <span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = <a href="Buildings_Media_Air.html#Buildings.Media.Air"
+>Buildings.Media.Air</a>;
+
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Pulse"
+>Modelica.Blocks.Sources.Pulse</a>     y(
+    startTime=0,
+    offset=0,
+    amplitude=1,
+    period=120,
+    width=50);
+  <a href="Buildings_Fluid_Sources.html#Buildings.Fluid.Sources.Boundary_pT"
+>Buildings.Fluid.Sources.Boundary_pT</a> sou(
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = Medium,
+    use_p_in=false,
+    p=101325,
+    T=293.15,
+    nPorts=4);
+
+  <a href="Buildings_Fluid_Sensors.html#Buildings.Fluid.Sensors.MassFlowRate"
+>Buildings.Fluid.Sensors.MassFlowRate</a> masFloRat1(<span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium =
+        Medium);
+  <a href="Buildings_Fluid_Sensors.html#Buildings.Fluid.Sensors.RelativePressure"
+>Buildings.Fluid.Sensors.RelativePressure</a> relPre(<span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium =
+        Medium);
+  <a href="Buildings_Obsolete_Fluid_Movers.html#Buildings.Obsolete.Fluid.Movers.FlowMachine_y"
+>Buildings.Obsolete.Fluid.Movers.FlowMachine_y</a> fan1(
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = Medium,
+    pressure(<span style="color: blue; font-weight: normal; font-style: normal;">final </span>V_flow={0,1.8,3}, dp={1000,600,0}),
+    dynamicBalance=false);
+ <a href="Buildings_Fluid_FixedResistances.html#Buildings.Fluid.FixedResistances.FixedResistanceDpM"
+>Buildings.Fluid.FixedResistances.FixedResistanceDpM</a> dp1(
+    m_flow_nominal=6000/3600*1.2,
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = Medium,
+    dp_nominal=300) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Pressure drop&quot;</span>;
+ <a href="Buildings_Fluid_FixedResistances.html#Buildings.Fluid.FixedResistances.FixedResistanceDpM"
+>Buildings.Fluid.FixedResistances.FixedResistanceDpM</a> dp2(
+    m_flow_nominal=6000/3600*1.2,
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = Medium,
+    dp_nominal=300) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Pressure drop&quot;</span>;
+  <a href="Buildings_Fluid_Sensors.html#Buildings.Fluid.Sensors.MassFlowRate"
+>Buildings.Fluid.Sensors.MassFlowRate</a> masFloRat2(<span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium =
+        Medium);
+ <a href="Buildings_Fluid_FixedResistances.html#Buildings.Fluid.FixedResistances.FixedResistanceDpM"
+>Buildings.Fluid.FixedResistances.FixedResistanceDpM</a> dp3(
+    m_flow_nominal=6000/3600*1.2,
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = Medium,
+    dp_nominal=300) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Pressure drop&quot;</span>;
+  <a href="Buildings_Fluid_Sensors.html#Buildings.Fluid.Sensors.MassFlowRate"
+>Buildings.Fluid.Sensors.MassFlowRate</a> masFloRat3(<span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium =
+        Medium);
+  <a href="Buildings_Obsolete_Fluid_Movers.html#Buildings.Obsolete.Fluid.Movers.FlowMachine_dp"
+>Buildings.Obsolete.Fluid.Movers.FlowMachine_dp</a> fan3(
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = Medium,
+    m_flow_nominal=6000/3600*1.2,
+    dynamicBalance=false);
+  <a href="Buildings_Obsolete_Fluid_Movers.html#Buildings.Obsolete.Fluid.Movers.FlowMachine_m_flow"
+>Buildings.Obsolete.Fluid.Movers.FlowMachine_m_flow</a> fan2(
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = Medium,
+    m_flow_nominal=6000/3600*1.2,
+    dynamicBalance=false);
+ <a href="Buildings_Fluid_FixedResistances.html#Buildings.Fluid.FixedResistances.FixedResistanceDpM"
+>Buildings.Fluid.FixedResistances.FixedResistanceDpM</a> dp4(
+    m_flow_nominal=6000/3600*1.2,
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = Medium,
+    dp_nominal=300) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Pressure drop&quot;</span>;
+  <a href="Buildings_Fluid_Sensors.html#Buildings.Fluid.Sensors.MassFlowRate"
+>Buildings.Fluid.Sensors.MassFlowRate</a> masFloRat4(<span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium =
+        Medium);
+  <a href="Buildings_Obsolete_Fluid_Movers.html#Buildings.Obsolete.Fluid.Movers.FlowMachine_Nrpm"
+>Buildings.Obsolete.Fluid.Movers.FlowMachine_Nrpm</a> fan4(
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = Medium,
+    pressure(<span style="color: blue; font-weight: normal; font-style: normal;">final </span>V_flow={0,1.8,3}, dp={1000,600,0}),
+    dynamicBalance=false);
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Math.html#Modelica.Blocks.Math.Gain"
+>Modelica.Blocks.Math.Gain</a> gain(k=1500) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Converts y to nominal rpm&quot;</span>;
+ <a href="Buildings_Fluid_FixedResistances.html#Buildings.Fluid.FixedResistances.FixedResistanceDpM"
+>Buildings.Fluid.FixedResistances.FixedResistanceDpM</a> dp5(
+    m_flow_nominal=6000/3600*1.2,
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = Medium,
+    dp_nominal=300) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Pressure drop&quot;</span>;
+ <a href="Buildings_Fluid_FixedResistances.html#Buildings.Fluid.FixedResistances.FixedResistanceDpM"
+>Buildings.Fluid.FixedResistances.FixedResistanceDpM</a> dp6(
+    m_flow_nominal=6000/3600*1.2,
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = Medium,
+    dp_nominal=300) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Pressure drop&quot;</span>;
+ <a href="Buildings_Fluid_FixedResistances.html#Buildings.Fluid.FixedResistances.FixedResistanceDpM"
+>Buildings.Fluid.FixedResistances.FixedResistanceDpM</a> dp7(
+    m_flow_nominal=6000/3600*1.2,
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = Medium,
+    dp_nominal=300) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Pressure drop&quot;</span>;
+ <a href="Buildings_Fluid_FixedResistances.html#Buildings.Fluid.FixedResistances.FixedResistanceDpM"
+>Buildings.Fluid.FixedResistances.FixedResistanceDpM</a> dp8(
+    m_flow_nominal=6000/3600*1.2,
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = Medium,
+    dp_nominal=300) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Pressure drop&quot;</span>;
+  <a href="Buildings_Fluid_Sources.html#Buildings.Fluid.Sources.Boundary_pT"
+>Buildings.Fluid.Sources.Boundary_pT</a> sin(
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = Medium,
+    use_p_in=false,
+    p=101325,
+    T=293.15,
+    nPorts=4);
+<span style="color: blue; font-weight: normal; font-style: normal;">equation </span>
+
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(fan1.port_a, relPre.port_b);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(fan1.port_b, relPre.port_a);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(fan1.port_b, dp1.port_a);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(fan2.port_b, dp2.port_a);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(fan3.port_b, dp3.port_a);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(fan4.port_b, dp4.port_a);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(gain.y, fan4.Nrpm);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(masFloRat1.m_flow, fan2.m_flow_in);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(relPre.p_rel, fan3.dp_in);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(dp8.port_b, fan4.port_a);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(dp5.port_b, fan1.port_a);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(dp6.port_b, fan2.port_a);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(dp7.port_b, fan3.port_a);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(y.y, fan1.y);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(y.y, gain.u);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(dp8.port_a, sou.ports[1]);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(dp5.port_a, sou.ports[2]);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(dp6.port_a, sou.ports[3]);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(dp7.port_a, sou.ports[4]);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(dp4.port_b, masFloRat4.port_a);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(dp1.port_b, masFloRat1.port_a);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(dp2.port_b, masFloRat2.port_a);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(dp3.port_b, masFloRat3.port_a);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(masFloRat4.port_b, sin.ports[1]);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(masFloRat1.port_b, sin.ports[2]);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(masFloRat2.port_b, sin.ports[3]);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(masFloRat3.port_b, sin.ports[4]);
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>ControlledFlowMachine;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE FlowMachine_ZeroFlow<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><a name="Buildings.Obsolete.Fluid.Movers.Examples.BaseClasses.FlowMachine_ZeroFlow"></a><a href="Buildings_Obsolete_Fluid_Movers_Examples_BaseClasses.html#Buildings.Obsolete.Fluid.Movers.Examples.BaseClasses"
+>Buildings.Obsolete.Fluid.Movers.Examples.BaseClasses</a>.FlowMachine_ZeroFlow</h2>
+<p>
+<b>Base class to test flow machines with zero flow rate</b>
+<br>
+<br><img src="Buildings.Obsolete.Fluid.bb67cbfc055cd279oFlowD.png" alt="Buildings.Obsolete.Fluid.Movers.Examples.BaseClasses.FlowMachine_ZeroFlow">
+</p>
+<h3>Information</h3>
+
+This example demonstrates the use of a flow machine whose flow rate transitions to zero.
+
+<h3>Parameters</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+>MassFlowRate</a></td><td>m_flow_nominal</td><td>1</td><td>Nominal mass flow rate [kg/s]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
+>Pressure</a></td><td>dp_nominal</td><td>500</td><td>Nominal pressure difference [Pa]</td></tr>
+<tr><td><a href="Buildings_Obsolete_Fluid_Movers_BaseClasses.html#Buildings.Obsolete.Fluid.Movers.BaseClasses.PartialFlowMachine"
+>PartialFlowMachine</a></td><td>floMacSta</td><td>redeclare Buildings.Obsolete...</td><td>Static model of a flow machine</td></tr>
+<tr><td><a href="Buildings_Obsolete_Fluid_Movers_BaseClasses.html#Buildings.Obsolete.Fluid.Movers.BaseClasses.PartialFlowMachine"
+>PartialFlowMachine</a></td><td>floMacDyn</td><td>redeclare Buildings.Obsolete...</td><td>Dynamic model of a flow machine</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">partial </span><span style="color: blue; font-weight: normal; font-style: normal;">model</span> FlowMachine_ZeroFlow <span style="color: #006400; font-weight: normal; font-style: normal;">
+  &quot;Base class to test flow machines with zero flow rate&quot;</span>
+
+  <span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = <a href="Buildings_Media_Air.html#Buildings.Media.Air"
+>Buildings.Media.Air</a>;
+
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+>Modelica.SIunits.MassFlowRate</a> m_flow_nominal= 1 <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Nominal mass flow rate&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
+>Modelica.SIunits.Pressure</a> dp_nominal = 500 <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Nominal pressure difference&quot;</span>;
+
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Ramp"
+>Modelica.Blocks.Sources.Ramp</a> y(
+    offset=1,
+    duration=0.5,
+    startTime=0.25,
+    height=-1) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Input signal&quot;</span>;
+  <a href="Buildings_Fluid_Sources.html#Buildings.Fluid.Sources.Boundary_pT"
+>Buildings.Fluid.Sources.Boundary_pT</a> sou(
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = Medium,
+    use_p_in=false,
+    p=101325,
+    T=293.15,
+    nPorts=4);
+  <a href="Buildings_Fluid_FixedResistances.html#Buildings.Fluid.FixedResistances.FixedResistanceDpM"
+>Buildings.Fluid.FixedResistances.FixedResistanceDpM</a> dpSta(
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = Medium,
+    m_flow_nominal=m_flow_nominal,
+    dp_nominal=dp_nominal/2) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Pressure drop&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">replaceable </span><a href="Buildings_Obsolete_Fluid_Movers_BaseClasses.html#Buildings.Obsolete.Fluid.Movers.BaseClasses.PartialFlowMachine"
+>Buildings.Obsolete.Fluid.Movers.BaseClasses.PartialFlowMachine</a> floMacSta
+                      <span style="color: blue; font-weight: normal; font-style: normal;">constrainedby </span>
+    Buildings.Obsolete.Fluid.Movers.BaseClasses.PartialFlowMachine(
+      <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = Medium,
+      energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
+      dynamicBalance=false) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Static model of a flow machine&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">replaceable </span><a href="Buildings_Obsolete_Fluid_Movers_BaseClasses.html#Buildings.Obsolete.Fluid.Movers.BaseClasses.PartialFlowMachine"
+>Buildings.Obsolete.Fluid.Movers.BaseClasses.PartialFlowMachine</a> floMacDyn
+    <span style="color: blue; font-weight: normal; font-style: normal;">constrainedby </span>
+    Buildings.Obsolete.Fluid.Movers.BaseClasses.PartialFlowMachine(
+      <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = Medium,
+      energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Dynamic model of a flow machine&quot;</span>;
+  <a href="Buildings_Fluid_FixedResistances.html#Buildings.Fluid.FixedResistances.FixedResistanceDpM"
+>Buildings.Fluid.FixedResistances.FixedResistanceDpM</a> dpDyn(
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = Medium,
+    m_flow_nominal=m_flow_nominal,
+    dp_nominal=dp_nominal/2) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Pressure drop&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Math.html#Modelica.Blocks.Math.Gain"
+>Modelica.Blocks.Math.Gain</a> gain <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Gain for input signal&quot;</span>;
+  <a href="Buildings_Fluid_FixedResistances.html#Buildings.Fluid.FixedResistances.FixedResistanceDpM"
+>Buildings.Fluid.FixedResistances.FixedResistanceDpM</a> dpSta1(
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = Medium,
+    m_flow_nominal=m_flow_nominal,
+    dp_nominal=dp_nominal/2) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Pressure drop&quot;</span>;
+  <a href="Buildings_Fluid_FixedResistances.html#Buildings.Fluid.FixedResistances.FixedResistanceDpM"
+>Buildings.Fluid.FixedResistances.FixedResistanceDpM</a> dpDyn1(
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = Medium,
+    m_flow_nominal=m_flow_nominal,
+    dp_nominal=dp_nominal/2) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Pressure drop&quot;</span>;
+<span style="color: blue; font-weight: normal; font-style: normal;">equation </span>
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(floMacSta.port_b, dpSta.port_a);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(y.y, gain.u);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(floMacDyn.port_b, dpDyn.port_a);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(dpSta1.port_b, floMacSta.port_a);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(dpDyn1.port_b, floMacDyn.port_a);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(dpSta1.port_a, sou.ports[1]);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(dpDyn1.port_a, sou.ports[2]);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(dpDyn.port_b, sou.ports[3]);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(dpSta.port_b, sou.ports[4]);
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>FlowMachine_ZeroFlow;
+</div>
+<hr>
+<address>
+<a href="http://www.3ds.com/">Automatically generated</a> Thu Apr  9 09:47:34 2015.
+</address>
+</body>
+</html>

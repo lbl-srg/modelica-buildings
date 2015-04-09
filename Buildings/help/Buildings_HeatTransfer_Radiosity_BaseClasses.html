@@ -1,0 +1,311 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>Buildings.HeatTransfer.Radiosity.BaseClasses</title>
+<meta name="HTML-Generator" content="Dymola">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="description" content="&quot;Package with base classes for Buildings.HeatTransfer.Radiosity&quot;">
+<style type="text/css">
+*       { font-size: 10pt; font-family: Arial, sans-serif; }
+.modelica, .modelica * { font-size: 9pt; font-family: Courier, monospace; white-space: pre; }
+h4      { font-size: 10pt; font-weight: bold; color: green; }
+h3      { font-size: 11pt; font-weight: bold; color: green; }
+h2      { font-size: 13pt; font-weight: bold; color: green; }
+address { font-weight: normal; }
+td      { border: 1px solid #808080; vertical-align: top; }
+th      { border: 1px solid #808080; vertical-align: top; font-weight: bold; }
+table   { border: 1px solid #808080; border-collapse: collapse; }
+</style>
+<link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../Resources/www/modelicaDoc.css">
+</HEAD>
+<body>
+<!-- --- header ------ -->
+<div class="headerStyle">
+<img src="../Resources/www/lbl-logo.png" alt="LBL logo"/>
+</div>
+<div class="headerLinks">
+<ul><li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt; <a href="Buildings.html">Modelica</a></li></ul>
+</div>
+<!-- --- end header -- -->
+
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE BaseClasses<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><a name="Buildings.HeatTransfer.Radiosity.BaseClasses"></a><a href="Buildings_HeatTransfer_Radiosity.html#Buildings.HeatTransfer.Radiosity"
+>Buildings.HeatTransfer.Radiosity</a>.BaseClasses</h2>
+<p>
+<b>Package with base classes for Buildings.HeatTransfer.Radiosity</b><br>
+</p>
+<h3>Information</h3>
+
+<p>
+This package contains base classes that are used to construct the models in
+<a href="Buildings_HeatTransfer_Radiosity.html#Buildings.HeatTransfer.Radiosity"
+>Buildings.HeatTransfer.Radiosity</a>.
+</p>
+
+<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons_BasesPackage.html#Modelica.Icons.BasesPackage"
+>Modelica.Icons.BasesPackage</a> (Icon for packages containing base classes).</p>
+<h3>Package Content</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Package Content">
+<tr>
+<th>Name</th>
+<th>Description</th>
+</tr>
+<tr>
+<td><a href="Buildings_HeatTransfer_Radiosity_BaseClasses.html#Buildings.HeatTransfer.Radiosity.BaseClasses.ParametersOneSurface"
+>ParametersOneSurface</a>
+</td>
+<td>Parameters that are used to model one surface</td>
+</tr>
+<tr>
+<td><a href="Buildings_HeatTransfer_Radiosity_BaseClasses.html#Buildings.HeatTransfer.Radiosity.BaseClasses.ParametersTwoSurfaces"
+>ParametersTwoSurfaces</a>
+</td>
+<td>Parameters that are used to model two surfaces with the same area</td>
+</tr>
+<tr>
+<td><img src="Buildings.HeatTransfer.Ra7d8109d8340a15bdrfaceS.png" alt="Buildings.HeatTransfer.Radiosity.BaseClasses.RadiosityOneSurface" width="20" height="20" align="top">&nbsp;<a href="Buildings_HeatTransfer_Radiosity_BaseClasses.html#Buildings.HeatTransfer.Radiosity.BaseClasses.RadiosityOneSurface"
+>RadiosityOneSurface</a>
+</td>
+<td>Model for the radiosity balance of a device with one surface</td>
+</tr>
+<tr>
+<td><img src="Buildings.HeatTransfer.Raa8675b0d812d9df5facesS.png" alt="Buildings.HeatTransfer.Radiosity.BaseClasses.RadiosityTwoSurfaces" width="20" height="20" align="top">&nbsp;<a href="Buildings_HeatTransfer_Radiosity_BaseClasses.html#Buildings.HeatTransfer.Radiosity.BaseClasses.RadiosityTwoSurfaces"
+>RadiosityTwoSurfaces</a>
+</td>
+<td>Model for the radiosity balance of a device with two surfaces</td>
+</tr>
+</table>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE ParametersOneSurface<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><a name="Buildings.HeatTransfer.Radiosity.BaseClasses.ParametersOneSurface"></a><a href="Buildings_HeatTransfer_Radiosity_BaseClasses.html#Buildings.HeatTransfer.Radiosity.BaseClasses"
+>Buildings.HeatTransfer.Radiosity.BaseClasses</a>.ParametersOneSurface</h2>
+<p>
+<b>Parameters that are used to model one surface</b>
+</p>
+<h3>Information</h3>
+
+<p>
+Parameters that are used for classes with one surface.
+</p>
+
+<h3>Parameters</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Emissivity"
+>Emissivity</a></td><td>absIR</td><td>&nbsp;</td><td>Infrared absorptivity [1]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.ReflectionCoefficient"
+>ReflectionCoefficient</a></td><td>rhoIR</td><td>&nbsp;</td><td>Infrared reflectivity [1]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.TransmissionCoefficient"
+>TransmissionCoefficient</a></td><td>tauIR</td><td>&nbsp;</td><td>Infrared transmissivity [1]</td></tr>
+<tr><td>Boolean</td><td>linearize</td><td>false</td><td>Set to true to linearize emissive power</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+>Temperature</a></td><td>T0</td><td>293.15</td><td>Temperature used to linearize radiative heat transfer [K]</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">model</span> ParametersOneSurface <span style="color: #006400; font-weight: normal; font-style: normal;">
+  &quot;Parameters that are used to model one surface&quot;</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Emissivity"
+>Modelica.SIunits.Emissivity</a> absIR <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Infrared absorptivity&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.ReflectionCoefficient"
+>Modelica.SIunits.ReflectionCoefficient</a> rhoIR <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Infrared reflectivity&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.TransmissionCoefficient"
+>Modelica.SIunits.TransmissionCoefficient</a> tauIR <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Infrared transmissivity&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Boolean linearize=false <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Set to true to linearize emissive power&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+>Modelica.SIunits.Temperature</a> T0=293.15 <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Temperature used to linearize radiative heat transfer&quot;</span>;
+<span style="color: blue; font-weight: normal; font-style: normal;">protected </span>
+ <span style="color: blue; font-weight: normal; font-style: normal;">final </span><span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Real T03(min=0, unit=&quot;K3&quot;)=T0^3 <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;3rd power of temperature T0&quot;</span>;
+
+<span style="color: blue; font-weight: normal; font-style: normal;">initial </span><span style="color: blue; font-weight: normal; font-style: normal;">equation </span>
+  <span style="color: red; font-weight: normal; font-style: normal;">assert</span>(<span style="color: red; font-weight: normal; font-style: normal;">abs</span>(1-absIR-rhoIR-tauIR) &lt; 1E-8,
+    &quot;Absorptivity, reflectivity and transmissivity do not add up to one. Check parameters.&quot;);
+
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>ParametersOneSurface;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE ParametersTwoSurfaces<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><a name="Buildings.HeatTransfer.Radiosity.BaseClasses.ParametersTwoSurfaces"></a><a href="Buildings_HeatTransfer_Radiosity_BaseClasses.html#Buildings.HeatTransfer.Radiosity.BaseClasses"
+>Buildings.HeatTransfer.Radiosity.BaseClasses</a>.ParametersTwoSurfaces</h2>
+<p>
+<b>Parameters that are used to model two surfaces with the same area</b>
+</p>
+<h3>Information</h3>
+
+<p>
+Parameters that are used for classes with two surfaces.
+</p>
+
+<h3>Parameters</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Emissivity"
+>Emissivity</a></td><td>absIR_a</td><td>&nbsp;</td><td>Infrared absorptivity of surface a [1]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Emissivity"
+>Emissivity</a></td><td>absIR_b</td><td>&nbsp;</td><td>Infrared absorptivity of surface b [1]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.ReflectionCoefficient"
+>ReflectionCoefficient</a></td><td>rhoIR_a</td><td>&nbsp;</td><td>Infrared reflectivity of surface a [1]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.ReflectionCoefficient"
+>ReflectionCoefficient</a></td><td>rhoIR_b</td><td>&nbsp;</td><td>Infrared reflectivity of surface b [1]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.TransmissionCoefficient"
+>TransmissionCoefficient</a></td><td>tauIR</td><td>&nbsp;</td><td>Infrared transmissivity of glass pane [1]</td></tr>
+<tr><td>Boolean</td><td>linearize</td><td>false</td><td>Set to true to linearize emissive power</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+>Temperature</a></td><td>T0</td><td>293.15</td><td>Temperature used to linearize radiative heat transfer [K]</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">model</span> ParametersTwoSurfaces <span style="color: #006400; font-weight: normal; font-style: normal;">
+  &quot;Parameters that are used to model two surfaces with the same area&quot;</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Emissivity"
+>Modelica.SIunits.Emissivity</a> absIR_a <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Infrared absorptivity of surface a&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Emissivity"
+>Modelica.SIunits.Emissivity</a> absIR_b <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Infrared absorptivity of surface b&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.ReflectionCoefficient"
+>Modelica.SIunits.ReflectionCoefficient</a> rhoIR_a <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Infrared reflectivity of surface a&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.ReflectionCoefficient"
+>Modelica.SIunits.ReflectionCoefficient</a> rhoIR_b <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Infrared reflectivity of surface b&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.TransmissionCoefficient"
+>Modelica.SIunits.TransmissionCoefficient</a> tauIR <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Infrared transmissivity of glass pane&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Boolean linearize = false <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Set to true to linearize emissive power&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+>Modelica.SIunits.Temperature</a> T0=293.15 <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Temperature used to linearize radiative heat transfer&quot;</span>;
+<span style="color: blue; font-weight: normal; font-style: normal;">protected </span>
+ <span style="color: blue; font-weight: normal; font-style: normal;">final </span><span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Real T03(min=0, <span style="color: blue; font-weight: normal; font-style: normal;">final </span>unit=&quot;K3&quot;)=T0^3 <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;3rd power of temperature T0&quot;</span>;
+ <span style="color: blue; font-weight: normal; font-style: normal;">final </span><span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Real T04(min=0, <span style="color: blue; font-weight: normal; font-style: normal;">final </span>unit=&quot;K4&quot;)=T0^4 <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;4th power of temperature T0&quot;</span>;
+<span style="color: blue; font-weight: normal; font-style: normal;">initial </span><span style="color: blue; font-weight: normal; font-style: normal;">equation </span>
+  <span style="color: red; font-weight: normal; font-style: normal;">assert</span>(<span style="color: red; font-weight: normal; font-style: normal;">abs</span>(1-absIR_a-rhoIR_a-tauIR) &lt; 1E-8,
+    &quot;Absorptivity, reflectivity and transmissivity of surface a do not add up to one. Check parameters.&quot;);
+  <span style="color: red; font-weight: normal; font-style: normal;">  assert</span>(<span style="color: red; font-weight: normal; font-style: normal;">abs</span>(1-absIR_b-rhoIR_b-tauIR) &lt; 1E-8,
+    &quot;Absorptivity, reflectivity and transmissivity of surface b do not add up to one. Check parameters.&quot;);
+
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>ParametersTwoSurfaces;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE RadiosityOneSurface<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.HeatTransfer.Ra7d8109d8340a15bdrfaceI.png" alt="Buildings.HeatTransfer.Radiosity.BaseClasses.RadiosityOneSurface" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.HeatTransfer.Radiosity.BaseClasses.RadiosityOneSurface"></a><a href="Buildings_HeatTransfer_Radiosity_BaseClasses.html#Buildings.HeatTransfer.Radiosity.BaseClasses"
+>Buildings.HeatTransfer.Radiosity.BaseClasses</a>.RadiosityOneSurface</h2>
+<p>
+<b>Model for the radiosity balance of a device with one surface</b>
+<br>
+<br><img src="Buildings.HeatTransfer.Ra7d8109d8340a15bdrfaceD.png" alt="Buildings.HeatTransfer.Radiosity.BaseClasses.RadiosityOneSurface">
+</p>
+<h3>Information</h3>
+
+Partial model for a device with one surface.
+
+<p>Extends from <a href="Buildings_BaseClasses.html#Buildings.BaseClasses.BaseIcon"
+>Buildings.BaseClasses.BaseIcon</a> (Base icon).</p>
+<h3>Parameters</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Area"
+>Area</a></td><td>A</td><td>&nbsp;</td><td>Surface area [m2]</td></tr>
+</table>
+<h3>Connectors</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Connectors">
+<tr><th>Type</th><th>Name</th><th>Description</th></tr>
+<tr><td>input <a href="Buildings_HeatTransfer_Interfaces.html#Buildings.HeatTransfer.Interfaces.RadiosityInflow"
+>RadiosityInflow</a></td><td>JIn</td><td>Incoming radiosity [W]</td></tr>
+<tr><td>output <a href="Buildings_HeatTransfer_Interfaces.html#Buildings.HeatTransfer.Interfaces.RadiosityOutflow"
+>RadiosityOutflow</a></td><td>JOut</td><td>Outgoing radiosity [W]</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">partial </span><span style="color: blue; font-weight: normal; font-style: normal;">model</span> RadiosityOneSurface <span style="color: #006400; font-weight: normal; font-style: normal;">
+  &quot;Model for the radiosity balance of a device with one surface&quot;</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="Buildings_BaseClasses.html#Buildings.BaseClasses.BaseIcon"
+>Buildings.BaseClasses.BaseIcon</a>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Area"
+>Modelica.SIunits.Area</a> A <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Surface area&quot;</span>;
+
+  <a href="Buildings_HeatTransfer_Interfaces.html#Buildings.HeatTransfer.Interfaces.RadiosityInflow"
+>Buildings.HeatTransfer.Interfaces.RadiosityInflow</a> JIn(start=A*0.8*Modelica.Constants.sigma*293.15^4) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Incoming radiosity&quot;</span>;
+  <a href="Buildings_HeatTransfer_Interfaces.html#Buildings.HeatTransfer.Interfaces.RadiosityOutflow"
+>Buildings.HeatTransfer.Interfaces.RadiosityOutflow</a> JOut <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Outgoing radiosity&quot;</span>;
+
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>RadiosityOneSurface;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE RadiosityTwoSurfaces<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.HeatTransfer.Raa8675b0d812d9df5facesI.png" alt="Buildings.HeatTransfer.Radiosity.BaseClasses.RadiosityTwoSurfaces" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.HeatTransfer.Radiosity.BaseClasses.RadiosityTwoSurfaces"></a><a href="Buildings_HeatTransfer_Radiosity_BaseClasses.html#Buildings.HeatTransfer.Radiosity.BaseClasses"
+>Buildings.HeatTransfer.Radiosity.BaseClasses</a>.RadiosityTwoSurfaces</h2>
+<p>
+<b>Model for the radiosity balance of a device with two surfaces</b>
+<br>
+<br><img src="Buildings.HeatTransfer.Raa8675b0d812d9df5facesD.png" alt="Buildings.HeatTransfer.Radiosity.BaseClasses.RadiosityTwoSurfaces">
+</p>
+<h3>Information</h3>
+
+Partial model for a device with two surfaces.
+
+<p>Extends from <a href="Buildings_BaseClasses.html#Buildings.BaseClasses.BaseIcon"
+>Buildings.BaseClasses.BaseIcon</a> (Base icon).</p>
+<h3>Parameters</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Area"
+>Area</a></td><td>A</td><td>&nbsp;</td><td>Surface area [m2]</td></tr>
+</table>
+<h3>Connectors</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Connectors">
+<tr><th>Type</th><th>Name</th><th>Description</th></tr>
+<tr><td>input <a href="Buildings_HeatTransfer_Interfaces.html#Buildings.HeatTransfer.Interfaces.RadiosityInflow"
+>RadiosityInflow</a></td><td>JIn_a</td><td>Incoming radiosity at surface a [W]</td></tr>
+<tr><td>input <a href="Buildings_HeatTransfer_Interfaces.html#Buildings.HeatTransfer.Interfaces.RadiosityInflow"
+>RadiosityInflow</a></td><td>JIn_b</td><td>Incoming radiosity at surface b [W]</td></tr>
+<tr><td>output <a href="Buildings_HeatTransfer_Interfaces.html#Buildings.HeatTransfer.Interfaces.RadiosityOutflow"
+>RadiosityOutflow</a></td><td>JOut_a</td><td>Outgoing radiosity at surface a [W]</td></tr>
+<tr><td>output <a href="Buildings_HeatTransfer_Interfaces.html#Buildings.HeatTransfer.Interfaces.RadiosityOutflow"
+>RadiosityOutflow</a></td><td>JOut_b</td><td>Outgoing radiosity at surface b [W]</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">partial </span><span style="color: blue; font-weight: normal; font-style: normal;">block</span> RadiosityTwoSurfaces <span style="color: #006400; font-weight: normal; font-style: normal;">
+  &quot;Model for the radiosity balance of a device with two surfaces&quot;</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="Buildings_BaseClasses.html#Buildings.BaseClasses.BaseIcon"
+>Buildings.BaseClasses.BaseIcon</a>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Area"
+>Modelica.SIunits.Area</a> A <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Surface area&quot;</span>;
+
+  <a href="Buildings_HeatTransfer_Interfaces.html#Buildings.HeatTransfer.Interfaces.RadiosityInflow"
+>Buildings.HeatTransfer.Interfaces.RadiosityInflow</a> JIn_a(start=A*0.8*Modelica.Constants.sigma*293.15^4) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Incoming radiosity at surface a&quot;</span>;
+  <a href="Buildings_HeatTransfer_Interfaces.html#Buildings.HeatTransfer.Interfaces.RadiosityInflow"
+>Buildings.HeatTransfer.Interfaces.RadiosityInflow</a> JIn_b(start=A*0.8*Modelica.Constants.sigma*293.15^4) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Incoming radiosity at surface b&quot;</span>;
+  <a href="Buildings_HeatTransfer_Interfaces.html#Buildings.HeatTransfer.Interfaces.RadiosityOutflow"
+>Buildings.HeatTransfer.Interfaces.RadiosityOutflow</a> JOut_a <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Outgoing radiosity at surface a&quot;</span>;
+  <a href="Buildings_HeatTransfer_Interfaces.html#Buildings.HeatTransfer.Interfaces.RadiosityOutflow"
+>Buildings.HeatTransfer.Interfaces.RadiosityOutflow</a> JOut_b <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Outgoing radiosity at surface b&quot;</span>;
+
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>RadiosityTwoSurfaces;
+</div>
+<hr>
+<address>
+<a href="http://www.3ds.com/">Automatically generated</a> Thu Apr  9 09:37:14 2015.
+</address>
+</body>
+</html>

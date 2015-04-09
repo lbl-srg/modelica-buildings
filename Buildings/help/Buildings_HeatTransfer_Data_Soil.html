@@ -1,0 +1,287 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>Buildings.HeatTransfer.Data.Soil</title>
+<meta name="HTML-Generator" content="Dymola">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="description" content="&quot;Package with solid material for soil, characterized by thermal conductance, density and specific heat capacity&quot;">
+<style type="text/css">
+*       { font-size: 10pt; font-family: Arial, sans-serif; }
+.modelica, .modelica * { font-size: 9pt; font-family: Courier, monospace; white-space: pre; }
+h4      { font-size: 10pt; font-weight: bold; color: green; }
+h3      { font-size: 11pt; font-weight: bold; color: green; }
+h2      { font-size: 13pt; font-weight: bold; color: green; }
+address { font-weight: normal; }
+td      { border: 1px solid #808080; vertical-align: top; }
+th      { border: 1px solid #808080; vertical-align: top; font-weight: bold; }
+table   { border: 1px solid #808080; border-collapse: collapse; }
+</style>
+<link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../Resources/www/modelicaDoc.css">
+</HEAD>
+<body>
+<!-- --- header ------ -->
+<div class="headerStyle">
+<img src="../Resources/www/lbl-logo.png" alt="LBL logo"/>
+</div>
+<div class="headerLinks">
+<ul><li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt; <a href="Buildings.html">Modelica</a></li></ul>
+</div>
+<!-- --- end header -- -->
+
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE Soil<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><a name="Buildings.HeatTransfer.Data.Soil"></a><a href="Buildings_HeatTransfer_Data.html#Buildings.HeatTransfer.Data"
+>Buildings.HeatTransfer.Data</a>.Soil</h2>
+<p>
+<b>Package with solid material for soil, characterized by thermal conductance, density and specific heat capacity</b><br>
+</p>
+<h3>Information</h3>
+
+<p>
+Package with records for solid materials.
+The material is characterized by its
+thermal conductivity, mass density and specific
+heat capacity.
+</p>
+<p>
+These properties are used to compute heat conduction in circular coordinates.
+Hence, as opposed to
+<a href="Buildings_HeatTransfer_Data_Solids.html#Buildings.HeatTransfer.Data.Solids"
+>
+Buildings.HeatTransfer.Data.Solids</a>,
+they do not include the material thickness and the generation of the
+spatial grid.
+</p>
+
+<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons_MaterialPropertiesPackage.html#Modelica.Icons.MaterialPropertiesPackage"
+>Modelica.Icons.MaterialPropertiesPackage</a> (Icon for package containing property classes).</p>
+<h3>Package Content</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Package Content">
+<tr>
+<th>Name</th>
+<th>Description</th>
+</tr>
+<tr>
+<td><img src="Buildings.HeatTransfer.Data.Soil.GenericS.png" alt="Buildings.HeatTransfer.Data.Soil.Generic" width="20" height="20" align="top">&nbsp;<a href="Buildings_HeatTransfer_Data_Soil.html#Buildings.HeatTransfer.Data.Soil.Generic"
+>Generic</a>
+</td>
+<td>Thermal properties of solids with heat storage</td>
+</tr>
+<tr>
+<td><img src="Buildings.HeatTransfer.Data.Soil.GenericS.png" alt="Buildings.HeatTransfer.Data.Soil.Granite" width="20" height="20" align="top">&nbsp;<a href="Buildings_HeatTransfer_Data_Soil.html#Buildings.HeatTransfer.Data.Soil.Granite"
+>Granite</a>
+</td>
+<td>Granite (k=1.9)</td>
+</tr>
+<tr>
+<td><img src="Buildings.HeatTransfer.Data.Soil.GenericS.png" alt="Buildings.HeatTransfer.Data.Soil.Concrete" width="20" height="20" align="top">&nbsp;<a href="Buildings_HeatTransfer_Data_Soil.html#Buildings.HeatTransfer.Data.Soil.Concrete"
+>Concrete</a>
+</td>
+<td>Concrete (k=3.1)</td>
+</tr>
+<tr>
+<td><img src="Buildings.HeatTransfer.Data.Soil.GenericS.png" alt="Buildings.HeatTransfer.Data.Soil.Basalt" width="20" height="20" align="top">&nbsp;<a href="Buildings_HeatTransfer_Data_Soil.html#Buildings.HeatTransfer.Data.Soil.Basalt"
+>Basalt</a>
+</td>
+<td>Basalt (k=2.3)</td>
+</tr>
+<tr>
+<td><img src="Buildings.HeatTransfer.Data.Soil.GenericS.png" alt="Buildings.HeatTransfer.Data.Soil.Marble" width="20" height="20" align="top">&nbsp;<a href="Buildings_HeatTransfer_Data_Soil.html#Buildings.HeatTransfer.Data.Soil.Marble"
+>Marble</a>
+</td>
+<td>Marble (k=2.7)</td>
+</tr>
+<tr>
+<td><img src="Buildings.HeatTransfer.Data.Soil.GenericS.png" alt="Buildings.HeatTransfer.Data.Soil.Sandstone" width="20" height="20" align="top">&nbsp;<a href="Buildings_HeatTransfer_Data_Soil.html#Buildings.HeatTransfer.Data.Soil.Sandstone"
+>Sandstone</a>
+</td>
+<td>Sandstone (k=2.8)</td>
+</tr>
+</table>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE Generic<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.HeatTransfer.Data.Soil.GenericI.png" alt="Buildings.HeatTransfer.Data.Soil.Generic" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.HeatTransfer.Data.Soil.Generic"></a><a href="Buildings_HeatTransfer_Data_Soil.html#Buildings.HeatTransfer.Data.Soil"
+>Buildings.HeatTransfer.Data.Soil</a>.Generic</h2>
+<p>
+<b>Thermal properties of solids with heat storage</b>
+</p>
+<h3>Information</h3>
+
+<p>
+Generic record for solid materials used as soil.
+The material is characterized by its
+thermal conductivity, mass density and specific
+heat capacity.
+</p>
+
+<p>Extends from <a href="Buildings_HeatTransfer_Data_BaseClasses.html#Buildings.HeatTransfer.Data.BaseClasses.ThermalProperties"
+>Buildings.HeatTransfer.Data.BaseClasses.ThermalProperties</a> (Thermal properties of materials with storage).</p>
+<h3>Parameters</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.ThermalConductivity"
+>ThermalConductivity</a></td><td>k</td><td>&nbsp;</td><td>Thermal conductivity [W/(m.K)]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.SpecificHeatCapacity"
+>SpecificHeatCapacity</a></td><td>c</td><td>&nbsp;</td><td>Specific heat capacity [J/(kg.K)]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Density"
+>Density</a></td><td>d</td><td>&nbsp;</td><td>Mass density [kg/m3]</td></tr>
+<tr><td>Boolean</td><td>steadyState</td><td>(c == 0 or d == 0)</td><td>Flag, if true, then material is computed using steady-state heat conduction</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">record</span> Generic <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Thermal properties of solids with heat storage&quot;</span>
+    <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="Buildings_HeatTransfer_Data_BaseClasses.html#Buildings.HeatTransfer.Data.BaseClasses.ThermalProperties"
+>Buildings.HeatTransfer.Data.BaseClasses.ThermalProperties</a>;
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>Generic;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE Granite<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.HeatTransfer.Data.Soil.GenericI.png" alt="Buildings.HeatTransfer.Data.Soil.Granite" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.HeatTransfer.Data.Soil.Granite"></a><a href="Buildings_HeatTransfer_Data_Soil.html#Buildings.HeatTransfer.Data.Soil"
+>Buildings.HeatTransfer.Data.Soil</a>.Granite</h2>
+<p>
+<b>Granite (k=1.9)</b>
+</p>
+<h3>Parameters</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.ThermalConductivity"
+>ThermalConductivity</a></td><td>k</td><td>1.9</td><td>Thermal conductivity [W/(m.K)]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.SpecificHeatCapacity"
+>SpecificHeatCapacity</a></td><td>c</td><td>790</td><td>Specific heat capacity [J/(kg.K)]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Density"
+>Density</a></td><td>d</td><td>1920</td><td>Mass density [kg/m3]</td></tr>
+<tr><td>Boolean</td><td>steadyState</td><td>(c == 0 or d == 0)</td><td>Flag, if true, then material is computed using steady-state heat conduction</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">record</span> Granite = <a href="Buildings_HeatTransfer_Data_Soil.html#Buildings.HeatTransfer.Data.Soil.Generic"
+>Buildings.HeatTransfer.Data.Soil.Generic</a> (
+    k=1.9,
+    d=1920,
+    c=790) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Granite (k=1.9)&quot;</span>;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE Concrete<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.HeatTransfer.Data.Soil.GenericI.png" alt="Buildings.HeatTransfer.Data.Soil.Concrete" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.HeatTransfer.Data.Soil.Concrete"></a><a href="Buildings_HeatTransfer_Data_Soil.html#Buildings.HeatTransfer.Data.Soil"
+>Buildings.HeatTransfer.Data.Soil</a>.Concrete</h2>
+<p>
+<b>Concrete (k=3.1)</b>
+</p>
+<h3>Parameters</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.ThermalConductivity"
+>ThermalConductivity</a></td><td>k</td><td>3.1</td><td>Thermal conductivity [W/(m.K)]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.SpecificHeatCapacity"
+>SpecificHeatCapacity</a></td><td>c</td><td>840</td><td>Specific heat capacity [J/(kg.K)]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Density"
+>Density</a></td><td>d</td><td>2000</td><td>Mass density [kg/m3]</td></tr>
+<tr><td>Boolean</td><td>steadyState</td><td>(c == 0 or d == 0)</td><td>Flag, if true, then material is computed using steady-state heat conduction</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">record</span> Concrete = <a href="Buildings_HeatTransfer_Data_Soil.html#Buildings.HeatTransfer.Data.Soil.Generic"
+>Buildings.HeatTransfer.Data.Soil.Generic</a> (
+    k=3.1,
+    d=2000,
+    c=840) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Concrete (k=3.1)&quot;</span>;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE Basalt<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.HeatTransfer.Data.Soil.GenericI.png" alt="Buildings.HeatTransfer.Data.Soil.Basalt" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.HeatTransfer.Data.Soil.Basalt"></a><a href="Buildings_HeatTransfer_Data_Soil.html#Buildings.HeatTransfer.Data.Soil"
+>Buildings.HeatTransfer.Data.Soil</a>.Basalt</h2>
+<p>
+<b>Basalt (k=2.3)</b>
+</p>
+<h3>Parameters</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.ThermalConductivity"
+>ThermalConductivity</a></td><td>k</td><td>2.3</td><td>Thermal conductivity [W/(m.K)]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.SpecificHeatCapacity"
+>SpecificHeatCapacity</a></td><td>c</td><td>1200</td><td>Specific heat capacity [J/(kg.K)]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Density"
+>Density</a></td><td>d</td><td>1140</td><td>Mass density [kg/m3]</td></tr>
+<tr><td>Boolean</td><td>steadyState</td><td>(c == 0 or d == 0)</td><td>Flag, if true, then material is computed using steady-state heat conduction</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">record</span> Basalt =
+    <a href="Buildings_HeatTransfer_Data_Soil.html#Buildings.HeatTransfer.Data.Soil.Generic"
+>Buildings.HeatTransfer.Data.Soil.Generic</a> (
+    k=2.3,
+    d=1140,
+    c=1200) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Basalt (k=2.3)&quot;</span>;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE Marble<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.HeatTransfer.Data.Soil.GenericI.png" alt="Buildings.HeatTransfer.Data.Soil.Marble" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.HeatTransfer.Data.Soil.Marble"></a><a href="Buildings_HeatTransfer_Data_Soil.html#Buildings.HeatTransfer.Data.Soil"
+>Buildings.HeatTransfer.Data.Soil</a>.Marble</h2>
+<p>
+<b>Marble (k=2.7)</b>
+</p>
+<h3>Parameters</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.ThermalConductivity"
+>ThermalConductivity</a></td><td>k</td><td>2.7</td><td>Thermal conductivity [W/(m.K)]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.SpecificHeatCapacity"
+>SpecificHeatCapacity</a></td><td>c</td><td>1090</td><td>Specific heat capacity [J/(kg.K)]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Density"
+>Density</a></td><td>d</td><td>2500</td><td>Mass density [kg/m3]</td></tr>
+<tr><td>Boolean</td><td>steadyState</td><td>(c == 0 or d == 0)</td><td>Flag, if true, then material is computed using steady-state heat conduction</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">record</span> Marble =
+    <a href="Buildings_HeatTransfer_Data_Soil.html#Buildings.HeatTransfer.Data.Soil.Generic"
+>Buildings.HeatTransfer.Data.Soil.Generic</a> (
+    k=2.7,
+    d=2500,
+    c=1090) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Marble (k=2.7)&quot;</span>;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE Sandstone<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.HeatTransfer.Data.Soil.GenericI.png" alt="Buildings.HeatTransfer.Data.Soil.Sandstone" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.HeatTransfer.Data.Soil.Sandstone"></a><a href="Buildings_HeatTransfer_Data_Soil.html#Buildings.HeatTransfer.Data.Soil"
+>Buildings.HeatTransfer.Data.Soil</a>.Sandstone</h2>
+<p>
+<b>Sandstone (k=2.8)</b>
+</p>
+<h3>Parameters</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.ThermalConductivity"
+>ThermalConductivity</a></td><td>k</td><td>2.8</td><td>Thermal conductivity [W/(m.K)]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.SpecificHeatCapacity"
+>SpecificHeatCapacity</a></td><td>c</td><td>1210</td><td>Specific heat capacity [J/(kg.K)]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Density"
+>Density</a></td><td>d</td><td>540</td><td>Mass density [kg/m3]</td></tr>
+<tr><td>Boolean</td><td>steadyState</td><td>(c == 0 or d == 0)</td><td>Flag, if true, then material is computed using steady-state heat conduction</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">record</span> Sandstone = <a href="Buildings_HeatTransfer_Data_Soil.html#Buildings.HeatTransfer.Data.Soil.Generic"
+>Buildings.HeatTransfer.Data.Soil.Generic</a> (
+    k=2.8,
+    d=540,
+    c=1210) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Sandstone (k=2.8)&quot;</span>;
+</div>
+<hr>
+<address>
+<a href="http://www.3ds.com/">Automatically generated</a> Thu Apr  9 09:37:34 2015.
+</address>
+</body>
+</html>

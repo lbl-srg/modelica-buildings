@@ -1,0 +1,757 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>Buildings.Fluid.Movers.BaseClasses.Characteristics</title>
+<meta name="HTML-Generator" content="Dymola">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="description" content="&quot;Functions for fan or pump characteristics&quot;">
+<style type="text/css">
+*       { font-size: 10pt; font-family: Arial, sans-serif; }
+.modelica, .modelica * { font-size: 9pt; font-family: Courier, monospace; white-space: pre; }
+h4      { font-size: 10pt; font-weight: bold; color: green; }
+h3      { font-size: 11pt; font-weight: bold; color: green; }
+h2      { font-size: 13pt; font-weight: bold; color: green; }
+address { font-weight: normal; }
+td      { border: 1px solid #808080; vertical-align: top; }
+th      { border: 1px solid #808080; vertical-align: top; font-weight: bold; }
+table   { border: 1px solid #808080; border-collapse: collapse; }
+</style>
+<link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../Resources/www/modelicaDoc.css">
+</HEAD>
+<body>
+<!-- --- header ------ -->
+<div class="headerStyle">
+<img src="../Resources/www/lbl-logo.png" alt="LBL logo"/>
+</div>
+<div class="headerLinks">
+<ul><li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt; <a href="Buildings.html">Modelica</a></li></ul>
+</div>
+<!-- --- end header -- -->
+
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE Characteristics<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><a name="Buildings.Fluid.Movers.BaseClasses.Characteristics"></a><a href="Buildings_Fluid_Movers_BaseClasses.html#Buildings.Fluid.Movers.BaseClasses"
+>Buildings.Fluid.Movers.BaseClasses</a>.Characteristics</h2>
+<p>
+<b>Functions for fan or pump characteristics</b><br>
+</p>
+<h3>Information</h3>
+
+<p>
+This package implements performance curves for fans and pumps,
+and records for parameter that can be used with these performance
+curves.
+</p>
+<p>
+See the
+<a href="Buildings_Fluid_Movers_UsersGuide.html#Buildings.Fluid.Movers.UsersGuide"
+>
+User's Guide</a> for information about these performance curves.
+</p>
+
+<h3>Package Content</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Package Content">
+<tr>
+<th>Name</th>
+<th>Description</th>
+</tr>
+<tr>
+<td><img src="Buildings.Fluid.Movers.Baa0874dd91a2e9717iencyS.png" alt="Buildings.Fluid.Movers.BaseClasses.Characteristics.efficiency" width="20" height="20" align="top">&nbsp;<a href="Buildings_Fluid_Movers_BaseClasses_Characteristics.html#Buildings.Fluid.Movers.BaseClasses.Characteristics.efficiency"
+>efficiency</a>
+</td>
+<td>Flow vs. efficiency characteristics for fan or pump</td>
+</tr>
+<tr>
+<td><img src="Buildings.Fluid.Movers.Baa0874dd91a2e9717iencyS.png" alt="Buildings.Fluid.Movers.BaseClasses.Characteristics.flowApproximationAtOrigin" width="20" height="20" align="top">&nbsp;<a href="Buildings_Fluid_Movers_BaseClasses_Characteristics.html#Buildings.Fluid.Movers.BaseClasses.Characteristics.flowApproximationAtOrigin"
+>flowApproximationAtOrigin</a>
+</td>
+<td>Approximation for fan or pump pressure raise at origin</td>
+</tr>
+<tr>
+<td><img src="Buildings.Fluid.Movers.Baa0874dd91a2e9717iencyS.png" alt="Buildings.Fluid.Movers.BaseClasses.Characteristics.power" width="20" height="20" align="top">&nbsp;<a href="Buildings_Fluid_Movers_BaseClasses_Characteristics.html#Buildings.Fluid.Movers.BaseClasses.Characteristics.power"
+>power</a>
+</td>
+<td>Flow vs. electrical power characteristics for fan or pump</td>
+</tr>
+<tr>
+<td><img src="Buildings.Fluid.Movers.Baa0874dd91a2e9717iencyS.png" alt="Buildings.Fluid.Movers.BaseClasses.Characteristics.pressure" width="20" height="20" align="top">&nbsp;<a href="Buildings_Fluid_Movers_BaseClasses_Characteristics.html#Buildings.Fluid.Movers.BaseClasses.Characteristics.pressure"
+>pressure</a>
+</td>
+<td>Flow vs. head characteristics for fan or pump pressure raise</td>
+</tr>
+<tr>
+<td><img src="Buildings.Fluid.Movers.Ba10d2f9cfc03d93d1etersS.png" alt="Buildings.Fluid.Movers.BaseClasses.Characteristics.efficiencyParameters" width="20" height="20" align="top">&nbsp;<a href="Buildings_Fluid_Movers_BaseClasses_Characteristics.html#Buildings.Fluid.Movers.BaseClasses.Characteristics.efficiencyParameters"
+>efficiencyParameters</a>
+</td>
+<td>Record for efficiency parameters</td>
+</tr>
+<tr>
+<td><img src="Buildings.Fluid.Movers.Ba10d2f9cfc03d93d1etersS.png" alt="Buildings.Fluid.Movers.BaseClasses.Characteristics.flowParameters" width="20" height="20" align="top">&nbsp;<a href="Buildings_Fluid_Movers_BaseClasses_Characteristics.html#Buildings.Fluid.Movers.BaseClasses.Characteristics.flowParameters"
+>flowParameters</a>
+</td>
+<td>Record for flow parameters</td>
+</tr>
+<tr>
+<td><img src="Buildings.Fluid.Movers.Ba10d2f9cfc03d93d1etersS.png" alt="Buildings.Fluid.Movers.BaseClasses.Characteristics.flowParametersInternal" width="20" height="20" align="top">&nbsp;<a href="Buildings_Fluid_Movers_BaseClasses_Characteristics.html#Buildings.Fluid.Movers.BaseClasses.Characteristics.flowParametersInternal"
+>flowParametersInternal</a>
+</td>
+<td>Record for flow parameters with prescribed size</td>
+</tr>
+<tr>
+<td><img src="Buildings.Fluid.Movers.Ba10d2f9cfc03d93d1etersS.png" alt="Buildings.Fluid.Movers.BaseClasses.Characteristics.powerParameters" width="20" height="20" align="top">&nbsp;<a href="Buildings_Fluid_Movers_BaseClasses_Characteristics.html#Buildings.Fluid.Movers.BaseClasses.Characteristics.powerParameters"
+>powerParameters</a>
+</td>
+<td>Record for electrical power parameters</td>
+</tr>
+</table>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE efficiency<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Fluid.Movers.Baa0874dd91a2e9717iencyI.png" alt="Buildings.Fluid.Movers.BaseClasses.Characteristics.efficiency" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Fluid.Movers.BaseClasses.Characteristics.efficiency"></a><a href="Buildings_Fluid_Movers_BaseClasses_Characteristics.html#Buildings.Fluid.Movers.BaseClasses.Characteristics"
+>Buildings.Fluid.Movers.BaseClasses.Characteristics</a>.efficiency</h2>
+<p>
+<b>Flow vs. efficiency characteristics for fan or pump</b>
+</p>
+<h3>Information</h3>
+
+<p>
+This function computes the fan or pump efficiency for given normalized volume flow rate
+and performance data. The efficiency is
+</p>
+<p align="center" style="font-style:italic;">
+  &eta; = s(V&#775;/r<sub>N</sub>, d),
+</p>
+<p>
+where
+<i>&eta;</i> is the efficiency,
+<i>r<sub>N</sub></i> is the normalized fan speed,
+<i>V&#775;</i> is the volume flow rate, and
+<i>d</i> are performance data for fan or pump efficiency.
+</p>
+<h4>Implementation</h4>
+<p>
+The function <i>s(&middot;, &middot;)</i> is a cubic hermite spline.
+If the data <i>d</i> define a monotone decreasing sequence, then
+<i>s(&middot;, d)</i> is a monotone decreasing function.
+</p>
+
+<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Function"
+>Modelica.Icons.Function</a> (Icon for functions).</p>
+<h3>Inputs</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Inputs">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td><a href="Buildings_Fluid_Movers_BaseClasses_Characteristics.html#Buildings.Fluid.Movers.BaseClasses.Characteristics.efficiencyParameters"
+>efficiencyParameters</a></td><td>per</td><td>&nbsp;</td><td>Efficiency performance data</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.VolumeFlowRate"
+>VolumeFlowRate</a></td><td>V_flow</td><td>&nbsp;</td><td>Volumetric flow rate [m3/s]</td></tr>
+<tr><td>Real</td><td>d[:]</td><td>&nbsp;</td><td>Derivatives at support points for spline interpolation</td></tr>
+<tr><td>Real</td><td>r_N</td><td>&nbsp;</td><td>Relative revolution, r_N=N/N_nominal [1]</td></tr>
+<tr><td>Real</td><td>delta</td><td>&nbsp;</td><td>Small value for switching implementation around zero rpm</td></tr>
+</table>
+<h3>Outputs</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Outputs">
+<tr><th>Type</th><th>Name</th><th>Description</th></tr>
+<tr><td>Real</td><td>eta</td><td>Efficiency [1]</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">function</span> efficiency <span style="color: #006400; font-weight: normal; font-style: normal;">
+  &quot;Flow vs. efficiency characteristics for fan or pump&quot;</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Function"
+>Modelica.Icons.Function</a>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">input </span><a href="Buildings_Fluid_Movers_BaseClasses_Characteristics.html#Buildings.Fluid.Movers.BaseClasses.Characteristics.efficiencyParameters"
+>Buildings.Fluid.Movers.BaseClasses.Characteristics.efficiencyParameters</a>
+                                                                                per <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Efficiency performance data&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">input </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.VolumeFlowRate"
+>Modelica.SIunits.VolumeFlowRate</a> V_flow <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Volumetric flow rate&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">input </span>Real d[:] <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Derivatives at support points for spline interpolation&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">input </span>Real r_N(unit=&quot;1&quot;) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Relative revolution, r_N=N/N_nominal&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">input </span>Real delta <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Small value for switching implementation around zero rpm&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">output </span>Real eta(min=0, unit=&quot;1&quot;) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Efficiency&quot;</span>;
+
+<span style="color: blue; font-weight: normal; font-style: normal;">protected </span>
+  Integer n =<span style="color: red; font-weight: normal; font-style: normal;"> size</span>(per.V_flow, 1) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Number of data points&quot;</span>;
+  Real rat <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Ratio of V_flow/r_N&quot;</span>;
+  Integer i <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Integer to select data interval&quot;</span>;
+<span style="color: blue; font-weight: normal; font-style: normal;">algorithm </span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">if </span>n == 1<span style="color: blue; font-weight: normal; font-style: normal;"> then</span>
+    eta := per.eta[1];
+  <span style="color: blue; font-weight: normal; font-style: normal;">else</span>
+    <span style="color: #006400; font-weight: normal; font-style: normal;">// The use of the max function to avoids problems for low speeds</span>
+    <span style="color: #006400; font-weight: normal; font-style: normal;">// and turned off pumps</span>
+    rat:=V_flow/
+            <span style="color: red; font-weight: normal; font-style: normal;">Buildings.Utilities.Math.Functions.smoothMax</span>(
+              x1=r_N,
+              x2=0.1,
+              deltaX=delta);
+    i :=1;
+    <span style="color: blue; font-weight: normal; font-style: normal;">for </span>j<span style="color: blue; font-weight: normal; font-style: normal;"> in </span>1:n-1<span style="color: blue; font-weight: normal; font-style: normal;"> loop</span>
+       <span style="color: blue; font-weight: normal; font-style: normal;">if </span>rat &gt; per.V_flow[j]<span style="color: blue; font-weight: normal; font-style: normal;"> then</span>
+         i := j;
+       <span style="color: blue; font-weight: normal; font-style: normal;">end if</span>;
+    <span style="color: blue; font-weight: normal; font-style: normal;">end for</span>;
+    <span style="color: #006400; font-weight: normal; font-style: normal;">// Extrapolate or interpolate the data</span>
+    eta:=<span style="color: red; font-weight: normal; font-style: normal;">Buildings.Utilities.Math.Functions.cubicHermiteLinearExtrapolation</span>(
+                x=rat,
+                x1=per.V_flow[i],
+                x2=per.V_flow[i + 1],
+                y1=per.eta[i],
+                y2=per.eta[i + 1],
+                y1d=d[i],
+                y2d=d[i+1]);
+  <span style="color: blue; font-weight: normal; font-style: normal;">end if</span>;
+
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>efficiency;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE flowApproximationAtOrigin<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Fluid.Movers.Baa0874dd91a2e9717iencyI.png" alt="Buildings.Fluid.Movers.BaseClasses.Characteristics.flowApproximationAtOrigin" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Fluid.Movers.BaseClasses.Characteristics.flowApproximationAtOrigin"></a><a href="Buildings_Fluid_Movers_BaseClasses_Characteristics.html#Buildings.Fluid.Movers.BaseClasses.Characteristics"
+>Buildings.Fluid.Movers.BaseClasses.Characteristics</a>.flowApproximationAtOrigin</h2>
+<p>
+<b>Approximation for fan or pump pressure raise at origin</b>
+</p>
+<h3>Information</h3>
+
+<p>
+This function computes the fan static
+pressure raise as a function of volume flow rate and revolution near the origin.
+It is used to avoid a singularity in the pump or fan curve if the revolution
+approaches zero.
+</p>
+
+<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Function"
+>Modelica.Icons.Function</a> (Icon for functions).</p>
+<h3>Inputs</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Inputs">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.VolumeFlowRate"
+>VolumeFlowRate</a></td><td>V_flow</td><td>&nbsp;</td><td>Volumetric flow rate [m3/s]</td></tr>
+<tr><td>Real</td><td>r_N</td><td>&nbsp;</td><td>Relative revolution, r_N=N/N_nominal [1]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.VolumeFlowRate"
+>VolumeFlowRate</a></td><td>VDelta_flow</td><td>&nbsp;</td><td>Small volume flow rate [m3/s]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
+>Pressure</a></td><td>dpDelta</td><td>&nbsp;</td><td>Small pressure [Pa]</td></tr>
+<tr><td>Real</td><td>delta</td><td>&nbsp;</td><td>Small value used to transition to other fan curve</td></tr>
+<tr><td>Real</td><td>cBar[2]</td><td>&nbsp;</td><td>Coefficients for linear approximation of pressure vs. flow rate</td></tr>
+</table>
+<h3>Outputs</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Outputs">
+<tr><th>Type</th><th>Name</th><th>Description</th></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
+>Pressure</a></td><td>dp</td><td>Pressure raise [Pa]</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">function</span> flowApproximationAtOrigin <span style="color: #006400; font-weight: normal; font-style: normal;">
+  &quot;Approximation for fan or pump pressure raise at origin&quot;</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Function"
+>Modelica.Icons.Function</a>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">input </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.VolumeFlowRate"
+>Modelica.SIunits.VolumeFlowRate</a> V_flow <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Volumetric flow rate&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">input </span>Real r_N(unit=&quot;1&quot;) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Relative revolution, r_N=N/N_nominal&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">input </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.VolumeFlowRate"
+>Modelica.SIunits.VolumeFlowRate</a> VDelta_flow <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Small volume flow rate&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">input </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
+>Modelica.SIunits.Pressure</a> dpDelta <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Small pressure&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">input </span>Real delta <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Small value used to transition to other fan curve&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">input </span>Real cBar[2] <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Coefficients for linear approximation of pressure vs. flow rate&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">output </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
+>Modelica.SIunits.Pressure</a> dp <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Pressure raise&quot;</span>;
+<span style="color: blue; font-weight: normal; font-style: normal;">algorithm </span>
+
+  <span style="color: #006400; font-weight: normal; font-style: normal;">// see equation 20 in  Buildings/Resources/Images/Fluid/Movers/UsersGuide/2013-IBPSA-Wetter.pdf</span>
+  <span style="color: #006400; font-weight: normal; font-style: normal;">// this equation satisfies the constraints detailed in the paper</span>
+  <span style="color: #006400; font-weight: normal; font-style: normal;">// the first term is added for having a faster convergence</span>
+  <span style="color: #006400; font-weight: normal; font-style: normal;">// the last term in the paper is absent here because it can be found in</span>
+  <span style="color: #006400; font-weight: normal; font-style: normal;">// Buildings.Fluid.Movers.BaseClasses.Characteristics.pressure</span>
+  dp := r_N * dpDelta + r_N^2 * (cBar[1] + cBar[2]*V_flow);
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>flowApproximationAtOrigin;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE power<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Fluid.Movers.Baa0874dd91a2e9717iencyI.png" alt="Buildings.Fluid.Movers.BaseClasses.Characteristics.power" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Fluid.Movers.BaseClasses.Characteristics.power"></a><a href="Buildings_Fluid_Movers_BaseClasses_Characteristics.html#Buildings.Fluid.Movers.BaseClasses.Characteristics"
+>Buildings.Fluid.Movers.BaseClasses.Characteristics</a>.power</h2>
+<p>
+<b>Flow vs. electrical power characteristics for fan or pump</b>
+</p>
+<h3>Information</h3>
+
+<p>
+This function computes the fan power consumption for given volume flow rate,
+speed and performance data. The power consumption is
+</p>
+<p align="center" style="font-style:italic;">
+  P = r<sub>N</sub><sup>3</sup> &nbsp; s(V&#775;/r<sub>N</sub>, d),
+</p>
+<p>
+where
+<i>P</i> is the power consumption,
+<i>r<sub>N</sub></i> is the normalized fan speed,
+<i>V&#775;</i> is the volume flow rate and
+<i>d</i> are performance data for fan or pump power consumption at <i>r<sub>N</sub>=1</i>.
+</p>
+<h4>Implementation</h4>
+<p>
+The function <i>s(&middot;, &middot;)</i> is a cubic hermite spline.
+If the data <i>d</i> define a monotone decreasing sequence, then
+<i>s(&middot;, d)</i> is a monotone decreasing function.
+</p>
+
+<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Function"
+>Modelica.Icons.Function</a> (Icon for functions).</p>
+<h3>Inputs</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Inputs">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td><a href="Buildings_Fluid_Movers_BaseClasses_Characteristics.html#Buildings.Fluid.Movers.BaseClasses.Characteristics.powerParameters"
+>powerParameters</a></td><td>per</td><td>&nbsp;</td><td>Pressure performance data</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.VolumeFlowRate"
+>VolumeFlowRate</a></td><td>V_flow</td><td>&nbsp;</td><td>Volumetric flow rate [m3/s]</td></tr>
+<tr><td>Real</td><td>r_N</td><td>&nbsp;</td><td>Relative revolution, r_N=N/N_nominal [1]</td></tr>
+<tr><td>Real</td><td>d[:]</td><td>&nbsp;</td><td>Derivatives at support points for spline interpolation</td></tr>
+<tr><td>Real</td><td>delta</td><td>&nbsp;</td><td>Small value for switching implementation around zero rpm</td></tr>
+</table>
+<h3>Outputs</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Outputs">
+<tr><th>Type</th><th>Name</th><th>Description</th></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Power"
+>Power</a></td><td>P</td><td>Power consumption [W]</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">function</span> power <span style="color: #006400; font-weight: normal; font-style: normal;">
+  &quot;Flow vs. electrical power characteristics for fan or pump&quot;</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Function"
+>Modelica.Icons.Function</a>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">input </span><a href="Buildings_Fluid_Movers_BaseClasses_Characteristics.html#Buildings.Fluid.Movers.BaseClasses.Characteristics.powerParameters"
+>Buildings.Fluid.Movers.BaseClasses.Characteristics.powerParameters</a> per <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Pressure performance data&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">input </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.VolumeFlowRate"
+>Modelica.SIunits.VolumeFlowRate</a> V_flow <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Volumetric flow rate&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">input </span>Real r_N(unit=&quot;1&quot;) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Relative revolution, r_N=N/N_nominal&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">input </span>Real d[:] <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Derivatives at support points for spline interpolation&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">input </span>Real delta <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Small value for switching implementation around zero rpm&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">output </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Power"
+>Modelica.SIunits.Power</a> P <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Power consumption&quot;</span>;
+
+<span style="color: blue; font-weight: normal; font-style: normal;">protected </span>
+   Integer n=<span style="color: red; font-weight: normal; font-style: normal;">size</span>(per.V_flow, 1) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Dimension of data vector&quot;</span>;
+
+   <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.VolumeFlowRate"
+>Modelica.SIunits.VolumeFlowRate</a> rat <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Ratio of V_flow/r_N&quot;</span>;
+   Integer i <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Integer to select data interval&quot;</span>;
+
+<span style="color: blue; font-weight: normal; font-style: normal;">algorithm </span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">if </span>n == 1<span style="color: blue; font-weight: normal; font-style: normal;"> then</span>
+    P := r_N^3*per.P[1];
+  <span style="color: blue; font-weight: normal; font-style: normal;">else</span>
+    i :=1;
+    <span style="color: #006400; font-weight: normal; font-style: normal;">// The use of the max function to avoids problems for low speeds</span>
+    <span style="color: #006400; font-weight: normal; font-style: normal;">// and turned off pumps</span>
+    rat:=V_flow/
+            <span style="color: red; font-weight: normal; font-style: normal;">Buildings.Utilities.Math.Functions.smoothMax</span>(
+              x1=r_N,
+              x2=0.1,
+              deltaX=delta);
+    <span style="color: blue; font-weight: normal; font-style: normal;">for </span>j<span style="color: blue; font-weight: normal; font-style: normal;"> in </span>1:n-1<span style="color: blue; font-weight: normal; font-style: normal;"> loop</span>
+       <span style="color: blue; font-weight: normal; font-style: normal;">if </span>rat &gt; per.V_flow[j]<span style="color: blue; font-weight: normal; font-style: normal;"> then</span>
+         i := j;
+       <span style="color: blue; font-weight: normal; font-style: normal;">end if</span>;
+    <span style="color: blue; font-weight: normal; font-style: normal;">end for</span>;
+    <span style="color: #006400; font-weight: normal; font-style: normal;">// Extrapolate or interpolate the data</span>
+    P:=r_N^3*<span style="color: red; font-weight: normal; font-style: normal;">Buildings.Utilities.Math.Functions.cubicHermiteLinearExtrapolation</span>(
+                x=rat,
+                x1=per.V_flow[i],
+                x2=per.V_flow[i + 1],
+                y1=per.P[i],
+                y2=per.P[i + 1],
+                y1d=d[i],
+                y2d=d[i+1]);
+  <span style="color: blue; font-weight: normal; font-style: normal;">end if</span>;
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>power;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE pressure<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Fluid.Movers.Baa0874dd91a2e9717iencyI.png" alt="Buildings.Fluid.Movers.BaseClasses.Characteristics.pressure" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Fluid.Movers.BaseClasses.Characteristics.pressure"></a><a href="Buildings_Fluid_Movers_BaseClasses_Characteristics.html#Buildings.Fluid.Movers.BaseClasses.Characteristics"
+>Buildings.Fluid.Movers.BaseClasses.Characteristics</a>.pressure</h2>
+<p>
+<b>Flow vs. head characteristics for fan or pump pressure raise</b>
+</p>
+<h3>Information</h3>
+
+<p>
+This function computes the fan static
+pressure raise as a function of volume flow rate and revolution in the form
+</p>
+<p align="center" style="font-style:italic;">
+  &Delta;p = r<sub>N</sub><sup>2</sup> &nbsp; s(V&#775;/r<sub>N</sub>, d)
+  - &Delta;p<sub>r</sub> ,
+</p>
+<p>
+where
+<i>&Delta;p</i> is the pressure rise,
+<i>r<sub>N</sub></i> is the normalized fan speed,
+<i>V&#775;</i> is the volume flow rate and
+<i>d</i> are performance data for fan or pump power consumption at <i>r<sub>N</sub>=1</i>.
+The term
+</p>
+<p align="center" style="font-style:italic;">
+&Delta;p<sub>r</sub> = V&#775; &nbsp; &Delta;p<sub>max</sub> &frasl; V&#775;<sub>max</sub> &nbsp; &delta;
+</p>
+<p>
+where <i>&delta; &gt; 0</i> is a pressure that is small compared to pressure raise of the
+fan at the nominal conditions,
+models the flow resistance of the fan, approximated using a linear equation.
+This is done for numerical reasons to avoid a singularity at <i>r<sub>N</sub>=0</i>.
+Since <i>&delta;</i> is small, the contribution of this term is small.
+The fan and pump models in
+<a href="Buildings_Fluid_Movers.html#Buildings.Fluid.Movers"
+>
+Buildings.Fluid.Movers</a> modify the user-supplied performance data to add the term
+<i>&Delta;p<sub>r</sub></i> prior to computing the performance curve.
+Thus, at full speed, the fan or pump can operate exactly at the user-supplied performance data.
+</p>
+<h4>Implementation</h4>
+<p>
+The function <i>s(&middot;, &middot;)</i> is a cubic hermite spline.
+If the data <i>d</i> define a monotone decreasing sequence, then
+<i>s(&middot;, d)</i> is a monotone decreasing function.
+</p>
+<p>
+For <i>r<sub>N</sub> &lt; &delta;</i>, the polynomial is replaced with an other model to avoid
+a singularity at the origin. The composite model is once continuously differentiable
+in all input variables.
+</p>
+
+<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Function"
+>Modelica.Icons.Function</a> (Icon for functions).</p>
+<h3>Inputs</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Inputs">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td><a href="Buildings_Fluid_Movers_BaseClasses_Characteristics.html#Buildings.Fluid.Movers.BaseClasses.Characteristics.flowParametersInternal"
+>flowParametersInternal</a></td><td>per</td><td>&nbsp;</td><td>Pressure performance data</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.VolumeFlowRate"
+>VolumeFlowRate</a></td><td>V_flow</td><td>&nbsp;</td><td>Volumetric flow rate [m3/s]</td></tr>
+<tr><td>Real</td><td>r_N</td><td>&nbsp;</td><td>Relative revolution, r_N=N/N_nominal [1]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.VolumeFlowRate"
+>VolumeFlowRate</a></td><td>VDelta_flow</td><td>&nbsp;</td><td>Small volume flow rate [m3/s]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
+>Pressure</a></td><td>dpDelta</td><td>&nbsp;</td><td>Small pressure [Pa]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.VolumeFlowRate"
+>VolumeFlowRate</a></td><td>V_flow_max</td><td>&nbsp;</td><td>Maximum volume flow rate at r_N=1 and dp=0 [m3/s]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
+>Pressure</a></td><td>dpMax</td><td>&nbsp;</td><td>Maximum pressure at r_N=1 and V_flow=0 [Pa]</td></tr>
+<tr><td>Real</td><td>d[:]</td><td>&nbsp;</td><td>Derivatives at support points for spline interpolation</td></tr>
+<tr><td>Real</td><td>delta</td><td>&nbsp;</td><td>Small value used to transition to other fan curve</td></tr>
+<tr><td>Real</td><td>cBar[2]</td><td>&nbsp;</td><td>Coefficients for linear approximation of pressure vs. flow rate</td></tr>
+<tr><td>Real</td><td>kRes</td><td>&nbsp;</td><td>Linear coefficient for fan-internal pressure drop [kg/(s.m4)]</td></tr>
+</table>
+<h3>Outputs</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Outputs">
+<tr><th>Type</th><th>Name</th><th>Description</th></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
+>Pressure</a></td><td>dp</td><td>Pressure raise [Pa]</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">function</span> pressure <span style="color: #006400; font-weight: normal; font-style: normal;">
+  &quot;Flow vs. head characteristics for fan or pump pressure raise&quot;</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Function"
+>Modelica.Icons.Function</a>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">input </span><a href="Buildings_Fluid_Movers_BaseClasses_Characteristics.html#Buildings.Fluid.Movers.BaseClasses.Characteristics.flowParametersInternal"
+>Buildings.Fluid.Movers.BaseClasses.Characteristics.flowParametersInternal</a>
+    per <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Pressure performance data&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">input </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.VolumeFlowRate"
+>Modelica.SIunits.VolumeFlowRate</a> V_flow <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Volumetric flow rate&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">input </span>Real r_N(unit=&quot;1&quot;) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Relative revolution, r_N=N/N_nominal&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">input </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.VolumeFlowRate"
+>Modelica.SIunits.VolumeFlowRate</a> VDelta_flow <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Small volume flow rate&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">input </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
+>Modelica.SIunits.Pressure</a> dpDelta <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Small pressure&quot;</span>;
+
+  <span style="color: blue; font-weight: normal; font-style: normal;">input </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.VolumeFlowRate"
+>Modelica.SIunits.VolumeFlowRate</a> V_flow_max <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Maximum volume flow rate at r_N=1 and dp=0&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">input </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
+>Modelica.SIunits.Pressure</a> dpMax(min=0) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Maximum pressure at r_N=1 and V_flow=0&quot;</span>;
+
+  <span style="color: blue; font-weight: normal; font-style: normal;">input </span>Real d[:] <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Derivatives at support points for spline interpolation&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">input </span>Real delta <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Small value used to transition to other fan curve&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">input </span>Real cBar[2] <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Coefficients for linear approximation of pressure vs. flow rate&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">input </span>Real kRes(unit=&quot;kg/(s.m4)&quot;) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Linear coefficient for fan-internal pressure drop&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">output </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
+>Modelica.SIunits.Pressure</a> dp <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Pressure raise&quot;</span>;
+
+<span style="color: blue; font-weight: normal; font-style: normal;">protected </span>
+   Integer dimD(min=2)=<span style="color: red; font-weight: normal; font-style: normal;">size</span>(per.V_flow, 1) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Dimension of data vector&quot;</span>;
+
+  <span style="color: blue; font-weight: normal; font-style: normal;">function</span> performanceCurve <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Performance curve away from the origin&quot;</span>
+    <span style="color: blue; font-weight: normal; font-style: normal;">input </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.VolumeFlowRate"
+>Modelica.SIunits.VolumeFlowRate</a> V_flow <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Volumetric flow rate&quot;</span>;
+    <span style="color: blue; font-weight: normal; font-style: normal;">input </span>Real r_N(unit=&quot;1&quot;) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Relative revolution, r_N=N/N_nominal&quot;</span>;
+    <span style="color: blue; font-weight: normal; font-style: normal;">input </span>Real d[dimD] <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Coefficients for polynomial of pressure vs. flow rate&quot;</span>;
+    <span style="color: blue; font-weight: normal; font-style: normal;">input </span><a href="Buildings_Fluid_Movers_BaseClasses_Characteristics.html#Buildings.Fluid.Movers.BaseClasses.Characteristics.flowParametersInternal"
+>Buildings.Fluid.Movers.BaseClasses.Characteristics.flowParametersInternal</a>
+                                                                                per <span style="color: #006400; font-weight: normal; font-style: normal;">
+      &quot;Pressure performance data&quot;</span>;
+    <span style="color: blue; font-weight: normal; font-style: normal;">input </span>Integer dimD <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Dimension of data vector&quot;</span>;
+
+    <span style="color: blue; font-weight: normal; font-style: normal;">output </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
+>Modelica.SIunits.Pressure</a> dp <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Pressure raise&quot;</span>;
+
+  <span style="color: blue; font-weight: normal; font-style: normal;">protected </span>
+    <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.VolumeFlowRate"
+>Modelica.SIunits.VolumeFlowRate</a> rat <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Ratio of V_flow/r_N&quot;</span>;
+    Integer i <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Integer to select data interval&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">algorithm </span>
+    rat := V_flow/r_N;
+    i :=1;
+    <span style="color: #006400; font-weight: normal; font-style: normal;">// Since the coefficients for the spline were evaluated for</span>
+    <span style="color: #006400; font-weight: normal; font-style: normal;">// rat_nominal = V_flow_nominal/r_N_nominal = V_flow_nominal/1, we use</span>
+    <span style="color: #006400; font-weight: normal; font-style: normal;">// V_flow_nominal below</span>
+    <span style="color: blue; font-weight: normal; font-style: normal;">for </span>j<span style="color: blue; font-weight: normal; font-style: normal;"> in </span>1:dimD-1<span style="color: blue; font-weight: normal; font-style: normal;"> loop</span>
+       <span style="color: blue; font-weight: normal; font-style: normal;">if </span>rat &gt; per.V_flow[j]<span style="color: blue; font-weight: normal; font-style: normal;"> then</span>
+         i := j;
+       <span style="color: blue; font-weight: normal; font-style: normal;">end if</span>;
+    <span style="color: blue; font-weight: normal; font-style: normal;">end for</span>;
+    <span style="color: #006400; font-weight: normal; font-style: normal;">// Extrapolate or interpolate the data</span>
+    dp:=r_N^2*<span style="color: red; font-weight: normal; font-style: normal;">Buildings.Utilities.Math.Functions.cubicHermiteLinearExtrapolation</span>(
+                x=rat,
+                x1=per.V_flow[i],
+                x2=per.V_flow[i + 1],
+                y1=per.dp[i],
+                y2=per.dp[i + 1],
+                y1d=d[i],
+                y2d=d[i+1]);
+  <span style="color: blue; font-weight: normal; font-style: normal;">end </span>performanceCurve;
+
+<span style="color: blue; font-weight: normal; font-style: normal;">algorithm </span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">if </span>r_N &gt;= delta<span style="color: blue; font-weight: normal; font-style: normal;"> then</span>
+     dp :=<span style="color: red; font-weight: normal; font-style: normal;"> performanceCurve</span>(V_flow=V_flow, r_N=r_N, d=d,
+                            per=per, dimD=dimD);
+  <span style="color: blue; font-weight: normal; font-style: normal;">elseif </span>r_N &lt;= delta/2<span style="color: blue; font-weight: normal; font-style: normal;"> then</span>
+    dp :=<span style="color: red; font-weight: normal; font-style: normal;"> flowApproximationAtOrigin</span>(r_N=r_N, V_flow=V_flow,
+                                    VDelta_flow=  VDelta_flow, dpDelta=dpDelta,
+                                    delta=delta, cBar=cBar);
+  <span style="color: blue; font-weight: normal; font-style: normal;">else</span>
+    dp :=<span style="color: red; font-weight: normal; font-style: normal;"> Modelica.Fluid.Utilities.regStep</span>(x=r_N-0.75*delta,
+                                           y1=<span style="color: red; font-weight: normal; font-style: normal;">performanceCurve</span>(V_flow=V_flow, r_N=r_N, d=d,
+                                                               per=per, dimD=dimD),
+                                           y2=<span style="color: red; font-weight: normal; font-style: normal;">flowApproximationAtOrigin</span>(r_N=r_N, V_flow=V_flow,
+                                                   VDelta_flow=VDelta_flow, dpDelta=dpDelta,
+                                                   delta=delta, cBar=cBar),
+                                           x_small=delta/4);
+  <span style="color: blue; font-weight: normal; font-style: normal;">end if</span>;
+  <span style="color: #006400; font-weight: normal; font-style: normal;">// linear equation for being able to handle r_N=0, see</span>
+  <span style="color: #006400; font-weight: normal; font-style: normal;">// Buildings/Resources/Images/Fluid/Movers/UsersGuide/2013-IBPSA-Wetter.pdf</span>
+  dp := dp - V_flow*kRes;
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>pressure;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE efficiencyParameters<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Fluid.Movers.Ba10d2f9cfc03d93d1etersI.png" alt="Buildings.Fluid.Movers.BaseClasses.Characteristics.efficiencyParameters" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Fluid.Movers.BaseClasses.Characteristics.efficiencyParameters"></a><a href="Buildings_Fluid_Movers_BaseClasses_Characteristics.html#Buildings.Fluid.Movers.BaseClasses.Characteristics"
+>Buildings.Fluid.Movers.BaseClasses.Characteristics</a>.efficiencyParameters</h2>
+<p>
+<b>Record for efficiency parameters</b>
+</p>
+<h3>Information</h3>
+
+<p>
+Data record for performance data that describe volume flow rate versus
+efficiency.
+The volume flow rate <code>r_V</code> must be increasing, i.e.,
+<code>r_V[i] &lt; r_V[i+1]</code>.
+Both vectors, <code>r_V</code> and <code>eta</code>
+must have the same size.
+</p>
+
+<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Record"
+>Modelica.Icons.Record</a> (Icon for records).</p>
+<h3>Parameters</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.VolumeFlowRate"
+>VolumeFlowRate</a></td><td>V_flow[:]</td><td>&nbsp;</td><td>Volumetric flow rate at user-selected operating points [m3/s]</td></tr>
+<tr><td>Real</td><td>eta[size(V_flow, 1)]</td><td>&nbsp;</td><td>Fan or pump efficiency at these flow rates</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">record</span> efficiencyParameters <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Record for efficiency parameters&quot;</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Record"
+>Modelica.Icons.Record</a>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.VolumeFlowRate"
+>Modelica.SIunits.VolumeFlowRate</a> V_flow[:](
+    <span style="color: blue; font-weight: normal; font-style: normal;">each </span>min=0) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Volumetric flow rate at user-selected operating points&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Real eta[<span style="color: red; font-weight: normal; font-style: normal;">size</span>(V_flow,1)](
+     <span style="color: blue; font-weight: normal; font-style: normal;">each </span>min=0,
+     <span style="color: blue; font-weight: normal; font-style: normal;">each </span>max=1,
+     <span style="color: blue; font-weight: normal; font-style: normal;">each </span>displayUnit=&quot;1&quot;) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Fan or pump efficiency at these flow rates&quot;</span>;
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>efficiencyParameters;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE flowParameters<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Fluid.Movers.Ba10d2f9cfc03d93d1etersI.png" alt="Buildings.Fluid.Movers.BaseClasses.Characteristics.flowParameters" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Fluid.Movers.BaseClasses.Characteristics.flowParameters"></a><a href="Buildings_Fluid_Movers_BaseClasses_Characteristics.html#Buildings.Fluid.Movers.BaseClasses.Characteristics"
+>Buildings.Fluid.Movers.BaseClasses.Characteristics</a>.flowParameters</h2>
+<p>
+<b>Record for flow parameters</b>
+</p>
+<h3>Information</h3>
+
+<p>
+Data record for performance data that describe volume flow rate versus
+pressure rise.
+The volume flow rate <code>V_flow</code> must be increasing, i.e.,
+<code>V_flow[i] &lt; V_flow[i+1]</code>.
+Both vectors, <code>V_flow</code> and <code>dp</code>
+must have the same size.
+</p>
+
+<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Record"
+>Modelica.Icons.Record</a> (Icon for records).</p>
+<h3>Parameters</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.VolumeFlowRate"
+>VolumeFlowRate</a></td><td>V_flow[:]</td><td>&nbsp;</td><td>Volume flow rate at user-selected operating points [m3/s]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
+>Pressure</a></td><td>dp[size(V_flow, 1)]</td><td>&nbsp;</td><td>Fan or pump total pressure at these flow rates [Pa]</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">record</span> flowParameters <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Record for flow parameters&quot;</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Record"
+>Modelica.Icons.Record</a>;
+
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.VolumeFlowRate"
+>Modelica.SIunits.VolumeFlowRate</a> V_flow[:](<span style="color: blue; font-weight: normal; font-style: normal;">each </span>min=0) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Volume flow rate at user-selected operating points&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
+>Modelica.SIunits.Pressure</a> dp[<span style="color: red; font-weight: normal; font-style: normal;">size</span>(V_flow,1)](
+     <span style="color: blue; font-weight: normal; font-style: normal;">each </span>min=0, <span style="color: blue; font-weight: normal; font-style: normal;">each </span>displayUnit=&quot;Pa&quot;) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Fan or pump total pressure at these flow rates&quot;</span>;
+
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>flowParameters;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE flowParametersInternal<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Fluid.Movers.Ba10d2f9cfc03d93d1etersI.png" alt="Buildings.Fluid.Movers.BaseClasses.Characteristics.flowParametersInternal" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Fluid.Movers.BaseClasses.Characteristics.flowParametersInternal"></a><a href="Buildings_Fluid_Movers_BaseClasses_Characteristics.html#Buildings.Fluid.Movers.BaseClasses.Characteristics"
+>Buildings.Fluid.Movers.BaseClasses.Characteristics</a>.flowParametersInternal</h2>
+<p>
+<b>Record for flow parameters with prescribed size</b>
+</p>
+<h3>Information</h3>
+
+<p>
+Data record for performance data that describe volume flow rate versus
+pressure rise.
+The volume flow rate <code>V_flow</code> must be increasing, i.e.,
+<code>V_flow[i] &lt; V_flow[i+1]</code>.
+Both vectors, <code>V_flow</code> and <code>dp</code>
+must have the same size.
+</p>
+<p>
+This record is identical to
+<a href="modelica://Buildings.Fluid.Movers.BaseClasses.Characteristic.flowParameters">
+Buildings.Fluid.Movers.BaseClasses.Characteristic.flowParameters</a>,
+except that it takes the size of the array as a parameter. This is required
+in Dymola 2014. Otherwise, the array size would need to be computed in
+<a href="Buildings_Fluid_Movers_BaseClasses.html#Buildings.Fluid.Movers.BaseClasses.FlowMachineInterface"
+>
+Buildings.Fluid.Movers.BaseClasses.FlowMachineInterface</a>
+in the <code>initial algorithm</code> section, which is not supported.
+</p>
+
+<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Record"
+>Modelica.Icons.Record</a> (Icon for records).</p>
+<h3>Parameters</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td>Integer</td><td>n</td><td>&nbsp;</td><td>Number of elements in each array</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.VolumeFlowRate"
+>VolumeFlowRate</a></td><td>V_flow[n]</td><td>&nbsp;</td><td>Volume flow rate at user-selected operating points [m3/s]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
+>Pressure</a></td><td>dp[n]</td><td>&nbsp;</td><td>Fan or pump total pressure at these flow rates [Pa]</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">record</span> flowParametersInternal <span style="color: #006400; font-weight: normal; font-style: normal;">
+  &quot;Record for flow parameters with prescribed size&quot;</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Record"
+>Modelica.Icons.Record</a>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Integer n <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Number of elements in each array&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.VolumeFlowRate"
+>Modelica.SIunits.VolumeFlowRate</a> V_flow[n](<span style="color: blue; font-weight: normal; font-style: normal;">each </span>min=0) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Volume flow rate at user-selected operating points&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
+>Modelica.SIunits.Pressure</a> dp[n](
+     <span style="color: blue; font-weight: normal; font-style: normal;">each </span>min=0, <span style="color: blue; font-weight: normal; font-style: normal;">each </span>displayUnit=&quot;Pa&quot;) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Fan or pump total pressure at these flow rates&quot;</span>;
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>flowParametersInternal;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE powerParameters<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Fluid.Movers.Ba10d2f9cfc03d93d1etersI.png" alt="Buildings.Fluid.Movers.BaseClasses.Characteristics.powerParameters" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Fluid.Movers.BaseClasses.Characteristics.powerParameters"></a><a href="Buildings_Fluid_Movers_BaseClasses_Characteristics.html#Buildings.Fluid.Movers.BaseClasses.Characteristics"
+>Buildings.Fluid.Movers.BaseClasses.Characteristics</a>.powerParameters</h2>
+<p>
+<b>Record for electrical power parameters</b>
+</p>
+<h3>Information</h3>
+
+<p>
+Data record for performance data that describe volume flow rate versus
+electrical power.
+The volume flow rate <code>V_flow</code> must be increasing, i.e.,
+<code>V_flow[i] &lt; V_flow[i+1]</code>.
+Both vectors, <code>V_flow</code> and <code>P</code>
+must have the same size.
+</p>
+
+<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Record"
+>Modelica.Icons.Record</a> (Icon for records).</p>
+<h3>Parameters</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.VolumeFlowRate"
+>VolumeFlowRate</a></td><td>V_flow[:]</td><td>&nbsp;</td><td>Volume flow rate at user-selected operating points [m3/s]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Power"
+>Power</a></td><td>P[size(V_flow, 1)]</td><td>&nbsp;</td><td>Fan or pump electrical power at these flow rates [W]</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">record</span> powerParameters <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Record for electrical power parameters&quot;</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Record"
+>Modelica.Icons.Record</a>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.VolumeFlowRate"
+>Modelica.SIunits.VolumeFlowRate</a> V_flow[:](<span style="color: blue; font-weight: normal; font-style: normal;">each </span>min=0) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Volume flow rate at user-selected operating points&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Power"
+>Modelica.SIunits.Power</a> P[<span style="color: red; font-weight: normal; font-style: normal;">size</span>(V_flow,1)](<span style="color: blue; font-weight: normal; font-style: normal;">each </span>min=0) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Fan or pump electrical power at these flow rates&quot;</span>;
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>powerParameters;
+</div>
+<hr>
+<address>
+<a href="http://www.3ds.com/">Automatically generated</a> Thu Apr  9 09:36:35 2015.
+</address>
+</body>
+</html>

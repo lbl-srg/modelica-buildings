@@ -1,0 +1,247 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>Buildings.Utilities.IO.FLEXLAB</title>
+<meta name="HTML-Generator" content="Dymola">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="description" content="&quot;Package of example models for communication with FLEXLAB using the CalBay interface&quot;">
+<style type="text/css">
+*       { font-size: 10pt; font-family: Arial, sans-serif; }
+.modelica, .modelica * { font-size: 9pt; font-family: Courier, monospace; white-space: pre; }
+h4      { font-size: 10pt; font-weight: bold; color: green; }
+h3      { font-size: 11pt; font-weight: bold; color: green; }
+h2      { font-size: 13pt; font-weight: bold; color: green; }
+address { font-weight: normal; }
+td      { border: 1px solid #808080; vertical-align: top; }
+th      { border: 1px solid #808080; vertical-align: top; font-weight: bold; }
+table   { border: 1px solid #808080; border-collapse: collapse; }
+</style>
+<link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../Resources/www/modelicaDoc.css">
+</HEAD>
+<body>
+<!-- --- header ------ -->
+<div class="headerStyle">
+<img src="../Resources/www/lbl-logo.png" alt="LBL logo"/>
+</div>
+<div class="headerLinks">
+<ul><li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt; <a href="Buildings.html">Modelica</a></li></ul>
+</div>
+<!-- --- end header -- -->
+
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE FLEXLAB<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><a name="Buildings.Utilities.IO.FLEXLAB"></a><a href="Buildings_Utilities_IO.html#Buildings.Utilities.IO"
+>Buildings.Utilities.IO</a>.FLEXLAB</h2>
+<p>
+<b>Package of example models for communication with FLEXLAB using the CalBay interface</b><br>
+</p>
+<h3>Information</h3>
+
+  <p>
+  This package contains a sample model demonstrating the use of Dymola
+  and a Python script to enable hardware-in-the-loop simulation.
+  </p>
+  
+<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons_ExamplesPackage.html#Modelica.Icons.ExamplesPackage"
+>Modelica.Icons.ExamplesPackage</a> (Icon for packages containing runnable examples).</p>
+<h3>Package Content</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Package Content">
+<tr>
+<th>Name</th>
+<th>Description</th>
+</tr>
+<tr>
+<td><img src="Buildings.Utilities.IO.FL70d687c75564671cyCommS.png" alt="Buildings.Utilities.IO.FLEXLAB.CalBayComm" width="20" height="20" align="top">&nbsp;<a href="Buildings_Utilities_IO_FLEXLAB.html#Buildings.Utilities.IO.FLEXLAB.CalBayComm"
+>CalBayComm</a>
+</td>
+<td>Model calling a Python script to communicate with the CalBay adapter</td>
+</tr>
+</table>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE CalBayComm<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Utilities.IO.FL70d687c75564671cyCommI.png" alt="Buildings.Utilities.IO.FLEXLAB.CalBayComm" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Utilities.IO.FLEXLAB.CalBayComm"></a><a href="Buildings_Utilities_IO_FLEXLAB.html#Buildings.Utilities.IO.FLEXLAB"
+>Buildings.Utilities.IO.FLEXLAB</a>.CalBayComm</h2>
+<p>
+<b>Model calling a Python script to communicate with the CalBay adapter</b>
+<br>
+<br><img src="Buildings.Utilities.IO.FL70d687c75564671cyCommD.png" alt="Buildings.Utilities.IO.FLEXLAB.CalBayComm">
+</p>
+<h3>Information</h3>
+
+            <p>
+            This example demonstrates how a Python script and model of a controller
+            can be used to control experiments in the FLEXLAB test cells. It uses
+            an instance of
+            <a href="Buildings_Utilities_IO_Python27.html#Buildings.Utilities.IO.Python27.Real_Real"
+>
+            Buildings.Utilities.IO.Python27.Real_Real</a> to communicate with the
+            CalBay adapter. The Python script is located at
+            <a href="file://Buildings/Resources/Python-Sources/CalBayComm.py">
+            Buildings/Resources/Python-Sources/CalBayComm.py</a>. The script must be
+            edited before it will effectively communicate with the CalBay adapter.
+            The necessary changes include:
+            </p>
+            <ul>
+            <li>The script currently does not have valid login or password credentials.
+            The credentials will have to be replaced before communication with the
+            CalBay adapter will succeed.</li>
+            <li>To avoid accidental manipulation of controls, the script currently does
+            not include effective commands. The desired commands must be added to the
+            program before it will have any effect.</li>
+            </ul>
+            <p>
+            More details describing the necessary changes to the script are provided in
+            the documentation of the script itself.
+            </p>
+            <p>
+            <b>Note:</b>
+            This model is marked as under construction because the
+            application programming interface for data exchange with the CalBay adaptor
+            of FLEXLAB has not yet been finalized.
+            The model works, however, with the CalBay infrastructure as of October 2013.
+            </p>
+            
+<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</a> (Icon for runnable examples), <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.UnderConstruction"
+>Modelica.Icons.UnderConstruction</a> (Icon for classes that are still under construction).</p>
+<h3>Parameters</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Time"
+>Time</a></td><td>samplePeriod</td><td>30</td><td>Sample period for communication [s]</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">model</span> CalBayComm <span style="color: #006400; font-weight: normal; font-style: normal;">
+  &quot;Model calling a Python script to communicate with the CalBay adapter&quot;</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</a>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.UnderConstruction"
+>Modelica.Icons.UnderConstruction</a>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Time"
+>Modelica.SIunits.Time</a> samplePeriod = 30 <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Sample period for communication&quot;</span>;
+
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.CombiTimeTable"
+>Modelica.Blocks.Sources.CombiTimeTable</a> setPoint(
+    tableOnFile=false,
+    extrapolation=Modelica.Blocks.Types.Extrapolation.Periodic,
+    smoothness=Modelica.Blocks.Types.Smoothness.ConstantSegments,
+    table=[ -1,12;
+           119,6;
+           239,8;
+           359,9;
+           479,10;
+           599,12]) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Setpoint for lights&quot;</span>;
+
+  <a href="Buildings_Utilities_IO_Python27.html#Buildings.Utilities.IO.Python27.Real_Real"
+>Utilities.IO.Python27.Real_Real</a> calBay(
+    functionName=&quot;CalBayComm&quot;,
+    nDblWri=1,
+    nDblRea=2,
+    moduleName=&quot;CalBayComm&quot;,
+    <span style="color: blue; font-weight: normal; font-style: normal;">final </span>samplePeriod=samplePeriod) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Interface to CalBay communication&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Math.html#Modelica.Blocks.Math.Feedback"
+>Modelica.Blocks.Math.Feedback</a> feedback <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Control error&quot;</span>;
+  <a href="Buildings_Utilities_IO_FLEXLAB.html#Buildings.Utilities.IO.FLEXLAB.CalBayComm.lightingController"
+>lightingController</a> controller(<span style="color: blue; font-weight: normal; font-style: normal;">final </span>samplePeriod=samplePeriod) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Controller for light level&quot;</span>;
+<span style="color: blue; font-weight: normal; font-style: normal;">block</span> lightingController <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Block for control law&quot;</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.SISO"
+>Modelica.Blocks.Interfaces.SISO</a>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Time"
+>Modelica.SIunits.Time</a> samplePeriod <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Sample period of component&quot;</span>;
+    <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Math.html#Modelica.Blocks.Math.Gain"
+>Modelica.Blocks.Math.Gain</a> gain(k=10);
+
+    <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Nonlinear.html#Modelica.Blocks.Nonlinear.Limiter"
+>Modelica.Blocks.Nonlinear.Limiter</a> limiter(uMax=100, uMin=1) <span style="color: #006400; font-weight: normal; font-style: normal;">
+      &quot;Output limiter to constrain control signal&quot;</span>;
+    <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Math.html#Modelica.Blocks.Math.Add"
+>Modelica.Blocks.Math.Add</a> add;
+
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Discrete.html#Modelica.Blocks.Discrete.ZeroOrderHold"
+>Modelica.Blocks.Discrete.ZeroOrderHold</a> zeroOrderHold(
+    <span style="color: blue; font-weight: normal; font-style: normal;">final </span>samplePeriod=samplePeriod) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Zero order hold for feedback&quot;</span>;
+<span style="color: blue; font-weight: normal; font-style: normal;">equation </span>
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(limiter.y, y);
+    <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(add.y, limiter.u);
+
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(limiter.y, zeroOrderHold.u);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(zeroOrderHold.y, add.u2);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(gain.y, add.u1);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(u, gain.u);
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>lightingController;
+<span style="color: blue; font-weight: normal; font-style: normal;">equation </span>
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(setPoint.y[1], feedback.u1);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(calBay.yR[1], feedback.u2);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(controller.y, calBay.uR[1]);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(feedback.y, controller.u);
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>CalBayComm;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE lightingController<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Utilities.IO.FL2abef037db0af1dfollerI.png" alt="Buildings.Utilities.IO.FLEXLAB.CalBayComm.lightingController" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Utilities.IO.FLEXLAB.CalBayComm.lightingController"></a><a href="Buildings_Utilities_IO_FLEXLAB.html#Buildings.Utilities.IO.FLEXLAB.CalBayComm"
+>Buildings.Utilities.IO.FLEXLAB.CalBayComm</a>.lightingController</h2>
+<p>
+<b>Block for control law</b>
+<br>
+<br><img src="Buildings.Utilities.IO.FL2abef037db0af1dfollerD.png" alt="Buildings.Utilities.IO.FLEXLAB.CalBayComm.lightingController">
+</p>
+<h3>Information</h3>
+<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.SISO"
+>Modelica.Blocks.Interfaces.SISO</a> (Single Input Single Output continuous control block).</p>
+<h3>Parameters</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Time"
+>Time</a></td><td>samplePeriod</td><td>&nbsp;</td><td>Sample period of component [s]</td></tr>
+</table>
+<h3>Connectors</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Connectors">
+<tr><th>Type</th><th>Name</th><th>Description</th></tr>
+<tr><td>input <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>RealInput</a></td><td>u</td><td>Connector of Real input signal</td></tr>
+<tr><td>output <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+>RealOutput</a></td><td>y</td><td>Connector of Real output signal</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">block</span> lightingController <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Block for control law&quot;</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.SISO"
+>Modelica.Blocks.Interfaces.SISO</a>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Time"
+>Modelica.SIunits.Time</a> samplePeriod <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Sample period of component&quot;</span>;
+    <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Math.html#Modelica.Blocks.Math.Gain"
+>Modelica.Blocks.Math.Gain</a> gain(k=10);
+
+    <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Nonlinear.html#Modelica.Blocks.Nonlinear.Limiter"
+>Modelica.Blocks.Nonlinear.Limiter</a> limiter(uMax=100, uMin=1) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Output limiter to constrain control signal&quot;</span>;
+    <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Math.html#Modelica.Blocks.Math.Add"
+>Modelica.Blocks.Math.Add</a> add;
+
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Discrete.html#Modelica.Blocks.Discrete.ZeroOrderHold"
+>Modelica.Blocks.Discrete.ZeroOrderHold</a> zeroOrderHold(
+    <span style="color: blue; font-weight: normal; font-style: normal;">final </span>samplePeriod=samplePeriod) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Zero order hold for feedback&quot;</span>;
+<span style="color: blue; font-weight: normal; font-style: normal;">equation </span>
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(limiter.y, y);
+  <span style="color: red; font-weight: normal; font-style: normal;">  connect</span>(add.y, limiter.u);
+
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(limiter.y, zeroOrderHold.u);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(zeroOrderHold.y, add.u2);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(gain.y, add.u1);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(u, gain.u);
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>lightingController;
+</div>
+<hr>
+<address>
+<a href="http://www.3ds.com/">Automatically generated</a> Thu Apr  9 09:41:30 2015.
+</address>
+</body>
+</html>

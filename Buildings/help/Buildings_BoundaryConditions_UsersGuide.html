@@ -1,0 +1,148 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>Buildings.BoundaryConditions.UsersGuide</title>
+<meta name="HTML-Generator" content="Dymola">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="description" content="&quot;User&#39;s Guide&quot;">
+<style type="text/css">
+*       { font-size: 10pt; font-family: Arial, sans-serif; }
+.modelica, .modelica * { font-size: 9pt; font-family: Courier, monospace; white-space: pre; }
+h4      { font-size: 10pt; font-weight: bold; color: green; }
+h3      { font-size: 11pt; font-weight: bold; color: green; }
+h2      { font-size: 13pt; font-weight: bold; color: green; }
+address { font-weight: normal; }
+td      { border: 1px solid #808080; vertical-align: top; }
+th      { border: 1px solid #808080; vertical-align: top; font-weight: bold; }
+table   { border: 1px solid #808080; border-collapse: collapse; }
+</style>
+<link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../Resources/www/modelicaDoc.css">
+</HEAD>
+<body>
+<!-- --- header ------ -->
+<div class="headerStyle">
+<img src="../Resources/www/lbl-logo.png" alt="LBL logo"/>
+</div>
+<div class="headerLinks">
+<ul><li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt; <a href="Buildings.html">Modelica</a></li></ul>
+</div>
+<!-- --- end header -- -->
+
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE UsersGuide<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><a name="Buildings.BoundaryConditions.UsersGuide"></a><a href="Buildings_BoundaryConditions.html#Buildings.BoundaryConditions"
+>Buildings.BoundaryConditions</a>.UsersGuide</h2>
+<p>
+<b>User&#39;s Guide</b><br>
+</p>
+<h3>Information</h3>
+
+<p>This package contains models to read or compute boundary conditions, such as weather data, solar irradition and sky temperatures.
+The calculations follow the description in Wetter (2004), Appendix A.4.2.</p>
+<h4>Accessing weather data</h4>
+<p>
+The model
+<a href="Buildings_BoundaryConditions_WeatherData.html#Buildings.BoundaryConditions.WeatherData.ReaderTMY3"
+>
+Buildings.BoundaryConditions.WeatherData.ReaderTMY3</a>
+can read TMY3 weather data for different locations.
+The documentation of that model explains how to add
+weather data for locations that are not distributed with the
+<code>Buildings</code> library.
+</p>
+<p>
+To access these weather data from the graphical model editor,
+proceed as follows:
+</p>
+<ol>
+<li>
+<p>
+Create an instance of
+<a href="Buildings_BoundaryConditions_WeatherData.html#Buildings.BoundaryConditions.WeatherData.ReaderTMY3"
+>
+Buildings.BoundaryConditions.WeatherData.ReaderTMY3</a>.
+</p>
+</li>
+<li>
+<p>
+Create an instance of
+<a href="Buildings_BoundaryConditions_WeatherData.html#Buildings.BoundaryConditions.WeatherData.Bus"
+>
+Buildings.BoundaryConditions.WeatherData.Bus</a>.
+</p>
+</li>
+<li>
+<p>
+Draw a connection between these two instances.
+</p>
+</li>
+<li>
+<p>
+Finally, to send weather data to an input connector of a model,
+connect the input connector of that model with the instance of
+<a href="Buildings_BoundaryConditions_WeatherData.html#Buildings.BoundaryConditions.WeatherData.Bus"
+>
+Buildings.BoundaryConditions.WeatherData.Bus</a>.
+Some models connect to the whole weather data bus, such as
+<a href="Buildings_BoundaryConditions_SolarGeometry_Examples.html#Buildings.BoundaryConditions.SolarGeometry.Examples.IncidenceAngle"
+>
+Buildings.BoundaryConditions.SolarGeometry.Examples.IncidenceAngle</a>,
+in which case the connection will directly be drawn.
+Other models require only an individual signal from the weather data bus,
+such as
+<a href="Buildings_BoundaryConditions_SkyTemperature_Examples.html#Buildings.BoundaryConditions.SkyTemperature.Examples.BlackBody"
+>
+Buildings.BoundaryConditions.SkyTemperature.Examples.BlackBody</a>.
+In this situation, Modelica modeling environments typically show a window that allows you to
+select what data from this weather data bus you want to connect
+with your model.
+</p>
+</li>
+</ol>
+<h4>Conventions for surface azimuth and tilt</h4>
+<p>To compute the solar irradiation, parameters such as the surface azimuth and the surface tilt are defined as shown in the following three figures. </p>
+<p align="center"><img alt="image" src="../Resources/Images/BoundaryConditions/ear_ray.png"/> </p>
+<p align="center"><img alt="image" src="../Resources/Images/BoundaryConditions/zen_sun.png"/> </p>
+<p align="center"><img alt="image" src="../Resources/Images/BoundaryConditions/zen_pla.png"/> </p>
+<p>
+For the surface azimuth and tilt, the enumerations
+<a href="Buildings_Types_Azimuth.html#Buildings.Types.Azimuth"
+>
+Buildings.Types.Azimuth</a>
+and
+<a href="Buildings_Types_Tilt.html#Buildings.Types.Tilt"
+>
+Buildings.Types.Tilt</a>
+can be used.
+</p>
+<p>
+Note that a ceiling has a tilt of <i>0</i>, and also the solar collector models
+in
+<a href="Buildings_Fluid_SolarCollectors.html#Buildings.Fluid.SolarCollectors"
+>Buildings.Fluid.SolarCollectors</a>
+require a tilt of <i>0</i> if they are facing straight upwards.
+This is correct because
+the solar irradiation on a ceiling construction is on the other-side surface,
+which faces upwards toward the sky. Hence, a construction is considered
+a ceiling from the view point of a person standing inside a room.
+</p>
+
+<h4>References</h4>
+<ul>
+<li>
+Michael Wetter.<br/>
+<a href="http://simulationresearch.lbl.gov/wetter/download/mwdiss.pdf">
+Simulation-based Building Energy Optimization</a>.<br/>
+Dissertation. University of California at Berkeley. 2004.
+</li>
+</ul>
+
+<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Information"
+>Modelica.Icons.Information</a> (Icon for general information packages).</p>
+<hr>
+<address>
+<a href="http://www.3ds.com/">Automatically generated</a> Thu Apr  9 09:32:32 2015.
+</address>
+</body>
+</html>

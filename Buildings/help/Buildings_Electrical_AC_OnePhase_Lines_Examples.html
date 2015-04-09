@@ -1,0 +1,517 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>Buildings.Electrical.AC.OnePhase.Lines.Examples</title>
+<meta name="HTML-Generator" content="Dymola">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="description" content="&quot;Package with example models&quot;">
+<style type="text/css">
+*       { font-size: 10pt; font-family: Arial, sans-serif; }
+.modelica, .modelica * { font-size: 9pt; font-family: Courier, monospace; white-space: pre; }
+h4      { font-size: 10pt; font-weight: bold; color: green; }
+h3      { font-size: 11pt; font-weight: bold; color: green; }
+h2      { font-size: 13pt; font-weight: bold; color: green; }
+address { font-weight: normal; }
+td      { border: 1px solid #808080; vertical-align: top; }
+th      { border: 1px solid #808080; vertical-align: top; font-weight: bold; }
+table   { border: 1px solid #808080; border-collapse: collapse; }
+</style>
+<link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../Resources/www/modelicaDoc.css">
+</HEAD>
+<body>
+<!-- --- header ------ -->
+<div class="headerStyle">
+<img src="../Resources/www/lbl-logo.png" alt="LBL logo"/>
+</div>
+<div class="headerLinks">
+<ul><li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt; <a href="Buildings.html">Modelica</a></li></ul>
+</div>
+<!-- --- end header -- -->
+
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE Examples<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><a name="Buildings.Electrical.AC.OnePhase.Lines.Examples"></a><a href="Buildings_Electrical_AC_OnePhase_Lines.html#Buildings.Electrical.AC.OnePhase.Lines"
+>Buildings.Electrical.AC.OnePhase.Lines</a>.Examples</h2>
+<p>
+<b>Package with example models</b><br>
+</p>
+<h3>Information</h3>
+
+<p>
+This package contains examples for the use of models that can be found in
+<a href="Buildings_Electrical_AC_OnePhase_Lines.html#Buildings.Electrical.AC.OnePhase.Lines"
+>
+Buildings.Electrical.AC.OnePhase.Lines</a>.
+</p>
+
+<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons_ExamplesPackage.html#Modelica.Icons.ExamplesPackage"
+>Modelica.Icons.ExamplesPackage</a> (Icon for packages containing runnable examples).</p>
+<h3>Package Content</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Package Content">
+<tr>
+<th>Name</th>
+<th>Description</th>
+</tr>
+<tr>
+<td><img src="Buildings.Electrical.AC.Od23c6844cfcb7ac6CLineS.png" alt="Buildings.Electrical.AC.OnePhase.Lines.Examples.ACLine" width="20" height="20" align="top">&nbsp;<a href="Buildings_Electrical_AC_OnePhase_Lines_Examples.html#Buildings.Electrical.AC.OnePhase.Lines.Examples.ACLine"
+>ACLine</a>
+</td>
+<td>Test model for a single phase line that uses commercial cable information</td>
+</tr>
+<tr>
+<td><img src="Buildings.Electrical.AC.Od23c6844cfcb7ac6CLineS.png" alt="Buildings.Electrical.AC.OnePhase.Lines.Examples.ACLine_L" width="20" height="20" align="top">&nbsp;<a href="Buildings_Electrical_AC_OnePhase_Lines_Examples.html#Buildings.Electrical.AC.OnePhase.Lines.Examples.ACLine_L"
+>ACLine_L</a>
+</td>
+<td>Test model for a single phase inductive line</td>
+</tr>
+<tr>
+<td><img src="Buildings.Electrical.AC.Od23c6844cfcb7ac6CLineS.png" alt="Buildings.Electrical.AC.OnePhase.Lines.Examples.ACLine_R" width="20" height="20" align="top">&nbsp;<a href="Buildings_Electrical_AC_OnePhase_Lines_Examples.html#Buildings.Electrical.AC.OnePhase.Lines.Examples.ACLine_R"
+>ACLine_R</a>
+</td>
+<td>Test model for a single phase resistive line</td>
+</tr>
+<tr>
+<td><img src="Buildings.Electrical.AC.Od23c6844cfcb7ac6CLineS.png" alt="Buildings.Electrical.AC.OnePhase.Lines.Examples.ACLine_RL" width="20" height="20" align="top">&nbsp;<a href="Buildings_Electrical_AC_OnePhase_Lines_Examples.html#Buildings.Electrical.AC.OnePhase.Lines.Examples.ACLine_RL"
+>ACLine_RL</a>
+</td>
+<td>Test model for a single phase inductive-resistive line</td>
+</tr>
+<tr>
+<td><img src="Buildings.Electrical.AC.Od23c6844cfcb7ac6CLineS.png" alt="Buildings.Electrical.AC.OnePhase.Lines.Examples.ACSimpleGrid" width="20" height="20" align="top">&nbsp;<a href="Buildings_Electrical_AC_OnePhase_Lines_Examples.html#Buildings.Electrical.AC.OnePhase.Lines.Examples.ACSimpleGrid"
+>ACSimpleGrid</a>
+</td>
+<td>Test model for a network model</td>
+</tr>
+</table>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE ACLine<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Electrical.AC.Od23c6844cfcb7ac6CLineI.png" alt="Buildings.Electrical.AC.OnePhase.Lines.Examples.ACLine" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Electrical.AC.OnePhase.Lines.Examples.ACLine"></a><a href="Buildings_Electrical_AC_OnePhase_Lines_Examples.html#Buildings.Electrical.AC.OnePhase.Lines.Examples"
+>Buildings.Electrical.AC.OnePhase.Lines.Examples</a>.ACLine</h2>
+<p>
+<b>Test model for a single phase line that uses commercial cable information</b>
+<br>
+<br><img src="Buildings.Electrical.AC.Od23c6844cfcb7ac6CLineD.png" alt="Buildings.Electrical.AC.OnePhase.Lines.Examples.ACLine">
+</p>
+<h3>Information</h3>
+
+<p>
+This example demonstrates how to use a line model to connect
+a source to a load that uses commercial cable information.
+</p>
+<p>
+The model has four different loads. The load <code>sc_load</code> represents
+a short circuit <i>R=0</i>. The current that flows through the load depends
+on the impedance of the line.
+</p>
+<p>
+The remaining three loads <code>R1</code>, <code>R2</code>, and <code>R3</code>
+are resistive loads. Each load is connected to the source with different configurations,
+however the equivalent impedance between each load and the source is the same.
+Since the equivalent impedances are the same, each load draws the same current.
+</p>
+
+<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</a> (Icon for runnable examples).</p>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">model</span> ACLine <span style="color: #006400; font-weight: normal; font-style: normal;">
+  &quot;Test model for a single phase line that uses commercial cable information&quot;</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</a>;
+  <a href="Buildings_Electrical_AC_OnePhase_Sources.html#Buildings.Electrical.AC.OnePhase.Sources.FixedVoltage"
+>Sources.FixedVoltage</a> E(      definiteReference=true,
+    f=60,
+    V=120) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Voltage source&quot;</span>;
+  <a href="Buildings_Electrical_AC_OnePhase_Loads.html#Buildings.Electrical.AC.OnePhase.Loads.Impedance"
+>Loads.Impedance</a> R1(R=10) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Resistive load 1&quot;</span>;
+  <a href="Buildings_Electrical_AC_OnePhase_Lines.html#Buildings.Electrical.AC.OnePhase.Lines.Line"
+>Line</a> line_1(
+    P_nominal=5000,
+    l=2000,
+    mode=Types.CableMode.commercial,
+    commercialCable=<span style="color: red; font-weight: normal; font-style: normal;">Transmission.LowVoltageCables.Cu50</span>(),
+    V_nominal=120) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Resistive line that connects to load 1&quot;</span>;
+  <a href="Buildings_Electrical_AC_OnePhase_Lines.html#Buildings.Electrical.AC.OnePhase.Lines.Line"
+>Line</a> line_2a(
+    P_nominal=5000,
+    mode=Types.CableMode.commercial,
+    commercialCable=<span style="color: red; font-weight: normal; font-style: normal;">Transmission.LowVoltageCables.Cu50</span>(),
+    l=1000,
+    V_nominal=120) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Resistive line that connects to load 2&quot;</span>;
+  <a href="Buildings_Electrical_AC_OnePhase_Loads.html#Buildings.Electrical.AC.OnePhase.Loads.Impedance"
+>Loads.Impedance</a> R2(
+    R=10) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Resistive load 2&quot;</span>;
+  <a href="Buildings_Electrical_AC_OnePhase_Lines.html#Buildings.Electrical.AC.OnePhase.Lines.Line"
+>Line</a> line_2b(
+    P_nominal=5000,
+    mode=Types.CableMode.commercial,
+    commercialCable=<span style="color: red; font-weight: normal; font-style: normal;">Transmission.LowVoltageCables.Cu50</span>(),
+    l=1000,
+    V_nominal=120) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Resistive line that connects to load 2&quot;</span>;
+  <a href="Buildings_Electrical_AC_OnePhase_Lines.html#Buildings.Electrical.AC.OnePhase.Lines.Line"
+>Line</a> line_3a(
+    P_nominal=5000,
+    mode=Types.CableMode.commercial,
+    commercialCable=<span style="color: red; font-weight: normal; font-style: normal;">Transmission.LowVoltageCables.Cu50</span>(),
+    l=4000,
+    V_nominal=120) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Resistive line that connects to load 3&quot;</span>;
+  <a href="Buildings_Electrical_AC_OnePhase_Lines.html#Buildings.Electrical.AC.OnePhase.Lines.Line"
+>Line</a> line_3b(
+    P_nominal=5000,
+    mode=Types.CableMode.commercial,
+    commercialCable=<span style="color: red; font-weight: normal; font-style: normal;">Transmission.LowVoltageCables.Cu50</span>(),
+    l=4000,
+    V_nominal=120) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Resistive line that connects to load 3&quot;</span>;
+  <a href="Buildings_Electrical_AC_OnePhase_Loads.html#Buildings.Electrical.AC.OnePhase.Loads.Impedance"
+>Loads.Impedance</a> R3(
+    R=10) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Resistive load 3&quot;</span>;
+  <a href="Buildings_Electrical_AC_OnePhase_Lines.html#Buildings.Electrical.AC.OnePhase.Lines.Line"
+>Line</a> line_sc(
+    P_nominal=5000,
+    l=2000,
+    mode=Types.CableMode.commercial,
+    commercialCable=<span style="color: red; font-weight: normal; font-style: normal;">Transmission.LowVoltageCables.Cu50</span>(),
+    V_nominal=120) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Line that connects the source and the short circuit&quot;</span>;
+  <a href="Buildings_Electrical_AC_OnePhase_Loads.html#Buildings.Electrical.AC.OnePhase.Loads.Impedance"
+>Loads.Impedance</a> load_sc(R=0) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Short circuit&quot;</span>;
+<span style="color: blue; font-weight: normal; font-style: normal;">equation </span>
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(line_1.terminal_p, R1.terminal);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(E.terminal, line_1.terminal_n);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(E.terminal, line_2a.terminal_n);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(line_2a.terminal_p, line_2b.terminal_n);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(line_2b.terminal_p, R2.terminal);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(line_3a.terminal_p, R3.terminal);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(line_3b.terminal_p, R3.terminal);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(E.terminal, line_3a.terminal_n);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(E.terminal, line_3b.terminal_n);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(line_sc.terminal_p, load_sc.terminal);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(E.terminal, line_sc.terminal_n);
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>ACLine;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE ACLine_L<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Electrical.AC.Od23c6844cfcb7ac6CLineI.png" alt="Buildings.Electrical.AC.OnePhase.Lines.Examples.ACLine_L" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Electrical.AC.OnePhase.Lines.Examples.ACLine_L"></a><a href="Buildings_Electrical_AC_OnePhase_Lines_Examples.html#Buildings.Electrical.AC.OnePhase.Lines.Examples"
+>Buildings.Electrical.AC.OnePhase.Lines.Examples</a>.ACLine_L</h2>
+<p>
+<b>Test model for a single phase inductive line</b>
+<br>
+<br><img src="Buildings.Electrical.AC.O3369a74d23eb1093ine_LD.png" alt="Buildings.Electrical.AC.OnePhase.Lines.Examples.ACLine_L">
+</p>
+<h3>Information</h3>
+
+<p>
+This example demonstrates how to use a purely inductive line model to connect
+a source to a load.
+</p>
+<p>
+The model has four different loads. The load <code>sc_load</code> represents
+a short circuit <i>R=0</i>. The current that flows through the load depends
+on the inductance of the line.
+</p>
+<p>
+The remaining three loads <code>R1</code>, <code>R2</code>, and <code>R3</code>
+are resistive loads. Each load is connected to the source with different configurations,
+however the equivalent impedance between each load and the source is the same.
+Since the equivalent impedances are the same, each load draw the same current.
+</p>
+
+<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</a> (Icon for runnable examples).</p>
+<h3>Parameters</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Inductance"
+>Inductance</a></td><td>Lbase</td><td>10/2/Modelica.Constants.pi/60</td><td>Base value for the line inductances [H]</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">model</span> ACLine_L <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Test model for a single phase inductive line&quot;</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</a>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Inductance"
+>Modelica.SIunits.Inductance</a> Lbase = 10/2/Modelica.Constants.pi/60 <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Base value for the line inductances&quot;</span>;
+  <a href="Buildings_Electrical_AC_OnePhase_Sources.html#Buildings.Electrical.AC.OnePhase.Sources.FixedVoltage"
+>Sources.FixedVoltage</a> E(      definiteReference=true,
+    f=60,
+    V=120) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Voltage source&quot;</span>;
+  <a href="Buildings_Electrical_AC_OnePhase_Loads.html#Buildings.Electrical.AC.OnePhase.Loads.Impedance"
+>Loads.Impedance</a> R1(R=10) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Resistive load 1&quot;</span>;
+  <a href="Buildings_Electrical_AC_OnePhase_Loads.html#Buildings.Electrical.AC.OnePhase.Loads.Impedance"
+>Loads.Impedance</a> R2(
+    R=10) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Resistive load 2&quot;</span>;
+  <a href="Buildings_Electrical_AC_OnePhase_Loads.html#Buildings.Electrical.AC.OnePhase.Loads.Impedance"
+>Loads.Impedance</a> R3(
+    R=10) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Resistive load 3&quot;</span>;
+  <a href="Buildings_Electrical_AC_OnePhase_Loads.html#Buildings.Electrical.AC.OnePhase.Loads.Impedance"
+>Loads.Impedance</a> load_sc(R=0) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Short circuit&quot;</span>;
+  <a href="Buildings_Electrical_AC_OnePhase_Lines.html#Buildings.Electrical.AC.OnePhase.Lines.TwoPortInductance"
+>TwoPortInductance</a> Lline_sc(L=Lbase) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Inductive line connected to the short circuit&quot;</span>;
+  <a href="Buildings_Electrical_AC_OnePhase_Lines.html#Buildings.Electrical.AC.OnePhase.Lines.TwoPortInductance"
+>TwoPortInductance</a> Lline_1(L=Lbase) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Inductive line connected to load 1&quot;</span>;
+  <a href="Buildings_Electrical_AC_OnePhase_Lines.html#Buildings.Electrical.AC.OnePhase.Lines.TwoPortInductance"
+>TwoPortInductance</a> Lline_2a(L=0.5*Lbase) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Inductive line connected to load 2&quot;</span>;
+  <a href="Buildings_Electrical_AC_OnePhase_Lines.html#Buildings.Electrical.AC.OnePhase.Lines.TwoPortInductance"
+>TwoPortInductance</a> Lline_2b(L=0.5*Lbase) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Inductive line connected to load 2&quot;</span>;
+  <a href="Buildings_Electrical_AC_OnePhase_Lines.html#Buildings.Electrical.AC.OnePhase.Lines.TwoPortInductance"
+>TwoPortInductance</a> Lline_3(L=2*Lbase) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Inductive line connected to load 3&quot;</span>;
+  <a href="Buildings_Electrical_AC_OnePhase_Lines.html#Buildings.Electrical.AC.OnePhase.Lines.TwoPortInductance"
+>TwoPortInductance</a> Lline_3b(L=2*Lbase) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Inductive line connected to load 3&quot;</span>;
+<span style="color: blue; font-weight: normal; font-style: normal;">equation </span>
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(E.terminal, Lline_sc.terminal_n);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(Lline_sc.terminal_p, load_sc.terminal);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(E.terminal, Lline_1.terminal_n);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(Lline_1.terminal_p, R1.terminal);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(E.terminal, Lline_2a.terminal_n);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(Lline_2a.terminal_p, Lline_2b.terminal_n);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(Lline_2b.terminal_p, R2.terminal);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(E.terminal, Lline_3.terminal_n);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(E.terminal, Lline_3b.terminal_n);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(Lline_3.terminal_p, R3.terminal);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(Lline_3b.terminal_p, R3.terminal);
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>ACLine_L;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE ACLine_R<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Electrical.AC.Od23c6844cfcb7ac6CLineI.png" alt="Buildings.Electrical.AC.OnePhase.Lines.Examples.ACLine_R" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Electrical.AC.OnePhase.Lines.Examples.ACLine_R"></a><a href="Buildings_Electrical_AC_OnePhase_Lines_Examples.html#Buildings.Electrical.AC.OnePhase.Lines.Examples"
+>Buildings.Electrical.AC.OnePhase.Lines.Examples</a>.ACLine_R</h2>
+<p>
+<b>Test model for a single phase resistive line</b>
+<br>
+<br><img src="Buildings.Electrical.AC.O3369a75323eb108dine_RD.png" alt="Buildings.Electrical.AC.OnePhase.Lines.Examples.ACLine_R">
+</p>
+<h3>Information</h3>
+
+<p>
+This example demonstrates how to use a resistive line model to connect
+a source to a load.
+</p>
+<p>
+The model has four different loads. The load <code>sc_load</code> represents
+a short circuit <i>R=0</i>. The current that flows through the load depends
+on the resistance of the line.
+</p>
+<p>
+The remaining three loads <code>R1</code>, <code>R2</code>, and <code>R3</code>
+are resistive loads. Each load is connected to the source with different configurations,
+however the equivalent resistance between each load and the source is the same.
+Since the equivalent resistances are the same, each load draw the same current.
+</p>
+
+<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</a> (Icon for runnable examples).</p>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">model</span> ACLine_R <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Test model for a single phase resistive line&quot;</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</a>;
+  <a href="Buildings_Electrical_AC_OnePhase_Sources.html#Buildings.Electrical.AC.OnePhase.Sources.FixedVoltage"
+>Sources.FixedVoltage</a> E(definiteReference=true,
+    f=60,
+    V=120) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Voltage source&quot;</span>;
+  <a href="Buildings_Electrical_AC_OnePhase_Loads.html#Buildings.Electrical.AC.OnePhase.Loads.Impedance"
+>Loads.Impedance</a> R1(R=10) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Resistive load 1&quot;</span>;
+  <a href="Buildings_Electrical_AC_OnePhase_Loads.html#Buildings.Electrical.AC.OnePhase.Loads.Impedance"
+>Loads.Impedance</a> R2(
+    R=10) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Resistive load 2&quot;</span>;
+  <a href="Buildings_Electrical_AC_OnePhase_Loads.html#Buildings.Electrical.AC.OnePhase.Loads.Impedance"
+>Loads.Impedance</a> R3(
+    R=10) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Resistive load 3&quot;</span>;
+  <a href="Buildings_Electrical_AC_OnePhase_Loads.html#Buildings.Electrical.AC.OnePhase.Loads.Impedance"
+>Loads.Impedance</a> sc_load(R=0) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Short circuit load&quot;</span>;
+  <a href="Buildings_Electrical_AC_OnePhase_Lines.html#Buildings.Electrical.AC.OnePhase.Lines.TwoPortResistance"
+>TwoPortResistance</a> Rline_sc(R=10, useHeatPort=false) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Resistive line that connects to the short circuit&quot;</span>;
+  <a href="Buildings_Electrical_AC_OnePhase_Lines.html#Buildings.Electrical.AC.OnePhase.Lines.TwoPortResistance"
+>TwoPortResistance</a> Rline_1(R=10) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Resistive line that connects to load 1&quot;</span>;
+  <a href="Buildings_Electrical_AC_OnePhase_Lines.html#Buildings.Electrical.AC.OnePhase.Lines.TwoPortResistance"
+>TwoPortResistance</a> Rline_2a(R=5) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Resistive line that connects to load 2&quot;</span>;
+  <a href="Buildings_Electrical_AC_OnePhase_Lines.html#Buildings.Electrical.AC.OnePhase.Lines.TwoPortResistance"
+>TwoPortResistance</a> Rline_2b(R=5) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Resistive line that connects to load 2&quot;</span>;
+  <a href="Buildings_Electrical_AC_OnePhase_Lines.html#Buildings.Electrical.AC.OnePhase.Lines.TwoPortResistance"
+>TwoPortResistance</a> Rline_3a(R=20) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Resistive line that connects to load 3&quot;</span>;
+  <a href="Buildings_Electrical_AC_OnePhase_Lines.html#Buildings.Electrical.AC.OnePhase.Lines.TwoPortResistance"
+>TwoPortResistance</a> Rline_3b(R=20) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Resistive line that connects to load 3&quot;</span>;
+<span style="color: blue; font-weight: normal; font-style: normal;">equation </span>
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(E.terminal, Rline_sc.terminal_n);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(Rline_sc.terminal_p, sc_load.terminal);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(E.terminal, Rline_1.terminal_n);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(Rline_1.terminal_p, R1.terminal);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(E.terminal, Rline_2a.terminal_n);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(Rline_2a.terminal_p, Rline_2b.terminal_n);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(Rline_2b.terminal_p, R2.terminal);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(E.terminal, Rline_3a.terminal_n);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(E.terminal, Rline_3b.terminal_n);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(Rline_3a.terminal_p, R3.terminal);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(Rline_3b.terminal_p, R3.terminal);
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>ACLine_R;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE ACLine_RL<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Electrical.AC.Od23c6844cfcb7ac6CLineI.png" alt="Buildings.Electrical.AC.OnePhase.Lines.Examples.ACLine_RL" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Electrical.AC.OnePhase.Lines.Examples.ACLine_RL"></a><a href="Buildings_Electrical_AC_OnePhase_Lines_Examples.html#Buildings.Electrical.AC.OnePhase.Lines.Examples"
+>Buildings.Electrical.AC.OnePhase.Lines.Examples</a>.ACLine_RL</h2>
+<p>
+<b>Test model for a single phase inductive-resistive line</b>
+<br>
+<br><img src="Buildings.Electrical.AC.O4f109fc55d6211e8ne_RLD.png" alt="Buildings.Electrical.AC.OnePhase.Lines.Examples.ACLine_RL">
+</p>
+<h3>Information</h3>
+
+<p>
+This example demonstrates how to use a resistive-inductive line model to connect
+a source to a load.
+</p>
+<p>
+The model has three loads <code>load_sc_1</code>, <code>load_sc_2</code>,
+and <code>load_sc_3</code> representing short circuits <i>R=0</i>.
+The current that flows through the load depends on the impedance of the line.
+</p>
+<p>
+Each load is connected to the source with different configurations,
+however the equivalent impedance between each load and the source is the same.
+Since the equivalent impedances are the same, each load draw the same current.
+</p>
+<p>
+<b>Note:</b>
+The line model <code>RL_3</code> is the same as <code>RL_2</code> but it uses
+dynamic phasors.
+</p>
+
+<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</a> (Icon for runnable examples).</p>
+<h3>Parameters</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Resistance"
+>Resistance</a></td><td>Rbase</td><td>10</td><td>Base value for the line resistance [Ohm]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Inductance"
+>Inductance</a></td><td>Lbase</td><td>Rbase/2/Modelica.Constants.p...</td><td>Base value for the line inductance [H]</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">model</span> ACLine_RL <span style="color: #006400; font-weight: normal; font-style: normal;">
+  &quot;Test model for a single phase inductive-resistive line&quot;</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</a>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Resistance"
+>Modelica.SIunits.Resistance</a> Rbase = 10 <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Base value for the line resistance&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Inductance"
+>Modelica.SIunits.Inductance</a> Lbase = Rbase/2/Modelica.Constants.pi/60 <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Base value for the line inductance&quot;</span>;
+  <a href="Buildings_Electrical_AC_OnePhase_Sources.html#Buildings.Electrical.AC.OnePhase.Sources.FixedVoltage"
+>Sources.FixedVoltage</a> E(      definiteReference=true,
+    f=60,
+    V=120) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Voltage source&quot;</span>;
+  <a href="Buildings_Electrical_AC_OnePhase_Loads.html#Buildings.Electrical.AC.OnePhase.Loads.Impedance"
+>Loads.Impedance</a> load_sc_1(R=0) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Short circuit 1&quot;</span>;
+  <a href="Buildings_Electrical_AC_OnePhase_Loads.html#Buildings.Electrical.AC.OnePhase.Loads.Impedance"
+>Loads.Impedance</a> load_sc_2(R=0) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Short circuit 2&quot;</span>;
+  <a href="Buildings_Electrical_AC_OnePhase_Lines.html#Buildings.Electrical.AC.OnePhase.Lines.TwoPortRL"
+>TwoPortRL</a> RL_2(R=Rbase, L=Lbase) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Resistive-Inductive line connected to short circuit 2&quot;</span>;
+  <a href="Buildings_Electrical_AC_OnePhase_Lines.html#Buildings.Electrical.AC.OnePhase.Lines.TwoPortResistance"
+>TwoPortResistance</a> R_1(R=Rbase) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Resistance line connected to short circuit 1&quot;</span>;
+  <a href="Buildings_Electrical_AC_OnePhase_Lines.html#Buildings.Electrical.AC.OnePhase.Lines.TwoPortInductance"
+>TwoPortInductance</a> L_1(L=Lbase) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Inductance line connected to short circuit 1&quot;</span>;
+  <a href="Buildings_Electrical_AC_OnePhase_Lines.html#Buildings.Electrical.AC.OnePhase.Lines.TwoPortRL"
+>TwoPortRL</a> RL_3(
+    R=Rbase,
+    L=Lbase,
+    mode=Buildings.Electrical.Types.Load.FixedZ_dynamic,
+    i_start={0,0}) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Dynamic resistive-inductive line connected to short circuit 3&quot;</span>;
+  <a href="Buildings_Electrical_AC_OnePhase_Loads.html#Buildings.Electrical.AC.OnePhase.Loads.Impedance"
+>Loads.Impedance</a> load_sc_3(R=0) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Short circuit 3&quot;</span>;
+<span style="color: blue; font-weight: normal; font-style: normal;">equation </span>
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(E.terminal, R_1.terminal_n);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(R_1.terminal_p, L_1.terminal_n);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(L_1.terminal_p, load_sc_1.terminal);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(E.terminal, RL_2.terminal_n);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(RL_2.terminal_p, load_sc_2.terminal);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(E.terminal, RL_3.terminal_n);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(RL_3.terminal_p, load_sc_3.terminal);
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>ACLine_RL;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE ACSimpleGrid<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Electrical.AC.Od23c6844cfcb7ac6CLineI.png" alt="Buildings.Electrical.AC.OnePhase.Lines.Examples.ACSimpleGrid" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Electrical.AC.OnePhase.Lines.Examples.ACSimpleGrid"></a><a href="Buildings_Electrical_AC_OnePhase_Lines_Examples.html#Buildings.Electrical.AC.OnePhase.Lines.Examples"
+>Buildings.Electrical.AC.OnePhase.Lines.Examples</a>.ACSimpleGrid</h2>
+<p>
+<b>Test model for a network model</b>
+<br>
+<br><img src="Buildings.Electrical.AC.O411d42382d83dbe8eGridD.png" alt="Buildings.Electrical.AC.OnePhase.Lines.Examples.ACSimpleGrid">
+</p>
+<h3>Information</h3>
+
+<p>
+This example demonstrates how to use a network model to connect
+a source to a load. In this simple case the network has two nodes
+that are connected by a commercial line cable.
+</p>
+<p>
+At the beginning of the simulation the load consumes power while at the
+and it produces power. The voltage at the load at the beginning is lower
+than the nominal RMS voltage (120 V) while at the end of the simulation it is higher.
+The voltage drop and increase are due to the presence of the cable between
+the source and the load.
+</p>
+<p>
+The network uses cables of the type <code>LowVoltageCable.Cu35</code> with
+a length of <i>200</i> m.
+</p>
+<p>
+The picture below describes the grid topology.
+</p>
+<p align="center">
+<img alt="image" src="../Resources/Images/Electrical/Transmission/Grids/testGrid2Nodes.png"/>
+</p>
+
+<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</a> (Icon for runnable examples).</p>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">model</span> ACSimpleGrid <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Test model for a network model&quot;</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</a>;
+  <a href="Buildings_Electrical_AC_OnePhase_Lines.html#Buildings.Electrical.AC.OnePhase.Lines.Network"
+>Network</a> network(
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><a href="Buildings_Electrical_Transmission_Grids.html#Buildings.Electrical.Transmission.Grids.TestGrid2Nodes"
+>Buildings.Electrical.Transmission.Grids.TestGrid2Nodes</a> grid,
+    V_nominal=120) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Network model that represents the connection between the source and the load&quot;</span>;
+  <a href="Buildings_Electrical_AC_OnePhase_Loads.html#Buildings.Electrical.AC.OnePhase.Loads.Inductive"
+>Loads.Inductive</a> load(P_nominal=2500, mode=Types.Load.VariableZ_P_input,
+    V_nominal=120) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Load connected to the network&quot;</span>;
+  <a href="Buildings_Electrical_AC_OnePhase_Sources.html#Buildings.Electrical.AC.OnePhase.Sources.FixedVoltage"
+>Sources.FixedVoltage</a> E(f=60, V=120) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Voltage source&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Ramp"
+>Modelica.Blocks.Sources.Ramp</a> load_inputs(
+    height=5000,
+    duration=2,
+    offset=-2000,
+    startTime=0.5) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Input signal for the power consumption of the loads&quot;</span>;
+<span style="color: blue; font-weight: normal; font-style: normal;">equation </span>
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(load.terminal, network.terminal[2]);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(E.terminal, network.terminal[1]);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(load_inputs.y, load.Pow);
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>ACSimpleGrid;
+</div>
+<hr>
+<address>
+<a href="http://www.3ds.com/">Automatically generated</a> Thu Apr  9 09:33:03 2015.
+</address>
+</body>
+</html>

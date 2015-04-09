@@ -1,0 +1,268 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>Buildings.HeatTransfer.Conduction.BaseClasses.Examples</title>
+<meta name="HTML-Generator" content="Dymola">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="description" content="&quot;Collection of models that illustrate model use and test models&quot;">
+<style type="text/css">
+*       { font-size: 10pt; font-family: Arial, sans-serif; }
+.modelica, .modelica * { font-size: 9pt; font-family: Courier, monospace; white-space: pre; }
+h4      { font-size: 10pt; font-weight: bold; color: green; }
+h3      { font-size: 11pt; font-weight: bold; color: green; }
+h2      { font-size: 13pt; font-weight: bold; color: green; }
+address { font-weight: normal; }
+td      { border: 1px solid #808080; vertical-align: top; }
+th      { border: 1px solid #808080; vertical-align: top; font-weight: bold; }
+table   { border: 1px solid #808080; border-collapse: collapse; }
+</style>
+<link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../Resources/www/modelicaDoc.css">
+</HEAD>
+<body>
+<!-- --- header ------ -->
+<div class="headerStyle">
+<img src="../Resources/www/lbl-logo.png" alt="LBL logo"/>
+</div>
+<div class="headerLinks">
+<ul><li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt; <a href="Buildings.html">Modelica</a></li></ul>
+</div>
+<!-- --- end header -- -->
+
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE Examples<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><a name="Buildings.HeatTransfer.Conduction.BaseClasses.Examples"></a><a href="Buildings_HeatTransfer_Conduction_BaseClasses.html#Buildings.HeatTransfer.Conduction.BaseClasses"
+>Buildings.HeatTransfer.Conduction.BaseClasses</a>.Examples</h2>
+<p>
+<b>Collection of models that illustrate model use and test models</b><br>
+</p>
+<h3>Information</h3>
+
+<p>
+This package contains examples for the use of models that can be found in
+<a href="Buildings_HeatTransfer_Conduction_BaseClasses.html#Buildings.HeatTransfer.Conduction.BaseClasses"
+>
+Buildings.HeatTransfer.Conduction.BaseClasses</a>.
+</p>
+
+<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons_ExamplesPackage.html#Modelica.Icons.ExamplesPackage"
+>Modelica.Icons.ExamplesPackage</a> (Icon for packages containing runnable examples).</p>
+<h3>Package Content</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Package Content">
+<tr>
+<th>Name</th>
+<th>Description</th>
+</tr>
+<tr>
+<td><img src="Buildings.HeatTransfer.Co77046da0dd777ce7ure_uS.png" alt="Buildings.HeatTransfer.Conduction.BaseClasses.Examples.Temperature_u" width="20" height="20" align="top">&nbsp;<a href="Buildings_HeatTransfer_Conduction_BaseClasses_Examples.html#Buildings.HeatTransfer.Conduction.BaseClasses.Examples.Temperature_u"
+>Temperature_u</a>
+</td>
+<td>Approximation of specific internal energy versus temperature curve with cubic hermite cubic spline</td>
+</tr>
+</table>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE Temperature_u<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.HeatTransfer.Co77046da0dd777ce7ure_uI.png" alt="Buildings.HeatTransfer.Conduction.BaseClasses.Examples.Temperature_u" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.HeatTransfer.Conduction.BaseClasses.Examples.Temperature_u"></a><a href="Buildings_HeatTransfer_Conduction_BaseClasses_Examples.html#Buildings.HeatTransfer.Conduction.BaseClasses.Examples"
+>Buildings.HeatTransfer.Conduction.BaseClasses.Examples</a>.Temperature_u</h2>
+<p>
+<b>Approximation of specific internal energy versus temperature curve with cubic hermite cubic spline</b>
+</p>
+<h3>Information</h3>
+
+<p>
+This example tests and demonstrates the implementation of the specific internal
+energy versus temperature <i>T(u)</i> relationship for phase-change problems.
+Cubic hermite interpolation and linear extrapolation is used to approximate
+the piece-wise linear <i>T(u)</i> relationship.
+A piece-wise linear <i>T(u)</i> relationship is assumed in all three characteristic regions (solid, mushy and liquid).
+The example uses the functions
+<a href="Buildings_HeatTransfer_Conduction_BaseClasses.html#Buildings.HeatTransfer.Conduction.BaseClasses.der_temperature_u"
+>
+Buildings.HeatTransfer.Conduction.BaseClasses.der_temperature_u</a>
+and
+<a href="modelica://Buildings.HeatTransfer.Conduction.BaseClasses.temeprature_u">
+Buildings.HeatTransfer.Conduction.BaseClasses.temeprature_u</a>.
+The first function is used to compute
+the derivatives at the support points,
+and the second function computes the temperature
+for a given specific internal energy.
+</p>
+<p>
+The example also demonstrates the use of cubic hermite spline interpolation with
+two different settings: One produces an approximation of the <i>T(u)</i> relationship that is monotone,
+whereas the other does not enforce monotonicity.
+The latter one is used by default in the <code>Buildings</code> library,
+since it produces a higher accuracy in the mushy
+region, especially for materials in which phase-change transformation occurs in a wide
+temperature interval (see the figure below).
+The curves <code>errNonMonotone</code> and
+<code>errMonotone</code>
+represent the relative error between approximated and exact temperatures
+obtained for different specific internal energy values (right hand side figure).
+</p>
+<p align="center"><img alt="image" src="../Resources/Images/HeatTransfer/Conduction/BaseClasses/Examples/Temperature_u.png"/>
+</p>
+
+<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</a> (Icon for runnable examples).</p>
+<h3>Parameters</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td><a href="Buildings_HeatTransfer_Data_SolidsPCM.html#Buildings.HeatTransfer.Data.SolidsPCM.Generic"
+>Generic</a></td><td>materialMonotone</td><td>&nbsp;</td><td>Phase change material with monotone u-T relation</td></tr>
+<tr><td><a href="Buildings_HeatTransfer_Data_SolidsPCM.html#Buildings.HeatTransfer.Data.SolidsPCM.Generic"
+>Generic</a></td><td>materialNonMonotone</td><td>&nbsp;</td><td>Phase change material with non-monotone u-T relation</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.SpecificInternalEnergy"
+>SpecificInternalEnergy</a></td><td>ud[Buildings.HeatTransfer.Conduction.nSupPCM]</td><td>&nbsp;</td><td>Support points [J/kg]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.SpecificInternalEnergy"
+>SpecificInternalEnergy</a></td><td>udMonotone[Buildings.HeatTransfer.Conduction.nSupPCM]</td><td>&nbsp;</td><td>Support points [J/kg]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+>Temperature</a></td><td>Td[Buildings.HeatTransfer.Conduction.nSupPCM]</td><td>&nbsp;</td><td>Support points [K]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+>Temperature</a></td><td>TdMonotone[Buildings.HeatTransfer.Conduction.nSupPCM]</td><td>&nbsp;</td><td>Support points [K]</td></tr>
+<tr><td>Real</td><td>dT_du[Buildings.HeatTransfer.Conduction.nSupPCM]</td><td>&nbsp;</td><td>Derivatives at the support points - non-monotone, default in Modelica PCM [kg.K2/J]</td></tr>
+<tr><td>Real</td><td>dT_duMonotone[Buildings.HeatTransfer.Conduction.nSupPCM]</td><td>&nbsp;</td><td>Derivatives at the support points for monotone increasing cubic splines [kg.K2/J]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.TemperatureDifference"
+>TemperatureDifference</a></td><td>dTCha</td><td>materialMonotone.TSol + mate...</td><td>Characteristic temperature difference of the problem [K]</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">model</span> Temperature_u <span style="color: #006400; font-weight: normal; font-style: normal;">
+  &quot;Approximation of specific internal energy versus temperature curve with cubic hermite cubic spline&quot;</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</a>;
+  <span style="color: #006400; font-weight: normal; font-style: normal;">// Phase-change properties</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="Buildings_HeatTransfer_Data_SolidsPCM.html#Buildings.HeatTransfer.Data.SolidsPCM.Generic"
+>Buildings.HeatTransfer.Data.SolidsPCM.Generic</a>
+      materialMonotone(
+               TSol=273.15+30.9,
+               TLiq=273.15+40.0,
+               LHea=1000000,
+               c=920,
+               ensureMonotonicity=true,
+               d=1000,
+               k=1,
+               x=0.2) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Phase change material with monotone u-T relation&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="Buildings_HeatTransfer_Data_SolidsPCM.html#Buildings.HeatTransfer.Data.SolidsPCM.Generic"
+>Buildings.HeatTransfer.Data.SolidsPCM.Generic</a>
+      materialNonMonotone(TSol=273.15+30.9,
+               TLiq=273.15+40.0,
+               LHea=1000000,
+               c=920,
+               ensureMonotonicity=false,
+               d=1000,
+               k=1,
+               x=0.2) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Phase change material with non-monotone u-T relation&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.SpecificInternalEnergy"
+>Modelica.SIunits.SpecificInternalEnergy</a> ud[Buildings.HeatTransfer.Conduction.nSupPCM](<span style="color: blue; font-weight: normal; font-style: normal;">each </span>fixed=false) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Support points&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.SpecificInternalEnergy"
+>Modelica.SIunits.SpecificInternalEnergy</a> udMonotone[Buildings.HeatTransfer.Conduction.nSupPCM](<span style="color: blue; font-weight: normal; font-style: normal;">each </span>fixed=false) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Support points&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+>Modelica.SIunits.Temperature</a> Td[Buildings.HeatTransfer.Conduction.nSupPCM](<span style="color: blue; font-weight: normal; font-style: normal;">each </span>fixed=false) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Support points&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+>Modelica.SIunits.Temperature</a> TdMonotone[Buildings.HeatTransfer.Conduction.nSupPCM](<span style="color: blue; font-weight: normal; font-style: normal;">each </span>fixed=false) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Support points&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Real dT_du[Buildings.HeatTransfer.Conduction.nSupPCM](<span style="color: blue; font-weight: normal; font-style: normal;">each </span>fixed=false, <span style="color: blue; font-weight: normal; font-style: normal;">each </span>unit=&quot;kg.K2/J&quot;) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Derivatives at the support points - non-monotone, default in Modelica PCM&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Real dT_duMonotone[Buildings.HeatTransfer.Conduction.nSupPCM](<span style="color: blue; font-weight: normal; font-style: normal;">each </span>fixed=false, <span style="color: blue; font-weight: normal; font-style: normal;">each </span>unit=&quot;kg.K2/J&quot;) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Derivatives at the support points for monotone increasing cubic splines&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.SpecificInternalEnergy"
+>Modelica.SIunits.SpecificInternalEnergy</a> u <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Specific internal energy&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+>Modelica.SIunits.Temperature</a> T <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Temperature for given u without monotone interpolation&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+>Modelica.SIunits.Temperature</a> TMonotone <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Temperature for given u with monotone interpolation&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+>Modelica.SIunits.Temperature</a> TExa <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Exact value of temperature&quot;</span>;
+  Real errMonotone <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Relative temperature error between calculated value with monotone interpolation and exact temperature&quot;</span>;
+  Real errNonMonotone <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Relative temperature error between calculated value with non-monotone interpolation and exact temperature&quot;</span>;
+
+ <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.TemperatureDifference"
+>Modelica.SIunits.TemperatureDifference</a> dTCha = materialMonotone.TSol+materialMonotone.TLiq <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Characteristic temperature difference of the problem&quot;</span>;
+<span style="color: blue; font-weight: normal; font-style: normal;">protected </span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">function</span> relativeError <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Relative error&quot;</span>
+    <span style="color: blue; font-weight: normal; font-style: normal;">input </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+>Modelica.SIunits.Temperature</a> T <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Approximated temperature&quot;</span>;
+    <span style="color: blue; font-weight: normal; font-style: normal;">input </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+>Modelica.SIunits.Temperature</a> TExa <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Exact temperature&quot;</span>;
+    <span style="color: blue; font-weight: normal; font-style: normal;">input </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.TemperatureDifference"
+>Modelica.SIunits.TemperatureDifference</a> dTCha <span style="color: #006400; font-weight: normal; font-style: normal;">
+      &quot;Characteristic temperature difference&quot;</span>;
+    <span style="color: blue; font-weight: normal; font-style: normal;">output </span>Real relErr <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Relative error&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">algorithm </span>
+    relErr :=(T - TExa)/dTCha;
+  <span style="color: blue; font-weight: normal; font-style: normal;">end </span>relativeError;
+
+  <span style="color: blue; font-weight: normal; font-style: normal;">constant </span>Real conFac(unit=&quot;1/s&quot;) = 1 <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Conversion factor to satisfy unit check&quot;</span>;
+<span style="color: blue; font-weight: normal; font-style: normal;">initial </span><span style="color: blue; font-weight: normal; font-style: normal;">equation </span>
+  <span style="color: #006400; font-weight: normal; font-style: normal;">// Calculate derivatives at support points (non-monotone)</span>
+  (ud, Td, dT_du) =
+    <span style="color: red; font-weight: normal; font-style: normal;">Buildings.HeatTransfer.Conduction.BaseClasses.der_temperature_u</span>(
+      c=   materialNonMonotone.c,
+      TSol=materialNonMonotone.TSol,
+      TLiq=materialNonMonotone.TLiq,
+      LHea=materialNonMonotone.LHea,
+      ensureMonotonicity=materialNonMonotone.ensureMonotonicity);
+  <span style="color: #006400; font-weight: normal; font-style: normal;">// Calculate derivatives at support points (monotone);</span>
+ (udMonotone, TdMonotone, dT_duMonotone) =
+    <span style="color: red; font-weight: normal; font-style: normal;">Buildings.HeatTransfer.Conduction.BaseClasses.der_temperature_u</span>(
+      c=   materialMonotone.c,
+      TSol=materialMonotone.TSol,
+      TLiq=materialMonotone.TLiq,
+      LHea=materialMonotone.LHea,
+      ensureMonotonicity=materialMonotone.ensureMonotonicity);
+<span style="color: blue; font-weight: normal; font-style: normal;">equation </span>
+  u =  2.5e5+time*(1.5*materialMonotone.c*(materialMonotone.TLiq-273.15)+materialMonotone.LHea)*conFac;
+
+  <span style="color: #006400; font-weight: normal; font-style: normal;">// Calculate T based on non-monotone interpolation</span>
+  T =<span style="color: red; font-weight: normal; font-style: normal;"> Buildings.HeatTransfer.Conduction.BaseClasses.temperature_u</span>(
+       ud=ud,
+       Td=Td,
+       dT_du=dT_du,
+       u=u);
+  <span style="color: #006400; font-weight: normal; font-style: normal;">// Calculate T based on monotone interpolation</span>
+  TMonotone =<span style="color: red; font-weight: normal; font-style: normal;"> Buildings.HeatTransfer.Conduction.BaseClasses.temperature_u</span>(
+       ud=udMonotone,
+       Td=TdMonotone,
+       dT_du=dT_duMonotone,
+       u=u);
+  <span style="color: #006400; font-weight: normal; font-style: normal;">//Relative errors of obtained temperatures by using monotone and non-monotone</span>
+  <span style="color: #006400; font-weight: normal; font-style: normal;">//interpolation against exact values of tempratures taken from the T(u) curve</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">if </span>time&gt;=1.e-05<span style="color: blue; font-weight: normal; font-style: normal;"> then</span>
+    <span style="color: blue; font-weight: normal; font-style: normal;">if </span>u &lt;= materialMonotone.c*materialMonotone.TSol<span style="color: blue; font-weight: normal; font-style: normal;"> then</span>
+      <span style="color: #006400; font-weight: normal; font-style: normal;">// Solid region</span>
+      TExa           = u/materialMonotone.c;
+    <span style="color: blue; font-weight: normal; font-style: normal;">elseif </span>u &gt;= materialMonotone.c*materialMonotone.TLiq+materialMonotone.LHea<span style="color: blue; font-weight: normal; font-style: normal;"> then</span>
+      <span style="color: #006400; font-weight: normal; font-style: normal;">// Liquid region</span>
+      TExa           = (u-materialMonotone.LHea)/materialMonotone.c;
+   <span style="color: blue; font-weight: normal; font-style: normal;">else</span>
+      <span style="color: #006400; font-weight: normal; font-style: normal;">// Region of phase transition</span>
+      TExa=((u + materialMonotone.LHea*materialMonotone.TSol/(materialMonotone.TLiq
+         - materialMonotone.TSol))/(materialMonotone.c + materialMonotone.LHea/(
+        materialMonotone.TLiq - materialMonotone.TSol)));
+    <span style="color: blue; font-weight: normal; font-style: normal;">end if</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">else</span>
+    TExa =T;
+  <span style="color: blue; font-weight: normal; font-style: normal;">end if</span>;
+  errNonMonotone =<span style="color: red; font-weight: normal; font-style: normal;"> relativeError</span>(T=T,         TExa=TExa, dTCha=  dTCha);
+  errMonotone    =<span style="color: red; font-weight: normal; font-style: normal;"> relativeError</span>(T=TMonotone, TExa=TExa, dTCha=  dTCha);
+
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>Temperature_u;
+</div>
+<hr>
+<address>
+<a href="http://www.3ds.com/">Automatically generated</a> Thu Apr  9 09:37:11 2015.
+</address>
+</body>
+</html>

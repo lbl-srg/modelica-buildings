@@ -1,0 +1,215 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>Buildings.Utilities.Reports</title>
+<meta name="HTML-Generator" content="Dymola">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="description" content="&quot;Library with models that facilitates the reporting of values&quot;">
+<style type="text/css">
+*       { font-size: 10pt; font-family: Arial, sans-serif; }
+.modelica, .modelica * { font-size: 9pt; font-family: Courier, monospace; white-space: pre; }
+h4      { font-size: 10pt; font-weight: bold; color: green; }
+h3      { font-size: 11pt; font-weight: bold; color: green; }
+h2      { font-size: 13pt; font-weight: bold; color: green; }
+address { font-weight: normal; }
+td      { border: 1px solid #808080; vertical-align: top; }
+th      { border: 1px solid #808080; vertical-align: top; font-weight: bold; }
+table   { border: 1px solid #808080; border-collapse: collapse; }
+</style>
+<link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../Resources/www/modelicaDoc.css">
+</HEAD>
+<body>
+<!-- --- header ------ -->
+<div class="headerStyle">
+<img src="../Resources/www/lbl-logo.png" alt="LBL logo"/>
+</div>
+<div class="headerLinks">
+<ul><li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt; <a href="Buildings.html">Modelica</a></li></ul>
+</div>
+<!-- --- end header -- -->
+
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE Reports<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><a name="Buildings.Utilities.Reports"></a><a href="Buildings_Utilities.html#Buildings.Utilities"
+>Buildings.Utilities</a>.Reports</h2>
+<p>
+<b>Library with models that facilitates the reporting of values</b><br>
+</p>
+<h3>Information</h3>
+
+<p>
+This package contains components models to report values to files.
+</p>
+
+<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons_VariantsPackage.html#Modelica.Icons.VariantsPackage"
+>Modelica.Icons.VariantsPackage</a> (Icon for package containing variants).</p>
+<h3>Package Content</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Package Content">
+<tr>
+<th>Name</th>
+<th>Description</th>
+</tr>
+<tr>
+<td><img src="Buildings.Utilities.Reports.PrinterS.png" alt="Buildings.Utilities.Reports.Printer" width="20" height="20" align="top">&nbsp;<a href="Buildings_Utilities_Reports.html#Buildings.Utilities.Reports.Printer"
+>Printer</a>
+</td>
+<td>Model that prints values to a file</td>
+</tr>
+<tr>
+<td><img src="Buildings.Utilities.Reporad1c8d3c0668f525ArrayS.png" alt="Buildings.Utilities.Reports.printRealArray" width="20" height="20" align="top">&nbsp;<a href="Buildings_Utilities_Reports.html#Buildings.Utilities.Reports.printRealArray"
+>printRealArray</a>
+</td>
+<td>Print string to terminal or file</td>
+</tr>
+<tr>
+<td><img src="Buildings.Utilities.Reports.ExamplesS.png" alt="Buildings.Utilities.Reports.Examples" width="20" height="20" align="top">&nbsp;<a href="Buildings_Utilities_Reports_Examples.html#Buildings.Utilities.Reports.Examples"
+>Examples</a>
+</td>
+<td>Collection of models that illustrate model use and test models</td>
+</tr>
+</table>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE Printer<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Utilities.Reports.PrinterI.png" alt="Buildings.Utilities.Reports.Printer" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Utilities.Reports.Printer"></a><a href="Buildings_Utilities_Reports.html#Buildings.Utilities.Reports"
+>Buildings.Utilities.Reports</a>.Printer</h2>
+<p>
+<b>Model that prints values to a file</b>
+<br>
+<br><img src="Buildings.Utilities.Reports.PrinterD.png" alt="Buildings.Utilities.Reports.Printer">
+</p>
+<h3>Information</h3>
+
+<p>
+This model prints to a file or the terminal at a fixed sample interval.
+</p>
+<p>
+The parameter <code>configuration</code> controls the printing as follows:
+</p>
+<table summary="summary" border="1">
+<tr><td><code>configuration</code></td><td>configuration</td></tr>
+<tr><td><code>1</code></td> <td>print at sample times only</td></tr>
+<tr><td><code>2</code></td> <td>print at sample times and at end of simulation</td></tr>
+<tr><td><code>3</code></td> <td>print at end of simulation only</td></tr>
+ </table>
+
+<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.DiscreteBlock"
+>Modelica.Blocks.Interfaces.DiscreteBlock</a> (Base class of discrete control blocks).</p>
+<h3>Parameters</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Time"
+>Time</a></td><td>samplePeriod</td><td>&nbsp;</td><td>Sample period of component [s]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Time"
+>Time</a></td><td>startTime</td><td>0</td><td>First sample time instant [s]</td></tr>
+<tr><td>String</td><td>header</td><td>&quot;&quot;</td><td>Header to be printed</td></tr>
+<tr><td>String</td><td>fileName</td><td>&quot;&quot;</td><td>File name (empty string is the terminal)</td></tr>
+<tr><td>Integer</td><td>nin</td><td>1</td><td>Number of inputs</td></tr>
+<tr><td>Integer</td><td>configuration</td><td>1</td><td>Index for treating final report (see documentation)</td></tr>
+<tr><td>Integer</td><td>minimumLength</td><td>1</td><td>Minimum length of result string</td></tr>
+<tr><td>Integer</td><td>significantDigits</td><td>16</td><td>Number of significant digits</td></tr>
+</table>
+<h3>Connectors</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Connectors">
+<tr><th>Type</th><th>Name</th><th>Description</th></tr>
+<tr><td>input <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>RealInput</a></td><td>x[nin]</td><td>Value to be printed</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">model</span> Printer <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Model that prints values to a file&quot;</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.DiscreteBlock"
+>Modelica.Blocks.Interfaces.DiscreteBlock</a>;
+
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>String header=&quot;&quot; <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Header to be printed&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>String fileName=&quot;&quot; <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;File name (empty string is the terminal)&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Integer nin=1 <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Number of inputs&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Integer configuration = 1 <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Index for treating final report (see documentation)&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Integer minimumLength =  1 <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Minimum length of result string&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Integer significantDigits = 16 <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Number of significant digits&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>Modelica.Blocks.Interfaces.RealInput</a> x[nin] <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Value to be printed&quot;</span>;
+
+<span style="color: blue; font-weight: normal; font-style: normal;">initial </span><span style="color: blue; font-weight: normal; font-style: normal;">algorithm </span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">if </span>(fileName &lt;&gt; &quot;&quot;)<span style="color: blue; font-weight: normal; font-style: normal;"> then</span>
+    <span style="color: red; font-weight: normal; font-style: normal;">Modelica.Utilities.Files.removeFile</span>(fileName);
+  <span style="color: blue; font-weight: normal; font-style: normal;">end if</span>;
+  <span style="color: red; font-weight: normal; font-style: normal;">Modelica.Utilities.Streams.print</span>(fileName=fileName, string=header);
+<span style="color: blue; font-weight: normal; font-style: normal;">equation </span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">if </span>configuration &lt; 3<span style="color: blue; font-weight: normal; font-style: normal;"> then</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">when </span>{sampleTrigger,<span style="color: red; font-weight: normal; font-style: normal;"> initial</span>()}<span style="color: blue; font-weight: normal; font-style: normal;"> then</span>
+      <span style="color: red; font-weight: normal; font-style: normal;">Buildings.Utilities.Reports.printRealArray</span>(
+                                      x=x, fileName=fileName,
+                                      minimumLength=minimumLength,
+                                      significantDigits=significantDigits);
+  <span style="color: blue; font-weight: normal; font-style: normal;">end when</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">end if</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">when </span><span style="color: red; font-weight: normal; font-style: normal;">terminal</span>()<span style="color: blue; font-weight: normal; font-style: normal;"> then</span>
+    <span style="color: blue; font-weight: normal; font-style: normal;">if </span>configuration &gt;= 2<span style="color: blue; font-weight: normal; font-style: normal;"> then</span>
+      <span style="color: red; font-weight: normal; font-style: normal;"> Buildings.Utilities.Reports.printRealArray</span>(
+                                      x=x, fileName=fileName,
+                                      minimumLength=minimumLength,
+                                      significantDigits=significantDigits);
+   <span style="color: blue; font-weight: normal; font-style: normal;">end if</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">end when</span>;
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>Printer;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE printRealArray<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Utilities.Reporad1c8d3c0668f525ArrayI.png" alt="Buildings.Utilities.Reports.printRealArray" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Utilities.Reports.printRealArray"></a><a href="Buildings_Utilities_Reports.html#Buildings.Utilities.Reports"
+>Buildings.Utilities.Reports</a>.printRealArray</h2>
+<p>
+<b>Print string to terminal or file</b>
+</p>
+<h3>Information</h3>
+
+<p>
+Function that prints a real array to an output file.
+</p>
+
+<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Function"
+>Modelica.Icons.Function</a> (Icon for functions).</p>
+<h3>Inputs</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Inputs">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td>Real</td><td>x[:]</td><td>&nbsp;</td><td>Input to be printed</td></tr>
+<tr><td>String</td><td>fileName</td><td>&quot;&quot;</td><td>File where to print (empty string is the terminal)</td></tr>
+<tr><td>Integer</td><td>minimumLength</td><td>1</td><td>Minimum width of result</td></tr>
+<tr><td>Integer</td><td>significantDigits</td><td>6</td><td>Number of significant digits</td></tr>
+</table>
+<h3>Outputs</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Outputs">
+<tr><th>Type</th><th>Name</th><th>Description</th></tr>
+<tr><td>String</td><td>outStr</td><td>String to be printed</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">function</span> printRealArray <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Print string to terminal or file&quot;</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Function"
+>Modelica.Icons.Function</a>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">input </span>Real[:] x <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Input to be printed&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">input </span>String fileName=&quot;&quot; <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;File where to print (empty string is the terminal)&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">input </span>Integer minimumLength =  1 <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Minimum width of result&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">input </span>Integer significantDigits = 6 <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Number of significant digits&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">output </span>String outStr=&quot;&quot; <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;String to be printed&quot;</span>;
+<span style="color: blue; font-weight: normal; font-style: normal;">algorithm </span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">for </span>i<span style="color: blue; font-weight: normal; font-style: normal;"> in </span>1:<span style="color: red; font-weight: normal; font-style: normal;">size</span>(x,1)<span style="color: blue; font-weight: normal; font-style: normal;"> loop</span>
+     outStr :=outStr + &quot;  &quot;
+                     +<span style="color: red; font-weight: normal; font-style: normal;"> String</span>(x[i],
+                              minimumLength=minimumLength,
+                              significantDigits=significantDigits);
+  <span style="color: blue; font-weight: normal; font-style: normal;">end for</span>;
+  <span style="color: red; font-weight: normal; font-style: normal;">Modelica.Utilities.Streams.print</span>(string=outStr, fileName=fileName);
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>printRealArray;
+</div>
+<hr>
+<address>
+<a href="http://www.3ds.com/">Automatically generated</a> Thu Apr  9 09:41:35 2015.
+</address>
+</body>
+</html>

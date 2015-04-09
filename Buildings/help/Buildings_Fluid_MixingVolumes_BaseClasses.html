@@ -1,0 +1,300 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>Buildings.Fluid.MixingVolumes.BaseClasses</title>
+<meta name="HTML-Generator" content="Dymola">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="description" content="&quot;Package with base classes for Buildings.Fluid.MixingVolumes&quot;">
+<style type="text/css">
+*       { font-size: 10pt; font-family: Arial, sans-serif; }
+.modelica, .modelica * { font-size: 9pt; font-family: Courier, monospace; white-space: pre; }
+h4      { font-size: 10pt; font-weight: bold; color: green; }
+h3      { font-size: 11pt; font-weight: bold; color: green; }
+h2      { font-size: 13pt; font-weight: bold; color: green; }
+address { font-weight: normal; }
+td      { border: 1px solid #808080; vertical-align: top; }
+th      { border: 1px solid #808080; vertical-align: top; font-weight: bold; }
+table   { border: 1px solid #808080; border-collapse: collapse; }
+</style>
+<link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../Resources/www/modelicaDoc.css">
+</HEAD>
+<body>
+<!-- --- header ------ -->
+<div class="headerStyle">
+<img src="../Resources/www/lbl-logo.png" alt="LBL logo"/>
+</div>
+<div class="headerLinks">
+<ul><li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt; <a href="Buildings.html">Modelica</a></li></ul>
+</div>
+<!-- --- end header -- -->
+
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE BaseClasses<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><a name="Buildings.Fluid.MixingVolumes.BaseClasses"></a><a href="Buildings_Fluid_MixingVolumes.html#Buildings.Fluid.MixingVolumes"
+>Buildings.Fluid.MixingVolumes</a>.BaseClasses</h2>
+<p>
+<b>Package with base classes for Buildings.Fluid.MixingVolumes</b><br>
+</p>
+<h3>Information</h3>
+
+<p>
+This package contains base classes that are used to construct the models in
+<a href="Buildings_Fluid_MixingVolumes.html#Buildings.Fluid.MixingVolumes"
+>Buildings.Fluid.MixingVolumes</a>.
+</p>
+
+<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons_BasesPackage.html#Modelica.Icons.BasesPackage"
+>Modelica.Icons.BasesPackage</a> (Icon for packages containing base classes).</p>
+<h3>Package Content</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Package Content">
+<tr>
+<th>Name</th>
+<th>Description</th>
+</tr>
+<tr>
+<td><img src="Buildings.Fluid.MixingVol3d9a71fa0c317127olumeS.png" alt="Buildings.Fluid.MixingVolumes.BaseClasses.PartialMixingVolume" width="20" height="20" align="top">&nbsp;<a href="Buildings_Fluid_MixingVolumes_BaseClasses.html#Buildings.Fluid.MixingVolumes.BaseClasses.PartialMixingVolume"
+>PartialMixingVolume</a>
+</td>
+<td>Partial mixing volume with inlet and outlet ports (flow reversal is allowed)</td>
+</tr>
+</table>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE PartialMixingVolume<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Fluid.MixingVol3d9a71fa0c317127olumeI.png" alt="Buildings.Fluid.MixingVolumes.BaseClasses.PartialMixingVolume" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Fluid.MixingVolumes.BaseClasses.PartialMixingVolume"></a><a href="Buildings_Fluid_MixingVolumes_BaseClasses.html#Buildings.Fluid.MixingVolumes.BaseClasses"
+>Buildings.Fluid.MixingVolumes.BaseClasses</a>.PartialMixingVolume</h2>
+<p>
+<b>Partial mixing volume with inlet and outlet ports (flow reversal is allowed)</b>
+<br>
+<br><img src="Buildings.Fluid.MixingVol3d9a71fa0c317127olumeD.png" alt="Buildings.Fluid.MixingVolumes.BaseClasses.PartialMixingVolume">
+</p>
+<h3>Information</h3>
+
+<p>
+This is a partial model of an instantaneously mixed volume.
+It is used as the base class for all fluid volumes of the package
+<a href="Buildings_Fluid_MixingVolumes.html#Buildings.Fluid.MixingVolumes"
+>
+Buildings.Fluid.MixingVolumes</a>.
+</p>
+
+<h4>Implementation</h4>
+<p>
+If the model is operated in steady-state and has two fluid ports connected,
+then the same energy and mass balance implementation is used as in
+steady-state component models, i.e., the use of <code>actualStream</code>
+is not used for the properties at the port.
+</p>
+<p>
+For simple models that uses this model, see
+<a href="Buildings_Fluid_MixingVolumes.html#Buildings.Fluid.MixingVolumes"
+>
+Buildings.Fluid.MixingVolumes</a>.
+</p>
+
+<p>Extends from <a href="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces.LumpedVolumeDeclarations"
+>Buildings.Fluid.Interfaces.LumpedVolumeDeclarations</a> (Declarations for lumped volumes).</p>
+<h3>Parameters</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td colspan="2">replaceable package Medium</td><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium"
+>PartialMedium</a></td><td>Medium in the component</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Volume"
+>Volume</a></td><td>V</td><td>&nbsp;</td><td>Volume [m3]</td></tr>
+<tr style="background-color: #e0e0e0"><td colspan="4">Nominal condition</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+>MassFlowRate</a></td><td>m_flow_nominal</td><td>&nbsp;</td><td>Nominal mass flow rate [kg/s]</td></tr>
+<tr style="background-color: #c0c0c0"><td colspan="4"><b>Dynamics</b></td></tr>
+<tr style="background-color: #e0e0e0"><td colspan="4">Equations</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Fluid_Types.html#Modelica.Fluid.Types.Dynamics"
+>Dynamics</a></td><td>energyDynamics</td><td>Modelica.Fluid.Types.Dynamic...</td><td>Formulation of energy balance</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Fluid_Types.html#Modelica.Fluid.Types.Dynamics"
+>Dynamics</a></td><td>massDynamics</td><td>energyDynamics</td><td>Formulation of mass balance</td></tr>
+<tr><td>Real</td><td>mSenFac</td><td>1</td><td>Factor for scaling the sensible thermal mass of the volume</td></tr>
+<tr style="background-color: #c0c0c0"><td colspan="4"><b>Initialization</b></td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.AbsolutePressure"
+>AbsolutePressure</a></td><td>p_start</td><td>Medium.p_default</td><td>Start value of pressure [Pa]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.Temperature"
+>Temperature</a></td><td>T_start</td><td>Medium.T_default</td><td>Start value of temperature [K]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.MassFraction"
+>MassFraction</a></td><td>X_start[Medium.nX]</td><td>Medium.X_default</td><td>Start value of mass fractions m_i/m [kg/kg]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.ExtraProperty"
+>ExtraProperty</a></td><td>C_start[Medium.nC]</td><td>fill(0, Medium.nC)</td><td>Start value of trace substances</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.ExtraProperty"
+>ExtraProperty</a></td><td>C_nominal[Medium.nC]</td><td>fill(1E-2, Medium.nC)</td><td>Nominal value of trace substances. (Set to typical order of magnitude.)</td></tr>
+<tr style="background-color: #c0c0c0"><td colspan="4"><b>Advanced</b></td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+>MassFlowRate</a></td><td>m_flow_small</td><td>1E-4*abs(m_flow_nominal)</td><td>Small mass flow rate for regularization of zero flow [kg/s]</td></tr>
+<tr style="background-color: #c0c0c0"><td colspan="4"><b>Assumptions</b></td></tr>
+<tr><td>Boolean</td><td>allowFlowReversal</td><td>true</td><td>= true to allow flow reversal in medium, false restricts to design direction (ports[1] -&gt; ports[2]). Used only if model has two ports.</td></tr>
+<tr style="background-color: #e0e0e0"><td colspan="4">Heat transfer</td></tr>
+<tr><td>Boolean</td><td>prescribedHeatFlowRate</td><td>false</td><td>Set to true if the model has a prescribed heat flow at its heatPort</td></tr>
+</table>
+<h3>Connectors</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Connectors">
+<tr><th>Type</th><th>Name</th><th>Description</th></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Fluid_Vessels_BaseClasses.html#Modelica.Fluid.Vessels.BaseClasses.VesselFluidPorts_b"
+>VesselFluidPorts_b</a></td><td>ports[nPorts]</td><td>Fluid inlets and outlets</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Thermal_HeatTransfer_Interfaces.html#Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a"
+>HeatPort_a</a></td><td>heatPort</td><td>Heat port for sensible heat input</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">partial </span><span style="color: blue; font-weight: normal; font-style: normal;">model</span> PartialMixingVolume <span style="color: #006400; font-weight: normal; font-style: normal;">
+  &quot;Partial mixing volume with inlet and outlet ports (flow reversal is allowed)&quot;</span>
+
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces.LumpedVolumeDeclarations"
+>Buildings.Fluid.Interfaces.LumpedVolumeDeclarations</a>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">constant </span>Boolean initialize_p = <span style="color: blue; font-weight: normal; font-style: normal;">not </span>Medium.singleState <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;= true to set up initial equations for pressure&quot;</span>;
+
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+>Modelica.SIunits.MassFlowRate</a> m_flow_nominal(min=0) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Nominal mass flow rate&quot;</span>;
+  <span style="color: #006400; font-weight: normal; font-style: normal;">// Port definitions</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Integer nPorts=0 <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Number of ports&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+>Modelica.SIunits.MassFlowRate</a> m_flow_small(min=0) = 1E-4*<span style="color: red; font-weight: normal; font-style: normal;">abs</span>(m_flow_nominal) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Small mass flow rate for regularization of zero flow&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Boolean allowFlowReversal = true <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;= true to allow flow reversal in medium, false restricts to design direction (ports[1] -&gt; ports[2]). Used only if model has two ports.&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Volume"
+>Modelica.SIunits.Volume</a> V <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Volume&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Boolean prescribedHeatFlowRate=false <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Set to true if the model has a prescribed heat flow at its heatPort&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Fluid_Vessels_BaseClasses.html#Modelica.Fluid.Vessels.BaseClasses.VesselFluidPorts_b"
+>Modelica.Fluid.Vessels.BaseClasses.VesselFluidPorts_b</a> ports[nPorts](
+      <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">each </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = <a href="Buildings_Fluid_Interfaces_Medium.html#Buildings.Fluid.Interfaces.LumpedVolumeDeclarations.Medium"
+>Medium</a>) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Fluid inlets and outlets&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Thermal_HeatTransfer_Interfaces.html#Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a"
+>Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a</a> heatPort <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Heat port for sensible heat input&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+>Modelica.SIunits.Temperature</a> T <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Temperature of the fluid&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
+>Modelica.SIunits.Pressure</a> p <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Pressure of the fluid&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.MassFraction"
+>Modelica.SIunits.MassFraction</a> Xi[Medium.nXi] <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Species concentration of the fluid&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.ExtraProperty"
+>Medium.ExtraProperty</a> C[Medium.nC](nominal=C_nominal) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Trace substance mixture content&quot;</span>;
+  <span style="color: #006400; font-weight: normal; font-style: normal;"> // Models for the steady-state and dynamic energy balance.</span>
+<span style="color: blue; font-weight: normal; font-style: normal;">protected </span>
+  <a href="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces.StaticTwoPortConservationEquation"
+>Buildings.Fluid.Interfaces.StaticTwoPortConservationEquation</a> steBal(
+    sensibleOnly = true,
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">final </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium=<a href="Buildings_Fluid_Interfaces_Medium.html#Buildings.Fluid.Interfaces.LumpedVolumeDeclarations.Medium"
+>Medium</a>,
+    <span style="color: blue; font-weight: normal; font-style: normal;">final </span>m_flow_nominal = m_flow_nominal,
+    <span style="color: blue; font-weight: normal; font-style: normal;">final </span>allowFlowReversal = allowFlowReversal,
+    <span style="color: blue; font-weight: normal; font-style: normal;">final </span>m_flow_small = m_flow_small) <span style="color: blue; font-weight: normal; font-style: normal;">if </span>
+        useSteadyStateTwoPort <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Model for steady-state balance if nPorts=2&quot;</span>;
+  <a href="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces.ConservationEquation"
+>Buildings.Fluid.Interfaces.ConservationEquation</a> dynBal(
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">final </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = <a href="Buildings_Fluid_Interfaces_Medium.html#Buildings.Fluid.Interfaces.LumpedVolumeDeclarations.Medium"
+>Medium</a>,
+    <span style="color: blue; font-weight: normal; font-style: normal;">final </span>energyDynamics=energyDynamics,
+    <span style="color: blue; font-weight: normal; font-style: normal;">final </span>massDynamics=massDynamics,
+    <span style="color: blue; font-weight: normal; font-style: normal;">final </span>p_start=p_start,
+    <span style="color: blue; font-weight: normal; font-style: normal;">final </span>T_start=T_start,
+    <span style="color: blue; font-weight: normal; font-style: normal;">final </span>X_start=X_start,
+    <span style="color: blue; font-weight: normal; font-style: normal;">final </span>C_start=C_start,
+    <span style="color: blue; font-weight: normal; font-style: normal;">final </span>C_nominal=C_nominal,
+    <span style="color: blue; font-weight: normal; font-style: normal;">final </span>fluidVolume = V,
+    <span style="color: blue; font-weight: normal; font-style: normal;">final </span>initialize_p = initialize_p,
+    m(start=V*rho_start),
+    nPorts=nPorts,
+    U(start=V*rho_start*<span style="color: red; font-weight: normal; font-style: normal;">Medium.specificInternalEnergy</span>(state_start) + (T_start -
+          Medium.reference_T)*dynBal.CSen),
+    <span style="color: blue; font-weight: normal; font-style: normal;">final </span>mSenFac=mSenFac) <span style="color: blue; font-weight: normal; font-style: normal;">if </span>
+        <span style="color: blue; font-weight: normal; font-style: normal;">not </span>useSteadyStateTwoPort <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Model for dynamic energy balance&quot;</span>;
+
+  <span style="color: #006400; font-weight: normal; font-style: normal;">// Density at start values, used to compute initial values and start guesses</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Density"
+>Modelica.SIunits.Density</a> rho_start=<span style="color: red; font-weight: normal; font-style: normal;">Medium.density</span>(
+   state=state_start) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Density, used to compute start and guess values&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">final </span><span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.ThermodynamicState"
+>Medium.ThermodynamicState</a> state_default =<span style="color: red; font-weight: normal; font-style: normal;"> Medium.setState_pTX</span>(
+      T=Medium.T_default,
+      p=Medium.p_default,
+      X=Medium.X_default[1:Medium.nXi]) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Medium state at default values&quot;</span>;
+  <span style="color: #006400; font-weight: normal; font-style: normal;">// Density at medium default values, used to compute the size of control volumes</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">final </span><span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Density"
+>Modelica.SIunits.Density</a> rho_default=<span style="color: red; font-weight: normal; font-style: normal;">Medium.density</span>(
+    state=state_default) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Density, used to compute fluid mass&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">final </span><span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.ThermodynamicState"
+>Medium.ThermodynamicState</a> state_start =<span style="color: red; font-weight: normal; font-style: normal;"> Medium.setState_pTX</span>(
+      T=T_start,
+      p=p_start,
+      X=X_start[1:Medium.nXi]) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Medium state at start values&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">final </span><span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Boolean useSteadyStateTwoPort=(nPorts == 2)<span style="color: blue; font-weight: normal; font-style: normal;"> and </span>
+      prescribedHeatFlowRate<span style="color: blue; font-weight: normal; font-style: normal;"> and </span>(
+      energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState)<span style="color: blue; font-weight: normal; font-style: normal;"> and </span>(
+      massDynamics == Modelica.Fluid.Types.Dynamics.SteadyState)<span style="color: blue; font-weight: normal; font-style: normal;"> and </span>(
+      substanceDynamics == Modelica.Fluid.Types.Dynamics.SteadyState)<span style="color: blue; font-weight: normal; font-style: normal;"> and </span>(
+      traceDynamics == Modelica.Fluid.Types.Dynamics.SteadyState) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Flag, true if the model has two ports only and uses a steady state balance&quot;</span>;
+  <span style="color: #006400; font-weight: normal; font-style: normal;">// Outputs that are needed to assign the medium properties</span>
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+>Modelica.Blocks.Interfaces.RealOutput</a> hOut_internal(unit=&quot;J/kg&quot;) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Internal connector for leaving temperature of the component&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+>Modelica.Blocks.Interfaces.RealOutput</a> XiOut_internal[Medium.nXi](<span style="color: blue; font-weight: normal; font-style: normal;">each </span>unit=&quot;1&quot;) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Internal connector for leaving species concentration of the component&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+>Modelica.Blocks.Interfaces.RealOutput</a> COut_internal[Medium.nC](<span style="color: blue; font-weight: normal; font-style: normal;">each </span>unit=&quot;1&quot;) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Internal connector for leaving trace substances of the component&quot;</span>;
+
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.RealExpression"
+>Modelica.Blocks.Sources.RealExpression</a> QSen_flow(y=heatPort.Q_flow) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Block to set sensible heat input into volume&quot;</span>;
+
+<span style="color: blue; font-weight: normal; font-style: normal;">equation </span>
+  <span style="color: #006400; font-weight: normal; font-style: normal;">///////////////////////////////////////////////////////////////////////////</span>
+  <span style="color: #006400; font-weight: normal; font-style: normal;">// asserts</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">if </span><span style="color: blue; font-weight: normal; font-style: normal;">not </span>allowFlowReversal<span style="color: blue; font-weight: normal; font-style: normal;"> then</span>
+    <span style="color: red; font-weight: normal; font-style: normal;">assert</span>(ports[1].m_flow &gt; -m_flow_small,
+&quot;Model has flow reversal, but the parameter allowFlowReversal is set to false.
+  m_flow_small    = &quot; +<span style="color: red; font-weight: normal; font-style: normal;"> String</span>(m_flow_small) + &quot;
+  ports[1].m_flow = &quot; +<span style="color: red; font-weight: normal; font-style: normal;"> String</span>(ports[1].m_flow) + &quot;
+&quot;);
+  <span style="color: blue; font-weight: normal; font-style: normal;">end if</span>;
+  <span style="color: #006400; font-weight: normal; font-style: normal;">// Actual definition of port variables.</span>
+  <span style="color: #006400; font-weight: normal; font-style: normal;">//</span>
+  <span style="color: #006400; font-weight: normal; font-style: normal;">// If the model computes the energy and mass balances as steady-state,</span>
+  <span style="color: #006400; font-weight: normal; font-style: normal;">// and if it has only two ports,</span>
+  <span style="color: #006400; font-weight: normal; font-style: normal;">// then we use the same base class as for all other steady state models.</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">if </span>useSteadyStateTwoPort<span style="color: blue; font-weight: normal; font-style: normal;"> then</span>
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(steBal.port_a, ports[1]);
+
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(steBal.port_b, ports[2]);
+
+    <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(hOut_internal,  steBal.hOut);
+    <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(XiOut_internal, steBal.XiOut);
+    <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(COut_internal,  steBal.COut);
+  <span style="color: blue; font-weight: normal; font-style: normal;">else</span>
+    <span style="color: red; font-weight: normal; font-style: normal;">  connect</span>(dynBal.ports, ports);
+
+    <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(hOut_internal,  dynBal.hOut);
+    <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(XiOut_internal, dynBal.XiOut);
+    <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(COut_internal,  dynBal.COut);
+  <span style="color: blue; font-weight: normal; font-style: normal;">end if</span>;
+  <span style="color: #006400; font-weight: normal; font-style: normal;">// Medium properties</span>
+  p = <span style="color: blue; font-weight: normal; font-style: normal;">if </span>nPorts &gt; 0<span style="color: blue; font-weight: normal; font-style: normal;"> then </span>ports[1].p<span style="color: blue; font-weight: normal; font-style: normal;"> else </span>p_start;
+  T =<span style="color: red; font-weight: normal; font-style: normal;"> Medium.temperature_phX</span>(p=p, h=hOut_internal, X=<span style="color: red; font-weight: normal; font-style: normal;">cat</span>(1,Xi,{1-<span style="color: red; font-weight: normal; font-style: normal;">sum</span>(Xi)}));
+  Xi = XiOut_internal;
+  C = COut_internal;
+  <span style="color: #006400; font-weight: normal; font-style: normal;">// Port properties</span>
+  heatPort.T = T;
+
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>PartialMixingVolume;
+</div>
+<hr>
+<address>
+<a href="http://www.3ds.com/">Automatically generated</a> Thu Apr  9 09:36:22 2015.
+</address>
+</body>
+</html>

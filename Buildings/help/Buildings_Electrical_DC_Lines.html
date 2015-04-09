@@ -1,0 +1,367 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>Buildings.Electrical.DC.Lines</title>
+<meta name="HTML-Generator" content="Dymola">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="description" content="&quot;Package with models for DC electrical lines&quot;">
+<style type="text/css">
+*       { font-size: 10pt; font-family: Arial, sans-serif; }
+.modelica, .modelica * { font-size: 9pt; font-family: Courier, monospace; white-space: pre; }
+h4      { font-size: 10pt; font-weight: bold; color: green; }
+h3      { font-size: 11pt; font-weight: bold; color: green; }
+h2      { font-size: 13pt; font-weight: bold; color: green; }
+address { font-weight: normal; }
+td      { border: 1px solid #808080; vertical-align: top; }
+th      { border: 1px solid #808080; vertical-align: top; font-weight: bold; }
+table   { border: 1px solid #808080; border-collapse: collapse; }
+</style>
+<link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../Resources/www/modelicaDoc.css">
+</HEAD>
+<body>
+<!-- --- header ------ -->
+<div class="headerStyle">
+<img src="../Resources/www/lbl-logo.png" alt="LBL logo"/>
+</div>
+<div class="headerLinks">
+<ul><li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt; <a href="Buildings.html">Modelica</a></li></ul>
+</div>
+<!-- --- end header -- -->
+
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE Lines<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><a name="Buildings.Electrical.DC.Lines"></a><a href="Buildings_Electrical_DC.html#Buildings.Electrical.DC"
+>Buildings.Electrical.DC</a>.Lines</h2>
+<p>
+<b>Package with models for DC electrical lines</b><br>
+</p>
+<h3>Information</h3>
+
+<p>
+This package contains models for lines for DC circuits.
+</p>
+
+<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons_Package.html#Modelica.Icons.Package"
+>Modelica.Icons.Package</a> (Icon for standard packages).</p>
+<h3>Package Content</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Package Content">
+<tr>
+<th>Name</th>
+<th>Description</th>
+</tr>
+<tr>
+<td><img src="Buildings.Electrical.DC.Lines.LineS.png" alt="Buildings.Electrical.DC.Lines.Line" width="20" height="20" align="top">&nbsp;<a href="Buildings_Electrical_DC_Lines.html#Buildings.Electrical.DC.Lines.Line"
+>Line</a>
+</td>
+<td>Model of a DC electrical line</td>
+</tr>
+<tr>
+<td><img src="Buildings.Electrical.DC.L015304bb5cd206c0CLineS.png" alt="Buildings.Electrical.DC.Lines.TwoPortRCLine" width="20" height="20" align="top">&nbsp;<a href="Buildings_Electrical_DC_Lines.html#Buildings.Electrical.DC.Lines.TwoPortRCLine"
+>TwoPortRCLine</a>
+</td>
+<td>Model of a two port DC resistance and capacity (T-model)</td>
+</tr>
+<tr>
+<td><img src="Buildings.Electrical.DC.Lf96b82df5724feddtanceS.png" alt="Buildings.Electrical.DC.Lines.TwoPortResistance" width="20" height="20" align="top">&nbsp;<a href="Buildings_Electrical_DC_Lines.html#Buildings.Electrical.DC.Lines.TwoPortResistance"
+>TwoPortResistance</a>
+</td>
+<td>Model of a two port DC resistance</td>
+</tr>
+<tr>
+<td><img src="Buildings.Electrical.DC.Lines.ExamplesS.png" alt="Buildings.Electrical.DC.Lines.Examples" width="20" height="20" align="top">&nbsp;<a href="Buildings_Electrical_DC_Lines_Examples.html#Buildings.Electrical.DC.Lines.Examples"
+>Examples</a>
+</td>
+<td>Package with example models</td>
+</tr>
+</table>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE Line<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Electrical.DC.Lines.LineI.png" alt="Buildings.Electrical.DC.Lines.Line" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Electrical.DC.Lines.Line"></a><a href="Buildings_Electrical_DC_Lines.html#Buildings.Electrical.DC.Lines"
+>Buildings.Electrical.DC.Lines</a>.Line</h2>
+<p>
+<b>Model of a DC electrical line</b>
+<br>
+<br><img src="Buildings.Electrical.DC.Lines.LineD.png" alt="Buildings.Electrical.DC.Lines.Line">
+</p>
+<h3>Information</h3>
+
+<p>
+This model represents a DC cable. The model is based on
+<a href="Buildings_Electrical_DC_Lines.html#Buildings.Electrical.DC.Lines.TwoPortRCLine"
+>
+Buildings.Electrical.DC.Lines.TwoPortRCLine</a>
+and provides functionalities to parametrize the values of <i>R</i> and <i>C</i> either
+using commercial cables or using default values.
+</p>
+
+<p>Extends from <a href="Buildings_Electrical_Transmission_BaseClasses.html#Buildings.Electrical.Transmission.BaseClasses.PartialLine"
+>Buildings.Electrical.Transmission.BaseClasses.PartialLine</a> (Partial cable line dispersion model).</p>
+<h3>Parameters</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td colspan="2">replaceable package PhaseSystem_p</td><td><a href="Buildings_Electrical_PhaseSystems_PartialPhaseSystem.html#Buildings.Electrical.PhaseSystems.PartialPhaseSystem"
+>PartialPhaseSystem</a></td><td>Phase system of terminal p</td></tr>
+<tr><td colspan="2">replaceable package PhaseSystem_n</td><td><a href="Buildings_Electrical_PhaseSystems_PartialPhaseSystem.html#Buildings.Electrical.PhaseSystems.PartialPhaseSystem"
+>PartialPhaseSystem</a></td><td>Phase system of terminal n</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Length"
+>Length</a></td><td>l</td><td>&nbsp;</td><td>Length of the line [m]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Power"
+>Power</a></td><td>P_nominal</td><td>&nbsp;</td><td>Nominal power of the line [W]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Voltage"
+>Voltage</a></td><td>V_nominal</td><td>&nbsp;</td><td>Nominal voltage of the line [V]</td></tr>
+<tr style="background-color: #c0c0c0"><td colspan="4"><b>Model</b></td></tr>
+<tr style="background-color: #e0e0e0"><td colspan="4">Assumptions</td></tr>
+<tr><td>Boolean</td><td>use_C</td><td>false</td><td>Set to true to add a capacitance in the center of the line</td></tr>
+<tr><td><a href="Buildings_Electrical_Types.html#Buildings.Electrical.Types.Load"
+>Load</a></td><td>modelMode</td><td>Types.Load.FixedZ_steady_state</td><td>Select between steady state and dynamic model</td></tr>
+<tr style="background-color: #e0e0e0"><td colspan="4">Thermal</td></tr>
+<tr><td>Boolean</td><td>use_T</td><td>false</td><td>If true, enables the input for the temperature of the cable</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+>Temperature</a></td><td>TCable</td><td>T_ref</td><td>Fixed temperature of the cable [K]</td></tr>
+<tr style="background-color: #c0c0c0"><td colspan="4"><b>Tech. specification</b></td></tr>
+<tr style="background-color: #e0e0e0"><td colspan="4">Auto/Manual mode</td></tr>
+<tr><td><a href="Buildings_Electrical_Types.html#Buildings.Electrical.Types.CableMode"
+>CableMode</a></td><td>mode</td><td>Buildings.Electrical.Types.C...</td><td>Select if choosing the cable automatically or between a list of commercial options</td></tr>
+<tr style="background-color: #e0e0e0"><td colspan="4">Manual mode</td></tr>
+<tr><td><a href="Buildings_Electrical_Transmission_LowVoltageCables.html#Buildings.Electrical.Transmission.LowVoltageCables.Generic"
+>Generic</a></td><td>commercialCable</td><td>Buildings.Electrical.Transmi...</td><td>Commercial cables options</td></tr>
+</table>
+<h3>Connectors</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Connectors">
+<tr><th>Type</th><th>Name</th><th>Description</th></tr>
+<tr><td colspan="2">replaceable package PhaseSystem_p</td><td>Phase system of terminal p</td></tr>
+<tr><td colspan="2">replaceable package PhaseSystem_n</td><td>Phase system of terminal n</td></tr>
+<tr><td>input <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>RealInput</a></td><td>T</td><td>Temperature of the cable</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">model</span> Line <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Model of a DC electrical line&quot;</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="Buildings_Electrical_Transmission_BaseClasses.html#Buildings.Electrical.Transmission.BaseClasses.PartialLine"
+>Buildings.Electrical.Transmission.BaseClasses.PartialLine</a>(
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> PhaseSystem_p = <a href="Buildings_Electrical_PhaseSystems_TwoConductor.html#Buildings.Electrical.PhaseSystems.TwoConductor"
+>PhaseSystems.TwoConductor</a>,
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> PhaseSystem_n = <a href="Buildings_Electrical_PhaseSystems_TwoConductor.html#Buildings.Electrical.PhaseSystems.TwoConductor"
+>PhaseSystems.TwoConductor</a>,
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><a href="Buildings_Electrical_DC_Interfaces.html#Buildings.Electrical.DC.Interfaces.Terminal_n"
+>Interfaces.Terminal_n</a> terminal_n,
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><a href="Buildings_Electrical_DC_Interfaces.html#Buildings.Electrical.DC.Interfaces.Terminal_p"
+>Interfaces.Terminal_p</a> terminal_p,
+    <span style="color: blue; font-weight: normal; font-style: normal;">final </span>modelMode=Types.Load.FixedZ_steady_state,
+    commercialCable =<span style="color: red; font-weight: normal; font-style: normal;"> Buildings.Electrical.Transmission.Functions.selectCable_low</span>(P_nominal, V_nominal));
+
+  <a href="Buildings_Electrical_DC_Lines.html#Buildings.Electrical.DC.Lines.TwoPortRCLine"
+>TwoPortRCLine</a> lineRC(
+    <span style="color: blue; font-weight: normal; font-style: normal;">final </span>useHeatPort=true,
+    <span style="color: blue; font-weight: normal; font-style: normal;">final </span>R=R,
+    <span style="color: blue; font-weight: normal; font-style: normal;">final </span>V_nominal=V_nominal,
+    <span style="color: blue; font-weight: normal; font-style: normal;">final </span>T_ref=T_ref,
+    <span style="color: blue; font-weight: normal; font-style: normal;">final </span>M=M,
+    <span style="color: blue; font-weight: normal; font-style: normal;">final </span>C=C,
+    <span style="color: blue; font-weight: normal; font-style: normal;">final </span>use_C=use_C);
+<span style="color: blue; font-weight: normal; font-style: normal;">equation </span>
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(terminal_n, lineRC.terminal_n);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(lineRC.terminal_p, terminal_p);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(cableTemp.port, lineRC.heatPort);
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>Line;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE TwoPortRCLine<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Electrical.DC.L015304bb5cd206c0CLineI.png" alt="Buildings.Electrical.DC.Lines.TwoPortRCLine" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Electrical.DC.Lines.TwoPortRCLine"></a><a href="Buildings_Electrical_DC_Lines.html#Buildings.Electrical.DC.Lines"
+>Buildings.Electrical.DC.Lines</a>.TwoPortRCLine</h2>
+<p>
+<b>Model of a two port DC resistance and capacity (T-model)</b>
+<br>
+<br><img src="Buildings.Electrical.DC.L015304bb5cd206c0CLineD.png" alt="Buildings.Electrical.DC.Lines.TwoPortRCLine">
+</p>
+<h3>Information</h3>
+
+<p>
+This model represents a series of two resistances and a capacitance that connect two DC interfaces.
+This model can be used to represent a cable in a DC grid.
+</p>
+<p>
+The model represents the lumped resistances and capacity (T-model) as shown in the figure below.
+</p>
+<p align="center">
+<img alt="image" src="../Resources/Images/Electrical/DC/Lines/twoPortRC.png"/>
+</p>
+<p>
+As can be seen in the figure, the resistance <i>R</i> is split in two halves
+and the capacitance is located in the center.
+The capacitance in the center is optional and can be selected using the
+boolean flag <code>use_C = true</code>. The model is either dynamic or static depending on the
+presence of the capacitive effect.
+</p>
+
+<p>Extends from <a href="Buildings_Electrical_Transmission_BaseClasses.html#Buildings.Electrical.Transmission.BaseClasses.PartialTwoPortRLC"
+>Buildings.Electrical.Transmission.BaseClasses.PartialTwoPortRLC</a> (Partial model of an RLC element that links two electrical connectors).</p>
+<h3>Parameters</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td colspan="2">replaceable package PhaseSystem_p</td><td><a href="Buildings_Electrical_PhaseSystems_PartialPhaseSystem.html#Buildings.Electrical.PhaseSystems.PartialPhaseSystem"
+>PartialPhaseSystem</a></td><td>Phase system of terminal p</td></tr>
+<tr><td colspan="2">replaceable package PhaseSystem_n</td><td><a href="Buildings_Electrical_PhaseSystems_PartialPhaseSystem.html#Buildings.Electrical.PhaseSystems.PartialPhaseSystem"
+>PartialPhaseSystem</a></td><td>Phase system of terminal n</td></tr>
+<tr><td>Boolean</td><td>useHeatPort</td><td>false</td><td>=true, if HeatPort is enabled</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+>Temperature</a></td><td>T</td><td>T_ref</td><td>Fixed device temperature if useHeatPort = false [K]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Resistance"
+>Resistance</a></td><td>R</td><td>&nbsp;</td><td>Resistance at temperature T_ref [Ohm]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+>Temperature</a></td><td>T_ref</td><td>298.15</td><td>Reference temperature [K]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+>Temperature</a></td><td>M</td><td>507.65</td><td>Temperature constant (R_actual = R*(M + T_heatPort)/(M + T_ref)) [K]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Capacitance"
+>Capacitance</a></td><td>C</td><td>&nbsp;</td><td>Capacity [F]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Inductance"
+>Inductance</a></td><td>L</td><td>0</td><td>Inductance [H]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Voltage"
+>Voltage</a></td><td>Vc_start</td><td>V_nominal</td><td>Initial value of the voltage of the capacitance in the middle of the line [V]</td></tr>
+<tr style="background-color: #e0e0e0"><td colspan="4">Nominal conditions</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Voltage"
+>Voltage</a></td><td>V_nominal</td><td>&nbsp;</td><td>Nominal voltage (V_nominal &gt;= 0) [V]</td></tr>
+<tr style="background-color: #c0c0c0"><td colspan="4"><b>Model</b></td></tr>
+<tr style="background-color: #e0e0e0"><td colspan="4">Assumptions</td></tr>
+<tr><td>Boolean</td><td>use_C</td><td>false</td><td>Set to true to add a capacitance in the center of the line</td></tr>
+</table>
+<h3>Connectors</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Connectors">
+<tr><th>Type</th><th>Name</th><th>Description</th></tr>
+<tr><td colspan="2">replaceable package PhaseSystem_p</td><td>Phase system of terminal p</td></tr>
+<tr><td colspan="2">replaceable package PhaseSystem_n</td><td>Phase system of terminal n</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Thermal_HeatTransfer_Interfaces.html#Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a"
+>HeatPort_a</a></td><td>heatPort</td><td>&nbsp;</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">model</span> TwoPortRCLine <span style="color: #006400; font-weight: normal; font-style: normal;">
+  &quot;Model of a two port DC resistance and capacity (T-model)&quot;</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="Buildings_Electrical_Transmission_BaseClasses.html#Buildings.Electrical.Transmission.BaseClasses.PartialTwoPortRLC"
+>Buildings.Electrical.Transmission.BaseClasses.PartialTwoPortRLC</a>(
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> PhaseSystem_p = <a href="Buildings_Electrical_PhaseSystems_TwoConductor.html#Buildings.Electrical.PhaseSystems.TwoConductor"
+>PhaseSystems.TwoConductor</a>,
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> PhaseSystem_n = <a href="Buildings_Electrical_PhaseSystems_TwoConductor.html#Buildings.Electrical.PhaseSystems.TwoConductor"
+>PhaseSystems.TwoConductor</a>,
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><a href="Buildings_Electrical_DC_Interfaces.html#Buildings.Electrical.DC.Interfaces.Terminal_n"
+>Interfaces.Terminal_n</a> terminal_n,
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><a href="Buildings_Electrical_DC_Interfaces.html#Buildings.Electrical.DC.Interfaces.Terminal_p"
+>Interfaces.Terminal_p</a> terminal_p,
+    <span style="color: blue; font-weight: normal; font-style: normal;">final </span>L=0);
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Boolean use_C = false <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Set to true to add a capacitance in the center of the line&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Voltage"
+>Modelica.SIunits.Voltage</a> Vc_start = V_nominal <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Initial value of the voltage of the capacitance in the middle of the line&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Voltage"
+>Modelica.SIunits.Voltage</a> Vc(start = Vc_start, stateSelect = StateSelect.prefer) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Voltage of the capacitor&quot;</span>;
+<span style="color: blue; font-weight: normal; font-style: normal;">initial </span><span style="color: blue; font-weight: normal; font-style: normal;">equation </span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">if </span>C&gt;0<span style="color: blue; font-weight: normal; font-style: normal;"> and </span>use_C<span style="color: blue; font-weight: normal; font-style: normal;"> then</span>
+    Vc = Vc_start;
+  <span style="color: blue; font-weight: normal; font-style: normal;">end if</span>;
+<span style="color: blue; font-weight: normal; font-style: normal;">equation </span>
+  terminal_p.v[1] - (Vc+terminal_p.v[2]) = terminal_p.i[1]*R_actual/2;
+  terminal_n.v[1] - (Vc+terminal_p.v[2]) = terminal_n.i[1]*R_actual/2;
+
+  <span style="color: blue; font-weight: normal; font-style: normal;">if </span>C&gt;0<span style="color: blue; font-weight: normal; font-style: normal;"> and </span>use_C<span style="color: blue; font-weight: normal; font-style: normal;"> then</span>
+    C*<span style="color: red; font-weight: normal; font-style: normal;">der</span>(Vc) = terminal_p.i[1] + terminal_n.i[1];
+  <span style="color: blue; font-weight: normal; font-style: normal;">else</span>
+    Vc = 0.5*(terminal_p.v[1] - terminal_p.v[2] + terminal_n.v[1] - terminal_n.v[2]);
+  <span style="color: blue; font-weight: normal; font-style: normal;">end if</span>;
+
+  terminal_p.v[2] = terminal_n.v[2];
+  terminal_p.i[2] + terminal_n.i[2] = 0;
+
+  <span style="color: #006400; font-weight: normal; font-style: normal;">// Joule losses</span>
+  LossPower = R_actual/2*terminal_p.i[1]^2 + R_actual/2*terminal_n.i[1]^2;
+
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>TwoPortRCLine;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE TwoPortResistance<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Electrical.DC.Lf96b82df5724feddtanceI.png" alt="Buildings.Electrical.DC.Lines.TwoPortResistance" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Electrical.DC.Lines.TwoPortResistance"></a><a href="Buildings_Electrical_DC_Lines.html#Buildings.Electrical.DC.Lines"
+>Buildings.Electrical.DC.Lines</a>.TwoPortResistance</h2>
+<p>
+<b>Model of a two port DC resistance</b>
+<br>
+<br><img src="Buildings.Electrical.DC.L015304bb5cd206c0CLineD.png" alt="Buildings.Electrical.DC.Lines.TwoPortResistance">
+</p>
+<h3>Information</h3>
+
+<p>
+This model represents a resistance that connect two DC interfaces. This model can be used
+to represent a cable in a DC grid.
+</p>
+<p>
+The model represents the lumped resistance as shown in the figure below.
+</p>
+<p align="center">
+<img alt="image" src="../Resources/Images/Electrical/DC/Lines/twoPortR.png"/>
+</p>
+
+<p>Extends from <a href="Buildings_Electrical_Transmission_BaseClasses.html#Buildings.Electrical.Transmission.BaseClasses.PartialTwoPortResistance"
+>Buildings.Electrical.Transmission.BaseClasses.PartialTwoPortResistance</a> (Partial model of a resistive element that links two electrical connectors).</p>
+<h3>Parameters</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td colspan="2">replaceable package PhaseSystem_p</td><td><a href="Buildings_Electrical_PhaseSystems_PartialPhaseSystem.html#Buildings.Electrical.PhaseSystems.PartialPhaseSystem"
+>PartialPhaseSystem</a></td><td>Phase system of terminal p</td></tr>
+<tr><td colspan="2">replaceable package PhaseSystem_n</td><td><a href="Buildings_Electrical_PhaseSystems_PartialPhaseSystem.html#Buildings.Electrical.PhaseSystems.PartialPhaseSystem"
+>PartialPhaseSystem</a></td><td>Phase system of terminal n</td></tr>
+<tr><td>Boolean</td><td>useHeatPort</td><td>false</td><td>=true, if HeatPort is enabled</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+>Temperature</a></td><td>T</td><td>T_ref</td><td>Fixed device temperature if useHeatPort = false [K]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Resistance"
+>Resistance</a></td><td>R</td><td>&nbsp;</td><td>Resistance at temperature T_ref [Ohm]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+>Temperature</a></td><td>T_ref</td><td>298.15</td><td>Reference temperature [K]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+>Temperature</a></td><td>M</td><td>507.65</td><td>Temperature constant (R_actual = R*(M + T_heatPort)/(M + T_ref)) [K]</td></tr>
+</table>
+<h3>Connectors</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Connectors">
+<tr><th>Type</th><th>Name</th><th>Description</th></tr>
+<tr><td colspan="2">replaceable package PhaseSystem_p</td><td>Phase system of terminal p</td></tr>
+<tr><td colspan="2">replaceable package PhaseSystem_n</td><td>Phase system of terminal n</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Thermal_HeatTransfer_Interfaces.html#Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a"
+>HeatPort_a</a></td><td>heatPort</td><td>&nbsp;</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">model</span> TwoPortResistance <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Model of a two port DC resistance&quot;</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="Buildings_Electrical_Transmission_BaseClasses.html#Buildings.Electrical.Transmission.BaseClasses.PartialTwoPortResistance"
+>Buildings.Electrical.Transmission.BaseClasses.PartialTwoPortResistance</a>
+    (
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> PhaseSystem_p = <a href="Buildings_Electrical_PhaseSystems_TwoConductor.html#Buildings.Electrical.PhaseSystems.TwoConductor"
+>PhaseSystems.TwoConductor</a>,
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> PhaseSystem_n = <a href="Buildings_Electrical_PhaseSystems_TwoConductor.html#Buildings.Electrical.PhaseSystems.TwoConductor"
+>PhaseSystems.TwoConductor</a>,
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><a href="Buildings_Electrical_DC_Interfaces.html#Buildings.Electrical.DC.Interfaces.Terminal_n"
+>Interfaces.Terminal_n</a> terminal_n,
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><a href="Buildings_Electrical_DC_Interfaces.html#Buildings.Electrical.DC.Interfaces.Terminal_p"
+>Interfaces.Terminal_p</a> terminal_p);
+<span style="color: blue; font-weight: normal; font-style: normal;">equation </span>
+  <span style="color: #006400; font-weight: normal; font-style: normal;">// Voltage drop on the resistance lumped on connection between terminals</span>
+  <span style="color: #006400; font-weight: normal; font-style: normal;">// p.v[1] and n.v[1]</span>
+  terminal_p.v[1] - terminal_n.v[1] = terminal_p.i[1]*R_actual;
+  terminal_p.v[2] = terminal_n.v[2];
+
+  <span style="color: #006400; font-weight: normal; font-style: normal;">// Joule losses</span>
+  LossPower = R_actual*terminal_p.i[1]^2;
+
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>TwoPortResistance;
+</div>
+<hr>
+<address>
+<a href="http://www.3ds.com/">Automatically generated</a> Thu Apr  9 09:34:11 2015.
+</address>
+</body>
+</html>

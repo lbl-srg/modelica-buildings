@@ -1,0 +1,105 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>Buildings.Utilities.Time</title>
+<meta name="HTML-Generator" content="Dymola">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="description" content="&quot;Package with models for time&quot;">
+<style type="text/css">
+*       { font-size: 10pt; font-family: Arial, sans-serif; }
+.modelica, .modelica * { font-size: 9pt; font-family: Courier, monospace; white-space: pre; }
+h4      { font-size: 10pt; font-weight: bold; color: green; }
+h3      { font-size: 11pt; font-weight: bold; color: green; }
+h2      { font-size: 13pt; font-weight: bold; color: green; }
+address { font-weight: normal; }
+td      { border: 1px solid #808080; vertical-align: top; }
+th      { border: 1px solid #808080; vertical-align: top; font-weight: bold; }
+table   { border: 1px solid #808080; border-collapse: collapse; }
+</style>
+<link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../Resources/www/modelicaDoc.css">
+</HEAD>
+<body>
+<!-- --- header ------ -->
+<div class="headerStyle">
+<img src="../Resources/www/lbl-logo.png" alt="LBL logo"/>
+</div>
+<div class="headerLinks">
+<ul><li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt; <a href="Buildings.html">Modelica</a></li></ul>
+</div>
+<!-- --- end header -- -->
+
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE Time<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><a name="Buildings.Utilities.Time"></a><a href="Buildings_Utilities.html#Buildings.Utilities"
+>Buildings.Utilities</a>.Time</h2>
+<p>
+<b>Package with models for time</b><br>
+</p>
+<h3>Information</h3>
+
+<p>
+This package contains models for time.
+</p>
+
+<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons_Package.html#Modelica.Icons.Package"
+>Modelica.Icons.Package</a> (Icon for standard packages).</p>
+<h3>Package Content</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Package Content">
+<tr>
+<th>Name</th>
+<th>Description</th>
+</tr>
+<tr>
+<td><img src="Buildings.Utilities.Time.ModelTimeS.png" alt="Buildings.Utilities.Time.ModelTime" width="20" height="20" align="top">&nbsp;<a href="Buildings_Utilities_Time.html#Buildings.Utilities.Time.ModelTime"
+>ModelTime</a>
+</td>
+<td>Model time</td>
+</tr>
+<tr>
+<td><img src="Buildings.Utilities.Time.ExamplesS.png" alt="Buildings.Utilities.Time.Examples" width="20" height="20" align="top">&nbsp;<a href="Buildings_Utilities_Time_Examples.html#Buildings.Utilities.Time.Examples"
+>Examples</a>
+</td>
+<td>Collection of models that illustrate model use and test models</td>
+</tr>
+</table>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE ModelTime<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Utilities.Time.ModelTimeI.png" alt="Buildings.Utilities.Time.ModelTime" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Utilities.Time.ModelTime"></a><a href="Buildings_Utilities_Time.html#Buildings.Utilities.Time"
+>Buildings.Utilities.Time</a>.ModelTime</h2>
+<p>
+<b>Model time</b>
+<br>
+<br><img src="Buildings.Utilities.Time.ModelTimeD.png" alt="Buildings.Utilities.Time.ModelTime">
+</p>
+<h3>Information</h3>
+
+<p>This component outputs the model time, which starts at the value at which the simulation starts. For example, if a simulation starts at <i>t=-1</i>, then this block outputs first <i>t=-1</i>, and its output is advanced at the same rate as the simulation time. </p>
+<p>The model is used to allow the simulation to start from any time without having to set the parameters for the clock, as would be necessary for the model <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Clock"
+>Modelica.Blocks.Sources.Clock</a>. </p>
+
+<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.SO"
+>Modelica.Blocks.Interfaces.SO</a> (Single Output continuous control block).</p>
+<h3>Connectors</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Connectors">
+<tr><th>Type</th><th>Name</th><th>Description</th></tr>
+<tr><td>output <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+>RealOutput</a></td><td>y</td><td>Connector of Real output signal</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">block</span> ModelTime <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Model time&quot;</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.SO"
+>Modelica.Blocks.Interfaces.SO</a>;
+<span style="color: blue; font-weight: normal; font-style: normal;">equation </span>
+  y = time;
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>ModelTime;
+</div>
+<hr>
+<address>
+<a href="http://www.3ds.com/">Automatically generated</a> Thu Apr  9 09:41:36 2015.
+</address>
+</body>
+</html>

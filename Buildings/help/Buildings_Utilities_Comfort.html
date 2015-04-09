@@ -1,0 +1,487 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>Buildings.Utilities.Comfort</title>
+<meta name="HTML-Generator" content="Dymola">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="description" content="&quot;Library with models for comfort&quot;">
+<style type="text/css">
+*       { font-size: 10pt; font-family: Arial, sans-serif; }
+.modelica, .modelica * { font-size: 9pt; font-family: Courier, monospace; white-space: pre; }
+h4      { font-size: 10pt; font-weight: bold; color: green; }
+h3      { font-size: 11pt; font-weight: bold; color: green; }
+h2      { font-size: 13pt; font-weight: bold; color: green; }
+address { font-weight: normal; }
+td      { border: 1px solid #808080; vertical-align: top; }
+th      { border: 1px solid #808080; vertical-align: top; font-weight: bold; }
+table   { border: 1px solid #808080; border-collapse: collapse; }
+</style>
+<link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../Resources/www/modelicaDoc.css">
+</HEAD>
+<body>
+<!-- --- header ------ -->
+<div class="headerStyle">
+<img src="../Resources/www/lbl-logo.png" alt="LBL logo"/>
+</div>
+<div class="headerLinks">
+<ul><li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt; <a href="Buildings.html">Modelica</a></li></ul>
+</div>
+<!-- --- end header -- -->
+
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE Comfort<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><a name="Buildings.Utilities.Comfort"></a><a href="Buildings_Utilities.html#Buildings.Utilities"
+>Buildings.Utilities</a>.Comfort</h2>
+<p>
+<b>Library with models for comfort</b><br>
+</p>
+<h3>Information</h3>
+
+This package contains models for comfort.
+
+<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons_VariantsPackage.html#Modelica.Icons.VariantsPackage"
+>Modelica.Icons.VariantsPackage</a> (Icon for package containing variants).</p>
+<h3>Package Content</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Package Content">
+<tr>
+<th>Name</th>
+<th>Description</th>
+</tr>
+<tr>
+<td><img src="Buildings.Utilities.Comfort.FangerS.png" alt="Buildings.Utilities.Comfort.Fanger" width="20" height="20" align="top">&nbsp;<a href="Buildings_Utilities_Comfort.html#Buildings.Utilities.Comfort.Fanger"
+>Fanger</a>
+</td>
+<td>Thermal comfort model according to Fanger</td>
+</tr>
+<tr>
+<td><img src="Buildings.Utilities.Comfort.ExamplesS.png" alt="Buildings.Utilities.Comfort.Examples" width="20" height="20" align="top">&nbsp;<a href="Buildings_Utilities_Comfort_Examples.html#Buildings.Utilities.Comfort.Examples"
+>Examples</a>
+</td>
+<td>Collection of models that illustrate model use and test models</td>
+</tr>
+</table>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE Fanger<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Utilities.Comfort.FangerI.png" alt="Buildings.Utilities.Comfort.Fanger" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Utilities.Comfort.Fanger"></a><a href="Buildings_Utilities_Comfort.html#Buildings.Utilities.Comfort"
+>Buildings.Utilities.Comfort</a>.Fanger</h2>
+<p>
+<b>Thermal comfort model according to Fanger</b>
+<br>
+<br><img src="Buildings.Utilities.Comfort.FangerD.png" alt="Buildings.Utilities.Comfort.Fanger">
+</p>
+<h3>Information</h3>
+
+<p>
+Thermal comfort model according to Fanger, as described in
+the ASHRAE Fundamentals (1997).
+</p>
+<p>
+The thermal sensation of a human being is mainly related to the thermal balance of its
+body as a whole. This balance is influenced by two groups of factors, personal and
+physical. The activity level and clothing thermal insulation of the subject form the
+group of personal factors, while the environmental parameters: air temperature, mean
+radiant temperature, air velocity, and air humidity compose the group of physical
+factors. When the personal factors have been estimated and the physical factors have
+been measured the thermal sensation for the body as a whole (general thermal
+comfort) can be predicted by calculating the PMV index. The PPD index, obtained
+from the PMV index, provides information on thermal discomfort (thermal
+dissatisfaction) by predicting the percentage of people likely to feel too hot or too
+cold in the given thermal environment.
+</p>
+<p>
+The Predicted Mean Vote (PMV) model combines four physical variables
+(air temperature, air velocity, mean radiant temperature, and relative humidity),
+and two personal variables (clothing insulation and activity level)
+into an index that can be used to predict the average thermal sensation
+of a large group of people.
+</p>
+<p>
+To determine appropriate thermal conditions, practitioners refer to standards such
+as ASHRAE Standard 55 (ASHRAE, 1992) and ISO Standard 7730 (ISO, 1994).
+These standards define temperature ranges that should result in thermal satisfaction
+for at least 80% of occupants in a space.
+</p>
+<h4> PMV thermal sensation scale</h4>
+<p>
+The PMV index predicts the mean value of the votes of a large group of
+people on the following 7-point thermal sensation scale:
+</p>
+<table summary="summary" border="1">
+<tr><td>Cold  </td><td>  Cool  </td><td>  Slightly cool  </td><td>  Neutral  </td><td>  Slightly warm  </td><td>  Warm   </td><td>  Hot </td></tr>
+<tr><td>-3 </td><td> -2 </td><td> -1 </td><td> 0 </td><td> +1 </td><td> +2 </td><td> +3 </td></tr>
+</table>
+
+<h4>Operative temperature</h4>
+<p>
+For a given space there exists an optimum operative temperature corresponding to PMV=0 (neutral).
+The operative temperature is defined as: The uniform temperature of an imaginary black enclosure
+in which an occupant would exchange the same amount of heat by radiation plus convection
+as in the actual nonuniform environment.
+The operative temperature is computed as the average of the air temperature
+and the mean radiant temperature, weighted by their respective heat transfer coefficients
+(see ASHRAE Fundamentals, 1997, page 8.3, eq (8)).
+</p>
+
+<h4>Optimum operative temperatures</h4>
+<p>
+<b>Winter:</b>
+activity <i>1.2</i> met,<br/>
+clothing = <i>0.9</i> clo (sweater, long sleeve shirt, heavy pants),<br/>
+air flow = <i>30</i> fpm (<i>0.15</i> m/sec),<br/>
+mean radiant temperature equal to air temperature,<br/>
+Optimum Operative Temperature (top) = <i>22.7</i>&#176; C (<i>71</i>&#176; F)
+</p>
+<p>
+<b>Summer:</b>
+clothing = <i>0.5</i> clo,<br/>
+air flow = <i>50</i> fpm (<i>0.25</i> m/sec),<br/>
+Optimum Operative Temperature (top) = <i>24.4</i>&#176; C (<i>76</i>&#176; F).
+</p>
+<p>
+All equation numbers in the model refer to the ASHRAE Handbook Fundamentals,
+Chapter 8, Thermal Comfort, 1997.</p>
+
+<h4>Usual ranges of variables (ISO)</h4>
+<p>
+M = <i>46</i> to <i>232</i> W/m^2 (<i>0.8</i> to <i>4</i> met)<br/>
+ICl = <i>0</i> to <i>2</i> clo (<i>0</i> to <i>0.310</i> m^2*K/W)<br/>
+TAir_degC = <i>10</i> to <i>30</i>&#176; C<br/>
+TRad_degC = <i>10</i> to <i>40</i>&#176; C<br/>
+vAir = <i>0</i> to <i>1</i> m/s<br/>
+pSte = <i>0</i> to <i>2700</i> Pa
+</p>
+
+<h4>Insulation for clothing ensembles</h4>
+<p>
+Clothing is defined in terms of clo units.  Clo is a unit used to express the thermal insulation provided by garments and clothing ensembles,
+where <i>1</i> clo = <i>0.155</i> (m^2*K/W) (ASHRAE 55-92).
+</p>
+<p>
+The following table is obtained from ASHRAE page 8.8
+</p>
+<table summary="summary" border="1">
+<tr><th>Clothing ensemble</th><th>clo</th></tr>
+<tr><td>ASHRAE Standard 55 Winter</td><td>0.90</td></tr>
+<tr><td>ASHRAE Standard 55 Summer</td><td>0.50</td></tr>
+<tr><td>Walking shorts, short-sleeve shirt</td><td>  0.36</td></tr>
+<tr><td>Trousers, long-sleeve shirt</td><td> 0.61</td></tr>
+<tr><td>Trousers, long-sleeve shirt, suit jacket</td><td> 0.96</td></tr>
+<tr><td>Trousers, long-sleeve shirt, suit jacket, T-shirt</td><td> 1.14</td></tr>
+<tr><td>Trousers, long-sleeve shirt, long-sleeve sweater, T-shirt</td><td> 1.01</td></tr>
+<tr><td>Same as above + suit jacket, long underwear bottoms</td><td> 1.30</td></tr>
+<tr><td>Sweat pants, sweat shirt</td><td> 0.74</td></tr>
+<tr><td>Knee-length skirt, short-sleeve shirt, panty hose, sandals</td><td> 0.54</td></tr>
+<tr><td>Knee-length skirt, long-sleeve shirt, full slip, panty hose</td><td> 0.67</td></tr>
+<tr><td>Knee-length skirt, long-sleeve shirt, half slip, panty hose, long sleeve sweater</td><td> 1.10</td></tr>
+<tr><td>Long-sleeve coveralls, T-shirt</td><td>   0.72</td></tr>
+<tr><td>Insulated coveralls, long-sleeve, thermal underwear, long underwear bottoms</td><td> 1.37</td></tr>
+</table>
+<br/>
+
+<h4> Metabolic rates</h4>
+<p>
+One met is defined as <i>58.2</i> Watts per square meter which is equal to the energy produced
+per unit surface area of a seated person at rest.</p>
+<p>The following table is obtained from ASHRAE page 8.6.</p>
+<table summary="summary" border="1">
+<tr><th>Activity</th><th>W/m2 body surface area</th></tr>
+<tr><td>ASHRAE Standard 55</td><td>58.2</td></tr>
+<tr><td> reclining  </td><td>45</td></tr>
+<tr><td> seated and quiet </td><td>60</td></tr>
+<tr><td> sedentary activity (reading, writing) </td><td>60</td></tr>
+<tr><td> standing, relaxed </td><td>70</td></tr>
+<tr><td> office (filling while standing)</td><td>80</td></tr>
+<tr><td> office (walking)</td><td>100</td></tr>
+<tr><td>Sleeping</td><td>         40     </td></tr>
+<tr><td>Seated quiet</td><td>   60 </td></tr>
+<tr><td>Standing Relaxed</td><td>  70  </td></tr>
+<tr><td>Walking 3.2 - 6.4km/h</td><td> 115-220   </td></tr>
+<tr><td>Reading</td><td> 55</td></tr>
+<tr><td>Writing</td><td> 60</td></tr>
+<tr><td>Typing</td><td> 65</td></tr>
+<tr><td>Lifting/packing</td><td>  120</td></tr>
+<tr><td>Driving Car</td><td> 60-115</td></tr>
+<tr><td>Driving Heavy vehicle</td><td> 185</td></tr>
+<tr><td>Cooking</td><td> 95-115</td></tr>
+<tr><td>Housecleaning</td><td> 115-200</td></tr>
+<tr><td>Machine work</td><td> 105-235</td></tr>
+<tr><td>Pick and shovel work</td><td> 235-280</td></tr>
+<tr><td>Dancing-Social</td><td> 140-225</td></tr>
+<tr><td>Calisthenics</td><td>  175-235</td></tr>
+<tr><td>Basketball</td><td>  290-440</td></tr>
+<tr><td>Wrestling</td><td>  410-505</td></tr>
+</table>
+<br/>
+<h4>References</h4>
+
+<ul><li>
+ASHRAE Handbook, Fundamentals (SI Edition).
+ American Society of Heating, Refrigerating and Air-Conditioning Engineers,
+Chapter 8, Thermal Comfort; pages 8.1-8.26; Atlanta, USA, 1997.
+</li>
+<li>
+International Standards Organization (ISO).
+Moderate Thermal Environments: Determination of the PMV and PPD Indices
+and Specification of the Conditions for Thermal Comfort (ISO 7730).
+Geneva, Switzerland: ISO. 1994.
+</li>
+<li>
+Charles, K.E. Fanger Thermal Comfort and Draught Models. Institute for Research in Construction
+National Research Council of Canada, Ottawa, K1A 0R6, Canada.
+IRC Research Report RR-162. October 2003.
+<a href="http://irc.nrc-cnrc.gc.ca/ircpubs">http://irc.nrc-cnrc.gc.ca/ircpubs</a>.
+</li>
+<li>
+Data, References and Links at: Thermal Comfort; Dr. Sam C M Hui
+Department of Mechanical Engineering
+The University of Hong Kong MEBS6006 Environmental Services I;
+<a href="http://me.hku.hk/msc-courses/MEBS6006/index.html">
+http://me.hku.hk/msc-courses/MEBS6006/index.html</a>
+</li>
+</ul>
+
+<p>Extends from <a href="Buildings_BaseClasses.html#Buildings.BaseClasses.BaseIcon"
+>Buildings.BaseClasses.BaseIcon</a> (Base icon).</p>
+<h3>Parameters</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.HeatFlux"
+>HeatFlux</a></td><td>W</td><td>0</td><td>Rate of mechanical work accomplished (must be non-positive, typically equal to 0) [W/m2]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.CoefficientOfHeatTransfer"
+>CoefficientOfHeatTransfer</a></td><td>hRad</td><td>0.8*4.7</td><td>Radiative heat transfer coefficient [W/(m2.K)]</td></tr>
+<tr style="background-color: #e0e0e0"><td colspan="4">Conditional inputs</td></tr>
+<tr><td>Boolean</td><td>use_vAir_in</td><td>false</td><td>Get the air velocity from the input connector</td></tr>
+<tr><td>Boolean</td><td>use_M_in</td><td>false</td><td>Get the metabolic rate from the input connector</td></tr>
+<tr><td>Boolean</td><td>use_ICl_in</td><td>true</td><td>Get the clothing insulation from the input connector</td></tr>
+<tr><td>Boolean</td><td>use_pAir_in</td><td>false</td><td>Get the air pressure from the input connector</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Velocity"
+>Velocity</a></td><td>vAir</td><td>0.05</td><td>Fixed value for air velocity [m/s]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.HeatFlux"
+>HeatFlux</a></td><td>M</td><td>60</td><td>Fixed value for metabolic rate [W/m2]</td></tr>
+<tr><td>Real</td><td>ICl</td><td>0.7</td><td>Fixed value for clothing insulation in units of clo (summer=0.5; winter=0.9)</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
+>Pressure</a></td><td>pAir</td><td>101325</td><td>Fixed value for air pressure [Pa]</td></tr>
+</table>
+<h3>Connectors</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Connectors">
+<tr><th>Type</th><th>Name</th><th>Description</th></tr>
+<tr><td>output <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+>RealOutput</a></td><td>PMV</td><td>PMV</td></tr>
+<tr><td>output <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+>RealOutput</a></td><td>PPD</td><td>PPD [0.05...1]</td></tr>
+<tr><td>input <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>RealInput</a></td><td>TAir</td><td>Air temperature [K]</td></tr>
+<tr><td>input <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>RealInput</a></td><td>TRad</td><td>Radiation temperature [K]</td></tr>
+<tr><td>input <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>RealInput</a></td><td>phi</td><td>Relative humidity</td></tr>
+<tr><td>input <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>RealInput</a></td><td>pAir_in</td><td>Air pressure [Pa]</td></tr>
+<tr><td>input <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>RealInput</a></td><td>ICl_in</td><td>Clothing thermal resistance in clo</td></tr>
+<tr><td>input <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>RealInput</a></td><td>vAir_in</td><td>Air velocity</td></tr>
+<tr><td>input <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>RealInput</a></td><td>M_in</td><td>Metabolic heat generation in W/m2 (not in met) [W/m2]</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">model</span> Fanger <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Thermal comfort model according to Fanger&quot;</span>
+<span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="Buildings_BaseClasses.html#Buildings.BaseClasses.BaseIcon"
+>Buildings.BaseClasses.BaseIcon</a>;
+
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+>Modelica.Blocks.Interfaces.RealOutput</a> PMV <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;PMV&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+>Modelica.Blocks.Interfaces.RealOutput</a> PPD <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;PPD [0.05...1]&quot;</span>;
+
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.HeatFlux"
+>Modelica.SIunits.HeatFlux</a> W(max=0)=0 <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Rate of mechanical work accomplished (must be non-positive, typically equal to 0)&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.CoefficientOfHeatTransfer"
+>Modelica.SIunits.CoefficientOfHeatTransfer</a> hRad(
+    min=0,
+    max=10)=0.8*4.7 <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Radiative heat transfer coefficient&quot;</span>;
+
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Boolean use_vAir_in=false <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Get the air velocity from the input connector&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Boolean use_M_in= false <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Get the metabolic rate from the input connector&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Boolean use_ICl_in= true <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Get the clothing insulation from the input connector&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Boolean use_pAir_in= false <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Get the air pressure from the input connector&quot;</span>;
+
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Velocity"
+>Modelica.SIunits.Velocity</a> vAir= 0.05 <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Fixed value for air velocity&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.HeatFlux"
+>Modelica.SIunits.HeatFlux</a> M = 60 <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Fixed value for metabolic rate&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Real ICl = 0.7 <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Fixed value for clothing insulation in units of clo (summer=0.5; winter=0.9)&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
+>Modelica.SIunits.Pressure</a> pAir = 101325 <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Fixed value for air pressure&quot;</span>;
+
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>Modelica.Blocks.Interfaces.RealInput</a> TAir(<span style="color: blue; font-weight: normal; font-style: normal;">final </span>quantity=&quot;ThermodynamicTemperature&quot;,
+                                          <span style="color: blue; font-weight: normal; font-style: normal;">final </span>unit = &quot;K&quot;, displayUnit = &quot;degC&quot;) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Air temperature&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>Modelica.Blocks.Interfaces.RealInput</a> TRad(<span style="color: blue; font-weight: normal; font-style: normal;">final </span>quantity=&quot;ThermodynamicTemperature&quot;,
+                                          <span style="color: blue; font-weight: normal; font-style: normal;">final </span>unit = &quot;K&quot;, displayUnit = &quot;degC&quot;) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Radiation temperature&quot;</span>;
+
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+>Modelica.SIunits.Temperature</a> TOpe <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Operative temperature&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+>Modelica.SIunits.Temperature</a> TClo <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Surface temperature of clothing&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+>Modelica.SIunits.Temperature</a> TSki(
+    min=273.15+10,
+    max=273.15+42) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Skin temperature&quot;</span>;
+
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>Modelica.Blocks.Interfaces.RealInput</a> phi(min=0, max=1) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Relative humidity&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>Modelica.Blocks.Interfaces.RealInput</a> pAir_in(
+    <span style="color: blue; font-weight: normal; font-style: normal;">final </span>quantity=&quot;Pressure&quot;,
+    <span style="color: blue; font-weight: normal; font-style: normal;">final </span>unit=&quot;Pa&quot;,
+    min=0) <span style="color: blue; font-weight: normal; font-style: normal;">if </span>use_pAir_in <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Air pressure&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>Modelica.Blocks.Interfaces.RealInput</a> ICl_in <span style="color: blue; font-weight: normal; font-style: normal;">if </span>use_ICl_in <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Clothing thermal resistance in clo&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>Modelica.Blocks.Interfaces.RealInput</a> vAir_in <span style="color: blue; font-weight: normal; font-style: normal;">if </span>
+       use_vAir_in <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Air velocity&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>Modelica.Blocks.Interfaces.RealInput</a> M_in(
+    min=40,
+    max=600,
+    <span style="color: blue; font-weight: normal; font-style: normal;">final </span>quantity=&quot;HeatFlux&quot;,
+    <span style="color: blue; font-weight: normal; font-style: normal;">final </span>unit=&quot;W/m2&quot;) <span style="color: blue; font-weight: normal; font-style: normal;">if </span>use_M_in <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Metabolic heat generation in W/m2 (not in met)&quot;</span>;
+
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.CoefficientOfHeatTransfer"
+>Modelica.SIunits.CoefficientOfHeatTransfer</a> hCom(
+    min=0,
+    max=10) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Combined heat transfer coefficient&quot;</span>;
+
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.CoefficientOfHeatTransfer"
+>Modelica.SIunits.CoefficientOfHeatTransfer</a> hCon(
+    min=0,
+    max=10) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Convective heat transfer coefficient&quot;</span>;
+
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
+>Modelica.SIunits.Pressure</a> pSte(
+    min=0,
+    max=3000) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Partial pressure of water vapor in ambient air&quot;</span>;
+
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.HeatFlux"
+>Modelica.SIunits.HeatFlux</a> L <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Thermal load of the body&quot;</span>;
+  Real fCl(min=0) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Clothing area factor (61)&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.ThermalInsulance"
+>Modelica.SIunits.ThermalInsulance</a> RCl <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Thermal resistance of clothing (10)&quot;</span>;
+
+<span style="color: blue; font-weight: normal; font-style: normal;">protected </span>
+  <a href="Buildings_Utilities_Psychrometrics.html#Buildings.Utilities.Psychrometrics.X_pTphi"
+>Buildings.Utilities.Psychrometrics.X_pTphi</a> steRat <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Model to compute the steam mass fraction&quot;</span>;
+  Real fCl1 <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;work variable for fCl&quot;</span>;
+  Real fCl2 <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;work variable for fCl&quot;</span>;
+  Real aux <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Auxiliary variable used to eliminate common subexpressions&quot;</span>;
+
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>Modelica.Blocks.Interfaces.RealInput</a> vAir_in_internal <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Needed to connect to conditional connector&quot;</span>;
+    <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>Modelica.Blocks.Interfaces.RealInput</a> M_in_internal(
+    min=40,
+    max=600,
+    <span style="color: blue; font-weight: normal; font-style: normal;">final </span>quantity=&quot;HeatFlux&quot;,
+    <span style="color: blue; font-weight: normal; font-style: normal;">final </span>unit=&quot;W/m2&quot;) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Needed to connect to conditional connector&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>Modelica.Blocks.Interfaces.RealInput</a> ICl_in_internal <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Needed to connect to conditional connector&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>Modelica.Blocks.Interfaces.RealInput</a> pAir_in_internal(
+    <span style="color: blue; font-weight: normal; font-style: normal;">final </span>quantity=&quot;Pressure&quot;,
+    <span style="color: blue; font-weight: normal; font-style: normal;">final </span>unit=&quot;Pa&quot;,
+    min=0) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Needed to connect to conditional connector&quot;</span>;
+
+<span style="color: blue; font-weight: normal; font-style: normal;">initial </span><span style="color: blue; font-weight: normal; font-style: normal;">equation </span>
+ <span style="color: red; font-weight: normal; font-style: normal;">assert</span>(W &lt;= 0, &quot;Parameter W must be equal to zero or negative.&quot;);
+<span style="color: blue; font-weight: normal; font-style: normal;">equation </span>
+  <span style="color: #006400; font-weight: normal; font-style: normal;">// Conditional connectors</span>
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(vAir_in, vAir_in_internal);
+  <span style="color: blue; font-weight: normal; font-style: normal;">if </span><span style="color: blue; font-weight: normal; font-style: normal;">not </span>use_vAir_in<span style="color: blue; font-weight: normal; font-style: normal;"> then</span>
+    vAir_in_internal = vAir;
+  <span style="color: blue; font-weight: normal; font-style: normal;">end if</span>;
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(M_in, M_in_internal);
+  <span style="color: blue; font-weight: normal; font-style: normal;">if </span><span style="color: blue; font-weight: normal; font-style: normal;">not </span>use_M_in<span style="color: blue; font-weight: normal; font-style: normal;"> then</span>
+    M_in_internal = M;
+  <span style="color: blue; font-weight: normal; font-style: normal;">end if</span>;
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(ICl_in, ICl_in_internal);
+  <span style="color: blue; font-weight: normal; font-style: normal;">if </span><span style="color: blue; font-weight: normal; font-style: normal;">not </span>use_ICl_in<span style="color: blue; font-weight: normal; font-style: normal;"> then</span>
+    ICl_in_internal = ICl;
+  <span style="color: blue; font-weight: normal; font-style: normal;">end if</span>;
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(pAir_in, pAir_in_internal);
+  <span style="color: blue; font-weight: normal; font-style: normal;">if </span><span style="color: blue; font-weight: normal; font-style: normal;">not </span>use_pAir_in<span style="color: blue; font-weight: normal; font-style: normal;"> then</span>
+    pAir_in_internal = pAir;
+  <span style="color: blue; font-weight: normal; font-style: normal;">end if</span>;
+
+  TSki = 308.85 - 0.0275*(M_in_internal - W);
+
+  <span style="color: #006400; font-weight: normal; font-style: normal;">// partial pressure of steam</span>
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(steRat.p_in, pAir_in_internal);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(steRat.T, TAir);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(steRat.phi, phi);
+  pSte =<span style="color: red; font-weight: normal; font-style: normal;"> Psychrometrics.Functions.pW_X</span>(X_w=steRat.X[1], p=pAir_in_internal);
+
+  <span style="color: #006400; font-weight: normal; font-style: normal;">// clothing insulation value</span>
+  RCl = 0.155 * ICl_in_internal;
+  <span style="color: #006400; font-weight: normal; font-style: normal;">// clothing area factor</span>
+  fCl1 = 1.00 + 0.2*ICl_in_internal;
+  fCl2 = 1.05 + 0.1*ICl_in_internal;
+
+  <span style="color: #006400; font-weight: normal; font-style: normal;">// fcl eq (61)</span>
+  fCl = fCl1 + (fCl2 - fCl1)*<span style="color: red; font-weight: normal; font-style: normal;">Buildings.Utilities.Math.Functions.smoothHeaviside</span>(
+                                 x=(ICl_in_internal - 0.5), delta=0.01);
+  <span style="color: #006400; font-weight: normal; font-style: normal;">// hCon, table 6, Mitchell</span>
+  hCon = 8.3*<span style="color: red; font-weight: normal; font-style: normal;">Buildings.Utilities.Math.Functions.smoothMax</span>(x1=vAir_in_internal*vAir_in_internal,
+                                                          x2=0.0375213,
+                                                          deltaX=0.01)^0.3;
+  hCom = hRad + hCon;
+
+  <span style="color: #006400; font-weight: normal; font-style: normal;">// operative temperature (8)</span>
+  TOpe = (hRad*TRad + hCon*TAir)/hCom;
+
+  <span style="color: #006400; font-weight: normal; font-style: normal;">// Clothing temperature (59)</span>
+  aux = - 3.05*(5.73 - 0.007*(M_in_internal - W) - pSte*1E-3)
+        - 0.42*((M_in_internal - W) - 58.15)
+        - 0.0173*M_in_internal*(5.87 - pSte*1E-3)
+        - 0.0014*M_in_internal*(307.15 - TAir);
+
+  TClo =<span style="color: red; font-weight: normal; font-style: normal;"> Modelica.SIunits.Conversions.from_degC</span>(35.7 - 0.0275 * (M_in_internal-W)
+                 - RCl * (  (M_in_internal-W)
+                 + aux));
+  <span style="color: #006400; font-weight: normal; font-style: normal;">// heat load on body, see (58)</span>
+  L = (M_in_internal - W)
+      - 3.96*1e-8*fCl*(TClo^4 - TRad^4)
+      - fCl*hCon*(TClo - TAir)
+      + aux;
+
+  <span style="color: #006400; font-weight: normal; font-style: normal;">// PMV (62)</span>
+  PMV = (0.303*<span style="color: red; font-weight: normal; font-style: normal;">Modelica.Math.exp</span>(-0.036*M) + 0.028)*L;
+  <span style="color: #006400; font-weight: normal; font-style: normal;">// PPD (64)</span>
+  PPD = 1 - 0.95*<span style="color: red; font-weight: normal; font-style: normal;">Modelica.Math.exp</span>(-(0.03353*PMV^4 + 0.2179*PMV^2));
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>Fanger;
+</div>
+<hr>
+<address>
+<a href="http://www.3ds.com/">Automatically generated</a> Thu Apr  9 09:41:27 2015.
+</address>
+</body>
+</html>

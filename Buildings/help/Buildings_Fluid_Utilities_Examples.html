@@ -1,0 +1,114 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>Buildings.Fluid.Utilities.Examples</title>
+<meta name="HTML-Generator" content="Dymola">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="description" content="&quot;Collection of models that illustrate model use and test models&quot;">
+<style type="text/css">
+*       { font-size: 10pt; font-family: Arial, sans-serif; }
+.modelica, .modelica * { font-size: 9pt; font-family: Courier, monospace; white-space: pre; }
+h4      { font-size: 10pt; font-weight: bold; color: green; }
+h3      { font-size: 11pt; font-weight: bold; color: green; }
+h2      { font-size: 13pt; font-weight: bold; color: green; }
+address { font-weight: normal; }
+td      { border: 1px solid #808080; vertical-align: top; }
+th      { border: 1px solid #808080; vertical-align: top; font-weight: bold; }
+table   { border: 1px solid #808080; border-collapse: collapse; }
+</style>
+<link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../Resources/www/modelicaDoc.css">
+</HEAD>
+<body>
+<!-- --- header ------ -->
+<div class="headerStyle">
+<img src="../Resources/www/lbl-logo.png" alt="LBL logo"/>
+</div>
+<div class="headerLinks">
+<ul><li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt; <a href="Buildings.html">Modelica</a></li></ul>
+</div>
+<!-- --- end header -- -->
+
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE Examples<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><a name="Buildings.Fluid.Utilities.Examples"></a><a href="Buildings_Fluid_Utilities.html#Buildings.Fluid.Utilities"
+>Buildings.Fluid.Utilities</a>.Examples</h2>
+<p>
+<b>Collection of models that illustrate model use and test models</b><br>
+</p>
+<h3>Information</h3>
+
+<p>
+This package contains examples for the use of models that can be found in
+<a href="Buildings_Fluid_Utilities.html#Buildings.Fluid.Utilities"
+>
+Buildings.Fluid.Utilities</a>.
+</p>
+
+<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons_ExamplesPackage.html#Modelica.Icons.ExamplesPackage"
+>Modelica.Icons.ExamplesPackage</a> (Icon for packages containing runnable examples).</p>
+<h3>Package Content</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Package Content">
+<tr>
+<th>Name</th>
+<th>Description</th>
+</tr>
+<tr>
+<td><img src="Buildings.Fluid.Utilities1b638d7e6f784428CheckS.png" alt="Buildings.Fluid.Utilities.Examples.ExtendedPolynomialDerivativeCheck" width="20" height="20" align="top">&nbsp;<a href="Buildings_Fluid_Utilities_Examples.html#Buildings.Fluid.Utilities.Examples.ExtendedPolynomialDerivativeCheck"
+>ExtendedPolynomialDerivativeCheck</a>
+</td>
+<td>&nbsp;</td>
+</tr>
+</table>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE ExtendedPolynomialDerivativeCheck<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Fluid.Utilities1b638d7e6f784428CheckI.png" alt="Buildings.Fluid.Utilities.Examples.ExtendedPolynomialDerivativeCheck" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Fluid.Utilities.Examples.ExtendedPolynomialDerivativeCheck"></a><a href="Buildings_Fluid_Utilities_Examples.html#Buildings.Fluid.Utilities.Examples"
+>Buildings.Fluid.Utilities.Examples</a>.ExtendedPolynomialDerivativeCheck</h2>
+<h3>Information</h3>
+
+<p>
+This example checks whether the function derivative
+is implemented correctly. If the derivative implementation
+is not correct, the model will stop with an assert statement.
+</p>
+
+<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</a> (Icon for runnable examples).</p>
+<h3>Parameters</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td>Real</td><td>c[:]</td><td>{0.1162,1.5404,-1.4825,0.766...</td><td>Polynomial coefficients</td></tr>
+<tr><td>Real</td><td>xMin</td><td>1</td><td>Minimum x value for polynomial</td></tr>
+<tr><td>Real</td><td>xMax</td><td>2</td><td>Maximum x value for polynomial</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">model</span> ExtendedPolynomialDerivativeCheck
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</a>;
+
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Real[:] c={0.1162,1.5404,-1.4825,0.7664,-0.1971} <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Polynomial coefficients&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Real xMin=1 <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Minimum x value for polynomial&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Real xMax=2 <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Maximum x value for polynomial&quot;</span>;
+
+  Real x;
+  Real y;
+<span style="color: blue; font-weight: normal; font-style: normal;">initial </span><span style="color: blue; font-weight: normal; font-style: normal;">equation </span>
+   y=x;
+<span style="color: blue; font-weight: normal; font-style: normal;">equation </span>
+  x=<span style="color: red; font-weight: normal; font-style: normal;">Buildings.Fluid.Utilities.extendedPolynomial</span>(
+      x=time, c=c, xMin=xMin, xMax=xMax);
+  <span style="color: red; font-weight: normal; font-style: normal;">der</span>(y)=<span style="color: red; font-weight: normal; font-style: normal;">der</span>(x);
+  <span style="color: red; font-weight: normal; font-style: normal;">assert</span>(<span style="color: red; font-weight: normal; font-style: normal;">abs</span>(x-y) &lt; 1E-2, &quot;Model has an error&quot;);
+
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>ExtendedPolynomialDerivativeCheck;
+</div>
+<hr>
+<address>
+<a href="http://www.3ds.com/">Automatically generated</a> Thu Apr  9 09:36:53 2015.
+</address>
+</body>
+</html>

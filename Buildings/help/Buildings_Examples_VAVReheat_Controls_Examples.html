@@ -1,0 +1,172 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>Buildings.Examples.VAVReheat.Controls.Examples</title>
+<meta name="HTML-Generator" content="Dymola">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="description" content="&quot;Example models to test the components&quot;">
+<style type="text/css">
+*       { font-size: 10pt; font-family: Arial, sans-serif; }
+.modelica, .modelica * { font-size: 9pt; font-family: Courier, monospace; white-space: pre; }
+h4      { font-size: 10pt; font-weight: bold; color: green; }
+h3      { font-size: 11pt; font-weight: bold; color: green; }
+h2      { font-size: 13pt; font-weight: bold; color: green; }
+address { font-weight: normal; }
+td      { border: 1px solid #808080; vertical-align: top; }
+th      { border: 1px solid #808080; vertical-align: top; font-weight: bold; }
+table   { border: 1px solid #808080; border-collapse: collapse; }
+</style>
+<link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../Resources/www/modelicaDoc.css">
+</HEAD>
+<body>
+<!-- --- header ------ -->
+<div class="headerStyle">
+<img src="../Resources/www/lbl-logo.png" alt="LBL logo"/>
+</div>
+<div class="headerLinks">
+<ul><li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt; <a href="Buildings.html">Modelica</a></li></ul>
+</div>
+<!-- --- end header -- -->
+
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE Examples<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><a name="Buildings.Examples.VAVReheat.Controls.Examples"></a><a href="Buildings_Examples_VAVReheat_Controls.html#Buildings.Examples.VAVReheat.Controls"
+>Buildings.Examples.VAVReheat.Controls</a>.Examples</h2>
+<p>
+<b>Example models to test the components</b><br>
+</p>
+<h3>Information</h3>
+<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons_ExamplesPackage.html#Modelica.Icons.ExamplesPackage"
+>Modelica.Icons.ExamplesPackage</a> (Icon for packages containing runnable examples).</p>
+<h3>Package Content</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Package Content">
+<tr>
+<th>Name</th>
+<th>Description</th>
+</tr>
+<tr>
+<td><img src="Buildings.Examples.VAVRehaf4020f44ef0b9d6ModesS.png" alt="Buildings.Examples.VAVReheat.Controls.Examples.OperationModes" width="20" height="20" align="top">&nbsp;<a href="Buildings_Examples_VAVReheat_Controls_Examples.html#Buildings.Examples.VAVReheat.Controls.Examples.OperationModes"
+>OperationModes</a>
+</td>
+<td>Test model for operation modes</td>
+</tr>
+</table>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE OperationModes<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Examples.VAVRehaf4020f44ef0b9d6ModesI.png" alt="Buildings.Examples.VAVReheat.Controls.Examples.OperationModes" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Examples.VAVReheat.Controls.Examples.OperationModes"></a><a href="Buildings_Examples_VAVReheat_Controls_Examples.html#Buildings.Examples.VAVReheat.Controls.Examples"
+>Buildings.Examples.VAVReheat.Controls.Examples</a>.OperationModes</h2>
+<p>
+<b>Test model for operation modes</b>
+<br>
+<br><img src="Buildings.Examples.VAVRehaf4020f44ef0b9d6ModesD.png" alt="Buildings.Examples.VAVReheat.Controls.Examples.OperationModes">
+</p>
+<h3>Information</h3>
+
+<p>
+This model tests the transition between the different modes of operation of the HVAC system.
+</p>
+
+<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</a> (Icon for runnable examples).</p>
+<h3>Connectors</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Connectors">
+<tr><th>Type</th><th>Name</th><th>Description</th></tr>
+<tr><td><a href="Buildings_Examples_VAVReheat_Controls.html#Buildings.Examples.VAVReheat.Controls.ControlBus"
+>ControlBus</a></td><td>controlBus</td><td>&nbsp;</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">model</span> OperationModes <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Test model for operation modes&quot;</span>
+    <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</a>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">import </span>ModelicaVAV = <a href="Buildings_Examples_VAVReheat.html#Buildings.Examples.VAVReheat"
+>Buildings.Examples.VAVReheat</a>;
+  <a href="Buildings_Examples_VAVReheat_Controls.html#Buildings.Examples.VAVReheat.Controls.ModeSelector"
+>ModelicaVAV.Controls.ModeSelector</a> operationModes;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Thermal_HeatTransfer_Sources.html#Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow"
+>Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow</a> preHeaFlo;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Thermal_HeatTransfer_Sources.html#Modelica.Thermal.HeatTransfer.Sources.FixedTemperature"
+>Modelica.Thermal.HeatTransfer.Sources.FixedTemperature</a> fixTem(T=273.15);
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Thermal_HeatTransfer_Components.html#Modelica.Thermal.HeatTransfer.Components.HeatCapacitor"
+>Modelica.Thermal.HeatTransfer.Components.HeatCapacitor</a> cap(C=20000, T(fixed=
+          true));
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Thermal_HeatTransfer_Components.html#Modelica.Thermal.HeatTransfer.Components.ThermalConductor"
+>Modelica.Thermal.HeatTransfer.Components.ThermalConductor</a> con(G=1);
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Logical.html#Modelica.Blocks.Logical.Switch"
+>Modelica.Blocks.Logical.Switch</a> switch1;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+>Modelica.Blocks.Sources.Constant</a> on(k=200);
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+>Modelica.Blocks.Sources.Constant</a> off(k=0);
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Thermal_HeatTransfer_Sensors.html#Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor"
+>Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor</a> temperatureSensor;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.RealExpression"
+>Modelica.Blocks.Sources.RealExpression</a> TRooSetHea(
+    y=<span style="color: blue; font-weight: normal; font-style: normal;">if </span>mode.y ==<span style="color: red; font-weight: normal; font-style: normal;"> Integer</span>(ModelicaVAV.Controls.OperationModes.occupied)<span style="color: blue; font-weight: normal; font-style: normal;">
+      then </span>293.15<span style="color: blue; font-weight: normal; font-style: normal;"> else </span>287.15);
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+>Modelica.Blocks.Sources.Constant</a> TCoiHea(k=283.15) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Temperature after heating coil&quot;</span>;
+  <a href="Buildings_Examples_VAVReheat_Controls.html#Buildings.Examples.VAVReheat.Controls.ControlBus"
+>ModelicaVAV.Controls.ControlBus</a> controlBus;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Routing.html#Modelica.Blocks.Routing.IntegerPassThrough"
+>Modelica.Blocks.Routing.IntegerPassThrough</a> mode <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Outputs the control mode&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.BooleanExpression"
+>Modelica.Blocks.Sources.BooleanExpression</a> modSel(
+    y=mode.y ==<span style="color: red; font-weight: normal; font-style: normal;"> Integer</span>(ModelicaVAV.Controls.OperationModes.unoccupiedNightSetBack)<span style="color: blue; font-weight: normal; font-style: normal;"> or </span>
+      mode.y ==<span style="color: red; font-weight: normal; font-style: normal;"> Integer</span>(ModelicaVAV.Controls.OperationModes.unoccupiedWarmUp));
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+>Modelica.Blocks.Sources.Constant</a> TOut(k=283.15) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Outside temperature&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Thermal_HeatTransfer_Sensors.html#Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor"
+>Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor</a> temperatureSensor1;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.BooleanExpression"
+>Modelica.Blocks.Sources.BooleanExpression</a> modSel1(
+    y=mode.y ==<span style="color: red; font-weight: normal; font-style: normal;"> Integer</span>(ModelicaVAV.Controls.OperationModes.occupied));
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Thermal_HeatTransfer_Sources.html#Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow"
+>Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow</a> preHeaFlo1;
+  <a href="Buildings_Controls_Continuous.html#Buildings.Controls.Continuous.LimPID"
+>Buildings.Controls.Continuous.LimPID</a> PID(initType=Modelica.Blocks.Types.InitPID.InitialState);
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Logical.html#Modelica.Blocks.Logical.Switch"
+>Modelica.Blocks.Logical.Switch</a> switch2;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Math.html#Modelica.Blocks.Math.Gain"
+>Modelica.Blocks.Math.Gain</a> gain(k=200);
+  <a href="Buildings_Controls_SetPoints.html#Buildings.Controls.SetPoints.OccupancySchedule"
+>Buildings.Controls.SetPoints.OccupancySchedule</a> occSch <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Occupancy schedule&quot;</span>;
+<span style="color: blue; font-weight: normal; font-style: normal;">equation </span>
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(fixTem.port, con.port_a);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(preHeaFlo.port, cap.port);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(con.port_b, cap.port);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(switch1.y, preHeaFlo.Q_flow);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(on.y, switch1.u1);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(off.y, switch1.u3);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(cap.port, temperatureSensor.port);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(controlBus, operationModes.cb);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(temperatureSensor.T, controlBus.TRooMin);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(TCoiHea.y, controlBus.TCoiHeaOut);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(controlBus.controlMode, mode.u);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(modSel.y, switch1.u2);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(TOut.y, controlBus.TOut);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(cap.port, temperatureSensor1.port);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(temperatureSensor1.T, controlBus.TRooAve);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(TRooSetHea.y, PID.u_s);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(temperatureSensor.T, PID.u_m);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(modSel1.y, switch2.u2);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(off.y, switch2.u3);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(preHeaFlo1.port, cap.port);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(PID.y, switch2.u1);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(gain.y, preHeaFlo1.Q_flow);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(switch2.y, gain.u);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(occSch.tNexOcc, controlBus.dTNexOcc);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(TRooSetHea.y, controlBus.TRooSetHea);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(occSch.occupied, controlBus.occupied);
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>OperationModes;
+</div>
+<hr>
+<address>
+<a href="http://www.3ds.com/">Automatically generated</a> Thu Apr  9 09:47:11 2015.
+</address>
+</body>
+</html>

@@ -1,0 +1,507 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>Buildings.Fluid.HeatExchangers.RadiantSlabs.Examples</title>
+<meta name="HTML-Generator" content="Dymola">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="description" content="&quot;Collection of models that illustrate model use and test models&quot;">
+<style type="text/css">
+*       { font-size: 10pt; font-family: Arial, sans-serif; }
+.modelica, .modelica * { font-size: 9pt; font-family: Courier, monospace; white-space: pre; }
+h4      { font-size: 10pt; font-weight: bold; color: green; }
+h3      { font-size: 11pt; font-weight: bold; color: green; }
+h2      { font-size: 13pt; font-weight: bold; color: green; }
+address { font-weight: normal; }
+td      { border: 1px solid #808080; vertical-align: top; }
+th      { border: 1px solid #808080; vertical-align: top; font-weight: bold; }
+table   { border: 1px solid #808080; border-collapse: collapse; }
+</style>
+<link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../Resources/www/modelicaDoc.css">
+</HEAD>
+<body>
+<!-- --- header ------ -->
+<div class="headerStyle">
+<img src="../Resources/www/lbl-logo.png" alt="LBL logo"/>
+</div>
+<div class="headerLinks">
+<ul><li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt; <a href="Buildings.html">Modelica</a></li></ul>
+</div>
+<!-- --- end header -- -->
+
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE Examples<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><a name="Buildings.Fluid.HeatExchangers.RadiantSlabs.Examples"></a><a href="Buildings_Fluid_HeatExchangers_RadiantSlabs.html#Buildings.Fluid.HeatExchangers.RadiantSlabs"
+>Buildings.Fluid.HeatExchangers.RadiantSlabs</a>.Examples</h2>
+<p>
+<b>Collection of models that illustrate model use and test models</b><br>
+</p>
+<h3>Information</h3>
+
+<p>
+This package contains examples for the use of models that can be found in
+<a href="Buildings_Fluid_HeatExchangers_RadiantSlabs.html#Buildings.Fluid.HeatExchangers.RadiantSlabs"
+>
+Buildings.Fluid.HeatExchangers.RadiantSlabs</a>.
+</p>
+
+<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons_ExamplesPackage.html#Modelica.Icons.ExamplesPackage"
+>Modelica.Icons.ExamplesPackage</a> (Icon for packages containing runnable examples).</p>
+<h3>Package Content</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Package Content">
+<tr>
+<th>Name</th>
+<th>Description</th>
+</tr>
+<tr>
+<td><img src="Buildings.Fluid.HeatExcha8ec142c1b9142d0donNTUS.png" alt="Buildings.Fluid.HeatExchangers.RadiantSlabs.Examples.SingleCircuitMultipleCircuitEpsilonNTU" width="20" height="20" align="top">&nbsp;<a href="Buildings_Fluid_HeatExchangers_RadiantSlabs_Examples.html#Buildings.Fluid.HeatExchangers.RadiantSlabs.Examples.SingleCircuitMultipleCircuitEpsilonNTU"
+>SingleCircuitMultipleCircuitEpsilonNTU</a>
+</td>
+<td>Model that tests the radiant slab with multiple parallel circuits and epsilon-NTU configuration</td>
+</tr>
+<tr>
+<td><img src="Buildings.Fluid.HeatExcha8ec142c1b9142d0donNTUS.png" alt="Buildings.Fluid.HeatExchangers.RadiantSlabs.Examples.SingleCircuitMultipleCircuitFiniteDifference" width="20" height="20" align="top">&nbsp;<a href="Buildings_Fluid_HeatExchangers_RadiantSlabs_Examples.html#Buildings.Fluid.HeatExchangers.RadiantSlabs.Examples.SingleCircuitMultipleCircuitFiniteDifference"
+>SingleCircuitMultipleCircuitFiniteDifference</a>
+</td>
+<td>Model that tests the radiant slab with multiple parallel circuits</td>
+</tr>
+<tr>
+<td><img src="Buildings.Fluid.HeatExcha8ec142c1b9142d0donNTUS.png" alt="Buildings.Fluid.HeatExchangers.RadiantSlabs.Examples.StepResponseEpsilonNTU" width="20" height="20" align="top">&nbsp;<a href="Buildings_Fluid_HeatExchangers_RadiantSlabs_Examples.html#Buildings.Fluid.HeatExchangers.RadiantSlabs.Examples.StepResponseEpsilonNTU"
+>StepResponseEpsilonNTU</a>
+</td>
+<td>Model that tests the radiant slab with epsilon-NTU configuration</td>
+</tr>
+<tr>
+<td><img src="Buildings.Fluid.HeatExcha8ec142c1b9142d0donNTUS.png" alt="Buildings.Fluid.HeatExchangers.RadiantSlabs.Examples.StepResponseFiniteDifference" width="20" height="20" align="top">&nbsp;<a href="Buildings_Fluid_HeatExchangers_RadiantSlabs_Examples.html#Buildings.Fluid.HeatExchangers.RadiantSlabs.Examples.StepResponseFiniteDifference"
+>StepResponseFiniteDifference</a>
+</td>
+<td>Model that tests the radiant slab</td>
+</tr>
+</table>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE SingleCircuitMultipleCircuitEpsilonNTU<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Fluid.HeatExcha8ec142c1b9142d0donNTUI.png" alt="Buildings.Fluid.HeatExchangers.RadiantSlabs.Examples.SingleCircuitMultipleCircuitEpsilonNTU" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Fluid.HeatExchangers.RadiantSlabs.Examples.SingleCircuitMultipleCircuitEpsilonNTU"></a><a href="Buildings_Fluid_HeatExchangers_RadiantSlabs_Examples.html#Buildings.Fluid.HeatExchangers.RadiantSlabs.Examples"
+>Buildings.Fluid.HeatExchangers.RadiantSlabs.Examples</a>.SingleCircuitMultipleCircuitEpsilonNTU</h2>
+<p>
+<b>Model that tests the radiant slab with multiple parallel circuits and epsilon-NTU configuration</b>
+<br>
+<br><img src="Buildings.Fluid.HeatExcha8ec142c1b9142d0donNTUD.png" alt="Buildings.Fluid.HeatExchangers.RadiantSlabs.Examples.SingleCircuitMultipleCircuitEpsilonNTU">
+</p>
+<h3>Information</h3>
+
+<p>
+This model is identical to
+<a href="modelica://Buildings.Fluid.HeatExchangers.RadiantSlabs.Examples.SingleCircuitMultipleCircuit">
+Buildings.Fluid.HeatExchangers.RadiantSlabs.Examples.SingleCircuitMultipleCircuit</a>
+except that the number of segments in the slab is set to <i>1</i>
+and the heat transfer between the fluid and the slab is computed using
+an epsilon-NTU model.
+</p>
+
+<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</a> (Icon for runnable examples).</p>
+<h3>Parameters</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+>MassFlowRate</a></td><td>m_flow_nominal</td><td>0.167</td><td>Nominal mass flow rate for each circuit [kg/s]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Area"
+>Area</a></td><td>A</td><td>10</td><td>Heat transfer area for each circuit [m2]</td></tr>
+<tr><td><a href="Buildings_HeatTransfer_Data_OpaqueConstructions.html#Buildings.HeatTransfer.Data.OpaqueConstructions.Generic"
+>Generic</a></td><td>layers</td><td>&nbsp;</td><td>Material layers from surface a to b (8cm concrete, 5 cm insulation, 20 cm reinforced concrete)</td></tr>
+<tr><td><a href="Buildings_Fluid_Data_Pipes.html#Buildings.Fluid.Data.Pipes.PEX_RADTEST"
+>PEX_RADTEST</a></td><td>pipe</td><td>&nbsp;</td><td>Pipe material</td></tr>
+<tr><td>Integer</td><td>nCir</td><td>2</td><td>Number of parallel circuits for slab 3</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">model</span> SingleCircuitMultipleCircuitEpsilonNTU <span style="color: #006400; font-weight: normal; font-style: normal;">
+  &quot;Model that tests the radiant slab with multiple parallel circuits and epsilon-NTU configuration&quot;</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</a>;
+ <span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = <a href="Buildings_Media_Water.html#Buildings.Media.Water"
+>Buildings.Media.Water</a>;
+  <a href="Buildings_Fluid_Sources.html#Buildings.Fluid.Sources.Boundary_ph"
+>Sources.Boundary_ph</a> sin(<span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = Medium, nPorts=3,
+    p(displayUnit=&quot;Pa&quot;) = 300000) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Sink&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Pulse"
+>Modelica.Blocks.Sources.Pulse</a> pulse(
+    startTime=0,
+    amplitude=50*400,
+    offset=300000 - 50*200,
+    width=50,
+    period=86400/2);
+  <a href="Buildings_Fluid_HeatExchangers_RadiantSlabs.html#Buildings.Fluid.HeatExchangers.RadiantSlabs.SingleCircuitSlab"
+>Buildings.Fluid.HeatExchangers.RadiantSlabs.SingleCircuitSlab</a> sla1(
+    m_flow_nominal=m_flow_nominal,
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = Medium,
+    layers=layers,
+    iLayPip=1,
+    pipe=pipe,
+    sysTyp=Buildings.Fluid.HeatExchangers.RadiantSlabs.Types.SystemType.Floor,
+    disPip=0.2,
+    A=A,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    from_dp=true) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Slabe with embedded pipes&quot;</span>;
+
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+>Modelica.SIunits.MassFlowRate</a> m_flow_nominal=
+     0.167 <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Nominal mass flow rate for each circuit&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Thermal_HeatTransfer_Sources.html#Modelica.Thermal.HeatTransfer.Sources.FixedTemperature"
+>Modelica.Thermal.HeatTransfer.Sources.FixedTemperature</a> TAbo(T=293.15) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Air temperature above the slab&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Thermal_HeatTransfer_Sources.html#Modelica.Thermal.HeatTransfer.Sources.FixedTemperature"
+>Modelica.Thermal.HeatTransfer.Sources.FixedTemperature</a> TBel(T=293.15) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Radiant temperature below the slab&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Thermal_HeatTransfer_Components.html#Modelica.Thermal.HeatTransfer.Components.ThermalConductor"
+>Modelica.Thermal.HeatTransfer.Components.ThermalConductor</a> conAbo1(G=20*A) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Combined convection and radiation resistance above the slab&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Area"
+>Modelica.SIunits.Area</a> A=10 <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Heat transfer area for each circuit&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Thermal_HeatTransfer_Components.html#Modelica.Thermal.HeatTransfer.Components.ThermalConductor"
+>Modelica.Thermal.HeatTransfer.Components.ThermalConductor</a> conBel1(G=20*A) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Combined convection and radiation resistance below the slab&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="Buildings_HeatTransfer_Data_OpaqueConstructions.html#Buildings.HeatTransfer.Data.OpaqueConstructions.Generic"
+>HeatTransfer.Data.OpaqueConstructions.Generic</a> layers(nLay=3, material={
+        <span style="color: red; font-weight: normal; font-style: normal;">Buildings.HeatTransfer.Data.Solids.Generic</span>(
+        x=0.08,
+        k=1.13,
+        c=1000,
+        d=1400,
+        nSta=5),<span style="color: red; font-weight: normal; font-style: normal;">Buildings.HeatTransfer.Data.Solids.Generic</span>(
+        x=0.05,
+        k=0.04,
+        c=1400,
+        d=10),<span style="color: red; font-weight: normal; font-style: normal;">Buildings.HeatTransfer.Data.Solids.Generic</span>(
+        x=0.2,
+        k=1.8,
+        c=1100,
+        d=2400)}) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Material layers from surface a to b (8cm concrete, 5 cm insulation, 20 cm reinforced concrete)&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="Buildings_Fluid_Data_Pipes.html#Buildings.Fluid.Data.Pipes.PEX_RADTEST"
+>Data.Pipes.PEX_RADTEST</a> pipe <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Pipe material&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Thermal_HeatTransfer_Components.html#Modelica.Thermal.HeatTransfer.Components.ThermalConductor"
+>Modelica.Thermal.HeatTransfer.Components.ThermalConductor</a> conAbo2(G=20*A) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Combined convection and radiation resistance above the slab&quot;</span>;
+  <a href="Buildings_Fluid_HeatExchangers_RadiantSlabs.html#Buildings.Fluid.HeatExchangers.RadiantSlabs.SingleCircuitSlab"
+>Buildings.Fluid.HeatExchangers.RadiantSlabs.SingleCircuitSlab</a> sla2(
+    m_flow_nominal=m_flow_nominal,
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = Medium,
+    layers=layers,
+    iLayPip=1,
+    pipe=pipe,
+    sysTyp=Buildings.Fluid.HeatExchangers.RadiantSlabs.Types.SystemType.Floor,
+    disPip=0.2,
+    A=A,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    from_dp=true) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Slabe with embedded pipes&quot;</span>;
+
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Thermal_HeatTransfer_Components.html#Modelica.Thermal.HeatTransfer.Components.ThermalConductor"
+>Modelica.Thermal.HeatTransfer.Components.ThermalConductor</a> conBel2(G=20*A) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Combined convection and radiation resistance below the slab&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Thermal_HeatTransfer_Components.html#Modelica.Thermal.HeatTransfer.Components.ThermalConductor"
+>Modelica.Thermal.HeatTransfer.Components.ThermalConductor</a> conBel3(G=nCir*20*A) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Combined convection and radiation resistance below the slab&quot;</span>;
+  <a href="Buildings_Fluid_HeatExchangers_RadiantSlabs.html#Buildings.Fluid.HeatExchangers.RadiantSlabs.ParallelCircuitsSlab"
+>ParallelCircuitsSlab</a> sla3(
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = Medium,
+    layers=layers,
+    iLayPip=1,
+    pipe=pipe,
+    sysTyp=Buildings.Fluid.HeatExchangers.RadiantSlabs.Types.SystemType.Floor,
+    disPip=0.2,
+    nCir=nCir,
+    A=nCir*A,
+    m_flow_nominal=nCir*m_flow_nominal,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    from_dp=true) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Slabe with embedded pipes&quot;</span>;
+
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Thermal_HeatTransfer_Components.html#Modelica.Thermal.HeatTransfer.Components.ThermalConductor"
+>Modelica.Thermal.HeatTransfer.Components.ThermalConductor</a> conAbo3(G=nCir*20*A) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Combined convection and radiation resistance above the slab&quot;</span>;
+  <a href="Buildings_Fluid_Sensors.html#Buildings.Fluid.Sensors.TemperatureTwoPort"
+>Sensors.TemperatureTwoPort</a> senTem1(<span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = Medium,
+      m_flow_nominal=m_flow_nominal/2) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Temperature sensor&quot;</span>;
+  <a href="Buildings_Fluid_Sensors.html#Buildings.Fluid.Sensors.TemperatureTwoPort"
+>Sensors.TemperatureTwoPort</a> senTem2(<span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = Medium,
+      m_flow_nominal=m_flow_nominal/2) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Temperature sensor&quot;</span>;
+  <a href="Buildings_Fluid_Sensors.html#Buildings.Fluid.Sensors.TemperatureTwoPort"
+>Sensors.TemperatureTwoPort</a> senTem3(<span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = Medium,
+      m_flow_nominal=nCir*m_flow_nominal) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Temperature sensor&quot;</span>;
+  <a href="Buildings_Fluid_Sources.html#Buildings.Fluid.Sources.Boundary_pT"
+>Sources.Boundary_pT</a> sou(
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = Medium,
+    nPorts=3,
+    use_p_in=true,
+    T=313.15) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Source&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Integer nCir=2 <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Number of parallel circuits for slab 3&quot;</span>;
+<span style="color: blue; font-weight: normal; font-style: normal;">equation </span>
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(TBel.port, conBel1.port_a);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(conBel1.port_b, sla1.surf_b);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(sla1.surf_a, conAbo1.port_a);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(TAbo.port, conAbo1.port_b);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(TAbo.port, conAbo2.port_b);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(conAbo2.port_a, sla2.surf_a);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(TBel.port, conBel2.port_a);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(TBel.port, conBel3.port_a);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(TAbo.port, conAbo3.port_b);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(conAbo3.port_a, sla3.surf_a);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(conBel3.port_b, sla3.surf_b);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(sla1.port_b, senTem1.port_a);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(sla2.port_b, senTem2.port_a);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(sla3.port_b, senTem3.port_a);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(senTem1.port_b, sin.ports[1]);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(senTem2.port_b, sin.ports[2]);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(senTem3.port_b, sin.ports[3]);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(conBel2.port_b, sla2.surf_b);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(pulse.y, sou.p_in);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(sou.ports[1], sla1.port_a);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(sou.ports[2], sla2.port_a);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(sou.ports[3], sla3.port_a);
+
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>SingleCircuitMultipleCircuitEpsilonNTU;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE SingleCircuitMultipleCircuitFiniteDifference<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Fluid.HeatExcha8ec142c1b9142d0donNTUI.png" alt="Buildings.Fluid.HeatExchangers.RadiantSlabs.Examples.SingleCircuitMultipleCircuitFiniteDifference" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Fluid.HeatExchangers.RadiantSlabs.Examples.SingleCircuitMultipleCircuitFiniteDifference"></a><a href="Buildings_Fluid_HeatExchangers_RadiantSlabs_Examples.html#Buildings.Fluid.HeatExchangers.RadiantSlabs.Examples"
+>Buildings.Fluid.HeatExchangers.RadiantSlabs.Examples</a>.SingleCircuitMultipleCircuitFiniteDifference</h2>
+<p>
+<b>Model that tests the radiant slab with multiple parallel circuits</b>
+<br>
+<br><img src="Buildings.Fluid.HeatExcha8ec142c1b9142d0donNTUD.png" alt="Buildings.Fluid.HeatExchangers.RadiantSlabs.Examples.SingleCircuitMultipleCircuitFiniteDifference">
+</p>
+<h3>Information</h3>
+
+<p>
+This example compares the results of two models of a single circuit that are arranged in
+parallel, versus a model that directly implements two parallel circuits.
+Both configurations have the same mass flow rate and temperatures.
+For simplicity, a combined convective and radiative resistance
+which is independent of the temperature difference has been used.
+The model is exposed to a step change in pressure, which causes forward and reverse
+flow.
+</p>
+
+<p>Extends from <a href="Buildings_Fluid_HeatExchangers_RadiantSlabs_Examples.html#Buildings.Fluid.HeatExchangers.RadiantSlabs.Examples.SingleCircuitMultipleCircuitEpsilonNTU"
+>Buildings.Fluid.HeatExchangers.RadiantSlabs.Examples.SingleCircuitMultipleCircuitEpsilonNTU</a> (Model that tests the radiant slab with multiple parallel circuits and epsilon-NTU configuration).</p>
+<h3>Parameters</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+>MassFlowRate</a></td><td>m_flow_nominal</td><td>0.167</td><td>Nominal mass flow rate for each circuit [kg/s]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Area"
+>Area</a></td><td>A</td><td>10</td><td>Heat transfer area for each circuit [m2]</td></tr>
+<tr><td><a href="Buildings_HeatTransfer_Data_OpaqueConstructions.html#Buildings.HeatTransfer.Data.OpaqueConstructions.Generic"
+>Generic</a></td><td>layers</td><td>&nbsp;</td><td>Material layers from surface a to b (8cm concrete, 5 cm insulation, 20 cm reinforced concrete)</td></tr>
+<tr><td><a href="Buildings_Fluid_Data_Pipes.html#Buildings.Fluid.Data.Pipes.PEX_RADTEST"
+>PEX_RADTEST</a></td><td>pipe</td><td>&nbsp;</td><td>Pipe material</td></tr>
+<tr><td>Integer</td><td>nCir</td><td>2</td><td>Number of parallel circuits for slab 3</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">model</span> SingleCircuitMultipleCircuitFiniteDifference <span style="color: #006400; font-weight: normal; font-style: normal;">
+  &quot;Model that tests the radiant slab with multiple parallel circuits&quot;</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="Buildings_Fluid_HeatExchangers_RadiantSlabs_Examples.html#Buildings.Fluid.HeatExchangers.RadiantSlabs.Examples.SingleCircuitMultipleCircuitEpsilonNTU"
+>Buildings.Fluid.HeatExchangers.RadiantSlabs.Examples.SingleCircuitMultipleCircuitEpsilonNTU</a>
+    (
+    sla1(heatTransfer=Buildings.Fluid.HeatExchangers.RadiantSlabs.Types.HeatTransfer.FiniteDifference),
+    sla2(heatTransfer=Buildings.Fluid.HeatExchangers.RadiantSlabs.Types.HeatTransfer.FiniteDifference),
+    sla3(heatTransfer=Buildings.Fluid.HeatExchangers.RadiantSlabs.Types.HeatTransfer.FiniteDifference));
+
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>SingleCircuitMultipleCircuitFiniteDifference;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE StepResponseEpsilonNTU<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Fluid.HeatExcha8ec142c1b9142d0donNTUI.png" alt="Buildings.Fluid.HeatExchangers.RadiantSlabs.Examples.StepResponseEpsilonNTU" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Fluid.HeatExchangers.RadiantSlabs.Examples.StepResponseEpsilonNTU"></a><a href="Buildings_Fluid_HeatExchangers_RadiantSlabs_Examples.html#Buildings.Fluid.HeatExchangers.RadiantSlabs.Examples"
+>Buildings.Fluid.HeatExchangers.RadiantSlabs.Examples</a>.StepResponseEpsilonNTU</h2>
+<p>
+<b>Model that tests the radiant slab with epsilon-NTU configuration</b>
+<br>
+<br><img src="Buildings.Fluid.HeatExcha43b208eae8835621onNTUD.png" alt="Buildings.Fluid.HeatExchangers.RadiantSlabs.Examples.StepResponseEpsilonNTU">
+</p>
+<h3>Information</h3>
+
+<p>
+This model is identical to
+<a href="modelica://Buildings.Fluid.HeatExchangers.RadiantSlabs.Examples.StepResponse">
+Buildings.Fluid.HeatExchangers.RadiantSlabs.Examples.StepResponse</a>
+except that the number of segments in the slab is set to <i>1</i>
+and the heat transfer between the fluid and the slab is computed using
+an epsilon-NTU model.
+</p>
+
+<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</a> (Icon for runnable examples).</p>
+<h3>Parameters</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+>MassFlowRate</a></td><td>m_flow_nominal</td><td>0.167</td><td>Nominal mass flow rate [kg/s]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Area"
+>Area</a></td><td>A</td><td>10</td><td>Heat transfer area [m2]</td></tr>
+<tr><td><a href="Buildings_HeatTransfer_Data_OpaqueConstructions.html#Buildings.HeatTransfer.Data.OpaqueConstructions.Generic"
+>Generic</a></td><td>layers</td><td>&nbsp;</td><td>Material layers from surface a to b (8cm concrete, 5 cm insulation, 20 cm reinforced concrete)</td></tr>
+<tr><td><a href="Buildings_Fluid_Data_Pipes.html#Buildings.Fluid.Data.Pipes.PEX_RADTEST"
+>PEX_RADTEST</a></td><td>pipe</td><td>&nbsp;</td><td>Pipe material</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">model</span> StepResponseEpsilonNTU <span style="color: #006400; font-weight: normal; font-style: normal;">
+  &quot;Model that tests the radiant slab with epsilon-NTU configuration&quot;</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</a>;
+ <span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = <a href="Buildings_Media_Water.html#Buildings.Media.Water"
+>Buildings.Media.Water</a>;
+  <a href="Buildings_Fluid_Sources.html#Buildings.Fluid.Sources.Boundary_ph"
+>Sources.Boundary_ph</a> sin(<span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = Medium, nPorts=1) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Sink&quot;</span>;
+  <a href="Buildings_Fluid_Sources.html#Buildings.Fluid.Sources.MassFlowSource_T"
+>Sources.MassFlowSource_T</a> sou(
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = Medium,
+    use_m_flow_in=true,
+    T=298.15,
+    nPorts=1) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Source&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Pulse"
+>Modelica.Blocks.Sources.Pulse</a> pulse(
+    period=86400,
+    startTime=0,
+    amplitude=-m_flow_nominal,
+    offset=m_flow_nominal);
+  <a href="Buildings_Fluid_HeatExchangers_RadiantSlabs.html#Buildings.Fluid.HeatExchangers.RadiantSlabs.SingleCircuitSlab"
+>Buildings.Fluid.HeatExchangers.RadiantSlabs.SingleCircuitSlab</a>
+       sla(
+    m_flow_nominal=m_flow_nominal,
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = Medium,
+    layers=layers,
+    iLayPip=1,
+    pipe=pipe,
+    sysTyp=Buildings.Fluid.HeatExchangers.RadiantSlabs.Types.SystemType.Floor,
+    disPip=0.2,
+    A=A,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    heatTransfer=Buildings.Fluid.HeatExchangers.RadiantSlabs.Types.HeatTransfer.FiniteDifference) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Slabe with embedded pipes&quot;</span>;
+
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+>Modelica.SIunits.MassFlowRate</a> m_flow_nominal=
+     0.167 <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Nominal mass flow rate&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Thermal_HeatTransfer_Sources.html#Modelica.Thermal.HeatTransfer.Sources.FixedTemperature"
+>Modelica.Thermal.HeatTransfer.Sources.FixedTemperature</a> TAirAbo(T=293.15) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Air temperature above the slab&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Thermal_HeatTransfer_Sources.html#Modelica.Thermal.HeatTransfer.Sources.FixedTemperature"
+>Modelica.Thermal.HeatTransfer.Sources.FixedTemperature</a> TRadAbo(T=293.15) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Radiant temperature above the slab&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Thermal_HeatTransfer_Sources.html#Modelica.Thermal.HeatTransfer.Sources.FixedTemperature"
+>Modelica.Thermal.HeatTransfer.Sources.FixedTemperature</a> TAirBel(T=293.15) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Air temperature below the slab&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Thermal_HeatTransfer_Sources.html#Modelica.Thermal.HeatTransfer.Sources.FixedTemperature"
+>Modelica.Thermal.HeatTransfer.Sources.FixedTemperature</a> TRadBel(T=293.15) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Radiant temperature below the slab&quot;</span>;
+  <a href="Buildings_HeatTransfer_Convection.html#Buildings.HeatTransfer.Convection.Interior"
+>HeatTransfer.Convection.Interior</a> conAbo(
+    A=A,
+    conMod=Buildings.HeatTransfer.Types.InteriorConvection.Temperature,
+    til=Buildings.Types.Tilt.Floor) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Convective heat transfer above the slab&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Area"
+>Modelica.SIunits.Area</a> A=10 <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Heat transfer area&quot;</span>;
+  <a href="Buildings_HeatTransfer_Convection.html#Buildings.HeatTransfer.Convection.Interior"
+>HeatTransfer.Convection.Interior</a> conBel(
+    A=A,
+    conMod=Buildings.HeatTransfer.Types.InteriorConvection.Temperature,
+    til=Buildings.Types.Tilt.Ceiling) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Convective heat transfer below the slab&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Thermal_HeatTransfer_Components.html#Modelica.Thermal.HeatTransfer.Components.BodyRadiation"
+>Modelica.Thermal.HeatTransfer.Components.BodyRadiation</a> hRadAbo(Gr=A/(1/0.7 + 1
+        /0.7 - 1)) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Radiative heat transfer above the slab&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Thermal_HeatTransfer_Components.html#Modelica.Thermal.HeatTransfer.Components.BodyRadiation"
+>Modelica.Thermal.HeatTransfer.Components.BodyRadiation</a> hRadBel(Gr=A/(1/0.7 + 1
+        /0.7 - 1)) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Radiative heat transfer below the slab&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="Buildings_HeatTransfer_Data_OpaqueConstructions.html#Buildings.HeatTransfer.Data.OpaqueConstructions.Generic"
+>HeatTransfer.Data.OpaqueConstructions.Generic</a> layers(nLay=3, material={
+        <span style="color: red; font-weight: normal; font-style: normal;">Buildings.HeatTransfer.Data.Solids.Generic</span>(
+        x=0.08,
+        k=1.13,
+        c=1000,
+        d=1400,
+        nSta=5),<span style="color: red; font-weight: normal; font-style: normal;">Buildings.HeatTransfer.Data.Solids.Generic</span>(
+        x=0.05,
+        k=0.04,
+        c=1400,
+        d=10),<span style="color: red; font-weight: normal; font-style: normal;">Buildings.HeatTransfer.Data.Solids.Generic</span>(
+        x=0.2,
+        k=1.8,
+        c=1100,
+        d=2400)}) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Material layers from surface a to b (8cm concrete, 5 cm insulation, 20 cm reinforced concrete)&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="Buildings_Fluid_Data_Pipes.html#Buildings.Fluid.Data.Pipes.PEX_RADTEST"
+>Data.Pipes.PEX_RADTEST</a> pipe <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Pipe material&quot;</span>;
+  <a href="Buildings_Fluid_Sensors.html#Buildings.Fluid.Sensors.TemperatureTwoPort"
+>Sensors.TemperatureTwoPort</a> TOut(<span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = Medium,
+      m_flow_nominal=m_flow_nominal) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Outlet temperature of the slab&quot;</span>;
+<span style="color: blue; font-weight: normal; font-style: normal;">equation </span>
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(pulse.y, sou.m_flow_in);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(sou.ports[1], sla.port_a);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(TAirAbo.port, conAbo.fluid);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(TRadAbo.port, hRadAbo.port_a);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(TAirBel.port, conBel.fluid);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(TRadBel.port, hRadBel.port_a);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(conAbo.solid, sla.surf_a);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(hRadAbo.port_b, sla.surf_a);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(conBel.solid, sla.surf_b);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(hRadBel.port_b, sla.surf_b);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(sla.port_b, TOut.port_a);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(TOut.port_b, sin.ports[1]);
+
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>StepResponseEpsilonNTU;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE StepResponseFiniteDifference<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Fluid.HeatExcha8ec142c1b9142d0donNTUI.png" alt="Buildings.Fluid.HeatExchangers.RadiantSlabs.Examples.StepResponseFiniteDifference" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Fluid.HeatExchangers.RadiantSlabs.Examples.StepResponseFiniteDifference"></a><a href="Buildings_Fluid_HeatExchangers_RadiantSlabs_Examples.html#Buildings.Fluid.HeatExchangers.RadiantSlabs.Examples"
+>Buildings.Fluid.HeatExchangers.RadiantSlabs.Examples</a>.StepResponseFiniteDifference</h2>
+<p>
+<b>Model that tests the radiant slab</b>
+<br>
+<br><img src="Buildings.Fluid.HeatExcha43b208eae8835621onNTUD.png" alt="Buildings.Fluid.HeatExchangers.RadiantSlabs.Examples.StepResponseFiniteDifference">
+</p>
+<h3>Information</h3>
+
+<p>
+This example models the step response of a radiant slab.
+</p>
+
+<p>Extends from <a href="Buildings_Fluid_HeatExchangers_RadiantSlabs_Examples.html#Buildings.Fluid.HeatExchangers.RadiantSlabs.Examples.StepResponseEpsilonNTU"
+>Buildings.Fluid.HeatExchangers.RadiantSlabs.Examples.StepResponseEpsilonNTU</a> (Model that tests the radiant slab with epsilon-NTU configuration).</p>
+<h3>Parameters</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+>MassFlowRate</a></td><td>m_flow_nominal</td><td>0.167</td><td>Nominal mass flow rate [kg/s]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Area"
+>Area</a></td><td>A</td><td>10</td><td>Heat transfer area [m2]</td></tr>
+<tr><td><a href="Buildings_HeatTransfer_Data_OpaqueConstructions.html#Buildings.HeatTransfer.Data.OpaqueConstructions.Generic"
+>Generic</a></td><td>layers</td><td>&nbsp;</td><td>Material layers from surface a to b (8cm concrete, 5 cm insulation, 20 cm reinforced concrete)</td></tr>
+<tr><td><a href="Buildings_Fluid_Data_Pipes.html#Buildings.Fluid.Data.Pipes.PEX_RADTEST"
+>PEX_RADTEST</a></td><td>pipe</td><td>&nbsp;</td><td>Pipe material</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">model</span> StepResponseFiniteDifference <span style="color: #006400; font-weight: normal; font-style: normal;">
+  &quot;Model that tests the radiant slab&quot;</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="Buildings_Fluid_HeatExchangers_RadiantSlabs_Examples.html#Buildings.Fluid.HeatExchangers.RadiantSlabs.Examples.StepResponseEpsilonNTU"
+>Buildings.Fluid.HeatExchangers.RadiantSlabs.Examples.StepResponseEpsilonNTU</a>
+    (
+    sla(heatTransfer=Buildings.Fluid.HeatExchangers.RadiantSlabs.Types.HeatTransfer.FiniteDifference));
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>StepResponseFiniteDifference;
+</div>
+<hr>
+<address>
+<a href="http://www.3ds.com/">Automatically generated</a> Thu Apr  9 09:35:58 2015.
+</address>
+</body>
+</html>

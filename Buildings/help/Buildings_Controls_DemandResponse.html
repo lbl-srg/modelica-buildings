@@ -1,0 +1,287 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>Buildings.Controls.DemandResponse</title>
+<meta name="HTML-Generator" content="Dymola">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="description" content="&quot;Package with models for demand response controllers&quot;">
+<style type="text/css">
+*       { font-size: 10pt; font-family: Arial, sans-serif; }
+.modelica, .modelica * { font-size: 9pt; font-family: Courier, monospace; white-space: pre; }
+h4      { font-size: 10pt; font-weight: bold; color: green; }
+h3      { font-size: 11pt; font-weight: bold; color: green; }
+h2      { font-size: 13pt; font-weight: bold; color: green; }
+address { font-weight: normal; }
+td      { border: 1px solid #808080; vertical-align: top; }
+th      { border: 1px solid #808080; vertical-align: top; font-weight: bold; }
+table   { border: 1px solid #808080; border-collapse: collapse; }
+</style>
+<link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../Resources/www/modelicaDoc.css">
+</HEAD>
+<body>
+<!-- --- header ------ -->
+<div class="headerStyle">
+<img src="../Resources/www/lbl-logo.png" alt="LBL logo"/>
+</div>
+<div class="headerLinks">
+<ul><li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt; <a href="Buildings.html">Modelica</a></li></ul>
+</div>
+<!-- --- end header -- -->
+
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE DemandResponse<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><a name="Buildings.Controls.DemandResponse"></a><a href="Buildings_Controls.html#Buildings.Controls"
+>Buildings.Controls</a>.DemandResponse</h2>
+<p>
+<b>Package with models for demand response controllers</b><br>
+</p>
+<h3>Information</h3>
+
+This package contains components models for demand response controllers.
+
+<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons_Package.html#Modelica.Icons.Package"
+>Modelica.Icons.Package</a> (Icon for standard packages).</p>
+<h3>Package Content</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Package Content">
+<tr>
+<th>Name</th>
+<th>Description</th>
+</tr>
+<tr>
+<td><img src="Buildings.Controls.DemandResponse.ClientS.png" alt="Buildings.Controls.DemandResponse.Client" width="20" height="20" align="top">&nbsp;<a href="Buildings_Controls_DemandResponse.html#Buildings.Controls.DemandResponse.Client"
+>Client</a>
+</td>
+<td>Demand response client</td>
+</tr>
+<tr>
+<td><img src="Buildings.Controls.Demandc801617a0984148cmplesS.png" alt="Buildings.Controls.DemandResponse.Examples" width="20" height="20" align="top">&nbsp;<a href="Buildings_Controls_DemandResponse_Examples.html#Buildings.Controls.DemandResponse.Examples"
+>Examples</a>
+</td>
+<td>Collection of models that illustrate model use and test models</td>
+</tr>
+<tr>
+<td><img src="Buildings.Controls.Demand37206dbcca18f653assesS.png" alt="Buildings.Controls.DemandResponse.BaseClasses" width="20" height="20" align="top">&nbsp;<a href="Buildings_Controls_DemandResponse_BaseClasses.html#Buildings.Controls.DemandResponse.BaseClasses"
+>BaseClasses</a>
+</td>
+<td>Package with base classes</td>
+</tr>
+</table>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE Client<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Controls.DemandResponse.ClientI.png" alt="Buildings.Controls.DemandResponse.Client" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Controls.DemandResponse.Client"></a><a href="Buildings_Controls_DemandResponse.html#Buildings.Controls.DemandResponse"
+>Buildings.Controls.DemandResponse</a>.Client</h2>
+<p>
+<b>Demand response client</b>
+<br>
+<br><img src="Buildings.Controls.DemandResponse.ClientD.png" alt="Buildings.Controls.DemandResponse.Client">
+</p>
+<h3>Information</h3>
+
+<p>
+Model for a data-driven demand response client that predicts the future load and
+allows to apply a load shedding factor.
+</p>
+<p>
+This model takes as a parameter the number of samples in a day, which is generally
+<i>24</i> for one hour sampling or <i>96</i> for <i>15</i> minute sampling.
+Input to the model are the consumed energy up to the current time instant,
+the current temperature,
+the type of the day, which may be a working day, non-working day or holiday
+as defined in
+<a href="Buildings_Controls_Types.html#Buildings.Controls.Types.Day"
+>
+Buildings.Controls.Types.Day</a>,
+a boolean signal that indicates whether it is an event day,
+and a signal that if <code>true</code>, causes the load to be shed.
+The input signal <code>yShed</code> determines how much of the load
+will be shed if <code>shed=true</code>. If <code>shed=false</code>, then
+this signal is ignored.
+</p>
+<p>
+Output of the model is the prediction of the power that will be consumed
+in the current sampling interval, i.e., generally in the next 1 hour or the
+next 15 minutes.
+If the parameter <code>nPre &gt; 1</code>, then the prediction is done
+for multiple time intervals. All of these predictions can be obtained from
+the output <code>PPreNoShe</code>. This output does not take into account
+<code>yShed</code>.
+The output <code>PPre</code> is
+<code>PPre = yShed * PPreNoShe[1]</code> if <code>shed=true</code>,
+otherwise it is
+<code>PPre = PPreNoShe[1]</code>.
+</p>
+<p>
+The baseline prediction is computed in
+<a href="Buildings_Controls_Predictors.html#Buildings.Controls.Predictors.ElectricalLoad"
+>
+Buildings.Controls.Predictors.ElectricalLoad</a>.
+
+<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BlockIcon"
+>Modelica.Blocks.Interfaces.BlockIcon</a> (This icon will be removed in future Modelica versions, use Modelica.Blocks.Icons.Block instead.).</p>
+<h3>Parameters</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td>Integer</td><td>nSam</td><td>&nbsp;</td><td>Number of samples in a day. For 1 hour sampling, set to 24</td></tr>
+<tr><td>Integer</td><td>nPre</td><td>1</td><td>Number of intervals for which future load need to be predicted (set to one to only predict current time, or to nSam to predict one day)</td></tr>
+<tr><td>Integer</td><td>nHis</td><td>10</td><td>Number of history terms to be stored for baseline computation</td></tr>
+<tr><td><a href="Buildings_Controls_Predictors_Types.html#Buildings.Controls.Predictors.Types.PredictionModel"
+>PredictionModel</a></td><td>predictionModel</td><td>Buildings.Controls.Predictor...</td><td>Load prediction model</td></tr>
+</table>
+<h3>Connectors</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Connectors">
+<tr><th>Type</th><th>Name</th><th>Description</th></tr>
+<tr><td>input <a href="Buildings_Controls_Interfaces.html#Buildings.Controls.Interfaces.DayTypeInput"
+>DayTypeInput</a></td><td>typeOfDay[integer((nPre - 1)/nSam) + 2]</td><td>Type of day for the current and the future days for which a prediction is to be made.
+    Typically, this has dimension 2 for predictions up to and including 24 hours, and 2+n for any additional day</td></tr>
+<tr><td>input <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BooleanInput"
+>BooleanInput</a></td><td>isEventDay</td><td>If true, this day remains an event day until midnight</td></tr>
+<tr><td>input <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>RealInput</a></td><td>ECon</td><td>Consumed electrical power [J]</td></tr>
+<tr><td>input <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BooleanInput"
+>BooleanInput</a></td><td>shed</td><td>Signal, true if load needs to be shed at the current time</td></tr>
+<tr><td>input <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>RealInput</a></td><td>yShed</td><td>Amount of load to shed. Set to 0.5 to shed 50% of load [1]</td></tr>
+<tr><td>input <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>RealInput</a></td><td>TOut</td><td>Outside air temperature [K]</td></tr>
+<tr><td>input <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>RealInput</a></td><td>TOutFut[nPre - 1]</td><td>Future outside air temperatures [K]</td></tr>
+<tr><td>output <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+>RealOutput</a></td><td>PPre</td><td>Predicted power consumption for the current time interval, taking into account yShed [W]</td></tr>
+<tr><td>output <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+>RealOutput</a></td><td>PPreNoShe[nPre]</td><td>Predicted power consumption for the current and future time intervals, not taking into account yShed [W]</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">model</span> Client <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Demand response client&quot;</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BlockIcon"
+>Modelica.Blocks.Interfaces.BlockIcon</a>;
+
+  <span style="color: blue; font-weight: normal; font-style: normal;">final </span><span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Time"
+>Modelica.SIunits.Time</a> tPeriod = 24*3600 <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Period, generally one day&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">final </span><span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Time"
+>Modelica.SIunits.Time</a> tSample=tPeriod/nSam <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Sample period, generally 900 or 3600 seconds&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Integer nSam <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Number of samples in a day. For 1 hour sampling, set to 24&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Integer nPre(min=1) = 1 <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Number of intervals for which future load need to be predicted (set to one to only predict current time, or to nSam to predict one day)&quot;</span>;
+
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Integer nHis(min=1) = 10 <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Number of history terms to be stored for baseline computation&quot;</span>;
+
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="Buildings_Controls_Predictors_Types.html#Buildings.Controls.Predictors.Types.PredictionModel"
+>Buildings.Controls.Predictors.Types.PredictionModel</a>
+    predictionModel=
+      Buildings.Controls.Predictors.Types.PredictionModel.WeatherRegression <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Load prediction model&quot;</span>;
+
+  <a href="Buildings_Controls_Interfaces.html#Buildings.Controls.Interfaces.DayTypeInput"
+>Buildings.Controls.Interfaces.DayTypeInput</a> typeOfDay[<span style="color: red; font-weight: normal; font-style: normal;">integer</span>((nPre-1)/nSam)+2] <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Type of day for the current and the future days for which a prediction is to be made.
+    Typically, this has dimension 2 for predictions up to and including 24 hours, and 2+n for any additional day&quot;</span>;
+
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BooleanInput"
+>Modelica.Blocks.Interfaces.BooleanInput</a> isEventDay <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;If true, this day remains an event day until midnight&quot;</span>;
+   <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>Modelica.Blocks.Interfaces.RealInput</a> ECon(unit=&quot;J&quot;) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Consumed electrical power&quot;</span>;
+
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BooleanInput"
+>Modelica.Blocks.Interfaces.BooleanInput</a> shed <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Signal, true if load needs to be shed at the current time&quot;</span>;
+
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>Modelica.Blocks.Interfaces.RealInput</a> yShed(min=-1, max=1, unit=&quot;1&quot;) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Amount of load to shed. Set to 0.5 to shed 50% of load&quot;</span>;
+
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>Modelica.Blocks.Interfaces.RealInput</a> TOut(unit=&quot;K&quot;, displayUnit=&quot;degC&quot;) <span style="color: blue; font-weight: normal; font-style: normal;">if </span>
+     (predictionModel == Buildings.Controls.Predictors.Types.PredictionModel.WeatherRegression) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Outside air temperature&quot;</span>;
+
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>Modelica.Blocks.Interfaces.RealInput</a> TOutFut[nPre-1](<span style="color: blue; font-weight: normal; font-style: normal;">each </span>unit=&quot;K&quot;) <span style="color: blue; font-weight: normal; font-style: normal;">if </span>
+       (predictionModel == Buildings.Controls.Predictors.Types.PredictionModel.WeatherRegression) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Future outside air temperatures&quot;</span>;
+
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+>Modelica.Blocks.Interfaces.RealOutput</a> PPre(unit=&quot;W&quot;) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Predicted power consumption for the current time interval, taking into account yShed&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+>Modelica.Blocks.Interfaces.RealOutput</a> PPreNoShe[nPre](<span style="color: blue; font-weight: normal; font-style: normal;">each </span>unit=&quot;W&quot;) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Predicted power consumption for the current and future time intervals, not taking into account yShed&quot;</span>;
+
+<span style="color: blue; font-weight: normal; font-style: normal;">protected </span>
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_StateGraph.html#Modelica.StateGraph.InitialStep"
+>Modelica.StateGraph.InitialStep</a> initialStep;
+  <span style="color: blue; font-weight: normal; font-style: normal;">inner </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_StateGraph.html#Modelica.StateGraph.StateGraphRoot"
+>Modelica.StateGraph.StateGraphRoot</a> stateGraphRoot;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_StateGraph.html#Modelica.StateGraph.Transition"
+>Modelica.StateGraph.Transition</a> transition;
+  <a href="Buildings_Controls_DemandResponse_BaseClasses.html#Buildings.Controls.DemandResponse.BaseClasses.BaselinePrediction"
+>BaseClasses.BaselinePrediction</a> comBasLin(
+    <span style="color: blue; font-weight: normal; font-style: normal;">final </span>nSam=nSam,
+    <span style="color: blue; font-weight: normal; font-style: normal;">final </span>nHis=nHis,
+    <span style="color: blue; font-weight: normal; font-style: normal;">final </span>nPre=nPre,
+    <span style="color: blue; font-weight: normal; font-style: normal;">final </span>predictionModel=predictionModel,
+    nIn=3) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Baseline prediction&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_StateGraph.html#Modelica.StateGraph.Transition"
+>Modelica.StateGraph.Transition</a> t1 <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;State transition&quot;</span>;
+  <a href="Buildings_Controls_DemandResponse_BaseClasses.html#Buildings.Controls.DemandResponse.BaseClasses.NormalOperation"
+>BaseClasses.NormalOperation</a> norOpe(nOut=2) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Normal operation&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_StateGraph.html#Modelica.StateGraph.TransitionWithSignal"
+>Modelica.StateGraph.TransitionWithSignal</a>
+                                 t2(enableTimer=false) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;State transition&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_StateGraph.html#Modelica.StateGraph.TransitionWithSignal"
+>Modelica.StateGraph.TransitionWithSignal</a> t3 <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;State transition&quot;</span>;
+  <a href="Buildings_Controls_DemandResponse_BaseClasses.html#Buildings.Controls.DemandResponse.BaseClasses.ShedOperation"
+>BaseClasses.ShedOperation</a> she <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Operation during load shedding&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_StateGraph.html#Modelica.StateGraph.TransitionWithSignal"
+>Modelica.StateGraph.TransitionWithSignal</a>
+                                 t4(enableTimer=false) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;State transition&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.SampleTrigger"
+>Modelica.Blocks.Sources.SampleTrigger</a> tri(period=tSample) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Sample trigger&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Logical.html#Modelica.Blocks.Logical.Switch"
+>Modelica.Blocks.Logical.Switch</a> switch <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Switch to select normal or shedded load&quot;</span>;
+<span style="color: blue; font-weight: normal; font-style: normal;">equation </span>
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(initialStep.outPort[1], transition.inPort);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(transition.outPort, comBasLin.inPort[1]);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(t1.inPort, comBasLin.outPort[1]);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(t1.outPort, norOpe.inPort[1]);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(comBasLin.ECon, ECon);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(comBasLin.PPre[1], norOpe.PCon);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(t2.outPort, comBasLin.inPort[2]);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(t3.outPort, she.inPort[1]);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(t4.inPort, she.outPort[1]);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(t4.outPort, comBasLin.inPort[3]);
+
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(t4.condition, tri.y);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(t2.condition, tri.y);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(norOpe.PPre, she.PCon);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(norOpe.active, switch.u2);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(norOpe.outPort[1], t2.inPort);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(norOpe.outPort[2], t3.inPort);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(shed, t3.condition);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(switch.u1, she.PCon);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(switch.u3, she.PPre);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(isEventDay, comBasLin.isEventDay);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(comBasLin.TOut, TOut);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(typeOfDay, comBasLin.typeOfDay);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(comBasLin.TOutFut, TOutFut);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(yShed, she.yShed);
+  <span style="color: #006400; font-weight: normal; font-style: normal;">// Only PPre[1] will take into account the shedded load.</span>
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(switch.y, PPre);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(comBasLin.PPre, PPreNoShe);
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>Client;
+</div>
+<hr>
+<address>
+<a href="http://www.3ds.com/">Automatically generated</a> Thu Apr  9 09:32:54 2015.
+</address>
+</body>
+</html>

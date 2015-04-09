@@ -1,0 +1,239 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>Buildings.Examples.DualFanDualDuct.ThermalZones</title>
+<meta name="HTML-Generator" content="Dymola">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="description" content="&quot;Package with models for the thermal zones&quot;">
+<style type="text/css">
+*       { font-size: 10pt; font-family: Arial, sans-serif; }
+.modelica, .modelica * { font-size: 9pt; font-family: Courier, monospace; white-space: pre; }
+h4      { font-size: 10pt; font-weight: bold; color: green; }
+h3      { font-size: 11pt; font-weight: bold; color: green; }
+h2      { font-size: 13pt; font-weight: bold; color: green; }
+address { font-weight: normal; }
+td      { border: 1px solid #808080; vertical-align: top; }
+th      { border: 1px solid #808080; vertical-align: top; font-weight: bold; }
+table   { border: 1px solid #808080; border-collapse: collapse; }
+</style>
+<link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../Resources/www/modelicaDoc.css">
+</HEAD>
+<body>
+<!-- --- header ------ -->
+<div class="headerStyle">
+<img src="../Resources/www/lbl-logo.png" alt="LBL logo"/>
+</div>
+<div class="headerLinks">
+<ul><li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt; <a href="Buildings.html">Modelica</a></li></ul>
+</div>
+<!-- --- end header -- -->
+
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE ThermalZones<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><a name="Buildings.Examples.DualFanDualDuct.ThermalZones"></a><a href="Buildings_Examples_DualFanDualDuct.html#Buildings.Examples.DualFanDualDuct"
+>Buildings.Examples.DualFanDualDuct</a>.ThermalZones</h2>
+<p>
+<b>Package with models for the thermal zones</b><br>
+</p>
+<h3>Information</h3>
+<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons_VariantsPackage.html#Modelica.Icons.VariantsPackage"
+>Modelica.Icons.VariantsPackage</a> (Icon for package containing variants).</p>
+<h3>Package Content</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Package Content">
+<tr>
+<th>Name</th>
+<th>Description</th>
+</tr>
+<tr>
+<td><img src="Buildings.Examples.DualFa1eee5ef8a44b3216ranchS.png" alt="Buildings.Examples.DualFanDualDuct.ThermalZones.SupplyBranch" width="20" height="20" align="top">&nbsp;<a href="Buildings_Examples_DualFanDualDuct_ThermalZones.html#Buildings.Examples.DualFanDualDuct.ThermalZones.SupplyBranch"
+>SupplyBranch</a>
+</td>
+<td>Supply branch of a dual duct system</td>
+</tr>
+</table>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE SupplyBranch<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Examples.DualFa1eee5ef8a44b3216ranchI.png" alt="Buildings.Examples.DualFanDualDuct.ThermalZones.SupplyBranch" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Examples.DualFanDualDuct.ThermalZones.SupplyBranch"></a><a href="Buildings_Examples_DualFanDualDuct_ThermalZones.html#Buildings.Examples.DualFanDualDuct.ThermalZones"
+>Buildings.Examples.DualFanDualDuct.ThermalZones</a>.SupplyBranch</h2>
+<p>
+<b>Supply branch of a dual duct system</b>
+<br>
+<br><img src="Buildings.Examples.DualFa1eee5ef8a44b3216ranchD.png" alt="Buildings.Examples.DualFanDualDuct.ThermalZones.SupplyBranch">
+</p>
+<h3>Parameters</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td colspan="2">replaceable package MediumA</td><td>Modelica.Media.Interfaces.Pa...</td><td>Medium model for air</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Fluid_Types.html#Modelica.Fluid.Types.Dynamics"
+>Dynamics</a></td><td>energyDynamicsJunctions</td><td>Modelica.Fluid.Types.Dynamic...</td><td>Formulation of energy balance in junction volumes</td></tr>
+<tr><td>Boolean</td><td>dynamicBalanceJunction</td><td>true</td><td>Set to true to use a dynamic balance for junction volumes, which often leads to smaller systems of equations</td></tr>
+<tr><td>Boolean</td><td>from_dp</td><td>false</td><td>= true, use m_flow = f(dp) else dp = f(m_flow)</td></tr>
+<tr><td>Boolean</td><td>linearizeFlowResistance</td><td>false</td><td>= true, use linear relation between m_flow and dp for any flow rate</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+>MassFlowRate</a></td><td>m_flow_nominal</td><td>&nbsp;</td><td>Mass flow rate cold air deck [kg/s]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+>MassFlowRate</a></td><td>mAirHot_flow_nominal</td><td>0.3*m_flow_nominal</td><td>Mass flow rate hot air deck [kg/s]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+>MassFlowRate</a></td><td>mAirCol_flow_nominal</td><td>m_flow_nominal</td><td>Mass flow rate cold air deck [kg/s]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Volume"
+>Volume</a></td><td>VRoo</td><td>&nbsp;</td><td>Room volume [m3]</td></tr>
+</table>
+<h3>Connectors</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Connectors">
+<tr><th>Type</th><th>Name</th><th>Description</th></tr>
+<tr><td colspan="2">replaceable package MediumA</td><td>Medium model for air</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_a"
+>FluidPort_a</a></td><td>port_aHot</td><td>Connector for hot deck</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_a"
+>FluidPort_a</a></td><td>port_aCol</td><td>Connector for cold deck</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_a"
+>FluidPort_a</a></td><td>port_b</td><td>Fluid connector b (positive design flow direction is from port_a1 to port_b1)</td></tr>
+<tr><td><a href="Buildings_Examples_VAVReheat_Controls.html#Buildings.Examples.VAVReheat.Controls.ControlBus"
+>ControlBus</a></td><td>controlBus</td><td>&nbsp;</td></tr>
+<tr><td>input <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>RealInput</a></td><td>TRoo</td><td>Measured room temperature</td></tr>
+<tr><td>output <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+>RealOutput</a></td><td>p_relCol</td><td>Pressure signal of cold deck</td></tr>
+<tr><td>output <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+>RealOutput</a></td><td>p_relHot</td><td>Pressure signal of hot deck</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">model</span> SupplyBranch <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Supply branch of a dual duct system&quot;</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">replaceable </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> MediumA = <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium"
+>Modelica.Media.Interfaces.PartialMedium</a> <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Medium model for air&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_a"
+>Modelica.Fluid.Interfaces.FluidPort_a</a> port_aHot(<span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium =
+        <a href="Buildings_Examples_DualFanDualDuct_ThermalZones_MediumA.html#Buildings.Examples.DualFanDualDuct.ThermalZones.SupplyBranch.MediumA"
+>MediumA</a>) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Connector for hot deck&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_a"
+>Modelica.Fluid.Interfaces.FluidPort_a</a> port_aCol(<span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium =
+        <a href="Buildings_Examples_DualFanDualDuct_ThermalZones_MediumA.html#Buildings.Examples.DualFanDualDuct.ThermalZones.SupplyBranch.MediumA"
+>MediumA</a>) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Connector for cold deck&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_a"
+>Modelica.Fluid.Interfaces.FluidPort_a</a> port_b(<span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium =
+        <a href="Buildings_Examples_DualFanDualDuct_ThermalZones_MediumA.html#Buildings.Examples.DualFanDualDuct.ThermalZones.SupplyBranch.MediumA"
+>MediumA</a>) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Fluid connector b (positive design flow direction is from port_a1 to port_b1)&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Fluid_Types.html#Modelica.Fluid.Types.Dynamics"
+>Modelica.Fluid.Types.Dynamics</a> energyDynamicsJunctions=Modelica.Fluid.Types.Dynamics.FixedInitial <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Formulation of energy balance in junction volumes&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Boolean dynamicBalanceJunction=true <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Set to true to use a dynamic balance for junction volumes, which often leads to smaller systems of equations&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Boolean from_dp=false <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;= true, use m_flow = f(dp) else dp = f(m_flow)&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Boolean linearizeFlowResistance=false <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;= true, use linear relation between m_flow and dp for any flow rate&quot;</span>;
+
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+>Modelica.SIunits.MassFlowRate</a> m_flow_nominal <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Mass flow rate cold air deck&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+>Modelica.SIunits.MassFlowRate</a> mAirHot_flow_nominal = 0.3*m_flow_nominal <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Mass flow rate hot air deck&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+>Modelica.SIunits.MassFlowRate</a> mAirCol_flow_nominal = m_flow_nominal <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Mass flow rate cold air deck&quot;</span>;
+
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Volume"
+>Modelica.SIunits.Volume</a> VRoo <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Room volume&quot;</span>;
+  <a href="Buildings_Examples_DualFanDualDuct_Controls.html#Buildings.Examples.DualFanDualDuct.Controls.RoomMixingBox"
+>Controls.RoomMixingBox</a> con(m_flow_min=VRoo*3*1.2/3600) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Room temperature controller&quot;</span>;
+  <a href="Buildings_Examples_VAVReheat_Controls.html#Buildings.Examples.VAVReheat.Controls.ControlBus"
+>VAVReheat.Controls.ControlBus</a> controlBus;
+  <a href="Buildings_Fluid_Actuators_Dampers.html#Buildings.Fluid.Actuators.Dampers.VAVBoxExponential"
+>Buildings.Fluid.Actuators.Dampers.VAVBoxExponential</a> vavHot(
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = <a href="Buildings_Examples_DualFanDualDuct_ThermalZones_MediumA.html#Buildings.Examples.DualFanDualDuct.ThermalZones.SupplyBranch.MediumA"
+>MediumA</a>,
+    A=0.6,
+    use_v_nominal=true,
+    m_flow_nominal=mAirHot_flow_nominal,
+    dp_nominal(displayUnit=&quot;Pa&quot;) = 40,
+    from_dp=from_dp,
+    linearized=linearizeFlowResistance) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;VAV damper for hot deck&quot;</span>;
+  <a href="Buildings_Fluid_Actuators_Dampers.html#Buildings.Fluid.Actuators.Dampers.VAVBoxExponential"
+>Buildings.Fluid.Actuators.Dampers.VAVBoxExponential</a> vavCol(
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = <a href="Buildings_Examples_DualFanDualDuct_ThermalZones_MediumA.html#Buildings.Examples.DualFanDualDuct.ThermalZones.SupplyBranch.MediumA"
+>MediumA</a>,
+    A=0.6,
+    use_v_nominal=true,
+    m_flow_nominal=mAirCol_flow_nominal,
+    dp_nominal(displayUnit=&quot;Pa&quot;) = 40,
+    from_dp=from_dp,
+    linearized=linearizeFlowResistance) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;VAV damper for cold deck&quot;</span>;
+
+  <a href="Buildings_Fluid_Sensors.html#Buildings.Fluid.Sensors.MassFlowRate"
+>Buildings.Fluid.Sensors.MassFlowRate</a> senMasFlo(<span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium =
+        <a href="Buildings_Examples_DualFanDualDuct_ThermalZones_MediumA.html#Buildings.Examples.DualFanDualDuct.ThermalZones.SupplyBranch.MediumA"
+>MediumA</a>) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Sensor for mass flow rate&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Math.html#Modelica.Blocks.Math.Gain"
+>Modelica.Blocks.Math.Gain</a> fraMasFlo(k=1/m_flow_nominal) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Fraction of mass flow rate, relative to nominal flow&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Math.html#Modelica.Blocks.Math.Gain"
+>Modelica.Blocks.Math.Gain</a> ACH(k=1/VRoo/1.2*3600) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Air change per hour&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>Modelica.Blocks.Interfaces.RealInput</a> TRoo <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Measured room temperature&quot;</span>;
+  <a href="Buildings_Fluid_FixedResistances.html#Buildings.Fluid.FixedResistances.SplitterFixedResistanceDpM"
+>Fluid.FixedResistances.SplitterFixedResistanceDpM</a> mix(
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = <a href="Buildings_Examples_DualFanDualDuct_ThermalZones_MediumA.html#Buildings.Examples.DualFanDualDuct.ThermalZones.SupplyBranch.MediumA"
+>MediumA</a>,
+    m_flow_nominal={mAirCol_flow_nominal,mAirHot_flow_nominal,mAirCol_flow_nominal +
+        mAirHot_flow_nominal},
+    energyDynamics=energyDynamicsJunctions,
+    massDynamics=energyDynamicsJunctions,
+    from_dp=from_dp,
+    linearized=linearizeFlowResistance,
+    dynamicBalance=false,
+    dp_nominal=20*{0,0,0}) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Mixer for hot and cold air deck&quot;</span>;
+
+  <a href="Buildings_Fluid_Sensors.html#Buildings.Fluid.Sensors.RelativePressure"
+>Fluid.Sensors.RelativePressure</a> senRelPreHot(<span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium =
+        <a href="Buildings_Examples_DualFanDualDuct_ThermalZones_MediumA.html#Buildings.Examples.DualFanDualDuct.ThermalZones.SupplyBranch.MediumA"
+>MediumA</a>) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Relative pressure hot deck (compared to room pressure)&quot;</span>;
+  <a href="Buildings_Fluid_Sensors.html#Buildings.Fluid.Sensors.RelativePressure"
+>Fluid.Sensors.RelativePressure</a> senRelPreCol(<span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium =
+        <a href="Buildings_Examples_DualFanDualDuct_ThermalZones_MediumA.html#Buildings.Examples.DualFanDualDuct.ThermalZones.SupplyBranch.MediumA"
+>MediumA</a>) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Relative pressure cold deck (compared to room pressure)&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+>Modelica.Blocks.Interfaces.RealOutput</a> p_relCol <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Pressure signal of cold deck&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+>Modelica.Blocks.Interfaces.RealOutput</a> p_relHot <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Pressure signal of hot deck&quot;</span>;
+  <a href="Buildings_Fluid_Sensors.html#Buildings.Fluid.Sensors.TemperatureTwoPort"
+>Fluid.Sensors.TemperatureTwoPort</a> TSup(<span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = <a href="Buildings_Examples_DualFanDualDuct_ThermalZones_MediumA.html#Buildings.Examples.DualFanDualDuct.ThermalZones.SupplyBranch.MediumA"
+>MediumA</a>,
+      m_flow_nominal=m_flow_nominal) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Supply air temperature&quot;</span>;
+<span style="color: blue; font-weight: normal; font-style: normal;">equation </span>
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(fraMasFlo.u, senMasFlo.m_flow);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(ACH.u, senMasFlo.m_flow);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(con.TRoo, TRoo);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(vavHot.port_a, port_aHot);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(vavHot.port_b, mix.port_2);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(mix.port_1, vavCol.port_b);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(mix.port_3, senMasFlo.port_a);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(senMasFlo.m_flow, con.mAir_flow);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(con.yHot, vavHot.y);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(con.yCol, vavCol.y);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(senRelPreHot.port_a, port_aHot);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(senRelPreCol.port_a, port_aCol);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(vavCol.port_a, port_aCol);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(senRelPreHot.port_b, mix.port_3);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(senRelPreCol.port_b, mix.port_3);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(senRelPreCol.p_rel, p_relCol);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(senRelPreHot.p_rel, p_relHot);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(con.TRooSetHea, controlBus.TRooSetHea);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(con.TRooSetCoo, controlBus.TRooSetCoo);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(senMasFlo.port_b, TSup.port_a);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(TSup.port_b, port_b);
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>SupplyBranch;
+</div>
+<hr>
+<address>
+<a href="http://www.3ds.com/">Automatically generated</a> Thu Apr  9 09:44:35 2015.
+</address>
+</body>
+</html>

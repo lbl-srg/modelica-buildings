@@ -1,0 +1,185 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>Buildings.Controls.Sources</title>
+<meta name="HTML-Generator" content="Dymola">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="description" content="&quot;Package with models for source signals that are used with controllers&quot;">
+<style type="text/css">
+*       { font-size: 10pt; font-family: Arial, sans-serif; }
+.modelica, .modelica * { font-size: 9pt; font-family: Courier, monospace; white-space: pre; }
+h4      { font-size: 10pt; font-weight: bold; color: green; }
+h3      { font-size: 11pt; font-weight: bold; color: green; }
+h2      { font-size: 13pt; font-weight: bold; color: green; }
+address { font-weight: normal; }
+td      { border: 1px solid #808080; vertical-align: top; }
+th      { border: 1px solid #808080; vertical-align: top; font-weight: bold; }
+table   { border: 1px solid #808080; border-collapse: collapse; }
+</style>
+<link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../Resources/www/modelicaDoc.css">
+</HEAD>
+<body>
+<!-- --- header ------ -->
+<div class="headerStyle">
+<img src="../Resources/www/lbl-logo.png" alt="LBL logo"/>
+</div>
+<div class="headerLinks">
+<ul><li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt; <a href="Buildings.html">Modelica</a></li></ul>
+</div>
+<!-- --- end header -- -->
+
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE Sources<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><a name="Buildings.Controls.Sources"></a><a href="Buildings_Controls.html#Buildings.Controls"
+>Buildings.Controls</a>.Sources</h2>
+<p>
+<b>Package with models for source signals that are used with controllers</b><br>
+</p>
+<h3>Information</h3>
+
+This package contains components models for sources
+that are used with controllers.
+For additional models, see also
+<a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources"
+>
+Modelica.Blocks.Sources</a>.
+
+<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons_SourcesPackage.html#Modelica.Icons.SourcesPackage"
+>Modelica.Icons.SourcesPackage</a> (Icon for packages containing sources).</p>
+<h3>Package Content</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Package Content">
+<tr>
+<th>Name</th>
+<th>Description</th>
+</tr>
+<tr>
+<td><img src="Buildings.Controls.Sources.DayTypeS.png" alt="Buildings.Controls.Sources.DayType" width="20" height="20" align="top">&nbsp;<a href="Buildings_Controls_Sources.html#Buildings.Controls.Sources.DayType"
+>DayType</a>
+</td>
+<td>Block that outputs a signal that indicates week-day or week-end</td>
+</tr>
+<tr>
+<td><img src="Buildings.Controls.Sources.ExamplesS.png" alt="Buildings.Controls.Sources.Examples" width="20" height="20" align="top">&nbsp;<a href="Buildings_Controls_Sources_Examples.html#Buildings.Controls.Sources.Examples"
+>Examples</a>
+</td>
+<td>Collection of models that illustrate model use and test models</td>
+</tr>
+</table>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE DayType<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Controls.Sources.DayTypeI.png" alt="Buildings.Controls.Sources.DayType" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Controls.Sources.DayType"></a><a href="Buildings_Controls_Sources.html#Buildings.Controls.Sources"
+>Buildings.Controls.Sources</a>.DayType</h2>
+<p>
+<b>Block that outputs a signal that indicates week-day or week-end</b>
+<br>
+<br><img src="Buildings.Controls.Sources.DayTypeD.png" alt="Buildings.Controls.Sources.DayType">
+</p>
+<h3>Information</h3>
+
+<p>
+This block outputs a periodic signal that indicates the type of the day.
+It can for example be used to generate a signal that indicates whether
+the current time is a work day or a non-working day.
+The output signal is of type
+<a href="Buildings_Controls_Types.html#Buildings.Controls.Types.Day"
+>
+Buildings.Controls.Types.Day</a>.
+</p>
+<p>
+The parameter <code>nout</code> determines how many days should be
+sent to the output. For applications in which only the current day
+is of interest, set <code>nout=1</code>.
+For applications in which the load is predicted for the next <i>24</i> hours,
+set <code>nout=2</code> in order to output the type of day for today and for
+tomorrow.
+</p>
+<p>
+The transition from one day type to another always happens when the simulation time
+is a multiple of <i>1</i> day. Hence, if the simulation starts for example
+at <i>t=-3600</i> seconds, then the first transition to another day will be
+at <i>t=0</i>.
+</p>
+
+<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Icons.html#Modelica.Blocks.Icons.DiscreteBlock"
+>Modelica.Blocks.Icons.DiscreteBlock</a> (Graphical layout of discrete block component icon).</p>
+<h3>Parameters</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td>Integer</td><td>nout</td><td>2</td><td>Number of days to output. Set to two for one day predictions</td></tr>
+<tr><td><a href="Buildings_Controls_Types.html#Buildings.Controls.Types.Day"
+>Day</a></td><td>days[:]</td><td>{Buildings.Controls.Types.Da...</td><td>Array where each element is a day indicator</td></tr>
+<tr><td>Integer</td><td>iStart</td><td>1</td><td>Index of element in days at simulation start</td></tr>
+</table>
+<h3>Connectors</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Connectors">
+<tr><th>Type</th><th>Name</th><th>Description</th></tr>
+<tr><td>output <a href="Buildings_Controls_Interfaces.html#Buildings.Controls.Interfaces.DayTypeOutput"
+>DayTypeOutput</a></td><td>y[nout]</td><td>Type of the day for the current and the next (nout-1) days</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">model</span> DayType <span style="color: #006400; font-weight: normal; font-style: normal;">
+  &quot;Block that outputs a signal that indicates week-day or week-end&quot;</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Icons.html#Modelica.Blocks.Icons.DiscreteBlock"
+>Modelica.Blocks.Icons.DiscreteBlock</a>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Integer nout = 2 <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Number of days to output. Set to two for one day predictions&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="Buildings_Controls_Types.html#Buildings.Controls.Types.Day"
+>Buildings.Controls.Types.Day</a>[:] days={
+    Buildings.Controls.Types.Day.WorkingDay,
+    Buildings.Controls.Types.Day.WorkingDay,
+    Buildings.Controls.Types.Day.WorkingDay,
+    Buildings.Controls.Types.Day.WorkingDay,
+    Buildings.Controls.Types.Day.WorkingDay,
+    Buildings.Controls.Types.Day.NonWorkingDay,
+    Buildings.Controls.Types.Day.NonWorkingDay} <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Array where each element is a day indicator&quot;</span>;
+   <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Integer iStart(min=1, max=<span style="color: red; font-weight: normal; font-style: normal;">size</span>(days, 1)) = 1 <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Index of element in days at simulation start&quot;</span>;
+
+  <a href="Buildings_Controls_Interfaces.html#Buildings.Controls.Interfaces.DayTypeOutput"
+>Interfaces.DayTypeOutput</a> y[nout] <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Type of the day for the current and the next (nout-1) days&quot;</span>;
+
+<span style="color: blue; font-weight: normal; font-style: normal;">protected </span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Time"
+>Modelica.SIunits.Time</a> samplePeriod=86400 <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Sample period of the component&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">output </span>Integer iDay(min=1, max=<span style="color: red; font-weight: normal; font-style: normal;">size</span>(days, 1)) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Pointer to days that determines what day type is sent to the output&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Time"
+>Modelica.SIunits.Time</a> firstSample(fixed=false) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Time when the sampling starts&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">output </span>Boolean sampleTrigger <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;True, if sample time instant&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">output </span>Boolean skipIDayIncrement <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;If true, don&#39;t increment iDay in first sample&quot;</span>;
+
+<span style="color: blue; font-weight: normal; font-style: normal;">initial </span><span style="color: blue; font-weight: normal; font-style: normal;">equation </span>
+  iDay = iStart;
+  firstSample =<span style="color: red; font-weight: normal; font-style: normal;"> ceil</span>(time/86400)*86400;
+  <span style="color: #006400; font-weight: normal; font-style: normal;">// skipIDayIncrement is true if the simulation starts at midnight.</span>
+  skipIDayIncrement =<span style="color: red; font-weight: normal; font-style: normal;"> abs</span>(firstSample-time) &lt; 1E-8;
+<span style="color: blue; font-weight: normal; font-style: normal;">equation </span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">for </span>i<span style="color: blue; font-weight: normal; font-style: normal;"> in </span>1:nout<span style="color: blue; font-weight: normal; font-style: normal;"> loop</span>
+    y[i] = days[<span style="color: red; font-weight: normal; font-style: normal;"> mod</span>(iDay+i-2,<span style="color: red; font-weight: normal; font-style: normal;"> size</span>(days, 1))+1];
+  <span style="color: blue; font-weight: normal; font-style: normal;">end for</span>;
+  sampleTrigger =<span style="color: red; font-weight: normal; font-style: normal;"> sample</span>(firstSample, samplePeriod);
+  <span style="color: blue; font-weight: normal; font-style: normal;">when </span>sampleTrigger<span style="color: blue; font-weight: normal; font-style: normal;"> then</span>
+    skipIDayIncrement = false;
+    <span style="color: blue; font-weight: normal; font-style: normal;">if </span><span style="color: red; font-weight: normal; font-style: normal;">pre</span>(skipIDayIncrement)<span style="color: blue; font-weight: normal; font-style: normal;"> then</span>
+      iDay =<span style="color: red; font-weight: normal; font-style: normal;"> pre</span>(iDay);
+    <span style="color: blue; font-weight: normal; font-style: normal;">else</span>
+      iDay =<span style="color: red; font-weight: normal; font-style: normal;"> mod</span>(<span style="color: red; font-weight: normal; font-style: normal;">pre</span>(iDay),<span style="color: red; font-weight: normal; font-style: normal;"> size</span>(days, 1))+1;
+    <span style="color: blue; font-weight: normal; font-style: normal;">end if</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">end when</span>;
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>DayType;
+</div>
+<hr>
+<address>
+<a href="http://www.3ds.com/">Automatically generated</a> Thu Apr  9 09:33:00 2015.
+</address>
+</body>
+</html>

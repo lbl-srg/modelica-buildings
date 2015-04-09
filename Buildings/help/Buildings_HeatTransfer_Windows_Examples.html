@@ -1,0 +1,659 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>Buildings.HeatTransfer.Windows.Examples</title>
+<meta name="HTML-Generator" content="Dymola">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="description" content="&quot;Collection of models that illustrate model use and test models&quot;">
+<style type="text/css">
+*       { font-size: 10pt; font-family: Arial, sans-serif; }
+.modelica, .modelica * { font-size: 9pt; font-family: Courier, monospace; white-space: pre; }
+h4      { font-size: 10pt; font-weight: bold; color: green; }
+h3      { font-size: 11pt; font-weight: bold; color: green; }
+h2      { font-size: 13pt; font-weight: bold; color: green; }
+address { font-weight: normal; }
+td      { border: 1px solid #808080; vertical-align: top; }
+th      { border: 1px solid #808080; vertical-align: top; font-weight: bold; }
+table   { border: 1px solid #808080; border-collapse: collapse; }
+</style>
+<link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../Resources/www/modelicaDoc.css">
+</HEAD>
+<body>
+<!-- --- header ------ -->
+<div class="headerStyle">
+<img src="../Resources/www/lbl-logo.png" alt="LBL logo"/>
+</div>
+<div class="headerLinks">
+<ul><li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt; <a href="Buildings.html">Modelica</a></li></ul>
+</div>
+<!-- --- end header -- -->
+
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE Examples<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><a name="Buildings.HeatTransfer.Windows.Examples"></a><a href="Buildings_HeatTransfer_Windows.html#Buildings.HeatTransfer.Windows"
+>Buildings.HeatTransfer.Windows</a>.Examples</h2>
+<p>
+<b>Collection of models that illustrate model use and test models</b><br>
+</p>
+<h3>Information</h3>
+
+<p>
+This package contains examples for the use of models that can be found in
+<a href="Buildings_HeatTransfer_Windows.html#Buildings.HeatTransfer.Windows"
+>
+Buildings.HeatTransfer.Windows</a>.
+</p>
+
+<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons_ExamplesPackage.html#Modelica.Icons.ExamplesPackage"
+>Modelica.Icons.ExamplesPackage</a> (Icon for packages containing runnable examples).</p>
+<h3>Package Content</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Package Content">
+<tr>
+<th>Name</th>
+<th>Description</th>
+</tr>
+<tr>
+<td><img src="Buildings.HeatTransfer.Widbbc42178240ed63nsferS.png" alt="Buildings.HeatTransfer.Windows.Examples.BoundaryHeatTransfer" width="20" height="20" align="top">&nbsp;<a href="Buildings_HeatTransfer_Windows_Examples.html#Buildings.HeatTransfer.Windows.Examples.BoundaryHeatTransfer"
+>BoundaryHeatTransfer</a>
+</td>
+<td>Test model for the heat transfer at the window boundary condition</td>
+</tr>
+<tr>
+<td><img src="Buildings.HeatTransfer.Widbbc42178240ed63nsferS.png" alt="Buildings.HeatTransfer.Windows.Examples.FixedShade" width="20" height="20" align="top">&nbsp;<a href="Buildings_HeatTransfer_Windows_Examples.html#Buildings.HeatTransfer.Windows.Examples.FixedShade"
+>FixedShade</a>
+</td>
+<td>Test model for the fixed shade model</td>
+</tr>
+<tr>
+<td><img src="Buildings.HeatTransfer.Widbbc42178240ed63nsferS.png" alt="Buildings.HeatTransfer.Windows.Examples.Overhang" width="20" height="20" align="top">&nbsp;<a href="Buildings_HeatTransfer_Windows_Examples.html#Buildings.HeatTransfer.Windows.Examples.Overhang"
+>Overhang</a>
+</td>
+<td>This example tests the window overhang model</td>
+</tr>
+<tr>
+<td><img src="Buildings.HeatTransfer.Widbbc42178240ed63nsferS.png" alt="Buildings.HeatTransfer.Windows.Examples.SideFins" width="20" height="20" align="top">&nbsp;<a href="Buildings_HeatTransfer_Windows_Examples.html#Buildings.HeatTransfer.Windows.Examples.SideFins"
+>SideFins</a>
+</td>
+<td>This example demonstrates the use of side fins for a window</td>
+</tr>
+<tr>
+<td><img src="Buildings.HeatTransfer.Wic07f621693a1af49indowS.png" alt="Buildings.HeatTransfer.Windows.Examples.Window" width="20" height="20" align="top">&nbsp;<a href="Buildings_HeatTransfer_Windows_Examples.html#Buildings.HeatTransfer.Windows.Examples.Window"
+>Window</a>
+</td>
+<td>Test model for the window</td>
+</tr>
+</table>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE BoundaryHeatTransfer<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.HeatTransfer.Widbbc42178240ed63nsferI.png" alt="Buildings.HeatTransfer.Windows.Examples.BoundaryHeatTransfer" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.HeatTransfer.Windows.Examples.BoundaryHeatTransfer"></a><a href="Buildings_HeatTransfer_Windows_Examples.html#Buildings.HeatTransfer.Windows.Examples"
+>Buildings.HeatTransfer.Windows.Examples</a>.BoundaryHeatTransfer</h2>
+<p>
+<b>Test model for the heat transfer at the window boundary condition</b>
+<br>
+<br><img src="Buildings.HeatTransfer.Widbbc42178240ed63nsferD.png" alt="Buildings.HeatTransfer.Windows.Examples.BoundaryHeatTransfer">
+</p>
+<h3>Information</h3>
+<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</a> (Icon for runnable examples).</p>
+<h3>Parameters</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Area"
+>Area</a></td><td>A</td><td>1</td><td>Window surface area [m2]</td></tr>
+<tr><td>Real</td><td>fFra</td><td>0.2</td><td>Fraction of frame, = frame area divided by total area</td></tr>
+<tr><td><a href="Buildings_HeatTransfer_Data_GlazingSystems.html#Buildings.HeatTransfer.Data.GlazingSystems.TripleClearAir13ClearAir13Clear"
+>TripleClearAir13ClearAir13Clear</a></td><td>glaSys3</td><td>&nbsp;</td><td>Parameters for glazing system</td></tr>
+<tr><td><a href="Buildings_HeatTransfer_Data_GlazingSystems.html#Buildings.HeatTransfer.Data.GlazingSystems.DoubleClearAir13Clear"
+>DoubleClearAir13Clear</a></td><td>glaSys</td><td>&nbsp;</td><td>Parameters for glazing system</td></tr>
+<tr><td><a href="Buildings_HeatTransfer_Data_GlazingSystems.html#Buildings.HeatTransfer.Data.GlazingSystems.SingleClear3"
+>SingleClear3</a></td><td>glaSys1</td><td>&nbsp;</td><td>Parameters for glazing system</td></tr>
+<tr><td><a href="Buildings_HeatTransfer_Data_GlazingSystems.html#Buildings.HeatTransfer.Data.GlazingSystems.DoubleClearAir13Clear"
+>DoubleClearAir13Clear</a></td><td>glaSys2</td><td>&nbsp;</td><td>Parameters for glazing system</td></tr>
+<tr><td>Boolean</td><td>linearizeRadiation</td><td>false</td><td>Set to true to linearize emissive power</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">model</span> BoundaryHeatTransfer <span style="color: #006400; font-weight: normal; font-style: normal;">
+  &quot;Test model for the heat transfer at the window boundary condition&quot;</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</a>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Area"
+>Modelica.SIunits.Area</a> A=1 <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Window surface area&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Real fFra=0.2 <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Fraction of frame, = frame area divided by total area&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="Buildings_HeatTransfer_Data_GlazingSystems.html#Buildings.HeatTransfer.Data.GlazingSystems.TripleClearAir13ClearAir13Clear"
+>Buildings.HeatTransfer.Data.GlazingSystems.TripleClearAir13ClearAir13Clear</a>
+    glaSys3(UFra=1) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Parameters for glazing system&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="Buildings_HeatTransfer_Data_GlazingSystems.html#Buildings.HeatTransfer.Data.GlazingSystems.DoubleClearAir13Clear"
+>Buildings.HeatTransfer.Data.GlazingSystems.DoubleClearAir13Clear</a> glaSys(
+    shade=<span style="color: red; font-weight: normal; font-style: normal;">Buildings.HeatTransfer.Data.Shades.Gray</span>(),
+    UFra=1.5,
+    haveExteriorShade=true,
+    haveInteriorShade=false) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Parameters for glazing system&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="Buildings_HeatTransfer_Data_GlazingSystems.html#Buildings.HeatTransfer.Data.GlazingSystems.SingleClear3"
+>Buildings.HeatTransfer.Data.GlazingSystems.SingleClear3</a> glaSys1(UFra=2) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Parameters for glazing system&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="Buildings_HeatTransfer_Data_GlazingSystems.html#Buildings.HeatTransfer.Data.GlazingSystems.DoubleClearAir13Clear"
+>Buildings.HeatTransfer.Data.GlazingSystems.DoubleClearAir13Clear</a> glaSys2(
+    shade=<span style="color: red; font-weight: normal; font-style: normal;">Buildings.HeatTransfer.Data.Shades.Gray</span>(),
+    UFra=2,
+    haveInteriorShade=false,
+    haveExteriorShade=false) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Parameters for glazing system&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Boolean linearizeRadiation = false <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Set to true to linearize emissive power&quot;</span>;
+
+  <a href="Buildings_HeatTransfer_Windows.html#Buildings.HeatTransfer.Windows.ExteriorHeatTransfer"
+>Buildings.HeatTransfer.Windows.ExteriorHeatTransfer</a> extCon(A=A, fFra=fFra,
+    linearizeRadiation=linearizeRadiation,
+    absIRSha_air=glaSys.shade.absIR_a,
+    absIRSha_glass=glaSys.shade.absIR_b,
+    tauIRSha_air=glaSys.shade.tauIR_a,
+    tauIRSha_glass=glaSys.shade.tauIR_b,
+    haveExteriorShade=glaSys.haveExteriorShade,
+    haveInteriorShade=glaSys.haveInteriorShade,
+    vieFacSky=0.5) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Exterior convective heat transfer&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+>Modelica.Blocks.Sources.Constant</a> TOut(y(unit=&quot;K&quot;), k=273.15) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Outside air temperature&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+>Modelica.Blocks.Sources.Constant</a> TRooAir(k=293.15, y(unit=&quot;K&quot;)) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Room air temperature&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Ramp"
+>Modelica.Blocks.Sources.Ramp</a> uSha(duration=1, startTime=0) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Shading control signal&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+>Modelica.Blocks.Sources.Constant</a> vWin(k=1) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Wind speed&quot;</span>;
+  <a href="Buildings_HeatTransfer_Sources.html#Buildings.HeatTransfer.Sources.PrescribedTemperature"
+>Buildings.HeatTransfer.Sources.PrescribedTemperature</a> TOuts <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Outside air temperature&quot;</span>;
+  <a href="Buildings_HeatTransfer_Sources.html#Buildings.HeatTransfer.Sources.PrescribedTemperature"
+>Buildings.HeatTransfer.Sources.PrescribedTemperature</a> TRAir <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Room air temperature&quot;</span>;
+
+ <a href="Buildings_HeatTransfer_Radiosity.html#Buildings.HeatTransfer.Radiosity.IndoorRadiosity"
+>Buildings.HeatTransfer.Radiosity.IndoorRadiosity</a> radIn(
+    <span style="color: blue; font-weight: normal; font-style: normal;">final </span>linearize=linearizeRadiation, <span style="color: blue; font-weight: normal; font-style: normal;">final </span>A=A) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Indoor radiosity&quot;</span>;
+<span style="color: blue; font-weight: normal; font-style: normal;">protected </span>
+  <a href="Buildings_HeatTransfer_Radiosity.html#Buildings.HeatTransfer.Radiosity.RadiositySplitter"
+>Buildings.HeatTransfer.Radiosity.RadiositySplitter</a> radShaOut <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Radiosity that strikes shading device&quot;</span>;
+<span style="color: blue; font-weight: normal; font-style: normal;">public </span>
+  <a href="Buildings_HeatTransfer_Windows_BaseClasses.html#Buildings.HeatTransfer.Windows.BaseClasses.ShadingSignal"
+>Buildings.HeatTransfer.Windows.BaseClasses.ShadingSignal</a> shaSig(haveShade=true) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Conversion for shading signal&quot;</span>;
+  <a href="Buildings_HeatTransfer_Sources.html#Buildings.HeatTransfer.Sources.PrescribedTemperature"
+>Buildings.HeatTransfer.Sources.PrescribedTemperature</a> TRAir1 <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Room air temperature&quot;</span>;
+  <a href="Buildings_HeatTransfer_Sources.html#Buildings.HeatTransfer.Sources.PrescribedTemperature"
+>Buildings.HeatTransfer.Sources.PrescribedTemperature</a> TRAir2 <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Room air temperature&quot;</span>;
+  <a href="Buildings_HeatTransfer_Sources.html#Buildings.HeatTransfer.Sources.PrescribedTemperature"
+>Buildings.HeatTransfer.Sources.PrescribedTemperature</a> TRAir3 <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Room air temperature&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+>Modelica.Blocks.Sources.Constant</a> QAbsSW_flow(k=0) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Absorbed solar radiation&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Math.html#Modelica.Blocks.Math.MultiSum"
+>Modelica.Blocks.Math.MultiSum</a> sumJ(nu=2) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Sum of radiosity from construction to room model&quot;</span>;
+<span style="color: blue; font-weight: normal; font-style: normal;">equation </span>
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(uSha.y, extCon.uSha);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(TOuts.port, extCon.air);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(TRooAir.y, TRAir.T);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(extCon.vWin, vWin.y);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(TOuts.T, TOut.y);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(shaSig.y,radShaOut. u);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(radIn.JOut, radShaOut.JIn);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(shaSig.u, uSha.y);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(radShaOut.JOut_2, extCon.JInUns);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(radShaOut.JOut_1, extCon.JInSha);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(radIn.heatPort, TRAir.port);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(TRooAir.y, TRAir1.T);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(TRooAir.y, TRAir2.T);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(TRooAir.y, TRAir3.T);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(TRAir1.port, extCon.glaUns);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(TRAir2.port, extCon.glaSha);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(TRAir3.port, extCon.frame);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(TOut.y, extCon.TBlaSky);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(TOut.y, extCon.TOut);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(radIn.JIn, sumJ.y);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(extCon.JOutUns, sumJ.u[1]);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(extCon.JOutSha, sumJ.u[2]);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(QAbsSW_flow.y, extCon.QSolAbs_flow);
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>BoundaryHeatTransfer;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE FixedShade<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.HeatTransfer.Widbbc42178240ed63nsferI.png" alt="Buildings.HeatTransfer.Windows.Examples.FixedShade" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.HeatTransfer.Windows.Examples.FixedShade"></a><a href="Buildings_HeatTransfer_Windows_Examples.html#Buildings.HeatTransfer.Windows.Examples"
+>Buildings.HeatTransfer.Windows.Examples</a>.FixedShade</h2>
+<p>
+<b>Test model for the fixed shade model</b>
+<br>
+<br><img src="Buildings.HeatTransfer.Wi08ff5147d0ee924fShadeD.png" alt="Buildings.HeatTransfer.Windows.Examples.FixedShade">
+</p>
+<h3>Information</h3>
+
+<p>
+This model tests window overhang and side fins. There are four instances of <code>sha</code>.
+The first instance models an overhang only, the second models side fins and
+an overhang, the third models side fins only and the fourth has neither an overhang
+nor a side fin.
+</p>
+
+<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</a> (Icon for runnable examples).</p>
+<h3>Parameters</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td><a href="Buildings_Rooms_BaseClasses.html#Buildings.Rooms.BaseClasses.ParameterConstructionWithWindow"
+>ParameterConstructionWithWindow</a></td><td>conPar[4]</td><td>&nbsp;</td><td>Construction parameters</td></tr>
+<tr><td><a href="Buildings_HeatTransfer_Data_GlazingSystems.html#Buildings.HeatTransfer.Data.GlazingSystems.DoubleClearAir13Clear"
+>DoubleClearAir13Clear</a></td><td>glaSys</td><td>&nbsp;</td><td>Glazing system</td></tr>
+<tr><td><a href="Buildings_HeatTransfer_Data_OpaqueConstructions.html#Buildings.HeatTransfer.Data.OpaqueConstructions.Insulation100Concrete200"
+>Insulation100Concrete200</a></td><td>insCon</td><td>&nbsp;</td><td>Insulation and concrete material</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">model</span> FixedShade <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Test model for the fixed shade model&quot;</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</a>;
+
+  <a href="Buildings_HeatTransfer_Windows.html#Buildings.HeatTransfer.Windows.FixedShade"
+>Buildings.HeatTransfer.Windows.FixedShade</a> sha[4](
+    <span style="color: blue; font-weight: normal; font-style: normal;">final </span>conPar=conPar,
+    azi=conPar.azi,
+    <span style="color: blue; font-weight: normal; font-style: normal;">each </span>lat=weaDat.lat) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Shade model&quot;</span>;
+  <a href="Buildings_BoundaryConditions_WeatherData.html#Buildings.BoundaryConditions.WeatherData.ReaderTMY3"
+>Buildings.BoundaryConditions.WeatherData.ReaderTMY3</a> weaDat(
+    filNam=&quot;modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos&quot;);
+  <a href="Buildings_BoundaryConditions_SolarIrradiation.html#Buildings.BoundaryConditions.SolarIrradiation.DirectTiltedSurface"
+>Buildings.BoundaryConditions.SolarIrradiation.DirectTiltedSurface</a> HDirTil(
+    lat=weaDat.lat,
+    til=Buildings.Types.Tilt.Wall,
+    azi=Buildings.Types.Azimuth.S) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Direct solar irradiation&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Routing.html#Modelica.Blocks.Routing.Replicator"
+>Modelica.Blocks.Routing.Replicator</a> H(nout=4) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Replicator&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Routing.html#Modelica.Blocks.Routing.Replicator"
+>Modelica.Blocks.Routing.Replicator</a> incAng(nout=4) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Replicator&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="Buildings_Rooms_BaseClasses.html#Buildings.Rooms.BaseClasses.ParameterConstructionWithWindow"
+>Buildings.Rooms.BaseClasses.ParameterConstructionWithWindow</a> conPar[4](
+    <span style="color: blue; font-weight: normal; font-style: normal;">each </span>til=Buildings.Types.Tilt.Wall,
+    <span style="color: blue; font-weight: normal; font-style: normal;">each </span>azi=Buildings.Types.Azimuth.S,
+    <span style="color: blue; font-weight: normal; font-style: normal;">each </span>A=20,
+    <span style="color: blue; font-weight: normal; font-style: normal;">each </span>hWin=1.5,
+    <span style="color: blue; font-weight: normal; font-style: normal;">each </span>wWin=2,
+    <span style="color: blue; font-weight: normal; font-style: normal;">each </span>glaSys=glaSys,
+    <span style="color: blue; font-weight: normal; font-style: normal;">each </span>layers=insCon,
+    ove(
+      wR = {0.1, 0.1,   0, 0},
+      wL = {0.1, 0.1,   0, 0},
+      gap= {0.1, 0.1,   0, 0},
+      dep= {1,   1,     0, 0}),
+    sidFin(
+      dep= {0,   1,     1, 0},
+      gap= {0,   0.1, 0.1, 0},
+      h =  {0,   0.1, 0.1, 0})) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Construction parameters&quot;</span>;
+
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="Buildings_HeatTransfer_Data_GlazingSystems.html#Buildings.HeatTransfer.Data.GlazingSystems.DoubleClearAir13Clear"
+>Buildings.HeatTransfer.Data.GlazingSystems.DoubleClearAir13Clear</a> glaSys <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Glazing system&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="Buildings_HeatTransfer_Data_OpaqueConstructions.html#Buildings.HeatTransfer.Data.OpaqueConstructions.Insulation100Concrete200"
+>Data.OpaqueConstructions.Insulation100Concrete200</a> insCon <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Insulation and concrete material&quot;</span>;
+<span style="color: blue; font-weight: normal; font-style: normal;">equation </span>
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(weaDat.weaBus, sha[1].weaBus);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(weaDat.weaBus, sha[2].weaBus);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(weaDat.weaBus, sha[3].weaBus);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(HDirTil.weaBus, weaDat.weaBus);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(HDirTil.H, H.u);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(HDirTil.inc, incAng.u);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(incAng.y,sha. incAng);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(H.y,sha. HDirTilUns);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(weaDat.weaBus, sha[4].weaBus);
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>FixedShade;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE Overhang<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.HeatTransfer.Widbbc42178240ed63nsferI.png" alt="Buildings.HeatTransfer.Windows.Examples.Overhang" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.HeatTransfer.Windows.Examples.Overhang"></a><a href="Buildings_HeatTransfer_Windows_Examples.html#Buildings.HeatTransfer.Windows.Examples"
+>Buildings.HeatTransfer.Windows.Examples</a>.Overhang</h2>
+<p>
+<b>This example tests the window overhang model</b>
+<br>
+<br><img src="Buildings.HeatTransfer.Wiaa2dc68451c0f32erhangD.png" alt="Buildings.HeatTransfer.Windows.Examples.Overhang">
+</p>
+<h3>Information</h3>
+
+<p>
+This example demonstrates the use of the overhang model.
+It calculates the fraction of total window area that is exposed to the sun.
+</p>
+<p>
+A similar example of an overhang model with more basic components is implemented in
+<a href="Buildings_HeatTransfer_Windows_BaseClasses_Examples.html#Buildings.HeatTransfer.Windows.BaseClasses.Examples.Overhang"
+>
+Buildings.HeatTransfer.Windows.BaseClasses.Examples.Overhang</a>.
+</p>
+
+<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</a> (Icon for runnable examples).</p>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">model</span> Overhang <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;This example tests the window overhang model&quot;</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</a>;
+  <a href="Buildings_BoundaryConditions_WeatherData.html#Buildings.BoundaryConditions.WeatherData.ReaderTMY3"
+>Buildings.BoundaryConditions.WeatherData.ReaderTMY3</a> weaDat(filNam=&quot;modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos&quot;) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Weather data&quot;</span>;
+  <a href="Buildings_HeatTransfer_Windows.html#Buildings.HeatTransfer.Windows.Overhang"
+>Buildings.HeatTransfer.Windows.Overhang</a> ove(
+    dep=1.2,
+    gap=0.1,
+    hWin=1.0,
+    wWin=1.0,
+    azi=Buildings.Types.Azimuth.S,
+    wR=0.1,
+    wL=0.1,
+    lat=weaDat.lat) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Calculates fraction of window area exposed to the sun&quot;</span>;
+  <a href="Buildings_BoundaryConditions_SolarIrradiation.html#Buildings.BoundaryConditions.SolarIrradiation.DirectTiltedSurface"
+>Buildings.BoundaryConditions.SolarIrradiation.DirectTiltedSurface</a> HDirTil(
+    lat=weaDat.lat,
+    til=Buildings.Types.Tilt.Wall,
+    azi=Buildings.Types.Azimuth.S) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Direct solar irradiation&quot;</span>;
+<span style="color: blue; font-weight: normal; font-style: normal;">equation </span>
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(weaDat.weaBus, ove.weaBus);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(HDirTil.weaBus, weaDat.weaBus);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(HDirTil.inc, ove.incAng);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(HDirTil.H, ove.HDirTilUns);
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>Overhang;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE SideFins<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.HeatTransfer.Widbbc42178240ed63nsferI.png" alt="Buildings.HeatTransfer.Windows.Examples.SideFins" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.HeatTransfer.Windows.Examples.SideFins"></a><a href="Buildings_HeatTransfer_Windows_Examples.html#Buildings.HeatTransfer.Windows.Examples"
+>Buildings.HeatTransfer.Windows.Examples</a>.SideFins</h2>
+<p>
+<b>This example demonstrates the use of side fins for a window</b>
+<br>
+<br><img src="Buildings.HeatTransfer.Wi767018d992a7d3ddeFinsD.png" alt="Buildings.HeatTransfer.Windows.Examples.SideFins">
+</p>
+<h3>Information</h3>
+
+<p>
+This example uses the window sidefin model to calculate the fraction of total window area exposed to the sun.</p>
+<p>
+For a detailed description of the model, see
+<a href="Buildings_HeatTransfer_Windows.html#Buildings.HeatTransfer.Windows.SideFins"
+>Buildings.HeatTransfer.Windows.SideFins</a>.
+A similar example of can be found in
+<a href="Buildings_HeatTransfer_Windows_BaseClasses_Examples.html#Buildings.HeatTransfer.Windows.BaseClasses.Examples.SideFins"
+>Buildings.HeatTransfer.Windows.BaseClasses.Examples.SideFins</a>.
+</p>
+
+<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</a> (Icon for runnable examples).</p>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">model</span> SideFins <span style="color: #006400; font-weight: normal; font-style: normal;">
+  &quot;This example demonstrates the use of side fins for a window&quot;</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</a>;
+  <a href="Buildings_BoundaryConditions_WeatherData.html#Buildings.BoundaryConditions.WeatherData.ReaderTMY3"
+>Buildings.BoundaryConditions.WeatherData.ReaderTMY3</a> weaDat(
+    filNam=&quot;modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos&quot;) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Weather data&quot;</span>;
+  <a href="Buildings_HeatTransfer_Windows.html#Buildings.HeatTransfer.Windows.SideFins"
+>Buildings.HeatTransfer.Windows.SideFins</a> fin(
+    h=0.2,
+    hWin=1.0,
+    wWin=1.0,
+    dep=0.5,
+    gap=0.1) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Outputs fraction of window area exposed to the sun&quot;</span>;
+  <a href="Buildings_BoundaryConditions_SolarIrradiation.html#Buildings.BoundaryConditions.SolarIrradiation.DirectTiltedSurface"
+>Buildings.BoundaryConditions.SolarIrradiation.DirectTiltedSurface</a> HDirTil(
+    lat=weaDat.lat,
+    til=Buildings.Types.Tilt.Wall,
+    azi=Buildings.Types.Azimuth.S) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Direct solar irradiation&quot;</span>;
+<span style="color: blue; font-weight: normal; font-style: normal;">equation </span>
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(weaDat.weaBus, fin.weaBus);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(HDirTil.weaBus, weaDat.weaBus);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(HDirTil.inc, fin.incAng);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(HDirTil.H, fin.HDirTilUns);
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>SideFins;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE Window<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.HeatTransfer.Wic07f621693a1af49indowI.png" alt="Buildings.HeatTransfer.Windows.Examples.Window" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.HeatTransfer.Windows.Examples.Window"></a><a href="Buildings_HeatTransfer_Windows_Examples.html#Buildings.HeatTransfer.Windows.Examples"
+>Buildings.HeatTransfer.Windows.Examples</a>.Window</h2>
+<p>
+<b>Test model for the window</b>
+<br>
+<br><img src="Buildings.HeatTransfer.Wic07f621693a1af49indowD.png" alt="Buildings.HeatTransfer.Windows.Examples.Window">
+</p>
+<h3>Information</h3>
+
+<p>
+This model demonstrates the implementation of a window model.
+On the left hand side is a model for the combined convective and radiative heat
+transfer on the outside facing side of the window.
+In the top middle is the window model, and below is a model that
+computes the solar radiation balance of the window. Output of the solar
+radiation balance model are the absorbed solar heat flow rates, which are
+input to the heat balance models.
+On the right hand side are models for the inside surface heat balance.
+As opposed to the outside surface heat balance models, these models are
+implemented using separate components for the radiative balance and for the convective
+balance. This has been done to allow separating radiation from convection,
+which is required when the room model is used with room air heat balance models
+that use computational fluid dynamics.
+</p>
+
+<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</a> (Icon for runnable examples).</p>
+<h3>Parameters</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Area"
+>Area</a></td><td>A</td><td>1</td><td>Window surface area [m2]</td></tr>
+<tr><td>Real</td><td>fFra</td><td>0.2</td><td>Fraction of frame, = frame area divided by total area</td></tr>
+<tr><td>Boolean</td><td>linearize</td><td>false</td><td>Set to true to linearize emissive power</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
+>Angle</a></td><td>lat</td><td>0.34906585039887</td><td>Latitude [rad]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
+>Angle</a></td><td>azi</td><td>0</td><td>Surface azimuth [rad]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
+>Angle</a></td><td>til</td><td>1.5707963267949</td><td>Surface tilt [rad]</td></tr>
+<tr><td><a href="Buildings_HeatTransfer_Data_GlazingSystems.html#Buildings.HeatTransfer.Data.GlazingSystems.DoubleClearAir13Clear"
+>DoubleClearAir13Clear</a></td><td>glaSys</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+</table>
+<h3>Connectors</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Connectors">
+<tr><th>Type</th><th>Name</th><th>Description</th></tr>
+<tr><td><a href="Buildings_BoundaryConditions_WeatherData.html#Buildings.BoundaryConditions.WeatherData.Bus"
+>Bus</a></td><td>weaBus</td><td>&nbsp;</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">model</span> Window <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Test model for the window&quot;</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</a>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Area"
+>Modelica.SIunits.Area</a> A=1 <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Window surface area&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Real fFra=0.2 <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Fraction of frame, = frame area divided by total area&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">final </span><span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Area"
+>Modelica.SIunits.Area</a> AFra = fFra * A <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Frame area&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">final </span><span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Area"
+>Modelica.SIunits.Area</a> AGla = A-AFra <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Glass area&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Boolean linearize = false <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Set to true to linearize emissive power&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
+>Modelica.SIunits.Angle</a> lat=0.34906585039887 <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Latitude&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
+>Modelica.SIunits.Angle</a> azi=0 <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Surface azimuth&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
+>Modelica.SIunits.Angle</a> til=1.5707963267949 <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Surface tilt&quot;</span>;
+
+  <a href="Buildings_HeatTransfer_Windows.html#Buildings.HeatTransfer.Windows.Window"
+>Buildings.HeatTransfer.Windows.Window</a> window(
+    A=A,
+    fFra=fFra,
+    glaSys=glaSys,
+    linearize=linearize,
+    til=til) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Window&quot;</span>;
+  <a href="Buildings_HeatTransfer_Windows.html#Buildings.HeatTransfer.Windows.ExteriorHeatTransfer"
+>Buildings.HeatTransfer.Windows.ExteriorHeatTransfer</a> extCon(
+    A=A,
+    fFra=fFra,
+    linearizeRadiation=linearize,
+    absIRSha_air=glaSys.shade.absIR_a,
+    absIRSha_glass=glaSys.shade.absIR_b,
+    tauIRSha_air=glaSys.shade.tauIR_a,
+    tauIRSha_glass=glaSys.shade.tauIR_b,
+    haveExteriorShade=glaSys.haveExteriorShade,
+    haveInteriorShade=glaSys.haveInteriorShade,
+    vieFacSky=0.5) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Exterior convective heat transfer&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Ramp"
+>Modelica.Blocks.Sources.Ramp</a> uSha(duration=0.5, startTime=0.25) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Shading control signal&quot;</span>;
+  <a href="Buildings_HeatTransfer_Sources.html#Buildings.HeatTransfer.Sources.PrescribedTemperature"
+>Buildings.HeatTransfer.Sources.PrescribedTemperature</a> TOuts <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Outside air temperature&quot;</span>;
+  <a href="Buildings_HeatTransfer_Sources.html#Buildings.HeatTransfer.Sources.FixedTemperature"
+>Buildings.HeatTransfer.Sources.FixedTemperature</a> TRAir(T=293.15) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Room air temperature&quot;</span>;
+  <a href="Buildings_HeatTransfer_Radiosity.html#Buildings.HeatTransfer.Radiosity.IndoorRadiosity"
+>Buildings.HeatTransfer.Radiosity.IndoorRadiosity</a> indRad(A=A) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Model for indoor radiosity&quot;</span>;
+  <a href="Buildings_HeatTransfer_Sources.html#Buildings.HeatTransfer.Sources.FixedHeatFlow"
+>Buildings.HeatTransfer.Sources.FixedHeatFlow</a> fixedHeatFlow(Q_flow=0);
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="Buildings_HeatTransfer_Data_GlazingSystems.html#Buildings.HeatTransfer.Data.GlazingSystems.DoubleClearAir13Clear"
+>Buildings.HeatTransfer.Data.GlazingSystems.DoubleClearAir13Clear</a> glaSys(
+    shade=<span style="color: red; font-weight: normal; font-style: normal;">Buildings.HeatTransfer.Data.Shades.Gray</span>(),
+    haveExteriorShade=false,
+    haveInteriorShade=true);
+  <a href="Buildings_BoundaryConditions_SolarIrradiation.html#Buildings.BoundaryConditions.SolarIrradiation.DirectTiltedSurface"
+>Buildings.BoundaryConditions.SolarIrradiation.DirectTiltedSurface</a> HDirTil(
+    til=til,
+    lat=lat,
+    azi=azi);
+  <a href="Buildings_BoundaryConditions_SolarIrradiation.html#Buildings.BoundaryConditions.SolarIrradiation.DiffuseIsotropic"
+>Buildings.BoundaryConditions.SolarIrradiation.DiffuseIsotropic</a> HDifTilIso(
+               til=til);
+  <a href="Buildings_BoundaryConditions_WeatherData.html#Buildings.BoundaryConditions.WeatherData.ReaderTMY3"
+>Buildings.BoundaryConditions.WeatherData.ReaderTMY3</a> weaDat(
+    filNam=&quot;modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos&quot;);
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Math.html#Modelica.Blocks.Math.Gain"
+>Modelica.Blocks.Math.Gain</a> HRoo(k=0.1) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Solar irradiation from room&quot;</span>;
+  <a href="Buildings_HeatTransfer_Windows_BaseClasses.html#Buildings.HeatTransfer.Windows.BaseClasses.WindowRadiation"
+>Buildings.HeatTransfer.Windows.BaseClasses.WindowRadiation</a> winRad(
+    AWin=1,
+    N=<span style="color: red; font-weight: normal; font-style: normal;">size</span>(glaSys.glass, 1),
+    tauGlaSol=glaSys.glass.tauSol,
+    rhoGlaSol_a=glaSys.glass.rhoSol_a,
+    rhoGlaSol_b=glaSys.glass.rhoSol_b,
+    xGla=glaSys.glass.x,
+    tauShaSol_a=glaSys.shade.tauSol_a,
+    tauShaSol_b=glaSys.shade.tauSol_b,
+    rhoShaSol_a=glaSys.shade.rhoSol_a,
+    rhoShaSol_b=glaSys.shade.rhoSol_b,
+    haveExteriorShade=glaSys.haveExteriorShade,
+    haveInteriorShade=glaSys.haveInteriorShade);
+
+  <a href="Buildings_BoundaryConditions_WeatherData.html#Buildings.BoundaryConditions.WeatherData.Bus"
+>Buildings.BoundaryConditions.WeatherData.Bus</a> weaBus;
+
+  <a href="Buildings_HeatTransfer_Windows_BaseClasses.html#Buildings.HeatTransfer.Windows.BaseClasses.ShadeRadiation"
+>Buildings.HeatTransfer.Windows.BaseClasses.ShadeRadiation</a> intShaRad(
+    thisSideHasShade=glaSys.haveInteriorShade,
+    linearize=linearize,
+    absIR_air=glaSys.shade.absIR_a,
+    absIR_glass=glaSys.shade.absIR_b,
+    tauIR_air=glaSys.shade.tauIR_a,
+    tauIR_glass=glaSys.shade.tauIR_b,
+    A=AGla) <span style="color: blue; font-weight: normal; font-style: normal;">if </span>
+     glaSys.haveShade <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Interior shade radiation model&quot;</span>;
+
+  <a href="Buildings_HeatTransfer_Windows_BaseClasses.html#Buildings.HeatTransfer.Windows.BaseClasses.ShadingSignal"
+>Buildings.HeatTransfer.Windows.BaseClasses.ShadingSignal</a> shaSig(
+    haveShade=glaSys.haveInteriorShade) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Conversion for shading signal&quot;</span>;
+
+  <a href="Buildings_HeatTransfer_Windows.html#Buildings.HeatTransfer.Windows.InteriorHeatTransferConvective"
+>Buildings.HeatTransfer.Windows.InteriorHeatTransferConvective</a> intShaCon(
+    A=A,
+    fFra=fFra,
+    til=Buildings.Types.Tilt.Wall,
+    haveExteriorShade=glaSys.haveExteriorShade,
+    haveInteriorShade=glaSys.haveInteriorShade) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Model for interior shade heat transfer&quot;</span>;
+<span style="color: blue; font-weight: normal; font-style: normal;">protected </span>
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Math.html#Modelica.Blocks.Math.Sum"
+>Modelica.Blocks.Math.Sum</a> sumJ(nin=<span style="color: blue; font-weight: normal; font-style: normal;">if </span>glaSys.haveShade<span style="color: blue; font-weight: normal; font-style: normal;"> then </span>2<span style="color: blue; font-weight: normal; font-style: normal;"> else </span>1) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Sum of radiosity fom glass to outside&quot;</span>;
+
+  <a href="Buildings_HeatTransfer_Radiosity.html#Buildings.HeatTransfer.Radiosity.RadiositySplitter"
+>Buildings.HeatTransfer.Radiosity.RadiositySplitter</a> radShaOut <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Radiosity that strikes shading device&quot;</span>;
+
+<span style="color: blue; font-weight: normal; font-style: normal;">equation </span>
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(uSha.y, extCon.uSha);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(uSha.y, window.uSha);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(TOuts.port, extCon.air);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(window.glaUns_a, extCon.glaUns);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(window.glaSha_a, extCon.glaSha);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(window.fra_a, extCon.frame);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(extCon.JOutUns, window.JInUns_a);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(extCon.JInUns, window.JOutUns_a);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(extCon.JOutSha, window.JInSha_a);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(extCon.JInSha, window.JOutSha_a);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(fixedHeatFlow.port, indRad.heatPort);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(winRad.QTra_flow,HRoo. u);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(HRoo.y,winRad. HRoo);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(HDifTilIso.H, winRad.HDif);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(HDirTil.H, winRad.HDir);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(HDirTil.inc, winRad.incAng);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(winRad.QAbsGlaUns_flow, window.QAbsUns_flow);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(winRad.QAbsGlaSha_flow, window.QAbsSha_flow);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(weaDat.weaBus, weaBus);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(weaBus, HDirTil.weaBus);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(HDifTilIso.weaBus, weaBus);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(TOuts.T, weaBus.TDryBul);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(uSha.y, winRad.uSha);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(weaBus.winSpe, extCon.vWin);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(weaBus.TBlaSky, extCon.TBlaSky);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(weaBus.TDryBul, extCon.TOut);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(uSha.y, shaSig.u);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(intShaRad.u, shaSig.y);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(indRad.JOut, radShaOut.JIn);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(radShaOut.JOut_1, intShaRad.JIn_air);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(indRad.JIn, sumJ.y);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(sumJ.u[2], intShaRad.JOut_air);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(window.JOutUns_b, sumJ.u[1]);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(intShaRad.JOut_glass, window.JInSha_b);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(window.JInUns_b, radShaOut.JOut_2);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(radShaOut.u, shaSig.y);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(intShaRad.JIn_glass, window.JOutSha_b);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(TRAir.port, intShaCon.air);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(uSha.y, intShaCon.uSha);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(intShaCon.TSha, intShaRad.TSha);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(window.fra_b, intShaCon.frame);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(window.glaUns_b, intShaCon.glaUns);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(intShaCon.glaSha, window.glaSha_b);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(intShaCon.QRadAbs_flow, intShaRad.QRadAbs_flow);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(winRad.QAbsIntSha_flow, intShaRad.QSolAbs_flow);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(winRad.QAbsExtSha_flow, extCon.QSolAbs_flow);
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>Window;
+</div>
+<hr>
+<address>
+<a href="http://www.3ds.com/">Automatically generated</a> Thu Apr  9 09:37:22 2015.
+</address>
+</body>
+</html>

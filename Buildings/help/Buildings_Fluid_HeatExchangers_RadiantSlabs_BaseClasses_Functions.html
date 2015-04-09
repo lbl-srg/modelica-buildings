@@ -1,0 +1,294 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>Buildings.Fluid.HeatExchangers.RadiantSlabs.BaseClasses.Functions</title>
+<meta name="HTML-Generator" content="Dymola">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="description" content="&quot;Functions for convective heat transfer&quot;">
+<style type="text/css">
+*       { font-size: 10pt; font-family: Arial, sans-serif; }
+.modelica, .modelica * { font-size: 9pt; font-family: Courier, monospace; white-space: pre; }
+h4      { font-size: 10pt; font-weight: bold; color: green; }
+h3      { font-size: 11pt; font-weight: bold; color: green; }
+h2      { font-size: 13pt; font-weight: bold; color: green; }
+address { font-weight: normal; }
+td      { border: 1px solid #808080; vertical-align: top; }
+th      { border: 1px solid #808080; vertical-align: top; font-weight: bold; }
+table   { border: 1px solid #808080; border-collapse: collapse; }
+</style>
+<link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../Resources/www/modelicaDoc.css">
+</HEAD>
+<body>
+<!-- --- header ------ -->
+<div class="headerStyle">
+<img src="../Resources/www/lbl-logo.png" alt="LBL logo"/>
+</div>
+<div class="headerLinks">
+<ul><li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt; <a href="Buildings.html">Modelica</a></li></ul>
+</div>
+<!-- --- end header -- -->
+
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE Functions<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><a name="Buildings.Fluid.HeatExchangers.RadiantSlabs.BaseClasses.Functions"></a><a href="Buildings_Fluid_HeatExchangers_RadiantSlabs_BaseClasses.html#Buildings.Fluid.HeatExchangers.RadiantSlabs.BaseClasses"
+>Buildings.Fluid.HeatExchangers.RadiantSlabs.BaseClasses</a>.Functions</h2>
+<p>
+<b>Functions for convective heat transfer</b><br>
+</p>
+<h3>Information</h3>
+
+<p>
+This package contains functions that are used to construct the models in
+<a href="Buildings_Fluid_HeatExchangers_RadiantSlabs.html#Buildings.Fluid.HeatExchangers.RadiantSlabs"
+>Buildings.Fluid.HeatExchangers.RadiantSlabs</a>.
+</p>
+
+<h3>Package Content</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Package Content">
+<tr>
+<th>Name</th>
+<th>Description</th>
+</tr>
+<tr>
+<td><img src="Buildings.Fluid.HeatExchadcafa2e11cd35818tanceS.png" alt="Buildings.Fluid.HeatExchangers.RadiantSlabs.BaseClasses.Functions.AverageResistance" width="20" height="20" align="top">&nbsp;<a href="Buildings_Fluid_HeatExchangers_RadiantSlabs_BaseClasses_Functions.html#Buildings.Fluid.HeatExchangers.RadiantSlabs.BaseClasses.Functions.AverageResistance"
+>AverageResistance</a>
+</td>
+<td>Average fictitious resistance for plane that contains the pipes</td>
+</tr>
+<tr>
+<td><img src="Buildings.Fluid.HeatExcha6f59f4d313b14541wRateS.png" alt="Buildings.Fluid.HeatExchangers.RadiantSlabs.BaseClasses.Functions.heatFlowRate" width="20" height="20" align="top">&nbsp;<a href="Buildings_Fluid_HeatExchangers_RadiantSlabs_BaseClasses_Functions.html#Buildings.Fluid.HeatExchangers.RadiantSlabs.BaseClasses.Functions.heatFlowRate"
+>heatFlowRate</a>
+</td>
+<td>Heat flow rate for epsilon-NTU model</td>
+</tr>
+</table>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE AverageResistance<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><a name="Buildings.Fluid.HeatExchangers.RadiantSlabs.BaseClasses.Functions.AverageResistance"></a><a href="Buildings_Fluid_HeatExchangers_RadiantSlabs_BaseClasses_Functions.html#Buildings.Fluid.HeatExchangers.RadiantSlabs.BaseClasses.Functions"
+>Buildings.Fluid.HeatExchangers.RadiantSlabs.BaseClasses.Functions</a>.AverageResistance</h2>
+<p>
+<b>Average fictitious resistance for plane that contains the pipes</b>
+</p>
+<h3>Information</h3>
+
+<p>
+This function computes a fictitious thermal resistance between the pipe outer wall
+and a fictitious, average temperature of the plane that contains the pipes.
+The equation is the same as is implemented in TRNSYS 17.
+Different equations are used for
+</p>
+<ul>
+<li>
+floor heating systems (if
+<code>sysTyp == Buildings.Fluid.HeatExchangers.RadiantSlabs.Types.SystemType.Floor</code>),
+</li>
+<li>
+radiant heating or cooling systems in ceilings and walls (if
+<code>sysTyp == Buildings.Fluid.HeatExchangers.RadiantSlabs.Types.SystemType.Ceiling_Wall_or_Capillary</code>
+and <code>disPip/dPipOut &ge; 5.8</code>), and
+</li>
+<li>
+capillary tube systems (if
+<code>sysTyp == Buildings.Fluid.HeatExchangers.RadiantSlabs.Types.SystemType.Ceiling_Wall_or_Capillary</code>
+and <code>disPip/dPipOut &lt; 5.8</code>).
+</li>
+</ul>
+<h4>Limitations</h4>
+<p>
+The resistance <code>Rx</code> is based on a steady-state heat transfer analysis. Therefore, it is
+only valid during steady-state.
+For a fully dynamic model, a finite element method for the radiant slab would need to be implemented.
+</p>
+
+<h3>Inputs</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Inputs">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Distance"
+>Distance</a></td><td>disPip</td><td>&nbsp;</td><td>pipe distance [m]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Diameter"
+>Diameter</a></td><td>dPipOut</td><td>&nbsp;</td><td>pipe outside diameter [m]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.ThermalConductivity"
+>ThermalConductivity</a></td><td>k</td><td>&nbsp;</td><td>pipe level construction element thermal conductivity [W/(m.K)]</td></tr>
+<tr><td><a href="Buildings_Fluid_HeatExchangers_RadiantSlabs_Types.html#Buildings.Fluid.HeatExchangers.RadiantSlabs.Types.SystemType"
+>SystemType</a></td><td>sysTyp</td><td>&nbsp;</td><td>Type of radiant system</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.ThermalConductivity"
+>ThermalConductivity</a></td><td>kIns</td><td>&nbsp;</td><td>floor slab insulation thermal conductivity [W/(m.K)]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Thickness"
+>Thickness</a></td><td>dIns</td><td>&nbsp;</td><td>floor slab insulation thickness [m]</td></tr>
+</table>
+<h3>Outputs</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Outputs">
+<tr><th>Type</th><th>Name</th><th>Description</th></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.ThermalInsulance"
+>ThermalInsulance</a></td><td>Rx</td><td>Thermal insulance [m2.K/W]</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">function</span> AverageResistance <span style="color: #006400; font-weight: normal; font-style: normal;">
+  &quot;Average fictitious resistance for plane that contains the pipes&quot;</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">input </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Distance"
+>Modelica.SIunits.Distance</a> disPip <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;pipe distance&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">input </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Diameter"
+>Modelica.SIunits.Diameter</a> dPipOut <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;pipe outside diameter&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">input </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.ThermalConductivity"
+>Modelica.SIunits.ThermalConductivity</a> k <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;pipe level construction element thermal conductivity&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">input </span><a href="Buildings_Fluid_HeatExchangers_RadiantSlabs_Types.html#Buildings.Fluid.HeatExchangers.RadiantSlabs.Types.SystemType"
+>Buildings.Fluid.HeatExchangers.RadiantSlabs.Types.SystemType</a>
+     sysTyp <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Type of radiant system&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">input </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.ThermalConductivity"
+>Modelica.SIunits.ThermalConductivity</a> kIns <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;floor slab insulation thermal conductivity&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">input </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Thickness"
+>Modelica.SIunits.Thickness</a> dIns <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;floor slab insulation thickness&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">output </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.ThermalInsulance"
+>Modelica.SIunits.ThermalInsulance</a> Rx <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Thermal insulance&quot;</span>;
+<span style="color: blue; font-weight: normal; font-style: normal;">protected </span>
+  Real cri(unit=&quot;1&quot;) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Criteria used to select formula for computation of resistance&quot;</span>;
+  Real infSum <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Approximation to infinite sum used to compute the thermal resistance&quot;</span>;
+  Real alpha(unit=&quot;W/(m2.K)&quot;, min=0) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Criteria used to select formula for computation of resistance&quot;</span>;
+  Real fac <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Factor used for systems in wall or ceiling, or for capillary tubes&quot;</span>;
+<span style="color: blue; font-weight: normal; font-style: normal;">algorithm </span>
+
+  <span style="color: blue; font-weight: normal; font-style: normal;">if </span>sysTyp == Buildings.Fluid.HeatExchangers.RadiantSlabs.Types.SystemType.Floor<span style="color: blue; font-weight: normal; font-style: normal;"> then</span>
+    alpha := kIns/dIns;
+    <span style="color: blue; font-weight: normal; font-style: normal;">if </span>alpha &gt;= 1.212<span style="color: blue; font-weight: normal; font-style: normal;"> then</span>
+      <span style="color: red; font-weight: normal; font-style: normal;"> Modelica.Utilities.Streams.print</span>(&quot;Warning: In RadiantAverageResistance, require alpha = kIns/dIns &gt;= 1.212 W/(m2.K).\n&quot; +
+                     &quot;   Obtained alpha = &quot; +<span style="color: red; font-weight: normal; font-style: normal;"> String</span>(alpha) + &quot; W/(m2.K)\n&quot; +
+                     &quot;            kIns = &quot; +<span style="color: red; font-weight: normal; font-style: normal;"> String</span>(kIns) + &quot; W/(m.K)\n&quot; +
+                     &quot;            dIns = &quot; +<span style="color: red; font-weight: normal; font-style: normal;"> String</span>(dIns) + &quot; m\n&quot; +
+                     &quot;            For these values, the radiant slab model is outside its valid range.\n&quot;);
+    <span style="color: blue; font-weight: normal; font-style: normal;">end if</span>;
+    infSum := -<span style="color: red; font-weight: normal; font-style: normal;"> sum</span>(((alpha/k*disPip - 2*Modelica.Constants.pi*s)/
+                    (alpha/k*disPip + 2*Modelica.Constants.pi*s))
+                    *<span style="color: red; font-weight: normal; font-style: normal;">Modelica.Math.exp</span>(-4*Modelica.Constants.pi*s*dIns/disPip)/s <span style="color: blue; font-weight: normal; font-style: normal;">for </span>s<span style="color: blue; font-weight: normal; font-style: normal;"> in </span>1:100);
+    Rx := disPip*(<span style="color: red; font-weight: normal; font-style: normal;">Modelica.Math.log</span>(disPip/Modelica.Constants.pi/dPipOut) + infSum)
+          /(2*Modelica.Constants.pi*k);
+    fac := 0;<span style="color: #006400; font-weight: normal; font-style: normal;"> // not needed.</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">elseif </span>sysTyp == Buildings.Fluid.HeatExchangers.RadiantSlabs.Types.SystemType.Ceiling_Wall_or_Capillary<span style="color: blue; font-weight: normal; font-style: normal;"> then</span>
+    <span style="color: #006400; font-weight: normal; font-style: normal;">// Branch for radiant ceilings, radiant walls, and systems with capillary heat exchangers</span>
+    cri := disPip/dPipOut;
+    fac := <span style="color: blue; font-weight: normal; font-style: normal;">if </span>(cri &gt;= 5.8)<span style="color: blue; font-weight: normal; font-style: normal;"> then </span><span style="color: red; font-weight: normal; font-style: normal;">Modelica.Math.log</span>(cri/Modelica.Constants.pi)<span style="color: blue; font-weight: normal; font-style: normal;"> else </span>(cri/Modelica.Constants.pi/3);
+    Rx := disPip/2/Modelica.Constants.pi/k * fac;
+  <span style="color: blue; font-weight: normal; font-style: normal;">else</span>
+    <span style="color: red; font-weight: normal; font-style: normal;">assert</span>(sysTyp == Buildings.Fluid.HeatExchangers.RadiantSlabs.Types.SystemType.Floor<span style="color: blue; font-weight: normal; font-style: normal;"> or </span>
+           sysTyp == Buildings.Fluid.HeatExchangers.RadiantSlabs.Types.SystemType.Ceiling_Wall_or_Capillary,
+           &quot;Invalid value for sysTyp in \&quot;Buildings.Fluid.HeatExchangers.RadiantSlabs.BaseClasses.Functions.AverageResistance\&quot;
+    Check parameters of the radiant slab model.&quot;);
+    cri := 0;
+    fac := 0;
+    Rx  := 1;
+  <span style="color: blue; font-weight: normal; font-style: normal;">end if</span>;
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>AverageResistance;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE heatFlowRate<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Fluid.HeatExcha6f59f4d313b14541wRateI.png" alt="Buildings.Fluid.HeatExchangers.RadiantSlabs.BaseClasses.Functions.heatFlowRate" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Fluid.HeatExchangers.RadiantSlabs.BaseClasses.Functions.heatFlowRate"></a><a href="Buildings_Fluid_HeatExchangers_RadiantSlabs_BaseClasses_Functions.html#Buildings.Fluid.HeatExchangers.RadiantSlabs.BaseClasses.Functions"
+>Buildings.Fluid.HeatExchangers.RadiantSlabs.BaseClasses.Functions</a>.heatFlowRate</h2>
+<p>
+<b>Heat flow rate for epsilon-NTU model</b>
+</p>
+<h3>Information</h3>
+
+<p>
+This function computes the heat flow rate for the radiant slab.
+</p>
+
+<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Function"
+>Modelica.Icons.Function</a> (Icon for functions).</p>
+<h3>Inputs</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Inputs">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+>Temperature</a></td><td>T_a</td><td>&nbsp;</td><td>Temperature at port_a [K]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+>Temperature</a></td><td>T_b</td><td>&nbsp;</td><td>Temperature at port_b [K]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+>Temperature</a></td><td>T_s</td><td>&nbsp;</td><td>Temperature of solid [K]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+>Temperature</a></td><td>T_f</td><td>&nbsp;</td><td>Temperature of fluid control volume [K]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.SpecificHeatCapacity"
+>SpecificHeatCapacity</a></td><td>c_p</td><td>&nbsp;</td><td>Specific heat capacity [J/(kg.K)]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.ThermalConductance"
+>ThermalConductance</a></td><td>UA</td><td>&nbsp;</td><td>UA value [W/K]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+>MassFlowRate</a></td><td>m_flow</td><td>&nbsp;</td><td>Mass flow rate from port_a to port_b [kg/s]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+>MassFlowRate</a></td><td>m_flow_nominal</td><td>&nbsp;</td><td>Nominal mass flow rate from port_a to port_b [kg/s]</td></tr>
+</table>
+<h3>Outputs</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Outputs">
+<tr><th>Type</th><th>Name</th><th>Description</th></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.HeatFlowRate"
+>HeatFlowRate</a></td><td>Q_flow</td><td>Heat flow rate [W]</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">function</span> heatFlowRate <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Heat flow rate for epsilon-NTU model&quot;</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Function"
+>Modelica.Icons.Function</a>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">input </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+>Modelica.SIunits.Temperature</a> T_a <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Temperature at port_a&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">input </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+>Modelica.SIunits.Temperature</a> T_b <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Temperature at port_b&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">input </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+>Modelica.SIunits.Temperature</a> T_s <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Temperature of solid&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">input </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+>Modelica.SIunits.Temperature</a> T_f <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Temperature of fluid control volume&quot;</span>;
+
+  <span style="color: blue; font-weight: normal; font-style: normal;">input </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.SpecificHeatCapacity"
+>Modelica.SIunits.SpecificHeatCapacity</a> c_p <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Specific heat capacity&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">input </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.ThermalConductance"
+>Modelica.SIunits.ThermalConductance</a> UA <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;UA value&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">input </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+>Modelica.SIunits.MassFlowRate</a> m_flow <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Mass flow rate from port_a to port_b&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">input </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+>Modelica.SIunits.MassFlowRate</a> m_flow_nominal <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Nominal mass flow rate from port_a to port_b&quot;</span>;
+
+  <span style="color: blue; font-weight: normal; font-style: normal;">output </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.HeatFlowRate"
+>Modelica.SIunits.HeatFlowRate</a> Q_flow <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Heat flow rate&quot;</span>;
+<span style="color: blue; font-weight: normal; font-style: normal;">protected </span>
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+>Modelica.SIunits.MassFlowRate</a> m_abs_flow <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Absolute value of mass flow rate&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+>Modelica.SIunits.Temperature</a> T_in <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Inlet fluid temperature&quot;</span>;
+  Real eps <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Heat transfer effectiveness&quot;</span>;
+
+<span style="color: blue; font-weight: normal; font-style: normal;">algorithm </span>
+  m_abs_flow :=<span style="color: red; font-weight: normal; font-style: normal;">noEvent</span>(<span style="color: red; font-weight: normal; font-style: normal;">abs</span>(m_flow));
+  T_in :=<span style="color: red; font-weight: normal; font-style: normal;">smooth</span>(1,<span style="color: red; font-weight: normal; font-style: normal;"> noEvent</span>(<span style="color: blue; font-weight: normal; font-style: normal;">if </span>m_flow &gt;= 0<span style="color: blue; font-weight: normal; font-style: normal;"> then </span>T_a<span style="color: blue; font-weight: normal; font-style: normal;"> else </span>T_b));
+  <span style="color: blue; font-weight: normal; font-style: normal;">if </span>m_abs_flow &gt; 0.15*m_flow_nominal<span style="color: blue; font-weight: normal; font-style: normal;"> then</span>
+    <span style="color: #006400; font-weight: normal; font-style: normal;">// High flow rate. Use epsilon-NTU formula.</span>
+    eps := 1-<span style="color: red; font-weight: normal; font-style: normal;">Modelica.Math.exp</span>(-UA/m_abs_flow/c_p);
+    Q_flow :=eps*(T_s-T_in)*m_abs_flow*c_p;
+  <span style="color: blue; font-weight: normal; font-style: normal;">elseif </span>(m_abs_flow &lt; 0.05*m_flow_nominal)<span style="color: blue; font-weight: normal; font-style: normal;"> then</span>
+    <span style="color: #006400; font-weight: normal; font-style: normal;">// Low flow rate. Use heat conduction to temperature of the control volume.</span>
+    Q_flow :=UA*(T_s-T_f);
+  <span style="color: blue; font-weight: normal; font-style: normal;">else</span>
+    <span style="color: #006400; font-weight: normal; font-style: normal;">// Transition. Use a once continuously differentiable transition between the</span>
+    <span style="color: #006400; font-weight: normal; font-style: normal;">// above regimes.</span>
+    eps := 1-<span style="color: red; font-weight: normal; font-style: normal;">Modelica.Math.exp</span>(-UA/m_abs_flow/c_p);
+    Q_flow :=<span style="color: red; font-weight: normal; font-style: normal;"> Buildings.Utilities.Math.Functions.spliceFunction</span>(
+      pos=eps*(T_s-T_in)*m_abs_flow*c_p,
+      neg=UA*(T_s-T_f),
+      x=m_abs_flow/m_flow_nominal-0.1,
+      deltax=0.05);
+  <span style="color: blue; font-weight: normal; font-style: normal;">end if</span>;
+
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>heatFlowRate;
+</div>
+<hr>
+<address>
+<a href="http://www.3ds.com/">Automatically generated</a> Thu Apr  9 09:35:58 2015.
+</address>
+</body>
+</html>

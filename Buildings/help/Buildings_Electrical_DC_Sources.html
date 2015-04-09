@@ -1,0 +1,511 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>Buildings.Electrical.DC.Sources</title>
+<meta name="HTML-Generator" content="Dymola">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="description" content="&quot;Package with models for DC sources&quot;">
+<style type="text/css">
+*       { font-size: 10pt; font-family: Arial, sans-serif; }
+.modelica, .modelica * { font-size: 9pt; font-family: Courier, monospace; white-space: pre; }
+h4      { font-size: 10pt; font-weight: bold; color: green; }
+h3      { font-size: 11pt; font-weight: bold; color: green; }
+h2      { font-size: 13pt; font-weight: bold; color: green; }
+address { font-weight: normal; }
+td      { border: 1px solid #808080; vertical-align: top; }
+th      { border: 1px solid #808080; vertical-align: top; font-weight: bold; }
+table   { border: 1px solid #808080; border-collapse: collapse; }
+</style>
+<link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../Resources/www/modelicaDoc.css">
+</HEAD>
+<body>
+<!-- --- header ------ -->
+<div class="headerStyle">
+<img src="../Resources/www/lbl-logo.png" alt="LBL logo"/>
+</div>
+<div class="headerLinks">
+<ul><li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt; <a href="Buildings.html">Modelica</a></li></ul>
+</div>
+<!-- --- end header -- -->
+
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE Sources<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><a name="Buildings.Electrical.DC.Sources"></a><a href="Buildings_Electrical_DC.html#Buildings.Electrical.DC"
+>Buildings.Electrical.DC</a>.Sources</h2>
+<p>
+<b>Package with models for DC sources</b><br>
+</p>
+<h3>Information</h3>
+
+<p>
+This package contains models that represent different types of DC sources.
+</p>
+
+<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons_SourcesPackage.html#Modelica.Icons.SourcesPackage"
+>Modelica.Icons.SourcesPackage</a> (Icon for packages containing sources).</p>
+<h3>Package Content</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Package Content">
+<tr>
+<th>Name</th>
+<th>Description</th>
+</tr>
+<tr>
+<td><img src="Buildings.Electrical.DC.Sc9ce68fc776a27afltageS.png" alt="Buildings.Electrical.DC.Sources.ConstantVoltage" width="20" height="20" align="top">&nbsp;<a href="Buildings_Electrical_DC_Sources.html#Buildings.Electrical.DC.Sources.ConstantVoltage"
+>ConstantVoltage</a>
+</td>
+<td>Model of a constant DC voltage source</td>
+</tr>
+<tr>
+<td><img src="Buildings.Electrical.DC.Sources.PVSimpleS.png" alt="Buildings.Electrical.DC.Sources.PVSimple" width="20" height="20" align="top">&nbsp;<a href="Buildings_Electrical_DC_Sources.html#Buildings.Electrical.DC.Sources.PVSimple"
+>PVSimple</a>
+</td>
+<td>Simple PV model</td>
+</tr>
+<tr>
+<td><img src="Buildings.Electrical.DC.S6baf8a1a0a88fe7eentedS.png" alt="Buildings.Electrical.DC.Sources.PVSimpleOriented" width="20" height="20" align="top">&nbsp;<a href="Buildings_Electrical_DC_Sources.html#Buildings.Electrical.DC.Sources.PVSimpleOriented"
+>PVSimpleOriented</a>
+</td>
+<td>Simple PV model with orientation</td>
+</tr>
+<tr>
+<td><img src="Buildings.Electrical.DC.S6b08bc3317085559ourceS.png" alt="Buildings.Electrical.DC.Sources.VoltageSource" width="20" height="20" align="top">&nbsp;<a href="Buildings_Electrical_DC_Sources.html#Buildings.Electrical.DC.Sources.VoltageSource"
+>VoltageSource</a>
+</td>
+<td>Model of a generoic DC voltage source</td>
+</tr>
+<tr>
+<td><img src="Buildings.Electrical.DC.Sa078d6c531699becrbineS.png" alt="Buildings.Electrical.DC.Sources.WindTurbine" width="20" height="20" align="top">&nbsp;<a href="Buildings_Electrical_DC_Sources.html#Buildings.Electrical.DC.Sources.WindTurbine"
+>WindTurbine</a>
+</td>
+<td>Wind turbine with power output based on table as a function of wind speed</td>
+</tr>
+<tr>
+<td><img src="Buildings.Electrical.DC.Sources.ExamplesS.png" alt="Buildings.Electrical.DC.Sources.Examples" width="20" height="20" align="top">&nbsp;<a href="Buildings_Electrical_DC_Sources_Examples.html#Buildings.Electrical.DC.Sources.Examples"
+>Examples</a>
+</td>
+<td>Package with example models</td>
+</tr>
+<tr>
+<td><img src="Buildings.Electrical.DC.S876d4643c2046f97assesS.png" alt="Buildings.Electrical.DC.Sources.BaseClasses" width="20" height="20" align="top">&nbsp;<a href="Buildings_Electrical_DC_Sources_BaseClasses.html#Buildings.Electrical.DC.Sources.BaseClasses"
+>BaseClasses</a>
+</td>
+<td>Package with base classes for DC sources</td>
+</tr>
+</table>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE ConstantVoltage<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Electrical.DC.Sc9ce68fc776a27afltageI.png" alt="Buildings.Electrical.DC.Sources.ConstantVoltage" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Electrical.DC.Sources.ConstantVoltage"></a><a href="Buildings_Electrical_DC_Sources.html#Buildings.Electrical.DC.Sources"
+>Buildings.Electrical.DC.Sources</a>.ConstantVoltage</h2>
+<p>
+<b>Model of a constant DC voltage source</b>
+<br>
+<br><img src="Buildings.Electrical.DC.Sc9ce68fc776a27afltageD.png" alt="Buildings.Electrical.DC.Sources.ConstantVoltage">
+</p>
+<h3>Information</h3>
+
+<p>
+This model represents a simple DC voltage source with constant voltage.
+</p>
+
+<p>Extends from <a href="Buildings_Electrical_Interfaces.html#Buildings.Electrical.Interfaces.Source"
+>Buildings.Electrical.Interfaces.Source</a> (Partial model of a generic source.).</p>
+<h3>Parameters</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td colspan="2">replaceable package PhaseSystem</td><td><a href="Buildings_Electrical_PhaseSystems_OnePhase.html#Buildings.Electrical.PhaseSystems.OnePhase"
+>OnePhase</a></td><td>Phase system</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Voltage"
+>Voltage</a></td><td>V</td><td>&nbsp;</td><td>Value of constant voltage [V]</td></tr>
+<tr style="background-color: #e0e0e0"><td colspan="4">Reference Parameters</td></tr>
+<tr><td>Boolean</td><td>potentialReference</td><td>true</td><td>Serve as potential root</td></tr>
+<tr><td>Boolean</td><td>definiteReference</td><td>false</td><td>Serve as definite root</td></tr>
+</table>
+<h3>Connectors</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Connectors">
+<tr><th>Type</th><th>Name</th><th>Description</th></tr>
+<tr><td colspan="2">replaceable package PhaseSystem</td><td>Phase system</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Electrical_Analog_Interfaces.html#Modelica.Electrical.Analog.Interfaces.NegativePin"
+>NegativePin</a></td><td>n</td><td>Negative pin</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">model</span> ConstantVoltage <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Model of a constant DC voltage source&quot;</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="Buildings_Electrical_Interfaces.html#Buildings.Electrical.Interfaces.Source"
+>Buildings.Electrical.Interfaces.Source</a>(
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> PhaseSystem = <a href="Buildings_Electrical_PhaseSystems_TwoConductor.html#Buildings.Electrical.PhaseSystems.TwoConductor"
+>PhaseSystems.TwoConductor</a>,
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><a href="Buildings_Electrical_DC_Interfaces.html#Buildings.Electrical.DC.Interfaces.Terminal_p"
+>Interfaces.Terminal_p</a> terminal,
+    <span style="color: blue; font-weight: normal; font-style: normal;">final </span>potentialReference=true,
+    <span style="color: blue; font-weight: normal; font-style: normal;">final </span>definiteReference=false);
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Voltage"
+>Modelica.SIunits.Voltage</a> V(start=1) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Value of constant voltage&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Electrical_Analog_Interfaces.html#Modelica.Electrical.Analog.Interfaces.NegativePin"
+>Modelica.Electrical.Analog.Interfaces.NegativePin</a> n <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Negative pin&quot;</span>;
+<span style="color: blue; font-weight: normal; font-style: normal;">equation </span>
+  terminal.v[1] = V;
+  terminal.v[2] = n.v;
+  <span style="color: red; font-weight: normal; font-style: normal;">sum</span>(terminal.i) + n.i = 0;
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>ConstantVoltage;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE PVSimple<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Electrical.DC.Sources.PVSimpleI.png" alt="Buildings.Electrical.DC.Sources.PVSimple" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Electrical.DC.Sources.PVSimple"></a><a href="Buildings_Electrical_DC_Sources.html#Buildings.Electrical.DC.Sources"
+>Buildings.Electrical.DC.Sources</a>.PVSimple</h2>
+<p>
+<b>Simple PV model</b>
+<br>
+<br><img src="Buildings.Electrical.DC.Sources.PVSimpleD.png" alt="Buildings.Electrical.DC.Sources.PVSimple">
+</p>
+<h3>Information</h3>
+
+<p>
+Model of a simple photovoltaic array.
+</p>
+<p>
+This model computes the power as
+</p>
+
+<p align="center" style="font-style:italic;">
+P=A &nbsp; f<sub>act</sub> &nbsp; &eta; &nbsp; G
+</p>
+
+<p>
+where <i>A</i> is the panel area, <i>f<sub>act</sub></i> is the fraction of the aperture area,
+<i>&eta;</i> is the panel efficiency and <i>G</i> is the total solar irradiation.
+This power is equal to <i>P = v &nbsp; i</i>, where <i>v</i> is the voltage across the panel and
+<i>i</i> is the current that flows through the panel.
+</p>
+<p>
+To avoid a large voltage drop the panel electric connector, it is recommended to use this model together
+with a model that prescribes the voltage.
+See
+<a href="Buildings_Electrical_DC_Sources_Examples.html#Buildings.Electrical.DC.Sources.Examples.PVSimple"
+>
+Buildings.Electrical.DC.Sources.Examples.PVSimple</a>.
+</p>
+<p>
+<b>Note:</b> This model takes as input the total solar irradiation on the panel. This has to be
+computed converting the incoming radiation to take tilt and azimuth into account.
+</p>
+
+<p>Extends from <a href="Buildings_Electrical_Interfaces.html#Buildings.Electrical.Interfaces.PartialPV"
+>Buildings.Electrical.Interfaces.PartialPV</a> (Base model for a PV system).</p>
+<h3>Parameters</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Area"
+>Area</a></td><td>A</td><td>&nbsp;</td><td>Net surface area [m2]</td></tr>
+<tr><td>Real</td><td>fAct</td><td>0.9</td><td>Fraction of surface area with active solar cells [1]</td></tr>
+<tr><td>Real</td><td>eta</td><td>0.12</td><td>Module conversion efficiency [1]</td></tr>
+<tr><td colspan="2">replaceable package PhaseSystem</td><td><a href="Buildings_Electrical_PhaseSystems_PartialPhaseSystem.html#Buildings.Electrical.PhaseSystems.PartialPhaseSystem"
+>PartialPhaseSystem</a></td><td>Phase system</td></tr>
+<tr style="background-color: #e0e0e0"><td colspan="4">Nominal conditions</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Voltage"
+>Voltage</a></td><td>V_nominal</td><td>&nbsp;</td><td>Nominal voltage (V_nominal &gt;= 0) [V]</td></tr>
+</table>
+<h3>Connectors</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Connectors">
+<tr><th>Type</th><th>Name</th><th>Description</th></tr>
+<tr><td>output <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+>RealOutput</a></td><td>P</td><td>Generated power [W]</td></tr>
+<tr><td colspan="2">replaceable package PhaseSystem</td><td>Phase system</td></tr>
+<tr><td>input <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>RealInput</a></td><td>G</td><td>Total solar irradiation per unit area [W/m2]</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">model</span> PVSimple <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Simple PV model&quot;</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="Buildings_Electrical_Interfaces.html#Buildings.Electrical.Interfaces.PartialPV"
+>Buildings.Electrical.Interfaces.PartialPV</a>(
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> PhaseSystem = <a href="Buildings_Electrical_PhaseSystems_TwoConductor.html#Buildings.Electrical.PhaseSystems.TwoConductor"
+>PhaseSystems.TwoConductor</a>,
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><a href="Buildings_Electrical_DC_Interfaces.html#Buildings.Electrical.DC.Interfaces.Terminal_p"
+>Interfaces.Terminal_p</a> terminal);
+<span style="color: blue; font-weight: normal; font-style: normal;">protected </span>
+   <a href="Buildings_Electrical_DC_Loads.html#Buildings.Electrical.DC.Loads.Conductor"
+>Loads.Conductor</a> con(
+    mode=Types.Load.VariableZ_P_input,
+    P_nominal=0,
+    V_nominal=V_nominal) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Conductor, used to interface power with electrical circuit&quot;</span>;
+<span style="color: blue; font-weight: normal; font-style: normal;">equation </span>
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(con.terminal, terminal);
+
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(solarPower.y, con.Pow);
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>PVSimple;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE PVSimpleOriented<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Electrical.DC.S6baf8a1a0a88fe7eentedI.png" alt="Buildings.Electrical.DC.Sources.PVSimpleOriented" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Electrical.DC.Sources.PVSimpleOriented"></a><a href="Buildings_Electrical_DC_Sources.html#Buildings.Electrical.DC.Sources"
+>Buildings.Electrical.DC.Sources</a>.PVSimpleOriented</h2>
+<p>
+<b>Simple PV model with orientation</b>
+<br>
+<br><img src="Buildings.Electrical.DC.S6baf8a1a0a88fe7eentedD.png" alt="Buildings.Electrical.DC.Sources.PVSimpleOriented">
+</p>
+<h3>Information</h3>
+
+<p>
+Model of a simple photovoltaic array.
+</p>
+<p>
+This model computes the power as
+</p>
+
+<p align="center" style="font-style:italic;">
+P=A &nbsp; f<sub>act</sub> &nbsp; &eta; &nbsp; G
+</p>
+
+<p>
+where <i>A</i> is the panel area,
+<i>f<sub>act</sub></i> is the fraction of the aperture area,
+<i>&eta;</i> is the panel efficiency and
+<i>G</i> is the total solar irradiation, which is the sum
+of direct and diffuse irradiation.
+The model takes into account the location and the orientation of the PV panel,
+specified by the surface tilt, latitude and azimuth.
+</p>
+<p>
+This power is equal to <i>P = v &nbsp; i</i>,
+where <i>v</i> is the voltage across the panel and
+<i>i</i> is the current that flows through the panel.
+</p>
+<p>
+To avoid a large voltage drop the panel electric connector,
+it is recommended to use this model together
+with a model that prescribes the voltage.
+See
+<a href="Buildings_Electrical_DC_Sources_Examples.html#Buildings.Electrical.DC.Sources.Examples.PVSimpleOriented"
+>
+Buildings.Electrical.DC.Sources.Examples.PVSimpleOriented</a>.
+</p>
+<p>
+This model takes as an input the direct and diffuse solar radiation from
+the weather data bus.
+</p>
+
+<p>Extends from <a href="Buildings_Electrical_Interfaces.html#Buildings.Electrical.Interfaces.PartialPVOriented"
+>Buildings.Electrical.Interfaces.PartialPVOriented</a> (Base model of a PV system with orientation).</p>
+<h3>Parameters</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Area"
+>Area</a></td><td>A</td><td>&nbsp;</td><td>Net surface area [m2]</td></tr>
+<tr><td>Real</td><td>fAct</td><td>0.9</td><td>Fraction of surface area with active solar cells [1]</td></tr>
+<tr><td>Real</td><td>eta</td><td>0.12</td><td>Module conversion efficiency [1]</td></tr>
+<tr><td colspan="2">replaceable package PhaseSystem</td><td><a href="Buildings_Electrical_PhaseSystems_PartialPhaseSystem.html#Buildings.Electrical.PhaseSystems.PartialPhaseSystem"
+>PartialPhaseSystem</a></td><td>Phase system</td></tr>
+<tr style="background-color: #e0e0e0"><td colspan="4">Orientation</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
+>Angle</a></td><td>til</td><td>&nbsp;</td><td>Surface tilt [rad]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
+>Angle</a></td><td>lat</td><td>&nbsp;</td><td>Latitude [rad]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
+>Angle</a></td><td>azi</td><td>&nbsp;</td><td>Surface azimuth [rad]</td></tr>
+<tr style="background-color: #e0e0e0"><td colspan="4">Nominal conditions</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Voltage"
+>Voltage</a></td><td>V_nominal</td><td>&nbsp;</td><td>Nominal voltage (V_nominal &gt;= 0) [V]</td></tr>
+</table>
+<h3>Connectors</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Connectors">
+<tr><th>Type</th><th>Name</th><th>Description</th></tr>
+<tr><td>output <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+>RealOutput</a></td><td>P</td><td>Generated power [W]</td></tr>
+<tr><td colspan="2">replaceable package PhaseSystem</td><td>Phase system</td></tr>
+<tr><td><a href="Buildings_BoundaryConditions_WeatherData.html#Buildings.BoundaryConditions.WeatherData.Bus"
+>Bus</a></td><td>weaBus</td><td>Weather data</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">model</span> PVSimpleOriented <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Simple PV model with orientation&quot;</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="Buildings_Electrical_Interfaces.html#Buildings.Electrical.Interfaces.PartialPVOriented"
+>Buildings.Electrical.Interfaces.PartialPVOriented</a>(
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> PhaseSystem = <a href="Buildings_Electrical_PhaseSystems_TwoConductor.html#Buildings.Electrical.PhaseSystems.TwoConductor"
+>PhaseSystems.TwoConductor</a>,
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><a href="Buildings_Electrical_DC_Interfaces.html#Buildings.Electrical.DC.Interfaces.Terminal_p"
+>Interfaces.Terminal_p</a> terminal,
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><a href="Buildings_Electrical_DC_Sources.html#Buildings.Electrical.DC.Sources.PVSimple"
+>Buildings.Electrical.DC.Sources.PVSimple</a> panel(V_nominal=V_nominal));
+
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>PVSimpleOriented;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE VoltageSource<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Electrical.DC.S6b08bc3317085559ourceI.png" alt="Buildings.Electrical.DC.Sources.VoltageSource" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Electrical.DC.Sources.VoltageSource"></a><a href="Buildings_Electrical_DC_Sources.html#Buildings.Electrical.DC.Sources"
+>Buildings.Electrical.DC.Sources</a>.VoltageSource</h2>
+<p>
+<b>Model of a generoic DC voltage source</b>
+<br>
+<br><img src="Buildings.Electrical.DC.S6b08bc3317085559ourceD.png" alt="Buildings.Electrical.DC.Sources.VoltageSource">
+</p>
+<h3>Information</h3>
+
+<p>
+This model represents a simple DC voltage source with variable voltage.
+</p>
+
+<p>Extends from <a href="Buildings_Electrical_Interfaces.html#Buildings.Electrical.Interfaces.VariableVoltageSource"
+>Buildings.Electrical.Interfaces.VariableVoltageSource</a> (Partial model of a generic variable voltage source.).</p>
+<h3>Parameters</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td colspan="2">replaceable package PhaseSystem</td><td><a href="Buildings_Electrical_PhaseSystems_OnePhase.html#Buildings.Electrical.PhaseSystems.OnePhase"
+>OnePhase</a></td><td>Phase system</td></tr>
+<tr><td>Boolean</td><td>use_V_in</td><td>true</td><td>If true, the voltage is an input</td></tr>
+<tr style="background-color: #e0e0e0"><td colspan="4">Reference Parameters</td></tr>
+<tr><td>Boolean</td><td>potentialReference</td><td>true</td><td>Serve as potential root</td></tr>
+<tr><td>Boolean</td><td>definiteReference</td><td>false</td><td>Serve as definite root</td></tr>
+<tr style="background-color: #e0e0e0"><td colspan="4">Initialization</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Voltage"
+>Voltage</a></td><td>V.start</td><td>1</td><td>Value of constant voltage [V]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>RealInput</a></td><td>V_in.start</td><td>1</td><td>Input voltage [V]</td></tr>
+</table>
+<h3>Connectors</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Connectors">
+<tr><th>Type</th><th>Name</th><th>Description</th></tr>
+<tr><td colspan="2">replaceable package PhaseSystem</td><td>Phase system</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Electrical_Analog_Interfaces.html#Modelica.Electrical.Analog.Interfaces.NegativePin"
+>NegativePin</a></td><td>n</td><td>Negative pin</td></tr>
+<tr style="background-color: #e0e0e0"><td colspan="3">Initialization</td></tr>
+<tr><td>input <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>RealInput</a></td><td>V_in</td><td>Input voltage [V]</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">model</span> VoltageSource <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Model of a generoic DC voltage source&quot;</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="Buildings_Electrical_Interfaces.html#Buildings.Electrical.Interfaces.VariableVoltageSource"
+>Buildings.Electrical.Interfaces.VariableVoltageSource</a>(
+    V(start = 1),
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> PhaseSystem = <a href="Buildings_Electrical_PhaseSystems_TwoConductor.html#Buildings.Electrical.PhaseSystems.TwoConductor"
+>PhaseSystems.TwoConductor</a>,
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><a href="Buildings_Electrical_DC_Interfaces.html#Buildings.Electrical.DC.Interfaces.Terminal_p"
+>Interfaces.Terminal_p</a> terminal,
+    <span style="color: blue; font-weight: normal; font-style: normal;">final </span>potentialReference=true,
+    <span style="color: blue; font-weight: normal; font-style: normal;">final </span>definiteReference=false);
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Electrical_Analog_Interfaces.html#Modelica.Electrical.Analog.Interfaces.NegativePin"
+>Modelica.Electrical.Analog.Interfaces.NegativePin</a> n <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Negative pin&quot;</span>;
+<span style="color: blue; font-weight: normal; font-style: normal;">equation </span>
+  terminal.v[1] = V_in_internal;
+  terminal.v[2] = n.v;
+  <span style="color: red; font-weight: normal; font-style: normal;">sum</span>(terminal.i) + n.i = 0;
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>VoltageSource;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE WindTurbine<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Electrical.DC.Sa078d6c531699becrbineI.png" alt="Buildings.Electrical.DC.Sources.WindTurbine" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Electrical.DC.Sources.WindTurbine"></a><a href="Buildings_Electrical_DC_Sources.html#Buildings.Electrical.DC.Sources"
+>Buildings.Electrical.DC.Sources</a>.WindTurbine</h2>
+<p>
+<b>Wind turbine with power output based on table as a function of wind speed</b>
+<br>
+<br><img src="Buildings.Electrical.DC.Sa078d6c531699becrbineD.png" alt="Buildings.Electrical.DC.Sources.WindTurbine">
+</p>
+<h3>Information</h3>
+
+<p>
+Model of a wind turbine whose power is computed as a function of wind-speed as defined in a table.
+</p>
+<p>
+Input to the model is the local wind speed.
+The model requires the specification of a table that maps wind speed in meters per second to generated
+power <i>P<sub>t</sub></i> in Watts.
+The model has a parameter called <code>scale</code> with a default value of one
+that can be used to scale the power generated by the wind turbine.
+The generated DC electrical power is
+</p>
+<p align="center" style="font-style:italic;">
+P = P<sub>t</sub> scale = v i,
+</p>
+<p>
+where <i>v</i> is the voltage and <i>i</i> is the current.
+For example, the following specification (with default <code>scale=1</code>) of a wind turbine
+</p>
+<pre>
+  WindTurbine_Table tur(
+    table=[3.5, 0;
+           5.5,   100;
+           12, 900;
+           14, 1000;
+           25, 1000]) "Wind turbine";
+</pre>
+<p>
+yields the performance shown below. In this example, the cut-in wind speed is <i>3.5</i> meters per second,
+and the cut-out wind speed is <i>25</i> meters per second,
+as entered by the first and last entry of the wind speed column.
+Below and above these wind speeds, the generated power is zero.
+</p>
+<p align="center">
+<img alt="alt-image"  src="../Resources/Images/Electrical/DC/Sources/WindTurbine_Table.png"/>
+</p>
+
+<p>Extends from <a href="Buildings_Electrical_Interfaces.html#Buildings.Electrical.Interfaces.PartialWindTurbine"
+>Buildings.Electrical.Interfaces.PartialWindTurbine</a> (Partial model of a wind turbine with power output based on table as a function of wind speed).</p>
+<h3>Parameters</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td>Real</td><td>scale</td><td>1</td><td>Scaling factor, used to allow adjusting the power output without changing the table</td></tr>
+<tr><td>Boolean</td><td>tableOnFile</td><td>false</td><td>true, if table is defined on file or in function usertab</td></tr>
+<tr><td>Real</td><td>table[:, 2]</td><td>[3.5, 0; 5.5, 0.1; 12, 0.9; ...</td><td>Table of generated power (first column is wind speed, second column is power)</td></tr>
+<tr><td>String</td><td>tableName</td><td>&quot;NoName&quot;</td><td>Table name on file or in function usertab (see documentation)</td></tr>
+<tr><td>String</td><td>fileName</td><td>&quot;NoName&quot;</td><td>File where matrix is stored</td></tr>
+<tr><td colspan="2">replaceable package PhaseSystem</td><td><a href="Buildings_Electrical_PhaseSystems_PartialPhaseSystem.html#Buildings.Electrical.PhaseSystems.PartialPhaseSystem"
+>PartialPhaseSystem</a></td><td>Phase system</td></tr>
+<tr style="background-color: #e0e0e0"><td colspan="4">Wind correction</td></tr>
+<tr><td>Real</td><td>h</td><td>&nbsp;</td><td>Height over ground</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Height"
+>Height</a></td><td>hRef</td><td>10</td><td>Reference height for wind measurement [m]</td></tr>
+<tr><td>Real</td><td>nWin</td><td>0.4</td><td>Height exponent for wind profile calculation</td></tr>
+<tr style="background-color: #e0e0e0"><td colspan="4">Nominal conditions</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Voltage"
+>Voltage</a></td><td>V_nominal</td><td>&nbsp;</td><td>Nominal voltage (V_nominal &gt;= 0) [V]</td></tr>
+</table>
+<h3>Connectors</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Connectors">
+<tr><th>Type</th><th>Name</th><th>Description</th></tr>
+<tr><td>input <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>RealInput</a></td><td>vWin</td><td>Steady wind speed [m/s]</td></tr>
+<tr><td>output <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+>RealOutput</a></td><td>P</td><td>Generated power [W]</td></tr>
+<tr><td colspan="2">replaceable package PhaseSystem</td><td>Phase system</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">model</span> WindTurbine <span style="color: #006400; font-weight: normal; font-style: normal;">
+  &quot;Wind turbine with power output based on table as a function of wind speed&quot;</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="Buildings_Electrical_Interfaces.html#Buildings.Electrical.Interfaces.PartialWindTurbine"
+>Buildings.Electrical.Interfaces.PartialWindTurbine</a>(
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> PhaseSystem =
+        <a href="Buildings_Electrical_PhaseSystems_TwoConductor.html#Buildings.Electrical.PhaseSystems.TwoConductor"
+>Buildings.Electrical.PhaseSystems.TwoConductor</a>,
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><a href="Buildings_Electrical_DC_Interfaces.html#Buildings.Electrical.DC.Interfaces.Terminal_p"
+>Buildings.Electrical.DC.Interfaces.Terminal_p</a> terminal);
+<span style="color: blue; font-weight: normal; font-style: normal;">protected </span>
+  <a href="Buildings_Electrical_DC_Loads.html#Buildings.Electrical.DC.Loads.Conductor"
+>Loads.Conductor</a> con(
+    mode=Buildings.Electrical.Types.Load.VariableZ_P_input,
+    P_nominal=0,
+    V_nominal=V_nominal) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Conductor, used to interface the power with the electrical circuit&quot;</span>;
+<span style="color: blue; font-weight: normal; font-style: normal;">equation </span>
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(con.terminal, terminal);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(gain.y, con.Pow);
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>WindTurbine;
+</div>
+<hr>
+<address>
+<a href="http://www.3ds.com/">Automatically generated</a> Thu Apr  9 09:34:15 2015.
+</address>
+</body>
+</html>

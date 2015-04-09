@@ -1,0 +1,1178 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>Buildings.Fluid.HeatExchangers.DXCoils.Examples</title>
+<meta name="HTML-Generator" content="Dymola">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="description" content="&quot;Package with example of DX cooling coil models&quot;">
+<style type="text/css">
+*       { font-size: 10pt; font-family: Arial, sans-serif; }
+.modelica, .modelica * { font-size: 9pt; font-family: Courier, monospace; white-space: pre; }
+h4      { font-size: 10pt; font-weight: bold; color: green; }
+h3      { font-size: 11pt; font-weight: bold; color: green; }
+h2      { font-size: 13pt; font-weight: bold; color: green; }
+address { font-weight: normal; }
+td      { border: 1px solid #808080; vertical-align: top; }
+th      { border: 1px solid #808080; vertical-align: top; font-weight: bold; }
+table   { border: 1px solid #808080; border-collapse: collapse; }
+</style>
+<link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../Resources/www/modelicaDoc.css">
+</HEAD>
+<body>
+<!-- --- header ------ -->
+<div class="headerStyle">
+<img src="../Resources/www/lbl-logo.png" alt="LBL logo"/>
+</div>
+<div class="headerLinks">
+<ul><li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt; <a href="Buildings.html">Modelica</a></li></ul>
+</div>
+<!-- --- end header -- -->
+
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE Examples<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><a name="Buildings.Fluid.HeatExchangers.DXCoils.Examples"></a><a href="Buildings_Fluid_HeatExchangers_DXCoils.html#Buildings.Fluid.HeatExchangers.DXCoils"
+>Buildings.Fluid.HeatExchangers.DXCoils</a>.Examples</h2>
+<p>
+<b>Package with example of DX cooling coil models</b><br>
+</p>
+<h3>Information</h3>
+
+This package contains examples that use DX cooling coil models.
+
+<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons_ExamplesPackage.html#Modelica.Icons.ExamplesPackage"
+>Modelica.Icons.ExamplesPackage</a> (Icon for packages containing runnable examples).</p>
+<h3>Package Content</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Package Content">
+<tr>
+<th>Name</th>
+<th>Description</th>
+</tr>
+<tr>
+<td><img src="Buildings.Fluid.HeatExchaccfa0e2d4f873ce9StageS.png" alt="Buildings.Fluid.HeatExchangers.DXCoils.Examples.MultiStage" width="20" height="20" align="top">&nbsp;<a href="Buildings_Fluid_HeatExchangers_DXCoils_Examples.html#Buildings.Fluid.HeatExchangers.DXCoils.Examples.MultiStage"
+>MultiStage</a>
+</td>
+<td>Test model for multi stage DX coil</td>
+</tr>
+<tr>
+<td><img src="Buildings.Fluid.HeatExchaccfa0e2d4f873ce9StageS.png" alt="Buildings.Fluid.HeatExchangers.DXCoils.Examples.SingleSpeed" width="20" height="20" align="top">&nbsp;<a href="Buildings_Fluid_HeatExchangers_DXCoils_Examples.html#Buildings.Fluid.HeatExchangers.DXCoils.Examples.SingleSpeed"
+>SingleSpeed</a>
+</td>
+<td>Test model for single speed DX coil</td>
+</tr>
+<tr>
+<td><img src="Buildings.Fluid.HeatExcha7cc4d6872503cffdolingS.png" alt="Buildings.Fluid.HeatExchangers.DXCoils.Examples.SpaceCooling" width="20" height="20" align="top">&nbsp;<a href="Buildings_Fluid_HeatExchangers_DXCoils_Examples.html#Buildings.Fluid.HeatExchangers.DXCoils.Examples.SpaceCooling"
+>SpaceCooling</a>
+</td>
+<td>Space cooling with DX coils</td>
+</tr>
+<tr>
+<td><img src="Buildings.Fluid.HeatExcha81ed91672f4a1688SpeedS.png" alt="Buildings.Fluid.HeatExchangers.DXCoils.Examples.VariableSpeed" width="20" height="20" align="top">&nbsp;<a href="Buildings_Fluid_HeatExchangers_DXCoils_Examples.html#Buildings.Fluid.HeatExchangers.DXCoils.Examples.VariableSpeed"
+>VariableSpeed</a>
+</td>
+<td>Test model for variable speed DX coil</td>
+</tr>
+<tr>
+<td><img src="Buildings.Fluid.HeatExcha69a86294cda8b274urvesS.png" alt="Buildings.Fluid.HeatExchangers.DXCoils.Examples.PerformanceCurves" width="20" height="20" align="top">&nbsp;<a href="Buildings_Fluid_HeatExchangers_DXCoils_Examples_PerformanceCurves.html#Buildings.Fluid.HeatExchangers.DXCoils.Examples.PerformanceCurves"
+>PerformanceCurves</a>
+</td>
+<td>Package with sevral performance curves</td>
+</tr>
+</table>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE MultiStage<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Fluid.HeatExchaccfa0e2d4f873ce9StageI.png" alt="Buildings.Fluid.HeatExchangers.DXCoils.Examples.MultiStage" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Fluid.HeatExchangers.DXCoils.Examples.MultiStage"></a><a href="Buildings_Fluid_HeatExchangers_DXCoils_Examples.html#Buildings.Fluid.HeatExchangers.DXCoils.Examples"
+>Buildings.Fluid.HeatExchangers.DXCoils.Examples</a>.MultiStage</h2>
+<p>
+<b>Test model for multi stage DX coil</b>
+<br>
+<br><img src="Buildings.Fluid.HeatExchaccfa0e2d4f873ce9StageD.png" alt="Buildings.Fluid.HeatExchangers.DXCoils.Examples.MultiStage">
+</p>
+<h3>Information</h3>
+
+<p>
+This is a test model for
+<a href="Buildings_Fluid_HeatExchangers_DXCoils.html#Buildings.Fluid.HeatExchangers.DXCoils.MultiStage"
+>
+Buildings.Fluid.HeatExchangers.DXCoils.MultiStage</a>.
+The model has open-loop control and time-varying input conditions.
+</p>
+
+<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</a> (Icon for runnable examples).</p>
+<h3>Parameters</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+>MassFlowRate</a></td><td>m_flow_nominal</td><td>datCoi.sta[datCoi.nSta].nomV...</td><td>Nominal mass flow rate [kg/s]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
+>Pressure</a></td><td>dp_nominal</td><td>1000</td><td>Pressure drop at m_flow_nominal [Pa]</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">model</span> MultiStage <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Test model for multi stage DX coil&quot;</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = <a href="Buildings_Media_Air.html#Buildings.Media.Air"
+>Buildings.Media.Air</a>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</a>;
+ <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+>Modelica.SIunits.MassFlowRate</a> m_flow_nominal = datCoi.sta[datCoi.nSta].nomVal.m_flow_nominal <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Nominal mass flow rate&quot;</span>;
+ <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
+>Modelica.SIunits.Pressure</a> dp_nominal = 1000 <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Pressure drop at m_flow_nominal&quot;</span>;
+  <a href="Buildings_Fluid_Sources.html#Buildings.Fluid.Sources.Boundary_pT"
+>Buildings.Fluid.Sources.Boundary_pT</a> sin(
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = Medium,
+    nPorts=1,
+    p(displayUnit=&quot;Pa&quot;) = 101325,
+    T=293.15) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Sink&quot;</span>;
+  <a href="Buildings_Fluid_Sources.html#Buildings.Fluid.Sources.Boundary_pT"
+>Buildings.Fluid.Sources.Boundary_pT</a> sou(
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = Medium,
+    nPorts=1,
+    p(displayUnit=&quot;Pa&quot;) = 101325 + dp_nominal,
+    use_T_in=true,
+    use_p_in=true,
+    T=299.85) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Source&quot;</span>;
+  <a href="Buildings_Fluid_HeatExchangers_DXCoils.html#Buildings.Fluid.HeatExchangers.DXCoils.MultiStage"
+>Buildings.Fluid.HeatExchangers.DXCoils.MultiStage</a> mulStaDX(
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = Medium,
+    dp_nominal=dp_nominal,
+    datCoi=datCoi,
+    T_start=datCoi.sta[1].nomVal.TEvaIn_nominal,
+    show_T=true,
+    from_dp=true,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Multispeed DX coil&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Ramp"
+>Modelica.Blocks.Sources.Ramp</a> TEvaIn(
+    duration=600,
+    startTime=2400,
+    height=-5,
+    offset=273.15 + 23) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Temperature&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Ramp"
+>Modelica.Blocks.Sources.Ramp</a> p(
+    duration=600,
+    startTime=600,
+    height=dp_nominal,
+    offset=101325) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Pressure&quot;</span>;
+  <a href="Buildings_Fluid_HeatExchangers_DXCoils_Data_Generic.html#Buildings.Fluid.HeatExchangers.DXCoils.Data.Generic.DXCoil"
+>Data.Generic.DXCoil</a>
+                datCoi(nSta=4, sta={
+        <span style="color: red; font-weight: normal; font-style: normal;">Buildings.Fluid.HeatExchangers.DXCoils.Data.Generic.BaseClasses.Stage</span>(
+        spe=900/60,
+        nomVal=
+          <span style="color: red; font-weight: normal; font-style: normal;">Buildings.Fluid.HeatExchangers.DXCoils.Data.Generic.BaseClasses.NominalValues</span>(
+          Q_flow_nominal=-12000,
+          COP_nominal=3,
+          SHR_nominal=0.8,
+          m_flow_nominal=0.9),
+        perCur=
+          <span style="color: red; font-weight: normal; font-style: normal;">Buildings.Fluid.HeatExchangers.DXCoils.Examples.PerformanceCurves.Curve_I</span>()),
+        <span style="color: red; font-weight: normal; font-style: normal;">Buildings.Fluid.HeatExchangers.DXCoils.Data.Generic.BaseClasses.Stage</span>(
+        spe=1200/60,
+        nomVal=
+          <span style="color: red; font-weight: normal; font-style: normal;">Buildings.Fluid.HeatExchangers.DXCoils.Data.Generic.BaseClasses.NominalValues</span>(
+          Q_flow_nominal=-18000,
+          COP_nominal=3,
+          SHR_nominal=0.8,
+          m_flow_nominal=1.2),
+        perCur=
+         <span style="color: red; font-weight: normal; font-style: normal;">Buildings.Fluid.HeatExchangers.DXCoils.Examples.PerformanceCurves.Curve_I</span>()),
+        <span style="color: red; font-weight: normal; font-style: normal;">Buildings.Fluid.HeatExchangers.DXCoils.Data.Generic.BaseClasses.Stage</span>(
+        spe=1800/60,
+        nomVal=
+          <span style="color: red; font-weight: normal; font-style: normal;">Buildings.Fluid.HeatExchangers.DXCoils.Data.Generic.BaseClasses.NominalValues</span>(
+          Q_flow_nominal=-21000,
+          COP_nominal=3,
+          SHR_nominal=0.8,
+          m_flow_nominal=1.5),
+        perCur=
+          <span style="color: red; font-weight: normal; font-style: normal;">Buildings.Fluid.HeatExchangers.DXCoils.Examples.PerformanceCurves.Curve_II</span>()),
+        <span style="color: red; font-weight: normal; font-style: normal;">Buildings.Fluid.HeatExchangers.DXCoils.Data.Generic.BaseClasses.Stage</span>(
+        spe=2400/60,
+        nomVal=
+          <span style="color: red; font-weight: normal; font-style: normal;">Buildings.Fluid.HeatExchangers.DXCoils.Data.Generic.BaseClasses.NominalValues</span>(
+          Q_flow_nominal=-30000,
+          COP_nominal=3,
+          SHR_nominal=0.8,
+          m_flow_nominal=1.8),
+        perCur=
+          <span style="color: red; font-weight: normal; font-style: normal;">Buildings.Fluid.HeatExchangers.DXCoils.Examples.PerformanceCurves.Curve_III</span>())}) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Coil data&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.IntegerTable"
+>Modelica.Blocks.Sources.IntegerTable</a> speRat(table=[
+    0.0,0.0;
+    900,1;
+    1800,4;
+    2700,3;
+    3600,2]) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Speed ratio &quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+>Modelica.Blocks.Sources.Constant</a> TConIn(k=273.15 + 25) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Condensor inlet temperature&quot;</span>;
+<span style="color: blue; font-weight: normal; font-style: normal;">equation </span>
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(sou.ports[1], mulStaDX.port_a);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(mulStaDX.port_b, sin.ports[1]);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(TEvaIn.y, sou.T_in);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(p.y, sou.p_in);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(speRat.y, mulStaDX.stage);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(TConIn.y, mulStaDX.TConIn);
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>MultiStage;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE SingleSpeed<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Fluid.HeatExchaccfa0e2d4f873ce9StageI.png" alt="Buildings.Fluid.HeatExchangers.DXCoils.Examples.SingleSpeed" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Fluid.HeatExchangers.DXCoils.Examples.SingleSpeed"></a><a href="Buildings_Fluid_HeatExchangers_DXCoils_Examples.html#Buildings.Fluid.HeatExchangers.DXCoils.Examples"
+>Buildings.Fluid.HeatExchangers.DXCoils.Examples</a>.SingleSpeed</h2>
+<p>
+<b>Test model for single speed DX coil</b>
+<br>
+<br><img src="Buildings.Fluid.HeatExcha0cfba4a3dee49754SpeedD.png" alt="Buildings.Fluid.HeatExchangers.DXCoils.Examples.SingleSpeed">
+</p>
+<h3>Information</h3>
+
+<p>
+This is a test model for
+<a href="Buildings_Fluid_HeatExchangers_DXCoils.html#Buildings.Fluid.HeatExchangers.DXCoils.SingleSpeed"
+>
+Buildings.Fluid.HeatExchangers.DXCoils.SingleSpeed</a>.
+The model has open-loop control and time-varying input conditions.
+</p>
+
+<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</a> (Icon for runnable examples).</p>
+<h3>Parameters</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+>MassFlowRate</a></td><td>m_flow_nominal</td><td>datCoi.sta[datCoi.nSta].nomV...</td><td>Nominal mass flow rate [kg/s]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
+>Pressure</a></td><td>dp_nominal</td><td>1000</td><td>Pressure drop at m_flow_nominal [Pa]</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">model</span> SingleSpeed <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Test model for single speed DX coil&quot;</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = <a href="Buildings_Media_Air.html#Buildings.Media.Air"
+>Buildings.Media.Air</a>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</a>;
+ <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+>Modelica.SIunits.MassFlowRate</a> m_flow_nominal = datCoi.sta[datCoi.nSta].nomVal.m_flow_nominal <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Nominal mass flow rate&quot;</span>;
+ <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
+>Modelica.SIunits.Pressure</a> dp_nominal = 1000 <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Pressure drop at m_flow_nominal&quot;</span>;
+  <a href="Buildings_Fluid_Sources.html#Buildings.Fluid.Sources.Boundary_pT"
+>Buildings.Fluid.Sources.Boundary_pT</a> sin(
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = Medium,
+    p(displayUnit=&quot;Pa&quot;) = 101325,
+    nPorts=1,
+    T=303.15) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Sink&quot;</span>;
+  <a href="Buildings_Fluid_Sources.html#Buildings.Fluid.Sources.Boundary_pT"
+>Buildings.Fluid.Sources.Boundary_pT</a> sou(
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = Medium,
+    p(displayUnit=&quot;Pa&quot;) = 101325 + dp_nominal,
+    use_T_in=true,
+    nPorts=1,
+    use_p_in=true,
+    T=299.85) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Source&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.BooleanStep"
+>Modelica.Blocks.Sources.BooleanStep</a> onOff(startTime=600) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Compressor on-off signal&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Ramp"
+>Modelica.Blocks.Sources.Ramp</a> TEvaIn(
+    duration=600,
+    startTime=2400,
+    height=-5,
+    offset=273.15 + 23) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Temperature&quot;</span>;
+  <a href="Buildings_Fluid_HeatExchangers_DXCoils.html#Buildings.Fluid.HeatExchangers.DXCoils.SingleSpeed"
+>Buildings.Fluid.HeatExchangers.DXCoils.SingleSpeed</a> sinSpeDX(
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = Medium,
+    dp_nominal=dp_nominal,
+    datCoi=datCoi,
+    T_start=datCoi.sta[1].nomVal.TEvaIn_nominal,
+    show_T=true,
+    from_dp=true,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Single speed DX coil&quot;</span>;
+
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Ramp"
+>Modelica.Blocks.Sources.Ramp</a> p(
+    duration=600,
+    startTime=600,
+    height=dp_nominal,
+    offset=101325) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Pressure&quot;</span>;
+  <a href="Buildings_Fluid_HeatExchangers_DXCoils_Data_Generic.html#Buildings.Fluid.HeatExchangers.DXCoils.Data.Generic.DXCoil"
+>Data.Generic.DXCoil</a>
+                datCoi(
+    sta={
+        <span style="color: red; font-weight: normal; font-style: normal;">Buildings.Fluid.HeatExchangers.DXCoils.Data.Generic.BaseClasses.Stage</span>(
+        spe=1800/60,
+        nomVal=
+          <span style="color: red; font-weight: normal; font-style: normal;">Buildings.Fluid.HeatExchangers.DXCoils.Data.Generic.BaseClasses.NominalValues</span>(
+          Q_flow_nominal=-21000,
+          COP_nominal=3,
+          SHR_nominal=0.8,
+          m_flow_nominal=1.5),
+        perCur=
+          <span style="color: red; font-weight: normal; font-style: normal;">Buildings.Fluid.HeatExchangers.DXCoils.Examples.PerformanceCurves.Curve_II</span>())},           nSta=
+       1) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Coil data&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+>Modelica.Blocks.Sources.Constant</a> TConIn(k=273.15 + 25) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Condensor inlet temperature&quot;</span>;
+<span style="color: blue; font-weight: normal; font-style: normal;">equation </span>
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(TEvaIn.y, sou.T_in);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(onOff.y, sinSpeDX.on);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(sou.ports[1], sinSpeDX.port_a);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(sinSpeDX.port_b, sin.ports[1]);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(p.y, sou.p_in);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(TConIn.y, sinSpeDX.TConIn);
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>SingleSpeed;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE SpaceCooling<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Fluid.HeatExcha7cc4d6872503cffdolingI.png" alt="Buildings.Fluid.HeatExchangers.DXCoils.Examples.SpaceCooling" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Fluid.HeatExchangers.DXCoils.Examples.SpaceCooling"></a><a href="Buildings_Fluid_HeatExchangers_DXCoils_Examples.html#Buildings.Fluid.HeatExchangers.DXCoils.Examples"
+>Buildings.Fluid.HeatExchangers.DXCoils.Examples</a>.SpaceCooling</h2>
+<p>
+<b>Space cooling with DX coils</b>
+<br>
+<br><img src="Buildings.Fluid.HeatExcha7cc4d6872503cffdolingD.png" alt="Buildings.Fluid.HeatExchangers.DXCoils.Examples.SpaceCooling">
+</p>
+<h3>Information</h3>
+
+<p>
+This model illustrates the use of the DX coil models with
+single speed compressor, multi-stage compressor, and variable
+speed compressor.
+The three systems all have the same simple model for a room,
+and the same HVAC components, except for the coil.
+The top system has a DX coil with single speed compressor
+and on/off control with dead-band.
+The middle system has a DX coil with two stages, each
+representing a different compressor speed.
+The bottom system has a DX coil with variable speed control
+for the compressor.
+</p>
+<p>
+All coils are controlled based on the respective room air temperature.
+The plot below shows how room air temperatures and humidity levels
+are controlled with the respective coils.
+The single speed coil has the highest room air humidity level because
+during its off-time, water that accumulated on the coil evaporates
+into the air stream.
+This effect is smaller for the coil with two compressor stages
+and for the coil with variable compressor speed, as both of these coils
+switch off less frequent.
+</p>
+<p align="center">
+<img alt="image" src="../Resources/Images/Fluid/HeatExchangers/DXCoils/Examples/SpaceCooling.png" />
+</p>
+<h4>Implementation</h4>
+<p>
+The model is based on
+<a href="Buildings_Examples_Tutorial_SpaceCooling.html#Buildings.Examples.Tutorial.SpaceCooling.System3"
+>
+Buildings.Examples.Tutorial.SpaceCooling.System3</a>.
+</p>
+
+<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</a> (Icon for runnable examples).</p>
+<h3>Parameters</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td colspan="2">replaceable package Medium</td><td>Buildings.Media.Air</td><td>&nbsp;</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Volume"
+>Volume</a></td><td>V</td><td>6*10*3</td><td>Room volume [m3]</td></tr>
+<tr><td>Real</td><td>eps</td><td>0.8</td><td>Heat recovery effectiveness</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+>Temperature</a></td><td>TASup_nominal</td><td>273.15 + 18</td><td>Nominal air temperature supplied to room [K]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+>Temperature</a></td><td>TRooSet</td><td>273.15 + 24</td><td>Nominal room air temperature [K]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+>Temperature</a></td><td>TOut_nominal</td><td>273.15 + 30</td><td>Design outlet air temperature [K]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+>Temperature</a></td><td>THeaRecLvg</td><td>TOut_nominal - eps*(TOut_nom...</td><td>Air temperature leaving the heat recovery [K]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.HeatFlowRate"
+>HeatFlowRate</a></td><td>QRooInt_flow</td><td>1000</td><td>Internal heat gains of the room [W]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.HeatFlowRate"
+>HeatFlowRate</a></td><td>QRooC_flow_nominal</td><td>-QRooInt_flow - 10E3/30*(TOu...</td><td>Nominal cooling load of the room [W]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+>MassFlowRate</a></td><td>mA_flow_nominal</td><td>1.3*QRooC_flow_nominal/1006/...</td><td>Nominal air mass flow rate, increased by factor 1.3 to allow for recovery after temperature setback [kg/s]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.TemperatureDifference"
+>TemperatureDifference</a></td><td>dTFan</td><td>2</td><td>Estimated temperature raise across fan that needs to be made up by the cooling coil [K]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.HeatFlowRate"
+>HeatFlowRate</a></td><td>QCoiC_flow_nominal</td><td>(QRooC_flow_nominal + mA_flo...</td><td>Cooling load of coil, taking into account economizer, and increased due to latent heat removal [W]</td></tr>
+<tr><td><a href="Buildings_Fluid_HeatExchangers_DXCoils_Data_Generic.html#Buildings.Fluid.HeatExchangers.DXCoils.Data.Generic.DXCoil"
+>DXCoil</a></td><td>datCoiMulSpe</td><td>&nbsp;</td><td>Coil data</td></tr>
+</table>
+<h3>Connectors</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Connectors">
+<tr><th>Type</th><th>Name</th><th>Description</th></tr>
+<tr><td colspan="2">replaceable package Medium</td><td>&nbsp;</td></tr>
+<tr><td><a href="Buildings_BoundaryConditions_WeatherData.html#Buildings.BoundaryConditions.WeatherData.Bus"
+>Bus</a></td><td>weaBus</td><td>&nbsp;</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">model</span> SpaceCooling <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Space cooling with DX coils&quot;</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</a>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">replaceable </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium =
+      <a href="Buildings_Media_Air.html#Buildings.Media.Air"
+>Buildings.Media.Air</a>;
+
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Volume"
+>Modelica.SIunits.Volume</a> V=6*10*3 <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Room volume&quot;</span>;
+  <span style="color: #006400; font-weight: normal; font-style: normal;">//////////////////////////////////////////////////////////</span>
+  <span style="color: #006400; font-weight: normal; font-style: normal;">// Heat recovery effectiveness</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Real eps = 0.8 <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Heat recovery effectiveness&quot;</span>;
+
+  <span style="color: #006400; font-weight: normal; font-style: normal;">/////////////////////////////////////////////////////////</span>
+  <span style="color: #006400; font-weight: normal; font-style: normal;">// Air temperatures at design conditions</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+>Modelica.SIunits.Temperature</a> TASup_nominal = 273.15+18 <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Nominal air temperature supplied to room&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+>Modelica.SIunits.Temperature</a> TRooSet = 273.15+24 <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Nominal room air temperature&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+>Modelica.SIunits.Temperature</a> TOut_nominal = 273.15+30 <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Design outlet air temperature&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+>Modelica.SIunits.Temperature</a> THeaRecLvg=
+    TOut_nominal - eps*(TOut_nominal-TRooSet) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Air temperature leaving the heat recovery&quot;</span>;
+
+  <span style="color: #006400; font-weight: normal; font-style: normal;">/////////////////////////////////////////////////////////</span>
+  <span style="color: #006400; font-weight: normal; font-style: normal;">// Cooling loads and air mass flow rates</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.HeatFlowRate"
+>Modelica.SIunits.HeatFlowRate</a> QRooInt_flow=
+     1000 <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Internal heat gains of the room&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.HeatFlowRate"
+>Modelica.SIunits.HeatFlowRate</a> QRooC_flow_nominal=
+    -QRooInt_flow-10E3/30*(TOut_nominal-TRooSet) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Nominal cooling load of the room&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+>Modelica.SIunits.MassFlowRate</a> mA_flow_nominal=
+    1.3*QRooC_flow_nominal/1006/(TASup_nominal-TRooSet) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Nominal air mass flow rate, increased by factor 1.3 to allow for recovery after temperature setback&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.TemperatureDifference"
+>Modelica.SIunits.TemperatureDifference</a> dTFan = 2 <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Estimated temperature raise across fan that needs to be made up by the cooling coil&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.HeatFlowRate"
+>Modelica.SIunits.HeatFlowRate</a> QCoiC_flow_nominal=
+    (QRooC_flow_nominal + mA_flow_nominal*(TASup_nominal-THeaRecLvg-dTFan)*1006) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Cooling load of coil, taking into account economizer, and increased due to latent heat removal&quot;</span>;
+
+  <a href="Buildings_Fluid_Movers.html#Buildings.Fluid.Movers.FlowControlled_m_flow"
+>Buildings.Fluid.Movers.FlowControlled_m_flow</a> fan(<span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = <a href="Buildings_Fluid_HeatExchangers_DXCoils_Examples_Medium.html#Buildings.Fluid.HeatExchangers.DXCoils.Examples.SpaceCooling.Medium"
+>Medium</a>,
+      m_flow_nominal=mA_flow_nominal,
+    dynamicBalance=false) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Supply air fan&quot;</span>;
+  <a href="Buildings_Fluid_HeatExchangers.html#Buildings.Fluid.HeatExchangers.ConstantEffectiveness"
+>Fluid.HeatExchangers.ConstantEffectiveness</a> hex(<span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium1 =
+        <a href="Buildings_Fluid_HeatExchangers_DXCoils_Examples_Medium.html#Buildings.Fluid.HeatExchangers.DXCoils.Examples.SpaceCooling.Medium"
+>Medium</a>, <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium2 = <a href="Buildings_Fluid_HeatExchangers_DXCoils_Examples_Medium.html#Buildings.Fluid.HeatExchangers.DXCoils.Examples.SpaceCooling.Medium"
+>Medium</a>,
+    m1_flow_nominal=mA_flow_nominal,
+    m2_flow_nominal=mA_flow_nominal,
+    dp1_nominal=200,
+    dp2_nominal=200,
+    eps=eps) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Heat recovery&quot;</span>;
+  <a href="Buildings_Fluid_Sources.html#Buildings.Fluid.Sources.Outside"
+>Fluid.Sources.Outside</a> out(nPorts=6, <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = <a href="Buildings_Fluid_HeatExchangers_DXCoils_Examples_Medium.html#Buildings.Fluid.HeatExchangers.DXCoils.Examples.SpaceCooling.Medium"
+>Medium</a>);
+  <a href="Buildings_BoundaryConditions_WeatherData.html#Buildings.BoundaryConditions.WeatherData.ReaderTMY3"
+>BoundaryConditions.WeatherData.ReaderTMY3</a> weaDat(
+    pAtmSou=Buildings.BoundaryConditions.Types.DataSource.Parameter,
+    TDryBul=TOut_nominal,
+    filNam=&quot;modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos&quot;,
+    TDryBulSou=Buildings.BoundaryConditions.Types.DataSource.File) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Weather data reader&quot;</span>;
+  <a href="Buildings_BoundaryConditions_WeatherData.html#Buildings.BoundaryConditions.WeatherData.Bus"
+>BoundaryConditions.WeatherData.Bus</a> weaBus;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+>Modelica.Blocks.Sources.Constant</a> mAir_flow(k=mA_flow_nominal) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Fan air flow rate&quot;</span>;
+  <a href="Buildings_Fluid_Sensors.html#Buildings.Fluid.Sensors.TemperatureTwoPort"
+>Fluid.Sensors.TemperatureTwoPort</a> senTemHXEvaOut(<span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium =
+        <a href="Buildings_Fluid_HeatExchangers_DXCoils_Examples_Medium.html#Buildings.Fluid.HeatExchangers.DXCoils.Examples.SpaceCooling.Medium"
+>Medium</a>, m_flow_nominal=mA_flow_nominal) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Temperature sensor for heat recovery outlet on supply side&quot;</span>;
+  <a href="Buildings_Fluid_Sensors.html#Buildings.Fluid.Sensors.TemperatureTwoPort"
+>Fluid.Sensors.TemperatureTwoPort</a> senTemSupAir(<span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium =
+        <a href="Buildings_Fluid_HeatExchangers_DXCoils_Examples_Medium.html#Buildings.Fluid.HeatExchangers.DXCoils.Examples.SpaceCooling.Medium"
+>Medium</a>, m_flow_nominal=mA_flow_nominal) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Temperature sensor for supply air&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Logical.html#Modelica.Blocks.Logical.OnOffController"
+>Modelica.Blocks.Logical.OnOffController</a> con(bandwidth=1, pre_y_start=true) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Controller for coil water flow rate&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+>Modelica.Blocks.Sources.Constant</a> TRooSetPoi(k=TRooSet) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Room temperature set point&quot;</span>;
+  <a href="Buildings_Fluid_HeatExchangers_DXCoils.html#Buildings.Fluid.HeatExchangers.DXCoils.SingleSpeed"
+>Buildings.Fluid.HeatExchangers.DXCoils.SingleSpeed</a> sinSpeDX(
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = <a href="Buildings_Fluid_HeatExchangers_DXCoils_Examples_Medium.html#Buildings.Fluid.HeatExchangers.DXCoils.Examples.SpaceCooling.Medium"
+>Medium</a>,
+    datCoi=datCoi,
+    dp_nominal=400,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial);
+
+  <a href="Buildings_Fluid_HeatExchangers_DXCoils_Examples.html#Buildings.Fluid.HeatExchangers.DXCoils.Examples.SpaceCooling.SimpleRoom"
+>SimpleRoom</a> rooSinSpe(
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = <a href="Buildings_Fluid_HeatExchangers_DXCoils_Examples_Medium.html#Buildings.Fluid.HeatExchangers.DXCoils.Examples.SpaceCooling.Medium"
+>Medium</a>,
+    nPorts=2,
+    QRooInt_flow=QRooInt_flow,
+    mA_flow_nominal=mA_flow_nominal) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Room model connected to single speed coil&quot;</span>;
+  <a href="Buildings_Fluid_Movers.html#Buildings.Fluid.Movers.FlowControlled_m_flow"
+>Buildings.Fluid.Movers.FlowControlled_m_flow</a> fan1(
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = <a href="Buildings_Fluid_HeatExchangers_DXCoils_Examples_Medium.html#Buildings.Fluid.HeatExchangers.DXCoils.Examples.SpaceCooling.Medium"
+>Medium</a>,
+    m_flow_nominal=mA_flow_nominal,
+    dynamicBalance=false) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Supply air fan&quot;</span>;
+  <a href="Buildings_Fluid_HeatExchangers.html#Buildings.Fluid.HeatExchangers.ConstantEffectiveness"
+>Fluid.HeatExchangers.ConstantEffectiveness</a> hex1(
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium1 =
+        <a href="Buildings_Fluid_HeatExchangers_DXCoils_Examples_Medium.html#Buildings.Fluid.HeatExchangers.DXCoils.Examples.SpaceCooling.Medium"
+>Medium</a>, <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium2 = <a href="Buildings_Fluid_HeatExchangers_DXCoils_Examples_Medium.html#Buildings.Fluid.HeatExchangers.DXCoils.Examples.SpaceCooling.Medium"
+>Medium</a>,
+    m1_flow_nominal=mA_flow_nominal,
+    m2_flow_nominal=mA_flow_nominal,
+    dp1_nominal=200,
+    dp2_nominal=200,
+    eps=eps) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Heat recovery&quot;</span>;
+  <a href="Buildings_Fluid_Sensors.html#Buildings.Fluid.Sensors.TemperatureTwoPort"
+>Fluid.Sensors.TemperatureTwoPort</a> senTemHXEvaOut1(
+                                               <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium =
+        <a href="Buildings_Fluid_HeatExchangers_DXCoils_Examples_Medium.html#Buildings.Fluid.HeatExchangers.DXCoils.Examples.SpaceCooling.Medium"
+>Medium</a>, m_flow_nominal=mA_flow_nominal) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Temperature sensor for heat recovery outlet on supply side&quot;</span>;
+  <a href="Buildings_Fluid_Sensors.html#Buildings.Fluid.Sensors.TemperatureTwoPort"
+>Fluid.Sensors.TemperatureTwoPort</a> senTemSupAir1(
+                                                <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium =
+        <a href="Buildings_Fluid_HeatExchangers_DXCoils_Examples_Medium.html#Buildings.Fluid.HeatExchangers.DXCoils.Examples.SpaceCooling.Medium"
+>Medium</a>, m_flow_nominal=mA_flow_nominal) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Temperature sensor for supply air&quot;</span>;
+  <a href="Buildings_Fluid_HeatExchangers_DXCoils.html#Buildings.Fluid.HeatExchangers.DXCoils.MultiStage"
+>Buildings.Fluid.HeatExchangers.DXCoils.MultiStage</a> mulStaDX(
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = <a href="Buildings_Fluid_HeatExchangers_DXCoils_Examples_Medium.html#Buildings.Fluid.HeatExchangers.DXCoils.Examples.SpaceCooling.Medium"
+>Medium</a>,
+    dp_nominal=400,
+    datCoi=datCoiMulSpe,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Multi-speed DX coil&quot;</span>;
+  <a href="Buildings_Fluid_HeatExchangers_DXCoils_Examples.html#Buildings.Fluid.HeatExchangers.DXCoils.Examples.SpaceCooling.SimpleRoom"
+>SimpleRoom</a> rooMulSpe(
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = <a href="Buildings_Fluid_HeatExchangers_DXCoils_Examples_Medium.html#Buildings.Fluid.HeatExchangers.DXCoils.Examples.SpaceCooling.Medium"
+>Medium</a>,
+    nPorts=2,
+    QRooInt_flow=QRooInt_flow,
+    mA_flow_nominal=mA_flow_nominal) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Room model connected to multi stage coil&quot;</span>;
+
+  <a href="Buildings_Fluid_HeatExchangers_DXCoils_Data_Generic.html#Buildings.Fluid.HeatExchangers.DXCoils.Data.Generic.DXCoil"
+>Buildings.Fluid.HeatExchangers.DXCoils.Data.Generic.DXCoil</a>
+    datCoi(
+     sta={
+        <span style="color: red; font-weight: normal; font-style: normal;">Buildings.Fluid.HeatExchangers.DXCoils.Data.Generic.BaseClasses.Stage</span>(
+        spe=1800/60,
+        nomVal=
+          <span style="color: red; font-weight: normal; font-style: normal;">Buildings.Fluid.HeatExchangers.DXCoils.Data.Generic.BaseClasses.NominalValues</span>(
+          Q_flow_nominal=QCoiC_flow_nominal,
+          COP_nominal=3,
+          SHR_nominal=0.7,
+          m_flow_nominal=mA_flow_nominal),
+        perCur=
+          <span style="color: red; font-weight: normal; font-style: normal;">Buildings.Fluid.HeatExchangers.DXCoils.Examples.PerformanceCurves.Curve_I</span>())},
+          nSta=1);
+
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="Buildings_Fluid_HeatExchangers_DXCoils_Data_Generic.html#Buildings.Fluid.HeatExchangers.DXCoils.Data.Generic.DXCoil"
+>Buildings.Fluid.HeatExchangers.DXCoils.Data.Generic.DXCoil</a>
+       datCoiMulSpe(nSta=2, sta=
+       {<span style="color: red; font-weight: normal; font-style: normal;">Buildings.Fluid.HeatExchangers.DXCoils.Data.Generic.BaseClasses.Stage</span>(
+        spe=900/60,
+        nomVal=
+          <span style="color: red; font-weight: normal; font-style: normal;">Buildings.Fluid.HeatExchangers.DXCoils.Data.Generic.BaseClasses.NominalValues</span>(
+          Q_flow_nominal=QCoiC_flow_nominal*900/2400,
+          COP_nominal=3,
+          SHR_nominal=0.7,
+          m_flow_nominal=mA_flow_nominal*900/2400),
+        perCur=
+          <span style="color: red; font-weight: normal; font-style: normal;">Buildings.Fluid.HeatExchangers.DXCoils.Examples.PerformanceCurves.Curve_I</span>()),
+              <span style="color: red; font-weight: normal; font-style: normal;">Buildings.Fluid.HeatExchangers.DXCoils.Data.Generic.BaseClasses.Stage</span>(
+        spe=2400/60,
+        nomVal=
+          <span style="color: red; font-weight: normal; font-style: normal;">Buildings.Fluid.HeatExchangers.DXCoils.Data.Generic.BaseClasses.NominalValues</span>(
+          Q_flow_nominal=QCoiC_flow_nominal,
+          COP_nominal=3,
+          SHR_nominal=0.7,
+          m_flow_nominal=mA_flow_nominal),
+        perCur=
+          <span style="color: red; font-weight: normal; font-style: normal;">Buildings.Fluid.HeatExchangers.DXCoils.Examples.PerformanceCurves.Curve_III</span>())}) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Coil data&quot;</span>;
+  <a href="Buildings_Fluid_HeatExchangers_DXCoils_Examples.html#Buildings.Fluid.HeatExchangers.DXCoils.Examples.SpaceCooling.ControllerTwoStage"
+>ControllerTwoStage</a> mulSpeCon <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Controller for multi-stage coil&quot;</span>;
+  <a href="Buildings_Fluid_HeatExchangers_DXCoils_Examples.html#Buildings.Fluid.HeatExchangers.DXCoils.Examples.SpaceCooling.SimpleRoom"
+>SimpleRoom</a> rooVarSpe(
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = <a href="Buildings_Fluid_HeatExchangers_DXCoils_Examples_Medium.html#Buildings.Fluid.HeatExchangers.DXCoils.Examples.SpaceCooling.Medium"
+>Medium</a>,
+    nPorts=2,
+    QRooInt_flow=QRooInt_flow,
+    mA_flow_nominal=mA_flow_nominal) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Room model connected to variable speed coil&quot;</span>;
+  <a href="Buildings_Fluid_Movers.html#Buildings.Fluid.Movers.FlowControlled_m_flow"
+>Buildings.Fluid.Movers.FlowControlled_m_flow</a> fan2(
+                                      <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = <a href="Buildings_Fluid_HeatExchangers_DXCoils_Examples_Medium.html#Buildings.Fluid.HeatExchangers.DXCoils.Examples.SpaceCooling.Medium"
+>Medium</a>,
+      m_flow_nominal=mA_flow_nominal,
+    dynamicBalance=false) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Supply air fan&quot;</span>;
+  <a href="Buildings_Fluid_Sensors.html#Buildings.Fluid.Sensors.TemperatureTwoPort"
+>Fluid.Sensors.TemperatureTwoPort</a> senTemSupAir2(
+                                                <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium =
+        <a href="Buildings_Fluid_HeatExchangers_DXCoils_Examples_Medium.html#Buildings.Fluid.HeatExchangers.DXCoils.Examples.SpaceCooling.Medium"
+>Medium</a>, m_flow_nominal=mA_flow_nominal) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Temperature sensor for supply air&quot;</span>;
+  <a href="Buildings_Fluid_HeatExchangers_DXCoils.html#Buildings.Fluid.HeatExchangers.DXCoils.VariableSpeed"
+>Buildings.Fluid.HeatExchangers.DXCoils.VariableSpeed</a> varSpeDX(
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = <a href="Buildings_Fluid_HeatExchangers_DXCoils_Examples_Medium.html#Buildings.Fluid.HeatExchangers.DXCoils.Examples.SpaceCooling.Medium"
+>Medium</a>,
+    dp_nominal=400,
+    datCoi=datCoiMulSpe,
+    minSpeRat=0.2,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Variable-speed DX coil&quot;</span>;
+  <a href="Buildings_Fluid_Sensors.html#Buildings.Fluid.Sensors.TemperatureTwoPort"
+>Fluid.Sensors.TemperatureTwoPort</a> senTemHXEvaOut2(
+                                               <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium =
+        <a href="Buildings_Fluid_HeatExchangers_DXCoils_Examples_Medium.html#Buildings.Fluid.HeatExchangers.DXCoils.Examples.SpaceCooling.Medium"
+>Medium</a>, m_flow_nominal=mA_flow_nominal) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Temperature sensor for heat recovery outlet on supply side&quot;</span>;
+  <a href="Buildings_Fluid_HeatExchangers.html#Buildings.Fluid.HeatExchangers.ConstantEffectiveness"
+>Fluid.HeatExchangers.ConstantEffectiveness</a> hex2(
+                                                 <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium1 =
+        <a href="Buildings_Fluid_HeatExchangers_DXCoils_Examples_Medium.html#Buildings.Fluid.HeatExchangers.DXCoils.Examples.SpaceCooling.Medium"
+>Medium</a>, <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium2 = <a href="Buildings_Fluid_HeatExchangers_DXCoils_Examples_Medium.html#Buildings.Fluid.HeatExchangers.DXCoils.Examples.SpaceCooling.Medium"
+>Medium</a>,
+    m1_flow_nominal=mA_flow_nominal,
+    m2_flow_nominal=mA_flow_nominal,
+    dp1_nominal=200,
+    dp2_nominal=200,
+    eps=eps) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Heat recovery&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Continuous.html#Modelica.Blocks.Continuous.Integrator"
+>Modelica.Blocks.Continuous.Integrator</a> sinSpePow(y(unit=&quot;J&quot;)) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Power consumed by single speed coil&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Continuous.html#Modelica.Blocks.Continuous.Integrator"
+>Modelica.Blocks.Continuous.Integrator</a> mulSpePow(y(unit=&quot;J&quot;)) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Power consumed by multi-stage coil&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Continuous.html#Modelica.Blocks.Continuous.Integrator"
+>Modelica.Blocks.Continuous.Integrator</a> varSpePow(y(unit=&quot;J&quot;)) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Power consumed by multi-stage coil&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Logical.html#Modelica.Blocks.Logical.Not"
+>Modelica.Blocks.Logical.Not</a> not1;
+  <a href="Buildings_Controls_Continuous.html#Buildings.Controls.Continuous.LimPID"
+>Buildings.Controls.Continuous.LimPID</a> conVarSpe(
+    controllerType=Modelica.Blocks.Types.SimpleController.P,
+    Ti=1,
+    Td=1,
+    reverseAction=true) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Controller for variable speed DX coil&quot;</span>;
+<span style="color: blue; font-weight: normal; font-style: normal;">equation </span>
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(out.ports[1], hex.port_a1);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(out.ports[2], hex.port_b2);
+
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(weaDat.weaBus, out.weaBus);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(weaDat.weaBus, weaBus);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(fan.m_flow_in, mAir_flow.y);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(hex.port_b1, senTemHXEvaOut.port_a);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(senTemSupAir.port_b, fan.port_a);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(senTemHXEvaOut.port_b, sinSpeDX.port_a);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(sinSpeDX.port_b, senTemSupAir.port_a);
+<span style="color: blue; font-weight: normal; font-style: normal;">public </span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">model</span> SimpleRoom <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Simple model of a room&quot;</span>
+
+    <span style="color: blue; font-weight: normal; font-style: normal;">replaceable </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium =
+          <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium"
+>Modelica.Media.Interfaces.PartialMedium</a> <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Medium in the room&quot;</span>;
+
+    <a href="Buildings_Fluid_MixingVolumes.html#Buildings.Fluid.MixingVolumes.MixingVolume"
+>Buildings.Fluid.MixingVolumes.MixingVolume</a> vol(
+      <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = <a href="Buildings_Fluid_HeatExchangers_DXCoils_Examples_Medium.html#Buildings.Fluid.HeatExchangers.DXCoils.Examples.SpaceCooling.SimpleRoom.Medium"
+>Medium</a>,
+      m_flow_nominal=mA_flow_nominal,
+      V=V,
+      nPorts=2,
+      energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial);
+    <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Thermal_HeatTransfer_Components.html#Modelica.Thermal.HeatTransfer.Components.ThermalConductor"
+>Modelica.Thermal.HeatTransfer.Components.ThermalConductor</a> theCon(G=10000/30) <span style="color: #006400; font-weight: normal; font-style: normal;">
+      &quot;Thermal conductance with the ambient&quot;</span>;
+    <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Thermal_HeatTransfer_Sources.html#Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature"
+>Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature</a> TOut <span style="color: #006400; font-weight: normal; font-style: normal;">
+      &quot;Outside temperature&quot;</span>;
+    <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Thermal_HeatTransfer_Sources.html#Modelica.Thermal.HeatTransfer.Sources.FixedHeatFlow"
+>Modelica.Thermal.HeatTransfer.Sources.FixedHeatFlow</a> preHea(Q_flow=
+          QRooInt_flow) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Prescribed heat flow&quot;</span>;
+    <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Thermal_HeatTransfer_Sensors.html#Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor"
+>Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor</a> senTemRoo <span style="color: #006400; font-weight: normal; font-style: normal;">
+      &quot;Room temperature sensor&quot;</span>;
+    <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Thermal_HeatTransfer_Components.html#Modelica.Thermal.HeatTransfer.Components.HeatCapacitor"
+>Modelica.Thermal.HeatTransfer.Components.HeatCapacitor</a> heaCap(C=2*V*1.2*1006) <span style="color: #006400; font-weight: normal; font-style: normal;">
+      &quot;Heat capacity for furniture and walls&quot;</span>;
+
+    <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Integer nPorts=0 <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Number of ports&quot;</span>;
+    <span style="color: blue; font-weight: normal; font-style: normal;">final </span><span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Volume"
+>Modelica.SIunits.Volume</a> V=6*10*3 <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Room volume&quot;</span>;
+    <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.HeatFlowRate"
+>Modelica.SIunits.HeatFlowRate</a> QRooInt_flow <span style="color: #006400; font-weight: normal; font-style: normal;">
+      &quot;Internal heat gains of the room&quot;</span>;
+
+    <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+>Modelica.SIunits.MassFlowRate</a> mA_flow_nominal <span style="color: #006400; font-weight: normal; font-style: normal;">
+      &quot;Nominal air mass flow rate&quot;</span>;
+
+    <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>Modelica.Blocks.Interfaces.RealInput</a> TOutDryBul <span style="color: #006400; font-weight: normal; font-style: normal;">
+      &quot;Outdoor drybulb temperature&quot;</span>;
+    <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+>Modelica.Blocks.Interfaces.RealOutput</a> TRoo(unit=&quot;K&quot;) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Room temperature&quot;</span>;
+    <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Fluid_Vessels_BaseClasses.html#Modelica.Fluid.Vessels.BaseClasses.VesselFluidPorts_b"
+>Modelica.Fluid.Vessels.BaseClasses.VesselFluidPorts_b</a> ports[nPorts](<span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">
+        each </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium =
+                         <a href="Buildings_Fluid_HeatExchangers_DXCoils_Examples_Medium.html#Buildings.Fluid.HeatExchangers.DXCoils.Examples.SpaceCooling.SimpleRoom.Medium"
+>Medium</a>);
+  <span style="color: blue; font-weight: normal; font-style: normal;">equation </span>
+    <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(theCon.port_b,vol. heatPort);
+    <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(preHea.port,vol. heatPort);
+    <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(TOut.port,theCon. port_a);
+    <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(vol.heatPort,senTemRoo. port);
+    <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(heaCap.port,vol. heatPort);
+    <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(TRoo, senTemRoo.T);
+    <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(ports, vol.ports);
+    <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(TOut.T, TOutDryBul);
+  <span style="color: blue; font-weight: normal; font-style: normal;">end </span>SimpleRoom;
+<span style="color: blue; font-weight: normal; font-style: normal;">equation </span>
+
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(sinSpeDX.TConIn, weaBus.TDryBul);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(fan.port_b, rooSinSpe.ports[1]);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(rooSinSpe.ports[2], hex.port_a2);
+
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(hex1.port_b1, senTemHXEvaOut1.port_a);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(senTemSupAir1.port_b, fan1.port_a);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(senTemHXEvaOut1.port_b, mulStaDX.port_a);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(mulStaDX.port_b, senTemSupAir1.port_a);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(mulStaDX.TConIn, weaBus.TDryBul);
+
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(fan1.port_b, rooMulSpe.ports[1]);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(rooMulSpe.ports[2], hex1.port_a2);
+
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(rooMulSpe.TOutDryBul, weaBus.TDryBul);
+<span style="color: blue; font-weight: normal; font-style: normal;">public </span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">model</span> ControllerTwoStage <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Controller for two stage coil&quot;</span>
+    <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Real bandwidth=1 <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Bandwidth around reference signal&quot;</span>;
+    <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="Buildings_BaseClasses.html#Buildings.BaseClasses.BaseIcon"
+>Buildings.BaseClasses.BaseIcon</a>;
+    <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Logical.html#Modelica.Blocks.Logical.OnOffController"
+>Modelica.Blocks.Logical.OnOffController</a> con1(bandwidth=bandwidth/2,
+        pre_y_start=true) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Controller for coil water flow rate&quot;</span>;
+    <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Logical.html#Modelica.Blocks.Logical.OnOffController"
+>Modelica.Blocks.Logical.OnOffController</a> con2(bandwidth=bandwidth/2,
+        pre_y_start=true) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Controller for coil water flow rate&quot;</span>;
+    <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>Modelica.Blocks.Interfaces.RealInput</a> u;
+    <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>Modelica.Blocks.Interfaces.RealInput</a> reference <span style="color: #006400; font-weight: normal; font-style: normal;">
+      &quot;Connector of Real input signal used as reference signal&quot;</span>;
+    <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Math.html#Modelica.Blocks.Math.Add"
+>Modelica.Blocks.Math.Add</a> add(k2=-1);
+    <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+>Modelica.Blocks.Sources.Constant</a> const(k=bandwidth/2);
+
+    <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Math.html#Modelica.Blocks.Math.Add"
+>Modelica.Blocks.Math.Add</a> add1;
+    <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_MathInteger.html#Modelica.Blocks.MathInteger.MultiSwitch"
+>Modelica.Blocks.MathInteger.MultiSwitch</a> multiSwitch1(
+      expr={2,1},
+      y_default=0,
+      use_pre_as_default=false,
+      nu=2);
+    <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.IntegerOutput"
+>Modelica.Blocks.Interfaces.IntegerOutput</a> stage <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Coil stage control signal&quot;</span>;
+    <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Logical.html#Modelica.Blocks.Logical.Not"
+>Modelica.Blocks.Logical.Not</a> not1;
+    <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Logical.html#Modelica.Blocks.Logical.Not"
+>Modelica.Blocks.Logical.Not</a> not2;
+  <span style="color: blue; font-weight: normal; font-style: normal;">equation </span>
+    <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(con1.reference, reference);
+    <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(const.y, add.u2);
+    <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(const.y, add1.u1);
+    <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(add.u1, u);
+    <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(add1.u2, u);
+    <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(add.y, con1.u);
+    <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(add1.y, con2.u);
+    <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(reference, con2.reference);
+    <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(multiSwitch1.y, stage);
+    <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(not2.y, multiSwitch1.u[1]);
+    <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(not1.y, multiSwitch1.u[2]);
+    <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(con1.y, not1.u);
+    <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(con2.y, not2.u);
+  <span style="color: blue; font-weight: normal; font-style: normal;">end </span>ControllerTwoStage;
+<span style="color: blue; font-weight: normal; font-style: normal;">equation </span>
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(mulSpeCon.stage, mulStaDX.stage);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(rooVarSpe.TOutDryBul, weaBus.TDryBul);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(senTemSupAir2.port_b,fan2. port_a);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(varSpeDX.port_b, senTemSupAir2.port_a);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(senTemHXEvaOut2.port_b, varSpeDX.port_a);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(varSpeDX.TConIn, weaBus.TDryBul);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(hex2.port_b1,senTemHXEvaOut2. port_a);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(out.ports[3], hex1.port_a1);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(out.ports[4], hex1.port_b2);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(out.ports[5], hex2.port_a1);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(out.ports[6], hex2.port_b2);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(fan2.port_b, rooVarSpe.ports[1]);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(rooVarSpe.ports[2], hex2.port_a2);
+
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(mAir_flow.y, fan1.m_flow_in);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(mAir_flow.y, fan2.m_flow_in);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(rooSinSpe.TOutDryBul, weaBus.TDryBul);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(sinSpePow.u, sinSpeDX.P);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(mulSpePow.u, mulStaDX.P);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(varSpeDX.P, varSpePow.u);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(TRooSetPoi.y, con.reference);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(rooSinSpe.TRoo, con.u);
+
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(not1.u, con.y);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(not1.y, sinSpeDX.on);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(mulSpeCon.reference, TRooSetPoi.y);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(rooMulSpe.TRoo, mulSpeCon.u);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(TRooSetPoi.y, conVarSpe.u_s);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(conVarSpe.u_m, rooVarSpe.TRoo);
+
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(conVarSpe.y, varSpeDX.speRat);
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>SpaceCooling;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE VariableSpeed<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Fluid.HeatExcha81ed91672f4a1688SpeedI.png" alt="Buildings.Fluid.HeatExchangers.DXCoils.Examples.VariableSpeed" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Fluid.HeatExchangers.DXCoils.Examples.VariableSpeed"></a><a href="Buildings_Fluid_HeatExchangers_DXCoils_Examples.html#Buildings.Fluid.HeatExchangers.DXCoils.Examples"
+>Buildings.Fluid.HeatExchangers.DXCoils.Examples</a>.VariableSpeed</h2>
+<p>
+<b>Test model for variable speed DX coil</b>
+<br>
+<br><img src="Buildings.Fluid.HeatExcha81ed91672f4a1688SpeedD.png" alt="Buildings.Fluid.HeatExchangers.DXCoils.Examples.VariableSpeed">
+</p>
+<h3>Information</h3>
+
+<p>
+This is a test model for
+<a href="Buildings_Fluid_HeatExchangers_DXCoils.html#Buildings.Fluid.HeatExchangers.DXCoils.VariableSpeed"
+>
+Buildings.Fluid.HeatExchangers.DXCoils.VariableSpeed</a>.
+The model has open-loop control and time-varying input conditions.
+</p>
+
+<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</a> (Icon for runnable examples).</p>
+<h3>Parameters</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+>MassFlowRate</a></td><td>m_flow_nominal</td><td>datCoi.sta[datCoi.nSta].nomV...</td><td>Nominal mass flow rate [kg/s]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
+>Pressure</a></td><td>dp_nominal</td><td>1000</td><td>Pressure drop at m_flow_nominal [Pa]</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">model</span> VariableSpeed <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Test model for variable speed DX coil&quot;</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = <a href="Buildings_Media_Air.html#Buildings.Media.Air"
+>Buildings.Media.Air</a>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</a>;
+ <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+>Modelica.SIunits.MassFlowRate</a> m_flow_nominal = datCoi.sta[datCoi.nSta].nomVal.m_flow_nominal <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Nominal mass flow rate&quot;</span>;
+ <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
+>Modelica.SIunits.Pressure</a> dp_nominal = 1000 <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Pressure drop at m_flow_nominal&quot;</span>;
+  <a href="Buildings_Fluid_Sources.html#Buildings.Fluid.Sources.Boundary_pT"
+>Buildings.Fluid.Sources.Boundary_pT</a> sin(
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = Medium,
+    nPorts=1,
+    p(displayUnit=&quot;Pa&quot;) = 101325,
+    T=293.15) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Sink&quot;</span>;
+  <a href="Buildings_Fluid_Sources.html#Buildings.Fluid.Sources.Boundary_pT"
+>Buildings.Fluid.Sources.Boundary_pT</a> sou(
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = Medium,
+    nPorts=1,
+    p(displayUnit=&quot;Pa&quot;) = 101325 + dp_nominal,
+    use_T_in=true,
+    use_p_in=true,
+    T=299.85) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Source&quot;</span>;
+  <a href="Buildings_Fluid_HeatExchangers_DXCoils.html#Buildings.Fluid.HeatExchangers.DXCoils.VariableSpeed"
+>Buildings.Fluid.HeatExchangers.DXCoils.VariableSpeed</a> varSpeDX(
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = Medium,
+    dp_nominal=dp_nominal,
+    datCoi=datCoi,
+    minSpeRat=datCoi.minSpeRat,
+    T_start=datCoi.sta[1].nomVal.TEvaIn_nominal,
+    from_dp=true,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Variable speed DX coil&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Ramp"
+>Modelica.Blocks.Sources.Ramp</a> TEvaIn(
+    duration=600,
+    startTime=900,
+    height=5,
+    offset=273.15 + 20,
+    y(unit=&quot;K&quot;)) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;temperature&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.TimeTable"
+>Modelica.Blocks.Sources.TimeTable</a> speRat(table=[0.0,0.0; 100,0.0; 900,0.2;
+        1800,0.8; 2700,0.75; 3600,0.75]) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Speed ratio &quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Ramp"
+>Modelica.Blocks.Sources.Ramp</a> p(
+    duration=600,
+    height=dp_nominal,
+    offset=101325,
+    startTime=100) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Mass flow rate of air&quot;</span>;
+  <a href="Buildings_Fluid_HeatExchangers_DXCoils_Data_Generic.html#Buildings.Fluid.HeatExchangers.DXCoils.Data.Generic.DXCoil"
+>Data.Generic.DXCoil</a>
+                datCoi(nSta=4, sta={
+        <span style="color: red; font-weight: normal; font-style: normal;">Buildings.Fluid.HeatExchangers.DXCoils.Data.Generic.BaseClasses.Stage</span>(
+        spe=900/60,
+        nomVal=
+          <span style="color: red; font-weight: normal; font-style: normal;">Buildings.Fluid.HeatExchangers.DXCoils.Data.Generic.BaseClasses.NominalValues</span>(
+          Q_flow_nominal=-12000,
+          COP_nominal=3,
+          SHR_nominal=0.8,
+          m_flow_nominal=0.9),
+        perCur=
+          <span style="color: red; font-weight: normal; font-style: normal;">Buildings.Fluid.HeatExchangers.DXCoils.Examples.PerformanceCurves.Curve_I</span>()),
+              <span style="color: red; font-weight: normal; font-style: normal;">Buildings.Fluid.HeatExchangers.DXCoils.Data.Generic.BaseClasses.Stage</span>(
+        spe=1200/60,
+        nomVal=
+          <span style="color: red; font-weight: normal; font-style: normal;">Buildings.Fluid.HeatExchangers.DXCoils.Data.Generic.BaseClasses.NominalValues</span>(
+          Q_flow_nominal=-18000,
+          COP_nominal=3,
+          SHR_nominal=0.8,
+          m_flow_nominal=1.2),
+        perCur=
+          <span style="color: red; font-weight: normal; font-style: normal;">Buildings.Fluid.HeatExchangers.DXCoils.Examples.PerformanceCurves.Curve_I</span>()),
+              <span style="color: red; font-weight: normal; font-style: normal;">Buildings.Fluid.HeatExchangers.DXCoils.Data.Generic.BaseClasses.Stage</span>(
+        spe=1800/60,
+        nomVal=
+          <span style="color: red; font-weight: normal; font-style: normal;">Buildings.Fluid.HeatExchangers.DXCoils.Data.Generic.BaseClasses.NominalValues</span>(
+          Q_flow_nominal=-21000,
+          COP_nominal=3,
+          SHR_nominal=0.8,
+          m_flow_nominal=1.5),
+        perCur=
+          <span style="color: red; font-weight: normal; font-style: normal;">Buildings.Fluid.HeatExchangers.DXCoils.Examples.PerformanceCurves.Curve_II</span>()),
+              <span style="color: red; font-weight: normal; font-style: normal;">Buildings.Fluid.HeatExchangers.DXCoils.Data.Generic.BaseClasses.Stage</span>(
+        spe=2400/60,
+        nomVal=
+          <span style="color: red; font-weight: normal; font-style: normal;">Buildings.Fluid.HeatExchangers.DXCoils.Data.Generic.BaseClasses.NominalValues</span>(
+          Q_flow_nominal=-30000,
+          COP_nominal=3,
+          SHR_nominal=0.8,
+          m_flow_nominal=1.8),
+        perCur=
+          <span style="color: red; font-weight: normal; font-style: normal;">Buildings.Fluid.HeatExchangers.DXCoils.Examples.PerformanceCurves.Curve_III</span>())}) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Coil data&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+>Modelica.Blocks.Sources.Constant</a> TConIn(k=273.15 + 25) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Condensor inlet temperature&quot;</span>;
+<span style="color: blue; font-weight: normal; font-style: normal;">equation </span>
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(sou.ports[1], varSpeDX.port_a);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(varSpeDX.port_b, sin.ports[1]);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(TEvaIn.y, sou.T_in);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(speRat.y, varSpeDX.speRat);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(p.y, sou.p_in);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(varSpeDX.TConIn, TConIn.y);
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>VariableSpeed;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE SimpleRoom<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Fluid.HeatExchad810483c205839c6eRoomI.png" alt="Buildings.Fluid.HeatExchangers.DXCoils.Examples.SpaceCooling.SimpleRoom" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Fluid.HeatExchangers.DXCoils.Examples.SpaceCooling.SimpleRoom"></a><a href="Buildings_Fluid_HeatExchangers_DXCoils_Examples.html#Buildings.Fluid.HeatExchangers.DXCoils.Examples.SpaceCooling"
+>Buildings.Fluid.HeatExchangers.DXCoils.Examples.SpaceCooling</a>.SimpleRoom</h2>
+<p>
+<b>Simple model of a room</b>
+<br>
+<br><img src="Buildings.Fluid.HeatExchad810483c205839c6eRoomD.png" alt="Buildings.Fluid.HeatExchangers.DXCoils.Examples.SpaceCooling.SimpleRoom">
+</p>
+<h3>Parameters</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td colspan="2">replaceable package Medium</td><td>Modelica.Media.Interfaces.Pa...</td><td>Medium in the room</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.HeatFlowRate"
+>HeatFlowRate</a></td><td>QRooInt_flow</td><td>&nbsp;</td><td>Internal heat gains of the room [W]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+>MassFlowRate</a></td><td>mA_flow_nominal</td><td>&nbsp;</td><td>Nominal air mass flow rate [kg/s]</td></tr>
+</table>
+<h3>Connectors</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Connectors">
+<tr><th>Type</th><th>Name</th><th>Description</th></tr>
+<tr><td colspan="2">replaceable package Medium</td><td>Medium in the room</td></tr>
+<tr><td>input <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>RealInput</a></td><td>TOutDryBul</td><td>Outdoor drybulb temperature</td></tr>
+<tr><td>output <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+>RealOutput</a></td><td>TRoo</td><td>Room temperature [K]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Fluid_Vessels_BaseClasses.html#Modelica.Fluid.Vessels.BaseClasses.VesselFluidPorts_b"
+>VesselFluidPorts_b</a></td><td>ports[nPorts]</td><td>&nbsp;</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">model</span> SimpleRoom <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Simple model of a room&quot;</span>
+
+  <span style="color: blue; font-weight: normal; font-style: normal;">replaceable </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium =
+        <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium"
+>Modelica.Media.Interfaces.PartialMedium</a> <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Medium in the room&quot;</span>;
+
+  <a href="Buildings_Fluid_MixingVolumes.html#Buildings.Fluid.MixingVolumes.MixingVolume"
+>Buildings.Fluid.MixingVolumes.MixingVolume</a> vol(
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = <a href="Buildings_Fluid_HeatExchangers_DXCoils_Examples_Medium.html#Buildings.Fluid.HeatExchangers.DXCoils.Examples.SpaceCooling.SimpleRoom.Medium"
+>Medium</a>,
+    m_flow_nominal=mA_flow_nominal,
+    V=V,
+    nPorts=2,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial);
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Thermal_HeatTransfer_Components.html#Modelica.Thermal.HeatTransfer.Components.ThermalConductor"
+>Modelica.Thermal.HeatTransfer.Components.ThermalConductor</a> theCon(G=10000/30) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Thermal conductance with the ambient&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Thermal_HeatTransfer_Sources.html#Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature"
+>Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature</a> TOut <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Outside temperature&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Thermal_HeatTransfer_Sources.html#Modelica.Thermal.HeatTransfer.Sources.FixedHeatFlow"
+>Modelica.Thermal.HeatTransfer.Sources.FixedHeatFlow</a> preHea(Q_flow=
+        QRooInt_flow) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Prescribed heat flow&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Thermal_HeatTransfer_Sensors.html#Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor"
+>Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor</a> senTemRoo <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Room temperature sensor&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Thermal_HeatTransfer_Components.html#Modelica.Thermal.HeatTransfer.Components.HeatCapacitor"
+>Modelica.Thermal.HeatTransfer.Components.HeatCapacitor</a> heaCap(C=2*V*1.2*1006) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Heat capacity for furniture and walls&quot;</span>;
+
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Integer nPorts=0 <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Number of ports&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">final </span><span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Volume"
+>Modelica.SIunits.Volume</a> V=6*10*3 <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Room volume&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.HeatFlowRate"
+>Modelica.SIunits.HeatFlowRate</a> QRooInt_flow <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Internal heat gains of the room&quot;</span>;
+
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+>Modelica.SIunits.MassFlowRate</a> mA_flow_nominal <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Nominal air mass flow rate&quot;</span>;
+
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>Modelica.Blocks.Interfaces.RealInput</a> TOutDryBul <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Outdoor drybulb temperature&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+>Modelica.Blocks.Interfaces.RealOutput</a> TRoo(unit=&quot;K&quot;) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Room temperature&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Fluid_Vessels_BaseClasses.html#Modelica.Fluid.Vessels.BaseClasses.VesselFluidPorts_b"
+>Modelica.Fluid.Vessels.BaseClasses.VesselFluidPorts_b</a> ports[nPorts](<span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">
+      each </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium =
+                       <a href="Buildings_Fluid_HeatExchangers_DXCoils_Examples_Medium.html#Buildings.Fluid.HeatExchangers.DXCoils.Examples.SpaceCooling.SimpleRoom.Medium"
+>Medium</a>);
+<span style="color: blue; font-weight: normal; font-style: normal;">equation </span>
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(theCon.port_b,vol. heatPort);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(preHea.port,vol. heatPort);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(TOut.port,theCon. port_a);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(vol.heatPort,senTemRoo. port);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(heaCap.port,vol. heatPort);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(TRoo, senTemRoo.T);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(ports, vol.ports);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(TOut.T, TOutDryBul);
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>SimpleRoom;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE ControllerTwoStage<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Fluid.HeatExchae6dbb461fe394a24StageI.png" alt="Buildings.Fluid.HeatExchangers.DXCoils.Examples.SpaceCooling.ControllerTwoStage" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Fluid.HeatExchangers.DXCoils.Examples.SpaceCooling.ControllerTwoStage"></a><a href="Buildings_Fluid_HeatExchangers_DXCoils_Examples.html#Buildings.Fluid.HeatExchangers.DXCoils.Examples.SpaceCooling"
+>Buildings.Fluid.HeatExchangers.DXCoils.Examples.SpaceCooling</a>.ControllerTwoStage</h2>
+<p>
+<b>Controller for two stage coil</b>
+<br>
+<br><img src="Buildings.Fluid.HeatExchae6dbb461fe394a24StageD.png" alt="Buildings.Fluid.HeatExchangers.DXCoils.Examples.SpaceCooling.ControllerTwoStage">
+</p>
+<h3>Information</h3>
+<p>Extends from <a href="Buildings_BaseClasses.html#Buildings.BaseClasses.BaseIcon"
+>Buildings.BaseClasses.BaseIcon</a> (Base icon).</p>
+<h3>Parameters</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td>Real</td><td>bandwidth</td><td>1</td><td>Bandwidth around reference signal</td></tr>
+</table>
+<h3>Connectors</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Connectors">
+<tr><th>Type</th><th>Name</th><th>Description</th></tr>
+<tr><td>input <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>RealInput</a></td><td>u</td><td>&nbsp;</td></tr>
+<tr><td>input <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>RealInput</a></td><td>reference</td><td>Connector of Real input signal used as reference signal</td></tr>
+<tr><td>output <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.IntegerOutput"
+>IntegerOutput</a></td><td>stage</td><td>Coil stage control signal</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">model</span> ControllerTwoStage <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Controller for two stage coil&quot;</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Real bandwidth=1 <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Bandwidth around reference signal&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="Buildings_BaseClasses.html#Buildings.BaseClasses.BaseIcon"
+>Buildings.BaseClasses.BaseIcon</a>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Logical.html#Modelica.Blocks.Logical.OnOffController"
+>Modelica.Blocks.Logical.OnOffController</a> con1(bandwidth=bandwidth/2,
+      pre_y_start=true) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Controller for coil water flow rate&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Logical.html#Modelica.Blocks.Logical.OnOffController"
+>Modelica.Blocks.Logical.OnOffController</a> con2(bandwidth=bandwidth/2,
+      pre_y_start=true) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Controller for coil water flow rate&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>Modelica.Blocks.Interfaces.RealInput</a> u;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>Modelica.Blocks.Interfaces.RealInput</a> reference <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Connector of Real input signal used as reference signal&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Math.html#Modelica.Blocks.Math.Add"
+>Modelica.Blocks.Math.Add</a> add(k2=-1);
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+>Modelica.Blocks.Sources.Constant</a> const(k=bandwidth/2);
+
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Math.html#Modelica.Blocks.Math.Add"
+>Modelica.Blocks.Math.Add</a> add1;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_MathInteger.html#Modelica.Blocks.MathInteger.MultiSwitch"
+>Modelica.Blocks.MathInteger.MultiSwitch</a> multiSwitch1(
+    expr={2,1},
+    y_default=0,
+    use_pre_as_default=false,
+    nu=2);
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.IntegerOutput"
+>Modelica.Blocks.Interfaces.IntegerOutput</a> stage <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Coil stage control signal&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Logical.html#Modelica.Blocks.Logical.Not"
+>Modelica.Blocks.Logical.Not</a> not1;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Logical.html#Modelica.Blocks.Logical.Not"
+>Modelica.Blocks.Logical.Not</a> not2;
+<span style="color: blue; font-weight: normal; font-style: normal;">equation </span>
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(con1.reference, reference);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(const.y, add.u2);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(const.y, add1.u1);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(add.u1, u);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(add1.u2, u);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(add.y, con1.u);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(add1.y, con2.u);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(reference, con2.reference);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(multiSwitch1.y, stage);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(not2.y, multiSwitch1.u[1]);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(not1.y, multiSwitch1.u[2]);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(con1.y, not1.u);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(con2.y, not2.u);
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>ControllerTwoStage;
+</div>
+<hr>
+<address>
+<a href="http://www.3ds.com/">Automatically generated</a> Thu Apr  9 09:35:40 2015.
+</address>
+</body>
+</html>

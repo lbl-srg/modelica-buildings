@@ -1,0 +1,361 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>Buildings.Fluid.Chillers.Examples</title>
+<meta name="HTML-Generator" content="Dymola">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="description" content="&quot;Collection of models that illustrate model use and test models&quot;">
+<style type="text/css">
+*       { font-size: 10pt; font-family: Arial, sans-serif; }
+.modelica, .modelica * { font-size: 9pt; font-family: Courier, monospace; white-space: pre; }
+h4      { font-size: 10pt; font-weight: bold; color: green; }
+h3      { font-size: 11pt; font-weight: bold; color: green; }
+h2      { font-size: 13pt; font-weight: bold; color: green; }
+address { font-weight: normal; }
+td      { border: 1px solid #808080; vertical-align: top; }
+th      { border: 1px solid #808080; vertical-align: top; font-weight: bold; }
+table   { border: 1px solid #808080; border-collapse: collapse; }
+</style>
+<link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../Resources/www/modelicaDoc.css">
+</HEAD>
+<body>
+<!-- --- header ------ -->
+<div class="headerStyle">
+<img src="../Resources/www/lbl-logo.png" alt="LBL logo"/>
+</div>
+<div class="headerLinks">
+<ul><li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt; <a href="Buildings.html">Modelica</a></li></ul>
+</div>
+<!-- --- end header -- -->
+
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE Examples<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><a name="Buildings.Fluid.Chillers.Examples"></a><a href="Buildings_Fluid_Chillers.html#Buildings.Fluid.Chillers"
+>Buildings.Fluid.Chillers</a>.Examples</h2>
+<p>
+<b>Collection of models that illustrate model use and test models</b><br>
+</p>
+<h3>Information</h3>
+
+<p>
+This package contains examples for the use of models that can be found in
+<a href="Buildings_Fluid_Chillers.html#Buildings.Fluid.Chillers"
+>
+Buildings.Fluid.Chillers</a>.
+</p>
+
+<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons_ExamplesPackage.html#Modelica.Icons.ExamplesPackage"
+>Modelica.Icons.ExamplesPackage</a> (Icon for packages containing runnable examples).</p>
+<h3>Package Content</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Package Content">
+<tr>
+<th>Name</th>
+<th>Description</th>
+</tr>
+<tr>
+<td><img src="Buildings.Fluid.Chillers.Examples.CarnotS.png" alt="Buildings.Fluid.Chillers.Examples.Carnot" width="20" height="20" align="top">&nbsp;<a href="Buildings_Fluid_Chillers_Examples.html#Buildings.Fluid.Chillers.Examples.Carnot"
+>Carnot</a>
+</td>
+<td>Test model for chiller based on Carnot efficiency</td>
+</tr>
+<tr>
+<td><img src="Buildings.Fluid.Chillers.Examples.CarnotS.png" alt="Buildings.Fluid.Chillers.Examples.ElectricEIR" width="20" height="20" align="top">&nbsp;<a href="Buildings_Fluid_Chillers_Examples.html#Buildings.Fluid.Chillers.Examples.ElectricEIR"
+>ElectricEIR</a>
+</td>
+<td>Test model for chiller electric EIR</td>
+</tr>
+<tr>
+<td><img src="Buildings.Fluid.Chillers.Examples.CarnotS.png" alt="Buildings.Fluid.Chillers.Examples.ElectricReformulatedEIR" width="20" height="20" align="top">&nbsp;<a href="Buildings_Fluid_Chillers_Examples.html#Buildings.Fluid.Chillers.Examples.ElectricReformulatedEIR"
+>ElectricReformulatedEIR</a>
+</td>
+<td>Test model for chiller electric reformulated EIR</td>
+</tr>
+<tr>
+<td><img src="Buildings.Fluid.Chillers.37cf2425b80118b7assesS.png" alt="Buildings.Fluid.Chillers.Examples.BaseClasses" width="20" height="20" align="top">&nbsp;<a href="Buildings_Fluid_Chillers_Examples_BaseClasses.html#Buildings.Fluid.Chillers.Examples.BaseClasses"
+>BaseClasses</a>
+</td>
+<td>Package with base classes for Buildings.Fluid.Chillers.Examples</td>
+</tr>
+</table>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE Carnot<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Fluid.Chillers.Examples.CarnotI.png" alt="Buildings.Fluid.Chillers.Examples.Carnot" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Fluid.Chillers.Examples.Carnot"></a><a href="Buildings_Fluid_Chillers_Examples.html#Buildings.Fluid.Chillers.Examples"
+>Buildings.Fluid.Chillers.Examples</a>.Carnot</h2>
+<p>
+<b>Test model for chiller based on Carnot efficiency</b>
+<br>
+<br><img src="Buildings.Fluid.Chillers.Examples.CarnotD.png" alt="Buildings.Fluid.Chillers.Examples.Carnot">
+</p>
+<h3>Information</h3>
+
+<p>
+Example that simulates a chiller whose efficiency is scaled based on the
+Carnot cycle.
+</p>
+
+<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</a> (Icon for runnable examples).</p>
+<h3>Parameters</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Power"
+>Power</a></td><td>P_nominal</td><td>10E3</td><td>Nominal compressor power (at y=1) [W]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.TemperatureDifference"
+>TemperatureDifference</a></td><td>dTEva_nominal</td><td>10</td><td>Temperature difference evaporator inlet-outlet [K]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.TemperatureDifference"
+>TemperatureDifference</a></td><td>dTCon_nominal</td><td>10</td><td>Temperature difference condenser outlet-inlet [K]</td></tr>
+<tr><td>Real</td><td>COPc_nominal</td><td>3</td><td>Chiller COP</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+>MassFlowRate</a></td><td>m2_flow_nominal</td><td>P_nominal*COPc_nominal/dTEva...</td><td>Nominal mass flow rate at chilled water side [kg/s]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+>MassFlowRate</a></td><td>m1_flow_nominal</td><td>m2_flow_nominal*(COPc_nomina...</td><td>Nominal mass flow rate at condenser water wide [kg/s]</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">model</span> Carnot <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Test model for chiller based on Carnot efficiency&quot;</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</a>;
+ <span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium1 = <a href="Buildings_Media_Water.html#Buildings.Media.Water"
+>Buildings.Media.Water</a> <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Medium model&quot;</span>;
+ <span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium2 = <a href="Buildings_Media_Water.html#Buildings.Media.Water"
+>Buildings.Media.Water</a> <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Medium model&quot;</span>;
+
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Power"
+>Modelica.SIunits.Power</a> P_nominal=10E3 <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Nominal compressor power (at y=1)&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.TemperatureDifference"
+>Modelica.SIunits.TemperatureDifference</a> dTEva_nominal=10 <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Temperature difference evaporator inlet-outlet&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.TemperatureDifference"
+>Modelica.SIunits.TemperatureDifference</a> dTCon_nominal=10 <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Temperature difference condenser outlet-inlet&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Real COPc_nominal = 3 <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Chiller COP&quot;</span>;
+
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+>Modelica.SIunits.MassFlowRate</a> m2_flow_nominal=
+     P_nominal*COPc_nominal/dTEva_nominal/4200 <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Nominal mass flow rate at chilled water side&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+>Modelica.SIunits.MassFlowRate</a> m1_flow_nominal=
+    m2_flow_nominal*(COPc_nominal+1)/COPc_nominal <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Nominal mass flow rate at condenser water wide&quot;</span>;
+
+  <a href="Buildings_Fluid_Chillers.html#Buildings.Fluid.Chillers.Carnot"
+>Buildings.Fluid.Chillers.Carnot</a> chi(
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium1 = Medium1,
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium2 = Medium2,
+    P_nominal=P_nominal,
+    dTEva_nominal=dTEva_nominal,
+    dTCon_nominal=dTCon_nominal,
+    use_eta_Carnot=true,
+    etaCar=0.3,
+    dp1_nominal=6000,
+    dp2_nominal=6000,
+    m1_flow_nominal=m1_flow_nominal,
+    m2_flow_nominal=m2_flow_nominal,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    show_T=true) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Chiller model&quot;</span>;
+  <a href="Buildings_Fluid_Sources.html#Buildings.Fluid.Sources.MassFlowSource_T"
+>Buildings.Fluid.Sources.MassFlowSource_T</a> sou1(nPorts=1,
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = Medium1,
+    use_T_in=true,
+    m_flow=m1_flow_nominal,
+    T=298.15);
+  <a href="Buildings_Fluid_Sources.html#Buildings.Fluid.Sources.MassFlowSource_T"
+>Buildings.Fluid.Sources.MassFlowSource_T</a> sou2(nPorts=1,
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = Medium2,
+    use_T_in=true,
+    m_flow=m2_flow_nominal,
+    T=291.15);
+  <a href="Buildings_Fluid_Sources.html#Buildings.Fluid.Sources.FixedBoundary"
+>Buildings.Fluid.Sources.FixedBoundary</a> sin1(nPorts=1, <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium
+      = Medium1);
+  <a href="Buildings_Fluid_Sources.html#Buildings.Fluid.Sources.FixedBoundary"
+>Buildings.Fluid.Sources.FixedBoundary</a> sin2(nPorts=1, <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium
+      = Medium2);
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Ramp"
+>Modelica.Blocks.Sources.Ramp</a> uCom(
+    height=-1,
+    duration=60,
+    offset=1,
+    startTime=1800) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Compressor control signal&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Ramp"
+>Modelica.Blocks.Sources.Ramp</a> TCon_in(
+    height=10,
+    duration=60,
+    offset=273.15 + 20,
+    startTime=60) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Condenser inlet temperature&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Ramp"
+>Modelica.Blocks.Sources.Ramp</a> TEva_in(
+    height=10,
+    duration=60,
+    startTime=900,
+    offset=273.15 + 15) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Evaporator inlet temperature&quot;</span>;
+<span style="color: blue; font-weight: normal; font-style: normal;">equation </span>
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(sou1.ports[1], chi.port_a1);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(sou2.ports[1], chi.port_a2);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(chi.port_b1, sin1.ports[1]);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(sin2.ports[1], chi.port_b2);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(TCon_in.y, sou1.T_in);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(TEva_in.y, sou2.T_in);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(uCom.y, chi.y);
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>Carnot;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE ElectricEIR<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Fluid.Chillers.Examples.CarnotI.png" alt="Buildings.Fluid.Chillers.Examples.ElectricEIR" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Fluid.Chillers.Examples.ElectricEIR"></a><a href="Buildings_Fluid_Chillers_Examples.html#Buildings.Fluid.Chillers.Examples"
+>Buildings.Fluid.Chillers.Examples</a>.ElectricEIR</h2>
+<p>
+<b>Test model for chiller electric EIR</b>
+<br>
+<br><img src="Buildings.Fluid.Chillers.3e4edd7d4494732bicEIRD.png" alt="Buildings.Fluid.Chillers.Examples.ElectricEIR">
+</p>
+<h3>Information</h3>
+
+<p>
+Example that simulates a chiller whose efficiency is computed based on the
+condenser entering and evaporator leaving fluid temperature.
+A bicubic polynomial is used to compute the chiller part load performance.
+</p>
+
+<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</a> (Icon for runnable examples), <a href="Buildings_Fluid_Chillers_Examples_BaseClasses.html#Buildings.Fluid.Chillers.Examples.BaseClasses.PartialElectric"
+>Buildings.Fluid.Chillers.Examples.BaseClasses.PartialElectric</a> (Base class for test model of chiller electric EIR).</p>
+<h3>Parameters</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Power"
+>Power</a></td><td>P_nominal</td><td>-per.QEva_flow_nominal/per.C...</td><td>Nominal compressor power (at y=1) [W]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.TemperatureDifference"
+>TemperatureDifference</a></td><td>dTEva_nominal</td><td>10</td><td>Temperature difference evaporator inlet-outlet [K]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.TemperatureDifference"
+>TemperatureDifference</a></td><td>dTCon_nominal</td><td>10</td><td>Temperature difference condenser outlet-inlet [K]</td></tr>
+<tr><td>Real</td><td>COPc_nominal</td><td>3</td><td>Chiller COP</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+>MassFlowRate</a></td><td>mEva_flow_nominal</td><td>per.mEva_flow_nominal</td><td>Nominal mass flow rate at evaporator [kg/s]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+>MassFlowRate</a></td><td>mCon_flow_nominal</td><td>per.mCon_flow_nominal</td><td>Nominal mass flow rate at condenser [kg/s]</td></tr>
+<tr><td><a href="Buildings_Fluid_Chillers_Data_ElectricEIR.html#Buildings.Fluid.Chillers.Data.ElectricEIR.ElectricEIRChiller_McQuay_WSC_471kW_5_89COP_Vanes"
+>ElectricEIRChiller_McQuay_WSC_471kW_5_89COP_Vanes</a></td><td>per</td><td>&nbsp;</td><td>Chiller performance data</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">model</span> ElectricEIR <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Test model for chiller electric EIR&quot;</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</a>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="Buildings_Fluid_Chillers_Examples_BaseClasses.html#Buildings.Fluid.Chillers.Examples.BaseClasses.PartialElectric"
+>Buildings.Fluid.Chillers.Examples.BaseClasses.PartialElectric</a>(
+      P_nominal=-per.QEva_flow_nominal/per.COP_nominal,
+      mEva_flow_nominal=per.mEva_flow_nominal,
+      mCon_flow_nominal=per.mCon_flow_nominal,
+    sou1(nPorts=1),
+    sou2(nPorts=1));
+
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="Buildings_Fluid_Chillers_Data_ElectricEIR.html#Buildings.Fluid.Chillers.Data.ElectricEIR.ElectricEIRChiller_McQuay_WSC_471kW_5_89COP_Vanes"
+>Data.ElectricEIR.ElectricEIRChiller_McQuay_WSC_471kW_5_89COP_Vanes</a>
+    per <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Chiller performance data&quot;</span>;
+
+  <a href="Buildings_Fluid_Chillers.html#Buildings.Fluid.Chillers.ElectricEIR"
+>Buildings.Fluid.Chillers.ElectricEIR</a> chi(
+       <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium1 = Medium1,
+       <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium2 = Medium2,
+       per=per,
+       energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+       dp1_nominal=6000,
+       dp2_nominal=6000) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Chiller model&quot;</span>;
+
+<span style="color: blue; font-weight: normal; font-style: normal;">equation </span>
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(sou1.ports[1], chi.port_a1);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(chi.port_b1, res1.port_a);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(sou2.ports[1], chi.port_a2);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(chi.port_b2, res2.port_a);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(chi.on, greaterThreshold.y);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(chi.TSet, TSet.y);
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>ElectricEIR;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE ElectricReformulatedEIR<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Fluid.Chillers.Examples.CarnotI.png" alt="Buildings.Fluid.Chillers.Examples.ElectricReformulatedEIR" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Fluid.Chillers.Examples.ElectricReformulatedEIR"></a><a href="Buildings_Fluid_Chillers_Examples.html#Buildings.Fluid.Chillers.Examples"
+>Buildings.Fluid.Chillers.Examples</a>.ElectricReformulatedEIR</h2>
+<p>
+<b>Test model for chiller electric reformulated EIR</b>
+<br>
+<br><img src="Buildings.Fluid.Chillers.d7b420a1ec6f89a1edEIRD.png" alt="Buildings.Fluid.Chillers.Examples.ElectricReformulatedEIR">
+</p>
+<h3>Information</h3>
+
+<p>
+Example that simulates a chiller whose efficiency is computed based on the
+condenser leaving and evaporator leaving fluid temperature.
+A bicubic polynomial is used to compute the chiller part load performance.
+</p>
+
+<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</a> (Icon for runnable examples), <a href="Buildings_Fluid_Chillers_Examples_BaseClasses.html#Buildings.Fluid.Chillers.Examples.BaseClasses.PartialElectric"
+>Buildings.Fluid.Chillers.Examples.BaseClasses.PartialElectric</a> (Base class for test model of chiller electric EIR).</p>
+<h3>Parameters</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Power"
+>Power</a></td><td>P_nominal</td><td>-per.QEva_flow_nominal/per.C...</td><td>Nominal compressor power (at y=1) [W]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.TemperatureDifference"
+>TemperatureDifference</a></td><td>dTEva_nominal</td><td>10</td><td>Temperature difference evaporator inlet-outlet [K]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.TemperatureDifference"
+>TemperatureDifference</a></td><td>dTCon_nominal</td><td>10</td><td>Temperature difference condenser outlet-inlet [K]</td></tr>
+<tr><td>Real</td><td>COPc_nominal</td><td>3</td><td>Chiller COP</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+>MassFlowRate</a></td><td>mEva_flow_nominal</td><td>per.mEva_flow_nominal</td><td>Nominal mass flow rate at evaporator [kg/s]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+>MassFlowRate</a></td><td>mCon_flow_nominal</td><td>per.mCon_flow_nominal</td><td>Nominal mass flow rate at condenser [kg/s]</td></tr>
+<tr><td><a href="Buildings_Fluid_Chillers_Data_ElectricReformulatedEIR.html#Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.ReformEIRChiller_McQuay_WSC_471kW_5_89COP_Vanes"
+>ReformEIRChiller_McQuay_WSC_471kW_5_89COP_Vanes</a></td><td>per</td><td>&nbsp;</td><td>Chiller performance data</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">model</span> ElectricReformulatedEIR <span style="color: #006400; font-weight: normal; font-style: normal;">
+  &quot;Test model for chiller electric reformulated EIR&quot;</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</a>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="Buildings_Fluid_Chillers_Examples_BaseClasses.html#Buildings.Fluid.Chillers.Examples.BaseClasses.PartialElectric"
+>Buildings.Fluid.Chillers.Examples.BaseClasses.PartialElectric</a>(
+      P_nominal=-per.QEva_flow_nominal/per.COP_nominal,
+      mEva_flow_nominal=per.mEva_flow_nominal,
+      mCon_flow_nominal=per.mCon_flow_nominal,
+    sou1(nPorts=1),
+    sou2(nPorts=1));
+
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="Buildings_Fluid_Chillers_Data_ElectricReformulatedEIR.html#Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.ReformEIRChiller_McQuay_WSC_471kW_5_89COP_Vanes"
+>Data.ElectricReformulatedEIR.ReformEIRChiller_McQuay_WSC_471kW_5_89COP_Vanes</a>
+    per <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Chiller performance data&quot;</span>;
+
+  <a href="Buildings_Fluid_Chillers.html#Buildings.Fluid.Chillers.ElectricReformulatedEIR"
+>Buildings.Fluid.Chillers.ElectricReformulatedEIR</a> chi(
+       <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium1 = Medium1,
+       <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium2 = Medium2,
+       per=per,
+       energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+       dp1_nominal=6000,
+       dp2_nominal=6000) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Chiller model&quot;</span>;
+
+<span style="color: blue; font-weight: normal; font-style: normal;">equation </span>
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(sou1.ports[1], chi.port_a1);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(chi.port_b1, res1.port_a);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(sou2.ports[1], chi.port_a2);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(chi.port_b2, res2.port_a);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(chi.on, greaterThreshold.y);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(TSet.y, chi.TSet);
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>ElectricReformulatedEIR;
+</div>
+<hr>
+<address>
+<a href="http://www.3ds.com/">Automatically generated</a> Thu Apr  9 09:34:53 2015.
+</address>
+</body>
+</html>

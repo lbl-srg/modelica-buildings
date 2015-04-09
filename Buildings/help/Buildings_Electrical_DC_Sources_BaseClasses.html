@@ -1,0 +1,140 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>Buildings.Electrical.DC.Sources.BaseClasses</title>
+<meta name="HTML-Generator" content="Dymola">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="description" content="&quot;Package with base classes for DC sources&quot;">
+<style type="text/css">
+*       { font-size: 10pt; font-family: Arial, sans-serif; }
+.modelica, .modelica * { font-size: 9pt; font-family: Courier, monospace; white-space: pre; }
+h4      { font-size: 10pt; font-weight: bold; color: green; }
+h3      { font-size: 11pt; font-weight: bold; color: green; }
+h2      { font-size: 13pt; font-weight: bold; color: green; }
+address { font-weight: normal; }
+td      { border: 1px solid #808080; vertical-align: top; }
+th      { border: 1px solid #808080; vertical-align: top; font-weight: bold; }
+table   { border: 1px solid #808080; border-collapse: collapse; }
+</style>
+<link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../Resources/www/modelicaDoc.css">
+</HEAD>
+<body>
+<!-- --- header ------ -->
+<div class="headerStyle">
+<img src="../Resources/www/lbl-logo.png" alt="LBL logo"/>
+</div>
+<div class="headerLinks">
+<ul><li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt; <a href="Buildings.html">Modelica</a></li></ul>
+</div>
+<!-- --- end header -- -->
+
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE BaseClasses<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><a name="Buildings.Electrical.DC.Sources.BaseClasses"></a><a href="Buildings_Electrical_DC_Sources.html#Buildings.Electrical.DC.Sources"
+>Buildings.Electrical.DC.Sources</a>.BaseClasses</h2>
+<p>
+<b>Package with base classes for DC sources</b><br>
+</p>
+<h3>Information</h3>
+
+<p>
+This package contains base classes that are used to construct the models in
+<a href="Buildings_Electrical_DC_Sources.html#Buildings.Electrical.DC.Sources"
+>Buildings.Electrical.DC.Sources</a>.
+</p>
+
+<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons_BasesPackage.html#Modelica.Icons.BasesPackage"
+>Modelica.Icons.BasesPackage</a> (Icon for packages containing base classes).</p>
+<h3>Package Content</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Package Content">
+<tr>
+<th>Name</th>
+<th>Description</th>
+</tr>
+<tr>
+<td><img src="Buildings.Electrical.DC.S2e90c045c9ef107ectionS.png" alt="Buildings.Electrical.DC.Sources.BaseClasses.WindCorrection" width="20" height="20" align="top">&nbsp;<a href="Buildings_Electrical_DC_Sources_BaseClasses.html#Buildings.Electrical.DC.Sources.BaseClasses.WindCorrection"
+>WindCorrection</a>
+</td>
+<td>Block for wind correction</td>
+</tr>
+</table>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE WindCorrection<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Electrical.DC.S2e90c045c9ef107ectionI.png" alt="Buildings.Electrical.DC.Sources.BaseClasses.WindCorrection" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Electrical.DC.Sources.BaseClasses.WindCorrection"></a><a href="Buildings_Electrical_DC_Sources_BaseClasses.html#Buildings.Electrical.DC.Sources.BaseClasses"
+>Buildings.Electrical.DC.Sources.BaseClasses</a>.WindCorrection</h2>
+<p>
+<b>Block for wind correction</b>
+<br>
+<br><img src="Buildings.Electrical.DC.S2e90c045c9ef107ectionD.png" alt="Buildings.Electrical.DC.Sources.BaseClasses.WindCorrection">
+</p>
+<h3>Information</h3>
+
+<p>
+This model calculates the wind velocity at the location as a function of the height over ground.
+The equation is based on Gash (1991).
+
+The model computes the wind velocity <i>vLoc</i> as
+</p>
+
+<p align="center" style="font-style:italic;">
+vLoc = vRef * (h / hRef)<sup>n</sup>
+</p>
+
+<p>
+where <i>vRef</i> is the wind velocity at the reference height, <i>h</i> is the height over ground, <i>hRef</i>
+is the reference height, and <i>n</i> is the height exponent for wind calculation.
+</p>
+<h4>Reference</h4>
+<p>
+Gasch, R. 1991. Windkraftanlagen. Grundlagen und Entwurf (German). Teubner, Stuttgart.
+</p>
+
+<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BlockIcon"
+>Modelica.Blocks.Interfaces.BlockIcon</a> (This icon will be removed in future Modelica versions, use Modelica.Blocks.Icons.Block instead.).</p>
+<h3>Parameters</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Height"
+>Height</a></td><td>h</td><td>&nbsp;</td><td>Height over ground [m]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Height"
+>Height</a></td><td>hRef</td><td>&nbsp;</td><td>Reference height for wind measurement [m]</td></tr>
+<tr><td>Real</td><td>n</td><td>0.4</td><td>Height exponent for wind profile calculation</td></tr>
+</table>
+<h3>Connectors</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Connectors">
+<tr><th>Type</th><th>Name</th><th>Description</th></tr>
+<tr><td>output <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+>RealOutput</a></td><td>vLoc</td><td>Wind velocity at the location [m/s]</td></tr>
+<tr><td>input <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>RealInput</a></td><td>vRef</td><td>Wind velocity at the reference height [m/s]</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">block</span> WindCorrection <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Block for wind correction&quot;</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BlockIcon"
+>Modelica.Blocks.Interfaces.BlockIcon</a>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Height"
+>Modelica.SIunits.Height</a> h <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Height over ground&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Height"
+>Modelica.SIunits.Height</a> hRef <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Reference height for wind measurement&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Real n(min=0) = 0.4 <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Height exponent for wind profile calculation&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+>Modelica.Blocks.Interfaces.RealOutput</a> vLoc( unit=&quot;m/s&quot;) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Wind velocity at the location&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>Modelica.Blocks.Interfaces.RealInput</a> vRef(unit=&quot;m/s&quot;) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Wind velocity at the reference height&quot;</span>;
+<span style="color: blue; font-weight: normal; font-style: normal;">equation </span>
+  vLoc=vRef * (h / hRef)^n;
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>WindCorrection;
+</div>
+<hr>
+<address>
+<a href="http://www.3ds.com/">Automatically generated</a> Thu Apr  9 09:34:16 2015.
+</address>
+</body>
+</html>

@@ -1,0 +1,2059 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>Buildings.Obsolete.Media.GasesPTDecoupled.MoistAir</title>
+<meta name="HTML-Generator" content="Dymola">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="description" content="&quot;Package with moist air model that decouples pressure and temperature&quot;">
+<style type="text/css">
+*       { font-size: 10pt; font-family: Arial, sans-serif; }
+.modelica, .modelica * { font-size: 9pt; font-family: Courier, monospace; white-space: pre; }
+h4      { font-size: 10pt; font-weight: bold; color: green; }
+h3      { font-size: 11pt; font-weight: bold; color: green; }
+h2      { font-size: 13pt; font-weight: bold; color: green; }
+address { font-weight: normal; }
+td      { border: 1px solid #808080; vertical-align: top; }
+th      { border: 1px solid #808080; vertical-align: top; font-weight: bold; }
+table   { border: 1px solid #808080; border-collapse: collapse; }
+</style>
+<link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../Resources/www/modelicaDoc.css">
+</HEAD>
+<body>
+<!-- --- header ------ -->
+<div class="headerStyle">
+<img src="../Resources/www/lbl-logo.png" alt="LBL logo"/>
+</div>
+<div class="headerLinks">
+<ul><li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt; <a href="Buildings.html">Modelica</a></li></ul>
+</div>
+<!-- --- end header -- -->
+
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE MoistAir<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><a name="Buildings.Obsolete.Media.GasesPTDecoupled.MoistAir"></a><a href="Buildings_Obsolete_Media_GasesPTDecoupled.html#Buildings.Obsolete.Media.GasesPTDecoupled"
+>Buildings.Obsolete.Media.GasesPTDecoupled</a>.MoistAir</h2>
+<p>
+<b>Package with moist air model that decouples pressure and temperature</b><br>
+</p>
+<h3>Information</h3>
+
+<p>
+This is a medium model that is identical to
+<a href="Buildings_Obsolete_Media_PerfectGases_MoistAir.html#Buildings.Obsolete.Media.PerfectGases.MoistAir"
+>
+Buildings.Obsolete.Media.PerfectGases.MoistAir</a>, except the
+equation <code>d = p/(R*T)</code> has been replaced with
+<code>d/dStp = p/pStp</code> where
+<code>pStd</code> and <code>dStp</code> are constants for a reference
+temperature and density.
+</p>
+<p>
+This new formulation often leads to smaller systems of nonlinear equations
+because pressure and temperature are decoupled, at the expense of accuracy.
+</p>
+
+<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_PartialCondensingGases.html#Modelica.Media.Interfaces.PartialCondensingGases"
+>Modelica.Media.Interfaces.PartialCondensingGases</a> (Base class for mixtures of condensing and non-condensing gases).</p>
+<h3>Package Content</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Package Content">
+<tr>
+<th>Name</th>
+<th>Description</th>
+</tr>
+<tr>
+<td>Water=1</td>
+<td>Index of water (in substanceNames, massFractions X, etc.)</td>
+</tr>
+<tr>
+<td>Air=2</td>
+<td>Index of air (in substanceNames, massFractions X, etc.)</td>
+</tr>
+<tr>
+<td>k_mair=steam.MM/dryair.MM</td>
+<td>ratio of molar weights</td>
+</tr>
+<tr>
+<td>dryair=Buildings.Obsolete.Media.PerfectGases.Common.SingleGasData.Air</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td>steam=Buildings.Obsolete.Media.PerfectGases.Common.SingleGasData.H2O</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td>pStp=101325</td>
+<td>Pressure for which dStp is defined</td>
+</tr>
+<tr>
+<td>dStp=1.2</td>
+<td>Fluid density at pressure pStp</td>
+</tr>
+<tr>
+<td><img src="Buildings.Obsolete.Media.db06d99751ce3164StateS.png" alt="Buildings.Obsolete.Media.GasesPTDecoupled.MoistAir.ThermodynamicState" width="20" height="20" align="top">&nbsp;<a href="Buildings_Obsolete_Media_GasesPTDecoupled_MoistAir.html#Buildings.Obsolete.Media.GasesPTDecoupled.MoistAir.ThermodynamicState"
+>ThermodynamicState</a>
+</td>
+<td>ThermodynamicState record for moist air</td>
+</tr>
+<tr>
+<td><img src="Buildings.Obsolete.Media.e7fecbd697df2809rtiesS.png" alt="Buildings.Obsolete.Media.GasesPTDecoupled.MoistAir.BaseProperties" width="20" height="20" align="top">&nbsp;<a href="Buildings_Obsolete_Media_GasesPTDecoupled_MoistAir.html#Buildings.Obsolete.Media.GasesPTDecoupled.MoistAir.BaseProperties"
+>BaseProperties</a>
+</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td><img src="Buildings.Obsolete.Media.b853ac785efd4e86ationS.png" alt="Buildings.Obsolete.Media.GasesPTDecoupled.MoistAir.Xsaturation" width="20" height="20" align="top">&nbsp;<a href="Buildings_Obsolete_Media_GasesPTDecoupled_MoistAir.html#Buildings.Obsolete.Media.GasesPTDecoupled.MoistAir.Xsaturation"
+>Xsaturation</a>
+</td>
+<td>Steam water mass fraction of saturation boundary in kg_water/kg_moistair</td>
+</tr>
+<tr>
+<td><img src="Buildings.Obsolete.Media.b853ac785efd4e86ationS.png" alt="Buildings.Obsolete.Media.GasesPTDecoupled.MoistAir.setState_pTX" width="20" height="20" align="top">&nbsp;<a href="Buildings_Obsolete_Media_GasesPTDecoupled_MoistAir.html#Buildings.Obsolete.Media.GasesPTDecoupled.MoistAir.setState_pTX"
+>setState_pTX</a>
+</td>
+<td>Thermodynamic state as function of p, T and composition X</td>
+</tr>
+<tr>
+<td><img src="Buildings.Obsolete.Media.b853ac785efd4e86ationS.png" alt="Buildings.Obsolete.Media.GasesPTDecoupled.MoistAir.setState_phX" width="20" height="20" align="top">&nbsp;<a href="Buildings_Obsolete_Media_GasesPTDecoupled_MoistAir.html#Buildings.Obsolete.Media.GasesPTDecoupled.MoistAir.setState_phX"
+>setState_phX</a>
+</td>
+<td>Thermodynamic state as function of p, h and composition X</td>
+</tr>
+<tr>
+<td><img src="Buildings.Obsolete.Media.b853ac785efd4e86ationS.png" alt="Buildings.Obsolete.Media.GasesPTDecoupled.MoistAir.setState_dTX" width="20" height="20" align="top">&nbsp;<a href="Buildings_Obsolete_Media_GasesPTDecoupled_MoistAir.html#Buildings.Obsolete.Media.GasesPTDecoupled.MoistAir.setState_dTX"
+>setState_dTX</a>
+</td>
+<td>Thermodynamic state as function of d, T and composition X</td>
+</tr>
+<tr>
+<td><img src="Buildings.Obsolete.Media.b853ac785efd4e86ationS.png" alt="Buildings.Obsolete.Media.GasesPTDecoupled.MoistAir.gasConstant" width="20" height="20" align="top">&nbsp;<a href="Buildings_Obsolete_Media_GasesPTDecoupled_MoistAir.html#Buildings.Obsolete.Media.GasesPTDecoupled.MoistAir.gasConstant"
+>gasConstant</a>
+</td>
+<td>Gas constant (computation neglects liquid fraction)</td>
+</tr>
+<tr>
+<td><img src="Buildings.Obsolete.Media.b853ac785efd4e86ationS.png" alt="Buildings.Obsolete.Media.GasesPTDecoupled.MoistAir.saturationPressureLiquid" width="20" height="20" align="top">&nbsp;<a href="Buildings_Obsolete_Media_GasesPTDecoupled_MoistAir.html#Buildings.Obsolete.Media.GasesPTDecoupled.MoistAir.saturationPressureLiquid"
+>saturationPressureLiquid</a>
+</td>
+<td>Saturation curve valid for 273.16 &lt;= T &lt;= 373.16. Outside of these limits a (less accurate) result is returned</td>
+</tr>
+<tr>
+<td><img src="Buildings.Obsolete.Media.b853ac785efd4e86ationS.png" alt="Buildings.Obsolete.Media.GasesPTDecoupled.MoistAir.sublimationPressureIce" width="20" height="20" align="top">&nbsp;<a href="Buildings_Obsolete_Media_GasesPTDecoupled_MoistAir.html#Buildings.Obsolete.Media.GasesPTDecoupled.MoistAir.sublimationPressureIce"
+>sublimationPressureIce</a>
+</td>
+<td>Saturation curve valid for 223.16 &lt;= T &lt;= 273.16. Outside of these limits a (less accurate) result is returned</td>
+</tr>
+<tr>
+<td><img src="Buildings.Obsolete.Media.b853ac785efd4e86ationS.png" alt="Buildings.Obsolete.Media.GasesPTDecoupled.MoistAir.saturationPressure" width="20" height="20" align="top">&nbsp;<a href="Buildings_Obsolete_Media_GasesPTDecoupled_MoistAir.html#Buildings.Obsolete.Media.GasesPTDecoupled.MoistAir.saturationPressure"
+>saturationPressure</a>
+</td>
+<td>Saturation curve valid for 223.16 &lt;= T &lt;= 373.16 (and slightly outside with less accuracy)</td>
+</tr>
+<tr>
+<td><img src="Buildings.Obsolete.Media.b853ac785efd4e86ationS.png" alt="Buildings.Obsolete.Media.GasesPTDecoupled.MoistAir.pressure" width="20" height="20" align="top">&nbsp;<a href="Buildings_Obsolete_Media_GasesPTDecoupled_MoistAir.html#Buildings.Obsolete.Media.GasesPTDecoupled.MoistAir.pressure"
+>pressure</a>
+</td>
+<td>Gas pressure</td>
+</tr>
+<tr>
+<td><img src="Buildings.Obsolete.Media.b853ac785efd4e86ationS.png" alt="Buildings.Obsolete.Media.GasesPTDecoupled.MoistAir.temperature" width="20" height="20" align="top">&nbsp;<a href="Buildings_Obsolete_Media_GasesPTDecoupled_MoistAir.html#Buildings.Obsolete.Media.GasesPTDecoupled.MoistAir.temperature"
+>temperature</a>
+</td>
+<td>Gas temperature</td>
+</tr>
+<tr>
+<td><img src="Buildings.Obsolete.Media.b853ac785efd4e86ationS.png" alt="Buildings.Obsolete.Media.GasesPTDecoupled.MoistAir.density" width="20" height="20" align="top">&nbsp;<a href="Buildings_Obsolete_Media_GasesPTDecoupled_MoistAir.html#Buildings.Obsolete.Media.GasesPTDecoupled.MoistAir.density"
+>density</a>
+</td>
+<td>Gas density</td>
+</tr>
+<tr>
+<td><img src="Buildings.Obsolete.Media.b853ac785efd4e86ationS.png" alt="Buildings.Obsolete.Media.GasesPTDecoupled.MoistAir.specificEntropy" width="20" height="20" align="top">&nbsp;<a href="Buildings_Obsolete_Media_GasesPTDecoupled_MoistAir.html#Buildings.Obsolete.Media.GasesPTDecoupled.MoistAir.specificEntropy"
+>specificEntropy</a>
+</td>
+<td>Specific entropy (liquid part neglected, mixing entropy included)</td>
+</tr>
+<tr>
+<td><img src="Buildings.Obsolete.Media.b853ac785efd4e86ationS.png" alt="Buildings.Obsolete.Media.GasesPTDecoupled.MoistAir.enthalpyOfVaporization" width="20" height="20" align="top">&nbsp;<a href="Buildings_Obsolete_Media_GasesPTDecoupled_MoistAir.html#Buildings.Obsolete.Media.GasesPTDecoupled.MoistAir.enthalpyOfVaporization"
+>enthalpyOfVaporization</a>
+</td>
+<td>Enthalpy of vaporization of water</td>
+</tr>
+<tr>
+<td><img src="Buildings.Obsolete.Media.b853ac785efd4e86ationS.png" alt="Buildings.Obsolete.Media.GasesPTDecoupled.MoistAir.HeatCapacityOfWater" width="20" height="20" align="top">&nbsp;<a href="Buildings_Obsolete_Media_GasesPTDecoupled_MoistAir.html#Buildings.Obsolete.Media.GasesPTDecoupled.MoistAir.HeatCapacityOfWater"
+>HeatCapacityOfWater</a>
+</td>
+<td>Specific heat capacity of water (liquid only) which is constant</td>
+</tr>
+<tr>
+<td><img src="Buildings.Obsolete.Media.b853ac785efd4e86ationS.png" alt="Buildings.Obsolete.Media.GasesPTDecoupled.MoistAir.enthalpyOfLiquid" width="20" height="20" align="top">&nbsp;<a href="Buildings_Obsolete_Media_GasesPTDecoupled_MoistAir.html#Buildings.Obsolete.Media.GasesPTDecoupled.MoistAir.enthalpyOfLiquid"
+>enthalpyOfLiquid</a>
+</td>
+<td>Enthalpy of liquid (per unit mass of liquid) which is linear in the temperature</td>
+</tr>
+<tr>
+<td><img src="Buildings.Obsolete.Media.b853ac785efd4e86ationS.png" alt="Buildings.Obsolete.Media.GasesPTDecoupled.MoistAir.der_enthalpyOfLiquid" width="20" height="20" align="top">&nbsp;<a href="Buildings_Obsolete_Media_GasesPTDecoupled_MoistAir.html#Buildings.Obsolete.Media.GasesPTDecoupled.MoistAir.der_enthalpyOfLiquid"
+>der_enthalpyOfLiquid</a>
+</td>
+<td>Temperature derivative of enthalpy of liquid per unit mass of liquid</td>
+</tr>
+<tr>
+<td><img src="Buildings.Obsolete.Media.b853ac785efd4e86ationS.png" alt="Buildings.Obsolete.Media.GasesPTDecoupled.MoistAir.enthalpyOfCondensingGas" width="20" height="20" align="top">&nbsp;<a href="Buildings_Obsolete_Media_GasesPTDecoupled_MoistAir.html#Buildings.Obsolete.Media.GasesPTDecoupled.MoistAir.enthalpyOfCondensingGas"
+>enthalpyOfCondensingGas</a>
+</td>
+<td>Enthalpy of steam per unit mass of steam</td>
+</tr>
+<tr>
+<td><img src="Buildings.Obsolete.Media.b853ac785efd4e86ationS.png" alt="Buildings.Obsolete.Media.GasesPTDecoupled.MoistAir.der_enthalpyOfCondensingGas" width="20" height="20" align="top">&nbsp;<a href="Buildings_Obsolete_Media_GasesPTDecoupled_MoistAir.html#Buildings.Obsolete.Media.GasesPTDecoupled.MoistAir.der_enthalpyOfCondensingGas"
+>der_enthalpyOfCondensingGas</a>
+</td>
+<td>Derivative of enthalpy of steam per unit mass of steam</td>
+</tr>
+<tr>
+<td><img src="Buildings.Obsolete.Media.b853ac785efd4e86ationS.png" alt="Buildings.Obsolete.Media.GasesPTDecoupled.MoistAir.enthalpyOfNonCondensingGas" width="20" height="20" align="top">&nbsp;<a href="Buildings_Obsolete_Media_GasesPTDecoupled_MoistAir.html#Buildings.Obsolete.Media.GasesPTDecoupled.MoistAir.enthalpyOfNonCondensingGas"
+>enthalpyOfNonCondensingGas</a>
+</td>
+<td>Enthalpy of non-condensing gas per unit mass of steam</td>
+</tr>
+<tr>
+<td><img src="Buildings.Obsolete.Media.b853ac785efd4e86ationS.png" alt="Buildings.Obsolete.Media.GasesPTDecoupled.MoistAir.der_enthalpyOfNonCondensingGas" width="20" height="20" align="top">&nbsp;<a href="Buildings_Obsolete_Media_GasesPTDecoupled_MoistAir.html#Buildings.Obsolete.Media.GasesPTDecoupled.MoistAir.der_enthalpyOfNonCondensingGas"
+>der_enthalpyOfNonCondensingGas</a>
+</td>
+<td>Derivative of enthalpy of non-condensing gas per unit mass of steam</td>
+</tr>
+<tr>
+<td><img src="Buildings.Obsolete.Media.b853ac785efd4e86ationS.png" alt="Buildings.Obsolete.Media.GasesPTDecoupled.MoistAir.enthalpyOfGas" width="20" height="20" align="top">&nbsp;<a href="Buildings_Obsolete_Media_GasesPTDecoupled_MoistAir.html#Buildings.Obsolete.Media.GasesPTDecoupled.MoistAir.enthalpyOfGas"
+>enthalpyOfGas</a>
+</td>
+<td>Enthalpy of gas mixture per unit mass of gas mixture</td>
+</tr>
+<tr>
+<td><img src="Buildings.Obsolete.Media.b853ac785efd4e86ationS.png" alt="Buildings.Obsolete.Media.GasesPTDecoupled.MoistAir.enthalpyOfDryAir" width="20" height="20" align="top">&nbsp;<a href="Buildings_Obsolete_Media_GasesPTDecoupled_MoistAir.html#Buildings.Obsolete.Media.GasesPTDecoupled.MoistAir.enthalpyOfDryAir"
+>enthalpyOfDryAir</a>
+</td>
+<td>Enthalpy of dry air per unit mass of dry air</td>
+</tr>
+<tr>
+<td><img src="Buildings.Obsolete.Media.b853ac785efd4e86ationS.png" alt="Buildings.Obsolete.Media.GasesPTDecoupled.MoistAir.der_enthalpyOfDryAir" width="20" height="20" align="top">&nbsp;<a href="Buildings_Obsolete_Media_GasesPTDecoupled_MoistAir.html#Buildings.Obsolete.Media.GasesPTDecoupled.MoistAir.der_enthalpyOfDryAir"
+>der_enthalpyOfDryAir</a>
+</td>
+<td>Derivative of enthalpy of dry air per unit mass of dry air</td>
+</tr>
+<tr>
+<td><img src="Buildings.Obsolete.Media.b853ac785efd4e86ationS.png" alt="Buildings.Obsolete.Media.GasesPTDecoupled.MoistAir.specificHeatCapacityCp" width="20" height="20" align="top">&nbsp;<a href="Buildings_Obsolete_Media_GasesPTDecoupled_MoistAir.html#Buildings.Obsolete.Media.GasesPTDecoupled.MoistAir.specificHeatCapacityCp"
+>specificHeatCapacityCp</a>
+</td>
+<td>Specific heat capacity of gas mixture at constant pressure</td>
+</tr>
+<tr>
+<td><img src="Buildings.Obsolete.Media.b853ac785efd4e86ationS.png" alt="Buildings.Obsolete.Media.GasesPTDecoupled.MoistAir.specificHeatCapacityCv" width="20" height="20" align="top">&nbsp;<a href="Buildings_Obsolete_Media_GasesPTDecoupled_MoistAir.html#Buildings.Obsolete.Media.GasesPTDecoupled.MoistAir.specificHeatCapacityCv"
+>specificHeatCapacityCv</a>
+</td>
+<td>Specific heat capacity of gas mixture at constant volume</td>
+</tr>
+<tr>
+<td><img src="Buildings.Obsolete.Media.b853ac785efd4e86ationS.png" alt="Buildings.Obsolete.Media.GasesPTDecoupled.MoistAir.dynamicViscosity" width="20" height="20" align="top">&nbsp;<a href="Buildings_Obsolete_Media_GasesPTDecoupled_MoistAir.html#Buildings.Obsolete.Media.GasesPTDecoupled.MoistAir.dynamicViscosity"
+>dynamicViscosity</a>
+</td>
+<td>dynamic viscosity of dry air</td>
+</tr>
+<tr>
+<td><img src="Buildings.Obsolete.Media.b853ac785efd4e86ationS.png" alt="Buildings.Obsolete.Media.GasesPTDecoupled.MoistAir.thermalConductivity" width="20" height="20" align="top">&nbsp;<a href="Buildings_Obsolete_Media_GasesPTDecoupled_MoistAir.html#Buildings.Obsolete.Media.GasesPTDecoupled.MoistAir.thermalConductivity"
+>thermalConductivity</a>
+</td>
+<td>Thermal conductivity of dry air as a polynomial in the temperature</td>
+</tr>
+<tr>
+<td><img src="Buildings.Obsolete.Media.b853ac785efd4e86ationS.png" alt="Buildings.Obsolete.Media.GasesPTDecoupled.MoistAir.h_pTX" width="20" height="20" align="top">&nbsp;<a href="Buildings_Obsolete_Media_GasesPTDecoupled_MoistAir.html#Buildings.Obsolete.Media.GasesPTDecoupled.MoistAir.h_pTX"
+>h_pTX</a>
+</td>
+<td>Compute specific enthalpy from pressure, temperature and mass fraction</td>
+</tr>
+<tr>
+<td><img src="Buildings.Obsolete.Media.b853ac785efd4e86ationS.png" alt="Buildings.Obsolete.Media.GasesPTDecoupled.MoistAir.specificEnthalpy" width="20" height="20" align="top">&nbsp;<a href="Buildings_Obsolete_Media_GasesPTDecoupled_MoistAir.html#Buildings.Obsolete.Media.GasesPTDecoupled.MoistAir.specificEnthalpy"
+>specificEnthalpy</a>
+</td>
+<td>Specific enthalpy</td>
+</tr>
+<tr>
+<td><img src="Buildings.Obsolete.Media.b853ac785efd4e86ationS.png" alt="Buildings.Obsolete.Media.GasesPTDecoupled.MoistAir.specificInternalEnergy" width="20" height="20" align="top">&nbsp;<a href="Buildings_Obsolete_Media_GasesPTDecoupled_MoistAir.html#Buildings.Obsolete.Media.GasesPTDecoupled.MoistAir.specificInternalEnergy"
+>specificInternalEnergy</a>
+</td>
+<td>Specific internal energy</td>
+</tr>
+<tr>
+<td><img src="Buildings.Obsolete.Media.b853ac785efd4e86ationS.png" alt="Buildings.Obsolete.Media.GasesPTDecoupled.MoistAir.specificGibbsEnergy" width="20" height="20" align="top">&nbsp;<a href="Buildings_Obsolete_Media_GasesPTDecoupled_MoistAir.html#Buildings.Obsolete.Media.GasesPTDecoupled.MoistAir.specificGibbsEnergy"
+>specificGibbsEnergy</a>
+</td>
+<td>Specific Gibbs energy</td>
+</tr>
+<tr>
+<td><img src="Buildings.Obsolete.Media.b853ac785efd4e86ationS.png" alt="Buildings.Obsolete.Media.GasesPTDecoupled.MoistAir.specificHelmholtzEnergy" width="20" height="20" align="top">&nbsp;<a href="Buildings_Obsolete_Media_GasesPTDecoupled_MoistAir.html#Buildings.Obsolete.Media.GasesPTDecoupled.MoistAir.specificHelmholtzEnergy"
+>specificHelmholtzEnergy</a>
+</td>
+<td>Specific Helmholtz energy</td>
+</tr>
+<tr>
+<td><img src="Buildings.Obsolete.Media.7f5ef8f7f58ddb8fT_phXS.png" alt="Buildings.Obsolete.Media.GasesPTDecoupled.MoistAir.T_phX" width="20" height="20" align="top">&nbsp;<a href="Buildings_Obsolete_Media_GasesPTDecoupled_MoistAir.html#Buildings.Obsolete.Media.GasesPTDecoupled.MoistAir.T_phX"
+>T_phX</a>
+</td>
+<td>Compute temperature from specific enthalpy and mass fraction</td>
+</tr>
+<tr>
+<th colspan="2">Inherited</th>
+</tr>
+<tr>
+<td>fluidConstants</td>
+<td>Constant data for the fluid</td>
+</tr>
+<tr>
+<td><img src="Buildings.Media.Air.der_enthalpyOfLiquidS.png" alt="Modelica.Media.Interfaces.PartialMixtureMedium.moleToMassFractions" width="20" height="20" align="top">&nbsp;<a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_PartialMixtureMedium.html#Modelica.Media.Interfaces.PartialMixtureMedium.moleToMassFractions"
+>moleToMassFractions</a>
+</td>
+<td>Return mass fractions X from mole fractions</td>
+</tr>
+<tr>
+<td><img src="Buildings.Media.Air.der_enthalpyOfLiquidS.png" alt="Modelica.Media.Interfaces.PartialMixtureMedium.massToMoleFractions" width="20" height="20" align="top">&nbsp;<a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_PartialMixtureMedium.html#Modelica.Media.Interfaces.PartialMixtureMedium.massToMoleFractions"
+>massToMoleFractions</a>
+</td>
+<td>Return mole fractions from mass fractions X</td>
+</tr>
+<tr>
+<td>ThermoStates</td>
+<td>Enumeration type for independent variables</td>
+</tr>
+<tr>
+<td>mediumName=&quot;unusablePartialMedium&quot;</td>
+<td>Name of the medium</td>
+</tr>
+<tr>
+<td>substanceNames={mediumName}</td>
+<td>Names of the mixture substances. Set substanceNames={mediumName} if only one substance.</td>
+</tr>
+<tr>
+<td>extraPropertiesNames=fill(&quot;&quot;, 0)</td>
+<td>Names of the additional (extra) transported properties. Set extraPropertiesNames=fill(&quot;&quot;,0) if unused</td>
+</tr>
+<tr>
+<td>singleState</td>
+<td>= true, if u and d are not a function of pressure</td>
+</tr>
+<tr>
+<td>reducedX=true</td>
+<td>= true if medium contains the equation sum(X) = 1.0; set reducedX=true if only one substance (see docu for details)</td>
+</tr>
+<tr>
+<td>fixedX=false</td>
+<td>= true if medium contains the equation X = reference_X</td>
+</tr>
+<tr>
+<td>reference_p=101325</td>
+<td>Reference pressure of Medium: default 1 atmosphere</td>
+</tr>
+<tr>
+<td>reference_T=298.15</td>
+<td>Reference temperature of Medium: default 25 deg Celsius</td>
+</tr>
+<tr>
+<td>reference_X=fill(1/nX, nX)</td>
+<td>Default mass fractions of medium</td>
+</tr>
+<tr>
+<td>p_default=101325</td>
+<td>Default value for pressure of medium (for initialization)</td>
+</tr>
+<tr>
+<td>T_default=Modelica.SIunits.Conversions.from_degC(20)</td>
+<td>Default value for temperature of medium (for initialization)</td>
+</tr>
+<tr>
+<td>h_default=specificEnthalpy_pTX(p_default, T_default, X_default)</td>
+<td>Default value for specific enthalpy of medium (for initialization)</td>
+</tr>
+<tr>
+<td>X_default=reference_X</td>
+<td>Default value for mass fractions of medium (for initialization)</td>
+</tr>
+<tr>
+<td>nS=size(substanceNames, 1)</td>
+<td>Number of substances</td>
+</tr>
+<tr>
+<td>nX=nS</td>
+<td>Number of mass fractions</td>
+</tr>
+<tr>
+<td>nXi=if fixedX then 0 else if reducedX then nS - 1 else nS</td>
+<td>Number of structurally independent mass fractions (see docu for details)</td>
+</tr>
+<tr>
+<td>nC=size(extraPropertiesNames, 1)</td>
+<td>Number of extra (outside of standard mass-balance) transported properties</td>
+</tr>
+<tr>
+<td>C_nominal=1.0e-6*ones(nC)</td>
+<td>Default for the nominal values for the extra properties</td>
+</tr>
+<tr>
+<td><img src="Modelica.Media.Interfacese9f75c735072d8e8tantsS.png" alt="Modelica.Media.Interfaces.PartialMedium.FluidConstants" width="20" height="20" align="top">&nbsp;<a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.FluidConstants"
+>FluidConstants</a>
+</td>
+<td>Critical, triple, molecular and other standard data of fluid</td>
+</tr>
+<tr>
+<td><img src="Modelica.Media.Interfaces2a82794b74616892StateS.png" alt="Modelica.Media.Interfaces.PartialMedium.setState_psX" width="20" height="20" align="top">&nbsp;<a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.setState_psX"
+>setState_psX</a>
+</td>
+<td>Return thermodynamic state as function of p, s and composition X or Xi</td>
+</tr>
+<tr>
+<td><img src="Buildings.Obsolete.Media.abecf162a6710452e_pTXS.png" alt="Modelica.Media.Interfaces.PartialMedium.setSmoothState" width="20" height="20" align="top">&nbsp;<a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.setSmoothState"
+>setSmoothState</a>
+</td>
+<td>Return thermodynamic state so that it smoothly approximates: if x &gt; 0 then state_a else state_b</td>
+</tr>
+<tr>
+<td><img src="Modelica.Media.Interfaces2a82794b74616892StateS.png" alt="Modelica.Media.Interfaces.PartialMedium.prandtlNumber" width="20" height="20" align="top">&nbsp;<a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.prandtlNumber"
+>prandtlNumber</a>
+</td>
+<td>Return the Prandtl number</td>
+</tr>
+<tr>
+<td><img src="Modelica.Media.Interfaces2a82794b74616892StateS.png" alt="Modelica.Media.Interfaces.PartialMedium.heatCapacity_cp" width="20" height="20" align="top">&nbsp;<a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.heatCapacity_cp"
+>heatCapacity_cp</a>
+</td>
+<td>Alias for deprecated name</td>
+</tr>
+<tr>
+<td><img src="Modelica.Media.Interfaces2a82794b74616892StateS.png" alt="Modelica.Media.Interfaces.PartialMedium.heatCapacity_cv" width="20" height="20" align="top">&nbsp;<a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.heatCapacity_cv"
+>heatCapacity_cv</a>
+</td>
+<td>Alias for deprecated name</td>
+</tr>
+<tr>
+<td><img src="Modelica.Media.Interfaces2a82794b74616892StateS.png" alt="Modelica.Media.Interfaces.PartialMedium.isentropicExponent" width="20" height="20" align="top">&nbsp;<a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.isentropicExponent"
+>isentropicExponent</a>
+</td>
+<td>Return isentropic exponent</td>
+</tr>
+<tr>
+<td><img src="Modelica.Media.Interfacesf7d8e3af2ad6146be_psXS.png" alt="Modelica.Media.Interfaces.PartialMedium.isentropicEnthalpy" width="20" height="20" align="top">&nbsp;<a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.isentropicEnthalpy"
+>isentropicEnthalpy</a>
+</td>
+<td>Return isentropic enthalpy</td>
+</tr>
+<tr>
+<td><img src="Modelica.Media.Interfaces2a82794b74616892StateS.png" alt="Modelica.Media.Interfaces.PartialMedium.velocityOfSound" width="20" height="20" align="top">&nbsp;<a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.velocityOfSound"
+>velocityOfSound</a>
+</td>
+<td>Return velocity of sound</td>
+</tr>
+<tr>
+<td><img src="Modelica.Media.Interfacesf7d8e3af2ad6146be_psXS.png" alt="Modelica.Media.Interfaces.PartialMedium.isobaricExpansionCoefficient" width="20" height="20" align="top">&nbsp;<a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.isobaricExpansionCoefficient"
+>isobaricExpansionCoefficient</a>
+</td>
+<td>Return overall the isobaric expansion coefficient beta</td>
+</tr>
+<tr>
+<td><img src="Modelica.Media.Interfaces2a82794b74616892StateS.png" alt="Modelica.Media.Interfaces.PartialMedium.beta" width="20" height="20" align="top">&nbsp;<a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.beta"
+>beta</a>
+</td>
+<td>Alias for isobaricExpansionCoefficient for user convenience</td>
+</tr>
+<tr>
+<td><img src="Modelica.Media.Interfacesf7d8e3af2ad6146be_psXS.png" alt="Modelica.Media.Interfaces.PartialMedium.isothermalCompressibility" width="20" height="20" align="top">&nbsp;<a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.isothermalCompressibility"
+>isothermalCompressibility</a>
+</td>
+<td>Return overall the isothermal compressibility factor</td>
+</tr>
+<tr>
+<td><img src="Modelica.Media.Interfaces2a82794b74616892StateS.png" alt="Modelica.Media.Interfaces.PartialMedium.kappa" width="20" height="20" align="top">&nbsp;<a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.kappa"
+>kappa</a>
+</td>
+<td>Alias of isothermalCompressibility for user convenience</td>
+</tr>
+<tr>
+<td><img src="Modelica.Media.Interfaces2a82794b74616892StateS.png" alt="Modelica.Media.Interfaces.PartialMedium.density_derp_h" width="20" height="20" align="top">&nbsp;<a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.density_derp_h"
+>density_derp_h</a>
+</td>
+<td>Return density derivative w.r.t. pressure at const specific enthalpy</td>
+</tr>
+<tr>
+<td><img src="Modelica.Media.Interfaces2a82794b74616892StateS.png" alt="Modelica.Media.Interfaces.PartialMedium.density_derh_p" width="20" height="20" align="top">&nbsp;<a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.density_derh_p"
+>density_derh_p</a>
+</td>
+<td>Return density derivative w.r.t. specific enthalpy at constant pressure</td>
+</tr>
+<tr>
+<td><img src="Modelica.Media.Interfacesf7d8e3af2ad6146be_psXS.png" alt="Modelica.Media.Interfaces.PartialMedium.density_derp_T" width="20" height="20" align="top">&nbsp;<a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.density_derp_T"
+>density_derp_T</a>
+</td>
+<td>Return density derivative w.r.t. pressure at const temperature</td>
+</tr>
+<tr>
+<td><img src="Modelica.Media.Interfacesf7d8e3af2ad6146be_psXS.png" alt="Modelica.Media.Interfaces.PartialMedium.density_derT_p" width="20" height="20" align="top">&nbsp;<a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.density_derT_p"
+>density_derT_p</a>
+</td>
+<td>Return density derivative w.r.t. temperature at constant pressure</td>
+</tr>
+<tr>
+<td><img src="Modelica.Media.Interfacesf7d8e3af2ad6146be_psXS.png" alt="Modelica.Media.Interfaces.PartialMedium.density_derX" width="20" height="20" align="top">&nbsp;<a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.density_derX"
+>density_derX</a>
+</td>
+<td>Return density derivative w.r.t. mass fraction</td>
+</tr>
+<tr>
+<td><img src="Modelica.Media.Interfacesf7d8e3af2ad6146be_psXS.png" alt="Modelica.Media.Interfaces.PartialMedium.molarMass" width="20" height="20" align="top">&nbsp;<a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.molarMass"
+>molarMass</a>
+</td>
+<td>Return the molar mass of the medium</td>
+</tr>
+<tr>
+<td><img src="Buildings.Media.Specializeb365d6eea8f2338nsityS.png" alt="Modelica.Media.Interfaces.PartialMedium.specificEnthalpy_pTX" width="20" height="20" align="top">&nbsp;<a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.specificEnthalpy_pTX"
+>specificEnthalpy_pTX</a>
+</td>
+<td>Return specific enthalpy from p, T, and X or Xi</td>
+</tr>
+<tr>
+<td><img src="Modelica.Media.Interfaces2a82794b74616892StateS.png" alt="Modelica.Media.Interfaces.PartialMedium.specificEntropy_pTX" width="20" height="20" align="top">&nbsp;<a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.specificEntropy_pTX"
+>specificEntropy_pTX</a>
+</td>
+<td>Return specific enthalpy from p, T, and X or Xi</td>
+</tr>
+<tr>
+<td><img src="Modelica.Media.Interfaces2a82794b74616892StateS.png" alt="Modelica.Media.Interfaces.PartialMedium.density_pTX" width="20" height="20" align="top">&nbsp;<a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.density_pTX"
+>density_pTX</a>
+</td>
+<td>Return density from p, T, and X or Xi</td>
+</tr>
+<tr>
+<td><img src="Buildings.Media.Specializeb365d6eea8f2338nsityS.png" alt="Modelica.Media.Interfaces.PartialMedium.temperature_phX" width="20" height="20" align="top">&nbsp;<a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.temperature_phX"
+>temperature_phX</a>
+</td>
+<td>Return temperature from p, h, and X or Xi</td>
+</tr>
+<tr>
+<td><img src="Modelica.Media.Interfaces2a82794b74616892StateS.png" alt="Modelica.Media.Interfaces.PartialMedium.density_phX" width="20" height="20" align="top">&nbsp;<a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.density_phX"
+>density_phX</a>
+</td>
+<td>Return density from p, h, and X or Xi</td>
+</tr>
+<tr>
+<td><img src="Modelica.Media.Interfaces2a82794b74616892StateS.png" alt="Modelica.Media.Interfaces.PartialMedium.temperature_psX" width="20" height="20" align="top">&nbsp;<a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.temperature_psX"
+>temperature_psX</a>
+</td>
+<td>Return temperature from p,s, and X or Xi</td>
+</tr>
+<tr>
+<td><img src="Modelica.Media.Interfaces2a82794b74616892StateS.png" alt="Modelica.Media.Interfaces.PartialMedium.density_psX" width="20" height="20" align="top">&nbsp;<a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.density_psX"
+>density_psX</a>
+</td>
+<td>Return density from p, s, and X or Xi</td>
+</tr>
+<tr>
+<td><img src="Modelica.Media.Interfaces2a82794b74616892StateS.png" alt="Modelica.Media.Interfaces.PartialMedium.specificEnthalpy_psX" width="20" height="20" align="top">&nbsp;<a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.specificEnthalpy_psX"
+>specificEnthalpy_psX</a>
+</td>
+<td>Return specific enthalpy from p, s, and X or Xi</td>
+</tr>
+<tr>
+<td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.MassFlowRate"
+>MassFlowRate</a>
+</td>
+<td>Type for mass flow rate with medium specific attributes</td>
+</tr>
+<tr>
+<td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.AbsolutePressure"
+>AbsolutePressure</a>
+</td>
+<td>Type for absolute pressure with medium specific attributes</td>
+</tr>
+<tr>
+<td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.Density"
+>Density</a>
+</td>
+<td>Type for density with medium specific attributes</td>
+</tr>
+<tr>
+<td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.DynamicViscosity"
+>DynamicViscosity</a>
+</td>
+<td>Type for dynamic viscosity with medium specific attributes</td>
+</tr>
+<tr>
+<td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.EnthalpyFlowRate"
+>EnthalpyFlowRate</a>
+</td>
+<td>Type for enthalpy flow rate with medium specific attributes</td>
+</tr>
+<tr>
+<td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.MassFraction"
+>MassFraction</a>
+</td>
+<td>Type for mass fraction with medium specific attributes</td>
+</tr>
+<tr>
+<td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.MoleFraction"
+>MoleFraction</a>
+</td>
+<td>Type for mole fraction with medium specific attributes</td>
+</tr>
+<tr>
+<td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.MolarMass"
+>MolarMass</a>
+</td>
+<td>Type for molar mass with medium specific attributes</td>
+</tr>
+<tr>
+<td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.MolarVolume"
+>MolarVolume</a>
+</td>
+<td>Type for molar volume with medium specific attributes</td>
+</tr>
+<tr>
+<td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.IsentropicExponent"
+>IsentropicExponent</a>
+</td>
+<td>Type for isentropic exponent with medium specific attributes</td>
+</tr>
+<tr>
+<td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.SpecificEnergy"
+>SpecificEnergy</a>
+</td>
+<td>Type for specific energy with medium specific attributes</td>
+</tr>
+<tr>
+<td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.SpecificInternalEnergy"
+>SpecificInternalEnergy</a>
+</td>
+<td>Type for specific internal energy with medium specific attributes</td>
+</tr>
+<tr>
+<td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.SpecificEnthalpy"
+>SpecificEnthalpy</a>
+</td>
+<td>Type for specific enthalpy with medium specific attributes</td>
+</tr>
+<tr>
+<td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.SpecificEntropy"
+>SpecificEntropy</a>
+</td>
+<td>Type for specific entropy with medium specific attributes</td>
+</tr>
+<tr>
+<td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.SpecificHeatCapacity"
+>SpecificHeatCapacity</a>
+</td>
+<td>Type for specific heat capacity with medium specific attributes</td>
+</tr>
+<tr>
+<td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.SurfaceTension"
+>SurfaceTension</a>
+</td>
+<td>Type for surface tension with medium specific attributes</td>
+</tr>
+<tr>
+<td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.Temperature"
+>Temperature</a>
+</td>
+<td>Type for temperature with medium specific attributes</td>
+</tr>
+<tr>
+<td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.ThermalConductivity"
+>ThermalConductivity</a>
+</td>
+<td>Type for thermal conductivity with medium specific attributes</td>
+</tr>
+<tr>
+<td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.PrandtlNumber"
+>PrandtlNumber</a>
+</td>
+<td>Type for Prandtl number with medium specific attributes</td>
+</tr>
+<tr>
+<td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.VelocityOfSound"
+>VelocityOfSound</a>
+</td>
+<td>Type for velocity of sound with medium specific attributes</td>
+</tr>
+<tr>
+<td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.ExtraProperty"
+>ExtraProperty</a>
+</td>
+<td>Type for unspecified, mass-specific property transported by flow</td>
+</tr>
+<tr>
+<td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.CumulativeExtraProperty"
+>CumulativeExtraProperty</a>
+</td>
+<td>Type for conserved integral of unspecified, mass specific property</td>
+</tr>
+<tr>
+<td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.ExtraPropertyFlowRate"
+>ExtraPropertyFlowRate</a>
+</td>
+<td>Type for flow rate of unspecified, mass-specific property</td>
+</tr>
+<tr>
+<td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.IsobaricExpansionCoefficient"
+>IsobaricExpansionCoefficient</a>
+</td>
+<td>Type for isobaric expansion coefficient with medium specific attributes</td>
+</tr>
+<tr>
+<td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.DipoleMoment"
+>DipoleMoment</a>
+</td>
+<td>Type for dipole moment with medium specific attributes</td>
+</tr>
+<tr>
+<td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.DerDensityByPressure"
+>DerDensityByPressure</a>
+</td>
+<td>Type for partial derivative of density with respect to pressure with medium specific attributes</td>
+</tr>
+<tr>
+<td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.DerDensityByEnthalpy"
+>DerDensityByEnthalpy</a>
+</td>
+<td>Type for partial derivative of density with respect to enthalpy with medium specific attributes</td>
+</tr>
+<tr>
+<td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.DerEnthalpyByPressure"
+>DerEnthalpyByPressure</a>
+</td>
+<td>Type for partial derivative of enthalpy with respect to pressure with medium specific attributes</td>
+</tr>
+<tr>
+<td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.DerDensityByTemperature"
+>DerDensityByTemperature</a>
+</td>
+<td>Type for partial derivative of density with respect to temperature with medium specific attributes</td>
+</tr>
+<tr>
+<td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.DerTemperatureByPressure"
+>DerTemperatureByPressure</a>
+</td>
+<td>Type for partial derivative of temperature with respect to pressure with medium specific attributes</td>
+</tr>
+<tr>
+<td><img src="Modelica.Media.Interfaces31ea5bf09dbefe85rtiesS.png" alt="Modelica.Media.Interfaces.Types.SaturationProperties" width="20" height="20" align="top">&nbsp;<a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.SaturationProperties"
+>SaturationProperties</a>
+</td>
+<td>Saturation properties of two phase medium</td>
+</tr>
+<tr>
+<td><img src="Modelica.Media.Interfaces31ea5bf09dbefe85rtiesS.png" alt="Modelica.Media.Interfaces.Types.FluidLimits" width="20" height="20" align="top">&nbsp;<a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.FluidLimits"
+>FluidLimits</a>
+</td>
+<td>Validity limits for fluid model</td>
+</tr>
+<tr>
+<td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.FixedPhase"
+>FixedPhase</a>
+</td>
+<td>Phase of the fluid: 1 for 1-phase, 2 for two-phase, 0 for not known, e.g., interactive use</td>
+</tr>
+<tr>
+<td><img src="Modelica.Media.Interfaces.Types.BasicS.png" alt="Modelica.Media.Interfaces.Types.Basic" width="20" height="20" align="top">&nbsp;<a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types_Basic.html#Modelica.Media.Interfaces.Types.Basic"
+>Basic</a>
+</td>
+<td>The most basic version of a record used in several degrees of detail</td>
+</tr>
+<tr>
+<td><img src="Modelica.Media.Interfaces.Types.BasicS.png" alt="Modelica.Media.Interfaces.Types.IdealGas" width="20" height="20" align="top">&nbsp;<a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types_IdealGas.html#Modelica.Media.Interfaces.Types.IdealGas"
+>IdealGas</a>
+</td>
+<td>The ideal gas version of a record used in several degrees of detail</td>
+</tr>
+<tr>
+<td><img src="Modelica.Media.Interfaces.Types.BasicS.png" alt="Modelica.Media.Interfaces.Types.TwoPhase" width="20" height="20" align="top">&nbsp;<a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types_TwoPhase.html#Modelica.Media.Interfaces.Types.TwoPhase"
+>TwoPhase</a>
+</td>
+<td>The two phase fluid version of a record used in several degrees of detail</td>
+</tr>
+</table>
+<h3>Types and constants</h3>
+<pre>  <span style="color: blue; font-weight: normal; font-style: normal;">constant </span>Integer Water=1 <span style="color: #006400; font-weight: normal; font-style: normal;">
+  &quot;Index of water (in substanceNames, massFractions X, etc.)&quot;</span>;</pre>
+<pre>  <span style="color: blue; font-weight: normal; font-style: normal;">constant </span>Integer Air=2 <span style="color: #006400; font-weight: normal; font-style: normal;">
+  &quot;Index of air (in substanceNames, massFractions X, etc.)&quot;</span>;</pre>
+<pre>  <span style="color: blue; font-weight: normal; font-style: normal;">constant </span>Real k_mair =  steam.MM/dryair.MM <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;ratio of molar weights&quot;</span>;</pre>
+<pre>  <span style="color: blue; font-weight: normal; font-style: normal;">constant </span><a href="Buildings_Obsolete_Media_PerfectGases_Common.html#Buildings.Obsolete.Media.PerfectGases.Common.DataRecord"
+>Buildings.Obsolete.Media.PerfectGases.Common.DataRecord</a> dryair=
+        Buildings.Obsolete.Media.PerfectGases.Common.SingleGasData.Air;</pre>
+<pre>  <span style="color: blue; font-weight: normal; font-style: normal;">constant </span><a href="Buildings_Obsolete_Media_PerfectGases_Common.html#Buildings.Obsolete.Media.PerfectGases.Common.DataRecord"
+>Buildings.Obsolete.Media.PerfectGases.Common.DataRecord</a> steam=
+        Buildings.Obsolete.Media.PerfectGases.Common.SingleGasData.H2O;</pre>
+<pre>  <span style="color: blue; font-weight: normal; font-style: normal;">constant </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.AbsolutePressure"
+>AbsolutePressure</a> pStp = 101325 <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Pressure for which dStp is defined&quot;</span>;</pre>
+<pre>  <span style="color: blue; font-weight: normal; font-style: normal;">constant </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.Density"
+>Density</a> dStp = 1.2 <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Fluid density at pressure pStp&quot;</span>;</pre>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE ThermodynamicState<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Obsolete.Media.db06d99751ce3164StateI.png" alt="Buildings.Obsolete.Media.GasesPTDecoupled.MoistAir.ThermodynamicState" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Obsolete.Media.GasesPTDecoupled.MoistAir.ThermodynamicState"></a><a href="Buildings_Obsolete_Media_GasesPTDecoupled_MoistAir.html#Buildings.Obsolete.Media.GasesPTDecoupled.MoistAir"
+>Buildings.Obsolete.Media.GasesPTDecoupled.MoistAir</a>.ThermodynamicState</h2>
+<p>
+<b>ThermodynamicState record for moist air</b>
+</p>
+<h3>Information</h3>
+<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_PartialMixtureMedium.html#Modelica.Media.Interfaces.PartialMixtureMedium.ThermodynamicState"
+></a> (Thermodynamic state variables).</p>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">record</span> <span style="color: blue; font-weight: normal; font-style: normal;">extends </span>ThermodynamicState(
+  p(start=p_default),
+  T(start=T_default),
+  X(start=X_default)) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;ThermodynamicState record for moist air&quot;</span>
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>ThermodynamicState;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE BaseProperties<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Obsolete.Media.e7fecbd697df2809rtiesI.png" alt="Buildings.Obsolete.Media.GasesPTDecoupled.MoistAir.BaseProperties" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Obsolete.Media.GasesPTDecoupled.MoistAir.BaseProperties"></a><a href="Buildings_Obsolete_Media_GasesPTDecoupled_MoistAir.html#Buildings.Obsolete.Media.GasesPTDecoupled.MoistAir"
+>Buildings.Obsolete.Media.GasesPTDecoupled.MoistAir</a>.BaseProperties</h2>
+<h3>Information</h3>
+<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.BaseProperties"
+></a> (Base properties (p, d, T, h, u, R, MM and, if applicable, X and Xi) of a medium).</p>
+<h3>Parameters</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td>Boolean</td><td>standardOrderComponents</td><td>true</td><td>If true, and reducedX = true, the last element of X will be computed from the other ones</td></tr>
+<tr style="background-color: #c0c0c0"><td colspan="4"><b>Advanced</b></td></tr>
+<tr><td>Boolean</td><td>preferredMediumStates</td><td>false</td><td>= true if StateSelect.prefer shall be used for the independent property variables of the medium</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">replaceable </span><span style="color: blue; font-weight: normal; font-style: normal;">model</span> <span style="color: blue; font-weight: normal; font-style: normal;">extends </span>BaseProperties(
+  p(stateSelect=<span style="color: blue; font-weight: normal; font-style: normal;">if </span>preferredMediumStates<span style="color: blue; font-weight: normal; font-style: normal;"> then </span>StateSelect.prefer<span style="color: blue; font-weight: normal; font-style: normal;"> else </span>StateSelect.default),
+  Xi(<span style="color: blue; font-weight: normal; font-style: normal;">each </span>stateSelect=<span style="color: blue; font-weight: normal; font-style: normal;">if </span>preferredMediumStates<span style="color: blue; font-weight: normal; font-style: normal;"> then </span>StateSelect.prefer<span style="color: blue; font-weight: normal; font-style: normal;"> else </span>StateSelect.default),
+  <span style="color: blue; font-weight: normal; font-style: normal;">final </span>standardOrderComponents=true)
+
+  <span style="color: #006400; font-weight: normal; font-style: normal;">/* p, T, X = X[Water] are used as preferred states, since only then all
+     other quantities can be computed in a recursive sequence.
+     If other variables are selected as states, static state selection
+     is no longer possible and non-linear algebraic equations occur.
+      */</span>
+<span style="color: blue; font-weight: normal; font-style: normal;">protected </span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">constant </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.MolarMass"
+>SI.MolarMass</a>[2] MMX = {steam.MM,dryair.MM} <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Molar masses of components&quot;</span>;
+
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.MassFraction"
+>MassFraction</a> X_liquid <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Mass fraction of liquid water&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.MassFraction"
+>MassFraction</a> X_steam <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Mass fraction of steam water&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.MassFraction"
+>MassFraction</a> X_air <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Mass fraction of air&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.MassFraction"
+>MassFraction</a> X_sat <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Steam water mass fraction of saturation boundary in kg_water/kg_moistair&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.AbsolutePressure"
+>AbsolutePressure</a> p_steam_sat <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Partial saturation pressure of steam&quot;</span>;
+
+<span style="color: blue; font-weight: normal; font-style: normal;">equation </span>
+  <span style="color: red; font-weight: normal; font-style: normal;">assert</span>(T &gt;= 200.0<span style="color: blue; font-weight: normal; font-style: normal;"> and </span>T &lt;= 423.15, &quot;
+Temperature T is not in the allowed range
+200.0 K &lt;= (T =&quot;
+             +<span style="color: red; font-weight: normal; font-style: normal;"> String</span>(T) + &quot; K) &lt;= 423.15 K
+required from medium model \&quot;&quot;   + mediumName + &quot;\&quot;.&quot;);
+  MM = 1/(Xi[Water]/MMX[Water]+(1.0-Xi[Water])/MMX[Air]);
+
+  p_steam_sat =<span style="color: red; font-weight: normal; font-style: normal;"> min</span>(<span style="color: red; font-weight: normal; font-style: normal;">saturationPressure</span>(T),0.999*p);
+  X_sat =<span style="color: red; font-weight: normal; font-style: normal;"> min</span>(p_steam_sat * k_mair/<span style="color: red; font-weight: normal; font-style: normal;">max</span>(100*Modelica.Constants.eps, p - p_steam_sat)*(1 - Xi[Water]), 1.0) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Water content at saturation with respect to actual water content&quot;</span>;
+  X_liquid =<span style="color: red; font-weight: normal; font-style: normal;"> max</span>(Xi[Water] - X_sat, 0.0);
+  X_steam  = Xi[Water]-X_liquid;
+  X_air    = 1-Xi[Water];
+
+  h =<span style="color: red; font-weight: normal; font-style: normal;"> specificEnthalpy_pTX</span>(p,T,Xi);
+  R = dryair.R*(1 - X_steam/(1 - X_liquid)) + steam.R*X_steam/(1 - X_liquid);
+
+  <span style="color: #006400; font-weight: normal; font-style: normal;">// Equation for ideal gas, from h=u+p*v and R*T=p*v, from which follows that  u = h-R*T.</span>
+  <span style="color: #006400; font-weight: normal; font-style: normal;">// u = h-R*T;</span>
+
+  <span style="color: #006400; font-weight: normal; font-style: normal;">// However, in this medium, the gas law is d/dStp=p/pStp, from which follows using h=u+pv that</span>
+  <span style="color: #006400; font-weight: normal; font-style: normal;">// u= h-p*v = h-p/d = h-pStp/dStp</span>
+  u = h-pStp/dStp;
+
+  <span style="color: #006400; font-weight: normal; font-style: normal;">//    d = p/(R*T);</span>
+  d/dStp = p/pStp;
+
+  <span style="color: #006400; font-weight: normal; font-style: normal;">/* Note, u and d are computed under the assumption that the volume of the liquid
+         water is neglible with respect to the volume of air and of steam
+      */</span>
+  state.p = p;
+  state.T = T;
+  state.X = X;
+
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>BaseProperties;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE Xsaturation<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Obsolete.Media.b853ac785efd4e86ationI.png" alt="Buildings.Obsolete.Media.GasesPTDecoupled.MoistAir.Xsaturation" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Obsolete.Media.GasesPTDecoupled.MoistAir.Xsaturation"></a><a href="Buildings_Obsolete_Media_GasesPTDecoupled_MoistAir.html#Buildings.Obsolete.Media.GasesPTDecoupled.MoistAir"
+>Buildings.Obsolete.Media.GasesPTDecoupled.MoistAir</a>.Xsaturation</h2>
+<p>
+<b>Steam water mass fraction of saturation boundary in kg_water/kg_moistair</b>
+</p>
+<h3>Inputs</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Inputs">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Air_MoistAir.html#Modelica.Media.Air.MoistAir.ThermodynamicState"
+>ThermodynamicState</a></td><td>state</td><td>&nbsp;</td><td>Thermodynamic state record</td></tr>
+</table>
+<h3>Outputs</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Outputs">
+<tr><th>Type</th><th>Name</th><th>Description</th></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.MassFraction"
+>MassFraction</a></td><td>X_sat</td><td>Steam mass fraction of sat. boundary [kg/kg]</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">function</span> Xsaturation = <a href="Buildings_Obsolete_Media_PerfectGases_MoistAir.html#Buildings.Obsolete.Media.PerfectGases.MoistAir.Xsaturation"
+>Buildings.Obsolete.Media.PerfectGases.MoistAir.Xsaturation</a>
+  <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Steam water mass fraction of saturation boundary in kg_water/kg_moistair&quot;</span>;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE setState_pTX<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Obsolete.Media.b853ac785efd4e86ationI.png" alt="Buildings.Obsolete.Media.GasesPTDecoupled.MoistAir.setState_pTX" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Obsolete.Media.GasesPTDecoupled.MoistAir.setState_pTX"></a><a href="Buildings_Obsolete_Media_GasesPTDecoupled_MoistAir.html#Buildings.Obsolete.Media.GasesPTDecoupled.MoistAir"
+>Buildings.Obsolete.Media.GasesPTDecoupled.MoistAir</a>.setState_pTX</h2>
+<p>
+<b>Thermodynamic state as function of p, T and composition X</b>
+</p>
+<h3>Information</h3>
+<p>Extends from <a href="Buildings_Obsolete_Media_PerfectGases_MoistAir.html#Buildings.Obsolete.Media.PerfectGases.MoistAir.setState_pTX"
+>Buildings.Obsolete.Media.PerfectGases.MoistAir.setState_pTX</a> (Thermodynamic state as function of p, T and composition X).</p>
+<h3>Inputs</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Inputs">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.AbsolutePressure"
+>AbsolutePressure</a></td><td>p</td><td>&nbsp;</td><td>Pressure [Pa]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.Temperature"
+>Temperature</a></td><td>T</td><td>&nbsp;</td><td>Temperature [K]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.MassFraction"
+>MassFraction</a></td><td>X[:]</td><td>reference_X</td><td>Mass fractions [kg/kg]</td></tr>
+</table>
+<h3>Outputs</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Outputs">
+<tr><th>Type</th><th>Name</th><th>Description</th></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Air_MoistAir.html#Modelica.Media.Air.MoistAir.ThermodynamicState"
+>ThermodynamicState</a></td><td>state</td><td>Thermodynamic state</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">function</span> setState_pTX <span style="color: #006400; font-weight: normal; font-style: normal;">
+  &quot;Thermodynamic state as function of p, T and composition X&quot;</span>
+    <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="Buildings_Obsolete_Media_PerfectGases_MoistAir.html#Buildings.Obsolete.Media.PerfectGases.MoistAir.setState_pTX"
+>Buildings.Obsolete.Media.PerfectGases.MoistAir.setState_pTX</a>;
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>setState_pTX;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE setState_phX<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Obsolete.Media.b853ac785efd4e86ationI.png" alt="Buildings.Obsolete.Media.GasesPTDecoupled.MoistAir.setState_phX" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Obsolete.Media.GasesPTDecoupled.MoistAir.setState_phX"></a><a href="Buildings_Obsolete_Media_GasesPTDecoupled_MoistAir.html#Buildings.Obsolete.Media.GasesPTDecoupled.MoistAir"
+>Buildings.Obsolete.Media.GasesPTDecoupled.MoistAir</a>.setState_phX</h2>
+<p>
+<b>Thermodynamic state as function of p, h and composition X</b>
+</p>
+<h3>Information</h3>
+
+Function to set the state for given pressure, enthalpy and species concentration.
+This function needed to be reimplemented in order for the medium model to use
+the implementation of <code>T_phX</code> provided by this package as opposed to the
+implementation provided by its parent package.
+
+<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Function"
+>Modelica.Icons.Function</a> (Icon for functions).</p>
+<h3>Inputs</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Inputs">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.AbsolutePressure"
+>AbsolutePressure</a></td><td>p</td><td>&nbsp;</td><td>Pressure [Pa]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.SpecificEnthalpy"
+>SpecificEnthalpy</a></td><td>h</td><td>&nbsp;</td><td>Specific enthalpy [J/kg]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.MassFraction"
+>MassFraction</a></td><td>X[:]</td><td>&nbsp;</td><td>Mass fractions [kg/kg]</td></tr>
+</table>
+<h3>Outputs</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Outputs">
+<tr><th>Type</th><th>Name</th><th>Description</th></tr>
+<tr><td><a href="Buildings_Obsolete_Media_GasesPTDecoupled_MoistAir.html#Buildings.Obsolete.Media.GasesPTDecoupled.MoistAir.ThermodynamicState"
+>ThermodynamicState</a></td><td>state</td><td>&nbsp;</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">function</span> setState_phX <span style="color: #006400; font-weight: normal; font-style: normal;">
+  &quot;Thermodynamic state as function of p, h and composition X&quot;</span>
+<span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Function"
+>Modelica.Icons.Function</a>;
+<span style="color: blue; font-weight: normal; font-style: normal;">input </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.AbsolutePressure"
+>AbsolutePressure</a> p <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Pressure&quot;</span>;
+<span style="color: blue; font-weight: normal; font-style: normal;">input </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.SpecificEnthalpy"
+>SpecificEnthalpy</a> h <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Specific enthalpy&quot;</span>;
+<span style="color: blue; font-weight: normal; font-style: normal;">input </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.MassFraction"
+>MassFraction</a> X[:] <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Mass fractions&quot;</span>;
+<span style="color: blue; font-weight: normal; font-style: normal;">output </span><a href="Buildings_Obsolete_Media_GasesPTDecoupled_MoistAir.html#Buildings.Obsolete.Media.GasesPTDecoupled.MoistAir.ThermodynamicState"
+>ThermodynamicState</a> state;
+<span style="color: blue; font-weight: normal; font-style: normal;">algorithm </span>
+state := <span style="color: blue; font-weight: normal; font-style: normal;">if </span><span style="color: red; font-weight: normal; font-style: normal;">size</span>(X,1) == nX<span style="color: blue; font-weight: normal; font-style: normal;"> then </span>
+       <span style="color: red; font-weight: normal; font-style: normal;">ThermodynamicState</span>(p=p,T=<span style="color: red; font-weight: normal; font-style: normal;">T_phX</span>(p,h,X),X=X)<span style="color: blue; font-weight: normal; font-style: normal;"> else </span>
+      <span style="color: red; font-weight: normal; font-style: normal;">ThermodynamicState</span>(p=p,T=<span style="color: red; font-weight: normal; font-style: normal;">T_phX</span>(p,h,X), X=<span style="color: red; font-weight: normal; font-style: normal;">cat</span>(1,X,{1-<span style="color: red; font-weight: normal; font-style: normal;">sum</span>(X)}));
+  <span style="color: #006400; font-weight: normal; font-style: normal;"> //   ThermodynamicState(p=p,T=T_phX(p,h,cat(1,X,{1-sum(X)})), X=cat(1,X,{1-sum(X)}));</span>
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>setState_phX;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE setState_dTX<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Obsolete.Media.b853ac785efd4e86ationI.png" alt="Buildings.Obsolete.Media.GasesPTDecoupled.MoistAir.setState_dTX" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Obsolete.Media.GasesPTDecoupled.MoistAir.setState_dTX"></a><a href="Buildings_Obsolete_Media_GasesPTDecoupled_MoistAir.html#Buildings.Obsolete.Media.GasesPTDecoupled.MoistAir"
+>Buildings.Obsolete.Media.GasesPTDecoupled.MoistAir</a>.setState_dTX</h2>
+<p>
+<b>Thermodynamic state as function of d, T and composition X</b>
+</p>
+<h3>Information</h3>
+<p>Extends from <a href="Buildings_Obsolete_Media_PerfectGases_MoistAir.html#Buildings.Obsolete.Media.PerfectGases.MoistAir.setState_dTX"
+>Buildings.Obsolete.Media.PerfectGases.MoistAir.setState_dTX</a> (Thermodynamic state as function of d, T and composition X).</p>
+<h3>Inputs</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Inputs">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.Density"
+>Density</a></td><td>d</td><td>&nbsp;</td><td>Density [kg/m3]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.Temperature"
+>Temperature</a></td><td>T</td><td>&nbsp;</td><td>Temperature [K]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.MassFraction"
+>MassFraction</a></td><td>X[:]</td><td>reference_X</td><td>Mass fractions [kg/kg]</td></tr>
+</table>
+<h3>Outputs</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Outputs">
+<tr><th>Type</th><th>Name</th><th>Description</th></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Air_MoistAir.html#Modelica.Media.Air.MoistAir.ThermodynamicState"
+>ThermodynamicState</a></td><td>state</td><td>Thermodynamic state</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">function</span> setState_dTX <span style="color: #006400; font-weight: normal; font-style: normal;">
+  &quot;Thermodynamic state as function of d, T and composition X&quot;</span>
+   <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="Buildings_Obsolete_Media_PerfectGases_MoistAir.html#Buildings.Obsolete.Media.PerfectGases.MoistAir.setState_dTX"
+>Buildings.Obsolete.Media.PerfectGases.MoistAir.setState_dTX</a>;
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>setState_dTX;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE gasConstant<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Obsolete.Media.b853ac785efd4e86ationI.png" alt="Buildings.Obsolete.Media.GasesPTDecoupled.MoistAir.gasConstant" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Obsolete.Media.GasesPTDecoupled.MoistAir.gasConstant"></a><a href="Buildings_Obsolete_Media_GasesPTDecoupled_MoistAir.html#Buildings.Obsolete.Media.GasesPTDecoupled.MoistAir"
+>Buildings.Obsolete.Media.GasesPTDecoupled.MoistAir</a>.gasConstant</h2>
+<p>
+<b>Gas constant (computation neglects liquid fraction)</b>
+</p>
+<h3>Information</h3>
+<p>Extends from <a href="Buildings_Obsolete_Media_PerfectGases_MoistAir.html#Buildings.Obsolete.Media.PerfectGases.MoistAir.gasConstant"
+>Buildings.Obsolete.Media.PerfectGases.MoistAir.gasConstant</a> (Gas constant (computation neglects liquid fraction)).</p>
+<h3>Inputs</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Inputs">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_PartialMixtureMedium.html#Modelica.Media.Interfaces.PartialMixtureMedium.ThermodynamicState"
+>ThermodynamicState</a></td><td>state</td><td>&nbsp;</td><td>Thermodynamic state</td></tr>
+</table>
+<h3>Outputs</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Outputs">
+<tr><th>Type</th><th>Name</th><th>Description</th></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.SpecificHeatCapacity"
+>SpecificHeatCapacity</a></td><td>R</td><td>Mixture gas constant [J/(kg.K)]</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">function</span> gasConstant <span style="color: #006400; font-weight: normal; font-style: normal;">
+  &quot;Gas constant (computation neglects liquid fraction)&quot;</span>
+   <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="Buildings_Obsolete_Media_PerfectGases_MoistAir.html#Buildings.Obsolete.Media.PerfectGases.MoistAir.gasConstant"
+>Buildings.Obsolete.Media.PerfectGases.MoistAir.gasConstant</a>;
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>gasConstant;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE saturationPressureLiquid<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Obsolete.Media.b853ac785efd4e86ationI.png" alt="Buildings.Obsolete.Media.GasesPTDecoupled.MoistAir.saturationPressureLiquid" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Obsolete.Media.GasesPTDecoupled.MoistAir.saturationPressureLiquid"></a><a href="Buildings_Obsolete_Media_GasesPTDecoupled_MoistAir.html#Buildings.Obsolete.Media.GasesPTDecoupled.MoistAir"
+>Buildings.Obsolete.Media.GasesPTDecoupled.MoistAir</a>.saturationPressureLiquid</h2>
+<p>
+<b>Saturation curve valid for 273.16 &lt;= T &lt;= 373.16. Outside of these limits a (less accurate) result is returned</b>
+</p>
+<h3>Inputs</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Inputs">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+>Temperature</a></td><td>Tsat</td><td>&nbsp;</td><td>saturation temperature [K]</td></tr>
+</table>
+<h3>Outputs</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Outputs">
+<tr><th>Type</th><th>Name</th><th>Description</th></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.AbsolutePressure"
+>AbsolutePressure</a></td><td>psat</td><td>saturation pressure [Pa]</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">function</span> saturationPressureLiquid =
+    <a href="Buildings_Obsolete_Media_PerfectGases_MoistAir.html#Buildings.Obsolete.Media.PerfectGases.MoistAir.saturationPressureLiquid"
+>Buildings.Obsolete.Media.PerfectGases.MoistAir.saturationPressureLiquid</a> <span style="color: #006400; font-weight: normal; font-style: normal;">
+  &quot;Saturation curve valid for 273.16 &lt;= T &lt;= 373.16. Outside of these limits a (less accurate) result is returned&quot;</span>;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE sublimationPressureIce<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Obsolete.Media.b853ac785efd4e86ationI.png" alt="Buildings.Obsolete.Media.GasesPTDecoupled.MoistAir.sublimationPressureIce" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Obsolete.Media.GasesPTDecoupled.MoistAir.sublimationPressureIce"></a><a href="Buildings_Obsolete_Media_GasesPTDecoupled_MoistAir.html#Buildings.Obsolete.Media.GasesPTDecoupled.MoistAir"
+>Buildings.Obsolete.Media.GasesPTDecoupled.MoistAir</a>.sublimationPressureIce</h2>
+<p>
+<b>Saturation curve valid for 223.16 &lt;= T &lt;= 273.16. Outside of these limits a (less accurate) result is returned</b>
+</p>
+<h3>Inputs</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Inputs">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+>Temperature</a></td><td>Tsat</td><td>&nbsp;</td><td>Sublimation temperature [K]</td></tr>
+</table>
+<h3>Outputs</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Outputs">
+<tr><th>Type</th><th>Name</th><th>Description</th></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.AbsolutePressure"
+>AbsolutePressure</a></td><td>psat</td><td>Sublimation pressure [Pa]</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">function</span> sublimationPressureIce =
+    <a href="Buildings_Obsolete_Media_PerfectGases_MoistAir.html#Buildings.Obsolete.Media.PerfectGases.MoistAir.sublimationPressureIce"
+>Buildings.Obsolete.Media.PerfectGases.MoistAir.sublimationPressureIce</a> <span style="color: #006400; font-weight: normal; font-style: normal;">
+  &quot;Saturation curve valid for 223.16 &lt;= T &lt;= 273.16. Outside of these limits a (less accurate) result is returned&quot;</span>;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE saturationPressure<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Obsolete.Media.b853ac785efd4e86ationI.png" alt="Buildings.Obsolete.Media.GasesPTDecoupled.MoistAir.saturationPressure" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Obsolete.Media.GasesPTDecoupled.MoistAir.saturationPressure"></a><a href="Buildings_Obsolete_Media_GasesPTDecoupled_MoistAir.html#Buildings.Obsolete.Media.GasesPTDecoupled.MoistAir"
+>Buildings.Obsolete.Media.GasesPTDecoupled.MoistAir</a>.saturationPressure</h2>
+<p>
+<b>Saturation curve valid for 223.16 &lt;= T &lt;= 373.16 (and slightly outside with less accuracy)</b>
+</p>
+<h3>Information</h3>
+<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_PartialCondensingGases.html#Modelica.Media.Interfaces.PartialCondensingGases.saturationPressure"
+></a> (Return saturation pressure of condensing fluid).</p>
+<h3>Inputs</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Inputs">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.Temperature"
+>Temperature</a></td><td>Tsat</td><td>&nbsp;</td><td>Saturation temperature [K]</td></tr>
+</table>
+<h3>Outputs</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Outputs">
+<tr><th>Type</th><th>Name</th><th>Description</th></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.AbsolutePressure"
+>AbsolutePressure</a></td><td>psat</td><td>Saturation pressure [Pa]</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">function</span> <span style="color: blue; font-weight: normal; font-style: normal;">extends </span>saturationPressure <span style="color: #006400; font-weight: normal; font-style: normal;">
+  &quot;Saturation curve valid for 223.16 &lt;= T &lt;= 373.16 (and slightly outside with less accuracy)&quot;</span>
+
+<span style="color: blue; font-weight: normal; font-style: normal;">algorithm </span>
+  psat :=<span style="color: red; font-weight: normal; font-style: normal;"> Buildings.Utilities.Math.Functions.spliceFunction</span>(
+                                                  <span style="color: red; font-weight: normal; font-style: normal;">saturationPressureLiquid</span>(Tsat),<span style="color: red; font-weight: normal; font-style: normal;">sublimationPressureIce</span>(Tsat),Tsat-273.16,1.0);
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>saturationPressure;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE pressure<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Obsolete.Media.b853ac785efd4e86ationI.png" alt="Buildings.Obsolete.Media.GasesPTDecoupled.MoistAir.pressure" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Obsolete.Media.GasesPTDecoupled.MoistAir.pressure"></a><a href="Buildings_Obsolete_Media_GasesPTDecoupled_MoistAir.html#Buildings.Obsolete.Media.GasesPTDecoupled.MoistAir"
+>Buildings.Obsolete.Media.GasesPTDecoupled.MoistAir</a>.pressure</h2>
+<p>
+<b>Gas pressure</b>
+</p>
+<h3>Information</h3>
+<p>Extends from <a href="Buildings_Obsolete_Media_PerfectGases_MoistAir.html#Buildings.Obsolete.Media.PerfectGases.MoistAir.pressure"
+>Buildings.Obsolete.Media.PerfectGases.MoistAir.pressure</a> (Gas pressure).</p>
+<h3>Inputs</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Inputs">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.ThermodynamicState"
+>ThermodynamicState</a></td><td>state</td><td>&nbsp;</td><td>Thermodynamic state record</td></tr>
+</table>
+<h3>Outputs</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Outputs">
+<tr><th>Type</th><th>Name</th><th>Description</th></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.AbsolutePressure"
+>AbsolutePressure</a></td><td>p</td><td>Pressure [Pa]</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">function</span> pressure <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Gas pressure&quot;</span>
+   <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="Buildings_Obsolete_Media_PerfectGases_MoistAir.html#Buildings.Obsolete.Media.PerfectGases.MoistAir.pressure"
+>Buildings.Obsolete.Media.PerfectGases.MoistAir.pressure</a>;
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>pressure;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE temperature<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Obsolete.Media.b853ac785efd4e86ationI.png" alt="Buildings.Obsolete.Media.GasesPTDecoupled.MoistAir.temperature" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Obsolete.Media.GasesPTDecoupled.MoistAir.temperature"></a><a href="Buildings_Obsolete_Media_GasesPTDecoupled_MoistAir.html#Buildings.Obsolete.Media.GasesPTDecoupled.MoistAir"
+>Buildings.Obsolete.Media.GasesPTDecoupled.MoistAir</a>.temperature</h2>
+<p>
+<b>Gas temperature</b>
+</p>
+<h3>Information</h3>
+<p>Extends from <a href="Buildings_Obsolete_Media_PerfectGases_MoistAir.html#Buildings.Obsolete.Media.PerfectGases.MoistAir.temperature"
+>Buildings.Obsolete.Media.PerfectGases.MoistAir.temperature</a> (Gas temperature).</p>
+<h3>Inputs</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Inputs">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.ThermodynamicState"
+>ThermodynamicState</a></td><td>state</td><td>&nbsp;</td><td>Thermodynamic state record</td></tr>
+</table>
+<h3>Outputs</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Outputs">
+<tr><th>Type</th><th>Name</th><th>Description</th></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.Temperature"
+>Temperature</a></td><td>T</td><td>Temperature [K]</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">function</span> temperature <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Gas temperature&quot;</span>
+   <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="Buildings_Obsolete_Media_PerfectGases_MoistAir.html#Buildings.Obsolete.Media.PerfectGases.MoistAir.temperature"
+>Buildings.Obsolete.Media.PerfectGases.MoistAir.temperature</a>;
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>temperature;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE density<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Obsolete.Media.b853ac785efd4e86ationI.png" alt="Buildings.Obsolete.Media.GasesPTDecoupled.MoistAir.density" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Obsolete.Media.GasesPTDecoupled.MoistAir.density"></a><a href="Buildings_Obsolete_Media_GasesPTDecoupled_MoistAir.html#Buildings.Obsolete.Media.GasesPTDecoupled.MoistAir"
+>Buildings.Obsolete.Media.GasesPTDecoupled.MoistAir</a>.density</h2>
+<p>
+<b>Gas density</b>
+</p>
+<h3>Information</h3>
+<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Function"
+>Modelica.Icons.Function</a> (Icon for functions).</p>
+<h3>Inputs</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Inputs">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td><a href="Buildings_Obsolete_Media_GasesPTDecoupled_MoistAir.html#Buildings.Obsolete.Media.GasesPTDecoupled.MoistAir.ThermodynamicState"
+>ThermodynamicState</a></td><td>state</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+</table>
+<h3>Outputs</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Outputs">
+<tr><th>Type</th><th>Name</th><th>Description</th></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.Density"
+>Density</a></td><td>d</td><td>Density [kg/m3]</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">function</span> density <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Gas density&quot;</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Function"
+>Modelica.Icons.Function</a>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">input </span><a href="Buildings_Obsolete_Media_GasesPTDecoupled_MoistAir.html#Buildings.Obsolete.Media.GasesPTDecoupled.MoistAir.ThermodynamicState"
+>ThermodynamicState</a> state;
+  <span style="color: blue; font-weight: normal; font-style: normal;">output </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.Density"
+>Density</a> d <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Density&quot;</span>;
+<span style="color: blue; font-weight: normal; font-style: normal;">algorithm </span>
+ d :=state.p*dStp/pStp;
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>density;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE specificEntropy<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Obsolete.Media.b853ac785efd4e86ationI.png" alt="Buildings.Obsolete.Media.GasesPTDecoupled.MoistAir.specificEntropy" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Obsolete.Media.GasesPTDecoupled.MoistAir.specificEntropy"></a><a href="Buildings_Obsolete_Media_GasesPTDecoupled_MoistAir.html#Buildings.Obsolete.Media.GasesPTDecoupled.MoistAir"
+>Buildings.Obsolete.Media.GasesPTDecoupled.MoistAir</a>.specificEntropy</h2>
+<p>
+<b>Specific entropy (liquid part neglected, mixing entropy included)</b>
+</p>
+<h3>Information</h3>
+<p>Extends from <a href="Buildings_Obsolete_Media_PerfectGases_MoistAir.html#Buildings.Obsolete.Media.PerfectGases.MoistAir.specificEntropy"
+>Buildings.Obsolete.Media.PerfectGases.MoistAir.specificEntropy</a> (Specific entropy (liquid part neglected, mixing entropy included)).</p>
+<h3>Inputs</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Inputs">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.ThermodynamicState"
+>ThermodynamicState</a></td><td>state</td><td>&nbsp;</td><td>Thermodynamic state record</td></tr>
+</table>
+<h3>Outputs</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Outputs">
+<tr><th>Type</th><th>Name</th><th>Description</th></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.SpecificEntropy"
+>SpecificEntropy</a></td><td>s</td><td>Specific entropy [J/(kg.K)]</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">function</span> specificEntropy <span style="color: #006400; font-weight: normal; font-style: normal;">
+  &quot;Specific entropy (liquid part neglected, mixing entropy included)&quot;</span>
+   <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="Buildings_Obsolete_Media_PerfectGases_MoistAir.html#Buildings.Obsolete.Media.PerfectGases.MoistAir.specificEntropy"
+>Buildings.Obsolete.Media.PerfectGases.MoistAir.specificEntropy</a>;
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>specificEntropy;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE enthalpyOfVaporization<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Obsolete.Media.b853ac785efd4e86ationI.png" alt="Buildings.Obsolete.Media.GasesPTDecoupled.MoistAir.enthalpyOfVaporization" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Obsolete.Media.GasesPTDecoupled.MoistAir.enthalpyOfVaporization"></a><a href="Buildings_Obsolete_Media_GasesPTDecoupled_MoistAir.html#Buildings.Obsolete.Media.GasesPTDecoupled.MoistAir"
+>Buildings.Obsolete.Media.GasesPTDecoupled.MoistAir</a>.enthalpyOfVaporization</h2>
+<p>
+<b>Enthalpy of vaporization of water</b>
+</p>
+<h3>Information</h3>
+<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_PartialCondensingGases.html#Modelica.Media.Interfaces.PartialCondensingGases.enthalpyOfVaporization"
+></a> (Return vaporization enthalpy of condensing fluid).</p>
+<h3>Inputs</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Inputs">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.Temperature"
+>Temperature</a></td><td>T</td><td>&nbsp;</td><td>Temperature [K]</td></tr>
+</table>
+<h3>Outputs</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Outputs">
+<tr><th>Type</th><th>Name</th><th>Description</th></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.SpecificEnthalpy"
+>SpecificEnthalpy</a></td><td>r0</td><td>Vaporization enthalpy [J/kg]</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">function</span> <span style="color: blue; font-weight: normal; font-style: normal;">extends </span>enthalpyOfVaporization <span style="color: #006400; font-weight: normal; font-style: normal;">
+  &quot;Enthalpy of vaporization of water&quot;</span>
+<span style="color: blue; font-weight: normal; font-style: normal;">algorithm </span>
+ r0 := 2501014.5;
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>enthalpyOfVaporization;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE HeatCapacityOfWater<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Obsolete.Media.b853ac785efd4e86ationI.png" alt="Buildings.Obsolete.Media.GasesPTDecoupled.MoistAir.HeatCapacityOfWater" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Obsolete.Media.GasesPTDecoupled.MoistAir.HeatCapacityOfWater"></a><a href="Buildings_Obsolete_Media_GasesPTDecoupled_MoistAir.html#Buildings.Obsolete.Media.GasesPTDecoupled.MoistAir"
+>Buildings.Obsolete.Media.GasesPTDecoupled.MoistAir</a>.HeatCapacityOfWater</h2>
+<p>
+<b>Specific heat capacity of water (liquid only) which is constant</b>
+</p>
+<h3>Information</h3>
+<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Function"
+>Modelica.Icons.Function</a> (Icon for functions).</p>
+<h3>Inputs</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Inputs">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.Temperature"
+>Temperature</a></td><td>T</td><td>&nbsp;</td><td>[K]</td></tr>
+</table>
+<h3>Outputs</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Outputs">
+<tr><th>Type</th><th>Name</th><th>Description</th></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.SpecificHeatCapacity"
+>SpecificHeatCapacity</a></td><td>cp_fl</td><td>[J/(kg.K)]</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">function</span> HeatCapacityOfWater <span style="color: #006400; font-weight: normal; font-style: normal;">
+  &quot;Specific heat capacity of water (liquid only) which is constant&quot;</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Function"
+>Modelica.Icons.Function</a>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">input </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.Temperature"
+>Temperature</a> T;
+  <span style="color: blue; font-weight: normal; font-style: normal;">output </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.SpecificHeatCapacity"
+>SpecificHeatCapacity</a> cp_fl;
+<span style="color: blue; font-weight: normal; font-style: normal;">algorithm </span>
+  cp_fl := 4186;
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>HeatCapacityOfWater;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE enthalpyOfLiquid<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Obsolete.Media.b853ac785efd4e86ationI.png" alt="Buildings.Obsolete.Media.GasesPTDecoupled.MoistAir.enthalpyOfLiquid" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Obsolete.Media.GasesPTDecoupled.MoistAir.enthalpyOfLiquid"></a><a href="Buildings_Obsolete_Media_GasesPTDecoupled_MoistAir.html#Buildings.Obsolete.Media.GasesPTDecoupled.MoistAir"
+>Buildings.Obsolete.Media.GasesPTDecoupled.MoistAir</a>.enthalpyOfLiquid</h2>
+<p>
+<b>Enthalpy of liquid (per unit mass of liquid) which is linear in the temperature</b>
+</p>
+<h3>Information</h3>
+<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_PartialCondensingGases.html#Modelica.Media.Interfaces.PartialCondensingGases.enthalpyOfLiquid"
+></a> (Return liquid enthalpy of condensing fluid).</p>
+<h3>Inputs</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Inputs">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.Temperature"
+>Temperature</a></td><td>T</td><td>&nbsp;</td><td>Temperature [K]</td></tr>
+</table>
+<h3>Outputs</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Outputs">
+<tr><th>Type</th><th>Name</th><th>Description</th></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.SpecificEnthalpy"
+>SpecificEnthalpy</a></td><td>h</td><td>Liquid enthalpy [J/kg]</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">replaceable </span><span style="color: blue; font-weight: normal; font-style: normal;">function</span> <span style="color: blue; font-weight: normal; font-style: normal;">extends </span>enthalpyOfLiquid <span style="color: #006400; font-weight: normal; font-style: normal;">
+  &quot;Enthalpy of liquid (per unit mass of liquid) which is linear in the temperature&quot;</span>
+  annotation(derivative=<a href="Buildings_Obsolete_Media_GasesPTDecoupled_MoistAir.html#Buildings.Obsolete.Media.GasesPTDecoupled.MoistAir.der_enthalpyOfLiquid"
+>der_enthalpyOfLiquid</a>);
+
+<span style="color: blue; font-weight: normal; font-style: normal;">algorithm </span>
+  h := (T - 273.15)*4186;
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>enthalpyOfLiquid;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE der_enthalpyOfLiquid<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Obsolete.Media.b853ac785efd4e86ationI.png" alt="Buildings.Obsolete.Media.GasesPTDecoupled.MoistAir.der_enthalpyOfLiquid" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Obsolete.Media.GasesPTDecoupled.MoistAir.der_enthalpyOfLiquid"></a><a href="Buildings_Obsolete_Media_GasesPTDecoupled_MoistAir.html#Buildings.Obsolete.Media.GasesPTDecoupled.MoistAir"
+>Buildings.Obsolete.Media.GasesPTDecoupled.MoistAir</a>.der_enthalpyOfLiquid</h2>
+<p>
+<b>Temperature derivative of enthalpy of liquid per unit mass of liquid</b>
+</p>
+<h3>Information</h3>
+<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Function"
+>Modelica.Icons.Function</a> (Icon for functions).</p>
+<h3>Inputs</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Inputs">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.Temperature"
+>Temperature</a></td><td>T</td><td>&nbsp;</td><td>temperature [K]</td></tr>
+<tr><td>Real</td><td>der_T</td><td>&nbsp;</td><td>temperature derivative</td></tr>
+</table>
+<h3>Outputs</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Outputs">
+<tr><th>Type</th><th>Name</th><th>Description</th></tr>
+<tr><td>Real</td><td>der_h</td><td>derivative of liquid enthalpy</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">replaceable </span><span style="color: blue; font-weight: normal; font-style: normal;">function</span> der_enthalpyOfLiquid <span style="color: #006400; font-weight: normal; font-style: normal;">
+  &quot;Temperature derivative of enthalpy of liquid per unit mass of liquid&quot;</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Function"
+>Modelica.Icons.Function</a>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">input </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.Temperature"
+>Temperature</a> T <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;temperature&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">input </span>Real der_T <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;temperature derivative&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">output </span>Real der_h <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;derivative of liquid enthalpy&quot;</span>;
+<span style="color: blue; font-weight: normal; font-style: normal;">algorithm </span>
+  der_h := 4186*der_T;
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>der_enthalpyOfLiquid;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE enthalpyOfCondensingGas<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Obsolete.Media.b853ac785efd4e86ationI.png" alt="Buildings.Obsolete.Media.GasesPTDecoupled.MoistAir.enthalpyOfCondensingGas" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Obsolete.Media.GasesPTDecoupled.MoistAir.enthalpyOfCondensingGas"></a><a href="Buildings_Obsolete_Media_GasesPTDecoupled_MoistAir.html#Buildings.Obsolete.Media.GasesPTDecoupled.MoistAir"
+>Buildings.Obsolete.Media.GasesPTDecoupled.MoistAir</a>.enthalpyOfCondensingGas</h2>
+<p>
+<b>Enthalpy of steam per unit mass of steam</b>
+</p>
+<h3>Information</h3>
+<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Function"
+>Modelica.Icons.Function</a> (Icon for functions).</p>
+<h3>Inputs</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Inputs">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.Temperature"
+>Temperature</a></td><td>T</td><td>&nbsp;</td><td>temperature [K]</td></tr>
+</table>
+<h3>Outputs</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Outputs">
+<tr><th>Type</th><th>Name</th><th>Description</th></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.SpecificEnthalpy"
+>SpecificEnthalpy</a></td><td>h</td><td>steam enthalpy [J/kg]</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">function</span> enthalpyOfCondensingGas <span style="color: #006400; font-weight: normal; font-style: normal;">
+  &quot;Enthalpy of steam per unit mass of steam&quot;</span>
+  annotation(derivative=<a href="Buildings_Obsolete_Media_GasesPTDecoupled_MoistAir.html#Buildings.Obsolete.Media.GasesPTDecoupled.MoistAir.der_enthalpyOfCondensingGas"
+>der_enthalpyOfCondensingGas</a>);
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Function"
+>Modelica.Icons.Function</a>;
+
+  <span style="color: blue; font-weight: normal; font-style: normal;">input </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.Temperature"
+>Temperature</a> T <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;temperature&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">output </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.SpecificEnthalpy"
+>SpecificEnthalpy</a> h <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;steam enthalpy&quot;</span>;
+<span style="color: blue; font-weight: normal; font-style: normal;">algorithm </span>
+  h := (T-273.15) * steam.cp +<span style="color: red; font-weight: normal; font-style: normal;"> enthalpyOfVaporization</span>(T);
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>enthalpyOfCondensingGas;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE der_enthalpyOfCondensingGas<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Obsolete.Media.b853ac785efd4e86ationI.png" alt="Buildings.Obsolete.Media.GasesPTDecoupled.MoistAir.der_enthalpyOfCondensingGas" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Obsolete.Media.GasesPTDecoupled.MoistAir.der_enthalpyOfCondensingGas"></a><a href="Buildings_Obsolete_Media_GasesPTDecoupled_MoistAir.html#Buildings.Obsolete.Media.GasesPTDecoupled.MoistAir"
+>Buildings.Obsolete.Media.GasesPTDecoupled.MoistAir</a>.der_enthalpyOfCondensingGas</h2>
+<p>
+<b>Derivative of enthalpy of steam per unit mass of steam</b>
+</p>
+<h3>Information</h3>
+<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Function"
+>Modelica.Icons.Function</a> (Icon for functions).</p>
+<h3>Inputs</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Inputs">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.Temperature"
+>Temperature</a></td><td>T</td><td>&nbsp;</td><td>temperature [K]</td></tr>
+<tr><td>Real</td><td>der_T</td><td>&nbsp;</td><td>temperature derivative</td></tr>
+</table>
+<h3>Outputs</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Outputs">
+<tr><th>Type</th><th>Name</th><th>Description</th></tr>
+<tr><td>Real</td><td>der_h</td><td>derivative of steam enthalpy</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">replaceable </span><span style="color: blue; font-weight: normal; font-style: normal;">function</span> der_enthalpyOfCondensingGas <span style="color: #006400; font-weight: normal; font-style: normal;">
+  &quot;Derivative of enthalpy of steam per unit mass of steam&quot;</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Function"
+>Modelica.Icons.Function</a>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">input </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.Temperature"
+>Temperature</a> T <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;temperature&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">input </span>Real der_T <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;temperature derivative&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">output </span>Real der_h <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;derivative of steam enthalpy&quot;</span>;
+<span style="color: blue; font-weight: normal; font-style: normal;">algorithm </span>
+  der_h := steam.cp*der_T;
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>der_enthalpyOfCondensingGas;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE enthalpyOfNonCondensingGas<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Obsolete.Media.b853ac785efd4e86ationI.png" alt="Buildings.Obsolete.Media.GasesPTDecoupled.MoistAir.enthalpyOfNonCondensingGas" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Obsolete.Media.GasesPTDecoupled.MoistAir.enthalpyOfNonCondensingGas"></a><a href="Buildings_Obsolete_Media_GasesPTDecoupled_MoistAir.html#Buildings.Obsolete.Media.GasesPTDecoupled.MoistAir"
+>Buildings.Obsolete.Media.GasesPTDecoupled.MoistAir</a>.enthalpyOfNonCondensingGas</h2>
+<p>
+<b>Enthalpy of non-condensing gas per unit mass of steam</b>
+</p>
+<h3>Information</h3>
+<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Function"
+>Modelica.Icons.Function</a> (Icon for functions).</p>
+<h3>Inputs</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Inputs">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.Temperature"
+>Temperature</a></td><td>T</td><td>&nbsp;</td><td>temperature [K]</td></tr>
+</table>
+<h3>Outputs</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Outputs">
+<tr><th>Type</th><th>Name</th><th>Description</th></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.SpecificEnthalpy"
+>SpecificEnthalpy</a></td><td>h</td><td>enthalpy [J/kg]</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">function</span> enthalpyOfNonCondensingGas <span style="color: #006400; font-weight: normal; font-style: normal;">
+  &quot;Enthalpy of non-condensing gas per unit mass of steam&quot;</span>
+  annotation(derivative=<a href="Buildings_Obsolete_Media_GasesPTDecoupled_MoistAir.html#Buildings.Obsolete.Media.GasesPTDecoupled.MoistAir.der_enthalpyOfNonCondensingGas"
+>der_enthalpyOfNonCondensingGas</a>);
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Function"
+>Modelica.Icons.Function</a>;
+
+  <span style="color: blue; font-weight: normal; font-style: normal;">input </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.Temperature"
+>Temperature</a> T <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;temperature&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">output </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.SpecificEnthalpy"
+>SpecificEnthalpy</a> h <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;enthalpy&quot;</span>;
+<span style="color: blue; font-weight: normal; font-style: normal;">algorithm </span>
+  h :=<span style="color: red; font-weight: normal; font-style: normal;"> enthalpyOfDryAir</span>(T);
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>enthalpyOfNonCondensingGas;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE der_enthalpyOfNonCondensingGas<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Obsolete.Media.b853ac785efd4e86ationI.png" alt="Buildings.Obsolete.Media.GasesPTDecoupled.MoistAir.der_enthalpyOfNonCondensingGas" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Obsolete.Media.GasesPTDecoupled.MoistAir.der_enthalpyOfNonCondensingGas"></a><a href="Buildings_Obsolete_Media_GasesPTDecoupled_MoistAir.html#Buildings.Obsolete.Media.GasesPTDecoupled.MoistAir"
+>Buildings.Obsolete.Media.GasesPTDecoupled.MoistAir</a>.der_enthalpyOfNonCondensingGas</h2>
+<p>
+<b>Derivative of enthalpy of non-condensing gas per unit mass of steam</b>
+</p>
+<h3>Information</h3>
+<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Function"
+>Modelica.Icons.Function</a> (Icon for functions).</p>
+<h3>Inputs</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Inputs">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.Temperature"
+>Temperature</a></td><td>T</td><td>&nbsp;</td><td>temperature [K]</td></tr>
+<tr><td>Real</td><td>der_T</td><td>&nbsp;</td><td>temperature derivative</td></tr>
+</table>
+<h3>Outputs</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Outputs">
+<tr><th>Type</th><th>Name</th><th>Description</th></tr>
+<tr><td>Real</td><td>der_h</td><td>derivative of steam enthalpy</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">replaceable </span><span style="color: blue; font-weight: normal; font-style: normal;">function</span> der_enthalpyOfNonCondensingGas <span style="color: #006400; font-weight: normal; font-style: normal;">
+  &quot;Derivative of enthalpy of non-condensing gas per unit mass of steam&quot;</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Function"
+>Modelica.Icons.Function</a>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">input </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.Temperature"
+>Temperature</a> T <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;temperature&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">input </span>Real der_T <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;temperature derivative&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">output </span>Real der_h <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;derivative of steam enthalpy&quot;</span>;
+<span style="color: blue; font-weight: normal; font-style: normal;">algorithm </span>
+  der_h :=<span style="color: red; font-weight: normal; font-style: normal;"> der_enthalpyOfDryAir</span>(T, der_T);
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>der_enthalpyOfNonCondensingGas;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE enthalpyOfGas<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Obsolete.Media.b853ac785efd4e86ationI.png" alt="Buildings.Obsolete.Media.GasesPTDecoupled.MoistAir.enthalpyOfGas" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Obsolete.Media.GasesPTDecoupled.MoistAir.enthalpyOfGas"></a><a href="Buildings_Obsolete_Media_GasesPTDecoupled_MoistAir.html#Buildings.Obsolete.Media.GasesPTDecoupled.MoistAir"
+>Buildings.Obsolete.Media.GasesPTDecoupled.MoistAir</a>.enthalpyOfGas</h2>
+<p>
+<b>Enthalpy of gas mixture per unit mass of gas mixture</b>
+</p>
+<h3>Information</h3>
+<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_PartialCondensingGases.html#Modelica.Media.Interfaces.PartialCondensingGases.enthalpyOfGas"
+></a> (Return enthalpy of non-condensing gas mixture).</p>
+<h3>Inputs</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Inputs">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.Temperature"
+>Temperature</a></td><td>T</td><td>&nbsp;</td><td>Temperature [K]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.MassFraction"
+>MassFraction</a></td><td>X[:]</td><td>&nbsp;</td><td>Vector of mass fractions [kg/kg]</td></tr>
+</table>
+<h3>Outputs</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Outputs">
+<tr><th>Type</th><th>Name</th><th>Description</th></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.SpecificEnthalpy"
+>SpecificEnthalpy</a></td><td>h</td><td>Specific enthalpy [J/kg]</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">replaceable </span><span style="color: blue; font-weight: normal; font-style: normal;">function</span> <span style="color: blue; font-weight: normal; font-style: normal;">extends </span>enthalpyOfGas <span style="color: #006400; font-weight: normal; font-style: normal;">
+  &quot;Enthalpy of gas mixture per unit mass of gas mixture&quot;</span>
+<span style="color: blue; font-weight: normal; font-style: normal;">algorithm </span>
+  h :=<span style="color: red; font-weight: normal; font-style: normal;"> enthalpyOfCondensingGas</span>(T)*X[Water]
+       +<span style="color: red; font-weight: normal; font-style: normal;"> enthalpyOfDryAir</span>(T)*(1.0-X[Water]);
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>enthalpyOfGas;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE enthalpyOfDryAir<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Obsolete.Media.b853ac785efd4e86ationI.png" alt="Buildings.Obsolete.Media.GasesPTDecoupled.MoistAir.enthalpyOfDryAir" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Obsolete.Media.GasesPTDecoupled.MoistAir.enthalpyOfDryAir"></a><a href="Buildings_Obsolete_Media_GasesPTDecoupled_MoistAir.html#Buildings.Obsolete.Media.GasesPTDecoupled.MoistAir"
+>Buildings.Obsolete.Media.GasesPTDecoupled.MoistAir</a>.enthalpyOfDryAir</h2>
+<p>
+<b>Enthalpy of dry air per unit mass of dry air</b>
+</p>
+<h3>Information</h3>
+<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Function"
+>Modelica.Icons.Function</a> (Icon for functions).</p>
+<h3>Inputs</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Inputs">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.Temperature"
+>Temperature</a></td><td>T</td><td>&nbsp;</td><td>temperature [K]</td></tr>
+</table>
+<h3>Outputs</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Outputs">
+<tr><th>Type</th><th>Name</th><th>Description</th></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.SpecificEnthalpy"
+>SpecificEnthalpy</a></td><td>h</td><td>dry air enthalpy [J/kg]</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">replaceable </span><span style="color: blue; font-weight: normal; font-style: normal;">function</span> enthalpyOfDryAir <span style="color: #006400; font-weight: normal; font-style: normal;">
+  &quot;Enthalpy of dry air per unit mass of dry air&quot;</span>
+  annotation(derivative=<a href="Buildings_Obsolete_Media_GasesPTDecoupled_MoistAir.html#Buildings.Obsolete.Media.GasesPTDecoupled.MoistAir.der_enthalpyOfDryAir"
+>der_enthalpyOfDryAir</a>);
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Function"
+>Modelica.Icons.Function</a>;
+
+  <span style="color: blue; font-weight: normal; font-style: normal;">input </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.Temperature"
+>Temperature</a> T <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;temperature&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">output </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.SpecificEnthalpy"
+>SpecificEnthalpy</a> h <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;dry air enthalpy&quot;</span>;
+<span style="color: blue; font-weight: normal; font-style: normal;">algorithm </span>
+  h := (T - 273.15)*dryair.cp;
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>enthalpyOfDryAir;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE der_enthalpyOfDryAir<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Obsolete.Media.b853ac785efd4e86ationI.png" alt="Buildings.Obsolete.Media.GasesPTDecoupled.MoistAir.der_enthalpyOfDryAir" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Obsolete.Media.GasesPTDecoupled.MoistAir.der_enthalpyOfDryAir"></a><a href="Buildings_Obsolete_Media_GasesPTDecoupled_MoistAir.html#Buildings.Obsolete.Media.GasesPTDecoupled.MoistAir"
+>Buildings.Obsolete.Media.GasesPTDecoupled.MoistAir</a>.der_enthalpyOfDryAir</h2>
+<p>
+<b>Derivative of enthalpy of dry air per unit mass of dry air</b>
+</p>
+<h3>Information</h3>
+<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Function"
+>Modelica.Icons.Function</a> (Icon for functions).</p>
+<h3>Inputs</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Inputs">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.Temperature"
+>Temperature</a></td><td>T</td><td>&nbsp;</td><td>temperature [K]</td></tr>
+<tr><td>Real</td><td>der_T</td><td>&nbsp;</td><td>temperature derivative</td></tr>
+</table>
+<h3>Outputs</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Outputs">
+<tr><th>Type</th><th>Name</th><th>Description</th></tr>
+<tr><td>Real</td><td>der_h</td><td>derivative of dry air enthalpy</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">replaceable </span><span style="color: blue; font-weight: normal; font-style: normal;">function</span> der_enthalpyOfDryAir <span style="color: #006400; font-weight: normal; font-style: normal;">
+  &quot;Derivative of enthalpy of dry air per unit mass of dry air&quot;</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Function"
+>Modelica.Icons.Function</a>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">input </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.Temperature"
+>Temperature</a> T <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;temperature&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">input </span>Real der_T <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;temperature derivative&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">output </span>Real der_h <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;derivative of dry air enthalpy&quot;</span>;
+<span style="color: blue; font-weight: normal; font-style: normal;">algorithm </span>
+  der_h := dryair.cp*der_T;
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>der_enthalpyOfDryAir;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE specificHeatCapacityCp<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Obsolete.Media.b853ac785efd4e86ationI.png" alt="Buildings.Obsolete.Media.GasesPTDecoupled.MoistAir.specificHeatCapacityCp" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Obsolete.Media.GasesPTDecoupled.MoistAir.specificHeatCapacityCp"></a><a href="Buildings_Obsolete_Media_GasesPTDecoupled_MoistAir.html#Buildings.Obsolete.Media.GasesPTDecoupled.MoistAir"
+>Buildings.Obsolete.Media.GasesPTDecoupled.MoistAir</a>.specificHeatCapacityCp</h2>
+<p>
+<b>Specific heat capacity of gas mixture at constant pressure</b>
+</p>
+<h3>Information</h3>
+<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.specificHeatCapacityCp"
+></a> (Return specific heat capacity at constant pressure).</p>
+<h3>Inputs</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Inputs">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.ThermodynamicState"
+>ThermodynamicState</a></td><td>state</td><td>&nbsp;</td><td>Thermodynamic state record</td></tr>
+</table>
+<h3>Outputs</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Outputs">
+<tr><th>Type</th><th>Name</th><th>Description</th></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.SpecificHeatCapacity"
+>SpecificHeatCapacity</a></td><td>cp</td><td>Specific heat capacity at constant pressure [J/(kg.K)]</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">replaceable </span><span style="color: blue; font-weight: normal; font-style: normal;">function</span> <span style="color: blue; font-weight: normal; font-style: normal;">extends </span>specificHeatCapacityCp <span style="color: #006400; font-weight: normal; font-style: normal;">
+  &quot;Specific heat capacity of gas mixture at constant pressure&quot;</span>
+<span style="color: blue; font-weight: normal; font-style: normal;">algorithm </span>
+  cp := dryair.cp*(1-state.X[Water]) +steam.cp*state.X[Water];
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>specificHeatCapacityCp;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE specificHeatCapacityCv<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Obsolete.Media.b853ac785efd4e86ationI.png" alt="Buildings.Obsolete.Media.GasesPTDecoupled.MoistAir.specificHeatCapacityCv" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Obsolete.Media.GasesPTDecoupled.MoistAir.specificHeatCapacityCv"></a><a href="Buildings_Obsolete_Media_GasesPTDecoupled_MoistAir.html#Buildings.Obsolete.Media.GasesPTDecoupled.MoistAir"
+>Buildings.Obsolete.Media.GasesPTDecoupled.MoistAir</a>.specificHeatCapacityCv</h2>
+<p>
+<b>Specific heat capacity of gas mixture at constant volume</b>
+</p>
+<h3>Information</h3>
+<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.specificHeatCapacityCv"
+></a> (Return specific heat capacity at constant volume).</p>
+<h3>Inputs</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Inputs">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.ThermodynamicState"
+>ThermodynamicState</a></td><td>state</td><td>&nbsp;</td><td>Thermodynamic state record</td></tr>
+</table>
+<h3>Outputs</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Outputs">
+<tr><th>Type</th><th>Name</th><th>Description</th></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.SpecificHeatCapacity"
+>SpecificHeatCapacity</a></td><td>cv</td><td>Specific heat capacity at constant volume [J/(kg.K)]</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">replaceable </span><span style="color: blue; font-weight: normal; font-style: normal;">function</span> <span style="color: blue; font-weight: normal; font-style: normal;">extends </span>specificHeatCapacityCv <span style="color: #006400; font-weight: normal; font-style: normal;">
+  &quot;Specific heat capacity of gas mixture at constant volume&quot;</span>
+<span style="color: blue; font-weight: normal; font-style: normal;">algorithm </span>
+  cv:= dryair.cv*(1-state.X[Water]) +steam.cv*state.X[Water];
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>specificHeatCapacityCv;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE dynamicViscosity<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Obsolete.Media.b853ac785efd4e86ationI.png" alt="Buildings.Obsolete.Media.GasesPTDecoupled.MoistAir.dynamicViscosity" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Obsolete.Media.GasesPTDecoupled.MoistAir.dynamicViscosity"></a><a href="Buildings_Obsolete_Media_GasesPTDecoupled_MoistAir.html#Buildings.Obsolete.Media.GasesPTDecoupled.MoistAir"
+>Buildings.Obsolete.Media.GasesPTDecoupled.MoistAir</a>.dynamicViscosity</h2>
+<p>
+<b>dynamic viscosity of dry air</b>
+</p>
+<h3>Information</h3>
+<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.dynamicViscosity"
+></a> (Return dynamic viscosity).</p>
+<h3>Inputs</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Inputs">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.ThermodynamicState"
+>ThermodynamicState</a></td><td>state</td><td>&nbsp;</td><td>Thermodynamic state record</td></tr>
+</table>
+<h3>Outputs</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Outputs">
+<tr><th>Type</th><th>Name</th><th>Description</th></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.DynamicViscosity"
+>DynamicViscosity</a></td><td>eta</td><td>Dynamic viscosity [Pa.s]</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">function</span> <span style="color: blue; font-weight: normal; font-style: normal;">extends </span>dynamicViscosity <span style="color: #006400; font-weight: normal; font-style: normal;">
+  &quot;dynamic viscosity of dry air&quot;</span>
+<span style="color: blue; font-weight: normal; font-style: normal;">algorithm </span>
+  eta := 1.85E-5;
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>dynamicViscosity;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE thermalConductivity<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Obsolete.Media.b853ac785efd4e86ationI.png" alt="Buildings.Obsolete.Media.GasesPTDecoupled.MoistAir.thermalConductivity" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Obsolete.Media.GasesPTDecoupled.MoistAir.thermalConductivity"></a><a href="Buildings_Obsolete_Media_GasesPTDecoupled_MoistAir.html#Buildings.Obsolete.Media.GasesPTDecoupled.MoistAir"
+>Buildings.Obsolete.Media.GasesPTDecoupled.MoistAir</a>.thermalConductivity</h2>
+<p>
+<b>Thermal conductivity of dry air as a polynomial in the temperature</b>
+</p>
+<h3>Information</h3>
+<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.thermalConductivity"
+></a> (Return thermal conductivity).</p>
+<h3>Inputs</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Inputs">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.ThermodynamicState"
+>ThermodynamicState</a></td><td>state</td><td>&nbsp;</td><td>Thermodynamic state record</td></tr>
+</table>
+<h3>Outputs</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Outputs">
+<tr><th>Type</th><th>Name</th><th>Description</th></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.ThermalConductivity"
+>ThermalConductivity</a></td><td>lambda</td><td>Thermal conductivity [W/(m.K)]</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">function</span> <span style="color: blue; font-weight: normal; font-style: normal;">extends </span>thermalConductivity <span style="color: #006400; font-weight: normal; font-style: normal;">
+  &quot;Thermal conductivity of dry air as a polynomial in the temperature&quot;</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">import </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Incompressible_TableBased_Polynomials_Temp.html#Modelica.Media.Incompressible.TableBased.Polynomials_Temp"
+>Modelica.Media.Incompressible.TableBased.Polynomials_Temp</a>;
+<span style="color: blue; font-weight: normal; font-style: normal;">algorithm </span>
+  lambda :=<span style="color: red; font-weight: normal; font-style: normal;"> Polynomials_Temp.evaluate</span>({(-4.8737307422969E-008), 7.67803133753502E-005, 0.0241814385504202},
+  <span style="color: red; font-weight: normal; font-style: normal;">Modelica.SIunits.Conversions.to_degC</span>(state.T));
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>thermalConductivity;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE h_pTX<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Obsolete.Media.b853ac785efd4e86ationI.png" alt="Buildings.Obsolete.Media.GasesPTDecoupled.MoistAir.h_pTX" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Obsolete.Media.GasesPTDecoupled.MoistAir.h_pTX"></a><a href="Buildings_Obsolete_Media_GasesPTDecoupled_MoistAir.html#Buildings.Obsolete.Media.GasesPTDecoupled.MoistAir"
+>Buildings.Obsolete.Media.GasesPTDecoupled.MoistAir</a>.h_pTX</h2>
+<p>
+<b>Compute specific enthalpy from pressure, temperature and mass fraction</b>
+</p>
+<h3>Information</h3>
+<p>Extends from <a href="Buildings_Obsolete_Media_PerfectGases_MoistAir.html#Buildings.Obsolete.Media.PerfectGases.MoistAir.h_pTX"
+>Buildings.Obsolete.Media.PerfectGases.MoistAir.h_pTX</a> (Compute specific enthalpy from pressure, temperature and mass fraction).</p>
+<h3>Inputs</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Inputs">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
+>Pressure</a></td><td>p</td><td>&nbsp;</td><td>Pressure [Pa]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+>Temperature</a></td><td>T</td><td>&nbsp;</td><td>Temperature [K]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.MassFraction"
+>MassFraction</a></td><td>X[:]</td><td>&nbsp;</td><td>Mass fractions of moist air [1]</td></tr>
+</table>
+<h3>Outputs</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Outputs">
+<tr><th>Type</th><th>Name</th><th>Description</th></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.SpecificEnthalpy"
+>SpecificEnthalpy</a></td><td>h</td><td>Specific enthalpy at p, T, X [J/kg]</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">function</span> h_pTX <span style="color: #006400; font-weight: normal; font-style: normal;">
+  &quot;Compute specific enthalpy from pressure, temperature and mass fraction&quot;</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="Buildings_Obsolete_Media_PerfectGases_MoistAir.html#Buildings.Obsolete.Media.PerfectGases.MoistAir.h_pTX"
+>Buildings.Obsolete.Media.PerfectGases.MoistAir.h_pTX</a>;
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>h_pTX;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE specificEnthalpy<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Obsolete.Media.b853ac785efd4e86ationI.png" alt="Buildings.Obsolete.Media.GasesPTDecoupled.MoistAir.specificEnthalpy" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Obsolete.Media.GasesPTDecoupled.MoistAir.specificEnthalpy"></a><a href="Buildings_Obsolete_Media_GasesPTDecoupled_MoistAir.html#Buildings.Obsolete.Media.GasesPTDecoupled.MoistAir"
+>Buildings.Obsolete.Media.GasesPTDecoupled.MoistAir</a>.specificEnthalpy</h2>
+<p>
+<b>Specific enthalpy</b>
+</p>
+<h3>Information</h3>
+<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.specificEnthalpy"
+></a> (Return specific enthalpy).</p>
+<h3>Inputs</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Inputs">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.ThermodynamicState"
+>ThermodynamicState</a></td><td>state</td><td>&nbsp;</td><td>Thermodynamic state record</td></tr>
+</table>
+<h3>Outputs</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Outputs">
+<tr><th>Type</th><th>Name</th><th>Description</th></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.SpecificEnthalpy"
+>SpecificEnthalpy</a></td><td>h</td><td>Specific enthalpy [J/kg]</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">function</span> <span style="color: blue; font-weight: normal; font-style: normal;">extends </span>specificEnthalpy <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Specific enthalpy&quot;</span>
+<span style="color: blue; font-weight: normal; font-style: normal;">algorithm </span>
+  h :=<span style="color: red; font-weight: normal; font-style: normal;"> h_pTX</span>(state.p, state.T, state.X);
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>specificEnthalpy;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE specificInternalEnergy<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Obsolete.Media.b853ac785efd4e86ationI.png" alt="Buildings.Obsolete.Media.GasesPTDecoupled.MoistAir.specificInternalEnergy" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Obsolete.Media.GasesPTDecoupled.MoistAir.specificInternalEnergy"></a><a href="Buildings_Obsolete_Media_GasesPTDecoupled_MoistAir.html#Buildings.Obsolete.Media.GasesPTDecoupled.MoistAir"
+>Buildings.Obsolete.Media.GasesPTDecoupled.MoistAir</a>.specificInternalEnergy</h2>
+<p>
+<b>Specific internal energy</b>
+</p>
+<h3>Information</h3>
+<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Function"
+>Modelica.Icons.Function</a> (Icon for functions), <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.specificInternalEnergy"
+></a> (Return specific internal energy).</p>
+<h3>Inputs</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Inputs">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.ThermodynamicState"
+>ThermodynamicState</a></td><td>state</td><td>&nbsp;</td><td>Thermodynamic state record</td></tr>
+</table>
+<h3>Outputs</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Outputs">
+<tr><th>Type</th><th>Name</th><th>Description</th></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.SpecificEnergy"
+>SpecificEnergy</a></td><td>u</td><td>Specific internal energy [J/kg]</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">function</span> <span style="color: blue; font-weight: normal; font-style: normal;">extends </span>specificInternalEnergy <span style="color: #006400; font-weight: normal; font-style: normal;">
+  &quot;Specific internal energy&quot;</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Function"
+>Modelica.Icons.Function</a>;
+<span style="color: blue; font-weight: normal; font-style: normal;">algorithm </span>
+  u :=<span style="color: red; font-weight: normal; font-style: normal;"> h_pTX</span>(state.p,state.T,state.X) - pStp/dStp;
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>specificInternalEnergy;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE specificGibbsEnergy<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Obsolete.Media.b853ac785efd4e86ationI.png" alt="Buildings.Obsolete.Media.GasesPTDecoupled.MoistAir.specificGibbsEnergy" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Obsolete.Media.GasesPTDecoupled.MoistAir.specificGibbsEnergy"></a><a href="Buildings_Obsolete_Media_GasesPTDecoupled_MoistAir.html#Buildings.Obsolete.Media.GasesPTDecoupled.MoistAir"
+>Buildings.Obsolete.Media.GasesPTDecoupled.MoistAir</a>.specificGibbsEnergy</h2>
+<p>
+<b>Specific Gibbs energy</b>
+</p>
+<h3>Information</h3>
+<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Function"
+>Modelica.Icons.Function</a> (Icon for functions), <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.specificGibbsEnergy"
+></a> (Return specific Gibbs energy).</p>
+<h3>Inputs</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Inputs">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.ThermodynamicState"
+>ThermodynamicState</a></td><td>state</td><td>&nbsp;</td><td>Thermodynamic state record</td></tr>
+</table>
+<h3>Outputs</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Outputs">
+<tr><th>Type</th><th>Name</th><th>Description</th></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.SpecificEnergy"
+>SpecificEnergy</a></td><td>g</td><td>Specific Gibbs energy [J/kg]</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">function</span> <span style="color: blue; font-weight: normal; font-style: normal;">extends </span>specificGibbsEnergy <span style="color: #006400; font-weight: normal; font-style: normal;">
+  &quot;Specific Gibbs energy&quot;</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Function"
+>Modelica.Icons.Function</a>;
+<span style="color: blue; font-weight: normal; font-style: normal;">algorithm </span>
+  g :=<span style="color: red; font-weight: normal; font-style: normal;"> h_pTX</span>(state.p,state.T,state.X) - state.T*<span style="color: red; font-weight: normal; font-style: normal;">specificEntropy</span>(state);
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>specificGibbsEnergy;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE specificHelmholtzEnergy<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Obsolete.Media.b853ac785efd4e86ationI.png" alt="Buildings.Obsolete.Media.GasesPTDecoupled.MoistAir.specificHelmholtzEnergy" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Obsolete.Media.GasesPTDecoupled.MoistAir.specificHelmholtzEnergy"></a><a href="Buildings_Obsolete_Media_GasesPTDecoupled_MoistAir.html#Buildings.Obsolete.Media.GasesPTDecoupled.MoistAir"
+>Buildings.Obsolete.Media.GasesPTDecoupled.MoistAir</a>.specificHelmholtzEnergy</h2>
+<p>
+<b>Specific Helmholtz energy</b>
+</p>
+<h3>Information</h3>
+<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Function"
+>Modelica.Icons.Function</a> (Icon for functions), <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.specificHelmholtzEnergy"
+></a> (Return specific Helmholtz energy).</p>
+<h3>Inputs</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Inputs">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.ThermodynamicState"
+>ThermodynamicState</a></td><td>state</td><td>&nbsp;</td><td>Thermodynamic state record</td></tr>
+</table>
+<h3>Outputs</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Outputs">
+<tr><th>Type</th><th>Name</th><th>Description</th></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.SpecificEnergy"
+>SpecificEnergy</a></td><td>f</td><td>Specific Helmholtz energy [J/kg]</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">function</span> <span style="color: blue; font-weight: normal; font-style: normal;">extends </span>specificHelmholtzEnergy <span style="color: #006400; font-weight: normal; font-style: normal;">
+  &quot;Specific Helmholtz energy&quot;</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Function"
+>Modelica.Icons.Function</a>;
+<span style="color: blue; font-weight: normal; font-style: normal;">algorithm </span>
+  f :=<span style="color: red; font-weight: normal; font-style: normal;"> h_pTX</span>(state.p,state.T,state.X) -<span style="color: red; font-weight: normal; font-style: normal;"> gasConstant</span>(state)*state.T - state.T*<span style="color: red; font-weight: normal; font-style: normal;">specificEntropy</span>(state);
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>specificHelmholtzEnergy;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE T_phX<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><a name="Buildings.Obsolete.Media.GasesPTDecoupled.MoistAir.T_phX"></a><a href="Buildings_Obsolete_Media_GasesPTDecoupled_MoistAir.html#Buildings.Obsolete.Media.GasesPTDecoupled.MoistAir"
+>Buildings.Obsolete.Media.GasesPTDecoupled.MoistAir</a>.T_phX</h2>
+<p>
+<b>Compute temperature from specific enthalpy and mass fraction</b>
+</p>
+<h3>Information</h3>
+<p>Extends from <a href="Buildings_Obsolete_Media_PerfectGases_MoistAir.html#Buildings.Obsolete.Media.PerfectGases.MoistAir.T_phX"
+>Buildings.Obsolete.Media.PerfectGases.MoistAir.T_phX</a> (Compute temperature from specific enthalpy and mass fraction).</p>
+<h3>Inputs</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Inputs">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.AbsolutePressure"
+>AbsolutePressure</a></td><td>p</td><td>&nbsp;</td><td>Pressure [Pa]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.SpecificEnthalpy"
+>SpecificEnthalpy</a></td><td>h</td><td>&nbsp;</td><td>Specific enthalpy [J/kg]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.MassFraction"
+>MassFraction</a></td><td>X[:]</td><td>&nbsp;</td><td>Mass fractions of composition [kg/kg]</td></tr>
+</table>
+<h3>Outputs</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Outputs">
+<tr><th>Type</th><th>Name</th><th>Description</th></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.Temperature"
+>Temperature</a></td><td>T</td><td>Temperature [K]</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">function</span> T_phX <span style="color: #006400; font-weight: normal; font-style: normal;">
+  &quot;Compute temperature from specific enthalpy and mass fraction&quot;</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="Buildings_Obsolete_Media_PerfectGases_MoistAir.html#Buildings.Obsolete.Media.PerfectGases.MoistAir.T_phX"
+>Buildings.Obsolete.Media.PerfectGases.MoistAir.T_phX</a>;
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>T_phX;
+</div>
+<hr>
+<address>
+<a href="http://www.3ds.com/">Automatically generated</a> Thu Apr  9 09:47:36 2015.
+</address>
+</body>
+</html>

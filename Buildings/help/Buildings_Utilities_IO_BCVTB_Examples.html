@@ -1,0 +1,410 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>Buildings.Utilities.IO.BCVTB.Examples</title>
+<meta name="HTML-Generator" content="Dymola">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="description" content="&quot;Collection of models that illustrate model use and test models&quot;">
+<style type="text/css">
+*       { font-size: 10pt; font-family: Arial, sans-serif; }
+.modelica, .modelica * { font-size: 9pt; font-family: Courier, monospace; white-space: pre; }
+h4      { font-size: 10pt; font-weight: bold; color: green; }
+h3      { font-size: 11pt; font-weight: bold; color: green; }
+h2      { font-size: 13pt; font-weight: bold; color: green; }
+address { font-weight: normal; }
+td      { border: 1px solid #808080; vertical-align: top; }
+th      { border: 1px solid #808080; vertical-align: top; font-weight: bold; }
+table   { border: 1px solid #808080; border-collapse: collapse; }
+</style>
+<link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../Resources/www/modelicaDoc.css">
+</HEAD>
+<body>
+<!-- --- header ------ -->
+<div class="headerStyle">
+<img src="../Resources/www/lbl-logo.png" alt="LBL logo"/>
+</div>
+<div class="headerLinks">
+<ul><li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt; <a href="Buildings.html">Modelica</a></li></ul>
+</div>
+<!-- --- end header -- -->
+
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE Examples<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><a name="Buildings.Utilities.IO.BCVTB.Examples"></a><a href="Buildings_Utilities_IO_BCVTB.html#Buildings.Utilities.IO.BCVTB"
+>Buildings.Utilities.IO.BCVTB</a>.Examples</h2>
+<p>
+<b>Collection of models that illustrate model use and test models</b><br>
+</p>
+<h3>Information</h3>
+
+<p>
+This package contains examples for the use of models that can be found in
+<a href="Buildings_Utilities_IO_BCVTB.html#Buildings.Utilities.IO.BCVTB"
+>
+Buildings.Utilities.IO.BCVTB</a>.
+</p>
+
+<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons_ExamplesPackage.html#Modelica.Icons.ExamplesPackage"
+>Modelica.Icons.ExamplesPackage</a> (Icon for packages containing runnable examples).</p>
+<h3>Package Content</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Package Content">
+<tr>
+<th>Name</th>
+<th>Description</th>
+</tr>
+<tr>
+<td><img src="Buildings.Utilities.IO.BCaeb133ef55544be3stAirS.png" alt="Buildings.Utilities.IO.BCVTB.Examples.MoistAir" width="20" height="20" align="top">&nbsp;<a href="Buildings_Utilities_IO_BCVTB_Examples.html#Buildings.Utilities.IO.BCVTB.Examples.MoistAir"
+>MoistAir</a>
+</td>
+<td>Model with interfaces for media with moist air that will be linked to the BCVTB which models the response of the room</td>
+</tr>
+<tr>
+<td><img src="Buildings.Utilities.IO.BCaeb133ef55544be3stAirS.png" alt="Buildings.Utilities.IO.BCVTB.Examples.TwoRooms" width="20" height="20" align="top">&nbsp;<a href="Buildings_Utilities_IO_BCVTB_Examples.html#Buildings.Utilities.IO.BCVTB.Examples.TwoRooms"
+>TwoRooms</a>
+</td>
+<td>Thermal model of two rooms that will be linked to the BCVTB which models the controls</td>
+</tr>
+</table>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE MoistAir<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Utilities.IO.BCaeb133ef55544be3stAirI.png" alt="Buildings.Utilities.IO.BCVTB.Examples.MoistAir" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Utilities.IO.BCVTB.Examples.MoistAir"></a><a href="Buildings_Utilities_IO_BCVTB_Examples.html#Buildings.Utilities.IO.BCVTB.Examples"
+>Buildings.Utilities.IO.BCVTB.Examples</a>.MoistAir</h2>
+<p>
+<b>Model with interfaces for media with moist air that will be linked to the BCVTB which models the response of the room</b>
+<br>
+<br><img src="Buildings.Utilities.IO.BCaeb133ef55544be3stAirD.png" alt="Buildings.Utilities.IO.BCVTB.Examples.MoistAir">
+</p>
+<h3>Information</h3>
+
+This example illustrates the use of Modelica with the Building Controls Virtual Test Bed.<br/>
+<p>
+The model represents an air-based heating system with an ideal heater and an ideal humidifier
+in the supply duct. The heater and humidifier are controlled with a feedback loop that
+tracks the room air temperature and room air humidity. These quantities are simulated
+in the EnergyPlus simulation program through the Building Controls Virtual Test Bed.
+The component <code>bouBCVTB</code> models the boundary between the domain that models the air
+system (in Modelica) and the room response (in EnergyPlus).
+</p>
+<p>
+This model is implemented in <code>bcvtb\examples\dymolaEPlusXY-singleZone</code>,
+where <code>XY</code> denotes the EnergyPlus version number.
+
+<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</a> (Icon for runnable examples).</p>
+<h3>Parameters</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+>MassFlowRate</a></td><td>m_flow_nominal</td><td>259.2*6/1.2/3600</td><td>Nominal mass flow rate [kg/s]</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">model</span> MoistAir <span style="color: #006400; font-weight: normal; font-style: normal;">
+  &quot;Model with interfaces for media with moist air that will be linked to the BCVTB which models the response of the room&quot;</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</a>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = <a href="Buildings_Media_Air.html#Buildings.Media.Air"
+>Buildings.Media.Air</a>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+>Modelica.SIunits.MassFlowRate</a> m_flow_nominal=
+      259.2*6/1.2/3600 <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Nominal mass flow rate&quot;</span>;
+  <a href="Buildings_Fluid_FixedResistances.html#Buildings.Fluid.FixedResistances.FixedResistanceDpM"
+>Buildings.Fluid.FixedResistances.FixedResistanceDpM</a> dp1(
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = Medium,
+    m_flow_nominal=m_flow_nominal,
+    dp_nominal=200,
+    from_dp=false,
+    allowFlowReversal=false);
+  <a href="Buildings_Fluid_Sources.html#Buildings.Fluid.Sources.Boundary_pT"
+>Buildings.Fluid.Sources.Boundary_pT</a> sou(
+    nPorts=2,
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = Medium,
+    use_T_in=true,
+    use_X_in=true,
+    p(displayUnit=&quot;Pa&quot;) = 101325,
+    T=293.15);
+  <a href="Buildings_Fluid_FixedResistances.html#Buildings.Fluid.FixedResistances.FixedResistanceDpM"
+>Buildings.Fluid.FixedResistances.FixedResistanceDpM</a> dp2(
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = Medium,
+    m_flow_nominal=m_flow_nominal,
+    dp_nominal=200,
+    from_dp=false,
+    allowFlowReversal=false);
+  <a href="Buildings_Utilities_IO_BCVTB.html#Buildings.Utilities.IO.BCVTB.MoistAirInterface"
+>Buildings.Utilities.IO.BCVTB.MoistAirInterface</a> bouBCVTB(
+    nPorts=2,
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = Medium,
+    m_flow=0,
+    use_m_flow_in=false,
+    m_flow_nominal=m_flow_nominal);
+  <a href="Buildings_Fluid_MassExchangers.html#Buildings.Fluid.MassExchangers.Humidifier_u"
+>Buildings.Fluid.MassExchangers.Humidifier_u</a> hum(
+    m_flow_nominal=m_flow_nominal,
+    dp_nominal=200,
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = Medium,
+    mWat_flow_nominal=0.01*m_flow_nominal,
+    from_dp=false,
+    allowFlowReversal=false,
+    use_T_in=false) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Humidifier&quot;</span>;
+  <a href="Buildings_Fluid_HeatExchangers.html#Buildings.Fluid.HeatExchangers.HeaterCooler_u"
+>Buildings.Fluid.HeatExchangers.HeaterCooler_u</a> hex(
+    m_flow_nominal=m_flow_nominal,
+    dp_nominal=200,
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = Medium,
+    Q_flow_nominal=m_flow_nominal*50*1006,
+    from_dp=false,
+    allowFlowReversal=false) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Heat exchanger&quot;</span>;
+  <a href="Buildings_Fluid_Sensors.html#Buildings.Fluid.Sensors.TemperatureTwoPort"
+>Buildings.Fluid.Sensors.TemperatureTwoPort</a>
+                                      TRet(<span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = Medium,
+      m_flow_nominal=m_flow_nominal) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Return air temperature&quot;</span>;
+  <a href="Buildings_Fluid_Sensors.html#Buildings.Fluid.Sensors.MassFractionTwoPort"
+>Buildings.Fluid.Sensors.MassFractionTwoPort</a>
+                                       Xi_w(<span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = Medium,
+      m_flow_nominal=m_flow_nominal) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Measured air humidity&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+>Modelica.Blocks.Sources.Constant</a> XSet(k=0.005) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Set point for humidity&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+>Modelica.Blocks.Sources.Constant</a> TRooSetNig(k=273.15 + 16) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Set point for room air temperature&quot;</span>;
+  <a href="Buildings_Controls_Continuous.html#Buildings.Controls.Continuous.LimPID"
+>Buildings.Controls.Continuous.LimPID</a> PIDHea(
+    yMax=1,
+    yMin=0,
+    Td=1,
+    controllerType=Modelica.Blocks.Types.SimpleController.PI,
+    k=0.1,
+    Ti=600) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Controller for heating&quot;</span>;
+  <a href="Buildings_Controls_Continuous.html#Buildings.Controls.Continuous.LimPID"
+>Buildings.Controls.Continuous.LimPID</a> PIDHum(
+    yMax=1,
+    yMin=0,
+    controllerType=Modelica.Blocks.Types.SimpleController.PI,
+    k=20,
+    Td=60,
+    Ti=600) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Controller for humidifier&quot;</span>;
+  <a href="Buildings_Utilities_IO_BCVTB.html#Buildings.Utilities.IO.BCVTB.BCVTB"
+>Buildings.Utilities.IO.BCVTB.BCVTB</a> bcvtb(
+    xmlFileName=&quot;socket.cfg&quot;,
+    nDblRea=4,
+    nDblWri=5,
+    flaDblWri={1,1,1,1,1},
+    uStart={0,0,0,0,20},
+    activateInterface=true,
+    timeStep=60);
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Routing.html#Modelica.Blocks.Routing.DeMultiplex4"
+>Modelica.Blocks.Routing.DeMultiplex4</a> deMultiplex2_1(
+    n1=1,
+    n2=1,
+    n3=1,
+    n4=1);
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Routing.html#Modelica.Blocks.Routing.Multiplex5"
+>Modelica.Blocks.Routing.Multiplex5</a> mul;
+  <a href="Buildings_Fluid_Sensors.html#Buildings.Fluid.Sensors.TemperatureTwoPort"
+>Buildings.Fluid.Sensors.TemperatureTwoPort</a>
+                                      TSup(<span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = Medium,
+      m_flow_nominal=m_flow_nominal) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Supply air temperature&quot;</span>;
+  <a href="Buildings_Fluid_Movers.html#Buildings.Fluid.Movers.SpeedControlled_y"
+>Buildings.Fluid.Movers.SpeedControlled_y</a> fan(<span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = Medium,
+        per(pressure(V_flow={0,m_flow_nominal/1.2},
+          dp={2*400,400})),
+        dynamicBalance=false);
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+>Modelica.Blocks.Sources.Constant</a> yFan(k=1) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Fan control signal&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Math.html#Modelica.Blocks.Math.Gain"
+>Modelica.Blocks.Math.Gain</a> perToRel(k=0.01) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Converts 0...100 to 0...1&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Math.html#Modelica.Blocks.Math.Gain"
+>Modelica.Blocks.Math.Gain</a> perToRel1(
+                                     k=0.01) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Converts 0...100 to 0...1&quot;</span>;
+  <a href="Buildings_Utilities_Psychrometrics.html#Buildings.Utilities.Psychrometrics.X_pTphi"
+>Buildings.Utilities.Psychrometrics.X_pTphi</a> masFra(use_p_in=false) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Mass fraction&quot;</span>;
+  <a href="Buildings_Controls_SetPoints.html#Buildings.Controls.SetPoints.OccupancySchedule"
+>Buildings.Controls.SetPoints.OccupancySchedule</a> occSch <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Occupancy schedule&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Logical.html#Modelica.Blocks.Logical.Switch"
+>Modelica.Blocks.Logical.Switch</a> switch1;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+>Modelica.Blocks.Sources.Constant</a> TRooSetDay(k=273.15 + 20) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Set point for room air temperature&quot;</span>;
+  <a href="Buildings_Utilities_IO_BCVTB.html#Buildings.Utilities.IO.BCVTB.From_degC"
+>Buildings.Utilities.IO.BCVTB.From_degC</a> from_degC;
+  <a href="Buildings_Utilities_IO_BCVTB.html#Buildings.Utilities.IO.BCVTB.To_degC"
+>Buildings.Utilities.IO.BCVTB.To_degC</a> to_degC;
+  <a href="Buildings_Utilities_IO_BCVTB.html#Buildings.Utilities.IO.BCVTB.From_degC"
+>Buildings.Utilities.IO.BCVTB.From_degC</a> from_degC1;
+<span style="color: blue; font-weight: normal; font-style: normal;">equation </span>
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(dp1.port_a, hum.port_b);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(hex.port_b, hum.port_a);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(TRet.T, PIDHea.u_m);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(PIDHea.y, hex.u);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(XSet.y, PIDHum.u_s);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(PIDHum.y, hum.u);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(bcvtb.yR, deMultiplex2_1.u);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(mul.y, bcvtb.uR);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(PIDHum.y, mul.u4[1]);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(PIDHea.y, mul.u3[1]);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(mul.u1[1], bouBCVTB.HSen_flow);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(bouBCVTB.HLat_flow, mul.u2[1]);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(Xi_w.X, PIDHum.u_m);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(fan.port_b, hex.port_a);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(fan.port_a, sou.ports[1]);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(perToRel.y, bouBCVTB.phi);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(deMultiplex2_1.y4[1], perToRel.u);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(perToRel1.u, deMultiplex2_1.y3[1]);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(masFra.phi, perToRel1.y);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(masFra.X, sou.X_in);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(yFan.y, fan.y);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(occSch.occupied, switch1.u2);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(TRooSetNig.y, switch1.u3);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(TRooSetDay.y, switch1.u1);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(switch1.y, PIDHea.u_s);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(from_degC.Kelvin, bouBCVTB.T_in);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(TSup.T, to_degC.Kelvin);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(to_degC.Celsius, mul.u5[1]);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(from_degC1.Kelvin, sou.T_in);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(from_degC1.Celsius, deMultiplex2_1.y1[1]);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(deMultiplex2_1.y2[1], from_degC.Celsius);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(from_degC1.Kelvin, masFra.T);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(dp2.port_b, Xi_w.port_a);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(Xi_w.port_b, TRet.port_a);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(TRet.port_b, sou.ports[2]);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(dp1.port_b, TSup.port_a);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(TSup.port_b, bouBCVTB.ports[1]);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(dp2.port_a, bouBCVTB.ports[2]);
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>MoistAir;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE TwoRooms<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Utilities.IO.BCaeb133ef55544be3stAirI.png" alt="Buildings.Utilities.IO.BCVTB.Examples.TwoRooms" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Utilities.IO.BCVTB.Examples.TwoRooms"></a><a href="Buildings_Utilities_IO_BCVTB_Examples.html#Buildings.Utilities.IO.BCVTB.Examples"
+>Buildings.Utilities.IO.BCVTB.Examples</a>.TwoRooms</h2>
+<p>
+<b>Thermal model of two rooms that will be linked to the BCVTB which models the controls</b>
+<br>
+<br><img src="Buildings.Utilities.IO.BC394420e95b4973acRoomsD.png" alt="Buildings.Utilities.IO.BCVTB.Examples.TwoRooms">
+</p>
+<h3>Information</h3>
+
+This example illustrates the use of Modelica with the Building Controls Virtual Test Bed.<br/>
+<p>
+Given a control signal for two heat flow rates, Modelica simulates the thermal response
+of two first order systems. The two systems may represent a first order approximation of a room.
+The control signal for the heat flow rate is computed in the Building Controls Virtual Test Bed
+using a discrete time implementation of a proportional controller.
+Every 60 seconds, measured temperatures and control signals for the heat flow rates are
+exchanged between Dymola and the Building Controls Virtual Test Bed.
+</p>
+<p>
+This model is implemented in <code>bcvtb\examples\dymola-room</code>.
+
+<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</a> (Icon for runnable examples).</p>
+<h3>Parameters</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Time"
+>Time</a></td><td>tau</td><td>2*3600</td><td>Room time constant [s]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.HeatFlowRate"
+>HeatFlowRate</a></td><td>Q_flow_nom</td><td>100</td><td>Nominal heat flow [W]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.ThermalConductance"
+>ThermalConductance</a></td><td>UA</td><td>Q_flow_nom/20</td><td>Thermal conductance of room [W/K]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+>Temperature</a></td><td>TStart</td><td>283.15</td><td>Start temperature [K]</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">model</span> TwoRooms <span style="color: #006400; font-weight: normal; font-style: normal;">
+  &quot;Thermal model of two rooms that will be linked to the BCVTB which models the controls&quot;</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</a>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Time"
+>Modelica.SIunits.Time</a> tau = 2*3600 <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Room time constant&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.HeatFlowRate"
+>Modelica.SIunits.HeatFlowRate</a> Q_flow_nom = 100 <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Nominal heat flow&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.ThermalConductance"
+>Modelica.SIunits.ThermalConductance</a> UA = Q_flow_nom / 20 <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Thermal conductance of room&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+>Modelica.SIunits.Temperature</a> TStart = 283.15 <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Start temperature&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Thermal_HeatTransfer_Components.html#Modelica.Thermal.HeatTransfer.Components.HeatCapacitor"
+>Modelica.Thermal.HeatTransfer.Components.HeatCapacitor</a> C1(C=tau*UA, T(start=
+          TStart, fixed=true)) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Heat capacity of room&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Thermal_HeatTransfer_Components.html#Modelica.Thermal.HeatTransfer.Components.ThermalConductor"
+>Modelica.Thermal.HeatTransfer.Components.ThermalConductor</a> UA1(G=UA) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Heat transmission of room&quot;</span>;
+  <a href="Buildings_HeatTransfer_Sources.html#Buildings.HeatTransfer.Sources.FixedTemperature"
+>Buildings.HeatTransfer.Sources.FixedTemperature</a> TOut1(T=278.15) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Outside air temperature&quot;</span>;
+  <a href="Buildings_HeatTransfer_Sources.html#Buildings.HeatTransfer.Sources.PrescribedHeatFlow"
+>Buildings.HeatTransfer.Sources.PrescribedHeatFlow</a> Q_flow_1 <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Heat input into the room&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Math.html#Modelica.Blocks.Math.Gain"
+>Modelica.Blocks.Math.Gain</a> GaiQ_flow_nom1(k=Q_flow_nom) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Gain for nominal heat load&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Thermal_HeatTransfer_Components.html#Modelica.Thermal.HeatTransfer.Components.ThermalConductor"
+>Modelica.Thermal.HeatTransfer.Components.ThermalConductor</a> UA2(G=UA) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Heat transmission of room&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Thermal_HeatTransfer_Components.html#Modelica.Thermal.HeatTransfer.Components.HeatCapacitor"
+>Modelica.Thermal.HeatTransfer.Components.HeatCapacitor</a> C2(C=2*tau*UA, T(start=
+          TStart, fixed=true)) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Heat capacity of room&quot;</span>;
+  <a href="Buildings_HeatTransfer_Sources.html#Buildings.HeatTransfer.Sources.FixedTemperature"
+>Buildings.HeatTransfer.Sources.FixedTemperature</a> TOut2(T=278.15) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Outside air temperature&quot;</span>;
+  <a href="Buildings_HeatTransfer_Sources.html#Buildings.HeatTransfer.Sources.PrescribedHeatFlow"
+>Buildings.HeatTransfer.Sources.PrescribedHeatFlow</a> Q_flow_2 <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Heat input into the room&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Math.html#Modelica.Blocks.Math.Gain"
+>Modelica.Blocks.Math.Gain</a> GaiQ_flow_nom2(k=Q_flow_nom) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Gain for nominal heat load&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Thermal_HeatTransfer_Sensors.html#Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor"
+>Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor</a> TRoo1 <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Room temperature&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Thermal_HeatTransfer_Sensors.html#Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor"
+>Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor</a> TRoo2 <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Room temperature&quot;</span>;
+  <a href="Buildings_Utilities_IO_BCVTB.html#Buildings.Utilities.IO.BCVTB.BCVTB"
+>Buildings.Utilities.IO.BCVTB.BCVTB</a> bcvtb(
+    xmlFileName=&quot;socket.cfg&quot;,
+    uStart={TStart - 273.15,TStart - 273.15},
+    timeStep=60,
+    <span style="color: blue; font-weight: normal; font-style: normal;">final </span>nDblWri=2,
+    <span style="color: blue; font-weight: normal; font-style: normal;">final </span>nDblRea=2);
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Routing.html#Modelica.Blocks.Routing.Multiplex2"
+>Modelica.Blocks.Routing.Multiplex2</a> multiplex2_1;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Routing.html#Modelica.Blocks.Routing.DeMultiplex2"
+>Modelica.Blocks.Routing.DeMultiplex2</a> deMultiplex2_1;
+  <a href="Buildings_Utilities_IO_BCVTB.html#Buildings.Utilities.IO.BCVTB.To_degC"
+>Buildings.Utilities.IO.BCVTB.To_degC</a> to_degC1;
+  <a href="Buildings_Utilities_IO_BCVTB.html#Buildings.Utilities.IO.BCVTB.To_degC"
+>Buildings.Utilities.IO.BCVTB.To_degC</a> to_degC2;
+<span style="color: blue; font-weight: normal; font-style: normal;">equation </span>
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(TOut1.port, UA1.port_a);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(UA1.port_b, C1.port);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(TOut2.port, UA2.port_a);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(UA2.port_b, C2.port);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(Q_flow_1.port, C1.port);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(Q_flow_2.port, C2.port);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(C1.port, TRoo1.port);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(C2.port, TRoo2.port);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(GaiQ_flow_nom1.y, Q_flow_1.Q_flow);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(GaiQ_flow_nom2.y, Q_flow_2.Q_flow);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(bcvtb.yR, deMultiplex2_1.u);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(deMultiplex2_1.y1[1], GaiQ_flow_nom1.u);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(deMultiplex2_1.y2[1], GaiQ_flow_nom2.u);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(multiplex2_1.y, bcvtb.uR);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(TRoo1.T, to_degC1.Kelvin);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(TRoo2.T, to_degC2.Kelvin);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(to_degC2.Celsius, multiplex2_1.u2[1]);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(to_degC1.Celsius, multiplex2_1.u1[1]);
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>TwoRooms;
+</div>
+<hr>
+<address>
+<a href="http://www.3ds.com/">Automatically generated</a> Thu Apr  9 09:41:30 2015.
+</address>
+</body>
+</html>

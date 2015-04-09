@@ -1,0 +1,184 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>Buildings.Electrical.DC.Storage.BaseClasses</title>
+<meta name="HTML-Generator" content="Dymola">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="description" content="&quot;Base models for battery package&quot;">
+<style type="text/css">
+*       { font-size: 10pt; font-family: Arial, sans-serif; }
+.modelica, .modelica * { font-size: 9pt; font-family: Courier, monospace; white-space: pre; }
+h4      { font-size: 10pt; font-weight: bold; color: green; }
+h3      { font-size: 11pt; font-weight: bold; color: green; }
+h2      { font-size: 13pt; font-weight: bold; color: green; }
+address { font-weight: normal; }
+td      { border: 1px solid #808080; vertical-align: top; }
+th      { border: 1px solid #808080; vertical-align: top; font-weight: bold; }
+table   { border: 1px solid #808080; border-collapse: collapse; }
+</style>
+<link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../Resources/www/modelicaDoc.css">
+</HEAD>
+<body>
+<!-- --- header ------ -->
+<div class="headerStyle">
+<img src="../Resources/www/lbl-logo.png" alt="LBL logo"/>
+</div>
+<div class="headerLinks">
+<ul><li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt; <a href="Buildings.html">Modelica</a></li></ul>
+</div>
+<!-- --- end header -- -->
+
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE BaseClasses<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><a name="Buildings.Electrical.DC.Storage.BaseClasses"></a><a href="Buildings_Electrical_DC_Storage.html#Buildings.Electrical.DC.Storage"
+>Buildings.Electrical.DC.Storage</a>.BaseClasses</h2>
+<p>
+<b>Base models for battery package</b><br>
+</p>
+<h3>Information</h3>
+<p>
+This package contains base classes that are used to construct the models in
+<a href="Buildings_Electrical_DC_Storage.html#Buildings.Electrical.DC.Storage"
+>Buildings.Electrical.DC.Storage</a>.
+</p>
+
+<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons_BasesPackage.html#Modelica.Icons.BasesPackage"
+>Modelica.Icons.BasesPackage</a> (Icon for packages containing base classes).</p>
+<h3>Package Content</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Package Content">
+<tr>
+<th>Name</th>
+<th>Description</th>
+</tr>
+<tr>
+<td><img src="Buildings.Electrical.DC.S07fb941c6f423c1bhargeS.png" alt="Buildings.Electrical.DC.Storage.BaseClasses.Charge" width="20" height="20" align="top">&nbsp;<a href="Buildings_Electrical_DC_Storage_BaseClasses.html#Buildings.Electrical.DC.Storage.BaseClasses.Charge"
+>Charge</a>
+</td>
+<td>Model to compute the battery charge</td>
+</tr>
+</table>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE Charge<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Electrical.DC.S07fb941c6f423c1bhargeI.png" alt="Buildings.Electrical.DC.Storage.BaseClasses.Charge" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Electrical.DC.Storage.BaseClasses.Charge"></a><a href="Buildings_Electrical_DC_Storage_BaseClasses.html#Buildings.Electrical.DC.Storage.BaseClasses"
+>Buildings.Electrical.DC.Storage.BaseClasses</a>.Charge</h2>
+<p>
+<b>Model to compute the battery charge</b>
+<br>
+<br><img src="Buildings.Electrical.DC.S07fb941c6f423c1bhargeD.png" alt="Buildings.Electrical.DC.Storage.BaseClasses.Charge">
+</p>
+<h3>Information</h3>
+
+<p>
+This model represents the charge/discharge mechanism of a battery.
+</p>
+<p>
+This model two parameters <i>&eta;<sub>CHA</sub></i> and <i>&eta;<sub>DIS</sub></i> that represent
+the efficiency during the charge and discharge of the battery.
+</p>
+<p>
+The model given the power <i>P</i> that should be provide or taken from the battery
+and compute the actual power flowing through the battery as
+</p>
+
+<table summary="equations" border = "1" cellspacing="0" cellpadding="2" style="border-collapse:collape;">
+<tr><th>Equation</th><th>Condition</th></tr>
+<tr>
+<td>P<sub>actual</sub> = P &eta;<sub>CHA</sub></td>
+<td>P &ge; 0</td>
+</tr>
+<tr>
+<td>P<sub>actual</sub> = P (2 - &eta;<sub>DIS</sub>)</td>
+<td>P &lt; 0</td>
+</tr>
+</table>
+
+<p>
+The actual power is then used to compute the variation of the state of charge <code>SOC</code>.
+The state of charge is the state variable of this model and is a real value between 0 and 1.
+</p>
+
+<p align="center" style="font-style:italic;">
+ d SOC / dt = P<sub>actual</sub>
+</p>
+
+<p>
+<b>Note:</b>The input power <i>P</i> has to be controlled in order
+to avoid the state of charge <code>SOC</code>
+exceeding the range between 0 and 1.
+</p>
+
+
+<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Icons.html#Modelica.Blocks.Icons.Block"
+>Modelica.Blocks.Icons.Block</a> (Basic graphical layout of input/output block).</p>
+<h3>Parameters</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td>Real</td><td>etaCha</td><td>0.9</td><td>Efficiency during charging [1]</td></tr>
+<tr><td>Real</td><td>etaDis</td><td>0.9</td><td>Efficiency during discharging [1]</td></tr>
+<tr><td>Real</td><td>SOC_start</td><td>0.1</td><td>Initial state of charge [1]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Energy"
+>Energy</a></td><td>EMax</td><td>&nbsp;</td><td>Maximum available charge [J]</td></tr>
+</table>
+<h3>Connectors</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Connectors">
+<tr><th>Type</th><th>Name</th><th>Description</th></tr>
+<tr><td>input <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>RealInput</a></td><td>P</td><td>[W]</td></tr>
+<tr><td>output <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+>RealOutput</a></td><td>SOC</td><td>State of charge</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">model</span> Charge <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Model to compute the battery charge&quot;</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Icons.html#Modelica.Blocks.Icons.Block"
+>Modelica.Blocks.Icons.Block</a>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Real etaCha(min=0, max=1, unit=&quot;1&quot;) = 0.9 <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Efficiency during charging&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Real etaDis(min=0, max=1, unit=&quot;1&quot;) = 0.9 <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Efficiency during discharging&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Real SOC_start(min=0, max=1, unit=&quot;1&quot;)=0.1 <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Initial state of charge&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Energy"
+>Modelica.SIunits.Energy</a> EMax(min=0, displayUnit=&quot;kWh&quot;) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Maximum available charge&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Power"
+>Modelica.SIunits.Power</a> PAct <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Actual power&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>Modelica.Blocks.Interfaces.RealInput</a> P(<span style="color: blue; font-weight: normal; font-style: normal;">final </span>quantity=&quot;Power&quot;,
+                                         <span style="color: blue; font-weight: normal; font-style: normal;">final </span>unit=&quot;W&quot;);
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+>Modelica.Blocks.Interfaces.RealOutput</a> SOC(min=0, max=1) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;State of charge&quot;</span>;
+<span style="color: blue; font-weight: normal; font-style: normal;">protected </span>
+  Boolean underCharged <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Flag, true if battery is undercharged&quot;</span>;
+  Boolean overCharged <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Flag, true if battery is overcharged&quot;</span>;
+<span style="color: blue; font-weight: normal; font-style: normal;">initial </span><span style="color: blue; font-weight: normal; font-style: normal;">equation </span>
+  <span style="color: red; font-weight: normal; font-style: normal;">pre</span>(underCharged) = SOC_start &lt; 0;
+  <span style="color: red; font-weight: normal; font-style: normal;">pre</span>(overCharged)  = SOC_start &gt; 1;
+
+  SOC = SOC_start;
+<span style="color: blue; font-weight: normal; font-style: normal;">equation </span>
+  <span style="color: #006400; font-weight: normal; font-style: normal;">// Charge balance of battery</span>
+  PAct = <span style="color: blue; font-weight: normal; font-style: normal;">if </span>P &gt; 0<span style="color: blue; font-weight: normal; font-style: normal;"> then </span>etaCha*P<span style="color: blue; font-weight: normal; font-style: normal;"> else </span>(2-etaDis)*P;
+  <span style="color: red; font-weight: normal; font-style: normal;">der</span>(SOC)=PAct/EMax;
+
+  <span style="color: #006400; font-weight: normal; font-style: normal;">// Equations to warn if state of charge exceeds 0 and 1</span>
+  underCharged = SOC &lt; 0;
+  overCharged = SOC &gt; 1;
+  <span style="color: blue; font-weight: normal; font-style: normal;">when </span><span style="color: red; font-weight: normal; font-style: normal;">change</span>(underCharged)<span style="color: blue; font-weight: normal; font-style: normal;"> or </span><span style="color: red; font-weight: normal; font-style: normal;">change</span>(overCharged)<span style="color: blue; font-weight: normal; font-style: normal;"> then</span>
+    <span style="color: red; font-weight: normal; font-style: normal;">assert</span>(SOC &gt;= 0, &quot;Warning: Battery is below minimum charge.&quot;,
+    level=AssertionLevel.warning);
+    <span style="color: red; font-weight: normal; font-style: normal;">assert</span>(SOC &lt;= 1, &quot;Warning: Battery is above maximum charge.&quot;,
+    level=AssertionLevel.warning);
+  <span style="color: blue; font-weight: normal; font-style: normal;">end when</span>;
+
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>Charge;
+</div>
+<hr>
+<address>
+<a href="http://www.3ds.com/">Automatically generated</a> Thu Apr  9 09:34:19 2015.
+</address>
+</body>
+</html>

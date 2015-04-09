@@ -1,0 +1,117 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>Buildings.Electrical.AC.ThreePhasesUnbalanced.Interfaces.Examples</title>
+<meta name="HTML-Generator" content="Dymola">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="description" content="&quot;Package with example models&quot;">
+<style type="text/css">
+*       { font-size: 10pt; font-family: Arial, sans-serif; }
+.modelica, .modelica * { font-size: 9pt; font-family: Courier, monospace; white-space: pre; }
+h4      { font-size: 10pt; font-weight: bold; color: green; }
+h3      { font-size: 11pt; font-weight: bold; color: green; }
+h2      { font-size: 13pt; font-weight: bold; color: green; }
+address { font-weight: normal; }
+td      { border: 1px solid #808080; vertical-align: top; }
+th      { border: 1px solid #808080; vertical-align: top; font-weight: bold; }
+table   { border: 1px solid #808080; border-collapse: collapse; }
+</style>
+<link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../Resources/www/modelicaDoc.css">
+</HEAD>
+<body>
+<!-- --- header ------ -->
+<div class="headerStyle">
+<img src="../Resources/www/lbl-logo.png" alt="LBL logo"/>
+</div>
+<div class="headerLinks">
+<ul><li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt; <a href="Buildings.html">Modelica</a></li></ul>
+</div>
+<!-- --- end header -- -->
+
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE Examples<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><a name="Buildings.Electrical.AC.ThreePhasesUnbalanced.Interfaces.Examples"></a><a href="Buildings_Electrical_AC_ThreePhasesUnbalanced_Interfaces.html#Buildings.Electrical.AC.ThreePhasesUnbalanced.Interfaces"
+>Buildings.Electrical.AC.ThreePhasesUnbalanced.Interfaces</a>.Examples</h2>
+<p>
+<b>Package with example models</b><br>
+</p>
+<h3>Information</h3>
+
+<p>
+This package contains examples for the use of models that can be found in
+<a href="Buildings_Electrical_AC_ThreePhasesUnbalanced_Interfaces.html#Buildings.Electrical.AC.ThreePhasesUnbalanced.Interfaces"
+>
+Buildings.Electrical.AC.ThreePhasesUnbalanced.Interfaces</a>.
+</p>
+
+<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons_ExamplesPackage.html#Modelica.Icons.ExamplesPackage"
+>Modelica.Icons.ExamplesPackage</a> (Icon for packages containing runnable examples).</p>
+<h3>Package Content</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Package Content">
+<tr>
+<th>Name</th>
+<th>Description</th>
+</tr>
+<tr>
+<td><a href="Buildings_Electrical_AC_ThreePhasesUnbalanced_Interfaces_Examples.html#Buildings.Electrical.AC.ThreePhasesUnbalanced.Interfaces.Examples.WyeToDelta"
+>WyeToDelta</a>
+</td>
+<td>Test for Y to D connection</td>
+</tr>
+</table>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE WyeToDelta<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><a name="Buildings.Electrical.AC.ThreePhasesUnbalanced.Interfaces.Examples.WyeToDelta"></a><a href="Buildings_Electrical_AC_ThreePhasesUnbalanced_Interfaces_Examples.html#Buildings.Electrical.AC.ThreePhasesUnbalanced.Interfaces.Examples"
+>Buildings.Electrical.AC.ThreePhasesUnbalanced.Interfaces.Examples</a>.WyeToDelta</h2>
+<p>
+<b>Test for Y to D connection</b>
+<br>
+<br><img src="Buildings.Electrical.AC.T8fb0a8e76335963cDeltaD.png" alt="Buildings.Electrical.AC.ThreePhasesUnbalanced.Interfaces.Examples.WyeToDelta">
+</p>
+<h3>Information</h3>
+
+<p>
+This simple example shows how to use a Y to D adapter.
+</p>
+<p>
+The probe <code>probe_Y</code> mesaures the phase voltages before they
+are converted into D. Their RMS value is equal to <i>480/sqrt(3)</i> V.
+</p>
+<p>
+The probe <code>probe_D</code> measures the phase
+voltages after the conversion to D. Their RMS value is equal to <i>480</i> V,
+the line voltage provided by the voltage source.
+</p>
+
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">model</span> WyeToDelta <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Test for Y to D connection&quot;</span>
+
+  <a href="Buildings_Electrical_AC_ThreePhasesUnbalanced_Interfaces.html#Buildings.Electrical.AC.ThreePhasesUnbalanced.Interfaces.WyeToDelta"
+>Buildings.Electrical.AC.ThreePhasesUnbalanced.Interfaces.WyeToDelta</a> wyeToDelta <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Conversion of the voltages from Y to D&quot;</span>;
+  <a href="Buildings_Electrical_AC_ThreePhasesUnbalanced_Sources.html#Buildings.Electrical.AC.ThreePhasesUnbalanced.Sources.FixedVoltage"
+>Buildings.Electrical.AC.ThreePhasesUnbalanced.Sources.FixedVoltage</a> V1(f=60, V=
+        480) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Voltage source&quot;</span>;
+  <a href="Buildings_Electrical_AC_ThreePhasesUnbalanced_Sensors.html#Buildings.Electrical.AC.ThreePhasesUnbalanced.Sensors.ProbeWye"
+>Buildings.Electrical.AC.ThreePhasesUnbalanced.Sensors.ProbeWye</a> probe_Y(perUnit=
+       false, V_nominal=480) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Probe that measures the voltage and the angles on each phase&quot;</span>;
+  <a href="Buildings_Electrical_AC_ThreePhasesUnbalanced_Sensors.html#Buildings.Electrical.AC.ThreePhasesUnbalanced.Sensors.ProbeWye"
+>Buildings.Electrical.AC.ThreePhasesUnbalanced.Sensors.ProbeWye</a> probeD(perUnit=
+        false, V_nominal=480) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Probe that measures the voltage and the angles on each phase&quot;</span>;
+<span style="color: blue; font-weight: normal; font-style: normal;">equation </span>
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(V1.terminal, wyeToDelta.wye);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(probe_Y.term, wyeToDelta.wye);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(probeD.term, wyeToDelta.delta);
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>WyeToDelta;
+</div>
+<hr>
+<address>
+<a href="http://www.3ds.com/">Automatically generated</a> Thu Apr  9 09:34:11 2015.
+</address>
+</body>
+</html>

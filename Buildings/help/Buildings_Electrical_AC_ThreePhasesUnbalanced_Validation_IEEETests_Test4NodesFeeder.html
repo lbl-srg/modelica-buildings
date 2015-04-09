@@ -1,0 +1,184 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>Buildings.Electrical.AC.ThreePhasesUnbalanced.Validation.IEEETests.Test4NodesFeeder</title>
+<meta name="HTML-Generator" content="Dymola">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="description" content="&quot;This package contains models for the IEEE 4 nodes test feeder&quot;">
+<style type="text/css">
+*       { font-size: 10pt; font-family: Arial, sans-serif; }
+.modelica, .modelica * { font-size: 9pt; font-family: Courier, monospace; white-space: pre; }
+h4      { font-size: 10pt; font-weight: bold; color: green; }
+h3      { font-size: 11pt; font-weight: bold; color: green; }
+h2      { font-size: 13pt; font-weight: bold; color: green; }
+address { font-weight: normal; }
+td      { border: 1px solid #808080; vertical-align: top; }
+th      { border: 1px solid #808080; vertical-align: top; font-weight: bold; }
+table   { border: 1px solid #808080; border-collapse: collapse; }
+</style>
+<link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../Resources/www/modelicaDoc.css">
+</HEAD>
+<body>
+<!-- --- header ------ -->
+<div class="headerStyle">
+<img src="../Resources/www/lbl-logo.png" alt="LBL logo"/>
+</div>
+<div class="headerLinks">
+<ul><li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt; <a href="Buildings.html">Modelica</a></li></ul>
+</div>
+<!-- --- end header -- -->
+
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE Test4NodesFeeder<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><a name="Buildings.Electrical.AC.ThreePhasesUnbalanced.Validation.IEEETests.Test4NodesFeeder"></a><a href="Buildings_Electrical_AC_ThreePhasesUnbalanced_Validation_IEEETests.html#Buildings.Electrical.AC.ThreePhasesUnbalanced.Validation.IEEETests"
+>Buildings.Electrical.AC.ThreePhasesUnbalanced.Validation.IEEETests</a>.Test4NodesFeeder</h2>
+<p>
+<b>This package contains models for the IEEE 4 nodes test feeder</b><br>
+</p>
+<h3>Information</h3>
+
+<p>
+This package contains examples that shows the validation of the models
+against the IEEE four-nodes test feeder validation procedure <a href="Buildings_Electrical_AC_ThreePhasesUnbalanced_Validation_IEEETests_Test4NodesFeeder.html#Buildings.Electrical.AC.ThreePhasesUnbalanced.Validation.IEEETests.Test4NodesFeeder"
+></a>.
+The tests that are part of the validation certify the capability to represent
+transformers of various configurations, full three-phase lines, and unbalanced loads.
+</p>
+<p align="center">
+<img alt="image" src="../Resources/Images/Electrical/AC/ThreePhasesUnbalanced/Validation/IEEETests/Test4nodesFeeder/IEEE_4nodes_schema.png"/>
+</p>
+<p>
+The figure shows the structure of the four-nodes network. The voltage
+source is connected to the load through two lines and a transformer. The validation procedure
+consists of mutliple tests in which the type of the load and the type of the transformer vary.
+The test cases that have been successfully implemented using the models of the
+<a href="Buildings_Electrical.html#Buildings.Electrical"
+>Buildings.Electrical</a>
+package.
+</p>
+<p>
+Each example in this package is part of the validation tests.
+The examples have been grouped into sub-packages depending on the characteristics
+of the validation test. The table below summarizes the examples that are part of this
+package.
+</p>
+
+<table summary="summary" border="1" cellspacing="0" cellpadding="2" style="border-collapse:collapse;">
+<tr>
+  <th>Transformer</th>
+  <th>Load</th>
+</tr>
+<tr>
+  <td>Gr Y - Gr Y Step Up</td>
+  <td>Balanced</td>
+</tr>
+<tr>
+  <td>Gr Y - D Step Up</td>
+  <td>Balanced</td>
+</tr>
+<tr>
+  <td>D - D Step Up</td>
+  <td>Balanced</td>
+</tr>
+<tr>
+  <td>Gr Y - Gr Y Step Down</td>
+  <td>Balanced</td>
+</tr>
+<tr>
+  <td>Gr Y - D Step Down</td>
+  <td>Balanced</td>
+</tr>
+<tr>
+  <td>D - D Step Down</td>
+  <td>Balanced</td>
+</tr>
+<tr>
+  <td>Gr Y - Gr Y Step Up</td>
+  <td>Unbalanced</td>
+</tr>
+<tr>
+  <td>Gr Y - D Step Up</td>
+  <td>Unbalanced</td>
+</tr>
+<tr>
+  <td>D - D Step Up</td>
+  <td>Unbalanced</td>
+</tr>
+<tr>
+  <td>Gr Y - Gr Y Step Down</td>
+  <td>Unbalanced</td>
+</tr>
+<tr>
+  <td>Gr Y - D Step Down</td>
+  <td>Unbalanced</td>
+</tr>
+<tr>
+  <td>D - D Step Down</td>
+  <td>Unbalanced</td>
+</tr>
+</table>
+
+<p>
+For example Gr Y - D Step Up indicates that the transformer has a grounded Y connection at the primary
+side, and a D connection at the secondary side. Step up indicates that the voltage at the secondary
+side is higher than the primary side.
+Each test listed in the table produces results that differ from the reference IEEE values by
+less than 0.05%, which is the threshold defined by IEEE to determine whether results should be accepted or not.
+</p>
+
+<h4>References</h4>
+<p>
+<a NAME="kersting2001radial"/>
+Kersting, William H.<br/>
+<a href="http://ewh.ieee.org/soc/pes/dsacom/testfeeders/">
+Radial distribution test feeders</a><br/>
+<i>Power Engineering Society Winter Meeting (2) p. 908-912, 2001. IEEE</i><br/>
+</p>
+
+
+<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons_ExamplesPackage.html#Modelica.Icons.ExamplesPackage"
+>Modelica.Icons.ExamplesPackage</a> (Icon for packages containing runnable examples).</p>
+<h3>Package Content</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Package Content">
+<tr>
+<th>Name</th>
+<th>Description</th>
+</tr>
+<tr>
+<td><img src="Buildings.Electrical.AC.Tbbdadf00448472eaTestsS.png" alt="Buildings.Electrical.AC.ThreePhasesUnbalanced.Validation.IEEETests.Test4NodesFeeder.BalancedStepDown" width="20" height="20" align="top">&nbsp;<a href="Buildings_Electrical_AC_ThreePhasesUnbalanced_Validation_IEEETests_Test4NodesFeeder_BalancedStepDown.html#Buildings.Electrical.AC.ThreePhasesUnbalanced.Validation.IEEETests.Test4NodesFeeder.BalancedStepDown"
+>BalancedStepDown</a>
+</td>
+<td>Package that contains the examples for balanced loads and step down transformer</td>
+</tr>
+<tr>
+<td><img src="Buildings.Electrical.AC.Tbbdadf00448472eaTestsS.png" alt="Buildings.Electrical.AC.ThreePhasesUnbalanced.Validation.IEEETests.Test4NodesFeeder.BalancedStepUp" width="20" height="20" align="top">&nbsp;<a href="Buildings_Electrical_AC_ThreePhasesUnbalanced_Validation_IEEETests_Test4NodesFeeder_BalancedStepUp.html#Buildings.Electrical.AC.ThreePhasesUnbalanced.Validation.IEEETests.Test4NodesFeeder.BalancedStepUp"
+>BalancedStepUp</a>
+</td>
+<td>Package that contains the examples for balanced loads and step up transformer</td>
+</tr>
+<tr>
+<td><img src="Buildings.Electrical.AC.Tbbdadf00448472eaTestsS.png" alt="Buildings.Electrical.AC.ThreePhasesUnbalanced.Validation.IEEETests.Test4NodesFeeder.UnbalancedStepDown" width="20" height="20" align="top">&nbsp;<a href="Buildings_Electrical_AC_ThreePhasesUnbalanced_Validation_IEEETests_Test4NodesFeeder_UnbalancedStepDown.html#Buildings.Electrical.AC.ThreePhasesUnbalanced.Validation.IEEETests.Test4NodesFeeder.UnbalancedStepDown"
+>UnbalancedStepDown</a>
+</td>
+<td>Package that contains the examples for unbalanced loads and step down transformer</td>
+</tr>
+<tr>
+<td><img src="Buildings.Electrical.AC.Tbbdadf00448472eaTestsS.png" alt="Buildings.Electrical.AC.ThreePhasesUnbalanced.Validation.IEEETests.Test4NodesFeeder.UnbalancedStepUp" width="20" height="20" align="top">&nbsp;<a href="Buildings_Electrical_AC_ThreePhasesUnbalanced_Validation_IEEETests_Test4NodesFeeder_UnbalancedStepUp.html#Buildings.Electrical.AC.ThreePhasesUnbalanced.Validation.IEEETests.Test4NodesFeeder.UnbalancedStepUp"
+>UnbalancedStepUp</a>
+</td>
+<td>Package that contains the examples for unbalanced loads and step up transformer</td>
+</tr>
+<tr>
+<td><img src="Buildings.Electrical.AC.Tc0b16abb74ef3bc7assesS.png" alt="Buildings.Electrical.AC.ThreePhasesUnbalanced.Validation.IEEETests.Test4NodesFeeder.BaseClasses" width="20" height="20" align="top">&nbsp;<a href="Buildings_Electrical_AC_ThreePhasesUnbalanced_Validation_IEEETests_Test4NodesFeeder_BaseClasses.html#Buildings.Electrical.AC.ThreePhasesUnbalanced.Validation.IEEETests.Test4NodesFeeder.BaseClasses"
+>BaseClasses</a>
+</td>
+<td>This package contains the base classes used by the IEEE 4 nodes test feeder</td>
+</tr>
+</table>
+<hr>
+<address>
+<a href="http://www.3ds.com/">Automatically generated</a> Thu Apr  9 09:33:56 2015.
+</address>
+</body>
+</html>

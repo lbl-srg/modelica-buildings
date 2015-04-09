@@ -1,0 +1,200 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>Buildings.Electrical.AC.ThreePhasesBalanced.Sensors</title>
+<meta name="HTML-Generator" content="Dymola">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="description" content="&quot;Package with sensors models for three-phase balanced AC systems&quot;">
+<style type="text/css">
+*       { font-size: 10pt; font-family: Arial, sans-serif; }
+.modelica, .modelica * { font-size: 9pt; font-family: Courier, monospace; white-space: pre; }
+h4      { font-size: 10pt; font-weight: bold; color: green; }
+h3      { font-size: 11pt; font-weight: bold; color: green; }
+h2      { font-size: 13pt; font-weight: bold; color: green; }
+address { font-weight: normal; }
+td      { border: 1px solid #808080; vertical-align: top; }
+th      { border: 1px solid #808080; vertical-align: top; font-weight: bold; }
+table   { border: 1px solid #808080; border-collapse: collapse; }
+</style>
+<link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../Resources/www/modelicaDoc.css">
+</HEAD>
+<body>
+<!-- --- header ------ -->
+<div class="headerStyle">
+<img src="../Resources/www/lbl-logo.png" alt="LBL logo"/>
+</div>
+<div class="headerLinks">
+<ul><li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt; <a href="Buildings.html">Modelica</a></li></ul>
+</div>
+<!-- --- end header -- -->
+
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE Sensors<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><a name="Buildings.Electrical.AC.ThreePhasesBalanced.Sensors"></a><a href="Buildings_Electrical_AC_ThreePhasesBalanced.html#Buildings.Electrical.AC.ThreePhasesBalanced"
+>Buildings.Electrical.AC.ThreePhasesBalanced</a>.Sensors</h2>
+<p>
+<b>Package with sensors models for three-phase balanced AC systems</b><br>
+</p>
+<h3>Information</h3>
+
+<p>
+This package contains models for voltage, current and power sensors.
+</p>
+
+<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons_SensorsPackage.html#Modelica.Icons.SensorsPackage"
+>Modelica.Icons.SensorsPackage</a> (Icon for packages containing sensors).</p>
+<h3>Package Content</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Package Content">
+<tr>
+<th>Name</th>
+<th>Description</th>
+</tr>
+<tr>
+<td><img src="Buildings.Electrical.AC.T36614d44124abe4censorS.png" alt="Buildings.Electrical.AC.ThreePhasesBalanced.Sensors.GeneralizedSensor" width="20" height="20" align="top">&nbsp;<a href="Buildings_Electrical_AC_ThreePhasesBalanced_Sensors.html#Buildings.Electrical.AC.ThreePhasesBalanced.Sensors.GeneralizedSensor"
+>GeneralizedSensor</a>
+</td>
+<td>Sensor for power, voltage and current</td>
+</tr>
+<tr>
+<td><img src="Buildings.Electrical.AC.T446c36a6b069ea00ProbeS.png" alt="Buildings.Electrical.AC.ThreePhasesBalanced.Sensors.Probe" width="20" height="20" align="top">&nbsp;<a href="Buildings_Electrical_AC_ThreePhasesBalanced_Sensors.html#Buildings.Electrical.AC.ThreePhasesBalanced.Sensors.Probe"
+>Probe</a>
+</td>
+<td>Model of a probe that measures RMS voltage and angle</td>
+</tr>
+<tr>
+<td><img src="Buildings.Electrical.AC.T5841f1e769fb344dmplesS.png" alt="Buildings.Electrical.AC.ThreePhasesBalanced.Sensors.Examples" width="20" height="20" align="top">&nbsp;<a href="Buildings_Electrical_AC_ThreePhasesBalanced_Sensors_Examples.html#Buildings.Electrical.AC.ThreePhasesBalanced.Sensors.Examples"
+>Examples</a>
+</td>
+<td>Package with example models</td>
+</tr>
+</table>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE GeneralizedSensor<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Electrical.AC.T36614d44124abe4censorI.png" alt="Buildings.Electrical.AC.ThreePhasesBalanced.Sensors.GeneralizedSensor" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Electrical.AC.ThreePhasesBalanced.Sensors.GeneralizedSensor"></a><a href="Buildings_Electrical_AC_ThreePhasesBalanced_Sensors.html#Buildings.Electrical.AC.ThreePhasesBalanced.Sensors"
+>Buildings.Electrical.AC.ThreePhasesBalanced.Sensors</a>.GeneralizedSensor</h2>
+<p>
+<b>Sensor for power, voltage and current</b>
+<br>
+<br><img src="Buildings.Electrical.AC.T36614d44124abe4censorD.png" alt="Buildings.Electrical.AC.ThreePhasesBalanced.Sensors.GeneralizedSensor">
+</p>
+<h3>Information</h3>
+
+<p>
+Ideal sensor that measures power, voltage and current.
+The two components of the power <i>S</i> are the active and reactive power.
+</p>
+
+<p>Extends from <a href="Buildings_Electrical_Icons.html#Buildings.Electrical.Icons.GeneralizedSensor"
+>Buildings.Electrical.Icons.GeneralizedSensor</a> (Icon representing a generalized sensor that measures voltage, current and power), <a href="Buildings_Electrical_Interfaces.html#Buildings.Electrical.Interfaces.PartialTwoPort"
+>Buildings.Electrical.Interfaces.PartialTwoPort</a> (Model of a generic two port component with phase systems).</p>
+<h3>Parameters</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td colspan="2">replaceable package PhaseSystem_p</td><td><a href="Buildings_Electrical_PhaseSystems_PartialPhaseSystem.html#Buildings.Electrical.PhaseSystems.PartialPhaseSystem"
+>PartialPhaseSystem</a></td><td>Phase system of terminal p</td></tr>
+<tr><td colspan="2">replaceable package PhaseSystem_n</td><td><a href="Buildings_Electrical_PhaseSystems_PartialPhaseSystem.html#Buildings.Electrical.PhaseSystems.PartialPhaseSystem"
+>PartialPhaseSystem</a></td><td>Phase system of terminal n</td></tr>
+</table>
+<h3>Connectors</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Connectors">
+<tr><th>Type</th><th>Name</th><th>Description</th></tr>
+<tr><td colspan="2">replaceable package PhaseSystem_p</td><td>Phase system of terminal p</td></tr>
+<tr><td colspan="2">replaceable package PhaseSystem_n</td><td>Phase system of terminal n</td></tr>
+<tr><td>output <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+>RealOutput</a></td><td>V</td><td>Voltage [V]</td></tr>
+<tr><td>output <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+>RealOutput</a></td><td>I</td><td>Current [A]</td></tr>
+<tr><td>output <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+>RealOutput</a></td><td>S[PhaseSystems.OnePhase.n]</td><td>Phase powers [W]</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">model</span> GeneralizedSensor <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Sensor for power, voltage and current&quot;</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="Buildings_Electrical_Icons.html#Buildings.Electrical.Icons.GeneralizedSensor"
+>Buildings.Electrical.Icons.GeneralizedSensor</a>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="Buildings_Electrical_Interfaces.html#Buildings.Electrical.Interfaces.PartialTwoPort"
+>Buildings.Electrical.Interfaces.PartialTwoPort</a>(
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> PhaseSystem_p = <a href="Buildings_Electrical_PhaseSystems_OnePhase.html#Buildings.Electrical.PhaseSystems.OnePhase"
+>PhaseSystems.OnePhase</a>,
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> PhaseSystem_n = <a href="Buildings_Electrical_PhaseSystems_OnePhase.html#Buildings.Electrical.PhaseSystems.OnePhase"
+>PhaseSystems.OnePhase</a>,
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><a href="Buildings_Electrical_AC_ThreePhasesBalanced_Interfaces.html#Buildings.Electrical.AC.ThreePhasesBalanced.Interfaces.Terminal_n"
+>Interfaces.Terminal_n</a> terminal_n(<span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> PhaseSystem =
+          PhaseSystem_n),
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><a href="Buildings_Electrical_AC_ThreePhasesBalanced_Interfaces.html#Buildings.Electrical.AC.ThreePhasesBalanced.Interfaces.Terminal_p"
+>Interfaces.Terminal_p</a> terminal_p(<span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> PhaseSystem =
+          PhaseSystem_p));
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+>Modelica.Blocks.Interfaces.RealOutput</a> V(
+    <span style="color: blue; font-weight: normal; font-style: normal;">final </span>quantity=&quot;ElectricPotential&quot;,
+    <span style="color: blue; font-weight: normal; font-style: normal;">final </span>unit=&quot;V&quot;)=
+      <span style="color: red; font-weight: normal; font-style: normal;">Buildings.Electrical.PhaseSystems.OnePhase.systemVoltage</span>(terminal_n.v) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Voltage&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+>Modelica.Blocks.Interfaces.RealOutput</a> I(
+    <span style="color: blue; font-weight: normal; font-style: normal;">final </span>quantity=&quot;ElectricCurrent&quot;,
+    <span style="color: blue; font-weight: normal; font-style: normal;">final </span>unit=&quot;A&quot;)=
+      <span style="color: red; font-weight: normal; font-style: normal;">Buildings.Electrical.PhaseSystems.OnePhase.systemCurrent</span>(terminal_n.i) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Current&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+>Modelica.Blocks.Interfaces.RealOutput</a> S[PhaseSystems.OnePhase.n](
+    <span style="color: blue; font-weight: normal; font-style: normal;">each </span><span style="color: blue; font-weight: normal; font-style: normal;">final </span>quantity=&quot;Power&quot;,
+    <span style="color: blue; font-weight: normal; font-style: normal;">each </span><span style="color: blue; font-weight: normal; font-style: normal;">final </span>unit=&quot;W&quot;)=
+      <span style="color: red; font-weight: normal; font-style: normal;">Buildings.Electrical.PhaseSystems.OnePhase.phasePowers_vi</span>(v=terminal_n.v, i=terminal_n.i) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Phase powers&quot;</span>;
+<span style="color: blue; font-weight: normal; font-style: normal;">equation </span>
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(terminal_n, terminal_p);
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>GeneralizedSensor;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE Probe<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Electrical.AC.T446c36a6b069ea00ProbeI.png" alt="Buildings.Electrical.AC.ThreePhasesBalanced.Sensors.Probe" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Electrical.AC.ThreePhasesBalanced.Sensors.Probe"></a><a href="Buildings_Electrical_AC_ThreePhasesBalanced_Sensors.html#Buildings.Electrical.AC.ThreePhasesBalanced.Sensors"
+>Buildings.Electrical.AC.ThreePhasesBalanced.Sensors</a>.Probe</h2>
+<p>
+<b>Model of a probe that measures RMS voltage and angle</b>
+<br>
+<br><img src="Buildings.Electrical.AC.T446c36a6b069ea00ProbeD.png" alt="Buildings.Electrical.AC.ThreePhasesBalanced.Sensors.Probe">
+</p>
+<h3>Information</h3>
+
+<p>
+This model represents a probe that measures the RMS voltage and the angle
+of the voltage phasor at a given point.
+</p>
+
+<p>Extends from <a href="Buildings_Electrical_AC_OnePhase_Sensors.html#Buildings.Electrical.AC.OnePhase.Sensors.Probe"
+>OnePhase.Sensors.Probe</a> (Model of a probe that measures RMS voltage and angle).</p>
+<h3>Parameters</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td>Boolean</td><td>perUnit</td><td>true</td><td>If true, display voltage in p.u.</td></tr>
+</table>
+<h3>Connectors</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Connectors">
+<tr><th>Type</th><th>Name</th><th>Description</th></tr>
+<tr><td>output <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+>RealOutput</a></td><td>V</td><td>Voltage phasor magnitude [1V]</td></tr>
+<tr><td>output <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+>RealOutput</a></td><td>theta</td><td>Voltage phasor angle [rad]</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">model</span> Probe <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Model of a probe that measures RMS voltage and angle&quot;</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="Buildings_Electrical_AC_OnePhase_Sensors.html#Buildings.Electrical.AC.OnePhase.Sensors.Probe"
+>OnePhase.Sensors.Probe</a>(
+  <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><a href="Buildings_Electrical_AC_ThreePhasesBalanced_Interfaces.html#Buildings.Electrical.AC.ThreePhasesBalanced.Interfaces.Terminal_n"
+>Buildings.Electrical.AC.ThreePhasesBalanced.Interfaces.Terminal_n</a> term,
+  V_nominal(start=480));
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>Probe;
+</div>
+<hr>
+<address>
+<a href="http://www.3ds.com/">Automatically generated</a> Thu Apr  9 09:33:14 2015.
+</address>
+</body>
+</html>

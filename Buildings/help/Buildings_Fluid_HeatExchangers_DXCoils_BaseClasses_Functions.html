@@ -1,0 +1,203 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.Functions</title>
+<meta name="HTML-Generator" content="Dymola">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="description" content="&quot;Package with functions&quot;">
+<style type="text/css">
+*       { font-size: 10pt; font-family: Arial, sans-serif; }
+.modelica, .modelica * { font-size: 9pt; font-family: Courier, monospace; white-space: pre; }
+h4      { font-size: 10pt; font-weight: bold; color: green; }
+h3      { font-size: 11pt; font-weight: bold; color: green; }
+h2      { font-size: 13pt; font-weight: bold; color: green; }
+address { font-weight: normal; }
+td      { border: 1px solid #808080; vertical-align: top; }
+th      { border: 1px solid #808080; vertical-align: top; font-weight: bold; }
+table   { border: 1px solid #808080; border-collapse: collapse; }
+</style>
+<link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../Resources/www/modelicaDoc.css">
+</HEAD>
+<body>
+<!-- --- header ------ -->
+<div class="headerStyle">
+<img src="../Resources/www/lbl-logo.png" alt="LBL logo"/>
+</div>
+<div class="headerLinks">
+<ul><li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt; <a href="Buildings.html">Modelica</a></li></ul>
+</div>
+<!-- --- end header -- -->
+
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE Functions<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><a name="Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.Functions"></a><a href="Buildings_Fluid_HeatExchangers_DXCoils_BaseClasses.html#Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses"
+>Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses</a>.Functions</h2>
+<p>
+<b>Package with functions</b><br>
+</p>
+<h3>Information</h3>
+
+<p>
+This package contains functions that are used in
+<a href="Buildings_Fluid_HeatExchangers_DXCoils_BaseClasses.html#Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses"
+>
+Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses</a>.
+</p>
+
+<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons_BasesPackage.html#Modelica.Icons.BasesPackage"
+>Modelica.Icons.BasesPackage</a> (Icon for packages containing base classes).</p>
+<h3>Package Content</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Package Content">
+<tr>
+<th>Name</th>
+<th>Description</th>
+</tr>
+<tr>
+<td><img src="Buildings.Fluid.HeatExcha8529d460000cfb94ShiftS.png" alt="Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.Functions.speedShift" width="20" height="20" align="top">&nbsp;<a href="Buildings_Fluid_HeatExchangers_DXCoils_BaseClasses_Functions.html#Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.Functions.speedShift"
+>speedShift</a>
+</td>
+<td>Interpolates value between two speeds</td>
+</tr>
+<tr>
+<td><img src="Buildings.Fluid.HeatExcha8529d460000cfb94ShiftS.png" alt="Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.Functions.warnIfPerformanceOutOfBounds" width="20" height="20" align="top">&nbsp;<a href="Buildings_Fluid_HeatExchangers_DXCoils_BaseClasses_Functions.html#Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.Functions.warnIfPerformanceOutOfBounds"
+>warnIfPerformanceOutOfBounds</a>
+</td>
+<td>Function that checks the performance and writes a warning if it is outside of 0.9 to 1.1</td>
+</tr>
+</table>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE speedShift<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><a name="Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.Functions.speedShift"></a><a href="Buildings_Fluid_HeatExchangers_DXCoils_BaseClasses_Functions.html#Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.Functions"
+>Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.Functions</a>.speedShift</h2>
+<p>
+<b>Interpolates value between two speeds</b>
+</p>
+<h3>Information</h3>
+
+<p>
+This function interpolates data for intermediate compressor speeds
+using cubic hermite splines with linear extrapolation.
+To avoid linear extrapolation below minimum standard speed,
+the origin is added to the modified arrays.
+</p>
+
+<h3>Inputs</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Inputs">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td>Real</td><td>spe</td><td>&nbsp;</td><td>Speed of compressor</td></tr>
+<tr><td>Real</td><td>speSet[:]</td><td>&nbsp;</td><td>Array of standard compressor speeds</td></tr>
+<tr><td>Real</td><td>u[:]</td><td>&nbsp;</td><td>Array to be interpolated</td></tr>
+</table>
+<h3>Outputs</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Outputs">
+<tr><th>Type</th><th>Name</th><th>Description</th></tr>
+<tr><td>Real</td><td>y</td><td>Interpolated value</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">function</span> speedShift <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Interpolates value between two speeds&quot;</span>
+  <span style="color: #006400; font-weight: normal; font-style: normal;">//x in cubic Hermite function</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">input </span>Real spe <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Speed of compressor&quot;</span>;
+  <span style="color: #006400; font-weight: normal; font-style: normal;">//x1, x2  in cubic Hermite function</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">input </span>Real speSet[:] <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Array of standard compressor speeds&quot;</span>;
+  <span style="color: #006400; font-weight: normal; font-style: normal;">//y1, y2 in cubic Hermite function</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">input </span>Real u[:] <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Array to be interpolated&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">output </span>Real y <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Interpolated value&quot;</span>;
+<span style="color: blue; font-weight: normal; font-style: normal;">protected </span>
+  Integer n=<span style="color: red; font-weight: normal; font-style: normal;"> size</span>(u,1)+1 <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Number of elements in modified array&quot;</span>;
+  Real derv[n] <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;deriative&quot;</span>;
+  Integer i=1 <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Integer to select data interval&quot;</span>;
+  Real modSpeSet[n] <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Speed set with origin&quot;</span>;
+  Real modU[n];
+<span style="color: blue; font-weight: normal; font-style: normal;">algorithm </span>
+  <span style="color: #006400; font-weight: normal; font-style: normal;">  //y1d, y2d in cubic Hermite function</span>
+    modSpeSet:=<span style="color: red; font-weight: normal; font-style: normal;"> cat</span>(1, {0.00}, speSet);
+    modU     :=<span style="color: red; font-weight: normal; font-style: normal;"> cat</span>(1, {0.00}, u);
+  <span style="color: #006400; font-weight: normal; font-style: normal;">  //Derivatives at standard speeds</span>
+    derv     :=<span style="color: red; font-weight: normal; font-style: normal;"> Buildings.Utilities.Math.Functions.splineDerivatives</span>(
+                   x=modSpeSet,
+                   y=modU,
+                   ensureMonotonicity=<span style="color: red; font-weight: normal; font-style: normal;">Buildings.Utilities.Math.Functions.isMonotonic</span>(x=modU,
+                                                                                     strict=false));
+  <span style="color: #006400; font-weight: normal; font-style: normal;">  //locate the range between which compressor operates</span>
+    <span style="color: blue; font-weight: normal; font-style: normal;">for </span>j<span style="color: blue; font-weight: normal; font-style: normal;"> in </span>1:<span style="color: red; font-weight: normal; font-style: normal;">size</span>(modSpeSet, 1) - 1<span style="color: blue; font-weight: normal; font-style: normal;"> loop</span>
+      <span style="color: blue; font-weight: normal; font-style: normal;">if </span>spe &gt; modSpeSet[j]<span style="color: blue; font-weight: normal; font-style: normal;"> then</span>
+        i :=j;
+      <span style="color: blue; font-weight: normal; font-style: normal;">end if</span>;
+    <span style="color: blue; font-weight: normal; font-style: normal;">end for</span>;
+    y :=<span style="color: red; font-weight: normal; font-style: normal;">Buildings.Utilities.Math.Functions.cubicHermiteLinearExtrapolation</span>(
+      x=spe,
+      x1=modSpeSet[i],
+      x2=modSpeSet[i + 1],
+      y1=modU[i],
+      y2=modU[i + 1],
+      y1d=derv[i],
+      y2d=derv[i + 1]);
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>speedShift;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE warnIfPerformanceOutOfBounds<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><a name="Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.Functions.warnIfPerformanceOutOfBounds"></a><a href="Buildings_Fluid_HeatExchangers_DXCoils_BaseClasses_Functions.html#Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.Functions"
+>Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.Functions</a>.warnIfPerformanceOutOfBounds</h2>
+<p>
+<b>Function that checks the performance and writes a warning if it is outside of 0.9 to 1.1</b>
+</p>
+<h3>Information</h3>
+
+<p>
+This function checks if the numeric argument is outside of the
+interval <i>0.9</i> to <i>1.1</i>.
+If this is the case, the function writes a warning.
+</p>
+
+<h3>Inputs</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Inputs">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td>Real</td><td>x</td><td>&nbsp;</td><td>Argument to be checked</td></tr>
+<tr><td>String</td><td>msg</td><td>&nbsp;</td><td>String to be added to warning message</td></tr>
+<tr><td>String</td><td>curveName</td><td>&nbsp;</td><td>Name of the curve that was tested</td></tr>
+</table>
+<h3>Outputs</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Outputs">
+<tr><th>Type</th><th>Name</th><th>Description</th></tr>
+<tr><td>Integer</td><td>retVal</td><td>0 if x is inside bounds, -1 if it is below bounds, or +1 if it is above bounds</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">function</span> warnIfPerformanceOutOfBounds <span style="color: #006400; font-weight: normal; font-style: normal;">
+  &quot;Function that checks the performance and writes a warning if it is outside of 0.9 to 1.1&quot;</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">input </span>Real x <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Argument to be checked&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">input </span>String msg <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;String to be added to warning message&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">input </span>String curveName <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Name of the curve that was tested&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">output </span>Integer retVal <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;0 if x is inside bounds, -1 if it is below bounds, or +1 if it is above bounds&quot;</span>;
+
+<span style="color: blue; font-weight: normal; font-style: normal;">algorithm </span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">if </span>(x &gt; 1.1)<span style="color: blue; font-weight: normal; font-style: normal;"> then</span>
+    retVal :=1;
+  <span style="color: blue; font-weight: normal; font-style: normal;">elseif </span>( x &lt; 0.9)<span style="color: blue; font-weight: normal; font-style: normal;"> then</span>
+      retVal :=-1;
+  <span style="color: blue; font-weight: normal; font-style: normal;">else</span>
+    retVal :=0;
+  <span style="color: blue; font-weight: normal; font-style: normal;">end if</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">if </span>(retVal &lt;&gt; 0)<span style="color: blue; font-weight: normal; font-style: normal;"> then</span>
+    <span style="color: red; font-weight: normal; font-style: normal;">  Modelica.Utilities.Streams.print</span>(&quot;************************************************************************************&quot;);
+    <span style="color: red; font-weight: normal; font-style: normal;">  Modelica.Utilities.Streams.print</span>(&quot;*** Warning: DX coil performance curves at nominal conditions are outside of bounds.&quot;);
+    <span style="color: red; font-weight: normal; font-style: normal;">  Modelica.Utilities.Streams.print</span>(msg + &quot; is outside of bounds 0.9 to 1.1.&quot;);
+    <span style="color: red; font-weight: normal; font-style: normal;">  Modelica.Utilities.Streams.print</span>(&quot;The value of the curve fit is &quot; +<span style="color: red; font-weight: normal; font-style: normal;"> String</span>(x));
+    <span style="color: red; font-weight: normal; font-style: normal;">  Modelica.Utilities.Streams.print</span>(&quot;Check the coefficients of the function &quot; + curveName);
+    <span style="color: red; font-weight: normal; font-style: normal;">  Modelica.Utilities.Streams.print</span>(&quot;************************************************************************************&quot;);
+
+  <span style="color: blue; font-weight: normal; font-style: normal;">end if</span>;
+
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>warnIfPerformanceOutOfBounds;
+</div>
+<hr>
+<address>
+<a href="http://www.3ds.com/">Automatically generated</a> Thu Apr  9 09:35:47 2015.
+</address>
+</body>
+</html>

@@ -1,0 +1,105 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>Buildings.Fluid.Actuators.Motors.Examples</title>
+<meta name="HTML-Generator" content="Dymola">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="description" content="&quot;Collection of models that illustrate model use and test models&quot;">
+<style type="text/css">
+*       { font-size: 10pt; font-family: Arial, sans-serif; }
+.modelica, .modelica * { font-size: 9pt; font-family: Courier, monospace; white-space: pre; }
+h4      { font-size: 10pt; font-weight: bold; color: green; }
+h3      { font-size: 11pt; font-weight: bold; color: green; }
+h2      { font-size: 13pt; font-weight: bold; color: green; }
+address { font-weight: normal; }
+td      { border: 1px solid #808080; vertical-align: top; }
+th      { border: 1px solid #808080; vertical-align: top; font-weight: bold; }
+table   { border: 1px solid #808080; border-collapse: collapse; }
+</style>
+<link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../Resources/www/modelicaDoc.css">
+</HEAD>
+<body>
+<!-- --- header ------ -->
+<div class="headerStyle">
+<img src="../Resources/www/lbl-logo.png" alt="LBL logo"/>
+</div>
+<div class="headerLinks">
+<ul><li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt; <a href="Buildings.html">Modelica</a></li></ul>
+</div>
+<!-- --- end header -- -->
+
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE Examples<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><a name="Buildings.Fluid.Actuators.Motors.Examples"></a><a href="Buildings_Fluid_Actuators_Motors.html#Buildings.Fluid.Actuators.Motors"
+>Buildings.Fluid.Actuators.Motors</a>.Examples</h2>
+<p>
+<b>Collection of models that illustrate model use and test models</b><br>
+</p>
+<h3>Information</h3>
+
+<p>
+This package contains examples for the use of models that can be found in
+<a href="Buildings_Fluid_Actuators_Motors.html#Buildings.Fluid.Actuators.Motors"
+>
+Buildings.Fluid.Actuators.Motors</a>.
+</p>
+
+<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons_ExamplesPackage.html#Modelica.Icons.ExamplesPackage"
+>Modelica.Icons.ExamplesPackage</a> (Icon for packages containing runnable examples).</p>
+<h3>Package Content</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Package Content">
+<tr>
+<th>Name</th>
+<th>Description</th>
+</tr>
+<tr>
+<td><img src="Buildings.Fluid.Actuators906f843c2d69c0d5MotorS.png" alt="Buildings.Fluid.Actuators.Motors.Examples.IdealMotor" width="20" height="20" align="top">&nbsp;<a href="Buildings_Fluid_Actuators_Motors_Examples.html#Buildings.Fluid.Actuators.Motors.Examples.IdealMotor"
+>IdealMotor</a>
+</td>
+<td>Test model for IdealMotor</td>
+</tr>
+</table>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE IdealMotor<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Fluid.Actuators906f843c2d69c0d5MotorI.png" alt="Buildings.Fluid.Actuators.Motors.Examples.IdealMotor" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Fluid.Actuators.Motors.Examples.IdealMotor"></a><a href="Buildings_Fluid_Actuators_Motors_Examples.html#Buildings.Fluid.Actuators.Motors.Examples"
+>Buildings.Fluid.Actuators.Motors.Examples</a>.IdealMotor</h2>
+<p>
+<b>Test model for IdealMotor</b>
+<br>
+<br><img src="Buildings.Fluid.Actuators906f843c2d69c0d5MotorD.png" alt="Buildings.Fluid.Actuators.Motors.Examples.IdealMotor">
+</p>
+<h3>Information</h3>
+
+<p>
+Test model for the ideal motor with hysteresis model.
+The motor receives at its control input a time-varying signal.
+It adjusts its position whenever the input signal differs
+from the current position by more than the hysteresis.
+</p>
+
+<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</a> (Icon for runnable examples).</p>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">model</span> IdealMotor <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Test model for IdealMotor&quot;</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</a>;
+  <a href="Buildings_Fluid_Actuators_Motors.html#Buildings.Fluid.Actuators.Motors.IdealMotor"
+>Buildings.Fluid.Actuators.Motors.IdealMotor</a> mot(tOpe=60) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Motor model&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.TimeTable"
+>Modelica.Blocks.Sources.TimeTable</a> ySet(table=[0,0; 60,0; 60,1; 120,1; 180,0.5;
+        240,0.5; 300,0; 360,0; 360,0.25; 420,0.25; 480,1; 540,1.5; 600,-0.25]) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Set point for actuator&quot;</span>;
+<span style="color: blue; font-weight: normal; font-style: normal;">equation </span>
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(ySet.y, mot.u);
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>IdealMotor;
+</div>
+<hr>
+<address>
+<a href="http://www.3ds.com/">Automatically generated</a> Thu Apr  9 09:34:25 2015.
+</address>
+</body>
+</html>

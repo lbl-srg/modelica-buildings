@@ -1,0 +1,151 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>Buildings.Electrical.Utilities.Examples</title>
+<meta name="HTML-Generator" content="Dymola">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="description" content="&quot;This package contais tests for check the correctness of the models&quot;">
+<style type="text/css">
+*       { font-size: 10pt; font-family: Arial, sans-serif; }
+.modelica, .modelica * { font-size: 9pt; font-family: Courier, monospace; white-space: pre; }
+h4      { font-size: 10pt; font-weight: bold; color: green; }
+h3      { font-size: 11pt; font-weight: bold; color: green; }
+h2      { font-size: 13pt; font-weight: bold; color: green; }
+address { font-weight: normal; }
+td      { border: 1px solid #808080; vertical-align: top; }
+th      { border: 1px solid #808080; vertical-align: top; font-weight: bold; }
+table   { border: 1px solid #808080; border-collapse: collapse; }
+</style>
+<link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../Resources/www/modelicaDoc.css">
+</HEAD>
+<body>
+<!-- --- header ------ -->
+<div class="headerStyle">
+<img src="../Resources/www/lbl-logo.png" alt="LBL logo"/>
+</div>
+<div class="headerLinks">
+<ul><li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt; <a href="Buildings.html">Modelica</a></li></ul>
+</div>
+<!-- --- end header -- -->
+
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE Examples<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><a name="Buildings.Electrical.Utilities.Examples"></a><a href="Buildings_Electrical_Utilities.html#Buildings.Electrical.Utilities"
+>Buildings.Electrical.Utilities</a>.Examples</h2>
+<p>
+<b>This package contais tests for check the correctness of the models</b><br>
+</p>
+<h3>Information</h3>
+
+<p>
+This package contains examples for the use of models that can be found in
+<a href="Buildings_Electrical_Utilities.html#Buildings.Electrical.Utilities"
+>
+Buildings.Electrical.Utilities</a>.
+</p>
+
+<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons_ExamplesPackage.html#Modelica.Icons.ExamplesPackage"
+>Modelica.Icons.ExamplesPackage</a> (Icon for packages containing runnable examples).</p>
+<h3>Package Content</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Package Content">
+<tr>
+<th>Name</th>
+<th>Description</th>
+</tr>
+<tr>
+<td><img src="Buildings.Electrical.Util49e0ecd95b4f6ce8eCTRLS.png" alt="Buildings.Electrical.Utilities.Examples.TestVoltageCTRL" width="20" height="20" align="top">&nbsp;<a href="Buildings_Electrical_Utilities_Examples.html#Buildings.Electrical.Utilities.Examples.TestVoltageCTRL"
+>TestVoltageCTRL</a>
+</td>
+<td>This test check the correctness of the voltage controller model</td>
+</tr>
+</table>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE TestVoltageCTRL<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Electrical.Util49e0ecd95b4f6ce8eCTRLI.png" alt="Buildings.Electrical.Utilities.Examples.TestVoltageCTRL" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Electrical.Utilities.Examples.TestVoltageCTRL"></a><a href="Buildings_Electrical_Utilities_Examples.html#Buildings.Electrical.Utilities.Examples"
+>Buildings.Electrical.Utilities.Examples</a>.TestVoltageCTRL</h2>
+<p>
+<b>This test check the correctness of the voltage controller model</b>
+<br>
+<br><img src="Buildings.Electrical.Util49e0ecd95b4f6ce8eCTRLD.png" alt="Buildings.Electrical.Utilities.Examples.TestVoltageCTRL">
+</p>
+<h3>Information</h3>
+
+<p>
+This example shows the use of the voltage controller.
+</p>
+<p>
+The voltage controller is connected to a variable voltage source
+that oscillates between <i>140</i> and <i>100</i> V. The nominal voltage is
+<i>V<sub>nom</sub> = 120 </i> V. The controller has the following settings:
+</p>
+<ul>
+<li>Nominal voltage <i>V<sub>nom</sub> = 120 </i> V,</li>
+<li>Threshold <i>V<sub>tr</sub> = 0.1 (10%)</i>,</li>
+<li>tdelay <i>T<sub>delay</sub> = 2 </i> s.</li>
+</ul>
+<p>
+Therefore, when the voltage controller measures a voltage that
+is 10% higher that 120 V (that is 132 V), it sets its output signal <code>y</code> to zero.
+The output signal stays at zero for <i>T<sub>delay</sub></i>,
+after which it expires.
+Then, the controllers check again if the voltage is within the
+accepted thresholds.
+</p>
+<p>
+The image below shows how the signal becomes equal to zero when the measured
+voltage exceeds the threshold.
+</p>
+<p align="center">
+<img alt="image" src="../Resources/Images/Electrical/Utilities/Examples/VoltCTRL.png"/>
+</p>
+<p>
+The figure shows that the signal <code>y</code> becomes zero around <i>t = 1</i> s. After
+<i>T<sub>delay</sub></i> the voltage is still higher that 123 V and thus the controller waits until
+<i>t = 5</i> s to change the signal to one.
+</p>
+
+<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</a> (Icon for runnable examples).</p>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">model</span> TestVoltageCTRL <span style="color: #006400; font-weight: normal; font-style: normal;">
+  &quot;This test check the correctness of the voltage controller model&quot;</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</a>;
+  <a href="Buildings_Electrical_Utilities.html#Buildings.Electrical.Utilities.VoltageControl"
+>VoltageControl</a> voltageControl(
+  <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><a href="Buildings_Electrical_DC_Interfaces.html#Buildings.Electrical.DC.Interfaces.Terminal_p"
+>Buildings.Electrical.DC.Interfaces.Terminal_p</a> terminal,
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> PhaseSystem =
+        <a href="Buildings_Electrical_PhaseSystems_TwoConductor.html#Buildings.Electrical.PhaseSystems.TwoConductor"
+>Buildings.Electrical.PhaseSystems.TwoConductor</a>,
+    V_nominal=120,
+    tDelay=2) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Voltage controller&quot;</span>;
+  <a href="Buildings_Electrical_DC_Sources.html#Buildings.Electrical.DC.Sources.VoltageSource"
+>DC.Sources.VoltageSource</a> sou <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Varriable voltage source&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Electrical_Analog_Basic.html#Modelica.Electrical.Analog.Basic.Ground"
+>Modelica.Electrical.Analog.Basic.Ground</a> ground;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Sine"
+>Modelica.Blocks.Sources.Sine</a> cosine(
+    amplitude=20,
+    freqHz=0.1,
+    phase=0,
+    offset=120) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Variable voltage signal&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+>Modelica.Blocks.Sources.Constant</a> Vtr_high(k=120*(1 + 0.1)) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Voltage threshold high&quot;</span>;
+<span style="color: blue; font-weight: normal; font-style: normal;">equation </span>
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(sou.terminal, voltageControl.terminal);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(ground.p, sou.n);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(cosine.y, sou.V_in);
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>TestVoltageCTRL;
+</div>
+<hr>
+<address>
+<a href="http://www.3ds.com/">Automatically generated</a> Thu Apr  9 09:34:20 2015.
+</address>
+</body>
+</html>

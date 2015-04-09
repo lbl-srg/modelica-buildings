@@ -1,0 +1,107 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>Buildings.Electrical.DC.Sensors.Examples</title>
+<meta name="HTML-Generator" content="Dymola">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="description" content="&quot;Collection of models that illustrate model use and test models&quot;">
+<style type="text/css">
+*       { font-size: 10pt; font-family: Arial, sans-serif; }
+.modelica, .modelica * { font-size: 9pt; font-family: Courier, monospace; white-space: pre; }
+h4      { font-size: 10pt; font-weight: bold; color: green; }
+h3      { font-size: 11pt; font-weight: bold; color: green; }
+h2      { font-size: 13pt; font-weight: bold; color: green; }
+address { font-weight: normal; }
+td      { border: 1px solid #808080; vertical-align: top; }
+th      { border: 1px solid #808080; vertical-align: top; font-weight: bold; }
+table   { border: 1px solid #808080; border-collapse: collapse; }
+</style>
+<link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../Resources/www/modelicaDoc.css">
+</HEAD>
+<body>
+<!-- --- header ------ -->
+<div class="headerStyle">
+<img src="../Resources/www/lbl-logo.png" alt="LBL logo"/>
+</div>
+<div class="headerLinks">
+<ul><li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt; <a href="Buildings.html">Modelica</a></li></ul>
+</div>
+<!-- --- end header -- -->
+
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE Examples<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><a name="Buildings.Electrical.DC.Sensors.Examples"></a><a href="Buildings_Electrical_DC_Sensors.html#Buildings.Electrical.DC.Sensors"
+>Buildings.Electrical.DC.Sensors</a>.Examples</h2>
+<p>
+<b>Collection of models that illustrate model use and test models</b><br>
+</p>
+<h3>Information</h3>
+
+<p>
+This package contains examples for the use of models that can be found in
+<a href="Buildings_Electrical_DC_Sensors.html#Buildings.Electrical.DC.Sensors"
+>
+Buildings.Electrical.DC.Sensors</a>.
+</p>
+
+<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons_ExamplesPackage.html#Modelica.Icons.ExamplesPackage"
+>Modelica.Icons.ExamplesPackage</a> (Icon for packages containing runnable examples).</p>
+<h3>Package Content</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Package Content">
+<tr>
+<th>Name</th>
+<th>Description</th>
+</tr>
+<tr>
+<td><img src="Buildings.Electrical.DC.S4504dc6ab86e9bb2ensorS.png" alt="Buildings.Electrical.DC.Sensors.Examples.GeneralizedSensor" width="20" height="20" align="top">&nbsp;<a href="Buildings_Electrical_DC_Sensors_Examples.html#Buildings.Electrical.DC.Sensors.Examples.GeneralizedSensor"
+>GeneralizedSensor</a>
+</td>
+<td>Example model for generalized sensor</td>
+</tr>
+</table>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE GeneralizedSensor<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Electrical.DC.S4504dc6ab86e9bb2ensorI.png" alt="Buildings.Electrical.DC.Sensors.Examples.GeneralizedSensor" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Electrical.DC.Sensors.Examples.GeneralizedSensor"></a><a href="Buildings_Electrical_DC_Sensors_Examples.html#Buildings.Electrical.DC.Sensors.Examples"
+>Buildings.Electrical.DC.Sensors.Examples</a>.GeneralizedSensor</h2>
+<p>
+<b>Example model for generalized sensor</b>
+<br>
+<br><img src="Buildings.Electrical.DC.S4504dc6ab86e9bb2ensorD.png" alt="Buildings.Electrical.DC.Sensors.Examples.GeneralizedSensor">
+</p>
+<h3>Information</h3>
+
+<p>
+This example illustrates the use of the generalized sensor.
+</p>
+
+<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</a> (Icon for runnable examples).</p>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">model</span> GeneralizedSensor <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Example model for generalized sensor&quot;</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</a>;
+  <a href="Buildings_Electrical_DC_Sensors.html#Buildings.Electrical.DC.Sensors.GeneralizedSensor"
+>Buildings.Electrical.DC.Sensors.GeneralizedSensor</a> sen <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Power sensor&quot;</span>;
+  <a href="Buildings_Electrical_DC_Loads.html#Buildings.Electrical.DC.Loads.Conductor"
+>Buildings.Electrical.DC.Loads.Conductor</a> loa(V_nominal=120, P_nominal=120) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Constant load&quot;</span>;
+  <a href="Buildings_Electrical_DC_Sources.html#Buildings.Electrical.DC.Sources.ConstantVoltage"
+>Buildings.Electrical.DC.Sources.ConstantVoltage</a> sou(V=120) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Voltage source&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Electrical_Analog_Basic.html#Modelica.Electrical.Analog.Basic.Ground"
+>Modelica.Electrical.Analog.Basic.Ground</a> ground;
+<span style="color: blue; font-weight: normal; font-style: normal;">equation </span>
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(sen.terminal_p, loa.terminal);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(sen.terminal_n, sou.terminal);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(sou.n, ground.p);
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>GeneralizedSensor;
+</div>
+<hr>
+<address>
+<a href="http://www.3ds.com/">Automatically generated</a> Thu Apr  9 09:34:14 2015.
+</address>
+</body>
+</html>

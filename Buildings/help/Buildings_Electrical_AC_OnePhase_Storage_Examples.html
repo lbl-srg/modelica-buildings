@@ -1,0 +1,159 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>Buildings.Electrical.AC.OnePhase.Storage.Examples</title>
+<meta name="HTML-Generator" content="Dymola">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="description" content="&quot;Package with example models&quot;">
+<style type="text/css">
+*       { font-size: 10pt; font-family: Arial, sans-serif; }
+.modelica, .modelica * { font-size: 9pt; font-family: Courier, monospace; white-space: pre; }
+h4      { font-size: 10pt; font-weight: bold; color: green; }
+h3      { font-size: 11pt; font-weight: bold; color: green; }
+h2      { font-size: 13pt; font-weight: bold; color: green; }
+address { font-weight: normal; }
+td      { border: 1px solid #808080; vertical-align: top; }
+th      { border: 1px solid #808080; vertical-align: top; font-weight: bold; }
+table   { border: 1px solid #808080; border-collapse: collapse; }
+</style>
+<link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../Resources/www/modelicaDoc.css">
+</HEAD>
+<body>
+<!-- --- header ------ -->
+<div class="headerStyle">
+<img src="../Resources/www/lbl-logo.png" alt="LBL logo"/>
+</div>
+<div class="headerLinks">
+<ul><li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt; <a href="Buildings.html">Modelica</a></li></ul>
+</div>
+<!-- --- end header -- -->
+
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE Examples<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><a name="Buildings.Electrical.AC.OnePhase.Storage.Examples"></a><a href="Buildings_Electrical_AC_OnePhase_Storage.html#Buildings.Electrical.AC.OnePhase.Storage"
+>Buildings.Electrical.AC.OnePhase.Storage</a>.Examples</h2>
+<p>
+<b>Package with example models</b><br>
+</p>
+<h3>Information</h3>
+
+<p>
+This package contains examples for the use of models that can be found in
+<a href="Buildings_Electrical_AC_OnePhase_Storage.html#Buildings.Electrical.AC.OnePhase.Storage"
+>
+Buildings.Electrical.AC.OnePhase.Storage</a>.
+</p>
+
+<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons_ExamplesPackage.html#Modelica.Icons.ExamplesPackage"
+>Modelica.Icons.ExamplesPackage</a> (Icon for packages containing runnable examples).</p>
+<h3>Package Content</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Package Content">
+<tr>
+<th>Name</th>
+<th>Description</th>
+</tr>
+<tr>
+<td><img src="Buildings.Electrical.AC.Of8793cb1f639cffetteryS.png" alt="Buildings.Electrical.AC.OnePhase.Storage.Examples.AcBattery" width="20" height="20" align="top">&nbsp;<a href="Buildings_Electrical_AC_OnePhase_Storage_Examples.html#Buildings.Electrical.AC.OnePhase.Storage.Examples.AcBattery"
+>AcBattery</a>
+</td>
+<td>This example shows how to use the AC battery model</td>
+</tr>
+</table>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE AcBattery<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Electrical.AC.Of8793cb1f639cffetteryI.png" alt="Buildings.Electrical.AC.OnePhase.Storage.Examples.AcBattery" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Electrical.AC.OnePhase.Storage.Examples.AcBattery"></a><a href="Buildings_Electrical_AC_OnePhase_Storage_Examples.html#Buildings.Electrical.AC.OnePhase.Storage.Examples"
+>Buildings.Electrical.AC.OnePhase.Storage.Examples</a>.AcBattery</h2>
+<p>
+<b>This example shows how to use the AC battery model</b>
+<br>
+<br><img src="Buildings.Electrical.AC.Of8793cb1f639cffetteryD.png" alt="Buildings.Electrical.AC.OnePhase.Storage.Examples.AcBattery">
+</p>
+<h3>Information</h3>
+
+<p>
+This example shows how to use an AC battery model.
+</p>
+<p>
+The example compares three different batteries. The battery named
+<code>bat_ideal</code> is ideal and it does not account for any losses.
+The battery named <code>bat_loss_acdc</code> accounts for conversion losses when converting
+between AC and DC.
+The battery named <code>bat</code> accounts for both conversion losses and inefficiencies
+during both the charge and discharge phases.
+</p>
+<p>
+All the batteries start from the same initial condition, which is 50% of their total capacity.
+The batteries are charged and discharged in the same way. The input signal <code>pow.y</code>
+is the power that each battery should store or release. The signal has a duty cycle equal to 50%.
+Therefore, if there are no losses the same amount of power stored into the battery will be
+released and after one cycle the State of Charge (SOC) has to be equal.
+</p>
+<p>
+The image below shows the SOC of the three batteries.
+</p>
+<p align="center">
+<img alt="alt-image" src="../Resources/Images/Electrical/AC/OnePhase/Storage/Examples/SOCs.png"/>
+</p>
+<p>
+As expected the red line (ideal battery) maintains the SOC over the time.
+The other two batteries loose some
+of the initial energy due to the losses.
+</p>
+
+<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</a> (Icon for runnable examples).</p>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">model</span> AcBattery <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;This example shows how to use the AC battery model&quot;</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</a>;
+  <a href="Buildings_Electrical_AC_OnePhase_Storage.html#Buildings.Electrical.AC.OnePhase.Storage.Battery"
+>Battery</a> bat_ideal(
+    eta_DCAC=1,
+    etaCha=1,
+    etaDis=1,
+    SOC_start=0.5,
+    EMax=749999.88,
+    V_nominal=120) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Ideal battery without losses&quot;</span>;
+  <a href="Buildings_Electrical_AC_OnePhase_Sources.html#Buildings.Electrical.AC.OnePhase.Sources.FixedVoltage"
+>Sources.FixedVoltage</a> fixVol(f=60, V=120);
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Pulse"
+>Modelica.Blocks.Sources.Pulse</a> pow(
+    offset=-500,
+    amplitude=1000,
+    width=50,
+    period=1200) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Signal that indicates how much power should be stored in the battery&quot;</span>;
+  <a href="Buildings_Electrical_AC_OnePhase_Storage.html#Buildings.Electrical.AC.OnePhase.Storage.Battery"
+>Battery</a> bat_loss_acdc(
+    etaCha=1,
+    etaDis=1,
+    SOC_start=0.5,
+    eta_DCAC=0.95,
+    EMax=749999.88,
+    V_nominal=120) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Battery with losses for AC/DC conversion&quot;</span>;
+  <a href="Buildings_Electrical_AC_OnePhase_Storage.html#Buildings.Electrical.AC.OnePhase.Storage.Battery"
+>Battery</a> bat(
+    SOC_start=0.5,
+    eta_DCAC=0.95,
+    EMax=749999.88,
+    V_nominal=120) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Battery with losses for AC/DC conversion and charge/discharge&quot;</span>;
+<span style="color: blue; font-weight: normal; font-style: normal;">equation </span>
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(fixVol.terminal, bat_ideal.terminal);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(pow.y, bat_ideal.P);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(fixVol.terminal, bat_loss_acdc.terminal);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(fixVol.terminal, bat.terminal);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(pow.y, bat_loss_acdc.P);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(pow.y, bat.P);
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>AcBattery;
+</div>
+<hr>
+<address>
+<a href="http://www.3ds.com/">Automatically generated</a> Thu Apr  9 09:33:09 2015.
+</address>
+</body>
+</html>

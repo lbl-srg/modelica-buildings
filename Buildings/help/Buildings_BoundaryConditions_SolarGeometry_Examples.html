@@ -1,0 +1,172 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>Buildings.BoundaryConditions.SolarGeometry.Examples</title>
+<meta name="HTML-Generator" content="Dymola">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="description" content="&quot;Collection of models that illustrate model use and test models&quot;">
+<style type="text/css">
+*       { font-size: 10pt; font-family: Arial, sans-serif; }
+.modelica, .modelica * { font-size: 9pt; font-family: Courier, monospace; white-space: pre; }
+h4      { font-size: 10pt; font-weight: bold; color: green; }
+h3      { font-size: 11pt; font-weight: bold; color: green; }
+h2      { font-size: 13pt; font-weight: bold; color: green; }
+address { font-weight: normal; }
+td      { border: 1px solid #808080; vertical-align: top; }
+th      { border: 1px solid #808080; vertical-align: top; font-weight: bold; }
+table   { border: 1px solid #808080; border-collapse: collapse; }
+</style>
+<link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../Resources/www/modelicaDoc.css">
+</HEAD>
+<body>
+<!-- --- header ------ -->
+<div class="headerStyle">
+<img src="../Resources/www/lbl-logo.png" alt="LBL logo"/>
+</div>
+<div class="headerLinks">
+<ul><li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt; <a href="Buildings.html">Modelica</a></li></ul>
+</div>
+<!-- --- end header -- -->
+
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE Examples<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><a name="Buildings.BoundaryConditions.SolarGeometry.Examples"></a><a href="Buildings_BoundaryConditions_SolarGeometry.html#Buildings.BoundaryConditions.SolarGeometry"
+>Buildings.BoundaryConditions.SolarGeometry</a>.Examples</h2>
+<p>
+<b>Collection of models that illustrate model use and test models</b><br>
+</p>
+<h3>Information</h3>
+
+<p>
+This package contains examples for the use of models that can be found in
+<a href="Buildings_BoundaryConditions_SolarGeometry.html#Buildings.BoundaryConditions.SolarGeometry"
+>
+Buildings.BoundaryConditions.SolarGeometry</a>.
+</p>
+
+<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons_ExamplesPackage.html#Modelica.Icons.ExamplesPackage"
+>Modelica.Icons.ExamplesPackage</a> (Icon for packages containing runnable examples).</p>
+<h3>Package Content</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Package Content">
+<tr>
+<th>Name</th>
+<th>Description</th>
+</tr>
+<tr>
+<td><img src="Buildings.BoundaryConditi9b5e22b4f3b548b1AngleS.png" alt="Buildings.BoundaryConditions.SolarGeometry.Examples.IncidenceAngle" width="20" height="20" align="top">&nbsp;<a href="Buildings_BoundaryConditions_SolarGeometry_Examples.html#Buildings.BoundaryConditions.SolarGeometry.Examples.IncidenceAngle"
+>IncidenceAngle</a>
+</td>
+<td>Test model for solar incidence angle</td>
+</tr>
+<tr>
+<td><img src="Buildings.BoundaryConditi9b5e22b4f3b548b1AngleS.png" alt="Buildings.BoundaryConditions.SolarGeometry.Examples.ZenithAngle" width="20" height="20" align="top">&nbsp;<a href="Buildings_BoundaryConditions_SolarGeometry_Examples.html#Buildings.BoundaryConditions.SolarGeometry.Examples.ZenithAngle"
+>ZenithAngle</a>
+</td>
+<td>Test model for zenith angle</td>
+</tr>
+</table>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE IncidenceAngle<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.BoundaryConditi9b5e22b4f3b548b1AngleI.png" alt="Buildings.BoundaryConditions.SolarGeometry.Examples.IncidenceAngle" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.BoundaryConditions.SolarGeometry.Examples.IncidenceAngle"></a><a href="Buildings_BoundaryConditions_SolarGeometry_Examples.html#Buildings.BoundaryConditions.SolarGeometry.Examples"
+>Buildings.BoundaryConditions.SolarGeometry.Examples</a>.IncidenceAngle</h2>
+<p>
+<b>Test model for solar incidence angle</b>
+<br>
+<br><img src="Buildings.BoundaryConditi9b5e22b4f3b548b1AngleD.png" alt="Buildings.BoundaryConditions.SolarGeometry.Examples.IncidenceAngle">
+</p>
+<h3>Information</h3>
+
+<p>
+This example computes the solar incidence angle on tilted surfaces.
+There are fives surfaces, a horizontal surface and a surface
+that faces Norths, East, South and West.
+</p>
+
+<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</a> (Icon for runnable examples).</p>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">model</span> IncidenceAngle <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Test model for solar incidence angle&quot;</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</a>;
+  <a href="Buildings_BoundaryConditions_SolarGeometry.html#Buildings.BoundaryConditions.SolarGeometry.IncidenceAngle"
+>Buildings.BoundaryConditions.SolarGeometry.IncidenceAngle</a> incAngHor(
+    til=Buildings.Types.Tilt.Ceiling,
+    lat=0.73097781993588,
+    azi=0.3) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Incidence angle on horizontal surface&quot;</span>;
+  <a href="Buildings_BoundaryConditions_WeatherData.html#Buildings.BoundaryConditions.WeatherData.ReaderTMY3"
+>Buildings.BoundaryConditions.WeatherData.ReaderTMY3</a> weaDat(
+    filNam=&quot;modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos&quot;) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Weather data (Chicago)&quot;</span>;
+  <a href="Buildings_BoundaryConditions_SolarGeometry.html#Buildings.BoundaryConditions.SolarGeometry.IncidenceAngle"
+>Buildings.BoundaryConditions.SolarGeometry.IncidenceAngle</a> incAngNor(
+    lat=0.73097781993588,
+    azi=Buildings.Types.Azimuth.N,
+    til=Buildings.Types.Tilt.Wall) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Incidence angle on North-facing surface&quot;</span>;
+  <a href="Buildings_BoundaryConditions_SolarGeometry.html#Buildings.BoundaryConditions.SolarGeometry.IncidenceAngle"
+>Buildings.BoundaryConditions.SolarGeometry.IncidenceAngle</a> incAngWes(
+    lat=0.73097781993588,
+    azi=Buildings.Types.Azimuth.W,
+    til=Buildings.Types.Tilt.Wall) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Incidence angle on West-facing surface&quot;</span>;
+  <a href="Buildings_BoundaryConditions_SolarGeometry.html#Buildings.BoundaryConditions.SolarGeometry.IncidenceAngle"
+>Buildings.BoundaryConditions.SolarGeometry.IncidenceAngle</a> incAngSou(
+    lat=0.73097781993588,
+    azi=Buildings.Types.Azimuth.S,
+    til=Buildings.Types.Tilt.Wall) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Incidence angle on South-facing surface&quot;</span>;
+  <a href="Buildings_BoundaryConditions_SolarGeometry.html#Buildings.BoundaryConditions.SolarGeometry.IncidenceAngle"
+>Buildings.BoundaryConditions.SolarGeometry.IncidenceAngle</a> incAngEas(
+    lat=0.73097781993588,
+    azi=Buildings.Types.Azimuth.E,
+    til=Buildings.Types.Tilt.Wall) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Incidence angle on East-facing surface&quot;</span>;
+<span style="color: blue; font-weight: normal; font-style: normal;">equation </span>
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(weaDat.weaBus, incAngHor.weaBus);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(incAngNor.weaBus, weaDat.weaBus);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(incAngWes.weaBus, weaDat.weaBus);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(incAngSou.weaBus, weaDat.weaBus);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(incAngEas.weaBus, weaDat.weaBus);
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>IncidenceAngle;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE ZenithAngle<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.BoundaryConditi9b5e22b4f3b548b1AngleI.png" alt="Buildings.BoundaryConditions.SolarGeometry.Examples.ZenithAngle" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.BoundaryConditions.SolarGeometry.Examples.ZenithAngle"></a><a href="Buildings_BoundaryConditions_SolarGeometry_Examples.html#Buildings.BoundaryConditions.SolarGeometry.Examples"
+>Buildings.BoundaryConditions.SolarGeometry.Examples</a>.ZenithAngle</h2>
+<p>
+<b>Test model for zenith angle</b>
+<br>
+<br><img src="Buildings.BoundaryConditie5febb0c421207c5AngleD.png" alt="Buildings.BoundaryConditions.SolarGeometry.Examples.ZenithAngle">
+</p>
+<h3>Information</h3>
+
+<p>
+This example computes the zenith angle,
+which is the angle between the earth surface normal and the sun beam.
+</p>
+
+<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</a> (Icon for runnable examples).</p>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">model</span> ZenithAngle <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Test model for zenith angle&quot;</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</a>;
+  <a href="Buildings_BoundaryConditions_SolarGeometry.html#Buildings.BoundaryConditions.SolarGeometry.ZenithAngle"
+>Buildings.BoundaryConditions.SolarGeometry.ZenithAngle</a> zen(lat=0.2) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Zenith angle&quot;</span>;
+  <a href="Buildings_BoundaryConditions_WeatherData.html#Buildings.BoundaryConditions.WeatherData.ReaderTMY3"
+>Buildings.BoundaryConditions.WeatherData.ReaderTMY3</a> weaDat(
+    filNam=&quot;modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos&quot;);
+<span style="color: blue; font-weight: normal; font-style: normal;">equation </span>
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(weaDat.weaBus, zen.weaBus);
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>ZenithAngle;
+</div>
+<hr>
+<address>
+<a href="http://www.3ds.com/">Automatically generated</a> Thu Apr  9 09:32:33 2015.
+</address>
+</body>
+</html>

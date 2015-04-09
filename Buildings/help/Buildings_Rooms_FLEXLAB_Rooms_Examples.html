@@ -1,0 +1,1686 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>Buildings.Rooms.FLEXLAB.Rooms.Examples</title>
+<meta name="HTML-Generator" content="Dymola">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="description" content="&quot;Unit tests for models in FLEXLAB.Rooms&quot;">
+<style type="text/css">
+*       { font-size: 10pt; font-family: Arial, sans-serif; }
+.modelica, .modelica * { font-size: 9pt; font-family: Courier, monospace; white-space: pre; }
+h4      { font-size: 10pt; font-weight: bold; color: green; }
+h3      { font-size: 11pt; font-weight: bold; color: green; }
+h2      { font-size: 13pt; font-weight: bold; color: green; }
+address { font-weight: normal; }
+td      { border: 1px solid #808080; vertical-align: top; }
+th      { border: 1px solid #808080; vertical-align: top; font-weight: bold; }
+table   { border: 1px solid #808080; border-collapse: collapse; }
+</style>
+<link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../Resources/www/modelicaDoc.css">
+</HEAD>
+<body>
+<!-- --- header ------ -->
+<div class="headerStyle">
+<img src="../Resources/www/lbl-logo.png" alt="LBL logo"/>
+</div>
+<div class="headerLinks">
+<ul><li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt; <a href="Buildings.html">Modelica</a></li></ul>
+</div>
+<!-- --- end header -- -->
+
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE Examples<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><a name="Buildings.Rooms.FLEXLAB.Rooms.Examples"></a><a href="Buildings_Rooms_FLEXLAB_Rooms.html#Buildings.Rooms.FLEXLAB.Rooms"
+>Buildings.Rooms.FLEXLAB.Rooms</a>.Examples</h2>
+<p>
+<b>Unit tests for models in FLEXLAB.Rooms</b><br>
+</p>
+<h3>Information</h3>
+
+  <p>
+  This package contains examples demonstrating the use of models
+  available in the FLEXLAB package.
+  </p>
+  
+<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons_ExamplesPackage.html#Modelica.Icons.ExamplesPackage"
+>Modelica.Icons.ExamplesPackage</a> (Icon for packages containing runnable examples).</p>
+<h3>Package Content</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Package Content">
+<tr>
+<th>Name</th>
+<th>Description</th>
+</tr>
+<tr>
+<td><img src="Buildings.Rooms.FLEXLAB.Rd52aebed77d28887FloorS.png" alt="Buildings.Rooms.FLEXLAB.Rooms.Examples.TestBedX3WithRadiantFloor" width="20" height="20" align="top">&nbsp;<a href="Buildings_Rooms_FLEXLAB_Rooms_Examples.html#Buildings.Rooms.FLEXLAB.Rooms.Examples.TestBedX3WithRadiantFloor"
+>TestBedX3WithRadiantFloor</a>
+</td>
+<td>Example model of test cells X3A and X3B connected to form test bed X3</td>
+</tr>
+<tr>
+<td><img src="Buildings.Rooms.FLEXLAB.Rd52aebed77d28887FloorS.png" alt="Buildings.Rooms.FLEXLAB.Rooms.Examples.X3AWithRadiantFloor" width="20" height="20" align="top">&nbsp;<a href="Buildings_Rooms_FLEXLAB_Rooms_Examples.html#Buildings.Rooms.FLEXLAB.Rooms.Examples.X3AWithRadiantFloor"
+>X3AWithRadiantFloor</a>
+</td>
+<td>Example model showing a use of X3A</td>
+</tr>
+<tr>
+<td><img src="Buildings.Rooms.FLEXLAB.Rd52aebed77d28887FloorS.png" alt="Buildings.Rooms.FLEXLAB.Rooms.Examples.X3BWithRadiantFloor" width="20" height="20" align="top">&nbsp;<a href="Buildings_Rooms_FLEXLAB_Rooms_Examples.html#Buildings.Rooms.FLEXLAB.Rooms.Examples.X3BWithRadiantFloor"
+>X3BWithRadiantFloor</a>
+</td>
+<td>Example model showing a use of X3B</td>
+</tr>
+</table>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE TestBedX3WithRadiantFloor<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Rooms.FLEXLAB.Rd52aebed77d28887FloorI.png" alt="Buildings.Rooms.FLEXLAB.Rooms.Examples.TestBedX3WithRadiantFloor" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Rooms.FLEXLAB.Rooms.Examples.TestBedX3WithRadiantFloor"></a><a href="Buildings_Rooms_FLEXLAB_Rooms_Examples.html#Buildings.Rooms.FLEXLAB.Rooms.Examples"
+>Buildings.Rooms.FLEXLAB.Rooms.Examples</a>.TestBedX3WithRadiantFloor</h2>
+<p>
+<b>Example model of test cells X3A and X3B connected to form test bed X3</b>
+<br>
+<br><img src="Buildings.Rooms.FLEXLAB.Rd52aebed77d28887FloorD.png" alt="Buildings.Rooms.FLEXLAB.Rooms.Examples.TestBedX3WithRadiantFloor">
+</p>
+<h3>Information</h3>
+
+        <p>
+        This example models demonstrates how the <a href="Buildings_Rooms_FLEXLAB_Rooms_X3A.html#Buildings.Rooms.FLEXLAB.Rooms.X3A"
+>
+        Buildings.Rooms.FLEXLAB.Rooms.X3A</a> and <a href="Buildings_Rooms_FLEXLAB_Rooms_X3B.html#Buildings.Rooms.FLEXLAB.Rooms.X3B"
+>
+        Buildings.Rooms.FLEXLAB.Rooms.X3B</a> test cell models can be combined to form a simulation of test
+        bed X3. The example is primarily a combination of
+        <a href="Buildings_Rooms_FLEXLAB_Rooms_Examples.html#Buildings.Rooms.FLEXLAB.Rooms.Examples.X3AWithRadiantFloor"
+>
+        Buildings.Rooms.FLEXLAB.Rooms.Examples.X3AWithRadiantFloor</a> and
+        <a href="Buildings_Rooms_FLEXLAB_Rooms_Examples.html#Buildings.Rooms.FLEXLAB.Rooms.Examples.X3BWithRadiantFloor"
+>
+        Buildings.Rooms.FLEXLAB.Rooms.Examples.X3BWithRadiantFloor</a>. The example
+        <a href="Buildings_Rooms_FLEXLAB_Rooms_Examples.html#Buildings.Rooms.FLEXLAB.Rooms.Examples.X3AWithRadiantFloor"
+>
+        Buildings.Rooms.FLEXLAB.Rooms.Examples.X3AWithRadiantFloor</a> contains detailed
+        documentation on these models. Some small changes were necessary to create the model of the test
+        bed correctly. These changes are:
+        </p>
+        <ul>
+        <li>To make the connection between X3A and X3B possible two of the models from the X3A example were
+        replaced with models designed for connection to X3B. Specifically,
+        <a href="Buildings_Rooms_FLEXLAB_Rooms_X3A.html#Buildings.Rooms.FLEXLAB.Rooms.X3A.TestCell"
+>
+        Buildings.Rooms.FLEXLAB.Rooms.X3A.TestCell</a> was replaced with
+        <a href="modelica://Buildings.Rooms.FLEXLAB.Rooms.X3A.TestCellNoCelDiv">
+        Buildings.Rooms.FLEXLAB.Rooms.X3A.TestCellNoCelDiv</a> and
+        <a href="Buildings_Rooms_FLEXLAB_Rooms_X3A.html#Buildings.Rooms.FLEXLAB.Rooms.X3A.Closet"
+>
+        Buildings.Rooms.FLEXLAB.Rooms.X3A.Closet</a> was replaced with
+        <a href="modelica://Buildings.Rooms.FLEXLAB.Rooms.X3A.ClosetNoCelDiv">
+        Buildings.Rooms.FLEXLAB.Rooms.X3A.ClosetNoCelDiv</a>.</li>
+        <li>Connections between the two test cells do not exist in either of the other two examples.
+        The connections between X3A and X3B were made following the documentation available in
+        <a href="modelica://Buildings.Rooms.FLEXLAB.Rooms.X3A.TestCellNoCelDiv">
+        Buildings.Rooms.FLEXLAB.Rooms.X3A.TestCellNoCelDiv</a> and
+        <a href="modelica://Buildings.Rooms.FLEXLAB.Rooms.X3A.ClosetNoCelDiv">
+        Buildings.Rooms.FLEXLAB.Rooms.X3A.ClosetNoCelDiv</a>.</li>
+        <li>The data reader models in this example function in the same manner as in the
+        other two examples, but their names had to be changed to avoid using the same name
+        for multiple models in this example. Their names now contain a suffix describing the test
+        cell they're connected to. For example, "airConA" is connected to test cell X3A and
+        "shaPosB" is connected to test cell X3B.</li>
+        <li>TNei now only contains a temperature for test cell X2B. A temperature input for X3B
+        is not needed because that test cell is now included in the model.</li>
+        </ul>
+        
+<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</a> (Icon for runnable examples).</p>
+<h3>Parameters</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td><a href="Buildings_HeatTransfer_Data_OpaqueConstructions.html#Buildings.HeatTransfer.Data.OpaqueConstructions.Generic"
+>Generic</a></td><td>slaCon</td><td>&nbsp;</td><td>Construction of the slab</td></tr>
+<tr><td><a href="Buildings_Fluid_Data_Pipes.html#Buildings.Fluid.Data.Pipes.PEX_RADTEST"
+>PEX_RADTEST</a></td><td>pipe</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">model</span> TestBedX3WithRadiantFloor <span style="color: #006400; font-weight: normal; font-style: normal;">
+  &quot;Example model of test cells X3A and X3B connected to form test bed X3&quot;</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</a>;
+
+  <span style="color: blue; font-weight: normal; font-style: normal;">package</span> Air = <a href="Buildings_Media_Air.html#Buildings.Media.Air"
+>Buildings.Media.Air</a> <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Air model used in the example model&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">package</span> Water = <a href="Buildings_Media_Water.html#Buildings.Media.Water"
+>Buildings.Media.Water</a> <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Water model used in the radiant slab loop&quot;</span>;
+
+  <a href="Buildings_Rooms_FLEXLAB_Rooms_X3B.html#Buildings.Rooms.FLEXLAB.Rooms.X3B.TestCell"
+>Buildings.Rooms.FLEXLAB.Rooms.X3B.TestCell</a> X3B(<span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = Air,
+      nPorts=2,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Test cell X3B&quot;</span>;
+  <a href="Buildings_Rooms_FLEXLAB_Rooms_X3B.html#Buildings.Rooms.FLEXLAB.Rooms.X3B.Closet"
+>Buildings.Rooms.FLEXLAB.Rooms.X3B.Closet</a> BClo(<span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = Air,
+      nPorts=2,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Closet in test cell X3B&quot;</span>;
+  <a href="Buildings_Rooms_FLEXLAB_Rooms_X3B.html#Buildings.Rooms.FLEXLAB.Rooms.X3B.Electrical"
+>Buildings.Rooms.FLEXLAB.Rooms.X3B.Electrical</a> BEle(<span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium =
+        Air, nPorts=2,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Electrical room in test cell X3B&quot;</span>;
+  <a href="Buildings_Rooms_FLEXLAB_Rooms_X3A.html#Buildings.Rooms.FLEXLAB.Rooms.X3A.TestCellFullBed"
+>Buildings.Rooms.FLEXLAB.Rooms.X3A.TestCellFullBed</a>  X3A(<span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span>
+      Medium = Air, nPorts=2,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Test cell X3A&quot;</span>;
+  <a href="Buildings_Rooms_FLEXLAB_Rooms_X3A.html#Buildings.Rooms.FLEXLAB.Rooms.X3A.ClosetFullBed"
+>Buildings.Rooms.FLEXLAB.Rooms.X3A.ClosetFullBed</a>  AClo(<span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span>
+      Medium = Air, nPorts=1,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Closet in test cell X3A&quot;</span>;
+  <a href="Buildings_Rooms_FLEXLAB_Rooms_X3A.html#Buildings.Rooms.FLEXLAB.Rooms.X3A.Electrical"
+>Buildings.Rooms.FLEXLAB.Rooms.X3A.Electrical</a> AEle(<span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium =
+        Air, nPorts=2,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Electrical room in test cell X3A&quot;</span>;
+  <a href="Buildings_BoundaryConditions_WeatherData.html#Buildings.BoundaryConditions.WeatherData.ReaderTMY3"
+>Buildings.BoundaryConditions.WeatherData.ReaderTMY3</a> weaDat(filNam=&quot;/Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos&quot;);
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.CombiTimeTable"
+>Modelica.Blocks.Sources.CombiTimeTable</a> intGaiCloB(table=[0,0,0,0; 86400,0,0,0],
+      tableOnFile=false) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Internal gain heat flow for the closet in test cell X3B&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.CombiTimeTable"
+>Modelica.Blocks.Sources.CombiTimeTable</a> intGaiCloA(
+    table=[0,0,0,0; 86400,0,0,0], tableOnFile=false) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Internal gain heat flow for the closet in test cell X3A&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.CombiTimeTable"
+>Modelica.Blocks.Sources.CombiTimeTable</a> intGaiEleA(table=[0,0,0,0; 86400,0,0,0],
+      tableOnFile=false) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Internal gain heat flow for the electrical room in test cell X3A&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.CombiTimeTable"
+>Modelica.Blocks.Sources.CombiTimeTable</a> intGaiEleB(table=[0,0,0,0; 86400,0,0,0],
+      tableOnFile=false) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Internal gain heat flow for the electrical room in test cell X3B&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.CombiTimeTable"
+>Modelica.Blocks.Sources.CombiTimeTable</a> shaPosA(table=[0,1; 86400,1],
+      tableOnFile=false) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Position of the shade in test cell X3A&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.CombiTimeTable"
+>Modelica.Blocks.Sources.CombiTimeTable</a> shaPosB(
+                                                table=[0,1; 86400,1],
+      tableOnFile=false) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Position of the shade in test cell X3B&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.CombiTimeTable"
+>Modelica.Blocks.Sources.CombiTimeTable</a> intGaiA(table=[0,0,0,0; 86400,0,0,0],
+      tableOnFile=false) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Internal gain heat flow in test cell X3A (Radiant = 1, Convective = 2, Latent = 3)&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.CombiTimeTable"
+>Modelica.Blocks.Sources.CombiTimeTable</a> intGaiB(table=[0,0,0,0; 86400,0,0,0],
+      tableOnFile=false) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Internal gain heat flow in test cell X3B (Radiant = 1, Convective = 2, Latent = 3)&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.CombiTimeTable"
+>Modelica.Blocks.Sources.CombiTimeTable</a> airConCloA(
+    tableOnFile=true,
+    tableName=&quot;airCon&quot;,
+    fileName=<span style="color: red; font-weight: normal; font-style: normal;">ModelicaServices.ExternalReferences.loadResource</span>(
+       &quot;modelica://Buildings/Resources/Data/Rooms/FLEXLAB/Rooms/Examples/X3AWithRadiantFloor.txt&quot;),
+    columns=2:5) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Inlet air conditions for the connected closet of test cell X3A (y[1] = m_flow, y[2] = T)&quot;</span>;
+
+  <a href="Buildings_Fluid_Sources.html#Buildings.Fluid.Sources.MassFlowSource_T"
+>Buildings.Fluid.Sources.MassFlowSource_T</a> airInCloA(
+    use_m_flow_in=true,
+    use_T_in=true,
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = Air,
+    nPorts=1) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Inlet air conditions (from AHU) for the closet of test cell X3A&quot;</span>;
+  <a href="Buildings_Fluid_Sources.html#Buildings.Fluid.Sources.Boundary_pT"
+>Buildings.Fluid.Sources.Boundary_pT</a> airOutCloA(<span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = Air,
+      nPorts=1) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Air outlet from the closet in test cell X3A&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.CombiTimeTable"
+>Modelica.Blocks.Sources.CombiTimeTable</a> airConCloB(
+    tableOnFile=true,
+    tableName=&quot;airCon&quot;,
+    fileName=<span style="color: red; font-weight: normal; font-style: normal;">ModelicaServices.ExternalReferences.loadResource</span>(
+       &quot;modelica://Buildings/Resources/Data/Rooms/FLEXLAB/Rooms/Examples/X3AWithRadiantFloor.txt&quot;),
+    columns=2:5) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Inlet air conditions for the connected closet of test cell X3B (y[1] = m_flow, y[2] = T)&quot;</span>;
+
+  <a href="Buildings_Fluid_Sources.html#Buildings.Fluid.Sources.MassFlowSource_T"
+>Buildings.Fluid.Sources.MassFlowSource_T</a> airInCloB(
+    use_m_flow_in=true,
+    use_T_in=true,
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = Air,
+    nPorts=1) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Inlet air conditions (from AHU) for the closet of test cell X3B&quot;</span>;
+  <a href="Buildings_Fluid_Sources.html#Buildings.Fluid.Sources.Boundary_pT"
+>Buildings.Fluid.Sources.Boundary_pT</a> airOutCloB(<span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = Air,
+      nPorts=1) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Air outlet from the closet in test cell X3B&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.CombiTimeTable"
+>Modelica.Blocks.Sources.CombiTimeTable</a> airConA(
+    table=[0,0.1,293.15; 86400,0.1,293.15],
+    tableOnFile=true,
+    tableName=&quot;airCon&quot;,
+    fileName=<span style="color: red; font-weight: normal; font-style: normal;">ModelicaServices.ExternalReferences.loadResource</span>(
+       &quot;modelica://Buildings/Resources/Data/Rooms/FLEXLAB/Rooms/Examples/X3AWithRadiantFloor.txt&quot;),
+    columns=2:5) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Inlet air conditions for test cell X3A (y[1] = m_flow, y[2] = T)&quot;</span>;
+
+  <a href="Buildings_Fluid_Sources.html#Buildings.Fluid.Sources.MassFlowSource_T"
+>Buildings.Fluid.Sources.MassFlowSource_T</a> airInA(
+    use_m_flow_in=true,
+    use_T_in=true,
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = Air,
+    nPorts=1) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Inlet air conditions (from AHU) for X3A&quot;</span>;
+  <a href="Buildings_Fluid_Sources.html#Buildings.Fluid.Sources.Boundary_pT"
+>Buildings.Fluid.Sources.Boundary_pT</a> airOutA(nPorts=1, <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span>
+      Medium = Air) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Air outlet for X3A&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.CombiTimeTable"
+>Modelica.Blocks.Sources.CombiTimeTable</a> airConB(
+    table=[0,0.1,293.15; 86400,0.1,293.15],
+    tableOnFile=true,
+    tableName=&quot;airCon&quot;,
+    fileName=<span style="color: red; font-weight: normal; font-style: normal;">ModelicaServices.ExternalReferences.loadResource</span>(
+       &quot;modelica://Buildings/Resources/Data/Rooms/FLEXLAB/Rooms/Examples/X3AWithRadiantFloor.txt&quot;),
+    columns=2:5) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Inlet air conditions for test cell X3B (y[1] = m_flow, y[2] = T)&quot;</span>;
+
+  <a href="Buildings_Fluid_Sources.html#Buildings.Fluid.Sources.MassFlowSource_T"
+>Buildings.Fluid.Sources.MassFlowSource_T</a> airInB(
+    use_m_flow_in=true,
+    use_T_in=true,
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = Air,
+    nPorts=1) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Inlet air conditions (from AHU) for X3B&quot;</span>;
+  <a href="Buildings_Fluid_Sources.html#Buildings.Fluid.Sources.Boundary_pT"
+>Buildings.Fluid.Sources.Boundary_pT</a> airOutB(nPorts=1, <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span>
+      Medium = Air) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Air outlet for X3B&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.CombiTimeTable"
+>Modelica.Blocks.Sources.CombiTimeTable</a> airConEleA(
+    tableOnFile=true,
+    tableName=&quot;airCon&quot;,
+    fileName=<span style="color: red; font-weight: normal; font-style: normal;">ModelicaServices.ExternalReferences.loadResource</span>(
+       &quot;modelica://Buildings/Resources/Data/Rooms/FLEXLAB/Rooms/Examples/X3AWithRadiantFloor.txt&quot;),
+    columns=2:5) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Inlet air conditions for the connected electrical room in test cell X3A (y[1] = m_flow, y[2] = T)&quot;</span>;
+
+  <a href="Buildings_Fluid_Sources.html#Buildings.Fluid.Sources.MassFlowSource_T"
+>Buildings.Fluid.Sources.MassFlowSource_T</a> airInEleA(
+    use_m_flow_in=true,
+    use_T_in=true,
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = Air,
+    nPorts=1) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Inlet air conditions (from AHU) for the electrical room in test cell X3A&quot;</span>;
+  <a href="Buildings_Fluid_Sources.html#Buildings.Fluid.Sources.Boundary_pT"
+>Buildings.Fluid.Sources.Boundary_pT</a> airOutEleA(<span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = Air,
+      nPorts=1) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Air outlet from the electrical room in test cell X3A&quot;</span>;
+
+  <a href="Buildings_HeatTransfer_Sources.html#Buildings.HeatTransfer.Sources.PrescribedTemperature"
+>Buildings.HeatTransfer.Sources.PrescribedTemperature</a> preT <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Temperature of the ground&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.CombiTimeTable"
+>Modelica.Blocks.Sources.CombiTimeTable</a> TGro(
+    table=[0,288.15; 86400,288.15], tableOnFile=false);
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="Buildings_HeatTransfer_Data_OpaqueConstructions.html#Buildings.HeatTransfer.Data.OpaqueConstructions.Generic"
+>Buildings.HeatTransfer.Data.OpaqueConstructions.Generic</a>
+    slaCon(nLay=3, material={
+      <span style="color: red; font-weight: normal; font-style: normal;">Buildings.HeatTransfer.Data.Solids.Generic</span>(
+        x=0.1524,
+        k=1.13,
+        c=1000,
+        d=1400,
+        nSta=5),
+      <span style="color: red; font-weight: normal; font-style: normal;">Buildings.HeatTransfer.Data.Solids.Generic</span>(
+        x=0.127,
+        k=0.036,
+        c=1200,
+        d=40),
+      <span style="color: red; font-weight: normal; font-style: normal;">Buildings.HeatTransfer.Data.Solids.Generic</span>(
+        x=0.2,
+        k=1.8,
+        c=1100,
+        d=2400)}) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Construction of the slab&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="Buildings_Fluid_Data_Pipes.html#Buildings.Fluid.Data.Pipes.PEX_RADTEST"
+>Buildings.Fluid.Data.Pipes.PEX_RADTEST</a> pipe(dIn=0.015875, dOut=0.01905);
+
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.CombiTimeTable"
+>Modelica.Blocks.Sources.CombiTimeTable</a> TNei(    tableOnFile=false, table=[0,293.15;
+        86400,293.15]) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Temperature of the neighboring test cells (y[1] = X2B)&quot;</span>;
+  <a href="Buildings_HeatTransfer_Sources.html#Buildings.HeatTransfer.Sources.PrescribedTemperature"
+>Buildings.HeatTransfer.Sources.PrescribedTemperature</a> preT2;
+  <a href="Buildings_Fluid_Sources.html#Buildings.Fluid.Sources.Boundary_pT"
+>Buildings.Fluid.Sources.Boundary_pT</a> airOutEleB(<span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = Air,
+      nPorts=1) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Air outlet from the electrical room in test cell X3B&quot;</span>;
+  <a href="Buildings_Fluid_Sources.html#Buildings.Fluid.Sources.MassFlowSource_T"
+>Buildings.Fluid.Sources.MassFlowSource_T</a> airInEleB(
+    use_m_flow_in=true,
+    use_T_in=true,
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = Air,
+    nPorts=1) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Inlet air conditions (from AHU) for the electrical room in test cell X3B&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.CombiTimeTable"
+>Modelica.Blocks.Sources.CombiTimeTable</a> airConEleB(
+    tableOnFile=true,
+    tableName=&quot;airCon&quot;,
+    fileName=<span style="color: red; font-weight: normal; font-style: normal;">ModelicaServices.ExternalReferences.loadResource</span>(
+       &quot;modelica://Buildings/Resources/Data/Rooms/FLEXLAB/Rooms/Examples/X3AWithRadiantFloor.txt&quot;),
+    columns=2:5) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Inlet air conditions for the connected electrical room in test cell X3B (y[1] = m_flow, y[2] = T)&quot;</span>;
+
+  <a href="Buildings_Fluid_HeatExchangers_RadiantSlabs.html#Buildings.Fluid.HeatExchangers.RadiantSlabs.SingleCircuitSlab"
+>Buildings.Fluid.HeatExchangers.RadiantSlabs.SingleCircuitSlab</a> sla4A1(
+    sysTyp=Buildings.Fluid.HeatExchangers.RadiantSlabs.Types.SystemType.Floor,
+    iLayPip=1,
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = Water,
+    pipe=pipe,
+    layers=slaCon,
+    m_flow_nominal=0.504,
+    A=6.645*3.09,
+    length=32.92,
+    disPip=sla4A1.A/sla4A1.length,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Radiant slab serving the north side of cell X3A. Name is taken from drawing M3.02&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.CombiTimeTable"
+>Modelica.Blocks.Sources.CombiTimeTable</a> watCon4A1(tableOnFile=false, table=[0,
+        0.504,293.15; 86400,0.504,293.15]) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Inlet water conditions (y[1] = m_flow, y[2] =  T)&quot;</span>;
+  <a href="Buildings_Fluid_Sources.html#Buildings.Fluid.Sources.MassFlowSource_T"
+>Buildings.Fluid.Sources.MassFlowSource_T</a> watIn4A1(
+    nPorts=1,
+    use_m_flow_in=true,
+    use_T_in=true,
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = Water) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Inlet water conditions (from central plant)&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.CombiTimeTable"
+>Modelica.Blocks.Sources.CombiTimeTable</a> watCon4A2(tableOnFile=false, table=[0,
+        0.504,293.15; 86400,0.504,293.15]) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Inlet water conditions (y[1] = m_flow, y[2] =  T)&quot;</span>;
+  <a href="Buildings_Fluid_Sources.html#Buildings.Fluid.Sources.MassFlowSource_T"
+>Buildings.Fluid.Sources.MassFlowSource_T</a> watIn4A2(
+    nPorts=1,
+    use_m_flow_in=true,
+    use_T_in=true,
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = Water) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Inlet water conditions (from central plant)&quot;</span>;
+  <a href="Buildings_Fluid_HeatExchangers_RadiantSlabs.html#Buildings.Fluid.HeatExchangers.RadiantSlabs.SingleCircuitSlab"
+>Buildings.Fluid.HeatExchangers.RadiantSlabs.SingleCircuitSlab</a> sla4A2(
+    sysTyp=Buildings.Fluid.HeatExchangers.RadiantSlabs.Types.SystemType.Floor,
+    iLayPip=1,
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = Water,
+    pipe=pipe,
+    layers=slaCon,
+    m_flow_nominal=0.504,
+    A=6.645*1.51,
+    disPip=sla4A2.A/sla4A2.length,
+    length=45.11,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Radiant slab serving the north-central section of cell X3A. Name is taken from drawing M3.02&quot;</span>;
+  <a href="Buildings_Fluid_Sources.html#Buildings.Fluid.Sources.Boundary_pT"
+>Buildings.Fluid.Sources.Boundary_pT</a> watOut4A2(nPorts=1, <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span>
+      Medium = Water) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Water outlet&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.CombiTimeTable"
+>Modelica.Blocks.Sources.CombiTimeTable</a> watCon4A3(tableOnFile=false, table=[0,
+        0.504,293.15; 86400,0.504,293.15]) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Inlet water conditions (y[1] = m_flow, y[2] =  T)&quot;</span>;
+  <a href="Buildings_Fluid_Sources.html#Buildings.Fluid.Sources.MassFlowSource_T"
+>Buildings.Fluid.Sources.MassFlowSource_T</a> watIn4A3(
+    nPorts=1,
+    use_m_flow_in=true,
+    use_T_in=true,
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = Water) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Inlet water conditions (from central plant)&quot;</span>;
+  <a href="Buildings_Fluid_HeatExchangers_RadiantSlabs.html#Buildings.Fluid.HeatExchangers.RadiantSlabs.SingleCircuitSlab"
+>Buildings.Fluid.HeatExchangers.RadiantSlabs.SingleCircuitSlab</a> sla4A3(
+    sysTyp=Buildings.Fluid.HeatExchangers.RadiantSlabs.Types.SystemType.Floor,
+    iLayPip=1,
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = Water,
+    pipe=pipe,
+    layers=slaCon,
+    m_flow_nominal=0.504,
+    A=6.645*0.91,
+    disPip=sla4A3.A/sla4A3.length,
+    length=42.98,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Radiant slab serving the south-central section of cell X3A. Name is taken from drawing M3.02&quot;</span>;
+  <a href="Buildings_Fluid_Sources.html#Buildings.Fluid.Sources.Boundary_pT"
+>Buildings.Fluid.Sources.Boundary_pT</a> watOut4A3(nPorts=1, <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span>
+      Medium = Water) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Water outlet&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.CombiTimeTable"
+>Modelica.Blocks.Sources.CombiTimeTable</a> watCon4A4(tableOnFile=false, table=[0,
+        0.504,293.15; 86400,0.504,293.15]) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Inlet water conditions (y[1] = m_flow, y[2] =  T)&quot;</span>;
+  <a href="Buildings_Fluid_Sources.html#Buildings.Fluid.Sources.MassFlowSource_T"
+>Buildings.Fluid.Sources.MassFlowSource_T</a> watIn4A4(
+    nPorts=1,
+    use_m_flow_in=true,
+    use_T_in=true,
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = Water) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Inlet water conditions (from central plant)&quot;</span>;
+  <a href="Buildings_Fluid_HeatExchangers_RadiantSlabs.html#Buildings.Fluid.HeatExchangers.RadiantSlabs.SingleCircuitSlab"
+>Buildings.Fluid.HeatExchangers.RadiantSlabs.SingleCircuitSlab</a> sla4A4(
+    sysTyp=Buildings.Fluid.HeatExchangers.RadiantSlabs.Types.SystemType.Floor,
+    iLayPip=1,
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = Water,
+    pipe=pipe,
+    layers=slaCon,
+    m_flow_nominal=0.504,
+    A=6.645*3.65,
+    disPip=sla4A4.A/sla4A4.length,
+    length=50.9,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Radiant slab serving the south section of cell X3A. Name is taken from drawing M3.02&quot;</span>;
+  <a href="Buildings_Fluid_Sources.html#Buildings.Fluid.Sources.Boundary_pT"
+>Buildings.Fluid.Sources.Boundary_pT</a> watOut4A4(nPorts=1, <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span>
+      Medium = Water) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Water outlet&quot;</span>;
+  <a href="Buildings_Fluid_Sources.html#Buildings.Fluid.Sources.Boundary_pT"
+>Buildings.Fluid.Sources.Boundary_pT</a> watOut4A1(nPorts=1, <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span>
+      Medium = Water) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Water outlet&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.CombiTimeTable"
+>Modelica.Blocks.Sources.CombiTimeTable</a> watCon4B1(tableOnFile=false, table=[0,
+        0.504,293.15; 86400,0.504,293.15]) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Inlet water conditions (y[1] = m_flow, y[2] =  T)&quot;</span>;
+  <a href="Buildings_Fluid_Sources.html#Buildings.Fluid.Sources.MassFlowSource_T"
+>Buildings.Fluid.Sources.MassFlowSource_T</a> watIn4B1(
+    nPorts=1,
+    use_m_flow_in=true,
+    use_T_in=true,
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = Water) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Inlet water conditions (from central plant)&quot;</span>;
+  <a href="Buildings_Fluid_HeatExchangers_RadiantSlabs.html#Buildings.Fluid.HeatExchangers.RadiantSlabs.SingleCircuitSlab"
+>Buildings.Fluid.HeatExchangers.RadiantSlabs.SingleCircuitSlab</a> sla4B1(
+    sysTyp=Buildings.Fluid.HeatExchangers.RadiantSlabs.Types.SystemType.Floor,
+    iLayPip=1,
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = Water,
+    pipe=pipe,
+    layers=slaCon,
+    m_flow_nominal=0.504,
+    A=6.645*3.09,
+    disPip=sla4B1.A/sla4B1.length,
+    length=38.71,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Radiant slab serving the north side of cell X3B. Name is taken from drawing M3.02&quot;</span>;
+  <a href="Buildings_Fluid_Sources.html#Buildings.Fluid.Sources.Boundary_pT"
+>Buildings.Fluid.Sources.Boundary_pT</a> watOut4B1(          <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span>
+      Medium = Water, nPorts=1) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Water outlet&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.CombiTimeTable"
+>Modelica.Blocks.Sources.CombiTimeTable</a> watCon4B2(tableOnFile=false, table=[0,
+        0.504,293.15; 86400,0.504,293.15]) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Inlet water conditions (y[1] = m_flow, y[2] =  T)&quot;</span>;
+  <a href="Buildings_Fluid_Sources.html#Buildings.Fluid.Sources.MassFlowSource_T"
+>Buildings.Fluid.Sources.MassFlowSource_T</a> watIn4B2(
+    nPorts=1,
+    use_m_flow_in=true,
+    use_T_in=true,
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = Water) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Inlet water conditions (from central plant)&quot;</span>;
+  <a href="Buildings_Fluid_HeatExchangers_RadiantSlabs.html#Buildings.Fluid.HeatExchangers.RadiantSlabs.SingleCircuitSlab"
+>Buildings.Fluid.HeatExchangers.RadiantSlabs.SingleCircuitSlab</a> sla4B2(
+    sysTyp=Buildings.Fluid.HeatExchangers.RadiantSlabs.Types.SystemType.Floor,
+    iLayPip=1,
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = Water,
+    pipe=pipe,
+    layers=slaCon,
+    m_flow_nominal=0.504,
+    A=6.645*1.51,
+    length=45.11,
+    disPip=sla4B2.A/sla4B2.length,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Radiant slab serving the north-central section of cell X3B. Name is taken from drawing M3.02&quot;</span>;
+  <a href="Buildings_Fluid_Sources.html#Buildings.Fluid.Sources.Boundary_pT"
+>Buildings.Fluid.Sources.Boundary_pT</a> watOut4B2(nPorts=1, <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span>
+      Medium = Water) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Water outlet&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.CombiTimeTable"
+>Modelica.Blocks.Sources.CombiTimeTable</a> watCon4B3(tableOnFile=false, table=[0,
+        0.504,293.15; 86400,0.504,293.15]) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Inlet water conditions (y[1] = m_flow, y[2] =  T)&quot;</span>;
+  <a href="Buildings_Fluid_Sources.html#Buildings.Fluid.Sources.MassFlowSource_T"
+>Buildings.Fluid.Sources.MassFlowSource_T</a> watIn4B3(
+    nPorts=1,
+    use_m_flow_in=true,
+    use_T_in=true,
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = Water) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Inlet water conditions (from central plant)&quot;</span>;
+  <a href="Buildings_Fluid_HeatExchangers_RadiantSlabs.html#Buildings.Fluid.HeatExchangers.RadiantSlabs.SingleCircuitSlab"
+>Buildings.Fluid.HeatExchangers.RadiantSlabs.SingleCircuitSlab</a> sla4B3(
+    sysTyp=Buildings.Fluid.HeatExchangers.RadiantSlabs.Types.SystemType.Floor,
+    iLayPip=1,
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = Water,
+    pipe=pipe,
+    layers=slaCon,
+    m_flow_nominal=0.504,
+    A=6.645*0.91,
+    disPip=sla4B3.A/sla4B3.length,
+    length=37.49,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Radiant slab serving the south-central section of cell X3B. Name is taken from drawing M3.02&quot;</span>;
+  <a href="Buildings_Fluid_Sources.html#Buildings.Fluid.Sources.Boundary_pT"
+>Buildings.Fluid.Sources.Boundary_pT</a> watOut4B3(nPorts=1, <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span>
+      Medium = Water) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Water outlet&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.CombiTimeTable"
+>Modelica.Blocks.Sources.CombiTimeTable</a> watCon4B4(tableOnFile=false, table=[0,
+        0.504,293.15; 86400,0.504,293.15]) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Inlet water conditions (y[1] = m_flow, y[2] =  T)&quot;</span>;
+  <a href="Buildings_Fluid_Sources.html#Buildings.Fluid.Sources.MassFlowSource_T"
+>Buildings.Fluid.Sources.MassFlowSource_T</a> watIn4B4(
+    nPorts=1,
+    use_m_flow_in=true,
+    use_T_in=true,
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = Water) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Inlet water conditions (from central plant)&quot;</span>;
+  <a href="Buildings_Fluid_HeatExchangers_RadiantSlabs.html#Buildings.Fluid.HeatExchangers.RadiantSlabs.SingleCircuitSlab"
+>Buildings.Fluid.HeatExchangers.RadiantSlabs.SingleCircuitSlab</a> sla4B4(
+    sysTyp=Buildings.Fluid.HeatExchangers.RadiantSlabs.Types.SystemType.Floor,
+    iLayPip=1,
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = Water,
+    pipe=pipe,
+    layers=slaCon,
+    m_flow_nominal=0.504,
+    A=6.645*3.65,
+    disPip=sla4B4.A/sla4B4.length,
+    length=48.77,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Radiant slab serving the south section of cell X3B. Name is taken from drawing M3.02&quot;</span>;
+  <a href="Buildings_Fluid_Sources.html#Buildings.Fluid.Sources.Boundary_pT"
+>Buildings.Fluid.Sources.Boundary_pT</a> watOut4B4(nPorts=1, <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span>
+      Medium = Water) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Water outlet&quot;</span>;
+<span style="color: blue; font-weight: normal; font-style: normal;">equation </span>
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(X3B.surf_conBou[2], BClo.surf_surBou[1]);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(X3B.surf_conBou[3], BClo.surf_surBou[2]);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(X3B.surf_conBou[4], BEle.surf_surBou[1]);
+
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(BClo.surf_conBou[1], BEle.surf_surBou[2]);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(X3A.surf_surBou[5], X3B.surf_conBou[1]);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(AClo.surf_surBou[3], BClo.surf_conBou[2]);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(X3A.surf_conBou[2], AClo.surf_surBou[1]);
+
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(X3A.surf_conBou[3], AClo.surf_surBou[2]);
+
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(AEle.surf_surBou[2], AClo.surf_conBou[1]);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(weaDat.weaBus, AEle.weaBus);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(weaDat.weaBus, AClo.weaBus);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(weaDat.weaBus, X3A.weaBus);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(weaDat.weaBus, BClo.weaBus);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(weaDat.weaBus, X3B.weaBus);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(weaDat.weaBus, BEle.weaBus);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(X3A.surf_conBou[4], AEle.surf_surBou[1]);
+
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(intGaiCloB.y, BClo.qGai_flow);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(intGaiCloA.y, AClo.qGai_flow);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(intGaiEleA.y, AEle.qGai_flow);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(intGaiEleB.y, BEle.qGai_flow);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(shaPosA.y, X3A.uSha);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(shaPosB.y, X3B.uSha);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(intGaiA.y, X3A.qGai_flow);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(intGaiB.y, X3B.qGai_flow);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(airOutCloA.ports[1], AClo.ports[1]);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(airInCloA.ports[1], AClo.ports[1]);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(airConCloA.y[2], airInCloA.m_flow_in);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(airConCloA.y[4], airInCloA.T_in);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(airConCloB.y[2], airInCloB.m_flow_in);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(airConCloB.y[4], airInCloB.T_in);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(airOutCloB.ports[1], BClo.ports[1]);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(airInCloB.ports[1], BClo.ports[2]);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(airConA.y[1], airInA.m_flow_in);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(airConA.y[4], airInA.T_in);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(airInA.ports[1], X3A.ports[1]);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(airOutA.ports[1], X3A.ports[2]);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(airConB.y[1], airInB.m_flow_in);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(airConB.y[4], airInB.T_in);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(airInB.ports[1], X3B.ports[1]);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(airOutB.ports[1], X3B.ports[2]);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(airConEleA.y[3], airInEleA.m_flow_in);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(airConEleA.y[4], airInEleA.T_in);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(airOutEleA.ports[1], AEle.ports[1]);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(airInEleA.ports[1], AEle.ports[2]);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(TGro.y[1],preT. T);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(TNei.y[1], preT2.T);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(preT2.port, X3A.surf_conBou[1]);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(preT.port, BClo.surf_conBou[3]);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(preT.port, BEle.surf_conBou[1]);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(preT.port, AEle.surf_conBou[1]);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(preT.port, AClo.surf_conBou[2]);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(airConEleB.y[4], airInEleB.T_in);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(airConEleB.y[3], airInEleB.m_flow_in);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(airOutEleB.ports[1], BEle.ports[1]);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(airInEleB.ports[1], BEle.ports[2]);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(watIn4A1.ports[1],sla4A1. port_a);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(watCon4A1.y[1],watIn4A1. m_flow_in);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(watCon4A1.y[2],watIn4A1. T_in);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(watCon4A2.y[1],watIn4A2. m_flow_in);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(watCon4A2.y[2],watIn4A2. T_in);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(watIn4A2.ports[1],sla4A2. port_a);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(sla4A2.port_b,watOut4A2. ports[1]);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(watCon4A3.y[1],watIn4A3. m_flow_in);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(watCon4A3.y[2],watIn4A3. T_in);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(watIn4A3.ports[1],sla4A3. port_a);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(sla4A3.port_b,watOut4A3. ports[1]);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(watCon4A4.y[1],watIn4A4. m_flow_in);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(watCon4A4.y[2],watIn4A4. T_in);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(watIn4A4.ports[1],sla4A4. port_a);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(sla4A4.port_b,watOut4A4. ports[1]);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(sla4A1.port_b,watOut4A1. ports[1]);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(preT.port, sla4A1.surf_b);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(sla4A1.surf_a, X3A.surf_surBou[1]);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(sla4A2.surf_a, X3A.surf_surBou[2]);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(preT.port, sla4A2.surf_b);
+
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(preT.port, sla4A3.surf_b);
+
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(sla4A3.surf_a, X3A.surf_surBou[3]);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(sla4A4.surf_a, X3A.surf_surBou[4]);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(preT.port, sla4A4.surf_b);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(watIn4B1.ports[1],sla4B1. port_a);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(sla4B1.port_b, watOut4B1.ports[1]);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(watCon4B1.y[2], watIn4B1.T_in);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(watCon4B1.y[1], watIn4B1.m_flow_in);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(preT.port, sla4B1.surf_b);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(sla4B1.surf_a, X3B.surf_surBou[1]);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(sla4B2.port_b, watOut4B2.ports[1]);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(watIn4B2.ports[1], sla4B2.port_a);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(watCon4B2.y[2], watIn4B2.T_in);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(watCon4B2.y[1], watIn4B2.m_flow_in);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(preT.port, sla4B2.surf_b);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(sla4B2.surf_a, X3B.surf_surBou[2]);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(watOut4B3.ports[1], sla4B3.port_b);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(sla4B3.port_a, watIn4B3.ports[1]);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(watCon4B3.y[2], watIn4B3.T_in);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(watCon4B3.y[1], watIn4B3.m_flow_in);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(preT.port, sla4B3.surf_b);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(sla4B3.surf_a, X3B.surf_surBou[3]);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(watOut4B4.ports[1], sla4B4.port_b);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(sla4B4.port_a, watIn4B4.ports[1]);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(watCon4B4.y[2], watIn4B4.T_in);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(watCon4B4.y[1], watIn4B4.m_flow_in);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(preT.port, sla4B4.surf_b);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(sla4B4.surf_a, X3B.surf_surBou[4]);
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>TestBedX3WithRadiantFloor;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE X3AWithRadiantFloor<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Rooms.FLEXLAB.Rd52aebed77d28887FloorI.png" alt="Buildings.Rooms.FLEXLAB.Rooms.Examples.X3AWithRadiantFloor" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Rooms.FLEXLAB.Rooms.Examples.X3AWithRadiantFloor"></a><a href="Buildings_Rooms_FLEXLAB_Rooms_Examples.html#Buildings.Rooms.FLEXLAB.Rooms.Examples"
+>Buildings.Rooms.FLEXLAB.Rooms.Examples</a>.X3AWithRadiantFloor</h2>
+<p>
+<b>Example model showing a use of X3A</b>
+<br>
+<br><img src="Buildings.Rooms.FLEXLAB.R1e3e1f155edd8e29FloorD.png" alt="Buildings.Rooms.FLEXLAB.Rooms.Examples.X3AWithRadiantFloor">
+</p>
+<h3>Information</h3>
+
+          <p>
+          This model demonstrates one potential simulation using the models available in
+          <a href="Buildings_Rooms_FLEXLAB_Rooms_X3A.html#Buildings.Rooms.FLEXLAB.Rooms.X3A"
+>
+          Buildings.Rooms.FLEXLAB.Rooms.X3A</a>. This example simulates test cell
+          X3A when it is conditioned with a radiant slab. This example model includes
+          heat transfer between the test cell, the outdoor environment, the radiant slab
+          conditioning the test cell, the connected electrical room and closet, and the
+          neighboring test cells.
+          </p>
+          <p>
+          The connections between the test cell and the external models are described in the following table.
+          Only models not included in the X3A package are included. For documentation describing the connections
+          between X3A models see <a href="Buildings_Rooms_FLEXLAB_Rooms_X3A.html#Buildings.Rooms.FLEXLAB.Rooms.X3A"
+>
+          Buildings.Rooms.FLEXLAB.Rooms.X3A</a>.
+          </p>
+          <table border ="1" summary = "Summary of connections between test cell and other models">
+          <tr>
+          <th>External model name</th>
+          <th>External model significance</th>
+          <th>External model port</th>
+          <th>X3A port</th>
+          </tr>
+          <tr>
+          <td>weaDat</td>
+          <td>Outdoor weather</td>
+          <td>weaDat.weaBus</td>
+          <td>X3A.weaBus</td>
+          </tr>
+          <tr>
+          <td>TNei</td>
+          <td>Neighboring test cells (X2B and X3B)</td>
+          <td>X2B: X3A.preTem2.port[1]<br/>
+          X3B: X3A.preTem2.port[2]</td>
+          <td>X2B: X3A.surf_conBou[1]<br/>
+          X3B: X3A.surf_conBou[2]</td>
+          </tr>
+          <tr>
+          <td>sla4A1</td>
+          <td>Radiant slab serving the north portion of X3A</td>
+          <td>sla4A1.surf_a</td>
+          <td>X3A.surf_surBou[1]</td>
+          </tr>
+          <tr>
+          <td>sla4A2</td>
+          <td>Radiant slab serving the north-central portion of X3A</td>
+          <td>sla4A2.surf_a</td>
+          <td>X3A.surf_surBou[2]</td>
+          </tr>
+          <tr>
+          <td>sla4A3</td>
+          <td>Radiant slab serving the south-central portion of X3A</td>
+          <td>sla4A3.surf_a</td>
+          <td>X3A.surf_surBou[3]</td>
+          </tr>
+          <tr>
+          <td>sla4A4</td>
+          <td>Radiant slab serving the south portion of X3A</td>
+          <td>sla4A4.surf_a</td>
+          <td>X3A.surf_surBou[4]</td>
+          </tr>
+          <tr>
+          <td>shaPos</td>
+          <td>Table describing the position of the window shade</td>
+          <td>shaPos.y[1]</td>
+          <td>X3A.uSha</td>
+          </tr>
+          <tr>
+          <td>intGai</td>
+          <td>Table specifying the internal gains in the space</td>
+          <td>intGai[1,2,3]</td>
+          <td>X3A.qGai_flow[1,2,3]</td>
+          </tr>
+          <tr>
+          <td>airIn</td>
+          <td>Prescribed airflow describing service air from the AHU</td>
+          <td>airIn.ports[1]</td>
+          <td>X3A.ports[1]</td>
+          </tr>
+          <tr>
+          <td>airOut</td>
+          <td>Outlet for ventilation air flow</td>
+          <td>airOut.ports[1]</td>
+          <td>X3A.ports[1]</td>
+          </tr>
+          </table>
+          <p>
+          The connections between the closet and external models are described in the following table.
+          Only connections to models not included in the X3A package are described.
+          </p>
+          <table border="1" summary = "Summary of connections to the closet model">
+          <tr>
+          <th>External model name</th>
+          <th>External model significance</th>
+          <th>External model port</th>
+          <th>clo port</th>
+          </tr>
+          <tr>
+          <td>intGaiClo</td>
+          <td>Table specifying the internal gains in the closet</td>
+          <td>intGaiClo[1,2,3]</td>
+          <td>clo.qGai_flow[1,2,3]</td>
+          </tr>
+          <tr>
+          <td>airInClo</td>
+          <td>Prescribed airflow describing service air from the AHU</td>
+          <td>airInClo.ports[1]</td>
+          <td>clo.ports[1]</td>
+          </tr>
+          <tr>
+          <td>airOutClo</td>
+          <td>Outlet for ventilation air flow</td>
+          <td>airOutClo.ports[1]</td>
+          <td>clo.ports[1]</td>
+          </tr>
+          <tr>
+          <td>preT</td>
+          <td>Prescribed temperature describing the ground temperature</td>
+          <td>preT.port</td>
+          <td>clo.surf_conBou[3]</td>
+          </tr>
+          </table>
+          <p>
+          The connections between the electrical room and external models are described in the following
+          table. Only connections to models not included in the X3A package are described.
+          </p>
+          <table border="1" summary = "Summary of connections to the electrical room model">
+          <tr>
+          <th>External model name</th>
+          <th>External model significance</th>
+          <th>External model port</th>
+          <th>ele port</th>
+          </tr>
+          <tr>
+          <td>intGaiEle</td>
+          <td>Table specifying the internal gains in the electrical room</td>
+          <td>intGaiEle[1,2,3]</td>
+          <td>ele.qGai_flow[1,2,3]</td>
+          </tr>
+          <tr>
+          <td>airInEle</td>
+          <td>Prescribed airflow describing service air from the AHU</td>
+          <td>airInEle.ports[1]</td>
+          <td>ele.ports[1]</td>
+          </tr>
+          <tr>
+          <td>airOutEle</td>
+          <td>Outlet for ventilation air flow</td>
+          <td>airOutEle.ports[1]</td>
+          <td>ele.ports[1]</td>
+          </tr>
+          <tr>
+          <td>preT</td>
+          <td>Prescribed temperature describing the ground temperature</td>
+          <td>preT.port</td>
+          <td>ele.surf_conBou[1]</td>
+          </tr>
+          </table>
+          <p>
+          The radiant slab is modeled using an instance of
+          <a href="Buildings_Fluid_HeatExchangers_RadiantSlabs.html#Buildings.Fluid.HeatExchangers.RadiantSlabs.SingleCircuitSlab"
+>
+          Buildings.Fluid.HeatExchangers.RadiantSlabs.SingleCircuitSlab</a>. All of the inputs
+          used to define the radiant slab are taken from the architectural drawings. The following
+          table describes the connections between models used in the radiant slab. The connection
+          to X3A is not included because it was previously described.
+          </p>
+          <table border="1" summary = "Summary of connections to the radiant slab model">
+          <tr>
+          <th>External model name</th>
+          <th>External model significance</th>
+          <th>External model port</th>
+          <th>Radiant slab port</th>
+          </tr>
+          <tr>
+          <td>watIn</td>
+          <td>Inlet for service fluid flow. Currently connects to a prescribed flow described
+          in a table</td>
+          <td>watIn.ports[1]</td>
+          <td>sla.port_a</td>
+          </tr>
+          <tr>
+          <td>preT</td>
+          <td>Ground temperature beneath the radiant slab construction. Currently connects to
+          a prescribed temperature defined in a table</td>
+          <td>preT.port</td>
+          <td>sla.surf_b</td>
+          </tr>
+          <tr>
+          <td>watOut</td>
+          <td>Outlet for service fluid flow</td>
+          <td>watOut.ports[1]</td>
+          <td>sla.port_b</td>
+          </tr>
+          </table>
+          <p>
+          The model only simulates the space conditions, the effects of the radiant slab, and the
+          heat transfer between the rooms. The air handling unit, chilled water plant, shade control,
+          internal gains, and ground temperature are all modeled by reading data from tables.
+          Currently the ventilation air is read from an external data file, via the model
+          <code>airCon</code>, while the others use tables described in the data reader model. The table
+          below shows the name of data input files in the model, what physical phenomena the data file
+          describes, the physical quantity of each data file output, and the source of the data.
+          </p>
+          <table border ="1" summary = "Description of data table models">
+          <tr>
+          <th>Model name</th>
+          <th>Quantity described</th>
+          <th>Data source</th>
+          <th>y[1] significance</th>
+          <th>y[2] significance</th>
+          <th>y[3] significance</th>
+          <th>y[4] significance</th>
+          </tr>
+          <tr>
+          <td>shaPos</td>
+          <td>Position of the shade</td>
+          <td>Table in model</td>
+          <td>Position of the shade</td>
+          </tr>
+          <tr>
+          <td>intGai</td>
+          <td>Internal gains</td>
+          <td>Table in model</td>
+          <td>Radiant heat</td>
+          <td>Convective heat</td>
+          <td>Latent heat</td>
+          <td></td>
+          </tr>
+          <tr>
+          <td>airCon</td>
+          <td>Ventilation air from air handling unit</td>
+          <td>External text file</td>
+          <td>Mass flow rate</td>
+          <td></td>
+          <td></td>
+          <td>Temperature</td>
+          <td></td>
+          </tr>
+          <tr>
+          <td>watCon</td>
+          <td>Conditioning water from central plant</td>
+          <td>Table in model</td>
+          <td>Mass flow rate</td>
+          <td>Temperature</td>
+          <td></td>
+          </tr>
+          <tr>
+          <td>TGro</td>
+          <td>Ground temperature</td>
+          <td>Table in model</td>
+          <td>Temperature</td>
+          <td></td>
+          <td></td>
+          </tr>
+          <tr>
+          <td>intGaiClo</td>
+          <td>Internal gains for the closet</td>
+          <td>Table in model</td>
+          <td>Radiant heat</td>
+          <td>Convective heat</td>
+          <td>Latent heat</td>
+          </tr>
+          <tr>
+          <td>intGaiEle</td>
+          <td>Internal gains for the electrical room</td>
+          <td>Table in model</td>
+          <td>Radiant heat</td>
+          <td>Convective heat</td>
+          <td>Latent heat</td>
+          </tr>
+          <tr>
+          <td>airConEle</td>
+          <td>Ventilation air from AHU in the electrical room</td>
+          <td>External text file</td>
+          <td></td>
+          <td></td>
+          <td>Mass flow rate</td>
+          <td>Temperature</td>
+          </tr>
+          <tr>
+          <td>airConClo</td>
+          <td>Ventilation air from AHU in closet</td>
+          <td>External text file</td>
+          <td></td>
+          <td>Mass flow rate</td>
+          <td></td>
+          <td>Temperature</td>
+          </tr>
+          <tr>
+          <td>TNei</td>
+          <td>Temperature of the neighboring cells</td>
+          <td>Table in model</td>
+          <td>X2B</td>
+          <td>X3B</td>
+          </tr>
+          </table>
+          <p>
+          In the above table blank entries either show that there is no data to describe, or that the data
+          is describing a quantity for a separate model. Two examples are:
+          <ul>
+          <li>The table for shaPos only contains data for shade position. Because it only has a y[1] value
+          the remaining columns in the table are left blank.</li>
+          <li> airCon, airConClo, and airConEle all share an external data file. They all use the same
+          temperature data, located in y[4] of the external data file. The three room models use different
+          air mass flow rates. airCon uses the flow rate from y[1] in the data file, airConClo uses the
+          flow rate from y[2], and airConEle uses the flow rate from y[3]. Thus, the other entries
+          for each row in the table are left blank because the data is innapropriate for that particular
+          model.</li>
+          </ul>
+          <p>
+          The ventilation air flow rates used during occupied hours in this example were calculated using
+          the assumption of 4 air changes per hour (ACH). It is assumed that there is
+          no ventilation flow during unoccupied hours.
+          </p>
+          
+<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</a> (Icon for runnable examples).</p>
+<h3>Parameters</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td><a href="Buildings_HeatTransfer_Data_OpaqueConstructions.html#Buildings.HeatTransfer.Data.OpaqueConstructions.Generic"
+>Generic</a></td><td>slaCon</td><td>&nbsp;</td><td>Construction of the slab</td></tr>
+<tr><td><a href="Buildings_Fluid_Data_Pipes.html#Buildings.Fluid.Data.Pipes.PEX_RADTEST"
+>PEX_RADTEST</a></td><td>pipe</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">model</span> X3AWithRadiantFloor <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Example model showing a use of X3A&quot;</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</a>;
+
+  <span style="color: blue; font-weight: normal; font-style: normal;">package</span> Air = <a href="Buildings_Media_Air.html#Buildings.Media.Air"
+>Buildings.Media.Air</a> <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Air model used in the example model&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">package</span> Water = <a href="Buildings_Media_Water.html#Buildings.Media.Water"
+>Buildings.Media.Water</a> <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Water model used in the radiant slab loop&quot;</span>;
+
+  <a href="Buildings_Rooms_FLEXLAB_Rooms_X3A.html#Buildings.Rooms.FLEXLAB.Rooms.X3A.TestCell"
+>Buildings.Rooms.FLEXLAB.Rooms.X3A.TestCell</a> X3A(
+    nPorts=2,
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = Air,
+    linearizeRadiation=false,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial);
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.CombiTimeTable"
+>Modelica.Blocks.Sources.CombiTimeTable</a> intGai(table=[0,0,0,0; 86400,0,0,0],
+      tableOnFile=false) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Internal gain heat flow (Radiant = 1, Convective = 2, Latent = 3)&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.CombiTimeTable"
+>Modelica.Blocks.Sources.CombiTimeTable</a> shaPos(table=[0,1; 86400,1],
+      tableOnFile=false) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Position of the shade&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.CombiTimeTable"
+>Modelica.Blocks.Sources.CombiTimeTable</a> airCon(table=[0,0.1,293.15; 86400,0.1,293.15],
+    tableOnFile=true,
+    tableName=&quot;airCon&quot;,
+    fileName=<span style="color: red; font-weight: normal; font-style: normal;">ModelicaServices.ExternalReferences.loadResource</span>(
+       &quot;modelica://Buildings/Resources/Data/Rooms/FLEXLAB/Rooms/Examples/X3AWithRadiantFloor.txt&quot;),
+    columns=2:5) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Inlet air conditions (y[1] = m_flow, y[4] = T)&quot;</span>;
+  <a href="Buildings_Fluid_Sources.html#Buildings.Fluid.Sources.MassFlowSource_T"
+>Buildings.Fluid.Sources.MassFlowSource_T</a> airIn(
+    use_m_flow_in=true,
+    use_T_in=true,
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = Air,
+    nPorts=1) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Inlet air conditions (from AHU) for X3A&quot;</span>;
+  <a href="Buildings_Fluid_Sources.html#Buildings.Fluid.Sources.Boundary_pT"
+>Buildings.Fluid.Sources.Boundary_pT</a>
+    airOut(nPorts=1, <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = Air) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Air outlet for X3A&quot;</span>;
+  <a href="Buildings_Fluid_HeatExchangers_RadiantSlabs.html#Buildings.Fluid.HeatExchangers.RadiantSlabs.SingleCircuitSlab"
+>Buildings.Fluid.HeatExchangers.RadiantSlabs.SingleCircuitSlab</a> sla4A1(
+    sysTyp=Buildings.Fluid.HeatExchangers.RadiantSlabs.Types.SystemType.Floor,
+    iLayPip=1,
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = Water,
+    pipe=pipe,
+    layers=slaCon,
+    m_flow_nominal=0.504,
+    A=6.645*3.09,
+    length=32.92,
+    disPip=sla4A1.A/sla4A1.length,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Radiant slab serving the north side of cell X3A. Name is taken from drawing M3.02&quot;</span>;
+
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.CombiTimeTable"
+>Modelica.Blocks.Sources.CombiTimeTable</a> watCon4A1(tableOnFile=false, table=[0,
+        0.504,293.15; 86400,0.504,293.15]) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Inlet water conditions (y[1] = m_flow, y[2] =  T)&quot;</span>;
+  <a href="Buildings_Fluid_Sources.html#Buildings.Fluid.Sources.MassFlowSource_T"
+>Buildings.Fluid.Sources.MassFlowSource_T</a> watIn4A1(
+    nPorts=1,
+    use_m_flow_in=true,
+    use_T_in=true,
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = Water) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Inlet water conditions (from central plant)&quot;</span>;
+  <a href="Buildings_Fluid_Sources.html#Buildings.Fluid.Sources.Boundary_pT"
+>Buildings.Fluid.Sources.Boundary_pT</a> watOut4A1(nPorts=1, <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span>
+      Medium = Water) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Water outlet&quot;</span>;
+  <a href="Buildings_HeatTransfer_Sources.html#Buildings.HeatTransfer.Sources.PrescribedTemperature"
+>Buildings.HeatTransfer.Sources.PrescribedTemperature</a> preT <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Temperature of the ground&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.CombiTimeTable"
+>Modelica.Blocks.Sources.CombiTimeTable</a> TGro(
+    table=[0,288.15; 86400,288.15], tableOnFile=false);
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="Buildings_HeatTransfer_Data_OpaqueConstructions.html#Buildings.HeatTransfer.Data.OpaqueConstructions.Generic"
+>Buildings.HeatTransfer.Data.OpaqueConstructions.Generic</a>
+    slaCon(nLay=3, material={
+      <span style="color: red; font-weight: normal; font-style: normal;">Buildings.HeatTransfer.Data.Solids.Generic</span>(
+        x=0.1524,
+        k=1.13,
+        c=1000,
+        d=1400,
+        nSta=5),
+      <span style="color: red; font-weight: normal; font-style: normal;">Buildings.HeatTransfer.Data.Solids.Generic</span>(
+        x=0.127,
+        k=0.036,
+        c=1200,
+        d=40),
+      <span style="color: red; font-weight: normal; font-style: normal;">Buildings.HeatTransfer.Data.Solids.Generic</span>(
+        x=0.2,
+        k=1.8,
+        c=1100,
+        d=2400)}) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Construction of the slab&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="Buildings_Fluid_Data_Pipes.html#Buildings.Fluid.Data.Pipes.PEX_RADTEST"
+>Buildings.Fluid.Data.Pipes.PEX_RADTEST</a> pipe(dIn=0.015875, dOut=0.01905);
+
+  <a href="Buildings_BoundaryConditions_WeatherData.html#Buildings.BoundaryConditions.WeatherData.ReaderTMY3"
+>Buildings.BoundaryConditions.WeatherData.ReaderTMY3</a> weaDat(filNam=
+    &quot;modelica://Buildings/Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos&quot;);
+  <a href="Buildings_HeatTransfer_Sources.html#Buildings.HeatTransfer.Sources.PrescribedTemperature"
+>Buildings.HeatTransfer.Sources.PrescribedTemperature</a> preT2[2];
+  <a href="Buildings_Rooms_FLEXLAB_Rooms_X3A.html#Buildings.Rooms.FLEXLAB.Rooms.X3A.Electrical"
+>Buildings.Rooms.FLEXLAB.Rooms.X3A.Electrical</a> ele(
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = Air, nPorts=2,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Model of the electrical room&quot;</span>;
+  <a href="Buildings_Rooms_FLEXLAB_Rooms_X3A.html#Buildings.Rooms.FLEXLAB.Rooms.X3A.Closet"
+>Buildings.Rooms.FLEXLAB.Rooms.X3A.Closet</a>
+    clo(
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = Air,
+    nPorts=2,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Model of the closet&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.CombiTimeTable"
+>Modelica.Blocks.Sources.CombiTimeTable</a> TNei(
+    table=[0,293.15,293.15; 86400,293.15,293.15], tableOnFile=false) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Temperature of the neighboring test cells (y[1] = X2B, y[2] = X3B)&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.CombiTimeTable"
+>Modelica.Blocks.Sources.CombiTimeTable</a> intGaiEle(
+    table=[0,0,0,0; 86400,0,0,0], tableOnFile=false) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Internal gain heat flow for the electrical room&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.CombiTimeTable"
+>Modelica.Blocks.Sources.CombiTimeTable</a> airConEle(
+    tableOnFile=true,
+    tableName=&quot;airCon&quot;,
+    fileName=<span style="color: red; font-weight: normal; font-style: normal;">ModelicaServices.ExternalReferences.loadResource</span>(
+       &quot;modelica://Buildings/Resources/Data/Rooms/FLEXLAB/Rooms/Examples/X3AWithRadiantFloor.txt&quot;),
+    columns=2:5) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Inlet air conditions for the connected electrical room (y[1] = m_flow, y[4] = T)&quot;</span>;
+
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.CombiTimeTable"
+>Modelica.Blocks.Sources.CombiTimeTable</a> airConClo(
+    tableOnFile=true,
+    tableName=&quot;airCon&quot;,
+    fileName=<span style="color: red; font-weight: normal; font-style: normal;">ModelicaServices.ExternalReferences.loadResource</span>(
+       &quot;modelica://Buildings/Resources/Data/Rooms/FLEXLAB/Rooms/Examples/X3AWithRadiantFloor.txt&quot;),
+    columns=2:5) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Inlet air conditions for the connected closet (y[1] = m_flow, y[4] = T)&quot;</span>;
+
+  <a href="Buildings_Fluid_Sources.html#Buildings.Fluid.Sources.MassFlowSource_T"
+>Buildings.Fluid.Sources.MassFlowSource_T</a> airInEle(
+    use_m_flow_in=true,
+    use_T_in=true,
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = Air,
+    nPorts=1) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Inlet air conditions (from AHU) for the electrical room&quot;</span>;
+  <a href="Buildings_Fluid_Sources.html#Buildings.Fluid.Sources.Boundary_pT"
+>Buildings.Fluid.Sources.Boundary_pT</a> airOutEle(nPorts=1, <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span>
+      Medium = Air) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Air outlet from the electrical room&quot;</span>;
+  <a href="Buildings_Fluid_Sources.html#Buildings.Fluid.Sources.MassFlowSource_T"
+>Buildings.Fluid.Sources.MassFlowSource_T</a> airInClo(
+    use_m_flow_in=true,
+    use_T_in=true,
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = Air,
+    nPorts=1) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Inlet air conditions (from AHU) for the closet&quot;</span>;
+  <a href="Buildings_Fluid_Sources.html#Buildings.Fluid.Sources.Boundary_pT"
+>Buildings.Fluid.Sources.Boundary_pT</a> airOutClo(
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = Air, nPorts=1) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Air outlet from the closet&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.CombiTimeTable"
+>Modelica.Blocks.Sources.CombiTimeTable</a> intGaiClo(
+    table=[0,0,0,0; 86400,0,0,0], tableOnFile=false) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Internal gain heat flow for the closet&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.CombiTimeTable"
+>Modelica.Blocks.Sources.CombiTimeTable</a> watCon4A2(tableOnFile=false, table=[0,
+        0.504,293.15; 86400,0.504,293.15]) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Inlet water conditions (y[1] = m_flow, y[2] =  T)&quot;</span>;
+  <a href="Buildings_Fluid_Sources.html#Buildings.Fluid.Sources.MassFlowSource_T"
+>Buildings.Fluid.Sources.MassFlowSource_T</a> watIn4A2(
+    nPorts=1,
+    use_m_flow_in=true,
+    use_T_in=true,
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = Water) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Inlet water conditions (from central plant)&quot;</span>;
+  <a href="Buildings_Fluid_HeatExchangers_RadiantSlabs.html#Buildings.Fluid.HeatExchangers.RadiantSlabs.SingleCircuitSlab"
+>Buildings.Fluid.HeatExchangers.RadiantSlabs.SingleCircuitSlab</a> sla4A2(
+    sysTyp=Buildings.Fluid.HeatExchangers.RadiantSlabs.Types.SystemType.Floor,
+    iLayPip=1,
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = Water,
+    pipe=pipe,
+    layers=slaCon,
+    m_flow_nominal=0.504,
+    A=6.645*1.51,
+    disPip=sla4A2.A/sla4A2.length,
+    length=45.11,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Radiant slab serving the north-central section of cell X3A. Name is taken from drawing M3.02&quot;</span>;
+
+  <a href="Buildings_Fluid_Sources.html#Buildings.Fluid.Sources.Boundary_pT"
+>Buildings.Fluid.Sources.Boundary_pT</a> watOut4A2(nPorts=1, <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span>
+      Medium = Water) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Water outlet&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.CombiTimeTable"
+>Modelica.Blocks.Sources.CombiTimeTable</a> watCon4A3(tableOnFile=false, table=[0,
+        0.504,293.15; 86400,0.504,293.15]) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Inlet water conditions (y[1] = m_flow, y[2] =  T)&quot;</span>;
+  <a href="Buildings_Fluid_Sources.html#Buildings.Fluid.Sources.MassFlowSource_T"
+>Buildings.Fluid.Sources.MassFlowSource_T</a> watIn4A3(
+    nPorts=1,
+    use_m_flow_in=true,
+    use_T_in=true,
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = Water) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Inlet water conditions (from central plant)&quot;</span>;
+  <a href="Buildings_Fluid_HeatExchangers_RadiantSlabs.html#Buildings.Fluid.HeatExchangers.RadiantSlabs.SingleCircuitSlab"
+>Buildings.Fluid.HeatExchangers.RadiantSlabs.SingleCircuitSlab</a> sla4A3(
+    sysTyp=Buildings.Fluid.HeatExchangers.RadiantSlabs.Types.SystemType.Floor,
+    iLayPip=1,
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = Water,
+    pipe=pipe,
+    layers=slaCon,
+    m_flow_nominal=0.504,
+    A=6.645*0.91,
+    disPip=sla4A3.A/sla4A3.length,
+    length=42.98,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Radiant slab serving the south-central section of cell X3A. Name is taken from drawing M3.02&quot;</span>;
+
+  <a href="Buildings_Fluid_Sources.html#Buildings.Fluid.Sources.Boundary_pT"
+>Buildings.Fluid.Sources.Boundary_pT</a> watOut4A3(nPorts=1, <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span>
+      Medium = Water) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Water outlet&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.CombiTimeTable"
+>Modelica.Blocks.Sources.CombiTimeTable</a> watCon4A4(tableOnFile=false, table=[0,
+        0.504,293.15; 86400,0.504,293.15]) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Inlet water conditions (y[1] = m_flow, y[2] =  T)&quot;</span>;
+  <a href="Buildings_Fluid_Sources.html#Buildings.Fluid.Sources.MassFlowSource_T"
+>Buildings.Fluid.Sources.MassFlowSource_T</a> watIn4A4(
+    nPorts=1,
+    use_m_flow_in=true,
+    use_T_in=true,
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = Water) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Inlet water conditions (from central plant)&quot;</span>;
+  <a href="Buildings_Fluid_HeatExchangers_RadiantSlabs.html#Buildings.Fluid.HeatExchangers.RadiantSlabs.SingleCircuitSlab"
+>Buildings.Fluid.HeatExchangers.RadiantSlabs.SingleCircuitSlab</a> sla4A4(
+    sysTyp=Buildings.Fluid.HeatExchangers.RadiantSlabs.Types.SystemType.Floor,
+    iLayPip=1,
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = Water,
+    pipe=pipe,
+    layers=slaCon,
+    m_flow_nominal=0.504,
+    A=6.645*3.65,
+    disPip=sla4A4.A/sla4A4.length,
+    length=50.9,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Radiant slab serving the south section of cell X3A. Name is taken from drawing M3.02&quot;</span>;
+
+  <a href="Buildings_Fluid_Sources.html#Buildings.Fluid.Sources.Boundary_pT"
+>Buildings.Fluid.Sources.Boundary_pT</a> watOut4A4(nPorts=1, <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span>
+      Medium = Water) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Water outlet&quot;</span>;
+<span style="color: blue; font-weight: normal; font-style: normal;">equation </span>
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(airCon.y[1],airIn. m_flow_in);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(airCon.y[4],airIn. T_in);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(airIn.ports[1], X3A.ports[1]);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(airOut.ports[1], X3A.ports[2]);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(sla4A1.surf_b, preT.port);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(watIn4A1.ports[1], sla4A1.port_a);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(sla4A1.port_b, watOut4A1.ports[1]);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(watCon4A1.y[1], watIn4A1.m_flow_in);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(watCon4A1.y[2], watIn4A1.T_in);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(TGro.y[1],preT. T);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(weaDat.weaBus, X3A.weaBus);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(shaPos.y, X3A.uSha);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(weaDat.weaBus, ele.weaBus);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(weaDat.weaBus,clo. weaBus);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(ele.surf_surBou[1], X3A.surf_conBou[5]);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(clo.surf_surBou[1], X3A.surf_conBou[3]);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(clo.surf_surBou[1], X3A.surf_conBou[4]);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(airConEle.y[4], airInEle.T_in);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(airInEle.ports[1], ele.ports[1]);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(ele.ports[2], airOutEle.ports[1]);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(ele.surf_surBou[2], clo.surf_conBou[1]);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(preT2[1].port, X3A.surf_conBou[1]);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(preT2[2].port, X3A.surf_conBou[2]);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(airInClo.ports[1],clo. ports[1]);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(TNei.y, preT2.T);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(preT2[2].port, clo.surf_conBou[2]);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(airConClo.y[4], airInClo.T_in);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(airConEle.y[3], airInEle.m_flow_in);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(airConClo.y[2], airInClo.m_flow_in);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(airOutClo.ports[1],clo. ports[2]);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(intGai.y, X3A.qGai_flow);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(intGaiEle.y, ele.qGai_flow);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(intGaiClo.y,clo. qGai_flow);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(preT.port,clo. surf_conBou[3]);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(ele.surf_conBou[1], preT.port);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(sla4A1.surf_a, X3A.surf_surBou[1]);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(watCon4A2.y[1], watIn4A2.m_flow_in);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(watCon4A2.y[2], watIn4A2.T_in);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(watIn4A2.ports[1], sla4A2.port_a);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(sla4A2.port_b, watOut4A2.ports[1]);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(sla4A2.surf_a, X3A.surf_surBou[2]);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(preT.port, sla4A2.surf_b);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(watCon4A3.y[1], watIn4A3.m_flow_in);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(watCon4A3.y[2], watIn4A3.T_in);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(watIn4A3.ports[1], sla4A3.port_a);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(sla4A3.port_b, watOut4A3.ports[1]);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(sla4A3.surf_a, X3A.surf_surBou[3]);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(preT.port, sla4A3.surf_b);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(watCon4A4.y[1], watIn4A4.m_flow_in);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(watCon4A4.y[2], watIn4A4.T_in);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(watIn4A4.ports[1], sla4A4.port_a);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(sla4A4.port_b, watOut4A4.ports[1]);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(preT.port, sla4A4.surf_b);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(sla4A4.surf_a, X3A.surf_surBou[4]);
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>X3AWithRadiantFloor;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE X3BWithRadiantFloor<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Rooms.FLEXLAB.Rd52aebed77d28887FloorI.png" alt="Buildings.Rooms.FLEXLAB.Rooms.Examples.X3BWithRadiantFloor" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Rooms.FLEXLAB.Rooms.Examples.X3BWithRadiantFloor"></a><a href="Buildings_Rooms_FLEXLAB_Rooms_Examples.html#Buildings.Rooms.FLEXLAB.Rooms.Examples"
+>Buildings.Rooms.FLEXLAB.Rooms.Examples</a>.X3BWithRadiantFloor</h2>
+<p>
+<b>Example model showing a use of X3B</b>
+<br>
+<br><img src="Buildings.Rooms.FLEXLAB.Re2904e565ede8e29FloorD.png" alt="Buildings.Rooms.FLEXLAB.Rooms.Examples.X3BWithRadiantFloor">
+</p>
+<h3>Information</h3>
+
+          <p>
+          This model demonstrates one potential simulation using the models available in
+          <a href="Buildings_Rooms_FLEXLAB_Rooms_X3B.html#Buildings.Rooms.FLEXLAB.Rooms.X3B"
+>
+          Buildings.Rooms.FLEXLAB.Rooms.X3B</a>. This model is nearly identical to
+          <a href="Buildings_Rooms_FLEXLAB_Rooms_Examples.html#Buildings.Rooms.FLEXLAB.Rooms.Examples.X3AWithRadiantFloor"
+>
+          Buildings.Rooms.FLEXLAB.Rooms.Examples.X3AWithRadiantFloor</a>. For a description
+          of most of the connections and reasons behind them see that documentation. The changes
+          to make this example model are:
+          </p>
+          <ul>
+          <li>The room models were changed from X3A models to X3B models.</li>
+          <li><a href="Buildings_Rooms_FLEXLAB_Rooms_X3B.html#Buildings.Rooms.FLEXLAB.Rooms.X3B.TestCell"
+>
+          Buildings.Rooms.FLEXLAB.Rooms.X3B.TestCell</a> has one external wall (modeled in datConExt)
+          which was a dividing wall (modeled in datConBou) in
+          <a href="Buildings_Rooms_FLEXLAB_Rooms_X3A.html#Buildings.Rooms.FLEXLAB.Rooms.X3A.TestCell"
+>
+          Buildings.Rooms.FLEXLAB.Rooms.X3A.TestCell</a>. Because of this, a few construction indexes
+          changed. Connections were made according to the table in
+          <a href="Buildings_Rooms_FLEXLAB_Rooms_X3B.html#Buildings.Rooms.FLEXLAB.Rooms.X3B"
+>
+          Buildings.Rooms.FLEXLAB.Rooms.X3B</a>.</li>
+          </ul>
+          
+<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</a> (Icon for runnable examples).</p>
+<h3>Parameters</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td><a href="Buildings_HeatTransfer_Data_OpaqueConstructions.html#Buildings.HeatTransfer.Data.OpaqueConstructions.Generic"
+>Generic</a></td><td>slaCon</td><td>&nbsp;</td><td>Construction of the slab</td></tr>
+<tr><td><a href="Buildings_Fluid_Data_Pipes.html#Buildings.Fluid.Data.Pipes.PEX_RADTEST"
+>PEX_RADTEST</a></td><td>pipe</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">model</span> X3BWithRadiantFloor <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Example model showing a use of X3B&quot;</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</a>;
+
+  <span style="color: blue; font-weight: normal; font-style: normal;">package</span> Air = <a href="Buildings_Media_Air.html#Buildings.Media.Air"
+>Buildings.Media.Air</a> <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Air model used in the example model&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">package</span> Water = <a href="Buildings_Media_Water.html#Buildings.Media.Water"
+>Buildings.Media.Water</a> <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Water model used in the radiant slab loop&quot;</span>;
+
+  <a href="Buildings_Rooms_FLEXLAB_Rooms_X3B.html#Buildings.Rooms.FLEXLAB.Rooms.X3B.TestCell"
+>Buildings.Rooms.FLEXLAB.Rooms.X3B.TestCell</a> X3B(
+    nPorts=2,
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = Air,
+    linearizeRadiation=false,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial);
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.CombiTimeTable"
+>Modelica.Blocks.Sources.CombiTimeTable</a> intGai(table=[0,0,0,0; 86400,0,0,0],
+      tableOnFile=false) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Internal gain heat flow (Radiant = 1, Convective = 2, Latent = 3)&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.CombiTimeTable"
+>Modelica.Blocks.Sources.CombiTimeTable</a> shaPos(table=[0,1; 86400,1],
+      tableOnFile=false) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Position of the shade&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.CombiTimeTable"
+>Modelica.Blocks.Sources.CombiTimeTable</a> airCon(table=[0,0.1,293.15; 86400,0.1,293.15],
+    tableOnFile=true,
+    tableName=&quot;airCon&quot;,
+    fileName=<span style="color: red; font-weight: normal; font-style: normal;">ModelicaServices.ExternalReferences.loadResource</span>(
+       &quot;modelica://Buildings/Resources/Data/Rooms/FLEXLAB/Rooms/Examples/X3AWithRadiantFloor.txt&quot;),
+    columns=2:5) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Inlet air conditions (y[1] = m_flow, y[2] = T)&quot;</span>;
+  <a href="Buildings_Fluid_Sources.html#Buildings.Fluid.Sources.MassFlowSource_T"
+>Buildings.Fluid.Sources.MassFlowSource_T</a> airIn(
+    use_m_flow_in=true,
+    use_T_in=true,
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = Air,
+    nPorts=1) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Inlet air conditions (from AHU) for X3A&quot;</span>;
+  <a href="Buildings_Fluid_Sources.html#Buildings.Fluid.Sources.Boundary_pT"
+>Buildings.Fluid.Sources.Boundary_pT</a>
+    airOut(nPorts=1, <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = Air) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Air outlet for X3A&quot;</span>;
+
+  <a href="Buildings_HeatTransfer_Sources.html#Buildings.HeatTransfer.Sources.PrescribedTemperature"
+>Buildings.HeatTransfer.Sources.PrescribedTemperature</a> preT <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Temperature of the ground&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.CombiTimeTable"
+>Modelica.Blocks.Sources.CombiTimeTable</a> TGro(
+    table=[0,288.15; 86400,288.15], tableOnFile=false);
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="Buildings_HeatTransfer_Data_OpaqueConstructions.html#Buildings.HeatTransfer.Data.OpaqueConstructions.Generic"
+>Buildings.HeatTransfer.Data.OpaqueConstructions.Generic</a>
+    slaCon(nLay=3, material={
+      <span style="color: red; font-weight: normal; font-style: normal;">Buildings.HeatTransfer.Data.Solids.Generic</span>(
+        x=0.1524,
+        k=1.13,
+        c=1000,
+        d=1400,
+        nSta=5),
+      <span style="color: red; font-weight: normal; font-style: normal;">Buildings.HeatTransfer.Data.Solids.Generic</span>(
+        x=0.127,
+        k=0.036,
+        c=1200,
+        d=40),
+      <span style="color: red; font-weight: normal; font-style: normal;">Buildings.HeatTransfer.Data.Solids.Generic</span>(
+        x=0.2,
+        k=1.8,
+        c=1100,
+        d=2400)}) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Construction of the slab&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="Buildings_Fluid_Data_Pipes.html#Buildings.Fluid.Data.Pipes.PEX_RADTEST"
+>Buildings.Fluid.Data.Pipes.PEX_RADTEST</a> pipe(dIn=0.015875, dOut=0.01905);
+
+  <a href="Buildings_BoundaryConditions_WeatherData.html#Buildings.BoundaryConditions.WeatherData.ReaderTMY3"
+>Buildings.BoundaryConditions.WeatherData.ReaderTMY3</a> weaDat(filNam=
+    &quot;/Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos&quot;);
+  <a href="Buildings_HeatTransfer_Sources.html#Buildings.HeatTransfer.Sources.PrescribedTemperature"
+>Buildings.HeatTransfer.Sources.PrescribedTemperature</a> preT2;
+  <a href="Buildings_Rooms_FLEXLAB_Rooms_X3B.html#Buildings.Rooms.FLEXLAB.Rooms.X3B.Electrical"
+>Buildings.Rooms.FLEXLAB.Rooms.X3B.Electrical</a> ele(<span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium =
+        Air, nPorts=2,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Model of the electrical room&quot;</span>;
+  <a href="Buildings_Rooms_FLEXLAB_Rooms_X3B.html#Buildings.Rooms.FLEXLAB.Rooms.X3B.Closet"
+>Buildings.Rooms.FLEXLAB.Rooms.X3B.Closet</a>
+    clo(
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = Air,
+    nPorts=2,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Model of the closet&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.CombiTimeTable"
+>Modelica.Blocks.Sources.CombiTimeTable</a> TNei(    tableOnFile=false, table=[0,293.15;
+        86400,293.15]) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Temperature of the neighboring test cell (y[1] = X3A)&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.CombiTimeTable"
+>Modelica.Blocks.Sources.CombiTimeTable</a> intGaiEle(
+    table=[0,0,0,0; 86400,0,0,0], tableOnFile=false) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Internal gain heat flow for the electrical room&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.CombiTimeTable"
+>Modelica.Blocks.Sources.CombiTimeTable</a> airConEle(
+    tableOnFile=true,
+    tableName=&quot;airCon&quot;,
+    fileName=<span style="color: red; font-weight: normal; font-style: normal;">ModelicaServices.ExternalReferences.loadResource</span>(
+       &quot;modelica://Buildings/Resources/Data/Rooms/FLEXLAB/Rooms/Examples/X3AWithRadiantFloor.txt&quot;),
+    columns=2:5) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Inlet air conditions for the connected electrical room (y[1] = m_flow, y[2] = T)&quot;</span>;
+
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.CombiTimeTable"
+>Modelica.Blocks.Sources.CombiTimeTable</a> airConClo(
+    tableOnFile=true,
+    tableName=&quot;airCon&quot;,
+    fileName=<span style="color: red; font-weight: normal; font-style: normal;">ModelicaServices.ExternalReferences.loadResource</span>(
+       &quot;modelica://Buildings/Resources/Data/Rooms/FLEXLAB/Rooms/Examples/X3AWithRadiantFloor.txt&quot;),
+    columns=2:5) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Inlet air conditions for the connected closet (y[1] = m_flow, y[2] = T)&quot;</span>;
+
+  <a href="Buildings_Fluid_Sources.html#Buildings.Fluid.Sources.MassFlowSource_T"
+>Buildings.Fluid.Sources.MassFlowSource_T</a> airInEle(
+    use_m_flow_in=true,
+    use_T_in=true,
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = Air,
+    nPorts=1) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Inlet air conditions (from AHU) for the electrical room&quot;</span>;
+  <a href="Buildings_Fluid_Sources.html#Buildings.Fluid.Sources.Boundary_pT"
+>Buildings.Fluid.Sources.Boundary_pT</a> airOutEle(nPorts=1, <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span>
+      Medium = Air) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Air outlet from the electrical room&quot;</span>;
+  <a href="Buildings_Fluid_Sources.html#Buildings.Fluid.Sources.MassFlowSource_T"
+>Buildings.Fluid.Sources.MassFlowSource_T</a> airInClo(
+    use_m_flow_in=true,
+    use_T_in=true,
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = Air,
+    nPorts=1) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Inlet air conditions (from AHU) for the closet&quot;</span>;
+  <a href="Buildings_Fluid_Sources.html#Buildings.Fluid.Sources.Boundary_pT"
+>Buildings.Fluid.Sources.Boundary_pT</a> airOutClo(
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = Air, nPorts=1) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Air outlet from the closet&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.CombiTimeTable"
+>Modelica.Blocks.Sources.CombiTimeTable</a> intGaiClo(
+    table=[0,0,0,0; 86400,0,0,0], tableOnFile=false) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Internal gain heat flow for the closet&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.CombiTimeTable"
+>Modelica.Blocks.Sources.CombiTimeTable</a> watCon4B2(tableOnFile=false, table=[0,
+        0.504,293.15; 86400,0.504,293.15]) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Inlet water conditions (y[1] = m_flow, y[2] =  T)&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.CombiTimeTable"
+>Modelica.Blocks.Sources.CombiTimeTable</a> watCon4B3(tableOnFile=false, table=[0,
+        0.504,293.15; 86400,0.504,293.15]) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Inlet water conditions (y[1] = m_flow, y[2] =  T)&quot;</span>;
+  <a href="Buildings_Fluid_Sources.html#Buildings.Fluid.Sources.MassFlowSource_T"
+>Buildings.Fluid.Sources.MassFlowSource_T</a> watIn4B3(
+    nPorts=1,
+    use_m_flow_in=true,
+    use_T_in=true,
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = Water) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Inlet water conditions (from central plant)&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.CombiTimeTable"
+>Modelica.Blocks.Sources.CombiTimeTable</a> watCon4B4(tableOnFile=false, table=[0,
+        0.504,293.15; 86400,0.504,293.15]) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Inlet water conditions (y[1] = m_flow, y[2] =  T)&quot;</span>;
+  <a href="Buildings_Fluid_Sources.html#Buildings.Fluid.Sources.MassFlowSource_T"
+>Buildings.Fluid.Sources.MassFlowSource_T</a> watIn4B4(
+    nPorts=1,
+    use_m_flow_in=true,
+    use_T_in=true,
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = Water) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Inlet water conditions (from central plant)&quot;</span>;
+  <a href="Buildings_Fluid_HeatExchangers_RadiantSlabs.html#Buildings.Fluid.HeatExchangers.RadiantSlabs.SingleCircuitSlab"
+>Buildings.Fluid.HeatExchangers.RadiantSlabs.SingleCircuitSlab</a> sla4B4(
+    sysTyp=Buildings.Fluid.HeatExchangers.RadiantSlabs.Types.SystemType.Floor,
+    iLayPip=1,
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = Water,
+    pipe=pipe,
+    layers=slaCon,
+    m_flow_nominal=0.504,
+    A=6.645*3.65,
+    disPip=sla4B4.A/sla4B4.length,
+    length=48.77,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Radiant slab serving the south section of cell X3B. Name is taken from drawing M3.02&quot;</span>;
+  <a href="Buildings_Fluid_Sources.html#Buildings.Fluid.Sources.Boundary_pT"
+>Buildings.Fluid.Sources.Boundary_pT</a> watOut4B4(nPorts=1, <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span>
+      Medium = Water) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Water outlet&quot;</span>;
+  <a href="Buildings_Fluid_HeatExchangers_RadiantSlabs.html#Buildings.Fluid.HeatExchangers.RadiantSlabs.SingleCircuitSlab"
+>Buildings.Fluid.HeatExchangers.RadiantSlabs.SingleCircuitSlab</a> sla4B3(
+    sysTyp=Buildings.Fluid.HeatExchangers.RadiantSlabs.Types.SystemType.Floor,
+    iLayPip=1,
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = Water,
+    pipe=pipe,
+    layers=slaCon,
+    m_flow_nominal=0.504,
+    A=6.645*0.91,
+    disPip=sla4B3.A/sla4B3.length,
+    length=37.49,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Radiant slab serving the south-central section of cell X3B. Name is taken from drawing M3.02&quot;</span>;
+  <a href="Buildings_Fluid_Sources.html#Buildings.Fluid.Sources.Boundary_pT"
+>Buildings.Fluid.Sources.Boundary_pT</a> watOut4B3(nPorts=1, <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span>
+      Medium = Water) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Water outlet&quot;</span>;
+  <a href="Buildings_Fluid_Sources.html#Buildings.Fluid.Sources.MassFlowSource_T"
+>Buildings.Fluid.Sources.MassFlowSource_T</a> watIn4B2(
+    nPorts=1,
+    use_m_flow_in=true,
+    use_T_in=true,
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = Water) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Inlet water conditions (from central plant)&quot;</span>;
+  <a href="Buildings_Fluid_HeatExchangers_RadiantSlabs.html#Buildings.Fluid.HeatExchangers.RadiantSlabs.SingleCircuitSlab"
+>Buildings.Fluid.HeatExchangers.RadiantSlabs.SingleCircuitSlab</a> sla4B2(
+    sysTyp=Buildings.Fluid.HeatExchangers.RadiantSlabs.Types.SystemType.Floor,
+    iLayPip=1,
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = Water,
+    pipe=pipe,
+    layers=slaCon,
+    m_flow_nominal=0.504,
+    A=6.645*1.51,
+    length=45.11,
+    disPip=sla4B2.A/sla4B2.length,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Radiant slab serving the north-central section of cell X3B. Name is taken from drawing M3.02&quot;</span>;
+  <a href="Buildings_Fluid_Sources.html#Buildings.Fluid.Sources.Boundary_pT"
+>Buildings.Fluid.Sources.Boundary_pT</a> watOut4B2(nPorts=1, <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span>
+      Medium = Water) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Water outlet&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.CombiTimeTable"
+>Modelica.Blocks.Sources.CombiTimeTable</a> watCon4B1(tableOnFile=false, table=[0,
+        0.504,293.15; 86400,0.504,293.15]) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Inlet water conditions (y[1] = m_flow, y[2] =  T)&quot;</span>;
+  <a href="Buildings_Fluid_Sources.html#Buildings.Fluid.Sources.MassFlowSource_T"
+>Buildings.Fluid.Sources.MassFlowSource_T</a> watIn4B1(
+    nPorts=1,
+    use_m_flow_in=true,
+    use_T_in=true,
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = Water) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Inlet water conditions (from central plant)&quot;</span>;
+  <a href="Buildings_Fluid_HeatExchangers_RadiantSlabs.html#Buildings.Fluid.HeatExchangers.RadiantSlabs.SingleCircuitSlab"
+>Buildings.Fluid.HeatExchangers.RadiantSlabs.SingleCircuitSlab</a> sla4B1(
+    sysTyp=Buildings.Fluid.HeatExchangers.RadiantSlabs.Types.SystemType.Floor,
+    iLayPip=1,
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = Water,
+    pipe=pipe,
+    layers=slaCon,
+    m_flow_nominal=0.504,
+    A=6.645*3.09,
+    disPip=sla4B1.A/sla4B1.length,
+    length=38.71,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Radiant slab serving the north side of cell X3B. Name is taken from drawing M3.02&quot;</span>;
+  <a href="Buildings_Fluid_Sources.html#Buildings.Fluid.Sources.Boundary_pT"
+>Buildings.Fluid.Sources.Boundary_pT</a> watOut4B1(nPorts=1, <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span>
+      Medium = Water) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Water outlet&quot;</span>;
+<span style="color: blue; font-weight: normal; font-style: normal;">equation </span>
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(airCon.y[1],airIn. m_flow_in);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(airCon.y[4],airIn. T_in);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(airIn.ports[1],X3B. ports[1]);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(airOut.ports[1],X3B. ports[2]);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(TGro.y[1],preT. T);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(weaDat.weaBus,X3B. weaBus);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(shaPos.y,X3B. uSha);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(weaDat.weaBus, ele.weaBus);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(weaDat.weaBus,clo. weaBus);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(airConEle.y[4], airInEle.T_in);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(airInEle.ports[1], ele.ports[1]);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(ele.ports[2], airOutEle.ports[1]);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(ele.surf_surBou[2], clo.surf_conBou[1]);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(airInClo.ports[1],clo. ports[1]);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(airConClo.y[4], airInClo.T_in);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(airConEle.y[3], airInEle.m_flow_in);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(airConClo.y[2], airInClo.m_flow_in);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(airOutClo.ports[1],clo. ports[2]);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(intGai.y,X3B. qGai_flow);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(intGaiEle.y, ele.qGai_flow);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(intGaiClo.y,clo. qGai_flow);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(preT.port,clo. surf_conBou[3]);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(ele.surf_conBou[1], preT.port);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(X3B.surf_conBou[2], clo.surf_surBou[1]);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(X3B.surf_conBou[3], clo.surf_surBou[2]);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(X3B.surf_conBou[4], ele.surf_surBou[1]);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(TNei.y[1], preT2.T);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(preT2.port, X3B.surf_conBou[1]);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(preT2.port, clo.surf_conBou[2]);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(watCon4B2.y[1],watIn4B2. m_flow_in);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(watCon4B2.y[2],watIn4B2. T_in);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(watCon4B3.y[1],watIn4B3. m_flow_in);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(watCon4B3.y[2],watIn4B3. T_in);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(watCon4B4.y[1],watIn4B4. m_flow_in);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(watCon4B4.y[2],watIn4B4. T_in);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(watIn4B4.ports[1],sla4B4. port_a);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(watIn4B3.ports[1],sla4B3. port_a);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(sla4B4.port_b,watOut4B4. ports[1]);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(sla4B3.port_b,watOut4B3. ports[1]);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(watIn4B2.ports[1],sla4B2. port_a);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(sla4B2.port_b,watOut4B2. ports[1]);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(watCon4B1.y[2],watIn4B1. T_in);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(watIn4B1.ports[1],sla4B1. port_a);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(sla4B1.port_b,watOut4B1. ports[1]);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(preT.port, sla4B1.surf_b);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(preT.port, sla4B2.surf_b);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(preT.port, sla4B3.surf_b);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(preT.port, sla4B4.surf_b);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(sla4B1.surf_a, X3B.surf_surBou[1]);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(sla4B2.surf_a, X3B.surf_surBou[2]);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(sla4B3.surf_a, X3B.surf_surBou[3]);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(sla4B4.surf_a, X3B.surf_surBou[4]);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(watCon4B1.y[1], watIn4B1.m_flow_in);
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>X3BWithRadiantFloor;
+</div>
+<hr>
+<address>
+<a href="http://www.3ds.com/">Automatically generated</a> Thu Apr  9 09:40:04 2015.
+</address>
+</body>
+</html>

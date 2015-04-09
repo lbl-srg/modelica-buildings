@@ -1,0 +1,140 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>Buildings.HeatTransfer.Convection.Functions</title>
+<meta name="HTML-Generator" content="Dymola">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="description" content="&quot;Functions for convective heat transfer&quot;">
+<style type="text/css">
+*       { font-size: 10pt; font-family: Arial, sans-serif; }
+.modelica, .modelica * { font-size: 9pt; font-family: Courier, monospace; white-space: pre; }
+h4      { font-size: 10pt; font-weight: bold; color: green; }
+h3      { font-size: 11pt; font-weight: bold; color: green; }
+h2      { font-size: 13pt; font-weight: bold; color: green; }
+address { font-weight: normal; }
+td      { border: 1px solid #808080; vertical-align: top; }
+th      { border: 1px solid #808080; vertical-align: top; font-weight: bold; }
+table   { border: 1px solid #808080; border-collapse: collapse; }
+</style>
+<link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../Resources/www/modelicaDoc.css">
+</HEAD>
+<body>
+<!-- --- header ------ -->
+<div class="headerStyle">
+<img src="../Resources/www/lbl-logo.png" alt="LBL logo"/>
+</div>
+<div class="headerLinks">
+<ul><li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt; <a href="Buildings.html">Modelica</a></li></ul>
+</div>
+<!-- --- end header -- -->
+
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE Functions<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><a name="Buildings.HeatTransfer.Convection.Functions"></a><a href="Buildings_HeatTransfer_Convection.html#Buildings.HeatTransfer.Convection"
+>Buildings.HeatTransfer.Convection</a>.Functions</h2>
+<p>
+<b>Functions for convective heat transfer</b><br>
+</p>
+<h3>Information</h3>
+
+This package contains functions that are used in the
+package
+<a href="Buildings_HeatTransfer.html#Buildings.HeatTransfer"
+>
+Buildings.HeatTransfer</a>.
+
+<h3>Package Content</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Package Content">
+<tr>
+<th>Name</th>
+<th>Description</th>
+</tr>
+<tr>
+<td><img src="Buildings.HeatTransfer.Cof8f7c61747a94363ifierS.png" alt="Buildings.HeatTransfer.Convection.Functions.windDirectionModifier" width="20" height="20" align="top">&nbsp;<a href="Buildings_HeatTransfer_Convection_Functions.html#Buildings.HeatTransfer.Convection.Functions.windDirectionModifier"
+>windDirectionModifier</a>
+</td>
+<td>Wind direction modifier that is used to compute the wind-driven convective heat transfer coefficient</td>
+</tr>
+<tr>
+<td><img src="Buildings.HeatTransfer.Co50c52b0c3e5021b4tFluxS.png" alt="Buildings.HeatTransfer.Convection.Functions.HeatFlux" width="20" height="20" align="top">&nbsp;<a href="Buildings_HeatTransfer_Convection_Functions_HeatFlux.html#Buildings.HeatTransfer.Convection.Functions.HeatFlux"
+>HeatFlux</a>
+</td>
+<td>Correlations for convective heat flux</td>
+</tr>
+</table>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE windDirectionModifier<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.HeatTransfer.Cof8f7c61747a94363ifierI.png" alt="Buildings.HeatTransfer.Convection.Functions.windDirectionModifier" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.HeatTransfer.Convection.Functions.windDirectionModifier"></a><a href="Buildings_HeatTransfer_Convection_Functions.html#Buildings.HeatTransfer.Convection.Functions"
+>Buildings.HeatTransfer.Convection.Functions</a>.windDirectionModifier</h2>
+<p>
+<b>Wind direction modifier that is used to compute the wind-driven convective heat transfer coefficient</b>
+</p>
+<h3>Information</h3>
+
+<p>
+Function that outputs <i>1</i> if the incidence angle is below 100 degrees, and
+<i>0.5</i> otherwise.
+The implementation is once continuously differentiable in its input arguments.
+</p>
+<p>
+See
+<a href="modelica://Buildings.HeatTransfer.Examples.ExteriorConvection">
+Buildings.HeatTransfer.Examples.ExteriorConvection</a>
+for an example that uses this function.
+</p>
+
+<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Function"
+>Modelica.Icons.Function</a> (Icon for functions).</p>
+<h3>Inputs</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Inputs">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
+>Angle</a></td><td>azi</td><td>&nbsp;</td><td>Surface azimuth [rad]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
+>Angle</a></td><td>dir</td><td>&nbsp;</td><td>Wind direction (0=wind from North) [rad]</td></tr>
+</table>
+<h3>Outputs</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Outputs">
+<tr><th>Type</th><th>Name</th><th>Description</th></tr>
+<tr><td>Real</td><td>W</td><td>Wind direction modifier</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">function</span> windDirectionModifier <span style="color: #006400; font-weight: normal; font-style: normal;">
+  &quot;Wind direction modifier that is used to compute the wind-driven convective heat transfer coefficient&quot;</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Function"
+>Modelica.Icons.Function</a>;
+
+  <span style="color: blue; font-weight: normal; font-style: normal;">input </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
+>Modelica.SIunits.Angle</a> azi <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Surface azimuth&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">input </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
+>Modelica.SIunits.Angle</a> dir(min=0, max=2*Modelica.Constants.pi) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Wind direction (0=wind from North)&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">output </span>Real W <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Wind direction modifier&quot;</span>;
+<span style="color: blue; font-weight: normal; font-style: normal;">protected </span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">constant </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
+>Modelica.SIunits.Angle</a> lee =<span style="color: red; font-weight: normal; font-style: normal;"> Modelica.SIunits.Conversions.from_deg</span>(100) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Angle at which the transition occurs&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">constant </span>Real cosLee =<span style="color: red; font-weight: normal; font-style: normal;"> Modelica.Math.cos</span>(lee) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Cosine of the angle at which the transition occurs&quot;</span>;
+<span style="color: blue; font-weight: normal; font-style: normal;">algorithm </span>
+<span style="color: #006400; font-weight: normal; font-style: normal;">// The wind direction is defined in TMY3 as dir=0 if from North, and 0 &lt;= dir &lt; 2*pi</span>
+<span style="color: #006400; font-weight: normal; font-style: normal;">// Hence, we subtract pi to redefine dir=0 as wind coming from the south.</span>
+<span style="color: #006400; font-weight: normal; font-style: normal;">// This simplifies the implementation since a surface azimuth is defined as azi=0</span>
+<span style="color: #006400; font-weight: normal; font-style: normal;">// if the surface is south-facing</span>
+  W:=<span style="color: red; font-weight: normal; font-style: normal;">Buildings.Utilities.Math.Functions.spliceFunction</span>(
+    pos=0.5,
+    neg=1,
+    x=cosLee-<span style="color: red; font-weight: normal; font-style: normal;">Modelica.Math.cos</span>(azi+Modelica.Constants.pi-dir),
+    deltax=0.05);
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>windDirectionModifier;
+</div>
+<hr>
+<address>
+<a href="http://www.3ds.com/">Automatically generated</a> Thu Apr  9 09:37:11 2015.
+</address>
+</body>
+</html>

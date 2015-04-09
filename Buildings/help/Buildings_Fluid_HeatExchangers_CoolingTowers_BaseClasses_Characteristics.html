@@ -1,0 +1,203 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>Buildings.Fluid.HeatExchangers.CoolingTowers.BaseClasses.Characteristics</title>
+<meta name="HTML-Generator" content="Dymola">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="description" content="&quot;Functions for fan characteristics&quot;">
+<style type="text/css">
+*       { font-size: 10pt; font-family: Arial, sans-serif; }
+.modelica, .modelica * { font-size: 9pt; font-family: Courier, monospace; white-space: pre; }
+h4      { font-size: 10pt; font-weight: bold; color: green; }
+h3      { font-size: 11pt; font-weight: bold; color: green; }
+h2      { font-size: 13pt; font-weight: bold; color: green; }
+address { font-weight: normal; }
+td      { border: 1px solid #808080; vertical-align: top; }
+th      { border: 1px solid #808080; vertical-align: top; font-weight: bold; }
+table   { border: 1px solid #808080; border-collapse: collapse; }
+</style>
+<link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../Resources/www/modelicaDoc.css">
+</HEAD>
+<body>
+<!-- --- header ------ -->
+<div class="headerStyle">
+<img src="../Resources/www/lbl-logo.png" alt="LBL logo"/>
+</div>
+<div class="headerLinks">
+<ul><li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt; <a href="Buildings.html">Modelica</a></li></ul>
+</div>
+<!-- --- end header -- -->
+
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE Characteristics<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><a name="Buildings.Fluid.HeatExchangers.CoolingTowers.BaseClasses.Characteristics"></a><a href="Buildings_Fluid_HeatExchangers_CoolingTowers_BaseClasses.html#Buildings.Fluid.HeatExchangers.CoolingTowers.BaseClasses"
+>Buildings.Fluid.HeatExchangers.CoolingTowers.BaseClasses</a>.Characteristics</h2>
+<p>
+<b>Functions for fan characteristics</b><br>
+</p>
+<h3>Information</h3>
+
+<p>
+This package implements performance curves for fans and pumps,
+and records for parameter that can be used with these performance
+curves.
+</p>
+<p>
+See the
+<a href="Buildings_Fluid_Movers_UsersGuide.html#Buildings.Fluid.Movers.UsersGuide"
+>
+User's Guide</a> for information about these performance curves.
+</p>
+
+<h3>Package Content</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Package Content">
+<tr>
+<th>Name</th>
+<th>Description</th>
+</tr>
+<tr>
+<td><img src="Buildings.Fluid.HeatExchaf488a6169c297601iencyS.png" alt="Buildings.Fluid.HeatExchangers.CoolingTowers.BaseClasses.Characteristics.efficiency" width="20" height="20" align="top">&nbsp;<a href="Buildings_Fluid_HeatExchangers_CoolingTowers_BaseClasses_Characteristics.html#Buildings.Fluid.HeatExchangers.CoolingTowers.BaseClasses.Characteristics.efficiency"
+>efficiency</a>
+</td>
+<td>Flow vs. efficiency characteristics for fan or pump</td>
+</tr>
+<tr>
+<td><img src="Buildings.Fluid.HeatExchaae95bb14447b881eetersS.png" alt="Buildings.Fluid.HeatExchangers.CoolingTowers.BaseClasses.Characteristics.efficiencyParameters" width="20" height="20" align="top">&nbsp;<a href="Buildings_Fluid_HeatExchangers_CoolingTowers_BaseClasses_Characteristics.html#Buildings.Fluid.HeatExchangers.CoolingTowers.BaseClasses.Characteristics.efficiencyParameters"
+>efficiencyParameters</a>
+</td>
+<td>Record for efficiency parameters</td>
+</tr>
+</table>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE efficiency<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Fluid.HeatExchaf488a6169c297601iencyI.png" alt="Buildings.Fluid.HeatExchangers.CoolingTowers.BaseClasses.Characteristics.efficiency" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Fluid.HeatExchangers.CoolingTowers.BaseClasses.Characteristics.efficiency"></a><a href="Buildings_Fluid_HeatExchangers_CoolingTowers_BaseClasses_Characteristics.html#Buildings.Fluid.HeatExchangers.CoolingTowers.BaseClasses.Characteristics"
+>Buildings.Fluid.HeatExchangers.CoolingTowers.BaseClasses.Characteristics</a>.efficiency</h2>
+<p>
+<b>Flow vs. efficiency characteristics for fan or pump</b>
+</p>
+<h3>Information</h3>
+
+<p>
+This function computes the fan efficiency for given normalized volume flow rate
+and performance data. The efficiency is
+</p>
+<p align="center" style="font-style:italic;">
+&eta; = s(r<sub>V</sub>, d),
+</p>
+<p>
+where
+<i>&eta;</i> is the efficiency,
+<i>r<sub>V</sub></i> is the normalized volume flow rate, and
+<i>d</i> are performance data for fan or pump efficiency.
+</p>
+<h4>Implementation</h4>
+<p>
+The function <i>s(&middot;, &middot;)</i> is a cubic hermite spline.
+If the data <i>d</i> define a monotone decreasing sequence, then
+<i>s(&middot;, d)</i> is a monotone decreasing function.
+</p>
+
+<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Function"
+>Modelica.Icons.Function</a> (Icon for functions).</p>
+<h3>Inputs</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Inputs">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td><a href="Buildings_Fluid_HeatExchangers_CoolingTowers_BaseClasses_Characteristics.html#Buildings.Fluid.HeatExchangers.CoolingTowers.BaseClasses.Characteristics.efficiencyParameters"
+>efficiencyParameters</a></td><td>per</td><td>&nbsp;</td><td>Efficiency performance data</td></tr>
+<tr><td>Real</td><td>r_V</td><td>&nbsp;</td><td>Volumetric flow rate divided by nominal flow rate [1]</td></tr>
+<tr><td>Real</td><td>d[:]</td><td>&nbsp;</td><td>Derivatives at support points for spline interpolation</td></tr>
+</table>
+<h3>Outputs</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Outputs">
+<tr><th>Type</th><th>Name</th><th>Description</th></tr>
+<tr><td>Real</td><td>eta</td><td>Efficiency [1]</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">function</span> efficiency <span style="color: #006400; font-weight: normal; font-style: normal;">
+  &quot;Flow vs. efficiency characteristics for fan or pump&quot;</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Function"
+>Modelica.Icons.Function</a>;
+
+  <span style="color: blue; font-weight: normal; font-style: normal;">input </span><a href="Buildings_Fluid_HeatExchangers_CoolingTowers_BaseClasses_Characteristics.html#Buildings.Fluid.HeatExchangers.CoolingTowers.BaseClasses.Characteristics.efficiencyParameters"
+>Characteristics.efficiencyParameters</a> per <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Efficiency performance data&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">input </span>Real r_V(unit=&quot;1&quot;) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Volumetric flow rate divided by nominal flow rate&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">input </span>Real d[:] <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Derivatives at support points for spline interpolation&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">output </span>Real eta(min=0, unit=&quot;1&quot;) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Efficiency&quot;</span>;
+<span style="color: blue; font-weight: normal; font-style: normal;">protected </span>
+Integer n =<span style="color: red; font-weight: normal; font-style: normal;"> size</span>(per.r_V, 1) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Number of data points&quot;</span>;
+Integer i <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Integer to select data interval&quot;</span>;
+
+<span style="color: blue; font-weight: normal; font-style: normal;">algorithm </span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">if </span>n == 1<span style="color: blue; font-weight: normal; font-style: normal;"> then</span>
+    eta := per.eta[1];
+  <span style="color: blue; font-weight: normal; font-style: normal;">else</span>
+    i :=1;
+    <span style="color: blue; font-weight: normal; font-style: normal;">for </span>j<span style="color: blue; font-weight: normal; font-style: normal;"> in </span>1:n-1<span style="color: blue; font-weight: normal; font-style: normal;"> loop</span>
+      <span style="color: blue; font-weight: normal; font-style: normal;">if </span>r_V &gt; per.r_V[j]<span style="color: blue; font-weight: normal; font-style: normal;"> then</span>
+        i := j;
+      <span style="color: blue; font-weight: normal; font-style: normal;">end if</span>;
+    <span style="color: blue; font-weight: normal; font-style: normal;">end for</span>;
+
+  <span style="color: #006400; font-weight: normal; font-style: normal;">// Extrapolate or interpolate the data</span>
+  eta:=<span style="color: red; font-weight: normal; font-style: normal;">Buildings.Utilities.Math.Functions.cubicHermiteLinearExtrapolation</span>(
+    x=r_V,
+    x1=per.r_V[i],
+    x2=per.r_V[i + 1],
+    y1=per.eta[i],
+    y2=per.eta[i + 1],
+    y1d=d[i],
+    y2d=d[i+1]);
+  <span style="color: blue; font-weight: normal; font-style: normal;">end if</span>;
+
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>efficiency;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE efficiencyParameters<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Fluid.HeatExchaae95bb14447b881eetersI.png" alt="Buildings.Fluid.HeatExchangers.CoolingTowers.BaseClasses.Characteristics.efficiencyParameters" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Fluid.HeatExchangers.CoolingTowers.BaseClasses.Characteristics.efficiencyParameters"></a><a href="Buildings_Fluid_HeatExchangers_CoolingTowers_BaseClasses_Characteristics.html#Buildings.Fluid.HeatExchangers.CoolingTowers.BaseClasses.Characteristics"
+>Buildings.Fluid.HeatExchangers.CoolingTowers.BaseClasses.Characteristics</a>.efficiencyParameters</h2>
+<p>
+<b>Record for efficiency parameters</b>
+</p>
+<h3>Information</h3>
+
+<p>
+Data record for performance data that describe volume flow rate versus
+efficiency.
+The volume flow rate <code>r_V</code> must be increasing, i.e.,
+<code>r_V[i] &lt; r_V[i+1]</code>.
+Both vectors, <code>r_V</code> and <code>eta</code>
+must have the same size.
+</p>
+
+<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Record"
+>Modelica.Icons.Record</a> (Icon for records).</p>
+<h3>Parameters</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td>Real</td><td>r_V[:]</td><td>&nbsp;</td><td>Volumetric flow rate divided by nominal flow rate at user-selected operating points [1]</td></tr>
+<tr><td>Real</td><td>eta[size(r_V, 1)]</td><td>&nbsp;</td><td>Fan efficiency at these flow rates</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">record</span> efficiencyParameters <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Record for efficiency parameters&quot;</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Record"
+>Modelica.Icons.Record</a>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Real r_V[:](<span style="color: blue; font-weight: normal; font-style: normal;">each </span>min=0, <span style="color: blue; font-weight: normal; font-style: normal;">each </span>unit=&quot;1&quot;) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Volumetric flow rate divided by nominal flow rate at user-selected operating points&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Real eta[<span style="color: red; font-weight: normal; font-style: normal;">size</span>(r_V,1)](
+     <span style="color: blue; font-weight: normal; font-style: normal;">each </span>min=0, <span style="color: blue; font-weight: normal; font-style: normal;">each </span>max=1, <span style="color: blue; font-weight: normal; font-style: normal;">each </span>displayUnit=&quot;1&quot;) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Fan efficiency at these flow rates&quot;</span>;
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>efficiencyParameters;
+</div>
+<hr>
+<address>
+<a href="http://www.3ds.com/">Automatically generated</a> Thu Apr  9 09:35:22 2015.
+</address>
+</body>
+</html>

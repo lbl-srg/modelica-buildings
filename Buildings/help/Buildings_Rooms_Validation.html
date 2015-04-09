@@ -1,0 +1,309 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>Buildings.Rooms.Validation</title>
+<meta name="HTML-Generator" content="Dymola">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="description" content="&quot;Collection of validation models&quot;">
+<style type="text/css">
+*       { font-size: 10pt; font-family: Arial, sans-serif; }
+.modelica, .modelica * { font-size: 9pt; font-family: Courier, monospace; white-space: pre; }
+h4      { font-size: 10pt; font-weight: bold; color: green; }
+h3      { font-size: 11pt; font-weight: bold; color: green; }
+h2      { font-size: 13pt; font-weight: bold; color: green; }
+address { font-weight: normal; }
+td      { border: 1px solid #808080; vertical-align: top; }
+th      { border: 1px solid #808080; vertical-align: top; font-weight: bold; }
+table   { border: 1px solid #808080; border-collapse: collapse; }
+</style>
+<link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../Resources/www/modelicaDoc.css">
+</HEAD>
+<body>
+<!-- --- header ------ -->
+<div class="headerStyle">
+<img src="../Resources/www/lbl-logo.png" alt="LBL logo"/>
+</div>
+<div class="headerLinks">
+<ul><li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt; <a href="Buildings.html">Modelica</a></li></ul>
+</div>
+<!-- --- end header -- -->
+
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE Validation<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><a name="Buildings.Rooms.Validation"></a><a href="Buildings_Rooms.html#Buildings.Rooms"
+>Buildings.Rooms</a>.Validation</h2>
+<p>
+<b>Collection of validation models</b><br>
+</p>
+<h3>Information</h3>
+
+<p>
+This package contains validation models for the classes in
+<a href="Buildings_Rooms.html#Buildings.Rooms"
+>
+Buildings.Rooms</a>.
+</p>
+<p>
+Note that most validation models contain simple input data
+which may not be realistic, but for which the correct
+output can be obtained through an analytic solution.
+The examples plot various outputs, which have been verified against these
+solutions. These model outputs are stored as reference data and
+used for continuous validation whenever models in the library change.
+</p>
+
+<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons_ExamplesPackage.html#Modelica.Icons.ExamplesPackage"
+>Modelica.Icons.ExamplesPackage</a> (Icon for packages containing runnable examples).</p>
+<h3>Package Content</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Package Content">
+<tr>
+<th>Name</th>
+<th>Description</th>
+</tr>
+<tr>
+<td><img src="Buildings.Rooms.Validatio282622c38b89bb7fationS.png" alt="Buildings.Rooms.Validation.MixedAirInitialization" width="20" height="20" align="top">&nbsp;<a href="Buildings_Rooms_Validation.html#Buildings.Rooms.Validation.MixedAirInitialization"
+>MixedAirInitialization</a>
+</td>
+<td>Validation model for the correct initialization of the mixed air model</td>
+</tr>
+<tr>
+<td><img src="Buildings.Rooms.Validation.BESTESTS.png" alt="Buildings.Rooms.Validation.BESTEST" width="20" height="20" align="top">&nbsp;<a href="Buildings_Rooms_Validation_BESTEST.html#Buildings.Rooms.Validation.BESTEST"
+>BESTEST</a>
+</td>
+<td>This package contains the models for the BESTEST validation</td>
+</tr>
+<tr>
+<td><img src="Buildings.Rooms.Validation.BESTESTS.png" alt="Buildings.Rooms.Validation.TestConditionalConstructions" width="20" height="20" align="top">&nbsp;<a href="Buildings_Rooms_Validation_TestConditionalConstructions.html#Buildings.Rooms.Validation.TestConditionalConstructions"
+>TestConditionalConstructions</a>
+</td>
+<td>Package that tests rooms with few constructions only</td>
+</tr>
+</table>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE MixedAirInitialization<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Rooms.Validatio282622c38b89bb7fationI.png" alt="Buildings.Rooms.Validation.MixedAirInitialization" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Rooms.Validation.MixedAirInitialization"></a><a href="Buildings_Rooms_Validation.html#Buildings.Rooms.Validation"
+>Buildings.Rooms.Validation</a>.MixedAirInitialization</h2>
+<p>
+<b>Validation model for the correct initialization of the mixed air model</b>
+<br>
+<br><img src="Buildings.Rooms.Validatio282622c38b89bb7fationD.png" alt="Buildings.Rooms.Validation.MixedAirInitialization">
+</p>
+<h3>Information</h3>
+
+<p>
+This model tests the correct initialization of
+<a href="Buildings_Rooms.html#Buildings.Rooms.MixedAir"
+>
+Buildings.Rooms.MixedAir</a>.
+The air temperature should start at <i>10</i>&circ; C
+and remain there.
+</p>
+<p>
+Note that there are still very small heat flows even if all solar radiation
+is set to zero and all boundary conditions and start values are set to
+<i>-15</i>&circ; C.
+The reasons are as follows:
+</p>
+<ul>
+<li>
+The block
+<a href="Buildings_BoundaryConditions_WeatherData_BaseClasses.html#Buildings.BoundaryConditions.WeatherData.BaseClasses.CheckRadiation"
+>
+Buildings.BoundaryConditions.WeatherData.BaseClasses.CheckRadiation</a>
+avoids that the radiation becomes negative, which may happen due to the
+smooth interpolation in the weather data reader.
+To achieve this, it sets a minimum radiation of <i>0.0001</i> W/m<sup>2</sup>.
+</li>
+<li>
+The model requires the numerical solution of nonlinear systems of equations
+and of systems of ordinary differential equations.
+These are of course only solved within the solver tolerance.
+</li>
+</ul>
+
+<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</a> (Icon for runnable examples).</p>
+<h3>Parameters</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+>Temperature</a></td><td>T_start</td><td>273.15 - 15</td><td>Initial value [K]</td></tr>
+<tr><td><a href="Buildings_HeatTransfer_Data_OpaqueConstructions.html#Buildings.HeatTransfer.Data.OpaqueConstructions.Insulation100Concrete200"
+>Insulation100Concrete200</a></td><td>matLayExt</td><td>&nbsp;</td><td>Construction material for exterior walls</td></tr>
+<tr><td><a href="Buildings_HeatTransfer_Data_OpaqueConstructions.html#Buildings.HeatTransfer.Data.OpaqueConstructions.Brick120"
+>Brick120</a></td><td>matLayPar</td><td>&nbsp;</td><td>Construction material for partition walls</td></tr>
+<tr><td><a href="Buildings_HeatTransfer_Data_OpaqueConstructions.html#Buildings.HeatTransfer.Data.OpaqueConstructions.Generic"
+>Generic</a></td><td>matLayRoo</td><td>&nbsp;</td><td>Construction material for roof</td></tr>
+<tr><td><a href="Buildings_HeatTransfer_Data_OpaqueConstructions.html#Buildings.HeatTransfer.Data.OpaqueConstructions.Generic"
+>Generic</a></td><td>matLayFlo</td><td>&nbsp;</td><td>Construction material for floor</td></tr>
+<tr><td><a href="Buildings_HeatTransfer_Data_GlazingSystems.html#Buildings.HeatTransfer.Data.GlazingSystems.DoubleClearAir13Clear"
+>DoubleClearAir13Clear</a></td><td>glaSys</td><td>&nbsp;</td><td>Data record for the glazing system</td></tr>
+<tr><td>Integer</td><td>nConExtWin</td><td>1</td><td>Number of constructions with a window</td></tr>
+<tr><td>Integer</td><td>nConBou</td><td>1</td><td>Number of surface that are connected to constructions that are modeled inside the room</td></tr>
+<tr><td>Integer</td><td>nSurBou</td><td>1</td><td>Number of surface that are connected to the room air volume</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">model</span> MixedAirInitialization <span style="color: #006400; font-weight: normal; font-style: normal;">
+  &quot;Validation model for the correct initialization of the mixed air model&quot;</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</a>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">package</span> MediumA = <a href="Buildings_Media_Air.html#Buildings.Media.Air"
+>Buildings.Media.Air</a> <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Medium model&quot;</span>;
+
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+>Modelica.SIunits.Temperature</a> T_start=273.15-15 <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Initial value&quot;</span>;
+
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="Buildings_HeatTransfer_Data_OpaqueConstructions.html#Buildings.HeatTransfer.Data.OpaqueConstructions.Insulation100Concrete200"
+>Buildings.HeatTransfer.Data.OpaqueConstructions.Insulation100Concrete200</a>
+    matLayExt <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Construction material for exterior walls&quot;</span>;
+
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="Buildings_HeatTransfer_Data_OpaqueConstructions.html#Buildings.HeatTransfer.Data.OpaqueConstructions.Brick120"
+>Buildings.HeatTransfer.Data.OpaqueConstructions.Brick120</a> matLayPar <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Construction material for partition walls&quot;</span>;
+
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="Buildings_HeatTransfer_Data_OpaqueConstructions.html#Buildings.HeatTransfer.Data.OpaqueConstructions.Generic"
+>Buildings.HeatTransfer.Data.OpaqueConstructions.Generic</a> matLayRoo(
+        material={
+          <span style="color: red; font-weight: normal; font-style: normal;">HeatTransfer.Data.Solids.InsulationBoard</span>(x=0.2),
+          <span style="color: red; font-weight: normal; font-style: normal;">HeatTransfer.Data.Solids.Concrete</span>(x=0.2)},
+        <span style="color: blue; font-weight: normal; font-style: normal;">final </span>nLay=2) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Construction material for roof&quot;</span>;
+
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="Buildings_HeatTransfer_Data_OpaqueConstructions.html#Buildings.HeatTransfer.Data.OpaqueConstructions.Generic"
+>Buildings.HeatTransfer.Data.OpaqueConstructions.Generic</a> matLayFlo(
+        material={
+          <span style="color: red; font-weight: normal; font-style: normal;">HeatTransfer.Data.Solids.Concrete</span>(x=0.2),
+          <span style="color: red; font-weight: normal; font-style: normal;">HeatTransfer.Data.Solids.InsulationBoard</span>(x=0.15),
+          <span style="color: red; font-weight: normal; font-style: normal;">HeatTransfer.Data.Solids.Concrete</span>(x=0.05)},
+        <span style="color: blue; font-weight: normal; font-style: normal;">final </span>nLay=3) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Construction material for floor&quot;</span>;
+
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="Buildings_HeatTransfer_Data_GlazingSystems.html#Buildings.HeatTransfer.Data.GlazingSystems.DoubleClearAir13Clear"
+>Buildings.HeatTransfer.Data.GlazingSystems.DoubleClearAir13Clear</a> glaSys(
+    UFra=2,
+    shade=<span style="color: red; font-weight: normal; font-style: normal;">Buildings.HeatTransfer.Data.Shades.Gray</span>(),
+    haveInteriorShade=false,
+    haveExteriorShade=false) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Data record for the glazing system&quot;</span>;
+
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Integer nConExtWin = 1 <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Number of constructions with a window&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Integer nConBou = 1 <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Number of surface that are connected to constructions that are modeled inside the room&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Integer nSurBou = 1 <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Number of surface that are connected to the room air volume&quot;</span>;
+
+  <a href="Buildings_Rooms.html#Buildings.Rooms.MixedAir"
+>Buildings.Rooms.MixedAir</a> roo(
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = MediumA,
+    AFlo=6*4,
+    hRoo=2.7,
+    nConExt=2,
+    datConExt(layers={matLayRoo, matLayExt},
+           A={6*4, 6*3},
+           til={Buildings.Types.Tilt.Ceiling, Buildings.Types.Tilt.Wall},
+           azi={Buildings.Types.Azimuth.S, Buildings.Types.Azimuth.W}),
+    nConExtWin=nConExtWin,
+    datConExtWin(
+              layers={matLayExt},
+              <span style="color: blue; font-weight: normal; font-style: normal;">each </span>A=4*3,
+              glaSys={glaSys},
+              <span style="color: blue; font-weight: normal; font-style: normal;">each </span>hWin=2,
+              <span style="color: blue; font-weight: normal; font-style: normal;">each </span>wWin=4,
+              ove(wR={0},wL={0}, gap={0.1}, dep={1}),
+              <span style="color: blue; font-weight: normal; font-style: normal;">each </span>fFra=0.1,
+              <span style="color: blue; font-weight: normal; font-style: normal;">each </span>til=Buildings.Types.Tilt.Wall,
+              azi={Buildings.Types.Azimuth.S}),
+    nConPar=1,
+    datConPar(layers={matLayPar}, <span style="color: blue; font-weight: normal; font-style: normal;">each </span>A=10,
+           <span style="color: blue; font-weight: normal; font-style: normal;">each </span>til=Buildings.Types.Tilt.Wall),
+    nConBou=1,
+    datConBou(layers={matLayFlo}, <span style="color: blue; font-weight: normal; font-style: normal;">each </span>A=6*4,
+           <span style="color: blue; font-weight: normal; font-style: normal;">each </span>til=Buildings.Types.Tilt.Floor),
+    nSurBou=1,
+    surBou(<span style="color: blue; font-weight: normal; font-style: normal;">each </span>A=6*3,
+           <span style="color: blue; font-weight: normal; font-style: normal;">each </span>absIR=0.9,
+           <span style="color: blue; font-weight: normal; font-style: normal;">each </span>absSol=0.9,
+           <span style="color: blue; font-weight: normal; font-style: normal;">each </span>til=Buildings.Types.Tilt.Wall),
+    linearizeRadiation = false,
+    nPorts=1,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    lat=0.73268921998722,
+    T_start=T_start) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Room model&quot;</span>;
+
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+>Modelica.Blocks.Sources.Constant</a> qConGai_flow(k=0) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Convective heat gain&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+>Modelica.Blocks.Sources.Constant</a> qRadGai_flow(k=0) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Radiative heat gain&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Routing.html#Modelica.Blocks.Routing.Multiplex3"
+>Modelica.Blocks.Routing.Multiplex3</a> multiplex3_1;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+>Modelica.Blocks.Sources.Constant</a> qLatGai_flow(k=0) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Latent heat gain&quot;</span>;
+  <a href="Buildings_BoundaryConditions_WeatherData.html#Buildings.BoundaryConditions.WeatherData.ReaderTMY3"
+>Buildings.BoundaryConditions.WeatherData.ReaderTMY3</a> weaDat(
+    filNam=&quot;modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos&quot;,
+    HInfHorSou=Buildings.BoundaryConditions.Types.DataSource.Parameter,
+    HSou=Buildings.BoundaryConditions.Types.RadiationDataSource.Input_HGloHor_HDifHor,
+    TDewPoiSou=Buildings.BoundaryConditions.Types.DataSource.Parameter,
+    calTSky=Buildings.BoundaryConditions.Types.SkyTemperatureCalculation.TemperaturesAndSkyCover,
+    relHumSou=Buildings.BoundaryConditions.Types.DataSource.Parameter,
+    relHum=0,
+    TDewPoi(displayUnit=&quot;K&quot;) = T_start,
+    TDryBulSou=Buildings.BoundaryConditions.Types.DataSource.Input,
+    TBlaSkySou=Buildings.BoundaryConditions.Types.DataSource.Input);
+
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+>Modelica.Blocks.Sources.Constant</a> uSha(k=0) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Control signal for the shading device&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Routing.html#Modelica.Blocks.Routing.Replicator"
+>Modelica.Blocks.Routing.Replicator</a> replicator(nout=<span style="color: red; font-weight: normal; font-style: normal;">max</span>(1,nConExtWin));
+  <a href="Buildings_HeatTransfer_Sources.html#Buildings.HeatTransfer.Sources.FixedTemperature"
+>Buildings.HeatTransfer.Sources.FixedTemperature</a> TSoi[nConBou](<span style="color: blue; font-weight: normal; font-style: normal;">each </span>T=T_start) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Boundary condition for construction&quot;</span>;
+  <a href="Buildings_HeatTransfer_Sources.html#Buildings.HeatTransfer.Sources.FixedTemperature"
+>Buildings.HeatTransfer.Sources.FixedTemperature</a> TBou[nSurBou](<span style="color: blue; font-weight: normal; font-style: normal;">each </span>T=T_start) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Boundary condition for construction&quot;</span>;
+  <a href="Buildings_HeatTransfer_Conduction.html#Buildings.HeatTransfer.Conduction.MultiLayer"
+>HeatTransfer.Conduction.MultiLayer</a> conOut[nSurBou](
+    <span style="color: blue; font-weight: normal; font-style: normal;">each </span>A=6*4,
+    <span style="color: blue; font-weight: normal; font-style: normal;">each </span>layers=matLayPar,
+    <span style="color: blue; font-weight: normal; font-style: normal;">each </span>steadyStateInitial=true) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Construction that is modeled outside of room&quot;</span>;
+
+  <a href="Buildings_Fluid_Sources.html#Buildings.Fluid.Sources.FixedBoundary"
+>Fluid.Sources.FixedBoundary</a> boundary(
+    nPorts=1,
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = MediumA,
+    T=T_start) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Boundary condition&quot;</span>;
+
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+>Modelica.Blocks.Sources.Constant</a> HSol(k=0) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Solar irradition&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+>Modelica.Blocks.Sources.Constant</a> T(k=T_start) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Dry bulb and black body sky temperature&quot;</span>;
+<span style="color: blue; font-weight: normal; font-style: normal;">equation </span>
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(qRadGai_flow.y, multiplex3_1.u1[1]);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(qConGai_flow.y, multiplex3_1.u2[1]);
+
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(qLatGai_flow.y, multiplex3_1.u3[1]);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(multiplex3_1.y, roo.qGai_flow);
+
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(weaDat.weaBus, roo.weaBus);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(uSha.y, replicator.u);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(TSoi.port, roo.surf_conBou);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(TBou.port,conOut. port_b);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(roo.surf_surBou, conOut.port_a);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(roo.uSha, replicator.y);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(roo.ports[1], boundary.ports[1]);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(HSol.y, weaDat.HGloHor_in);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(HSol.y, weaDat.HDifHor_in);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(T.y, weaDat.TDryBul_in);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(weaDat.TBlaSky_in, T.y);
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>MixedAirInitialization;
+</div>
+<hr>
+<address>
+<a href="http://www.3ds.com/">Automatically generated</a> Thu Apr  9 09:40:13 2015.
+</address>
+</body>
+</html>

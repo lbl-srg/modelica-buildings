@@ -1,0 +1,333 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>Buildings.Obsolete.Media.PerfectGases.Examples</title>
+<meta name="HTML-Generator" content="Dymola">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="description" content="&quot;Collection of models that illustrate model use and test models&quot;">
+<style type="text/css">
+*       { font-size: 10pt; font-family: Arial, sans-serif; }
+.modelica, .modelica * { font-size: 9pt; font-family: Courier, monospace; white-space: pre; }
+h4      { font-size: 10pt; font-weight: bold; color: green; }
+h3      { font-size: 11pt; font-weight: bold; color: green; }
+h2      { font-size: 13pt; font-weight: bold; color: green; }
+address { font-weight: normal; }
+td      { border: 1px solid #808080; vertical-align: top; }
+th      { border: 1px solid #808080; vertical-align: top; font-weight: bold; }
+table   { border: 1px solid #808080; border-collapse: collapse; }
+</style>
+<link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../Resources/www/modelicaDoc.css">
+</HEAD>
+<body>
+<!-- --- header ------ -->
+<div class="headerStyle">
+<img src="../Resources/www/lbl-logo.png" alt="LBL logo"/>
+</div>
+<div class="headerLinks">
+<ul><li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt; <a href="Buildings.html">Modelica</a></li></ul>
+</div>
+<!-- --- end header -- -->
+
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE Examples<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><a name="Buildings.Obsolete.Media.PerfectGases.Examples"></a><a href="Buildings_Obsolete_Media_PerfectGases.html#Buildings.Obsolete.Media.PerfectGases"
+>Buildings.Obsolete.Media.PerfectGases</a>.Examples</h2>
+<p>
+<b>Collection of models that illustrate model use and test models</b><br>
+</p>
+<h3>Information</h3>
+
+<p>
+This package contains examples for the use of models that can be found in
+<a href="Buildings_Obsolete_Media_PerfectGases.html#Buildings.Obsolete.Media.PerfectGases"
+>
+Buildings.Obsolete.Media.PerfectGases</a>.
+</p>
+
+<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons_ExamplesPackage.html#Modelica.Icons.ExamplesPackage"
+>Modelica.Icons.ExamplesPackage</a> (Icon for packages containing runnable examples).</p>
+<h3>Package Content</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Package Content">
+<tr>
+<th>Name</th>
+<th>Description</th>
+</tr>
+<tr>
+<td><img src="Buildings.Obsolete.Media.cdb700007a31b2b6risonS.png" alt="Buildings.Obsolete.Media.PerfectGases.Examples.MoistAirComparison" width="20" height="20" align="top">&nbsp;<a href="Buildings_Obsolete_Media_PerfectGases_Examples.html#Buildings.Obsolete.Media.PerfectGases.Examples.MoistAirComparison"
+>MoistAirComparison</a>
+</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td><img src="Buildings.Obsolete.Media.cdb700007a31b2b6risonS.png" alt="Buildings.Obsolete.Media.PerfectGases.Examples.MoistAirDerivativeCheck" width="20" height="20" align="top">&nbsp;<a href="Buildings_Obsolete_Media_PerfectGases_Examples.html#Buildings.Obsolete.Media.PerfectGases.Examples.MoistAirDerivativeCheck"
+>MoistAirDerivativeCheck</a>
+</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td><img src="Buildings.Obsolete.Media.cdb700007a31b2b6risonS.png" alt="Buildings.Obsolete.Media.PerfectGases.Examples.MoistAirTemperatureEnthalpyInversion" width="20" height="20" align="top">&nbsp;<a href="Buildings_Obsolete_Media_PerfectGases_Examples.html#Buildings.Obsolete.Media.PerfectGases.Examples.MoistAirTemperatureEnthalpyInversion"
+>MoistAirTemperatureEnthalpyInversion</a>
+</td>
+<td>Model to check computation of h(T) and its inverse</td>
+</tr>
+<tr>
+<td><img src="Buildings.Obsolete.Media.cdb700007a31b2b6risonS.png" alt="Buildings.Obsolete.Media.PerfectGases.Examples.TestMoistAir" width="20" height="20" align="top">&nbsp;<a href="Buildings_Obsolete_Media_PerfectGases_Examples.html#Buildings.Obsolete.Media.PerfectGases.Examples.TestMoistAir"
+>TestMoistAir</a>
+</td>
+<td>&nbsp;</td>
+</tr>
+</table>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE MoistAirComparison<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Obsolete.Media.cdb700007a31b2b6risonI.png" alt="Buildings.Obsolete.Media.PerfectGases.Examples.MoistAirComparison" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Obsolete.Media.PerfectGases.Examples.MoistAirComparison"></a><a href="Buildings_Obsolete_Media_PerfectGases_Examples.html#Buildings.Obsolete.Media.PerfectGases.Examples"
+>Buildings.Obsolete.Media.PerfectGases.Examples</a>.MoistAirComparison</h2>
+<h3>Information</h3>
+
+<p>
+This example compares the perfect medium model
+<a href="Buildings_Obsolete_Media_PerfectGases_MoistAir.html#Buildings.Obsolete.Media.PerfectGases.MoistAir"
+>Buildings.Obsolete.Media.PerfectGases.MoistAir</a>
+ with the ideal gas model
+from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Air_MoistAir.html#Modelica.Media.Air.MoistAir"
+>Modelica.Media.Air.MoistAir</a>
+</p>
+
+<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</a> (Icon for runnable examples).</p>
+<h3>Parameters</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
+>Pressure</a></td><td>P</td><td>101325</td><td>Pressure [Pa]</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">model</span> MoistAirComparison
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</a>;
+
+   <span style="color: blue; font-weight: normal; font-style: normal;">package</span> PerfectMedium = <a href="Buildings_Obsolete_Media_PerfectGases_MoistAir.html#Buildings.Obsolete.Media.PerfectGases.MoistAir"
+>Buildings.Obsolete.Media.PerfectGases.MoistAir</a>;
+  <span style="color: #006400; font-weight: normal; font-style: normal;"> //package IdealMedium =   Modelica.Media.Air.MoistAir;</span>
+   <span style="color: blue; font-weight: normal; font-style: normal;">package</span> IdealMedium =   <a href="Buildings_Obsolete_Media_GasesConstantDensity_MoistAir.html#Buildings.Obsolete.Media.GasesConstantDensity.MoistAir"
+>Buildings.Obsolete.Media.GasesConstantDensity.MoistAir</a>;
+
+    <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.SpecificEnthalpy"
+>Modelica.SIunits.SpecificEnthalpy</a> hLiqPer <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Liquid phase enthalpy&quot;</span>;
+    <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.SpecificEnthalpy"
+>Modelica.SIunits.SpecificEnthalpy</a> hLiqIde <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Liquid phase enthalpy&quot;</span>;
+    <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.SpecificEnthalpy"
+>Modelica.SIunits.SpecificEnthalpy</a> hStePer <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Water vapor enthalpy&quot;</span>;
+    <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.SpecificEnthalpy"
+>Modelica.SIunits.SpecificEnthalpy</a> hSteIde <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Water vapor enthalpy&quot;</span>;
+    <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.SpecificEnthalpy"
+>Modelica.SIunits.SpecificEnthalpy</a> hAirPer <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Air enthalpy&quot;</span>;
+    <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.SpecificEnthalpy"
+>Modelica.SIunits.SpecificEnthalpy</a> hAirIde <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Air enthalpy&quot;</span>;
+
+    <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.SpecificEnthalpy"
+>Modelica.SIunits.SpecificEnthalpy</a> hMixPer <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Mixture specific enthalpy&quot;</span>;
+    <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.SpecificEnthalpy"
+>Modelica.SIunits.SpecificEnthalpy</a> hMixIde <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Mixture specific enthalpy&quot;</span>;
+
+    <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.MassFraction"
+>Modelica.SIunits.MassFraction</a> X[2] = {0.01, 0.09};
+    <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+>Modelica.SIunits.Temperature</a> T <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Temperature&quot;</span>;
+    <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits_Conversions_NonSIunits.html#Modelica.SIunits.Conversions.NonSIunits.Temperature_degC"
+>Modelica.SIunits.Conversions.NonSIunits.Temperature_degC</a> T_degC <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Temperature&quot;</span>;
+
+    Real errLiq <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Error liquid phase&quot;</span>;
+    Real errSte <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Error steam phase&quot;</span>;
+    Real errAir <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Error gas mixture&quot;</span>;
+    Real errMix <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Error gas mixture&quot;</span>;
+    Real errT <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Error in temperature when enthalpy-temperature relation is inverted&quot;</span>;
+
+    <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
+>Modelica.SIunits.Pressure</a> P = 101325 <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Pressure&quot;</span>;
+
+<span style="color: blue; font-weight: normal; font-style: normal;">equation </span>
+    T_degC = 1+99*time;<span style="color: #006400; font-weight: normal; font-style: normal;"> // exclude 0, to avoid large relative error</span>
+    T = 273.15 + T_degC;
+    hLiqPer=<span style="color: red; font-weight: normal; font-style: normal;">PerfectMedium.enthalpyOfLiquid</span>(T);
+    hStePer=<span style="color: red; font-weight: normal; font-style: normal;">PerfectMedium.enthalpyOfCondensingGas</span>(T);
+    hAirPer=<span style="color: red; font-weight: normal; font-style: normal;">PerfectMedium.enthalpyOfGas</span>(T, X);
+    hLiqIde=<span style="color: red; font-weight: normal; font-style: normal;">IdealMedium.enthalpyOfLiquid</span>(T);
+    hSteIde=<span style="color: red; font-weight: normal; font-style: normal;">IdealMedium.enthalpyOfCondensingGas</span>(T);
+    hAirIde=<span style="color: red; font-weight: normal; font-style: normal;">IdealMedium.enthalpyOfGas</span>(T, X);
+
+    hMixPer=<span style="color: red; font-weight: normal; font-style: normal;">PerfectMedium.h_pTX</span>(P, T, X);
+    hMixIde=<span style="color: red; font-weight: normal; font-style: normal;">IdealMedium.h_pTX</span>(P, T, X);
+
+    errLiq *<span style="color: red; font-weight: normal; font-style: normal;"> abs</span>(hLiqIde+1E-3) = hLiqIde - hLiqPer;
+    errSte *<span style="color: red; font-weight: normal; font-style: normal;"> abs</span>(hSteIde+1E-3) = hSteIde - hStePer;
+    errAir *<span style="color: red; font-weight: normal; font-style: normal;"> abs</span>(hAirIde+1E-3) = hAirIde - hAirPer;
+    errMix *<span style="color: red; font-weight: normal; font-style: normal;"> abs</span>(hMixIde+1E-3) = hMixIde - hMixPer;
+    errT * T = T -<span style="color: red; font-weight: normal; font-style: normal;"> PerfectMedium.T_phX</span>(P,<span style="color: red; font-weight: normal; font-style: normal;"> PerfectMedium.h_pTX</span>(P, T, X), X);
+
+  <span style="color: red; font-weight: normal; font-style: normal;">  assert</span>(<span style="color: red; font-weight: normal; font-style: normal;"> abs</span>(errLiq) &lt; 0.09, &quot;Error too large. Check medium model.&quot;);
+  <span style="color: red; font-weight: normal; font-style: normal;">  assert</span>(<span style="color: red; font-weight: normal; font-style: normal;"> abs</span>(errSte) &lt; 0.01, &quot;Error too large. Check medium model.&quot;);
+  <span style="color: red; font-weight: normal; font-style: normal;">  assert</span>(<span style="color: red; font-weight: normal; font-style: normal;"> abs</span>(errAir) &lt; 0.01, &quot;Error too large. Check medium model.&quot;);
+  <span style="color: red; font-weight: normal; font-style: normal;">  assert</span>(<span style="color: red; font-weight: normal; font-style: normal;"> abs</span>(errMix) &lt; 2.01, &quot;Error too large. Check medium model.&quot;);
+  <span style="color: red; font-weight: normal; font-style: normal;">  assert</span>(<span style="color: red; font-weight: normal; font-style: normal;"> abs</span>(errT) &lt; 0.01, &quot;Error too large. Check medium model.&quot;);
+
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>MoistAirComparison;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE MoistAirDerivativeCheck<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Obsolete.Media.cdb700007a31b2b6risonI.png" alt="Buildings.Obsolete.Media.PerfectGases.Examples.MoistAirDerivativeCheck" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Obsolete.Media.PerfectGases.Examples.MoistAirDerivativeCheck"></a><a href="Buildings_Obsolete_Media_PerfectGases_Examples.html#Buildings.Obsolete.Media.PerfectGases.Examples"
+>Buildings.Obsolete.Media.PerfectGases.Examples</a>.MoistAirDerivativeCheck</h2>
+<h3>Information</h3>
+
+<p>
+This example checks whether the function derivative
+is implemented correctly. If the derivative implementation
+is not correct, the model will stop with an assert statement.
+</p>
+
+<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</a> (Icon for runnable examples).</p>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">model</span> MoistAirDerivativeCheck
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</a>;
+
+   <span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = <a href="Buildings_Obsolete_Media_PerfectGases_MoistAir.html#Buildings.Obsolete.Media.PerfectGases.MoistAir"
+>Buildings.Obsolete.Media.PerfectGases.MoistAir</a>;
+
+    <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.SpecificEnthalpy"
+>Modelica.SIunits.SpecificEnthalpy</a> hLiqSym <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Liquid phase enthalpy&quot;</span>;
+    <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.SpecificEnthalpy"
+>Modelica.SIunits.SpecificEnthalpy</a> hLiqCod <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Liquid phase enthalpy&quot;</span>;
+    <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.SpecificEnthalpy"
+>Modelica.SIunits.SpecificEnthalpy</a> hSteSym <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Water vapor enthalpy&quot;</span>;
+    <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.SpecificEnthalpy"
+>Modelica.SIunits.SpecificEnthalpy</a> hSteCod <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Water vapor enthalpy&quot;</span>;
+    <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.SpecificEnthalpy"
+>Modelica.SIunits.SpecificEnthalpy</a> hAirSym <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Dry air enthalpy&quot;</span>;
+    <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.SpecificEnthalpy"
+>Modelica.SIunits.SpecificEnthalpy</a> hAirCod <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Dry air enthalpy&quot;</span>;
+    <span style="color: blue; font-weight: normal; font-style: normal;">constant </span>Real conv(unit=&quot;K/s&quot;) = 1 <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Conversion factor to satisfy unit check&quot;</span>;
+<span style="color: blue; font-weight: normal; font-style: normal;">initial </span><span style="color: blue; font-weight: normal; font-style: normal;">equation </span>
+     hLiqSym = hLiqCod;
+     hSteSym = hSteCod;
+     hAirSym = hAirCod;
+<span style="color: blue; font-weight: normal; font-style: normal;">equation </span>
+    hLiqCod=<span style="color: red; font-weight: normal; font-style: normal;">Medium.enthalpyOfLiquid</span>(conv*time);
+  <span style="color: red; font-weight: normal; font-style: normal;">  der</span>(hLiqCod)=<span style="color: red; font-weight: normal; font-style: normal;">der</span>(hLiqSym);
+  <span style="color: red; font-weight: normal; font-style: normal;">  assert</span>(<span style="color: red; font-weight: normal; font-style: normal;">abs</span>(hLiqCod-hLiqSym) &lt; 1E-2, &quot;Model has an error&quot;);
+
+    hSteCod=<span style="color: red; font-weight: normal; font-style: normal;">Medium.enthalpyOfCondensingGas</span>(conv*time);
+  <span style="color: red; font-weight: normal; font-style: normal;">  der</span>(hSteCod)=<span style="color: red; font-weight: normal; font-style: normal;">der</span>(hSteSym);
+  <span style="color: red; font-weight: normal; font-style: normal;">  assert</span>(<span style="color: red; font-weight: normal; font-style: normal;">abs</span>(hSteCod-hSteSym) &lt; 1E-2, &quot;Model has an error&quot;);
+
+    hAirCod=<span style="color: red; font-weight: normal; font-style: normal;">Medium.enthalpyOfDryAir</span>(conv*time);
+  <span style="color: red; font-weight: normal; font-style: normal;">  der</span>(hAirCod)=<span style="color: red; font-weight: normal; font-style: normal;">der</span>(hAirSym);
+  <span style="color: red; font-weight: normal; font-style: normal;">  assert</span>(<span style="color: red; font-weight: normal; font-style: normal;">abs</span>(hAirCod-hAirSym) &lt; 1E-2, &quot;Model has an error&quot;);
+
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>MoistAirDerivativeCheck;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE MoistAirTemperatureEnthalpyInversion<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Obsolete.Media.cdb700007a31b2b6risonI.png" alt="Buildings.Obsolete.Media.PerfectGases.Examples.MoistAirTemperatureEnthalpyInversion" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Obsolete.Media.PerfectGases.Examples.MoistAirTemperatureEnthalpyInversion"></a><a href="Buildings_Obsolete_Media_PerfectGases_Examples.html#Buildings.Obsolete.Media.PerfectGases.Examples"
+>Buildings.Obsolete.Media.PerfectGases.Examples</a>.MoistAirTemperatureEnthalpyInversion</h2>
+<p>
+<b>Model to check computation of h(T) and its inverse</b>
+</p>
+<h3>Information</h3>
+<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</a> (Icon for runnable examples), <a href="Buildings_Media_Examples_BaseClasses.html#Buildings.Media.Examples.BaseClasses.TestTemperatureEnthalpyInversion"
+>Buildings.Media.Examples.BaseClasses.TestTemperatureEnthalpyInversion</a> (Model to check computation of h(T) and its inverse).</p>
+<h3>Parameters</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td colspan="2">replaceable package Medium</td><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_PartialCondensingGases.html#Modelica.Media.Interfaces.PartialCondensingGases"
+>PartialCondensingGases</a></td><td>&nbsp;</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+>Temperature</a></td><td>T0</td><td>273.15 + 20</td><td>Temperature [K]</td></tr>
+</table>
+<h3>Connectors</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Connectors">
+<tr><th>Type</th><th>Name</th><th>Description</th></tr>
+<tr><td colspan="2">replaceable package Medium</td><td>&nbsp;</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">model</span> MoistAirTemperatureEnthalpyInversion <span style="color: #006400; font-weight: normal; font-style: normal;">
+  &quot;Model to check computation of h(T) and its inverse&quot;</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</a>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="Buildings_Media_Examples_BaseClasses.html#Buildings.Media.Examples.BaseClasses.TestTemperatureEnthalpyInversion"
+>Buildings.Media.Examples.BaseClasses.TestTemperatureEnthalpyInversion</a>
+    (
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = <a href="Buildings_Obsolete_Media_PerfectGases_MoistAir.html#Buildings.Obsolete.Media.PerfectGases.MoistAir"
+>Buildings.Obsolete.Media.PerfectGases.MoistAir</a>);
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>MoistAirTemperatureEnthalpyInversion;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE TestMoistAir<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Obsolete.Media.cdb700007a31b2b6risonI.png" alt="Buildings.Obsolete.Media.PerfectGases.Examples.TestMoistAir" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Obsolete.Media.PerfectGases.Examples.TestMoistAir"></a><a href="Buildings_Obsolete_Media_PerfectGases_Examples.html#Buildings.Obsolete.Media.PerfectGases.Examples"
+>Buildings.Obsolete.Media.PerfectGases.Examples</a>.TestMoistAir</h2>
+<p>
+<br><img src="Buildings.Obsolete.Media.531fed70e5d284b6stAirD.png" alt="Buildings.Obsolete.Media.PerfectGases.Examples.TestMoistAir">
+</p>
+<h3>Information</h3>
+
+This is a simple test for the medium model. It uses the test model described in
+<a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_UsersGuide_MediumDefinition.html#Modelica.Media.UsersGuide.MediumDefinition.TestOfMedium"
+>
+Modelica.Media.UsersGuide.MediumDefinition.TestOfMedium</a>.
+
+<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</a> (Icon for runnable examples), <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Examples_Tests_Components.html#Modelica.Media.Examples.Tests.Components.PartialTestModel"
+>Modelica.Media.Examples.Tests.Components.PartialTestModel</a> (Basic test model to test a medium).</p>
+<h3>Parameters</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td colspan="2">replaceable package Medium</td><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium"
+>PartialMedium</a></td><td>Medium model</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.AbsolutePressure"
+>AbsolutePressure</a></td><td>p_start</td><td>Medium.p_default</td><td>Initial value of pressure [Pa]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+>Temperature</a></td><td>T_start</td><td>Medium.T_default</td><td>Initial value of temperature [K]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.SpecificEnthalpy"
+>SpecificEnthalpy</a></td><td>h_start</td><td>Medium.h_default</td><td>Initial value of specific enthalpy [J/kg]</td></tr>
+<tr><td>Real</td><td>X_start[Medium.nX]</td><td>Medium.X_default</td><td>Initial value of mass fractions</td></tr>
+</table>
+<h3>Connectors</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Connectors">
+<tr><th>Type</th><th>Name</th><th>Description</th></tr>
+<tr><td colspan="2">replaceable package Medium</td><td>Medium model</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">model</span> TestMoistAir
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</a>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Examples_Tests_Components.html#Modelica.Media.Examples.Tests.Components.PartialTestModel"
+>Modelica.Media.Examples.Tests.Components.PartialTestModel</a>(
+     <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium =
+          <a href="Buildings_Obsolete_Media_PerfectGases_MoistAir.html#Buildings.Obsolete.Media.PerfectGases.MoistAir"
+>Buildings.Obsolete.Media.PerfectGases.MoistAir</a>);
+
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>TestMoistAir;
+</div>
+<hr>
+<address>
+<a href="http://www.3ds.com/">Automatically generated</a> Thu Apr  9 09:47:38 2015.
+</address>
+</body>
+</html>

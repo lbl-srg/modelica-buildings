@@ -1,0 +1,153 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>Buildings.Rooms.Validation.TestConditionalConstructions.BaseClasses</title>
+<meta name="HTML-Generator" content="Dymola">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="description" content="&quot;Package with base classes for Buildings.Rooms.Validation.TestConditionalConstructions&quot;">
+<style type="text/css">
+*       { font-size: 10pt; font-family: Arial, sans-serif; }
+.modelica, .modelica * { font-size: 9pt; font-family: Courier, monospace; white-space: pre; }
+h4      { font-size: 10pt; font-weight: bold; color: green; }
+h3      { font-size: 11pt; font-weight: bold; color: green; }
+h2      { font-size: 13pt; font-weight: bold; color: green; }
+address { font-weight: normal; }
+td      { border: 1px solid #808080; vertical-align: top; }
+th      { border: 1px solid #808080; vertical-align: top; font-weight: bold; }
+table   { border: 1px solid #808080; border-collapse: collapse; }
+</style>
+<link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../Resources/www/modelicaDoc.css">
+</HEAD>
+<body>
+<!-- --- header ------ -->
+<div class="headerStyle">
+<img src="../Resources/www/lbl-logo.png" alt="LBL logo"/>
+</div>
+<div class="headerLinks">
+<ul><li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt; <a href="Buildings.html">Modelica</a></li></ul>
+</div>
+<!-- --- end header -- -->
+
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE BaseClasses<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><a name="Buildings.Rooms.Validation.TestConditionalConstructions.BaseClasses"></a><a href="Buildings_Rooms_Validation_TestConditionalConstructions.html#Buildings.Rooms.Validation.TestConditionalConstructions"
+>Buildings.Rooms.Validation.TestConditionalConstructions</a>.BaseClasses</h2>
+<p>
+<b>Package with base classes for Buildings.Rooms.Validation.TestConditionalConstructions</b><br>
+</p>
+<h3>Information</h3>
+
+<p>
+This package contains base classes that are used to construct the models in
+<a href="Buildings_Rooms_Validation_TestConditionalConstructions.html#Buildings.Rooms.Validation.TestConditionalConstructions"
+>
+Buildings.Rooms.Validation.TestConditionalConstructions</a>.
+</p>
+
+<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons_BasesPackage.html#Modelica.Icons.BasesPackage"
+>Modelica.Icons.BasesPackage</a> (Icon for packages containing base classes).</p>
+<h3>Package Content</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Package Content">
+<tr>
+<th>Name</th>
+<th>Description</th>
+</tr>
+<tr>
+<td><a href="Buildings_Rooms_Validation_TestConditionalConstructions_BaseClasses.html#Buildings.Rooms.Validation.TestConditionalConstructions.BaseClasses.PartialTestModel"
+>PartialTestModel</a>
+</td>
+<td>Partial model that is used to build the test cases</td>
+</tr>
+</table>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE PartialTestModel<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><a name="Buildings.Rooms.Validation.TestConditionalConstructions.BaseClasses.PartialTestModel"></a><a href="Buildings_Rooms_Validation_TestConditionalConstructions_BaseClasses.html#Buildings.Rooms.Validation.TestConditionalConstructions.BaseClasses"
+>Buildings.Rooms.Validation.TestConditionalConstructions.BaseClasses</a>.PartialTestModel</h2>
+<p>
+<b>Partial model that is used to build the test cases</b>
+<br>
+<br><img src="Buildings.Rooms.Validatioa964425f7620f28fModelD.png" alt="Buildings.Rooms.Validation.TestConditionalConstructions.BaseClasses.PartialTestModel">
+</p>
+<h3>Parameters</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td>Integer</td><td>nConExt</td><td>&nbsp;</td><td>Number of exterior constructions that do not have a window</td></tr>
+<tr><td>Integer</td><td>nConExtWin</td><td>&nbsp;</td><td>Number of exterior constructions that do have a window</td></tr>
+<tr><td>Integer</td><td>nConPar</td><td>&nbsp;</td><td>Number of partition constructions</td></tr>
+<tr><td>Integer</td><td>nConBou</td><td>&nbsp;</td><td>Number of surface that are connected to constructions that are modeled inside the room</td></tr>
+<tr><td>Integer</td><td>nSurBou</td><td>&nbsp;</td><td>Number of surface that are connected to the room air volume</td></tr>
+<tr><td><a href="Buildings_HeatTransfer_Data_OpaqueConstructions.html#Buildings.HeatTransfer.Data.OpaqueConstructions.Insulation100Concrete200"
+>Insulation100Concrete200</a></td><td>matLayExt</td><td>&nbsp;</td><td>Construction material for exterior walls</td></tr>
+<tr><td><a href="Buildings_HeatTransfer_Data_OpaqueConstructions.html#Buildings.HeatTransfer.Data.OpaqueConstructions.Brick120"
+>Brick120</a></td><td>matLayPar</td><td>&nbsp;</td><td>Construction material for partition walls</td></tr>
+<tr><td><a href="Buildings_HeatTransfer_Data_GlazingSystems.html#Buildings.HeatTransfer.Data.GlazingSystems.DoubleClearAir13Clear"
+>DoubleClearAir13Clear</a></td><td>glaSys</td><td>&nbsp;</td><td>Data record for the glazing system</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">partial </span><span style="color: blue; font-weight: normal; font-style: normal;">model</span> PartialTestModel <span style="color: #006400; font-weight: normal; font-style: normal;">
+  &quot;Partial model that is used to build the test cases&quot;</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">package</span> MediumA = <a href="Buildings_Media_Air.html#Buildings.Media.Air"
+>Buildings.Media.Air</a> <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Medium model&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Integer nConExt <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Number of exterior constructions that do not have a window&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Integer nConExtWin <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Number of exterior constructions that do have a window&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Integer nConPar <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Number of partition constructions&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Integer nConBou <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Number of surface that are connected to constructions that are modeled inside the room&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Integer nSurBou <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Number of surface that are connected to the room air volume&quot;</span>;
+  <a href="Buildings_Rooms.html#Buildings.Rooms.MixedAir"
+>MixedAir</a> roo(
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = MediumA,
+    <span style="color: blue; font-weight: normal; font-style: normal;">final </span>nConExt=nConExt,
+    <span style="color: blue; font-weight: normal; font-style: normal;">final </span>nConExtWin=nConExtWin,
+    <span style="color: blue; font-weight: normal; font-style: normal;">final </span>nConPar=nConPar,
+    <span style="color: blue; font-weight: normal; font-style: normal;">final </span>nConBou=nConBou,
+    <span style="color: blue; font-weight: normal; font-style: normal;">final </span>nSurBou=nSurBou,
+    AFlo=20,
+    hRoo=2.7,
+    linearizeRadiation = true,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    lat=0.73268921998722) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Room model&quot;</span>;
+
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="Buildings_HeatTransfer_Data_OpaqueConstructions.html#Buildings.HeatTransfer.Data.OpaqueConstructions.Insulation100Concrete200"
+>HeatTransfer.Data.OpaqueConstructions.Insulation100Concrete200</a> matLayExt <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Construction material for exterior walls&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="Buildings_HeatTransfer_Data_OpaqueConstructions.html#Buildings.HeatTransfer.Data.OpaqueConstructions.Brick120"
+>HeatTransfer.Data.OpaqueConstructions.Brick120</a> matLayPar <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Construction material for partition walls&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+>Modelica.Blocks.Sources.Constant</a> qConGai_flow(k=0) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Convective heat gain&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+>Modelica.Blocks.Sources.Constant</a> qRadGai_flow(k=0) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Radiative heat gain&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Routing.html#Modelica.Blocks.Routing.Multiplex3"
+>Modelica.Blocks.Routing.Multiplex3</a> multiplex3_1;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+>Modelica.Blocks.Sources.Constant</a> qLatGai_flow(k=0) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Latent heat gain&quot;</span>;
+  <a href="Buildings_BoundaryConditions_WeatherData.html#Buildings.BoundaryConditions.WeatherData.ReaderTMY3"
+>BoundaryConditions.WeatherData.ReaderTMY3</a> weaDat(filNam=&quot;modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos&quot;);
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="Buildings_HeatTransfer_Data_GlazingSystems.html#Buildings.HeatTransfer.Data.GlazingSystems.DoubleClearAir13Clear"
+>HeatTransfer.Data.GlazingSystems.DoubleClearAir13Clear</a> glaSys(UFra=2,
+    shade=<span style="color: red; font-weight: normal; font-style: normal;">Buildings.HeatTransfer.Data.Shades.Gray</span>(),
+    haveExteriorShade=false,
+    haveInteriorShade=false) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Data record for the glazing system&quot;</span>;
+<span style="color: blue; font-weight: normal; font-style: normal;">equation </span>
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(qRadGai_flow.y, multiplex3_1.u1[1]);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(qConGai_flow.y, multiplex3_1.u2[1]);
+
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(qLatGai_flow.y, multiplex3_1.u3[1]);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(multiplex3_1.y, roo.qGai_flow);
+
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(weaDat.weaBus, roo.weaBus);
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>PartialTestModel;
+</div>
+<hr>
+<address>
+<a href="http://www.3ds.com/">Automatically generated</a> Thu Apr  9 09:40:30 2015.
+</address>
+</body>
+</html>

@@ -1,0 +1,335 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>Buildings.Electrical.Transmission.Grids</title>
+<meta name="HTML-Generator" content="Dymola">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="description" content="&quot;Package that contains different types of grids&quot;">
+<style type="text/css">
+*       { font-size: 10pt; font-family: Arial, sans-serif; }
+.modelica, .modelica * { font-size: 9pt; font-family: Courier, monospace; white-space: pre; }
+h4      { font-size: 10pt; font-weight: bold; color: green; }
+h3      { font-size: 11pt; font-weight: bold; color: green; }
+h2      { font-size: 13pt; font-weight: bold; color: green; }
+address { font-weight: normal; }
+td      { border: 1px solid #808080; vertical-align: top; }
+th      { border: 1px solid #808080; vertical-align: top; font-weight: bold; }
+table   { border: 1px solid #808080; border-collapse: collapse; }
+</style>
+<link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../Resources/www/modelicaDoc.css">
+</HEAD>
+<body>
+<!-- --- header ------ -->
+<div class="headerStyle">
+<img src="../Resources/www/lbl-logo.png" alt="LBL logo"/>
+</div>
+<div class="headerLinks">
+<ul><li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt; <a href="Buildings.html">Modelica</a></li></ul>
+</div>
+<!-- --- end header -- -->
+
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE Grids<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><a name="Buildings.Electrical.Transmission.Grids"></a><a href="Buildings_Electrical_Transmission.html#Buildings.Electrical.Transmission"
+>Buildings.Electrical.Transmission</a>.Grids</h2>
+<p>
+<b>Package that contains different types of grids</b><br>
+</p>
+<h3>Information</h3>
+
+<p>
+This package contains different types of grids that can be used to represent
+electrical networks. The topology of the network is specified by
+</p>
+<ul>
+<li>the number of nodes,</li>
+<li>the number of links,</li>
+<li>the length of links, and</li>
+<li>the connection between links and nodes.</li>
+</ul>
+
+<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons_MaterialPropertiesPackage.html#Modelica.Icons.MaterialPropertiesPackage"
+>Modelica.Icons.MaterialPropertiesPackage</a> (Icon for package containing property classes).</p>
+<h3>Package Content</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Package Content">
+<tr>
+<th>Name</th>
+<th>Description</th>
+</tr>
+<tr>
+<td><img src="Buildings.Electrical.Tran7b9207a51a189249AL120S.png" alt="Buildings.Electrical.Transmission.Grids.IEEE_34_AL120" width="20" height="20" align="top">&nbsp;<a href="Buildings_Electrical_Transmission_Grids.html#Buildings.Electrical.Transmission.Grids.IEEE_34_AL120"
+>IEEE_34_AL120</a>
+</td>
+<td>Grid model inspired to the IEEE 34 Node test feeder</td>
+</tr>
+<tr>
+<td><img src="Buildings.Electrical.Tran7b9207a51a189249AL120S.png" alt="Buildings.Electrical.Transmission.Grids.PartialGrid" width="20" height="20" align="top">&nbsp;<a href="Buildings_Electrical_Transmission_Grids.html#Buildings.Electrical.Transmission.Grids.PartialGrid"
+>PartialGrid</a>
+</td>
+<td>Partial model that represents a generalized grid</td>
+</tr>
+<tr>
+<td><img src="Buildings.Electrical.Tran7b9207a51a189249AL120S.png" alt="Buildings.Electrical.Transmission.Grids.TestGrid2Nodes" width="20" height="20" align="top">&nbsp;<a href="Buildings_Electrical_Transmission_Grids.html#Buildings.Electrical.Transmission.Grids.TestGrid2Nodes"
+>TestGrid2Nodes</a>
+</td>
+<td>Simple model of a grid with 2 nodes and 1 link</td>
+</tr>
+<tr>
+<td><img src="Buildings.Electrical.Tran7b9207a51a189249AL120S.png" alt="Buildings.Electrical.Transmission.Grids.TestGrid2NodesMedium" width="20" height="20" align="top">&nbsp;<a href="Buildings_Electrical_Transmission_Grids.html#Buildings.Electrical.Transmission.Grids.TestGrid2NodesMedium"
+>TestGrid2NodesMedium</a>
+</td>
+<td>Simple model of a grid with 2 nodes and 1 link for medium voltage</td>
+</tr>
+</table>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE IEEE_34_AL120<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Electrical.Tran7b9207a51a189249AL120I.png" alt="Buildings.Electrical.Transmission.Grids.IEEE_34_AL120" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Electrical.Transmission.Grids.IEEE_34_AL120"></a><a href="Buildings_Electrical_Transmission_Grids.html#Buildings.Electrical.Transmission.Grids"
+>Buildings.Electrical.Transmission.Grids</a>.IEEE_34_AL120</h2>
+<p>
+<b>Grid model inspired to the IEEE 34 Node test feeder</b>
+</p>
+<h3>Information</h3>
+
+<p> This model represents a grid inspired by the IEEE 34 node test feeder.
+In this example, the cable types and lengths have been modified in order to
+represent a typical distribution feeder.</p>
+<p>The following three type of cables are in the grid: AL120, AL70, and Al35.
+</p>
+<p><img alt="alt-image" src="../Resources/Images/Electrical/Transmission/Grids/IEEE_34.png"/></p>
+
+<p>Extends from <a href="Buildings_Electrical_Transmission_Grids.html#Buildings.Electrical.Transmission.Grids.PartialGrid"
+>Buildings.Electrical.Transmission.Grids.PartialGrid</a> (Partial model that represents a generalized grid).</p>
+<h3>Parameters</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td>Integer</td><td>nNodes</td><td>34</td><td>Number of nodes of the grid</td></tr>
+<tr><td>Integer</td><td>nLinks</td><td>33</td><td>Number of links connecting the nodes</td></tr>
+<tr><td>Integer</td><td>fromTo[nLinks, 2]</td><td>[[1, 2]; [2, 3]; [3, 4]; [4,...</td><td>Indexes [i,1]-&gt;[i,2] of the nodes connected by link i</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Length"
+>Length</a></td><td>l[nLinks, 1]</td><td>[48; 16; 16; 40; 32; 16; 16;...</td><td>Length of the cable [m]</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">record</span> IEEE_34_AL120 <span style="color: #006400; font-weight: normal; font-style: normal;">
+  &quot;Grid model inspired to the IEEE 34 Node test feeder&quot;</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="Buildings_Electrical_Transmission_Grids.html#Buildings.Electrical.Transmission.Grids.PartialGrid"
+>Buildings.Electrical.Transmission.Grids.PartialGrid</a>(
+    nNodes=34,
+    nLinks=33,
+    l=[48;16;16;40;32;16;16;16;16;16;16;32;32;16;32;32;32;48;48;32;32;16;16;16;
+        16;16;32;32;16;32;16;16;16],
+    fromTo=[[1,2]; [2,3]; [3,4]; [4,5]; [4,6]; [6,7]; [7,8]; [9,26]; [10,26]; [
+        11,9]; [12,11]; [13,10]; [14,10]; [15,14]; [16,15]; [17,27]; [18,27]; [
+        19,31]; [20,31]; [21,32]; [22,32]; [23,20]; [24,23]; [25,24]; [26,8]; [
+        27,29]; [28,16]; [29,16]; [30,17]; [31,17]; [32,19]; [33,22]; [34,18]],
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><a href="Buildings_Electrical_Transmission_LowVoltageCables.html#Buildings.Electrical.Transmission.LowVoltageCables.Generic"
+>Buildings.Electrical.Transmission.LowVoltageCables.Generic</a> cables=
+       {<span style="color: red; font-weight: normal; font-style: normal;">LowVoltageCables.PvcAl120</span>(),<span style="color: red; font-weight: normal; font-style: normal;">LowVoltageCables.PvcAl120</span>(),
+        <span style="color: red; font-weight: normal; font-style: normal;">LowVoltageCables.PvcAl120</span>(),<span style="color: red; font-weight: normal; font-style: normal;">LowVoltageCables.PvcAl120</span>(),
+        <span style="color: red; font-weight: normal; font-style: normal;">LowVoltageCables.PvcAl120</span>(),<span style="color: red; font-weight: normal; font-style: normal;">LowVoltageCables.PvcAl120</span>(),
+        <span style="color: red; font-weight: normal; font-style: normal;">LowVoltageCables.PvcAl120</span>(),<span style="color: red; font-weight: normal; font-style: normal;">LowVoltageCables.PvcAl120</span>(),
+        <span style="color: red; font-weight: normal; font-style: normal;">LowVoltageCables.PvcAl120</span>(),<span style="color: red; font-weight: normal; font-style: normal;">LowVoltageCables.PvcAl120</span>(),
+        <span style="color: red; font-weight: normal; font-style: normal;">LowVoltageCables.PvcAl120</span>(),<span style="color: red; font-weight: normal; font-style: normal;">LowVoltageCables.PvcAl120</span>(),
+        <span style="color: red; font-weight: normal; font-style: normal;">LowVoltageCables.PvcAl120</span>(),<span style="color: red; font-weight: normal; font-style: normal;">LowVoltageCables.PvcAl120</span>(),
+        <span style="color: red; font-weight: normal; font-style: normal;">LowVoltageCables.PvcAl120</span>(),<span style="color: red; font-weight: normal; font-style: normal;">LowVoltageCables.PvcAl70</span>(),
+        <span style="color: red; font-weight: normal; font-style: normal;">LowVoltageCables.PvcAl70</span>(),<span style="color: red; font-weight: normal; font-style: normal;">LowVoltageCables.PvcAl35</span>(),
+        <span style="color: red; font-weight: normal; font-style: normal;">LowVoltageCables.PvcAl35</span>(),<span style="color: red; font-weight: normal; font-style: normal;">LowVoltageCables.PvcAl35</span>(),
+        <span style="color: red; font-weight: normal; font-style: normal;">LowVoltageCables.PvcAl35</span>(),<span style="color: red; font-weight: normal; font-style: normal;">LowVoltageCables.PvcAl35</span>(),
+        <span style="color: red; font-weight: normal; font-style: normal;">LowVoltageCables.PvcAl35</span>(),<span style="color: red; font-weight: normal; font-style: normal;">LowVoltageCables.PvcAl35</span>(),
+        <span style="color: red; font-weight: normal; font-style: normal;">LowVoltageCables.PvcAl120</span>(),<span style="color: red; font-weight: normal; font-style: normal;">LowVoltageCables.PvcAl70</span>(),
+        <span style="color: red; font-weight: normal; font-style: normal;">LowVoltageCables.PvcAl70</span>(),<span style="color: red; font-weight: normal; font-style: normal;">LowVoltageCables.PvcAl70</span>(),
+        <span style="color: red; font-weight: normal; font-style: normal;">LowVoltageCables.PvcAl70</span>(),<span style="color: red; font-weight: normal; font-style: normal;">LowVoltageCables.PvcAl70</span>(),
+        <span style="color: red; font-weight: normal; font-style: normal;">LowVoltageCables.PvcAl35</span>(),<span style="color: red; font-weight: normal; font-style: normal;">LowVoltageCables.PvcAl35</span>(),
+        <span style="color: red; font-weight: normal; font-style: normal;">LowVoltageCables.PvcAl70</span>()});
+
+  <span style="color: #006400; font-weight: normal; font-style: normal;"> /*
+   LEFT HERE TO CHECK CONSISTENCY
+
+   LenVec={
+   0,48,16,16,40,
+   32,16,16,16,16,
+   16,16,32,32,16,
+   32,32,32,48,48,
+   32,32,16,16,16,
+   16,16,32,32,16,
+   32,16,16,16},
+
+    CabTyp={
+               ,.PvcAl120(),.PvcAl120(),.PvcAl120(),.PvcAl120(),
+    .PvcAl120(),.PvcAl120(),.PvcAl120(),.PvcAl120(),.PvcAl120(),
+    .PvcAl120(),.PvcAl120(),.PvcAl120(),.PvcAl120(),.PvcAl120(),
+    .PvcAl120(),.PvcAl70(),.PvcAl70(),.PvcAl35(),.PvcAl35(),
+    .PvcAl35(),.PvcAl35(),.PvcAl35(),.PvcAl35(),.PvcAl35(),
+    .PvcAl120(),.PvcAl70(),.PvcAl70(),.PvcAl70(),.PvcAl70(),
+    .PvcAl70(),.PvcAl35(),.PvcAl35(),.PvcAl70()});
+
+   */</span>
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>IEEE_34_AL120;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE PartialGrid<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Electrical.Tran7b9207a51a189249AL120I.png" alt="Buildings.Electrical.Transmission.Grids.PartialGrid" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Electrical.Transmission.Grids.PartialGrid"></a><a href="Buildings_Electrical_Transmission_Grids.html#Buildings.Electrical.Transmission.Grids"
+>Buildings.Electrical.Transmission.Grids</a>.PartialGrid</h2>
+<p>
+<b>Partial model that represents a generalized grid</b>
+</p>
+<h3>Information</h3>
+
+<p>
+This abstract grid model specifies the topology of the network by
+</p>
+<ul>
+<li>the number of nodes,</li>
+<li>the number of links,</li>
+<li>the length of links, and</li>
+<li>the connection between links and nodes.</li>
+</ul>
+<p>
+The picture below describes the meaning of the
+values contained in the matrices.
+</p>
+
+<p align="center">
+<img alt="image" src="../Resources/Images/Electrical/Transmission/Grids/partialGrid.png"/>
+</p>
+
+<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.MaterialProperty"
+>Modelica.Icons.MaterialProperty</a> (Icon for property classes).</p>
+<h3>Parameters</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td>Integer</td><td>nNodes</td><td>&nbsp;</td><td>Number of nodes of the grid</td></tr>
+<tr><td>Integer</td><td>nLinks</td><td>&nbsp;</td><td>Number of links connecting the nodes</td></tr>
+<tr><td>Integer</td><td>fromTo[nLinks, 2]</td><td>&nbsp;</td><td>Indexes [i,1]-&gt;[i,2] of the nodes connected by link i</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Length"
+>Length</a></td><td>l[nLinks, 1]</td><td>&nbsp;</td><td>Length of the cable [m]</td></tr>
+<tr><td><a href="Buildings_Electrical_Transmission_BaseClasses.html#Buildings.Electrical.Transmission.BaseClasses.BaseCable"
+>BaseCable</a></td><td>cables[nLinks]</td><td>redeclare Buildings.Electric...</td><td>Array that contains the characteristics of each cable</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">record</span> PartialGrid <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Partial model that represents a generalized grid&quot;</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.MaterialProperty"
+>Modelica.Icons.MaterialProperty</a>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Integer nNodes <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Number of nodes of the grid&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Integer nLinks <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Number of links connecting the nodes&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Integer fromTo[nLinks,2] <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Indexes [i,1]-&gt;[i,2] of the nodes connected by link i&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Length"
+>Modelica.SIunits.Length</a> l[nLinks,1](<span style="color: blue; font-weight: normal; font-style: normal;">each </span>min=0) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Length of the cable&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">replaceable </span><a href="Buildings_Electrical_Transmission_BaseClasses.html#Buildings.Electrical.Transmission.BaseClasses.BaseCable"
+>Buildings.Electrical.Transmission.BaseClasses.BaseCable</a> cables[nLinks] <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Array that contains the characteristics of each cable&quot;</span>;
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>PartialGrid;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE TestGrid2Nodes<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Electrical.Tran7b9207a51a189249AL120I.png" alt="Buildings.Electrical.Transmission.Grids.TestGrid2Nodes" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Electrical.Transmission.Grids.TestGrid2Nodes"></a><a href="Buildings_Electrical_Transmission_Grids.html#Buildings.Electrical.Transmission.Grids"
+>Buildings.Electrical.Transmission.Grids</a>.TestGrid2Nodes</h2>
+<p>
+<b>Simple model of a grid with 2 nodes and 1 link</b>
+</p>
+<h3>Information</h3>
+
+<p>
+This model represents a simple grid with two nodes and a single link between them.
+</p>
+<p>
+The picture below describes the grid topology.
+</p>
+<p align="center">
+<img alt="image" src="../Resources/Images/Electrical/Transmission/Grids/testGrid2Nodes.png"/>
+</p>
+
+<p>Extends from <a href="Buildings_Electrical_Transmission_Grids.html#Buildings.Electrical.Transmission.Grids.PartialGrid"
+>Buildings.Electrical.Transmission.Grids.PartialGrid</a> (Partial model that represents a generalized grid).</p>
+<h3>Parameters</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td>Integer</td><td>nNodes</td><td>2</td><td>Number of nodes of the grid</td></tr>
+<tr><td>Integer</td><td>nLinks</td><td>1</td><td>Number of links connecting the nodes</td></tr>
+<tr><td>Integer</td><td>fromTo[nLinks, 2]</td><td>[[1, 2]]</td><td>Indexes [i,1]-&gt;[i,2] of the nodes connected by link i</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Length"
+>Length</a></td><td>l[nLinks, 1]</td><td>[200]</td><td>Length of the cable [m]</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">record</span> TestGrid2Nodes <span style="color: #006400; font-weight: normal; font-style: normal;">
+  &quot;Simple model of a grid with 2 nodes and 1 link&quot;</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="Buildings_Electrical_Transmission_Grids.html#Buildings.Electrical.Transmission.Grids.PartialGrid"
+>Buildings.Electrical.Transmission.Grids.PartialGrid</a>(
+    nNodes=2,
+    nLinks=1,
+    fromTo=[[1,2]],
+    l=[200],
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><a href="Buildings_Electrical_Transmission_LowVoltageCables.html#Buildings.Electrical.Transmission.LowVoltageCables.Generic"
+>Buildings.Electrical.Transmission.LowVoltageCables.Generic</a>
+    cables = {<span style="color: red; font-weight: normal; font-style: normal;">LowVoltageCables.Cu35</span>()});
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>TestGrid2Nodes;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE TestGrid2NodesMedium<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Electrical.Tran7b9207a51a189249AL120I.png" alt="Buildings.Electrical.Transmission.Grids.TestGrid2NodesMedium" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Electrical.Transmission.Grids.TestGrid2NodesMedium"></a><a href="Buildings_Electrical_Transmission_Grids.html#Buildings.Electrical.Transmission.Grids"
+>Buildings.Electrical.Transmission.Grids</a>.TestGrid2NodesMedium</h2>
+<p>
+<b>Simple model of a grid with 2 nodes and 1 link for medium voltage</b>
+</p>
+<h3>Information</h3>
+
+<p>
+This model represents a simple grid with two nodes and a single link between them.
+This model differs from
+<a href="Buildings_Electrical_Transmission_Grids.html#Buildings.Electrical.Transmission.Grids.TestGrid2Nodes"
+>
+Buildings.Electrical.Transmission.Grids.TestGrid2Nodes</a> because it defines a medium voltage
+cable instead of a low voltage cable.
+</p>
+<p>
+The picture below describes the grid topology.
+</p>
+<p align="center">
+<img alt="image" src="../Resources/Images/Electrical/Transmission/Grids/testGrid2Nodes.png"/>
+</p>
+
+<p>Extends from <a href="Buildings_Electrical_Transmission_Grids.html#Buildings.Electrical.Transmission.Grids.PartialGrid"
+>Buildings.Electrical.Transmission.Grids.PartialGrid</a> (Partial model that represents a generalized grid).</p>
+<h3>Parameters</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td>Integer</td><td>nNodes</td><td>2</td><td>Number of nodes of the grid</td></tr>
+<tr><td>Integer</td><td>nLinks</td><td>1</td><td>Number of links connecting the nodes</td></tr>
+<tr><td>Integer</td><td>fromTo[nLinks, 2]</td><td>[[1, 2]]</td><td>Indexes [i,1]-&gt;[i,2] of the nodes connected by link i</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Length"
+>Length</a></td><td>l[nLinks, 1]</td><td>[200]</td><td>Length of the cable [m]</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">record</span> TestGrid2NodesMedium <span style="color: #006400; font-weight: normal; font-style: normal;">
+  &quot;Simple model of a grid with 2 nodes and 1 link for medium voltage&quot;</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="Buildings_Electrical_Transmission_Grids.html#Buildings.Electrical.Transmission.Grids.PartialGrid"
+>Buildings.Electrical.Transmission.Grids.PartialGrid</a>(
+    nNodes=2,
+    nLinks=1,
+    fromTo=[[1,2]],
+    l=[200],
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><a href="Buildings_Electrical_Transmission_MediumVoltageCables.html#Buildings.Electrical.Transmission.MediumVoltageCables.Generic"
+>Buildings.Electrical.Transmission.MediumVoltageCables.Generic</a>
+    cables = {<span style="color: red; font-weight: normal; font-style: normal;">MediumVoltageCables.Annealed_Al_30</span>()});
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>TestGrid2NodesMedium;
+</div>
+<hr>
+<address>
+<a href="http://www.3ds.com/">Automatically generated</a> Thu Apr  9 09:34:19 2015.
+</address>
+</body>
+</html>

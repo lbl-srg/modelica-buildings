@@ -1,0 +1,262 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>Buildings.Electrical.PhaseSystems.ThreePhase_d</title>
+<meta name="HTML-Generator" content="Dymola">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="description" content="&quot;AC system covering only resistive loads with three symmetric phases&quot;">
+<style type="text/css">
+*       { font-size: 10pt; font-family: Arial, sans-serif; }
+.modelica, .modelica * { font-size: 9pt; font-family: Courier, monospace; white-space: pre; }
+h4      { font-size: 10pt; font-weight: bold; color: green; }
+h3      { font-size: 11pt; font-weight: bold; color: green; }
+h2      { font-size: 13pt; font-weight: bold; color: green; }
+address { font-weight: normal; }
+td      { border: 1px solid #808080; vertical-align: top; }
+th      { border: 1px solid #808080; vertical-align: top; font-weight: bold; }
+table   { border: 1px solid #808080; border-collapse: collapse; }
+</style>
+<link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../Resources/www/modelicaDoc.css">
+</HEAD>
+<body>
+<!-- --- header ------ -->
+<div class="headerStyle">
+<img src="../Resources/www/lbl-logo.png" alt="LBL logo"/>
+</div>
+<div class="headerLinks">
+<ul><li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt; <a href="Buildings.html">Modelica</a></li></ul>
+</div>
+<!-- --- end header -- -->
+
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE ThreePhase_d<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><a name="Buildings.Electrical.PhaseSystems.ThreePhase_d"></a><a href="Buildings_Electrical_PhaseSystems.html#Buildings.Electrical.PhaseSystems"
+>Buildings.Electrical.PhaseSystems</a>.ThreePhase_d</h2>
+<p>
+<b>AC system covering only resistive loads with three symmetric phases</b><br>
+</p>
+<h3>Information</h3>
+
+<p>
+This package declares the functions that are used to implement
+the AC three-phase balanced and purely resistive models.
+</p>
+
+<p>Extends from <a href="Buildings_Electrical_PhaseSystems_DirectCurrent.html#Buildings.Electrical.PhaseSystems.DirectCurrent"
+>DirectCurrent</a> (DC system).</p>
+<h3>Package Content</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Package Content">
+<tr>
+<th>Name</th>
+<th>Description</th>
+</tr>
+<tr>
+<td><img src="Buildings.Electrical.Phasc02235d3fa87257ctem.jS.png" alt="Buildings.Electrical.PhaseSystems.ThreePhase_d.phaseVoltages" width="20" height="20" align="top">&nbsp;<a href="Buildings_Electrical_PhaseSystems_ThreePhase_d.html#Buildings.Electrical.PhaseSystems.ThreePhase_d.phaseVoltages"
+>phaseVoltages</a>
+</td>
+<td>Return phase to neutral voltages</td>
+</tr>
+<tr>
+<td><img src="Buildings.Electrical.Phasc02235d3fa87257ctem.jS.png" alt="Buildings.Electrical.PhaseSystems.ThreePhase_d.systemVoltage" width="20" height="20" align="top">&nbsp;<a href="Buildings_Electrical_PhaseSystems_ThreePhase_d.html#Buildings.Electrical.PhaseSystems.ThreePhase_d.systemVoltage"
+>systemVoltage</a>
+</td>
+<td>Return system voltage as function of phase voltages</td>
+</tr>
+<tr>
+<th colspan="2">Inherited</th>
+</tr>
+<tr>
+<td><img src="Buildings.Electrical.Phasc02235d3fa87257ctem.jS.png" alt="Buildings.Electrical.PhaseSystems.DirectCurrent.j" width="20" height="20" align="top">&nbsp;<a href="Buildings_Electrical_PhaseSystems_DirectCurrent.html#Buildings.Electrical.PhaseSystems.DirectCurrent.j"
+>j</a>
+</td>
+<td>Direct current has no complex component</td>
+</tr>
+<tr>
+<td><img src="Buildings.Electrical.Phasf34d001e5525f6b9ent.jS.png" alt="Buildings.Electrical.PhaseSystems.DirectCurrent.rotate" width="20" height="20" align="top">&nbsp;<a href="Buildings_Electrical_PhaseSystems_DirectCurrent.html#Buildings.Electrical.PhaseSystems.DirectCurrent.rotate"
+>rotate</a>
+</td>
+<td>Rotate a vector of an angle Theta (anti-counterclock)</td>
+</tr>
+<tr>
+<td><img src="Buildings.Electrical.Phasf34d001e5525f6b9ent.jS.png" alt="Buildings.Electrical.PhaseSystems.DirectCurrent.thetaRel" width="20" height="20" align="top">&nbsp;<a href="Buildings_Electrical_PhaseSystems_DirectCurrent.html#Buildings.Electrical.PhaseSystems.DirectCurrent.thetaRel"
+>thetaRel</a>
+</td>
+<td>Return absolute angle of rotating system as offset to thetaRef</td>
+</tr>
+<tr>
+<td><img src="Buildings.Electrical.Phasf34d001e5525f6b9ent.jS.png" alt="Buildings.Electrical.PhaseSystems.DirectCurrent.thetaRef" width="20" height="20" align="top">&nbsp;<a href="Buildings_Electrical_PhaseSystems_DirectCurrent.html#Buildings.Electrical.PhaseSystems.DirectCurrent.thetaRef"
+>thetaRef</a>
+</td>
+<td>Return absolute angle of rotating reference system</td>
+</tr>
+<tr>
+<td><img src="Buildings.Electrical.Phasf34d001e5525f6b9ent.jS.png" alt="Buildings.Electrical.PhaseSystems.DirectCurrent.phase" width="20" height="20" align="top">&nbsp;<a href="Buildings_Electrical_PhaseSystems_DirectCurrent.html#Buildings.Electrical.PhaseSystems.DirectCurrent.phase"
+>phase</a>
+</td>
+<td>Return phase</td>
+</tr>
+<tr>
+<td><img src="Buildings.Electrical.Phasf34d001e5525f6b9ent.jS.png" alt="Buildings.Electrical.PhaseSystems.DirectCurrent.phaseCurrents" width="20" height="20" align="top">&nbsp;<a href="Buildings_Electrical_PhaseSystems_DirectCurrent.html#Buildings.Electrical.PhaseSystems.DirectCurrent.phaseCurrents"
+>phaseCurrents</a>
+</td>
+<td>Return phase currents</td>
+</tr>
+<tr>
+<td><img src="Buildings.Electrical.Phasf34d001e5525f6b9ent.jS.png" alt="Buildings.Electrical.PhaseSystems.DirectCurrent.phasePowers" width="20" height="20" align="top">&nbsp;<a href="Buildings_Electrical_PhaseSystems_DirectCurrent.html#Buildings.Electrical.PhaseSystems.DirectCurrent.phasePowers"
+>phasePowers</a>
+</td>
+<td>Return phase powers</td>
+</tr>
+<tr>
+<td><img src="Buildings.Electrical.Phasf34d001e5525f6b9ent.jS.png" alt="Buildings.Electrical.PhaseSystems.DirectCurrent.phasePowers_vi" width="20" height="20" align="top">&nbsp;<a href="Buildings_Electrical_PhaseSystems_DirectCurrent.html#Buildings.Electrical.PhaseSystems.DirectCurrent.phasePowers_vi"
+>phasePowers_vi</a>
+</td>
+<td>Return phase powers</td>
+</tr>
+<tr>
+<td><img src="Buildings.Electrical.Phasf34d001e5525f6b9ent.jS.png" alt="Buildings.Electrical.PhaseSystems.DirectCurrent.systemCurrent" width="20" height="20" align="top">&nbsp;<a href="Buildings_Electrical_PhaseSystems_DirectCurrent.html#Buildings.Electrical.PhaseSystems.DirectCurrent.systemCurrent"
+>systemCurrent</a>
+</td>
+<td>Return system current as function of phase currents</td>
+</tr>
+<tr>
+<td><img src="Buildings.Electrical.Phasf34d001e5525f6b9ent.jS.png" alt="Buildings.Electrical.PhaseSystems.DirectCurrent.activePower" width="20" height="20" align="top">&nbsp;<a href="Buildings_Electrical_PhaseSystems_DirectCurrent.html#Buildings.Electrical.PhaseSystems.DirectCurrent.activePower"
+>activePower</a>
+</td>
+<td>Return total power as function of phase powers</td>
+</tr>
+<tr>
+<td>phaseSystemName=&quot;UnspecifiedPhaseSystem&quot;</td>
+<td>Name of the phase system represented by the package</td>
+</tr>
+<tr>
+<td>n</td>
+<td>Number of independent voltage and current components</td>
+</tr>
+<tr>
+<td>m</td>
+<td>Number of reference angles</td>
+</tr>
+<tr>
+<td><a href="Buildings_Electrical_PhaseSystems_PartialPhaseSystem.html#Buildings.Electrical.PhaseSystems.PartialPhaseSystem.Current"
+>Current</a>
+</td>
+<td>Current for connector</td>
+</tr>
+<tr>
+<td><a href="Buildings_Electrical_PhaseSystems_PartialPhaseSystem.html#Buildings.Electrical.PhaseSystems.PartialPhaseSystem.Voltage"
+>Voltage</a>
+</td>
+<td>Voltage for connector</td>
+</tr>
+<tr>
+<td><a href="Buildings_Electrical_PhaseSystems_PartialPhaseSystem.html#Buildings.Electrical.PhaseSystems.PartialPhaseSystem.ReferenceAngle"
+>ReferenceAngle</a>
+</td>
+<td>Reference angle for connector</td>
+</tr>
+<tr>
+<td><img src="Buildings.Electrical.Phasc02235d3fa87257ctem.jS.png" alt="Buildings.Electrical.PhaseSystems.PartialPhaseSystem.jj" width="20" height="20" align="top">&nbsp;<a href="Buildings_Electrical_PhaseSystems_PartialPhaseSystem.html#Buildings.Electrical.PhaseSystems.PartialPhaseSystem.jj"
+>jj</a>
+</td>
+<td>Vectorized version of j</td>
+</tr>
+<tr>
+<td><img src="Buildings.Electrical.Phas51818b6350ecaff5em.jjS.png" alt="Buildings.Electrical.PhaseSystems.PartialPhaseSystem.product" width="20" height="20" align="top">&nbsp;<a href="Buildings_Electrical_PhaseSystems_PartialPhaseSystem.html#Buildings.Electrical.PhaseSystems.PartialPhaseSystem.product"
+>product</a>
+</td>
+<td>Multiply two vectors</td>
+</tr>
+<tr>
+<td><img src="Buildings.Electrical.Phas51818b6350ecaff5em.jjS.png" alt="Buildings.Electrical.PhaseSystems.PartialPhaseSystem.divide" width="20" height="20" align="top">&nbsp;<a href="Buildings_Electrical_PhaseSystems_PartialPhaseSystem.html#Buildings.Electrical.PhaseSystems.PartialPhaseSystem.divide"
+>divide</a>
+</td>
+<td>Divide two vectors</td>
+</tr>
+</table>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE phaseVoltages<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Electrical.Phas436513e6726789e5tagesI.png" alt="Buildings.Electrical.PhaseSystems.ThreePhase_d.phaseVoltages" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Electrical.PhaseSystems.ThreePhase_d.phaseVoltages"></a><a href="Buildings_Electrical_PhaseSystems_ThreePhase_d.html#Buildings.Electrical.PhaseSystems.ThreePhase_d"
+>Buildings.Electrical.PhaseSystems.ThreePhase_d</a>.phaseVoltages</h2>
+<p>
+<b>Return phase to neutral voltages</b>
+</p>
+<h3>Information</h3>
+<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Function"
+>Modelica.Icons.Function</a> (Icon for functions).</p>
+<h3>Inputs</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Inputs">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Voltage"
+>Voltage</a></td><td>V</td><td>&nbsp;</td><td>system voltage [V]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
+>Angle</a></td><td>phi</td><td>0</td><td>phase angle [rad]</td></tr>
+</table>
+<h3>Outputs</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Outputs">
+<tr><th>Type</th><th>Name</th><th>Description</th></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Voltage"
+>Voltage</a></td><td>v[n]</td><td>phase to neutral voltages [V]</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">function</span> phaseVoltages <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Return phase to neutral voltages&quot;</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Function"
+>Modelica.Icons.Function</a>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">input </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Voltage"
+>SI.Voltage</a> V <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;system voltage&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">input </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
+>SI.Angle</a> phi = 0 <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;phase angle&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">output </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Voltage"
+>SI.Voltage</a> v[n] <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;phase to neutral voltages&quot;</span>;
+<span style="color: blue; font-weight: normal; font-style: normal;">algorithm </span>
+  v := {V}/<span style="color: red; font-weight: normal; font-style: normal;">sqrt</span>(3);
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>phaseVoltages;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE systemVoltage<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Electrical.Phas436513e6726789e5tagesI.png" alt="Buildings.Electrical.PhaseSystems.ThreePhase_d.systemVoltage" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Electrical.PhaseSystems.ThreePhase_d.systemVoltage"></a><a href="Buildings_Electrical_PhaseSystems_ThreePhase_d.html#Buildings.Electrical.PhaseSystems.ThreePhase_d"
+>Buildings.Electrical.PhaseSystems.ThreePhase_d</a>.systemVoltage</h2>
+<p>
+<b>Return system voltage as function of phase voltages</b>
+</p>
+<h3>Information</h3>
+<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Function"
+>Modelica.Icons.Function</a> (Icon for functions).</p>
+<h3>Inputs</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Inputs">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Voltage"
+>Voltage</a></td><td>v[n]</td><td>&nbsp;</td><td>[V]</td></tr>
+</table>
+<h3>Outputs</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Outputs">
+<tr><th>Type</th><th>Name</th><th>Description</th></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Voltage"
+>Voltage</a></td><td>V</td><td>[V]</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">function</span> systemVoltage <span style="color: #006400; font-weight: normal; font-style: normal;">
+  &quot;Return system voltage as function of phase voltages&quot;</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Function"
+>Modelica.Icons.Function</a>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">input </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Voltage"
+>SI.Voltage</a> v[n];
+  <span style="color: blue; font-weight: normal; font-style: normal;">output </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Voltage"
+>SI.Voltage</a> V;
+<span style="color: blue; font-weight: normal; font-style: normal;">algorithm </span>
+  V :=<span style="color: red; font-weight: normal; font-style: normal;"> sqrt</span>(3)*v[1];
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>systemVoltage;
+</div>
+<hr>
+<address>
+<a href="http://www.3ds.com/">Automatically generated</a> Thu Apr  9 09:34:19 2015.
+</address>
+</body>
+</html>

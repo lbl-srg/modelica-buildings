@@ -1,0 +1,166 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>Buildings.BoundaryConditions.SkyTemperature</title>
+<meta name="HTML-Generator" content="Dymola">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="description" content="&quot;Package with models to compute the sky temperature&quot;">
+<style type="text/css">
+*       { font-size: 10pt; font-family: Arial, sans-serif; }
+.modelica, .modelica * { font-size: 9pt; font-family: Courier, monospace; white-space: pre; }
+h4      { font-size: 10pt; font-weight: bold; color: green; }
+h3      { font-size: 11pt; font-weight: bold; color: green; }
+h2      { font-size: 13pt; font-weight: bold; color: green; }
+address { font-weight: normal; }
+td      { border: 1px solid #808080; vertical-align: top; }
+th      { border: 1px solid #808080; vertical-align: top; font-weight: bold; }
+table   { border: 1px solid #808080; border-collapse: collapse; }
+</style>
+<link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../Resources/www/modelicaDoc.css">
+</HEAD>
+<body>
+<!-- --- header ------ -->
+<div class="headerStyle">
+<img src="../Resources/www/lbl-logo.png" alt="LBL logo"/>
+</div>
+<div class="headerLinks">
+<ul><li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt; <a href="Buildings.html">Modelica</a></li></ul>
+</div>
+<!-- --- end header -- -->
+
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE SkyTemperature<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><a name="Buildings.BoundaryConditions.SkyTemperature"></a><a href="Buildings_BoundaryConditions.html#Buildings.BoundaryConditions"
+>Buildings.BoundaryConditions</a>.SkyTemperature</h2>
+<p>
+<b>Package with models to compute the sky temperature</b><br>
+</p>
+<h3>Information</h3>
+
+This package contains models to compute the black body sky temperature.
+
+<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons_VariantsPackage.html#Modelica.Icons.VariantsPackage"
+>Modelica.Icons.VariantsPackage</a> (Icon for package containing variants).</p>
+<h3>Package Content</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Package Content">
+<tr>
+<th>Name</th>
+<th>Description</th>
+</tr>
+<tr>
+<td><img src="Buildings.BoundaryConditi8f4560176eb402ddkBodyS.png" alt="Buildings.BoundaryConditions.SkyTemperature.BlackBody" width="20" height="20" align="top">&nbsp;<a href="Buildings_BoundaryConditions_SkyTemperature.html#Buildings.BoundaryConditions.SkyTemperature.BlackBody"
+>BlackBody</a>
+</td>
+<td>Calculate black body sky temperature</td>
+</tr>
+<tr>
+<td><img src="Buildings.BoundaryConditib5095f732398996fmplesS.png" alt="Buildings.BoundaryConditions.SkyTemperature.Examples" width="20" height="20" align="top">&nbsp;<a href="Buildings_BoundaryConditions_SkyTemperature_Examples.html#Buildings.BoundaryConditions.SkyTemperature.Examples"
+>Examples</a>
+</td>
+<td>Collection of models that illustrate model use and test models</td>
+</tr>
+</table>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE BlackBody<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.BoundaryConditi8f4560176eb402ddkBodyI.png" alt="Buildings.BoundaryConditions.SkyTemperature.BlackBody" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.BoundaryConditions.SkyTemperature.BlackBody"></a><a href="Buildings_BoundaryConditions_SkyTemperature.html#Buildings.BoundaryConditions.SkyTemperature"
+>Buildings.BoundaryConditions.SkyTemperature</a>.BlackBody</h2>
+<p>
+<b>Calculate black body sky temperature</b>
+<br>
+<br><img src="Buildings.BoundaryConditi8f4560176eb402ddkBodyD.png" alt="Buildings.BoundaryConditions.SkyTemperature.BlackBody">
+</p>
+<h3>Information</h3>
+
+<p>
+This component computes the black-body sky temperature.
+</p>
+<p>
+For <code>calTSky = 0</code>, the model uses horizontal infrared irradiation.
+Otherwise, it uses dry buld temperature, dew point temperature and opaque sky cover.
+</p>
+
+<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Icons.html#Modelica.Blocks.Icons.Block"
+>Modelica.Blocks.Icons.Block</a> (Basic graphical layout of input/output block).</p>
+<h3>Parameters</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td><a href="Buildings_BoundaryConditions_Types.html#Buildings.BoundaryConditions.Types.SkyTemperatureCalculation"
+>SkyTemperatureCalculation</a></td><td>calTSky</td><td>SkyTemperatureCalculation.Te...</td><td>Computation of black-body sky temperature</td></tr>
+</table>
+<h3>Connectors</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Connectors">
+<tr><th>Type</th><th>Name</th><th>Description</th></tr>
+<tr><td>input <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>RealInput</a></td><td>TDryBul</td><td>Dry bulb temperature at ground level [K]</td></tr>
+<tr><td>input <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>RealInput</a></td><td>TDewPoi</td><td>Dew point temperature [K]</td></tr>
+<tr><td>input <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>RealInput</a></td><td>nOpa</td><td>Opaque sky cover</td></tr>
+<tr><td>output <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+>RealOutput</a></td><td>TBlaSky</td><td>Black-body sky temperature [K]</td></tr>
+<tr><td>input <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>RealInput</a></td><td>radHorIR</td><td>Horizontal infrared irradiation [W/m2]</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">block</span> BlackBody <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Calculate black body sky temperature&quot;</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Icons.html#Modelica.Blocks.Icons.Block"
+>Modelica.Blocks.Icons.Block</a>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">import </span><a href="Buildings_BoundaryConditions_Types.html#Buildings.BoundaryConditions.Types.SkyTemperatureCalculation"
+>Buildings.BoundaryConditions.Types.SkyTemperatureCalculation</a>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="Buildings_BoundaryConditions_Types.html#Buildings.BoundaryConditions.Types.SkyTemperatureCalculation"
+>Buildings.BoundaryConditions.Types.SkyTemperatureCalculation</a> calTSky=
+    SkyTemperatureCalculation.TemperaturesAndSkyCover <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Computation of black-body sky temperature&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>Modelica.Blocks.Interfaces.RealInput</a> TDryBul(
+    <span style="color: blue; font-weight: normal; font-style: normal;">final </span>quantity=&quot;ThermodynamicTemperature&quot;,
+    <span style="color: blue; font-weight: normal; font-style: normal;">final </span>unit=&quot;K&quot;,
+    displayUnit=&quot;degC&quot;) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Dry bulb temperature at ground level&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>Modelica.Blocks.Interfaces.RealInput</a> TDewPoi(
+    <span style="color: blue; font-weight: normal; font-style: normal;">final </span>quantity=&quot;ThermodynamicTemperature&quot;,
+    <span style="color: blue; font-weight: normal; font-style: normal;">final </span>unit=&quot;K&quot;,
+    displayUnit=&quot;degC&quot;) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Dew point temperature&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>Modelica.Blocks.Interfaces.RealInput</a> nOpa <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Opaque sky cover&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+>Modelica.Blocks.Interfaces.RealOutput</a> TBlaSky(
+    <span style="color: blue; font-weight: normal; font-style: normal;">final </span>quantity=&quot;ThermodynamicTemperature&quot;,
+    displayUnit=&quot;degC&quot;,
+    <span style="color: blue; font-weight: normal; font-style: normal;">final </span>unit=&quot;K&quot;) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Black-body sky temperature&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>Modelica.Blocks.Interfaces.RealInput</a> radHorIR(
+    unit=&quot;W/m2&quot;,
+    min=0,
+    nominal=100) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Horizontal infrared irradiation&quot;</span>;
+<span style="color: blue; font-weight: normal; font-style: normal;">protected </span>
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+>Modelica.SIunits.Temperature</a> TDewPoiK <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Dewpoint temperature&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Emissivity"
+>Modelica.SIunits.Emissivity</a> epsSky <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Black-body absorptivity of sky&quot;</span>;
+  Real nOpa10(min=0, max=10) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Opaque sky cover&quot;</span>;
+<span style="color: blue; font-weight: normal; font-style: normal;">algorithm </span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">if </span>calTSky == Buildings.BoundaryConditions.Types.SkyTemperatureCalculation.TemperaturesAndSkyCover<span style="color: blue; font-weight: normal; font-style: normal;"> then</span>
+    TDewPoiK :=<span style="color: red; font-weight: normal; font-style: normal;"> Buildings.Utilities.Math.Functions.smoothMin</span>(TDryBul, TDewPoi, 0.1);
+    nOpa10 := 10*nOpa <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Input nOpa is scaled to [0,1] instead of [0,10]&quot;</span>;
+    epsSky := (0.787 + 0.764*<span style="color: red; font-weight: normal; font-style: normal;">Modelica.Math.log</span>(-TDewPoiK/Modelica.Constants.T_zero))*(1 + 0.0224*nOpa10 -
+      0.0035*(nOpa10^2) + 0.00028*(nOpa10^3));
+    TBlaSky := TDryBul*(epsSky^0.25);
+  <span style="color: blue; font-weight: normal; font-style: normal;">else</span>
+    TDewPoiK := 273.15;
+    nOpa10   := 0.0;
+    epsSky   := 0.0;
+    TBlaSky  := (radHorIR/Modelica.Constants.sigma)^0.25;
+  <span style="color: blue; font-weight: normal; font-style: normal;">end if</span>;
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>BlackBody;
+</div>
+<hr>
+<address>
+<a href="http://www.3ds.com/">Automatically generated</a> Thu Apr  9 09:32:32 2015.
+</address>
+</body>
+</html>

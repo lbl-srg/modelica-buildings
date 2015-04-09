@@ -1,0 +1,247 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>Buildings.Examples.VAVCO2</title>
+<meta name="HTML-Generator" content="Dymola">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="description" content="&quot;Variable air volume flow system of MIT building with continuous time control for static pressure reset&quot;">
+<style type="text/css">
+*       { font-size: 10pt; font-family: Arial, sans-serif; }
+.modelica, .modelica * { font-size: 9pt; font-family: Courier, monospace; white-space: pre; }
+h4      { font-size: 10pt; font-weight: bold; color: green; }
+h3      { font-size: 11pt; font-weight: bold; color: green; }
+h2      { font-size: 13pt; font-weight: bold; color: green; }
+address { font-weight: normal; }
+td      { border: 1px solid #808080; vertical-align: top; }
+th      { border: 1px solid #808080; vertical-align: top; font-weight: bold; }
+table   { border: 1px solid #808080; border-collapse: collapse; }
+</style>
+<link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../Resources/www/modelicaDoc.css">
+</HEAD>
+<body>
+<!-- --- header ------ -->
+<div class="headerStyle">
+<img src="../Resources/www/lbl-logo.png" alt="LBL logo"/>
+</div>
+<div class="headerLinks">
+<ul><li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt; <a href="Buildings.html">Modelica</a></li></ul>
+</div>
+<!-- --- end header -- -->
+
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE VAVCO2<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><a name="Buildings.Examples.VAVCO2"></a><a href="Buildings_Examples.html#Buildings.Examples"
+>Buildings.Examples</a>.VAVCO2</h2>
+<p>
+<b>Variable air volume flow system of MIT building with continuous time control for static pressure reset</b><br>
+</p>
+<h3>Information</h3>
+<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons_ExamplesPackage.html#Modelica.Icons.ExamplesPackage"
+>Modelica.Icons.ExamplesPackage</a> (Icon for packages containing runnable examples).</p>
+<h3>Package Content</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Package Content">
+<tr>
+<th>Name</th>
+<th>Description</th>
+</tr>
+<tr>
+<td><img src="Buildings.Examples.Hydron1b16ecb3e399659eorageS.png" alt="Buildings.Examples.VAVCO2.VAVSystemCTControl" width="20" height="20" align="top">&nbsp;<a href="Buildings_Examples_VAVCO2.html#Buildings.Examples.VAVCO2.VAVSystemCTControl"
+>VAVSystemCTControl</a>
+</td>
+<td>Variable air volume flow system of MIT building with CO2 control and continuous time control for static pressure reset</td>
+</tr>
+<tr>
+<td><img src="Buildings.Examples.VAVCO2.BaseClassesS.png" alt="Buildings.Examples.VAVCO2.BaseClasses" width="20" height="20" align="top">&nbsp;<a href="Buildings_Examples_VAVCO2_BaseClasses.html#Buildings.Examples.VAVCO2.BaseClasses"
+>BaseClasses</a>
+</td>
+<td>Package with base classes for Buildings.Examples.VAVCO2</td>
+</tr>
+</table>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE VAVSystemCTControl<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Examples.VAVCO2db763d035cea0e4antrolI.png" alt="Buildings.Examples.VAVCO2.VAVSystemCTControl" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Examples.VAVCO2.VAVSystemCTControl"></a><a href="Buildings_Examples_VAVCO2.html#Buildings.Examples.VAVCO2"
+>Buildings.Examples.VAVCO2</a>.VAVSystemCTControl</h2>
+<p>
+<b>Variable air volume flow system of MIT building with CO2 control and continuous time control for static pressure reset</b>
+<br>
+<br><img src="Buildings.Examples.VAVCO2db763d035cea0e4antrolD.png" alt="Buildings.Examples.VAVCO2.VAVSystemCTControl">
+</p>
+<h3>Information</h3>
+
+<p>
+This examples demonstrates the implementation of CO<sub>2</sub> control
+for a variable air volume flow system.
+Each room has a CO<sub>2</sub> source. Depending on the CO<sub>2</sub>
+concentrations, the air dampers in the room open or close.
+The supply and return fans are controlled to provide a constant static
+pressure.
+</p>
+<p>
+Note that this example does not control the room temperature and
+the heat flow through the building envelope. It only implements the
+CO<sub>2</sub> source and the damper and fan control to maintain
+a CO<sub>2</sub> concentration in the room below 700 PPM.
+</p>
+<p>
+Because the building envelope is idealized as having no leakage,
+the supply and return fan are controlled so that they both receive
+the same control signal. If the return fan were controlled so that it
+tracks the volume flow rate of the supply fan, then there would be multiple
+solutions for the control signal as the split between pressure raise
+of the supply fan and pressure raise of the return fan is arbitrary.
+</p>
+
+<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</a> (Icon for runnable examples).</p>
+<h3>Parameters</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+>MassFlowRate</a></td><td>mMIT_flow</td><td>roo.m0Tot_flow</td><td>Nominal mass flow rate of MIT system model as in ASHRAE 825-RP [kg/s]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
+>Pressure</a></td><td>dpSuiSup_nominal</td><td>95</td><td>Pressure drop supply air leg with splitters of one suite (obtained from simulation) [Pa]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
+>Pressure</a></td><td>dpSuiRet_nominal</td><td>233</td><td>Pressure drop return air leg with splitters of one suite (obtained from simulation) [Pa]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
+>Pressure</a></td><td>dpFanSupMIT_nominal</td><td>1050</td><td>Pressure increase over supply fan in MIT system model as in ASHRAE 825-RP (obtained from simulation) [Pa]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
+>Pressure</a></td><td>dpFanRetMIT_nominal</td><td>347</td><td>Pressure increase over supply fan in MIT system model as in ASHRAE 825-RP (obtained from simulation) [Pa]</td></tr>
+<tr><td>Real</td><td>scaM_flow</td><td>1</td><td>Scaling factor for mass flow rate</td></tr>
+<tr><td>Real</td><td>scaDpFanSup_nominal</td><td>1</td><td>Scaling factor for supply fan pressure lift with NSui number of suites</td></tr>
+<tr><td>Real</td><td>scaDpFanRet_nominal</td><td>1</td><td>Scaling factor for supply fan pressure lift with NSui number of suites</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">model</span> VAVSystemCTControl <span style="color: #006400; font-weight: normal; font-style: normal;">
+  &quot;Variable air volume flow system of MIT building with CO2 control and continuous time control for static pressure reset&quot;</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</a>;
+ <span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = <a href="Buildings_Media_Air.html#Buildings.Media.Air"
+>Buildings.Media.Air</a> (                      extraPropertiesNames={&quot;CO2&quot;});
+ <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+>Modelica.SIunits.MassFlowRate</a> mMIT_flow = roo.m0Tot_flow <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Nominal mass flow rate of MIT system model as in ASHRAE 825-RP&quot;</span>;
+<span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
+>Modelica.SIunits.Pressure</a> dpSuiSup_nominal = 95 <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Pressure drop supply air leg with splitters of one suite (obtained from simulation)&quot;</span>;
+<span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
+>Modelica.SIunits.Pressure</a> dpSuiRet_nominal = 233 <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Pressure drop return air leg with splitters of one suite (obtained from simulation)&quot;</span>;
+<span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
+>Modelica.SIunits.Pressure</a> dpFanSupMIT_nominal = 1050 <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Pressure increase over supply fan in MIT system model as in ASHRAE 825-RP (obtained from simulation)&quot;</span>;
+<span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
+>Modelica.SIunits.Pressure</a> dpFanRetMIT_nominal = 347 <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Pressure increase over supply fan in MIT system model as in ASHRAE 825-RP (obtained from simulation)&quot;</span>;
+<span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Real scaM_flow = 1 <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Scaling factor for mass flow rate&quot;</span>;
+<span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Real scaDpFanSup_nominal = 1 <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Scaling factor for supply fan pressure lift with NSui number of suites&quot;</span>;
+<span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Real scaDpFanRet_nominal = 1 <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Scaling factor for supply fan pressure lift with NSui number of suites&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+>Modelica.Blocks.Sources.Constant</a> PAtm(k=101325);
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+>Modelica.Blocks.Sources.Constant</a> yDam(k=0.5);
+<a href="Buildings_Fluid_FixedResistances.html#Buildings.Fluid.FixedResistances.FixedResistanceDpM"
+>Buildings.Fluid.FixedResistances.FixedResistanceDpM</a> res31(
+                                               dp_nominal=0.546,
+  m_flow_nominal=scaM_flow*1,
+  dh=<span style="color: red; font-weight: normal; font-style: normal;">sqrt</span>(scaM_flow)*1,
+  <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = Medium);
+<a href="Buildings_Fluid_FixedResistances.html#Buildings.Fluid.FixedResistances.FixedResistanceDpM"
+>Buildings.Fluid.FixedResistances.FixedResistanceDpM</a> res33(
+  dp_nominal=0.164,
+  dh=<span style="color: red; font-weight: normal; font-style: normal;">sqrt</span>(scaM_flow)*1,
+  m_flow_nominal=scaM_flow*1,
+  <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = Medium);
+<a href="Buildings_Fluid_FixedResistances.html#Buildings.Fluid.FixedResistances.FixedResistanceDpM"
+>Buildings.Fluid.FixedResistances.FixedResistanceDpM</a> res57(
+                                               dp_nominal=0.118000,
+  m_flow_nominal=scaM_flow*1,
+  dh=<span style="color: red; font-weight: normal; font-style: normal;">sqrt</span>(scaM_flow)*1,
+  <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = Medium);
+<a href="Buildings_Examples_VAVCO2_BaseClasses.html#Buildings.Examples.VAVCO2.BaseClasses.Suite"
+>Buildings.Examples.VAVCO2.BaseClasses.Suite</a> roo(<span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = Medium, scaM_flow=scaM_flow);
+<a href="Buildings_Fluid_Actuators_Dampers.html#Buildings.Fluid.Actuators.Dampers.MixingBox"
+>Fluid.Actuators.Dampers.MixingBox</a> mixBox(
+  dpOut_nominal=0.467,
+  dpRec_nominal=0.665,
+  AOut=scaM_flow*1.32,
+  AExh=scaM_flow*1.05,
+  ARec=scaM_flow*1.05,
+  mOut_flow_nominal=scaM_flow*1,
+  mRec_flow_nominal=scaM_flow*1,
+  mExh_flow_nominal=scaM_flow*1,
+  <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = Medium,
+    dpExh_nominal=0.467,
+    allowFlowReversal=true,
+    from_dp=false) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;mixing box&quot;</span>;
+  <a href="Buildings_Fluid_Sources.html#Buildings.Fluid.Sources.Boundary_pT"
+>Buildings.Fluid.Sources.Boundary_pT</a> bouIn(
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = Medium,
+    use_p_in=true,
+    T=293.15,
+    nPorts=2);
+   <a href="Buildings_Controls_Continuous.html#Buildings.Controls.Continuous.LimPID"
+>Buildings.Controls.Continuous.LimPID</a> conSupFan(
+    Ti=60,
+    yMax=1,
+    yMin=0,
+    Td=60,
+    k=0.1,
+    initType=Modelica.Blocks.Types.InitPID.InitialState,
+    controllerType=Modelica.Blocks.Types.SimpleController.P) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Controller for supply fan&quot;</span>;
+  <a href="Buildings_Fluid_Movers.html#Buildings.Fluid.Movers.SpeedControlled_y"
+>Fluid.Movers.SpeedControlled_y</a> fan32(
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = Medium,
+    per(pressure(<span style="color: blue; font-weight: normal; font-style: normal;">final </span>V_flow={0,11.08,14.9}, dp={1508,743,100})),
+    dynamicBalance=true,
+    r_N(start=0),
+    init=Modelica.Blocks.Types.Init.InitialState,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial);
+  <a href="Buildings_Fluid_Movers.html#Buildings.Fluid.Movers.SpeedControlled_y"
+>Fluid.Movers.SpeedControlled_y</a> fan56(
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = Medium,
+    per(pressure(<span style="color: blue; font-weight: normal; font-style: normal;">final </span>V_flow={2.676,11.05}, dp={600,100})),
+    dynamicBalance=true,
+    r_N(start=0),
+    init=Modelica.Blocks.Types.Init.InitialState,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial);
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Trapezoid"
+>Modelica.Blocks.Sources.Trapezoid</a>
+                                pSet(
+    amplitude=120,
+    period=86400,
+    width=86400/2,
+    falling=10,
+    rising=120,
+    startTime=6*3600) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Pressure setpoint (0 during night, 120 during day)&quot;</span>;
+<span style="color: blue; font-weight: normal; font-style: normal;">equation </span>
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(PAtm.y, bouIn.p_in);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(roo.p_rel, conSupFan.u_m);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(yDam.y, mixBox.y);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(roo.p, PAtm.y);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(mixBox.port_Sup, res31.port_a);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(res31.port_b, fan32.port_a);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(res57.port_b, mixBox.port_Ret);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(res33.port_b, roo.port_aSup);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(bouIn.ports[1], mixBox.port_Out);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(bouIn.ports[2], mixBox.port_Exh);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(fan56.port_b, res57.port_a);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(fan32.port_b, res33.port_a);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(fan56.port_a, roo.port_bExh);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(pSet.y, conSupFan.u_s);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(conSupFan.y, fan32.y);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(conSupFan.y, fan56.y);
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>VAVSystemCTControl;
+</div>
+<hr>
+<address>
+<a href="http://www.3ds.com/">Automatically generated</a> Thu Apr  9 09:45:01 2015.
+</address>
+</body>
+</html>

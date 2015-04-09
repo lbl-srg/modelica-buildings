@@ -1,0 +1,173 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>Buildings.Controls.DemandResponse.Examples</title>
+<meta name="HTML-Generator" content="Dymola">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="description" content="&quot;Collection of models that illustrate model use and test models&quot;">
+<style type="text/css">
+*       { font-size: 10pt; font-family: Arial, sans-serif; }
+.modelica, .modelica * { font-size: 9pt; font-family: Courier, monospace; white-space: pre; }
+h4      { font-size: 10pt; font-weight: bold; color: green; }
+h3      { font-size: 11pt; font-weight: bold; color: green; }
+h2      { font-size: 13pt; font-weight: bold; color: green; }
+address { font-weight: normal; }
+td      { border: 1px solid #808080; vertical-align: top; }
+th      { border: 1px solid #808080; vertical-align: top; font-weight: bold; }
+table   { border: 1px solid #808080; border-collapse: collapse; }
+</style>
+<link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../Resources/www/modelicaDoc.css">
+</HEAD>
+<body>
+<!-- --- header ------ -->
+<div class="headerStyle">
+<img src="../Resources/www/lbl-logo.png" alt="LBL logo"/>
+</div>
+<div class="headerLinks">
+<ul><li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt; <a href="Buildings.html">Modelica</a></li></ul>
+</div>
+<!-- --- end header -- -->
+
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE Examples<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><a name="Buildings.Controls.DemandResponse.Examples"></a><a href="Buildings_Controls_DemandResponse.html#Buildings.Controls.DemandResponse"
+>Buildings.Controls.DemandResponse</a>.Examples</h2>
+<p>
+<b>Collection of models that illustrate model use and test models</b><br>
+</p>
+<h3>Information</h3>
+
+<p>
+This package contains examples models for demand response clients.
+</p>
+
+<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons_ExamplesPackage.html#Modelica.Icons.ExamplesPackage"
+>Modelica.Icons.ExamplesPackage</a> (Icon for packages containing runnable examples).</p>
+<h3>Package Content</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Package Content">
+<tr>
+<th>Name</th>
+<th>Description</th>
+</tr>
+<tr>
+<td><img src="Buildings.Controls.Demand7e66afce4fdb5867BNL90S.png" alt="Buildings.Controls.DemandResponse.Examples.ClientLBNL90" width="20" height="20" align="top">&nbsp;<a href="Buildings_Controls_DemandResponse_Examples.html#Buildings.Controls.DemandResponse.Examples.ClientLBNL90"
+>ClientLBNL90</a>
+</td>
+<td>Demand response client with input data from building 90 at LBNL</td>
+</tr>
+</table>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE ClientLBNL90<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Controls.Demand7e66afce4fdb5867BNL90I.png" alt="Buildings.Controls.DemandResponse.Examples.ClientLBNL90" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Controls.DemandResponse.Examples.ClientLBNL90"></a><a href="Buildings_Controls_DemandResponse_Examples.html#Buildings.Controls.DemandResponse.Examples"
+>Buildings.Controls.DemandResponse.Examples</a>.ClientLBNL90</h2>
+<p>
+<b>Demand response client with input data from building 90 at LBNL</b>
+<br>
+<br><img src="Buildings.Controls.Demand7e66afce4fdb5867BNL90D.png" alt="Buildings.Controls.DemandResponse.Examples.ClientLBNL90">
+</p>
+<h3>Information</h3>
+
+<p>
+Model that demonstrates the demand response client,
+using as an input for the actual electrical consumption simulated
+data from building 90 at LBNL.
+Output of the data reader are the outdoor dry-bulb temperature,
+the total electrical consumption,
+and a signal that indicates whether load shedding is required.
+</p>
+<p>
+Output of the demand response blocks are the predicted power consumption.
+If the input signal <code>shed</code> is <code>true</code>,
+then the predicted load is reduced by the amount of power that is shed,
+as received from the input signal <code>yShed</code>.
+</p>
+
+<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</a> (Icon for runnable examples).</p>
+<h3>Parameters</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td>Integer</td><td>nSam</td><td>24*4</td><td>Number of samples in a day</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">model</span> ClientLBNL90 <span style="color: #006400; font-weight: normal; font-style: normal;">
+  &quot;Demand response client with input data from building 90 at LBNL&quot;</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</a>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Integer nSam = 24*4 <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Number of samples in a day&quot;</span>;
+  <a href="Buildings_Controls_DemandResponse.html#Buildings.Controls.DemandResponse.Client"
+>Client</a> clientAverage(
+    nSam=nSam,
+    predictionModel=Buildings.Controls.Predictors.Types.PredictionModel.Average) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Demand response client&quot;</span>;
+  <a href="Buildings_Controls_Sources.html#Buildings.Controls.Sources.DayType"
+>Sources.DayType</a> dayType <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Outputs the type of the day&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.CombiTimeTable"
+>Modelica.Blocks.Sources.CombiTimeTable</a> bui90(
+    tableOnFile=true,
+    tableName=&quot;b90&quot;,
+    smoothness=Modelica.Blocks.Types.Smoothness.ConstantSegments,
+    extrapolation=Modelica.Blocks.Types.Extrapolation.Periodic,
+    fileName=<span style="color: red; font-weight: normal; font-style: normal;">ModelicaServices.ExternalReferences.loadResource</span>(
+      &quot;modelica://Buildings/Resources/Data/Controls/DemandResponse/Examples/B90_DR_Data.mos&quot;),
+    columns={2,3,4}) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;LBNL building 90 data&quot;</span>;
+
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Logical.html#Modelica.Blocks.Logical.GreaterThreshold"
+>Modelica.Blocks.Logical.GreaterThreshold</a> drSig(threshold=0.5) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Demand response signal&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Math.html#Modelica.Blocks.Math.Add"
+>Modelica.Blocks.Math.Add</a> errorAverage(k2=-1) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Difference between predicted minus actual load&quot;</span>;
+  <a href="Buildings_Controls_DemandResponse.html#Buildings.Controls.DemandResponse.Client"
+>Client</a> clientWeather(
+    nSam=nSam,
+    predictionModel=Buildings.Controls.Predictors.Types.PredictionModel.WeatherRegression) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Demand response client with weather regression model&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Math.html#Modelica.Blocks.Math.Add"
+>Modelica.Blocks.Math.Add</a> errorWeather(k2=-1) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Difference between predicted minus actual load&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Math.html#Modelica.Blocks.Math.Gain"
+>Modelica.Blocks.Math.Gain</a> relErrAverage(k=1/400000) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Relative error, normalized by a value that is close to the peak power consumption&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Math.html#Modelica.Blocks.Math.Gain"
+>Modelica.Blocks.Math.Gain</a> relErrWeather(k=1/400000) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Relative error, normalized by a value that is close to the peak power consumption&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Continuous.html#Modelica.Blocks.Continuous.Integrator"
+>Modelica.Blocks.Continuous.Integrator</a> ene(u(unit=&quot;W&quot;)) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Integrator to compute energy from power&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+>Modelica.Blocks.Sources.Constant</a> yShed(k=0.5) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Amount of load to be shed during DR event&quot;</span>;
+<span style="color: blue; font-weight: normal; font-style: normal;">equation </span>
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(clientAverage.isEventDay, clientAverage.shed);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(drSig.u, bui90.y[3]);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(drSig.y, clientAverage.shed);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(clientAverage.PPre, errorAverage.u1);
+
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(clientWeather.isEventDay, clientWeather.shed);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(drSig.y, clientWeather.shed);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(clientWeather.PPre, errorWeather.u1);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(clientWeather.TOut, bui90.y[1]);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(relErrAverage.u, errorAverage.y);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(relErrWeather.u, errorWeather.y);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(ene.u, bui90.y[2]);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(ene.y, clientWeather.ECon);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(ene.y, clientAverage.ECon);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(errorWeather.u2, bui90.y[2]);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(errorAverage.u2, bui90.y[2]);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(dayType.y, clientAverage.typeOfDay);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(dayType.y, clientWeather.typeOfDay);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(yShed.y, clientAverage.yShed);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(clientWeather.yShed, yShed.y);
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>ClientLBNL90;
+</div>
+<hr>
+<address>
+<a href="http://www.3ds.com/">Automatically generated</a> Thu Apr  9 09:32:54 2015.
+</address>
+</body>
+</html>

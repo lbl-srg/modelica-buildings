@@ -1,0 +1,277 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>Buildings.Airflow.Multizone.Validation</title>
+<meta name="HTML-Generator" content="Dymola">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="description" content="&quot;Collection of validation models&quot;">
+<style type="text/css">
+*       { font-size: 10pt; font-family: Arial, sans-serif; }
+.modelica, .modelica * { font-size: 9pt; font-family: Courier, monospace; white-space: pre; }
+h4      { font-size: 10pt; font-weight: bold; color: green; }
+h3      { font-size: 11pt; font-weight: bold; color: green; }
+h2      { font-size: 13pt; font-weight: bold; color: green; }
+address { font-weight: normal; }
+td      { border: 1px solid #808080; vertical-align: top; }
+th      { border: 1px solid #808080; vertical-align: top; font-weight: bold; }
+table   { border: 1px solid #808080; border-collapse: collapse; }
+</style>
+<link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../Resources/www/modelicaDoc.css">
+</HEAD>
+<body>
+<!-- --- header ------ -->
+<div class="headerStyle">
+<img src="../Resources/www/lbl-logo.png" alt="LBL logo"/>
+</div>
+<div class="headerLinks">
+<ul><li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt; <a href="Buildings.html">Modelica</a></li></ul>
+</div>
+<!-- --- end header -- -->
+
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE Validation<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><a name="Buildings.Airflow.Multizone.Validation"></a><a href="Buildings_Airflow_Multizone.html#Buildings.Airflow.Multizone"
+>Buildings.Airflow.Multizone</a>.Validation</h2>
+<p>
+<b>Collection of validation models</b><br>
+</p>
+<h3>Information</h3>
+
+<p>
+This package contains validation models for the classes in
+<a href="Buildings_Airflow_Multizone.html#Buildings.Airflow.Multizone"
+>
+Buildings.Airflow.Multizone</a>.
+</p>
+<p>
+Note that most validation models contain simple input data
+which may not be realistic, but for which the correct
+output can be obtained through an analytic solution.
+The examples plot various outputs, which have been verified against these
+solutions. These model outputs are stored as reference data and
+used for continuous validation whenever models in the library change.
+</p>
+
+<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons_ExamplesPackage.html#Modelica.Icons.ExamplesPackage"
+>Modelica.Icons.ExamplesPackage</a> (Icon for packages containing runnable examples).</p>
+<h3>Package Content</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Package Content">
+<tr>
+<th>Name</th>
+<th>Description</th>
+</tr>
+<tr>
+<td><img src="Buildings.Airflow.Multizo9289896a2b4feafatStepS.png" alt="Buildings.Airflow.Multizone.Validation.ThreeRoomsContam" width="20" height="20" align="top">&nbsp;<a href="Buildings_Airflow_Multizone_Validation.html#Buildings.Airflow.Multizone.Validation.ThreeRoomsContam"
+>ThreeRoomsContam</a>
+</td>
+<td>Model with three rooms for the validation of the multizone air exchange models</td>
+</tr>
+</table>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE ThreeRoomsContam<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Airflow.Multizo4af3bd4bb7eeb04aontamI.png" alt="Buildings.Airflow.Multizone.Validation.ThreeRoomsContam" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Airflow.Multizone.Validation.ThreeRoomsContam"></a><a href="Buildings_Airflow_Multizone_Validation.html#Buildings.Airflow.Multizone.Validation"
+>Buildings.Airflow.Multizone.Validation</a>.ThreeRoomsContam</h2>
+<p>
+<b>Model with three rooms for the validation of the multizone air exchange models</b>
+<br>
+<br><img src="Buildings.Airflow.Multizo4af3bd4bb7eeb04aontamD.png" alt="Buildings.Airflow.Multizone.Validation.ThreeRoomsContam">
+</p>
+<h3>Information</h3>
+
+<p>
+This is a model of three rooms that exchange air among each based
+on density difference between the air in the rooms and the outside.
+The model implements the configuration shown below.</p>
+<p align="center">
+<img src="../Resources/Images/Airflow/Multizone/Examples/3roomValidation.png" border="1" alt="Configuration of the three rooms."/>
+</p>
+<p>
+This model has been used for a comparative model validation between CONTAM and
+the <code>Buildings</code> library.
+See Wetter (2006) for details of the validation.
+<h4>References</h4>
+<p>
+Michael Wetter.
+<a href="../Resources/Images/Airflow/Multizone/Wetter-airflow-2006.pdf">
+Multizone Airflow Model in Modelica.</a>
+Proc. of the 5th International Modelica Conference, p. 431-440. Vienna, Austria, September 2006.
+</p>
+
+<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</a> (Icon for runnable examples).</p>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">model</span> ThreeRoomsContam <span style="color: #006400; font-weight: normal; font-style: normal;">
+  &quot;Model with three rooms for the validation of the multizone air exchange models&quot;</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</a>;
+
+  <span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = <a href="Buildings_Media_Air.html#Buildings.Media.Air"
+>Buildings.Media.Air</a>(extraPropertiesNames={&quot;CO2&quot;});
+
+  <a href="Buildings_Fluid_MixingVolumes.html#Buildings.Fluid.MixingVolumes.MixingVolume"
+>Buildings.Fluid.MixingVolumes.MixingVolume</a> volEas(
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = Medium,
+    T_start=273.15 + 20,
+    V=2.5*5*5*1,
+    nPorts=5,
+    m_flow_nominal=0.001,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial);
+
+  <a href="Buildings_Airflow_Multizone.html#Buildings.Airflow.Multizone.Orifice"
+>Buildings.Airflow.Multizone.Orifice</a> oriOutBot(
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = Medium,
+    A=0.01,
+    m=0.5);
+  <a href="Buildings_Airflow_Multizone.html#Buildings.Airflow.Multizone.MediumColumn"
+>Buildings.Airflow.Multizone.MediumColumn</a> colOutTop(
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = Medium,
+    h=1.5,
+    densitySelection=Buildings.Airflow.Multizone.Types.densitySelection.fromBottom);
+  <a href="Buildings_Airflow_Multizone.html#Buildings.Airflow.Multizone.Orifice"
+>Buildings.Airflow.Multizone.Orifice</a> oriOutTop(
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = Medium,
+    A=0.01,
+    m=0.5);
+  <a href="Buildings_Airflow_Multizone.html#Buildings.Airflow.Multizone.MediumColumn"
+>Buildings.Airflow.Multizone.MediumColumn</a> colEasInTop(
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = Medium,
+    h=1.5,
+    densitySelection=Buildings.Airflow.Multizone.Types.densitySelection.fromBottom);
+  <a href="Buildings_Fluid_Sources.html#Buildings.Fluid.Sources.FixedBoundary"
+>Fluid.Sources.FixedBoundary</a> volOut(
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = Medium,
+    nPorts=2,
+    p(displayUnit=&quot;Pa&quot;) = 101325,
+    T=283.15);
+
+  <a href="Buildings_Airflow_Multizone.html#Buildings.Airflow.Multizone.MediumColumn"
+>Buildings.Airflow.Multizone.MediumColumn</a> colEasInBot(
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = Medium,
+    h=1.5,
+    densitySelection=Buildings.Airflow.Multizone.Types.densitySelection.fromTop);
+  <a href="Buildings_Airflow_Multizone.html#Buildings.Airflow.Multizone.MediumColumn"
+>Buildings.Airflow.Multizone.MediumColumn</a> colOutBot(
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = Medium,
+    h=1.5,
+    densitySelection=Buildings.Airflow.Multizone.Types.densitySelection.fromTop);
+  <a href="Buildings_Airflow_Multizone.html#Buildings.Airflow.Multizone.MediumColumn"
+>Buildings.Airflow.Multizone.MediumColumn</a> colWesBot(
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = Medium,
+    h=1.5,
+    densitySelection=Buildings.Airflow.Multizone.Types.densitySelection.fromBottom);
+  <a href="Buildings_Airflow_Multizone.html#Buildings.Airflow.Multizone.Orifice"
+>Buildings.Airflow.Multizone.Orifice</a> oriWesTop(
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = Medium,
+    m=0.5,
+    A=0.01);
+
+  <a href="Buildings_Airflow_Multizone.html#Buildings.Airflow.Multizone.MediumColumn"
+>Buildings.Airflow.Multizone.MediumColumn</a> colWesTop(
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = Medium,
+    h=1.5,
+    densitySelection=Buildings.Airflow.Multizone.Types.densitySelection.fromTop);
+  <a href="Buildings_Airflow_Multizone.html#Buildings.Airflow.Multizone.DoorDiscretizedOperable"
+>Buildings.Airflow.Multizone.DoorDiscretizedOperable</a> dooOpeClo(
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = Medium,
+    LClo=20*1E-4,
+    wOpe=1,
+    hOpe=2.2,
+    CDOpe=0.78,
+    CDClo=0.78,
+    nCom=10,
+    hA=3/2,
+    hB=3/2,
+    dp_turbulent(displayUnit=&quot;Pa&quot;) = 0.01) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Discretized door&quot;</span>;
+  <a href="Buildings_Fluid_MixingVolumes.html#Buildings.Fluid.MixingVolumes.MixingVolume"
+>Fluid.MixingVolumes.MixingVolume</a> volWes(
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = Medium,
+    T_start=273.15 + 25,
+    nPorts=3,
+    V=2.5*5*5,
+    m_flow_nominal=0.001,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial);
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+>Modelica.Blocks.Sources.Constant</a> open(k=1);
+  <a href="Buildings_Airflow_Multizone.html#Buildings.Airflow.Multizone.MediumColumn"
+>Buildings.Airflow.Multizone.MediumColumn</a> col1EasBot(
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = Medium,
+    h=1.5,
+    densitySelection=Buildings.Airflow.Multizone.Types.densitySelection.fromBottom);
+  <a href="Buildings_Airflow_Multizone.html#Buildings.Airflow.Multizone.Orifice"
+>Buildings.Airflow.Multizone.Orifice</a> oriEasTop(
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = Medium,
+    m=0.5,
+    A=0.01);
+  <a href="Buildings_Airflow_Multizone.html#Buildings.Airflow.Multizone.MediumColumn"
+>Buildings.Airflow.Multizone.MediumColumn</a> colEasTop(
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = Medium,
+    h=1.5,
+    densitySelection=Buildings.Airflow.Multizone.Types.densitySelection.fromTop);
+  <a href="Buildings_Fluid_MixingVolumes.html#Buildings.Fluid.MixingVolumes.MixingVolume"
+>Buildings.Fluid.MixingVolumes.MixingVolume</a> volTop(
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = Medium,
+    T_start=273.15 + 20,
+    V=2.5*5*10*1,
+    nPorts=2,
+    m_flow_nominal=0.001,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial);
+
+  <a href="Buildings_HeatTransfer_Sources.html#Buildings.HeatTransfer.Sources.FixedTemperature"
+>Buildings.HeatTransfer.Sources.FixedTemperature</a> TTop(T=293.15) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Fixed temperature&quot;</span>;
+  <a href="Buildings_HeatTransfer_Sources.html#Buildings.HeatTransfer.Sources.FixedTemperature"
+>Buildings.HeatTransfer.Sources.FixedTemperature</a> TWes(T=298.15) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Fixed temperature&quot;</span>;
+  <a href="Buildings_HeatTransfer_Sources.html#Buildings.HeatTransfer.Sources.FixedTemperature"
+>Buildings.HeatTransfer.Sources.FixedTemperature</a> TEas(T=293.15) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Fixed temperature&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Thermal_HeatTransfer_Components.html#Modelica.Thermal.HeatTransfer.Components.ThermalConductor"
+>Modelica.Thermal.HeatTransfer.Components.ThermalConductor</a> conTop(G=1E9) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Thermal conductor&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Thermal_HeatTransfer_Components.html#Modelica.Thermal.HeatTransfer.Components.ThermalConductor"
+>Modelica.Thermal.HeatTransfer.Components.ThermalConductor</a> conWes(G=1E9) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Thermal conductor&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Thermal_HeatTransfer_Components.html#Modelica.Thermal.HeatTransfer.Components.ThermalConductor"
+>Modelica.Thermal.HeatTransfer.Components.ThermalConductor</a> conEas(G=1E9) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Thermal conductor&quot;</span>;
+<span style="color: blue; font-weight: normal; font-style: normal;">equation </span>
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(open.y, dooOpeClo.y);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(volWes.ports[1], dooOpeClo.port_b2);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(volWes.ports[2], dooOpeClo.port_a1);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(volWes.ports[3], colWesBot.port_b);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(colWesBot.port_a, oriWesTop.port_b);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(oriWesTop.port_a, colWesTop.port_b);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(colWesTop.port_a, volTop.ports[1]);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(volTop.ports[2], colEasTop.port_a);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(colEasTop.port_b, oriEasTop.port_b);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(oriEasTop.port_a, col1EasBot.port_a);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(dooOpeClo.port_b1, volEas.ports[1]);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(volEas.ports[2], dooOpeClo.port_a2);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(colEasInBot.port_a, volEas.ports[3]);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(volEas.ports[4], colEasInTop.port_b);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(volEas.ports[5], col1EasBot.port_b);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(colEasInTop.port_a, oriOutTop.port_a);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(oriOutTop.port_b, colOutTop.port_a);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(colOutTop.port_b, volOut.ports[1]);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(colOutBot.port_a, volOut.ports[2]);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(colOutBot.port_b, oriOutBot.port_b);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(oriOutBot.port_a, colEasInBot.port_b);
+
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(TTop.port, conTop.port_a);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(conTop.port_b, volTop.heatPort);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(TWes.port, conWes.port_a);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(conWes.port_b, volWes.heatPort);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(TEas.port, conEas.port_a);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(conEas.port_b, volEas.heatPort);
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>ThreeRoomsContam;
+</div>
+<hr>
+<address>
+<a href="http://www.3ds.com/">Automatically generated</a> Thu Apr  9 09:32:32 2015.
+</address>
+</body>
+</html>

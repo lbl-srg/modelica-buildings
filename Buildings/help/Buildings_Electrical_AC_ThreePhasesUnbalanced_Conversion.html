@@ -1,0 +1,1266 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>Buildings.Electrical.AC.ThreePhasesUnbalanced.Conversion</title>
+<meta name="HTML-Generator" content="Dymola">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="description" content="&quot;Package with converter and transformer models for three-phase
+  unbalanced AC systems&quot;">
+<style type="text/css">
+*       { font-size: 10pt; font-family: Arial, sans-serif; }
+.modelica, .modelica * { font-size: 9pt; font-family: Courier, monospace; white-space: pre; }
+h4      { font-size: 10pt; font-weight: bold; color: green; }
+h3      { font-size: 11pt; font-weight: bold; color: green; }
+h2      { font-size: 13pt; font-weight: bold; color: green; }
+address { font-weight: normal; }
+td      { border: 1px solid #808080; vertical-align: top; }
+th      { border: 1px solid #808080; vertical-align: top; font-weight: bold; }
+table   { border: 1px solid #808080; border-collapse: collapse; }
+</style>
+<link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../Resources/www/modelicaDoc.css">
+</HEAD>
+<body>
+<!-- --- header ------ -->
+<div class="headerStyle">
+<img src="../Resources/www/lbl-logo.png" alt="LBL logo"/>
+</div>
+<div class="headerLinks">
+<ul><li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt; <a href="Buildings.html">Modelica</a></li></ul>
+</div>
+<!-- --- end header -- -->
+
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE Conversion<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><a name="Buildings.Electrical.AC.ThreePhasesUnbalanced.Conversion"></a><a href="Buildings_Electrical_AC_ThreePhasesUnbalanced.html#Buildings.Electrical.AC.ThreePhasesUnbalanced"
+>Buildings.Electrical.AC.ThreePhasesUnbalanced</a>.Conversion</h2>
+<p>
+<b>Package with converter and transformer models for three-phase
+  unbalanced AC systems</b><br>
+</p>
+<h3>Information</h3>
+
+<p>
+This package contains models that represent different types of three
+phases unbalanced AC/AC transformers and AC/DC converters.
+</p>
+
+<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons_Package.html#Modelica.Icons.Package"
+>Modelica.Icons.Package</a> (Icon for standard packages).</p>
+<h3>Package Content</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Package Content">
+<tr>
+<th>Name</th>
+<th>Description</th>
+</tr>
+<tr>
+<td><img src="Buildings.Electrical.AC.T16a2704c24a7c633erterS.png" alt="Buildings.Electrical.AC.ThreePhasesUnbalanced.Conversion.ACACConverter" width="20" height="20" align="top">&nbsp;<a href="Buildings_Electrical_AC_ThreePhasesUnbalanced_Conversion.html#Buildings.Electrical.AC.ThreePhasesUnbalanced.Conversion.ACACConverter"
+>ACACConverter</a>
+</td>
+<td>AC AC converter single phase systems (YY)</td>
+</tr>
+<tr>
+<td><img src="Buildings.Electrical.AC.T5f36644136fc9d85ormerS.png" alt="Buildings.Electrical.AC.ThreePhasesUnbalanced.Conversion.ACACTransformer" width="20" height="20" align="top">&nbsp;<a href="Buildings_Electrical_AC_ThreePhasesUnbalanced_Conversion.html#Buildings.Electrical.AC.ThreePhasesUnbalanced.Conversion.ACACTransformer"
+>ACACTransformer</a>
+</td>
+<td>AC AC transformer simplified equivalent circuit (YY)</td>
+</tr>
+<tr>
+<td><img src="Buildings.Electrical.AC.T9526ac59f27e1c1fmerDDS.png" alt="Buildings.Electrical.AC.ThreePhasesUnbalanced.Conversion.ACACTransformerDD" width="20" height="20" align="top">&nbsp;<a href="Buildings_Electrical_AC_ThreePhasesUnbalanced_Conversion.html#Buildings.Electrical.AC.ThreePhasesUnbalanced.Conversion.ACACTransformerDD"
+>ACACTransformerDD</a>
+</td>
+<td>AC AC transformer simplified equivalent circuit (DD)</td>
+</tr>
+<tr>
+<td><img src="Buildings.Electrical.AC.T5dc901c09871b625rFullS.png" alt="Buildings.Electrical.AC.ThreePhasesUnbalanced.Conversion.ACACTransformerFull" width="20" height="20" align="top">&nbsp;<a href="Buildings_Electrical_AC_ThreePhasesUnbalanced_Conversion.html#Buildings.Electrical.AC.ThreePhasesUnbalanced.Conversion.ACACTransformerFull"
+>ACACTransformerFull</a>
+</td>
+<td>AC AC transformer detailed equivalent circuit (YY)</td>
+</tr>
+<tr>
+<td><img src="Buildings.Electrical.AC.T1e6df2f890d4fc1fownDYS.png" alt="Buildings.Electrical.AC.ThreePhasesUnbalanced.Conversion.ACACTransformerStepDownDY" width="20" height="20" align="top">&nbsp;<a href="Buildings_Electrical_AC_ThreePhasesUnbalanced_Conversion.html#Buildings.Electrical.AC.ThreePhasesUnbalanced.Conversion.ACACTransformerStepDownDY"
+>ACACTransformerStepDownDY</a>
+</td>
+<td>AC AC transformer simplified equivalent circuit (DY step down)</td>
+</tr>
+<tr>
+<td><img src="Buildings.Electrical.AC.T1e6dfda290d4ffa2ownYDS.png" alt="Buildings.Electrical.AC.ThreePhasesUnbalanced.Conversion.ACACTransformerStepDownYD" width="20" height="20" align="top">&nbsp;<a href="Buildings_Electrical_AC_ThreePhasesUnbalanced_Conversion.html#Buildings.Electrical.AC.ThreePhasesUnbalanced.Conversion.ACACTransformerStepDownYD"
+>ACACTransformerStepDownYD</a>
+</td>
+<td>AC AC transformer simplified equivalent circuit (YD step down)</td>
+</tr>
+<tr>
+<td><img src="Buildings.Electrical.AC.T172a372131aecf6apUpDYS.png" alt="Buildings.Electrical.AC.ThreePhasesUnbalanced.Conversion.ACACTransformerStepUpDY" width="20" height="20" align="top">&nbsp;<a href="Buildings_Electrical_AC_ThreePhasesUnbalanced_Conversion.html#Buildings.Electrical.AC.ThreePhasesUnbalanced.Conversion.ACACTransformerStepUpDY"
+>ACACTransformerStepUpDY</a>
+</td>
+<td>AC AC transformer simplified equivalent circuit (DY step up)</td>
+</tr>
+<tr>
+<td><img src="Buildings.Electrical.AC.T172a41cb31aeccd7pUpYDS.png" alt="Buildings.Electrical.AC.ThreePhasesUnbalanced.Conversion.ACACTransformerStepUpYD" width="20" height="20" align="top">&nbsp;<a href="Buildings_Electrical_AC_ThreePhasesUnbalanced_Conversion.html#Buildings.Electrical.AC.ThreePhasesUnbalanced.Conversion.ACACTransformerStepUpYD"
+>ACACTransformerStepUpYD</a>
+</td>
+<td>AC AC transformer simplified equivalent circuit (YD step up)</td>
+</tr>
+<tr>
+<td><img src="Buildings.Electrical.AC.Tf878c7bde574fd3amplesS.png" alt="Buildings.Electrical.AC.ThreePhasesUnbalanced.Conversion.Examples" width="20" height="20" align="top">&nbsp;<a href="Buildings_Electrical_AC_ThreePhasesUnbalanced_Conversion_Examples.html#Buildings.Electrical.AC.ThreePhasesUnbalanced.Conversion.Examples"
+>Examples</a>
+</td>
+<td>Package with example models</td>
+</tr>
+<tr>
+<td><img src="Buildings.Electrical.AC.T0e137f4dbe938025assesS.png" alt="Buildings.Electrical.AC.ThreePhasesUnbalanced.Conversion.BaseClasses" width="20" height="20" align="top">&nbsp;<a href="Buildings_Electrical_AC_ThreePhasesUnbalanced_Conversion_BaseClasses.html#Buildings.Electrical.AC.ThreePhasesUnbalanced.Conversion.BaseClasses"
+>BaseClasses</a>
+</td>
+<td>Package with base class models</td>
+</tr>
+</table>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE ACACConverter<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Electrical.AC.T16a2704c24a7c633erterI.png" alt="Buildings.Electrical.AC.ThreePhasesUnbalanced.Conversion.ACACConverter" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Electrical.AC.ThreePhasesUnbalanced.Conversion.ACACConverter"></a><a href="Buildings_Electrical_AC_ThreePhasesUnbalanced_Conversion.html#Buildings.Electrical.AC.ThreePhasesUnbalanced.Conversion"
+>Buildings.Electrical.AC.ThreePhasesUnbalanced.Conversion</a>.ACACConverter</h2>
+<p>
+<b>AC AC converter single phase systems (YY)</b>
+<br>
+<br><img src="Buildings.Electrical.AC.T16a2704c24a7c633erterD.png" alt="Buildings.Electrical.AC.ThreePhasesUnbalanced.Conversion.ACACConverter">
+</p>
+<h3>Information</h3>
+
+<p>
+This is an AC AC converter, based on a power balance between both circuit sides.
+The paramater <i>conversionFactor</i> defines the ratio between the RMS voltages
+</p>
+
+<p align="center" style="font-style:italic;">
+V<sub>2</sub> = conversionFactor * V<sub>1</sub>
+</p>
+
+<p>
+where <i>V<sub>1</sub></i> and <i>V<sub>2</sub></i> are the RMS voltages
+at the primary and secondary sides of the transformer (connector N and P
+respectively).
+</p>
+
+<p>
+The loss of the converter is proportional to the power transmitted.
+The parameter <code>eta</code> is the efficiency of the transfer.
+The loss is computed as
+</p>
+<p align="center" style="font-style:italic;">
+P<sub>loss</sub> = (1-&eta;) P<sub>tr</sub>
+</p>
+<p>
+where <i>P<sub>tr</sub></i> is the power transmitted. The model is bi-directional
+and the power can flow from both the primary to the secondary and vice-versa.
+Furthermore, reactive power on both side are set to 0.
+</p>
+
+<h4>Configuration:</h4>
+<p>
+The image below describes the connection of the windings.
+</p>
+<p align="center">
+<img alt="image" src="../Resources/Images/Electrical/AC/ThreePhasesUnbalanced/Conversion/BaseClasses/YY.png"/>
+</p>
+
+<h4>Note:</h4>
+<p>
+This model reuses models from
+<a href="Buildings_Electrical_AC_OnePhase_Conversion.html#Buildings.Electrical.AC.OnePhase.Conversion.ACACConverter"
+>
+Buildings.Electrical.AC.OnePhase.Conversion.ACACConverter</a>.
+</p>
+<p>
+See
+<a href="Buildings_Electrical_AC_ThreePhasesUnbalanced_Conversion_BaseClasses.html#Buildings.Electrical.AC.ThreePhasesUnbalanced.Conversion.BaseClasses.PartialConverterYY"
+>
+Buildings.Electrical.AC.ThreePhasesUnbalanced.Conversion.BaseClasses.PartialConverterYY</a> for
+details on the connections.
+</p>
+
+<p>Extends from <a href="Buildings_Electrical_AC_ThreePhasesUnbalanced_Conversion_BaseClasses.html#Buildings.Electrical.AC.ThreePhasesUnbalanced.Conversion.BaseClasses.PartialConverterYY"
+>Buildings.Electrical.AC.ThreePhasesUnbalanced.Conversion.BaseClasses.PartialConverterYY</a> (Model of a transformer with Y connection primary side and Y
+  connection secondary side).</p>
+<h3>Parameters</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td>Real</td><td>conversionFactor</td><td>&nbsp;</td><td>Ratio of QS rms voltage on side 2 / QS rms voltage on side 1</td></tr>
+<tr><td>Real</td><td>eta</td><td>&nbsp;</td><td>Converter efficiency, pLoss = (1-eta) * Ptr</td></tr>
+<tr style="background-color: #c0c0c0"><td colspan="4"><b>Ground</b></td></tr>
+<tr style="background-color: #e0e0e0"><td colspan="4">side 1</td></tr>
+<tr><td>Boolean</td><td>ground_1</td><td>false</td><td>Connect side 1 of converter to ground</td></tr>
+<tr style="background-color: #e0e0e0"><td colspan="4">side 2</td></tr>
+<tr><td>Boolean</td><td>ground_2</td><td>true</td><td>Connect side 2 of converter to ground</td></tr>
+</table>
+<h3>Connectors</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Connectors">
+<tr><th>Type</th><th>Name</th><th>Description</th></tr>
+<tr><td><a href="Buildings_Electrical_AC_ThreePhasesUnbalanced_Interfaces.html#Buildings.Electrical.AC.ThreePhasesUnbalanced.Interfaces.Terminal_n"
+>Terminal_n</a></td><td>terminal_n</td><td>Electrical connector side N</td></tr>
+<tr><td><a href="Buildings_Electrical_AC_ThreePhasesUnbalanced_Interfaces.html#Buildings.Electrical.AC.ThreePhasesUnbalanced.Interfaces.Terminal_p"
+>Terminal_p</a></td><td>terminal_p</td><td>Electrical connector side P</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">model</span> ACACConverter <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;AC AC converter single phase systems (YY)&quot;</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="Buildings_Electrical_AC_ThreePhasesUnbalanced_Conversion_BaseClasses.html#Buildings.Electrical.AC.ThreePhasesUnbalanced.Conversion.BaseClasses.PartialConverterYY"
+>Buildings.Electrical.AC.ThreePhasesUnbalanced.Conversion.BaseClasses.PartialConverterYY</a>
+    (
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><a href="Buildings_Electrical_AC_OnePhase_Conversion.html#Buildings.Electrical.AC.OnePhase.Conversion.ACACConverter"
+>Buildings.Electrical.AC.OnePhase.Conversion.ACACConverter</a> conv1(
+      conversionFactor=conversionFactor,
+      eta=eta,
+      ground_1=ground_1,
+      ground_2=ground_2),
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><a href="Buildings_Electrical_AC_OnePhase_Conversion.html#Buildings.Electrical.AC.OnePhase.Conversion.ACACConverter"
+>Buildings.Electrical.AC.OnePhase.Conversion.ACACConverter</a> conv2(
+      conversionFactor=conversionFactor,
+      eta=eta,
+      ground_1=ground_1,
+      ground_2=ground_2),
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><a href="Buildings_Electrical_AC_OnePhase_Conversion.html#Buildings.Electrical.AC.OnePhase.Conversion.ACACConverter"
+>Buildings.Electrical.AC.OnePhase.Conversion.ACACConverter</a> conv3(
+      conversionFactor=conversionFactor,
+      eta=eta,
+      ground_1=ground_1,
+      ground_2=ground_2));
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Real conversionFactor <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Ratio of QS rms voltage on side 2 / QS rms voltage on side 1&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Real eta(min=0, max=1) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Converter efficiency, pLoss = (1-eta) * Ptr&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Boolean ground_1 = false <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Connect side 1 of converter to ground&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Boolean ground_2 = true <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Connect side 2 of converter to ground&quot;</span>;
+
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>ACACConverter;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE ACACTransformer<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Electrical.AC.T5f36644136fc9d85ormerI.png" alt="Buildings.Electrical.AC.ThreePhasesUnbalanced.Conversion.ACACTransformer" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Electrical.AC.ThreePhasesUnbalanced.Conversion.ACACTransformer"></a><a href="Buildings_Electrical_AC_ThreePhasesUnbalanced_Conversion.html#Buildings.Electrical.AC.ThreePhasesUnbalanced.Conversion"
+>Buildings.Electrical.AC.ThreePhasesUnbalanced.Conversion</a>.ACACTransformer</h2>
+<p>
+<b>AC AC transformer simplified equivalent circuit (YY)</b>
+<br>
+<br><img src="Buildings.Electrical.AC.T5f36644136fc9d85ormerD.png" alt="Buildings.Electrical.AC.ThreePhasesUnbalanced.Conversion.ACACTransformer">
+</p>
+<h3>Information</h3>
+
+<p>
+This is a simplified equivalent transformer model.
+The model accounts for winding Joule losses and leakage reactances
+that are represented by a series of a resistance <i>R</i> and an
+inductance <i>L</i>. The resistance and the inductance represent both the
+effects of the secondary and primary side of the transformer.
+</p>
+<p>
+The model is parameterized using the following parameters
+</p>
+<ul>
+<li><code>Vhigh</code> - RMS voltage at primary side,</li>
+<li><code>Vlow</code> - RMS voltage at secondary side,</li>
+<li><code>VAbase</code> - apparent nominal power of the transformer,</li>
+<li><code>XoverR</code> - ratio between reactance and resistance, and</li>
+<li><code>Zperc</code> - the short circuit impedance.</li>
+</ul>
+<p>
+Given the nominal conditions, the model computes the values of the resistance and inductance.
+</p>
+<h4>Configuration:</h4>
+<p>
+The image below describes the connection of the windings.
+</p>
+<p align="center">
+<img alt="image" src="../Resources/Images/Electrical/AC/ThreePhasesUnbalanced/Conversion/BaseClasses/YY.png"/>
+</p>
+<h4>Note:</h4>
+<p>
+This model reuses models from
+<a href="Buildings_Electrical_AC_OnePhase_Conversion.html#Buildings.Electrical.AC.OnePhase.Conversion.ACACTransformer"
+>
+Buildings.Electrical.AC.OnePhase.Conversion.ACACTransformer</a>.
+</p>
+<p>
+See
+<a href="Buildings_Electrical_AC_ThreePhasesUnbalanced_Conversion_BaseClasses.html#Buildings.Electrical.AC.ThreePhasesUnbalanced.Conversion.BaseClasses.PartialConverterYY"
+>
+Buildings.Electrical.AC.ThreePhasesUnbalanced.Conversion.BaseClasses.PartialConverterYY</a> for
+details on the connections.
+</p>
+
+<p>Extends from <a href="Buildings_Electrical_AC_ThreePhasesUnbalanced_Conversion_BaseClasses.html#Buildings.Electrical.AC.ThreePhasesUnbalanced.Conversion.BaseClasses.PartialConverterYY"
+>Buildings.Electrical.AC.ThreePhasesUnbalanced.Conversion.BaseClasses.PartialConverterYY</a> (Model of a transformer with Y connection primary side and Y
+  connection secondary side).</p>
+<h3>Parameters</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Voltage"
+>Voltage</a></td><td>VHigh</td><td>&nbsp;</td><td>Rms voltage on side 1 of the transformer (primary side) [V]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Voltage"
+>Voltage</a></td><td>VLow</td><td>&nbsp;</td><td>Rms voltage on side 2 of the transformer (secondary side) [V]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.ApparentPower"
+>ApparentPower</a></td><td>VABase</td><td>&nbsp;</td><td>Nominal power of the transformer [VA]</td></tr>
+<tr><td>Real</td><td>XoverR</td><td>&nbsp;</td><td>Ratio between the complex and real components of the impedance (XL/R)</td></tr>
+<tr><td>Real</td><td>Zperc</td><td>&nbsp;</td><td>Short circuit impedance</td></tr>
+<tr style="background-color: #c0c0c0"><td colspan="4"><b>Ground</b></td></tr>
+<tr style="background-color: #e0e0e0"><td colspan="4">side 1</td></tr>
+<tr><td>Boolean</td><td>ground_1</td><td>false</td><td>Connect side 1 of transformer to ground</td></tr>
+<tr style="background-color: #e0e0e0"><td colspan="4">side 2</td></tr>
+<tr><td>Boolean</td><td>ground_2</td><td>true</td><td>Connect side 2 of transformer to ground</td></tr>
+</table>
+<h3>Connectors</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Connectors">
+<tr><th>Type</th><th>Name</th><th>Description</th></tr>
+<tr><td><a href="Buildings_Electrical_AC_ThreePhasesUnbalanced_Interfaces.html#Buildings.Electrical.AC.ThreePhasesUnbalanced.Interfaces.Terminal_n"
+>Terminal_n</a></td><td>terminal_n</td><td>Electrical connector side N</td></tr>
+<tr><td><a href="Buildings_Electrical_AC_ThreePhasesUnbalanced_Interfaces.html#Buildings.Electrical.AC.ThreePhasesUnbalanced.Interfaces.Terminal_p"
+>Terminal_p</a></td><td>terminal_p</td><td>Electrical connector side P</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">model</span> ACACTransformer <span style="color: #006400; font-weight: normal; font-style: normal;">
+  &quot;AC AC transformer simplified equivalent circuit (YY)&quot;</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="Buildings_Electrical_AC_ThreePhasesUnbalanced_Conversion_BaseClasses.html#Buildings.Electrical.AC.ThreePhasesUnbalanced.Conversion.BaseClasses.PartialConverterYY"
+>Buildings.Electrical.AC.ThreePhasesUnbalanced.Conversion.BaseClasses.PartialConverterYY</a>
+    (
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><a href="Buildings_Electrical_AC_OnePhase_Conversion.html#Buildings.Electrical.AC.OnePhase.Conversion.ACACTransformer"
+>Buildings.Electrical.AC.OnePhase.Conversion.ACACTransformer</a> conv1(
+      VHigh=VHigh/<span style="color: red; font-weight: normal; font-style: normal;">sqrt</span>(3),
+      VLow=VLow/<span style="color: red; font-weight: normal; font-style: normal;">sqrt</span>(3),
+      XoverR=XoverR,
+      Zperc=Zperc,
+      ground_1=ground_1,
+      ground_2=ground_2,
+      VABase=VABase/3,
+      phi_1=0),
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><a href="Buildings_Electrical_AC_OnePhase_Conversion.html#Buildings.Electrical.AC.OnePhase.Conversion.ACACTransformer"
+>Buildings.Electrical.AC.OnePhase.Conversion.ACACTransformer</a> conv2(
+      VHigh=VHigh/<span style="color: red; font-weight: normal; font-style: normal;">sqrt</span>(3),
+      VLow=VLow/<span style="color: red; font-weight: normal; font-style: normal;">sqrt</span>(3),
+      XoverR=XoverR,
+      Zperc=Zperc,
+      ground_1=ground_1,
+      ground_2=ground_2,
+      VABase=VABase/3,
+      phi_1=-2.0943951023932),
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><a href="Buildings_Electrical_AC_OnePhase_Conversion.html#Buildings.Electrical.AC.OnePhase.Conversion.ACACTransformer"
+>Buildings.Electrical.AC.OnePhase.Conversion.ACACTransformer</a> conv3(
+      VHigh=VHigh/<span style="color: red; font-weight: normal; font-style: normal;">sqrt</span>(3),
+      VLow=VLow/<span style="color: red; font-weight: normal; font-style: normal;">sqrt</span>(3),
+      XoverR=XoverR,
+      Zperc=Zperc,
+      ground_1=ground_1,
+      ground_2=ground_2,
+      VABase=VABase/3,
+      phi_1=2.0943951023932));
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Voltage"
+>Modelica.SIunits.Voltage</a> VHigh <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Rms voltage on side 1 of the transformer (primary side)&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Voltage"
+>Modelica.SIunits.Voltage</a> VLow <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Rms voltage on side 2 of the transformer (secondary side)&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.ApparentPower"
+>Modelica.SIunits.ApparentPower</a> VABase <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Nominal power of the transformer&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Real XoverR <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Ratio between the complex and real components of the impedance (XL/R)&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Real Zperc <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Short circuit impedance&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Boolean ground_1 = false <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Connect side 1 of transformer to ground&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Boolean ground_2 = true <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Connect side 2 of transformer to ground&quot;</span>;
+<span style="color: blue; font-weight: normal; font-style: normal;">equation </span>
+
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>ACACTransformer;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE ACACTransformerDD<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Electrical.AC.T9526ac59f27e1c1fmerDDI.png" alt="Buildings.Electrical.AC.ThreePhasesUnbalanced.Conversion.ACACTransformerDD" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Electrical.AC.ThreePhasesUnbalanced.Conversion.ACACTransformerDD"></a><a href="Buildings_Electrical_AC_ThreePhasesUnbalanced_Conversion.html#Buildings.Electrical.AC.ThreePhasesUnbalanced.Conversion"
+>Buildings.Electrical.AC.ThreePhasesUnbalanced.Conversion</a>.ACACTransformerDD</h2>
+<p>
+<b>AC AC transformer simplified equivalent circuit (DD)</b>
+<br>
+<br><img src="Buildings.Electrical.AC.T9526ac59f27e1c1fmerDDD.png" alt="Buildings.Electrical.AC.ThreePhasesUnbalanced.Conversion.ACACTransformerDD">
+</p>
+<h3>Information</h3>
+
+<p>
+This is a simplified equivalent transformer model with Delta-Delta connection.
+The model accounts for winding Joule losses and leakage reactances
+that are represented by a series of a resistance <i>R</i> and an
+inductance <i>L</i>. The resistance and the inductance represent the
+effects of the secondary and primary side of the transformer.
+</p>
+<p>
+The model is parameterized using the following parameters
+</p>
+<ul>
+<li><code>Vhigh</code> - RMS voltage at primary side,</li>
+<li><code>Vlow</code> - RMS voltage at secondary side,</li>
+<li><code>VAbase</code> - apparent nominal power of the transformer,</li>
+<li><code>XoverR</code> - ratio between reactance and resistance, and</li>
+<li><code>Zperc</code> - the short circuit impedance.</li>
+</ul>
+<p>
+Given the nominal conditions, the model computes the values of the resistance and inductance.
+</p>
+<h4>Configuration:</h4>
+<p>
+The image below describes the connection of the windings.
+</p>
+<p align="center">
+<img alt="image" src="../Resources/Images/Electrical/AC/ThreePhasesUnbalanced/Conversion/BaseClasses/DD.png"/>
+</p>
+<h4>Note:</h4>
+<p>
+This model reuses models from
+<a href="Buildings_Electrical_AC_OnePhase_Conversion.html#Buildings.Electrical.AC.OnePhase.Conversion.ACACTransformer"
+>
+Buildings.Electrical.AC.OnePhase.Conversion.ACACTransformer</a>.
+</p>
+<p>
+See
+<a href="Buildings_Electrical_AC_ThreePhasesUnbalanced_Conversion_BaseClasses.html#Buildings.Electrical.AC.ThreePhasesUnbalanced.Conversion.BaseClasses.PartialConverterDD"
+>
+Buildings.Electrical.AC.ThreePhasesUnbalanced.Conversion.BaseClasses.PartialConverterDD</a> for
+details on the connections.
+</p>
+
+<p>Extends from <a href="Buildings_Electrical_AC_ThreePhasesUnbalanced_Conversion_BaseClasses.html#Buildings.Electrical.AC.ThreePhasesUnbalanced.Conversion.BaseClasses.PartialConverterDD"
+>Buildings.Electrical.AC.ThreePhasesUnbalanced.Conversion.BaseClasses.PartialConverterDD</a> (Model of a transformer with D connection primary side and D
+  connection secondary side).</p>
+<h3>Parameters</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Voltage"
+>Voltage</a></td><td>VHigh</td><td>&nbsp;</td><td>Rms voltage on side 1 of the transformer (primary side) [V]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Voltage"
+>Voltage</a></td><td>VLow</td><td>&nbsp;</td><td>Rms voltage on side 2 of the transformer (secondary side) [V]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.ApparentPower"
+>ApparentPower</a></td><td>VABase</td><td>&nbsp;</td><td>Nominal power of the transformer [VA]</td></tr>
+<tr><td>Real</td><td>XoverR</td><td>&nbsp;</td><td>Ratio between the complex and real components of the impedance (XL/R)</td></tr>
+<tr><td>Real</td><td>Zperc</td><td>&nbsp;</td><td>Short circuit impedance</td></tr>
+<tr style="background-color: #c0c0c0"><td colspan="4"><b>Ground</b></td></tr>
+<tr style="background-color: #e0e0e0"><td colspan="4">side 1</td></tr>
+<tr><td>Boolean</td><td>ground_1</td><td>false</td><td>Connect side 1 of transformer to ground</td></tr>
+<tr style="background-color: #e0e0e0"><td colspan="4">side 2</td></tr>
+<tr><td>Boolean</td><td>ground_2</td><td>true</td><td>Connect side 2 of transformer to ground</td></tr>
+</table>
+<h3>Connectors</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Connectors">
+<tr><th>Type</th><th>Name</th><th>Description</th></tr>
+<tr><td><a href="Buildings_Electrical_AC_ThreePhasesUnbalanced_Interfaces.html#Buildings.Electrical.AC.ThreePhasesUnbalanced.Interfaces.Terminal_n"
+>Terminal_n</a></td><td>terminal_n</td><td>Electrical connector side N</td></tr>
+<tr><td><a href="Buildings_Electrical_AC_ThreePhasesUnbalanced_Interfaces.html#Buildings.Electrical.AC.ThreePhasesUnbalanced.Interfaces.Terminal_p"
+>Terminal_p</a></td><td>terminal_p</td><td>Electrical connector side P</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">model</span> ACACTransformerDD <span style="color: #006400; font-weight: normal; font-style: normal;">
+  &quot;AC AC transformer simplified equivalent circuit (DD)&quot;</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="Buildings_Electrical_AC_ThreePhasesUnbalanced_Conversion_BaseClasses.html#Buildings.Electrical.AC.ThreePhasesUnbalanced.Conversion.BaseClasses.PartialConverterDD"
+>Buildings.Electrical.AC.ThreePhasesUnbalanced.Conversion.BaseClasses.PartialConverterDD</a>
+    (
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><a href="Buildings_Electrical_AC_OnePhase_Conversion.html#Buildings.Electrical.AC.OnePhase.Conversion.ACACTransformer"
+>Buildings.Electrical.AC.OnePhase.Conversion.ACACTransformer</a> conv1(
+      XoverR=XoverR,
+      Zperc=Zperc,
+      ground_1=ground_1,
+      ground_2=ground_2,
+      VABase=VABase/3,
+      VHigh=VHigh,
+      VLow=VLow,
+      phi_1=0.5235987755983),
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><a href="Buildings_Electrical_AC_OnePhase_Conversion.html#Buildings.Electrical.AC.OnePhase.Conversion.ACACTransformer"
+>Buildings.Electrical.AC.OnePhase.Conversion.ACACTransformer</a> conv2(
+      XoverR=XoverR,
+      Zperc=Zperc,
+      ground_1=ground_1,
+      ground_2=ground_2,
+      VABase=VABase/3,
+      VHigh=VHigh,
+      VLow=VLow,
+      phi_1=-1.5707963267949),
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><a href="Buildings_Electrical_AC_OnePhase_Conversion.html#Buildings.Electrical.AC.OnePhase.Conversion.ACACTransformer"
+>Buildings.Electrical.AC.OnePhase.Conversion.ACACTransformer</a> conv3(
+      XoverR=XoverR,
+      Zperc=Zperc,
+      ground_1=ground_1,
+      ground_2=ground_2,
+      VABase=VABase/3,
+      VHigh=VHigh,
+      VLow=VLow,
+      phi_1=2.6179938779915));
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Voltage"
+>Modelica.SIunits.Voltage</a> VHigh <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Rms voltage on side 1 of the transformer (primary side)&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Voltage"
+>Modelica.SIunits.Voltage</a> VLow <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Rms voltage on side 2 of the transformer (secondary side)&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.ApparentPower"
+>Modelica.SIunits.ApparentPower</a> VABase <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Nominal power of the transformer&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Real XoverR <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Ratio between the complex and real components of the impedance (XL/R)&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Real Zperc <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Short circuit impedance&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Boolean ground_1 = false <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Connect side 1 of transformer to ground&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Boolean ground_2 = true <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Connect side 2 of transformer to ground&quot;</span>;
+<span style="color: blue; font-weight: normal; font-style: normal;">equation </span>
+
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>ACACTransformerDD;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE ACACTransformerFull<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Electrical.AC.T5dc901c09871b625rFullI.png" alt="Buildings.Electrical.AC.ThreePhasesUnbalanced.Conversion.ACACTransformerFull" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Electrical.AC.ThreePhasesUnbalanced.Conversion.ACACTransformerFull"></a><a href="Buildings_Electrical_AC_ThreePhasesUnbalanced_Conversion.html#Buildings.Electrical.AC.ThreePhasesUnbalanced.Conversion"
+>Buildings.Electrical.AC.ThreePhasesUnbalanced.Conversion</a>.ACACTransformerFull</h2>
+<p>
+<b>AC AC transformer detailed equivalent circuit (YY)</b>
+<br>
+<br><img src="Buildings.Electrical.AC.T5dc901c09871b625rFullD.png" alt="Buildings.Electrical.AC.ThreePhasesUnbalanced.Conversion.ACACTransformerFull">
+</p>
+<h3>Information</h3>
+
+<p>
+This is a detailed transformer model that takes into accounts the winding Joule losses,
+and the leakage reactances on the primary and secondary side. The model also takes into account
+the core or iron losses and the losses due to magnetization effects.
+</p>
+<p>
+The losses are represented by a series of resistances <i>R<sub>1</sub></i>, <i>R<sub>2</sub></i>,
+<i>R<sub>m</sub></i> and inductances <i>L<sub>1</sub></i>, <i>L<sub>2</sub></i>, and
+<i>L<sub>m</sub></i>.
+</p>
+<p>
+The model is parameterized using the following parameters
+</p>
+<ul>
+<li><code>Vhigh</code> - RMS voltage at primary side,</li>
+<li><code>Vlow</code> - RMS voltage at secondary side,</li>
+<li><code>VAbase</code> - apparent nominal power of the transformer,</li>
+<li><code>f</code> - frequency,</li>
+<li><code>R_1, L_1</code> - resistance and inductance at primary side (per unit),</li>
+<li><code>R_2, L_2</code> - resistance and inductance at secondary side (per unit), and</li>
+<li><code>R_m, L_m</code> - resistance and inductance for magnetization effects (per unit).</li>
+</ul>
+<p>
+Given the nominal conditions, the model computes the values of the nominal impedances
+at the primary and secondary side. Given these values, the per unit values are transformed into
+the actual values of the resistances and inductancs.
+</p>
+<p>
+The magnetization losses can be enabled or disabled using the boolean flag <code>magEffects</code>.
+</p>
+<h4>Configuration:</h4>
+<p>
+The image below describes the connection of the windings.
+</p>
+<p align="center">
+<img alt="image" src="../Resources/Images/Electrical/AC/ThreePhasesUnbalanced/Conversion/BaseClasses/YY.png"/>
+</p>
+<h4>Note:</h4>
+<p>
+This model reuses models from
+<a href="Buildings_Electrical_AC_OnePhase_Conversion.html#Buildings.Electrical.AC.OnePhase.Conversion.ACACTransformerFull"
+>
+Buildings.Electrical.AC.OnePhase.Conversion.ACACTransformerFull</a>.
+</p>
+<p>
+See
+<a href="Buildings_Electrical_AC_ThreePhasesUnbalanced_Conversion_BaseClasses.html#Buildings.Electrical.AC.ThreePhasesUnbalanced.Conversion.BaseClasses.PartialConverterYY"
+>
+Buildings.Electrical.AC.ThreePhasesUnbalanced.Conversion.BaseClasses.PartialConverterYY</a> for
+details on the connections.
+</p>
+
+<p>Extends from <a href="Buildings_Electrical_AC_ThreePhasesUnbalanced_Conversion_BaseClasses.html#Buildings.Electrical.AC.ThreePhasesUnbalanced.Conversion.BaseClasses.PartialConverterYY"
+>Buildings.Electrical.AC.ThreePhasesUnbalanced.Conversion.BaseClasses.PartialConverterYY</a> (Model of a transformer with Y connection primary side and Y
+  connection secondary side).</p>
+<h3>Parameters</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Voltage"
+>Voltage</a></td><td>VHigh</td><td>&nbsp;</td><td>Rms voltage on side 1 of the transformer (primary side) [V]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Voltage"
+>Voltage</a></td><td>VLow</td><td>&nbsp;</td><td>Rms voltage on side 2 of the transformer (secondary side) [V]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.ApparentPower"
+>ApparentPower</a></td><td>VABase</td><td>&nbsp;</td><td>Nominal power of the transformer [VA]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Frequency"
+>Frequency</a></td><td>f</td><td>&nbsp;</td><td>Nominal frequency [Hz]</td></tr>
+<tr><td><a href="Buildings_Electrical_Types.html#Buildings.Electrical.Types.PerUnit"
+>PerUnit</a></td><td>R1</td><td>&nbsp;</td><td>Resistance on side 1 of the transformer (pu) [1]</td></tr>
+<tr><td><a href="Buildings_Electrical_Types.html#Buildings.Electrical.Types.PerUnit"
+>PerUnit</a></td><td>L1</td><td>&nbsp;</td><td>Inductance on side 1 of the transformer (pu) [1]</td></tr>
+<tr><td><a href="Buildings_Electrical_Types.html#Buildings.Electrical.Types.PerUnit"
+>PerUnit</a></td><td>R2</td><td>&nbsp;</td><td>Resistance on side 2 of the transformer (pu) [1]</td></tr>
+<tr><td><a href="Buildings_Electrical_Types.html#Buildings.Electrical.Types.PerUnit"
+>PerUnit</a></td><td>L2</td><td>&nbsp;</td><td>Inductance on side 2 of the transformer (pu) [1]</td></tr>
+<tr style="background-color: #e0e0e0"><td colspan="4">Magnetization</td></tr>
+<tr><td>Boolean</td><td>magEffects</td><td>false</td><td>If =true introduce magnetization effects</td></tr>
+<tr><td><a href="Buildings_Electrical_Types.html#Buildings.Electrical.Types.PerUnit"
+>PerUnit</a></td><td>Rm</td><td>&nbsp;</td><td>Magnetization resistance (pu) [1]</td></tr>
+<tr><td><a href="Buildings_Electrical_Types.html#Buildings.Electrical.Types.PerUnit"
+>PerUnit</a></td><td>Lm</td><td>&nbsp;</td><td>Magnetization inductance (pu) [1]</td></tr>
+<tr style="background-color: #c0c0c0"><td colspan="4"><b>Ground</b></td></tr>
+<tr style="background-color: #e0e0e0"><td colspan="4">side 1</td></tr>
+<tr><td>Boolean</td><td>ground_1</td><td>false</td><td>Connect side 1 of converter to ground</td></tr>
+<tr style="background-color: #e0e0e0"><td colspan="4">side 2</td></tr>
+<tr><td>Boolean</td><td>ground_2</td><td>true</td><td>Connect side 2 of converter to ground</td></tr>
+</table>
+<h3>Connectors</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Connectors">
+<tr><th>Type</th><th>Name</th><th>Description</th></tr>
+<tr><td><a href="Buildings_Electrical_AC_ThreePhasesUnbalanced_Interfaces.html#Buildings.Electrical.AC.ThreePhasesUnbalanced.Interfaces.Terminal_n"
+>Terminal_n</a></td><td>terminal_n</td><td>Electrical connector side N</td></tr>
+<tr><td><a href="Buildings_Electrical_AC_ThreePhasesUnbalanced_Interfaces.html#Buildings.Electrical.AC.ThreePhasesUnbalanced.Interfaces.Terminal_p"
+>Terminal_p</a></td><td>terminal_p</td><td>Electrical connector side P</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">model</span> ACACTransformerFull <span style="color: #006400; font-weight: normal; font-style: normal;">
+  &quot;AC AC transformer detailed equivalent circuit (YY)&quot;</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="Buildings_Electrical_AC_ThreePhasesUnbalanced_Conversion_BaseClasses.html#Buildings.Electrical.AC.ThreePhasesUnbalanced.Conversion.BaseClasses.PartialConverterYY"
+>Buildings.Electrical.AC.ThreePhasesUnbalanced.Conversion.BaseClasses.PartialConverterYY</a>
+    (
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><a href="Buildings_Electrical_AC_OnePhase_Conversion.html#Buildings.Electrical.AC.OnePhase.Conversion.ACACTransformerFull"
+>Buildings.Electrical.AC.OnePhase.Conversion.ACACTransformerFull</a> conv1(
+      VHigh=VHigh/<span style="color: red; font-weight: normal; font-style: normal;">sqrt</span>(3),
+      VLow=VLow/<span style="color: red; font-weight: normal; font-style: normal;">sqrt</span>(3),
+      f = f,
+      VABase=VABase,
+      R1=R1,L1=L1,R2=R2,L2=L2,
+      magEffects=magEffects,
+      Rm=Rm,Lm=Lm,
+      ground_1=ground_1,
+      ground_2=ground_2),
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><a href="Buildings_Electrical_AC_OnePhase_Conversion.html#Buildings.Electrical.AC.OnePhase.Conversion.ACACTransformerFull"
+>Buildings.Electrical.AC.OnePhase.Conversion.ACACTransformerFull</a> conv2(
+      VHigh=VHigh/<span style="color: red; font-weight: normal; font-style: normal;">sqrt</span>(3),
+      VLow=VLow/<span style="color: red; font-weight: normal; font-style: normal;">sqrt</span>(3),
+      f = f,
+      VABase=VABase,
+      R1=R1,L1=L1,R2=R2,L2=L2,
+      magEffects=magEffects,
+      Rm=Rm,Lm=Lm,
+      ground_1=ground_1,
+      ground_2=ground_2),
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><a href="Buildings_Electrical_AC_OnePhase_Conversion.html#Buildings.Electrical.AC.OnePhase.Conversion.ACACTransformerFull"
+>Buildings.Electrical.AC.OnePhase.Conversion.ACACTransformerFull</a> conv3(
+      VHigh=VHigh/<span style="color: red; font-weight: normal; font-style: normal;">sqrt</span>(3),
+      VLow=VLow/<span style="color: red; font-weight: normal; font-style: normal;">sqrt</span>(3),
+      f = f,
+      VABase=VABase,
+      R1=R1,L1=L1,R2=R2,L2=L2,
+      magEffects=magEffects,
+      Rm=Rm,Lm=Lm,
+      ground_1=ground_1,
+      ground_2=ground_2));
+
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Voltage"
+>Modelica.SIunits.Voltage</a> VHigh <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Rms voltage on side 1 of the transformer (primary side)&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Voltage"
+>Modelica.SIunits.Voltage</a> VLow <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Rms voltage on side 2 of the transformer (secondary side)&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.ApparentPower"
+>Modelica.SIunits.ApparentPower</a> VABase <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Nominal power of the transformer&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Frequency"
+>Modelica.SIunits.Frequency</a> f(start=60) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Nominal frequency&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="Buildings_Electrical_Types.html#Buildings.Electrical.Types.PerUnit"
+>Buildings.Electrical.Types.PerUnit</a> R1(min=0) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Resistance on side 1 of the transformer (pu)&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="Buildings_Electrical_Types.html#Buildings.Electrical.Types.PerUnit"
+>Buildings.Electrical.Types.PerUnit</a> L1(min=0) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Inductance on side 1 of the transformer (pu)&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="Buildings_Electrical_Types.html#Buildings.Electrical.Types.PerUnit"
+>Buildings.Electrical.Types.PerUnit</a> R2(min=0) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Resistance on side 2 of the transformer (pu)&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="Buildings_Electrical_Types.html#Buildings.Electrical.Types.PerUnit"
+>Buildings.Electrical.Types.PerUnit</a> L2(min=0) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Inductance on side 2 of the transformer (pu)&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Boolean magEffects = false <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;If =true introduce magnetization effects&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="Buildings_Electrical_Types.html#Buildings.Electrical.Types.PerUnit"
+>Buildings.Electrical.Types.PerUnit</a> Rm(min=0,start=0) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Magnetization resistance (pu)&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="Buildings_Electrical_Types.html#Buildings.Electrical.Types.PerUnit"
+>Buildings.Electrical.Types.PerUnit</a> Lm(min=0,start=0) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Magnetization inductance (pu)&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Boolean ground_1 = false <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Connect side 1 of converter to ground&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Boolean ground_2 = true <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Connect side 2 of converter to ground&quot;</span>;
+
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>ACACTransformerFull;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE ACACTransformerStepDownDY<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Electrical.AC.T1e6df2f890d4fc1fownDYI.png" alt="Buildings.Electrical.AC.ThreePhasesUnbalanced.Conversion.ACACTransformerStepDownDY" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Electrical.AC.ThreePhasesUnbalanced.Conversion.ACACTransformerStepDownDY"></a><a href="Buildings_Electrical_AC_ThreePhasesUnbalanced_Conversion.html#Buildings.Electrical.AC.ThreePhasesUnbalanced.Conversion"
+>Buildings.Electrical.AC.ThreePhasesUnbalanced.Conversion</a>.ACACTransformerStepDownDY</h2>
+<p>
+<b>AC AC transformer simplified equivalent circuit (DY step down)</b>
+<br>
+<br><img src="Buildings.Electrical.AC.T1e6df2f890d4fc1fownDYD.png" alt="Buildings.Electrical.AC.ThreePhasesUnbalanced.Conversion.ACACTransformerStepDownDY">
+</p>
+<h3>Information</h3>
+
+<p>
+This is a simplified equivalent transformer model with Y-Delta connection
+(voltage step down).
+The model accounts for winding Joule losses and leakage reactances
+that are represented by a series of a resistance <i>R</i> and an
+inductance <i>L</i>. The resistance and the inductance represent the
+effects of the secondary and primary side of the transformer.
+</p>
+<p>
+The model is parameterized using the following parameters
+</p>
+<ul>
+<li><code>Vhigh</code> - RMS voltage at primary side,</li>
+<li><code>Vlow</code> - RMS voltage at secondary side,</li>
+<li><code>VAbase</code> - apparent nominal power of the transformer,</li>
+<li><code>XoverR</code> - ratio between reactance and resistance, and</li>
+<li><code>Zperc</code> - the short circuit impedance.</li>
+</ul>
+<p>
+Given the nominal conditions, the model computes the values of the resistance and inductance.
+</p>
+
+<h4>Configuration:</h4>
+<p>
+The image below describes the connection of the windings.
+</p>
+<p align="center">
+<img alt="image" src="../Resources/Images/Electrical/AC/ThreePhasesUnbalanced/Conversion/BaseClasses/DY_a.png"/>
+</p>
+
+<h4>Note:</h4>
+<p>
+This model reuses models from
+<a href="Buildings_Electrical_AC_OnePhase_Conversion.html#Buildings.Electrical.AC.OnePhase.Conversion.ACACTransformer"
+>
+Buildings.Electrical.AC.OnePhase.Conversion.ACACTransformer</a>.
+</p>
+<p>
+See
+<a href="Buildings_Electrical_AC_ThreePhasesUnbalanced_Conversion_BaseClasses.html#Buildings.Electrical.AC.ThreePhasesUnbalanced.Conversion.BaseClasses.PartialConverterStepDownDY"
+>
+Buildings.Electrical.AC.ThreePhasesUnbalanced.Conversion.BaseClasses.PartialConverterStepDownDY</a> for
+details on the connections.
+</p>
+
+<p>Extends from <a href="Buildings_Electrical_AC_ThreePhasesUnbalanced_Conversion_BaseClasses.html#Buildings.Electrical.AC.ThreePhasesUnbalanced.Conversion.BaseClasses.PartialConverterStepDownDY"
+>Buildings.Electrical.AC.ThreePhasesUnbalanced.Conversion.BaseClasses.PartialConverterStepDownDY</a> (Model of a transformer with D connection primary side and
+  Y connection secondary side (Voltage step down)).</p>
+<h3>Parameters</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Voltage"
+>Voltage</a></td><td>VHigh</td><td>&nbsp;</td><td>Rms voltage on side 1 of the transformer (primary side) [V]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Voltage"
+>Voltage</a></td><td>VLow</td><td>&nbsp;</td><td>Rms voltage on side 2 of the transformer (secondary side) [V]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.ApparentPower"
+>ApparentPower</a></td><td>VABase</td><td>&nbsp;</td><td>Nominal power of the transformer [VA]</td></tr>
+<tr><td>Real</td><td>XoverR</td><td>&nbsp;</td><td>Ratio between the complex and real components of the impedance (XL/R)</td></tr>
+<tr><td>Real</td><td>Zperc</td><td>&nbsp;</td><td>Short circuit impedance</td></tr>
+<tr style="background-color: #c0c0c0"><td colspan="4"><b>Ground</b></td></tr>
+<tr style="background-color: #e0e0e0"><td colspan="4">side 1</td></tr>
+<tr><td>Boolean</td><td>ground_1</td><td>false</td><td>Connect side 1 of transformer to ground</td></tr>
+<tr style="background-color: #e0e0e0"><td colspan="4">side 2</td></tr>
+<tr><td>Boolean</td><td>ground_2</td><td>true</td><td>Connect side 2 of transformer to ground</td></tr>
+</table>
+<h3>Connectors</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Connectors">
+<tr><th>Type</th><th>Name</th><th>Description</th></tr>
+<tr><td><a href="Buildings_Electrical_AC_ThreePhasesUnbalanced_Interfaces.html#Buildings.Electrical.AC.ThreePhasesUnbalanced.Interfaces.Terminal_n"
+>Terminal_n</a></td><td>terminal_n</td><td>Electrical connector side N</td></tr>
+<tr><td><a href="Buildings_Electrical_AC_ThreePhasesUnbalanced_Interfaces.html#Buildings.Electrical.AC.ThreePhasesUnbalanced.Interfaces.Terminal_p"
+>Terminal_p</a></td><td>terminal_p</td><td>Electrical connector side P</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">model</span> ACACTransformerStepDownDY <span style="color: #006400; font-weight: normal; font-style: normal;">
+  &quot;AC AC transformer simplified equivalent circuit (DY step down)&quot;</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="Buildings_Electrical_AC_ThreePhasesUnbalanced_Conversion_BaseClasses.html#Buildings.Electrical.AC.ThreePhasesUnbalanced.Conversion.BaseClasses.PartialConverterStepDownDY"
+>Buildings.Electrical.AC.ThreePhasesUnbalanced.Conversion.BaseClasses.PartialConverterStepDownDY</a>
+    (
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><a href="Buildings_Electrical_AC_OnePhase_Conversion.html#Buildings.Electrical.AC.OnePhase.Conversion.ACACTransformer"
+>Buildings.Electrical.AC.OnePhase.Conversion.ACACTransformer</a> conv1(
+      VHigh=VHigh,
+      XoverR=XoverR,
+      Zperc=Zperc,
+      ground_1=ground_1,
+      ground_2=ground_2,
+      VABase=VABase/3,
+      VLow=-VLow/<span style="color: red; font-weight: normal; font-style: normal;">sqrt</span>(3),
+      phi_1=2.6179938779915),
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><a href="Buildings_Electrical_AC_OnePhase_Conversion.html#Buildings.Electrical.AC.OnePhase.Conversion.ACACTransformer"
+>Buildings.Electrical.AC.OnePhase.Conversion.ACACTransformer</a> conv2(
+      VHigh=VHigh,
+      XoverR=XoverR,
+      Zperc=Zperc,
+      ground_1=ground_1,
+      ground_2=ground_2,
+      VABase=VABase/3,
+      VLow=-VLow/<span style="color: red; font-weight: normal; font-style: normal;">sqrt</span>(3),
+      phi_1=0.5235987755983),
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><a href="Buildings_Electrical_AC_OnePhase_Conversion.html#Buildings.Electrical.AC.OnePhase.Conversion.ACACTransformer"
+>Buildings.Electrical.AC.OnePhase.Conversion.ACACTransformer</a> conv3(
+      VHigh=VHigh,
+      XoverR=XoverR,
+      Zperc=Zperc,
+      ground_1=ground_1,
+      ground_2=ground_2,
+      VABase=VABase/3,
+      VLow=-VLow/<span style="color: red; font-weight: normal; font-style: normal;">sqrt</span>(3),
+      phi_1=-1.5707963267949));
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Voltage"
+>Modelica.SIunits.Voltage</a> VHigh <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Rms voltage on side 1 of the transformer (primary side)&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Voltage"
+>Modelica.SIunits.Voltage</a> VLow <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Rms voltage on side 2 of the transformer (secondary side)&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.ApparentPower"
+>Modelica.SIunits.ApparentPower</a> VABase <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Nominal power of the transformer&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Real XoverR <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Ratio between the complex and real components of the impedance (XL/R)&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Real Zperc <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Short circuit impedance&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Boolean ground_1 = false <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Connect side 1 of transformer to ground&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Boolean ground_2 = true <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Connect side 2 of transformer to ground&quot;</span>;
+<span style="color: blue; font-weight: normal; font-style: normal;">equation </span>
+
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>ACACTransformerStepDownDY;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE ACACTransformerStepDownYD<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Electrical.AC.T1e6dfda290d4ffa2ownYDI.png" alt="Buildings.Electrical.AC.ThreePhasesUnbalanced.Conversion.ACACTransformerStepDownYD" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Electrical.AC.ThreePhasesUnbalanced.Conversion.ACACTransformerStepDownYD"></a><a href="Buildings_Electrical_AC_ThreePhasesUnbalanced_Conversion.html#Buildings.Electrical.AC.ThreePhasesUnbalanced.Conversion"
+>Buildings.Electrical.AC.ThreePhasesUnbalanced.Conversion</a>.ACACTransformerStepDownYD</h2>
+<p>
+<b>AC AC transformer simplified equivalent circuit (YD step down)</b>
+<br>
+<br><img src="Buildings.Electrical.AC.T1e6dfda290d4ffa2ownYDD.png" alt="Buildings.Electrical.AC.ThreePhasesUnbalanced.Conversion.ACACTransformerStepDownYD">
+</p>
+<h3>Information</h3>
+
+<p>
+This is a simplified equivalent transformer model with Y-Delta connection
+(voltage step down).
+The model accounts for winding Joule losses and leakage reactances
+that are represented by a series of a resistance <i>R</i> and an
+inductance <i>L</i>. The resistance and the inductance represent the
+effects of the secondary and primary side of the transformer.
+</p>
+<p>
+The model is parameterized using the following parameters
+</p>
+<ul>
+<li><code>Vhigh</code> - RMS voltage at primary side,</li>
+<li><code>Vlow</code> - RMS voltage at secondary side,</li>
+<li><code>VAbase</code> - apparent nominal power of the transformer,</li>
+<li><code>XoverR</code> - ratio between reactance and resistance, and</li>
+<li><code>Zperc</code> - the short circuit impedance.</li>
+</ul>
+<p>
+Given the nominal conditions, the model computes the values of the resistance and inductance.
+</p>
+
+<h4>Configuration:</h4>
+<p>
+The image below describes the connection of the windings.
+</p>
+<p align="center">
+<img alt="image" src="../Resources/Images/Electrical/AC/ThreePhasesUnbalanced/Conversion/BaseClasses/YD_a.png"/>
+</p>
+
+<h4>Note:</h4>
+<p>
+This model reuses models from
+<a href="Buildings_Electrical_AC_OnePhase_Conversion.html#Buildings.Electrical.AC.OnePhase.Conversion.ACACTransformer"
+>
+Buildings.Electrical.AC.OnePhase.Conversion.ACACTransformer</a>.
+</p>
+<p>
+See
+<a href="Buildings_Electrical_AC_ThreePhasesUnbalanced_Conversion_BaseClasses.html#Buildings.Electrical.AC.ThreePhasesUnbalanced.Conversion.BaseClasses.PartialConverterStepDownYD"
+>
+Buildings.Electrical.AC.ThreePhasesUnbalanced.Conversion.BaseClasses.PartialConverterStepDownYD</a> for
+details on the connections.
+</p>
+
+<p>Extends from <a href="Buildings_Electrical_AC_ThreePhasesUnbalanced_Conversion_BaseClasses.html#Buildings.Electrical.AC.ThreePhasesUnbalanced.Conversion.BaseClasses.PartialConverterStepDownYD"
+>Buildings.Electrical.AC.ThreePhasesUnbalanced.Conversion.BaseClasses.PartialConverterStepDownYD</a> (Model of a transformer with Y connection primary side and D
+connection secondary side (Voltage step down)).</p>
+<h3>Parameters</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Voltage"
+>Voltage</a></td><td>VHigh</td><td>&nbsp;</td><td>Rms voltage on side 1 of the transformer (primary side) [V]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Voltage"
+>Voltage</a></td><td>VLow</td><td>&nbsp;</td><td>Rms voltage on side 2 of the transformer (secondary side) [V]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.ApparentPower"
+>ApparentPower</a></td><td>VABase</td><td>&nbsp;</td><td>Nominal power of the transformer [VA]</td></tr>
+<tr><td>Real</td><td>XoverR</td><td>&nbsp;</td><td>Ratio between the complex and real components of the impedance (XL/R)</td></tr>
+<tr><td>Real</td><td>Zperc</td><td>&nbsp;</td><td>Short circuit impedance</td></tr>
+<tr style="background-color: #c0c0c0"><td colspan="4"><b>Ground</b></td></tr>
+<tr style="background-color: #e0e0e0"><td colspan="4">side 1</td></tr>
+<tr><td>Boolean</td><td>ground_1</td><td>false</td><td>Connect side 1 of transformer to ground</td></tr>
+<tr style="background-color: #e0e0e0"><td colspan="4">side 2</td></tr>
+<tr><td>Boolean</td><td>ground_2</td><td>true</td><td>Connect side 2 of transformer to ground</td></tr>
+</table>
+<h3>Connectors</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Connectors">
+<tr><th>Type</th><th>Name</th><th>Description</th></tr>
+<tr><td><a href="Buildings_Electrical_AC_ThreePhasesUnbalanced_Interfaces.html#Buildings.Electrical.AC.ThreePhasesUnbalanced.Interfaces.Terminal_n"
+>Terminal_n</a></td><td>terminal_n</td><td>Electrical connector side N</td></tr>
+<tr><td><a href="Buildings_Electrical_AC_ThreePhasesUnbalanced_Interfaces.html#Buildings.Electrical.AC.ThreePhasesUnbalanced.Interfaces.Terminal_p"
+>Terminal_p</a></td><td>terminal_p</td><td>Electrical connector side P</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">model</span> ACACTransformerStepDownYD <span style="color: #006400; font-weight: normal; font-style: normal;">
+  &quot;AC AC transformer simplified equivalent circuit (YD step down)&quot;</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="Buildings_Electrical_AC_ThreePhasesUnbalanced_Conversion_BaseClasses.html#Buildings.Electrical.AC.ThreePhasesUnbalanced.Conversion.BaseClasses.PartialConverterStepDownYD"
+>Buildings.Electrical.AC.ThreePhasesUnbalanced.Conversion.BaseClasses.PartialConverterStepDownYD</a>
+    (
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><a href="Buildings_Electrical_AC_OnePhase_Conversion.html#Buildings.Electrical.AC.OnePhase.Conversion.ACACTransformer"
+>Buildings.Electrical.AC.OnePhase.Conversion.ACACTransformer</a> conv1(
+      VHigh=VHigh/<span style="color: red; font-weight: normal; font-style: normal;">sqrt</span>(3),
+      XoverR=XoverR,
+      Zperc=Zperc,
+      ground_1=ground_1,
+      ground_2=ground_2,
+      VABase=VABase/3,
+      VLow=VLow,
+      phi_1=0),
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><a href="Buildings_Electrical_AC_OnePhase_Conversion.html#Buildings.Electrical.AC.OnePhase.Conversion.ACACTransformer"
+>Buildings.Electrical.AC.OnePhase.Conversion.ACACTransformer</a> conv2(
+      VHigh=VHigh/<span style="color: red; font-weight: normal; font-style: normal;">sqrt</span>(3),
+      XoverR=XoverR,
+      Zperc=Zperc,
+      ground_1=ground_1,
+      ground_2=ground_2,
+      VABase=VABase/3,
+      VLow=VLow,
+      phi_1=-2.0943951023932),
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><a href="Buildings_Electrical_AC_OnePhase_Conversion.html#Buildings.Electrical.AC.OnePhase.Conversion.ACACTransformer"
+>Buildings.Electrical.AC.OnePhase.Conversion.ACACTransformer</a> conv3(
+      VHigh=VHigh/<span style="color: red; font-weight: normal; font-style: normal;">sqrt</span>(3),
+      XoverR=XoverR,
+      Zperc=Zperc,
+      ground_1=ground_1,
+      ground_2=ground_2,
+      VABase=VABase/3,
+      VLow=VLow,
+      phi_1=2.0943951023932));
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Voltage"
+>Modelica.SIunits.Voltage</a> VHigh <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Rms voltage on side 1 of the transformer (primary side)&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Voltage"
+>Modelica.SIunits.Voltage</a> VLow <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Rms voltage on side 2 of the transformer (secondary side)&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.ApparentPower"
+>Modelica.SIunits.ApparentPower</a> VABase <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Nominal power of the transformer&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Real XoverR <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Ratio between the complex and real components of the impedance (XL/R)&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Real Zperc <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Short circuit impedance&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Boolean ground_1 = false <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Connect side 1 of transformer to ground&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Boolean ground_2 = true <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Connect side 2 of transformer to ground&quot;</span>;
+<span style="color: blue; font-weight: normal; font-style: normal;">equation </span>
+
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>ACACTransformerStepDownYD;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE ACACTransformerStepUpDY<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Electrical.AC.T172a372131aecf6apUpDYI.png" alt="Buildings.Electrical.AC.ThreePhasesUnbalanced.Conversion.ACACTransformerStepUpDY" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Electrical.AC.ThreePhasesUnbalanced.Conversion.ACACTransformerStepUpDY"></a><a href="Buildings_Electrical_AC_ThreePhasesUnbalanced_Conversion.html#Buildings.Electrical.AC.ThreePhasesUnbalanced.Conversion"
+>Buildings.Electrical.AC.ThreePhasesUnbalanced.Conversion</a>.ACACTransformerStepUpDY</h2>
+<p>
+<b>AC AC transformer simplified equivalent circuit (DY step up)</b>
+<br>
+<br><img src="Buildings.Electrical.AC.T172a372131aecf6apUpDYD.png" alt="Buildings.Electrical.AC.ThreePhasesUnbalanced.Conversion.ACACTransformerStepUpDY">
+</p>
+<h3>Information</h3>
+
+<p>
+This is a simplified equivalent transformer model with Delta-Y connection
+(voltage step up).
+The model accounts for winding Joule losses and leakage reactances
+that are represented by a series of a resistance <i>R</i> and an
+inductance <i>L</i>. The resistance and the inductance represent the
+effects of the secondary and primary side of the transformer.
+</p>
+<p>
+The model is parameterized using the following parameters
+</p>
+<ul>
+<li><code>Vhigh</code> - RMS voltage at primary side,</li>
+<li><code>Vlow</code> - RMS voltage at secondary side,</li>
+<li><code>VAbase</code> - apparent nominal power of the transformer,</li>
+<li><code>XoverR</code> - ratio between reactance and resistance, and</li>
+<li><code>Zperc</code> - the short circuit impedance.</li>
+</ul>
+<p>
+Given the nominal conditions, the model computes the values of the resistance and inductance.
+</p>
+
+<h4>Configuration:</h4>
+<p>
+The image below describes the connection of the windings.
+</p>
+<p align="center">
+<img alt="image" src="../Resources/Images/Electrical/AC/ThreePhasesUnbalanced/Conversion/BaseClasses/DY_b.png"/>
+</p>
+
+<h4>Note:</h4>
+<p>
+This model reuses models from
+<a href="Buildings_Electrical_AC_OnePhase_Conversion.html#Buildings.Electrical.AC.OnePhase.Conversion.ACACTransformer"
+>
+Buildings.Electrical.AC.OnePhase.Conversion.ACACTransformer</a>.
+</p>
+<p>
+See
+<a href="Buildings_Electrical_AC_ThreePhasesUnbalanced_Conversion_BaseClasses.html#Buildings.Electrical.AC.ThreePhasesUnbalanced.Conversion.BaseClasses.PartialConverterStepUpDY"
+>
+Buildings.Electrical.AC.ThreePhasesUnbalanced.Conversion.BaseClasses.PartialConverterStepUpDY</a> for
+details on the connections.
+</p>
+
+<p>Extends from <a href="Buildings_Electrical_AC_ThreePhasesUnbalanced_Conversion_BaseClasses.html#Buildings.Electrical.AC.ThreePhasesUnbalanced.Conversion.BaseClasses.PartialConverterStepUpDY"
+>Buildings.Electrical.AC.ThreePhasesUnbalanced.Conversion.BaseClasses.PartialConverterStepUpDY</a> (Model of a transformer with D connection primary side and Y connection
+  secondary side (Voltage step up)).</p>
+<h3>Parameters</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Voltage"
+>Voltage</a></td><td>VHigh</td><td>&nbsp;</td><td>Rms voltage on side 1 of the transformer (primary side) [V]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Voltage"
+>Voltage</a></td><td>VLow</td><td>&nbsp;</td><td>Rms voltage on side 2 of the transformer (secondary side) [V]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.ApparentPower"
+>ApparentPower</a></td><td>VABase</td><td>&nbsp;</td><td>Nominal power of the transformer [VA]</td></tr>
+<tr><td>Real</td><td>XoverR</td><td>&nbsp;</td><td>Ratio between the complex and real components of the impedance (XL/R)</td></tr>
+<tr><td>Real</td><td>Zperc</td><td>&nbsp;</td><td>Short circuit impedance</td></tr>
+<tr style="background-color: #c0c0c0"><td colspan="4"><b>Ground</b></td></tr>
+<tr style="background-color: #e0e0e0"><td colspan="4">side 1</td></tr>
+<tr><td>Boolean</td><td>ground_1</td><td>false</td><td>Connect side 1 of transformer to ground</td></tr>
+<tr style="background-color: #e0e0e0"><td colspan="4">side 2</td></tr>
+<tr><td>Boolean</td><td>ground_2</td><td>true</td><td>Connect side 2 of transformer to ground</td></tr>
+</table>
+<h3>Connectors</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Connectors">
+<tr><th>Type</th><th>Name</th><th>Description</th></tr>
+<tr><td><a href="Buildings_Electrical_AC_ThreePhasesUnbalanced_Interfaces.html#Buildings.Electrical.AC.ThreePhasesUnbalanced.Interfaces.Terminal_n"
+>Terminal_n</a></td><td>terminal_n</td><td>Electrical connector side N</td></tr>
+<tr><td><a href="Buildings_Electrical_AC_ThreePhasesUnbalanced_Interfaces.html#Buildings.Electrical.AC.ThreePhasesUnbalanced.Interfaces.Terminal_p"
+>Terminal_p</a></td><td>terminal_p</td><td>Electrical connector side P</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">model</span> ACACTransformerStepUpDY <span style="color: #006400; font-weight: normal; font-style: normal;">
+  &quot;AC AC transformer simplified equivalent circuit (DY step up)&quot;</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="Buildings_Electrical_AC_ThreePhasesUnbalanced_Conversion_BaseClasses.html#Buildings.Electrical.AC.ThreePhasesUnbalanced.Conversion.BaseClasses.PartialConverterStepUpDY"
+>Buildings.Electrical.AC.ThreePhasesUnbalanced.Conversion.BaseClasses.PartialConverterStepUpDY</a>
+    (
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><a href="Buildings_Electrical_AC_OnePhase_Conversion.html#Buildings.Electrical.AC.OnePhase.Conversion.ACACTransformer"
+>Buildings.Electrical.AC.OnePhase.Conversion.ACACTransformer</a> conv1(
+      VHigh=VHigh,
+      XoverR=XoverR,
+      Zperc=Zperc,
+      ground_1=ground_1,
+      ground_2=ground_2,
+      VABase=VABase/3,
+      VLow=VLow/<span style="color: red; font-weight: normal; font-style: normal;">sqrt</span>(3),
+      phi_1=0.5235987755983),
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><a href="Buildings_Electrical_AC_OnePhase_Conversion.html#Buildings.Electrical.AC.OnePhase.Conversion.ACACTransformer"
+>Buildings.Electrical.AC.OnePhase.Conversion.ACACTransformer</a> conv2(
+      VHigh=VHigh,
+      XoverR=XoverR,
+      Zperc=Zperc,
+      ground_1=ground_1,
+      ground_2=ground_2,
+      VABase=VABase/3,
+      VLow=VLow/<span style="color: red; font-weight: normal; font-style: normal;">sqrt</span>(3),
+      phi_1=-1.5707963267949),
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><a href="Buildings_Electrical_AC_OnePhase_Conversion.html#Buildings.Electrical.AC.OnePhase.Conversion.ACACTransformer"
+>Buildings.Electrical.AC.OnePhase.Conversion.ACACTransformer</a> conv3(
+      VHigh=VHigh,
+      XoverR=XoverR,
+      Zperc=Zperc,
+      ground_1=ground_1,
+      ground_2=ground_2,
+      VABase=VABase/3,
+      VLow=VLow/<span style="color: red; font-weight: normal; font-style: normal;">sqrt</span>(3),
+      phi_1=2.6179938779915));
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Voltage"
+>Modelica.SIunits.Voltage</a> VHigh <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Rms voltage on side 1 of the transformer (primary side)&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Voltage"
+>Modelica.SIunits.Voltage</a> VLow <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Rms voltage on side 2 of the transformer (secondary side)&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.ApparentPower"
+>Modelica.SIunits.ApparentPower</a> VABase <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Nominal power of the transformer&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Real XoverR <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Ratio between the complex and real components of the impedance (XL/R)&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Real Zperc <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Short circuit impedance&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Boolean ground_1 = false <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Connect side 1 of transformer to ground&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Boolean ground_2 = true <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Connect side 2 of transformer to ground&quot;</span>;
+<span style="color: blue; font-weight: normal; font-style: normal;">equation </span>
+
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>ACACTransformerStepUpDY;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE ACACTransformerStepUpYD<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Electrical.AC.T172a41cb31aeccd7pUpYDI.png" alt="Buildings.Electrical.AC.ThreePhasesUnbalanced.Conversion.ACACTransformerStepUpYD" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Electrical.AC.ThreePhasesUnbalanced.Conversion.ACACTransformerStepUpYD"></a><a href="Buildings_Electrical_AC_ThreePhasesUnbalanced_Conversion.html#Buildings.Electrical.AC.ThreePhasesUnbalanced.Conversion"
+>Buildings.Electrical.AC.ThreePhasesUnbalanced.Conversion</a>.ACACTransformerStepUpYD</h2>
+<p>
+<b>AC AC transformer simplified equivalent circuit (YD step up)</b>
+<br>
+<br><img src="Buildings.Electrical.AC.T172a41cb31aeccd7pUpYDD.png" alt="Buildings.Electrical.AC.ThreePhasesUnbalanced.Conversion.ACACTransformerStepUpYD">
+</p>
+<h3>Information</h3>
+
+<p>
+This is a simplified equivalent transformer model with Y-Delta connection
+(voltage step up).
+The model accounts for winding Joule losses and leakage reactances
+that are represented by a series of a resistance <i>R</i> and an
+inductance <i>L</i>. The resistance and the inductance represent the
+effects of the secondary and primary side of the transformer.
+</p>
+<p>
+The model is parameterized using the following parameters
+</p>
+<ul>
+<li><code>Vhigh</code> - RMS voltage at primary side,</li>
+<li><code>Vlow</code> - RMS voltage at secondary side,</li>
+<li><code>VAbase</code> - apparent nominal power of the transformer,</li>
+<li><code>XoverR</code> - ratio between reactance and resistance, and</li>
+<li><code>Zperc</code> - the short circuit impedance.</li>
+</ul>
+<p>
+Given the nominal conditions, the model computes the values of the resistance and inductance.
+</p>
+
+<h4>Configuration:</h4>
+<p>
+The image below describes the connection of the windings.
+</p>
+<p align="center">
+<img alt="image" src="../Resources/Images/Electrical/AC/ThreePhasesUnbalanced/Conversion/BaseClasses/YD_b.png"/>
+</p>
+
+<h4>Note:</h4>
+<p>
+This model reuses models from
+<a href="Buildings_Electrical_AC_OnePhase_Conversion.html#Buildings.Electrical.AC.OnePhase.Conversion.ACACTransformer"
+>
+Buildings.Electrical.AC.OnePhase.Conversion.ACACTransformer</a>.
+</p>
+<p>
+See
+<a href="Buildings_Electrical_AC_ThreePhasesUnbalanced_Conversion_BaseClasses.html#Buildings.Electrical.AC.ThreePhasesUnbalanced.Conversion.BaseClasses.PartialConverterStepUpYD"
+>
+Buildings.Electrical.AC.ThreePhasesUnbalanced.Conversion.BaseClasses.PartialConverterStepUpYD</a> for
+details on the connections.
+</p>
+
+<p>Extends from <a href="Buildings_Electrical_AC_ThreePhasesUnbalanced_Conversion_BaseClasses.html#Buildings.Electrical.AC.ThreePhasesUnbalanced.Conversion.BaseClasses.PartialConverterStepUpYD"
+>Buildings.Electrical.AC.ThreePhasesUnbalanced.Conversion.BaseClasses.PartialConverterStepUpYD</a> (Model of a transformer with Y connection primary side and D connection
+  secondary side (Voltage step up)).</p>
+<h3>Parameters</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Voltage"
+>Voltage</a></td><td>VHigh</td><td>&nbsp;</td><td>Rms voltage on side 1 of the transformer (primary side) [V]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Voltage"
+>Voltage</a></td><td>VLow</td><td>&nbsp;</td><td>Rms voltage on side 2 of the transformer (secondary side) [V]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.ApparentPower"
+>ApparentPower</a></td><td>VABase</td><td>&nbsp;</td><td>Nominal power of the transformer [VA]</td></tr>
+<tr><td>Real</td><td>XoverR</td><td>&nbsp;</td><td>Ratio between the complex and real components of the impedance (XL/R)</td></tr>
+<tr><td>Real</td><td>Zperc</td><td>&nbsp;</td><td>Short circuit impedance</td></tr>
+<tr style="background-color: #c0c0c0"><td colspan="4"><b>Ground</b></td></tr>
+<tr style="background-color: #e0e0e0"><td colspan="4">side 1</td></tr>
+<tr><td>Boolean</td><td>ground_1</td><td>false</td><td>Connect side 1 of transformer to ground</td></tr>
+<tr style="background-color: #e0e0e0"><td colspan="4">side 2</td></tr>
+<tr><td>Boolean</td><td>ground_2</td><td>true</td><td>Connect side 2 of transformer to ground</td></tr>
+</table>
+<h3>Connectors</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Connectors">
+<tr><th>Type</th><th>Name</th><th>Description</th></tr>
+<tr><td><a href="Buildings_Electrical_AC_ThreePhasesUnbalanced_Interfaces.html#Buildings.Electrical.AC.ThreePhasesUnbalanced.Interfaces.Terminal_n"
+>Terminal_n</a></td><td>terminal_n</td><td>Electrical connector side N</td></tr>
+<tr><td><a href="Buildings_Electrical_AC_ThreePhasesUnbalanced_Interfaces.html#Buildings.Electrical.AC.ThreePhasesUnbalanced.Interfaces.Terminal_p"
+>Terminal_p</a></td><td>terminal_p</td><td>Electrical connector side P</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">model</span> ACACTransformerStepUpYD <span style="color: #006400; font-weight: normal; font-style: normal;">
+  &quot;AC AC transformer simplified equivalent circuit (YD step up)&quot;</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="Buildings_Electrical_AC_ThreePhasesUnbalanced_Conversion_BaseClasses.html#Buildings.Electrical.AC.ThreePhasesUnbalanced.Conversion.BaseClasses.PartialConverterStepUpYD"
+>Buildings.Electrical.AC.ThreePhasesUnbalanced.Conversion.BaseClasses.PartialConverterStepUpYD</a>
+    (
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><a href="Buildings_Electrical_AC_OnePhase_Conversion.html#Buildings.Electrical.AC.OnePhase.Conversion.ACACTransformer"
+>Buildings.Electrical.AC.OnePhase.Conversion.ACACTransformer</a> conv1(
+      VHigh=VHigh/<span style="color: red; font-weight: normal; font-style: normal;">sqrt</span>(3),
+      XoverR=XoverR,
+      Zperc=Zperc,
+      ground_1=ground_1,
+      ground_2=ground_2,
+      VABase=VABase/3,
+      VLow=-VLow,
+      phi_1=0),
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><a href="Buildings_Electrical_AC_OnePhase_Conversion.html#Buildings.Electrical.AC.OnePhase.Conversion.ACACTransformer"
+>Buildings.Electrical.AC.OnePhase.Conversion.ACACTransformer</a> conv2(
+      VHigh=VHigh/<span style="color: red; font-weight: normal; font-style: normal;">sqrt</span>(3),
+      XoverR=XoverR,
+      Zperc=Zperc,
+      ground_1=ground_1,
+      ground_2=ground_2,
+      VABase=VABase/3,
+      VLow=-VLow,
+      phi_1=-2.0943951023932),
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><a href="Buildings_Electrical_AC_OnePhase_Conversion.html#Buildings.Electrical.AC.OnePhase.Conversion.ACACTransformer"
+>Buildings.Electrical.AC.OnePhase.Conversion.ACACTransformer</a> conv3(
+      VHigh=VHigh/<span style="color: red; font-weight: normal; font-style: normal;">sqrt</span>(3),
+      XoverR=XoverR,
+      Zperc=Zperc,
+      ground_1=ground_1,
+      ground_2=ground_2,
+      VABase=VABase/3,
+      VLow=-VLow,
+      phi_1=2.0943951023932));
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Voltage"
+>Modelica.SIunits.Voltage</a> VHigh <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Rms voltage on side 1 of the transformer (primary side)&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Voltage"
+>Modelica.SIunits.Voltage</a> VLow <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Rms voltage on side 2 of the transformer (secondary side)&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.ApparentPower"
+>Modelica.SIunits.ApparentPower</a> VABase <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Nominal power of the transformer&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Real XoverR <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Ratio between the complex and real components of the impedance (XL/R)&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Real Zperc <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Short circuit impedance&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Boolean ground_1 = false <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Connect side 1 of transformer to ground&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Boolean ground_2 = true <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Connect side 2 of transformer to ground&quot;</span>;
+<span style="color: blue; font-weight: normal; font-style: normal;">equation </span>
+
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>ACACTransformerStepUpYD;
+</div>
+<hr>
+<address>
+<a href="http://www.3ds.com/">Automatically generated</a> Thu Apr  9 09:33:21 2015.
+</address>
+</body>
+</html>

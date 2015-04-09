@@ -1,0 +1,1919 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>Buildings.Electrical.Interfaces</title>
+<meta name="HTML-Generator" content="Dymola">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="description" content="&quot;This package contains interfaces and partial models that are inherited by other components&quot;">
+<style type="text/css">
+*       { font-size: 10pt; font-family: Arial, sans-serif; }
+.modelica, .modelica * { font-size: 9pt; font-family: Courier, monospace; white-space: pre; }
+h4      { font-size: 10pt; font-weight: bold; color: green; }
+h3      { font-size: 11pt; font-weight: bold; color: green; }
+h2      { font-size: 13pt; font-weight: bold; color: green; }
+address { font-weight: normal; }
+td      { border: 1px solid #808080; vertical-align: top; }
+th      { border: 1px solid #808080; vertical-align: top; font-weight: bold; }
+table   { border: 1px solid #808080; border-collapse: collapse; }
+</style>
+<link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../Resources/www/modelicaDoc.css">
+</HEAD>
+<body>
+<!-- --- header ------ -->
+<div class="headerStyle">
+<img src="../Resources/www/lbl-logo.png" alt="LBL logo"/>
+</div>
+<div class="headerLinks">
+<ul><li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt; <a href="Buildings.html">Modelica</a></li></ul>
+</div>
+<!-- --- end header -- -->
+
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE Interfaces<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><a name="Buildings.Electrical.Interfaces"></a><a href="Buildings_Electrical.html#Buildings.Electrical"
+>Buildings.Electrical</a>.Interfaces</h2>
+<p>
+<b>This package contains interfaces and partial models that are inherited by other components</b><br>
+</p>
+<h3>Information</h3>
+
+<p>
+This package contains basic classes that are used to build
+component models for electrical systems.
+The classes are not directly usable, but can
+be extended when building a new model.
+</p>
+
+<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons_InterfacesPackage.html#Modelica.Icons.InterfacesPackage"
+>Modelica.Icons.InterfacesPackage</a> (Icon for packages containing interfaces).</p>
+<h3>Package Content</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Package Content">
+<tr>
+<th>Name</th>
+<th>Description</th>
+</tr>
+<tr>
+<td><img src="Buildings.Electrical.Intedf9298022110c3d5minalS.png" alt="Buildings.Electrical.Interfaces.BaseTerminal" width="20" height="20" align="top">&nbsp;<a href="Buildings_Electrical_Interfaces.html#Buildings.Electrical.Interfaces.BaseTerminal"
+>BaseTerminal</a>
+</td>
+<td>Empty connector used by partial models</td>
+</tr>
+<tr>
+<td><img src="Buildings.Electrical.Intee536debc7c3f3873eLoadS.png" alt="Buildings.Electrical.Interfaces.CapacitiveLoad" width="20" height="20" align="top">&nbsp;<a href="Buildings_Electrical_Interfaces.html#Buildings.Electrical.Interfaces.CapacitiveLoad"
+>CapacitiveLoad</a>
+</td>
+<td>Partial model of a capacitive load</td>
+</tr>
+<tr>
+<td><img src="Buildings.Electrical.Interfaces.GroundS.png" alt="Buildings.Electrical.Interfaces.Ground" width="20" height="20" align="top">&nbsp;<a href="Buildings_Electrical_Interfaces.html#Buildings.Electrical.Interfaces.Ground"
+>Ground</a>
+</td>
+<td>Generalized model of a ground connection.</td>
+</tr>
+<tr>
+<td><img src="Buildings.Electrical.Intef34715cd2c30988edanceS.png" alt="Buildings.Electrical.Interfaces.Impedance" width="20" height="20" align="top">&nbsp;<a href="Buildings_Electrical_Interfaces.html#Buildings.Electrical.Interfaces.Impedance"
+>Impedance</a>
+</td>
+<td>Partial model representing a generalized impedance</td>
+</tr>
+<tr>
+<td><img src="Buildings.Electrical.Inte1d3f220a631774eceLoadS.png" alt="Buildings.Electrical.Interfaces.InductiveLoad" width="20" height="20" align="top">&nbsp;<a href="Buildings_Electrical_Interfaces.html#Buildings.Electrical.Interfaces.InductiveLoad"
+>InductiveLoad</a>
+</td>
+<td>Partial model of an inductive load</td>
+</tr>
+<tr>
+<td><img src="Buildings.Electrical.Interfaces.LoadS.png" alt="Buildings.Electrical.Interfaces.Load" width="20" height="20" align="top">&nbsp;<a href="Buildings_Electrical_Interfaces.html#Buildings.Electrical.Interfaces.Load"
+>Load</a>
+</td>
+<td>Partial model for a generic load</td>
+</tr>
+<tr>
+<td><img src="Buildings.Electrical.Inte590f85e4956093d5oPortS.png" alt="Buildings.Electrical.Interfaces.PartialBaseTwoPort" width="20" height="20" align="top">&nbsp;<a href="Buildings_Electrical_Interfaces.html#Buildings.Electrical.Interfaces.PartialBaseTwoPort"
+>PartialBaseTwoPort</a>
+</td>
+<td>Model of a generic two port component</td>
+</tr>
+<tr>
+<td><img src="Buildings.Electrical.Inte590f85e4956093d5oPortS.png" alt="Buildings.Electrical.Interfaces.PartialConversion" width="20" height="20" align="top">&nbsp;<a href="Buildings_Electrical_Interfaces.html#Buildings.Electrical.Interfaces.PartialConversion"
+>PartialConversion</a>
+</td>
+<td>Model representing a generic two port system for conversion</td>
+</tr>
+<tr>
+<td><img src="Buildings.Electrical.Inte87e49fda8ee08fbdialPVS.png" alt="Buildings.Electrical.Interfaces.PartialPV" width="20" height="20" align="top">&nbsp;<a href="Buildings_Electrical_Interfaces.html#Buildings.Electrical.Interfaces.PartialPV"
+>PartialPV</a>
+</td>
+<td>Base model for a PV system</td>
+</tr>
+<tr>
+<td><img src="Buildings.Electrical.Inte724fc102b7e9632eentedS.png" alt="Buildings.Electrical.Interfaces.PartialPVOriented" width="20" height="20" align="top">&nbsp;<a href="Buildings_Electrical_Interfaces.html#Buildings.Electrical.Interfaces.PartialPVOriented"
+>PartialPVOriented</a>
+</td>
+<td>Base model of a PV system with orientation</td>
+</tr>
+<tr>
+<td><img src="Buildings.Electrical.Inte48b5fdb7f9f86405vBaseS.png" alt="Buildings.Electrical.Interfaces.PartialPvBase" width="20" height="20" align="top">&nbsp;<a href="Buildings_Electrical_Interfaces.html#Buildings.Electrical.Interfaces.PartialPvBase"
+>PartialPvBase</a>
+</td>
+<td>Partial model with basic parameters for PVs</td>
+</tr>
+<tr>
+<td><img src="Buildings.Electrical.Inte17106f653fc472eaoPortS.png" alt="Buildings.Electrical.Interfaces.PartialTwoPort" width="20" height="20" align="top">&nbsp;<a href="Buildings_Electrical_Interfaces.html#Buildings.Electrical.Interfaces.PartialTwoPort"
+>PartialTwoPort</a>
+</td>
+<td>Model of a generic two port component with phase systems</td>
+</tr>
+<tr>
+<td><img src="Buildings.Electrical.Inteb281284b90fc954crbineS.png" alt="Buildings.Electrical.Interfaces.PartialWindTurbine" width="20" height="20" align="top">&nbsp;<a href="Buildings_Electrical_Interfaces.html#Buildings.Electrical.Interfaces.PartialWindTurbine"
+>PartialWindTurbine</a>
+</td>
+<td>Partial model of a wind turbine with power output based on table as a function of wind speed</td>
+</tr>
+<tr>
+<td><img src="Buildings.Electrical.Inte82c3b55854e885cceBaseS.png" alt="Buildings.Electrical.Interfaces.PartialWindTurbineBase" width="20" height="20" align="top">&nbsp;<a href="Buildings_Electrical_Interfaces.html#Buildings.Electrical.Interfaces.PartialWindTurbineBase"
+>PartialWindTurbineBase</a>
+</td>
+<td>Base class for turbine model that contains basic parameters</td>
+</tr>
+<tr>
+<td><img src="Buildings.Electrical.Interfaces.SourceS.png" alt="Buildings.Electrical.Interfaces.Source" width="20" height="20" align="top">&nbsp;<a href="Buildings_Electrical_Interfaces.html#Buildings.Electrical.Interfaces.Source"
+>Source</a>
+</td>
+<td>Partial model of a generic source.</td>
+</tr>
+<tr>
+<td><img src="Buildings.Electrical.Interfaces.TerminalS.png" alt="Buildings.Electrical.Interfaces.Terminal" width="20" height="20" align="top">&nbsp;<a href="Buildings_Electrical_Interfaces.html#Buildings.Electrical.Interfaces.Terminal"
+>Terminal</a>
+</td>
+<td>Generalized electric terminal</td>
+</tr>
+<tr>
+<td><img src="Buildings.Electrical.Inteda46cf480db38ed5ourceS.png" alt="Buildings.Electrical.Interfaces.VariableVoltageSource" width="20" height="20" align="top">&nbsp;<a href="Buildings_Electrical_Interfaces.html#Buildings.Electrical.Interfaces.VariableVoltageSource"
+>VariableVoltageSource</a>
+</td>
+<td>Partial model of a generic variable voltage source.</td>
+</tr>
+<tr>
+<td><img src="Buildings.Electrical.Inteecaa7e2f3703c861etersS.png" alt="Buildings.Electrical.Interfaces.PartialAcDcParameters" width="20" height="20" align="top">&nbsp;<a href="Buildings_Electrical_Interfaces.html#Buildings.Electrical.Interfaces.PartialAcDcParameters"
+>PartialAcDcParameters</a>
+</td>
+<td>Partial model that contains basic parameters for a DC/AC conversion system</td>
+</tr>
+<tr>
+<td><img src="Buildings.Electrical.Inteecaa7e2f3703c861etersS.png" alt="Buildings.Electrical.Interfaces.PartialPluggableUnbalanced" width="20" height="20" align="top">&nbsp;<a href="Buildings_Electrical_Interfaces.html#Buildings.Electrical.Interfaces.PartialPluggableUnbalanced"
+>PartialPluggableUnbalanced</a>
+</td>
+<td>Partial interface for unbalanced loads</td>
+</tr>
+</table>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE BaseTerminal<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><a name="Buildings.Electrical.Interfaces.BaseTerminal"></a><a href="Buildings_Electrical_Interfaces.html#Buildings.Electrical.Interfaces"
+>Buildings.Electrical.Interfaces</a>.BaseTerminal</h2>
+<p>
+<b>Empty connector used by partial models</b>
+</p>
+<h3>Information</h3>
+
+This empty connector represents the base class extended by every electric connector of type
+<a href="Buildings_Electrical_Interfaces.html#Buildings.Electrical.Interfaces.Terminal"
+>Buildings.Electrical.Interfaces.Terminal</a>.
+
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">connector</span> BaseTerminal <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Empty connector used by partial models&quot;</span>
+
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>BaseTerminal;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE CapacitiveLoad<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Electrical.Intee536debc7c3f3873eLoadI.png" alt="Buildings.Electrical.Interfaces.CapacitiveLoad" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Electrical.Interfaces.CapacitiveLoad"></a><a href="Buildings_Electrical_Interfaces.html#Buildings.Electrical.Interfaces"
+>Buildings.Electrical.Interfaces</a>.CapacitiveLoad</h2>
+<p>
+<b>Partial model of a capacitive load</b>
+<br>
+<br><img src="Buildings.Electrical.Intee536debc7c3f3873eLoadD.png" alt="Buildings.Electrical.Interfaces.CapacitiveLoad">
+</p>
+<h3>Information</h3>
+
+<p>
+This is a model of a generic capacitive load. This model is an extension of the base load model
+<a href="Buildings.Electrical.Interfaces.PartialLoad">Buildings.Electrical.Interfaces.PartialLoad</a>.
+</p>
+<p>
+This model assumes a fixed power factor <code>pf</code> when the flag <code>use_pf_in = false</code>
+otherwise it uses the power factor specified by the input <code>pf_in</code>.
+</p>
+<p>The power factor (either the input or the parameter) is used to compute the reactive power
+<code>Q</code> given the active power <code>P</code>
+</p>
+<p align="center" style="font-style:italic;">
+Q = - P * tan(arccos(pf))
+</p>
+
+<p>Extends from <a href="Buildings_Electrical_Interfaces.html#Buildings.Electrical.Interfaces.Load"
+>Load</a> (Partial model for a generic load).</p>
+<h3>Parameters</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td colspan="2">replaceable package PhaseSystem</td><td><a href="Buildings_Electrical_PhaseSystems_PartialPhaseSystem.html#Buildings.Electrical.PhaseSystems.PartialPhaseSystem"
+>PartialPhaseSystem</a></td><td>Phase system</td></tr>
+<tr><td><a href="Buildings_Electrical_Interfaces.html#Buildings.Electrical.Interfaces.Terminal"
+>Terminal</a></td><td>terminal</td><td>redeclare Buildings.Electric...</td><td>Generalized electric terminal</td></tr>
+<tr style="background-color: #e0e0e0"><td colspan="4">Modelling assumption</td></tr>
+<tr><td>Boolean</td><td>linearized</td><td>false</td><td>If true, the load model is linearized</td></tr>
+<tr><td><a href="Buildings_Electrical_Types.html#Buildings.Electrical.Types.Load"
+>Load</a></td><td>mode</td><td>Buildings.Electrical.Types.L...</td><td>Type of load model (e.g., steady state, dynamic, prescribed power consumption, etc.)</td></tr>
+<tr><td>Boolean</td><td>use_pf_in</td><td>false</td><td>If true, the power factor is defined by an input</td></tr>
+<tr style="background-color: #e0e0e0"><td colspan="4">Nominal conditions</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Power"
+>Power</a></td><td>P_nominal</td><td>&nbsp;</td><td>Nominal power (negative if consumed, positive if generated) [W]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Voltage"
+>Voltage</a></td><td>V_nominal</td><td>&nbsp;</td><td>Nominal voltage (V_nominal &gt;= 0) [V]</td></tr>
+<tr><td>Real</td><td>pf</td><td>0.8</td><td>Power factor</td></tr>
+<tr style="background-color: #c0c0c0"><td colspan="4"><b>Initialization</b></td></tr>
+<tr><td><a href="Buildings_Electrical_Types.html#Buildings.Electrical.Types.InitMode"
+>InitMode</a></td><td>initMode</td><td>Buildings.Electrical.Types.I...</td><td>Initialization mode for homotopy operator</td></tr>
+</table>
+<h3>Connectors</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Connectors">
+<tr><th>Type</th><th>Name</th><th>Description</th></tr>
+<tr><td>input <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>RealInput</a></td><td>y</td><td>Fraction of the nominal power consumed [1]</td></tr>
+<tr><td>input <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>RealInput</a></td><td>Pow</td><td>Power consumed [W]</td></tr>
+<tr><td><a href="Buildings_Electrical_Interfaces.html#Buildings.Electrical.Interfaces.Terminal"
+>Terminal</a></td><td>terminal</td><td>Generalized electric terminal</td></tr>
+<tr><td>input <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>RealInput</a></td><td>pf_in</td><td>Power factor [1]</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">partial </span><span style="color: blue; font-weight: normal; font-style: normal;">model</span> CapacitiveLoad <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Partial model of a capacitive load&quot;</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="Buildings_Electrical_Interfaces.html#Buildings.Electrical.Interfaces.Load"
+>Load</a>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Boolean use_pf_in = false <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;If true, the power factor is defined by an input&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Real pf(min=0, max=1) = 0.8 <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Power factor&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>Modelica.Blocks.Interfaces.RealInput</a> pf_in(
+    min=0,
+    max=1,
+    unit=&quot;1&quot;) <span style="color: blue; font-weight: normal; font-style: normal;">if </span>(use_pf_in) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Power factor&quot;</span>;
+<span style="color: blue; font-weight: normal; font-style: normal;">protected </span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">function</span> j = <a href="Buildings_Electrical_PhaseSystems_PartialPhaseSystem.html#Buildings.Electrical.PhaseSystems.PartialPhaseSystem.j"
+>PhaseSystem.j</a> <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;J operator that rotates of 90 degrees&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>Modelica.Blocks.Interfaces.RealInput</a> pf_internal <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Hidden value of the input load for the conditional connector&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.ElectricCharge"
+>Modelica.SIunits.ElectricCharge</a> q[2](<span style="color: blue; font-weight: normal; font-style: normal;">each </span>stateSelect=StateSelect.prefer) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Electric charge&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Admittance"
+>Modelica.SIunits.Admittance</a>[2] Y <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Admittance&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.AngularVelocity"
+>Modelica.SIunits.AngularVelocity</a> omega <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Angular velocity&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Power"
+>Modelica.SIunits.Power</a> Q = P*<span style="color: red; font-weight: normal; font-style: normal;">tan</span>(-<span style="color: red; font-weight: normal; font-style: normal;">acos</span>(pf_internal)) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Reactive power (negative because capacitive load)&quot;</span>;
+<span style="color: blue; font-weight: normal; font-style: normal;">equation </span>
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(pf_in, pf_internal);
+
+  <span style="color: blue; font-weight: normal; font-style: normal;">if </span><span style="color: blue; font-weight: normal; font-style: normal;">not </span>use_pf_in<span style="color: blue; font-weight: normal; font-style: normal;"> then</span>
+    pf_internal = pf;
+  <span style="color: blue; font-weight: normal; font-style: normal;">end if</span>;
+
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>CapacitiveLoad;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE Ground<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Electrical.Interfaces.GroundI.png" alt="Buildings.Electrical.Interfaces.Ground" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Electrical.Interfaces.Ground"></a><a href="Buildings_Electrical_Interfaces.html#Buildings.Electrical.Interfaces"
+>Buildings.Electrical.Interfaces</a>.Ground</h2>
+<p>
+<b>Generalized model of a ground connection.</b>
+<br>
+<br><img src="Buildings.Electrical.Interfaces.GroundD.png" alt="Buildings.Electrical.Interfaces.Ground">
+</p>
+<h3>Information</h3>
+
+<p>
+Given a generic electric connector
+<a href="Buildings_Electrical_Interfaces.html#Buildings.Electrical.Interfaces.Terminal"
+>
+Buildings.Electrical.Interfaces.Terminal</a> this
+model imposes the following condition on the voltage <code>V[PhaseSystem.n]</code>
+</p>
+<p align="center" style="font-style:italic;">
+<b>V</b> = <span style="text-decoration: overline;">0</span>,
+</p>
+<p>
+where <span style="text-decoration: overline;">0</span> is a null vector of length <code>PhaseSystem.n</code>.
+</p>
+
+<h3>Parameters</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td colspan="2">replaceable package PhaseSystem</td><td>Buildings.Electrical.PhaseSy...</td><td>Phase system</td></tr>
+<tr><td><a href="Buildings_Electrical_Interfaces.html#Buildings.Electrical.Interfaces.Terminal"
+>Terminal</a></td><td>terminal</td><td>redeclare Buildings.Electric...</td><td>Generalized terminal</td></tr>
+</table>
+<h3>Connectors</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Connectors">
+<tr><th>Type</th><th>Name</th><th>Description</th></tr>
+<tr><td colspan="2">replaceable package PhaseSystem</td><td>Phase system</td></tr>
+<tr><td><a href="Buildings_Electrical_Interfaces.html#Buildings.Electrical.Interfaces.Terminal"
+>Terminal</a></td><td>terminal</td><td>Generalized terminal</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">model</span> Ground <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Generalized model of a ground connection.&quot;</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">replaceable </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> PhaseSystem =
+      <a href="Buildings_Electrical_PhaseSystems_PartialPhaseSystem.html#Buildings.Electrical.PhaseSystems.PartialPhaseSystem"
+>Buildings.Electrical.PhaseSystems.PartialPhaseSystem</a> <span style="color: blue; font-weight: normal; font-style: normal;">constrainedby </span>
+    Buildings.Electrical.PhaseSystems.PartialPhaseSystem <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Phase system&quot;</span>;
+
+  <span style="color: blue; font-weight: normal; font-style: normal;">replaceable </span><a href="Buildings_Electrical_Interfaces.html#Buildings.Electrical.Interfaces.Terminal"
+>Buildings.Electrical.Interfaces.Terminal</a> terminal(<span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">
+      package</span> PhaseSystem = <a href="Buildings_Electrical_Interfaces_PhaseSystem.html#Buildings.Electrical.Interfaces.Ground.PhaseSystem"
+>PhaseSystem</a>) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Generalized terminal&quot;</span>;
+<span style="color: blue; font-weight: normal; font-style: normal;">equation </span>
+  terminal.v =<span style="color: red; font-weight: normal; font-style: normal;"> zeros</span>(PhaseSystem.n);
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>Ground;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE Impedance<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Electrical.Intef34715cd2c30988edanceI.png" alt="Buildings.Electrical.Interfaces.Impedance" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Electrical.Interfaces.Impedance"></a><a href="Buildings_Electrical_Interfaces.html#Buildings.Electrical.Interfaces"
+>Buildings.Electrical.Interfaces</a>.Impedance</h2>
+<p>
+<b>Partial model representing a generalized impedance</b>
+<br>
+<br><img src="Buildings.Electrical.Intef34715cd2c30988edanceD.png" alt="Buildings.Electrical.Interfaces.Impedance">
+</p>
+<h3>Information</h3>
+
+<p>
+This model represents a generalized interface for an impedance.
+</p>
+<p>
+The model has a single generalized electric terminal of type
+<a href="Buildings_Electrical_Interfaces.html#Buildings.Electrical.Interfaces.Terminal"
+>
+Buildings.Electrical.Interfaces.Terminal</a>
+that can be redeclared.
+The impedance can be of different types:
+</p>
+<ol>
+<li>resistive,</li>
+<li>inductive,</li>
+<li>resistive and inductive,</li>
+<li>capacitive, and</li>
+<li>resistive and capacitive.</li>
+</ol>
+<p>
+The values of the resistance <code>R</code>, capacitance <code>C</code> and
+inductance <code>L</code> can be
+specified as parameters of the model.
+</p>
+<p>
+The values of the resistance <code>R</code>, capacitance <code>C</code>
+and inductance <code>L</code> can also be
+specified by using the input variables <code>y_R</code>, <code>y_C</code>,
+and <code>y_L</code> that are Real values between <i>[0,1]</i>.<br/>
+These input values are enabled by the boolean flags <code>use_R_in</code>,
+<code>use_L_in</code>, and
+<code>use_C_in</code>.
+</p>
+<h5>Example</h5>
+<p>
+If the flag <code>use_R_in = true</code>, the value of <code>R</code> is computed as
+</p>
+<p align="center" style="font-style:italic;">
+R = R<sub>min</sub> + y<sub>R</sub> (R<sub>max</sub> - R<sub>min</sub>)
+</p>
+
+<p>Extends from <a href="Buildings_Electrical_Interfaces.html#Buildings.Electrical.Interfaces.Load"
+>Buildings.Electrical.Interfaces.Load</a> (Partial model for a generic load).</p>
+<h3>Parameters</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td colspan="2">replaceable package PhaseSystem</td><td><a href="Buildings_Electrical_PhaseSystems_PartialPhaseSystem.html#Buildings.Electrical.PhaseSystems.PartialPhaseSystem"
+>PartialPhaseSystem</a></td><td>Phase system</td></tr>
+<tr><td><a href="Buildings_Electrical_Interfaces.html#Buildings.Electrical.Interfaces.Terminal"
+>Terminal</a></td><td>terminal</td><td>redeclare Buildings.Electric...</td><td>Generalized electric terminal</td></tr>
+<tr><td>Boolean</td><td>inductive</td><td>true</td><td>If true, the load is inductive, otherwise it is capacitive</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Resistance"
+>Resistance</a></td><td>R</td><td>1</td><td>Resistance [Ohm]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Inductance"
+>Inductance</a></td><td>L</td><td>0</td><td>Inductance [H]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Capacitance"
+>Capacitance</a></td><td>C</td><td>0</td><td>Capacitance [F]</td></tr>
+<tr style="background-color: #e0e0e0"><td colspan="4">Modelling assumption</td></tr>
+<tr><td>Boolean</td><td>linearized</td><td>false</td><td>If true, the load model is linearized</td></tr>
+<tr><td><a href="Buildings_Electrical_Types.html#Buildings.Electrical.Types.Load"
+>Load</a></td><td>mode</td><td>Buildings.Electrical.Types.L...</td><td>Type of load model (e.g., steady state, dynamic, prescribed power consumption, etc.)</td></tr>
+<tr style="background-color: #c0c0c0"><td colspan="4"><b>Initialization</b></td></tr>
+<tr><td><a href="Buildings_Electrical_Types.html#Buildings.Electrical.Types.InitMode"
+>InitMode</a></td><td>initMode</td><td>Buildings.Electrical.Types.I...</td><td>Initialization mode for homotopy operator</td></tr>
+<tr style="background-color: #c0c0c0"><td colspan="4"><b>Variable load</b></td></tr>
+<tr style="background-color: #e0e0e0"><td colspan="4">Resistance</td></tr>
+<tr><td>Boolean</td><td>use_R_in</td><td>false</td><td>If true, R is specified by an input</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Resistance"
+>Resistance</a></td><td>RMin</td><td>1e-4</td><td>Minimum value of the resistance [Ohm]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Resistance"
+>Resistance</a></td><td>RMax</td><td>1e2</td><td>Maximum value of the resistance [Ohm]</td></tr>
+<tr style="background-color: #e0e0e0"><td colspan="4">Capacitance</td></tr>
+<tr><td>Boolean</td><td>use_C_in</td><td>false</td><td>If true, C is specified by an input</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Capacitance"
+>Capacitance</a></td><td>CMin</td><td>1e-4</td><td>Minimum value of the capacitance [F]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Capacitance"
+>Capacitance</a></td><td>CMax</td><td>1e2</td><td>Maximum value of the capacitance [F]</td></tr>
+<tr style="background-color: #e0e0e0"><td colspan="4">Inductance</td></tr>
+<tr><td>Boolean</td><td>use_L_in</td><td>false</td><td>If true, L is specified by an input</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Inductance"
+>Inductance</a></td><td>LMin</td><td>1e-4</td><td>Minimum value of the inductance [H]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Inductance"
+>Inductance</a></td><td>LMax</td><td>1e2</td><td>Maximum value of the inductance [H]</td></tr>
+</table>
+<h3>Connectors</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Connectors">
+<tr><th>Type</th><th>Name</th><th>Description</th></tr>
+<tr><td>input <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>RealInput</a></td><td>y</td><td>Fraction of the nominal power consumed [1]</td></tr>
+<tr><td>input <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>RealInput</a></td><td>Pow</td><td>Power consumed [W]</td></tr>
+<tr><td><a href="Buildings_Electrical_Interfaces.html#Buildings.Electrical.Interfaces.Terminal"
+>Terminal</a></td><td>terminal</td><td>Generalized electric terminal</td></tr>
+<tr><td>input <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>RealInput</a></td><td>y_R</td><td>Input that sepecify variable R</td></tr>
+<tr><td>input <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>RealInput</a></td><td>y_C</td><td>Input that sepecify variable C</td></tr>
+<tr><td>input <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>RealInput</a></td><td>y_L</td><td>Input that sepecify variable L</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">model</span> Impedance <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Partial model representing a generalized impedance&quot;</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="Buildings_Electrical_Interfaces.html#Buildings.Electrical.Interfaces.Load"
+>Buildings.Electrical.Interfaces.Load</a>(
+    <span style="color: blue; font-weight: normal; font-style: normal;">final </span>linearized = false,
+    <span style="color: blue; font-weight: normal; font-style: normal;">final </span>mode=Buildings.Electrical.Types.Load.FixedZ_steady_state,
+    <span style="color: blue; font-weight: normal; font-style: normal;">final </span>P_nominal(fixed = true)=0,
+    <span style="color: blue; font-weight: normal; font-style: normal;">final </span>V_nominal(fixed = true)=1);
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Boolean inductive=true <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;If true, the load is inductive, otherwise it is capacitive&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Resistance"
+>Modelica.SIunits.Resistance</a> R(start = 1,min=0) = 1 <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Resistance&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Inductance"
+>Modelica.SIunits.Inductance</a> L(start=0, min=0) = 0 <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Inductance&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Capacitance"
+>Modelica.SIunits.Capacitance</a> C(start=0,min=0) = 0 <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Capacitance&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Boolean use_R_in = false <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;If true, R is specified by an input&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Resistance"
+>Modelica.SIunits.Resistance</a> RMin(start = R, min=Modelica.Constants.eps) = 1e-4 <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Minimum value of the resistance&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Resistance"
+>Modelica.SIunits.Resistance</a> RMax(start = R, min=Modelica.Constants.eps) = 1e2 <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Maximum value of the resistance&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Boolean use_C_in = false <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;If true, C is specified by an input&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Capacitance"
+>Modelica.SIunits.Capacitance</a> CMin(start = C, min=Modelica.Constants.eps) = 1e-4 <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Minimum value of the capacitance&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Capacitance"
+>Modelica.SIunits.Capacitance</a> CMax(start = C, min=Modelica.Constants.eps) = 1e2 <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Maximum value of the capacitance&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Boolean use_L_in = false <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;If true, L is specified by an input&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Inductance"
+>Modelica.SIunits.Inductance</a> LMin(start = L, min=Modelica.Constants.eps) = 1e-4 <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Minimum value of the inductance&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Inductance"
+>Modelica.SIunits.Inductance</a> LMax(start = L, min=Modelica.Constants.eps) = 1e2 <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Maximum value of the inductance&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>Modelica.Blocks.Interfaces.RealInput</a> y_R(min=0, max=1) <span style="color: blue; font-weight: normal; font-style: normal;">if </span>use_R_in <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Input that sepecify variable R&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>Modelica.Blocks.Interfaces.RealInput</a> y_C(min=0, max=1) <span style="color: blue; font-weight: normal; font-style: normal;">if </span>use_C_in <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Input that sepecify variable C&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>Modelica.Blocks.Interfaces.RealInput</a> y_L(min=0, max=1) <span style="color: blue; font-weight: normal; font-style: normal;">if </span>use_L_in <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Input that sepecify variable L&quot;</span>;
+<span style="color: blue; font-weight: normal; font-style: normal;">protected </span>
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+>Modelica.Blocks.Interfaces.RealOutput</a> y_R_internal <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Internal signal used to compute the variable R_internal&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+>Modelica.Blocks.Interfaces.RealOutput</a> y_C_internal <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Internal signal used to compute the variable C_internal&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+>Modelica.Blocks.Interfaces.RealOutput</a> y_L_internal <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Internal signal used to compute the variable L_internal&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Resistance"
+>Modelica.SIunits.Resistance</a> R_internal <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Actual resistance used to compute the impedance&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Inductance"
+>Modelica.SIunits.Inductance</a> L_internal <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Actual inductance used to compute the impedance&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Capacitance"
+>Modelica.SIunits.Capacitance</a> C_internal <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Actual capacitance used to compute the impedance&quot;</span>;
+<span style="color: blue; font-weight: normal; font-style: normal;">equation </span>
+  <span style="color: #006400; font-weight: normal; font-style: normal;">// These assertions ensures that if the variable R, L or C is computed using the inputs</span>
+  <span style="color: #006400; font-weight: normal; font-style: normal;">// the parameters min and max are sorted</span>
+  <span style="color: red; font-weight: normal; font-style: normal;">assert</span>((<span style="color: blue; font-weight: normal; font-style: normal;">not </span>use_R_in)<span style="color: blue; font-weight: normal; font-style: normal;"> or </span>RMin &lt; RMax, &quot;The value of RMin has to be lower than RMax&quot;);
+  <span style="color: red; font-weight: normal; font-style: normal;">assert</span>((<span style="color: blue; font-weight: normal; font-style: normal;">not </span>use_L_in)<span style="color: blue; font-weight: normal; font-style: normal;"> or </span>LMin &lt; LMax, &quot;The value of Lmin has to be lower than Lmax&quot;);
+  <span style="color: red; font-weight: normal; font-style: normal;">assert</span>((<span style="color: blue; font-weight: normal; font-style: normal;">not </span>use_C_in)<span style="color: blue; font-weight: normal; font-style: normal;"> or </span>CMin &lt; CMax, &quot;The value of Cmin has to be lower than Cmax&quot;);
+
+  <span style="color: #006400; font-weight: normal; font-style: normal;">// Connections to internal connectors</span>
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(y_R, y_R_internal);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(y_C, y_C_internal);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(y_L, y_L_internal);
+
+  <span style="color: #006400; font-weight: normal; font-style: normal;">// Default assignment when connectors are conditionally removed</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">if </span><span style="color: blue; font-weight: normal; font-style: normal;">not </span>use_R_in<span style="color: blue; font-weight: normal; font-style: normal;"> then</span>
+    y_R_internal = 0;
+  <span style="color: blue; font-weight: normal; font-style: normal;">end if</span>;
+
+  <span style="color: blue; font-weight: normal; font-style: normal;">if </span><span style="color: blue; font-weight: normal; font-style: normal;">not </span>use_C_in<span style="color: blue; font-weight: normal; font-style: normal;"> then</span>
+    y_C_internal = 0;
+  <span style="color: blue; font-weight: normal; font-style: normal;">end if</span>;
+
+  <span style="color: blue; font-weight: normal; font-style: normal;">if </span><span style="color: blue; font-weight: normal; font-style: normal;">not </span>use_L_in<span style="color: blue; font-weight: normal; font-style: normal;"> then</span>
+    y_L_internal = 0;
+  <span style="color: blue; font-weight: normal; font-style: normal;">end if</span>;
+
+  <span style="color: #006400; font-weight: normal; font-style: normal;">// Retrieve the value of the R,L,C either if fixed or</span>
+  <span style="color: #006400; font-weight: normal; font-style: normal;">// varying</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">if </span><span style="color: blue; font-weight: normal; font-style: normal;">not </span>use_R_in<span style="color: blue; font-weight: normal; font-style: normal;"> then</span>
+    R_internal = R;
+  <span style="color: blue; font-weight: normal; font-style: normal;">else</span>
+    R_internal = RMin + y_R_internal*(RMax - RMin);
+  <span style="color: blue; font-weight: normal; font-style: normal;">end if</span>;
+
+  <span style="color: blue; font-weight: normal; font-style: normal;">if </span><span style="color: blue; font-weight: normal; font-style: normal;">not </span>use_C_in<span style="color: blue; font-weight: normal; font-style: normal;"> then</span>
+    C_internal = C;
+  <span style="color: blue; font-weight: normal; font-style: normal;">else</span>
+    C_internal = CMin + y_C_internal*(CMax - CMin);
+  <span style="color: blue; font-weight: normal; font-style: normal;">end if</span>;
+
+  <span style="color: blue; font-weight: normal; font-style: normal;">if </span><span style="color: blue; font-weight: normal; font-style: normal;">not </span>use_L_in<span style="color: blue; font-weight: normal; font-style: normal;"> then</span>
+    L_internal = L;
+  <span style="color: blue; font-weight: normal; font-style: normal;">else</span>
+    L_internal = LMin + y_L_internal*(LMax - LMin);
+  <span style="color: blue; font-weight: normal; font-style: normal;">end if</span>;
+
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>Impedance;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE InductiveLoad<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Electrical.Inte1d3f220a631774eceLoadI.png" alt="Buildings.Electrical.Interfaces.InductiveLoad" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Electrical.Interfaces.InductiveLoad"></a><a href="Buildings_Electrical_Interfaces.html#Buildings.Electrical.Interfaces"
+>Buildings.Electrical.Interfaces</a>.InductiveLoad</h2>
+<p>
+<b>Partial model of an inductive load</b>
+<br>
+<br><img src="Buildings.Electrical.Inte1d3f220a631774eceLoadD.png" alt="Buildings.Electrical.Interfaces.InductiveLoad">
+</p>
+<h3>Information</h3>
+
+<p>
+This is a model of a generic inductive load. This model is an extension of the base load model
+<a href="Buildings.Electrical.Interfaces.PartialLoad">
+Buildings.Electrical.Interfaces.PartialLoad</a>.
+</p>
+<p>
+This model assumes a fixed power factor <code>pf</code> when the flag <code>use_pf_in = false</code>
+otherwise it uses the power factor specified by the input <code>pf_in</code>.
+</p>
+<p>The power factor (either the input or the parameter) is used to compute the reactive power
+<code>Q</code> given the active power <code>P</code>
+</p>
+<p align="center" style="font-style:italic;">
+Q = P  tan(arccos(pf))
+</p>
+
+<p>Extends from <a href="Buildings_Electrical_Interfaces.html#Buildings.Electrical.Interfaces.Load"
+>Load</a> (Partial model for a generic load).</p>
+<h3>Parameters</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td colspan="2">replaceable package PhaseSystem</td><td><a href="Buildings_Electrical_PhaseSystems_PartialPhaseSystem.html#Buildings.Electrical.PhaseSystems.PartialPhaseSystem"
+>PartialPhaseSystem</a></td><td>Phase system</td></tr>
+<tr><td><a href="Buildings_Electrical_Interfaces.html#Buildings.Electrical.Interfaces.Terminal"
+>Terminal</a></td><td>terminal</td><td>redeclare Buildings.Electric...</td><td>Generalized electric terminal</td></tr>
+<tr style="background-color: #e0e0e0"><td colspan="4">Modelling assumption</td></tr>
+<tr><td>Boolean</td><td>linearized</td><td>false</td><td>If true, the load model is linearized</td></tr>
+<tr><td><a href="Buildings_Electrical_Types.html#Buildings.Electrical.Types.Load"
+>Load</a></td><td>mode</td><td>Buildings.Electrical.Types.L...</td><td>Type of load model (e.g., steady state, dynamic, prescribed power consumption, etc.)</td></tr>
+<tr><td>Boolean</td><td>use_pf_in</td><td>false</td><td>If true, the power factor is defined by an input</td></tr>
+<tr style="background-color: #e0e0e0"><td colspan="4">Nominal conditions</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Power"
+>Power</a></td><td>P_nominal</td><td>&nbsp;</td><td>Nominal power (negative if consumed, positive if generated) [W]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Voltage"
+>Voltage</a></td><td>V_nominal</td><td>&nbsp;</td><td>Nominal voltage (V_nominal &gt;= 0) [V]</td></tr>
+<tr><td>Real</td><td>pf</td><td>0.8</td><td>Power factor</td></tr>
+<tr style="background-color: #c0c0c0"><td colspan="4"><b>Initialization</b></td></tr>
+<tr><td><a href="Buildings_Electrical_Types.html#Buildings.Electrical.Types.InitMode"
+>InitMode</a></td><td>initMode</td><td>Buildings.Electrical.Types.I...</td><td>Initialization mode for homotopy operator</td></tr>
+</table>
+<h3>Connectors</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Connectors">
+<tr><th>Type</th><th>Name</th><th>Description</th></tr>
+<tr><td>input <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>RealInput</a></td><td>y</td><td>Fraction of the nominal power consumed [1]</td></tr>
+<tr><td>input <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>RealInput</a></td><td>Pow</td><td>Power consumed [W]</td></tr>
+<tr><td><a href="Buildings_Electrical_Interfaces.html#Buildings.Electrical.Interfaces.Terminal"
+>Terminal</a></td><td>terminal</td><td>Generalized electric terminal</td></tr>
+<tr><td>input <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>RealInput</a></td><td>pf_in</td><td>Power factor [1]</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">partial </span><span style="color: blue; font-weight: normal; font-style: normal;">model</span> InductiveLoad <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Partial model of an inductive load&quot;</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="Buildings_Electrical_Interfaces.html#Buildings.Electrical.Interfaces.Load"
+>Load</a>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Boolean use_pf_in = false <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;If true, the power factor is defined by an input&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Real pf(min=0, max=1) = 0.8 <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Power factor&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>Modelica.Blocks.Interfaces.RealInput</a> pf_in(
+    min=0,
+    max=1,
+    unit=&quot;1&quot;) <span style="color: blue; font-weight: normal; font-style: normal;">if </span>(use_pf_in) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Power factor&quot;</span>;
+<span style="color: blue; font-weight: normal; font-style: normal;">protected </span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">function</span> j = <a href="Buildings_Electrical_PhaseSystems_PartialPhaseSystem.html#Buildings.Electrical.PhaseSystems.PartialPhaseSystem.j"
+>PhaseSystem.j</a> <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;J operator that rotates of 90 degrees&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>Modelica.Blocks.Interfaces.RealInput</a> pf_internal <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Hidden value of the input load for the conditional connector&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.MagneticFlux"
+>Modelica.SIunits.MagneticFlux</a> psi[2](<span style="color: blue; font-weight: normal; font-style: normal;">each </span>stateSelect=StateSelect.prefer) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Magnetic flux&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Impedance"
+>Modelica.SIunits.Impedance</a> Z[2] <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Impedance of the load&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.AngularVelocity"
+>Modelica.SIunits.AngularVelocity</a> omega <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Angular frequency&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Power"
+>Modelica.SIunits.Power</a> Q = P*<span style="color: red; font-weight: normal; font-style: normal;">tan</span>(<span style="color: red; font-weight: normal; font-style: normal;">acos</span>(pf_internal)) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Reactive power (positive because inductive load)&quot;</span>;
+<span style="color: blue; font-weight: normal; font-style: normal;">equation </span>
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(pf_in, pf_internal);
+
+  <span style="color: blue; font-weight: normal; font-style: normal;">if </span><span style="color: blue; font-weight: normal; font-style: normal;">not </span>use_pf_in<span style="color: blue; font-weight: normal; font-style: normal;"> then</span>
+    pf_internal = pf;
+  <span style="color: blue; font-weight: normal; font-style: normal;">end if</span>;
+
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>InductiveLoad;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE Load<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Electrical.Interfaces.LoadI.png" alt="Buildings.Electrical.Interfaces.Load" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Electrical.Interfaces.Load"></a><a href="Buildings_Electrical_Interfaces.html#Buildings.Electrical.Interfaces"
+>Buildings.Electrical.Interfaces</a>.Load</h2>
+<p>
+<b>Partial model for a generic load</b>
+<br>
+<br><img src="Buildings.Electrical.Interfaces.LoadD.png" alt="Buildings.Electrical.Interfaces.Load">
+</p>
+<h3>Information</h3>
+
+<p>
+This model represents a generic load that can be extended to represent
+either a DC or an AC load.
+</p>
+<p>
+The model has a single generalized electric terminal of type
+<a href="Buildings_Electrical_Interfaces.html#Buildings.Electrical.Interfaces.Terminal"
+>
+Buildings.Electrical.Interfaces.Terminal</a>
+that can be redeclared.
+The generalized load is modeled as an impedance whose value can change. The value of the impedance
+can change depending on the value of the parameter <code>mode</code>, which is of type
+<a href="Buildings_Electrical_Types.html#Buildings.Electrical.Types.Load"
+>Buildings.Electrical.Types.Load</a>:
+</p>
+
+<table summary="summary" border="1" cellspacing="0" cellpadding="2" style="border-collapse:collapse;">
+<tr>
+<th>Mode</th>
+<th>Description</th>
+<th>Explanation</th>
+</tr>
+<!-- ************ -->
+<tr>
+<td>Buildings.Electrical.Types.Load.FixedZ_steady_state</td>
+<td>fixed Z steady state</td>
+<td>The load consumes exactly the power
+specified by the parameter <code>P_nominal</code>.
+</td>
+</tr>
+<!-- ************ -->
+<tr>
+<td>Buildings.Electrical.Types.Load.FixedZ_dynamic</td>
+<td>fixed Z dynamic</td>
+<td>
+The load consumes exactly the power
+specified by the parameter <code>P_nominal</code> at steady state.
+Depending on the type
+of load (e.g., inductive or capacitive)
+different dynamics are represented.
+</td>
+</tr>
+<!-- ************ -->
+<tr>
+<td>Buildings.Electrical.Types.Load.VariableZ_P_input</td>
+<td>variable Z P input</td>
+<td>
+The load consumes exactly the power specified
+by the input variable <code>Pow</code>.
+</td>
+</tr>
+<!-- ************ -->
+<tr>
+<td>Buildings.Electrical.Types.Load.VariableZ_y_input</td>
+<td>variable Z y input</td>
+<td>
+The load consumes exactly the a fraction of the nominal power
+<code>P_nominal</code> specified by the input variable <code>y</code>.
+</td>
+</tr>
+<!-- ************ -->
+</table>
+
+
+<h4>Conventions</h4>
+<p>
+It is assumed that the power <code>P</code> of the load is positive when produced
+(e.g., the load acts like a source) and negative when consumed (e.g., the
+source acts like a utilizer).
+</p>
+
+<h4>Linearized models</h4>
+<p>
+The model has a Boolean parameter <code>linearized</code> that by default is equal to <code>false</code>.
+When the power consumption of the load is imposed, this introduces
+a nonlinear equation between the voltage and the current of the load. This flag is used to
+select between a linearized version
+of the equations or the original nonlinear ones.<br/>
+When the linearized version of the model is used, the parameter <code>V_nominal</code> has to
+be specified. The nominal voltage is needed to linearize the nonlinear equations.<br/>
+</p>
+<p>
+<b>Note:</b>
+A linearized model will not consume the nominal power if the voltage
+at the terminal differs from the nominal voltage.
+</p>
+
+
+<h3>Parameters</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td colspan="2">replaceable package PhaseSystem</td><td>Buildings.Electrical.PhaseSy...</td><td>Phase system</td></tr>
+<tr><td><a href="Buildings_Electrical_Interfaces.html#Buildings.Electrical.Interfaces.Terminal"
+>Terminal</a></td><td>terminal</td><td>redeclare Buildings.Electric...</td><td>Generalized electric terminal</td></tr>
+<tr style="background-color: #e0e0e0"><td colspan="4">Modelling assumption</td></tr>
+<tr><td>Boolean</td><td>linearized</td><td>false</td><td>If true, the load model is linearized</td></tr>
+<tr><td><a href="Buildings_Electrical_Types.html#Buildings.Electrical.Types.Load"
+>Load</a></td><td>mode</td><td>Buildings.Electrical.Types.L...</td><td>Type of load model (e.g., steady state, dynamic, prescribed power consumption, etc.)</td></tr>
+<tr style="background-color: #e0e0e0"><td colspan="4">Nominal conditions</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Power"
+>Power</a></td><td>P_nominal</td><td>&nbsp;</td><td>Nominal power (negative if consumed, positive if generated) [W]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Voltage"
+>Voltage</a></td><td>V_nominal</td><td>&nbsp;</td><td>Nominal voltage (V_nominal &gt;= 0) [V]</td></tr>
+<tr style="background-color: #c0c0c0"><td colspan="4"><b>Initialization</b></td></tr>
+<tr><td><a href="Buildings_Electrical_Types.html#Buildings.Electrical.Types.InitMode"
+>InitMode</a></td><td>initMode</td><td>Buildings.Electrical.Types.I...</td><td>Initialization mode for homotopy operator</td></tr>
+</table>
+<h3>Connectors</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Connectors">
+<tr><th>Type</th><th>Name</th><th>Description</th></tr>
+<tr><td colspan="2">replaceable package PhaseSystem</td><td>Phase system</td></tr>
+<tr><td>input <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>RealInput</a></td><td>y</td><td>Fraction of the nominal power consumed [1]</td></tr>
+<tr><td>input <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>RealInput</a></td><td>Pow</td><td>Power consumed [W]</td></tr>
+<tr><td><a href="Buildings_Electrical_Interfaces.html#Buildings.Electrical.Interfaces.Terminal"
+>Terminal</a></td><td>terminal</td><td>Generalized electric terminal</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">model</span> Load <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Partial model for a generic load&quot;</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">replaceable </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> PhaseSystem =
+      <a href="Buildings_Electrical_PhaseSystems_PartialPhaseSystem.html#Buildings.Electrical.PhaseSystems.PartialPhaseSystem"
+>Buildings.Electrical.PhaseSystems.PartialPhaseSystem</a> <span style="color: blue; font-weight: normal; font-style: normal;">constrainedby </span>
+    Buildings.Electrical.PhaseSystems.PartialPhaseSystem <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Phase system&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Boolean linearized = false <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;If true, the load model is linearized&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="Buildings_Electrical_Types.html#Buildings.Electrical.Types.Load"
+>Buildings.Electrical.Types.Load</a> mode(
+    min=Buildings.Electrical.Types.Load.FixedZ_steady_state,
+    max=Buildings.Electrical.Types.Load.VariableZ_y_input) = Buildings.Electrical.Types.Load.FixedZ_steady_state <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Type of load model (e.g., steady state, dynamic, prescribed power consumption, etc.)&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Power"
+>Modelica.SIunits.Power</a> P_nominal <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Nominal power (negative if consumed, positive if generated)&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Voltage"
+>Modelica.SIunits.Voltage</a> V_nominal(min=0, start=110) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Nominal voltage (V_nominal &gt;= 0)&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="Buildings_Electrical_Types.html#Buildings.Electrical.Types.InitMode"
+>Buildings.Electrical.Types.InitMode</a> initMode(
+  min=Buildings.Electrical.Types.InitMode.zero_current,
+  max=Buildings.Electrical.Types.InitMode.linearized) = Buildings.Electrical.Types.InitMode.zero_current <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Initialization mode for homotopy operator&quot;</span>;
+
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Voltage"
+>Modelica.SIunits.Voltage</a> v[:](start =<span style="color: red; font-weight: normal; font-style: normal;"> PhaseSystem.phaseVoltages</span>(V_nominal)) = terminal.v <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Voltage vector&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Current"
+>Modelica.SIunits.Current</a> i[:](start =<span style="color: red; font-weight: normal; font-style: normal;"> PhaseSystem.phaseCurrents</span>(0.0)) = terminal.i <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Current vector&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Power"
+>Modelica.SIunits.Power</a> S[PhaseSystem.n] =<span style="color: red; font-weight: normal; font-style: normal;"> PhaseSystem.phasePowers_vi</span>(v, -i) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Phase powers&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Power"
+>Modelica.SIunits.Power</a> P <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Power of the load (negative if consumed, positive if fed into the electrical grid)&quot;</span>;
+
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>Modelica.Blocks.Interfaces.RealInput</a> y(min=0, max=1, unit=&quot;1&quot;) <span style="color: blue; font-weight: normal; font-style: normal;">if </span>
+       (mode == Buildings.Electrical.Types.Load.VariableZ_y_input) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Fraction of the nominal power consumed&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>Modelica.Blocks.Interfaces.RealInput</a> Pow(unit=&quot;W&quot;) <span style="color: blue; font-weight: normal; font-style: normal;">if </span>
+       (mode == Buildings.Electrical.Types.Load.VariableZ_P_input) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Power consumed&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">replaceable </span><a href="Buildings_Electrical_Interfaces.html#Buildings.Electrical.Interfaces.Terminal"
+>Buildings.Electrical.Interfaces.Terminal</a> terminal(
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">replaceable </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> PhaseSystem = <a href="Buildings_Electrical_Interfaces_PhaseSystem.html#Buildings.Electrical.Interfaces.Load.PhaseSystem"
+>PhaseSystem</a>) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Generalized electric terminal&quot;</span>;
+
+<span style="color: blue; font-weight: normal; font-style: normal;">protected </span>
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>Modelica.Blocks.Interfaces.RealInput</a> y_internal <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Hidden value of the input load for the conditional connector&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>Modelica.Blocks.Interfaces.RealInput</a> P_internal <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Hidden value of the input power for the conditional connector&quot;</span>;
+  Real load(min=eps, max=1) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Internal representation of control signal, used to avoid singularity&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">constant </span>Real eps = 1E-10 <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Small number used to avoid a singularity if the power is zero&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">constant </span>Real oneEps = 1-eps <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Small number used to avoid a singularity if the power is zero&quot;</span>;
+<span style="color: blue; font-weight: normal; font-style: normal;">equation </span>
+  <span style="color: red; font-weight: normal; font-style: normal;">assert</span>(y_internal&gt;=0<span style="color: blue; font-weight: normal; font-style: normal;"> and </span>y_internal&lt;=1+eps, &quot;The power load fraction P (input of the model) must be within [0,1]&quot;);
+
+  <span style="color: #006400; font-weight: normal; font-style: normal;">// Connection between the conditional and inner connector</span>
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(y,y_internal);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(Pow,P_internal);
+
+  <span style="color: #006400; font-weight: normal; font-style: normal;">// If the power is fixed, inner connector value is equal to 1</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">if </span>mode==Buildings.Electrical.Types.Load.FixedZ_steady_state<span style="color: blue; font-weight: normal; font-style: normal;"> or </span>
+     mode==Buildings.Electrical.Types.Load.FixedZ_dynamic<span style="color: blue; font-weight: normal; font-style: normal;"> then</span>
+    y_internal   = 1;
+    P_internal = P_nominal;
+  <span style="color: blue; font-weight: normal; font-style: normal;">elseif </span>mode==Buildings.Electrical.Types.Load.VariableZ_y_input<span style="color: blue; font-weight: normal; font-style: normal;"> then</span>
+    P_internal = 0;
+  <span style="color: blue; font-weight: normal; font-style: normal;">elseif </span>mode==Buildings.Electrical.Types.Load.VariableZ_P_input<span style="color: blue; font-weight: normal; font-style: normal;"> then</span>
+    y_internal = 1;
+  <span style="color: blue; font-weight: normal; font-style: normal;">end if</span>;
+
+  <span style="color: #006400; font-weight: normal; font-style: normal;">// Value of the load, depending on the type: fixed or variable</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">if </span>mode==Buildings.Electrical.Types.Load.VariableZ_y_input<span style="color: blue; font-weight: normal; font-style: normal;"> then</span>
+    load = eps + oneEps*y_internal;
+  <span style="color: blue; font-weight: normal; font-style: normal;">else</span>
+    load = 1;
+  <span style="color: blue; font-weight: normal; font-style: normal;">end if</span>;
+
+  <span style="color: #006400; font-weight: normal; font-style: normal;">// Power consumption</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">if </span>mode==Buildings.Electrical.Types.Load.FixedZ_steady_state<span style="color: blue; font-weight: normal; font-style: normal;"> or </span>
+     mode==Buildings.Electrical.Types.Load.FixedZ_dynamic<span style="color: blue; font-weight: normal; font-style: normal;"> then</span>
+    P = P_nominal;
+  <span style="color: blue; font-weight: normal; font-style: normal;">elseif </span>mode==Buildings.Electrical.Types.Load.VariableZ_P_input<span style="color: blue; font-weight: normal; font-style: normal;"> then</span>
+    P = P_internal;
+  <span style="color: blue; font-weight: normal; font-style: normal;">else</span>
+    P = P_nominal*load;
+  <span style="color: blue; font-weight: normal; font-style: normal;">end if</span>;
+
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>Load;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE PartialBaseTwoPort<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Electrical.Inte590f85e4956093d5oPortI.png" alt="Buildings.Electrical.Interfaces.PartialBaseTwoPort" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Electrical.Interfaces.PartialBaseTwoPort"></a><a href="Buildings_Electrical_Interfaces.html#Buildings.Electrical.Interfaces"
+>Buildings.Electrical.Interfaces</a>.PartialBaseTwoPort</h2>
+<p>
+<b>Model of a generic two port component</b>
+<br>
+<br><img src="Buildings.Electrical.Inte590f85e4956093d5oPortD.png" alt="Buildings.Electrical.Interfaces.PartialBaseTwoPort">
+</p>
+<h3>Information</h3>
+
+<p>
+This model declares connectors for electrical components with two terminals.
+</p>
+
+<h3>Parameters</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td><a href="Buildings_Electrical_Interfaces.html#Buildings.Electrical.Interfaces.BaseTerminal"
+>BaseTerminal</a></td><td>terminal_n</td><td>redeclare Buildings.Electric...</td><td>Electric terminal side p</td></tr>
+<tr><td><a href="Buildings_Electrical_Interfaces.html#Buildings.Electrical.Interfaces.BaseTerminal"
+>BaseTerminal</a></td><td>terminal_p</td><td>redeclare Buildings.Electric...</td><td>Electric terminal side n</td></tr>
+</table>
+<h3>Connectors</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Connectors">
+<tr><th>Type</th><th>Name</th><th>Description</th></tr>
+<tr><td><a href="Buildings_Electrical_Interfaces.html#Buildings.Electrical.Interfaces.BaseTerminal"
+>BaseTerminal</a></td><td>terminal_n</td><td>Electric terminal side p</td></tr>
+<tr><td><a href="Buildings_Electrical_Interfaces.html#Buildings.Electrical.Interfaces.BaseTerminal"
+>BaseTerminal</a></td><td>terminal_p</td><td>Electric terminal side n</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">model</span> PartialBaseTwoPort <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Model of a generic two port component&quot;</span>
+
+  <span style="color: blue; font-weight: normal; font-style: normal;">replaceable </span><a href="Buildings_Electrical_Interfaces.html#Buildings.Electrical.Interfaces.BaseTerminal"
+>Buildings.Electrical.Interfaces.BaseTerminal</a> terminal_n <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Electric terminal side p&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">replaceable </span><a href="Buildings_Electrical_Interfaces.html#Buildings.Electrical.Interfaces.BaseTerminal"
+>Buildings.Electrical.Interfaces.BaseTerminal</a> terminal_p <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Electric terminal side n&quot;</span>;
+
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>PartialBaseTwoPort;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE PartialConversion<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Electrical.Inte590f85e4956093d5oPortI.png" alt="Buildings.Electrical.Interfaces.PartialConversion" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Electrical.Interfaces.PartialConversion"></a><a href="Buildings_Electrical_Interfaces.html#Buildings.Electrical.Interfaces"
+>Buildings.Electrical.Interfaces</a>.PartialConversion</h2>
+<p>
+<b>Model representing a generic two port system for conversion</b>
+<br>
+<br><img src="Buildings.Electrical.Inte590f85e4956093d5oPortD.png" alt="Buildings.Electrical.Interfaces.PartialConversion">
+</p>
+<h3>Information</h3>
+
+<p>
+This model extends the base class
+<a href="Buildings_Electrical_Interfaces.html#Buildings.Electrical.Interfaces.PartialTwoPort"
+>
+Buildings.Electrical.Interfaces.PartialTwoPort</a>
+model and declares the variables
+<code>v_p</code> and <code>i_p</code> that represents the voltage and the
+current at the <code>terminal_p</code>, and the variables
+<code>v_n</code> and <code>i_n</code> that represents the voltage and the
+current at the <code>terminal_n</code>.
+These variables are used in conversion models such as transformers and AC/DC converters.
+</p>
+
+<p>Extends from <a href="Buildings_Electrical_Interfaces.html#Buildings.Electrical.Interfaces.PartialTwoPort"
+>Buildings.Electrical.Interfaces.PartialTwoPort</a> (Model of a generic two port component with phase systems).</p>
+<h3>Parameters</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td colspan="2">replaceable package PhaseSystem_p</td><td><a href="Buildings_Electrical_PhaseSystems_PartialPhaseSystem.html#Buildings.Electrical.PhaseSystems.PartialPhaseSystem"
+>PartialPhaseSystem</a></td><td>Phase system of terminal p</td></tr>
+<tr><td colspan="2">replaceable package PhaseSystem_n</td><td><a href="Buildings_Electrical_PhaseSystems_PartialPhaseSystem.html#Buildings.Electrical.PhaseSystems.PartialPhaseSystem"
+>PartialPhaseSystem</a></td><td>Phase system of terminal n</td></tr>
+<tr><td><a href="Buildings_Electrical_Interfaces.html#Buildings.Electrical.Interfaces.Terminal"
+>Terminal</a></td><td>terminal_n</td><td>redeclare replaceable Buildi...</td><td>Electric terminal side p</td></tr>
+<tr><td><a href="Buildings_Electrical_Interfaces.html#Buildings.Electrical.Interfaces.Terminal"
+>Terminal</a></td><td>terminal_p</td><td>redeclare replaceable Buildi...</td><td>Electric terminal side n</td></tr>
+</table>
+<h3>Connectors</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Connectors">
+<tr><th>Type</th><th>Name</th><th>Description</th></tr>
+<tr><td><a href="Buildings_Electrical_Interfaces.html#Buildings.Electrical.Interfaces.Terminal"
+>Terminal</a></td><td>terminal_n</td><td>Electric terminal side p</td></tr>
+<tr><td><a href="Buildings_Electrical_Interfaces.html#Buildings.Electrical.Interfaces.Terminal"
+>Terminal</a></td><td>terminal_p</td><td>Electric terminal side n</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">model</span> PartialConversion <span style="color: #006400; font-weight: normal; font-style: normal;">
+  &quot;Model representing a generic two port system for conversion&quot;</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="Buildings_Electrical_Interfaces.html#Buildings.Electrical.Interfaces.PartialTwoPort"
+>Buildings.Electrical.Interfaces.PartialTwoPort</a>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Voltage"
+>Modelica.SIunits.Voltage</a> v_p <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Voltage drop between the two positive pins&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Voltage"
+>Modelica.SIunits.Voltage</a> v_n <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Voltage drop between the two negative pins&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Current"
+>Modelica.SIunits.Current</a> i_p <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Current flowing through the positive pins&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Current"
+>Modelica.SIunits.Current</a> i_n <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Current flowing through the negative pins&quot;</span>;
+<span style="color: blue; font-weight: normal; font-style: normal;">equation </span>
+  i_p =<span style="color: red; font-weight: normal; font-style: normal;"> PhaseSystem_p.systemCurrent</span>(terminal_p.i);
+  i_n =<span style="color: red; font-weight: normal; font-style: normal;"> PhaseSystem_n.systemCurrent</span>(terminal_n.i);
+
+  v_p =<span style="color: red; font-weight: normal; font-style: normal;"> PhaseSystem_p.systemVoltage</span>(terminal_p.v);
+  v_n =<span style="color: red; font-weight: normal; font-style: normal;"> PhaseSystem_n.systemVoltage</span>(terminal_n.v);
+
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>PartialConversion;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE PartialPV<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Electrical.Inte87e49fda8ee08fbdialPVI.png" alt="Buildings.Electrical.Interfaces.PartialPV" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Electrical.Interfaces.PartialPV"></a><a href="Buildings_Electrical_Interfaces.html#Buildings.Electrical.Interfaces"
+>Buildings.Electrical.Interfaces</a>.PartialPV</h2>
+<p>
+<b>Base model for a PV system</b>
+<br>
+<br><img src="Buildings.Electrical.Inte87e49fda8ee08fbdialPVD.png" alt="Buildings.Electrical.Interfaces.PartialPV">
+</p>
+<h3>Information</h3>
+
+<p>
+Partial model of a simple photovoltaic array.
+</p>
+<p>
+This model computes the power as <i>P=A &nbsp; f<sub>act</sub> &nbsp; &eta; &nbsp; G</i>,
+where <i>A</i> is the panel area,
+<i>f<sub>act</sub></i> is the fraction of the aperture area,
+<i>&eta;</i> is the panel efficiency and
+<i>G</i> is the total solar irradiation.
+</p>
+<p>
+<b>Note:</b> This model takes as input the total solar irradiation on the panel.
+This has to be computed converting the incoming radiation to take tilt and azimuth into account.
+</p>
+<p>
+The electrical connector is a general electrical interface.
+</p>
+
+<p>Extends from <a href="Buildings_Electrical_Interfaces.html#Buildings.Electrical.Interfaces.PartialPvBase"
+>Buildings.Electrical.Interfaces.PartialPvBase</a> (Partial model with basic parameters for PVs).</p>
+<h3>Parameters</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Area"
+>Area</a></td><td>A</td><td>&nbsp;</td><td>Net surface area [m2]</td></tr>
+<tr><td>Real</td><td>fAct</td><td>0.9</td><td>Fraction of surface area with active solar cells [1]</td></tr>
+<tr><td>Real</td><td>eta</td><td>0.12</td><td>Module conversion efficiency [1]</td></tr>
+<tr><td colspan="2">replaceable package PhaseSystem</td><td>Buildings.Electrical.PhaseSy...</td><td>Phase system</td></tr>
+<tr><td><a href="Buildings_Electrical_Interfaces.html#Buildings.Electrical.Interfaces.Terminal"
+>Terminal</a></td><td>terminal</td><td>redeclare Buildings.Electric...</td><td>Generalized terminal</td></tr>
+<tr style="background-color: #e0e0e0"><td colspan="4">Nominal conditions</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Voltage"
+>Voltage</a></td><td>V_nominal</td><td>&nbsp;</td><td>Nominal voltage (V_nominal &gt;= 0) [V]</td></tr>
+</table>
+<h3>Connectors</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Connectors">
+<tr><th>Type</th><th>Name</th><th>Description</th></tr>
+<tr><td>output <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+>RealOutput</a></td><td>P</td><td>Generated power [W]</td></tr>
+<tr><td colspan="2">replaceable package PhaseSystem</td><td>Phase system</td></tr>
+<tr><td>input <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>RealInput</a></td><td>G</td><td>Total solar irradiation per unit area [W/m2]</td></tr>
+<tr><td><a href="Buildings_Electrical_Interfaces.html#Buildings.Electrical.Interfaces.Terminal"
+>Terminal</a></td><td>terminal</td><td>Generalized terminal</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">model</span> PartialPV <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Base model for a PV system&quot;</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="Buildings_Electrical_Interfaces.html#Buildings.Electrical.Interfaces.PartialPvBase"
+>Buildings.Electrical.Interfaces.PartialPvBase</a>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">replaceable </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> PhaseSystem =
+      <a href="Buildings_Electrical_PhaseSystems_PartialPhaseSystem.html#Buildings.Electrical.PhaseSystems.PartialPhaseSystem"
+>Buildings.Electrical.PhaseSystems.PartialPhaseSystem</a> <span style="color: blue; font-weight: normal; font-style: normal;">constrainedby </span>
+    Buildings.Electrical.PhaseSystems.PartialPhaseSystem <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Phase system&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Voltage"
+>Modelica.SIunits.Voltage</a> V_nominal(min=0, start=110) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Nominal voltage (V_nominal &gt;= 0)&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>Modelica.Blocks.Interfaces.RealInput</a> G(unit=&quot;W/m2&quot;) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Total solar irradiation per unit area&quot;</span>;
+
+  <span style="color: blue; font-weight: normal; font-style: normal;">replaceable </span><a href="Buildings_Electrical_Interfaces.html#Buildings.Electrical.Interfaces.Terminal"
+>Buildings.Electrical.Interfaces.Terminal</a> terminal(
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">final </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> PhaseSystem = <a href="Buildings_Electrical_Interfaces_PhaseSystem.html#Buildings.Electrical.Interfaces.PartialPV.PhaseSystem"
+>PhaseSystem</a>) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Generalized terminal&quot;</span>;
+
+<span style="color: blue; font-weight: normal; font-style: normal;">protected </span>
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.RealExpression"
+>Modelica.Blocks.Sources.RealExpression</a> solarPower(y=A*fAct*eta*G);
+
+<span style="color: blue; font-weight: normal; font-style: normal;">equation </span>
+  <span style="color: red; font-weight: normal; font-style: normal;">assert</span>(solarPower.y&gt;=0, &quot;Solar power must be positive&quot;);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(solarPower.y, P);
+
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>PartialPV;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE PartialPVOriented<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Electrical.Inte724fc102b7e9632eentedI.png" alt="Buildings.Electrical.Interfaces.PartialPVOriented" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Electrical.Interfaces.PartialPVOriented"></a><a href="Buildings_Electrical_Interfaces.html#Buildings.Electrical.Interfaces"
+>Buildings.Electrical.Interfaces</a>.PartialPVOriented</h2>
+<p>
+<b>Base model of a PV system with orientation</b>
+<br>
+<br><img src="Buildings.Electrical.Inte724fc102b7e9632eentedD.png" alt="Buildings.Electrical.Interfaces.PartialPVOriented">
+</p>
+<h3>Information</h3>
+
+<p>
+Partial model of a simple photovoltaic array.
+</p>
+<p>
+This model takes as an input the
+direct and diffuse solar radiation from the weather data bus.
+</p>
+<p>
+This model computes the power as <i>P=A &nbsp; f<sub>act</sub> &nbsp; &eta; &nbsp; G</i>,
+where <i>A</i> is the panel area,
+<i>f<sub>act</sub></i> is the fraction of the aperture area,
+<i>&eta;</i> is the panel efficiency and
+<i>G</i> is the total solar irradiation, which is the sum of
+direct and diffuse irradiation.
+The model takes into account the location and the orientation of the PV panel,
+specified by the surface tilt, latitude and azimuth.
+</p>
+
+<p>Extends from <a href="Buildings_Electrical_Interfaces.html#Buildings.Electrical.Interfaces.PartialPvBase"
+>Buildings.Electrical.Interfaces.PartialPvBase</a> (Partial model with basic parameters for PVs).</p>
+<h3>Parameters</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Area"
+>Area</a></td><td>A</td><td>&nbsp;</td><td>Net surface area [m2]</td></tr>
+<tr><td>Real</td><td>fAct</td><td>0.9</td><td>Fraction of surface area with active solar cells [1]</td></tr>
+<tr><td>Real</td><td>eta</td><td>0.12</td><td>Module conversion efficiency [1]</td></tr>
+<tr><td colspan="2">replaceable package PhaseSystem</td><td>Buildings.Electrical.PhaseSy...</td><td>Phase system</td></tr>
+<tr><td><a href="Buildings_Electrical_Interfaces.html#Buildings.Electrical.Interfaces.Terminal"
+>Terminal</a></td><td>terminal</td><td>redeclare Buildings.Electric...</td><td>Generalized terminal</td></tr>
+<tr><td><a href="Buildings_Electrical_Interfaces.html#Buildings.Electrical.Interfaces.PartialPV"
+>PartialPV</a></td><td>panel</td><td>redeclare PartialPV panel</td><td>PV panel</td></tr>
+<tr style="background-color: #e0e0e0"><td colspan="4">Orientation</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
+>Angle</a></td><td>til</td><td>&nbsp;</td><td>Surface tilt [rad]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
+>Angle</a></td><td>lat</td><td>&nbsp;</td><td>Latitude [rad]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
+>Angle</a></td><td>azi</td><td>&nbsp;</td><td>Surface azimuth [rad]</td></tr>
+<tr style="background-color: #e0e0e0"><td colspan="4">Nominal conditions</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Voltage"
+>Voltage</a></td><td>V_nominal</td><td>&nbsp;</td><td>Nominal voltage (V_nominal &gt;= 0) [V]</td></tr>
+</table>
+<h3>Connectors</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Connectors">
+<tr><th>Type</th><th>Name</th><th>Description</th></tr>
+<tr><td>output <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+>RealOutput</a></td><td>P</td><td>Generated power [W]</td></tr>
+<tr><td colspan="2">replaceable package PhaseSystem</td><td>Phase system</td></tr>
+<tr><td><a href="Buildings_Electrical_Interfaces.html#Buildings.Electrical.Interfaces.Terminal"
+>Terminal</a></td><td>terminal</td><td>Generalized terminal</td></tr>
+<tr><td><a href="Buildings_BoundaryConditions_WeatherData.html#Buildings.BoundaryConditions.WeatherData.Bus"
+>Bus</a></td><td>weaBus</td><td>Weather data</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">model</span> PartialPVOriented <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Base model of a PV system with orientation&quot;</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="Buildings_Electrical_Interfaces.html#Buildings.Electrical.Interfaces.PartialPvBase"
+>Buildings.Electrical.Interfaces.PartialPvBase</a>;
+
+  <span style="color: blue; font-weight: normal; font-style: normal;">replaceable </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> PhaseSystem =
+      <a href="Buildings_Electrical_PhaseSystems_PartialPhaseSystem.html#Buildings.Electrical.PhaseSystems.PartialPhaseSystem"
+>Buildings.Electrical.PhaseSystems.PartialPhaseSystem</a> <span style="color: blue; font-weight: normal; font-style: normal;">constrainedby </span>
+    Buildings.Electrical.PhaseSystems.PartialPhaseSystem <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Phase system&quot;</span>;
+
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
+>Modelica.SIunits.Angle</a> til <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Surface tilt&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
+>Modelica.SIunits.Angle</a> lat <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Latitude&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
+>Modelica.SIunits.Angle</a> azi <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Surface azimuth&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Voltage"
+>Modelica.SIunits.Voltage</a> V_nominal(min=0, start=110) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Nominal voltage (V_nominal &gt;= 0)&quot;</span>;
+
+  <span style="color: blue; font-weight: normal; font-style: normal;">replaceable </span><a href="Buildings_Electrical_Interfaces.html#Buildings.Electrical.Interfaces.Terminal"
+>Buildings.Electrical.Interfaces.Terminal</a> terminal(
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">final </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> PhaseSystem = <a href="Buildings_Electrical_Interfaces_PhaseSystem.html#Buildings.Electrical.Interfaces.PartialPVOriented.PhaseSystem"
+>PhaseSystem</a>) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Generalized terminal&quot;</span>;
+
+  <span style="color: blue; font-weight: normal; font-style: normal;">replaceable </span><a href="Buildings_Electrical_Interfaces.html#Buildings.Electrical.Interfaces.PartialPV"
+>PartialPV</a> panel <span style="color: blue; font-weight: normal; font-style: normal;">constrainedby </span>PartialPV(
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">final </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> PhaseSystem = <a href="Buildings_Electrical_Interfaces_PhaseSystem.html#Buildings.Electrical.Interfaces.PartialPVOriented.PhaseSystem"
+>PhaseSystem</a>,
+    <span style="color: blue; font-weight: normal; font-style: normal;">final </span>A=A,
+    <span style="color: blue; font-weight: normal; font-style: normal;">final </span>fAct=fAct,
+    <span style="color: blue; font-weight: normal; font-style: normal;">final </span>eta=eta) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;PV panel&quot;</span>;
+
+  <a href="Buildings_BoundaryConditions_WeatherData.html#Buildings.BoundaryConditions.WeatherData.Bus"
+>BoundaryConditions.WeatherData.Bus</a> weaBus <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Weather data&quot;</span>;
+<span style="color: blue; font-weight: normal; font-style: normal;">protected </span>
+  <a href="Buildings_BoundaryConditions_SolarIrradiation.html#Buildings.BoundaryConditions.SolarIrradiation.DiffusePerez"
+>BoundaryConditions.SolarIrradiation.DiffusePerez</a> HDifTil(
+    <span style="color: blue; font-weight: normal; font-style: normal;">final </span>til=til,
+    <span style="color: blue; font-weight: normal; font-style: normal;">final </span>lat=lat,
+    <span style="color: blue; font-weight: normal; font-style: normal;">final </span>azi=azi) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Diffuse irradiation on tilted surface&quot;</span>;
+  <a href="Buildings_BoundaryConditions_SolarIrradiation.html#Buildings.BoundaryConditions.SolarIrradiation.DirectTiltedSurface"
+>BoundaryConditions.SolarIrradiation.DirectTiltedSurface</a> HDirTil(
+    <span style="color: blue; font-weight: normal; font-style: normal;">final </span>til=til,
+    <span style="color: blue; font-weight: normal; font-style: normal;">final </span>lat=lat,
+    <span style="color: blue; font-weight: normal; font-style: normal;">final </span>azi=azi) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Direct irradiation on tilted surface&quot;</span>;
+
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Math.html#Modelica.Blocks.Math.Add"
+>Modelica.Blocks.Math.Add</a> G <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Total irradiation on tilted surface&quot;</span>;
+
+<span style="color: blue; font-weight: normal; font-style: normal;">equation </span>
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(panel.P, P);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(terminal, panel.terminal);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(HDifTil.H,G. u1);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(HDirTil.H,G. u2);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(G.y, panel.G);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(HDifTil.weaBus, weaBus);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(weaBus, HDirTil.weaBus);
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>PartialPVOriented;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE PartialPvBase<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Electrical.Inte48b5fdb7f9f86405vBaseI.png" alt="Buildings.Electrical.Interfaces.PartialPvBase" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Electrical.Interfaces.PartialPvBase"></a><a href="Buildings_Electrical_Interfaces.html#Buildings.Electrical.Interfaces"
+>Buildings.Electrical.Interfaces</a>.PartialPvBase</h2>
+<p>
+<b>Partial model with basic parameters for PVs</b>
+<br>
+<br><img src="Buildings.Electrical.Inte48b5fdb7f9f86405vBaseD.png" alt="Buildings.Electrical.Interfaces.PartialPvBase">
+</p>
+<h3>Information</h3>
+
+<p>
+This model contains the minimum set of parameters necessary to describe
+a PV system.
+The model defines also an output <code>P</code> for the power generated by the PVs.
+</p>
+
+<h3>Parameters</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Area"
+>Area</a></td><td>A</td><td>&nbsp;</td><td>Net surface area [m2]</td></tr>
+<tr><td>Real</td><td>fAct</td><td>0.9</td><td>Fraction of surface area with active solar cells [1]</td></tr>
+<tr><td>Real</td><td>eta</td><td>0.12</td><td>Module conversion efficiency [1]</td></tr>
+</table>
+<h3>Connectors</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Connectors">
+<tr><th>Type</th><th>Name</th><th>Description</th></tr>
+<tr><td>output <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+>RealOutput</a></td><td>P</td><td>Generated power [W]</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">partial </span><span style="color: blue; font-weight: normal; font-style: normal;">model</span> PartialPvBase <span style="color: #006400; font-weight: normal; font-style: normal;">
+  &quot;Partial model with basic parameters for PVs&quot;</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Area"
+>Modelica.SIunits.Area</a> A <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Net surface area&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Real fAct(min=0, max=1, unit=&quot;1&quot;) = 0.9 <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Fraction of surface area with active solar cells&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Real eta(min=0, max=1, unit=&quot;1&quot;) = 0.12 <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Module conversion efficiency&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+>Modelica.Blocks.Interfaces.RealOutput</a> P(unit=&quot;W&quot;) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Generated power&quot;</span>;
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>PartialPvBase;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE PartialTwoPort<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Electrical.Inte17106f653fc472eaoPortI.png" alt="Buildings.Electrical.Interfaces.PartialTwoPort" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Electrical.Interfaces.PartialTwoPort"></a><a href="Buildings_Electrical_Interfaces.html#Buildings.Electrical.Interfaces"
+>Buildings.Electrical.Interfaces</a>.PartialTwoPort</h2>
+<p>
+<b>Model of a generic two port component with phase systems</b>
+<br>
+<br><img src="Buildings.Electrical.Inte17106f653fc472eaoPortD.png" alt="Buildings.Electrical.Interfaces.PartialTwoPort">
+</p>
+<h3>Information</h3>
+
+<p>
+This is a model of a component with two electric terminals.
+It represents a common interface that is extended by other models.
+</p>
+
+<p>Extends from <a href="Buildings_Electrical_Interfaces.html#Buildings.Electrical.Interfaces.PartialBaseTwoPort"
+>Buildings.Electrical.Interfaces.PartialBaseTwoPort</a> (Model of a generic two port component).</p>
+<h3>Parameters</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td colspan="2">replaceable package PhaseSystem_p</td><td>Buildings.Electrical.PhaseSy...</td><td>Phase system of terminal p</td></tr>
+<tr><td colspan="2">replaceable package PhaseSystem_n</td><td>Buildings.Electrical.PhaseSy...</td><td>Phase system of terminal n</td></tr>
+</table>
+<h3>Connectors</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Connectors">
+<tr><th>Type</th><th>Name</th><th>Description</th></tr>
+<tr><td colspan="2">replaceable package PhaseSystem_p</td><td>Phase system of terminal p</td></tr>
+<tr><td colspan="2">replaceable package PhaseSystem_n</td><td>Phase system of terminal n</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">model</span> PartialTwoPort <span style="color: #006400; font-weight: normal; font-style: normal;">
+  &quot;Model of a generic two port component with phase systems&quot;</span>
+
+  <span style="color: blue; font-weight: normal; font-style: normal;">replaceable </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> PhaseSystem_p =
+      <a href="Buildings_Electrical_PhaseSystems_PartialPhaseSystem.html#Buildings.Electrical.PhaseSystems.PartialPhaseSystem"
+>Buildings.Electrical.PhaseSystems.PartialPhaseSystem</a> <span style="color: blue; font-weight: normal; font-style: normal;">constrainedby </span>
+    Buildings.Electrical.PhaseSystems.PartialPhaseSystem <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Phase system of terminal p&quot;</span>;
+
+  <span style="color: blue; font-weight: normal; font-style: normal;">replaceable </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> PhaseSystem_n =
+      <a href="Buildings_Electrical_PhaseSystems_PartialPhaseSystem.html#Buildings.Electrical.PhaseSystems.PartialPhaseSystem"
+>Buildings.Electrical.PhaseSystems.PartialPhaseSystem</a> <span style="color: blue; font-weight: normal; font-style: normal;">constrainedby </span>
+    Buildings.Electrical.PhaseSystems.PartialPhaseSystem <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Phase system of terminal n&quot;</span>;
+
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="Buildings_Electrical_Interfaces.html#Buildings.Electrical.Interfaces.PartialBaseTwoPort"
+>Buildings.Electrical.Interfaces.PartialBaseTwoPort</a>(
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">replaceable </span><a href="Buildings_Electrical_Interfaces.html#Buildings.Electrical.Interfaces.Terminal"
+>Buildings.Electrical.Interfaces.Terminal</a>
+      terminal_n(<span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">replaceable </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> PhaseSystem = <a href="Buildings_Electrical_Interfaces_PhaseSystem_n.html#Buildings.Electrical.Interfaces.PartialTwoPort.PhaseSystem_n"
+>PhaseSystem_n</a>),
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">replaceable </span><a href="Buildings_Electrical_Interfaces.html#Buildings.Electrical.Interfaces.Terminal"
+>Buildings.Electrical.Interfaces.Terminal</a>
+      terminal_p(<span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">replaceable </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> PhaseSystem=<a href="Buildings_Electrical_Interfaces_PhaseSystem_p.html#Buildings.Electrical.Interfaces.PartialTwoPort.PhaseSystem_p"
+>PhaseSystem_p</a>));
+
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>PartialTwoPort;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE PartialWindTurbine<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Electrical.Inteb281284b90fc954crbineI.png" alt="Buildings.Electrical.Interfaces.PartialWindTurbine" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Electrical.Interfaces.PartialWindTurbine"></a><a href="Buildings_Electrical_Interfaces.html#Buildings.Electrical.Interfaces"
+>Buildings.Electrical.Interfaces</a>.PartialWindTurbine</h2>
+<p>
+<b>Partial model of a wind turbine with power output based on table as a function of wind speed</b>
+<br>
+<br><img src="Buildings.Electrical.Inteb281284b90fc954crbineD.png" alt="Buildings.Electrical.Interfaces.PartialWindTurbine">
+</p>
+<h3>Information</h3>
+
+<p>
+Model of a wind turbine whose power is computed as a function of wind-speed as defined in a table.
+</p>
+<p>
+Input to the model is the local wind speed.
+The model requires the specification of a table that maps wind speed in meters per second to generated
+power <i>P<sub>t</sub></i> in Watts.
+The model has a parameter called <code>scale</code> with a default value of one
+that can be used to scale the power generated by the wind turbine.
+The generated electrical power is
+<p align="center" style="font-style:italic;">
+P = P<sub>t</sub> scale
+</p>
+<p>
+For example, the following specification (with default <code>scale=1</code>) of a wind turbine
+</p>
+<pre>
+  WindTurbine_Table tur(
+    table=[3.5, 0;
+           5.5,   100;
+           12, 900;
+           14, 1000;
+           25, 1000]) "Wind turbine";
+</pre>
+<p>
+yields the performance shown below. In this example, the cut-in wind speed is
+<i>3.5</i> meters per second,
+and the cut-out wind speed is <i>25</i> meters per second,
+as entered by the first and last entry of the wind speed column.
+Below and above these wind speeds, the generated power is zero.
+</p>
+<p align="center">
+<img alt="alt-image" src="../Resources/Images/Electrical/DC/Sources/WindTurbine_Table.png"/>
+</p>
+
+<p>Extends from <a href="Buildings_Electrical_Interfaces.html#Buildings.Electrical.Interfaces.PartialWindTurbineBase"
+>Buildings.Electrical.Interfaces.PartialWindTurbineBase</a> (Base class for turbine model that contains basic parameters).</p>
+<h3>Parameters</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td>Real</td><td>scale</td><td>1</td><td>Scaling factor, used to allow adjusting the power output without changing the table</td></tr>
+<tr><td>Boolean</td><td>tableOnFile</td><td>false</td><td>true, if table is defined on file or in function usertab</td></tr>
+<tr><td>Real</td><td>table[:, 2]</td><td>[3.5, 0; 5.5, 0.1; 12, 0.9; ...</td><td>Table of generated power (first column is wind speed, second column is power)</td></tr>
+<tr><td>String</td><td>tableName</td><td>&quot;NoName&quot;</td><td>Table name on file or in function usertab (see documentation)</td></tr>
+<tr><td>String</td><td>fileName</td><td>&quot;NoName&quot;</td><td>File where matrix is stored</td></tr>
+<tr><td colspan="2">replaceable package PhaseSystem</td><td>Buildings.Electrical.PhaseSy...</td><td>Phase system</td></tr>
+<tr><td><a href="Buildings_Electrical_Interfaces.html#Buildings.Electrical.Interfaces.Terminal"
+>Terminal</a></td><td>terminal</td><td>redeclare Buildings.Electric...</td><td>Generalized terminal</td></tr>
+<tr style="background-color: #e0e0e0"><td colspan="4">Wind correction</td></tr>
+<tr><td>Real</td><td>h</td><td>&nbsp;</td><td>Height over ground</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Height"
+>Height</a></td><td>hRef</td><td>10</td><td>Reference height for wind measurement [m]</td></tr>
+<tr><td>Real</td><td>nWin</td><td>0.4</td><td>Height exponent for wind profile calculation</td></tr>
+<tr style="background-color: #e0e0e0"><td colspan="4">Nominal conditions</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Voltage"
+>Voltage</a></td><td>V_nominal</td><td>&nbsp;</td><td>Nominal voltage (V_nominal &gt;= 0) [V]</td></tr>
+</table>
+<h3>Connectors</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Connectors">
+<tr><th>Type</th><th>Name</th><th>Description</th></tr>
+<tr><td>input <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>RealInput</a></td><td>vWin</td><td>Steady wind speed [m/s]</td></tr>
+<tr><td>output <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+>RealOutput</a></td><td>P</td><td>Generated power [W]</td></tr>
+<tr><td colspan="2">replaceable package PhaseSystem</td><td>Phase system</td></tr>
+<tr><td><a href="Buildings_Electrical_Interfaces.html#Buildings.Electrical.Interfaces.Terminal"
+>Terminal</a></td><td>terminal</td><td>Generalized terminal</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">model</span> PartialWindTurbine <span style="color: #006400; font-weight: normal; font-style: normal;">
+  &quot;Partial model of a wind turbine with power output based on table as a function of wind speed&quot;</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="Buildings_Electrical_Interfaces.html#Buildings.Electrical.Interfaces.PartialWindTurbineBase"
+>Buildings.Electrical.Interfaces.PartialWindTurbineBase</a>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">replaceable </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> PhaseSystem =
+      <a href="Buildings_Electrical_PhaseSystems_PartialPhaseSystem.html#Buildings.Electrical.PhaseSystems.PartialPhaseSystem"
+>Buildings.Electrical.PhaseSystems.PartialPhaseSystem</a>
+       <span style="color: blue; font-weight: normal; font-style: normal;">constrainedby </span>Buildings.Electrical.PhaseSystems.PartialPhaseSystem <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Phase system&quot;</span>;
+
+  <span style="color: blue; font-weight: normal; font-style: normal;">replaceable </span><a href="Buildings_Electrical_Interfaces.html#Buildings.Electrical.Interfaces.Terminal"
+>Buildings.Electrical.Interfaces.Terminal</a> terminal(
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> PhaseSystem = <a href="Buildings_Electrical_Interfaces_PhaseSystem.html#Buildings.Electrical.Interfaces.PartialWindTurbine.PhaseSystem"
+>PhaseSystem</a>) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Generalized terminal&quot;</span>;
+<span style="color: blue; font-weight: normal; font-style: normal;">protected </span>
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Tables.html#Modelica.Blocks.Tables.CombiTable1Ds"
+>Modelica.Blocks.Tables.CombiTable1Ds</a> per(
+    <span style="color: blue; font-weight: normal; font-style: normal;">final </span>tableOnFile=tableOnFile,
+    <span style="color: blue; font-weight: normal; font-style: normal;">final </span>table=<span style="color: red; font-weight: normal; font-style: normal;">cat</span>(1,<span style="color: red; font-weight: normal; font-style: normal;"> cat</span>(1, [0, 0], table),
+                    [vOut+10*Modelica.Constants.eps, 0;
+                     vOut+20*Modelica.Constants.eps, 0]),
+    <span style="color: blue; font-weight: normal; font-style: normal;">final </span>tableName=tableName,
+    <span style="color: blue; font-weight: normal; font-style: normal;">final </span>fileName=fileName,
+    <span style="color: blue; font-weight: normal; font-style: normal;">final </span>columns=2:2,
+    <span style="color: blue; font-weight: normal; font-style: normal;">final </span>smoothness=Modelica.Blocks.Types.Smoothness.LinearSegments) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Performance table that maps wind speed to electrical power output&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Math.html#Modelica.Blocks.Math.Gain"
+>Modelica.Blocks.Math.Gain</a> gain(<span style="color: blue; font-weight: normal; font-style: normal;">final </span>k=scale) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Gain, used to allow a user to easily scale the power&quot;</span>;
+  <a href="Buildings_Electrical_DC_Sources_BaseClasses.html#Buildings.Electrical.DC.Sources.BaseClasses.WindCorrection"
+>DC.Sources.BaseClasses.WindCorrection</a>                      cor(
+    <span style="color: blue; font-weight: normal; font-style: normal;">final </span>h=h,
+    <span style="color: blue; font-weight: normal; font-style: normal;">final </span>hRef=hRef,
+    <span style="color: blue; font-weight: normal; font-style: normal;">final </span>n=nWin) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Correction for wind&quot;</span>;
+<span style="color: blue; font-weight: normal; font-style: normal;">initial </span><span style="color: blue; font-weight: normal; font-style: normal;">equation </span>
+<span style="color: red; font-weight: normal; font-style: normal;">assert</span>(<span style="color: red; font-weight: normal; font-style: normal;">abs</span>(table[1,2]) == 0,
+  &quot;First data point of performance table must be at cut-in wind speed,
+   and be equal to 0 Watts.
+   Received + &quot; +<span style="color: red; font-weight: normal; font-style: normal;"> String</span>(table[1,1]) + &quot; m/s with &quot; +<span style="color: red; font-weight: normal; font-style: normal;"> String</span>(table[1,2]) + &quot; Watts&quot;);
+<span style="color: blue; font-weight: normal; font-style: normal;">equation </span>
+  <span style="color: red; font-weight: normal; font-style: normal;">assert</span>(gain.y&gt;=0, &quot;Wind power must be positive&quot;);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(per.y[1],gain. u);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(vWin,cor. vRef);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(cor.vLoc,per. u);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(gain.y, P);
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>PartialWindTurbine;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE PartialWindTurbineBase<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Electrical.Inte82c3b55854e885cceBaseI.png" alt="Buildings.Electrical.Interfaces.PartialWindTurbineBase" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Electrical.Interfaces.PartialWindTurbineBase"></a><a href="Buildings_Electrical_Interfaces.html#Buildings.Electrical.Interfaces"
+>Buildings.Electrical.Interfaces</a>.PartialWindTurbineBase</h2>
+<p>
+<b>Base class for turbine model that contains basic parameters</b>
+<br>
+<br><img src="Buildings.Electrical.Inte82c3b55854e885cceBaseD.png" alt="Buildings.Electrical.Interfaces.PartialWindTurbineBase">
+</p>
+<h3>Information</h3>
+
+<p>
+This partial model contains the minimum set of parameters necessary to describe
+a wind turbine.
+The model defines also an output <code>P</code> for the power generated by the wind turbine.
+</p>
+
+<h3>Parameters</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td>Real</td><td>scale</td><td>1</td><td>Scaling factor, used to allow adjusting the power output without changing the table</td></tr>
+<tr><td>Boolean</td><td>tableOnFile</td><td>false</td><td>true, if table is defined on file or in function usertab</td></tr>
+<tr><td>Real</td><td>table[:, 2]</td><td>[3.5, 0; 5.5, 0.1; 12, 0.9; ...</td><td>Table of generated power (first column is wind speed, second column is power)</td></tr>
+<tr><td>String</td><td>tableName</td><td>&quot;NoName&quot;</td><td>Table name on file or in function usertab (see documentation)</td></tr>
+<tr><td>String</td><td>fileName</td><td>&quot;NoName&quot;</td><td>File where matrix is stored</td></tr>
+<tr style="background-color: #e0e0e0"><td colspan="4">Wind correction</td></tr>
+<tr><td>Real</td><td>h</td><td>&nbsp;</td><td>Height over ground</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Height"
+>Height</a></td><td>hRef</td><td>10</td><td>Reference height for wind measurement [m]</td></tr>
+<tr><td>Real</td><td>nWin</td><td>0.4</td><td>Height exponent for wind profile calculation</td></tr>
+<tr style="background-color: #e0e0e0"><td colspan="4">Nominal conditions</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Voltage"
+>Voltage</a></td><td>V_nominal</td><td>&nbsp;</td><td>Nominal voltage (V_nominal &gt;= 0) [V]</td></tr>
+</table>
+<h3>Connectors</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Connectors">
+<tr><th>Type</th><th>Name</th><th>Description</th></tr>
+<tr><td>input <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>RealInput</a></td><td>vWin</td><td>Steady wind speed [m/s]</td></tr>
+<tr><td>output <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+>RealOutput</a></td><td>P</td><td>Generated power [W]</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">partial </span><span style="color: blue; font-weight: normal; font-style: normal;">model</span> PartialWindTurbineBase <span style="color: #006400; font-weight: normal; font-style: normal;">
+  &quot;Base class for turbine model that contains basic parameters&quot;</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">final </span><span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Velocity"
+>Modelica.SIunits.Velocity</a> vIn = table[1,1] <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Cut-in steady wind speed&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">final </span><span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Velocity"
+>Modelica.SIunits.Velocity</a> vOut = table[<span style="color: red; font-weight: normal; font-style: normal;">size</span>(table,1), 1] <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Cut-out steady wind speed&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Real scale(min=0)=1 <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Scaling factor, used to allow adjusting the power output without changing the table&quot;</span>;
+
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Real h <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Height over ground&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Height"
+>Modelica.SIunits.Height</a> hRef = 10 <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Reference height for wind measurement&quot;</span>;
+ <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Real nWin(min=0) = 0.4 <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Height exponent for wind profile calculation&quot;</span>;
+
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Boolean tableOnFile=false <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;true, if table is defined on file or in function usertab&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Real table[:,2]=
+          [3.5, 0;
+           5.5, 0.1;
+           12, 0.9;
+           14, 1;
+           25, 1] <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Table of generated power (first column is wind speed, second column is power)&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>String tableName=&quot;NoName&quot; <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Table name on file or in function usertab (see documentation)&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>String fileName=&quot;NoName&quot; <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;File where matrix is stored&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Voltage"
+>Modelica.SIunits.Voltage</a> V_nominal(min=0, start=110) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Nominal voltage (V_nominal &gt;= 0)&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>Modelica.Blocks.Interfaces.RealInput</a> vWin(unit=&quot;m/s&quot;) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Steady wind speed&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+>Modelica.Blocks.Interfaces.RealOutput</a> P(unit=&quot;W&quot;) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Generated power&quot;</span>;
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>PartialWindTurbineBase;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE Source<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Electrical.Interfaces.SourceI.png" alt="Buildings.Electrical.Interfaces.Source" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Electrical.Interfaces.Source"></a><a href="Buildings_Electrical_Interfaces.html#Buildings.Electrical.Interfaces"
+>Buildings.Electrical.Interfaces</a>.Source</h2>
+<p>
+<b>Partial model of a generic source.</b>
+<br>
+<br><img src="Buildings.Electrical.Interfaces.SourceD.png" alt="Buildings.Electrical.Interfaces.Source">
+</p>
+<h3>Information</h3>
+
+<p>
+This model represents a generic source.
+</p>
+<p>
+In case the phase system has <code>PhaseSystem.m &gt; 0</code> and
+thus the connectors are over determined,
+the source can be selected to serve as reference point.
+The parameters <code>potentialReference</code> and <code>definiteReference</code> are used to define if the
+source model should be selected as source for the reference angles or not.
+More information about overdetermined connectors can be found
+in <a href="Buildings_Electrical_Interfaces.html#Olsson2008"
+>Olsson Et Al. (2008)</a>.
+</p>
+
+<h4>References</h4>
+<p>
+<a NAME="Olsson2008"/>
+Hans Olsson, Martin Otter, Sven Erik Mattson and Hilding Elmqvist.<br/>
+<a href="http://elib-v3.dlr.de/55892/1/otter2008-modelica-balanced-models.pdf">
+Balanced Models in Modelica 3.0 for Increased Model Quality</a>.<br/>
+Proc. of the 7th Modelica Conference, Bielefeld, Germany, March 2008.
+</p>
+
+<h3>Parameters</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td colspan="2">replaceable package PhaseSystem</td><td>Buildings.Electrical.PhaseSy...</td><td>Phase system</td></tr>
+<tr><td><a href="Buildings_Electrical_Interfaces.html#Buildings.Electrical.Interfaces.Terminal"
+>Terminal</a></td><td>terminal</td><td>redeclare Buildings.Electric...</td><td>Generalized terminal</td></tr>
+<tr style="background-color: #e0e0e0"><td colspan="4">Reference Parameters</td></tr>
+<tr><td>Boolean</td><td>potentialReference</td><td>true</td><td>Serve as potential root</td></tr>
+<tr><td>Boolean</td><td>definiteReference</td><td>false</td><td>Serve as definite root</td></tr>
+</table>
+<h3>Connectors</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Connectors">
+<tr><th>Type</th><th>Name</th><th>Description</th></tr>
+<tr><td colspan="2">replaceable package PhaseSystem</td><td>Phase system</td></tr>
+<tr><td><a href="Buildings_Electrical_Interfaces.html#Buildings.Electrical.Interfaces.Terminal"
+>Terminal</a></td><td>terminal</td><td>Generalized terminal</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">model</span> Source <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Partial model of a generic source.&quot;</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">replaceable </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> PhaseSystem =
+      <a href="Buildings_Electrical_PhaseSystems_OnePhase.html#Buildings.Electrical.PhaseSystems.OnePhase"
+>Buildings.Electrical.PhaseSystems.OnePhase</a> <span style="color: blue; font-weight: normal; font-style: normal;">constrainedby </span>
+    Buildings.Electrical.PhaseSystems.PartialPhaseSystem <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Phase system&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Boolean potentialReference = true <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Serve as potential root&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Boolean definiteReference = false <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Serve as definite root&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Power"
+>Modelica.SIunits.Power</a> S[PhaseSystem.n]=
+    <span style="color: red; font-weight: normal; font-style: normal;">PhaseSystem.phasePowers_vi</span>(terminal.v, terminal.i) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Complex power S[1] = P, S[2]= Q&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
+>Modelica.SIunits.Angle</a> phi=
+    <span style="color: red; font-weight: normal; font-style: normal;">PhaseSystem.phase</span>(terminal.v) -<span style="color: red; font-weight: normal; font-style: normal;"> PhaseSystem.phase</span>(-terminal.i) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Phase shift with respect to reference angle&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">replaceable </span><a href="Buildings_Electrical_Interfaces.html#Buildings.Electrical.Interfaces.Terminal"
+>Buildings.Electrical.Interfaces.Terminal</a> terminal(
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">final </span><span style="color: blue; font-weight: normal; font-style: normal;">replaceable </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> PhaseSystem = <a href="Buildings_Electrical_Interfaces_PhaseSystem.html#Buildings.Electrical.Interfaces.Source.PhaseSystem"
+>PhaseSystem</a>) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Generalized terminal&quot;</span>;
+<span style="color: blue; font-weight: normal; font-style: normal;">protected </span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">function</span> j = <a href="Buildings_Electrical_PhaseSystems_OnePhase.html#Buildings.Electrical.PhaseSystems.OnePhase.j"
+>PhaseSystem.j</a>;
+<span style="color: blue; font-weight: normal; font-style: normal;">equation </span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">if </span>potentialReference<span style="color: blue; font-weight: normal; font-style: normal;"> then</span>
+      <span style="color: blue; font-weight: normal; font-style: normal;">if </span>definiteReference<span style="color: blue; font-weight: normal; font-style: normal;"> then</span>
+      <span style="color: red; font-weight: normal; font-style: normal;">  Connections.root</span>(terminal.theta);
+      <span style="color: blue; font-weight: normal; font-style: normal;">else</span>
+      <span style="color: red; font-weight: normal; font-style: normal;">  Connections.potentialRoot</span>(terminal.theta);
+      <span style="color: blue; font-weight: normal; font-style: normal;">end if</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">end if</span>;
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>Source;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE Terminal<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><a name="Buildings.Electrical.Interfaces.Terminal"></a><a href="Buildings_Electrical_Interfaces.html#Buildings.Electrical.Interfaces"
+>Buildings.Electrical.Interfaces</a>.Terminal</h2>
+<p>
+<b>Generalized electric terminal</b>
+</p>
+<h3>Information</h3>
+
+<p>
+This connector represents a generalized electric terminal. The generalization is made possible by the
+replaceable package <a href="Buildings_Electrical_Interfaces_PhaseSystem.html#Buildings.Electrical.Interfaces.Terminal.PhaseSystem"
+>
+Buildings.Electrical.Interfaces.Terminal.PhaseSystem</a>.
+The package <code>PhaseSystem</code> can be one of the packages contained in
+<a href="Buildings_Electrical_PhaseSystems.html#Buildings.Electrical.PhaseSystems"
+>
+Buildings.Electrical.PhaseSystems</a>.
+Using this approach allows to represent DC, single phase AC and
+multi phases balanced and unbalanced AC systems with the same connector.
+</p>
+<p>
+This connector is compatible with the following Modelica libraries:
+</p>
+<ul>
+<li><a href="http://www.modelon.com/products/modelica-libraries/electric-power-library">
+Electric Power Library</a>
+developed by Modelon, and
+</li>
+<li>
+<a href="https://github.com/modelica/PowerSystems">Power Systems Library</a>
+developed by <a href="mailto:Ruediger.Franke@de.abb.com">Ruediger Franke</a> (ABB).
+</li>
+</ul>
+<p>
+The connector is overdetermined since the number of effort variables
+is higher than the number of flow variables.
+This happens when the phase system has a number of reference angles
+<code>PhaseSystem.m &gt; 0</code>.
+The over-determined connectors are defined and used in such a way
+that a Modelica tool is able
+to remove the superfluous but consistent equations arriving
+at a balanced set of equations, based on a
+graph analysis of the connection structure.
+The models have to use ad-hoc constructs specified by the Modelica language to handle this situation.
+More information can be found in <a href="Buildings_Electrical_Interfaces.html#Olsson2008"
+>Olsson Et Al. (2008)</a>.
+</p>
+<p>
+More details about the generalized electrical terminal
+can be found in <a href="Buildings_Electrical_Interfaces.html#RuedigerEtAl2014"
+>Franke and Wiesmann (2014)</a>.
+</p>
+<h4>References</h4>
+<p>
+<a NAME="Olsson2008"/>
+Hans Olsson, Martin Otter, Sven Erik Mattson and Hilding Elmqvist.<br/>
+<a href="http://elib-v3.dlr.de/55892/1/otter2008-modelica-balanced-models.pdf">
+Balanced Models in Modelica 3.0 for Increased Model Quality</a>.<br/>
+Proc. of the 7th Modelica Conference, Bielefeld, Germany, March 2008.<br/>
+</p>
+<p>
+<a NAME="RuedigerEtAl2014"/>
+Ruediger Franke and Hansjurg Wiesmann.<br/>
+<a href="https://www.modelica.org/events/modelica2014/proceedings/html/submissions/ECP14096515_FrankeWiesmann.pdf">
+Flexible modeling of electrical power systems - the Modelica PowerSystems library</a>.<br/>
+Proc. of the 10th Modelica Conference, Lund, Sweden, March 2014.
+</p>
+
+<p>Extends from <a href="Buildings_Electrical_Interfaces.html#Buildings.Electrical.Interfaces.BaseTerminal"
+>Buildings.Electrical.Interfaces.BaseTerminal</a> (Empty connector used by partial models).</p>
+<h3>Parameters</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td colspan="2">replaceable package PhaseSystem</td><td>PhaseSystems.PartialPhaseSys...</td><td>Phase system</td></tr>
+</table>
+<h3>Contents</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Contents">
+<tr><th>Type</th><th>Name</th><th>Description</th></tr>
+<tr><td colspan="2">replaceable package PhaseSystem</td><td>Phase system</td></tr>
+<tr><td><a href="Buildings_Electrical_PhaseSystems_PartialPhaseSystem.html#Buildings.Electrical.PhaseSystems.PartialPhaseSystem.Voltage"
+>Voltage</a></td><td>v[PhaseSystem.n]</td><td>Voltage vector [V]</td></tr>
+<tr><td>flow <a href="Buildings_Electrical_PhaseSystems_PartialPhaseSystem.html#Buildings.Electrical.PhaseSystems.PartialPhaseSystem.Current"
+>Current</a></td><td>i[PhaseSystem.n]</td><td>Current vector [A]</td></tr>
+<tr><td><a href="Buildings_Electrical_PhaseSystems_PartialPhaseSystem.html#Buildings.Electrical.PhaseSystems.PartialPhaseSystem.ReferenceAngle"
+>ReferenceAngle</a></td><td>theta[PhaseSystem.m]</td><td>Optional vector of phase angles [rad]</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">connector</span> Terminal <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Generalized electric terminal&quot;</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="Buildings_Electrical_Interfaces.html#Buildings.Electrical.Interfaces.BaseTerminal"
+>Buildings.Electrical.Interfaces.BaseTerminal</a>;
+<span style="color: blue; font-weight: normal; font-style: normal;">replaceable </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> PhaseSystem = <a href="Buildings_Electrical_PhaseSystems_PartialPhaseSystem.html#Buildings.Electrical.PhaseSystems.PartialPhaseSystem"
+>PhaseSystems.PartialPhaseSystem</a> <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Phase system&quot;</span>;
+<a href="Buildings_Electrical_PhaseSystems_PartialPhaseSystem.html#Buildings.Electrical.PhaseSystems.PartialPhaseSystem.Voltage"
+>PhaseSystem.Voltage</a> v[PhaseSystem.n] <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Voltage vector&quot;</span>;
+<span style="color: blue; font-weight: normal; font-style: normal;">flow </span><a href="Buildings_Electrical_PhaseSystems_PartialPhaseSystem.html#Buildings.Electrical.PhaseSystems.PartialPhaseSystem.Current"
+>PhaseSystem.Current</a> i[PhaseSystem.n] <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Current vector&quot;</span>;
+<a href="Buildings_Electrical_PhaseSystems_PartialPhaseSystem.html#Buildings.Electrical.PhaseSystems.PartialPhaseSystem.ReferenceAngle"
+>PhaseSystem.ReferenceAngle</a> theta[PhaseSystem.m] <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Optional vector of phase angles&quot;</span>;
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>Terminal;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE VariableVoltageSource<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Electrical.Inteda46cf480db38ed5ourceI.png" alt="Buildings.Electrical.Interfaces.VariableVoltageSource" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Electrical.Interfaces.VariableVoltageSource"></a><a href="Buildings_Electrical_Interfaces.html#Buildings.Electrical.Interfaces"
+>Buildings.Electrical.Interfaces</a>.VariableVoltageSource</h2>
+<p>
+<b>Partial model of a generic variable voltage source.</b>
+<br>
+<br><img src="Buildings.Electrical.Inteda46cf480db38ed5ourceD.png" alt="Buildings.Electrical.Interfaces.VariableVoltageSource">
+</p>
+<h3>Information</h3>
+
+<p>
+This model represents a generic variable voltage source. The model has a boolean
+flag <code>use_V_in</code>, when this flag is equal to <code>true</code>
+the voltage of the source is imposed by the input variable <code>V_in</code>.
+When the flag is equal to <code>false</code> the voltage source is equal to the parameter <code>V</code>.
+</p>
+<p>
+In case the phase system adopted has <code>PhaseSystem.m &gt; 0</code> and
+thus the connectors are over determined,
+the source can be selected to serve as reference point.
+The parameters <code>potentialReference</code> and <code>definiteReference</code> are used to define if the
+source model should be selected as source for the reference angles or not.
+More information about overdetermined connectors can be found
+in <a href="Buildings_Electrical_Interfaces.html#Olsson2008"
+>Olsson Et Al. (2008)</a>.
+</p>
+
+<h4>References</h4>
+<p>
+<a NAME="Olsson2008"/>
+Hans Olsson, Martin Otter, Sven Erik Mattson and Hilding Elmqvist.<br/>
+<a href="http://elib-v3.dlr.de/55892/1/otter2008-modelica-balanced-models.pdf">
+Balanced Models in Modelica 3.0 for Increased Model Quality</a>.<br/>
+Proc. of the 7th Modelica Conference, Bielefeld, Germany, March 2008.
+</p>
+
+<p>Extends from <a href="Buildings_Electrical_Interfaces.html#Buildings.Electrical.Interfaces.Source"
+>Buildings.Electrical.Interfaces.Source</a> (Partial model of a generic source.).</p>
+<h3>Parameters</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td colspan="2">replaceable package PhaseSystem</td><td><a href="Buildings_Electrical_PhaseSystems_OnePhase.html#Buildings.Electrical.PhaseSystems.OnePhase"
+>OnePhase</a></td><td>Phase system</td></tr>
+<tr><td><a href="Buildings_Electrical_Interfaces.html#Buildings.Electrical.Interfaces.Terminal"
+>Terminal</a></td><td>terminal</td><td>redeclare Buildings.Electric...</td><td>Generalized terminal</td></tr>
+<tr><td>Boolean</td><td>use_V_in</td><td>true</td><td>If true, the voltage is an input</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Voltage"
+>Voltage</a></td><td>V</td><td>1</td><td>Value of constant voltage [V]</td></tr>
+<tr style="background-color: #e0e0e0"><td colspan="4">Reference Parameters</td></tr>
+<tr><td>Boolean</td><td>potentialReference</td><td>true</td><td>Serve as potential root</td></tr>
+<tr><td>Boolean</td><td>definiteReference</td><td>false</td><td>Serve as definite root</td></tr>
+</table>
+<h3>Connectors</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Connectors">
+<tr><th>Type</th><th>Name</th><th>Description</th></tr>
+<tr><td><a href="Buildings_Electrical_Interfaces.html#Buildings.Electrical.Interfaces.Terminal"
+>Terminal</a></td><td>terminal</td><td>Generalized terminal</td></tr>
+<tr><td>input <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>RealInput</a></td><td>V_in</td><td>Input voltage [V]</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">model</span> VariableVoltageSource <span style="color: #006400; font-weight: normal; font-style: normal;">
+  &quot;Partial model of a generic variable voltage source.&quot;</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="Buildings_Electrical_Interfaces.html#Buildings.Electrical.Interfaces.Source"
+>Buildings.Electrical.Interfaces.Source</a>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Boolean use_V_in = true <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;If true, the voltage is an input&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Voltage"
+>Modelica.SIunits.Voltage</a> V = 1 <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Value of constant voltage&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>Modelica.Blocks.Interfaces.RealInput</a> V_in(unit=&quot;V&quot;, min=0, start = 1) <span style="color: blue; font-weight: normal; font-style: normal;">if </span>
+       use_V_in <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Input voltage&quot;</span>;
+<span style="color: blue; font-weight: normal; font-style: normal;">protected </span>
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>Modelica.Blocks.Interfaces.RealInput</a>  V_in_internal(unit=&quot;V&quot;) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Hidden value of the input voltage for the conditional connector&quot;</span>;
+<span style="color: blue; font-weight: normal; font-style: normal;">equation </span>
+
+  <span style="color: #006400; font-weight: normal; font-style: normal;">// Connection between the conditional and inner connector</span>
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(V_in,V_in_internal);
+
+  <span style="color: #006400; font-weight: normal; font-style: normal;">// If the voltage is fixed, inner connector value is equal to parameter V</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">if </span>use_V_in == false<span style="color: blue; font-weight: normal; font-style: normal;"> then</span>
+    V_in_internal = V;
+  <span style="color: blue; font-weight: normal; font-style: normal;">end if</span>;
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>VariableVoltageSource;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE PartialAcDcParameters<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><a name="Buildings.Electrical.Interfaces.PartialAcDcParameters"></a><a href="Buildings_Electrical_Interfaces.html#Buildings.Electrical.Interfaces"
+>Buildings.Electrical.Interfaces</a>.PartialAcDcParameters</h2>
+<p>
+<b>Partial model that contains basic parameters for a DC/AC conversion system</b>
+</p>
+<h3>Information</h3>
+
+<p>
+This model contains the minimum set of parameters necessary to describe
+an AC/DC converter.
+</p>
+
+<h3>Parameters</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr style="background-color: #e0e0e0"><td colspan="4">AC-Conversion</td></tr>
+<tr><td>Real</td><td>pf</td><td>0.9</td><td>Power factor</td></tr>
+<tr><td>Real</td><td>eta_DCAC</td><td>0.9</td><td>Efficiency of DC/AC conversion</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">record</span> PartialAcDcParameters <span style="color: #006400; font-weight: normal; font-style: normal;">
+  &quot;Partial model that contains basic parameters for a DC/AC conversion system&quot;</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Real pf(min=0, max=1) = 0.9 <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Power factor&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Real eta_DCAC(min=0, max=1) = 0.9 <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Efficiency of DC/AC conversion&quot;</span>;
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>PartialAcDcParameters;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE PartialPluggableUnbalanced<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><a name="Buildings.Electrical.Interfaces.PartialPluggableUnbalanced"></a><a href="Buildings_Electrical_Interfaces.html#Buildings.Electrical.Interfaces"
+>Buildings.Electrical.Interfaces</a>.PartialPluggableUnbalanced</h2>
+<p>
+<b>Partial interface for unbalanced loads</b>
+</p>
+<h3>Information</h3>
+
+<p>
+This record contains a set of parameters that are used when
+modeling three-phase unbalanced systems. The record contains three boolean flags
+that are used to determine which of the three-phase are connected to the network.
+</p>
+
+<h3>Parameters</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td>Boolean</td><td>plugPhase1</td><td>true</td><td>If true, phase 1 is connected</td></tr>
+<tr><td>Boolean</td><td>plugPhase2</td><td>true</td><td>If true, phase 2 is connected</td></tr>
+<tr><td>Boolean</td><td>plugPhase3</td><td>true</td><td>If true, phase 3 is connected</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">record</span> PartialPluggableUnbalanced <span style="color: #006400; font-weight: normal; font-style: normal;">
+  &quot;Partial interface for unbalanced loads&quot;</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Boolean plugPhase1 = true <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;If true, phase 1 is connected&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Boolean plugPhase2 = true <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;If true, phase 2 is connected&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Boolean plugPhase3 = true <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;If true, phase 3 is connected&quot;</span>;
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>PartialPluggableUnbalanced;
+</div>
+<hr>
+<address>
+<a href="http://www.3ds.com/">Automatically generated</a> Thu Apr  9 09:34:22 2015.
+</address>
+</body>
+</html>

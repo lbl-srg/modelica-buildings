@@ -1,0 +1,130 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>Buildings.Fluid.HeatExchangers.Boreholes.Examples</title>
+<meta name="HTML-Generator" content="Dymola">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="description" content="&quot;Example files for borehole heat exchanger&quot;">
+<style type="text/css">
+*       { font-size: 10pt; font-family: Arial, sans-serif; }
+.modelica, .modelica * { font-size: 9pt; font-family: Courier, monospace; white-space: pre; }
+h4      { font-size: 10pt; font-weight: bold; color: green; }
+h3      { font-size: 11pt; font-weight: bold; color: green; }
+h2      { font-size: 13pt; font-weight: bold; color: green; }
+address { font-weight: normal; }
+td      { border: 1px solid #808080; vertical-align: top; }
+th      { border: 1px solid #808080; vertical-align: top; font-weight: bold; }
+table   { border: 1px solid #808080; border-collapse: collapse; }
+</style>
+<link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../Resources/www/modelicaDoc.css">
+</HEAD>
+<body>
+<!-- --- header ------ -->
+<div class="headerStyle">
+<img src="../Resources/www/lbl-logo.png" alt="LBL logo"/>
+</div>
+<div class="headerLinks">
+<ul><li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt; <a href="Buildings.html">Modelica</a></li></ul>
+</div>
+<!-- --- end header -- -->
+
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE Examples<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><a name="Buildings.Fluid.HeatExchangers.Boreholes.Examples"></a><a href="Buildings_Fluid_HeatExchangers_Boreholes.html#Buildings.Fluid.HeatExchangers.Boreholes"
+>Buildings.Fluid.HeatExchangers.Boreholes</a>.Examples</h2>
+<p>
+<b>Example files for borehole heat exchanger</b><br>
+</p>
+<h3>Information</h3>
+<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons_ExamplesPackage.html#Modelica.Icons.ExamplesPackage"
+>Modelica.Icons.ExamplesPackage</a> (Icon for packages containing runnable examples).</p>
+<h3>Package Content</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Package Content">
+<tr>
+<th>Name</th>
+<th>Description</th>
+</tr>
+<tr>
+<td><img src="Buildings.Fluid.HeatExcha01b9fc828a215302UTubeS.png" alt="Buildings.Fluid.HeatExchangers.Boreholes.Examples.UTube" width="20" height="20" align="top">&nbsp;<a href="Buildings_Fluid_HeatExchangers_Boreholes_Examples.html#Buildings.Fluid.HeatExchangers.Boreholes.Examples.UTube"
+>UTube</a>
+</td>
+<td>Model that tests the borehole model</td>
+</tr>
+</table>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE UTube<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Fluid.HeatExcha01b9fc828a215302UTubeI.png" alt="Buildings.Fluid.HeatExchangers.Boreholes.Examples.UTube" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Fluid.HeatExchangers.Boreholes.Examples.UTube"></a><a href="Buildings_Fluid_HeatExchangers_Boreholes_Examples.html#Buildings.Fluid.HeatExchangers.Boreholes.Examples"
+>Buildings.Fluid.HeatExchangers.Boreholes.Examples</a>.UTube</h2>
+<p>
+<b>Model that tests the borehole model</b>
+<br>
+<br><img src="Buildings.Fluid.HeatExcha01b9fc828a215302UTubeD.png" alt="Buildings.Fluid.HeatExchangers.Boreholes.Examples.UTube">
+</p>
+<h3>Information</h3>
+
+<p>
+This example models a borehole heat exchanger with two pipes that are
+symmetrically spaced.
+The simulation period is 5 years.
+From the 4th to the 10th months, the mass flow source switches on the
+flow rate through the borehole. The leaving
+water of the mass flow source is <i>25</i>&deg;C,
+and the water that returns from the borehole is between
+<i>20.5</i>&deg;C
+and
+<i>21.5</i>&deg;C.
+</p>
+
+<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</a> (Icon for runnable examples).</p>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">model</span> UTube <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Model that tests the borehole model&quot;</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</a>;
+ <span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = <a href="Buildings_Media_Water.html#Buildings.Media.Water"
+>Buildings.Media.Water</a>;
+  <a href="Buildings_Fluid_HeatExchangers_Boreholes.html#Buildings.Fluid.HeatExchangers.Boreholes.UTube"
+>Buildings.Fluid.HeatExchangers.Boreholes.UTube</a> borHol(
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">each </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = Medium,
+    hBor=150,
+    dp_nominal=10000,
+    dT_dz=0.0015,
+    samplePeriod=604800,
+    m_flow_nominal=0.3,
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">each </span><span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="Buildings_HeatTransfer_Data_BoreholeFillings.html#Buildings.HeatTransfer.Data.BoreholeFillings.Bentonite"
+>Buildings.HeatTransfer.Data.BoreholeFillings.Bentonite</a>
+                                                             matFil,
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="Buildings_HeatTransfer_Data_Soil.html#Buildings.HeatTransfer.Data.Soil.Sandstone"
+>Buildings.HeatTransfer.Data.Soil.Sandstone</a> matSoi,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    TExt0_start=283.15,
+    TFil0_start=283.15) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Borehole heat exchanger&quot;</span>;
+  <a href="Buildings_Fluid_Sources.html#Buildings.Fluid.Sources.Boundary_ph"
+>Sources.Boundary_ph</a> sin(nPorts=1, <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = Medium) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Sink&quot;</span>;
+  <a href="Buildings_Fluid_Sources.html#Buildings.Fluid.Sources.MassFlowSource_T"
+>Sources.MassFlowSource_T</a> sou(
+    nPorts=1,
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = Medium,
+    use_m_flow_in=true,
+    T=298.15) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Source&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Pulse"
+>Modelica.Blocks.Sources.Pulse</a> pulse(
+    amplitude=0.3,
+    period=365*86400,
+    startTime=365*86400/4);
+<span style="color: blue; font-weight: normal; font-style: normal;">equation </span>
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(sou.ports[1], borHol.port_a);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(borHol.port_b, sin.ports[1]);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(pulse.y, sou.m_flow_in);
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>UTube;
+</div>
+<hr>
+<address>
+<a href="http://www.3ds.com/">Automatically generated</a> Thu Apr  9 09:35:03 2015.
+</address>
+</body>
+</html>

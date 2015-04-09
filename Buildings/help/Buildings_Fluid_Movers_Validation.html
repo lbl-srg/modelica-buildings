@@ -1,0 +1,1210 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>Buildings.Fluid.Movers.Validation</title>
+<meta name="HTML-Generator" content="Dymola">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="description" content="&quot;Collection of validation models&quot;">
+<style type="text/css">
+*       { font-size: 10pt; font-family: Arial, sans-serif; }
+.modelica, .modelica * { font-size: 9pt; font-family: Courier, monospace; white-space: pre; }
+h4      { font-size: 10pt; font-weight: bold; color: green; }
+h3      { font-size: 11pt; font-weight: bold; color: green; }
+h2      { font-size: 13pt; font-weight: bold; color: green; }
+address { font-weight: normal; }
+td      { border: 1px solid #808080; vertical-align: top; }
+th      { border: 1px solid #808080; vertical-align: top; font-weight: bold; }
+table   { border: 1px solid #808080; border-collapse: collapse; }
+</style>
+<link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../Resources/www/modelicaDoc.css">
+</HEAD>
+<body>
+<!-- --- header ------ -->
+<div class="headerStyle">
+<img src="../Resources/www/lbl-logo.png" alt="LBL logo"/>
+</div>
+<div class="headerLinks">
+<ul><li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt; <a href="Buildings.html">Modelica</a></li></ul>
+</div>
+<!-- --- end header -- -->
+
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE Validation<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><a name="Buildings.Fluid.Movers.Validation"></a><a href="Buildings_Fluid_Movers.html#Buildings.Fluid.Movers"
+>Buildings.Fluid.Movers</a>.Validation</h2>
+<p>
+<b>Collection of validation models</b><br>
+</p>
+<h3>Information</h3>
+
+<p>
+This package contains validation models for the classes in
+<a href="Buildings_Fluid_Movers.html#Buildings.Fluid.Movers"
+>
+Buildings.Fluid.Movers</a>.
+</p>
+<p>
+Note that most validation models contain simple input data
+which may not be realistic, but for which the correct
+output can be obtained through an analytic solution.
+The examples plot various outputs, which have been verified against these
+solutions. These model outputs are stored as reference data and
+used for continuous validation whenever models in the library change.
+</p>
+
+<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons_ExamplesPackage.html#Modelica.Icons.ExamplesPackage"
+>Modelica.Icons.ExamplesPackage</a> (Icon for packages containing runnable examples).</p>
+<h3>Package Content</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Package Content">
+<tr>
+<th>Name</th>
+<th>Description</th>
+</tr>
+<tr>
+<td><img src="Buildings.Fluid.Movers.Ex486ea5aab9be82c4oop_yS.png" alt="Buildings.Fluid.Movers.Validation.ControlledFlowMachine" width="20" height="20" align="top">&nbsp;<a href="Buildings_Fluid_Movers_Validation.html#Buildings.Fluid.Movers.Validation.ControlledFlowMachine"
+>ControlledFlowMachine</a>
+</td>
+<td>Fans with different control signals as input</td>
+</tr>
+<tr>
+<td><img src="Buildings.Fluid.Movers.Ex486ea5aab9be82c4oop_yS.png" alt="Buildings.Fluid.Movers.Validation.ControlledFlowMachineDynamic" width="20" height="20" align="top">&nbsp;<a href="Buildings_Fluid_Movers_Validation.html#Buildings.Fluid.Movers.Validation.ControlledFlowMachineDynamic"
+>ControlledFlowMachineDynamic</a>
+</td>
+<td>Fans with different control signals as input and a dynamic speed signal</td>
+</tr>
+<tr>
+<td><img src="Buildings.Fluid.Movers.Ex486ea5aab9be82c4oop_yS.png" alt="Buildings.Fluid.Movers.Validation.FlowControlled_dp" width="20" height="20" align="top">&nbsp;<a href="Buildings_Fluid_Movers_Validation.html#Buildings.Fluid.Movers.Validation.FlowControlled_dp"
+>FlowControlled_dp</a>
+</td>
+<td>Fan with zero mass flow rate and head as input</td>
+</tr>
+<tr>
+<td><img src="Buildings.Fluid.Movers.Ex486ea5aab9be82c4oop_yS.png" alt="Buildings.Fluid.Movers.Validation.FlowControlled_m_flow" width="20" height="20" align="top">&nbsp;<a href="Buildings_Fluid_Movers_Validation.html#Buildings.Fluid.Movers.Validation.FlowControlled_m_flow"
+>FlowControlled_m_flow</a>
+</td>
+<td>Fan with zero mass flow rate and mass flow rate as input</td>
+</tr>
+<tr>
+<td><img src="Buildings.Fluid.Movers.Ex486ea5aab9be82c4oop_yS.png" alt="Buildings.Fluid.Movers.Validation.Power" width="20" height="20" align="top">&nbsp;<a href="Buildings_Fluid_Movers_Validation.html#Buildings.Fluid.Movers.Validation.Power"
+>Power</a>
+</td>
+<td>Power calculation comparison among three mover types</td>
+</tr>
+<tr>
+<td><img src="Buildings.Fluid.Movers.Va7d34720036e89cf9ctionS.png" alt="Buildings.Fluid.Movers.Validation.PumpCurveConstruction" width="20" height="20" align="top">&nbsp;<a href="Buildings_Fluid_Movers_Validation.html#Buildings.Fluid.Movers.Validation.PumpCurveConstruction"
+>PumpCurveConstruction</a>
+</td>
+<td>Validation model that tests that the pump curve is properly extrapolated to V=0 and dp=0</td>
+</tr>
+<tr>
+<td><img src="Buildings.Fluid.Movers.Vacf794935dacd20d9ratosS.png" alt="Buildings.Fluid.Movers.Validation.Pump_Nrpm_stratos" width="20" height="20" align="top">&nbsp;<a href="Buildings_Fluid_Movers_Validation.html#Buildings.Fluid.Movers.Validation.Pump_Nrpm_stratos"
+>Pump_Nrpm_stratos</a>
+</td>
+<td>Model validation using a Wilo Stratos 80/1-12 pump</td>
+</tr>
+<tr>
+<td><img src="Buildings.Fluid.Movers.Vacf794935dacd20d9ratosS.png" alt="Buildings.Fluid.Movers.Validation.Pump_stratos" width="20" height="20" align="top">&nbsp;<a href="Buildings_Fluid_Movers_Validation.html#Buildings.Fluid.Movers.Validation.Pump_stratos"
+>Pump_stratos</a>
+</td>
+<td>Stratos pumps with speed as input</td>
+</tr>
+<tr>
+<td><img src="Buildings.Fluid.Movers.Vacf794935dacd20d9ratosS.png" alt="Buildings.Fluid.Movers.Validation.SpeedControlled_Nrpm" width="20" height="20" align="top">&nbsp;<a href="Buildings_Fluid_Movers_Validation.html#Buildings.Fluid.Movers.Validation.SpeedControlled_Nrpm"
+>SpeedControlled_Nrpm</a>
+</td>
+<td>Fan with zero mass flow rate and speed as input</td>
+</tr>
+<tr>
+<td><img src="Buildings.Fluid.Movers.Vacf794935dacd20d9ratosS.png" alt="Buildings.Fluid.Movers.Validation.SpeedControlled_y" width="20" height="20" align="top">&nbsp;<a href="Buildings_Fluid_Movers_Validation.html#Buildings.Fluid.Movers.Validation.SpeedControlled_y"
+>SpeedControlled_y</a>
+</td>
+<td>Fan with zero mass flow rate and control signal y as input</td>
+</tr>
+<tr>
+<td><img src="Buildings.Fluid.Movers.Vacf794935dacd20d9ratosS.png" alt="Buildings.Fluid.Movers.Validation.SpeedControlled_y_linear" width="20" height="20" align="top">&nbsp;<a href="Buildings_Fluid_Movers_Validation.html#Buildings.Fluid.Movers.Validation.SpeedControlled_y_linear"
+>SpeedControlled_y_linear</a>
+</td>
+<td>Pump with linear characteristic for pressure vs. flow rate</td>
+</tr>
+<tr>
+<td><img src="Buildings.Fluid.Movers.Vab87d4981920a94fbassesS.png" alt="Buildings.Fluid.Movers.Validation.BaseClasses" width="20" height="20" align="top">&nbsp;<a href="Buildings_Fluid_Movers_Validation_BaseClasses.html#Buildings.Fluid.Movers.Validation.BaseClasses"
+>BaseClasses</a>
+</td>
+<td>Package with base classes for Buildings.Fluid.Movers.Validation</td>
+</tr>
+</table>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE ControlledFlowMachine<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Fluid.Movers.Vadf24a6a7c173164cchineI.png" alt="Buildings.Fluid.Movers.Validation.ControlledFlowMachine" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Fluid.Movers.Validation.ControlledFlowMachine"></a><a href="Buildings_Fluid_Movers_Validation.html#Buildings.Fluid.Movers.Validation"
+>Buildings.Fluid.Movers.Validation</a>.ControlledFlowMachine</h2>
+<p>
+<b>Fans with different control signals as input</b>
+<br>
+<br><img src="Buildings.Fluid.Movers.Vadf24a6a7c173164cchineD.png" alt="Buildings.Fluid.Movers.Validation.ControlledFlowMachine">
+</p>
+<h3>Information</h3>
+
+This example demonstrates the use of the flow model with four different configurations.
+At steady-state, all flow models have the same mass flow rate and pressure difference.
+Note that <code>addPowerToMedium=false</code> since otherwise,
+Dymola computes the enthalpy change of the component as a fraction <code>(k*m_flow+P_internal)/m_flow</code>
+which leads to an error because of <code>0/0</code> at zero flow rate.
+
+<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</a> (Icon for runnable examples), <a href="Buildings_Fluid_Movers_Validation_BaseClasses.html#Buildings.Fluid.Movers.Validation.BaseClasses.ControlledFlowMachine"
+>Buildings.Fluid.Movers.Validation.BaseClasses.ControlledFlowMachine</a>.</p>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">model</span> ControlledFlowMachine <span style="color: #006400; font-weight: normal; font-style: normal;">
+  &quot;Fans with different control signals as input&quot;</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</a>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="Buildings_Fluid_Movers_Validation_BaseClasses.html#Buildings.Fluid.Movers.Validation.BaseClasses.ControlledFlowMachine"
+>Buildings.Fluid.Movers.Validation.BaseClasses.ControlledFlowMachine</a>(
+    fan4(addPowerToMedium=false, filteredSpeed=false),
+    fan1(addPowerToMedium=false, filteredSpeed=false),
+    fan2(addPowerToMedium=false, filteredSpeed=false),
+    fan3(addPowerToMedium=false, filteredSpeed=false));
+
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>ControlledFlowMachine;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE ControlledFlowMachineDynamic<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Fluid.Movers.Vadf24a6a7c173164cchineI.png" alt="Buildings.Fluid.Movers.Validation.ControlledFlowMachineDynamic" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Fluid.Movers.Validation.ControlledFlowMachineDynamic"></a><a href="Buildings_Fluid_Movers_Validation.html#Buildings.Fluid.Movers.Validation"
+>Buildings.Fluid.Movers.Validation</a>.ControlledFlowMachineDynamic</h2>
+<p>
+<b>Fans with different control signals as input and a dynamic speed signal</b>
+<br>
+<br><img src="Buildings.Fluid.Movers.Vaed6cf7a8fd098b34namicD.png" alt="Buildings.Fluid.Movers.Validation.ControlledFlowMachineDynamic">
+</p>
+<h3>Information</h3>
+
+This example demonstrates the use of the flow model with four different configurations.
+At steady-state, all flow models have the same mass flow rate and pressure difference.
+
+<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</a> (Icon for runnable examples), <a href="Buildings_Fluid_Movers_Validation_BaseClasses.html#Buildings.Fluid.Movers.Validation.BaseClasses.ControlledFlowMachine"
+>Buildings.Fluid.Movers.Validation.BaseClasses.ControlledFlowMachine</a>.</p>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">model</span> ControlledFlowMachineDynamic <span style="color: #006400; font-weight: normal; font-style: normal;">
+  &quot;Fans with different control signals as input and a dynamic speed signal&quot;</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</a>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="Buildings_Fluid_Movers_Validation_BaseClasses.html#Buildings.Fluid.Movers.Validation.BaseClasses.ControlledFlowMachine"
+>Buildings.Fluid.Movers.Validation.BaseClasses.ControlledFlowMachine</a>(
+    fan4(dynamicBalance=true, energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial),
+    fan1(dynamicBalance=true, energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial),
+    fan2(dynamicBalance=true, energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial),
+    fan3(dynamicBalance=true, energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial));
+
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>ControlledFlowMachineDynamic;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE FlowControlled_dp<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Fluid.Movers.Vadf24a6a7c173164cchineI.png" alt="Buildings.Fluid.Movers.Validation.FlowControlled_dp" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Fluid.Movers.Validation.FlowControlled_dp"></a><a href="Buildings_Fluid_Movers_Validation.html#Buildings.Fluid.Movers.Validation"
+>Buildings.Fluid.Movers.Validation</a>.FlowControlled_dp</h2>
+<p>
+<b>Fan with zero mass flow rate and head as input</b>
+<br>
+<br><img src="Buildings.Fluid.Movers.Vaa06071a7fb595bb2ed_dpD.png" alt="Buildings.Fluid.Movers.Validation.FlowControlled_dp">
+</p>
+<h3>Information</h3>
+
+<p>
+This example demonstrates and tests the use of a flow machine whose mass flow rate is reduced to zero.
+</p>
+<p>
+The fans have been configured as steady-state models.
+This ensures that the actual speed is equal to the input signal.
+</p>
+
+<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</a> (Icon for runnable examples), <a href="Buildings_Fluid_Movers_Validation_BaseClasses.html#Buildings.Fluid.Movers.Validation.BaseClasses.FlowMachine_ZeroFlow"
+>Buildings.Fluid.Movers.Validation.BaseClasses.FlowMachine_ZeroFlow</a> (Base class to test flow machines with zero flow rate).</p>
+<h3>Parameters</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td colspan="2">replaceable package Medium</td><td><a href="Buildings_Media_Air.html#Buildings.Media.Air"
+>Air</a></td><td>Medium model</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+>MassFlowRate</a></td><td>m_flow_nominal</td><td>1</td><td>Nominal mass flow rate [kg/s]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
+>Pressure</a></td><td>dp_nominal</td><td>500</td><td>Nominal pressure difference [Pa]</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">model</span> FlowControlled_dp <span style="color: #006400; font-weight: normal; font-style: normal;">
+  &quot;Fan with zero mass flow rate and head as input&quot;</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</a>;
+ <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="Buildings_Fluid_Movers_Validation_BaseClasses.html#Buildings.Fluid.Movers.Validation.BaseClasses.FlowMachine_ZeroFlow"
+>Buildings.Fluid.Movers.Validation.BaseClasses.FlowMachine_ZeroFlow</a>(
+    gain(k=dp_nominal),
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><a href="Buildings_Fluid_Movers.html#Buildings.Fluid.Movers.FlowControlled_dp"
+>Buildings.Fluid.Movers.FlowControlled_dp</a> floMacSta(
+      <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = <a href="Buildings_Fluid_Movers_Validation_BaseClasses_Medium.html#Buildings.Fluid.Movers.Validation.BaseClasses.FlowMachine_ZeroFlow.Medium"
+>Medium</a>,
+      m_flow_nominal=m_flow_nominal,
+      filteredSpeed=false,
+      energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial),
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><a href="Buildings_Fluid_Movers.html#Buildings.Fluid.Movers.FlowControlled_dp"
+>Buildings.Fluid.Movers.FlowControlled_dp</a> floMacDyn(
+      <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = <a href="Buildings_Fluid_Movers_Validation_BaseClasses_Medium.html#Buildings.Fluid.Movers.Validation.BaseClasses.FlowMachine_ZeroFlow.Medium"
+>Medium</a>,
+      m_flow_nominal=m_flow_nominal,
+      filteredSpeed=false,
+      energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial));
+
+<span style="color: blue; font-weight: normal; font-style: normal;">equation </span>
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(gain.y, floMacSta.dp_in);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(gain.y, floMacDyn.dp_in);
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>FlowControlled_dp;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE FlowControlled_m_flow<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Fluid.Movers.Vadf24a6a7c173164cchineI.png" alt="Buildings.Fluid.Movers.Validation.FlowControlled_m_flow" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Fluid.Movers.Validation.FlowControlled_m_flow"></a><a href="Buildings_Fluid_Movers_Validation.html#Buildings.Fluid.Movers.Validation"
+>Buildings.Fluid.Movers.Validation</a>.FlowControlled_m_flow</h2>
+<p>
+<b>Fan with zero mass flow rate and mass flow rate as input</b>
+<br>
+<br><img src="Buildings.Fluid.Movers.Vaba50a853abcd0802_flowD.png" alt="Buildings.Fluid.Movers.Validation.FlowControlled_m_flow">
+</p>
+<h3>Information</h3>
+
+<p>
+This example demonstrates and tests the use of a flow machine whose mass flow rate is reduced to zero.
+</p>
+<p>
+The fans have been configured as steady-state models.
+This ensures that the actual speed is equal to the input signal.
+</p>
+
+<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</a> (Icon for runnable examples), <a href="Buildings_Fluid_Movers_Validation_BaseClasses.html#Buildings.Fluid.Movers.Validation.BaseClasses.FlowMachine_ZeroFlow"
+>Buildings.Fluid.Movers.Validation.BaseClasses.FlowMachine_ZeroFlow</a> (Base class to test flow machines with zero flow rate).</p>
+<h3>Parameters</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td colspan="2">replaceable package Medium</td><td><a href="Buildings_Media_Air.html#Buildings.Media.Air"
+>Air</a></td><td>Medium model</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+>MassFlowRate</a></td><td>m_flow_nominal</td><td>1</td><td>Nominal mass flow rate [kg/s]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
+>Pressure</a></td><td>dp_nominal</td><td>500</td><td>Nominal pressure difference [Pa]</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">model</span> FlowControlled_m_flow <span style="color: #006400; font-weight: normal; font-style: normal;">
+  &quot;Fan with zero mass flow rate and mass flow rate as input&quot;</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</a>;
+ <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="Buildings_Fluid_Movers_Validation_BaseClasses.html#Buildings.Fluid.Movers.Validation.BaseClasses.FlowMachine_ZeroFlow"
+>Buildings.Fluid.Movers.Validation.BaseClasses.FlowMachine_ZeroFlow</a>(
+    gain(k=m_flow_nominal),
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><a href="Buildings_Fluid_Movers.html#Buildings.Fluid.Movers.FlowControlled_m_flow"
+>Buildings.Fluid.Movers.FlowControlled_m_flow</a> floMacSta(
+      <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = <a href="Buildings_Fluid_Movers_Validation_BaseClasses_Medium.html#Buildings.Fluid.Movers.Validation.BaseClasses.FlowMachine_ZeroFlow.Medium"
+>Medium</a>,
+      m_flow_nominal=m_flow_nominal,
+      filteredSpeed=false,
+      energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial),
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><a href="Buildings_Fluid_Movers.html#Buildings.Fluid.Movers.FlowControlled_m_flow"
+>Buildings.Fluid.Movers.FlowControlled_m_flow</a> floMacDyn(
+      <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = <a href="Buildings_Fluid_Movers_Validation_BaseClasses_Medium.html#Buildings.Fluid.Movers.Validation.BaseClasses.FlowMachine_ZeroFlow.Medium"
+>Medium</a>,
+      m_flow_nominal=m_flow_nominal,
+      filteredSpeed=false,
+      energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial));
+
+<span style="color: blue; font-weight: normal; font-style: normal;">equation </span>
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(gain.y, floMacSta.m_flow_in);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(gain.y, floMacDyn.m_flow_in);
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>FlowControlled_m_flow;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE Power<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Fluid.Movers.Vadf24a6a7c173164cchineI.png" alt="Buildings.Fluid.Movers.Validation.Power" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Fluid.Movers.Validation.Power"></a><a href="Buildings_Fluid_Movers_Validation.html#Buildings.Fluid.Movers.Validation"
+>Buildings.Fluid.Movers.Validation</a>.Power</h2>
+<p>
+<b>Power calculation comparison among three mover types</b>
+<br>
+<br><img src="Buildings.Fluid.Movers.Validation.PowerD.png" alt="Buildings.Fluid.Movers.Validation.Power">
+</p>
+<h3>Information</h3>
+
+<p>
+This example compares the power consumed by pumps that
+take three different control signals.
+Each pump has identical mass flow rate and pressure rise.
+</p>
+<p>
+Note that for the instances
+<a href="Buildings_Fluid_Movers.html#Buildings.Fluid.Movers.FlowControlled_dp"
+>
+Buildings.Fluid.Movers.FlowControlled_dp</a>
+and
+<a href="Buildings_Fluid_Movers.html#Buildings.Fluid.Movers.FlowControlled_m_flow"
+>
+Buildings.Fluid.Movers.FlowControlled_m_flow</a>,
+we had to assign the efficiencies (otherwise the default constant
+efficiency of <i>0.7</i> would have been used).
+We also had to set <code>use_powerCharacteristic=true</code>.
+Otherwise, the power consumption would have been computed
+using similarity laws, but using the mass flow rate as opposed
+to the speed, because speed is not known in these two models.
+This would yield an error at operating points in which
+the speed is different from the nominal speed <code>N_nominal</code>
+because similarity laws are valid for speed and not for
+mass flow rate.
+To see the error, change the assignment
+</p>
+<pre>
+  parameter Data.FlowControlled perMod(
+    use_powerCharacteristic = true,
+    hydraulicEfficiency=efficiency,
+    motorEfficiency=efficiency,
+    power=per.power)
+    "Pump performance data with data from the instance efficiency";
+</pre>
+<p>
+to
+</p>
+<pre>
+  parameter Data.FlowControlled perMod
+    "Pump performance data with data from the instance efficiency";
+</pre>
+
+<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</a> (Icon for runnable examples).</p>
+<h3>Parameters</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+>MassFlowRate</a></td><td>m_flow_nominal</td><td>3</td><td>Nominal mass flow rate [kg/s]</td></tr>
+<tr><td><a href="Buildings_Fluid_Movers_Data_Pumps_Wilo.html#Buildings.Fluid.Movers.Data.Pumps.Wilo.Stratos30slash1to8"
+>Stratos30slash1to8</a></td><td>per</td><td>&nbsp;</td><td>Pump performance data</td></tr>
+<tr><td><a href="Buildings_Fluid_Movers_Data.html#Buildings.Fluid.Movers.Data.FlowControlled"
+>FlowControlled</a></td><td>perMod</td><td>&nbsp;</td><td>Pump performance data with data from the instance efficiency</td></tr>
+<tr><td><a href="Buildings_Fluid_Movers_BaseClasses_Characteristics.html#Buildings.Fluid.Movers.BaseClasses.Characteristics.efficiencyParameters"
+>efficiencyParameters</a></td><td>efficiency</td><td>&nbsp;</td><td>Hydraulic and motor efficiency</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">model</span> Power <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Power calculation comparison among three mover types&quot;</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</a>;
+
+  <span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = <a href="Buildings_Media_Water.html#Buildings.Media.Water"
+>Buildings.Media.Water</a> <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Medium model&quot;</span>;
+
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+>Modelica.SIunits.MassFlowRate</a> m_flow_nominal=3 <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Nominal mass flow rate&quot;</span>;
+
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="Buildings_Fluid_Movers_Data_Pumps_Wilo.html#Buildings.Fluid.Movers.Data.Pumps.Wilo.Stratos30slash1to8"
+>Data.Pumps.Wilo.Stratos30slash1to8</a> per <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Pump performance data&quot;</span>;
+
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="Buildings_Fluid_Movers_Data.html#Buildings.Fluid.Movers.Data.FlowControlled"
+>Data.FlowControlled</a> perMod(
+    use_powerCharacteristic = true,
+    hydraulicEfficiency=efficiency,
+    motorEfficiency=efficiency,
+    power=per.power) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Pump performance data with data from the instance efficiency&quot;</span>;
+
+  <span style="color: #006400; font-weight: normal; font-style: normal;">// Compute the actual efficiencies</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="Buildings_Fluid_Movers_BaseClasses_Characteristics.html#Buildings.Fluid.Movers.BaseClasses.Characteristics.efficiencyParameters"
+>Buildings.Fluid.Movers.BaseClasses.Characteristics.efficiencyParameters</a>
+    efficiency(V_flow=per.pressure.V_flow, eta=<span style="color: red; font-weight: normal; font-style: normal;">sqrt</span>(per.pressure.V_flow.*per.pressure.dp./
+    {<span style="color: red; font-weight: normal; font-style: normal;">Buildings.Fluid.Movers.BaseClasses.Characteristics.power</span>(
+      per=per.power,
+      V_flow=i,
+      r_N=1,
+      delta=0.01,
+      d=<span style="color: red; font-weight: normal; font-style: normal;">Buildings.Utilities.Math.Functions.splineDerivatives</span>(
+      x=per.power.V_flow,
+      y=per.power.P))
+      <span style="color: blue; font-weight: normal; font-style: normal;">for </span>i<span style="color: blue; font-weight: normal; font-style: normal;"> in </span>per.pressure.V_flow})) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Hydraulic and motor efficiency&quot;</span>;
+
+  <a href="Buildings_Fluid_Movers.html#Buildings.Fluid.Movers.SpeedControlled_Nrpm"
+>Buildings.Fluid.Movers.SpeedControlled_Nrpm</a> pump_Nrpm(
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = Medium,
+    per=per,
+    filteredSpeed=false,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyStateInitial) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Pump with RPM as control signal&quot;</span>;
+  <a href="Buildings_Fluid_Movers.html#Buildings.Fluid.Movers.FlowControlled_dp"
+>Buildings.Fluid.Movers.FlowControlled_dp</a>  pump_dp(
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = Medium,
+    per=perMod,
+    filteredSpeed=false,
+    m_flow_nominal=m_flow_nominal,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyStateInitial) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Pump with pressure rise as control signal&quot;</span>;
+  <a href="Buildings_Fluid_Movers.html#Buildings.Fluid.Movers.FlowControlled_m_flow"
+>Buildings.Fluid.Movers.FlowControlled_m_flow</a> pump_m_flow(
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = Medium,
+    m_flow_nominal=m_flow_nominal,
+    per=perMod,
+    filteredSpeed=false,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyStateInitial) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Pump with mass flow rate as control signal&quot;</span>;
+
+  <a href="Buildings_Fluid_Sources.html#Buildings.Fluid.Sources.Boundary_pT"
+>Buildings.Fluid.Sources.Boundary_pT</a> bou(
+    nPorts=3,
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = Medium) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Pressure source&quot;</span>;
+
+  <a href="Buildings_Fluid_FixedResistances.html#Buildings.Fluid.FixedResistances.FixedResistanceDpM"
+>Buildings.Fluid.FixedResistances.FixedResistanceDpM</a>[3] res(
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">each </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = Medium,
+    <span style="color: blue; font-weight: normal; font-style: normal;">each </span>m_flow_nominal=m_flow_nominal,
+    <span style="color: blue; font-weight: normal; font-style: normal;">each </span>dp_nominal=40000) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Flow resistance&quot;</span>;
+  <a href="Buildings_Fluid_Sources.html#Buildings.Fluid.Sources.Boundary_pT"
+>Buildings.Fluid.Sources.Boundary_pT</a> sink(
+    nPorts=3,
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = Medium);
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Ramp"
+>Modelica.Blocks.Sources.Ramp</a> ramp(
+    duration=100,
+    startTime=10,
+    height=1000,
+    offset=2400) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Ramp for pump speed control signal&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.RealExpression"
+>Modelica.Blocks.Sources.RealExpression</a> dpSet(y=pump_Nrpm.port_b.p - pump_Nrpm.port_a.p) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Pressure rise across pump&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.RealExpression"
+>Modelica.Blocks.Sources.RealExpression</a> m_flowSet(y=pump_Nrpm.port_a.m_flow) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Pump mass flow rate&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Routing.html#Modelica.Blocks.Routing.Multiplex3"
+>Modelica.Blocks.Routing.Multiplex3</a> result;
+<span style="color: blue; font-weight: normal; font-style: normal;">equation </span>
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(bou.ports[1], pump_Nrpm.port_a);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(pump_dp.port_a, bou.ports[2]);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(pump_m_flow.port_a, bou.ports[3]);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(pump_Nrpm.port_b, res[1].port_a);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(pump_dp.port_b, res[2].port_a);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(pump_m_flow.port_b, res[3].port_a);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(sink.ports[1:3], res.port_b);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(ramp.y, pump_Nrpm.Nrpm);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(m_flowSet.y, pump_m_flow.m_flow_in);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(result.u1[1], pump_Nrpm.P);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(result.u2[1], pump_dp.P);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(result.u3[1], pump_m_flow.P);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(dpSet.y, pump_dp.dp_in);
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>Power;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE PumpCurveConstruction<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Fluid.Movers.Va7d34720036e89cf9ctionI.png" alt="Buildings.Fluid.Movers.Validation.PumpCurveConstruction" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Fluid.Movers.Validation.PumpCurveConstruction"></a><a href="Buildings_Fluid_Movers_Validation.html#Buildings.Fluid.Movers.Validation"
+>Buildings.Fluid.Movers.Validation</a>.PumpCurveConstruction</h2>
+<p>
+<b>Validation model that tests that the pump curve is properly extrapolated to V=0 and dp=0</b>
+<br>
+<br><img src="Buildings.Fluid.Movers.Va7d34720036e89cf9ctionD.png" alt="Buildings.Fluid.Movers.Validation.PumpCurveConstruction">
+</p>
+<h3>Information</h3>
+
+<p>
+This example tests whether the construction of the pump curve is correct implemented
+for the cases where no data point is given at zero head, zero mass flow rate, or both.
+</p>
+<p>
+Each pump is identical, but different points on the pump curve are specified.
+However, the pump curves are linear and hence, because the pump curves are linearly
+extrapolated, all four pumps need to give the same flow rate.
+</p>
+<h4>Implementation</h4>
+<p>
+The pump curves are such that the protected parameter <code>curve</code>
+of the pumps have different values. This then tests the correct extrapolation.
+</p>
+
+<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</a> (Icon for runnable examples).</p>
+<h3>Parameters</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+>MassFlowRate</a></td><td>m_flow_nominal</td><td>1</td><td>Nominal mass flow rate at zero pump head [kg/s]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.VolumeFlowRate"
+>VolumeFlowRate</a></td><td>V_flow_nominal</td><td>m_flow_nominal/1000</td><td>Nominal mass flow rate at zero pump head [m3/s]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
+>Pressure</a></td><td>dp_nominal</td><td>10000</td><td>Nominal pump head at zero mass flow rate [Pa]</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">model</span> PumpCurveConstruction <span style="color: #006400; font-weight: normal; font-style: normal;">
+  &quot;Validation model that tests that the pump curve is properly extrapolated to V=0 and dp=0&quot;</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</a>;
+
+  <span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = <a href="Buildings_Media_Water.html#Buildings.Media.Water"
+>Buildings.Media.Water</a> <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Medium model&quot;</span>;
+
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+>Modelica.SIunits.MassFlowRate</a> m_flow_nominal = 1 <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Nominal mass flow rate at zero pump head&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.VolumeFlowRate"
+>Modelica.SIunits.VolumeFlowRate</a> V_flow_nominal = m_flow_nominal/1000 <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Nominal mass flow rate at zero pump head&quot;</span>;
+
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
+>Modelica.SIunits.Pressure</a> dp_nominal = 10000 <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Nominal pump head at zero mass flow rate&quot;</span>;
+
+  <a href="Buildings_Fluid_Actuators_Valves.html#Buildings.Fluid.Actuators.Valves.TwoWayLinear"
+>Actuators.Valves.TwoWayLinear</a> val1(
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = Medium,
+    m_flow_nominal=m_flow_nominal,
+    filteredOpening=false,
+    dpValve_nominal=dp_nominal/1000,
+    from_dp=false) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Valve with very small pressure drop if fully open&quot;</span>;
+  <a href="Buildings_Fluid_Sources.html#Buildings.Fluid.Sources.Boundary_pT"
+>Sources.Boundary_pT</a> sou(
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = Medium,
+    use_p_in=false,
+    nPorts=8,
+    p=101325,
+    T=293.15) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Pressure boundary condition&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+>Modelica.Blocks.Sources.Constant</a> yPum(k=1) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Input signal for pump&quot;</span>;
+
+  <a href="Buildings_Fluid_Movers.html#Buildings.Fluid.Movers.SpeedControlled_y"
+>Buildings.Fluid.Movers.SpeedControlled_y</a> pum(
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = Medium,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
+    dynamicBalance=false,
+    filteredSpeed=false,
+    per(pressure(
+          V_flow={0,0.5*V_flow_nominal,V_flow_nominal},
+          dp={dp_nominal,0.5*dp_nominal,0}))) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Pump with 3 data points for the pressure flow relation&quot;</span>;
+
+  <a href="Buildings_Fluid_Movers.html#Buildings.Fluid.Movers.SpeedControlled_y"
+>Buildings.Fluid.Movers.SpeedControlled_y</a> pum_dp(
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = Medium,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
+    dynamicBalance=false,
+    filteredSpeed=false,
+    per(pressure(
+          V_flow={0.5*V_flow_nominal, 0.75*V_flow_nominal, V_flow_nominal},
+          dp={0.5*dp_nominal, 0.25*dp_nominal, 0}))) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Pump with 2 data points for the pressure flow relation, with data at dp=0&quot;</span>;
+
+    <a href="Buildings_Fluid_Movers.html#Buildings.Fluid.Movers.SpeedControlled_y"
+>Buildings.Fluid.Movers.SpeedControlled_y</a> pum_m_flow(
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = Medium,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
+    dynamicBalance=false,
+    filteredSpeed=false,
+    per(pressure(
+           V_flow={0, 0.25*V_flow_nominal, 0.5*V_flow_nominal},
+           dp={dp_nominal, 0.75*dp_nominal, 0.5*dp_nominal}))) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Pump with 2 data points for the pressure flow relation, with data at m_flow=0&quot;</span>;
+
+  <a href="Buildings_Fluid_Movers.html#Buildings.Fluid.Movers.SpeedControlled_y"
+>Buildings.Fluid.Movers.SpeedControlled_y</a> pum_no(
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = Medium,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
+    dynamicBalance=false,
+    filteredSpeed=false,
+    per(pressure(
+          V_flow={0.25*V_flow_nominal,0.5*V_flow_nominal,0.75*V_flow_nominal},
+          dp={0.75*dp_nominal,0.5*dp_nominal,0.25*dp_nominal}))) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Pump with 2 data points for the pressure flow relation, with no data at m_flow=0 and dp=0&quot;</span>;
+
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Ramp"
+>Modelica.Blocks.Sources.Ramp</a> yVal(
+    height=-1,
+    duration=1,
+    offset=1) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Input signal for valve&quot;</span>;
+
+  <a href="Buildings_Fluid_Actuators_Valves.html#Buildings.Fluid.Actuators.Valves.TwoWayLinear"
+>Actuators.Valves.TwoWayLinear</a> val2(
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = Medium,
+    m_flow_nominal=m_flow_nominal,
+    filteredOpening=false,
+    dpValve_nominal=dp_nominal/1000,
+    from_dp=false) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Valve with very small pressure drop if fully open&quot;</span>;
+
+  <a href="Buildings_Fluid_Actuators_Valves.html#Buildings.Fluid.Actuators.Valves.TwoWayLinear"
+>Actuators.Valves.TwoWayLinear</a> val3(
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = Medium,
+    m_flow_nominal=m_flow_nominal,
+    filteredOpening=false,
+    dpValve_nominal=dp_nominal/1000,
+    from_dp=false) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Valve with very small pressure drop if fully open&quot;</span>;
+
+  <a href="Buildings_Fluid_Actuators_Valves.html#Buildings.Fluid.Actuators.Valves.TwoWayLinear"
+>Actuators.Valves.TwoWayLinear</a> val4(
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = Medium,
+    m_flow_nominal=m_flow_nominal,
+    filteredOpening=false,
+    dpValve_nominal=dp_nominal/1000,
+    from_dp=false) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Valve with very small pressure drop if fully open&quot;</span>;
+
+<span style="color: blue; font-weight: normal; font-style: normal;">equation </span>
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(yPum.y, pum.y);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(pum.port_a, val1.port_b);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(val1.port_a, sou.ports[1]);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(yVal.y, val1.y);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(pum_dp.port_a, val2.port_b);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(pum_m_flow.port_a, val3.port_b);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(sou.ports[2], val2.port_a);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(val3.port_a, sou.ports[3]);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(yVal.y, val2.y);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(yVal.y, val3.y);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(yPum.y, pum_dp.y);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(yPum.y, pum_m_flow.y);
+
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(val4.port_a, sou.ports[4]);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(val4.port_b, pum_no.port_a);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(yVal.y, val4.y);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(yPum.y, pum_no.y);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(pum_no.port_b, sou.ports[5]);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(pum_m_flow.port_b, sou.ports[6]);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(pum_dp.port_b, sou.ports[7]);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(pum.port_b, sou.ports[8]);
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>PumpCurveConstruction;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE Pump_Nrpm_stratos<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Fluid.Movers.Vacf794935dacd20d9ratosI.png" alt="Buildings.Fluid.Movers.Validation.Pump_Nrpm_stratos" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Fluid.Movers.Validation.Pump_Nrpm_stratos"></a><a href="Buildings_Fluid_Movers_Validation.html#Buildings.Fluid.Movers.Validation"
+>Buildings.Fluid.Movers.Validation</a>.Pump_Nrpm_stratos</h2>
+<p>
+<b>Model validation using a Wilo Stratos 80/1-12 pump</b>
+<br>
+<br><img src="Buildings.Fluid.Movers.Vacf794935dacd20d9ratosD.png" alt="Buildings.Fluid.Movers.Validation.Pump_Nrpm_stratos">
+</p>
+<h3>Information</h3>
+
+<p>This example provides a validation for the Nrpm model.
+A Wilo Stratos 80/1-12 pump is simulated for five different RPMs for load
+that changes with time.
+The resulting curves for the pump head and mass flow rate are plotted
+using colored lines over the pump data sheet.
+The resulting figures are shown below.
+</p>
+<p>Pump heads:</p>
+<p><img src="../Resources/Images/Fluid/Movers/Examples/PumpValidationHead.png"
+alt="Pump head."/>
+</p>
+<p>Pump electrical power:</p>
+<p><img src="../Resources/Images/Fluid/Movers/Examples/PumpValidationPower.png"
+alt="Pump power."/></p>
+<p>The figures are adapted from the
+<a href="http://productfinder.wilo.com/en/COM/product/0000001700017d670001003a/fc_product_datasheet">
+Wilo Stratos 80/1-12 data sheet</a>.
+</p>
+
+<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</a> (Icon for runnable examples).</p>
+<h3>Parameters</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td><a href="Buildings_Fluid_Movers_Data_Pumps_Wilo.html#Buildings.Fluid.Movers.Data.Pumps.Wilo.Stratos80slash1to12"
+>Stratos80slash1to12</a></td><td>per</td><td>&nbsp;</td><td>Pump performance data</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">model</span> Pump_Nrpm_stratos <span style="color: #006400; font-weight: normal; font-style: normal;">
+  &quot;Model validation using a Wilo Stratos 80/1-12 pump&quot;</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</a>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Water_ConstantPropertyLiquidWater.html#Modelica.Media.Water.ConstantPropertyLiquidWater"
+>Modelica.Media.Water.ConstantPropertyLiquidWater</a>;
+
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="Buildings_Fluid_Movers_Data_Pumps_Wilo.html#Buildings.Fluid.Movers.Data.Pumps.Wilo.Stratos80slash1to12"
+>Data.Pumps.Wilo.Stratos80slash1to12</a> per <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Pump performance data&quot;</span>;
+
+  <a href="Buildings_Fluid_Sources.html#Buildings.Fluid.Sources.Boundary_pT"
+>Buildings.Fluid.Sources.Boundary_pT</a> sou(
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = Medium,
+    nPorts=5) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Boundary condition with fixed pressure&quot;</span>;
+
+  <a href="Buildings_Fluid_Sources.html#Buildings.Fluid.Sources.Boundary_pT"
+>Buildings.Fluid.Sources.Boundary_pT</a> sin(
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium =Medium,
+    nPorts=5) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Boundary condition with fixed pressure&quot;</span>;
+
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Ramp"
+>Modelica.Blocks.Sources.Ramp</a> m_flow(
+    startTime=100,
+    duration=800,
+    height=60/3.6,
+    offset=0) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Ramp signal for forced mass flow rate&quot;</span>;
+
+  <a href="Buildings_Fluid_Movers.html#Buildings.Fluid.Movers.SpeedControlled_Nrpm"
+>Buildings.Fluid.Movers.SpeedControlled_Nrpm</a> pump1(
+    y_start=1,
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = Medium,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
+    per=per) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Wilo Stratos pump&quot;</span>;
+  <a href="Buildings_Fluid_Movers.html#Buildings.Fluid.Movers.SpeedControlled_Nrpm"
+>Buildings.Fluid.Movers.SpeedControlled_Nrpm</a> pump2(
+    y_start=1,
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = Medium,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
+    per=per) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Wilo Stratos pump&quot;</span>;
+  <a href="Buildings_Fluid_Movers.html#Buildings.Fluid.Movers.SpeedControlled_Nrpm"
+>Buildings.Fluid.Movers.SpeedControlled_Nrpm</a> pump3(
+    y_start=1,
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = Medium,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
+    per=per) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Wilo Stratos pump&quot;</span>;
+  <a href="Buildings_Fluid_Movers.html#Buildings.Fluid.Movers.SpeedControlled_Nrpm"
+>Buildings.Fluid.Movers.SpeedControlled_Nrpm</a> pump4(
+    y_start=1,
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = Medium,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
+    per=per) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Wilo Stratos pump&quot;</span>;
+  <a href="Buildings_Fluid_Movers.html#Buildings.Fluid.Movers.SpeedControlled_Nrpm"
+>Buildings.Fluid.Movers.SpeedControlled_Nrpm</a> pump5(
+    y_start=1,
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = Medium,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
+    per=per) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Wilo Stratos pump&quot;</span>;
+
+  <a href="Buildings_Fluid_Movers.html#Buildings.Fluid.Movers.FlowControlled_m_flow"
+>Buildings.Fluid.Movers.FlowControlled_m_flow</a> forcedPump1(<span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span>
+      Medium = Medium, m_flow_nominal=3,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Pump for forcing a certain mass flow rate&quot;</span>;
+  <a href="Buildings_Fluid_Movers.html#Buildings.Fluid.Movers.FlowControlled_m_flow"
+>Buildings.Fluid.Movers.FlowControlled_m_flow</a> forcedPump2(<span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span>
+      Medium = Medium, m_flow_nominal=3,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Pump for forcing a certain mass flow rate&quot;</span>;
+  <a href="Buildings_Fluid_Movers.html#Buildings.Fluid.Movers.FlowControlled_m_flow"
+>Buildings.Fluid.Movers.FlowControlled_m_flow</a> forcedPump3(<span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span>
+      Medium = Medium, m_flow_nominal=3,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Pump for forcing a certain mass flow rate&quot;</span>;
+  <a href="Buildings_Fluid_Movers.html#Buildings.Fluid.Movers.FlowControlled_m_flow"
+>Buildings.Fluid.Movers.FlowControlled_m_flow</a> forcedPump4(<span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span>
+      Medium = Medium, m_flow_nominal=3,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Pump for forcing a certain mass flow rate&quot;</span>;
+  <a href="Buildings_Fluid_Movers.html#Buildings.Fluid.Movers.FlowControlled_m_flow"
+>Buildings.Fluid.Movers.FlowControlled_m_flow</a> forcedPump5(<span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span>
+      Medium = Medium, m_flow_nominal=3,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Pump for forcing a certain mass flow rate&quot;</span>;
+
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+>Modelica.Blocks.Sources.Constant</a> rpm1(k=2960) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Pump speed control signal&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+>Modelica.Blocks.Sources.Constant</a> rpm2(k=2610) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Pump speed control signal&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+>Modelica.Blocks.Sources.Constant</a> rpm3(k=1930) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Pump speed control signal&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+>Modelica.Blocks.Sources.Constant</a> rpm4(k=3300) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Pump speed control signal&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+>Modelica.Blocks.Sources.Constant</a> rpm5(k=900) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Pump speed control signal&quot;</span>;
+
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Math.html#Modelica.Blocks.Math.Min"
+>Modelica.Blocks.Math.Min</a> min1 <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Minimum for not going outside of the figure range (see documentation)&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Math.html#Modelica.Blocks.Math.Min"
+>Modelica.Blocks.Math.Min</a> min2 <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Minimum for not going outside of the figure range (see documentation)&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Math.html#Modelica.Blocks.Math.Min"
+>Modelica.Blocks.Math.Min</a> min3 <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Minimum for not going outside of the figure range (see documentation)&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Math.html#Modelica.Blocks.Math.Min"
+>Modelica.Blocks.Math.Min</a> min4 <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Minimum for not going outside of the figure range (see documentation)&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Math.html#Modelica.Blocks.Math.Min"
+>Modelica.Blocks.Math.Min</a> min5 <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Minimum for not going outside of the figure range (see documentation)&quot;</span>;
+
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+>Modelica.Blocks.Sources.Constant</a> mMax_flow1(k=40/3.6) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Maximum flow rate of the pump at given rpm&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+>Modelica.Blocks.Sources.Constant</a> mMax_flow2(k=55/3.6) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Maximum flow rate of the pump at given rpm&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+>Modelica.Blocks.Sources.Constant</a> mMax_flow3(k=40/3.6) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Maximum flow rate of the pump at given rpm&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+>Modelica.Blocks.Sources.Constant</a> mMax_flow4(k=22/3.6) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Maximum flow rate of the pump at given rpm&quot;</span>;
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+>Modelica.Blocks.Sources.Constant</a> mMax_flow5(k=16/3.6) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Maximum flow rate of the pump at given rpm&quot;</span>;
+
+<span style="color: blue; font-weight: normal; font-style: normal;">equation </span>
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(sou.ports[1], pump1.port_a);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(forcedPump1.port_a, pump1.port_b);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(pump1.Nrpm, rpm1.y);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(pump2.port_a, sou.ports[2]);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(pump3.port_a, sou.ports[3]);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(pump4.port_a, sou.ports[4]);
+
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(pump5.port_a, sou.ports[5]);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(pump2.port_b, forcedPump2.port_a);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(pump3.port_b, forcedPump3.port_a);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(pump4.port_b, forcedPump4.port_a);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(pump5.port_b, forcedPump5.port_a);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(rpm2.y, pump2.Nrpm);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(rpm3.y, pump3.Nrpm);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(rpm4.y, pump4.Nrpm);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(rpm5.y, pump5.Nrpm);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(forcedPump1.m_flow_in, min1.y);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(min1.u1, m_flow.y);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(min2.y, forcedPump2.m_flow_in);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(min2.u1, m_flow.y);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(min3.y, forcedPump3.m_flow_in);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(min5.y, forcedPump5.m_flow_in);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(min4.y, forcedPump4.m_flow_in);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(min3.u1, m_flow.y);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(min4.u1, m_flow.y);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(min5.u1, m_flow.y);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(mMax_flow1.y, min1.u2);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(mMax_flow2.y, min2.u2);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(min3.u2, mMax_flow3.y);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(mMax_flow4.y, min4.u2);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(mMax_flow5.y, min5.u2);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(forcedPump1.port_b, sin.ports[1]);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(forcedPump2.port_b, sin.ports[2]);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(forcedPump3.port_b, sin.ports[3]);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(forcedPump4.port_b, sin.ports[4]);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(forcedPump5.port_b, sin.ports[5]);
+
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>Pump_Nrpm_stratos;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE Pump_stratos<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Fluid.Movers.Vacf794935dacd20d9ratosI.png" alt="Buildings.Fluid.Movers.Validation.Pump_stratos" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Fluid.Movers.Validation.Pump_stratos"></a><a href="Buildings_Fluid_Movers_Validation.html#Buildings.Fluid.Movers.Validation"
+>Buildings.Fluid.Movers.Validation</a>.Pump_stratos</h2>
+<p>
+<b>Stratos pumps with speed as input</b>
+<br>
+<br><img src="Buildings.Fluid.Movers.Vad3484eeda2180da6ratosD.png" alt="Buildings.Fluid.Movers.Validation.Pump_stratos">
+</p>
+<h3>Information</h3>
+
+<p>This example demonstrates and tests the use of a flow machine that uses
+a performance data from a Stratos pump.</p>
+
+<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</a> (Icon for runnable examples), <a href="Buildings_Fluid_Movers_Validation_BaseClasses.html#Buildings.Fluid.Movers.Validation.BaseClasses.FlowMachine_ZeroFlow"
+>Buildings.Fluid.Movers.Validation.BaseClasses.FlowMachine_ZeroFlow</a> (Base class to test flow machines with zero flow rate).</p>
+<h3>Parameters</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td colspan="2">replaceable package Medium</td><td><a href="Buildings_Media_Air.html#Buildings.Media.Air"
+>Air</a></td><td>Medium model</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+>MassFlowRate</a></td><td>m_flow_nominal</td><td>floMacSta.per.pressure.V_flo...</td><td>Nominal mass flow rate [kg/s]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
+>Pressure</a></td><td>dp_nominal</td><td>floMacSta.per.pressure.dp[3]/2</td><td>Nominal pressure difference [Pa]</td></tr>
+<tr><td><a href="Buildings_Fluid_Movers_Data_Pumps_Wilo.html#Buildings.Fluid.Movers.Data.Pumps.Wilo.Stratos25slash1to6"
+>Stratos25slash1to6</a></td><td>per</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+</table>
+<h3>Connectors</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Connectors">
+<tr><th>Type</th><th>Name</th><th>Description</th></tr>
+<tr><td colspan="2">replaceable package Medium</td><td>Medium model</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">model</span> Pump_stratos <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Stratos pumps with speed as input&quot;</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</a>;
+ <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="Buildings_Fluid_Movers_Validation_BaseClasses.html#Buildings.Fluid.Movers.Validation.BaseClasses.FlowMachine_ZeroFlow"
+>Buildings.Fluid.Movers.Validation.BaseClasses.FlowMachine_ZeroFlow</a>(
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = <a href="Buildings_Media_Water.html#Buildings.Media.Water"
+>Buildings.Media.Water</a>,
+    gain(k=floMacSta.per.N_nominal),
+    m_flow_nominal=floMacSta.per.pressure.V_flow[3]*1000,
+    dp_nominal=floMacSta.per.pressure.dp[3]/2,
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><a href="Buildings_Fluid_Movers.html#Buildings.Fluid.Movers.SpeedControlled_Nrpm"
+>Buildings.Fluid.Movers.SpeedControlled_Nrpm</a> floMacSta(
+      <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = Medium,
+      filteredSpeed=false,
+      per=per),
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><a href="Buildings_Fluid_Movers.html#Buildings.Fluid.Movers.SpeedControlled_Nrpm"
+>Buildings.Fluid.Movers.SpeedControlled_Nrpm</a> floMacDyn(
+      <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = Medium,
+      filteredSpeed=false,
+      per=per));
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="Buildings_Fluid_Movers_Data_Pumps_Wilo.html#Buildings.Fluid.Movers.Data.Pumps.Wilo.Stratos25slash1to6"
+>Data.Pumps.Wilo.Stratos25slash1to6</a> per;
+<span style="color: blue; font-weight: normal; font-style: normal;">equation </span>
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(gain.y, floMacSta.Nrpm);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(gain.y, floMacDyn.Nrpm);
+
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>Pump_stratos;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE SpeedControlled_Nrpm<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Fluid.Movers.Vacf794935dacd20d9ratosI.png" alt="Buildings.Fluid.Movers.Validation.SpeedControlled_Nrpm" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Fluid.Movers.Validation.SpeedControlled_Nrpm"></a><a href="Buildings_Fluid_Movers_Validation.html#Buildings.Fluid.Movers.Validation"
+>Buildings.Fluid.Movers.Validation</a>.SpeedControlled_Nrpm</h2>
+<p>
+<b>Fan with zero mass flow rate and speed as input</b>
+<br>
+<br><img src="Buildings.Fluid.Movers.Vab549f4efca51a880_NrpmD.png" alt="Buildings.Fluid.Movers.Validation.SpeedControlled_Nrpm">
+</p>
+<h3>Information</h3>
+
+<p>
+This example demonstrates and tests the use of a flow machine whose mass flow rate is reduced to zero.
+</p>
+<p>
+The fans have been configured as steady-state models.
+This ensures that the actual speed is equal to the input signal.
+</p>
+
+<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</a> (Icon for runnable examples), <a href="Buildings_Fluid_Movers_Validation_BaseClasses.html#Buildings.Fluid.Movers.Validation.BaseClasses.FlowMachine_ZeroFlow"
+>Buildings.Fluid.Movers.Validation.BaseClasses.FlowMachine_ZeroFlow</a> (Base class to test flow machines with zero flow rate).</p>
+<h3>Parameters</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td colspan="2">replaceable package Medium</td><td><a href="Buildings_Media_Air.html#Buildings.Media.Air"
+>Air</a></td><td>Medium model</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+>MassFlowRate</a></td><td>m_flow_nominal</td><td>1</td><td>Nominal mass flow rate [kg/s]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
+>Pressure</a></td><td>dp_nominal</td><td>500</td><td>Nominal pressure difference [Pa]</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">model</span> SpeedControlled_Nrpm <span style="color: #006400; font-weight: normal; font-style: normal;">
+  &quot;Fan with zero mass flow rate and speed as input&quot;</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</a>;
+ <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="Buildings_Fluid_Movers_Validation_BaseClasses.html#Buildings.Fluid.Movers.Validation.BaseClasses.FlowMachine_ZeroFlow"
+>Buildings.Fluid.Movers.Validation.BaseClasses.FlowMachine_ZeroFlow</a>(
+    gain(k=1500),
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><a href="Buildings_Fluid_Movers.html#Buildings.Fluid.Movers.SpeedControlled_Nrpm"
+>Buildings.Fluid.Movers.SpeedControlled_Nrpm</a> floMacSta(
+      <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = <a href="Buildings_Fluid_Movers_Validation_BaseClasses_Medium.html#Buildings.Fluid.Movers.Validation.BaseClasses.FlowMachine_ZeroFlow.Medium"
+>Medium</a>,
+      per(pressure(V_flow={0,m_flow_nominal,2*m_flow_nominal}/1.2,
+                  dp={2*dp_nominal,dp_nominal,0})),
+      filteredSpeed=false,
+      energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial),
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><a href="Buildings_Fluid_Movers.html#Buildings.Fluid.Movers.SpeedControlled_Nrpm"
+>Buildings.Fluid.Movers.SpeedControlled_Nrpm</a> floMacDyn(
+      <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = <a href="Buildings_Fluid_Movers_Validation_BaseClasses_Medium.html#Buildings.Fluid.Movers.Validation.BaseClasses.FlowMachine_ZeroFlow.Medium"
+>Medium</a>,
+      per(pressure(V_flow={0,m_flow_nominal,2*m_flow_nominal}/1.2,
+                   dp={2*dp_nominal,dp_nominal,0})),
+      filteredSpeed=false,
+      energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial));
+
+<span style="color: blue; font-weight: normal; font-style: normal;">equation </span>
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(gain.y, floMacSta.Nrpm);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(gain.y, floMacDyn.Nrpm);
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>SpeedControlled_Nrpm;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE SpeedControlled_y<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Fluid.Movers.Vacf794935dacd20d9ratosI.png" alt="Buildings.Fluid.Movers.Validation.SpeedControlled_y" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Fluid.Movers.Validation.SpeedControlled_y"></a><a href="Buildings_Fluid_Movers_Validation.html#Buildings.Fluid.Movers.Validation"
+>Buildings.Fluid.Movers.Validation</a>.SpeedControlled_y</h2>
+<p>
+<b>Fan with zero mass flow rate and control signal y as input</b>
+<br>
+<br><img src="Buildings.Fluid.Movers.Vafbe14ebb5ddb9495led_yD.png" alt="Buildings.Fluid.Movers.Validation.SpeedControlled_y">
+</p>
+<h3>Information</h3>
+
+<p>
+This example demonstrates and tests the use of a flow machine whose mass flow rate is reduced to zero.
+</p>
+<p>
+The fans have been configured as steady-state models.
+This ensures that the actual speed is equal to the input signal.
+</p>
+
+<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</a> (Icon for runnable examples), <a href="Buildings_Fluid_Movers_Validation_BaseClasses.html#Buildings.Fluid.Movers.Validation.BaseClasses.FlowMachine_ZeroFlow"
+>Buildings.Fluid.Movers.Validation.BaseClasses.FlowMachine_ZeroFlow</a> (Base class to test flow machines with zero flow rate).</p>
+<h3>Parameters</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td colspan="2">replaceable package Medium</td><td><a href="Buildings_Media_Air.html#Buildings.Media.Air"
+>Air</a></td><td>Medium model</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+>MassFlowRate</a></td><td>m_flow_nominal</td><td>1</td><td>Nominal mass flow rate [kg/s]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
+>Pressure</a></td><td>dp_nominal</td><td>500</td><td>Nominal pressure difference [Pa]</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">model</span> SpeedControlled_y <span style="color: #006400; font-weight: normal; font-style: normal;">
+  &quot;Fan with zero mass flow rate and control signal y as input&quot;</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</a>;
+ <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="Buildings_Fluid_Movers_Validation_BaseClasses.html#Buildings.Fluid.Movers.Validation.BaseClasses.FlowMachine_ZeroFlow"
+>Buildings.Fluid.Movers.Validation.BaseClasses.FlowMachine_ZeroFlow</a>(
+    gain(k=1),
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><a href="Buildings_Fluid_Movers.html#Buildings.Fluid.Movers.SpeedControlled_y"
+>Buildings.Fluid.Movers.SpeedControlled_y</a> floMacSta(
+      <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = <a href="Buildings_Fluid_Movers_Validation_BaseClasses_Medium.html#Buildings.Fluid.Movers.Validation.BaseClasses.FlowMachine_ZeroFlow.Medium"
+>Medium</a>,
+      per(pressure(V_flow={0,m_flow_nominal,2*m_flow_nominal}/1.2,
+                    dp={2*dp_nominal,dp_nominal,0})),
+      filteredSpeed=false,
+      energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial),
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><a href="Buildings_Fluid_Movers.html#Buildings.Fluid.Movers.SpeedControlled_y"
+>Buildings.Fluid.Movers.SpeedControlled_y</a> floMacDyn(
+      <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = <a href="Buildings_Fluid_Movers_Validation_BaseClasses_Medium.html#Buildings.Fluid.Movers.Validation.BaseClasses.FlowMachine_ZeroFlow.Medium"
+>Medium</a>,
+      per(pressure(V_flow={0,m_flow_nominal,2*m_flow_nominal}/1.2,
+                    dp={2*dp_nominal,dp_nominal,0})),
+      filteredSpeed=false,
+      energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial));
+
+<span style="color: blue; font-weight: normal; font-style: normal;">equation </span>
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(gain.y, floMacDyn.y);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(gain.y, floMacSta.y);
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>SpeedControlled_y;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE SpeedControlled_y_linear<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Fluid.Movers.Vacf794935dacd20d9ratosI.png" alt="Buildings.Fluid.Movers.Validation.SpeedControlled_y_linear" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Fluid.Movers.Validation.SpeedControlled_y_linear"></a><a href="Buildings_Fluid_Movers_Validation.html#Buildings.Fluid.Movers.Validation"
+>Buildings.Fluid.Movers.Validation</a>.SpeedControlled_y_linear</h2>
+<p>
+<b>Pump with linear characteristic for pressure vs. flow rate</b>
+<br>
+<br><img src="Buildings.Fluid.Movers.Va36911089f07a3ccbinearD.png" alt="Buildings.Fluid.Movers.Validation.SpeedControlled_y_linear">
+</p>
+<h3>Information</h3>
+
+<p>
+This example demonstrates and tests the use of a flow machine whose speed is reduced to zero.
+In the top model, the pressure drop across the pump is constant, and in the bottom model,
+the mass flow rate across the pump is constant.
+In the top model, a small flow resistance has been added since a pump with zero speed cannot
+produce a non-zero pressure raise. For this operating region, the pressure drop ensures that
+the model is non-singular.
+</p>
+<p>
+The fans have been configured as steady-state models.
+This ensures that the actual speed is equal to the input signal.
+</p>
+
+<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</a> (Icon for runnable examples).</p>
+<h3>Parameters</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+>MassFlowRate</a></td><td>m_flow_nominal</td><td>0.5</td><td>Nominal mass flow rate [kg/s]</td></tr>
+<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
+>Pressure</a></td><td>dp_nominal</td><td>10000</td><td>Nominal pressure [Pa]</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">model</span> SpeedControlled_y_linear <span style="color: #006400; font-weight: normal; font-style: normal;">
+  &quot;Pump with linear characteristic for pressure vs. flow rate&quot;</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</a>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = <a href="Buildings_Media_Water.html#Buildings.Media.Water"
+>Buildings.Media.Water</a> <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Medium model&quot;</span>;
+
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+>Modelica.SIunits.MassFlowRate</a> m_flow_nominal = 0.5 <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Nominal mass flow rate&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
+>Modelica.SIunits.Pressure</a> dp_nominal = 10000 <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Nominal pressure&quot;</span>;
+
+  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Ramp"
+>Modelica.Blocks.Sources.Ramp</a> y(
+    offset=1,
+    duration=0.5,
+    startTime=0.25,
+    height=-1) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Input signal&quot;</span>;
+  <a href="Buildings_Fluid_Sources.html#Buildings.Fluid.Sources.Boundary_pT"
+>Buildings.Fluid.Sources.Boundary_pT</a> sou(
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = Medium,
+    use_p_in=false,
+    p=300000,
+    T=293.15,
+    nPorts=1);
+  <a href="Buildings_Fluid_Movers.html#Buildings.Fluid.Movers.SpeedControlled_y"
+>Buildings.Fluid.Movers.SpeedControlled_y</a> pumFixDp(
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = Medium,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
+    dynamicBalance=false,
+    per(pressure(V_flow=2/1000*{0, m_flow_nominal}, dp={2*dp_nominal, 0})),
+    filteredSpeed=false) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Pump with fixed pressure raise&quot;</span>;
+
+  <a href="Buildings_Fluid_Sources.html#Buildings.Fluid.Sources.Boundary_pT"
+>Buildings.Fluid.Sources.Boundary_pT</a> sou1(
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = Medium,
+    use_p_in=false,
+    p(displayUnit=&quot;Pa&quot;) = 300000 + 0.01*dp_nominal,
+    T=293.15,
+    nPorts=1);
+  <a href="Buildings_Fluid_FixedResistances.html#Buildings.Fluid.FixedResistances.FixedResistanceDpM"
+>Buildings.Fluid.FixedResistances.FixedResistanceDpM</a> dp1(
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = Medium,
+    m_flow_nominal=m_flow_nominal,
+    dp_nominal=0.01*dp_nominal) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Pressure drop&quot;</span>;
+  <a href="Buildings_Fluid_Sources.html#Buildings.Fluid.Sources.MassFlowSource_T"
+>Buildings.Fluid.Sources.MassFlowSource_T</a>
+                                      sou2(
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = Medium,
+    nPorts=1,
+    m_flow=m_flow_nominal*0.01,
+    T=293.15);
+  <a href="Buildings_Fluid_Movers.html#Buildings.Fluid.Movers.SpeedControlled_y"
+>Buildings.Fluid.Movers.SpeedControlled_y</a> pumFixM_flow(
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = Medium,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
+    dynamicBalance=false,
+    per(pressure(V_flow=2/1000*{0, m_flow_nominal}, dp={2*dp_nominal, 0})),
+    filteredSpeed=false) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Pump with fixed mass flow rate&quot;</span>;
+  <a href="Buildings_Fluid_Sources.html#Buildings.Fluid.Sources.Boundary_pT"
+>Buildings.Fluid.Sources.Boundary_pT</a> sou3(
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = Medium,
+    use_p_in=false,
+    p(displayUnit=&quot;Pa&quot;) = 300000 + 0.01*dp_nominal,
+    T=293.15,
+    nPorts=1);
+<span style="color: blue; font-weight: normal; font-style: normal;">equation </span>
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(pumFixDp.port_b, sou1.ports[1]);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(dp1.port_b, pumFixDp.port_a);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(dp1.port_a, sou.ports[1]);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(pumFixM_flow.port_b, sou3.ports[1]);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(sou2.ports[1], pumFixM_flow.port_a);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(y.y, pumFixDp.y);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(y.y, pumFixM_flow.y);
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>SpeedControlled_y_linear;
+</div>
+<hr>
+<address>
+<a href="http://www.3ds.com/">Automatically generated</a> Thu Apr  9 09:36:33 2015.
+</address>
+</body>
+</html>
