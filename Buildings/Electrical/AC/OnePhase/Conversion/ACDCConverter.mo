@@ -38,8 +38,6 @@ equation
 
   if ground_DC then
     v_dc = 0;
-    // fixme: this gives Warning: Ignoring overconstrained operator applied to array components having size zero: Connections.root(terminal_p.theta);
-    // in OpenModelica
     Connections.root(terminal_p.theta);
   else
     i_dc = 0;
