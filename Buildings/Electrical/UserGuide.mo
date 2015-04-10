@@ -242,7 +242,7 @@ award at the BauSIM 2014 conference.
 
 <h4>References</h4>
 <p>
-<a NAME=\"BonviniEtAl2014\"/>
+<a name=\"BonviniEtAl2014\"/>
 Marco Bonvini, Michael Wetter, and Thierry Stephane Nouidui.<br/>
 <a href=\"modelica://Buildings/Resources/Papers/Bausim2014_ElectricalPackage.pdf\">
 A Modelica package for building-to-electrical grid integration</a><br/>
@@ -250,7 +250,7 @@ A Modelica package for building-to-electrical grid integration</a><br/>
 </p>
 
 <p>
-<a NAME=\"RuedigerEtAl2014\"/>
+<a name=\"RuedigerEtAl2014\"/>
 Rudiger Franke and Hansjorg Wiesmann.<br/>
 <a href=\"https://www.modelica.org/events/modelica2014/proceedings/html/submissions/ECP14096515_FrankeWiesmann.pdf\">
 Flexible modeling of electrical power systems - the Modelica PowerSystems library</a>.<br/>
@@ -258,7 +258,7 @@ Proc. of the 10th Modelica Conference, Lund, Sweden, March 2014.<br/>
 </p>
 
 <p>
-<a NAME=\"Olsson2008\"/>
+<a name=\"Olsson2008\"/>
 Hans Olsson, Martin Otter, Sven Erik Mattson and Hilding Elmqvist.<br/>
 <a href=\"http://elib-v3.dlr.de/55892/1/otter2008-modelica-balanced-models.pdf\">
 Balanced Models in Modelica 3.0 for Increased Model Quality</a>.<br/>
