@@ -15,9 +15,8 @@ model Network "Single phase AC network"
       tab="Model",
       group="Assumptions",
       enable=use_C), choices(choice=Buildings.Electrical.Types.Load.FixedZ_steady_state
-        "Steady state", choice=Buildings.Electrical.Types.Load.FixedZ_dynamic
-        "Dynamic"));
-  Modelica.SIunits.Voltage Vabs[grid.nNodes] "RMS voltage of the grid nodes";
+        "Steady state", choice=Buildings.Electrical.Types.Load.FixedZ_dynamic "Dynamic"));
+  Modelica.SIunits.Voltage VAbs[grid.nNodes] "RMS voltage of the grid nodes";
 equation
   for i in 1:grid.nLinks loop
     connect(lines[i].terminal_p, terminal[grid.fromTo[i,1]]);
@@ -25,7 +24,7 @@ equation
   end for;
 
   for i in 1:grid.nNodes loop
-    Vabs[i] = Buildings.Electrical.PhaseSystems.OnePhase.systemVoltage(terminal[i].v);
+    VAbs[i] = Buildings.Electrical.PhaseSystems.OnePhase.systemVoltage(terminal[i].v);
   end for;
 
   annotation (
