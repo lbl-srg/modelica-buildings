@@ -53,8 +53,7 @@ model ThreeWayValves "Three way valves with different opening characteristics"
 equation
   connect(y.y, valLin.y) annotation (Line(
       points={{-19,40},{10,40},{10,14}},
-      color={0,0,127},
-      pattern=LinePattern.None));
+      color={0,0,127}));
   connect(PSin.y, sin.p_in)
     annotation (Line(points={{81,70},{86,70},{86,8},{72,8}}, color={0,0,127}));
   connect(y.y, valEquPerLin.y) annotation (Line(points={{-19,40},{-12,40},{-12,-28},

@@ -753,6 +753,7 @@ Buildings/Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.epw
 Buildings/Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos
 Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.epw
 Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos
+Buildings/ThreeWayValves.mat
 Buildings/Types/Azimuth/package.mo
 Buildings/Types/Azimuth/package.order
 Buildings/Types/Tilt/package.mo

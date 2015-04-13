@@ -43,8 +43,7 @@ model TwoWayValvesTable "Two way valve with linear opening characteristics"
 equation
   connect(y.y,valTab. y) annotation (Line(
       points={{-39,50},{-39,50},{0,50},{0,50},{0,32}},
-      color={0,0,127},
-      pattern=LinePattern.None));
+      color={0,0,127}));
   connect(valTab.port_a, sou.ports[1]) annotation (Line(
       points={{-10,20},{-60,20}},
       color={0,127,255},
