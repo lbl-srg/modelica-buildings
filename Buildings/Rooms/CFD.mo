@@ -87,7 +87,6 @@ equation
   connect(conSha.y, bouConExtWin.uSha) annotation (Line(
       points={{-239,180},{328,180},{328,64},{351,64}},
       color={0,0,127},
-      pattern=LinePattern.None,
       smooth=Smooth.None));
   connect(conSha.y, conExtWinRad.uSha) annotation (Line(
       points={{-239,180},{420,180},{420,-42},{310.2,-42},{310.2,-25.6}},

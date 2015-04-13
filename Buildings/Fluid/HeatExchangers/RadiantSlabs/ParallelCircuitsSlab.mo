@@ -147,52 +147,40 @@ protected
     annotation (Placement(transformation(extent={{40,-40},{60,-20}})));
 equation
   connect(sla.port_b, masFloMul_b.port_a) annotation (Line(
-      points={{10,6.10623e-16},{28,-3.36456e-22},{28,6.10623e-16},{40,
-          6.10623e-16}},
+      points={{10,0},{28,0},{28,0},{40,0}},
       color={0,127,255},
-      pattern=LinePattern.None,
       smooth=Smooth.None));
 
   connect(masFloMul_b.port_b, port_b) annotation (Line(
-      points={{60,6.10623e-16},{80,6.10623e-16},{80,5.55112e-16},{100,
-          5.55112e-16}},
+      points={{60,0},{80,0},{80,0},{100,0}},
       color={0,127,255},
-      pattern=LinePattern.None,
       smooth=Smooth.None));
 
   connect(port_a, masFloMul_a.port_b) annotation (Line(
-      points={{-100,5.55112e-16},{-78,5.55112e-16},{-78,6.10623e-16},{-60,
-          6.10623e-16}},
+      points={{-100,0},{-78,0},{-78,0},{-60,0}},
       color={0,127,255},
-      pattern=LinePattern.None,
       smooth=Smooth.None));
 
   connect(masFloMul_a.port_a, sla.port_a) annotation (Line(
-      points={{-40,6.10623e-16},{-24,-3.36456e-22},{-24,6.10623e-16},{-10,
-          6.10623e-16}},
+      points={{-40,0},{-24,0},{-24,0},{-10,0}},
       color={0,127,255},
-      pattern=LinePattern.None,
       smooth=Smooth.None));
 
   connect(sla.surf_a,heaFloMul_a. port_a) annotation (Line(
       points={{4,10},{4,30},{-40,30}},
       color={191,0,0},
-      pattern=LinePattern.None,
       smooth=Smooth.None));
   connect(heaFloMul_a.port_b, surf_a) annotation (Line(
       points={{-60,30},{-70,30},{-70,50},{40,50},{40,100}},
       color={191,0,0},
-      pattern=LinePattern.None,
       smooth=Smooth.None));
   connect(sla.surf_b,heaFloMul_b. port_a) annotation (Line(
       points={{4,-10},{4,-30},{40,-30}},
       color={191,0,0},
-      pattern=LinePattern.None,
       smooth=Smooth.None));
   connect(heaFloMul_b.port_b, surf_b) annotation (Line(
       points={{60,-30},{70,-30},{70,-80},{40,-80},{40,-100}},
       color={191,0,0},
-      pattern=LinePattern.None,
       smooth=Smooth.None));
   annotation (Documentation(info="<html>
 <p>

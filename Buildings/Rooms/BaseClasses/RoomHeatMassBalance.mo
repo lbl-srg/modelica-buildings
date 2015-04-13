@@ -329,42 +329,34 @@ equation
   connect(bouConExtWin.opa_a, conExtWin.opa_a) annotation (Line(
       points={{352,69},{280,69}},
       color={191,0,0},
-      pattern=LinePattern.None,
       smooth=Smooth.None));
   connect(conExtWin.JInUns_a, bouConExtWin.JOutUns) annotation (Line(
       points={{280.5,60},{304,60},{304,58},{351.5,58}},
       color={0,0,0},
-      pattern=LinePattern.None,
       smooth=Smooth.None));
   connect(bouConExtWin.JInUns, conExtWin.JOutUns_a) annotation (Line(
       points={{351.5,60},{316,60},{316,58},{280.5,58}},
       color={0,0,0},
-      pattern=LinePattern.None,
       smooth=Smooth.None));
   connect(conExtWin.glaUns_a, bouConExtWin.glaUns) annotation (Line(
       points={{280,55},{352,55}},
       color={191,0,0},
-      pattern=LinePattern.None,
       smooth=Smooth.None));
   connect(bouConExtWin.glaSha, conExtWin.glaSha_a) annotation (Line(
       points={{352,53},{280,53}},
       color={191,0,0},
-      pattern=LinePattern.None,
       smooth=Smooth.None));
   connect(conExtWin.JInSha_a, bouConExtWin.JOutSha) annotation (Line(
       points={{280.5,51},{286,51},{286,52},{292,52},{292,49},{351.5,49}},
       color={0,0,0},
-      pattern=LinePattern.None,
       smooth=Smooth.None));
   connect(bouConExtWin.JInSha, conExtWin.JOutSha_a) annotation (Line(
       points={{351.5,51},{290,51},{290,49},{280.5,49}},
       color={0,0,0},
-      pattern=LinePattern.None,
       smooth=Smooth.None));
   connect(conExtWin.fra_a, bouConExtWin.fra) annotation (Line(
       points={{280,46},{352,46}},
       color={191,0,0},
-      pattern=LinePattern.None,
       smooth=Smooth.None));
   connect(conExt.opa_a, bouConExt.opa_a) annotation (Line(
       points={{288,138.333},{334,138.333},{334,139},{352,139}},
@@ -624,13 +616,11 @@ equation
   connect(conExtWin.JOutSha_b, shaRad.JIn_glass) annotation (Line(
       points={{249.5,51},{222,51},{222,70},{16,70},{16,92},{-39,92}},
       color={0,127,0},
-      pattern=LinePattern.None,
       smooth=Smooth.None));
 
   connect(irRadExc.JInConExtWin, sumJFroWin.y) annotation (Line(
       points={{-79.5833,13.3333},{-46,13.3333},{-46,14},{-41,14}},
       color={0,127,0},
-      pattern=LinePattern.None,
       smooth=Smooth.None));
 
   connect(shaRad.QSolAbs_flow, conExtWinRad.QAbsIntSha_flow) annotation (Line(

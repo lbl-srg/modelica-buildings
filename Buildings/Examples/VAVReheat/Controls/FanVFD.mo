@@ -51,7 +51,6 @@ equation
   connect(gaiMea.y, con.u_m) annotation (Line(
       points={{-39,6.10623e-16},{-10,6.10623e-16},{-10,18}},
       color={0,0,127},
-      pattern=LinePattern.None,
       smooth=Smooth.None));
   connect(con.y, extractor.u[OperationModes.occupied]) annotation (Line(
       points={{1,30},{20,30},{20,-8},{-20,-8},{-20,-30},{18,-30}},
