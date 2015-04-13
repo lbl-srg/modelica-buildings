@@ -33,10 +33,10 @@ The electrical systems represented are:
 <ul>
 <li>DC systems,</li>
 <li>DC systems with two conductors,</li>
-<li>1 phase AC systems,</li>
-<li>3 phases resistive balanced AC systems,</li>
-<li>3 phases balanced AC systems,</li>
-<li>3 phases unbalanced AC systems (dq0 representation).</li>
+<li>one-phase AC systems,</li>
+<li>three-phase resistive balanced AC systems,</li>
+<li>three-phase balanced AC systems,</li>
+<li>three-phase unbalanced AC systems (dq0 representation).</li>
 </ul>
 
 <p>

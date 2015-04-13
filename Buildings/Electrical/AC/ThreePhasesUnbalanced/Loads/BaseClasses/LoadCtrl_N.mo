@@ -1,13 +1,13 @@
 within Buildings.Electrical.AC.ThreePhasesUnbalanced.Loads.BaseClasses;
 partial model LoadCtrl_N
-  "Partial model of a three phases unbalanced load with voltage controller and neutral cable"
+  "Partial model of a three-phase unbalanced load with voltage controller and neutral cable"
   extends
     Buildings.Electrical.AC.ThreePhasesUnbalanced.Loads.BaseClasses.BaseLoadCtrl;
   Buildings.Electrical.AC.ThreePhasesUnbalanced.Interfaces.Terminal4_n terminal
-    "Connector for three phases unbalanced systems with neutral cable"
+    "Connector for three-phase unbalanced systems with neutral cable"
     annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
   Buildings.Electrical.AC.ThreePhasesUnbalanced.Interfaces.Connection3to4_n
-    connection3to4 "Connection from three phases + neutral to three phases"
+    connection3to4 "Connection from three-phase and neutral to three-phase"
     annotation (Placement(transformation(extent={{-84,-10},{-64,10}})));
 equation
 
@@ -25,7 +25,7 @@ equation
       smooth=Smooth.None));
     annotation (    Documentation(info="<html>
 <p>
-This model represents a partial interface for a three phases AC unbalanced
+This model represents a partial interface for a three-phase AC unbalanced
 load with neutral cable. The current in the neutral cable is computed as the
 algebraic sum of the currents in the loads.
 </p>

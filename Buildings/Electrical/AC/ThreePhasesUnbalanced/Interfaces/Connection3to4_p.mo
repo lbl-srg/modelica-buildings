@@ -63,7 +63,7 @@ Revised documentation.
 </ul>
 </html>", info="<html>
 <p>
-Adapter between electric connectors type p for AC three phases unbalanced systems.
+Adapter between electric connectors type p for AC three-phase unbalanced systems.
 This adapter connects two connectors without and without a neutral cable.
 </p>
 </html>"));

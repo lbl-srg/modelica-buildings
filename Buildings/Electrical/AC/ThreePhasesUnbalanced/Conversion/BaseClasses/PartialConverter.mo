@@ -44,7 +44,7 @@ Created model and documentation.
 </ul>
 </html>", info="<html>
 <p>
-Partial model that represents a three phases unbalanced
+Partial model that represents a three-phase unbalanced
 transformer without neutral cable connection.
 </p>
 </html>"));

@@ -1,5 +1,5 @@
 within Buildings.Electrical.AC.ThreePhasesBalanced.Interfaces;
-connector Terminal_p "AC three phases balanced terminal ('positive')"
+connector Terminal_p "AC three-phase balanced terminal ('positive')"
   extends Buildings.Electrical.Interfaces.Terminal(
     redeclare replaceable package PhaseSystem = PhaseSystems.OnePhase);
   annotation (defaultComponentName = "term_p",

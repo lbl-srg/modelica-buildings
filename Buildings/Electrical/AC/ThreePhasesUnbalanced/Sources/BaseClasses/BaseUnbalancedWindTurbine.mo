@@ -179,7 +179,7 @@ equation
           fillPattern=FillPattern.Solid)}),
     Documentation(info="<html>
 <p>
-This model is a partial class extended by three phases unbalanced
+This model is a partial class extended by three-phase unbalanced
 wind turbine power sources.
 </p>
 <p>
@@ -189,7 +189,7 @@ unbalanced configuration.
 </p>
 <p>
 The model has an array <code>scaleFraction[3]</code> that is used to determine how
-to partition the power of the wind turbines on the three phases. By default it is assumed
+to partition the power of the wind turbines on the three-phase. By default it is assumed
 a uniform partition <code>scaleFraction[3] = {1/3, 1/3, 1/3}</code>.
 </p>
 </html>",

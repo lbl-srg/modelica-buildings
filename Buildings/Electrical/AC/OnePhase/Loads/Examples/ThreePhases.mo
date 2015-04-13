@@ -1,6 +1,6 @@
 within Buildings.Electrical.AC.OnePhase.Loads.Examples;
 model ThreePhases
-  "Examples that illustrates how to replicate a 3 phases balanced system"
+  "Examples that illustrates how to replicate a three-phase balanced system"
   extends Modelica.Icons.Example;
   Buildings.Electrical.AC.OnePhase.Sources.FixedVoltage Va(
     definiteReference=true,

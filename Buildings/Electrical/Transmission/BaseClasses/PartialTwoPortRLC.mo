@@ -10,7 +10,7 @@ partial model PartialTwoPortRLC
     "Temperature constant (R_actual = R*(M + T_heatPort)/(M + T_ref))";
   parameter Modelica.SIunits.Capacitance C "Capacity";
   parameter Modelica.SIunits.Inductance L "Inductance";
-  parameter Modelica.SIunits.Voltage V_nominal(min=0, start=120)
+  parameter Modelica.SIunits.Voltage V_nominal(min=0, start = 110)
     "Nominal voltage (V_nominal >= 0)"  annotation(Dialog(group="Nominal conditions"));
   Modelica.SIunits.Resistance R_actual
     "Actual resistance = R*(M + T_heatPort)/(M + T_ref) ";

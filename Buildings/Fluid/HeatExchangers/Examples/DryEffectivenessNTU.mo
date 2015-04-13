@@ -138,8 +138,7 @@ model DryEffectivenessNTU
 equation
   connect(PIn.y,sou_2. p_in) annotation (Line(
       points={{81,-80},{98,-80},{98,-2},{84,-2}},
-      color={0,0,127},
-      pattern=LinePattern.None));
+      color={0,0,127}));
   connect(TDb.y, sou_2.T_in) annotation (Line(points={{81,-50},{92,-50},{92,-6},
           {84,-6}},  color={0,0,127}));
   connect(TWat.y, sou_1.T_in)

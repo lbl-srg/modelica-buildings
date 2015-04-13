@@ -1,6 +1,6 @@
 within Buildings.Electrical.AC.ThreePhasesUnbalanced.Loads.Examples;
 model Impedances
-  "This model tests three phases unbalanced impedances with and without neutral cable"
+  "This model tests three-phase unbalanced impedances with and without neutral cable"
   extends Modelica.Icons.Example;
   Sources.FixedVoltage_N sou_N(definiteReference=true,
     f=60,
@@ -83,7 +83,7 @@ equation
           pattern=LinePattern.Dash,
           textString="With neutral")}),        Documentation(info="<html>
 <p>
-This example model shows how to use three phases unbalanced impedances with and without neutral cable.
+This example model shows how to use three-phase unbalanced impedances with and without neutral cable.
 </p>
 <p>
 This model contains two identical inductive impedances with and without neutral cable.

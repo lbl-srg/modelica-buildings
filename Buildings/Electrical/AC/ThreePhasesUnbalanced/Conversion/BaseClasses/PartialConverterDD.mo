@@ -60,7 +60,7 @@ First implementation.
 </ul>
 </html>", info="<html>
 <p>
-Partial model that represents a three phases unbalanced
+Partial model that represents a three-phase unbalanced
 transformer with delta connection on both primary and secondary side.
 </p>
 <p>

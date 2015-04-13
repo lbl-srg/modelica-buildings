@@ -128,7 +128,7 @@ protected
           smooth=Smooth.None)}), Documentation(info="<html>
 <p>
 This package declares the functions that are used to implement
-the AC three phases balanced models using the DQ0 representation.
+the AC three-phase balanced models using the DQ0 representation.
 </p>
 </html>"));
 end ThreePhase_dq0;

@@ -60,7 +60,7 @@ First implementation.
 </ul>
 </html>", info="<html>
 <p>
-Partial model that represents a three phases unbalanced
+Partial model that represents a three-phase unbalanced
 transformer with Y connection on the primary and delta connection on
 the secondary side. The configuration is for voltage step up.
 </p>

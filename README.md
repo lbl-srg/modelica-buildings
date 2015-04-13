@@ -13,15 +13,16 @@ The Modelica Buildings library is a free open-source library with dynamic simula
 - air-based HVAC systems,
 - water-based heating systems,
 - controls,
-- heat transfer among rooms and the outside, and
-- multizone airflow, including natural ventilation and contaminant transport.
+- heat transfer among rooms and the outside,
+- multizone airflow, including natural ventilation and contaminant transport, and
+- electrical systems.
 
 
 The main project site is http://simulationresearch.lbl.gov/modelica.
 
 ## Current release
 
-Download [Buildings Library 1.6 build 1 (2014-06-19)](https://github.com/lbl-srg/modelica-buildings/archive/v1.6+build.1.zip)
+Download [Buildings Library 2.0.0-rc.1 (2015-04-09)](https://github.com/lbl-srg/modelica-buildings/archive/v2.0.0-rc.1.zip)
 
 ## License
 

@@ -35,7 +35,7 @@ Revised documentation and model.
 </ul>
 </html>", info="<html>
 <p>
-This model represents a generalized electrical AC three phases unbalanced network
+This model represents a generalized electrical AC three-phase unbalanced network
 with neutral cable.
 </p>
 <p>

@@ -1,5 +1,5 @@
 within Buildings.Electrical.AC.ThreePhasesBalanced;
-package Lines "Package with line models for three phases balanced AC systems"
+package Lines "Package with line models for three-phase balanced AC systems"
   extends Modelica.Icons.Package;
 
 

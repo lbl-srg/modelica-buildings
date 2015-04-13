@@ -62,15 +62,13 @@ equation
   connect(y.y, valOPPoi.y)
                          annotation (Line(
       points={{-39,70},{-20,70},{6.66134e-16,70},{6.66134e-16,52}},
-      color={0,0,127},
-      pattern=LinePattern.None));
+      color={0,0,127}));
   connect(PSou.y, sou.p_in)
     annotation (Line(points={{-79,26},{-74.5,26},{-74.5,8},{-72,8}},
                                                  color={0,0,127}));
   connect(y.y, valKv.y)  annotation (Line(
       points={{-39,70},{-20,70},{-20,20},{6.66134e-16,20},{6.66134e-16,12}},
-      color={0,0,127},
-      pattern=LinePattern.None));
+      color={0,0,127}));
   connect(valKv.port_a, sou.ports[2])  annotation (Line(
       points={{-10,6.10623e-16},{-30,6.10623e-16},{-30,5.55112e-16},{-50,5.55112e-16}},
       color={0,127,255},

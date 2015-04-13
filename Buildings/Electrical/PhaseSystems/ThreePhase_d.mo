@@ -31,7 +31,7 @@ package ThreePhase_d "AC system covering only resistive loads with three symmetr
           smooth=Smooth.Bezier)}), Documentation(info="<html>
 <p>
 This package declares the functions that are used to implement
-the AC three phases balanced and purely resistive models.
+the AC three-phase balanced and purely resistive models.
 </p>
 </html>"));
 end ThreePhase_d;

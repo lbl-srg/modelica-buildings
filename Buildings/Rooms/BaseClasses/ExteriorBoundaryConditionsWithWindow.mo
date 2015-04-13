@@ -142,7 +142,6 @@ equation
   connect(JInUns,conExtWin. JInUns) annotation (Line(
       points={{-310,20},{-200,20},{-200,-72},{-43,-72}},
       color={0,0,0},
-      pattern=LinePattern.None,
       smooth=Smooth.None));
   connect(conExtWin.JOutUns,JOutUns)  annotation (Line(
       points={{-43,-66},{-196.45,-66},{-196.45,-20},{-310,-20}},
@@ -163,7 +162,6 @@ equation
   connect(conExtWin.JInSha,JInSha)  annotation (Line(
       points={{-43,-114},{-184.45,-114},{-184.45,-160},{-310,-160}},
       color={0,0,0},
-      pattern=LinePattern.None,
       smooth=Smooth.None));
   connect(conExtWin.frame,fra)  annotation (Line(
       points={{-31,-120},{-31,-220},{-260,-220},{-260,-260},{-300,-260}},

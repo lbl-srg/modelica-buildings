@@ -1,6 +1,6 @@
 within Buildings.Electrical.AC.ThreePhasesUnbalanced.Lines.Examples;
 model ACSimpleGrid_N
-  "Test model for a network model for three phases unbalanced systems with neutral cable"
+  "Test model for a network model for three-phase unbalanced systems with neutral cable"
   extends Modelica.Icons.Example;
   Network_N network(
     redeclare Buildings.Electrical.Transmission.Grids.TestGrid2Nodes grid,

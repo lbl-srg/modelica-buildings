@@ -1,6 +1,6 @@
 within Buildings.Electrical.AC.ThreePhasesUnbalanced.Loads;
 model Impedance_N
-  "Model of a three phases unbalanced impedance with neutral cable"
+  "Model of a three-phase unbalanced impedance with neutral cable"
   extends BaseClasses.Impedance_N(
     redeclare Buildings.Electrical.AC.OnePhase.Loads.Impedance load1,
     redeclare Buildings.Electrical.AC.OnePhase.Loads.Impedance load2,
@@ -87,7 +87,7 @@ First implementation.
 </ul>
 </html>", info="<html>
 <p>
-This model represents a three phases unbalanced impedance with neutral cable.
+This model represents a three-phase unbalanced impedance with neutral cable.
 The current in the neutral cable is computed as the algebraic sum of the currents
 of the loads.
 The model extends from

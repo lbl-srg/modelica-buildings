@@ -7,7 +7,7 @@ model Grid_N "Electrical grid with neutral cable"
     "Power consumed from grid if negative, or fed to grid if positive"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
   Buildings.Electrical.AC.ThreePhasesUnbalanced.Interfaces.Terminal4_p terminal
-    "Connector for three phases unbalanced systems"
+    "Connector for three-phase unbalanced systems"
                                                   annotation (Placement(transformation(extent={{-10,
             -110},{10,-90}}), iconTransformation(extent={{-10,-10},{10,10}},
         rotation=90,

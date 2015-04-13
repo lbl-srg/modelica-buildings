@@ -5,7 +5,7 @@ model Grid "Electrical grid"
     annotation (Placement(transformation(extent={{-10,
             -110},{10,-90}}), iconTransformation(extent={{-10,-110},{10,-90}})));
   parameter Modelica.SIunits.Frequency f(start=60) "Frequency of the source";
-  parameter Modelica.SIunits.Voltage V(start=120) "RMS voltage of the source";
+  parameter Modelica.SIunits.Voltage V(start = 110) "RMS voltage of the source";
   parameter Modelica.SIunits.Angle phiSou = 0 "Phase shift angle of the source";
   Buildings.Electrical.AC.Interfaces.PowerOutput P
     "Power consumed from grid if negative, or fed to grid if positive"

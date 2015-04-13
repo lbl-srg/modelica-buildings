@@ -66,7 +66,7 @@ Revised documentation.
 </ul>
 </html>", info="<html>
 <p>
-Simple PV model with orientation for three phases unbalanced systems
+Simple PV model with orientation for three-phase unbalanced systems
 without neutral cable connection.
 </p>
 <p>

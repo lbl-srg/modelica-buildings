@@ -131,7 +131,6 @@ equation
           lineColor={0,0,0}),
         Line(
           points={{-100,80},{-80,80},{-80,-44},{-6,-44}},
-          pattern=LinePattern.None,
           smooth=Smooth.None),
         Text(
           extent={{-140,138},{-94,100}},

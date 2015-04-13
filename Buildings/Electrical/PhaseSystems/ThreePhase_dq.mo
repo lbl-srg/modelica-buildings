@@ -1,5 +1,5 @@
 within Buildings.Electrical.PhaseSystems;
-package ThreePhase_dq "AC system, symmetrically loaded three phases"
+package ThreePhase_dq "AC system, symmetrically loaded three-phase"
   extends PartialPhaseSystem(phaseSystemName="ThreePhase_dq", n=2, m=1);
 
 
@@ -101,7 +101,7 @@ package ThreePhase_dq "AC system, symmetrically loaded three phases"
           smooth=Smooth.None)}), Documentation(info="<html>
 <p>
 This package declares the functions that are used to implement
-the AC three phases balanced models using the DQ representation.
+the AC three-phase balanced models using the DQ representation.
 </p>
 </html>"));
 end ThreePhase_dq;

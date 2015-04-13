@@ -65,7 +65,7 @@ Revised documentation.
 </ul>
 </html>", info="<html>
 <p>
-Adapter between electric connectors type n for AC three phases unbalanced systems.
+Adapter between electric connectors type n for AC three-phase unbalanced systems.
 This adapter connects a connector without neutral cable with a one that has it
 </p>
 </html>"));

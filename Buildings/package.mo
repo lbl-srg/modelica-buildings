@@ -127,11 +127,11 @@ its class name ends with the string <code>Beta</code>.
   package ReleaseNotes "Release notes"
     extends Modelica.Icons.ReleaseNotes;
 
-    class Version_2_0_build1 "Version 2.0 build 1"
+    class Version_2_0_0 "Version 2.0.0-rc.1"
       extends Modelica.Icons.ReleaseNotes;
         annotation (Documentation(info="<html>
 <p>
-Version 2.0 build 1 is a major release that contains various new packages, models
+Version 2.0.0 is a major release that contains various new packages, models
 and improvements.
 </p>
 <p>
@@ -153,7 +153,7 @@ has been added.
 This package allows studying
 buildings to electrical grid integration. It includes models for loads, transformers,
 cables, batteries, PV and wind turbines.
-Models exist for DC and AC systems with two or three phases that can be balanced and unbalanced.
+Models exist for DC and AC systems with two- or three-phase that can be balanced and unbalanced.
 The models compute voltage, current, active and reactive power
 based on the quasi-stationary assumption or using the dynamic phasorial representation.
 </li>
@@ -427,14 +427,6 @@ have been <b style=\"color:blue\">improved</b> in a
     </td>
 </tr>
 
-<tr><td colspan=\"2\"><b>xxx</b>
-    </td>
-</tr>
-<tr><td valign=\"top\">xxx
-    </td>
-    <td valign=\"top\">xxx.
-    </td>
-</tr>
 </table>
 <!-- Non-backward compatible changes to existing components -->
 <p>
@@ -853,32 +845,15 @@ units are wrong or errors in documentation):
 </tr>
 
 </table>
-<!-- Github issues -->
+
 <p>
-The following
-<a href=\"https://github.com/lbl-srg/modelica-buildings/issues\">issues</a>
-have been fixed:
+<b>Note:</b>
 </p>
-<table border=\"1\" summary=\"github issues\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
-<tr><td colspan=\"2\"><b>Buildings.Rooms</b>
-    </td>
-</tr>
-<tr><td valign=\"top\"><a href=\"https://github.com/lbl-srg/modelica-buildings/issues/234\">#234</a>
-    </td>
-    <td valign=\"top\">Division by zero in overhang model.
-    </td>
-</tr>
-</table>
 <p>
-Note:
+With version 2.0, we start using semantic versioning as described at <a href=\"http://semver.org/\">http://semver.org/</a>.
 </p>
-<ul>
-<li>
-xxx
-</li>
-</ul>
 </html>"));
-    end Version_2_0_build1;
+    end Version_2_0_0;
 
     class Version_1_6_build1 "Version 1.6 build 1"
       extends Modelica.Icons.ReleaseNotes;
@@ -4415,7 +4390,7 @@ on the Buildings library.
 </p>
 <ul>
 <li>
-<a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_2_0_build1\">Version 2.0 build1</a>(xxx, 2015)
+<a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_2_0_0\">Version 2.0.0-rc.1 - Release candidate</a>(April 9, 2015)
 </li>
 <li>
 <a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_1_6_build1\">Version 1.6 build1</a>(June 19, 2014)
@@ -4905,10 +4880,9 @@ end UsersGuide;
 
 annotation (
 preferredView="info",
-version="2.0",
-versionBuild=0,
-versionDate="2014-06-19",
-dateModified = "2014-06-19",
+version="2.0.0-rc.1",
+versionDate="2015-04-09",
+dateModified = "2015-04-09",
 uses(Modelica(version="3.2.1"),
      Modelica_StateGraph2(version="2.0.2")),
 conversion(

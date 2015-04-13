@@ -1,5 +1,5 @@
 within Buildings.Electrical.AC.ThreePhasesUnbalanced.Lines.Examples;
-model ACLine_L "Test model for a three phases unbalanced inductive line"
+model ACLine_L "Test model for a three-phase unbalanced inductive line"
   extends Modelica.Icons.Example;
   parameter Modelica.SIunits.Inductance Lbase = 10/2/Modelica.Constants.pi/60
     "Base value for the line inductances";

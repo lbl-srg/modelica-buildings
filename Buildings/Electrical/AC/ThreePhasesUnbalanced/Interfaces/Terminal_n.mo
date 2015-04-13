@@ -1,6 +1,6 @@
 within Buildings.Electrical.AC.ThreePhasesUnbalanced.Interfaces;
 connector Terminal_n
-  "Terminal N for AC three phases unbalanced systems (no neutral cable)"
+  "Terminal N for AC three-phase unbalanced systems (no neutral cable)"
   Buildings.Electrical.AC.OnePhase.Interfaces.Terminal_n phase[3];
   annotation (Icon(graphics={                Polygon(
           points={{-100,100},{-100,60},{100,60},{100,100},{-100,100}},
@@ -22,6 +22,6 @@ Revised documentation.
 </li>
 </ul>
 </html>", info="<html>
-<p>Electric connector type n for AC three phases unbalanced systems.</p>
+<p>Electric connector type n for AC three-phase unbalanced systems.</p>
 </html>"));
 end Terminal_n;

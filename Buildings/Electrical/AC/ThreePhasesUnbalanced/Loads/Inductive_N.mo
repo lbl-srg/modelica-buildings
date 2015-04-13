@@ -1,6 +1,6 @@
 within Buildings.Electrical.AC.ThreePhasesUnbalanced.Loads;
 model Inductive_N
-  "Model of a three phases unbalanced inductive load with neutral cable"
+  "Model of a three-phase unbalanced inductive load with neutral cable"
   extends BaseClasses.LoadCtrl_N(
     redeclare Buildings.Electrical.AC.OnePhase.Loads.Inductive load1(pf=pf,
         use_pf_in=use_pf_in),
@@ -195,7 +195,7 @@ Revised documentation.
 </ul>
 </html>", info="<html>
 <p>
-This model represents a three phases unbalanced inductive load.
+This model represents a three-phase unbalanced inductive load.
 The model extends from
 <a href=\"modelica://Buildings.Electrical.AC.ThreePhasesUnbalanced.Loads.BaseClasses.LoadCtrl_N\">
 Buildings.Electrical.AC.ThreePhasesUnbalanced.Loads.BaseClasses.LoadCtrl_N</a>

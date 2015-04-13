@@ -1,6 +1,6 @@
 within Buildings.Electrical.AC.ThreePhasesUnbalanced.Loads.BaseClasses;
 partial model Impedance
-  "Partial model of a three phases unbalanced impedance without neutral cable"
+  "Partial model of a three-phase unbalanced impedance without neutral cable"
   extends
     Buildings.Electrical.AC.ThreePhasesUnbalanced.Loads.BaseClasses.BaseImpedance;
   Buildings.Electrical.AC.ThreePhasesUnbalanced.Interfaces.Terminal_n terminal
@@ -18,7 +18,7 @@ equation
       smooth=Smooth.None));
   annotation (    Documentation(info="<html>
 <p>
-This model represents a partial interface for a three phases AC
+This model represents a partial interface for a three-phase AC
 unbalanced impedance without neutral cable.
 </p>
 <p>

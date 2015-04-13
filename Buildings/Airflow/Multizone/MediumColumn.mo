@@ -116,7 +116,6 @@ equation
     Icon(graphics={
         Line(
           points={{0,100},{0,-100},{0,-98}},
-          pattern=LinePattern.None,
           smooth=Smooth.None),
         Text(
           extent={{24,-78},{106,-100}},

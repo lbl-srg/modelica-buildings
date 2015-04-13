@@ -8,7 +8,7 @@ model ACACConverter "AC AC converter three phase balanced systems"
   Documentation(info="<html>
 <p>
 This model represents a simplified conversion between two AC
-three phases balanced systems. The conversion losses are represented by a
+three-phase balanced systems. The conversion losses are represented by a
 constant efficiency <i>&eta;</i>.
 </p>
 <p>

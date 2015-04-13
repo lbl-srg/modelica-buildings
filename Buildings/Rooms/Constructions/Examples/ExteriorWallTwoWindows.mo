@@ -256,7 +256,6 @@ equation
   connect(intShaRad.JIn_glass, conExt.JOutSha_b) annotation (Line(
       points={{-19,-58},{-10,-58},{-10,-16},{-1,-16}},
       color={0,0,0},
-      pattern=LinePattern.None,
       smooth=Smooth.None));
   connect(conExt.glaUns_b, intShaCon.glaUns) annotation (Line(
       points={{0,-8},{-8,-8},{-8,-128},{-20,-128}},

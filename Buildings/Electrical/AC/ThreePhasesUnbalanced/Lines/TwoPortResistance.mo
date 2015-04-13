@@ -89,9 +89,9 @@ equation
           textString="%name")}),
     Documentation(info="<html>
 <p>
-Resistive model that connects two AC three phases
+Resistive model that connects two AC three-phase
 unbalanced interfaces. This model can be used to represent a
-cable in a three phases unbalanced AC system.
+cable in a three-phase unbalanced AC system.
 </p>
 
 <p align=\"center\">

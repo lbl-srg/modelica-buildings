@@ -16,7 +16,7 @@ model FixedVoltage "Fixed voltage source"
     potentialReference={potentialReference, potentialReference, potentialReference},
     definiteReference={definiteReference, false, false},
     phiSou={phiSou,phiSou - angle120,phiSou + angle120},
-    each V=V/sqrt(3)) "Voltage sources on the three phases"
+    each V=V/sqrt(3)) "Voltage sources on the three-phase"
              annotation (Placement(transformation(extent={{-30,-10},{-10,10}})));
 equation
   connect(vPhase[1].terminal, connection3to4.terminal4.phase[1]) annotation (Line(

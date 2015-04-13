@@ -98,7 +98,7 @@ equation
           pattern=LinePattern.None)}),
     Documentation(info="<html>
 <p>
-This model is a class extended by three phases unbalanced
+This model is a class extended by three-phase unbalanced
 PV power sources without neutral cable.
 </p>
 </html>",

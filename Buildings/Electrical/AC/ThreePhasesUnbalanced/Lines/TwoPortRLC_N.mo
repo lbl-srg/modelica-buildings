@@ -209,9 +209,9 @@ equation
           textString="%name")}),
     Documentation(info="<html>
 <p>
-RLC line model (T-model) that connects two AC three phases
+RLC line model (T-model) that connects two AC three-phase
 unbalanced interfaces with neutral line. This model can be used to represent a
-cable in a three phases unbalanced AC system.
+cable in a three-phase unbalanced AC system.
 </p>
 
 <p align=\"center\">

@@ -15,7 +15,7 @@ Revised documentation.
 </ul>
 </html>", info="<html>
 <p>
-Simple wind turbine model for three phases unbalanced systems
+Simple wind turbine model for three-phase unbalanced systems
 with neutral cable connection.
 </p>
 <p>

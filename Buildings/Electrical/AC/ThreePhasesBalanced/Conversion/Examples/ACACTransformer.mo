@@ -12,7 +12,7 @@ model ACACTransformer
   Buildings.Electrical.AC.ThreePhasesBalanced.Sources.FixedVoltage sou(
     definiteReference=true,
     f=60,
-    V=480) "Voulate source"
+    V=480) "Voltage source"
       annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         origin={-70,50})));
