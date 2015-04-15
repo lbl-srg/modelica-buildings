@@ -11,7 +11,7 @@ model DryCoilDiscretizedPControl
   parameter Modelica.SIunits.Temperature T_b2_nominal = 40+273.15;
   parameter Modelica.SIunits.MassFlowRate m1_flow_nominal = 5
     "Nominal mass flow rate medium 1";
-  parameter Modelica.SIunits.MassFlowRate m2_flow_nominal = 
+  parameter Modelica.SIunits.MassFlowRate m2_flow_nominal =
     m1_flow_nominal*4200/1000*(T_a1_nominal-T_b1_nominal)/(T_b2_nominal-T_a2_nominal)
     "Nominal mass flow rate medium 2";
 

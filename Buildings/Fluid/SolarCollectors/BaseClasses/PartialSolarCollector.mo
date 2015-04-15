@@ -240,7 +240,7 @@ revisions="<html>
 <ul>
 <li>
 February 8, 2015, by Filip Jorissen:<br/>
-Propagated multiple parameters from <code>LumpedVolumeDeclarations</code>, 
+Propagated multiple parameters from <code>LumpedVolumeDeclarations</code>,
 set <code>prescribedHeatFlowRate = true</code> in <code>vol</code>.
 </li>
 <li>

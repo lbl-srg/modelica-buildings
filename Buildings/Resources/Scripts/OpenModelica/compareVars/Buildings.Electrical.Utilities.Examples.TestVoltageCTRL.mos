@@ -1,0 +1,7 @@
+compareVars :=
+  {
+    "voltageControl.V_nominal",
+    "sou.V_in",
+    "Vtr_high.y",
+    "voltageControl.y"
+  };

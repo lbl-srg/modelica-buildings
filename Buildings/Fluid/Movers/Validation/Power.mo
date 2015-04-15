@@ -7,7 +7,7 @@ model Power "Power calculation comparison among three mover types"
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal=3
     "Nominal mass flow rate";
 
-  parameter Data.Pumps.Stratos30slash1to8 per "Pump performance data"
+  parameter Data.Pumps.Wilo.Stratos30slash1to8 per "Pump performance data"
     annotation (Placement(transformation(extent={{40,60},{60,80}})));
 
   parameter Data.FlowControlled perMod(

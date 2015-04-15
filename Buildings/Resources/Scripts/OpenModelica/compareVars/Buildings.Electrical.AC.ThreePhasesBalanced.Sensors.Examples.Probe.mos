@@ -1,0 +1,9 @@
+compareVars :=
+  {
+    "probe_source.V",
+    "probe_loadRC.V",
+    "probe_loadRL.V",
+    "probe_source.theta",
+    "probe_loadRC.theta",
+    "probe_loadRL.theta"
+  };

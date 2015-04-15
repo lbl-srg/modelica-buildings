@@ -10,7 +10,7 @@ from os import listdir
 from os.path import isfile, join
 
 def validateLine(line, filNam):
-    li = ['home/mwetter', 'dymola/Modelica']
+    li = ['home/mwetter', 'dymola/Modelica', '///opt/dymola']
     for s in li:
         if s in line:
             print "*** Error: Invalid string '%s' in file '%s'." % (s, filNam)
@@ -22,18 +22,41 @@ helpDir=LIBHOME + os.path.sep + 'help'
 
 files = [ f for f in listdir(helpDir) if f.endswith(".html") ]
 
+
+##########################################
+# Discover the link to the html page of the msl, such as in
+# <p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons_Package.html#Modelica.Icons.Package"
+#                          -----------------------------------------------------------------------          
+# This is then used in the text replace below.
+# The test file that we search
+tesFil=os.path.join(LIBHOME, "help", "Buildings.html")
+insLoc = None
+with open(tesFil, 'r') as fil:
+    lines = fil.readlines()
+    for lin in lines:
+        iSta = lin.find('<p>Extends from <a href="file')
+        if iSta > -1:
+            s = "Library/"
+            iEnd = lin.find(s) + len(s)
+            # Get a string such as file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/
+            insLoc = lin[lin.find('href=')+6:iEnd]
+            break
+
+# Remove Library from a string such as file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library
+# and add help/ExternalObject instead of
+repExtObj = insLoc[:len(insLoc)-len("Library")-1] + "help/ExternalObject"
+
 replacements = {'</head>':
                '<link rel=\"stylesheet\" type=\"text/css\" charset=\"utf-8\" media=\"all\" href=\"../Resources/www/modelicaDoc.css\">\n</HEAD>', 
                '<body>':
-               '<body>\n<!-- --- header ------ -->\n<div class="headerStyle">\n<img src="../Resources/www/lbl-logo.png" alt="LBL logo"/>\n</div>\n<div class="headerLinks">\n<ul><li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt; <a href="Buildings.html">Modelica</a></li></ul>\n</div>\n<!-- --- end header -- -->\n',
-
-               'file:////opt/dymola/Modelica/Library/Modelica 3.2/help':
-               '../../msl/3.2/help',
-               'file:////opt/dymola/Modelica/Library':
-               '../../msl',
+               '<body>\n<!-- begin header -->\n<div class="headerStyle">\n<img src="../Resources/www/lbl-logo.png" alt="LBL logo"/>\n</div>\n<div class="headerLinks">\n<ul><li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt; <a href="Buildings.html">Modelica</a></li></ul>\n</div>\n<!-- end header -->\n',
+               '%s' % (insLoc):
+               '../../msl/',
+               repExtObj: insLoc + "ExternalObject/ExternalObject",
                '/home/mwetter/proj/ldrd/bie/modeling/github/lbl-srg/modelica-buildings/Buildings':
                '..',
                '<pre></pre>':''}
+
 for fil in files:
     filNam = helpDir + os.path.sep + fil
     filObj=open(filNam, 'r')

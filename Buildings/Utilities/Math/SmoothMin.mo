@@ -16,9 +16,18 @@ Documentation(info="<html>
 <p>
 Once continuously differentiable approximation to the <i>min(.,.)</i> function.
 </p>
+<p>
+Note that the minimum need not be respected, such as illustrated in
+<a href=\"modelica://Buildings.Utilities.Math.Examples.SmoothMin\">
+Buildings.Utilities.Math.Examples.SmoothMin</a>.
+</p>
 </html>",
 revisions="<html>
 <ul>
+<li>
+March 12, 2015, by Filip Jorissen:<br/>
+Added documentation reference demonstrating overshoot.
+</li>
 <li>
 August 15, 2008, by Michael Wetter:<br/>
 First implementation.

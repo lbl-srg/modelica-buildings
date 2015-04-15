@@ -1,7 +1,6 @@
 within Buildings.HeatTransfer.Windows.BaseClasses.Examples;
 model InteriorConvection
   "Test model for the interior heat transfer due to convection"
-  import Buildings;
   extends Modelica.Icons.Example;
 
   Modelica.Blocks.Sources.Ramp uSha(
@@ -10,7 +9,7 @@ model InteriorConvection
     offset=0) "Control signal for shade"
     annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
   Buildings.HeatTransfer.Windows.BaseClasses.InteriorConvection con(til=
-        Buildings.HeatTransfer.Types.Tilt.Wall, conMod=Buildings.HeatTransfer.Types.InteriorConvection.Temperature,
+        Buildings.Types.Tilt.Wall, conMod=Buildings.HeatTransfer.Types.InteriorConvection.Temperature,
     A=1)
     annotation (Placement(transformation(extent={{-20,0},{0,20}})));
   Modelica.Thermal.HeatTransfer.Sensors.HeatFlowSensor heaFloSen
@@ -43,8 +42,7 @@ equation
 experiment(StopTime=1.0),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/HeatTransfer/Windows/BaseClasses/Examples/InteriorConvection.mos"
         "Simulate and plot"),
-  Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}}), graphics), Documentation(info="<html>
+ Documentation(info="<html>
 <p>
 This is a test model for the interior side convective heat transfer.
 During the simulation, the shading control signal is changed, which

@@ -16,7 +16,6 @@ model ExteriorBoundaryConditionsWithWindow
     "Set to true if window has interior shade (at surface b)"
     annotation (Dialog(group="Shading"));
 
-  // fixme: this should use Modelica.Math.BooleanVectors.anyTrue
   final parameter Boolean haveShade=
     Modelica.Math.BooleanVectors.anyTrue(haveExteriorShade) or
     Modelica.Math.BooleanVectors.anyTrue(haveInteriorShade)
@@ -41,7 +40,8 @@ model ExteriorBoundaryConditionsWithWindow
         iconTransformation(extent={{-340,80},{-300,120}})));
 
   Modelica.Blocks.Interfaces.RealInput QAbsSolSha_flow[nCon](
-    final unit="W", quantity="Power") "Solar radiation absorbed by shade"
+    each final unit="W",
+    each quantity="Power") "Solar radiation absorbed by shade"
     annotation (Placement(transformation(extent={{-340,40},{-300,80}})));
 
   HeatTransfer.Windows.ExteriorHeatTransfer conExtWin[nCon](
@@ -142,7 +142,6 @@ equation
   connect(JInUns,conExtWin. JInUns) annotation (Line(
       points={{-310,20},{-200,20},{-200,-72},{-43,-72}},
       color={0,0,0},
-      pattern=LinePattern.None,
       smooth=Smooth.None));
   connect(conExtWin.JOutUns,JOutUns)  annotation (Line(
       points={{-43,-66},{-196.45,-66},{-196.45,-20},{-310,-20}},
@@ -163,7 +162,6 @@ equation
   connect(conExtWin.JInSha,JInSha)  annotation (Line(
       points={{-43,-114},{-184.45,-114},{-184.45,-160},{-310,-160}},
       color={0,0,0},
-      pattern=LinePattern.None,
       smooth=Smooth.None));
   connect(conExtWin.frame,fra)  annotation (Line(
       points={{-31,-120},{-31,-220},{-260,-220},{-260,-260},{-300,-260}},
@@ -265,10 +263,14 @@ equation
       points={{199,126},{168,126},{168,104},{142,104}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(QAbsSolSha_flow, conExtWin.QSolAbs_flow) annotation (Line(
+  // OpenModelica does not remove the connect statement if conExtWin.QSolAbs_flow
+  // is removed.
+  if haveShade then
+    connect(QAbsSolSha_flow, conExtWin.QSolAbs_flow) annotation (Line(
       points={{-320,60},{-160,60},{-160,-140},{-10,-140},{-10,-123}},
       color={0,0,127},
       smooth=Smooth.None));
+  end if;
 
   connect(sha.HDirTilUns, HDirTil.H) annotation (Line(
       points={{142,116},{160,116},{160,130},{199,130}},
@@ -336,6 +338,11 @@ the model
 Buildings.HeatTransfer.Windows.ExteriorHeatTransfer</a>.
 </html>", revisions="<html>
 <ul>
+<li>
+March 13, 2015, by Michael Wetter:<br/>
+Changed model to avoid a translation error
+in OpenModelica if the connector is conditionally removed.
+</li>
 <li>
 October 28, 2014, by Michael Wetter:<br/>
 Replaced

@@ -89,6 +89,7 @@ and the system has little heat capacity.
 The figure below shows the control error
 <code>con.feeBac.y</code> and the control signal
 <code>con.y</code>.
+</p>
 <p align=\"center\">
 <img src=\"modelica://Buildings/Resources/Images/Controls/Continuous/Examples/PIDHysteresisTimerError.png\" border=\"1\" alt=\"Control error.\"/><br/>
 <img src=\"modelica://Buildings/Resources/Images/Controls/Continuous/Examples/PIDHysteresisTimerOutput.png\" border=\"1\" alt=\"Control signal.\"/>

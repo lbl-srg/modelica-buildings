@@ -24,8 +24,8 @@ convertClass("Buildings.Fluid.Movers.Examples.FlowMachine",
              "Buildings.Obsolete.Fluid.Movers.Examples.FlowMachine");
 
 
-// Fixme: Add conversion of mover data such as pressure to be part of the record,
-//        and explain in release notes what needs to be changed.
+// Add conversion of mover data such as pressure to be part of the record,
+// and explain in release notes what needs to be changed.
 convertElement({"Buildings.Fluid.Movers.BaseClasses.Characteristics.pressure"},
                 "data", "per");
 convertElement({"Buildings.Fluid.Movers.BaseClasses.Characteristics.power"},

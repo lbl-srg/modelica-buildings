@@ -1,0 +1,7 @@
+compareVars :=
+  {
+    "TGla.T",
+    "TRoo.T",
+    "con.u",
+    "heaFloSen.Q_flow"
+  };

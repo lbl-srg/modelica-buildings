@@ -15,7 +15,7 @@ LIBHOME=os.path.abspath(".")
 # for possible replacements.
 INVALID_IN_ALL=["fixme", "import \"", 
                 "import Buildings;", 
-                "<h1", "<h2", "<h3", "todo", "xxx", "tt>",
+                "<h1", "<h2", "<h3", "todo", "xxx", "tt>", "<--",
                 "realString", "integerString", "structurallyIncomplete",
                 "preferedView", "Algorithm=", "Diagram,", "DocumentationClass",
                 "Modelica.Icons.Info;",

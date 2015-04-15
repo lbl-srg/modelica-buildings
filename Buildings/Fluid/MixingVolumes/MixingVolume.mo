@@ -60,9 +60,9 @@ without increasing its volume. This way, species concentrations are still calcul
 correctly even though the thermal mass increases. The additional thermal mass is calculated
 based on the density and the value of the function <code>HeatCapacityCp</code>
 of the medium state <code>state_default</code>. <br/>
-This parameter can for instance be useful in a pipe model when the developer wants to 
+This parameter can for instance be useful in a pipe model when the developer wants to
 lump the pipe thermal mass to the fluid volume. By default <code>mSenFac = 1</code>, hence
-the mass is unchanged. For higher values of <code>mSenFac</code>, the mass will be scaled proportionally. 
+the mass is unchanged. For higher values of <code>mSenFac</code>, the mass will be scaled proportionally.
 </li>
 </ul>
 <h4>Implementation</h4>

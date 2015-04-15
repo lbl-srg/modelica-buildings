@@ -1,0 +1,11 @@
+compareVars :=
+  {
+    "load_sc_1.load1.v[1]",
+    "load_sc_1.load1.v[2]",
+    "load_sc_2.load1.v[1]",
+    "load_sc_2.load1.v[2]",
+    "load_sc_1.load1.i[1]",
+    "load_sc_1.load1.i[2]",
+    "load_sc_2.load1.i[1]",
+    "load_sc_2.load1.i[2]"
+  };

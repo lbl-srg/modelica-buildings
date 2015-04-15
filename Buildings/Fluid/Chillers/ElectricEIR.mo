@@ -39,8 +39,10 @@ equation
     // Since the regression for capacity can have negative values (for unreasonable temperatures),
     // we constrain its return value to be non-negative. This prevents the solver to pick the
     // unrealistic solution.
-    capFunT = max(0,
-       Buildings.Utilities.Math.Functions.biquadratic(a=per.capFunT, x1=TEvaLvg_degC, x2=TConEnt_degC));
+    capFunT = Buildings.Utilities.Math.Functions.smoothMax(
+       x1=  1E-6,
+       x2=  Buildings.Utilities.Math.Functions.biquadratic(a=per.capFunT, x1=TEvaLvg_degC, x2=TConEnt_degC),
+       deltaX=  1E-7);
 /*    assert(capFunT > 0.1, "Error: Received capFunT = " + String(capFunT)  + ".\n"
            + "Coefficient for polynomial seem to be not valid for the encountered temperature range.\n"
            + "Temperatures are TConEnt_degC = " + String(TConEnt_degC) + " degC\n"
@@ -219,6 +221,11 @@ Component Models. <i>ASHRAE Transactions</i>, AC-02-9-1.
 </html>",
 revisions="<html>
 <ul>
+<li>
+March 12, 2015, by Michael Wetter:<br/>
+Refactored model to make it once continuously differentiable.
+This is for issue <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/373\">373</a>.
+</li>
 <li>
 Jan. 9, 2011, by Michael Wetter:<br/>
 Added input signal to switch chiller off.

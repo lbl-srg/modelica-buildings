@@ -1,6 +1,5 @@
 within Buildings.Utilities.Psychrometrics.Examples;
 model Density_pTX "Model to test the density computation"
-  import Buildings;
   extends Modelica.Icons.Example;
 
  package Medium = Buildings.Media.Air "Medium model"

@@ -43,21 +43,20 @@ model ConductorStepResponse "Test model for heat conductor"
     annotation (Placement(transformation(extent={{0,-16},{12,-4}})));
   Modelica.Thermal.HeatTransfer.Sensors.HeatFlowSensor heaFlo2
     annotation (Placement(transformation(extent={{14,-56},{26,-44}})));
-  Buildings.Utilities.Diagnostics.AssertEquality assertEquality(threShold=1E-8)
+  Buildings.Utilities.Diagnostics.AssertEquality assertEquality(threShold=1E-4)
     annotation (Placement(transformation(extent={{60,-100},{80,-80}})));
   Buildings.HeatTransfer.Convection.Interior conv1(
-                                          A=2, til=Buildings.HeatTransfer.Types.Tilt.Wall)
+                                          A=2, til=Buildings.Types.Tilt.Wall)
     "Convective heat transfer"
     annotation (Placement(transformation(extent={{-10,-20},{-30,0}})));
   Buildings.HeatTransfer.Convection.Interior conv2(
-                                          A=2, til=Buildings.HeatTransfer.Types.Tilt.Wall)
+                                          A=2, til=Buildings.Types.Tilt.Wall)
     "Convective heat transfer"
     annotation (Placement(transformation(extent={{-10,-60},{-30,-40}})));
 equation
   connect(con.port_b,TB. port) annotation (Line(
       points={{40,30},{60,30}},
       color={191,0,0},
-      pattern=LinePattern.None,
       smooth=Smooth.None));
   connect(step.y,TA. T) annotation (Line(
       points={{-79,30},{-62,30}},

@@ -55,19 +55,19 @@ partial model PartialTwoPortTransport
                   m_flow_small) if show_T
     "Temperature close to port_b, if show_T = true";
 protected
-  Medium.ThermodynamicState state_a "state for medium inflowing through port_a";
-  Medium.ThermodynamicState state_b "state for medium inflowing through port_b";
-equation
-  // medium states
-  state_a = Medium.setState_phX(
+  Medium.ThermodynamicState state_a = Medium.setState_phX(
               port_a.p,
               inStream(port_a.h_outflow),
-              inStream(port_a.Xi_outflow));
-  state_b = Medium.setState_phX(
+              inStream(port_a.Xi_outflow)) if
+                 show_T or show_V_flow
+    "State for medium inflowing through port_a";
+  Medium.ThermodynamicState state_b = Medium.setState_phX(
               port_b.p,
               inStream(port_b.h_outflow),
-              inStream(port_b.Xi_outflow));
-
+              inStream(port_b.Xi_outflow)) if
+                 show_T or show_V_flow
+    "State for medium inflowing through port_b";
+equation
   // Pressure drop in design flow direction
   dp = port_a.p - port_b.p;
 
@@ -119,6 +119,13 @@ users have not used this global definition to assign parameters.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+April 1, 2015, by Michael Wetter:<br/>
+Made computation of <code>state_a</code> and <code>state_p</code>
+conditional on <code>show_T</code> or <code>show_V_flow</code>.
+This avoids computing temperature from enthalpy if temperature is
+a state of the medium, and the result is not used.
+</li>
 <li>
 October 21, 2014, by Michael Wetter:<br/>
 Revised implementation.

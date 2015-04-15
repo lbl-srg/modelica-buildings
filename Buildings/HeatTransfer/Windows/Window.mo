@@ -88,7 +88,7 @@ model Window "Model for a window"
     "Control signal for the shading device. 0: unshaded; 1: fully shaded (removed if no shade is present)"
     annotation (Placement(transformation(extent={{-240,140},{-200,180}})));
 
-  Modelica.Blocks.Interfaces.RealInput QAbsUns_flow[glaSys.nLay](each unit="W",
+  Modelica.Blocks.Interfaces.RealInput QAbsUns_flow[size(glaSys.glass, 1)](each unit="W",
       each quantity="Power")
     "Solar radiation absorbed by unshaded part of glass"
                                                        annotation (Placement(
@@ -99,8 +99,9 @@ model Window "Model for a window"
         extent={{-20,-20},{20,20}},
         rotation=90,
         origin={-80,-220})));
-  Modelica.Blocks.Interfaces.RealInput QAbsSha_flow[glaSys.nLay](each unit="W",
-      each quantity="Power") if haveShade
+  Modelica.Blocks.Interfaces.RealInput QAbsSha_flow[size(glaSys.glass, 1)](
+     each unit="W",
+     each quantity="Power") if haveShade
     "Solar radiation absorbed by shaded part of glass"
                                         annotation (Placement(transformation(
         extent={{-20,-20},{20,20}},
@@ -163,7 +164,6 @@ equation
   connect(JInUns_a, glaUns.JIn_a) annotation (Line(
       points={{-210,120},{-40,120},{-40,24},{-11,24}},
       color={0,0,0},
-      pattern=LinePattern.None,
       smooth=Smooth.None));
   connect(glaUns.JOut_a, JOutUns_a) annotation (Line(
       points={{-11,16},{-46,16},{-46,80},{-210,80}},
@@ -176,12 +176,10 @@ equation
   connect(JInUns_b, glaUns.JIn_b) annotation (Line(
       points={{210,80},{176,80},{176,16},{11,16}},
       color={0,0,0},
-      pattern=LinePattern.None,
       smooth=Smooth.None));
   connect(JInSha_a, glaSha.JIn_a) annotation (Line(
       points={{-210,-60},{-46,-60},{-46,-16},{-11,-16}},
       color={0,0,0},
-      pattern=LinePattern.None,
       smooth=Smooth.None));
   connect(glaSha.JOut_a, JOutSha_a) annotation (Line(
       points={{-11,-24},{-42,-24},{-42,-100},{-210,-100}},
@@ -194,7 +192,6 @@ equation
   connect(JInSha_b, glaSha.JIn_b) annotation (Line(
       points={{210,-100},{172,-100},{172,-24},{11,-24}},
       color={0,0,0},
-      pattern=LinePattern.None,
       smooth=Smooth.None));
   connect(glaUns.QAbs_flow, QAbsUns_flow) annotation (Line(
       points={{6.10623e-16,9},{6.10623e-16,0},{-80,0},{-80,-220}},
@@ -462,6 +459,11 @@ Validation of the window model of the Modelica Buildings library.</a>
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+March 13, 2015, by Michael Wetter:<br/>
+Changed model to avoid a translation error
+in OpenModelica.
+</li>
 <li>
 July 25, 2014, by Michael Wetter:<br/>
 Propagated parameter <code>homotopyInitialization</code>.

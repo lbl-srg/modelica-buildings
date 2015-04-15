@@ -1,6 +1,5 @@
 within Buildings.Controls.Sources.Examples;
 model DayType "Example model for the source that outputs the type of the day"
-  import Buildings;
   extends Modelica.Icons.Example;
   Buildings.Controls.Sources.DayType dayTypMon
     "Model that outputs the type of the day, starting with Monday"

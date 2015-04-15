@@ -15,7 +15,7 @@ model Case960 "Case 600, but with an unconditioned sun-space"
       each A=8*2.7,
       each absIR=0.9,
       each absSol=0.6,
-      each til=Buildings.HeatTransfer.Types.Tilt.Wall)),
+      each til=Buildings.Types.Tilt.Wall)),
     souInf(nPorts=2),
     staRes(
       annualHea(Min=2.311*3.6e9, Max=3.373*3.6e9, Mean=2.846*3.6e9),
@@ -65,7 +65,7 @@ model Case960 "Case 600, but with an unconditioned sun-space"
       each A=8*2.7,
       each absIR=0.9,
       each absSol=0.6,
-      each til=Buildings.HeatTransfer.Types.Tilt.Wall),
+      each til=Buildings.Types.Tilt.Wall),
     linearizeRadiation=false,
     nConExtWin=1,
     datConExtWin(

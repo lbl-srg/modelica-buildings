@@ -66,7 +66,7 @@ model Window "Test model for the window"
     annotation (Placement(transformation(extent={{60,-60},{80,-40}})));
   Buildings.HeatTransfer.Windows.BaseClasses.WindowRadiation winRad(
     AWin=1,
-    N=glaSys.nLay,
+    N=size(glaSys.glass, 1),
     tauGlaSol=glaSys.glass.tauSol,
     rhoGlaSol_a=glaSys.glass.rhoSol_a,
     rhoGlaSol_b=glaSys.glass.rhoSol_b,
@@ -100,7 +100,7 @@ model Window "Test model for the window"
   Buildings.HeatTransfer.Windows.InteriorHeatTransferConvective intShaCon(
     A=A,
     fFra=fFra,
-    til=Buildings.HeatTransfer.Types.Tilt.Wall,
+    til=Buildings.Types.Tilt.Wall,
     haveExteriorShade=glaSys.haveExteriorShade,
     haveInteriorShade=glaSys.haveInteriorShade)
     "Model for interior shade heat transfer"
@@ -146,7 +146,6 @@ equation
   connect(extCon.JInUns, window.JOutUns_a) annotation (Line(
       points={{61,96},{72,96},{72,98},{81,98}},
       color={0,0,0},
-      pattern=LinePattern.None,
       smooth=Smooth.None));
   connect(extCon.JOutSha, window.JInSha_a) annotation (Line(
       points={{61,84},{81,84}},
@@ -155,7 +154,6 @@ equation
   connect(extCon.JInSha, window.JOutSha_a) annotation (Line(
       points={{61,82},{72,82},{72,80},{81,80}},
       color={0,0,0},
-      pattern=LinePattern.None,
       smooth=Smooth.None));
   connect(fixedHeatFlow.port, indRad.heatPort) annotation (Line(
       points={{312,78},{311.2,78},{311.2,100.2}},
@@ -264,7 +262,6 @@ equation
   connect(indRad.JIn, sumJ.y) annotation (Line(
       points={{301,106},{292,106},{292,70},{281,70}},
       color={0,0,0},
-      pattern=LinePattern.None,
       smooth=Smooth.None));
   connect(sumJ.u[2], intShaRad.JOut_air) annotation (Line(
       points={{258,70},{250,70},{250,108},{241,108}},
@@ -281,7 +278,6 @@ equation
   connect(window.JInUns_b, radShaOut.JOut_2) annotation (Line(
       points={{123,98},{154,98},{154,138},{256,138},{256,104},{259,104}},
       color={0,0,0},
-      pattern=LinePattern.None,
       smooth=Smooth.None));
   connect(radShaOut.u, shaSig.y) annotation (Line(
       points={{282,104},{286,104},{286,170},{141,170}},
@@ -290,7 +286,6 @@ equation
   connect(intShaRad.JIn_glass, window.JOutSha_b) annotation (Line(
       points={{219,108},{174,108},{174,84},{123,84}},
       color={0,0,0},
-      pattern=LinePattern.None,
       smooth=Smooth.None));
   connect(TRAir.port, intShaCon.air) annotation (Line(
       points={{280,30},{248,30}},
@@ -336,6 +331,11 @@ __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/HeatTransf
         "Simulate and plot"),
     Documentation(revisions="<html>
 <ul>
+<li>
+March 13, 2015, by Michael Wetter:<br/>
+Changed model to avoid a translation error
+in OpenModelica.
+</li>
 <li>
 June 11, 2013, by Michael Wetter:<br/>
 Redesigned model to separate convection from radiation, which is

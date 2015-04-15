@@ -36,9 +36,9 @@ Documentation(info="<html>
 <p>
 This model describes the mass flow rate and pressure difference relation
 of an orifice in the form
-<PRE>
+<pre>
     V_flow = k * dp^m,
-</PRE>
+</pre>
 where <code>k</code> is a variable and
 <code>m</code> a parameter. For turbulent flow, set <code>m=1/2</code> and
 for laminar flow, set <code>m=1</code>.
@@ -47,15 +47,15 @@ while values near <code>0.65</code> have been found for small
 crack-like openings (Dols and Walton, 2002).
 
 <h4>References</h4>
-<UL>
-<LI>
-W. Stuart Dols and George N. Walton, <I>CONTAMW 2.0 User Manual,
-Multizone Airflow and Contaminant Transport Analysis Software</I>,
+<ul>
+<li>
+W. Stuart Dols and George N. Walton, <i>CONTAMW 2.0 User Manual,
+Multizone Airflow and Contaminant Transport Analysis Software</i>,
 Building and Fire Research Laboratory,
 National Institute of Standards and Technology,
 Tech. Report NISTIR 6921,
 November, 2002.
-</UL>
+</ul>
 </html>",
 revisions="<html>
 <ul>

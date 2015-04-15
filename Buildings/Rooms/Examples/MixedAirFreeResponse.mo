@@ -47,8 +47,8 @@ model MixedAirFreeResponse "Free response of room model"
     nConExt=2,
     datConExt(layers={matLayRoo, matLayExt},
            A={6*4, 6*3},
-           til={Buildings.HeatTransfer.Types.Tilt.Ceiling, Buildings.HeatTransfer.Types.Tilt.Wall},
-           azi={Buildings.HeatTransfer.Types.Azimuth.S, Buildings.HeatTransfer.Types.Azimuth.W}),
+           til={Buildings.Types.Tilt.Ceiling, Buildings.Types.Tilt.Wall},
+           azi={Buildings.Types.Azimuth.S, Buildings.Types.Azimuth.W}),
     nConExtWin=nConExtWin,
     datConExtWin(
               layers={matLayExt},
@@ -58,24 +58,24 @@ model MixedAirFreeResponse "Free response of room model"
               each wWin=4,
               ove(wR={0},wL={0}, gap={0.1}, dep={1}),
               each fFra=0.1,
-              each til=Buildings.HeatTransfer.Types.Tilt.Wall,
-              azi={Buildings.HeatTransfer.Types.Azimuth.S}),
+              each til=Buildings.Types.Tilt.Wall,
+              azi={Buildings.Types.Azimuth.S}),
     nConPar=1,
     datConPar(layers={matLayPar}, each A=10,
-           each til=Buildings.HeatTransfer.Types.Tilt.Wall),
+           each til=Buildings.Types.Tilt.Wall),
     nConBou=1,
     datConBou(layers={matLayFlo}, each A=6*4,
-           each til=Buildings.HeatTransfer.Types.Tilt.Floor),
+           each til=Buildings.Types.Tilt.Floor),
     nSurBou=1,
     surBou(each A=6*3,
            each absIR=0.9,
            each absSol=0.9,
-           each til=Buildings.HeatTransfer.Types.Tilt.Wall),
+           each til=Buildings.Types.Tilt.Wall),
     linearizeRadiation = false,
     nPorts=1,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     lat=0.73268921998722,
-    T_start=295.15) "Room model"
+    T_start=273.15+22) "Room model"
     annotation (Placement(transformation(extent={{46,20},{86,60}})));
 
   Modelica.Blocks.Sources.Constant qConGai_flow(k=0) "Convective heat gain"
@@ -94,8 +94,9 @@ model MixedAirFreeResponse "Free response of room model"
     annotation (Placement(transformation(extent={{-20,90},{0,110}})));
   Modelica.Blocks.Routing.Replicator replicator(nout=max(1,nConExtWin))
     annotation (Placement(transformation(extent={{10,90},{30,110}})));
-  Buildings.HeatTransfer.Sources.FixedTemperature TSoi[nConBou](each T=283.15)
-    "Boundary condition for construction" annotation (Placement(transformation(
+  Buildings.HeatTransfer.Sources.FixedTemperature TSoi[nConBou](each T = 283.15)
+    "Boundary condition for construction"
+    annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         origin={110,-10})));
   Buildings.HeatTransfer.Sources.FixedTemperature TBou[nSurBou](each T=288.15)
@@ -103,7 +104,9 @@ model MixedAirFreeResponse "Free response of room model"
         extent={{10,-10},{-10,10}},
         origin={150,-50})));
   HeatTransfer.Conduction.MultiLayer conOut[nSurBou](
-    each A=6*4, each layers=matLayPar)
+    each A=6*4,
+    each layers=matLayPar,
+    each steadyStateInitial=true)
     "Construction that is modeled outside of room"
     annotation (Placement(transformation(extent={{100,-60},{120,-40}})));
 
@@ -171,6 +174,11 @@ This model illustrates the use of the room model
 Buildings.Rooms.MixedAir</a>.
 </html>", revisions="<html>
 <ul>
+<li>
+March 26, 2015, by Michael Wetter:<br/>
+Set initialization of <code>conOut</code>
+to be steady-state initialization.
+</li>
 <li>
 February 12, 2015, by Michael Wetter:<br/>
 Set initial temperature to be <i>22</i>&deg;C to add

@@ -177,8 +177,8 @@ This function computes the specific entropy.
 </p>
 <p>
 To obtain the state for a given pressure, entropy and mass fraction, use
-<a href=\"modelica://Annex60.Media.Air.setState_psX\">
-Annex60.Media.Air.setState_psX</a>.
+<a href=\"modelica://Buildings.Media.Air.setState_psX\">
+Buildings.Media.Air.setState_psX</a>.
 </p>
 </html>",
 revisions="<html>
@@ -596,7 +596,6 @@ algorithm
   // s := cv_const*Modelica.Math.log(state.T/reference_T)
   state := ThermodynamicState(p=p, T=reference_T * Modelica.Math.exp(s/cv_const));
   annotation (
-Inline=false,
 Documentation(info="<html>
 <p>
 This function returns the thermodynamic state based on pressure,
@@ -604,8 +603,8 @@ specific entropy and mass fraction.
 </p>
 <p>
 The state is computed by symbolically solving
-<a href=\"modelica://Annex60.Media.Water.Detailed.specificEntropy\">
-Annex60.Media.Water.Detailed.specificEntropy</a>
+<a href=\"modelica://Buildings.Media.Water.Detailed.specificEntropy\">
+Buildings.Media.Water.Detailed.specificEntropy</a>
 for temperature.
   </p>
 </html>", revisions="<html>
@@ -717,8 +716,8 @@ In addition, at 5 &deg;C the kinematic viscosity is linearly extrapolated
 to avoid a large gradient at very low temperatures.
 We selected the same point for the linearization as we used for the density,
 as the density and the kinematic viscosity are combined in
-<a href=\"modelica://Annex60.Media.Water.Detailed.dynamicViscosity\">
-Annex60.Media.Water.Detailed.dynamicViscosity</a>.
+<a href=\"modelica://Buildings.Media.Water.Detailed.dynamicViscosity\">
+Buildings.Media.Water.Detailed.dynamicViscosity</a>.
 </p>
 </html>",
 revisions="<html>
@@ -794,9 +793,9 @@ This is for
 </li>
 <li>
 October 15, 2014, by Michael Wetter:<br/>
-Renamed from <code>Annex60.Media.Water</code> to
-<code>Annex60.Media.Water.Detailed</code> to allow addition of
-<code>Annex60.Media.Water.Simple</code>.
+Renamed from <code>Buildings.Media.Water</code> to
+<code>Buildings.Media.Water.Detailed</code> to allow addition of
+<code>Buildings.Media.Water.Simple</code>.
 </li>
 <li>
 September 12, 2014, by Michael Wetter:<br/>

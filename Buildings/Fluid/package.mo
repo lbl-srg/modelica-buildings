@@ -34,7 +34,7 @@ Modelica.Fluid.Interfaces.FluidPort</a>.
 Fluid ports declare the variables listed in the table below.
 </p>
 
-<table summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+<table summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
 <tr>
 <th>Variable</th>
 <th>Description</th>
@@ -73,7 +73,7 @@ Fluid ports declare the variables listed in the table below.
       Users who need to access the actual enthalpy for the given flow
       direction can do so using the sensor
       <a href=\"modelica://Buildings.Fluid.Sensors.SpecificEnthalpyTwoPort\">
-      Buildings.Fluid.Sensors.SpecificEnthalpyTwoPort</a>.
+      Buildings.Fluid.Sensors.SpecificEnthalpyTwoPort</a>.</td>
 </tr>
 <tr>
   <td><code>Xi_outflow[Medium.nXi]</code></td>
@@ -167,7 +167,7 @@ mass and energy balance equations.
 For the mass balance, the following configurations can be selected:
 </p>
 
-<table summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+<table summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
 <tr>
 <th>Parameter</th>
 <th>Initialization problem<br/>
@@ -231,7 +231,7 @@ where <code>Medium</code> is the medium model.
 <p>
 Similarly, for the energy balance, the following configurations can be selected:
 </p>
-<table summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+<table summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
 <tr>
 <th>Parameter</th>
 <th>Initialization problem</th>
@@ -309,7 +309,7 @@ parameters are used differently, and the respective model documentation or code
 should be consulted for details. However, the table below shows typical use of
 parameters in various model to help the user understand how they are used.
 </p>
-<table summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+<table summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
 <tr>
 <th>Parameter</th>
 <th>Model</th>

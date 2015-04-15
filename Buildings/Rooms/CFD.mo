@@ -25,17 +25,20 @@ model CFD
 
   parameter Boolean useCFD = true
     "Set to false to deactivate the CFD computation and use instead yFixed as output"
-    annotation(Evaluate = true);
+    annotation(Dialog(group = "CFD"), Evaluate = true);
   parameter Modelica.SIunits.Time samplePeriod(min=100*Modelica.Constants.eps)
     "Sample period of component"
     annotation(Dialog(group = "Sampling"));
   parameter Real uSha_fixed[nConExtWin] = zeros(nConExtWin)
     "Constant control signal for the shading device (0: unshaded; 1: fully shaded)";
   parameter String sensorName[:]
-    "Names of sensors as declared in the CFD input file";
+    "Names of sensors as declared in the CFD input file"
+    annotation(Dialog(group = "CFD"));
   parameter String portName[nPorts] = {"port_" + String(i) for i in 1:nPorts}
-    "Names of fluid ports as declared in the CFD input file";
-  parameter String cfdFilNam "CFD input file name" annotation (Dialog(
+    "Names of fluid ports as declared in the CFD input file"
+    annotation(Dialog(group = "CFD"));
+  parameter String cfdFilNam "CFD input file name"
+    annotation (Dialog(group = "CFD",
         __Dymola_loadSelector(caption=
             "Select CFD input file")));
   Modelica.Blocks.Interfaces.RealOutput yCFD[nSen] if
@@ -84,7 +87,6 @@ equation
   connect(conSha.y, bouConExtWin.uSha) annotation (Line(
       points={{-239,180},{328,180},{328,64},{351,64}},
       color={0,0,127},
-      pattern=LinePattern.None,
       smooth=Smooth.None));
   connect(conSha.y, conExtWinRad.uSha) annotation (Line(
       points={{-239,180},{420,180},{420,-42},{310.2,-42},{310.2,-25.6}},
@@ -140,7 +142,7 @@ and, through the fluid port, to the air conditioning system.
 </p>
 <p>
 Currently, the supported CFD program is the
-Fast Fluid Dynamics (FFD) programs <a href=\"#ZUO2010\">(Zuo 2010)</a>.
+Fast Fluid Dynamics (FFD) program <a href=\"#ZUO2010\">(Zuo 2010)</a>.
 See
 <a href=\"modelica://Buildings.Rooms.UsersGuide.CFD\">Buildings.Rooms.UsersGuide.CFD</a>
 for detailed explanations.

@@ -27,10 +27,11 @@ partial model PartialConstruction
     "Heat port at surface b of opaque construction"
     annotation (Placement(transformation(extent={{292,190},{312,210}})));
 
-  final parameter Integer nLay(min=1, fixed=true) = layers.nLay
+  final parameter Integer nLay(min=1, fixed=true) = size(layers.material, 1)
     "Number of layers";
-  final parameter Integer nSta[nLay](min=1)={layers.material[i].nSta for i in 1:nLay}
-    "Number of states"  annotation(Evaluate=true);
+  final parameter Integer nSta[nLay](each min=1)=
+    {layers.material[i].nSta for i in 1:nLay} "Number of states"
+                        annotation(Evaluate=true);
   parameter Boolean steadyStateInitial=false
     "=true initializes dT(0)/dt=0, false initializes T(0) at fixed temperature using T_a_start and T_b_start"
         annotation (Dialog(group="Initialization"), Evaluate=true);
@@ -60,8 +61,7 @@ equation
       color={191,0,0},
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-300,-300},
-            {300,300}})),
-                          Icon(coordinateSystem(preserveAspectRatio=true,
+            {300,300}})), Icon(coordinateSystem(preserveAspectRatio=true,
           extent={{-300,-300},{300,300}}), graphics={
         Rectangle(
           extent={{-290,202},{298,198}},
@@ -96,13 +96,18 @@ This is the base class that is used to model opaque constructions in the room mo
 </p>
 <p>
 The surface azimuth is defined in
-<a href=\"modelica://Buildings.HeatTransfer.Types.Azimuth\">
-Buildings.HeatTransfer.Types.Azimuth</a>
-and the surface tilt is defined in <a href=\"modelica://Buildings.HeatTransfer.Types.Tilt\">
-Buildings.HeatTransfer.Types.Tilt</a>
+<a href=\"modelica://Buildings.Types.Azimuth\">
+Buildings.Types.Azimuth</a>
+and the surface tilt is defined in <a href=\"modelica://Buildings.Types.Tilt\">
+Buildings.Types.Tilt</a>
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+March 13, 2015, by Michael Wetter:<br/>
+Changed model to avoid a translation error
+in OpenModelica.
+</li>
 <li>
 May 30, 2014, by Michael Wetter:<br/>
 Removed undesirable annotation <code>Evaluate=true</code>.

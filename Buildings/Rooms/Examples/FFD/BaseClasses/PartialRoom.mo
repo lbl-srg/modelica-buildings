@@ -2,11 +2,6 @@ within Buildings.Rooms.Examples.FFD.BaseClasses;
 partial model PartialRoom "Partial model for a room"
   package MediumA = Buildings.Media.Air (
         T_default=283.15) "Medium model";
-  parameter Buildings.HeatTransfer.Data.OpaqueConstructions.Generic matLayRoo(
-      final nLay=1, material={HeatTransfer.Data.Solids.Steel(x=0.001)},
-    roughness_a=Buildings.HeatTransfer.Types.SurfaceRoughness.Smooth)
-    "Construction material for roof"
-    annotation (Placement(transformation(extent={{20,140},{40,160}})));
   parameter Integer nConExtWin=0 "Number of constructions with a window";
   parameter Integer nConBou=0
     "Number of surface that are connected to constructions that are modeled inside the room";

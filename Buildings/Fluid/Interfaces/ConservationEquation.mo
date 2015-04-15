@@ -171,7 +171,11 @@ initial equation
 
 equation
   // Total quantities
-  m = fluidVolume*medium.d;
+  if massDynamics == Modelica.Fluid.Types.Dynamics.SteadyState then
+    m = fluidVolume*rho_nominal;
+  else
+    m = fluidVolume*medium.d;
+  end if;
   mXi = m*medium.Xi;
   if computeCSen then
     U = m*medium.u + CSen*(medium.T-Medium.reference_T);
@@ -276,6 +280,11 @@ Buildings.Fluid.MixingVolumes.MixingVolume</a>.
 </html>", revisions="<html>
 <ul>
 <li>
+February 16, 2015, by Filip Jorissen:<br/>
+Fixed SteadyState massDynamics implementation for compressible media.
+Mass <code>m</code> is now constant.
+</li>
+<li>
 February 5, 2015, by Michael Wetter:<br/>
 Changed <code>initalize_p</code> from a <code>parameter</code> to a
 <code>constant</code>. This is only required in finite volume models
@@ -283,7 +292,12 @@ of heat exchangers (to avoid consistent but redundant initial conditions)
 and hence it should be set as a <code>constant</code>.
 </li>
 <li>
-October 21, 2014, by Filip Jorissen:<br/>
+February 3, 2015, by Michael Wetter:<br/>
+Removed <code>stateSelect.prefer</code> for temperature.
+This is for
+<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/160\">#160</a>.
+</li>
+<li>October 21, 2014, by Filip Jorissen:<br/>
 Added parameter <code>mFactor</code> to increase the thermal capacity.
 </li>
 <li>

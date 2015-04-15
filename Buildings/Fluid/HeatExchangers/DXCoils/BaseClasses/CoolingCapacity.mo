@@ -332,7 +332,7 @@ the name of the polynomial coefficients in
 Buildings.Fluid.HeatExchangers.DXCoils.Data.PerformanceCurves</a>
 and the independent parameters against which the data need to be fitted.
 </p>
-  <table summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+  <table summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
   <tr>
       <th>Modelica name of coefficient in data record</th>
       <th>Polynomial of the above info section</th>
