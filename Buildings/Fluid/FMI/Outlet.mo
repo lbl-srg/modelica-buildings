@@ -42,18 +42,24 @@ protected
 equation
   port_a.m_flow = outlet.m_flow;
 
-  inStream(port_a.h_outflow)  = outlet.forward.h;
-  inStream(port_a.Xi_outflow) = outlet.forward.Xi;
-  inStream(port_a.C_outflow)  = outlet.forward.C;
+  outlet.forward.T = Medium.temperature_phX(
+    p=  p_in_internal,
+    h=  inStream(port_a.h_outflow),
+    X=  inStream(port_a.Xi_outflow));
+  outlet.forward.Xi = inStream(port_a.Xi_outflow);
+  outlet.forward.C = inStream(port_a.C_outflow);
 
   // Conditional connector for flow reversal
   connect(outlet.backward, bacPro_internal);
   if not allowFlowReversal then
-    bacPro_internal.h  = Medium.h_default;
+    bacPro_internal.T  = Medium.T_default;
     bacPro_internal.Xi = Medium.X_default[1:Medium.nXi];
     bacPro_internal.C  = fill(0, Medium.nC);
   end if;
-  bacPro_internal.h  = port_a.h_outflow;
+  bacPro_internal.T  = Medium.temperature_phX(
+    p=  p_in_internal,
+    h=  port_a.h_outflow,
+    X=  port_a.Xi_outflow);
   bacPro_internal.Xi = port_a.Xi_outflow;
   bacPro_internal.C  = port_a.C_outflow;
 
@@ -74,7 +80,7 @@ equation
           extent={{60,60},{-60,-60}},
           lineColor={0,0,0},
           fillPattern=FillPattern.Sphere,
-          fillColor={0,127,255}),
+          fillColor={127,0,0}),
         Text(
           extent={{-150,110},{150,150}},
           textString="%name",
@@ -119,6 +125,11 @@ for how to use this model.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+April 15, 2015 by Michael Wetter:<br/>
+Changed connector variable to be temperature instead of
+specific enthalpy.
+</li>
 <li>
 January 21, 2014 by Michael Wetter:<br/>
 First implementation.

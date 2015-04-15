@@ -44,18 +44,24 @@ equation
   // means that fluid flows out of this component
   -port_b.m_flow     = inlet.m_flow;
 
-  port_b.h_outflow  = inlet.forward.h;
+  port_b.h_outflow  = Medium.specificEnthalpy_pTX(
+                        p=  p_in_internal,
+                        T=  inlet.forward.T,
+                        X=  inlet.forward.Xi);
   port_b.Xi_outflow = inlet.forward.Xi;
   port_b.C_outflow  = inlet.forward.C;
 
   // Conditional connector for flow reversal
   connect(inlet.backward, bacPro_internal);
   if allowFlowReversal then
-    bacPro_internal.h  = inStream(port_b.h_outflow);
+    bacPro_internal.T  = Medium.temperature_phX(
+                           p=  p_in_internal,
+                           h=  inStream(port_b.h_outflow),
+                           X=  inStream(port_b.Xi_outflow));
     bacPro_internal.Xi = inStream(port_b.Xi_outflow);
     bacPro_internal.C  = inStream(port_b.C_outflow);
   else
-    bacPro_internal.h  = Medium.h_default;
+    bacPro_internal.T  = Medium.T_default;
     bacPro_internal.Xi = Medium.X_default[1:Medium.nXi];
     bacPro_internal.C  = fill(0, Medium.nC);
   end if;
@@ -76,7 +82,7 @@ equation
           extent={{60,60},{-60,-60}},
           lineColor={0,0,0},
           fillPattern=FillPattern.Sphere,
-          fillColor={0,127,255}),
+          fillColor={127,0,0}),
         Text(
           extent={{-150,110},{150,150}},
           textString="%name",
@@ -142,6 +148,11 @@ for how to use this model.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+April 15, 2015 by Michael Wetter:<br/>
+Changed connector variable to be temperature instead of
+specific enthalpy.
+</li>
 <li>
 January 21, 2014 by Michael Wetter:<br/>
 First implementation.

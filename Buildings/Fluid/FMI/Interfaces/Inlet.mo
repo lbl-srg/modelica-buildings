@@ -16,7 +16,7 @@ connector Inlet "Connector for fluid inlet"
     redeclare final package Medium = Medium) "Inflowing properties";
   output Buildings.Fluid.FMI.Interfaces.FluidProperties backward(
     redeclare final package Medium = Medium) if
-       allowFlowReversal "Outflowing properties";
+       allowFlowReversal "Outflowing properties" annotation ();
 
   annotation (defaultComponentName="port_a",
   Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
@@ -40,9 +40,9 @@ The mass flow rate <code>m_flow</code>.
 The pressure <code>p</code>
 </li>
 <li>
-The enthalpy of the inflowing fluid
-<code>forward.h</code>, 
-e.g., the enthalpy that streams out of the component if <code>m_flow &gt; 0</code>.
+The temperature of the inflowing fluid
+<code>forward.T</code>, 
+e.g., the temperature of the fluid that streams out of the component if <code>m_flow &gt; 0</code>.
 </li>
 <li>
 The mass fraction of the inflowing fluid
@@ -61,8 +61,8 @@ the connector also outputs the following quantities.
 </p>
 <ul>
 <li>
-The enthalpy of the outflowing fluid
-<code>backward.h</code>,
+The temperature of the outflowing fluid
+<code>backward.T</code>,
 e.g., if <code>m_flow &le; 0</code>.
 </li>
 <li>
@@ -81,6 +81,11 @@ If <code>allowFlowReversal = false</code>, then these outputs are not present.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+April 15, 2015 by Michael Wetter:<br/>
+Changed connector variable to be temperature instead of
+specific enthalpy.
+</li>
 <li>
 November 8, 2014 by Michael Wetter:<br/>
 First implementation.

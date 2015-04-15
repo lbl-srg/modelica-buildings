@@ -45,7 +45,7 @@ model Source_T
 equation
   outlet.m_flow = m_flow_in;
   outlet.p = if use_p_in then p_in else Medium.p_default;
-  outlet.forward.h  = Medium.specificEnthalpy_pTX(p=p_in, T=T_in, X=X_in);
+  outlet.forward.T  = T_in;
   outlet.forward.Xi = X_in[1:Medium.nXi];
   outlet.forward.C  = C_in;
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
@@ -76,6 +76,11 @@ and the mass flow rate of the system.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+April 15, 2015 by Michael Wetter:<br/>
+Changed connector variable to be temperature instead of
+specific enthalpy.
+</li>
 <li>
 November 8, 2014, by Michael Wetter:<br/>
 First implementation.

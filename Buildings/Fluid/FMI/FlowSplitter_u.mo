@@ -55,7 +55,7 @@ equation
 
   // As reverse flow is not supported, we assign
   // default values for the inlet.backward properties
-  bacPro_internal.h = Medium.h_default;
+  bacPro_internal.T = Medium.T_default;
   bacPro_internal.Xi = Medium.X_default[1:Medium.nXi];
   bacPro_internal.C  = zeros(Medium.nC);
 
@@ -147,6 +147,11 @@ the model stops with an error.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+April 15, 2015 by Michael Wetter:<br/>
+Changed connector variable to be temperature instead of
+specific enthalpy.
+</li>
 <li>
 November 20, 2014, by Michael Wetter:<br/>
 First implementation.

@@ -124,12 +124,12 @@ will stop with an error.
 </li>
 <li>
 When connecting fluid flow components in a loop,
-be careful to avoid circular assignments for example for the enthalpy,
+be careful to avoid circular assignments for example for the temperature,
 as these can of course not be simulated.
 An example of such an ill-posed problem is to connect the outlet of
 <a href=\"modelica://Buildings.Fluid.FixedResistances.FixedResistanceDpM\">
 Buildings.Fluid.FixedResistances.FixedResistanceDpM</a>
-to its inlet. In this situation, neither pressure, nor mass flow rate or enthalpy
+to its inlet. In this situation, neither pressure, nor mass flow rate or temperature
 can be computed. To model such loops, a control volume with a dynamic energy
 balance must be presented, and the medium needs to be compressible.
 </li>

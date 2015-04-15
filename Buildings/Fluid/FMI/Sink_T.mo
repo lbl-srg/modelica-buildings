@@ -37,11 +37,11 @@ equation
  // Conditional connector for flow reversal
   connect(inlet.backward, bacPro_internal);
   if allowFlowReversal then
-    bacPro_internal.h  = Medium.specificEnthalpy_pTX(p=inlet.p, T=T_in, X=X_in);
+    bacPro_internal.T  = T_in;
     bacPro_internal.Xi = X_in[1:Medium.nXi];
     bacPro_internal.C  = C_in;
   else
-    bacPro_internal.h = Medium.h_default;
+    bacPro_internal.T = Medium.T_default;
     bacPro_internal.Xi = Medium.X_default[1:Medium.nXi];
     bacPro_internal.C  = fill(0, Medium.nC);
   end if;
@@ -70,6 +70,11 @@ for the reverse flow.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+April 15, 2015 by Michael Wetter:<br/>
+Changed connector variable to be temperature instead of
+specific enthalpy.
+</li>
 <li>
 November 8, 2014, by Michael Wetter:<br/>
 First implementation.

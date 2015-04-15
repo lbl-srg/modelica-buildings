@@ -3,7 +3,7 @@ connector FluidProperties "Type definition for fluid properties"
   replaceable package Medium = Modelica.Media.Interfaces.PartialMedium
     "Medium model" annotation (choicesAllMatching=true);
 
-  Medium.SpecificEnthalpy h "Specific thermodynamic enthalpy";
+  Medium.Temperature T "Temperature";
   Medium.MassFraction Xi[Medium.nXi] "Independent mixture mass fractions m_i/m";
   Medium.ExtraProperty C[Medium.nC] "Properties c_i/m";
 
@@ -13,7 +13,7 @@ This is a connector that declares the following fluid properties:
 </p>
 <ul>
 <li>
-The enthalpy <code>h</code>.
+The temperature <code>T</code>.
 </li>
 <li>
 The mass fraction <code>Xi</code>,
@@ -41,6 +41,11 @@ outlet connector.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+April 15, 2015 by Michael Wetter:<br/>
+Changed connector variable to be temperature instead of
+specific enthalpy.
+</li>
 <li>
 November 8, 2014 by Michael Wetter:<br/>
 First implementation.
