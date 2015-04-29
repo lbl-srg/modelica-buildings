@@ -27,8 +27,8 @@ model HeaterFan
     use_p_in=use_p_in) "Heater"
     annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
 
-  Modelica.Blocks.Sources.Constant dp(k=1000) "Pressure raise of fan"
-    annotation (Placement(transformation(extent={{-18,40},{2,60}})));
+  Modelica.Blocks.Sources.Constant dp(k=dp_nominal) "Pressure raise of fan"
+    annotation (Placement(transformation(extent={{-20,40},{0,60}})));
 
   Modelica.Blocks.Sources.Constant uHea(k=0.2) "Control signal for heater"
     annotation (Placement(transformation(extent={{-60,40},{-40,60}})));
@@ -37,7 +37,7 @@ model HeaterFan
     "Source for mass flow rate and pressure"
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
 
-  Sink_T sin(redeclare package Medium = Medium)
+  Sink_T sin(redeclare package Medium = Medium, use_p_in=use_p_in)
     "Sink for flow rate, and source for backflow properties"
     annotation (Placement(transformation(extent={{80,-10},{60,10}})));
 
@@ -74,7 +74,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(dp.y, floMac.dp_in) annotation (Line(
-      points={{3,50},{10,50},{10,6},{18,6},{18,6.8}},
+      points={{1,50},{10,50},{10,6},{18,6},{18,6.8}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(sou.outlet, hea.inlet) annotation (Line(
@@ -90,11 +90,11 @@ equation
       color={0,0,255},
       smooth=Smooth.None));
   connect(sin.T_in, TBac.y) annotation (Line(
-      points={{82,5},{92,5},{92,50},{99,50}},
+      points={{82,8},{92,8},{92,50},{99,50}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(CBac.y, sin.C_in) annotation (Line(
-      points={{99,-50},{92,-50},{92,-5},{82,-5}},
+      points={{99,-50},{92,-50},{92,-2},{82,-2}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(m_flow.y, sou.m_flow_in) annotation (Line(
@@ -118,7 +118,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(sin.X_in, XBac.y) annotation (Line(
-      points={{82,0},{99,0}},
+      points={{82,3},{90,3},{90,0},{99,0}},
       color={0,0,127},
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-120,
@@ -131,6 +131,11 @@ set by the component <code>sou</code>.
 Therefore, the fan simply increases the pressure of the medium,
 and it also computes how much power is needed for this pressure rise,
 which is an input to the fan model.
+</p>
+<p>
+For a model with that computes the mass flow rate based on the pressure drop, see
+<a href=\"modelica://Buildings.Fluid.FMI.Examples.HeaterFanPressureDriven\">
+Buildings.Fluid.FMI.Examples.HeaterFanPressureDriven</a>.
 </p>
 <p>
 For this example, the models are not exported as FMUs. However, the
