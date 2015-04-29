@@ -15,12 +15,14 @@ model HeaterFan
     annotation(Evaluate=true);
 
   FMUs.Fan floMac(
+    redeclare final package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
     dp_nominal=dp_nominal,
     use_p_in=use_p_in) "Flow machine with pressure raise as an input"
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
 
   FMUs.HeaterCooler_u hea(
+    redeclare final package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
     dp_nominal=dp_nominal,
     Q_flow_nominal=Q_flow_nominal,
@@ -50,16 +52,16 @@ model HeaterFan
   Modelica.Blocks.Sources.Constant TIn(k=293.15) "Inlet temperature"
     annotation (Placement(transformation(extent={{-100,0},{-80,20}})));
 
-  Modelica.Blocks.Sources.Constant XIn[2](k={0.01,0.99}) "Inlet mass fraction"
+  Modelica.Blocks.Sources.Constant X_w_in(k=0.01) "Inlet mass fraction"
     annotation (Placement(transformation(extent={{-100,-30},{-80,-10}})));
 
   Modelica.Blocks.Sources.Constant TBac(k=303.15)
     "Temperature of backward flow"
     annotation (Placement(transformation(extent={{120,40},{100,60}})));
 
-  Modelica.Blocks.Sources.Constant XBac[2](k={0.015,0.985})
+  Modelica.Blocks.Sources.Constant X_w_bac(k=0.015)
     "Moisture mass fraction for back flow"
-    annotation (Placement(transformation(extent={{120,-10},{100,10}})));
+    annotation (Placement(transformation(extent={{120,-6},{100,14}})));
 
   Modelica.Blocks.Sources.Constant CBac[Medium.nC](each k=0.01) if
      Medium.nC > 0 "Trace substances for back flow"
@@ -113,12 +115,12 @@ equation
       points={{-79,-60},{-68,-60},{-68,-10},{-62,-10}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(XIn.y, sou.X_in) annotation (Line(
+  connect(X_w_in.y, sou.X_w_in) annotation (Line(
       points={{-79,-20},{-70,-20},{-70,-5},{-62,-5}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(sin.X_in, XBac.y) annotation (Line(
-      points={{82,3},{90,3},{90,0},{99,0}},
+  connect(sin.X_w_in, X_w_bac.y) annotation (Line(
+      points={{82,3},{91,3},{91,4},{99,4}},
       color={0,0,127},
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-120,

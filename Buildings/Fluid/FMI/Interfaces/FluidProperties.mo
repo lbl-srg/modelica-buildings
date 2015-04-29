@@ -3,8 +3,10 @@ connector FluidProperties "Type definition for fluid properties"
   replaceable package Medium = Modelica.Media.Interfaces.PartialMedium
     "Medium model" annotation (choicesAllMatching=true);
 
+
   Medium.Temperature T "Temperature";
-  Medium.MassFraction Xi[Medium.nXi] "Independent mixture mass fractions m_i/m";
+  Buildings.Fluid.FMI.Interfaces.MassFractionConnector X_w if
+       Medium.nXi > 0 "Water vapor mass fractions per kg total air";
   Medium.ExtraProperty C[Medium.nC] "Properties c_i/m";
 
   annotation (Documentation(info="<html>
@@ -16,8 +18,10 @@ This is a connector that declares the following fluid properties:
 The temperature <code>T</code>.
 </li>
 <li>
-The mass fraction <code>Xi</code>,
+The mass fraction of water vapor <code>X_w</code> per kg of total air,
 unless <code>Medium.nXi=0</code>.
+Note that the mass fraction is not per kg of dry air, but rather
+per kg of total air as is customary in Modelica.
 </li>
 <li>
 The trace substances

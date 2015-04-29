@@ -10,8 +10,8 @@ model HeaterFanPressureDriven
   parameter Modelica.SIunits.HeatFlowRate Q_flow_nominal = 1000
     "Heat flow rate at u=1, positive for heating";
 
-  parameter Boolean use_p_in = true
-    "= true to use a pressure from connector, false to output Medium.p_default"
+  constant Boolean use_p_in = true
+    "Set to true, as this model computes the mass flow rate based on the pressure drop"
     annotation(Evaluate=true);
 
   FMUs.Fan floMac(
@@ -50,14 +50,14 @@ model HeaterFanPressureDriven
   Modelica.Blocks.Sources.Constant TIn(k=293.15) "Inlet temperature"
     annotation (Placement(transformation(extent={{-100,0},{-80,20}})));
 
-  Modelica.Blocks.Sources.Constant XIn[2](k={0.01,0.99}) "Inlet mass fraction"
+  Modelica.Blocks.Sources.Constant X_w_in(k=0.01) "Inlet mass fraction"
     annotation (Placement(transformation(extent={{-100,-30},{-80,-10}})));
 
   Modelica.Blocks.Sources.Constant TBac(k=303.15)
     "Temperature of backward flow"
     annotation (Placement(transformation(extent={{120,40},{100,60}})));
 
-  Modelica.Blocks.Sources.Constant XBac[2](k={0.015,0.985})
+  Modelica.Blocks.Sources.Constant X_w_bac(k=0.015)
     "Moisture mass fraction for back flow"
     annotation (Placement(transformation(extent={{120,-10},{100,10}})));
 
@@ -112,14 +112,6 @@ equation
       points={{-79,-60},{-68,-60},{-68,-10},{-62,-10}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(XIn.y, sou.X_in) annotation (Line(
-      points={{-79,-20},{-70,-20},{-70,-5},{-62,-5}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(sin.X_in, XBac.y) annotation (Line(
-      points={{82,3},{90,3},{90,0},{99,0}},
-      color={0,0,127},
-      smooth=Smooth.None));
   connect(pIn.y, invBloCon.u1) annotation (Line(
       points={{-79,40},{-72,40},{-72,-72},{-22,-72}},
       color={0,0,127},
@@ -130,6 +122,14 @@ equation
       smooth=Smooth.None));
   connect(invBloCon.y1, sou.m_flow_in) annotation (Line(
       points={{21,-72},{50,-72},{50,70},{-68,70},{-68,10},{-62,10}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(X_w_in.y, sou.X_w_in) annotation (Line(
+      points={{-79,-20},{-74,-20},{-74,-5},{-62,-5}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(X_w_bac.y, sin.X_w_in) annotation (Line(
+      points={{99,0},{92,0},{92,3},{82,3}},
       color={0,0,127},
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-120,

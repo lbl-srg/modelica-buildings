@@ -15,7 +15,8 @@ model Inlet "Model for exposing a fluid inlet to the FMI interface"
 
   Buildings.Fluid.FMI.Interfaces.Inlet inlet(
     redeclare final package Medium = Medium,
-    final allowFlowReversal=allowFlowReversal) "Fluid inlet"
+    final allowFlowReversal=allowFlowReversal,
+    final use_p_in=use_p_in) "Fluid inlet"
     annotation (Placement(transformation(extent={{-120,-10},{-100,10}})));
 
   Modelica.Fluid.Interfaces.FluidPort_b port_b(
@@ -34,12 +35,18 @@ protected
   Buildings.Fluid.FMI.Interfaces.FluidProperties bacPro_internal(
     redeclare final package Medium = Medium)
     "Internal connector for fluid properties for back flow";
-  Modelica.Blocks.Interfaces.RealOutput p_in_internal(unit="Pa")
+  Buildings.Fluid.FMI.Interfaces.PressureOutput p_in_internal
     "Internal connector for pressure";
-
+  Buildings.Fluid.FMI.Interfaces.MassFractionConnector X_w_in_internal
+    "Internal connector for mass fraction of forward flow properties";
+  Buildings.Fluid.FMI.Interfaces.MassFractionConnector X_w_out_internal
+    "Internal connector for mass fraction of backward flow properties";
+initial equation
+   assert(Medium.nXi < 2,
+   "The medium must have zero or one independent mass fraction Medium.nXi.");
 equation
   // To locally balance the model, the pressure is only imposed at the
-  // oulet model.
+  // outlet model.
   // The sign is negative because inlet.m_flow > 0
   // means that fluid flows out of this component
   -port_b.m_flow     = inlet.m_flow;
@@ -47,28 +54,39 @@ equation
   port_b.h_outflow  = Medium.specificEnthalpy_pTX(
                         p=  p_in_internal,
                         T=  inlet.forward.T,
-                        X=  inlet.forward.Xi);
-  port_b.Xi_outflow = inlet.forward.Xi;
+                        X=  fill(X_w_in_internal, Medium.nXi));
+
   port_b.C_outflow  = inlet.forward.C;
+
+  // Conditional connector for mass fraction for forward flow
+  if Medium.nXi == 0 then
+    X_w_in_internal = 0;
+  else
+    connect(X_w_in_internal, inlet.forward.X_w);
+  end if;
+  port_b.Xi_outflow = fill(X_w_in_internal, Medium.nXi);
 
   // Conditional connector for flow reversal
   connect(inlet.backward, bacPro_internal);
+
+  // Mass fraction for reverse flow
+  X_w_out_internal = if Medium.nXi > 0 and allowFlowReversal then inStream(port_b.Xi_outflow[1]) else 0;
+  connect(bacPro_internal.X_w, X_w_out_internal);
+
   if allowFlowReversal then
     bacPro_internal.T  = Medium.temperature_phX(
                            p=  p_in_internal,
                            h=  inStream(port_b.h_outflow),
                            X=  inStream(port_b.Xi_outflow));
-    bacPro_internal.Xi = inStream(port_b.Xi_outflow);
     bacPro_internal.C  = inStream(port_b.C_outflow);
   else
     bacPro_internal.T  = Medium.T_default;
-    bacPro_internal.Xi = Medium.X_default[1:Medium.nXi];
     bacPro_internal.C  = fill(0, Medium.nC);
   end if;
 
   // Conditional connectors for pressure
   if use_p_in then
-    inlet.p = p_in_internal;
+  connect(inlet.p, p_in_internal);
   else
     p_in_internal = Medium.p_default;
   end if;
@@ -148,6 +166,11 @@ for how to use this model.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+April 29, 2015, by Michael Wetter:<br/>
+Redesigned to conditionally remove the pressure connector
+if <code>use_p_in=false</code>.
+</li>
 <li>
 April 15, 2015 by Michael Wetter:<br/>
 Changed connector variable to be temperature instead of

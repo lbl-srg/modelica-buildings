@@ -18,12 +18,14 @@ block FlowSplitter_u "Container to export a flow splitter as an FMU"
 
   Interfaces.Inlet inlet(
     redeclare final package Medium = Medium,
-    final allowFlowReversal=allowFlowReversal) "Fluid inlet"
+    final allowFlowReversal=allowFlowReversal,
+    final use_p_in=use_p_in) "Fluid inlet"
     annotation (Placement(transformation(extent={{-120,-10},{-100,10}})));
 
   Interfaces.Outlet outlet[nout](
     redeclare each final package Medium = Medium,
-    each final allowFlowReversal=allowFlowReversal) "Fluid outlet"
+    each final allowFlowReversal=allowFlowReversal,
+    each final use_p_in=use_p_in) "Fluid outlet"
     annotation (Placement(transformation(extent={{100,-10},{120,10}}), iconTransformation(extent={{100,-10},{120,10}})));
   Modelica.Blocks.Interfaces.RealInput u[nout](
     unit="1") "Control signal for the mass flow rates"
@@ -36,6 +38,9 @@ protected
   Buildings.Fluid.FMI.Interfaces.FluidProperties bacPro_internal(
     redeclare final package Medium = Medium)
     "Internal connector for fluid properties for back flow";
+  Buildings.Fluid.FMI.Interfaces.MassFractionConnector X_w_out_internal = 0
+    "Internal connector for mass fraction of backward flow properties";
+
 initial equation
   for i in 1:nout loop
     assert(m_flow_nominal[i] > 0,
@@ -44,11 +49,7 @@ initial equation
 equation
   for i in 1:nout loop
     assert(u[i] >= 0, "Control signal must be non-negative.");
-    if use_p_in then
-      outlet[i].p = inlet.p;
-    else
-      outlet[i].p = Medium.p_default;
-    end if;
+    connect(inlet.p, outlet[i].p);
     outlet[i].m_flow = u[i]*m_flow_nominal[i];
     outlet[i].forward = inlet.forward;
   end for;
@@ -56,7 +57,7 @@ equation
   // As reverse flow is not supported, we assign
   // default values for the inlet.backward properties
   bacPro_internal.T = Medium.T_default;
-  bacPro_internal.Xi = Medium.X_default[1:Medium.nXi];
+  connect(bacPro_internal.X_w, X_w_out_internal);
   bacPro_internal.C  = zeros(Medium.nC);
 
   // Conditional connector
@@ -147,6 +148,10 @@ the model stops with an error.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+April 29, 2015, by Michael Wetter:<br/>
+Redesigned to conditionally remove the pressure connector
+if <code>use_p_in=false</code>.
 <li>
 April 15, 2015 by Michael Wetter:<br/>
 Changed connector variable to be temperature instead of

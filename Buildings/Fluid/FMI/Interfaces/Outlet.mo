@@ -3,14 +3,18 @@ connector Outlet "Connector for fluid outlet"
   replaceable package Medium = Modelica.Media.Interfaces.PartialMedium
     "Medium model" annotation (choicesAllMatching=true);
 
+  parameter Boolean use_p_in = true
+    "= true to use a pressure from connector, false to output Medium.p_default"
+    annotation(Evaluate=true);
+
   parameter Boolean allowFlowReversal = true
     "= true to allow flow reversal, false restricts to design direction (inlet -> outlet)"
     annotation(Dialog(tab="Assumptions"), Evaluate=true);
 
   output Medium.MassFlowRate m_flow
     "Mass flow rate from the connection point into the component";
-  output Medium.AbsolutePressure p(displayUnit="Pa")
-    "Thermodynamic pressure in the connection point";
+  Buildings.Fluid.FMI.Interfaces.PressureOutput p(displayUnit="Pa") if
+       use_p_in "Thermodynamic pressure in the connection point";
 
   input Buildings.Fluid.FMI.Interfaces.FluidProperties backward(
     redeclare final package Medium = Medium) if
@@ -38,7 +42,8 @@ following quantities:
 The mass flow rate <code>m_flow</code>.
 </li>
 <li>
-The pressure <code>p</code>
+The pressure <code>p</code>,
+unless <code>use_p_in=false</code>.
 </li>
 <li>
 The temperature of the inflowing fluid
@@ -83,6 +88,11 @@ and hence not required to be provided.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+April 29, 2015, by Michael Wetter:<br/>
+Redesigned to conditionally remove the pressure connector
+if <code>use_p_in=false</code>.
+</li>
 <li>
 April 15, 2015 by Michael Wetter:<br/>
 Changed connector variable to be temperature instead of
