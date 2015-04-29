@@ -1,6 +1,6 @@
 within Buildings.Fluid.FMI.Examples;
-model HeaterFan
-  "Heater and fan in series, model configured to allow flow reversal"
+model HeaterFanPressureDriven
+  "Heater and fan in series, model configured to allow flow reversal and pressure driven flow rate"
   extends Modelica.Icons.Example;
   package Medium = Buildings.Media.Air "Medium model";
 
@@ -68,6 +68,9 @@ model HeaterFan
   Modelica.Blocks.Sources.Constant C[Medium.nC](each k=0.01) if
      Medium.nC > 0 "Trace substances for forward flow"
     annotation (Placement(transformation(extent={{-100,-70},{-80,-50}})));
+  Modelica.Blocks.Math.InverseBlockConstraints invBloCon
+    "Block to set up residual function for nonlinear system of equation for pressure drop and mass flow rate"
+    annotation (Placement(transformation(extent={{-20,-84},{20,-60}})));
 equation
   connect(uHea.y, hea.u) annotation (Line(
       points={{-39,50},{-30,50},{-30,6},{-22,6}},
@@ -97,10 +100,6 @@ equation
       points={{99,-50},{92,-50},{92,-2},{82,-2}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(m_flow.y, sou.m_flow_in) annotation (Line(
-      points={{-79,70},{-68,70},{-68,10},{-62,10}},
-      color={0,0,127},
-      smooth=Smooth.None));
   connect(sou.p_in, pIn.y) annotation (Line(
       points={{-62,4.8},{-66,4.8},{-66,6},{-72,6},{-72,40},{-79,40}},
       color={0,0,127},
@@ -121,21 +120,35 @@ equation
       points={{82,3},{90,3},{90,0},{99,0}},
       color={0,0,127},
       smooth=Smooth.None));
+  connect(pIn.y, invBloCon.u1) annotation (Line(
+      points={{-79,40},{-72,40},{-72,-72},{-22,-72}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(sin.p, invBloCon.u2) annotation (Line(
+      points={{82,-8},{86,-8},{86,-92},{0,-92},{0,-72},{-16,-72}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(invBloCon.y1, sou.m_flow_in) annotation (Line(
+      points={{21,-72},{50,-72},{50,70},{-68,70},{-68,10},{-62,10}},
+      color={0,0,127},
+      smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-120,
             -100},{140,100}}), graphics), Documentation(info="<html>
 <p>
 This example demonstrates how to configure a model with a heater
 and a fan that causes a pressure rise in the air stream.
-Note that the mass flow rate and the absolute pressure are
-set by the component <code>sou</code>.
-Therefore, the fan simply increases the pressure of the medium,
+The fan increases the pressure of the medium,
 and it also computes how much power is needed for this pressure rise,
 which is an input to the fan model.
 </p>
 <p>
-For a model with that computes the mass flow rate based on the pressure drop, see
-<a href=\"modelica://Buildings.Fluid.FMI.Examples.HeaterFanPressureDriven\">
-Buildings.Fluid.FMI.Examples.HeaterFanPressureDriven</a>.
+The component <code>invBloCon</code> at the bottom of the model sets up
+an equality constraint on the pressure between the sink and the source.
+It also outputs a signal for the mass flow rate. Hence, this component is
+used to declare how to break the algebraic loop in this signal flow diagram.
+For a model with prescribed mass flow rate, see
+<a href=\"modelica://Buildings.Fluid.FMI.Examples.HeaterFan\">
+Buildings.Fluid.FMI.Examples.HeaterFan</a>.
 </p>
 <p>
 For this example, the models are not exported as FMUs. However, the
@@ -149,7 +162,7 @@ First implementation.
 </li>
 </ul>
 </html>"),
-__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/FMI/Examples/HeaterFan.mos"
+__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/FMI/Examples/HeaterFanPressureDriven.mos"
         "Simulate and plot"),
     experiment(StopTime=1));
-end HeaterFan;
+end HeaterFanPressureDriven;
