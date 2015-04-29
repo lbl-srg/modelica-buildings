@@ -18,12 +18,14 @@ block FlowSplitter_u "Container to export a flow splitter as an FMU"
 
   Interfaces.Inlet inlet(
     redeclare final package Medium = Medium,
-    final allowFlowReversal=allowFlowReversal) "Fluid inlet"
+    final allowFlowReversal=allowFlowReversal,
+    final use_p_in=use_p_in) "Fluid inlet"
     annotation (Placement(transformation(extent={{-120,-10},{-100,10}})));
 
   Interfaces.Outlet outlet[nout](
     redeclare each final package Medium = Medium,
-    each final allowFlowReversal=allowFlowReversal) "Fluid outlet"
+    each final allowFlowReversal=allowFlowReversal,
+    each final use_p_in=use_p_in) "Fluid outlet"
     annotation (Placement(transformation(extent={{100,-10},{120,10}}), iconTransformation(extent={{100,-10},{120,10}})));
   Modelica.Blocks.Interfaces.RealInput u[nout](
     unit="1") "Control signal for the mass flow rates"
@@ -44,11 +46,7 @@ initial equation
 equation
   for i in 1:nout loop
     assert(u[i] >= 0, "Control signal must be non-negative.");
-    if use_p_in then
-      outlet[i].p = inlet.p;
-    else
-      outlet[i].p = Medium.p_default;
-    end if;
+    connect(inlet.p, outlet[i].p);
     outlet[i].m_flow = u[i]*m_flow_nominal[i];
     outlet[i].forward = inlet.forward;
   end for;
@@ -147,6 +145,11 @@ the model stops with an error.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+April 29, 2015, by Michael Wetter:<br/>
+Redesigned to conditionally remove the pressure connector
+if <code>use_p_in=false</code>.
+</li>
 <li>
 November 20, 2014, by Michael Wetter:<br/>
 First implementation.

@@ -31,9 +31,10 @@ model Sink_T
 
   Interfaces.Inlet inlet(
     redeclare final package Medium = Medium,
-    final allowFlowReversal=allowFlowReversal) "Fluid port"
+    final allowFlowReversal=allowFlowReversal,
+    final use_p_in=use_p_in) "Fluid port"
     annotation (Placement(transformation(extent={{120,-10},{100,10}})));
-  Modelica.Blocks.Interfaces.RealOutput p(unit="Pa") if
+  Buildings.Fluid.FMI.Interfaces.PressureOutput p if
      use_p_in "Pressure"
   annotation (
       Placement(transformation(
@@ -47,13 +48,13 @@ protected
   Buildings.Fluid.FMI.Interfaces.FluidProperties bacPro_internal(
     redeclare final package Medium = Medium)
     "Internal connector for fluid properties for back flow";
-  Modelica.Blocks.Interfaces.RealOutput p_in_internal(unit="Pa")
+  Buildings.Fluid.FMI.Interfaces.PressureOutput p_in_internal
     "Internal connector for pressure";
 equation
  // Conditional connector for flow reversal
   connect(inlet.backward, bacPro_internal);
   if allowFlowReversal then
-    bacPro_internal.h  = Medium.specificEnthalpy_pTX(p=inlet.p, T=T_in, X=X_in);
+    bacPro_internal.h  = Medium.specificEnthalpy_pTX(p=p_in_internal, T=T_in, X=X_in);
     bacPro_internal.Xi = X_in[1:Medium.nXi];
     bacPro_internal.C  = C_in;
   else
@@ -65,7 +66,7 @@ equation
   // Propagate pressure to output signal connector
   // using conditional connectors
   if use_p_in then
-    inlet.p = p_in_internal;
+    connect(inlet.p, p_in_internal);
   else
     p_in_internal = Medium.p_default;
   end if;
@@ -105,6 +106,11 @@ may be needed to iteratively solve for the mass flow rate.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+April 29, 2015, by Michael Wetter:<br/>
+Redesigned to conditionally remove the pressure connector
+if <code>use_p_in=false</code>.
+</li>
 <li>
 April 29, 2015, by Michael Wetter:<br/>
 Added pressure output signal which is needed to solve for algebraic loops.

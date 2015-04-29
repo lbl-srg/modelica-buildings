@@ -19,8 +19,8 @@ model Source_T
     annotation (Placement(transformation(extent={{-140,80},{-100,120}}),
         iconTransformation(extent={{-140,80},{-100,120}})));
 
-  Modelica.Blocks.Interfaces.RealInput p_in(unit="Pa")
-    "Prescribed boundary pressure"
+  Buildings.Fluid.FMI.Interfaces.PressureInput p_in if
+       use_p_in "Prescribed boundary pressure"
     annotation (Placement(transformation(extent={{-140,28},{-100,68}}),
         iconTransformation(extent={{-140,28},{-100,68}})));
   Modelica.Blocks.Interfaces.RealInput T_in(unit="K",
@@ -40,12 +40,24 @@ model Source_T
 
   Interfaces.Outlet outlet(
     redeclare final package Medium = Medium,
-    final allowFlowReversal=allowFlowReversal) "Fluid port"
+    final allowFlowReversal=allowFlowReversal,
+    final use_p_in=use_p_in) "Fluid port"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
+protected
+  Buildings.Fluid.FMI.Interfaces.PressureOutput p_in_internal
+    "Internal connector for pressure";
 equation
+   // Conditional connect statements for pressure
+   if use_p_in then
+     connect(p_in, p_in_internal);
+   else
+     p_in_internal = Medium.p_default;
+   end if;
+   connect(outlet.p, p_in_internal);
+
   outlet.m_flow = m_flow_in;
-  outlet.p = if use_p_in then p_in else Medium.p_default;
-  outlet.forward.h  = Medium.specificEnthalpy_pTX(p=p_in, T=T_in, X=X_in);
+  connect(outlet.p, p_in);
+  outlet.forward.h  = Medium.specificEnthalpy_pTX(p=p_in_internal, T=T_in, X=X_in);
   outlet.forward.Xi = X_in[1:Medium.nXi];
   outlet.forward.C  = C_in;
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
@@ -76,6 +88,11 @@ and the mass flow rate of the system.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+April 29, 2015, by Michael Wetter:<br/>
+Redesigned to conditionally remove the pressure connector
+if <code>use_p_in=false</code>.
+</li>
 <li>
 November 8, 2014, by Michael Wetter:<br/>
 First implementation.

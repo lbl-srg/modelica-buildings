@@ -15,7 +15,8 @@ model Outlet "Model for exposing a fluid outlet to the FMI interface"
 
   Buildings.Fluid.FMI.Interfaces.Outlet outlet(
     redeclare final package Medium = Medium,
-    final allowFlowReversal=allowFlowReversal) "Fluid outlet"
+    final allowFlowReversal=allowFlowReversal,
+    final use_p_in=use_p_in) "Fluid outlet"
                    annotation (Placement(transformation(extent={{
             100,-10},{120,10}}), iconTransformation(extent={{100,-10},{120,10}})));
 
@@ -25,7 +26,7 @@ model Outlet "Model for exposing a fluid outlet to the FMI interface"
         transformation(extent={{-110,-10},{-90,10}}),
           iconTransformation(extent={{-110,
             -10},{-90,10}})));
-  Modelica.Blocks.Interfaces.RealInput p(unit="Pa") if
+  Buildings.Fluid.FMI.Interfaces.PressureInput p if
        use_p_in "Pressure to be sent to outlet"
               annotation (
       Placement(transformation(
@@ -36,7 +37,7 @@ protected
   Buildings.Fluid.FMI.Interfaces.FluidProperties bacPro_internal(
     redeclare final package Medium = Medium)
     "Internal connector for fluid properties for back flow";
-  Modelica.Blocks.Interfaces.RealOutput p_in_internal(unit="Pa")
+  Buildings.Fluid.FMI.Interfaces.PressureOutput p_in_internal
     "Internal connector for pressure";
 
 equation
@@ -58,13 +59,13 @@ equation
   bacPro_internal.C  = port_a.C_outflow;
 
   // Conditional connectors for pressure
-  outlet.p = p_in_internal;
-  port_a.p = p_in_internal;
   if use_p_in then
-     connect(p_in_internal, p);
+    connect(outlet.p, p_in_internal);
   else
-     p_in_internal = Medium.p_default;
+    p_in_internal = Medium.p_default;
   end if;
+  connect(p, p_in_internal);
+  port_a.p = p_in_internal;
 
     annotation (defaultComponentName="bouOut",
     Icon(coordinateSystem(
@@ -119,6 +120,11 @@ for how to use this model.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+April 29, 2015, by Michael Wetter:<br/>
+Redesigned to conditionally remove the pressure connector
+if <code>use_p_in=false</code>.
+</li>
 <li>
 January 21, 2014 by Michael Wetter:<br/>
 First implementation.

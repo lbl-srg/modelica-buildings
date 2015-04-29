@@ -10,8 +10,8 @@ model HeaterFanPressureDriven
   parameter Modelica.SIunits.HeatFlowRate Q_flow_nominal = 1000
     "Heat flow rate at u=1, positive for heating";
 
-  parameter Boolean use_p_in = true
-    "= true to use a pressure from connector, false to output Medium.p_default"
+  constant Boolean use_p_in = true
+    "Set to true, as this model computes the mass flow rate based on the pressure drop"
     annotation(Evaluate=true);
 
   FMUs.Fan floMac(

@@ -15,7 +15,8 @@ model Inlet "Model for exposing a fluid inlet to the FMI interface"
 
   Buildings.Fluid.FMI.Interfaces.Inlet inlet(
     redeclare final package Medium = Medium,
-    final allowFlowReversal=allowFlowReversal) "Fluid inlet"
+    final allowFlowReversal=allowFlowReversal,
+    final use_p_in=use_p_in) "Fluid inlet"
     annotation (Placement(transformation(extent={{-120,-10},{-100,10}})));
 
   Modelica.Fluid.Interfaces.FluidPort_b port_b(
@@ -34,12 +35,12 @@ protected
   Buildings.Fluid.FMI.Interfaces.FluidProperties bacPro_internal(
     redeclare final package Medium = Medium)
     "Internal connector for fluid properties for back flow";
-  Modelica.Blocks.Interfaces.RealOutput p_in_internal(unit="Pa")
+  Buildings.Fluid.FMI.Interfaces.PressureOutput p_in_internal
     "Internal connector for pressure";
 
 equation
   // To locally balance the model, the pressure is only imposed at the
-  // oulet model.
+  // outlet model.
   // The sign is negative because inlet.m_flow > 0
   // means that fluid flows out of this component
   -port_b.m_flow     = inlet.m_flow;
@@ -62,7 +63,7 @@ equation
 
   // Conditional connectors for pressure
   if use_p_in then
-    inlet.p = p_in_internal;
+  connect(inlet.p, p_in_internal);
   else
     p_in_internal = Medium.p_default;
   end if;
@@ -142,6 +143,11 @@ for how to use this model.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+April 29, 2015, by Michael Wetter:<br/>
+Redesigned to conditionally remove the pressure connector
+if <code>use_p_in=false</code>.
+</li>
 <li>
 January 21, 2014 by Michael Wetter:<br/>
 First implementation.
