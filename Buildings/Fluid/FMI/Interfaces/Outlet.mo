@@ -13,7 +13,7 @@ connector Outlet "Connector for fluid outlet"
 
   output Medium.MassFlowRate m_flow
     "Mass flow rate from the connection point into the component";
-  Buildings.Fluid.FMI.Interfaces.PressureOutput p(displayUnit="Pa") if
+  Buildings.Fluid.FMI.Interfaces.PressureOutput p if
        use_p_in "Thermodynamic pressure in the connection point";
 
   input Buildings.Fluid.FMI.Interfaces.FluidProperties backward(
@@ -23,14 +23,18 @@ connector Outlet "Connector for fluid outlet"
   output Buildings.Fluid.FMI.Interfaces.FluidProperties forward(
     redeclare final package Medium = Medium) "Outflowing properties";
 
-  annotation (defaultComponentName="port_b",
+  annotation (defaultComponentName="outlet",
   Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
             {100,100}}), graphics={Polygon(
           points={{-100,100},{-100,-100},{100,0},{-100,100}},
           lineColor={0,0,255},
           smooth=Smooth.None,
           fillPattern=FillPattern.Solid,
-          fillColor={255,255,255})}),
+          fillColor={255,255,255}),
+          Text(
+          extent={{-58,134},{48,94}},
+          lineColor={0,0,255},
+          textString="%name")}),
     Documentation(info="<html>
 <p>
 This is a connector for a fluid outlet.
