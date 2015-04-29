@@ -38,6 +38,9 @@ protected
   Buildings.Fluid.FMI.Interfaces.FluidProperties bacPro_internal(
     redeclare final package Medium = Medium)
     "Internal connector for fluid properties for back flow";
+  Buildings.Fluid.FMI.Interfaces.MassFractionConnector X_w_out_internal = 0
+    "Internal connector for mass fraction of backward flow properties";
+
 initial equation
   for i in 1:nout loop
     assert(m_flow_nominal[i] > 0,
@@ -54,7 +57,7 @@ equation
   // As reverse flow is not supported, we assign
   // default values for the inlet.backward properties
   bacPro_internal.h = Medium.h_default;
-  bacPro_internal.Xi = Medium.X_default[1:Medium.nXi];
+  connect(bacPro_internal.X_w, X_w_out_internal);
   bacPro_internal.C  = zeros(Medium.nC);
 
   // Conditional connector

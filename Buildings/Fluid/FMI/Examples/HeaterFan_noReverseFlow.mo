@@ -19,6 +19,7 @@ model HeaterFan_noReverseFlow
     "Heat flow rate at u=1, positive for heating";
 
   FMUs.Fan floMac(
+    redeclare final package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
     dp_nominal=dp_nominal,
     final allowFlowReversal=allowFlowReversal,
@@ -26,6 +27,7 @@ model HeaterFan_noReverseFlow
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
 
   FMUs.HeaterCooler_u hea(
+    redeclare final package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
     dp_nominal=dp_nominal,
     Q_flow_nominal=Q_flow_nominal,
@@ -54,7 +56,7 @@ model HeaterFan_noReverseFlow
   Modelica.Blocks.Sources.Constant TIn(k=293.15) "Inlet temperature"
     annotation (Placement(transformation(extent={{-60,0},{-40,20}})));
 
-  Modelica.Blocks.Sources.Constant XIn[2](k={0.01,0.99}) "Inlet mass fraction"
+  Modelica.Blocks.Sources.Constant X_w_in(k=0.01) "Inlet mass fraction"
     annotation (Placement(transformation(extent={{-60,-30},{-40,-10}})));
 
   Modelica.Blocks.Sources.Constant C[Medium.nC](each k=0.01) if
@@ -93,7 +95,7 @@ equation
       points={{-39,-60},{-28,-60},{-28,-10},{-22,-10}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(XIn.y, sou.X_in) annotation (Line(
+  connect(X_w_in.y, sou.X_w_in) annotation (Line(
       points={{-39,-20},{-30,-20},{-30,-5},{-22,-5}},
       color={0,0,127},
       smooth=Smooth.None));
@@ -123,5 +125,7 @@ First implementation.
 </html>"),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/FMI/Examples/HeaterFan_noReverseFlow.mos"
         "Simulate and plot"),
-    experiment(StopTime=1));
+    experiment(StopTime=1),
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
+            100}}), graphics));
 end HeaterFan_noReverseFlow;

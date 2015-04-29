@@ -28,8 +28,8 @@ model Source_T
                                             min=0)
     "Prescribed boundary temperature"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
-  Modelica.Blocks.Interfaces.RealInput X_in[Medium.nX](each unit="1")
-    "Prescribed boundary composition"
+  Modelica.Blocks.Interfaces.RealInput X_w_in(unit="1") if
+       Medium.nXi > 0 "Prescribed boundary composition"
     annotation (Placement(transformation(extent={{-140,-70},{-100,-30}}),
         iconTransformation(extent={{-140,-70},{-100,-30}})));
 
@@ -46,6 +46,11 @@ model Source_T
 protected
   Buildings.Fluid.FMI.Interfaces.PressureOutput p_in_internal
     "Internal connector for pressure";
+  Buildings.Fluid.FMI.Interfaces.MassFractionConnector X_w_in_internal
+    "Internal connector for mass fraction of forward flow properties";
+initial equation
+   assert(Medium.nXi < 2,
+   "The medium must have zero or one independent mass fraction Medium.nXi.");
 equation
    // Conditional connect statements for pressure
    if use_p_in then
@@ -55,11 +60,19 @@ equation
    end if;
    connect(outlet.p, p_in_internal);
 
+  // Conditional connectors for mass fraction
+  if Medium.nXi > 0 then
+    connect(X_w_in_internal, X_w_in);
+  else
+    X_w_in_internal = 0;
+  end if;
+  connect(outlet.forward.X_w, X_w_in_internal);
+
   outlet.m_flow = m_flow_in;
   connect(outlet.p, p_in);
-  outlet.forward.h  = Medium.specificEnthalpy_pTX(p=p_in_internal, T=T_in, X=X_in);
-  outlet.forward.Xi = X_in[1:Medium.nXi];
+  outlet.forward.h  = Medium.specificEnthalpy_pTX(p=p_in_internal, T=T_in, X=fill(X_w_in_internal, Medium.nXi));
   outlet.forward.C  = C_in;
+
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}), graphics), Icon(coordinateSystem(
           preserveAspectRatio=false, extent={{-100,-100},{100,100}}), graphics={

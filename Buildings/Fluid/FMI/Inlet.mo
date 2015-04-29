@@ -37,7 +37,13 @@ protected
     "Internal connector for fluid properties for back flow";
   Buildings.Fluid.FMI.Interfaces.PressureOutput p_in_internal
     "Internal connector for pressure";
-
+  Buildings.Fluid.FMI.Interfaces.MassFractionConnector X_w_in_internal
+    "Internal connector for mass fraction of forward flow properties";
+  Buildings.Fluid.FMI.Interfaces.MassFractionConnector X_w_out_internal
+    "Internal connector for mass fraction of backward flow properties";
+initial equation
+   assert(Medium.nXi < 2,
+   "The medium must have zero or one independent mass fraction Medium.nXi.");
 equation
   // To locally balance the model, the pressure is only imposed at the
   // outlet model.
@@ -46,18 +52,28 @@ equation
   -port_b.m_flow     = inlet.m_flow;
 
   port_b.h_outflow  = inlet.forward.h;
-  port_b.Xi_outflow = inlet.forward.Xi;
   port_b.C_outflow  = inlet.forward.C;
+
+  // Conditional connector for mass fraction for forward flow
+  if Medium.nXi == 0 then
+    X_w_in_internal = 0;
+  else
+    connect(X_w_in_internal, inlet.forward.X_w);
+  end if;
+  port_b.Xi_outflow = fill(X_w_in_internal, Medium.nXi);
 
   // Conditional connector for flow reversal
   connect(inlet.backward, bacPro_internal);
+
+  // Mass fraction for reverse flow
+  X_w_out_internal = if Medium.nXi > 0 and allowFlowReversal then inStream(port_b.Xi_outflow[1]) else 0;
+  connect(bacPro_internal.X_w, X_w_out_internal);
+
   if allowFlowReversal then
     bacPro_internal.h  = inStream(port_b.h_outflow);
-    bacPro_internal.Xi = inStream(port_b.Xi_outflow);
     bacPro_internal.C  = inStream(port_b.C_outflow);
   else
     bacPro_internal.h  = Medium.h_default;
-    bacPro_internal.Xi = Medium.X_default[1:Medium.nXi];
     bacPro_internal.C  = fill(0, Medium.nC);
   end if;
 

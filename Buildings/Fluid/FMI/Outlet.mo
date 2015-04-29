@@ -40,22 +40,43 @@ protected
   Buildings.Fluid.FMI.Interfaces.PressureOutput p_in_internal
     "Internal connector for pressure";
 
+  Buildings.Fluid.FMI.Interfaces.MassFractionConnector X_w_in_internal
+    "Internal connector for mass fraction of forward flow properties";
+  Buildings.Fluid.FMI.Interfaces.MassFractionConnector X_w_out_internal
+    "Internal connector for mass fraction of backward flow properties";
+initial equation
+   assert(Medium.nXi < 2,
+   "The medium must have zero or one independent mass fraction Medium.nXi.");
 equation
   port_a.m_flow = outlet.m_flow;
 
   inStream(port_a.h_outflow)  = outlet.forward.h;
-  inStream(port_a.Xi_outflow) = outlet.forward.Xi;
   inStream(port_a.C_outflow)  = outlet.forward.C;
+
+  // Mass fraction for forward flow
+  X_w_in_internal = if Medium.nXi > 0 then inStream(port_a.Xi_outflow[1]) else 0;
+  connect(outlet.forward.X_w, X_w_in_internal);
+
+  // Conditional connector for mass fraction for backward flow
+  if Medium.nXi > 0 and allowFlowReversal then
+    connect(X_w_out_internal, outlet.backward.X_w);
+  else
+    X_w_out_internal = 0;
+  end if;
+  port_a.Xi_outflow = fill(X_w_out_internal, Medium.nXi);
 
   // Conditional connector for flow reversal
   connect(outlet.backward, bacPro_internal);
   if not allowFlowReversal then
     bacPro_internal.h  = Medium.h_default;
-    bacPro_internal.Xi = Medium.X_default[1:Medium.nXi];
     bacPro_internal.C  = fill(0, Medium.nC);
+    if Medium.nXi > 0 then
+      // This test for nXi is needed for Buildings.Fluid.FMI.Examples.HeaterFan_noReverseFlow
+      // to work with Buildings.Media.Water
+      connect(bacPro_internal.X_w, X_w_out_internal);
+    end if;
   end if;
   bacPro_internal.h  = port_a.h_outflow;
-  bacPro_internal.Xi = port_a.Xi_outflow;
   bacPro_internal.C  = port_a.C_outflow;
 
   // Conditional connectors for pressure
