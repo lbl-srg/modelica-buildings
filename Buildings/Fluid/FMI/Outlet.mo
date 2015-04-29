@@ -50,7 +50,6 @@ initial equation
 equation
   port_a.m_flow = outlet.m_flow;
 
-
   outlet.forward.T = Medium.temperature_phX(
     p=  p_in_internal,
     h=  inStream(port_a.h_outflow),
@@ -103,7 +102,7 @@ equation
           extent={{60,60},{-60,-60}},
           lineColor={0,0,0},
           fillPattern=FillPattern.Sphere,
-          fillColor={127,0,0}),
+          fillColor={0,127,255}),
         Text(
           extent={{-150,110},{150,150}},
           textString="%name",
