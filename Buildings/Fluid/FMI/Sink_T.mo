@@ -28,7 +28,7 @@ model Sink_T
   Interfaces.Inlet inlet(
     redeclare final package Medium = Medium,
     final allowFlowReversal=allowFlowReversal) "Fluid port"
-    annotation (Placement(transformation(extent={{100,-10},{120,10}})));
+    annotation (Placement(transformation(extent={{120,-10},{100,10}})));
 protected
   Buildings.Fluid.FMI.Interfaces.FluidProperties bacPro_internal(
     redeclare final package Medium = Medium)
