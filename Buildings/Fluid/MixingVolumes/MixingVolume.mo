@@ -3,7 +3,7 @@ model MixingVolume
   "Mixing volume with inlet and outlet ports (flow reversal is allowed)"
   extends Buildings.Fluid.MixingVolumes.BaseClasses.PartialMixingVolume;
 protected
-  Modelica.Blocks.Sources.Constant masExc(k=0)
+  Modelica.Blocks.Sources.Constant masExc(final k=0)
     "Block to set mass exchange in volume"
     annotation (Placement(transformation(extent={{-80,50},{-60,70}})));
 equation
@@ -100,6 +100,13 @@ Buildings.Fluid.MassExchangers.HumidifierPrescribed</a>.
 
 </html>", revisions="<html>
 <ul>
+<li>
+May 1, 2015 by Michael Wetter<br/>
+Set <code>final</code> keyword for <code>masExc(final k=0)</code>.
+This addresses
+<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/230\">
+issue 230</a>.
+</li>
 <li>
 February 11, 2014 by Michael Wetter:<br/>
 Redesigned implementation of latent and sensible heat flow rates

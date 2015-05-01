@@ -484,7 +484,6 @@ Buildings/Media/Specialized/package.order
 Buildings/Media/Water.mo
 Buildings/Media/package.mo
 Buildings/Media/package.order
-Buildings/MixingVolumeMFactor.mat
 Buildings/MixingVolumeMassFlow.mat
 Buildings/Resources/Images/BoundaryConditions/SkyTemperature/BaseClasses/Cloud.jpg
 Buildings/Resources/Images/BoundaryConditions/SolarGeometry/BaseClasses/AltitudeAngle.png
@@ -753,7 +752,6 @@ Buildings/Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.epw
 Buildings/Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos
 Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.epw
 Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos
-Buildings/ThreeWayValves.mat
 Buildings/Types/Azimuth/package.mo
 Buildings/Types/Azimuth/package.order
 Buildings/Types/Tilt/package.mo
@@ -930,12 +928,6 @@ Buildings/Utilities/Time/package.mo
 Buildings/Utilities/Time/package.order
 Buildings/Utilities/package.mo
 Buildings/Utilities/package.order
-Buildings/dsfinal.txt
-Buildings/dsin.txt
-Buildings/dslog.txt
-Buildings/dsmodel.c
-Buildings/dymosim
 Buildings/legal.html
 Buildings/package.order
-Buildings/simulator.log
-Buildings/unitTests.log
+

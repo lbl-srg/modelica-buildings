@@ -35,7 +35,7 @@ package Water "Package with model for liquid water with constant density"
       "Thermodynamic state record for optional functions";
     parameter Boolean preferredMediumStates=true
       "= true if StateSelect.prefer shall be used for the independent property variables of the medium"
-      annotation (Evaluate=true, Dialog(tab="Advanced"));
+      annotation(Evaluate=true, Dialog(tab="Advanced"));
     final parameter Boolean standardOrderComponents=true
       "If true, and reducedX = true, the last element of X will be computed from the other ones";
     Modelica.SIunits.Conversions.NonSIunits.Temperature_degC T_degC=
@@ -64,7 +64,7 @@ required from medium model \"" + mediumName + "\".
     u = h;
     state.T = T;
     state.p = p;
-    annotation (Documentation(info="<html>
+    annotation(Documentation(info="<html>
     <p>
     This base properties model is identical to
     <a href=\"modelica://Modelica.Media.Water.ConstantPropertyLiquidWater\">
@@ -83,8 +83,9 @@ function enthalpyOfLiquid "Return the specific enthalpy of liquid"
   output Modelica.SIunits.SpecificEnthalpy h "Specific enthalpy";
 algorithm
   h := cp_const*(T-reference_T);
-
-annotation (smoothOrder=5,
+annotation(
+  smoothOrder=5,
+  Inline=true,
 Documentation(info="<html>
 <p>
 Enthalpy of the water.
@@ -102,7 +103,7 @@ Buildings.Fluid.MixingVolumes.MixingVolumeMoistAir</a>.
 </html>"));
 end enthalpyOfLiquid;
 
-  annotation (preferredView="info", Documentation(info="<html>
+  annotation(preferredView="info", Documentation(info="<html>
 <p>
 This medium package models liquid water.
 </p>
@@ -135,6 +136,12 @@ There are no phase changes.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+May 1, 2015, by Michael Wetter:<br/>
+Added <code>Inline=true</code> for
+<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/227\">
+issue 227</a>.
+</li>
 <li>
 February 25, 2015, by Michael Wetter:<br/>
 Removed <code>stateSelect</code> attribute on pressure as this caused
