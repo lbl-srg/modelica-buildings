@@ -37,7 +37,7 @@ model FlowControlled_dp
 
 protected
   Modelica.Blocks.Math.Gain gain(final k=-1)
-    annotation (Placement(transformation(extent={{-20,60},{0,80}})));
+    annotation (Placement(transformation(extent={{0,20},{20,40}})));
   Modelica.Blocks.Continuous.Filter filter(
      order=2,
      f_cut=5/(2*Modelica.Constants.pi*riseTime),
@@ -60,14 +60,9 @@ equation
   assert(dp_in >= -1E-3,
     "dp_in cannot be negative. Obtained dp_in = " + String(dp_in));
 
-  connect(dp_in, gain.u) annotation (Line(
-      points={{1.11022e-15,120},{1.11022e-15,90},{-30,90},{-30,70},{-22,70}},
-      color={0,0,127},
-      smooth=Smooth.None));
-
   if filteredSpeed then
-    connect(gain.y, filter.u) annotation (Line(
-      points={{1,70},{10,70},{10,88},{18.6,88}},
+    connect(dp_in, filter.u) annotation (Line(
+      points={{0,120},{10,120},{10,88},{18.6,88}},
       color={0,0,127},
       smooth=Smooth.None));
     connect(filter.y, dp_actual) annotation (Line(
@@ -79,14 +74,18 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   else
-    connect(gain.y, dp_actual) annotation (Line(
-      points={{1,70},{56,70},{56,50},{110,50}},
+    connect(dp_in, dp_actual) annotation (Line(
+      points={{0,120},{18,120},{18,50},{110,50}},
       color={0,0,127},
       smooth=Smooth.None));
   end if;
 
-  connect(dp_actual, preSou.dp_in) annotation (Line(
-      points={{110,50},{60,50},{60,40},{36,40},{36,8}},
+  connect(gain.y, preSou.dp_in) annotation (Line(
+      points={{21,30},{36,30},{36,8}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(gain.u, dp_actual) annotation (Line(
+      points={{-2,30},{-10,30},{-10,50},{110,50}},
       color={0,0,127},
       smooth=Smooth.None));
   annotation (defaultComponentName="fan",
@@ -115,6 +114,12 @@ User's Guide</a> for more information.
 </html>",
       revisions="<html>
 <ul>
+<li>
+May 1, 2015, by Michael Wetter:<br/>
+Changed sign of <code>dp_actual</code>. This addresses
+<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/226\">
+issue 226</a>.
+</li>
 <li>
 January 6, 2015, by Michael Wetter:<br/>
 Revised model for OpenModelica.
@@ -152,5 +157,7 @@ Revised implementation to allow zero flow rate.
           smooth=Smooth.None),
         Text(extent={{64,68},{114,54}},
           lineColor={0,0,127},
-          textString="dp")}));
+          textString="dp")}),
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
+            100}}), graphics));
 end FlowControlled_dp;
