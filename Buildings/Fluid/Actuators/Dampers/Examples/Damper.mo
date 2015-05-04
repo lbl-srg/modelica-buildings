@@ -31,8 +31,7 @@ model Damper
 equation
   connect(yRam.y, res.y) annotation (Line(
       points={{1,50},{10,50},{10,32}},
-      color={0,0,127},
-      pattern=LinePattern.None));
+      color={0,0,127}));
   connect(sou.ports[1], res.port_a) annotation (Line(
       points={{-48,20},{-5.55112e-16,20}},
       color={0,127,255},

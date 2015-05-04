@@ -178,8 +178,7 @@ equation
           -80,5.55112e-16},{-80,-80},{-60,-80}}, color={0,127,255}));
   connect(buo.heatPort, vol.heatPort)    annotation (Line(
       points={{-40,60},{6,60},{6,-6}},
-      color={191,0,0},
-      pattern=LinePattern.None));
+      color={191,0,0}));
   for i in 1:nSeg-1 loop
   // heat conduction between fluid nodes
      connect(vol[i].heatPort, conFlu[i].port_a)    annotation (Line(points={{6,-6},{

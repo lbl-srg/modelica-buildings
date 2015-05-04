@@ -64,7 +64,6 @@ equation
   connect(dp_in, gain.u) annotation (Line(
       points={{1.11022e-15,120},{1.11022e-15,90},{-30,90},{-30,70},{-22,70}},
       color={0,0,127},
-      pattern=LinePattern.None,
       smooth=Smooth.None));
 
   if filteredSpeed then
@@ -79,7 +78,6 @@ equation
     connect(filter.y, dp_filtered) annotation (Line(
       points={{34.7,88},{50,88}},
       color={0,0,127},
-      pattern=LinePattern.None,
       smooth=Smooth.None));
   else
     connect(gain.y, dp_actual) annotation (Line(
@@ -91,7 +89,6 @@ equation
   connect(dp_actual, preSou.dp_in) annotation (Line(
       points={{110,50},{60,50},{60,40},{36,40},{36,8}},
       color={0,0,127},
-      pattern=LinePattern.None,
       smooth=Smooth.None));
   annotation (defaultComponentName="fan",
   Documentation(info="<html>

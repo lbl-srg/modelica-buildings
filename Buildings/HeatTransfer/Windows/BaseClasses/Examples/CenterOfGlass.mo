@@ -235,7 +235,6 @@ equation
   connect(radIn.JIn, sumJ.y)     annotation (Line(
       points={{79,-134},{63.02,-134}},
       color={0,0,0},
-      pattern=LinePattern.None,
       smooth=Smooth.None));
   connect(sha.JOut_b, sumJ.u[1])     annotation (Line(
       points={{21,44},{32,44},{32,-131.9},{50,-131.9}},

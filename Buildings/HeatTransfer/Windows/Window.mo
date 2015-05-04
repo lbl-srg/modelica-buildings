@@ -164,7 +164,6 @@ equation
   connect(JInUns_a, glaUns.JIn_a) annotation (Line(
       points={{-210,120},{-40,120},{-40,24},{-11,24}},
       color={0,0,0},
-      pattern=LinePattern.None,
       smooth=Smooth.None));
   connect(glaUns.JOut_a, JOutUns_a) annotation (Line(
       points={{-11,16},{-46,16},{-46,80},{-210,80}},
@@ -177,12 +176,10 @@ equation
   connect(JInUns_b, glaUns.JIn_b) annotation (Line(
       points={{210,80},{176,80},{176,16},{11,16}},
       color={0,0,0},
-      pattern=LinePattern.None,
       smooth=Smooth.None));
   connect(JInSha_a, glaSha.JIn_a) annotation (Line(
       points={{-210,-60},{-46,-60},{-46,-16},{-11,-16}},
       color={0,0,0},
-      pattern=LinePattern.None,
       smooth=Smooth.None));
   connect(glaSha.JOut_a, JOutSha_a) annotation (Line(
       points={{-11,-24},{-42,-24},{-42,-100},{-210,-100}},
@@ -195,7 +192,6 @@ equation
   connect(JInSha_b, glaSha.JIn_b) annotation (Line(
       points={{210,-100},{172,-100},{172,-24},{11,-24}},
       color={0,0,0},
-      pattern=LinePattern.None,
       smooth=Smooth.None));
   connect(glaUns.QAbs_flow, QAbsUns_flow) annotation (Line(
       points={{6.10623e-16,9},{6.10623e-16,0},{-80,0},{-80,-220}},

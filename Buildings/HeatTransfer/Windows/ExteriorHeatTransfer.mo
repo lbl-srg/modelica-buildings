@@ -140,15 +140,14 @@ equation
       color={0,127,0},
       smooth=Smooth.None));
   connect(shaRad.JOut_glass, JOutSha)
-                                     annotation (Line(
+   annotation (Line(
       points={{21,-14},{80,-14},{80,-60},{110,-60}},
       color={0,127,0},
       smooth=Smooth.None));
   connect(shaRad.JIn_glass, JInSha)
-                                   annotation (Line(
+    annotation (Line(
       points={{21,-18},{70,-18},{70,-80},{110,-80}},
       color={0,0,0},
-      pattern=LinePattern.None,
       smooth=Smooth.None));
   connect(radShaOut.JOut_1, shaRad.JIn_air)
                                            annotation (Line(

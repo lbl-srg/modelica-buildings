@@ -387,7 +387,6 @@ equation
   connect(TSupSetHea.y, heaCoiCon.u_s) annotation (Line(
       points={{-79,-160},{-2,-160}},
       color={0,0,127},
-      pattern=LinePattern.None,
       smooth=Smooth.None));
   connect(fanRet.port_a, dpRetFan.port_b) annotation (Line(
       points={{310,120},{320,120},{320,60}},

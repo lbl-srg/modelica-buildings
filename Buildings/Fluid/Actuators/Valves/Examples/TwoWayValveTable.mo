@@ -56,8 +56,7 @@ model TwoWayValveTable
 equation
   connect(y.y,valTab. y) annotation (Line(
       points={{-19,60},{-19,60},{-10,60},{-10,32}},
-      color={0,0,127},
-      pattern=LinePattern.None));
+      color={0,0,127}));
   connect(sou.ports[1], senVolFlo.port_a) annotation (Line(
       points={{-70,20},{-60,20}},
       color={0,127,255},
